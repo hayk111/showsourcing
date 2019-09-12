@@ -1,11 +1,9 @@
-
+<!-- TODO i18n -->
 <!-- top panel -->
 <top-panel-app
-	[title]="'My samples'"
-	buttonName="Create Sample"
-	(buttonClick)="commonModalSrv.openAddSampleDialog()"
-	i18n-title="@@my-samples"
-	i18n-buttonName="@@add-samples">
+	[title]="'title.my-samples' | translate"
+	[buttonName]="'button.create-sample' | translate"
+	(buttonClick)="commonModalSrv.openAddSampleDialog()">
 </top-panel-app>
 
 <sub-panel-app
@@ -14,7 +12,7 @@
 	[hasSwitch]="true"
 	[view]="listSrv.view"
 	[count]="listSrv.count$ | async"
-	entityType="products"
+	[entityType]="'PRODUCT'"
 	searchType="short"
 	[searchValue]="listSrv.searchValue"
 	[ngStyle]="tableWidth && {'width': getSubPanelWidth()}"

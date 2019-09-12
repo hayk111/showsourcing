@@ -3,14 +3,14 @@ import { ListViewComponent, TableConfig } from '~core/list-page/list-view.compon
 import { ERM, Supplier } from '~models';
 
 const tableConfig: TableConfig = {
-	activities: { title: 'activities', width: 190 },
-	country: { title: 'country', width: 140, sortProperty: 'country' },
-	supplierType: { title: 'type', width: 190, sortProperty: 'supplierType.name' },
-	productType: { title: 'product type', width: 190 },
-	createdBy: { title: 'created by', width: 190, sortProperty: 'createdBy.firstName' },
-	favorite: { title: 'favorite', width: 50, sortProperty: 'favorite' },
-	reference: { title: 'reference', width: 190, sortProperty: 'reference' },
-	status: { title: 'status', width: 190, sortProperty: 'status.step' },
+	activities: { title: 'activities', translationKey: 'activities', width: 190 },
+	country: { title: 'country', translationKey: 'country', width: 140, sortProperty: 'country' },
+	supplierType: { title: 'type', translationKey: 'type', width: 190, sortProperty: 'supplierType.name' },
+	productType: { title: 'product type', translationKey: 'product-type', width: 190 },
+	createdBy: { title: 'created by', translationKey: 'created-by', width: 190, sortProperty: 'createdBy.firstName' },
+	favorite: { title: 'favorite', translationKey: 'favorite', width: 50, sortProperty: 'favorite' },
+	reference: { title: 'reference', translationKey: 'reference', width: 190, sortProperty: 'reference' },
+	status: { title: 'status', translationKey: 'status', width: 190, sortProperty: 'status.step' },
 };
 
 

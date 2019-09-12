@@ -8,6 +8,7 @@
 <sub-panel-app
   [hasSwitch]="false"
   [hasFilter]="true"
+  [entityType]="'PROJECT'"
   [filtersAmount]="listSrv.filterList.asFilters()?.length"
   [searchValue]="listSrv.searchValue"
   (search)="listSrv.search($event)"

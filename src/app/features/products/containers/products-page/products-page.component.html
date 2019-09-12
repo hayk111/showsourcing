@@ -1,4 +1,3 @@
-<!-- TODO i18n -->
 <div class="flexGrow flexColumn products-content">
 	<!-- top panel -->
 	<top-panel-app
@@ -7,14 +6,14 @@
 		(buttonClick)="commonModalSrv.openCreationProductDlg()"
 		[buttonRightMargin]="addProductMargin">
 	</top-panel-app>
-	
+
 	<sub-panel-app
 		[filtersAmount]="getFilterAmount()"
 		[hasFilter]="true"
 		[hasSwitch]="true"
 		[view]="listSrv.view"
 		[count]="listSrv.count$ | async"
-		entityType="products"
+		[entityType]="'PRODUCT'"
 		searchType="short"
 		[searchValue]="listSrv.searchValue"
 		(search)="listSrv.search($event)"
@@ -36,17 +35,13 @@
 				[checked]="listSrv.filterList.hasFilterType(filterTypeEnum.ASSIGNEE)"
 				(check)="toggleMyProducts(true)"
 				(uncheck)="toggleMyProducts(false)">
-				<span i18n="text@@assigned-to-me">
-					Assigned to me
-				</span>
+				<span translate="text.assigned-to-me"></span>
 			</checkbox-app>
 			<button
 				*ngIf="productsCount$ | async as count"
 				class="capitalize"
 				(click)="commonModalSrv.openExportDialog([], listSrv.filterList.asPredicate())">
-				<ng-container i18n="@@export">export</ng-container>
-				<span> {{ count || 0 }} </span>
-				<ng-container i18n="@@items">{ count || 0, plural, =1 { item } other { items } }</ng-container>
+				{{ ((count ||0) > 1 ? 'OBJ.export-item.plural' : 'OBJ.export-item.singular') | translate: {count: count || 0} }}
 			</button>
 	
 		</sub-panel-right-item-app>

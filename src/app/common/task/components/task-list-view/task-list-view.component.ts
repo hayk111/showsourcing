@@ -5,10 +5,10 @@ import { Sample } from '~core/models';
 
 // TODO hayk config this
 const tableConfig: TableConfig = {
-	reference: { title: 'reference', width: 190, sortProperty: 'name' },
-	assignee: { title: 'assignee', width: 190, sortProperty: 'assignee.firstName' },
-	status: { title: 'status', width: 190, sortProperty: 'status.step' },
-	creationDate: { title: 'created on', width: 190, sortProperty: 'creationDate' },
+	reference: { title: 'reference', translationKey: 'reference', width: 190, sortProperty: 'name' },
+	assignee: { title: 'assignee', translationKey: 'assignee', width: 190, sortProperty: 'assignee.firstName' },
+	status: { title: 'status', translationKey: 'status', width: 190, sortProperty: 'status.step' },
+	creationDate: { title: 'created on', translationKey: 'created-on', width: 190, sortProperty: 'creationDate' },
 };
 
 @Component({

@@ -4,12 +4,12 @@ import { Project } from '~models';
 
 
 const tableConfig: TableConfig = {
-	name: { title: 'name', width: 140, sortProperty: 'name'},
-	owner: { title: 'owner', width: 190, sortProperty: 'owner'},
-	lastUpdatedDate: { title: 'last updated', width: 190, sortProperty: 'lastUpdatedDate'},
-	productCount: { title: 'product count', width: 190, sortProperty: 'productCount'},
-	creationDate: { title: 'creation date', width: 190, sortProperty: 'creationDate'},
-	description: { title: 'description', width: 190 },
+	name: { title: 'name', translationKey: 'name', width: 140, sortProperty: 'name' },
+	owner: { title: 'owner', translationKey: 'owner', width: 190, sortProperty: 'owner' },
+	lastUpdatedDate: { title: 'last updated', translationKey: 'last-updated', width: 190, sortProperty: 'lastUpdatedDate' },
+	productCount: { title: 'product count', translationKey: 'product-count', width: 190, sortProperty: 'productCount' },
+	creationDate: { title: 'creation date', translationKey: 'creation-date', width: 190, sortProperty: 'creationDate' },
+	description: { title: 'description', translationKey: 'description', width: 190 },
 };
 
 

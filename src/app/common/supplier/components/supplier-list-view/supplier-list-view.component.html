@@ -1,7 +1,7 @@
 
 
 <table-app
-	placeholder="No supplier"
+	[placeholder]="'placeholder.no-supplier' | translate"
 	[rows]="rows"
   [currentSort]="currentSort"
   [pending]="pending"
@@ -25,14 +25,12 @@
 		<context-menu-item-app
 			class="pointer flexCenter"
 			(click)="archive.emit(row)"
-			i18n="button@@delete">
-			archive
+			translate="button.archive">
 		</context-menu-item-app>
 		<context-menu-item-app
 			class="pointer flexCenter"
 			(click)="delete.emit(row)"
-			i18n="button@@delete">
-			delete
+			translate="button.delete">
 		</context-menu-item-app>
 	</ng-template>
 
@@ -40,7 +38,7 @@
 	<ng-template 
 		*ngFor="let column of columnsConfig; trackBy: trackByFn" 
 		let-row="row" 
-		[columnApp]="column.title"
+		[columnApp]="'title.' + column.translationKey | translate"
 		[width]="column.width"
 		[sortBy]="column.sortProperty">
 

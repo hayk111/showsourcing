@@ -46,7 +46,7 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 
 	@Input() title: string;
 	@Input() count = 0;
-	@Input() entityType: 'products' | 'suppliers'; // should be filled with all the entity types
+	@Input() entityType: 'PRODUCT' | 'SUPPLIER'; // should be filled with all the entity types
 
 	// view that can be switched into
 	@Input() view: 'list' | 'card';

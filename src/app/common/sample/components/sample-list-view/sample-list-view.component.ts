@@ -6,13 +6,13 @@ import { ID } from '~utils/id.utils';
 
 
 const tableConfig: TableConfig = {
-	name: { title: 'name', width: 190, sortProperty: 'name' },
-	assignee: { title: 'assignee', width: 190, sortProperty: 'assignee.firstName' },
-	product: { title: 'product', width: 190, sortProperty: 'product.name' },
-	supplier: { title: 'supplier', width: 190, sortProperty: 'supplier.name' },
-	comments: { title: 'comments', width: 140 },
-	status: { title: 'status', width: 190, sortProperty: 'status.step' },
-	creationDate: { title: 'created on', width: 190, sortProperty: 'creationDate' },
+	name: { title: 'name', translationKey: 'name', width: 190, sortProperty: 'name' },
+	assignee: { title: 'assignee', translationKey: 'assignee', width: 190, sortProperty: 'assignee.firstName' },
+	product: { title: 'product', translationKey: 'product', width: 190, sortProperty: 'product.name' },
+	supplier: { title: 'supplier', translationKey: 'supplier', width: 190, sortProperty: 'supplier.name' },
+	comments: { title: 'comments', translationKey: 'comments', width: 140 },
+	status: { title: 'status', translationKey: 'status', width: 190, sortProperty: 'status.step' },
+	creationDate: { title: 'created on', translationKey: 'created-on', width: 190, sortProperty: 'creationDate' },
 };
 
 @Component({

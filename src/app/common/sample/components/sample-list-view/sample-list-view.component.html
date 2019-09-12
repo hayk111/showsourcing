@@ -5,7 +5,7 @@
 	[contextualMenu]="contextualMenuTemplate"
 	[count]="count"
 	[currentPage]="currentPage"
-	placeholder="No Samples"
+	[placeholder]="'placeholder.no-sample' | translate"
 	(goToPage)="goToPage.emit($event)"
 	(selectOne)="select.emit($event)"
 	(unselectOne)="unselect.emit($event)"
@@ -18,9 +18,8 @@
 	<ng-template #contextualMenuTemplate let-row="row">
 		<context-menu-item-app
 			class="pointer flexCenter"
-			(click)="delete.emit(row)"
-			i18n="@@delete">
-			delete
+			(click)="delete.emit(row)">
+			{{'text.delete' | translate}}
 		</context-menu-item-app>
 	</ng-template>
 	
@@ -28,7 +27,7 @@
 		<ng-template 
     *ngFor="let column of columnsConfig; trackBy: trackByFn" 
     let-row="row" 
-    [columnApp]="column.title"
+    [columnApp]="'title.' + column.translationKey | translate"
     [width]="column.width"
 		[sortBy]="column.sortProperty">
 		
@@ -41,7 +40,7 @@
 						<span class="ellipsis pointer txt-btn" (click)="previewClick.emit(row)">{{ row?.name }}</span>
 					</div>
 					<div class="preview">
-						<button class="secondary-dark small" (click)="previewClick.emit(row)" i18n="@@preview">preview</button>
+						<button class="secondary-dark small" (click)="previewClick.emit(row)" translate="button.preview"></button>
 					</div>
 				</div>
 			</ng-container>
@@ -69,7 +68,7 @@
 				<div class="flex ellipsis">
 					<div class="number">{{ row?.comments?.length || '0' }}</div>
 					&nbsp;
-					<ng-container i18n="@@nested_comment">{ row?.comments?.length || 0, plural, =1 { comment } other { comments } } </ng-container>
+					{{ ((row?.comments?.length || 0) > 1 ? 'OBJ.comment.plural' : 'OBJ.comment.singular') | translate }}
 				</div>
 			</ng-container>
 

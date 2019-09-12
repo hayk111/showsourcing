@@ -24,7 +24,7 @@
 		<div class="divider"></div>
 
 		<span *ngIf="hasFilter && !filtersPanelOpened" class="bold-s capitalize products-count" translate="label.products">
-			{{count}} {{entityType}}
+			{{ 'OBJ.n-OBJ' | translate: { count: count || 0, field: ((count || 0) > 1 ? 'ERM.' + entityType + '.plural' : 'ERM.' + entityType + '.singular') | translate } }}
 		</span>
 		<!-- TODO check text of this btn is hide filter or show filter -->
 		<button *ngIf="filtersPanelOpened" class="bold-s pointer secondary capitalize"

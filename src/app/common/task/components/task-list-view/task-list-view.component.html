@@ -5,7 +5,7 @@
 	[contextualMenu]="contextualMenuTemplate"
 	[count]="count"
 	[currentPage]="currentPage"
-	placeholder="No Tasks"
+	[placeholder]="'placeholder.no-task' | translate"
 	(goToPage)="goToPage.emit($event)"
 	(selectOne)="select.emit($event)"
 	(unselectOne)="unselect.emit($event)"
@@ -28,7 +28,7 @@
 		<ng-template 
     *ngFor="let column of columnsConfig; trackBy: trackByFn" 
     let-row="row" 
-    [columnApp]="column.title"
+    [columnApp]="'title.' + column.translationKey | translate"
     [width]="column.width"
 		[sortBy]="column.sortProperty">
 		

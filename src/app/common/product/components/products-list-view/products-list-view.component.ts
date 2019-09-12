@@ -5,18 +5,18 @@ import { Sort } from '~shared/table/components/sort.interface';
 
 
 const tableConfig: TableConfig = {
-	activities: { title: 'activities', width: 190 },
-	assignee: { title: 'assignee', width: 50, sortProperty: 'assignee.firstName' },
-	category: { title: 'category', width: 190, sortProperty: 'category.name' },
-	createdBy: { title: 'created by', width: 140, sortProperty: 'createdBy.firstName' },
-	creationDate: { title: 'creation date', width: 190, sortProperty: 'creationDate' },
-	favorite: { title: 'favorite', width: 50, sortProperty: 'favorite' },
-	moq: { title: 'moq', width: 120, sortProperty: 'minimumOrderQuantity' },
-	price: { title: 'price', width: 120, sortProperty: 'price.value' },
-	projects: { title: 'projects', width: 190, sortProperty: 'creationDate' },
-	reference: { title: 'reference', width: 190, sortProperty: 'reference' },
-	status: { title: 'status', width: 190, sortProperty: 'status.step' },
-	supplier: { title: 'supplier', width: 190, sortProperty: 'supplier.id' },
+	activities: { title: 'activities', translationKey: 'activities', width: 190 },
+	assignee: { title: 'assignee', translationKey: 'assignee', width: 50, sortProperty: 'assignee.firstName' },
+	category: { title: 'category', translationKey: 'category', width: 190, sortProperty: 'category.name' },
+	createdBy: { title: 'created by', translationKey: 'created-by', width: 140, sortProperty: 'createdBy.firstName' },
+	creationDate: { title: 'creation date', translationKey: 'creation-date', width: 190, sortProperty: 'creationDate' },
+	favorite: { title: 'favorite', translationKey: '', width: 50, sortProperty: 'favorite' },
+	moq: { title: 'moq', translationKey: 'moq', width: 120, sortProperty: 'minimumOrderQuantity' },
+	price: { title: 'price', translationKey: 'price', width: 120, sortProperty: 'price.value' },
+	projects: { title: 'projects', translationKey: 'projects', width: 190, sortProperty: 'creationDate' },
+	reference: { title: 'reference', translationKey: 'reference', width: 190, sortProperty: 'reference' },
+	status: { title: 'status', translationKey: 'status', width: 190, sortProperty: 'status.step' },
+	supplier: { title: 'supplier', translationKey: 'supplier', width: 190, sortProperty: 'supplier.id' },
 };
 
 @Component({

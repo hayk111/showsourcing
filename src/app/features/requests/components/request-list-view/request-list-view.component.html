@@ -24,9 +24,9 @@
 		</context-menu-item-app>
 	</ng-template>
 
-	<!-- reqiest title -->
+	<!-- request title -->
 	<ng-template
-		[columnApp]="'title' | const: 'messages'"
+		[columnApp]="'title.title' | translate"
 		sortBy="title"
 		let-row="row"
 		width="300">
@@ -47,7 +47,7 @@
 
 	<!-- type -->
 	<ng-template
-		[columnApp]="'type' | const: 'messages'"
+		[columnApp]="'title.type' | translate"
 		sortBy="templateName"
 		let-row="row"
 		width="175">
@@ -58,7 +58,7 @@
 
 	<!-- supplier -->
 	<ng-template
-		[columnApp]="erm.SUPPLIER.singular | const: 'erm'"
+		[columnApp]="'ERM.' + erm.SUPPLIER.translationKey + '.singular' | translate"
 		sortBy="recipient.company"
 		let-row="row"
 		width="220">
@@ -69,7 +69,7 @@
 
 	<!-- recipient -->
 	<ng-template
-		[columnApp]="'sent to' | const: 'messages'"
+		[columnApp]="'title.sent-to' | translate"
 		sortBy="recipient.name"
 		let-row="row"
 		width="175">
@@ -80,7 +80,7 @@
 
 	<!-- # requests -->
 	<ng-template
-		[columnApp]="'# ' + (erm.SUPPLIER_REQUEST.singular | const: 'erm')"
+		[columnApp]="'# ' + ('ERM.' + erm.SUPPLIER_REQUEST.translationKey + '.singular' | translate)"
 		[sortable]="false"
 		let-row="row"
 		width="90">
@@ -91,7 +91,7 @@
 
 	<!-- status-->
 	<ng-template
-		[columnApp]="'status' | const: 'messages'"
+		[columnApp]="'title.status' | translate"
 		sortBy="status"
 		let-row="row"
 		width="175">
@@ -103,7 +103,7 @@
 
 	<!-- sent date-->
 	<ng-template
-		[columnApp]="'sent on' | const: 'messages'"
+		[columnApp]="'title.sent-on' | translate"
 		sortBy="sentDate"
 		let-row="row"
 		width="175">
@@ -114,7 +114,7 @@
 
 	<!-- sender -->
 	<ng-template
-		[columnApp]="'sent by' | const: 'messages'"
+		[columnApp]="'title.sent-by' | translate"
 		sortBy="sender.name"
 		let-row="row"
 		width="175">

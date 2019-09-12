@@ -1,749 +1,802 @@
 {
-	"ERM": {
-		"ATTACHMENT": {
-			"plural": "pièces jointes",
-			"singular": "attachement"
-		},
-		"ATTACHMENT_UPLOAD_REQUEST": {
-			"plural": "demandes de téléchargement de pièces jointes",
-			"singular": "demande de téléchargement de pièce jointe"
-		},
-		"CATEGORY": {
-			"plural": "catégories",
-			"singular": "Catégorie"
-		},
-		"COMMENT": {
-			"plural": "commentaires",
-			"singular": "commentaire"
-		},
-		"CONTACT": {
-			"plural": "Contacts",
-			"singular": "contact"
-		},
-		"COUNTRY": {
-			"plural": "des pays",
-			"singular": "pays"
-		},
-		"CREATE_REQUEST": {
-			"plural": "createRequests",
-			"singular": "createRequest"
-		},
-		"CURRENCY": {
-			"plural": "monnaies",
-			"singular": "devise"
-		},
-		"EMAIL": {
-			"plural": "courriels",
-			"singular": "email"
-		},
-		"EVENT": {
-			"plural": "événements",
-			"singular": "un événement"
-		},
-		"EVENT_DESCRIPTION": {
-			"plural": "description de l'événement",
-			"singular": "description de l'évenement"
-		},
-		"EXPORT_REQUEST": {
-			"plural": "demandes d'exportation",
-			"singular": "demande d'exportation"
-		},
-		"EXTENDED_FIELD": {
-			"plural": "champs étendus",
-			"singular": "champ étendu"
-		},
-		"EXTENDED_FIELD_DEFINITION": {
-			"plural": "définitions de champ étendues",
-			"singular": "définition étendue du champ"
-		},
-		"FILE": {
-			"plural": "des dossiers",
-			"singular": "fichier"
-		},
-		"HARBOUR": {
-			"plural": "les ports",
-			"singular": "port"
-		},
-		"IMAGE": {
-			"plural": "images",
-			"singular": "image"
-		},
-		"IMAGE_UPLOAD_REQUEST": {
-			"plural": "demandes de téléchargement d'images",
-			"singular": "demande de téléchargement d'image"
-		},
-		"INCO_TERM": {
-			"plural": "termes inco",
-			"singular": "terme inco"
-		},
-		"INVITATION": {
-			"plural": "invitations",
-			"singular": "invitation"
-		},
-		"LENGTH_UNIT": {
-			"plural": "unités de longueur",
-			"singular": "unité de longueur"
-		},
-		"LOCATION": {
-			"plural": "Emplacements",
-			"singular": "emplacement"
-		},
-		"MEMBER": {
-			"plural": "membres",
-			"singular": "membre"
-		},
-		"PICKER_FIELD": {
-			"plural": "champs de sélection",
-			"singular": "champ de sélection"
-		},
-		"PRICE": {
-			"plural": "des prix",
-			"singular": "prix"
-		},
-		"PRODUCT": {
-			"plural": "des produits",
-			"singular": "produit"
-		},
-		"PRODUCT_STATUS": {
-			"plural": "État du produit",
-			"singular": "État du produit"
-		},
-		"PRODUCT_VOTE": {
-			"plural": "votes de produit",
-			"singular": "vote produit"
-		},
-		"PROFILE": {
-			"plural": "les profils",
-			"singular": "profil"
-		},
-		"PROJECT": {
-			"plural": "projets",
-			"singular": "projet"
-		},
-		"QUOTE": {
-			"plural": "citations",
-			"singular": "citation"
-		},
-		"REQUEST_ELEMENT": {
-			"plural": "éléments de requête",
-			"singular": "élément de requête"
-		},
-		"REQUEST_REPLY": {
-			"plural": "demander des réponses",
-			"singular": "demander une réponse"
-		},
-		"REQUEST_TEMPLATE": {
-			"plural": "modèles de demande",
-			"singular": "modèle de demande"
-		},
-		"REVIEW": {
-			"plural": "avis",
-			"singular": "la revue"
-		},
-		"SAMPLE": {
-			"plural": "des échantillons",
-			"singular": "échantillon"
-		},
-		"SAMPLE_STATUS": {
-			"plural": "statut des échantillons",
-			"singular": "statut de l'échantillon"
-		},
-		"SELECTOR_ELEMENT": {
-			"plural": "éléments de sélection",
-			"singular": "élément sélecteur"
-		},
-		"SHOW": {
-			"plural": "spectacles",
-			"singular": "spectacle"
-		},
-		"SUPPLIER": {
-			"plural": "Fournisseurs",
-			"singular": "fournisseur"
-		},
-		"SUPPLIER_REQUEST": {
-			"plural": "demandes",
-			"singular": "demande"
-		},
-		"SUPPLIER_STATUS": {
-			"plural": "statut du fournisseur",
-			"singular": "statut du fournisseur"
-		},
-		"SUPPLIER_TAG": {
-			"plural": "étiquettes de fournisseurs",
-			"singular": "étiquette fournisseur"
-		},
-		"SUPPLIER_TYPE": {
-			"plural": "types de fournisseurs",
-			"singular": "type de fournisseur"
-		},
-		"TAG": {
-			"plural": "Mots clés",
-			"singular": "étiquette"
-		},
-		"TASK": {
-			"plural": "les tâches",
-			"singular": "tâche"
-		},
-		"TEAM": {
-			"plural": "les équipes",
-			"singular": "équipe"
-		},
-		"TEAM_USER": {
-			"plural": "les utilisateurs de l'équipe",
-			"singular": "utilisateur d'équipe"
-		},
-		"USER": {
-			"plural": "utilisateur",
-			"singular": "utilisateur"
-		},
-		"WEIGHT_UNIT": {
-			"plural": "unités de poids",
-			"singular": "unité de poids"
-		}
-	},
-	"OBJ": {
-		"OBJ-name": "Nom de {{ field }} ",
-		"OBJ-to-merge-to": "{{field}} à fusionner",
-		"added-n-products": "ajout de {{noProducts}} produits",
-		"enter-OBJ": "Entrer {{ field }}",
-		"item-selected": {
-			"plural": "{{count}} éléments sélectionnés",
-			"singular": "{{count}} item sélectionné"
-		},
-		"mass-edit": {
-			"plural": "Modification en masse d'éléments {{count}}",
-			"singular": "Modification en masse de l'élément {{count}}"
-		},
-		"merge-OBJ": "fusionner {{field}}",
-		"new-OBJ": "Nouveau {{ field }}",
-		"new-OBJ-name": "Nouveau nom de {{field}} ",
-		"no-item-add-one": "Il n'y a pas encore de {{field}}, ajoutez-en un!",
-		"product-selected": {
-			"plural": "{{count}} produits sélectionnés",
-			"singular": "{{count}} produit sélectionné"
-		},
-		"product-selected-feedback": {
-			"plural": "{{count}} produits sélectionnés pour le feedback",
-			"singular": "{{count}} produit sélectionné pour le feedback"
-		},
-		"provide-name-create": "Veuillez indiquer le {{field}} nom à créer.",
-		"provide-new-name": "Veuillez fournir le nouveau {{field}} nom pour {{entityName}}",
-		"show-pagination": "Affichage de {{fromNumber}} - {{toNumber}} de {{count}}",
-		"that-already-exists": "Ce nom {{field}} existe déjà. Veuillez en choisir un autre.",
-		"your-OBJ-been-sent": "Votre {{actionName}} a été envoyé!"
-	},
-	"button": {
-		"accept-all": "Accepter tout",
-		"accept-request": "Accepter la requête",
-		"account-already-existed": "Vous avez déjà un compte ?",
-		"add": "Ajouter",
-		"add-attachments": "Ajouter des pièces jointes",
-		"add-comment": "Ajouter un commentaire",
-		"add-file": "Ajouter le fichier",
-		"add-image": "Ajouter une image",
-		"add-new-price-line": "Ajouter une nouvelle ligne de prix",
-		"add-now": "Ajouter maintenant",
-		"add-picture": "Ajouter une image",
-		"add-product": "Ajouter un produit",
-		"add-products": "Ajouter des produits",
-		"add-project": "Ajouter un projet",
-		"add-sample": "Ajouter un échantillon",
-		"add-supplier": "Ajouter un fournisseur",
-		"add-to-project": "Ajouter au projet",
-		"archive": "Archiver",
-		"back": "Retour",
-		"browse-templates": "Parcourir les modèles",
-		"cancel": "Annuler",
-		"cancel-item": "annuler l'article",
-		"cancel-items": "annuler des articles",
-		"cancel-request": "demande d'annulation",
-		"cancel-requests": "annuler des demandes",
-		"change-pwd": "Changer le mot de passe",
-		"clear": "Clair",
-		"clear-all": "Tout effacer",
-		"clear-filters": "Effacer les filtres",
-		"close": "Fermer",
-		"close-request": "Fermer la demande",
-		"create-new-team": "Créer une nouvelle équipe",
-		"create-product": "Créer un produit",
-		"create-sample": "Créer un échantillon",
-		"delete": "Effacer",
-		"delete-picture": "Supprimer cette photo",
-		"delete-selected": "supprimer sélectionnée",
-		"do-not-have-an-account": "Vous n'avez pas de compte?",
-		"done": "Terminé",
-		"download": "Télécharger",
-		"edit": "modifier",
-		"export": "Exportation",
-		"exports": "Exportations",
-		"filter-by": "Filtrer par",
-		"finish": "terminer",
-		"forgotten-pswd": "Mot de passe oublié ?",
-		"hide-filters": "Masquer les filtres",
-		"invite": "Inviter",
-		"invite-collaborator": "Inviter un collaborateur",
-		"invite-team-members": "Inviter des membres de l'équipe",
-		"load": "Charge",
-		"login": "S'identifier",
-		"more": "Plus",
-		"new": "Nouveau",
-		"new-contact": "Nouveau contact",
-		"next": "Prochain",
-		"no-create-account": "Non - Créer un compte",
-		"no-no-join-team": "Non, je ne souhaite pas rejoindre cette équipe",
-		"ok": "D'accord",
-		"only-show-favorites": "Afficher uniquement les favoris",
-		"open": "Ouvrir",
-		"open-product": "Produit ouvert",
-		"open-supplier": "Fournisseur ouvert",
-		"open-workspace": "Ouvrir mon espace de travail",
-		"prev": "précédent",
-		"preview": "Aperçu",
-		"pwResetted_login": "S'identifier",
-		"refuse": "Refuser",
-		"refuse-all": "Tout refuser",
-		"remove": "Retirer",
-		"remove-invitation": "Supprimer l'invitation",
-		"remove-user": "Supprimer l'utilisateur",
-		"request-feedback": "Demander des commentaires",
-		"request-team": "Demander une équipe",
-		"request-team-feedback": "Demander les commentaires de l'équipe",
-		"reset": "Réinitialiser",
-		"rotate": "Tourner",
-		"save": "sauvegarder",
-		"save-changes": "Sauvegarder les modifications",
-		"save-product": "Enregistrer le produit",
-		"select-img": "Sélectionner une image",
-		"send": "Envoyer",
-		"send-back": "Renvoyer",
-		"send-request": "Envoyer une demande",
-		"show-filters": "Les filtres",
-		"show-previous-comments": "Afficher les commentaires précédents",
-		"sign-up": "S'inscrire",
-		"submit": "Soumettre",
-		"submit-next": "soumettre et suivant",
-		"submitted": "Soumis",
-		"supplier-request": "Demande du fournisseur",
-		"update": "Mettre à jour",
-		"upload-picture": "Charger une photo",
-		"view-all": "Voir tout",
-		"view-all-products": "Voir tous les produits",
-		"view-more": "Afficher plus",
-		"view-vote-details": "Voir les détails du vote",
-		"yes-join-team": "Oui - rejoindre l'équipe",
-		"yes-log-me-in": "Oui, laissez-moi me connecter"
-	},
-	"error": {
-		"account-already-existed-with-email": "Un compte existe déjà avec cette adresse email.",
-		"action-cannot-undone": "Avertissement: Cette action ne peut pas être annulée.",
-		"all-fields-must-filled": "Tous les champs doivent être remplis en premier",
-		"create-company": "Une erreur s'est produite lors de la création de votre entreprise. Veuillez réessayer.",
-		"create-team": "Une erreur s'est produite lors de la création de votre équipe. Veuillez réessayer.",
-		"email-not-validated-please-check-your-inbox": "Email non validé, veuillez vérifier votre boîte de réception.",
-		"field-is-required": "Ce champ est requis",
-		"field-should-be-a-number": "Ce champ doit être un nombre",
-		"field-should-be-a-valid-email": "Ce champ doit être un email valide",
-		"field-should-be-a-valid-tel": "Ce champ doit être un numéro de téléphone valide",
-		"field-should-be-a-valid-url": "Ce champ doit être une URL valide",
-		"fill-form-below-reply": "Veuillez remplir le formulaire ci-dessous pour répondre au client",
-		"incorrect-credentials": "Identifiants incorrects.",
-		"min-characters-required": "Minimum 8 caractères requis.",
-		"no-reply-from-supplier": "Le fournisseur n'a pas encore répondu.",
-		"pick-another-email": "Veuillez choisir un autre email.",
-		"product-already-validated": "Ce produit a déjà été validé",
-		"product-not-yet-replied": "Ce produit n'a pas encore été répondu par le fournisseur",
-		"reply-from-supplier": "Ceci est la réponse de votre fournisseur",
-		"reset-pwd": "Erreur lors de la réinitialisation du mot de passe.",
-		"stmg-bad-happened-please-resubmit": "Quelque chose de mauvais est arrivé, merci de resoumettre",
-		"submition-failed-please-try-again": "La soumission a échoué. Veuillez réessayer dans un court laps de temps.",
-		"there-is-an-error": "Il y a une erreur, veuillez réessayer plus tard.",
-		"when-requesting-password-reset": "Erreur lors de la demande de réinitialisation du mot de passe.",
-		"you-refused-that-request": "Vous avez refusé cette demande",
-		"your-request-already-submitted": "Votre demande a déjà été soumise"
-	},
-	"header": {
-		"account-created": "Compte créé.",
-		"add-comment": "Ajouter un commentaire",
-		"attached-files": "Fichiers joints",
-		"compare-products": "comparer les produits",
-		"congratz": "Toutes nos félicitations!",
-		"contacts": "Contacts",
-		"create-team": "Créer une équipe",
-		"created-by": "créé par",
-		"end-date": "date de fin",
-		"export-selection": "Sélection d'exportation",
-		"export-type": "Type d'exportation",
-		"join-team": "Rejoindre une équipe",
-		"loading-info-please-wait": "Nous chargeons vos informations, veuillez patienter ...",
-		"moq": "moq",
-		"moq-description": "MOQ Description",
-		"my-request-templates": "Mes modèles de demande",
-		"name": "Nom",
-		"no-recent-activity": "Il n'y a aucune activité récente",
-		"password-reset": "Réinitialiser le mot de passe",
-		"price": "Prix",
-		"product-attachments": "pièces jointes",
-		"product-images": "images de produits",
-		"product-info": "Information produit",
-		"products-count": "nombre de produits",
-		"project-settings": "Paramètres du projet",
-		"projects": "Projets",
-		"reply-sent": "Réponse envoyée",
-		"request-information": "Informations requises",
-		"request-items": "Demander des articles",
-		"request-templates": "Modèles de demande",
-		"select-products": "Sélectionner des produits",
-		"select-project": "Sélectionnez un projet",
-		"send-reply": "Envoyer une réponse",
-		"sent-by": "Envoyée par",
-		"sent-on": "Envoyé sur",
-		"sent-to": "Envoyé à",
-		"shipping-and-trading": "Expédition et commerce",
-		"start-adding-products-now": "Vous pouvez commencer à ajouter des produits maintenant",
-		"start-date": "date de début",
-		"status": "Statut",
-		"supplier": "Fournisseur",
-		"supplier-no-product": "Actuellement, ce fournisseur n'a aucun produit associé",
-		"suppliers-count": "nombre de fournisseurs",
-		"tags": "Mots clés",
-		"tasks": "les tâches",
-		"team-feedback": "Commentaires de l'équipe",
-		"team-rating": "classement de l'équipe",
-		"team-votes": "Votes d'équipe",
-		"template": "Modèle",
-		"template-elements": "Éléments de modèle",
-		"templates": "Modèles",
-		"unnamed-team": "Équipe sans nom",
-		"we-have-pb": "Nous avons un problème.",
-		"welcome-to-showsourcing": "Bienvenue sur ShowSourcing"
-	},
-	"hint": {
-		"company-tip": "Astuce: l'application fonctionne mieux avec un email d'entreprise."
-	},
-	"label": {
-		"activity": "activité",
-		"additional-attachments": "Accessoires supplémentaires",
-		"additional-pictures": "images supplémentaires",
-		"address": "Adresse",
-		"assiged-to-me": "Assigné à moi",
-		"attachments": "Les pièces jointes",
-		"beta": "Bêta",
-		"business-card": "Carte de visite",
-		"change-name": "Changer de nom",
-		"company-name": "Nom de la compagnie",
-		"contact": "Contact",
-		"country": "Pays",
-		"create-a-team": "Créer une nouvelle équipe",
-		"create-another": "Créer un autre",
-		"create-new-team": "Créer une nouvelle équipe",
-		"current-pwd": "Mot de passe actuel",
-		"dimension-unit": "Unités de dimension",
-		"email": "Email",
-		"first-name": "Prénom",
-		"full-name": "Nom complet",
-		"function": "Une fonction",
-		"height": "la taille",
-		"images": "Images",
-		"invite-user": "Inviter un utilisateur",
-		"last-name": "Nom de famille",
-		"length": "Longueur",
-		"linked-to-product": "Lié au produit",
-		"linked-to-supplier": "Lié au fournisseur",
-		"message-for-supplier": "Message pour le fournisseur",
-		"name": "prénom",
-		"new-product": "Nouveau produit",
-		"new-sample": "Nouvel échantillon",
-		"password": "Mot de passe",
-		"phone-number": "Numéro de téléphone",
-		"product": "Produit",
-		"product-details": "Détails du produit",
-		"product-picture": "Image du produit",
-		"products": "Des produits",
-		"products-selected": "Produits sélectionnés",
-		"profile-picture": "Image de profil",
-		"quantity": "Quantité",
-		"recipients": "Destinataires",
-		"reply": "Répondre",
-		"request-for": "Demande",
-		"request-message": "Demander un message",
-		"request-settings": "Paramètres de demande",
-		"request-title": "Titre de la demande",
-		"sample": "Échantillon",
-		"samples": "Des échantillons",
-		"select-a-team-instead": "Sélectionnez une équipe à la place",
-		"select-contact": "Sélectionnez un contact",
-		"send-request-supplier": "Envoyer la demande au fournisseur",
-		"send-to-supplier": "Envoyer au fournisseur",
-		"share-info-text": "Partagez les informations sur le produit que vous avez déjà avec le fournisseur, telles que le prix, le moq, etc.",
-		"share-product-info": "Partager mes informations produit",
-		"shipping": "livraison",
-		"show-archived": "Montrer archivé",
-		"supplier-message": "Message du fournisseur",
-		"tax-id": "ID DE TAXE",
-		"team-name": "Nom de l'équipe",
-		"template-fields": "Champs de modèle",
-		"unit": "Unité",
-		"units": "Unités",
-		"unnamed-product": "Produit sans nom",
-		"weight": "Poids",
-		"width": "Largeur"
-	},
-	"lable": {
-		"property-update": "Propriété à mettre à jour"
-	},
-	"link": {
-		"create-new-team": "Créer une nouvelle équipe",
-		"to-my-workspace": "À mon espace de travail"
-	},
-	"message": {
-		"about-send-back-info": "Vous êtes sur le point de renvoyer les informations que vous avez remplies.",
-		"assign-you-a-task": "vous assigner une tâche",
-		"change-assignee": "Changer de destinataire",
-		"change-status": "Changer le statut",
-		"confirm-action": "Es-tu sûr de vouloir faire ça?",
-		"confirm-cancel-request-item": "Êtes-vous sûr de vouloir annuler cet élément de demande?",
-		"confirm-cancel-request-items": "Êtes-vous sûr de vouloir annuler ces éléments de demande?",
-		"confirm-delete-product": "Êtes-vous sûr de vouloir supprimer ce produit?",
-		"confirm-delete-supplier": "Êtes-vous sûr de vouloir supprimer ce fournisseur?",
-		"favorite-item": "Article préféré",
-		"has-completed-your-task": "a terminé votre tâche",
-		"invitation-accepted": "L'invitation a été acceptée",
-		"invitation-refused": "L'invitation a été refusée",
-		"invite-ur-team-to-start-receive-update": "Invitez les membres de votre équipe à commencer à recevoir des mises à jour.",
-		"limit-50-pdf-per-export": "Limite de 50 PDF par exportation",
-		"mark-as-read": "Marquer comme lu",
-		"next-picture": "Photo suivante",
-		"only-team-owners-can-invite": "Seuls les propriétaires d'équipe peuvent inviter",
-		"please-select-category": "Veuillez sélectionner la catégorie qui restera après la fusion.",
-		"prev-picture": "Photo précédente",
-		"product-archived-successfully": "Les produits ont été archivés avec succès",
-		"product-created-with-success": "Votre produit a été créé avec succès",
-		"products-archived-successfully": "Les produits ont été archivés avec succès",
-		"pwd-changed": "Mot de passe changé",
-		"pwd-reset-successfully": "Votre mot de passe a été réinitialisé avec succès!",
-		"pwd-unchanged": "Mot de passe inchangé",
-		"rated-your-product": "évalué votre produit",
-		"remove-1-file": "Supprimer 1 fichier?",
-		"sample-created-with-success": "Votre échantillon a été créé avec succès",
-		"there-is-an-error": "Il y a une erreur, veuillez réessayer dans quelques instants.",
-		"we-are-creating-team": "Nous créons votre équipe, veuillez patienter!",
-		"your-export-is-being-processed": "Votre export est en cours de traitement",
-		"your-files-uploaded-with-success": "Vos fichiers ont été téléchargés avec succès",
-		"your-imgs-uploaded-with-success": "Vos images ont été téléchargées avec succès",
-		"your-invitation-was-sent-to": "Votre invitation a été envoyée à",
-		"your-items-updated": "Vos articles ont été mis à jour",
-		"your-product-not-created": "Votre produit n'a pas pu être créé",
-		"your-projects-added-success": "Vos projets ont été ajoutés au produit avec succès"
-	},
-	"nav": {
-		"my-samples": "Mes échantillons",
-		"my-tasks": "Mes tâches",
-		"my-workflow": "Mon flux de travail"
-	},
-	"paragraph": {
-		"pwResetted_reset": "Nous vous avons envoyé des instructions pour récupérer votre mot de passe."
-	},
-	"placeholder": {
-		"add-price-label": "Ajouter une étiquette de prix",
-		"choose": "Choisir",
-		"choose-assignee": "Choisissez un cessionnaire",
-		"choose-property": "Choisissez une propriété",
-		"choose-status": "Choisissez un statut",
-		"confirm-new-pwd": "Confirmez le nouveau mot de passe",
-		"contact-email-address": "adresse e-mail de contact",
-		"contact-function": "Fonction de contact",
-		"contact-name": "Nom du contact",
-		"contact-phone-number": "Numéro de téléphone de contact",
-		"email-or-contact": "Email ou contact",
-		"height": "la taille",
-		"intro-current-pwd": "Introduisez votre mot de passe actuel",
-		"intro-new-pwd": "Introduisez le nouveau mot de passe",
-		"length": "Longueur",
-		"no-data": "Pas de données",
-		"no-exports": "Aucune exportation",
-		"no-invitation": "Aucune invitation",
-		"no-requests": "Aucune demande",
-		"no-supplier": "Pas de fournisseur",
-		"no-team-member": "Aucun membre de l'équipe",
-		"quantity": "Quantité",
-		"quick-rfq": "RFQ rapide",
-		"quote-request": "Demande de citation",
-		"reply-message-buyer": "Message de réponse à l'acheteur",
-		"sample-name": "Nom de l'échantillon",
-		"search-your-product": "Rechercher votre produit",
-		"search-your-supplier": "Recherchez votre fournisseur",
-		"select-supplier": "Sélectionnez un fournisseur",
-		"select-template": "Sélectionnez un modèle",
-		"template-name": "Nom du modèle",
-		"type-business-name": "Tapez le nom de votre entreprise",
-		"type-to-search": "Tapez pour rechercher",
-		"unit": "Unité",
-		"weight": "Poids",
-		"width": "largeur",
-		"write-comment-here": "Écrivez votre commentaire ici",
-		"your-email": "Votre email",
-		"your-first-name": "Ton prénom",
-		"your-last-name": "Votre nom de famille",
-		"your-password": "Votre mot de passe"
-	},
-	"placeholer": {
-		"no-description-yet": "Pas encore de description"
-	},
-	"screens": {
-		"onboarding-1": {
-			"text": "ShowSourcing est un puissant outil collaboratif pour dynamiser vos processus de développement de produits.",
-			"title": "Bienvenue sur ShowSourcing!"
-		},
-		"onboarding-2": {
-			"text": "Fatigué de prendre des notes manuellement et de passer vos soirées à transcrire les données sur des feuilles Excel? L'application mobile de <br> \n ShowSourcing vous aidera à prendre des notes efficacement tout en assistant à un salon professionnel ou à une visite d'usine.",
-			"title": "Travailler sur le pouce"
-		},
-		"onboarding-3": {
-			"text": "Vous rencontrez des difficultés pour partager des données entre collègues, équipes ou bureaux? \n <br> \n Invitez toute votre équipe (acheteurs, spécialistes du marketing, etc.) et partagez instantanément toutes vos conclusions.",
-			"title": "Centraliser vos données"
-		},
-		"onboarding-4": {
-			"text": "Intégrez votre fournisseur au développement de vos produits, posez-leur des questions, demandez un devis, des informations et bien plus encore!",
-			"title": "Communiquez avec vos fournisseurs"
-		},
-		"onboarding-5": {
-			"text": "Pas plus de prise de décision rapide et sale. Analysez facilement les produits, visualisez l'ensemble de votre processus et déterminez l'adéquation du marché au même endroit.",
-			"title": "Prenez de meilleures décisions plus rapidement"
-		}
-	},
-	"select-assignee": "Sélectionner un cessionnaire",
-	"text": {
-		"add-description": "Ajouter une description",
-		"all-product-pictures": "Toutes les images de produits",
-		"archived": "Archivé",
-		"assigned-to-me": "Assigné à moi",
-		"board": "Planche",
-		"carton-size": "Taille du carton",
-		"category": "Catégorie",
-		"check-inbox-email-validate": "Veuillez vérifier votre boîte de réception pour valider votre email ...",
-		"clear-all-filters": "Effacer tous les filtres",
-		"completed-tasks": "Tâches terminées",
-		"confirm-new-pwd": "Confirmer le nouveau mot de passe",
-		"contributor": "donateur",
-		"create-new": "Créer un nouveau",
-		"create-team-and-source": "Créez votre équipe et démarrez le sourcing",
-		"created-by": "Créé par:",
-		"created-on": "Créé sur:",
-		"data-cleansing": "Nettoyage des données",
-		"description": "la description",
-		"dislike": "Ne pas aimer",
-		"do-you-have-acc": "Avez-vous un compte ?",
-		"event": "un événement",
-		"extended-fields": "Champs étendus",
-		"favorite": "Préféré",
-		"fields": "des champs",
-		"filters": "filtres",
-		"harbour": "Port",
-		"inco-term": "Terme Inco",
-		"invitations": "invitations",
-		"invite-more-members": "Inviter plus de membres de l'équipe",
-		"invites-you-join": "vous invite à rejoindre",
-		"last-updated-on": "Dernière mise à jour le:",
-		"like": "Comme",
-		"list": "liste",
-		"mark-all-as-read": "tout marquer comme lu",
-		"master-carton": "Carton principal",
-		"merge": "fusionner",
-		"message": "message",
-		"more": "Plus",
-		"new-pwd": "Nouveau mot de passe",
-		"new-pwd-must-match": "Le nouveau mot de passe doit correspondre",
-		"new-template": "Nouveau modèle",
-		"no-contact-for-supplier": "Pas de contact pour ce fournisseur",
-		"no-documents-attached": "Aucun document joint",
-		"no-picture": "Pas d'image",
-		"no-projects-added": "Aucun projet ajouté",
-		"no-team-members": "Aucun membre de l'équipe",
-		"no-vote": "Pas encore de vote",
-		"now-invite-members": "Invitez maintenant les membres de votre équipe",
-		"packaging": "Emballage",
-		"pcs-per-master": "Pièces par maître",
-		"pdf": "Pdf",
-		"perfect-for-editing": "Parfait pour l'édition",
-		"perfect-for-sharing": "Parfait pour le partage",
-		"pictures": "Des photos",
-		"please-enter-pwd": "Veuillez entrer votre nouveau mot de passe",
-		"please-hold-modif-internet": "Veuillez patienter pendant que nous modifions Internet pour vous!",
-		"please-login-to-your-account": "Veuillez vous connecter à votre compte",
-		"product-list": "Liste de produits",
-		"project-name": "nom du projet",
-		"project-picture": "Photo du projet",
-		"projectCard_description": "",
-		"pwd-must-match": "Le nouveau mot de passe doit correspondre",
-		"rename": "Renommer",
-		"select-info-template-supplier": "Sélectionnez les informations que vous souhaitez demander au fournisseur.",
-		"select-team-or-create": "Sélectionnez l’équipe à laquelle vous voulez vous connecter ou créez-en une nouvelle",
-		"selection": "sélection",
-		"sent": "envoyé",
-		"set-event": "Définir l'événement",
-		"set-location": "Définir l'emplacement",
-		"set-product": "Set produit",
-		"set-supplier": "Set fournisseur",
-		"set-supplier-type": "Définir le type de fournisseur",
-		"settings": "réglages",
-		"show-archived-products": "Afficher les produits archivés",
-		"show-only-my-sample": "Montrer mes échantillons seulement",
-		"tag": "étiquette",
-		"team-leader": "Chef d'équipe",
-		"team-member": "Membre de l'équipe",
-		"team-members": "Membres de l'équipe",
-		"team-owner": "Propriétaire d'équipe",
-		"thumb": "la grille",
-		"to-merge-to": "fusionner pour",
-		"trading": "Commerce",
-		"validating-email": "Validation de l'email ...",
-		"we-have-pb-with-srv": "Nous avons un problème avec notre serveur. Une équipe de singes hautement entraînés tente actuellement de résoudre ce problème. \n Veuillez réessayer ultérieurement.",
-		"we-will-send-you-instructions": "Nous vous enverrons des instructions pour récupérer votre mot de passe.",
-		"workflow": "flux de travail",
-		"you-r-invited": "Vous êtes invité à rejoindre ShowSourcing",
-		"your-collab-plat": "Votre plate-forme de sourcing collaboratif pour \n <br> \n votre équipe et vos fournisseurs."
-	},
-	"title": {
-		"confirm": "Confirmer",
-		"created-new-product": "Créé un nouveau produit",
-		"created-new-supplier": "Créé un nouveau fournisseur",
-		"data-cleansing": "Nettoyage des données",
-		"error": "Erreur",
-		"excel": "Exceller",
-		"exports": "Exportations",
-		"invitation-accepted": "Invitation acceptée",
-		"invitation-refused": "Invitation refusée",
-		"invitation-sent": "Invitation envoyée",
-		"invitations": "Invitations",
-		"lastest-noti": "Dernières notifications",
-		"multiple-edition": "Édition multiple",
-		"my-products": "Mes produits",
-		"my-projects": "Mes projets",
-		"my-suppliers": "Mes fournisseurs",
-		"my-workspace": "Mon espace de travail",
-		"new-comment": "Nouveau commentaire",
-		"no-noti-yet": "Aucune notification pour le moment!",
-		"notifications": "Les notifications",
-		"product-archived": "Produit archivé",
-		"product-created": "Produit créé",
-		"product-not-created": "Produit non créé",
-		"product-not-exist": "Le produit n'existe pas",
-		"products-archived": "Produits archivés",
-		"profile": "Profil",
-		"project": "Projet",
-		"projects-added": "Projets ajoutés",
-		"pwd-changed": "Votre mot de passe a été changé avec succès",
-		"pwd-unchanged": "Votre mot de passe n'a pas pu être changé, le mot de passe actuel est incorrect",
-		"request-not-exist": "La demande n'existe pas",
-		"requests": "Demandes",
-		"sample-created": "Échantillon créé",
-		"sample-not-created": "Échantillon non créé",
-		"search": "Chercher",
-		"showsourcing-fields": "ShowSourcing - Champs",
-		"supplier-not-exist": "Le fournisseur n'existe pas",
-		"team-members": "Membres de l'équipe",
-		"user-profile": "Profil de l'utilisateur",
-		"workflows": "Flux de travail",
-		"your-message": "Votre message"
-	}
+  "ERM": {
+    "ATTACHMENT": {
+      "plural": "pièces jointes",
+      "singular": "attachement"
+    },
+    "ATTACHMENT_UPLOAD_REQUEST": {
+      "plural": "demandes de téléchargement de pièces jointes",
+      "singular": "demande de téléchargement de pièce jointe"
+    },
+    "CATEGORY": {
+      "plural": "catégories",
+      "singular": "Catégorie"
+    },
+    "COMMENT": {
+      "plural": "commentaires",
+      "singular": "commentaire"
+    },
+    "CONTACT": {
+      "plural": "Contacts",
+      "singular": "contact"
+    },
+    "COUNTRY": {
+      "plural": "des pays",
+      "singular": "pays"
+    },
+    "CREATE_REQUEST": {
+      "plural": "createRequests",
+      "singular": "createRequest"
+    },
+    "CURRENCY": {
+      "plural": "monnaies",
+      "singular": "devise"
+    },
+    "EMAIL": {
+      "plural": "courriels",
+      "singular": "email"
+    },
+    "EVENT": {
+      "plural": "événements",
+      "singular": "un événement"
+    },
+    "EVENT_DESCRIPTION": {
+      "plural": "description de l'événement",
+      "singular": "description de l'évenement"
+    },
+    "EXPORT_REQUEST": {
+      "plural": "demandes d'exportation",
+      "singular": "demande d'exportation"
+    },
+    "EXTENDED_FIELD": {
+      "plural": "champs étendus",
+      "singular": "champ étendu"
+    },
+    "EXTENDED_FIELD_DEFINITION": {
+      "plural": "définitions de champ étendues",
+      "singular": "définition étendue du champ"
+    },
+    "FILE": {
+      "plural": "des dossiers",
+      "singular": "fichier"
+    },
+    "HARBOUR": {
+      "plural": "les ports",
+      "singular": "port"
+    },
+    "IMAGE": {
+      "plural": "images",
+      "singular": "image"
+    },
+    "IMAGE_UPLOAD_REQUEST": {
+      "plural": "demandes de téléchargement d'images",
+      "singular": "demande de téléchargement d'image"
+    },
+    "INCO_TERM": {
+      "plural": "termes inco",
+      "singular": "terme inco"
+    },
+    "INVITATION": {
+      "plural": "invitations",
+      "singular": "invitation"
+    },
+    "LENGTH_UNIT": {
+      "plural": "unités de longueur",
+      "singular": "unité de longueur"
+    },
+    "LOCATION": {
+      "plural": "Emplacements",
+      "singular": "emplacement"
+    },
+    "MEMBER": {
+      "plural": "membres",
+      "singular": "membre"
+    },
+    "PICKER_FIELD": {
+      "plural": "champs de sélection",
+      "singular": "champ de sélection"
+    },
+    "PRICE": {
+      "plural": "des prix",
+      "singular": "prix"
+    },
+    "PRODUCT": {
+      "plural": "produits",
+      "singular": "produit"
+    },
+    "PRODUCT_STATUS": {
+      "plural": "État du produit",
+      "singular": "État du produit"
+    },
+    "PRODUCT_VOTE": {
+      "plural": "votes de produit",
+      "singular": "vote produit"
+    },
+    "PROFILE": {
+      "plural": "les profils",
+      "singular": "profil"
+    },
+    "PROJECT": {
+      "plural": "projets",
+      "singular": "projet"
+    },
+    "QUOTE": {
+      "plural": "citations",
+      "singular": "citation"
+    },
+    "REQUEST_ELEMENT": {
+      "plural": "éléments de requête",
+      "singular": "élément de requête"
+    },
+    "REQUEST_REPLY": {
+      "plural": "demander des réponses",
+      "singular": "demander une réponse"
+    },
+    "REQUEST_TEMPLATE": {
+      "plural": "modèles de demande",
+      "singular": "modèle de demande"
+    },
+    "REVIEW": {
+      "plural": "avis",
+      "singular": "la revue"
+    },
+    "SAMPLE": {
+      "plural": "des échantillons",
+      "singular": "échantillon"
+    },
+    "SAMPLE_STATUS": {
+      "plural": "statut des échantillons",
+      "singular": "statut de l'échantillon"
+    },
+    "SELECTOR_ELEMENT": {
+      "plural": "éléments de sélection",
+      "singular": "élément sélecteur"
+    },
+    "SHOW": {
+      "plural": "spectacles",
+      "singular": "spectacle"
+    },
+    "SUPPLIER": {
+      "plural": "Fournisseurs",
+      "singular": "fournisseur"
+    },
+    "SUPPLIER_REQUEST": {
+      "plural": "demandes",
+      "singular": "demande"
+    },
+    "SUPPLIER_STATUS": {
+      "plural": "statut du fournisseur",
+      "singular": "statut du fournisseur"
+    },
+    "SUPPLIER_TAG": {
+      "plural": "étiquettes de fournisseurs",
+      "singular": "étiquette fournisseur"
+    },
+    "SUPPLIER_TYPE": {
+      "plural": "types de fournisseurs",
+      "singular": "type de fournisseur"
+    },
+    "TAG": {
+      "plural": "Mots clés",
+      "singular": "étiquette"
+    },
+    "TASK": {
+      "plural": "les tâches",
+      "singular": "tâche"
+    },
+    "TEAM": {
+      "plural": "les équipes",
+      "singular": "équipe"
+    },
+    "TEAM_USER": {
+      "plural": "les utilisateurs de l'équipe",
+      "singular": "utilisateur d'équipe"
+    },
+    "USER": {
+      "plural": "utilisateur",
+      "singular": "utilisateur"
+    },
+    "WEIGHT_UNIT": {
+      "plural": "unités de poids",
+      "singular": "unité de poids"
+    }
+  },
+  "OBJ": {
+    "OBJ-name": "Nom de {{ field }} ",
+    "OBJ-to-merge-to": "{{field}} à fusionner",
+    "added-n-products": "ajout de {{noProducts}} produits",
+    "comment": {
+      "plural": "commentaires",
+      "singular": "commentaire"
+    },
+    "enter-OBJ": "Entrer {{ field }}",
+    "export-item": {
+      "plural": "exporter {{count}} articles",
+      "singular": "exporter {{count}} article"
+    },
+    "item-selected": {
+      "plural": "{{count}} éléments sélectionnés",
+      "singular": "{{count}} item sélectionné"
+    },
+    "mass-edit": {
+      "plural": "Modification en masse d'éléments {{count}}",
+      "singular": "Modification en masse de l'élément {{count}}"
+    },
+    "merge-OBJ": "fusionner {{field}}",
+    "n-OBJ": "{{count}} {{field}}",
+    "n-comment": {
+      "plural": "{{count}} commentaires",
+      "singular": "{{count}} commentaire"
+    },
+    "new-OBJ": "Nouveau {{ field }}",
+    "new-OBJ-name": "Nouveau nom de {{field}} ",
+    "no-item-add-one": "Il n'y a pas encore de {{field}}, ajoutez-en un!",
+    "product-selected-feedback": {
+      "plural": "{{count}} produits sélectionnés pour le feedback",
+      "singular": "{{count}} produit sélectionné pour le feedback"
+    },
+    "product-selected": {
+      "plural": "{{count}} produits sélectionnés",
+      "singular": "{{count}} produit sélectionné"
+    },
+    "provide-name-create": "Veuillez indiquer le {{field}} nom à créer.",
+    "provide-new-name": "Veuillez fournir le nouveau {{field}} nom pour {{entityName}}",
+    "show-pagination": "Affichage de {{fromNumber}} - {{toNumber}} de {{count}}",
+    "that-already-exists": "Ce nom {{field}} existe déjà. Veuillez en choisir un autre.",
+    "your-OBJ-been-sent": "Votre {{actionName}} a été envoyé!"
+  },
+  "button": {
+    "accept-all": "Accepter tout",
+    "accept-request": "Accepter la requête",
+    "account-already-existed": "Vous avez déjà un compte ?",
+    "add": "Ajouter",
+    "add-attachments": "Ajouter des pièces jointes",
+    "add-comment": "Ajouter un commentaire",
+    "add-file": "Ajouter le fichier",
+    "add-image": "Ajouter une image",
+    "add-new-price-line": "Ajouter une nouvelle ligne de prix",
+    "add-now": "Ajouter maintenant",
+    "add-picture": "Ajouter une image",
+    "add-product": "Ajouter un produit",
+    "add-products": "Ajouter des produits",
+    "add-project": "Ajouter un projet",
+    "add-sample": "Ajouter un échantillon",
+    "add-supplier": "Ajouter un fournisseur",
+    "add-task": "Ajouter une tâche",
+    "add-to-project": "Ajouter au projet",
+    "archive": "Archiver",
+    "back": "Retour",
+    "browse-templates": "Parcourir les modèles",
+    "cancel": "Annuler",
+    "cancel-item": "annuler l'article",
+    "cancel-items": "annuler des articles",
+    "cancel-request": "demande d'annulation",
+    "cancel-requests": "annuler des demandes",
+    "change-pwd": "Changer le mot de passe",
+    "clear": "Clair",
+    "clear-all": "Tout effacer",
+    "clear-filters": "Effacer les filtres",
+    "close": "Fermer",
+    "close-request": "Fermer la demande",
+    "create-new-team": "Créer une nouvelle équipe",
+    "create-product": "Créer un produit",
+    "create-sample": "Créer un échantillon",
+    "delete": "Effacer",
+    "delete-picture": "Supprimer cette photo",
+    "delete-selected": "supprimer sélectionnée",
+    "do-not-have-an-account": "Vous n'avez pas de compte?",
+    "done": "Terminé",
+    "download": "Télécharger",
+    "edit": "modifier",
+    "export": "Exportation",
+    "exports": "Exportations",
+    "filter-by": "Filtrer par",
+    "finish": "terminer",
+    "forgotten-pswd": "Mot de passe oublié ?",
+    "hide-filters": "Masquer les filtres",
+    "invite": "Inviter",
+    "invite-collaborator": "Inviter un collaborateur",
+    "invite-team-members": "Inviter des membres de l'équipe",
+    "load": "Charge",
+    "login": "S'identifier",
+    "more": "Plus",
+    "new": "Nouveau",
+    "new-contact": "Nouveau contact",
+    "new-request": "nouvelle requête",
+    "next": "Prochain",
+    "no-create-account": "Non - Créer un compte",
+    "no-no-join-team": "Non, je ne souhaite pas rejoindre cette équipe",
+    "ok": "D'accord",
+    "only-show-favorites": "Afficher uniquement les favoris",
+    "open": "Ouvrir",
+    "open-product": "Produit ouvert",
+    "open-supplier": "Fournisseur ouvert",
+    "open-workspace": "Ouvrir mon espace de travail",
+    "prev": "précédent",
+    "preview": "Aperçu",
+    "preview-product": "produit de prévisualisation",
+    "pwResetted_login": "S'identifier",
+    "refuse": "Refuser",
+    "refuse-all": "Tout refuser",
+    "remove": "Retirer",
+    "remove-invitation": "Supprimer l'invitation",
+    "remove-user": "Supprimer l'utilisateur",
+    "request-feedback": "Demander des commentaires",
+    "request-team": "Demander une équipe",
+    "request-team-feedback": "Demander les commentaires de l'équipe",
+    "reset": "Réinitialiser",
+    "rotate": "Tourner",
+    "save": "sauvegarder",
+    "save-changes": "Sauvegarder les modifications",
+    "save-product": "Enregistrer le produit",
+    "select-img": "Sélectionner une image",
+    "send": "Envoyer",
+    "send-back": "Renvoyer",
+    "send-request": "Envoyer une demande",
+    "set-as-favourite": "Définir comme favori",
+    "show-filters": "Les filtres",
+    "show-previous-comments": "Afficher les commentaires précédents",
+    "sign-up": "S'inscrire",
+    "submit": "Soumettre",
+    "submit-next": "soumettre et suivant",
+    "submitted": "Soumis",
+    "supplier-request": "Demande du fournisseur",
+    "update": "Mettre à jour",
+    "upload-picture": "Charger une photo",
+    "view-all": "Voir tout",
+    "view-all-products": "Voir tous les produits",
+    "view-more": "Afficher plus",
+    "view-vote-details": "Voir les détails du vote",
+    "yes-join-team": "Oui - rejoindre l'équipe",
+    "yes-log-me-in": "Oui, laissez-moi me connecter"
+  },
+  "error": {
+    "account-already-existed-with-email": "Un compte existe déjà avec cette adresse email.",
+    "action-cannot-undone": "Avertissement: Cette action ne peut pas être annulée.",
+    "all-fields-must-filled": "Tous les champs doivent être remplis en premier",
+    "create-company": "Une erreur s'est produite lors de la création de votre entreprise. Veuillez réessayer.",
+    "create-team": "Une erreur s'est produite lors de la création de votre équipe. Veuillez réessayer.",
+    "email-not-validated-please-check-your-inbox": "Email non validé, veuillez vérifier votre boîte de réception.",
+    "field-is-required": "Ce champ est requis",
+    "field-should-be-a-number": "Ce champ doit être un nombre",
+    "field-should-be-a-valid-email": "Ce champ doit être un email valide",
+    "field-should-be-a-valid-tel": "Ce champ doit être un numéro de téléphone valide",
+    "field-should-be-a-valid-url": "Ce champ doit être une URL valide",
+    "fill-form-below-reply": "Veuillez remplir le formulaire ci-dessous pour répondre au client",
+    "incorrect-credentials": "Identifiants incorrects.",
+    "min-characters-required": "Minimum 8 caractères requis.",
+    "no-reply-from-supplier": "Le fournisseur n'a pas encore répondu.",
+    "pick-another-email": "Veuillez choisir un autre email.",
+    "product-already-validated": "Ce produit a déjà été validé",
+    "product-not-yet-replied": "Ce produit n'a pas encore été répondu par le fournisseur",
+    "reply-from-supplier": "Ceci est la réponse de votre fournisseur",
+    "reset-pwd": "Erreur lors de la réinitialisation du mot de passe.",
+    "stmg-bad-happened-please-resubmit": "Quelque chose de mauvais est arrivé, merci de resoumettre",
+    "submition-failed-please-try-again": "La soumission a échoué. Veuillez réessayer dans un court laps de temps.",
+    "there-is-an-error": "Il y a une erreur, veuillez réessayer plus tard.",
+    "when-requesting-password-reset": "Erreur lors de la demande de réinitialisation du mot de passe.",
+    "you-refused-that-request": "Vous avez refusé cette demande",
+    "your-request-already-submitted": "Votre demande a déjà été soumise"
+  },
+  "header": {
+    "account-created": "Compte créé.",
+    "add-comment": "Ajouter un commentaire",
+    "attached-files": "Fichiers joints",
+    "compare-products": "comparer les produits",
+    "congratz": "Toutes nos félicitations!",
+    "contacts": "Contacts",
+    "create-team": "Créer une équipe",
+    "created-by": "créé par",
+    "end-date": "date de fin",
+    "export-selection": "Sélection d'exportation",
+    "export-type": "Type d'exportation",
+    "join-team": "Rejoindre une équipe",
+    "loading-info-please-wait": "Nous chargeons vos informations, veuillez patienter ...",
+    "moq": "moq",
+    "moq-description": "MOQ Description",
+    "my-request-templates": "Mes modèles de demande",
+    "name": "Nom",
+    "no-recent-activity": "Il n'y a aucune activité récente",
+    "password-reset": "Réinitialiser le mot de passe",
+    "price": "Prix",
+    "product-attachments": "pièces jointes",
+    "product-images": "images de produits",
+    "product-info": "Information produit",
+    "products-count": "nombre de produits",
+    "project-settings": "Paramètres du projet",
+    "projects": "Projets",
+    "reply-sent": "Réponse envoyée",
+    "request-information": "Informations requises",
+    "request-items": "Demander des articles",
+    "request-templates": "Modèles de demande",
+    "select-products": "Sélectionner des produits",
+    "select-project": "Sélectionnez un projet",
+    "send-reply": "Envoyer une réponse",
+    "sent-by": "Envoyée par",
+    "sent-on": "Envoyé sur",
+    "sent-to": "Envoyé à",
+    "shipping-and-trading": "Expédition et commerce",
+    "start-adding-products-now": "Vous pouvez commencer à ajouter des produits maintenant",
+    "start-date": "date de début",
+    "status": "Statut",
+    "supplier": "Fournisseur",
+    "supplier-no-product": "Actuellement, ce fournisseur n'a aucun produit associé",
+    "suppliers-count": "nombre de fournisseurs",
+    "tags": "Mots clés",
+    "tasks": "les tâches",
+    "team-feedback": "Commentaires de l'équipe",
+    "team-rating": "classement de l'équipe",
+    "team-votes": "Votes d'équipe",
+    "template": "Modèle",
+    "template-elements": "Éléments de modèle",
+    "templates": "Modèles",
+    "unnamed-team": "Équipe sans nom",
+    "we-have-pb": "Nous avons un problème.",
+    "welcome-to-showsourcing": "Bienvenue sur ShowSourcing"
+  },
+  "hint": {
+    "company-tip": "Astuce: l'application fonctionne mieux avec un email d'entreprise."
+  },
+  "label": {
+    "activity": "activité",
+    "additional-attachments": "Accessoires supplémentaires",
+    "additional-pictures": "images supplémentaires",
+    "address": "Adresse",
+    "assiged-to-me": "Assigné à moi",
+    "attachments": "Les pièces jointes",
+    "beta": "Bêta",
+    "business-card": "Carte de visite",
+    "change-name": "Changer de nom",
+    "company-name": "Nom de la compagnie",
+    "contact": "Contact",
+    "country": "Pays",
+    "create-a-team": "Créer une nouvelle équipe",
+    "create-another": "Créer un autre",
+    "create-new-team": "Créer une nouvelle équipe",
+    "current-pwd": "Mot de passe actuel",
+    "dimension-unit": "Unités de dimension",
+    "email": "Email",
+    "first-name": "Prénom",
+    "full-name": "Nom complet",
+    "function": "Une fonction",
+    "height": "la taille",
+    "images": "Images",
+    "invite-user": "Inviter un utilisateur",
+    "last-name": "Nom de famille",
+    "length": "Longueur",
+    "linked-to-product": "Lié au produit",
+    "linked-to-supplier": "Lié au fournisseur",
+    "message-for-supplier": "Message pour le fournisseur",
+    "name": "prénom",
+    "new-product": "Nouveau produit",
+    "new-sample": "Nouvel échantillon",
+    "password": "Mot de passe",
+    "phone-number": "Numéro de téléphone",
+    "product": "Produit",
+    "product-details": "Détails du produit",
+    "product-picture": "Image du produit",
+    "products": "Des produits",
+    "products-selected": "Produits sélectionnés",
+    "profile-picture": "Image de profil",
+    "quantity": "Quantité",
+    "recipients": "Destinataires",
+    "reply": "Répondre",
+    "request-for": "Demande",
+    "request-message": "Demander un message",
+    "request-settings": "Paramètres de demande",
+    "request-title": "Titre de la demande",
+    "sample": "Échantillon",
+    "samples": "Des échantillons",
+    "select-a-team-instead": "Sélectionnez une équipe à la place",
+    "select-contact": "Sélectionnez un contact",
+    "send-request-supplier": "Envoyer la demande au fournisseur",
+    "send-to-supplier": "Envoyer au fournisseur",
+    "share-info-text": "Partagez les informations sur le produit que vous avez déjà avec le fournisseur, telles que le prix, le moq, etc.",
+    "share-product-info": "Partager mes informations produit",
+    "shipping": "livraison",
+    "show-archived": "Montrer archivé",
+    "supplier-message": "Message du fournisseur",
+    "tax-id": "ID DE TAXE",
+    "team-name": "Nom de l'équipe",
+    "template-fields": "Champs de modèle",
+    "unit": "Unité",
+    "units": "Unités",
+    "unnamed-product": "Produit sans nom",
+    "weight": "Poids",
+    "width": "Largeur"
+  },
+  "lable": {
+    "property-update": "Propriété à mettre à jour"
+  },
+  "link": {
+    "create-new-team": "Créer une nouvelle équipe",
+    "to-my-workspace": "À mon espace de travail"
+  },
+  "message": {
+    "about-send-back-info": "Vous êtes sur le point de renvoyer les informations que vous avez remplies.",
+    "assign-you-a-task": "vous assigner une tâche",
+    "change-assignee": "Changer de destinataire",
+    "change-status": "Changer le statut",
+    "confirm-action": "Es-tu sûr de vouloir faire ça?",
+    "confirm-cancel-request-item": "Êtes-vous sûr de vouloir annuler cet élément de demande?",
+    "confirm-cancel-request-items": "Êtes-vous sûr de vouloir annuler ces éléments de demande?",
+    "confirm-delete-product": "Êtes-vous sûr de vouloir supprimer ce produit?",
+    "confirm-delete-supplier": "Êtes-vous sûr de vouloir supprimer ce fournisseur?",
+    "favorite-item": "Article préféré",
+    "has-completed-your-task": "a terminé votre tâche",
+    "invitation-accepted": "L'invitation a été acceptée",
+    "invitation-refused": "L'invitation a été refusée",
+    "invite-ur-team-to-start-receive-update": "Invitez les membres de votre équipe à commencer à recevoir des mises à jour.",
+    "limit-50-pdf-per-export": "Limite de 50 PDF par exportation",
+    "mark-as-read": "Marquer comme lu",
+    "next-picture": "Photo suivante",
+    "only-team-owners-can-invite": "Seuls les propriétaires d'équipe peuvent inviter",
+    "please-select-category": "Veuillez sélectionner la catégorie qui restera après la fusion.",
+    "prev-picture": "Photo précédente",
+    "product-archived-successfully": "Les produits ont été archivés avec succès",
+    "product-created-with-success": "Votre produit a été créé avec succès",
+    "products-archived-successfully": "Les produits ont été archivés avec succès",
+    "pwd-changed": "Mot de passe changé",
+    "pwd-reset-successfully": "Votre mot de passe a été réinitialisé avec succès!",
+    "pwd-unchanged": "Mot de passe inchangé",
+    "rated-your-product": "évalué votre produit",
+    "remove-1-file": "Supprimer 1 fichier?",
+    "sample-created-with-success": "Votre échantillon a été créé avec succès",
+    "there-is-an-error": "Il y a une erreur, veuillez réessayer dans quelques instants.",
+    "unnamed-product": "Produit sans nom",
+    "we-are-creating-team": "Nous créons votre équipe, veuillez patienter!",
+    "your-export-is-being-processed": "Votre export est en cours de traitement",
+    "your-files-uploaded-with-success": "Vos fichiers ont été téléchargés avec succès",
+    "your-imgs-uploaded-with-success": "Vos images ont été téléchargées avec succès",
+    "your-invitation-was-sent-to": "Votre invitation a été envoyée à",
+    "your-items-updated": "Vos articles ont été mis à jour",
+    "your-product-not-created": "Votre produit n'a pas pu être créé",
+    "your-projects-added-success": "Vos projets ont été ajoutés au produit avec succès"
+  },
+  "nav": {
+    "my-samples": "Mes échantillons",
+    "my-tasks": "Mes tâches",
+    "my-workflow": "Mon flux de travail"
+  },
+  "paragraph": {
+    "pwResetted_reset": "Nous vous avons envoyé des instructions pour récupérer votre mot de passe."
+  },
+  "placeholder": {
+    "add-price-label": "Ajouter une étiquette de prix",
+    "choose": "Choisir",
+    "choose-assignee": "Choisissez un cessionnaire",
+    "choose-property": "Choisissez une propriété",
+    "choose-status": "Choisissez un statut",
+    "confirm-new-pwd": "Confirmez le nouveau mot de passe",
+    "contact-email-address": "adresse e-mail de contact",
+    "contact-function": "Fonction de contact",
+    "contact-name": "Nom du contact",
+    "contact-phone-number": "Numéro de téléphone de contact",
+    "email-or-contact": "Email ou contact",
+    "height": "la taille",
+    "intro-current-pwd": "Introduisez votre mot de passe actuel",
+    "intro-new-pwd": "Introduisez le nouveau mot de passe",
+    "length": "Longueur",
+    "no-data": "Pas de données",
+    "no-exports": "Aucune exportation",
+    "no-invitation": "Aucune invitation",
+    "no-product": "Aucun produit",
+    "no-project": "pas de projet",
+    "no-requests": "Aucune demande",
+    "no-sample": "pas d'échantillon",
+    "no-supplier": "Pas de fournisseur",
+    "no-task": "Ne pas demander",
+    "no-team-member": "Aucun membre de l'équipe",
+    "quantity": "Quantité",
+    "quick-rfq": "RFQ rapide",
+    "quote-request": "Demande de citation",
+    "reply-message-buyer": "Message de réponse à l'acheteur",
+    "sample-name": "Nom de l'échantillon",
+    "search-your-product": "Rechercher votre produit",
+    "search-your-supplier": "Recherchez votre fournisseur",
+    "select-supplier": "Sélectionnez un fournisseur",
+    "select-template": "Sélectionnez un modèle",
+    "template-name": "Nom du modèle",
+    "type-business-name": "Tapez le nom de votre entreprise",
+    "type-to-search": "Tapez pour rechercher",
+    "unit": "Unité",
+    "weight": "Poids",
+    "width": "largeur",
+    "write-comment-here": "Écrivez votre commentaire ici",
+    "your-email": "Votre email",
+    "your-first-name": "Ton prénom",
+    "your-last-name": "Votre nom de famille",
+    "your-password": "Votre mot de passe"
+  },
+  "placeholer": {
+    "no-description-yet": "Pas encore de description"
+  },
+  "screens": {
+    "onboarding-1": {
+      "text": "ShowSourcing est un puissant outil collaboratif pour dynamiser vos processus de développement de produits.",
+      "title": "Bienvenue sur ShowSourcing!"
+    },
+    "onboarding-2": {
+      "text": "Fatigué de prendre des notes manuellement et de passer vos soirées à transcrire les données sur des feuilles Excel? L'application mobile de <br> \n ShowSourcing vous aidera à prendre des notes efficacement tout en assistant à un salon professionnel ou à une visite d'usine.",
+      "title": "Travailler sur le pouce"
+    },
+    "onboarding-3": {
+      "text": "Vous rencontrez des difficultés pour partager des données entre collègues, équipes ou bureaux? \n <br> \n Invitez toute votre équipe (acheteurs, spécialistes du marketing, etc.) et partagez instantanément toutes vos conclusions.",
+      "title": "Centraliser vos données"
+    },
+    "onboarding-4": {
+      "text": "Intégrez votre fournisseur au développement de vos produits, posez-leur des questions, demandez un devis, des informations et bien plus encore!",
+      "title": "Communiquez avec vos fournisseurs"
+    },
+    "onboarding-5": {
+      "text": "Pas plus de prise de décision rapide et sale. Analysez facilement les produits, visualisez l'ensemble de votre processus et déterminez l'adéquation du marché au même endroit.",
+      "title": "Prenez de meilleures décisions plus rapidement"
+    }
+  },
+  "select-assignee": "Sélectionner un cessionnaire",
+  "text": {
+    "add-description": "Ajouter une description",
+    "all-product-pictures": "Toutes les images de produits",
+    "archived": "Archivé",
+    "assigned-to-me": "Assigné à moi",
+    "board": "Planche",
+    "carton-size": "Taille du carton",
+    "category": "Catégorie",
+    "check-inbox-email-validate": "Veuillez vérifier votre boîte de réception pour valider votre email ...",
+    "clear-all-filters": "Effacer tous les filtres",
+    "completed-tasks": "Tâches terminées",
+    "confirm-new-pwd": "Confirmer le nouveau mot de passe",
+    "contributor": "donateur",
+    "create-new": "Créer un nouveau",
+    "create-team-and-source": "Créez votre équipe et démarrez le sourcing",
+    "created-by": "Créé par:",
+    "created-on": "Créé sur:",
+    "data-cleansing": "Nettoyage des données",
+    "delete": "effacer",
+    "description": "la description",
+    "dislike": "Ne pas aimer",
+    "do-you-have-acc": "Avez-vous un compte ?",
+    "event": "un événement",
+    "export": "exporter",
+    "extended-fields": "Champs étendus",
+    "favorite": "Préféré",
+    "fields": "des champs",
+    "filters": "filtres",
+    "harbour": "Port",
+    "inco-term": "Terme Inco",
+    "invitations": "invitations",
+    "invite-more-members": "Inviter plus de membres de l'équipe",
+    "invites-you-join": "vous invite à rejoindre",
+    "last-updated-on": "Dernière mise à jour le:",
+    "like": "Comme",
+    "list": "liste",
+    "mark-all-as-read": "tout marquer comme lu",
+    "master-carton": "Carton principal",
+    "merge": "fusionner",
+    "message": "message",
+    "more": "Plus",
+    "new-pwd": "Nouveau mot de passe",
+    "new-pwd-must-match": "Le nouveau mot de passe doit correspondre",
+    "new-template": "Nouveau modèle",
+    "no-contact-for-supplier": "Pas de contact pour ce fournisseur",
+    "no-documents-attached": "Aucun document joint",
+    "no-picture": "Pas d'image",
+    "no-projects-added": "Aucun projet ajouté",
+    "no-team-members": "Aucun membre de l'équipe",
+    "no-vote": "Pas encore de vote",
+    "now-invite-members": "Invitez maintenant les membres de votre équipe",
+    "packaging": "Emballage",
+    "pcs-per-master": "Pièces par maître",
+    "pdf": "Pdf",
+    "perfect-for-editing": "Parfait pour l'édition",
+    "perfect-for-sharing": "Parfait pour le partage",
+    "pictures": "Des photos",
+    "please-enter-pwd": "Veuillez entrer votre nouveau mot de passe",
+    "please-hold-modif-internet": "Veuillez patienter pendant que nous modifions Internet pour vous!",
+    "please-login-to-your-account": "Veuillez vous connecter à votre compte",
+    "preview": "aperçu",
+    "product-list": "Liste de produits",
+    "project-name": "nom du projet",
+    "project-picture": "Photo du projet",
+    "projectCard_description": "",
+    "pwd-must-match": "Le nouveau mot de passe doit correspondre",
+    "rename": "Renommer",
+    "select-info-template-supplier": "Sélectionnez les informations que vous souhaitez demander au fournisseur.",
+    "select-team-or-create": "Sélectionnez l’équipe à laquelle vous voulez vous connecter ou créez-en une nouvelle",
+    "selection": "sélection",
+    "sent": "envoyé",
+    "set-event": "Définir l'événement",
+    "set-location": "Définir l'emplacement",
+    "set-product": "Set produit",
+    "set-supplier": "Set fournisseur",
+    "set-supplier-type": "Définir le type de fournisseur",
+    "settings": "réglages",
+    "show-archived-products": "Afficher les produits archivés",
+    "show-only-my-sample": "Montrer mes échantillons seulement",
+    "tag": "étiquette",
+    "team-leader": "Chef d'équipe",
+    "team-member": "Membre de l'équipe",
+    "team-members": "Membres de l'équipe",
+    "team-owner": "Propriétaire d'équipe",
+    "thumb": "la grille",
+    "to-merge-to": "fusionner pour",
+    "trading": "Commerce",
+    "validating-email": "Validation de l'email ...",
+    "we-have-pb-with-srv": "Nous avons un problème avec notre serveur. Une équipe de singes hautement entraînés tente actuellement de résoudre ce problème. \n Veuillez réessayer ultérieurement.",
+    "we-will-send-you-instructions": "Nous vous enverrons des instructions pour récupérer votre mot de passe.",
+    "workflow": "flux de travail",
+    "you-r-invited": "Vous êtes invité à rejoindre ShowSourcing",
+    "your-collab-plat": "Votre plate-forme de sourcing collaboratif pour \n <br> \n votre équipe et vos fournisseurs."
+  },
+  "title": {
+    "activities": "Activités",
+    "assignee": "cessionnaire",
+    "category": "catégorie",
+    "comments": "commentaires",
+    "confirm": "Confirmer",
+    "country": "pays",
+    "created-by": "créé par",
+    "created-new-product": "Créé un nouveau produit",
+    "created-new-supplier": "Créé un nouveau fournisseur",
+    "created-on": "créé sur",
+    "creation-date": "date de création",
+    "data-cleansing": "Nettoyage des données",
+    "description": "la description",
+    "error": "Erreur",
+    "excel": "Exceller",
+    "exports": "Exportations",
+    "favorite": "préféré",
+    "invitation-accepted": "Invitation acceptée",
+    "invitation-refused": "Invitation refusée",
+    "invitation-sent": "Invitation envoyée",
+    "invitations": "Invitations",
+    "last-updated": "dernière mise à jour",
+    "lastest-noti": "Dernières notifications",
+    "moq": "qma",
+    "multiple-edition": "Édition multiple",
+    "my-products": "Mes produits",
+    "my-projects": "Mes projets",
+    "my-samples": "mes échantillons",
+    "my-suppliers": "Mes fournisseurs",
+    "my-workspace": "Mon espace de travail",
+    "name": "nom",
+    "new-comment": "Nouveau commentaire",
+    "no-noti-yet": "Aucune notification pour le moment!",
+    "notifications": "Les notifications",
+    "owner": "propriétaire",
+    "price": "prix",
+    "product": "produit",
+    "product-archived": "Produit archivé",
+    "product-count": "nombre de produits",
+    "product-created": "Produit créé",
+    "product-not-created": "Produit non créé",
+    "product-not-exist": "Le produit n'existe pas",
+    "product-type": "type de produit",
+    "products-archived": "Produits archivés",
+    "profile": "Profil",
+    "project": "Projet",
+    "projects": "projets",
+    "projects-added": "Projets ajoutés",
+    "pwd-changed": "Votre mot de passe a été changé avec succès",
+    "pwd-unchanged": "Votre mot de passe n'a pas pu être changé, le mot de passe actuel est incorrect",
+    "reference": "référence",
+    "request-not-exist": "La demande n'existe pas",
+    "requests": "Demandes",
+    "sample-created": "Échantillon créé",
+    "sample-not-created": "Échantillon non créé",
+    "search": "Chercher",
+    "sent-by": "envoyée par",
+    "sent-on": "envoyé sur",
+    "sent-to": "envoyé à",
+    "showsourcing-fields": "ShowSourcing - Champs",
+    "status": "statut",
+    "supplier": "fournisseur",
+    "supplier-not-exist": "Le fournisseur n'existe pas",
+    "team-members": "Membres de l'équipe",
+    "title": "Titre",
+    "type": "type",
+    "user-profile": "Profil de l'utilisateur",
+    "workflows": "Flux de travail",
+    "your-message": "Votre message"
+  }
 }
