@@ -22,7 +22,7 @@ export class ProductCardActivitiesComponent implements OnInit {
 	hasTaskOverdue: boolean;
 
 	openRequestsCount$: Observable<number>;
-	openReviewRequestsCount$: Observable<number>;
+	requestsCount$: Observable<number>;
 
 	constructor(
 		private requestElementService: RequestElementService,
@@ -30,11 +30,11 @@ export class ProductCardActivitiesComponent implements OnInit {
 	) { }
 
 	ngOnInit() {
-		this.openRequestsCount$ = this.requestElementService
-			.queryCount(`targetId == "${this.id}" AND targetedEntityType == "Product" AND (reply.status != "${ReplyStatus.CANCELED}")`);
+			this.openRequestsCount$ = this.requestElementService
+				.queryCount(`targetId == "${this.id}" AND targetedEntityType == "Product" AND (reply.status == "${ReplyStatus.REPLIED}")`);
 
-		this.openReviewRequestsCount$ = this.requestElementService
-			.queryCount(`targetId == "${this.id}" AND targetedEntityType == "Product" AND (reply.status == "${ReplyStatus.REPLIED}")`);
+			this.requestsCount$ = this.requestElementService
+				.queryCount(`targetId == "${this.id}" AND targetedEntityType == "Product"`);
 
 		this.hasTaskOverdue = this.hasTasksOverdue(this.id);
 	}
@@ -47,6 +47,7 @@ export class ProductCardActivitiesComponent implements OnInit {
 		const foundElem = (this.rows as any[]).find(o => o.id === id);
 
 		if (foundElem
+			&& foundElem.tasksLinked
 			&& foundElem.tasksLinked.count
 			&& (foundElem.tasksLinked.items.filter(t => this.isTaskOverdued(t)).length > 0)) {
 			return true;

@@ -29,6 +29,9 @@ import { SubPanelService } from '../../services/sub-panel.service';
 })
 export class SubPanelComponent extends AutoUnsub implements OnInit {
 	isArchivedShown = false;
+	archiveChecked = false;
+	isCompletedTaskChecked = false;
+	isTaskCreatedByMeOnlyChecked = false;
 	isAssigned = false;
 	/** whether we should display the filter icon */
 	@Input() hasFilter = true;
@@ -45,6 +48,10 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 	@Input() switchContent: ['list-menu', 'board', 'kanban' | 'grid'] = ['list-menu', 'board', 'grid'];
 	// whether the screen has a search input
 	@Input() hasSearch = true;
+	// whether we should display show completed checkbox
+	@Input() hasCompletedTask = false;
+	// whether we should display show tasks created by me checkbox
+	@Input() hasTaskCreatedByMeOnly = false;
 
 	@Input() title: string;
 	@Input() count = 0;
@@ -78,12 +85,18 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 	@Output() filterClick = new EventEmitter<null>();
 	/** show archived products */
 	@Output() showArchived = new EventEmitter<undefined>();
-	/** show archived products */
+	/** hide archived products */
 	@Output() hideArchived = new EventEmitter<undefined>();
 
 	/** show only the products assigned to the current user */
 	@Output() showAssigned = new EventEmitter<undefined>();
 	@Output() hideAssigned = new EventEmitter<undefined>();
+
+	@Output() showTasksCreatedByMeOnly = new EventEmitter<undefined>();
+	@Output() hideTasksCreatedByMeOnly = new EventEmitter<undefined>();
+
+	@Output() showTasksCompleted = new EventEmitter<undefined>();
+	@Output() hideTasksCompleted = new EventEmitter<undefined>();
 
 	@Output() export = new EventEmitter<undefined>();
 
@@ -155,6 +168,16 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 		this.assignedChange();
 	}
 
+	toggleCreatedTaskOnly() {
+		this.isTaskCreatedByMeOnlyChecked = !this.isTaskCreatedByMeOnlyChecked;
+		this.tasksOnlyChanged();
+	}
+
+	toggleCompletedTask() {
+		this.isCompletedTaskChecked = !this.isCompletedTaskChecked;
+		this.tasksCompletedChanged();
+	}
+
 	private archivedChange() {
 		if (this.isArchivedShown) {
 			this.showArchived.emit();
@@ -168,6 +191,22 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 			this.showAssigned.emit();
 		} else {
 			this.hideAssigned.emit();
+		}
+	}
+
+	private tasksOnlyChanged() {
+		if (this.isTaskCreatedByMeOnlyChecked) {
+			this.showTasksCreatedByMeOnly.emit();
+		} else {
+			this.hideTasksCreatedByMeOnly.emit();
+		}
+	}
+
+	private tasksCompletedChanged() {
+		if (this.isCompletedTaskChecked) {
+			this.showTasksCompleted.emit();
+		} else {
+			this.hideTasksCompleted.emit();
 		}
 	}
 

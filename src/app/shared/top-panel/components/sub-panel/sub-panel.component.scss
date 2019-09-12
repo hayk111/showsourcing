@@ -13,11 +13,14 @@
 }
 
 .short {
+	width: inherit;
 	max-width: 327px;
 }
 
 .search-container {
+	width: 50%;
 	align-items: center;
+	justify-content: normal;
 
 	> *:not(:first-child) {
 		margin-left: var(--spacing-ms);
@@ -96,9 +99,11 @@
   color: var(--color-bg-dark);
 }
 
-.show-archived-container, .assigned-to-me-container {
+.show-archived-container,
+.assigned-to-me-container,
+.tasks-created-by-me-container,
+.show-completed-container {
 	position: relative;
-	width: 132px;
 	height: 32px;
   line-height: 32px;
 	background-color: var(--color-secondary);
@@ -112,6 +117,22 @@
 		display: inline-block;
 		margin-right: var(--spacing-xs);
 	}
+}
+
+.show-archived-container {
+	width: 132px;
+}
+
+.assigned-to-me-container {
+	width: 131px;
+}
+
+.tasks-created-by-me-container {
+	width: 196px;
+}
+
+.show-completed-container {
+	width: 143px;
 }
 
 .show-archived, .assigned-to-me {
@@ -143,14 +164,14 @@
 		width: 14px;
 		height: 14px;
 		background: white;
-		border-radius: var(--border-radius);		
+		border-radius: var(--border-radius);
   }
 
   // Box checked
   &:checked + label:before {
     background: #45ADFF;
   }
-  
+
   // Disabled state label.
   &:disabled + label {
     color: #b8b8b8;
@@ -172,7 +193,7 @@
   font-weight: 600;
   line-height: 1.43;
   text-align: center;
-  color: var(--color-secondary-contrast);  
+  color: var(--color-secondary-contrast);
 }
 
 .divider {
