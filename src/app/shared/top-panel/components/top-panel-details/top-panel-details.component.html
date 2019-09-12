@@ -1,13 +1,14 @@
 
 <div class="panel-container">
 	<div class="flex left container">
-		<icon-app
+		<logo-app
 			*ngIf="hasBackArrow"
-			class="backArrow flexStart"
-			name="close-pane-left"
-			size="l"
+			class="backArrow"
+			icon="close-pane-left"
+			size="m"
+			[backgroundSize]="40"
 			(click)="goBack()">
-		</icon-app>
+		</logo-app>
 
 		<div *ngIf="hasLogo" class="logo">
 			<ng-content select="logo-app"></ng-content>

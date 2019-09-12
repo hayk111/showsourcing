@@ -13,7 +13,7 @@
 
 .left {
 	.info {
-		margin-left: var(--spacing-l);
+		margin-left: var(--spacing-ms);
 		.title-container {
 			align-items: flex-end;
 		}
@@ -51,10 +51,8 @@
 
 .backArrow {
 	color: var(--color-txt-secondary);
-	align-items: flex-start;
 	font-size: var(--font-size-s);
-	margin-top: var(--spacing-s);
-	margin-right: var(--spacing-xl);
+	margin-right: var(--spacing-l);
 }
 
 .logo {
