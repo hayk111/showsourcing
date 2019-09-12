@@ -71,6 +71,19 @@ export class TasksPageComponent extends AutoUnsub implements OnInit {
 		);
 	}
 
+	showTasksCreatedByMeOnly() {
+		const predicate = this.listSrv.filterList.asPredicate();
+		const query = `${predicate && predicate + ' AND '} (createdBy.id == "${this.userSrv.userSync.id}")`;
+
+		this.listSrv.refetch({
+			query
+		}).subscribe();
+	}
+
+	hideTasksCreatedByMeOnly() {
+		this.listSrv.refetch().subscribe();
+	}
+
 	toggleMyProducts(show: boolean) {
 		const filterAssignee = { type: FilterType.ASSIGNEE, value: this.userSrv.userSync.id };
 		if (show)

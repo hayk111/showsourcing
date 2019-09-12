@@ -11,9 +11,7 @@ export class PanelTabComponent implements OnInit {
 	@Input() name: string;
 	@Input() link: string;
 
-	constructor( ) {
-
-	}
+	constructor() {}
 
 	ngOnInit() {
 		if (this.link === undefined) {

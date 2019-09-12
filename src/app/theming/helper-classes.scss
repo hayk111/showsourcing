@@ -222,6 +222,15 @@
 	padding: 24px 24px 0 24px !important;
 }
 
+.small-gray-badge-separator {
+	height: 4px;
+	width: 4px;
+	background-color: var(--color-txt-secondary);
+	border-radius: 50%;
+	display: inline-block;
+	margin: var(--spacing-xxs) var(--spacing-s);
+}
+
 
 // https://developer.mozilla.org/en-US/docs/Web/CSS/will-change
 .will-change-scroll {
