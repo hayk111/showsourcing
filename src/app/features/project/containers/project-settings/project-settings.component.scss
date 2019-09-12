@@ -1,7 +1,8 @@
 card-app {
-	width: 520px;
+	width: 548px;
+	height: 455px;
 	margin: auto;
-	margin-top: var(--spacing-xl);
+	margin-top: 37px;
 }
 
 b{
@@ -30,4 +31,31 @@ b{
 
 input[type="file"] {
 	display: none;
+}
+
+panel-tab-app:first-child {
+	margin-left: 62px;
+}
+
+.right-items {
+	margin-bottom: 10px;
+}
+
+.vertical-dots {
+	background: var(--color-bg-secondary);
+	width: 40px;
+	height: 40px;
+	padding: 0;
+	margin-left: var(--spacing-ms);
+
+	icon-app {
+		color: var(--color-txt-third);
+	}
+}
+
+top-panel-details-app {
+	background: var(--color-bg);
+	.tabs-container {
+		margin-left: 86px;
+	}
 }
