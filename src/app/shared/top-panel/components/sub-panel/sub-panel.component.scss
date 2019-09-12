@@ -120,11 +120,11 @@
 }
 
 .show-archived-container {
-	width: 132px;	
+	width: 132px;
 }
 
 .assigned-to-me-container {
-	width: 131px;	
+	width: 131px;
 }
 
 .tasks-created-by-me-container {
@@ -164,14 +164,14 @@
 		width: 14px;
 		height: 14px;
 		background: white;
-		border-radius: var(--border-radius);		
+		border-radius: var(--border-radius);
   }
 
   // Box checked
   &:checked + label:before {
     background: #45ADFF;
   }
-  
+
   // Disabled state label.
   &:disabled + label {
     color: #b8b8b8;
@@ -193,7 +193,7 @@
   font-weight: 600;
   line-height: 1.43;
   text-align: center;
-  color: var(--color-secondary-contrast);  
+  color: var(--color-secondary-contrast);
 }
 
 .divider {
