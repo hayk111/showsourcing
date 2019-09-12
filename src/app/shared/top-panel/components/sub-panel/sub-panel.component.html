@@ -4,7 +4,7 @@
 
 	<div class="search-container flex">
 		<ng-content select="search-autocomplete-app"></ng-content>
-		
+
 		<search-bar-app
 			*ngIf="hasSearch"
 			[formControl]="searchControl"
@@ -15,17 +15,25 @@
 			(keydown.enter)="triggerSmartSearch($event)">
 		</search-bar-app>
 
-		<button *ngIf="hasFilter && !filtersPanelOpened" class="bold-s pointer capitalize filter-button" 
-			(click)="showFilters.emit()" i18n="text@@show-filters">Filters</button>
-		<button *ngIf="hasFilter && !filtersPanelOpened" class="bold-s pointer capitalize clear-filter-button" 
-			(click)="clearFilters.emit()" i18n="text@@clear-filters">Clear Filters <span *ngIf="filtersAmount">({{filtersAmount}})</span>
+		<button
+			*ngIf="hasFilter && !filtersPanelOpened"
+			class="bold-s pointer capitalize filter-button"
+			(click)="showFilters.emit()" i18n="text@@show-filters">
+			Filters
+		</button>
+		<button
+			*ngIf="hasFilter && !filtersPanelOpened"
+			class="bold-s pointer capitalize clear-filter-button"
+			(click)="clearFilters.emit()"
+			i18n="text@@clear-filters">
+			Clear Filters <span *ngIf="filtersAmount">({{filtersAmount}})</span>
 		</button>
 		<div class="divider"></div>
 
 		<span class="bold-s capitalize entities-count">
 			{{count}} {{entityType}}
 		</span>
-				
+
 		<button *ngIf="filtersPanelOpened" class="bold-s pointer secondary capitalize" (click)="hideFilters.emit()" i18n="text@@show-filters">
 			Hide Filters
 		</button>
@@ -44,38 +52,46 @@
 			<div class="flexCenter">
 				<checkbox-app
 					[checked]="isArchivedShown"
-					[size]="15"></checkbox-app>Show Archived
+					[size]="15">
+				</checkbox-app>
+				Show Archived
 			</div>
 		</div>
-		<div 
+		<div
 			*ngIf="hasTaskCreatedByMeOnly"
 			class="tasks-created-by-me-container pointer"
 			(click)="toggleCreatedTaskOnly()">
 			<div class="flexCenter">
 				<checkbox-app
 					[checked]="isTaskCreatedByMeOnlyChecked"
-					[size]="15"></checkbox-app>Show tasks I created only
+					[size]="15">
+				</checkbox-app>
+				Show tasks I created only
 			</div>
 		</div>
-		<div 
-			*ngIf="hasCompletedTask" 
-			class="show-completed-container pointer" 
+		<div
+			*ngIf="hasCompletedTask"
+			class="show-completed-container pointer"
 			(click)="toggleCompletedTask()">
 			<div class="flexCenter">
 				<checkbox-app
 					[checked]="isCompletedTaskChecked"
-					[size]="15"></checkbox-app>Show Completed
+					[size]="15">
+				</checkbox-app>
+				Show Completed
 			</div>
 		</div>
 		<div class="assigned-to-me-container pointer" *ngIf="hasAssigned" (click)="toggleAssigned()">
 			<div class="flexCenter">
 				<checkbox-app
 					[checked]="isAssigned"
-					[size]="15"></checkbox-app>Assigned to me
+					[size]="15">
+				</checkbox-app>
+				Assigned to me
 			</div>
 		</div>
 
-		<button *ngIf="hasFilter && !filtersPanelOpened && hasExport" class="flexCenter bold-s pointer capitalize export-button" 
+		<button *ngIf="hasFilter && !filtersPanelOpened && hasExport" class="flexCenter bold-s pointer capitalize export-button"
 			(click)="export.emit()" i18n="text@@export">
 			<icon-app name="close-pane-bottom" size="m"></icon-app>
 			Export

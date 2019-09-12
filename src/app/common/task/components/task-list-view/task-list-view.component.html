@@ -25,25 +25,26 @@
 			delete
 		</context-menu-item-app>
 	</ng-template>
-	
+
 	<!-- dynamic columns -->
-	<ng-template 
-		*ngFor="let column of columnsConfig; trackBy: trackByFn" 
-		let-row="row" 
+	<ng-template
+		*ngFor="let column of columnsConfig; trackBy: trackByFn"
+		let-row="row"
 		[columnApp]="column.title"
 		[sortable]="column.sortable !== false"
 		[width]="column.width"
 		[sortBy]="column.sortProperty">
-		
+
     <ng-container [ngSwitch]="column.title">
 
 			<!-- task done -->
 			<ng-container *ngSwitchCase="''">
-				<icon-app 
+				<icon-app
 					class="pointer"
 					[ngClass]="row?.done ? 'task-is-done': 'task-not-done'"
 					[name]="row?.done ? 'check-circle' : 'check-circle-light'"
-				 [size]="24" ></icon-app>
+					[size]="24" >
+				</icon-app>
 			</ng-container>
 
 			<!-- reference -->
@@ -84,7 +85,7 @@
 			<!-- assignee -->
 			<ng-container *ngSwitchCase="'assigned to'">
 				<div *ngIf="row?.assignee" class="flex assignee-container ellipsis">
-					<user-picture-app	
+					<user-picture-app
 						[user]="row?.assignee"
 						[image]="row?.assignee?.avatar"
 						[background]="false"
@@ -102,7 +103,7 @@
 			</ng-container>
 
 		</ng-container>
-		
+
 	</ng-template>
 
 </table-app>

@@ -46,7 +46,8 @@
 					<icon-app
 						[name]="column.sortOrder === 'DESC' ? 'angle-down' : 'angle-up'"
 						class="sortIcon fs-xs"
-						name="angle-down"></icon-app>
+						name="angle-down">
+					</icon-app>
 				</ng-container>
 			</div>
 
@@ -87,10 +88,11 @@
 							[ngStyle]="{ visibility: ((i === hoverIndex) || isSelected(row, i)) ? 'visible' : 'hidden' }"
 							[closeOnScroll]="true">
 							<context-menu-trigger-app>
-								<icon-app *ngIf="isContextMenuHorizontal; else verticalContext" class="color-txt-third" name="dots-horizontal" size="18"></icon-app>
-								<ng-template #verticalContext>
-									<icon-app class="color-txt-third" name="dots-vertical" size="18"></icon-app>
-								</ng-template>
+								<icon-app
+									class="color-txt-third"
+									[name]="isContextMenuHorizontal ? 'dots-horizontal' : 'dots-vertical'"
+									size="18">
+								</icon-app>
 							</context-menu-trigger-app>
 							<ng-container
 								*ngTemplateOutlet="contextualMenu; context: { column: column, row: row }">
