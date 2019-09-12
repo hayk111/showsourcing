@@ -79,7 +79,8 @@
 
 .clear-filter-button {
 	margin-left: 0px !important;
-	padding: 0 var(--font-size-s);
+	margin-right: var(--spacing-ms);
+	padding: 0 0 0 var(--spacing-ms);
 	background: transparent;
   font-size: var(--font-size-m);
   font-weight: 600;
