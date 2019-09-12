@@ -114,7 +114,8 @@
 		width="250">
 			<activities-bar-app
 				[row]="row"
-				[favourite]="row?.product?.favorite">
+				[favourite]="row?.favorite"
+				[hasComments]="!!row?.comments.length">
 			</activities-bar-app>
 	</ng-template>
 
@@ -126,11 +127,11 @@
 		let-row="row"
 		width="180">
 		<div class="status-col flexVAlign">
-			<user-picture-app 
-				[user]="row?.createdBy" 
-				[image]="row.createdBy?.avatar" 
-				[background]="false" 
-				[fontSize]="16" 
+			<user-picture-app
+				[user]="row?.createdBy"
+				[image]="row.createdBy?.avatar"
+				[background]="false"
+				[fontSize]="16"
 				size="32"></user-picture-app>
 			<status-selector-app [entity]="row" [typeEntity]="erm.SUPPLIER" selectSize="s"></status-selector-app>
 		</div>

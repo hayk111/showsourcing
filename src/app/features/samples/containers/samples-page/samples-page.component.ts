@@ -10,6 +10,7 @@ import { AutoUnsub } from '~utils';
 import { DialogService } from '~shared/dialog';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 import { SelectParams } from '~core/entity-services/_global/select-params';
+import { SubPanelService } from '~shared/top-panel/services/sub-panel.service';
 
 @Component({
 	selector: 'samples-page-app',
@@ -45,6 +46,7 @@ export class SamplesPageComponent extends AutoUnsub implements OnInit {
 		public elem: ElementRef,
 		protected dlgSrv: DialogService,
 		private userSrv: UserService,
+		private subPanelSrv: SubPanelService,
 	) {
 		super();
 	}
@@ -96,6 +98,15 @@ export class SamplesPageComponent extends AutoUnsub implements OnInit {
 	showItemsPerPage(count: number) {
 		this.selectItemsConfig = {take: Number(count)};
 		this.listSrv.refetch(this.selectItemsConfig).subscribe();
+	}
+
+	onClearFilters() {
+		this.listSrv.filterList.resetAll();
+
+		// this.listSrv.addFilter({ type: FilterType.ARCHIVED, value: false}); TODO backend
+		this.listSrv.addFilter({ type: FilterType.DELETED, value: false});
+
+		this.subPanelSrv.onFiltersClear();
 	}
 
 	onExport() {
