@@ -7,6 +7,10 @@
 	[isContextMenuHorizontal]="false"
 	[count]="count"
 	[currentPage]="currentPage"
+	[hasHeader]="hasHeader"
+	[hasMenu]="hasMenu"
+	[hasSelection]="hasSelection"
+	[hasPagination]="hasPagination"
 	placeholder="No Tasks"
 	(goToPage)="goToPage.emit($event)"
 	(selectOne)="select.emit($event)"
@@ -26,14 +30,14 @@
 		</context-menu-item-app>
 	</ng-template>
 
-	<!-- dynamic columns -->
-	<ng-template
-		*ngFor="let column of columnsConfig; trackBy: trackByFn"
-		let-row="row"
-		[columnApp]="column.title"
-		[sortable]="column.sortable !== false"
-		[width]="column.width"
-		[sortBy]="column.sortProperty">
+	  <!-- dynamic columns -->
+		<ng-template
+			*ngFor="let column of columnsConfig; trackBy: trackByFn"
+			let-row="row"
+			[columnApp]="column.title"
+			[sortable]="column.sortable !== false"
+			[width]="column.width"
+			[sortBy]="column.sortProperty">
 
     <ng-container [ngSwitch]="column.title">
 
@@ -57,6 +61,15 @@
 			<!-- name -->
 			<ng-container *ngSwitchCase="'name'">
 				<div class="mainCellWrapper name-container ellipsis">
+<<<<<<< HEAD
+					<div class="mainCell">
+						<logo-app [logo]="row?.images ? row?.images[0] : null" type="task" size="m"></logo-app>
+						<span class="ellipsis pointer txt-btn" (click)="previewClick.emit(row)">{{ row?.name }}</span>
+					</div>
+					<div class="preview" *ngIf="hasPreview">
+						<button class="secondary-dark small" (click)="previewClick.emit(row)" i18n="@@preview">preview</button>
+					</div>
+=======
 					<span class="ellipsis pointer txt-btn" (click)="previewClick.emit(row)">{{ row?.name }}</span>
 				</div>
 			</ng-container>
@@ -79,6 +92,7 @@
 			<ng-container *ngSwitchCase="'due date'">
 				<div class="mainCellWrapper due-date-container ellipsis">
 					<span class="ellipsis">{{ row?.dueDate | date: 'dd MMM y' }}</span>
+>>>>>>> v3.0.0
 				</div>
 			</ng-container>
 
@@ -98,7 +112,17 @@
 			<!-- status -->
 			<ng-container *ngSwitchCase="'status'">
 				<div class="status-col flexVAlign">
+<<<<<<< HEAD
+					<user-picture-app
+						[user]="row?.createdBy"
+						[image]="row.createdBy?.avatar"
+						[background]="false"
+						[fontSize]="16"
+						size="32"></user-picture-app>
+					<status-selector-app [entity]="row" [typeEntity]="erm.TASK" [canUpdate]="canUpdate" selectSize="s"></status-selector-app>
+=======
 					<status-selector-app [entity]="row" [typeEntity]="erm.TASK" selectSize="s"></status-selector-app>
+>>>>>>> v3.0.0
 				</div>
 			</ng-container>
 
