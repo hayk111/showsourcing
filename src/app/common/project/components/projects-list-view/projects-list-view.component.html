@@ -17,8 +17,8 @@
 	(unselectAll)="unselectAll.emit($event)"
 	(bottomReached)="bottomReached.emit()"
 	(sort)="sort.emit($event)"
-	i18n-placeholder="@@no-project"
-	(showItemsPerPage)="showItemsPerPage.emit($event)">
+	(showItemsPerPage)="showItemsPerPage.emit($event)"
+	i18n-placeholder="@@no-project">
 
 	<!-- contextual menu -->
 	<ng-template #contextualMenuTemplate let-row="row">
@@ -31,20 +31,20 @@
 	</ng-template>
 
   <!-- dynamic columns -->
-  <ng-template 
-    *ngFor="let column of columnsConfig; trackBy: trackByFn" 
-    let-row="row" 
+  <ng-template
+    *ngFor="let column of columnsConfig; trackBy: trackByFn"
+    let-row="row"
     [columnApp]="column.title"
     [width]="column.width"
 		[sortBy]="column.sortProperty">
-		
+
     <ng-container [ngSwitch]="column.title">
 
       <!-- name -->
       <ng-container *ngSwitchCase="'name'">
 				<div class="project flexVAlign">
 					<logo-app class="mini imgCtnr" [color]="color.PRIMARY" size="m" type="project"></logo-app>
-					<a class="project-name flexVAlign txt-btn capitalize ellipsis" 
+					<a class="project-name flexVAlign txt-btn capitalize ellipsis"
 						[routerLink]="['/project', row.id]">
 						{{ row?.name }}
 					</a>
@@ -54,14 +54,14 @@
 			<!-- owner -->
 			<ng-container *ngSwitchCase="'project lead'">
 				<div class="project-owner flexVAlign">
-					<user-picture-app 
-						[user]="row?.createdBy" 
-						[image]="row?.createdBy?.avatar" 
+					<user-picture-app
+						[user]="row?.createdBy"
+						[image]="row?.createdBy?.avatar"
 						[background]="false"
 						[fontSize]="16"
 						></user-picture-app>
 					<span class="project-lead">
-						{{ row?.createdBy?.firstName }} {{ row?.createdBy?.lastName }}
+						{{ row?.createdBy | formatUserName: true }}
 					</span>
 				</div>
 			</ng-container>
@@ -80,7 +80,7 @@
 
 			<!-- created by -->
       <ng-container *ngSwitchCase="'created by'">
-				<span class="created-by">{{ row?.createdBy | formatUserName:true }}</span>
+				<span class="created-by">{{ row?.createdBy | formatUserName: true }}</span>
 			</ng-container>
 
 			<!-- creation date -->

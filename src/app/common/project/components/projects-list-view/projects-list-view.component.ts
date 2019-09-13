@@ -6,7 +6,9 @@ import { Color } from '~utils';
 const tableConfig: TableConfig = {
 	name: { title: 'name', width: 240, sortProperty: 'name' },
 	owner: { title: 'project lead', width: 184, sortProperty: 'createdBy.firstName' },
-	dueDate: { title: 'due date', width: 140, sortable: false }, // should be sortable, made false because dueDate property doesn't exist now
+	// TODO Backend duedate
+	// dueDate: { title: 'due date', width: 140, sortProperty: 'dueDate' },
+	dueDate: { title: 'due date', width: 140, sortable: false },
 	status: { title: 'status', width: 100, sortProperty: 'status.step' },
 	createdBy: { title: 'created by', width: 140, sortProperty: 'creationDate' },
 	creationDate: { title: 'created on', width: 140, sortProperty: 'creationDate' },
