@@ -3,9 +3,11 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { DashboardCounters, DashboardService } from '~features/dashboard/services/dashboard.service';
 import { UserService } from '~entity-services';
-import { Task, User } from '~models';
+import { Task, User, RPCRequest, RPCActionTypes, RPCRequestStatus } from '~models';
 import { GroupedActivityFeed } from '~common/activity/interfaces/client-feed.interfaces';
 import { ActivityService } from '~common/activity/services/activity.service';
+import { RpcService } from '~core/entity-services/rpc/rpc.service';
+import { uuid } from '~utils';
 
 @Component({
 	selector: 'dashboard-app',
@@ -20,8 +22,10 @@ export class DashboardComponent implements OnInit {
 	user$: Observable<User>;
 	counters$: Observable<DashboardCounters>;
 	tasks$: Observable<Task[]>;
+	data$: RPCRequest;
 
 	constructor(
+		private rpcRequestSrv: RpcService,
 		private router: Router,
 		private activitySrv: ActivityService,
 		private dashboardSrv: DashboardService,
@@ -33,6 +37,7 @@ export class DashboardComponent implements OnInit {
 		this.user$ = this.userSrv.selectUser();
 		this.counters$ = this.dashboardSrv.getCounters();
 		this.tasks$ = this.dashboardSrv.getFirstFewTasks();
+		this.rpcRequestSrv.createRPC({id: uuid(), action: RPCActionTypes.GET_TEAM_STATS, status: RPCRequestStatus.PENDING});
 	}
 
 	redirInviteTeam() {
