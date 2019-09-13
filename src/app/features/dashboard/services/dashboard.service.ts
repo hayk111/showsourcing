@@ -130,14 +130,14 @@ export class DashboardService {
 
 	getCountSupplierTodo(): Observable<number> {
 		return this.supplierSrv.queryCount(
-			`assignee.id == "${this.userId}"`
+			`assignee.id == "${this.userId}" AND deleted == false AND archived == false`
 		).pipe(first());
 	}
 
 	getFirstFewSupplierTodo(): Observable<Supplier[]> {
 		return this.supplierSrv.queryMany({
 			take: 4,
-			query: `assignee.id == "${this.userId}"`,
+			query: `assignee.id == "${this.userId}" AND deleted == false AND archived == false`,
 			descending: false,
 		}).pipe(first());
 	}
@@ -163,14 +163,19 @@ export class DashboardService {
 
 	getCountTasksTodo(): Observable<number> {
 		return this.taskSrv.queryCount(
-			`assignee.id == "${this.userSrv.userSync.id}" AND done == false`
+			// TODO Backend: replace row below with the current query after archived field is ready;
+			// `assignee.id == "${this.userId}" AND done == false AND deleted == false AND archived == false`
+			`assignee.id == "${this.userId}" AND done == false AND deleted == false`
 		).pipe(first());
 	}
 
 	getFirstFewTasks(): Observable<Task[]> {
 		return this.taskSrv.queryMany({
 			take: 4,
-			query: `done == false && assignee.id == "${this.userId}"`,
+
+			// TODO Backend: replace row below with the current query after archived field is ready;
+			// query: `done == false && assignee.id == "${this.userId}" AND deleted == false AND archived == false`
+			query: `done == false && assignee.id == "${this.userId}" AND deleted == false`,
 			descending: false
 		}).pipe(first());
 	}
@@ -181,14 +186,19 @@ export class DashboardService {
 
 	getCountSamplesTodo() {
 		return this.sampleSrv.queryCount(
-			`assignee.id == "${this.userId}"`
+			// TODO Backend: replace row below with the current query after archived field is ready;
+			// `assignee.id == "${this.userId}" AND deleted == false AND archived == false`
+			`assignee.id == "${this.userId}" AND deleted == false`
 		).pipe(first());
 	}
 
 	getFirstFewSamplesTodo(): Observable<Sample[]> {
 		return this.sampleSrv.queryMany({
 			take: 4,
-			query: `assignee.id == "${this.userId}"`
+			// TODO Backend: replace row below with the current query after archived field is ready;
+			// query: `assignee.id == "${this.userId}" AND deleted == false AND archived == false`
+
+			query: `assignee.id == "${this.userId}" AND deleted == false`
 		}).pipe(first());
 	}
 

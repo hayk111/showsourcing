@@ -53,10 +53,10 @@
 			<ng-container *ngSwitchCase="'reference'">
 				<div class="ellipsis name-container contain-strict">
 					<div class="ellipsis reference">
-						<div *ngIf="hasPreview" class="preview-imgs" (click)="previewClick.emit(row)">
+						<div class="preview-imgs" (click)="previewClick.emit(row)">
 							<logo-app class="imgCtnr" (click)="previewClick.emit(row)" [logo]="row.logoImage"
 							 type="supplier" size="m"></logo-app>
-							<div class="hover-img">
+							<div class="hover-img" *ngIf="hasPreview">
 								<icon-app name="eye" [size]="18" class="preview-hover-img"></icon-app>
 							</div>
 						</div>
