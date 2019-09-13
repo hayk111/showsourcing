@@ -13,10 +13,6 @@ projects-list-view-app {
 	height: 100%;
 }
 
-.right {
-	flex-grow: 1;
-}
-
 .hr {
 	margin: var(--spacing-xl);
 	// top already has a padding, we don't want to double the space

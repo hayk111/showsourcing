@@ -8,8 +8,10 @@
 </top-panel-app>
 
 <sub-panel-app
+	entityType="projects"
 	[hasSwitch]="false"
 	[hasExport]="false"
+	[count]="listSrv.count$ | async"
   [hasFilter]="false"
   [filtersAmount]="listSrv.filterList.asFilters()?.length"
 	[searchValue]="listSrv.searchValue"

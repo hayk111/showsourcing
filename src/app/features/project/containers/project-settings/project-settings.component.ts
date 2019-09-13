@@ -1,10 +1,10 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, switchMap, take, takeUntil, tap } from 'rxjs/operators';
 import { ProjectService } from '~entity-services';
-import { Project } from '~models/project.model';
+import { ERM, Project } from '~models';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { AutoUnsub } from '~utils';
 
@@ -15,10 +15,17 @@ import { AutoUnsub } from '~utils';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProjectSettingsComponent extends AutoUnsub implements OnInit {
+
+	@Output() delete = new EventEmitter<Project>();
+	@Output() archive = new EventEmitter<Project>();
+
 	project$: Observable<Project>;
 	form: FormGroup;
 	id: string;
+	erm = ERM;
+
 	constructor(
+		private	router: Router,
 		private route: ActivatedRoute,
 		private projectSrv: ProjectService,
 		private fb: FormBuilder,
@@ -58,4 +65,7 @@ export class ProjectSettingsComponent extends AutoUnsub implements OnInit {
 		this.projectSrv.update({ id: this.id, ...proj }).subscribe();
 	}
 
+	getTabPanelUrl(panel: 'products' | 'settings'): string {
+		return this.router.url.substring(0, this.router.url.lastIndexOf('/') + 1) + panel;
+	}
 }
