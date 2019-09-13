@@ -1,3 +1,4 @@
+<!-- TODO i18n -->
 <preview-app *ngIf="supplier$ | async" [ngClass]="isRelative ? 'relative' : ''" cdk-scrollable
 	[align]="isRelative ? 'left' : 'right'" [isFixed]="isFixed">
 
@@ -49,7 +50,7 @@
 	</preview-header-app>
 
 	<!-- Description -->
-	<preview-section-app [title]="'description'" i18n-title="@@description">
+	<preview-section-app [title]="'title.description' | translate">
 		<input-description-app
 			[description]="supplier?.description"
 			(update)="update($event, 'description')">
@@ -57,7 +58,7 @@
 	</preview-section-app>
 
 	<!-- Tags -->
-	<preview-section-app [title]="'Tags'">
+	<preview-section-app [title]="'title.tags' | translate">
 		<input-badge-selector-app
 			[value]="supplier?.tags"
 			type="tag"
@@ -66,7 +67,7 @@
 	</preview-section-app>
 
 	<!-- Supplier Details -->
-	<preview-section-app [title]="'Supplier Details'">
+	<preview-section-app [title]="'title.supplier-details' | translate">
 		<dynamic-form-app
 			[fields]="supplierDescirptor?.descriptor"
 			[inlineLabel]="true"
@@ -78,7 +79,7 @@
 
 
 	<!-- Extended Fields -->
-	<preview-section-app *ngIf="(fieldDefinitions$ | async)?.length" [title]="'Extended Fields'">
+	<preview-section-app *ngIf="(fieldDefinitions$ | async)?.length" [title]="'title.extended-fields' | translate">
 		<extended-form-app
 			[inlineLabel]="true"
 			[definitions]="fieldDefinitions$ | async"
@@ -88,14 +89,14 @@
 	</preview-section-app>
 
 	<!-- Activity -->
-	<preview-section-app *ngIf="!isRelative && supplier?.comments?.length" [title]="'Comments'">
+	<preview-section-app *ngIf="!isRelative && supplier?.comments?.length" [title]="'title.comments' | translate">
 		<comment-list-app [comments]="supplier.comments"></comment-list-app>
 	</preview-section-app>
 
 	<preview-comment-app *ngIf="!isRelative" (added)="addComment($event)"></preview-comment-app>
 
 	<!-- Info -->
-	<preview-section-app *ngIf="isRelative && !isFixed" [title]="'Info'"  class="no-mg-bottom">
+	<preview-section-app *ngIf="isRelative && !isFixed" [title]="'title.info' | translate"  class="no-mg-bottom">
 		<div class="flexColumn">
 			<span class="color-txt-strong">Created by {{ supplier?.createdBy | formatUserName: true }} on {{ supplier?.creationDate | date: 'dd MMMM yyyy' }}</span>
 			<span class="color-txt-strong">Last updated by {{ supplier?.lastUpdatedBy | formatUserName: true }} on {{ (supplier?.lastUpdatedDate || product?.creationDate) | date: 'dd MMMM yyyy' }}</span>

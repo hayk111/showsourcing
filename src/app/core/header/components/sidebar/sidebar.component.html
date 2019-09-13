@@ -12,9 +12,11 @@
 	<sidebar-item-app [icon]="'envelope'" [link]="['/request']" [badge]="(requestCount$ | async) > 0 ? (requestCount$ | async) : null"></sidebar-item-app>
 	<sidebar-item-app [icon]="'smile'" [link]="['/component-library']" *ngIf="!isProd"></sidebar-item-app>
 
-	<!-- TEST i18n -->
+	<!-- TODO i18n : remove these. Just for test ngx-translate -->
 	<button (click)="changeLang('en')">EN</button>
 	<button (click)="changeLang('fr')">FR</button>
+	<button (click)="changeLang('es')">ES</button>
+	<button (click)="changeLang('zh')">ZH</button>
 </nav>
 
 <div class="flexCenter bottom">

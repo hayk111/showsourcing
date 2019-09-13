@@ -12,8 +12,7 @@
 		<div *ngIf="request?.sender?.name">{{ request.sender.name }}</div>
 		<div *ngIf="request?.sender?.company">{{ request.sender.company }}</div>
 		<div>
-			{{ request?.requestElements?.length }}
-			<ng-container i18n="text|number of elements selected@@element">{ request?.requestElements?.length || 0, plural, =1 { Element } other { Elements } }</ng-container>
+			{{ ((request?.requestElements?.length || 0) > 1 ? 'OBJ.n-element.plural' : 'OBJ.n-element.singular') | translate: {count: request?.requestElements?.length || 0} }}
 		</div>
 	</div>
 </top-panel-details-app>

@@ -3,10 +3,10 @@
 	<div class="spacer mg-s"></div>
 	<div class="flex flexGrow">
 		<div class="w-5"></div>
-		<div class="w-5 capitalize" i18n="@@step">step</div>
-		<div class="w-40 capitalize" i18n="@@name">name</div>
-		<div class="w-20 capitalize" i18n="@@cateogry">category</div>
-		<div class="w-20 capitalize" i18n="@@final-step">Final step</div>
+		<div class="w-5 capitalize" translate="text.step"></div>
+		<div class="w-40 capitalize" translate="text.name"></div>
+		<div class="w-20 capitalize" translate="text.cateogry"></div>
+		<div class="w-20 capitalize" translate="text.final-step"></div>
 		<div class="w-10"></div>
 	</div>
 
@@ -35,7 +35,7 @@
 					(opened)="inp.focus()" (closed)="onEditableClose($event, inp.value, status)">
 					<editable-label-app [ngClass]="{ 'no-hover': status.step == 0 }">
 						{{ status.name | const: 'statuses' }}
-						<button *ngIf="status?.step !== 0" class="ugly-btn" i18n="@@rename">rename</button>
+						<button *ngIf="status?.step !== 0" class="ugly-btn" translate="button.rename"></button>
 					</editable-label-app>
 					<input #inp inputApp type="text" [value]="status?.name" (keyup.enter)="editable.close()"/>
 				</editable-text-app>
@@ -67,7 +67,7 @@
 			</div>
 			<!-- preview -->
 			<div class="w-10 cell">
-				<button *ngIf="status.step !== 0" class="ugly-btn capitalize" (click)="delete.emit(status.id)" i18n="@@delete-status">Delete status</button>
+				<button *ngIf="status.step !== 0" class="ugly-btn capitalize" (click)="delete.emit(status.id)" translate="button.delete-status"></button>
 			</div>
 		</div>
 	</div>

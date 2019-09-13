@@ -1,6 +1,5 @@
 <dialog-app>
-  <dialog-header-app i18n="@@add-products-to-project">
-    Add Products to project
+  <dialog-header-app translate="header.add-products-to-project">
   </dialog-header-app>
 
   <div *ngIf="listSrv.items$ | async as products; else spinner">

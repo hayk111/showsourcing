@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ListViewComponent, TableConfig } from '~core/list-page';
-import { Sample } from '~core/models';
+import { Sample, ERM } from '~core/models';
 
 
 // TODO hayk config this
@@ -23,6 +23,7 @@ const tableConfig: TableConfig = {
 export class TaskListViewComponent extends ListViewComponent<Sample> {
 	columns = [ 'reference', 'assignee', 'status', 'creationDate' ]; // TODO hayk add default columns here
 	tableConfig = tableConfig;
+	erm = ERM;
 
 	constructor() { super(); }
 

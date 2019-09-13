@@ -103,7 +103,7 @@
 
     <button tabFocusAction [disabled]="isDisabled()" class="warn save first-uppercase" (click)="refuse()" translate="button.refuse"></button>
 
-    <!-- <button [disabled]="isDisabled()" class="secondary save first-uppercase" (click)="saveAndClose()" i18n="@@save">save</button> -->
+    <!-- <button [disabled]="isDisabled()" class="secondary save first-uppercase" (click)="saveAndClose()" translate="button.save"></button> -->
     <!-- TODO check style is the same -->
     <div toolTip [toolTipMessage]="getTooltipMessage()" toolTipPosition="above-right">
       <button *ngIf="isDisabled(); else notSubmitted" tabFocusAction class="first-uppercase" [disabled]="true" translate="button.submitted"></button>

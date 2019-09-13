@@ -43,7 +43,6 @@ export class SidebarComponent implements OnInit {
 		this.authSrv.logout();
 	}
 
-	// TEST i18n
 	changeLang(lang: string) {
 		this.translate.use(lang);
 	}
