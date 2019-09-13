@@ -1,6 +1,7 @@
 
 <!-- top panel -->
 <top-panel-app
+	[class.top-panel-margin-board]="listSrv.view === 'board'"
 	[title]="'My samples'"
 	buttonName="Create Sample"
 	(buttonClick)="commonModalSrv.openAddSampleDialog()"
@@ -9,6 +10,7 @@
 </top-panel-app>
 
 <sub-panel-app
+	[class.sub-menu-padding-board]="listSrv.view === 'board'"
 	[filtersAmount]="listSrv.getFilterAmount([{ type: filterTypeEnum.ARCHIVED, value: false }, { type: filterTypeEnum.DELETED, value: false }])"
 	[hasFilter]="true"
 	[hasSwitch]="true"
@@ -19,7 +21,7 @@
 	searchType="short"
 	[searchValue]="listSrv.searchValue"
 	(search)="listSrv.search($event)"
-	(clearFilters)="listSrv.filterList.resetAll();"
+	(clearFilters)="onClearFilters()"
 	(showArchived)="listSrv.filterByArchived(true)"
 	(hideArchived)="listSrv.filterByArchived(false)"
 	(showAssigned)="listSrv.filterByAssignee(true)"
@@ -95,6 +97,7 @@
 		<action-bar-app
 			[favorite]="listSrv.allSelectedFavorite"
 			[hasLikes]="false"
+			[hasHeart]="false"
 			[multiple]="true"
 			(onFavorite)="listSrv.onFavoriteAllSelected()"
 			(onUnfavorite)="listSrv.onUnfavoriteAllSelected()"	>

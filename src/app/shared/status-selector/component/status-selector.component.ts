@@ -96,6 +96,10 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 		}
 	}
 
+	updateProject(done: boolean) {
+		this.statusSlctSrv.updateProject({ id: this.entity.id, done });
+	}
+
 	openMenu() {
 		if (this.menu) {
 			this.menu.openMenu();

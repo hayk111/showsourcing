@@ -50,7 +50,7 @@
 		<ng-container [ngSwitch]="column.title">
 
 			<!-- reference -->
-			<ng-container *ngSwitchCase="'reference'">
+			<ng-container *ngSwitchCase="'name'">
 				<div class="ellipsis name-container contain-strict">
 					<div class="ellipsis reference">
 						<div class="preview-imgs" (click)="previewClick.emit(row)">
@@ -109,8 +109,11 @@
 			<!-- activities -->
 			<ng-container *ngSwitchCase="'activities'">
 				<activities-bar-app
+					[row]="row"
 					[favourite]="row?.favorite"
-					[votes]="row?.votes">
+					[hasSamples]="!!row?.samplesLinked.count"
+					[hasTasks]="!!row?.tasksLinked.count"
+					[hasComments]="!!row?.comments.length">
 				</activities-bar-app>
 			</ng-container>
 

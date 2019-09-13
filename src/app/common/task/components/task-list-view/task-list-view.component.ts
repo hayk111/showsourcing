@@ -1,12 +1,17 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { ListViewComponent, TableConfig } from '~core/list-page';
-import { Task, ERM } from '~core/models';
+import { ERM, Task } from '~core/models';
+import { ID } from '~utils/id.utils';
 
 const tableConfig: TableConfig = {
-	reference: { title: 'reference', width: 80, sortProperty: 'name' },
-	assignee: { title: 'assignee', width: 80, sortProperty: 'assignee.firstName' },
-	status: { title: 'status', width: 80, sortProperty: 'status.step', sortable: false },
-	creationDate: { title: 'created on', width: 80, sortProperty: 'creationDate' },
+	taskDone: { title: '', width: 0, sortable: false },
+	reference: { title: 'reference', width: 80, sortProperty: 'reference' },
+	name: { title: 'name', width: 120, sortProperty: 'name' },
+	product: { title: 'product', width: 160, sortProperty: 'product.name' },
+	supplier: { title: 'supplier', width: 150, sortProperty: 'supplier.name' },
+	dueDate: { title: 'due date', width: 103, sortProperty: 'dueDate' },
+	assignee: { title: 'assigned to', width: 140, sortProperty: 'assignee.firstName' },
+	status: { title: 'status', width: 85, sortProperty: 'status.step', sortable: false },
 };
 
 @Component({
@@ -19,10 +24,13 @@ const tableConfig: TableConfig = {
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TaskListViewComponent extends ListViewComponent<Task> {
-	columns = [ 'reference', 'assignee', 'status', 'creationDate' ];
-	erm = ERM;
 
 	@Input() tableConfig = tableConfig;
+	@Output() openProduct = new EventEmitter<ID>();
+	@Output() openSupplier = new EventEmitter<ID>();
+
+	columns = ['taskDone', 'reference', 'name', 'product', 'supplier', 'dueDate', 'assignee', 'status'];
+	erm = ERM;
 
 	constructor() { super(); }
 
