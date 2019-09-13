@@ -16,7 +16,6 @@ export class RpcService extends GlobalService<RPCRequest> {
 
 	createRPC(request: IRPCRequest) {
 		const rpc = new RPCRequest(request).reply;
-		// this.create(rpc).subscribe((a) => console.log(a));
 		// wait until status changes
 		// then return new IRPCRequest with reply = response.reply
 	}
