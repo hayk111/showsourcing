@@ -5,8 +5,31 @@
 	margin-right: var(--spacing-s);
 }
 
+.project-owner {
+	user-picture-app {
+		margin-right: 0;
+	}
+}
+
 .description {
 	height: 36px;
 	text-overflow: ellipsis;
 	overflow: hidden;
+}
+
+.project-name {
+	margin-left: var(--spacing-ms);
+	font-size: var(--font-size-m);
+	color: var(--color-txt-primary);
+}
+
+.due-date, .created-by, .created-on {
+	font-size: var(--font-size-m);
+	color: var(--color-txt-secondary);
+}
+
+.project-lead {
+	margin-left: var(--spacing-ms);
+	font-size: var(--font-size-m);
+	color: var(--color-txt-secondary);
 }
