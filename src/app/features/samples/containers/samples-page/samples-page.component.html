@@ -35,9 +35,7 @@
 			[checked]="listSrv.filterList.hasFilterType(filterTypeEnum.ASSIGNEE)"
 			(check)="toggleMyProducts(true)"
 			(uncheck)="toggleMyProducts(false)">
-			<span i18n="text@@assigned-to-me">
-				Assigned to me
-			</span>
+			<span translate="text.assigned-to-me"></span>
 		</checkbox-app>
 		<button
 			*ngIf="samplesCount$ | async as count"
