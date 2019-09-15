@@ -1,6 +1,11 @@
 :host {
 	display: block;
 	padding: 20px 114px 0 98px;
+
+	&.smaller-padding {
+		padding: var(--spacing-l);
+		padding-bottom: var(--spacing-ms);
+	}
 }
 
 .export-button icon-app {

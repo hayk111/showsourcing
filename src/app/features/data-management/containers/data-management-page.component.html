@@ -21,11 +21,11 @@
 		name="Tags">
 	</panel-tab-app>
 
-	<panel-tab-app
+	<!-- <panel-tab-app
 		link="/settings/data/supplier"
 		icon="supplier"
 		name="Suppliers">
-	</panel-tab-app>
+	</panel-tab-app> -->
 
 	<panel-tab-app
 		link="/settings/data/event"
@@ -35,13 +35,18 @@
 
 </top-panel-details-app>
 
-<sub-panel-app
+<top-panel-app
+	class="smaller-padding"
 	[title]="listSrv.entityMetadata.plural"
-	[buttonName]="('new' | const: 'messages')+ ' ' + (listSrv.entityMetadata.singular | const: 'erm')"
+	[buttonName]="'Add ' + listSrv.entityMetadata.singular"
+	(buttonClick)="listSrv.create(false)">
+</top-panel-app>
+
+<sub-panel-app
+	class="smaller-padding"
 	[hasFilter]="false"
 	[hasSwitch]="false"
-	(search)="listSrv.search($event)"
-	(buttonClick)="listSrv.create(false)">
+	(search)="listSrv.search($event)">
 	<sub-panel-right-item-app>
 		<div class="flex" *ngIf="(listSrv.selection$ | async).size > 0">
 			<button class="button warn capitalize" (click)="listSrv.deleteSelected(true)" i18n="@@delete-selected"> delete selected </button>

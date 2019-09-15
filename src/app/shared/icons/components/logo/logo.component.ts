@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, Renderer2, AfterViewInit } from '@angular/core';
 import { AppImage, EntityName } from '~models';
 import { Color, Colors, log } from '~utils';
 
@@ -52,7 +52,7 @@ export const sizeMap: { [key in Size]: { background: number, icon: number } } = 
 		'[class.circle]': 'circle === true',
 	}
 })
-export class LogoComponent implements OnInit {
+export class LogoComponent implements OnInit, AfterViewInit {
 	/** we can supply an image to override the icon */
 	@Input() logo: AppImage;
 	/** type of entity so we can display its icon */
@@ -79,10 +79,14 @@ export class LogoComponent implements OnInit {
 
 	ngOnInit() {
 		this.renderContainerSize();
-		this.renderColor();
+		// this.renderColor();
 		if (!this.type) {
 			log.error('No type specified in logo');
 		}
+	}
+
+	ngAfterViewInit() {
+		this.renderColor();
 	}
 
 	get computedIcon() {
