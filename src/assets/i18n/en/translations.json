@@ -205,6 +205,15 @@
     "OBJ-name": "{{ field }} name",
     "OBJ-to-merge-to": "{{ field }} to merge to",
     "added-n-products": "added {{ noProducts }} products",
+    "and-n-other": {
+      "plural": "and {{ count }} others",
+      "singular": "and {{ count }} other"
+    },
+    "assigned-target": "assigned you a {{ target }}",
+    "comment-on-target": {
+      "plural": "have commented on the {{ target }}",
+      "singular": "has commented on the {{ target }}"
+    },
     "comment": {
       "plural": "comments",
       "singular": "comment"
@@ -233,6 +242,15 @@
     "n-element": {
       "plural": "{{count}} elements",
       "singular": "{{count}} element"
+    },
+    "n-item-selected": {
+      "plural": "{{ count }} items selected",
+      "singular": "{{ count }} item selected"
+    },
+    "n-product": "{{ count }} products",
+    "n-product-selected": {
+      "plural": "{{ count }} products selected",
+      "singular": "{{ count }} product selected"
     },
     "n-project": {
       "plural": "{{ count }} projects",
@@ -400,6 +418,7 @@
     "supplier-request": "Supplier Request",
     "title": "title",
     "update": "Update",
+    "update-products": "update products",
     "upload-picture": "Upload Picture",
     "view-all": "View All",
     "view-all-products": "View All Products",
@@ -473,6 +492,7 @@
     "request-information": "Request information",
     "request-items": "Request Items",
     "request-templates": "Request templates",
+    "sample": "sample",
     "select-products": "Select products",
     "select-project": "Select project",
     "send-reply": "Send Reply",
@@ -498,7 +518,8 @@
     "unnamed-task": "unnamed task",
     "unnamed-team": "Unnamed Team",
     "we-have-pb": "We are having a problem.",
-    "welcome-to-showsourcing": "Welcome to ShowSourcing"
+    "welcome-to-showsourcing": "Welcome to ShowSourcing",
+    "workflow": "workflow"
   },
   "hint": {
     "company-tip": "Tip: the app works better with a company email."
@@ -774,6 +795,7 @@
     "no-contact-for-supplier": "No contact for this supplier",
     "no-documents-attached": "No documents attached",
     "no-picture": "No Picture",
+    "no-products": "no products",
     "no-projects-added": "No Projects Added",
     "no-team-members": "No Team Members",
     "no-vote": "No Votes Yet",
@@ -823,6 +845,33 @@
     "workflow": "workflow",
     "you-r-invited": "You are invited to join ShowSourcing",
     "your-collab-plat": "Your collaborative sourcing platform for\n<br>\nyour team and suppliers."
+  },
+  "time": {
+    "day-ago": {
+      "plural": "{{ num }} days ago",
+      "singular": "{{ num }} day ago"
+    },
+    "hour-ago": {
+      "plural": "{{ num }} hours ago",
+      "singular": "{{ num }} hour ago"
+    },
+    "just-now": "just now",
+    "minute-ago": {
+      "plural": "{{ num }} minutes ago",
+      "singular": "{{ num }} minute ago"
+    },
+    "month-ago": {
+      "plural": "{{ num }} months ago",
+      "singular": "{{ num }} month ago"
+    },
+    "second-ago": {
+      "plural": "{{ num }} seconds ago",
+      "singular": "{{ num }} second ago"
+    },
+    "year-ago": {
+      "plural": "{{ num }} years ago",
+      "singular": "{{ num }} year ago"
+    }
   },
   "title": {
     "activities": "activities",

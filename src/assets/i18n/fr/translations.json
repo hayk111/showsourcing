@@ -205,6 +205,15 @@
     "OBJ-name": "Nom de {{ field }} ",
     "OBJ-to-merge-to": "{{field}} à fusionner",
     "added-n-products": "ajout de {{noProducts}} produits",
+    "and-n-other": {
+      "plural": "et {{count}} autres",
+      "singular": "et {{count}} other"
+    },
+    "assigned-target": "vous a attribué un {{target}}",
+    "comment-on-target": {
+      "plural": "ont commenté la {{ target }}",
+      "singular": "a commenté le {{target}"
+    },
     "comment": {
       "plural": "commentaires",
       "singular": "commentaire"
@@ -233,6 +242,15 @@
     "n-element": {
       "plural": "{{count}} éléments",
       "singular": "{{count}} élément"
+    },
+    "n-item-selected": {
+      "plural": "{{count}} éléments sélectionnés",
+      "singular": "{{count}} item sélectionné"
+    },
+    "n-product": "{{ count }} produits",
+    "n-product-selected": {
+      "plural": "{{count}} produits sélectionnés",
+      "singular": "{{count}} produit sélectionné"
     },
     "n-project": {
       "plural": "{{ count }} projets",
@@ -400,6 +418,7 @@
     "supplier-request": "Demande du fournisseur",
     "title": "titre",
     "update": "Mettre à jour",
+    "update-products": "mettre à jour les produits",
     "upload-picture": "Charger une photo",
     "view-all": "Voir tout",
     "view-all-products": "Voir tous les produits",
@@ -473,6 +492,7 @@
     "request-information": "Informations requises",
     "request-items": "Demander des articles",
     "request-templates": "Modèles de demande",
+    "sample": "sample",
     "select-products": "Sélectionner des produits",
     "select-project": "Sélectionnez un projet",
     "send-reply": "Envoyer une réponse",
@@ -498,7 +518,8 @@
     "unnamed-task": "tâche non nommée",
     "unnamed-team": "Équipe sans nom",
     "we-have-pb": "Nous avons un problème.",
-    "welcome-to-showsourcing": "Bienvenue sur ShowSourcing"
+    "welcome-to-showsourcing": "Bienvenue sur ShowSourcing",
+    "workflow": "flux de travail"
   },
   "hint": {
     "company-tip": "Astuce: l'application fonctionne mieux avec un email d'entreprise."
@@ -774,6 +795,7 @@
     "no-contact-for-supplier": "Pas de contact pour ce fournisseur",
     "no-documents-attached": "Aucun document joint",
     "no-picture": "Pas d'image",
+    "no-products": "pas de produits",
     "no-projects-added": "Aucun projet ajouté",
     "no-team-members": "Aucun membre de l'équipe",
     "no-vote": "Pas encore de vote",
@@ -823,6 +845,33 @@
     "workflow": "flux de travail",
     "you-r-invited": "Vous êtes invité à rejoindre ShowSourcing",
     "your-collab-plat": "Votre plate-forme de sourcing collaboratif pour \n <br> \n votre équipe et vos fournisseurs."
+  },
+  "time": {
+    "day-ago": {
+      "plural": "Il y a {{num}} jours",
+      "singular": "Il y a {{num}} jour"
+    },
+    "hour-ago": {
+      "plural": "Il y a {{num}} heures",
+      "singular": "Il y a {{num}} heure"
+    },
+    "just-now": "juste maintenant",
+    "minute-ago": {
+      "plural": "Il y a {{ num }} minutes",
+      "singular": "Il y a {{ num }} minute"
+    },
+    "month-ago": {
+      "plural": "Il y a {{num}} mois",
+      "singular": "Il y a {{num}} mois"
+    },
+    "second-ago": {
+      "plural": "Il y a {{num}} secondes",
+      "singular": "Il y a {{num}} seconde"
+    },
+    "year-ago": {
+      "plural": "Il y a {{num}} ans",
+      "singular": "Il y a {{num}} an"
+    }
   },
   "title": {
     "activities": "Activités",

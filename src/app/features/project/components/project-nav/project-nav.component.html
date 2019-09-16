@@ -7,8 +7,15 @@
 		(click)="select.emit(project)">
 
 		<span class="name">{{ project.name }}</span>
-		<span class="productCount" i18n="text@@nested_product-count">
-			{ productCount[project.id] || 0, plural, =0 { No Products } =1 { 1 Product} other { {{ productCount[project.id] }} Products } }
+		<span class="productCount">
+			{{ 
+				(productCount[project.id] || 0) > 1 
+					? 'OBJ.n-product.plural' 
+					: (productCount[project.id] || 0) === 1 
+						? 'OBJ.n-product.singular' 
+						: 'text.no-products' 
+					| translate: { count: productCount[project.id] || 0 } 
+			}}
 		</span>
 
 	</side-menu-item-app>

@@ -39,14 +39,14 @@
 	<dialog-footer-app class="flexBetween">
 		<div class="left flexCenter">
 			<ng-container	*ngIf="(listSrv.selection$ | async) as selected">
-				<div *ngIf="(listSrv.selection$ | async).size > 0" style="align-items: center" class="capitalize alignCenter">
-					{{ selected.size }} <ng-container i18n="@@nested_product">{ selected?.size, plural, =1 { product } other { products } }</ng-container> <ng-container i18n="@@selected">selected</ng-container>
+        <div *ngIf="(listSrv.selection$ | async).size > 0" style="align-items: center" class="capitalize alignCenter">
+          {{ ((selected?.size || 0) > 1 ? 'OBJ.n-product.selected.plural' : 'OBJ.n-product.selected.singular') | translate: {count: (selected?.size || 0)} }}
 				</div>
 			</ng-container>
 		</div>
 		<div class="right flexCenter">
-				<button class="cancel secondary" (click)="closeDlg()" i18n="@@cancel">cancel</button>
-				<button class="save" (click)="submit()" i18n="@@update-products">update products</button> <!-- disabled]="!hasSelectedProducts()" -->
+				<button class="cancel secondary" (click)="closeDlg()" translate="button.cancel"></button>
+				<button class="save" (click)="submit()" translate="button.update-products"></button> <!-- disabled]="!hasSelectedProducts()" -->
 		</div>
 	</dialog-footer-app>
 

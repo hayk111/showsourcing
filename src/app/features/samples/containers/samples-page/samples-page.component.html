@@ -41,9 +41,7 @@
 			*ngIf="samplesCount$ | async as count"
 			class="capitalize"
 			(click)="commonModalSrv.openExportDialog([], listSrv.filterList.asPredicate())">
-			<ng-container i18n="@@export">export</ng-container>
-			<span> {{ count || 0 }} </span>
-			<ng-container i18n="@@items">{ count || 0, plural, =1 { item } other { items } }</ng-container>
+			{{ (count || 0) > 1 ? 'OBJ.export-item.plural' : 'OBJ.export-item.singular' | translate: { count: (count || 0) } }}
 		</button>
 
 	</sub-panel-right-item-app>
