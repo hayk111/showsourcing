@@ -101,14 +101,14 @@
 			(opened)="inp.select()">
 			<label-app>{{ customField?.label || customField?.name }}</label-app>
 			<editable-label-app [disabled]="customField?.metadata?.disabled">
-				{{ value ? (value | date: 'dd MMMM yyyy') : '-' }}
+				{{ value ? (value | date: 'dd MMMM yyyy':'':translate.currentLang) : '-' }}
 			</editable-label-app>
 			<form-field-app class="editable">
 				<input
 					inputApp #inpDueDate
 					[disabled]="customField?.metadata?.disabled"
 					autofocus="true"
-					[value]="value ? (value | date:'yyyy-MM-dd') : '-'"
+					[value]="value ? (value | date:'yyyy-MM-dd':'':translate.currentLang) : '-'"
 					type="date"
 					(keyup.enter)="accumulate(inpDueDate.value)"
 					(change)="accumulate($event.target.value)"/>

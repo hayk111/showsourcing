@@ -64,8 +64,8 @@
 		<!-- Info -->
 		<preview-section-app [title]="'Info'"  class="no-mg-bottom">
 			<div class="flexColumn">
-				<span class="color-txt-strong">Created by {{ product?.createdBy | formatUserName: true }} on {{ product?.creationDate | date: 'dd MMMM yyyy' }}</span>
-				<span class="color-txt-strong">Last updated by {{ product?.lastUpdatedBy | formatUserName: true }} on {{ (product?.lastUpdatedDate || product?.creationDate) | date: 'dd MMMM yyyy' }}</span>
+				<span class="color-txt-strong">Created by {{ product?.createdBy | formatUserName: true }} on {{ product?.creationDate | date: 'dd MMMM yyyy':'':translate.currentLang }}</span>
+				<span class="color-txt-strong">Last updated by {{ product?.lastUpdatedBy | formatUserName: true }} on {{ (product?.lastUpdatedDate || product?.creationDate) | date: 'dd MMMM yyyy':'':translate.currentLang }}</span>
 			</div>
 		</preview-section-app>
 	</preview-app>

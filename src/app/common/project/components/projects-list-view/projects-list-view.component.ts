@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ListViewComponent, TableConfig } from '~core/list-page/list-view.component';
 import { Project } from '~models';
+import { TranslateService } from '@ngx-translate/core';
 
 
 const tableConfig: TableConfig = {
@@ -27,4 +28,9 @@ export class ProjectsListViewComponent extends ListViewComponent<Project> {
 		'name', 'owner', 'lastUpdatedDate', 'productCount', 'creationDate', 'description'
 	];
 	tableConfig = tableConfig;
+
+	constructor(public translate: TranslateService) {
+		super();
+	}
+
 }

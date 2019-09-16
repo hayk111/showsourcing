@@ -10,7 +10,7 @@
 	<editable-field-app class="no-hover" [openOnClick]="false">
 		<label-app translate="label.sent-on"></label-app>
 		<editable-label-app>
-			{{ 'OBJ.date-at-time' | translate : { date: (request?.creationDate | date: 'dd MMMM yyyy') , time: (request?.creationDate | date: 'HH:mm')  } }}
+			{{ 'OBJ.date-at-time' | translate : { date: (request?.creationDate | date: 'dd MMMM yyyy':'':translate.currentLang) , time: (request?.creationDate | date: 'HH:mm':'':translate.currentLang)  } }}
 		</editable-label-app>
 	</editable-field-app>
 

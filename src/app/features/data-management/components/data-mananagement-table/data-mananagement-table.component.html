@@ -108,7 +108,7 @@
 		sortBy="description.startDate"
 		width="140">
 		<span>
-			{{ row?.description?.startDate | date: 'MMMM d, y' }}
+			{{ row?.description?.startDate | date: 'MMMM d, y':'':translate.currentLang }}
 		</span>
 	</ng-template>
 
@@ -120,7 +120,7 @@
 		sortBy="description.endDate"
 		width="140">
 		<span>
-			{{ row?.description?.endDate | date: 'MMMM d, y' }}
+			{{ row?.description?.endDate | date: 'MMMM d, y':'':translate.currentLang }}
 		</span>
 	</ng-template>
 

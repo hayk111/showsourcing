@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ListViewComponent, TableConfig } from '~core/list-page';
 import { Sample, ERM } from '~core/models';
+import { TranslateService } from '@ngx-translate/core';
 
 
 // TODO hayk config this
@@ -25,6 +26,6 @@ export class TaskListViewComponent extends ListViewComponent<Sample> {
 	tableConfig = tableConfig;
 	erm = ERM;
 
-	constructor() { super(); }
+	constructor(public translate: TranslateService) { super(); }
 
 }

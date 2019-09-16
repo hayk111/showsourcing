@@ -20,7 +20,7 @@ export class ExportListViewComponent extends ListViewComponent<ExportRequest> {
 	@ViewChild('contextualMenu', { static: false }) contextualMenuTemplate: TemplateRef<any>;
 
 	constructor(
-		private translate: TranslateService
+		public translate: TranslateService
 	) { super(); }
 
 	getToolTipMsg(status: string) {

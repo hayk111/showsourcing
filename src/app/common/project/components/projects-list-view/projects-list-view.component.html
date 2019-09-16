@@ -56,7 +56,7 @@
 			<!-- last updated date -->
 			<ng-container *ngSwitchCase="'last updated'">
 				<span>
-					{{ row?.lastUpdatedDate | date: 'dd MMMM y' }}
+					{{ row?.lastUpdatedDate | date: 'dd MMMM y':'':translate.currentLang }}
 				</span>
 			</ng-container>
 
@@ -69,7 +69,7 @@
 
 			<!-- creation date -->
 			<ng-container *ngSwitchCase="'creation date'">
-				{{ row?.creationDate | date: 'dd MMMM y' }}
+				{{ row?.creationDate | date: 'dd MMMM y':'':translate.currentLang }}
 			</ng-container>
 
 			<!-- description -->

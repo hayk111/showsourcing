@@ -108,7 +108,7 @@
 		let-row="row"
 		width="175">
 		<div class="capitalize">
-			{{ row?.sentDate | date: 'dd MMM yyyy' }}
+			{{ row?.sentDate | date: 'dd MMM yyyy':'':translate.currentLang }}
 		</div>
 	</ng-template>
 

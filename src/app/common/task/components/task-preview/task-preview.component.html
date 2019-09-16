@@ -42,13 +42,13 @@
 					(opened)="inpDueDate.select()" [canGrow]="true">
 					<label-app translate="label.due-date"></label-app>
 					<editable-label-app>
-						<ng-container *ngIf="task?.dueDate; else selectDue">{{ (task?.dueDate | date:'dd-MM-yyyy') }}</ng-container>
+						<ng-container *ngIf="task?.dueDate; else selectDue">{{ (task?.dueDate | date:'dd-MM-yyyy':'':translate.currentLang) }}</ng-container>
 						<ng-template #selectDue>
 							{{'label.select-due-date' | translate}}
 						</ng-template>
 					</editable-label-app>
 					<form-field-app>
-						<input inputApp #inpDueDate autofocus="true" [value]="task?.dueDate ? (task?.dueDate | date:'yyyy-MM-dd') : ''" type="date"
+						<input inputApp #inpDueDate autofocus="true" [value]="task?.dueDate ? (task?.dueDate | date:'yyyy-MM-dd':'':translate.currentLang) : ''" type="date"
 						(keyup.enter)="updateDueDate(false, inpDueDate.value)" (change)="updateDueDate(false, $event.target.value)"/>
 					</form-field-app>
 				</editable-field-app>

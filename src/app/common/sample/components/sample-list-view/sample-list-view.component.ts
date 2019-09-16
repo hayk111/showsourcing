@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output, Templ
 import { ListViewComponent, TableConfig } from '~core/list-page';
 import { ERM, Sample } from '~core/models';
 import { ID } from '~utils/id.utils';
+import { TranslateService } from '@ngx-translate/core';
 
 
 
@@ -32,7 +33,7 @@ export class SampleListViewComponent extends ListViewComponent<Sample> {
 
 	erm = ERM;
 
-	constructor() { super(); }
+	constructor(public translate: TranslateService) { super(); }
 
 
 }

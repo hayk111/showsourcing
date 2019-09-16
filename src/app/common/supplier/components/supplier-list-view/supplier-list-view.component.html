@@ -87,7 +87,7 @@
 			<ng-container *ngSwitchCase="'created by'">
 				<span class="created-by">{{ row?.createdBy | formatUserName }}</span>
 				<div class="created-by-date">
-					{{ row?.creationDate | date: 'dd MMMM y' }}
+					{{ row?.creationDate | date: 'dd MMMM y':'':translate.currentLang }}
 				</div>
 			</ng-container>
 		

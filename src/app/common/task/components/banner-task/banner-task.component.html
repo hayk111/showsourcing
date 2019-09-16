@@ -23,7 +23,7 @@
 			<ng-template #notOverdued>
 				{{ ('header.task' | translate) + ' ' + ('header.status' | translate) }}
 			</ng-template>
-			{{ task?.dueDate | date: 'dd MM yyyy' || ''}}
+			{{ task?.dueDate | date: 'dd MM yyyy':'':translate.currentLang || ''}}
 		</div>
 	</div>
 

@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnInit
 import { ListViewComponent, TableConfig } from '~core/list-page/list-view.component';
 import { ERM, Product } from '~models';
 import { Sort } from '~shared/table/components/sort.interface';
+import { TranslateService } from '@ngx-translate/core';
 
 
 const tableConfig: TableConfig = {
@@ -41,7 +42,7 @@ export class ProductsListViewComponent extends ListViewComponent<Product> {
 	@Output() showItemsPerPage = new EventEmitter<number>();
 	prodErm = ERM.PRODUCT;
 
-	constructor() {
+	constructor(public translate: TranslateService) {
 		super();
 	}
 

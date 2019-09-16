@@ -14,6 +14,11 @@ import { GlobalRequestClientsInitializer } from '~core/apollo/services/apollo-gl
 import { Location } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
 import { NotificationService, NotificationType } from '~shared/notifications';
+import localeEn from '@angular/common/locales/en';
+import localeFr from '@angular/common/locales/fr';
+import localeEs from '@angular/common/locales/es';
+import localeZh from '@angular/common/locales/zh';
+import { registerLocaleData } from '@angular/common';
 
 @Component({
 	selector: 'app-root',
@@ -75,6 +80,10 @@ export class AppComponent implements OnInit {
 			tap(_ => ListPageService.reset())
 		).subscribe(_ => this.isSpinnerShown$.next(false));
 
+		registerLocaleData(localeEn, 'en');
+		registerLocaleData(localeFr, 'fr');
+		registerLocaleData(localeEs, 'es');
+		registerLocaleData(localeZh, 'zh');
 		this.translate.setDefaultLang('en');
 		this.translate.use('en');
 	}

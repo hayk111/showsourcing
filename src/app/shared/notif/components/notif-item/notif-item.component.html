@@ -12,12 +12,18 @@
 			[circle]="true"
 		></logo-app>
 
-		<!-- TODO i18n : do not use translate.instant -->
 		<div class="flexColumn notif-info">
 			<p class="notif-message">
 				<span class="bold-message">{{ actorName }}</span>
-				{{ multipleActorMessage }}
-				{{ activityMessage }}
+				{{ 
+					(actor_count || 0) === 2 
+						? 'OBJ.and-n-other.singular' 
+						: (actor_count || 0) > 2 
+							? 'OBJ.and-n-other.singular'
+							: ''
+						| translate: {count: actor_count || 0} 
+				}}
+				{{ activityMessage | translate: {target: 'header.' + target.toLowerCase() | translate} }}
 				<span class="bold-message">
 					<ng-container *ngIf="target$ | async as target">
 						{{ target.name }}
@@ -26,7 +32,7 @@
 			</p>
 			<p class="notif-datetime">
 				{{ activity.updated_at | timeAgo }} -
-				{{ activity.updated_at | date: "d MMM H:mm" }}
+				{{ activity.updated_at | date: "d MMM H:mm":'':translate.currentLang }}
 			</p>
 		</div>
 	</div>

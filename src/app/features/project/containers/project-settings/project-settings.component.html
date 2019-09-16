@@ -41,11 +41,11 @@
 			</div>
 			<div class="flex">
 				<b class="semi" translate="text.created-on"></b>
-				{{ project?.creationDate | date: 'd MMMM y' }}
+				{{ project?.creationDate | date: 'd MMMM y':'':translate.currentLang }}
 			</div>
 			<div class="flex">
 				<b class="semi" translate="text.last-updated-on"></b>
-				{{ project?.lastUpdatedDate | date: 'd MMMM y' }}
+				{{ project?.lastUpdatedDate | date: 'd MMMM y':'':translate.currentLang }}
 			</div>
 		</div>
 	</card-app>

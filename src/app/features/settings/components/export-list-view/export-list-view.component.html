@@ -26,7 +26,7 @@
 			let-row="row"
 			width="300">
 			<div class="capitalize">
-				{{ row?.format }} {{ row?.creationDate | date: 'dd-MMM-yy H:mm'}}
+				{{ row?.format }} {{ row?.creationDate | date: 'dd-MMM-yy H:mm':'':translate.currentLang}}
 			</div>
 		</ng-template>
 
@@ -47,7 +47,7 @@
 			sortBy="creationDate"
 			width="150"
 			[sortOrder]="'DESC'">
-			{{ row?.creationDate | date: 'MMMM y' }}
+			{{ row?.creationDate | date: 'MMMM y':'':translate.currentLang }}
 		</ng-template>
 
 		<!-- user -->

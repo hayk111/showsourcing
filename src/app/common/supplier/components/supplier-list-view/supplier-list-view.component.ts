@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { ListViewComponent, TableConfig } from '~core/list-page/list-view.component';
 import { ERM, Supplier } from '~models';
+import { TranslateService } from '@ngx-translate/core';
 
 const tableConfig: TableConfig = {
 	activities: { title: 'activities', translationKey: 'activities', width: 190 },
@@ -33,7 +34,7 @@ export class SupplierListViewComponent extends ListViewComponent<Supplier> {
 	@Output() archive = new EventEmitter<Supplier>();
 	@Output() showItemsPerPage = new EventEmitter<number>();
 
-	constructor() {
+	constructor(public translate: TranslateService) {
 		super();
 	}
 
