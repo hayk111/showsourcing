@@ -51,6 +51,25 @@
 				</icon-app>
 			</ng-container>
 
+
+			<!--about: task done + name + product -->
+			<ng-container *ngSwitchCase="'about'">
+				<div class="about flex">
+					<icon-app
+						class="about flexStart"
+						[ngClass]="row?.done ? 'task-is-done': 'task-not-done'"
+						[name]="row?.done ? 'check-circle' : 'check-circle-light'"
+						[size]="24" >
+					</icon-app>
+					<div class="about-container flex">
+						<span class="ellipsis pointer task-name">{{ row?.name }}</span>
+						<span class="ellipsis pointer product-name">{{ row?.product?.name }}</span>
+					</div>
+				</div>
+			</ng-container>
+
+
+
 			<!-- reference -->
 			<ng-container *ngSwitchCase="'reference'">
 				<div class="mainCellWrapper reference-container ellipsis">

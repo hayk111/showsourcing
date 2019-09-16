@@ -3,7 +3,7 @@ import { TableConfig } from '~core/list-page';
 import { Task } from '~core/models';
 
 const tableConfig: TableConfig = {
-	reference: { title: 'reference', width: 450, sortProperty: 'name' },
+	about: { title: 'about', width: 590, sortProperty: 'name' },
 	status: { title: 'status', width: 80, sortProperty: 'status.step', sortable: false },
 };
 

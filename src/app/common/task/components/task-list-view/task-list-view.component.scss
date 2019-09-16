@@ -21,6 +21,18 @@ user-picture-app {
 	color: var(--color-txt-primary);
 }
 
+.about-container {
+	flex-direction: column;
+	margin-left: var(--spacing-ms);
+	.task-name {
+		font-size: var(--font-size-m);
+		color: var(--color-txt-primary);
+	}
+	.product-name {
+		font-size: var(--font-size-s)
+	}
+}
+
 .product-container, .supplier-container, .due-date-container {
 	font-size: var(--font-size-m);
 	color: var(--color-bg-dark);

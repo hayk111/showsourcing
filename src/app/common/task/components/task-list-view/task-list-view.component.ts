@@ -5,6 +5,7 @@ import { ID } from '~utils/id.utils';
 
 const tableConfig: TableConfig = {
 	taskDone: { title: '', width: 0, sortable: false },
+	about: { title: 'about', width: 140, sortable: true},
 	reference: { title: 'reference', width: 80, sortProperty: 'reference' },
 	name: { title: 'name', width: 120, sortProperty: 'name' },
 	product: { title: 'product', width: 160, sortProperty: 'product.name' },
