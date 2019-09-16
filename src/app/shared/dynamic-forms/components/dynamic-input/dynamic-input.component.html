@@ -128,7 +128,7 @@
 	<!-- TODO i18n -->
 	<!-- packaging -->
 	<ng-container *ngSwitchCase="'packaging'">
-		<h4 class="ms capitalize bold-s" i18n="@@extended-fields">{{ customField?.label || customField?.name }}</h4>
+		<h4 class="ms capitalize bold-s">{{ customField?.label || customField?.name }}</h4>
 		<editable-packaging-app
 			[isFormStyle]="true"
 			[autofocus]="autofocus"

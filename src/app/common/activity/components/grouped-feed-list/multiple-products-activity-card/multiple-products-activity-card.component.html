@@ -28,7 +28,7 @@
 					<div class="flexColumn supplier-info">
 						<span class="supplier-name flexStart ellipsis">{{ supplier.name }}</span>
 						<span class="supplier-type flexStart ellipsis">
-							{{ supplier?.supplierType ||  (erm.SUPPLIER.singular | const: 'erm')}}
+							{{ supplier?.supplierType ||  ('ERM.' + erm.SUPPLIER.translationKey + '.singular' | translate)}}
 							<ng-container *ngIf="supplier.country">
 								{{ supplier.country | const: 'country'  }}
 							</ng-container>

@@ -15,7 +15,7 @@
 					</icon-app>
 					{{
 						product?.status?.name
-							? (product?.status?.name | const: "status")
+							? ('text.' + product?.status?.name | translate)
 							: ("label.new-product" | translate)
 					}}
 				</div>

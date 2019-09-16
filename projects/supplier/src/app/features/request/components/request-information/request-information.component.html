@@ -24,7 +24,7 @@
 	<editable-field-app class="no-hover" [openOnClick]="false">
 		<label-app translate="label.status"></label-app>
 		<editable-label-app>
-			{{ request?.status | const: 'statusRequestSupplier' }}
+			{{ 'text.' + request?.status | translate }}
 		</editable-label-app>
 	</editable-field-app>
 </card-app>

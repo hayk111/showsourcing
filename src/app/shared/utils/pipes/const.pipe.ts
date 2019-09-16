@@ -58,6 +58,7 @@ export class ConstPipe implements PipeTransform {
 				break;
 			case 'status':
 			case 'statuses':
+				// TODO i18n : added to translation files
 				constMap = statusMap;
 				break;
 			case 'statusCategory':
@@ -66,6 +67,7 @@ export class ConstPipe implements PipeTransform {
 				break;
 			case 'statusRequestSupplier':
 			case 'statusRequestsSupplier':
+				// TODO i18n : added to translation files
 				constMap = statusRequestsSupplierMap;
 				break;
 			case 'statusRequestTeam':

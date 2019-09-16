@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { IconsModule } from '~shared/icons';
 import { UtilsModule } from '~shared/utils';
+import { TranslateModule } from '@ngx-translate/core';
 
 import {
 	BadgeComponent,
@@ -18,7 +19,8 @@ import {
 	imports: [
 		CommonModule,
 		IconsModule,
-		UtilsModule
+		UtilsModule,
+		TranslateModule
 	],
 	declarations: [
 		BadgeComponent,

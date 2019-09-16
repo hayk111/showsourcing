@@ -9,7 +9,7 @@
 			[inlineLabel]="inlineLabel"
 			(closed)="onClose($event)"
 			(opened)="inp.select();">
-			<label-app>{{ customField.label || customField.name }}</label-app>
+			<label-app>{{ 'text.' + customField.name | translate }}</label-app>
 			<!-- hint: editable text is the clickable label that transforms into an input -->
 			<editable-label-app>
 				{{ value || '-' }}
@@ -33,7 +33,7 @@
 			[inlineLabel]="inlineLabel"
 			(closed)="onClose($event)"
 			(opened)="inp.select()">
-			<label-app>{{ customField.label || customField.name }}</label-app>
+			<label-app>{{ 'text.' + customField.name | translate }}</label-app>
 			<editable-label-app>{{ value || '-' }}</editable-label-app>
 			<form-field-app class="editable">
 				<input inputApp
@@ -54,7 +54,7 @@
 			[inlineLabel]="inlineLabel"
 			(closed)="onClose($event)"
 			(opened)="inp.select()">
-			<label-app>{{ customField.label || customField.name }}</label-app>
+			<label-app>{{ 'text.' + customField.name | translate }}</label-app>
 			<editable-label-app>{{ value || '-' }}</editable-label-app>
 			<form-field-app class="editable">
 				<input inputApp
@@ -75,7 +75,7 @@
 			[inlineLabel]="inlineLabel"
 			(closed)="onClose($event)"
 			(opened)="inp.select()">
-			<label-app>{{ customField.label || customField.name }}</label-app>
+			<label-app>{{ 'text.' + customField.name | translate }}</label-app>
 			<editable-label-app>{{ value || '-' }}</editable-label-app>
 			<form-field-app class="editable">
 				<input inputApp
@@ -99,7 +99,7 @@
 			[inlineLabel]="inlineLabel"
 			(closed)="onClose($event)"
 			(opened)="inp.select()">
-			<label-app>{{ customField?.label || customField?.name }}</label-app>
+			<label-app>{{ 'text.' + customField.name | translate }}</label-app>
 			<editable-label-app [disabled]="customField?.metadata?.disabled">
 				{{ value ? (value | date: 'dd MMMM yyyy':'':translate.currentLang) : '-' }}
 			</editable-label-app>
@@ -122,7 +122,7 @@
 			[inlineLabel]="inlineLabel"
 			(closed)="onClose($event)"
 			(opened)="inp.select()">
-			<label-app>{{ customField.label || customField.name }}</label-app>
+			<label-app>{{ 'text.' + customField.name | translate }}</label-app>
 			<editable-label-app>{{ value || '-' }} days</editable-label-app>
 			<form-field-app class="editable">
 				<input inputApp
@@ -143,7 +143,7 @@
 			[inlineLabel]="inlineLabel"
 			(closed)="onClose($event)"
 			(opened)="inp.select()">
-			<label-app>{{ customField.label || customField.name }}</label-app>
+			<label-app>{{ 'text.' + customField.name | translate }}</label-app>
 			<editable-label-app style="white-space: pre-line">{{ value || '-' }}</editable-label-app>
 			<form-field-app class="editable">
 				<textarea
@@ -163,7 +163,7 @@
 			[inlineLabel]="inlineLabel"
 			(closed)="onClose($event)"
 			(opened)="inp.select()">
-			<label-app>{{ customField.label || customField.name }}</label-app>
+			<label-app>{{ 'text.' + customField.name | translate }}</label-app>
 			<editable-label-app [vAlign]="false">
 				<span class="fs-s"
 					*ngIf="value && value.currency">{{ value?.currency | const : 'currency' : 'symbol'}}</span>
@@ -188,7 +188,7 @@
 			[inlineLabel]="inlineLabel"
 			[openOnClick]="false"
 			(click)="toggleValue($event)">
-			<label-app>{{ customField.label || customField.name }}</label-app>
+			<label-app>{{ 'text.' + customField.name | translate }}</label-app>
 			<editable-label-app [disabled]="true">
 				<radio-app
 					[(ngModel)]="accumulator"
@@ -201,7 +201,7 @@
 		<!-- price matrix -->
 		<ng-container *ngSwitchCase="'priceMatrix'">
 			<h3 class="s">
-				{{ customField.label || customField.name }}
+				{{ 'text.' + customField.name | translate }}
 			</h3>
 			<editable-price-matrix-app
 				[(ngModel)]="accumulator"
@@ -214,7 +214,7 @@
 		<!-- packaging -->
 		<ng-container *ngSwitchCase="'packaging'">
 			<h3 class="s">
-				{{ customField.label || customField.name }}
+				{{ 'text.' + customField.name | translate }}
 			</h3>
 			<editable-packaging-app
 				[customField]="customField"
@@ -234,7 +234,7 @@
 			[width]="customField?.metadata?.width"
 			[multiple]="customField?.metadata?.multiple"
 			[canCreate]="customField?.metadata?.canCreate"
-			[label]="customField?.label || customField?.name"
+			[label]="'text.' + customField.name | translate"
 			[hasBadge]="customField?.metadata?.hasBadge"
 			[inlineLabel]="inlineLabel"
 			(change)="onSave(false)"
@@ -243,7 +243,7 @@
 
 		<!-- title -->
 		<h3 *ngSwitchCase="'title'">
-			{{ customField.label || customField.name }}
+			{{ 'text.' + customField.name | translate }}
 		</h3>
 
 	</ng-container>
