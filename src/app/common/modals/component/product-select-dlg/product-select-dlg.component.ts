@@ -3,10 +3,13 @@ import { Observable } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { ProductService, UserService } from '~core/entity-services';
 import { ListPageService } from '~core/list-page';
-import { ERM, Product } from '~models';
+import { ERM, Product, Project } from '~models';
 import { CloseEventType, DialogService } from '~shared/dialog';
+import { NotificationService, NotificationType } from '~shared/notifications';
 import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
+import { ProductDialogService } from '~common/modals/services/product-dialog.service';
+import { translate } from '~utils';
 
 @Component({
 	selector: 'product-select-dlg',
@@ -32,6 +35,7 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 	];
 
 	@Input() initialSelectedProducts: Product[];
+	@Input() project: Project;
 	@Input() submitProducts = true;
 
 	private unselectedProducts: { [key: string]: Product } = {};
@@ -39,7 +43,7 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 
 	productsCount$: Observable<number>;
 	private selectedProductsCount = 0;
-	private selectedAllCount = 15;
+	private selectedAllCount = 10;
 
 	filtersPanelOpened = false;
 
@@ -47,6 +51,8 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 		private productSrv: ProductService,
 		private dlgSrv: DialogService,
 		private userSrv: UserService,
+		private productDlgSrv: ProductDialogService,
+		private notifSrv: NotificationService,
 		public listSrv: ListPageService<Product, ProductService>,
 	) {
 		super();
@@ -56,7 +62,8 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 		this.listSrv.setup({
 			entitySrv: this.productSrv,
 			searchedFields: ['name', 'supplier.name', 'category.name'],
-			selectParams: { sortBy: 'category.name', descending: true, take: 15, query: 'deleted == false' },
+			selectParams: { sortBy: 'category.name', descending: true, take: this.selectedAllCount, query: 'deleted == false' },
+			initialFilters: [{ type: FilterType.ARCHIVED, value: false }, { type: FilterType.DELETED, value: false }],
 			entityMetadata: ERM.PRODUCT,
 			originComponentDestroy$: this._destroy$
 		});
@@ -155,10 +162,19 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 		const unselectedProducts = Object.values(this.unselectedProducts);
 		const data = { selectedProducts, unselectedProducts };
 
-		this.dlgSrv.close({
-			type: CloseEventType.OK,
-			data
-		});
+		this.productDlgSrv.addProductsToProject(this.project, selectedProducts)
+			.subscribe(_ => {
+				this.dlgSrv.close({
+					type: CloseEventType.OK,
+					data
+				});
+				this.notifSrv.add({
+					type: NotificationType.SUCCESS,
+					title: translate('Products added'),
+					message: translate('Your projects were added to the product with success'),
+					timeout: 3500
+				});
+			});
 	}
 
 	done() {
