@@ -28,7 +28,7 @@ export class TaskStatusBadgeComponent implements OnInit {
 	}
 
 	// this is only done for tasks since we don't have it on the DB
-	getTaskColor() {
+	getType() {
 		let taskStatusColor = 'secondary'; // pending
 		if (this.task && this.task.done)
 			taskStatusColor = 'success'; // done

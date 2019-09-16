@@ -9,6 +9,8 @@
 
   <a class="first-uppercase" [routerLink]="['/product']" routerLinkActive="selected" i18n="@@products">products</a>
 
+	<a class="first-uppercase" [routerLink]="['/samples']" routerLinkActive="selected" i18n="@@suppliers">samples</a>
+
   <a class="first-uppercase" [routerLink]="['/supplier']" routerLinkActive="selected" i18n="@@suppliers">suppliers</a>
 
 	<a class="first-uppercase" [routerLink]="['/workspace']" routerLinkActive="selected" i18n="@@workspace">workspace</a>
@@ -36,7 +38,7 @@
 <div class="flexCenter right">
 	<!-- Let's move this in a component, for the love of god Thierry... -->
 	<header-search-app></header-search-app>
-  <!-- <notif-app></notif-app> -->
+  <notif-app [notifications]="notification$ | async"></notif-app>
   <div class="divider"></div>
 	<user-panel-app [user]="user$ | async" [team]="team$ | async" (logout)="logout()"></user-panel-app>
 </div>

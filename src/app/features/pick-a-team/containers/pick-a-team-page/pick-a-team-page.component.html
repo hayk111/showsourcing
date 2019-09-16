@@ -14,7 +14,7 @@
 			class="flex pointer item border"
 			*ngFor="let team of (teams$ | async); let last = last; trackBy: trackByFn"
 		 	(click)="pickTeam(team)">
-			<icon-app name="team" fontSet="svg" size="m"></icon-app>
+			<icon-app name="team" size="m"></icon-app>
 			<span>{{ team.name }}</span>
 		</div>
 	</ul>

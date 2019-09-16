@@ -1,13 +1,13 @@
 <top-panel-details-app
 	[title]="supplier?.name">
 
-	<img-app [image]="supplier?.logoImage" type="supplier"></img-app>
+	<logo-app [logo]="supplier?.logoImage" type="supplier"></logo-app>
 
 	<div subinfo class="flex flexVAlign">
 		<div class="type" *ngIf="supplier?.supplierType">
 			{{ supplier?.supplierType?.name }}
 		</div>
-		<icon-app *ngIf="supplier?.supplierType" name="circle" fontSet="fa"></icon-app>
+		<icon-app *ngIf="supplier?.supplierType" name="circle"></icon-app>
 		<div class="adress">
 			{{ supplier?.city ? supplier?.city + ',&nbsp;' : ''}}
 			{{ supplier?.country | const: 'country' }}

@@ -1,12 +1,10 @@
 import {
-	AfterViewInit,
 	ChangeDetectionStrategy,
 	Component,
 	ContentChild,
 	ElementRef,
 	EventEmitter,
 	Input,
-	OnInit,
 	Output,
 	Renderer2,
 } from '@angular/core';
@@ -23,12 +21,19 @@ import { TrackingComponent } from '~utils/tracking-component';
 	styleUrls: ['./product-card.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductCardComponent extends TrackingComponent implements OnInit, AfterViewInit {
+export class ProductCardComponent extends TrackingComponent {
 
 	/** The link to display the element */
 	link: string;
 	/** The associated product */
-	@Input() checked: boolean;
+	private _checked: boolean;
+	@Input() set checked(checked: boolean) {
+		this._checked = checked;
+		// this.setClassHighlightChecked(this._checked);
+	}
+	get checked() {
+		return this._checked;
+	}
 	/** The associated product */
 	@Input() set product(product: Product) {
 		this._product = product;
@@ -83,16 +88,9 @@ export class ProductCardComponent extends TrackingComponent implements OnInit, A
 		private elementRef: ElementRef,
 		private renderer: Renderer2,
 		private router: Router,
-		private thumbSrv: ThumbService) {
+		public thumbSrv: ThumbService
+	) {
 		super();
-	}
-
-	ngOnInit() { }
-
-	ngAfterViewInit() {
-		if (this.checked && this.highlightOnChecked) {
-			this.renderer.addClass(this.elementRef.nativeElement, 'highlight-checked');
-		}
 	}
 
 	/** Click the title bloc */
@@ -114,7 +112,6 @@ export class ProductCardComponent extends TrackingComponent implements OnInit, A
 	onClickOutsideCard() {
 		if (this.contextualMenuOpened) {
 			this.contextualMenuOpened = !this.contextualMenuOpened;
-
 		}
 	}
 
@@ -132,9 +129,7 @@ export class ProductCardComponent extends TrackingComponent implements OnInit, A
 		this.checked = true;
 		this.checkboxAction = true;
 		this.select.emit(this.product);
-		if (this.checked && this.highlightOnChecked) {
-			this.renderer.addClass(this.elementRef.nativeElement, 'highlight-checked');
-		}
+		// this.setClassHighlightChecked(true);
 	}
 
 	/** Handle checbkox uncheck event */
@@ -142,9 +137,27 @@ export class ProductCardComponent extends TrackingComponent implements OnInit, A
 		this.checked = false;
 		this.checkboxAction = true;
 		this.unselect.emit(this.product);
-		if (!this.checked && this.highlightOnChecked) {
-			this.renderer.removeClass(this.elementRef.nativeElement, 'highlight-checked');
+		// this.setClassHighlightChecked(false);
+	}
+
+	getPriceMoq(product: Product) {
+		if (product) {
+			return `
+				${product.price || ''} ${product.price && product.minimumOrderQuantity ? '-' : ''} ${product.minimumOrderQuantity || ''}
+			`;
 		}
+
+		return '';
+	}
+
+	/**
+	 * add: boolean that determines if we add a class or remove a class
+	 */
+	private setClassHighlightChecked(add = false) {
+		if (add && this.checked && this.highlightOnChecked)
+			this.renderer.addClass(this.elementRef.nativeElement, 'highlight-checked');
+		else if (!add && !this.checked && this.highlightOnChecked)
+			this.renderer.removeClass(this.elementRef.nativeElement, 'highlight-checked');
 	}
 
 	openProduct() {

@@ -1,39 +1,42 @@
 .selected {
-	// background: var(--color-txt-primary);
-	color: white;
+	// background: var(--legacy-color-txt-primary);
+	color: var(--color-bg);
 	>[class^="icon-"],
 	[class*=" icon-"] {
 		&:before {
-			color: white;
+			color: var(--color-bg);
 		}
 	}
 }
 
 :host {
 	border-radius: 2px;
-	background: var(--color-secondary);
+	background: var(--legacy-color-secondary);
 	position: relative;
+  height: 32px;
+	border-radius: var(--border-radius);
 }
 
 .ctnr {
 	// to suppress the shadow from the btn
 	overflow: hidden;
+	width: 192px;
 }
 
 button {
+	min-width: unset;
 	height: 32px;
-	min-width: 70px;
-	border-radius: var(--border-radius-s);
+	line-height: 0;
+	border-radius: var(--border-radius);
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	font-size: var(--font-size-s);
 	background: transparent;
-	color:  var(--color-txt-primary);
+	color:  var(--color-txt-secondary);
 	padding: var(--spacing-s) var(--spacing-ms);
 	z-index: var(--z-button);
 	text-transform: none;
-	align-items: baseline;
 }
 
 
@@ -44,15 +47,22 @@ icon-app {
 	font-size: var(--font-size-xs);
 
 	&.list {
-		font-size: var(--font-size-xxs);
+		font-size: var(--font-size-s);
 	}
+	&.board {
+		font-size: var(--font-size-xs);
+	}
+	&.cards {
+		font-size: var(--font-size-s);
+	}
+
 	&:before {
-		color: var(--color-txt-primary);
+		color: var(--legacy-color-txt-primary);
 	}
 }
 
 .slider {
-	background: var(--color-txt-primary);
+	background: var(--legacy-color-txt-primary);
 	height: 32px;
 	border-radius: 2px;
 	position: absolute;
@@ -62,10 +72,14 @@ icon-app {
 	transition: all 0.35s ease-out;
 	&.left {
 		left: 0;
-		width: calc(100% / 2);
+	}
+	&.mid {
+		left: calc(100% / 3);
 	}
 	&.right {
+		left: calc((100% / 3) * 2);
+	}
+	&.right-two-items {
 		left: calc(100% / 2);
-		width: calc(100% / 2);
 	}
 }

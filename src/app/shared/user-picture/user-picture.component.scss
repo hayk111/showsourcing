@@ -8,11 +8,11 @@ img-app {
 }
 
 .border {
-	border: 1px solid var(--color-primary-light);
+	border: 1px solid var(--legacy-color-primary-light);
 }
 
 .initials {
-	color: var(--color-primary);
+	color: var(--legacy-color-primary);
 	border: 1px solid white;
 	box-sizing: border-box;
 	text-transform: uppercase;
@@ -22,11 +22,18 @@ img-app {
 	background-color: #def0fe;
 }
 
+.bg-primary-light-no-border {
+	color: var(--color-primary);
+	background-color: var(--color-primary-light);
+	font-weight: 600;
+	border: none;
+}
+
 .dot-border {
-	border: 1px dotted var(--color-secondary-dark);
+	border: 1px dotted var(--legacy-color-secondary-dark);
 }
 
 .gradient-border {
-	background: linear-gradient(#7bd6ff, var(--color-primary));
+	background: linear-gradient(#7bd6ff, var(--legacy-color-primary));
 	padding: 1px;
 }

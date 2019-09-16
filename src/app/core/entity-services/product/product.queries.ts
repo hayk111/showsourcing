@@ -2,6 +2,12 @@ import { GlobalQueries } from '~entity-services/_global/global-queries.class';
 
 export abstract class ProductQueries extends GlobalQueries {
 
+	// tslint:disable-next-line:max-line-length
+	static readonly tasksLinked = `tasksLinked: _linkingObjects(objectType: "Task" property:"product" query:"deleted == false") { ... on TaskCollection { count, items { dueDate } }}`;
+
+	// tslint:disable-next-line:max-line-length
+	static readonly samplesLinked = `samplesLinked: _linkingObjects(objectType: "Sample" property:"product" query:"deleted == false") { ... on SampleCollection { count }}`;
+
 	// in a product there are many sub entities, those are utilities
 	// so when we query a product we can do things like selectOne(id, ProductQueries.images)
 	// to only get a response like this
@@ -27,11 +33,22 @@ export abstract class ProductQueries extends GlobalQueries {
 	// uncomment and replace when the Image.creationDate bug is fixed on votes, avatar { id, fileName, imageType, creationDate }
 	static readonly votes = `votes { id, value, user { id, firstName, lastName } }`;
 	static readonly user = (name: string) => `${name} { id, firstName, lastName, avatar { id, urls { id, url } } }`;
-	static readonly comments = `comments { id, text, ${ProductQueries.user('createdBy')}, creationDate }`;
+	static readonly comments = `comments {
+		id, text, creationDate, lastUpdatedDate, deleted,
+		${ProductQueries.user('createdBy')},
+		${ProductQueries.user('lastUpdatedBy')}
+	}`;
 	static readonly priceMatrix = `priceMatrix { id, rows { id, label, price { id, value, currency } } }`;
 	static readonly packaging = (name: string) => `${name} { id, height, width, length, unit, itemsQuantity, weight, weightUnit, }`;
 	static readonly assignee = `assignee { id, firstName, lastName, avatar { id, urls { id, url } }}`;
-	static readonly extendedFields = `extendedFields { id, value, definition { id, label, type, order, metadata }}`;
+	static readonly definition = (name: string) => `${name} { id, label, type, order, metadata }`;
+	static readonly extendedFields = `extendedFields {
+		id, value,
+		${ProductQueries.definition('definition')}
+	}`;
+	// TODO BackEnd add this line to extended fields
+	// selectorValue { id, value, ${ProductQueries.definition('fieldDefinition')} },
+
 	// This is the default selection when using selectOne or queryOne
 	static readonly one = `
 			name,
@@ -47,6 +64,7 @@ export abstract class ProductQueries extends GlobalQueries {
 			incoTerm,
 			harbour,
 			masterCbm,
+			reference,
 			quantityPer20ft,
 			quantityPer40ft,
 			quantityPer40ftHC,
@@ -72,6 +90,8 @@ export abstract class ProductQueries extends GlobalQueries {
 			${ProductQueries.supplier}
 			${ProductQueries.tags}
 			${ProductQueries.votes}
+			${ProductQueries.tasksLinked}
+			${ProductQueries.samplesLinked}
 			`;
 
 	static readonly many = `
@@ -82,6 +102,7 @@ export abstract class ProductQueries extends GlobalQueries {
 			score,
 			minimumOrderQuantity,
 			lastUpdatedDate,
+			reference,
 			deleted,
 			archived,
 			deleted,
@@ -99,6 +120,8 @@ export abstract class ProductQueries extends GlobalQueries {
 			${ProductQueries.votes},
 			${ProductQueries.projects},
 			${ProductQueries.tags}
+			${ProductQueries.tasksLinked},
+			${ProductQueries.samplesLinked},
 			`;
 
 	static readonly update = `

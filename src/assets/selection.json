@@ -1123,14 +1123,14 @@
         "attrs": [],
         "grid": 16,
         "tags": [
-          "trash-bin"
+          "trash"
         ]
       },
       "attrs": [],
       "properties": {
         "order": 235,
         "id": 2,
-        "name": "trash-bin",
+        "name": "trash",
         "prevSize": 32,
         "code": 59661
       },

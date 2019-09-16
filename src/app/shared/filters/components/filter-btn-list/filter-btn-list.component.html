@@ -1,79 +1,80 @@
-
-<ng-container *ngFor="let type of filterBtns; trackBy: trackByFilterBtnsFn">
-
-	<ng-container *ngIf="!hasFilterFor(type); else list">
-
-		<label>
-			{{ type }}
-		</label>
-
-		<button class="secondary-light fullWidth"
-			(click)="editClicked.emit(type)">
-			<ng-container i18n="button@@filter-by">Filter by</ng-container> {{ type }}
-		</button>
-
-	</ng-container>
-
-		<!-- if there is a filter the button doesn't appear and we display a list of filters -->
-		<ng-template #list>
-			<div class="flexBetween">
-				<label>
-					{{ type }}
-				</label>
-				<div>
-					<span class="edit pointer capitalize"
-						(click)="editClicked.emit(type)"
-						i18n="button@@edit">
-						edit
-					</span>
-					<span class="clear pointer capitalize"
-						(click)="resetClicked.emit(type)"
-						i18n="button@@clear">
-						clear
-					</span>
+<div class="filter-btn">
+	<ng-container *ngFor="let type of filterBtns; trackBy: trackByFilterBtnsFn">
+	
+		<ng-container *ngIf="!hasFilterFor(type); else list">
+	
+			<label>
+				{{ type }}
+			</label>
+	
+			<button class="secondary-light fullWidth"
+				(click)="editClicked.emit(type)">
+				<ng-container i18n="button@@filter-by">Filter by</ng-container> {{ type }}
+			</button>
+	
+		</ng-container>
+	
+			<!-- if there is a filter the button doesn't appear and we display a list of filters -->
+			<ng-template #list>
+				<div class="flexBetween">
+					<label>
+						{{ type }}
+					</label>
+					<div>
+						<span class="edit pointer capitalize"
+							(click)="editClicked.emit(type)"
+							i18n="button@@edit">
+							edit
+						</span>
+						<span class="clear pointer capitalize"
+							(click)="resetClicked.emit(type)"
+							i18n="button@@clear">
+							clear
+						</span>
+					</div>
 				</div>
-			</div>
-
-			<div class="flexColumn">
-				<checkbox-app
-					*ngFor="let filter of getFiltersFor(type); trackBy: trackByFn"
-					[checked]="true"
-					(uncheck)="removeFilter(filter)">
-					{{ getDisplayName(filter, type) }}
-				</checkbox-app>
-			</div>
-
-		</ng-template>
-
-</ng-container>
-
-<ng-container *ngIf="hasFavoriteFilter">
-
-	<!-- favorite -->
-	<label class="capitalize" i18n="text@@favorite">
-		favorite
-	</label>
-
-	<checkbox-app
-		[checked]="isFavorite()"
-		(check)="addFilter({ type: favoriteType, value: true })"
-		(uncheck)="removeFilter({ type: favoriteType, value: true })">
-			<rating-heart-app [static]="true" [favorite]="true"></rating-heart-app>
-			<span i18n="button@@only-show-favorites">
-				Only Show Favorites
-			</span>
-	</checkbox-app>
-</ng-container>
-
-<ng-container *ngIf="hasArchivedFilter">
-	<label class="capitalize" i18n="text@@archived">
-		archived
-	</label>
-
-	<checkbox-app
-		[checked]="isArchived()"
-		(check)="onArchivedChange()"
-		(uncheck)="onArchivedChange()">
-		<ng-container i18n="text@@show-archived-products">Show Archived Products</ng-container>
-	</checkbox-app>
-</ng-container>
+	
+				<div class="flexColumn">
+					<checkbox-app
+						*ngFor="let filter of getFiltersFor(type); trackBy: trackByFn"
+						[checked]="true"
+						(uncheck)="removeFilter(filter)">
+						{{ getDisplayName(filter, type) }}
+					</checkbox-app>
+				</div>
+	
+			</ng-template>
+	
+	</ng-container>
+	
+	<ng-container *ngIf="hasFavoriteFilter">
+	
+		<!-- favorite -->
+		<label class="capitalize" i18n="text@@favorite">
+			favorite
+		</label>
+	
+		<checkbox-app
+			[checked]="isFavorite()"
+			(check)="addFilter({ type: favoriteType, value: true })"
+			(uncheck)="removeFilter({ type: favoriteType, value: true })">
+				<rating-heart-app [static]="true" [favorite]="true"></rating-heart-app>
+				<span i18n="button@@only-show-favorites">
+					Only Show Favorites
+				</span>
+		</checkbox-app>
+	</ng-container>
+	
+	<ng-container *ngIf="hasArchivedFilter">
+		<label class="capitalize" i18n="text@@archived">
+			archived
+		</label>
+	
+		<checkbox-app
+			[checked]="isArchived()"
+			(check)="onArchivedChange()"
+			(uncheck)="onArchivedChange()">
+			<ng-container i18n="text@@show-archived-products">Show Archived Products</ng-container>
+		</checkbox-app>
+	</ng-container>
+</div>

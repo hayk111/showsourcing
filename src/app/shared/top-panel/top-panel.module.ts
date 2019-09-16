@@ -21,15 +21,18 @@ import { TopPanelComponent } from '~shared/top-panel/components/top-panel/top-pa
 import { ViewSwitcherComponent } from '~shared/top-panel/components/view-switcher/view-switcher.component';
 import { UserPictureModule } from '~shared/user-picture/user-picture.module';
 import { UtilsModule } from '~shared/utils';
-
+import { InputsModule } from '~shared/inputs';
 import { SubPanelLeftItemComponent } from './components/sub-panel-left-item/sub-panel-left-item.component';
 import { SubPanelRightItemComponent } from './components/sub-panel-right-item/sub-panel-right-item.component';
 import { TopPanelActionButtonsComponent } from './components/top-panel-action-buttons/top-panel-action-buttons.component';
 import { TopPanelDetailsComponent } from './components/top-panel-details/top-panel-details.component';
+import { PanelTabComponent} from './components/panel-tab/panel-tab.component';
+
 
 @NgModule({
 	imports: [
 		CommonModule,
+		InputsModule,
 		ReactiveFormsModule,
 		RouterModule.forChild([]),
 		BadgeModule,
@@ -59,6 +62,7 @@ import { TopPanelDetailsComponent } from './components/top-panel-details/top-pan
 		SubPanelRightItemComponent,
 		TopPanelActionButtonsComponent,
 		TopPanelActionButtonsComponent,
+		PanelTabComponent,
 	],
 	exports: [
 		TopPanelComponent,
@@ -68,6 +72,7 @@ import { TopPanelDetailsComponent } from './components/top-panel-details/top-pan
 		SubPanelLeftItemComponent,
 		SubPanelRightItemComponent,
 		TopPanelActionButtonsComponent,
+		PanelTabComponent
 	],
 })
 export class TopPanelModule { }

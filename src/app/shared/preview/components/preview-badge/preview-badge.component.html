@@ -10,7 +10,7 @@
 			[width]="370"
 			(update)="update.emit($event)">
 			<div class="flex">
-				<icon-app name="product" backgroundColor="primary"></icon-app>
+				<logo-app type="product" size="s"></logo-app>
 				<span *ngIf="value; else empty" class="ellipsis">{{ value }}</span>
 				<ng-template #empty>
 					<span i18n="text@@set-product">Set product</span>
@@ -36,7 +36,7 @@
 			[width]="370"
 			(update)="update.emit($event)">
 			<div class="flex">
-				<icon-app name="supplier" backgroundColor="supplier"></icon-app>
+				<logo-app type="supplier" size="s"></logo-app>
 				<span *ngIf="value; else empty" class="ellipsis">{{ value }}</span>
 				<ng-template #empty>
 					<span i18n="text@@set-supplier">Set supplier</span>
@@ -62,7 +62,7 @@
 			[width]="370"
 			(update)="update.emit($event)">
 			<div class="flex">
-				<icon-app name="supplier" backgroundColor="supplier"></icon-app>
+				<logo-app type="supplier" size="s"></logo-app>
 				<span *ngIf="value; else empty" class="ellipsis">{{ value }}</span>
 				<ng-template #empty>
 					<span i18n="text@@set-supplier-type">Set supplier type</span>
@@ -80,7 +80,7 @@
 			[width]="370"
 			(update)="update.emit($event)">
 			<div class="flex">
-				<icon-app name="location" backgroundColor="secondary-dark"></icon-app>
+				<logo-app type="location" size="s"></logo-app>
 				<span *ngIf="value; else empty">{{ value }}</span>
 				<ng-template #empty>
 					<span i18n="text@@set-location">Set location</span>
@@ -100,8 +100,8 @@
 			[offsetX]="getDynamicOffsetX()"
 			[width]="370"
 			(update)="update.emit($event)">
-			<div class="flex category-label">
-				<icon-app name="category" backgroundColor="accent"></icon-app>
+			<div class="flex">
+				<logo-app type="category" size="s"></logo-app>
 				<div class="category-wrap flex flexWrap">
 					<div *ngIf="value?.length; else noArray" class="ellipsis category-info dot-separator">
 						<span *ngFor="let category of value; trackBy: trackByFn" class="ellipsis"> {{ category?.name }}  </span>
@@ -129,7 +129,7 @@
 			[width]="370"
 			(update)="update.emit($event)">
 			<div class="flex">
-				<icon-app name="event-calendar" backgroundColor="success"></icon-app>
+				<logo-app type="event" size="s"></logo-app>
 				<span *ngIf="(value?.name || value?.description?.name); else empty" class="ellipsis">
 					{{ value?.name || value?.description?.name }}
 				</span>

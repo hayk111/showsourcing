@@ -1,0 +1,10 @@
+<badge-app
+	class="pointer"
+	size="m"
+	[type]="getType()"
+	(click)="update.emit(!project.done)">
+		<icon-app name="circle"></icon-app>
+		<div>
+			{{ getProjectStatus() | const: 'status' }}
+		</div>
+</badge-app>

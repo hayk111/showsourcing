@@ -1,5 +1,5 @@
 .name {
-	color: var(--color-txt-strong);
+	color: var(--legacy-color-txt-strong);
 	margin-bottom: var(--spacing-xs);
 	font-weight: 600;
 }
@@ -13,7 +13,7 @@
 .exhibitor {
 	padding: var(--spacing-ms);
 	&:hover {
-		background: var(--color-secondary-light);
+		background: var(--legacy-color-secondary-light);
 		.actions {
 			visibility: visible;
 		}

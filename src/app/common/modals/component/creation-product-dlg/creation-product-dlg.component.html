@@ -30,8 +30,8 @@
 			<h3 class="ms" i18n="@@product-details">product details</h3>
 			<dynamic-form-app
 				[colAmount]="1"
-				[fields]="dynamicFields"
-				[textMode]="false"
+				[fields]="productDescriptor?.descriptor"
+				[isFormStyle]="true"
 				[value]="product"
 				(update)="updateProduct($event)">
 			</dynamic-form-app>

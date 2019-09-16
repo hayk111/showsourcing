@@ -4,16 +4,20 @@
 	margin: auto;
 }
 
-form{
+form {
 	display: block;
 	width: 340px;
+}
+
+.container {
+	width: 100%;
 }
 
 .imgPreview {
 	width: 340px;
   height: 255px;
 	border-radius: var(--border-radius);
-	background: var(--color-secondary-light);
+	background: var(--legacy-color-secondary-light);
 	overflow:hidden;
 	.previewImg {
 		max-width: 100%;
@@ -23,5 +27,5 @@ form{
 
 .secondary {
 	margin-top: var(--spacing-s);
-	color: var(--color-txt-secondary);
+	color: var(--legacy-color-txt-secondary);
 }

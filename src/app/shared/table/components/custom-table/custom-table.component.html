@@ -1,21 +1,23 @@
+
 <table-app
 	[rows]="rows"
+	[width]="width"
 	[selected]="selected"
 	[contextualMenu]="contextualMenu"
 	[hasMenu]="hasMenu"
 	[currentSort]="currentSort"
 	[placeholder]="placeholder"
 	[count]="count"
-	[skipped]="skipped"
-	(next)="next.emit()"
-	(previous)="previous.emit()"
+	[rowHeight]="53"
+	[currentPage]="currentPage"
+	[pending]="pending"
 	(goToPage)="goToPage.emit($event)"
 	(bottomReached)="bottomReached.emit()"
 	(selectOne)="selectOne.emit($event)"
 	(unselectOne)="unselectOne.emit($event)"
 	(selectAll)="selectAll.emit($event)"
 	(unselectAll)="unselectAll.emit($event)"
-	[pending]="pending"
+	(showItemsPerPage)="showItemsPerPage.emit($event)"
 	(sort)="sort.emit($event)">
 		<ng-template
 			*ngFor="let column of descriptor;trackBy: trackByFn"

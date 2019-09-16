@@ -1,10 +1,26 @@
 
-	<ng-content select="card-header-app"></ng-content>
+<ng-content select="card-header-app"></ng-content>
 
-	<main #ref [ngStyle]="style">
-		<ng-content></ng-content>
-	</main>
+<divider-app *ngIf="header"></divider-app>
 
-	<footer [ngStyle]="footerStyle">
-		<ng-content select="card-footer-app"></ng-content>
-	</footer>
+<main class="pd-{{ padding }}">
+
+	<div class="top flexBetween flexVAlign" *ngIf="title || action">
+
+		<div class="flex flexVAlign">
+			<ng-content select="card-title-app"></ng-content>
+			<ng-content select="card-title-badge-app"></ng-content>
+		</div>
+
+		<ng-content select="card-action-app"></ng-content>
+
+	</div>
+
+	<ng-content></ng-content>
+
+</main>
+
+<footer>
+	<ng-content select="card-footer-app"></ng-content>
+</footer>
+

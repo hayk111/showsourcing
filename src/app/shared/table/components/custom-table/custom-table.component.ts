@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, TemplateRef, OnChanges } from '@angular/core';
 import { TableDescriptor } from '~shared/table';
 import { Sort } from '~shared/table/components/sort.interface';
 import { TrackingComponent } from '~utils/tracking-component';
@@ -12,6 +12,7 @@ import { TrackingComponent } from '~utils/tracking-component';
 export class CustomTableComponent extends TrackingComponent {
 	@Input() currentSort: Sort;
 	@Input() placeholder: string;
+	@Input() width: number;
 	@Output() bottomReached = new EventEmitter<any>();
 	@Output() sort = new EventEmitter<Sort>();
 	@Input() descriptor: TableDescriptor = [];
@@ -21,10 +22,10 @@ export class CustomTableComponent extends TrackingComponent {
 	@Input() hasMenu = true;
 	/** total number of items for pagination */
 	@Input() count = 0;
-	/** how many items were skipped so we can display the pages */
-	@Input() skipped: number;
+
 	// maps of the <id, true> so we can access the items that are selected
 	@Input() selected: Map<string, boolean> = new Map();
+	@Input() currentPage: number;
 	@Output() selectOne = new EventEmitter<string>();
 	@Output() unselectOne = new EventEmitter<string>();
 	@Output() selectAll = new EventEmitter<string[]>();
@@ -33,6 +34,7 @@ export class CustomTableComponent extends TrackingComponent {
 	@Output() previous = new EventEmitter<undefined>();
 	@Output() next = new EventEmitter<undefined>();
 	@Output() goToPage = new EventEmitter<number>();
+	@Output() showItemsPerPage = new EventEmitter<number>();
 
 	constructor() {
 		super();

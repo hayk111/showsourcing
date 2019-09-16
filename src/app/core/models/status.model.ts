@@ -2,7 +2,14 @@ import { ID, uuid } from '~utils';
 
 export const DEFAULT_STATUS_CATEGORY = 'inProgress';
 export const NEW_STATUS_ID = 'new-status-id';
+
 export enum TaskStatus {
+	DONE = '_Done',
+	PENDING = '_Pending',
+	OVERDUE = '_Overdue',
+}
+
+export enum ProjectStatus {
 	DONE = '_Done',
 	PENDING = '_Pending',
 	OVERDUE = '_Overdue',

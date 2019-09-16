@@ -1,16 +1,15 @@
 
 :host {
 	display: flex;
+	flex-direction: column;
 	height: 100%;
 }
 
 .right {
 	flex-grow: 1;
-	/** 100% minus menu width */
-	width: calc(100% - 79px);
 }
 
 icon-app {
 	font-size: var(--font-size-xxxl);
-	color: var(--color-txt-primary);
+	color: var(--legacy-color-txt-primary);
 }

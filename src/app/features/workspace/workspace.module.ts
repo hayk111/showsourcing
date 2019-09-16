@@ -3,7 +3,6 @@ import { RouterModule } from '@angular/router';
 import { ProductCommonModule } from '~common/product/product-common.module';
 import { SampleCommonModule } from '~common/sample';
 import { TaskCommonModule } from '~common/task';
-import { SampleListViewComponent } from '~features/workspace/components';
 import {
 	MySampleBoardPageComponent,
 	MySampleListPageComponent,
@@ -33,7 +32,6 @@ import { SharedModule } from '~shared/shared.module';
 		MySamplePageComponent,
 		MySampleBoardPageComponent,
 		MySampleListPageComponent,
-		SampleListViewComponent
 	],
 	exports: [RouterModule],
 	providers: []

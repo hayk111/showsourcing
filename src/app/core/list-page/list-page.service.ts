@@ -18,6 +18,8 @@ import { ListPageDataService } from './list-page-data.service';
 import { ListPageKey } from './list-page-keys.enum';
 import { ListPageViewService } from './list-page-view.service';
 import { SelectionWithFavoriteService } from './selection-with-favorite.service';
+import { log } from '~utils/log';
+import { showsourcing } from '~utils/debug-object.utils';
 
 
 // where we can save the services
@@ -29,6 +31,12 @@ export interface ListPageConfig extends ListPageDataConfig {
 	key?: ListPageKey | string;
 	entityMetadata: EntityMetadata;
 	originComponentDestroy$?: Observable<void>;
+}
+
+interface FilterEntity {
+	value: boolean;
+	type: FilterType;
+	entity?: string;
 }
 
 /**
@@ -55,7 +63,11 @@ export class ListPageService
 		private thumbSrv: ThumbService,
 		private dlgSrv: DialogService,
 		private zone: NgZone
-	) { }
+	) {
+		if (!showsourcing.lists) {
+			showsourcing.lists = {};
+		}
+	}
 
 	static reset() {
 		selectionSrvMap.clear();
@@ -70,6 +82,8 @@ export class ListPageService
 			this.dataSrv.setup(config);
 			// setting up the view service so we know what panel is open etc
 			this.viewSrv.setup(config.entityMetadata);
+			// storing the state for debugging purpose
+			showsourcing.lists[config.entityMetadata.singular + '-' + config.key] = this;
 		});
 		if (shouldInitDataLoading) {
 			this.loadData(config.originComponentDestroy$);
@@ -123,6 +137,10 @@ export class ListPageService
 		return this.dataSrv.items$;
 	}
 
+	get currentPage() {
+		return this.dataSrv.currentPage;
+	}
+
 	get pending() {
 		return this.dataSrv.pending;
 	}
@@ -166,8 +184,8 @@ export class ListPageService
 		this.dataSrv.loadMore().subscribe();
 	}
 
-	loadPage(page: number) {
-		this.dataSrv.loadPage(page).subscribe(_ => this.selectionSrv.unselectAll());
+	loadPage(page: number, config?: SelectParamsConfig) {
+		this.dataSrv.loadPage(page, config).subscribe(_ => this.selectionSrv.unselectAll());
 	}
 
 	loadNextPage() {
@@ -388,7 +406,7 @@ export class ListPageService
 		this.viewSrv.closeFilterPanel();
 	}
 
-	changeView(view: 'list' | 'card') {
+	changeView(view: 'list' | 'board' | 'card') {
 		this.viewSrv.changeView(view);
 	}
 
@@ -432,4 +450,36 @@ export class ListPageService
 		return this.selectionSrv.getSelectionValues();
 	}
 
+	getFilterAmount(filterArr: FilterEntity[]): number {
+		const filters = this.filterList.asFilters()
+		.filter(fil => !filterArr.some(elem => elem.type === fil.type && elem.value === fil.value));
+		return filters.length;
+	}
+
+	filterByArchived(shouldAdd: boolean) {
+		this.filterList.removeFilterType(FilterType.ARCHIVED);
+		this.filterList.addFilter({ type: FilterType.ARCHIVED, value: shouldAdd });
+	}
+
+	filterByAssignee(shouldAdd: boolean) {
+		const filterParam = { type: FilterType.ASSIGNEE, value: true };
+
+		if (shouldAdd) {
+			this.addFilter(filterParam);
+			return;
+		}
+
+		this.removeFilter(filterParam);
+	}
+
+	filterByDone(shouldAdd: boolean) {
+		const filterParam = { type: FilterType.DONE, value: true };
+
+		if (shouldAdd) {
+			this.addFilter(filterParam);
+			return;
+		}
+
+		this.removeFilter(filterParam);
+	}
 }

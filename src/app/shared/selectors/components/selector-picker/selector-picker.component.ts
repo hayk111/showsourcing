@@ -21,27 +21,12 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { Category, Contact, EntityMetadata, ERM, Event, Product, Project, Supplier, SupplierType, Tag } from '~core/models';
+import { DynamicField } from '~shared/dynamic-forms';
 import { FilterList } from '~shared/filters';
 import { AbstractInput, InputDirective } from '~shared/inputs';
 import { SelectorsService } from '~shared/selectors/services/selectors.service';
 import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlight.ablecomponent';
-import { RegexpApp } from '~utils';
-
-export interface PickerField {
-	name: string;
-	type: string;
-	label?: string; // if the name do not coincide with the label that we want e.g. moq != minimunOrderQuantity
-	metadata?: PickerFieldMetadata;
-}
-
-export interface PickerFieldMetadata {
-	multiple?: boolean;
-	canCreate?: boolean;
-	target?: string;
-	hasBadge?: boolean;
-	width?: number;
-	placeholder?: string;
-}
+import { ID, RegexpApp } from '~utils';
 
 @Component({
 	selector: 'selector-picker-app',
@@ -60,8 +45,13 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	}
 	@Input() multiple = false;
 	@Input() canCreate = false;
-	@Input() pickerFields: PickerField[];
+	@Input() dynamicFields: DynamicField[];
 	@Input() filterList = new FilterList([]);
+	/**
+	 * this is used when we have a selector that uses Selector Elements, so we can know which selectors elements
+	 * we need to query
+	 */
+	@Input() definitionReference: ID;
 
 	@Output() update = new EventEmitter<any>();
 	@Output() close = new EventEmitter<null>();
@@ -170,12 +160,16 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		}
 	}
 
-	resetInput() {
+	private resetInput() {
 		this.inp.control.reset();
 		this.inp.focus();
 		this.search('');
 	}
 
+	/**
+	 * search a text and set first item active on selector
+	 * @param text
+	 */
 	search(text) {
 		this.searchTxt = text.trim().toLowerCase();
 		this.movedArrow = false;
@@ -184,9 +178,9 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		this.keyManager.setFirstItemActive();
 	}
 
-	/**choices of the given type, remember to add a new selector row component if you add a new type or use an existign one */
+	/** choices of the given type, remember to add a new selector row component if you add a new type or use an existign one */
 	// ARRAYS START AT 1 NOT 0!!!! now that I have your attention ADVICE: when adding a new choice, check the update single method
-	getChoices(type: EntityMetadata): Observable<any[]> {
+	private getChoices(type: EntityMetadata): Observable<any[]> {
 		switch (type) {
 			case ERM.CATEGORY: return this.selectorSrv.getCategories();
 			case ERM.EMAIL:
@@ -197,10 +191,14 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			case ERM.HARBOUR: return this.selectorSrv.getHarboursGlobal();
 			case ERM.INCO_TERM: return this.selectorSrv.getIncoTermsGlobal();
 			case ERM.LENGTH_UNIT: return this.selectorSrv.getLengthUnits();
-			case ERM.PICKER_FIELD: return this.selectorSrv.getPickerFields(this.pickerFields);
+			case ERM.PICKER_FIELD: return this.selectorSrv.getDynamicFields(this.dynamicFields);
 			case ERM.PRODUCT: return this.selectorSrv.getProducts();
 			case ERM.PROJECT: return this.selectorSrv.getProjects();
 			case ERM.REQUEST_TEMPLATE: return this.selectorSrv.getRequestTemplates();
+			case ERM.SELECTOR_ELEMENT:
+				if (!this.definitionReference)
+					throw Error('The selector `SelectorElement` needs a definitionReference to target');
+				return this.selectorSrv.getSelectorElements(this.definitionReference);
 			case ERM.SUPPLIER: return this.selectorSrv.getSuppliers();
 			case ERM.SUPPLIER_TYPE: return this.selectorSrv.getSupplierTypes();
 			case ERM.TAG: return this.selectorSrv.getTags();
@@ -222,7 +220,10 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			this.updateMultiple();
 	}
 
-	updateMultiple() {
+	/**
+	 * Emits an array of new values so they can be updated and refetch the selector
+	 */
+	private updateMultiple() {
 		let trimValues;
 		switch (this.type) {
 			case ERM.EMAIL:
@@ -239,6 +240,15 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 					}
 				));
 				break;
+			case ERM.SELECTOR_ELEMENT:
+				trimValues = this.value.map(v => (
+					{
+						id: v.id,
+						value: v.value,
+						__typename: v.__typename
+					}
+				));
+				break;
 			default:
 				trimValues = this.value.map(v => ({ id: v.id, name: v.name, __typename: v.__typename }));
 				break;
@@ -247,7 +257,10 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		this.selectorSrv.refetch();
 	}
 
-	updateSingle() {
+	/**
+	 * Emits the new single value so it can be updated
+	 */
+	private updateSingle() {
 		let item;
 		// depending on the entity the way we update it can be different (we only care to update the value that we display)
 		switch (this.type) {
@@ -265,6 +278,13 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 					id: this.value.id,
 					email: this.value.email,
 					supplier: this.value.supplier ? this.value.supplier : null,
+					__typename: this.value.__typename
+				};
+				break;
+			case ERM.SELECTOR_ELEMENT:
+				item = {
+					id: this.value.id,
+					value: this.value.value,
 					__typename: this.value.__typename
 				};
 				break;
@@ -293,6 +313,10 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		this.close.emit();
 	}
 
+	/**
+	 * Upon selecting an item, we emit its new value and reset the input
+	 * @param item
+	 */
 	onSelect(item) {
 		if (this.multiple) {
 			if (!this.isSelected(item)) { // if its multiple and its not selected we add it
@@ -306,7 +330,12 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		this.resetInput();
 	}
 
-	checkExist(items: any[]) {
+	/**
+	 * checks if any of items match with the current searchText
+	 * @param items items to check if they match with current searchText
+	 * @returns list of items that match the current searchTxt
+	 */
+	private checkExist(items: any[]) {
 		switch (this.type) {
 			case ERM.EMAIL:
 				return items.filter(it => it.name === this.searchTxt || it.email === this.searchTxt);
@@ -315,7 +344,9 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		}
 	}
 
-	/** creates a new entity */
+	/**
+	 * Creates a new entity if its a supported type
+	 */
 	create() {
 		let createObs$: Observable<any>;
 		let added;
@@ -382,7 +413,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		}
 	}
 
-	getLabelName(label) {
+	private getLabelName(label) {
 		if (!label.name)
 			throw Error('This entity selector does not have a name property when using multiple, check onkeyDown else if (this.multiple)');
 		return label.name;
@@ -419,9 +450,14 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		}
 	}
 
-	/** this method should only be used when multiple true, since we acces the value as an array 	*/
-	/** checks if the item matches with any of the values stored */
-	isSelected(item: any) {
+
+	/**
+	 * checks if the item matches with any of the values stored
+	 * @param item
+	 * @returns true if the current item is selected, flase otherwise
+	 */
+	// this method should only be used when multiple true, since we acces the value as an array
+	private isSelected(item: any) {
 		let isSelected = false;
 		if (!this.multiple)
 			return isSelected;
@@ -438,9 +474,12 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		return isSelected;
 	}
 
-	/** this method should only be used when multiple true, since we acces the value as an array 	*/
-	/** checks if the name given matches with any of the values stored */
-	hasName(name: string) {
+	/**
+	 * checks if the name given matches with any of the values stored
+	 * @param name
+	 */
+	// this method should only be used when multiple true, since we acces the value as an array
+	private hasName(name: string) {
 		let hasName = false;
 		if (!this.multiple)
 			return hasName;
@@ -457,7 +496,12 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		return hasName;
 	}
 
-	/** this is only called when deleting from the current-values-container */
+	// this is only called when deleting from the current-values-container,
+	// should only be used when multiple true
+	/**
+	 * deletes the item from the array of current values
+	 * @param item item
+	 */
 	delete(item) {
 		switch (this.type) {
 			case ERM.EMAIL:
@@ -470,8 +514,13 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		this.onChange();
 	}
 
-	/** we needed this in case we want to display multiple items active class, for some reason with ngClass didn't work */
+	/**
+	 * gets the active class when an item is selected
+	 * @param item item we want to check if is selected
+	 * @returns active class if the item is selected, otherwise empty class
+	 */
 	getActiveClass(item) {
+		// we only use it when its not multiple
 		if (!this.multiple)
 			return [];
 		return this.isSelected(item) ? ['active'] : [];

@@ -4,7 +4,7 @@ import { first, map, skip, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { ListPageDataConfig } from '~core/list-page/list-page-config.interface';
 import { GlobalServiceInterface } from '~entity-services/_global/global.service';
 import { ListQuery } from '~entity-services/_global/list-query.interface';
-import { DEFAULT_TAKE_PAGINATION, SelectParamsConfig } from '~entity-services/_global/select-params';
+import { DEFAULT_TAKE_PAGINATION, SelectParamsConfig, SelectParams } from '~entity-services/_global/select-params';
 import { Filter, FilterList, FilterType } from '~shared/filters';
 import { Sort } from '~shared/table/components/sort.interface';
 import { log } from '~utils/log';
@@ -24,16 +24,14 @@ export class ListPageDataService
 	items$: ConnectableObservable<Array<T>>;
 	/** number of total items */
 	count$: Observable<number>;
+	/** current page we are at */
+	currentPage = 0;
 
 	/** can be used on when to fetch more etc. */
 	private listResult: ListQuery<T>;
-	selectParams: SelectParamsConfig = {
-		query: 'deleted == false',
-		sortBy: 'creationDate',
-		descending: true,
-		take: DEFAULT_TAKE_PAGINATION,
-		skip: 0
-	};
+	selectParams: SelectParamsConfig = new SelectParams({
+		query: 'deleted == false'
+	});
 
 	/** filters coming from the filter panel if any. */
 	filterList = new FilterList([
@@ -125,6 +123,7 @@ export class ListPageDataService
 			.valueChanges$
 			.pipe(
 				skip(1),
+				tap(_ => this.currentPage = 0),
 				tap(filterList => this.selectParams.query = filterList.asPredicate()),
 				switchMap(_ => this.refetch()),
 				takeUntil(destroy$)
@@ -154,22 +153,27 @@ export class ListPageDataService
 		return this.listResult.fetchMore();
 	}
 
-	loadPage(page: number): Observable<any> {
+	loadPage(page: number, config?: SelectParamsConfig): Observable<any> {
+		this.currentPage = page;
+		this.selectParams.take = config && config.take ? config.take : this.selectParams.take;
 		this.selectParams.skip = this.selectParams.take * page;
 		return this.refetch(this.selectParams);
 	}
 
 	loadNextPage(): Observable<any> {
+		this.currentPage++;
 		this.selectParams.skip = this.selectParams.skip + this.selectParams.take;
 		return this.refetch(this.selectParams);
 	}
 
 	loadPreviousPage(): Observable<any> {
+		this.currentPage--;
 		this.selectParams.skip = Math.max(this.selectParams.skip - this.selectParams.take, 0);
 		return this.refetch(this.selectParams);
 	}
 
 	loadFirstPage(): Observable<any> {
+		this.currentPage = 0;
 		this.selectParams.skip = 0;
 		return this.refetch(this.selectParams);
 	}

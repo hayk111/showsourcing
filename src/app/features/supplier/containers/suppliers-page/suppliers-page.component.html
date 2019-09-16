@@ -1,30 +1,45 @@
 <top-panel-app
+	[class.top-panel-margin-board]="listSrv.view === 'board'"
 	[title]="'My suppliers'"
-	buttonName="Add Supplier"
+	buttonName="Create Supplier"
 	(buttonClick)="listSrv.create()"
-	i18-title="@@my-suppliers">
+	i18-title="@@create-suppliers">
 </top-panel-app>
 
 <sub-panel-app
-	[hasSwitch]="false"
+	[class.sub-menu-padding-board]="listSrv.view === 'board'"
+	[hasSwitch]="true"
 	[hasFilter]="true"
-	[filtersAmount]="listSrv.filterList.asFilters()?.length"
+	[hasThumb]="false"
+	[view]="listSrv.view"
+	entityType="suppliers"
+	searchType="short"
+	[count]="listSrv.count$ | async"
+	[filtersAmount]="listSrv.getFilterAmount([{ type: filterType.ARCHIVED, value: false }, { type: filterType.DELETED, value: false }])"
 	[searchValue]="listSrv.searchValue"
 	(showFilters)="listSrv.openFilterPanel()"
+	(clearFilters)="onClearFilters()"
+	(showArchived)="listSrv.filterByArchived(true)"
+	(hideArchived)="listSrv.filterByArchived(false)"
+	(showAssigned)="listSrv.filterByAssignee(true)"
+	(hideAssigned)="listSrv.filterByAssignee(false)"
+	(viewChange)="onViewChange($event)"
 	(search)="listSrv.search($event)">
 </sub-panel-app>
 
 <ng-container *ngIf="listSrv.isListening">
 
 	<supplier-list-view-app
+		#supplierList
+		*ngIf="listSrv.view === 'list'"
 		[rows]="listSrv.items$ | async"
+		[currentSort]="listSrv.currentSort"
 		[selection]="listSrv.selection$ | async"
 		[pending]="listSrv.pending"
 		[count]="listSrv.count$ | async"
-		[skipped]="listSrv.skipped"
-		(previous)="listSrv.loadPreviousPage()"
-		(next)="listSrv.loadNextPage()"
+		[currentPage]="listSrv.currentPage"
 		(goToPage)="listSrv.loadPage($event)"
+		(archive)="onArchive($event)"
 		(sort)="listSrv.sort($event)"
 		(select)="listSrv.selectOne($event, true)"
 		(unselect)="listSrv.unselectOne($event, true)"
@@ -34,6 +49,8 @@
 		(favorited)="listSrv.onItemFavorited($event)"
 		(unfavorited)="listSrv.onItemUnfavorited($event)"
 		(previewClick)="listSrv.openPreview($event)"
+		(showItemsPerPage)="showItemsPerPage($event)"
+		(archive)="onArchive($event)"
 		(delete)="listSrv.deleteOne($event)">
 	</supplier-list-view-app>
 
@@ -60,11 +77,19 @@
 				(onFavorite)="listSrv.onFavoriteAllSelected()"
 				(onUnfavorite)="listSrv.onUnfavoriteAllSelected()"	>
 				<button class="icon light" (click)="listSrv.deleteSelected()">
-					<icon-app name="trash-bin"></icon-app>
+					<icon-app name="trash"></icon-app>
 				</button>
 			</action-bar-app>
 		</div>
 	</selection-bar-app>
+
+	<supplier-board-app
+		*ngIf="listSrv.view === 'board'"
+		[selection]="listSrv.selection$"
+		(selectOne)="listSrv.selectOne($event, true)"
+		(unselectOne)="listSrv.unselectOne($event, true)"
+		(preview) = "listSrv.openPreview($event)">
+	</supplier-board-app>
 
 	<supplier-preview-app
 		*ngIf="listSrv.previewOpen"
@@ -73,10 +98,11 @@
 	</supplier-preview-app>
 
 	<filters-app
+		*ngIf="listSrv.filterPanelOpen"
 		[filterList]="listSrv.filterList"
 		[filterTypes]="filterTypes"
 		(clickOutside)="listSrv.closeFilterPanel()"
-		*ngIf="listSrv.filterPanelOpen">
+		(close)="listSrv.closeFilterPanel()">
 	</filters-app>
 
 </ng-container>

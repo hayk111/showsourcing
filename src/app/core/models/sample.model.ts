@@ -11,6 +11,7 @@ export class Sample extends EntityWithAudit<SampleConfig> {
 	product?: Product;
 	supplier?: Supplier;
 	status?: SampleStatus;
+	archived ?= false;
 	comments?: Comment[];
 	images?: AppImage[];
 	trackingNumber?: string;

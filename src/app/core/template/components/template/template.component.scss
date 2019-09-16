@@ -1,11 +1,12 @@
 :host {
 	height: 100vh;
 	overflow: hidden;
-	display: block;
+	display: flex;
 }
 
 main {
-	height: calc(100% - 50px);
+	height: 100%;
+	width: calc(100% - 50px);
 	background: var(--color-bg-secondary);
 	overflow-y: auto;
 	overflow-x: hidden;

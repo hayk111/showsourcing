@@ -22,7 +22,7 @@ describe('FileDropDirective', () => {
 	let dest: DebugElement;
 
 	beforeEach(() => {
-		let fixture = TestBed.configureTestingModule({ declarations: [ FileDropDirective, TestComponent ] }).createComponent(TestComponent);
+		const fixture = TestBed.configureTestingModule({ declarations: [ FileDropDirective, TestComponent ] }).createComponent(TestComponent);
 		dest = fixture.debugElement.query(By.directive(FileDropDirective));
 		directive = dest.injector.get(FileDropDirective);
 		fixture.detectChanges();

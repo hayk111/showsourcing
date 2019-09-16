@@ -10,12 +10,29 @@ export abstract class SupplierQueries extends GlobalQueries {
 	static readonly tags = ` tags { id, name }`;
 	static readonly images = `images { id, urls { url }, orientation }`;
 	static readonly attachments = `attachments { id, fileName, url, size }`;
+	// TODO BackEnd add archived
 	// tslint:disable-next-line:max-line-length
-	static readonly productsLinked = `productsLinked: _linkingObjects(objectType: "Product" property:"supplier" query:"deleted == false AND archived == false") { ... on ProductCollection { count }}`;
-	static readonly comments = `comments { id, text, ${SupplierQueries.user('createdBy')}, creationDate }`;
-	static readonly extendedFields = `extendedFields { id, value, definition { id, label, type, order }}`;
+	// static readonly productsLinked = `productsLinked: _linkingObjects(objectType: "Product" property:"supplier" query:"deleted == false AND archived == false") { ... on ProductCollection { count }}`;
+	// tslint:disable-next-line:max-line-length
+	static readonly productsLinked = `productsLinked: _linkingObjects(objectType: "Product" property:"supplier" query:"deleted == false") { ... on ProductCollection { count }}`;
+	// tslint:disable-next-line:max-line-length
+	static readonly tasksLinked = `tasksLinked: _linkingObjects(objectType: "Task" property:"supplier" query:"deleted == false") { ... on TaskCollection { count, items { dueDate } }}`;
 
+	// tslint:disable-next-line:max-line-length
+	static readonly samplesLinked = `samplesLinked: _linkingObjects(objectType: "Sample" property:"supplier" query:"deleted == false") { ... on SampleCollection { count }}`;
+	static readonly comments = `comments {
+		id, text, creationDate, lastUpdatedDate, deleted,
+		${SupplierQueries.user('createdBy')},
+		${SupplierQueries.user('lastUpdatedBy')}
+	}`;
+	static readonly definition = (name: string) => `${name} { id, label, type, order, metadata }`;
+	static readonly extendedFields = `extendedFields {
+		id, value,
+		selectorValue { id, value, ${SupplierQueries.definition('fieldDefinition')} },
+		${SupplierQueries.definition('definition')}
+	}`;
 
+	// TODO BackEnd add extended fields
 	static readonly one = `
 			name,
 			description,
@@ -43,8 +60,9 @@ export abstract class SupplierQueries extends GlobalQueries {
 			${SupplierQueries.images}
 			${SupplierQueries.attachments}
 			${SupplierQueries.tags}
-			${SupplierQueries.productsLinked},
-			${SupplierQueries.extendedFields}
+			${SupplierQueries.productsLinked}
+			${SupplierQueries.tasksLinked}
+			${SupplierQueries.samplesLinked}
 		`;
 
 	static readonly many = `
@@ -57,13 +75,16 @@ export abstract class SupplierQueries extends GlobalQueries {
 		lastUpdatedDate,
 		${SupplierQueries.status}
 		${SupplierQueries.categories}
+		${SupplierQueries.comments}
 		${SupplierQueries.images}
 		${SupplierQueries.tags}
 		${SupplierQueries.user('createdBy')}
 		${SupplierQueries.user('lastUpdatedBy')}
 		${SupplierQueries.productsLinked}
-		${SupplierQueries.logoImage},
-		${SupplierQueries.extendedFields}
+		${SupplierQueries.tasksLinked}
+		${SupplierQueries.samplesLinked}
+		${SupplierQueries.logoImage}
+		${SupplierQueries.supplierType}
 	`;
 
 	static readonly all = `
@@ -80,8 +101,9 @@ export abstract class SupplierQueries extends GlobalQueries {
 		${SupplierQueries.tags}
 		${SupplierQueries.user('createdBy')}
 		${SupplierQueries.user('lastUpdatedBy')}
-	${SupplierQueries.productsLinked},
-		${SupplierQueries.extendedFields}
+		${SupplierQueries.productsLinked}
+		${SupplierQueries.tasksLinked}
+		${SupplierQueries.samplesLinked}
 	`;
 
 	static readonly update = `

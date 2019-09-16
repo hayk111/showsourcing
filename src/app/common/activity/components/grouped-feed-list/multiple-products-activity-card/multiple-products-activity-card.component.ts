@@ -20,7 +20,7 @@ export class MultipleProductsActivityCardComponent extends AutoUnsub implements 
 	@Output() liked = new EventEmitter<Product>();
 	@Output() disliked = new EventEmitter<Product>();
 
-	time: Date;
+	time: string;
 	products$: Observable<Product[]>;
 	erm = ERM;
 

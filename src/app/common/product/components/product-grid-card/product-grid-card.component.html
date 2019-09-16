@@ -5,6 +5,10 @@
 		size="xl">
 	</img-app>
 
+	<div *ngIf="product?.price" class="product-price">
+		<div class="price-dislayed">{{ product?.price | appPrice }}</div>
+	</div>
+
 	<!-- Floating Elements -->
 	<!-- anything that floats needs the overlay class -->
 	<div class="black-hover">
@@ -13,6 +17,7 @@
 	<checkbox-app
 		*ngIf="hasCheckbox"
 		class="overlay"
+		[size]="17"
 		[ngClass]="{'full-opacity': selected}"
 		[checked]="selected"
 		(check)="select.emit()"
@@ -30,10 +35,11 @@
 			[multiple]="true"
 			[width]="330"
 			(update)="update.emit({id: product?.id, projects: $event})">
-			<icon-app class="folder overlay-icons pointer" name="folder-line"></icon-app>
+			<icon-app class="folder overlay-icons pointer" [size]="13" name="folder-light"></icon-app>
 		</selector-app>
 		<thumb-buttons-app
 			class="thumb-up overlay-icons"
+			size="m"
 			[lineStyle]="true"
 			[votes]="product?.votes"
 			(liked)="liked.emit()"
@@ -41,6 +47,7 @@
 		</thumb-buttons-app>
 		<rating-heart-app
 			class="heart"
+			size="m"
 			[favorite]="product?.favorite"
 			[lineStyle]="true"
 			(favorited)="favorited.emit()"
@@ -48,26 +55,32 @@
 		</rating-heart-app>
 	</div>
 
-	<button class="preview primary overlay capitalize" (click)="preview.emit()" i18n="@@preview">preview</button>
-	<button class="open secondary overlay capitalize" (click)="open.emit()" i18n="@@open">open</button>
+	<button class="preview overlay capitalize" (click)="preview.emit()" i18n="@@preview">
+		<icon-app class="eye-icon" name="eye"></icon-app> preview product
+	</button>
+	<button class="open overlay capitalize" (click)="open.emit()" i18n="@@open">
+		<icon-app class="export-icon" name="export"></icon-app> open product
+	</button>
 
 	<!-- Content (Non Floating) -->
 	<div class="content">
-		<div class="title ellipsis"> {{ product?.name || ('Unnamed product' | const: 'messages') }} </div>
-		<div class="flex" *ngIf="product?.price?.value">
-				<span class="price">
-					{{product?.price | appPrice }}
-				</span>
-				<span class="moq" *ngIf="product?.minimumOrderQuantity">
-					&nbsp;- <ng-container i18n="@@min-pcs">Min {{ product?.minimumOrderQuantity }} pcs</ng-container>
-				</span>
-			</div>
-		<div class="category">{{ product?.category?.name }}</div>
-		<div class="flex status-info">
-			<icon-app class="circle color-{{product?.status?.category || 'secondary'}}" name="circle" fontSet="fa"></icon-app>
-			<!-- TODO i18n -->
-			{{ product?.status?.step || '0' }}.  {{ product?.status?.name ? (product?.status?.name | const:'status') : ('New Product' | const: 'messages') }}
+		<div class="title ellipsis">
+			<div class="badge" [ngStyle]="{ 'background-color': 'var(' + getColor(product?.status) + ')'}"></div>{{ product?.name ||
+				('Unnamed product' | const: 'messages') }}
 		</div>
+		<div class="category">
+			<span class="category-name">{{ product?.category?.name }}</span>
+			<span *ngIf="product?.supplier && product?.category" class="small-gray-badge-separator"></span>
+			<span class="supplier-name">{{ product?.supplier?.name }}</span>
+		</div>
+
+		<product-card-activities-app
+			[favourite]="product?.favorite"
+			[hasSamples]="!!product?.samplesLinked?.count"
+			[hasTasks]="!!product?.tasksLinked?.count"
+			[hasComments]="!!product?.comments.length"
+			[votes]="product?.votes">
+		</product-card-activities-app>
 	</div>
 
 </div>

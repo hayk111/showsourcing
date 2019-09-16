@@ -1,10 +1,11 @@
-button{
-	color: var(--color-txt-secondary);
+button {
+	background: var(--legacy-color-secondary-light);
+	color: var(--legacy-color-txt-secondary);
 }
 
 button:hover {
-	background: var(--color-secondary);
-	color: var(--color-txt-primary);
+	background: var(--legacy-color-secondary);
+	color: var(--legacy-color-txt-primary);
 }
 
 label {
@@ -15,13 +16,13 @@ label {
 	margin-right: var(--spacing-s);
 	&:hover {
 		text-decoration: underline;
-		color: var(--color-primary);
+		color: var(--legacy-color-primary);
 	}
 }
 
 .clear {
 	&:hover{
 		text-decoration: underline;
-		color: var(--color-warn);
+		color: var(--legacy-color-warn);
 	}
 }

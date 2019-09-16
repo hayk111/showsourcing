@@ -1,17 +1,52 @@
 
-<top-panel-app
+<top-panel-details-app
 	[title]="'Data Cleansing'"
-	[hasAction]="false"
+	[hasBackArrow]="false"
+	[elevated]="false"
 	i18n-title="@@data-cleansing">
+	<logo-app color="primary" icon="smile" size="xl"></logo-app>
+	<ng-container subinfo>Manage your categories, tags, suppliers and more</ng-container>
+
+	<!-- navigation tabs of panel -->
+
+	<panel-tab-app
+		link="/settings/data/category"
+		icon="category"
+		name="Categories">
+	</panel-tab-app>
+
+	<panel-tab-app
+		link="/settings/data/tag"
+		icon="tag"
+		name="Tags">
+	</panel-tab-app>
+
+	<!-- <panel-tab-app
+		link="/settings/data/supplier"
+		icon="supplier"
+		name="Suppliers">
+	</panel-tab-app> -->
+
+	<panel-tab-app
+		link="/settings/data/event"
+		icon="event"
+		name="Event">
+	</panel-tab-app>
+
+</top-panel-details-app>
+
+<top-panel-app
+	class="smaller-padding"
+	[title]="listSrv.entityMetadata.plural"
+	[buttonName]="'Add ' + listSrv.entityMetadata.singular"
+	(buttonClick)="listSrv.create(false)">
 </top-panel-app>
 
 <sub-panel-app
-	[title]="listSrv.entityMetadata.plural"
-	[buttonName]="('new' | const: 'messages')+ ' ' + (listSrv.entityMetadata.singular | const: 'erm')"
+	class="smaller-padding"
 	[hasFilter]="false"
 	[hasSwitch]="false"
-	(search)="listSrv.search($event)"
-	(buttonClick)="listSrv.create(false)">
+	(search)="listSrv.search($event)">
 	<sub-panel-right-item-app>
 		<div class="flex" *ngIf="(listSrv.selection$ | async).size > 0">
 			<button class="button warn capitalize" (click)="listSrv.deleteSelected(true)" i18n="@@delete-selected"> delete selected </button>
@@ -27,9 +62,7 @@
 	[pending]="listSrv.pending"
 	[entityMetadata]="listSrv.entityMetadata"
 	[count]="listSrv.count$ | async"
-	[skipped]="listSrv.skipped"
-	(next)="listSrv.loadNextPage()"
-	(previous)="listSrv.loadPreviousPage()"
+	[currentPage]="listSrv.currentPage"
 	(goToPage)="listSrv.loadPage($event)"
 	(sort)="listSrv.sort($event)"
 	(delete)="listSrv.deleteOne($event, true)"

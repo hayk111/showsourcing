@@ -1,9 +1,20 @@
-import { EventEmitter, Input, Output } from '@angular/core';
+import { EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { Sort } from '~shared/table/components/sort.interface';
 import { TrackingComponent } from '~utils/tracking-component';
 
 
-export class ListViewComponent<T> extends TrackingComponent {
+export interface ColumnConfig {
+	title: string;
+	width: number;
+	sortProperty?: string;
+	sortable?: boolean;
+}
+
+export interface TableConfig {
+	[key: string]: ColumnConfig;
+}
+
+export abstract class ListViewComponent<T> extends TrackingComponent implements OnInit {
 	/** current selection */
 	@Input() selection: Map<string, boolean>;
 	/** entities displayed */
@@ -14,6 +25,17 @@ export class ListViewComponent<T> extends TrackingComponent {
 	@Input() count: number;
 	/** how many items were skipped (useful to display pages) */
 	@Input() skipped: number;
+	@Input() currentPage: number;
+	@Input() currentSort: Sort;
+	@Input() hasMenu = true;
+	@Input() hasHeader = true;
+	@Input() hasPagination = true;
+	@Input() hasSelection = true;
+	@Input() hasPreview = true;
+	@Input() canUpdate = true;
+	@Input() columns = [];
+	tableConfig: TableConfig = undefined;
+	columnsConfig: ColumnConfig[] = [];
 	@Output() select = new EventEmitter<any>();
 	@Output() unselect = new EventEmitter<any>();
 	@Output() selectAll = new EventEmitter<Map<string, boolean>>();
@@ -42,6 +64,20 @@ export class ListViewComponent<T> extends TrackingComponent {
 
 	nextPage() {
 		this.next.emit();
+	}
+
+	ngOnInit() {
+		if (!this.tableConfig) {
+			throw Error('Please define a configuration for columnConfig');
+		}
+		this.columns.forEach(name => {
+			const config = this.tableConfig[name];
+			if (config) {
+				this.columnsConfig.push(config);
+			} else {
+				throw Error(`${name} isn't a valid column name, make sure it is in the config`);
+			}
+		});
 	}
 
 }

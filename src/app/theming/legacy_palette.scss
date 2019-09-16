@@ -1,0 +1,146 @@
+
+:root{
+	--legacy-color-primary: #41AFFF;
+	--legacy-color-primary-contrast: white;
+	--legacy-color-black: black;
+	--legacy-color-primary-light: #6bbeff;
+	--legacy-color-primary-dark: #2e88cf;
+
+	--legacy-color-secondary-light: #f9fafc;
+	--legacy-color-secondary: #e6ebf5;
+	--legacy-color-secondary-dark: #a3afc6;
+
+	--legacy-color-accent: #fbb917;
+
+	--legacy-color-txt-primary: #5D6D8B;
+	--legacy-color-txt-secondary: #A3AFC6;
+	--legacy-color-txt-third: #e0e0e0;
+	--legacy-color-txt-strong: #182844;
+	--legacy-color-divider:  #e6ebf5;
+	--legacy-color-list-hover:  #f8f9fc;
+
+	--legacy-color-bg: #fff;
+	--legacy-color-bg-secondary: #f3f5f8;
+
+	--legacy-color-warn: #ec495d;
+	--legacy-color-warn-light: #f94259;
+	--legacy-color-warn-dark: #ca263a;
+
+	--legacy-color-supplier-tag: #fca410;
+	--legacy-color-action: #fca410;
+
+	--legacy-color-success: #71e591;
+	--legacy-color-success-light: #9cf1b4;
+	--legacy-color-success-dark: #48d26f;
+
+
+	/** Status colors */
+
+	--legacy-color-in-progress: #45d8ff;
+
+	--legacy-color-supplier: #9639e8;
+}
+
+
+/* Color classes */
+
+.color-primary {
+	color: var(--legacy-color-primary);
+}
+
+.color-primary-light{
+	color: var(--legacy-color-primary-light);
+}
+
+.color-primary-dark {
+	color: var(--legacy-color-primary-dark);
+}
+
+.color-secondary, .color-new {
+	color: var(--legacy-color-secondary);
+}
+
+.color-secondary-dark {
+	color: var(--legacy-color-secondary-dark);
+}
+
+.color-black {
+	color: var(--legacy-color-black);
+}
+
+.color-warn, .color-refused {
+	color: var(--legacy-color-warn);
+}
+
+.color-success, .color-validated {
+	color: var(--legacy-color-success);
+}
+
+.color-in-progress, .color-inProgress {
+	color: var(--legacy-color-in-progress);
+}
+
+.color-action {
+	color: var(--legacy-color-action);
+}
+
+.color-supplier {
+	color: var(--legacy-color-supplier);
+}
+
+/** text */
+
+.color-txt-primary {
+	color: var(--legacy-color-txt-primary);
+}
+
+.color-txt-secondary {
+	color: var(--legacy-color-secondary-dark);
+}
+
+.color-txt-dark {
+	color: var(--legacy-color-txt-primary);
+}
+
+.color-txt-light, .color-white {
+	color: white;
+}
+
+.color-txt-strong, .color-strong {
+	color: var(--legacy-color-txt-strong);
+}
+
+
+/* Background */
+
+.bg-primary {
+	background: var(--legacy-color-primary);
+}
+
+.bg-secondary, .bg-new {
+	background: var(--legacy-color-secondary);
+}
+
+.bg-secondary-light {
+	background: var(--legacy-color-secondary-light);
+}
+
+.bg-secondary-dark {
+	background: var(--legacy-color-secondary-dark);
+}
+
+.bg-success, .bg-validated {
+	background-color: var(--legacy-color-success);
+}
+
+.bg-warn, .bg-rejected, .bg-refused {
+	background-color: var(--legacy-color-warn);
+}
+
+.bg-inProgress, .bg-in-progress {
+	background-color: var(--legacy-color-in-progress);
+}
+
+.bg-inspiration {
+	background-color: var(--legacy-color-secondary-dark);
+}

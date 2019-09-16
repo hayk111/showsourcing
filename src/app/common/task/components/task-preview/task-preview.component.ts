@@ -1,15 +1,15 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
+import { TaskDescriptor } from '~core/descriptors';
 import { CommentService } from '~core/entity-services/comment/comment.service';
-import { TaskService } from '~entity-services';
-import { Comment, ERM, Task, ExtendedFieldDefinition } from '~models';
-import { DynamicField } from '~shared/dynamic-forms';
-import { AutoUnsub, translate } from '~utils';
 import {
 	ExtendedFieldDefinitionService,
 } from '~core/entity-services/extended-field-definition/extended-field-definition.service';
+import { TaskService } from '~entity-services';
+import { Comment, ERM, ExtendedFieldDefinition, Task } from '~models';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'task-preview-app',
@@ -30,35 +30,10 @@ export class TaskPreviewComponent extends AutoUnsub implements OnInit, OnChanges
 	@Output() close = new EventEmitter<null>();
 
 	task$: Observable<Task>;
+	taskDescriptor: TaskDescriptor;
 	erm = ERM;
 
 	fieldDefinitions$: Observable<ExtendedFieldDefinition[]>;
-	dynamicFields: DynamicField[] = [
-		{
-			name: 'createdBy',
-			type: 'selector',
-			label: translate('created by'),
-			metadata: { target: ERM.USER.singular, type: 'entity', disabled: true }
-		},
-		{
-			name: 'creationDate',
-			type: 'date',
-			label: translate('creation date'),
-			metadata: { disabled: true }
-		},
-		{
-			name: 'lastUpdatedBy',
-			type: 'selector',
-			label: translate('last updated by'),
-			metadata: { target: ERM.USER.singular, type: 'entity', disabled: true }
-		},
-		{
-			name: 'lastUpdatedDate',
-			type: 'date',
-			label: translate('last updated date'),
-			metadata: { disabled: true }
-		}
-	];
 
 	constructor(
 		private commentSrv: CommentService,
@@ -70,7 +45,11 @@ export class TaskPreviewComponent extends AutoUnsub implements OnInit, OnChanges
 	}
 
 	ngOnInit() {
-		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "task.extendedFields"' });
+		this.taskDescriptor = new TaskDescriptor([
+			'createdBy', 'creationDate', 'lastUpdatedBy', 'lastUpdatedDate'
+		]);
+
+		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "task.extendedFields"', sortBy: 'order' });
 	}
 
 	ngOnChanges() {

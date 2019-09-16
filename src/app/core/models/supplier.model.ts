@@ -6,6 +6,7 @@ import { SupplierType } from '~models/supplier-type.model';
 import { Tag } from '~models/tag.model';
 
 import { User } from './user.model';
+import { imageMock } from '~models/app-image.model';
 
 export class Supplier extends EntityWithAudit<SupplierConfig> {
 	name?: string;
@@ -32,6 +33,7 @@ export class Supplier extends EntityWithAudit<SupplierConfig> {
 	status?: SupplierStatus;
 	comments?: Comment[];
 	lastUpdatedBy?: User;
+	archived ?= false;
 	// extendedFields?: ExtendedField[];
 	__typename ?= 'Supplier';
 }
@@ -58,3 +60,10 @@ export interface SupplierConfig {
 	status?: SupplierStatus;
 	comments?: Comment[];
 }
+
+export const supplierMock: Supplier = {
+	name: 'supplier',
+	images: [imageMock],
+	logoImage: imageMock,
+	__typename: 'Supplier'
+} as any;

@@ -6,6 +6,7 @@
 	--spacing-s: 8px;
 	--spacing-ms: 12px;
 	--spacing-m: 16px;
+	// doesn't exists
 	--spacing-ml: 20px;
 	--spacing-l: 24px;
 	--spacing-xl: 32px;
@@ -13,8 +14,10 @@
 	--spacing-xxxl: 64px;
 	--spacing-xxxxl: 80px;
 
+	// doesn't exists
 	--border-radius-s: 2px;
 	--border-radius: 4px;
+	// round
 	--border-radius-l: 8px;
 	--spacing-edge: 50px;
   --spacing-nav: 10px;
@@ -26,94 +29,33 @@
 	--screen-detail-width: 762px;
 }
 
-.mg-none {
-	margin: var(--spacing-none);
-}
-
-.mg-xs {
-	margin: var(--spacing-xs);
-}
-
-.mg-s {
-	margin: var(--spacing-s);
-}
-
-.mg-ms {
-	margin: var(--spacing-ms);
-}
-
-.mg-right-ms {
-	margin-right: var(--spacing-ms);
-}
-
-.mg-m {
-	margin: var(--spacing-m);
-}
-
-.mg-l {
-	margin: var(--spacing-l);
-}
-
-.mg-xl {
-	margin: var(--spacing-xl);
-}
-
-.pd-none {
-	padding: var(--spacing-none);
-}
-
-.pd-xs {
-	padding: var(--spacing-xs);
-}
-
-.pd-s {
-	padding: var(--spacing-s);
-}
-
-.pd-m {
-	padding: var(--spacing-m);
-}
-
-.pd-ms {
-	padding: var(--spacing-ms);
-}
-
-.pd-l {
-	padding: var(--spacing-l);
-}
-
-.pd-xl {
-	padding: var(--spacing-xl);
-}
-
 .border-radius {
 	border-radius: var(--border-radius);
 }
 
-.no-mg-bottom {
-	margin-bottom: 0px;
-}
+// NOTE: this is so what will be generated, so people can search where the classes comes from
+// .pd-none, .pd-left-none, .pd-right-none, .pd-top-none, .pd-bottom-none, .pd-xs, .pd-left-xs, .pd-right-xs, .pd-top-xs, .pd-bottom-xs, .pd-s, .pd-left-s, .pd-right-s, .pd-top-s, .pd-bottom-s, .pd-ms, .pd-left-ms, .pd-right-ms, .pd-top-ms, .pd-bottom-ms, .pd-m, .pd-left-m, .pd-right-m, .pd-top-m, .pd-bottom-m, .pd-l, .pd-left-l, .pd-right-l, .pd-top-l, .pd-bottom-l, .pd-xl, .pd-left-xl, .pd-right-xl, .pd-top-xl, .pd-bottom-xl, .mg-none, .mg-left-none, .mg-right-none, .mg-top-none, .mg-bottom-none, .mg-xs, .mg-left-xs, .mg-right-xs, .mg-top-xs, .mg-bottom-xs, .mg-s, .mg-left-s, .mg-right-s, .mg-top-s, .mg-bottom-s, .mg-ms, .mg-left-ms, .mg-right-ms, .mg-top-ms, .mg-bottom-ms, .mg-m, .mg-left-m, .mg-right-m, .mg-top-m, .mg-bottom-m, .mg-l, .mg-left-l, .mg-right-l, .mg-top-l, .mg-bottom-l, .mg-xl, .mg-left-xl, .mg-right-xl, .mg-top-xl, .mg-bottom-xl
 
-.mg-bottom-s {
-	margin-bottom: var(--spacing-s);
-}
+$type-spacing: ("pd": "padding", "mg": "margin");
+$size-spacing: ("none": var(--spacing-none), "xs": var(--spacing-xs), "s": var(--spacing-s), "ms": var(--spacing-ms), "m": var(--spacing-m), "l": var(--spacing-l), "xl": var(--spacing-xl));
+$direction-spacing: left, right, top, bottom;
 
-.mg-bottom-ms {
-	margin-bottom: var(--spacing-ms);
-}
+// this method adds a class for each direction, type of spacing and size
 
-.mg-bottom-l {
-	margin-bottom: var(--spacing-l);
-}
-
-.no-mg-top {
-	margin-top: 0px;
-}
-
-.no-mg-left {
-	margin-left: 0px;
-}
-
-.no-mg-right {
-	margin-right: 0px;
+// e.g. $type-name -> pd, $type-var -> padding
+@each $type-name, $type-var in $type-spacing {
+		// e.g. $size-name -> xs, $size-var -> var(--spacing-xs)
+		@each $size-name, $size-var in $size-spacing {
+		// e.g .pd-s { padding: var(--spacing-s); }
+		.#{$type-name}-#{$size-name} {
+			#{$type-var}: $size-var
+		}
+		// e.g $direction -> top
+		@each $direction in $direction-spacing {
+			// e.g .pd-top-s { padding-top: var(--spacing-s); }
+			.#{$type-name}-#{$direction}-#{$size-name} {
+				#{$type-var}-#{$direction}: $size-var;
+			}
+		}
+	}
 }

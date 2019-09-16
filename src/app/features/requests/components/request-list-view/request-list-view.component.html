@@ -6,9 +6,7 @@
 	placeholder="No requests"
 	[contextualMenu]="contextualMenuTemplate"
 	[count]="count"
-	[skipped]="skipped"
-	(next)="next.emit()"
-	(previous)="previous.emit()"
+	[currentPage]="currentPage"
 	(goToPage)="goToPage.emit($event)"
 	(bottomReached)="bottomReached.emit()"
 	(selectAll)="selectAll.emit($event)"
@@ -35,12 +33,12 @@
 		let-row="row"
 		width="300">
 		<div class="mainCell ellipsis">
-			<img-app
+			<!-- <img-app
 				class="mini imgCtnr"
 				[image]="row?.images?.length ? row?.images[0] : null"
 				type="request"
 				size="s">
-			</img-app>
+			</img-app> -->
 			<span class="capitalize ellipsis">
 				<a class="name txt-btn title" [routerLink]="['/request', row.id]">
 					{{ row?.title }}

@@ -1,5 +1,9 @@
 :host {
 	display: flex;
+
+	&:hover .hover-buttons {
+		visibility: visible;
+	}
 }
 
 user-picture-app {
@@ -8,25 +12,50 @@ user-picture-app {
 }
 
 .comment-content {
-	background: var(--color-secondary-light);
-	margin-bottom: var(--spacing-xs);
+	flex-grow: 1;
 	margin-left: var(--spacing-s);
 	padding: var(--spacing-s);
 	border-radius: var(--border-radius-l);
 
-	.title {
-		.name {
-			font-weight: 600;
-			color: var(--color-txt-strong);
-			letter-spacing: -0.3px;
-		}
-		.date {
-			margin-left: var(--spacing-xs);
-			font-size: var(--font-size-s);
+	.comment-header {
+		padding-bottom: var(--spacing-s);
+
+		.title {
+			.name {
+				font-weight: 600;
+				font-size: var(--font-size-l);
+				color: var(--legacy-color-txt-strong);
+				letter-spacing: -0.3px;
+			}
+			.date {
+				font-size: var(--font-size-s);
+			}
 		}
 	}
 }
 
+.hover-buttons {
+	visibility: hidden;
+}
+
+.buttons {
+	> *:not(:last-child) {
+		margin-right: var(--spacing-ms);
+	}
+}
+
 .text {
+	width: calc(100% - 1px);
 	white-space: pre-line;
+	font-size: var(--font-size-l);
+	color: var(--color-txt-primary);
+}
+
+textarea {
+	white-space: pre-line;
+	font-size: var(--font-size-l);
+	padding: var(--spacing-ms);
+	background: var(--color-bg-secondary);
+	resize: none;
+	margin-bottom: var(--spacing-ms);
 }

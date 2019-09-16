@@ -1,0 +1,44 @@
+<div
+	class="flex container notif-card"
+	[ngClass]="{ unread: !isRead }"
+	(click)="redirect($event)"
+>
+	<div class="flex left">
+		<logo-app
+			class="logo"
+			size="m"
+			[type]="badgeType"
+			[color]="badgeColor"
+			[circle]="true"
+		></logo-app>
+
+		<div class="flexColumn notif-info">
+			<p class="notif-message">
+				<span class="bold-message">{{ actorName }}</span>
+				{{ multipleActorMessage }}
+				{{ activityMessage }}
+				<span class="bold-message">
+					<ng-container *ngIf="firstActivity.target_data">
+						{{ firstActivity.target_data?.target }}
+					</ng-container>
+				</span>
+			</p>
+			<p class="notif-datetime">
+				{{ activity.updated_at | timeAgo }} -
+				{{ activity.updated_at | date: "d MMM H:mm" }}
+			</p>
+		</div>
+	</div>
+	<div
+		*ngIf="!activity.is_read"
+		class="mark-read primary-dot"
+		(click)="markAsRead($event)"
+		toolTip
+		toolTipMessage="mark as read"
+		toolTipPosition="above-left"
+		[shouldDisplace]="false"
+		[offsetX]="-21"
+		[offsetY]="-15"
+	></div>
+</div>
+<divider-app></divider-app>

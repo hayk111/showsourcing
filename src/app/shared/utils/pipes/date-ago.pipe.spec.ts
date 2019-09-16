@@ -1,4 +1,5 @@
 import { DateToTimeAgoPipe } from './date-ago.pipe';
+
 import * as moment from 'moment';
 
 describe('DateToTimeAgoPipe', () => {

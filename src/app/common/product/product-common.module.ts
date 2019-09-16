@@ -7,7 +7,9 @@ import { SharedModule } from '~shared/shared.module';
 import {
 	MoqComponent,
 	ProductCardComponent,
+	ProductBoardComponent,
 	ProductGridCardComponent,
+	ProductCardActivitiesComponent,
 	ProductResumeComponent,
 	ProductsCardViewComponent,
 	ProductSelectionBarComponent,
@@ -16,8 +18,6 @@ import {
 	StatsIconsComponent,
 } from './components';
 import { ProductPreviewComponent } from './containers';
-
-
 
 @NgModule({
 	imports: [
@@ -29,6 +29,7 @@ import { ProductPreviewComponent } from './containers';
 	declarations: [
 		MoqComponent,
 		ProductCardComponent,
+		ProductBoardComponent,
 		ProductGridCardComponent,
 		ProductPreviewComponent,
 		ProductResumeComponent,
@@ -36,12 +37,15 @@ import { ProductPreviewComponent } from './containers';
 		ProductSortingMenuComponent,
 		ProductsCardViewComponent,
 		ProductsListViewComponent,
+		ProductCardActivitiesComponent,
 		StatsIconsComponent,
 	],
 	exports: [
 		MoqComponent,
 		ProductCardComponent,
+		ProductBoardComponent,
 		ProductGridCardComponent,
+		ProductCardActivitiesComponent,
 		ProductPreviewComponent,
 		ProductResumeComponent,
 		ProductSelectionBarComponent,

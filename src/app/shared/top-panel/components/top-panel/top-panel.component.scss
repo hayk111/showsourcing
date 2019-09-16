@@ -1,20 +1,40 @@
 :host {
-	padding: 0 var(--spacing-l);
-	height: 65px;
-	background: white;
+	margin: 24px 114px 0 98px;
+	padding-bottom: var(--spacing-ms);
 	flex-shrink: 0;
+	border-bottom: 1px solid var(--legacy-color-divider);
+
+	&.smaller-padding {
+		margin: var(--spacing-l);
+		margin-bottom: 0px;
+	}
+
+	h2 {
+		width: 155px;
+		height: 36px;
+		font-size: var(--font-size-xxxxl);
+		font-weight: 600;
+		color: var(--color-bg-dark);
+	}
+
+	button {
+		width: 130px;
+		height: 40px;
+		border-radius: var(--border-radius);
+		background-color: var(--color-primary);
+	}
 }
 
 .ctnr {
 	background-color: #fff;
-	border: solid 1px var(--color-secondary);
+	border: solid 1px var(--legacy-color-secondary);
 	border-left: 0;
 }
 
 .actions {
 	text-transform: uppercase;
 	font-size: var(--font-size-s);
-	color: var(--color-txt-secondary);
+	color: var(--legacy-color-txt-secondary);
 	padding-bottom: 10px;
 }
 

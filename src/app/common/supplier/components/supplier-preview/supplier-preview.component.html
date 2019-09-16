@@ -68,7 +68,7 @@
 	<!-- Supplier Details -->
 	<preview-section-app [title]="'Supplier Details'">
 		<dynamic-form-app
-			[fields]="customFields"
+			[fields]="supplierDescirptor?.descriptor"
 			[inlineLabel]="true"
 			[value]="supplier"
 			[colAmount]="1"
@@ -95,7 +95,7 @@
 	<preview-comment-app *ngIf="!isRelative" (added)="addComment($event)"></preview-comment-app>
 
 	<!-- Info -->
-	<preview-section-app *ngIf="isRelative && !isFixed" [title]="'Info'"  class="no-mg-bottom">
+	<preview-section-app *ngIf="isRelative && !isFixed" [title]="'Info'"  class="mg-bottom-none">
 		<div class="flexColumn">
 			<span class="color-txt-strong">Created by {{ supplier?.createdBy | formatUserName: true }} on {{ supplier?.creationDate | date: 'dd MMMM yyyy' }}</span>
 			<span class="color-txt-strong">Last updated by {{ supplier?.lastUpdatedBy | formatUserName: true }} on {{ (supplier?.lastUpdatedDate || product?.creationDate) | date: 'dd MMMM yyyy' }}</span>

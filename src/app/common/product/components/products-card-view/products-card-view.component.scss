@@ -1,11 +1,8 @@
 :host {
 	display: flex;
 	flex-direction: column;
-	padding: 0 var(--spacing-edge);
-	padding-top: 10px;
+	padding: 48px 118px 0 110px;
 	height: 100%;
-	background: white;
-	border-top: 1px solid var(--color-secondary);
 }
 
 .category-section {
@@ -19,6 +16,7 @@
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
+	justify-content: center;
 }
 
 .section-title {
@@ -26,7 +24,7 @@
 	margin: var(--spacing-l) 0px;
 	font-size: 20px;
 	text-transform: capitalize;
-	color: var(--color-txt-strong);
+	color: var(--legacy-color-txt-strong);
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;

@@ -92,13 +92,12 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 
 	loadMore(col: KanbanColumn) {
 		const query = this.getColQuery(col.id);
-		this.productSrv.queryMany({
+		this.productSrv.selectMany({
 			query,
 			take: col.data.length + this.amountLoaded,
 			sortBy: 'lastUpdatedDate'
-		}).pipe(
-			first()
-		).subscribe(products => this.kanbanSrv.setData(products, col.id));
+		}).pipe(first())
+			.subscribe(products => this.kanbanSrv.setData(products, col.id));
 	}
 
 	private getProducts(statuses: ProductStatus[], filterList: FilterList) {
@@ -108,7 +107,7 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 				pipe(
 					first(),
 					// we use selectCount instead of queryCount, since queryCount wasn't giving the latest values, when requerying
-					switchMap(_ => this.productSrv.selectCount(query).pipe(first()), (prods, total) => ({ prods, total }))
+					switchMap(_ => this.productSrv.selectCount(query).pipe(first()), (prods, total) => ({ prods, total })),
 				).subscribe(data => {
 					this.kanbanSrv.setData(data.prods, status.id);
 					this.kanbanSrv.setTotal(data.total, status.id);

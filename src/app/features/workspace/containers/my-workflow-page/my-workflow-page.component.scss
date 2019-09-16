@@ -17,11 +17,11 @@ kanban-app {
 }
 
 icon-app {
-	color: var(--color-txt-secondary);
+	color: var(--legacy-color-txt-secondary);
 	font-size: var(--font-size-xl);
 }
 
-icon-app[name="trash-bin"] {
+icon-app[name="trash"] {
 	font-size: var(--font-size-xxl);
 }
 selection-bar-app {

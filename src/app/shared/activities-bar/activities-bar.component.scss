@@ -1,0 +1,60 @@
+icon-app {
+	margin: 0 var(--spacing-s);
+
+	&:first-child {
+    margin-left: var(--spacing-xs);
+	}
+}
+
+icon-app.star {
+	display: inline;
+	margin: 0 var(--spacing-xs) 0 0;
+}
+
+.icons-container > icon-app:not(.favourite) {
+	color: var(--color-txt-third);
+}
+
+.icons-container > icon-app.favourite {
+	color: var(--color-warn);
+}
+
+.vote-star-container {
+	cursor: pointer;
+	border-radius: var(--border-radius);
+	color: var(--color-accent);
+	margin-left: var(--spacing-xs);
+	padding: var(--spacing-xs);
+}
+
+.vote-star-value {
+	width: 19px;
+  height: 18px;
+  font-size: 14px;
+  font-weight: 600;
+	color: var(--color-accent-dark);
+	margin: 0 0 0 2px;	
+}
+
+.light-background {
+	background-color: var(--color-accent-light);
+}
+
+.warn-circle {
+	color: var(--color-warn) !important;
+}
+
+.with-badge {
+	position: relative;
+}
+
+.red-badge { // this will be replaced in future with the notif-badge-component
+	position: absolute;
+	top: 0;
+	right: 6px;
+  height: 4px;
+  width: 4px;
+  background-color: var(--color-warn);
+  border-radius: 50%;
+  display: inline-block;
+}

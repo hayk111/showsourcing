@@ -4,7 +4,6 @@ import {
 	DEFAULT_EVENT_ICON,
 	DEFAULT_IMG,
 	DEFAULT_PRODUCT_ICON,
-	DEFAULT_PRODUCT_LIST_ICON,
 	DEFAULT_PROJECT_ICON,
 	DEFAULT_REQUEST_ICON,
 	DEFAULT_SAMPLE_ICON,
@@ -23,6 +22,8 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 	name: 'image'
 })
 export class ImagePipe implements PipeTransform {
+
+	private fileUrl = 'https://files.showsourcing.com';
 
 	constructor(private sanitizer: DomSanitizer) { }
 
@@ -83,6 +84,12 @@ export class ImagePipe implements PipeTransform {
 				if (Array.isArray(value.images)) {
 					return value.images[0].urls[sizeIndex].url;
 				}
+
+				// Preview uploaded image case
+				if (value.hasOwnProperty('fileName')) {
+					return `${this.fileUrl}/xl/${value.fileName}`; // default size is taken xl, can be changed later
+				}
+
 			}
 			// if it's a string we return the url made of with that string
 			return `${ImageUrls[size]}/${value}`;
@@ -91,9 +98,9 @@ export class ImagePipe implements PipeTransform {
 		}
 	}
 
+	/** @deprecated logo is used where there needs a default */
 	/** gets the correct icon for selectors inputs */
 	getDefault(type: string) {
-		// TODO use entity metadata
 		switch (type) {
 			case 'category':
 				return DEFAULT_CATEGORY_ICON;
@@ -101,8 +108,6 @@ export class ImagePipe implements PipeTransform {
 				return DEFAULT_EVENT_ICON;
 			case 'product':
 				return DEFAULT_PRODUCT_ICON;
-			case 'product-list':
-				return DEFAULT_PRODUCT_LIST_ICON;
 			case 'project':
 				return DEFAULT_PROJECT_ICON;
 			case 'request':

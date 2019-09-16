@@ -20,7 +20,7 @@
 		</div>
 	</sub-panel-left-item-app>
 	<sub-panel-right-item-app>
-		<button (click)="openCreateDlg()" i18n="button@@add-sample">
+		<button (click)="openCreationSampleDlg()" i18n="button@@add-sample">
 			Add Sample
 		</button>
 	</sub-panel-right-item-app>
@@ -31,9 +31,7 @@
 	[rows]="listSrv.items$ | async"
 	[pending]="listSrv.pending"
 	[count]="listSrv.count$ | async"
-	[skipped]="listSrv.skipped"
-	(next)="listSrv.loadNextPage()"
-	(previous)="listSrv.loadPreviousPage()"
+	[currentPage]="listSrv.currentPage"
 	(goToPage)="listSrv.loadPage($event)"
 	(previewClick)="listSrv.openPreview($event)"
 	(select)="listSrv.selectOne($event)"
@@ -63,7 +61,7 @@
 		</status-selector-app>
 
 		<button class="icon light" (click)="listSrv.deleteSelected()">
-			<icon-app class="trash-bin" name="trash-bin"></icon-app>
+			<icon-app class="trash" name="trash"></icon-app>
 		</button>
 	</div>
 </selection-bar-app>

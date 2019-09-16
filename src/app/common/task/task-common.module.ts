@@ -3,7 +3,7 @@ import { CommentCommonModule } from '~common/comment';
 import { ProductCommonModule } from '~common/product/product-common.module';
 import { SharedModule } from '~shared/shared.module';
 
-import { TaskComponent, TaskListComponent, TaskPreviewComponent } from './components';
+import { TaskComponent, TaskPreviewComponent, TaskListViewComponent } from './components';
 import { BannerTaskComponent } from './components/banner-task/banner-task.component';
 
 
@@ -16,16 +16,16 @@ import { BannerTaskComponent } from './components/banner-task/banner-task.compon
 		CommentCommonModule
 	],
 	declarations: [
-		TaskListComponent,
 		TaskComponent,
 		TaskPreviewComponent,
-		BannerTaskComponent
+		BannerTaskComponent,
+		TaskListViewComponent
 	],
 	exports: [
-		TaskListComponent,
 		TaskComponent,
 		TaskPreviewComponent,
-		BannerTaskComponent
+		BannerTaskComponent,
+		TaskListViewComponent
 	],
 	entryComponents: []
 })

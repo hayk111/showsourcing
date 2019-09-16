@@ -4,10 +4,8 @@
 	display: flex;
 	// if we put a margin here, the style will look wrong
 	// margin: 0 var(--spacing-l);
-	height: calc(100% - 120px);
 	box-sizing: border-box;
 	padding: var(--spacing-l);
-	padding-bottom: 80px;
 	background: white;
 
 	&.no-padding {
@@ -18,9 +16,9 @@
 }
 
 a.title {
-	color: var(--color-txt-strong);
+	color: var(--legacy-color-txt-strong);
 	&:hover {
-		color: var(--color-primary);
+		color: var(--legacy-color-primary);
 	}
 }
 
@@ -34,13 +32,11 @@ table-app {
 }
 
 rating-heart-app {
-	color: var(--color-txt-secondary);
+	color: var(--legacy-color-txt-secondary);
 }
 
 .imgCtnr {
 	border-radius: var(--border-radius);
-	width: 28px;
-	height: 28px;
 	overflow: hidden;
 	flex-shrink: 0;
 }

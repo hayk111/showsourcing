@@ -3,29 +3,27 @@
 	height: var(--spacing-xxxl);
 	background: white;
 	align-items: center;
-	padding: 0 15px;
+	padding: 0 var(--spacing-l) 0 var(--spacing-m);
 }
 .space-icon {
 	height: 36px;
 	width: 36px;
-	margin-right: 12px;
-	background: var(--color-primary);
+	margin-right: var(--spacing-s);
 
-	icon-app[name="product"] {
-		color: #fff;
-		cursor: default;
-		font-size: var(--font-size-xxl);
+	logo-app[type="product"] {
+		color: var(--color-accent-contrast);
+		background: var(--color-primary);
 	}
 }
 .info-title {
 	font-size: var(--font-size-l);
-	color: var(--color-black);
+	color: black;
 }
 .info-container {
 	font-size: var(--font-size-m);
 	.status-info {
 		background: rgba(230, 235, 245, 0.6);
-		color: var(--color-black);
+		color: black;
 		font-size: 9px;
 		letter-spacing: 0.36px;
 		border-radius: 2px;
@@ -52,13 +50,30 @@ img-app {
 	}
 }
 
+.download-button {
+	height: 40px;
+	icon-app {
+		margin-right: var(--spacing-s);
+	}
+}
+
 context-menu-app {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: var(--color-secondary-contrast);
+	min-width: 40px;
+	height: 40px;
+	font-size: var(--font-size-m);
 	margin-left: var(--spacing-ms);
-	background: var(--color-secondary-light);
+	background: var(--legacy-color-secondary-light);
 }
 .close {
+	color: var(--color-secondary-contrast);
+	font-size: var(--font-size-l);
+	font-weight: 800;
 	border-radius: 40px;
-	width: 40px;
+	padding: var(--spacing-ms);
 	background: var(--color-secondary-light);
 	margin-left: var(--spacing-ms);
 }

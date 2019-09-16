@@ -1,4 +1,4 @@
-export const DEFAULT_TAKE_PAGINATION = 20;
+export const DEFAULT_TAKE_PAGINATION = 25;
 
 /** utility class used to manage a selection of items */
 export class SelectParams {
@@ -11,7 +11,7 @@ export class SelectParams {
 	/** query we use to find a specific item */
 	query = '';
 	/** sorting used */
-	sortBy: 'creationDate';
+	sortBy = 'creationDate';
 	/** whether it's ASC or DESC */
 	descending = true;
 	/** how much items we request */

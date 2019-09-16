@@ -26,7 +26,7 @@
     margin-bottom: var(--spacing-ms);
     font-size: var(--font-size-l);
     text-transform: capitalize;
-    color: var(--color-txt-strong);
+    color: var(--legacy-color-txt-strong);
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -77,10 +77,10 @@ action-bar-app {
 
 	icon-app {
 		font-size: var(--font-size-xl);
-		color: var(--color-txt-secondary);
+		color: var(--legacy-color-txt-secondary);
 	}
 
-	icon-app[name="trash-bin"] {
+	icon-app[name="trash"] {
 		font-size: var(--font-size-xxl);
 	}
 

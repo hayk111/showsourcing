@@ -33,7 +33,7 @@ export class KanbanColComponent extends TrackingComponent implements OnInit {
 
 	getStyle(col: KanbanColumn) {
 		return {
-			'border-top-color': `var(--color-${col.color})`
+			'background-color': `var(--legacy-color-${col.color})`
 		};
 	}
 

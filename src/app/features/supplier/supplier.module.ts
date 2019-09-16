@@ -13,7 +13,6 @@ import { SharedModule } from '~shared/shared.module';
 import {
 	SupplierContactCardComponent,
 	SupplierContactComponent,
-	SupplierListViewComponent,
 	SupplierProductsCardViewComponent,
 	SupplierTopCardComponent,
 } from './components';
@@ -47,7 +46,6 @@ import { SupplierFeatureService } from './services';
 		SupplierContactCardComponent,
 		SupplierContactComponent,
 		SupplierDetailsComponent,
-		SupplierListViewComponent,
 		SupplierProductsCardViewComponent,
 		SupplierProductsComponent,
 		SupplierProductsPageComponent,

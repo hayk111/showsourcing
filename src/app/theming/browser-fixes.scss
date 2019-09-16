@@ -3,10 +3,10 @@
 
 
 body{
-    margin: 0;
-    padding: 0;
-		min-height: 100vh;
-		background: var(--color-secondary-light);
+	margin: 0;
+	padding: 0;
+	min-height: 100vh;
+	background: var(--legacy-color-bg-secondary);
 }
 
 // reset
@@ -76,8 +76,8 @@ dialog{
 }
 
 ::selection{
-	background: var(--color-primary);
-	color: var(--color-primary-contrast);
+	background: var(--legacy-color-primary);
+	color: var(--legacy-color-primary-contrast);
 }
 
 ul{
@@ -96,11 +96,11 @@ menu {
 	padding: 0;
 	menuitem {
 		cursor: pointer;
-		background: var(--color-bg);
+		background: var(--legacy-color-bg);
 		padding: var(--spacing-xs) var(--spacing-m);
 	}
 	menuitem:hover {
-		background: var(--color-secondary-light);
+		background: var(--legacy-color-secondary-light);
 	}
 }
 
@@ -135,20 +135,20 @@ table.withBorder {
 
 // scrollbar
 
-// ::-webkit-scrollbar-track {
-// 	-webkit-box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.15);
-// 	border-radius: 10px;
-// 	background-color: #F5F5F5;
-// }
+::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.15);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
 
-// ::-webkit-scrollbar {
-// 	width: 6px;
-// 	height: 14px;
-// 	background-color: #F5F5F5;
-// }
+::-webkit-scrollbar {
+	width: 6px;
+	height: 14px;
+	background-color: #F5F5F5;
+}
 
-// ::-webkit-scrollbar-thumb {
-// 	border-radius: 10px;
-// 	-webkit-box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.15);
-// 	background-color: #5d6d8b21;
-// }
+::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.15);
+	background-color: #5d6d8b21;
+}

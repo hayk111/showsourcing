@@ -5,7 +5,7 @@
 	.icon-container {
 		icon-app {
 			font-size: 80px;
-			color: var(--color-success);
+			color: var(--legacy-color-success);
 			i {
 				cursor: default;
 			}
@@ -15,12 +15,12 @@
 		margin-top: 15px;
 		font-size: var(--font-size-xxxl);
 		font-weight: 600;
-		color: var(--color-txt-strong);
+		color: var(--legacy-color-txt-strong);
 	}
 	.text-body {
 		margin-top: 15px;
 		font-size: var(--font-size-xl);
-		color: var(--color-txt-primary);
+		color: var(--legacy-color-txt-primary);
 	}
 	.button-container {
 		margin-top: 40px;

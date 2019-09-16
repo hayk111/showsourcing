@@ -1,10 +1,10 @@
 <badge-app
 	class="pointer"
-	[type]="getTaskColor()"
 	size="m"
+	[type]="getType()"
 	(click)="update.emit(!task.done)">
-		<icon-app class="color-{{ getTaskColor() === 'secondary' ? 'txt-primary' : 'white' }}" name="circle" fontSet="fa"></icon-app>
-		<div class="color-{{ getTaskColor() === 'secondary' ? 'txt-primary' : 'white' }}">
+		<icon-app name="circle"></icon-app>
+		<div>
 			{{ getTaskStatus() | const: 'status' }}
 		</div>
 </badge-app>

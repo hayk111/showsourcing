@@ -8,7 +8,7 @@
 </div>
 
 <cdk-overlay-app
-	*ngIf="menuOpen"
+	*ngIf="menuOpen && hasPicker"
 	[trigger]="trigger"
 	[isOpen]="menuOpen"
 	[offsetY]="offsetY"
@@ -22,10 +22,11 @@
 		[searchTxt]="searchTxt"
 		[value]="value"
 		[type]="type"
-		[pickerFields]="pickerFields"
+		[dynamicFields]="dynamicFields"
 		[multiple]="multiple"
 		[filterList]="filterList"
 		[canCreate]="canCreate"
+		[definitionReference]="definitionReference"
 		(update)="onChange($event)"
 		(close)="closeMenu(true)"
 		cdkTrapFocus>

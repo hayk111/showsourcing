@@ -4,27 +4,20 @@
 
 card-app {
 
-	icon-app[name="poll"], icon-app[name^="thumbs-"] {
-		cursor: default;
-	}
 
 	.thumb {
 		font-size: 32px;
 	}
 
-	.title {
-		margin-bottom: var(--spacing-ms);
-
-		.space-icon {
-			height: var(--spacing-xl);
-			width: var(--spacing-xl);
+	card-title-app {
+		icon-app {
 			margin-right: var(--spacing-ms);
-
-			icon-app {
-				font-size: var(--font-size-xxl);
-			}
+			color: var(--legacy-color-primary);
+			cursor: default;
+			font-size: var(--font-size-xxl);
 		}
 	}
+
 
 	.rating-info {
 		padding-top: var(--spacing-m);
@@ -42,7 +35,7 @@ card-app {
 				margin-left: var(--spacing-m);
 
 				.number {
-					color: var(--color-txt-strong);
+					color: var(--legacy-color-txt-strong);
 					font-size: var( --font-size-xxxl);
 					font-weight: 600;
 				}
@@ -56,7 +49,7 @@ card-app {
 
 	.no-vote {
 		font-size: var( --font-size-xxxl);
-    color: var(--color-txt-strong);
+    color: var(--legacy-color-txt-strong);
     font-weight: 600;
     display: flex;
     justify-content: center;

@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { TaskDescriptor } from '~core/descriptors';
 import { TaskService } from '~core/entity-services';
-import { ERM, Task, Product, Supplier } from '~core/models';
+import { Product, Supplier, Task } from '~core/models';
 import { CloseEventType, DialogService } from '~shared/dialog';
-import { DynamicField } from '~shared/dynamic-forms';
 import { NotificationService, NotificationType } from '~shared/notifications';
-import { translate } from '~utils';
+import { translate, uuid } from '~utils';
 
 @Component({
 	selector: 'creation-task-dlg-app',
@@ -18,52 +18,10 @@ export class CreationTaskDlgComponent implements OnInit {
 	@Input() task: Task;
 	@Input() product: Product;
 	@Input() supplier: Supplier;
+	@Input() createAnother = false;
 
-	dynamicFields: DynamicField[] = [
-		{ name: 'name', type: 'text', required: true, label: translate('name'), metadata: { placeholder: translate('Task name') } },
-		{
-			name: 'assignee',
-			type: 'selector',
-			label: translate('assigned to'),
-			metadata: {
-				target: ERM.USER.singular,
-				type: 'entity',
-				placeholder: translate('select assignee'),
-				canCreate: true,
-				hasBadge: true,
-				width: 495
-			}
-		},
-		{ name: 'dueDate', type: 'date', label: translate('due date') },
-		{ name: 'description', type: 'textarea', label: translate('Description'), metadata: { rows: 5 } },
-		{
-			name: 'product',
-			type: 'selector',
-			label: translate('Linked to Product'),
-			metadata: {
-				target: ERM.PRODUCT.singular,
-				type: 'entity',
-				placeholder: translate('search for your product'),
-				canCreate: true,
-				hasBadge: true,
-				width: 495
-			}
-		},
-		{
-			name: 'supplier',
-			type: 'selector',
-			label: translate('Linked to Supplier'),
-			metadata: {
-				target: ERM.SUPPLIER.singular,
-				type: 'entity',
-				placeholder: translate('search for your supplier'),
-				canCreate: true,
-				hasBadge: true,
-				width: 495
-			},
-		}
-	];
-	createAnother = false;
+	taskDescriptor: TaskDescriptor;
+
 
 	constructor(
 		private dlgSrv: DialogService,
@@ -73,6 +31,30 @@ export class CreationTaskDlgComponent implements OnInit {
 	}
 
 	ngOnInit() {
+		this.taskDescriptor = new TaskDescriptor([
+			'name', 'assignee', 'dueDate', 'description', 'product', 'supplier'
+		]);
+		this.taskDescriptor.modify([
+			{ name: 'name', metadata: { placeholder: translate('Task name') } },
+			{ name: 'assignee', metadata: { placeholder: translate('select assignee'), width: 495 } },
+			{
+				name: 'product',
+				label: translate('Linked to Product'),
+				metadata: {
+					placeholder: translate('search for your product'),
+					width: 495
+				}
+			},
+			{
+				name: 'supplier',
+				label: translate('Linked to Supplier'),
+				metadata: {
+					placeholder: translate('search for your supplier'),
+					width: 495
+				}
+			}
+		]);
+
 		if (!this.task) {
 			const supplier = this.supplier ? this.supplier : (this.product && this.product.supplier);
 			this.task = new Task({
@@ -90,7 +72,8 @@ export class CreationTaskDlgComponent implements OnInit {
 		if (this.task && this.task.name) {
 			this.taskSrv.create(this.task).subscribe(task => {
 				if (this.createAnother) {
-					this.dlgSrv.open(CreationTaskDlgComponent, { task: { ...this.task, name: '', description: '' } });
+					task = this.resetIds(task);
+					this.dlgSrv.open(CreationTaskDlgComponent, { task, createAnother: true });
 				} else {
 					this.close();
 				}
@@ -115,6 +98,11 @@ export class CreationTaskDlgComponent implements OnInit {
 
 	close() {
 		this.dlgSrv.close({ type: CloseEventType.OK, data: { task: this.task } });
+	}
+
+	private resetIds(task) {
+		task = { ...task, id: uuid(), name: '', description: '' };
+		return task;
 	}
 
 }

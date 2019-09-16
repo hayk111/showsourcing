@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { EntityMetadata, SampleStatus, SupplierStatus, ProductStatus } from '~models';
+import { EntityMetadata } from '~models';
+import { Status } from '~core/models/status.model';
 
 @Component({
 	selector: 'status-badge-app',
@@ -7,39 +8,30 @@ import { EntityMetadata, SampleStatus, SupplierStatus, ProductStatus } from '~mo
 	styleUrls: ['./status-badge.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class StatusBadgeComponent implements OnInit {
-
+export class StatusBadgeComponent {
+	/** @deprecated all statuses badges have the same size */
 	@Input() size = 's';
-
-	@Input() status: ProductStatus | SupplierStatus | SampleStatus;
+	/** @deprecated */
 	@Input() round = true;
 
+	@Input() status: Status;
 	// we need to pass this so when the
 	// status is null, because the product or supplier are new
 	@Input() typeEntity: EntityMetadata;
 
-	constructor() {
-	}
+	getType() {
+		if (!this.status)
+			return 'third';
 
-	ngOnInit() {
-
-	}
-
-	get getType() {
-		// by default is secondary since is the color for NEW elements
-		if (this.status) {
-			switch (this.status.category) {
-				case 'inProgress':
-					return 'in-progress';
-				case 'validated':
-					return 'success';
-				case 'refused':
-					return 'warn';
-				case 'inspiration':
-					return 'secondary-light';
-				default:
-					return 'secondary';
-			}
+		switch (this.status.category) {
+			case 'inProgress':
+				return 'primary';
+			case 'validated':
+				return 'success';
+			case 'refused':
+				return 'warn';
+			default:
+				return 'third';
 		}
 	}
 

@@ -5,8 +5,8 @@
 			<div class="inner-container">
 				<dynamic-form-app
 					[colAmount]="1"
-					[fields]="dynamicFields"
-					[textMode]="false"
+					[fields]="sampleDescriptor?.descriptor"
+					[isFormStyle]="true"
 					[value]="sample"
 					(update)="updateSample($event)">
 				</dynamic-form-app>

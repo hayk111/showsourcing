@@ -1,0 +1,103 @@
+
+
+
+<table-app
+	[rows]="rows"
+	[pending]="pending"
+	[selected]="selection"
+	[contextualMenu]="contextualMenuTemplate"
+	[currentSort]="currentSort"
+	[count]="count"
+	[currentPage]="currentPage"
+	placeholder="No project"
+	(goToPage)="goToPage.emit($event)"
+	(selectOne)="select.emit($event)"
+	(unselectOne)="unselect.emit($event)"
+	(selectAll)="selectAll.emit($event)"
+	(unselectAll)="unselectAll.emit($event)"
+	(bottomReached)="bottomReached.emit()"
+	(sort)="sort.emit($event)"
+	(showItemsPerPage)="showItemsPerPage.emit($event)"
+	i18n-placeholder="@@no-project">
+
+	<!-- contextual menu -->
+	<ng-template #contextualMenuTemplate let-row="row">
+		<context-menu-item-app
+			class="pointer flexCenter"
+			(click)="delete.emit(row)"
+			i18n="button@@delete">
+			delete
+		</context-menu-item-app>
+	</ng-template>
+
+  <!-- dynamic columns -->
+  <ng-template
+    *ngFor="let column of columnsConfig; trackBy: trackByFn"
+    let-row="row"
+    [columnApp]="column.title"
+    [width]="column.width"
+		[sortBy]="column.sortProperty">
+
+    <ng-container [ngSwitch]="column.title">
+
+      <!-- name -->
+      <ng-container *ngSwitchCase="'name'">
+				<div class="project flexVAlign">
+					<logo-app class="mini imgCtnr" [color]="color.PRIMARY" size="m" type="project"></logo-app>
+					<a class="project-name flexVAlign txt-btn capitalize ellipsis"
+						[routerLink]="['/project', row.id]">
+						{{ row?.name }}
+					</a>
+				</div>
+			</ng-container>
+
+			<!-- owner -->
+			<ng-container *ngSwitchCase="'project lead'">
+				<div class="project-owner flexVAlign">
+					<user-picture-app
+						[user]="row?.createdBy"
+						[image]="row?.createdBy?.avatar"
+						[background]="false"
+						[fontSize]="16"
+						></user-picture-app>
+					<span class="project-lead">
+						{{ row?.createdBy | formatUserName: true }}
+					</span>
+				</div>
+			</ng-container>
+
+			<!-- due date -->
+      <ng-container *ngSwitchCase="'due date'">
+				<span class="due-date">{{ row?.dueDate | date: 'dd MMM y' }}</span>
+			</ng-container>
+
+			<!-- status -->
+			<ng-container *ngSwitchCase="'status'">
+				<div class="status-col flexVAlign">
+					<status-selector-app [entity]="row" [typeEntity]="erm.PROJECT" selectSize="s"></status-selector-app>
+				</div>
+			</ng-container>
+
+			<!-- created by -->
+      <ng-container *ngSwitchCase="'created by'">
+				<span class="created-by">{{ row?.createdBy | formatUserName: true }}</span>
+			</ng-container>
+
+			<!-- creation date -->
+			<ng-container *ngSwitchCase="'created on'">
+				<span class="created-on">{{ row?.creationDate | date: 'dd MMM y' }}</span>
+			</ng-container>
+
+			<!-- description -->
+			<ng-container *ngSwitchCase="'description'">
+				<div class="description">
+					{{ row?.description }}
+				</div>
+			</ng-container>
+
+		</ng-container>
+		<!-- end of switch -->
+
+	</ng-template>
+</table-app>
+

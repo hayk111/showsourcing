@@ -9,19 +9,19 @@
 		width: var(--spacing-xxl);
 		height: var(--spacing-xxl);
 		border-radius: var(--spacing-xxl);
-		background-color: var(--color-secondary);
+		background-color: var(--legacy-color-secondary);
 		font-size: var(--font-size-xxxl);
-		color: var(--color-txt-primary);
+		color: var(--legacy-color-txt-primary);
 	}
 	.btn-text {
 		font-size: 14px;
-		color: var(--color-txt-strong);
+		color: var(--legacy-color-txt-strong);
 		margin-top: var(--spacing-s);
 	}
 }
 
 .context-menu-item-text {
 	font-size: 14px;
-	color: var(--color-txt-strong);
+	color: var(--legacy-color-txt-strong);
 	padding-left: 15px
 }

@@ -4,6 +4,16 @@
 	height: 100%;
 }
 
+sub-panel-app, top-panel-app {
+	transform: scale(1);
+  transition: 0.35s all ease;
+}
+
+supplier-list-view-app {
+	margin: 13px 114px 32px 98px;
+	padding: var(--spacing-l);
+}
+
 selection-bar-app {
 	status-selector-app {
 		margin-right: var(--spacing-ms);
@@ -14,10 +24,10 @@ action-bar-app {
 	overflow: visible;
 
 	icon-app {
-		color: var(--color-txt-secondary);
+		color: var(--legacy-color-txt-secondary);
 	}
 
-	icon-app[name='trash-bin'] {
+	icon-app[name='trash'] {
 		font-size: var(--font-size-xxl);
 	}
 

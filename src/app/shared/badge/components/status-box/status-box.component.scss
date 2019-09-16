@@ -13,7 +13,7 @@ div.selector {
 
 badge-app.no-status {
   text-transform: capitalize;
-  color: var(--color-txt-strong);
+  color: var(--legacy-color-txt-strong);
 }
 
 icon-app {
@@ -27,14 +27,14 @@ icon-app {
 .badge-item {
   font-size: var(--font-size-m);
   border-radius: var(--border-radius-s);
-	padding: var(--spacing-s) var(--spacing-s) var(--spacing-s) var(--spacing-s);
+	padding: 11px;
   font-weight: 600;
   .badge-name {
     display: inline-block;
     color: white;
 		white-space: nowrap;
 		&.new {
-			color: var(--color-txt-primary);
+			color: var(--legacy-color-txt-primary);
 		}
   }
   .badge-icon {
@@ -45,25 +45,25 @@ icon-app {
 
 .badge {
   .in-progress {
-    background: var(--color-in-progress);
+    background: var(--legacy-color-in-progress);
   }
   .secondary {
-    background: var(--color-secondary);
+    background: var(--legacy-color-secondary);
   }
   .primary {
-    background: var(--color-primary);
+    background: var(--legacy-color-primary);
   }
   .secondary-light {
-    background: var(--color-secondary-light);
+    background: var(--legacy-color-secondary-light);
   }
   .accent {
-    background: var(--color-accent);
+    background: var(--legacy-color-accent);
   }
   .warn {
-    background: var(--color-warn);
+    background: var(--legacy-color-warn);
   }
   .success {
-    background: var(--color-success);
+    background: var(--legacy-color-success);
   }
 }
 
@@ -73,7 +73,7 @@ icon-app {
   }
   .status-item {
 		min-width: 200px;
-    color: var(--color-txt-strong);
+    color: var(--legacy-color-txt-strong);
     margin: 5px 10px;
     padding: 5px 10px;
     .status-box {
@@ -93,72 +93,72 @@ icon-app {
   }
   .in-progress {
     .status-box {
-      background-color: var(--color-in-progress);
+      background-color: var(--legacy-color-in-progress);
     }
     &:hover {
       color: white;
       border-radius: 5px;
-      background-color: var(--color-in-progress);
+      background-color: var(--legacy-color-in-progress);
     }
   }
   .secondary {
     .status-box {
-      background-color: var(--color-secondary);
+      background-color: var(--legacy-color-secondary);
     }
     &:hover {
       color: white;
       border-radius: 5px;
-      background-color: var(--color-secondary);
+      background-color: var(--legacy-color-secondary);
     }
   }
   .primary {
     .status-box {
-      background-color: var(--color-primary);
+      background-color: var(--legacy-color-primary);
     }
     &:hover {
       color: white;
       border-radius: 5px;
-      background-color: var(--color-primary);
+      background-color: var(--legacy-color-primary);
     }
   }
   .secondary-light {
     .status-box {
-      background-color: var(--color-secondary-light);
+      background-color: var(--legacy-color-secondary-light);
     }
     &:hover {
       color: white;
       border-radius: 5px;
-      background-color: var(--color-secondary-light);
+      background-color: var(--legacy-color-secondary-light);
     }
   }
   .accent {
     .status-box {
-      background-color: var(--color-accent);
+      background-color: var(--legacy-color-accent);
     }
     &:hover {
       color: white;
       border-radius: 5px;
-      background-color: var(--color-accent);
+      background-color: var(--legacy-color-accent);
     }
   }
   .warn {
     .status-box {
-      background-color: var(--color-warn);
+      background-color: var(--legacy-color-warn);
     }
     &:hover {
       color: white;
       border-radius: 5px;
-      background-color: var(--color-warn);
+      background-color: var(--legacy-color-warn);
     }
   }
   .success {
     .status-box {
-      background-color: var(--color-success);
+      background-color: var(--legacy-color-success);
     }
     &:hover {
       color: white;
       border-radius: 5px;
-      background-color: var(--color-success);
+      background-color: var(--legacy-color-success);
     }
   }
 }

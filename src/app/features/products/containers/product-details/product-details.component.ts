@@ -112,6 +112,30 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 		this.router.navigate(['product']);
 	}
 
+	onArchive(product: Product | Product[]) {
+		// TODO i18n
+		if (Array.isArray(product)) {
+			this.featureSrv.updateMany(product.map((p: Product) => ({ id: p.id, archived: true })))
+				.subscribe(_ => {
+					this.notifSrv.add({
+						type: NotificationType.SUCCESS,
+						title: 'Products archived',
+						message: 'Products have been archived with success'
+					});
+				});
+		} else {
+			const { id } = product;
+			this.featureSrv.update({ id, archived: true })
+				.subscribe(_ => {
+					this.notifSrv.add({
+						type: NotificationType.SUCCESS,
+						title: 'Product archived',
+						message: 'Products have been archived with success'
+					});
+				});
+		}
+	}
+
 
 	/** remove project from product.projects */
 	removeProject(removed: Project) {
@@ -179,4 +203,5 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 	openSupplierRequest(product: Product) {
 		this.dlgSrv.open(SupplierRequestDialogComponent, { products: [product] });
 	}
+
 }

@@ -1,15 +1,15 @@
-import '~shared/icons/font-awesome.config';
-
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { IconSymbolsComponent } from '~shared/icons/components/icon-symbols/icon-symbols.component';
-import { IconComponent } from '~shared/icons/components/icon/icon.component';
+import { ImageModule } from '~shared/image/image.module';
+
+import { IconComponent, LogoComponent } from './components';
 
 @NgModule({
 	imports: [
-		CommonModule
+		CommonModule,
+		ImageModule
 	],
-	declarations: [IconComponent, IconSymbolsComponent],
-	exports: [IconComponent, IconSymbolsComponent]
+	declarations: [IconComponent, LogoComponent],
+	exports: [IconComponent, LogoComponent]
 })
 export class IconsModule { }

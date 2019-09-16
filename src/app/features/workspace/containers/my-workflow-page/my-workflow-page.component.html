@@ -26,11 +26,11 @@
   let-checked="checked"
   let-selectItem="selectItem"
   let-unselectItem="unselectItem"
-  let-previewClick="previewClick"
-  let-dragDropEnable$="dragDropEnable$">
-  <product-card-app
+  let-previewClick="previewClick">
+	<product-card-app
     [product]="data"
-    [enablePreviewLink]="true"
+		[enablePreviewLink]="true"
+		[highlightOnChecked]="true"
     [checked]="(listSrv.selection$ | async).has(data.id)"
     (clickImage)="listSrv.openPreview(data)"
     (select)="listSrv.selectOne($event, true)"

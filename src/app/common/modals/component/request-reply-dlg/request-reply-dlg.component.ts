@@ -31,12 +31,12 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 
 	@Input() selectedIndex = 0;
 	@Input() requestId: string;
+	@Input() elements: RequestElement[] = [];
 
 	@ViewChild('content', { static: false }) content: ElementRef;
 
 	request$: Observable<SupplierRequest>;
 	request: SupplierRequest;
-	elements: RequestElement[] = [];
 	element: RequestElement;
 	reply: RequestReply;
 	fields: ExtendedField[];
@@ -84,7 +84,6 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 	}
 
 	private setElement() {
-		this.elements = this.request.requestElements;
 		this.element = this.elements[this.selectedIndex];
 
 		if (!this.element) {
@@ -119,6 +118,8 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 			if (updateStatus && lastItem)
 				this.dlgSrv.open(ReplySentDlgComponent);
 			else if (updateStatus) {
+				// since we are sending the elements as an Input, we have to manually set the status so it does not show as not replied
+				this.elements[this.selectedIndex].reply.status = ReplyStatus.REPLIED;
 				this.descriptionCtrl.reset();
 				this.content.nativeElement.scrollIntoView();
 			}

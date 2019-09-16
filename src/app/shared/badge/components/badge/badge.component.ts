@@ -1,41 +1,40 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Colors } from '~utils';
 
 @Component({
 	selector: 'badge-app',
 	templateUrl: './badge.component.html',
 	styleUrls: ['./badge.component.scss'],
+	/** @deprecated */
 	host: {
-		'[class.in-progress]': 'type === "in-progress" || type === "inProgress"',
-		'[class.secondary]': 'type === "secondary"',
-		'[class.primary]': 'type === "primary"',
-		'[class.secondary-light]': 'type === "secondary-light"',
-		'[class.warn]': 'type === "warn"',
-		'[class.success]': 'type === "success"',
-		'[class.accent]': 'type === "accent"',
+		'[class.primary]': 'color === "primary"',
+		'[class.secondary]': 'color === "secondary"',
+		'[class.third]': 'color === "third"',
+		'[class.warn]': 'color === "warn"',
+		'[class.success]': 'color === "success"',
+		'[class.accent]': 'color === "accent"',
+		'[class.vibrant]': 'color === "vibrant"',
 		'[class.flexVAlign]': 'true',
 		'[class.flexCenter]': 'true',
-		'[class.round]': 'round',
+		'[class.circle]': 'circle',
+		'[class.small]': 'size === "s" || size === "small"',
+		'[class.medium]': 'size === "m" || size === "medium"',
+		/** @deprecated legacy sizes please remove the scss as well*/
 		'[class.tiny]': 'size === "tiny"',
 		'[class.mini]': 'size === "mini"',
 		'[class.xsmall]': 'size === "xs"',
 		'[class.thick]': 'size === "thick"',
-		'[class.small]': 'size === "s" || size === "small"',
-		'[class.medium]': 'size === "m" || size === "medium"',
 		'[class.large]': 'size === "l" || size === "large"'
 	}
 })
-export class BadgeComponent implements OnInit {
-	@Input() size = 's';
-	/** type gives us the possibility to have predefined color set
-	 * for background and color. The none type is when we want to inherit
-	 */
-	@Input() round = true;
-	// tslint:disable-next-line: max-line-length
-	@Input() type: 'in-progress' | 'inProgress' | 'secondary' | 'secondary-light' | 'accent' | 'success' | 'warn' | 'primary' | 'none' = 'secondary';
+export class BadgeComponent {
+	@Input() color = 'secondary';
 
-	constructor() { }
-
-	ngOnInit() {
+	/** @deprecated use color */
+	@Input() set type(color: Colors) {
+		this.color = color;
 	}
-
+	/** @deprecated */
+	@Input() size = 's';
+	@Input() circle = false;
 }

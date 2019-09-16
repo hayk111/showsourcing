@@ -14,7 +14,7 @@ div {
 	display: flex;
 	align-items: center;
 	height: 32px;
-	border-bottom: 1px solid var(--color-divider);
-	color: var(--color-txt-secondary);
+	border-bottom: 1px solid var(--legacy-color-divider);
+	color: var(--legacy-color-txt-secondary);
 	font-weight: 600;
 }

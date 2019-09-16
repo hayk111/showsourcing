@@ -4,7 +4,7 @@
 
 	<ng-container *ngIf="contactCreated$ | async; else spinner">
 
-		<form [formGroup]="form" (ngSubmit)="createContact()">
+		<form class="container" [formGroup]="form" (ngSubmit)="createContact()">
 
 			<form-field-app>
 				<label-app class="capitalize" i18n="@@name">name</label-app>

@@ -30,7 +30,34 @@ import { Price } from './price.model';
 import { RequestElement } from './request-element.model';
 import { RequestReply } from './request-reply.model';
 import { RequestTemplate } from './request-template.model';
+import { SelectorElement } from './selector-element.model';
 import { SupplierRequest } from './supplier-request.model';
+
+
+export enum EntityName {
+	ATTACHMENT = 'attachment',
+	CATEGORY = 'category',
+	COMMENT = 'comment',
+	CONTACT = 'contact',
+	COUNTRY = 'country',
+	CURRENCY = 'currency',
+	EMAIL = 'email',
+	EVENT = 'event',
+	FILE = 'file',
+	HARBOUR = 'harbour',
+	IMAGE = 'image',
+	INVITATION = 'invitation',
+	LOCATION = 'location',
+	PRODUCT = 'product',
+	PROJECT = 'project',
+	REQUEST = 'request',
+	SAMPLE = 'sample',
+	SUPPLIER = 'supplier',
+	TAG = 'tag',
+	TASK = 'task',
+	TEAM = 'team',
+	USER = 'user',
+}
 
 
 export class EntityMetadata {
@@ -101,6 +128,7 @@ export class ERM {
 	static readonly REVIEW = new EntityMetadata('review', 'reviews', Product);
 	static readonly SAMPLE = new EntityMetadata('sample', 'samples', Sample);
 	static readonly SAMPLE_STATUS = new EntityMetadata('sample status', 'samples status', Sample, 'sample-status');
+	static readonly SELECTOR_ELEMENT = new EntityMetadata('selector element', 'selector elements', SelectorElement, 'selector-element');
 	static readonly SHOW = new EntityMetadata('show', 'shows', Show);
 	static readonly SUPPLIER = new EntityMetadata('supplier', 'suppliers', Supplier);
 	static readonly SUPPLIER_REQUEST = new EntityMetadata('request', 'requests', SupplierRequest);
