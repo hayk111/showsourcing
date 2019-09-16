@@ -25,11 +25,11 @@ const tableConfig: TableConfig = {
 })
 export class SupplierListViewComponent extends ListViewComponent<Supplier> {
 
-	columns = [ 'name', 'country', 'productType', 'supplierType', 'createdBy', 'activities', 'status' ];
-	tableConfig = tableConfig;
+	columns = ['name', 'country', 'productType', 'supplierType', 'createdBy', 'activities', 'status'];
 	erm = ERM;
 	supplierErm = ERM.SUPPLIER;
 
+	@Input() tableConfig = tableConfig;
 	@Output() archive = new EventEmitter<Supplier>();
 	@Output() showItemsPerPage = new EventEmitter<number>();
 

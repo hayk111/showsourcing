@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, Output, EventEmitter } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { ListViewComponent, TableConfig } from '~core/list-page';
-import { Task, ERM } from '~core/models';
+import { ERM, Task } from '~core/models';
 import { ID } from '~utils/id.utils';
 
 const tableConfig: TableConfig = {
@@ -25,12 +25,12 @@ const tableConfig: TableConfig = {
 })
 export class TaskListViewComponent extends ListViewComponent<Task> {
 
-	columns = [ 'taskDone', 'reference', 'name', 'product', 'supplier', 'dueDate', 'assignee', 'status' ];
-	tableConfig = tableConfig;
-	erm = ERM;
-
+	@Input() tableConfig = tableConfig;
 	@Output() openProduct = new EventEmitter<ID>();
 	@Output() openSupplier = new EventEmitter<ID>();
+
+	columns = ['taskDone', 'reference', 'name', 'product', 'supplier', 'dueDate', 'assignee', 'status'];
+	erm = ERM;
 
 	constructor() { super(); }
 
