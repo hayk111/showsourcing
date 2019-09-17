@@ -57,8 +57,6 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 
 	@Input() searchFullWidth = true;
 
-	@Input() productsCount$: Observable<number>;
-
 	@Input() title: string;
 	@Input() count = 0;
 	@Input() entityType: 'products' | 'projects' | 'suppliers' | 'samples'; // should be filled with all the entity types
@@ -98,6 +96,11 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 	@Output() showAssigned = new EventEmitter<undefined>();
 	@Output() hideAssigned = new EventEmitter<undefined>();
 
+	/** show only the products created by current user */
+	@Output() showMyProducts = new EventEmitter<undefined>();
+	/** hide the products created by current user */
+	@Output() hideMyProducts = new EventEmitter<undefined>();
+
 	@Output() showTasksCreatedByMeOnly = new EventEmitter<undefined>();
 	@Output() hideTasksCreatedByMeOnly = new EventEmitter<undefined>();
 
@@ -119,7 +122,7 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 	inputFocus = false;
 
 	isArchivedShown = false;
-	archiveChecked = false;
+	isMyProductsShown = false;
 	isCompletedTaskChecked = false;
 	isTaskCreatedByMeOnlyChecked = false;
 	isAssigned = false;
@@ -170,6 +173,11 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 		}
 	}
 
+	toggleMyProducts() {
+		this.isMyProductsShown = !this.isMyProductsShown;
+		this.myProductsChanged();
+	}
+
 	toggleArchived() {
 		this.isArchivedShown = !this.isArchivedShown;
 		this.archivedChange();
@@ -188,6 +196,14 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 	toggleCompletedTask() {
 		this.isCompletedTaskChecked = !this.isCompletedTaskChecked;
 		this.tasksCompletedChanged();
+	}
+
+	private myProductsChanged() {
+		if (this.isMyProductsShown) {
+			this.showMyProducts.emit();
+		} else {
+			this.hideMyProducts.emit();
+		}
 	}
 
 	private archivedChange() {

@@ -5,18 +5,23 @@
 	</dialog-header-app>
 
 	<sub-panel-app
+		entityType="products"
 		[hasFilter]="true"
 		[hasSwitch]="false"
+		[hasArchived]="false"
+		[hasExport]="false"
+		[count]="listSrv.count$ | async"
+		[hasAssigned]="false"
 		[filtersPanelOpened]="filtersPanelOpened"
 		[view]="listSrv.view"
 		[searchValue]="listSrv.searchValue"
 		[searchFullWidth]="false"
 		[subPanelDialog]="true"
-		[productsCount$]="productsCount$"
 		(search)="searchProduct($event)"
+		(showMyProducts)="toggleMyProducts(true)"
+		(hideMyProducts)="toggleMyProducts(false)"
 		(showFilters)="showFilters()"
-		(hideFilters)="hideFilters()"
-		(viewChange)="onViewChange($event)">
+		(hideFilters)="hideFilters()">
 
 		<sub-panel-left-item-app class="flex">
 			<div class="flex show-my-samples">
@@ -37,6 +42,10 @@
 		class="list-view"
 		*ngIf="listSrv.view === 'list'"
 		[hasMenu]="false"
+		[tableDialog]="true"
+		[tableConfig]="productTableConfig"
+		[hasVerticalScroll]="true"
+		[columns]="['name', 'category', 'supplier', 'price', 'favorite', 'createdBy']"
 		[currentSort]="listSrv.currentSort"
 		[pending]="listSrv.pending"
 		[rows]="listSrv.items$ | async"
@@ -48,6 +57,7 @@
 		(favorited)="listSrv.onItemFavorited($event)"
 		(update)="listSrv.update($event)"
 		(open)="listSrv.goToDetails($event)"
+		(showItemsPerPage)="showItemsPerPage($event)"
 		(previewClick)="listSrv.openPreview($event)"
 		(select)="onItemSelected($event, true)"
 		(selectAll)="onSelectAll($event, true)"
@@ -57,10 +67,10 @@
 		(unselectAll)="onUnselectAll()">
 	</products-list-view-app>
 	
-	<dialog-footer-app>
-		<sub-panel-left-item-app><b>{{ selectedProductsCount }} Products selected</b></sub-panel-left-item-app>
-		<button *ngIf="submitProducts" class="capitalize" (click)="submit()" i18n="button@@add-to-project">add to project</button>
-		<button *ngIf="!submitProducts" class="capitalize" (click)="done()" i18n="button@@done">done</button>
+	<dialog-footer-app class="flexVAlign">
+		<sub-panel-left-item-app class="show-my-samples-only">{{ selectedProductsCount }} Products selected</sub-panel-left-item-app>
+		<button *ngIf="submitProducts" class="capitalize add-to-project" (click)="submit()" i18n="button@@add-to-project">add to project</button>
+		<button *ngIf="!submitProducts" class="capitalize footer-done" (click)="done()" i18n="button@@done">done</button>
 	</dialog-footer-app>
 
 	<filters-app

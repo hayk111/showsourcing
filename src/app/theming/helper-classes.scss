@@ -177,6 +177,15 @@
 	overflow-y: auto;
 }
 
+.scrollable-y {
+	overflow-y: auto !important;
+}
+
+.bordered-table {
+	border: 1px solid #e6ebf5;
+	border-radius: var(--border-radius-s);
+}
+
 .dot-separator {
 	& > * {
 		//for each children that is not the first one we add some spaces and bullet dots on the content

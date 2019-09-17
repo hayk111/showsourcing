@@ -61,6 +61,7 @@
 	</side-panel-action-app>
 
 	<filter-btn-list-app
+		*ngIf="view === 'BTNS'"
 		[filterTypes]="filterTypes"
 		[filterMap]="filterList.asByType()"
 		(filterAdded)="addFilter($event)"
@@ -68,4 +69,25 @@
 		(editClicked)="openEditPanel($event)"
 		(resetClicked)="resetType($event)">
 	</filter-btn-list-app>
+
+	<side-panel-app *ngIf="view === 'SELECTION'">
+		<side-panel-title-app (click)="openBtnPanel()">
+			<div class="flex pointer">
+				<icon-app name="angle-left"></icon-app>
+				<span class="capitalize" i18n="button@@back">back</span>
+			</div>
+		</side-panel-title-app>
+		<side-panel-action-app class="clear" (click)="resetType(typeSelected)" i18n="button@@clear-all">
+			Clear All
+		</side-panel-action-app>
+	
+		<filter-selection-entity-panel-app
+			*ngIf="view === 'SELECTION'"
+			[type]="typeSelected"
+			[selected]="filterList.asByType().get(typeSelected)"
+			(filterAdded)="addFilter($event)"
+			(filterRemoved)="removeFilter($event)">
+		</filter-selection-entity-panel-app>
+	</side-panel-app>
+	
 </dialog-side-panel-app>

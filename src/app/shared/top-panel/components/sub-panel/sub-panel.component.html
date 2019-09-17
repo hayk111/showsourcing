@@ -2,11 +2,14 @@
 
 <div class="flex">
 
-	<div class="search-container flex">
+	<div 
+		class="search-container flex"
+		[class.sub-panel-dlg-search-container]="subPanelDialog">
 		<ng-content select="search-autocomplete-app"></ng-content>
 
 		<search-bar-app
 			*ngIf="hasSearch"
+			[ngStyle]="subPanelDialog && {'width': '358px', 'max-width': 'unset'}"
 			[formControl]="searchControl"
 			[inputFocus]="inputFocus"
 			searchType="short"
@@ -16,32 +19,49 @@
 		</search-bar-app>
 
 		<button
-			*ngIf="hasFilter && !filtersPanelOpened"
+			*ngIf="hasFilter && !filtersPanelOpened && !subPanelDialog"
 			class="bold-s pointer capitalize filter-button"
 			(click)="showFilters.emit()" i18n="text@@show-filters">
 			Filters
 		</button>
 		<button
-			*ngIf="hasFilter && !filtersPanelOpened"
+			*ngIf="hasFilter && !filtersPanelOpened && !subPanelDialog"
 			class="bold-s pointer capitalize clear-filter-button"
 			(click)="clearFilters.emit()"
 			i18n="text@@clear-filters">
 			Clear Filters <span *ngIf="filtersAmount">({{filtersAmount}})</span>
 		</button>
-		<div class="divider"></div>
+		<div *ngIf="!subPanelDialog" class="divider"></div>
 
-		<button *ngIf="hasFilter && !filtersPanelOpened" class="bold-s pointer secondary capitalize" (click)="showFilters.emit()" i18n="text@@show-filters"
-		[class.dialog-show-filters]="subPanelDialog">Show Filters</button>
-		<button *ngIf="filtersPanelOpened" class="bold-s pointer secondary capitalize" (click)="hideFilters.emit()" i18n="text@@show-filters"
-		[class.dialog-show-filters]="subPanelDialog">Hide Filters</button>
-		<span class="bold-s capitalize entities-count">
+		<span class="bold-s capitalize entities-count" 
+				  [ngStyle]="subPanelDialog && {'margin-left': '24px'}">
 			{{count}} {{entityType}}
 		</span>
+		
+		<button
+			*ngIf="!filtersPanelOpened && subPanelDialog" 
+			class="bold-s pointer secondary capitalize"
+			[class.dialog-show-filters]="subPanelDialog"
+			(click)="showFilters.emit()" 
+			i18n="text@@show-filters">Show Filters</button>
 
-		<button *ngIf="filtersPanelOpened" class="bold-s pointer secondary capitalize" (click)="hideFilters.emit()" i18n="text@@show-filters">
-			Hide Filters
-		</button>
+		<button 
+			*ngIf="filtersPanelOpened && subPanelDialog" 
+			class="bold-s pointer secondary capitalize"
+			[class.dialog-hide-filters]="subPanelDialog"
+			[ngStyle]="subPanelDialog && {'margin-left': '24px'}"
+			(click)="hideFilters.emit()" 
+			i18n="text@@show-filters">Hide Filters</button>
 
+		<div *ngIf="subPanelDialog" class="created-by-me-container pointer" (click)="toggleMyProducts()">
+			<div class="flexCenter">
+				<checkbox-app
+					[checked]="isMyProductsShown">
+				</checkbox-app>
+				<span>Show my products only</span>
+			</div>
+		</div>
+		
 		<button
 			*ngIf="buttonName"
 			class="create first-uppercase"

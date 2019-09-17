@@ -3,10 +3,24 @@ import { Observable } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { ProductService, UserService } from '~core/entity-services';
 import { ListPageService } from '~core/list-page';
-import { ERM, Product } from '~models';
+import { ERM, Product, Project } from '~models';
 import { CloseEventType, DialogService } from '~shared/dialog';
+import { NotificationService, NotificationType } from '~shared/notifications';
 import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
+import { ProductDialogService } from '~common/modals/services/product-dialog.service';
+import { translate } from '~utils';
+import { TableConfig } from '~core/list-page/list-view.component';
+import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
+
+const tableConfig: TableConfig = {
+	name: { title: 'name', width: 190, sortProperty: 'name' },
+	category: { title: 'category', width: 190, sortProperty: 'category.name' },
+	createdBy: { title: 'created by', width: 140, sortProperty: 'creationDate' },
+	favorite: { title: 'FAV', width: 50, sortProperty: 'favorite' },
+	price: { title: 'price', width: 120, sortProperty: 'price.value' },
+	supplier: { title: 'supplier', width: 190, sortProperty: 'supplier.id' },
+};
 
 @Component({
 	selector: 'product-select-dlg',
@@ -17,7 +31,13 @@ import { AutoUnsub } from '~utils';
 })
 export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 
+	@Input() initialSelectedProducts: Product[];
+	@Input() project: Project;
+	@Input() submitProducts = true;
+
+	selectItemsConfig: SelectParamsConfig;
 	filterType = FilterType;
+	productTableConfig = tableConfig;
 
 	filterTypes = [
 		FilterType.ARCHIVED,
@@ -31,15 +51,11 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 		FilterType.TAGS
 	];
 
-	@Input() initialSelectedProducts: Product[];
-	@Input() submitProducts = true;
-
 	private unselectedProducts: { [key: string]: Product } = {};
 	selectedProducts: { [key: string]: Product } = {};
 
-	productsCount$: Observable<number>;
-	private selectedProductsCount = 0;
-	private selectedAllCount = 15;
+	selectedProductsCount = 0;
+	private selectedAllCount = 25;
 
 	filtersPanelOpened = false;
 
@@ -47,6 +63,8 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 		private productSrv: ProductService,
 		private dlgSrv: DialogService,
 		private userSrv: UserService,
+		private productDlgSrv: ProductDialogService,
+		private notifSrv: NotificationService,
 		public listSrv: ListPageService<Product, ProductService>,
 	) {
 		super();
@@ -56,17 +74,13 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 		this.listSrv.setup({
 			entitySrv: this.productSrv,
 			searchedFields: ['name', 'supplier.name', 'category.name'],
-			selectParams: { sortBy: 'category.name', descending: true, take: 15, query: 'deleted == false' },
+			selectParams: { sortBy: 'category.name', descending: true, take: this.selectedAllCount, query: 'deleted == false' },
+			initialFilters: [{ type: FilterType.ARCHIVED, value: false }, { type: FilterType.DELETED, value: false }],
 			entityMetadata: ERM.PRODUCT,
 			originComponentDestroy$: this._destroy$
 		});
 
 		this.initialSelection();
-
-		this.productsCount$ = this.listSrv.filterList.valueChanges$.pipe(
-			switchMap(_ => this.productSrv.selectCount(this.listSrv.filterList.asPredicate())),
-			takeUntil(this._destroy$));
-
 	}
 
 	searchProduct(value) {
@@ -155,10 +169,19 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 		const unselectedProducts = Object.values(this.unselectedProducts);
 		const data = { selectedProducts, unselectedProducts };
 
-		this.dlgSrv.close({
-			type: CloseEventType.OK,
-			data
-		});
+		this.productDlgSrv.addProductsToProject(this.project, selectedProducts)
+			.subscribe(_ => {
+				this.dlgSrv.close({
+					type: CloseEventType.OK,
+					data
+				});
+				this.notifSrv.add({
+					type: NotificationType.SUCCESS,
+					title: translate('Products added'),
+					message: translate('Your projects were added to the product with success'),
+					timeout: 3500
+				});
+			});
 	}
 
 	done() {
@@ -171,6 +194,19 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 			this.listSrv.addFilter(filterAssignee);
 		else
 			this.listSrv.removeFilter(filterAssignee);
+	}
+
+	toggleMyProducts(show: boolean) {
+		const filterProduct = { type: FilterType.CREATED_BY, value: this.userSrv.userSync.id };
+		if (show)
+			this.listSrv.addFilter(filterProduct);
+		else
+			this.listSrv.removeFilter(filterProduct);
+	}
+
+	showItemsPerPage(count: number) {
+		this.selectItemsConfig = { take: Number(count) };
+		this.listSrv.refetch(this.selectItemsConfig).subscribe();
 	}
 
 }

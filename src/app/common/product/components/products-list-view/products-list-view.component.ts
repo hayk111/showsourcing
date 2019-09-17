@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { ListViewComponent, TableConfig } from '~core/list-page/list-view.component';
 import { ERM, Product } from '~models';
-
+import { Color } from '~utils';
 
 const tableConfig: TableConfig = {
 	activities: { title: 'activity', width: 190, sortable: false },
@@ -30,6 +30,8 @@ export class ProductsListViewComponent extends ListViewComponent<Product> {
 	columns = ['reference', 'price', 'supplier', 'category', 'createdBy', 'activities', 'status'];
 	@Input() tableConfig = tableConfig;
 	@Input() tableWidth: number;
+	@Input() tableDialog: boolean;
+	@Input() hasVerticalScroll: boolean;
 	@Output() setFavourite = new EventEmitter<Product>();
 	@Output() openAddToProjectDialog = new EventEmitter<Product>();
 	@Output() openAddTaskDialog = new EventEmitter<Product>();
@@ -39,6 +41,7 @@ export class ProductsListViewComponent extends ListViewComponent<Product> {
 	@Output() delete = new EventEmitter<Product>();
 	@Output() showItemsPerPage = new EventEmitter<number>();
 	prodErm = ERM.PRODUCT;
+	color = Color;
 
 	constructor() {
 		super();

@@ -32,7 +32,7 @@
   color: var(--legacy-color-button-dark);
 	border-bottom: 1px solid var(--legacy-color-divider);
 	icon-app {
-		font-size: var(--font-size-m);
+		font-size: var(--font-size-l);
 	}
 }
 
@@ -48,7 +48,6 @@
 .content {
 	height: 100%;
 	flex-grow: 1;
-	overflow: hidden;
 }
 
 .subtitle {

@@ -21,7 +21,9 @@ import { TrackingComponent } from '~utils/tracking-component';
 	styleUrls: ['./table.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
-		class: 'fullWidth'
+		class: 'fullWidth',
+		'[class.bordered-table]': 'tableDialog',
+		'[class.scrollable-y]': 'hasVerticalScroll'
 	}
 })
 export class TableComponent extends TrackingComponent implements OnChanges {
@@ -33,12 +35,16 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	@Input() hasMenu = true;
 	/** whether the table has header row */
 	@Input() hasHeader = true;
+	/** whether the table has vertical scroll */
+	@Input() hasVerticalScroll = false;
 	/** the placeholder text if no element displayed in the table */
 	@Input() placeholder: string;
 	/** whether rows are selectable and pagination is visible */
 	@Input() hasPagination = true;
 	/** whether the context menu icon is horizontal dots or vertical */
 	@Input() isContextMenuHorizontal = true;
+	// whether the table is inside dialog
+	@Input() tableDialog = false;
 
 	@Input() width: number;
 	@Input() rowHeight: number;
