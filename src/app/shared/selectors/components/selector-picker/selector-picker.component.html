@@ -1,4 +1,3 @@
-<!-- TODO i18n - list of items not translated yet -->
 <form [formGroup]="group">
 	<form-field-app class="search-input" [ngClass]="{'field-focused': inp.focussed || !!inp.control.value}">
 			<input inputApp formControlName="name" [value]="searchTxt" type="text" [placeholder]="'OBJ.enter-OBJ' | translate: {field: 'ERM.' + type.translationKey + '.singular' | translate}" (keyup)="onKeydown($event)" (input)="search(inp.control.value)">

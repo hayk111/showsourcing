@@ -25,7 +25,7 @@
 
 	<!-- name -->
 	<ng-template
-		[columnApp]="'name' | const: 'messages'"
+		[columnApp]="'header.name' | translate"
 		sortBy="user.firstName"
 		let-row="row"
 		width="250"
@@ -36,7 +36,7 @@
 	<!-- email -->
 	<ng-template
 		class="capitalize"
-		[columnApp]="'email' | const: 'messages'"
+		[columnApp]="'header.email' | translate"
 		let-row="row"
 		sortBy="user.email"
 		width="250">
@@ -48,7 +48,7 @@
 	<!-- acccountType -->
 	<ng-template
 		class="capitalize"
-		[columnApp]="'Account type' | const: 'messages'"
+		[columnApp]="'header.account-type' | translate"
 		let-row="row"
 		sortBy="accessType"
 		width="200">
@@ -86,7 +86,7 @@
 
 	<!-- status -->
 	<ng-template
-		[columnApp]="'status' | const: 'messages'"
+		[columnApp]="'header.status' | translate"
 		let-row="row"
 		sortBy="status"
 		width="80">

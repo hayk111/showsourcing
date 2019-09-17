@@ -26,7 +26,7 @@
 
 	<!-- email -->
 	<ng-template
-		[columnApp]="'email' | const: 'messages'"
+		[columnApp]="'header.email' | translate"
 		sortBy="email"
 		let-row="row"
 		width="250"
@@ -37,7 +37,7 @@
 	<!-- acccountType -->
 	<ng-template
 		class="capitalize"
-		[columnApp]="'Account type' | const: 'messages'"
+		[columnApp]="'header.account-type' | translate"
 		let-row="row"
 		sortBy="accessType"
 		width="200">
@@ -68,11 +68,11 @@
 
 	<!-- status -->
 	<ng-template
-		[columnApp]="'status' | const: 'messages'"
+		[columnApp]="'header.status' | translate"
 		let-row="row"
 		sortBy="status"
 		width="200">
-		invitation {{ row.status }}
+		{{ 'text.invitation' | translate }} {{ 'text.' + row.status | translate }}
 	</ng-template>
 
 </table-app>

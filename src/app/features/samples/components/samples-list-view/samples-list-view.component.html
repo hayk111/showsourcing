@@ -31,7 +31,7 @@
 
 	<!-- title row -->
 	<ng-template
-		[columnApp]="erm.SAMPLE.singular | const: 'erm'"
+		[columnApp]="'ERM.' + erm.SAMPLE.translationKey + '.singular' | translate"
 		sortBy="name"
 		let-row="row"
 		width="280">
@@ -47,7 +47,7 @@
 	<!-- product row -->
 	<ng-template
 		class="capitalize"
-		[columnApp]="erm.PRODUCT.singular | const: 'erm'"
+		[columnApp]="'ERM.' + erm.PRODUCT.translationKey + '.singular' | translate"
 		let-row="row"
 		sortBy="product.name"
 		[grows]="false"
@@ -59,7 +59,7 @@
 
 	<!-- supplier row -->
 	<ng-template
-		[columnApp]="erm.SUPPLIER.singular | const: 'erm'"
+		[columnApp]="'ERM.' + erm.SUPPLIER.translationKey + '.singular' | translate"
 		sortBy="supplier.name"
 		let-row="row"
 		width="220">
@@ -70,7 +70,7 @@
 
 	<!-- type row -->
 	<ng-template
-		[columnApp]="'type' | const: 'erm'"
+		[columnApp]="'header.type' | translate"
 		let-row="row"
 		width="220">
 		<div class="ellipsis">
@@ -81,7 +81,7 @@
 	<!-- created by -->
 	<ng-template
 		class="capitalize"
-		[columnApp]="'created by' | const: 'erm'"
+		[columnApp]="'header.created-by' | translate"
 		[sortable]="false"
 		let-row="row"
 		width="250">
@@ -94,7 +94,7 @@
 	<!-- activities -->
 	<ng-template
 		class="capitalize"
-		[columnApp]="'activity' | const: 'erm'"
+		[columnApp]="'header.activity' | translate"
 		[sortable]="false"
 		let-row="row"
 		width="250">
@@ -103,7 +103,7 @@
 	<!-- status -->
 	<ng-template
 		class="capitalize"
-		[columnApp]="'status' | const: 'erm'"
+		[columnApp]="'header.status' | translate"
 		[sortable]="false"
 		let-row="row">
 		<status-selector-app [entity]="row" [typeEntity]="erm.SUPPLIER" selectSize="s"></status-selector-app>

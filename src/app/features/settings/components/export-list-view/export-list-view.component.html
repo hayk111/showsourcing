@@ -21,7 +21,7 @@
 
 		<!-- export name -->
 		<ng-template
-			[columnApp]="'export' | const: 'messages'"
+			[columnApp]="'header.export' | translate"
 			sortBy="name"
 			let-row="row"
 			width="300">
@@ -32,17 +32,17 @@
 
 		<!-- status -->
 		<ng-template
-			[columnApp]="'status' | const: 'messages'"
+			[columnApp]="'header.status' | translate"
 			let-row="row"
 			sortBy="status"
 			width="150"
 			[sortOrder]="'DESC'">
-			{{ row?.status }}
+			{{ 'text.' + row?.status | translate }}
 		</ng-template>
 
 		<!-- date -->
 		<ng-template
-			[columnApp]="'creation date' | const: 'messages'"
+			[columnApp]="'header.creation-date' | translate"
 			let-row="row"
 			sortBy="creationDate"
 			width="150"
@@ -52,7 +52,7 @@
 
 		<!-- user -->
 		<ng-template
-			[columnApp]="'created by' | const: 'messages'"
+			[columnApp]="'header.created-by' | translate"
 			let-row="row"
 			sortBy="createdBy.lastName"
 			width="200">
@@ -63,7 +63,7 @@
 
 		<!-- download -->
 		<ng-template
-			[columnApp]="'download' | const: 'messages'"
+			[columnApp]="'header.download' | translate"
 			let-row="row"
 			sortBy="createdBy.lastName"
 			[grows]="false"

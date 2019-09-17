@@ -53,7 +53,7 @@
 
 		<!-- supplier type -->
 		<ng-container *ngSwitchCase="erm.SUPPLIER_TYPE.singular">
-			<span>{{ value ? ('text.' + value?.name | translate)  : '-'  }}</span>
+			<span>{{ value ? ('const.supplierType.' + value?.name | translate)  : '-'  }}</span>
 		</ng-container>
 
 		<!-- event -->

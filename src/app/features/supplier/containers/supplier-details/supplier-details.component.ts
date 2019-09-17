@@ -108,7 +108,6 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 		} else {
 			supplier.supplierType.name = supplier.supplierType.name.toLowerCase().replace(' ', '-');
 			this.supplier = supplier;
-			console.log('supplier', this.supplier);
 		}
 	}
 

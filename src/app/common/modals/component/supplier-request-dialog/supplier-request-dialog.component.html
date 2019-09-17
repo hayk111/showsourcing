@@ -105,7 +105,7 @@
 							tabFocusAction
 							[ngClass]="{ disabled: !supplier }"
 							[hasArrow]="supplier"
-							[name]="!supplier ? ('Select a supplier first' | const: 'messages') : contactSelector?.value?.email"
+							[name]="!supplier ? ('message.select-a-supplier-first' | translate) : contactSelector?.value?.email"
 							[placeholder]="'placeholder.email-or-contact' | translate">
 						</selector-placeholder-app>
 					</selector-app>
