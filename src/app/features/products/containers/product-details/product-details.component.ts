@@ -82,11 +82,11 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 		);
 
 		this.tabs = [
-			{ name: this.translate.instant('label.activity') },
-			{ name: this.translate.instant('label.shipping') },
-			{ name: this.translate.instant('ERM.SAMPLE.plural'), number$: this.sampleCount$ },
-			{ name: this.translate.instant('ERM.TASK.plural'), number$: this.taskCount$ },
-			{ name: this.translate.instant('ERM.SUPPLIER_REQUEST.plural'), number$: this.requestCount$ }
+			{ name: 'activity' },
+			{ name: 'shipping' },
+			{ name: 'samples', number$: this.sampleCount$ },
+			{ name: 'tasks', number$: this.taskCount$ },
+			{ name: 'supplier-requests', number$: this.requestCount$ }
 		];
 	}
 

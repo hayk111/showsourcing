@@ -73,10 +73,10 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 		);
 
 		this.tabs = [
-			{ name: this.translate.instant('label.activity') },
-			{ name: this.translate.instant('label.products') },
-			{ name: this.translate.instant('label.samples') },
-			{ name: this.translate.instant('header.tasks'), number$: this.taskCount$ }
+			{ name: 'activity' },
+			{ name: 'products' },
+			{ name: 'samples' },
+			{ name: 'tasks', number$: this.taskCount$ }
 		];
 
 	}
@@ -106,7 +106,9 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 			});
 			this.router.navigate(['supplier']);
 		} else {
+			supplier.supplierType.name = supplier.supplierType.name.toLowerCase().replace(' ', '-');
 			this.supplier = supplier;
+			console.log('supplier', this.supplier);
 		}
 	}
 
