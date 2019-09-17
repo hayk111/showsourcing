@@ -5,4 +5,5 @@ export class PreviewActionButton {
 	action: Function;
 	subMenuItems?: PreviewActionButton[];
 	type?: 'rounded' | 'normal' | 'context';
+	number?: number;
 }

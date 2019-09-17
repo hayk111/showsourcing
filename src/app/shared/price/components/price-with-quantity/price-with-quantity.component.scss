@@ -1,16 +1,19 @@
-// Keep
 .price {
-	min-height: 31px;
+	margin-right: var(--spacing-m);
+
 	.amount {
-		color: var(--legacy-color-primary);
-		font-size: var(--font-size-xxxl);
+		color: var(--color-primary);
+		font-size: var(--font-size-l);
 		font-weight: bold;
 	}
 }
 
+.mg-right-s {
+	margin-right: var(--spacing-s);
+}
+
 .moq {
-	margin-left: var(--spacing-xs);
-	color: var(--legacy-color-txt-secondary);
+	color: var(--color-txt-secondary);
 }
 
 editable-text-app {
