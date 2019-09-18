@@ -30,7 +30,7 @@ export class ProductsListViewComponent extends ListViewComponent<Product> {
 	columns = ['reference', 'price', 'supplier', 'category', 'createdBy', 'activities', 'status'];
 	@Input() tableConfig = tableConfig;
 	@Input() tableWidth: number;
-	@Input() tableDialog: boolean;
+	@Input() tableDialog = false;
 	@Input() hasVerticalScroll: boolean;
 	@Output() setFavourite = new EventEmitter<Product>();
 	@Output() openAddToProjectDialog = new EventEmitter<Product>();

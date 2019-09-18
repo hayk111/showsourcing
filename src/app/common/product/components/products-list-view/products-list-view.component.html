@@ -162,25 +162,25 @@
       <!-- price -->
       <ng-container *ngSwitchCase="'price'">
 				<editable-text-app
-					*ngIf="!tableDialog; else tableDialog"
-          #editable
-          [hasAction]="false"
-          (opened)="inp.focus()"
-          (closed)="update.emit({ id: row.id, price: inp.price })">
-          <editable-label-app>
-            <price-app
-              [price]="row?.price"
-              [moq]="row?.minimumOrderQuantity"
-              [moqDesc]="row?.moqDescription">
-            </price-app>
-          </editable-label-app>
-          <input-price-app
-            #inp
-            (keyup.enter)="editable.close()"
-            [price]="row?.price">
-          </input-price-app>
+					*ngIf="!tableDialog; else dialogTable"
+					#editable
+					[hasAction]="false"
+					(opened)="inp.focus()"
+					(closed)="update.emit({ id: row.id, price: inp.price })">
+					<editable-label-app>
+						<price-app
+							[price]="row?.price"
+							[moq]="row?.minimumOrderQuantity"
+							[moqDesc]="row?.moqDescription">
+						</price-app>
+					</editable-label-app>
+					<input-price-app
+						#inp
+						(keyup.enter)="editable.close()"
+						[price]="row?.price">
+					</input-price-app>
 				</editable-text-app>
-				<ng-template #tableDialog>
+				<ng-template #dialogTable>
 					<span class="price-dialog">{{ row?.price?.value | appPrice }} {{ row?.price?.currency }}</span>
 				</ng-template>
       </ng-container>

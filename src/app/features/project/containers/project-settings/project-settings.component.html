@@ -6,7 +6,7 @@
 
 		<logo-app color="primary" type="project" size="xl"></logo-app>
 		<ng-container subinfo>
-			{{project?.status || 'new'}}<div class="small-gray-badge-separator"></div>Due on {{project?.creationDate | date: 'dd-mm-yyyy' }}
+			{{project?.status || 'new'}}<div class="small-gray-badge-separator"></div>Due on {{project?.creationDate | date: 'dd MMM y' }}
 			<div class="small-gray-badge-separator"></div>Created by {{ project?.createdBy?.firstName }} {{ project?.createdBy?.lastName }}
 		</ng-container>
 
@@ -18,7 +18,7 @@
 
 		<panel-tab-app
 			[link]="getTabPanelUrl('settings')"
-			icon="settings"
+			icon="files"
 			name="Settings">
 		</panel-tab-app>
 
