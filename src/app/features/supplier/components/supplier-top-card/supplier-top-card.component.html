@@ -4,16 +4,18 @@
 
 	<logo-app [logo]="supplier?.logoImage" type="supplier"></logo-app>
 
-	<div subinfo class="flex flexVAlign">
-		<div class="type" *ngIf="supplier?.supplierType">
-			{{ supplier?.supplierType?.name }}
+	<header-details-info-app subInfo>
+		<div class="flex flexVAlign">
+			<div class="type" *ngIf="supplier?.supplierType">
+				{{ supplier?.supplierType?.name }}
+			</div>
+			<icon-app *ngIf="supplier?.supplierType" name="circle"></icon-app>
+			<div class="adress">
+				{{ supplier?.city ? supplier?.city + ',&nbsp;' : ''}}
+				{{ supplier?.country | const: 'country' }}
+			</div>
 		</div>
-		<icon-app *ngIf="supplier?.supplierType" name="circle"></icon-app>
-		<div class="adress">
-			{{ supplier?.city ? supplier?.city + ',&nbsp;' : ''}}
-			{{ supplier?.country | const: 'country' }}
-		</div>
-	</div>
+	</header-details-info-app>
 
 	<header-list-action-buttons-app
 		action

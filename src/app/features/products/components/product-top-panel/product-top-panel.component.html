@@ -6,18 +6,20 @@
 
 	<logo-app [logo]="product?.images[0]" size="l" type="product"></logo-app>
 
-	<div subinfo class="flex flexVAlign info-container dot-separator">
-		<span class="price" *ngIf="product.price && product.price.value !== null">
-			{{ product?.price | appPrice }}
-		</span>
-		<span *ngIf="product?.category" class="category">
-			{{ product?.category?.name }}
-		</span>
-		<span *ngIf="product?.supplier" class="hyphen-separator">
-			{{ product?.supplier?.name }}
-		</span>
-	</div>
-
+	<header-details-info-app subInfo>
+		<div class="flex flexVAlign info-container dot-separator">
+			<span class="price" *ngIf="product.price && product.price.value !== null">
+				{{ product?.price | appPrice }}
+			</span>
+			<span *ngIf="product?.category" class="category">
+				{{ product?.category?.name }}
+			</span>
+			<span *ngIf="product?.supplier" class="hyphen-separator">
+				{{ product?.supplier?.name }}
+			</span>
+		</div>
+	</header-details-info-app>
+	
 	<header-list-action-buttons-app
 		action
 		[data]="product"

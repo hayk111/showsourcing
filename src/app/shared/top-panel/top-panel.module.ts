@@ -27,6 +27,7 @@ import { ControllerListRightItemComponent } from './components/controller-list-r
 import { HeaderListActionButtonsComponent } from './components/header-list-action-buttons/header-list-action-buttons.component';
 import { HeaderDetailsComponent } from './components/header-details/header-details.component';
 import { HeaderDetailsTitleComponent } from './components/header-details-title/header-details-title.component';
+import { HeaderDetailsInfoComponent } from './components/header-details-info/header-details-info.component';
 
 @NgModule({
 	imports: [
@@ -60,7 +61,8 @@ import { HeaderDetailsTitleComponent } from './components/header-details-title/h
 		HeaderDetailsTitleComponent,
 		ControllerListLeftItemComponent,
 		ControllerListRightItemComponent,
-		HeaderListActionButtonsComponent
+		HeaderListActionButtonsComponent,
+		HeaderDetailsInfoComponent
 	],
 	exports: [
 		HeaderListComponent,
@@ -71,6 +73,7 @@ import { HeaderDetailsTitleComponent } from './components/header-details-title/h
 		ControllerListLeftItemComponent,
 		ControllerListRightItemComponent,
 		HeaderListActionButtonsComponent,
+		HeaderDetailsInfoComponent
 	],
 })
 export class TopPanelModule { }

@@ -9,14 +9,18 @@
 		size="s">
 	</img-app>
 
-	<div subinfo class="flex dot-separator">
-		<div>{{ request?.creationDate | date: 'dd MMMM yy \'at\' HH:mm' }}</div>
-		<div *ngIf="request?.sender?.name">{{ request.sender.name }}</div>
-		<div *ngIf="request?.sender?.company">{{ request.sender.company }}</div>
-		<div>
-			{{ request?.requestElements?.length }}
-			<ng-container i18n="text|number of elements selected@@element">{ request?.requestElements?.length || 0, plural, =1 { Element } other { Elements } }</ng-container>
+	<header-details-info-app subInfo>
+		<div class="flex dot-separator">
+			<div>{{ request?.creationDate | date: 'dd MMMM yy \'at\' HH:mm' }}</div>
+			<div *ngIf="request?.sender?.name">{{ request.sender.name }}</div>
+			<div *ngIf="request?.sender?.company">{{ request.sender.company }}</div>
+			<div>
+				{{ request?.requestElements?.length }}
+				<ng-container i18n="text|number of elements selected@@element">{ request?.requestElements?.length || 0, plural, =1 { Element } other { Elements } }</ng-container>
+			</div>
 		</div>
-	</div>
+	</header-details-info-app>
+
+	
 	
 </header-details-app>
