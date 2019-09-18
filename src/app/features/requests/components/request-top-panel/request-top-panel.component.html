@@ -2,7 +2,7 @@
 	[hasLogo]="false"
 	[elevated]="false">
 
-	<header-details-title-app [title]="request?.title"></header-details-title-app>
+	<header-details-title-app>{{ request?.title }}</header-details-title-app>
 
 	<badge-app titleExtra *ngIf="request?.templateName" type="inProgress" size="m">
 		{{ request?.templateName }}

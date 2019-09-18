@@ -1,7 +1,7 @@
 <header-details-app
 	[elevated]="false">
 
-	<header-details-title-app [title]="request?.title"></header-details-title-app>
+	<header-details-title-app>{{ request?.title }}</header-details-title-app>
 
 	<img-app
 		[image]="request?.requestElements[0]?.images"

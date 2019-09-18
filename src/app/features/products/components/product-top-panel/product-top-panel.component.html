@@ -1,7 +1,7 @@
 <header-details-app>
 
-	<header-details-title-app 
-		[title]="product?.name || ('Unnamed Product' | const: 'messages')">
+	<header-details-title-app> 
+		{{ product?.name || ('Unnamed Product' | const: 'messages') }}
 	</header-details-title-app>
 
 	<logo-app [logo]="product?.images[0]" size="l" type="product"></logo-app>
