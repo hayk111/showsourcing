@@ -26,6 +26,8 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnChanges, On
 	// whether we reselect / subscribe to item given the supplier id
 	@Input() shouldSelect = true;
 	@Output() close = new EventEmitter<null>();
+	/** wether the top image is fixed or not for the scrolling effect*/
+	@Input() hasBannerFix = true;
 
 	supplier$: Observable<Supplier>;
 	supplierDescirptor: SupplierDescriptor;
