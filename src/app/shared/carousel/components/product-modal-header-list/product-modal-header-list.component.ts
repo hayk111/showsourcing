@@ -3,12 +3,12 @@ import { Product } from '~models/product.model';
 import { ERM } from '~models/_erm.enum';
 
 @Component({
-	selector: 'product-modal-top-panel',
-	templateUrl: './product-modal-top-panel.component.html',
-	styleUrls: ['./product-modal-top-panel.component.scss'],
+	selector: 'product-modal-header-list',
+	templateUrl: './product-modal-header-list.component.html',
+	styleUrls: ['./product-modal-header-list.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PreviewTopPanelComponent implements OnInit, OnChanges {
+export class PreviewHeaderListComponent implements OnInit, OnChanges {
 	@Input() product: Product;
 	@Input() selectedIndex: number;
 	@Input() isOpen = false;

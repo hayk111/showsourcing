@@ -4,7 +4,7 @@ export * from './product-information/product-information.component';
 export * from './product-sub-info/product-sub-info.component';
 export * from './product-summary/product-summary.component';
 export * from './product-team-rating/product-team-rating.component';
-export * from './product-top-panel/product-top-panel.component';
+export * from './product-header-list/product-header-list.component';
 export * from './project-card/project-card.component';
 export * from './selectable-image/selectable-image.component';
 export * from './selection-actions/selection-actions.component';

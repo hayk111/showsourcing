@@ -9,7 +9,7 @@ import {
 	RequestInformationComponent,
 	RequestListViewComponent,
 	RequestSortingMenuComponent,
-	RequestTopPanelComponent,
+	RequestHeaderListComponent,
 } from './components';
 import { RequestDetailsComponent, RequestsPageComponent } from './containers';
 import { routes } from './routes';
@@ -22,7 +22,7 @@ import { routes } from './routes';
 		RequestInformationComponent,
 		RequestListViewComponent,
 		RequestSortingMenuComponent,
-		RequestTopPanelComponent,
+		RequestHeaderListComponent,
 		RequestsPageComponent,
 	],
 	imports: [

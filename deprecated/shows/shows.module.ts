@@ -11,7 +11,7 @@ import { ImgShowComponent } from './components/img-show/img-show.component';
 import { ShowSummaryComponent } from './components/show-summary/show-summary.component';
 import { ShowAboutComponent } from './components/show-about/show-about.component';
 import { ShowExhibitorsComponent } from './components/show-exhibitors/show-exhibitors.component';
-import { ShowTopPanelDetailComponent } from './components/show-top-panel-detail/show-top-panel-detail.component';
+import { ShowHeaderDetailComponent } from './components/show-header-detail/show-header-detail.component';
 import { ShowFeatureService } from '~features/shows/services/show-feature.service';
 
 @NgModule({
@@ -31,7 +31,7 @@ import { ShowFeatureService } from '~features/shows/services/show-feature.servic
 		ShowSummaryComponent,
 		ShowAboutComponent,
 		ShowExhibitorsComponent,
-		ShowTopPanelDetailComponent
+		ShowHeaderDetailComponent
 	],
 	providers: [
 		ShowFeatureService

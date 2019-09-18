@@ -7,7 +7,7 @@ import {
 	ImagePreviewer2Component,
 	ImageReviewerComponent,
 	ModalCarouselComponent,
-	PreviewTopPanelComponent,
+	PreviewHeaderListComponent,
 } from '~shared/carousel/components';
 import { ContextMenuModule } from '~shared/context-menu/context-menu.module';
 import { FileModule } from '~shared/file/file.module';
@@ -43,14 +43,14 @@ import { DividerModule } from '~shared/divider/divider.module';
 		ImagePreviewer2Component,
 		ImageReviewerComponent,
 		ModalCarouselComponent,
-		PreviewTopPanelComponent,
+		PreviewHeaderListComponent,
 	],
 	exports: [
 		CarouselComponent,
 		ImagePreviewer2Component,
 		ImageReviewerComponent,
 		ModalCarouselComponent,
-		PreviewTopPanelComponent,
+		PreviewHeaderListComponent,
 	]
 })
 export class CarouselModule { }

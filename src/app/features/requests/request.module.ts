@@ -7,7 +7,7 @@ import { SharedModule } from '~shared/shared.module';
 import {
 	RequestInformationComponent,
 	RequestListViewComponent,
-	RequestTopPanelComponent,
+	RequestHeaderListComponent,
 } from './components';
 import { RequestDetailsComponent, RequestPageComponent } from './containers';
 
@@ -22,7 +22,7 @@ import { RequestDetailsComponent, RequestPageComponent } from './containers';
 		RequestInformationComponent,
 		RequestListViewComponent,
 		RequestPageComponent,
-		RequestTopPanelComponent,
+		RequestHeaderListComponent,
 	],
 	entryComponents: [],
 	exports: [],

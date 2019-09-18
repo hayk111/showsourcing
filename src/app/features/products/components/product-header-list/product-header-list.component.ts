@@ -4,12 +4,12 @@ import { ERM } from '~models/_erm.enum';
 import { User } from '~core/models';
 
 @Component({
-	selector: 'product-top-panel-app',
-	templateUrl: './product-top-panel.component.html',
-	styleUrls: ['./product-top-panel.component.scss'],
+	selector: 'product-header-list-app',
+	templateUrl: './product-header-list.component.html',
+	styleUrls: ['./product-header-list.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductTopPanelComponent implements OnInit {
+export class ProductHeaderListComponent implements OnInit {
 	@Input() product: Product;
 	@Output() delete = new EventEmitter<Product>();
 	@Output() export = new EventEmitter<Product>();

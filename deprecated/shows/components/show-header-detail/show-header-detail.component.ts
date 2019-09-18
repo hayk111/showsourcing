@@ -2,12 +2,12 @@ import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core
 import { Show } from '~models/show.model';
 
 @Component({
-	selector: 'show-top-panel-detail-app',
-	templateUrl: './show-top-panel-detail.component.html',
-	styleUrls: ['./show-top-panel-detail.component.scss'],
+	selector: 'show-header-detail-app',
+	templateUrl: './show-header-detail.component.html',
+	styleUrls: ['./show-header-detail.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ShowTopPanelDetailComponent implements OnInit {
+export class ShowHeaderDetailComponent implements OnInit {
 	@Input() show: Show;
 	constructor() { }
 
