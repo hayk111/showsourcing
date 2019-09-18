@@ -50,20 +50,26 @@
 			(update)="update($event, 'event')">
 		</preview-badge-app>
 
+		<preview-section-app class="mg-none">
+
+			<divider-app></divider-app>
+
+			<button-action-list-app
+				class="button-action-list"
+				[actions]="actions"
+				(clickOnAction)="clickOnAction($event)">
+			</button-action-list-app>
+
+			<divider-app></divider-app>
+
+		</preview-section-app>
+
 	</preview-header-app>
 
-	<!-- Ask for a quote (disabled temporarily)-->
-	<preview-section-app>
-		<!-- <button class="btn-ask-quote" (click)="openRfq()">Ask for a Quote</button> -->
-		<!-- <div class="centered-text text-ask-quote">Ask for a quote from the supplier</div> -->
-		<button-action-list-app
-			[actions]="actions"
-			(clickOnAction)="clickOnAction($event)">
-		</button-action-list-app>
-
-		<divider-app></divider-app>
-
-	</preview-section-app>
+<!-- TODO add tab preview component -->
+	<!-- <preview-tab-app>Product Info</preview-tab-app> -->
+	<!-- <preview-tab-app>Activity</preview-tab-app> -->
+	<!-- <preview-tab-app>Comments</preview-tab-app> -->
 
 	<!-- Description -->
 	<preview-section-app [title]="'description'" i18n-title="@@description">

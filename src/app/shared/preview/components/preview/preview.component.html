@@ -4,8 +4,11 @@
 	<div #top class="banner-fixed">
 		<ng-content select="preview-banner-app"></ng-content>
 		<ng-content select="preview-header-app"></ng-content>
-		<ng-content select="preview-section-app.static"></ng-content>
-		<ng-content select=".preview-tab-app"></ng-content>
+		<!-- TODO change flexAround when adding preview tab component -->
+		<div class="flexAround mg-ms">
+			<ng-content select="preview-tab-app"></ng-content>
+		</div>
+		<div class="tab-separator"></div>
 	</div>
 	<div #scrollSection class="scrollable">
 		<div class="logo-transparent">

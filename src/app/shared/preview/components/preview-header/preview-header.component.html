@@ -30,7 +30,7 @@
 	class="{{ displayEntityInfo ? '' : 'noPaddingTop' }}"
 	(closed)="updateEntity($event, inpName.value)"
 	(opened)="inpName.select()">
-	<editable-label-app>
+	<editable-label-app class="ellipsis">
 		{{ entity?.name || '-' }}
 	</editable-label-app>
 	<input
@@ -47,4 +47,8 @@
 
 <div>
 	<ng-content select="preview-badge-app"></ng-content>
+</div>
+
+<div>
+	<ng-content select="preview-section-app"></ng-content>
 </div>
