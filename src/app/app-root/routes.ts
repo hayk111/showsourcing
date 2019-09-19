@@ -45,6 +45,10 @@ export const routes: Array<Route> = [
 			}, {
 				path: 'test',
 				loadChildren: 'app/features/test-page/test-page.module#TestPageModule'
+			}, {
+				path: '',
+				redirectTo: 'component-library',
+				pathMatch: 'full'
 			}
 		]
 	},

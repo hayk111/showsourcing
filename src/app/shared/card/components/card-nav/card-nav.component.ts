@@ -4,7 +4,8 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 	selector: 'card-nav-app',
 	templateUrl: './card-nav.component.html',
 	styleUrls: ['./card-nav.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: { class: 'flex' }
 })
 export class CardNavComponent {
 
