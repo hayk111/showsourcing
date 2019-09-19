@@ -32,6 +32,7 @@ import { RequestReply } from './request-reply.model';
 import { RequestTemplate } from './request-template.model';
 import { SelectorElement } from './selector-element.model';
 import { SupplierRequest } from './supplier-request.model';
+import { RPCRequest } from './rpc-request.model';
 
 
 export enum EntityName {
@@ -125,6 +126,7 @@ export class ERM {
 	static readonly REQUEST_ELEMENT = new EntityMetadata('request element', 'request elements', RequestElement);
 	static readonly REQUEST_REPLY = new EntityMetadata('request reply', 'request replies', RequestReply);
 	static readonly REQUEST_TEMPLATE = new EntityMetadata('request template', 'request templates', RequestTemplate);
+	static readonly REQUEST_RPC = new EntityMetadata('request', 'requests', RPCRequest);
 	static readonly REVIEW = new EntityMetadata('review', 'reviews', Product);
 	static readonly SAMPLE = new EntityMetadata('sample', 'samples', Sample);
 	static readonly SAMPLE_STATUS = new EntityMetadata('sample status', 'samples status', Sample, 'sample-status');

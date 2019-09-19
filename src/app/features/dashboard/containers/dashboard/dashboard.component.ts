@@ -37,8 +37,7 @@ export class DashboardComponent implements OnInit {
 		this.user$ = this.userSrv.selectUser();
 		this.counters$ = this.dashboardSrv.getCounters();
 		this.tasks$ = this.dashboardSrv.getFirstFewTasks();
-		this.rpcRequestSrv.createRPC({id: uuid(), action: RPCActionTypes.GET_TEAM_STATS, status: RPCRequestStatus.PENDING});
-	}
+		this.rpcRequestSrv.createRPC({id: uuid(), action: RPCActionTypes.GET_TEAM_STATS, status: RPCRequestStatus.PENDING, payload: JSON.stringify({}) })	};
 
 	redirInviteTeam() {
 		this.router.navigate(['settings/team/members']);
