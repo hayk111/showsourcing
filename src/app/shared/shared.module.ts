@@ -49,6 +49,7 @@ import { TemplateMngmtModule } from './template-mngmt/template-mngmt.module';
 import { OnBoardingModule } from './on-boarding/on-boarding.module';
 import { PackagingModule } from './packaging/packaging.module';
 import { NotifModule } from './notif/notif.module';
+import { AccordionModule } from './accordion/accordion.module';
 
 // those modules are used so commonly that we will just import the shared module
 const modules = [
@@ -63,6 +64,7 @@ const modules = [
 	ScrollingModule,
 
 	// shared modules
+	AccordionModule,
 	ActionBarModule,
 	ActivitiesBarModule,
 	AnimatedStackModule,

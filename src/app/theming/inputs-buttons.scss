@@ -242,3 +242,13 @@ button:disabled, input[type="submit"]:disabled {
 input[type="file"] {
 	display: none;
 }
+
+
+
+.clickable, .hoverable {
+	cursor: pointer;
+	&:hover {
+		background: var(--color-bg-secondary);
+	}
+}
+
