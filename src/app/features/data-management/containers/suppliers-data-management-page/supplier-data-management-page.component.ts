@@ -1,33 +1,32 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
-import { CategoryService } from '~core/entity-services';
+import { SupplierService } from '~core/entity-services';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { DataManagementService } from '~features/data-management/services/data-management.service';
-import { Category, ERM } from '~models';
+import { Supplier, ERM } from '~models';
 import { AutoUnsub } from '~utils';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 
 @Component({
-	selector: 'category-data-management-page-app',
+	selector: 'supplier-data-management-page-app',
 	templateUrl: './../data-management-page.component.html',
-	styleUrls: ['./category-data-management-page.component.scss'],
+	styleUrls: ['./supplier-data-management-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
 		ListPageService
 	]
 })
-export class CategoryDataManagementPageComponent extends AutoUnsub implements OnInit {
+export class SupplierDataManagementPageComponent extends AutoUnsub implements OnInit {
 
-	erm = ERM.CATEGORY;
-
+	erm = ERM.SUPPLIER;
 	addButtonWidth = '111px';
 	addButtonHeight = '32px';
 
 	selectItemsConfig: SelectParamsConfig;
 
 	constructor(
-		private categorySrv: CategoryService,
-		public listSrv: ListPageService<Category, CategoryService>,
+		private supplierSrv: SupplierService,
+		public listSrv: ListPageService<Supplier, SupplierService>,
 		public commonModalSrv: CommonModalService,
 		private dmSrv: DataManagementService
 	) { super(); }
@@ -35,11 +34,11 @@ export class CategoryDataManagementPageComponent extends AutoUnsub implements On
 
 	ngOnInit() {
 		this.listSrv.setup({
-			key: ListPageKey.CATEGORY,
-			entitySrv: this.categorySrv,
+			key: ListPageKey.SUPPLIER,
+			entitySrv: this.supplierSrv,
 			searchedFields: ['name'],
 			selectParams: { sortBy: 'name', descending: false, query: 'deleted == false' },
-			entityMetadata: ERM.CATEGORY,
+			entityMetadata: ERM.SUPPLIER,
 			originComponentDestroy$: this._destroy$
 		});
 	}

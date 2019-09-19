@@ -118,6 +118,7 @@
 	*ngIf="hasPagination"
 	[count]="count"
 	[currentPage]="currentPage"
+	[hasSidePadding]="hasPaddingPagination"
 	(goToPage)="goToIndexPage($event)"
 	(showItemsPerPage)="showItemsPerPage.emit($event)">
 </pagination-app>

@@ -37,6 +37,8 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 	@Input() hasArchived = true;
 	// whether we should display assigned to me checkbox
 	@Input() hasAssigned = true;
+	// whether we should display my exports only checkbox
+	@Input() hasMyExport = false;
 	// whether we should display export button
 	@Input() hasExport = true;
 	// content of the switch
@@ -87,6 +89,10 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 	@Output() showAssigned = new EventEmitter<undefined>();
 	@Output() hideAssigned = new EventEmitter<undefined>();
 
+	/** show only the export files created by the current user */
+	@Output() showMyExport = new EventEmitter<undefined>();
+	@Output() hideMyExport = new EventEmitter<undefined>();
+
 	@Output() showTasksCreatedByMeOnly = new EventEmitter<undefined>();
 	@Output() hideTasksCreatedByMeOnly = new EventEmitter<undefined>();
 
@@ -112,6 +118,7 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 	isCompletedTaskChecked = false;
 	isTaskCreatedByMeOnlyChecked = false;
 	isAssigned = false;
+	isMyExport = false;
 
 	constructor(private element: ElementRef,
 		private renderer: Renderer2,
@@ -169,6 +176,11 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 		this.assignedChange();
 	}
 
+	toggleMyExport() {
+		this.isMyExport = !this.isMyExport;
+		this.myExportChange();
+	}
+
 	toggleCreatedTaskOnly() {
 		this.isTaskCreatedByMeOnlyChecked = !this.isTaskCreatedByMeOnlyChecked;
 		this.tasksOnlyChanged();
@@ -192,6 +204,14 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 			this.showAssigned.emit();
 		} else {
 			this.hideAssigned.emit();
+		}
+	}
+
+	private myExportChange() {
+		if (this.isMyExport) {
+			this.showMyExport.emit();
+		} else {
+			this.hideMyExport.emit();
 		}
 	}
 

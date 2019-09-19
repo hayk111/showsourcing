@@ -2,6 +2,10 @@
 	display: flex;
 	flex-direction: column;
 	height: 100%;
+
+	sub-panel-app {
+		margin-bottom: var(--spacing-ms);
+	}
 }
 
 selection-bar-app {

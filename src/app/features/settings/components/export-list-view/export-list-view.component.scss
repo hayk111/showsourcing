@@ -1,9 +1,24 @@
+:host {
+	margin: 0 var(--spacing-l);
+}
+
+table-app {
+	pagination-app {
+		margin: 0 24px; 
+	}
+}
+
 .download {
-	color: var(--legacy-color-primary);
+	font-size: var(--font-size-m);
+	color: var(--color-primary);
 
 	&.disabled {
 		cursor: default;
-		color: var(--legacy-color-txt-secondary);
+		color: var(--color-txt-secondary);
+	}
+
+	&:hover {
+		text-decoration: underline;
 	}
 }
 
@@ -12,4 +27,15 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+}
+
+.created-by {
+	span {
+		margin-left: var(--spacing-xs);
+	}
+}
+
+.status {
+	font-size: var(--font-size-m);
+	font-weight: 600;
 }

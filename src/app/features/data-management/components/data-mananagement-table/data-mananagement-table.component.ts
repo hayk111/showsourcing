@@ -11,9 +11,11 @@ import { EntityMetadata, ERM } from '~models';
 export class DataMananagementTableComponent extends ListViewComponent<any> {
 	@Input() entityMetadata: EntityMetadata;
 	@Output() renameEntity = new EventEmitter<any>();
+	@Output() showItemsPerPage = new EventEmitter<number>();
 	// if the id entity matches with an id of the array, we display add/remove button
 	ermCategory = ERM.CATEGORY;
 	ermTag = ERM.TAG;
+	ermSupplier = ERM.SUPPLIER;
 	ermEvent = ERM.EVENT;
 	idEntityHovered: string;
 

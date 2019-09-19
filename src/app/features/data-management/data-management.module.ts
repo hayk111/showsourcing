@@ -5,6 +5,7 @@ import { SharedModule } from '~shared/shared.module';
 import { DataMananagementTableComponent } from './components';
 import {
 	CategoryDataManagementPageComponent,
+	SupplierDataManagementPageComponent,
 	DataManagementPageComponent,
 	EventDataManagementPageComponent,
 	TagDataManagementPageComponent,
@@ -20,6 +21,7 @@ import {
 		DataManagementPageComponent,
 		DataMananagementTableComponent,
 		CategoryDataManagementPageComponent,
+		SupplierDataManagementPageComponent,
 		EventDataManagementPageComponent,
 		TagDataManagementPageComponent
 	],
