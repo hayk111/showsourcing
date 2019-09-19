@@ -50,6 +50,7 @@ import { OnBoardingModule } from './on-boarding/on-boarding.module';
 import { PackagingModule } from './packaging/packaging.module';
 import { NotifModule } from './notif/notif.module';
 import { LogoNavModule } from './logo-nav/logo-nav.module';
+import { AccordionModule } from './accordion/accordion.module';
 
 // those modules are used so commonly that we will just import the shared module
 const modules = [
@@ -64,6 +65,7 @@ const modules = [
 	ScrollingModule,
 
 	// shared modules
+	AccordionModule,
 	ActionBarModule,
 	ActivitiesBarModule,
 	AnimatedStackModule,

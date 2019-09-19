@@ -9,6 +9,7 @@ import { PipesLibPageComponent } from './pipes-lib-page/pipes-lib-page.component
 import { TableLibPageComponent } from './table-lib-page/table-lib-page.component';
 import { CommonListsLibPageComponent } from './common-lists-lib-page/common-lists-lib-page.component';
 import { ButtonLibPageComponent } from './button-lib-page/button-lib-page.component';
+import { AccordionLibPageComponent } from './accordion-lib-page/accordion-lib-page.component';
 
 
 export const routes: Array<Route> = [
@@ -25,6 +26,7 @@ export const routes: Array<Route> = [
 			{ path: 'badges', component: BadgeLibPageComponent },
 			{ path: 'pipes', component: PipesLibPageComponent },
 			{ path: 'table', component: TableLibPageComponent },
+			{ path: 'accordion', component: AccordionLibPageComponent },
 			{ path: 'common-lists', component: CommonListsLibPageComponent },
 			// { path: 'sample-card', component: SampleCardTestComponent },
 			// { path: 'preview', component: PreviewPageComponent },
