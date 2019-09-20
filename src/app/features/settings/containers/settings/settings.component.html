@@ -1,61 +1,69 @@
 <div class="flex settings">
-  <sidenav-app menuIcon="settings" menuTitle="settings" (expanded)="onMenuExpanded($event)" i18n-menuTitle="@@settings">
+	<sidenav-app
+		navTitle="settings"
+		headerIcon="smile"
+		[headerTitle]="teamName"
+		[headerSubTitle]="companyName">
+		<!-- settings -->
+		<sidenav-item-group-app groupTitle="settings">
 
-		<sidenav-item-app link="/settings/profile">
-			<icon-app name="user"></icon-app>
-			<span sidenavLabelApp i18n="profile">profile</span>
-		</sidenav-item-app>
-		<!-- TODO Uncomment when these tabs are needed -->
-		<!-- <sidenav-item-app link="/settings/workflows">
-			<icon-app name="workflow"></icon-app> <span sidenavLabelApp>Workflows</span>
-		</sidenav-item-app>
-		<sidenav-item-app link="/settings/fields">
-			<icon-app name="fields"></icon-app> <span sidenavLabelApp>Fields Setup</span>
-		</sidenav-item-app> -->
-		<sidenav-item-app link="/settings/team/members">
-			<icon-app name="team"></icon-app>
-			<span sidenavLabelApp i18n="@@team-members">Team Members</span>
-		</sidenav-item-app>
-<!--
-		<sidenav-item-app link="/settings/workflow" [hasChildren]="true">
-			<icon-app name="fields"></icon-app>
-			<span sidenavLabelApp> Status Workflow </span>
+			<sidenav-item-app
+				link="/settings/profile"
+				icon="location"
+				name="my profile">
+			</sidenav-item-app>
 
-			<sidenav-item-app link="/settings/workflow/product">
-				<span sidenavLabelApp>Product</span>
+			<sidenav-item-app
+				link="/settings/team/members"
+				icon="team"
+				name="my team"
+				i18n="@@team-members">
 			</sidenav-item-app>
-			<sidenav-item-app link="/settings/workflow/supplier">
-				<span sidenavLabelApp>Supplier</span>
-			</sidenav-item-app>
-			<sidenav-item-app link="/settings/workflow/sample">
-				<span sidenavLabelApp>Sample</span>
-			</sidenav-item-app>
-		</sidenav-item-app> -->
 
-		<!-- Data cleansing -->
-		<sidenav-item-app [hasChildren]="true">
-			<icon-app name="cleansing"></icon-app>
-			<span sidenavLabelApp i18n="@@data-cleansing">Data Cleansing</span>
+			<sidenav-item-app
+				link="/provide-link"
+				icon="smile"
+				name="my company">
+			</sidenav-item-app>
+		</sidenav-item-group-app>
 
-			<sidenav-item-app link="/settings/data/category">
-				<span sidenavLabelApp i18n="@@category">category</span>
+		<!-- TOOLS -->
+		<sidenav-item-group-app groupTitle="tools">
+			<sidenav-item-app
+				link="/settings/exports"
+				icon="close-pane-bottom"
+				name="exports"
+				i18n="@@exports">
 			</sidenav-item-app>
-			<sidenav-item-app link="/settings/data/tag">
-				<span sidenavLabelApp i18n="@@tag">tag</span>
-			</sidenav-item-app>
-			<sidenav-item-app link="/settings/data/event">
-				<span sidenavLabelApp i18n="@@event">event</span>
-			</sidenav-item-app>
-		</sidenav-item-app>
 
-		<!-- Export -->
-		<sidenav-item-app link="/settings/exports">
-			<icon-app name="export"></icon-app> <span sidenavLabelApp i18n="@@exports">exports</span>
-		</sidenav-item-app>
+			<sidenav-item-app
+				link="/settings/data/category"
+				icon="smile"
+				name="data cleansing"
+				i18n="@@data-cleansing">
+			</sidenav-item-app>
+
+		</sidenav-item-group-app>
+
+		<!-- BILLING -->
+		<sidenav-item-group-app groupTitle="billing">
+			<sidenav-item-app
+				link="/provide-link"
+				icon="smile"
+				name="Manage Subscription">
+			</sidenav-item-app>
+
+			<sidenav-item-app
+				link="/provide-link"
+				icon="smile"
+				name="Invoices">
+			</sidenav-item-app>
+
+		</sidenav-item-group-app>
 
 	</sidenav-app>
 
-  <div class="settings-page">
+	<div class="settings-page">
 		<router-outlet></router-outlet>
-  </div>
+	</div>
 </div>
