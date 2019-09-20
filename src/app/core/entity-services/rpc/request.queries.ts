@@ -9,6 +9,7 @@ export abstract class RequestQueries extends GlobalQueries {
 	 status,
 	 creationDate,
 	 lastUpdatedDate,
+	 reply,
 	 deleted
 	`;
 
@@ -19,6 +20,18 @@ export abstract class RequestQueries extends GlobalQueries {
 	status,
 	creationDate,
 	lastUpdatedDate,
+	reply,
 	deleted
  `;
+
+	static readonly all = `
+	id,
+	action,
+	payload,
+	status,
+	creationDate,
+	lastUpdatedDate,
+	reply,
+	deleted
+`;
 }

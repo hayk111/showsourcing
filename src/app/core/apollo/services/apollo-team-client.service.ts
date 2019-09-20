@@ -64,6 +64,7 @@ export class TeamClientInitializer extends AbstractApolloClient {
 			ERM.EXPORT_REQUEST,
 			ERM.EXTENDED_FIELD_DEFINITION,
 			ERM.IMAGE_UPLOAD_REQUEST,
+			ERM.REQUEST_RPC,
 			ERM.INVITATION,
 			ERM.PRODUCT,
 			ERM.PRODUCT_STATUS,

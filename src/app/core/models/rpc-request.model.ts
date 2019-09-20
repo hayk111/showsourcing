@@ -18,9 +18,9 @@ export enum RPCActionTypes {
 export interface IRPCRequest {
 	id?: ID;
 	action: RPCActionTypes;
-	payload: string;
+	payload?: string;
 	reply?: string;
-	status: RPCRequestStatus;
+	status?: RPCRequestStatus;
 }
 
 export class RPCRequest implements IRPCRequest {
@@ -34,15 +34,12 @@ export class RPCRequest implements IRPCRequest {
 	public deleted = false;
 
 	constructor(req: IRPCRequest) {
-		this.id = req.id ? req.id : uuid() ;
+		this.id = req.id ? req.id : uuid();
 		this.action = req.action;
-		this.payload = req.payload;
-		this.status = req.status;
+		this.payload = req.payload ? req.payload : JSON.stringify({});
+		this.status = req.status ? req.status : RPCRequestStatus.PENDING;
 	}
 
-	get isReady() {
-		return this.status === RPCRequestStatus.READY;
-	}
 }
 
 
