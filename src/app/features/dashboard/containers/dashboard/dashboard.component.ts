@@ -6,7 +6,7 @@ import { UserService } from '~entity-services';
 import { Task, User, RPCRequest, RPCActionTypes, RPCRequestStatus } from '~models';
 import { GroupedActivityFeed } from '~common/activity/interfaces/client-feed.interfaces';
 import { ActivityService } from '~common/activity/services/activity.service';
-import { RpcService } from '~core/entity-services/rpc/rpc.service';
+import { RpcService } from '~entity-services';
 import { uuid } from '~utils';
 
 @Component({
@@ -37,8 +37,8 @@ export class DashboardComponent implements OnInit {
 		this.user$ = this.userSrv.selectUser();
 		this.counters$ = this.dashboardSrv.getCounters();
 		this.tasks$ = this.dashboardSrv.getFirstFewTasks();
-		this.rpcRequestSrv.createRPC({id: uuid(), action: RPCActionTypes.GET_TEAM_STATS, status: RPCRequestStatus.PENDING, payload: JSON.stringify({}) })	};
-
+		this.rpcRequestSrv.queryAll().subscribe(a => alert(a));
+	}
 	redirInviteTeam() {
 		this.router.navigate(['settings/team/members']);
 	}

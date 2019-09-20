@@ -1,10 +1,9 @@
 import { GlobalService } from '../_global/global.service';
-import { RPCRequest, IRPCRequest, RPCRequestStatus } from '~core/models';
-import { ApolloStateService } from '~core/apollo';
+import { RPCRequest, IRPCRequest } from '~core/models';
+import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
 import { Injectable } from '@angular/core';
 import { RequestQueries } from './request.queries';
-import { uuid } from '~utils';
-import { switchMap, filter } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 
 @Injectable({
 	providedIn: 'root'
