@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy } from '@angular/compiler/src/core';
 import {
+	ChangeDetectionStrategy,
 	ChangeDetectorRef,
 	Component,
 	ElementRef,

@@ -121,11 +121,11 @@
 	</preview-section-app>
 
 	<!-- Activity -->
-	<preview-section-app #ContentTab3 *ngIf="product?.comments?.length" [title]="'comments'" i18n-title="@@comments">
+	<preview-section-app #contentTab3 *ngIf="product?.comments?.length" [title]="'comments'" i18n-title="@@comments">
 		<comment-list-app [comments]="product?.comments"></comment-list-app>
 	</preview-section-app>
 
-	<preview-comment-app (added)="addComment($event)"></preview-comment-app>
+	<preview-comment-app #contentTab3 (added)="addComment($event)"></preview-comment-app>
 
 	<input #inpFile multiple="true" type="file" accept="image/*" (fileSelect)="add($event)" />
 </preview-app>
