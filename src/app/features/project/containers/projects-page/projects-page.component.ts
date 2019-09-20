@@ -2,6 +2,7 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { CommonModalService } from '~common/modals';
 import { ProjectService } from '~core/entity-services';
 import { ListPageKey, ListPageService } from '~core/list-page';
+import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 import { ERM, Project } from '~models';
 import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
@@ -17,6 +18,8 @@ import { AutoUnsub } from '~utils';
 export class ProjectsPageComponent extends AutoUnsub implements OnInit, AfterViewInit {
 	filterTypes = [FilterType.CREATED_BY];
 	erm = ERM.PROJECT;
+
+	selectItemsConfig: SelectParamsConfig;
 
 	constructor(
 		private projectSrv: ProjectService,
@@ -34,6 +37,11 @@ export class ProjectsPageComponent extends AutoUnsub implements OnInit, AfterVie
 			selectParams: { sortBy: 'name', descending: false, query: 'deleted == false' },
 			entityMetadata: ERM.PROJECT,
 		}, false);
+	}
+
+	showItemsPerPage(count: number) {
+		this.selectItemsConfig = { take: Number(count) };
+		this.listSrv.refetch(this.selectItemsConfig).subscribe();
 	}
 
 	ngAfterViewInit() {

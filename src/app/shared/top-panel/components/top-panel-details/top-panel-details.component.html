@@ -1,0 +1,34 @@
+
+<div class="panel-container">
+	<div class="flex left container">
+		<logo-app
+			*ngIf="hasBackArrow"
+			class="backArrow"
+			icon="close-pane-left"
+			size="m"
+			[backgroundSize]="40"
+			(click)="goBack()">
+		</logo-app>
+
+		<div *ngIf="hasLogo" class="logo">
+			<ng-content select="logo-app"></ng-content>
+		</div>
+
+		<div class="info ellipsis">
+			<div class="flex title-container">
+				<h2 class="color-txt-strong ellipsis">{{ title }}</h2>
+				<ng-content select="[titleExtra]"></ng-content>
+			</div>
+			<div class="subinfo"><ng-content select="[subinfo]"></ng-content></div>
+		</div>
+	</div>
+
+	<div class="flex right container action-list">
+		<ng-content select="[action]"></ng-content>
+	</div>
+</div>
+
+
+<div class="tabs-container flex">
+	<ng-content select="panel-tab-app"></ng-content>
+</div>

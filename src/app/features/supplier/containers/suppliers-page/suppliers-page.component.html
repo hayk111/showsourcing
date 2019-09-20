@@ -1,11 +1,13 @@
 <header-list-app
+	[class.top-panel-margin-board]="listSrv.view === 'board'"
 	[title]="'My suppliers'"
-	buttonName="Add Supplier"
+	buttonName="Create Supplier"
 	(buttonClick)="listSrv.create()"
-	i18-title="@@my-suppliers">
+	i18-title="@@create-suppliers">
 </header-list-app>
 
 <controller-list-app
+	[class.sub-menu-padding-board]="listSrv.view === 'board'"
 	[hasSwitch]="true"
 	[hasFilter]="true"
 	[hasThumb]="false"
@@ -16,7 +18,7 @@
 	[filtersAmount]="listSrv.getFilterAmount([{ type: filterType.ARCHIVED, value: false }, { type: filterType.DELETED, value: false }])"
 	[searchValue]="listSrv.searchValue"
 	(showFilters)="listSrv.openFilterPanel()"
-	(clearFilters)="listSrv.filterList.resetAll();"
+	(clearFilters)="onClearFilters()"
 	(showArchived)="listSrv.filterByArchived(true)"
 	(hideArchived)="listSrv.filterByArchived(false)"
 	(showAssigned)="listSrv.filterByAssignee(true)"

@@ -1,10 +1,51 @@
 <div *ngIf="project$ | async as project">
-	<header-list-app
+	<header-details-app
+		[elevated]="false"
 		[title]="project?.name"
-		[buttonName]="'Add Project'"
-		[hasAction]="false"
-		i18n-buttonName="@@add-project">
-	</header-list-app>
+		i18n-title="@@my-products">
+
+		<logo-app color="primary" type="project" size="xl"></logo-app>
+		<ng-container subinfo>
+			{{project?.status || 'new'}}<div class="small-gray-badge-separator"></div>Due on {{project?.creationDate | date: 'dd-mm-yyyy' }}
+			<div class="small-gray-badge-separator"></div>Created by {{ project?.createdBy?.firstName }} {{ project?.createdBy?.lastName }}
+		</ng-container>
+
+		<panel-tab-app
+			[link]="getTabPanelUrl('products')"
+			icon="product"
+			name="Products">
+		</panel-tab-app>
+
+		<panel-tab-app
+			[link]="getTabPanelUrl('settings')"
+			icon="settings"
+			name="Settings">
+		</panel-tab-app>
+
+		<div class="flex right-items" action>
+			<status-selector-app
+				[typeEntity]="erm.PROJECT"
+				[entity]="project$"
+				selectSize="l"
+				type="button">
+			</status-selector-app>
+
+			<context-menu-app action>
+				<context-menu-trigger-app>
+					<button class="vertical-dots icon light dots pointer">
+						<icon-app [size]="16" name="dots-vertical"></icon-app>
+					</button>
+				</context-menu-trigger-app>
+				<context-menu-item-app (click)="delete.emit(project)" i18n="button@@delete">
+					Delete
+				</context-menu-item-app>
+				<context-menu-item-app (click)="archive.emit(project)"  i18n="button@@archive">
+					Archive
+				</context-menu-item-app>
+			</context-menu-app>
+		</div>
+
+	</header-details-app>
 
 	<card-app>
 		<h3 class="ms" i18n="header@@project-settings">

@@ -4,10 +4,11 @@ import { ERM, Product } from '~models';
 
 
 const tableConfig: TableConfig = {
-	activities: { title: 'activities', width: 190, sortable: false },
+	activities: { title: 'activity', width: 190, sortable: false },
 	category: { title: 'category', width: 190, sortProperty: 'category.name' },
 	createdBy: { title: 'created by', width: 140, sortProperty: 'creationDate' },
 	creationDate: { title: 'creation date', width: 190, sortProperty: 'creationDate' },
+	about: { title: 'about', width: 190, sortProperty: 'creationDate' },
 	favorite: { title: 'favorite', width: 50, sortProperty: 'favorite' },
 	moq: { title: 'moq', width: 120, sortProperty: 'minimumOrderQuantity' },
 	price: { title: 'price', width: 120, sortProperty: 'price.value' },
@@ -27,7 +28,7 @@ const tableConfig: TableConfig = {
 })
 export class ProductsListViewComponent extends ListViewComponent<Product> {
 	columns = ['reference', 'price', 'supplier', 'category', 'createdBy', 'activities', 'status'];
-	tableConfig = tableConfig;
+	@Input() tableConfig = tableConfig;
 	@Input() tableWidth: number;
 	@Output() setFavourite = new EventEmitter<Product>();
 	@Output() openAddToProjectDialog = new EventEmitter<Product>();

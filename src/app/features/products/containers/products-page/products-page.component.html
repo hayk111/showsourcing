@@ -1,6 +1,7 @@
 <div class="flexGrow flexColumn products-content">
 	<!-- top panel -->
 	<header-list-app
+		[class.top-panel-margin-board]="listSrv.view === 'board'"
 		[title]="'My products'"
 		buttonName="Create Product"
 		(buttonClick)="commonModalSrv.openCreationProductDlg()"
@@ -10,6 +11,7 @@
 	</header-list-app>
 	
 	<controller-list-app
+		[class.sub-menu-padding-board]="listSrv.view === 'board'"
 		[filtersAmount]="listSrv.getFilterAmount([{ type: filterTypeEnum.ARCHIVED, value: false }, { type: filterTypeEnum.DELETED, value: false }])"
 		[hasFilter]="true"
 		[hasSwitch]="true"
@@ -24,7 +26,7 @@
 		(hideArchived)="listSrv.filterByArchived(false)"
 		(showAssigned)="listSrv.filterByAssignee(true)"
 		(hideAssigned)="listSrv.filterByAssignee(false)"
-		(export)="onExport()"
+		(export)="commonModalSrv.openExportDialog(listSrv.getSelectedValues())"
 		(showFilters)="listSrv.openFilterPanel()"
 		(viewChange)="onViewChange($event)">
 
@@ -53,7 +55,7 @@
 			(openAddToProjectDialog)="commonModalSrv.openAddToProjectDialog([$event])"
 			(openAddSampleDialog)="commonModalSrv.openAddSampleDialog($event)"
 			(openAddTaskDialog)="commonModalSrv.openCreationTaskDlg($event)"
-			(setFavourite)="onFavourite($event)"
+			(setFavourite)="listSrv.onItemFavorited($event?.id)"
 			(archive)="onArchive($event)"
 			(openRequestFeedbackDialog)="commonModalSrv.openRequestFeedbackDialog([$event])"
 			(openCreateRequestDlg)="commonModalSrv.openSupplierRequest([$event])"

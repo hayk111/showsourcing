@@ -31,7 +31,7 @@ img-app {
 }
 
 [action] {
-	&:not(:last-child) {
+	& > * {
 		margin-right: var(--spacing-ms);
 	}
 }

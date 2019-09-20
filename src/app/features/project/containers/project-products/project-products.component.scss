@@ -8,3 +8,45 @@
 product-selection-bar-app {
 	right: 0;
 }
+
+products-list-view-app {
+	margin: 13px 114px 32px 98px;
+	padding: var(--spacing-l);
+}
+
+sub-panel-app, header-list-app {
+	transform: scale(1);
+  transition: 0.35s all ease;
+}
+
+panel-tab-app:first-child {
+	margin-left: 62px;
+}
+
+header-details-app {
+	background: var(--color-bg);
+	.tabs-container {
+		margin-left: 86px;
+	}
+}
+
+.right-items {
+	margin-bottom: 10px;
+}
+
+.vertical-dots {
+	background: var(--color-bg-secondary);
+	width: 40px;
+	height: 40px;
+	padding: 0;
+	margin-left: var(--spacing-ms);
+
+	icon-app {
+		color: var(--color-txt-third);
+	}
+}
+
+.add-product {
+	height: 40px;
+	margin-right: 15px;
+}

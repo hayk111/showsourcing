@@ -20,5 +20,7 @@
 }
 
 [action] {
-	margin-right: var(--spacing-ms);
+	& > * {
+		margin-right: var(--spacing-ms);
+	}
 }

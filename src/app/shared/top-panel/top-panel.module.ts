@@ -29,6 +29,7 @@ import { HeaderDetailsComponent } from './components/header-details/header-detai
 import { HeaderDetailsTitleComponent } from './components/header-details-title/header-details-title.component';
 import { HeaderDetailsInfoComponent } from './components/header-details-info/header-details-info.component';
 import { HeaderDetailsActionsComponent } from './components/header-details-actions/header-details-actions.component';
+import { PanelTabComponent} from './components/panel-tab/panel-tab.component';
 
 @NgModule({
 	imports: [
@@ -64,7 +65,8 @@ import { HeaderDetailsActionsComponent } from './components/header-details-actio
 		ControllerListRightItemComponent,
 		HeaderListActionButtonsComponent,
 		HeaderDetailsInfoComponent,
-		HeaderDetailsActionsComponent
+		HeaderDetailsActionsComponent,
+		PanelTabComponent
 	],
 	exports: [
 		HeaderListComponent,
@@ -76,7 +78,8 @@ import { HeaderDetailsActionsComponent } from './components/header-details-actio
 		ControllerListRightItemComponent,
 		HeaderListActionButtonsComponent,
 		HeaderDetailsInfoComponent,
-		HeaderDetailsActionsComponent
+		HeaderDetailsActionsComponent,
+		PanelTabComponent
 	],
 })
 export class TopPanelModule { }

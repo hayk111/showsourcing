@@ -1,8 +1,12 @@
-<header-list-app
-	[title]="'exports'"
-	[hasAction]="false"
+<header-details-app
+	[title]="'My Exports'"
+	[hasBackArrow]="false"
+	[elevated]="false"
 	i18n-title="@@exports">
-</header-list-app>
+
+	<logo-app color="primary" icon="close-pane-bottom" size="xl"></logo-app>
+	<ng-container subinfo>Exports from my team</ng-container>
+</header-details-app>
 
 <controller-list-app
 	[hasFilter]="false"

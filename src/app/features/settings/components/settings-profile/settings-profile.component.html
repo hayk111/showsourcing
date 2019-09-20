@@ -1,10 +1,20 @@
 
-<header-list-app
+<header-details-app
 	*ngIf="user$ | async as user"
-	[title]="'profile'"
-	[hasAction]="false"
+	[title]="'My Profile'"
+	[hasBackArrow]="false"
+	[elevated]="false"
 	i18n-title="@@profile">
-</header-list-app>
+
+	<logo-app
+		[circle]="true"
+		color="primary"
+		icon="smile"
+		type="primary"
+		size="xl"
+	></logo-app>
+
+</header-details-app>
 
 <ng-container *ngIf="user$ | async as user">
 
