@@ -2,7 +2,6 @@
 	cdk-scrollable
 	*ngIf="supplier$ | async"
 	[ngClass]="isPreview ? '' : 'relative'"
-	[hasBannerFix]="hasBannerFix"
 	[hasLogo]="true"
 	[align]="isPreview ? 'right' : 'left'">
 
@@ -100,7 +99,7 @@
 	<preview-comment-app *ngIf="isPreview" (added)="addComment($event)"></preview-comment-app>
 
 	<!-- Info -->
-	<preview-section-app *ngIf="!isPreview && !hasBannerFix" [title]="'Info'"  class="no-mg-bottom">
+	<preview-section-app *ngIf="!isPreview" [title]="'Info'"  class="no-mg-bottom">
 		<div class="flexColumn">
 			<span class="color-txt-strong">Created by {{ supplier?.createdBy | formatUserName: true }} on {{ supplier?.creationDate | date: 'dd MMMM yyyy' }}</span>
 			<span class="color-txt-strong">Last updated by {{ supplier?.lastUpdatedBy | formatUserName: true }} on {{ (supplier?.lastUpdatedDate || product?.creationDate) | date: 'dd MMMM yyyy' }}</span>

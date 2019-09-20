@@ -67,12 +67,12 @@
 	</preview-header-app>
 
 	<!-- Tabs -->
-	<preview-tab-app>Product Info</preview-tab-app>
-	<preview-tab-app class="active">Activity</preview-tab-app>
-	<preview-tab-app>Comments</preview-tab-app>
+	<preview-tab-app #tab1 (click)="previewSrv.onSelectedTab(1)">Product Info</preview-tab-app>
+	<preview-tab-app #tab2 (click)="previewSrv.onSelectedTab(2)">Activity</preview-tab-app>
+	<preview-tab-app #tab3 (click)="previewSrv.onSelectedTab(3)">Comments</preview-tab-app>
 
 	<!-- Description -->
-	<preview-section-app [title]="'description'" i18n-title="@@description">
+	<preview-section-app #contentTab1 [title]="'description'" i18n-title="@@description">
 		<input-description-app
 			[description]="product?.description"
 			(update)="update($event, 'description')">
@@ -80,7 +80,7 @@
 	</preview-section-app>
 
 	<!-- Tags -->
-	<preview-section-app [title]="'tags'" i18n-title="@@tags">
+	<preview-section-app #contentTab1 [title]="'tags'" i18n-title="@@tags">
 		<input-badge-selector-app
 			[value]="product?.tags"
 			type="tag"
@@ -89,7 +89,7 @@
 	</preview-section-app>
 
 	<!-- Product details -->
-	<preview-section-app [title]="'product details'" i18n-title="@@product-details">
+	<preview-section-app #contentTab1 [title]="'product details'" i18n-title="@@product-details">
 		<dynamic-form-app
 			[inlineLabel]="true"
 			[fields]="productDescriptor1?.descriptor"
@@ -100,7 +100,7 @@
 	</preview-section-app>
 
 	<!-- Extended Fields -->
-	<preview-section-app *ngIf="(fieldDefinitions$ | async)?.length" [title]="'extended fields'" i18n-title="@@extended-fields">
+	<preview-section-app #contentTab1 *ngIf="(fieldDefinitions$ | async)?.length" [title]="'extended fields'" i18n-title="@@extended-fields">
 		<extended-form-app
 			[inlineLabel]="true"
 			[definitions]="fieldDefinitions$ | async"
@@ -110,7 +110,7 @@
 	</preview-section-app>
 
 	<!-- Trading information -->
-	<preview-section-app [title]="'trading information'" i18n-title="@@trading-information">
+	<preview-section-app #contentTab1 [title]="'trading information'" i18n-title="@@trading-information">
 		<dynamic-form-app
 			[inlineLabel]="true"
 			[fields]="productDescriptor2?.descriptor"
@@ -121,7 +121,7 @@
 	</preview-section-app>
 
 	<!-- Activity -->
-	<preview-section-app *ngIf="product?.comments?.length" [title]="'comments'" i18n-title="@@comments">
+	<preview-section-app #ContentTab3 *ngIf="product?.comments?.length" [title]="'comments'" i18n-title="@@comments">
 		<comment-list-app [comments]="product?.comments"></comment-list-app>
 	</preview-section-app>
 

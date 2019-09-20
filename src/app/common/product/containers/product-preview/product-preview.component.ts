@@ -1,3 +1,4 @@
+import { ChangeDetectionStrategy } from '@angular/compiler/src/core';
 import {
 	ChangeDetectorRef,
 	Component,
@@ -19,19 +20,22 @@ import { CommentService } from '~core/entity-services/comment/comment.service';
 import {
 	ExtendedFieldDefinitionService,
 } from '~core/entity-services/extended-field-definition/extended-field-definition.service';
-import { ProductService, UserService } from '~entity-services';
+import { ProductService } from '~entity-services';
 import { WorkspaceFeatureService } from '~features/workspace/services/workspace-feature.service';
 import { AppImage, Comment, ERM, ExtendedFieldDefinition, PreviewActionButton, Product } from '~models';
 import { DialogService } from '~shared/dialog/services';
 import { UploaderService } from '~shared/file/services/uploader.service';
-import { PreviewCommentComponent } from '~shared/preview';
+import { PreviewCommentComponent, PreviewService } from '~shared/preview';
 import { AutoUnsub, PendingImage, translate } from '~utils';
 
 @Component({
 	selector: 'product-preview-app',
 	templateUrl: './product-preview.component.html',
 	styleUrls: ['./product-preview.component.scss'],
-	// changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		'[class.hide-sections]': 'isPreview'
+	}
 })
 export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChanges {
 	/** This is the product passed as input, but it's not yet fully loaded */
@@ -46,6 +50,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 	get product() {
 		return this._product;
 	}
+	@Input() isPreview = false;
 
 	@Output() close = new EventEmitter<any>();
 	@Output() delete = new EventEmitter<null>();
@@ -83,10 +88,10 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 		private modalSrv: CommonModalService,
 		private dlgSrv: DialogService,
 		private router: Router,
-		private userSrv: UserService,
 		private workspaceSrv: WorkspaceFeatureService,
 		private commentSrv: CommentService,
-		private extendedFieldDefSrv: ExtendedFieldDefinitionService
+		private extendedFieldDefSrv: ExtendedFieldDefinitionService,
+		public previewSrv: PreviewService
 	) {
 		super();
 
@@ -251,4 +256,5 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 		// putting the index at the end so we instantly have feedback the image is being processed
 		return pendingImgs.map(p => p.id);
 	}
+
 }
