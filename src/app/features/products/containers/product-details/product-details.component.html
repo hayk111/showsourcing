@@ -56,15 +56,6 @@
 
 		<div class="right">
 
-			<!-- Product resume -->
-			<product-resume-app
-				[product]="product"
-				(openPreview)="openPreview()"
-				(update)="updateProduct($event)">
-			</product-resume-app>
-
-			<!-- navigation bar -->
-			<navbar-app [tabs]="tabs"></navbar-app>
 			<router-outlet></router-outlet>
 
     </div>

@@ -1,11 +1,15 @@
 
 
-<!-- Comments -->
-<product-activity-nav-item-app 
+<logo-nav-app 
 	*ngFor="let tab of tabConfig"
-	(click)="tabClicked.emit(tab.title)">
-	<logo-app [type]="tab.title"></logo-app>
-	<div class="title">{{ counts.comments }} Comments</div>
-	<div class="subtitle">{{ tab.subtitle }}</div>
-</product-activity-nav-item-app>
+	[title]="(counts[tab.type] | async) + ' ' + tab.title"
+	[subtitle]="tab.subtitle"
+	[selected]="selectedTab === tab.type"
+	(click)="tabSelected.emit(tab.type)">
+	<logo-app 
+		size="l" 
+		[type]="tab.type" 
+		[color]="(counts[tab.type] | async) ? undefined : 'secondary'">
+	</logo-app>
+</logo-nav-app>
 

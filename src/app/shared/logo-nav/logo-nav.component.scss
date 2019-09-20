@@ -1,4 +1,17 @@
-
+:host {
+	.content {
+		border-bottom: 2px solid transparent;
+		transition: 0.4s border-bottom;
+		&:hover {
+			border-bottom: 2px solid var(--color-primary-light);
+		}
+		&.selected {
+			border-bottom: 2px solid var(--color-primary);
+		}
+		padding: var(--spacing-l) 0;
+		margin: 0 var(--spacing-l);
+	}
+}
 .logoCtnr {
 	margin-right: var(--spacing-ms);
 }

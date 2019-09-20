@@ -2,12 +2,20 @@
 
 <card-app>
 	<card-nav-app>
-		<logo-nav title="10 comments" subtitle="assigned to you">
+		<logo-nav-app
+			(click)="selected = 0" 
+			[selected]="selected === 0"
+			title="10 comments" 
+			subtitle="assigned to you">
 			<logo-app type="comment" size="l"></logo-app>
-		</logo-nav>
-		<logo-nav title="10 product" subtitle="assigned to you">
+		</logo-nav-app>
+		<logo-nav-app 
+			[selected]="selected === 1"
+			(click)="selected = 1" 
+			title="10 product" 
+			subtitle="assigned to you">
 			<logo-app type="product" size="l"></logo-app>
-		</logo-nav>
+		</logo-nav-app>
 	</card-nav-app>
 	<card-title-app>
 		Title

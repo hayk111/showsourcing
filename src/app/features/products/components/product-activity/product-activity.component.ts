@@ -1,12 +1,11 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { switchMap, takeUntil, tap } from 'rxjs/operators';
-import { ActivityFeed } from '~common/activity/interfaces/client-feed.interfaces';
-import { ActivityService } from '~common/activity/services/activity.service';
+import { map, switchMap } from 'rxjs/operators';
 import { ProductFeatureService } from '~features/products/services';
 import { ERM, Product } from '~models';
 import { AutoUnsub } from '~utils';
+import { Counts } from './product-activity-nav/product-activity-nav.component';
 
 
 
@@ -18,26 +17,25 @@ import { AutoUnsub } from '~utils';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductActivityComponent extends AutoUnsub implements OnInit {
-	selectedTab = 'comments';
+	selectedTab = 'comment';
 	product$: Observable<Product>;
-	product: Product;
-	feedResult: ActivityFeed;
+	counts$: Observable<Counts>;
 	typeEntity = ERM.PRODUCT;
 
 	constructor(
 		private route: ActivatedRoute,
-		private activitySrv: ActivityService,
-		private productSrv: ProductFeatureService) {
+		private featureSrv: ProductFeatureService) {
 		super();
 	}
 
 	ngOnInit() {
-		this.product$ = this.route.parent.params.pipe(
-			takeUntil(this._destroy$),
-			switchMap(params => this.productSrv.selectOne(params.id)),
-			tap(product => this.product = product)
+		const id$ = this.route.parent.params.pipe(
+			map(params => params.id),
 		);
-		this.feedResult = this.activitySrv.getProductFeed(this.route.parent.snapshot.params.id);
+		const product$ = id$.pipe(switchMap(id => this.featureSrv.selectOne(id)));
+		this.counts$ = product$.pipe(
+			map(product => this.featureSrv.getActivityCount(product) )
+		);
 	}
 
 }

@@ -1,8 +1,11 @@
 	<card-app>
-		<card-header-app>
+		<card-nav-app>
 			<product-activity-nav-app 
-				[tabSelected]="selectedTab"
-				(tabClicked)="selectedTab = $event"></product-activity-nav-app>
+				[selectedTab]="selectedTab"
+				[counts]="counts$ | async"
+				(tabSelected)="selectedTab = $event"></product-activity-nav-app>
+		</card-nav-app>
+		<card-header-app>
 		</card-header-app>
 
 		<card-title-app>{{ selectedTab }}</card-title-app>

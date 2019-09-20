@@ -39,6 +39,7 @@ import { ProductActivityNavComponent } from './components/product-activity/produ
 
 @NgModule({
 	imports: [
+		SharedModule,
 		ActivityCommonModule,
 		CommentCommonModule,
 		CommonModule,
@@ -47,7 +48,6 @@ import { ProductActivityNavComponent } from './components/product-activity/produ
 		RequestCommonModule,
 		RouterModule.forChild(routes),
 		SampleCommonModule,
-		SharedModule,
 		SupplierCommonModule,
 		TaskCommonModule,
 	],
