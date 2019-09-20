@@ -17,18 +17,21 @@
 
 		<div class="info ellipsis">
 			<div class="flex title-container">
+				<ng-content select="header-details-title-app"></ng-content>
 				<ng-content selecto="[titleExtra]"></ng-content>
 			</div>
-			<ng-content select="[subInfo]"></ng-content>
+			<div class="flex title-container">
+				<ng-content select="header-details-info-app"></ng-content>
+			</div>
 		</div>
 
 	</div>
 
 	<div class="flex right container action-list">
-		<ng-content select="[action]"></ng-content>
+		<ng-content select="header-details-actions-app"></ng-content>
 	</div>
 </div>
 
 <div class="tabs-container flex">
-	<ng-content select="panel-tab-app"></ng-content>
+	<ng-content select="header-list-nav-app"></ng-content>
 </div>

@@ -1,36 +1,39 @@
 
 <header-details-app
-	[title]="'Data Cleansing'"
 	[hasBackArrow]="false"
-	[elevated]="false"
-	i18n-title="@@data-cleansing">
+	[elevated]="false">
+
+	<header-details-title-app i18n-title="@@data-cleansing"> {{ 'Data Cleansing' }} </header-details-title-app>
+
 	<logo-app color="primary" icon="smile" size="xl"></logo-app>
-	<ng-container subinfo>Manage your categories, tags, suppliers and more</ng-container>
+	<header-details-info-app >Manage your categories, tags, suppliers and more</header-details-info-app>
 
 	<!-- navigation tabs of panel -->
-	<panel-tab-app
-		link="/settings/data/category"
-		icon="category"
-		name="Categories">
-	</panel-tab-app>
-
-	<panel-tab-app
-		link="/settings/data/tag"
-		icon="tag"
-		name="Tags">
-	</panel-tab-app>
-
-	<!-- <panel-tab-app
-		link="/settings/data/supplier"
-		icon="supplier"
-		name="Suppliers">
-	</panel-tab-app> -->
-
-	<panel-tab-app
-		link="/settings/data/event"
-		icon="event"
-		name="Event">
-	</panel-tab-app>
+	<header-list-nav-app>
+		<header-list-nav-item-app
+			link="/settings/data/category"
+			icon="category"
+			name="Categories">
+		</header-list-nav-item-app>
+	
+		<header-list-nav-item-app
+			link="/settings/data/tag"
+			icon="tag"
+			name="Tags">
+		</header-list-nav-item-app>
+	
+		<!-- <header-list-nav-item-app
+			link="/settings/data/supplier"
+			icon="supplier"
+			name="Suppliers">
+		</header-list-nav-item-app> -->
+	
+		<header-list-nav-item-app
+			link="/settings/data/event"
+			icon="event"
+			name="Event">
+		</header-list-nav-item-app>
+	</header-list-nav-app>
 
 </header-details-app>
 

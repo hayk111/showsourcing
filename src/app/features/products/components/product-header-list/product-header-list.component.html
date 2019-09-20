@@ -6,7 +6,7 @@
 
 	<logo-app [logo]="product?.images[0]" size="l" type="product"></logo-app>
 
-	<header-details-info-app subInfo>
+	<header-details-info-app >
 		<div class="flex flexVAlign info-container dot-separator">
 			<span class="price" *ngIf="product.price && product.price.value !== null">
 				{{ product?.price | appPrice }}
@@ -20,7 +20,7 @@
 		</div>
 	</header-details-info-app>
 	
-	<header-details-actions-app action>
+	<header-details-actions-app>
 		<header-list-action-buttons-app
 			[data]="product"
 			[user]="product?.assignee"

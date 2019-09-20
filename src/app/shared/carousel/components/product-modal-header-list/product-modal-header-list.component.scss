@@ -44,12 +44,6 @@ img-app {
 	}
 }
 
-[action] {
-	&:not(:last-child) {
-		margin-right: var(--spacing-ms);
-	}
-}
-
 .download-button {
 	height: 40px;
 	icon-app {

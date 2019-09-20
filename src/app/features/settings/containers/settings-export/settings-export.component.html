@@ -1,11 +1,11 @@
 <header-details-app
-	[title]="'My Exports'"
 	[hasBackArrow]="false"
-	[elevated]="false"
-	i18n-title="@@exports">
+	[elevated]="false">
+
+	<header-details-title-app i18n-title="@@exports">{{ 'My Exports' }}</header-details-title-app>
 
 	<logo-app color="primary" icon="close-pane-bottom" size="xl"></logo-app>
-	<ng-container subinfo>Exports from my team</ng-container>
+	<header-details-info-app>Exports from my team</header-details-info-app>
 </header-details-app>
 
 <controller-list-app

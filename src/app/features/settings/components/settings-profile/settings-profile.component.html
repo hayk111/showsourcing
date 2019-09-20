@@ -1,10 +1,10 @@
 
 <header-details-app
 	*ngIf="user$ | async as user"
-	[title]="'My Profile'"
 	[hasBackArrow]="false"
-	[elevated]="false"
-	i18n-title="@@profile">
+	[elevated]="false">
+
+	<header-details-title-app i18n-title="@@profile">{{ 'My Profile' }}</header-details-title-app>
 
 	<logo-app
 		[circle]="true"

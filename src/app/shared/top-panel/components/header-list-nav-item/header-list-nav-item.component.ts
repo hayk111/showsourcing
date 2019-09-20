@@ -1,12 +1,12 @@
 import { Component, ChangeDetectionStrategy, Input, OnInit } from '@angular/core';
 
 @Component({
-	selector: 'panel-tab-app',
-	templateUrl: './panel-tab.component.html',
-	styleUrls: ['./panel-tab.component.scss'],
+	selector: 'header-list-nav-item-app',
+	templateUrl: './header-list-nav-item.component.html',
+	styleUrls: ['./header-list-nav-item.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PanelTabComponent implements OnInit {
+export class HeaderListNavItemComponent implements OnInit {
 	@Input() icon: string;
 	@Input() name: string;
 	@Input() link: string;

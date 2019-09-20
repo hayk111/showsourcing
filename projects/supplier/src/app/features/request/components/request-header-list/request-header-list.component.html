@@ -1,5 +1,4 @@
-<header-details-app
-	[elevated]="false">
+<header-details-app [elevated]="false">
 
 	<header-details-title-app>{{ request?.title }}</header-details-title-app>
 
@@ -9,7 +8,7 @@
 		size="s">
 	</img-app>
 
-	<header-details-info-app subInfo>
+	<header-details-info-app >
 		<div class="flex dot-separator">
 			<div>{{ request?.creationDate | date: 'dd MMMM yy \'at\' HH:mm' }}</div>
 			<div *ngIf="request?.sender?.name">{{ request.sender.name }}</div>
@@ -20,7 +19,5 @@
 			</div>
 		</div>
 	</header-details-info-app>
-
-	
 	
 </header-details-app>

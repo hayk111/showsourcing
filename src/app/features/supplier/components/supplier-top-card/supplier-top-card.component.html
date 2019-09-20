@@ -4,7 +4,7 @@
 
 	<logo-app [logo]="supplier?.logoImage" type="supplier"></logo-app>
 
-	<header-details-info-app subInfo>
+	<header-details-info-app >
 		<div class="flex flexVAlign">
 			<div class="type" *ngIf="supplier?.supplierType">
 				{{ supplier?.supplierType?.name }}
@@ -17,7 +17,7 @@
 		</div>
 	</header-details-info-app>
 
-	<header-details-actions-app action>
+	<header-details-actions-app>
 		<header-list-action-buttons-app
 			[data]="supplier"
 			[hasAssignee]="false"

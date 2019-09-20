@@ -1,28 +1,30 @@
 <ng-container *ngIf="project$ | async as project; else spinner">
-	<header-details-app
-		[elevated]="false"
-		[title]="project?.name"
-		i18n-title="@@my-products">
+	<header-details-app [elevated]="false">
+
+		<header-details-title-app i18n-title="@@my-products">{{ project?.name }}</header-details-title-app>
 
 		<logo-app color="primary" type="project" size="xl"></logo-app>
-		<ng-container subinfo>
+
+		<header-details-info-app>
 			{{project?.status || 'new'}}<div class="small-gray-badge-separator"></div>Due on {{project?.creationDate | date: 'dd-mm-yyyy' }}
 			<div class="small-gray-badge-separator"></div>Created by {{ project?.createdBy?.firstName }} {{ project?.createdBy?.lastName }}
-		</ng-container>
+		</header-details-info-app>
 
-		<panel-tab-app
-			[link]="getTabPanelUrl('products')"
-			icon="product"
-			name="Products">
-		</panel-tab-app>
+		<header-list-nav-app>
+			<header-list-nav-item-app
+				[link]="getTabPanelUrl('products')"
+				icon="product"
+				name="Products">
+			</header-list-nav-item-app>
+	
+			<header-list-nav-item-app
+				[link]="getTabPanelUrl('settings')"
+				icon="settings"
+				name="Settings">
+			</header-list-nav-item-app>
+		</header-list-nav-app>
 
-		<panel-tab-app
-			[link]="getTabPanelUrl('settings')"
-			icon="settings"
-			name="Settings">
-		</panel-tab-app>
-
-		<div class="flex right-items" action>
+		<header-details-actions-app>
 			<button class="add-product" (click)="openFindProductDlg()">Add Product</button>
 			
 			<status-selector-app
@@ -31,7 +33,7 @@
 				selectSize="l"
 				type="button">
 			</status-selector-app>
-
+	
 			<context-menu-app action>
 				<context-menu-trigger-app>
 					<button class="vertical-dots icon light dots pointer">
@@ -45,8 +47,7 @@
 					Archive
 				</context-menu-item-app>
 			</context-menu-app>
-		</div>
-
+		</header-details-actions-app>
 	</header-details-app>
 
 	<controller-list-app
