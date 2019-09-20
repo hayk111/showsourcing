@@ -30,7 +30,7 @@
 	#edt
 	(closed)="updateEntity($event, inpName.value)"
 	(opened)="inpName.select()">
-	<editable-label-app>
+	<editable-label-app class="ellipsis">
 		{{ entity?.name || '-' }}
 	</editable-label-app>
 	<input inputApp type="text" #inpName [value]="entity?.name"
