@@ -30,6 +30,9 @@ export abstract class EntityTableComponent<T> extends TrackingComponent implemen
 	@Input() hasMenu = true;
 	@Input() hasHeader = true;
 	@Input() hasPagination = true;
+	@Input() hasSelection = true;
+	@Input() hasPreview = true;
+	@Input() canUpdate = true;
 	@Input() columns = [];
 	tableConfig: TableConfig = undefined;
 	columnsConfig: ColumnConfig[] = [];

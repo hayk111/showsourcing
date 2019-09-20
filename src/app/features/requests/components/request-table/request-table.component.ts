@@ -7,7 +7,6 @@ import { ERM, SupplierRequest } from '~core/models';
 	templateUrl: './request-table.component.html',
 	styleUrls: [
 		'./request-table.component.scss',
-		'../../../../../app/theming/specific/list.scss'
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })

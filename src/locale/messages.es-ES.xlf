@@ -58,7 +58,7 @@
           <context context-type="linenumber">59</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/common/product/components/products-list-view/products-list-view.component.html</context>
+          <context context-type="sourcefile">app/common/product/components/products-table/products-table.component.html</context>
           <context context-type="linenumber">48</context>
         </context-group>
         <context-group purpose="location">
@@ -677,7 +677,7 @@
           <context context-type="linenumber">3</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/common/product/components/products-list-view/products-list-view.component.html</context>
+          <context context-type="sourcefile">app/common/product/components/products-table/products-table.component.html</context>
           <context context-type="linenumber">24</context>
         </context-group>
         <context-group purpose="location">
@@ -768,7 +768,7 @@
           <context context-type="linenumber">32</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/common/product/components/products-list-view/products-list-view.component.html</context>
+          <context context-type="sourcefile">app/common/product/components/products-table/products-table.component.html</context>
           <context context-type="linenumber">36</context>
         </context-group>
         <context-group purpose="location">
@@ -846,7 +846,7 @@
 		request supplier
 	</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/common/product/components/products-list-view/products-list-view.component.html</context>
+          <context context-type="sourcefile">app/common/product/components/products-table/products-table.component.html</context>
           <context context-type="linenumber">30</context>
         </context-group>
         <note priority="1" from="description">button</note>
@@ -859,7 +859,7 @@
 		export
 	</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/common/product/components/products-list-view/products-list-view.component.html</context>
+          <context context-type="sourcefile">app/common/product/components/products-table/products-table.component.html</context>
           <context context-type="linenumber">42</context>
         </context-group>
         <context-group purpose="location">

@@ -21,7 +21,7 @@
 	searchType="short"
 	[searchValue]="listSrv.searchValue"
 	(search)="listSrv.search($event)"
-	(clearFilters)="listSrv.filterList.resetAll();"
+	(clearFilters)="onClearFilters()"
 	(showArchived)="listSrv.filterByArchived(true)"
 	(hideArchived)="listSrv.filterByArchived(false)"
 	(showAssigned)="listSrv.filterByAssignee(true)"
@@ -97,6 +97,7 @@
 		<action-bar-app
 			[favorite]="listSrv.allSelectedFavorite"
 			[hasLikes]="false"
+			[hasHeart]="false"
 			[multiple]="true"
 			(onFavorite)="listSrv.onFavoriteAllSelected()"
 			(onUnfavorite)="listSrv.onUnfavoriteAllSelected()"	>

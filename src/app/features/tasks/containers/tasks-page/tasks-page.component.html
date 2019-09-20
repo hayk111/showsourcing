@@ -9,8 +9,12 @@
 </top-panel-app>
 
 <sub-panel-app
-	[hasFilter]="true"
-	[hasSwitch]="true"
+	[hasFilter]="false"
+	[hasSwitch]="false"
+	[hasArchived]="false"
+	[hasCompletedTask]="true"
+	[hasTaskCreatedByMeOnly]="true"
+	[hasExport]="false"
 	[view]="listSrv.view"
 	[count]="listSrv.count$ | async"
 	entityType="tasks"
@@ -18,11 +22,13 @@
 	[searchValue]="listSrv.searchValue"
 	[ngStyle]="tableWidth && {'width': getSubPanelWidth()}"
 	(search)="listSrv.search($event)"
-	(clearFilters)="listSrv.filterList.resetAll();"
-	(showArchived)="listSrv.filterByArchived(true)"
-	(hideArchived)="listSrv.filterByArchived(false)"
+	(clearFilters)="listSrv.filterList.resetAll()"
 	(showAssigned)="listSrv.filterByAssignee(true)"
 	(hideAssigned)="listSrv.filterByAssignee(false)"
+	(showTasksCreatedByMeOnly)="showTasksCreatedByMeOnly()"
+	(hideTasksCreatedByMeOnly)="hideTasksCreatedByMeOnly()"
+	(showTasksCompleted)="listSrv.filterByDone(true)"
+	(hideTasksCompleted)="listSrv.filterByDone(false)"
 	(export)="onExport()"
 	(showFilters)="listSrv.openFilterPanel()"
 	(viewChange)="onViewChange($event)">
@@ -71,7 +77,7 @@
 	(unfavorited)="listSrv.onItemUnfavorited($event)"
 	(previewClick)="listSrv.openPreview($event)"
 	(showItemsPerPage)="showItemsPerPage($event)"
-	(delete)="listSrv.deleteOne($event)">
+	(delete)="listSrv.deleteOne($event, true)">
 </task-table-app>
 
 <selection-bar-app

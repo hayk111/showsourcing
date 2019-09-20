@@ -42,7 +42,7 @@
 			<div class="ellipsis">
 				<logo-app [logo]="row.logoImage" [ngStyle]="{'float': 'left'}" type="sample" size="m"></logo-app>
 				<span class="sample-ref ellipsis">
-					<a class="name txt-btn" [routerLink]="['/sample', row.id]">
+					<a class="name txt-btn">
 						{{ row.reference || '-' }}
 					</a>
 				</span>
@@ -112,6 +112,11 @@
 		[sortable]="false"
 		let-row="row"
 		width="250">
+			<activities-bar-app
+				[row]="row"
+				[favourite]="row?.favorite"
+				[hasComments]="!!row?.comments?.length">
+			</activities-bar-app>
 	</ng-template>
 
 	<!-- status -->
@@ -122,11 +127,11 @@
 		let-row="row"
 		width="180">
 		<div class="status-col flexVAlign">
-			<user-picture-app 
-				[user]="row?.createdBy" 
-				[image]="row.createdBy?.avatar" 
-				[background]="false" 
-				[fontSize]="16" 
+			<user-picture-app
+				[user]="row?.createdBy"
+				[image]="row.createdBy?.avatar"
+				[background]="false"
+				[fontSize]="16"
 				size="32"></user-picture-app>
 			<status-selector-app [entity]="row" [typeEntity]="erm.SUPPLIER" selectSize="s"></status-selector-app>
 		</div>

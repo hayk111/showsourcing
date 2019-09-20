@@ -1,8 +1,12 @@
-<top-panel-app
-	[title]="'exports'"
-	[hasAction]="false"
+<top-panel-details-app
+	[title]="'My Exports'"
+	[hasBackArrow]="false"
+	[elevated]="false"
 	i18n-title="@@exports">
-</top-panel-app>
+
+	<logo-app color="primary" icon="close-pane-bottom" size="xl"></logo-app>
+	<ng-container subinfo>Exports from my team</ng-container>
+</top-panel-details-app>
 
 <sub-panel-app
 	[hasFilter]="false"

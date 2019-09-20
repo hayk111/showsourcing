@@ -1,9 +1,7 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output, TemplateRef, ViewChild, Input } from '@angular/core';
 import { EntityTableComponent, TableConfig } from '~core/list-page';
 import { ERM, Sample } from '~core/models';
 import { ID } from '~utils/id.utils';
-
-
 
 const tableConfig: TableConfig = {
 	name: { title: 'name', width: 190, sortProperty: 'name' },
@@ -26,7 +24,7 @@ const tableConfig: TableConfig = {
 })
 export class SampleTableComponent extends EntityTableComponent<Sample> {
 	columns = [ 'name', 'assignee', 'product', 'supplier', 'comments', 'status', 'creationDate' ];
-	tableConfig = tableConfig;
+	@Input() tableConfig = tableConfig;
 	@Output() openSupplier = new EventEmitter<ID>();
 	@Output() openProduct = new EventEmitter<ID>();
 

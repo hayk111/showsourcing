@@ -1,21 +1,71 @@
 <ng-container *ngIf="project$ | async as project; else spinner">
-	<top-panel-app
-		[title]="project.name"
-		[hasAction]="false">
-	</top-panel-app>
+	<top-panel-details-app
+		[elevated]="false"
+		[title]="project?.name"
+		i18n-title="@@my-products">
+
+		<logo-app color="primary" type="project" size="xl"></logo-app>
+		<ng-container subinfo>
+			{{project?.status || 'new'}}<div class="small-gray-badge-separator"></div>Due on {{project?.creationDate | date: 'dd-mm-yyyy' }}
+			<div class="small-gray-badge-separator"></div>Created by {{ project?.createdBy?.firstName }} {{ project?.createdBy?.lastName }}
+		</ng-container>
+
+		<panel-tab-app
+			[link]="getTabPanelUrl('products')"
+			icon="product"
+			name="Products">
+		</panel-tab-app>
+
+		<panel-tab-app
+			[link]="getTabPanelUrl('settings')"
+			icon="settings"
+			name="Settings">
+		</panel-tab-app>
+
+		<div class="flex right-items" action>
+			<button class="add-product" (click)="openFindProductDlg()">Add Product</button>
+			
+			<status-selector-app
+				[typeEntity]="erm.PROJECT"
+				[entity]="project"
+				selectSize="l"
+				type="button">
+			</status-selector-app>
+
+			<context-menu-app action>
+				<context-menu-trigger-app>
+					<button class="vertical-dots icon light dots pointer">
+						<icon-app [size]="16" name="dots-vertical"></icon-app>
+					</button>
+				</context-menu-trigger-app>
+				<context-menu-item-app (click)="delete.emit(project)" i18n="button@@delete">
+					Delete
+				</context-menu-item-app>
+				<context-menu-item-app (click)="archive.emit(project)"  i18n="button@@archive">
+					Archive
+				</context-menu-item-app>
+			</context-menu-app>
+		</div>
+
+	</top-panel-details-app>
 
 	<sub-panel-app
-		buttonName="Add Products"
+		[class.sub-menu-padding-board]="listSrv.view === 'board'"
 		[hasSwitch]="true"
-		[filtersAmount]="listSrv.filterList.asFilters()?.length"
+		[filtersAmount]="listSrv.getFilterAmount([{ type: filterTypeEnum.ARCHIVED, value: false }, { type: filterTypeEnum.DELETED, value: false }])"
 		[hasFilter]="true"
+		entityType="products"
 		[searchValue]="listSrv.searchValue"
 		[view]="listSrv.view"
 		(showFilters)="listSrv.openFilterPanel()"
-		(buttonClick)="openFindProductDlg()"
+		(clearFilters)="onClearFilters()"
+		(showArchived)="listSrv.filterByArchived(true)"
+		(hideArchived)="listSrv.filterByArchived(false)"
+		(showAssigned)="listSrv.filterByAssignee(true)"
+		(hideAssigned)="listSrv.filterByAssignee(false)"
 		(search)="listSrv.search($event)"
-		(viewChange)="listSrv.changeView($event)"
-		i18n="@@add-products">
+		(export)="commonModalSrv.openExportDialog(listSrv.getSelectedValues())"
+		(viewChange)="listSrv.changeView($event)">
 
 		<sub-panel-right-item-app>
 			<product-sorting-menu-app
@@ -35,6 +85,7 @@
 			[rows]="listSrv.items$ | async"
 			[pending]="listSrv.pending"
 			[count]="listSrv.count$ | async"
+			[currentSort]="listSrv.currentSort"
 			[currentPage]="listSrv.currentPage"
 			(goToPage)="listSrv.loadPage($event)"
 			(previewClick)="listSrv.openPreview($event)"
@@ -42,10 +93,16 @@
 			(unselect)="listSrv.unselectOne($event, true)"
 			(selectAll)="listSrv.selectAll($event, true)"
 			(unselectAll)="listSrv.unselectAll()"
+			(archive)="onArchive($event)"
 			(open)="listSrv.goToDetails($event)"
-			(favorited)="listSrv.onItemFavorited($event)"
+			(openAddToProjectDialog)="commonModalSrv.openAddToProjectDialog([$event])"
+			(openAddSampleDialog)="commonModalSrv.openAddSampleDialog($event)"
 			(unfavorited)="listSrv.onItemUnfavorited($event)"
+			(setFavourite)="listSrv.onItemFavorited($event?.id)"
+			(favorited)="listSrv.onItemFavorited($event)"
+			(openAddTaskDialog)="commonModalSrv.openCreationTaskDlg($event)"
 			(sort)="listSrv.sort($event)"
+			(showItemsPerPage)="showItemsPerPage($event)"
 			(delete)="deassociateProductById(($event)?.id)"
 			(archiveProduct)="onArchive($event)">
 		</products-table-app>
@@ -71,6 +128,14 @@
 			(update)="listSrv.update($event)">
 		</products-card-view-app>
 
+		<product-board-app 
+			*ngIf="listSrv.view === 'board'"
+			[selection]="listSrv.selection$"
+			(selectOne)="listSrv.selectOne($event, true)"
+			(unselectOne)="listSrv.unselectOne($event, true)"
+			(preview) = "listSrv.openPreview($event)">
+		</product-board-app>
+
 		<product-selection-bar-app
 			[isShown]="(listSrv.selection$ | async).size > 0"
 			[selection]="listSrv.selection$ | async"
@@ -95,7 +160,8 @@
 			*ngIf="listSrv.filterPanelOpen"
 			[filterList]="listSrv.filterList"
 			[filterTypes]="filterTypes"
-			(clickOutside)="listSrv.closeFilterPanel()">
+			(clickOutside)="listSrv.closeFilterPanel()"
+			(close)="listSrv.closeFilterPanel()">
 		</filters-app>
 
 		<product-preview-app

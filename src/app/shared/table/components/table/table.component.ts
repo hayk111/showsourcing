@@ -37,6 +37,8 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	@Input() placeholder: string;
 	/** whether rows are selectable and pagination is visible */
 	@Input() hasPagination = true;
+	/** whether the context menu icon is horizontal dots or vertical */
+	@Input() isContextMenuHorizontal = true;
 
 	@Input() width: number;
 	@Input() rowHeight: number;

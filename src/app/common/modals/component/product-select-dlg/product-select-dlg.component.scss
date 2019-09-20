@@ -1,9 +1,16 @@
 dialog-app {
-	margin-top: 50px;
-	height: 500px;
+	height: 774px;
+	width: 1149;
+
+	sub-panel-app {
+		padding: 0;
+	}
 	
 	dialog-header-app {
-		font-size: 16px;
+		margin-top: var(--spacing-s);
+		font-size: var(--font-size-l);
+		color: (--color-bg-dark);
+		padding-bottom: 7px;
 	}
 
 	dialog-footer-app {
