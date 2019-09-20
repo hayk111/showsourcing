@@ -4,9 +4,9 @@
 	[pending]="pending"
 	[selected]="selection"
 	[isSelectable]="isSelectableFn"
-	[hasSelection]="false"
 	[count]="count"
 	[currentPage]="currentPage"
+	[currentSort]="currentSort"
 	placeholder="No invitation"
 	(goToPage)="goToPage.emit($event)"
 	(selectOne)="select.emit($event)"
@@ -15,6 +15,7 @@
 	(unselectAll)="unselectAll.emit()"
 	(bottomReached)="bottomReached.emit()"
 	(sort)="sort.emit($event)"
+	(showItemsPerPage)="showItemsPerPage.emit($event)"
 	i18n-placeholder="@@no-invitation">
 
 	<ng-template #contextualMenuTemplate let-row="row">
@@ -33,13 +34,15 @@
 		let-row="row"
 		width="250"
 		[sortOrder]="'DESC'">
-		{{ row.email }}
+		<span class="email">
+			{{ row.email }}
+		</span>
 	</ng-template>
 
-	<!-- acccountType -->
+	<!-- access -->
 	<ng-template
 		class="capitalize"
-		[columnApp]="'Account type' | const: 'messages'"
+		[columnApp]="'access' | const: 'messages'"
 		let-row="row"
 		sortBy="accessType"
 		width="200">
@@ -57,17 +60,31 @@
 			<context-menu-item-app
 				(click)="accessTypeUpdated.emit({ invitation: row, accessType: 'Contributor' })"
 				i18n="@@contributor">
-				contributor
+				Contributor
 			</context-menu-item-app>
 			<context-menu-divider-app></context-menu-divider-app>
 			<context-menu-item-app class="remove-user" (click)="delete.emit(row)">
 				<span i18n="@@remove-invitation">Remove Invitation</span>
 			</context-menu-item-app>
-	   </context-menu-app>
-	   <span *ngIf="!teamOwner" class="capitalize">
-				<ng-container *ngIf="row.accessType === 'TeamMember'" i18n="@@team-member">Team Member</ng-container>
-				<ng-container *ngIf="row.accessType === 'Contributor'" i18n="@@contributor">contributor</ng-container>
-			</span>
+		</context-menu-app>
+		<span *ngIf="!teamOwner" class="capitalize">
+			<ng-container *ngIf="row.accessType === 'TeamMember'" i18n="@@team-member">
+				<span class="access">Team Member</span>
+			</ng-container>
+			<ng-container *ngIf="row.accessType === 'Contributor'" i18n="@@contributor">
+				<span class="access">Contributor</span>
+			</ng-container>
+		</span>
+	</ng-template>
+
+	<!-- plan -->
+	<ng-template
+		[columnApp]="'plan' | const: 'messages'"
+		let-row="row"
+		width="160">
+		<span class="plan">
+			{{ row?.plan  }}
+		</span>
 	</ng-template>
 
 	<!-- status -->
@@ -75,8 +92,10 @@
 		[columnApp]="'status' | const: 'messages'"
 		let-row="row"
 		sortBy="status"
-		width="200">
-		invitation {{ row.status }}
+		width="140">
+		<span class="status capitalize">
+			{{ row.status }}
+		</span>
 	</ng-template>
 
 </table-app>

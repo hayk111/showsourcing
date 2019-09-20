@@ -6,6 +6,7 @@ import { MemberFeatureService } from '~features/settings/services/member-feature
 import { ERM, TeamUser, User } from '~models';
 import { AutoUnsub, translate } from '~utils';
 import { UserService } from '~core/entity-services';
+import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 
 @Component({
 	selector: 'settings-team-members-users-app',
@@ -19,6 +20,7 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub implements OnIn
 	teamOwner: boolean;
 	user: User;
 	hasSelected = false;
+	selectItemsConfig: SelectParamsConfig;
 
 	constructor(
 		private featureSrv: MemberFeatureService,
@@ -78,5 +80,10 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub implements OnIn
 
 	getTooltipMsg() {
 		return !this.teamOwner ? translate('Only team owners can invite') : null;
+	}
+
+	showItemsPerPage(count: number) {
+		this.selectItemsConfig = { take: Number(count) };
+		this.listSrv.refetch(this.selectItemsConfig).subscribe();
 	}
 }

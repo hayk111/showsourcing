@@ -1,8 +1,17 @@
+<top-panel-app
+	class="smaller-padding"
+	[hasAction]="false"
+	title="Invitations">
+</top-panel-app>
 
 <sub-panel-app
-	[title]="'invitations'"
+	class="sub-menu-padding-board"
+	entityType="Users"
 	[hasSwitch]="false"
 	[hasFilter]="false"
+	[hasArchived]="false"
+	[hasAssigned]="false"
+	[count]="listSrv.count$ | async"
 	(search)="listSrv.search($event)"
 	i18n-title="@@invitations">
 
@@ -22,6 +31,7 @@
 		[pending]="listSrv.pending"
 		[count]="listSrv.count$ | async"
 		[currentPage]="listSrv.currentPage"
+		[currentSort]="listSrv.currentSort"
 		(next)="listSrv.loadNextPage()"
 		(pevious)="listSrv.loadPreviousPage()"
 		(goTorPage)="listSrv.loadPage($event)"
@@ -31,6 +41,7 @@
 		(selectAll)="listSrv.selectAll($event, false)"
     (unselectAll)="listSrv.unselectAll()"
 		(accessTypeUpdated)="updateAccessType($event)"
+		(showItemsPerPage)="showItemsPerPage($event)"
 		(delete)="listSrv.deleteOne($event, true)">
 	</invitations-list-view-app>
 

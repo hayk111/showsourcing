@@ -15,6 +15,7 @@ import {
 } from '~features/settings/components';
 import {
 	SettingsComponent,
+	SettingsTeamMembersContentComponent,
 	SettingsExportComponent,
 	SettingsFieldsPageComponent,
 	SettingsTeamMembersInvitationsComponent,
@@ -41,6 +42,7 @@ import { SharedModule } from '~shared/shared.module';
 		ProfileCardComponent,
 		SampleStatusWorkflowComponent,
 		SettingsComponent,
+		SettingsTeamMembersContentComponent,
 		SettingsExportComponent,
 		SettingsFieldsPageComponent,
 		SettingsProfileComponent,

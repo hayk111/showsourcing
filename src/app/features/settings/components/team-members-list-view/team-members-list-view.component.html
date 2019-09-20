@@ -6,6 +6,7 @@
 	[isSelectable]="isSelectableFn"
 	[count]="count"
 	[currentPage]="currentPage"
+  [currentSort]="currentSort"
 	placeholder="No team member"
 	(goToPage)="goToPage.emit($event)"
 	(selectOne)="select.emit($event)"
@@ -13,6 +14,7 @@
 	(selectAll)="selectAll.emit($event)"
 	(unselectAll)="unselectAll.emit()"
 	(bottomReached)="bottomReached.emit()"
+	(showItemsPerPage)="showItemsPerPage.emit($event)"
 	(sort)="sort.emit($event)"
 	i18n-placeholder="@@no-team-member">
 
@@ -25,32 +27,40 @@
 		</context-menu-item-app>
 	</ng-template>
 
-	<!-- name -->
+	<!-- user name -->
 	<ng-template
-		[columnApp]="'name' | const: 'messages'"
+		[columnApp]="'user name' | const: 'messages'"
 		sortBy="user.firstName"
 		let-row="row"
-		width="250"
+		width="200"
 		[sortOrder]="'DESC'">
-		{{ row.user.firstName }} {{ row.user.lastName }}
+		<div class="flexVAlign">
+			<user-picture-app
+				[user]="row?.createdBy"
+				[image]="row.createdBy?.avatar"
+				[background]="false"
+				[fontSize]="16"
+				size="32"></user-picture-app>
+			<span class="user-name">
+				{{ row.user.firstName }} {{ row.user.lastName }}
+			</span>
+		</div>
 	</ng-template>
 
 	<!-- email -->
 	<ng-template
-		class="capitalize"
 		[columnApp]="'email' | const: 'messages'"
 		let-row="row"
 		sortBy="user.email"
-		width="250">
-		<span>
+		width="200">
+		<span class="email">
 			{{ row.user.email  }}
 		</span>
 	</ng-template>
 
-	<!-- acccountType -->
+	<!-- access type -->
 	<ng-template
-		class="capitalize"
-		[columnApp]="'Account type' | const: 'messages'"
+		[columnApp]="'access' | const: 'messages'"
 		let-row="row"
 		sortBy="accessType"
 		width="200">
@@ -64,28 +74,42 @@
 			<context-menu-item-app
 				(click)="accessTypeUpdated.emit({ member: row, accessType: 'TeamMember' })"
 				i18n="button@@team-member">
-				Team Member
+				<span i18n="@@team-member" class="access">Team Member</span>
 			</context-menu-item-app>
 			<context-menu-item-app
 				(click)="accessTypeUpdated.emit({ member: row, accessType: 'Contributor' })"
 				i18n="@@contributor">
-				contributor
+				<span i18n="@@contributor" class="access">Contributor</span>
 			</context-menu-item-app>
 			<context-menu-divider-app></context-menu-divider-app>
 			<context-menu-item-app class="remove-user" (click)="delete.emit(row)">
-				<span i18n="@@remove-user">Remove User</span>
+				<span i18n="@@remove-user" class="access">Remove User</span>
 			</context-menu-item-app>
 		 </context-menu-app>
 
 		 <ng-template #noSelector>
-			 <ng-container *ngIf="!teamOwner && (($teamOwner | async)?.id !== row.user.id); else displayOwner">
-				 <ng-container *ngIf="row.accessType === 'TeamMember'" i18n="@@team-member">Team Member</ng-container>
-				 <ng-container *ngIf="row.accessType === 'Contributor'" i18n="@@contributor">contributor</ng-container>
-			 </ng-container>
-			 <ng-template #displayOwner>
-				 <span i18n="@@team-owner">Team Owner</span>
+			<ng-container *ngIf="!teamOwner && (($teamOwner | async)?.id !== row.user.id); else displayOwner">
+			 	<ng-container *ngIf="row.accessType === 'TeamMember'" i18n="@@team-member">
+					<span class="access">Team Member</span>
+				</ng-container>
+				<ng-container *ngIf="row.accessType === 'Contributor'" i18n="@@contributor">
+					<span class="access">Contributor</span>
+				</ng-container>
+			 	</ng-container>
+				<ng-template #displayOwner>
+					<span i18n="@@team-owner" class="access">Team Owner</span>
 				</ng-template>
 		 </ng-template>
+	</ng-template>
+
+	<!-- plan -->
+	<ng-template
+		[columnApp]="'plan' | const: 'messages'"
+		let-row="row"
+		width="160">
+		<span class="plan">
+			{{ row?.plan  }}
+		</span>
 	</ng-template>
 
 	<!-- status -->
@@ -94,7 +118,9 @@
 		let-row="row"
 		sortBy="status"
 		width="80">
-		{{ row.status }}
+		<span class="status capitalize">
+			{{ row.status }}
+		</span>
 	</ng-template>
 
 </table-app>

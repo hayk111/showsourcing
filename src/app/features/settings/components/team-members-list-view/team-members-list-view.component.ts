@@ -17,6 +17,7 @@ export class TeamMembersListViewComponent extends ListViewComponent<TeamUser> im
 	@Input() teamOwner: boolean;
 	@Input() user: User;
 	@Output() accessTypeUpdated = new EventEmitter<string>();
+	@Output() showItemsPerPage = new EventEmitter<number>();
 	isSelectableFn: Function;
 	$teamOwner: Observable<User>;
 

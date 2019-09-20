@@ -5,6 +5,7 @@ import { ListPageKey, ListPageService } from '~core/list-page';
 import { InvitationFeatureService } from '~features/settings/services/invitation-feature.service';
 import { ERM, Invitation, User } from '~models';
 import { AutoUnsub, translate } from '~utils';
+import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 
 @Component({
 	selector: 'settings-team-members-invitations-app',
@@ -18,6 +19,7 @@ export class SettingsTeamMembersInvitationsComponent extends AutoUnsub implement
 	teamOwner: boolean;
 	user: User;
 	hasSelected = false;
+	selectItemsConfig: SelectParamsConfig;
 
 	constructor(
 		private featureSrv: InvitationFeatureService,
@@ -64,6 +66,11 @@ export class SettingsTeamMembersInvitationsComponent extends AutoUnsub implement
 
 	getToolTipMsg() {
 		return !this.teamOwner ? translate('Only team owners can invite') : null;
+	}
+
+	showItemsPerPage(count: number) {
+		this.selectItemsConfig = { take: Number(count) };
+		this.listSrv.refetch(this.selectItemsConfig).subscribe();
 	}
 
 }

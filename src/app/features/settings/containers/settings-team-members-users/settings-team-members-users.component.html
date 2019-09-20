@@ -1,42 +1,51 @@
+<top-panel-app
+	class="smaller-padding"
+	[hasAction]="false"
+	title="Team Members">
+</top-panel-app>
 
-	<sub-panel-app
-		[title]="'Team Members'"
-		[hasSwitch]="false"
-		[hasFilter]="false"
-		(search)="listSrv.search($event)"
-		i18n-title="@@team-members">
+<sub-panel-app
+	class="sub-menu-padding-board"
+	entityType="Users"
+	[count]="listSrv.count$ | async"
+	[hasArchived]="false"
+	[hasAssigned]="false"
+	[hasSwitch]="false"
+	[hasFilter]="false"
+	(search)="listSrv.search($event)"
+	i18n-title="@@team-members">
 
-		<sub-panel-right-item-app>
+	<sub-panel-right-item-app>
 
-			<div toolTip [toolTipMessage]="getTooltipMsg()" toolTipPosition="above-right">
-				<button [disabled]="!teamOwner" (click)="openInviteDialog()" i18n="@@invite-collaborator">Invite Collaborator</button>
-			</div>
+		<div toolTip [toolTipMessage]="getTooltipMsg()" toolTipPosition="above-right">
+			<button [disabled]="!teamOwner" (click)="openInviteDialog()" i18n="@@invite-collaborator">Invite Collaborator</button>
+		</div>
 
-			<context-menu-app *ngIf="teamOwner && hasSelected" [closeOnScroll]="true">
-				<context-menu-trigger-app class="button flex pointer">
-					<div class="text capitalize" i18n="@@selection">selection</div>
-					<div class="selector"><icon-app name="angle-down"></icon-app></div>
-				</context-menu-trigger-app>
-				<context-menu-item-app
-					(click)="updateAccessTypeSelected({ accessType: 'TeamMember' })"
-					i18n="@@team-member">
-					Team Member
-				</context-menu-item-app>
-				<context-menu-item-app
-					(click)="updateAccessTypeSelected({ accessType: 'Contributor' })"
-					i18n="@@contributor">
-					contributor
-				</context-menu-item-app>
-				<context-menu-divider-app></context-menu-divider-app>
-				<context-menu-item-app class="remove-user" (click)="listSrv.deleteSelected()">
-					<span i18n="@@remove-user">Remove User</span>
-				</context-menu-item-app>
-			</context-menu-app>
+		<context-menu-app *ngIf="teamOwner && hasSelected" [closeOnScroll]="true">
+			<context-menu-trigger-app class="button flex pointer">
+				<div class="text capitalize" i18n="@@selection">selection</div>
+				<div class="selector"><icon-app name="angle-down"></icon-app></div>
+			</context-menu-trigger-app>
+			<context-menu-item-app
+				(click)="updateAccessTypeSelected({ accessType: 'TeamMember' })"
+				i18n="@@team-member">
+				Team Member
+			</context-menu-item-app>
+			<context-menu-item-app
+				(click)="updateAccessTypeSelected({ accessType: 'Contributor' })"
+				i18n="@@contributor">
+				contributor
+			</context-menu-item-app>
+			<context-menu-divider-app></context-menu-divider-app>
+			<context-menu-item-app class="remove-user" (click)="listSrv.deleteSelected()">
+				<span i18n="@@remove-user">Remove User</span>
+			</context-menu-item-app>
+		</context-menu-app>
 
-		</sub-panel-right-item-app>
+	</sub-panel-right-item-app>
 
 
-	</sub-panel-app>
+</sub-panel-app>
 
 <ng-container *ngIf="listSrv.items$ | async as members">
 	<team-members-list-view-app
@@ -45,6 +54,9 @@
 		[user]="user"
 		[selection]="listSrv.selection$ | async"
 		[pending]="listSrv.pending"
+		[count]="listSrv.count$ | async"
+		[currentSort]="listSrv.currentSort"
+		[currentPage]="listSrv.currentPage"
 		(bottomReached)="listSrv.loadMore()"
 		(sort)="listSrv.sort($event)"
 		(select)="listSrv.selectOne($event, false)"
@@ -52,6 +64,7 @@
 		(selectAll)="listSrv.selectAll($event, false)"
     (unselectAll)="listSrv.unselectAll()"
 		(accessTypeUpdated)="updateAccessType($event)"
+		(showItemsPerPage)="showItemsPerPage($event)"
 		(delete)="listSrv.deleteOne($event, true)">
 	</team-members-list-view-app>
 
