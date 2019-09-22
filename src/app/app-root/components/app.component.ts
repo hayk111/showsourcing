@@ -8,10 +8,12 @@ import { GlobalDataClientsInitializer } from '~core/apollo/services/apollo-globa
 import { TokenService } from '~core/auth';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { ListPageService } from '~core/list-page';
-import { CompanyService, TeamService } from '~entity-services';
+import { CompanyService, TeamService, UserService } from '~entity-services';
 import { Team } from '~models';
 import { GlobalRequestClientsInitializer } from '~core/apollo/services/apollo-global-request-client.service';
 import { Location } from '@angular/common';
+import { RealmAuthenticationService } from '~core/auth/services/realm-authentication.service';
+import { User as RealmUser } from 'realm-graphql-client';
 
 
 @Component({
@@ -27,23 +29,18 @@ export class AppComponent implements OnInit {
 		private analytics: AnalyticsService,
 		private apolloState: ApolloStateService,
 		private authSrv: AuthenticationService,
+		private realmAuthSrv: RealmAuthenticationService,
 		private companySrv: CompanyService,
 		private globalDataClient: GlobalDataClientsInitializer,
 		private globalRequestClient: GlobalRequestClientsInitializer,
 		private teamClient: TeamClientInitializer,
 		private teamSrv: TeamService,
 		private userClient: UserClientInitializer,
-		private location: Location
+		private userSrv: UserService
 	) { }
 
 	ngOnInit(): void {
-		const isAuthRoute = this.location.path().startsWith('/auth');
-		// TODO Cedric take a look on why this doesn't work pls
-		// if (isAuthRoute)
-		// 	this.authSrv.logout(true);
-		// else
 		this.authSrv.init();
-
 		this.teamSrv.init();
 		this.companySrv.init();
 		this.analytics.init();
@@ -56,9 +53,12 @@ export class AppComponent implements OnInit {
 			teamClientStatus$,
 			(hasTeam, teamClientStatus) => hasTeam && teamClientStatus === ClientStatus.PENDING
 		).subscribe(show => this.isSpinnerShown$.next(show));
-		// when authenticated we start the required clients
+
+		// when a authenticated & realm user is found we start the required clients
 		this.authSrv.authenticated$.pipe(
-			switchMap(_ => this.startBaseClients())
+			switchMap(jwt => this.realmAuthSrv.getRealmUser(jwt)),
+			tap(realmUser => this.userSrv.onUserIdChanged(realmUser.identity)),
+			switchMap(_ => this.startBaseClients()),
 		).subscribe();
 
 		// when logging off we destroy all clients
@@ -71,12 +71,11 @@ export class AppComponent implements OnInit {
 			// we need to reset list page to not have data from other team in cache
 			tap(_ => ListPageService.reset())
 		).subscribe(_ => this.isSpinnerShown$.next(false));
-
 	}
 
 	private startBaseClients(): Observable<Client[]> {
+		const realmUser = this.realmAuthSrv.realmUser;
 		// when we are authenticated it means we have a token
-		const realmUser = this.authSrv.realmUser;
 		return forkJoin([
 			this.globalDataClient.init(realmUser),
 			this.globalRequestClient.init(realmUser),
@@ -85,7 +84,7 @@ export class AppComponent implements OnInit {
 	}
 
 	private startOrDestroyTeamClient(team: Team) {
-		const realmUser = this.authSrv.realmUser;
+		const realmUser = this.realmAuthSrv.realmUser;
 		if (team)
 			return this.teamClient.init(realmUser, team);
 		else

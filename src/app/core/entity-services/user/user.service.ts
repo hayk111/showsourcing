@@ -1,21 +1,21 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 import { distinctUntilChanged, filter, shareReplay, switchMap } from 'rxjs/operators';
 import { AnalyticsService } from '~core/analytics/analytics.service';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
-import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { UserQueries } from '~entity-services/user/user.queries';
 import { GlobalService } from '~entity-services/_global/global.service';
 import { User } from '~models';
-import { HttpClient } from '@angular/common/http';
-import { environment } from 'environments/environment';
 
 @Injectable({
 	providedIn: 'root',
 })
 export class UserService extends GlobalService<User> {
 
-	private user$ = this.authSrv.userId$.pipe(
+	private userId$ = new Subject<string>();
+	private user$ = this.userId$.pipe(
 		distinctUntilChanged(),
 		switchMap(id => this.selectOne(id)),
 		filter(user => !!user),
@@ -26,7 +26,6 @@ export class UserService extends GlobalService<User> {
 	defaultClient = Client.USER;
 
 	constructor(
-		private authSrv: AuthenticationService,
 		protected apolloState: ApolloStateService,
 		protected analyticsSrv: AnalyticsService,
 		protected http: HttpClient
@@ -36,7 +35,10 @@ export class UserService extends GlobalService<User> {
 			this.userSync = user;
 			this.analyticsSrv.setupUser(user);
 		});
-		this.authSrv.userId$.subscribe(id => this.userId = id);
+	}
+
+	onUserIdChanged(userId: string) {
+		this.userId$.next(userId);
 	}
 
 	selectUser() {
