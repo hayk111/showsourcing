@@ -5,15 +5,12 @@ import { AnalyticsService } from '~core/analytics/analytics.service';
 import { ApolloStateService, ClientStatus, TeamClientInitializer, UserClientInitializer } from '~core/apollo/services';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { GlobalDataClientsInitializer } from '~core/apollo/services/apollo-global-data-client.service';
-import { TokenService } from '~core/auth';
+import { GlobalRequestClientsInitializer } from '~core/apollo/services/apollo-global-request-client.service';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
+import { RealmAuthenticationService } from '~core/auth/services/realm-authentication.service';
 import { ListPageService } from '~core/list-page';
 import { CompanyService, TeamService, UserService } from '~entity-services';
 import { Team } from '~models';
-import { GlobalRequestClientsInitializer } from '~core/apollo/services/apollo-global-request-client.service';
-import { Location } from '@angular/common';
-import { RealmAuthenticationService } from '~core/auth/services/realm-authentication.service';
-import { User as RealmUser } from 'realm-graphql-client';
 
 
 @Component({
@@ -56,6 +53,9 @@ export class AppComponent implements OnInit {
 
 		// when a authenticated & realm user is found we start the required clients
 		this.authSrv.authenticated$.pipe(
+			// TODO: consider subscribing in the realm auth srv to authenticated
+			// and using a realmUser$ observable here instead and in userSrv
+			// subscribing to that realmUser$
 			switchMap(jwt => this.realmAuthSrv.getRealmUser(jwt)),
 			tap(realmUser => this.userSrv.onUserIdChanged(realmUser.identity)),
 			switchMap(_ => this.startBaseClients()),

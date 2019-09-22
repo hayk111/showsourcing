@@ -6,7 +6,6 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError, filter, first, map, shareReplay, switchMap, tap } from 'rxjs/operators';
 import { AuthStatus, Credentials } from '~core/auth/interfaces';
 import { TokenState } from '~core/auth/interfaces/token-state.interface';
-import { TokenService } from '~core/auth/services/token.service';
 import { LocalStorageService } from '~core/local-storage';
 
 const STORAGE_EMAIL = 'EMAIL';
@@ -46,7 +45,6 @@ export class AuthenticationService {
 	feedToken: TokenState;
 
 	constructor(
-		private tokenSrv: TokenService,
 		private router: Router,
 		private http: HttpClient,
 		private localStorage: LocalStorageService
@@ -59,7 +57,7 @@ export class AuthenticationService {
 		// that means a link was clicked and we want to login with that user instead.
 		// if the email is the same than the previous email however that's fine we can go through
 		// as we don't want to reauthenticate then
-		const anonymousToken = this.tokenSrv.getAnonymousToken();
+		const anonymousToken = this.getAnonymousToken();
 		const email = this.getEmailFromUrl();
 		this.restoreTokens();
 
@@ -74,7 +72,7 @@ export class AuthenticationService {
 				this._authState$.next(AuthStatus.AUTHENTICATED);
 			}
 		}
-		this.tokenSrv.restoreTokens();
+		this.restoreTokens();
 	}
 
 	/**
