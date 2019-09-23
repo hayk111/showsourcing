@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, TemplateRef, ViewChild, OnChanges, Output, EventEmitter } from '@angular/core';
+import { ChangeDetectionStrategy, Component, TemplateRef, ViewChild, Output, EventEmitter } from '@angular/core';
 import { ListViewComponent } from '~core/list-page/list-view.component';
 import { Sample, ERM } from '~models';
 import { Observable, of } from 'rxjs';

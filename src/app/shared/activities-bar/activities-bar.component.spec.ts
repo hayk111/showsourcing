@@ -27,7 +27,7 @@ export class TestHostComponent {
 	hasTasks = false;
 }
 
-fdescribe('Component: ActivitiesBar', () => {
+describe('Component: ActivitiesBar', () => {
 	let testComp: TestHostComponent;
 	let fixture: ComponentFixture<TestHostComponent>;
 
@@ -107,7 +107,7 @@ fdescribe('Component: ActivitiesBar', () => {
 		let votesContainer = fixture.debugElement.query(By.css('.vote-star-container'));
 		expect(votesContainer).toBeFalsy();
 
-		testComp.votes = [{value: 100}, {value: 80}];
+		testComp.votes = [{ value: 100 }, { value: 80 }];
 		fixture.detectChanges();
 
 		votesContainer = fixture.debugElement.query(By.css('.vote-star-container'));

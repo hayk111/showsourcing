@@ -19,6 +19,7 @@ import {
 	SearchAutocompleteComponent,
 } from '~shared/search-autocomplete/components/search-autocomplete/search-autocomplete.component';
 import { AutoUnsub } from '~utils';
+import { SubPanelService } from '../../services/sub-panel.service';
 
 @Component({
 	selector: 'sub-panel-app',
@@ -27,12 +28,11 @@ import { AutoUnsub } from '~utils';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SubPanelComponent extends AutoUnsub implements OnInit {
-	isArchivedShown = false;
-	isAssigned = false;
 	/** whether we should display the filter icon */
 	@Input() hasFilter = true;
 	// whether the screen can be switched from table to list view
 	@Input() hasSwitch = true;
+	@Input() hasThumb = true;
 	// whether we should display show archived checkbox
 	@Input() hasArchived = true;
 	// whether we should display assigned to me checkbox
@@ -43,13 +43,17 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 	@Input() switchContent: ['list-menu', 'board', 'kanban' | 'grid'] = ['list-menu', 'board', 'grid'];
 	// whether the screen has a search input
 	@Input() hasSearch = true;
+	// whether we should display show completed checkbox
+	@Input() hasCompletedTask = false;
+	// whether we should display show tasks created by me checkbox
+	@Input() hasTaskCreatedByMeOnly = false;
 
 	@Input() title: string;
 	@Input() count = 0;
-	@Input() entityType: 'PRODUCT' | 'SUPPLIER'; // should be filled with all the entity types
+	@Input() entityType: 'PRODUCT' | 'PROJECT' | 'SUPPLIER' | 'SAMPLE'; // should be filled with all the entity types
 
 	// view that can be switched into
-	@Input() view: 'list' | 'card';
+	@Input() view: 'list' | 'board' | 'card' = 'list';
 
 	// whether the filters tab is opened
 	@Input() filtersPanelOpened = false;
@@ -76,12 +80,18 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 	@Output() filterClick = new EventEmitter<null>();
 	/** show archived products */
 	@Output() showArchived = new EventEmitter<undefined>();
-	/** show archived products */
+	/** hide archived products */
 	@Output() hideArchived = new EventEmitter<undefined>();
 
 	/** show only the products assigned to the current user */
 	@Output() showAssigned = new EventEmitter<undefined>();
 	@Output() hideAssigned = new EventEmitter<undefined>();
+
+	@Output() showTasksCreatedByMeOnly = new EventEmitter<undefined>();
+	@Output() hideTasksCreatedByMeOnly = new EventEmitter<undefined>();
+
+	@Output() showTasksCompleted = new EventEmitter<undefined>();
+	@Output() hideTasksCompleted = new EventEmitter<undefined>();
 
 	@Output() export = new EventEmitter<undefined>();
 
@@ -97,9 +107,16 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 	searchControl: FormControl;
 	inputFocus = false;
 
+	isArchivedShown = false;
+	archiveChecked = false;
+	isCompletedTaskChecked = false;
+	isTaskCreatedByMeOnlyChecked = false;
+	isAssigned = false;
+
 	constructor(private element: ElementRef,
-							private renderer: Renderer2,
-							private cdr: ChangeDetectorRef) {
+		private renderer: Renderer2,
+		private cdr: ChangeDetectorRef,
+		private subPanelSrv: SubPanelService) {
 		super();
 	}
 
@@ -120,6 +137,12 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 				this.inputFocus = true;
 			});
 		}
+
+		this.subPanelSrv.filtersClear.pipe(
+			takeUntil(this._destroy$)
+		).subscribe(() => {
+			this.isArchivedShown = this.isAssigned = false;
+		});
 	}
 
 	triggerSmartSearch(event) {
@@ -136,7 +159,27 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 		}
 	}
 
-	archiveChange() {
+	toggleArchived() {
+		this.isArchivedShown = !this.isArchivedShown;
+		this.archivedChange();
+	}
+
+	toggleAssigned() {
+		this.isAssigned = !this.isAssigned;
+		this.assignedChange();
+	}
+
+	toggleCreatedTaskOnly() {
+		this.isTaskCreatedByMeOnlyChecked = !this.isTaskCreatedByMeOnlyChecked;
+		this.tasksOnlyChanged();
+	}
+
+	toggleCompletedTask() {
+		this.isCompletedTaskChecked = !this.isCompletedTaskChecked;
+		this.tasksCompletedChanged();
+	}
+
+	private archivedChange() {
 		if (this.isArchivedShown) {
 			this.showArchived.emit();
 		} else {
@@ -144,11 +187,27 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 		}
 	}
 
-	assignedChange() {
+	private assignedChange() {
 		if (this.isAssigned) {
 			this.showAssigned.emit();
 		} else {
 			this.hideAssigned.emit();
+		}
+	}
+
+	private tasksOnlyChanged() {
+		if (this.isTaskCreatedByMeOnlyChecked) {
+			this.showTasksCreatedByMeOnly.emit();
+		} else {
+			this.hideTasksCreatedByMeOnly.emit();
+		}
+	}
+
+	private tasksCompletedChanged() {
+		if (this.isCompletedTaskChecked) {
+			this.showTasksCompleted.emit();
+		} else {
+			this.hideTasksCompleted.emit();
 		}
 	}
 

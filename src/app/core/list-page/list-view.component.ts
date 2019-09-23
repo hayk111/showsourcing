@@ -8,6 +8,7 @@ export interface ColumnConfig {
 	width: number;
 	translationKey: string;
 	sortProperty?: string;
+	sortable?: boolean;
 }
 
 export interface TableConfig {
@@ -30,6 +31,9 @@ export abstract class ListViewComponent<T> extends TrackingComponent implements 
 	@Input() hasMenu = true;
 	@Input() hasHeader = true;
 	@Input() hasPagination = true;
+	@Input() hasSelection = true;
+	@Input() hasPreview = true;
+	@Input() canUpdate = true;
 	@Input() columns = [];
 	tableConfig: TableConfig = undefined;
 	columnsConfig: ColumnConfig[] = [];

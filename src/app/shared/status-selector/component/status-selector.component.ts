@@ -40,6 +40,7 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 	@Input() offsetY = 8;
 	@Input() selectSize = 'm';
 	@Input() internalUpdate = true;
+	@Input() canUpdate = true;
 	@Input() type: 'badge' | 'dropdown' | 'multiple-selection' | 'button' = 'badge';
 	@Input() width: number;
 	@Output() statusUpdated = new EventEmitter<any>();
@@ -96,7 +97,13 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 
 	// this is only done for tasks since we don't have it on the DB
 	updateTask(done: boolean) {
-		this.statusSlctSrv.updateTask({ id: this.entity.id, done });
+		if (this.canUpdate) {
+			this.statusSlctSrv.updateTask({ id: this.entity.id, done });
+		}
+	}
+
+	updateProject(done: boolean) {
+		this.statusSlctSrv.updateProject({ id: this.entity.id, done });
 	}
 
 	openMenu() {

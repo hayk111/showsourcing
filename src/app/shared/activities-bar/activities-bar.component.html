@@ -1,12 +1,16 @@
 <div class="action-container flexBetween">
-	<div class="flex icons-container no-select">
+	<div class="flexVAlign icons-container no-select">
 		<icon-app name="heart" size="ms" class="favourite" *ngIf="favourite"></icon-app>
 		<icon-app name="sample" size="ms" *ngIf="hasSamples"></icon-app>
 		<icon-app name="check-circle" [ngClass]="{'warn-circle': hasTaskOverdue}" size="ms" *ngIf="hasTasks"></icon-app>
 		<icon-app name="comments" size="ms" *ngIf="hasComments"></icon-app>
-		<icon-app name="envelope" size="ms" *ngIf="openRequestsCount$ | async"></icon-app>
+		<icon-app name="envelope" size="ms" *ngIf="(requestsCount$ | async) && !(openRequestsCount$ | async)" ></icon-app>
+		<div class="with-badge" *ngIf="openRequestsCount$ | async">
+			<span class="red-badge"></span>
+			<icon-app name="envelope" size="ms" notifBadge></icon-app>
+		</div>
 		<span class="vote-star-container" *ngIf="thumbService.getAvgVotes(votes) > -1" 
-			[ngClass]="{'light-background': thumbService.getAvgVotes(votes) > 80}">
+			[ngClass]="{'light-background': thumbService.getAvgVotes(votes) > 4}">
 			<icon-app name="star" size="ms" class="star"></icon-app>
 			<span class="vote-star-value">{{thumbService.getAvgVotes(votes)}}</span>
 		</span>

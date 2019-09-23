@@ -33,6 +33,12 @@ export interface ListPageConfig extends ListPageDataConfig {
 	originComponentDestroy$?: Observable<void>;
 }
 
+interface FilterEntity {
+	value: boolean;
+	type: FilterType;
+	entity?: string;
+}
+
 /**
  * Helper service for list pages.
  *
@@ -444,21 +450,30 @@ export class ListPageService
 		return this.selectionSrv.getSelectionValues();
 	}
 
+	getFilterAmount(filterArr: FilterEntity[]): number {
+		const filters = this.filterList.asFilters()
+		.filter(fil => !filterArr.some(elem => elem.type === fil.type && elem.value === fil.value));
+		return filters.length;
+	}
+
 	filterByArchived(shouldAdd: boolean) {
-		const predicate = this.filterList.asPredicate();
-
-		if (shouldAdd) {
-			this.filterList.removeFilter({ type: FilterType.ARCHIVED, value: false});
-			this.filterList.addFilter({ type: FilterType.ARCHIVED, value: true});
-			return;
-		}
-
-		this.filterList.removeFilter({ type: FilterType.ARCHIVED, value: true});
-		this.filterList.addFilter({ type: FilterType.ARCHIVED, value: false});
+		this.filterList.removeFilterType(FilterType.ARCHIVED);
+		this.filterList.addFilter({ type: FilterType.ARCHIVED, value: shouldAdd });
 	}
 
 	filterByAssignee(shouldAdd: boolean) {
 		const filterParam = { type: FilterType.ASSIGNEE, value: true };
+
+		if (shouldAdd) {
+			this.addFilter(filterParam);
+			return;
+		}
+
+		this.removeFilter(filterParam);
+	}
+
+	filterByDone(shouldAdd: boolean) {
+		const filterParam = { type: FilterType.DONE, value: true };
 
 		if (shouldAdd) {
 			this.addFilter(filterParam);

@@ -1,36 +1,59 @@
 :host {
+	background-color: #f2f5fb;
+	border-radius: var(--border-radius-l);
+
 	header {
 		text-align: center;
 		font-weight: 600;
 		color: var(--legacy-color-txt-strong);
 		font-size: 14px;
 		padding: var(--spacing-m);
-		background-color: #fff;
-		border: solid 1px var(--legacy-color-divider);
-		margin-left: 5px;
-		margin-right: 5px;
-		border-top-width: 2px;
-		border-top-left-radius: 5px;
-		border-top-right-radius: 5px;
 		padding-top: 10px;
 		padding-bottom: 10px;
 		height: 28px;
+
+		.product-count {
+			width: 9px;
+			height: 20px;
+			font-size: var(--font-size-l);
+			color: var(--color-txt-secondary);
+			margin-right: var(--spacing-ms);
+		}
+
+		.status-badge {
+			display: inline-block;
+			width: var(--spacing-ms);
+			height: var(--spacing-ms);
+			margin-right: var(--spacing-xxs);
+			border-radius: 50%;
+		}
 	}
 
 	main {
-		background: var(--legacy-color-secondary-light);
-		padding-top: 12px;
-		border: solid 1px var(--legacy-color-divider);
-		border-top: 0;
-		margin: 5px;
-		margin-top: 0;
+		margin: 0 var(--spacing-s);
 		height: calc(100% - 51px);
 		box-sizing: border-box;
     overflow-y: auto;
 	}
 
 	kanban-item-app {
-		margin: var(--spacing-s);
+		height: 115px;
+		width: 333px;
+		border-radius: var(--border-radius);
+		box-shadow: 0 0 12px 4px rgba(0, 0, 0, 0.02);
+		background-color: var(--color-bg);
+		margin-bottom: var(--spacing-s);
+	}
+
+	.left-section {
+		display: inline-flex;
+
+		.title {
+			height: 20px;
+			margin-left: var(--spacing-s);
+			font-size: var(--font-size-l);
+			color: var(--color-bg-dark);
+		}
 	}
 
 	.overlay {

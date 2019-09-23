@@ -5,7 +5,7 @@
 		size="xl">
 	</img-app>
 
-	<div class="product-price" *ngIf="product?.price">
+	<div *ngIf="product?.price" class="product-price">
 		<div class="price-dislayed">{{ product?.price | appPrice }}</div>
 	</div>
 
@@ -17,6 +17,7 @@
 	<checkbox-app
 		*ngIf="hasCheckbox"
 		class="overlay"
+		[size]="17"
 		[ngClass]="{'full-opacity': selected}"
 		[checked]="selected"
 		(check)="select.emit()"
@@ -34,7 +35,7 @@
 			[multiple]="true"
 			[width]="330"
 			(update)="update.emit({id: product?.id, projects: $event})">
-			<icon-app class="folder overlay-icons pointer" name="folder-light"></icon-app>
+			<icon-app class="folder overlay-icons pointer" [size]="13" name="folder-light"></icon-app>
 		</selector-app>
 		<thumb-buttons-app
 			class="thumb-up overlay-icons"
@@ -46,6 +47,7 @@
 		</thumb-buttons-app>
 		<rating-heart-app
 			class="heart"
+			size="m"
 			[favorite]="product?.favorite"
 			[lineStyle]="true"
 			(favorited)="favorited.emit()"
@@ -66,10 +68,10 @@
 			<div class="badge" [ngStyle]="{ 'background-color': 'var(' + getColor(product?.status) + ')'}"></div>
 			{{ product?.name || ('message.unnamed-product' | translate) }}
 		</div>
-		<div class="category ellipsis flexVAlign">
-			{{ product?.category?.name }}
-			<span class="small-badge-gray" *ngIf="product?.supplier"></span> 
-			{{ product?.supplier?.name }}
+		<div class="category">
+			<span class="category-name">{{ product?.category?.name }}</span>
+			<span *ngIf="product?.supplier && product?.category" class="small-gray-badge-separator"></span>
+			<span class="supplier-name">{{ product?.supplier?.name }}</span>
 		</div>
 
 		<product-card-activities-app
@@ -77,8 +79,8 @@
 			[hasSamples]="!!product?.samplesLinked?.count"
 			[hasTasks]="!!product?.tasksLinked?.count"
 			[hasComments]="!!product?.comments.length"
-			[votes]="product?.votes"
-		></product-card-activities-app>
+			[votes]="product?.votes">
+		</product-card-activities-app>
 	</div>
 
 </div>

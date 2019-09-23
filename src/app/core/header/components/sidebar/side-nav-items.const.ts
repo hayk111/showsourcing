@@ -6,7 +6,7 @@ const subNavItemsProducts = [{
 },
 {
 	icon: 'sample',
-	link: ['/product'],
+	link: ['/samples'],
 	translationKey: 'samples',
 },
 {

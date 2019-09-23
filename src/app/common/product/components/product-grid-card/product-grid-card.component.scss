@@ -44,14 +44,14 @@ $image-height: 240px;
 
 	.eye-icon {
 		display: inline-block;
-		font-size: var(--font-size-xs); // the eye icon looks way too big when font-size is --font-size-m
+		font-size: var(--font-size-l); // the eye icon looks way too big when font-size is --font-size-m
 		margin-right: 6px;
 		color: var(--color-bg);
 	}
 
 	.export-icon {
 		display: inline-block;
-		font-size: var(--font-size-m);
+		font-size: var(--font-size-l);
 		margin-right: 6px;
 		color: var(--color-txt-secondary);
 	}
@@ -179,21 +179,17 @@ img-app {
 		margin-right: var(--spacing-s);
 	}
 
-	.small-badge-gray {
-		height: 4px;
-		width: 4px;
-		background-color: var(--color-txt-secondary);
-		border-radius: 50%;
-		display: inline-block;
-		margin: 0 var(--spacing-s);
-	}
-
 	.price {
 		color: var(--legacy-color-primary);
 	}
 
 	.moq {
 		color: var(--legacy-color-secondary-dark);
+	}
+
+	.category {
+		width: 204px;
+		word-wrap: break-word;
 	}
 
 	.price, .moq, .category, .status-info {

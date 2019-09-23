@@ -18,6 +18,7 @@ a {
 	justify-content: center;
 	align-items: center;
 	height: 64px;
+	color: var(--color-txt-third);
 
 	.selected-nav {
 		visibility: hidden;
@@ -25,7 +26,7 @@ a {
 
 	&.selected {
 		background: #071327;
-		color: white;
+		color: var(--color-bg);
 
 		.selected-nav {
 			visibility: visible;
@@ -61,8 +62,8 @@ a {
 		position: absolute;
 		top: 0;
 		left: 100%;
-		z-index: 1;
-		padding: var(--spacing-s) 0;
+		z-index: var(--z-max);
+		padding: var(--spacing-ms) 0;
 		background-color: var(--color-txt-primary);
 		border-top-right-radius: var(--border-radius);
 		border-bottom-right-radius: var(--border-radius);
@@ -74,6 +75,10 @@ a {
 			padding: 0 var(--spacing-m);
 			justify-content: start;
 			text-transform: capitalize;
+			font-size: 14px;
+			font-weight: 600;
+			font-family: var(--font-title);
+			color: var(--color-bg);
 
 			&:hover {
 				background-image: linear-gradient(73deg, var(--color-vibrant), var(--color-primary));
@@ -83,7 +88,7 @@ a {
 				height: 16px;
 				width: 16px;
 				display: block;
-				margin-right: var(--spacing-s)
+				margin-right: var(--spacing-s);
 			}
 		}
 	}

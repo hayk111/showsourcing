@@ -2,4 +2,4 @@
 	<span class="currency">{{ currency | const : 'currency' : 'symbol' : '1.0-2'}}</span>
 	<span class="amount">{{ amount | appPrice }}</span>
 </div>
-<div class="price-desc">{{ 'Min ' + (moq || '') + (moqDesc || '')}}</div>
+<div class="price-desc"> {{moq ? 'Min ' + (moq || '-') + (moqDesc || '') : ''}}</div>

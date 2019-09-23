@@ -1,15 +1,15 @@
-import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, HostListener } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { switchMap } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals';
 import { SupplierService } from '~core/entity-services';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { ERM, Supplier } from '~models';
 import { FilterType } from '~shared/filters';
-import { AutoUnsub } from '~utils';
-import { SupplierFeatureService } from '~features/supplier/services/supplier-feature.service';
-import { switchMap } from 'rxjs/operators';
 import { NotificationService, NotificationType } from '~shared/notifications';
-import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
+import { AutoUnsub } from '~utils';
+import { SupplierFeatureService } from '~features/supplier/services';
+import { SelectParamsConfig } from '~entity-services/_global/select-params';
+import { SubPanelService } from '~shared/top-panel/services/sub-panel.service';
 
 @Component({
 	selector: 'supplier-page-app',
@@ -20,10 +20,9 @@ import { SelectParamsConfig } from '~core/entity-services/_global/select-params'
 	]
 })
 export class SuppliersPageComponent extends AutoUnsub implements OnInit, AfterViewInit {
-	@ViewChild('supplierList', { read: ElementRef, static: false })
-	public supplierListElem: ElementRef;
 
 	erm = ERM;
+	filterType = FilterType;
 
 	filterTypes = [
 		FilterType.CATEGORIES,
@@ -42,10 +41,11 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit, AfterVi
 
 	constructor(
 		private supplierSrv: SupplierService,
-		public listSrv: ListPageService<Supplier, SupplierService>,
-		public commonModalSrv: CommonModalService,
 		private featureSrv: SupplierFeatureService,
 		private notifSrv: NotificationService,
+		public listSrv: ListPageService<Supplier, SupplierService>,
+		public commonModalSrv: CommonModalService,
+		private subPanelSrv: SubPanelService
 	) {
 		super();
 	}
@@ -55,23 +55,31 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit, AfterVi
 			key: ListPageKey.SUPPLIER,
 			entitySrv: this.supplierSrv,
 			searchedFields: ['name', 'tags.name', 'categories.name', 'description'],
-			selectParams: this.selectItemsConfig,
+			initialFilters: [{ type: FilterType.ARCHIVED, value: false }, { type: FilterType.DELETED, value: false }],
 			entityMetadata: ERM.SUPPLIER,
-			initialFilters: [],
 		}, false);
 	}
 
+	onViewChange(view: 'list' | 'board' | 'card') {
+		this.listSrv.changeView(view);
+	}
+
+	ngAfterViewInit() {
+		this.listSrv.loadData(this._destroy$);
+	}
+
 	showItemsPerPage(count: number) {
-		this.selectItemsConfig.take = Number(count);
+		this.selectItemsConfig = { take: Number(count) };
 		this.listSrv.refetch(this.selectItemsConfig).subscribe();
 	}
 
-	onShowFilters() {
-		this.listSrv.openFilterPanel();
-	}
+	onClearFilters() {
+		this.listSrv.filterList.resetAll();
 
-	onCloseFilter() {
-		this.listSrv.closeFilterPanel();
+		this.listSrv.addFilter({ type: FilterType.ARCHIVED, value: false});
+		this.listSrv.addFilter({ type: FilterType.DELETED, value: false});
+
+		this.subPanelSrv.onFiltersClear();
 	}
 
 	onArchive(supplier: Supplier | Supplier[]) {
@@ -98,9 +106,5 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit, AfterVi
 					});
 				});
 		}
-	}
-
-	ngAfterViewInit() {
-		this.listSrv.loadData(this._destroy$);
 	}
 }

@@ -1,7 +1,7 @@
 <div flex class="product-modal-top-panel flex">
 	<div class="flex left container">
 		<div class="space-icon flexAround">
-			<icon-app name="product"></icon-app>
+			<logo-app type="product" color="secondary" ></logo-app>
 		</div>
 		<div>
 			<p class="info-title">
@@ -10,7 +10,7 @@
 			<div subinfo class="flex flexVAlign info-container">
 				<div class="flex status-info">
 					<icon-app
-						class="circle color-{{ product?.status?.category || 'secondary' }}"
+						class="circle color-{{ product?.status?.category || 'primary' }}"
 						name="circle">
 					</icon-app>
 					{{
@@ -37,7 +37,9 @@
 	</div>
 	<div class="flex right container">
 		<a [href]="getImg() | image: 'xl'" download>
-			<button translate="button.download"></button>
+			<button class="download-button">
+				<span class="flexCenter"> <icon-app name="close-pane-bottom" size="m"></icon-app> {{'button.download' | translate}} </span>
+			</button>
 		</a>
 		<context-menu-app [menuOpen]="menuOpen" (menuOpened)="menuOpen = true" action>
 			<context-menu-trigger-app>
@@ -45,12 +47,13 @@
 					<icon-app [size]="20" name="dots-vertical"></icon-app>
 				</button>
 			</context-menu-trigger-app>
-				<context-menu-item-app (click)="delete.emit()">
-					<span class="warning-text" translate="button.delete-picture"></span>
-				</context-menu-item-app>
-				<context-menu-item-app (click)="openFileBrowser.emit()">
-					<span translate="button.upload-picture"></span>
-				</context-menu-item-app>
+			<context-menu-item-app (click)="delete.emit()">
+				<span class="warning-text" translate="button.delete-picture"></span>
+			</context-menu-item-app>
+			<context-menu-item-app
+				(click)="openFileBrowser.emit()">
+				<span>{{'button.upload-picture' | translate}}</span>
+			</context-menu-item-app>
 		</context-menu-app>
 		<divider-app [vertical]="true"></divider-app>
 		<div class="close flexCenter pointer" (click)="closePanel()">

@@ -1,6 +1,7 @@
 :host {
 	display: block;
 	position: relative;
+	margin-top: var(--spacing-l);
 	
 	button {
 		width: 32px;
@@ -8,11 +9,13 @@
 		border-radius: var(--border-radius);
 		margin-right: 8px;
 		color: var(--color-txt-secondary);
-		background-color: var(--color-bg-secondary);
+		background: transparent;
+		font-size: var(--font-size-l);
 
 		&.selected {
 			background-color: var(--color-primary);
 			color: var(--color-bg);
+			font-size: var(--font-size-m);
 		}
 		
 		&.arrow-btn {
@@ -25,17 +28,22 @@
 		}
 
 	}
+
+	button:hover:not(.arrow-btn) {
+		background-color: var(--color-primary);
+		color: var(--color-bg);
+		font-size: var(--font-size-m);
+	}
 }
 
 .pagination-ctrl {
 	user-select: none;
 	box-sizing: border-box;
-	margin: var(--spacing-ms) 0;
 	icon-app {
 		color: var(--legacy-color-primary);
 		font-size: var(--spacing-l);
 		cursor: pointer;
-		margin-top: 2px;
+		margin-top: var(--spacing-xxs);
 
 		&.disabled {
 			color: var(--legacy-color-txt-secondary);
@@ -52,23 +60,30 @@
 }
 
 .custom-select {
-	text-align-last: center;
+	padding-left: var(--spacing-ms);
+	font-size: var(--font-size-m);
 	width: 55px;
-  height: 32px;
-	background-color: var(--color-primary);
+  height: var(--spacing-xl);
 	color: var(--color-bg);
+	font-weight: 600;
 	border: 1px solid transparent;
 	border-radius: var(--border-radius);
 	border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+	background: url('/assets/icons/icons-arrow-down-14.png') no-repeat right var(--color-primary);
 	cursor: pointer;
 	user-select: none;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	appearance: none;
+	background-position-x: var(--spacing-xl);
 }
 
 .custom-select option {
 	width: 55px;
-	height: 32px;
-	background-color: var(--color-primary);
-	color: var(--color-bg);
+	height: 30px;
+	background: var(--color-bg); 
+	height: var(--spacing-xl);
+	color: var(--color-bg-dark);
 }
 
 .right {
@@ -78,5 +93,5 @@
 .items-page-count {
 	font-size: var(--font-size-m);
 	color: var(--color-bg-dark);
-	margin-left: 12px;
+	margin-left: var(--spacing-ms);
 }

@@ -7,7 +7,7 @@
 	border-radius: var(--border-radius);
 	box-shadow: 0 2px 4px 0 #e6ebf5;
 	border: solid 1px var(--legacy-color-secondaryy);
-	padding: var(--spacing-xxs);
+	padding: var(--spacing-s);
 
 
 	&.highlight-checked {
@@ -17,7 +17,7 @@
 	}
 }
 
-$image-width: 107px;
+$image-width: 99px;
 
 .card-container {
 	height: 100%;
@@ -38,7 +38,7 @@ $image-width: 107px;
 	.image, .preview {
 		height: 100%;
 		width: $image-width;
-		border-radius: var(--border-radius-s);
+		border-radius: var(--border-radius);
 	}
 
 	.check {
@@ -68,12 +68,17 @@ $image-width: 107px;
 }
 
 .right {
+	position: relative;
 	justify-content: space-between;
 	width: calc(100% - #{$image-width} - #{var(--spacing-ms)});
 
+	user-picture-app {
+		display: inline-block;
+	}
+
 	// title
 	.title-section {
-		margin-top: var(--spacing-s);
+		margin-top: var(--spacing-xs);
 		margin-bottom: var(--spacing-xxs);
 
 		> *:not(:last-child) {
@@ -82,7 +87,11 @@ $image-width: 107px;
 
 		.title {
 			max-width: calc(100% - 25px); // heart width + margin
+			width: 107px;
 			font-weight: 600;
+			height: 18px;
+			font-size: var(--font-size-m);
+			color: var(--color-bg-dark);
 		}
 
 		.icon-heart {
@@ -98,6 +107,7 @@ $image-width: 107px;
 
 	// information
 	.information-section {
+		margin-top: var(--spacing-xs);
 		line-height: 1.1em;
     height: 28px;
     overflow: hidden;
@@ -126,6 +136,45 @@ $image-width: 107px;
 		badge-app {
 			max-width: 45%;
 		}
+	}
+
+	.card-footer {
+		position: absolute;
+    width: 100%;
+		bottom: 0;
+		
+		.product-reference {
+			display: inline-block;
+			margin-left: 4px;
+			line-height: 24px;
+			font-size: var(--font-size-s);
+			color: var(--color-txt-secondary);
+		}
+
+		.vote-star-container {
+			cursor: pointer;
+			border-radius: var(--border-radius);
+			color: var(--color-accent);
+			margin-right: var(--spacing-xs);
+			padding: var(--spacing-xs);
+
+			icon-app {
+				display: inline-block;
+				margin-right: var(--spacing-xs);
+			}
+		}
+		
+		.vote-star-value {
+			width: 19px;
+			height: 18px;
+			font-size: var(--font-size-m);
+			font-weight: 600;
+			color: var(--color-accent-dark);
+		}
+	
+		.light-background {
+			background-color: var(--color-accent-light);
+		}	
 	}
 
 }

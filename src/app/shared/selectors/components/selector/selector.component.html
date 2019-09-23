@@ -8,7 +8,7 @@
 </div>
 
 <cdk-overlay-app
-	*ngIf="menuOpen"
+	*ngIf="menuOpen && hasPicker"
 	[trigger]="trigger"
 	[isOpen]="menuOpen"
 	[offsetY]="offsetY"

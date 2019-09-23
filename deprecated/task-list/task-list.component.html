@@ -1,6 +1,6 @@
 <card-app>
 	<div class="flex flexBetween top">
-		<h2 class="first-uppercase" i18n="@@tasks">tasks</h2>
+		<h2 class="first-uppercase" translate="text.tasks"></h2>
 		<div class="spacer mg-m"></div>
 		<div *ngIf="hasFilters" class="flex show-my-tasks">
 			<checkbox-app
@@ -8,9 +8,7 @@
 				[checked]="filterList.hasFilterType(filterTypeEnum.ASSIGNEE)"
 				(check)="toggleMyTasks.emit(true)"
 				(uncheck)="toggleMyTasks.emit(false)">
-				<span i18n="text@@assigned-to-me">
-					Assigned to me
-				</span>
+				<span translate="text.assigned-to-me"></span>
 			</checkbox-app>
 		</div>
 	</div>
@@ -36,8 +34,8 @@
 			</task-app>
 		</list-item-app>
 	</list-app>
-	<div class="flexEnd create-task">
-			<button class="primary" (click)="openCreationTaskDlg.emit()" i18n="button@@create">
+	<div *ngIf="hasCreate" class="flexEnd create-task">
+			<button class="primary" (click)="openCreationTaskDlg.emit()" translate="button.create">
 				Create
 			</button>
 	</div>

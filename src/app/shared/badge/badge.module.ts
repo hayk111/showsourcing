@@ -12,6 +12,7 @@ import {
 	StatusBadgeComponent,
 	StatusBoxComponent,
 	TaskStatusBadgeComponent,
+	ProjectStatusBadgeComponent,
 } from './components';
 
 
@@ -30,6 +31,7 @@ import {
 		StatusBadgeComponent,
 		StatusBoxComponent,
 		TaskStatusBadgeComponent,
+		ProjectStatusBadgeComponent,
 	],
 	exports: [
 		BadgeComponent,
@@ -39,6 +41,7 @@ import {
 		StatusBadgeComponent,
 		StatusBoxComponent,
 		TaskStatusBadgeComponent,
+		ProjectStatusBadgeComponent,
 	],
 	entryComponents: []
 })

@@ -17,7 +17,6 @@
 		<div *ngIf="showCheckbox" class="check" [ngClass]="{ checked: checked, selected: checked, 'drag-in-progress': dragInProgress }">
 			<checkbox-app
 				[checked]="checked"
-				size="12"
 				(check)="onChecked()"
 				(uncheck)="onUnchecked()">
 			</checkbox-app>
@@ -25,11 +24,10 @@
 	</div>
 
 	<!-- right side -->
-	<div class="right flexColumn">
+	<div class="right">
 		<!-- title -->
 		<div class="title-section flex" (click)="clickTitle()">
 			<h5 class="title ellipsis">{{ product?.name }}</h5>
-			<icon-app *ngIf="product?.favorite" class="icon-heart" name="heart"></icon-app>
 		</div>
 		<div class="information-section flexWrap">
 			<!-- price - moq -->
@@ -39,22 +37,30 @@
 				<ng-container *ngIf="product?.minimumOrderQuantity"> {{'OBJ.min-pcs' | translate: {count : product?.minimumOrderQuantity || 0} }}</ng-container>
 			</span>
 			<!-- description - supplier-->
-			<span class="description-text ellipsis"> {{ product?.description || '' }} </span>
-			<span class="description-text ellipsis">{{ product?.supplier?.name}} {{product?.category?.name && product?.supplier?.name ? '-' : '' }} {{ product?.category?.name }}</span>
+			<span class="description-text ellipsis">
+				{{ product?.price || product?.minimumOrderQuantity ? ' -' : ''}}
+				{{ product?.supplier?.name}} {{product?.category?.name && product?.supplier?.name ? '-' : '' }} {{ product?.category?.name }}
+			</span>
 		</div>
-		<!-- thumb -->
-		<div class="thumb-section flex">
-			<icon-app
-				*ngIf="thumbsName"
-				[style.visibility]="thumbsName === 'thumbs-up' ? 'hidden' : 'visible'"
-				[name]="thumbsName"
-				[ngClass]="{'color-success': thumbsName === 'thumbs-up-background', 'color-warn': thumbsName === 'thumbs-down-background'}">
-			</icon-app>
-			<span *ngIf="score !== null" class="score" [ngClass]="{ 'color-success': score >= 50, 'color-warn': score < 50 }">{{ score }}%</span>
-		</div>
-		<!-- tags -->
-		<div class="tags-section">
-			<badge-app *ngFor="let tag of product?.tags | slice:0:2; trackBy: trackByFn" class="ellipsis" size="xs" type="secondary-light" >{{ tag?.name }}</badge-app>
+		<!-- created by and votes -->
+		<div class="card-footer flexBetween">
+			<div class="created-by">
+				<user-picture-app 
+					[user]="product?.createdBy" 
+					[size]="24"
+					fontSize="12"
+					[background]="false" 
+					[image]="product?.createdBy?.avatar"></user-picture-app>
+				<div class="product-reference">
+					{{product?.reference}}
+				</div>
+			</div>
+
+			<span class="vote-star-container" *ngIf="thumbSrv.getAvgVotes(product?.votes) > -1" 
+				[ngClass]="{'light-background': thumbSrv.getAvgVotes(product?.votes) > 80}">
+				<icon-app name="star" size="sm" class="star"></icon-app>
+				<span class="vote-star-value">{{thumbSrv.getAvgVotes(product?.votes)}}</span>
+			</span>
 		</div>
 	</div>
 

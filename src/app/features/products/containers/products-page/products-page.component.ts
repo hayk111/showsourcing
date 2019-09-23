@@ -17,6 +17,7 @@ import { ProductFeatureService } from '~features/products/services';
 import { SupplierRequestDialogComponent } from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
 import { TranslateService } from '@ngx-translate/core';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
+import { SubPanelService } from '~shared/top-panel/services/sub-panel.service';
 
 // dailah lama goes into pizza store
 // servant asks : what pizza do you want sir ?
@@ -67,6 +68,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		private userSrv: UserService,
 		private translate: TranslateService,
 		protected dlgSrv: DialogService,
+		private subPanelSrv: SubPanelService,
 	) {
 		super();
 	}
@@ -106,39 +108,17 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		this.listSrv.changeView(view);
 	}
 
-	onFavourite(product: Product) {
-		this.listSrv.onItemFavorited(product.id);
-	}
-
 	onClearFilters() {
 		this.listSrv.filterList.resetAll();
 
 		this.listSrv.addFilter({ type: FilterType.ARCHIVED, value: false});
 		this.listSrv.addFilter({ type: FilterType.DELETED, value: false});
-	}
-
-	onShowFilters() {
-		this.listSrv.openFilterPanel();
-	}
-
-	onCloseFilter() {
-		this.listSrv.closeFilterPanel();
+		this.subPanelSrv.onFiltersClear();
 	}
 
 	showItemsPerPage(count: number) {
 		this.selectItemsConfig = { take: Number(count) };
 		this.listSrv.refetch(this.selectItemsConfig).subscribe();
-	}
-
-	onExport() {
-		this.commonModalSrv.openExportDialog(this.listSrv.getSelectedValues());
-	}
-
-	getFilterAmount() {
-		// we filter so we don't count archieved or deleted when it's false, so the user doesn't get confused since its the default filter
-		const filters = this.listSrv.filterList.asFilters()
-			.filter(fil => !(fil.type === FilterType.ARCHIVED && fil.value === false) && !(fil.type === FilterType.DELETED && fil.value === false));
-		return filters.length;
 	}
 
 	onArchive(product: Product | Product[]) {

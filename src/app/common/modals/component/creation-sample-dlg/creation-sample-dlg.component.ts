@@ -12,7 +12,6 @@ import { uuid } from '~utils';
 	templateUrl: './creation-sample-dlg.component.html',
 	styleUrls: ['./creation-sample-dlg.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: []
 })
 export class CreationSampleDlgComponent implements OnInit {
 
@@ -85,6 +84,7 @@ export class CreationSampleDlgComponent implements OnInit {
 						title: this.translate.instant('title.sample-created'),
 						message: this.translate.instant('message.sample-created-with-success')
 					});
+					this.sampleSrv.onUpdateSampleList();
 				},
 				err => {
 					this.notifSrv.add({

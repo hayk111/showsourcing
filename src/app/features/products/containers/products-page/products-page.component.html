@@ -1,6 +1,7 @@
 <div class="flexGrow flexColumn products-content">
 	<!-- top panel -->
 	<top-panel-app
+		[class.top-panel-margin-board]="listSrv.view === 'board'"
 		[title]="'title.my-products' | translate"
 		[buttonName]="'button.create-product' | translate"
 		(buttonClick)="commonModalSrv.openCreationProductDlg()"
@@ -8,7 +9,8 @@
 	</top-panel-app>
 
 	<sub-panel-app
-		[filtersAmount]="getFilterAmount()"
+		[class.sub-menu-padding-board]="listSrv.view === 'board'"
+		[filtersAmount]="listSrv.getFilterAmount([{ type: filterTypeEnum.ARCHIVED, value: false }, { type: filterTypeEnum.DELETED, value: false }])"
 		[hasFilter]="true"
 		[hasSwitch]="true"
 		[view]="listSrv.view"
@@ -22,36 +24,21 @@
 		(hideArchived)="listSrv.filterByArchived(false)"
 		(showAssigned)="listSrv.filterByAssignee(true)"
 		(hideAssigned)="listSrv.filterByAssignee(false)"
-		(export)="onExport()"
-		(showFilters)="onShowFilters()"
+		(export)="commonModalSrv.openExportDialog(listSrv.getSelectedValues())"
+		(showFilters)="listSrv.openFilterPanel()"
 		(viewChange)="onViewChange($event)">
-	
-		<sub-panel-right-item-app class="flex">
+
+		<sub-panel-right-item-app class="flex" right-sort-elem>
 			<product-sorting-menu-app
 				[currentSort]="listSrv.currentSort"
 				(sortFromMenu)="listSrv.sortFromMenu($event)">
 			</product-sorting-menu-app>
-			<checkbox-app
-				[checked]="listSrv.filterList.hasFilterType(filterTypeEnum.ASSIGNEE)"
-				(check)="toggleMyProducts(true)"
-				(uncheck)="toggleMyProducts(false)">
-				<span translate="text.assigned-to-me"></span>
-			</checkbox-app>
-			<button
-				*ngIf="productsCount$ | async as count"
-				class="capitalize"
-				(click)="commonModalSrv.openExportDialog([], listSrv.filterList.asPredicate())">
-				{{ ((count ||0) > 1 ? 'OBJ.export-item.plural' : 'OBJ.export-item.singular') | translate: {count: count || 0} }}
-			</button>
-	
-		</sub-panel-right-item-app>
-	
+		</sub-panel-right-item-app>	
 	</sub-panel-app>
 	
 	<!-- views: either one will be displayed when the correct view is selected -->
 	<ng-container *ngIf="listSrv.isListening">
 		<products-list-view-app
-			class="list-view"
 			*ngIf="listSrv.view === 'list'"
 			[currentSort]="listSrv.currentSort"
 			[pending]="listSrv.pending"
@@ -66,7 +53,7 @@
 			(openAddToProjectDialog)="commonModalSrv.openAddToProjectDialog([$event])"
 			(openAddSampleDialog)="commonModalSrv.openAddSampleDialog($event)"
 			(openAddTaskDialog)="commonModalSrv.openCreationTaskDlg($event)"
-			(setFavourite)="onFavourite($event)"
+			(setFavourite)="listSrv.onItemFavorited($event?.id)"
 			(archive)="onArchive($event)"
 			(openRequestFeedbackDialog)="commonModalSrv.openRequestFeedbackDialog([$event])"
 			(openCreateRequestDlg)="commonModalSrv.openSupplierRequest([$event])"
@@ -79,9 +66,16 @@
 			(unselect)="listSrv.unselectOne($event, true)"
 			(unselectAll)="listSrv.unselectAll()" #productList>
 		</products-list-view-app>
+
+		<product-board-app 
+			*ngIf="listSrv.view === 'board'"
+			[selection]="listSrv.selection$"
+			(selectOne)="listSrv.selectOne($event, true)"
+			(unselectOne)="listSrv.unselectOne($event, true)"
+			(preview) = "listSrv.openPreview($event)">
+		</product-board-app>
 	
 		<products-card-view-app
-			infiniScroll
 			cdk-scrollable
 			*ngIf="listSrv.view === 'card'"
 			class="card-view will-change-scroll"
@@ -89,7 +83,6 @@
 			[rows]="listSrv.items$ | async"
 			[selection]="listSrv.selection$ | async"
 			(addToProject)="commonModalSrv.openAddToProjectDialog([$event])"
-			(bottomReached)="listSrv.loadMore()"
 			(disliked)="listSrv.onThumbDown($event)"
 			(favorited)="listSrv.onItemFavorited($event)"
 			(liked)="listSrv.onThumbUp($event)"
@@ -131,6 +124,6 @@
 	*ngIf="listSrv.filterPanelOpen"
 	[filterList]="listSrv.filterList"
 	[filterTypes]="filterTypes"
-	(clickOutside)="onCloseFilter()"
-	(close)="onCloseFilter()">
+	(clickOutside)="listSrv.closeFilterPanel()"
+	(close)="listSrv.closeFilterPanel()">
 </filters-app>

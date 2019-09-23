@@ -12,11 +12,16 @@ export class SampleQueries extends GlobalQueries {
 		images { id, urls { id, url }, imageType }
 	}`;
 	static readonly product = `product {
-		id, name, ${SampleQueries.images}, favorite, description,
+		id, name, reference, ${SampleQueries.images}, favorite, description,
 	}`;
 	static readonly price = (name = 'price') => `${name} { id, currency, value } `;
 	static readonly status = `status { id, name, category, inWorkflow, step }`;
-	static readonly comments = `comments { id, text, ${SampleQueries.createdBy}, creationDate }`;
+	static readonly user = (name) => `${name} { id, lastName, firstName, avatar { id, fileName, urls { id, url} } }`;
+	static readonly comments = `comments {
+		id, text, creationDate, lastUpdatedDate, deleted,
+		${SampleQueries.user('createdBy')},
+		${SampleQueries.user('lastUpdatedBy')}
+	}`;
 	static readonly definition = (name: string) => `${name} { id, label, type, order, metadata }`;
 	static readonly extendedFields = `extendedFields {
 		id, value,
@@ -25,6 +30,8 @@ export class SampleQueries extends GlobalQueries {
 	}`;
 
 	// TODO BackEnd add extended fields
+	// TODO BackEnd add archived
+	// TODO BackEnd add type
 	static readonly one = `
 		name,
 		reference,

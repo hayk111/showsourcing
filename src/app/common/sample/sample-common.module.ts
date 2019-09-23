@@ -1,29 +1,37 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { CommentCommonModule } from '~common/comment';
 import { ProductCommonModule } from '~common/product/product-common.module';
 import { SharedModule } from '~shared/shared.module';
-import { SampleComponent, SamplePreviewComponent, SampleCardComponent, SampleListViewComponent } from './components';
+import { SampleListViewComponent,
+				 SampleComponent,
+				 SamplePreviewComponent,
+				 SampleCardComponent,
+				 SampleBoardPageComponent } from './components';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		SharedModule,
+		RouterModule,
 		ProductCommonModule,
 		ProductCommonModule,
 		CommentCommonModule
 	],
 	declarations: [
 		SampleComponent,
+		SampleListViewComponent,
 		SamplePreviewComponent,
 		SampleCardComponent,
-		SampleListViewComponent
+		SampleBoardPageComponent,
 	],
 	exports: [
 		SampleComponent,
+		SampleListViewComponent,
 		SamplePreviewComponent,
 		SampleCardComponent,
-		SampleListViewComponent
+		SampleBoardPageComponent,
 	],
 	entryComponents: []
 })

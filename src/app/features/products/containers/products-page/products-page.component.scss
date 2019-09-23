@@ -2,25 +2,29 @@ $max-screen-overlap: 1500px;
 
 :host {
 	display: flex;
+	flex-direction: column;
 	height: 100%;
 }
 
-@media only screen and (min-width: $max-screen-overlap) {
-	.products-content {
-		width: 0;
-	}
+.products-content {
+	height: 100% !important;
+}
+
+// TODO should find workaround to display the table correctly for flex-direction: column
+// @media only screen and (min-width: $max-screen-overlap) {
+// 	.products-content {
+// 		width: 0;
+// 	}
+// }
+
+sub-panel-app, top-panel-app {
+	transform: scale(1);
+  transition: 0.35s all ease;
 }
 
 products-list-view-app {
-	padding: 24px;
-}
-
-sub-panel-app {
-	overflow: hidden;
-}
-
-product-sorting-menu-app {
-	margin-right: var(--spacing-ms);
+	margin: 13px 114px 32px 98px;
+	padding: var(--spacing-l);
 }
 
 checkbox-app {

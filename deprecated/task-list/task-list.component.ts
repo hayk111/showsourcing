@@ -21,6 +21,7 @@ export class TaskListComponent extends TrackingComponent implements OnInit {
 	@Input() hasSupplier = false;
 	@Input() hasProduct = false;
 	@Input() hasFilters = true;
+	@Input() hasCreate = true;
 	@Input() filterList: FilterList;
 	@Output() toggleMyTasks = new EventEmitter<boolean>();
 	@Output() openCreationTaskDlg = new EventEmitter<string>();

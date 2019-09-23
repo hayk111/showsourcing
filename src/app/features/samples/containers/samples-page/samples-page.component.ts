@@ -1,6 +1,6 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChildren, QueryList, OnChanges, ViewChild, HostListener } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { switchMap, takeUntil } from 'rxjs/operators';
+import { switchMap, takeUntil, tap } from 'rxjs/operators';
 import { FilterType } from '~shared/filters';
 import { CommonModalService } from '~common/modals';
 import { UserService, SampleService } from '~core/entity-services';
@@ -8,10 +8,9 @@ import { ListPageService, ListPageKey } from '~core/list-page';
 import { ERM, Sample } from '~models';
 import { AutoUnsub } from '~utils';
 import { DialogService } from '~shared/dialog';
-import { NotificationService } from '~shared/notifications';
-import { SupplierRequestDialogComponent } from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 import { SelectParams } from '~core/entity-services/_global/select-params';
+import { SubPanelService } from '~shared/top-panel/services/sub-panel.service';
 
 @Component({
 	selector: 'samples-page-app',
@@ -23,8 +22,6 @@ import { SelectParams } from '~core/entity-services/_global/select-params';
 	]
 })
 export class SamplesPageComponent extends AutoUnsub implements OnInit {
-	public tableWidth: string;
-
 	erm = ERM;
 	filterTypeEnum = FilterType;
 	// filter displayed as button in the filter panel
@@ -49,6 +46,7 @@ export class SamplesPageComponent extends AutoUnsub implements OnInit {
 		public elem: ElementRef,
 		protected dlgSrv: DialogService,
 		private userSrv: UserService,
+		private subPanelSrv: SubPanelService,
 	) {
 		super();
 	}
@@ -68,6 +66,10 @@ export class SamplesPageComponent extends AutoUnsub implements OnInit {
 		this.samplesCount$ = this.listSrv.filterList.valueChanges$.pipe(
 			switchMap(_ => this.sampleSrv.selectCount(this.listSrv.filterList.asPredicate()).pipe(takeUntil(this._destroy$)))
 		);
+
+		this.sampleSrv.sampleListUpdate$.pipe(
+			switchMap(_ => this.listSrv.refetch())
+		).subscribe();
 	}
 
 	toggleMyProducts(show: boolean) {
@@ -96,6 +98,15 @@ export class SamplesPageComponent extends AutoUnsub implements OnInit {
 	showItemsPerPage(count: number) {
 		this.selectItemsConfig = {take: Number(count)};
 		this.listSrv.refetch(this.selectItemsConfig).subscribe();
+	}
+
+	onClearFilters() {
+		this.listSrv.filterList.resetAll();
+
+		// this.listSrv.addFilter({ type: FilterType.ARCHIVED, value: false}); TODO backend
+		this.listSrv.addFilter({ type: FilterType.DELETED, value: false});
+
+		this.subPanelSrv.onFiltersClear();
 	}
 
 	onExport() {

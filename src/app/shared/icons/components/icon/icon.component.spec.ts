@@ -3,7 +3,7 @@ import { EntityName } from '~core/models';
 import { IconsModule } from '~shared/icons/icons.module';
 import { IconComponent } from './icon.component';
 
-fdescribe('Icon component', () => {
+describe('Icon component', () => {
 	let component: IconComponent;
 	let fixture: ComponentFixture<IconComponent>;
 	let el: HTMLElement;

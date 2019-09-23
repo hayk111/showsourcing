@@ -95,7 +95,7 @@
 	<preview-comment-app *ngIf="!isRelative" (added)="addComment($event)"></preview-comment-app>
 
 	<!-- Info -->
-	<preview-section-app *ngIf="isRelative && !isFixed" [title]="'title.info' | translate"  class="no-mg-bottom">
+	<preview-section-app *ngIf="isRelative && !isFixed" [title]="'title.info' | translate"  class="mg-bottom-none">
 		<div class="flexColumn">
 			<span class="color-txt-strong">
 				{{ 

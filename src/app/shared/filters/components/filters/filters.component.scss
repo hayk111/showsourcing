@@ -6,6 +6,10 @@
 	display: inline-block;
 }
 
+icon-app[name=close-pane-right] {
+	color: var(--color-txt-third);
+}
+
 side-panel-title-app {
 	margin-top: 2px;
 }
@@ -13,7 +17,7 @@ side-panel-title-app {
 .filters-title-section {
 	display: flex;
 	justify-content: space-between;
-	height: 41px;
+	height: 46px;
 }
 
 .title-divider {

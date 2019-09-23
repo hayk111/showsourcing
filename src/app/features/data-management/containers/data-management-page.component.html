@@ -1,15 +1,52 @@
-<top-panel-app
+
+<top-panel-details-app
 	[title]="'title.data-cleansing' | translate"
-	[hasAction]="false">
+	[hasBackArrow]="false"
+	[elevated]="false">
+	<logo-app color="primary" icon="smile" size="xl"></logo-app>
+	<ng-container subinfo>{{ 'text.manage-your-categories' | translate }}</ng-container>
+
+	<!-- navigation tabs of panel -->
+
+	<panel-tab-app
+		link="/settings/data/category"
+		icon="category"
+		name="Categories">
+	</panel-tab-app>
+
+	<panel-tab-app
+		link="/settings/data/tag"
+		icon="tag"
+		name="Tags">
+	</panel-tab-app>
+
+	<!-- <panel-tab-app
+		link="/settings/data/supplier"
+		icon="supplier"
+		name="Suppliers">
+	</panel-tab-app> -->
+
+	<panel-tab-app
+		link="/settings/data/event"
+		icon="event"
+		name="Event">
+	</panel-tab-app>
+
+</top-panel-details-app>
+
+<top-panel-app
+	class="smaller-padding"
+	[title]="'ERM.' + listSrv.entityMetadata.translationKey + '.plural' | translate"
+	[buttonName]="'OBJ.add-OBJ' | translate: {type: 'ERM.' + listSrv.entityMetadata.translationKey + '.singular' | translate}"
+	(buttonClick)="listSrv.create(false)">
 </top-panel-app>
 
 <sub-panel-app
-	[title]="'ERM.' + listSrv.entityMetadata.translationKey + '.plural' | translate"
-	[buttonName]="'OBJ.new-OBJ' | translate: {field: 'ERM.' + listSrv.entityMetadata.translationKey + '.singular' | translate}"
+	class="smaller-padding"
 	[hasFilter]="false"
 	[hasSwitch]="false"
-	(search)="listSrv.search($event)"
-	(buttonClick)="listSrv.create(false)">
+	[entityType]="erm.translationKey"
+	(search)="listSrv.search($event)">
 	<sub-panel-right-item-app>
 		<div class="flex" *ngIf="(listSrv.selection$ | async).size > 0">
 			<button class="button warn capitalize" (click)="listSrv.deleteSelected(true)" translate="delete-selected"></button>

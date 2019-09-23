@@ -1,7 +1,7 @@
 <div
 	class="flex container notif-card"
 	[ngClass]="{ unread: !isRead }"
-	(click)="redirect()"
+	(click)="redirect($event)"
 >
 	<div class="flex left">
 		<logo-app
@@ -23,10 +23,10 @@
 							: ''
 						| translate: {count: actor_count || 0} 
 				}}
-				{{ activityMessage | translate: {target: 'header.' + target.toLowerCase() | translate} }}
+				{{ activityMessage | translate: {target: target ? ('header.' + target.toLowerCase() | translate) : '' } }}
 				<span class="bold-message">
-					<ng-container *ngIf="target$ | async as target">
-						{{ target.name }}
+					<ng-container *ngIf="firstActivity.target_data">
+						{{ firstActivity.target_data?.target }}
 					</ng-container>
 				</span>
 			</p>
@@ -37,7 +37,7 @@
 		</div>
 	</div>
 	<div
-		*ngIf="!activity.is_read; else readButton"
+		*ngIf="!activity.is_read"
 		class="mark-read primary-dot"
 		(click)="markAsRead($event)"
 		toolTip
@@ -47,8 +47,5 @@
 		[offsetX]="-21"
 		[offsetY]="-15"
 	></div>
-	<ng-template #readButton>
-		<div class="mark-read grey-dot" (click)="stopPropagation($event)"></div>
-	</ng-template>
 </div>
 <divider-app></divider-app>

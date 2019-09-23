@@ -1,22 +1,24 @@
 <!-- top panel -->
 <top-panel-app
+	[class.top-panel-margin-board]="listSrv.view === 'board'"
 	[title]="'title.my-samples' | translate"
 	[buttonName]="'button.create-sample' | translate"
 	(buttonClick)="commonModalSrv.openAddSampleDialog()">
 </top-panel-app>
 
 <sub-panel-app
-	[filtersAmount]="getFilterAmount()"
+	[class.sub-menu-padding-board]="listSrv.view === 'board'"
+	[filtersAmount]="listSrv.getFilterAmount([{ type: filterTypeEnum.ARCHIVED, value: false }, { type: filterTypeEnum.DELETED, value: false }])"
 	[hasFilter]="true"
 	[hasSwitch]="true"
+	[hasThumb]="false"
 	[view]="listSrv.view"
 	[count]="listSrv.count$ | async"
-	[entityType]="'PRODUCT'"
+	[entityType]="'SAMPLE'"
 	searchType="short"
 	[searchValue]="listSrv.searchValue"
-	[ngStyle]="tableWidth && {'width': getSubPanelWidth()}"
 	(search)="listSrv.search($event)"
-	(clearFilters)="listSrv.filterList.resetAll();"
+	(clearFilters)="onClearFilters()"
 	(showArchived)="listSrv.filterByArchived(true)"
 	(hideArchived)="listSrv.filterByArchived(false)"
 	(showAssigned)="listSrv.filterByAssignee(true)"
@@ -48,10 +50,12 @@
 </sub-panel-app>
 
 <samples-list-view-app
+	*ngIf="listSrv.view === 'list'"
 	[rows]="listSrv.items$ | async"
 	[selection]="listSrv.selection$ | async"
 	[pending]="listSrv.pending"
 	[count]="listSrv.count$ | async"
+	[currentSort]="listSrv.currentSort"
 	[currentPage]="listSrv.currentPage"
 	(goToPage)="listSrv.loadPage($event)"
 	(sort)="listSrv.sort($event)"
@@ -86,15 +90,23 @@
 		<action-bar-app
 			[favorite]="listSrv.allSelectedFavorite"
 			[hasLikes]="false"
+			[hasHeart]="false"
 			[multiple]="true"
 			(onFavorite)="listSrv.onFavoriteAllSelected()"
 			(onUnfavorite)="listSrv.onUnfavoriteAllSelected()"	>
 			<button class="icon light" (click)="listSrv.deleteSelected()">
-				<icon-app name="trash-bin"></icon-app>
+				<icon-app name="trash"></icon-app>
 			</button>
 		</action-bar-app>
 	</div>
 </selection-bar-app>
+
+<sample-board-app
+	*ngIf="listSrv.view === 'board'"
+	(selectOne)="listSrv.selectOne($event, true)"
+	(unselectOne)="listSrv.unselectOne($event, true)"
+	(preview) = "listSrv.openPreview($event)">
+</sample-board-app>
 
 <filters-app
 	[filterList]="listSrv.filterList"

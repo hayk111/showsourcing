@@ -3,9 +3,10 @@
 	[pending]="pending"
 	[selected]="selection"
 	[contextualMenu]="contextualMenuTemplate"
+	[currentSort]="currentSort"
 	[count]="count"
 	[currentPage]="currentPage"
-	[placeholder]="'placeholder.no-supplier' | translate"
+	[placeholder]="'placeholder.no-sample' | translate"
 	(goToPage)="goToPage.emit($event)"
 	(selectOne)="select.emit($event)"
 	(unselectOne)="unselect.emit($event)"
@@ -31,16 +32,22 @@
 
 	<!-- title row -->
 	<ng-template
-		[columnApp]="'ERM.' + erm.SAMPLE.translationKey + '.singular' | translate"
+		[columnApp]="'header.name' | translate"
 		sortBy="name"
 		let-row="row"
 		width="280">
-		<div class="supplier mainCellWrapper flexBetween">
-			<a class="capitalize ellipsis txt-btn" [routerLink]="['/supplier', row.id]">
-				<logo-app [logo]="row.logoImage" type="supplier" size="m"></logo-app>
-				<span class="ellipsis">{{ row.name }}</span>
-			</a>
-			<button class="preview small secondary-dark" (click)="previewClick.emit(row)" translate="button.preview"></button>
+		<div class="ellipsis name-container contain-strict">
+			<div class="ellipsis">
+				<logo-app [logo]="row.logoImage" [ngStyle]="{'float': 'left'}" type="sample" size="m"></logo-app>
+				<span class="sample-ref ellipsis">
+					<a class="name txt-btn">
+						{{ row.reference || '-' }}
+					</a>
+				</span>
+				<div class="sample-name-ref">
+					{{ row.name || '-' }}
+				</div>
+			</div>
 		</div>
 	</ng-template>
 
@@ -52,9 +59,14 @@
 		sortBy="product.name"
 		[grows]="false"
 		width="140">
-		<span>
-			{{ row?.product?.name | const: 'erm'  }}
-		</span>
+		<div class="ellipsis">
+			<span class="product-ref ellipsis">
+				{{ row?.product?.reference }}
+			</span>
+			<div class="product-name-ref">
+				{{ row?.product?.name }}
+			</div>
+		</div>
 	</ng-template>
 
 	<!-- supplier row -->
@@ -63,8 +75,8 @@
 		sortBy="supplier.name"
 		let-row="row"
 		width="220">
-		<div class="ellipsis">
-		{{ row?.supplier?.name }}
+		<div class="ellipsis flexCenter supplier-name">
+			{{ row?.supplier?.name }}
 		</div>
 	</ng-template>
 
@@ -72,9 +84,9 @@
 	<ng-template
 		[columnApp]="'header.type' | translate"
 		let-row="row"
-		width="220">
-		<div class="ellipsis">
-		{{ row?.__typename }}
+		width="140">
+		<div class="ellipsis flexCenter type">
+			{{ row?.type }}
 		</div>
 	</ng-template>
 
@@ -82,7 +94,7 @@
 	<ng-template
 		class="capitalize"
 		[columnApp]="'header.created-by' | translate"
-		[sortable]="false"
+		sortBy="creationDate"
 		let-row="row"
 		width="250">
 		<span class="created-by">{{ row?.createdBy | formatUserName }}</span>
@@ -98,6 +110,11 @@
 		[sortable]="false"
 		let-row="row"
 		width="250">
+			<activities-bar-app
+				[row]="row"
+				[favourite]="row?.favorite"
+				[hasComments]="!!row?.comments?.length">
+			</activities-bar-app>
 	</ng-template>
 
 	<!-- status -->
@@ -105,8 +122,17 @@
 		class="capitalize"
 		[columnApp]="'header.status' | translate"
 		[sortable]="false"
-		let-row="row">
-		<status-selector-app [entity]="row" [typeEntity]="erm.SUPPLIER" selectSize="s"></status-selector-app>
+		let-row="row"
+		width="180">
+		<div class="status-col flexVAlign">
+			<user-picture-app
+				[user]="row?.createdBy"
+				[image]="row.createdBy?.avatar"
+				[background]="false"
+				[fontSize]="16"
+				size="32"></user-picture-app>
+			<status-selector-app [entity]="row" [typeEntity]="erm.SUPPLIER" selectSize="s"></status-selector-app>
+		</div>
 	</ng-template>
 
 </table-app>
