@@ -1,18 +1,19 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output, TemplateRef, ViewChild, Input } from '@angular/core';
 import { ListViewComponent, TableConfig } from '~core/list-page';
 import { ERM, Sample } from '~core/models';
 import { ID } from '~utils/id.utils';
+import { TranslateService } from '@ngx-translate/core';
 
 
 
 const tableConfig: TableConfig = {
-	name: { title: 'name', width: 190, sortProperty: 'name' },
-	assignee: { title: 'assignee', width: 190, sortProperty: 'assignee.firstName' },
-	product: { title: 'product', width: 190, sortProperty: 'product.name' },
-	supplier: { title: 'supplier', width: 190, sortProperty: 'supplier.name' },
-	comments: { title: 'comments', width: 140 },
-	status: { title: 'status', width: 190, sortProperty: 'status.step' },
-	creationDate: { title: 'created on', width: 190, sortProperty: 'creationDate' },
+	name: { title: 'name', translationKey: 'name', width: 190, sortProperty: 'name' },
+	assignee: { title: 'assignee', translationKey: 'assignee', width: 190, sortProperty: 'assignee.firstName' },
+	product: { title: 'product', translationKey: 'product', width: 190, sortProperty: 'product.name' },
+	supplier: { title: 'supplier', translationKey: 'supplier', width: 190, sortProperty: 'supplier.name' },
+	comments: { title: 'comments', translationKey: 'comments', width: 140 },
+	status: { title: 'status', translationKey: 'status', width: 190, sortProperty: 'status.step' },
+	creationDate: { title: 'created on', translationKey: 'created-on', width: 190, sortProperty: 'creationDate' },
 };
 
 @Component({
@@ -26,13 +27,13 @@ const tableConfig: TableConfig = {
 })
 export class SampleListViewComponent extends ListViewComponent<Sample> {
 	columns = [ 'name', 'assignee', 'product', 'supplier', 'comments', 'status', 'creationDate' ];
-	tableConfig = tableConfig;
+	@Input() tableConfig = tableConfig;
 	@Output() openSupplier = new EventEmitter<ID>();
 	@Output() openProduct = new EventEmitter<ID>();
 
 	erm = ERM;
 
-	constructor() { super(); }
+	constructor(public translate: TranslateService) { super(); }
 
 
 }

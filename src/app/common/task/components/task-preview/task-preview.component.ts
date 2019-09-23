@@ -10,6 +10,7 @@ import {
 import { TaskService } from '~entity-services';
 import { Comment, ERM, ExtendedFieldDefinition, Task } from '~models';
 import { AutoUnsub } from '~utils';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'task-preview-app',
@@ -39,7 +40,8 @@ export class TaskPreviewComponent extends AutoUnsub implements OnInit, OnChanges
 		private commentSrv: CommentService,
 		private router: Router,
 		private taskSrv: TaskService,
-		private extendedFieldDefSrv: ExtendedFieldDefinitionService
+		private extendedFieldDefSrv: ExtendedFieldDefinitionService,
+		public translate: TranslateService
 	) {
 		super();
 	}

@@ -1,5 +1,30 @@
+<top-panel-details-app
+	[title]="'title.my-team' | translate"
+	[hasBackArrow]="false"
+	[elevated]="false">
+	<logo-app color="primary" icon="team" size="xl"></logo-app>
+	<ng-container subinfo *ngIf="(team$ | async) as team">{{team.name}}</ng-container>
 
-<top-panel-app
+	<panel-tab-app
+		link="settings/team/members"
+		icon="team"
+		[name]="'nav.team-members' | translate">
+	</panel-tab-app>
+
+	<!-- TODO create route for settings tab -->
+	<panel-tab-app
+		link="settings/team/settings"
+		icon="settings"
+		[name]="'nav.settings' | translate">
+	</panel-tab-app>
+
+	<button action (click)="redirectNewTeamScreen()" translate="button.create-new-team"></button>
+</top-panel-details-app>
+
+
+<!-- Old implementation -->
+
+<!-- <top-panel-app
 	[title]="(team$ | async)?.name"
 	[isModifiable]="true"
 	(update)="updateTeamName($event)"
@@ -9,10 +34,15 @@
 	i18n-buttonName="@@create-new-team">
 
 	<nav class="flex">
-		<span class="capitalize" (click)="displayTab('team-members')" [ngClass]="{ active: (selectedTab === 'team-members') }" i18n="@@team-members">Team Members</span>
-		<span class="capitalize" (click)="displayTab('invitations')" [ngClass]="{ active: (selectedTab === 'invitations') }" i18n="@@invitations">invitations</span>
+		<span class="capitalize" (click)="displayTab('team-members')"
+			[ngClass]="{ active: (selectedTab === 'team-members') }" translate="text.team-members"></span>
+		<span class="capitalize" (click)="displayTab('invitations')" [ngClass]="{ active: (selectedTab === 'invitations') }"
+			translate="text.invitations"></span>
 	</nav>
-</top-panel-app>
+</top-panel-app> -->
+
+
+<!-- TODO create routes instead of condition  -->
 
 <settings-team-members-users-app *ngIf="selectedTab === 'team-members'"></settings-team-members-users-app>
 <settings-team-members-invitations-app *ngIf="selectedTab === 'invitations'"></settings-team-members-invitations-app>

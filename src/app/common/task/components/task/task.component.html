@@ -2,14 +2,14 @@
 	<!-- name -->
 	<div class="flex task-name ellipsis {{ hasSupplier && hasProduct ? 'col-35' : 'col-50'}}">
 		<icon-app class="pointer" [ngClass]="{'color-success': task?.done, 'color-secondary': !task?.done}" [name]="task?.done ? 'check-round' : 'check-empty-round'" (click)="updateStatus(!task?.done)"></icon-app>
-		<div class="flexCenter txt-btn pointer first-uppercase" [ngClass]="{'done': task?.done }" (click)="previewClicked.emit(task)">{{ task?.name || ('Unnamed task' | const: 'messages') }}</div>
+		<div class="flexCenter txt-btn pointer first-uppercase" [ngClass]="{'done': task?.done }" (click)="previewClicked.emit(task)">{{ task?.name || ('message.unnamed-task' | translate) }}</div>
 	</div>
 
 	<!-- if product -->
 	<div *ngIf="hasProduct" class="flexStart task-product ellipsis {{hasSupplier || fullUser ? 'col-25' : 'col-35'}}">
 		<div *ngIf="task?.product" class="flex ellipsis name-container txt-btn" (click)="openProduct.emit(task?.product?.id || null)">
 			<div class="icon-container"><img-app [size]="'xs'" [image]="task?.product?.images" type="product"></img-app></div>
-			<div class="text">{{ task?.product?.name || ('Unnamed product' | const: 'messages') }}</div>
+			<div class="text">{{ task?.product?.name || ('message.unnamed-product' | translate) }}</div>
 		</div>
 	</div>
 
@@ -17,7 +17,7 @@
 	<div *ngIf="hasSupplier" class="flexStart task-supplier ellipsis {{hasProduct || fullUser ? 'col-25' : 'col-35'}}">
 		<div *ngIf="task?.supplier" class="flex ellipsis name-container txt-btn" (click)="openSupplier.emit(task?.supplier?.id || null)">
 			<div class="icon-container"><img-app [size]="'xs'" [image]="task?.supplier?.logoImage" type="supplier"></img-app></div>
-			<div class="text">{{ task?.supplier?.name || ('Unnamed supplier' | const: 'messages') }}</div>
+			<div class="text">{{ task?.supplier?.name || ('message.unnamed-supplier' | translate) }}</div>
 		</div>
 	</div>
 

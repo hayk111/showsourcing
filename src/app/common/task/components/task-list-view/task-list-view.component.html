@@ -3,9 +3,15 @@
 	[pending]="pending"
 	[selected]="selection"
 	[contextualMenu]="contextualMenuTemplate"
+	[currentSort]="currentSort"
+	[isContextMenuHorizontal]="false"
 	[count]="count"
 	[currentPage]="currentPage"
-	placeholder="No Tasks"
+	[hasHeader]="hasHeader"
+	[hasMenu]="hasMenu"
+	[hasSelection]="hasSelection"
+	[hasPagination]="hasPagination"
+	[placeholder]="'placeholder.no-task' | translate"
 	(goToPage)="goToPage.emit($event)"
 	(selectOne)="select.emit($event)"
 	(unselectOne)="unselect.emit($event)"
@@ -18,56 +24,105 @@
 	<ng-template #contextualMenuTemplate let-row="row">
 		<context-menu-item-app
 			class="pointer flexCenter"
-			(click)="delete.emit(row)"
-			i18n="@@delete">
-			delete
+			(click)="delete.emit(row)">
+			{{'text.delete' | translate}}
 		</context-menu-item-app>
 	</ng-template>
-	
+
 	  <!-- dynamic columns -->
-		<ng-template 
-			*ngFor="let column of columnsConfig; trackBy: trackByFn" 
-			let-row="row" 
-			[columnApp]="column.title"
+		<ng-template
+			*ngFor="let column of columnsConfig; trackBy: trackByFn"
+			let-row="row"
+			[columnApp]="'title.' + column.translationKey | translate"
+			[sortable]="column.sortable !== false"
 			[width]="column.width"
 			[sortBy]="column.sortProperty">
-		
+
     <ng-container [ngSwitch]="column.title">
-			<!-- name -->
+
+			<!-- task done -->
+			<ng-container *ngSwitchCase="''">
+				<icon-app
+					class="pointer"
+					[ngClass]="row?.done ? 'task-is-done': 'task-not-done'"
+					[name]="row?.done ? 'check-circle' : 'check-circle-light'"
+					[size]="24" >
+				</icon-app>
+			</ng-container>
+
+			<!--about: task done + name + product -->
+			<ng-container *ngSwitchCase="'about'">
+				<div class="about flex">
+					<icon-app
+						class="about flexStart"
+						[ngClass]="row?.done ? 'task-is-done': 'task-not-done'"
+						[name]="row?.done ? 'check-circle' : 'check-circle-light'"
+						[size]="24" >
+					</icon-app>
+					<div class="about-container flex">
+						<span class="ellipsis pointer task-name">{{ row?.name }}</span>
+						<span class="ellipsis pointer product-name">{{ row?.product?.name }}</span>
+					</div>
+				</div>
+			</ng-container>
+
+			<!-- reference -->
 			<ng-container *ngSwitchCase="'reference'">
+				<div class="mainCellWrapper reference-container ellipsis">
+					<span class="ellipsis pointer txt-btn" (click)="previewClick.emit(row)">{{ row?.reference }}</span>
+				</div>
+			</ng-container>
+
+			<!-- name -->
+			<ng-container *ngSwitchCase="'name'">
 				<div class="mainCellWrapper name-container ellipsis">
-					<div class="mainCell">
-						<logo-app [logo]="row?.images ? row?.images[0] : null" type="task" size="s"></logo-app>
-						<span class="ellipsis pointer txt-btn" (click)="previewClick.emit(row)">{{ row?.name }}</span>
-					</div>
-					<div class="preview">
-						<button class="secondary-dark small" (click)="previewClick.emit(row)" i18n="@@preview">preview</button>
-					</div>
+					<span class="ellipsis pointer txt-btn" (click)="previewClick.emit(row)">{{ row?.name }}</span>
+				</div>
+			</ng-container>
+
+			<!-- product -->
+			<ng-container *ngSwitchCase="'product'">
+				<div class="mainCellWrapper product-container ellipsis">
+					<span class="ellipsis pointer txt-btn" (click)="openProduct.emit(row?.product?.id)">{{ row?.product?.name }}</span>
+				</div>
+			</ng-container>
+
+			<!-- supplier -->
+			<ng-container *ngSwitchCase="'supplier'">
+				<div class="mainCellWrapper supplier-container ellipsis">
+					<span class="ellipsis pointer txt-btn" (click)="openSupplier.emit(row?.supplier?.id)">{{ row?.supplier?.name }}</span>
+				</div>
+			</ng-container>
+
+			<!-- due date -->
+			<ng-container *ngSwitchCase="'due date'">
+				<div class="mainCellWrapper due-date-container ellipsis">
+					<span class="ellipsis">{{ row?.dueDate | date: 'dd MMM y':'':translate.currentLang }}</span>
 				</div>
 			</ng-container>
 
 			<!-- assignee -->
-			<ng-container *ngSwitchCase="'assignee'">
-				<div class="flex assignee-container ellipsis">
-					<user-picture-app	[user]="row?.assignee" size="24" [border]="true"></user-picture-app>
-					{{ row?.assignee | formatUserName }}
+			<ng-container *ngSwitchCase="'assigned to'">
+				<div *ngIf="row?.assignee" class="flex assignee-container ellipsis">
+					<user-picture-app
+						[user]="row?.assignee"
+						[image]="row?.assignee?.avatar"
+						[background]="false"
+						[fontSize]="16">
+					</user-picture-app>
+					<span class="assignee-name ellipsis">{{ row?.assignee | formatUserName: true }}</span>
 				</div>
 			</ng-container>
 
 			<!-- status -->
-				<ng-container *ngSwitchCase="'status'">
-				<status-selector-app
-					[entity]="row"
-					[typeEntity]="erm.TASK">
-				</status-selector-app>
+			<ng-container *ngSwitchCase="'status'">
+				<div class="status-col flexVAlign">
+					<status-selector-app [entity]="row" [typeEntity]="erm.TASK" [canUpdate]="canUpdate" selectSize="s"></status-selector-app>
+				</div>
 			</ng-container>
 
-			<!-- created on -->
-			<ng-container *ngSwitchCase="'created on'">
-				{{ row?.creationDate | date: 'dd MMMM y' }}
-			</ng-container>
 		</ng-container>
-		
+
 	</ng-template>
 
 </table-app>

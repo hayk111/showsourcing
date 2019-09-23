@@ -12,6 +12,7 @@ import { InputsModule } from '~shared/inputs';
 import { LoadersModule } from '~shared/loaders';
 import { UserPictureModule } from '~shared/user-picture';
 import { UtilsModule } from '~shared/utils';
+import { TranslateModule } from '@ngx-translate/core';
 
 import {
 	CdkOverlayComponent,
@@ -66,7 +67,8 @@ const components = [
 		A11yModule,
 		UtilsModule,
 		ScrollDispatchModule,
-		LoadersModule
+		LoadersModule,
+		TranslateModule
 	],
 	declarations: components,
 	exports: components

@@ -10,13 +10,10 @@
 			name="close-pane-left"
 			(click)="closePanel($event)">
 		</icon-app>
-		<p class="title">
-			Notifications
-		</p>
+		<p class="title" translate="title.notifications"></p>
 	</card-title-app>
 
-	<card-action-app class="mark-read-button" (click)="notifActivitySrv.markAllAsRead()" >
-			Mark all as read
+	<card-action-app class="mark-read-button" (click)="notifActivitySrv.markAllAsRead()" translate="text.mark-all-as-read">
 	</card-action-app>
 
 	<notif-list-app [activities]="results"></notif-list-app>

@@ -6,28 +6,26 @@
 	[isSelectable]="isSelectableFn"
 	[count]="count"
 	[currentPage]="currentPage"
-	placeholder="No team member"
+	[placeholder]="'placeholder.no-team-member' | translate"
 	(goToPage)="goToPage.emit($event)"
 	(selectOne)="select.emit($event)"
 	(unselectOne)="unselect.emit($event)"
 	(selectAll)="selectAll.emit($event)"
 	(unselectAll)="unselectAll.emit()"
 	(bottomReached)="bottomReached.emit()"
-	(sort)="sort.emit($event)"
-	i18n-placeholder="@@no-team-member">
+	(sort)="sort.emit($event)">
 
 	<ng-template #contextualMenuTemplate let-row="row">
 		<context-menu-item-app
 				class="pointer flexCenter"
 				(click)="delete.emit(row)"
-				i18n="button@@delete">
-				delete
+				translate="button.delete">
 		</context-menu-item-app>
 	</ng-template>
 
 	<!-- name -->
 	<ng-template
-		[columnApp]="'name' | const: 'messages'"
+		[columnApp]="'header.name' | translate"
 		sortBy="user.firstName"
 		let-row="row"
 		width="250"
@@ -38,7 +36,7 @@
 	<!-- email -->
 	<ng-template
 		class="capitalize"
-		[columnApp]="'email' | const: 'messages'"
+		[columnApp]="'header.email' | translate"
 		let-row="row"
 		sortBy="user.email"
 		width="250">
@@ -50,47 +48,45 @@
 	<!-- acccountType -->
 	<ng-template
 		class="capitalize"
-		[columnApp]="'Account type' | const: 'messages'"
+		[columnApp]="'header.account-type' | translate"
 		let-row="row"
 		sortBy="accessType"
 		width="200">
 
 		<context-menu-app *ngIf="teamOwner && (row?.user?.id !== user?.id); else noSelector" [closeOnScroll]="true">
 			<context-menu-trigger-app class="flex pointer">
-				<div class="text capitalize" *ngIf="row.accessType === 'TeamMember'" i18n="@@team-member">Team Member</div>
-				<div class="text capitalize" *ngIf="row.accessType === 'Contributor'" i18n="@@contributor">contributor</div>
+				<div class="text capitalize" *ngIf="row.accessType === 'TeamMember'" translate="text.team-member"></div>
+				<div class="text capitalize" *ngIf="row.accessType === 'Contributor'" translate="text.contributor"></div>
 				<div class="selector"><icon-app name="angle-down"></icon-app></div>
 			</context-menu-trigger-app>
 			<context-menu-item-app
 				(click)="accessTypeUpdated.emit({ member: row, accessType: 'TeamMember' })"
-				i18n="button@@team-member">
-				Team Member
+				translate="text.team-member">
 			</context-menu-item-app>
 			<context-menu-item-app
 				(click)="accessTypeUpdated.emit({ member: row, accessType: 'Contributor' })"
-				i18n="@@contributor">
-				contributor
+				translate="text.contributor">
 			</context-menu-item-app>
 			<context-menu-divider-app></context-menu-divider-app>
 			<context-menu-item-app class="remove-user" (click)="delete.emit(row)">
-				<span i18n="@@remove-user">Remove User</span>
+				<span translate="button.remove-user"></span>
 			</context-menu-item-app>
 		 </context-menu-app>
 
 		 <ng-template #noSelector>
 			 <ng-container *ngIf="!teamOwner && (($teamOwner | async)?.id !== row.user.id); else displayOwner">
-				 <ng-container *ngIf="row.accessType === 'TeamMember'" i18n="@@team-member">Team Member</ng-container>
-				 <ng-container *ngIf="row.accessType === 'Contributor'" i18n="@@contributor">contributor</ng-container>
+				 <ng-container *ngIf="row.accessType === 'TeamMember'" translate="text.team-member"></ng-container>
+				 <ng-container *ngIf="row.accessType === 'Contributor'" translate="text.contributor"></ng-container>
 			 </ng-container>
 			 <ng-template #displayOwner>
-				 <span i18n="@@team-owner">Team Owner</span>
+				 <span translate="text.team-owner"></span>
 				</ng-template>
 		 </ng-template>
 	</ng-template>
 
 	<!-- status -->
 	<ng-template
-		[columnApp]="'status' | const: 'messages'"
+		[columnApp]="'header.status' | translate"
 		let-row="row"
 		sortBy="status"
 		width="80">

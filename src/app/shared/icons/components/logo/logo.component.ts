@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, Renderer2, OnChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, Input, Renderer2, OnChanges } from '@angular/core';
 import { AppImage, EntityName } from '~models';
 import { Color, Colors, log } from '~utils';
 
@@ -34,13 +34,14 @@ export const iconMap = {
 };
 
 
-export type Size = 's' | 'm' | 'l' | 'xl';
+export type Size = 's' | 'm' | 'l' | 'xl' | 'xxl';
 
 export const sizeMap: { [key in Size]: { background: number, icon: number } } = {
 	s: { background: 20, icon: 12 },
 	m: { background: 32, icon: 16 },
 	l: { background: 36, icon: 24 },
-	xl: { background: 92, icon: 40 }
+	xl: { background: 54, icon: 24 },
+	xxl: { background: 92, icon: 40 }
 };
 
 @Component({
@@ -76,7 +77,7 @@ export class LogoComponent implements OnChanges {
 	constructor(
 		private elRef: ElementRef,
 		private renderer: Renderer2
-	) {}
+	) { }
 
 	ngOnChanges() {
 		this.renderContainerSize();

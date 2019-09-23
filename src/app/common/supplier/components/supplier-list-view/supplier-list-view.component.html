@@ -1,15 +1,17 @@
 
 
 <table-app
-	placeholder="No supplier"
+	[placeholder]="'placeholder.no-supplier' | translate"
 	[rows]="rows"
   [currentSort]="currentSort"
   [pending]="pending"
   [count]="count"
   [currentPage]="currentPage"
-  [selected]="selection"
+	[selected]="selection"
+	[hasMenu]="hasMenu"
   [hasHeader]="hasHeader"
-  [hasPagination]="hasPagination"
+	[hasPagination]="hasPagination"
+	[hasSelection]="hasSelection"
   [contextualMenu]="contextualMenuTemplate"
   (goToPage)="goToPage.emit($event)"
   (bottomReached)="bottomReached.emit()"
@@ -25,36 +27,35 @@
 		<context-menu-item-app
 			class="pointer flexCenter"
 			(click)="archive.emit(row)"
-			i18n="button@@delete">
-			archive
+			translate="button.archive">
 		</context-menu-item-app>
 		<context-menu-item-app
 			class="pointer flexCenter"
 			(click)="delete.emit(row)"
-			i18n="button@@delete">
-			delete
+			translate="button.delete">
 		</context-menu-item-app>
 	</ng-template>
 
 	<!-- dynamic columns -->
-	<ng-template 
-		*ngFor="let column of columnsConfig; trackBy: trackByFn" 
-		let-row="row" 
-		[columnApp]="column.title"
+	<ng-template
+		*ngFor="let column of columnsConfig; trackBy: trackByFn"
+		let-row="row"
+		[columnApp]="'title.' + column.translationKey | translate"
+		[sortable]="column.sortable !== false"
 		[width]="column.width"
 		[sortBy]="column.sortProperty">
 
 		<ng-container [ngSwitch]="column.title">
-	
+
 			<!-- reference -->
-			<ng-container *ngSwitchCase="'reference'">
+			<ng-container *ngSwitchCase="'name'">
 				<div class="ellipsis name-container contain-strict">
 					<div class="ellipsis reference">
 						<div class="preview-imgs" (click)="previewClick.emit(row)">
-							<logo-app class="imgCtnr" (click)="previewClick.emit(row)" [logo]="row.logoImage" 
+							<logo-app class="imgCtnr" (click)="previewClick.emit(row)" [logo]="row.logoImage"
 							 type="supplier" size="m"></logo-app>
-							<div class="hover-img">
-								<icon-app name="eye" size="s" class="preview-hover-img"></icon-app>
+							<div class="hover-img" *ngIf="hasPreview">
+								<icon-app name="eye" [size]="18" class="preview-hover-img"></icon-app>
 							</div>
 						</div>
 
@@ -64,7 +65,7 @@
 									{{ row.reference || '-' }}
 								</a>
 							</span>
-				
+
 							<div class="supplier-name-ref">
 								{{ row.name || '-' }}
 							</div>
@@ -72,7 +73,7 @@
 					</div>
 				</div>
 			</ng-container>
-		
+
 			<!-- country -->
 			<ng-container *ngSwitchCase="'country'">
 				<span class="country">{{ row.country | const: 'country'}}</span>
@@ -80,7 +81,7 @@
 					{{ row.country | const: 'country'}}
 				</div>
 			</ng-container>
-		
+
 			<!-- product type -->
 			<ng-container *ngSwitchCase="'product type'">
 				<div class="product-type overflow-hidden">
@@ -89,31 +90,42 @@
 					</span>
 				</div>
 			</ng-container>
-			
+
 			<!-- type row -->
 			<ng-container *ngSwitchCase="'supplier type'">
 				<div class="ellipsis pointer txt-btn" class="type">{{ row?.supplierType?.name }}</div>
 			</ng-container>
-			
+
 			<!-- created by -->
 			<ng-container *ngSwitchCase="'created by'">
 				<span class="created-by">{{ row?.createdBy | formatUserName }}</span>
 				<div class="created-by-date">
-					{{ row?.creationDate | date: 'dd MMMM y' }}
+					{{ row?.creationDate | date: 'dd MMMM y':'':translate.currentLang }}
 				</div>
 			</ng-container>
-		
+
 			<!-- activities -->
 			<ng-container *ngSwitchCase="'activities'">
 				<activities-bar-app
+					[row]="row"
 					[favourite]="row?.favorite"
-					[votes]="row?.votes">
+					[hasSamples]="!!row?.samplesLinked.count"
+					[hasTasks]="!!row?.tasksLinked.count"
+					[hasComments]="!!row?.comments.length">
 				</activities-bar-app>
 			</ng-container>
-		
+
 			<!-- status -->
-			<ng-container *ngSwitchCase="'status'">
-				<status-selector-app [entity]="row" [typeEntity]="supplierErm" selectSize="s"></status-selector-app>
+      <ng-container *ngSwitchCase="'status'">
+				<div class="status-col flexVAlign">
+					<user-picture-app
+						[user]="row?.createdBy"
+						[image]="row.createdBy?.avatar"
+						[background]="false"
+						[fontSize]="16"
+						size="32"></user-picture-app>
+					<status-selector-app [entity]="row" [typeEntity]="supplierErm" [canUpdate]="canUpdate" selectSize="s"></status-selector-app>
+				</div>
 			</ng-container>
 		</ng-container>
 	</ng-template>

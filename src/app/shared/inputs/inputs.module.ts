@@ -16,6 +16,7 @@ import { HintComponent } from '~shared/inputs/components-directives/hint/hint.co
 import { LabelComponent } from '~shared/inputs/components-directives/label/label.component';
 import { TextareaAutoGrowsDirective } from '~shared/inputs/components-directives/textarea-auto-grows.directive';
 import { UtilsModule } from '~shared/utils/utils.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 export const components = [
 	FormFieldComponent,
@@ -37,6 +38,7 @@ export const components = [
 		FormsModule,
 		UtilsModule,
 		IconsModule,
+		TranslateModule
 	],
 	declarations: components,
 	// entryComponents: components,

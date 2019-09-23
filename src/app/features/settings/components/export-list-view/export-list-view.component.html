@@ -1,5 +1,5 @@
 <table-app
-	placeholder="No exports"
+	[placeholder]="'placeholder.no-exports' | translate"
 	[rows]="rows"
 	[hasSelection]="false"
 	[pending]="pending"
@@ -8,53 +8,51 @@
 	[currentPage]="currentPage"
 	(goToPage)="goToPage.emit($event)"
 	(sort)="sort.emit($event)"
-	(bottomReached)="bottomReached.emit()"
-	i18n-placeholder="@@no-exports">
+	(bottomReached)="bottomReached.emit()">
 
 		<!-- contextual menu -->
 		<ng-template #contextualMenuTemplate let-row="row">
 			<context-menu-item-app
 				class="pointer flexCenter"
 				(click)="download.emit(row)"
-				i18n="button@@download">
-				download
+				translate="button.download">
 			</context-menu-item-app>
 		</ng-template>
 
 		<!-- export name -->
 		<ng-template
-			[columnApp]="'export' | const: 'messages'"
+			[columnApp]="'header.export' | translate"
 			sortBy="name"
 			let-row="row"
 			width="300">
 			<div class="capitalize">
-				{{ row?.format }} {{ row?.creationDate | date: 'dd-MMM-yy H:mm'}}
+				{{ row?.format }} {{ row?.creationDate | date: 'dd-MMM-yy H:mm':'':translate.currentLang}}
 			</div>
 		</ng-template>
 
 		<!-- status -->
 		<ng-template
-			[columnApp]="'status' | const: 'messages'"
+			[columnApp]="'header.status' | translate"
 			let-row="row"
 			sortBy="status"
 			width="150"
 			[sortOrder]="'DESC'">
-			{{ row?.status }}
+			{{ 'text.' + row?.status | translate }}
 		</ng-template>
 
 		<!-- date -->
 		<ng-template
-			[columnApp]="'creation date' | const: 'messages'"
+			[columnApp]="'header.creation-date' | translate"
 			let-row="row"
 			sortBy="creationDate"
 			width="150"
 			[sortOrder]="'DESC'">
-			{{ row?.creationDate | date: 'MMMM y' }}
+			{{ row?.creationDate | date: 'MMMM y':'':translate.currentLang }}
 		</ng-template>
 
 		<!-- user -->
 		<ng-template
-			[columnApp]="'created by' | const: 'messages'"
+			[columnApp]="'header.created-by' | translate"
 			let-row="row"
 			sortBy="createdBy.lastName"
 			width="200">
@@ -65,7 +63,7 @@
 
 		<!-- download -->
 		<ng-template
-			[columnApp]="'download' | const: 'messages'"
+			[columnApp]="'header.download' | translate"
 			let-row="row"
 			sortBy="createdBy.lastName"
 			[grows]="false"

@@ -10,6 +10,7 @@ import { InputsCustomModule } from '~shared/inputs-custom/inputs-custom.module';
 import { SelectorsModule } from '~shared/selectors/selectors.module';
 import { UserPictureModule } from '~shared/user-picture';
 import { UtilsModule } from '~shared/utils';
+import { TranslateModule } from '@ngx-translate/core';
 
 import {
 	DynamicEditableTextComponent,
@@ -41,7 +42,8 @@ import { InputSelectorComponent } from './components/dynamic-input/inputs/input-
 		UtilsModule,
 		FileModule,
 		ImageModule,
-		UserPictureModule
+		UserPictureModule,
+		TranslateModule
 	],
 	declarations: [
 		ExtendedFormComponent,

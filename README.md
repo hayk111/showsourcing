@@ -1,18 +1,19 @@
 # Supplier Show Sourcing Web App
 
 # Table of Content
- - Running the app
- - Semantic version
- - Branching system
- - Git golden rules
- - Other scripts
- - File structure
- - Style structure
- - Before starting
- - Entity services
- - List page service
- - Auto unsub
- - Translation
+ - [Running the app](#running-the-app)
+ - [Semantic version](#semantic-version)
+ - [Branching system](#branching-system)
+ - [Git golden rules](#git-golden-rules)
+ - [Other scripts](#other-scripts)
+ - [File structure](#file-structure)
+ - [Style structure](#style-structure)
+ - [Code style](#code-style)
+ - [Before starting](#before-starting)
+ - [Entity services](#entity-services)
+ - [List page service](#list-page-service)
+ - [Auto unsub](#auto-unsub)
+ - [Translation](#translation)
 
 
 # Overview of the documentation
@@ -26,20 +27,56 @@ git clone this_repo
 cd project
 npm i
 npm start
+1
 ```
 
+***
+
 # Semantic version
+
+## Production
 Each time we release a new version we must create a Tag
 X.Y.Z
-X -> Major changes release, right now we are on X=2 since this is a new app from the one that we had before.
-Y -> Changes like adding new features or fixing major/blocking bugs
-Z -> Minor bug-fix changes
+X -> Major: Changes that implicates refactoring a huge/core part of the app that affects many components at the same time
+Y -> Minor: Changes like adding new features or fixing major/blocking bugs
+Z -> Patch: Changes like bug-fix
+
+## Development & Staging
+X.Y.Z-BN
+X, Y, Z -> Same as above
+BN -> Prerelease: build number increase
+
+## How to use versioning
+In order to use this release versioning, we use `npm version`
+e.g. on it's behaviour: `version: 2.6.0`
+|     Version    | Command ( npm version ) | Comment                                                                                                                              |
+|:--------------:|:-----------------------:|--------------------------------------------------------------------------------------------------------------------------------------|
+| 2.6.0          |                         |                                                                                                                                      |
+|                | minor                   | This is just a test so you can see what happens when we are already in minor                                                         |
+| 2.7.0          |                         |                                                                                                                                      |
+|                | preminor                | Everytime we are going to jump for the next version, we will use pre-minor. This way we can  increase the build number in the future |
+| 2.8.0-0        |                         |                                                                                                                                      |
+|                | preminor                | This is just a test so you can see what  happens when we are already in preminor                                                     |
+| 2.9.0-0        |                         |                                                                                                                                      |
+|                | prerelease              | we update only the build number here                                                                                                 |
+| 2.9.0-1        |                         |                                                                                                                                      |
+|    ·    ·    · | prerelease              | we use prerelease 7 times more                                                                                                       |
+| 2.9.0-8        |                         |                                                                                                                                      |
+|                | minor                   | We decide that this is the final version and we are going to deploy.                                                                 |
+| 2.9.0          |                         | we deploy and create a tag with this version                                                                                         |
+|                | preminor                | We start again the development for the new version                                                                                   |
+| 2.10.0-0       |                         |                                                                                                                                      |
+|                | prerelease              |                                                                                                                                      |
+This same behaviour can be used for the other 2 commands `major` and `patch`
+
+***
 
 # Branching system
 
 ## Protected branches
 We have 2 protected branches:
-- Master: latest stable version of the web app that has been pushed to production, this branch should NOT be touched unless we need a [hotfix](#hotfixes) or we are pushing a new build/deploy to production. In case of hotfix, read the section below.
+- Master: latest stable version of the web app that has been pushed to production, this branch *should NOT* be touched unless we need a [hotfix](#hotfixes) or we are pushing a new build/deploy to production. In case of hotfix, read the section below.
+Master will *NEVER* be merged on other branches, other branches are merged into master
 - Development: all new features start on this branch, only finished and reviewed features can be merged here. This branch will create the staging/app2 build/deploy.
 
 ## Methodology
@@ -59,14 +96,24 @@ For `bug` branches, we just use the normal system, checkout from `development` a
 ## Hotfixes
 Hotfixes can only happen when a blocking bug in production (master) occur live. The procedure for this is to checkout from `master` and create a new branch `hotfix/number-issue-small-description`. Once this branch has the fix ready to be merged, we have to merge it on both branches `development` and `master`. This way we prevent that master has to be merged in the future on `development`. Since `development` always has to be merged on `master` and not the other way around.
 
+## Release
+When we decide that we are going to deploy, the release candiate process begins. This means that
+- We checkout from `development` and create a branch `release/x.y.z`.
+- When we do this step `development` is *NEVER* merged into `release/x.y.z`.
+- When fixing bugs related to that release will always be done on that branch
+- When the bugfixing is done, and we are ready to release, this branch will be merge into `development` and into `master`
+
+***
+
 # Git golden rules
 - NEVER merge `master` into `development`, `development` is merged into `master` always.
 - Try to avoid features inside features unless it's necessary. Doing a feature inside a feature means that we cannot release none of them until all of them are finished.
 - Do not create a tag, until the version has been validated on staging.
 - When a release has multiple hotfixes that has to be solved by more than 1 person, checkout a branch from `master` called `hotfix`, and from there checkout all the other hotfix branches, this way we do not corrupt `development` branch and we have all the changes visible on the hotfix branch. The previous rule is applied here too!.
 
+***
 
-## Other Scripts
+# Other Scripts
 For an up-to-date version of the scripts just open package.json and those figure in the `script` part.
 
 You can run every script with `npm run`, for example `npm run start`.
@@ -78,6 +125,7 @@ You can run every script with `npm run`, for example `npm run start`.
  - `npm run build:fr` Builds a production ready of the app in the dist directory with the french language configuration
  - `npm run translate:fr` Translates and generates `message.xlf` `messages.fr.xlf`, also merges the old source langauge file with the new one (see Translation section)
 
+***
 
 # File Structure & guidelines
 At the root of src/app we have
@@ -108,6 +156,8 @@ In each module the division of the file structure is with those folders (each on
  README.md
 ```
 
+***
+
 # Style Structure
 The theming is done in ./src/app/theming and should be straight forward. `styles.scss` is the entry point and imports everything it needs. Inside this file we import some core styling files:
 
@@ -124,9 +174,37 @@ Some scss files are based on google material design guidelinds. For instance `el
 
 - h1..h5: We have default sizes for each header, so we use the same headers around the app. By default there is no `margin-bottom` but in case it wants to be added, you just have to give the class `xs, s, m, l...` to the element (these classes are defined on `typography.scss`).
 
+***
+
+# Code Styling
+
+## TS File
+Basic guidelines on how a structure of the file should look like
+- Check that the selector name end with `-app` (by default its at the begining)
+- @Inputs
+- @Outputs
+- @OtherDecorators
+- variables
+- constructor
+- Lifecycle hooks
+- rest of the functions
+
+## HTML File
+Basic guidelines on how the Elements should order Directives, Inputs, Outputs...
+- *ngIf, *ngFor...
+- `#`ids, directives
+- class, ngClass
+- ngStyle (we don't use style)
+- Inputs
+- Outputs
+- i18n or any type of translation
+
+***
+
 # Before starting
 To have a smooth time understanding the app, two big features have to be understood first.
 The Entity Services and the ListPageService. Those will be described below
+
 
 # Entity Services
 When accessing the db for an entity we use its entity service. For example if we want to access the ProductVotes in the database we will use `ProductVoteService`. If you open the file you'll notice the file is quite empty, the class `ProductVoteService` merely extends GlobalService that does the heavy lifting.
@@ -223,19 +301,24 @@ export class Supplier extends GlobalQueries {
 It will basically make the application request for a `name` and a `description` every time a query to *one* `Supplier` is made.
 
 
+***
+
 # List Page Service
 List and tables are used extensively in the application. We have a service that deals with
 most of the logic for those lists. This service is called `ListPageService`. To understand this app it's paramount that one understand that first.
 
 
-# AutoUnsub
+***
+
+# Auto Unsub
 To prevent memory leaks, components which are using observables should extend the class `AutoUnsub` and use the `takeUntil` method on observable. This will automatically unsubscribe from observables when the component is destroyed.
 The AutoUnsub class should be used as a standard app wise.
 
+***
 
 # Translation
-(13/06/1) by Michael
-
+(29/08/19) by Michael
+*Deprecated* Since now we are using ngx instead of i18n
 [Documentation on xliffmerge](https://github.com/martinroob/ngx-i18nsupport)
 `npm run translate` will generate `messages.xlf`
 
@@ -283,8 +366,12 @@ In each `messages.lang.xlf` we have 3 different types of target. When we transla
 ```
 locale name by default is english since we always translate english to another language`ng xi18n --i18nLocale LOCALE_NAME --outFile NAMEOFFILE.xlf --outputPath locale`
 
+***
+
 # Refactor List
 - Status selector updates, not inside the component but above. `<status-selector-app (updateStatus)="update({id: entity.id, status: $event })>`
+
+***
 
 # Apollo Cache wonkyness
 Sometimes apollo cache bugs can be pretty fucking hard to debug. One instance for example is something around the lines of
@@ -296,6 +383,8 @@ Sometimes this can be the cause:
 
 You query products : `{ id, supplier { id, name, categories }}` and update the supplier with `{ id, name }`.
 Apollo might fail to make the optimistic UI work in this instance because the update value of the supplier isn't the same as the queried one. A fix would be to update with  `{ id, name, categories }` or just query `{ id, name }`
+
+***
 
 # Important sneaky hotfix to consider
 This section contains tricky/sneaky fixes for the app, that are abit confusing and can make the app be a bit more complex in some occasions

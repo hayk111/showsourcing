@@ -6,6 +6,10 @@
 	display: inline-block;
 }
 
+icon-app[name=close-pane-right] {
+	color: var(--color-txt-third);
+}
+
 side-panel-title-app {
 	margin-top: 2px;
 }

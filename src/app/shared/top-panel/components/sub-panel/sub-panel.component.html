@@ -4,30 +4,41 @@
 
 	<div class="search-container flex">
 		<ng-content select="search-autocomplete-app"></ng-content>
-		
+
 		<search-bar-app
 			*ngIf="hasSearch"
 			[formControl]="searchControl"
 			[inputFocus]="inputFocus"
 			searchType="short"
+			[placeHolder]="'placeholder.type-to-search' | translate"
 			(focus)="onFocusSearch($event)"
 			(search)="search.emit($event)"
 			(keydown.enter)="triggerSmartSearch($event)">
 		</search-bar-app>
 
-		<button *ngIf="hasFilter && !filtersPanelOpened" class="bold-s pointer capitalize filter-button" 
-			(click)="showFilters.emit()" i18n="text@@show-filters">Filters</button>
-		<button *ngIf="hasFilter && !filtersPanelOpened" class="bold-s pointer capitalize clear-filter-button" 
-			(click)="clearFilters.emit()" i18n="text@@clear-filters">Clear Filters <span *ngIf="filtersAmount">({{filtersAmount}})</span>
+		<button
+			*ngIf="hasFilter && !filtersPanelOpened"
+			class="bold-s pointer capitalize filter-button"
+			(click)="showFilters.emit()" translate="button.show-filters">
+		</button>
+		<button
+			*ngIf="hasFilter && !filtersPanelOpened"
+			class="bold-s pointer capitalize clear-filter-button"
+			(click)="clearFilters.emit()"
+			translate="button.clear-filters">
+			<span *ngIf="filtersAmount">({{filtersAmount}})</span>
 		</button>
 		<div class="divider"></div>
 
-		<span *ngIf="hasFilter && !filtersPanelOpened" class="bold-s capitalize entities-count">
-			{{count}} {{entityType}}
+		<span class="bold-s capitalize entities-count">
+			{{ 
+				entityType 
+					? ('OBJ.n-OBJ' | translate: { count: count || 0, field: ((count || 0) > 1 ? 'ERM.' + entityType + '.plural' : 'ERM.' + entityType + '.singular') | translate })
+					: '' 
+			}}
 		</span>
-				
-		<button *ngIf="filtersPanelOpened" class="bold-s pointer secondary capitalize" (click)="hideFilters.emit()" i18n="text@@show-filters">
-			Hide Filters
+
+		<button *ngIf="filtersPanelOpened" class="bold-s pointer secondary capitalize" (click)="hideFilters.emit()" translate="button.hide-filters">
 		</button>
 
 		<button
@@ -39,26 +50,53 @@
 	</div>
 
 	<div class="right-container flex">
-		<div class="show-archived-container pointer" *ngIf="hasArchived" (click)="toggleArchived()">
+		<ng-content select="[right-sort-elem]" *ngIf="view === 'card'"></ng-content>
+		<div *ngIf="hasArchived" class="show-archived-container pointer" (click)="toggleArchived()">
 			<div class="flexCenter">
 				<checkbox-app
 					[checked]="isArchivedShown"
-					[size]="15"></checkbox-app>Show Archived
+					[size]="15">
+				</checkbox-app>
+				{{'label.show-archived' | translate}}
 			</div>
 		</div>
-
+		<div
+			*ngIf="hasTaskCreatedByMeOnly"
+			class="tasks-created-by-me-container pointer"
+			(click)="toggleCreatedTaskOnly()">
+			<div class="flexCenter">
+				<checkbox-app
+					[checked]="isTaskCreatedByMeOnlyChecked"
+					[size]="15">
+				</checkbox-app>
+				{{'label.show-tasks-i-created-only' | translate}}
+			</div>
+		</div>
+		<div
+			*ngIf="hasCompletedTask"
+			class="show-completed-container pointer"
+			(click)="toggleCompletedTask()">
+			<div class="flexCenter">
+				<checkbox-app
+					[checked]="isCompletedTaskChecked"
+					[size]="15">
+				</checkbox-app>
+				{{'label.show-completed' | translate}}
+			</div>
+		</div>
 		<div class="assigned-to-me-container pointer" *ngIf="hasAssigned" (click)="toggleAssigned()">
 			<div class="flexCenter">
 				<checkbox-app
 					[checked]="isAssigned"
-					[size]="15"></checkbox-app>Assigned to me
+					[size]="15">
+				</checkbox-app>
+				{{'label.assigned-to-me' | translate}}
 			</div>
 		</div>
 
-		<button *ngIf="hasFilter && !filtersPanelOpened && hasExport" class="flexCenter bold-s pointer capitalize export-button" 
-			(click)="export.emit()" i18n="text@@export">
+		<button *ngIf="hasFilter && !filtersPanelOpened && hasExport" class="flexCenter bold-s pointer capitalize export-button"
+			(click)="export.emit()" translate="button.export">
 			<icon-app name="close-pane-bottom" size="m"></icon-app>
-			Export
 		</button>
 
 		<view-switcher-app

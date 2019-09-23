@@ -51,6 +51,7 @@ import { PackagingModule } from './packaging/packaging.module';
 import { NotifModule } from './notif/notif.module';
 import { LogoNavModule } from './logo-nav/logo-nav.module';
 import { AccordionModule } from './accordion/accordion.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 // those modules are used so commonly that we will just import the shared module
 const modules = [
@@ -111,6 +112,11 @@ const modules = [
 	TopPanelModule,
 	UserPictureModule,
 	UtilsModule,
+	ComparisonRowModule,
+	TemplateMngmtModule,
+	OnBoardingModule,
+	PackagingModule,
+	TranslateModule
 ];
 
 @NgModule({

@@ -43,3 +43,18 @@ icon-app.star {
 .warn-circle {
 	color: var(--color-warn) !important;
 }
+
+.with-badge {
+	position: relative;
+}
+
+.red-badge { // this will be replaced in future with the notif-badge-component
+	position: absolute;
+	top: 0;
+	right: 6px;
+  height: 4px;
+  width: 4px;
+  background-color: var(--color-warn);
+  border-radius: 50%;
+  display: inline-block;
+}

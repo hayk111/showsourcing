@@ -65,7 +65,7 @@
 		let-row="row"
 		width="220">
 		<div>
-			{{ row?.sentDate | date: 'dd MMM yyyy \'at\' HH:mm' }}
+			{{ 'OBJ.date-at-time' | translate : { date: (row?.sentDate | date: 'dd MMMM yyyy':'':translate.currentLang) , time: (row?.sentDate | date: 'HH:mm':'':translate.currentLang)  } }}
 		</div>
 	</ng-template>
 

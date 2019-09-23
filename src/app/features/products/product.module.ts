@@ -49,7 +49,7 @@ import { ProductActivityNavComponent } from './components/product-activity/produ
 		RouterModule.forChild(routes),
 		SampleCommonModule,
 		SupplierCommonModule,
-		TaskCommonModule,
+		TaskCommonModule
 	],
 	declarations: [
 		ProductActivityComponent,
