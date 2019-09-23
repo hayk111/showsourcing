@@ -14,8 +14,8 @@ const REALM_USER = 'REALM_USER';
 })
 export class RealmAuthenticationService {
 
-	private _realmUser$ = new ReplaySubject(1);
-	realmUser$: Observable<RealmUser>;
+	private _realmUser$ = new ReplaySubject<RealmUser>(1);
+	realmUser$ = this._realmUser$.asObservable();
 	realmUser: RealmUser;
 
 	constructor(

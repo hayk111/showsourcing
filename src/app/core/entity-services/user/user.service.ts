@@ -33,6 +33,9 @@ export class UserService extends GlobalService<User> {
 		protected realmAuthSrv: RealmAuthenticationService
 	) {
 		super(apolloState, UserQueries, 'user', 'users');
+	}
+
+	init() {
 		this.user$.subscribe(user => {
 			this.userSync = user;
 			this.analyticsSrv.setupUser(user);

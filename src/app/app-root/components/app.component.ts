@@ -32,12 +32,14 @@ export class AppComponent implements OnInit {
 		private globalRequestClient: GlobalRequestClientsInitializer,
 		private teamClient: TeamClientInitializer,
 		private teamSrv: TeamService,
-		private userClient: UserClientInitializer
+		private userClient: UserClientInitializer,
+		private userSrv: UserService
 	) { }
 
 	ngOnInit(): void {
 		this.authSrv.init();
 		this.realmAuthSrv.init();
+		this.userSrv.init();
 		this.teamSrv.init();
 		this.companySrv.init();
 		this.analytics.init();
