@@ -44,6 +44,10 @@
       "plural": "event descriptions",
       "singular": "event description"
     },
+    "EXPORT": {
+      "plural": "exports",
+      "singular": "export"
+    },
     "EXPORT_REQUEST": {
       "plural": "export requests",
       "singular": "export request"
@@ -708,6 +712,7 @@
     "confirm-cancel-request-items": "Are you sure you want to cancel these request items?",
     "confirm-delete-product": "Are you sure you want to delete this product?",
     "confirm-delete-supplier": "Are you sure you want to delete this supplier?",
+    "exports-from-my-team": "Exports from my team",
     "favorite-item": "Favorite item",
     "has-completed-your-task": "has completed your task",
     "invitation-accepted": "The invitation was accepted",
@@ -959,6 +964,7 @@
     "no-team-members": "No Team Members",
     "no-vote": "No Votes Yet",
     "now-invite-members": "Now invite your team members",
+    "null": " ",
     "officeEmail": "office email",
     "officePhone": "office phone",
     "onboarding": "onboarding",

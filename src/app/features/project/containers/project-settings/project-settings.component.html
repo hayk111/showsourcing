@@ -5,7 +5,7 @@
 
 		<logo-app color="primary" type="project" size="xl"></logo-app>
 		<ng-container subinfo>
-			{{ ('text.' + project?.status || 'text.new') | translate }}
+			{{ (project?.status ? 'text.' + project?.status : 'text.new') | translate }}
 			<div class="small-gray-badge-separator"></div>
 			{{ 'OBJ.due-on-date' | translate: {date: project?.creationDate | date: 'dd-mm-yyyy':'':translate.currentLang} }}
 			<div class="small-gray-badge-separator"></div>

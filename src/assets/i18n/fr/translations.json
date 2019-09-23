@@ -44,6 +44,10 @@
       "plural": "description de l'événement",
       "singular": "description de l'évenement"
     },
+    "EXPORT": {
+      "plural": "exportations",
+      "singular": "exportation"
+    },
     "EXPORT_REQUEST": {
       "plural": "demandes d'exportation",
       "singular": "demande d'exportation"
@@ -708,6 +712,7 @@
     "confirm-cancel-request-items": "Êtes-vous sûr de vouloir annuler ces éléments de demande?",
     "confirm-delete-product": "Êtes-vous sûr de vouloir supprimer ce produit?",
     "confirm-delete-supplier": "Êtes-vous sûr de vouloir supprimer ce fournisseur?",
+    "exports-from-my-team": "Exportations de mon équipe",
     "favorite-item": "Article préféré",
     "has-completed-your-task": "a terminé votre tâche",
     "invitation-accepted": "L'invitation a été acceptée",
@@ -959,6 +964,7 @@
     "no-team-members": "Aucun membre de l'équipe",
     "no-vote": "Pas encore de vote",
     "now-invite-members": "Invitez maintenant les membres de votre équipe",
+    "null": " ",
     "officeEmail": "email de bureau",
     "officePhone": "téléphone de bureau",
     "onboarding": "embarquement",

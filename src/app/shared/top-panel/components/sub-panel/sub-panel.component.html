@@ -31,7 +31,11 @@
 		<div class="divider"></div>
 
 		<span class="bold-s capitalize entities-count">
-			{{ 'OBJ.n-OBJ' | translate: { count: count || 0, field: ((count || 0) > 1 ? 'ERM.' + entityType + '.plural' : 'ERM.' + entityType + '.singular') | translate } }}
+			{{ 
+				entityType 
+					? ('OBJ.n-OBJ' | translate: { count: count || 0, field: ((count || 0) > 1 ? 'ERM.' + entityType + '.plural' : 'ERM.' + entityType + '.singular') | translate })
+					: '' 
+			}}
 		</span>
 
 		<button *ngIf="filtersPanelOpened" class="bold-s pointer secondary capitalize" (click)="hideFilters.emit()" translate="button.hide-filters">

@@ -92,12 +92,12 @@
 			</logo-app>
 		</ng-container>
 
-		<h1>{{ 'OBJ.no-OBJ-assigned-to-you' | translate: {field: 'ERM.' + selectedEntity + '.singular' | translate} }}</h1>
-		<span>{{ 'OBJ.create-a-field-or-assign' | translate: {field: 'ERM.' + selectedEntity + '.singular' | translate} }}</span>
+		<h1>{{ 'OBJ.no-OBJ-assigned-to-you' | translate: {field: 'ERM.' + selectedEntity.toUpperCase() + '.singular' | translate} }}</h1>
+		<span>{{ 'OBJ.create-a-field-or-assign' | translate: {field: 'ERM.' + selectedEntity.toUpperCase() + '.singular' | translate} }}</span>
 
 		<div class="button-group">
-			<button (click)="openCreationModal()">{{ 'OBJ.create-OBJ' | translate: {field: 'ERM.' + selectedEntity + '.singular' | translate} }}</button>
-			<button (click)="dashboardSrv.redirect(route)">{{ 'OBJ.view-OBJ' | translate: {field: 'ERM.' + selectedEntity + '.plural' | translate} }}</button>
+			<button (click)="openCreationModal()">{{ 'OBJ.create-OBJ' | translate: {field: 'ERM.' + selectedEntity.toUpperCase() + '.singular' | translate} }}</button>
+			<button (click)="dashboardSrv.redirect(route)">{{ 'OBJ.view-OBJ' | translate: {field: 'ERM.' + selectedEntity.toUpperCase() + '.plural' | translate} }}</button>
 		</div>
 	</div>
 </ng-template>
