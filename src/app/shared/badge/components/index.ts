@@ -5,3 +5,4 @@ export * from './request-status-badge/request-status-badge.component';
 export * from './status-badge/status-badge.component';
 export * from './status-box/status-box.component';
 export * from './task-status-badge/task-status-badge.component';
+export * from './project-status-badge/project-status-badge.component';

@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, OnChanges, AfterContentChecked } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 import { RequestElementService } from '~core/entity-services';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { Observable } from 'rxjs';
@@ -21,7 +21,7 @@ export class ActivitiesBarComponent implements OnInit {
 	hasTaskOverdue: boolean;
 
 	openRequestsCount$: Observable<number>;
-	openReviewRequestsCount$: Observable<number>;
+	requestsCount$: Observable<number>;
 
 	constructor(
 		private requestElementService: RequestElementService,
@@ -31,9 +31,10 @@ export class ActivitiesBarComponent implements OnInit {
 	ngOnInit() {
 		if (this.row && this.row.id) {
 			this.openRequestsCount$ = this.requestElementService
-				.queryCount(`targetId == "${this.row.id}" AND targetedEntityType == "Product" AND (reply.status != "${ReplyStatus.CANCELED}")`);
-			this.openReviewRequestsCount$ = this.requestElementService
 				.queryCount(`targetId == "${this.row.id}" AND targetedEntityType == "Product" AND (reply.status == "${ReplyStatus.REPLIED}")`);
+
+			this.requestsCount$ = this.requestElementService
+				.queryCount(`targetId == "${this.row.id}" AND targetedEntityType == "Product"`);
 
 			this.hasTaskOverdue = this.hasTasksOverdue(this.row.id);
 		}
@@ -45,8 +46,9 @@ export class ActivitiesBarComponent implements OnInit {
 		}
 
 		if (this.row
+			&& this.row.tasksLinked
 			&& this.row.tasksLinked.count
-			&& (this.row.tasksLinked.items.filter(task => this.isTaskOverdued(task)).length > 0)) {
+			&& (this.row.tasksLinked.items.some(task => this.isTaskOverdued(task)).length > 0)) {
 			return true;
 		}
 

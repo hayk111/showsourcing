@@ -42,9 +42,6 @@
 	.primary-dot {
 		background: var(--color-primary);
 	}
-	.grey-dot {
-		background: var(--color-secondary-contrast)
-	}
 	&:hover {
 		background: var(--color-secondary);
 		.mark-read {

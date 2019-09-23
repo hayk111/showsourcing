@@ -62,7 +62,7 @@
 		</preview-section-app>
 
 		<!-- Info -->
-		<preview-section-app [title]="'Info'"  class="no-mg-bottom">
+		<preview-section-app [title]="'Info'"  class="mg-bottom-none">
 			<div class="flexColumn">
 				<span class="color-txt-strong">Created by {{ product?.createdBy | formatUserName: true }} on {{ product?.creationDate | date: 'dd MMMM yyyy' }}</span>
 				<span class="color-txt-strong">Last updated by {{ product?.lastUpdatedBy | formatUserName: true }} on {{ (product?.lastUpdatedDate || product?.creationDate) | date: 'dd MMMM yyyy' }}</span>

@@ -74,9 +74,12 @@ icon-app {
 		left: 0;
 	}
 	&.mid {
-		right: calc(100% / 3);
+		left: calc(100% / 3);
 	}
 	&.right {
-		right: 0;
+		left: calc((100% / 3) * 2);
+	}
+	&.right-two-items {
+		left: calc(100% / 2);
 	}
 }

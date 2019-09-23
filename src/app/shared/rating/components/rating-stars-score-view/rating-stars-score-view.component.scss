@@ -1,0 +1,38 @@
+:host {
+	display: flex;
+}
+
+.left {
+	margin-right: var(--spacing-l);
+	justify-content: center;
+
+	.number-score {
+		font-size: 58px;
+		color: var(--color-txt-primary);
+		font-weight: 600;
+		line-height: 1;
+	}
+
+	.number-votes {
+		font-size: var(--font-size-s);
+		line-height: 1;
+    margin-bottom: 16px;
+	}
+}
+
+.right {
+
+	.number-cylinder {
+		margin-bottom: var(--spacing-ms);
+
+		.number-star {
+			margin-right: var(--spacing-s);
+			font-size: var(--font-size-s);
+			line-height: 0.8;
+		}
+
+		.cylinder {
+			height: 100%;
+		}
+	}
+}

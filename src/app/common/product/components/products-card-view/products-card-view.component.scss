@@ -1,8 +1,7 @@
 :host {
 	display: flex;
 	flex-direction: column;
-	padding: 36px var(--spacing-edge) 0 98px;
-	padding-top: 36px;
+	padding: 48px 118px 0 110px;
 	height: 100%;
 }
 
@@ -17,6 +16,7 @@
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
+	justify-content: center;
 }
 
 .section-title {

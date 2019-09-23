@@ -471,4 +471,15 @@ export class ListPageService
 
 		this.removeFilter(filterParam);
 	}
+
+	filterByDone(shouldAdd: boolean) {
+		const filterParam = { type: FilterType.DONE, value: true };
+
+		if (shouldAdd) {
+			this.addFilter(filterParam);
+			return;
+		}
+
+		this.removeFilter(filterParam);
+	}
 }

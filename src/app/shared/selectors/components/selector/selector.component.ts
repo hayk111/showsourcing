@@ -39,6 +39,7 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 
 	@Input() multiple = false;
 	@Input() canCreate = false;
+	@Input() hasPicker = true;
 	@Input() filterList = new FilterList([]);
 	@Input() width = 395;
 	@Input() dynamicFields: DynamicField[];

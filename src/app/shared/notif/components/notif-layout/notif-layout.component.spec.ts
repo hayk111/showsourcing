@@ -2,7 +2,7 @@ import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { NotifLayoutComponent } from './notif-layout.component';
 
 
-fdescribe('Notif Layout', () => {
+describe('Notif Layout', () => {
 	let component: NotifLayoutComponent;
 	let fixture: ComponentFixture<NotifLayoutComponent>;
 	let element: HTMLElement;

@@ -3,19 +3,29 @@
 		'list-container': !isDashboardBox,
 		flexCenter: activities?.length === 0
 	}"
->
+	infiniScroll
+	(bottomReached)="loadMore()">
+
 	<div
-		[ngClass]="{ 'notif-feed': !isDashboardBox }"
-		*ngFor="let activity of activities"
-	>
+		*ngFor="let activity of activities; last as isLast"
+		[ngClass]="{ 'notif-feed': !isDashboardBox }">
+
 		<notif-item-app
 			class="notification-item"
 			[activity]="activity"
-			[isRead]="activity.is_read"
-		></notif-item-app>
+			[isRead]="activity.is_read">
+		</notif-item-app>
+
+		<ng-container *ngIf="isLast && isLoading">
+			<div class="spinner-container flexCenter">
+				<spinner-app></spinner-app>
+			</div>
+		</ng-container>
 	</div>
+
 	<notif-empty-app
 		*ngIf="activities?.length === 0"
-		class="empty-notification"
-	></notif-empty-app>
+		class="empty-notification">
+	</notif-empty-app>
+
 </div>

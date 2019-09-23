@@ -9,12 +9,10 @@
 	height: 36px;
 	width: 36px;
 	margin-right: var(--spacing-s);
-	background: var(--color-primary);
 
-	icon-app[name="product"] {
-		color: #fff;
-		cursor: default;
-		font-size: var(--font-size-xxl);
+	logo-app[type="product"] {
+		color: var(--color-accent-contrast);
+		background: var(--color-primary);
 	}
 }
 .info-title {
@@ -63,7 +61,7 @@ context-menu-app {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	color: var(--color-secondary-dark);
+	color: var(--color-secondary-contrast);
 	min-width: 40px;
 	height: 40px;
 	font-size: var(--font-size-m);
@@ -71,7 +69,7 @@ context-menu-app {
 	background: var(--legacy-color-secondary-light);
 }
 .close {
-	color: var(--color-secondary-dark);
+	color: var(--color-secondary-contrast);
 	font-size: var(--font-size-l);
 	font-weight: 800;
 	border-radius: 40px;
