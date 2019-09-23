@@ -41,7 +41,7 @@ export class TokenInterceptor implements HttpInterceptor {
 			// We do another check to see if refresh token failed
 			// In this case we want to logout user and to redirect it to login page
 			if (request.url.includes(`${environment.apiUrl}/user/renew`)) {
-					this.authSrv.logout();
+				this.authSrv.logout();
 			}
 			return throwError(error);
 		}
@@ -56,9 +56,9 @@ export class TokenInterceptor implements HttpInterceptor {
 			// If refreshTokenInProgress is true, we will wait until refreshTokenSubject has a non-null value
 			// – which means the new token is ready and we can retry the request again
 			return this.refreshToken$.pipe(
-					filter(result => result !== null),
-					take(1),
-					switchMap(() => next.handle(this.addToken(request)))
+				filter(result => result !== null),
+				take(1),
+				switchMap(() => next.handle(this.addToken(request)))
 			);
 		} else {
 			this.refreshTokenInProgress = true;

@@ -95,7 +95,8 @@ export class AuthenticationService {
 	refreshAuthToken() {
 		const headers = new HttpHeaders({ token: this.authToken, Authorization: this.authToken });
 		return this.http.post(`${environment.apiUrl}/user/renew`, {}, { headers }).pipe(
-			map((resp: any) => resp.token)
+			map((resp: any) => resp.jwtToken),
+			tap(token => this.storeAuthToken(token))
 		);
 	}
 
@@ -162,9 +163,8 @@ export class AuthenticationService {
 		this.localStorage.setItem(FEED_TOKEN, jwtObject);
 	}
 
-
 	private restoreTokens() {
-		// TODO: expirity is checked in the interceptors
+		// hint: expirity is checked in the interceptors
 		this.feedToken = this.localStorage.getItem(FEED_TOKEN);
 		this.authToken = this.localStorage.getString(AUTH_TOKEN);
 	}

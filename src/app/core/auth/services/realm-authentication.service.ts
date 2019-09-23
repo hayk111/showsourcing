@@ -20,6 +20,10 @@ export class RealmAuthenticationService {
 		private localStorage: LocalStorageService
 	) { }
 
+	init() {
+
+	}
+
 	async getRealmUser(jwt: string) {
 		this.realmUser = this.localStorage.getItem(REALM_USER);
 		if (!this.realmUser) {
