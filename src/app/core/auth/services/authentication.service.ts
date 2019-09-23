@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from 'environments/environment';
@@ -72,7 +72,6 @@ export class AuthenticationService {
 				this._authState$.next(AuthStatus.AUTHENTICATED);
 			}
 		}
-		this.restoreTokens();
 	}
 
 	/**
@@ -94,9 +93,10 @@ export class AuthenticationService {
 	}
 
 	refreshAuthToken() {
-		// this.http.post(`${environment.apiUrl}/user/auth`, { token: this.tokenSrv.authJwtToken }).pipe(
-		// 	map(resp => resp.token)
-		// );
+		const headers = new HttpHeaders({ token: this.authToken, Authorization: this.authToken });
+		return this.http.post(`${environment.apiUrl}/user/renew`, {}, { headers }).pipe(
+			map((resp: any) => resp.token)
+		);
 	}
 
 	logout(redirect = true) {

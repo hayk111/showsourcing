@@ -14,6 +14,7 @@ import { PortalModule } from '~core/portal';
 import { TemplateModule } from '~core/template';
 import { SharedModule } from '~shared/shared.module';
 import { ApiInterceptor } from '~core/interceptors/api.interceptor';
+import { TokenInterceptor } from '~core/interceptors/token.interceptor';
 
 // Can a kangaroo jump higher than a house ?
 // Of course, a house doesn’t jump at all.
@@ -52,6 +53,11 @@ import { ApiInterceptor } from '~core/interceptors/api.interceptor';
 		{
 			provide: HTTP_INTERCEPTORS,
 			useClass: ApiInterceptor,
+			multi: true
+		},
+		{
+			provide: HTTP_INTERCEPTORS,
+			useClass: TokenInterceptor,
 			multi: true
 		}
 	],
