@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ERM, SupplierRequest } from '~core/models';
 import { ListViewComponent } from '~core/list-page';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'request-list-view-sup',
@@ -14,7 +15,7 @@ export class RequestListViewComponent extends ListViewComponent<SupplierRequest>
 
 	erm = ERM;
 
-	constructor() { super(); }
+	constructor(public translate: TranslateService) { super(); }
 
 	ngOnInit() { }
 

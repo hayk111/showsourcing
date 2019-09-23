@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Output, TemplateRef, ViewChild } from '@angular/core';
 import { ListViewComponent } from '~core/list-page';
 import { ERM, SupplierRequest } from '~core/models';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'request-list-view-app',
@@ -16,6 +17,6 @@ export class RequestListViewComponent extends ListViewComponent<SupplierRequest>
 	@ViewChild('contextualMenu', { static: false }) contextualMenuTemplate: TemplateRef<any>;
 	erm = ERM;
 
-	constructor() { super(); }
+	constructor(public translate: TranslateService) { super(); }
 
 }

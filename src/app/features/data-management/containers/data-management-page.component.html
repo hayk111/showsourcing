@@ -1,44 +1,43 @@
 
 <top-panel-details-app
-	[title]="'Data Cleansing'"
+	[title]="'title.data-cleansing' | translate"
 	[hasBackArrow]="false"
-	[elevated]="false"
-	i18n-title="@@data-cleansing">
+	[elevated]="false">
 	<logo-app color="primary" icon="smile" size="xl"></logo-app>
-	<ng-container subinfo>Manage your categories, tags, suppliers and more</ng-container>
+	<ng-container subinfo>{{ 'text.manage-your-categories' | translate }}</ng-container>
 
 	<!-- navigation tabs of panel -->
 
 	<panel-tab-app
 		link="/settings/data/category"
 		icon="category"
-		name="Categories">
+		[name]="'nav.categories' | translate">
 	</panel-tab-app>
 
 	<panel-tab-app
 		link="/settings/data/tag"
 		icon="tag"
-		name="Tags">
+		[name]="'nav.tags' | translate">
 	</panel-tab-app>
 
 	<!-- <panel-tab-app
 		link="/settings/data/supplier"
 		icon="supplier"
-		name="Suppliers">
+		[name]="'nav.suppliers' | translate">
 	</panel-tab-app> -->
 
 	<panel-tab-app
 		link="/settings/data/event"
 		icon="event"
-		name="Event">
+		[name]="'nav.event' | translate">
 	</panel-tab-app>
 
 </top-panel-details-app>
 
 <top-panel-app
 	class="smaller-padding"
-	[title]="listSrv.entityMetadata.plural"
-	[buttonName]="'Add ' + listSrv.entityMetadata.singular"
+	[title]="'ERM.' + listSrv.entityMetadata.translationKey + '.plural' | translate"
+	[buttonName]="'OBJ.add-OBJ' | translate: {type: 'ERM.' + listSrv.entityMetadata.translationKey + '.singular' | translate}"
 	(buttonClick)="listSrv.create(false)">
 </top-panel-app>
 
@@ -46,10 +45,11 @@
 	class="smaller-padding"
 	[hasFilter]="false"
 	[hasSwitch]="false"
+	[entityType]="erm.translationKey"
 	(search)="listSrv.search($event)">
 	<sub-panel-right-item-app>
 		<div class="flex" *ngIf="(listSrv.selection$ | async).size > 0">
-			<button class="button warn capitalize" (click)="listSrv.deleteSelected(true)" i18n="@@delete-selected"> delete selected </button>
+			<button class="button warn capitalize" (click)="listSrv.deleteSelected(true)" translate="delete-selected"></button>
 			<!-- <span class="mg-s"></span>
 			<button (click)="mergeSelected()"> Merge Selected </button> -->
 		</div>

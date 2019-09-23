@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { IconsModule } from '~shared/icons/icons.module';
 import { UtilsModule } from '~shared/utils';
+import { TranslateModule } from '@ngx-translate/core';
 
 import {
 	RatingCylinderComponent,
@@ -15,7 +16,8 @@ import {
 	imports: [
 		CommonModule,
 		IconsModule,
-		UtilsModule
+		UtilsModule,
+		TranslateModule
 	],
 	declarations: [
 		ThumbButtonsComponent,

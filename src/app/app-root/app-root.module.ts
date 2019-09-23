@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -13,6 +13,8 @@ import { AppApolloModule } from '~core/apollo/apollo.module';
 import { PortalModule } from '~core/portal';
 import { TemplateModule } from '~core/template';
 import { SharedModule } from '~shared/shared.module';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import * as i18n from '~core/i18n/i18n.service';
 
 // Can a kangaroo jump higher than a house ?
 // Of course, a house doesn’t jump at all.
@@ -43,7 +45,14 @@ import { SharedModule } from '~shared/shared.module';
 				excludedRoutes: [new RegExp('(validate-email)[\/a-zA-Z0-9]+')]
 			}
 		}),
-		PortalModule
+		PortalModule,
+		TranslateModule.forRoot({
+			loader: {
+				provide: TranslateLoader,
+				useFactory: i18n.HttpLoaderFactory,
+				deps: [HttpClient]
+			}
+		})
 	],
 	exports: [RouterModule],
 	bootstrap: [AppComponent],

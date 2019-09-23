@@ -7,8 +7,10 @@ import { EditableFieldModule } from '~shared/editable-field';
 import { InputsCustomModule } from '~shared/inputs-custom/inputs-custom.module';
 import { UtilsModule } from '~shared/utils';
 import { InputsModule } from '~shared/inputs';
+import { TranslateModule } from '@ngx-translate/core';
+
 @NgModule({
-	imports: [CommonModule, EditableFieldModule, InputsCustomModule, UtilsModule, InputsModule],
+	imports: [CommonModule, EditableFieldModule, InputsCustomModule, UtilsModule, InputsModule, TranslateModule],
 	declarations: [PriceComponent, PricePipe, PriceWithQuantityComponent],
 	exports: [PriceComponent, PricePipe, PriceWithQuantityComponent],
 })

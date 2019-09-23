@@ -1,4 +1,4 @@
 <badge-app [type]="getType()" size="m">
 	<icon-app name="circle"></icon-app>
-	{{ isTeam ? (status | const: 'statusRequestTeam') : (status | const: 'statusRequestSupplier') }}
+	{{ isTeam ? ('const.statusRequestTeam.' + status | translate) : ('const.statusRequestSupplier' + status | translate) }}
 </badge-app>

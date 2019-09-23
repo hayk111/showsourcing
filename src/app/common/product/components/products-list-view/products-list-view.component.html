@@ -1,6 +1,6 @@
 
-<table-app
-  placeholder="No product"
+<table-app 
+  [placeholder]="'placeholder.no-product' | translate"  
   [rows]="rows"
   [currentSort]="currentSort"
   [pending]="pending"
@@ -25,34 +25,28 @@
   <ng-template #contextualMenuTemplate let-row="row">
     <context-menu-item-app
       (click)="setFavourite.emit(row)"
-      i18n="button@@set-as-favourite">
-      Set as Favourite
+      translate="button.set-as-favourite">
     </context-menu-item-app>
     <context-menu-item-app
       (click)="openAddToProjectDialog.emit(row)"
-      i18n="button@@add-to-project">
-      Add to Project
+      translate="button.add-to-project">
     </context-menu-item-app>
     <context-menu-item-app
       (click)="openAddTaskDialog.emit(row)"
-      i18n="button@@add-task">
-      Add Task
+      translate="button.add-task">
     </context-menu-item-app>
     <context-menu-item-app
       (click)="openAddSampleDialog.emit(row)"
-      i18n="button@@add-sample">
-      Add Sample
+      translate="button.add-sample">
     </context-menu-item-app>
     <divider-app></divider-app>
     <context-menu-item-app
       (click)="archive.emit(row)"
-      i18n="button@@archive">
-      Archive
+      translate="button.archive">
     </context-menu-item-app>
     <context-menu-item-app
       (click)="delete.emit(row)"
-      i18n="button@@delete">
-      Delete
+      translate="button.delete">
     </context-menu-item-app>
   </ng-template>
 
@@ -60,7 +54,7 @@
   <ng-template
     *ngFor="let column of columnsConfig; trackBy: trackByFn"
     let-row="row"
-		[columnApp]="column.title"
+		[columnApp]="'title.' + column.translationKey | translate"
 		[sortable]="column.sortable !== false"
     [width]="column.width"
     [sortBy]="column.sortProperty">
@@ -198,14 +192,14 @@
 
       <!-- creation date -->
       <ng-container *ngSwitchCase="'creation date'">
-        {{ row?.creationDate | date: 'dd MMMM y' }}
+        {{ row?.creationDate | date: 'dd MMMM y':'':translate.currentLang }}
       </ng-container>
 
       <!-- created by -->
       <ng-container *ngSwitchCase="'created by'">
         <span class="created-by">{{ row?.createdBy | formatUserName }}</span>
         <div class="created-by-date">
-          {{ row?.creationDate | date: 'dd MMMM y' }}
+          {{ row?.creationDate | date: 'dd MMMM y':'':translate.currentLang }}
         </div>
       </ng-container>
 

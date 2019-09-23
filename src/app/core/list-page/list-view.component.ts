@@ -6,6 +6,7 @@ import { TrackingComponent } from '~utils/tracking-component';
 export interface ColumnConfig {
 	title: string;
 	width: number;
+	translationKey: string;
 	sortProperty?: string;
 	sortable?: boolean;
 }

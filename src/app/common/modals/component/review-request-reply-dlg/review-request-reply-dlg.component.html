@@ -10,26 +10,22 @@
 
 			<div class="title">
 				<h2>{{ element?.name }}</h2>
-				<span class="color-primary fs-m">{{ selectedIndex + 1 }} / {{ elements.length }} <ng-container i18n="@@products">products</ng-container></span>
+				<span class="color-primary fs-m">{{ selectedIndex + 1 }} / {{ elements.length }} <ng-container translate="label.products"></ng-container></span>
 			</div>
 		</div>
 	</dialog-header-app>
 
-	<div *ngIf="!isPending(); else pending" class="info-banner flexCenter" i18n="@@reply-from-supplier">
-		This is the reply from your supplier
-	</div>
+	<div *ngIf="!isPending(); else pending" class="info-banner flexCenter" translate="error.reply-from-supplier"></div>
 
 	<ng-template #pending>
-		<div  class="info-banner flexCenter" i18n="@@no-reply-from-supplier">
-			The supplier hasn't answered yet.
-		</div>
+		<div  class="info-banner flexCenter" translate="error.no-reply-from-supplier"></div>
 	</ng-template>
 
 	<ng-container *ngIf="element">
 		<ng-container *ngIf="element?.reply as reply">
 
 			<article>
-				<h3 class="ms" i18n="product-details">product details</h3>
+				<h3 class="ms" translate="label.product-details"></h3>
 
 				<list-app>
 					<comparison-row-app class="title-row" label="" [values]="['Current Values', 'Supplier\'s Answer']" [hasCheckbox]="false">
@@ -57,18 +53,18 @@
 				</list-app>
 
 				<footer *ngIf="!isDisabled()" class="flex">
-					<button tabFocusAction class="primary accept" (click)="acceptAll(erm.EXTENDED_FIELD)" i18n="button@@accept-all">Accept All</button>
-					<button tabFocusAction class="secondary" (click)="refuseAll(erm.EXTENDED_FIELD)" i18n="button@@refuse-all">Refuse All</button>
+					<button tabFocusAction class="primary accept" (click)="acceptAll(erm.EXTENDED_FIELD)" translate="button.accept-all"></button>
+					<button tabFocusAction class="secondary" (click)="refuseAll(erm.EXTENDED_FIELD)" translate="button.refuse-all"></button>
 				</footer>
 			</article>
 
 			<article *ngIf="reply?.message">
-				<h3 class="ms" i18n="@@supplier-message">Supplier Message</h3>
+				<h3 class="ms" translate="label.supplier-message"></h3>
 				<div class="reply-message">{{ reply?.message }}</div>
 			</article>
 
 			<article *ngIf="reply?.images?.length > 0">
-				<h3 class="l" i18n="additional-pictures">additional pictures</h3>
+				<h3 class="l" translate="label.additional-pictures"></h3>
 
 				<image-reviewer-app
 					[images]="reply?.images"
@@ -78,14 +74,14 @@
 				</image-reviewer-app>
 
 				<footer *ngIf="!isDisabled()" class="flex">
-					<button tabFocusAction class="primary accept" (click)="acceptAll(erm.IMAGE)" i18n="button@@accept-all">Accept All</button>
-					<button tabFocusAction class="secondary" (click)="refuseAll(erm.IMAGE)" i18n="button@@refuse-all">Refuse All</button>
+					<button tabFocusAction class="primary accept" (click)="acceptAll(erm.IMAGE)" translate="button.accept-all"></button>
+					<button tabFocusAction class="secondary" (click)="refuseAll(erm.IMAGE)" translate="button.refuse-all"></button>
 				</footer>
 			</article>
 
 
 			<article *ngIf="reply?.attachments?.length > 0">
-				<h3 class="l" i18n="additional-attachments">additional attachments</h3>
+				<h3 class="l" translate="label.additional-attachments"></h3>
 
 				<file-reviewer-app
 					[files]="reply?.attachments"
@@ -95,8 +91,8 @@
 				</file-reviewer-app>
 
 				<footer *ngIf="!isDisabled()" class="flex">
-					<button tabFocusAction class="primary accept" (click)="acceptAll(erm.ATTACHMENT)" i18n="button@@accept-all">Accept All</button>
-					<button tabFocusAction class="secondary" (click)="refuseAll(erm.ATTACHMENT)" i18n="button@@refuse-all">Refuse All</button>
+					<button tabFocusAction class="primary accept" (click)="acceptAll(erm.ATTACHMENT)" translate="button.accept-all"></button>
+					<button tabFocusAction class="secondary" (click)="refuseAll(erm.ATTACHMENT)" translate="button.refuse-all"></button>
 				</footer>
 			</article>
 
@@ -105,17 +101,15 @@
 
 	<dialog-footer-app>
 		<ng-container *ngIf="!isDisabled(); else notReplied">
-			<button tabFocusAction class="secondary" (click)="close()" i18n="button@@close-request">Close Request</button>
-			<button tabFocusAction class="secondary" (click)="resend()" i18n="button@@send-back">Send Back</button>
-			<button tabFocusAction (click)="acceptRequest()" i18n="button@@accept-request">Accept Request</button>
+			<button tabFocusAction class="secondary" (click)="close()" translate="button.close-request"></button>
+			<button tabFocusAction class="secondary" (click)="resend()" translate="button.send-back"></button>
+			<button tabFocusAction (click)="acceptRequest()" translate="button.accept-request"></button>
 		</ng-container>
 		<ng-template #notReplied>
 			<span class="bold-s">
-				<ng-container *ngIf="isValidated(); else notValid" i18n="@@product-already-validated">
-					This product has already been validated
+				<ng-container *ngIf="isValidated(); else notValid" translate="error.product-already-validated">
 				</ng-container>
-				<ng-template #notValid i18n="@@product-not-yet-replied">
-					This product has not been replied yet by the supplier
+				<ng-template #notValid translate="error.product-not-yet-replied">
 				</ng-template>
 			</span>
 		</ng-template>

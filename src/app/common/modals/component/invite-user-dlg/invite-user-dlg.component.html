@@ -1,14 +1,14 @@
 <form [formGroup]="form" *ngIf="!pending; else spinner">
 	<dialog-app>
-		<dialog-header-app i18n="@@invite-user">Invite a user</dialog-header-app>
+		<dialog-header-app translate="label.invite-user"></dialog-header-app>
 
 		<form-field-app>
-			<label-app class="capitalize" i18n="@@email">email</label-app>
+			<label-app class="capitalize" translate="label.email"></label-app>
 			<input type="text" autofocus inputApp formControlName="email" (keyup.enter)="submit()"/>
 		</form-field-app>
 
 		<dialog-footer-app class="fullWidth flexCenter flexBetween">
-			<button [disabled]="!form.valid" class="small capitalize" type="button" (click)="submit()" i18n="button@@invite">invite</button>
+			<button [disabled]="!form.valid" class="small capitalize" type="button" (click)="submit()" translate="button.invite"></button>
 		</dialog-footer-app>
 	</dialog-app>
 </form>

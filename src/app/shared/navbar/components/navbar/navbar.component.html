@@ -11,6 +11,6 @@
 		badgePosition="center"
 		badgeColor="primary"
 		[badge]="(tab?.number$ | async) > 0 ? (tab?.number$ | async) : null">
-		{{ tab.name }}
+		{{ 'nav.' + tab.name | translate }}
 	</span>
 </div>
