@@ -1,21 +1,21 @@
-<!-- since the supplier is the only one with logo if we want the hasTop = false, we still have to display the logo -->
-<div *ngIf="hasTop || entityMD === erm.SUPPLIER" class="top-section flexBetween">
+<!-- since the supplier is the only one with logo if we want the displayEntityInfo = false, we still have to display the logo -->
+<div *ngIf="displayEntityInfo || logoImage" class="top-section flexBetween">
 	<div class="left flex">
 		<preview-logo-app
-			*ngIf="entityMD === erm.SUPPLIER"
+			*ngIf="logoImage"
+			[ngClass]="{ 'mg-bottom': (logoImage && !displayEntityInfo ) }"
 			[image]="logoImage"
 			[supplier]="supplier"
-			(updateLogo)="updateLogo.emit($event)"
-			[ngClass]="{ 'mg-bottom': (entityMD === erm.SUPPLIER && !hasTop ) }">
+			(updateLogo)="updateLogo.emit($event)">
 		</preview-logo-app>
-		<ng-container *ngIf="hasTop">
-			<icon-app [name]="entityMD?.singular || 'product'"></icon-app>
+		<ng-container *ngIf="displayEntityInfo">
+			<icon-app [name]="entityMD?.singular"></icon-app>
 			<span>{{ entityMD?.singular }}</span>
 		</ng-container>
 	</div>
 	<div class="right">
 		<status-selector-app
-			*ngIf="entityMD && hasTop"
+			*ngIf="entityMD && displayEntityInfo"
 			[entity]="entity"
 			[typeEntity]="entityMD"
 			[offsetX]="-15"
@@ -26,15 +26,19 @@
 
 <!-- Title name -->
 <editable-text-app
-	class="{{ hasTop ? '' : 'noPaddingTop' }}"
 	#edt
+	class="{{ displayEntityInfo ? '' : 'noPaddingTop' }}"
 	(closed)="updateEntity($event, inpName.value)"
 	(opened)="inpName.select()">
 	<editable-label-app class="ellipsis">
 		{{ entity?.name || '-' }}
 	</editable-label-app>
-	<input inputApp type="text" #inpName [value]="entity?.name"
-		(keyup.enter)="edt.close()">
+	<input
+		inputApp
+		#inpName
+		type="text"
+		[value]="entity?.name"
+		(keyup.enter)="edt.close()"/>
 </editable-text-app>
 
 <div>
@@ -43,4 +47,8 @@
 
 <div>
 	<ng-content select="preview-badge-app"></ng-content>
+</div>
+
+<div>
+	<ng-content select="preview-section-app"></ng-content>
 </div>

@@ -1,7 +1,10 @@
+:host {
+	display: flex;
+}
+
 .action-button-container {
 	display: inline-table;
-	margin: var(--spacing-ms) var(--spacing-m);
-	margin-top: 0;
+	margin: 0 var(--spacing-m);
 
 	.round-button {
     display: inline-grid;
