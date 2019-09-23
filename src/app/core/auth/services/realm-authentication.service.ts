@@ -14,24 +14,33 @@ const REALM_USER = 'REALM_USER';
 })
 export class RealmAuthenticationService {
 
+	private _realmUser$ = new ReplaySubject(1);
+	realmUser$: Observable<RealmUser>;
 	realmUser: RealmUser;
 
 	constructor(
-		private localStorage: LocalStorageService
+		private localStorage: LocalStorageService,
+		private authSrv: AuthenticationService
 	) { }
 
 	init() {
-
+		this.authSrv.authenticated$.subscribe(jwt => this.getRealmUser(jwt));
+		this.authSrv.notAuthenticated$.subscribe(_ => this.clearUser());
 	}
 
-	async getRealmUser(jwt: string) {
-		this.realmUser = this.localStorage.getItem(REALM_USER);
-		if (!this.realmUser) {
+	private async getRealmUser(jwt: string) {
+		let realmUser: RealmUser = this.localStorage.getItem(REALM_USER);
+		if (!realmUser) {
 			const credentials = RealmCredentials.jwt(jwt);
-			this.realmUser = await RealmUser.authenticate(credentials, environment.graphqlAuthUrl);
-			this.localStorage.setItem(REALM_USER, this.realmUser);
+			realmUser = await RealmUser.authenticate(credentials, environment.graphqlAuthUrl);
+			this.localStorage.setItem(REALM_USER, realmUser);
 		}
-		return this.realmUser;
+		this.realmUser = realmUser;
+		this._realmUser$.next(realmUser);
+	}
+
+	clearUser() {
+		this.localStorage.remove(REALM_USER);
 	}
 
 }

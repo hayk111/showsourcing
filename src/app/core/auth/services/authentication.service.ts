@@ -170,7 +170,9 @@ export class AuthenticationService {
 	}
 
 	private clearStorage() {
-		this.localStorage.clear();
+		this.localStorage.remove(STORAGE_EMAIL);
+		this.localStorage.remove(AUTH_TOKEN);
+		this.localStorage.remove(FEED_TOKEN);
 	}
 
 	private getAnonymousToken() {

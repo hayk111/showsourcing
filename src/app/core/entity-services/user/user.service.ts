@@ -8,6 +8,7 @@ import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
 import { UserQueries } from '~entity-services/user/user.queries';
 import { GlobalService } from '~entity-services/_global/global.service';
 import { User } from '~models';
+import { RealmAuthenticationService } from '~core/auth/services/realm-authentication.service';
 
 @Injectable({
 	providedIn: 'root',
@@ -28,13 +29,15 @@ export class UserService extends GlobalService<User> {
 	constructor(
 		protected apolloState: ApolloStateService,
 		protected analyticsSrv: AnalyticsService,
-		protected http: HttpClient
+		protected http: HttpClient,
+		protected realmAuthSrv: RealmAuthenticationService
 	) {
 		super(apolloState, UserQueries, 'user', 'users');
 		this.user$.subscribe(user => {
 			this.userSync = user;
 			this.analyticsSrv.setupUser(user);
 		});
+		this.realmAuthSrv.realmUser$.subscribe(realmUser => this.userId$.next(realmUser.identity));
 	}
 
 	onUserIdChanged(userId: string) {

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject, combineLatest, forkJoin, Observable, of } from 'rxjs';
-import { distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
+import { distinctUntilChanged, switchMap, tap, filter } from 'rxjs/operators';
 import { AnalyticsService } from '~core/analytics/analytics.service';
 import { ApolloStateService, ClientStatus, TeamClientInitializer, UserClientInitializer } from '~core/apollo/services';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
@@ -32,12 +32,12 @@ export class AppComponent implements OnInit {
 		private globalRequestClient: GlobalRequestClientsInitializer,
 		private teamClient: TeamClientInitializer,
 		private teamSrv: TeamService,
-		private userClient: UserClientInitializer,
-		private userSrv: UserService
+		private userClient: UserClientInitializer
 	) { }
 
 	ngOnInit(): void {
 		this.authSrv.init();
+		this.realmAuthSrv.init();
 		this.teamSrv.init();
 		this.companySrv.init();
 		this.analytics.init();
@@ -51,13 +51,9 @@ export class AppComponent implements OnInit {
 			(hasTeam, teamClientStatus) => hasTeam && teamClientStatus === ClientStatus.PENDING
 		).subscribe(show => this.isSpinnerShown$.next(show));
 
-		// when a authenticated & realm user is found we start the required clients
-		this.authSrv.authenticated$.pipe(
-			// TODO: consider subscribing in the realm auth srv to authenticated
-			// and using a realmUser$ observable here instead and in userSrv
-			// subscribing to that realmUser$
-			switchMap(jwt => this.realmAuthSrv.getRealmUser(jwt)),
-			tap(realmUser => this.userSrv.onUserIdChanged(realmUser.identity)),
+		// when a realm user is found we start the required clients
+		this.realmAuthSrv.realmUser$.pipe(
+			filter(user => !!user),
 			switchMap(_ => this.startBaseClients()),
 		).subscribe();
 
