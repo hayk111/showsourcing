@@ -78,14 +78,13 @@
 
 	<div class="flex">
 		<status-selector-app
-			toolTip toolTipMessage="Change status" toolTipPosition="above-right"
+			toolTip [toolTipMessage]="'message.change-status' | translate" toolTipPosition="above-right"
 			#workActionMenu
 			selectSize="s"
 			[typeEntity]="erm.SUPPLIER"
 			type="multiple-selection"
 			[internalUpdate]="false"
-			(statusUpdated)="this.listSrv.updateSelected({status: $event})"
-			i18n-toolTipMessage="@@change-status">
+			(statusUpdated)="this.listSrv.updateSelected({status: $event})">
 		</status-selector-app>
 		<action-bar-app
 			[favorite]="listSrv.allSelectedFavorite"

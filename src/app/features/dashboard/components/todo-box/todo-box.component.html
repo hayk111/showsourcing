@@ -11,15 +11,25 @@
 				<logo-app class="navbar-badge" [type]="entity" size="l"></logo-app>
 
 				<div class="right">
-					<h1>{{ todoCount[entity] }} {{ entity }}s</h1>
-					<h4>Assigned to you</h4>
-					<a>View</a>
+					<h1>
+						{{ 
+							'OBJ.n-OBJ' | translate: {
+								count: todoCount[entity], 
+								field: (todoCount[entity] > 1 ?  'ERM.' + entity.toUpperCase() + '.plural' :  'ERM.' + entity.toUpperCase() + '.singular') | translate
+							} 
+						}}
+					</h1>
+					<h4>{{ 'label.assigned-to-you' | translate }}</h4>
+					<a>{{ 'button.view' | translate }}</a>
 				</div>
 
 			</div>
 		</div>
 	</card-header-app>
-	<card-title-app> {{ selectedEntity }}s Assigned to you </card-title-app>
+	<card-title-app> 
+		{{ ((todoCount[selectedEntity] || 0) > 1 ? 'ERM.' + selectedEntity.toUpperCase() + '.plural' : 'ERM.' + selectedEntity.toUpperCase() + '.singular') | translate }} 
+		{{ 'label.assigned-to-you' | translate }}
+	</card-title-app>
 	<card-title-badge-app>{{ todoCount[selectedEntity] }}</card-title-badge-app>
 
 	<div  *ngIf="(rows$ | async) as rows" >
@@ -49,7 +59,7 @@
 	</div>
 
 	<card-footer-app>
-		<a class="view-all" [routerLink]="['/'+route]">View All</a>
+		<a class="view-all" [routerLink]="['/'+route]">{{'nav.view-all' | translate}}</a>
 	</card-footer-app>
 </card-app>
 
@@ -82,12 +92,12 @@
 			</logo-app>
 		</ng-container>
 
-		<h1>No {{ selectedEntity }} assigned to you</h1>
-		<span>Create a {{ selectedEntity }} or assign yourself an existing one</span>
+		<h1>{{ 'OBJ.no-OBJ-assigned-to-you' | translate: {field: 'ERM.' + selectedEntity + '.singular' | translate} }}</h1>
+		<span>{{ 'OBJ.create-a-field-or-assign' | translate: {field: 'ERM.' + selectedEntity + '.singular' | translate} }}</span>
 
 		<div class="button-group">
-			<button (click)="openCreationModal()">Create {{ selectedEntity }}</button>
-			<button (click)="dashboardSrv.redirect(route)">View {{ selectedEntity }}s</button>
+			<button (click)="openCreationModal()">{{ 'OBJ.create-OBJ' | translate: {field: 'ERM.' + selectedEntity + '.singular' | translate} }}</button>
+			<button (click)="dashboardSrv.redirect(route)">{{ 'OBJ.view-OBJ' | translate: {field: 'ERM.' + selectedEntity + '.plural' | translate} }}</button>
 		</div>
 	</div>
 </ng-template>

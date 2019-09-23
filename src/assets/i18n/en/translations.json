@@ -215,14 +215,16 @@
       "singular": "and {{ count }} other"
     },
     "assigned-target": "assigned you a {{ target }}",
-    "comment-on-target": {
-      "plural": "have commented on the {{ target }}",
-      "singular": "has commented on the {{ target }}"
-    },
     "comment": {
       "plural": "comments",
       "singular": "comment"
     },
+    "comment-on-target": {
+      "plural": "have commented on the {{ target }}",
+      "singular": "has commented on the {{ target }}"
+    },
+    "create-OBJ": "create {{ field }}",
+    "create-a-field-or-assign": "create a {{ field }} or assign yourself an existing one",
     "created-by-name": "created by {{ firstName }} {{ lastName }}",
     "created-by-on": "Created by {{ name }} on {{ date }}",
     "date-at-time": "{{ date }} at {{ time }}",
@@ -252,13 +254,13 @@
       "plural": "{{count}} elements",
       "singular": "{{count}} element"
     },
-    "n-item-selected": {
-      "plural": "{{ count }} items selected",
-      "singular": "{{ count }} item selected"
-    },
     "n-item": {
       "plural": "{{ count }} items",
       "singular": "{{ count }} item"
+    },
+    "n-item-selected": {
+      "plural": "{{ count }} items selected",
+      "singular": "{{ count }} item selected"
     },
     "n-product": "{{ count }} products",
     "n-product-selected": {
@@ -275,6 +277,7 @@
     },
     "new-OBJ": "New {{ field }}",
     "new-OBJ-name": "New {{ field }} name",
+    "no-OBJ-assigned-to-you": "No {{ field }} assigned to you",
     "no-item-add-one": "There's no {{ field }} yet, add one!",
     "product-in-progress": {
       "plural": "products in progress",
@@ -284,13 +287,13 @@
       "plural": "products need review",
       "singular": "product needs review"
     },
-    "product-selected-feedback": {
-      "plural": "{{ count }} products selected for feedback",
-      "singular": "{{ count }} product selected for feedback"
-    },
     "product-selected": {
       "plural": "{{ count }} products selected",
       "singular": "{{ count }} product selected"
+    },
+    "product-selected-feedback": {
+      "plural": "{{ count }} products selected for feedback",
+      "singular": "{{ count }} product selected for feedback"
     },
     "provide-name-create": "Please provide the {{ field }} name to create",
     "provide-new-name": "Please provide the new {{ field }} name for {{ entityName }}",
@@ -304,6 +307,7 @@
     },
     "show-pagination": "Showing {{fromNumber}} - {{toNumber}} of {{count}}",
     "that-already-exists": "That {{ field }} name already exists. Please choose another one.",
+    "view-OBJ": "view {{field}}",
     "your-OBJ-been-sent": "Your {{ actionName }} has been sent!"
   },
   "button": {
@@ -439,6 +443,7 @@
     "update": "Update",
     "update-products": "update products",
     "upload-picture": "Upload Picture",
+    "view": "view",
     "view-all": "View All",
     "view-all-products": "View All Products",
     "view-more": "View more",
@@ -612,6 +617,7 @@
     "address": "Address",
     "assigned-to": "Assigned to",
     "assigned-to-me": "Assigned to me",
+    "assigned-to-you": "assigned to you",
     "attachments": "Attachments",
     "beta": "Beta",
     "boards": "boards",
@@ -679,6 +685,7 @@
     "unit": "Unit",
     "units": "Units",
     "unnamed-product": "Unnamed product",
+    "view": "view",
     "weight": "Weight",
     "width": "Width"
   },
@@ -743,6 +750,8 @@
   },
   "nav": {
     "activity": "activity",
+    "categories": "categories",
+    "event": "event",
     "home": "home",
     "my-samples": "My Samples",
     "my-tasks": "My Tasks",
@@ -752,10 +761,14 @@
     "request": "request",
     "requests": "requests",
     "samples": "samples",
+    "settings": "settings",
     "shipping": "shipping",
     "supplier-requests": "supplier requests",
     "suppliers": "suppliers",
+    "tags": "tags",
     "tasks": "tasks",
+    "team-members": "team members",
+    "view-all": "view all",
     "workspace": "workspace"
   },
   "paragraph": {
@@ -838,6 +851,7 @@
     }
   },
   "select-assignee": "Select assignee",
+  "settings": "settings",
   "text": {
     "_Done": "Done",
     "_GetQuotation": "Get Quotation",
@@ -1094,6 +1108,7 @@
     "new-product": "new product",
     "no-noti-yet": "No notifications yet!",
     "notifications": "Notifications",
+    "null": " ",
     "owner": "owner",
     "price": "price",
     "product": "product",

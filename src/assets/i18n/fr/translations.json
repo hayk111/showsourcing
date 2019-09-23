@@ -215,14 +215,16 @@
       "singular": "et {{count}} other"
     },
     "assigned-target": "vous a attribué un {{target}}",
-    "comment-on-target": {
-      "plural": "ont commenté la {{ target }}",
-      "singular": "a commenté le {{target}"
-    },
     "comment": {
       "plural": "commentaires",
       "singular": "commentaire"
     },
+    "comment-on-target": {
+      "plural": "ont commenté la {{ target }}",
+      "singular": "a commenté le {{target}"
+    },
+    "create-OBJ": "créer {{field}}",
+    "create-a-field-or-assign": "créez un {{field}} ou attribuez-vous un existant",
     "created-by-name": "créé par {{ firstName }} {{ lastName }}",
     "created-by-on": "Créé par {{name}} le {{date}}",
     "date-at-time": "{{date}} à {{time}}",
@@ -252,13 +254,13 @@
       "plural": "{{count}} éléments",
       "singular": "{{count}} élément"
     },
-    "n-item-selected": {
-      "plural": "{{count}} éléments sélectionnés",
-      "singular": "{{count}} item sélectionné"
-    },
     "n-item": {
       "plural": "{{count}} éléments",
       "singular": "{{count}} élément"
+    },
+    "n-item-selected": {
+      "plural": "{{count}} éléments sélectionnés",
+      "singular": "{{count}} item sélectionné"
     },
     "n-product": "{{ count }} produits",
     "n-product-selected": {
@@ -275,6 +277,7 @@
     },
     "new-OBJ": "Nouveau {{ field }}",
     "new-OBJ-name": "Nouveau nom de {{field}} ",
+    "no-OBJ-assigned-to-you": "Aucun {{field}} ne vous a été attribué",
     "no-item-add-one": "Il n'y a pas encore de {{field}}, ajoutez-en un!",
     "product-in-progress": {
       "plural": "produits en cours",
@@ -284,13 +287,13 @@
       "plural": "produits à revoir",
       "singular": "produit  à revoir"
     },
-    "product-selected-feedback": {
-      "plural": "{{count}} produits sélectionnés pour le feedback",
-      "singular": "{{count}} produit sélectionné pour le feedback"
-    },
     "product-selected": {
       "plural": "{{count}} produits sélectionnés",
       "singular": "{{count}} produit sélectionné"
+    },
+    "product-selected-feedback": {
+      "plural": "{{count}} produits sélectionnés pour le feedback",
+      "singular": "{{count}} produit sélectionné pour le feedback"
     },
     "provide-name-create": "Veuillez indiquer le {{field}} nom à créer.",
     "provide-new-name": "Veuillez fournir le nouveau {{field}} nom pour {{entityName}}",
@@ -304,6 +307,7 @@
     },
     "show-pagination": "Affichage de {{fromNumber}} - {{toNumber}} de {{count}}",
     "that-already-exists": "Ce nom {{field}} existe déjà. Veuillez en choisir un autre.",
+    "view-OBJ": "voir {{field}}",
     "your-OBJ-been-sent": "Votre {{actionName}} a été envoyé!"
   },
   "button": {
@@ -439,6 +443,7 @@
     "update": "Mettre à jour",
     "update-products": "mettre à jour les produits",
     "upload-picture": "Charger une photo",
+    "view": "vue",
     "view-all": "Voir tout",
     "view-all-products": "Voir tous les produits",
     "view-more": "Afficher plus",
@@ -612,6 +617,7 @@
     "address": "Adresse",
     "assigned-to": "Assigné à",
     "assigned-to-me": "Assigné à moi",
+    "assigned-to-you": "assigné à vous",
     "attachments": "Les pièces jointes",
     "beta": "Bêta",
     "boards": "planches",
@@ -679,6 +685,7 @@
     "unit": "Unité",
     "units": "Unités",
     "unnamed-product": "Produit sans nom",
+    "view": "vue",
     "weight": "Poids",
     "width": "Largeur"
   },
@@ -743,6 +750,8 @@
   },
   "nav": {
     "activity": "activité",
+    "categories": "catégories",
+    "event": "un événement",
     "home": "page d'accueil",
     "my-samples": "Mes échantillons",
     "my-tasks": "Mes tâches",
@@ -752,10 +761,14 @@
     "request": "demande",
     "requests": "demandes",
     "samples": "des échantillons",
+    "settings": "paramètres",
     "shipping": "livraison",
     "supplier-requests": "demandes de fournisseurs",
     "suppliers": "fournisseurs",
+    "tags": "Mots clés",
     "tasks": "les tâches",
+    "team-members": "membres de l'équipe",
+    "view-all": "Voir tout",
     "workspace": "espace de travail"
   },
   "paragraph": {
@@ -838,6 +851,7 @@
     }
   },
   "select-assignee": "Sélectionner un cessionnaire",
+  "settings": "paramètres",
   "text": {
     "_Done": "Terminé",
     "_GetQuotation": "Obtenir une cotation",
@@ -1094,6 +1108,7 @@
     "new-product": "nouveau produit",
     "no-noti-yet": "Aucune notification pour le moment!",
     "notifications": "Les notifications",
+    "null": " ",
     "owner": "propriétaire",
     "price": "prix",
     "product": "produit",

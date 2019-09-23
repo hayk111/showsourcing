@@ -15,13 +15,13 @@
 		<panel-tab-app
 			[link]="getTabPanelUrl('products')"
 			icon="product"
-			name="Products">
+			[name]="'nav.products' | translate">
 		</panel-tab-app>
 
 		<panel-tab-app
 			[link]="getTabPanelUrl('settings')"
 			icon="settings"
-			name="Settings">
+			[name]="'nav.settings' | translate">
 		</panel-tab-app>
 
 		<div class="flex right-items" action>

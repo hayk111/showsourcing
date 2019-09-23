@@ -1,8 +1,7 @@
 <ng-container *ngIf="project$ | async as project; else spinner">
 	<top-panel-details-app
 		[elevated]="false"
-		[title]="project?.name"
-		i18n-title="@@my-products">
+		[title]="project?.name">
 
 		<logo-app color="primary" type="project" size="xl"></logo-app>
 		<ng-container subinfo>
@@ -13,13 +12,13 @@
 		<panel-tab-app
 			[link]="getTabPanelUrl('products')"
 			icon="product"
-			name="Products">
+			[name]="'nav.products' | translate">
 		</panel-tab-app>
 
 		<panel-tab-app
 			[link]="getTabPanelUrl('settings')"
 			icon="settings"
-			name="Settings">
+			[name]="'nav.settings' | translate">
 		</panel-tab-app>
 
 		<div class="flex right-items" action>
