@@ -21,12 +21,12 @@ export class InvitationFeatureService extends InvitationUserService {
 		return this.http.get<InvitationUser>(`api/invitation/${id}`);
 	}
 
-	acceptInvitation(invitation: InvitationUser) {
-		return this.changeStatusInvitation(invitation.id, 'accept');
+	acceptInvitation(invitationId: string) {
+		return this.changeStatusInvitation(invitationId, 'accept');
 	}
 
-	refuseInvitation(invitation: InvitationUser) {
-		return this.changeStatusInvitation(invitation.id, 'reject');
+	refuseInvitation(invitationId: string) {
+		return this.changeStatusInvitation(invitationId, 'reject');
 	}
 
 	private changeStatusInvitation(invitationId: string, status: 'accept' | 'reject') {

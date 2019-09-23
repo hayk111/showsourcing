@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
-import { filter, map, tap, switchMap, delay } from 'rxjs/operators';
+import { delay, filter, map, switchMap, tap } from 'rxjs/operators';
 import { ApolloStateService, ClientStatus } from '~core/apollo';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
+import { RealmAuthenticationService } from '~core/auth/services/realm-authentication.service';
 import { log, LogColor } from '~utils';
-import { AuthenticationService } from '~core/auth/services/authentication.service';
 
 
 export abstract class ClientReadyGuard implements CanActivate, CanActivateChild {
@@ -14,12 +14,13 @@ export abstract class ClientReadyGuard implements CanActivate, CanActivateChild 
 		protected router: Router,
 		protected apolloState: ApolloStateService,
 		protected client: Client,
-		protected authSrv: AuthenticationService
+		protected realmAuthSrv: RealmAuthenticationService
 	) { }
 
 	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
 
-		return this.authSrv.isAuthenticated$.pipe(
+		return this.realmAuthSrv.realmUser$.pipe(
+			filter(user => !!user),
 			delay(100),
 			switchMap(_ => this.apolloState.getClientStatus(this.client)),
 			tap(status => log.debug(`%c ClientsReadyGuard, client: ${this.client}, state: ${status}`, LogColor.GUARD)),
@@ -59,9 +60,9 @@ export class GlobalDataClientReadyGuard extends ClientReadyGuard {
 	constructor(
 		protected router: Router,
 		protected apolloState: ApolloStateService,
-		protected authSrv: AuthenticationService
+		protected realmAuthSrv: RealmAuthenticationService
 	) {
-		super(router, apolloState, Client.GLOBAL_DATA, authSrv);
+		super(router, apolloState, Client.GLOBAL_DATA, realmAuthSrv);
 	}
 }
 
@@ -72,9 +73,9 @@ export class GlobalConstClientReadyGuard extends ClientReadyGuard {
 	constructor(
 		protected router: Router,
 		protected apolloState: ApolloStateService,
-		protected authSrv: AuthenticationService
+		protected realmAuthSrv: RealmAuthenticationService
 	) {
-		super(router, apolloState, Client.GLOBAL_CONSTANT, authSrv);
+		super(router, apolloState, Client.GLOBAL_CONSTANT, realmAuthSrv);
 	}
 }
 
@@ -85,9 +86,9 @@ export class AllUserClientReadyGuard extends ClientReadyGuard {
 	constructor(
 		protected router: Router,
 		protected apolloState: ApolloStateService,
-		protected authSrv: AuthenticationService
+		protected realmAuthSrv: RealmAuthenticationService
 	) {
-		super(router, apolloState, Client.ALL_USER, authSrv);
+		super(router, apolloState, Client.ALL_USER, realmAuthSrv);
 	}
 }
 
@@ -98,9 +99,9 @@ export class UserClientReadyGuard extends ClientReadyGuard {
 	constructor(
 		protected router: Router,
 		protected apolloState: ApolloStateService,
-		protected authSrv: AuthenticationService
+		protected realmAuthSrv: RealmAuthenticationService
 	) {
-		super(router, apolloState, Client.USER, authSrv);
+		super(router, apolloState, Client.USER, realmAuthSrv);
 	}
 }
 
@@ -111,9 +112,9 @@ export class TeamClientReadyGuard extends ClientReadyGuard {
 	constructor(
 		protected router: Router,
 		protected apolloState: ApolloStateService,
-		protected authSrv: AuthenticationService
+		protected realmAuthSrv: RealmAuthenticationService
 	) {
-		super(router, apolloState, Client.TEAM, authSrv);
+		super(router, apolloState, Client.TEAM, realmAuthSrv);
 	}
 
 	protected redirectOnError(status: ClientStatus, route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
@@ -138,8 +139,8 @@ export class GlobalRequestClientReadyGuard extends ClientReadyGuard {
 	constructor(
 		protected router: Router,
 		protected apolloState: ApolloStateService,
-		protected authSrv: AuthenticationService
+		protected realmAuthSrv: RealmAuthenticationService
 	) {
-		super(router, apolloState, Client.GLOBAL_REQUEST, authSrv);
+		super(router, apolloState, Client.GLOBAL_REQUEST, realmAuthSrv);
 	}
 }

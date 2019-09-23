@@ -6,12 +6,13 @@ import { PreloadAllModules, RouterModule } from '@angular/router';
 import { Angulartics2Module } from 'angulartics2';
 import { CommonModalsModule } from '~common/modals';
 import { AppApolloModule } from '~core/apollo';
+import { ApiInterceptor } from '~core/interceptors/api.interceptor';
 import { SharedModule } from '~shared/shared.module';
-
 import { TemplateModule } from '../core/template';
 import { AppComponent } from './app.component';
 import { routes } from './routes';
-import { ApiInterceptor } from '~core/interceptors/api.interceptor';
+import { environment } from 'environments/environment';
+
 
 @NgModule({
 	declarations: [
@@ -27,7 +28,7 @@ import { ApiInterceptor } from '~core/interceptors/api.interceptor';
 		CommonModalsModule,
 		RouterModule.forRoot(routes, {
 			preloadingStrategy: PreloadAllModules,
-			// enableTracing: !environment.production
+			enableTracing: !environment.production
 		}),
 		Angulartics2Module.forRoot({
 			pageTracking: {

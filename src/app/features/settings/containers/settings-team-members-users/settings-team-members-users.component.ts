@@ -25,7 +25,6 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub implements OnIn
 		private featureSrv: SettingsMembersService,
 		public listSrv: ListPageService<TeamUser, SettingsMembersService>,
 		public commonModalSrv: CommonModalService,
-		private userSrv: UserService
 	) {
 		super();
 	}
@@ -60,7 +59,7 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub implements OnIn
 		this.commonModalSrv.openInvitationDialog();
 	}
 
-	updateAccessType({accessType, userId }: {accessType: string, userId: string}) {
+	updateAccessType({ accessType, userId }: { accessType: string, userId: string }) {
 		this.featureSrv.updateAccessType(accessType, userId).pipe(
 				switchMap(_ => this.listSrv.refetch())
 			).subscribe(_ => this.listSrv.selectionSrv.unselectAll());

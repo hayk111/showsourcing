@@ -25,6 +25,7 @@ export class TeamUserService extends GlobalService<TeamUser> {
 
 	update(teamUser: TeamUser) {
 		const teamId = this.teamSrv.selectedTeamSync.id;
+		debugger;
 		return this.http.patch<TeamUser>(`api/team/${teamId}/user/${teamUser.user.id}/team-role`, teamUser);
 	}
 

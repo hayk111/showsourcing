@@ -61,12 +61,12 @@
 				<div class="selector"><icon-app name="angle-down"></icon-app></div>
 			</context-menu-trigger-app>
 			<context-menu-item-app
-				(click)="accessTypeUpdated.emit({ userId: row.id, accessType: 'TeamMember' })"
+				(click)="accessTypeUpdated.emit({ userId: row.user.id, accessType: 'TeamMember' })"
 				i18n="button@@team-member">
 				Team Member
 			</context-menu-item-app>
 			<context-menu-item-app
-				(click)="accessTypeUpdated.emit({ userId: row.id, accessType: 'Contributor' })"
+				(click)="accessTypeUpdated.emit({ userId: row.user.id, accessType: 'Contributor' })"
 				i18n="@@contributor">
 				contributor
 			</context-menu-item-app>

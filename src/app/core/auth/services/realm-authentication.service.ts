@@ -4,6 +4,7 @@ import { Credentials as RealmCredentials, User as RealmUser } from 'realm-graphq
 import { LocalStorageService } from '~core/local-storage';
 import { Observable, ReplaySubject } from 'rxjs';
 import { AuthenticationService } from './authentication.service';
+import { showsourcing } from '~utils/debug-object.utils';
 
 
 const REALM_USER = 'REALM_USER';
@@ -21,11 +22,14 @@ export class RealmAuthenticationService {
 	constructor(
 		private localStorage: LocalStorageService,
 		private authSrv: AuthenticationService
-	) { }
+	) {
+		showsourcing.realm = {};
+	}
 
 	init() {
 		this.authSrv.authenticated$.subscribe(jwt => this.getRealmUser(jwt));
 		this.authSrv.notAuthenticated$.subscribe(_ => this.clearUser());
+		this.realmUser$.subscribe(realmUser => showsourcing.realm.realmUser = realmUser);
 	}
 
 	private async getRealmUser(jwt: string) {
@@ -41,6 +45,8 @@ export class RealmAuthenticationService {
 
 	clearUser() {
 		this.localStorage.remove(REALM_USER);
+		this._realmUser$.next(undefined);
+		this.realmUser = undefined;
 	}
 
 }

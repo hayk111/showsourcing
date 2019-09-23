@@ -40,7 +40,9 @@ export class UserService extends GlobalService<User> {
 			this.userSync = user;
 			this.analyticsSrv.setupUser(user);
 		});
-		this.realmAuthSrv.realmUser$.subscribe(realmUser => this.userId$.next(realmUser.identity));
+		this.realmAuthSrv.realmUser$.pipe(
+			filter(realmUser => !!realmUser)
+		).subscribe(realmUser => this.userId$.next(realmUser.identity));
 	}
 
 	onUserIdChanged(userId: string) {

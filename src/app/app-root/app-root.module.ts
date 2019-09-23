@@ -36,7 +36,7 @@ import { TokenInterceptor } from '~core/interceptors/token.interceptor';
 		RouterModule.forRoot(routes, {
 			scrollPositionRestoration: 'top',
 			preloadingStrategy: PreloadAllModules,
-			// enableTracing: true
+			enableTracing: true
 		}),
 		Angulartics2Module.forRoot({
 			pageTracking: {

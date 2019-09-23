@@ -7,6 +7,7 @@ import { catchError, filter, first, map, shareReplay, switchMap, tap } from 'rxj
 import { AuthStatus, Credentials } from '~core/auth/interfaces';
 import { TokenState } from '~core/auth/interfaces/token-state.interface';
 import { LocalStorageService } from '~core/local-storage';
+import { showsourcing } from '~utils/debug-object.utils';
 
 const STORAGE_EMAIL = 'EMAIL';
 const FEED_TOKEN = 'feed-token';
@@ -48,7 +49,12 @@ export class AuthenticationService {
 		private router: Router,
 		private http: HttpClient,
 		private localStorage: LocalStorageService
-	) { }
+	) {
+		showsourcing.auth = { jwt: undefined, status: undefined };
+		this.authStatus$.subscribe(status => showsourcing.auth.status = status);
+		this.authenticated$.subscribe(jwt => showsourcing.auth.jwt = jwt);
+		this.notAuthenticated$.subscribe(_ => this.clearStorage());
+	}
 
 	init() {
 		// 1. if there is an anonymous auth token present in the url, we login the user with said url
@@ -64,13 +70,13 @@ export class AuthenticationService {
 		if (anonymousToken) {
 			// 1. check anonymous
 			this.login({ token: anonymousToken }).subscribe();
-		} else if (!email || (email === this.localStorage.getString(STORAGE_EMAIL))) {
+		} else if (this.authToken && (!email || (email === this.localStorage.getString(STORAGE_EMAIL)))) {
 			// 2. check auth token
-			if (this.authToken) {
-				// we consider the user authenticated,
-				// since the token is going to be refreshed
-				this._authState$.next(AuthStatus.AUTHENTICATED);
-			}
+			// we consider the user authenticated,
+			// since the token is going to be refreshed
+			this._authState$.next(AuthStatus.AUTHENTICATED);
+		} else {
+			this._authState$.next(AuthStatus.NOT_AUTHENTICATED);
 		}
 	}
 
@@ -88,6 +94,7 @@ export class AuthenticationService {
 			tap(resp => this.storeAuthToken(resp.jwtToken)),
 			tap(resp => this.storeFeedToken(resp.jwtTokenFeed)),
 			tap(resp => this._authState$.next(AuthStatus.AUTHENTICATED)),
+			tap(_ => this.router.navigate([''])),
 			first()
 		);
 	}
