@@ -4,6 +4,11 @@
 	height: 100%;
 }
 
+sub-panel-app, top-panel-app {
+	transform: scale(1);
+  transition: 0.35s all ease;
+}
+
 supplier-list-view-app {
 	margin: 13px 114px 32px 98px;
 	padding: var(--spacing-l);

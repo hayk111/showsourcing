@@ -53,7 +53,7 @@
 .type {
   font-size: var(--font-size-m);
   font-weight: 600;
-  color: var(--color-accent-contrast);
+  color: var(--color-accent-dark);
 }
 
 .ref-ctnr {
@@ -70,7 +70,7 @@
 .supplier-name-ref {
   height: 15px;
 	font-size: var(--font-size-s);
-  color: var(--color-txt-secondary);	
+  color: var(--color-txt-secondary);
 }
 
 .country {
@@ -90,6 +90,12 @@
 	font-size: var(--font-size-m);
 }
 
+.status-col {
+	status-selector-app {
+		margin-left: var(--spacing-ms);
+	}
+}
+
 logo-app {
 	margin-right: var(--spacing-s);
 	flex-shrink: 0;
@@ -97,6 +103,7 @@ logo-app {
 
 user-picture-app {
 	font-size: var(--font-size-xs);
+	margin-right: 0 !important;
 }
 
 .overflow-hidden {

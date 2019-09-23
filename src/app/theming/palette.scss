@@ -1,9 +1,6 @@
 
 :root{
 
-	--color-bg: rgb(255, 255, 255);
-	--color-bg-secondary: rgb(230, 235, 245);
-
 	--color-primary: rgb(69, 173, 255);
 	--color-primary-dark: rgb(64, 161, 235);
 	--color-primary-light: rgb(236, 246, 255);
@@ -135,6 +132,10 @@ $colors: (
 
 .color-supplier {
 	color: var(--color-supplier);
+}
+
+.color-accent {
+	color: var(--color-accent);
 }
 
 /** text */

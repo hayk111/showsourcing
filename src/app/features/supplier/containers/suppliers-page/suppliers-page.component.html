@@ -1,11 +1,13 @@
 <top-panel-app
+	[class.top-panel-margin-board]="listSrv.view === 'board'"
 	[title]="'My suppliers'"
-	buttonName="Add Supplier"
+	buttonName="Create Supplier"
 	(buttonClick)="listSrv.create()"
-	i18-title="@@my-suppliers">
+	i18-title="@@create-suppliers">
 </top-panel-app>
 
 <sub-panel-app
+	[class.sub-menu-padding-board]="listSrv.view === 'board'"
 	[hasSwitch]="true"
 	[hasFilter]="true"
 	[hasThumb]="false"
@@ -16,7 +18,7 @@
 	[filtersAmount]="listSrv.getFilterAmount([{ type: filterType.ARCHIVED, value: false }, { type: filterType.DELETED, value: false }])"
 	[searchValue]="listSrv.searchValue"
 	(showFilters)="listSrv.openFilterPanel()"
-	(clearFilters)="listSrv.filterList.resetAll();"
+	(clearFilters)="onClearFilters()"
 	(showArchived)="listSrv.filterByArchived(true)"
 	(hideArchived)="listSrv.filterByArchived(false)"
 	(showAssigned)="listSrv.filterByAssignee(true)"
@@ -31,6 +33,7 @@
 		#supplierList
 		*ngIf="listSrv.view === 'list'"
 		[rows]="listSrv.items$ | async"
+		[currentSort]="listSrv.currentSort"
 		[selection]="listSrv.selection$ | async"
 		[pending]="listSrv.pending"
 		[count]="listSrv.count$ | async"
@@ -95,10 +98,11 @@
 	</supplier-preview-app>
 
 	<filters-app
+		*ngIf="listSrv.filterPanelOpen"
 		[filterList]="listSrv.filterList"
 		[filterTypes]="filterTypes"
 		(clickOutside)="listSrv.closeFilterPanel()"
-		*ngIf="listSrv.filterPanelOpen">
+		(close)="listSrv.closeFilterPanel()">
 	</filters-app>
 
 </ng-container>

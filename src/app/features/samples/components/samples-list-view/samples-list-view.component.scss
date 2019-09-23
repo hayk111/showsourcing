@@ -25,7 +25,7 @@
 	margin-left: 44px;
   height: 15px;
 	font-size: var(--font-size-s);
-  color: var(--color-txt-secondary);	
+  color: var(--color-txt-secondary);
 }
 
 .product-ref {
@@ -38,7 +38,7 @@
 .product-name-ref {
   height: 15px;
 	font-size: var(--font-size-s);
-  color: var(--color-txt-secondary);	
+  color: var(--color-txt-secondary);
 }
 
 .supplier-name {
@@ -51,7 +51,17 @@
 	height: 37px;
   font-size: var(--font-size-m);;
   font-weight: 600;
-  color: var(--color-accent-contrast);
+  color: var(--color-accent-dark);
+}
+
+user-picture-app {
+	margin-right: 0 !important;
+}
+
+.status-col {
+	status-selector-app {
+		margin-left: var(--spacing-ms);
+	}
 }
 
 .created-by {

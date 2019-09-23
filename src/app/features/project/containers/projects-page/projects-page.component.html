@@ -1,17 +1,24 @@
 
 <top-panel-app
   title="My Projects"
-  buttonName="Add Project"
+  buttonName="Create Project"
 	(buttonClick)="listSrv.create()"
 	i18n-title="@@my-projects"
-	i18n-buttonName="@@add-project">
+	i18n-buttonName="@@create-project">
 </top-panel-app>
 
 <sub-panel-app
-  [hasSwitch]="false"
-  [hasFilter]="true"
+	entityType="projects"
+	[hasSwitch]="false"
+	[hasExport]="false"
+	[count]="listSrv.count$ | async"
+  [hasFilter]="false"
   [filtersAmount]="listSrv.filterList.asFilters()?.length"
-  [searchValue]="listSrv.searchValue"
+	[searchValue]="listSrv.searchValue"
+	(showArchived)="listSrv.filterByArchived(true)"
+	(hideArchived)="listSrv.filterByArchived(false)"
+	(showAssigned)="listSrv.filterByAssignee(true)"
+	(hideAssigned)="listSrv.filterByAssignee(false)"
   (search)="listSrv.search($event)"
   (showFilters)="listSrv.openFilterPanel()" >
 </sub-panel-app>
@@ -23,13 +30,15 @@
 		[rows]="listSrv.items$ | async"
 		[pending]="listSrv.pending"
 		[count]="listSrv.count$ | async"
+		[currentSort]="listSrv.currentSort"
 		[currentPage]="listSrv.currentPage"
 		(goToPage)="listSrv.loadPage($event)"
     (select)="listSrv.selectOne($event, true)"
     (unselect)="listSrv.unselectOne($event, true)"
     (selectAll)="listSrv.selectAll($event, true)"
     (unselectAll)="listSrv.unselectAll()"
-    (sort)="listSrv.sort($event)"
+		(sort)="listSrv.sort($event)"
+		(showItemsPerPage)="showItemsPerPage($event)"		
 		(delete)="listSrv.deleteOne($event)">
 	</projects-list-view-app>
 

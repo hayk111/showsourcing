@@ -16,6 +16,7 @@ import { ProductListComponent } from '~deprecated/product-list/product-list.comp
 import { ProductFeatureService } from '~features/products/services';
 import { SupplierRequestDialogComponent } from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
+import { SubPanelService } from '~shared/top-panel/services/sub-panel.service';
 
 // dailah lama goes into pizza store
 // servant asks : what pizza do you want sir ?
@@ -65,6 +66,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		public elem: ElementRef,
 		private userSrv: UserService,
 		protected dlgSrv: DialogService,
+		private subPanelSrv: SubPanelService,
 	) {
 		super();
 	}
@@ -104,32 +106,17 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		this.listSrv.changeView(view);
 	}
 
-	onFavourite(product: Product) {
-		this.listSrv.onItemFavorited(product.id);
-	}
-
 	onClearFilters() {
 		this.listSrv.filterList.resetAll();
 
 		this.listSrv.addFilter({ type: FilterType.ARCHIVED, value: false});
 		this.listSrv.addFilter({ type: FilterType.DELETED, value: false});
-	}
-
-	onShowFilters() {
-		this.listSrv.openFilterPanel();
-	}
-
-	onCloseFilter() {
-		this.listSrv.closeFilterPanel();
+		this.subPanelSrv.onFiltersClear();
 	}
 
 	showItemsPerPage(count: number) {
 		this.selectItemsConfig = { take: Number(count) };
 		this.listSrv.refetch(this.selectItemsConfig).subscribe();
-	}
-
-	onExport() {
-		this.commonModalSrv.openExportDialog(this.listSrv.getSelectedValues());
 	}
 
 	onArchive(product: Product | Product[]) {

@@ -2,7 +2,8 @@
 	<div class="slider"
 		[class.left]="view === 'list'"
 		[class.mid]="view === 'board' && hasThumb" 
-		[class.right]="view === 'card' || !hasThumb" 
+		[class.right]="view === 'card'"
+		[class.right-two-items]="view === 'board' && !hasThumb" 
 		[ngStyle]="{'width': hasThumb ? 'calc(100% / 3)' : 'calc(100% / 2)'}"
 	></div>
 	<button class="flexCenter {{ view === 'list' ? 'selected' : ''}}" 

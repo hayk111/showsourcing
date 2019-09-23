@@ -9,6 +9,12 @@ export enum TaskStatus {
 	OVERDUE = '_Overdue',
 }
 
+export enum ProjectStatus {
+	DONE = '_Done',
+	PENDING = '_Pending',
+	OVERDUE = '_Overdue',
+}
+
 export class Status {
 	id?: ID;
 	name?: string;

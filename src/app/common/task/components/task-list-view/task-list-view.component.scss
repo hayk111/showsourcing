@@ -7,6 +7,39 @@
 	font-weight: 600;
 }
 
+user-picture-app {
+	margin-right: 0 !important;
+}
+
+.reference-container {
+	font-size: var(--font-size-m);
+	color: var(--color-primary);
+}
+
+.name-container {
+	font-size: var(--font-size-m);
+	color: var(--color-txt-primary);
+}
+
+.product-container, .supplier-container, .due-date-container {
+	font-size: var(--font-size-m);
+	color: var(--color-bg-dark);
+}
+
+.assignee-name {
+	margin-left: var(--spacing-ms);
+	font-size: var(--font-size-m);
+	color: var(--color-bg-dark);
+}
+
+.task-is-done {
+	color: var(--color-success);
+}
+
+.task-not-done {
+	color: var(--color-txt-third);
+}
+
 .name-container {
 	align-items: center;
 

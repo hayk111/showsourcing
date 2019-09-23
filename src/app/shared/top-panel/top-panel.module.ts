@@ -26,6 +26,8 @@ import { SubPanelLeftItemComponent } from './components/sub-panel-left-item/sub-
 import { SubPanelRightItemComponent } from './components/sub-panel-right-item/sub-panel-right-item.component';
 import { TopPanelActionButtonsComponent } from './components/top-panel-action-buttons/top-panel-action-buttons.component';
 import { TopPanelDetailsComponent } from './components/top-panel-details/top-panel-details.component';
+import { PanelTabComponent} from './components/panel-tab/panel-tab.component';
+
 
 @NgModule({
 	imports: [
@@ -60,6 +62,7 @@ import { TopPanelDetailsComponent } from './components/top-panel-details/top-pan
 		SubPanelRightItemComponent,
 		TopPanelActionButtonsComponent,
 		TopPanelActionButtonsComponent,
+		PanelTabComponent,
 	],
 	exports: [
 		TopPanelComponent,
@@ -69,6 +72,7 @@ import { TopPanelDetailsComponent } from './components/top-panel-details/top-pan
 		SubPanelLeftItemComponent,
 		SubPanelRightItemComponent,
 		TopPanelActionButtonsComponent,
+		PanelTabComponent
 	],
 })
 export class TopPanelModule { }

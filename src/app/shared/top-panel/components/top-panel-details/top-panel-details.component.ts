@@ -11,6 +11,8 @@ import { TrackingComponent } from '~utils/tracking-component';
 export class TopPanelDetailsComponent extends TrackingComponent {
 	/** title displayed */
 	@Input() title: string;
+	@Input() subTitle: string;
+	@Input() hasBackArrow = true;
 	@Input() hasLogo = true;
 	@HostBinding('class.z-1') @Input() elevated = true;
 

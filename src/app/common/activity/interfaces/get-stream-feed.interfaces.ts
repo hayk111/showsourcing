@@ -27,6 +27,7 @@ export interface GetStreamActivity {
 	origin: string;
 	target: string;
 	target_id: string;
+	target_data: any;
 	team_id?: string;
 	time: string;
 	verb: string;
@@ -55,6 +56,7 @@ export const notificationsMock: GetStreamNotification = {
 			origin: null,
 			target: 'product',
 			target_id: 'd96979db-ace1-419d-9e90-db5787901b29',
+			target_data: {},
 			team_id: '642c327f-ac96-43cd-897b-8f04fe2dbbed',
 			time: '2019-08-09T19:11:11.478000',
 			verb: 'create_task',
