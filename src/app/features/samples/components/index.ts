@@ -1,1 +1,1 @@
-export * from './samples-list-view/samples-list-view.component';
+export * from './samples-table/samples-table.component';

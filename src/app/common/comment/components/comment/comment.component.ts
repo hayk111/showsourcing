@@ -1,5 +1,10 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
-import { User, Comment } from '~models';
+import { ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { filter, switchMap } from 'rxjs/operators';
+import { CommonModalService } from '~common/modals/services/common-modal.service';
+import { CommentService, UserService } from '~core/entity-services';
+import { Comment, User } from '~models';
+import { CloseEventType } from '~shared/dialog';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'comment-app',
@@ -12,9 +17,27 @@ export class CommentComponent implements OnInit {
 	@Input() user: User;
 	@Input() comment: Comment;
 
-	constructor() { }
+	// if we don't have this viewChild, we cannot send the height of the item, since the HTML doesn't know
+	// what does it have to read
+	@ViewChild('text', { static: false, read: ElementRef }) text: ElementRef;
+
+	/** if the comment belings to the current user or not */
+	isMine = false;
+	/** if we are currently editing the comment */
+	isEditing = false;
+	currentHeight = 0;
+	/** minimum height to display */
+	minHeight = 46;
+
+	constructor(
+		private userSrv: UserService,
+		private commentSrv: CommentService,
+		private commonModalSrv: CommonModalService,
+		public translate: TranslateService
+	) { }
 
 	ngOnInit() {
+		this.isMine = this.userSrv.userSync.id === this.user.id;
 	}
 
 	urlify(text) {
@@ -28,5 +51,24 @@ export class CommentComponent implements OnInit {
 		});
 	}
 
+	enableEdit(height: number) {
+		this.isEditing = true;
+		this.currentHeight = height + 26; // +26 is for the padding inside the textarea
+	}
+
+	onSave(text: string) {
+		if (text)
+			this.commentSrv.update({ id: this.comment.id, text }).subscribe();
+		this.isEditing = false;
+	}
+
+	onDelete() {
+		// TODO i18n
+		const text = `Are you sure you want to delete this comment ?`;
+		this.commonModalSrv.openConfirmDialog({ text }).pipe(
+			filter(data => data.type === CloseEventType.OK),
+			switchMap(_ => this.commentSrv.delete(this.comment.id))
+		).subscribe();
+	}
 
 }

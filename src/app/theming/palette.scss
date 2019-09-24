@@ -1,9 +1,6 @@
 
 :root{
 
-	--color-bg: rgb(255, 255, 255);
-	--color-bg-secondary: rgb(230, 235, 245);
-
 	--color-primary: rgb(69, 173, 255);
 	--color-primary-dark: rgb(64, 161, 235);
 	--color-primary-light: rgb(236, 246, 255);
@@ -34,7 +31,7 @@
 	--color-success-dark: rgb(58, 172, 90);
 	--color-success-contrast: rgb(255, 255, 255);
 
-	--color-divider:  rgb(230, 235, 245); 
+	--color-divider:  rgb(230, 235, 245);
 
 	--color-txt-primary: rgb(0, 0, 0);
 	--color-txt-secondary: rgb(93, 109, 139);
@@ -114,6 +111,10 @@
 
 .color-supplier {
 	color: var(--color-supplier);
+}
+
+.color-accent {
+	color: var(--color-accent);
 }
 
 /** text */

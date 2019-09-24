@@ -4,7 +4,8 @@ import { CommonModalService } from '~common/modals/services/common-modal.service
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { SettingsInvitationService } from '~features/settings/services/settings-invitation.service';
 import { ERM, Invitation, User } from '~models';
-import { AutoUnsub, translate } from '~utils';
+import { AutoUnsub } from '~utils';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'settings-team-members-invitations-app',
@@ -23,6 +24,7 @@ export class SettingsTeamMembersInvitationsComponent extends AutoUnsub implement
 		private featureSrv: SettingsInvitationService,
 		public listSrv: ListPageService<any, SettingsInvitationService>,
 		public commonModalSrv: CommonModalService,
+		private translate: TranslateService
 	) {
 		super();
 	}
@@ -63,7 +65,7 @@ export class SettingsTeamMembersInvitationsComponent extends AutoUnsub implement
 	}
 
 	getToolTipMsg() {
-		return !this.teamOwner ? translate('Only team owners can invite') : null;
+		return !this.teamOwner ? this.translate.instant('message.only-team-owners-can-invite') : null;
 	}
 
 }

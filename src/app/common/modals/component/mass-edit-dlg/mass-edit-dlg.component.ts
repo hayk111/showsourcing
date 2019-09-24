@@ -10,8 +10,9 @@ import { CloseEventType, DialogService } from '~shared/dialog';
 import { DynamicField } from '~shared/dynamic-forms';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
-import { AutoUnsub, translate, uuid } from '~utils';
+import { AutoUnsub, uuid } from '~utils';
 import { ProductDescriptor } from '~core/descriptors';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'mass-edit-dlg-app',
@@ -39,7 +40,8 @@ export class MassEditDlgComponent extends AutoUnsub implements OnInit {
 		private productSrv: ProductService,
 		private dlgSrv: DialogService,
 		private thumbSrv: ThumbService,
-		private notificationSrv: NotificationService
+		private notificationSrv: NotificationService,
+		private translate: TranslateService
 	) { super(); }
 
 	ngOnInit() {
@@ -50,13 +52,39 @@ export class MassEditDlgComponent extends AutoUnsub implements OnInit {
 					'innerCarton', 'masterCarton', 'minimumOrderQuantity', 'moqDescription', 'votes', 'samplePrice', 'projects',
 					'masterCbm', 'quantityPer20ft', 'quantityPer40ft', 'quantityPer40ftHC', 'incoTerm', 'harbour', 'status'
 				]);
+				// TODO check placeholder is the same
 				this._productDescriptor.modify([
-					{ name: 'assignee', metadata: { placeholder: `${translate('choose')} ${translate('assignee')}`, width: 500 } },
-					{ name: 'category', metadata: { placeholder: `${translate('choose')} ${translate(ERM.CATEGORY.singular, 'erm')}`, width: 500 } },
-					{ name: 'supplier', metadata: { placeholder: `${translate('choose')} ${translate(ERM.SUPPLIER.singular, 'erm')}`, width: 500 } },
-					{ name: 'event', metadata: { placeholder: `${translate('choose')} ${translate(ERM.EVENT.singular, 'erm')}`, width: 500 } },
-					{ name: 'tags', metadata: { placeholder: `${translate('choose')} ${translate(ERM.TAG.plural, 'erm')}`, width: 500 } },
-					{ name: 'projects', metadata: { placeholder: `${translate('choose')} ${translate(ERM.PROJECT.plural, 'erm')}`, width: 500 } },
+					{ name: 'assignee', metadata: { placeholder: this.translate.instant('placeholder.choose-assignee'), width: 500 } },
+					{
+						name: 'category', metadata: {
+							placeholder: `${this.translate.instant('placeholder.choose')} ${this.translate.instant('ERM.CATEGORY.singular')}`,
+							width: 500
+						}
+					},
+					{
+						name: 'supplier', metadata: {
+							placeholder: `${this.translate.instant('placeholder.choose')} ${this.translate.instant('ERM.SUPPLIER.singular')}`,
+							width: 500
+						}
+					},
+					{
+						name: 'event', metadata: {
+							placeholder: `${this.translate.instant('placeholder.choose')} ${this.translate.instant('ERM.EVENT.singular')}`,
+							width: 500
+						}
+					},
+					{
+						name: 'tags', metadata: {
+							placeholder: `${this.translate.instant('placeholder.choose')} ${this.translate.instant('ERM.TAG.plural')}`,
+							width: 500
+						}
+					},
+					{
+						name: 'projects', metadata: {
+							placeholder: `${this.translate.instant('placeholder.choose')} ${this.translate.instant('ERM.PROJECT.plural')}`,
+							width: 500
+						}
+					},
 					{ name: 'incoTerm', metadata: { width: 500 } },
 					{ name: 'harbour', metadata: { width: 500 } }
 				]);
@@ -94,8 +122,8 @@ export class MassEditDlgComponent extends AutoUnsub implements OnInit {
 			this.close();
 			this.notificationSrv.add({
 				type: NotificationType.SUCCESS,
-				title: translate('Multiple edition'),
-				message: translate('Your items have been updated'),
+				title: this.translate.instant('title.multiple-edition'),
+				message: this.translate.instant('message.your-items-updated'),
 				timeout: 3500
 			});
 		});

@@ -14,10 +14,10 @@ import { trigger, state, transition, style, animate } from '@angular/animations'
 				transform: 'translateX(-100%)',
 			})),
 			transition('* => void', [
-				animate('300ms ease-in', style({ transform: 'translateX(-100%)' }))
+				animate('200ms ease-in', style({ transform: 'translateX(-100%)' }))
 			]),
 			transition('void => *', [
-				animate('300ms ease-in', style({ transform: 'translateX(0)' }))
+				animate('200ms ease-in', style({ transform: 'translateX(0)' }))
 			]),
 		]),
 	]

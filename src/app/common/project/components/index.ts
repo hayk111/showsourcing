@@ -1,4 +1,4 @@
 
 
-export * from './projects-list-view/projects-list-view.component';
+export * from './projects-table/projects-table.component';
 

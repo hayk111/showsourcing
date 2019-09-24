@@ -1,21 +1,20 @@
-
 	<dialog-app>
 
 		<!-- when ready -->
 		<dialog-header-app *ngIf="!pending" class="first-uppercase">
-			<ng-container i18n="@@new">New</ng-container> {{ type.singular | const: 'erm' }}
+			<ng-container translate="button.new"></ng-container> {{ 'ERM.' + type.translationKey + '.singular' | translate }}
 		</dialog-header-app>
 
 		<form *ngIf="!pending" [formGroup]="group">
 			<form-field-app>
-				<label-app> {{ type.singular | const: 'erm' }} <span class="capitalize" i18n="@@name">name</span> </label-app>
-				<input inputApp autoFocus type="text" (input)="checkExists()" formControlName="name" placeholder="New {{ type.singular | const: 'erm' }}" (keyup.enter)="onSubmit(canRedirect)" i18n="@@new-OBJ"/>
+				<label-app> {{ 'ERM.' + type.translationKey + '.singular' | translate }} <span class="capitalize" translate="label.name"></span> </label-app>
+				<input inputApp autoFocus type="text" (input)="checkExists()" formControlName="name" placeholder="{{ 'OBJ.new-OBJ' | translate: {field: 'ERM.' + type.translationKey + '.singular' | translate} }}" (keyup.enter)="onSubmit(canRedirect)"/>
 			</form-field-app>
-			<label-app i18n="@@provide-name-create"> Please provide the {{ type.singular | const: 'erm' }} name to create </label-app>
+			<label-app>{{ 'OBJ.provide-name-create' | translate: {field: 'ERM.' + type.translationKey + '.singular' | translate} }}</label-app>
 		</form>
 
 		<dialog-footer-app *ngIf="!pending ">
-			<div class="color-warn" *ngIf="exists$ | async" i18n="@@that-already-exists">That {{ type.singular | const: 'erm' }} name already exists. Please choose another one.</div>
+			<div class="color-warn" *ngIf="exists$ | async">{{ 'OBJ.that-already-exists' | translate: {field: 'ERM.' + type.translationKey + '.singular' | translate} }}</div>
 			<input *ngIf="canRedirect" [disabled]="!group.valid || (exists$ | async)" type="submit" class="secondary" value="Create & Stay" (click)="onSubmit(false)"/>
 			<span *ngIf="canRedirect" class="spacer mg-s"></span>
 			<input *ngIf="canRedirect" [disabled]="!group.valid || (exists$ | async)" type="submit" value="Create & Go" (click)="onSubmit()"/>

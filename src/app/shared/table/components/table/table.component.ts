@@ -37,6 +37,8 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	@Input() placeholder: string;
 	/** whether rows are selectable and pagination is visible */
 	@Input() hasPagination = true;
+	/** whether the context menu icon is horizontal dots or vertical */
+	@Input() isContextMenuHorizontal = true;
 
 	@Input() width: number;
 	@Input() rowHeight: number;
@@ -49,7 +51,7 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	// TODO this should be transcluded instead
 	@Input() contextualMenu: TemplateRef<any>;
 	/** current sort */
-	@Input() currentSort: Sort;
+	@Input() currentSort: Sort = { sortBy: 'creationDate', descending: true };
 	/** total number of items for pagination */
 	@Input() count = 0;
 
@@ -71,8 +73,6 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	@Output() goToPage = new EventEmitter<number>();
 	/** all the columns */
 	@ContentChildren(ColumnDirective) columns: QueryList<ColumnDirective>;
-	/** currently sorted column */
-	currentSortedColumn: ColumnDirective;
 
 	/** Different rows displayed */
 	@Input() rows;
@@ -107,7 +107,7 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 		}
 	}
 
-	// note: we don't do it on ngAfterViewInit since in some cases we have to wait for async columns (e.g. request-element-list-view-app)
+	// note: we don't do it on ngAfterViewInit since in some cases we have to wait for async columns (e.g. request-element-table-app)
 	// calculate the width based on the columns width
 	getWidth() {
 		let width = 0;
@@ -136,7 +136,7 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 
 	onSort(column: ColumnDirective) {
 		if (!column.sortable)
-			return;
+		return;
 		// remove sorting on all column and add the current sort to the correct one
 		const filtered = this.columns.filter(c => c !== column);
 		filtered.forEach(c => c.resetSort());
@@ -146,7 +146,7 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 			sortBy: column.sortBy,
 			descending: column.sortOrder === 'DESC'
 		});
-		this.currentSortedColumn = column;
+		this.currentSort.sortBy = column.sortBy;
 	}
 
 	isAllSelected(): boolean {

@@ -1,6 +1,12 @@
+import { registerLocaleData } from '@angular/common';
+import localeEn from '@angular/common/locales/en';
+import localeEs from '@angular/common/locales/es';
+import localeFr from '@angular/common/locales/fr';
+import localeZh from '@angular/common/locales/zh';
 import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, combineLatest, forkJoin, Observable, of } from 'rxjs';
-import { distinctUntilChanged, switchMap, tap, filter } from 'rxjs/operators';
+import { distinctUntilChanged, filter, switchMap, tap } from 'rxjs/operators';
 import { AnalyticsService } from '~core/analytics/analytics.service';
 import { ApolloStateService, ClientStatus, TeamClientInitializer, UserClientInitializer } from '~core/apollo/services';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
@@ -11,7 +17,6 @@ import { RealmAuthenticationService } from '~core/auth/services/realm-authentica
 import { ListPageService } from '~core/list-page';
 import { CompanyService, TeamService, UserService } from '~entity-services';
 import { Team } from '~models';
-
 
 @Component({
 	selector: 'app-root',
@@ -33,7 +38,8 @@ export class AppComponent implements OnInit {
 		private teamClient: TeamClientInitializer,
 		private teamSrv: TeamService,
 		private userClient: UserClientInitializer,
-		private userSrv: UserService
+		private userSrv: UserService,
+		private translate: TranslateService,
 	) { }
 
 	ngOnInit(): void {
@@ -69,6 +75,14 @@ export class AppComponent implements OnInit {
 			// we need to reset list page to not have data from other team in cache
 			tap(_ => ListPageService.reset())
 		).subscribe(_ => this.isSpinnerShown$.next(false));
+
+		// translate
+		registerLocaleData(localeEn, 'en');
+		registerLocaleData(localeFr, 'fr');
+		registerLocaleData(localeEs, 'es');
+		registerLocaleData(localeZh, 'zh');
+		this.translate.setDefaultLang('en');
+		this.translate.use('en');
 	}
 
 	private startBaseClients(): Observable<Client[]> {

@@ -28,7 +28,7 @@ class MockNotifService {
 }
 
 
-fdescribe('notif component', () => {
+describe('notif component', () => {
 
 	let component: NotifComponent;
 	let fixture: ComponentFixture<NotifComponent>;

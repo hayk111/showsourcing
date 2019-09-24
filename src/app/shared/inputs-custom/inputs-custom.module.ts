@@ -12,6 +12,7 @@ import { UtilsModule } from '~shared/utils';
 import { InputBadgeSelectorComponent } from './components/input-badge-selector/input-badge-selector.component';
 import { InputDescriptionComponent } from './components/input-description/input-description.component';
 import { InputPriceInlineComponent } from './components/input-price-inline/input-price-inline.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
 	imports: [
@@ -23,7 +24,8 @@ import { InputPriceInlineComponent } from './components/input-price-inline/input
 		UtilsModule,
 		InputsModule,
 		EditableFieldModule,
-		BadgeModule
+		BadgeModule,
+		TranslateModule
 	],
 	declarations: [InputPriceComponent, InputPriceInlineComponent, InputDescriptionComponent, InputBadgeSelectorComponent],
 	exports: [InputPriceComponent, InputPriceInlineComponent, InputDescriptionComponent, InputBadgeSelectorComponent]

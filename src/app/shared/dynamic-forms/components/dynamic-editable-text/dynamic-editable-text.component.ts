@@ -11,6 +11,7 @@ import { DynamicField } from '~shared/dynamic-forms/models';
 import { DynamicUpdate } from '~shared/dynamic-forms/models/dynamic-update.interface';
 import { EditableTextComponent } from '~shared/editable-field';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * Component that selects the correct input and display it as an editable text
@@ -53,7 +54,7 @@ export class DynamicEditableTextComponent extends AbstractInput {
 	/** whenever someone cancels an input this flag goes true */
 	isCancel = false;
 
-	constructor(protected cd: ChangeDetectorRef) {
+	constructor(protected cd: ChangeDetectorRef, public translate: TranslateService) {
 		super(cd);
 	}
 

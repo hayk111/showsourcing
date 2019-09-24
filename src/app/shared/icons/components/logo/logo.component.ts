@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, Renderer2, AfterViewInit } from '@angular/core';
 import { AppImage, EntityName } from '~models';
 import { Color, Colors, log } from '~utils';
 
@@ -32,13 +32,14 @@ export const iconMap = {
 };
 
 
-export type Size = 's' | 'm' | 'l' | 'xl';
+export type Size = 's' | 'm' | 'l' | 'xl' | 'xxl';
 
 export const sizeMap: { [key in Size]: { background: number, icon: number } } = {
 	s: { background: 20, icon: 12 },
 	m: { background: 32, icon: 16 },
 	l: { background: 36, icon: 24 },
-	xl: { background: 92, icon: 40 }
+	xl: { background: 54, icon: 24 },
+	xxl: { background: 92, icon: 40 }
 };
 
 @Component({
@@ -51,7 +52,7 @@ export const sizeMap: { [key in Size]: { background: number, icon: number } } = 
 		'[class.circle]': 'circle === true',
 	}
 })
-export class LogoComponent implements OnInit {
+export class LogoComponent implements OnInit, AfterViewInit {
 	/** we can supply an image to override the icon */
 	@Input() logo: AppImage;
 	/** type of entity so we can display its icon */
@@ -74,14 +75,18 @@ export class LogoComponent implements OnInit {
 	constructor(
 		private elRef: ElementRef,
 		private renderer: Renderer2
-	) {}
+	) { }
 
 	ngOnInit() {
 		this.renderContainerSize();
-		this.renderColor();
+		// this.renderColor();
 		if (!this.type) {
 			log.error('No type specified in logo');
 		}
+	}
+
+	ngAfterViewInit() {
+		this.renderColor();
 	}
 
 	get computedIcon() {

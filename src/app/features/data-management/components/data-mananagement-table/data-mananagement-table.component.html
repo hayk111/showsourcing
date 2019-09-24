@@ -5,7 +5,7 @@
   [contextualMenu]="contextualMenuTemplate"
 	[count]="count"
 	[currentPage]="currentPage"
-	placeholder="No data"
+	[placeholder]="'placeholder.no-data' | translate"
 	(goToPage)="goToPage.emit($event)"
 	(selectOne)="select.emit($event)"
 	(unselectOne)="unselect.emit($event)"
@@ -13,23 +13,21 @@
 	(unselectAll)="unselectAll.emit()"
 	(bottomReached)="bottomReached.emit()"
 	(sort)="sort.emit($event)"
-	(hovered)="onHover($event)"
-	i18n-placeholder="@@no-data">
+	(hovered)="onHover($event)">
 
 	<!-- context menu -->
 	<ng-template #contextualMenuTemplate let-row="row">
 		<context-menu-item-app
 			class="pointer flexCenter"
-			(click)="delete.emit(row)"
-			i18n="button@@delete">
-			Delete
+			(click)="delete.emit(row)">
+			{{'button.delete' | translate}}
 		</context-menu-item-app>
 	</ng-template>
 
 	<!-- Name Category -->
 	<ng-template
 		*ngIf="ermEvent !== entityMetadata"
-		[columnApp]="'name' | const: 'messages'"
+		[columnApp]="'header.name' | translate"
 		let-row="row"
 		width="250">
 		<div class="flexBetween ellipsis">
@@ -50,7 +48,7 @@
 	<!-- Name Event -->
 	<ng-template
 		*ngIf="ermEvent === entityMetadata"
-		[columnApp]="'name' | const: 'messages'"
+		[columnApp]="'header.name' | translate"
 		let-row="row"
 		width="250"
 		sortBy="description.name">
@@ -69,9 +67,8 @@
 	<!-- Created By -->
 	<ng-template
 		*ngIf="ermEvent !== entityMetadata"
-		[columnApp]="'created by' | const: 'messages'"
+		[columnApp]="'header.created-by' | translate"
 		let-row="row"
-		sortBy="createdBy.firstName"
 		width="140">
 		<span class="centered-text">
 			{{ row?.createdBy ? row?.createdBy?.firstName : '' }} {{ row?.createdBy ? row?.createdBy?.lastName : '' }}
@@ -81,7 +78,7 @@
 	<!-- Products Count -->
 	<ng-template
 		*ngIf="ermCategory === entityMetadata || ermTag === entityMetadata"
-		[columnApp]="'Products count' | const: 'messages'"
+		[columnApp]="'header.products-count' | translate"
 		let-row="row"
 		[sortable]="false"
 		width="140">
@@ -93,7 +90,7 @@
 	<!-- Supplier Count -->
 	<ng-template
 		*ngIf="ermCategory === entityMetadata || ermTag === entityMetadata"
-		[columnApp]="'Suppliers count' | const: 'messages'"
+		[columnApp]="'header.suppliers-count' | translate"
 		let-row="row"
 		[sortable]="false"
 		width="140">
@@ -105,24 +102,24 @@
 	<!-- Start Date (Event only) -->
 	<ng-template
 		*ngIf="ermEvent === entityMetadata"
-		[columnApp]="'Start date' | const: 'messages'"
+		[columnApp]="'header.start-date' | translate"
 		let-row="row"
 		sortBy="description.startDate"
 		width="140">
 		<span>
-			{{ row?.description?.startDate | date: 'MMMM d, y' }}
+			{{ row?.description?.startDate | date: 'MMMM d, y':'':translate.currentLang }}
 		</span>
 	</ng-template>
 
 	<!-- End Date (Event only) -->
 	<ng-template
 		*ngIf="ermEvent === entityMetadata"
-		[columnApp]="'End Date' | const: 'messages'"
+		[columnApp]="'header.end-date' | translate"
 		let-row="row"
 		sortBy="description.endDate"
 		width="140">
 		<span>
-			{{ row?.description?.endDate | date: 'MMMM d, y' }}
+			{{ row?.description?.endDate | date: 'MMMM d, y':'':translate.currentLang }}
 		</span>
 	</ng-template>
 
@@ -133,7 +130,7 @@
 		width="160">
 		<div class="flex">
 			<!-- If we are hovering over the row and we have nothing selection-->
-			<button *ngIf="(row?.id === idEntityHovered) && (selection?.size == 0)" class="button secondary-dark capitalize" (click)="delete.emit(row)" i18n="@@delete">delete</button>
+			<button *ngIf="(row?.id === idEntityHovered) && (selection?.size == 0)" class="button secondary-dark capitalize" (click)="delete.emit(row)" translate="button.delete"></button>
 		</div>
 	</ng-template>
 </table-app>

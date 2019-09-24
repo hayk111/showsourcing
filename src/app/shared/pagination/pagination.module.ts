@@ -13,6 +13,7 @@ import { PaginationComponent } from '~shared/pagination/components/pagination.co
 import { UtilsModule } from '~shared/utils';
 import { SelectorsModule } from '~shared/selectors/selectors.module';
 import { SelectionBarModule } from '~shared/selection-bar/selection-bar.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 
@@ -31,6 +32,7 @@ import { SelectionBarModule } from '~shared/selection-bar/selection-bar.module';
 		UtilsModule,
 		SelectorsModule,
 		SelectionBarModule,
+		TranslateModule
 	],
 	declarations: [PaginationComponent],
 	exports: [PaginationComponent],

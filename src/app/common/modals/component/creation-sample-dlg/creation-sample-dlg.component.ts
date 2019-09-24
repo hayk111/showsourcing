@@ -4,14 +4,14 @@ import { SampleService } from '~core/entity-services';
 import { Product, Sample, Supplier } from '~core/models';
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { NotificationService, NotificationType } from '~shared/notifications';
-import { translate, uuid } from '~utils';
+import { TranslateService } from '@ngx-translate/core';
+import { uuid } from '~utils';
 
 @Component({
 	selector: 'creation-sample-dlg-app',
 	templateUrl: './creation-sample-dlg.component.html',
 	styleUrls: ['./creation-sample-dlg.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: []
 })
 export class CreationSampleDlgComponent implements OnInit {
 
@@ -26,7 +26,8 @@ export class CreationSampleDlgComponent implements OnInit {
 	constructor(
 		private dlgSrv: DialogService,
 		private sampleSrv: SampleService,
-		private notifSrv: NotificationService
+		private notifSrv: NotificationService,
+		private translate: TranslateService
 	) {
 	}
 
@@ -35,21 +36,21 @@ export class CreationSampleDlgComponent implements OnInit {
 			'name', 'assignee', 'description', 'product', 'supplier'
 		]);
 		this.sampleDescriptor.modify([
-			{ name: 'name', metadata: { placeholder: translate('Sample name') } },
-			{ name: 'assignee', metadata: { placeholder: translate('select assignee'), width: 495 } },
+			{ name: 'name', metadata: { placeholder: this.translate.instant('placeholder.sample-name') } },
+			{ name: 'assignee', metadata: { placeholder: this.translate.instant('select-assignee'), width: 495 } },
 			{
 				name: 'product',
-				label: translate('Linked to Product'),
+				label: this.translate.instant('label.linked-to-product'),
 				metadata: {
-					placeholder: translate('search for your product'),
+					placeholder: this.translate.instant('placeholder.search-your-product'),
 					width: 495
 				}
 			},
 			{
 				name: 'supplier',
-				label: translate('Linked to Supplier'),
+				label: this.translate.instant('label.linked-to-supplier'),
 				metadata: {
-					placeholder: translate('search for your supplier'),
+					placeholder: this.translate.instant('placeholder.search-your-supplier'),
 					width: 495
 				}
 			},
@@ -80,15 +81,16 @@ export class CreationSampleDlgComponent implements OnInit {
 					}
 					this.notifSrv.add({
 						type: NotificationType.SUCCESS,
-						title: `Sample created`,
-						message: 'Your sample has been created with success'
+						title: this.translate.instant('title.sample-created'),
+						message: this.translate.instant('message.sample-created-with-success')
 					});
+					this.sampleSrv.onUpdateSampleList();
 				},
 				err => {
 					this.notifSrv.add({
 						type: NotificationType.ERROR,
-						title: `Sample created`,
-						message: 'Your sample could not been created'
+						title: this.translate.instant('title.sample-not-created'),
+						message: this.translate.instant('message.your-product-not-created')
 					});
 				}
 			);

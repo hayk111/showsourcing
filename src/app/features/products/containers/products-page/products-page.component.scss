@@ -17,13 +17,14 @@ $max-screen-overlap: 1500px;
 // 	}
 // }
 
-products-list-view-app {
-	margin: 13px 114px 32px 98px;
-	padding: var(--spacing-l);
+sub-panel-app, top-panel-app {
+	transform: scale(1);
+  transition: 0.35s all ease;
 }
 
-product-sorting-menu-app {
-	margin-right: var(--spacing-ms);
+products-table-app {
+	margin: 13px 114px 32px 98px;
+	padding: var(--spacing-l);
 }
 
 checkbox-app {

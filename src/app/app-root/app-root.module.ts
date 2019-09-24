@@ -1,4 +1,4 @@
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -15,6 +15,8 @@ import { TemplateModule } from '~core/template';
 import { SharedModule } from '~shared/shared.module';
 import { ApiInterceptor } from '~core/interceptors/api.interceptor';
 import { TokenInterceptor } from '~core/interceptors/token.interceptor';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import * as i18n from '~core/i18n/i18n.service';
 
 // Can a kangaroo jump higher than a house ?
 // Of course, a house doesn’t jump at all.
@@ -45,7 +47,14 @@ import { TokenInterceptor } from '~core/interceptors/token.interceptor';
 				excludedRoutes: [new RegExp('(validate-email)[\/a-zA-Z0-9]+')]
 			}
 		}),
-		PortalModule
+		PortalModule,
+		TranslateModule.forRoot({
+			loader: {
+				provide: TranslateLoader,
+				useFactory: i18n.HttpLoaderFactory,
+				deps: [HttpClient]
+			}
+		})
 	],
 	exports: [RouterModule],
 	bootstrap: [AppComponent],
