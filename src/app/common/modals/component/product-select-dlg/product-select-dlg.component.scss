@@ -14,7 +14,7 @@ dialog-app {
 	width: 1149px;
 	border-radius: 4px;
 
-	sub-panel-app {
+	controller-list-app {
 		padding: 0;
 	}
 	
@@ -41,7 +41,7 @@ dialog-app {
 	}
 
 	products-table-app {
-		height: 100%;
+		height: calc(100% - 42px);
 	}
 
 	sub-panel-left-item-app {

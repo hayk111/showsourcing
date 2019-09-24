@@ -10,7 +10,7 @@ import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
 import { ProductDialogService } from '~common/modals/services/product-dialog.service';
 import { translate } from '~utils';
-import { TableConfig } from '~core/list-page/list-view.component';
+import { TableConfig } from '~core/list-page';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 
 const tableConfig: TableConfig = {

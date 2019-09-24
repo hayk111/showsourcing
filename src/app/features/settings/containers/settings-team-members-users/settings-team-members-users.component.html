@@ -1,12 +1,12 @@
 
-	<sub-panel-app
+	<controller-list-app
 		[title]="'title.team-members' | translate"
 		[hasSwitch]="false"
 		[hasFilter]="false"
 		[entityType]="'MEMBER'"
 		(search)="listSrv.search($event)">
 
-		<sub-panel-right-item-app>
+		<controller-list-right-item-app>
 
 			<div toolTip [toolTipMessage]="getTooltipMsg()" toolTipPosition="above-right">
 				<button [disabled]="!teamOwner" (click)="openInviteDialog()" translate="button.invite-collaborator"></button>
@@ -31,10 +31,10 @@
 				</context-menu-item-app>
 			</context-menu-app>
 
-		</sub-panel-right-item-app>
+		</controller-list-right-item-app>
 
 
-	</sub-panel-app>
+	</controller-list-app>
 
 <ng-container *ngIf="listSrv.items$ | async as members">
 	<team-members-table-app

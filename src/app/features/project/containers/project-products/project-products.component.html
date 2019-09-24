@@ -1,27 +1,33 @@
 <ng-container *ngIf="project$ | async as project; else spinner">
-	<top-panel-details-app
-		[elevated]="false"
-		[title]="project?.name">
+	<header-details-app [elevated]="false">
+
+		<header-details-title-app>{{ project?.name }}</header-details-title-app>
 
 		<logo-app color="primary" type="project" size="xl"></logo-app>
-		<ng-container subinfo>
-			{{project?.status || 'new'}}<div class="small-gray-badge-separator"></div>Due on {{project?.creationDate | date: 'dd MMM y' }}
-			<div class="small-gray-badge-separator"></div>Created by {{ project?.createdBy?.firstName }} {{ project?.createdBy?.lastName }}
-		</ng-container>
 
-		<panel-tab-app
-			[link]="getTabPanelUrl('products')"
-			icon="product"
-			[name]="'nav.products' | translate">
-		</panel-tab-app>
+		<header-details-info-app>
+			{{ (project?.status ? 'text.' + project?.status : 'text.new') | translate }}
+			<div class="small-gray-badge-separator"></div>
+			{{ 'OBJ.due-on-date' | translate: {date: project?.creationDate | date: 'dd-mm-yyyy':'':translate.currentLang} }}
+			<div class="small-gray-badge-separator"></div>
+			{{ 'OBJ.created-by-name' | translate: {firstName: project?.createdBy?.firstName, lastName: project?.createdBy?.lastName} }}
+		</header-details-info-app>
 
-		<panel-tab-app
-			[link]="getTabPanelUrl('settings')"
-			icon="files"
-			[name]="'nav.settings' | translate">
-		</panel-tab-app>
+		<header-list-nav-app>
+			<header-list-nav-item-app
+				[link]="getTabPanelUrl('products')"
+				icon="product"
+				[name]="'nav.products' | translate">
+			</header-list-nav-item-app>
+	
+			<header-list-nav-item-app
+				[link]="getTabPanelUrl('settings')"
+				icon="settings"
+				[name]="'nav.settings' | translate">
+			</header-list-nav-item-app>
+		</header-list-nav-app>
 
-		<div class="flex right-items" action>
+		<header-details-actions-app>
 			<button class="add-product" (click)="openFindProductDlg()" translate="button.add-product"></button>
 			
 			<status-selector-app
@@ -30,8 +36,8 @@
 				selectSize="l"
 				type="button">
 			</status-selector-app>
-
-			<context-menu-app action>
+	
+			<context-menu-app>
 				<context-menu-trigger-app>
 					<button class="vertical-dots icon light dots pointer">
 						<icon-app [size]="16" name="dots-vertical"></icon-app>
@@ -42,11 +48,11 @@
 				<context-menu-item-app (click)="archive.emit(project)"  translate="button.archive">
 				</context-menu-item-app>
 			</context-menu-app>
-		</div>
+		</header-details-actions-app>
 
-	</top-panel-details-app>
+	</header-details-app>
 
-	<sub-panel-app
+	<controller-list-app
 		[class.sub-menu-padding-board]="listSrv.view === 'board'"
 		[hasSwitch]="true"
 		[filtersAmount]="listSrv.getFilterAmount([{ type: filterTypeEnum.ARCHIVED, value: false }, { type: filterTypeEnum.DELETED, value: false }])"
@@ -64,14 +70,14 @@
 		(export)="commonModalSrv.openExportDialog(listSrv.getSelectedValues())"
 		(viewChange)="listSrv.changeView($event)">
 
-		<sub-panel-right-item-app>
+		<controller-list-right-item-app>
 			<product-sorting-menu-app
 				[currentSort]="listSrv.currentSort"
 				(sortFromMenu)="listSrv.sortFromMenu($event)">
 			</product-sorting-menu-app>
-		</sub-panel-right-item-app>
+		</controller-list-right-item-app>
 
-	</sub-panel-app>
+	</controller-list-app>
 
 <ng-container>
 

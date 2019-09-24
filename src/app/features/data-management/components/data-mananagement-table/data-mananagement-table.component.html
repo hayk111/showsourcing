@@ -13,7 +13,9 @@
 	(unselectAll)="unselectAll.emit()"
 	(bottomReached)="bottomReached.emit()"
 	(sort)="sort.emit($event)"
-	(hovered)="onHover($event)">
+	(hovered)="onHover($event)"
+	(showItemsPerPage)="showItemsPerPage.emit($event)"
+	i18n-placeholder="@@no-data">
 
 	<!-- context menu -->
 	<ng-template #contextualMenuTemplate let-row="row">
@@ -27,7 +29,7 @@
 	<!-- Name Category -->
 	<ng-template
 		*ngIf="ermEvent !== entityMetadata"
-		[columnApp]="'header.name' | translate"
+		[columnApp]="entityMetadata.singular + ' name' | const: 'messages'"
 		let-row="row"
 		width="250">
 		<div class="flexBetween ellipsis">
@@ -39,7 +41,7 @@
         <editable-label-app class="task-name">
           {{ row?.name }}
         </editable-label-app>
-        <input inputApp class="task-name" #txtName [value]="row?.name || ''" (keyup.enter)="editable.close()">
+        <input inputApp #txtName [value]="row?.name || ''" (keyup.enter)="editable.close()">
       </editable-text-app>
 			<!-- <button *ngIf="(row.id === idEntityHovered) && (selection.size == 0)"  class="button secondary-dark" (click)="renameEntity.emit(row)">Rename</button> -->
 		</div>
@@ -66,18 +68,26 @@
 
 	<!-- Created By -->
 	<ng-template
-		*ngIf="ermEvent !== entityMetadata"
+		*ngIf="ermEvent !== entityMetadata && ermSupplier !== entityMetadata"
 		[columnApp]="'header.created-by' | translate"
 		let-row="row"
 		width="140">
-		<span class="centered-text">
-			{{ row?.createdBy ? row?.createdBy?.firstName : '' }} {{ row?.createdBy ? row?.createdBy?.lastName : '' }}
+		<span class="flexVAlign created-by-container">
+			<user-picture-app
+				[user]="row?.createdBy"
+				[image]="row.createdBy?.avatar"
+				[background]="false"
+				[fontSize]="16"
+				size="32"></user-picture-app>
+			<span class="created-by">
+				{{ row?.createdBy ? row?.createdBy?.firstName : '' }} {{ row?.createdBy ? row?.createdBy?.lastName : '' }}
+			</span>
 		</span>
 	</ng-template>
 
 	<!-- Products Count -->
 	<ng-template
-		*ngIf="ermCategory === entityMetadata || ermTag === entityMetadata"
+		*ngIf="ermCategory === entityMetadata || ermTag === entityMetadata || ermSupplier === entityMetadata"
 		[columnApp]="'header.products-count' | translate"
 		let-row="row"
 		[sortable]="false"
@@ -96,6 +106,18 @@
 		width="140">
 		<span>
 			{{ row?.suppliersLinked?.count }}
+		</span>
+	</ng-template>
+
+	<!-- Contacts Count -->
+	<ng-template
+		*ngIf="ermSupplier === entityMetadata"
+		[columnApp]="'Contact count' | const: 'messages'"
+		let-row="row"
+		[sortable]="false"
+		width="140">
+		<span>
+			{{ row?.contactsLinked?.count }}
 		</span>
 	</ng-template>
 
@@ -125,12 +147,11 @@
 
 	<!-- No selection options -->
 	<ng-template
-		columnApp=""
+		[columnApp]="'Action' | const: 'action'"
 		let-row="row"
 		width="160">
 		<div class="flex">
-			<!-- If we are hovering over the row and we have nothing selection-->
-			<button *ngIf="(row?.id === idEntityHovered) && (selection?.size == 0)" class="button secondary-dark capitalize" (click)="delete.emit(row)" translate="button.delete"></button>
+			<span class="action pointer capitalize" (click)="delete.emit(row)" i18n="@@delete">delete</span>
 		</div>
 	</ng-template>
 </table-app>

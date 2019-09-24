@@ -2,8 +2,7 @@
 
 	<dialog-header-app translate="header.select-products"></dialog-header-app>
 
-	<sub-panel-app
-		entityType="products"
+	<controller-list-app
 		[hasFilter]="true"
 		[hasSwitch]="false"
 		[hasArchived]="false"
@@ -21,7 +20,7 @@
 		(showFilters)="showFilters()"
 		(hideFilters)="hideFilters()">
 
-		<sub-panel-left-item-app class="flex">
+		<controller-list-left-item-app class="flex">
 			<div class="flex show-my-samples">
 				<checkbox-app
 					[checked]="listSrv.filterList.hasFilterType(filterType.ASSIGNEE)"
@@ -30,9 +29,9 @@
 				</checkbox-app>
 				<span class="ellipsis" translate="text.show-only-my-sample"></span>
 			</div>
-		</sub-panel-left-item-app>
+		</controller-list-left-item-app>
 
-	</sub-panel-app>
+	</controller-list-app>
 
 	<products-table-app
 		class="list-view"
@@ -62,10 +61,10 @@
 		(unselectAll)="onUnselectAll()">
 	</products-table-app>
 	
-	<dialog-footer-app class="flexVAlign">
-		<sub-panel-left-item-app class="show-my-samples-only">{{ selectedProductsCount }} Products selected</sub-panel-left-item-app>
-		<button *ngIf="submitProducts" class="capitalize add-to-project" (click)="submit()" i18n="button@@add-to-project">add to project</button>
-		<button *ngIf="!submitProducts" class="capitalize footer-done" (click)="done()" i18n="button@@done">done</button>
+	<dialog-footer-app>
+		<controller-list-left-item-app><b>{{ selectedProductsCount }} {{'label.products-selected' | translate}}</b></controller-list-left-item-app>
+		<button *ngIf="submitProducts" class="capitalize" (click)="submit()" translate="button.add-to-project"></button>
+		<button *ngIf="!submitProducts" class="capitalize" (click)="done()" translate="button.done"></button>
 	</dialog-footer-app>
 
 	<filters-app

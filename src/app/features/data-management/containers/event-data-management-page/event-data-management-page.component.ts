@@ -5,6 +5,7 @@ import { ListPageKey, ListPageService } from '~core/list-page';
 import { DataManagementService } from '~features/data-management/services/data-management.service';
 import { ERM, Event } from '~models';
 import { AutoUnsub } from '~utils';
+import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 
 @Component({
 	selector: 'event-data-management-page-app',
@@ -17,6 +18,11 @@ import { AutoUnsub } from '~utils';
 })
 export class EventDataManagementPageComponent extends AutoUnsub implements OnInit {
 	erm = ERM.EVENT;
+
+	addButtonWidth = '111px';
+	addButtonHeight = '32px';
+
+	selectItemsConfig: SelectParamsConfig;
 
 	constructor(
 		private eventSrv: EventService,
@@ -40,6 +46,11 @@ export class EventDataManagementPageComponent extends AutoUnsub implements OnIni
 	mergeSelected() {
 		const ids = this.listSrv.getSelectedIds();
 		this.dmSrv.merge(ids, this.listSrv.entityMetadata);
+	}
+
+	showItemsPerPage(count: number) {
+		this.selectItemsConfig = {take: Number(count)};
+		this.listSrv.refetch(this.selectItemsConfig).subscribe();
 	}
 
 }

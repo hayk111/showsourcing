@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import {
 	CategoryDataManagementPageComponent,
 	DataManagementPageComponent,
+	SupplierDataManagementPageComponent,
 	EventDataManagementPageComponent,
 	TagDataManagementPageComponent,
 } from '~features/data-management';
@@ -43,6 +44,7 @@ export const routes: Routes = [
 					{ path: '', redirectTo: 'category', pathMatch: 'full' },
 					{ path: 'category', component: CategoryDataManagementPageComponent },
 					{ path: 'tag', component: TagDataManagementPageComponent },
+					{ path: 'supplier', component: SupplierDataManagementPageComponent },
 					{ path: 'event', component: EventDataManagementPageComponent }
 				]
 			},

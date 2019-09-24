@@ -4,7 +4,7 @@ import { environment } from 'environments/environment';
 import * as getstream from 'getstream';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { first, map, switchMap, tap } from 'rxjs/operators';
-import { TokenService } from '~core/auth';
+import { TokenService } from '~deprecated/token.service';
 import { TokenResponse } from '~common/activity/interfaces/token-response.interface';
 import { TokenState } from '~core/auth/interfaces/token-state.interface';
 import { TeamService, UserService } from '~entity-services';

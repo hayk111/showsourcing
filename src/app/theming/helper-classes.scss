@@ -223,12 +223,17 @@
 	}
 }
 
-.top-panel-margin-board {
+.header-detail-margin-board {
 	margin: 24px 24px 0 24px !important;
 }
 
 .sub-menu-padding-board {
 	padding: 24px 24px 0 24px !important;
+}
+
+.side-padding-l {
+	padding-left: var(--spacing-l);
+	padding-right: var(--spacing-l);
 }
 
 .small-gray-badge-separator {
