@@ -9,19 +9,19 @@
 
 <card-app class="ex">
 	<card-title-app>Product example #1</card-title-app>
-	<products-list-view-app
+	<products-table-app
 	[pending]="pending"
 	[rows]="products" 
 	[selection]="productSelectionSrv.selection"
 	[currentPage]="0"
 	[count]="1556"
 	(selectAll)="productSelectionSrv.selectAll(products)"
-	(unselectAll)="productSelectionSrv.unselectAll()"></products-list-view-app>
+	(unselectAll)="productSelectionSrv.unselectAll()"></products-table-app>
 </card-app>
 
 <card-app class="ex">
 	<card-title-app>Product example #2</card-title-app>
-	<products-list-view-app
+	<products-table-app
 		[hasHeader]="false"
 		[hasPagination]="false"
 		[pending]="pending"
@@ -31,18 +31,18 @@
 		[currentPage]="0"
 		[count]="1556"
 		(selectAll)="productSelectionSrv.selectAll(products)"
-		(unselectAll)="productSelectionSrv.unselectAll()"></products-list-view-app>
+		(unselectAll)="productSelectionSrv.unselectAll()"></products-table-app>
 </card-app>
 
 
 <card-app class="ex">
 	<card-title-app>Supplier example</card-title-app>
-	<supplier-list-view-app
+	<supplier-table-app
 		[pending]="pending"
 		[rows]="suppliers" 
 		[selection]="supplierSelectionSrv.selection"
 		[currentPage]="0"
 		[count]="155"
 		(selectAll)="supplierSelectionSrv.selectAll(suppliers)"
-		(unselectAll)="supplierSelectionSrv.unselectAll()"></supplier-list-view-app>
+		(unselectAll)="supplierSelectionSrv.unselectAll()"></supplier-table-app>
 </card-app>

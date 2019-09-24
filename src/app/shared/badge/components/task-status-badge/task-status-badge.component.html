@@ -5,6 +5,6 @@
 	(click)="update.emit(!task.done)">
 		<icon-app name="circle"></icon-app>
 		<div>
-			{{ getTaskStatus() | const: 'status' }}
+			{{ 'text.' + getTaskStatus() | translate }}
 		</div>
 </badge-app>

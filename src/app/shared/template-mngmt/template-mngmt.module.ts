@@ -6,6 +6,7 @@ import { DialogModule } from '~shared/dialog';
 import { InputsModule } from '~shared/inputs';
 import { ListModule } from '~shared/list/list.module';
 import { LoadersModule } from '~shared/loaders';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { TemplateMngmtDlgComponent } from './components/template-mngmt-dlg/template-mngmt-dlg.component';
 
@@ -18,7 +19,8 @@ import { TemplateMngmtDlgComponent } from './components/template-mngmt-dlg/templ
 		InputsModule,
 		ReactiveFormsModule,
 		ContextMenuModule,
-		LoadersModule
+		LoadersModule,
+		TranslateModule
 	],
 	exports: [TemplateMngmtDlgComponent],
 	entryComponents: [TemplateMngmtDlgComponent]

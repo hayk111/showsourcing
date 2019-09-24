@@ -18,8 +18,8 @@
 			<div
 				class="flexColumn flexCenter empty"
 				[ngStyle]="{ 'height': size + 'px', 'width': size + 'px' }">
-				<span class="bold" i18n="text@@no-picture">No picture</span>
-				<button *ngIf="!static" class="secondary" tabFocusAction (click)="openFileBrowser()" (keyEnter)="openFileBrowser()"  i18n="button@@add-picture">Add picture</button>
+				<span class="bold" translate="text.no-picture"></span>
+				<button *ngIf="!static" class="secondary" tabFocusAction (click)="openFileBrowser()" (keyEnter)="openFileBrowser()" translate="button.add-picture"></button>
 			</div>
 		</ng-template>
 	</div>
@@ -53,10 +53,10 @@
 				</icon-app>
 		</context-menu-trigger-app>
 		<context-menu-item-app>
-			<a [href]="getImg() | image:'xl'" download i18n="button@@download">download</a>
+			<a [href]="getImg() | image:'xl'" download translate="button.download"></a>
 		</context-menu-item-app>
-		<context-menu-item-app (click)="rotate()" i18n="button@@rotate">rotate</context-menu-item-app>
-		<context-menu-item-app (click)="delete()" i18n="button@@delete">delete</context-menu-item-app>
+		<context-menu-item-app (click)="rotate()" translate="button.rotate"></context-menu-item-app>
+		<context-menu-item-app (click)="delete()" translate="button.delete"></context-menu-item-app>
 	</context-menu-app>
 
 	<!-- number of pictures -->
@@ -66,7 +66,7 @@
 	</div>
 
 	<!-- add -->
-	<div *ngIf="!static" class="btn add pointer visible-on-hover" (click)="openFileBrowser()" i18n="button@@add">add</div>
+	<div *ngIf="!static" class="btn add pointer visible-on-hover" (click)="openFileBrowser()" translate="button.add"></div>
 
 	<!-- counter -->
 	<div class="counter flexCenter">

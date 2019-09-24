@@ -30,7 +30,7 @@
 	[class.focus]="focus"
 	[hasIcon]="false"
 	[inputFocus]="true"
-	placeHolder="Type your business name"
+	[placeHolder]="'placeholder.type-business-name' | translate"
 	(search)="triggerSearch($event)"
 	(click)="toggleFocus(true)"
 	(clickOutside)="toggleFocus(false)">

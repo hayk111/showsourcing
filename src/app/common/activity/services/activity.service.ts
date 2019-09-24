@@ -2,12 +2,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
 import * as getstream from 'getstream';
-import { BehaviorSubject, from, Observable, ReplaySubject, of } from 'rxjs';
-import { first, map, mergeScan, scan, shareReplay, switchMap, takeWhile } from 'rxjs/operators';
-import { TokenService } from '~core/auth';
-import { TokenState } from '~core/auth/interfaces/token-state.interface';
-import { TeamService } from '~entity-services';
+import { BehaviorSubject, from, Observable, of } from 'rxjs';
+import { first, map, mergeScan, scan, shareReplay, switchMap } from 'rxjs/operators';
 import { ActivityFeed, GroupedActivityFeed } from '~common/activity/interfaces/client-feed.interfaces';
+import { AuthenticationService } from '~core/auth/services/authentication.service';
+import { TeamService } from '~entity-services';
 import {
 	GetStreamActivity,
 	GetStreamGroup,
@@ -30,7 +29,7 @@ export class ActivityService {
 	constructor(
 		private http: HttpClient,
 		private teamSrv: TeamService,
-		private tokenSrv: TokenService
+		private authSrv: AuthenticationService
 	) {
 		this.client = getstream.connect(environment.getStreamKey, null, environment.getStreamAppID);
 	}
@@ -97,11 +96,9 @@ export class ActivityService {
 
 	/** some doc on feed token API in readme next to this file */
 	private getToken(url): Observable<string> {
-		return this.tokenSrv.jwtTokenFeed$.pipe(
-			switchMap((token: TokenState) => {
-				const headers = new HttpHeaders({ Authorization: token.token });
-				return this.http.get<TokenResponse>(url, { headers });
-			}),
+		const jwtObj = this.authSrv.feedToken;
+		const headers = new HttpHeaders({ Authorization: jwtObj.token });
+		return this.http.get<TokenResponse>(url, { headers }).pipe(
 			map((resp: TokenResponse) => resp.token),
 			first()
 		);

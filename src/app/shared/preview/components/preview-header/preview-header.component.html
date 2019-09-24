@@ -8,9 +8,9 @@
 			[supplier]="supplier"
 			(updateLogo)="updateLogo.emit($event)">
 		</preview-logo-app>
-		<ng-container *ngIf="displayEntityInfo">
-			<icon-app [name]="entityMD?.singular"></icon-app>
-			<span>{{ entityMD?.singular }}</span>
+	<ng-container *ngIf="displayEntityInfo">
+		<icon-app [name]="entityMD?.singular"></icon-app>
+			<span>{{ 'ERM.' + entityMD?.translationKey + '.singular' | translate }}</span>
 		</ng-container>
 	</div>
 	<div class="right">

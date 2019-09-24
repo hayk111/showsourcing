@@ -1,19 +1,18 @@
-import { translate } from '~utils/translate.utils';
 
 const subNavItemsProducts = [{
 	icon: 'product',
 	link: ['/product'],
-	label: translate('products')
+	translationKey: 'products',
 },
 {
 	icon: 'sample',
 	link: ['/samples'],
-	label: translate('samples')
+	translationKey: 'samples',
 },
 {
 	icon: 'kanban',
 	link: ['/product'],
-	label: translate('boards')
+	translationKey: 'boards',
 }];
 
 export const sideNavItems = new Map<string, any>([

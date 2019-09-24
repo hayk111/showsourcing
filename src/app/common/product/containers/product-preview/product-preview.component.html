@@ -72,7 +72,11 @@
 	<preview-tab-app #tab3 (click)="previewSrv.onSelectedTab(3)">Comments</preview-tab-app>
 
 	<!-- Description -->
+<<<<<<< HEAD
 	<preview-section-app #contentTab1 [title]="'description'" i18n-title="@@description">
+=======
+	<preview-section-app [title]="'title.description' | translate">
+>>>>>>> v3.0.0
 		<input-description-app
 			[description]="product?.description"
 			(update)="update($event, 'description')">
@@ -80,7 +84,11 @@
 	</preview-section-app>
 
 	<!-- Tags -->
+<<<<<<< HEAD
 	<preview-section-app #contentTab1 [title]="'tags'" i18n-title="@@tags">
+=======
+	<preview-section-app [title]="'title.tags' | translate">
+>>>>>>> v3.0.0
 		<input-badge-selector-app
 			[value]="product?.tags"
 			type="tag"
@@ -89,7 +97,11 @@
 	</preview-section-app>
 
 	<!-- Product details -->
+<<<<<<< HEAD
 	<preview-section-app #contentTab1 [title]="'product details'" i18n-title="@@product-details">
+=======
+	<preview-section-app [title]="'title.product-details'">
+>>>>>>> v3.0.0
 		<dynamic-form-app
 			[inlineLabel]="true"
 			[fields]="productDescriptor1?.descriptor"
@@ -100,7 +112,7 @@
 	</preview-section-app>
 
 	<!-- Extended Fields -->
-	<preview-section-app #contentTab1 *ngIf="(fieldDefinitions$ | async)?.length" [title]="'extended fields'" i18n-title="@@extended-fields">
+	<preview-section-app #contentTab1 *ngIf="(fieldDefinitions$ | async)?.length" [title]="'title.extended-fields' | translate">
 		<extended-form-app
 			[inlineLabel]="true"
 			[definitions]="fieldDefinitions$ | async"
@@ -110,7 +122,7 @@
 	</preview-section-app>
 
 	<!-- Trading information -->
-	<preview-section-app #contentTab1 [title]="'trading information'" i18n-title="@@trading-information">
+	<preview-section-app #contentTab1 [title]="'title.trading-information' | translate">
 		<dynamic-form-app
 			[inlineLabel]="true"
 			[fields]="productDescriptor2?.descriptor"
@@ -121,7 +133,7 @@
 	</preview-section-app>
 
 	<!-- Activity -->
-	<preview-section-app #contentTab3 *ngIf="product?.comments?.length" [title]="'comments'" i18n-title="@@comments">
+	<preview-section-app #contentTab3 *ngIf="product?.comments?.length" [title]="'title.comments' | translate">
 		<comment-list-app [comments]="product?.comments"></comment-list-app>
 	</preview-section-app>
 

@@ -15,8 +15,15 @@
 		<div class="flexColumn notif-info">
 			<p class="notif-message">
 				<span class="bold-message">{{ actorName }}</span>
-				{{ multipleActorMessage }}
-				{{ activityMessage }}
+				{{ 
+					(actor_count || 0) === 2 
+						? 'OBJ.and-n-other.singular' 
+						: (actor_count || 0) > 2 
+							? 'OBJ.and-n-other.singular'
+							: ''
+						| translate: {count: actor_count || 0} 
+				}}
+				{{ activityMessage | translate: {target: target ? ('header.' + target.toLowerCase() | translate) : '' } }}
 				<span class="bold-message">
 					<ng-container *ngIf="firstActivity.target_data">
 						{{ firstActivity.target_data?.target }}
@@ -25,7 +32,7 @@
 			</p>
 			<p class="notif-datetime">
 				{{ activity.updated_at | timeAgo }} -
-				{{ activity.updated_at | date: "d MMM H:mm" }}
+				{{ activity.updated_at | date: "d MMM H:mm":'':translate.currentLang }}
 			</p>
 		</div>
 	</div>
@@ -34,7 +41,7 @@
 		class="mark-read primary-dot"
 		(click)="markAsRead($event)"
 		toolTip
-		toolTipMessage="mark as read"
+		[toolTipMessage]="'message.mark-as-read' | translate"
 		toolTipPosition="above-left"
 		[shouldDisplace]="false"
 		[offsetX]="-21"

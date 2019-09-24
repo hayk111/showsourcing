@@ -1,16 +1,17 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from 'environments/environment';
-import { Credentials as RealmCredentials, User as RealmUser } from 'realm-graphql-client';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError, filter, first, map, shareReplay, switchMap, tap } from 'rxjs/operators';
-import { AuthState, AuthStatus, Credentials } from '~core/auth/interfaces';
+import { AuthStatus, Credentials } from '~core/auth/interfaces';
 import { TokenState } from '~core/auth/interfaces/token-state.interface';
-import { TokenService } from '~core/auth/services/token.service';
 import { LocalStorageService } from '~core/local-storage';
+import { showsourcing } from '~utils/debug-object.utils';
 
 const STORAGE_EMAIL = 'EMAIL';
+const FEED_TOKEN = 'feed-token';
+const AUTH_TOKEN = 'jwt-token';
 
 @Injectable({
 	providedIn: 'root'
@@ -19,9 +20,8 @@ export class AuthenticationService {
 
 	// null because at the start we don't know yet, user could be authenticated with his token
 	// then it's either true or false
-	private _authState$ = new BehaviorSubject<AuthState>({ status: AuthStatus.PENDING });
+	private _authState$ = new BehaviorSubject<AuthStatus>(AuthStatus.PENDING);
 	authStatus$ = this._authState$.asObservable().pipe(
-		map(state => state.status),
 		shareReplay(1)
 	);
 	/** whether the user is authenticated */
@@ -32,6 +32,7 @@ export class AuthenticationService {
 	/** sends event when the user authenticates */
 	authenticated$ = this.authStatus$.pipe(
 		filter(status => status === AuthStatus.AUTHENTICATED || status === AuthStatus.ANONYMOUS),
+		map(_ => this.authToken),
 		shareReplay(1)
 	);
 	/** sends event when the user logs out */
@@ -39,40 +40,44 @@ export class AuthenticationService {
 		filter(status => status === AuthStatus.NOT_AUTHENTICATED),
 		shareReplay(1)
 	);
-	userId$ = this._authState$.asObservable().pipe(
-		map(state => state.userId),
-		filter(id => !!id),
-		shareReplay(1)
-	);
-	urlToRedirectOnAuth: string;
 
-	realmUser: RealmUser;
+	urlToRedirectOnAuth: string;
+	authToken: string;
+	feedToken: TokenState;
 
 	constructor(
-		private tokenSrv: TokenService,
 		private router: Router,
 		private http: HttpClient,
 		private localStorage: LocalStorageService
-	) { }
+	) {
+		showsourcing.auth = { jwt: undefined, status: undefined };
+		this.authStatus$.subscribe(status => showsourcing.auth.status = status);
+		this.authenticated$.subscribe(jwt => showsourcing.auth.jwt = jwt);
+		this.notAuthenticated$.subscribe(_ => this.clearStorage());
+	}
 
 	init() {
-		// if there is an anonymous auth token present in the url, we login the user with said url
-		// if we find the a auth token in the local storage, we login the user with said token
-		// but only if there is no email specified in the url
-		const token = this.tokenSrv.getAnonymousToken();
+		// 1. if there is an anonymous auth token present in the url, we login the user with said url
+		// 2. if we find the a auth token in the local storage, we login the user with said token
+		// but only if there is no email specified in the url because when an email is specified in the url
+		// that means a link was clicked and we want to login with that user instead.
+		// if the email is the same than the previous email however that's fine we can go through
+		// as we don't want to reauthenticate then
+		const anonymousToken = this.getAnonymousToken();
 		const email = this.getEmailFromUrl();
-		if (token) {
-			// check anonymous
-			this.login({ token }).subscribe();
+		this.restoreTokens();
+
+		if (anonymousToken) {
+			// 1. check anonymous
+			this.login({ token: anonymousToken }).subscribe();
+		} else if (this.authToken && (!email || (email === this.localStorage.getString(STORAGE_EMAIL)))) {
+			// 2. check auth token
+			// we consider the user authenticated,
+			// since the token is going to be refreshed
+			this._authState$.next(AuthStatus.AUTHENTICATED);
 		} else {
-			// check auth token
-			if (!email || (email === this.localStorage.getString(STORAGE_EMAIL))) {
-				this.realmUser = new RealmUser(this.tokenSrv.getRealmUser());
-				const authState = this.realmUserToAuthState(this.realmUser);
-				this._authState$.next(authState);
-			}
+			this._authState$.next(AuthStatus.NOT_AUTHENTICATED);
 		}
-		this.tokenSrv.restoreFeedToken();
 	}
 
 	/**
@@ -86,22 +91,27 @@ export class AuthenticationService {
 			this.localStorage.setString(STORAGE_EMAIL, credentials.login);
 		}
 		return this.http.post<{ jwtToken: string, jwtTokenFeed: TokenState }>(`${environment.apiUrl}/user/auth`, credentials).pipe(
-			tap(resp => this.tokenSrv.storeJwtTokens(resp.jwtTokenFeed)),
-			map(resp => resp.jwtToken),
-			switchMap(jwt => this.jwtToRealmUser(jwt)),
-			tap(realmUser => this.realmUser = realmUser),
-			tap(realmUser => this.tokenSrv.storeRealmUser(realmUser)),
-			map(realmUser => this.realmUserToAuthState(realmUser)),
-			tap(authState => this._authState$.next(authState)),
+			tap(resp => this.storeAuthToken(resp.jwtToken)),
+			tap(resp => this.storeFeedToken(resp.jwtTokenFeed)),
+			tap(resp => this._authState$.next(AuthStatus.AUTHENTICATED)),
+			tap(_ => this.router.navigate([''])),
 			first()
+		);
+	}
+
+	refreshAuthToken() {
+		const headers = new HttpHeaders({ token: this.authToken, Authorization: this.authToken });
+		return this.http.post(`${environment.apiUrl}/user/renew`, {}, { headers }).pipe(
+			map((resp: any) => resp.jwtToken),
+			tap(token => this.storeAuthToken(token))
 		);
 	}
 
 	logout(redirect = true) {
 		if (redirect)
 			this.router.navigate(['auth', 'login']);
-		this.tokenSrv.clearTokens();
-		this._authState$.next({ status: AuthStatus.NOT_AUTHENTICATED });
+		this.clearStorage();
+		this._authState$.next(AuthStatus.NOT_AUTHENTICATED);
 		setTimeout(_ => window.location.reload());
 	}
 
@@ -141,19 +151,6 @@ export class AuthenticationService {
 		return this.http.post(`${environment.apiUrl}/user/email-validation`, { token });
 	}
 
-	private realmUserToAuthState(realmUser: RealmUser): AuthState {
-		if (realmUser && realmUser.identity) {
-			return {
-				status: AuthStatus.AUTHENTICATED,
-				userId: realmUser.identity
-			};
-		} else {
-			return {
-				status: AuthStatus.NOT_AUTHENTICATED
-			};
-		}
-	}
-
 	getEmailFromUrl() {
 		const search = new URLSearchParams(window.location.search);
 		const emailBase64 = search.get('email');
@@ -163,9 +160,30 @@ export class AuthenticationService {
 		return atob(emailBase64);
 	}
 
-	private jwtToRealmUser(jwt: string) {
-		const credentials = RealmCredentials.jwt(jwt);
-		return RealmUser.authenticate(credentials, environment.graphqlAuthUrl);
+	private storeAuthToken(jwt: string) {
+		this.authToken = jwt;
+		this.localStorage.setString(AUTH_TOKEN, jwt);
 	}
 
+	private storeFeedToken(jwtObject: TokenState) {
+		this.feedToken = jwtObject;
+		this.localStorage.setItem(FEED_TOKEN, jwtObject);
+	}
+
+	private restoreTokens() {
+		// hint: expirity is checked in the interceptors
+		this.feedToken = this.localStorage.getItem(FEED_TOKEN);
+		this.authToken = this.localStorage.getString(AUTH_TOKEN);
+	}
+
+	private clearStorage() {
+		this.localStorage.remove(STORAGE_EMAIL);
+		this.localStorage.remove(AUTH_TOKEN);
+		this.localStorage.remove(FEED_TOKEN);
+	}
+
+	private getAnonymousToken() {
+		const urlParams = new URLSearchParams(window.location.search);
+		return urlParams.get('token');
+	}
 }

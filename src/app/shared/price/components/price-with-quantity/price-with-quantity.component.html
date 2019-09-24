@@ -26,10 +26,8 @@
 			(opened)="inputMOQ.select()"
 			(saved)="updateProductField(false, inputMOQ.value, 'minimumOrderQuantity')">
 			<editable-label-app [disabled]="true">
-					<div *ngIf="product?.price?.value || product?.minimumOrderQuantity; else moqHolder" class="moq flexCenter">
-						<ng-container i18n="minimum pieces@@min-pcs">
-								{{ 'Min ' + (product?.minimumOrderQuantity || 0) + ' pcs' }}
-						</ng-container>
+				<div *ngIf="product?.price?.value || product?.minimumOrderQuantity; else moqHolder" class="moq flexCenter">
+						{{ 'OBJ.min-pcs' | translate: { count : (product?.minimumOrderQuantity || 0)} }}
 						{{ product?.moqDescription ? ' ' + product?.moqDescription : ''}}
 					</div>
 					<ng-template #moqHolder>
