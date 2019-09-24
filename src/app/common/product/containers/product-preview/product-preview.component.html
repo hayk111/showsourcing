@@ -138,7 +138,7 @@
 
 	<!-- Tasks -->
 	<preview-section-app #contentTab2 *ngIf="tasks$ | async as tasks" [title]="'Tasks'">
-		<task-list-view-app
+		<task-table-app
 			class="no-padding"
 			[rows]="tasks"
 			[pending]="false"
@@ -149,7 +149,7 @@
 			[hasSelection]="false"
 			[hasPagination]="false"
 			(update)="updateTask($event)">
-		</task-list-view-app>
+		</task-table-app>
 	</preview-section-app>
 
 	<!-- Samples -->
