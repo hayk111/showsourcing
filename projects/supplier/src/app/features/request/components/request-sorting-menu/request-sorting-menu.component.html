@@ -1,50 +1,45 @@
 <context-menu-app>
 		<context-menu-trigger-app>
 			<button class="secondary flexVAlign sort-1">
-					<p *ngIf="currentSort?.sortBy === 'title'" class="flex capitalize" i18n="button@@sort-by-title">sort by title
+					<p *ngIf="currentSort?.sortBy === 'title'" class="flex capitalize" translate="button.sort-by-title">
 						<ng-container *ngTemplateOutlet="direction"></ng-container>
 					</p>
-					<p *ngIf="currentSort?.sortBy === 'sender.name'" class="flex capitalize" i18n="button@@sort-by-from">sort by from
+					<p *ngIf="currentSort?.sortBy === 'sender.name'" class="flex capitalize" translate="button.sort-by-from">
 						<ng-container *ngTemplateOutlet="direction"></ng-container>
 					</p>
-					<p *ngIf="currentSort?.sortBy === 'sender.company'" class="flex capitalize" i18n="button@@sort-by-company">sort by company
+					<p *ngIf="currentSort?.sortBy === 'sender.company'" class="flex capitalize" translate="button.sort-by-company">
 						<ng-container *ngTemplateOutlet="direction"></ng-container>
 					</p>
-					<p *ngIf="currentSort?.sortBy === 'sentDate'" class="flex capitalize" i18n="button@@sort-by-recieved">sort by recieved on
+					<p *ngIf="currentSort?.sortBy === 'sentDate'" class="flex capitalize" translate="button.sort-by-received">
 						<ng-container *ngTemplateOutlet="direction"></ng-container>
 					</p>
-					<p *ngIf="currentSort?.sortBy === 'status'" class="flex capitalize" i18n="button@@sort-by-status">sort by status
+					<p *ngIf="currentSort?.sortBy === 'status'" class="flex capitalize" translate="button.sort-by-status">
 						<ng-container *ngTemplateOutlet="direction"></ng-container>
 					</p>
 					<div><icon-app name="angle-down"></icon-app></div>
 			</button>
 		</context-menu-trigger-app>
-		<context-menu-item-app (click)="sortFromMenu.emit('title')" class="menu-item capitalize" i18n="button@@title">
-			title
+		<context-menu-item-app (click)="sortFromMenu.emit('title')" class="menu-item capitalize" translate="button.title">
 			<ng-container *ngIf="currentSort?.sortBy === 'title'">
 				<ng-container *ngTemplateOutlet="direction"></ng-container>
 			</ng-container>
 		</context-menu-item-app>
-		<context-menu-item-app (click)="sortFromMenu.emit('sender.name')" class="menu-item capitalize" i18n="button@@from">
-			from
+		<context-menu-item-app (click)="sortFromMenu.emit('sender.name')" class="menu-item capitalize" translate="button.from">
 			<ng-container *ngIf="currentSort?.sortBy === 'sender.name'">
 				<ng-container *ngTemplateOutlet="direction"></ng-container>
 			</ng-container>
 		</context-menu-item-app>
-		<context-menu-item-app (click)="sortFromMenu.emit('sender.company')" class="menu-item capitalize" i18n="button@@company">
-			company
+		<context-menu-item-app (click)="sortFromMenu.emit('sender.company')" class="menu-item capitalize" translate="button.company">
 			<ng-container *ngIf="currentSort?.sortBy === 'sender.company'">
 				<ng-container *ngTemplateOutlet="direction"></ng-container>
 			</ng-container>
 		</context-menu-item-app>
-		<context-menu-item-app (click)="sortFromMenu.emit('sentDate')" class="menu-item capitalize" i18n="button@@recieved-on">
-			recieved on
+		<context-menu-item-app (click)="sortFromMenu.emit('sentDate')" class="menu-item capitalize" translate="button.received-on">
 			<ng-container *ngIf="currentSort?.sortBy === 'sentDate'">
 				<ng-container *ngTemplateOutlet="direction"></ng-container>
 			</ng-container>
 		</context-menu-item-app>
-		<context-menu-item-app (click)="sortFromMenu.emit('status')" class="menu-item capitalize" i18n="button@@status">
-			status
+		<context-menu-item-app (click)="sortFromMenu.emit('status')" class="menu-item capitalize" translate="button.status">
 			<ng-container *ngIf="currentSort?.sortBy === 'status'">
 				<ng-container *ngTemplateOutlet="direction"></ng-container>
 			</ng-container>

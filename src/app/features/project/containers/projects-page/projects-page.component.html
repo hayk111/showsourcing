@@ -1,14 +1,12 @@
 
 <top-panel-app
-  title="My Projects"
-  buttonName="Create Project"
-	(buttonClick)="listSrv.create()"
-	i18n-title="@@my-projects"
-	i18n-buttonName="@@create-project">
+  [title]="'title.my-projects' | translate"
+  [buttonName]="'button.create-project' | translate"
+	(buttonClick)="listSrv.create()">
 </top-panel-app>
 
 <sub-panel-app
-	entityType="projects"
+	[entityType]="'PROJECT'"
 	[hasSwitch]="false"
 	[hasExport]="false"
 	[count]="listSrv.count$ | async"

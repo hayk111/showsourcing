@@ -1,14 +1,13 @@
 
 <sub-panel-app
-	[title]="'invitations'"
+	[title]="'title.invitations' | translate"
 	[hasSwitch]="false"
 	[hasFilter]="false"
-	(search)="listSrv.search($event)"
-	i18n-title="@@invitations">
+	(search)="listSrv.search($event)">
 
 	<sub-panel-right-item-app>
 		<div toolTip [toolTipMessage]="getToolTipMsg()" toolTipPosition="above-right">
-			<button [disabled]="!teamOwner" (click)="openInviteDialog()" i18n="@@invite-collaborator">Invite Collaborator</button>
+			<button [disabled]="!teamOwner" (click)="openInviteDialog()" translate="button.invite-collaborator"></button>
 		</div>
 	</sub-panel-right-item-app>
 </sub-panel-app>

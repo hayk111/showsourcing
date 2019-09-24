@@ -2,77 +2,77 @@
   <context-menu-trigger-app>
     <button class="secondary flexVAlign sort-1">
         <p *ngIf="currentSort?.sortBy === 'name'" class="flex">
-					<ng-container i18n="@@sort-by-name">Sort By Name</ng-container>
+          {{ 'button.sort-by-name' | translate }}
           <ng-container *ngTemplateOutlet="direction"></ng-container>
         </p>
         <p *ngIf="currentSort?.sortBy === 'category.name'" class="flex">
-					<ng-container i18n="@@sort-by-category">Sort By Category</ng-container>
+          {{ 'button.sort-by-category' | translate }}
           <ng-container *ngTemplateOutlet="direction"></ng-container>
         </p>
         <p *ngIf="currentSort?.sortBy === 'supplier.name'" class="flex">
-					<ng-container i18n="@@sort-by-supplier">Sort By Supplier</ng-container>
+          {{ 'button.sort-by-supplier' | translate }}
           <ng-container *ngTemplateOutlet="direction"></ng-container>
         </p>
         <p *ngIf="currentSort?.sortBy === 'price.value'" class="flex">
-					<ng-container i18n="@@sort-by-price">Sort By Price</ng-container>
+          {{ 'button.sort-by-price' | translate }}
           <ng-container *ngTemplateOutlet="direction"></ng-container>
         </p>
         <p *ngIf="currentSort?.sortBy === 'minimumOrderQuantity'" class="flex">
-					<ng-container i18n="@@sort-by-moq">Sort By MOQ</ng-container>
+          {{ 'button.sort-by-moq' | translate }}
           <ng-container *ngTemplateOutlet="direction"></ng-container>
         </p>
         <p *ngIf="currentSort?.sortBy === 'favorite'" class="flex">
-					<ng-container i18n="@@sort-by-favorite">Sort By Favorite</ng-container>
+          {{ 'button.sort-by-favorite' | translate }}
           <ng-container *ngTemplateOutlet="direction"></ng-container>
         </p>
         <p *ngIf="currentSort?.sortBy === 'status.step'" class="flex">
-					<ng-container i18n="@@sort-bystatus-">Sort By Status</ng-container>
+          {{ 'button.sort-by-status' | translate }}
           <ng-container *ngTemplateOutlet="direction"></ng-container>
         </p>
         <p *ngIf="currentSort?.sortBy === 'creationDate'" class="flex">
-					<ng-container i18n="@@sort-by-created-on">Sort By Created On</ng-container>
+          {{ 'button.sort-by-created-on' | translate }}
           <ng-container *ngTemplateOutlet="direction"></ng-container>
         </p>
     </button>
   </context-menu-trigger-app>
   <context-menu-item-app (click)="sortFromMenu.emit('name')" class="menu-item">
-		<ng-container i18n="@@name">Name</ng-container>
+    {{ 'title.name' | translate }}
     <ng-container *ngIf="currentSort?.sortBy === 'name'">
       <ng-container *ngTemplateOutlet="direction"></ng-container>
     </ng-container>
   </context-menu-item-app>
   <context-menu-item-app (click)="sortFromMenu.emit('category.name')" class="menu-item">
-		<ng-container i18n="@@category">Category</ng-container>
+    {{ 'title.category' | translate }}
     <ng-container *ngIf="currentSort?.sortBy === 'category.name'">
       <ng-container *ngTemplateOutlet="direction"></ng-container>
     </ng-container>
   </context-menu-item-app>
   <context-menu-item-app (click)="sortFromMenu.emit('supplier.name')" class="menu-item">
-		<ng-container i18n="@@supplier">Supplier</ng-container>
+    {{ 'title.supplier' | translate }}
     <ng-container *ngIf="currentSort?.sortBy === 'supplier.name'">
       <ng-container *ngTemplateOutlet="direction"></ng-container>
     </ng-container>
   </context-menu-item-app>
   <context-menu-item-app (click)="sortFromMenu.emit('price.value')" class="menu-item">
-		<ng-container i18n="@@price">Price</ng-container>
+    {{ 'title.price' | translate }}
     <ng-container *ngIf="currentSort?.sortBy === 'price.value'">
       <ng-container *ngTemplateOutlet="direction"></ng-container>
     </ng-container>
   </context-menu-item-app>
   <context-menu-item-app (click)="sortFromMenu.emit('minimumOrderQuantity')" class="menu-item">
-		<ng-container i18n="@@moq">MOQ</ng-container>
+    {{ 'title.moq' | translate }}
     <ng-container *ngIf="currentSort?.sortBy === 'minimumOrderQuantity'">
       <ng-container *ngTemplateOutlet="direction"></ng-container>
     </ng-container>
   </context-menu-item-app>
   <context-menu-item-app (click)="sortFromMenu.emit('favorite')" class="menu-item">
-		<ng-container i18n="@@favorite">Favorite</ng-container>
+    {{ 'title.favorite' | translate }}
     <ng-container *ngIf="currentSort?.sortBy === 'favorite'">
       <ng-container *ngTemplateOutlet="direction"></ng-container>
     </ng-container>
   </context-menu-item-app>
   <context-menu-item-app (click)="sortFromMenu.emit('creationDate')" class="menu-item">
-		<ng-container i18n="@@created-on">Created On</ng-container>
+    {{ 'title.created-on' | translate }}
     <ng-container *ngIf="currentSort?.sortBy === 'creationDate'">
       <ng-container *ngTemplateOutlet="direction"></ng-container>
     </ng-container>

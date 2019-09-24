@@ -4,7 +4,9 @@ import { IconsModule } from '~shared/icons/icons.module';
 import { UtilsModule } from '~shared/utils';
 import { DividerModule } from '~shared/divider/divider.module';
 import { CardModule } from '~shared/card/card.module';
+import { TranslateModule } from '@ngx-translate/core';
 import { LoadersModule } from '~shared/loaders';
+
 import {
 	NotifComponent,
 	NotifEmptyComponent,
@@ -16,7 +18,7 @@ import {
 } from '~shared/notif/components';
 
 @NgModule({
-	imports: [CommonModule, IconsModule, UtilsModule, DividerModule, CardModule, LoadersModule],
+	imports: [CommonModule, IconsModule, UtilsModule, DividerModule, CardModule, LoadersModule, TranslateModule],
 
 	declarations: [
 		NotifComponent,

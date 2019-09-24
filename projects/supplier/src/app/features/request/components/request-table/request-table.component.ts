@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ERM, SupplierRequest } from '~core/models';
 import { EntityTableComponent } from '~core/list-page';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'request-table-sup',
@@ -14,7 +15,7 @@ export class RequestTableComponent extends EntityTableComponent<SupplierRequest>
 
 	erm = ERM;
 
-	constructor() { super(); }
+	constructor(public translate: TranslateService) { super(); }
 
 	ngOnInit() { }
 

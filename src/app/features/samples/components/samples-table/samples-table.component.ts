@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, TemplateRef, ViewChild, Output, Eve
 import { EntityTableComponent } from '~core/list-page/entity-table.component';
 import { Sample, ERM } from '~models';
 import { Observable, of } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'samples-table-app',
@@ -21,7 +22,7 @@ export class SamplesTableComponent extends EntityTableComponent<Sample> {
 
 	@ViewChild('contextualMenu', { static: false }) contextualMenuTemplate: TemplateRef<any>;
 
-	constructor() {
+	constructor(public translate: TranslateService) {
 		super();
 	}
 
