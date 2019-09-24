@@ -127,6 +127,7 @@ export class ERM {
 	static readonly PROFILE = new EntityMetadata('profile', 'profiles', 'PROFILE');
 	static readonly PROJECT = new EntityMetadata('project', 'projects', 'PROJECT', Project);
 	static readonly QUOTE = new EntityMetadata('quote', 'quotes', 'QUOTE', Quote);
+	static readonly REQUEST = new EntityMetadata('request', 'requests', 'REQUEST', Request);
 	static readonly REQUEST_ELEMENT = new EntityMetadata('request element', 'request elements', 'REQUEST_ELEMENT', RequestElement);
 	static readonly REQUEST_REPLY = new EntityMetadata('request reply', 'request replies', 'REQUEST_REPLY', RequestReply);
 	static readonly REQUEST_TEMPLATE = new EntityMetadata('request template', 'request templates', 'REQUEST_TEMPLATE', RequestTemplate);
