@@ -1,7 +1,6 @@
 :host {
 	display: flex;
 	background: var(--legacy-color-bg);
-	height: calc(100% - 156px);
 	box-sizing: border-box;
 	padding: var(--spacing-l);
 }
@@ -83,4 +82,26 @@ context-menu-item-app {
 	&.remove-user {
 		color: var(--legacy-color-warn);
 	}
+}
+
+.user-name {
+	font-size: var(--font-size-m);
+	margin-left: var(--spacing-xs);
+}
+
+.email, .access {
+	color: var(--color-bg-dark);
+	font-size: var(--font-size-m);
+}
+
+.status {
+	color: var(--color-txt-secondary);
+	font-size: var(--font-size-m);
+}
+
+.plan {
+	color: var(--color-accent-dark);
+	font-size: var(--font-size-m);
+	font-weight: 600;
+	text-transform: uppercase;
 }

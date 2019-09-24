@@ -15,6 +15,7 @@ import {
 } from './components';
 import {
 	SettingsComponent,
+	SettingsTeamMembersContentComponent,
 	SettingsExportComponent,
 	SettingsFieldsPageComponent,
 	SettingsTeamMembersPageComponent,
@@ -38,7 +39,13 @@ export const routes: Routes = [
 					{ path: 'sample', component: SampleStatusWorkflowComponent }
 				]
 			},
-			{ path: 'team/members', component: SettingsTeamMembersPageComponent },
+			{
+				path: 'team', component: SettingsTeamMembersPageComponent, children: [
+					{ path: '', redirectTo: 'members', pathMatch: 'full' },
+					{ path: 'members', component:  SettingsTeamMembersContentComponent },
+					{ path: 'settings', component:  SettingsTeamMembersContentComponent }
+				]
+			},
 			{
 				path: 'data', component: DataManagementPageComponent, children: [
 					{ path: '', redirectTo: 'category', pathMatch: 'full' },

@@ -14,6 +14,7 @@ export class InvitationsTableComponent extends EntityTableComponent<Invitation> 
 	@Input() teamOwner: boolean;
 	@Input() user: User;
 	@Output() accessTypeUpdated = new EventEmitter<string>();
+	@Output() showItemsPerPage = new EventEmitter<number>();
 	isSelectableFn: Function;
 
 	constructor() {
