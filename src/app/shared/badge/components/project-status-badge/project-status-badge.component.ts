@@ -29,7 +29,7 @@ export class ProjectStatusBadgeComponent implements OnInit {
 
 	// this is done for projects since we don't have it on the DB
 	getType() {
-		let projectStatusColor = 'secondary'; // pending
+		let projectStatusColor = 'third'; // pending
 		if (this.project && this.project.done)
 			projectStatusColor = 'success'; // done
 		else if (this.project && this.project.dueDate && (new Date().getTime() >= Date.parse(this.project.dueDate.toString())))

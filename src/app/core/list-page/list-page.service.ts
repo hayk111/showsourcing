@@ -20,6 +20,7 @@ import { ListPageViewService } from './list-page-view.service';
 import { SelectionWithFavoriteService } from './selection-with-favorite.service';
 import { log } from '~utils/log';
 import { showsourcing } from '~utils/debug-object.utils';
+import { UserService } from '~core/entity-services';
 
 
 // where we can save the services
@@ -62,7 +63,8 @@ export class ListPageService
 		private router: Router,
 		private thumbSrv: ThumbService,
 		private dlgSrv: DialogService,
-		private zone: NgZone
+		private zone: NgZone,
+		private userSrv: UserService
 	) {
 		if (!showsourcing.lists) {
 			showsourcing.lists = {};
@@ -223,12 +225,12 @@ export class ListPageService
 	}
 
 	update(value: T) {
-		this.dataSrv.update(value).subscribe();
-		// .pipe(
-		// 	// sometimes the optimistic ui fails for some odd reason when updating the supplier of a product
-		// 	// so we just refetch to cover the bug, fuck this.
-		// 	switchMap(_ => this.refetch())
-		// ).subscribe();
+		this.dataSrv.update(value)
+			.pipe(
+				// sometimes the optimistic ui fails for some odd reason when updating the supplier of a product
+				// so we just refetch to cover the bug, fuck this.
+				switchMap(_ => this.refetch())
+			).subscribe();
 	}
 
 	updateMany(values: T[]) {
@@ -452,7 +454,7 @@ export class ListPageService
 
 	getFilterAmount(filterArr: FilterEntity[]): number {
 		const filters = this.filterList.asFilters()
-		.filter(fil => !filterArr.some(elem => elem.type === fil.type && elem.value === fil.value));
+			.filter(fil => !filterArr.some(elem => elem.type === fil.type && elem.value === fil.value));
 		return filters.length;
 	}
 
@@ -462,7 +464,7 @@ export class ListPageService
 	}
 
 	filterByAssignee(shouldAdd: boolean) {
-		const filterParam = { type: FilterType.ASSIGNEE, value: true };
+		const filterParam = { type: FilterType.ASSIGNEE, value: this.userSrv.userId };
 
 		if (shouldAdd) {
 			this.addFilter(filterParam);
@@ -473,7 +475,7 @@ export class ListPageService
 	}
 
 	filterByDone(shouldAdd: boolean) {
-		const filterParam = { type: FilterType.DONE, value: true };
+		const filterParam = { type: FilterType.DONE, value: false };
 
 		if (shouldAdd) {
 			this.addFilter(filterParam);

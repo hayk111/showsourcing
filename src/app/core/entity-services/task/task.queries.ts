@@ -23,6 +23,7 @@ export abstract class TaskQueries extends GlobalQueries {
 	static one = `
 		${TaskQueries.type}
 		name
+		reference
 		code
 		done
 		dueDate
@@ -41,6 +42,7 @@ export abstract class TaskQueries extends GlobalQueries {
 	static many = `
 		${TaskQueries.type}
 		name
+		reference
 		code
 		done
 		dueDate

@@ -7,6 +7,7 @@
 </header-list-app>
 
 <controller-list-app
+  #controller
 	[hasFilter]="false"
 	[hasSwitch]="false"
 	[hasArchived]="false"
@@ -25,14 +26,14 @@
 	(hideAssigned)="listSrv.filterByAssignee(false)"
 	(showTasksCreatedByMeOnly)="showTasksCreatedByMeOnly()"
 	(hideTasksCreatedByMeOnly)="hideTasksCreatedByMeOnly()"
-	(showTasksCompleted)="listSrv.filterByDone(true)"
-	(hideTasksCompleted)="listSrv.filterByDone(false)"
+	(showTasksCompleted)="listSrv.filterByDone(false)"
+	(hideTasksCompleted)="listSrv.filterByDone(true)"
 	(export)="onExport()"
 	(showFilters)="listSrv.openFilterPanel()"
 	(viewChange)="onViewChange($event)">
 
 	<controller-list-right-item-app class="flex">
-		<product-sorting-menu-app
+	<product-sorting-menu-app
 			[currentSort]="listSrv.currentSort"
 			(sortFromMenu)="listSrv.sortFromMenu($event)">
 		</product-sorting-menu-app>
@@ -61,6 +62,7 @@
 	[count]="listSrv.count$ | async"
 	[currentSort]="listSrv.currentSort"
 	[currentPage]="listSrv.currentPage"
+	(update)="listSrv.update($event)"
 	(goToPage)="listSrv.loadPage($event)"
 	(sort)="listSrv.sort($event)"
 	(select)="listSrv.selectOne($event, true)"
@@ -110,5 +112,9 @@
 	(close)="listSrv.closeFilterPanel()"
 	*ngIf="listSrv.filterPanelOpen">
 </filters-app>
-	
 
+<task-preview-app
+	*ngIf="listSrv.previewOpen"
+	[task]="listSrv.previewed"
+	(close)="listSrv.closePreview()">
+</task-preview-app>
