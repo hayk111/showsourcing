@@ -1,6 +1,6 @@
 <div class="container">
 
-	<task-list-view-app
+	<task-table-app
 		[hasHeader]="false"
 		[hasPagination]="false"
 		[rows]="listSrv.items$ | async"
@@ -19,7 +19,7 @@
 		(unfavorited)="listSrv.onItemUnfavorited($event)"
 		(previewClick)="listSrv.openPreview($event)"
 		(delete)="listSrv.deleteOne($event)">
-	</task-list-view-app>
+	</task-table-app>
 
 	<task-preview-app
 		*ngIf="listSrv.previewOpen"
@@ -40,8 +40,7 @@
 					<icon-app name="dots-vertical" size="m"></icon-app>
 				</button>
       </context-menu-trigger-app>
-      <context-menu-item-app (click)="listSrv.deleteSelected()" i18n="button@@delete">
-        Delete
+      <context-menu-item-app (click)="listSrv.deleteSelected()" translate="button.delete">
       </context-menu-item-app>
 		</context-menu-app>
 

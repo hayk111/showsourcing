@@ -14,11 +14,11 @@ import {
 } from '~core/models';
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback.service';
-import { translate } from '~utils';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 
 import { RefuseReplyDlgComponent } from '../refuse-reply-dlg/refuse-reply-dlg.component';
 import { ReplySentDlgComponent } from '../reply-sent-dlg/reply-sent-dlg.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'request-reply-dlg-app',
@@ -48,7 +48,8 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 		private replySrv: RequestReplyService,
 		private requestSrv: SupplierRequestService,
 		private dlgSrv: DialogService,
-		private uploaderFeedback: UploaderFeedbackService
+		private uploaderFeedback: UploaderFeedbackService,
+		private translate: TranslateService
 	) {
 		super();
 	}
@@ -189,14 +190,14 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 	getTooltipMessage() {
 		switch (this.reply.status) {
 			case ReplyStatus.PENDING:
-				return this.hasEmptyField() ? translate('All fields must be filled first') : null;
+				return this.hasEmptyField() ? this.translate.instant('error.all-fields-must-filled') : null;
 			case ReplyStatus.ERROR:
-				return translate('Something bad happened, please resubmit');
+				return this.translate.instant('error.stmg-bad-happened-please-resubmit');
 			case ReplyStatus.VALIDATED:
 			case ReplyStatus.REPLIED:
-				return translate('Your request has been already submitted');
+				return this.translate.instant('error.your-request-already-submitted');
 			case ReplyStatus.REFUSED:
-				return translate('You refused that request');
+				return this.translate.instant('error.you-refused-that-request');
 		}
 	}
 

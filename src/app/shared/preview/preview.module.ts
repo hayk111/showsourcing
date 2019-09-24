@@ -10,6 +10,7 @@ import { ImageModule } from '~shared/image/image.module';
 import { SelectorsModule } from '~shared/selectors/selectors.module';
 import { StatusSelectorModule } from '~shared/status-selector/status-selector.module';
 import { UtilsModule } from '~shared/utils';
+import { TranslateModule } from '@ngx-translate/core';
 
 import {
 	PreviewBadgesComponent,
@@ -36,7 +37,8 @@ import { PreviewLogoComponent } from './components/preview-logo/preview-logo.com
 		FileModule,
 		OverlayModule,
 		ReactiveFormsModule,
-		UtilsModule
+		UtilsModule,
+		TranslateModule
 	],
 	declarations: [
 		PreviewComponent,

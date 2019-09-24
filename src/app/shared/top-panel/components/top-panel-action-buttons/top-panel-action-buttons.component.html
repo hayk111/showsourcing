@@ -1,4 +1,4 @@
-<button class="rounded like" toolTip toolTipMessage="Favorite item" [offsetX]="5">
+<button class="rounded like" toolTip [toolTipMessage]="'message.favorite-item' | translate" [offsetX]="5">
 	<rating-heart-app
 		[customClassFavorited]="'header-favorited'"
 		[customClassUnFavorited]="'rounded secondary'"
@@ -11,7 +11,7 @@
 </button>
 
 <button
-	toolTip toolTipMessage="Export" [offsetX]="8"
+	toolTip [toolTipMessage]="'button.export' | translate" [offsetX]="8"
 	class="rounded secondary share"
 	(click)="export.emit(data)">
 	<icon-app name="export" size="14"></icon-app>
@@ -21,7 +21,7 @@
 	*ngIf="hasAssignee"
 	type="user"
 	toolTip
-	toolTipMessage="Change assignee"
+	[toolTipMessage]="'message.change-assignee' | translate"
 	[offsetX]="4"
 	(update)="changeUser.emit($event)">
 	<user-picture-app class="pointer" [user]="user" [border]="true"></user-picture-app>

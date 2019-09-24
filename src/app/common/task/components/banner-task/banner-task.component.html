@@ -11,20 +11,19 @@
 		class="task-mark"
 		[ngClass]="status === enumTaskStatus.PENDING ? 'secondary-dark' : 'secondary' "
 		(click)="update.emit(true)"
-		i18n="@@mark-done">
-		Mark as done
+		translate="button.mark-done">
 	</button>
 
 	<div class="task-info">
 		<icon-app name="task"></icon-app>
 		<div class="info first-uppercase">
 			<ng-container *ngIf="status === enumTaskStatus.OVERDUE; else notOverdued">
-				{{ (status | const: 'status') + ' - '}}
+				{{ ('header.status' | translate) + ' - ' }}
 			</ng-container>
 			<ng-template #notOverdued>
-				<ng-container i18n="@@task">task</ng-container>&nbsp;{{ (status | const: 'status') }}
+				{{ ('header.task' | translate) + ' ' + ('header.status' | translate) }}
 			</ng-template>
-			{{ task?.dueDate | date: 'dd MM yyyy' || ''}}
+			{{ task?.dueDate | date: 'dd MM yyyy':'':translate.currentLang || ''}}
 		</div>
 	</div>
 

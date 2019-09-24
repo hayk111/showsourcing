@@ -49,6 +49,7 @@ import { TemplateMngmtModule } from './template-mngmt/template-mngmt.module';
 import { OnBoardingModule } from './on-boarding/on-boarding.module';
 import { PackagingModule } from './packaging/packaging.module';
 import { NotifModule } from './notif/notif.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 // those modules are used so commonly that we will just import the shared module
 const modules = [
@@ -106,7 +107,8 @@ const modules = [
 	ComparisonRowModule,
 	TemplateMngmtModule,
 	OnBoardingModule,
-	PackagingModule
+	PackagingModule,
+	TranslateModule
 ];
 
 @NgModule({

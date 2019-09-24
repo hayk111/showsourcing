@@ -6,8 +6,9 @@ import { CommonModalService } from '~common/modals';
 import { ProductService, SupplierService } from '~core/entity-services';
 import { ListPageService } from '~core/list-page';
 import { ERM, Product, Supplier } from '~core/models';
-import { AutoUnsub, translate } from '~utils';
+import { AutoUnsub } from '~utils';
 import { ID } from '~utils/id.utils';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'supplier-products-page-app',
@@ -27,7 +28,8 @@ export class SupplierProductsPageComponent extends AutoUnsub implements OnInit {
 		private productSrv: ProductService,
 		private supplierSrv: SupplierService,
 		public listSrv: ListPageService<Product, ProductService>,
-		public commonModalSrv: CommonModalService
+		public commonModalSrv: CommonModalService,
+		private translate: TranslateService
 	) { super(); }
 
 	ngOnInit() {
@@ -50,7 +52,7 @@ export class SupplierProductsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	delete(supplier: Supplier) {
-		this.commonModalSrv.openConfirmDialog({ text: translate('Are you sure you want to delete this supplier?') }).pipe(
+		this.commonModalSrv.openConfirmDialog({ text: this.translate.instant('message.confirm-delete-supplier') }).pipe(
 			switchMap(_ => this.supplierSrv.delete(supplier.id))
 		).subscribe(_ => this.router.navigate(['supplier']));
 	}

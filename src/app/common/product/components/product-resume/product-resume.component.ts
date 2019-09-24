@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, Input, OnInit, Output, EventEmitter
 import { ProductService } from '~core/entity-services';
 import { ERM, Product } from '~core/models';
 import { AutoUnsub } from '~utils';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'product-resume-app',
@@ -17,7 +18,8 @@ export class ProductResumeComponent extends AutoUnsub implements OnInit {
 	erm = ERM;
 
 	constructor(
-		private productSrv: ProductService
+		private productSrv: ProductService,
+		public translate: TranslateService
 	) {
 		super();
 	}

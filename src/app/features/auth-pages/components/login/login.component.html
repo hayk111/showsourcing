@@ -1,7 +1,5 @@
-<auth-form-header-app
-	[pending]="(pending$ | async)">
-	<auth-header-content-app i18n="text@@please-login-to-your-account">
-		Please login to your account.
+<auth-form-header-app [pending]="(pending$ | async)">
+	<auth-header-content-app translate="text.please-login-to-your-account">
 	</auth-header-content-app>
 </auth-form-header-app>
 
@@ -13,7 +11,7 @@
 	[buttons]="buttons"
 	(onSubmit)="onSubmit($event)">
 	<div class="options">
-		<div class="pointer forgot-password" (click)="forgotPw()" i18n="@@forgotten-pswd">Forgotten password?</div>
+		<div translate="button.forgotten-pswd" class="pointer forgot-password" (click)="forgotPw()"></div>
 	</div>
 
 </auth-form-app>

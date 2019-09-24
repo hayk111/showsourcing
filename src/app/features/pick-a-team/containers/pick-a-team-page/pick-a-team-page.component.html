@@ -1,12 +1,9 @@
 <ng-container *ngIf="!(pending$ | async)">
 	<auth-form-header-app>
-		<auth-header-title-app i18n="header@@join-team">
-			Join a team
+		<auth-header-title-app translate="header.join-team">
 		</auth-header-title-app>
-		<auth-header-subtitle-app i18n="text@@select-team-or-create">
-			Select the team you wanna connect to or
-			<br>
-			create a new one
+		<!-- TODO Check style is the same -->
+		<auth-header-subtitle-app translate="text.select-team-or-create">
 		</auth-header-subtitle-app>
 	</auth-form-header-app>
 	<ul>
@@ -22,7 +19,6 @@
 	<a
 		class="button light flexCenter"
 		[routerLink]="['../create-a-team']"
-		i18n="link@@create-new-team">
-		Create a new team
+		translate="link.create-new-team">
 	</a>
 </ng-container>
