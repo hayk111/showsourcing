@@ -19,7 +19,7 @@ import { CommentService, TaskService, SampleService, RequestElementService } fro
 	styleUrls: ['./product-activity.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
-		{ provide: ListPageService }
+		ListPageService
 	]
 })
 export class ProductActivityComponent extends AutoUnsub implements OnInit {
@@ -31,11 +31,11 @@ export class ProductActivityComponent extends AutoUnsub implements OnInit {
 	constructor(
 		private route: ActivatedRoute,
 		private featureSrv: ProductFeatureService,
-		private listSrv: ListPageService<any, any>,
+		public listSrv: ListPageService<any, any>,
 		private commentSrv: CommentService,
 		private taskSrv: TaskService,
 		private sampleSrv: SampleService,
-		private requestSrv: RequestElementService
+		private requestElemSrv: RequestElementService
 	) {
 		super();
 	}
@@ -48,9 +48,11 @@ export class ProductActivityComponent extends AutoUnsub implements OnInit {
 		this.counts$ = product$.pipe(
 			map(product => this.featureSrv.getActivityCount(product) )
 		);
+		this.onTabChange(this.selectedTab);
 	}
 
 	onTabChange(tabName: string) {
+		this.selectedTab = tabName;
 		let entitySrv;
 		let entityMetadata;
 
@@ -60,16 +62,16 @@ export class ProductActivityComponent extends AutoUnsub implements OnInit {
 				entityMetadata = ERM.COMMENT;
 				break;
 			case 'task':
-				entitySrv = this.commentSrv;
-				entityMetadata = ERM.COMMENT;
+				entitySrv = this.taskSrv;
+				entityMetadata = ERM.TASK;
 				break;
 			case 'request':
-				entitySrv = this.commentSrv;
-				entityMetadata = ERM.COMMENT;
+				entitySrv = this.requestElemSrv;
+				entityMetadata = ERM.REQUEST_ELEMENT;
 				break;
 			case 'sample':
-				entitySrv = this.commentSrv;
-				entityMetadata = ERM.COMMENT;
+				entitySrv = this.sampleSrv;
+				entityMetadata = ERM.SAMPLE;
 				break;
 		}
 
@@ -77,10 +79,13 @@ export class ProductActivityComponent extends AutoUnsub implements OnInit {
 			entitySrv: entitySrv,
 			searchedFields: ['name'],
 			// we use the deleted filter there so we can send the query to export all to the export dlg
-			initialFilters: [{ type: FilterType.ARCHIVED, value: false }, { type: FilterType.DELETED, value: false }],
+			initialFilters: [
+				// TODO Backend: uncomment when archived is put
+				// { type: FilterType.ARCHIVED, value: false },
+				{ type: FilterType.DELETED, value: false }],
 			entityMetadata: entityMetadata,
 			originComponentDestroy$: this._destroy$
-		}, false);
+		});
 	}
 
 }

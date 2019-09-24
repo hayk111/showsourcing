@@ -3,7 +3,7 @@
 			<product-activity-nav-app 
 				[selectedTab]="selectedTab"
 				[counts]="counts$ | async"
-				(tabSelected)="selectedTab = $event"></product-activity-nav-app>
+				(tabSelected)="onTabChange($event)"></product-activity-nav-app>
 		</card-nav-app>
 		<card-header-app>
 		</card-header-app>
@@ -13,16 +13,57 @@
 		<ng-container [ngSwitch]="selectedTab">
 
 			<ng-container *ngSwitchCase="'comment'">
-				show comments
+				<activity-list-app
+					*ngIf="product$ | async as product"
+					[entity]="product"
+					[activities]="product.comments"
+					[typeEntity]="typeEntity">
+				</activity-list-app>
 			</ng-container>
 
 			<ng-container *ngSwitchCase="'task'">
-				
+				<task-table-app
+					[hasHeader]="false"
+					[hasPagination]="false"
+					[rows]="listSrv.items$ | async"
+					[selection]="listSrv.selection$ | async"
+					[pending]="listSrv.pending"
+					[count]="listSrv.count$ | async"
+					[currentPage]="listSrv.currentPage"
+					(goToPage)="listSrv.loadPage($event)"
+					(sort)="listSrv.sort($event)"
+					(select)="listSrv.selectOne($event, true)"
+					(unselect)="listSrv.unselectOne($event, true)"
+					(selectAll)="listSrv.selectAll($event, true)"
+					(unselectAll)="listSrv.unselectAll()"
+					(open)="listSrv.goToDetails($event)"
+					(favorited)="listSrv.onItemFavorited($event)"
+					(unfavorited)="listSrv.onItemUnfavorited($event)"
+					(previewClick)="listSrv.openPreview($event)"
+					(delete)="listSrv.deleteOne($event)">
+				</task-table-app>
 			</ng-container>
 
-
 			<ng-container *ngSwitchCase="'sample'">
-				show tasks
+				<sample-table-app
+					[hasHeader]="false"
+					[hasPagination]="false"
+					[rows]="listSrv.items$ | async"
+					[selection]="listSrv.selection$ | async"
+					[pending]="listSrv.pending"
+					[count]="listSrv.count$ | async"
+					[currentPage]="listSrv.currentPage"
+					(goToPage)="listSrv.loadPage($event)"
+					(sort)="listSrv.sort($event)"
+					(select)="listSrv.selectOne($event, true)"
+					(unselect)="listSrv.unselectOne($event, true)"
+					(selectAll)="listSrv.selectAll($event, true)"
+					(unselectAll)="listSrv.unselectAll()"
+					(open)="listSrv.goToDetails($event)"
+					(favorited)="listSrv.onItemFavorited($event)"
+					(unfavorited)="listSrv.onItemUnfavorited($event)"
+					(previewClick)="listSrv.openPreview($event)"
+					(delete)="listSrv.deleteOne($event)"></sample-table-app>
 			</ng-container>
 
 		</ng-container>

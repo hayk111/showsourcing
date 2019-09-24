@@ -109,7 +109,6 @@ const modules = [
 	StatusSelectorModule,
 	TableModule,
 	TemplateMngmtModule,
-	TopPanelModule,
 	PaginationModule,
 	HeaderListModule,
 	UserPictureModule,
