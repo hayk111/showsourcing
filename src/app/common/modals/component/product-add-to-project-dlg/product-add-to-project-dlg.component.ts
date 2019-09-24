@@ -6,7 +6,7 @@ import { DialogService } from '~shared/dialog/services';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { TrackingComponent } from '~utils/tracking-component';
 import { CloseEventType } from '~shared/dialog';
-import { translate } from '~utils';
+import { TranslateService } from '@ngx-translate/core';
 
 
 
@@ -27,7 +27,9 @@ export class ProductAddToProjectDlgComponent extends TrackingComponent implement
 	constructor(
 		private dlgSrv: DialogService,
 		private productDlgSrv: ProductDialogService,
-		private notifSrv: NotificationService) {
+		private notifSrv: NotificationService,
+		private translate: TranslateService
+		) {
 		super();
 	}
 
@@ -55,8 +57,8 @@ export class ProductAddToProjectDlgComponent extends TrackingComponent implement
 				this.dlgSrv.close();
 				this.notifSrv.add({
 					type: NotificationType.SUCCESS,
-					title: translate('Projects added'),
-					message: translate('Your projects were added to the product with success'),
+					title: this.translate.instant('title.projects-added'),
+					message: this.translate.instant('message.your-projects-added-success'),
 					timeout: 3500
 				});
 			});

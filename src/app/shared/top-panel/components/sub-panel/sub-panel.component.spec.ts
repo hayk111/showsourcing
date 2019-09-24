@@ -12,7 +12,7 @@ import { SubPanelComponent } from './sub-panel.component';
 import { TopPanelModule } from '../../top-panel.module';
 import { By } from '@angular/platform-browser';
 import { ColumnDirective } from '~shared/table/components/column.directive';
-import { ListViewComponent } from '~core/list-page/list-view.component';
+import { EntityTableComponent } from '~core/list-page/entity-table.component';
 import { Sort } from '~shared/table/components/sort.interface';
 import { Subscription } from 'rxjs';
 

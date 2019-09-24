@@ -31,6 +31,7 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 			// with this name we use the same pipe for translation
 			const name = '_New' + typeEntityName.charAt(0).toUpperCase() + typeEntityName.slice(1) + 'status';
 			status = value.status || { id: '-1', category: 'new', name, step: 0 };
+			status.name = status.name.toLowerCase().replace(' ', '-');
 			this._entity = { ...value, status };
 		}
 	}
@@ -58,7 +59,12 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		this.status$ = this.statusSlctSrv.getTableStatus(this.typeEntity);
 		this.status$.pipe(takeUntil(this._destroy$))
-			.subscribe(statuses => this.statuses = statuses);
+			.subscribe(statuses => {
+				this.statuses = statuses.map((status) => {
+					status.name = status.name.toLowerCase().replace(' ', '-');
+					return status;
+				});
+			});
 	}
 
 	updateStatus(status) {

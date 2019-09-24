@@ -15,6 +15,7 @@ import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback.service';
 import { AutoUnsub } from '~utils/auto-unsub.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'file-list-app',
@@ -42,6 +43,7 @@ export class FileListComponent extends AutoUnsub implements OnInit {
 		private uploaderFeedback: UploaderFeedbackService,
 		private dlgSrv: DialogService,
 		private attachmentSrv: AttachmentService,
+		private translate: TranslateService
 	) {
 		super();
 	}
@@ -63,7 +65,7 @@ export class FileListComponent extends AutoUnsub implements OnInit {
 		event.stopPropagation();
 		if (this.showConfirmOnDelete) {
 			this.dlgSrv.open(ConfirmDialogComponent, {
-				text: 'Remove 1 file ?'
+				text: this.translate.instant('message.remove-1-file')
 			}).pipe(
 				filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
 				switchMap(_ => this.removeFile(file)),

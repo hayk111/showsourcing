@@ -12,7 +12,7 @@ import { DialogHeaderComponent } from '~shared/dialog/components/dialog-header/d
 import { DialogFooterComponent } from '~shared/dialog/components/dialog-footer/dialog-footer.component';
 import { DialogSubtitleComponent } from '~shared/dialog/components/dialog-subtitle/dialog-subtitle.component';
 import { A11yModule } from '@angular/cdk/a11y';
-
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
 	imports: [
@@ -20,6 +20,7 @@ import { A11yModule } from '@angular/cdk/a11y';
 		UtilsModule,
 		IconsModule,
 		A11yModule,
+		TranslateModule
 	],
 	declarations: [
 		DialogComponent,

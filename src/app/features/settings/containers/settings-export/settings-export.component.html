@@ -1,11 +1,10 @@
 <top-panel-details-app
-	[title]="'My Exports'"
+	[title]="'title.my-exports' | translate"
 	[hasBackArrow]="false"
-	[elevated]="false"
-	i18n-title="@@exports">
+	[elevated]="false">
 
 	<logo-app color="primary" icon="close-pane-bottom" size="xl"></logo-app>
-	<ng-container subinfo>Exports from my team</ng-container>
+	<ng-container subinfo>{{ 'message.exports-from-my-team' | translate }}</ng-container>
 </top-panel-details-app>
 
 <sub-panel-app
@@ -15,7 +14,7 @@
 	(search)="listSrv.search($event)">
 </sub-panel-app>
 
-<export-list-view-app
+<export-table-app
 	class="no-padding"
 	[rows]="listSrv.items$ | async"
 	[pending]="listSrv.pending"
@@ -24,7 +23,7 @@
 	(goToPage)="listSrv.loadPage($event)"
 	(sort)="listSrv.sort($event)"
 	(download)="downloadOne($event)">
-</export-list-view-app>
+</export-table-app>
 
 <!-- in case selection comes back -->
 <!-- <selection-bar-app

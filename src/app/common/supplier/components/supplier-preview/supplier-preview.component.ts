@@ -10,6 +10,7 @@ import {
 } from '~core/entity-services/extended-field-definition/extended-field-definition.service';
 import { AppImage, Comment, ERM, ExtendedFieldDefinition, Supplier } from '~core/models';
 import { AutoUnsub, translate } from '~utils';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'supplier-preview-app',
@@ -39,7 +40,8 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnChanges, On
 		private supplierSrv: SupplierService,
 		private commentSrv: CommentService,
 		private router: Router,
-		private extendedFieldDefSrv: ExtendedFieldDefinitionService) {
+		private extendedFieldDefSrv: ExtendedFieldDefinitionService,
+		public translateService: TranslateService) {
 		super();
 	}
 

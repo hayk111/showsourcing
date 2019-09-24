@@ -55,18 +55,18 @@
 		</rating-heart-app>
 	</div>
 
-	<button class="preview overlay capitalize" (click)="preview.emit()" i18n="@@preview">
-		<icon-app class="eye-icon" name="eye"></icon-app> preview product
+	<button class="preview overlay capitalize" (click)="preview.emit()">
+		<icon-app class="eye-icon" name="eye"></icon-app> {{ 'button.preview' | translate }}
 	</button>
-	<button class="open overlay capitalize" (click)="open.emit()" i18n="@@open">
-		<icon-app class="export-icon" name="export"></icon-app> open product
+	<button class="open overlay capitalize" (click)="open.emit()">
+		<icon-app class="export-icon" name="export"></icon-app> {{ 'button.open-product' | translate }}
 	</button>
 
 	<!-- Content (Non Floating) -->
 	<div class="content">
 		<div class="title ellipsis">
-			<div class="badge" [ngStyle]="{ 'background-color': 'var(' + getColor(product?.status) + ')'}"></div>{{ product?.name ||
-				('Unnamed product' | const: 'messages') }}
+			<div class="badge" [ngStyle]="{ 'background-color': 'var(' + getColor(product?.status) + ')'}"></div>
+			{{ product?.name || ('message.unnamed-product' | translate) }}
 		</div>
 		<div class="category">
 			<span class="category-name">{{ product?.category?.name }}</span>

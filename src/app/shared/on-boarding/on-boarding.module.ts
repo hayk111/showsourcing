@@ -4,6 +4,7 @@ import { OnBoardingDlgComponent } from './components/on-boarding-dlg/on-boarding
 import { ImageModule } from '~shared/image/image.module';
 import { DialogModule } from '~shared/dialog';
 import { LoadersModule } from '~shared/loaders';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
 	declarations: [OnBoardingDlgComponent],
@@ -11,7 +12,8 @@ import { LoadersModule } from '~shared/loaders';
 		CommonModule,
 		ImageModule,
 		DialogModule,
-		LoadersModule
+		LoadersModule,
+		TranslateModule
 	],
 	exports: [OnBoardingDlgComponent],
 	entryComponents: [OnBoardingDlgComponent]
