@@ -43,6 +43,8 @@
 		[user]="user"
 		[selection]="listSrv.selection$ | async"
 		[pending]="listSrv.pending"
+		[count]="listSrv.count$ | async"
+		[currentPage]="listSrv.currentPage"
 		(bottomReached)="listSrv.loadMore()"
 		(sort)="listSrv.sort($event)"
 		(select)="listSrv.selectOne($event, false)"

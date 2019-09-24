@@ -30,12 +30,8 @@
 		</button>
 		<div class="divider"></div>
 
-		<span class="bold-s capitalize entities-count">
-			{{ 
-				entityType 
-					? ('OBJ.n-OBJ' | translate: { count: count || 0, field: ((count || 0) > 1 ? 'ERM.' + entityType + '.plural' : 'ERM.' + entityType + '.singular') | translate })
-					: '' 
-			}}
+		<span class="capitalize entities-count">
+			{{count}} {{entityType}}
 		</span>
 
 		<button *ngIf="filtersPanelOpened" class="bold-s pointer secondary capitalize" (click)="hideFilters.emit()" translate="button.hide-filters">
@@ -91,6 +87,15 @@
 					[size]="15">
 				</checkbox-app>
 				{{'label.assigned-to-me' | translate}}
+			</div>
+		</div>
+		<div class="my-exports-only-container pointer" *ngIf="hasMyExport" (click)="toggleMyExport()">
+			<div class="flexCenter">
+				<checkbox-app
+					[checked]="isMyExport"
+					[size]="15">
+				</checkbox-app>
+				Show my exports only
 			</div>
 		</div>
 

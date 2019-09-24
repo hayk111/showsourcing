@@ -107,6 +107,7 @@
 .show-archived-container,
 .assigned-to-me-container,
 .tasks-created-by-me-container,
+.my-exports-only-container,
 .show-completed-container {
 	position: relative;
 	height: 32px;
@@ -138,6 +139,10 @@
 
 .show-completed-container {
 	width: 143px;
+}
+
+.my-exports-only-container {
+	width: 177px;
 }
 
 .show-archived, .assigned-to-me {

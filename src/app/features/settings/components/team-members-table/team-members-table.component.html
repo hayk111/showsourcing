@@ -3,7 +3,6 @@
 	[contextualMenu]="contextualMenuTemplate"
 	[pending]="pending"
 	[selected]="selection"
-	[isSelectable]="isSelectableFn"
 	[count]="count"
 	[currentPage]="currentPage"
 	[placeholder]="'placeholder.no-team-member' | translate"
@@ -53,7 +52,7 @@
 		sortBy="accessType"
 		width="200">
 
-		<context-menu-app *ngIf="teamOwner && (row?.user?.id !== user?.id); else noSelector" [closeOnScroll]="true">
+		<context-menu-app [closeOnScroll]="true">
 			<context-menu-trigger-app class="flex pointer">
 				<div class="text capitalize" *ngIf="row.accessType === 'TeamMember'" translate="text.team-member"></div>
 				<div class="text capitalize" *ngIf="row.accessType === 'Contributor'" translate="text.contributor"></div>

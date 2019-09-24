@@ -222,6 +222,11 @@
 	padding: 24px 24px 0 24px !important;
 }
 
+.side-padding-l {
+	padding-left: var(--spacing-l);
+	padding-right: var(--spacing-l);
+}
+
 .small-gray-badge-separator {
 	height: 4px;
 	width: 4px;
