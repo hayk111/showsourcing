@@ -24,7 +24,6 @@ export class ExportTableComponent extends EntityTableComponent<ExportRequest> {
 	) { super(); }
 
 	getToolTipMsg(status: string) {
-		// return status !== 'ready' ? translate('Your export is being processed') : null;
 		return status !== 'ready' ? this.translate.instant('message.your-export-is-being-processed') : null;
 	}
 
