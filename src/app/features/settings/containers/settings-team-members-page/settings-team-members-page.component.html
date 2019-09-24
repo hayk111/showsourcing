@@ -6,20 +6,25 @@
 	<logo-app color="primary" icon="team" size="xl"></logo-app>
 	<ng-container subinfo *ngIf="(team$ | async) as team">{{team.name}}</ng-container>
 
-	<panel-tab-app
-		link="settings/team/members"
-		icon="team"
-		name="Team Members">
-	</panel-tab-app>
+	<header-list-nav-app>
+		<header-list-nav-item-app
+			link="settings/team/members"
+			icon="team"
+			name="Team Members">
+		</header-list-nav-item-app>
+	
+		<!-- TODO create route for settings tab -->
+		<header-list-nav-item-app
+			link="settings/team/settings"
+			icon="settings"
+			name="Settings">
+		</header-list-nav-item-app>
+	</header-list-nav-app>
 
-	<!-- TODO create route for settings tab -->
-	<panel-tab-app
-		link="settings/team/settings"
-		icon="settings"
-		name="Settings">
-	</panel-tab-app>
+	<header-details-actions-app>
+		<button action (click)="redirectNewTeamScreen()">Create New Team</button>
+	</header-details-actions-app>
 
-	<button action (click)="redirectNewTeamScreen()">Create New Team</button>
 </header-details-app>
 
 <router-outlet></router-outlet>
