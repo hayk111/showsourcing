@@ -19,6 +19,7 @@ import {
 } from './components';
 import { ProductPreviewComponent } from './containers';
 import { TaskCommonModule } from '~common/task/task-common.module';
+import { SampleCommonModule } from '~common/sample/sample-common.module';
 
 @NgModule({
 	imports: [
@@ -27,6 +28,7 @@ import { TaskCommonModule } from '~common/task/task-common.module';
 		SharedModule,
 		CommentCommonModule,
 		TaskCommonModule,
+		SampleCommonModule
 	],
 	declarations: [
 		MoqComponent,

@@ -142,7 +142,7 @@
 			class="no-padding"
 			[rows]="tasks"
 			[pending]="false"
-			[tableConfig]="tableConfig"
+			[tableConfig]="taskTableConfig"
 			[columns]="['done', 'name', 'dueDate']"
 			[hasMenu]="false"
 			[hasHeader]="false"
@@ -154,7 +154,18 @@
 
 	<!-- Samples -->
 	<preview-section-app #contentTab2 *ngIf="samples$ | async as samples" [title]="'Samples'">
-
+		<sample-list-view-app
+			class="no-padding"
+			[rows]="samples"
+			[columns]="['name', 'status']"
+			[tableConfig]="sampleTableConfig"
+			[pending]="false"
+			[hasMenu]="false"
+			[hasHeader]="false"
+			[hasSelection]="false"
+			[hasPagination]="false"
+			(update)="updateSample($event)">
+		</sample-list-view-app>
 	</preview-section-app>
 
 	<!-- Comment -->
