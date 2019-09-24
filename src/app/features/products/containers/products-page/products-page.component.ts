@@ -1,23 +1,19 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChildren, QueryList, OnChanges, ViewChild, HostListener } from '@angular/core';
-import { Observable } from 'rxjs';
-import { switchMap, takeUntil, filter, map } from 'rxjs/operators';
-import { CommonModalService } from '~common/modals';
-import { ProductService, UserService, RequestElementService } from '~core/entity-services';
-import { ListPageKey, ListPageService } from '~core/list-page';
-import { ERM, Product } from '~models';
-import { FilterType, Filter } from '~shared/filters';
-import { AutoUnsub } from '~utils';
-import { CreationSampleDlgComponent } from '~common/modals/component/creation-sample-dlg/creation-sample-dlg.component';
-import { DialogService, CloseEventType, CloseEvent } from '~shared/dialog';
-import { WorkspaceFeatureService } from '~features/workspace/services/workspace-feature.service';
-import { NotificationService, NotificationType } from '~shared/notifications';
-import { FiltersComponent, FilterSelectionEntityPanelComponent } from '~shared/filters/components';
-import { ProductListComponent } from '~deprecated/product-list/product-list.component';
-import { ProductFeatureService } from '~features/products/services';
-import { SupplierRequestDialogComponent } from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+import { switchMap, takeUntil } from 'rxjs/operators';
+import { CommonModalService } from '~common/modals';
+import { SupplierRequestDialogComponent } from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
+import { ProductService, UserService } from '~core/entity-services';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
+import { ListPageKey, ListPageService } from '~core/list-page';
+import { ProductFeatureService } from '~features/products/services';
+import { ERM, Product } from '~models';
+import { DialogService } from '~shared/dialog';
+import { FilterType } from '~shared/filters';
+import { NotificationService, NotificationType } from '~shared/notifications';
 import { SubPanelService } from '~shared/top-panel/services/sub-panel.service';
+import { AutoUnsub } from '~utils';
 
 // dailah lama goes into pizza store
 // servant asks : what pizza do you want sir ?

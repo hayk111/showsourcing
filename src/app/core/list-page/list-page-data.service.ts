@@ -101,10 +101,7 @@ export class ListPageDataService
 			this.filterList.asPredicate() ? this.selectParams.query + ' AND (' + this.filterList.asPredicate() + ')' :
 			this.filterList.asPredicate();
 		this.selectParams = { ...this.selectParams, query };
-		this.listResult = this.entitySrv.getListQuery({
-			...this.selectParams,
-		});
-
+		this.listResult = this.entitySrv.getListQuery({ ...this.selectParams });
 		this.items$ = this.listResult.items$.pipe(
 			tap(_ => this.onLoaded()),
 			// remove deleted items from the list cuz they stay if they
