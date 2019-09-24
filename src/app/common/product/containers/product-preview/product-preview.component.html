@@ -72,11 +72,7 @@
 	<preview-tab-app #tab3 (click)="previewSrv.onSelectedTab(3)">Comments</preview-tab-app>
 
 	<!-- Description -->
-<<<<<<< HEAD
-	<preview-section-app #contentTab1 [title]="'description'" i18n-title="@@description">
-=======
-	<preview-section-app [title]="'title.description' | translate">
->>>>>>> v3.0.0
+	<preview-section-app #contentTab1 [title]="'title.description' | translate">
 		<input-description-app
 			[description]="product?.description"
 			(update)="update($event, 'description')">
@@ -84,11 +80,7 @@
 	</preview-section-app>
 
 	<!-- Tags -->
-<<<<<<< HEAD
-	<preview-section-app #contentTab1 [title]="'tags'" i18n-title="@@tags">
-=======
-	<preview-section-app [title]="'title.tags' | translate">
->>>>>>> v3.0.0
+	<preview-section-app #contentTab1 [title]="'title.tags' | translate">
 		<input-badge-selector-app
 			[value]="product?.tags"
 			type="tag"
@@ -97,11 +89,7 @@
 	</preview-section-app>
 
 	<!-- Product details -->
-<<<<<<< HEAD
-	<preview-section-app #contentTab1 [title]="'product details'" i18n-title="@@product-details">
-=======
-	<preview-section-app [title]="'title.product-details'">
->>>>>>> v3.0.0
+	<preview-section-app #contentTab1 [title]="'title.product-details'">
 		<dynamic-form-app
 			[inlineLabel]="true"
 			[fields]="productDescriptor1?.descriptor"
