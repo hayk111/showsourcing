@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { ListViewComponent, TableConfig } from '~core/list-page/list-view.component';
+import { EntityTableComponent, TableConfig } from '~core/list-page/entity-table.component';
 import { ERM, Product } from '~models';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -19,14 +19,14 @@ const tableConfig: TableConfig = {
 };
 
 @Component({
-	selector: 'products-list-view-app',
-	templateUrl: './products-list-view.component.html',
+	selector: 'products-table-app',
+	templateUrl: './products-table.component.html',
 	styleUrls: [
-		'./products-list-view.component.scss'
+		'./products-table.component.scss'
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductsListViewComponent extends ListViewComponent<Product> {
+export class ProductsTableComponent extends EntityTableComponent<Product> {
 	columns = ['reference', 'price', 'supplier', 'category', 'createdBy', 'activities', 'status'];
 	@Input() tableConfig = tableConfig;
 	@Input() tableWidth: number;

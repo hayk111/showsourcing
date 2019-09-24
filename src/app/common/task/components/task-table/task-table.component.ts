@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { ListViewComponent, TableConfig } from '~core/list-page';
+import { EntityTableComponent, TableConfig } from '~core/list-page';
 import { TranslateService } from '@ngx-translate/core';
 import { ERM, Task } from '~core/models';
 import { ID } from '~utils/id.utils';
@@ -15,17 +15,16 @@ const tableConfig: TableConfig = {
 	assignee: { title: 'assigned to', translationKey: 'assigned-to', width: 140, sortProperty: 'assignee.firstName' },
 	status: { title: 'status', translationKey: 'status', width: 85, sortProperty: 'status.step', sortable: false },
 };
-
 @Component({
-	selector: 'task-list-view-app',
-	templateUrl: './task-list-view.component.html',
+	selector: 'task-table-app',
+	templateUrl: './task-table.component.html',
 	styleUrls: [
-		'./task-list-view.component.scss',
+		'./task-table.component.scss',
 		'../../../../../app/theming/specific/list.scss'
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TaskListViewComponent extends ListViewComponent<Task> {
+export class TaskTableComponent extends EntityTableComponent<Task> {
 
 	@Input() tableConfig = tableConfig;
 	@Output() openProduct = new EventEmitter<ID>();

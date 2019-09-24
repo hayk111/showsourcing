@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { ListViewComponent, TableConfig } from '~core/list-page/list-view.component';
+import { EntityTableComponent, TableConfig } from '~core/list-page/entity-table.component';
 import { Project, ERM } from '~models';
 import { Color } from '~utils';
 import { TranslateService } from '@ngx-translate/core';
@@ -16,14 +16,14 @@ const tableConfig: TableConfig = {
 };
 
 @Component({
-	selector: 'projects-list-view-app',
-	templateUrl: './projects-list-view.component.html',
+	selector: 'projects-table-app',
+	templateUrl: './projects-table.component.html',
 	styleUrls: [
-		'./projects-list-view.component.scss',
+		'./projects-table.component.scss',
 		'../../../../../app/theming/specific/list.scss'
 	]
 })
-export class ProjectsListViewComponent extends ListViewComponent<Project> {
+export class ProjectsTableComponent extends EntityTableComponent<Project> {
 
 	@Output() showItemsPerPage = new EventEmitter<number>();
 
@@ -37,5 +37,4 @@ export class ProjectsListViewComponent extends ListViewComponent<Project> {
 	constructor(public translate: TranslateService) {
 		super();
 	}
-
 }

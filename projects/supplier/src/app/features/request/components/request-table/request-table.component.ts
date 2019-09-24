@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { ERM, SupplierRequest } from '~core/models';
-import { ListViewComponent } from '~core/list-page';
+import { EntityTableComponent } from '~core/list-page';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-	selector: 'request-list-view-sup',
-	templateUrl: './request-list-view.component.html',
+	selector: 'request-table-sup',
+	templateUrl: './request-table.component.html',
 	styleUrls: [
-		'./request-list-view.component.scss',
+		'./request-table.component.scss',
 		'../../../../../../../../src/app/theming/specific/list.scss'
 	]
 })
-export class RequestListViewComponent extends ListViewComponent<SupplierRequest> implements OnInit {
+export class RequestTableComponent extends EntityTableComponent<SupplierRequest> implements OnInit {
 
 	erm = ERM;
 

@@ -17,7 +17,7 @@
 	</sub-panel-right-item-app>
 </sub-panel-app>
 
-<request-list-view-app
+<request-table-app
 	class="borderless"
 	[rows]="listSrv.items$ | async"
 	[pending]="listSrv.pending"
@@ -31,7 +31,7 @@
 	(sort)="listSrv.sort($event)"
 	(unselect)="listSrv.unselectOne($event)"
 	(unselectAll)="listSrv.unselectAll()">
-</request-list-view-app>
+</request-table-app>
 
 <selection-bar-app
 	[isShown]="(listSrv.selection$ | async).size > 0"

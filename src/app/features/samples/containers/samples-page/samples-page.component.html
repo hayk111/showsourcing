@@ -49,7 +49,7 @@
 
 </sub-panel-app>
 
-<samples-list-view-app
+<samples-table-app
 	*ngIf="listSrv.view === 'list'"
 	[rows]="listSrv.items$ | async"
 	[selection]="listSrv.selection$ | async"
@@ -69,7 +69,7 @@
 	(previewClick)="listSrv.openPreview($event)"
 	(showItemsPerPage)="showItemsPerPage($event)"
 	(delete)="listSrv.deleteOne($event)">
-</samples-list-view-app>
+</samples-table-app>
 
 <selection-bar-app
 	[isShown]="(listSrv.selection$ | async).size > 0"

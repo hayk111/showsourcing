@@ -1,17 +1,17 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Output, TemplateRef, ViewChild } from '@angular/core';
-import { ListViewComponent } from '~core/list-page';
+import { EntityTableComponent } from '~core/list-page';
 import { ERM, SupplierRequest } from '~core/models';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-	selector: 'request-list-view-app',
-	templateUrl: './request-list-view.component.html',
+	selector: 'request-table-app',
+	templateUrl: './request-table.component.html',
 	styleUrls: [
-		'./request-list-view.component.scss',
+		'./request-table.component.scss',
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RequestListViewComponent extends ListViewComponent<SupplierRequest> {
+export class RequestTableComponent extends EntityTableComponent<SupplierRequest> {
 
 	@Output() cancelRequest = new EventEmitter<SupplierRequest>();
 	@ViewChild('contextualMenu', { static: false }) contextualMenuTemplate: TemplateRef<any>;

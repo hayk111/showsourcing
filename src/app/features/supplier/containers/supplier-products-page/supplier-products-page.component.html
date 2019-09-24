@@ -14,7 +14,7 @@
 </sub-panel-app>
 
 <ng-container *ngIf="(listSrv.items$ | async) as products; else spinner">
-	<products-list-view-app
+	<products-table-app
 		*ngIf="listSrv.view === 'list'"
 		[pending]="false"
 		[selection]="listSrv.selection"
@@ -35,7 +35,7 @@
 		(unfavorited)="listSrv.onItemUnfavorited($event)"
 		(unselect)="listSrv.unselectOne($event, true)"
 		(unselectAll)="listSrv.unselectAll()">
-	</products-list-view-app>
+	</products-table-app>
 
 	<supplier-products-card-view-app
 		infiniScroll

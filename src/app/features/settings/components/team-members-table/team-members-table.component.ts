@@ -2,17 +2,17 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { TeamService } from '~core/entity-services';
-import { ListViewComponent } from '~core/list-page/list-view.component';
+import { EntityTableComponent } from '~core/list-page/entity-table.component';
 import { TeamUser, User } from '~models';
 
 
 @Component({
-	selector: 'team-members-list-view-app',
-	templateUrl: './team-members-list-view.component.html',
-	styleUrls: ['./team-members-list-view.component.scss'],
+	selector: 'team-members-table-app',
+	templateUrl: './team-members-table.component.html',
+	styleUrls: ['./team-members-table.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TeamMembersListViewComponent extends ListViewComponent<TeamUser> implements OnInit {
+export class TeamMembersTableComponent extends EntityTableComponent<TeamUser> implements OnInit {
 
 	@Input() teamOwner: boolean;
 	@Input() user: User;

@@ -35,7 +35,7 @@
 
 	</sub-panel-app>
 
-	<products-list-view-app
+	<products-table-app
 		class="list-view"
 		*ngIf="listSrv.view === 'list'"
 		[hasMenu]="false"
@@ -57,7 +57,7 @@
 		(unfavorited)="listSrv.onItemUnfavorited($event)"
 		(unselect)="onItemUnselected($event)"
 		(unselectAll)="onUnselectAll()">
-	</products-list-view-app>
+	</products-table-app>
 	
 	<dialog-footer-app>
 		<sub-panel-left-item-app><b>{{ selectedProductsCount }} {{'label.products-selected' | translate}}</b></sub-panel-left-item-app>

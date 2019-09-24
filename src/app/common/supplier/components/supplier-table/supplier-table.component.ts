@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
-import { ListViewComponent, TableConfig } from '~core/list-page/list-view.component';
+import { EntityTableComponent, TableConfig } from '~core/list-page/entity-table.component';
 import { ERM, Supplier } from '~models';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -16,15 +16,15 @@ const tableConfig: TableConfig = {
 
 
 @Component({
-	selector: 'supplier-list-view-app',
-	templateUrl: './supplier-list-view.component.html',
+	selector: 'supplier-table-app',
+	templateUrl: './supplier-table.component.html',
 	styleUrls: [
-		'./supplier-list-view.component.scss',
+		'./supplier-table.component.scss',
 		'../../../../../app/theming/specific/list.scss'
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SupplierListViewComponent extends ListViewComponent<Supplier> {
+export class SupplierTableComponent extends EntityTableComponent<Supplier> {
 
 	columns = ['name', 'country', 'productType', 'supplierType', 'createdBy', 'activities', 'status'];
 	erm = ERM;

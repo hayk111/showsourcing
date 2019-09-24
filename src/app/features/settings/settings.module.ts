@@ -5,14 +5,14 @@ import { DataManagementModule } from '~features/data-management/data-management.
 
 import {
 	CompanyProfileCardComponent,
-	ExportListViewComponent,
-	InvitationsListViewComponent,
+	ExportTableComponent,
+	InvitationsTableComponent,
 	ProductStatusWorkflowComponent,
 	ProfileCardComponent,
 	SampleStatusWorkflowComponent,
 	SettingsProfileComponent,
 	SupplierStatusWorkflowComponent,
-	TeamMembersListViewComponent,
+	TeamMembersTableComponent,
 } from '~features/settings/components';
 import {
 	SettingsComponent,
@@ -36,8 +36,8 @@ import { SharedModule } from '~shared/shared.module';
 	],
 	declarations: [
 		CompanyProfileCardComponent,
-		ExportListViewComponent,
-		InvitationsListViewComponent,
+		ExportTableComponent,
+		InvitationsTableComponent,
 		ProductStatusWorkflowComponent,
 		ProfileCardComponent,
 		SampleStatusWorkflowComponent,
@@ -50,7 +50,7 @@ import { SharedModule } from '~shared/shared.module';
 		SettingsTeamMembersUsersComponent,
 		SettingsWorkflowsPageComponent,
 		SupplierStatusWorkflowComponent,
-		TeamMembersListViewComponent,
+		TeamMembersTableComponent,
 	],
 	entryComponents: [],
 	exports: [],

@@ -12,7 +12,7 @@ import { TableComponent } from './table.component';
 import { TableModule } from '../../table.module';
 import { By } from '@angular/platform-browser';
 import { ColumnDirective } from '~shared/table/components/column.directive';
-import { ListViewComponent } from '~core/list-page/list-view.component';
+import { EntityTableComponent } from '~core/list-page/entity-table.component';
 import { Sort } from '~shared/table/components/sort.interface';
 import { Subscription } from 'rxjs';
 
@@ -67,7 +67,7 @@ class Item {
 		</table-app>
 	`
 })
-class TestComponent extends ListViewComponent<Item> {
+class TestComponent extends EntityTableComponent<Item> {
 	@ViewChild('contextualMenu', { static: false }) contextualMenuTemplate: TemplateRef<any>;
 	@ViewChild('container', { static: false, read: ViewContainerRef }) container: ViewContainerRef;
 	@ViewChild('table', { static: false }) table;

@@ -1,18 +1,18 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, TemplateRef, ViewChild } from '@angular/core';
-import { ListViewComponent } from '~core/list-page';
+import { EntityTableComponent } from '~core/list-page';
 import { ExtendedField, RequestElement, ERM } from '~core/models';
 import { ID } from '~utils';
 
 @Component({
-	selector: 'request-element-list-view-app',
-	templateUrl: './request-element-list-view.component.html',
+	selector: 'request-element-table-app',
+	templateUrl: './request-element-table.component.html',
 	styleUrls: [
-		'./request-element-list-view.component.scss',
+		'./request-element-table.component.scss',
 		'../../../../../app/theming/specific/list.scss'
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RequestElementListViewComponent extends ListViewComponent<RequestElement> {
+export class RequestElementTableComponent extends EntityTableComponent<RequestElement> {
 
 	private _rows: Array<RequestElement>;
 	@Input() set rows(rows: Array<RequestElement>) {

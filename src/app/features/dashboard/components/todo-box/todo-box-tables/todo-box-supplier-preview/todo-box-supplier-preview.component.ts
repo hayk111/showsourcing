@@ -7,8 +7,6 @@ const tableConfig: TableConfig = {
 	status: { title: 'status', translationKey: 'status', width: 150, sortProperty: 'status.step' },
 };
 
-
-
 @Component({
 	selector: 'todo-box-supplier-preview-app',
 	templateUrl: './todo-box-supplier-preview.component.html',

@@ -28,7 +28,7 @@
 
 <ng-container *ngIf="listSrv.isListening">
 
-	<supplier-list-view-app
+	<supplier-table-app
 		#supplierList
 		*ngIf="listSrv.view === 'list'"
 		[rows]="listSrv.items$ | async"
@@ -51,7 +51,7 @@
 		(showItemsPerPage)="showItemsPerPage($event)"
 		(archive)="onArchive($event)"
 		(delete)="listSrv.deleteOne($event)">
-	</supplier-list-view-app>
+	</supplier-table-app>
 
 	<selection-bar-app
 		[isShown]="(listSrv.selection$ | async).size > 0"

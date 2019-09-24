@@ -78,7 +78,7 @@
 
 <ng-container>
 
-		<products-list-view-app
+		<products-table-app
 			*ngIf="listSrv.view === 'list'"
 			class="list-view"
 			[selection]="listSrv.selection$ | async"
@@ -105,7 +105,7 @@
 			(showItemsPerPage)="showItemsPerPage($event)"
 			(delete)="deassociateProductById(($event)?.id)"
 			(archiveProduct)="onArchive($event)">
-		</products-list-view-app>
+		</products-table-app>
 
 		<products-card-view-app
 			infiniScroll

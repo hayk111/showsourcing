@@ -1,10 +1,8 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output, TemplateRef, ViewChild, Input } from '@angular/core';
-import { ListViewComponent, TableConfig } from '~core/list-page';
+import { EntityTableComponent, TableConfig } from '~core/list-page';
 import { ERM, Sample } from '~core/models';
 import { ID } from '~utils/id.utils';
 import { TranslateService } from '@ngx-translate/core';
-
-
 
 const tableConfig: TableConfig = {
 	name: { title: 'name', translationKey: 'name', width: 190, sortProperty: 'name' },
@@ -17,15 +15,15 @@ const tableConfig: TableConfig = {
 };
 
 @Component({
-	selector: 'sample-list-view-app',
-	templateUrl: './sample-list-view.component.html',
+	selector: 'sample-table-app',
+	templateUrl: './sample-table.component.html',
 	styleUrls: [
-		'./sample-list-view.component.scss',
+		'./sample-table.component.scss',
 		'../../../../../app/theming/specific/list.scss'
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SampleListViewComponent extends ListViewComponent<Sample> {
+export class SampleTableComponent extends EntityTableComponent<Sample> {
 	columns = [ 'name', 'assignee', 'product', 'supplier', 'comments', 'status', 'creationDate' ];
 	@Input() tableConfig = tableConfig;
 	@Output() openSupplier = new EventEmitter<ID>();

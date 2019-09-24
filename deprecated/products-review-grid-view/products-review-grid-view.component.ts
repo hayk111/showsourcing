@@ -4,7 +4,7 @@ import { first, map } from 'rxjs/operators';
 import { Category } from '~features/workspace/models';
 import { ProductStatusService } from '~entity-services';
 import { ERM, Product, ProductStatus } from '~models';
-import { ListViewComponent } from '~core/list-page/list-view.component';
+import { EntityTableComponent } from '~core/list-page/entity-table.component';
 import { SelectionService } from '~core/list-page/selection.service';
 import { Sort } from '~shared/table/components/sort.interface';
 
@@ -14,7 +14,7 @@ import { Sort } from '~shared/table/components/sort.interface';
 	templateUrl: './products-review-grid-view.component.html',
 	styleUrls: ['./products-review-grid-view.component.scss']
 })
-export class ProductsReviewCardViewComponent extends ListViewComponent<Product> implements OnInit, OnChanges {
+export class ProductsReviewCardViewComponent extends EntityTableComponent<Product> implements OnInit, OnChanges {
 
 	@Input() currentSort: Sort;
 	@Output() sendToWorkflow = new EventEmitter<Product>();

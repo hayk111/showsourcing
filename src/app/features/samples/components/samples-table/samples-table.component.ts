@@ -1,19 +1,19 @@
 import { ChangeDetectionStrategy, Component, TemplateRef, ViewChild, Output, EventEmitter } from '@angular/core';
-import { ListViewComponent } from '~core/list-page/list-view.component';
+import { EntityTableComponent } from '~core/list-page/entity-table.component';
 import { Sample, ERM } from '~models';
 import { Observable, of } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-	selector: 'samples-list-view-app',
-	templateUrl: './samples-list-view.component.html',
+	selector: 'samples-table-app',
+	templateUrl: './samples-table.component.html',
 	styleUrls: [
-		'./samples-list-view.component.scss',
+		'./samples-table.component.scss',
 		'../../../../../app/theming/specific/list.scss'
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SamplesListViewComponent extends ListViewComponent<Sample> {
+export class SamplesTableComponent extends EntityTableComponent<Sample> {
 
 	erm = ERM;
 

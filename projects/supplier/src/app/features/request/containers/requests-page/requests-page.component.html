@@ -16,7 +16,7 @@
 	</sub-panel-right-item-app>
 </sub-panel-app>
 
-<request-list-view-sup
+<request-table-sup
 	class="no-padding"
 	[rows]="listSrv.items$ | async"
 	[pending]="listSrv.pending"
@@ -29,7 +29,7 @@
 	(sort)="listSrv.sort($event)"
 	(unselect)="listSrv.unselectOne($event)"
 	(unselectAll)="listSrv.unselectAll()">
-</request-list-view-sup>
+</request-table-sup>
 
 <selection-bar-app
 	[isShown]="(listSrv.selection$ | async).size > 0"

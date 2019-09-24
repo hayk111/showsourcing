@@ -15,7 +15,7 @@ export interface TableConfig {
 	[key: string]: ColumnConfig;
 }
 
-export abstract class ListViewComponent<T> extends TrackingComponent implements OnInit {
+export abstract class EntityTableComponent<T> extends TrackingComponent implements OnInit {
 	/** current selection */
 	@Input() selection: Map<string, boolean>;
 	/** entities displayed */

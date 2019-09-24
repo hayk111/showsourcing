@@ -14,7 +14,7 @@
 	(search)="listSrv.search($event)">
 </sub-panel-app>
 
-<export-list-view-app
+<export-table-app
 	class="no-padding"
 	[rows]="listSrv.items$ | async"
 	[pending]="listSrv.pending"
@@ -23,7 +23,7 @@
 	(goToPage)="listSrv.loadPage($event)"
 	(sort)="listSrv.sort($event)"
 	(download)="downloadOne($event)">
-</export-list-view-app>
+</export-table-app>
 
 <!-- in case selection comes back -->
 <!-- <selection-bar-app
