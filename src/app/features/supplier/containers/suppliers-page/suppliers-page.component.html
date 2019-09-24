@@ -1,11 +1,11 @@
-<top-panel-app
-	[class.top-panel-margin-board]="listSrv.view === 'board'"
+<header-list-app
+	[class.header-detail-margin-board]="listSrv.view === 'board'"
 	[title]="'title.my-suppliers' | translate"
 	[buttonName]="'button.add-supplier' | translate"
 	(buttonClick)="listSrv.create()">
-</top-panel-app>
+</header-list-app>
 
-<sub-panel-app
+<controller-list-app
 	[class.sub-menu-padding-board]="listSrv.view === 'board'"
 	[hasSwitch]="true"
 	[hasFilter]="true"
@@ -24,11 +24,11 @@
 	(hideAssigned)="listSrv.filterByAssignee(false)"
 	(viewChange)="onViewChange($event)"
 	(search)="listSrv.search($event)">
-</sub-panel-app>
+</controller-list-app>
 
 <ng-container *ngIf="listSrv.isListening">
 
-	<supplier-list-view-app
+	<supplier-table-app
 		#supplierList
 		*ngIf="listSrv.view === 'list'"
 		[rows]="listSrv.items$ | async"
@@ -51,7 +51,7 @@
 		(showItemsPerPage)="showItemsPerPage($event)"
 		(archive)="onArchive($event)"
 		(delete)="listSrv.deleteOne($event)">
-	</supplier-list-view-app>
+	</supplier-table-app>
 
 	<selection-bar-app
 		[isShown]="(listSrv.selection$ | async).size > 0"

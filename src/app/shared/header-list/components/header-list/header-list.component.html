@@ -1,0 +1,19 @@
+
+<div class="left">
+	<h2 class="capitalize">{{ title }}</h2>
+</div>
+
+<div class="navCtnr">
+	<ng-content select="nav"></ng-content>
+</div>
+
+<div class="right flexCenter">
+
+	<button *ngIf="hasAction"
+					[ngStyle]= "{'margin-right': buttonRightMargin, 'width': buttonWidth, 'height': buttonHeight}"
+		(click)="buttonClick.emit()" class="button auto">
+		<span class="spacing"> {{ buttonName }} </span>
+	</button>
+
+</div>
+

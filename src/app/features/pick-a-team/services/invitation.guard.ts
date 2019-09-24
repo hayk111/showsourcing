@@ -16,6 +16,7 @@ export class InvitationGuard implements CanActivateChild {
 		const teamClientStatus$ = this.apolloState.getClientStatus(Client.TEAM);
 		const userClientStatus$ = this.apolloState.getClientStatus(Client.USER);
 		// we only want the loader to appear when the team client and user client is not pending
+		// TODO (michael & cedric) why is this in a guard ?
 		const teamClientSet$ = teamClientStatus$.pipe(
 			filter(status => status !== ClientStatus.PENDING));
 		const userClientSet$ = userClientStatus$.pipe(

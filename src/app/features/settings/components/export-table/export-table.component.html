@@ -1,0 +1,109 @@
+<table-app
+	[placeholder]="'placeholder.no-exports' | translate"
+	[rows]="rows"
+	[hasSelection]="false"
+	[hasPaddingPagination]="true"
+	[currentSort]="currentSort"
+	[pending]="pending"
+	[contextualMenu]="contextualMenuTemplate"
+	[count]="count"
+	[currentPage]="currentPage"
+	(goToPage)="goToPage.emit($event)"
+	(sort)="sort.emit($event)"
+	(bottomReached)="bottomReached.emit()">
+
+		<!-- user -->
+		<ng-template
+			[columnApp]="'created by' | const: 'messages'"
+			let-row="row"
+			sortBy="createdBy.lastName"
+			width="200">
+			<div class="flex flexVAlign created-by">
+				<user-picture-app
+					[user]="row?.createdBy"
+					[image]="row.createdBy?.avatar"
+					[background]="false"
+					[fontSize]="16"
+					size="32"></user-picture-app>
+				<span class="ellipsis">{{ row?.createdBy?.firstName }} {{row?.createdBy?.lastName}}</span>
+			</div>
+		</ng-template>
+
+		<!-- creation date -->
+		<ng-template
+			[columnApp]="'created on' | const: 'messages'"
+			let-row="row"
+			sortBy="creationDate"
+			width="200">
+			<div class="flex flexCenter">
+				<span class="ellipsis">{{ row?.creationDate | date: 'dd MMM y' }}</span>
+			</div>
+		</ng-template>
+
+		<!-- contextual menu -->
+		<ng-template #contextualMenuTemplate let-row="row">
+			<context-menu-item-app
+				class="pointer flexCenter"
+				(click)="download.emit(row)"
+				translate="button.download">
+			</context-menu-item-app>
+		</ng-template>
+
+		<!-- export name -->
+		<ng-template
+			[columnApp]="'header.export' | translate"
+			sortBy="name"
+			let-row="row"
+			width="300">
+			<div class="capitalize">
+				{{ row?.format }} {{ row?.creationDate | date: 'dd-MMM-yy H:mm':'':translate.currentLang}}
+			</div>
+		</ng-template>
+
+		<!-- status -->
+		<ng-template
+			[columnApp]="'header.status' | translate"
+			let-row="row"
+			sortBy="status"
+			width="150"
+			[sortOrder]="'DESC'">
+			{{ 'text.' + row?.status | translate }}
+		</ng-template>
+
+		<!-- date -->
+		<ng-template
+			[columnApp]="'header.creation-date' | translate"
+			let-row="row"
+			sortBy="creationDate"
+			width="150"
+			[sortOrder]="'DESC'">
+			{{ row?.creationDate | date: 'MMMM y':'':translate.currentLang }}
+		</ng-template>
+
+		<!-- user -->
+		<ng-template
+			[columnApp]="'header.created-by' | translate"
+			let-row="row"
+			sortBy="createdBy.lastName"
+			width="200">
+			<div class="flex flexCenter">
+				<span class="ellipsis">{{ row?.createdBy?.firstName }} {{row?.createdBy?.lastName}}</span>
+			</div>
+		</ng-template>
+
+		<!-- download -->
+		<ng-template
+			[columnApp]="'header.download' | translate"
+			let-row="row"
+			sortBy="createdBy.lastName"
+			[grows]="false"
+			width="100">
+			<div class="tool-tip" toolTip [toolTipMessage]="getToolTipMsg(row?.status)" toolTipPosition="above-right">
+				<div 
+						class="download pointer" 
+						[ngClass]="{'disabled': row?.status !== 'ready'}" 
+						(click)="download.emit(row)">Download</div>
+			</div>
+		</ng-template>
+
+</table-app>

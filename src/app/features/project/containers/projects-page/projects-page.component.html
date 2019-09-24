@@ -1,11 +1,11 @@
 
-<top-panel-app
+<header-list-app
   [title]="'title.my-projects' | translate"
   [buttonName]="'button.create-project' | translate"
 	(buttonClick)="listSrv.create()">
-</top-panel-app>
+</header-list-app>
 
-<sub-panel-app
+<controller-list-app
 	[entityType]="'PROJECT'"
 	[hasSwitch]="false"
 	[hasExport]="false"
@@ -19,11 +19,11 @@
 	(hideAssigned)="listSrv.filterByAssignee(false)"
   (search)="listSrv.search($event)"
   (showFilters)="listSrv.openFilterPanel()" >
-</sub-panel-app>
+</controller-list-app>
 
 <ng-container *ngIf="listSrv.isListening">
 
-  <projects-list-view-app
+  <projects-table-app
 		[selection]="listSrv.selection$ | async"
 		[rows]="listSrv.items$ | async"
 		[pending]="listSrv.pending"
@@ -38,7 +38,7 @@
 		(sort)="listSrv.sort($event)"
 		(showItemsPerPage)="showItemsPerPage($event)"		
 		(delete)="listSrv.deleteOne($event)">
-	</projects-list-view-app>
+	</projects-table-app>
 
   <selection-bar-app
     [isShown]="(listSrv.selection$ | async).size > 0"

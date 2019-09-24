@@ -3,7 +3,7 @@
   </dialog-header-app>
 
   <div *ngIf="listSrv.items$ | async as products; else spinner">
-    <sub-panel-app
+    <controller-list-app
       [hasSwitch]="false"
       [hasFilter]="false"
       (search)="listSrv.search($event)"
@@ -18,7 +18,7 @@
         </search-autocomplete-item-app>
       </search-autocomplete-app>
 
-    </sub-panel-app>
+    </controller-list-app>
 
     <products-card-view-dialog-app
       class="list-view"

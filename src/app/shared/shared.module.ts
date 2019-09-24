@@ -42,7 +42,7 @@ import { StageIndicatorModule } from './stage-indicator/stage-indicator.module';
 import { StatusSelectorModule } from './status-selector/status-selector.module';
 import { TableModule } from './table/table.module';
 import { PaginationModule } from './pagination/pagination.module';
-import { TopPanelModule } from './top-panel/top-panel.module';
+import { HeaderListModule } from './header-list/header-list.module';
 import { BottomPanelModule } from './bottom-panel';
 import { ComparisonRowModule } from './comparison-row/comparison-row.module';
 import { TemplateMngmtModule } from './template-mngmt/template-mngmt.module';
@@ -110,6 +110,8 @@ const modules = [
 	TableModule,
 	TemplateMngmtModule,
 	TopPanelModule,
+	PaginationModule,
+	HeaderListModule,
 	UserPictureModule,
 	UtilsModule,
 	ComparisonRowModule,

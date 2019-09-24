@@ -1,30 +1,34 @@
-<top-panel-details-app
-	[title]="'title.my-team' | translate"
+<header-details-app
 	[hasBackArrow]="false"
 	[elevated]="false">
+
+	<header-details-title-app>{{ 'title.my-team' | translate }}</header-details-title-app>
+
 	<logo-app color="primary" icon="team" size="xl"></logo-app>
-	<ng-container subinfo *ngIf="(team$ | async) as team">{{team.name}}</ng-container>
+	<header-details-info-app  *ngIf="(team$ | async) as team">{{team.name}}</header-details-info-app>
 
-	<panel-tab-app
-		link="settings/team/members"
-		icon="team"
-		[name]="'nav.team-members' | translate">
-	</panel-tab-app>
-
-	<!-- TODO create route for settings tab -->
-	<panel-tab-app
-		link="settings/team/settings"
-		icon="settings"
-		[name]="'nav.settings' | translate">
-	</panel-tab-app>
+	<header-list-nav-app>
+		<header-list-nav-item-app
+			link="settings/team/members"
+			icon="team"
+			[name]="'nav.team-members' | translate">
+		</header-list-nav-item-app>
+	
+		<!-- TODO create route for settings tab -->
+		<header-list-nav-item-app
+			link="settings/team/settings"
+			icon="settings"
+			[name]="'nav.settings' | translate">
+		</header-list-nav-item-app>
+	</header-list-nav-app>
 
 	<button action (click)="redirectNewTeamScreen()" translate="button.create-new-team"></button>
-</top-panel-details-app>
+</header-details-app>
 
 
 <!-- Old implementation -->
 
-<!-- <top-panel-app
+<!-- <header-list-app
 	[title]="(team$ | async)?.name"
 	[isModifiable]="true"
 	(update)="updateTeamName($event)"
@@ -39,7 +43,8 @@
 		<span class="capitalize" (click)="displayTab('invitations')" [ngClass]="{ active: (selectedTab === 'invitations') }"
 			translate="text.invitations"></span>
 	</nav>
-</top-panel-app> -->
+
+</header-list-app> -->
 
 
 <!-- TODO create routes instead of condition  -->

@@ -1,4 +1,4 @@
-<sample-list-view-app
+<sample-table-app
 	[hasHeader]="false"
 	[hasPagination]="false"
 	[rows]="listSrv.items$ | async"
@@ -17,7 +17,7 @@
 	(unfavorited)="listSrv.onItemUnfavorited($event)"
 	(previewClick)="listSrv.openPreview($event)"
 	(delete)="listSrv.deleteOne($event)">
-</sample-list-view-app>
+</sample-table-app>
 
 <sample-preview-app
 	*ngIf="listSrv.previewOpen"

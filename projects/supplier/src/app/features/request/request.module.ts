@@ -5,11 +5,11 @@ import { RequestCommonModule } from '~common/request';
 import { SharedModule } from '~shared/shared.module';
 
 import {
-	RequestElementListViewComponent,
+	RequestElementTableComponent,
 	RequestInformationComponent,
-	RequestListViewComponent,
+	RequestTableComponent,
 	RequestSortingMenuComponent,
-	RequestTopPanelComponent,
+	RequestHeaderListComponent,
 } from './components';
 import { RequestDetailsComponent, RequestsPageComponent } from './containers';
 import { routes } from './routes';
@@ -18,11 +18,11 @@ import { routes } from './routes';
 @NgModule({
 	declarations: [
 		RequestDetailsComponent,
-		RequestElementListViewComponent,
+		RequestElementTableComponent,
 		RequestInformationComponent,
-		RequestListViewComponent,
+		RequestTableComponent,
 		RequestSortingMenuComponent,
-		RequestTopPanelComponent,
+		RequestHeaderListComponent,
 		RequestsPageComponent,
 	],
 	imports: [

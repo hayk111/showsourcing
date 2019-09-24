@@ -11,8 +11,8 @@ import { ProductFeatureService } from '~features/products/services';
 import { ERM, Product } from '~models';
 import { DialogService } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
+import { ControllerListService } from '~shared/header-list/services/controller-list.service';
 import { NotificationService, NotificationType } from '~shared/notifications';
-import { SubPanelService } from '~shared/top-panel/services/sub-panel.service';
 import { AutoUnsub } from '~utils';
 
 // dailah lama goes into pizza store
@@ -64,7 +64,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		private userSrv: UserService,
 		private translate: TranslateService,
 		protected dlgSrv: DialogService,
-		private subPanelSrv: SubPanelService,
+		private controllerListService: ControllerListService,
 	) {
 		super();
 	}
@@ -109,7 +109,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 
 		this.listSrv.addFilter({ type: FilterType.ARCHIVED, value: false});
 		this.listSrv.addFilter({ type: FilterType.DELETED, value: false});
-		this.subPanelSrv.onFiltersClear();
+		this.controllerListService.onFiltersClear();
 	}
 
 	showItemsPerPage(count: number) {

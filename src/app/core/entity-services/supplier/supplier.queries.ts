@@ -17,6 +17,8 @@ export abstract class SupplierQueries extends GlobalQueries {
 	static readonly productsLinked = `productsLinked: _linkingObjects(objectType: "Product" property:"supplier" query:"deleted == false") { ... on ProductCollection { count }}`;
 	// tslint:disable-next-line:max-line-length
 	static readonly tasksLinked = `tasksLinked: _linkingObjects(objectType: "Task" property:"supplier" query:"deleted == false") { ... on TaskCollection { count, items { dueDate } }}`;
+	// tslint:disable-next-line:max-line-length
+	static readonly contactsLinked = `contactsLinked: _linkingObjects(objectType: "Contact" property:"supplier" query:"deleted == false") { ... on ContactCollection { count }}`;
 
 	// tslint:disable-next-line:max-line-length
 	static readonly samplesLinked = `samplesLinked: _linkingObjects(objectType: "Sample" property:"supplier" query:"deleted == false") { ... on SampleCollection { count }}`;
@@ -63,6 +65,7 @@ export abstract class SupplierQueries extends GlobalQueries {
 			${SupplierQueries.productsLinked}
 			${SupplierQueries.tasksLinked}
 			${SupplierQueries.samplesLinked}
+			${SupplierQueries.contactsLinked}
 		`;
 
 	static readonly many = `
@@ -83,6 +86,7 @@ export abstract class SupplierQueries extends GlobalQueries {
 		${SupplierQueries.productsLinked}
 		${SupplierQueries.tasksLinked}
 		${SupplierQueries.samplesLinked}
+		${SupplierQueries.contactsLinked}
 		${SupplierQueries.logoImage}
 		${SupplierQueries.supplierType}
 	`;
@@ -104,6 +108,7 @@ export abstract class SupplierQueries extends GlobalQueries {
 		${SupplierQueries.productsLinked}
 		${SupplierQueries.tasksLinked}
 		${SupplierQueries.samplesLinked}
+		${SupplierQueries.contactsLinked}
 	`;
 
 	static readonly update = `

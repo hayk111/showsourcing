@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ListViewComponent } from '~core/list-page/list-view.component';
+import { EntityTableComponent } from '~core/list-page/entity-table.component';
 import { Product } from '~models';
 
 
@@ -8,7 +8,7 @@ import { Product } from '~models';
 	templateUrl: './products-card-view-dialog.component.html',
 	styleUrls: ['./products-card-view-dialog.component.scss'],
 })
-export class ProductsCardViewDialogComponent extends ListViewComponent<Product> {
+export class ProductsCardViewDialogComponent extends EntityTableComponent<Product> {
 
 	constructor() {
 		super();

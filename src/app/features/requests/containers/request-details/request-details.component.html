@@ -1,7 +1,7 @@
-<div class="top-panel-ctnr flexCenter z-1">
-	<request-top-panel-app
+<div class="header-detail-ctnr flexCenter z-1">
+	<request-header-list-app
 		[request]="request">
-	</request-top-panel-app>
+	</request-header-list-app>
 </div>
 
 <div class="details-container full-width full-height">
@@ -27,7 +27,7 @@
 
 		<card-app>
 			<h3 class="l" translate="header.request-items"></h3>
-				<request-element-list-view-app
+				<request-element-table-app
 					class="no-padding"
 					[rows]="listSrv.items$ | async"
 					[pending]="listSrv.pending"
@@ -41,7 +41,7 @@
 					(sort)="listSrv.sort($event)"
 					(unselect)="listSrv.unselectOne($event)"
 					(unselectAll)="listSrv.unselectAll()">
-				</request-element-list-view-app>
+				</request-element-table-app>
 		</card-app>
 	</div>
 </div>

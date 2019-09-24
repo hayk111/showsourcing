@@ -1,12 +1,12 @@
 
-	<sub-panel-app
+	<controller-list-app
 		[title]="'title.team-members' | translate"
 		[hasSwitch]="false"
 		[hasFilter]="false"
 		[entityType]="'MEMBER'"
 		(search)="listSrv.search($event)">
 
-		<sub-panel-right-item-app>
+		<controller-list-right-item-app>
 
 			<div toolTip [toolTipMessage]="getTooltipMsg()" toolTipPosition="above-right">
 				<button [disabled]="!teamOwner" (click)="openInviteDialog()" translate="button.invite-collaborator"></button>
@@ -31,18 +31,20 @@
 				</context-menu-item-app>
 			</context-menu-app>
 
-		</sub-panel-right-item-app>
+		</controller-list-right-item-app>
 
 
-	</sub-panel-app>
+	</controller-list-app>
 
 <ng-container *ngIf="listSrv.items$ | async as members">
-	<team-members-list-view-app
+	<team-members-table-app
 		[rows]="members"
 		[teamOwner]="teamOwner"
 		[user]="user"
 		[selection]="listSrv.selection$ | async"
 		[pending]="listSrv.pending"
+		[count]="listSrv.count$ | async"
+		[currentPage]="listSrv.currentPage"
 		(bottomReached)="listSrv.loadMore()"
 		(sort)="listSrv.sort($event)"
 		(select)="listSrv.selectOne($event, false)"
@@ -51,7 +53,7 @@
     (unselectAll)="listSrv.unselectAll()"
 		(accessTypeUpdated)="updateAccessType($event)"
 		(delete)="listSrv.deleteOne($event, true)">
-	</team-members-list-view-app>
+	</team-members-table-app>
 
 	<!-- ng-container *ngIf="selected$ | async as selected">
 		<selection-bar-app

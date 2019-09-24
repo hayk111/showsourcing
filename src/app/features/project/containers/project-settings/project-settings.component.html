@@ -1,37 +1,39 @@
 <div *ngIf="project$ | async as project">
-	<top-panel-details-app
-		[elevated]="false"
-		[title]="project?.name">
+	<header-details-app [elevated]="false">
+
+		<header-details-title-app>{{ project?.name }}</header-details-title-app>
 
 		<logo-app color="primary" type="project" size="xl"></logo-app>
-		<ng-container subinfo>
+
+		<header-details-info-app>
 			{{ (project?.status ? 'text.' + project?.status : 'text.new') | translate }}
 			<div class="small-gray-badge-separator"></div>
 			{{ 'OBJ.due-on-date' | translate: {date: project?.creationDate | date: 'dd-mm-yyyy':'':translate.currentLang} }}
 			<div class="small-gray-badge-separator"></div>
 			{{ 'OBJ.created-by-name' | translate: {firstName: project?.createdBy?.firstName, lastName: project?.createdBy?.lastName} }}
-		</ng-container>
+		</header-details-info-app>
 
-		<panel-tab-app
-			[link]="getTabPanelUrl('products')"
-			icon="product"
-			[name]="'nav.products' | translate">
-		</panel-tab-app>
+		<header-list-nav-app>
+			<header-list-nav-item-app
+				[link]="getTabPanelUrl('products')"
+				icon="product"
+				[name]="'nav.products' | translate">
+			</header-list-nav-item-app>
+	
+			<header-list-nav-item-app
+				[link]="getTabPanelUrl('settings')"
+				icon="settings"
+				[name]="'nav.settings' | translate">
+			</header-list-nav-item-app>
+		</header-list-nav-app>
 
-		<panel-tab-app
-			[link]="getTabPanelUrl('settings')"
-			icon="settings"
-			[name]="'nav.settings' | translate">
-		</panel-tab-app>
-
-		<div class="flex right-items" action>
+		<header-details-actions-app>
 			<status-selector-app
 				[typeEntity]="erm.PROJECT"
 				[entity]="project$"
 				selectSize="l"
 				type="button">
 			</status-selector-app>
-
 			<context-menu-app action>
 				<context-menu-trigger-app>
 					<button class="vertical-dots icon light dots pointer">
@@ -43,9 +45,9 @@
 				<context-menu-item-app (click)="archive.emit(project)"  translate="button.archive">
 				</context-menu-item-app>
 			</context-menu-app>
-		</div>
+		</header-details-actions-app>
 
-	</top-panel-details-app>
+	</header-details-app>
 
 	<card-app>
 		<h3 class="ms" translate="header.project-settings"></h3>

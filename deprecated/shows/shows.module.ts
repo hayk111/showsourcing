@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ShowsPageComponent } from '~features/shows/containers/shows-page/shows-page.component';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '~shared/shared.module';
-import { TopPanelModule } from '~shared/top-panel/top-panel.module';
+import { HeaderListModule } from '~shared/header-detail/header-detail.module';
 import { ShowListComponent } from '~features/shows/components/show-list/show-list.component';
 import { SearchBarModule } from '~shared/search-bar-animated/search-bar.module';
 import { ShowDetailsComponent } from './containers/show-details/show-details.component';
@@ -11,7 +11,7 @@ import { ImgShowComponent } from './components/img-show/img-show.component';
 import { ShowSummaryComponent } from './components/show-summary/show-summary.component';
 import { ShowAboutComponent } from './components/show-about/show-about.component';
 import { ShowExhibitorsComponent } from './components/show-exhibitors/show-exhibitors.component';
-import { ShowTopPanelDetailComponent } from './components/show-top-panel-detail/show-top-panel-detail.component';
+import { ShowHeaderDetailComponent } from './components/show-header-detail/show-header-detail.component';
 import { ShowFeatureService } from '~features/shows/services/show-feature.service';
 
 @NgModule({
@@ -31,7 +31,7 @@ import { ShowFeatureService } from '~features/shows/services/show-feature.servic
 		ShowSummaryComponent,
 		ShowAboutComponent,
 		ShowExhibitorsComponent,
-		ShowTopPanelDetailComponent
+		ShowHeaderDetailComponent
 	],
 	providers: [
 		ShowFeatureService

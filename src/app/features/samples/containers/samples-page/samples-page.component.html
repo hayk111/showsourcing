@@ -1,12 +1,12 @@
 <!-- top panel -->
-<top-panel-app
-	[class.top-panel-margin-board]="listSrv.view === 'board'"
+<header-list-app
+	[class.header-detail-margin-board]="listSrv.view === 'board'"
 	[title]="'title.my-samples' | translate"
 	[buttonName]="'button.create-sample' | translate"
 	(buttonClick)="commonModalSrv.openAddSampleDialog()">
-</top-panel-app>
+</header-list-app>
 
-<sub-panel-app
+<controller-list-app
 	[class.sub-menu-padding-board]="listSrv.view === 'board'"
 	[filtersAmount]="listSrv.getFilterAmount([{ type: filterTypeEnum.ARCHIVED, value: false }, { type: filterTypeEnum.DELETED, value: false }])"
 	[hasFilter]="true"
@@ -27,7 +27,7 @@
 	(showFilters)="listSrv.openFilterPanel()"
 	(viewChange)="onViewChange($event)">
 
-	<sub-panel-right-item-app class="flex">
+	<controller-list-right-item-app class="flex">
 		<product-sorting-menu-app
 			[currentSort]="listSrv.currentSort"
 			(sortFromMenu)="listSrv.sortFromMenu($event)">
@@ -45,11 +45,11 @@
 			{{ (count || 0) > 1 ? 'OBJ.export-item.plural' : 'OBJ.export-item.singular' | translate: { count: (count || 0) } }}
 		</button>
 
-	</sub-panel-right-item-app>
+	</controller-list-right-item-app>
 
-</sub-panel-app>
+</controller-list-app>
 
-<samples-list-view-app
+<samples-table-app
 	*ngIf="listSrv.view === 'list'"
 	[rows]="listSrv.items$ | async"
 	[selection]="listSrv.selection$ | async"
@@ -69,7 +69,7 @@
 	(previewClick)="listSrv.openPreview($event)"
 	(showItemsPerPage)="showItemsPerPage($event)"
 	(delete)="listSrv.deleteOne($event)">
-</samples-list-view-app>
+</samples-table-app>
 
 <selection-bar-app
 	[isShown]="(listSrv.selection$ | async).size > 0"

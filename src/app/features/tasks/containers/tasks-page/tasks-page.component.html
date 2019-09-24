@@ -1,12 +1,12 @@
 
 <!-- top panel -->
-<top-panel-app
+<header-list-app
 	[title]="'title.my-tasks' | translate"
 	[buttonName]="'button.create-task' | translate"
 	(buttonClick)="commonModalSrv.openCreationTaskDlg()">
-</top-panel-app>
+</header-list-app>
 
-<sub-panel-app
+<controller-list-app
 	[hasFilter]="false"
 	[hasSwitch]="false"
 	[hasArchived]="false"
@@ -31,7 +31,7 @@
 	(showFilters)="listSrv.openFilterPanel()"
 	(viewChange)="onViewChange($event)">
 
-	<sub-panel-right-item-app class="flex">
+	<controller-list-right-item-app class="flex">
 		<product-sorting-menu-app
 			[currentSort]="listSrv.currentSort"
 			(sortFromMenu)="listSrv.sortFromMenu($event)">
@@ -50,11 +50,11 @@
 			{{ ((count || 0) > 1 ? 'OBJ.n-item.plural' : 'OBJ.n-item.singular') | translate: {count : count || 0} }}
 		</button>
 
-	</sub-panel-right-item-app>
+	</controller-list-right-item-app>
 
-</sub-panel-app>
+</controller-list-app>
 
-<task-list-view-app
+<task-table-app
 	[rows]="listSrv.items$ | async"
 	[selection]="listSrv.selection$ | async"
 	[pending]="listSrv.pending"
@@ -73,7 +73,7 @@
 	(previewClick)="listSrv.openPreview($event)"
 	(showItemsPerPage)="showItemsPerPage($event)"
 	(delete)="listSrv.deleteOne($event, true)">
-</task-list-view-app>
+</task-table-app>
 
 <selection-bar-app
 	[isShown]="(listSrv.selection$ | async).size > 0"
