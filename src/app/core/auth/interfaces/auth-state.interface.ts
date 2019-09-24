@@ -1,4 +1,3 @@
-import { User as RealmUser } from 'realm-graphql-client';
 
 
 export enum AuthStatus {
@@ -6,10 +5,4 @@ export enum AuthStatus {
 	NOT_AUTHENTICATED = 'Not Authenticated',
 	PENDING = 'Pending',
 	ANONYMOUS = 'Anonymous'
-}
-
-
-export interface AuthState {
-	status: AuthStatus;
-	userId?: string;
 }

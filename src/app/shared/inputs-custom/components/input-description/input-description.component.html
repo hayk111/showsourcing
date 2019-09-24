@@ -9,7 +9,7 @@
 		(opened)="inpDescription.select()"
 		[canGrow]="true"
 		(click)="openDescModal()">
-		<label-app class="capitalize" i18n="text@@description">description</label-app>
+		<label-app class="capitalize" translate="text.description"></label-app>
 		<editable-label-app
 			*ngIf="description?.length && description"
 			class="fs-m">
@@ -21,7 +21,7 @@
 			class="fullWidth fs-m">
 			<button class="secondary flexCenter edit-description" [ngStyle]="{'width': isSmall ? '30%' : '100%'}">
 				<icon-app class="edit" name="edit"></icon-app>
-				<span class="capitalize" i18n="text@@add-description">Add Description</span>
+				<span class="capitalize" translate="text.add-description"></span>
 			</button>
 		</editable-label-app>
 		<textarea inputApp #inpDescription autofocus="true"
@@ -36,14 +36,12 @@
 	tabFocusAction
 	class="secondary-light flexCenter view-more"
 	(click)="showAll()"
-	i18n="button@@view-more">
-	View more
+	translate="button.view-more">
 </button>
 <span
 	*ngIf="showMore && isSmall"
 	tabFocusAction
 	class="text-more"
 	(click)="showAll()"
-	i18n="text@@view-more">
-	View more
+	translate="button.view-more">
 </span>

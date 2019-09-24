@@ -10,8 +10,9 @@ import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog
 import { DialogService, CloseEvent, CloseEventType } from '~shared/dialog';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
-import { AutoUnsub, log, translate } from '~utils';
+import { AutoUnsub, log } from '~utils';
 import { SupplierRequestDialogComponent } from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'product-details-app',
@@ -42,7 +43,8 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 		private sampleSrv: SampleService,
 		private taskSrv: TaskService,
 		private userSrv: UserService,
-		private requestElementSrv: RequestElementService
+		private requestElementSrv: RequestElementService,
+		private translate: TranslateService
 	) {
 		super();
 	}
@@ -80,11 +82,11 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 		);
 
 		this.tabs = [
-			{ name: translate('activity') },
-			{ name: translate('shipping') },
-			{ name: translate(ERM.SAMPLE.plural, 'erm'), number$: this.sampleCount$ },
-			{ name: translate(ERM.TASK.plural, 'erm'), number$: this.taskCount$ },
-			{ name: translate(ERM.SUPPLIER_REQUEST.plural, 'erm'), number$: this.requestCount$ }
+			{ name: 'activity' },
+			{ name: 'shipping' },
+			{ name: 'samples', number$: this.sampleCount$ },
+			{ name: 'tasks', number$: this.taskCount$ },
+			{ name: 'supplier-requests', number$: this.requestCount$ }
 		];
 	}
 
@@ -92,7 +94,7 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 		if (!product) {
 			this.notifSrv.add({
 				type: NotificationType.ERROR,
-				title: translate('The product doesn\'t exist'),
+				title: this.translate.instant('title.product-not-exist'),
 				timeout: 3500
 			});
 			this.router.navigate(['product']);
@@ -105,22 +107,21 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 		log.error(error);
 		this.notifSrv.add({
 			type: NotificationType.ERROR,
-			title: 'Error',
-			message: translate('There is an error, please try again later'),
+			title: this.translate.instant('title.error'),
+			message: this.translate.instant('error.there-is-an-error'),
 			timeout: 3500
 		});
 		this.router.navigate(['product']);
 	}
 
 	onArchive(product: Product | Product[]) {
-		// TODO i18n
 		if (Array.isArray(product)) {
 			this.featureSrv.updateMany(product.map((p: Product) => ({ id: p.id, archived: true })))
 				.subscribe(_ => {
 					this.notifSrv.add({
 						type: NotificationType.SUCCESS,
-						title: 'Products archived',
-						message: 'Products have been archived with success'
+						title: this.translate.instant('title.products-archived'),
+						message: this.translate.instant('message.products-archived-successfully')
 					});
 				});
 		} else {
@@ -129,8 +130,8 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 				.subscribe(_ => {
 					this.notifSrv.add({
 						type: NotificationType.SUCCESS,
-						title: 'Product archived',
-						message: 'Products have been archived with success'
+						title: this.translate.instant('title.product-archived'),
+						message: this.translate.instant('message.product-archived-successfully')
 					});
 				});
 		}
@@ -185,7 +186,7 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 
 	/** when deleting this product */
 	deleteProduct(product: Product) {
-		const text = translate('Are you sure you want to delete this product?');
+		const text = this.translate.instant('message.confirm-delete-product');
 		this.dlgSrv.open(ConfirmDialogComponent, { text }).pipe(
 			filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
 			switchMap(_ => this.featureSrv.delete(product.id))

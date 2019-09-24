@@ -2,12 +2,10 @@
 	<!-- top panel -->
 	<top-panel-app
 		[class.top-panel-margin-board]="listSrv.view === 'board'"
-		[title]="'My products'"
-		buttonName="Create Product"
+		[title]="'title.my-products' | translate"
+		[buttonName]="'button.create-product' | translate"
 		(buttonClick)="commonModalSrv.openCreationProductDlg()"
-		[buttonRightMargin]="addProductMargin"
-		i18n-title="@@my-products"
-		i18n-buttonName="@@add-products">
+		[buttonRightMargin]="addProductMargin">
 	</top-panel-app>
 
 	<sub-panel-app
@@ -17,7 +15,7 @@
 		[hasSwitch]="true"
 		[view]="listSrv.view"
 		[count]="listSrv.count$ | async"
-		entityType="products"
+		[entityType]="'PRODUCT'"
 		searchType="short"
 		[searchValue]="listSrv.searchValue"
 		(search)="listSrv.search($event)"
@@ -40,7 +38,7 @@
 
 	<!-- views: either one will be displayed when the correct view is selected -->
 	<ng-container *ngIf="listSrv.isListening">
-		<products-list-view-app
+		<products-table-app
 			*ngIf="listSrv.view === 'list'"
 			#productList
 			[currentSort]="listSrv.currentSort"

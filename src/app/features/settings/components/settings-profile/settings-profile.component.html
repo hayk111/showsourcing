@@ -1,10 +1,9 @@
 
 <top-panel-details-app
 	*ngIf="user$ | async as user"
-	[title]="'My Profile'"
+	[title]="'title.my-profile' | translate"
 	[hasBackArrow]="false"
-	[elevated]="false"
-	i18n-title="@@profile">
+	[elevated]="false">
 
 	<logo-app
 		[circle]="true"
@@ -13,7 +12,6 @@
 		type="primary"
 		size="xl"
 	></logo-app>
-
 
 </top-panel-details-app>
 

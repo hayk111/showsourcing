@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, TemplateRef, ViewChild, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
-import { ListPageKey, ListViewComponent, ListPageService } from '~core/list-page';
+import { ListPageKey, EntityTableComponent, ListPageService } from '~core/list-page';
 import { Sort } from '~shared/table/components/sort.interface';
 import { SupplierService } from '~core/entity-services';
 import { ERM, Supplier } from '~core/models';
@@ -14,7 +14,7 @@ import { Subject } from 'rxjs';
 		ListPageService
 	]
 })
-export class TableLibPageComponent extends ListViewComponent<Supplier> implements OnInit, OnDestroy, AfterViewInit {
+export class TableLibPageComponent extends EntityTableComponent<Supplier> implements OnInit, OnDestroy, AfterViewInit {
 	@ViewChild('contextualMenu', { static: false }) contextualMenuTemplate: TemplateRef<any>;
 	currentSort: Sort = {
 		sortBy: 'name',

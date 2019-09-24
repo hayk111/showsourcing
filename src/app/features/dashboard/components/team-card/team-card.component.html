@@ -1,7 +1,7 @@
 <card-app>
 	<h3 class="ms" *ngIf="(team$ | async)?.name as name; else unnamed">{{ name }}</h3>
 	<ng-template #unnamed>
-		<h3 class="ms" i18n="header | when no team name@@unnamed-team">Unnamed Team</h3>
+		<h3 class="ms" translate="header.unnamed-team"></h3>
 	</ng-template>
 	<h4 class="ms color-txt-strong">{{ (team$ | async)?.ownerUser?.firstName }} {{ (team$ | async)?.ownerUser?.lastName }}</h4>
   <divider-app></divider-app>
@@ -13,8 +13,7 @@
 				<div class="name flex ellipsis">
 					{{ member?.user?.firstName }} {{ member?.user?.lastName}}
 					<div *ngIf="(team$ | async)?.ownerUser && member.user?.id === (team$ | async)?.ownerUser?.id"
-						class="team-leader" i18n="@@team-leader">
-						Team Leader
+						class="team-leader" translate="text.team-leader">
 					</div>
 				</div>
 				<div class="ellipsis">{{ member.user.email }}</div>
@@ -22,16 +21,16 @@
 		</div>
 
 		<card-footer-app>
-			<button (click)="inviteTeam.emit()" i18n="button@@invite-team-members">Invite team members</button>
+			<button (click)="inviteTeam.emit()" translate="button.invite-team-members"></button>
 		</card-footer-app>
 	</ng-container>
 
 
 	<ng-template #empty>
-		<span class="no-team" i18n="@@no-team-members">No Team Members</span>
+		<span class="no-team" translate="text.no-team-members"></span>
 
 		<card-footer-app>
-			<button (click)="inviteTeam.emit()" i18n="button@@invite-team-members">Invite team members</button>
+			<button (click)="inviteTeam.emit()" translate="button.invite-team-members"></button>
 		</card-footer-app>
 	</ng-template>
 

@@ -10,19 +10,19 @@
 		[ngStyle]="{'width': hasThumb ? 'calc(100% / 3)' : 'calc(100% / 2)'}"
 		(mousedown)="switchView('list')">
 		<icon-app class="list" name="list-menu"></icon-app>
-		<ng-container i18n="text@@list">List</ng-container>
+		<ng-container translate="text.list"></ng-container>
 	</button>
 	<button class="flexCenter {{ view === 'board' ? 'selected' : ''}}"
 		[ngStyle]="{'width': hasThumb ? 'calc(100% / 3)' : 'calc(100% / 2)'}"
 		(mousedown)="switchView('board')">
 		<icon-app class="board" name="kanban"></icon-app>
-		<ng-container i18n="text@@list">Board</ng-container>
+		<ng-container translate="text.board"></ng-container>
 	</button>
 	<button *ngIf="hasThumb" 
 		class="flexCenter {{ view === 'card' ? 'selected' : ''}}" 
 		[ngStyle]="{'width': hasThumb ? 'calc(100% / 3)' : 'calc(100% / 2)'}"
 		(mousedown)="switchView('card')">
 		<icon-app class="cards" name="cards"></icon-app>
-		<ng-container i18n="text@@thumb">Grid</ng-container>
+		<ng-container translate="text.thumb"></ng-container>
 	</button>
 </div>
