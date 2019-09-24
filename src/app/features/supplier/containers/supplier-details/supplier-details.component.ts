@@ -106,7 +106,9 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 			});
 			this.router.navigate(['supplier']);
 		} else {
-			supplier.supplierType.name = supplier.supplierType.name.toLowerCase().replace(' ', '-');
+			if (supplier.supplierType) {
+				supplier.supplierType.name = supplier.supplierType.name.toLowerCase().replace(' ', '-');
+			}
 			this.supplier = supplier;
 		}
 	}

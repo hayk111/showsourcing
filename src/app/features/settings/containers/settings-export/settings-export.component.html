@@ -1,13 +1,12 @@
-<top-panel-details-app
-	[title]="'title.my-exports' | translate"
+<header-details-app
 	[hasBackArrow]="false"
 	[elevated]="false">
-
+	<header-details-title-app>{{ 'title.my-exports' | translate }}</header-details-title-app>
 	<logo-app color="primary" icon="close-pane-bottom" size="xl"></logo-app>
-	<ng-container subinfo>{{ 'message.exports-from-my-team' | translate }}</ng-container>
-</top-panel-details-app>
+	<header-details-info-app>Exports from my team</header-details-info-app>
+</header-details-app>
 
-<sub-panel-app
+<controller-list-app
 	class="sub-menu-padding-board"
 	entityType="exports"
 	[hasFilter]="false"
@@ -19,7 +18,7 @@
 	(search)="listSrv.search($event)"
 	(showMyExport)="toggleMyExports(true)"
 	(hideMyExport)="toggleMyExports(false)">
-</sub-panel-app>
+</controller-list-app>
 
 <export-table-app
 	class="no-padding"

@@ -1,9 +1,10 @@
 
-<top-panel-details-app
+<header-details-app
 	*ngIf="user$ | async as user"
-	[title]="'title.my-profile' | translate"
 	[hasBackArrow]="false"
 	[elevated]="false">
+
+	<header-details-title-app>{{ 'title.my-profile' | translate }}</header-details-title-app>
 
 	<logo-app
 		[circle]="true"
@@ -13,7 +14,7 @@
 		size="xl"
 	></logo-app>
 
-</top-panel-details-app>
+</header-details-app>
 
 <ng-container *ngIf="user$ | async as user">
 
