@@ -7,13 +7,13 @@ import { log, LogColor } from '~utils';
 
 const REALM_USER = 'REALM_USER';
 const FEED_TOKEN = 'feed-token';
+const AUTH_TOKEN = 'jwt-token';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class TokenService {
-
-
+	authJwtToken: string;
 	private _jwtTokenFeed$ = new ReplaySubject<TokenState>();
 	jwtTokenFeed$ = this._jwtTokenFeed$.asObservable();
 
@@ -32,7 +32,7 @@ export class TokenService {
 
 	/** stores the access token we get on login */
 	storeRealmUser(user: RealmUser) {
-		log.info(`%c Storring realm user token: ${user.identity} for ${user.server}`, LogColor.SERVICES);
+		log.info(`%c Storing realm user token: ${user.identity} for ${user.server}`, LogColor.SERVICES);
 		this.localStorageSrv.setItem(REALM_USER, user);
 	}
 
@@ -60,16 +60,20 @@ export class TokenService {
 		);
 	}
 
-	storeJwtTokens(token: TokenState) {
-		this.localStorageSrv.setItem(FEED_TOKEN, token);
-		this._jwtTokenFeed$.next(token);
+	storeJwtTokens(token: { jwtToken: string, jwtTokenFeed: TokenState }) {
+		this.authJwtToken = token.jwtToken;
+		this.localStorageSrv.setString(AUTH_TOKEN, this.authJwtToken);
+		this.localStorageSrv.setItem(FEED_TOKEN, token.jwtTokenFeed);
+		this._jwtTokenFeed$.next(token.jwtTokenFeed);
 	}
 
-	restoreFeedToken() {
-		const token: TokenState = this.localStorageSrv.getItem(FEED_TOKEN);
+
+	restoreTokens() {
+		const feedToken: TokenState = this.localStorageSrv.getItem(FEED_TOKEN);
+		this.authJwtToken = this.localStorageSrv.getString(AUTH_TOKEN);
 		// check if token is still valid, minus 10 so we still have some leeway
-		if (token && token.token_data.expires > (Date.now() / 1000) - 10) {
-			this._jwtTokenFeed$.next(token);
+		if (feedToken && feedToken.token_data.expires > (Date.now() / 1000) - 10) {
+			this._jwtTokenFeed$.next(feedToken);
 		}
 	}
 

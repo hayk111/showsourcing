@@ -1,18 +1,18 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { switchMap, map } from 'rxjs/operators';
-import { ApolloStateService } from '~core/apollo';
-import { InvitationService, UserService, TeamService } from '~entity-services';
-import { Invitation } from '~models';
 import { zip } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { ApolloStateService } from '~core/apollo';
+import { InvitationService, TeamService, UserService } from '~entity-services';
 
 @Injectable({ providedIn: 'root' })
-export class InvitationFeatureService extends InvitationService {
+export class SettingsInvitationService extends InvitationService {
 
 	constructor(
 		protected apolloState: ApolloStateService,
-		private invitationSrv: InvitationService,
 		private teamSrv: TeamService,
-		protected userSrv: UserService
+		protected userSrv: UserService,
+		protected http: HttpClient
 	) {
 		super(apolloState);
 	}
@@ -36,12 +36,7 @@ export class InvitationFeatureService extends InvitationService {
 	}
 
 	createInvitation(email: string) {
-		return this.getInviter().pipe(
-			switchMap(inviter => {
-				return this.invitationSrv.create(new Invitation({
-					email, inviter: { id: inviter.id }, accessType: 'TeamMember'
-				}));
-			})
-		);
+		const payload = { email, accessType: 'TeamMember' };
+		return this.http.post(`api/invitation/team/${this.teamSrv.idSync}`, payload);
 	}
 }

@@ -17,7 +17,7 @@ export class TeamMembersTableComponent extends EntityTableComponent<TeamUser> im
 	@Input() teamOwner: boolean;
 	@Input() user: User;
 	@Output() accessTypeUpdated = new EventEmitter<string>();
-	isSelectableFn: Function;
+	isSelectableFn: Function = this.isSelectable;
 	$teamOwner: Observable<User>;
 
 	constructor(private teamSrv: TeamService) {
