@@ -12,6 +12,7 @@ import { LoadersModule } from '~shared/loaders';
 import { FileListComponent, FileReviewerComponent, NoFilePlaceholderComponent } from './components';
 import { FileSizePipe } from './pipes';
 import { UtilsModule } from '~shared/utils';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
 	imports: [
@@ -21,7 +22,8 @@ import { UtilsModule } from '~shared/utils';
 		IconsModule,
 		ListModule,
 		InputsModule,
-		UtilsModule
+		UtilsModule,
+		TranslateModule
 	],
 	declarations: [
 		FileDropDirective,

@@ -50,14 +50,14 @@
 	<ng-container *ngIf="type === 'button'">
 		<div
 			*ngIf="!isLast()"
-			toolTip [toolTipMessage]="('Next status' | const: 'messages') + ' ' + (getNextStatus()?.name | const: 'status')" toolTipPosition="above-right" [offsetX]="26"
+			toolTip [toolTipMessage]="('message.next-status' | translate) + ' ' + ('text.' + getNextStatus()?.name | translate)" toolTipPosition="above-right" [offsetX]="26"
 			class="pointer caretCtnr bg-{{ entity?.status?.category }}"
 			(click)="next()">
 			<icon-app [ngClass]="{new: entity?.status?.category === 'new'}" name="angle-right" ></icon-app>
 		</div>
 		<div
 			*ngIf="isLast()"
-			toolTip [toolTipMessage]="('Previous status' | const: 'messages') + ' ' + (getPreviousStatus()?.name | const: 'status')" toolTipPosition="above-right" [offsetX]="20"
+			toolTip [toolTipMessage]="('message.previous-status' | translate) + ' ' + ('text.' + getPreviousStatus()?.name | translate)" toolTipPosition="above-right" [offsetX]="20"
 			class="pointer caretCtnr bg-{{ entity?.status.category }}"
 			(click)="previous()">
 			<icon-app name="angle-left"></icon-app>

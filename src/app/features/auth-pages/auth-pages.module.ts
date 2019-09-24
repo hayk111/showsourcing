@@ -19,7 +19,7 @@ import { routes } from './routes';
 	imports: [
 		AuthPagesCommonModule,
 		SharedModule,
-		RouterModule.forChild(routes),
+		RouterModule.forChild(routes)
 	],
 	declarations: [
 		AccountCreatedComponent,

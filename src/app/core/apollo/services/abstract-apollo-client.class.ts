@@ -36,8 +36,8 @@ export abstract class AbstractApolloClient {
 		protected client: Client,
 	) {
 		// for debugging purpose
-		if (!showsourcing.clients)
-			showsourcing.clients = new Map<string, any>();
+		if (!showsourcing.realm.clients)
+			showsourcing.realm.clients = new Map<string, any>();
 	}
 
 	protected checkNotAlreadyInit() {
@@ -107,7 +107,7 @@ export abstract class AbstractApolloClient {
 			}
 		}, name);
 
-		showsourcing.clients.set(name, this.apollo.use(name));
+		showsourcing.realm.clients.set(name, this.apollo.use(name));
 	}
 
 	// https://github.com/apollographql/apollo-angular/issues/736

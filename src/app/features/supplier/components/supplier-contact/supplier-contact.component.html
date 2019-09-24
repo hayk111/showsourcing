@@ -40,15 +40,13 @@
 			<context-menu-trigger-app>
 				<icon-app name="dots-vertical"></icon-app>
 			</context-menu-trigger-app>
-			<context-menu-item-app (click)="edit.emit()" i18n="button@@edit">
-				edit
+			<context-menu-item-app (click)="edit.emit()" translate="button.edit">
 			</context-menu-item-app>
 			<context-menu-divider-app></context-menu-divider-app>
 			<context-menu-item-app
 				class="color-warn"
 				(click)="delete.emit()"
-				i18n="button@@delete">
-				delete
+				translate="button.delete">
 			</context-menu-item-app>
 		</context-menu-app>
 
