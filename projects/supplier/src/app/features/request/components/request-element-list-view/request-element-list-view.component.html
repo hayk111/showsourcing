@@ -4,7 +4,7 @@
 	[pending]="pending"
 	[hasSelection]="false"
 	[selected]="selection"
-	placeholder="No request items"
+	[placeholder]="'placeholder.no-request-items' | translate"
 	[contextualMenu]="contextualMenuTemplate"
 	[count]="count"
 	[currentPage]="currentPage"
@@ -13,21 +13,19 @@
 	(selectOne)="select.emit($event)"
 	(sort)="sort.emit($event)"
 	(unselectAll)="unselectAll.emit()"
-	(unselectOne)="unselect.emit($event)"
-	i18n-placeholder="@@no-request-items">
+	(unselectOne)="unselect.emit($event)">
 
 	<!-- contextual menu -->
 	<ng-template #contextualMenuTemplate let-row="row">
 		<context-menu-item-app
 			class="pointer flexCenter capitalize"
-			(click)="openRefuseReplyDlg.emit(row.reply.id)"
-			i18n="button@@refuse">
-			refuse
+			(click)="openRefuseReplyDlg.emit(row.reply.id)">
+			{{'button.refuse' | translate}}
 		</context-menu-item-app>
 	</ng-template>
 
 	<ng-template
-		[columnApp]="erm.PRODUCT.singular | const: 'erm'"
+		[columnApp]="'ERM.' + erm.PRODUCT.translationKey + '.singular' | translate"
 		sortBy="name"
 		let-row="row"
 		width="300">
@@ -47,7 +45,7 @@
 	</ng-template>
 
 	<ng-template
-		[columnApp]="'fields' | const: 'messages'"
+		[columnApp]="'title.fields' | translate"
 		[sortable]="false"
 		let-index="index"
 		width="200">
@@ -56,7 +54,7 @@
 
 
 	<ng-template
-		[columnApp]="'status' | const: 'messages'"
+		[columnApp]="'title.status' | translate"
 		sortBy="reply.status"
 		let-row="row"
 		width="200">

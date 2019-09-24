@@ -1,21 +1,21 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { ListViewComponent, TableConfig } from '~core/list-page/list-view.component';
 import { ERM, Product } from '~models';
-
+import { TranslateService } from '@ngx-translate/core';
 
 const tableConfig: TableConfig = {
-	activities: { title: 'activity', width: 190, sortable: false },
-	category: { title: 'category', width: 190, sortProperty: 'category.name' },
-	createdBy: { title: 'created by', width: 140, sortProperty: 'creationDate' },
-	creationDate: { title: 'creation date', width: 190, sortProperty: 'creationDate' },
-	about: { title: 'about', width: 190, sortProperty: 'creationDate' },
-	favorite: { title: 'favorite', width: 50, sortProperty: 'favorite' },
-	moq: { title: 'moq', width: 120, sortProperty: 'minimumOrderQuantity' },
-	price: { title: 'price', width: 120, sortProperty: 'price.value' },
-	projects: { title: 'projects', width: 190, sortProperty: 'creationDate' },
-	reference: { title: 'reference', width: 247, sortProperty: 'reference' },
-	status: { title: 'status', width: 190, sortProperty: 'status.step' },
-	supplier: { title: 'supplier', width: 190, sortProperty: 'supplier.id' },
+	activities: { title: 'activity', translationKey: 'activity', width: 190, sortable: false },
+	category: { title: 'category', translationKey: 'category', width: 190, sortProperty: 'category.name' },
+	createdBy: { title: 'created by', translationKey: 'created-by', width: 140, sortProperty: 'creationDate' },
+	creationDate: { title: 'creation date', translationKey: 'creation-date', width: 190, sortProperty: 'creationDate' },
+	about: { title: 'about', translationKey: 'about', width: 190, sortProperty: 'creationDate' },
+	favorite: { title: 'favorite', translationKey: 'favorite', width: 50, sortProperty: 'favorite' },
+	moq: { title: 'moq', translationKey: 'moq', width: 120, sortProperty: 'minimumOrderQuantity' },
+	price: { title: 'price', translationKey: 'price', width: 120, sortProperty: 'price.value' },
+	projects: { title: 'projects', translationKey: 'projects', width: 190, sortProperty: 'creationDate' },
+	reference: { title: 'reference', translationKey: 'reference', width: 247, sortProperty: 'reference' },
+	status: { title: 'status', translationKey: 'status', width: 190, sortProperty: 'status.step' },
+	supplier: { title: 'supplier', translationKey: 'supplier', width: 190, sortProperty: 'supplier.id' },
 };
 
 @Component({
@@ -40,7 +40,7 @@ export class ProductsListViewComponent extends ListViewComponent<Product> {
 	@Output() showItemsPerPage = new EventEmitter<number>();
 	prodErm = ERM.PRODUCT;
 
-	constructor() {
+	constructor(public translate: TranslateService) {
 		super();
 	}
 

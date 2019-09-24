@@ -15,7 +15,7 @@ import {
 @NgModule({
 	imports: [
 		SharedModule,
-		RouterModule.forChild([]),
+		RouterModule.forChild([])
 	],
 	declarations: [
 		DataManagementPageComponent,

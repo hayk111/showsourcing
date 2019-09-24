@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, TemplateRef, ViewChild, Output, Eve
 import { ListViewComponent } from '~core/list-page/list-view.component';
 import { Sample, ERM } from '~models';
 import { Observable, of } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'samples-list-view-app',
@@ -21,7 +22,7 @@ export class SamplesListViewComponent extends ListViewComponent<Sample> {
 
 	@ViewChild('contextualMenu', { static: false }) contextualMenuTemplate: TemplateRef<any>;
 
-	constructor() {
+	constructor(public translate: TranslateService) {
 		super();
 	}
 

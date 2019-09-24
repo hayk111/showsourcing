@@ -1,7 +1,7 @@
 
 <card-app padding="ms">
 
-	<card-title-app class="ms" i18n="header@@contacts">contacts</card-title-app>
+	<card-title-app class="ms" translate="header.contacts"></card-title-app>
 
 	<ul *ngIf="contacts?.length > 0; else noContact">
 		<supplier-contact-app
@@ -16,14 +16,13 @@
 	<ng-template #noContact>
 		<div class="flexColumn flexCenter empty">
 			<img [src]="defaultImg" class="pointer" (click)="openContactDlg()"/>
-			<span i18n="text@@no-contact-for-supplier">No contact for this supplier</span>
+			<span translate="text.no-contact-for-supplier"></span>
 		</div>
 	</ng-template>
 
 	<card-footer-app>
 		<button (click)="openContactDlg()"
-			i18n="button@@new-contact">
-			New Contact
+			translate="button.new-contact">
 		</button>
 	</card-footer-app>
 

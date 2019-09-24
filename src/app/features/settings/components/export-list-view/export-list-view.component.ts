@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Output, TemplateRef, ViewChild } from '@angular/core';
 import { ListViewComponent } from '~core/list-page';
 import { ERM, ExportRequest } from '~core/models';
-import { translate } from '~utils';
+import { TranslateService } from '@ngx-translate/core';
 
 type ExportStatus = 'ready' | 'pending' | 'processing' | 'failed' | 'done';
 
@@ -22,7 +22,9 @@ export class ExportListViewComponent extends ListViewComponent<ExportRequest> {
 
 	@ViewChild('contextualMenu', { static: false }) contextualMenuTemplate: TemplateRef<any>;
 
-	constructor() { super(); }
+	constructor(
+		public translate: TranslateService
+	) { super(); }
 
 	getFileName(path: string) {
 		const split = path.split('/');
@@ -43,7 +45,8 @@ export class ExportListViewComponent extends ListViewComponent<ExportRequest> {
 	}
 
 	getToolTipMsg(status: string) {
-		return status !== 'ready' ? translate('Your export is being processed') : null;
+		// return status !== 'ready' ? translate('Your export is being processed') : null;
+		return status !== 'ready' ? this.translate.instant('message.your-export-is-being-processed') : null;
 	}
 
 }

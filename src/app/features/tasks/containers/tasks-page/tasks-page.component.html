@@ -1,11 +1,9 @@
 
 <!-- top panel -->
 <top-panel-app
-	[title]="'My Tasks'"
-	buttonName="Create Task"
-	(buttonClick)="commonModalSrv.openCreationTaskDlg()"
-	i18n-title="@@my-tasks"
-	i18n-buttonName="@@add-tasks">
+	[title]="'title.my-tasks' | translate"
+	[buttonName]="'button.create-task' | translate"
+	(buttonClick)="commonModalSrv.openCreationTaskDlg()">
 </top-panel-app>
 
 <sub-panel-app
@@ -17,7 +15,7 @@
 	[hasExport]="false"
 	[view]="listSrv.view"
 	[count]="listSrv.count$ | async"
-	entityType="tasks"
+	[entityType]="'TASK'"
 	searchType="short"
 	[searchValue]="listSrv.searchValue"
 	[ngStyle]="tableWidth && {'width': getSubPanelWidth()}"
@@ -42,17 +40,14 @@
 			[checked]="listSrv.filterList.hasFilterType(filterTypeEnum.ASSIGNEE)"
 			(check)="toggleMyProducts(true)"
 			(uncheck)="toggleMyProducts(false)">
-			<span i18n="text@@assigned-to-me">
-				Assigned to me
-			</span>
+			<span translate="text.assigned-to-me"></span>
 		</checkbox-app>
 		<button
 			*ngIf="tasksCount$ | async as count"
 			class="capitalize"
 			(click)="commonModalSrv.openExportDialog([], listSrv.filterList.asPredicate())">
-			<ng-container i18n="@@export">export</ng-container>
-			<span> {{ count || 0 }} </span>
-			<ng-container i18n="@@items">{ count || 0, plural, =1 { item } other { items } }</ng-container>
+			<ng-container translate="button.export"></ng-container>
+			{{ ((count || 0) > 1 ? 'OBJ.n-item.plural' : 'OBJ.n-item.singular') | translate: {count : count || 0} }}
 		</button>
 
 	</sub-panel-right-item-app>
@@ -87,14 +82,13 @@
 
 	<div class="flex">
 		<status-selector-app
-			toolTip toolTipMessage="Change status" toolTipPosition="above-right"
+			toolTip [toolTipMessage]="'message.change-status' | translate" toolTipPosition="above-right"
 			#workActionMenu
 			selectSize="s"
 			[typeEntity]="erm.TASK"
 			type="multiple-selection"
 			[internalUpdate]="false"
-			(statusUpdated)="this.listSrv.updateSelected({status: $event})"
-			i18n-toolTipMessage="@@change-status">
+			(statusUpdated)="this.listSrv.updateSelected({status: $event})">
 		</status-selector-app>
 		<action-bar-app
 			[favorite]="listSrv.allSelectedFavorite"

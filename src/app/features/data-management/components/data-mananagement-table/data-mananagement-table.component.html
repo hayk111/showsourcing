@@ -5,7 +5,7 @@
   [contextualMenu]="contextualMenuTemplate"
 	[count]="count"
 	[currentPage]="currentPage"
-	placeholder="No data"
+	[placeholder]="'placeholder.no-data' | translate"
 	(goToPage)="goToPage.emit($event)"
 	(selectOne)="select.emit($event)"
 	(unselectOne)="unselect.emit($event)"
@@ -21,9 +21,8 @@
 	<ng-template #contextualMenuTemplate let-row="row">
 		<context-menu-item-app
 			class="pointer flexCenter"
-			(click)="delete.emit(row)"
-			i18n="button@@delete">
-			Delete
+			(click)="delete.emit(row)">
+			{{'button.delete' | translate}}
 		</context-menu-item-app>
 	</ng-template>
 
@@ -51,7 +50,7 @@
 	<!-- Name Event -->
 	<ng-template
 		*ngIf="ermEvent === entityMetadata"
-		[columnApp]="'name' | const: 'messages'"
+		[columnApp]="'header.name' | translate"
 		let-row="row"
 		width="250"
 		sortBy="description.name">
@@ -70,7 +69,7 @@
 	<!-- Created By -->
 	<ng-template
 		*ngIf="ermEvent !== entityMetadata && ermSupplier !== entityMetadata"
-		[columnApp]="'created by' | const: 'messages'"
+		[columnApp]="'header.created-by' | translate"
 		let-row="row"
 		width="140">
 		<span class="flexVAlign created-by-container">
@@ -89,7 +88,7 @@
 	<!-- Products Count -->
 	<ng-template
 		*ngIf="ermCategory === entityMetadata || ermTag === entityMetadata || ermSupplier === entityMetadata"
-		[columnApp]="'Product count' | const: 'messages'"
+		[columnApp]="'header.products-count' | translate"
 		let-row="row"
 		[sortable]="false"
 		width="140">
@@ -101,7 +100,7 @@
 	<!-- Supplier Count -->
 	<ng-template
 		*ngIf="ermCategory === entityMetadata || ermTag === entityMetadata"
-		[columnApp]="'Supplier count' | const: 'messages'"
+		[columnApp]="'header.suppliers-count' | translate"
 		let-row="row"
 		[sortable]="false"
 		width="140">
@@ -125,24 +124,24 @@
 	<!-- Start Date (Event only) -->
 	<ng-template
 		*ngIf="ermEvent === entityMetadata"
-		[columnApp]="'Start date' | const: 'messages'"
+		[columnApp]="'header.start-date' | translate"
 		let-row="row"
 		sortBy="description.startDate"
 		width="140">
 		<span>
-			{{ row?.description?.startDate | date: 'MMMM d, y' }}
+			{{ row?.description?.startDate | date: 'MMMM d, y':'':translate.currentLang }}
 		</span>
 	</ng-template>
 
 	<!-- End Date (Event only) -->
 	<ng-template
 		*ngIf="ermEvent === entityMetadata"
-		[columnApp]="'End Date' | const: 'messages'"
+		[columnApp]="'header.end-date' | translate"
 		let-row="row"
 		sortBy="description.endDate"
 		width="140">
 		<span>
-			{{ row?.description?.endDate | date: 'MMMM d, y' }}
+			{{ row?.description?.endDate | date: 'MMMM d, y':'':translate.currentLang }}
 		</span>
 	</ng-template>
 

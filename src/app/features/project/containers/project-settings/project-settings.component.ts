@@ -7,6 +7,7 @@ import { ProjectService } from '~entity-services';
 import { ERM, Project } from '~models';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { AutoUnsub } from '~utils';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'project-settings-app',
@@ -29,7 +30,8 @@ export class ProjectSettingsComponent extends AutoUnsub implements OnInit {
 		private route: ActivatedRoute,
 		private projectSrv: ProjectService,
 		private fb: FormBuilder,
-		private uploader: UploaderService
+		private uploader: UploaderService,
+		public translate: TranslateService
 	) {
 		super();
 	}

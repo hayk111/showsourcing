@@ -10,6 +10,7 @@
 			[formControl]="searchControl"
 			[inputFocus]="inputFocus"
 			searchType="short"
+			[placeHolder]="'placeholder.type-to-search' | translate"
 			(focus)="onFocusSearch($event)"
 			(search)="search.emit($event)"
 			(keydown.enter)="triggerSmartSearch($event)">
@@ -18,15 +19,14 @@
 		<button
 			*ngIf="hasFilter && !filtersPanelOpened"
 			class="bold-s pointer capitalize filter-button"
-			(click)="showFilters.emit()" i18n="text@@show-filters">
-			Filters
+			(click)="showFilters.emit()" translate="button.show-filters">
 		</button>
 		<button
 			*ngIf="hasFilter && !filtersPanelOpened"
 			class="bold-s pointer capitalize clear-filter-button"
 			(click)="clearFilters.emit()"
-			i18n="text@@clear-filters">
-			Clear Filters <span *ngIf="filtersAmount">({{filtersAmount}})</span>
+			translate="button.clear-filters">
+			<span *ngIf="filtersAmount">({{filtersAmount}})</span>
 		</button>
 		<div class="divider"></div>
 
@@ -34,8 +34,7 @@
 			{{count}} {{entityType}}
 		</span>
 
-		<button *ngIf="filtersPanelOpened" class="bold-s pointer secondary capitalize" (click)="hideFilters.emit()" i18n="text@@show-filters">
-			Hide Filters
+		<button *ngIf="filtersPanelOpened" class="bold-s pointer secondary capitalize" (click)="hideFilters.emit()" translate="button.hide-filters">
 		</button>
 
 		<button
@@ -54,7 +53,7 @@
 					[checked]="isArchivedShown"
 					[size]="15">
 				</checkbox-app>
-				Show Archived
+				{{'label.show-archived' | translate}}
 			</div>
 		</div>
 		<div
@@ -66,7 +65,7 @@
 					[checked]="isTaskCreatedByMeOnlyChecked"
 					[size]="15">
 				</checkbox-app>
-				Show tasks I created only
+				{{'label.show-tasks-i-created-only' | translate}}
 			</div>
 		</div>
 		<div
@@ -78,7 +77,7 @@
 					[checked]="isCompletedTaskChecked"
 					[size]="15">
 				</checkbox-app>
-				Show Completed
+				{{'label.show-completed' | translate}}
 			</div>
 		</div>
 		<div class="assigned-to-me-container pointer" *ngIf="hasAssigned" (click)="toggleAssigned()">
@@ -87,7 +86,7 @@
 					[checked]="isAssigned"
 					[size]="15">
 				</checkbox-app>
-				Assigned to me
+				{{'label.assigned-to-me' | translate}}
 			</div>
 		</div>
 		<div class="my-exports-only-container pointer" *ngIf="hasMyExport" (click)="toggleMyExport()">
@@ -101,9 +100,8 @@
 		</div>
 
 		<button *ngIf="hasFilter && !filtersPanelOpened && hasExport" class="flexCenter bold-s pointer capitalize export-button"
-			(click)="export.emit()" i18n="text@@export">
+			(click)="export.emit()" translate="button.export">
 			<icon-app name="close-pane-bottom" size="m"></icon-app>
-			Export
 		</button>
 
 		<view-switcher-app

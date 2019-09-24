@@ -1,5 +1,5 @@
 <table-app
-	placeholder="No exports"
+	[placeholder]="'placeholder.no-exports' | translate"
 	[rows]="rows"
 	[hasSelection]="false"
 	[hasPaddingPagination]="true"
@@ -10,9 +10,7 @@
 	[currentPage]="currentPage"
 	(goToPage)="goToPage.emit($event)"
 	(sort)="sort.emit($event)"
-	(bottomReached)="bottomReached.emit()"
-	(showItemsPerPage)="showItemsPerPage.emit($event)"
-	i18n-placeholder="@@no-exports">
+	(bottomReached)="bottomReached.emit()">
 
 		<!-- user -->
 		<ng-template
@@ -47,37 +45,55 @@
 			<context-menu-item-app
 				class="pointer flexCenter"
 				(click)="download.emit(row)"
-				i18n="button@@download">
-				download
+				translate="button.download">
 			</context-menu-item-app>
 		</ng-template>
 
 		<!-- export name -->
 		<ng-template
-			[columnApp]="'file name' | const: 'messages'"
+			[columnApp]="'header.export' | translate"
 			sortBy="name"
 			let-row="row"
 			width="300">
 			<div class="capitalize">
-				{{ getFileName(row?.documentUrl) }}
+				{{ row?.format }} {{ row?.creationDate | date: 'dd-MMM-yy H:mm':'':translate.currentLang}}
 			</div>
 		</ng-template>
 
 		<!-- status -->
 		<ng-template
-			[columnApp]="'status' | const: 'messages'"
+			[columnApp]="'header.status' | translate"
 			let-row="row"
 			sortBy="status"
 			width="150"
 			[sortOrder]="'DESC'">
-			<div class="status capitalize" [ngStyle]="{'color': getStatusColor(row?.status)}">
-				{{ row?.status }}
+			{{ 'text.' + row?.status | translate }}
+		</ng-template>
+
+		<!-- date -->
+		<ng-template
+			[columnApp]="'header.creation-date' | translate"
+			let-row="row"
+			sortBy="creationDate"
+			width="150"
+			[sortOrder]="'DESC'">
+			{{ row?.creationDate | date: 'MMMM y':'':translate.currentLang }}
+		</ng-template>
+
+		<!-- user -->
+		<ng-template
+			[columnApp]="'header.created-by' | translate"
+			let-row="row"
+			sortBy="createdBy.lastName"
+			width="200">
+			<div class="flex flexCenter">
+				<span class="ellipsis">{{ row?.createdBy?.firstName }} {{row?.createdBy?.lastName}}</span>
 			</div>
 		</ng-template>
 
 		<!-- download -->
 		<ng-template
-			[columnApp]="'action' | const: 'messages'"
+			[columnApp]="'header.download' | translate"
 			let-row="row"
 			sortBy="createdBy.lastName"
 			[grows]="false"

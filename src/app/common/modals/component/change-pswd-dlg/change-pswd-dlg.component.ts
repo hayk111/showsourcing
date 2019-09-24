@@ -7,7 +7,8 @@ import { DialogService } from '~shared/dialog/services';
 import { InputDirective } from '~shared/inputs';
 import { PasswordValidator } from '~shared/inputs/validators/pswd.validator';
 import { NotificationService, NotificationType } from '~shared/notifications';
-import { AutoUnsub, translate } from '~utils';
+import { AutoUnsub } from '~utils';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'change-pswd-dlg-app',
@@ -28,7 +29,9 @@ export class ChangePswdDlgComponent extends AutoUnsub implements OnInit {
 		private fb: FormBuilder,
 		private dlgSrv: DialogService,
 		private profileSrv: SettingsProfileService,
-		private notificationSrv: NotificationService) {
+		private notificationSrv: NotificationService,
+		private translate: TranslateService
+	) {
 		super();
 	}
 
@@ -58,15 +61,15 @@ export class ChangePswdDlgComponent extends AutoUnsub implements OnInit {
 			if (response) {
 				this.notificationSrv.add({
 					type: NotificationType.SUCCESS,
-					title: translate('Password Changed'),
-					message: translate('Your password has been changed with success'),
+					title: this.translate.instant('title.pwd-changed'),
+					message: this.translate.instant('message.pwd-changed'),
 					timeout: 3500
 				});
 			} else {
 				this.notificationSrv.add({
 					type: NotificationType.ERROR,
-					title: translate('Password Unchanged'),
-					message: translate('Your password could not be changed, current password incorrect'),
+					title: this.translate.instant('title.pwd-unchanged'),
+					message: this.translate.instant('message.pwd-unchanged'),
 					timeout: 4500
 				});
 			}

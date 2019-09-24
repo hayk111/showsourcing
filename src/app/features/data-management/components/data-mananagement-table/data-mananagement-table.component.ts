@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { ListViewComponent } from '~core/list-page/list-view.component';
 import { EntityMetadata, ERM } from '~models';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'data-management-table-app',
@@ -18,6 +19,8 @@ export class DataMananagementTableComponent extends ListViewComponent<any> {
 	ermSupplier = ERM.SUPPLIER;
 	ermEvent = ERM.EVENT;
 	idEntityHovered: string;
+
+	constructor(public translate: TranslateService) { super(); }
 
 	updateNameEntity(isCancel: boolean, obj, newName, subProp?) {
 		if (isCancel) return;

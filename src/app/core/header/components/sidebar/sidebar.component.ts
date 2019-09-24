@@ -7,6 +7,7 @@ import { SupplierRequestService, TeamService, UserService } from '~entity-servic
 import { sideNavItems } from './side-nav-items.const';
 import { GetStreamNotification } from '~common/activity/interfaces/get-stream-feed.interfaces';
 import { NotificationActivityService } from '~shared/notif/services/notification-activity.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'sidebar-app',
@@ -26,7 +27,8 @@ export class SidebarComponent implements OnInit {
 		private userSrv: UserService,
 		private requestSrv: SupplierRequestService,
 		private teamSrv: TeamService,
-		private notifActivitySrv: NotificationActivityService) { }
+		private notifActivitySrv: NotificationActivityService,
+		private translate: TranslateService) { }
 
 	ngOnInit() {
 		this.user$ = this.userSrv.selectUser();

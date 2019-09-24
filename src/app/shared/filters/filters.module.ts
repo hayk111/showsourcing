@@ -11,6 +11,7 @@ import { PanelModule } from '~shared/panel/panel.module';
 import { RatingModule } from '~shared/rating';
 import { UtilsModule } from '~shared/utils';
 import { DividerModule } from '~shared/divider/divider.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
 	imports: [
@@ -24,7 +25,8 @@ import { DividerModule } from '~shared/divider/divider.module';
 		RatingModule,
 		BadgeModule,
 		UtilsModule,
-		DividerModule
+		DividerModule,
+		TranslateModule
 	],
 	declarations: [
 		FilterSelectionEntityPanelComponent,

@@ -3,6 +3,8 @@ import { RouterModule } from '@angular/router';
 import { ProductCommonModule } from '~common/product/product-common.module';
 import { SampleCommonModule } from '~common/sample';
 import { TaskCommonModule } from '~common/task';
+import { SharedModule } from '~shared/shared.module';
+
 import {
 	MySampleBoardPageComponent,
 	MySampleListPageComponent,
@@ -12,7 +14,6 @@ import {
 	WorkspaceComponent,
 } from '~features/workspace/containers';
 import { routes } from '~features/workspace/routes';
-import { SharedModule } from '~shared/shared.module';
 
 
 
