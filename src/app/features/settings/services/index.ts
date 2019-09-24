@@ -1,5 +1,5 @@
 
-export * from './invitation-feature.service';
-export * from './member-feature.service';
+export * from './settings-invitation.service';
+export * from './settings-members.service';
 export * from './menu.service';
 export * from './settings-profile.service';

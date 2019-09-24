@@ -13,7 +13,7 @@
 </sub-panel-app>
 
 <ng-container *ngIf="(listSrv.items$ | async) as invitations">
-	<invitations-list-view-app
+	<invitations-table-app
 		[rows]="invitations"
 		[teamOwner]="teamOwner"
 		[user]="user"
@@ -31,7 +31,7 @@
     (unselectAll)="listSrv.unselectAll()"
 		(accessTypeUpdated)="updateAccessType($event)"
 		(delete)="listSrv.deleteOne($event, true)">
-	</invitations-list-view-app>
+	</invitations-table-app>
 
 	<!-- ng-container *ngIf="selected$ | async as selected">
 		<selection-bar-app

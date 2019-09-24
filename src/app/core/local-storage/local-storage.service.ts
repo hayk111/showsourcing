@@ -46,4 +46,9 @@ export class LocalStorageService {
 		if (this.isBrowser)
 			return localStorage.removeItem(key);
 	}
+
+	clear() {
+		log.debug(`%c 💾 LocalStorage: clear all...`, LogColor.LOCAL_STORAGE);
+		localStorage.clear();
+	}
 }

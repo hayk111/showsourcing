@@ -24,6 +24,7 @@ export class HandleInvitationComponent extends AutoUnsub implements OnInit {
 	invitation$: Observable<InvitationUser>;
 	client: Client;
 	returnUrl: string;
+	invitationId: string;
 
 	// this is used to hide then DOM when accepting in the meaintime we fix how we handle
 	// the spinner located at `app.component.html`
@@ -43,18 +44,18 @@ export class HandleInvitationComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		const invitationId = this.route.snapshot.params.id;
+		this.invitationId = this.route.snapshot.params.id;
 		this.authenticated$ = this.authSrv.isAuthenticated$;
 		this.invitation$ = this.authenticated$.pipe(
-			switchMap(_ => this.invitationSrv.getInvitation(invitationId))
+			switchMap(_ => this.invitationSrv.getInvitation(this.invitationId))
 		);
 		this.returnUrl = this.location.path();
 	}
 
-	accept(invitation: InvitationUser) {
+	accept() {
 		this.hasAccepted$.next(true);
 		this.teamClient.setPending('switching team');
-		this.invitationSrv.acceptInvitation(invitation).subscribe(_ => {
+		this.invitationSrv.acceptInvitation(this.invitationId).subscribe(_ => {
 			this.router.navigateByUrl('/');
 			this.notifSrv.add({
 				type: NotificationType.SUCCESS,
@@ -65,8 +66,8 @@ export class HandleInvitationComponent extends AutoUnsub implements OnInit {
 		});
 	}
 
-	refuse(invitation) {
-		this.invitationSrv.refuseInvitation(invitation).subscribe(_ => {
+	refuse() {
+		this.invitationSrv.refuseInvitation(this.invitationId).subscribe(_ => {
 			this.router.navigateByUrl('/');
 			this.notifSrv.add({
 				type: NotificationType.ERROR,

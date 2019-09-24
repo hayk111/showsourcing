@@ -23,7 +23,7 @@
 
 <ng-container *ngIf="listSrv.isListening">
 
-  <projects-list-view-app
+  <projects-table-app
 		[selection]="listSrv.selection$ | async"
 		[rows]="listSrv.items$ | async"
 		[pending]="listSrv.pending"
@@ -38,7 +38,7 @@
 		(sort)="listSrv.sort($event)"
 		(showItemsPerPage)="showItemsPerPage($event)"		
 		(delete)="listSrv.deleteOne($event)">
-	</projects-list-view-app>
+	</projects-table-app>
 
   <selection-bar-app
     [isShown]="(listSrv.selection$ | async).size > 0"
