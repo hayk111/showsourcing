@@ -8,20 +8,29 @@
 </top-panel-details-app>
 
 <sub-panel-app
+	class="sub-menu-padding-board"
+	entityType="exports"
 	[hasFilter]="false"
+	[count]="listSrv.count$ | async"
 	[hasSwitch]="false"
+	[hasArchived]="false"
+	[hasAssigned]="false"
 	[searchValue]="listSrv.searchValue"
-	(search)="listSrv.search($event)">
+	(search)="listSrv.search($event)"
+	(showMyExport)="toggleMyExports(true)"
+	(hideMyExport)="toggleMyExports(false)">
 </sub-panel-app>
 
 <export-table-app
 	class="no-padding"
 	[rows]="listSrv.items$ | async"
+	[currentSort]="listSrv.currentSort"
 	[pending]="listSrv.pending"
 	[count]="listSrv.count$ | async"
 	[currentPage]="listSrv.currentPage"
 	(goToPage)="listSrv.loadPage($event)"
 	(sort)="listSrv.sort($event)"
+	(showItemsPerPage)="showItemsPerPage($event)"
 	(download)="downloadOne($event)">
 </export-table-app>
 

@@ -20,6 +20,12 @@
 		[name]="'nav.tags' | translate">
 	</panel-tab-app>
 
+	<panel-tab-app
+		link="/settings/data/supplier"
+		icon="supplier"
+		name="Suppliers">
+	</panel-tab-app>
+
 	<!-- <panel-tab-app
 		link="/settings/data/supplier"
 		icon="supplier"
@@ -36,16 +42,21 @@
 
 <top-panel-app
 	class="smaller-padding"
-	[title]="'ERM.' + listSrv.entityMetadata.translationKey + '.plural' | translate"
-	[buttonName]="'OBJ.add-OBJ' | translate: {type: 'ERM.' + listSrv.entityMetadata.translationKey + '.singular' | translate}"
+	[title]="listSrv.entityMetadata.plural"
+	[buttonName]="'Add ' + listSrv.entityMetadata.singular"
+	[buttonWidth]="addButtonWidth"
+	[buttonHeight]="addButtonHeight"
 	(buttonClick)="listSrv.create(false)">
 </top-panel-app>
 
 <sub-panel-app
 	class="smaller-padding"
+	[count]="listSrv.count$ | async"
 	[hasFilter]="false"
 	[hasSwitch]="false"
-	[entityType]="erm.translationKey"
+	[hasAssigned]="false"
+	[hasArchived]="false"
+	[entityType]="erm.plural"
 	(search)="listSrv.search($event)">
 	<sub-panel-right-item-app>
 		<div class="flex" *ngIf="(listSrv.selection$ | async).size > 0">
@@ -69,6 +80,7 @@
 	(select)="listSrv.selectOne($event, false)"
 	(unselect)="listSrv.unselectOne($event, false)"
 	(selectAll)="listSrv.selectAll($event, false)"
+	(showItemsPerPage)="showItemsPerPage($event)"
 	(unselectAll)="listSrv.unselectAll()"
 	(renameEntity)="listSrv.update($event)">
 </data-management-table-app>

@@ -1,9 +1,11 @@
 :host {
 	display: flex;
 	padding: var(--spacing-l);
+	margin: 0 var(--spacing-l) var(--spacing-l) var(--spacing-l);
 	background: var(--legacy-color-bg);
-	height: calc(100% - 160px);
+	border-radius: var(--border-radius);
 	box-sizing: border-box;
+	box-shadow: 0 0 12px 4px rgba(0, 0, 0, 0.01);
 }
 
 button.button {
@@ -13,4 +15,24 @@ button.button {
 table-app {
 	margin-left: auto;
 	margin-right: auto;
+}
+
+.task-name {
+	color: var(--color-bg-dark);
+	font-size: var(--font-size-m);
+}
+
+.created-by-container {
+	.created-by {
+		margin-left: var(--spacing-ms);
+	}
+}
+
+.action {
+	color: var(--color-txt-secondary);
+	font-size: var(--font-size-m);
+
+	&:hover {
+		color: var(--color-warn);
+	}
 }

@@ -13,6 +13,10 @@ export class TopPanelComponent {
 	/** what appears in the button on the right for adding an entity */
 	@Input() buttonName: string;
 	@Input() buttonRightMargin: string;
+
+	@Input() buttonWidth: string;
+	@Input() buttonHeight: string;
+
 	/** specify if the icon should be displayed or not for the adding button */
 	@Input() buttonIcon = true;
 	/** when said button is clicked */

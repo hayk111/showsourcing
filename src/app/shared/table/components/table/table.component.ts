@@ -37,6 +37,8 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	@Input() placeholder: string;
 	/** whether rows are selectable and pagination is visible */
 	@Input() hasPagination = true;
+	/** whether the pagination component has left and right padding of 24px */
+	@Input() hasPaddingPagination;
 	/** whether the context menu icon is horizontal dots or vertical */
 	@Input() isContextMenuHorizontal = true;
 
