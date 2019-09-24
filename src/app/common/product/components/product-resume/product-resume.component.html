@@ -17,8 +17,7 @@
 			<preview-badge-app
 				[badge]="erm.SUPPLIER"
 				[value]="product?.supplier?.name"
-				i18n-toolTipMessage="@@open-preview"
-				toolTipMessage="Open preview"
+				[toolTipMessage]="'message.open-preview' | translate"
 				[hasOpenAction]="true"
 				(openActionClicked)="openPreview.emit()"
 				(update)="update($event, 'supplier')">
@@ -42,7 +41,7 @@
 		</preview-header-app>
 
 		<!-- Description -->
-		<preview-section-app [title]="'Description'">
+		<preview-section-app [title]="'title.description' | translate">
 			<input-description-app
 				[isSmall]="true"
 				[description]="product?.description"
@@ -51,7 +50,7 @@
 		</preview-section-app>
 
 		<!-- Tags -->
-		<preview-section-app [title]="'Tags'">
+		<preview-section-app [title]="'title.tags' | translate">
 			<input-badge-selector-app
 				[value]="product?.tags"
 				[leftSideOrientationSelector]="true"
@@ -62,10 +61,24 @@
 		</preview-section-app>
 
 		<!-- Info -->
-		<preview-section-app [title]="'Info'"  class="mg-bottom-none">
+		<preview-section-app [title]="'title.info' | translate"  class="mg-bottom-none">
 			<div class="flexColumn">
-				<span class="color-txt-strong">Created by {{ product?.createdBy | formatUserName: true }} on {{ product?.creationDate | date: 'dd MMMM yyyy' }}</span>
-				<span class="color-txt-strong">Last updated by {{ product?.lastUpdatedBy | formatUserName: true }} on {{ (product?.lastUpdatedDate || product?.creationDate) | date: 'dd MMMM yyyy' }}</span>
+				<span class="color-txt-strong"> 
+					{{ 
+						'OBJ.created-by-on' | translate: {
+							name: product?.createdBy | formatUserName: true, 
+							date: product?.creationDate | date: 'dd MMMM yyyy':'':translate.currentLang
+						} 
+					}}
+				</span>
+				<span class="color-txt-strong"> 
+					{{ 
+						'OBJ.last-updated-by-on' | translate: {
+							name: product?.lastUpdatedBy | formatUserName: true, 
+							date: product?.creationDate | date: 'dd MMMM yyyy':'':translate.currentLang
+						} 
+					}}
+				</span>
 			</div>
 		</preview-section-app>
 	</preview-app>

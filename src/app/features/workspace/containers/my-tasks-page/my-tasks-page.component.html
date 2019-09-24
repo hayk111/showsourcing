@@ -10,20 +10,20 @@
 				(check)="toggleMyTasks(true)"
 				(uncheck)="toggleMyTasks(false)">
 			</checkbox-app>
-			<ng-container i18n="text@@assigned-to-me">Assigned to me</ng-container>
+			<ng-container translate="text.assigned-to-me"></ng-container>
 		</div>
 		<div class="flexCenter show-tasks-done">
 			<checkbox-app
 				(check)="toggleDoneTasks(true)"
 				(uncheck)="toggleDoneTasks(false)">
 			</checkbox-app>
-			<ng-container i18n="text@@completed-tasks">Completed tasks</ng-container>
+			<ng-container translate="text.completed-tasks"></ng-container>
 
 		</div>
 	</sub-panel-right-item-app>
 </sub-panel-app>
 
-<task-list-view-app
+<task-table-app
 	[hasHeader]="false"
 	[hasPagination]="false"
 	[rows]="listSrv.items$ | async"
@@ -42,7 +42,7 @@
 	(unfavorited)="listSrv.onItemUnfavorited($event)"
 	(previewClick)="listSrv.openPreview($event)"
 	(delete)="listSrv.deleteOne($event)">
-</task-list-view-app>
+</task-table-app>
 
 <task-preview-app
 	*ngIf="listSrv.previewOpen"

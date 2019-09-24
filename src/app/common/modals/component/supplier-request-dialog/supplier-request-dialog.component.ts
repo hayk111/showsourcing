@@ -12,10 +12,11 @@ import { NotificationService, NotificationType } from '~shared/notifications';
 import {
 	TemplateMngmtDlgComponent,
 } from '~shared/template-mngmt/components/template-mngmt-dlg/template-mngmt-dlg.component';
-import { ID, translate } from '~utils';
+import { ID } from '~utils';
 
 import { ProductSelectDlgComponent } from '../product-select-dlg/product-select-dlg.component';
 import { ReplySentDlgComponent } from '../reply-sent-dlg/reply-sent-dlg.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'supplier-request-dialog-app',
@@ -68,6 +69,7 @@ export class SupplierRequestDialogComponent implements OnInit, AfterViewChecked 
 		private productSrv: ProductService,
 		private cd: ChangeDetectorRef,
 		public listSrv: ListPageService<Product, ProductService>,
+		private translate: TranslateService
 	) {
 		this.form = this.fb.group({
 			products: ['', Validators.required],
@@ -107,8 +109,9 @@ export class SupplierRequestDialogComponent implements OnInit, AfterViewChecked 
 	}
 
 	private setTitle() {
-		const prod = this.request.products.length === 1 ? translate('product') : translate('products');
-		const reqFor = translate('Request for');
+		// TODO i18n and check for other langs
+		const prod = this.request.products.length === 1 ? this.translate.instant('label.product') : this.translate.instant('label.products');
+		const reqFor = this.translate.instant('label.request-for');
 		const title = `${reqFor} ${this.request.products.length} ${prod}`;
 		this.request = { ...this.request, title };
 		this.form.patchValue(this.request);
@@ -250,7 +253,7 @@ export class SupplierRequestDialogComponent implements OnInit, AfterViewChecked 
 		this.requestSrv.create(newRequest)
 			.subscribe(_ => {
 				this.pending = false;
-				this.dlgSrv.open(ReplySentDlgComponent, { actionName: translate(ERM.SUPPLIER_REQUEST.singular, 'erm') });
+				this.dlgSrv.open(ReplySentDlgComponent, { actionName: this.translate.instant('ERM.SUPPLIER_REQUEST.singular') });
 			}, err => {
 				this.dlgSrv.close();
 				this.notifSrv.add({

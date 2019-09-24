@@ -8,8 +8,8 @@ import {
 	SampleBoardPageComponent,
 	SampleCardComponent,
 	SampleComponent,
-	SampleListViewComponent,
 	SamplePreviewComponent,
+	SampleTableComponent,
 } from './components';
 
 @NgModule({
@@ -21,14 +21,14 @@ import {
 	],
 	declarations: [
 		SampleComponent,
-		SampleListViewComponent,
+		SampleTableComponent,
 		SamplePreviewComponent,
 		SampleCardComponent,
 		SampleBoardPageComponent,
 	],
 	exports: [
 		SampleComponent,
-		SampleListViewComponent,
+		SampleTableComponent,
 		SamplePreviewComponent,
 		SampleCardComponent,
 		SampleBoardPageComponent,

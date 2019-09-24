@@ -19,7 +19,7 @@ import {
 	RefuseReplyDlgComponent,
 	VoteDetailsDialogComponent,
 } from '~common/modals/component';
-import { EntityMetadata, ERM, Product, ProductVote, Supplier, Sample } from '~models';
+import { EntityMetadata, ERM, Product, ProductVote, Supplier, Sample, Project } from '~models';
 import { CloseEvent, CloseEventType } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { DialogService } from '~shared/dialog/services';
@@ -69,10 +69,11 @@ export class CommonModalService {
 		return this.dlgSrv.open(ProductRequestTeamFeedbackDlgComponent, { products });
 	}
 
-	openSelectProductDlg(initialSelectedProducts?: Product[], submitProducts = true) {
+	openSelectProductDlg(initialSelectedProducts?: Product[], project?: Project, submitProducts = true) {
 		return this.dlgSrv.open(ProductSelectDlgComponent, {
 			initialSelectedProducts,
-			submitProducts
+			submitProducts,
+			project
 		});
 	}
 

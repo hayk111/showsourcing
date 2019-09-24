@@ -17,13 +17,12 @@
       <div class="flexVAlign">
         <span class="amount">{{ counters?.productsNeedReview }}</span>
         <div class="flexColumn">
-          <span class="taskType" i18n="text@@nested_product-need-review">
-            { counters?.productsNeedReview ||0, plural, =0 { Product need } =1 { Product needs } other { Products need } }
-            review
+          <span class="taskType">
+            {{ ((counters?.productsNeedReview || 0) > 1 ? 'OBJ.product-need-review.plural' : 'OBJ.product-need-review.singular') | translate: {count: counters?.productsNeedReview || 0} }}
           </span>
           <span>
-            <a [routerLink]="['/workspace']" routerLinkActive="active" i18n="link@@nested_review-product">
-              Review {counters?.productsNeedReview || 0, plural, =0 { Product } =1 { Product } other { products } }
+            <a [routerLink]="['/workspace']" routerLinkActive="active">
+              {{ ((counters?.productsNeedReview || 0) > 1 ? 'OBJ.review-product.plural' : 'OBJ.review-product.singular') | translate: {count: counters?.productsNeedReview || 0} }}
             </a>
           </span>
         </div>
@@ -33,14 +32,11 @@
       <div class="flexVAlign">
         <span class="amount">{{ counters?.productsInWorkflow }}</span>
         <div class="flexColumn">
-          <span class="taskType" i18n="text@@product-in-progress">
-            { counters?.productsInWorkflow || 0, plural, =0 { Product } =1 { Product } other { Product } }
-            in progress
+          <span class="taskType">
+            {{ ((counters?.productsInWorkflow || 0) > 1 ? 'OBJ.product-in-progress.plural' : 'OBJ.product-in-progress.singular') | translate: {count: counters?.productsInWorkflow || 0} }}
           </span>
           <span>
-            <a [routerLink]="['/workspace/my-workflow']" routerLinkActive="active" i18n="link@@to-my-workspace">
-              To my workspace
-            </a>
+            <a [routerLink]="['/workspace/my-workflow']" routerLinkActive="active" translate="link.to-my-workspace"></a>
           </span>
         </div>
       </div>
@@ -57,7 +53,7 @@
 
     <divider-app></divider-app>
 
-    <div class="taskTitle capitalize"> {{ counters?.tasksDone ? counters?.tasksDone + index : '0'}} / {{ counters?.totalTasks || '0' }} <ng-container i18n="@@tasks">tasks</ng-container></div>
+    <div class="taskTitle capitalize"> {{ counters?.tasksDone ? counters?.tasksDone + index : '0'}} / {{ counters?.totalTasks || '0' }} <ng-container translate="header.tasks"></ng-container></div>
 
     <rating-cylinder-app [score]="taskScore"></rating-cylinder-app>
   </ng-container>
@@ -67,15 +63,13 @@
 			<icon-app class="pointer" [ngClass]="{'color-success': task?.done, 'color-secondary': !task?.done}" [name]="task?.done ? 'check-round' : 'check-empty-round'" (click)="toggleDoneStatus(task)"></icon-app>
 			<user-picture-app [size]="14" [user]="task.assignee" (click)="preview(task)"></user-picture-app>
 			<div class="flexCenter txt-btn" (click)="preview(task)">
-        {{ task?.name || ('Unnamed task' | const: 'message') }}
+        {{ task?.name || ('header.unnamed-task' | translate) }}
       </div>
 		</div>
   </ng-container>
 
   <card-footer-app paddingSide="l">
-    <button (click)="goToWorkspace()" i18n="button@open-workspace">
-      Open my workspace
-    </button>
+    <button (click)="goToWorkspace()" translate="button.open-workspace"></button>
   </card-footer-app>
 
 </card-app>

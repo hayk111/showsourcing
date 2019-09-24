@@ -15,6 +15,7 @@ import { AttachmentUploadRequest } from '~models/attachment-upload-request.model
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { resizeSizeToLimit } from '~shared/utils/file.util';
 import { ImageUrls, log, LogColor } from '~utils';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({ providedIn: 'root' })
 export class UploaderService {
@@ -26,7 +27,8 @@ export class UploaderService {
 		private attachmentSrv: AttachmentService,
 		private ermSrv: ERMService,
 		private notifSrv: NotificationService,
-		private http: HttpClient
+		private http: HttpClient,
+		private translate: TranslateService
 	) { }
 
 
@@ -50,7 +52,7 @@ export class UploaderService {
 				return this.notifSrv.add({
 					type: NotificationType.SUCCESS,
 					title: `${files.length} image(s) Uploaded with success`,
-					message: 'Your images were uploaded with success'
+					message: this.translate.instant('message.your-imgs-uploaded-with-success')
 				});
 			}),
 		);
@@ -68,7 +70,7 @@ export class UploaderService {
 				return this.notifSrv.add({
 					type: NotificationType.SUCCESS,
 					title: `${files.length} Uploaded with success`,
-					message: 'Your files were uploaded with success'
+					message: this.translate.instant('message.your-files-uploaded-with-success')
 				});
 			}),
 		);

@@ -2,7 +2,7 @@
 <card-app>
 	<card-title-app>
 		<icon-app name="project"></icon-app> 
-		<span i18n="header@@projects">projects</span>
+		<span translate="header.projects"></span>
 	</card-title-app>
 
 	<div *ngFor="let project of projects; last as last;trackBy: trackByFn" (click)="openProject(project)">
@@ -15,10 +15,11 @@
 					<span class="name capitalize ellipsis">
 						{{ project?.name }}
 					</span>
+					<!-- TODO check style is the same -->
 					<span
 						*ngIf="project?.description"
 						class="description"
-						i18n="span|Project card@@projectCard_description">
+						translate="text.projectCard_description">
 						{{ project?.description }}
 					</span>
 				</div>
@@ -34,8 +35,7 @@
 	<span
 		*ngIf="projects?.length === 0"
 		class="no-projects"
-		i18n="text@@no-projects-added">
-		No Projects Added
+		translate="text.no-projects-added">
 	</span>
 
 	<card-footer-app>
@@ -50,9 +50,7 @@
 			[width]="330"
 			(menuClosed)="updated.emit(tempProject)"
 			(update)="addLocalProjects($event)">
-			<button	i18n="button@@add-to-project">
-				Add to project
-			</button>
+			<button	translate="button.add-to-project"></button>
 		</selector-app>
 	</card-footer-app>
 </card-app>

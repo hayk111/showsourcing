@@ -29,7 +29,8 @@
     "deploy:production": "npm run build && cd dist/showsourcing && aws s3 sync . s3://app.showsourcing.com --delete && aws s3 cp s3://app.showsourcing.com/index.html s3://app.showsourcing.com/index.html --metadata-directive REPLACE --cache-control max-age=0",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "extract-i18n": "ngx-translate-extract --input ./src --output ./src/assets/i18n/en/translations.json ./src/assets/i18n/zh/translations.json ./src/assets/i18n/fr/translations.json ./src/assets/i18n/es/translations.json --clean --sort --format namespaced-json -m _"
   },
   "private": true,
   "dependencies": {
@@ -45,6 +46,10 @@
     "@angular/pwa": "^0.13.1",
     "@angular/router": "^8.0.2",
     "@angular/service-worker": "8.0.2",
+    "@biesbjerg/ngx-translate-extract-marker": "^1.0.0",
+    "@ng-select/ng-select": "^3.0.7",
+    "@ngx-translate/core": "^11.0.1",
+    "@ngx-translate/http-loader": "^4.0.0",
     "angulartics2": "^7.5.2",
     "apollo-angular": "^1.5.0",
     "apollo-angular-link-http": "^1.6.0",
@@ -69,6 +74,7 @@
     "@angular/cli": "^8.0.3",
     "@angular/compiler-cli": "^8.0.2",
     "@angular/language-service": "^8.0.2",
+    "@biesbjerg/ngx-translate-extract": "^3.0.4",
     "@compodoc/compodoc": "^1.1.7",
     "@types/file-saver": "^2.0.0",
     "@types/jasmine": "~3.3.0",

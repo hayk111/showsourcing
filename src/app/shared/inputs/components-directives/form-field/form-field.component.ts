@@ -10,6 +10,7 @@ import { LabelComponent } from '~shared/inputs/components-directives/label/label
 import { HintComponent } from '~shared/inputs/components-directives/hint/hint.component';
 import { FormControlDirective } from '@angular/forms';
 import { FormFieldControlDirective } from '~shared/inputs/components-directives/form-field-control.directive';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'form-field-app',
@@ -27,7 +28,10 @@ export class FormFieldComponent implements OnInit, AfterContentInit {
 	@ContentChild(ErrorComponent, { static: true }) error: ErrorComponent;
 
 
-	constructor(private changeDetectorRef: ChangeDetectorRef) { }
+	constructor(
+		private changeDetectorRef: ChangeDetectorRef,
+		private translate: TranslateService
+	) { }
 
 	ngOnInit() {
 		if (!this.input)
@@ -79,15 +83,15 @@ export class FormFieldComponent implements OnInit, AfterContentInit {
 	get defaultErrorMsg(): string {
 		switch (true) {
 			case this.control.hasError('required'):
-				return 'This field is required';
+				return this.translate.instant('error.field-is-required');
 			case this.control.hasError('number'):
-				return 'This field should be a number';
+				return this.translate.instant('error.field-should-be-a-number');
 			case this.control.hasError('email'):
-				return 'This field should be a valid email';
+				return this.translate.instant('error.field-should-be-a-valid-email');
 			case this.control.hasError('tel'):
-				return 'This field should be a valid telephone number';
+				return this.translate.instant('error.field-should-be-a-valid-tel');
 			case this.control.hasError('url'):
-				return 'This field should be a valid url';
+				return this.translate.instant('error.field-should-be-a-valid-url');
 		}
 	}
 
