@@ -92,14 +92,14 @@
 	</preview-section-app>
 
 	<!-- Activity -->
-	<preview-section-app *ngIf="!isPreview && supplier?.comments?.length" [title]="'title.comments' | translate">
+	<preview-section-app *ngIf="isPreview && supplier?.comments?.length" [title]="'title.comments' | translate">
 		<comment-list-app [comments]="supplier.comments"></comment-list-app>
 	</preview-section-app>
 
 	<preview-comment-app *ngIf="isPreview" (added)="addComment($event)"></preview-comment-app>
 
 	<!-- Info -->
-	<preview-section-app *ngIf="isPreview" [title]="'title.info' | translate"  class="mg-bottom-none">
+	<preview-section-app *ngIf="!isPreview" [title]="'title.info' | translate"  class="mg-bottom-none">
 		<div class="flexColumn">
 			<span class="color-txt-strong">
 				{{
