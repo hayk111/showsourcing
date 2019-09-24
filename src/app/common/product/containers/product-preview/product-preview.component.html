@@ -154,7 +154,7 @@
 
 	<!-- Samples -->
 	<preview-section-app #contentTab2 *ngIf="samples$ | async as samples" [title]="'Samples'">
-		<sample-list-view-app
+		<sample-table-app
 			class="no-padding"
 			[rows]="samples"
 			[columns]="['name', 'status']"
@@ -165,7 +165,7 @@
 			[hasSelection]="false"
 			[hasPagination]="false"
 			(update)="updateSample($event)">
-		</sample-list-view-app>
+		</sample-table-app>
 	</preview-section-app>
 
 	<!-- Comment -->
