@@ -38,7 +38,7 @@ import * as i18n from '~core/i18n/i18n.service';
 		RouterModule.forRoot(routes, {
 			scrollPositionRestoration: 'top',
 			preloadingStrategy: PreloadAllModules,
-			enableTracing: true
+			// enableTracing: true
 		}),
 		Angulartics2Module.forRoot({
 			pageTracking: {
