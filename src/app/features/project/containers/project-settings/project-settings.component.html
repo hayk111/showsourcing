@@ -1,8 +1,7 @@
 <div *ngIf="project$ | async as project">
 	<top-panel-details-app
 		[elevated]="false"
-		[title]="project?.name"
-		i18n-title="@@my-products">
+		[title]="project?.name">
 
 		<logo-app color="primary" type="project" size="xl"></logo-app>
 		<ng-container subinfo>
@@ -13,13 +12,13 @@
 		<panel-tab-app
 			[link]="getTabPanelUrl('products')"
 			icon="product"
-			name="Products">
+			[name]="'nav.products' | translate">
 		</panel-tab-app>
 
 		<panel-tab-app
 			[link]="getTabPanelUrl('settings')"
 			icon="files"
-			name="Settings">
+			[name]="'nav.settings' | translate">
 		</panel-tab-app>
 
 		<div class="flex right-items" action>
@@ -36,11 +35,9 @@
 						<icon-app [size]="16" name="dots-vertical"></icon-app>
 					</button>
 				</context-menu-trigger-app>
-				<context-menu-item-app (click)="delete.emit(project)" i18n="button@@delete">
-					Delete
+				<context-menu-item-app (click)="delete.emit(project)" translate="button.delete">
 				</context-menu-item-app>
-				<context-menu-item-app (click)="archive.emit(project)"  i18n="button@@archive">
-					Archive
+				<context-menu-item-app (click)="archive.emit(project)"  translate="button.archive">
 				</context-menu-item-app>
 			</context-menu-app>
 		</div>
@@ -48,19 +45,16 @@
 	</top-panel-details-app>
 
 	<card-app>
-		<h3 class="ms" i18n="header@@project-settings">
-			Project Settings
-		</h3>
+		<h3 class="ms" translate="header.project-settings"></h3>
 
-		<label i18n="text@@project-picture">Project Picture</label>
+		<label translate="text.project-picture"></label>
 
 		<div class="flex picCtnr">
 			<div class="circle pointer">
 				<img-app size="s" [image]="project?.logoImage" type="project" (click)="fileInp.click()"></img-app>
 			</div>
 			<div class="color-primary sel">
-				<b class="semi pointer" (click)="fileInp.click()" i18n="button@@select-img">
-					Select Image
+				<b class="semi pointer" (click)="fileInp.click()" translate="button.select-img">
 				</b>
 			</div>
 		</div>
@@ -69,28 +63,28 @@
 
 		<form [formGroup]="form">
 			<form-field-app class="borderless">
-				<label-app i18n="text@@project-name">Project Name</label-app>
+				<label-app translate="text.project-name"></label-app>
 				<input class="borderless" inputApp type="text" formControlName="name"/>
 			</form-field-app>
 
 			<form-field-app class="borderless">
-				<label-app i18n="text@@description">Description</label-app>
+				<label-app translate="text.description"></label-app>
 				<textarea inputApp autoGrows formControlName="description" class="borderless"></textarea>
 			</form-field-app>
 		</form>
 
 		<div class="bottom">
 			<div class="flex">
-				<b class="semi" i18n="text@@created-by">Created By:</b>
+				<b class="semi" translate="text.created-by"></b>
 				{{ project?.createdBy?.firstName }} {{ project?.createdBy?.lastName }}
 			</div>
 			<div class="flex">
-				<b class="semi" i18n="text@@created-on">Created On:</b>
-				{{ project?.creationDate | date: 'd MMMM y' }}
+				<b class="semi" translate="text.created-on"></b>
+				{{ project?.creationDate | date: 'd MMMM y':'':translate.currentLang }}
 			</div>
 			<div class="flex">
-				<b class="semi" i18n="text@@last-updated-on">Last Update On:</b>
-				{{ project?.lastUpdatedDate | date: 'd MMMM y' }}
+				<b class="semi" translate="text.last-updated-on"></b>
+				{{ project?.lastUpdatedDate | date: 'd MMMM y':'':translate.currentLang }}
 			</div>
 		</div>
 	</card-app>

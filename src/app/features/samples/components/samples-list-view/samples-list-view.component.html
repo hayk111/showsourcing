@@ -6,7 +6,7 @@
 	[currentSort]="currentSort"
 	[count]="count"
 	[currentPage]="currentPage"
-	placeholder="No sample"
+	[placeholder]="'placeholder.no-sample' | translate"
 	(goToPage)="goToPage.emit($event)"
 	(selectOne)="select.emit($event)"
 	(unselectOne)="unselect.emit($event)"
@@ -21,20 +21,18 @@
 		<context-menu-item-app
 			class="pointer flexCenter"
 			(click)="archive.emit(row)"
-			i18n="button@@delete">
-			archive
+			translate="button.delete">
 		</context-menu-item-app>
 		<context-menu-item-app
 			class="pointer flexCenter"
 			(click)="delete.emit(row)"
-			i18n="button@@delete">
-			delete
+			translate="button.delete">
 		</context-menu-item-app>
 	</ng-template>
 
 	<!-- title row -->
 	<ng-template
-		[columnApp]="'name'"
+		[columnApp]="'header.name' | translate"
 		sortBy="name"
 		let-row="row"
 		width="280">
@@ -56,7 +54,7 @@
 	<!-- product row -->
 	<ng-template
 		class="capitalize"
-		[columnApp]="erm.PRODUCT.singular | const: 'erm'"
+		[columnApp]="'ERM.' + erm.PRODUCT.translationKey + '.singular' | translate"
 		let-row="row"
 		sortBy="product.name"
 		[grows]="false"
@@ -73,7 +71,7 @@
 
 	<!-- supplier row -->
 	<ng-template
-		[columnApp]="erm.SUPPLIER.singular | const: 'erm'"
+		[columnApp]="'ERM.' + erm.SUPPLIER.translationKey + '.singular' | translate"
 		sortBy="supplier.name"
 		let-row="row"
 		width="220">
@@ -84,7 +82,7 @@
 
 	<!-- type row -->
 	<ng-template
-		[columnApp]="'type' | const: 'erm'"
+		[columnApp]="'header.type' | translate"
 		let-row="row"
 		width="140">
 		<div class="ellipsis flexCenter type">
@@ -95,20 +93,20 @@
 	<!-- created by -->
 	<ng-template
 		class="capitalize"
-		[columnApp]="'created by' | const: 'erm'"
+		[columnApp]="'header.created-by' | translate"
 		sortBy="creationDate"
 		let-row="row"
 		width="250">
 		<span class="created-by">{{ row?.createdBy | formatUserName }}</span>
 		<div class="created-by-date">
-			{{ row?.creationDate | date: 'dd MMMM y' }}
+			{{ row?.creationDate | date: 'dd MMMM y':'':translate.currentLang }}
 		</div>
 	</ng-template>
 
 	<!-- activities -->
 	<ng-template
 		class="capitalize"
-		[columnApp]="'activity' | const: 'erm'"
+		[columnApp]="'header.activity' | translate"
 		[sortable]="false"
 		let-row="row"
 		width="250">
@@ -122,7 +120,7 @@
 	<!-- status -->
 	<ng-template
 		class="capitalize"
-		[columnApp]="'status' | const: 'erm'"
+		[columnApp]="'header.status' | translate"
 		[sortable]="false"
 		let-row="row"
 		width="180">

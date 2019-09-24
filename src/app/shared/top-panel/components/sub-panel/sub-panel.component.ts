@@ -21,6 +21,7 @@ import {
 import { AutoUnsub } from '~utils';
 import { Observable } from 'rxjs';
 import { SubPanelService } from '../../services/sub-panel.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'sub-panel-app',
@@ -59,7 +60,7 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 
 	@Input() title: string;
 	@Input() count = 0;
-	@Input() entityType: 'products' | 'projects' | 'suppliers' | 'samples'; // should be filled with all the entity types
+	@Input() entityType: 'PRODUCT' | 'PROJECT' | 'SUPPLIER' | 'SAMPLE'; // should be filled with all the entity types
 
 	// view that can be switched into
 	@Input() view: 'list' | 'board' | 'card' = 'list';
@@ -130,7 +131,8 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 	constructor(private element: ElementRef,
 		private renderer: Renderer2,
 		private cdr: ChangeDetectorRef,
-		private subPanelSrv: SubPanelService) {
+		private subPanelSrv: SubPanelService,
+		public translate: TranslateService) {
 		super();
 	}
 

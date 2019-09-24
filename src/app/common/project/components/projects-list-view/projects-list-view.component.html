@@ -9,7 +9,7 @@
 	[currentSort]="currentSort"
 	[count]="count"
 	[currentPage]="currentPage"
-	placeholder="No project"
+	[placeholder]="'placeholder.no-project' | translate"
 	(goToPage)="goToPage.emit($event)"
 	(selectOne)="select.emit($event)"
 	(unselectOne)="unselect.emit($event)"
@@ -18,15 +18,14 @@
 	(bottomReached)="bottomReached.emit()"
 	(sort)="sort.emit($event)"
 	(showItemsPerPage)="showItemsPerPage.emit($event)"
-	i18n-placeholder="@@no-project">
+	[placeholder]="'placeholder.no-project' | translate">
 
 	<!-- contextual menu -->
 	<ng-template #contextualMenuTemplate let-row="row">
 		<context-menu-item-app
 			class="pointer flexCenter"
-			(click)="delete.emit(row)"
-			i18n="button@@delete">
-			delete
+			(click)="delete.emit(row)">
+			{{'button.delete' | translate}}
 		</context-menu-item-app>
 	</ng-template>
 
@@ -34,7 +33,7 @@
   <ng-template
     *ngFor="let column of columnsConfig; trackBy: trackByFn"
     let-row="row"
-    [columnApp]="column.title"
+    [columnApp]="'title.' + column.translationKey | translate"
     [width]="column.width"
 		[sortBy]="column.sortProperty">
 
@@ -68,7 +67,7 @@
 
 			<!-- due date -->
       <ng-container *ngSwitchCase="'due date'">
-				<span class="due-date">{{ row?.dueDate | date: 'dd MMM y' }}</span>
+				<span class="due-date">{{ row?.lastUpdatedDate | date: 'dd MMMM y':'':translate.currentLang }}</span>
 			</ng-container>
 
 			<!-- status -->
@@ -85,7 +84,7 @@
 
 			<!-- creation date -->
 			<ng-container *ngSwitchCase="'created on'">
-				<span class="created-on">{{ row?.creationDate | date: 'dd MMM y' }}</span>
+				<span class="created-on">{{ row?.creationDate | date: 'dd MMMM y':'':translate.currentLang }}</span>
 			</ng-container>
 
 			<!-- description -->

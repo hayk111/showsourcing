@@ -6,7 +6,8 @@ import { takeUntil } from 'rxjs/operators';
 import { AuthFormButton, AuthFormElement } from '~common/auth-pages/components';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { LocalStorageService } from '~core/local-storage';
-import { AutoUnsub, translate } from '~utils';
+import { AutoUnsub } from '~utils';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'login-app',
@@ -25,7 +26,8 @@ export class LoginComponent extends AutoUnsub implements OnInit {
 	constructor(
 		private srv: AuthenticationService,
 		private router: Router,
-		private route: ActivatedRoute
+		private route: ActivatedRoute,
+		private translate: TranslateService
 	) {
 		super();
 	}
@@ -35,7 +37,7 @@ export class LoginComponent extends AutoUnsub implements OnInit {
 		this.queryParams = this.route.snapshot.queryParams || '/';
 		const email = this.queryParams.email;
 		this.listForm = [{
-			label: translate('email'),
+			label: this.translate.instant('label.email'),
 			value: email,
 			type: 'email',
 			name: 'login',
@@ -44,20 +46,20 @@ export class LoginComponent extends AutoUnsub implements OnInit {
 			placeHolder: 'example@showsourcing.com',
 			validators: [Validators.required, Validators.email]
 		}, {
-			label: translate('password'),
+			label: this.translate.instant('label.password'),
 			type: 'password',
 			name: 'password',
 			isRequired: true,
 			autoComplete: 'current-password',
-			placeHolder: translate('Your password'),
+			placeHolder: this.translate.instant('placeholder.your-password'),
 			validators: [Validators.required]
 		}];
 
 		this.buttons = [{
-			label: translate('login'),
+			label: this.translate.instant('button.login'),
 			type: 'button'
 		}, {
-			label: translate('Don\'t have an account ?'),
+			label: this.translate.instant('button.do-not-have-an-account'),
 			type: 'link',
 			link: ['../register'],
 			queryParams: this.queryParams
@@ -82,11 +84,11 @@ export class LoginComponent extends AutoUnsub implements OnInit {
 
 	onError(error: any) {
 		if (error.status === 401)
-			this.error = translate('Incorrect credentials');
+			this.error = this.translate.instant('error.incorrect-credentials');
 		else if (error.status === 403)
-			this.error = translate('Email not validated, please check your inbox');
+			this.error = this.translate.instant('error.email-not-validated-please-check-your-inbox');
 		else
-			this.error = translate('Submition failed, please try again in a short while');
+			this.error = this.translate.instant('error.submition-failed-please-try-again');
 
 		this.pending$.next(false);
 	}

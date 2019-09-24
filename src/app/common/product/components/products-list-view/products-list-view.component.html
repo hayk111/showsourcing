@@ -1,8 +1,7 @@
 
 <table-app
-  placeholder="No product"
+	[placeholder]="'placeholder.no-product' | translate"
 	[rows]="rows"
-	[tableDialog]="tableDialog"
 	[hasVerticalScroll]="hasVerticalScroll"
   [currentSort]="currentSort"
   [pending]="pending"
@@ -27,34 +26,28 @@
   <ng-template #contextualMenuTemplate let-row="row">
     <context-menu-item-app
       (click)="setFavourite.emit(row)"
-      i18n="button@@set-as-favourite">
-      Set as Favourite
+      translate="button.set-as-favourite">
     </context-menu-item-app>
     <context-menu-item-app
       (click)="openAddToProjectDialog.emit(row)"
-      i18n="button@@add-to-project">
-      Add to Project
+      translate="button.add-to-project">
     </context-menu-item-app>
     <context-menu-item-app
       (click)="openAddTaskDialog.emit(row)"
-      i18n="button@@add-task">
-      Add Task
+      translate="button.add-task">
     </context-menu-item-app>
     <context-menu-item-app
       (click)="openAddSampleDialog.emit(row)"
-      i18n="button@@add-sample">
-      Add Sample
+      translate="button.add-sample">
     </context-menu-item-app>
     <divider-app></divider-app>
     <context-menu-item-app
       (click)="archive.emit(row)"
-      i18n="button@@archive">
-      Archive
+      translate="button.archive">
     </context-menu-item-app>
     <context-menu-item-app
       (click)="delete.emit(row)"
-      i18n="button@@delete">
-      Delete
+      translate="button.delete">
     </context-menu-item-app>
   </ng-template>
 
@@ -62,7 +55,7 @@
   <ng-template
     *ngFor="let column of columnsConfig; trackBy: trackByFn"
     let-row="row"
-		[columnApp]="column.title"
+		[columnApp]="'title.' + column.translationKey | translate"
 		[sortable]="column.sortable !== false"
     [width]="column.width"
     [sortBy]="column.sortProperty">
@@ -121,8 +114,7 @@
           [canCreate]="true"
           [width]="370"
           (update)="update.emit({ id: row.id, category: $event })">
-					<div class="ellipsis pointer txt-btn"
-						[ngClass]="tableDialog ? 'category-dark' : 'category'"> {{ row?.category?.name || '-' }}</div>
+					<div class="ellipsis pointer txt-btn category"> {{ row?.category?.name || '-' }}</div>
         </selector-app>
 			</ng-container>
 
@@ -162,7 +154,6 @@
       <!-- price -->
       <ng-container *ngSwitchCase="'price'">
 				<editable-text-app
-					*ngIf="!tableDialog; else dialogTable"
 					#editable
 					[hasAction]="false"
 					(opened)="inp.focus()"
@@ -180,9 +171,6 @@
 						[price]="row?.price">
 					</input-price-app>
 				</editable-text-app>
-				<ng-template #dialogTable>
-					<span class="price-dialog">{{ row?.price?.value | appPrice }} {{ row?.price?.currency }}</span>
-				</ng-template>
       </ng-container>
 
       <!-- moq -->
@@ -210,10 +198,7 @@
 			
       <!-- created by -->
       <ng-container *ngSwitchCase="'created by'">
-        <span class="created-by" [ngStyle]="tableDialog && {color: 'black'}">
-					{{ row?.createdBy | formatUserName: tableDialog }}
-				</span>
-        <div *ngIf="!tableDialog" class="created-by-date">
+        <div class="created-by-date">
           {{ row?.creationDate | date: 'dd MMMM y' }}
         </div>
 			</ng-container>

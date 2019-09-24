@@ -55,7 +55,10 @@ export class OneProductActivityCardComponent extends AutoUnsub implements OnInit
 		}
 		this.product$.pipe(
 			takeUntil(this._destroy$)
-		).subscribe(product => this.product = product);
+		).subscribe(product => {
+			this.product = product;
+			this.product.status.name = product.status.name.toLowerCase().replace(' ', '-');
+		});
 	}
 
 	onFavorite() {

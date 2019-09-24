@@ -14,12 +14,12 @@ import { TableConfig } from '~core/list-page/list-view.component';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 
 const tableConfig: TableConfig = {
-	name: { title: 'name', width: 190, sortProperty: 'name' },
-	category: { title: 'category', width: 190, sortProperty: 'category.name' },
-	createdBy: { title: 'created by', width: 140, sortProperty: 'creationDate' },
-	favorite: { title: 'FAV', width: 50, sortProperty: 'favorite' },
-	price: { title: 'price', width: 120, sortProperty: 'price.value' },
-	supplier: { title: 'supplier', width: 190, sortProperty: 'supplier.id' },
+	name: { title: 'name', translationKey: 'name', width: 190, sortProperty: 'name' },
+	category: { title: 'category', translationKey: 'category', width: 190, sortProperty: 'category.name' },
+	supplier: { title: 'supplier', translationKey: 'supplier', width: 190, sortProperty: 'supplier.id' },
+	createdBy: { title: 'created by', translationKey: 'created-by', width: 140, sortProperty: 'creationDate' },
+	favorite: { title: 'FAV', translationKey: 'favorite', width: 50, sortProperty: 'favorite' },
+	price: { title: 'price', translationKey: 'price', width: 120, sortProperty: 'price.value' },
 };
 
 @Component({
@@ -38,6 +38,7 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 	selectItemsConfig: SelectParamsConfig;
 	filterType = FilterType;
 	productTableConfig = tableConfig;
+	erm = ERM;
 
 	filterTypes = [
 		FilterType.ARCHIVED,

@@ -11,12 +11,12 @@
 		<!-- title -->
 		<div class="title flexColumn">
 			<span class="name flex">{{user?.firstName }} {{user?.lastName }}</span>
-			<span class="date">{{ comment?.creationDate | date: 'dd MMM y' }}</span>
+			<span class="date">{{ comment?.creationDate | date: 'dd MMM y':'':translate.currentLang }}</span>
 		</div>
 		<!-- buttons -->
 		<div *ngIf="isMine && !isEditing" class="buttons flex hover-buttons">
-			<button class="light" (click)="onDelete()">delete</button>
-			<button class="light" (click)="enableEdit(text?.nativeElement?.clientHeight)">edit</button>
+			<button class="light" (click)="onDelete()" translate="button.delete"></button>
+			<button class="light" (click)="enableEdit(text?.nativeElement?.clientHeight)" translate="button.edit"></button>
 		</div>
 	</div>
 
@@ -30,8 +30,8 @@
 			#textArea
 			[ngStyle]="{ 'height': currentHeight < minHeight ? minHeight : currentHeight + 'px' }">{{ comment?.text }}</textarea>
 		<div class="buttons flexEnd">
-			<button class="light" (click)="isEditing = false">cancel</button>
-			<button (click)="onSave(textArea?.value)">save</button>
+			<button class="light" (click)="isEditing = false" translate="button.cancel"></button>
+			<button (click)="onSave(textArea?.value)" translate="button.save"></button>
 		</div>
 	</ng-container>
 

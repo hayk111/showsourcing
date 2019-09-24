@@ -4,19 +4,19 @@
     <img [src]="'assets/img/' + currentScreen.picture"/>
 
     <div class="mg-l">
-      <h2>{{ currentScreen.title }}</h2>
+      <h2>{{ currentScreen.title | translate }}</h2>
       <!-- innerhtml used to keep line breaks -->
-      <p [innerHTML]="currentScreen.text"></p>
+      <p [innerHTML]="currentScreen.text | translate"></p>
 
       <div class="flexBetween actions">
-        <button [disabled]="isFirst()" (click)="back()" class="secondary">Previous</button>
+        <button [disabled]="isFirst()" (click)="back()" class="secondary" translate="button.prev"></button>
         <div class="flex">
           <div *ngFor="let screen of onboardingSrv.screens; let i = index; trackBy: trackByFn"
           class="circle"
           [ngClass]="{ 'selected': onboardingSrv.currentIndex === i }"></div>
         </div>
-        <button *ngIf="!isLast()" (click)="next()">Next</button>
-        <button *ngIf="isLast()" class="success" (click)="complete()">Finish</button>
+        <button *ngIf="!isLast()" (click)="next()" translate="button.next"></button>
+        <button *ngIf="isLast()" class="success" (click)="complete()" translate="button.finish"></button>
       </div>
     </div>
   </div>

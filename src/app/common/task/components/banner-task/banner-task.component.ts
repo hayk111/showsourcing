@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Task } from '~core/models';
 import { TaskStatus } from '~core/models/status.model';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'banner-task-app',
@@ -26,7 +27,7 @@ export class BannerTaskComponent implements OnInit {
 	status: TaskStatus = TaskStatus.PENDING;
 	enumTaskStatus = TaskStatus;
 
-	constructor() { }
+	constructor(public translate: TranslateService) { }
 
 	ngOnInit() { }
 

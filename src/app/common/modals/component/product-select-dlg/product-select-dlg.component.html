@@ -1,8 +1,6 @@
 <dialog-app class="zero-content-height">
 
-	<dialog-header-app i18n="@@select-products">
-		Select Products
-	</dialog-header-app>
+	<dialog-header-app translate="header.select-products"></dialog-header-app>
 
 	<sub-panel-app
 		entityType="products"
@@ -30,9 +28,7 @@
 					(check)="toggleMySamples(true)"
 					(uncheck)="toggleMySamples(false)">
 				</checkbox-app>
-				<span class="ellipsis" i18n="text@@show-only-my-sample">
-					<b>Show my samples only</b>
-				</span>
+				<span class="ellipsis" translate="text.show-only-my-sample"></span>
 			</div>
 		</sub-panel-left-item-app>
 
@@ -42,7 +38,6 @@
 		class="list-view"
 		*ngIf="listSrv.view === 'list'"
 		[hasMenu]="false"
-		[tableDialog]="true"
 		[tableConfig]="productTableConfig"
 		[hasVerticalScroll]="true"
 		[columns]="['name', 'category', 'supplier', 'price', 'favorite', 'createdBy']"

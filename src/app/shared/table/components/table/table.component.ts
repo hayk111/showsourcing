@@ -22,7 +22,6 @@ import { TrackingComponent } from '~utils/tracking-component';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'fullWidth',
-		'[class.bordered-table]': 'tableDialog',
 		'[class.scrollable-y]': 'hasVerticalScroll'
 	}
 })
@@ -43,8 +42,6 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	@Input() hasPagination = true;
 	/** whether the context menu icon is horizontal dots or vertical */
 	@Input() isContextMenuHorizontal = true;
-	// whether the table is inside dialog
-	@Input() tableDialog = false;
 
 	@Input() width: number;
 	@Input() rowHeight: number;

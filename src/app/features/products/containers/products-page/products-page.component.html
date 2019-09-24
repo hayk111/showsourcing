@@ -2,14 +2,12 @@
 	<!-- top panel -->
 	<top-panel-app
 		[class.top-panel-margin-board]="listSrv.view === 'board'"
-		[title]="'My products'"
-		buttonName="Create Product"
+		[title]="'title.my-products' | translate"
+		[buttonName]="'button.create-product' | translate"
 		(buttonClick)="commonModalSrv.openCreationProductDlg()"
-		[buttonRightMargin]="addProductMargin"
-		i18n-title="@@my-products"
-		i18n-buttonName="@@add-products">
+		[buttonRightMargin]="addProductMargin">
 	</top-panel-app>
-	
+
 	<sub-panel-app
 		[class.sub-menu-padding-board]="listSrv.view === 'board'"
 		[filtersAmount]="listSrv.getFilterAmount([{ type: filterTypeEnum.ARCHIVED, value: false }, { type: filterTypeEnum.DELETED, value: false }])"
@@ -17,7 +15,7 @@
 		[hasSwitch]="true"
 		[view]="listSrv.view"
 		[count]="listSrv.count$ | async"
-		entityType="products"
+		[entityType]="'PRODUCT'"
 		searchType="short"
 		[searchValue]="listSrv.searchValue"
 		(search)="listSrv.search($event)"

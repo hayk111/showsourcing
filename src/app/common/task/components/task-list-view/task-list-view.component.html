@@ -11,7 +11,7 @@
 	[hasMenu]="hasMenu"
 	[hasSelection]="hasSelection"
 	[hasPagination]="hasPagination"
-	placeholder="No Tasks"
+	[placeholder]="'placeholder.no-task' | translate"
 	(goToPage)="goToPage.emit($event)"
 	(selectOne)="select.emit($event)"
 	(unselectOne)="unselect.emit($event)"
@@ -24,9 +24,8 @@
 	<ng-template #contextualMenuTemplate let-row="row">
 		<context-menu-item-app
 			class="pointer flexCenter"
-			(click)="delete.emit(row)"
-			i18n="@@delete">
-			delete
+			(click)="delete.emit(row)">
+			{{'text.delete' | translate}}
 		</context-menu-item-app>
 	</ng-template>
 
@@ -34,7 +33,7 @@
 		<ng-template
 			*ngFor="let column of columnsConfig; trackBy: trackByFn"
 			let-row="row"
-			[columnApp]="column.title"
+			[columnApp]="'title.' + column.translationKey | translate"
 			[sortable]="column.sortable !== false"
 			[width]="column.width"
 			[sortBy]="column.sortProperty">
@@ -49,6 +48,22 @@
 					[name]="row?.done ? 'check-circle' : 'check-circle-light'"
 					[size]="24" >
 				</icon-app>
+			</ng-container>
+
+			<!--about: task done + name + product -->
+			<ng-container *ngSwitchCase="'about'">
+				<div class="about flex">
+					<icon-app
+						class="about flexStart"
+						[ngClass]="row?.done ? 'task-is-done': 'task-not-done'"
+						[name]="row?.done ? 'check-circle' : 'check-circle-light'"
+						[size]="24" >
+					</icon-app>
+					<div class="about-container flex">
+						<span class="ellipsis pointer task-name">{{ row?.name }}</span>
+						<span class="ellipsis pointer product-name">{{ row?.product?.name }}</span>
+					</div>
+				</div>
 			</ng-container>
 
 			<!-- reference -->
@@ -82,7 +97,7 @@
 			<!-- due date -->
 			<ng-container *ngSwitchCase="'due date'">
 				<div class="mainCellWrapper due-date-container ellipsis">
-					<span class="ellipsis">{{ row?.dueDate | date: 'dd MMM y' }}</span>
+					<span class="ellipsis">{{ row?.dueDate | date: 'dd MMM y':'':translate.currentLang }}</span>
 				</div>
 			</ng-container>
 

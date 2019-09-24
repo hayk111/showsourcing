@@ -6,7 +6,7 @@ import { AuthFormButton, AuthFormElement } from '~common/auth-pages/components';
 import { CompanyService, TeamService, UserService } from '~entity-services';
 import { Company, Team } from '~models';
 import { AutoUnsub } from '~utils/auto-unsub.component';
-import { translate } from '~utils';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'create-a-company-page-app',
@@ -32,18 +32,19 @@ export class CreateACompanyPageComponent extends AutoUnsub implements OnInit {
 		private router: Router,
 		private userSrv: UserService,
 		private route: ActivatedRoute,
-		private cdr: ChangeDetectorRef
+		private cdr: ChangeDetectorRef,
+		private translate: TranslateService
 	) {
 		super();
 		this.listForm = [{
-			label: translate('Company name'),
+			label: this.translate.instant('label.company-name'),
 			type: 'text',
 			name: 'companyName',
 			isRequired: true,
 			placeHolder: '',
 			validators: [Validators.required]
 		}, {
-			label: translate('Team name'),
+			label: this.translate.instant('label.team-name'),
 			type: 'text',
 			name: 'teamName',
 			isRequired: true,
@@ -51,7 +52,7 @@ export class CreateACompanyPageComponent extends AutoUnsub implements OnInit {
 			validators: [Validators.required]
 		}];
 		this.buttons = [{
-			label: translate('Create a new team'),
+			label: this.translate.instant('label.create-a-team'),
 			type: 'button'
 		}];
 	}
@@ -99,7 +100,7 @@ export class CreateACompanyPageComponent extends AutoUnsub implements OnInit {
 				e => {
 					this.hideForm = false;
 					this.pending = false;
-					this.error = translate('We had an error creating your company. Please try again.');
+					this.error = this.translate.instant('error.create-company');
 					this.cdr.detectChanges();
 				}
 			);

@@ -9,7 +9,7 @@
 	[hasSelection]="hasSelection"
 	[hasMenu]="hasMenu"
 	[hasHeader]="hasHeader"
-	placeholder="No Samples"
+	[placeholder]="'placeholder.no-sample' | translate"
 	(goToPage)="goToPage.emit($event)"
 	(selectOne)="select.emit($event)"
 	(unselectOne)="unselect.emit($event)"
@@ -22,9 +22,8 @@
 	<ng-template #contextualMenuTemplate let-row="row">
 		<context-menu-item-app
 			class="pointer flexCenter"
-			(click)="delete.emit(row)"
-			i18n="@@delete">
-			delete
+			(click)="delete.emit(row)">
+			{{'text.delete' | translate}}
 		</context-menu-item-app>
 	</ng-template>
 
@@ -32,7 +31,7 @@
 		<ng-template
     *ngFor="let column of columnsConfig; trackBy: trackByFn"
     let-row="row"
-    [columnApp]="column.title"
+    [columnApp]="'title.' + column.translationKey | translate"
     [width]="column.width"
 		[sortBy]="column.sortProperty">
 
@@ -97,7 +96,7 @@
 				<div class="flex ellipsis">
 					<div class="number">{{ row?.comments?.length || '0' }}</div>
 					&nbsp;
-					<ng-container i18n="@@nested_comment">{ row?.comments?.length || 0, plural, =1 { comment } other { comments } } </ng-container>
+					{{ ((row?.comments?.length || 0) > 1 ? 'OBJ.comment.plural' : 'OBJ.comment.singular') | translate }}
 				</div>
 			</ng-container>
 
@@ -116,7 +115,7 @@
 
 			<!-- created on -->
 			<ng-container *ngSwitchCase="'created on'">
-				{{ row?.creationDate | date: 'dd MMMM y' }}
+				{{ row?.creationDate | date: 'dd MMMM y':'':translate.currentLang }}
 			</ng-container>
 		</ng-container>
 	</ng-template>

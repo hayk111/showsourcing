@@ -21,7 +21,6 @@ describe('FilterList', () => {
 	it('should return correct values (expect for asPredicate)', () => {
 		initialFilters = [{ type: FilterType.ARCHIVED, value: true }, { type: FilterType.DELETED, value: true }];
 		const expectResult = initialFilters.map(e => `(${e.type} == ${e.value})`).join(' AND ');
-		console.log('expectResult', [expectResult]);
 		filterList = new FilterList(initialFilters);
 		expect(filterList.asPredicate()).toEqual(`(${expectResult})`);
 	});
