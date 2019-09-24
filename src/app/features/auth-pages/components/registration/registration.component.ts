@@ -5,7 +5,8 @@ import { Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 import { AuthFormButton, AuthFormElement } from '~common/auth-pages/components';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
-import { AutoUnsub, translate } from '~utils';
+import { AutoUnsub } from '~utils';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'registration-app',
@@ -26,7 +27,8 @@ export class RegistrationComponent extends AutoUnsub implements OnInit {
 		private authSrv: AuthenticationService,
 		private router: Router,
 		private route: ActivatedRoute,
-	) {
+		private translate: TranslateService
+		) {
 		super();
 	}
 
@@ -35,23 +37,23 @@ export class RegistrationComponent extends AutoUnsub implements OnInit {
 		const email = this.queryParams.email;
 
 		this.listForm = [{
-			label: translate('First Name'),
+			label: this.translate.instant('label.first-name'),
 			type: 'text',
 			name: 'firstName',
 			isRequired: true,
 			autoComplete: 'given-name',
-			placeHolder: translate('Your first name'),
+			placeHolder: this.translate.instant('placeholder.your-first-name'),
 			validators: [Validators.required]
 		}, {
-			label: translate('Last Name'),
+			label: this.translate.instant('label.last-name'),
 			type: 'text',
 			name: 'lastName',
 			isRequired: true,
 			autoComplete: 'family-name',
-			placeHolder: translate('Your last name'),
+			placeHolder: this.translate.instant('placeholder.your-last-name'),
 			validators: [Validators.required]
 		}, {
-			label: translate('email'),
+			label: this.translate.instant('label.email'),
 			value: email,
 			type: 'email',
 			name: 'email',
@@ -59,29 +61,29 @@ export class RegistrationComponent extends AutoUnsub implements OnInit {
 			autoComplete: 'current-email',
 			placeHolder: 'example@showsourcing.com',
 			validators: [Validators.required, Validators.email],
-			hint: translate('Tip: the app works better with a company email'),
+			hint: this.translate.instant('hint.company-tip'),
 			error: {
 				type: null,
-				msg: translate('Please pick another email')
+				msg: this.translate.instant('error.pick-another-email')
 			}
 		}, {
-			label: translate('password'),
+			label: this.translate.instant('label.password'),
 			type: 'password',
 			name: 'password',
 			isRequired: true,
 			autoComplete: 'current-password',
-			placeHolder: translate('Your password'),
+			placeHolder: this.translate.instant('placeholder.your-password'),
 			validators: [Validators.required],
 			error: {
 				type: 'minlength',
-				msg: translate('Minimum 8 characters required')
+				msg: this.translate.instant('error.min-characters-required')
 			}
 		}];
 		this.buttons = [{
-			label: translate('Sign up'),
+			label: this.translate.instant('button.sign-up'),
 			type: 'button'
 		}, {
-			label: translate('Already have an account?'),
+			label: this.translate.instant('button.account-already-existed'),
 			type: 'link',
 			link: ['../login'],
 			queryParams: this.queryParams
@@ -105,7 +107,7 @@ export class RegistrationComponent extends AutoUnsub implements OnInit {
 		this.pending$.next(false);
 		if (error.error && error.error.errors && error.error.errors.email) {
 			form.get('email').markAsPristine();
-			this.error = translate('An account already exist with this email address.');
+			this.error = this.translate.instant('error.account-already-existed-with-email');
 		} else {
 			this.error = error.error.message;
 		}

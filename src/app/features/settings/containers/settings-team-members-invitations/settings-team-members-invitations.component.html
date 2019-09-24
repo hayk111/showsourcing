@@ -7,23 +7,23 @@
 <sub-panel-app
 	class="sub-menu-padding-board"
 	entityType="Users"
+	[title]="'title.invitations' | translate"
 	[hasSwitch]="false"
 	[hasFilter]="false"
 	[hasArchived]="false"
 	[hasAssigned]="false"
 	[count]="listSrv.count$ | async"
-	(search)="listSrv.search($event)"
-	i18n-title="@@invitations">
+	(search)="listSrv.search($event)">
 
 	<sub-panel-right-item-app>
 		<div toolTip [toolTipMessage]="getToolTipMsg()" toolTipPosition="above-right">
-			<button [disabled]="!teamOwner" (click)="openInviteDialog()" i18n="@@invite-collaborator">Invite Collaborator</button>
+			<button [disabled]="!teamOwner" (click)="openInviteDialog()" translate="button.invite-collaborator"></button>
 		</div>
 	</sub-panel-right-item-app>
 </sub-panel-app>
 
 <ng-container *ngIf="(listSrv.items$ | async) as invitations">
-	<invitations-list-view-app
+	<invitations-table-app
 		[rows]="invitations"
 		[teamOwner]="teamOwner"
 		[user]="user"
@@ -43,7 +43,7 @@
 		(accessTypeUpdated)="updateAccessType($event)"
 		(showItemsPerPage)="showItemsPerPage($event)"
 		(delete)="listSrv.deleteOne($event, true)">
-	</invitations-list-view-app>
+	</invitations-table-app>
 
 	<!-- ng-container *ngIf="selected$ | async as selected">
 		<selection-bar-app

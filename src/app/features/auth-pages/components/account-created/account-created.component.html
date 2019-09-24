@@ -1,36 +1,34 @@
 <div class="card card2">
-    <div class="border"></div>
-    <div class="content">
+	<div class="border"></div>
+	<div class="content">
 
-			<h3 class="ms" i18n="header@@account-created">Account Created</h3>
+		<h3 class="ms" translate="header.account-created"></h3>
 
-			<p i18n="text@@now-invite-members">Now invite your team members</p>
+		<p translate="text.now-invite-members"></p>
 
-			<form [formGroup]="form">
-				<div *ngFor="let c of form.controls; let i = index;trackBy: trackByFn">
-					<div class="flex members" [formGroupName]="i">
-						<!-- email -->
-						<form-field-app>
-							<label-app i18n="text@email">Email</label-app>
-							<input inputApp type="email" placeholder="example@email.com" formControlName="email"/>
-						</form-field-app>
-						<!-- full name -->
-						<form-field-app>
-							<label-app i18n="text@@full-name">Full Name</label-app>
-							<input inputApp type="text" placeholder="Jhon Doe" formControlName="fullName"/>
-						</form-field-app>
-
-					</div>
+		<form [formGroup]="form">
+			<div *ngFor="let c of form.controls; let i = index;trackBy: trackByFn">
+				<div class="flex members" [formGroupName]="i">
+					<!-- email -->
+					<form-field-app>
+						<label-app translate="label.email"></label-app>
+						<input inputApp type="email" placeholder="example@email.com" formControlName="email" />
+					</form-field-app>
+					<!-- full name -->
+					<form-field-app>
+						<label-app translate="label.full-name"></label-app>
+						<input inputApp type="text" placeholder="Jhon Doe" formControlName="fullName" />
+					</form-field-app>
 
 				</div>
 
-				<div (click)="addMore()" class="flex pointer" i18n="text@@invite-more-members">
-					Invite more team members
-				</div>
+			</div>
 
-				<div class="right">
-					<input type="submit" value="invite" (click)="goHome()" i18n-value="button@@invite"/>
-				</div>
-			</form>
+			<div (click)="addMore()" class="flex pointer" translate="text.invite-more-members"></div>
+
+			<div class="right">
+				<input type="submit" value="invite" (click)="goHome()" translate="button.invite" />
+			</div>
+		</form>
 	</div>
 </div>

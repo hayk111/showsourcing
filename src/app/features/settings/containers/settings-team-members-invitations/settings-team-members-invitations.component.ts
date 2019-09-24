@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { ListPageKey, ListPageService } from '~core/list-page';
-import { InvitationFeatureService } from '~features/settings/services/invitation-feature.service';
+import { SettingsInvitationService } from '~features/settings/services/settings-invitation.service';
 import { ERM, Invitation, User } from '~models';
-import { AutoUnsub, translate } from '~utils';
+import { AutoUnsub } from '~utils';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'settings-team-members-invitations-app',
@@ -22,9 +23,10 @@ export class SettingsTeamMembersInvitationsComponent extends AutoUnsub implement
 	selectItemsConfig: SelectParamsConfig;
 
 	constructor(
-		private featureSrv: InvitationFeatureService,
-		public listSrv: ListPageService<any, InvitationFeatureService>,
+		private featureSrv: SettingsInvitationService,
+		public listSrv: ListPageService<any, SettingsInvitationService>,
 		public commonModalSrv: CommonModalService,
+		private translate: TranslateService
 	) {
 		super();
 	}
@@ -65,7 +67,7 @@ export class SettingsTeamMembersInvitationsComponent extends AutoUnsub implement
 	}
 
 	getToolTipMsg() {
-		return !this.teamOwner ? translate('Only team owners can invite') : null;
+		return !this.teamOwner ? this.translate.instant('message.only-team-owners-can-invite') : null;
 	}
 
 	showItemsPerPage(count: number) {

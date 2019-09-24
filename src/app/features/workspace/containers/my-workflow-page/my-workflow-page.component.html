@@ -1,6 +1,7 @@
 <sub-panel-app
   [hasSwitch]="false"
   [hasFilter]="true"
+  [entityType]="'PRODUCT'"
   [filtersAmount]="listSrv.filterList.asFilters().length"
   (showFilters)="listSrv.openFilterPanel()"
   [searchValue]="listSrv.searchValue"
@@ -47,16 +48,16 @@
     </context-menu-trigger-app>
     <context-menu-item-app
       (click)="commonModalSrv.openAddToProjectDialog([row])">
-      <div class="border" i18n="button@@add-to-project">Add to project</div>
+      <div class="border" translate="button.add-to-project"></div>
     </context-menu-item-app>
     <context-menu-item-app (click)="commonModalSrv.openRequestFeedbackDialog([row])">
-      <div class="border" i18n="button@@request-feedback">Request feedback</div>
+      <div class="border" translate="button.request-feedback"></div>
     </context-menu-item-app>
     <context-menu-item-app (click)="commonModalSrv.openExportDialog([row])">
-      <div class="border" i18n="button@@export">export</div>
+      <div class="border" translate="button.export"></div>
     </context-menu-item-app>
     <context-menu-item-app (click)="listSrv.deleteOne(row)">
-      <div class="border" i18n="button@@delete">delete</div>
+      <div class="border" translate="button.delete"></div>
     </context-menu-item-app>
   </context-menu-app>
 </ng-template>

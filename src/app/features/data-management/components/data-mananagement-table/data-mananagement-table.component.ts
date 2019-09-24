@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { ListViewComponent } from '~core/list-page/list-view.component';
+import { EntityTableComponent } from '~core/list-page/entity-table.component';
 import { EntityMetadata, ERM } from '~models';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'data-management-table-app',
@@ -8,7 +9,7 @@ import { EntityMetadata, ERM } from '~models';
 	styleUrls: ['./data-mananagement-table.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DataMananagementTableComponent extends ListViewComponent<any> {
+export class DataMananagementTableComponent extends EntityTableComponent<any> {
 	@Input() entityMetadata: EntityMetadata;
 	@Output() renameEntity = new EventEmitter<any>();
 	@Output() showItemsPerPage = new EventEmitter<number>();
@@ -18,6 +19,8 @@ export class DataMananagementTableComponent extends ListViewComponent<any> {
 	ermSupplier = ERM.SUPPLIER;
 	ermEvent = ERM.EVENT;
 	idEntityHovered: string;
+
+	constructor(public translate: TranslateService) { super(); }
 
 	updateNameEntity(isCancel: boolean, obj, newName, subProp?) {
 		if (isCancel) return;

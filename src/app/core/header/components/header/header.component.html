@@ -3,20 +3,20 @@
 </a>
 
 <nav>
-  <a class="first-uppercase" [routerLink]="['/dashboard']" routerLinkActive="selected" i18n="@@home">home</a>
+  <a class="first-uppercase" [routerLink]="['/dashboard']" routerLinkActive="selected" translate="nav.home"></a>
 
-  <a class="first-uppercase" [routerLink]="['/project']" routerLinkActive="selected" i18n="@@projects">projects</a>
+  <a class="first-uppercase" [routerLink]="['/project']" routerLinkActive="selected" translate="nav.projects"></a>
 
-  <a class="first-uppercase" [routerLink]="['/product']" routerLinkActive="selected" i18n="@@products">products</a>
+  <a class="first-uppercase" [routerLink]="['/product']" routerLinkActive="selected" translate="nav.products"></a>
 
-	<a class="first-uppercase" [routerLink]="['/samples']" routerLinkActive="selected" i18n="@@suppliers">samples</a>
+	<a class="first-uppercase" [routerLink]="['/samples']" routerLinkActive="selected" translate="nav.suppliers"></a>
 
-  <a class="first-uppercase" [routerLink]="['/supplier']" routerLinkActive="selected" i18n="@@suppliers">suppliers</a>
+  <a class="first-uppercase" [routerLink]="['/supplier']" routerLinkActive="selected" translate="nav.suppliers"></a>
 
-	<a class="first-uppercase" [routerLink]="['/workspace']" routerLinkActive="selected" i18n="@@workspace">workspace</a>
+	<a class="first-uppercase" [routerLink]="['/workspace']" routerLinkActive="selected" translate="nav.workspace"></a>
 
 	<a [routerLink]="['/request']" routerLinkActive="selected">
-		<div class="first-uppercase" notifBadge [badge]="(requestCount$ | async) > 0 ? (requestCount$ | async) : null" i18n="@@requests">requests</div>
+		<div class="first-uppercase" notifBadge [badge]="(requestCount$ | async) > 0 ? (requestCount$ | async) : null" translate="nav.requests"></div>
 	</a>
 
   <!-- we don't want those links in production... -->

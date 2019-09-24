@@ -1,7 +1,7 @@
 <dialog-app>
-	<dialog-header-app i18n="header@@team-feedback">Team Feedback</dialog-header-app>
+	<dialog-header-app translate="header.team-feedback"></dialog-header-app>
 
-	<dialog-subtitle-app i18n="header@@team-members">Team members</dialog-subtitle-app>
+	<dialog-subtitle-app>{{'text.team-members' | translate}}</dialog-subtitle-app>
 
 	<main class="scrollable">
 		<list-app *ngIf="teamMembers$ | async as teamMembers">
@@ -21,14 +21,10 @@
 
   <dialog-footer-app class="fullWidth flexCenter flexBetween">
 		<span class="txt-secondary">
-			{{ products?.length }}
-			<ng-container i18n="@@nested_product-selected-feedback">{
-				products?.length || 0, plural, =1 { product } other { products } } selected for feedback
-			</ng-container>
+			{{ ((products?.length || 0) > 1 ? 'OBJ.product-selected-feedback.plural' : 'OBJ.product-selected-feedback.singular') | translate: {count: products?.length || 0} }}
 		</span>
 		<button [disabled]="numSelected < 1" (click)="submit()"
-			i18n="button@@request-feedback">
-			Request Feedback
+			translate="button.request-feedback">
 		</button>
 	</dialog-footer-app>
 </dialog-app>

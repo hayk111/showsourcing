@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter
 import { ProductService, SupplierService, TaskService, SampleService } from '~core/entity-services';
 import { GetStreamGroup, GetStreamActivity } from '~common/activity/interfaces/get-stream-feed.interfaces';
 import { NotificationActivityService } from '~shared/notif/services/notification-activity.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'notif-item-app',
@@ -22,8 +23,8 @@ export class NotifItemComponent implements OnInit {
 	targetName: string;
 	constructor(
 		private notifActivitySrv: NotificationActivityService,
-	) {
-	}
+		public translate: TranslateService
+	) { }
 
 	ngOnInit() {
 		this.initialSetup();
@@ -34,34 +35,35 @@ export class NotifItemComponent implements OnInit {
 		const [firstActivity] = this.activity.activities;
 		this.firstActivity = firstActivity;
 		const { target } = firstActivity;
+
 		switch (verb) {
 			case 'create_comment':
 				this.badgeType = 'comment';
-				this.activityMessage = `has commented on the ${target}`;
+				this.activityMessage = this.actor_count > 1 ? 'OBJ.comment-on-target.plural' : 'OBJ.comment-on-target.singular';
 				this.targetId = firstActivity.target_id;
 				this.navigateRoute = `/${target}/${this.targetId}/activity`;
 				break;
 			case 'create_task':
 				this.badgeType = 'task';
 				this.badgeColor = 'secondary';
-				this.activityMessage = 'assign you a task';
+				this.activityMessage = 'message.assign-you-a-task';
 				this.targetId = firstActivity.object;
 				this.navigateRoute = `/workspace/my-tasks`;
 				break;
 			case 'task_complete':
 				this.badgeType = 'task';
-				this.activityMessage = 'has completed your task';
+				this.activityMessage = 'message.has-completed-your-task';
 				this.targetId = firstActivity.object;
 				this.navigateRoute = `/workspace/my-tasks`;
 				break;
 			case 'create_vote':
 				this.badgeType = 'product';
-				this.activityMessage = 'rated your product';
+				this.activityMessage = 'message.rated-your-product';
 				this.targetId = firstActivity.target_id;
 				this.navigateRoute = `/product/${this.targetId}/activity`;
 				break;
 			case 'new_assignee':
-				this.activityMessage = `assigned you a ${target}`;
+				this.activityMessage = 'OBJ.assigned-target';
 				this.targetId = firstActivity.object;
 				if (target === 'sample') {
 					this.badgeType = 'sample';
@@ -77,7 +79,7 @@ export class NotifItemComponent implements OnInit {
 			case 'new_task_assignee':
 				this.badgeColor = 'secondary';
 				this.badgeType = 'task';
-				this.activityMessage = 'assign you a task';
+				this.activityMessage = 'message.assign-you-a-task';
 				this.targetId = firstActivity.object;
 				this.navigateRoute = `/workspace/my-tasks`;
 				break;
@@ -104,15 +106,8 @@ export class NotifItemComponent implements OnInit {
 		return this.activity.activities[0].actor_name;
 	}
 
-	get multipleActorMessage(): string {
-		const { actor_count } = this.activity;
-		if (actor_count === 2) {
-			return 'and 1 other';
-		}
-		if (actor_count > 2) {
-			return `and ${this.activity.actor_count - 1} others`;
-		}
-		return '';
+	get actor_count(): number {
+		return this.activity.actor_count;
 	}
 
 }

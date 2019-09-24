@@ -27,7 +27,7 @@
 			</search-autocomplete-item-app>
 		</ng-container>
 		<ng-template #placeholder>
-			<div class="placeholder" i18n="@@no-items-found">No items found</div>
+			<div class="placeholder">{{'placeholder.no-items-found' | translate}}</div>
 		</ng-template>
 	</ng-container>
 	<ng-template #spinner>
@@ -40,5 +40,5 @@
 	[hasBorder]="false"
 	[ngClass]="{ expanded: searchBarExpanded }"
 	(searchStateChanged)="onSearchBarStateChanged($event)">
-	<input inputApp class="searchInput" restrictSpecial [restrictArrows]="true" type="text" (input)="triggerSearch()" [formControl]="searchControl" placeholder="Search Products, Suppliers..."/>
+	<input inputApp class="searchInput" restrictSpecial [restrictArrows]="true" type="text" (input)="triggerSearch()" [formControl]="searchControl" [placeholder]="'placeholder.sidebar-search' | translate"/>
 </search-bar-animated-app>

@@ -8,24 +8,22 @@
 			<one-product-activity-card-app
 				*ngSwitchCase="'product_activity'"
 				[groupFeed]="feed"
-				[title]="'new comment'"
+				[title]="'title.new-comment' | translate"
 				(createComment)="createComment($event)"
 				(update)="updateProduct($event)"
 				(liked)="onThumbUp($event)"
-				(disliked)="onThumbDown($event)"
-				i18n-title="@@new-comment">
+				(disliked)="onThumbDown($event)">
 			</one-product-activity-card-app>
 
 			<!-- product created -->
 			<one-product-activity-card-app
 				*ngSwitchCase="'product_one_created'"
 				[groupFeed]="feed"
-				[title]="'created a new product'"
+				[title]="'title.created-new-product' | translate"
 				(createComment)="createComment($event)"
 				(update)="updateProduct($event)"
 				(liked)="onThumbUp($event)"
-				(disliked)="onThumbDown($event)"
-				i18n-title="@@created-new-product">
+				(disliked)="onThumbDown($event)">
 			</one-product-activity-card-app>
 
 			<multiple-products-activity-card-app
@@ -41,10 +39,9 @@
 			<one-supplier-activity-card-app
 				*ngSwitchCase="'supplier_one_created'"
 				[groupFeed]="feed"
-				[title]="'created a new supplier'"
+				[title]="'title.created-new-supplier' | translate"
 				(createComment)="createComment($event)"
-				(update)="updateSupplier($event)"
-				i18n-title="@@created-new-supplier">
+				(update)="updateSupplier($event)">
 			</one-supplier-activity-card-app>
 
     </ng-container>

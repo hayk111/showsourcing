@@ -4,6 +4,7 @@ import { CommonModalService } from '~common/modals/services/common-modal.service
 import { CommentService, UserService } from '~core/entity-services';
 import { Comment, User } from '~models';
 import { CloseEventType } from '~shared/dialog';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'comment-app',
@@ -31,7 +32,8 @@ export class CommentComponent implements OnInit {
 	constructor(
 		private userSrv: UserService,
 		private commentSrv: CommentService,
-		private commonModalSrv: CommonModalService
+		private commonModalSrv: CommonModalService,
+		public translate: TranslateService
 	) { }
 
 	ngOnInit() {

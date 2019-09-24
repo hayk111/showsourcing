@@ -1,7 +1,7 @@
 <div *ngIf="type==='badge'" class="badge">
 	<div class="badge-item" [ngClass]="getType()">
 		<div class="badge-name" [ngClass]="isHaveStatus() ? 'border' : 'new'">
-			{{ status[displayAttribute] | const: displayAttribute === 'name' ? 'status' : 'statusCategory' }}
+			{{ 'text.' + status[displayAttribute] | translate }}
 		</div>
 	</div>
 </div>
@@ -9,7 +9,7 @@
 	<div class="status-item" [ngClass]="getType()" [ngStyle]="{ 'width.px': width }">
 		<div class="status-box" [ngClass]="status?.name"></div>
 		<div class="status-name" [ngClass]="{'new' : !isHaveStatus()}">
-			{{ status[displayAttribute] | const: displayAttribute === 'name' ? 'status' : 'statusCategory' }}
+			{{ 'text.' + status[displayAttribute] | translate }}
 		</div>
 	</div>
 </div>

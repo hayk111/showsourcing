@@ -36,7 +36,7 @@
 				</selector-app>
 			</action-bar-app>
 			<div class="right flex">
-				<button class="light" (click)="onViewProduct()">Open Product</button>
+				<button class="light" (click)="onViewProduct()" translate="button.open-product"></button>
 				<!-- <button class="icon light">
 					<icon-app name="dots-vertical" class="color-txt-secondary"></icon-app>
 				</button> -->
@@ -59,7 +59,7 @@
 					[product]="product">
 				</stats-icons-app>
 				<span *ngIf="product?.comments?.length > 0">
-					{{ product?.comments?.length }} comment{{product?.comments?.length > 1 ? 's' : '' }}
+					{{ ((product?.comments?.length || 0) > 1 ? 'OBJ.n-comment.plural' : 'OBJ.n-comment.singular') | translate: {count: (product?.comments?.length || 0)} }}
 				</span>
 			</div>
 			<div class="badges flex flexWrap">
@@ -80,8 +80,8 @@
 		<comment-list-app [comments]="product?.comments"></comment-list-app>
 		<div class="flexBetween">
 			<textarea inputApp type="text" [formControl]="commentCtrl"
-			placeholder="Leave a comment" (keydown.enter)="onEnter($event)"></textarea>
-			<button *ngIf="inp?.focussed || commentCtrl.value" class="secondary-light" (click)="onSubmit()">Send</button>
+			[placeholder]="'placeholder.leave-a-comment' | translate" (keydown.enter)="onEnter($event)"></textarea>
+			<button *ngIf="inp?.focussed || commentCtrl.value" class="secondary-light" (click)="onSubmit()" translate="button.send"></button>
 		</div>
 	</card-footer-app>
 

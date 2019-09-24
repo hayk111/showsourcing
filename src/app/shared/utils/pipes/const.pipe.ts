@@ -58,22 +58,27 @@ export class ConstPipe implements PipeTransform {
 				break;
 			case 'status':
 			case 'statuses':
+				// TODO i18n : added to translation files
 				constMap = statusMap;
 				break;
 			case 'statusCategory':
 			case 'statusCategories':
+				// TODO i18n : added to translation files
 				constMap = statusCategoriesMap;
 				break;
 			case 'statusRequestSupplier':
 			case 'statusRequestsSupplier':
+				// TODO i18n : added to translation files
 				constMap = statusRequestsSupplierMap;
 				break;
 			case 'statusRequestTeam':
 			case 'statusRequestsTeam':
+				// TODO i18n : added to translation files
 				constMap = statusRequestsTeamMap;
 				break;
 			case 'supplierType':
 			case 'supplierTypes':
+				// TODO i18n : added to translation files
 				constMap = supplierTypesMap;
 				break;
 			case 'erm':

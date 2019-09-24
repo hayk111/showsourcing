@@ -1,5 +1,5 @@
 <dialog-app>
-	<dialog-header-app i18n="@@team-votes">Team Votes</dialog-header-app>
+	<dialog-header-app translate="header.team-votes"></dialog-header-app>
 
 	<ng-container *ngFor="let vote of votes;trackBy: trackByFn">
 		<div class="flexBetween row">
@@ -16,6 +16,6 @@
 	</ng-container>
 
 	<dialog-footer-app>
-		<button tabFocusAction autoFocus class="primary capitalize" (click)="closeDlg()" i18n="@@close">close</button>
+		<button tabFocusAction autoFocus class="primary capitalize" (click)="closeDlg()" translate="button.close"></button>
 	</dialog-footer-app>
 </dialog-app>

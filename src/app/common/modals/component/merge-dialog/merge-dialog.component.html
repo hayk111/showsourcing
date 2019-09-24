@@ -1,24 +1,24 @@
-
 	<dialog-app>
 
 		<!-- when ready -->
 		<dialog-header-app *ngIf="!pending" class="first-uppercase">
-			<ng-container i18n="text@@merge">merge</ng-container> {{ type.plural | const: 'erm' }}
+			{{ 'OBJ.merge-OBJ' | translate: {field: 'ERM.' + type.translationKey + '.plural' | translate} }}
 		</dialog-header-app>
 
 		<form [formGroup]="group" *ngIf="!pending">
 			<form-field-app>
-				<label-app>{{ type.singular | const: 'erm' }} <ng-container i18="we want to merge an item to@@to-merge-to">to merge to</ng-container></label-app>
-				<input inputApp type="text" formControlName="name" placeholder="New {{ type.singular | const: 'erm' }} name" (keyup.enter)="onSubmit()" i18n-placeholder="@@new-OBJ-name"/>
+				<label-app>{{ 'OBJ.OBJ-to-merge-to' | translate: {field: 'ERM.' + type.translationKey + '.singular' | translate} }}</label-app>
+				<input inputApp type="text" formControlName="name" [placeholder]="'OBJ.new-OBJ-name' | translate: {field: 'ERM.' + type.translationKey + '.singular' | translate}" (keyup.enter)="onSubmit()"/>
 			</form-field-app>
 			<label-app>
-				Please select the category that will remain after the merge.
-				<p class="color-warn">Warning: This action cannot be undone.</p>
+				{{'message.please-select-category' | translate}}
+				<p class="color-warn" translate="error.action-cannot-undone"></p>
 			</label-app>
 		</form>
 
-		<dialog-footer-app *ngIf="!pending ">
-			<input [disabled]="!group.valid" type="submit" value="Merge" (click)="onSubmit()"/>
+		<dialog-footer-app *ngIf="!pending">
+			<!-- TODO Check style is the same - Need first-uppercase -->
+			<input [disabled]="!group.valid" type="submit" [value]="'text.merge' | translate" (click)="onSubmit()"/>
 		</dialog-footer-app>
 
 		<!-- when pending -->
