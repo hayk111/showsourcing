@@ -30,7 +30,7 @@
 		</context-menu-item-app>
 	</ng-template>
 
-	  <!-- dynamic columns -->
+		<!-- dynamic columns -->
 		<ng-template
 			*ngFor="let column of columnsConfig; trackBy: trackByFn"
 			let-row="row"
@@ -42,12 +42,14 @@
     <ng-container [ngSwitch]="column.title">
 
 			<!-- task done -->
-			<ng-container *ngSwitchCase="''">
+			<!-- the only way to read 2 options on single switch case -->
+			<ng-container *ngSwitchCase="column.title == 'done' || column.title == '' ? column.title : null">
 				<icon-app
 					class="pointer"
 					[ngClass]="row?.done ? 'task-is-done': 'task-not-done'"
 					[name]="row?.done ? 'check-circle' : 'check-circle-light'"
-					[size]="24" >
+					[size]="24"
+					(click)="update.emit({ id: row?.id, done: !row.done })">
 				</icon-app>
 			</ng-container>
 
@@ -60,8 +62,13 @@
 
 			<!-- name -->
 			<ng-container *ngSwitchCase="'name'">
-				<div class="mainCellWrapper name-container ellipsis">
+				<div class="mainCellWrapper name-container ellipsis flexColumn">
 					<span class="ellipsis pointer txt-btn" (click)="previewClick.emit(row)">{{ row?.name }}</span>
+					<span *ngIf="column.doubleLine.property" class="sub-property">
+						{{ column.doubleLine.extraInfo && row[column.doubleLine.property] ?
+							column.doubleLine.extraInfo + ' ' + row[column.doubleLine.property] :
+							row[column.doubleLine.property] ? row[column.doubleLine.property] : ''}}
+					</span>
 				</div>
 			</ng-container>
 
@@ -83,6 +90,13 @@
 			<ng-container *ngSwitchCase="'due date'">
 				<div class="mainCellWrapper due-date-container ellipsis">
 					<span class="ellipsis">{{ row?.dueDate | date: 'dd MMM y' }}</span>
+				</div>
+			</ng-container>
+
+			<!-- due date small -->
+			<ng-container *ngSwitchCase="'due date small'">
+				<div class="mainCellWrapper ellipsis">
+					<span class="ellipsis due-date-small">{{ row?.dueDate | date: 'dd MMM' }}</span>
 				</div>
 			</ng-container>
 

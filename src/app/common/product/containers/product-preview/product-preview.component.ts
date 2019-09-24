@@ -20,12 +20,14 @@ import { CommentService } from '~core/entity-services/comment/comment.service';
 import {
 	ExtendedFieldDefinitionService,
 } from '~core/entity-services/extended-field-definition/extended-field-definition.service';
-import { ProductService } from '~entity-services';
+import { TableConfig } from '~core/list-page';
+import { ProductService, TaskService } from '~entity-services';
 import { WorkspaceFeatureService } from '~features/workspace/services/workspace-feature.service';
-import { AppImage, Comment, ERM, ExtendedFieldDefinition, PreviewActionButton, Product } from '~models';
+import { AppImage, Comment, ERM, ExtendedFieldDefinition, PreviewActionButton, Product, Task, Sample } from '~models';
 import { DialogService } from '~shared/dialog/services';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { PreviewCommentComponent, PreviewService } from '~shared/preview';
+import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { AutoUnsub, PendingImage, translate } from '~utils';
 
 @Component({
@@ -50,25 +52,6 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 	get product() {
 		return this._product;
 	}
-	@Input() isPreview = false;
-
-	@Output() close = new EventEmitter<any>();
-	@Output() delete = new EventEmitter<null>();
-	@Output() updated = new EventEmitter<Product>();
-	@Output() statusUpdated = new EventEmitter<Product>();
-	@Output() clickOutside = new EventEmitter<null>();
-	// component to scroll into view
-	@ViewChild(PreviewCommentComponent, { static: false }) previewComment: PreviewCommentComponent;
-
-	/** this is the fully loaded product */
-	product$: Observable<Product>;
-	productDescriptor1: ProductDescriptor;
-	productDescriptor2: ProductDescriptor;
-	erm = ERM;
-
-	actions: PreviewActionButton[];
-
-	fieldDefinitions$: Observable<ExtendedFieldDefinition[]>;
 
 	private _images: AppImage[] = [];
 	@Input()
@@ -78,8 +61,37 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 	get images() {
 		return [...this._images, ...(this._pendingImages as any)];
 	}
-	private _pendingImages: PendingImage[] = [];
+
+	@Input() isPreview = false;
+
+	@Output() close = new EventEmitter<any>();
+	@Output() delete = new EventEmitter<null>();
+	@Output() updated = new EventEmitter<Product>();
+	@Output() statusUpdated = new EventEmitter<Product>();
+	@Output() clickOutside = new EventEmitter<null>();
+	// component to scroll into view
+	@ViewChild(PreviewCommentComponent, { static: false }) previewComment: PreviewCommentComponent;
 	@ViewChild('inpFile', { static: false }) inpFile: ElementRef;
+
+	/** this is the fully loaded product */
+	product$: Observable<Product>;
+	tasks$: Observable<Task[]>;
+	samples$: Observable<Sample[]>;
+	productDescriptor1: ProductDescriptor;
+	productDescriptor2: ProductDescriptor;
+	erm = ERM;
+
+	actions: PreviewActionButton[];
+
+	fieldDefinitions$: Observable<ExtendedFieldDefinition[]>;
+
+	tableConfig: TableConfig = {
+		done: { title: 'done', width: 50 },
+		name: { title: 'name', width: 240, sortProperty: 'name', doubleLine: { property: 'assignee', extraInfo: 'Assigned to' } },
+		dueDate: { title: 'due date small', width: 80, sortProperty: 'dueDate' },
+	};
+
+	private _pendingImages: PendingImage[] = [];
 
 	constructor(
 		private uploader: UploaderService,
@@ -91,7 +103,9 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 		private workspaceSrv: WorkspaceFeatureService,
 		private commentSrv: CommentService,
 		private extendedFieldDefSrv: ExtendedFieldDefinitionService,
-		public previewSrv: PreviewService
+		public previewSrv: PreviewService,
+		private ratingSrv: ThumbService,
+		private taskSrv: TaskService
 	) {
 		super();
 
@@ -147,6 +161,9 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 			}
 		];
 
+		// TODO Backend add field
+		// this.taskSrv.queryMany({ query: `product.id == "${this.product.id}" AND delete == false AND archived == false  ` });
+		this.tasks$ = this.taskSrv.queryMany({ query: `product.id == "${this.product.id}" AND deleted == false` });
 		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "Product"', sortBy: 'order' });
 	}
 
@@ -255,6 +272,14 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 		this._pendingImages.push(...pendingImgs);
 		// putting the index at the end so we instantly have feedback the image is being processed
 		return pendingImgs.map(p => p.id);
+	}
+
+	onStarVote(number: number) {
+		this.update(this.ratingSrv.starVote(this.product.votes, number), 'votes');
+	}
+
+	updateTask(task: Task) {
+		this.taskSrv.update(task).subscribe();
 	}
 
 }

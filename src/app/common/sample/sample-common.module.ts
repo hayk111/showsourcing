@@ -4,11 +4,14 @@ import { RouterModule } from '@angular/router';
 import { CommentCommonModule } from '~common/comment';
 import { ProductCommonModule } from '~common/product/product-common.module';
 import { SharedModule } from '~shared/shared.module';
-import { SampleListViewComponent,
-				 SampleComponent,
-				 SamplePreviewComponent,
-				 SampleCardComponent,
-				 SampleBoardPageComponent } from './components';
+
+import {
+	SampleBoardPageComponent,
+	SampleCardComponent,
+	SampleComponent,
+	SampleListViewComponent,
+	SamplePreviewComponent,
+} from './components';
 
 @NgModule({
 	imports: [

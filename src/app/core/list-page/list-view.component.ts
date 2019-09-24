@@ -8,6 +8,7 @@ export interface ColumnConfig {
 	width: number;
 	sortProperty?: string;
 	sortable?: boolean;
+	doubleLine?: { property: string, extraInfo?: string };
 }
 
 export interface TableConfig {
@@ -68,14 +69,15 @@ export abstract class ListViewComponent<T> extends TrackingComponent implements 
 
 	ngOnInit() {
 		if (!this.tableConfig) {
-			throw Error('Please define a configuration for columnConfig');
+			throw Error('Please define a tableConfiguration for columnConfig');
 		}
+
 		this.columns.forEach(name => {
 			const config = this.tableConfig[name];
 			if (config) {
 				this.columnsConfig.push(config);
 			} else {
-				throw Error(`${name} isn't a valid column name, make sure it is in the config`);
+				throw Error(`'${name}' isn't a valid column name, make sure it is in the config`);
 			}
 		});
 	}

@@ -9,7 +9,7 @@
 		i18n-title="@@my-products"
 		i18n-buttonName="@@add-products">
 	</top-panel-app>
-	
+
 	<sub-panel-app
 		[class.sub-menu-padding-board]="listSrv.view === 'board'"
 		[filtersAmount]="listSrv.getFilterAmount([{ type: filterTypeEnum.ARCHIVED, value: false }, { type: filterTypeEnum.DELETED, value: false }])"
@@ -35,13 +35,14 @@
 				[currentSort]="listSrv.currentSort"
 				(sortFromMenu)="listSrv.sortFromMenu($event)">
 			</product-sorting-menu-app>
-		</sub-panel-right-item-app>	
+		</sub-panel-right-item-app>
 	</sub-panel-app>
-	
+
 	<!-- views: either one will be displayed when the correct view is selected -->
 	<ng-container *ngIf="listSrv.isListening">
 		<products-list-view-app
 			*ngIf="listSrv.view === 'list'"
+			#productList
 			[currentSort]="listSrv.currentSort"
 			[pending]="listSrv.pending"
 			[rows]="listSrv.items$ | async"
@@ -66,17 +67,17 @@
 			(showItemsPerPage)="showItemsPerPage($event)"
 			(unfavorited)="listSrv.onItemUnfavorited($event)"
 			(unselect)="listSrv.unselectOne($event, true)"
-			(unselectAll)="listSrv.unselectAll()" #productList>
+			(unselectAll)="listSrv.unselectAll()">
 		</products-list-view-app>
 
-		<product-board-app 
+		<product-board-app
 			*ngIf="listSrv.view === 'board'"
 			[selection]="listSrv.selection$"
 			(selectOne)="listSrv.selectOne($event, true)"
 			(unselectOne)="listSrv.unselectOne($event, true)"
 			(preview) = "listSrv.openPreview($event)">
 		</product-board-app>
-	
+
 		<products-card-view-app
 			cdk-scrollable
 			*ngIf="listSrv.view === 'card'"
@@ -114,7 +115,7 @@
 			(deleted)="listSrv.deleteSelected()"
 			(close)="listSrv.unselectAll()">
 		</product-selection-bar-app>
-			
+
 		<product-preview-app
 			*ngIf="listSrv.previewOpen"
 			[product]="listSrv.previewed"

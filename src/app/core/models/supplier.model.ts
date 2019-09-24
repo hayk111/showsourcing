@@ -33,7 +33,9 @@ export class Supplier extends EntityWithAudit<SupplierConfig> {
 	status?: SupplierStatus;
 	comments?: Comment[];
 	lastUpdatedBy?: User;
+	__typename?= 'Supplier';
 }
+
 export interface SupplierConfig {
 	name: string;
 	fullName?: string;
@@ -61,5 +63,4 @@ export const supplierMock: Supplier = {
 	name: 'supplier',
 	images: [imageMock],
 	logoImage: imageMock,
-	__typename: 'Supplier'
 } as any;

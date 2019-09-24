@@ -4,7 +4,7 @@ import { ERM, Task } from '~core/models';
 import { ID } from '~utils/id.utils';
 
 const tableConfig: TableConfig = {
-	taskDone: { title: '', width: 0, sortable: false },
+	done: { title: '', width: 0, sortable: false },
 	reference: { title: 'reference', width: 80, sortProperty: 'reference' },
 	name: { title: 'name', width: 120, sortProperty: 'name' },
 	product: { title: 'product', width: 160, sortProperty: 'product.name' },
@@ -26,10 +26,11 @@ const tableConfig: TableConfig = {
 export class TaskListViewComponent extends ListViewComponent<Task> {
 
 	@Input() tableConfig = tableConfig;
+	@Input() hasDoubleLine = false;
 	@Output() openProduct = new EventEmitter<ID>();
 	@Output() openSupplier = new EventEmitter<ID>();
 
-	columns = ['taskDone', 'reference', 'name', 'product', 'supplier', 'dueDate', 'assignee', 'status'];
+	columns = ['done', 'reference', 'name', 'product', 'supplier', 'dueDate', 'assignee', 'status'];
 	erm = ERM;
 
 	constructor() { super(); }
