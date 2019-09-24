@@ -1,10 +1,10 @@
-<top-panel-app
+<header-list-app
 	class="smaller-padding"
 	[hasAction]="false"
 	title="Team Members">
-</top-panel-app>
+</header-list-app>
 
-<sub-panel-app
+<controller-list-app
 	class="sub-menu-padding-board"
 	entityType="Users"
 	[count]="listSrv.count$ | async"
@@ -15,7 +15,7 @@
 	(search)="listSrv.search($event)"
 	i18n-title="@@team-members">
 
-	<sub-panel-right-item-app>
+	<controller-list-right-item-app>
 
 		<div toolTip [toolTipMessage]="getTooltipMsg()" toolTipPosition="above-right">
 			<button [disabled]="!teamOwner" (click)="openInviteDialog()" i18n="@@invite-collaborator">Invite Collaborator</button>
@@ -42,10 +42,10 @@
 			</context-menu-item-app>
 		</context-menu-app>
 
-	</sub-panel-right-item-app>
+	</controller-list-right-item-app>
 
 
-</sub-panel-app>
+</controller-list-app>
 
 <ng-container *ngIf="listSrv.items$ | async as members">
 	<team-members-table-app

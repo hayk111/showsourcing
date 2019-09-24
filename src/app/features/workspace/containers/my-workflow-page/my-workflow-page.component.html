@@ -1,4 +1,4 @@
-<sub-panel-app
+<controller-list-app
   [hasSwitch]="false"
   [hasFilter]="true"
   [entityType]="'PRODUCT'"
@@ -6,7 +6,7 @@
   (showFilters)="listSrv.openFilterPanel()"
   [searchValue]="listSrv.searchValue"
   (search)="listSrv.search($event)">
-</sub-panel-app>
+</controller-list-app>
 
 <kanban-app
   [cols]="columns$ | async"

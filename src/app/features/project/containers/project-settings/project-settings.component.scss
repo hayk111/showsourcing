@@ -33,7 +33,7 @@ input[type="file"] {
 	display: none;
 }
 
-panel-tab-app:first-child {
+header-list-nav-item-app:first-child {
 	margin-left: 62px;
 }
 
@@ -53,7 +53,7 @@ panel-tab-app:first-child {
 	}
 }
 
-top-panel-details-app {
+header-details-app {
 	background: var(--color-bg);
 	.tabs-container {
 		margin-left: 86px;

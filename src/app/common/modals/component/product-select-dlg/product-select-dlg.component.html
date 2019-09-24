@@ -2,7 +2,7 @@
 
 	<dialog-header-app translate="header.select-products"></dialog-header-app>
 
-	<sub-panel-app
+	<controller-list-app
 		[hasFilter]="true"
 		[hasSwitch]="false"
 		[hasArchived]="false"
@@ -16,13 +16,13 @@
 		(hideFilters)="hideFilters()"
 		(viewChange)="onViewChange($event)">
 
-		<sub-panel-left-item-app class="flex">
+		<controller-list-left-item-app class="flex">
 			<span class="select-products-count capitalize" *ngIf="productsCount$ | async as count"> 
 				<b> {{ count || 0 }} {{'label.products' | translate}} </b>
 			</span>
-		</sub-panel-left-item-app>
+		</controller-list-left-item-app>
 
-		<sub-panel-left-item-app class="flex">
+		<controller-list-left-item-app class="flex">
 			<div class="flex show-my-samples">
 				<checkbox-app
 					[checked]="listSrv.filterList.hasFilterType(filterType.ASSIGNEE)"
@@ -31,9 +31,9 @@
 				</checkbox-app>
 				<span class="ellipsis" translate="text.show-only-my-sample"></span>
 			</div>
-		</sub-panel-left-item-app>
+		</controller-list-left-item-app>
 
-	</sub-panel-app>
+	</controller-list-app>
 
 	<products-table-app
 		class="list-view"
@@ -60,7 +60,7 @@
 	</products-table-app>
 	
 	<dialog-footer-app>
-		<sub-panel-left-item-app><b>{{ selectedProductsCount }} {{'label.products-selected' | translate}}</b></sub-panel-left-item-app>
+		<controller-list-left-item-app><b>{{ selectedProductsCount }} {{'label.products-selected' | translate}}</b></controller-list-left-item-app>
 		<button *ngIf="submitProducts" class="capitalize" (click)="submit()" translate="button.add-to-project"></button>
 		<button *ngIf="!submitProducts" class="capitalize" (click)="done()" translate="button.done"></button>
 	</dialog-footer-app>

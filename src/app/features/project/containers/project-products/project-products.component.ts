@@ -15,7 +15,7 @@ import { DialogService } from '~shared/dialog/services';
 import { SupplierRequestDialogComponent } from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
 import { TranslateService } from '@ngx-translate/core';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
-import { SubPanelService } from '~shared/top-panel/services/sub-panel.service';
+import { ControllerListService } from '~shared/header-list/services/controller-list.service';
 
 @Component({
 	selector: 'project-products-app',
@@ -60,7 +60,7 @@ export class ProjectProductsComponent extends AutoUnsub implements OnInit, After
 		public listSrv: ListPageService<Product, ProductService>,
 		public commonModalSrv: CommonModalService,
 		private notifSrv: NotificationService,
-		private subPanelSrv: SubPanelService,
+		private controllerListService: ControllerListService,
 		private translate: TranslateService
 	) {
 		super();
@@ -158,7 +158,7 @@ export class ProjectProductsComponent extends AutoUnsub implements OnInit, After
 		this.listSrv.addFilter({ type: FilterType.ARCHIVED, value: false});
 		this.listSrv.addFilter({ type: FilterType.DELETED, value: false});
 
-		this.subPanelSrv.onFiltersClear();
+		this.controllerListService.onFiltersClear();
 	}
 
 	showItemsPerPage(count: number) {

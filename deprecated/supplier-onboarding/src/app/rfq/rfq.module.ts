@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CardModule } from '~shared/card/card.module';
 import { IconsModule } from '~shared/icons/icons.module';
-import { TopPanelModule } from '~shared/top-panel/top-panel.module';
+import { HeaderListModule } from '~shared/header-list/header-list.module';
 import { SharedModule } from '~shared/shared.module';
 import { StageIndicatorModule } from '~shared/stage-indicator/stage-indicator.module';
 import { DialogModule } from '~shared/dialog/dialog.module';
@@ -22,7 +22,7 @@ import { ExternalRequestFeatureService } from './services/external-request-featu
 	imports: [
 		CommonModule,
 		SharedModule,
-		TopPanelModule,
+		HeaderListModule,
 		CardModule,
 		IconsModule,
 		StageIndicatorModule,
