@@ -14,8 +14,8 @@ import { FilterList, FilterType } from '~shared/filters';
 import { KanbanDropEvent } from '~shared/kanban/interfaces';
 import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.interface';
 import { KanbanService } from '~shared/kanban/services/kanban.service';
-import { translate } from '~utils';
 import { AutoUnsub } from '~utils/auto-unsub.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'workspace-my-workflow-page-app',
@@ -52,7 +52,8 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 		public listSrv: ListPageService<Product, ProductService>,
 		public commonModalSrv: CommonModalService,
 		public kanbanSrv: KanbanService,
-		public dlgSrv: DialogService
+		public dlgSrv: DialogService,
+		private translate: TranslateService
 	) {
 		super();
 	}
@@ -199,8 +200,8 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 
 	deleteSelected() {
 		const itemIds = this.listSrv.getSelectedIds();
-		const del = translate('delete');
-		const prod = itemIds.length <= 1 ? translate('product') : translate('products');
+		const del = this.translate.instant('button.delete');
+		const prod = itemIds.length <= 1 ? this.translate.instant('label.product') : this.translate.instant('label.products');
 		const text = `${del} ${itemIds.length} ${prod}`;
 
 		this.dlgSrv.open(ConfirmDialogComponent, { text }).pipe(

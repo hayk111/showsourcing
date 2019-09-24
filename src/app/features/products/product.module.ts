@@ -48,7 +48,7 @@ import { ProductFeatureService, QuoteFeatureService } from './services';
 		SampleCommonModule,
 		SharedModule,
 		SupplierCommonModule,
-		TaskCommonModule,
+		TaskCommonModule
 	],
 	declarations: [
 		ProductActivityComponent,

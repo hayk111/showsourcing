@@ -2,9 +2,8 @@
 	<div *ngIf="listSrv.items$ | async as products; else pending" class="container">
 		<ng-container *ngIf="products?.length; else empty">
 			<div class="title">
-				<span class="capitalize" i18n="header@@products">products</span>
-				<button class="secondary" (click)="viewAll()" i18n="button@@view-all-products">
-					View All Products
+				<span class="capitalize" translate="label.products"></span>
+				<button class="secondary" (click)="viewAll()" translate="button.view-all-products">
 				</button>
 			</div>
 			<div class="products-section">
@@ -34,15 +33,10 @@
 	<ng-template #empty>
 		<div class="empty flexCenter flexColumn">
 			<icon-app name="product" fontSet="svg"></icon-app>
-			<h2 i18n="header@@supplier-no-product">
-				Currently this supplier has no products associated
-			</h2>
-			<h3 class="xl" i18n="header@@start-adding-products-now">
-				You can start adding products now
-			</h3>
+			<h2 translate="header.supplier-no-product"></h2>
+			<h3 class="xl" translate="header.start-adding-products-now"></h3>
 			<button (click)="listSrv.create(true, { supplier: { id: supplierId } })"
-				i18n="button@@add-product">
-				Add Product
+				translate="button.add-product">
 			</button>
 		</div>
 	</ng-template>

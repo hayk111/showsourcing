@@ -217,7 +217,7 @@ export class ERMService {
 				return this.requestService;
 			case ERM.REQUEST_TEMPLATE:
 				return this.requestTemplateService;
-			case ERM.CRATE_REQUEST:
+			case ERM.CREATE_REQUEST:
 				return this.createRequestService;
 			case ERM.SAMPLE:
 				return this.sampleSrv;

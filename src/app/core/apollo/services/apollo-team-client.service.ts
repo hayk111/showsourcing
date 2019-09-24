@@ -6,17 +6,13 @@ import { forkJoin, from, Observable } from 'rxjs';
 import { catchError, switchMap, take, takeUntil, tap } from 'rxjs/operators';
 import { AbstractApolloClient } from '~core/apollo/services/abstract-apollo-client.class';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
-import { TokenService } from '~core/auth/services/token.service';
 import { ERMService } from '~core/entity-services/_global/erm.service';
-import {
-	QueryBasedSubscriptionService,
-} from '~core/entity-services/query-based-subscription/query-based-subscription.service';
 import { EntityMetadata, ERM } from '~core/models';
 import { RealmServerService } from '~entity-services/realm-server/realm-server.service';
 import { TeamService } from '~entity-services/team/team.service';
 import { Team } from '~models/team.model';
-
 import { ApolloStateService } from './apollo-state.service';
+
 
 
 
@@ -28,11 +24,9 @@ export class TeamClientInitializer extends AbstractApolloClient {
 	constructor(
 		protected apollo: Apollo,
 		protected link: HttpLink,
-		protected tokenSrv: TokenService,
 		protected apolloState: ApolloStateService,
 		protected teamSrv: TeamService,
 		protected realmServerSrv: RealmServerService,
-		protected basedSubSrv: QueryBasedSubscriptionService,
 		protected ermSrv: ERMService
 
 	) {

@@ -1,18 +1,22 @@
+import { registerLocaleData } from '@angular/common';
+import localeEn from '@angular/common/locales/en';
+import localeEs from '@angular/common/locales/es';
+import localeFr from '@angular/common/locales/fr';
+import localeZh from '@angular/common/locales/zh';
 import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, combineLatest, forkJoin, Observable, of } from 'rxjs';
-import { distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, switchMap, tap } from 'rxjs/operators';
 import { AnalyticsService } from '~core/analytics/analytics.service';
 import { ApolloStateService, ClientStatus, TeamClientInitializer, UserClientInitializer } from '~core/apollo/services';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { GlobalDataClientsInitializer } from '~core/apollo/services/apollo-global-data-client.service';
-import { TokenService } from '~core/auth';
-import { AuthenticationService } from '~core/auth/services/authentication.service';
-import { ListPageService } from '~core/list-page';
-import { CompanyService, TeamService } from '~entity-services';
-import { Team } from '~models';
 import { GlobalRequestClientsInitializer } from '~core/apollo/services/apollo-global-request-client.service';
-import { Location } from '@angular/common';
-
+import { AuthenticationService } from '~core/auth/services/authentication.service';
+import { RealmAuthenticationService } from '~core/auth/services/realm-authentication.service';
+import { ListPageService } from '~core/list-page';
+import { CompanyService, TeamService, UserService } from '~entity-services';
+import { Team } from '~models';
 
 @Component({
 	selector: 'app-root',
@@ -27,23 +31,21 @@ export class AppComponent implements OnInit {
 		private analytics: AnalyticsService,
 		private apolloState: ApolloStateService,
 		private authSrv: AuthenticationService,
+		private realmAuthSrv: RealmAuthenticationService,
 		private companySrv: CompanyService,
 		private globalDataClient: GlobalDataClientsInitializer,
 		private globalRequestClient: GlobalRequestClientsInitializer,
 		private teamClient: TeamClientInitializer,
 		private teamSrv: TeamService,
 		private userClient: UserClientInitializer,
-		private location: Location
+		private userSrv: UserService,
+		private translate: TranslateService,
 	) { }
 
 	ngOnInit(): void {
-		const isAuthRoute = this.location.path().startsWith('/auth');
-		// TODO Cedric take a look on why this doesn't work pls
-		// if (isAuthRoute)
-		// 	this.authSrv.logout(true);
-		// else
 		this.authSrv.init();
-
+		this.realmAuthSrv.init();
+		this.userSrv.init();
 		this.teamSrv.init();
 		this.companySrv.init();
 		this.analytics.init();
@@ -56,9 +58,11 @@ export class AppComponent implements OnInit {
 			teamClientStatus$,
 			(hasTeam, teamClientStatus) => hasTeam && teamClientStatus === ClientStatus.PENDING
 		).subscribe(show => this.isSpinnerShown$.next(show));
-		// when authenticated we start the required clients
-		this.authSrv.authenticated$.pipe(
-			switchMap(_ => this.startBaseClients())
+
+		// when a realm user is found we start the required clients
+		this.realmAuthSrv.realmUser$.pipe(
+			filter(user => !!user),
+			switchMap(_ => this.startBaseClients()),
 		).subscribe();
 
 		// when logging off we destroy all clients
@@ -72,11 +76,18 @@ export class AppComponent implements OnInit {
 			tap(_ => ListPageService.reset())
 		).subscribe(_ => this.isSpinnerShown$.next(false));
 
+		// translate
+		registerLocaleData(localeEn, 'en');
+		registerLocaleData(localeFr, 'fr');
+		registerLocaleData(localeEs, 'es');
+		registerLocaleData(localeZh, 'zh');
+		this.translate.setDefaultLang('en');
+		this.translate.use('en');
 	}
 
 	private startBaseClients(): Observable<Client[]> {
+		const realmUser = this.realmAuthSrv.realmUser;
 		// when we are authenticated it means we have a token
-		const realmUser = this.authSrv.realmUser;
 		return forkJoin([
 			this.globalDataClient.init(realmUser),
 			this.globalRequestClient.init(realmUser),
@@ -85,7 +96,7 @@ export class AppComponent implements OnInit {
 	}
 
 	private startOrDestroyTeamClient(team: Team) {
-		const realmUser = this.authSrv.realmUser;
+		const realmUser = this.realmAuthSrv.realmUser;
 		if (team)
 			return this.teamClient.init(realmUser, team);
 		else

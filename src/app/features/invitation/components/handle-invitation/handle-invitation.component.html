@@ -1,21 +1,19 @@
 <ng-container *ngIf="!(hasAccepted$ | async)">
 
 	<div class="invite" *ngIf="!(authenticated$ | async)">
-		<div class="title" i18n="header@@congratz">Congratulations!</div>
-		<div class="subtitle" i18n="text@@you-r-invited">You are invited to join ShowSourcing</div>
-		<div class="subtitle" i18n="text@@do-you-have-acc">Do you have an account</div>
+		<div class="title" translate="header.congratz"></div>
+		<div class="subtitle" translate="text.you-r-invited"></div>
+		<div class="subtitle" translate="text.do-you-have-acc"></div>
 		<div class="flexColumn buttons">
 			<button class="secondary"
 				routerLink="/auth/login"
 				[queryParams]="{ returnUrl: returnUrl }"
-				i18n="button@@yes-log-me-in">
-				Yes - Let me log-in
+				translate="button.yes-log-me-in">
 			</button>
 			<button class="secondary"
 				routerLink="/auth/register"
 				[queryParams]="{ returnUrl: returnUrl }"
-				i18n="button@@no-create-account">
-				No - Create an account
+				translate="button.no-create-account">
 			</button>
 		</div>
 	</div>
@@ -24,25 +22,21 @@
 
 		<ng-container *ngIf="invitation$ | async as invitation; else spinner">
 
-			<div class="title" i18n="header@@congratz">Congratulations!</div>
+			<div class="title" translate="header.congratz"></div>
 
 			<div class="subtitle">
 				<span class="name">
 					{{invitation?.inviterFirstName}} {{invitation?.inviterLastName}}
 				</span>
-				<ng-container i18n="@@invites-you-join">invites you to join</ng-container>
+				<ng-container translate="text.invites-you-join"></ng-container>
 				<span class="name">
 					{{invitation?.teamName}}.
 				</span>
 			</div>
 
 			<div class="flexColumn buttons">
-				<button (click)="accept(invitation)" i18n="button@@yes-join-team">
-					Yes - Join the team
-				</button>
-				<button class="secondary" (click)="refuse(invitation)" i18n="button@@no-no-join-team">
-					No - I don't wish to join this team
-				</button>
+				<button (click)="accept(invitation)" translate="button.yes-join-team"></button>
+				<button class="secondary" (click)="refuse(invitation)" translate="button.no-no-join-team"></button>
 			</div>
 
 		</ng-container>
@@ -53,7 +47,7 @@
 					[isHaveLogo]="true"
 					[size]="150">
 				</spinner-app>
-				<h3 i18n="header@@loading-info-please-wait">We are loading your information, please wait...</h3>
+				<h3 translate="header.loading-info-please-wait"></h3>
 			</div>
 		</ng-template>
 
