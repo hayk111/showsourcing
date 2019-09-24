@@ -1,37 +1,38 @@
 
 <header-details-app
+	[title]="'title.data-cleansing' | translate"
 	[hasBackArrow]="false"
 	[elevated]="false">
 
-	<header-details-title-app i18n-title="@@data-cleansing"> {{ 'Data Cleansing' }} </header-details-title-app>
+	<header-details-title-app> {{ 'title.data-cleansing' | translate }} </header-details-title-app>
 
 	<logo-app color="primary" icon="smile" size="xl"></logo-app>
-	<header-details-info-app >Manage your categories, tags, suppliers and more</header-details-info-app>
+	<header-details-info-app>{{ 'text.manage-your-categories' | translate }}</header-details-info-app>
 
 	<!-- navigation tabs of panel -->
 	<header-list-nav-app>
 		<header-list-nav-item-app
 			link="/settings/data/category"
 			icon="category"
-			name="Categories">
+			[name]="'nav.categories' | translate">
 		</header-list-nav-item-app>
 	
 		<header-list-nav-item-app
 			link="/settings/data/tag"
 			icon="tag"
-			name="Tags">
+			[name]="'nav.tags' | translate">
 		</header-list-nav-item-app>
 	
 		<!-- <header-list-nav-item-app
 			link="/settings/data/supplier"
 			icon="supplier"
-			name="Suppliers">
+			[name]="'nav.suppliers' | translate">
 		</header-list-nav-item-app> -->
 	
 		<header-list-nav-item-app
 			link="/settings/data/event"
 			icon="event"
-			name="Event">
+			[name]="'nav.event' | translate">
 		</header-list-nav-item-app>
 	</header-list-nav-app>
 
@@ -39,8 +40,8 @@
 
 <header-list-app
 	class="smaller-padding"
-	[title]="listSrv.entityMetadata.plural"
-	[buttonName]="'Add ' + listSrv.entityMetadata.singular"
+	[title]="'ERM.' + listSrv.entityMetadata.translationKey + '.plural' | translate"
+	[buttonName]="'OBJ.add-OBJ' | translate: {type: 'ERM.' + listSrv.entityMetadata.translationKey + '.singular' | translate}"
 	(buttonClick)="listSrv.create(false)">
 </header-list-app>
 
@@ -48,10 +49,11 @@
 	class="smaller-padding"
 	[hasFilter]="false"
 	[hasSwitch]="false"
+	[entityType]="erm.translationKey"
 	(search)="listSrv.search($event)">
 	<controller-list-right-item-app>
 		<div class="flex" *ngIf="(listSrv.selection$ | async).size > 0">
-			<button class="button warn capitalize" (click)="listSrv.deleteSelected(true)" i18n="@@delete-selected"> delete selected </button>
+			<button class="button warn capitalize" (click)="listSrv.deleteSelected(true)" translate="delete-selected"></button>
 			<!-- <span class="mg-s"></span>
 			<button (click)="mergeSelected()"> Merge Selected </button> -->
 		</div>

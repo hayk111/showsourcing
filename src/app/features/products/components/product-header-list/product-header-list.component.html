@@ -1,7 +1,7 @@
 <header-details-app>
 
 	<header-details-title-app> 
-		{{ product?.name || ('Unnamed Product' | const: 'messages') }}
+		{{ product?.name || ('message.unnamed-product' | translate) }}
 	</header-details-title-app>
 
 	<logo-app [logo]="product?.images[0]" size="l" type="product"></logo-app>
@@ -21,6 +21,7 @@
 	</header-details-info-app>
 	
 	<header-details-actions-app>
+
 		<header-list-action-buttons-app
 			[data]="product"
 			[user]="product?.assignee"
@@ -39,22 +40,24 @@
 		</status-selector-app>
 	
 		<context-menu-app>
+
 			<context-menu-trigger-app>
 				<button class="icon light dots pointer">
 					<icon-app [size]="20" name="dots-vertical"></icon-app>
 				</button>
 			</context-menu-trigger-app>
-			<context-menu-item-app (click)="delete.emit(product)" i18n="button@@delete">
-				Delete
-			</context-menu-item-app>
-			<context-menu-item-app (click)="supplierRequest.emit(product)"  i18n="button@@supplier-request">
-				Supplier Request
-			</context-menu-item-app>
-			<context-menu-item-app (click)="archive.emit(product)"  i18n="button@@archive">
-				Archive
-			</context-menu-item-app>
-		</context-menu-app>
-	</header-details-actions-app>
 
+			<context-menu-item-app (click)="delete.emit(product)" translate="button.delete">
+			</context-menu-item-app>
+	
+			<context-menu-item-app (click)="supplierRequest.emit(product)" translate="button.supplier-request">
+			</context-menu-item-app>
+	
+			<context-menu-item-app (click)="archive.emit(product)" translate="button.archive">
+			</context-menu-item-app>
+
+		</context-menu-app>
+
+	</header-details-actions-app>
 
 </header-details-app>

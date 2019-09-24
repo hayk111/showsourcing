@@ -1,20 +1,19 @@
 
 <controller-list-app
-	[title]="'invitations'"
+	[title]="'title.invitations' | translate"
 	[hasSwitch]="false"
 	[hasFilter]="false"
-	(search)="listSrv.search($event)"
-	i18n-title="@@invitations">
+	(search)="listSrv.search($event)">
 
 	<controller-list-right-item-app>
 		<div toolTip [toolTipMessage]="getToolTipMsg()" toolTipPosition="above-right">
-			<button [disabled]="!teamOwner" (click)="openInviteDialog()" i18n="@@invite-collaborator">Invite Collaborator</button>
+			<button [disabled]="!teamOwner" (click)="openInviteDialog()" translate="button.invite-collaborator"></button>
 		</div>
 	</controller-list-right-item-app>
 </controller-list-app>
 
 <ng-container *ngIf="(listSrv.items$ | async) as invitations">
-	<invitations-list-view-app
+	<invitations-table-app
 		[rows]="invitations"
 		[teamOwner]="teamOwner"
 		[user]="user"
@@ -32,7 +31,7 @@
     (unselectAll)="listSrv.unselectAll()"
 		(accessTypeUpdated)="updateAccessType($event)"
 		(delete)="listSrv.deleteOne($event, true)">
-	</invitations-list-view-app>
+	</invitations-table-app>
 
 	<!-- ng-container *ngIf="selected$ | async as selected">
 		<selection-bar-app

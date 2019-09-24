@@ -1,9 +1,8 @@
 <header-list-app
-	[class.top-panel-margin-board]="listSrv.view === 'board'"
-	[title]="'My suppliers'"
-	buttonName="Create Supplier"
-	(buttonClick)="listSrv.create()"
-	i18-title="@@create-suppliers">
+	[class.header-detail-margin-board]="listSrv.view === 'board'"
+	[title]="'title.my-suppliers' | translate"
+	[buttonName]="'button.add-supplier' | translate"
+	(buttonClick)="listSrv.create()">
 </header-list-app>
 
 <controller-list-app
@@ -12,7 +11,7 @@
 	[hasFilter]="true"
 	[hasThumb]="false"
 	[view]="listSrv.view"
-	entityType="suppliers"
+	[entityType]="'SUPPLIER'"
 	searchType="short"
 	[count]="listSrv.count$ | async"
 	[filtersAmount]="listSrv.getFilterAmount([{ type: filterType.ARCHIVED, value: false }, { type: filterType.DELETED, value: false }])"
@@ -29,7 +28,7 @@
 
 <ng-container *ngIf="listSrv.isListening">
 
-	<supplier-list-view-app
+	<supplier-table-app
 		#supplierList
 		*ngIf="listSrv.view === 'list'"
 		[rows]="listSrv.items$ | async"
@@ -52,7 +51,7 @@
 		(showItemsPerPage)="showItemsPerPage($event)"
 		(archive)="onArchive($event)"
 		(delete)="listSrv.deleteOne($event)">
-	</supplier-list-view-app>
+	</supplier-table-app>
 
 	<selection-bar-app
 		[isShown]="(listSrv.selection$ | async).size > 0"
@@ -61,14 +60,13 @@
 
 		<div class="flex">
 			<status-selector-app
-				toolTip toolTipMessage="Change status" toolTipPosition="above-right"
+				toolTip [toolTipMessage]="'message.change-status' | translate" toolTipPosition="above-right"
 				#workActionMenu
 				selectSize="s"
 				[typeEntity]="erm.SUPPLIER"
 				type="multiple-selection"
 				[internalUpdate]="false"
-				(statusUpdated)="this.listSrv.updateSelected({status: $event})"
-				i18n-toolTipMessage="@@change-status">
+				(statusUpdated)="this.listSrv.updateSelected({status: $event})">
 			</status-selector-app>
 			<action-bar-app
 				[favorite]="listSrv.allSelectedFavorite"

@@ -1,5 +1,5 @@
 
-<div class="top-panel-ctnr flexCenter z-1">
+<div class="header-detail-ctnr flexCenter z-1">
 	<request-header-list-sup
 		[request]="request$ | async">
 	</request-header-list-sup>
@@ -14,7 +14,7 @@
 	</div>
 	<div class="right">
 		<card-app>
-			<h3 class="l capitalize" i18n="header@@message">message</h3>
+			<h3 class="l capitalize" translate="header.message"></h3>
 			<div class="flex">
 				<img src="/assets/img/user-temp.png"/>
 				<div class="message-container">
@@ -24,8 +24,8 @@
 			</div>
 		</card-app>
 		<card-app class="card-list full-height-main">
-			<h3 class="l capitalize" i18n="header@@request-items">request items</h3>
-			<request-element-list-view-sup
+			<h3 class="l capitalize" translate="header.request-items"></h3>
+			<request-element-table-sup
 				class="no-padding"
 				[rows]="listSrv.items$ | async"
 				[creationDate]="(request$ | async)?.creationDate"
@@ -41,7 +41,7 @@
 				(sort)="listSrv.sort($event)"
 				(unselect)="listSrv.unselectOne($event)"
 				(unselectAll)="listSrv.unselectAll()">
-			</request-element-list-view-sup>
+			</request-element-table-sup>
 		</card-app>
 	</div>
 </div>

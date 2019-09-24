@@ -37,7 +37,7 @@
           <context context-type="linenumber">57</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/settings/components/export-list-view/export-list-view.component.html</context>
+          <context context-type="sourcefile">app/features/settings/components/export-table/export-table.component.html</context>
           <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
@@ -71,7 +71,7 @@
           <context context-type="linenumber">88</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/common/product/components/products-list-view/products-list-view.component.html</context>
+          <context context-type="sourcefile">app/common/product/components/products-table/products-table.component.html</context>
           <context context-type="linenumber">50</context>
         </context-group>
         <context-group purpose="location">
@@ -95,15 +95,15 @@
           <context context-type="linenumber">20</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/project/components/projects-list-view/projects-list-view.component.html</context>
+          <context context-type="sourcefile">app/features/project/components/projects-table/projects-table.component.html</context>
           <context context-type="linenumber">7</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/settings/components/invitations-list-view/invitations-list-view.component.html</context>
+          <context context-type="sourcefile">app/features/settings/components/invitations-table/invitations-table.component.html</context>
           <context context-type="linenumber">21</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/settings/components/team-members-list-view/team-members-list-view.component.html</context>
+          <context context-type="sourcefile">app/features/settings/components/team-members-table/team-members-table.component.html</context>
           <context context-type="linenumber">20</context>
         </context-group>
         <context-group purpose="location">
@@ -111,7 +111,7 @@
           <context context-type="linenumber">50</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/supplier/components/supplier-list-view/supplier-list-view.component.html</context>
+          <context context-type="sourcefile">app/features/supplier/components/supplier-table/supplier-table.component.html</context>
           <context context-type="linenumber">19</context>
         </context-group>
         <context-group purpose="location">
@@ -123,7 +123,7 @@
           <context context-type="linenumber">40</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/workspace/components/sample-list-view/sample-list-view.component.html</context>
+          <context context-type="sourcefile">app/features/workspace/components/sample-table/sample-table.component.html</context>
           <context context-type="linenumber">19</context>
         </context-group>
         <context-group purpose="location">
@@ -656,7 +656,7 @@
         <source>Show Filters</source>
         <target state="final">显示筛选结果</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/shared/top-panel/components/sub-panel/sub-panel.component.html</context>
+          <context context-type="sourcefile">app/shared/header-detail/components/sub-panel/sub-panel.component.html</context>
           <context context-type="linenumber">21</context>
         </context-group>
         <note priority="1" from="description">text</note>
@@ -843,7 +843,7 @@
         <source>List</source>
         <target state="final">列表</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/shared/top-panel/components/view-switcher/view-switcher.component.html</context>
+          <context context-type="sourcefile">app/shared/header-detail/components/view-switcher/view-switcher.component.html</context>
           <context context-type="linenumber">5</context>
         </context-group>
         <note priority="1" from="description">text</note>
@@ -852,7 +852,7 @@
         <source>Thumb</source>
         <target state="final">赞</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/shared/top-panel/components/view-switcher/view-switcher.component.html</context>
+          <context context-type="sourcefile">app/shared/header-detail/components/view-switcher/view-switcher.component.html</context>
           <context context-type="linenumber">9</context>
         </context-group>
         <note priority="1" from="description">text</note>
@@ -1116,7 +1116,7 @@
           <context context-type="linenumber">53</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/common/product/components/products-list-view/products-list-view.component.html</context>
+          <context context-type="sourcefile">app/common/product/components/products-table/products-table.component.html</context>
           <context context-type="linenumber">26</context>
         </context-group>
         <context-group purpose="location">
@@ -1213,7 +1213,7 @@
           <context context-type="linenumber">28</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/common/product/components/products-list-view/products-list-view.component.html</context>
+          <context context-type="sourcefile">app/common/product/components/products-table/products-table.component.html</context>
           <context context-type="linenumber">38</context>
         </context-group>
         <context-group purpose="location">
@@ -1417,7 +1417,7 @@
 	</target>
         <note priority="1" from="description">button</note>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/common/product/components/products-list-view/products-list-view.component.html</context>
+          <context context-type="sourcefile">app/common/product/components/products-table/products-table.component.html</context>
           <context context-type="linenumber">44</context>
         </context-group>
         <context-group purpose="location">
@@ -1445,7 +1445,7 @@
           <context context-type="linenumber">7</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/workspace/components/sample-list-view/sample-list-view.component.html</context>
+          <context context-type="sourcefile">app/features/workspace/components/sample-table/sample-table.component.html</context>
           <context context-type="linenumber">84</context>
         </context-group>
       </trans-unit>
@@ -1797,7 +1797,7 @@
 			Cancel request item
 		</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/common/request/components/request-element-list-view/request-element-list-view.component.html</context>
+          <context context-type="sourcefile">app/common/request/components/request-element-table/request-element-table.component.html</context>
           <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
@@ -1805,7 +1805,7 @@
         <source>No request items</source>
         <target state="new">No request items</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/common/request/components/request-element-list-view/request-element-list-view.component.html</context>
+          <context context-type="sourcefile">app/common/request/components/request-element-table/request-element-table.component.html</context>
           <context context-type="linenumber">8</context>
         </context-group>
         <note priority="1" from="description">no-request-items</note>
@@ -2877,7 +2877,7 @@
         <source>No project</source>
         <target state="final">无项目</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/project/components/projects-list-view/projects-list-view.component.html</context>
+          <context context-type="sourcefile">app/features/project/components/projects-table/projects-table.component.html</context>
           <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit>
@@ -2895,7 +2895,7 @@
           <context context-type="linenumber">51</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/common/product/components/products-list-view/products-list-view.component.html</context>
+          <context context-type="sourcefile">app/common/product/components/products-table/products-table.component.html</context>
           <context context-type="linenumber">67</context>
         </context-group>
         <context-group purpose="location">
@@ -2907,7 +2907,7 @@
           <context context-type="linenumber">39</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/workspace/components/sample-list-view/sample-list-view.component.html</context>
+          <context context-type="sourcefile">app/features/workspace/components/sample-table/sample-table.component.html</context>
           <context context-type="linenumber">37</context>
         </context-group>
       </trans-unit>
@@ -3026,7 +3026,7 @@
         <source>No product</source>
         <target state="final">无产品</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/common/product/components/products-list-view/products-list-view.component.html</context>
+          <context context-type="sourcefile">app/common/product/components/products-table/products-table.component.html</context>
           <context context-type="linenumber">9</context>
         </context-group>
         <context-group purpose="location">
@@ -3169,7 +3169,7 @@
 			Cancel request
 		</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/requests/components/request-list-view/request-list-view.component.html</context>
+          <context context-type="sourcefile">app/features/requests/components/request-table/request-table.component.html</context>
           <context context-type="linenumber">22</context>
         </context-group>
       </trans-unit>
@@ -3177,7 +3177,7 @@
         <source>No requests</source>
         <target state="final">无请求</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/requests/components/request-list-view/request-list-view.component.html</context>
+          <context context-type="sourcefile">app/features/requests/components/request-table/request-table.component.html</context>
           <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
@@ -3249,7 +3249,7 @@
         <source>No exports</source>
         <target state="final">无导出</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/settings/components/export-list-view/export-list-view.component.html</context>
+          <context context-type="sourcefile">app/features/settings/components/export-table/export-table.component.html</context>
           <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
@@ -3302,7 +3302,7 @@
         <source>Remove User</source>
         <target state="final">移除用户</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/settings/components/team-members-list-view/team-members-list-view.component.html</context>
+          <context context-type="sourcefile">app/features/settings/components/team-members-table/team-members-table.component.html</context>
           <context context-type="linenumber">73</context>
         </context-group>
         <context-group purpose="location">
@@ -3314,7 +3314,7 @@
         <source>Team Owner</source>
         <target state="final">群主</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/settings/components/team-members-list-view/team-members-list-view.component.html</context>
+          <context context-type="sourcefile">app/features/settings/components/team-members-table/team-members-table.component.html</context>
           <context context-type="linenumber">83</context>
         </context-group>
       </trans-unit>
@@ -3322,7 +3322,7 @@
         <source>No team member</source>
         <target state="final">无群组成员</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/settings/components/team-members-list-view/team-members-list-view.component.html</context>
+          <context context-type="sourcefile">app/features/settings/components/team-members-table/team-members-table.component.html</context>
           <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
@@ -3458,7 +3458,7 @@
           <context context-type="linenumber">59</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/common/product/components/products-list-view/products-list-view.component.html</context>
+          <context context-type="sourcefile">app/common/product/components/products-table/products-table.component.html</context>
           <context context-type="linenumber">32</context>
         </context-group>
       </trans-unit>
@@ -3647,27 +3647,27 @@
 				群组成员
 			</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/settings/components/invitations-list-view/invitations-list-view.component.html</context>
+          <context context-type="sourcefile">app/features/settings/components/invitations-table/invitations-table.component.html</context>
           <context context-type="linenumber">45</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/settings/components/invitations-list-view/invitations-list-view.component.html</context>
+          <context context-type="sourcefile">app/features/settings/components/invitations-table/invitations-table.component.html</context>
           <context context-type="linenumber">51</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/settings/components/invitations-list-view/invitations-list-view.component.html</context>
+          <context context-type="sourcefile">app/features/settings/components/invitations-table/invitations-table.component.html</context>
           <context context-type="linenumber">65</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/settings/components/team-members-list-view/team-members-list-view.component.html</context>
+          <context context-type="sourcefile">app/features/settings/components/team-members-table/team-members-table.component.html</context>
           <context context-type="linenumber">57</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/settings/components/team-members-list-view/team-members-list-view.component.html</context>
+          <context context-type="sourcefile">app/features/settings/components/team-members-table/team-members-table.component.html</context>
           <context context-type="linenumber">63</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/settings/components/team-members-list-view/team-members-list-view.component.html</context>
+          <context context-type="sourcefile">app/features/settings/components/team-members-table/team-members-table.component.html</context>
           <context context-type="linenumber">79</context>
         </context-group>
         <context-group purpose="location">
@@ -3679,27 +3679,27 @@
         <source>contributor</source>
         <target state="final">合作商</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/settings/components/invitations-list-view/invitations-list-view.component.html</context>
+          <context context-type="sourcefile">app/features/settings/components/invitations-table/invitations-table.component.html</context>
           <context context-type="linenumber">46</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/settings/components/invitations-list-view/invitations-list-view.component.html</context>
+          <context context-type="sourcefile">app/features/settings/components/invitations-table/invitations-table.component.html</context>
           <context context-type="linenumber">56</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/settings/components/invitations-list-view/invitations-list-view.component.html</context>
+          <context context-type="sourcefile">app/features/settings/components/invitations-table/invitations-table.component.html</context>
           <context context-type="linenumber">66</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/settings/components/team-members-list-view/team-members-list-view.component.html</context>
+          <context context-type="sourcefile">app/features/settings/components/team-members-table/team-members-table.component.html</context>
           <context context-type="linenumber">58</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/settings/components/team-members-list-view/team-members-list-view.component.html</context>
+          <context context-type="sourcefile">app/features/settings/components/team-members-table/team-members-table.component.html</context>
           <context context-type="linenumber">68</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/settings/components/team-members-list-view/team-members-list-view.component.html</context>
+          <context context-type="sourcefile">app/features/settings/components/team-members-table/team-members-table.component.html</context>
           <context context-type="linenumber">80</context>
         </context-group>
         <context-group purpose="location">
@@ -3711,7 +3711,7 @@
         <source>Remove Invitation</source>
         <target state="final">移除邀请</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/settings/components/invitations-list-view/invitations-list-view.component.html</context>
+          <context context-type="sourcefile">app/features/settings/components/invitations-table/invitations-table.component.html</context>
           <context context-type="linenumber">61</context>
         </context-group>
       </trans-unit>
@@ -3719,7 +3719,7 @@
         <source>No invitation</source>
         <target state="final">无邀请</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/settings/components/invitations-list-view/invitations-list-view.component.html</context>
+          <context context-type="sourcefile">app/features/settings/components/invitations-table/invitations-table.component.html</context>
           <context context-type="linenumber">8</context>
         </context-group>
       </trans-unit>
@@ -3925,7 +3925,7 @@
         <source>{VAR_PLURAL, plural, =1 {comment } other {comments } }</source>
         <target state="final">{VAR_PLURAL, plural, =1 {评论} other {评论}}</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/workspace/components/sample-list-view/sample-list-view.component.html</context>
+          <context context-type="sourcefile">app/features/workspace/components/sample-table/sample-table.component.html</context>
           <context context-type="linenumber">84</context>
         </context-group>
       </trans-unit>

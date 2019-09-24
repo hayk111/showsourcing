@@ -5,8 +5,7 @@
 		<activity-user-app
 			[user]="products[0]?.createdBy"
 			[time]="time"
-			action="added {{ products?.length }} products"
-			i18n-action="@@added-OBJ-products">
+			[action]="'OBJ.added-n-products' | translate: {noProducts: products?.length}">
 		</activity-user-app>
 
 		<!-- previews -->
@@ -29,7 +28,7 @@
 					<div class="flexColumn supplier-info">
 						<span class="supplier-name flexStart ellipsis">{{ supplier.name }}</span>
 						<span class="supplier-type flexStart ellipsis">
-							{{ supplier?.supplierType ||  (erm.SUPPLIER.singular | const: 'erm')}}
+							{{ supplier?.supplierType ||  ('ERM.' + erm.SUPPLIER.translationKey + '.singular' | translate)}}
 							<ng-container *ngIf="supplier.country">
 								{{ supplier.country | const: 'country'  }}
 							</ng-container>

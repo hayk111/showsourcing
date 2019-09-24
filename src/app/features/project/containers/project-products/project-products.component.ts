@@ -13,8 +13,9 @@ import { ProductFeatureService } from '~features/products/services';
 import { ProjectFeatureService } from '~features/project/services';
 import { DialogService } from '~shared/dialog/services';
 import { SupplierRequestDialogComponent } from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
+import { TranslateService } from '@ngx-translate/core';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
-import { SubPanelService } from '~shared/top-panel/services/sub-panel.service';
+import { ControllerListService } from '~shared/header-list/services/controller-list.service';
 
 @Component({
 	selector: 'project-products-app',
@@ -59,7 +60,8 @@ export class ProjectProductsComponent extends AutoUnsub implements OnInit, After
 		public listSrv: ListPageService<Product, ProductService>,
 		public commonModalSrv: CommonModalService,
 		private notifSrv: NotificationService,
-		private subPanelSrv: SubPanelService,
+		private controllerListService: ControllerListService,
+		private translate: TranslateService
 	) {
 		super();
 	}
@@ -122,15 +124,14 @@ export class ProjectProductsComponent extends AutoUnsub implements OnInit, After
 	}
 
 	onArchive(product: Product | Product[]) {
-		// TODO i18n
 		if (Array.isArray(product)) {
-			this.productFeatureSrv.updateMany(product.map((p: Product) => ({id: p.id, archived: true})))
+			this.productFeatureSrv.updateMany(product.map((p: Product) => ({ id: p.id, archived: true })))
 				.pipe(switchMap(_ => this.listSrv.refetch()))
 				.subscribe(_ => {
 					this.notifSrv.add({
 						type: NotificationType.SUCCESS,
-						title: 'Products archived',
-						message: 'Products have been archived with success'
+						title: this.translate.instant('title.products-archived'),
+						message: this.translate.instant('message.products-archived-successfully')
 					});
 				});
 		} else {
@@ -140,8 +141,8 @@ export class ProjectProductsComponent extends AutoUnsub implements OnInit, After
 				.subscribe(_ => {
 					this.notifSrv.add({
 						type: NotificationType.SUCCESS,
-						title: 'Product archived',
-						message: 'Products have been archived with success'
+						title: this.translate.instant('title.product-archived'),
+						message: this.translate.instant('message.product-archived-successfully')
 					});
 				});
 		}
@@ -157,7 +158,7 @@ export class ProjectProductsComponent extends AutoUnsub implements OnInit, After
 		this.listSrv.addFilter({ type: FilterType.ARCHIVED, value: false});
 		this.listSrv.addFilter({ type: FilterType.DELETED, value: false});
 
-		this.subPanelSrv.onFiltersClear();
+		this.controllerListService.onFiltersClear();
 	}
 
 	showItemsPerPage(count: number) {

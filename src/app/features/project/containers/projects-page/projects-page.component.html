@@ -1,14 +1,12 @@
 
 <header-list-app
-  title="My Projects"
-  buttonName="Create Project"
-	(buttonClick)="listSrv.create()"
-	i18n-title="@@my-projects"
-	i18n-buttonName="@@create-project">
+  [title]="'title.my-projects' | translate"
+  [buttonName]="'button.create-project' | translate"
+	(buttonClick)="listSrv.create()">
 </header-list-app>
 
 <controller-list-app
-	entityType="projects"
+	[entityType]="'PROJECT'"
 	[hasSwitch]="false"
 	[hasExport]="false"
 	[count]="listSrv.count$ | async"
@@ -25,7 +23,7 @@
 
 <ng-container *ngIf="listSrv.isListening">
 
-  <projects-list-view-app
+  <projects-table-app
 		[selection]="listSrv.selection$ | async"
 		[rows]="listSrv.items$ | async"
 		[pending]="listSrv.pending"
@@ -40,7 +38,7 @@
 		(sort)="listSrv.sort($event)"
 		(showItemsPerPage)="showItemsPerPage($event)"		
 		(delete)="listSrv.deleteOne($event)">
-	</projects-list-view-app>
+	</projects-table-app>
 
   <selection-bar-app
     [isShown]="(listSrv.selection$ | async).size > 0"

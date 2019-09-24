@@ -2,7 +2,7 @@
 	[hasBackArrow]="false"
 	[elevated]="false">
 
-	<header-details-title-app i18n-title="@@data-cleansing">{{ 'My Team' }}</header-details-title-app>
+	<header-details-title-app>{{ 'title.my-team' | translate }}</header-details-title-app>
 
 	<logo-app color="primary" icon="team" size="xl"></logo-app>
 	<header-details-info-app  *ngIf="(team$ | async) as team">{{team.name}}</header-details-info-app>
@@ -11,18 +11,18 @@
 		<header-list-nav-item-app
 			link="settings/team/members"
 			icon="team"
-			name="Team Members">
+			[name]="'nav.team-members' | translate">
 		</header-list-nav-item-app>
 	
 		<!-- TODO create route for settings tab -->
 		<header-list-nav-item-app
 			link="settings/team/settings"
 			icon="settings"
-			name="Settings">
+			[name]="'nav.settings' | translate">
 		</header-list-nav-item-app>
 	</header-list-nav-app>
 
-	<button action (click)="redirectNewTeamScreen()">Create New Team</button>
+	<button action (click)="redirectNewTeamScreen()" translate="button.create-new-team"></button>
 </header-details-app>
 
 
@@ -38,8 +38,10 @@
 	i18n-buttonName="@@create-new-team">
 
 	<nav class="flex">
-		<span class="capitalize" (click)="displayTab('team-members')" [ngClass]="{ active: (selectedTab === 'team-members') }" i18n="@@team-members">Team Members</span>
-		<span class="capitalize" (click)="displayTab('invitations')" [ngClass]="{ active: (selectedTab === 'invitations') }" i18n="@@invitations">invitations</span>
+		<span class="capitalize" (click)="displayTab('team-members')"
+			[ngClass]="{ active: (selectedTab === 'team-members') }" translate="text.team-members"></span>
+		<span class="capitalize" (click)="displayTab('invitations')" [ngClass]="{ active: (selectedTab === 'invitations') }"
+			translate="text.invitations"></span>
 	</nav>
 
 </header-list-app> -->

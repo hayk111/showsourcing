@@ -1,31 +1,34 @@
 <ng-container *ngIf="project$ | async as project; else spinner">
 	<header-details-app [elevated]="false">
 
-		<header-details-title-app i18n-title="@@my-products">{{ project?.name }}</header-details-title-app>
+		<header-details-title-app>{{ project?.name }}</header-details-title-app>
 
 		<logo-app color="primary" type="project" size="xl"></logo-app>
 
 		<header-details-info-app>
-			{{project?.status || 'new'}}<div class="small-gray-badge-separator"></div>Due on {{project?.creationDate | date: 'dd-mm-yyyy' }}
-			<div class="small-gray-badge-separator"></div>Created by {{ project?.createdBy?.firstName }} {{ project?.createdBy?.lastName }}
+			{{ (project?.status ? 'text.' + project?.status : 'text.new') | translate }}
+			<div class="small-gray-badge-separator"></div>
+			{{ 'OBJ.due-on-date' | translate: {date: project?.creationDate | date: 'dd-mm-yyyy':'':translate.currentLang} }}
+			<div class="small-gray-badge-separator"></div>
+			{{ 'OBJ.created-by-name' | translate: {firstName: project?.createdBy?.firstName, lastName: project?.createdBy?.lastName} }}
 		</header-details-info-app>
 
 		<header-list-nav-app>
 			<header-list-nav-item-app
 				[link]="getTabPanelUrl('products')"
 				icon="product"
-				name="Products">
+				[name]="'nav.products' | translate">
 			</header-list-nav-item-app>
 	
 			<header-list-nav-item-app
 				[link]="getTabPanelUrl('settings')"
 				icon="settings"
-				name="Settings">
+				[name]="'nav.settings' | translate">
 			</header-list-nav-item-app>
 		</header-list-nav-app>
 
 		<header-details-actions-app>
-			<button class="add-product" (click)="openFindProductDlg()">Add Product</button>
+			<button class="add-product" (click)="openFindProductDlg()" translate="button.add-product"></button>
 			
 			<status-selector-app
 				[typeEntity]="erm.PROJECT"
@@ -34,20 +37,19 @@
 				type="button">
 			</status-selector-app>
 	
-			<context-menu-app action>
+			<context-menu-app>
 				<context-menu-trigger-app>
 					<button class="vertical-dots icon light dots pointer">
 						<icon-app [size]="16" name="dots-vertical"></icon-app>
 					</button>
 				</context-menu-trigger-app>
-				<context-menu-item-app (click)="delete.emit(project)" i18n="button@@delete">
-					Delete
+				<context-menu-item-app (click)="delete.emit(project)" translate="button.delete">
 				</context-menu-item-app>
-				<context-menu-item-app (click)="archive.emit(project)"  i18n="button@@archive">
-					Archive
+				<context-menu-item-app (click)="archive.emit(project)"  translate="button.archive">
 				</context-menu-item-app>
 			</context-menu-app>
 		</header-details-actions-app>
+
 	</header-details-app>
 
 	<controller-list-app
@@ -55,7 +57,7 @@
 		[hasSwitch]="true"
 		[filtersAmount]="listSrv.getFilterAmount([{ type: filterTypeEnum.ARCHIVED, value: false }, { type: filterTypeEnum.DELETED, value: false }])"
 		[hasFilter]="true"
-		entityType="products"
+		[entityType]="'PRODUCT'"
 		[searchValue]="listSrv.searchValue"
 		[view]="listSrv.view"
 		(showFilters)="listSrv.openFilterPanel()"
@@ -79,7 +81,7 @@
 
 <ng-container>
 
-		<products-list-view-app
+		<products-table-app
 			*ngIf="listSrv.view === 'list'"
 			class="list-view"
 			[selection]="listSrv.selection$ | async"
@@ -106,7 +108,7 @@
 			(showItemsPerPage)="showItemsPerPage($event)"
 			(delete)="deassociateProductById(($event)?.id)"
 			(archiveProduct)="onArchive($event)">
-		</products-list-view-app>
+		</products-table-app>
 
 		<products-card-view-app
 			infiniScroll

@@ -14,19 +14,17 @@
 				(check)="toggleMySamples(true)"
 				(uncheck)="toggleMySamples(false)">
 			</checkbox-app>
-			<span class="ellipsis" i18n="text@@assigned-to-me">
-				Assigned to me
+			<span class="ellipsis" translate="text.assigned-to-me">
 			</span>
 		</div>
 	</controller-list-left-item-app>
 	<controller-list-right-item-app>
-		<button (click)="openCreationSampleDlg()" i18n="button@@add-sample">
-			Add Sample
+		<button (click)="openCreationSampleDlg()" translate="button.add-sample">
 		</button>
 	</controller-list-right-item-app>
 </controller-list-app>
 
-<sample-list-view-app
+<sample-table-app
 	[selection]="listSrv.selection$ | async"
 	[rows]="listSrv.items$ | async"
 	[pending]="listSrv.pending"
@@ -42,7 +40,7 @@
 	(delete)="listSrv.deleteOne($event)"
 	(openProduct)="openProduct($event)"
 	(openSupplier)="openSupplier($event)">
-</sample-list-view-app>
+</sample-table-app>
 
 <selection-bar-app
 	[isShown]="(listSrv.selection$ | async)?.size > 0"
@@ -50,14 +48,13 @@
 	(close)="listSrv.unselectAll()">
 	<div class="flex">
 		<status-selector-app
-			toolTip toolTipMessage="Change status" toolTipPosition="above-right"
+			toolTip [toolTipMessage]="'message.change-status' | translate" toolTipPosition="above-right"
 			#workActionMenu
 			selectSize="s"
 			[typeEntity]="erm.SAMPLE"
 			type="multiple-selection"
 			[internalUpdate]="false"
-			(statusUpdated)="this.listSrv.updateSelected({status: $event})"
-			i18n-toolTipMessage="@@change-status">
+			(statusUpdated)="this.listSrv.updateSelected({status: $event})">
 		</status-selector-app>
 
 		<button class="icon light" (click)="listSrv.deleteSelected()">

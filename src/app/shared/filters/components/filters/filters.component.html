@@ -4,12 +4,11 @@
 <side-panel-app *ngIf="view === 'BTNS'">
 
 	<div class="filters-title-section">
-		<side-panel-title-app class="capitalize filters-title" i18n="text@@filters">
-			filters
-		</side-panel-title-app>
+		<side-panel-title-app class="capitalize filters-title" translate="text.filters">
+    </side-panel-title-app>
 		<div class="clear-filters-container">
-			<side-panel-action-app class="clear" (click)="resetAll()" i18n="text@@clear-all-filters">
-				<span class="clear-filters">Clear All Filters</span>
+			<side-panel-action-app class="clear" (click)="resetAll()">
+				<span class="clear-filters" translate="text.clear-all-filters"></span>
 			</side-panel-action-app>
 			<icon-app name="close-pane-right" size="24" (click)="close.emit()"></icon-app>
 		</div>
@@ -35,10 +34,10 @@
   <side-panel-title-app (click)="openBtnPanel()">
     <div class="flex pointer">
       <icon-app name="angle-left"></icon-app>
-      <span class="capitalize" i18n="button@@back">back</span>
+      <span class="capitalize" translate="button.back">back</span>
     </div>
   </side-panel-title-app>
-  <side-panel-action-app class="clear" (click)="resetType(typeSelected)" i18n="button@@clear-all">
+  <side-panel-action-app class="clear" (click)="resetType(typeSelected)" translate="button.clear-all">
     Clear All
   </side-panel-action-app>
 

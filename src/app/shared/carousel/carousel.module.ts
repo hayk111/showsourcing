@@ -20,6 +20,7 @@ import { SelectorsModule } from '~shared/selectors/selectors.module';
 import { UtilsModule } from '~shared/utils';
 import { PriceModule } from '~shared/price';
 import { DividerModule } from '~shared/divider/divider.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
 	imports: [
@@ -37,6 +38,7 @@ import { DividerModule } from '~shared/divider/divider.module';
 		UtilsModule,
 		PriceModule,
 		DividerModule,
+		TranslateModule
 	],
 	declarations: [
 		CarouselComponent,

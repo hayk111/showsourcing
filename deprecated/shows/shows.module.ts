@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ShowsPageComponent } from '~features/shows/containers/shows-page/shows-page.component';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '~shared/shared.module';
-import { TopPanelModule } from '~shared/top-panel/top-panel.module';
+import { HeaderListModule } from '~shared/header-detail/header-detail.module';
 import { ShowListComponent } from '~features/shows/components/show-list/show-list.component';
 import { SearchBarModule } from '~shared/search-bar-animated/search-bar.module';
 import { ShowDetailsComponent } from './containers/show-details/show-details.component';

@@ -1,6 +1,6 @@
 <controller-list-app
 	[title]="listSrv.entityMetadata.plural"
-	buttonName="Add a status"
+	[buttonName]="button.add-a-status"
 	[hasFilter]="false"
 	[hasSearch]="false"
 	[hasSwitch]="false"
@@ -14,7 +14,4 @@
 	(delete)="listSrv.deleteOne($event, true)">
 </workflow-managament-table-app>
 
-<div *ngIf="listSrv.entityMetadata.singular === 'product status'" class="status-tip" i18n="@@products-sent-new-idea">
-	All products will be sent to New idea when created. New ideas can then be sent to the <br>
-	workflow or kept as a reference (no action has to be taken)
-</div>
+<div *ngIf="listSrv.entityMetadata.singular === 'product status'" class="status-tip" translate="message.products-sent-new-idea"></div>

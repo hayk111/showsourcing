@@ -1,9 +1,7 @@
 <header-details-app
 	[hasBackArrow]="false"
 	[elevated]="false">
-
-	<header-details-title-app i18n-title="@@exports">{{ 'My Exports' }}</header-details-title-app>
-
+	<header-details-title-app>{{ 'title.my-exports' | translate }}</header-details-title-app>
 	<logo-app color="primary" icon="close-pane-bottom" size="xl"></logo-app>
 	<header-details-info-app>Exports from my team</header-details-info-app>
 </header-details-app>
@@ -15,7 +13,7 @@
 	(search)="listSrv.search($event)">
 </controller-list-app>
 
-<export-list-view-app
+<export-table-app
 	class="no-padding"
 	[rows]="listSrv.items$ | async"
 	[pending]="listSrv.pending"
@@ -24,7 +22,7 @@
 	(goToPage)="listSrv.loadPage($event)"
 	(sort)="listSrv.sort($event)"
 	(download)="downloadOne($event)">
-</export-list-view-app>
+</export-table-app>
 
 <!-- in case selection comes back -->
 <!-- <selection-bar-app

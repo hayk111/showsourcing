@@ -36,7 +36,7 @@
           <context context-type="linenumber">57</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/settings/components/export-list-view/export-list-view.component.html</context>
+          <context context-type="sourcefile">app/features/settings/components/export-table/export-table.component.html</context>
           <context context-type="linenumber">15</context>
         </context-group>
         <note priority="1" from="description">button</note>
@@ -58,7 +58,7 @@
           <context context-type="linenumber">59</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/common/product/components/products-list-view/products-list-view.component.html</context>
+          <context context-type="sourcefile">app/common/product/components/products-table/products-table.component.html</context>
           <context context-type="linenumber">48</context>
         </context-group>
         <context-group purpose="location">
@@ -94,15 +94,15 @@
           <context context-type="linenumber">19</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/project/components/projects-list-view/projects-list-view.component.html</context>
+          <context context-type="sourcefile">app/features/project/components/projects-table/projects-table.component.html</context>
           <context context-type="linenumber">7</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/settings/components/invitations-list-view/invitations-list-view.component.html</context>
+          <context context-type="sourcefile">app/features/settings/components/invitations-table/invitations-table.component.html</context>
           <context context-type="linenumber">20</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/settings/components/team-members-list-view/team-members-list-view.component.html</context>
+          <context context-type="sourcefile">app/features/settings/components/team-members-table/team-members-table.component.html</context>
           <context context-type="linenumber">19</context>
         </context-group>
         <context-group purpose="location">
@@ -110,7 +110,7 @@
           <context context-type="linenumber">50</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/supplier/components/supplier-list-view/supplier-list-view.component.html</context>
+          <context context-type="sourcefile">app/features/supplier/components/supplier-table/supplier-table.component.html</context>
           <context context-type="linenumber">19</context>
         </context-group>
         <context-group purpose="location">
@@ -568,7 +568,7 @@
         <source>Show Filters</source>
         <target state="new">Show Filters</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/shared/top-panel/components/sub-panel/sub-panel.component.html</context>
+          <context context-type="sourcefile">app/shared/header-detail/components/sub-panel/sub-panel.component.html</context>
           <context context-type="linenumber">21</context>
         </context-group>
         <note priority="1" from="description">text</note>
@@ -586,7 +586,7 @@
         <source>List</source>
         <target state="new">List</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/shared/top-panel/components/view-switcher/view-switcher.component.html</context>
+          <context context-type="sourcefile">app/shared/header-detail/components/view-switcher/view-switcher.component.html</context>
           <context context-type="linenumber">5</context>
         </context-group>
         <note priority="1" from="description">text</note>
@@ -595,7 +595,7 @@
         <source>Thumb</source>
         <target state="new">Thumb</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/shared/top-panel/components/view-switcher/view-switcher.component.html</context>
+          <context context-type="sourcefile">app/shared/header-detail/components/view-switcher/view-switcher.component.html</context>
           <context context-type="linenumber">9</context>
         </context-group>
         <note priority="1" from="description">text</note>
@@ -677,7 +677,7 @@
           <context context-type="linenumber">3</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/common/product/components/products-list-view/products-list-view.component.html</context>
+          <context context-type="sourcefile">app/common/product/components/products-table/products-table.component.html</context>
           <context context-type="linenumber">24</context>
         </context-group>
         <context-group purpose="location">
@@ -768,7 +768,7 @@
           <context context-type="linenumber">32</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/common/product/components/products-list-view/products-list-view.component.html</context>
+          <context context-type="sourcefile">app/common/product/components/products-table/products-table.component.html</context>
           <context context-type="linenumber">36</context>
         </context-group>
         <context-group purpose="location">
@@ -846,7 +846,7 @@
 		request supplier
 	</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/common/product/components/products-list-view/products-list-view.component.html</context>
+          <context context-type="sourcefile">app/common/product/components/products-table/products-table.component.html</context>
           <context context-type="linenumber">30</context>
         </context-group>
         <note priority="1" from="description">button</note>
@@ -859,7 +859,7 @@
 		export
 	</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/common/product/components/products-list-view/products-list-view.component.html</context>
+          <context context-type="sourcefile">app/common/product/components/products-table/products-table.component.html</context>
           <context context-type="linenumber">42</context>
         </context-group>
         <context-group purpose="location">
@@ -1949,7 +1949,7 @@
 			refuse
 		</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/requests/components/request-list-view/request-list-view.component.html</context>
+          <context context-type="sourcefile">app/features/requests/components/request-table/request-table.component.html</context>
           <context context-type="linenumber">19</context>
         </context-group>
         <note priority="1" from="description">button</note>
@@ -1962,7 +1962,7 @@
 				Team Member
 			</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/settings/components/team-members-list-view/team-members-list-view.component.html</context>
+          <context context-type="sourcefile">app/features/settings/components/team-members-table/team-members-table.component.html</context>
           <context context-type="linenumber">61</context>
         </context-group>
         <note priority="1" from="description">button</note>

@@ -15,8 +15,9 @@ import { FiltersComponent, FilterSelectionEntityPanelComponent } from '~shared/f
 import { ProductListComponent } from '~deprecated/product-list/product-list.component';
 import { ProductFeatureService } from '~features/products/services';
 import { SupplierRequestDialogComponent } from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
+import { TranslateService } from '@ngx-translate/core';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
-import { SubPanelService } from '~shared/top-panel/services/sub-panel.service';
+import { ControllerListService } from '~shared/header-list/services/controller-list.service';
 
 // dailah lama goes into pizza store
 // servant asks : what pizza do you want sir ?
@@ -65,8 +66,9 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		private featureSrv: ProductFeatureService,
 		public elem: ElementRef,
 		private userSrv: UserService,
+		private translate: TranslateService,
 		protected dlgSrv: DialogService,
-		private subPanelSrv: SubPanelService,
+		private controllerListService: ControllerListService,
 	) {
 		super();
 	}
@@ -111,7 +113,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 
 		this.listSrv.addFilter({ type: FilterType.ARCHIVED, value: false});
 		this.listSrv.addFilter({ type: FilterType.DELETED, value: false});
-		this.subPanelSrv.onFiltersClear();
+		this.controllerListService.onFiltersClear();
 	}
 
 	showItemsPerPage(count: number) {
@@ -120,15 +122,14 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 	}
 
 	onArchive(product: Product | Product[]) {
-		// TODO i18n
 		if (Array.isArray(product)) {
 			this.featureSrv.updateMany(product.map((p: Product) => ({ id: p.id, archived: true })))
 				.pipe(switchMap(_ => this.listSrv.refetch()))
 				.subscribe(_ => {
 					this.notifSrv.add({
 						type: NotificationType.SUCCESS,
-						title: 'Product archived',
-						message: 'Products have been archived with success'
+						title: this.translate.instant('title.products-archived'),
+						message: this.translate.instant('message.products-archived-successfully')
 					});
 				});
 		} else {
@@ -138,8 +139,8 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 				.subscribe(_ => {
 					this.notifSrv.add({
 						type: NotificationType.SUCCESS,
-						title: 'Product archived',
-						message: 'Products have been archived with success'
+						title: this.translate.instant('title.product-archived'),
+						message: this.translate.instant('message.product-archived-successfully')
 					});
 				});
 		}

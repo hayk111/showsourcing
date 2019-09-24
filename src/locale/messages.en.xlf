@@ -237,7 +237,7 @@
         <source> Open </source>
         <target state="final"> Open </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/products/components/product-list-view/product-list-view.component.ts</context>
+          <context context-type="sourcefile">app/features/products/components/product-table/product-table.component.ts</context>
           <context context-type="linenumber">109</context>
         </context-group>
         <note priority="1" from="description">Open and view product</note>

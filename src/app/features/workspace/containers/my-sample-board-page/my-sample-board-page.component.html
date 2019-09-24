@@ -15,14 +15,12 @@
 					(check)="toggleMySamples(true)"
 					(uncheck)="toggleMySamples(false)">
 				</checkbox-app>
-				<span class="ellipsis" i18n="text@@assigned-to-me">
-					Assigned to me
+				<span class="ellipsis" translate="text.assigned-to-me">
 				</span>
 			</div>
 		</controller-list-left-item-app>
 		<controller-list-right-item-app>
-			<button (click)="openCreateDlg()" i18n="button@@add-sample">
-				Add Sample
+			<button (click)="openCreateDlg()" translate="button.add-sample">
 			</button>
 		</controller-list-right-item-app>
 	</controller-list-app>
@@ -57,14 +55,13 @@
 		(close)="listSrv.unselectAll()">
 		<div class="flex">
 			<status-selector-app
-				toolTip toolTipMessage="Change status" toolTipPosition="above-right"
+				toolTip [toolTipMessage]="'message.change-status' | translate" toolTipPosition="above-right"
 				#workActionMenu
 				selectSize="s"
 				[typeEntity]="erm.SAMPLE"
 				type="multiple-selection"
 				[internalUpdate]="false"
-				(statusUpdated)="onMultipleStatusUpdated($event)"
-				i18n-toolTipMessage="@@change-status">
+				(statusUpdated)="onMultipleStatusUpdated($event)">
 			</status-selector-app>
 
 			<button class="icon light" (click)="deleteSelected()">
