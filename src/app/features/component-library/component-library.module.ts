@@ -1,25 +1,28 @@
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { ProductCommonModule } from '~common/product/product-common.module';
+import { SampleCommonModule } from '~common/sample';
+import { WorkflowMngmtCommonModule } from '~common/workflow/workflow-mngmt.module';
 import { SharedModule } from '~shared/shared.module';
-
+import { BadgeLibPageComponent } from './badge-lib-page/badge-lib-page.component';
+import { CardLibPageComponent } from './card-lib-page/card-lib-page.component';
 import { ComponentLibraryComponent } from './component-library-page/component-library-page.component';
 import { GuidelinesComponent } from './guidelines/guidelines.component';
+import { IconsLibPageComponent } from './icons-lib-page/icons-lib-page.component';
+import { KanbanLibraryPageComponent } from './kanban-library-page/kanban-library-page.component';
+import { LoadersLibPageComponent } from './loaders-lib-page/loaders-lib-page.component';
+import { PipesLibPageComponent } from './pipes-lib-page/pipes-lib-page.component';
 import { PreviewPageComponent } from './preview-page/preview-page.component';
+import { ProductCardLibraryPageComponent } from './product-card-library-page/product-card-library-page.component';
 import { routes } from './routes';
 import { SampleCardTestComponent } from './sample-card-test/sample-card-test.component';
-import { SampleCommonModule } from '~common/sample';
-import { KanbanLibraryPageComponent } from './kanban-library-page/kanban-library-page.component';
-import { ProductCommonModule } from '~common/product/product-common.module';
-import { ProductCardLibraryPageComponent } from './product-card-library-page/product-card-library-page.component';
 import { SelectorLibraryComponent } from './selector-library/selector-library.component';
-import { WorkflowMngmtCommonModule } from '~common/workflow/workflow-mngmt.module';
+import { TableLibPageComponent } from './table-lib-page/table-lib-page.component';
 import { WorkflowMngmntTableLibComponent } from './workflow-mngmnt-table-lib/workflow-mngmnt-table-lib.component';
-import { LoadersLibPageComponent } from './loaders-lib-page/loaders-lib-page.component';
-import { IconsLibPageComponent } from './icons-lib-page/icons-lib-page.component';
-import { BadgeModule } from '~shared/badge';
-import { CardLibPageComponent } from './card-lib-page/card-lib-page.component';
-import { BadgeLibPageComponent } from './badge-lib-page/badge-lib-page.component';
+import { CommonListsLibPageComponent } from './common-lists-lib-page/common-lists-lib-page.component';
+import { SupplierCommonModule } from '~common/supplier';
+import { ButtonLibPageComponent } from './button-lib-page/button-lib-page.component';
+
 
 
 @NgModule({
@@ -28,6 +31,7 @@ import { BadgeLibPageComponent } from './badge-lib-page/badge-lib-page.component
 		SharedModule,
 		SampleCommonModule,
 		ProductCommonModule,
+		SupplierCommonModule,
 		WorkflowMngmtCommonModule,
 	],
 	declarations: [
@@ -42,7 +46,11 @@ import { BadgeLibPageComponent } from './badge-lib-page/badge-lib-page.component
 		LoadersLibPageComponent,
 		IconsLibPageComponent,
 		CardLibPageComponent,
-		BadgeLibPageComponent
+		BadgeLibPageComponent,
+		PipesLibPageComponent,
+		TableLibPageComponent,
+		CommonListsLibPageComponent,
+		ButtonLibPageComponent
 	],
 	exports: [ComponentLibraryComponent],
 	providers: []

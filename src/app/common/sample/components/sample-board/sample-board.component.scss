@@ -1,0 +1,40 @@
+:host {
+	display: flex;
+	flex-direction: column;
+	height: calc(100% - 126px);
+	overflow-x: auto;
+	overflow-y: hidden;
+}
+
+sub-panel-app {
+  padding-bottom: 15px;
+}
+
+kanban-app {
+	width: 0;
+	height: calc(100% - 50px);
+	padding: 0 20px 20px 98px;
+	box-sizing: border-box;
+}
+
+icon-app {
+	color: var(--legacy-color-txt-secondary);
+	font-size: var(--font-size-xl);
+}
+
+icon-app[name="trash"] {
+	font-size: var(--font-size-xxl);
+}
+selection-bar-app {
+	right: 0;
+
+	status-selector-app {
+		margin-right: var(--spacing-ms);
+	}
+}
+
+action-bar-app {
+	button.icon {
+		margin-right: var(--spacing-ms);
+	}
+}

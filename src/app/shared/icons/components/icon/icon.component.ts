@@ -1,9 +1,8 @@
-import { Attribute, ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { Attribute, ChangeDetectionStrategy, Component, ElementRef, Input } from '@angular/core';
 import { FontSet } from '~shared/icons/components/font-set.enum';
 
 
-export type Sizes = 's' | 'm' | 'l' | 'inherit';
+export type Sizes = 'xs' | 's' | 'ms' | 'm' | 'l' | 'inherit';
 
 @Component({
 	selector: 'icon-app',
@@ -38,7 +37,9 @@ export class IconComponent {
 
 	getComputedSize() {
 		switch (this.size) {
+			case 'xs':
 			case 's':
+			case 'ms':
 			case 'm':
 			case 'l':
 				return `var(--font-size-icon-${this.size})`;

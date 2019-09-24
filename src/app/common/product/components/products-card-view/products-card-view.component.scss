@@ -1,11 +1,9 @@
 :host {
 	display: flex;
 	flex-direction: column;
-	padding: 0 var(--spacing-edge);
-	padding-top: 10px;
+	padding: 36px var(--spacing-edge) 0 98px;
+	padding-top: 36px;
 	height: 100%;
-	background: white;
-	border-top: 1px solid var(--legacy-color-secondary);
 }
 
 .category-section {

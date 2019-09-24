@@ -21,6 +21,7 @@ import { UserPictureModule } from '~shared/user-picture';
 import { UtilsModule } from '~shared/utils';
 
 import { ActionBarModule } from './action-bar/action-bar.module';
+import { ActivitiesBarModule } from './activities-bar/activities-bar.module';
 import { AnimatedStackModule } from './animated-stack/animated-stack.module';
 import { CarouselModule } from './carousel/carousel.module';
 import { DialogModule } from './dialog/dialog.module';
@@ -47,6 +48,7 @@ import { ComparisonRowModule } from './comparison-row/comparison-row.module';
 import { TemplateMngmtModule } from './template-mngmt/template-mngmt.module';
 import { OnBoardingModule } from './on-boarding/on-boarding.module';
 import { PackagingModule } from './packaging/packaging.module';
+import { NotifModule } from './notif/notif.module';
 
 // those modules are used so commonly that we will just import the shared module
 const modules = [
@@ -62,6 +64,7 @@ const modules = [
 
 	// shared modules
 	ActionBarModule,
+	ActivitiesBarModule,
 	AnimatedStackModule,
 	BadgeModule,
 	BottomPanelModule,
@@ -82,6 +85,7 @@ const modules = [
 	ListModule,
 	LoadersModule,
 	NotificationsModule,
+	NotifModule,
 	PanelModule,
 	PreviewModule,
 	PriceModule,

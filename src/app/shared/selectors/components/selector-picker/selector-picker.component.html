@@ -31,26 +31,15 @@
 
 	<ng-container *ngIf="(choices$ | async); else spinner">
 
+		<!-- TIP: Ordered alphabetically -->
 		<ng-container [ngSwitch]="type">
 
-			<ng-container *ngSwitchCase="erm.SUPPLIER">
-				<selector-supplier-row-app #abstract  *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [supplier]="item" (click)="onSelect(item)"></selector-supplier-row-app>
+			<ng-container *ngSwitchCase="erm.CONTACT">
+				<selector-contact-row-app #abstract *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [contact]="item" (click)="onSelect(item)"></selector-contact-row-app>
 			</ng-container>
 
-			<ng-container *ngSwitchCase="erm.EVENT">
-				<selector-event-row-app #abstract  *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [event]="item" (click)="onSelect(item)"></selector-event-row-app>
-			</ng-container>
-
-			<ng-container *ngSwitchCase="erm.PROJECT">
-				<selector-project-row-app #abstract *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row"  [project]="item" (click)="onSelect(item)"></selector-project-row-app>
-			</ng-container>
-
-			<ng-container *ngSwitchCase="erm.USER">
-				<selector-user-row-app #abstract *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [user]="item" (click)="onSelect(item)"></selector-user-row-app>
-			</ng-container>
-
-			<ng-container *ngSwitchCase="erm.TEAM_USER">
-				<selector-user-row-app #abstract *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [user]="item" (click)="onSelect(item)"></selector-user-row-app>
+			<ng-container *ngSwitchCase="erm.COUNTRY">
+				<selector-country-row-app #abstract *ngFor="let item of choices$ | async" class="selector-row" [country]="item" (click)="onSelect(item.countryCode)"></selector-country-row-app>
 			</ng-container>
 
 			<ng-container *ngSwitchCase="erm.CURRENCY">
@@ -60,39 +49,12 @@
 				<selector-currency-row-app #abstract *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [currency]="item" (click)="onSelect(item.symbol)"></selector-currency-row-app>
 			</ng-container>
 
-			<ng-container *ngSwitchCase="erm.PRODUCT">
-				<selector-product-row-app #abstract *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [product]="item" (click)="onSelect(item)"></selector-product-row-app>
-			</ng-container>
-
-			<ng-container *ngSwitchCase="erm.TAG">
-				<selector-tag-row-app #abstract *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [tag]="item" (click)="onSelect(item)"></selector-tag-row-app>
-			</ng-container>
-
-			<ng-container *ngSwitchCase="erm.CONTACT">
-				<selector-contact-row-app #abstract *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [contact]="item" (click)="onSelect(item)"></selector-contact-row-app>
-			</ng-container>
-
 			<ng-container *ngSwitchCase="erm.EMAIL">
 				<selector-contact-row-app #abstract *ngFor="let item of choices$ | async" class="selector-row" [contact]="item" (click)="onSelect(item)"></selector-contact-row-app>
 			</ng-container>
 
-			<ng-container *ngSwitchCase="erm.CATEGORY">
-				<selector-category-row-app #abstract *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [category]="item" (click)="onSelect(item)"></selector-category-row-app>
-			</ng-container>
-
-		<ng-container *ngSwitchCase="erm.PICKER_FIELD">
-			<selector-name-row-app #abstract *ngFor="let item of choices$ | async" class="selector-row capitalize" [item]="item" (click)="onSelect(item?.label || item?.name)"></selector-name-row-app>
-		</ng-container>
-
-		<ng-container *ngSwitchCase="erm.COUNTRY">
-			<selector-country-row-app #abstract *ngFor="let item of choices$ | async" class="selector-row" [country]="item" (click)="onSelect(item.countryCode)"></selector-country-row-app>
-		</ng-container>
-			<ng-container *ngSwitchCase="erm.REQUEST_TEMPLATE">
-				<selector-request-template-row-app #abstract *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [requestTemplate]="item" (click)="onSelect(item)"></selector-request-template-row-app>
-			</ng-container>
-
-			<ng-container *ngSwitchCase="erm.SUPPLIER_TYPE">
-				<selector-supplier-type-row-app #abstract *ngFor="let item of choices$ | async" class="selector-row" [supplierType]="item" (click)="onSelect(item)"></selector-supplier-type-row-app>
+			<ng-container *ngSwitchCase="erm.EVENT">
+				<selector-event-row-app #abstract  *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [event]="item" (click)="onSelect(item)"></selector-event-row-app>
 			</ng-container>
 
 			<ng-container *ngSwitchCase="erm.HARBOUR">
@@ -103,20 +65,46 @@
 				<selector-name-row-app #abstract *ngFor="let item of choices$ | async" class="selector-row" [item]="item" (click)="onSelect(item.name)"></selector-name-row-app>
 			</ng-container>
 
-			<ng-container *ngSwitchCase="erm.COUNTRY">
-				<selector-country-row-app #abstract *ngFor="let item of choices$ | async" class="selector-row" [country]="item" (click)="onSelect(item.countryCode)"></selector-country-row-app>
+			<ng-container *ngSwitchCase="erm.LENGTH_UNIT">
+				<selector-name-row-app #abstract *ngFor="let item of choices$ | async" class="selector-row" [item]="item" (click)="onSelect(item.name)"></selector-name-row-app>
+			</ng-container>
+
+			<ng-container *ngSwitchCase="erm.PICKER_FIELD">
+				<selector-label-name-row-app #abstract *ngFor="let item of choices$ | async" class="selector-row capitalize" [item]="item" (click)="onSelect(item?.label || item?.name)"></selector-label-name-row-app>
+			</ng-container>
+
+			<ng-container *ngSwitchCase="erm.REQUEST_TEMPLATE">
+				<selector-request-template-row-app #abstract *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [requestTemplate]="item" (click)="onSelect(item)"></selector-request-template-row-app>
+			</ng-container>
+
+			<ng-container *ngSwitchCase="erm.SELECTOR_ELEMENT">
+				<selector-value-row-app #abstract *ngFor="let item of choices$ | async" class="selector-row" [item]="item" (click)="onSelect(item)"></selector-value-row-app>
+			</ng-container>
+
+			<ng-container *ngSwitchCase="erm.SUPPLIER">
+				<selector-supplier-row-app #abstract  *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [supplier]="item" (click)="onSelect(item)"></selector-supplier-row-app>
+			</ng-container>
+
+			<ng-container *ngSwitchCase="erm.TEAM_USER">
+				<selector-user-row-app #abstract *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [user]="item" (click)="onSelect(item)"></selector-user-row-app>
+			</ng-container>
+
+			<ng-container *ngSwitchCase="erm.USER">
+				<selector-user-row-app #abstract *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [user]="item" (click)="onSelect(item)"></selector-user-row-app>
 			</ng-container>
 
 			<ng-container *ngSwitchCase="erm.WEIGHT_UNIT">
 				<selector-name-row-app #abstract *ngFor="let item of choices$ | async" class="selector-row" [item]="item" (click)="onSelect(item.name)"></selector-name-row-app>
 			</ng-container>
 
-			<ng-container *ngSwitchCase="erm.LENGTH_UNIT">
-				<selector-name-row-app #abstract *ngFor="let item of choices$ | async" class="selector-row" [item]="item" (click)="onSelect(item.name)"></selector-name-row-app>
-			</ng-container>
-
+			<!--
+				this default is for any entity that has property name, and the output emitted is an entity (click)=onSelect(item)
+				this is why category, project, product... are valid defaults,
+				but country, harbour they are not, since their output emits a name (string),
+				therefore we need a switch case where the event (click)="onSelect(item.name)
+			-->
 			<ng-container *ngSwitchDefault>
-				<selector-text-row-app #abstract *ngFor="let item of choices$ | async" class="selector-row" [text]="item" (click)="onSelect(item)"></selector-text-row-app>
+				<selector-name-row-app #abstract *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row"  [item]="item" (click)="onSelect(item)"></selector-name-row-app>
 			</ng-container>
 
 		</ng-container>

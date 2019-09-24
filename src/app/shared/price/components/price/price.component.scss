@@ -1,14 +1,16 @@
 .flex {
-	align-items: baseline;
-}
-
-:host {
-	align-items: baseline;
+	align-items: center;
+	color: var(--color-bg-dark);
+	font-size: var(--font-size-m);
 }
 
 .currency {
-	font-size: var(--font-size-s);
+	display: block;
 	margin-left: 0px;
 	margin-right: var(--spacing-xs);
 }
 
+.price-desc {
+  font-size: var(--font-size-s);
+	color: var(--color-txt-secondary)
+}

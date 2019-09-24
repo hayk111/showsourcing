@@ -9,6 +9,7 @@ import {
 	Output,
 	QueryList,
 	TemplateRef,
+	ContentChild,
 } from '@angular/core';
 import { ColumnDirective } from '~shared/table/components/column.directive';
 import { Sort } from '~shared/table/components/sort.interface';
@@ -30,13 +31,22 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	@Input() hasSelection = true;
 	/** whether the table rows have a contextual menu */
 	@Input() hasMenu = true;
+	/** whether the table has header row */
+	@Input() hasHeader = true;
 	/** the placeholder text if no element displayed in the table */
 	@Input() placeholder: string;
+	/** whether rows are selectable and pagination is visible */
+	@Input() hasPagination = true;
+
+	@Input() width: number;
+	@Input() rowHeight: number;
+
 	/** the name of the property than uniquely identifies a row. This is used to know if a row is currently selectioned
 	so this is only useful when the table has selection enabled. */
 	@Input() idName = 'id';
 	/** maps of the <id, true> so we can access the items that are selected */
 	@Input() selected: Map<string, boolean> = new Map();
+	// TODO this should be transcluded instead
 	@Input() contextualMenu: TemplateRef<any>;
 	/** current sort */
 	@Input() currentSort: Sort;
@@ -44,6 +54,7 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	@Input() count = 0;
 
 	@Input() currentPage: number;
+	@Output() showItemsPerPage = new EventEmitter<number>();
 
 	/** event when we select all rows */
 	@Output() selectAll = new EventEmitter<string[]>();
@@ -88,7 +99,10 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 			if (this.columns) {
 				this.columns.forEach(c => c.resetSort());
 				const column = this.columns.find(c => c.sortBy === currentSort.sortBy);
-				column.sortOrder = currentSort.descending ? 'DESC' : 'ASC';
+
+				if (column) {
+					column.sortOrder = currentSort.descending ? 'DESC' : 'ASC';
+				}
 			}
 		}
 	}

@@ -1,42 +1,97 @@
+:host {
+	display: block;
+	position: relative;
+	margin-top: var(--spacing-l);
+	
+	button {
+		width: 32px;
+		height: 32px;
+		border-radius: var(--border-radius);
+		margin-right: 8px;
+		color: var(--color-txt-secondary);
+		background: transparent;
+		font-size: var(--font-size-l);
+
+		&.selected {
+			background-color: var(--color-primary);
+			color: var(--color-bg);
+			font-size: var(--font-size-m);
+		}
+		
+		&.arrow-btn {
+			background-color: rgba(69, 173, 255, 0.1);
+			color: var(--color-primary);
+		}
+
+		&.disabled {
+			cursor: default;
+		}
+
+	}
+
+	button:hover:not(.arrow-btn) {
+		background-color: var(--color-primary);
+		color: var(--color-bg);
+		font-size: var(--font-size-m);
+	}
+}
+
 .pagination-ctrl {
 	user-select: none;
 	box-sizing: border-box;
-	margin: var(--spacing-ms) 0;
 	icon-app {
 		color: var(--legacy-color-primary);
 		font-size: var(--spacing-l);
 		cursor: pointer;
-		margin: 0 var(--spacing-s);
-		margin-top: 2px;
+		margin-top: var(--spacing-xxs);
 
 		&.disabled {
 			color: var(--legacy-color-txt-secondary);
 			cursor: default;
 		}
 	}
-
-	.pagination-item {
-		cursor: pointer;
-		margin: 0 var(--spacing-xs);
-		padding: 6px;
-		text-align: center;
-		height: 12px;
-		width: 14px;
-		line-height: 1;
-		border-bottom: 2px solid transparent;
-		font-weight: 600;
-
-		&.selected {
-			color: var(--legacy-color-primary);
-			border-bottom: 2px solid var(--legacy-color-primary);
-			// border-radius: var(--border-radius-s);
-		}
-		&:hover {
-			background-color: var(--legacy-color-divider);
+	button {
+		float: left;
+		&.disabled {
+			color: var(--color-txt-secondary);
+			cursor: default;
 		}
 	}
+}
 
-	.pagination-text {
-		width: 150px;
-	}
+.custom-select {
+	padding-left: var(--spacing-ms);
+	font-size: var(--font-size-m);
+	width: 55px;
+  height: var(--spacing-xl);
+	color: var(--color-bg);
+	font-weight: 600;
+	border: 1px solid transparent;
+	border-radius: var(--border-radius);
+	border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+	background: url('/assets/icons/icons-arrow-down-14.png') no-repeat right var(--color-primary);
+	cursor: pointer;
+	user-select: none;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	appearance: none;
+	background-position-x: var(--spacing-xl);
+}
+
+.custom-select option {
+	width: 55px;
+	height: 30px;
+	background: var(--color-bg); 
+	height: var(--spacing-xl);
+	color: var(--color-bg-dark);
+}
+
+.right {
+	float: right;
+}
+
+.items-page-count {
+	font-size: var(--font-size-m);
+	color: var(--color-bg-dark);
+	margin-left: var(--spacing-ms);
 }

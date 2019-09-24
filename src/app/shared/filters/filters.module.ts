@@ -10,6 +10,7 @@ import { LoadersModule } from '~shared/loaders';
 import { PanelModule } from '~shared/panel/panel.module';
 import { RatingModule } from '~shared/rating';
 import { UtilsModule } from '~shared/utils';
+import { DividerModule } from '~shared/divider/divider.module';
 
 @NgModule({
 	imports: [
@@ -23,6 +24,7 @@ import { UtilsModule } from '~shared/utils';
 		RatingModule,
 		BadgeModule,
 		UtilsModule,
+		DividerModule
 	],
 	declarations: [
 		FilterSelectionEntityPanelComponent,

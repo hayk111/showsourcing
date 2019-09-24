@@ -1,17 +1,21 @@
-import { AfterViewInit, Component, ElementRef, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Observable, interval } from 'rxjs';
-import { switchMap, takeUntil, timeout, tap } from 'rxjs/operators';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChildren, QueryList, OnChanges, ViewChild, HostListener } from '@angular/core';
+import { Observable } from 'rxjs';
+import { switchMap, takeUntil, filter, map } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals';
-import { ProductService, UserService } from '~core/entity-services';
+import { ProductService, UserService, RequestElementService } from '~core/entity-services';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { ERM, Product } from '~models';
-import { FilterType } from '~shared/filters';
+import { FilterType, Filter } from '~shared/filters';
 import { AutoUnsub } from '~utils';
-import { ProductFeatureService } from '~features/products/services';
+import { CreationSampleDlgComponent } from '~common/modals/component/creation-sample-dlg/creation-sample-dlg.component';
+import { DialogService, CloseEventType, CloseEvent } from '~shared/dialog';
+import { WorkspaceFeatureService } from '~features/workspace/services/workspace-feature.service';
 import { NotificationService, NotificationType } from '~shared/notifications';
+import { FiltersComponent, FilterSelectionEntityPanelComponent } from '~shared/filters/components';
+import { ProductListComponent } from '~deprecated/product-list/product-list.component';
+import { ProductFeatureService } from '~features/products/services';
 import { SupplierRequestDialogComponent } from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
-import { DialogService } from '~shared/dialog/services';
+import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 
 // dailah lama goes into pizza store
 // servant asks : what pizza do you want sir ?
@@ -27,6 +31,12 @@ import { DialogService } from '~shared/dialog/services';
 	]
 })
 export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterViewInit {
+	@ViewChild('productList', { read: ElementRef, static: false })
+	public productListElem: ElementRef;
+
+	public tableWidth: string;
+	public addProductMargin: string;
+
 	erm = ERM;
 	filterTypeEnum = FilterType;
 	// filter displayed as button in the filter panel
@@ -43,16 +53,18 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 	];
 
 	productsCount$: Observable<number>;
+	selectItemsConfig: SelectParamsConfig;
+	requestCount$: Observable<number>;
 
 	constructor(
 		private productSrv: ProductService,
-		private dlgSrv: DialogService,
+		private notifSrv: NotificationService,
 		public commonModalSrv: CommonModalService,
 		public listSrv: ListPageService<Product, ProductService>,
 		private featureSrv: ProductFeatureService,
 		public elem: ElementRef,
 		private userSrv: UserService,
-		private notifSrv: NotificationService
+		protected dlgSrv: DialogService,
 	) {
 		super();
 	}
@@ -69,7 +81,6 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 			key: ListPageKey.PRODUCTS,
 			entitySrv: this.productSrv,
 			searchedFields: ['name', 'supplier.name', 'category.name', 'description'],
-			selectParams: { query: 'deleted == false' },
 			// we use the deleted filter there so we can send the query to export all to the export dlg
 			initialFilters: [{ type: FilterType.ARCHIVED, value: false }, { type: FilterType.DELETED, value: false }],
 			entityMetadata: ERM.PRODUCT,
@@ -89,26 +100,47 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		this.listSrv.loadData(this._destroy$);
 	}
 
-	onViewChange(view: 'list' | 'card') {
+	onViewChange(view: 'list' | 'board' | 'card') {
 		this.listSrv.changeView(view);
 	}
 
-	getFilterAmount() {
-		// we filter so we don't count archieved or deleted when it's false, so the user doesn't get confused since its the default filter
-		const filters = this.listSrv.filterList.asFilters()
-			.filter(fil => !(fil.type === FilterType.ARCHIVED && fil.value === false) && !(fil.type === FilterType.DELETED && fil.value === false));
-		return filters.length;
+	onFavourite(product: Product) {
+		this.listSrv.onItemFavorited(product.id);
+	}
+
+	onClearFilters() {
+		this.listSrv.filterList.resetAll();
+
+		this.listSrv.addFilter({ type: FilterType.ARCHIVED, value: false});
+		this.listSrv.addFilter({ type: FilterType.DELETED, value: false});
+	}
+
+	onShowFilters() {
+		this.listSrv.openFilterPanel();
+	}
+
+	onCloseFilter() {
+		this.listSrv.closeFilterPanel();
+	}
+
+	showItemsPerPage(count: number) {
+		this.selectItemsConfig = { take: Number(count) };
+		this.listSrv.refetch(this.selectItemsConfig).subscribe();
+	}
+
+	onExport() {
+		this.commonModalSrv.openExportDialog(this.listSrv.getSelectedValues());
 	}
 
 	onArchive(product: Product | Product[]) {
 		// TODO i18n
 		if (Array.isArray(product)) {
-			this.featureSrv.updateMany(product.map((p: Product) => ({id: p.id, archived: true})))
+			this.featureSrv.updateMany(product.map((p: Product) => ({ id: p.id, archived: true })))
 				.pipe(switchMap(_ => this.listSrv.refetch()))
 				.subscribe(_ => {
 					this.notifSrv.add({
 						type: NotificationType.SUCCESS,
-						title: 'Products archived',
+						title: 'Product archived',
 						message: 'Products have been archived with success'
 					});
 				});

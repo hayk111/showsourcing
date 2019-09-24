@@ -3,12 +3,19 @@
 <!-- BTN PANEL -->
 <side-panel-app *ngIf="view === 'BTNS'">
 
-  <side-panel-title-app class="capitalize" i18n="text@@filters">
-    filters
-  </side-panel-title-app>
-  <side-panel-action-app class="clear" (click)="resetAll()" i18n="text@@clear-all-filters">
-    Clear All Filters
-  </side-panel-action-app>
+	<div class="filters-title-section">
+		<side-panel-title-app class="capitalize filters-title" i18n="text@@filters">
+			filters
+		</side-panel-title-app>
+		<div class="clear-filters-container">
+			<side-panel-action-app class="clear" (click)="resetAll()" i18n="text@@clear-all-filters">
+				<span class="clear-filters">Clear All Filters</span>
+			</side-panel-action-app>
+			<icon-app name="close-pane-right" size="24" color="txt-third" (click)="close.emit()"></icon-app>
+		</div>
+	</div>
+	<divider-app class="title-divider"></divider-app>
+
 
   <filter-btn-list-app
     [filterTypes]="filterTypes"

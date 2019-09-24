@@ -12,13 +12,21 @@ export class SampleQueries extends GlobalQueries {
 		images { id, urls { id, url }, imageType }
 	}`;
 	static readonly product = `product {
-		id, name, ${SampleQueries.images}, favorite, description,
+		id, name, reference, ${SampleQueries.images}, favorite, description,
 	}`;
 	static readonly price = (name = 'price') => `${name} { id, currency, value } `;
 	static readonly status = `status { id, name, category, inWorkflow, step }`;
 	static readonly comments = `comments { id, text, ${SampleQueries.createdBy}, creationDate }`;
-	static readonly extendedFields = `extendedFields { id, value, definition { id, label, type, order }}`;
+	static readonly definition = (name: string) => `${name} { id, label, type, order, metadata }`;
+	static readonly extendedFields = `extendedFields {
+		id, value,
+		selectorValue { id, value, ${SampleQueries.definition('fieldDefinition')} },
+		${SampleQueries.definition('definition')}
+	}`;
 
+	// TODO BackEnd add extended fields
+	// TODO BackEnd add archived
+	// TODO BackEnd add type
 	static readonly one = `
 		name,
 		reference,

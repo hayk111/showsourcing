@@ -1,18 +1,25 @@
 <div class="container">
 
-	<task-list-app
-		[filterList]="listSrv.filterList"
-		[tasks]="listSrv.items$ | async"
+	<task-list-view-app
+		[hasHeader]="false"
+		[hasPagination]="false"
+		[rows]="listSrv.items$ | async"
 		[selection]="listSrv.selection$ | async"
-		[hasProduct]="true"
-		(toggleMyTasks)="toggleMyTasks($event)"
-		(previewClicked)="listSrv.openPreview($event)"
-		(taskSelect)="listSrv.selectOne($event, false)"
-		(taskUnselect)="listSrv.unselectOne($event, false)"
-		(bottomReached)="listSrv.loadMore()"
-		(updateTask)="listSrv.update($event)"
-		(openCreationTaskDlg)="openCreationTaskDlg(null, supplier)">
-	</task-list-app>
+		[pending]="listSrv.pending"
+		[count]="listSrv.count$ | async"
+		[currentPage]="listSrv.currentPage"
+		(goToPage)="listSrv.loadPage($event)"
+		(sort)="listSrv.sort($event)"
+		(select)="listSrv.selectOne($event, true)"
+		(unselect)="listSrv.unselectOne($event, true)"
+		(selectAll)="listSrv.selectAll($event, true)"
+		(unselectAll)="listSrv.unselectAll()"
+		(open)="listSrv.goToDetails($event)"
+		(favorited)="listSrv.onItemFavorited($event)"
+		(unfavorited)="listSrv.onItemUnfavorited($event)"
+		(previewClick)="listSrv.openPreview($event)"
+		(delete)="listSrv.deleteOne($event)">
+	</task-list-view-app>
 
 	<task-preview-app
 		*ngIf="listSrv.previewOpen"
@@ -39,7 +46,7 @@
 		</context-menu-app>
 
 		<button class="icon light" (click)="listSrv.deleteSelected()">
-			<icon-app name="trash-bin" size="m"></icon-app>
+			<icon-app name="trash" size="m"></icon-app>
 		</button>
 	</div>
 

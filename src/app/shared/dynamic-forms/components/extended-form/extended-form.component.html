@@ -4,16 +4,28 @@
 		[ngClass]="{ 'last': last }"
 		[ngStyle]="{ 'width' : 'calc(100% / ' + colAmount + ')' }">
 
-		<extended-form-input-app
-			*ngFor="let definition of col; index as indexInput; trackBy: trackByFn"
-			[autofocus]="autofocus && !disabled && indexInput === indexFocus && colIndex === 0"
-			[disabled]="disabled"
-			[definition]="definition"
-			[field]="getFieldForDefinition(definition.id)"
-			[inlineLabel]="inlineLabel"
-			[isFormStyle]="isFormStyle"
-			(update)="onUpdate($event)">
-		</extended-form-input-app>
+		<ng-container *ngIf="isFormStyle; else textStyle">
+			<extended-form-input-app
+				*ngFor="let definition of col; index as indexInput; trackBy: trackByFn"
+				[autofocus]="autofocus && !disabled && indexInput === indexFocus && colIndex === 0"
+				[disabled]="disabled"
+				[definition]="definition"
+				[field]="getFieldForDefinition(definition.id)"
+				(update)="onUpdate($event)">
+			</extended-form-input-app>
+		</ng-container>
+
+		<ng-template #textStyle>
+			<extended-form-editable-text-app
+				*ngFor="let definition of col; trackBy: trackByFn"
+				[inlineLabel]="inlineLabel"
+				[disabled]="disabled"
+				[definition]="definition"
+				[field]="getFieldForDefinition(definition.id)"
+				(update)="onUpdate($event)">
+			</extended-form-editable-text-app>
+		</ng-template>
+
 	</div>
 
 </div>

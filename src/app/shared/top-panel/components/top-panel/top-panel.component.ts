@@ -6,12 +6,13 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, Elemen
 	styleUrls: ['./top-panel.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
-		class: 'z-1 flexVAlign flexBetween'
+		class: 'flexVAlign flexBetween'
 	}
 })
 export class TopPanelComponent {
 	/** what appears in the button on the right for adding an entity */
 	@Input() buttonName: string;
+	@Input() buttonRightMargin: string;
 	/** specify if the icon should be displayed or not for the adding button */
 	@Input() buttonIcon = true;
 	/** when said button is clicked */

@@ -1,6 +1,7 @@
 :host {
 	box-sizing: border-box;
 	white-space: nowrap;
+	font-weight: bold;
 
 	// colors
 	&.primary {
@@ -11,13 +12,17 @@
 		background: var(--color-secondary);
 		color: var(--color-secondary-contrast);
 	}
+	&.third {
+		background: rgba(163, 175, 198, 0.1);
+		color: var(--color-txt-third);
+	}
 	&.vibrant {
 		background: var(--color-vibrant-light);
 		color: var(--color-vibrant);
 	}
 	&.accent {
 		background: var(--color-accent-light);
-		color: var(--color-accent-contrast);
+		color: var(--color-accent-dark);
 	}
 	&.warn {
 		background: var(--color-warn-light);

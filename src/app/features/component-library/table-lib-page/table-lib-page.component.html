@@ -1,0 +1,92 @@
+<card-app>
+	<card-title-app>Config ts file</card-title-app>
+
+	<p>Your component must extends <b>ListViewComponent</b> with an <b>Entity</b><br>
+		<small>export class YourComponent extends ListViewComponent&lt;Entity&gt;</small>
+	</p>
+
+	<p>And assign <b>ListPageService</b> in constructor<br>
+		<small>public listSrv: ListPageService&lt;Entity, Service of the entity&gt;</small>
+	</p>
+	<p>
+		Setup config ListPageService in ngOnInit<br>
+		You can see interface of the config in list-page-config.interface.ts<br>
+		<small>listSrv.setup(&#123; your config &#125;)</small>
+	</p>
+	<p>We have 2 templates below:</p>
+	<p class="mg-s">The 1st template (contextualMenuTemplate) which will appear when you hover a row in the table and
+		click dots</p>
+	<p class="mg-s">The 2nd template is name of the column</p>
+</card-app>
+
+<card-app>
+	<card-title-app>Config html file</card-title-app>
+	<b>&lt;table-app</b>
+	<div class="mg-horizontal">
+		<div class="mg-horizontal">
+			[rows]="listSrv.items$ | async"<br>
+			[pending]="listSrv.pending"<br>
+			[selected]="listSrv.selection$ | async"<br>
+			[contextualMenu]="contextualMenuTemplate"<br>
+			[count]="listSrv.count$ | async"<br>
+			[currentPage]="listSrv.currentPage"<br>
+			placeholder="this is placeholder"<br>
+			(goToPage)="listSrv.loadPage($event)"<br>
+			(selectOne)="listSrv.selectOne($event, true)"<br>
+			(unselectOne)="listSrv.unselectOne($event, true)"<br>
+			(selectAll)="listSrv.selectAll($event, true)"<br>
+			(unselectAll)="listSrv.unselectAll()"<br>
+			(sort)="listSrv.sort($event)"<br>
+			(bottomReached)="bottomReached.emit()"<b>&gt;</b>
+		</div>
+		<br>
+		<b>&lt;ng-template</b> #contextualMenuTemplate let-row="row"<b>&gt;</b><br>
+		<div class="mg-horizontal">
+			<b>&lt;context-menu-item-app&gt;</b><br>
+			&nbsp;&nbsp;Action<br>
+			<b>&lt;/context-menu-item-app&gt;</b>
+		</div>
+		<b>&lt;/ng-template&gt;</b><br>
+
+		<b>&lt;ng-template</b>
+		<div class="mg-horizontal">
+			[columnApp]="'Supplier'"<br>
+			sortBy="name"<br>
+			let-row="row"<br>
+			width="300"<b>&gt;</b><br>
+			{{ row?.name }}
+		</div>
+		<b>&lt;/ng-template&gt;</b><br>
+	</div>
+	<b>&lt;/table-app&gt;</b><br>
+</card-app>
+
+<card-app>
+	<card-title-app>Example with Supplier</card-title-app>
+	<table-app
+		[rows]="listSrv.items$ | async"
+		[pending]="listSrv.pending"
+		[selected]="listSrv.selection$ | async"
+		[contextualMenu]="contextualMenuTemplate"
+		[count]="listSrv.count$ | async"
+		[currentPage]="listSrv.currentPage"
+		placeholder="'No suppliers'"
+		(goToPage)="listSrv.loadPage($event)"
+		(selectOne)="listSrv.selectOne($event, true)"
+		(unselectOne)="listSrv.unselectOne($event, true)"
+		(selectAll)="listSrv.selectAll($event, true)"
+		(unselectAll)="listSrv.unselectAll()"
+		(sort)="listSrv.sort($event)"
+		(bottomReached)="bottomReached.emit()">
+
+		<ng-template #contextualMenuTemplate let-row="row">
+			<context-menu-item-app>
+				Action
+			</context-menu-item-app>
+		</ng-template>
+
+		<ng-template [columnApp]="'Supplier'" sortBy="name" let-row="row" width="300">
+			{{ row?.name }}
+		</ng-template>
+	</table-app>
+</card-app>

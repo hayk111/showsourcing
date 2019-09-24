@@ -5,9 +5,14 @@ import * as getstream from 'getstream';
 import { BehaviorSubject, from, Observable, of } from 'rxjs';
 import { first, map, mergeScan, scan, shareReplay, switchMap } from 'rxjs/operators';
 import { ActivityFeed, GroupedActivityFeed } from '~common/activity/interfaces/client-feed.interfaces';
-import { GetStreamActivity, GetStreamGroup, GetStreamResponse } from '~common/activity/interfaces/get-stream-feed.interfaces';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { TeamService } from '~entity-services';
+import {
+	GetStreamActivity,
+	GetStreamGroup,
+	GetStreamResponse,
+} from '~common/activity/interfaces/get-stream-feed.interfaces';
+import { TokenResponse } from '../interfaces/token-response.interface';
 
 
 /**

@@ -13,15 +13,18 @@
 
 	display: block;
 	height: 100%;
+	position: relative;
+
+	background: var(--legacy-color-bg);
+	overflow: hidden;
+	height: 100%;
 }
 
 .ctnr {
 	position: relative;
-	background: var(--legacy-color-bg);
 	box-sizing: border-box;
 	overflow: auto;
 	// pagination
-	height: calc(100% - 32px);
 	display: flex;
 	flex-direction: column;
 }
@@ -65,9 +68,9 @@
 }
 
 .cell, .header {
-	color: black;
+	color: var(--color-txt-primary);
 	padding: 0 var(--spacing-ms);
-	border-bottom: 1px solid  var(--legacy-color-secondary);
+	border-bottom: 1px solid  var(--color-bg-secondary);
 	height: 47px;
 	display: flex;
 	align-items: center;
@@ -75,29 +78,24 @@
 }
 
 .cell {
-	color: var(--legacy-color-txt-strong);
-	&.selected {
-		background-color: var(--legacy-color-secondary-light);
-	}
-
-	&.hover {
-		&.main {
-			color: var(--legacy-color-primary);
-		}
-	}
+	color: var(--color-txt-strong);
 }
 
 .header {
-	background: var(--legacy-color-secondary-light);
 	text-transform: capitalize;
 	font-weight: 600;
+	font-size: 14px;
 }
 
 
 .selectionCol {
 	.header, .cell {
-		padding: 0;
+		padding: 0 var(--spacing-ms) 0 0;
 	}
+}
+
+.sorted {
+	color: var(--color-primary);
 }
 
 .flexGrow {
@@ -110,7 +108,7 @@
 
 .emptyBorder{
 	.cell {
-		border-bottom: 1px solid transparent;
+		border-bottom: 1px solid var(--color-bg-secondary);
 	}
 	.cell, .header {
 		padding: 0;
