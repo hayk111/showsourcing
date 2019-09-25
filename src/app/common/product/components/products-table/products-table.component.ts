@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { EntityTableComponent, TableConfig } from '~core/list-page/entity-table.component';
 import { ERM, Product } from '~models';
+import { Color } from '~utils';
 import { TranslateService } from '@ngx-translate/core';
 
 const tableConfig: TableConfig = {
@@ -30,6 +31,10 @@ export class ProductsTableComponent extends EntityTableComponent<Product> {
 	columns = ['reference', 'price', 'supplier', 'category', 'createdBy', 'activities', 'status'];
 	@Input() tableConfig = tableConfig;
 	@Input() tableWidth: number;
+	@Input() hasVerticalScroll: boolean;
+	@Input() headerSecondary: boolean;
+	@Input() hasHeaderBorder: boolean;
+	@Input() hasShowItemsPerPage: boolean;
 	@Output() setFavourite = new EventEmitter<Product>();
 	@Output() openAddToProjectDialog = new EventEmitter<Product>();
 	@Output() openAddTaskDialog = new EventEmitter<Product>();
@@ -38,6 +43,7 @@ export class ProductsTableComponent extends EntityTableComponent<Product> {
 	@Output() archive = new EventEmitter<Product>();
 	@Output() delete = new EventEmitter<Product>();
 	prodErm = ERM.PRODUCT;
+	color = Color;
 
 	constructor(public translate: TranslateService) {
 		super();

@@ -50,7 +50,6 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		FilterType.TAGS
 	];
 
-	productsCount$: Observable<number>;
 	selectItemsConfig: SelectParamsConfig;
 	requestCount$: Observable<number>;
 
@@ -90,10 +89,6 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		this.productSrv.productListUpdate$.pipe(
 			switchMap(_ => this.listSrv.refetch())
 		).subscribe();
-
-		this.productsCount$ = this.listSrv.filterList.valueChanges$.pipe(
-			switchMap(_ => this.productSrv.selectCount(this.listSrv.filterList.asPredicate()).pipe(takeUntil(this._destroy$)))
-		);
 	}
 
 	ngAfterViewInit() {

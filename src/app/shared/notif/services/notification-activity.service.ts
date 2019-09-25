@@ -5,7 +5,6 @@ import * as getstream from 'getstream';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { first, map, switchMap, tap } from 'rxjs/operators';
 import { TokenResponse } from '~common/activity/interfaces/token-response.interface';
-import { TokenState } from '~core/auth/interfaces/token-state.interface';
 import { TeamService, UserService } from '~entity-services';
 import {
 	GetStreamNotification

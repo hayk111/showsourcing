@@ -1,8 +1,9 @@
 <h3 *ngIf="title" class="ms"> {{ title }} </h3>
 
-<div class="flex">
+<div class="flex" [ngStyle]="subPanelDialog && filtersPanelOpened && {'width': 'calc(100% - 296px)'}">
 
-	<div class="search-container flex">
+	<div
+		class="search-container flex">
 		<ng-content select="search-autocomplete-app"></ng-content>
 
 		<search-bar-app
@@ -17,26 +18,16 @@
 		</search-bar-app>
 
 		<button
-			*ngIf="hasFilter && !filtersPanelOpened"
+			*ngIf="hasFilter"
 			class="bold-s pointer capitalize filter-button"
 			(click)="showFilters.emit()" translate="button.show-filters">
-		</button>
-		<button
-			*ngIf="hasFilter && !filtersPanelOpened"
-			class="bold-s pointer capitalize clear-filter-button"
-			(click)="clearFilters.emit()"
-			translate="button.clear-filters">
-			<span *ngIf="filtersAmount">({{filtersAmount}})</span>
 		</button>
 		<div class="divider"></div>
 
 		<span class="capitalize entities-count">
 			{{count}} {{entityType}}
 		</span>
-
-		<button *ngIf="filtersPanelOpened" class="bold-s pointer secondary capitalize" (click)="hideFilters.emit()" translate="button.hide-filters">
-		</button>
-
+		
 		<button
 			*ngIf="buttonName"
 			class="create first-uppercase"

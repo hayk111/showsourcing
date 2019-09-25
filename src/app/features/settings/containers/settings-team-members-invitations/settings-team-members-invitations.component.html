@@ -1,8 +1,18 @@
+<header-list-app
+	class="smaller-padding"
+	[hasAction]="false"
+	title="Invitations">
+</header-list-app>
 
 <controller-list-app
+	class="sub-menu-padding-board"
+	entityType="Users"
 	[title]="'title.invitations' | translate"
 	[hasSwitch]="false"
 	[hasFilter]="false"
+	[hasArchived]="false"
+	[hasAssigned]="false"
+	[count]="listSrv.count$ | async"
 	(search)="listSrv.search($event)">
 
 	<controller-list-right-item-app>
@@ -21,6 +31,7 @@
 		[pending]="listSrv.pending"
 		[count]="listSrv.count$ | async"
 		[currentPage]="listSrv.currentPage"
+		[currentSort]="listSrv.currentSort"
 		(next)="listSrv.loadNextPage()"
 		(pevious)="listSrv.loadPreviousPage()"
 		(goTorPage)="listSrv.loadPage($event)"
@@ -30,6 +41,7 @@
 		(selectAll)="listSrv.selectAll($event, false)"
     (unselectAll)="listSrv.unselectAll()"
 		(accessTypeUpdated)="updateAccessType($event)"
+		(showItemsPerPage)="showItemsPerPage($event)"
 		(delete)="listSrv.deleteOne($event, true)">
 	</invitations-table-app>
 

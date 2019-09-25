@@ -29,7 +29,7 @@
 	<!-- Name Category -->
 	<ng-template
 		*ngIf="ermEvent !== entityMetadata"
-		[columnApp]="entityMetadata.singular + ' name' | const: 'messages'"
+		[columnApp]="'header.name' | translate"
 		let-row="row"
 		width="250">
 		<div class="flexBetween ellipsis">

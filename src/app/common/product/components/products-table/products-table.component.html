@@ -1,7 +1,8 @@
 
-<table-app 
-  [placeholder]="'placeholder.no-product' | translate"  
-  [rows]="rows"
+<table-app
+	[placeholder]="'placeholder.no-product' | translate"
+	[rows]="rows"
+	[hasVerticalScroll]="hasVerticalScroll"
   [currentSort]="currentSort"
   [pending]="pending"
   [count]="count"
@@ -11,6 +12,9 @@
   [hasHeader]="hasHeader"
 	[hasPagination]="hasPagination"
 	[hasSelection]="hasSelection"
+	[headerSecondary]="headerSecondary"
+	[hasHeaderBorder]="hasHeaderBorder"
+	[hasShowItemsPerPage]="hasShowItemsPerPage"
   [contextualMenu]="contextualMenuTemplate"
   (goToPage)="goToPage.emit($event)"
   (bottomReached)="bottomReached.emit()"
@@ -113,14 +117,14 @@
           [canCreate]="true"
           [width]="370"
           (update)="update.emit({ id: row.id, category: $event })">
-          <div class="ellipsis pointer txt-btn" class="category"> {{ row?.category?.name || '-' }}</div>
+					<div class="ellipsis pointer txt-btn category"> {{ row?.category?.name || '-' }}</div>
         </selector-app>
 			</ng-container>
 
 			<!-- category + supplier -->
 
 			<ng-container *ngSwitchCase="'about'">
-					<selector-app
+				<selector-app
 					type="supplier"
 					[hasPicker]="canUpdate"
           [canCreate]="true"
@@ -128,15 +132,15 @@
           (update)="update.emit({ id: row.id, supplier: $event })">
           <div class="ellipsis supplier-col txt-btn"> {{ row?.supplier?.name || '-' }}</div>
         </selector-app>
-					<selector-app
-						type="category"
-						[hasPicker]="canUpdate"
-						[canCreate]="true"
-						[width]="370"
-						(update)="update.emit({ id: row.id, category: $event })">
-						<div class="ellipsis pointer txt-btn" class="category"> {{ row?.category?.name || '-' }}</div>
-					</selector-app>
-				</ng-container>
+				<selector-app
+					type="category"
+					[hasPicker]="canUpdate"
+					[canCreate]="true"
+					[width]="370"
+					(update)="update.emit({ id: row.id, category: $event })">
+					<div class="ellipsis pointer txt-btn" class="category"> {{ row?.category?.name || '-' }}</div>
+				</selector-app>
+			</ng-container>
 
       <!-- activities -->
       <ng-container *ngSwitchCase="'activity'">
@@ -152,24 +156,24 @@
 
       <!-- price -->
       <ng-container *ngSwitchCase="'price'">
-        <editable-text-app
-          #editable
-          [hasAction]="false"
-          (opened)="inp.focus()"
-          (closed)="update.emit({ id: row.id, price: inp.price })">
-          <editable-label-app>
-            <price-app
-              [price]="row?.price"
-              [moq]="row?.minimumOrderQuantity"
-              [moqDesc]="row?.moqDescription">
-            </price-app>
-          </editable-label-app>
-          <input-price-app
-            #inp
-            (keyup.enter)="editable.close()"
-            [price]="row?.price">
-          </input-price-app>
-        </editable-text-app>
+				<editable-text-app
+					#editable
+					[hasAction]="false"
+					(opened)="inp.focus()"
+					(closed)="update.emit({ id: row.id, price: inp.price })">
+					<editable-label-app>
+						<price-app
+							[price]="row?.price"
+							[moq]="row?.minimumOrderQuantity"
+							[moqDesc]="row?.moqDescription">
+						</price-app>
+					</editable-label-app>
+					<input-price-app
+						#inp
+						(keyup.enter)="editable.close()"
+						[price]="row?.price">
+					</input-price-app>
+				</editable-text-app>
       </ng-container>
 
       <!-- moq -->
@@ -192,22 +196,33 @@
 
       <!-- creation date -->
       <ng-container *ngSwitchCase="'creation date'">
-        {{ row?.creationDate | date: 'dd MMMM y':'':translate.currentLang }}
-      </ng-container>
-
+        {{ row?.creationDate | date: 'dd MMMM y' }}
+			</ng-container>
+			
       <!-- created by -->
       <ng-container *ngSwitchCase="'created by'">
-        <span class="created-by">{{ row?.createdBy | formatUserName }}</span>
         <div class="created-by-date">
-          {{ row?.creationDate | date: 'dd MMMM y':'':translate.currentLang }}
+          {{ row?.creationDate | date: 'dd MMMM y' }}
         </div>
-      </ng-container>
+			</ng-container>
+			
+			<!-- favorite -->
+			<ng-container *ngSwitchCase="'favorite'">
+				<div>
+					<rating-heart-app
+						[favorite]="row?.favorite"
+						(favorited)="favorited.emit(row.id)"
+						(unfavorited)="unfavorited.emit(row.id)">
+					</rating-heart-app>
+				</div>
+			</ng-container>
 
       <!-- favorite -->
-      <ng-container *ngSwitchCase="'favorite'">
+      <ng-container *ngSwitchCase="'FAV'">
         <div>
           <rating-heart-app
-            [favorite]="row?.favorite"
+						size="20"
+						[favorite]="row?.favorite"
             (favorited)="favorited.emit(row.id)"
             (unfavorited)="unfavorited.emit(row.id)">
           </rating-heart-app>
@@ -234,8 +249,21 @@
 						size="32"></user-picture-app>
 					<status-selector-app [entity]="row" [typeEntity]="prodErm" [canUpdate]="canUpdate" selectSize="s"></status-selector-app>
 				</div>
-      </ng-container>
+			</ng-container>
 
+			<!-- name -->
+      <ng-container *ngSwitchCase="'name'">
+				<div class="flexVAlign">
+					<logo-app 
+						class="mini imgCtnr" 
+						[logo]="row.images[0]" 
+						[color]="color.SECONDARY" 
+						size="ms" 
+						type="product"></logo-app>
+					<span class="product-name">{{ row?.name }}</span>
+				</div>
+			</ng-container>
+		
       <!-- default -->
       <ng-container *ngSwitchDefault>
         {{ row[column.title] }}
