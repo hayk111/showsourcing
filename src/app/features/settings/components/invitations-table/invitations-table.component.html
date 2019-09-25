@@ -4,9 +4,9 @@
 	[pending]="pending"
 	[selected]="selection"
 	[isSelectable]="isSelectableFn"
-	[hasSelection]="false"
 	[count]="count"
 	[currentPage]="currentPage"
+	[currentSort]="currentSort"
 	[placeholder]="'placeholder.no-invitation' | translate"
 	(goToPage)="goToPage.emit($event)"
 	(selectOne)="select.emit($event)"
@@ -14,7 +14,9 @@
 	(selectAll)="selectAll.emit($event)"
 	(unselectAll)="unselectAll.emit()"
 	(bottomReached)="bottomReached.emit()"
-	(sort)="sort.emit($event)">
+	(sort)="sort.emit($event)"
+	(showItemsPerPage)="showItemsPerPage.emit($event)"
+	i18n-placeholder="@@no-invitation">
 
 	<ng-template #contextualMenuTemplate let-row="row">
 		<context-menu-item-app
@@ -31,10 +33,12 @@
 		let-row="row"
 		width="250"
 		[sortOrder]="'DESC'">
-		{{ row.email }}
+		<span class="email">
+			{{ row.email }}
+		</span>
 	</ng-template>
 
-	<!-- acccountType -->
+	<!-- access -->
 	<ng-template
 		class="capitalize"
 		[columnApp]="'header.account-type' | translate"
@@ -59,11 +63,25 @@
 			<context-menu-item-app class="remove-user" (click)="delete.emit(row)">
 				<span translate="button.remove-invitation"></span>
 			</context-menu-item-app>
-	   </context-menu-app>
-	   <span *ngIf="!teamOwner" class="capitalize">
-				<ng-container *ngIf="row.accessType === 'TeamMember'" translate="text.team-member"></ng-container>
-				<ng-container *ngIf="row.accessType === 'Contributor'" translate="text.contributor"></ng-container>
-			</span>
+		</context-menu-app>
+		<span *ngIf="!teamOwner" class="capitalize">
+			<ng-container *ngIf="row.accessType === 'TeamMember'" i18n="@@team-member">
+				<span class="access">Team Member</span>
+			</ng-container>
+			<ng-container *ngIf="row.accessType === 'Contributor'" i18n="@@contributor">
+				<span class="access">Contributor</span>
+			</ng-container>
+		</span>
+	</ng-template>
+
+	<!-- plan -->
+	<ng-template
+		[columnApp]="'plan' | const: 'messages'"
+		let-row="row"
+		width="160">
+		<span class="plan">
+			{{ row?.plan  }}
+		</span>
 	</ng-template>
 
 	<!-- status -->
@@ -71,8 +89,10 @@
 		[columnApp]="'header.status' | translate"
 		let-row="row"
 		sortBy="status"
-		width="200">
-		{{ 'text.invitation' | translate }} {{ 'text.' + row.status | translate }}
+		width="140">
+		<span class="status capitalize">
+			{{ row.status }}
+		</span>
 	</ng-template>
 
 </table-app>

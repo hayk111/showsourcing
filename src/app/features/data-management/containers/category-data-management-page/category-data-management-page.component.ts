@@ -5,6 +5,7 @@ import { ListPageKey, ListPageService } from '~core/list-page';
 import { DataManagementService } from '~features/data-management/services/data-management.service';
 import { Category, ERM } from '~models';
 import { AutoUnsub } from '~utils';
+import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 
 @Component({
 	selector: 'category-data-management-page-app',
@@ -18,6 +19,11 @@ import { AutoUnsub } from '~utils';
 export class CategoryDataManagementPageComponent extends AutoUnsub implements OnInit {
 
 	erm = ERM.CATEGORY;
+
+	addButtonWidth = '111px';
+	addButtonHeight = '32px';
+
+	selectItemsConfig: SelectParamsConfig;
 
 	constructor(
 		private categorySrv: CategoryService,
@@ -41,6 +47,11 @@ export class CategoryDataManagementPageComponent extends AutoUnsub implements On
 	mergeSelected() {
 		const ids = this.listSrv.getSelectedIds();
 		this.dmSrv.merge(ids, this.listSrv.entityMetadata);
+	}
+
+	showItemsPerPage(count: number) {
+		this.selectItemsConfig = {take: Number(count)};
+		this.listSrv.refetch(this.selectItemsConfig).subscribe();
 	}
 
 }

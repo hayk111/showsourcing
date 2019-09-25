@@ -10,6 +10,23 @@ import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
 import { ProductDialogService } from '~common/modals/services/product-dialog.service';
 import { translate } from '~utils';
+import { TableConfig } from '~core/list-page';
+import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
+
+const tableConfig: TableConfig = {
+	activities: { title: 'activity', translationKey: 'activity', width: 190, sortable: false },
+	category: { title: 'category', translationKey: 'category', width: 190, sortProperty: 'category.name' },
+	createdBy: { title: 'created by', translationKey: 'created-by', width: 140, sortProperty: 'creationDate' },
+	creationDate: { title: 'creation date', translationKey: 'creation-date', width: 190, sortProperty: 'creationDate' },
+	about: { title: 'about', translationKey: 'about', width: 190, sortProperty: 'creationDate' },
+	favorite: { title: 'favorite', translationKey: 'favorite', width: 50, sortProperty: 'favorite' },
+	moq: { title: 'moq', translationKey: 'moq', width: 120, sortProperty: 'minimumOrderQuantity' },
+	price: { title: 'price', translationKey: 'price', width: 120, sortProperty: 'price.value' },
+	projects: { title: 'projects', translationKey: 'projects', width: 190, sortProperty: 'creationDate' },
+	reference: { title: 'reference', translationKey: 'reference', width: 247, sortProperty: 'reference' },
+	status: { title: 'status', translationKey: 'status', width: 190, sortProperty: 'status.step' },
+	supplier: { title: 'supplier', translationKey: 'supplier', width: 190, sortProperty: 'supplier.id' },
+};
 
 @Component({
 	selector: 'product-select-dlg',
@@ -19,8 +36,16 @@ import { translate } from '~utils';
 	providers: [ListPageService]
 })
 export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
+	columns = ['reference', 'price', 'supplier', 'category', 'createdBy', 'activities', 'status'];
 
+	@Input() initialSelectedProducts: Product[];
+	@Input() project: Project;
+	@Input() submitProducts = true;
+
+	selectItemsConfig: SelectParamsConfig;
 	filterType = FilterType;
+	productTableConfig = tableConfig;
+	erm = ERM;
 
 	filterTypes = [
 		FilterType.ARCHIVED,
@@ -34,16 +59,11 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 		FilterType.TAGS
 	];
 
-	@Input() initialSelectedProducts: Product[];
-	@Input() project: Project;
-	@Input() submitProducts = true;
-
 	private unselectedProducts: { [key: string]: Product } = {};
 	selectedProducts: { [key: string]: Product } = {};
 
-	productsCount$: Observable<number>;
-	private selectedProductsCount = 0;
-	private selectedAllCount = 10;
+	selectedProductsCount = 0;
+	private selectedAllCount = 25;
 
 	filtersPanelOpened = false;
 
@@ -69,11 +89,6 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 		});
 
 		this.initialSelection();
-
-		this.productsCount$ = this.listSrv.filterList.valueChanges$.pipe(
-			switchMap(_ => this.productSrv.selectCount(this.listSrv.filterList.asPredicate())),
-			takeUntil(this._destroy$));
-
 	}
 
 	searchProduct(value) {
@@ -157,6 +172,10 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 		this.selectedProductsCount -= this.selectedAllCount;
 	}
 
+	cancel() {
+		this.dlgSrv.close({ type: CloseEventType.CANCEL });
+	}
+
 	submit() {
 		const selectedProducts = Object.values(this.selectedProducts);
 		const unselectedProducts = Object.values(this.unselectedProducts);
@@ -187,6 +206,19 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 			this.listSrv.addFilter(filterAssignee);
 		else
 			this.listSrv.removeFilter(filterAssignee);
+	}
+
+	toggleMyProducts(show: boolean) {
+		const filterProduct = { type: FilterType.CREATED_BY, value: this.userSrv.userSync.id };
+		if (show)
+			this.listSrv.addFilter(filterProduct);
+		else
+			this.listSrv.removeFilter(filterProduct);
+	}
+
+	showItemsPerPage(count: number) {
+		this.selectItemsConfig = { take: Number(count) };
+		this.listSrv.refetch(this.selectItemsConfig).subscribe();
 	}
 
 }

@@ -1,0 +1,22 @@
+<header-details-app [elevated]="false">
+
+	<header-details-title-app>{{ request?.title }}</header-details-title-app>
+
+	<img-app
+		[image]="request?.requestElements[0]?.images"
+		type="request"
+		size="s">
+	</img-app>
+
+	<header-details-info-app >
+		<div class="flex dot-separator">
+			<div> {{ 'OBJ.date-at-time' | translate : { date: (request?.creationDate | date: 'dd MMMM yyyy':'':translate.currentLang) , time: (request?.creationDate | date: 'HH:mm':'':translate.currentLang)  } }}</div>
+			<div *ngIf="request?.sender?.name">{{ request.sender.name }}</div>
+			<div *ngIf="request?.sender?.company">{{ request.sender.company }}</div>
+			<div>
+				{{ ((request?.requestElements?.length || 0) > 1 ? 'OBJ.n-element.plural' : 'OBJ.n-element.singular') | translate: {count: request?.requestElements?.length || 0} }}
+			</div>
+		</div>
+	</header-details-info-app>
+	
+</header-details-app>

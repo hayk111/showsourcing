@@ -124,11 +124,28 @@
 	overflow: hidden;
 }
 
-.category {
+.category, .category-dark {
   font-size: var(--font-size-m);
   font-weight: 600;
 	color: var(--color-accent-dark);
 	overflow: hidden;
 	white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+.category-dark {
+	color: var(--color-bg-dark);
+	font-weight: normal;
+}
+
+.product-name {
+	color: var(--color-bg-dark);
+	font-size: var(--font-size-m);
+	margin-left: var(--spacing-ms);
+}
+
+.price-dialog {
+	color: var(--color-bg-dark);
+	font-size: var(--font-size-m);
+  font-weight: 600;
 }
