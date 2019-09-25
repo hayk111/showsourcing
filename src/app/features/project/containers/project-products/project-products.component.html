@@ -60,6 +60,7 @@
 		entityType="products"
 		[searchValue]="listSrv.searchValue"
 		[view]="listSrv.view"
+		[count]="listSrv.count$ | async"
 		(showFilters)="listSrv.openFilterPanel()"
 		(clearFilters)="onClearFilters()"
 		(showArchived)="listSrv.filterByArchived(true)"

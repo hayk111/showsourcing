@@ -231,6 +231,10 @@
 	padding: 24px 24px 0 24px !important;
 }
 
+.border-bottom-divider {
+	border-bottom: 1px solid var(--legacy-color-divider);
+}
+
 .side-padding-l {
 	padding-left: var(--spacing-l);
 	padding-right: var(--spacing-l);

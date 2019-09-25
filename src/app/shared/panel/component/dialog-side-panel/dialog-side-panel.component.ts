@@ -14,6 +14,4 @@ import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 })
 export class DialogSidePanelComponent {
 	@Input() align: 'left' | 'right' = 'right';
-	/** whether we display the top panel */
-	@Input() hasTop = true;
 }

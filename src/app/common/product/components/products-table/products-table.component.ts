@@ -32,6 +32,9 @@ export class ProductsTableComponent extends EntityTableComponent<Product> {
 	@Input() tableConfig = tableConfig;
 	@Input() tableWidth: number;
 	@Input() hasVerticalScroll: boolean;
+	@Input() headerSecondary: boolean;
+	@Input() hasHeaderBorder: boolean;
+	@Input() hasShowItemsPerPage: boolean;
 	@Output() setFavourite = new EventEmitter<Product>();
 	@Output() openAddToProjectDialog = new EventEmitter<Product>();
 	@Output() openAddTaskDialog = new EventEmitter<Product>();

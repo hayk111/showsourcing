@@ -55,8 +55,27 @@ side-panel-title-app {
 
 .clear {
 	cursor: pointer;
-	&:hover{
-		text-decoration: underline;
-		color: var(--legacy-color-warn);
+	color: var(--color-warn);
+  font-size: var(--font-size-m);
+  font-weight: 600;
+}
+
+.dialog-panel-header {
+	position: relative;
+
+	icon-app {
+		position: absolute;
+	}
+}
+
+.dialog-panel-right-section {
+	side-panel-action-app {
+		margin-right: var(--spacing-ms);
+	}
+}
+
+dialog-side-panel-app {
+	side-panel-app {
+		top: 0;
 	}
 }
