@@ -51,6 +51,11 @@ export class ControllerListComponent extends AutoUnsub implements OnInit {
 	// whether we should display show tasks created by me checkbox
 	@Input() hasTaskCreatedByMeOnly = false;
 
+	// whether the subpanel is inside dialog
+	@Input() subPanelDialog = false;
+
+	@Input() searchFullWidth = true;
+
 	@Input() title: string;
 	@Input() count = 0;
 	@Input() entityType: 'PRODUCT' | 'PROJECT' | 'SUPPLIER' | 'SAMPLE'; // should be filled with all the entity types
@@ -90,6 +95,10 @@ export class ControllerListComponent extends AutoUnsub implements OnInit {
 	@Output() showAssigned = new EventEmitter<undefined>();
 	@Output() hideAssigned = new EventEmitter<undefined>();
 
+	/** show only the products created by current user */
+	@Output() showMyProducts = new EventEmitter<undefined>();
+	/** hide the products created by current user */
+	@Output() hideMyProducts = new EventEmitter<undefined>();
 	/** show only the export files created by the current user */
 	@Output() showMyExport = new EventEmitter<undefined>();
 	@Output() hideMyExport = new EventEmitter<undefined>();
@@ -115,7 +124,7 @@ export class ControllerListComponent extends AutoUnsub implements OnInit {
 	inputFocus = false;
 
 	isArchivedShown = false;
-	archiveChecked = false;
+	isMyProductsShown = false;
 	isCompletedTaskChecked = false;
 	isTaskCreatedByMeOnlyChecked = false;
 	isAssigned = false;
@@ -167,6 +176,11 @@ export class ControllerListComponent extends AutoUnsub implements OnInit {
 		}
 	}
 
+	toggleMyProducts() {
+		this.isMyProductsShown = !this.isMyProductsShown;
+		this.myProductsChanged();
+	}
+
 	toggleArchived() {
 		this.isArchivedShown = !this.isArchivedShown;
 		this.archivedChange();
@@ -190,6 +204,14 @@ export class ControllerListComponent extends AutoUnsub implements OnInit {
 	toggleCompletedTask() {
 		this.isCompletedTaskChecked = !this.isCompletedTaskChecked;
 		this.tasksCompletedChanged();
+	}
+
+	private myProductsChanged() {
+		if (this.isMyProductsShown) {
+			this.showMyProducts.emit();
+		} else {
+			this.hideMyProducts.emit();
+		}
 	}
 
 	private archivedChange() {

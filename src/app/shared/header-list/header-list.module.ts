@@ -32,6 +32,7 @@ import { HeaderDetailsInfoComponent } from './components/header-details-info/hea
 import { HeaderDetailsActionsComponent } from './components/header-details-actions/header-details-actions.component';
 import { HeaderListNavItemComponent } from './components/header-list-nav-item/header-list-nav-item.component';
 import { HeaderListNavComponent } from './components/header-list-nav/header-list-nav.component';
+import { PanelTabComponent } from './components/panel-tab/panel-tab.component';
 
 @NgModule({
 	imports: [
@@ -70,7 +71,8 @@ import { HeaderListNavComponent } from './components/header-list-nav/header-list
 		HeaderDetailsInfoComponent,
 		HeaderDetailsActionsComponent,
 		HeaderListNavComponent,
-		HeaderListNavItemComponent
+		HeaderListNavItemComponent,
+		PanelTabComponent,
 	],
 	exports: [
 		HeaderListComponent,
@@ -84,7 +86,8 @@ import { HeaderListNavComponent } from './components/header-list-nav/header-list
 		HeaderDetailsInfoComponent,
 		HeaderDetailsActionsComponent,
 		HeaderListNavComponent,
-		HeaderListNavItemComponent
+		HeaderListNavItemComponent,
+		PanelTabComponent,
 	],
 })
 export class HeaderListModule { }

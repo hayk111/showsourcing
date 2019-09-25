@@ -4,6 +4,7 @@ import { SidePanelComponent } from '~shared/panel/component/side-panel/side-pane
 import { DividerModule } from '~shared/divider/divider.module';
 import { SidePanelTitleComponent } from '~shared/panel/component/side-panel/side-panel-title.component';
 import { SidePanelActionComponent } from '~shared/panel/component/side-panel/side-panel-action.component';
+import { DialogSidePanelComponent } from '~shared/panel/component/dialog-side-panel/dialog-side-panel.component';
 
 @NgModule({
 	imports: [
@@ -13,12 +14,14 @@ import { SidePanelActionComponent } from '~shared/panel/component/side-panel/sid
 	declarations: [
 		SidePanelComponent,
 		SidePanelTitleComponent,
-		SidePanelActionComponent
+		SidePanelActionComponent,
+		DialogSidePanelComponent
 	],
 	exports: [
 		SidePanelComponent,
 		SidePanelTitleComponent,
-		SidePanelActionComponent
+		SidePanelActionComponent,
+		DialogSidePanelComponent
 	]
 })
 export class PanelModule { }

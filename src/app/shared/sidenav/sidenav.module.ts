@@ -6,9 +6,11 @@ import { SidenavComponent } from '~shared/sidenav/components/sidenav/sidenav.com
 import { SidenavItemComponent } from '~shared/sidenav/components/sidenav-item/sidenav-item.component';
 import { SidenavItemLabelDirective } from '~shared/sidenav/components/sidenav-item-label/sidenav-item-label.directive';
 import { SidenavItemGroupComponent } from '~shared/sidenav/components/sidenav-item-group/sidenav-item-group.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
 	imports: [
+		RouterModule.forChild([]),
 		CommonModule,
 		UtilsModule,
 		IconsModule

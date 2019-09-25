@@ -34,6 +34,8 @@
 					[selection]="listSrv.selection$ | async"
 					(openReviewRequestReply)="openReviewRequestReply($event)"
 					(openRefuseReplyDlg)="openRefuseReplyDlg($event)"
+					[count]="listSrv.count$ | async"
+					[currentPage]="listSrv.currentPage"
 					(cancelReply)="cancelReply($event)"
 					(bottomReached)="listSrv.loadMore()"
 					(select)="listSrv.selectOne($event)"

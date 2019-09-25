@@ -1,19 +1,22 @@
-<div class="sidemenu" [ngClass]="{ expanded: internalExpanded }">
-	<div class="flex sidemenu__header">
-		<div class="icon" [ngClass]="{ expanded: internalExpanded }">
-			<icon-app class="flexCenter" [name]="menuIcon" size="l"
-				(click)="onToggleExpanded()"></icon-app>
-		</div>
-		<div class="info" *ngIf="internalExpanded" >
-			<h2 class="color-txt-strong first-uppercase">{{ menuTitle }}</h2>
-		</div>
-		<div class="flexCenter collapse" *ngIf="internalExpanded"
-			(click)="onToggleExpanded()">
-			<icon-app name="angle-left" (click)="onToggleExpanded()"></icon-app>
-		</div>
-	</div>
 
-	<nav class="flex">
-		<ng-content></ng-content>
+<div class="side-nav">
+	<header>
+		<h1 class="title">Settings</h1>
+		<div class=account-info-container>
+			<logo-app
+				[icon]="headerIcon"
+				size="m"
+				color="primary">
+			</logo-app>
+
+			<div class="right">
+				<h2>{{headerTitle}}</h2>
+				<h2>{{headerSubTitle}}</h2>
+			</div>
+
+		</div>
+	</header>
+	<nav>
+		<ng-content select="sidenav-item-group-app"></ng-content>
 	</nav>
 </div>

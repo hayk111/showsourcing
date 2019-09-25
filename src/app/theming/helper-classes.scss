@@ -181,6 +181,15 @@
 	overflow-y: auto;
 }
 
+.scrollable-y {
+	overflow-y: auto !important;
+}
+
+.bordered-table {
+	border: 1px solid #e6ebf5;
+	border-radius: var(--border-radius-s);
+}
+
 .dot-separator {
 	& > * {
 		//for each children that is not the first one we add some spaces and bullet dots on the content
@@ -224,6 +233,10 @@
 
 .sub-menu-padding-board {
 	padding: 24px 24px 0 24px !important;
+}
+
+.border-bottom-divider {
+	border-bottom: 1px solid var(--legacy-color-divider);
 }
 
 .side-padding-l {
