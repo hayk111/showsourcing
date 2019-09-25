@@ -32,14 +32,26 @@
 }
 
 .placeholderCtnr {
+	margin: var(--spacing-l) 0;
 	height: 100%;
 
-	.placeholder {
-		padding-top: var(--spacing-xxl);
-		font-weight: 600;
-		font-size: 20px;
+	.placeholder-logo {
+		margin-bottom: var(--spacing-ms);
 	}
+
+	.placeholder-title {
+		color: var(--color-txt-primary);
+		font-weight: 600;
+		margin-bottom: var(--spacing-xs);
+	}
+
+	.placeholder-description {
+		color: var(--color-txt-secondary);
+		margin-bottom: var(--spacing-ms);
+	}
+
 }
+
 .context-menu {
 	padding: 0 !important;
 	icon-app {

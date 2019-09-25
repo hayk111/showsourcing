@@ -7,8 +7,9 @@
 	// width: 378px;
 	padding-left: var(--spacing-s);
 	&.focus {
-		border: 1px solid #45adff;
+		border: 1px solid var(--color-primary);
 	}
+
 	input {
 		height: 100%;
 		border: none;

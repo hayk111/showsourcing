@@ -225,12 +225,12 @@ export class ListPageService
 	}
 
 	update(value: T) {
-		this.dataSrv.update(value)
-			.pipe(
-				// sometimes the optimistic ui fails for some odd reason when updating the supplier of a product
-				// so we just refetch to cover the bug, fuck this.
-				switchMap(_ => this.refetch())
-			).subscribe();
+		this.dataSrv.update(value).subscribe();
+		// .pipe(
+		// 	// sometimes the optimistic ui fails for some odd reason when updating the supplier of a product
+		// 	// so we just refetch to cover the bug, fuck this.
+		// 	switchMap(_ => refetch ? this.refetch() : empty())
+		// ).subscribe();
 	}
 
 	updateMany(values: T[]) {

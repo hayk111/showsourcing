@@ -61,7 +61,7 @@ export class TasksPageComponent extends AutoUnsub implements OnInit, AfterViewIn
 		this.listSrv.setup({
 			key: ListPageKey.TASK,
 			entitySrv: this.taskSrv,
-			searchedFields: ['name'],
+			searchedFields: ['name', 'reference', 'assignee'],
 			entityMetadata: ERM.TASK,
 			initialFilters: [{ type: FilterType.DONE, value: false }],
 			originComponentDestroy$: this._destroy$,

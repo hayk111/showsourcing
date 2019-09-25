@@ -17,9 +17,7 @@ input, textarea {
 .cdk-focused.cdk-keyboard-focused {
 	border: 1px solid var(--legacy-color-primary);
 	border-radius: var(--border-radius);
-	&.focus-left-border {
-		border-left: 4px solid var(--legacy-color-primary);
-	}
+
 }
 
 input, textarea {
@@ -31,17 +29,9 @@ input, textarea {
 	color: var(--legacy-color-txt-primary);
 	border: 1px solid var(--legacy-color-secondary);
 	border-radius: var(--border-radius);
-	&:not(.borderless).ng-invalid.ng-dirty:not(:focus) {
-		border: 1px solid var(--legacy-color-warn);
-		border-left: 4px solid var(--legacy-color-warn);
-	}
-	&:focus:not(textarea) {
-		border: 1px solid var(--legacy-color-primary);
-		border-left: 4px solid var(--legacy-color-primary);
-		padding-left: 5px;
-	}
-	&:focus:not(input) {
-		border: 1px solid var(--legacy-color-primary);
+
+	&:focus {
+		border: 1px solid var(--color-primary);
 	}
 	&.small {
 		padding: 3px;
@@ -108,9 +98,6 @@ form-field-app.field-focused {
 	label-app {
 		color: var(--legacy-color-primary);
 	}
-	input {
-		border-left: 4px solid var(--legacy-color-primary)
-	}
 }
 
 form-field-app.modal {
@@ -151,7 +138,7 @@ button, input[type="submit"], .button {
 	height: 32px;
 	padding: 0px var(--spacing-ms);
 	width: auto;
-	border-radius: 2px;
+	border-radius: var(--border-radius);
 	font-size: var(--font-size-m);
 	background: var(--legacy-color-primary);
 	border: none;
@@ -195,6 +182,10 @@ button, input[type="submit"], .button {
 		text-transform: capitalize;
 	}
 
+	&.min-width {
+		min-width: 120px;
+	}
+
 	&.small {
 		min-width: 60px;
 		height: 24px;
@@ -234,7 +225,7 @@ button:disabled, input[type="submit"]:disabled {
 }
 
 .txt-btn:hover{
-	color: var(--legacy-color-primary);
+	color: var(--color-primary) !important;
 	text-decoration: underline;
 	cursor: pointer;
 }

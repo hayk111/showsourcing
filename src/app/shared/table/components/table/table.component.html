@@ -104,8 +104,16 @@
 
 	</div>
 
-	<div *ngIf="rows?.length === 0" class="flexAround placeholderCtnr">
-		<div class="placeholder">{{ placeholder }}</div>
+	<div *ngIf="rows?.length === 0" class="flexCenter flexColumn placeholderCtnr">
+		<logo-app
+			class="placeholder-logo"
+			[circle]="true"
+			size="xxl"
+			[type]="type">
+		</logo-app>
+		<div class="placeholder-title">No {{ type }} found</div>
+		<div class="placeholder-description">Create a new one!</div>
+		<button class="min-width" (click)="createClick.emit()">create task</button>
 	</div>
 
 	<!-- pending -->

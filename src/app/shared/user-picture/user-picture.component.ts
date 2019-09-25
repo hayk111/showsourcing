@@ -13,8 +13,8 @@ import { AppImage, User } from '~models';
 export class UserPictureComponent {
 	@Input() size = 32;
 	@Input() border = false;
-	@Input() fontSize: number;
-	@Input() background = true;
+	@Input() fontSize = 14;
+	@Input() background = false;
 	/** user */
 	@Input() set user(user: User) {
 		this._user = user;

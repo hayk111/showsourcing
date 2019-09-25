@@ -1,5 +1,6 @@
 <table-app
 	[rows]="rows"
+	[type]="erm.TASK.singular"
 	[pending]="pending"
 	[selected]="selection"
 	[contextualMenu]="contextualMenuTemplate"
@@ -18,6 +19,7 @@
 	(selectAll)="selectAll.emit($event)"
 	(unselectAll)="unselectAll.emit($event)"
 	(sort)="sort.emit($event)"
+	(createClick)="createClick.emit()"
 	(bottomReached)="bottomReached.emit()">
 
 	<!-- contextual menu -->
@@ -77,7 +79,12 @@
 			<!-- name -->
 			<ng-container *ngSwitchCase="'name'">
 				<div class="mainCellWrapper name-container ellipsis">
-					<span class="ellipsis pointer txt-btn" (click)="previewClick.emit(row)">{{ row?.name }}</span>
+					<span
+						class="ellipsis pointer txt-btn"
+						[ngClass]="{ 'txt-task-done-empty': row?.done }"
+						(click)="previewClick.emit(row)">
+						{{ row?.name }}
+					</span>
 				</div>
 			</ng-container>
 
@@ -89,7 +96,12 @@
 					[offsetX]="4"
 					(update)="update.emit({ id: row?.id, product: $event })">
 					<div class="mainCellWrapper product-container ellipsis">
-						<span class="ellipsis pointer txt-btn" (click)="openProduct.emit(row?.product?.id)">{{ row?.product?.name || 'Link to product' }}</span>
+						<span
+							class="ellipsis pointer txt-btn"
+							[ngClass]="{ 'txt-task-done-empty': row?.done || !row?.product }"
+							(click)="openProduct.emit(row?.product?.id)">
+							{{ row?.product?.name || 'Link to product' }}
+						</span>
 					</div>
 				</selector-app>
 			</ng-container>
@@ -102,7 +114,12 @@
 					[offsetX]="4"
 					(update)="update.emit({ id: row?.id, supplier: $event })">
 					<div class="mainCellWrapper supplier-container ellipsis">
-						<span class="ellipsis pointer txt-btn" (click)="openSupplier.emit(row?.supplier?.id)">{{ row?.supplier?.name || 'Link to supplier'}}</span>
+						<span
+							class="ellipsis pointer txt-btn"
+							[ngClass]="{ 'txt-task-done-empty': row?.done || !row?.supplier }"
+							(click)="openSupplier.emit(row?.supplier?.id)">
+							{{ row?.supplier?.name || 'Link to supplier'}}
+						</span>
 					</div>
 				</selector-app>
 			</ng-container>
@@ -110,7 +127,7 @@
 			<!-- due date -->
 			<ng-container *ngSwitchCase="'due date'">
 				<div class="mainCellWrapper due-date-container ellipsis">
-					<span class="ellipsis">{{ row?.dueDate ? (row?.dueDate | date: 'dd MMM y':'':translate.currentLang) : 'Set due date' }}</span>
+					<span class="ellipsis" [ngClass]="{ 'txt-task-done-empty': row?.done || !row?.dueDate }">{{ row?.dueDate ? (row?.dueDate | date: 'dd MMM y':'':translate.currentLang) : 'Set due date' }}</span>
 				</div>
 			</ng-container>
 
@@ -124,11 +141,13 @@
 					<div  class="flex assignee-container ellipsis pointer">
 						<user-picture-app
 							[user]="row?.assignee"
-							[image]="row?.assignee?.avatar"
-							[background]="false"
-							[fontSize]="16">
+							[image]="row?.assignee?.avatar">
 						</user-picture-app>
-						<span class="assignee-name ellipsis">{{ row?.assignee | formatUserName: true || 'Assign Task' }}</span>
+						<span
+							class="assignee-name ellipsis txt-btn"
+						 	[ngClass]="{ 'txt-task-done-empty': row?.done || !row?.assignee }">
+						 	{{ row?.assignee ? (row?.assignee | formatUserName: true) : 'Assign Task' }}
+						</span>
 					</div>
 				</selector-app>
 			</ng-container>

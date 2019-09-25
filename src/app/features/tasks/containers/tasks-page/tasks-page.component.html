@@ -1,13 +1,15 @@
 
 <!-- top panel -->
 <header-list-app
+	class="max-full-table-width"
 	[title]="'title.my-tasks' | translate"
 	[buttonName]="'button.create-task' | translate"
 	(buttonClick)="commonModalSrv.openCreationTaskDlg()">
 </header-list-app>
 
 <controller-list-app
-  #controller
+	#controller
+	class="max-full-table-width"
 	[hasFilter]="false"
 	[hasSwitch]="false"
 	[hasArchived]="false"
@@ -56,6 +58,7 @@
 </controller-list-app>
 
 <task-table-app
+	class="max-full-table-width"
 	[rows]="listSrv.items$ | async"
 	[selection]="listSrv.selection$ | async"
 	[pending]="listSrv.pending"
@@ -74,7 +77,8 @@
 	(unfavorited)="listSrv.onItemUnfavorited($event)"
 	(previewClick)="listSrv.openPreview($event)"
 	(showItemsPerPage)="showItemsPerPage($event)"
-	(delete)="listSrv.deleteOne($event, true)">
+	(delete)="listSrv.deleteOne($event, true)"
+	(createClick)="commonModalSrv.openCreationTaskDlg()">
 </task-table-app>
 
 <selection-bar-app
