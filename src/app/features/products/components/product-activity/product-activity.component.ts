@@ -1,14 +1,16 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
+import { CommentService, RequestElementService, SampleService, TaskService } from '~core/entity-services';
+import { SelectParams } from '~core/entity-services/_global/select-params';
+import { ListPageService } from '~core/list-page';
 import { ProductFeatureService } from '~features/products/services';
-import { ERM, Product } from '~models';
+import { Comment, ERM, Product } from '~models';
+import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
 import { Counts } from './product-activity-nav/product-activity-nav.component';
-import { ListPageService } from '~core/list-page';
-import { FilterType } from '~shared/filters';
-import { CommentService, TaskService, SampleService, RequestElementService } from '~core/entity-services';
 
 
 
@@ -27,15 +29,17 @@ export class ProductActivityComponent extends AutoUnsub implements OnInit {
 	product$: Observable<Product>;
 	counts$: Observable<Counts>;
 	typeEntity = ERM.PRODUCT;
+	commentCtrl = new FormControl();
+	private product: Product;
 
 	constructor(
 		private route: ActivatedRoute,
-		private featureSrv: ProductFeatureService,
+		private productSrv: ProductFeatureService,
 		public listSrv: ListPageService<any, any>,
 		private commentSrv: CommentService,
 		private taskSrv: TaskService,
 		private sampleSrv: SampleService,
-		private requestElemSrv: RequestElementService
+		private requestElemSrv: RequestElementService,
 	) {
 		super();
 	}
@@ -44,9 +48,12 @@ export class ProductActivityComponent extends AutoUnsub implements OnInit {
 		const id$ = this.route.parent.params.pipe(
 			map(params => params.id),
 		);
-		const product$ = id$.pipe(switchMap(id => this.featureSrv.selectOne(id)));
-		this.counts$ = product$.pipe(
-			map(product => this.featureSrv.getActivityCount(product) )
+		this.product$ = id$.pipe(
+			switchMap(id => this.productSrv.selectOne(id)),
+			tap(product => this.product = product)
+		);
+		this.counts$ = this.product$.pipe(
+			map(product => this.productSrv.getActivityCount(product) )
 		);
 		this.onTabChange(this.selectedTab);
 	}
@@ -55,6 +62,12 @@ export class ProductActivityComponent extends AutoUnsub implements OnInit {
 		this.selectedTab = tabName;
 		let entitySrv;
 		let entityMetadata;
+		let selectParams = new SelectParams();
+		let initialFilters = [
+			// TODO Backend: uncomment when archived is put
+			// { type: FilterType.ARCHIVED, value: false },
+			{ type: FilterType.DELETED, value: false }
+		];
 
 		switch (tabName) {
 			case 'comment':
@@ -68,6 +81,8 @@ export class ProductActivityComponent extends AutoUnsub implements OnInit {
 			case 'request':
 				entitySrv = this.requestElemSrv;
 				entityMetadata = ERM.REQUEST_ELEMENT;
+				initialFilters = [];
+				selectParams = new SelectParams({ sortBy: 'reply.status' });
 				break;
 			case 'sample':
 				entitySrv = this.sampleSrv;
@@ -78,14 +93,20 @@ export class ProductActivityComponent extends AutoUnsub implements OnInit {
 		this.listSrv.setup({
 			entitySrv: entitySrv,
 			searchedFields: ['name'],
-			// we use the deleted filter there so we can send the query to export all to the export dlg
-			initialFilters: [
-				// TODO Backend: uncomment when archived is put
-				// { type: FilterType.ARCHIVED, value: false },
-				{ type: FilterType.DELETED, value: false }],
-			entityMetadata: entityMetadata,
+			selectParams, initialFilters, entityMetadata,
 			originComponentDestroy$: this._destroy$
 		});
+	}
+
+	sendComment() {
+		const comment = new Comment({ text: this.commentCtrl.value });
+		const commentUser = { ...comment };
+		const comments = [...(this.product.comments || [])];
+		comments.push(commentUser);
+		this.commentCtrl.reset();
+		this.commentSrv.create(comment).pipe(
+			switchMap(_ => this.productSrv.update({ id: this.product.id, comments }))
+		).subscribe();
 	}
 
 }

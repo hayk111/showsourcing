@@ -82,7 +82,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 			entitySrv: this.productSrv,
 			searchedFields: ['name', 'supplier.name', 'category.name', 'description'],
 			// we use the deleted filter there so we can send the query to export all to the export dlg
-			initialFilters: [{ type: FilterType.ARCHIVED, value: false }, { type: FilterType.DELETED, value: false }],
+			initialFilters: [ { type: FilterType.ARCHIVED, value: false }, { type: FilterType.DELETED, value: false } ],
 			entityMetadata: ERM.PRODUCT,
 			originComponentDestroy$: this._destroy$
 		}, false);

@@ -36,7 +36,7 @@ export class NotificationActivityService {
 		this.enableRealTimeNotifications();
 	}
 	private getToken(url): Observable<string> {
-		const headers = new HttpHeaders({ Authorization: this.authSrv.feedToken.token });
+		const headers = new HttpHeaders({ Authorization: `${this.authSrv.feedToken.token}` });
 		return this.http.get<TokenResponse>(url, { headers }).pipe(
 			map((resp: TokenResponse) => resp.token),
 			first()

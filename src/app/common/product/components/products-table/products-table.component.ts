@@ -37,7 +37,6 @@ export class ProductsTableComponent extends EntityTableComponent<Product> {
 
 	@Output() archive = new EventEmitter<Product>();
 	@Output() delete = new EventEmitter<Product>();
-	@Output() showItemsPerPage = new EventEmitter<number>();
 	prodErm = ERM.PRODUCT;
 
 	constructor(public translate: TranslateService) {

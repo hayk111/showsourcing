@@ -53,6 +53,7 @@ export abstract class EntityTableComponent<T> extends TrackingComponent implemen
 	@Output() previous = new EventEmitter<undefined>();
 	@Output() next = new EventEmitter<undefined>();
 	@Output() goToPage = new EventEmitter<number>();
+	@Output() showItemsPerPage = new EventEmitter<number>();
 
 
 	constructor() {
