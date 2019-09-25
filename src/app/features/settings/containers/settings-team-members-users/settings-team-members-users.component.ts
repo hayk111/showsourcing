@@ -7,6 +7,7 @@ import { ListPageKey, ListPageService } from '~core/list-page';
 import { SettingsMembersService } from '~features/settings/services/settings-members.service';
 import { ERM, TeamUser, User } from '~models';
 import { AutoUnsub } from '~utils';
+import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 
 @Component({
 	selector: 'settings-team-members-users-app',
@@ -20,6 +21,7 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub implements OnIn
 	teamOwner: boolean;
 	user: User;
 	hasSelected = false;
+	selectItemsConfig: SelectParamsConfig;
 
 	constructor(
 		private featureSrv: SettingsMembersService,
@@ -74,5 +76,10 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub implements OnIn
 
 	getTooltipMsg() {
 		return !this.teamOwner ? this.translate.instant('message.only-team-owners-can-invite') : null;
+	}
+
+	showItemsPerPage(count: number) {
+		this.selectItemsConfig = { take: Number(count) };
+		this.listSrv.refetch(this.selectItemsConfig).subscribe();
 	}
 }
