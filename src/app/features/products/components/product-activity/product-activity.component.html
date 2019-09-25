@@ -26,21 +26,8 @@
 				<ng-container *ngSwitchCase="'comment'">
 
 					<ng-container *ngIf="product$ | async as product">
-						<div class="add-new-comment">
-						
-							<div class="text-input-new-comment">
-								<textarea
-									[formControl]="commentCtrl"
-									rows="4"
-									[placeholder]="'placeholder.write-comment-here' | translate">
-								</textarea>
-							</div>
-						
-							<div class="button-container">
-								<button class="capitalize" (click)="sendComment()" translate="button.send"></button>
-							</div>
-						
-						</div> 
+						<add-comment-app (added)="sendComment($event)"></add-comment-app>
+						<divider-app></divider-app>
 						<comment-list-app [comments]="product.comments"></comment-list-app>
 					</ng-container>
 					

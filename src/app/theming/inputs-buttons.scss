@@ -56,6 +56,7 @@ input, textarea {
 textarea {
 	color: var(--legacy-color-txt-strong);
 	padding-top: var(--spacing-s);
+	resize: none;
 }
 
 form-field-app.editable {

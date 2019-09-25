@@ -29,7 +29,6 @@ export class ProductActivityComponent extends AutoUnsub implements OnInit {
 	product$: Observable<Product>;
 	counts$: Observable<Counts>;
 	typeEntity = ERM.PRODUCT;
-	commentCtrl = new FormControl();
 	private product: Product;
 
 	constructor(
@@ -98,12 +97,11 @@ export class ProductActivityComponent extends AutoUnsub implements OnInit {
 		});
 	}
 
-	sendComment() {
-		const comment = new Comment({ text: this.commentCtrl.value });
+	sendComment(text: string) {
+		const comment = new Comment({ text });
 		const commentUser = { ...comment };
 		const comments = [...(this.product.comments || [])];
 		comments.push(commentUser);
-		this.commentCtrl.reset();
 		this.commentSrv.create(comment).pipe(
 			switchMap(_ => this.productSrv.update({ id: this.product.id, comments }))
 		).subscribe();

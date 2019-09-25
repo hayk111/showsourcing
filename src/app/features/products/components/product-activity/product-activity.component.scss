@@ -13,21 +13,8 @@
 }
 
 
-.add-new-comment {
-	border-bottom: 1px solid var(--legacy-color-divider);
-
-	.text-input-new-comment {
-		margin-top: var(--spacing-ms);
-		textarea {
-			resize: none;
-		 }
-	}
-
-	.button-container {
-		margin: var(--spacing-ms) 0;
-		text-align: right;
-	}
-
+add-comment-app {
+	margin-bottom: var(--spacing-l);
 }
 
 comment-list-app {
