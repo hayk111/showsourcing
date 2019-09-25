@@ -9,22 +9,5 @@
 		(supplierRequest)="openSupplierRequest($event)">
 	</product-header-list-app>
 
-	<div class="flex content">
-		<div class="left">
-			<product-preview-app></product-preview-app>
-		</div>
-
-		<div class="right">
-			<router-outlet></router-outlet>
-    </div>
-
-	</div>
-
-	<supplier-preview-app
-		*ngIf="previewOpen"
-		[supplier]="product?.supplier"
-		(close)="closePreview()">
-	</supplier-preview-app>
-
-
+	<router-outlet></router-outlet>
 </ng-container>

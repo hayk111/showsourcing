@@ -2,16 +2,19 @@
 	display: block;
 }
 
+.content {
+	justify-content: center;
+	.left {
+		width: 420px;
+	}
+	.right {
+		width: 772px;
+	}
+}
+
 
 .add-new-comment {
 	border-bottom: 1px solid var(--legacy-color-divider);
-
-	.title {
-		font-size: var(--font-size-l);
-		font-weight: 600;
-		color: var(--legacy-color-txt-strong);
-
-	}
 
 	.text-input-new-comment {
 		margin-top: var(--spacing-ms);
