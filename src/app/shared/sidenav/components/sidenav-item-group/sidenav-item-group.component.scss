@@ -1,0 +1,10 @@
+.group-container {
+	h2 {
+		text-transform: uppercase;
+		font-size: var(--font-size-s);
+		font-weight: bold;
+		color: var(--color-bg-dark);
+		margin-bottom: var(--spacing-m);
+	}
+	margin-bottom: var(--spacing-l);
+}

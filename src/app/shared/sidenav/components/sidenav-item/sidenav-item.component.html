@@ -1,14 +1,6 @@
-<a [ngClass]="{ selected: (selected || subItemSelected), flexCenter: (!internalExpanded && !subItem), flexStart: (internalExpanded || subItem), expanded: internalExpanded, 'has-children': hasChildren, 'sub-item': subItem, opened: internalExpanded && (selected || subItemSelected) }"
-	(click)="onClickItem($event)">
-	<div class="iconCtnr color-txt-{{ selected || subItemSelected ? 'strong' : 'primary'}}">
-		<ng-content select="icon-app"></ng-content>
-	</div>
-	<ng-content></ng-content>
+<a class="item capitalize" [routerLink]="['/'+link]" routerLinkActive="active-item" >
+
+	<icon-app [name]="icon"></icon-app>
+	{{name}}
 </a>
-<div *ngIf="internalExpanded && (selected || subItemSelected)"
-		 class="expanded"
-     [ngClass]="{ selected: (selected || subItemSelected), 'has-children': hasChildren }">
-	<sidenav-item-group-app>
-		<ng-content select="sidenav-item-app"></ng-content>
-	</sidenav-item-group-app>
-</div>
+
