@@ -5,14 +5,14 @@ import { ERM, Task } from '~core/models';
 import { ID } from '~utils/id.utils';
 
 const tableConfig: TableConfig = {
-	done: { title: '', translationKey: '', width: 0, sortable: false },
-	reference: { title: 'reference', translationKey: 'reference', width: 80, sortProperty: 'reference' },
-	name: { title: 'name', translationKey: 'name', width: 120, sortProperty: 'name' },
-	product: { title: 'product', translationKey: 'product', width: 160, sortProperty: 'product.name' },
-	supplier: { title: 'supplier', translationKey: 'supplier', width: 150, sortProperty: 'supplier.name' },
-	dueDate: { title: 'due date', translationKey: 'due-date', width: 103, sortProperty: 'dueDate' },
-	assignee: { title: 'assigned to', translationKey: 'assigned-to', width: 140, sortProperty: 'assignee.firstName' },
-	status: { title: 'status', translationKey: 'status', width: 85, sortProperty: 'status.step', sortable: false },
+	done: { name: 'done', translationKey: '', width: 0, sortable: false },
+	reference: { name: 'reference', translationKey: 'reference', width: 80, sortProperty: 'reference' },
+	name: { name: 'name', translationKey: 'name', width: 120, sortProperty: 'name' },
+	product: { name: 'product', translationKey: 'product', width: 160, sortProperty: 'product.name' },
+	supplier: { name: 'supplier', translationKey: 'supplier', width: 150, sortProperty: 'supplier.name' },
+	dueDate: { name: 'due date', translationKey: 'due-date', width: 103, sortProperty: 'dueDate' },
+	assignee: { name: 'assigned to', translationKey: 'assigned-to', width: 140, sortProperty: 'assignee.firstName' },
+	status: { name: 'status', translationKey: 'status', width: 85, sortProperty: 'status.step', sortable: false },
 };
 
 @Component({

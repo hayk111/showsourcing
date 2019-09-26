@@ -38,11 +38,11 @@
 			[width]="column.width"
 			[sortBy]="column.sortProperty">
 
-    <ng-container [ngSwitch]="column.title">
+    <ng-container [ngSwitch]="column.name">
 
 			<!-- task done -->
 			<!-- the only way to read 2 options on single switch case -->
-			<ng-container *ngSwitchCase="column.title == 'done' || column.title == '' ? column.title : null">
+			<ng-container *ngSwitchCase="'done'">
 				<icon-app
 					class="pointer"
 					[ngClass]="row?.done ? 'task-is-done': 'task-not-done'"
@@ -79,10 +79,15 @@
 			<ng-container *ngSwitchCase="'name'">
 				<div class="mainCellWrapper name-container ellipsis flexColumn">
 					<span class="ellipsis pointer txt-btn" (click)="previewClick.emit(row)">{{ row?.name }}</span>
-					<span *ngIf="column.doubleLine.property" class="sub-property">
-						{{ column.doubleLine.extraInfo && row[column.doubleLine.property] ?
-							column.doubleLine.extraInfo + ' ' + row[column.doubleLine.property] :
-							row[column.doubleLine.property] ? row[column.doubleLine.property] : ''}}
+				</div>
+			</ng-container>
+
+			<!-- name assignee -->
+			<ng-container *ngSwitchCase="'name assignee'">
+				<div class="mainCellWrapper name-container ellipsis flexColumn">
+					<span class="ellipsis pointer txt-btn" (click)="previewClick.emit(row)">{{ row?.name }}</span>
+					<span *ngIf="row?.assignee" class="sub-property">
+						Assigned to {{ row?.assignee | formatUserName: true }}
 					</span>
 				</div>
 			</ng-container>

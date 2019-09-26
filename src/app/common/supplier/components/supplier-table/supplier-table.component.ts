@@ -4,14 +4,14 @@ import { ERM, Supplier } from '~models';
 import { TranslateService } from '@ngx-translate/core';
 
 const tableConfig: TableConfig = {
-	activities: { title: 'activities', translationKey: 'activities', width: 190, sortable: false },
-	country: { title: 'country', translationKey: 'country', width: 140, sortProperty: 'country' },
-	supplierType: { title: 'type', translationKey: 'type', width: 190, sortProperty: 'supplierType.name' },
-	productType: { title: 'product type', translationKey: 'product-type', width: 190, sortable: false },
-	createdBy: { title: 'created by', translationKey: 'created-by', width: 190, sortProperty: 'creationDate' },
-	favorite: { title: 'favorite', translationKey: 'favorite', width: 50, sortProperty: 'favorite' },
-	name: { title: 'name', translationKey: 'name', width: 190, sortProperty: 'name' },
-	status: { title: 'status', translationKey: 'status', width: 190, sortProperty: 'status.step' },
+	activities: { name: 'activities', translationKey: 'activities', width: 190, sortable: false },
+	country: { name: 'country', translationKey: 'country', width: 140, sortProperty: 'country' },
+	supplierType: { name: 'type', translationKey: 'type', width: 190, sortProperty: 'supplierType.name' },
+	productType: { name: 'product type', translationKey: 'product-type', width: 190, sortable: false },
+	createdBy: { name: 'created by', translationKey: 'created-by', width: 190, sortProperty: 'creationDate' },
+	favorite: { name: 'favorite', translationKey: 'favorite', width: 50, sortProperty: 'favorite' },
+	name: { name: 'name', translationKey: 'name', width: 190, sortProperty: 'name' },
+	status: { name: 'status', translationKey: 'status', width: 190, sortProperty: 'status.step' },
 };
 
 

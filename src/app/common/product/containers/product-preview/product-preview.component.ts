@@ -86,17 +86,14 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 	fieldDefinitions$: Observable<ExtendedFieldDefinition[]>;
 
 	taskTableConfig: TableConfig = {
-		done: { title: 'done', translationKey: 'done', width: 50 },
-		name: {
-			title: 'name', translationKey: 'name', width: 240, sortProperty: 'name',
-			doubleLine: { property: 'assignee', extraInfo: 'Assigned to' }
-		},
-		dueDate: { title: 'due date small', translationKey: 'due-date-small', width: 80, sortProperty: 'dueDate' },
+		done: { name: 'done', translationKey: 'done', width: 50 },
+		name: { name: 'name assignee', translationKey: 'name', width: 240, sortProperty: 'name' },
+		dueDate: { name: 'due date small', translationKey: 'due-date', width: 80, sortProperty: 'dueDate' },
 	};
 
 	sampleTableConfig: TableConfig = {
-		name: { title: 'name', translationKey: 'name', width: 120, sortProperty: 'name' },
-		status: { title: 'status', translationKey: 'status', width: 130, sortProperty: 'status.step' },
+		name: { name: 'name', translationKey: 'name', width: 120, sortProperty: 'name' },
+		status: { name: 'status', translationKey: 'status', width: 130, sortProperty: 'status.step' },
 	};
 
 	private _pendingImages: PendingImage[] = [];
@@ -230,17 +227,6 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 
 	scrollToCommentButton() {
 		this.previewComment.focus();
-	}
-
-	/** Add a product to workflow */
-	onSentToWorkflow(product: Product) {
-		this.workspaceSrv.sendProductToWorkflow(product).subscribe();
-	}
-
-	/** Triggers archive product */
-	onArchive(product: Product) {
-		const { id } = product;
-		this.workspaceSrv.update({ id, archived: true }).subscribe();
 	}
 
 	openFileBrowser() {
