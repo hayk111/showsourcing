@@ -1,14 +1,10 @@
 import { Route } from '@angular/router';
 
-import { ProductActivityComponent } from './components';
 import {
-	ProductDetailsComponent,
-	ProductSamplesComponent,
-	ProductShippingComponent,
+	ProductDetailsPageComponent,
+	ProductActivityComponent,
 	ProductsPageComponent,
-	ProductTasksComponent,
-} from './containers';
-import { ProductRequestsComponent } from './containers/product-requests/product-requests.component';
+} from './pages';
 
 
 export const routes: Array<Route> = [
@@ -18,14 +14,14 @@ export const routes: Array<Route> = [
 	},
 	{
 		path: ':id',
-		component: ProductDetailsComponent,
+		component: ProductDetailsPageComponent,
 		children: [
 			{ path: '', redirectTo: 'activity', pathMatch: 'full' },
-			{ path: 'shipping', component: ProductShippingComponent },
+			// { path: 'shipping', component: ProductShippingComponent },
 			{ path: 'activity', component: ProductActivityComponent },
-			{ path: 'samples', component: ProductSamplesComponent },
-			{ path: 'tasks', component: ProductTasksComponent },
-			{ path: 'requests', component: ProductRequestsComponent }
+			// { path: 'samples', component: ProductSamplesComponent },
+			// { path: 'tasks', component: ProductTasksComponent },
+			// { path: 'requests', component: ProductRequestsComponent }
 		],
 	},
 ];
