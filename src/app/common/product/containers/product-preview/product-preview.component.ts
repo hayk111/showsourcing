@@ -86,9 +86,12 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 	fieldDefinitions$: Observable<ExtendedFieldDefinition[]>;
 
 	tableConfig: TableConfig = {
-		done: { title: 'done', width: 50 },
-		name: { title: 'name', width: 240, sortProperty: 'name', doubleLine: { property: 'assignee', extraInfo: 'Assigned to' } },
-		dueDate: { title: 'due date small', width: 80, sortProperty: 'dueDate' },
+		done: { title: 'done', translationKey: 'done', width: 50 },
+		name: {
+			title: 'name', translationKey: 'name', width: 240, sortProperty: 'name',
+			doubleLine: { property: 'assignee', extraInfo: 'Assigned to' }
+		},
+		dueDate: { title: 'due date small', translationKey: 'due-date-small', width: 80, sortProperty: 'dueDate' },
 	};
 
 	private _pendingImages: PendingImage[] = [];
