@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
-import { CommentService, RequestElementService, SampleService, TaskService } from '~core/entity-services';
+import { CommentService, RequestElementService, SampleService, TaskService, UserService } from '~core/entity-services';
 import { SelectParams } from '~core/entity-services/_global/select-params';
 import { ListPageService } from '~core/list-page';
 import { ProductFeatureService } from '~features/products/services';
@@ -39,6 +39,7 @@ export class ProductActivityComponent extends AutoUnsub implements OnInit {
 		private taskSrv: TaskService,
 		private sampleSrv: SampleService,
 		private requestElemSrv: RequestElementService,
+		private userSrv: UserService
 	) {
 		super();
 	}
@@ -62,12 +63,9 @@ export class ProductActivityComponent extends AutoUnsub implements OnInit {
 		let entitySrv;
 		let entityMetadata;
 		let selectParams = new SelectParams();
-		let initialFilters = [
-			// TODO Backend: uncomment when archived is put
-			// { type: FilterType.ARCHIVED, value: false },
-			{ type: FilterType.DELETED, value: false }
-		];
 
+		// TODO: ListPageSrv needs a refactor to make it more modulable and intuitive to do this kind of stuff
+		// It's not that bad, but it could be better
 		switch (tabName) {
 			case 'comment':
 				entitySrv = this.commentSrv;
@@ -76,11 +74,13 @@ export class ProductActivityComponent extends AutoUnsub implements OnInit {
 			case 'task':
 				entitySrv = this.taskSrv;
 				entityMetadata = ERM.TASK;
+				selectParams = new SelectParams({
+					query: `product.id == "${this.product.id}" && deleted == false && assignee.id == "${this.userSrv.userSync.id}"`
+				});
 				break;
 			case 'request':
 				entitySrv = this.requestElemSrv;
 				entityMetadata = ERM.REQUEST_ELEMENT;
-				initialFilters = [];
 				selectParams = new SelectParams({ sortBy: 'reply.status' });
 				break;
 			case 'sample':
@@ -92,7 +92,8 @@ export class ProductActivityComponent extends AutoUnsub implements OnInit {
 		this.listSrv.setup({
 			entitySrv: entitySrv,
 			searchedFields: ['name'],
-			selectParams, initialFilters, entityMetadata,
+			selectParams,
+			entityMetadata,
 			originComponentDestroy$: this._destroy$
 		});
 	}

@@ -22,6 +22,8 @@ import { SelectionWithFavoriteService } from './selection-with-favorite.service'
 // -
 // Two birds.
 
+// TODO: refacotr needed to make it more modulable. For example see product-activity.ts
+
 
 // where we can save the services
 const selectionSrvMap = new Map<ListPageKey | string, SelectionWithFavoriteService>();

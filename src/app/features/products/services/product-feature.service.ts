@@ -29,4 +29,5 @@ export class ProductFeatureService extends ProductService {
 		);
 		return { comment, task, sample, request };
 	}
+
 }
