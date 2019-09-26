@@ -21,7 +21,7 @@ import {
 	ExtendedFieldDefinitionService,
 } from '~core/entity-services/extended-field-definition/extended-field-definition.service';
 import { TableConfig } from '~core/list-page';
-import { ProductService, TaskService } from '~entity-services';
+import { ProductService, TaskService, SampleService } from '~entity-services';
 import { WorkspaceFeatureService } from '~features/workspace/services/workspace-feature.service';
 import { AppImage, Comment, ERM, ExtendedFieldDefinition, PreviewActionButton, Product, Task, Sample } from '~models';
 import { DialogService } from '~shared/dialog/services';
@@ -85,10 +85,15 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 
 	fieldDefinitions$: Observable<ExtendedFieldDefinition[]>;
 
-	tableConfig: TableConfig = {
+	taskTableConfig: TableConfig = {
 		done: { name: 'done', translationKey: 'done', width: 50 },
 		name: { name: 'name assignee', translationKey: 'name', width: 240, sortProperty: 'name' },
 		dueDate: { name: 'due date small', translationKey: 'due-date', width: 80, sortProperty: 'dueDate' },
+	};
+
+	sampleTableConfig: TableConfig = {
+		name: { name: 'name', translationKey: 'name', width: 120, sortProperty: 'name' },
+		status: { name: 'status', translationKey: 'status', width: 130, sortProperty: 'status.step' },
 	};
 
 	private _pendingImages: PendingImage[] = [];
@@ -105,7 +110,8 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 		private extendedFieldDefSrv: ExtendedFieldDefinitionService,
 		public previewSrv: PreviewService,
 		private ratingSrv: ThumbService,
-		private taskSrv: TaskService
+		private taskSrv: TaskService,
+		private sampleSrv: SampleService
 	) {
 		super();
 
@@ -164,6 +170,11 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 		// TODO Backend add field
 		// this.taskSrv.queryMany({ query: `product.id == "${this.product.id}" AND delete == false AND archived == false  ` });
 		this.tasks$ = this.taskSrv.queryMany({ query: `product.id == "${this.product.id}" AND deleted == false` });
+
+		// TODO Backend add field
+		// this.taskSrv.queryMany({ query: `product.id == "${this.product.id}" AND delete == false AND archived == false  ` });
+		this.samples$ = this.sampleSrv.queryMany({ query: `product.id == "${this.product.id}" AND deleted == false` });
+
 		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "Product"', sortBy: 'order' });
 	}
 
@@ -269,6 +280,10 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 
 	updateTask(task: Task) {
 		this.taskSrv.update(task).subscribe();
+	}
+
+	updateSample(sample: Sample) {
+		this.sampleSrv.update(sample).subscribe();
 	}
 
 }

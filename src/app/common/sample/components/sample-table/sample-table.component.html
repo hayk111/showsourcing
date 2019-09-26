@@ -102,13 +102,14 @@
 
 			<!-- status -->
 			<ng-container *ngSwitchCase="'status'">
-				<div class="status-col flexVAlign">
+				<div class="status-col flexVAlign flexEnd">
 					<user-picture-app
 						[user]="row?.createdBy"
 						[image]="row.createdBy?.avatar"
 						[background]="false"
 						[fontSize]="16"
-						size="32"></user-picture-app>
+						size="32">
+					</user-picture-app>
 					<status-selector-app [entity]="row" [typeEntity]="erm.SUPPLIER" [canUpdate]="canUpdate" selectSize="s"></status-selector-app>
 				</div>
 			</ng-container>
