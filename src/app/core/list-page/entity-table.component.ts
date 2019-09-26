@@ -4,12 +4,13 @@ import { TrackingComponent } from '~utils/tracking-component';
 
 
 export interface ColumnConfig {
-	title: string;
+	// property we are accessing on the switchcase
+	name: string;
 	width: number;
+	// this is the title of the column
 	translationKey: string;
 	sortProperty?: string;
 	sortable?: boolean;
-	doubleLine?: { property: string, extraInfo?: string };
 }
 
 export interface TableConfig {

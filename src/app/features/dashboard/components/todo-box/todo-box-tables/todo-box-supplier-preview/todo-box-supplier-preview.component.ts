@@ -3,8 +3,8 @@ import { TableConfig } from '~core/list-page';
 import { Supplier } from '~models';
 
 const tableConfig: TableConfig = {
-	reference: { title: 'reference', translationKey: 'reference', width: 500, sortProperty: 'reference' },
-	status: { title: 'status', translationKey: 'status', width: 150, sortProperty: 'status.step' },
+	reference: { name: 'reference', translationKey: 'reference', width: 500, sortProperty: 'reference' },
+	status: { name: 'status', translationKey: 'status', width: 150, sortProperty: 'status.step' },
 };
 
 @Component({

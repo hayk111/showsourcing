@@ -5,13 +5,13 @@ import { ID } from '~utils/id.utils';
 import { TranslateService } from '@ngx-translate/core';
 
 const tableConfig: TableConfig = {
-	name: { title: 'name', translationKey: 'name', width: 190, sortProperty: 'name' },
-	assignee: { title: 'assignee', translationKey: 'assignee', width: 190, sortProperty: 'assignee.firstName' },
-	product: { title: 'product', translationKey: 'product', width: 190, sortProperty: 'product.name' },
-	supplier: { title: 'supplier', translationKey: 'supplier', width: 190, sortProperty: 'supplier.name' },
-	comments: { title: 'comments', translationKey: 'comments', width: 140 },
-	status: { title: 'status', translationKey: 'status', width: 190, sortProperty: 'status.step' },
-	creationDate: { title: 'created on', translationKey: 'created-on', width: 190, sortProperty: 'creationDate' },
+	name: { name: 'name', translationKey: 'name', width: 190, sortProperty: 'name' },
+	assignee: { name: 'assignee', translationKey: 'assignee', width: 190, sortProperty: 'assignee.firstName' },
+	product: { name: 'product', translationKey: 'product', width: 190, sortProperty: 'product.name' },
+	supplier: { name: 'supplier', translationKey: 'supplier', width: 190, sortProperty: 'supplier.name' },
+	comments: { name: 'comments', translationKey: 'comments', width: 140 },
+	status: { name: 'status', translationKey: 'status', width: 190, sortProperty: 'status.step' },
+	creationDate: { name: 'created on', translationKey: 'created-on', width: 190, sortProperty: 'creationDate' },
 };
 
 @Component({
@@ -24,7 +24,7 @@ const tableConfig: TableConfig = {
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SampleTableComponent extends EntityTableComponent<Sample> {
-	columns = [ 'name', 'assignee', 'product', 'supplier', 'comments', 'status', 'creationDate' ];
+	columns = ['name', 'assignee', 'product', 'supplier', 'comments', 'status', 'creationDate'];
 	@Input() tableConfig = tableConfig;
 	@Output() openSupplier = new EventEmitter<ID>();
 	@Output() openProduct = new EventEmitter<ID>();
