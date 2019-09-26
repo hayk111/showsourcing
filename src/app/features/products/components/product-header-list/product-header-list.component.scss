@@ -7,6 +7,10 @@ img-app {
 	border-radius: var(--border-radius);
 }
 
+header-list-nav-item-app:first-child {
+	margin-left: 62px;
+}
+
 .section-info {
 	info-badge-app {
 		margin-top: var(--spacing-ms);
@@ -15,6 +19,7 @@ img-app {
 
 .info-container {
 	font-size: var(--font-size-m);
+	margin-left: 10px;
 
 	.price {
 		color: var(--legacy-color-primary);
@@ -24,9 +29,18 @@ img-app {
 		color: var(--legacy-color-supplier-tag);
 	}
 
+	.reference { 
+		display: flex;
+	}
+
 	icon-app {
 		color: var(--legacy-color-txt-secondary);
 		font-size: 4px;
+	}
+
+	activities-bar-app {
+		display: flex;
+		align-items: center;
 	}
 }
 
