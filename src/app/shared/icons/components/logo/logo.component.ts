@@ -32,10 +32,11 @@ export const iconMap = {
 };
 
 
-export type Size = 's' | 'm' | 'l' | 'xl' | 'xxl';
+export type Size = 's' | 'ms' | 'm' | 'l' | 'xl' | 'xxl';
 
 export const sizeMap: { [key in Size]: { background: number, icon: number } } = {
 	s: { background: 20, icon: 12 },
+	ms: { background: 27, icon: 12},
 	m: { background: 32, icon: 16 },
 	l: { background: 36, icon: 24 },
 	xl: { background: 54, icon: 24 },

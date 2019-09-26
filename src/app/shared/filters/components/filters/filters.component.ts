@@ -10,6 +10,7 @@ export class FiltersComponent {
 	view: 'BTNS' | 'SELECTION' = 'BTNS';
 	@Input() filterList: FilterList;
 	@Input() filterTypes = [];
+	@Input() sidePanel = true;
 	typeSelected: FilterType;
 
 	@Output() close = new EventEmitter<undefined>();

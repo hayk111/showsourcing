@@ -1,0 +1,19 @@
+:host {
+  font-size: var(--font-size-m);
+
+  & > * {
+    margin-right: var(--spacing-xs);
+  }
+  .type {
+    color: var(--legacy-color-supplier-tag);
+  }
+
+  .category {
+    color: var(--legacy-color-supplier-tag);
+  }
+
+  icon-app {
+    color: var(--legacy-color-supplier-tag);
+    font-size: 4px;
+  }
+}

@@ -5,6 +5,7 @@ import { ListPageKey, ListPageService } from '~core/list-page';
 import { DataManagementService } from '~features/data-management/services/data-management.service';
 import { ERM, Tag } from '~models';
 import { AutoUnsub } from '~utils';
+import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 
 @Component({
 	selector: 'tag-data-management-page-app',
@@ -17,6 +18,11 @@ import { AutoUnsub } from '~utils';
 })
 export class TagDataManagementPageComponent extends AutoUnsub implements OnInit {
 	erm = ERM.TAG;
+
+	addButtonWidth = '111px';
+	addButtonHeight = '32px';
+
+	selectItemsConfig: SelectParamsConfig;
 
 	constructor(
 		private tagSrv: TagService,
@@ -40,5 +46,10 @@ export class TagDataManagementPageComponent extends AutoUnsub implements OnInit 
 	mergeSelected() {
 		const ids = this.listSrv.getSelectedIds();
 		this.dmSrv.merge(ids, this.listSrv.entityMetadata);
+	}
+
+	showItemsPerPage(count: number) {
+		this.selectItemsConfig = {take: Number(count)};
+		this.listSrv.refetch(this.selectItemsConfig).subscribe();
 	}
 }

@@ -9,7 +9,7 @@ import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub } from '~utils';
 import { SupplierFeatureService } from '~features/supplier/services';
 import { SelectParamsConfig } from '~entity-services/_global/select-params';
-import { SubPanelService } from '~shared/top-panel/services/sub-panel.service';
+import { ControllerListService } from '~shared/header-list/services/controller-list.service';
 
 @Component({
 	selector: 'supplier-page-app',
@@ -45,7 +45,7 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit, AfterVi
 		private notifSrv: NotificationService,
 		public listSrv: ListPageService<Supplier, SupplierService>,
 		public commonModalSrv: CommonModalService,
-		private subPanelSrv: SubPanelService
+		private controllerListService: ControllerListService
 	) {
 		super();
 	}
@@ -80,7 +80,7 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit, AfterVi
 		this.listSrv.addFilter({ type: FilterType.ARCHIVED, value: false});
 		this.listSrv.addFilter({ type: FilterType.DELETED, value: false});
 
-		this.subPanelSrv.onFiltersClear();
+		this.controllerListService.onFiltersClear();
 	}
 
 	onArchive(supplier: Supplier | Supplier[]) {

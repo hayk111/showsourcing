@@ -1,31 +1,76 @@
 dialog-app {
-	height: 774px;
-	width: 1149;
+	position: relative;
+	height: calc(100vh - 100px);
+	width: 1149px;
+	border-radius: 4px;
 
-	sub-panel-app {
+	controller-list-app {
 		padding: 0;
 	}
 	
 	dialog-header-app {
 		margin-top: var(--spacing-s);
 		font-size: var(--font-size-l);
-		color: (--color-bg-dark);
-		padding-bottom: 7px;
+		color: var(--color-bg-dark);
 	}
 
 	dialog-footer-app {
-		justify-content: space-between;
+		margin-top: var(--spacing-xl);
+
+		.show-my-samples-only {
+			font-weight: 600;
+			color: var(--color-txt-secondary);
+		}
+
+		.selected-product-count {
+			color: #45adff;
+			font-size: var(--font-size-l);
+			margin-right: var(--spacing-xs);
+		}
+		
+		.selected-product {
+			color: var(--color-bg-dark);
+			font-size: var(--font-size-l);
+		}
+
+		.product-action {
+			margin-right: var(--spacing-l);
+		}
+
+		.add-to-project, .footer-done {
+			width: 128px;
+  		height: var(--spacing-xl);
+		}
+
+		.cancel {
+			width: 88px;
+			background: transparent;
+			color: var(--color-txt-secondary);
+			font-weight: 600;
+			font-size: var(--font-size-m);
+			margin-right: var(--spacing-ms);
+
+			&:hover {
+				background: var(--color-bg-secondary);
+			}
+		}
 	}
 
 	products-table-app {
-		height: 100%;
+		height: calc(100% - 42px);
+		margin: var(--spacing-l) 0 0 0;
+		border: solid 1px var(--legacy-color-divider);
+		border-radius: var(--border-radius);
+		border-bottom: none;
 	}
 
-	.select-products-count {
-		min-width: 80px;
+	sub-panel-left-item-app {
+		margin-left: 0;
+		padding: var(--spacing-l) 0 var(--spacing-ms) 0;
 	}
 }
 
-.search-container {
-	width: 0;
+.no-padding-border-bottom {
+	padding: unset;
+	border-bottom: unset;
 }

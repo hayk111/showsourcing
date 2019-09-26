@@ -1,14 +1,14 @@
 <div class="flexGrow flexColumn products-content">
 	<!-- top panel -->
-	<top-panel-app
-		[class.top-panel-margin-board]="listSrv.view === 'board'"
+	<header-list-app
+		[class.header-detail-margin-board]="listSrv.view === 'board'"
 		[title]="'title.my-products' | translate"
 		[buttonName]="'button.create-product' | translate"
 		(buttonClick)="commonModalSrv.openCreationProductDlg()"
 		[buttonRightMargin]="addProductMargin">
-	</top-panel-app>
+	</header-list-app>
 
-	<sub-panel-app
+	<controller-list-app
 		[class.sub-menu-padding-board]="listSrv.view === 'board'"
 		[filtersAmount]="listSrv.getFilterAmount([{ type: filterTypeEnum.ARCHIVED, value: false }, { type: filterTypeEnum.DELETED, value: false }])"
 		[hasFilter]="true"
@@ -28,13 +28,13 @@
 		(showFilters)="listSrv.openFilterPanel()"
 		(viewChange)="onViewChange($event)">
 
-		<sub-panel-right-item-app class="flex" right-sort-elem>
+		<controller-list-right-item-app class="flex" right-sort-elem>
 			<product-sorting-menu-app
 				[currentSort]="listSrv.currentSort"
 				(sortFromMenu)="listSrv.sortFromMenu($event)">
 			</product-sorting-menu-app>
-		</sub-panel-right-item-app>
-	</sub-panel-app>
+		</controller-list-right-item-app>
+	</controller-list-app>
 
 	<!-- views: either one will be displayed when the correct view is selected -->
 	<ng-container *ngIf="listSrv.isListening">

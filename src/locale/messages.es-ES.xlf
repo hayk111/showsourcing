@@ -82,7 +82,7 @@
           <context context-type="linenumber">16</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/products/components/product-top-panel/product-top-panel.component.html</context>
+          <context context-type="sourcefile">app/features/products/components/product-header-list/product-header-list.component.html</context>
           <context context-type="linenumber">43</context>
         </context-group>
         <context-group purpose="location">
@@ -568,7 +568,7 @@
         <source>Show Filters</source>
         <target state="new">Show Filters</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/shared/top-panel/components/sub-panel/sub-panel.component.html</context>
+          <context context-type="sourcefile">app/shared/header-detail/components/sub-panel/sub-panel.component.html</context>
           <context context-type="linenumber">21</context>
         </context-group>
         <note priority="1" from="description">text</note>
@@ -586,7 +586,7 @@
         <source>List</source>
         <target state="new">List</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/shared/top-panel/components/view-switcher/view-switcher.component.html</context>
+          <context context-type="sourcefile">app/shared/header-detail/components/view-switcher/view-switcher.component.html</context>
           <context context-type="linenumber">5</context>
         </context-group>
         <note priority="1" from="description">text</note>
@@ -595,7 +595,7 @@
         <source>Thumb</source>
         <target state="new">Thumb</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/shared/top-panel/components/view-switcher/view-switcher.component.html</context>
+          <context context-type="sourcefile">app/shared/header-detail/components/view-switcher/view-switcher.component.html</context>
           <context context-type="linenumber">9</context>
         </context-group>
         <note priority="1" from="description">text</note>
@@ -1670,7 +1670,7 @@
 			Supplier Request
 		</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/products/components/product-top-panel/product-top-panel.component.html</context>
+          <context context-type="sourcefile">app/features/products/components/product-header-list/product-header-list.component.html</context>
           <context context-type="linenumber">46</context>
         </context-group>
         <note priority="1" from="description">button</note>

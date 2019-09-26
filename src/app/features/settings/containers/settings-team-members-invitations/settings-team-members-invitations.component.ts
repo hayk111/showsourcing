@@ -5,6 +5,7 @@ import { ListPageKey, ListPageService } from '~core/list-page';
 import { SettingsInvitationService } from '~features/settings/services/settings-invitation.service';
 import { ERM, Invitation, User } from '~models';
 import { AutoUnsub } from '~utils';
+import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -19,6 +20,7 @@ export class SettingsTeamMembersInvitationsComponent extends AutoUnsub implement
 	teamOwner: boolean;
 	user: User;
 	hasSelected = false;
+	selectItemsConfig: SelectParamsConfig;
 
 	constructor(
 		private featureSrv: SettingsInvitationService,
@@ -66,6 +68,11 @@ export class SettingsTeamMembersInvitationsComponent extends AutoUnsub implement
 
 	getToolTipMsg() {
 		return !this.teamOwner ? this.translate.instant('message.only-team-owners-can-invite') : null;
+	}
+
+	showItemsPerPage(count: number) {
+		this.selectItemsConfig = { take: Number(count) };
+		this.listSrv.refetch(this.selectItemsConfig).subscribe();
 	}
 
 }

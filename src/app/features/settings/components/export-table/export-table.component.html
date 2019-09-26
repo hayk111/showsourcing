@@ -2,13 +2,44 @@
 	[placeholder]="'placeholder.no-exports' | translate"
 	[rows]="rows"
 	[hasSelection]="false"
+	[hasPaddingPagination]="true"
+	[currentSort]="currentSort"
 	[pending]="pending"
 	[contextualMenu]="contextualMenuTemplate"
 	[count]="count"
 	[currentPage]="currentPage"
 	(goToPage)="goToPage.emit($event)"
 	(sort)="sort.emit($event)"
-	(bottomReached)="bottomReached.emit()">
+	(bottomReached)="bottomReached.emit()"
+	(showItemsPerPage)="showItemsPerPage.emit($event)">
+
+		<!-- user -->
+		<ng-template
+			[columnApp]="'created by' | const: 'messages'"
+			let-row="row"
+			sortBy="createdBy.lastName"
+			width="200">
+			<div class="flex flexVAlign created-by">
+				<user-picture-app
+					[user]="row?.createdBy"
+					[image]="row.createdBy?.avatar"
+					[background]="false"
+					[fontSize]="16"
+					size="32"></user-picture-app>
+				<span class="ellipsis">{{ row?.createdBy?.firstName }} {{row?.createdBy?.lastName}}</span>
+			</div>
+		</ng-template>
+
+		<!-- creation date -->
+		<ng-template
+			[columnApp]="'created on' | const: 'messages'"
+			let-row="row"
+			sortBy="creationDate"
+			width="200">
+			<div class="flex flexCenter">
+				<span class="ellipsis">{{ row?.creationDate | date: 'dd MMM y' }}</span>
+			</div>
+		</ng-template>
 
 		<!-- contextual menu -->
 		<ng-template #contextualMenuTemplate let-row="row">
@@ -26,7 +57,7 @@
 			let-row="row"
 			width="300">
 			<div class="capitalize">
-				{{ row?.format }} {{ row?.creationDate | date: 'dd-MMM-yy H:mm':'':translate.currentLang}}
+				{{ getFileName(row?.documentUrl) }}
 			</div>
 		</ng-template>
 
@@ -69,10 +100,10 @@
 			[grows]="false"
 			width="100">
 			<div class="tool-tip" toolTip [toolTipMessage]="getToolTipMsg(row?.status)" toolTipPosition="above-right">
-				<icon-app
-					[ngClass]="{'disabled': row?.status !== 'ready'}"
-					class="download" name="file" (click)="download.emit(row)">
-				</icon-app>
+				<div 
+						class="download pointer" 
+						[ngClass]="{'disabled': row?.status !== 'ready'}" 
+						(click)="download.emit(row)">Download</div>
 			</div>
 		</ng-template>
 

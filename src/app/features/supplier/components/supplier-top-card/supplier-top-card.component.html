@@ -1,44 +1,32 @@
-<top-panel-details-app
-	[title]="supplier?.name">
+<header-details-app>
+
+	<header-details-title-app>{{ supplier?.name }}</header-details-title-app>
 
 	<logo-app [logo]="supplier?.logoImage" type="supplier"></logo-app>
 
-	<div subinfo class="flex flexVAlign">
-		<div class="type" *ngIf="supplier?.supplierType">
-			{{ supplier?.supplierType?.name }}
+	<header-details-info-app >
+		<div class="flex flexVAlign">
+			<div class="type" *ngIf="supplier?.supplierType">
+				{{ supplier?.supplierType?.name }}
+			</div>
+			<icon-app *ngIf="supplier?.supplierType" name="circle"></icon-app>
+			<div class="adress">
+				{{ supplier?.city ? supplier?.city + ',&nbsp;' : ''}}
+				{{ supplier?.country | const: 'country' }}
+			</div>
 		</div>
-		<icon-app *ngIf="supplier?.supplierType" name="circle"></icon-app>
-		<div class="adress">
-			{{ supplier?.city ? supplier?.city + ',&nbsp;' : ''}}
-			{{ supplier?.country | const: 'country' }}
-		</div>
-	</div>
+	</header-details-info-app>
 
-	<top-panel-action-buttons-app
-		action
-		[data]="supplier"
-		[hasAssignee]="false"
-		(export)="export.emit($event)"
-		(favorited)="changeFavorite(true)"
-		(unfavorited)="changeFavorite(false)">
-	</top-panel-action-buttons-app>
+	<header-details-actions-app>
+		<context-menu-app>
+			<context-menu-trigger-app>
+				<button class="icon light dots">
+					<icon-app [size]="20" name="dots-vertical"></icon-app>
+				</button>
+			</context-menu-trigger-app>
+			<context-menu-item-app (click)="delete.emit(supplier)" translate="button.delete">
+			</context-menu-item-app>
+		</context-menu-app>
+	</header-details-actions-app>
 
-	<status-selector-app
-		action
-		[typeEntity]="typeEntity"
-		[entity]="supplier"
-		selectSize="l"
-		type="button">
-	</status-selector-app>
-
-	<context-menu-app action>
-		<context-menu-trigger-app>
-			<button class="icon light dots">
-				<icon-app [size]="20" name="dots-vertical"></icon-app>
-			</button>
-		</context-menu-trigger-app>
-		<context-menu-item-app (click)="delete.emit(supplier)" translate="button.delete">
-		</context-menu-item-app>
-	</context-menu-app>
-
-</top-panel-details-app>
+</header-details-app>

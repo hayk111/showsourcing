@@ -17,7 +17,7 @@ import { ProductFeatureService } from '~features/products/services';
 import { SupplierRequestDialogComponent } from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
 import { TranslateService } from '@ngx-translate/core';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
-import { SubPanelService } from '~shared/top-panel/services/sub-panel.service';
+import { ControllerListService } from '~shared/header-list/services/controller-list.service';
 
 // dailah lama goes into pizza store
 // servant asks : what pizza do you want sir ?
@@ -54,7 +54,6 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		FilterType.TAGS
 	];
 
-	productsCount$: Observable<number>;
 	selectItemsConfig: SelectParamsConfig;
 	requestCount$: Observable<number>;
 
@@ -68,7 +67,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		private userSrv: UserService,
 		private translate: TranslateService,
 		protected dlgSrv: DialogService,
-		private subPanelSrv: SubPanelService,
+		private controllerListService: ControllerListService,
 	) {
 		super();
 	}
@@ -94,10 +93,6 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		this.productSrv.productListUpdate$.pipe(
 			switchMap(_ => this.listSrv.refetch())
 		).subscribe();
-
-		this.productsCount$ = this.listSrv.filterList.valueChanges$.pipe(
-			switchMap(_ => this.productSrv.selectCount(this.listSrv.filterList.asPredicate()).pipe(takeUntil(this._destroy$)))
-		);
 	}
 
 	ngAfterViewInit() {
@@ -113,7 +108,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 
 		this.listSrv.addFilter({ type: FilterType.ARCHIVED, value: false});
 		this.listSrv.addFilter({ type: FilterType.DELETED, value: false});
-		this.subPanelSrv.onFiltersClear();
+		this.controllerListService.onFiltersClear();
 	}
 
 	showItemsPerPage(count: number) {
