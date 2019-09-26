@@ -2,6 +2,7 @@
 <table-app
 	[placeholder]="'placeholder.no-product' | translate"
 	[rows]="rows"
+	[type]="erm.PRODUCT.singular"
 	[hasVerticalScroll]="hasVerticalScroll"
   [currentSort]="currentSort"
   [pending]="pending"
@@ -22,7 +23,8 @@
   (selectOne)="select.emit($event)"
   (unselectOne)="unselect.emit($event)"
   (selectAll)="selectAll.emit($event)"
-  (unselectAll)="unselectAll.emit()"
+	(unselectAll)="unselectAll.emit()"
+	(createClick)="createClick.emit()"
   (showItemsPerPage)="showItemsPerPage.emit($event)">
 
   <!-- contextual menu -->
@@ -84,12 +86,12 @@
             <div class="flexColumn ref-ctnr">
               <span class="product-ref ellipsis">
                 <a class="name txt-btn" [routerLink]="['/product', row.id]">
-                  {{ row.reference || '-' }}
+									{{ row.name || '-' }}
                 </a>
               </span>
 
               <div class="product-name-ref ellipsis">
-                {{ row.name || '-' }}
+                  {{ row.reference || '-' }}
               </div>
             </div>
 
@@ -100,24 +102,28 @@
       <!-- supplier -->
       <ng-container *ngSwitchCase="'supplier'">
         <selector-app
-					type="supplier"
+					[type]="erm.SUPPLIER.singular"
 					[hasPicker]="canUpdate"
           [canCreate]="true"
           [width]="370"
           (update)="update.emit({ id: row.id, supplier: $event })">
-          <div class="ellipsis supplier-col txt-btn"> {{ row?.supplier?.name || '-' }}</div>
+          <div class="ellipsis supplier-col txt-btn" [ngClass]="{ 'empty-field': !row?.supplier }">
+						{{ row?.supplier?.name || 'Link to supplier' }}
+					</div>
         </selector-app>
       </ng-container>
 
       <!-- category -->
       <ng-container *ngSwitchCase="'category'">
         <selector-app
-					type="category"
+					[type]="erm.CATEGORY.singular"
 					[hasPicker]="canUpdate"
           [canCreate]="true"
           [width]="370"
           (update)="update.emit({ id: row.id, category: $event })">
-					<div class="ellipsis pointer txt-btn category"> {{ row?.category?.name || '-' }}</div>
+					<div class="ellipsis pointer txt-btn category"  [ngClass]="{ 'empty-field': !row?.category }">
+						{{ row?.category?.name || 'Set a category' }}
+					</div>
         </selector-app>
 			</ng-container>
 
@@ -125,20 +131,24 @@
 
 			<ng-container *ngSwitchCase="'about'">
 				<selector-app
-					type="supplier"
+					[type]="erm.SUPPLIER.singular"
 					[hasPicker]="canUpdate"
           [canCreate]="true"
           [width]="370"
           (update)="update.emit({ id: row.id, supplier: $event })">
-          <div class="ellipsis supplier-col txt-btn"> {{ row?.supplier?.name || '-' }}</div>
+          <div class="ellipsis supplier-col txt-btn"  [ngClass]="{ 'empty-field': !row?.supplier }">
+						{{ row?.supplier?.name || 'Link to supplier' }}
+					</div>
         </selector-app>
 				<selector-app
-					type="category"
+					[type]="erm.CATEGORY.singular"
 					[hasPicker]="canUpdate"
 					[canCreate]="true"
 					[width]="370"
 					(update)="update.emit({ id: row.id, category: $event })">
-					<div class="ellipsis pointer txt-btn" class="category"> {{ row?.category?.name || '-' }}</div>
+					<div class="ellipsis pointer txt-btn category"  [ngClass]="{ 'empty-field': !row?.category }">
+						{{ row?.category?.name || 'Set a cateogry' }}
+					</div>
 				</selector-app>
 			</ng-container>
 
@@ -198,14 +208,14 @@
       <ng-container *ngSwitchCase="'creation date'">
         {{ row?.creationDate | date: 'dd MMMM y' }}
 			</ng-container>
-			
+
       <!-- created by -->
       <ng-container *ngSwitchCase="'created by'">
         <div class="created-by-date">
           {{ row?.creationDate | date: 'dd MMMM y' }}
         </div>
 			</ng-container>
-			
+
 			<!-- favorite -->
 			<ng-container *ngSwitchCase="'favorite'">
 				<div>
@@ -241,29 +251,34 @@
       <!-- status -->
       <ng-container *ngSwitchCase="'status'">
 				<div class="status-col flexVAlign">
-					<user-picture-app
-						[user]="row?.createdBy"
-						[image]="row.createdBy?.avatar"
-						[background]="false"
-						[fontSize]="16"
-						size="32"></user-picture-app>
-					<status-selector-app [entity]="row" [typeEntity]="prodErm" [canUpdate]="canUpdate" selectSize="s"></status-selector-app>
+						<selector-app
+						[type]="erm.USER.singular"
+						[width]="320"
+						[offsetX]="4"
+						(update)="update.emit({ id: row?.id, assignee: $event })">
+						<user-picture-app
+							[user]="row?.assignee"
+							[image]="row?.assignee?.avatar">
+						</user-picture-app>
+					</selector-app>
+					<status-selector-app [entity]="row" [typeEntity]="erm.PRODUCT" [canUpdate]="canUpdate" selectSize="s"></status-selector-app>
 				</div>
 			</ng-container>
 
 			<!-- name -->
       <ng-container *ngSwitchCase="'name'">
 				<div class="flexVAlign">
-					<logo-app 
-						class="mini imgCtnr" 
-						[logo]="row.images[0]" 
-						[color]="color.SECONDARY" 
-						size="ms" 
-						type="product"></logo-app>
+					<logo-app
+						class="mini imgCtnr"
+						[logo]="row.images[0]"
+						[color]="color.SECONDARY"
+						size="ms"
+						type="product">
+					</logo-app>
 					<span class="product-name">{{ row?.name }}</span>
 				</div>
 			</ng-container>
-		
+
       <!-- default -->
       <ng-container *ngSwitchDefault>
         {{ row[column.title] }}
