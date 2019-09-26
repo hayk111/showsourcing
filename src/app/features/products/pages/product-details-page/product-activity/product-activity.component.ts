@@ -13,8 +13,6 @@ import { AutoUnsub } from '~utils';
 import { Counts } from './product-activity-nav/product-activity-nav.component';
 
 
-
-
 @Component({
 	selector: 'product-activity-app',
 	templateUrl: './product-activity.component.html',
