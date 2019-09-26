@@ -8,39 +8,5 @@
 		(updateFavorite)="update($event)">
 	</supplier-top-card-app>
 
-	<div class="flex supplier-container">
-		<!-- left side -->
-		<div class="left">
-			<navbar-app
-				[tabs]="tabs">
-			</navbar-app>
-
-			<main>
-				<router-outlet></router-outlet>
-			</main>
-		</div>
-
-		<!-- right side -->
-		<div class="right">
-			<supplier-preview-app
-				[canClose]="false"
-				[isFixed]="false"
-				[isRelative]="true"
-				[shouldSelect]="false"
-				[supplier]="supplier">
-			</supplier-preview-app>
-
-			<files-card-app
-				[files]="supplier?.attachments"
-				[linkedItem]="supplier">
-			</files-card-app>
-
-			<supplier-contact-card-app
-				[contacts]="contacts$ | async"
-				[supplier]="supplier">
-			</supplier-contact-card-app>
-
-		</div>
-	</div>
-
+	<router-outlet></router-outlet>
 </ng-container>

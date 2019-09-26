@@ -14,26 +14,16 @@ import { SharedModule } from '~shared/shared.module';
 
 import {
 	ProductActivityComponent,
-	ProductIconsComponent,
-	ProductInformationComponent,
-	ProductSubInfoComponent,
-	ProductSummaryComponent,
-	ProductTeamRatingComponent,
 	ProductHeaderListComponent,
-	ProjectCardComponent,
-	SelectableImageComponent,
-	SelectionActionsComponent,
-} from './components';
-import {
-	ProductDetailsComponent,
+	ProductDetailsPageComponent,
 	ProductSamplesComponent,
 	ProductShippingComponent,
 	ProductsPageComponent,
 	ProductTasksComponent,
-} from './containers';
-import { ProductRequestsComponent } from './containers/product-requests/product-requests.component';
+	ProductRequestsComponent,
+	ProductActivityNavComponent
+} from './pages';
 import { ProductFeatureService, QuoteFeatureService } from './services';
-import { ProductActivityNavComponent } from './components/product-activity/product-activity-nav/product-activity-nav.component';
 
 
 
@@ -53,20 +43,12 @@ import { ProductActivityNavComponent } from './components/product-activity/produ
 	],
 	declarations: [
 		ProductActivityComponent,
-		ProductDetailsComponent,
-		ProductIconsComponent,
-		ProductInformationComponent,
+		ProductDetailsPageComponent,
 		ProductSamplesComponent,
 		ProductShippingComponent,
-		ProductSubInfoComponent,
-		ProductSummaryComponent,
 		ProductTasksComponent,
-		ProductTeamRatingComponent,
 		ProductHeaderListComponent,
 		ProductsPageComponent,
-		ProjectCardComponent,
-		SelectableImageComponent,
-		SelectionActionsComponent,
 		ProductRequestsComponent,
 		ProductActivityNavComponent,
 	],

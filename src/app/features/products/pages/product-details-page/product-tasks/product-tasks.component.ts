@@ -19,7 +19,6 @@ import { ProductFeatureService } from '~features/products/services';
 		ListPageService
 	]
 })
-
 export class ProductTasksComponent extends AbstractTaskCommonComponent
 	implements OnInit {
 

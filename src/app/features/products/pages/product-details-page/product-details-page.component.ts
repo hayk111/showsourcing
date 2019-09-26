@@ -15,11 +15,11 @@ import { SupplierRequestDialogComponent } from '~common/modals/component/supplie
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-	selector: 'product-details-app',
-	templateUrl: './product-details.component.html',
-	styleUrls: ['./product-details.component.scss']
+	selector: 'product-details-page-app',
+	templateUrl: './product-details-page.component.html',
+	styleUrls: ['./product-details-page.component.scss']
 })
-export class ProductDetailsComponent extends AutoUnsub implements OnInit {
+export class ProductDetailsPageComponent extends AutoUnsub implements OnInit {
 
 	previewOpen = false;
 	product: Product;
