@@ -92,6 +92,10 @@ export class TeamService extends GlobalService<Team> {
 		);
 	}
 
+	selectTeam() {
+		return this.teamSelected$;
+	}
+
 	private getSelectedTeam() {
 		return this.storage.getItem(SELECTED_TEAM);
 	}

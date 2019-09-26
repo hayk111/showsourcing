@@ -11,6 +11,7 @@ import {
 	ProductStatusWorkflowComponent,
 	SampleStatusWorkflowComponent,
 	SettingsProfileComponent,
+	SettingsTeamMembersComponent,
 	SupplierStatusWorkflowComponent,
 } from './components';
 import {
@@ -43,7 +44,7 @@ export const routes: Routes = [
 				path: 'team', component: SettingsTeamMembersPageComponent, children: [
 					{ path: '', redirectTo: 'members', pathMatch: 'full' },
 					{ path: 'members', component:  SettingsTeamMembersContentComponent },
-					{ path: 'settings', component:  SettingsTeamMembersContentComponent }
+					{ path: 'settings', component:  SettingsTeamMembersComponent }
 				]
 			},
 			{
