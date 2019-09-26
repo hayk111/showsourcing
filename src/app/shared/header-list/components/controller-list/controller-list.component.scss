@@ -10,6 +10,7 @@
 		}
 		@media only screen and (min-width:3400px){
 			margin: 20px auto 0 auto;
+			width: var(--screen-tables-max-width);
 		}
 		max-width: var(--screen-tables-max-width);
 	}

@@ -10,6 +10,7 @@
 			margin: var(--spacing-l) var(--spacing-l) 0 var(--spacing-l);
 		}
 		@media only screen and (min-width:3400px){
+			width: var(--screen-tables-max-width);
 			margin: var(--spacing-l) auto 0 auto;
 		}
 		max-width: var(--screen-tables-max-width);

@@ -52,6 +52,7 @@ export abstract class SupplierQueries extends GlobalQueries {
 			generalLeadTime,
 			creationDate,
 			lastUpdatedDate,
+			reference,
 			${SupplierQueries.comments}
 			${SupplierQueries.supplierType}
 			${SupplierQueries.logoImage}
@@ -76,6 +77,7 @@ export abstract class SupplierQueries extends GlobalQueries {
 		deleted,
 		creationDate,
 		lastUpdatedDate,
+		reference,
 		${SupplierQueries.status}
 		${SupplierQueries.categories}
 		${SupplierQueries.comments}
@@ -96,6 +98,7 @@ export abstract class SupplierQueries extends GlobalQueries {
 		description,
 		country,
 		favorite,
+		reference,
 		deleted,
 		creationDate,
 		lastUpdatedDate,

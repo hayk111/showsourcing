@@ -3,6 +3,7 @@
 <table-app
 	[placeholder]="'placeholder.no-supplier' | translate"
 	[rows]="rows"
+	type="supplier"
   [currentSort]="currentSort"
   [pending]="pending"
   [count]="count"
@@ -19,7 +20,8 @@
   (selectOne)="select.emit($event)"
   (unselectOne)="unselect.emit($event)"
   (selectAll)="selectAll.emit($event)"
-  (unselectAll)="unselectAll.emit()"
+	(unselectAll)="unselectAll.emit()"
+	(createClick)="createClick.emit()"
   (showItemsPerPage)="showItemsPerPage.emit($event)">
 
 	<!-- contextual menu -->
@@ -62,12 +64,12 @@
 						<div class="flexColumn ref-ctnr">
 							<span class="supplier-ref ellipsis">
 								<a class="name txt-btn" [routerLink]="['/supplier', row.id]">
-									{{ row.reference || '-' }}
+									{{ row.name || '-' }}
 								</a>
 							</span>
 
 							<div class="supplier-name-ref">
-								{{ row.name || '-' }}
+									{{ row.reference || '-' }}
 							</div>
 						</div>
 					</div>
