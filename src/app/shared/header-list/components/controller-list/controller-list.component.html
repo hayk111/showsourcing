@@ -27,13 +27,6 @@
 		<span class="capitalize entities-count">
 			{{count}} {{entityType}}
 		</span>
-		
-		<button
-			*ngIf="buttonName"
-			class="create first-uppercase"
-			(click)="buttonClick.emit()">
-			<span class="first-uppercase">{{ buttonName }}</span>
-		</button>
 	</div>
 
 	<div class="right-container flex">
@@ -93,6 +86,13 @@
 		<button *ngIf="hasFilter && !filtersPanelOpened && hasExport" class="flexCenter bold-s pointer capitalize export-button"
 			(click)="export.emit()" translate="button.export">
 			<icon-app name="close-pane-bottom" size="m"></icon-app>
+		</button>
+
+		<button
+			*ngIf="buttonName"
+			class="create first-uppercase"
+			(click)="buttonClick.emit()">
+			<span class="first-uppercase">{{ buttonName }}</span>
 		</button>
 
 		<view-switcher-app
