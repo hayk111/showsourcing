@@ -35,7 +35,7 @@
     [width]="column.width"
 		[sortBy]="column.sortProperty">
 
-    <ng-container [ngSwitch]="column.title">
+    <ng-container [ngSwitch]="column.name">
 			<!-- name -->
 			<ng-container *ngSwitchCase="'name'">
 				<div class="ellipsis name-container contain-strict">

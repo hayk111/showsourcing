@@ -45,6 +45,8 @@
 }
 
 .white-bg {
+	// so for some reason the margin top when scrolling the content its not activated until we add this line
+	padding-top: 1px;
 	border-top-left-radius: var(--border-radius-l);
 	border-top-right-radius: var(--border-radius-l);
 	background: white;

@@ -1,6 +1,6 @@
 
-<table-app 
-  [placeholder]="'placeholder.no-product' | translate"  
+<table-app
+  [placeholder]="'placeholder.no-product' | translate"
   [rows]="rows"
   [currentSort]="currentSort"
   [pending]="pending"
@@ -58,7 +58,7 @@
 		[sortable]="column.sortable !== false"
     [width]="column.width"
     [sortBy]="column.sortProperty">
-    <ng-container [ngSwitch]="column.title">
+    <ng-container [ngSwitch]="column.name">
 
       <!-- product reference -->
       <ng-container *ngSwitchCase="'reference'">
@@ -231,14 +231,15 @@
 						[image]="row.createdBy?.avatar"
 						[background]="false"
 						[fontSize]="16"
-						size="32"></user-picture-app>
+						size="32">
+					</user-picture-app>
 					<status-selector-app [entity]="row" [typeEntity]="prodErm" [canUpdate]="canUpdate" selectSize="s"></status-selector-app>
 				</div>
       </ng-container>
 
       <!-- default -->
       <ng-container *ngSwitchDefault>
-        {{ row[column.title] }}
+        {{ row[column.name] }}
       </ng-container>
 
     </ng-container>

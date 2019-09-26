@@ -4,8 +4,10 @@ import { TrackingComponent } from '~utils/tracking-component';
 
 
 export interface ColumnConfig {
-	title: string;
+	// property we are accessing on the switchcase
+	name: string;
 	width: number;
+	// this is the title of the column
 	translationKey: string;
 	sortProperty?: string;
 	sortable?: boolean;
@@ -69,14 +71,15 @@ export abstract class EntityTableComponent<T> extends TrackingComponent implemen
 
 	ngOnInit() {
 		if (!this.tableConfig) {
-			throw Error('Please define a configuration for columnConfig');
+			throw Error('Please define a tableConfiguration for columnConfig');
 		}
+
 		this.columns.forEach(name => {
 			const config = this.tableConfig[name];
 			if (config) {
 				this.columnsConfig.push(config);
 			} else {
-				throw Error(`${name} isn't a valid column name, make sure it is in the config`);
+				throw Error(`'${name}' isn't a valid column name, make sure it is in the config`);
 			}
 		});
 	}

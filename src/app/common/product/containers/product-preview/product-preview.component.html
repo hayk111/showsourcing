@@ -121,7 +121,44 @@
 	</preview-section-app>
 
 	<!-- Activity -->
-	<preview-section-app #contentTab3 *ngIf="product?.comments?.length" [title]="'title.comments' | translate">
+	<!-- Rating -->
+	<preview-section-app #contentTab2 [title]="'team rating'">
+		<rating-stars-score-view-app
+			class="mg-bottom-l mg-left-l"
+			[votes]="product?.votes">
+		</rating-stars-score-view-app>
+		<divider-app></divider-app>
+		<h3 class="flexCenter mg-top-ms ms">Your Rating</h3>
+		<rating-stars-action-app
+			class="flexCenter"
+			[votes]="product?.votes"
+			(valueVoted)="onStarVote($event)">
+		</rating-stars-action-app>
+	</preview-section-app>
+
+	<!-- Tasks -->
+	<preview-section-app #contentTab2 *ngIf="tasks$ | async as tasks" [title]="'Tasks'">
+		<task-table-app
+			class="no-padding"
+			[rows]="tasks"
+			[pending]="false"
+			[tableConfig]="tableConfig"
+			[columns]="['done', 'name', 'dueDate']"
+			[hasMenu]="false"
+			[hasHeader]="false"
+			[hasSelection]="false"
+			[hasPagination]="false"
+			(update)="updateTask($event)">
+		</task-table-app>
+	</preview-section-app>
+
+	<!-- Samples -->
+	<preview-section-app #contentTab2 *ngIf="samples$ | async as samples" [title]="'Samples'">
+
+	</preview-section-app>
+
+	<!-- Comment -->
+	<preview-section-app  #contentTab3 *ngIf="product?.comments?.length" [title]="'title.comments' | translate">
 		<comment-list-app [comments]="product?.comments"></comment-list-app>
 	</preview-section-app>
 
