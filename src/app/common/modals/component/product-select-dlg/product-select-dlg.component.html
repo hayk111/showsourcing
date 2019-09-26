@@ -14,8 +14,10 @@
 		[searchFullWidth]="false"
 		[subPanelDialog]="true"
 		(search)="searchProduct($event)"
-		(showMyProducts)="toggleMyProducts(true)"
-		(hideMyProducts)="toggleMyProducts(false)"
+		(showArchived)="listSrv.filterByArchived(true)"
+		(hideArchived)="listSrv.filterByArchived(false)"
+		(showAssigned)="listSrv.filterByAssignee(true)"
+		(hideAssigned)="listSrv.filterByAssignee(false)"
 		(showFilters)="showFilters()"
 		(hideFilters)="hideFilters()">
 
