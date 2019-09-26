@@ -1,0 +1,123 @@
+<table-app
+	[rows]="rows"
+	[pending]="pending"
+	[selected]="selection"
+	[contextualMenu]="contextualMenuTemplate"
+	[count]="count"
+	[currentPage]="currentPage"
+	[hasPagination]="hasPagination"
+	[hasSelection]="hasSelection"
+	[hasMenu]="hasMenu"
+	[hasHeader]="hasHeader"
+	[placeholder]="'placeholder.no-sample' | translate"
+	(goToPage)="goToPage.emit($event)"
+	(selectOne)="select.emit($event)"
+	(unselectOne)="unselect.emit($event)"
+	(selectAll)="selectAll.emit($event)"
+	(unselectAll)="unselectAll.emit($event)"
+	(sort)="sort.emit($event)"
+	(bottomReached)="bottomReached.emit()">
+
+	<!-- contextual menu -->
+	<ng-template #contextualMenuTemplate let-row="row">
+		<context-menu-item-app
+			class="pointer flexCenter"
+			(click)="delete.emit(row)">
+			{{'text.delete' | translate}}
+		</context-menu-item-app>
+	</ng-template>
+
+	  <!-- dynamic columns -->
+		<ng-template
+    *ngFor="let column of columnsConfig; trackBy: trackByFn"
+    let-row="row"
+    [columnApp]="'title.' + column.translationKey | translate"
+    [width]="column.width"
+		[sortBy]="column.sortProperty">
+
+    <ng-container [ngSwitch]="column.title">
+			<!-- name -->
+			<ng-container *ngSwitchCase="'name'">
+				<div class="ellipsis name-container contain-strict">
+					<div class="ellipsis">
+						<logo-app [logo]="row.logoImage" [ngStyle]="{'float': 'left'}" type="sample" size="m"></logo-app>
+						<span class="sample-ref ellipsis">
+							<a class="name txt-btn" >
+								{{ row.reference || '-' }}
+							</a>
+						</span>
+						<div class="sample-name-ref">
+							{{ row.name || '-' }}
+						</div>
+					</div>
+				</div>
+			</ng-container>
+
+			<!-- assignee -->
+			<ng-container *ngSwitchCase="'assignee'">
+				<div class="flex assignee-container ellipsis">
+					<user-picture-app	[user]="row?.assignee" size="24" [border]="true"></user-picture-app>
+					{{ row?.assignee | formatUserName }}
+				</div>
+			</ng-container>
+
+			<!-- product -->
+			<ng-container *ngSwitchCase="'product'">
+					<div class="ellipsis name-container contain-strict">
+							<div class="ellipsis flexVAlign">
+									<logo-app class="mini imgCtnr" [logo]="row.product?.images[0]" size="m" type="product"></logo-app>
+								<div class="flexColumn ref-ctnr">
+									<span class="product-ref ellipsis">
+										<a class="name txt-btn" [routerLink]="['/product', row.product?.id]">
+											{{ row.reference || '-' }}
+										</a>
+									</span>
+
+									<div class="product-name-ref ellipsis">
+										{{ row.name || '-' }}
+									</div>
+								</div>
+
+							</div>
+						</div>
+			</ng-container>
+
+
+
+
+
+			<!-- supplier -->
+			<ng-container *ngSwitchCase="'supplier'">
+				<div *ngIf="row?.supplier" class="pointer ellipsis" (click)="openSupplier.emit(row.supplier.id)">{{ row?.supplier?.name }}</div>
+			</ng-container>
+
+			<!-- comments -->
+			<ng-container *ngSwitchCase="'comments'">
+				<div class="flex ellipsis">
+					<div class="number">{{ row?.comments?.length || '0' }}</div>
+					&nbsp;
+					{{ ((row?.comments?.length || 0) > 1 ? 'OBJ.comment.plural' : 'OBJ.comment.singular') | translate }}
+				</div>
+			</ng-container>
+
+			<!-- status -->
+			<ng-container *ngSwitchCase="'status'">
+				<div class="status-col flexVAlign">
+					<user-picture-app
+						[user]="row?.createdBy"
+						[image]="row.createdBy?.avatar"
+						[background]="false"
+						[fontSize]="16"
+						size="32"></user-picture-app>
+					<status-selector-app [entity]="row" [typeEntity]="erm.SUPPLIER" [canUpdate]="canUpdate" selectSize="s"></status-selector-app>
+				</div>
+			</ng-container>
+
+			<!-- created on -->
+			<ng-container *ngSwitchCase="'created on'">
+				{{ row?.creationDate | date: 'dd MMMM y':'':translate.currentLang }}
+			</ng-container>
+		</ng-container>
+	</ng-template>
+
+</table-app>

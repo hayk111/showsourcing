@@ -19,7 +19,7 @@ import {
 	ProductSubInfoComponent,
 	ProductSummaryComponent,
 	ProductTeamRatingComponent,
-	ProductTopPanelComponent,
+	ProductHeaderListComponent,
 	ProjectCardComponent,
 	SelectableImageComponent,
 	SelectionActionsComponent,
@@ -48,7 +48,7 @@ import { ProductFeatureService, QuoteFeatureService } from './services';
 		SampleCommonModule,
 		SharedModule,
 		SupplierCommonModule,
-		TaskCommonModule,
+		TaskCommonModule
 	],
 	declarations: [
 		ProductActivityComponent,
@@ -61,7 +61,7 @@ import { ProductFeatureService, QuoteFeatureService } from './services';
 		ProductSummaryComponent,
 		ProductTasksComponent,
 		ProductTeamRatingComponent,
-		ProductTopPanelComponent,
+		ProductHeaderListComponent,
 		ProductsPageComponent,
 		ProjectCardComponent,
 		SelectableImageComponent,

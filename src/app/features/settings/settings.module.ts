@@ -2,19 +2,21 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { WorkflowMngmtCommonModule } from '~common/workflow/workflow-mngmt.module';
 import { DataManagementModule } from '~features/data-management/data-management.module';
+
 import {
 	CompanyProfileCardComponent,
-	ExportListViewComponent,
-	InvitationsListViewComponent,
+	ExportTableComponent,
+	InvitationsTableComponent,
 	ProductStatusWorkflowComponent,
 	ProfileCardComponent,
 	SampleStatusWorkflowComponent,
 	SettingsProfileComponent,
 	SupplierStatusWorkflowComponent,
-	TeamMembersListViewComponent,
+	TeamMembersTableComponent,
 } from '~features/settings/components';
 import {
 	SettingsComponent,
+	SettingsTeamMembersContentComponent,
 	SettingsExportComponent,
 	SettingsFieldsPageComponent,
 	SettingsTeamMembersInvitationsComponent,
@@ -35,12 +37,13 @@ import { SharedModule } from '~shared/shared.module';
 	],
 	declarations: [
 		CompanyProfileCardComponent,
-		ExportListViewComponent,
-		InvitationsListViewComponent,
+		ExportTableComponent,
+		InvitationsTableComponent,
 		ProductStatusWorkflowComponent,
 		ProfileCardComponent,
 		SampleStatusWorkflowComponent,
 		SettingsComponent,
+		SettingsTeamMembersContentComponent,
 		SettingsExportComponent,
 		SettingsFieldsPageComponent,
 		SettingsProfileComponent,
@@ -49,7 +52,7 @@ import { SharedModule } from '~shared/shared.module';
 		SettingsTeamMembersUsersComponent,
 		SettingsWorkflowsPageComponent,
 		SupplierStatusWorkflowComponent,
-		TeamMembersListViewComponent,
+		TeamMembersTableComponent,
 	],
 	entryComponents: [],
 	exports: [],

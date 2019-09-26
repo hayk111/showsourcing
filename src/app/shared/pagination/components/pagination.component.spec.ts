@@ -29,7 +29,7 @@ export class TestHostComponent {
 }
 
 
-fdescribe('Component: PaginationComponent', () => {
+describe('Component: PaginationComponent', () => {
 	let testComp: TestHostComponent;
 	let paginationComp: PaginationComponent;
 	let fixture: ComponentFixture<TestHostComponent>;
@@ -156,7 +156,7 @@ fdescribe('Component: PaginationComponent', () => {
 		expect(paginationComp.range).toEqual([0, 1]);
 	});
 
-	fit('should display per page items count in the right corner when `hasPageItemsCount` is true and not otherwise', () => {
+	it('should display per page items count in the right corner when `hasPageItemsCount` is true and not otherwise', () => {
 		let itemsPageCount = fixture.nativeElement.querySelector('.items-page-count');
 		expect(itemsPageCount).toBeTruthy();
 

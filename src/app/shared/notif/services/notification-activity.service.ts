@@ -4,7 +4,7 @@ import { environment } from 'environments/environment';
 import * as getstream from 'getstream';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { first, map, switchMap, tap } from 'rxjs/operators';
-import { TokenService } from '~core/auth';
+import { TokenService } from '~deprecated/token.service';
 import { TokenResponse } from '~common/activity/interfaces/token-response.interface';
 import { TokenState } from '~core/auth/interfaces/token-state.interface';
 import { TeamService, UserService } from '~entity-services';
@@ -18,7 +18,7 @@ import { Router } from '@angular/router';
 	providedIn: 'root'
 })
 export class NotificationActivityService {
-	private readonly LIMIT = 10;
+	private limit: number;
 	private client: getstream.Client;
 	private shouldRefetch$ = new BehaviorSubject(true);
 	private shouldUpdateUnreadCount = new Subject<{ allMarkedAsRead: boolean, notificationId?: string }>();
@@ -31,6 +31,7 @@ export class NotificationActivityService {
 		private router: Router,
 
 	) {
+		this.limit = this.getInitialLimit();
 		this.client = getstream.connect(environment.getStreamKey, null, environment.getStreamAppID);
 		this.enableRealTimeNotifications();
 	}
@@ -66,10 +67,16 @@ export class NotificationActivityService {
 		);
 	}
 
+	private getInitialLimit() {
+		const SPACES = 80;
+		const NOTIF_ITEM_HEIGHT = 57;
+		return Math.ceil((window.innerHeight - SPACES) / NOTIF_ITEM_HEIGHT);
+	}
+
 	private getPastNotifications(): Observable<GetStreamNotification> {
 		return this.getNotificationToken().pipe(
 			map(token => this.client.feed('notifications', this.getNotificationUserId(), token)),
-			switchMap(feed => feed.get({ limit: this.LIMIT })),
+			switchMap(feed => feed.get({ limit: this.limit })),
 		) as Observable<GetStreamNotification>;
 	}
 
@@ -86,6 +93,11 @@ export class NotificationActivityService {
 			const feed: getstream.Feed = this.client.feed('notifications', this.getNotificationUserId(), token);
 			feed.get({ limit: 0, mark_read: notificationId });
 		});
+	}
+
+	public loadMore() {
+		this.limit += this.getInitialLimit();
+		this.shouldRefetch$.next(true);
 	}
 
 	public markAllAsRead(): void {
@@ -110,6 +122,13 @@ export class NotificationActivityService {
 
 	public closeNotificationPanel() {
 		this.isPanelOpen = false;
+	}
+
+	public onWindowResize( event ) {
+		if (this.getInitialLimit() > this.limit) {
+			this.limit = this.getInitialLimit();
+			this.shouldRefetch$.next(true);
+		}
 	}
 
 

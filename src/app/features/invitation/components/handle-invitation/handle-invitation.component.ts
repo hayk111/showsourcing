@@ -9,7 +9,8 @@ import { AuthenticationService } from '~core/auth/services/authentication.servic
 import { InvitationFeatureService } from '~features/invitation/services/invitation-feature.service';
 import { InvitationUser } from '~models';
 import { NotificationService, NotificationType } from '~shared/notifications';
-import { AutoUnsub, translate } from '~utils';
+import { AutoUnsub } from '~utils';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -23,6 +24,7 @@ export class HandleInvitationComponent extends AutoUnsub implements OnInit {
 	invitation$: Observable<InvitationUser>;
 	client: Client;
 	returnUrl: string;
+	invitationId: string;
 
 	// this is used to hide then DOM when accepting in the meaintime we fix how we handle
 	// the spinner located at `app.component.html`
@@ -35,41 +37,42 @@ export class HandleInvitationComponent extends AutoUnsub implements OnInit {
 		private authSrv: AuthenticationService,
 		private invitationSrv: InvitationFeatureService,
 		private notifSrv: NotificationService,
-		private teamClient: TeamClientInitializer
+		private teamClient: TeamClientInitializer,
+		private translate: TranslateService
 	) {
 		super();
 	}
 
 	ngOnInit() {
-		const invitationId = this.route.snapshot.params.id;
+		this.invitationId = this.route.snapshot.params.id;
 		this.authenticated$ = this.authSrv.isAuthenticated$;
 		this.invitation$ = this.authenticated$.pipe(
-			switchMap(_ => this.invitationSrv.getInvitation(invitationId))
+			switchMap(_ => this.invitationSrv.getInvitation(this.invitationId))
 		);
 		this.returnUrl = this.location.path();
 	}
 
-	accept(invitation: InvitationUser) {
+	accept() {
 		this.hasAccepted$.next(true);
 		this.teamClient.setPending('switching team');
-		this.invitationSrv.acceptInvitation(invitation).subscribe(_ => {
+		this.invitationSrv.acceptInvitation(this.invitationId).subscribe(_ => {
 			this.router.navigateByUrl('/');
 			this.notifSrv.add({
 				type: NotificationType.SUCCESS,
-				title: translate('Invitation accepted'),
-				message: translate('The invitation was accepted'),
+				title: this.translate.instant('title.invitation-accepted'),
+				message: this.translate.instant('message.invitation-accepted'),
 				timeout: 3500
 			});
 		});
 	}
 
-	refuse(invitation) {
-		this.invitationSrv.refuseInvitation(invitation).subscribe(_ => {
+	refuse() {
+		this.invitationSrv.refuseInvitation(this.invitationId).subscribe(_ => {
 			this.router.navigateByUrl('/');
 			this.notifSrv.add({
 				type: NotificationType.ERROR,
-				title: translate('Invitation Refused'),
-				message: translate('The invitation was refused'),
+				title: this.translate.instant('title.invitation-refused'),
+				message: this.translate.instant('message.invitation-refused'),
 				timeout: 3500
 			});
 		});

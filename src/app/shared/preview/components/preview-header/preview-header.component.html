@@ -10,7 +10,7 @@
 		</preview-logo-app>
 		<ng-container *ngIf="hasTop">
 			<icon-app [name]="entityMD?.singular || 'product'"></icon-app>
-			<span>{{ entityMD?.singular }}</span>
+			<span>{{ 'ERM.' + entityMD?.translationKey + '.singular' | translate }}</span>
 		</ng-container>
 	</div>
 	<div class="right">

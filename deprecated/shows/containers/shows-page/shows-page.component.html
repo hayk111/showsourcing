@@ -1,13 +1,13 @@
 <div class="scroller" infiniScroll (bottomReached)="listSrv.loadMore()">
-  <top-panel-app
+  <header-list-app
     title="Shows & Events"
     [hasAction]="false">
-  </top-panel-app>
+  </header-list-app>
 
   <div class="ctnr">
 
     <div class="top flexBetween">
-      <search-bar-app (search)="search($event)"></search-bar-app>
+      <search-bar-app (search)="search($event)" [placeHolder]="'placeholder.type-to-search' | translate"></search-bar-app>
       <div class="flexBetween">
         <checkbox-app [checked]="checkboxes.myShows" (update)="toggleMyEvents()">
           Only display my Shows

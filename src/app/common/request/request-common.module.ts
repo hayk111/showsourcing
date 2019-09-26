@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '~shared/shared.module';
 
-import { RequestElementListViewComponent, RequestSortingMenuComponent } from './components';
+import { RequestElementTableComponent, RequestSortingMenuComponent } from './components';
 
 @NgModule({
 	imports: [
@@ -12,11 +12,11 @@ import { RequestElementListViewComponent, RequestSortingMenuComponent } from './
 		SharedModule,
 	],
 	declarations: [
-		RequestElementListViewComponent,
+		RequestElementTableComponent,
 		RequestSortingMenuComponent
 	],
 	exports: [
-		RequestElementListViewComponent,
+		RequestElementTableComponent,
 		RequestSortingMenuComponent
 	]
 })

@@ -5,6 +5,7 @@ import { SharedModule } from '~shared/shared.module';
 import { DataMananagementTableComponent } from './components';
 import {
 	CategoryDataManagementPageComponent,
+	SupplierDataManagementPageComponent,
 	DataManagementPageComponent,
 	EventDataManagementPageComponent,
 	TagDataManagementPageComponent,
@@ -14,12 +15,13 @@ import {
 @NgModule({
 	imports: [
 		SharedModule,
-		RouterModule.forChild([]),
+		RouterModule.forChild([])
 	],
 	declarations: [
 		DataManagementPageComponent,
 		DataMananagementTableComponent,
 		CategoryDataManagementPageComponent,
+		SupplierDataManagementPageComponent,
 		EventDataManagementPageComponent,
 		TagDataManagementPageComponent
 	],

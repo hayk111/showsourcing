@@ -23,7 +23,6 @@ export class SampleService extends GlobalWithAuditService<Sample> {
 	}
 
 	onUpdateSampleList() {
-		console.log('onUpdateSampleList called...');
 		this._sampleListUpdate$.next();
 	}
 }

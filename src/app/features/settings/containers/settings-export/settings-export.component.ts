@@ -5,6 +5,9 @@ import { ExportRequestService } from '~core/entity-services/export-request/expor
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { ERM, ExportRequest } from '~core/models';
 import { AutoUnsub } from '~utils';
+import { FilterType } from '~shared/filters';
+import { UserService } from '~entity-services';
+import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 
 @Component({
 	selector: 'settings-export-app',
@@ -15,12 +18,15 @@ import { AutoUnsub } from '~utils';
 export class SettingsExportComponent extends AutoUnsub implements OnInit, AfterViewInit {
 
 	erm = ERM;
+	selectItemsConfig: SelectParamsConfig;
 
 	constructor(
+		private userSrv: UserService,
 		private exportSrv: ExportRequestService,
 		public listSrv: ListPageService<ExportRequest, ExportRequestService>,
 		public commonModalSrv: CommonModalService
 	) { super(); }
+
 
 	ngOnInit() {
 		this.listSrv.setup({
@@ -52,5 +58,26 @@ export class SettingsExportComponent extends AutoUnsub implements OnInit, AfterV
 		this.listSrv.selectionSrv.selection.forEach(exportReq => {
 			this.downloadOne(exportReq);
 		});
+	}
+
+	showItemsPerPage(count: number) {
+		this.selectItemsConfig = { take: Number(count) };
+		this.listSrv.refetch(this.selectItemsConfig).subscribe();
+	}
+
+	toggleMyExports(show: boolean) {
+		const userId = this.userSrv.userSync.id;
+
+		const filterMyExports = {
+			type: FilterType.CREATED_BY,
+			value: userId
+		};
+
+		if (show) {
+			this.listSrv.addFilter(filterMyExports);
+			return;
+		}
+
+		this.listSrv.removeFilter(filterMyExports);
 	}
 }

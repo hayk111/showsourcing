@@ -42,7 +42,7 @@ import { StageIndicatorModule } from './stage-indicator/stage-indicator.module';
 import { StatusSelectorModule } from './status-selector/status-selector.module';
 import { TableModule } from './table/table.module';
 import { PaginationModule } from './pagination/pagination.module';
-import { TopPanelModule } from './top-panel/top-panel.module';
+import { HeaderListModule } from './header-list/header-list.module';
 import { BottomPanelModule } from './bottom-panel';
 import { ComparisonRowModule } from './comparison-row/comparison-row.module';
 import { TemplateMngmtModule } from './template-mngmt/template-mngmt.module';
@@ -50,6 +50,7 @@ import { OnBoardingModule } from './on-boarding/on-boarding.module';
 import { PackagingModule } from './packaging/packaging.module';
 import { NotifModule } from './notif/notif.module';
 import { AccordionModule } from './accordion/accordion.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 // those modules are used so commonly that we will just import the shared module
 const modules = [
@@ -102,13 +103,14 @@ const modules = [
 	StatusSelectorModule,
 	TableModule,
 	PaginationModule,
-	TopPanelModule,
+	HeaderListModule,
 	UserPictureModule,
 	UtilsModule,
 	ComparisonRowModule,
 	TemplateMngmtModule,
 	OnBoardingModule,
-	PackagingModule
+	PackagingModule,
+	TranslateModule
 ];
 
 @NgModule({

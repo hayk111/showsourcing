@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { SupplierRequest } from '~core/models';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'request-information-app',
@@ -11,7 +12,7 @@ export class RequestInformationComponent implements OnInit {
 
 	@Input() request: SupplierRequest;
 
-	constructor() { }
+	constructor(public translate: TranslateService) { }
 
 	ngOnInit() {
 	}

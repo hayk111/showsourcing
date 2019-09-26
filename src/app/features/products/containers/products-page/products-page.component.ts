@@ -15,7 +15,9 @@ import { FiltersComponent, FilterSelectionEntityPanelComponent } from '~shared/f
 import { ProductListComponent } from '~deprecated/product-list/product-list.component';
 import { ProductFeatureService } from '~features/products/services';
 import { SupplierRequestDialogComponent } from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
+import { TranslateService } from '@ngx-translate/core';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
+import { ControllerListService } from '~shared/header-list/services/controller-list.service';
 
 // dailah lama goes into pizza store
 // servant asks : what pizza do you want sir ?
@@ -52,7 +54,6 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		FilterType.TAGS
 	];
 
-	productsCount$: Observable<number>;
 	selectItemsConfig: SelectParamsConfig;
 	requestCount$: Observable<number>;
 
@@ -64,7 +65,9 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		private featureSrv: ProductFeatureService,
 		public elem: ElementRef,
 		private userSrv: UserService,
+		private translate: TranslateService,
 		protected dlgSrv: DialogService,
+		private controllerListService: ControllerListService,
 	) {
 		super();
 	}
@@ -90,10 +93,6 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		this.productSrv.productListUpdate$.pipe(
 			switchMap(_ => this.listSrv.refetch())
 		).subscribe();
-
-		this.productsCount$ = this.listSrv.filterList.valueChanges$.pipe(
-			switchMap(_ => this.productSrv.selectCount(this.listSrv.filterList.asPredicate()).pipe(takeUntil(this._destroy$)))
-		);
 	}
 
 	ngAfterViewInit() {
@@ -104,23 +103,12 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		this.listSrv.changeView(view);
 	}
 
-	onFavourite(product: Product) {
-		this.listSrv.onItemFavorited(product.id);
-	}
-
 	onClearFilters() {
 		this.listSrv.filterList.resetAll();
 
 		this.listSrv.addFilter({ type: FilterType.ARCHIVED, value: false});
 		this.listSrv.addFilter({ type: FilterType.DELETED, value: false});
-	}
-
-	onShowFilters() {
-		this.listSrv.openFilterPanel();
-	}
-
-	onCloseFilter() {
-		this.listSrv.closeFilterPanel();
+		this.controllerListService.onFiltersClear();
 	}
 
 	showItemsPerPage(count: number) {
@@ -128,20 +116,15 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		this.listSrv.refetch(this.selectItemsConfig).subscribe();
 	}
 
-	onExport() {
-		this.commonModalSrv.openExportDialog(this.listSrv.getSelectedValues());
-	}
-
 	onArchive(product: Product | Product[]) {
-		// TODO i18n
 		if (Array.isArray(product)) {
 			this.featureSrv.updateMany(product.map((p: Product) => ({ id: p.id, archived: true })))
 				.pipe(switchMap(_ => this.listSrv.refetch()))
 				.subscribe(_ => {
 					this.notifSrv.add({
 						type: NotificationType.SUCCESS,
-						title: 'Product archived',
-						message: 'Products have been archived with success'
+						title: this.translate.instant('title.products-archived'),
+						message: this.translate.instant('message.products-archived-successfully')
 					});
 				});
 		} else {
@@ -151,8 +134,8 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 				.subscribe(_ => {
 					this.notifSrv.add({
 						type: NotificationType.SUCCESS,
-						title: 'Product archived',
-						message: 'Products have been archived with success'
+						title: this.translate.instant('title.product-archived'),
+						message: this.translate.instant('message.product-archived-successfully')
 					});
 				});
 		}

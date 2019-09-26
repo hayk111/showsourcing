@@ -1,5 +1,5 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
@@ -13,6 +13,9 @@ import { ProductFeatureService } from '~features/products/services';
 import { ProjectFeatureService } from '~features/project/services';
 import { DialogService } from '~shared/dialog/services';
 import { SupplierRequestDialogComponent } from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
+import { TranslateService } from '@ngx-translate/core';
+import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
+import { ControllerListService } from '~shared/header-list/services/controller-list.service';
 
 @Component({
 	selector: 'project-products-app',
@@ -25,9 +28,15 @@ import { SupplierRequestDialogComponent } from '~common/modals/component/supplie
 })
 export class ProjectProductsComponent extends AutoUnsub implements OnInit, AfterViewInit {
 
+	@Output() delete = new EventEmitter<Project>();
+	@Output() archive = new EventEmitter<Project>();
+
 	project$: Observable<Project>;
 	private project: Project;
+	filterTypeEnum = FilterType;
 	erm = ERM;
+
+	selectItemsConfig: SelectParamsConfig;
 
 	filterTypes = [
 		FilterType.ARCHIVED,
@@ -45,11 +54,14 @@ export class ProjectProductsComponent extends AutoUnsub implements OnInit, After
 		private featureSrv: ProjectFeatureService,
 		private productFeatureSrv: ProductFeatureService,
 		private dlgSrv: DialogService,
+		private	router: Router,
 		private route: ActivatedRoute,
 		private productSrv: ProductService,
 		public listSrv: ListPageService<Product, ProductService>,
 		public commonModalSrv: CommonModalService,
-		private notifSrv: NotificationService
+		private notifSrv: NotificationService,
+		private controllerListService: ControllerListService,
+		private translate: TranslateService
 	) {
 		super();
 	}
@@ -112,15 +124,14 @@ export class ProjectProductsComponent extends AutoUnsub implements OnInit, After
 	}
 
 	onArchive(product: Product | Product[]) {
-		// TODO i18n
 		if (Array.isArray(product)) {
-			this.productFeatureSrv.updateMany(product.map((p: Product) => ({id: p.id, archived: true})))
+			this.productFeatureSrv.updateMany(product.map((p: Product) => ({ id: p.id, archived: true })))
 				.pipe(switchMap(_ => this.listSrv.refetch()))
 				.subscribe(_ => {
 					this.notifSrv.add({
 						type: NotificationType.SUCCESS,
-						title: 'Products archived',
-						message: 'Products have been archived with success'
+						title: this.translate.instant('title.products-archived'),
+						message: this.translate.instant('message.products-archived-successfully')
 					});
 				});
 		} else {
@@ -130,11 +141,29 @@ export class ProjectProductsComponent extends AutoUnsub implements OnInit, After
 				.subscribe(_ => {
 					this.notifSrv.add({
 						type: NotificationType.SUCCESS,
-						title: 'Product archived',
-						message: 'Products have been archived with success'
+						title: this.translate.instant('title.product-archived'),
+						message: this.translate.instant('message.product-archived-successfully')
 					});
 				});
 		}
+	}
+
+	getTabPanelUrl(panel: 'products' | 'settings'): string {
+		return this.router.url.substring(0, this.router.url.lastIndexOf('/') + 1) + panel;
+	}
+
+	onClearFilters() {
+		this.listSrv.filterList.resetAll();
+
+		this.listSrv.addFilter({ type: FilterType.ARCHIVED, value: false});
+		this.listSrv.addFilter({ type: FilterType.DELETED, value: false});
+
+		this.controllerListService.onFiltersClear();
+	}
+
+	showItemsPerPage(count: number) {
+		this.selectItemsConfig = { take: Number(count) };
+		this.listSrv.refetch(this.selectItemsConfig).subscribe();
 	}
 
 	onOpenCreateRequestDlg(products: Product[]) {

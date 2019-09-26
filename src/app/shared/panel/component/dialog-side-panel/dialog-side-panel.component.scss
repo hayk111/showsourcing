@@ -1,0 +1,30 @@
+:host {
+	position: absolute;
+	top: 48px;
+	background: white;
+	z-index: var(--z-card-container);
+	overflow-x: hidden;
+	overflow-y: auto;
+	width: 300px;
+	box-sizing: border-box;
+	padding: var(--spacing-ms) var(--spacing-ms) var(--spacing-xxxl) var(--spacing-ms);
+	height: 100%;
+	&.alignRight {
+		right: 0;
+	}
+	&.alignLeft {
+		left: 0;
+	}
+
+}
+
+divider-app {
+	margin: var(--spacing-ms) 0;
+}
+
+.top {
+	line-height: 1;
+	side-panel-title-app{
+		margin-bottom: 0;
+	}
+}

@@ -1,33 +1,37 @@
 
 <!-- top panel -->
-<top-panel-app
-	[title]="'My Tasks'"
-	buttonName="Create Task"
-	(buttonClick)="commonModalSrv.openCreationTaskDlg()"
-	i18n-title="@@my-tasks"
-	i18n-buttonName="@@add-tasks">
-</top-panel-app>
+<header-list-app
+	[title]="'title.my-tasks' | translate"
+	[buttonName]="'button.create-task' | translate"
+	(buttonClick)="commonModalSrv.openCreationTaskDlg()">
+</header-list-app>
 
-<sub-panel-app
-	[hasFilter]="true"
-	[hasSwitch]="true"
+<controller-list-app
+	[hasFilter]="false"
+	[hasSwitch]="false"
+	[hasArchived]="false"
+	[hasCompletedTask]="true"
+	[hasTaskCreatedByMeOnly]="true"
+	[hasExport]="false"
 	[view]="listSrv.view"
 	[count]="listSrv.count$ | async"
-	entityType="tasks"
+	[entityType]="'TASK'"
 	searchType="short"
 	[searchValue]="listSrv.searchValue"
 	[ngStyle]="tableWidth && {'width': getSubPanelWidth()}"
 	(search)="listSrv.search($event)"
-	(clearFilters)="listSrv.filterList.resetAll();"
-	(showArchived)="listSrv.filterByArchived(true)"
-	(hideArchived)="listSrv.filterByArchived(false)"
+	(clearFilters)="listSrv.filterList.resetAll()"
 	(showAssigned)="listSrv.filterByAssignee(true)"
 	(hideAssigned)="listSrv.filterByAssignee(false)"
+	(showTasksCreatedByMeOnly)="showTasksCreatedByMeOnly()"
+	(hideTasksCreatedByMeOnly)="hideTasksCreatedByMeOnly()"
+	(showTasksCompleted)="listSrv.filterByDone(true)"
+	(hideTasksCompleted)="listSrv.filterByDone(false)"
 	(export)="onExport()"
 	(showFilters)="listSrv.openFilterPanel()"
 	(viewChange)="onViewChange($event)">
 
-	<sub-panel-right-item-app class="flex">
+	<controller-list-right-item-app class="flex">
 		<product-sorting-menu-app
 			[currentSort]="listSrv.currentSort"
 			(sortFromMenu)="listSrv.sortFromMenu($event)">
@@ -36,28 +40,26 @@
 			[checked]="listSrv.filterList.hasFilterType(filterTypeEnum.ASSIGNEE)"
 			(check)="toggleMyProducts(true)"
 			(uncheck)="toggleMyProducts(false)">
-			<span i18n="text@@assigned-to-me">
-				Assigned to me
-			</span>
+			<span translate="text.assigned-to-me"></span>
 		</checkbox-app>
 		<button
-			*ngIf="samplesCount$ | async as count"
+			*ngIf="tasksCount$ | async as count"
 			class="capitalize"
 			(click)="commonModalSrv.openExportDialog([], listSrv.filterList.asPredicate())">
-			<ng-container i18n="@@export">export</ng-container>
-			<span> {{ count || 0 }} </span>
-			<ng-container i18n="@@items">{ count || 0, plural, =1 { item } other { items } }</ng-container>
+			<ng-container translate="button.export"></ng-container>
+			{{ ((count || 0) > 1 ? 'OBJ.n-item.plural' : 'OBJ.n-item.singular') | translate: {count : count || 0} }}
 		</button>
 
-	</sub-panel-right-item-app>
+	</controller-list-right-item-app>
 
-</sub-panel-app>
+</controller-list-app>
 
-<task-list-view-app
+<task-table-app
 	[rows]="listSrv.items$ | async"
 	[selection]="listSrv.selection$ | async"
 	[pending]="listSrv.pending"
 	[count]="listSrv.count$ | async"
+	[currentSort]="listSrv.currentSort"
 	[currentPage]="listSrv.currentPage"
 	(goToPage)="listSrv.loadPage($event)"
 	(sort)="listSrv.sort($event)"
@@ -70,9 +72,8 @@
 	(unfavorited)="listSrv.onItemUnfavorited($event)"
 	(previewClick)="listSrv.openPreview($event)"
 	(showItemsPerPage)="showItemsPerPage($event)"
-	(archive)="onArchive($event)"
-	(delete)="listSrv.deleteOne($event)">
-</task-list-view-app>
+	(delete)="listSrv.deleteOne($event, true)">
+</task-table-app>
 
 <selection-bar-app
 	[isShown]="(listSrv.selection$ | async).size > 0"
@@ -81,14 +82,13 @@
 
 	<div class="flex">
 		<status-selector-app
-			toolTip toolTipMessage="Change status" toolTipPosition="above-right"
+			toolTip [toolTipMessage]="'message.change-status' | translate" toolTipPosition="above-right"
 			#workActionMenu
 			selectSize="s"
-			[typeEntity]="erm.SUPPLIER"
+			[typeEntity]="erm.TASK"
 			type="multiple-selection"
 			[internalUpdate]="false"
-			(statusUpdated)="this.listSrv.updateSelected({status: $event})"
-			i18n-toolTipMessage="@@change-status">
+			(statusUpdated)="this.listSrv.updateSelected({status: $event})">
 		</status-selector-app>
 		<action-bar-app
 			[favorite]="listSrv.allSelectedFavorite"

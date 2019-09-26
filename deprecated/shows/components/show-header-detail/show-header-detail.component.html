@@ -1,0 +1,31 @@
+<header-details-app>
+
+  <header-details-title-app>{{ show?.description?.name }}</header-details-title-app>
+
+  <img-app [image]="show?.description?.logoImage" type="show"></img-app>
+
+  <header-details-info-app >
+    <div>
+      <div class="info">
+        {{ show?.description?.startDate | date: 'd' }}
+        -
+        {{ show?.description?.endDate | date: 'd' }}
+        {{ show?.description?.endDate | date: 'M'}}
+        -
+        {{ show?.description?.venue?.addressFull }},
+        {{ show?.description?.venue?.country | const: 'country'  }}
+      </div>
+  
+      <div class="flex tags">
+        <badge-app size="mini" class="bg-secondary">
+          {{ show?.description?.supplierCount }} Suppliers
+        </badge-app>
+        <badge-app type="accent" *ngIf="show?.saved">
+          saved
+        </badge-app>
+      </div>
+  
+    </div>
+  </header-details-info-app>
+
+</header-details-app>

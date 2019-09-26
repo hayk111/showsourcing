@@ -1,24 +1,23 @@
-<top-panel-app
-	[title]="'requests'"
-	buttonName="New Request"
-	(buttonClick)="commonModalSrv.openSupplierRequest([])"
-	i18n-title="@@requests">
-</top-panel-app>
+<header-list-app
+	[title]="'title.requests' | translate"
+	[buttonName]="'button.new-request' | translate"
+	(buttonClick)="commonModalSrv.openSupplierRequest([])">
+</header-list-app>
 
-<sub-panel-app
+<controller-list-app
 	[hasFilter]="false"
 	[hasSwitch]="false"
 	[searchValue]="listSrv.searchValue"
 	(search)="listSrv.search($event)">
-	<sub-panel-right-item-app>
+	<controller-list-right-item-app>
 		<request-sorting-menu-app
 			[currentSort]="listSrv.currentSort"
 			(sortFromMenu)="listSrv.sortFromMenu($event)">
 		</request-sorting-menu-app>
-	</sub-panel-right-item-app>
-</sub-panel-app>
+	</controller-list-right-item-app>
+</controller-list-app>
 
-<request-list-view-app
+<request-table-app
 	class="borderless"
 	[rows]="listSrv.items$ | async"
 	[pending]="listSrv.pending"
@@ -32,11 +31,11 @@
 	(sort)="listSrv.sort($event)"
 	(unselect)="listSrv.unselectOne($event)"
 	(unselectAll)="listSrv.unselectAll()">
-</request-list-view-app>
+</request-table-app>
 
 <selection-bar-app
 	[isShown]="(listSrv.selection$ | async).size > 0"
 	[selection]="listSrv.selection$ | async"
 	(close)="listSrv.unselectAll()">
-	<button class="warn" (click)="cancelSelectedRequests()" i18n="@@cancel-requests">cancel requests</button>
+	<button class="warn" (click)="cancelSelectedRequests()" translate="button.cancel-requests"></button>
 </selection-bar-app>

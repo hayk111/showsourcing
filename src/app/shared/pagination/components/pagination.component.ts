@@ -7,6 +7,9 @@ import { TrackingComponent } from '~utils';
 	templateUrl: './pagination.component.html',
 	styleUrls: ['./pagination.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		'[class.side-padding-l]': 'hasSidePadding'
+	}
 })
 export class PaginationComponent extends TrackingComponent implements OnChanges {
 
@@ -16,6 +19,8 @@ export class PaginationComponent extends TrackingComponent implements OnChanges 
 	@Input() count = 0;
 	/** whether we should show per page items count */
 	@Input() hasPageItemsCount = true;
+	/** whether the element has left and right padding of 24px */
+	@Input() hasSidePadding = false;
 	/** width of the pagination, ie if 5 we display [1, 2, 3, 4, 5]  or [16, 17, 18, 19, 20] if 3 we display [1, 2, 3 ] */
 	@Input() set width(value: number) {
 		if (value % 2 === 0)
@@ -95,7 +100,7 @@ export class PaginationComponent extends TrackingComponent implements OnChanges 
 			? fromNumber + perPageItems
 			: this.count;
 
-		return `Showing ${fromNumber} - ${toNumber} of ${this.count}`;
+		return { fromNumber: fromNumber || 0, toNumber: toNumber || 0, count: this.count || 0 };
 	}
 
 	private buildPaginatorRange() {

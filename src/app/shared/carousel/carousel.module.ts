@@ -7,7 +7,7 @@ import {
 	ImagePreviewer2Component,
 	ImageReviewerComponent,
 	ModalCarouselComponent,
-	PreviewTopPanelComponent,
+	PreviewHeaderListComponent,
 } from '~shared/carousel/components';
 import { ContextMenuModule } from '~shared/context-menu/context-menu.module';
 import { FileModule } from '~shared/file/file.module';
@@ -20,6 +20,7 @@ import { SelectorsModule } from '~shared/selectors/selectors.module';
 import { UtilsModule } from '~shared/utils';
 import { PriceModule } from '~shared/price';
 import { DividerModule } from '~shared/divider/divider.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
 	imports: [
@@ -37,20 +38,21 @@ import { DividerModule } from '~shared/divider/divider.module';
 		UtilsModule,
 		PriceModule,
 		DividerModule,
+		TranslateModule
 	],
 	declarations: [
 		CarouselComponent,
 		ImagePreviewer2Component,
 		ImageReviewerComponent,
 		ModalCarouselComponent,
-		PreviewTopPanelComponent,
+		PreviewHeaderListComponent,
 	],
 	exports: [
 		CarouselComponent,
 		ImagePreviewer2Component,
 		ImageReviewerComponent,
 		ModalCarouselComponent,
-		PreviewTopPanelComponent,
+		PreviewHeaderListComponent,
 	]
 })
 export class CarouselModule { }

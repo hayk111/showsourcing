@@ -12,7 +12,7 @@
 			size="m"
 			(click)="clickImage.emit()">
 		</img-app>
-		<div *ngIf="enablePreviewLink" class="preview capitalize" (click)="clickImage.emit()" i18n="@@preview">preview</div>
+		<div *ngIf="enablePreviewLink" class="preview capitalize" (click)="clickImage.emit()" translate="button.preview"></div>
 		<div *ngIf="showCheckbox" class="check" [ngClass]="{ checked: checked, selected: checked, 'drag-in-progress': dragInProgress }">
 			<checkbox-app
 				[checked]="checked"

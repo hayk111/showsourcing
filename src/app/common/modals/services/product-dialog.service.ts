@@ -59,6 +59,19 @@ export class ProductDialogService extends ProductService {
 	}
 
 	/**
+	 * Associate products to project.
+	 */
+	addProductsToProject(project: Project, products: Product[]): Observable<Product[]> {
+		products.forEach(product => {
+			const currentProjects = product.projects.map(p => ({ id: p.id }));
+			product.projects = [...currentProjects, {id: project.id}];
+		});
+
+		const mapProducts = products.map(product => ({id: product.id, projects: product.projects}));
+		return this.updateMany(mapProducts);
+	}
+
+	/**
 	 *
 	 * @param users users that we want to request feedback to
 	 * @param products products we want to request feedback for

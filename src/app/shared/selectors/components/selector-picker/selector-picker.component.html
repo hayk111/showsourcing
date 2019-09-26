@@ -1,7 +1,6 @@
-
 <form [formGroup]="group">
 	<form-field-app class="search-input" [ngClass]="{'field-focused': inp.focussed || !!inp.control.value}">
-			<input inputApp formControlName="name" [value]="searchTxt" type="text" [placeholder]="'Enter a ' + type.singular" (keyup)="onKeydown($event)" (input)="search(inp.control.value)">
+			<input inputApp formControlName="name" [value]="searchTxt" type="text" [placeholder]="'OBJ.enter-OBJ' | translate: {field: 'ERM.' + type.translationKey + '.singular' | translate}" (keyup)="onKeydown($event)" (input)="search(inp.control.value)">
 	</form-field-app>
 </form>
 
@@ -21,7 +20,7 @@
 		</ng-container>
 	</ng-container>
 	<ng-template #empty>
-		<span class="empty-message" i18n="text@@no-item-add-one">There's no {{ type.singular | const: 'erm' }} yet, add one!</span>
+		<span class="empty-message">{{'OBJ.no-item-add-one' | translate: {field: 'ERM.' + type.translationKey + '.singular' | translate} }}</span>
 	</ng-template>
 </div>
 
@@ -124,5 +123,5 @@
 <divider-app class="bottom-divider"></divider-app>
 
 <div class="flexEnd">
-	<button tabFocusAction class="secondary capitalize" (click)="close.emit()" i18n="button@@done">done</button>
+	<button tabFocusAction class="secondary capitalize" (click)="close.emit()" translate="button.done">done</button>
 </div>

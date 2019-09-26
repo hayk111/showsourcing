@@ -1,40 +1,95 @@
 <ng-container *ngIf="project$ | async as project; else spinner">
-	<top-panel-app
-		[title]="project.name"
-		[hasAction]="false">
-	</top-panel-app>
+	<header-details-app [elevated]="false">
 
-	<sub-panel-app
-		buttonName="Add Products"
+		<header-details-title-app>{{ project?.name }}</header-details-title-app>
+
+		<logo-app color="primary" type="project" size="xl"></logo-app>
+
+		<header-details-info-app>
+			{{ (project?.status ? 'text.' + project?.status : 'text.new') | translate }}
+			<div class="small-gray-badge-separator"></div>
+			{{ 'OBJ.due-on-date' | translate: {date: project?.creationDate | date: 'dd-mm-yyyy':'':translate.currentLang} }}
+			<div class="small-gray-badge-separator"></div>
+			{{ 'OBJ.created-by-name' | translate: {firstName: project?.createdBy?.firstName, lastName: project?.createdBy?.lastName} }}
+		</header-details-info-app>
+
+		<header-list-nav-app>
+			<header-list-nav-item-app
+				[link]="getTabPanelUrl('products')"
+				icon="product"
+				[name]="'nav.products' | translate">
+			</header-list-nav-item-app>
+	
+			<header-list-nav-item-app
+				[link]="getTabPanelUrl('settings')"
+				icon="settings"
+				[name]="'nav.settings' | translate">
+			</header-list-nav-item-app>
+		</header-list-nav-app>
+
+		<header-details-actions-app>
+			<button class="add-product" (click)="openFindProductDlg()" translate="button.add-product"></button>
+			
+			<status-selector-app
+				[typeEntity]="erm.PROJECT"
+				[entity]="project"
+				selectSize="l"
+				type="button">
+			</status-selector-app>
+	
+			<context-menu-app>
+				<context-menu-trigger-app>
+					<button class="vertical-dots icon light dots pointer">
+						<icon-app [size]="16" name="dots-vertical"></icon-app>
+					</button>
+				</context-menu-trigger-app>
+				<context-menu-item-app (click)="delete.emit(project)" translate="button.delete">
+				</context-menu-item-app>
+				<context-menu-item-app (click)="archive.emit(project)"  translate="button.archive">
+				</context-menu-item-app>
+			</context-menu-app>
+		</header-details-actions-app>
+
+	</header-details-app>
+
+	<controller-list-app
+		[class.sub-menu-padding-board]="listSrv.view === 'board'"
 		[hasSwitch]="true"
-		[filtersAmount]="listSrv.filterList.asFilters()?.length"
+		[filtersAmount]="listSrv.getFilterAmount([{ type: filterTypeEnum.ARCHIVED, value: false }, { type: filterTypeEnum.DELETED, value: false }])"
 		[hasFilter]="true"
+		entityType="products"
 		[searchValue]="listSrv.searchValue"
 		[view]="listSrv.view"
+		[count]="listSrv.count$ | async"
 		(showFilters)="listSrv.openFilterPanel()"
-		(buttonClick)="openFindProductDlg()"
+		(clearFilters)="onClearFilters()"
+		(showArchived)="listSrv.filterByArchived(true)"
+		(hideArchived)="listSrv.filterByArchived(false)"
+		(showAssigned)="listSrv.filterByAssignee(true)"
+		(hideAssigned)="listSrv.filterByAssignee(false)"
 		(search)="listSrv.search($event)"
-		(viewChange)="listSrv.changeView($event)"
-		i18n="@@add-products">
+		(export)="commonModalSrv.openExportDialog(listSrv.getSelectedValues())"
+		(viewChange)="listSrv.changeView($event)">
 
-		<sub-panel-right-item-app>
+		<controller-list-right-item-app>
 			<product-sorting-menu-app
 				[currentSort]="listSrv.currentSort"
 				(sortFromMenu)="listSrv.sortFromMenu($event)">
 			</product-sorting-menu-app>
-		</sub-panel-right-item-app>
+		</controller-list-right-item-app>
 
-	</sub-panel-app>
+	</controller-list-app>
 
 <ng-container>
 
-		<products-list-view-app
+		<products-table-app
 			*ngIf="listSrv.view === 'list'"
 			class="list-view"
 			[selection]="listSrv.selection$ | async"
 			[rows]="listSrv.items$ | async"
 			[pending]="listSrv.pending"
 			[count]="listSrv.count$ | async"
+			[currentSort]="listSrv.currentSort"
 			[currentPage]="listSrv.currentPage"
 			(goToPage)="listSrv.loadPage($event)"
 			(previewClick)="listSrv.openPreview($event)"
@@ -42,13 +97,19 @@
 			(unselect)="listSrv.unselectOne($event, true)"
 			(selectAll)="listSrv.selectAll($event, true)"
 			(unselectAll)="listSrv.unselectAll()"
+			(archive)="onArchive($event)"
 			(open)="listSrv.goToDetails($event)"
-			(favorited)="listSrv.onItemFavorited($event)"
+			(openAddToProjectDialog)="commonModalSrv.openAddToProjectDialog([$event])"
+			(openAddSampleDialog)="commonModalSrv.openAddSampleDialog($event)"
 			(unfavorited)="listSrv.onItemUnfavorited($event)"
+			(setFavourite)="listSrv.onItemFavorited($event?.id)"
+			(favorited)="listSrv.onItemFavorited($event)"
+			(openAddTaskDialog)="commonModalSrv.openCreationTaskDlg($event)"
 			(sort)="listSrv.sort($event)"
+			(showItemsPerPage)="showItemsPerPage($event)"
 			(delete)="deassociateProductById(($event)?.id)"
 			(archiveProduct)="onArchive($event)">
-		</products-list-view-app>
+		</products-table-app>
 
 		<products-card-view-app
 			infiniScroll
@@ -70,6 +131,14 @@
 			(unselect)="listSrv.unselectOne($event, true)"
 			(update)="listSrv.update($event)">
 		</products-card-view-app>
+
+		<product-board-app 
+			*ngIf="listSrv.view === 'board'"
+			[selection]="listSrv.selection$"
+			(selectOne)="listSrv.selectOne($event, true)"
+			(unselectOne)="listSrv.unselectOne($event, true)"
+			(preview) = "listSrv.openPreview($event)">
+		</product-board-app>
 
 		<product-selection-bar-app
 			[isShown]="(listSrv.selection$ | async).size > 0"
@@ -95,7 +164,8 @@
 			*ngIf="listSrv.filterPanelOpen"
 			[filterList]="listSrv.filterList"
 			[filterTypes]="filterTypes"
-			(clickOutside)="listSrv.closeFilterPanel()">
+			(clickOutside)="listSrv.closeFilterPanel()"
+			(close)="listSrv.closeFilterPanel()">
 		</filters-app>
 
 		<product-preview-app

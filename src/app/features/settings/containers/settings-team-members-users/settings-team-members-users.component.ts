@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { takeUntil, switchMap } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
+import { forkJoin } from 'rxjs';
+import { switchMap, takeUntil } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { ListPageKey, ListPageService } from '~core/list-page';
-import { MemberFeatureService } from '~features/settings/services/member-feature.service';
+import { SettingsMembersService } from '~features/settings/services/settings-members.service';
 import { ERM, TeamUser, User } from '~models';
-import { AutoUnsub, translate } from '~utils';
-import { UserService } from '~core/entity-services';
+import { AutoUnsub } from '~utils';
+import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 
 @Component({
 	selector: 'settings-team-members-users-app',
@@ -19,12 +21,13 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub implements OnIn
 	teamOwner: boolean;
 	user: User;
 	hasSelected = false;
+	selectItemsConfig: SelectParamsConfig;
 
 	constructor(
-		private featureSrv: MemberFeatureService,
-		public listSrv: ListPageService<TeamUser, MemberFeatureService>,
+		private featureSrv: SettingsMembersService,
+		public listSrv: ListPageService<TeamUser, SettingsMembersService>,
 		public commonModalSrv: CommonModalService,
-		private userSrv: UserService
+		private translate: TranslateService
 	) {
 		super();
 	}
@@ -59,24 +62,24 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub implements OnIn
 		this.commonModalSrv.openInvitationDialog();
 	}
 
-	updateAccessType({ member, accessType }: { member: TeamUser, accessType: string }) {
-		this.featureSrv.updateAccessType([{ id: member.id, accessType }])
-			.pipe(
+	updateAccessType({ accessType, userId }: { accessType: string, userId: string }) {
+		this.featureSrv.updateAccessType(accessType, userId).pipe(
 				switchMap(_ => this.listSrv.refetch())
-			)
-			.subscribe(_ => this.listSrv.selectionSrv.unselectAll());
+			).subscribe(_ => this.listSrv.selectionSrv.unselectAll());
 	}
 
-	updateAccessTypeSelected({ accessType }) {
+	updateAccessTypeSelected(accessType) {
 		const ids = this.listSrv.getSelectedIds();
-		this.featureSrv.updateAccessType(ids.map(id => ({ id, accessType })))
-			.pipe(
-				switchMap(_ => this.listSrv.refetch())
-			)
-			.subscribe(_ => this.listSrv.selectionSrv.unselectAll());
+		const calls = ids.map(id => this.featureSrv.updateAccessType(accessType, id));
+		forkJoin(calls).subscribe(_ => this.listSrv.selectionSrv.unselectAll());
 	}
 
 	getTooltipMsg() {
-		return !this.teamOwner ? translate('Only team owners can invite') : null;
+		return !this.teamOwner ? this.translate.instant('message.only-team-owners-can-invite') : null;
+	}
+
+	showItemsPerPage(count: number) {
+		this.selectItemsConfig = { take: Number(count) };
+		this.listSrv.refetch(this.selectItemsConfig).subscribe();
 	}
 }

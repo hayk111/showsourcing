@@ -20,7 +20,7 @@ const types = [
 ];
 
 
-fdescribe('Logo component', () => {
+describe('Logo component', () => {
 	let component: LogoComponent;
 	let fixture: ComponentFixture<LogoComponent>;
 	let el: HTMLElement;

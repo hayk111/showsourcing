@@ -5,6 +5,7 @@ import { AppImage, Attachment, ExtendedField, Packaging, Price, Product } from '
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { uuid } from '~utils';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'creation-product-dlg-app',
@@ -22,7 +23,8 @@ export class CreationProductDlgComponent implements OnInit {
 	constructor(
 		private dlgSrv: DialogService,
 		private productSrv: ProductService,
-		private notifSrv: NotificationService
+		private notifSrv: NotificationService,
+		private translate: TranslateService
 	) { }
 
 	ngOnInit() {
@@ -94,15 +96,15 @@ export class CreationProductDlgComponent implements OnInit {
 				// success
 				this.notifSrv.add({
 					type: NotificationType.SUCCESS,
-					title: `Product created`,
-					message: 'Your product has been created with success'
+					title: this.translate.instant('title.product-created'),
+					message: this.translate.instant('message.product-created-with-success')
 				});
 			},
 				err => {
 					this.notifSrv.add({
 						type: NotificationType.ERROR,
-						title: `Product created`,
-						message: 'Your product could not been created'
+						title: this.translate.instant('title.product-not-created'),
+						message: this.translate.instant('message.your-product-not-created')
 					});
 				});
 		}

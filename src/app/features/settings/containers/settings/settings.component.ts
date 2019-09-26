@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
-import { MenuService } from '~features/settings/services/menu.service';
 import { ERM } from '~models';
+import { CompanyService, TeamService } from '~core/entity-services';
 
 @Component({
 	selector: 'settings-app',
@@ -11,8 +11,13 @@ import { ERM } from '~models';
 export class SettingsComponent {
 
 	erm = ERM;
-
-	onMenuExpanded(expanded) {
-
+	teamName: string;
+	companyName: string;
+	constructor(
+		public companySrv: CompanyService,
+		public teamSrv: TeamService,
+	) {
+		this.teamName = this.teamSrv.selectedTeamSync.name;
+		this.companyName = this.companySrv.companySync.name;
 	}
 }

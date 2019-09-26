@@ -15,8 +15,8 @@
 	<notif-panel-app
 	[results] = "notifications?.results"
 	(clickOutside)="closePanel()"
-	(endAnimation)="pendingForAnimation = false"
-	(startAnimation)="pendingForAnimation = true"
+	(endAnimation)="onAnimationEnd()"
+	(startAnimation)="onAnimationStart()"
 	></notif-panel-app>
 </notif-layout-app>
 

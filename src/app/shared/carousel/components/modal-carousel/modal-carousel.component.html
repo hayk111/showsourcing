@@ -4,7 +4,7 @@
 <cdk-overlay-app [trigger]="trigger" [isOpen]="isOpen" (clickOutside)="close()">
 	<div class="modal">
 		<ng-container [ngSwitch]="entity?.__typename">
-			<product-modal-top-panel
+			<product-modal-header-list
 				*ngSwitchCase="'Product'"
 				[isOpen]="isOpen"
 				[product]="entity"
@@ -12,7 +12,7 @@
 				(delete)="onDelete()"
 				(openFileBrowser)="openFileBrowser.emit()"
 				(close)="close()">
-			</product-modal-top-panel>
+			</product-modal-header-list>
 		</ng-container>
 		<div class="carousel-body" (mousedown)="close()">
 			<div class="img-ctnr" [ngStyle]="{ transform: getRotation(getImg()) }">
@@ -35,7 +35,7 @@
 				[offsetX]="10"
 				[offsetY]="-30"
 				toolTipPosition="above-left"
-				toolTipMessage="Previous picture"
+				[toolTipMessage]="'message.prev-picture' | translate"
 				toolTipShowDelay="100">
 				<div
 					class="move-btn back flexCenter pointer"
@@ -59,7 +59,7 @@
 				</div>
 			</div>
 			<div class="page-info flexCenter">
-				<icon-app name="file"></icon-app>
+				<icon-app name="pictures" size="m"></icon-app>
 				<span class="title">
 					{{ selectedIndex + 1 }} of {{ images?.length }}
 				</span>

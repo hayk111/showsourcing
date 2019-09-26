@@ -1,18 +1,30 @@
+<header-details-app
+	[title]="'My Team'"
+	[hasBackArrow]="false"
+	[elevated]="false"
+	i18n-title="@@data-cleansing">
+	<logo-app color="primary" icon="team" size="xl"></logo-app>
+	<ng-container subinfo *ngIf="(team$ | async) as team">{{team.name}}</ng-container>
 
-<top-panel-app
-	[title]="(team$ | async)?.name"
-	[isModifiable]="true"
-	(update)="updateTeamName($event)"
-	buttonName="Create new team"
-	[buttonIcon]="false"
-	(buttonClick)="redirectNewTeamScreen()"
-	i18n-buttonName="@@create-new-team">
+	<header-list-nav-app>
+		<header-list-nav-item-app
+			link="settings/team/members"
+			icon="team"
+			name="Team Members">
+		</header-list-nav-item-app>
+	
+		<!-- TODO create route for settings tab -->
+		<header-list-nav-item-app
+			link="settings/team/settings"
+			icon="settings"
+			name="Settings">
+		</header-list-nav-item-app>
+	</header-list-nav-app>
 
-	<nav class="flex">
-		<span class="capitalize" (click)="displayTab('team-members')" [ngClass]="{ active: (selectedTab === 'team-members') }" i18n="@@team-members">Team Members</span>
-		<span class="capitalize" (click)="displayTab('invitations')" [ngClass]="{ active: (selectedTab === 'invitations') }" i18n="@@invitations">invitations</span>
-	</nav>
-</top-panel-app>
+	<header-details-actions-app>
+		<button action (click)="redirectNewTeamScreen()">Create New Team</button>
+	</header-details-actions-app>
 
-<settings-team-members-users-app *ngIf="selectedTab === 'team-members'"></settings-team-members-users-app>
-<settings-team-members-invitations-app *ngIf="selectedTab === 'invitations'"></settings-team-members-invitations-app>
+</header-details-app>
+
+<router-outlet></router-outlet>
