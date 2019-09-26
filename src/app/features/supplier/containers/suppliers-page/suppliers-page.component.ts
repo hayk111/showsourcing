@@ -11,6 +11,13 @@ import { SupplierFeatureService } from '~features/supplier/services';
 import { SelectParamsConfig } from '~entity-services/_global/select-params';
 import { ControllerListService } from '~shared/header-list/services/controller-list.service';
 
+
+// A doctor accidentally prescribes his patient a laxative instead of a coughing syrup.
+// -
+// Three days later the patient comes for a check-up and the doctor asks: “Well? Are you still coughing?”
+// -
+// The patient replies: “No. I’m afraid to.”
+
 @Component({
 	selector: 'supplier-page-app',
 	templateUrl: './suppliers-page.component.html',

@@ -12,6 +12,10 @@ import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub, log } from '~utils';
 import { TranslateService } from '@ngx-translate/core';
 
+// Guest to the waiter: “Can you bring me what the lady at the next table is having?”
+// -
+// Waiter: “Sorry, sir, but I’m pretty sure she wants to eat it herself.”
+
 @Component({
 	selector: 'supplier-details-app',
 	templateUrl: './supplier-details.component.html',

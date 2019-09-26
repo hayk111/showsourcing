@@ -18,6 +18,17 @@ import { ListPageService } from '~core/list-page';
 import { CompanyService, TeamService, UserService } from '~entity-services';
 import { Team } from '~models';
 
+
+// Doctor: “Do you do sports?”
+
+// Patient: “Does sex count?”
+
+// Doctor: “Yes.”
+
+// Patient: “Then no.”
+
+
+
 @Component({
 	selector: 'app-root',
 	templateUrl: './app.component.html',

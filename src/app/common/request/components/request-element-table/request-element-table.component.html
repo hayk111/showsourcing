@@ -59,22 +59,35 @@
 				</request-status-badge-app>
 
 			</ng-container>
+
+			<!-- fields amount -->
+			<ng-container *ngSwitchCase="'fields'">
+				{{ row.reply.fields.length }}
+			</ng-container>
+
+			<!-- sender -->
+			<ng-container *ngSwitchCase="'fields'">
+				{{ row.reply.sender }}
+			</ng-container>
+
 		</ng-container>
 	</ng-template>
 
 	<!-- reply fields -->
-	<ng-template
-		let-row="row"
-		let-index="index"
-		width="150"
-		[sortable]="false"
-		*ngFor="let field of fields[0]; index as j; trackBy: trackByFn"
-		[columnApp]="field?.definition?.label">
-		<ng-container [ngSwitch]="field.definition.type">
-			<span *ngSwitchDefault>{{ fields[index][j]?.value }}</span>
-			<price-app *ngSwitchCase="'price'" [price]="parseJson(fields[index][j]?.value)"></price-app>
-			<packaging-app *ngSwitchCase="'packaging'" [packaging]="parseJson(fields[index][j]?.value)"></packaging-app>
-		</ng-container>
-	</ng-template>
+	<ng-container *ngIf="showReplyFields">
+		<ng-template
+			let-row="row"
+			let-index="index"
+			width="150"
+			[sortable]="false"
+			*ngFor="let field of fields[0]; index as j; trackBy: trackByFn"
+			[columnApp]="field?.definition?.label">
+			<ng-container [ngSwitch]="field.definition.type">
+				<span *ngSwitchDefault>{{ fields[index][j]?.value }}</span>
+				<price-app *ngSwitchCase="'price'" [price]="parseJson(fields[index][j]?.value)"></price-app>
+				<packaging-app *ngSwitchCase="'packaging'" [packaging]="parseJson(fields[index][j]?.value)"></packaging-app>
+			</ng-container>
+		</ng-template>
+	</ng-container>
 
 </table-app>

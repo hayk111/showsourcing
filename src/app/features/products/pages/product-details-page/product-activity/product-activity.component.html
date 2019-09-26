@@ -84,6 +84,8 @@
 
 				<ng-container *ngSwitchCase="'request'">
 					<request-element-table-app
+						[columns]="['name', 'fields', 'sender', 'status']"
+						[showReplyFields]="false"
 						[hasHeader]="false"
 						[hasSelection]="false"
 						[hasPagination]="false"

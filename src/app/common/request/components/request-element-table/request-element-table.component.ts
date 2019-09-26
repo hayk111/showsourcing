@@ -6,8 +6,13 @@ import { ID } from '~utils';
 const tableConfig: TableConfig = {
 	name: { title: 'name', translationKey: 'name', width: 190, sortable: false },
 	status: { title: 'status', translationKey: 'status', width: 190, sortProperty: 'status.step' },
+	fields: { title: 'fields', translationKey: 'name', width: 190, sortable: false },
+	sender: { title: 'name', translationKey: 'name', width: 190, sortable: false },
 };
 
+/**
+ * Yesterday I saw a guy spill all his Scrabble letters on the road. I asked him, “What’s the word on the street?”
+ */
 
 @Component({
 	selector: 'request-element-table-app',
@@ -21,6 +26,8 @@ const tableConfig: TableConfig = {
 export class RequestElementTableComponent extends EntityTableComponent<RequestElement> {
 	columns = ['name', 'status'];
 	@Input() tableConfig = tableConfig;
+	/** whether we want to show the reply fields */
+	@Input() showReplyFields = true;
 
 	private _rows: Array<RequestElement>;
 	@Input() set rows(rows: Array<RequestElement>) {

@@ -7,6 +7,11 @@ import { Task, User } from '~models';
 import { GroupedActivityFeed } from '~common/activity/interfaces/client-feed.interfaces';
 import { ActivityService } from '~common/activity/services/activity.service';
 
+// Boy complains to his father: You told me to put a potato in my swimming trunks! You said it would
+// impress the girls at the pool! But you forgot to mention one thing!
+// Father: Really, what?
+// Boy: That the potato should go in the front.
+
 @Component({
 	selector: 'dashboard-app',
 	templateUrl: './dashboard.component.html',
