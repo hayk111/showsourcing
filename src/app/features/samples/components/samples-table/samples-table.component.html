@@ -35,7 +35,7 @@
 		width="280">
 		<div class="ellipsis name-container contain-strict">
 			<div class="ellipsis">
-				<div class="preview-icon" (click)="previewClick.emit()">
+				<div class="preview-icon" (click)="previewClick.emit(row)">
 					<logo-app
 						[logo]="row.logoImage"
 						[ngStyle]="{'float': 'left'}"
