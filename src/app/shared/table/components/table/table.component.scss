@@ -112,6 +112,10 @@
 }
 
 .emptyBorder{
+	.header {
+		border-bottom: none;
+	}
+	
 	.cell {
 		border-bottom: 1px solid var(--color-bg-secondary);
 	}
