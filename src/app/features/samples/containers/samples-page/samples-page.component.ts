@@ -52,7 +52,7 @@ export class SamplesPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		const selectParams = new SelectParams({ sortBy: 'name' });
+		const selectParams = new SelectParams({ sortBy: 'creationDate' });
 		this.listSrv.setup({
 			key: ListPageKey.REQUEST,
 			entitySrv: this.sampleSrv,

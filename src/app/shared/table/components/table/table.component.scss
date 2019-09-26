@@ -22,6 +22,8 @@
 	position: relative;
 	box-sizing: border-box;
 	overflow: auto;
+	// so spinner shows
+	min-height: 200px;
 	// pagination
 	display: flex;
 	flex-direction: column;
@@ -74,7 +76,7 @@
 	padding: var(--spacing-xl);
 	position: absolute;
 	left: 50%;
-	top: 50px;
+	height: 100%;
 	transform: translateX(-50%);
 }
 

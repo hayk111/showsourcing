@@ -13,6 +13,23 @@
 	}
 }
 
+.preview-icon {
+	position: relative;
+	&:hover .preview-hover-eye {
+		display: flex;
+	}
+}
+
+.preview-hover-eye {
+	display: none;
+	position: absolute;
+	background: rgba(226, 195, 148, 0.5);
+	border-radius: var(--border-radius);
+	color: white;
+	height: 32px;
+	width: 32px;
+}
+
 .sample-ref {
 	margin-left: var(--spacing-ms);
 	width: 160px;
@@ -51,7 +68,9 @@
 	height: 37px;
   font-size: var(--font-size-m);;
   font-weight: 600;
-  color: var(--color-accent-dark);
+	color: var(--color-accent-dark);
+	display: flex;
+	align-items: center;
 }
 
 user-picture-app {
@@ -74,4 +93,8 @@ user-picture-app {
   height: 15px;
   font-size: var(--font-size-s);
   color: var(--txt-primary);
+}
+
+.empty-field {
+	color: var(--color-txt-secondary);
 }

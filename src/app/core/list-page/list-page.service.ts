@@ -459,8 +459,14 @@ export class ListPageService
 	}
 
 	filterByArchived(shouldAdd: boolean) {
-		this.filterList.removeFilterType(FilterType.ARCHIVED);
-		this.filterList.addFilter({ type: FilterType.ARCHIVED, value: shouldAdd });
+		const filterParam = { type: FilterType.ARCHIVED, value: false };
+
+		if (shouldAdd) {
+			this.addFilter(filterParam);
+			return;
+		}
+
+		this.removeFilter(filterParam);
 	}
 
 	filterByAssignee(shouldAdd: boolean) {
