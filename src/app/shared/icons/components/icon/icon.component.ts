@@ -8,10 +8,7 @@ export type Sizes = 'xs' | 's' | 'ms' | 'm' | 'l' | 'inherit';
 	selector: 'icon-app',
 	templateUrl: './icon.component.html',
 	styleUrls: ['./icon.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	host: {
-		'[class.flexCenter]': 'true',
-	}
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class IconComponent {
 

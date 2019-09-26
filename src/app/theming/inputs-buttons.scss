@@ -210,12 +210,18 @@ button, input[type="submit"], .button {
 		background: var(--color-primary-dark);
 	}
 
+	// when the button is just an icon
 	&.icon {
 		width: 32px;
 		height: 32px;
 		padding: 6px;
 		min-width: 0;
 		font-size: inherit;
+	}
+
+	// when there is an icon + text
+	icon-app {
+		margin-right: 6px;
 	}
 
 }
