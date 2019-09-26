@@ -3,12 +3,11 @@ import {
 	SupplierDetailsComponent,
 	SupplierProductsPageComponent,
 	SuppliersPageComponent,
-} from '~features/supplier/containers';
-import { SupplierActivityComponent } from '~features/supplier/containers/supplier-activity/supplier-activity.component';
-import { SupplierProductsComponent } from '~features/supplier/containers/supplier-products/supplier-products.component';
-import { SupplierTasksComponent } from '~features/supplier/containers/supplier-tasks/supplier-tasks.component';
-
-import { SupplierSamplesComponent } from './containers/supplier-samples/supplier-samples.component';
+	SupplierActivityComponent,
+ 	SupplierProductsComponent,
+ 	SupplierTasksComponent,
+	SupplierSamplesComponent
+} from './pages';
 
 export const routes: Array<Route> = [
 	{
