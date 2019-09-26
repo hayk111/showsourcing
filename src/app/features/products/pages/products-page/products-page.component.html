@@ -93,6 +93,7 @@
 			(unselect)="listSrv.unselectOne($event, true)"
 			(update)="listSrv.update($event)">
 		</products-card-view-app>
+
 		<product-selection-bar-app
 			[isShown]="(listSrv.selection$ | async).size > 0"
 			[selection]="listSrv.selection$ | async"
@@ -120,6 +121,7 @@
 		</product-preview-app>
 	</ng-container>
 </div>
+
 <filters-app
 	*ngIf="listSrv.filterPanelOpen"
 	[filterList]="listSrv.filterList"

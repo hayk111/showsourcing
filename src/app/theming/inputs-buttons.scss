@@ -220,8 +220,10 @@ button, input[type="submit"], .button {
 	}
 
 	// when there is an icon + text
-	icon-app {
-		margin-right: 6px;
+	&.icon-with-text {
+		icon-app {
+			margin-right: 6px;
+		}
 	}
 
 }

@@ -35,7 +35,9 @@
 
 				<ng-container *ngSwitchCase="'task'">
 					<task-table-app
+						[columns]="['taskDone', 'reference', 'assignee', 'status']"
 						[hasHeader]="false"
+						[hasSelection]="false"
 						[hasPagination]="false"
 						[rows]="listSrv.items$ | async"
 						[selection]="listSrv.selection$ | async"
@@ -58,7 +60,9 @@
 
 				<ng-container *ngSwitchCase="'sample'">
 					<sample-table-app
+						[columns]="['ref', 'status']"
 						[hasHeader]="false"
+						[hasSelection]="false"
 						[hasPagination]="false"
 						[rows]="listSrv.items$ | async"
 						[selection]="listSrv.selection$ | async"
@@ -81,6 +85,7 @@
 				<ng-container *ngSwitchCase="'request'">
 					<request-element-table-app
 						[hasHeader]="false"
+						[hasSelection]="false"
 						[hasPagination]="false"
 						[rows]="listSrv.items$ | async"
 						[selection]="listSrv.selection$ | async"
