@@ -7,13 +7,14 @@ import { ProductService } from '~core/entity-services';
 import { Product } from '~core/models';
 import { AutoUnsub } from '~utils';
 
+
 @Component({
-	selector: 'product-shipping-app',
-	templateUrl: './product-shipping.component.html',
-	styleUrls: ['./product-shipping.component.scss'],
+	selector: 'product-info-app',
+	templateUrl: './product-info.component.html',
+	styleUrls: ['./product-info.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductShippingComponent extends AutoUnsub implements OnInit {
+export class ProductInfoComponent extends AutoUnsub implements OnInit {
 
 	product$: Observable<Product>;
 	product: Product;
