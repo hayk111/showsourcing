@@ -7,25 +7,32 @@
 		background-color: var(--color-secondary-light);
 		border-right: solid 1px var(--legacy-color-secondary);
 
-		.title {
-			text-align: left;
-			font-size: var(--font-size-xxxl);
-		}
-
-		.account-info-container {
-			padding: var(--spacing-ms) 0;
-			display: flex;
-			align-items: center;
-			border-bottom: 2px solid var(--color-divider);
-
-			logo-app {
-				margin-right: var(--spacing-ms);
+		header {
+			.header-title, .header-sub-title {
+				font-weight: normal;
 			}
 
-			h2 {
-				font-size: var(--font-size-s);
+			.title {
+				text-align: left;
+				font-size: var(--font-size-xxxl);
+			}
+	
+			.account-info-container {
+				padding: var(--spacing-ms) 0;
+				display: flex;
+				align-items: center;
+				border-bottom: 2px solid var(--color-divider);
+	
+				logo-app {
+					margin-right: var(--spacing-ms);
+				}
+	
+				h2 {
+					font-size: var(--font-size-s);
+				}
 			}
 		}
+
 
 		nav {
 			padding: var(--spacing-l) 0;

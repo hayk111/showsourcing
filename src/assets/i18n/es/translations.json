@@ -211,11 +211,11 @@
       "singular": ""
     },
     "assigned-target": "",
-    "comment": {
+    "comment-on-target": {
       "plural": "",
       "singular": ""
     },
-    "comment-on-target": {
+    "comment": {
       "plural": "",
       "singular": ""
     },
@@ -274,11 +274,11 @@
       "plural": "",
       "singular": ""
     },
-    "product-selected": {
+    "product-selected-feedback": {
       "plural": "",
       "singular": ""
     },
-    "product-selected-feedback": {
+    "product-selected": {
       "plural": "",
       "singular": ""
     },

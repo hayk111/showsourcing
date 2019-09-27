@@ -66,7 +66,9 @@ export class ProductDialogService extends ProductService {
 			const currentProjects = product.projects.map(p => ({ id: p.id }));
 			product.projects = [...currentProjects, {id: project.id}];
 		});
-		return this.updateMany(products);
+
+		const mapProducts = products.map(product => ({id: product.id, projects: product.projects}));
+		return this.updateMany(mapProducts);
 	}
 
 	/**

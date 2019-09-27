@@ -1,13 +1,13 @@
 <ng-container *ngIf="product">
 
-	<product-header-list-app
+	<product-header-details-app
 		[product]="product"
 		(update)="updateProduct($event)"
 		(export)="commonModalSrv.openExportDialog([$event])"
 		(delete)="deleteProduct($event)"
 		(archive)="onArchive($event)"	
 		(supplierRequest)="openSupplierRequest($event)">
-	</product-header-list-app>
+	</product-header-details-app>
 
 	<div class="flex content">
 		<div class="left">
