@@ -1,4 +1,4 @@
-export * from './product-header-list';
+export * from './product-header-details';
 export * from './product-activity';
 export * from './product-requests';
 export * from './product-samples';

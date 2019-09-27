@@ -14,23 +14,8 @@ import { SharedModule } from '~shared/shared.module';
 
 import {
 	ProductActivityComponent,
-<<<<<<< HEAD
-	ProductHeaderListComponent,
-	ProductDetailsPageComponent,
-=======
-	ProductIconsComponent,
-	ProductInformationComponent,
-	ProductSubInfoComponent,
-	ProductSummaryComponent,
-	ProductTeamRatingComponent,
 	ProductHeaderDetailsComponent,
-	ProjectCardComponent,
-	SelectableImageComponent,
-	SelectionActionsComponent,
-} from './components';
-import {
-	ProductDetailsComponent,
->>>>>>> v3.0.0
+	ProductDetailsPageComponent,
 	ProductSamplesComponent,
 	ProductShippingComponent,
 	ProductsPageComponent,
@@ -62,12 +47,7 @@ import { ProductFeatureService, QuoteFeatureService } from './services';
 		ProductSamplesComponent,
 		ProductShippingComponent,
 		ProductTasksComponent,
-<<<<<<< HEAD
-		ProductHeaderListComponent,
-=======
-		ProductTeamRatingComponent,
 		ProductHeaderDetailsComponent,
->>>>>>> v3.0.0
 		ProductsPageComponent,
 		ProductRequestsComponent,
 		ProductActivityNavComponent,
