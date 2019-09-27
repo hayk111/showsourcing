@@ -1,0 +1,46 @@
+<header-details-app
+	[title]="'My Company'"
+	[hasBackArrow]="false"
+	[elevated]="false"
+	i18n-title="@@data-cleansing">
+	<header-details-title-app>
+		<span class="my-company capitalize">
+			{{ 'My Company' | translate }} <!-- TODO: translation to be added -->
+		</span>
+	</header-details-title-app>
+	<logo-app color="primary" icon="company" size="xl"></logo-app>
+	<header-details-info-app>
+		<ng-container subinfo *ngIf="companyName">{{companyName}}</ng-container>
+		<div class="small-gray-badge-separator"></div>
+		<ng-container subinfo *ngIf="companyName">{{companyName}}</ng-container>
+	</header-details-info-app>
+
+	<header-list-nav-app>
+		<header-list-nav-item-app
+			link="settings/company/settings"
+			icon="company"
+			name="Company Info"> <!-- TODO: translation to be added -->
+		</header-list-nav-item-app>
+	
+		<header-list-nav-item-app
+			link="settings/company/teams"
+			icon="team"
+			name="Teams"> <!-- TODO: translation to be added -->
+		</header-list-nav-item-app>
+
+		<header-list-nav-item-app
+			link="settings/company/users"
+			icon="team"
+			name="Company Users"> <!-- TODO: translation to be added -->
+		</header-list-nav-item-app>
+	</header-list-nav-app>
+
+	<header-details-actions-app>
+		<button action class="create-team capitalize" 
+			(click)="redirectNewTeamScreen()">create team</button>
+		<button action class="purchase-license capitalize">purchase license</button>
+	</header-details-actions-app>
+
+</header-details-app>
+
+<router-outlet></router-outlet>

@@ -1,20 +1,16 @@
 import { Component, NgModuleRef, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
 import { TeamService, CompanyService } from '~entity-services';
 import { Team } from '~models';
 import { DialogService } from '~shared/dialog/services';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 
 @Component({
-	selector: 'settings-team-members-page-app',
-	templateUrl: './settings-team-members-page.component.html',
-	styleUrls: ['./settings-team-members-page.component.scss']
+	selector: 'settings-company-page-app',
+	templateUrl: './settings-company-page.component.html',
+	styleUrls: ['./settings-company-page.component.scss']
 })
-export class SettingsTeamMembersPageComponent implements OnInit {
-	team$: Observable<Team>;
-	team: Team;
+export class SettingsCompanyPageComponent implements OnInit {
 	companyName: string;
 	selectedTab = 'team-members';
 
@@ -29,8 +25,6 @@ export class SettingsTeamMembersPageComponent implements OnInit {
 	) { }
 
 	ngOnInit() {
-		this.team$ = this.teamSrv.selectTeam();
-		this.team = this.teamSrv.selectedTeamSync;
 		this.companyName = this.companySrv.companySync.name;
 	}
 

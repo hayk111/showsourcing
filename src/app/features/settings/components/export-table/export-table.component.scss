@@ -35,6 +35,11 @@ table-app {
 	}
 }
 
+.created-on, .file-name {
+	color: var(--color-bg-dark);
+	font-size: var(--font-size-m);
+}
+
 .status {
 	font-size: var(--font-size-m);
 	font-weight: 600;
