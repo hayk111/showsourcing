@@ -30,11 +30,10 @@ export abstract class SupplierQueries extends GlobalQueries {
 	static readonly definition = (name: string) => `${name} { id, label, type, order, metadata }`;
 	static readonly extendedFields = `extendedFields {
 		id, value,
-		selectorValue { id, value, ${SupplierQueries.definition('fieldDefinition')} },
+		selectorValues { id, value, ${SupplierQueries.definition('fieldDefinition')} },
 		${SupplierQueries.definition('definition')}
 	}`;
 
-	// TODO BackEnd add extended fields
 	static readonly one = `
 			name,
 			description,
@@ -52,9 +51,13 @@ export abstract class SupplierQueries extends GlobalQueries {
 			generalLeadTime,
 			creationDate,
 			lastUpdatedDate,
+			reference,
+			archived,
+			${SupplierQueries.extendedFields}
 			${SupplierQueries.comments}
 			${SupplierQueries.supplierType}
 			${SupplierQueries.logoImage}
+			${SupplierQueries.user('assignee')}
 			${SupplierQueries.user('createdBy')}
 			${SupplierQueries.user('lastUpdatedBy')}
 			${SupplierQueries.status}
@@ -76,11 +79,15 @@ export abstract class SupplierQueries extends GlobalQueries {
 		deleted,
 		creationDate,
 		lastUpdatedDate,
+		reference,
+		archived,
+		${SupplierQueries.extendedFields}
 		${SupplierQueries.status}
 		${SupplierQueries.categories}
 		${SupplierQueries.comments}
 		${SupplierQueries.images}
 		${SupplierQueries.tags}
+		${SupplierQueries.user('assignee')}
 		${SupplierQueries.user('createdBy')}
 		${SupplierQueries.user('lastUpdatedBy')}
 		${SupplierQueries.productsLinked}
@@ -96,13 +103,17 @@ export abstract class SupplierQueries extends GlobalQueries {
 		description,
 		country,
 		favorite,
+		reference,
 		deleted,
 		creationDate,
 		lastUpdatedDate,
+		archived,
 		${SupplierQueries.status}
 		${SupplierQueries.categories}
+		${SupplierQueries.supplierType}
 		${SupplierQueries.images}
 		${SupplierQueries.tags}
+		${SupplierQueries.user('assignee')}
 		${SupplierQueries.user('createdBy')}
 		${SupplierQueries.user('lastUpdatedBy')}
 		${SupplierQueries.productsLinked}

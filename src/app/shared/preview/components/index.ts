@@ -4,6 +4,7 @@ export * from './preview-banner/preview-banner.component';
 export * from './preview-carousel/preview-carousel.component';
 export * from './preview-header/preview-header.component';
 export * from './preview-section/preview-section.component';
+export * from './preview-tab/preview-tab.component';
 export * from './preview/preview.component';
 export * from './preview-comment/preview-comment.component';
 

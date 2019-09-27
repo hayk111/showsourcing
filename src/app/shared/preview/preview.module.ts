@@ -19,9 +19,10 @@ import {
 	PreviewComponent,
 	PreviewHeaderComponent,
 	PreviewSectionComponent,
+	PreviewLogoComponent,
+	PreviewCarouselComponent,
+	PreviewTabComponent,
 } from './components';
-import { PreviewCarouselComponent } from './components/preview-carousel/preview-carousel.component';
-import { PreviewLogoComponent } from './components/preview-logo/preview-logo.component';
 
 
 @NgModule({
@@ -49,6 +50,7 @@ import { PreviewLogoComponent } from './components/preview-logo/preview-logo.com
 		PreviewLogoComponent,
 		PreviewCarouselComponent,
 		PreviewCommentComponent,
+		PreviewTabComponent,
 	],
 	exports: [
 		PreviewComponent,
@@ -59,6 +61,7 @@ import { PreviewLogoComponent } from './components/preview-logo/preview-logo.com
 		PreviewLogoComponent,
 		PreviewCarouselComponent,
 		PreviewCommentComponent,
+		PreviewTabComponent,
 	]
 })
 export class PreviewModule { }

@@ -28,8 +28,7 @@ export class ActivityService {
 
 	constructor(
 		private http: HttpClient,
-		private teamSrv: TeamService,
-		private authSrv: AuthenticationService
+		private teamSrv: TeamService
 	) {
 		this.client = getstream.connect(environment.getStreamKey, null, environment.getStreamAppID);
 	}
@@ -96,14 +95,7 @@ export class ActivityService {
 
 	/** some doc on feed token API in readme next to this file */
 	private getToken(url): Observable<string> {
-
-
-		return this.authSrv.authenticated$.pipe(
-			map(_ => {
-				const jwtObj = this.authSrv.feedToken;
-				return new HttpHeaders({ Authorization: jwtObj.token });
-			}),
-			switchMap(headers => this.http.get<TokenResponse>(url, { headers })),
+		return this.http.get<TokenResponse>(url).pipe(
 			map((resp: TokenResponse) => resp.token),
 			first()
 		);

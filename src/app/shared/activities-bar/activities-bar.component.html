@@ -1,18 +1,20 @@
 <div class="action-container flexBetween">
 	<div class="flexVAlign icons-container no-select">
-		<icon-app name="heart" size="ms" class="favourite" *ngIf="favourite"></icon-app>
-		<icon-app name="sample" size="ms" *ngIf="hasSamples"></icon-app>
-		<icon-app name="check-circle" [ngClass]="{'warn-circle': hasTaskOverdue}" size="ms" *ngIf="hasTasks"></icon-app>
-		<icon-app name="comments" size="ms" *ngIf="hasComments"></icon-app>
-		<icon-app name="envelope" size="ms" *ngIf="(requestsCount$ | async) && !(openRequestsCount$ | async)" ></icon-app>
-		<div class="with-badge" *ngIf="openRequestsCount$ | async">
+		<icon-app *ngIf="favourite" name="heart" size="ms" class="favourite"></icon-app>
+		<icon-app *ngIf="hasSamples" name="sample" size="ms"></icon-app>
+		<icon-app *ngIf="hasTasks" name="check-circle" [ngClass]="{'warn-circle': hasTaskOverdue}" size="ms"></icon-app>
+		<icon-app *ngIf="hasComments" name="comments" size="ms"></icon-app>
+		<icon-app *ngIf="(requestsCount$ | async) && !(openRequestsCount$ | async)" name="envelope" size="ms"></icon-app>
+		<div *ngIf="openRequestsCount$ | async" class="with-badge">
 			<span class="red-badge"></span>
 			<icon-app name="envelope" size="ms" notifBadge></icon-app>
 		</div>
-		<span class="vote-star-container" *ngIf="thumbService.getAvgVotes(votes) > -1" 
+		<span
+			*ngIf="thumbService.getAvgVotes(votes) > -1"
+			class="vote-star-container"
 			[ngClass]="{'light-background': thumbService.getAvgVotes(votes) > 4}">
 			<icon-app name="star" size="ms" class="star"></icon-app>
-			<span class="vote-star-value">{{thumbService.getAvgVotes(votes)}}</span>
+			<span class="vote-star-value">{{ thumbService.getAvgVotes(votes) }}</span>
 		</span>
 	</div>
 </div>

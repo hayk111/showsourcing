@@ -13,6 +13,7 @@ import { CommonModalService } from '~common/modals/services/common-modal.service
 	styleUrls: ['./settings-team-members-page.component.scss']
 })
 export class SettingsTeamMembersPageComponent implements OnInit {
+	team$: Observable<Team>;
 	team: Team;
 	companyName: string;
 	selectedTab = 'team-members';
@@ -28,6 +29,7 @@ export class SettingsTeamMembersPageComponent implements OnInit {
 	) { }
 
 	ngOnInit() {
+		this.team$ = this.teamSrv.selectTeam();
 		this.team = this.teamSrv.selectedTeamSync;
 		this.companyName = this.companySrv.companySync.name;
 	}
@@ -42,11 +44,11 @@ export class SettingsTeamMembersPageComponent implements OnInit {
 		this.router.navigate(['user', 'create-a-team']);
 	}
 	updateTeamName(newName: string) {
-		// if (newName.length) {
-		// 	this.team$.pipe(
-		// 		switchMap(team => this.teamSrv.update(team))
-		// 	).subscribe();
-		// }
-		// }
+		// 	if (newName.length) {
+		// 		this.team$.pipe(
+		// 			switchMap(team => this.teamSrv.update(team))
+		// 		).subscribe();
+		// 	}
 	}
 }
+

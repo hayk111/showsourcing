@@ -1,5 +1,5 @@
 
-:root{
+:root {
 
 	--color-primary: rgb(69, 173, 255);
 	--color-primary-dark: rgb(64, 161, 235);
@@ -40,6 +40,7 @@
 	--color-bg: rgb(255, 255, 255);
 	--color-bg-dark: rgb(24, 40, 68);
 	--color-bg-secondary: rgb(249, 250, 252);
+	--color-bg-third: rgb(230, 235, 245);
 
 	// entities
 	--color-product: var(--color-primary);
@@ -52,8 +53,8 @@
 	--color-category-light: var(--color-accent-light);
 	--color-sample: var(--color-accent);
 	--color-sample-light: var(--color-accent-light);
-	--color-task: var(--color-success);
-	--color-task-light: var(--color-success-light);
+	--color-task: rgb(113, 229, 145);
+	--color-task-light: rgb(240, 252, 244);
 
 	// status
 	--color-status-new: var(--color-secondary-contrast);
@@ -67,37 +68,58 @@
 }
 
 
-/* Color classes */
+/* Color - Background classes */
+$colors: (
+	'primary',
+	'secondary',
+	'warn',
+	'success',
+	'vibrant',
+	'accent'
+);
 
-.color-primary {
-	color: var(--color-primary);
+// for search purposes
+// .color-primary, .color-primary-light, .color-primary-dark, .bg-primary, .bg-primary-light, .bg-primary-dark, .color-secondary, .color-secondary-light, .color-secondary-dark, .bg-secondary, .bg-secondary-light, .bg-secondary-dark, .color-warn, .color-warn-light, .color-warn-dark, .bg-warn, .bg-warn-light, .bg-warn-dark, .color-success, .color-success-light, .color-success-dark, .bg-success, .bg-success-light, .bg-success-dark, .color-vibrant, .color-vibrant-light, .color-vibrant-dark, .bg-vibrant, .bg-vibrant-light, .bg-vibrant-dark, .color-accent, .color-accent-light, .color-accent-dark, .bg-accent, .bg-accent-light,
+// Generates class for colors and backgrounds, including light and dark
+@each $color in $colors {
+	.color-#{$color} {
+		color: var(--color-#{$color});
+	}
+	.color-#{$color}-light {
+		color: var(--color-#{$color}-light);
+	}
+	.color-#{$color}-dark {
+		color: var(--color-#{$color}-dark);
+	}
+	.bg-#{$color} {
+		background: var(--color-#{$color});
+	}
+	.bg-#{$color}-light {
+		background: var(--color-#{$color}-light);
+	}
+	.bg-#{$color}-dark {
+		background: var(--color-#{$color}-dark);
+	}
 }
 
-.color-primary-light{
-	color: var(--color-primary-light);
-}
 
 .color-bg-dark {
 	color: var(--color-bg-dark);
 }
 
-.color-secondary, .color-new {
+.color-new {
 	color: var(--color-secondary);
-}
-
-.color-secondary-dark {
-	color: var(--color-secondary-dark);
 }
 
 .color-black {
 	color: black;
 }
 
-.color-warn, .color-refused {
+.color-refused {
 	color: var(--color-warn);
 }
 
-.color-success, .color-validated {
+.color-validated {
 	color: var(--color-success);
 }
 
@@ -145,27 +167,15 @@
 
 /* Background */
 
-.bg-primary {
-	background: var(--color-primary);
-}
-
-.bg-secondary, .bg-new {
+.bg-new {
 	background: var(--color-secondary);
-}
-
-.bg-secondary-light {
-	background: var(--color-secondary-light);
-}
-
-.bg-secondary-dark {
-	background: var(--color-secondary-dark);
 }
 
 .bg-success, .bg-validated {
 	background-color: var(--color-success);
 }
 
-.bg-warn, .bg-rejected, .bg-refused {
+.bg-rejected, .bg-refused {
 	background-color: var(--color-warn);
 }
 

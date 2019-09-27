@@ -19,6 +19,18 @@ user-picture-app {
 .name-container {
 	font-size: var(--font-size-m);
 	color: var(--color-txt-primary);
+
+	.sub-property {
+		font-size: var(--font-size-s);
+		color: var(--color-txt-third);
+		height: 15px;
+	}
+
+	img-app {
+		max-width: 28px;
+		min-width: 28px;
+		margin-right: var(--spacing-xs);
+	}
 }
 
 .about-container {
@@ -45,19 +57,19 @@ user-picture-app {
 }
 
 .task-is-done {
-	color: var(--color-success);
+	color: var(--color-task);
 }
 
 .task-not-done {
 	color: var(--color-txt-third);
 }
 
-.name-container {
-	align-items: center;
+.due-date-small {
+	font-size: var(--font-size-s);
+	color: var(--color-warn);
+	font-weight: 600;
+}
 
-	img-app {
-		max-width: 28px;
-		min-width: 28px;
-		margin-right: var(--spacing-xs);
-	}
+.txt-task-done-empty {
+	color: var(--color-txt-secondary);
 }
