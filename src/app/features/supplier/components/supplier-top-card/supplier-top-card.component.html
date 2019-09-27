@@ -6,13 +6,13 @@
 
 	<header-details-info-app >
 		<div class="flex flexVAlign info-container dot-separator">
-			<span class="price" *ngIf="supplier?.supplierType">
+			<span *ngIf="supplier?.supplierType">
 				{{ supplier?.supplierType?.name }}
 			</span>
-			<div class="adress">
+			<span *ngIf="supplier?.city || supplier?.country">
 				{{ supplier?.city ? supplier?.city + ',&nbsp;' : ''}}
 				{{ supplier?.country | const: 'country' }}
-			</div>
+			</span>
 			<activities-bar-app *ngIf="supplier?.votes?.length > 0"
 				[votes]="supplier?.votes">
 			</activities-bar-app>
