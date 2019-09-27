@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { EntityTableComponent, TableConfig, TableConfigType } from '~core/list-page/entity-table.component';
 import { ERM, Supplier } from '~models';
@@ -14,7 +14,6 @@ const bigTableConfig: TableConfig = {
 	status: { name: 'status', translationKey: 'status', width: 190, sortProperty: 'status.step' },
 };
 
-// it comes form todo box
 const mediumTableConfig: TableConfig = {
 	reference: { name: 'reference', translationKey: 'reference', width: 500, sortProperty: 'reference' },
 	status: { name: 'status', translationKey: 'status', width: 150, sortProperty: 'status.step' },
@@ -29,7 +28,7 @@ const mediumTableConfig: TableConfig = {
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SupplierTableComponent extends EntityTableComponent<Supplier> {
+export class SupplierTableComponent extends EntityTableComponent<Supplier> implements OnInit {
 
 	columns = ['name', 'country', 'productType', 'supplierType', 'createdBy', 'activities', 'status'];
 	erm = ERM;
@@ -41,6 +40,11 @@ export class SupplierTableComponent extends EntityTableComponent<Supplier> {
 
 	constructor(public translate: TranslateService) {
 		super();
+	}
+
+	ngOnInit() {
+		this.tableConfig = this.getTableFromType();
+		super.ngOnInit();
 	}
 
 	getTableFromType() {

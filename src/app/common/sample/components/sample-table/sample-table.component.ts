@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { EntityTableComponent, TableConfig, TableConfigType } from '~core/list-page';
 import { ERM, Sample } from '~core/models';
@@ -14,14 +14,12 @@ const bigTableConfig: TableConfig = {
 	creationDate: { name: 'created on', translationKey: 'created-on', width: 190, sortProperty: 'creationDate' },
 };
 
-// todo box
 const mediumTableConfig: TableConfig = {
 	name: { name: 'name', translationKey: 'name', width: 240, sortProperty: 'name' },
 	product: { name: 'product', translationKey: 'product', width: 180, sortProperty: 'product.name' },
 	status: { name: 'status', translationKey: 'status', width: 110, sortProperty: 'status.step' },
 };
 
-// prdicut preview
 const smallTableConfig: TableConfig = {
 	name: { name: 'name', translationKey: 'name', width: 120, sortProperty: 'name' },
 	status: { name: 'status', translationKey: 'status', width: 130, sortProperty: 'status.step' },
@@ -36,7 +34,7 @@ const smallTableConfig: TableConfig = {
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SampleTableComponent extends EntityTableComponent<Sample> {
+export class SampleTableComponent extends EntityTableComponent<Sample> implements OnInit {
 	columns = ['name', 'assignee', 'product', 'supplier', 'comments', 'status', 'creationDate'];
 	@Input() tableConfigType: TableConfigType = 'big';
 	@Output() openSupplier = new EventEmitter<ID>();
@@ -46,6 +44,10 @@ export class SampleTableComponent extends EntityTableComponent<Sample> {
 
 	constructor(public translate: TranslateService) { super(); }
 
+	ngOnInit() {
+		this.tableConfig = this.getTableFromType();
+		super.ngOnInit();
+	}
 
 	getTableFromType() {
 		switch (this.tableConfigType) {

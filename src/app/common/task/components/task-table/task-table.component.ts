@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { EntityTableComponent, TableConfig, TableConfigType } from '~core/list-page';
 import { ERM, Task } from '~core/models';
@@ -15,13 +15,11 @@ const bigTableConfig: TableConfig = {
 	status: { name: 'status', translationKey: 'status', width: 85, sortProperty: 'status.step', sortable: false },
 };
 
-// comes from todo box task
 const mediumTableConfig: TableConfig = {
 	about: { name: 'about', translationKey: 'about', width: 590, sortProperty: 'name' },
 	status: { name: 'status', translationKey: 'status', width: 80, sortProperty: 'status.step', sortable: false },
 };
 
-// preview product
 const smallTableConfig: TableConfig = {
 	done: { name: 'done', translationKey: 'done', width: 50 },
 	name: { name: 'name assignee', translationKey: 'name', width: 240, sortProperty: 'name' },
@@ -38,7 +36,7 @@ const smallTableConfig: TableConfig = {
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TaskTableComponent extends EntityTableComponent<Task> {
+export class TaskTableComponent extends EntityTableComponent<Task> implements OnInit {
 
 	@Input() tableConfigType: TableConfigType = 'big';
 	@Output() openProduct = new EventEmitter<ID>();
@@ -48,6 +46,11 @@ export class TaskTableComponent extends EntityTableComponent<Task> {
 	erm = ERM;
 
 	constructor(public translate: TranslateService) { super(); }
+
+	ngOnInit() {
+		this.tableConfig = this.getTableFromType();
+		super.ngOnInit();
+	}
 
 	getTableFromType() {
 		switch (this.tableConfigType) {

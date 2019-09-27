@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { EntityTableComponent, TableConfig, TableConfigType } from '~core/list-page/entity-table.component';
 import { ERM, Product } from '~models';
 import { Color } from '~utils';
@@ -33,7 +33,7 @@ const mediumTableConfig: TableConfig = {
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductsTableComponent extends EntityTableComponent<Product> {
+export class ProductsTableComponent extends EntityTableComponent<Product> implements OnInit {
 	columns = ['reference', 'price', 'supplier', 'category', 'createdBy', 'activities', 'status'];
 	@Input() tableWidth: number;
 	@Input() hasVerticalScroll: boolean;
@@ -54,6 +54,11 @@ export class ProductsTableComponent extends EntityTableComponent<Product> {
 
 	constructor(public translate: TranslateService) {
 		super();
+	}
+
+	ngOnInit() {
+		this.tableConfig = this.getTableFromType();
+		super.ngOnInit();
 	}
 
 	getTableFromType() {
