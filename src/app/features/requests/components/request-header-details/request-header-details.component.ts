@@ -2,12 +2,12 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output
 import { SupplierRequest } from '~core/models';
 
 @Component({
-	selector: 'request-header-list-app',
-	templateUrl: './request-header-list.component.html',
-	styleUrls: ['./request-header-list.component.scss'],
+	selector: 'request-header-details-app',
+	templateUrl: './request-header-details.component.html',
+	styleUrls: ['./request-header-details.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RequestHeaderListComponent implements OnInit {
+export class RequestHeaderDetailsComponent implements OnInit {
 
 	@Input() request: SupplierRequest;
 	@Output() reminder = new EventEmitter<SupplierRequest>();
