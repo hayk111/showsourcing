@@ -19,10 +19,6 @@ controller-list-app, header-list-app {
   transition: 0.35s all ease;
 }
 
-header-nav-item-app:first-child {
-	margin-left: 62px;
-}
-
 header-details-app {
 	background: var(--color-bg);
 	.tabs-container {
