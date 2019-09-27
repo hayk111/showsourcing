@@ -45,21 +45,24 @@
 		<!-- created by and votes -->
 		<div class="card-footer flexBetween">
 			<div class="created-by">
-				<user-picture-app 
-					[user]="product?.createdBy" 
+				<user-picture-app
+					[user]="product?.createdBy"
 					[size]="24"
 					fontSize="12"
-					[background]="false" 
+					[background]="false"
 					[image]="product?.createdBy?.avatar"></user-picture-app>
 				<div class="product-reference">
 					{{product?.reference}}
 				</div>
 			</div>
 
-			<span class="vote-star-container" *ngIf="thumbSrv.getAvgVotes(product?.votes) > -1" 
-				[ngClass]="{'light-background': thumbSrv.getAvgVotes(product?.votes) > 80}">
+			<span *ngIf="thumbSrv.computeScore(product?.votes) !== null" class="vote-star-container"
+				[ngClass]="{
+					'bg-accent-light color-accent-dark': thumbService.computeScoreVotes(votes) >= 3.5,
+					'bg-secondary-light color-txt-third': thumbService.computeScoreVotes(votes) < 3.5
+				}">
 				<icon-app name="star" size="sm" class="star"></icon-app>
-				<span class="vote-star-value">{{thumbSrv.getAvgVotes(product?.votes)}}</span>
+				<span class="vote-star-value">{{ thumbSrv.computeScore(product?.votes) | number: '1.1-2' }}</span>
 			</span>
 		</div>
 	</div>

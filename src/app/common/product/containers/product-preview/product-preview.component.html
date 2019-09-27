@@ -128,19 +128,22 @@
 			[votes]="product?.votes">
 		</rating-stars-score-view-app>
 		<divider-app></divider-app>
-		<h3 class="flexCenter mg-top-ms ms">Your Rating</h3>
+		<h4 class="flexCenter mg-top-ms ms">Your Rating</h4>
 		<rating-stars-action-app
 			class="flexCenter"
 			[votes]="product?.votes"
 			(valueVoted)="onStarVote($event)">
 		</rating-stars-action-app>
+		<button class="primary-light fullWidth mg-top-ms" (click)="commonModalSrv.openVoteDetailsDialog(product?.votes)">
+			View ratings
+		</button>
 	</preview-section-app>
 
 	<!-- Tasks -->
-	<preview-section-app #contentTab2 *ngIf="tasks$ | async as tasks" [title]="'Tasks'">
+	<preview-section-app #contentTab2 *ngIf="(tasks$ | async)?.length" [title]="'Tasks'">
 		<task-table-app
 			class="no-padding"
-			[rows]="tasks"
+			[rows]="tasks$ | async"
 			[pending]="false"
 			tableConfigType="small"
 			[columns]="['done', 'name', 'dueDate']"
@@ -153,10 +156,10 @@
 	</preview-section-app>
 
 	<!-- Samples -->
-	<preview-section-app #contentTab2 *ngIf="samples$ | async as samples" [title]="'Samples'">
+	<preview-section-app #contentTab2 *ngIf="(samples$ | async)?.length" [title]="'Samples'">
 		<sample-table-app
 			class="no-padding"
-			[rows]="samples"
+			[rows]="samples$ | async"
 			[columns]="['name', 'status']"
 			tableConfig="small"
 			[pending]="false"
