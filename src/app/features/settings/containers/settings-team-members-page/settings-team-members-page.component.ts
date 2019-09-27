@@ -24,8 +24,8 @@ export class SettingsTeamMembersPageComponent implements OnInit {
 		protected router: Router,
 		protected route: ActivatedRoute,
 		private teamSrv: TeamService,
-		private companySrv:  CompanyService,
-		public commonModalSrv:  CommonModalService,
+		private companySrv: CompanyService,
+		public commonModalSrv: CommonModalService,
 	) { }
 
 	ngOnInit() {
@@ -42,5 +42,13 @@ export class SettingsTeamMembersPageComponent implements OnInit {
 	/** Opens the dialog for creating a new team */
 	redirectNewTeamScreen() {
 		this.router.navigate(['user', 'create-a-team']);
+	}
+	updateTeamName(newName: string) {
+		// if (newName.length) {
+		// 	this.team$.pipe(
+		// 		switchMap(team => this.teamSrv.update(team))
+		// 	).subscribe();
+		// }
+		// }
 	}
 }
