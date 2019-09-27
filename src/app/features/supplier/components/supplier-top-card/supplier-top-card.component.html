@@ -5,19 +5,54 @@
 	<logo-app [logo]="supplier?.logoImage" type="supplier"></logo-app>
 
 	<header-details-info-app >
-		<div class="flex flexVAlign">
-			<div class="type" *ngIf="supplier?.supplierType">
+		<div class="flex flexVAlign info-container dot-separator">
+			<span class="price" *ngIf="supplier?.supplierType">
 				{{ supplier?.supplierType?.name }}
-			</div>
-			<icon-app *ngIf="supplier?.supplierType" name="circle"></icon-app>
+			</span>
 			<div class="adress">
 				{{ supplier?.city ? supplier?.city + ',&nbsp;' : ''}}
 				{{ supplier?.country | const: 'country' }}
 			</div>
+			<activities-bar-app *ngIf="supplier?.votes?.length > 0"
+				[votes]="supplier?.votes">
+			</activities-bar-app>
 		</div>
 	</header-details-info-app>
 
+	<header-list-nav-app>
+		<header-list-nav-item-app
+			[link]="getHeaderNavUrl('activity')"
+			icon="activity"
+			[name]="'nav.activity' | translate">
+		</header-list-nav-item-app>
+
+		<header-list-nav-item-app
+			[link]="getHeaderNavUrl('products')"
+			icon="product"
+			[name]="'nav.products' | translate">
+		</header-list-nav-item-app>
+
+		<header-list-nav-item-app
+			[link]="getHeaderNavUrl('samples')"
+			icon="sample"
+			[name]="'nav.samples' | translate">
+		</header-list-nav-item-app>
+
+		<header-list-nav-item-app
+			[link]="getHeaderNavUrl('files')"
+			icon="files"
+			[name]="'nav.files' | translate">
+		</header-list-nav-item-app>
+
+		<header-list-nav-item-app
+			[link]="getHeaderNavUrl('tasks')"
+			icon="check-circle" 
+			[name]="'nav.tasks' | translate">
+		</header-list-nav-item-app>
+	</header-list-nav-app>
+
 	<header-details-actions-app>
+		<button class="contact" translate="button.contact-supplier"></button>
 		<context-menu-app>
 			<context-menu-trigger-app>
 				<button class="icon light dots">
