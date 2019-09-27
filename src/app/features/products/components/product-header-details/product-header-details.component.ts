@@ -2,14 +2,15 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter
 import { Product } from '~models/product.model';
 import { ERM } from '~models/_erm.enum';
 import { User } from '~core/models';
+import { Router } from '@angular/router';
 
 @Component({
-	selector: 'product-header-list-app',
-	templateUrl: './product-header-list.component.html',
-	styleUrls: ['./product-header-list.component.scss'],
+	selector: 'product-header-details-app',
+	templateUrl: './product-header-details.component.html',
+	styleUrls: ['./product-header-details.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductHeaderListComponent implements OnInit {
+export class ProductHeaderDetailsComponent implements OnInit {
 	@Input() product: Product;
 	@Output() delete = new EventEmitter<Product>();
 	@Output() export = new EventEmitter<Product>();
@@ -18,7 +19,7 @@ export class ProductHeaderListComponent implements OnInit {
 	@Output() supplierRequest = new EventEmitter<Product>();
 	productEntity = ERM.PRODUCT;
 
-	constructor() { }
+	constructor(private router: Router) { }
 
 	ngOnInit() {
 	}
@@ -33,6 +34,10 @@ export class ProductHeaderListComponent implements OnInit {
 
 	onUserChanged(user: User) {
 		this.update.emit({ id: this.product.id, assignee: new User({ id: user.id }) });
+	}
+
+	getHeaderNavUrl(nav: string): string {
+		return this.router.url.substring(0, this.router.url.lastIndexOf('/') + 1) + nav;
 	}
 
 }

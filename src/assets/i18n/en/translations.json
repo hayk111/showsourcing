@@ -219,13 +219,13 @@
       "singular": "and {{ count }} other"
     },
     "assigned-target": "assigned you a {{ target }}",
-    "comment": {
-      "plural": "comments",
-      "singular": "comment"
-    },
     "comment-on-target": {
       "plural": "have commented on the {{ target }}",
       "singular": "has commented on the {{ target }}"
+    },
+    "comment": {
+      "plural": "comments",
+      "singular": "comment"
     },
     "create-OBJ": "create {{ field }}",
     "create-a-field-or-assign": "create a {{ field }} or assign yourself an existing one",
@@ -258,13 +258,13 @@
       "plural": "{{count}} elements",
       "singular": "{{count}} element"
     },
-    "n-item": {
-      "plural": "{{ count }} items",
-      "singular": "{{ count }} item"
-    },
     "n-item-selected": {
       "plural": "{{ count }} items selected",
       "singular": "{{ count }} item selected"
+    },
+    "n-item": {
+      "plural": "{{ count }} items",
+      "singular": "{{ count }} item"
     },
     "n-product": "{{ count }} products",
     "n-product-selected": {
@@ -291,13 +291,13 @@
       "plural": "products need review",
       "singular": "product needs review"
     },
-    "product-selected": {
-      "plural": "{{ count }} products selected",
-      "singular": "{{ count }} product selected"
-    },
     "product-selected-feedback": {
       "plural": "{{ count }} products selected for feedback",
       "singular": "{{ count }} product selected for feedback"
+    },
+    "product-selected": {
+      "plural": "{{ count }} products selected",
+      "singular": "{{ count }} product selected"
     },
     "provide-name-create": "Please provide the {{ field }} name to create",
     "provide-new-name": "Please provide the new {{ field }} name for {{ entityName }}",
@@ -757,10 +757,12 @@
     "activity": "activity",
     "categories": "categories",
     "event": "event",
+    "files": "files",
     "home": "home",
     "my-samples": "My Samples",
     "my-tasks": "My Tasks",
     "my-workflow": "My Workflow",
+    "product-details": "product details",
     "products": "products",
     "projects": "projects",
     "request": "request",
