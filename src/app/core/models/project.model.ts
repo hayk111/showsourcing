@@ -9,9 +9,9 @@ export class Project extends EntityWithAudit<ProjectConfig> {
 	description?: string;
 	products?: Product[];
 	owner?: User;
-	done ?= false;
+	done?= false;
 	dueDate?: Date;
-	__typename ?= 'Project';
+	__typename?= 'Project';
 }
 
 export interface ProjectConfig {
