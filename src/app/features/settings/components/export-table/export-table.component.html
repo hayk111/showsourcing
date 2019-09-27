@@ -55,7 +55,7 @@
 			[columnApp]="'header.export' | translate"
 			sortBy="name"
 			let-row="row"
-			width="300">
+			width="200">
 			<div class="capitalize">
 				{{ getFileName(row?.documentUrl) }}
 			</div>
@@ -86,7 +86,7 @@
 			[columnApp]="'header.created-by' | translate"
 			let-row="row"
 			sortBy="createdBy.lastName"
-			width="200">
+			width="150">
 			<div class="flex flexCenter">
 				<span class="ellipsis">{{ row?.createdBy?.firstName }} {{row?.createdBy?.lastName}}</span>
 			</div>

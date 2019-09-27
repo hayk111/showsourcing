@@ -219,13 +219,13 @@
       "singular": "et {{count}} other"
     },
     "assigned-target": "vous a attribué un {{target}}",
-    "comment": {
-      "plural": "commentaires",
-      "singular": "commentaire"
-    },
     "comment-on-target": {
       "plural": "ont commenté la {{ target }}",
       "singular": "a commenté le {{target}"
+    },
+    "comment": {
+      "plural": "commentaires",
+      "singular": "commentaire"
     },
     "create-OBJ": "créer {{field}}",
     "create-a-field-or-assign": "créez un {{field}} ou attribuez-vous un existant",
@@ -258,13 +258,13 @@
       "plural": "{{count}} éléments",
       "singular": "{{count}} élément"
     },
-    "n-item": {
-      "plural": "{{count}} éléments",
-      "singular": "{{count}} élément"
-    },
     "n-item-selected": {
       "plural": "{{count}} éléments sélectionnés",
       "singular": "{{count}} item sélectionné"
+    },
+    "n-item": {
+      "plural": "{{count}} éléments",
+      "singular": "{{count}} élément"
     },
     "n-product": "{{ count }} produits",
     "n-product-selected": {
@@ -291,13 +291,13 @@
       "plural": "produits à revoir",
       "singular": "produit  à revoir"
     },
-    "product-selected": {
-      "plural": "{{count}} produits sélectionnés",
-      "singular": "{{count}} produit sélectionné"
-    },
     "product-selected-feedback": {
       "plural": "{{count}} produits sélectionnés pour le feedback",
       "singular": "{{count}} produit sélectionné pour le feedback"
+    },
+    "product-selected": {
+      "plural": "{{count}} produits sélectionnés",
+      "singular": "{{count}} produit sélectionné"
     },
     "provide-name-create": "Veuillez indiquer le {{field}} nom à créer.",
     "provide-new-name": "Veuillez fournir le nouveau {{field}} nom pour {{entityName}}",
@@ -352,10 +352,12 @@
     "close-request": "Fermer la demande",
     "company": "entreprise",
     "compare-products": "Comparer les produits",
+    "contact-supplier": "Contacter le fournisseur",
     "create-new-team": "Créer une nouvelle équipe",
     "create-product": "Créer un produit",
     "create-project": "créer un projet",
     "create-sample": "Créer un échantillon",
+    "create-supplier": "créer un fournisseur",
     "create-task": "créer une tâche",
     "delete": "Effacer",
     "delete-picture": "Supprimer cette photo",
@@ -757,10 +759,12 @@
     "activity": "activité",
     "categories": "catégories",
     "event": "un événement",
+    "files": "des dossiers",
     "home": "page d'accueil",
     "my-samples": "Mes échantillons",
     "my-tasks": "Mes tâches",
     "my-workflow": "Mon flux de travail",
+    "product-details": "détails du produit",
     "products": "des produits",
     "projects": "projets",
     "request": "demande",

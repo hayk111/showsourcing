@@ -3,26 +3,36 @@
 	[hasBackArrow]="false"
 	[elevated]="false"
 	i18n-title="@@data-cleansing">
+	<header-details-title-app>
+		<span class="my-team capitalize">
+			{{ 'title.my-team' | translate }}
+		</span>
+	</header-details-title-app>
 	<logo-app color="primary" icon="team" size="xl"></logo-app>
-	<ng-container subinfo *ngIf="(team$ | async) as team">{{team.name}}</ng-container>
+	<header-details-info-app>
+		<ng-container subinfo *ngIf="team">{{team.name}}</ng-container>
+		<div class="small-gray-badge-separator"></div>
+		<ng-container subinfo *ngIf="companyName">{{companyName}}</ng-container>
+	</header-details-info-app>
 
-	<header-list-nav-app>
-		<header-list-nav-item-app
+	<header-nav-app>
+		<header-nav-item-app
 			link="settings/team/members"
 			icon="team"
 			name="Team Members">
-		</header-list-nav-item-app>
+		</header-nav-item-app>
 	
 		<!-- TODO create route for settings tab -->
-		<header-list-nav-item-app
+		<header-nav-item-app
 			link="settings/team/settings"
 			icon="settings"
 			name="Settings">
-		</header-list-nav-item-app>
-	</header-list-nav-app>
+		</header-nav-item-app>
+	</header-nav-app>
 
 	<header-details-actions-app>
-		<button action (click)="redirectNewTeamScreen()">Create New Team</button>
+		<button action class="invite-team-member capitalize" 
+			(click)="commonModalSrv.openInvitationDialog()">invite team member</button>
 	</header-details-actions-app>
 
 </header-details-app>
