@@ -42,10 +42,10 @@ import { CommentCommonModule } from '~common/comment';
 	declarations: [
 		SupplierActivityComponent,
 		SupplierDetailsComponent,
-		SupplierProductsComponent,
-		SupplierProductsPageComponent,
-		SupplierSamplesComponent,
-		SupplierTasksComponent,
+		// SupplierProductsComponent,
+		// SupplierProductsPageComponent,
+		// SupplierSamplesComponent,
+		// SupplierTasksComponent,
 		SuppliersPageComponent,
 		SupplierTopCardComponent
 	],
