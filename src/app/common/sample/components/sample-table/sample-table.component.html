@@ -3,6 +3,7 @@
 	[pending]="pending"
 	[selected]="selection"
 	[contextualMenu]="contextualMenuTemplate"
+	[currentSort]="currentSort"
 	[count]="count"
 	[currentPage]="currentPage"
 	[hasPagination]="hasPagination"
@@ -35,7 +36,7 @@
     [width]="column.width"
 		[sortBy]="column.sortProperty">
 
-    <ng-container [ngSwitch]="column.title">
+    <ng-container [ngSwitch]="column.name">
 			<!-- name -->
 			<ng-container *ngSwitchCase="'name'">
 				<div class="ellipsis name-container contain-strict">
@@ -83,9 +84,6 @@
 			</ng-container>
 
 
-
-
-
 			<!-- supplier -->
 			<ng-container *ngSwitchCase="'supplier'">
 				<div *ngIf="row?.supplier" class="pointer ellipsis" (click)="openSupplier.emit(row.supplier.id)">{{ row?.supplier?.name }}</div>
@@ -102,7 +100,7 @@
 
 			<!-- status -->
 			<ng-container *ngSwitchCase="'status'">
-				<div class="status-col flexVAlign">
+				<div class="status-col flexVAlign flexEnd">
 					<selector-app
 						type="user"
 						[width]="320"

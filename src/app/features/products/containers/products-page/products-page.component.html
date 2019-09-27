@@ -41,6 +41,8 @@
 		<products-table-app
 			*ngIf="listSrv.view === 'list'"
 			class="max-full-table-width"
+			#productList
+			[currentSort]="listSrv.currentSort"
 			[pending]="listSrv.pending"
 			[rows]="listSrv.items$ | async"
 			[selection]="listSrv.selection$ | async"
@@ -66,7 +68,7 @@
 			(unselect)="listSrv.unselectOne($event, true)"
 			(update)="listSrv.update($event)"
 			(createClick)="commonModalSrv.openCreationProductDlg()"
-			(unselectAll)="listSrv.unselectAll()" #productList>
+			(unselectAll)="listSrv.unselectAll()">
 		</products-table-app>
 
 		<product-board-app

@@ -68,5 +68,4 @@ export const supplierMock: Supplier = {
 	name: 'supplier',
 	images: [imageMock],
 	logoImage: imageMock,
-	__typename: 'Supplier'
 } as any;

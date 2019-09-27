@@ -42,11 +42,11 @@ export class SettingsTeamMembersPageComponent implements OnInit {
 		this.router.navigate(['user', 'create-a-team']);
 	}
 	updateTeamName(newName: string) {
-		// if (newName.length) {
-		// 	this.team$.pipe(
-		// 		switchMap(team => this.teamSrv.update(team))
-		// 	).subscribe();
-		// }
-		// }
+		// 	if (newName.length) {
+		// 		this.team$.pipe(
+		// 			switchMap(team => this.teamSrv.update(team))
+		// 		).subscribe();
+		// 	}
 	}
 }
+
