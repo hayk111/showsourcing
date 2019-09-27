@@ -3,9 +3,9 @@ import { TableConfig } from '~core/list-page';
 import { Product } from '~core/models';
 
 const tableConfig: TableConfig = {
-	about: { title: 'about', translationKey: 'about', width: 190, sortProperty: 'creationDate' },
-	reference: { title: 'reference', translationKey: 'reference', width: 320, sortProperty: 'reference' },
-	status: { title: 'status', translationKey: 'status', width: 165, sortProperty: 'status.step' },
+	about: { name: 'about', translationKey: 'about', width: 190, sortProperty: 'creationDate' },
+	reference: { name: 'reference', translationKey: 'reference', width: 320, sortProperty: 'reference' },
+	status: { name: 'status', translationKey: 'status', width: 165, sortProperty: 'status.step' },
 };
 
 @Component({

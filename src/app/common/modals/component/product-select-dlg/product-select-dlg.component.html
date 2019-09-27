@@ -14,8 +14,10 @@
 		[searchFullWidth]="false"
 		[subPanelDialog]="true"
 		(search)="searchProduct($event)"
-		(showMyProducts)="toggleMyProducts(true)"
-		(hideMyProducts)="toggleMyProducts(false)"
+		(showArchived)="listSrv.filterByArchived(true)"
+		(hideArchived)="listSrv.filterByArchived(false)"
+		(showAssigned)="listSrv.filterByAssignee(true)"
+		(hideAssigned)="listSrv.filterByAssignee(false)"
 		(showFilters)="showFilters()"
 		(hideFilters)="hideFilters()">
 
@@ -40,7 +42,6 @@
 		[hasPagination]="false"
 		[hasHeaderBorder]="true"
 		[headerSecondary]="true"
-		[tableConfig]="productTableConfig"
 		[currentSort]="listSrv.currentSort"
 		[pending]="listSrv.pending"
 		[rows]="listSrv.items$ | async"
@@ -62,7 +63,7 @@
 		(unselect)="onItemUnselected($event)"
 		(unselectAll)="onUnselectAll()">
 	</products-table-app>
-	
+
 	<dialog-footer-app class="flexVAlign">
 		<div class="product-action">
 			<span class="selected-product-count">{{ selectedProductsCount }}</span>

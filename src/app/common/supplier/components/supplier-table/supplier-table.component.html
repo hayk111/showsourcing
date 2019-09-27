@@ -45,7 +45,7 @@
 		[width]="column.width"
 		[sortBy]="column.sortProperty">
 
-		<ng-container [ngSwitch]="column.title">
+		<ng-container [ngSwitch]="column.name">
 
 			<!-- reference -->
 			<ng-container *ngSwitchCase="'name'">

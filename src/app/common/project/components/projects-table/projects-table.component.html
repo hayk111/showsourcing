@@ -5,6 +5,10 @@
 	[rows]="rows"
 	[pending]="pending"
 	[selected]="selection"
+	[hasPagination]="hasPagination"
+	[hasMenu]="hasMenu"
+	[hasHeaderBorder]="hasHeaderBorder"
+	[headerSecondary]="headerSecondary"
 	[contextualMenu]="contextualMenuTemplate"
 	[currentSort]="currentSort"
 	[count]="count"
@@ -37,7 +41,7 @@
     [width]="column.width"
 		[sortBy]="column.sortProperty">
 
-    <ng-container [ngSwitch]="column.title">
+    <ng-container [ngSwitch]="column.name">
 
       <!-- name -->
       <ng-container *ngSwitchCase="'name'">

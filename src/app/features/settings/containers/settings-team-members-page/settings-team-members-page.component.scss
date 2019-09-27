@@ -15,9 +15,19 @@ context-menu-trigger-app {
 	}
 
 	.selector {
-        color: #fff;
+		color: #fff;
 	}
 
+}
+
+.my-team {
+	font-size: var(--font-size-xxxl);
+	color: var(--color-bg-dark);
+}
+
+.invite-team-member {
+  width: 148px;
+  height: 40px;
 }
 
 context-menu-item-app {

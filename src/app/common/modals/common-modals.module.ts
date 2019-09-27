@@ -4,6 +4,7 @@ import {
 	ProductsCardViewDialogComponent,
 } from '~common/product/components/products-card-view-dialog/products-card-view-dialog.component';
 import { ProductCommonModule } from '~common/product/product-common.module';
+import { ProjectCommonModule } from '~common/project/project-common.module';
 import { InputsModule } from '~shared/inputs';
 import { PricePipe } from '~shared/price/price.pipe';
 import { SharedModule } from '~shared/shared.module';
@@ -76,6 +77,7 @@ const modals = [
 		CommonModule,
 		SharedModule,
 		ProductCommonModule,
+		ProjectCommonModule,
 		TableModule,
 		InputsModule,
 		UtilsModule

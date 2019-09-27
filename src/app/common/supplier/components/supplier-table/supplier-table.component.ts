@@ -1,19 +1,23 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
-import { EntityTableComponent, TableConfig } from '~core/list-page/entity-table.component';
-import { ERM, Supplier } from '~models';
 import { TranslateService } from '@ngx-translate/core';
+import { EntityTableComponent, TableConfig, TableConfigType } from '~core/list-page/entity-table.component';
+import { ERM, Supplier } from '~models';
 
-const tableConfig: TableConfig = {
-	activities: { title: 'activities', translationKey: 'activities', width: 190, sortable: false },
-	country: { title: 'country', translationKey: 'country', width: 140, sortProperty: 'country' },
-	supplierType: { title: 'type', translationKey: 'type', width: 190, sortProperty: 'supplierType.name' },
-	productType: { title: 'product type', translationKey: 'product-type', width: 190, sortable: false },
-	createdBy: { title: 'created by', translationKey: 'created-by', width: 190, sortProperty: 'creationDate' },
-	favorite: { title: 'favorite', translationKey: 'favorite', width: 50, sortProperty: 'favorite' },
-	name: { title: 'name', translationKey: 'name', width: 190, sortProperty: 'name' },
-	status: { title: 'status', translationKey: 'status', width: 190, sortProperty: 'status.step' },
+const bigTableConfig: TableConfig = {
+	activities: { name: 'activities', translationKey: 'activities', width: 190, sortable: false },
+	country: { name: 'country', translationKey: 'country', width: 140, sortProperty: 'country' },
+	supplierType: { name: 'type', translationKey: 'type', width: 190, sortProperty: 'supplierType.name' },
+	productType: { name: 'product type', translationKey: 'product-type', width: 190, sortable: false },
+	createdBy: { name: 'created by', translationKey: 'created-by', width: 190, sortProperty: 'creationDate' },
+	favorite: { name: 'favorite', translationKey: 'favorite', width: 50, sortProperty: 'favorite' },
+	name: { name: 'name', translationKey: 'name', width: 190, sortProperty: 'name' },
+	status: { name: 'status', translationKey: 'status', width: 190, sortProperty: 'status.step' },
 };
 
+const mediumTableConfig: TableConfig = {
+	reference: { name: 'reference', translationKey: 'reference', width: 500, sortProperty: 'reference' },
+	status: { name: 'status', translationKey: 'status', width: 150, sortProperty: 'status.step' },
+};
 
 @Component({
 	selector: 'supplier-table-app',
@@ -24,18 +28,34 @@ const tableConfig: TableConfig = {
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SupplierTableComponent extends EntityTableComponent<Supplier> {
+export class SupplierTableComponent extends EntityTableComponent<Supplier> implements OnInit {
 
 	columns = ['name', 'country', 'productType', 'supplierType', 'createdBy', 'activities', 'status'];
 	erm = ERM;
 	supplierErm = ERM.SUPPLIER;
 
-	@Input() tableConfig = tableConfig;
+	@Input() tableConfigType: TableConfigType = 'big';
 	@Output() archive = new EventEmitter<Supplier>();
 	@Output() showItemsPerPage = new EventEmitter<number>();
 
 	constructor(public translate: TranslateService) {
 		super();
+	}
+
+	ngOnInit() {
+		this.tableConfig = this.getTableFromType();
+		super.ngOnInit();
+	}
+
+	getTableFromType() {
+		switch (this.tableConfigType) {
+			case 'big':
+				return bigTableConfig;
+			case 'medium':
+				return mediumTableConfig;
+			default:
+				return bigTableConfig;
+		}
 	}
 
 }

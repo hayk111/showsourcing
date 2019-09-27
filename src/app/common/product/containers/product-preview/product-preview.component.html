@@ -50,23 +50,29 @@
 			(update)="update($event, 'event')">
 		</preview-badge-app>
 
+		<preview-section-app class="mg-none">
+
+			<divider-app></divider-app>
+
+			<button-action-list-app
+				class="button-action-list"
+				[actions]="actions"
+				(clickOnAction)="clickOnAction($event)">
+			</button-action-list-app>
+
+			<divider-app></divider-app>
+
+		</preview-section-app>
+
 	</preview-header-app>
 
-	<!-- Ask for a quote (disabled temporarily)-->
-	<preview-section-app>
-		<!-- <button class="btn-ask-quote" (click)="openRfq()">Ask for a Quote</button> -->
-		<!-- <div class="centered-text text-ask-quote">Ask for a quote from the supplier</div> -->
-		<button-action-list-app
-			[actions]="actions"
-			(clickOnAction)="clickOnAction($event)">
-		</button-action-list-app>
-
-		<divider-app></divider-app>
-
-	</preview-section-app>
+	<!-- Tabs -->
+	<preview-tab-app #tab1 (click)="previewSrv.onSelectedTab(1)">Product Info</preview-tab-app>
+	<preview-tab-app #tab2 (click)="previewSrv.onSelectedTab(2)">Activity</preview-tab-app>
+	<preview-tab-app #tab3 (click)="previewSrv.onSelectedTab(3)">Comments</preview-tab-app>
 
 	<!-- Description -->
-	<preview-section-app [title]="'title.description' | translate">
+	<preview-section-app #contentTab1 [title]="'title.description' | translate">
 		<input-description-app
 			[description]="product?.description"
 			(update)="update($event, 'description')">
@@ -74,7 +80,7 @@
 	</preview-section-app>
 
 	<!-- Tags -->
-	<preview-section-app [title]="'title.tags' | translate">
+	<preview-section-app #contentTab1 [title]="'title.tags' | translate">
 		<input-badge-selector-app
 			[value]="product?.tags"
 			type="tag"
@@ -83,7 +89,7 @@
 	</preview-section-app>
 
 	<!-- Product details -->
-	<preview-section-app [title]="'title.product-details'">
+	<preview-section-app #contentTab1 [title]="'title.product-details'">
 		<dynamic-form-app
 			[inlineLabel]="true"
 			[fields]="productDescriptor1?.descriptor"
@@ -94,7 +100,7 @@
 	</preview-section-app>
 
 	<!-- Extended Fields -->
-	<preview-section-app *ngIf="(fieldDefinitions$ | async)?.length" [title]="'title.extended-fields' | translate">
+	<preview-section-app #contentTab1 *ngIf="(fieldDefinitions$ | async)?.length" [title]="'title.extended-fields' | translate">
 		<extended-form-app
 			[inlineLabel]="true"
 			[definitions]="fieldDefinitions$ | async"
@@ -104,7 +110,7 @@
 	</preview-section-app>
 
 	<!-- Trading information -->
-	<preview-section-app [title]="'title.trading-information' | translate">
+	<preview-section-app #contentTab1 [title]="'title.trading-information' | translate">
 		<dynamic-form-app
 			[inlineLabel]="true"
 			[fields]="productDescriptor2?.descriptor"
@@ -115,11 +121,59 @@
 	</preview-section-app>
 
 	<!-- Activity -->
-	<preview-section-app *ngIf="product?.comments?.length" [title]="'title.comments' | translate">
+	<!-- Rating -->
+	<preview-section-app #contentTab2 [title]="'team rating'">
+		<rating-stars-score-view-app
+			class="mg-bottom-l mg-left-l"
+			[votes]="product?.votes">
+		</rating-stars-score-view-app>
+		<divider-app></divider-app>
+		<h3 class="flexCenter mg-top-ms ms">Your Rating</h3>
+		<rating-stars-action-app
+			class="flexCenter"
+			[votes]="product?.votes"
+			(valueVoted)="onStarVote($event)">
+		</rating-stars-action-app>
+	</preview-section-app>
+
+	<!-- Tasks -->
+	<preview-section-app #contentTab2 *ngIf="tasks$ | async as tasks" [title]="'Tasks'">
+		<task-table-app
+			class="no-padding"
+			[rows]="tasks"
+			[pending]="false"
+			tableConfigType="small"
+			[columns]="['done', 'name', 'dueDate']"
+			[hasMenu]="false"
+			[hasHeader]="false"
+			[hasSelection]="false"
+			[hasPagination]="false"
+			(update)="updateTask($event)">
+		</task-table-app>
+	</preview-section-app>
+
+	<!-- Samples -->
+	<preview-section-app #contentTab2 *ngIf="samples$ | async as samples" [title]="'Samples'">
+		<sample-table-app
+			class="no-padding"
+			[rows]="samples"
+			[columns]="['name', 'status']"
+			tableConfig="small"
+			[pending]="false"
+			[hasMenu]="false"
+			[hasHeader]="false"
+			[hasSelection]="false"
+			[hasPagination]="false"
+			(update)="updateSample($event)">
+		</sample-table-app>
+	</preview-section-app>
+
+	<!-- Comment -->
+	<preview-section-app  #contentTab3 *ngIf="product?.comments?.length" [title]="'title.comments' | translate">
 		<comment-list-app [comments]="product?.comments"></comment-list-app>
 	</preview-section-app>
 
-	<preview-comment-app (added)="addComment($event)"></preview-comment-app>
+	<preview-comment-app #contentTab3 (added)="addComment($event)"></preview-comment-app>
 
 	<input #inpFile multiple="true" type="file" accept="image/*" (fileSelect)="add($event)" />
 </preview-app>

@@ -43,7 +43,7 @@ export class AuthenticationService {
 
 	urlToRedirectOnAuth: string;
 	authToken: string;
-	feedToken: TokenState;
+	// feedToken: TokenState;
 
 	constructor(
 		private router: Router,
@@ -92,7 +92,7 @@ export class AuthenticationService {
 		}
 		return this.http.post<{ jwtToken: string, jwtTokenFeed: TokenState }>(`${environment.apiUrl}/user/auth`, credentials).pipe(
 			tap(resp => this.storeAuthToken(resp.jwtToken)),
-			tap(resp => this.storeFeedToken(resp.jwtTokenFeed)),
+			// tap(resp => this.storeFeedToken(resp.jwtTokenFeed)),
 			tap(resp => this._authState$.next(AuthStatus.AUTHENTICATED)),
 			tap(_ => this.router.navigate([''])),
 			first()
@@ -165,21 +165,21 @@ export class AuthenticationService {
 		this.localStorage.setString(AUTH_TOKEN, jwt);
 	}
 
-	private storeFeedToken(jwtObject: TokenState) {
-		this.feedToken = jwtObject;
-		this.localStorage.setItem(FEED_TOKEN, jwtObject);
-	}
+	// private storeFeedToken(jwtObject: TokenState) {
+	// 	this.feedToken = jwtObject;
+	// 	this.localStorage.setItem(FEED_TOKEN, jwtObject);
+	// }
 
 	private restoreTokens() {
 		// hint: expirity is checked in the interceptors
-		this.feedToken = this.localStorage.getItem(FEED_TOKEN);
+		// this.feedToken = this.localStorage.getItem(FEED_TOKEN);
 		this.authToken = this.localStorage.getString(AUTH_TOKEN);
 	}
 
 	private clearStorage() {
 		this.localStorage.remove(STORAGE_EMAIL);
 		this.localStorage.remove(AUTH_TOKEN);
-		this.localStorage.remove(FEED_TOKEN);
+		// this.localStorage.remove(FEED_TOKEN);
 	}
 
 	private getAnonymousToken() {

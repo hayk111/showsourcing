@@ -1,4 +1,5 @@
 import {
+	ChangeDetectionStrategy,
 	ChangeDetectorRef,
 	Component,
 	ElementRef,
@@ -19,19 +20,24 @@ import { CommentService } from '~core/entity-services/comment/comment.service';
 import {
 	ExtendedFieldDefinitionService,
 } from '~core/entity-services/extended-field-definition/extended-field-definition.service';
-import { ProductService, UserService } from '~entity-services';
+import { TableConfig } from '~core/list-page';
+import { ProductService, TaskService, SampleService } from '~entity-services';
 import { WorkspaceFeatureService } from '~features/workspace/services/workspace-feature.service';
-import { AppImage, Comment, ERM, ExtendedFieldDefinition, PreviewActionButton, Product } from '~models';
+import { AppImage, Comment, ERM, ExtendedFieldDefinition, PreviewActionButton, Product, Task, Sample } from '~models';
 import { DialogService } from '~shared/dialog/services';
 import { UploaderService } from '~shared/file/services/uploader.service';
-import { PreviewCommentComponent } from '~shared/preview';
+import { PreviewCommentComponent, PreviewService } from '~shared/preview';
+import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { AutoUnsub, PendingImage, translate } from '~utils';
 
 @Component({
 	selector: 'product-preview-app',
 	templateUrl: './product-preview.component.html',
 	styleUrls: ['./product-preview.component.scss'],
-	// changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		'[class.hide-sections]': 'isPreview'
+	}
 })
 export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChanges {
 	/** This is the product passed as input, but it's not yet fully loaded */
@@ -47,24 +53,6 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 		return this._product;
 	}
 
-	@Output() close = new EventEmitter<any>();
-	@Output() delete = new EventEmitter<null>();
-	@Output() updated = new EventEmitter<Product>();
-	@Output() statusUpdated = new EventEmitter<Product>();
-	@Output() clickOutside = new EventEmitter<null>();
-	// component to scroll into view
-	@ViewChild(PreviewCommentComponent, { static: false }) previewComment: PreviewCommentComponent;
-
-	/** this is the fully loaded product */
-	product$: Observable<Product>;
-	productDescriptor1: ProductDescriptor;
-	productDescriptor2: ProductDescriptor;
-	erm = ERM;
-
-	actions: PreviewActionButton[];
-
-	fieldDefinitions$: Observable<ExtendedFieldDefinition[]>;
-
 	private _images: AppImage[] = [];
 	@Input()
 	set images(images: AppImage[]) {
@@ -73,8 +61,31 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 	get images() {
 		return [...this._images, ...(this._pendingImages as any)];
 	}
-	private _pendingImages: PendingImage[] = [];
+
+	@Input() isPreview = false;
+
+	@Output() close = new EventEmitter<any>();
+	@Output() delete = new EventEmitter<null>();
+	@Output() updated = new EventEmitter<Product>();
+	@Output() statusUpdated = new EventEmitter<Product>();
+	@Output() clickOutside = new EventEmitter<null>();
+	// component to scroll into view
+	@ViewChild(PreviewCommentComponent, { static: false }) previewComment: PreviewCommentComponent;
 	@ViewChild('inpFile', { static: false }) inpFile: ElementRef;
+
+	/** this is the fully loaded product */
+	product$: Observable<Product>;
+	tasks$: Observable<Task[]>;
+	samples$: Observable<Sample[]>;
+	productDescriptor1: ProductDescriptor;
+	productDescriptor2: ProductDescriptor;
+	erm = ERM;
+
+	actions: PreviewActionButton[];
+
+	fieldDefinitions$: Observable<ExtendedFieldDefinition[]>;
+
+	private _pendingImages: PendingImage[] = [];
 
 	constructor(
 		private uploader: UploaderService,
@@ -83,50 +94,18 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 		private modalSrv: CommonModalService,
 		private dlgSrv: DialogService,
 		private router: Router,
-		private userSrv: UserService,
 		private workspaceSrv: WorkspaceFeatureService,
 		private commentSrv: CommentService,
-		private extendedFieldDefSrv: ExtendedFieldDefinitionService
+		private extendedFieldDefSrv: ExtendedFieldDefinitionService,
+		public previewSrv: PreviewService,
+		private ratingSrv: ThumbService,
+		private taskSrv: TaskService,
+		private sampleSrv: SampleService
 	) {
 		super();
 
-		this.actions = [
-			{
-				icon: 'camera',
-				fontSet: '',
-				text: translate('add picture'),
-				action: this.openFileBrowser.bind(this)
-			},
-			{
-				icon: 'project',
-				fontSet: '',
-				text: translate('add'),
-				action: null,
-				subMenuItems: [{
-					icon: 'new_task',
-					fontSet: '',
-					text: translate('add a task'),
-					action: this.openNewTask.bind(this),
-				}, {
-					icon: 'sample',
-					fontSet: '',
-					text: translate('add a sample'),
-					action: this.openNewSample.bind(this),
-				}]
-			},
-			{
-				icon: 'comments',
-				fontSet: '',
-				text: translate(ERM.COMMENT.singular, 'erm'),
-				action: this.scrollToCommentButton.bind(this)
-			},
-			{
-				icon: 'export',
-				text: translate('share'),
-				fontSet: '',
-				action: this.openExportModal.bind(this)
-			}
-		];
+		this.actions = [];
+
 	}
 
 	ngOnInit() {
@@ -146,6 +125,44 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 		// TODO i18n
 		this.productDescriptor2.insert({ name: 'sample', type: 'title' }, 'sample');
 		this.productDescriptor2.insert({ name: 'shipping', type: 'title' }, 'incoTerm');
+
+		this.actions = [
+			{
+				icon: 'sample',
+				fontSet: '',
+				text: translate('add sample'),
+				action: this.openNewSample.bind(this),
+				number: this.product.samplesLinked && this.product.samplesLinked.count
+			},
+			{
+				icon: 'check-circle',
+				fontSet: '',
+				text: translate('add task'),
+				action: this.openNewTask.bind(this),
+				number: this.product.tasksLinked && this.product.tasksLinked.count
+			},
+			{
+				icon: 'comments',
+				fontSet: '',
+				text: translate(ERM.COMMENT.singular, 'erm'),
+				action: this.scrollToCommentButton.bind(this),
+				number: this.product.comments && this.product.comments.length
+			},
+			{
+				icon: 'export',
+				text: translate('export'),
+				fontSet: '',
+				action: this.openExportModal.bind(this)
+			}
+		];
+
+		// TODO Backend add field
+		// this.taskSrv.queryMany({ query: `product.id == "${this.product.id}" AND delete == false AND archived == false  ` });
+		this.tasks$ = this.taskSrv.queryMany({ query: `product.id == "${this.product.id}" AND deleted == false` });
+
+		// TODO Backend add field
+		// this.taskSrv.queryMany({ query: `product.id == "${this.product.id}" AND delete == false AND archived == false  ` });
+		this.samples$ = this.sampleSrv.queryMany({ query: `product.id == "${this.product.id}" AND deleted == false` });
 
 		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "Product"', sortBy: 'order' });
 	}
@@ -201,17 +218,6 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 		this.previewComment.focus();
 	}
 
-	/** Add a product to workflow */
-	onSentToWorkflow(product: Product) {
-		this.workspaceSrv.sendProductToWorkflow(product).subscribe();
-	}
-
-	/** Triggers archive product */
-	onArchive(product: Product) {
-		const { id } = product;
-		this.workspaceSrv.update({ id, archived: true }).subscribe();
-	}
-
 	openFileBrowser() {
 		this.inpFile.nativeElement.click();
 	}
@@ -256,4 +262,17 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 		// putting the index at the end so we instantly have feedback the image is being processed
 		return pendingImgs.map(p => p.id);
 	}
+
+	onStarVote(number: number) {
+		this.update(this.ratingSrv.starVote(this.product.votes, number), 'votes');
+	}
+
+	updateTask(task: Task) {
+		this.taskSrv.update(task).subscribe();
+	}
+
+	updateSample(sample: Sample) {
+		this.sampleSrv.update(sample).subscribe();
+	}
+
 }
