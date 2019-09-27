@@ -25,7 +25,7 @@
 		<div class="divider"></div>
 
 		<span class="capitalize entities-count">
-			{{count}} {{entityType}}
+			{{count}} {{ entityType }}
 		</span>
 	</div>
 
@@ -64,7 +64,7 @@
 				{{'label.show-completed' | translate}}
 			</div>
 		</div>
-		<div class="assigned-to-me-container pointer" *ngIf="hasAssigned" (click)="toggleAssigned()">
+		<div *ngIf="hasAssigned" class="assigned-to-me-container pointer" (click)="toggleAssigned()">
 			<div class="flexCenter">
 				<checkbox-app
 					[checked]="isAssigned"
@@ -73,7 +73,7 @@
 				{{'label.assigned-to-me' | translate}}
 			</div>
 		</div>
-		<div class="my-exports-only-container pointer" *ngIf="hasMyExport" (click)="toggleMyExport()">
+		<div *ngIf="hasMyExport" class="my-exports-only-container pointer" (click)="toggleMyExport()">
 			<div class="flexCenter">
 				<checkbox-app
 					[checked]="isMyExport"

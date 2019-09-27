@@ -1,5 +1,6 @@
 <table-app
 	[rows]="rows"
+	[type]="erm.TASK.singular"
 	[pending]="pending"
 	[selected]="selection"
 	[contextualMenu]="contextualMenuTemplate"
@@ -18,6 +19,7 @@
 	(selectAll)="selectAll.emit($event)"
 	(unselectAll)="unselectAll.emit($event)"
 	(sort)="sort.emit($event)"
+	(createClick)="createClick.emit()"
 	(bottomReached)="bottomReached.emit()">
 
 	<!-- contextual menu -->
@@ -48,7 +50,7 @@
 					[ngClass]="row?.done ? 'task-is-done': 'task-not-done'"
 					[name]="row?.done ? 'check-circle' : 'check-circle-light'"
 					[size]="24"
-					(click)="update.emit({ id: row?.id, done: !row.done })">
+					(click)="update.emit({ id: row.id, done: !row?.done })">
 				</icon-app>
 			</ng-container>
 
@@ -77,8 +79,13 @@
 
 			<!-- name -->
 			<ng-container *ngSwitchCase="'name'">
-				<div class="mainCellWrapper name-container ellipsis flexColumn">
-					<span class="ellipsis pointer txt-btn" (click)="previewClick.emit(row)">{{ row?.name }}</span>
+				<div class="mainCellWrapper name-container ellipsis">
+					<span
+						class="ellipsis pointer txt-btn"
+						[ngClass]="{ 'txt-task-done-empty': row?.done }"
+						(click)="previewClick.emit(row)">
+						{{ row?.name }}
+					</span>
 				</div>
 			</ng-container>
 
@@ -94,22 +101,44 @@
 
 			<!-- product -->
 			<ng-container *ngSwitchCase="'product'">
-				<div class="mainCellWrapper product-container ellipsis">
-					<span class="ellipsis pointer txt-btn" (click)="openProduct.emit(row?.product?.id)">{{ row?.product?.name }}</span>
-				</div>
+				<selector-app
+					type="product"
+					[width]="350"
+					[offsetX]="4"
+					(update)="update.emit({ id: row?.id, product: $event })">
+					<div class="mainCellWrapper product-container ellipsis">
+						<span
+							class="ellipsis pointer txt-btn"
+							[ngClass]="{ 'txt-task-done-empty': row?.done || !row?.product }"
+							(click)="openProduct.emit(row?.product?.id)">
+							{{ row?.product?.name || 'Link to product' }}
+						</span>
+					</div>
+				</selector-app>
 			</ng-container>
 
 			<!-- supplier -->
 			<ng-container *ngSwitchCase="'supplier'">
-				<div class="mainCellWrapper supplier-container ellipsis">
-					<span class="ellipsis pointer txt-btn" (click)="openSupplier.emit(row?.supplier?.id)">{{ row?.supplier?.name }}</span>
-				</div>
+				<selector-app
+					type="supplier"
+					[width]="350"
+					[offsetX]="4"
+					(update)="update.emit({ id: row?.id, supplier: $event })">
+					<div class="mainCellWrapper supplier-container ellipsis">
+						<span
+							class="ellipsis pointer txt-btn"
+							[ngClass]="{ 'txt-task-done-empty': row?.done || !row?.supplier }"
+							(click)="openSupplier.emit(row?.supplier?.id)">
+							{{ row?.supplier?.name || 'Link to supplier'}}
+						</span>
+					</div>
+				</selector-app>
 			</ng-container>
 
 			<!-- due date -->
 			<ng-container *ngSwitchCase="'due date'">
 				<div class="mainCellWrapper due-date-container ellipsis">
-					<span class="ellipsis">{{ row?.dueDate | date: 'dd MMM y':'':translate.currentLang }}</span>
+					<span class="ellipsis" [ngClass]="{ 'txt-task-done-empty': row?.done || !row?.dueDate }">{{ row?.dueDate ? (row?.dueDate | date: 'dd MMM y':'':translate.currentLang) : 'Set due date' }}</span>
 				</div>
 			</ng-container>
 
@@ -122,15 +151,23 @@
 
 			<!-- assignee -->
 			<ng-container *ngSwitchCase="'assigned to'">
-				<div *ngIf="row?.assignee" class="flex assignee-container ellipsis">
-					<user-picture-app
-						[user]="row?.assignee"
-						[image]="row?.assignee?.avatar"
-						[background]="false"
-						[fontSize]="16">
-					</user-picture-app>
-					<span class="assignee-name ellipsis">{{ row?.assignee | formatUserName: true }}</span>
-				</div>
+				<selector-app
+					type="user"
+					[width]="350"
+					[offsetX]="4"
+					(update)="update.emit({ id: row?.id, assignee: $event })">
+					<div  class="flex assignee-container ellipsis pointer">
+						<user-picture-app
+							[user]="row?.assignee"
+							[image]="row?.assignee?.avatar">
+						</user-picture-app>
+						<span
+							class="assignee-name ellipsis txt-btn"
+						 	[ngClass]="{ 'txt-task-done-empty': row?.done || !row?.assignee }">
+						 	{{ row?.assignee ? (row?.assignee | formatUserName: true) : 'Assign Task' }}
+						</span>
+					</div>
+				</selector-app>
 			</ng-container>
 
 			<!-- status -->

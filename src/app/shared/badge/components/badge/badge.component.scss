@@ -13,7 +13,7 @@
 		color: var(--color-secondary-contrast);
 	}
 	&.third {
-		background: rgba(163, 175, 198, 0.1);
+		background: var(--color-bg-third);
 		color: var(--color-txt-third);
 	}
 	&.vibrant {

@@ -32,14 +32,26 @@
 }
 
 .placeholderCtnr {
+	margin: var(--spacing-l) 0;
 	height: 100%;
 
-	.placeholder {
-		padding-top: var(--spacing-xxl);
-		font-weight: 600;
-		font-size: 20px;
+	.placeholder-logo {
+		margin-bottom: var(--spacing-ms);
 	}
+
+	.placeholder-title {
+		color: var(--color-txt-primary);
+		font-weight: 600;
+		margin-bottom: var(--spacing-xs);
+	}
+
+	.placeholder-description {
+		color: var(--color-txt-secondary);
+		margin-bottom: var(--spacing-ms);
+	}
+
 }
+
 .context-menu {
 	padding: 0 !important;
 	icon-app {
@@ -69,7 +81,7 @@
 .cell, .header {
 	color: var(--color-txt-primary);
 	padding: 0 var(--spacing-ms);
-	border-bottom: 1px solid  var(--color-bg-secondary);
+	border-bottom: 1px solid  var(--color-bg-third);
 	height: 47px;
 	display: flex;
 	align-items: center;
@@ -84,6 +96,10 @@
 	text-transform: capitalize;
 	font-weight: 600;
 	font-size: 14px;
+}
+
+.selected {
+	background: var(--color-bg-secondary);
 }
 
 
@@ -117,7 +133,7 @@
 	}
 	
 	.cell {
-		border-bottom: 1px solid var(--color-bg-secondary);
+		border-bottom: 1px solid var(--color-bg-third);
 	}
 	.cell, .header {
 		padding: 0;

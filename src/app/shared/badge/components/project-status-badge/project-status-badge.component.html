@@ -1,9 +1,8 @@
 <badge-app
-	class="pointer"
-	size="l"
+	class="pointer uppercase bold-s"
+	size="m"
 	[type]="getType()"
 	(click)="update.emit(!project.done)">
-		<icon-app name="circle"></icon-app>
 		<div>
 			{{ 'text.' + getProjectStatus() | translate }}
 		</div>
