@@ -1,13 +1,13 @@
 <!-- top panel -->
 <header-list-app
-	[class.header-detail-margin-board]="listSrv.view === 'board'"
+	class="max-full-table-width"
 	[title]="'title.my-samples' | translate"
 	[buttonName]="'button.create-sample' | translate"
 	(buttonClick)="commonModalSrv.openAddSampleDialog()">
 </header-list-app>
 
 <controller-list-app
-	[class.sub-menu-padding-board]="listSrv.view === 'board'"
+	class="max-full-table-width"
 	[filtersAmount]="listSrv.getFilterAmount([{ type: filterTypeEnum.ARCHIVED, value: false }, { type: filterTypeEnum.DELETED, value: false }])"
 	[hasFilter]="true"
 	[hasSwitch]="true"
@@ -19,8 +19,8 @@
 	[searchValue]="listSrv.searchValue"
 	(search)="listSrv.search($event)"
 	(clearFilters)="onClearFilters()"
-	(showArchived)="listSrv.filterByArchived(true)"
-	(hideArchived)="listSrv.filterByArchived(false)"
+	(showArchived)="listSrv.filterByArchived(false)"
+	(hideArchived)="listSrv.filterByArchived(true)"
 	(showAssigned)="listSrv.filterByAssignee(true)"
 	(hideAssigned)="listSrv.filterByAssignee(false)"
 	(export)="onExport()"
@@ -51,6 +51,7 @@
 
 <samples-table-app
 	*ngIf="listSrv.view === 'list'"
+	class="max-full-table-width"
 	[rows]="listSrv.items$ | async"
 	[selection]="listSrv.selection$ | async"
 	[pending]="listSrv.pending"
@@ -68,6 +69,8 @@
 	(unfavorited)="listSrv.onItemUnfavorited($event)"
 	(previewClick)="listSrv.openPreview($event)"
 	(showItemsPerPage)="showItemsPerPage($event)"
+	(update)="listSrv.update($event)"
+	(createClick)="commonModalSrv.openAddSampleDialog()"
 	(delete)="listSrv.deleteOne($event)">
 </samples-table-app>
 
@@ -114,5 +117,12 @@
 	(close)="listSrv.closeFilterPanel()"
 	*ngIf="listSrv.filterPanelOpen">
 </filters-app>
-	
+
+<sample-preview-app
+	*ngIf="listSrv.previewOpen"
+	[sample]="listSrv.previewed"
+	(close)="listSrv.closePreview()">
+</sample-preview-app>
+
+
 
