@@ -15,18 +15,28 @@ img-app {
 
 .info-container {
 	font-size: var(--font-size-m);
+	margin-left: 10px;
 
 	.price {
-		color: var(--legacy-color-primary);
+		color: var(--color-primary);
 	}
 
 	.category {
-		color: var(--legacy-color-supplier-tag);
+		color: var(--color-supplier);
+	}
+
+	.reference { 
+		display: flex;
 	}
 
 	icon-app {
-		color: var(--legacy-color-txt-secondary);
+		color: var(--color-primary);
 		font-size: 4px;
+	}
+
+	activities-bar-app {
+		display: flex;
+		align-items: center;
 	}
 }
 

@@ -3,8 +3,8 @@ import { TableConfig } from '~core/list-page';
 import { Task } from '~core/models';
 
 const tableConfig: TableConfig = {
-	about: { title: 'about', translationKey: 'about', width: 590, sortProperty: 'name' },
-	status: { title: 'status', translationKey: 'status', width: 80, sortProperty: 'status.step', sortable: false },
+	about: { name: 'about', translationKey: 'about', width: 590, sortProperty: 'name' },
+	status: { name: 'status', translationKey: 'status', width: 80, sortProperty: 'status.step', sortable: false },
 };
 
 @Component({

@@ -71,25 +71,30 @@
 				*ngSwitchCase="'product'"
 				type="product"
 				[circle]="true"
-				size="xl"
-			>
+				size="xl">
 			</logo-app>
+
 			<logo-app
 				*ngSwitchCase="'sample'"
 				type="sample"
 				[circle]="true"
 				size="xl">
+			</logo-app>
 
+			<logo-app
+				*ngSwitchCase="'task'"
+				type="task"
+				[circle]="true"
+				size="xl">
 			</logo-app>
-			<logo-app *ngSwitchCase="'task'" type="task" [circle]="true" size="xl">
-			</logo-app>
+
 			<logo-app
 				*ngSwitchCase="'supplier'"
 				type="supplier"
 				[circle]="true"
 				size="xl">
-
 			</logo-app>
+
 		</ng-container>
 
 		<h1>{{ 'OBJ.no-OBJ-assigned-to-you' | translate: {field: 'ERM.' + selectedEntity.toUpperCase() + '.singular' | translate} }}</h1>

@@ -1,27 +1,36 @@
-// Keep
+:host {
+	display: flex;
+}
+
 .action-button-container {
-	display: inline-block;
-	margin: var(--spacing-ms) var(--spacing-m);
-	margin-top: 0;
+	display: inline-table;
+	margin: 0 var(--spacing-m);
 
 	.round-button {
     display: inline-grid;
-		width: var(--spacing-xxl);
-		height: var(--spacing-xxl);
-		border-radius: var(--spacing-xxl);
-		background-color: var(--legacy-color-secondary);
-		font-size: var(--font-size-xxxl);
-		color: var(--legacy-color-txt-primary);
+		width: 41px;
+		height: 41px;
+		border-radius: 500px;
+		background-color: var(--color-primary);
+		font-size: 20px;
+		color: var(--color-primary-contrast);
 	}
 	.btn-text {
-		font-size: 14px;
-		color: var(--legacy-color-txt-strong);
+		color: var(--color-txt-primary);
 		margin-top: var(--spacing-s);
+		font-weight: 600;
 	}
 }
 
 .context-menu-item-text {
-	font-size: 14px;
-	color: var(--legacy-color-txt-strong);
-	padding-left: 15px
+	color: var(--color-txt-primary);
+	padding-left: var(--spacing-ms);
+}
+
+// this is just so we can display the badge where we want
+.empty-smaller-container {
+	position: absolute;
+	width: 36px;
+	height: 30px;
+	display: inline-grid;
 }

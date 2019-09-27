@@ -2,33 +2,67 @@
 
 	<dialog-header-app translate="button.add-to-project"></dialog-header-app>
 
-	<dialog-subtitle-app>{{'header.select-project' | translate}}</dialog-subtitle-app>
+	<controller-list-app
+		[buttonName]="'button.create-project' | translate"
+		[entityType]="erm.PROJECT.plural"
+		[hasFilter]="false"
+		[hasSwitch]="false"
+		[hasExport]="false"
+		[count]="listSrv.count$ | async"
+		[view]="listSrv.view"
+		[searchValue]="listSrv.searchValue"
+		[searchFullWidth]="false"
+		[subPanelDialog]="true"
+		(buttonClick)="create()"
+		(search)="listSrv.search($event)"
+		(showArchived)="listSrv.filterByArchived(true)"
+		(hideArchived)="listSrv.filterByArchived(false)"
+		(showAssigned)="listSrv.filterByAssignee(true)"
+		(hideAssigned)="listSrv.filterByAssignee(false)">
 
-	<main *ngIf="projects$ | async as projects" class="scrollable">
-		<list-app>
-			<list-item-app *ngFor="let project of projects; first as first; trackBy: trackByFn" (click)="checkbox.onClick()">
+		<controller-list-left-item-app class="flex">
+			<div class="flex show-my-samples">
 				<checkbox-app
-					#checkbox
-					[size]="14"
-					[autoFocus]="first"
-					(check)="select(project.id, project)"
-					(uncheck)="unselect(project.id)"
-					[checked]="selected[project.id]"
-					(click)="checkbox.onClick()">
+					[checked]="listSrv.filterList.hasFilterType(filterType.ASSIGNEE)">
 				</checkbox-app>
-				<div class="flexCenter flexBetween flexGrow">
-					<span class="name">{{ project.name }}</span>
-					<div class="productNumber" >{{ project.productCount }}</div>
-				</div>
-			</list-item-app>
-		</list-app>
-	</main>
+				<span class="ellipsis" translate="text.show-only-my-sample"></span>
+			</div>
+		</controller-list-left-item-app>
 
-	<dialog-footer-app class="fullWidth flexCenter flexBetween">
-		<span class="txt-secondary">
-			{{ ((products?.length || 0) > 1 ? 'OBJ.product-selected.plural' : 'OBJ.product-selected.singular') | translate: {count: products?.length || 0} }}
-		</span>
-		<button tabFocusAction [disabled]="numSelected < 1" class="capitalize" (click)="submit()"
-			translate="button.add-now"></button>
+	</controller-list-app>
+
+	<projects-table-app
+		class="list-view"
+		[hasPagination]="false"
+		[hasMenu]="false"
+		[hasHeaderBorder]="true"
+		[headerSecondary]="true"
+		[selection]="listSrv.selection$ | async"
+		[rows]="listSrv.items$ | async"
+		[pending]="listSrv.pending"
+		[count]="listSrv.count$ | async"
+		[currentSort]="listSrv.currentSort"
+		[currentPage]="listSrv.currentPage"
+		(goToPage)="listSrv.loadPage($event)"
+    (select)="select($event)"
+    (unselect)="unselect($event)"
+    (selectAll)="selectAll($event)"
+    (unselectAll)="unselectAll()"
+		(sort)="listSrv.sort($event)"
+		(bottomReached)="listSrv.loadMore()"
+		(delete)="listSrv.deleteOne($event)">
+	</projects-table-app>
+
+	<dialog-footer-app class="flexVAlign">
+		<div class="product-action">
+			<span class="selected-product-count">{{ selectedProjectsCount }}</span>
+			<span class="selected-product">Project Selected</span> <!-- TODO: add translation -->
+		</div>
+		<button class="primary-light cancel secondary capitalize" translate="button.cancel"></button>
+		<button class="add-to-project capitalize" (click)="submit()" translate="button.add-to-project"></button>
 	</dialog-footer-app>
+
+	<ng-template #spinner>
+		<spinner-app></spinner-app>
+	</ng-template>
 </dialog-app>

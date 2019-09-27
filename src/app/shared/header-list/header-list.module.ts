@@ -30,9 +30,8 @@ import { HeaderDetailsComponent } from './components/header-details/header-detai
 import { HeaderDetailsTitleComponent } from './components/header-details-title/header-details-title.component';
 import { HeaderDetailsInfoComponent } from './components/header-details-info/header-details-info.component';
 import { HeaderDetailsActionsComponent } from './components/header-details-actions/header-details-actions.component';
-import { HeaderListNavItemComponent } from './components/header-list-nav-item/header-list-nav-item.component';
-import { HeaderListNavComponent } from './components/header-list-nav/header-list-nav.component';
-import { PanelTabComponent } from './components/panel-tab/panel-tab.component';
+import { HeaderNavItemComponent } from './components/header-nav-item/header-nav-item.component';
+import { HeaderNavComponent } from './components/header-nav/header-nav.component';
 
 @NgModule({
 	imports: [
@@ -70,9 +69,8 @@ import { PanelTabComponent } from './components/panel-tab/panel-tab.component';
 		HeaderListActionButtonsComponent,
 		HeaderDetailsInfoComponent,
 		HeaderDetailsActionsComponent,
-		HeaderListNavComponent,
-		HeaderListNavItemComponent,
-		PanelTabComponent,
+		HeaderNavComponent,
+		HeaderNavItemComponent,
 	],
 	exports: [
 		HeaderListComponent,
@@ -85,9 +83,8 @@ import { PanelTabComponent } from './components/panel-tab/panel-tab.component';
 		HeaderListActionButtonsComponent,
 		HeaderDetailsInfoComponent,
 		HeaderDetailsActionsComponent,
-		HeaderListNavComponent,
-		HeaderListNavItemComponent,
-		PanelTabComponent,
+		HeaderNavComponent,
+		HeaderNavItemComponent,
 	],
 })
 export class HeaderListModule { }

@@ -13,21 +13,6 @@ import { translate } from '~utils';
 import { TableConfig } from '~core/list-page';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 
-const tableConfig: TableConfig = {
-	activities: { title: 'activity', translationKey: 'activity', width: 190, sortable: false },
-	category: { title: 'category', translationKey: 'category', width: 190, sortProperty: 'category.name' },
-	createdBy: { title: 'created by', translationKey: 'created-by', width: 140, sortProperty: 'creationDate' },
-	creationDate: { title: 'creation date', translationKey: 'creation-date', width: 190, sortProperty: 'creationDate' },
-	about: { title: 'about', translationKey: 'about', width: 190, sortProperty: 'creationDate' },
-	favorite: { title: 'favorite', translationKey: 'favorite', width: 50, sortProperty: 'favorite' },
-	moq: { title: 'moq', translationKey: 'moq', width: 120, sortProperty: 'minimumOrderQuantity' },
-	price: { title: 'price', translationKey: 'price', width: 120, sortProperty: 'price.value' },
-	projects: { title: 'projects', translationKey: 'projects', width: 190, sortProperty: 'creationDate' },
-	reference: { title: 'reference', translationKey: 'reference', width: 247, sortProperty: 'reference' },
-	status: { title: 'status', translationKey: 'status', width: 190, sortProperty: 'status.step' },
-	supplier: { title: 'supplier', translationKey: 'supplier', width: 190, sortProperty: 'supplier.id' },
-};
-
 @Component({
 	selector: 'product-select-dlg',
 	templateUrl: './product-select-dlg.component.html',
@@ -44,7 +29,6 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 
 	selectItemsConfig: SelectParamsConfig;
 	filterType = FilterType;
-	productTableConfig = tableConfig;
 	erm = ERM;
 
 	filterTypes = [

@@ -28,14 +28,12 @@ export class Supplier extends EntityWithAudit<SupplierConfig> {
 	generalLeadTime?: number;
 	tags?: Tag[];
 	categories?: Category[];
-	favorite ?= false;
+	favorite?= false;
 	globalDatabaseId?: string;
 	status?: SupplierStatus;
 	comments?: Comment[];
 	lastUpdatedBy?: User;
-	archived ?= false;
-	// extendedFields?: ExtendedField[];
-	__typename ?= 'Supplier';
+	__typename?= 'Supplier';
 }
 
 export interface SupplierConfig {
@@ -65,5 +63,4 @@ export const supplierMock: Supplier = {
 	name: 'supplier',
 	images: [imageMock],
 	logoImage: imageMock,
-	__typename: 'Supplier'
 } as any;
