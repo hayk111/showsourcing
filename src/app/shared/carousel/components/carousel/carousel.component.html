@@ -29,7 +29,7 @@
 	<!-- move back -->
 	<div
 		*ngIf="images?.length > 1"
-		class="move-btn back flexCenter circle pointer btn action"
+		class="move-btn back flexCenter circle pointer btn visible-on-hover"
 		(mousedown)="back($event)">
 		<icon-app name="angle-left" color="white"></icon-app>
 	</div>
@@ -37,13 +37,13 @@
 	<!-- move next -->
 	<div
 		*ngIf="images?.length > 1"
-		class="move-btn next flexCenter circle pointer btn action"
+		class="move-btn next flexCenter circle pointer btn visible-on-hover"
 		(mousedown)="next($event)">
-	<icon-app name="angle-right" color="white"></icon-app>
+		<icon-app name="angle-right" color="white"></icon-app>
 	</div>
 
 	<!-- menu -->
-	<context-menu-app class="menu action" *ngIf="!static">
+	<context-menu-app class="menu visible-on-hover" *ngIf="!static">
 		<context-menu-trigger-app>
 				<icon-app
 					name="dots-vertical"
@@ -59,8 +59,14 @@
 		<context-menu-item-app (click)="delete()" translate="button.delete"></context-menu-item-app>
 	</context-menu-app>
 
+	<!-- number of pictures -->
+	<div *ngIf="isImagePropertyArray && images?.length" class="image-counter flexCenter absolute">
+		<icon-app name="pictures"></icon-app>
+		<span>{{ selectedIndex + 1 }} of {{ images?.length }}</span>
+	</div>
+
 	<!-- add -->
-	<div *ngIf="!static" class="btn add pointer action" (click)="openFileBrowser()" translate="button.add"></div>
+	<div *ngIf="!static" class="btn add pointer visible-on-hover" (click)="openFileBrowser()" translate="button.add"></div>
 
 	<!-- counter -->
 	<div class="counter flexCenter">

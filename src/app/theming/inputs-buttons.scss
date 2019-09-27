@@ -177,6 +177,14 @@ button, input[type="submit"], .button {
 		}
 	}
 
+	&.secondary-light {
+		background: var(--color-secondary-light);
+		color: var(--color-secondary-contrast);
+		&:hover, &.cdk-keyboard-focused {
+			background: var(--color-secondary);
+		}
+	}
+
 
 	&::first-letter {
 		text-transform: capitalize;

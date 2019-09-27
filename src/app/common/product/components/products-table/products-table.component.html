@@ -64,7 +64,7 @@
 		[sortable]="column.sortable !== false"
     [width]="column.width"
     [sortBy]="column.sortProperty">
-    <ng-container [ngSwitch]="column.title">
+    <ng-container [ngSwitch]="column.name">
 
       <!-- product reference -->
       <ng-container *ngSwitchCase="'reference'">
@@ -251,7 +251,7 @@
       <!-- status -->
       <ng-container *ngSwitchCase="'status'">
 				<div class="status-col flexVAlign">
-						<selector-app
+					<selector-app
 						[type]="erm.USER.singular"
 						[width]="320"
 						[offsetX]="4"
@@ -281,7 +281,7 @@
 
       <!-- default -->
       <ng-container *ngSwitchDefault>
-        {{ row[column.title] }}
+        {{ row[column.name] }}
       </ng-container>
 
     </ng-container>
