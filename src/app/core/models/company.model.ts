@@ -1,5 +1,5 @@
 import { uuid } from '~utils';
-
+import { User } from '~models/user.model';
 
 export class Company {
 	id: string;

@@ -3,6 +3,8 @@ export * from './export-table/export-table.component';
 export * from './invitations-table/invitations-table.component';
 export * from './product-status-workflow/product-status-workflow.component';
 export * from './profile-card/profile-card.component';
+export * from './settings-company/settings-company.component';
+export * from './company-card/company-card.component';
 export * from './team-card/team-card.component';
 export * from './sample-status-workflow/sample-status-workflow.component';
 export * from './settings-profile/settings-profile.component';

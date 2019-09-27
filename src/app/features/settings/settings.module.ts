@@ -15,10 +15,13 @@ import {
 	SettingsTeamMembersComponent,
 	SupplierStatusWorkflowComponent,
 	TeamMembersTableComponent,
+	SettingsCompanyComponent,
+	CompanyCardComponent,
 } from '~features/settings/components';
 import {
 	SettingsComponent,
 	SettingsTeamMembersContentComponent,
+	SettingsCompanyPageComponent,
 	SettingsExportComponent,
 	SettingsFieldsPageComponent,
 	SettingsTeamMembersInvitationsComponent,
@@ -40,6 +43,7 @@ import { SharedModule } from '~shared/shared.module';
 	declarations: [
 		CompanyProfileCardComponent,
 		ExportTableComponent,
+		SettingsCompanyComponent,
 		InvitationsTableComponent,
 		ProductStatusWorkflowComponent,
 		ProfileCardComponent,
@@ -55,7 +59,9 @@ import { SharedModule } from '~shared/shared.module';
 		SettingsTeamMembersPageComponent,
 		SettingsTeamMembersUsersComponent,
 		SettingsWorkflowsPageComponent,
+		CompanyCardComponent,
 		SupplierStatusWorkflowComponent,
+		SettingsCompanyPageComponent,
 		TeamMembersTableComponent,
 	],
 	entryComponents: [],

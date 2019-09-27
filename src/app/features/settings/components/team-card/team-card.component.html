@@ -1,11 +1,11 @@
 
-<h2>Team Settings</h2> <!-- TODO: translation to be added -->
+<h2 class="title">Team Settings</h2> <!-- TODO: translation to be added -->
 
 <form [formGroup]="form">
 	<form-field-app class="borderless">
-		<label-app class="capitalize" translate="label.team-name"></label-app>
-		<input [value]="team.name" inputApp type="text" formControlName="teamName"/>
+		<label-app class="team-name capitalize" translate="label.team-name"></label-app>
+		<input class="name-input" [value]="team.name" inputApp type="text" formControlName="teamName"/>
 	</form-field-app>
 </form>
 
-<h2 class="team-created-date">Team crated on {{ team.creationDate | date: 'd MMM y' }}</h2>
+<h2 class="team-created-date">Team created on {{ team.creationDate | date: 'd MMM y' }}</h2>
