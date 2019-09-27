@@ -10,6 +10,7 @@
 		}
 		@media only screen and (min-width:3400px){
 			margin: 20px auto 0 auto;
+			width: var(--screen-tables-max-width);
 		}
 		max-width: var(--screen-tables-max-width);
 	}
@@ -22,7 +23,7 @@
 
 .export-button icon-app {
 	display: inline;
-	margin-right: 14.5px;
+	margin-right: var(--spacing-ms);
 }
 
 .flex {

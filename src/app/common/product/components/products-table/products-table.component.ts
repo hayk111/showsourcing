@@ -29,7 +29,8 @@ const mediumTableConfig: TableConfig = {
 	selector: 'products-table-app',
 	templateUrl: './products-table.component.html',
 	styleUrls: [
-		'./products-table.component.scss'
+		'./products-table.component.scss',
+		'../../../../../app/theming/specific/list.scss'
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -49,7 +50,7 @@ export class ProductsTableComponent extends EntityTableComponent<Product> implem
 	@Output() archive = new EventEmitter<Product>();
 	@Output() delete = new EventEmitter<Product>();
 	@Output() showItemsPerPage = new EventEmitter<number>();
-	prodErm = ERM.PRODUCT;
+	erm = ERM;
 	color = Color;
 
 	constructor(public translate: TranslateService) {

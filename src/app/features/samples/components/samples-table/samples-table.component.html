@@ -67,7 +67,7 @@
 		[grows]="false"
 		width="140">
 		<selector-app
-			type="product"
+			[type]="erm.PRODUCT.singular"
 			[offsetX]="4"
 			[width]="350"
 			(update)="update.emit({ id: row?.id, product: $event })">
@@ -89,7 +89,7 @@
 		let-row="row"
 		width="220">
 		<selector-app
-			type="supplier"
+			[type]="erm.SUPPLIER.singular"
 			[width]="350"
 			[offsetX]="4"
 			(update)="update.emit({ id: row?.id, supplier: $event })">
@@ -145,7 +145,7 @@
 		width="180">
 		<div class="status-col flexVAlign">
 			<selector-app
-				type="user"
+				[type]="erm.USER.singular"
 				[width]="320"
 				[offsetX]="4"
 				(update)="update.emit({ id: row?.id, assignee: $event })">

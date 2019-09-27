@@ -1,7 +1,7 @@
 <div class="flexGrow flexColumn products-content">
 	<!-- top panel -->
 	<header-list-app
-		[class.header-detail-margin-board]="listSrv.view === 'board'"
+		class="max-full-table-width"
 		[title]="'title.my-products' | translate"
 		[buttonName]="'button.create-product' | translate"
 		(buttonClick)="commonModalSrv.openCreationProductDlg()"
@@ -9,7 +9,7 @@
 	</header-list-app>
 
 	<controller-list-app
-		[class.sub-menu-padding-board]="listSrv.view === 'board'"
+		class="max-full-table-width"
 		[filtersAmount]="listSrv.getFilterAmount([{ type: filterTypeEnum.ARCHIVED, value: false }, { type: filterTypeEnum.DELETED, value: false }])"
 		[hasFilter]="true"
 		[hasSwitch]="true"
@@ -40,6 +40,7 @@
 	<ng-container *ngIf="listSrv.isListening">
 		<products-table-app
 			*ngIf="listSrv.view === 'list'"
+			class="max-full-table-width"
 			#productList
 			[currentSort]="listSrv.currentSort"
 			[pending]="listSrv.pending"
@@ -65,6 +66,8 @@
 			(showItemsPerPage)="showItemsPerPage($event)"
 			(unfavorited)="listSrv.onItemUnfavorited($event)"
 			(unselect)="listSrv.unselectOne($event, true)"
+			(update)="listSrv.update($event)"
+			(createClick)="commonModalSrv.openCreationProductDlg()"
 			(unselectAll)="listSrv.unselectAll()">
 		</products-table-app>
 
@@ -121,6 +124,7 @@
 		</product-preview-app>
 	</ng-container>
 </div>
+
 <filters-app
 	*ngIf="listSrv.filterPanelOpen"
 	[filterList]="listSrv.filterList"

@@ -27,6 +27,7 @@
 		<span class="capitalize entities-count">
 			{{count}} {{ entityType }}
 		</span>
+
 	</div>
 
 	<div class="right-container flex">
@@ -86,6 +87,7 @@
 		<button *ngIf="hasFilter && !filtersPanelOpened && hasExport" class="flexCenter bold-s pointer capitalize export-button"
 			(click)="export.emit()" translate="button.export">
 			<icon-app name="close-pane-bottom" size="m"></icon-app>
+			Export
 		</button>
 
 		<button
