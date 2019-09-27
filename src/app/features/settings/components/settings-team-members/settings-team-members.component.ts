@@ -36,9 +36,9 @@ export class SettingsTeamMembersComponent extends AutoUnsub implements OnInit {
 	}
 
 	updateTeamName({ teamName }) {
-		// if (teamName.length) {
-		// 	this.team.name = teamName;
-		// 	this.teamSrv.update(this.team).subscribe();
-		// }
+		if (teamName.length) {
+			this.team.name = teamName;
+			this.teamSrv.update(this.team).subscribe();
+		}
 	}
 }
