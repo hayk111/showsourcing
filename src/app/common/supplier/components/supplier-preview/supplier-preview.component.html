@@ -1,5 +1,9 @@
-<preview-app *ngIf="supplier$ | async" [ngClass]="isRelative ? 'relative' : ''" cdk-scrollable
-	[align]="isRelative ? 'left' : 'right'" [isFixed]="isFixed">
+<preview-app
+	cdk-scrollable
+	*ngIf="supplier$ | async"
+	[ngClass]="isPreview ? '' : 'relative'"
+	[hasLogo]="true"
+	[align]="isPreview ? 'right' : 'left'">
 
 		<!-- Banner -->
 		<preview-banner-app
@@ -21,7 +25,7 @@
 			[entityMD]="erm.SUPPLIER"
 			[supplier]="supplier"
 			[logoImage]="supplier?.logoImage"
-			[hasTop]="!isRelative"
+			[displayEntityInfo]="isPreview"
 			(update)="update($event, 'name')">
 
 		<!-- Supplier type badge -->
@@ -88,29 +92,29 @@
 	</preview-section-app>
 
 	<!-- Activity -->
-	<preview-section-app *ngIf="!isRelative && supplier?.comments?.length" [title]="'title.comments' | translate">
+	<preview-section-app *ngIf="isPreview && supplier?.comments?.length" [title]="'title.comments' | translate">
 		<comment-list-app [comments]="supplier.comments"></comment-list-app>
 	</preview-section-app>
 
-	<preview-comment-app *ngIf="!isRelative" (added)="addComment($event)"></preview-comment-app>
+	<preview-comment-app *ngIf="isPreview" (added)="addComment($event)"></preview-comment-app>
 
 	<!-- Info -->
-	<preview-section-app *ngIf="isRelative && !isFixed" [title]="'title.info' | translate"  class="mg-bottom-none">
+	<preview-section-app *ngIf="!isPreview" [title]="'title.info' | translate"  class="mg-bottom-none">
 		<div class="flexColumn">
 			<span class="color-txt-strong">
-				{{ 
+				{{
 					'OBJ.created-by-on' | translate: {
-						name: supplier?.createdBy | formatUserName: true, 
+						name: supplier?.createdBy | formatUserName: true,
 						date: supplier?.creationDate | date: 'dd MMMM yyyy':'':translateService.currentLang
-					} 
+					}
 				}}
 			</span>
 			<span class="color-txt-strong">
-				{{ 
+				{{
 					'OBJ.last-updated-by-on' | translate: {
-						name: supplier?.lastUpdatedBy | formatUserName: true, 
+						name: supplier?.lastUpdatedBy | formatUserName: true,
 						date: (supplier?.lastUpdatedDate || product?.creationDate) | date: 'dd MMMM yyyy':'':translateService.currentLang
-					} 
+					}
 				}}
 			</span>
 		</div>

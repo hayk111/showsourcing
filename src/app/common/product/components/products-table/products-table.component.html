@@ -62,7 +62,7 @@
 		[sortable]="column.sortable !== false"
     [width]="column.width"
     [sortBy]="column.sortProperty">
-    <ng-container [ngSwitch]="column.title">
+    <ng-container [ngSwitch]="column.name">
 
       <!-- product reference -->
       <ng-container *ngSwitchCase="'reference'">
@@ -198,14 +198,14 @@
       <ng-container *ngSwitchCase="'creation date'">
         {{ row?.creationDate | date: 'dd MMMM y' }}
 			</ng-container>
-			
+
       <!-- created by -->
       <ng-container *ngSwitchCase="'created by'">
         <div class="created-by-date">
           {{ row?.creationDate | date: 'dd MMMM y' }}
         </div>
 			</ng-container>
-			
+
 			<!-- favorite -->
 			<ng-container *ngSwitchCase="'favorite'">
 				<div>
@@ -246,7 +246,8 @@
 						[image]="row.createdBy?.avatar"
 						[background]="false"
 						[fontSize]="16"
-						size="32"></user-picture-app>
+						size="32">
+					</user-picture-app>
 					<status-selector-app [entity]="row" [typeEntity]="prodErm" [canUpdate]="canUpdate" selectSize="s"></status-selector-app>
 				</div>
 			</ng-container>
@@ -254,19 +255,19 @@
 			<!-- name -->
       <ng-container *ngSwitchCase="'name'">
 				<div class="flexVAlign">
-					<logo-app 
-						class="mini imgCtnr" 
-						[logo]="row.images[0]" 
-						[color]="color.SECONDARY" 
-						size="ms" 
+					<logo-app
+						class="mini imgCtnr"
+						[logo]="row.images[0]"
+						[color]="color.SECONDARY"
+						size="ms"
 						type="product"></logo-app>
 					<span class="product-name">{{ row?.name }}</span>
 				</div>
 			</ng-container>
-		
+
       <!-- default -->
       <ng-container *ngSwitchDefault>
-        {{ row[column.title] }}
+        {{ row[column.name] }}
       </ng-container>
 
     </ng-container>

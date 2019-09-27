@@ -29,7 +29,7 @@
 		</context-menu-item-app>
 	</ng-template>
 
-	  <!-- dynamic columns -->
+		<!-- dynamic columns -->
 		<ng-template
 			*ngFor="let column of columnsConfig; trackBy: trackByFn"
 			let-row="row"
@@ -38,15 +38,17 @@
 			[width]="column.width"
 			[sortBy]="column.sortProperty">
 
-    <ng-container [ngSwitch]="column.title">
+    <ng-container [ngSwitch]="column.name">
 
 			<!-- task done -->
-			<ng-container *ngSwitchCase="''">
+			<!-- the only way to read 2 options on single switch case -->
+			<ng-container *ngSwitchCase="'done'">
 				<icon-app
 					class="pointer"
 					[ngClass]="row?.done ? 'task-is-done': 'task-not-done'"
 					[name]="row?.done ? 'check-circle' : 'check-circle-light'"
-					[size]="24" >
+					[size]="24"
+					(click)="update.emit({ id: row?.id, done: !row.done })">
 				</icon-app>
 			</ng-container>
 
@@ -75,8 +77,18 @@
 
 			<!-- name -->
 			<ng-container *ngSwitchCase="'name'">
-				<div class="mainCellWrapper name-container ellipsis">
+				<div class="mainCellWrapper name-container ellipsis flexColumn">
 					<span class="ellipsis pointer txt-btn" (click)="previewClick.emit(row)">{{ row?.name }}</span>
+				</div>
+			</ng-container>
+
+			<!-- name assignee -->
+			<ng-container *ngSwitchCase="'name assignee'">
+				<div class="mainCellWrapper name-container ellipsis flexColumn">
+					<span class="ellipsis pointer txt-btn" (click)="previewClick.emit(row)">{{ row?.name }}</span>
+					<span *ngIf="row?.assignee" class="sub-property">
+						Assigned to {{ row?.assignee | formatUserName: true }}
+					</span>
 				</div>
 			</ng-container>
 
@@ -98,6 +110,13 @@
 			<ng-container *ngSwitchCase="'due date'">
 				<div class="mainCellWrapper due-date-container ellipsis">
 					<span class="ellipsis">{{ row?.dueDate | date: 'dd MMM y':'':translate.currentLang }}</span>
+				</div>
+			</ng-container>
+
+			<!-- due date small -->
+			<ng-container *ngSwitchCase="'due date small'">
+				<div class="mainCellWrapper ellipsis">
+					<span class="ellipsis due-date-small">{{ row?.dueDate | date: 'dd MMM' }}</span>
 				</div>
 			</ng-container>
 

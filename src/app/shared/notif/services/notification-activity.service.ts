@@ -1,17 +1,15 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { environment } from 'environments/environment';
 import * as getstream from 'getstream';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { first, map, switchMap, tap } from 'rxjs/operators';
-import { TokenService } from '~deprecated/token.service';
+import { first, map, switchMap } from 'rxjs/operators';
+import { GetStreamNotification } from '~common/activity/interfaces/get-stream-feed.interfaces';
 import { TokenResponse } from '~common/activity/interfaces/token-response.interface';
 import { TokenState } from '~core/auth/interfaces/token-state.interface';
+import { TokenService } from '~deprecated/token.service';
 import { TeamService, UserService } from '~entity-services';
-import {
-	GetStreamNotification
-} from '~common/activity/interfaces/get-stream-feed.interfaces';
-import { Router } from '@angular/router';
 
 
 @Injectable({
@@ -112,7 +110,7 @@ export class NotificationActivityService {
 		return this.shouldUpdateUnreadCount.asObservable();
 	}
 
-	redirect( route: string ) {
+	redirect(route: string) {
 		this.router.navigate([route]);
 	}
 
@@ -124,7 +122,7 @@ export class NotificationActivityService {
 		this.isPanelOpen = false;
 	}
 
-	public onWindowResize( event ) {
+	public onWindowResize(event) {
 		if (this.getInitialLimit() > this.limit) {
 			this.limit = this.getInitialLimit();
 			this.shouldRefetch$.next(true);
