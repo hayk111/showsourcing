@@ -13,9 +13,9 @@
 
 
 <ng-template #badgeStyle>
-	<info-badge-app *ngIf="!value?.length" class="pointer" [type]="type">
+	<info-badge-app *ngIf="!value?.length" class="pointer capitalize" [type]="type">
 		{{ 'OBJ.add-OBJ' | translate: {type: 'ERM.' + type.toUpperCase() + '.plural' | translate} }}
-		<icon-app name="add"></icon-app>
+		<icon-app name="fat-plus"></icon-app>
 	</info-badge-app>
 </ng-template>
 

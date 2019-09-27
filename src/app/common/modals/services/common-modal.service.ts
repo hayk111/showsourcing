@@ -119,7 +119,7 @@ export class CommonModalService {
 			filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
 			map((evt: CloseEvent) => evt.data)
 		).subscribe(({ product }) => {
-			this.router.navigate([ERM.PRODUCT.destUrl, product.id]);
+			// this.router.navigate([ERM.PRODUCT.destUrl, product.id]);
 		});
 	}
 
