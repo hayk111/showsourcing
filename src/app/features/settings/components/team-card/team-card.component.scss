@@ -1,0 +1,36 @@
+
+h2 {
+	margin-bottom: var(--spacing-l);
+}
+
+button.auto {
+	margin-top: var(--spacing-l);
+}
+
+.photoContainer {
+	margin-top: 8px;
+	width: 180px;
+	height: 48px;
+	p {
+		margin: 14px;
+		font-weight: 600;
+	}
+}
+
+user-picture-app {
+	margin: 0;
+	z-index: var(--z-button);
+	border-radius: 20px;
+	font-size: var(--font-size-xl);
+}
+
+label-app {
+	font-weight: 600;
+}
+
+.team-created-date {
+	margin-top: var(--spacing-l);
+	margin-bottom: 0;
+	color: var(--color-txt-secondary);
+	font-size: var(--font-size-s);
+}

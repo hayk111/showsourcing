@@ -1,13 +1,3 @@
-:host products-list-view-app {
-	height: calc(100% - 57px) !important;
-	border-radius: 2px;
-	border: solid 1px var(--pale-grey);
-	background-color: #ffffff;
-	padding: unset;
-	margin: 24px 0 0 0;
-	padding-bottom: 0 !important;
-}
-
 dialog-app {
 	position: relative;
 	height: calc(100vh - 100px);

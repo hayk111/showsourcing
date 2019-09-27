@@ -13,19 +13,19 @@
 			{{ 'OBJ.created-by-name' | translate: {firstName: project?.createdBy?.firstName, lastName: project?.createdBy?.lastName} }}
 		</header-details-info-app>
 
-		<header-list-nav-app>
-			<header-list-nav-item-app
+		<header-nav-app>
+			<header-nav-item-app
 				[link]="getTabPanelUrl('products')"
 				icon="product"
 				[name]="'nav.products' | translate">
-			</header-list-nav-item-app>
+			</header-nav-item-app>
 	
-			<header-list-nav-item-app
+			<header-nav-item-app
 				[link]="getTabPanelUrl('settings')"
 				icon="settings"
 				[name]="'nav.settings' | translate">
-			</header-list-nav-item-app>
-		</header-list-nav-app>
+			</header-nav-item-app>
+		</header-nav-app>
 
 		<header-details-actions-app>
 			<status-selector-app
