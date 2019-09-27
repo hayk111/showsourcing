@@ -22,11 +22,11 @@ header-list-nav-item-app:first-child {
 	margin-left: 10px;
 
 	.price {
-		color: var(--legacy-color-primary);
+		color: var(--color-primary);
 	}
 
 	.category {
-		color: var(--legacy-color-supplier-tag);
+		color: var(--color-supplier);
 	}
 
 	.reference { 
@@ -34,7 +34,7 @@ header-list-nav-item-app:first-child {
 	}
 
 	icon-app {
-		color: var(--legacy-color-txt-secondary);
+		color: var(--color-primary);
 		font-size: 4px;
 	}
 

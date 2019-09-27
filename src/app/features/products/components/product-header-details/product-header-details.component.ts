@@ -5,12 +5,12 @@ import { User } from '~core/models';
 import { Router } from '@angular/router';
 
 @Component({
-	selector: 'product-header-list-app',
-	templateUrl: './product-header-list.component.html',
-	styleUrls: ['./product-header-list.component.scss'],
+	selector: 'product-header-details-app',
+	templateUrl: './product-header-details.component.html',
+	styleUrls: ['./product-header-details.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductHeaderListComponent implements OnInit {
+export class ProductHeaderDetailsComponent implements OnInit {
 	@Input() product: Product;
 	@Output() delete = new EventEmitter<Product>();
 	@Output() export = new EventEmitter<Product>();
