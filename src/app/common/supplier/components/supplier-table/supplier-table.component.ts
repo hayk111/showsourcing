@@ -1,9 +1,9 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
-import { EntityTableComponent, TableConfig } from '~core/list-page/entity-table.component';
-import { ERM, Supplier } from '~models';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { EntityTableComponent, TableConfig, TableConfigType } from '~core/list-page/entity-table.component';
+import { ERM, Supplier } from '~models';
 
-const tableConfig: TableConfig = {
+const bigTableConfig: TableConfig = {
 	activities: { name: 'activities', translationKey: 'activities', width: 190, sortable: false },
 	country: { name: 'country', translationKey: 'country', width: 140, sortProperty: 'country' },
 	supplierType: { name: 'type', translationKey: 'type', width: 190, sortProperty: 'supplierType.name' },
@@ -14,6 +14,11 @@ const tableConfig: TableConfig = {
 	status: { name: 'status', translationKey: 'status', width: 190, sortProperty: 'status.step' },
 };
 
+// it comes form todo box
+const mediumTableConfig: TableConfig = {
+	reference: { name: 'reference', translationKey: 'reference', width: 500, sortProperty: 'reference' },
+	status: { name: 'status', translationKey: 'status', width: 150, sortProperty: 'status.step' },
+};
 
 @Component({
 	selector: 'supplier-table-app',
@@ -30,12 +35,23 @@ export class SupplierTableComponent extends EntityTableComponent<Supplier> {
 	erm = ERM;
 	supplierErm = ERM.SUPPLIER;
 
-	@Input() tableConfig = tableConfig;
+	@Input() tableConfigType: TableConfigType = 'big';
 	@Output() archive = new EventEmitter<Supplier>();
 	@Output() showItemsPerPage = new EventEmitter<number>();
 
 	constructor(public translate: TranslateService) {
 		super();
+	}
+
+	getTableFromType() {
+		switch (this.tableConfigType) {
+			case 'big':
+				return bigTableConfig;
+			case 'medium':
+				return mediumTableConfig;
+			default:
+				return bigTableConfig;
+		}
 	}
 
 }

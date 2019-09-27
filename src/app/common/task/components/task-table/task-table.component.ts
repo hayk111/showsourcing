@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { EntityTableComponent, TableConfig } from '~core/list-page';
 import { TranslateService } from '@ngx-translate/core';
+import { EntityTableComponent, TableConfig, TableConfigType } from '~core/list-page';
 import { ERM, Task } from '~core/models';
 import { ID } from '~utils/id.utils';
 
-const tableConfig: TableConfig = {
+const bigTableConfig: TableConfig = {
 	done: { name: 'done', translationKey: '', width: 0, sortable: false },
 	reference: { name: 'reference', translationKey: 'reference', width: 80, sortProperty: 'reference' },
 	name: { name: 'name', translationKey: 'name', width: 120, sortProperty: 'name' },
@@ -14,6 +14,20 @@ const tableConfig: TableConfig = {
 	assignee: { name: 'assigned to', translationKey: 'assigned-to', width: 140, sortProperty: 'assignee.firstName' },
 	status: { name: 'status', translationKey: 'status', width: 85, sortProperty: 'status.step', sortable: false },
 };
+
+// comes from todo box task
+const mediumTableConfig: TableConfig = {
+	about: { name: 'about', translationKey: 'about', width: 590, sortProperty: 'name' },
+	status: { name: 'status', translationKey: 'status', width: 80, sortProperty: 'status.step', sortable: false },
+};
+
+// preview product
+const smallTableConfig: TableConfig = {
+	done: { name: 'done', translationKey: 'done', width: 50 },
+	name: { name: 'name assignee', translationKey: 'name', width: 240, sortProperty: 'name' },
+	dueDate: { name: 'due date small', translationKey: 'due-date', width: 80, sortProperty: 'dueDate' },
+};
+
 
 @Component({
 	selector: 'task-table-app',
@@ -26,7 +40,7 @@ const tableConfig: TableConfig = {
 })
 export class TaskTableComponent extends EntityTableComponent<Task> {
 
-	@Input() tableConfig = tableConfig;
+	@Input() tableConfigType: TableConfigType = 'big';
 	@Output() openProduct = new EventEmitter<ID>();
 	@Output() openSupplier = new EventEmitter<ID>();
 
@@ -35,4 +49,14 @@ export class TaskTableComponent extends EntityTableComponent<Task> {
 
 	constructor(public translate: TranslateService) { super(); }
 
+	getTableFromType() {
+		switch (this.tableConfigType) {
+			case 'big':
+				return bigTableConfig;
+			case 'medium':
+				return mediumTableConfig;
+			case 'small':
+				return smallTableConfig;
+		}
+	}
 }

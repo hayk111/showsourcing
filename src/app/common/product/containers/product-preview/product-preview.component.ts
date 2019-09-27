@@ -85,17 +85,6 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 
 	fieldDefinitions$: Observable<ExtendedFieldDefinition[]>;
 
-	taskTableConfig: TableConfig = {
-		done: { name: 'done', translationKey: 'done', width: 50 },
-		name: { name: 'name assignee', translationKey: 'name', width: 240, sortProperty: 'name' },
-		dueDate: { name: 'due date small', translationKey: 'due-date', width: 80, sortProperty: 'dueDate' },
-	};
-
-	sampleTableConfig: TableConfig = {
-		name: { name: 'name', translationKey: 'name', width: 120, sortProperty: 'name' },
-		status: { name: 'status', translationKey: 'status', width: 130, sortProperty: 'status.step' },
-	};
-
 	private _pendingImages: PendingImage[] = [];
 
 	constructor(
