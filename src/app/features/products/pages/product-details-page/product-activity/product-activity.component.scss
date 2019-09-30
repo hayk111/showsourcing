@@ -1,0 +1,22 @@
+:host {
+	display: block;
+}
+
+.content {
+	justify-content: center;
+	.left {
+		width: 420px;
+	}
+	.right {
+		width: 772px;
+	}
+}
+
+
+add-comment-app {
+	margin-bottom: var(--spacing-l);
+}
+
+comment-list-app {
+	margin-top: var(--spacing-l);
+}

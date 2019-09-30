@@ -68,7 +68,7 @@
 									<logo-app class="mini imgCtnr" [logo]="row.product?.images[0]" size="m" type="product"></logo-app>
 								<div class="flexColumn ref-ctnr">
 									<span class="product-ref ellipsis">
-										<a class="name txt-btn" [routerLink]="['/product', row.product?.id]">
+										<a class="name txt-btn" *ngIf="row.product" [routerLink]="['/product', row.product?.id]">
 											{{ row.reference || '-' }}
 										</a>
 									</span>

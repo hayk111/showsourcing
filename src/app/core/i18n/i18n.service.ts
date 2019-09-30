@@ -118,3 +118,4 @@ _('screens.onboarding-4.title');
 _('screens.onboarding-4.text');
 _('screens.onboarding-5.title');
 _('screens.onboarding-5.text');
+

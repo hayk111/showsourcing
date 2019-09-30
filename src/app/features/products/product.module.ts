@@ -14,30 +14,22 @@ import { SharedModule } from '~shared/shared.module';
 
 import {
 	ProductActivityComponent,
-	ProductIconsComponent,
-	ProductInformationComponent,
-	ProductSubInfoComponent,
-	ProductSummaryComponent,
-	ProductTeamRatingComponent,
 	ProductHeaderListComponent,
-	ProjectCardComponent,
-	SelectableImageComponent,
-	SelectionActionsComponent,
-} from './components';
-import {
-	ProductDetailsComponent,
+	ProductDetailsPageComponent,
 	ProductSamplesComponent,
 	ProductShippingComponent,
 	ProductsPageComponent,
 	ProductTasksComponent,
-} from './containers';
-import { ProductRequestsComponent } from './containers/product-requests/product-requests.component';
+	ProductRequestsComponent,
+	ProductActivityNavComponent
+} from './pages';
 import { ProductFeatureService, QuoteFeatureService } from './services';
 
 
 
 @NgModule({
 	imports: [
+		SharedModule,
 		ActivityCommonModule,
 		CommentCommonModule,
 		CommonModule,
@@ -46,27 +38,19 @@ import { ProductFeatureService, QuoteFeatureService } from './services';
 		RequestCommonModule,
 		RouterModule.forChild(routes),
 		SampleCommonModule,
-		SharedModule,
 		SupplierCommonModule,
 		TaskCommonModule
 	],
 	declarations: [
 		ProductActivityComponent,
-		ProductDetailsComponent,
-		ProductIconsComponent,
-		ProductInformationComponent,
+		ProductDetailsPageComponent,
 		ProductSamplesComponent,
 		ProductShippingComponent,
-		ProductSubInfoComponent,
-		ProductSummaryComponent,
 		ProductTasksComponent,
-		ProductTeamRatingComponent,
 		ProductHeaderListComponent,
 		ProductsPageComponent,
-		ProjectCardComponent,
-		SelectableImageComponent,
-		SelectionActionsComponent,
 		ProductRequestsComponent,
+		ProductActivityNavComponent,
 	],
 	entryComponents: [],
 	exports: [],

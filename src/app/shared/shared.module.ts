@@ -49,6 +49,7 @@ import { TemplateMngmtModule } from './template-mngmt/template-mngmt.module';
 import { OnBoardingModule } from './on-boarding/on-boarding.module';
 import { PackagingModule } from './packaging/packaging.module';
 import { NotifModule } from './notif/notif.module';
+import { LogoNavModule } from './logo-nav/logo-nav.module';
 import { AccordionModule } from './accordion/accordion.module';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -73,6 +74,7 @@ const modules = [
 	BottomPanelModule,
 	CardModule,
 	CarouselModule,
+	ComparisonRowModule,
 	ContextMenuModule,
 	DialogModule,
 	DividerModule,
@@ -87,8 +89,12 @@ const modules = [
 	KanbanModule,
 	ListModule,
 	LoadersModule,
-	NotificationsModule,
+	LogoNavModule,
 	NotifModule,
+	NotificationsModule,
+	OnBoardingModule,
+	PackagingModule,
+	PaginationModule,
 	PanelModule,
 	PreviewModule,
 	PriceModule,
@@ -102,6 +108,7 @@ const modules = [
 	StageIndicatorModule,
 	StatusSelectorModule,
 	TableModule,
+	TemplateMngmtModule,
 	PaginationModule,
 	HeaderListModule,
 	UserPictureModule,

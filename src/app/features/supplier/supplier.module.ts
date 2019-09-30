@@ -26,6 +26,7 @@ import {
 	SupplierTasksComponent,
 } from './containers';
 import { SupplierFeatureService } from './services';
+import { CommentCommonModule } from '~common/comment';
 
 @NgModule({
 	imports: [
@@ -39,7 +40,9 @@ import { SupplierFeatureService } from './services';
 		SharedModule,
 		SupplierCommonModule,
 		TaskCommonModule,
-		ProductCommonModule
+		ProductCommonModule,
+		CommentCommonModule,
+		SupplierCommonModule
 	],
 	declarations: [
 		SupplierActivityComponent,

@@ -7,6 +7,12 @@ import { ERM, Project } from '~models';
 import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
 
+// Doctor: You're obese.
+// -
+// Patient: For that I definitely want a second opinion.
+// -
+// Doctor: You’re quite ugly, too.
+
 @Component({
 	selector: 'projects-page-app',
 	templateUrl: './projects-page.component.html',

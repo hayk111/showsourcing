@@ -11,11 +11,11 @@ export class FileSelectDirective {
 
 
 	@HostListener('change', ['$event'])
-	onFileDrop(event) {
+	onFileDrop(event: Event) {
 		event.preventDefault();
 		event.stopPropagation();
 		const files = [];
-		const fileList = event.target.files;
+		const fileList = (event.target as HTMLInputElement).files;
 		if (fileList) {
 			for (let i = 0; i < fileList.length; i++) {
 				files.push(fileList[i]);

@@ -1,11 +1,16 @@
-<ng-container *ngIf="supplier$ | async as supplier">
+<div class="content flex">
 
-	<card-app>
-		<activity-list-app
-			[activities]="supplier?.comments"
-			[entity]="supplier"
-			[typeEntity]="erm.SUPPLIER">
-		</activity-list-app>
-	</card-app>
+	<div class="left">
+		<card-app>
+			<card-title-app>Comments</card-title-app>
+			<add-comment-app></add-comment-app>
+			<divider-app></divider-app>
+			<comment-list-app></comment-list-app>
+		</card-app>
+	</div>
+	
+	<div class="right">
+		<div style="background: grey; height: 800px;"></div>
+	</div>
 
-</ng-container>
+</div>

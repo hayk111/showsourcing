@@ -1,35 +1,35 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { map, switchMap, takeUntil, filter } from 'rxjs/operators';
+import { filter, map, switchMap, takeUntil } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals';
-import { SampleService, UserService, TaskService, SupplierRequestService, RequestElementService } from '~core/entity-services';
+import { SupplierRequestDialogComponent } from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
 import { ProductFeatureService } from '~features/products/services';
-import { Attachment, ERM, Product, Project } from '~models';
+import { ERM, Product, Project } from '~models';
+import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
-import { DialogService, CloseEvent, CloseEventType } from '~shared/dialog';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { AutoUnsub, log } from '~utils';
-import { SupplierRequestDialogComponent } from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
-import { TranslateService } from '@ngx-translate/core';
+
+/**
+ *
+ * My old aunts would come and tease me at weddings, “Well Sarah? Do you think you’ll be next?”
+ *  -
+ * We’ve settled this quickly once I’ve started doing the same to them at funerals.
+ *
+ */
 
 @Component({
-	selector: 'product-details-app',
-	templateUrl: './product-details.component.html',
-	styleUrls: ['./product-details.component.scss']
+	selector: 'product-details-page-app',
+	templateUrl: './product-details-page.component.html',
+	styleUrls: ['./product-details-page.component.scss']
 })
-export class ProductDetailsComponent extends AutoUnsub implements OnInit {
-
-	previewOpen = false;
+export class ProductDetailsPageComponent extends AutoUnsub implements OnInit {
 	product: Product;
-	files: Array<Attachment>;
 	/** projects for this product */
 	typeEntity = ERM.PRODUCT;
-	sampleCount$: Observable<number>;
-	taskCount$: Observable<number>;
-	requestCount$: Observable<number>;
-
 	tabs: { name: string, number$?: Observable<number> }[];
 
 	constructor(
@@ -40,10 +40,6 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 		private notifSrv: NotificationService,
 		private thumbSrv: ThumbService,
 		public commonModalSrv: CommonModalService,
-		private sampleSrv: SampleService,
-		private taskSrv: TaskService,
-		private userSrv: UserService,
-		private requestElementSrv: RequestElementService,
 		private translate: TranslateService
 	) {
 		super();
@@ -63,31 +59,6 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 			err => this.onError(err)
 		);
 
-		this.sampleCount$ = id$.pipe(
-			switchMap(id => this.sampleSrv
-				.selectCount(`product.id == "${id}" AND deleted == false`)),
-			takeUntil(this._destroy$)
-		);
-
-		this.taskCount$ = id$.pipe(
-			switchMap(id => this.taskSrv
-				.selectCount(`product.id == "${id}" AND done == false AND deleted == false`)),
-			takeUntil(this._destroy$)
-		);
-
-		this.requestCount$ = id$.pipe(
-			switchMap(id => this.requestElementSrv
-				.selectCount(`targetId == "${id}" AND targetedEntityType == "Product"`)),
-			takeUntil(this._destroy$)
-		);
-
-		this.tabs = [
-			{ name: 'activity' },
-			{ name: 'shipping' },
-			{ name: 'samples', number$: this.sampleCount$ },
-			{ name: 'tasks', number$: this.taskCount$ },
-			{ name: 'supplier-requests', number$: this.requestCount$ }
-		];
 	}
 
 	private onProduct(product) {
@@ -137,15 +108,6 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 		}
 	}
 
-
-	/** remove project from product.projects */
-	removeProject(removed: Project) {
-		// mapping project to their respective id, to not inadvertently change other props, then removing
-		// the project we need to from the array
-		const projects = this.product.projects.filter(p => p.id !== removed.id);
-		this.featureSrv.update({ id: this.product.id, projects }).subscribe();
-	}
-
 	/** item status update */
 	updateStatus(statusId: string) {
 		this.featureSrv
@@ -191,14 +153,6 @@ export class ProductDetailsComponent extends AutoUnsub implements OnInit {
 			filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
 			switchMap(_ => this.featureSrv.delete(product.id))
 		).subscribe(_ => this.router.navigate(['product']));
-	}
-
-	closePreview() {
-		this.previewOpen = false;
-	}
-
-	openPreview() {
-		this.previewOpen = true;
 	}
 
 	openSupplierRequest(product: Product) {

@@ -1,0 +1,12 @@
+<!-- 
+surrounding container for because of the hovering clickable class,
+can be removed in the future if style changes -->
+<div class="content flex" [ngClass]="{ 'selected': selected }">
+	<div class="logoCtnr">
+		<ng-content select="logo-app"></ng-content>
+	</div>
+	<div class="flexColumn">
+		<h4>{{ title }}</h4>
+		<small>{{ subtitle }}</small>
+	</div>
+</div>

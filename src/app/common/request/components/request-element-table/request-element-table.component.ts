@@ -1,7 +1,18 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, TemplateRef, ViewChild } from '@angular/core';
-import { EntityTableComponent } from '~core/list-page';
+import { EntityTableComponent, TableConfig } from '~core/list-page';
 import { ExtendedField, RequestElement, ERM } from '~core/models';
 import { ID } from '~utils';
+
+const tableConfig: TableConfig = {
+	name: { title: 'name', translationKey: 'name', width: 190, sortable: false },
+	status: { title: 'status', translationKey: 'status', width: 190, sortProperty: 'status.step' },
+	fields: { title: 'fields', translationKey: 'name', width: 190, sortable: false },
+	sender: { title: 'name', translationKey: 'name', width: 190, sortable: false },
+};
+
+/**
+ * Yesterday I saw a guy spill all his Scrabble letters on the road. I asked him, “What’s the word on the street?”
+ */
 
 @Component({
 	selector: 'request-element-table-app',
@@ -13,15 +24,15 @@ import { ID } from '~utils';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RequestElementTableComponent extends EntityTableComponent<RequestElement> {
+	columns = ['name', 'status'];
+	@Input() tableConfig = tableConfig;
+	/** whether we want to show the reply fields */
+	@Input() showReplyFields = true;
 
 	private _rows: Array<RequestElement>;
 	@Input() set rows(rows: Array<RequestElement>) {
 		this._rows = rows;
-		if (rows)
-			// we map all the fields so we can iterate them on the column loop
-			this.fields = rows.map(row => row.reply.fields);
-		else
-			this.fields = [];
+		this.fields = rows ? rows.map(row => row.reply.fields) : [];
 	}
 	get rows() {
 		return this._rows;
@@ -36,7 +47,7 @@ export class RequestElementTableComponent extends EntityTableComponent<RequestEl
 
 	// is matrix since we need to iterate over requestElement and then over requestElement.reply.fields
 	// M[i][j] -> i: request element rows // j: fields
-	fields: ExtendedField[][];
+	fields: ExtendedField[][] = [];
 	erm = ERM;
 
 	constructor() { super(); }

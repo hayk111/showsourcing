@@ -1,4 +1,13 @@
 :host {
 	display: block;
-	margin: auto;
+}
+
+.content {
+	justify-content: center;
+	.left {
+		width: 772px;
+	}
+	.right {
+		width: 420px;
+	}
 }

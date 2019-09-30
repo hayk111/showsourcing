@@ -4,14 +4,13 @@ import { environment } from 'environments/environment';
 import * as getstream from 'getstream';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { first, map, switchMap, tap } from 'rxjs/operators';
-import { TokenService } from '~deprecated/token.service';
 import { TokenResponse } from '~common/activity/interfaces/token-response.interface';
-import { TokenState } from '~core/auth/interfaces/token-state.interface';
 import { TeamService, UserService } from '~entity-services';
 import {
 	GetStreamNotification
 } from '~common/activity/interfaces/get-stream-feed.interfaces';
 import { Router } from '@angular/router';
+import { AuthenticationService } from '~core/auth/services/authentication.service';
 
 
 @Injectable({
@@ -26,7 +25,7 @@ export class NotificationActivityService {
 	constructor(
 		private http: HttpClient,
 		private teamSrv: TeamService,
-		private tokenSrv: TokenService,
+		private authSrv: AuthenticationService,
 		private userSrv: UserService,
 		private router: Router,
 
@@ -36,11 +35,8 @@ export class NotificationActivityService {
 		this.enableRealTimeNotifications();
 	}
 	private getToken(url): Observable<string> {
-		return this.tokenSrv.jwtTokenFeed$.pipe(
-			switchMap((token: TokenState) => {
-				const headers = new HttpHeaders({ Authorization: token.token });
-				return this.http.get<TokenResponse>(url, { headers });
-			}),
+		const headers = new HttpHeaders({ Authorization: `${this.authSrv.feedToken.token}` });
+		return this.http.get<TokenResponse>(url, { headers }).pipe(
 			map((resp: TokenResponse) => resp.token),
 			first()
 		);

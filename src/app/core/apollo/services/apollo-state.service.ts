@@ -44,7 +44,6 @@ export class ApolloStateService {
 		// for debugging
 		this.clientsState$.subscribe(all => {
 			showsourcing.clientsState = all;
-			this.redirect(all);
 		});
 	}
 

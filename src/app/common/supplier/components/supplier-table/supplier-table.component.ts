@@ -32,7 +32,6 @@ export class SupplierTableComponent extends EntityTableComponent<Supplier> {
 
 	@Input() tableConfig = tableConfig;
 	@Output() archive = new EventEmitter<Supplier>();
-	@Output() showItemsPerPage = new EventEmitter<number>();
 
 	constructor(public translate: TranslateService) {
 		super();

@@ -96,9 +96,14 @@ export class ActivityService {
 
 	/** some doc on feed token API in readme next to this file */
 	private getToken(url): Observable<string> {
-		const jwtObj = this.authSrv.feedToken;
-		const headers = new HttpHeaders({ Authorization: jwtObj.token });
-		return this.http.get<TokenResponse>(url, { headers }).pipe(
+
+
+		return this.authSrv.authenticated$.pipe(
+			map(_ => {
+				const jwtObj = this.authSrv.feedToken;
+				return new HttpHeaders({ Authorization: jwtObj.token });
+			}),
+			switchMap(headers => this.http.get<TokenResponse>(url, { headers })),
 			map((resp: TokenResponse) => resp.token),
 			first()
 		);

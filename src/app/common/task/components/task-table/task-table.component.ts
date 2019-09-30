@@ -15,6 +15,8 @@ const tableConfig: TableConfig = {
 	assignee: { title: 'assigned to', translationKey: 'assigned-to', width: 140, sortProperty: 'assignee.firstName' },
 	status: { title: 'status', translationKey: 'status', width: 85, sortProperty: 'status.step', sortable: false },
 };
+
+
 @Component({
 	selector: 'task-table-app',
 	templateUrl: './task-table.component.html',

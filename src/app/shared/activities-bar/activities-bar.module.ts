@@ -4,6 +4,8 @@ import { ActivitiesBarComponent } from '~shared/activities-bar/activities-bar.co
 import { RatingModule } from '~shared/rating';
 import { IconsModule } from '~shared/icons';
 
+
+
 @NgModule({
 	imports: [
 		CommonModule,

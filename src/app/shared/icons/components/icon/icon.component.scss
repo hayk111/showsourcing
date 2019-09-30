@@ -11,24 +11,6 @@ svg, img {
 	height: 1em;
 }
 
-// for icomoon icons
-@font-face {
-  font-family: 'icomoon';
-  src:  url('/assets/fonts/icomoon/icomoon.eot?w2pk4k');
-  src:  url('/assets/fonts/icomoon/icomoon.eot?w2pk4k#iefix') format('embedded-opentype'),
-    url('/assets/fonts/icomoon/icomoon.ttf?w2pk4k') format('truetype'),
-    url('/assets/fonts/icomoon/icomoon.woff?w2pk4k') format('woff'),
-    url('/assets/fonts/icomoon/icomoon.svg?w2pk4k#icomoon') format('svg');
-  font-weight: normal;
-  font-style: normal;
-}
-
-.has-background {
-  border-radius: 3px;
-  padding: 3px;
-  font-size: 9px;
-}
-
 i {
   /* use !important to prevent issues with browser extensions that change fonts */
   font-family: 'icomoon' !important;
