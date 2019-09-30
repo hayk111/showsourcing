@@ -19,7 +19,7 @@ const COMPANY = 'company';
 })
 export class CompanyService extends GlobalService<Company> {
 
-	defaultClient = Client.USER;
+	defaultClient = Client.CENTRAL;
 
 	// an user has only 1 company
 	private _company$ = new ReplaySubject<Company>(1);
