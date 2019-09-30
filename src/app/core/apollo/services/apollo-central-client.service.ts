@@ -10,6 +10,8 @@ import { CompanyService, ImageUploadRequestService, TeamService } from '~core/en
 import { RealmServerService } from '~entity-services/realm-server/realm-server.service';
 import { UserService } from '~entity-services/user/user.service';
 import { ApolloStateService } from './apollo-state.service';
+import { ERMService } from '~core/entity-services/_global/erm.service';
+import { EntityName, ERM } from '~core/models';
 
 
 
@@ -23,7 +25,7 @@ export class CentralClientInitializer extends AbstractApolloClient {
 		protected userSrv: UserService,
 		protected realmServerSrv: RealmServerService,
 		protected teamSrv: TeamService,
-		private companySrv: CompanyService
+		private ermSrv: ERMService
 	) {
 		super(apollo, link, apolloState, realmServerSrv, Client.CENTRAL);
 	}
@@ -46,9 +48,23 @@ export class CentralClientInitializer extends AbstractApolloClient {
 	}
 
 	createMissingSubscription(): Observable<any> {
-		return forkJoin([
-			this.companySrv.openSubscription(this.client),
-		]);
+		// TODO uncomment when classes are created
+		const entities = [
+			ERM.COMPANY,
+			// ERM.COMPANY_USER,
+			ERM.IMAGE,
+			// ERM.IMAGE_URL,
+			// ERM.INDUSTRY,
+			ERM.INVITATION,
+			// ERM.PAYING_SUBSCRIPTION,
+			// ERM.SUBSCRIPTION_PLAN,
+			ERM.TEAM,
+			ERM.TEAM_USER,
+			ERM.USER
+		];
+		return forkJoin(
+			entities.map(erm => this.ermSrv.getGlobalService(erm).openSubscription(this.client))
+		);
 	}
 
 }

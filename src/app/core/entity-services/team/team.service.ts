@@ -21,7 +21,7 @@ const SELECTED_TEAM = 'selected-team';
 @Injectable({ providedIn: 'root' })
 export class TeamService extends GlobalService<Team> {
 
-	defaultClient = Client.USER;
+	defaultClient = Client.CENTRAL;
 
 	/** event the team selected at the moment of the selection */
 	private _teamSelectionEvent$ = new ReplaySubject<Team>(1);
