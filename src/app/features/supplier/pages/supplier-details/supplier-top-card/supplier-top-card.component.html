@@ -2,11 +2,11 @@
 
 	<header-details-title-app>{{ supplier?.name }}</header-details-title-app>
 
-	<logo-app [logo]="supplier?.logoImage" type="supplier"></logo-app>
+	<logo-app [logo]="supplier?.logoImage" size="xl" type="supplier"></logo-app>
 
 	<header-details-info-app >
 		<div class="flex flexVAlign info-container dot-separator">
-			<span *ngIf="supplier?.supplierType">
+			<span class="first-uppercase" *ngIf="supplier?.supplierType">
 				{{ supplier?.supplierType?.name }}
 			</span>
 			<span *ngIf="supplier?.city || supplier?.country">
