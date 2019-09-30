@@ -27,7 +27,7 @@
 
 					<ng-container *ngIf="product$ | async as product">
 						<add-comment-app (added)="sendComment($event)"></add-comment-app>
-						<divider-app></divider-app>
+						<divider-app *ngIf="product.comments.length > 0"></divider-app>
 						<comment-list-app [comments]="product.comments"></comment-list-app>
 					</ng-container>
 					
