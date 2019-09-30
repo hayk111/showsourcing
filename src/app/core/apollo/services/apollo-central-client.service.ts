@@ -48,7 +48,7 @@ export class CentralClientInitializer extends AbstractApolloClient {
 	}
 
 	createMissingSubscription(): Observable<any> {
-		// TODO uncomment when classes are created
+		// TODO uncomment when ERM's are created
 		const entities = [
 			ERM.COMPANY,
 			// ERM.COMPANY_USER,
