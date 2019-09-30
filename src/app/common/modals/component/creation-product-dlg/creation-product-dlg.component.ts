@@ -90,6 +90,7 @@ export class CreationProductDlgComponent implements OnInit {
 				if (this.createAnother) {
 					product = this.resetIds(product);
 					this.dlgSrv.open(CreationProductDlgComponent, { product, createAnother: true });
+					// TODO: this call shouldn't be here. It's getting too mish mash potato salad
 					this.productSrv.onUpdateProductList();
 				} else
 					this.close();
