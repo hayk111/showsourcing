@@ -4,10 +4,10 @@ import { ExtendedField, RequestElement, ERM } from '~core/models';
 import { ID } from '~utils';
 
 const tableConfig: TableConfig = {
-	name: { title: 'name', translationKey: 'name', width: 190, sortable: false },
-	status: { title: 'status', translationKey: 'status', width: 190, sortProperty: 'status.step' },
-	fields: { title: 'fields', translationKey: 'name', width: 190, sortable: false },
-	sender: { title: 'name', translationKey: 'name', width: 190, sortable: false },
+	name: { name: 'name', translationKey: 'name', width: 190, sortable: false },
+	status: { name: 'status', translationKey: 'status', width: 190, sortProperty: 'status.step' },
+	fields: { name: 'fields', translationKey: 'name', width: 190, sortable: false },
+	sender: { name: 'name', translationKey: 'name', width: 190, sortable: false },
 };
 
 /**
