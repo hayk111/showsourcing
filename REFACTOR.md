@@ -20,3 +20,11 @@ Some order needs to be set in that module, we have creation dialogs, tables etc.
 # Creation dialogs
 
 Different mechanisms are used in the application
+
+# ActivitiesComponent
+rename to something more meaningful
+rename "row" input to something more meaningful.
+
+
+# Dynamic Form
+too much properties passed around, we could do with a config passed down..

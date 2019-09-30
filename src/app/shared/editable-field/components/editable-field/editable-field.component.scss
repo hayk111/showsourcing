@@ -4,10 +4,10 @@
 	box-sizing: border-box;
 	// when closed and on hover
 	&.closed:hover {
-		background: var(--legacy-color-secondary-light);
+		background: var(--color-secondary-light);
 		cursor: pointer;
 		editable-text-app {
-			color: var(--legacy-color-primary);
+			color: var(--color-primary);
 		}
 
 		&.no-hover {
@@ -36,11 +36,11 @@
 		font-size: var(--font-size-m);
 		text-transform: capitalize;
 		font-weight: 600;
-		color: var(--legacy-color-txt-secondary);
+		color: var(--color-txt-secondary);
 	}
 
 	.content {
-		color: var(--legacy-color-txt-strong);
+		color: var(--color-txt-primary);
 	}
 
 	&.twoLine {
@@ -78,7 +78,7 @@
 
 	&.oneLine {
 		// we always display the border on single line
-		border-bottom: 1px solid var(--legacy-color-secondary);
+		border-bottom: 1px solid var(--color-secondary);
 		// label on same line as input, label on left, input on right side
 		.ctnr {
 			display: flex;
@@ -89,11 +89,18 @@
 		&.canGrow {
 			min-height: 33px;
 		}
-		.labelCtnr {
-			width: 50%;
+		&.alignCenter {
+			.labelCtnr {
+				width: 50%;
+			}
+			.content {
+				width: 50%;
+			}
 		}
-		.content {
-			width: 50%;
+		&.alignRight {
+			.labelCtnr {
+				flex-grow: 1;
+			}
 		}
 	}
 }
