@@ -32,13 +32,13 @@ export class StatusBoxComponent {
 				case 'inProgress':
 					return 'in-progress';
 				case 'validated':
-					return 'success';
+					return 'validated';
 				case 'refused':
-					return 'warn';
+					return 'refused';
 				case 'inspiration':
 					return 'secondary-light';
 				default:
-					return 'secondary';
+					return 'new';
 			}
 		}
 	}

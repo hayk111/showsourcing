@@ -67,7 +67,4 @@ export class ProjectSettingsComponent extends AutoUnsub implements OnInit {
 		this.projectSrv.update({ id: this.id, ...proj }).subscribe();
 	}
 
-	getTabPanelUrl(panel: 'products' | 'settings'): string {
-		return this.router.url.substring(0, this.router.url.lastIndexOf('/') + 1) + panel;
-	}
 }
