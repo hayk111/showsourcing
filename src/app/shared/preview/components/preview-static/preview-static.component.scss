@@ -1,0 +1,22 @@
+:host {
+	display: block;
+	background: white;
+	width: 424px;
+	border-radius: var(--border-radius-l);
+	padding-bottom: var(--spacing-l);
+	overflow: overlay;
+
+	position: absolute;
+	bottom: var(--spacing-s);
+	z-index: var(--z-card-container);
+	overflow-x: hidden;
+	overflow-y: auto;
+	box-sizing: border-box;
+	height: calc(100vh - 16px); // this way we perserve the ratio and the margin otp
+
+  box-shadow: 0 0 24px 0 rgba(163, 175, 198, 0.2);
+}
+
+.logo-transparent {
+	height: 50px
+}

@@ -3,6 +3,7 @@
 	*ngIf="supplier$ | async"
 	[ngClass]="isPreview ? '' : 'relative'"
 	[hasLogo]="true"
+	[isPreview]="isPreview"
 	[align]="isPreview ? 'right' : 'left'">
 
 		<!-- Banner -->
