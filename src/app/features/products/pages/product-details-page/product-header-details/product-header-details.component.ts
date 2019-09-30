@@ -4,6 +4,7 @@ import { ERM } from '~models/_erm.enum';
 import { User } from '~core/models';
 import { Router } from '@angular/router';
 
+
 @Component({
 	selector: 'product-header-details-app',
 	templateUrl: './product-header-details.component.html',
