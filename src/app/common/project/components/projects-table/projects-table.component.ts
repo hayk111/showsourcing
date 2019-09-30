@@ -10,7 +10,7 @@ const tableConfig: TableConfig = {
 	// TODO Backend duedate
 	// dueDate: { name: 'due date', translationKey: 'due-date', width: 140, sortProperty: 'dueDate' },
 	status: { name: 'status', translationKey: 'status', width: 100, sortProperty: 'status.step' },
-	createdBy: { name: 'created by', translationKey: 'created-by', width: 140, sortProperty: 'creationDate' },
+	createdBy: { name: 'created by', translationKey: 'created-by', width: 140, sortProperty: 'createdBy.firstName' },
 	creationDate: { name: 'created on', translationKey: 'created-on', width: 140, sortProperty: 'creationDate' },
 };
 
@@ -30,7 +30,7 @@ export class ProjectsTableComponent extends EntityTableComponent<Project> {
 	@Output() showItemsPerPage = new EventEmitter<number>();
 
 	columns = [
-		'name', 'owner', 'dueDate', 'status', 'createdBy', 'creationDate'
+		'name', 'owner', 'status', 'createdBy', 'creationDate'
 	];
 	tableConfig = tableConfig;
 	erm = ERM;
