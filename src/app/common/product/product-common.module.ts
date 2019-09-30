@@ -6,10 +6,10 @@ import { SharedModule } from '~shared/shared.module';
 
 import {
 	MoqComponent,
-	ProductCardComponent,
 	ProductBoardComponent,
-	ProductGridCardComponent,
 	ProductCardActivitiesComponent,
+	ProductCardComponent,
+	ProductGridCardComponent,
 	ProductResumeComponent,
 	ProductsCardViewComponent,
 	ProductSelectionBarComponent,
@@ -18,13 +18,17 @@ import {
 	StatsIconsComponent,
 } from './components';
 import { ProductPreviewComponent } from './containers';
+import { TaskCommonModule } from '~common/task/task-common.module';
+import { SampleCommonModule } from '~common/sample/sample-common.module';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		RouterModule,
 		SharedModule,
-		CommentCommonModule
+		CommentCommonModule,
+		TaskCommonModule,
+		SampleCommonModule
 	],
 	declarations: [
 		MoqComponent,

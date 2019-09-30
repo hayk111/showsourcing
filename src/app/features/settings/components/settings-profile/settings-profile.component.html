@@ -4,16 +4,38 @@
 	[hasBackArrow]="false"
 	[elevated]="false">
 
-	<header-details-title-app>{{ 'title.my-profile' | translate }}</header-details-title-app>
+	<header-nav-app>
+		<header-nav-item-app
+			link="settings/profile"
+			icon="user"
+			name="My Profiles">
+		</header-nav-item-app>
+	</header-nav-app>
 
-	<logo-app
-		[circle]="true"
-		color="primary"
-		icon="smile"
-		type="primary"
-		size="xl"
-	></logo-app>
+	<div class="flex">
+		<user-picture-app
+			[size]="54"
+			[image]="user?.avatar"
+			[user]="user">
+		</user-picture-app>
+		
+		<header-details-title-app class="flexVAlign">
+			<div class="my-profile capitalize">
+				{{ 'title.my-profile' | translate }}
+			</div>
 
+			<div class="user-name flexVAlign">
+				<span class="name">
+					{{ user | formatUserName: true }}
+				</span>
+				<div class="small-gray-badge-separator"></div>
+				<span class="user-email">
+					{{ user?.email }}
+				</span>
+			</div>
+		</header-details-title-app>
+	</div>
+	
 </header-details-app>
 
 <ng-container *ngIf="user$ | async as user">

@@ -37,7 +37,7 @@
 			sortBy="creationDate"
 			width="200">
 			<div class="flex flexCenter">
-				<span class="ellipsis">{{ row?.creationDate | date: 'dd MMM y' }}</span>
+				<span class="created-on ellipsis">{{ row?.creationDate | date: 'dd MMM y' }}</span>
 			</div>
 		</ng-template>
 
@@ -51,12 +51,13 @@
 		</ng-template>
 
 		<!-- export name -->
+		<!-- TODO: translation to be added -->
 		<ng-template
-			[columnApp]="'header.export' | translate"
-			sortBy="name"
+			[columnApp]="'File Name' | translate"
+			[sortable]="false"
 			let-row="row"
-			width="300">
-			<div class="capitalize">
+			width="200">
+			<div class="capitalize file-name">
 				{{ getFileName(row?.documentUrl) }}
 			</div>
 		</ng-template>
@@ -68,42 +69,24 @@
 			sortBy="status"
 			width="150"
 			[sortOrder]="'DESC'">
-			{{ 'text.' + row?.status | translate }}
+			<span class="status capitalize" [ngStyle]="{'color': getStatusColor(row?.status)}">
+				{{ 'text.' + row?.status | translate }}
+			</span>
 		</ng-template>
 
-		<!-- date -->
+		<!-- action download -->
+		<!-- TODO: translation to be added -->
 		<ng-template
-			[columnApp]="'header.creation-date' | translate"
+			[columnApp]="'Action' | translate"
 			let-row="row"
-			sortBy="creationDate"
-			width="150"
-			[sortOrder]="'DESC'">
-			{{ row?.creationDate | date: 'MMMM y':'':translate.currentLang }}
-		</ng-template>
-
-		<!-- user -->
-		<ng-template
-			[columnApp]="'header.created-by' | translate"
-			let-row="row"
-			sortBy="createdBy.lastName"
-			width="200">
-			<div class="flex flexCenter">
-				<span class="ellipsis">{{ row?.createdBy?.firstName }} {{row?.createdBy?.lastName}}</span>
-			</div>
-		</ng-template>
-
-		<!-- download -->
-		<ng-template
-			[columnApp]="'header.download' | translate"
-			let-row="row"
-			sortBy="createdBy.lastName"
+			[sortable]="false"
 			[grows]="false"
 			width="100">
-			<div class="tool-tip" toolTip [toolTipMessage]="getToolTipMsg(row?.status)" toolTipPosition="above-right">
+			<div toolTip [toolTipMessage]="getToolTipMsg(row?.status)" toolTipPosition="above-right">
 				<div 
-						class="download pointer" 
-						[ngClass]="{'disabled': row?.status !== 'ready'}" 
-						(click)="download.emit(row)">Download</div>
+					class="download pointer" 
+					[ngClass]="{'disabled': row?.status !== 'ready'}" 
+					(click)="download.emit(row)">Download</div>
 			</div>
 		</ng-template>
 

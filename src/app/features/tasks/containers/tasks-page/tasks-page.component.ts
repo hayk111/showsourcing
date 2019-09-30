@@ -13,6 +13,7 @@ import { NotificationService } from '~shared/notifications';
 import { SupplierRequestDialogComponent } from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 import { SelectParams } from '~core/entity-services/_global/select-params';
+import { ControllerListComponent } from '~shared/header-list/components/controller-list/controller-list.component';
 
 @Component({
 	selector: 'tasks-page-app',
@@ -23,7 +24,8 @@ import { SelectParams } from '~core/entity-services/_global/select-params';
 		CommonModalService
 	]
 })
-export class TasksPageComponent extends AutoUnsub implements OnInit {
+export class TasksPageComponent extends AutoUnsub implements OnInit, AfterViewInit {
+	@ViewChild(ControllerListComponent, { static: false }) controller: ControllerListComponent;
 	public tableWidth: string;
 
 	erm = ERM;
@@ -59,9 +61,9 @@ export class TasksPageComponent extends AutoUnsub implements OnInit {
 		this.listSrv.setup({
 			key: ListPageKey.TASK,
 			entitySrv: this.taskSrv,
-			searchedFields: ['name'],
+			searchedFields: ['name', 'reference', 'assignee'],
 			entityMetadata: ERM.TASK,
-			initialFilters: [],
+			initialFilters: [{ type: FilterType.DONE, value: false }],
 			originComponentDestroy$: this._destroy$,
 			selectParams
 		});
@@ -69,6 +71,12 @@ export class TasksPageComponent extends AutoUnsub implements OnInit {
 		this.tasksCount$ = this.listSrv.filterList.valueChanges$.pipe(
 			switchMap(_ => this.taskSrv.selectCount(this.listSrv.filterList.asPredicate()).pipe(takeUntil(this._destroy$)))
 		);
+
+	}
+
+	ngAfterViewInit() {
+		// this way the check is active, and user can see that this filter is being used
+		this.controller.toggleAssigned();
 	}
 
 	showTasksCreatedByMeOnly() {
@@ -101,11 +109,12 @@ export class TasksPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	showItemsPerPage(count: number) {
-		this.selectItemsConfig = {take: Number(count)};
+		this.selectItemsConfig = { take: Number(count) };
 		this.listSrv.refetch(this.selectItemsConfig).subscribe();
 	}
 
 	onExport() {
 		this.commonModalSrv.openExportDialog(this.listSrv.getSelectedValues());
 	}
+
 }

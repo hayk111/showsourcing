@@ -1,12 +1,15 @@
 
 <!-- top panel -->
 <header-list-app
+	class="max-full-table-width"
 	[title]="'title.my-tasks' | translate"
 	[buttonName]="'button.create-task' | translate"
 	(buttonClick)="commonModalSrv.openCreationTaskDlg()">
 </header-list-app>
 
 <controller-list-app
+	#controller
+	class="max-full-table-width"
 	[hasFilter]="false"
 	[hasSwitch]="false"
 	[hasArchived]="false"
@@ -25,14 +28,14 @@
 	(hideAssigned)="listSrv.filterByAssignee(false)"
 	(showTasksCreatedByMeOnly)="showTasksCreatedByMeOnly()"
 	(hideTasksCreatedByMeOnly)="hideTasksCreatedByMeOnly()"
-	(showTasksCompleted)="listSrv.filterByDone(true)"
-	(hideTasksCompleted)="listSrv.filterByDone(false)"
+	(showTasksCompleted)="listSrv.filterByDone(false)"
+	(hideTasksCompleted)="listSrv.filterByDone(true)"
 	(export)="onExport()"
 	(showFilters)="listSrv.openFilterPanel()"
 	(viewChange)="onViewChange($event)">
 
 	<controller-list-right-item-app class="flex">
-		<product-sorting-menu-app
+	<product-sorting-menu-app
 			[currentSort]="listSrv.currentSort"
 			(sortFromMenu)="listSrv.sortFromMenu($event)">
 		</product-sorting-menu-app>
@@ -55,12 +58,14 @@
 </controller-list-app>
 
 <task-table-app
+	class="max-full-table-width"
 	[rows]="listSrv.items$ | async"
 	[selection]="listSrv.selection$ | async"
 	[pending]="listSrv.pending"
 	[count]="listSrv.count$ | async"
 	[currentSort]="listSrv.currentSort"
 	[currentPage]="listSrv.currentPage"
+	(update)="listSrv.update($event)"
 	(goToPage)="listSrv.loadPage($event)"
 	(sort)="listSrv.sort($event)"
 	(select)="listSrv.selectOne($event, true)"
@@ -72,7 +77,8 @@
 	(unfavorited)="listSrv.onItemUnfavorited($event)"
 	(previewClick)="listSrv.openPreview($event)"
 	(showItemsPerPage)="showItemsPerPage($event)"
-	(delete)="listSrv.deleteOne($event, true)">
+	(delete)="listSrv.deleteOne($event, true)"
+	(createClick)="commonModalSrv.openCreationTaskDlg()">
 </task-table-app>
 
 <selection-bar-app
@@ -110,5 +116,9 @@
 	(close)="listSrv.closeFilterPanel()"
 	*ngIf="listSrv.filterPanelOpen">
 </filters-app>
-	
 
+<task-preview-app
+	*ngIf="listSrv.previewOpen"
+	[task]="listSrv.previewed"
+	(close)="listSrv.closePreview()">
+</task-preview-app>

@@ -9,6 +9,7 @@ import {
 	OnInit,
 	Output,
 	ViewChild,
+	Renderer2,
 } from '@angular/core';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
@@ -23,7 +24,8 @@ import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 	providers: [makeAccessorProvider(SearchBarComponent)],
 	host: {
 		'(click)': 'onClick()',
-		'[class.short]': 'searchType === "short"'
+		'[class.short]': 'searchType === "short"',
+		'[class.focus]': 'focussed'
 	}
 })
 export class SearchBarComponent extends AbstractInput implements OnChanges, OnInit {

@@ -1,16 +1,13 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { environment } from 'environments/environment';
 import * as getstream from 'getstream';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { first, map, switchMap, tap } from 'rxjs/operators';
+import { first, map, switchMap } from 'rxjs/operators';
+import { GetStreamNotification } from '~common/activity/interfaces/get-stream-feed.interfaces';
 import { TokenResponse } from '~common/activity/interfaces/token-response.interface';
 import { TeamService, UserService } from '~entity-services';
-import {
-	GetStreamNotification
-} from '~common/activity/interfaces/get-stream-feed.interfaces';
-import { Router } from '@angular/router';
-import { AuthenticationService } from '~core/auth/services/authentication.service';
 
 
 @Injectable({
@@ -25,7 +22,6 @@ export class NotificationActivityService {
 	constructor(
 		private http: HttpClient,
 		private teamSrv: TeamService,
-		private authSrv: AuthenticationService,
 		private userSrv: UserService,
 		private router: Router,
 
@@ -35,8 +31,7 @@ export class NotificationActivityService {
 		this.enableRealTimeNotifications();
 	}
 	private getToken(url): Observable<string> {
-		const headers = new HttpHeaders({ Authorization: `${this.authSrv.feedToken.token}` });
-		return this.http.get<TokenResponse>(url, { headers }).pipe(
+		return this.http.get<TokenResponse>(url).pipe(
 			map((resp: TokenResponse) => resp.token),
 			first()
 		);
@@ -108,7 +103,7 @@ export class NotificationActivityService {
 		return this.shouldUpdateUnreadCount.asObservable();
 	}
 
-	redirect( route: string ) {
+	redirect(route: string) {
 		this.router.navigate([route]);
 	}
 
@@ -120,7 +115,7 @@ export class NotificationActivityService {
 		this.isPanelOpen = false;
 	}
 
-	public onWindowResize( event ) {
+	public onWindowResize(event) {
 		if (this.getInitialLimit() > this.limit) {
 			this.limit = this.getInitialLimit();
 			this.shouldRefetch$.next(true);

@@ -1,7 +1,11 @@
 <header-details-app
 	[hasBackArrow]="false"
 	[elevated]="false">
-	<header-details-title-app>{{ 'title.my-exports' | translate }}</header-details-title-app>
+	<header-details-title-app>
+		<span class="my-export capitalize">
+			{{ 'title.my-exports' | translate }}
+		</span>
+	</header-details-title-app>
 	<logo-app color="primary" icon="close-pane-bottom" size="xl"></logo-app>
 	<header-details-info-app>Exports from my team</header-details-info-app>
 </header-details-app>
@@ -14,6 +18,7 @@
 	[hasSwitch]="false"
 	[hasArchived]="false"
 	[hasAssigned]="false"
+	[hasMyExport]="true"
 	[searchValue]="listSrv.searchValue"
 	(search)="listSrv.search($event)"
 	(showMyExport)="toggleMyExports(true)"
@@ -21,7 +26,6 @@
 </controller-list-app>
 
 <export-table-app
-	class="no-padding"
 	[rows]="listSrv.items$ | async"
 	[currentSort]="listSrv.currentSort"
 	[pending]="listSrv.pending"

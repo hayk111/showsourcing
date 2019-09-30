@@ -1,8 +1,9 @@
 import { Directive, ElementRef, Input, OnChanges, Renderer2, SimpleChanges } from '@angular/core';
+import { Color, Colors } from '~utils';
 
 export type BadgePosition = 'above-after' | 'above-before' | 'below-after' | 'below-before' | 'center' | 'no-content';
 export type BadgeSize = 's' | 'm' | 'l';
-export type BadgeColor = 'primary' | 'accent' | 'warn' | 'success';
+
 let nextId = 0;
 
 @Directive({
@@ -39,12 +40,25 @@ export class NotificationBadgeDirective implements OnChanges {
 	@Input() badgePosition: BadgePosition = 'above-after';
 
 	@Input()
-	get badgeColor(): BadgeColor { return this._color; }
-	set badgeColor(value: BadgeColor) {
+	get badgeColor(): Colors { return this._color; }
+	set badgeColor(value: Colors) {
 		this._color = value;
 	}
-	private _color: BadgeColor = 'warn';
+	private _color: Colors = Color.WARN;
 
+	@Input()
+	get isBadgeColorLight(): boolean { return this._isColorLight; }
+	set isBadgeColorLight(isBadgeColorLight: boolean) {
+		this._isColorLight = isBadgeColorLight;
+	}
+	private _isColorLight = false;
+
+	@Input()
+	get hasBadgeBorder(): boolean { return this._hasBorder; }
+	set hasBadgeBorder(hasBadgeBorder: boolean) {
+		this._hasBorder = hasBadgeBorder;
+	}
+	private _hasBorder = false;
 
 	private _badgeElement: HTMLElement;
 	_hasContent = false;
@@ -104,13 +118,15 @@ export class NotificationBadgeDirective implements OnChanges {
 		const badgeElement = this._renderer.createElement('span');
 		const activeClass = 'notif-badge-active';
 		const contentClass = 'notif-badge-content';
-		const backgroundClass = `bg-${this.badgeColor}`;
-		const colorClass = 'color-white';
+		const backgroundClass = this._isColorLight ? `bg-${this.badgeColor}-light` : `bg-${this.badgeColor}`;
+		const colorClass = this._isColorLight ? `color-${this.badgeColor}` : 'color-white';
+		const borderClass = this._hasBorder ? 'notif-badge-white-border' : '';
 
+		badgeElement.setAttribute('color', this.badgeColor);
 		// Clear any existing badges which may have persisted from a server-side render.
 		this._clearExistingBadges(contentClass);
 		badgeElement.setAttribute('id', `notif-badge-content-${this._id}`);
-		badgeElement.classList.add(contentClass, backgroundClass, colorClass);
+		badgeElement.classList.add(contentClass, backgroundClass, colorClass, borderClass);
 		badgeElement.textContent = this.badge;
 
 		this._elementRef.nativeElement.appendChild(badgeElement);

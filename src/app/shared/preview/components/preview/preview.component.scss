@@ -25,7 +25,7 @@
 	&::-webkit-scrollbar { width: 0 !important } // we make invisible the scrollbar
 }
 
-.fixedTop {
+.banner-fixed {
 	position: fixed;
 	width: 424px;
 }
@@ -34,12 +34,25 @@
 	position: relative;
 }
 
+.tab-separator {
+  height: 12px;
+  box-shadow: inset 0 3px 2px 0 rgba(93, 109, 139, 0.1);
+  background-color: var(--bg-secondary);
+}
+
 .logo-transparent {
 	height: 50px
 }
 
 .white-bg {
+	// so for some reason the margin top when scrolling the content its not activated until we add this line
+	padding-top: 1px;
 	border-top-left-radius: var(--border-radius-l);
 	border-top-right-radius: var(--border-radius-l);
 	background: white;
+}
+
+// TODO delete when merged with latest branch since this will be on spacing.scss
+.mg-bottom-none {
+	margin-bottom: 0px;
 }

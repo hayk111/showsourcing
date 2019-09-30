@@ -1,22 +1,16 @@
+:host {
+	&.hide-sections preivew-section-app {
+		display: none;
+	}
+}
+
 preview-carousel-app {
 	height: 371px;
 	border-top-left-radius: var(--border-radius-l);
 	border-top-right-radius: var(--border-radius-l);
 }
 
-.btn-ask-quote {
-	width: 100%;
-	font-weight: 600;
-	line-height: 1.43;
-}
-
-.text-ask-quote {
-	margin-top: 10px;
-	font-size: 16px;
-	color: var(--legacy-color-txt-primary);
-}
-
-info-badge-app {
-	display: inline-block;
-	margin-bottom: 5px;
+.button-action-list {
+	padding-top: var(--spacing-ms);
+	padding-bottom: var(--spacing-l);
 }

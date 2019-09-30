@@ -14,7 +14,7 @@ import { SharedModule } from '~shared/shared.module';
 
 import {
 	ProductActivityComponent,
-	ProductHeaderListComponent,
+	ProductHeaderDetailsComponent,
 	ProductDetailsPageComponent,
 	ProductSamplesComponent,
 	ProductShippingComponent,
@@ -47,7 +47,7 @@ import { ProductFeatureService, QuoteFeatureService } from './services';
 		ProductSamplesComponent,
 		ProductShippingComponent,
 		ProductTasksComponent,
-		ProductHeaderListComponent,
+		ProductHeaderDetailsComponent,
 		ProductsPageComponent,
 		ProductRequestsComponent,
 		ProductActivityNavComponent,

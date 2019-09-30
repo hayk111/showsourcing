@@ -17,12 +17,14 @@ import { ListPageDataService } from './list-page-data.service';
 import { ListPageKey } from './list-page-keys.enum';
 import { ListPageViewService } from './list-page-view.service';
 import { SelectionWithFavoriteService } from './selection-with-favorite.service';
+import { UserService } from '~core/entity-services';
 
 // It has four legs and it can fly, what is it?
 // -
 // Two birds.
 
 // TODO: refacotr needed to make it more modulable. For example see product-activity.ts
+
 
 
 // where we can save the services
@@ -65,7 +67,8 @@ export class ListPageService
 		private router: Router,
 		private thumbSrv: ThumbService,
 		private dlgSrv: DialogService,
-		private zone: NgZone
+		private zone: NgZone,
+		private userSrv: UserService
 	) {
 		if (!showsourcing.lists) {
 			showsourcing.lists = {};
@@ -230,7 +233,7 @@ export class ListPageService
 		// .pipe(
 		// 	// sometimes the optimistic ui fails for some odd reason when updating the supplier of a product
 		// 	// so we just refetch to cover the bug, fuck this.
-		// 	switchMap(_ => this.refetch())
+		// 	switchMap(_ => refetch ? this.refetch() : empty())
 		// ).subscribe();
 	}
 
@@ -455,17 +458,23 @@ export class ListPageService
 
 	getFilterAmount(filterArr: FilterEntity[]): number {
 		const filters = this.filterList.asFilters()
-		.filter(fil => !filterArr.some(elem => elem.type === fil.type && elem.value === fil.value));
+			.filter(fil => !filterArr.some(elem => elem.type === fil.type && elem.value === fil.value));
 		return filters.length;
 	}
 
 	filterByArchived(shouldAdd: boolean) {
-		this.filterList.removeFilterType(FilterType.ARCHIVED);
-		this.filterList.addFilter({ type: FilterType.ARCHIVED, value: shouldAdd });
+		const filterParam = { type: FilterType.ARCHIVED, value: false };
+
+		if (shouldAdd) {
+			this.addFilter(filterParam);
+			return;
+		}
+
+		this.removeFilter(filterParam);
 	}
 
 	filterByAssignee(shouldAdd: boolean) {
-		const filterParam = { type: FilterType.ASSIGNEE, value: true };
+		const filterParam = { type: FilterType.ASSIGNEE, value: this.userSrv.userId };
 
 		if (shouldAdd) {
 			this.addFilter(filterParam);
@@ -476,7 +485,7 @@ export class ListPageService
 	}
 
 	filterByDone(shouldAdd: boolean) {
-		const filterParam = { type: FilterType.DONE, value: true };
+		const filterParam = { type: FilterType.DONE, value: false };
 
 		if (shouldAdd) {
 			this.addFilter(filterParam);

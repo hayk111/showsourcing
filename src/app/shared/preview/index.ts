@@ -1,2 +1,3 @@
-export * from '~shared/preview/preview.module';
-export * from '~shared/preview/components';
+export * from './preview.module';
+export * from './components';
+export * from './services';

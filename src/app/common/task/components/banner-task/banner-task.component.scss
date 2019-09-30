@@ -49,3 +49,11 @@
 	}
 }
 
+.secondary-dark {
+	background: rgb(93, 109, 139);
+	color: white;
+	&:hover {
+		background: rgb(163, 175, 198);
+	}
+}
+

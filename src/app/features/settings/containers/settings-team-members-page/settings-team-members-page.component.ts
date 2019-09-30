@@ -2,9 +2,10 @@ import { Component, NgModuleRef, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { TeamService } from '~entity-services';
+import { TeamService, CompanyService } from '~entity-services';
 import { Team } from '~models';
 import { DialogService } from '~shared/dialog/services';
+import { CommonModalService } from '~common/modals/services/common-modal.service';
 
 @Component({
 	selector: 'settings-team-members-page-app',
@@ -13,6 +14,8 @@ import { DialogService } from '~shared/dialog/services';
 })
 export class SettingsTeamMembersPageComponent implements OnInit {
 	team$: Observable<Team>;
+	team: Team;
+	companyName: string;
 	selectedTab = 'team-members';
 
 	constructor(
@@ -20,11 +23,15 @@ export class SettingsTeamMembersPageComponent implements OnInit {
 		protected moduleRef: NgModuleRef<any>,
 		protected router: Router,
 		protected route: ActivatedRoute,
-		private teamSrv: TeamService
+		private teamSrv: TeamService,
+		private companySrv: CompanyService,
+		public commonModalSrv: CommonModalService,
 	) { }
 
 	ngOnInit() {
-		this.team$ = this.teamSrv.teamSelected$;
+		this.team$ = this.teamSrv.selectTeam();
+		this.team = this.teamSrv.selectedTeamSync;
+		this.companyName = this.companySrv.companySync.name;
 	}
 
 	/** Displays specified tab */
@@ -37,10 +44,11 @@ export class SettingsTeamMembersPageComponent implements OnInit {
 		this.router.navigate(['user', 'create-a-team']);
 	}
 	updateTeamName(newName: string) {
-		if (newName.length) {
-			this.team$.pipe(
-				switchMap(team => this.teamSrv.update(team))
-			).subscribe();
-		}
+		// 	if (newName.length) {
+		// 		this.team$.pipe(
+		// 			switchMap(team => this.teamSrv.update(team))
+		// 		).subscribe();
+		// 	}
 	}
 }
+

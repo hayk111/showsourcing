@@ -11,7 +11,9 @@ import {
 	ProductStatusWorkflowComponent,
 	SampleStatusWorkflowComponent,
 	SettingsProfileComponent,
+	SettingsTeamMembersComponent,
 	SupplierStatusWorkflowComponent,
+	SettingsCompanyComponent,
 } from './components';
 import {
 	SettingsComponent,
@@ -20,6 +22,7 @@ import {
 	SettingsFieldsPageComponent,
 	SettingsTeamMembersPageComponent,
 	SettingsWorkflowsPageComponent,
+	SettingsCompanyPageComponent,
 } from './containers';
 
 
@@ -32,6 +35,14 @@ export const routes: Routes = [
 			{ path: 'profile', component: SettingsProfileComponent },
 			{ path: 'fields', component: SettingsFieldsPageComponent },
 			{
+				path: 'company', component: SettingsCompanyPageComponent, children: [
+					{ path: '', redirectTo: 'settings', pathMatch: 'full' },
+					{ path: 'settings', component: SettingsCompanyComponent },
+					{ path: 'teams', component:  SettingsCompanyComponent },
+					{ path: 'users', component:  SettingsCompanyComponent }
+				]
+			},
+			{
 				path: 'workflow', component: SettingsWorkflowsPageComponent, children: [
 					{ path: '', redirectTo: 'product', pathMatch: 'full' },
 					{ path: 'product', component: ProductStatusWorkflowComponent },
@@ -43,7 +54,7 @@ export const routes: Routes = [
 				path: 'team', component: SettingsTeamMembersPageComponent, children: [
 					{ path: '', redirectTo: 'members', pathMatch: 'full' },
 					{ path: 'members', component:  SettingsTeamMembersContentComponent },
-					{ path: 'settings', component:  SettingsTeamMembersContentComponent }
+					{ path: 'settings', component:  SettingsTeamMembersComponent }
 				]
 			},
 			{

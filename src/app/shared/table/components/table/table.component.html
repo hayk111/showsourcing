@@ -7,7 +7,7 @@
 	<div class="contentCtnr" [ngStyle]="{ width: width ? width + 'px' : getWidth() + 'px' }">
 		<!-- empty column for space between border bottom and side -->
 		<div class="col emptyBorder" *ngIf="hasHeader">
-			<div 
+			<div
 				class="header"
 				[style.height]="rowHeight + 'px'"
 				[ngStyle]="headerSecondary && {'background': 'var(--color-bg-secondary)', 'border-bottom': getHeaderBorder()}"
@@ -20,11 +20,11 @@
 		</div>
 
 		<!-- selection column -->
-		<div 
+		<div
 			*ngIf="hasSelection"
 			class="col selectionCol"
 			[style.height]="rowHeight + 'px'">
-			<div *ngIf="hasHeader" class="header" 
+			<div *ngIf="hasHeader" class="header"
 				[style.height]="rowHeight + 'px'"
 				[ngStyle]="headerSecondary && {'background': 'var(--color-bg-secondary)', 'border-bottom': getHeaderBorder()}">
 				<ng-container>
@@ -54,8 +54,8 @@
 		<div *ngFor="let column of columns; trackBy: columnTrackByFn" [style.width]="column.width + 'px'" [style.minWidth]="column.minWidth + 'px'"
 			class="col {{ column.grows ? 'flexGrow' : '' }}">
 			<!-- header -->
-			<div *ngIf="hasHeader" 
-				class="header {{ column.sortable ? 'pointer' : 'defaultCursor'}} capitalize" 
+			<div *ngIf="hasHeader"
+				class="header {{ column.sortable ? 'pointer' : 'defaultCursor'}} capitalize"
 				[class.sorted]="currentSort?.sortBy === column?.sortBy"
 				[style.height]="rowHeight + 'px'"
 				[ngStyle]="headerSecondary && {'background': 'var(--color-bg-secondary)', 'border-bottom': getHeaderBorder()}"
@@ -123,12 +123,20 @@
 
 	</div>
 
-	<div *ngIf="rows?.length === 0" class="flexAround placeholderCtnr">
-		<div class="placeholder">{{ placeholder }}</div>
+	<div *ngIf="rows?.length === 0 && !pending" class="flexCenter flexColumn placeholderCtnr">
+		<logo-app
+			class="placeholder-logo"
+			[circle]="true"
+			size="xxl"
+			[type]="type">
+		</logo-app>
+		<div class="placeholder-title">No {{ type }} found</div>
+		<div class="placeholder-description">Create a new one!</div>
+		<button class="min-width" (click)="createClick.emit()">create a {{ type }}</button>
 	</div>
 
 	<!-- pending -->
-	<div *ngIf="pending" class="pendingCtnr flexCenter" >
+	<div *ngIf="pending" class="pendingCtnr flexCenter">
 		<dots-app></dots-app>
 	</div>
 </div>

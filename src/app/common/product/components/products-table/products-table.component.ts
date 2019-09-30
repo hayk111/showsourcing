@@ -1,40 +1,47 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { EntityTableComponent, TableConfig } from '~core/list-page/entity-table.component';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
+import { EntityTableComponent, TableConfig, TableConfigType } from '~core/list-page/entity-table.component';
 import { ERM, Product } from '~models';
 import { Color } from '~utils';
 import { TranslateService } from '@ngx-translate/core';
 
-const tableConfig: TableConfig = {
-	activities: { title: 'activity', translationKey: 'activity', width: 190, sortable: false },
-	category: { title: 'category', translationKey: 'category', width: 190, sortProperty: 'category.name' },
-	createdBy: { title: 'created by', translationKey: 'created-by', width: 140, sortProperty: 'creationDate' },
-	creationDate: { title: 'creation date', translationKey: 'creation-date', width: 190, sortProperty: 'creationDate' },
-	about: { title: 'about', translationKey: 'about', width: 190, sortProperty: 'creationDate' },
-	favorite: { title: 'favorite', translationKey: 'favorite', width: 50, sortProperty: 'favorite' },
-	moq: { title: 'moq', translationKey: 'moq', width: 120, sortProperty: 'minimumOrderQuantity' },
-	price: { title: 'price', translationKey: 'price', width: 120, sortProperty: 'price.value' },
-	projects: { title: 'projects', translationKey: 'projects', width: 190, sortProperty: 'creationDate' },
-	reference: { title: 'reference', translationKey: 'reference', width: 247, sortProperty: 'reference' },
-	status: { title: 'status', translationKey: 'status', width: 190, sortProperty: 'status.step' },
-	supplier: { title: 'supplier', translationKey: 'supplier', width: 190, sortProperty: 'supplier.id' },
+const bigTableConfig: TableConfig = {
+	activities: { name: 'activity', translationKey: 'activity', width: 190, sortable: false },
+	category: { name: 'category', translationKey: 'category', width: 190, sortProperty: 'category.name' },
+	createdBy: { name: 'created by', translationKey: 'created-by', width: 140, sortProperty: 'creationDate' },
+	creationDate: { name: 'creation date', translationKey: 'creation-date', width: 190, sortProperty: 'creationDate' },
+	about: { name: 'about', translationKey: 'about', width: 190, sortProperty: 'creationDate' },
+	favorite: { name: 'favorite', translationKey: 'favorite', width: 50, sortProperty: 'favorite' },
+	moq: { name: 'moq', translationKey: 'moq', width: 120, sortProperty: 'minimumOrderQuantity' },
+	price: { name: 'price', translationKey: 'price', width: 120, sortProperty: 'price.value' },
+	projects: { name: 'projects', translationKey: 'projects', width: 190, sortProperty: 'creationDate' },
+	reference: { name: 'reference', translationKey: 'reference', width: 247, sortProperty: 'reference' },
+	status: { name: 'status', translationKey: 'status', width: 190, sortProperty: 'status.step' },
+	supplier: { name: 'supplier', translationKey: 'supplier', width: 190, sortProperty: 'supplier.id' },
+};
+
+const mediumTableConfig: TableConfig = {
+	about: { name: 'about', translationKey: 'about', width: 190, sortProperty: 'creationDate' },
+	reference: { name: 'reference', translationKey: 'reference', width: 320, sortProperty: 'reference' },
+	status: { name: 'status', translationKey: 'status', width: 165, sortProperty: 'status.step' },
 };
 
 @Component({
 	selector: 'products-table-app',
 	templateUrl: './products-table.component.html',
 	styleUrls: [
-		'./products-table.component.scss'
+		'./products-table.component.scss',
+		'../../../../../app/theming/specific/list.scss'
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductsTableComponent extends EntityTableComponent<Product> {
+export class ProductsTableComponent extends EntityTableComponent<Product> implements OnInit {
 	columns = ['reference', 'price', 'supplier', 'category', 'createdBy', 'activities', 'status'];
-	@Input() tableConfig = tableConfig;
 	@Input() tableWidth: number;
 	@Input() hasVerticalScroll: boolean;
 	@Input() headerSecondary: boolean;
 	@Input() hasHeaderBorder: boolean;
 	@Input() hasShowItemsPerPage: boolean;
+	@Input() tableConfigType: TableConfigType = 'big';
 	@Output() setFavourite = new EventEmitter<Product>();
 	@Output() openAddToProjectDialog = new EventEmitter<Product>();
 	@Output() openAddTaskDialog = new EventEmitter<Product>();
@@ -42,11 +49,28 @@ export class ProductsTableComponent extends EntityTableComponent<Product> {
 
 	@Output() archive = new EventEmitter<Product>();
 	@Output() delete = new EventEmitter<Product>();
-	prodErm = ERM.PRODUCT;
+	@Output() showItemsPerPage = new EventEmitter<number>();
+	erm = ERM;
 	color = Color;
 
 	constructor(public translate: TranslateService) {
 		super();
+	}
+
+	ngOnInit() {
+		this.tableConfig = this.getTableFromType();
+		super.ngOnInit();
+	}
+
+	getTableFromType() {
+		switch (this.tableConfigType) {
+			case 'big':
+				return bigTableConfig;
+			case 'medium':
+				return mediumTableConfig;
+			default:
+				return bigTableConfig;
+		}
 	}
 
 }

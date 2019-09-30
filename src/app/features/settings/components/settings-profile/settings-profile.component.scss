@@ -2,6 +2,23 @@ bread-crumb-app {
 	margin: var(--spacing-l);
 }
 
+header-details-title-app {
+	margin-left: var(--spacing-ms);
+}
+
+.my-profile {
+	font-size: var(--font-size-xxxl);
+	color: var(--color-bg-dark);
+}
+
+.user-name {
+	.name, .user-email {
+		font-size: var(--font-size-m);
+		font-weight: normal;
+		color: var(--color-txt-secondary);
+	}
+}
+
 .card-style {
 	display: block;
 	margin: auto;
@@ -9,7 +26,7 @@ bread-crumb-app {
 	width: 520px;
 	position: relative;
 	border: 1px solid var(--legacy-color-secondary);
-	padding: var(--spacing-l) var(--spacing-l) var(--spacing-l) var(--spacing-l);
+	padding: var(--spacing-l);
 	background: white;
 	border-radius: var(--border-radius);
 }
