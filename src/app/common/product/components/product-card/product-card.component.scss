@@ -155,7 +155,6 @@ $image-width: 99px;
 		.vote-star-container {
 			cursor: pointer;
 			border-radius: var(--border-radius);
-			color: var(--color-accent);
 			margin-right: var(--spacing-xs);
 			padding: var(--spacing-xs);
 
@@ -170,12 +169,8 @@ $image-width: 99px;
 			height: 18px;
 			font-size: var(--font-size-m);
 			font-weight: 600;
-			color: var(--color-accent-dark);
 		}
 
-		.light-background {
-			background-color: var(--color-accent-light);
-		}
 	}
 
 }

@@ -1,6 +1,8 @@
-<ng-container *ngIf="team$ | async as team">
+<ng-container *ngIf="teamOwner !== undefined">
 	<team-card-app
 		class="card-style"
-		[team]="team">
+		[team]="team"
+		[teamOwner]="teamOwner"
+		(valueChange)="updateTeamName($event)">
 	</team-card-app>
 </ng-container>

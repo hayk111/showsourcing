@@ -21,9 +21,8 @@ import {
 	ExtendedFieldDefinitionService,
 } from '~core/entity-services/extended-field-definition/extended-field-definition.service';
 import { TableConfig } from '~core/list-page';
-import { ProductService, TaskService, SampleService } from '~entity-services';
-import { WorkspaceFeatureService } from '~features/workspace/services/workspace-feature.service';
-import { AppImage, Comment, ERM, ExtendedFieldDefinition, PreviewActionButton, Product, Task, Sample } from '~models';
+import { ProductService, SampleService, TaskService } from '~entity-services';
+import { AppImage, Comment, ERM, ExtendedFieldDefinition, PreviewActionButton, Product, Sample, Task } from '~models';
 import { DialogService } from '~shared/dialog/services';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { PreviewCommentComponent, PreviewService } from '~shared/preview';
@@ -94,7 +93,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 		private modalSrv: CommonModalService,
 		private dlgSrv: DialogService,
 		private router: Router,
-		private workspaceSrv: WorkspaceFeatureService,
+		public commonModalSrv: CommonModalService,
 		private commentSrv: CommentService,
 		private extendedFieldDefSrv: ExtendedFieldDefinitionService,
 		public previewSrv: PreviewService,
