@@ -1,11 +1,18 @@
-@mixin _notif-badge-size($size) {
+@mixin _notif-badge-size($size, $font-size) {
   .notif-badge-content {
-    width: $size;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		box-sizing: border-box;
+		min-width: $size;
+    max-width: $size + 2px; // for 2 digit numbers
     height: $size;
-		line-height: $size - 2;
-		font-size: $size - 1;
-		padding: var(--spacing-xs);
-  }
+		font-size: $font-size;
+		font-weight: 600;
+		padding: 2px;
+		// line-height: 1;
+		// border: 2px solid white;
+	}
 
   &.notif-badge-above {
     .notif-badge-content {
@@ -78,12 +85,18 @@
 	transform: none;
 }
 
+/** border notification **/
+.notif-badge-white-border {
+	box-shadow: 0 0 0 2px white;
+}
+
+/** size notification **/
 .notif-badge-s {
-	@include _notif-badge-size(12px);
+	@include _notif-badge-size(14px, var(--font-size-s));
 }
 .notif-badge-m {
-	@include _notif-badge-size(14px);
+	@include _notif-badge-size(16px, var(--font-size-m));
 }
 .notif-badge-l {
-	@include _notif-badge-size(16px);
+	@include _notif-badge-size(18px, var(--font-size-m));
 }

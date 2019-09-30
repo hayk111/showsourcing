@@ -17,10 +17,9 @@ import {
 	ProductHeaderDetailsComponent,
 	ProductDetailsPageComponent,
 	ProductSamplesComponent,
-	ProductShippingComponent,
+	ProductInfoComponent,
 	ProductsPageComponent,
 	ProductTasksComponent,
-	ProductRequestsComponent,
 	ProductActivityNavComponent
 } from './pages';
 import { ProductFeatureService, QuoteFeatureService } from './services';
@@ -45,11 +44,10 @@ import { ProductFeatureService, QuoteFeatureService } from './services';
 		ProductActivityComponent,
 		ProductDetailsPageComponent,
 		ProductSamplesComponent,
-		ProductShippingComponent,
+		ProductInfoComponent,
 		ProductTasksComponent,
 		ProductHeaderDetailsComponent,
 		ProductsPageComponent,
-		ProductRequestsComponent,
 		ProductActivityNavComponent,
 	],
 	entryComponents: [],

@@ -26,14 +26,11 @@ export class SamplesPageComponent extends AutoUnsub implements OnInit {
 	filterTypeEnum = FilterType;
 	// filter displayed as button in the filter panel
 	filterTypes = [
-		FilterType.CATEGORY,
-		FilterType.CREATED_BY,
-		FilterType.EVENT,
-		FilterType.FAVORITE,
-		FilterType.PRODUCT_STATUS,
-		FilterType.PROJECTS,
+		FilterType.PRODUCT,
 		FilterType.SUPPLIER,
-		FilterType.TAGS
+		FilterType.CREATED_BY,
+		FilterType.SAMPLE_STATUS,
+		FilterType.ASSIGNEE,
 	];
 
 	samplesCount$: Observable<number>;
@@ -52,11 +49,11 @@ export class SamplesPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		const selectParams = new SelectParams({ sortBy: 'name' });
+		const selectParams = new SelectParams({ sortBy: 'creationDate' });
 		this.listSrv.setup({
 			key: ListPageKey.REQUEST,
 			entitySrv: this.sampleSrv,
-			searchedFields: ['name', 'supplier.name', 'product.name', 'assignee.firstName', 'assignee.lastName'],
+			searchedFields: ['name', 'supplier.name', 'product.name', 'assignee.firstName', 'assignee.lastName', 'type'],
 			entityMetadata: ERM.SAMPLE,
 			initialFilters: [],
 			originComponentDestroy$: this._destroy$,
@@ -96,7 +93,7 @@ export class SamplesPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	showItemsPerPage(count: number) {
-		this.selectItemsConfig = {take: Number(count)};
+		this.selectItemsConfig = { take: Number(count) };
 		this.listSrv.refetch(this.selectItemsConfig).subscribe();
 	}
 
@@ -104,7 +101,7 @@ export class SamplesPageComponent extends AutoUnsub implements OnInit {
 		this.listSrv.filterList.resetAll();
 
 		// this.listSrv.addFilter({ type: FilterType.ARCHIVED, value: false}); TODO backend
-		this.listSrv.addFilter({ type: FilterType.DELETED, value: false});
+		this.listSrv.addFilter({ type: FilterType.DELETED, value: false });
 
 		this.controllerListService.onFiltersClear();
 	}

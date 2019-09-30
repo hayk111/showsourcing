@@ -1,11 +1,14 @@
 import { EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { Sort } from '~shared/table/components/sort.interface';
 import { TrackingComponent } from '~utils/tracking-component';
+import { ERM } from '~core/models/_erm.enum';
 
 
 export interface ColumnConfig {
-	title: string;
+	// property we are accessing on the switchcase
+	name: string;
 	width: number;
+	// this is the title of the column
 	translationKey: string;
 	sortProperty?: string;
 	sortable?: boolean;
@@ -14,6 +17,8 @@ export interface ColumnConfig {
 export interface TableConfig {
 	[key: string]: ColumnConfig;
 }
+
+export type TableConfigType = 'small' | 'medium' | 'big';
 
 export abstract class EntityTableComponent<T> extends TrackingComponent implements OnInit {
 	/** current selection */
@@ -48,13 +53,15 @@ export abstract class EntityTableComponent<T> extends TrackingComponent implemen
 	@Output() bottomReached = new EventEmitter<string>();
 	@Output() sort = new EventEmitter<Sort>();
 	@Output() previewClick = new EventEmitter<T>();
+	/** emits when a click has been performed on the placeholder */
+	@Output() createClick = new EventEmitter<null>();
 	@Output() delete = new EventEmitter<T>();
 	// pagination
 	@Output() previous = new EventEmitter<undefined>();
 	@Output() next = new EventEmitter<undefined>();
 	@Output() goToPage = new EventEmitter<number>();
 	@Output() showItemsPerPage = new EventEmitter<number>();
-
+	erm = ERM;
 
 	constructor() {
 		super();
@@ -70,14 +77,15 @@ export abstract class EntityTableComponent<T> extends TrackingComponent implemen
 
 	ngOnInit() {
 		if (!this.tableConfig) {
-			throw Error('Please define a configuration for columnConfig');
+			throw Error('Please define a tableConfiguration for columnConfig');
 		}
+
 		this.columns.forEach(name => {
 			const config = this.tableConfig[name];
 			if (config) {
 				this.columnsConfig.push(config);
 			} else {
-				throw Error(`${name} isn't a valid column name, make sure it is in the config`);
+				throw Error(`'${name}' isn't a valid column name, make sure it is in the config`);
 			}
 		});
 	}

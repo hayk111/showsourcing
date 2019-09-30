@@ -13,6 +13,17 @@
 		// we want to keep always the bottom one cause of the selection
 		padding-bottom: var(--spacing-l);
 	}
+
+	&.max-full-table-width {
+		@media only screen and (max-width:3400px){
+			margin: var(--spacing-l) 0 32px 0;
+		}
+		@media only screen and (min-width:3400px){
+			margin: var(--spacing-l) auto 32px auto;
+			width: var(--screen-tables-max-width);
+		}
+		max-width: var(--screen-tables-max-width);
+	}
 }
 
 a.title {

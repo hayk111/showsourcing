@@ -37,7 +37,7 @@
 
 .preview-imgs .hover-img {
 	width: 32px;
-	background-color: rgb(69, 173, 255, 0.5);
+	background-color: rgba(175, 69, 255, 0.5);
 	position: absolute;
 	color: var(--color-bg);
 	border-radius: var(--border-radius);
@@ -109,4 +109,9 @@ user-picture-app {
 .overflow-hidden {
 	max-height: 51px;
 	overflow: hidden;
+}
+
+.empty-field {
+	color: var(--color-txt-secondary);
+	font-weight: normal;
 }

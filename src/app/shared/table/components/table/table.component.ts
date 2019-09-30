@@ -14,6 +14,7 @@ import {
 import { ColumnDirective } from '~shared/table/components/column.directive';
 import { Sort } from '~shared/table/components/sort.interface';
 import { TrackingComponent } from '~utils/tracking-component';
+import { EntityName } from '~core/models';
 
 @Component({
 	selector: 'table-app',
@@ -51,6 +52,7 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	/** whether the context menu icon is horizontal dots or vertical */
 	@Input() isContextMenuHorizontal = true;
 
+	@Input() type: EntityName;
 	@Input() width: number;
 	@Input() rowHeight: number;
 
@@ -68,6 +70,9 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 
 	@Input() currentPage: number;
 	@Output() showItemsPerPage = new EventEmitter<number>();
+
+	/** event when we click the create button on placeholder */
+	@Output() createClick = new EventEmitter<null>();
 
 	/** event when we select all rows */
 	@Output() selectAll = new EventEmitter<string[]>();
@@ -151,7 +156,7 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 
 	onSort(column: ColumnDirective) {
 		if (!column.sortable)
-		return;
+			return;
 		// remove sorting on all column and add the current sort to the correct one
 		const filtered = this.columns.filter(c => c !== column);
 		filtered.forEach(c => c.resetSort());

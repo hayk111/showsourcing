@@ -4,7 +4,6 @@ import {
 	SupplierProductsPageComponent,
 	SuppliersPageComponent,
 	SupplierActivityComponent,
- 	SupplierProductsComponent,
  	SupplierTasksComponent,
 	SupplierSamplesComponent
 } from './pages';
@@ -19,14 +18,10 @@ export const routes: Array<Route> = [
 		component: SupplierDetailsComponent,
 		children: [
 			{ path: 'activity', component: SupplierActivityComponent },
-			{ path: 'products', component: SupplierProductsComponent },
+			{ path: 'products', component: SupplierProductsPageComponent },
 			{ path: 'samples', component: SupplierSamplesComponent },
 			{ path: 'tasks', component: SupplierTasksComponent },
 			{ path: '', redirectTo: 'activity', pathMatch: 'full' }
 		]
-	},
-	{
-		path: 'all-products/:id',
-		component: SupplierProductsPageComponent
 	}
 ];

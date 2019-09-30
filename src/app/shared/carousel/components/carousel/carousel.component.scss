@@ -23,17 +23,22 @@ carousel-app {
 	background: var(--legacy-color-secondary-light);
 }
 
-.action {
+.absolute {
+	position: absolute;
+}
+
+.visible-on-hover {
 	visibility: hidden;
 }
 
-.ctnr:hover > .action {
+.ctnr:hover > .visible-on-hover {
 	visibility: visible;
 }
 
 .empty > * {
 	margin: var(--spacing-xs);
 }
+
 .menu {
 	position: absolute;
 	top: var(--spacing-m);
@@ -49,6 +54,22 @@ carousel-app {
 	height: var(--spacing-l);
 	color: white;
 	background: rgba(93, 109, 139, 0.7);
+}
+
+.image-counter {
+	background: black;
+	color: white;
+	height: 44px;
+	width: 110px;
+	border-radius: 22px;
+	right: var(--spacing-ms);
+	bottom: var(--spacing-m);
+	font-size: var(--font-size-l);
+	font-weight: 600;
+
+	> *:not(:last-child) {
+		margin-right: var(--spacing-ms);
+	}
 }
 
 .move-btn {

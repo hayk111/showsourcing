@@ -4,6 +4,7 @@ import {
 	ProductDetailsPageComponent,
 	ProductActivityComponent,
 	ProductsPageComponent,
+	ProductInfoComponent,
 } from './pages';
 
 
@@ -17,8 +18,8 @@ export const routes: Array<Route> = [
 		component: ProductDetailsPageComponent,
 		children: [
 			{ path: '', redirectTo: 'activity', pathMatch: 'full' },
-			// { path: 'shipping', component: ProductShippingComponent },
 			{ path: 'activity', component: ProductActivityComponent },
+			{ path: 'info', component: ProductInfoComponent },
 			// { path: 'samples', component: ProductSamplesComponent },
 			// { path: 'tasks', component: ProductTasksComponent },
 			// { path: 'requests', component: ProductRequestsComponent }

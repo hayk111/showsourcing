@@ -1,17 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import {
-	DEFAULT_CATEGORY_ICON,
-	DEFAULT_EVENT_ICON,
-	DEFAULT_IMG,
-	DEFAULT_PRODUCT_ICON,
-	DEFAULT_PROJECT_ICON,
-	DEFAULT_REQUEST_ICON,
-	DEFAULT_SAMPLE_ICON,
-	DEFAULT_SUPPLIER_ICON,
-	DEFAULT_USER_ICON,
-	ImageUrls,
-} from '~utils';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { DEFAULT_IMG, ImageUrls } from '~utils';
 
 /**
  * Pipes that adds the begining url for images,
@@ -61,7 +50,7 @@ export class ImagePipe implements PipeTransform {
 			const sizeIndex = this.sizeIndexMap.get(size);
 			// no value
 			if (!value)
-				return this.getDefault(type);
+				return DEFAULT_IMG;
 
 			// array
 			if (Array.isArray(value)) {
@@ -94,32 +83,8 @@ export class ImagePipe implements PipeTransform {
 			// if it's a string we return the url made of with that string
 			return `${ImageUrls[size]}/${value}`;
 		} catch (e) {
-			return this.getDefault(type);
-		}
-	}
-
-	/** @deprecated logo is used where there needs a default */
-	/** gets the correct icon for selectors inputs */
-	getDefault(type: string) {
-		switch (type) {
-			case 'category':
-				return DEFAULT_CATEGORY_ICON;
-			case 'event':
-				return DEFAULT_EVENT_ICON;
-			case 'product':
-				return DEFAULT_PRODUCT_ICON;
-			case 'project':
-				return DEFAULT_PROJECT_ICON;
-			case 'request':
-				return DEFAULT_REQUEST_ICON;
-			case 'sample':
-				return DEFAULT_SAMPLE_ICON;
-			case 'supplier':
-				return DEFAULT_SUPPLIER_ICON;
-			case 'user':
-				return DEFAULT_USER_ICON;
-			default:
-				return DEFAULT_IMG;
+			console.log('catched errors');
+			return DEFAULT_IMG;
 		}
 	}
 

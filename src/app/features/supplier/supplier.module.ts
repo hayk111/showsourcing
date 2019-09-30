@@ -13,7 +13,6 @@ import { SharedModule } from '~shared/shared.module';
 import {
 	SupplierActivityComponent,
 	SupplierDetailsComponent,
-	SupplierProductsComponent,
 	SupplierProductsPageComponent,
 	SupplierSamplesComponent,
 	SuppliersPageComponent,
@@ -42,7 +41,6 @@ import { CommentCommonModule } from '~common/comment';
 	declarations: [
 		SupplierActivityComponent,
 		SupplierDetailsComponent,
-		SupplierProductsComponent,
 		SupplierProductsPageComponent,
 		SupplierSamplesComponent,
 		SupplierTasksComponent,

@@ -1,31 +1,34 @@
-<div class="list-action-button-container">
-	<div class="pointer action-button-container centered-text"
-	*ngFor="let btn of actions; trackBy: trackByFn">
-		<div *ngIf="btn.subMenuItems !== undefined; else action_buttons">
-			<div class="btn-icon round-button">
-				<icon-app [name]="btn.icon" (click)="toggleContext()" [fontSet]="btn.fontSet"></icon-app>
-			</div>
-			<context-menu-app [menuOpen]="isMenuOpened">
-				<context-menu-item-app
-					class="pointer"
-					(click)="clickOnAction.emit(btn.subMenuItems[0])">
-					<icon-app name="check-circle"></icon-app>
-					<span class="context-menu-item-text">{{btn.subMenuItems[0].text}}</span>
-				</context-menu-item-app>
-				<context-menu-item-app
-					class="pointer"
-					(click)="clickOnAction.emit(btn.subMenuItems[1])">
-					<icon-app name="sample"></icon-app>
-					<span class="context-menu-item-text">{{btn.subMenuItems[1].text}}</span>
-				</context-menu-item-app>
-			</context-menu-app>
-			<div class="btn-text first-uppercase">{{ btn.text }}</div>
+<div
+	*ngFor="let btn of actions; index as index; trackBy: trackByFn"
+	class="pointer action-button-container centered-text">
+	<!-- button -->
+	<div class="btn-icon round-button">
+		<!-- since its not a rectangle (its round) the badge is left outside, so we create a smaller container -->
+		<div
+			*ngIf="btn.number"
+			class="empty-smaller-container"
+			notifBadge
+			[badge]="btn.number"
+			badgePosition="below-after"
+			[badgeOverlap]="true"
+			[isBadgeColorLight]="true"
+			[hasBadgeBorder]="true">
 		</div>
-		<ng-template #action_buttons>
-			<div class="btn-icon round-button">
-					<icon-app [name]="btn.icon" (click)="clickOnAction.emit(btn)" [fontSet]="btn.fontSet"></icon-app>
-			</div>
-			<div class="btn-text first-uppercase">{{ btn.text }}</div>
-		</ng-template>
+		<icon-app [name]="btn.icon" (click)="btn.subMenuItems !== undefined ? toggleContext() : clickOnAction.emit(btn)" [fontSet]="btn.fontSet"></icon-app>
 	</div>
+
+	<!-- text -->
+	<div class="btn-text first-uppercase">{{ btn.text }}</div>
+
+	<!-- context menu  -->
+	<context-menu-app *ngIf="btn.subMenuItems !== undefined" [menuOpen]="isMenuOpened">
+		<context-menu-item-app
+			*ngFor="let subItem of btn.subMenuItems"
+			class="pointer"
+			(click)="clickOnAction.emit(subItem)">
+			<icon-app [name]="subItem.icon"></icon-app>
+			<span class="context-menu-item-text">{{ subItem.text }}</span>
+		</context-menu-item-app>
+	</context-menu-app>
+
 </div>
