@@ -17,6 +17,7 @@ import { RealmAuthenticationService } from '~core/auth/services/realm-authentica
 import { ListPageService } from '~core/list-page';
 import { CompanyService, TeamService, UserService } from '~entity-services';
 import { Team } from '~models';
+import { CentralClientInitializer } from '~core/apollo/services/apollo-central-client.service';
 
 @Component({
 	selector: 'app-root',
@@ -38,6 +39,7 @@ export class AppComponent implements OnInit {
 		private teamClient: TeamClientInitializer,
 		private teamSrv: TeamService,
 		private userClient: UserClientInitializer,
+		private centralClient: CentralClientInitializer,
 		private userSrv: UserService,
 		private translate: TranslateService,
 	) { }
@@ -91,7 +93,8 @@ export class AppComponent implements OnInit {
 		return forkJoin([
 			this.globalDataClient.init(realmUser),
 			this.globalRequestClient.init(realmUser),
-			this.userClient.init(realmUser)
+			this.userClient.init(realmUser),
+			this.centralClient.init(realmUser)
 		]);
 	}
 
