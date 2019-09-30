@@ -23,10 +23,9 @@ export class CentralClientInitializer extends AbstractApolloClient {
 		protected userSrv: UserService,
 		protected realmServerSrv: RealmServerService,
 		protected teamSrv: TeamService,
-		private imageUploadRequest: ImageUploadRequestService,
 		private companySrv: CompanyService
 	) {
-		super(apollo, link, apolloState, realmServerSrv, Client.USER);
+		super(apollo, link, apolloState, realmServerSrv, Client.CENTRAL);
 	}
 
 	init(realmUser: RealmUser): Observable<any> {
@@ -35,7 +34,7 @@ export class CentralClientInitializer extends AbstractApolloClient {
 		this.setPending('initialization');
 
 		const userId = realmUser.identity;
-		const uri = `/central/__partial/${userId}/${this.suffix}`;
+		const uri = `/${this.client}/__partial/${userId}/${this.suffix}`;
 
 		return from(this.createClient(uri, realmUser, this.client)).pipe(
 			takeUntil(this.destroyed$),
