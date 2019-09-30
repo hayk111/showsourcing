@@ -19,7 +19,6 @@ import { ListPageKey } from './list-page-keys.enum';
 import { ListPageViewService } from './list-page-view.service';
 import { SelectionWithFavoriteService } from './selection-with-favorite.service';
 
-
 // It has four legs and it can fly, what is it?
 // -
 // Two birds.
