@@ -4,7 +4,6 @@ import { ERM } from '~models/_erm.enum';
 import { User } from '~core/models';
 import { Router } from '@angular/router';
 
-
 @Component({
 	selector: 'product-header-details-app',
 	templateUrl: './product-header-details.component.html',
@@ -35,10 +34,6 @@ export class ProductHeaderDetailsComponent implements OnInit {
 
 	onUserChanged(user: User) {
 		this.update.emit({ id: this.product.id, assignee: new User({ id: user.id }) });
-	}
-
-	getHeaderNavUrl(nav: string): string {
-		return this.router.url.substring(0, this.router.url.lastIndexOf('/') + 1) + nav;
 	}
 
 }

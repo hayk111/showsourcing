@@ -49,8 +49,6 @@ export class ProductsTableComponent extends EntityTableComponent<Product> implem
 
 	@Output() archive = new EventEmitter<Product>();
 	@Output() delete = new EventEmitter<Product>();
-	@Output() showItemsPerPage = new EventEmitter<number>();
-	erm = ERM;
 	color = Color;
 
 	constructor(public translate: TranslateService) {

@@ -1,0 +1,36 @@
+<controller-list-app
+	[hasFilter]="false"
+	[hasSwitch]="false"
+	[view]="listSrv.view"
+	(search)="listSrv.search($event)"
+	(smartSearch)="listSrv.smartSearch($event)">
+</controller-list-app>
+
+<sample-table-app
+	[hasHeader]="false"
+	[hasPagination]="false"
+	[rows]="listSrv.items$ | async"
+	[selection]="listSrv.selection$ | async"
+	[pending]="listSrv.pending"
+	[count]="listSrv.count$ | async"
+	[currentPage]="listSrv.currentPage"
+	(goToPage)="listSrv.loadPage($event)"
+	(sort)="listSrv.sort($event)"
+	(select)="listSrv.selectOne($event, true)"
+	(unselect)="listSrv.unselectOne($event, true)"
+	(selectAll)="listSrv.selectAll($event, true)"
+	(unselectAll)="listSrv.unselectAll()"
+	(open)="listSrv.goToDetails($event)"
+	(favorited)="listSrv.onItemFavorited($event)"
+	(unfavorited)="listSrv.onItemUnfavorited($event)"
+	(previewClick)="listSrv.openPreview($event)"
+	(delete)="listSrv.deleteOne($event)">
+</sample-table-app>
+
+
+<sample-preview-app
+	*ngIf="listSrv.previewOpen"
+	[sample]="listSrv.previewed"
+	(close)="listSrv.closePreview()"
+	(clickOutside)="listSrv.closePreview()">
+</sample-preview-app>

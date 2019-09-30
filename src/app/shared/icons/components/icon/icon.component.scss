@@ -2,7 +2,10 @@
 
 :host {
 	line-height: 1;
-  cursor: pointer;
+	cursor: pointer;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
 }
 
 /** make svg same size as font-size */

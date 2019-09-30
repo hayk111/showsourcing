@@ -11,20 +11,14 @@ import { RatingModule } from '~shared/rating';
 import { SharedModule } from '~shared/shared.module';
 
 import {
-	SupplierContactCardComponent,
-	SupplierContactComponent,
-	SupplierProductsCardViewComponent,
-	SupplierTopCardComponent,
-} from './components';
-import {
 	SupplierActivityComponent,
 	SupplierDetailsComponent,
-	SupplierProductsComponent,
 	SupplierProductsPageComponent,
 	SupplierSamplesComponent,
 	SuppliersPageComponent,
 	SupplierTasksComponent,
-} from './containers';
+	SupplierTopCardComponent,
+} from './pages';
 import { SupplierFeatureService } from './services';
 import { CommentCommonModule } from '~common/comment';
 
@@ -46,16 +40,12 @@ import { CommentCommonModule } from '~common/comment';
 	],
 	declarations: [
 		SupplierActivityComponent,
-		SupplierContactCardComponent,
-		SupplierContactComponent,
 		SupplierDetailsComponent,
-		SupplierProductsCardViewComponent,
-		SupplierProductsComponent,
 		SupplierProductsPageComponent,
 		SupplierSamplesComponent,
 		SupplierTasksComponent,
-		SupplierTopCardComponent,
-		SuppliersPageComponent
+		SuppliersPageComponent,
+		SupplierTopCardComponent
 	],
 	entryComponents: [],
 	exports: [SuppliersPageComponent],

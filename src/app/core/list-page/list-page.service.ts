@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { empty, Observable } from 'rxjs';
 import { filter, map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { CreationDialogComponent } from '~common/modals/component/creation-dialog/creation-dialog.component';
+import { UserService } from '~core/entity-services';
 import { GlobalServiceInterface } from '~core/entity-services/_global/global.service';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 import { EntityMetadata } from '~core/models';
@@ -17,15 +18,12 @@ import { ListPageDataService } from './list-page-data.service';
 import { ListPageKey } from './list-page-keys.enum';
 import { ListPageViewService } from './list-page-view.service';
 import { SelectionWithFavoriteService } from './selection-with-favorite.service';
-import { UserService } from '~core/entity-services';
 
 // It has four legs and it can fly, what is it?
 // -
 // Two birds.
 
 // TODO: refacotr needed to make it more modulable. For example see product-activity.ts
-
-
 
 // where we can save the services
 const selectionSrvMap = new Map<ListPageKey | string, SelectionWithFavoriteService>();

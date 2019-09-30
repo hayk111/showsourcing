@@ -6,8 +6,8 @@ import { ID } from '~utils';
 const tableConfig: TableConfig = {
 	name: { name: 'name', translationKey: 'name', width: 190, sortable: false },
 	status: { name: 'status', translationKey: 'status', width: 190, sortProperty: 'status.step' },
-	fields: { name: 'fields', translationKey: 'name', width: 190, sortable: false },
-	sender: { name: 'name', translationKey: 'name', width: 190, sortable: false },
+	fields: { name: 'fields', translationKey: 'fields', width: 190, sortable: false },
+	sender: { name: 'sender', translationKey: 'sender', width: 190, sortable: false },
 };
 
 /**

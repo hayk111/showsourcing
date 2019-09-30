@@ -1,13 +1,11 @@
-<ng-container *ngIf="product">
 
-	<product-header-details-app
-		[product]="product"
-		(update)="updateProduct($event)"
-		(export)="commonModalSrv.openExportDialog([$event])"
-		(delete)="deleteProduct($event)"
-		(archive)="onArchive($event)"	
-		(supplierRequest)="openSupplierRequest($event)">
-	</product-header-details-app>
+<product-header-details-app
+	[product]="product"
+	(update)="updateProduct($event)"
+	(export)="commonModalSrv.openExportDialog([$event])"
+	(delete)="deleteProduct($event)"
+	(archive)="onArchive($event)"	
+	(supplierRequest)="openSupplierRequest($event)">
+</product-header-details-app>
 
-	<router-outlet></router-outlet>
-</ng-container>
+<router-outlet></router-outlet>
