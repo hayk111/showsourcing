@@ -19,7 +19,7 @@
 				icon="product"
 				[name]="'nav.products' | translate">
 			</header-nav-item-app>
-	
+
 			<header-nav-item-app
 				link="./settings"
 				icon="settings"
@@ -28,15 +28,16 @@
 		</header-nav-app>
 
 		<header-details-actions-app>
-			<button class="add-product" (click)="openFindProductDlg()" translate="button.add-product"></button>
-			
-			<status-selector-app
+			<button class="add-product big" (click)="openFindProductDlg()" translate="button.add-product"></button>
+
+			<!-- TODO Backend project status -->
+			<!-- <status-selector-app
 				[typeEntity]="erm.PROJECT"
 				[entity]="project"
 				selectSize="l"
 				type="button">
-			</status-selector-app>
-	
+			</status-selector-app> -->
+
 			<context-menu-app>
 				<context-menu-trigger-app>
 					<button class="vertical-dots icon light dots pointer">
@@ -53,7 +54,7 @@
 	</header-details-app>
 
 	<controller-list-app
-		[class.sub-menu-padding-board]="listSrv.view === 'board'"
+		class="max-full-table-width"
 		[hasSwitch]="true"
 		[filtersAmount]="listSrv.getFilterAmount([{ type: filterTypeEnum.ARCHIVED, value: false }, { type: filterTypeEnum.DELETED, value: false }])"
 		[hasFilter]="true"
@@ -84,7 +85,7 @@
 
 		<products-table-app
 			*ngIf="listSrv.view === 'list'"
-			class="list-view"
+			class="max-full-table-width"
 			[selection]="listSrv.selection$ | async"
 			[rows]="listSrv.items$ | async"
 			[pending]="listSrv.pending"
@@ -115,7 +116,7 @@
 			infiniScroll
 			cdk-scrollable
 			*ngIf="listSrv.view === 'card'"
-			class="card-view"
+			class="max-full-table-width"
 			[currentSort]="listSrv.currentSort"
 			[rows]="listSrv.items$ | async"
 			[selection]="listSrv.selection$ | async"
@@ -132,7 +133,7 @@
 			(update)="listSrv.update($event)">
 		</products-card-view-app>
 
-		<product-board-app 
+		<product-board-app
 			*ngIf="listSrv.view === 'board'"
 			[selection]="listSrv.selection$"
 			(selectOne)="listSrv.selectOne($event, true)"

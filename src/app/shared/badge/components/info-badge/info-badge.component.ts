@@ -25,19 +25,15 @@ export class InfoBadgeComponent implements OnInit {
 	initNames() {
 		switch (this.type) {
 			case 'category':
-				this.name = 'category';
 				this.infoType = 'accent';
 				break;
 			case 'tag':
-				this.name = 'tag';
 				this.infoType = 'secondary';
 				break;
 			case 'project':
-				this.name = 'project';
 				this.infoType = 'primary';
 				break;
 			default:
-				this.name = 'badge-tag';
 				this.infoType = 'secondary';
 				break;
 		}

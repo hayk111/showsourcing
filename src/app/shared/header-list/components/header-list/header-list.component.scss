@@ -1,11 +1,13 @@
 :host {
 	margin: 24px 114px 0 98px;
-	padding: 0 var(--spacing-l) var(--spacing-ms) var(--spacing-l);
+	padding: 0 var(--spacing-l);
+	padding-bottom: var(--spacing-ms);
 	flex-shrink: 0;
 	border-bottom: 1px solid var(--legacy-color-divider);
 
 	&.max-full-table-width {
-		padding: 0 0 var(--spacing-ms) 0;
+		padding-left: 0px;
+		padding-right: 0px;
 		@media only screen and (max-width:3400px){
 			margin: var(--spacing-l) var(--spacing-l) 0 var(--spacing-l);
 		}
@@ -19,7 +21,9 @@
 	&.smaller-padding {
 		margin: var(--spacing-l);
 		margin-bottom: 0px;
-	}
+		padding-left: 0px;
+		padding-right: 0px;
+}
 
 	h2 {
 		width: 182px;
