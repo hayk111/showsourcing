@@ -1,8 +1,9 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { EntityTableComponent, TableConfig } from '~core/list-page';
 import { Attachment, ERM } from '~core/models';
 import { ID } from '~utils/id.utils';
+import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback.service';
 
 
 const bigTableConfig: TableConfig = {
@@ -24,6 +25,12 @@ const bigTableConfig: TableConfig = {
 })
 export class AttachmentTableComponent extends EntityTableComponent<Attachment> implements OnInit {
 
+	@Input() set rows(attachments: Attachment[]) {
+		this.uploadFeedback.setFiles(attachments);
+	}
+	get rows() {
+		return this.uploadFeedback.getFiles();
+	}
 	@Output() openProduct = new EventEmitter<ID>();
 	@Output() openSupplier = new EventEmitter<ID>();
 
@@ -31,7 +38,14 @@ export class AttachmentTableComponent extends EntityTableComponent<Attachment> i
 	columns = ['name', 'createdBy', 'creationDate', 'actions'];
 	erm = ERM;
 
-	constructor(public translate: TranslateService) { super(); }
+	constructor(
+		protected uploadFeedback: UploaderFeedbackService,
+		public translate: TranslateService
+		) { super(); }
+
+	addFile(files: Array<File>) {
+		this.uploadFeedback.addFiles(files);
+	}
 
 
 }

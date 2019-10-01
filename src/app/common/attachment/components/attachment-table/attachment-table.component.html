@@ -1,6 +1,8 @@
+<input #inpFile type="file" hidden="true" (fileSelect)="addFile($event)"/>
+
 <table-app
 	[rows]="rows"
-	[type]="erm.TASK.singular"
+	[type]="erm.ATTACHMENT.singular"
 	[pending]="pending"
 	[selected]="selection"
 	[contextualMenu]="contextualMenuTemplate"
@@ -19,8 +21,9 @@
 	(selectAll)="selectAll.emit($event)"
 	(unselectAll)="unselectAll.emit($event)"
 	(sort)="sort.emit($event)"
-	(createClick)="createClick.emit()"
-	(bottomReached)="bottomReached.emit()">
+	(createClick)="inpFile.click()"
+	(bottomReached)="bottomReached.emit()"
+	(fileDrop)="addFile($event)">
 
 	<!-- contextual menu -->
 	<ng-template #contextualMenuTemplate let-row="row">
@@ -45,7 +48,8 @@
 
 			<!-- name -->
 			<ng-container *ngSwitchCase="'name'">
-				<logo-app [type]="file"></logo-app>
+				<logo-app type="file" *ngIf="!row.pending"></logo-app>
+				<spinner-app size="s" *ngIf="row.pending"></spinner-app>
 					{{ row?.name }}
 			</ng-container>
 

@@ -62,12 +62,12 @@ export class UploaderFeedbackService {
 		return [...this._images, ...(this._pendingImages as any)];
 	}
 
-	setFiles(files: Array<Attachment | PendingFile>) {
+	setFiles(files: Attachment[]) {
 		this._files = files || [];
 	}
 
-	getFiles(): Array<Attachment | PendingFile> {
-		return [...this._files, ...this._pendingFiles];
+	getFiles(): Attachment[] {
+		return [...this._files, ...this._pendingFiles] as Attachment[];
 	}
 
 	/** when adding a new image, by selecting in the file browser or by dropping it on the component */

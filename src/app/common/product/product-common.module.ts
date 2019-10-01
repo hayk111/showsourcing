@@ -23,7 +23,6 @@ import { SampleCommonModule } from '~common/sample/sample-common.module';
 
 @NgModule({
 	imports: [
-		CommonModule,
 		RouterModule,
 		SharedModule,
 		CommentCommonModule,
