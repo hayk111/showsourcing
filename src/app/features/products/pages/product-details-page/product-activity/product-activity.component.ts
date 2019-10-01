@@ -93,6 +93,9 @@ export class ProductActivityComponent extends AutoUnsub implements OnInit {
 			case 'sample':
 				entitySrv = this.sampleSrv;
 				entityMetadata = ERM.SAMPLE;
+				selectParams = new SelectParams({
+					query: `product.id == "${this.product.id}" && deleted == false`
+				});
 				break;
 		}
 

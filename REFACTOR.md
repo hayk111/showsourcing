@@ -33,6 +33,9 @@ too much properties passed around, we could do with a config passed down..
 The name and ref column second line could be customized via a template, because they change often
 
 # Table Placeholder
-Should be put outside the table because:
+
 	- it's not customizable enough
 	- table should be agnostic of where it's used.
+
+	so either we put the place holders outside the table, either we make inputs like [placeHolderTitle], [placeholderAction] etc.
+	Outside would be easier to test, therefor it's probably a better design.

@@ -49,6 +49,7 @@ const itsTheSameDesignEveryWhereGuys: TableConfig = {
 	templateUrl: './task-table.component.html',
 	styleUrls: [
 		'./task-table.component.scss',
+		'../../../../../app/theming/specific/list.scss'
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
