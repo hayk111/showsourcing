@@ -1,2 +1,8 @@
-<company-card-app class="card-style" [company]="company">
-</company-card-app>
+<ng-container *ngIf="companyOwner !== undefined">
+	<company-card-app
+		class="card-style"
+		[company]="company"
+		[companyOwner]="companyOwner"
+		(valueChange)="updateCompany($event)">
+	</company-card-app>
+</ng-container>

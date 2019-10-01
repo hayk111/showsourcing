@@ -46,7 +46,9 @@ export class CompanyService extends GlobalService<Company> {
 		this.authSrv.authenticated$.pipe(
 			switchMap(_ => this.getCompany())
 		).subscribe(this._company$);
-		this.company$.subscribe(id => this.companySync = id);
+		this.company$.subscribe(company => {
+			this.companySync = company;
+		});
 	}
 
 	/** creates and picks it */
@@ -64,7 +66,7 @@ export class CompanyService extends GlobalService<Company> {
 	}
 
 	/** restore from local storage   */
-	private getCompany(): Observable<Company> {
+	getCompany(): Observable<Company> {
 		const company: Company = this.storage.getItem(COMPANY);
 		if (company) {
 			return of(company);
