@@ -7,7 +7,7 @@ import { DialogService } from '~shared/dialog/services';
 import { FilterType } from '~shared/filters';
 import { ProjectService } from '~entity-services';
 import { NotificationService, NotificationType } from '~shared/notifications';
-import { AutoUnsub } from '~utils';
+import { AutoUnsub, EntityTypeEnum } from '~utils';
 import { CloseEventType } from '~shared/dialog';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -26,6 +26,7 @@ export class ProductAddToProjectDlgComponent extends AutoUnsub implements OnInit
 	selected = {};
 	filterType = FilterType;
 	erm = ERM;
+	entityTypeEnum = EntityTypeEnum;
 
 	private projectCount = 25;
 	selectedProjectsCount = 0;

@@ -7,7 +7,7 @@ import { ERM, Product, Project } from '~models';
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { FilterType } from '~shared/filters';
-import { AutoUnsub } from '~utils';
+import { AutoUnsub, EntityTypeEnum } from '~utils';
 import { ProductDialogService } from '~common/modals/services/product-dialog.service';
 import { translate } from '~utils';
 import { TableConfig } from '~core/list-page';
@@ -30,6 +30,7 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 	selectItemsConfig: SelectParamsConfig;
 	filterType = FilterType;
 	erm = ERM;
+	entityTypeEnum = EntityTypeEnum;
 
 	filterTypes = [
 		FilterType.ARCHIVED,

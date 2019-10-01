@@ -4,14 +4,16 @@
 <form [formGroup]="form">
 	<form-field-app class="borderless">
 		<label-app class="team-name capitalize" translate="label.company-name"></label-app>
-		<input class="name-input" inputApp type="text"/>
+		<input class="name-input" formControlName="name" inputApp type="text"/>
 	</form-field-app>
 	<form-field-app class="borderless">
 		<label-app class="team-name capitalize" translate="Company Owner"></label-app> <!-- TODO: translation to be added -->
-		<input class="name-input" inputApp type="text"/>
+		<input class="name-input" formControlName="companyOwner" inputApp type="text"/>
 	</form-field-app>
 	<form-field-app class="borderless">
 		<label-app class="team-name capitalize" translate="Current Plan"></label-app> <!-- TODO: translation to be added -->
-		<input class="name-input"  inputApp type="text"/>
+		<input class="name-input" formControlName="currentPlan" inputApp type="text"/>
 	</form-field-app>
 </form>
+
+<h2 class="company-created-date">Company created on</h2> <!-- TODO backend add field -->

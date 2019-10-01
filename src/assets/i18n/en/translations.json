@@ -201,7 +201,7 @@
       "singular": "team user"
     },
     "USER": {
-      "plural": "user",
+      "plural": "users",
       "singular": "user"
     },
     "WEIGHT_UNIT": {

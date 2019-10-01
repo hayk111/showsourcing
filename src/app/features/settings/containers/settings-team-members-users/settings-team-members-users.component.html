@@ -6,7 +6,7 @@
 
 <controller-list-app
 	class="max-full-table-width"
-	entityType="Users"
+	[entityType]="entityTypeEnum.USER"
 	[count]="listSrv.count$ | async"
 	[hasArchived]="false"
 	[hasAssigned]="false"

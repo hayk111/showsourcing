@@ -5,7 +5,7 @@ import { ListPageKey, ListPageService } from '~core/list-page';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 import { ERM, Project } from '~models';
 import { FilterType } from '~shared/filters';
-import { AutoUnsub } from '~utils';
+import { AutoUnsub, EntityTypeEnum } from '~utils';
 
 // Doctor: You're obese.
 // -
@@ -24,6 +24,7 @@ import { AutoUnsub } from '~utils';
 export class ProjectsPageComponent extends AutoUnsub implements OnInit, AfterViewInit {
 	filterTypes = [FilterType.CREATED_BY];
 	erm = ERM.PROJECT;
+	entityTypeEnum = EntityTypeEnum;
 
 	selectItemsConfig: SelectParamsConfig;
 

@@ -7,7 +7,7 @@ import { ListPageKey, ListPageService } from '~core/list-page';
 import { ProductService } from '~entity-services';
 import { ERM, Product, Project } from '~models';
 import { FilterType } from '~shared/filters';
-import { AutoUnsub } from '~utils';
+import { AutoUnsub, EntityTypeEnum } from '~utils';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { ProductFeatureService } from '~features/products/services';
 import { ProjectFeatureService } from '~features/project/services';
@@ -35,6 +35,7 @@ export class ProjectProductsComponent extends AutoUnsub implements OnInit, After
 	private project: Project;
 	filterTypeEnum = FilterType;
 	erm = ERM;
+	entityTypeEnum = EntityTypeEnum;
 
 	selectItemsConfig: SelectParamsConfig;
 

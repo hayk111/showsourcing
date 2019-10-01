@@ -18,7 +18,7 @@ import { takeUntil } from 'rxjs/operators';
 import {
 	SearchAutocompleteComponent,
 } from '~shared/search-autocomplete/components/search-autocomplete/search-autocomplete.component';
-import { AutoUnsub } from '~utils';
+import { AutoUnsub, EntityTypeEnum, EntityType } from '~utils';
 import { ControllerListService } from '../../services/controller-list.service';
 
 @Component({
@@ -58,7 +58,7 @@ export class ControllerListComponent extends AutoUnsub implements OnInit {
 
 	@Input() title: string;
 	@Input() count = 0;
-	@Input() entityType: 'PRODUCT' | 'PROJECT' | 'SUPPLIER' | 'SAMPLE'; // should be filled with all the entity types
+	@Input() entityType: EntityType;
 
 	// view that can be switched into
 	@Input() view: 'list' | 'board' | 'card' = 'list';
@@ -254,4 +254,11 @@ export class ControllerListComponent extends AutoUnsub implements OnInit {
 		}
 	}
 
+	checkEntityType(entity: any) {
+		if (!Object.values(EntityTypeEnum).includes(entity)) {
+			throw new Error('Entity type passed to the ControllerListComponent is of wrong type: ' + entity);
+		}
+
+		return entity;
+	}
 }

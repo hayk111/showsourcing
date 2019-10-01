@@ -21,7 +21,7 @@ import { AutoUnsub } from '~utils';
 export class CompanyCardComponent extends AutoUnsub implements OnInit {
 	@Input() company: Company;
 	@Input() form: FormGroup;
-	@Input() teamOwner = false;
+	@Input() companyOwner = false;
 	@Output() valueChange = new EventEmitter<Company>();
 	@Output() addFile = new EventEmitter<any>();
 	@Output() changePswd = new EventEmitter<undefined>();
@@ -32,6 +32,10 @@ export class CompanyCardComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		this.form = new FormGroup(this.fb.group({
+			name: new FormControl({value: this.company.name, disabled: !this.companyOwner}),
+			companyOwner: new FormControl({value: this.company.owner.firstName + ' ' + this.company.owner.lastName,
+				disabled: true}),
+			currentPlan: new FormControl({value: '', disabled: !this.companyOwner}), // TODO Backend add field
 		}).controls, { updateOn: 'blur' });
 
 		this.form.patchValue(this.company);

@@ -1,7 +1,7 @@
 import { Component, NgModuleRef, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TeamService, CompanyService } from '~entity-services';
-import { Team } from '~models';
+import { Team, User } from '~models';
 import { DialogService } from '~shared/dialog/services';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 
@@ -12,6 +12,7 @@ import { CommonModalService } from '~common/modals/services/common-modal.service
 })
 export class SettingsCompanyPageComponent implements OnInit {
 	companyName: string;
+	owner: User;
 	selectedTab = 'team-members';
 
 	constructor(
@@ -26,6 +27,7 @@ export class SettingsCompanyPageComponent implements OnInit {
 
 	ngOnInit() {
 		this.companyName = this.companySrv.companySync.name;
+		this.owner = this.companySrv.companySync.owner;
 	}
 
 	/** Displays specified tab */
