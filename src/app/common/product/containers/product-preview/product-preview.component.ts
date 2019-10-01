@@ -61,7 +61,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 		return [...this._images, ...(this._pendingImages as any)];
 	}
 
-	@Input() isPreview = false;
+	@Input() isPreview = true;
 
 	@Output() close = new EventEmitter<any>();
 	@Output() delete = new EventEmitter<null>();
