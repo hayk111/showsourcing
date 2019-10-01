@@ -5,6 +5,7 @@ import {
 	ProductActivityComponent,
 	ProductsPageComponent,
 	ProductInfoComponent,
+	ProductFilesComponent,
 } from './pages';
 
 
@@ -20,6 +21,7 @@ export const routes: Array<Route> = [
 			{ path: '', redirectTo: 'activity', pathMatch: 'full' },
 			{ path: 'activity', component: ProductActivityComponent },
 			{ path: 'info', component: ProductInfoComponent },
+			{ path: 'files', component: ProductFilesComponent },
 			// { path: 'samples', component: ProductSamplesComponent },
 			// { path: 'tasks', component: ProductTasksComponent },
 			// { path: 'requests', component: ProductRequestsComponent }

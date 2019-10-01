@@ -4,8 +4,9 @@ import {
 	SupplierProductsPageComponent,
 	SuppliersPageComponent,
 	SupplierActivityComponent,
- 	SupplierTasksComponent,
-	SupplierSamplesComponent
+	SupplierTasksComponent,
+	SupplierSamplesComponent,
+	SupplierFilesComponent
 } from './pages';
 
 export const routes: Array<Route> = [
@@ -21,6 +22,7 @@ export const routes: Array<Route> = [
 			{ path: 'products', component: SupplierProductsPageComponent },
 			{ path: 'samples', component: SupplierSamplesComponent },
 			{ path: 'tasks', component: SupplierTasksComponent },
+			{ path: 'files', component: SupplierFilesComponent },
 			{ path: '', redirectTo: 'activity', pathMatch: 'full' }
 		]
 	}
