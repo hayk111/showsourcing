@@ -18,6 +18,7 @@ import {
 	ProductDetailsPageComponent,
 	ProductSamplesComponent,
 	ProductInfoComponent,
+	ProductFilesComponent,
 	ProductsPageComponent,
 	ProductTasksComponent,
 	ProductActivityNavComponent
@@ -47,6 +48,7 @@ import { AttachmentCommonModule } from '~common/attachment/attachment-common.mod
 		ProductDetailsPageComponent,
 		ProductSamplesComponent,
 		ProductInfoComponent,
+		ProductFilesComponent,
 		ProductTasksComponent,
 		ProductHeaderDetailsComponent,
 		ProductsPageComponent,

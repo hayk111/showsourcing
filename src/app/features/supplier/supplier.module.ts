@@ -17,6 +17,7 @@ import {
 	SupplierSamplesComponent,
 	SuppliersPageComponent,
 	SupplierTasksComponent,
+	SupplierFilesComponent,
 	SupplierTopCardComponent,
 } from './pages';
 import { SupplierFeatureService } from './services';
@@ -45,6 +46,7 @@ import { CommentCommonModule } from '~common/comment';
 		SupplierSamplesComponent,
 		SupplierTasksComponent,
 		SuppliersPageComponent,
+		SupplierFilesComponent,
 		SupplierTopCardComponent
 	],
 	entryComponents: [],
