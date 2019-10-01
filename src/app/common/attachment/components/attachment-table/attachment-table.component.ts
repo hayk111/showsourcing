@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { EntityTableComponent, TableConfig, TableConfigType } from '~core/list-page';
-import { ERM, Attachment } from '~core/models';
+import { EntityTableComponent, TableConfig } from '~core/list-page';
+import { Attachment, ERM } from '~core/models';
 import { ID } from '~utils/id.utils';
 
 

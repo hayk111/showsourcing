@@ -20,6 +20,7 @@ export const routes: Array<Route> = [
 			{ path: '', redirectTo: 'activity', pathMatch: 'full' },
 			{ path: 'activity', component: ProductActivityComponent },
 			{ path: 'info', component: ProductInfoComponent },
+			{ path:  }
 			// { path: 'samples', component: ProductSamplesComponent },
 			// { path: 'tasks', component: ProductTasksComponent },
 			// { path: 'requests', component: ProductRequestsComponent }
