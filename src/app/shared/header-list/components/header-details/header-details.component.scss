@@ -2,7 +2,7 @@
 	display: block;
 	border-bottom: 1px solid var(--color-divider);
 
-	padding: 24px;
+	padding: var(--spacing-l);
 	padding-bottom: 0px;
 }
 
@@ -11,14 +11,12 @@
 	justify-content: space-between;
 	box-sizing: border-box;
 	align-items: center;
-	// padding: var(--spacing-l);
 	padding: 0;
-	padding-bottom: 24px;
+	padding-bottom: var(--spacing-l);
 }
 
 .left {
 	.info {
-		margin-left: var(--spacing-ms);
 		.title-container {
 			align-items: flex-end;
 		}
