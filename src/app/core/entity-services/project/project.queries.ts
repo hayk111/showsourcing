@@ -5,6 +5,7 @@ export abstract class ProjectQueries extends GlobalQueries {
 
 	// tslint:disable-next-line:max-line-length
 	static readonly productsLinked = `productsLinked: _linkingObjects(objectType: "Product" property:"projects" query:"deleted == false AND archived == false") { ... on ProductCollection { count }}`;
+	static readonly user = (name: string) => `${name} { id, firstName, lastName, avatar { id, urls { id, url } } }`;
 
 	// TODO BackEnd add dueDate
 	// TODO BackEnd add done
@@ -13,16 +14,18 @@ export abstract class ProjectQueries extends GlobalQueries {
 		description,
 		lastUpdatedDate,
 		creationDate,
-		createdBy { id, firstName, lastName },
 		logoImage { id, urls { url } }
+		${ProjectQueries.user('createdBy')}
+		${ProjectQueries.user('lastUpdatedBy')}
 		${ProjectQueries.productsLinked}`;
 
 	static readonly many = `
 		name,
-		createdBy { id, firstName, lastName },
 		lastUpdatedDate,
 		creationDate,
 		description,
 		deleted
+		${ProjectQueries.user('lastUpdatedBy')}
+		${ProjectQueries.user('createdBy')}
 		${ProjectQueries.productsLinked}`;
 }

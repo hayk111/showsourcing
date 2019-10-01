@@ -2,7 +2,7 @@
 	class="card-container flex"
 	[ngClass]="{ 'pointer' : clickable, 'hover-content-enabled': enabledHoverContent }"
 	(clickOutside)="onClickOutsideCard()"
-	(click)="clickable && openProduct()">
+	(click)="clickImage.emit()">
 
 	<!-- left side -->
 	<div class="left">
@@ -13,7 +13,6 @@
 			size="m"
 			(click)="clickImage.emit()">
 		</img-app>
-		<div *ngIf="enablePreviewLink" class="preview capitalize" (click)="clickImage.emit()" translate="button.preview"></div>
 		<div *ngIf="showCheckbox" class="check" [ngClass]="{ checked: checked, selected: checked, 'drag-in-progress': dragInProgress }">
 			<checkbox-app
 				[checked]="checked"

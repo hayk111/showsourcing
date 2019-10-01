@@ -19,9 +19,10 @@
 			*ngIf="!(description?.length && description)"
 			[disabled]="true"
 			class="fullWidth fs-m">
-			<button class="secondary flexCenter edit-description" [ngStyle]="{'width': isSmall ? '30%' : '100%'}">
-				<icon-app class="edit" name="edit"></icon-app>
-				<span class="capitalize" translate="text.add-description"></span>
+			<button
+				class="primary-light flexCenter edit-description capitalize"
+				[ngStyle]="{'width': isSmall ? '30%' : '100%'}"
+				translate="text.add-description">
 			</button>
 		</editable-label-app>
 		<textarea inputApp #inpDescription autofocus="true"

@@ -34,7 +34,12 @@
 	position: relative;
 }
 
-.tab-separator {
+.tab-container {
+	margin: var(--spacing-ms);
+	margin-bottom: var(--spacing-none);
+}
+
+.horizontal-division {
   height: 12px;
   box-shadow: inset 0 3px 2px 0 rgba(93, 109, 139, 0.1);
   background-color: var(--bg-secondary);
@@ -50,9 +55,4 @@
 	border-top-left-radius: var(--border-radius-l);
 	border-top-right-radius: var(--border-radius-l);
 	background: white;
-}
-
-// TODO delete when merged with latest branch since this will be on spacing.scss
-.mg-bottom-none {
-	margin-bottom: 0px;
 }

@@ -12,7 +12,10 @@
 </div>
 
 <div class="right flexColumn">
-	<div *ngFor="let item of votesMap | keyvalue: compareFn" class="flexCenter number-cylinder">
+	<div
+		*ngFor="let item of votesMap | keyvalue: compareFn; last as last"
+		class="flexCenter number-cylinder"
+		[ngClass]="{ 'mg-bottom-ms': !last }">
 		<span class="number-star">{{ item.key }}</span>
 		<rating-cylinder-app class="cylinder" [width]="240" [score]="item?.value ? ((item.value / totalVotes) * 100) : 0" likeColor="accent" [height]="8"></rating-cylinder-app>
 	</div>

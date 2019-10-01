@@ -1,6 +1,9 @@
 :host {
 	display: block;
 	border-bottom: 1px solid var(--color-divider);
+
+	padding: var(--spacing-l);
+	padding-bottom: 0px;
 }
 
 .panel-container {
@@ -8,12 +11,12 @@
 	justify-content: space-between;
 	box-sizing: border-box;
 	align-items: center;
-	padding: var(--spacing-l);
+	padding: 0;
+	padding-bottom: var(--spacing-l);
 }
 
 .left {
 	.info {
-		margin-left: var(--spacing-ms);
 		.title-container {
 			align-items: flex-end;
 		}
@@ -61,6 +64,6 @@
 	border-radius: var(--border-radius-s);
 }
 
-.tabs-container {
-	margin: 0 var(--spacing-l);
+.arrow-margin {
+	margin-left: 40px;
 }
