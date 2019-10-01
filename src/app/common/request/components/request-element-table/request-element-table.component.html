@@ -2,6 +2,7 @@
 <table-app
 	[placeholder]="'placeholder.no-request-items' | translate"  
 	[rows]="rows"
+	[type]="erm.REQUEST_ELEMENT.singular"
 	[currentSort]="currentSort"
 	[pending]="pending"
 	[count]="count"
@@ -19,7 +20,8 @@
 	(unselectOne)="unselect.emit($event)"
 	(selectAll)="selectAll.emit($event)"
 	(unselectAll)="unselectAll.emit()"
-	(showItemsPerPage)="showItemsPerPage.emit($event)">
+	(showItemsPerPage)="showItemsPerPage.emit($event)"
+	(createClick)="createClick.emit()">
 
 	<!-- contextual menu -->
 	<ng-template #contextualMenuTemplate let-row="row">
@@ -39,7 +41,7 @@
     [width]="column.width"
 		[sortBy]="column.sortProperty">
 		
-    <ng-container [ngSwitch]="column.title">
+    <ng-container [ngSwitch]="column.name">
 
 			<!-- name -->
 			<ng-container *ngSwitchCase="'name'">

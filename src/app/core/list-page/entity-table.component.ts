@@ -12,13 +12,16 @@ export interface ColumnConfig {
 	translationKey: string;
 	sortProperty?: string;
 	sortable?: boolean;
+	// when the table is only visible on hover
+	showOnHover?: boolean;
+	metadata?: any;
 }
 
 export interface TableConfig {
 	[key: string]: ColumnConfig;
 }
 
-export type TableConfigType = 'small' | 'medium' | 'big';
+export type TableConfigType = 'small' | 'medium' | 'big' | 'itsTheSameDesignEveryWhereGuys';
 
 export abstract class EntityTableComponent<T> extends TrackingComponent implements OnInit {
 	/** current selection */

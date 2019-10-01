@@ -15,7 +15,8 @@ export class Task extends EntityWithAudit<TaskConfig> {
 	comments?: Comment[];
 	lastUpdatedBy: User;
 	reference?: string;
-	__typename?= 'Task';
+	archived = false;
+	__typename ?= 'Task';
 }
 
 export interface TaskConfig {
@@ -26,4 +27,5 @@ export interface TaskConfig {
 	product?: Product;
 	supplier?: Supplier;
 	comments?: Comment[];
+	dueDate?: Date;
 }

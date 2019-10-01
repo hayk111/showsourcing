@@ -15,11 +15,15 @@ import { EditableTextComponent } from '~shared/editable-field/components/editabl
 		'[class.closed]': '!isOpen',
 		'[class.canGrow]': 'canGrow',
 		'[class.cannotGrow]': '!canGrow',
+		'[class.alignCenter]': 'align === "center"',
+		'[class.alignRight]': 'align === "right"'
 	}
 })
 export class EditableFieldComponent {
 	/** whether the label is above or inlined */
 	@Input() inlineLabel = false;
+	/** whether we align the field on the right or center for inline labels */
+	@Input() align: 'center' | 'right' = 'center';
 	/** whether the input has a fixed height */
 	@Input() canGrow = false;
 	@Input() hasLabel = true;

@@ -23,6 +23,7 @@ import {
 	ProductActivityNavComponent
 } from './pages';
 import { ProductFeatureService, QuoteFeatureService } from './services';
+import { AttachmentCommonModule } from '~common/attachment/attachment-common.module';
 
 
 
@@ -38,7 +39,8 @@ import { ProductFeatureService, QuoteFeatureService } from './services';
 		RouterModule.forChild(routes),
 		SampleCommonModule,
 		SupplierCommonModule,
-		TaskCommonModule
+		TaskCommonModule,
+		AttachmentCommonModule
 	],
 	declarations: [
 		ProductActivityComponent,

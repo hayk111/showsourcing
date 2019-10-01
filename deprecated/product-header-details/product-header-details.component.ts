@@ -36,8 +36,4 @@ export class ProductHeaderDetailsComponent implements OnInit {
 		this.update.emit({ id: this.product.id, assignee: new User({ id: user.id }) });
 	}
 
-	getHeaderNavUrl(nav: string): string {
-		return this.router.url.substring(0, this.router.url.lastIndexOf('/') + 1) + nav;
-	}
-
 }

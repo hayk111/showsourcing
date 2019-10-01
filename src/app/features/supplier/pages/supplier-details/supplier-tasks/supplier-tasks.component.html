@@ -24,6 +24,7 @@
 	(favorited)="listSrv.onItemFavorited($event)"
 	(unfavorited)="listSrv.onItemUnfavorited($event)"
 	(previewClick)="listSrv.openPreview($event)"
+	(createClick)="openCreationTaskDlg(undefined, supplier)"
 	(delete)="listSrv.deleteOne($event)">
 </task-table-app>
 

@@ -16,12 +16,13 @@ import {
 	PreviewBadgesComponent,
 	PreviewBannerComponent,
 	PreviewCommentComponent,
-	PreviewComponent,
 	PreviewHeaderComponent,
 	PreviewSectionComponent,
 	PreviewLogoComponent,
 	PreviewCarouselComponent,
 	PreviewTabComponent,
+	PreviewPanelComponent,
+	PreviewStaticComponent,
 } from './components';
 
 
@@ -42,7 +43,6 @@ import {
 		TranslateModule
 	],
 	declarations: [
-		PreviewComponent,
 		PreviewHeaderComponent,
 		PreviewSectionComponent,
 		PreviewBadgesComponent,
@@ -51,9 +51,10 @@ import {
 		PreviewCarouselComponent,
 		PreviewCommentComponent,
 		PreviewTabComponent,
+		PreviewStaticComponent,
+		PreviewPanelComponent
 	],
 	exports: [
-		PreviewComponent,
 		PreviewHeaderComponent,
 		PreviewSectionComponent,
 		PreviewBadgesComponent,
@@ -62,6 +63,8 @@ import {
 		PreviewCarouselComponent,
 		PreviewCommentComponent,
 		PreviewTabComponent,
+		PreviewStaticComponent,
+		PreviewPanelComponent
 	]
 })
 export class PreviewModule { }

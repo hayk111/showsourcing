@@ -13,10 +13,11 @@ export class ColumnDirective implements OnInit {
 	@Input() sortBy = '';
 	// width of the column
 	@Input() width: number;
+	@Input() minWidth = 0;
 	// whether the column grows if the table hasn't reached full width
-	@Input() minWidth = 50;
 	@Input() grows = true;
 	@Input() sortOrder: 'NONE' | 'ASC' | 'DESC' = 'NONE';
+	@Input() showOnHover = false;
 
 	constructor(public template: TemplateRef<any>) { }
 

@@ -1,4 +1,4 @@
-<div class="left flexColumn">
+<div class="left flexColumn flexCenter">
 	<!-- so 1.1-2 means {minIntegerDigits}.{minFractionDigits}-{maxFractionDigits} -->
 	<!-- if we take max and min fraction digits = 1, when number is 3.96, instead of rounding 3.9, it round to 4.0 (read Angular docs to know why) -->
 	<!-- since we know that our score will always have 3 characters what we do is round for 2 numbers and then slice -->
@@ -11,9 +11,12 @@
 	</div>
 </div>
 
-<div class="right">
-	<div *ngFor="let item of votesMap | keyvalue: compareFn" class="flexCenter number-cylinder">
+<div class="right flexColumn">
+	<div
+		*ngFor="let item of votesMap | keyvalue: compareFn; last as last"
+		class="flexCenter number-cylinder"
+		[ngClass]="{ 'mg-bottom-ms': !last }">
 		<span class="number-star">{{ item.key }}</span>
-		<rating-cylinder-app class="cylinder" [score]="(item.value / totalVotes) * 100" likeColor="accent" [height]="8"></rating-cylinder-app>
+		<rating-cylinder-app class="cylinder" [width]="240" [score]="item?.value ? ((item.value / totalVotes) * 100) : 0" likeColor="accent" [height]="8"></rating-cylinder-app>
 	</div>
 </div>

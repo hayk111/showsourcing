@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap, tap, filter } from 'rxjs/operators';
 import { CommentService, RequestElementService, SampleService, TaskService, UserService } from '~core/entity-services';
 import { SelectParams } from '~core/entity-services/_global/select-params';
 import { ListPageService } from '~core/list-page';
@@ -10,6 +10,9 @@ import { Comment, ERM, Product } from '~models';
 import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
 import { Counts } from './product-activity-nav/product-activity-nav.component';
+import { DialogService, CloseEventType, CloseEvent } from '~shared/dialog';
+import { CreationSampleDlgComponent, CreationTaskDlgComponent } from '~common/modals';
+import { SupplierRequestDialogComponent } from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
 
 
 
@@ -29,6 +32,7 @@ export class ProductActivityComponent extends AutoUnsub implements OnInit {
 	product$: Observable<Product>;
 	counts$: Observable<Counts>;
 	typeEntity = ERM.PRODUCT;
+	assigneeFilterType = FilterType.ASSIGNEE;
 	private product: Product;
 
 	constructor(
@@ -39,7 +43,8 @@ export class ProductActivityComponent extends AutoUnsub implements OnInit {
 		private taskSrv: TaskService,
 		private sampleSrv: SampleService,
 		private requestElemSrv: RequestElementService,
-		private userSrv: UserService
+		private userSrv: UserService,
+		private dlgSrv: DialogService
 	) {
 		super();
 	}
@@ -63,6 +68,7 @@ export class ProductActivityComponent extends AutoUnsub implements OnInit {
 		let entitySrv;
 		let entityMetadata;
 		let selectParams = new SelectParams();
+		let initialFilters = [];
 
 		// TODO: ListPageSrv needs a refactor to make it more modulable and intuitive to do this kind of stuff
 		// It's not that bad, but it could be better
@@ -74,18 +80,25 @@ export class ProductActivityComponent extends AutoUnsub implements OnInit {
 			case 'task':
 				entitySrv = this.taskSrv;
 				entityMetadata = ERM.TASK;
+				initialFilters = [{ type: FilterType.ASSIGNEE, value: this.userSrv.userSync.id}];
 				selectParams = new SelectParams({
-					query: `product.id == "${this.product.id}" && deleted == false && assignee.id == "${this.userSrv.userSync.id}"`
+					query: `product.id == "${this.product.id}" && deleted == false`
 				});
 				break;
 			case 'request':
 				entitySrv = this.requestElemSrv;
 				entityMetadata = ERM.REQUEST_ELEMENT;
-				selectParams = new SelectParams({ sortBy: 'reply.status' });
+				selectParams = new SelectParams({
+					sortBy: 'reply.status',
+					query: `targetedEntityType == "Product" && targetId == "${this.product.id}" && reply.status == "replied"`
+				});
 				break;
 			case 'sample':
 				entitySrv = this.sampleSrv;
 				entityMetadata = ERM.SAMPLE;
+				selectParams = new SelectParams({
+					query: `product.id == "${this.product.id}" && deleted == false`
+				});
 				break;
 		}
 
@@ -94,7 +107,8 @@ export class ProductActivityComponent extends AutoUnsub implements OnInit {
 			searchedFields: ['name'],
 			selectParams,
 			entityMetadata,
-			originComponentDestroy$: this._destroy$
+			originComponentDestroy$: this._destroy$,
+			initialFilters
 		});
 	}
 
@@ -106,6 +120,41 @@ export class ProductActivityComponent extends AutoUnsub implements OnInit {
 		this.commentSrv.create(comment).pipe(
 			switchMap(_ => this.productSrv.update({ id: this.product.id, comments }))
 		).subscribe();
+	}
+
+	openCreateSample() {
+		this.dlgSrv.open(CreationSampleDlgComponent, { product: this.product }).pipe(
+			filter((event: CloseEvent) => event.type === CloseEventType.OK),
+			switchMap(_ => this.listSrv.refetch())
+		).subscribe();
+	}
+
+	openCreateTask() {
+
+		this.dlgSrv.open(CreationTaskDlgComponent, { product: this.product }).pipe(
+			filter((event: CloseEvent) => event.type === CloseEventType.OK),
+			switchMap(_ => this.listSrv.refetch())
+		).subscribe();
+	}
+
+	openCreateRequest() {
+		this.dlgSrv.open(SupplierRequestDialogComponent, { products: [this.product] }).pipe(
+			filter((event: CloseEvent) => event.type === CloseEventType.OK),
+			switchMap(_ => this.listSrv.refetch())
+		).subscribe();
+	}
+
+	toggleMyTasks(show: boolean) {
+		const userId = this.userSrv.userSync.id;
+
+		const filterAssignee = {
+			type: FilterType.ASSIGNEE,
+			value: userId
+		};
+		if (show)
+			this.listSrv.addFilter(filterAssignee);
+		else
+			this.listSrv.removeFilter(filterAssignee);
 	}
 
 }

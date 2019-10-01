@@ -27,15 +27,25 @@
 
 					<ng-container *ngIf="product$ | async as product">
 						<add-comment-app (added)="sendComment($event)"></add-comment-app>
-						<divider-app></divider-app>
+						<divider-app *ngIf="product.comments.length > 0"></divider-app>
 						<comment-list-app [comments]="product.comments"></comment-list-app>
 					</ng-container>
 					
 				</ng-container>
 
 				<ng-container *ngSwitchCase="'task'">
+					<div class="flexVAlign show-my-tasks">
+						<checkbox-app
+							[checked]="listSrv.filterList.hasFilterType(assigneeFilterType)"
+							(check)="toggleMyTasks(true)"
+							(uncheck)="toggleMyTasks(false)">
+						</checkbox-app>
+						Assigned to me
+						<ng-container translate="text.assigned-to-me"></ng-container>
+					</div>
 					<task-table-app
-						[columns]="['taskDone', 'reference', 'assignee', 'status']"
+						tableConfigType="itsTheSameDesignEveryWhereGuys"
+						[columns]="['done', 'name', 'assignee', 'status', 'dueDate']"
 						[hasHeader]="false"
 						[hasSelection]="false"
 						[hasPagination]="false"
@@ -54,13 +64,14 @@
 						(favorited)="listSrv.onItemFavorited($event)"
 						(unfavorited)="listSrv.onItemUnfavorited($event)"
 						(previewClick)="listSrv.openPreview($event)"
-						(delete)="listSrv.deleteOne($event)">
+						(delete)="listSrv.deleteOne($event)"
+						(createClick)="openCreateTask()">
 					</task-table-app>
 				</ng-container>
 
 				<ng-container *ngSwitchCase="'sample'">
 					<sample-table-app
-						[columns]="['ref', 'status']"
+						[columns]="['name', 'status']"
 						[hasHeader]="false"
 						[hasSelection]="false"
 						[hasPagination]="false"
@@ -79,12 +90,13 @@
 						(favorited)="listSrv.onItemFavorited($event)"
 						(unfavorited)="listSrv.onItemUnfavorited($event)"
 						(previewClick)="listSrv.openPreview($event)"
-						(delete)="listSrv.deleteOne($event)"></sample-table-app>
+						(delete)="listSrv.deleteOne($event)"
+						(createClick)="openCreateSample()"></sample-table-app>
 				</ng-container>
 
 				<ng-container *ngSwitchCase="'request'">
 					<request-element-table-app
-						[columns]="['name', 'fields', 'sender', 'status']"
+						[columns]="['name', 'sender', 'status']"
 						[showReplyFields]="false"
 						[hasHeader]="false"
 						[hasSelection]="false"
@@ -104,7 +116,8 @@
 						(favorited)="listSrv.onItemFavorited($event)"
 						(unfavorited)="listSrv.onItemUnfavorited($event)"
 						(previewClick)="listSrv.openPreview($event)"
-						(delete)="listSrv.deleteOne($event)">
+						(delete)="listSrv.deleteOne($event)"
+						(createClick)="openCreateRequest()">
 					</request-element-table-app>
 				</ng-container>
 
