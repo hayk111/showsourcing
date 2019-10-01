@@ -24,7 +24,7 @@ export class ThumbService {
 	 * @param votes array of product votes to be computed
 	 * @result score of the votes per 5
 	 */
-	computeScoreVotes(votes: ProductVote[]) {
+	computeScoreVotes(votes: ProductVote[]): number {
 		let score = null;
 		if (votes && votes.length) {
 			votes.forEach(vote => score += vote.value);
@@ -36,6 +36,7 @@ export class ThumbService {
 
 	/**
 	 * computes the current score of the votes given votes
+	 * @deprecated
 	 * @param votes array of product votes to be computed
 	 * @result score of the votes per 100
 	 */

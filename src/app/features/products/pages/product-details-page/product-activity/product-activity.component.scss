@@ -6,17 +6,18 @@
 	justify-content: center;
 	.left {
 		width: 420px;
+		margin-top: var(--spacing-l);
 	}
 	.right {
 		width: 772px;
 	}
 }
 
-
-add-comment-app {
-	margin-bottom: var(--spacing-l);
+divider-app {
+	margin: var(--spacing-l) 0;
 }
 
-comment-list-app {
-	margin-top: var(--spacing-l);
+.show-my-tasks {
+	justify-content: flex-end;
+	margin: -40px 0 24px 0;
 }

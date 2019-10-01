@@ -3,14 +3,17 @@
 	<div class="left">
 		<card-app>
 			<card-title-app>Comments</card-title-app>
-			<add-comment-app></add-comment-app>
-			<divider-app></divider-app>
-			<comment-list-app></comment-list-app>
+			<ng-container *ngIf="supplier$ | async as supplier; else spinner">
+				<add-comment-app (added)="sendComment($event)"></add-comment-app>
+				<divider-app *ngIf="supplier.comments.length > 0"></divider-app>
+				<comment-list-app [comments]="supplier.comments"></comment-list-app>				
+			</ng-container>
+			<ng-template #spinner><spinner-app></spinner-app></ng-template>
 		</card-app>
 	</div>
 	
 	<div class="right">
-		<supplier-preview-app></supplier-preview-app>
+		<supplier-preview-app [isPreview]="false"></supplier-preview-app>
 	</div>
 
 </div>

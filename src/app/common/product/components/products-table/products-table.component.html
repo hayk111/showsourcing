@@ -211,9 +211,8 @@
 
       <!-- created by -->
       <ng-container *ngSwitchCase="'created by'">
-        <div class="created-by-date">
-          {{ row?.creationDate | date: 'dd MMMM y' }}
-        </div>
+				<user-picture-app [user]="row?.createdBy"></user-picture-app>
+				{{ row?.createdBy | formatUserName }}
 			</ng-container>
 
 			<!-- favorite -->

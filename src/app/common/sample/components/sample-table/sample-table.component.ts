@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { EntityTableComponent, TableConfig, TableConfigType } from '~core/list-page';
-import { ERM, Sample } from '~core/models';
+import { ERM, Sample, Task, User } from '~core/models';
 import { ID } from '~utils/id.utils';
+import { TaskService, SampleService } from '~core/entity-services';
 
 const bigTableConfig: TableConfig = {
 	name: { name: 'name', translationKey: 'name', width: 190, sortProperty: 'name' },
@@ -42,7 +43,10 @@ export class SampleTableComponent extends EntityTableComponent<Sample> implement
 
 	erm = ERM;
 
-	constructor(public translate: TranslateService) { super(); }
+	constructor(
+		public translate: TranslateService,
+		private sampleSrv: SampleService
+	) { super(); }
 
 	ngOnInit() {
 		this.tableConfig = this.getTableFromType();
@@ -58,6 +62,10 @@ export class SampleTableComponent extends EntityTableComponent<Sample> implement
 			case 'small':
 				return smallTableConfig;
 		}
+	}
+
+	changeAssignee(sample: Sample, assignee: User) {
+		this.sampleSrv.update({ id: sample.id, assignee }).subscribe();
 	}
 
 }

@@ -59,15 +59,5 @@ export class SupplierTasksComponent extends AbstractTaskCommonComponent implemen
 		]);
 	}
 
-	createTask(name: string) {
-		const newTask = new Task({
-			name,
-			supplier: { id: this.route.parent.snapshot.params.id },
-			assignee: { id: this.userSrv.userSync.id }
-		});
-		this.taskSrv.create(newTask).pipe(
-			switchMap(_ => this.listSrv.refetch({}))
-		).subscribe();
-	}
 }
 

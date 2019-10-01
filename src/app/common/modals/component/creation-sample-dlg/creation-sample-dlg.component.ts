@@ -96,6 +96,7 @@ export class CreationSampleDlgComponent implements OnInit {
 			);
 		}
 	}
+
 	cancel() {
 		this.dlgSrv.close({ type: CloseEventType.CANCEL });
 	}

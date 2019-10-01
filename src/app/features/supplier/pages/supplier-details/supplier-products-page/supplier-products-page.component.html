@@ -28,7 +28,8 @@
 		(sort)="listSrv.sort($event)"
 		(unfavorited)="listSrv.onItemUnfavorited($event)"
 		(unselect)="listSrv.unselectOne($event, true)"
-		(unselectAll)="listSrv.unselectAll()">
+		(unselectAll)="listSrv.unselectAll()"
+		(createClick)="openCreationProductDlg()">
 	</products-table-app>
 
 </ng-container>

@@ -1,0 +1,76 @@
+<table-app
+	[rows]="rows"
+	[type]="erm.TASK.singular"
+	[pending]="pending"
+	[selected]="selection"
+	[contextualMenu]="contextualMenuTemplate"
+	[currentSort]="currentSort"
+	[isContextMenuHorizontal]="false"
+	[count]="count"
+	[currentPage]="currentPage"
+	[hasHeader]="hasHeader"
+	[hasMenu]="hasMenu"
+	[hasSelection]="hasSelection"
+	[hasPagination]="hasPagination"
+	[placeholder]="'placeholder.no-task' | translate"
+	(goToPage)="goToPage.emit($event)"
+	(selectOne)="select.emit($event)"
+	(unselectOne)="unselect.emit($event)"
+	(selectAll)="selectAll.emit($event)"
+	(unselectAll)="unselectAll.emit($event)"
+	(sort)="sort.emit($event)"
+	(createClick)="createClick.emit()"
+	(bottomReached)="bottomReached.emit()">
+
+	<!-- contextual menu -->
+	<ng-template #contextualMenuTemplate let-row="row">
+		<context-menu-item-app
+			class="pointer flexCenter"
+			(click)="delete.emit(row)">
+			{{'text.delete' | translate}}
+		</context-menu-item-app>
+	</ng-template>
+
+		<!-- dynamic columns -->
+		<ng-template
+			*ngFor="let column of columnsConfig; trackBy: trackByFn"
+			let-row="row"
+			[columnApp]="'title.' + column.translationKey | translate"
+			[sortable]="column.sortable !== false"
+			[width]="column.width"
+			[sortBy]="column.sortProperty">
+
+    <ng-container [ngSwitch]="column.name">
+
+
+			<!-- name -->
+			<ng-container *ngSwitchCase="'name'">
+				<logo-app [type]="file"></logo-app>
+					{{ row?.name }}
+			</ng-container>
+
+			<!-- createdBy -->
+			<ng-container *ngSwitchCase="'createdBy'">
+				<user-picture-app [user]="row?.createdBy"></user-picture-app>
+				{{ row?.createdBy | formatUserName }}
+			</ng-container>
+
+			<!-- creationDate -->
+			<ng-container *ngSwitchCase="'reference'">
+				{{ row?.creationDate | date: 'dd MMMM y' }}
+			</ng-container>
+
+
+			<!-- Actions -->
+			<ng-container *ngSwitchCase="'name assignee'">
+				<button class="icon-with-text">
+					<icon-app name="close-pane-bottom"></icon-app>
+					download
+				</button>
+			</ng-container>
+
+		</ng-container>
+
+	</ng-template>
+
+</table-app>

@@ -41,7 +41,7 @@ export class SettingsProfileComponent extends AutoUnsub implements OnInit {
 	}
 
 	addFile(file: Array<File>) {
-		this.uploaderSrv.uploadImages(file, this.userSrv.userSync, 'avatar', false, Client.USER).subscribe();
+		this.uploaderSrv.uploadImages(file, this.userSrv.userSync, 'avatar', false, Client.CENTRAL).subscribe();
 	}
 
 	pswdModal() {

@@ -8,14 +8,8 @@ divider-app {
 	margin-top: var(--spacing-m);
 }
 
-.relative {
-	position: relative;
+.static {
 	margin: var(--spacing-l) var(--spacing-m);
-	height: unset;
-	box-shadow: unset;
-	border: 1px solid var(--legacy-color-secondary);
-	border-radius: var(--border-radius-s);
-	z-index: var(--z-base);
 
 	preview-banner-app {
 		padding: var(--spacing-xs);

@@ -331,7 +331,7 @@ export class ListPageService
 	}
 
 	/** creates a new entity, can also create with defaul values with extra?: any */
-	create(canRedirect = true, extra?: any) {
+	create(canRedirect = false, extra?: any) {
 		this.dlgSrv.open(CreationDialogComponent, { type: this.entityMetadata, extra, canRedirect }).pipe(
 			filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
 			map((evt: CloseEvent) => evt.data)

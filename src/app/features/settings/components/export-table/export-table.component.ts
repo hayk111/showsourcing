@@ -3,7 +3,7 @@ import { EntityTableComponent } from '~core/list-page';
 import { ERM, ExportRequest } from '~core/models';
 import { TranslateService } from '@ngx-translate/core';
 
-type ExportStatus = 'ready' | 'pending' | 'processing' | 'failed' | 'done';
+type ExportStatus = 'ready' | 'pending' | 'processing' | 'failed' | 'done' | 'error';
 
 @Component({
 	selector: 'export-table-app',
@@ -33,12 +33,13 @@ export class ExportTableComponent extends EntityTableComponent<ExportRequest> {
 
 	getStatusColor(status: ExportStatus) {
 		switch (status) {
-			case 'ready':
 			case 'processing':
 			case 'pending':
 				return 'var(--color-txt-secondary)';
+			case 'error':
 			case 'failed':
 				return 'var(--color-warn)';
+			case 'ready':
 			case 'done':
 				return 'var(--color-success)';
 		}
