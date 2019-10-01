@@ -10,11 +10,13 @@ import { CompanyService, ImageUploadRequestService, TeamService } from '~core/en
 import { RealmServerService } from '~entity-services/realm-server/realm-server.service';
 import { UserService } from '~entity-services/user/user.service';
 import { ApolloStateService } from './apollo-state.service';
+import { ERMService } from '~core/entity-services/_global/erm.service';
+import { EntityName, ERM } from '~core/models';
 
 
 
 @Injectable({ providedIn: 'root' })
-export class UserClientInitializer extends AbstractApolloClient {
+export class CentralClientInitializer extends AbstractApolloClient {
 
 	constructor(
 		protected apollo: Apollo,
@@ -23,10 +25,9 @@ export class UserClientInitializer extends AbstractApolloClient {
 		protected userSrv: UserService,
 		protected realmServerSrv: RealmServerService,
 		protected teamSrv: TeamService,
-		private imageUploadRequest: ImageUploadRequestService,
-		private companySrv: CompanyService
+		private ermSrv: ERMService
 	) {
-		super(apollo, link, apolloState, realmServerSrv, Client.USER);
+		super(apollo, link, apolloState, realmServerSrv, Client.CENTRAL);
 	}
 
 	init(realmUser: RealmUser): Observable<any> {
@@ -35,7 +36,7 @@ export class UserClientInitializer extends AbstractApolloClient {
 		this.setPending('initialization');
 
 		const userId = realmUser.identity;
-		const uri = `/user/${userId}/__partial/${userId}/${this.suffix}`;
+		const uri = `/${this.client}/__partial/${userId}/${this.suffix}`;
 
 		return from(this.createClient(uri, realmUser, this.client)).pipe(
 			takeUntil(this.destroyed$),
@@ -47,12 +48,23 @@ export class UserClientInitializer extends AbstractApolloClient {
 	}
 
 	createMissingSubscription(): Observable<any> {
-		return forkJoin([
-			this.teamSrv.openSubscription(this.client),
-			this.userSrv.openSubscription(this.client),
-			this.companySrv.openSubscription(this.client),
-			this.imageUploadRequest.openSubscription(this.client)
-		]);
+		// TODO uncomment when ERM's are created
+		const entities = [
+			ERM.COMPANY,
+			// ERM.COMPANY_USER,
+			ERM.IMAGE,
+			// ERM.IMAGE_URL,
+			// ERM.INDUSTRY,
+			ERM.INVITATION,
+			// ERM.PAYING_SUBSCRIPTION,
+			// ERM.SUBSCRIPTION_PLAN,
+			ERM.TEAM,
+			ERM.TEAM_USER,
+			ERM.USER
+		];
+		return forkJoin(
+			entities.map(erm => this.ermSrv.getGlobalService(erm).openSubscription(this.client))
+		);
 	}
 
 }

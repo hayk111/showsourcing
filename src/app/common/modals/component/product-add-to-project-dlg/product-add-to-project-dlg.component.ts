@@ -20,6 +20,8 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class ProductAddToProjectDlgComponent extends AutoUnsub implements OnInit {
 
+	@Input() initialSelectedProjects: Project[];
+
 	@Input() products: Product[];
 	selected = {};
 	filterType = FilterType;
@@ -60,6 +62,18 @@ export class ProductAddToProjectDlgComponent extends AutoUnsub implements OnInit
 		delete this.selected[project.id];
 		this.listSrv.unselectOne(project, true);
 		--this.selectedProjectsCount;
+	}
+
+	private initialSelection() {
+		if (this.initialSelectedProjects && this.initialSelectedProjects.length > 0) {
+			this.selectedProjectsCount = this.initialSelectedProjects.length;
+
+			this.listSrv.selectAll(this.initialSelectedProjects.map(project => {
+				this.selected[project.id] = project;
+
+				return ({ id: project.id });
+			}));
+		}
 	}
 
 	selectAll(projects:  Project[]) {

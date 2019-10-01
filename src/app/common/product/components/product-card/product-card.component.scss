@@ -142,7 +142,7 @@ $image-width: 99px;
 		position: absolute;
     width: 100%;
 		bottom: 0;
-		
+
 		.product-reference {
 			display: inline-block;
 			margin-left: 4px;
@@ -154,7 +154,6 @@ $image-width: 99px;
 		.vote-star-container {
 			cursor: pointer;
 			border-radius: var(--border-radius);
-			color: var(--color-accent);
 			margin-right: var(--spacing-xs);
 			padding: var(--spacing-xs);
 
@@ -163,18 +162,14 @@ $image-width: 99px;
 				margin-right: var(--spacing-xs);
 			}
 		}
-		
+
 		.vote-star-value {
 			width: 19px;
 			height: 18px;
 			font-size: var(--font-size-m);
 			font-weight: 600;
-			color: var(--color-accent-dark);
 		}
-	
-		.light-background {
-			background-color: var(--color-accent-light);
-		}	
+
 	}
 
 }

@@ -95,13 +95,13 @@ export class AllUserClientReadyGuard extends ClientReadyGuard {
 @Injectable({
 	providedIn: 'root'
 })
-export class UserClientReadyGuard extends ClientReadyGuard {
+export class CentralClientReadyGuard extends ClientReadyGuard {
 	constructor(
 		protected router: Router,
 		protected apolloState: ApolloStateService,
 		protected realmAuthSrv: RealmAuthenticationService
 	) {
-		super(router, apolloState, Client.USER, realmAuthSrv);
+		super(router, apolloState, Client.CENTRAL, realmAuthSrv);
 	}
 }
 

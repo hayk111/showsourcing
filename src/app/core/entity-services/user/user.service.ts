@@ -25,7 +25,7 @@ export class UserService extends GlobalService<User> {
 	);
 	userSync: User;
 	userId: string;
-	defaultClient = Client.USER;
+	defaultClient = Client.CENTRAL;
 
 	constructor(
 		protected apolloState: ApolloStateService,

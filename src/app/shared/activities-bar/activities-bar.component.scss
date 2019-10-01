@@ -22,7 +22,6 @@ icon-app.star {
 .vote-star-container {
 	cursor: pointer;
 	border-radius: var(--border-radius);
-	color: var(--color-accent);
 	margin-left: var(--spacing-xs);
 	padding: var(--spacing-xs);
 }
@@ -32,12 +31,7 @@ icon-app.star {
   height: 18px;
   font-size: 14px;
   font-weight: 600;
-	color: var(--color-accent-dark);
-	margin: 0 0 0 2px;	
-}
-
-.light-background {
-	background-color: var(--color-accent-light);
+	margin: 0 0 0 2px;
 }
 
 .warn-circle {
