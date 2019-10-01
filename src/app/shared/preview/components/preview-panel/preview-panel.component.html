@@ -1,14 +1,13 @@
-HEY PREVIEW STATIC
 <div #top class="banner-fixed">
 	<ng-content select="preview-banner-app"></ng-content>
 	<ng-content select="preview-header-app"></ng-content>
 	<!-- TODO change flexAround when adding preview tab component -->
-	<div class="flexAround mg-ms mg-bottom-none">
+	<div class="flexStart tab-container">
 		<ng-content select="preview-tab-app"></ng-content>
 	</div>
-	<div class="tab-separator"></div>
+	<div class="horizontal-division"></div>
 </div>
-<div class="scrollable">
+<div #scrollSection class="scrollable">
 	<div *ngIf="hasLogo" class="logo-transparent"></div>
 	<div class="white-bg">
 		<ng-content select="preview-section-app"></ng-content>

@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { Observable, of } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { SupplierDescriptor } from '~core/descriptors';
@@ -10,7 +11,6 @@ import {
 } from '~core/entity-services/extended-field-definition/extended-field-definition.service';
 import { AppImage, Comment, ERM, ExtendedFieldDefinition, Supplier } from '~core/models';
 import { AutoUnsub, translate } from '~utils';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'supplier-preview-app',
@@ -23,7 +23,7 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnChanges, On
 	@Input() supplier: Supplier;
 	@Input() canClose = true;
 	/** wether we display it as a preview or part of a component (supplier details) */
-	@Input() isPreview = false;
+	@Input() isPreview = true;
 	// whether we reselect / subscribe to item given the supplier id
 	@Input() shouldSelect = true;
 	@Output() close = new EventEmitter<null>();

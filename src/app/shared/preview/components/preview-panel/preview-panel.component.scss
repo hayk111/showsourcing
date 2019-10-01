@@ -34,7 +34,12 @@
 	position: relative;
 }
 
-.tab-separator {
+.tab-container {
+	margin: var(--spacing-ms);
+	margin-bottom: var(--spacing-none);
+}
+
+.horizontal-division {
   height: 12px;
   box-shadow: inset 0 3px 2px 0 rgba(93, 109, 139, 0.1);
   background-color: var(--bg-secondary);

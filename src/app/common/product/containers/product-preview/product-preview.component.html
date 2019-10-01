@@ -1,4 +1,4 @@
-<preview-app cdk-scrollable *ngIf="product$ | async">
+<preview-panel-app cdk-scrollable *ngIf="product$ | async">
 	<!-- Banner -->
 	<preview-banner-app
 		[canOpen]="true"
@@ -179,7 +179,7 @@
 	<preview-comment-app #contentTab3 (added)="addComment($event)"></preview-comment-app>
 
 	<input #inpFile multiple="true" type="file" accept="image/*" (fileSelect)="add($event)" />
-</preview-app>
+</preview-panel-app>
 
 <ng-template #spinner>
 	<spinner-app></spinner-app>
