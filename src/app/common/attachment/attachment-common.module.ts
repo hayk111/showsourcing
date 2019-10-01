@@ -16,4 +16,4 @@ import { AttachmentTableComponent } from './components';
 	],
 	entryComponents: []
 })
-export class FileCommonModule { }
+export class AttachmentCommonModule { }
