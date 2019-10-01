@@ -1,3 +1,4 @@
+<!-- Panel preview -->
 <preview-panel-app *ngIf="isPreview && (product$ | async)" cdk-scrollable>
 	<!-- Banner -->
 	<preview-banner-app
@@ -181,9 +182,11 @@
 	<input #inpFile multiple="true" type="file" accept="image/*" (fileSelect)="add($event)" />
 </preview-panel-app>
 
+
+
+
 <!-- Static -->
-<preview-static-app
-	*ngIf="!isPreview">
+<preview-static-app	*ngIf="!isPreview">
 
 	<!-- Banner -->
 	<preview-banner-app

@@ -1,3 +1,4 @@
+<!-- Panel preview -->
 <preview-panel-app
 	cdk-scrollable
 	*ngIf="isPreview && (supplier$ | async)"
@@ -98,9 +99,13 @@
 
 </preview-panel-app>
 
+
+
+
+<!-- Static -->
 <preview-static-app
 	*ngIf="!isPreview"
-	class="relative"
+	class="static"
 	[hasLogo]="true">
 
 		<!-- Banner -->
