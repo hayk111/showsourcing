@@ -58,7 +58,7 @@
 		[hasSwitch]="true"
 		[filtersAmount]="listSrv.getFilterAmount([{ type: filterTypeEnum.ARCHIVED, value: false }, { type: filterTypeEnum.DELETED, value: false }])"
 		[hasFilter]="true"
-		entityType="products"
+		[entityType]="entityTypeEnum.PRODUCT"
 		[searchValue]="listSrv.searchValue"
 		[view]="listSrv.view"
 		[count]="listSrv.count$ | async"

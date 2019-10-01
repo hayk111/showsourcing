@@ -6,7 +6,7 @@ import { CommonModalService } from '~common/modals/services/common-modal.service
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { SettingsMembersService } from '~features/settings/services/settings-members.service';
 import { ERM, TeamUser, User } from '~models';
-import { AutoUnsub } from '~utils';
+import { AutoUnsub, EntityTypeEnum } from '~utils';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 
 @Component({
@@ -22,6 +22,8 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub implements OnIn
 	user: User;
 	hasSelected = false;
 	selectItemsConfig: SelectParamsConfig;
+	erm = ERM;
+	entityTypeEnum = EntityTypeEnum;
 
 	constructor(
 		private featureSrv: SettingsMembersService,

@@ -8,7 +8,7 @@ import { ERM, ReplyStatus, SupplierRequest } from '~core/models';
 import { DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { FilterType } from '~shared/filters';
-import { AutoUnsub } from '~utils';
+import { AutoUnsub, EntityTypeEnum } from '~utils';
 
 @Component({
 	selector: 'request-page-app',
@@ -19,6 +19,7 @@ import { AutoUnsub } from '~utils';
 export class RequestPageComponent extends AutoUnsub implements OnInit {
 
 	erm = ERM;
+	entityTypeEnum = EntityTypeEnum;
 
 	constructor(
 		private requestSrv: SupplierRequestService,

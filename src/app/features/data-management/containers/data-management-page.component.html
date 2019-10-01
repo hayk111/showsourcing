@@ -58,7 +58,7 @@
 	[hasSwitch]="false"
 	[hasAssigned]="false"
 	[hasArchived]="false"
-	[entityType]="erm.plural"
+	[entityType]="erm.singular"
 	(search)="listSrv.search($event)">
 	<controller-list-right-item-app>
 		<div class="flex" *ngIf="(listSrv.selection$ | async).size > 0">

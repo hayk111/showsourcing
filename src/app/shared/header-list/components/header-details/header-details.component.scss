@@ -36,6 +36,7 @@
 }
 
 .info {
+	margin-left: var(--spacing-ms);
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
@@ -59,8 +60,8 @@
 }
 
 .logo {
-	max-width: 50px;
-	max-height: 50px;
+	max-width: 54px;
+	max-height: 54px;
 	border-radius: var(--border-radius-s);
 }
 
