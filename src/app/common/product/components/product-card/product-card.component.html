@@ -2,7 +2,7 @@
 	class="card-container flex"
 	[ngClass]="{ 'pointer' : clickable, 'hover-content-enabled': enabledHoverContent }"
 	(clickOutside)="onClickOutsideCard()"
-	(click)="clickable && openProduct()">
+	(click)="clickImage.emit()">
 
 	<!-- left side -->
 	<div class="left">
