@@ -34,8 +34,18 @@
 				</ng-container>
 
 				<ng-container *ngSwitchCase="'task'">
+					<div class="flexVAlign show-my-tasks">
+						<checkbox-app
+							[checked]="listSrv.filterList.hasFilterType(assigneeFilterType)"
+							(check)="toggleMyTasks(true)"
+							(uncheck)="toggleMyTasks(false)">
+						</checkbox-app>
+						Assigned to me
+						<ng-container translate="text.assigned-to-me"></ng-container>
+					</div>
 					<task-table-app
-						[columns]="['taskDone', 'reference', 'assignee', 'status']"
+						tableConfigType="itsTheSameDesignEveryWhereGuys"
+						[columns]="['done', 'name', 'assignee', 'status', 'dueDate']"
 						[hasHeader]="false"
 						[hasSelection]="false"
 						[hasPagination]="false"
@@ -54,7 +64,8 @@
 						(favorited)="listSrv.onItemFavorited($event)"
 						(unfavorited)="listSrv.onItemUnfavorited($event)"
 						(previewClick)="listSrv.openPreview($event)"
-						(delete)="listSrv.deleteOne($event)">
+						(delete)="listSrv.deleteOne($event)"
+						(createClick)="openCreateTask()">
 					</task-table-app>
 				</ng-container>
 
@@ -79,7 +90,8 @@
 						(favorited)="listSrv.onItemFavorited($event)"
 						(unfavorited)="listSrv.onItemUnfavorited($event)"
 						(previewClick)="listSrv.openPreview($event)"
-						(delete)="listSrv.deleteOne($event)"></sample-table-app>
+						(delete)="listSrv.deleteOne($event)"
+						(createClick)="openCreateSample()"></sample-table-app>
 				</ng-container>
 
 				<ng-container *ngSwitchCase="'request'">
@@ -104,7 +116,8 @@
 						(favorited)="listSrv.onItemFavorited($event)"
 						(unfavorited)="listSrv.onItemUnfavorited($event)"
 						(previewClick)="listSrv.openPreview($event)"
-						(delete)="listSrv.deleteOne($event)">
+						(delete)="listSrv.deleteOne($event)"
+						(createClick)="openCreateRequest()">
 					</request-element-table-app>
 				</ng-container>
 

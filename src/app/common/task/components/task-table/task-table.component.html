@@ -38,7 +38,8 @@
 			[columnApp]="'title.' + column.translationKey | translate"
 			[sortable]="column.sortable !== false"
 			[width]="column.width"
-			[sortBy]="column.sortProperty">
+			[sortBy]="column.sortProperty"
+			[showOnHover]="column.showOnHover">
 
     <ng-container [ngSwitch]="column.name">
 
@@ -50,7 +51,7 @@
 					[ngClass]="row?.done ? 'task-is-done': 'task-not-done'"
 					[name]="row?.done ? 'check-circle' : 'check-circle-light'"
 					[size]="24"
-					(click)="update.emit({ id: row.id, done: !row?.done })">
+					(click)="toggleStatus(row)">
 				</icon-app>
 			</ng-container>
 
@@ -94,7 +95,7 @@
 				<div class="mainCellWrapper name-container ellipsis flexColumn">
 					<span class="ellipsis pointer txt-btn" (click)="previewClick.emit(row)">{{ row?.name }}</span>
 					<span *ngIf="row?.assignee" class="sub-property">
-						Assigned to {{ row?.assignee | formatUserName: true }}
+						{{ row.done ? 'Completed by' : 'Assigned to' }} {{ row?.assignee | formatUserName: true }}
 					</span>
 				</div>
 			</ng-container>
@@ -155,19 +156,25 @@
 					type="user"
 					[width]="350"
 					[offsetX]="4"
-					(update)="update.emit({ id: row?.id, assignee: $event })">
+					(update)="changeAssignee(row, $event)">
 					<div  class="flex assignee-container ellipsis pointer">
-						<user-picture-app
-							[user]="row?.assignee"
-							[image]="row?.assignee?.avatar">
+						<user-picture-app [user]="row?.assignee">
 						</user-picture-app>
 						<span
+							*ngIf="(!column.metadata) || (!column.metadata.nameOnly)"
 							class="assignee-name ellipsis txt-btn"
 						 	[ngClass]="{ 'txt-task-done-empty': row?.done || !row?.assignee }">
 						 	{{ row?.assignee ? (row?.assignee | formatUserName: true) : 'Assign Task' }}
 						</span>
 					</div>
 				</selector-app>
+			</ng-container>
+
+			<!-- assigneePicture -->
+			<ng-container *ngSwitchCase="'assignee picture'">
+				<user-picture-app
+					[user]="row?.assignee">
+				</user-picture-app>
 			</ng-container>
 
 			<!-- status -->

@@ -27,4 +27,5 @@ export interface TaskConfig {
 	product?: Product;
 	supplier?: Supplier;
 	comments?: Comment[];
+	dueDate?: Date;
 }

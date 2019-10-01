@@ -28,3 +28,11 @@ rename "row" input to something more meaningful.
 
 # Dynamic Form
 too much properties passed around, we could do with a config passed down..
+
+# Table dynamic columns
+The name and ref column second line could be customized via a template, because they change often
+
+# Table Placeholder
+Should be put outside the table because:
+	- it's not customizable enough
+	- table should be agnostic of where it's used.
