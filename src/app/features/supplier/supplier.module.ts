@@ -22,6 +22,7 @@ import {
 } from './pages';
 import { SupplierFeatureService } from './services';
 import { CommentCommonModule } from '~common/comment';
+import { AttachmentCommonModule } from '~common/attachment';
 
 @NgModule({
 	imports: [
@@ -37,7 +38,8 @@ import { CommentCommonModule } from '~common/comment';
 		TaskCommonModule,
 		ProductCommonModule,
 		CommentCommonModule,
-		SupplierCommonModule
+		SupplierCommonModule,
+		AttachmentCommonModule
 	],
 	declarations: [
 		SupplierActivityComponent,

@@ -1,9 +1,8 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { EntityTableComponent, TableConfig } from '~core/list-page';
 import { Attachment, ERM } from '~core/models';
-import { ID } from '~utils/id.utils';
 import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback.service';
+import { ID } from '~utils/id.utils';
 
 
 const bigTableConfig: TableConfig = {
@@ -40,7 +39,6 @@ export class AttachmentTableComponent extends EntityTableComponent<Attachment> i
 
 	constructor(
 		protected uploadFeedback: UploaderFeedbackService,
-		public translate: TranslateService
 		) { super(); }
 
 	addFile(files: Array<File>) {

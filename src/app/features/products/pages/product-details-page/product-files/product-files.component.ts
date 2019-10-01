@@ -17,7 +17,6 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class ProductFilesComponent extends AutoUnsub implements OnInit {
 
-
 	constructor(
 		protected route: ActivatedRoute,
 		protected userSrv: UserService,
@@ -25,9 +24,7 @@ export class ProductFilesComponent extends AutoUnsub implements OnInit {
 		protected dlgSrv: DialogService,
 		protected attachmentSrv: AttachmentService,
 		public commonModalSrv: CommonModalService,
-		public listSrv: ListPageService<Attachment, AttachmentService>,
-		protected cd: ChangeDetectorRef,
-		public translate: TranslateService
+		public listSrv: ListPageService<Attachment, AttachmentService>
 	) {
 		super();
 	}

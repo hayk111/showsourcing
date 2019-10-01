@@ -14,7 +14,7 @@
 	[hasMenu]="hasMenu"
 	[hasSelection]="hasSelection"
 	[hasPagination]="hasPagination"
-	[placeholder]="'placeholder.no-task' | translate"
+	[placeholder]="'placeholder.no-task'"
 	(goToPage)="goToPage.emit($event)"
 	(selectOne)="select.emit($event)"
 	(unselectOne)="unselect.emit($event)"
@@ -30,7 +30,7 @@
 		<context-menu-item-app
 			class="pointer flexCenter"
 			(click)="delete.emit(row)">
-			{{'text.delete' | translate}}
+			{{'text.delete' }}
 		</context-menu-item-app>
 	</ng-template>
 
@@ -38,7 +38,7 @@
 		<ng-template
 			*ngFor="let column of columnsConfig; trackBy: trackByFn"
 			let-row="row"
-			[columnApp]="'title.' + column.translationKey | translate"
+			[columnApp]="'title.' + column.translationKey"
 			[sortable]="column.sortable !== false"
 			[width]="column.width"
 			[sortBy]="column.sortProperty">
