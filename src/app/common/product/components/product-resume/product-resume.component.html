@@ -1,5 +1,5 @@
 <card-app>
-	<preview-app>
+	<preview-static-app>
 		<!-- Header -->
 		<preview-header-app
 			[entityMD]="erm.PRODUCT"
@@ -63,23 +63,23 @@
 		<!-- Info -->
 		<preview-section-app [title]="'title.info' | translate"  class="mg-bottom-none">
 			<div class="flexColumn">
-				<span class="color-txt-strong"> 
-					{{ 
+				<span class="color-txt-strong">
+					{{
 						'OBJ.created-by-on' | translate: {
-							name: product?.createdBy | formatUserName: true, 
+							name: product?.createdBy | formatUserName: true,
 							date: product?.creationDate | date: 'dd MMMM yyyy':'':translate.currentLang
-						} 
+						}
 					}}
 				</span>
-				<span class="color-txt-strong"> 
-					{{ 
+				<span class="color-txt-strong">
+					{{
 						'OBJ.last-updated-by-on' | translate: {
-							name: product?.lastUpdatedBy | formatUserName: true, 
+							name: product?.lastUpdatedBy | formatUserName: true,
 							date: product?.creationDate | date: 'dd MMMM yyyy':'':translate.currentLang
-						} 
+						}
 					}}
 				</span>
 			</div>
 		</preview-section-app>
-	</preview-app>
+	</preview-static-app>
 </card-app>

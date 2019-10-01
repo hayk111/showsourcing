@@ -1,4 +1,4 @@
-<preview-app cdk-scrollable *ngIf="sample$ | async">
+<preview-panel-app cdk-scrollable *ngIf="sample$ | async">
 
 	<!-- Banner -->
 	<preview-banner-app (closed)="close.emit()">
@@ -71,5 +71,5 @@
 	</preview-section-app>
 
 	<preview-comment-app (added)="addComment($event)"></preview-comment-app>
-</preview-app>
+</preview-panel-app>
 

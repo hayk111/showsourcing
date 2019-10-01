@@ -11,15 +11,15 @@ import {
 	Renderer2,
 	ViewChild,
 } from '@angular/core';
-import { PreviewService } from '~shared/preview/services/preivew.service';
-import { AutoUnsub } from '~utils';
+import { PreviewService } from '~shared/preview/services';
 
+import { AutoUnsub } from '~utils';
 import { PreviewTabComponent } from '../preview-tab/preview-tab.component';
 
 @Component({
-	selector: 'preview-app',
-	templateUrl: './preview.component.html',
-	styleUrls: ['./preview.component.scss'],
+	selector: 'preview-panel-app',
+	templateUrl: './preview-panel.component.html',
+	styleUrls: ['./preview-panel.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'z-2',
@@ -27,11 +27,9 @@ import { PreviewTabComponent } from '../preview-tab/preview-tab.component';
 		'[class.alignLeft]': 'align === "left"'
 	}
 })
-export class PreviewComponent extends AutoUnsub implements OnInit, AfterViewInit {
-
+export class PreviewPanelComponent extends AutoUnsub implements OnInit, AfterViewInit {
 	@Input() align: 'left' | 'right' = 'right';
 	@Input() hasLogo = false;
-	@Input() isPreview = true;
 
 	@ViewChild('top', { static: false }) topSection: ElementRef<HTMLElement>;
 	@ViewChild('scrollSection', { static: false }) scrollSection: ElementRef<HTMLElement>;
@@ -45,7 +43,6 @@ export class PreviewComponent extends AutoUnsub implements OnInit, AfterViewInit
 	@ContentChildren('contentTab1', { read: ElementRef }) contentTab1: QueryList<ElementRef>;
 	@ContentChildren('contentTab2', { read: ElementRef }) contentTab2: QueryList<ElementRef>;
 	@ContentChildren('contentTab3', { read: ElementRef }) contentTab3: QueryList<ElementRef>;
-
 	constructor(private renderer: Renderer2, private previewSrv: PreviewService) { super(); }
 
 	ngOnInit() {
@@ -55,14 +52,10 @@ export class PreviewComponent extends AutoUnsub implements OnInit, AfterViewInit
 	ngAfterViewInit() {
 		// minus 6 so it goes a bit above the image
 		// minus fifthy if there is a logo where that we want to display above the img
-		if (this.isPreview) {
-			let topHeight = this.topSection.nativeElement.getBoundingClientRect().height - 6;
-			if (this.hasLogo)
-				topHeight -= 50;
-			this.renderer.setStyle(this.scrollSection.nativeElement, 'margin-top', `${topHeight}px`);
-		} else if (this.hasLogo) {
-			this.renderer.setStyle(this.scrollSection.nativeElement, 'margin-top', `-50px`);
-		}
+		let topHeight = this.topSection.nativeElement.getBoundingClientRect().height - 6;
+		if (this.hasLogo)
+			topHeight -= 50;
+		this.renderer.setStyle(this.scrollSection.nativeElement, 'margin-top', `${topHeight}px`);
 
 		// we initialize the first tab if it exists
 		if (this.tab1)
@@ -128,5 +121,4 @@ export class PreviewComponent extends AutoUnsub implements OnInit, AfterViewInit
 				tab.unsetActiveClass();
 		});
 	}
-
 }

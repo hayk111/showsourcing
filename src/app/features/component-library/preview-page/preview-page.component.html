@@ -1,7 +1,7 @@
 <button (click)="toggle = !toggle">test me</button>
 <div class="flex">
 	<div class="left">
-		<preview-app *ngIf="toggle">
+		<preview-panel-app *ngIf="toggle">
 			<!-- Banner here you will transclude the component that you want to appear on the banner -->
 			<preview-banner-app (closed)="toggle = !toggle">
 				<carousel-app
@@ -60,7 +60,7 @@
 			<preview-section-app
 				[title]="'section1'">
 			</preview-section-app>
-		</preview-app>
+		</preview-panel-app>
 	</div>
 	<div class="right">
 		<card-app>
