@@ -12,29 +12,29 @@
 		height: 100%;
 	}
 	// colors
-	&.primary {
+	&.color-primary {
 		background: var(--color-primary-light);
 		color: var(--color-primary);
 	}
-	&.secondary {
+	&.color-secondary {
 		background: var(--color-secondary);
 		color: var(--color-secondary-contrast);
 	}
-	&.vibrant {
+	&.color-vibrant {
 		background: var(--color-vibrant-light);
 		color: var(--color-vibrant);
 	}
-	&.accent {
+	&.color-accent {
 		background: var(--color-accent-light);
 		color: var(--color-accent);
 	}
-	&.warn {
+	&.color-warn {
 		background: var(--color-warn-light);
 		color: var(--color-warn);
 	}
-	&.success {
-		background: var(--color-task-light);
-		color: var(--color-task);
+	&.color-success {
+		background: var(--color-success-light);
+		color: var(--color-success);
 	}
 
 	// size

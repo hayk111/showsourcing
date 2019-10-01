@@ -22,6 +22,8 @@ export class ListPageDataService
 	protected entitySrv: G;
 	/** currently loaded items */
 	items$: ConnectableObservable<Array<T>>;
+	/** for debugging */
+	protected itemsSync: Array<T>;
 	/** number of total items */
 	count$: Observable<number>;
 	/** current page we are at */
@@ -29,9 +31,7 @@ export class ListPageDataService
 
 	/** can be used on when to fetch more etc. */
 	private listResult: ListQuery<T>;
-	selectParams: SelectParamsConfig = new SelectParams({
-		query: 'deleted == false'
-	});
+	selectParams: SelectParamsConfig = new SelectParams();
 
 	/** filters coming from the filter panel if any. */
 	filterList = new FilterList([
@@ -101,16 +101,14 @@ export class ListPageDataService
 			this.filterList.asPredicate() ? this.selectParams.query + ' AND (' + this.filterList.asPredicate() + ')' :
 			this.filterList.asPredicate();
 		this.selectParams = { ...this.selectParams, query };
-		this.listResult = this.entitySrv.getListQuery({
-			...this.selectParams,
-		});
-
+		this.listResult = this.entitySrv.getListQuery({ ...this.selectParams });
 		this.items$ = this.listResult.items$.pipe(
 			tap(_ => this.onLoaded()),
 			// remove deleted items from the list cuz they stay if they
 			// start at deleted false then are updated as deleted true
 			// and we can't use refetch or we lose the pagination
 			map(items => (items || []).filter(itm => !itm.deleted)),
+			tap(items => this.itemsSync = items)
 		) as ConnectableObservable<T[]>;
 		// then we start listening
 		this.listResult.items$.connect();

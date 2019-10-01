@@ -124,7 +124,7 @@ $colors: (
 }
 
 .color-in-progress, .color-inProgress {
-	color: var(--color-in-progress);
+	color: var(--color-status-in-progress);
 }
 
 .color-action {
@@ -168,19 +168,23 @@ $colors: (
 /* Background */
 
 .bg-new {
-	background: var(--color-secondary);
+	background: var(--color-status-new-light);
 }
 
-.bg-success, .bg-validated {
-	background-color: var(--color-success);
+.bg-success {
+	background-color: var(--color-status-in-progress);
+}
+
+.bg-validated {
+	background-color: var(--color-status-validated);
 }
 
 .bg-rejected, .bg-refused {
-	background-color: var(--color-warn);
+	background-color: var(--color-status-refused);
 }
 
 .bg-inProgress, .bg-in-progress {
-	background-color: var(--color-in-progress);
+	background-color: var(--color-status-in-progress);
 }
 
 .bg-inspiration {

@@ -1,6 +1,7 @@
 import { EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { Sort } from '~shared/table/components/sort.interface';
 import { TrackingComponent } from '~utils/tracking-component';
+import { ERM } from '~core/models/_erm.enum';
 
 
 export interface ColumnConfig {
@@ -11,13 +12,16 @@ export interface ColumnConfig {
 	translationKey: string;
 	sortProperty?: string;
 	sortable?: boolean;
+	// when the table is only visible on hover
+	showOnHover?: boolean;
+	metadata?: any;
 }
 
 export interface TableConfig {
 	[key: string]: ColumnConfig;
 }
 
-export type TableConfigType = 'small' | 'medium' | 'big';
+export type TableConfigType = 'small' | 'medium' | 'big' | 'itsTheSameDesignEveryWhereGuys';
 
 export abstract class EntityTableComponent<T> extends TrackingComponent implements OnInit {
 	/** current selection */
@@ -59,7 +63,8 @@ export abstract class EntityTableComponent<T> extends TrackingComponent implemen
 	@Output() previous = new EventEmitter<undefined>();
 	@Output() next = new EventEmitter<undefined>();
 	@Output() goToPage = new EventEmitter<number>();
-
+	@Output() showItemsPerPage = new EventEmitter<number>();
+	erm = ERM;
 
 	constructor() {
 		super();

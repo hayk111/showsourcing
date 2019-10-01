@@ -7,6 +7,7 @@
 			*ngSwitchDefault
 			#editable
 			[inlineLabel]="inlineLabel"
+			[align]="inlineAlign"
 			(closed)="onClose($event)"
 			(opened)="inp.select();">
 			<label-app>{{ 'text.' + customField.name | translate }}</label-app>
@@ -31,6 +32,7 @@
 			*ngSwitchCase="'tel'"
 			#editable
 			[inlineLabel]="inlineLabel"
+			[align]="inlineAlign"
 			(closed)="onClose($event)"
 			(opened)="inp.select()">
 			<label-app>{{ 'text.' + customField.name | translate }}</label-app>
@@ -52,6 +54,7 @@
 			*ngSwitchCase="'number'"
 			#editable
 			[inlineLabel]="inlineLabel"
+			[align]="inlineAlign"
 			(closed)="onClose($event)"
 			(opened)="inp.select()">
 			<label-app>{{ 'text.' + customField.name | translate }}</label-app>
@@ -73,6 +76,7 @@
 			*ngSwitchCase="'decimal'"
 			#editable
 			[inlineLabel]="inlineLabel"
+			[align]="inlineAlign"
 			(closed)="onClose($event)"
 			(opened)="inp.select()">
 			<label-app>{{ 'text.' + customField.name | translate }}</label-app>
@@ -97,6 +101,7 @@
 			[class.no-hover]="customField?.metadata?.disabled"
 			[openOnClick]="!(customField?.metadata?.disabled)"
 			[inlineLabel]="inlineLabel"
+			[align]="inlineAlign"
 			(closed)="onClose($event)"
 			(opened)="inp.select()">
 			<label-app>{{ 'text.' + customField.name | translate }}</label-app>
@@ -120,6 +125,7 @@
 			*ngSwitchCase="'days'"
 			#editable
 			[inlineLabel]="inlineLabel"
+			[align]="inlineAlign"
 			(closed)="onClose($event)"
 			(opened)="inp.select()">
 			<label-app>{{ 'text.' + customField.name | translate }}</label-app>
@@ -141,6 +147,7 @@
 			#editable
 			[canGrow]="true"
 			[inlineLabel]="inlineLabel"
+			[align]="inlineAlign"
 			(closed)="onClose($event)"
 			(opened)="inp.select()">
 			<label-app>{{ 'text.' + customField.name | translate }}</label-app>
@@ -161,6 +168,7 @@
 			*ngSwitchCase="'price'"
 			#editable
 			[inlineLabel]="inlineLabel"
+			[align]="inlineAlign"
 			(closed)="onClose($event)"
 			(opened)="inp.select()">
 			<label-app>{{ 'text.' + customField.name | translate }}</label-app>
@@ -187,6 +195,7 @@
 			*ngSwitchCase="'boolean'"
 			[inlineLabel]="inlineLabel"
 			[openOnClick]="false"
+			[align]="inlineAlign"
 			(click)="toggleValue($event)">
 			<label-app>{{ 'text.' + customField.name | translate }}</label-app>
 			<editable-label-app [disabled]="true">

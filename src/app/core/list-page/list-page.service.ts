@@ -1,27 +1,29 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
-import { empty, Observable, Subject } from 'rxjs';
-import { switchMap, takeUntil, tap, filter, map } from 'rxjs/operators';
+import { empty, Observable } from 'rxjs';
+import { filter, map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { CreationDialogComponent } from '~common/modals/component/creation-dialog/creation-dialog.component';
+import { UserService } from '~core/entity-services';
 import { GlobalServiceInterface } from '~core/entity-services/_global/global.service';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 import { EntityMetadata } from '~core/models';
-import { TemplateService } from '~core/template/services/template.service';
-import { DialogService, CloseEventType, CloseEvent } from '~shared/dialog';
+import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { Filter, FilterType } from '~shared/filters';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { Sort } from '~shared/table/components/sort.interface';
-
+import { showsourcing } from '~utils/debug-object.utils';
 import { ListPageDataConfig } from './list-page-config.interface';
 import { ListPageDataService } from './list-page-data.service';
 import { ListPageKey } from './list-page-keys.enum';
 import { ListPageViewService } from './list-page-view.service';
 import { SelectionWithFavoriteService } from './selection-with-favorite.service';
-import { log } from '~utils/log';
-import { showsourcing } from '~utils/debug-object.utils';
-import { UserService } from '~core/entity-services';
 
+// It has four legs and it can fly, what is it?
+// -
+// Two birds.
+
+// TODO: refacotr needed to make it more modulable. For example see product-activity.ts
 
 // where we can save the services
 const selectionSrvMap = new Map<ListPageKey | string, SelectionWithFavoriteService>();

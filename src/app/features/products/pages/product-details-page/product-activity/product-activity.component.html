@@ -1,0 +1,130 @@
+
+<div class="content flex">
+
+	<div class="left">
+		<product-preview-app [isPreview]="false" [product]="product$ | async"></product-preview-app>
+	</div>
+
+
+	<div class="right">
+
+		<!-- activity card -->
+		<card-app>
+			<card-nav-app>
+				<product-activity-nav-app 
+					[selectedTab]="selectedTab"
+					[counts]="counts$ | async"
+					(tabSelected)="onTabChange($event)"></product-activity-nav-app>
+			</card-nav-app>
+			<card-header-app>
+			</card-header-app>
+
+			<card-title-app>{{ selectedTab }}</card-title-app>
+
+			<ng-container [ngSwitch]="selectedTab">
+
+				<ng-container *ngSwitchCase="'comment'">
+
+					<ng-container *ngIf="product$ | async as product">
+						<add-comment-app (added)="sendComment($event)"></add-comment-app>
+						<divider-app *ngIf="product.comments.length > 0"></divider-app>
+						<comment-list-app [comments]="product.comments"></comment-list-app>
+					</ng-container>
+					
+				</ng-container>
+
+				<ng-container *ngSwitchCase="'task'">
+					<div class="flexVAlign show-my-tasks">
+						<checkbox-app
+							[checked]="listSrv.filterList.hasFilterType(assigneeFilterType)"
+							(check)="toggleMyTasks(true)"
+							(uncheck)="toggleMyTasks(false)">
+						</checkbox-app>
+						Assigned to me
+						<ng-container translate="text.assigned-to-me"></ng-container>
+					</div>
+					<task-table-app
+						tableConfigType="itsTheSameDesignEveryWhereGuys"
+						[columns]="['done', 'name', 'assignee', 'status', 'dueDate']"
+						[hasHeader]="false"
+						[hasSelection]="false"
+						[hasPagination]="false"
+						[rows]="listSrv.items$ | async"
+						[selection]="listSrv.selection$ | async"
+						[pending]="listSrv.pending"
+						[count]="listSrv.count$ | async"
+						[currentPage]="listSrv.currentPage"
+						(goToPage)="listSrv.loadPage($event)"
+						(sort)="listSrv.sort($event)"
+						(select)="listSrv.selectOne($event, true)"
+						(unselect)="listSrv.unselectOne($event, true)"
+						(selectAll)="listSrv.selectAll($event, true)"
+						(unselectAll)="listSrv.unselectAll()"
+						(open)="listSrv.goToDetails($event)"
+						(favorited)="listSrv.onItemFavorited($event)"
+						(unfavorited)="listSrv.onItemUnfavorited($event)"
+						(previewClick)="listSrv.openPreview($event)"
+						(delete)="listSrv.deleteOne($event)"
+						(createClick)="openCreateTask()">
+					</task-table-app>
+				</ng-container>
+
+				<ng-container *ngSwitchCase="'sample'">
+					<sample-table-app
+						[columns]="['name', 'status']"
+						[hasHeader]="false"
+						[hasSelection]="false"
+						[hasPagination]="false"
+						[rows]="listSrv.items$ | async"
+						[selection]="listSrv.selection$ | async"
+						[pending]="listSrv.pending"
+						[count]="listSrv.count$ | async"
+						[currentPage]="listSrv.currentPage"
+						(goToPage)="listSrv.loadPage($event)"
+						(sort)="listSrv.sort($event)"
+						(select)="listSrv.selectOne($event, true)"
+						(unselect)="listSrv.unselectOne($event, true)"
+						(selectAll)="listSrv.selectAll($event, true)"
+						(unselectAll)="listSrv.unselectAll()"
+						(open)="listSrv.goToDetails($event)"
+						(favorited)="listSrv.onItemFavorited($event)"
+						(unfavorited)="listSrv.onItemUnfavorited($event)"
+						(previewClick)="listSrv.openPreview($event)"
+						(delete)="listSrv.deleteOne($event)"
+						(createClick)="openCreateSample()"></sample-table-app>
+				</ng-container>
+
+				<ng-container *ngSwitchCase="'request'">
+					<request-element-table-app
+						[columns]="['name', 'sender', 'status']"
+						[showReplyFields]="false"
+						[hasHeader]="false"
+						[hasSelection]="false"
+						[hasPagination]="false"
+						[rows]="listSrv.items$ | async"
+						[selection]="listSrv.selection$ | async"
+						[pending]="listSrv.pending"
+						[count]="listSrv.count$ | async"
+						[currentPage]="listSrv.currentPage"
+						(goToPage)="listSrv.loadPage($event)"
+						(sort)="listSrv.sort($event)"
+						(select)="listSrv.selectOne($event, true)"
+						(unselect)="listSrv.unselectOne($event, true)"
+						(selectAll)="listSrv.selectAll($event, true)"
+						(unselectAll)="listSrv.unselectAll()"
+						(open)="listSrv.goToDetails($event)"
+						(favorited)="listSrv.onItemFavorited($event)"
+						(unfavorited)="listSrv.onItemUnfavorited($event)"
+						(previewClick)="listSrv.openPreview($event)"
+						(delete)="listSrv.deleteOne($event)"
+						(createClick)="openCreateRequest()">
+					</request-element-table-app>
+				</ng-container>
+
+			</ng-container>
+
+		</card-app>
+
+	</div>
+</div>
+

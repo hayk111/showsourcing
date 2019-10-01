@@ -1,0 +1,36 @@
+
+<div class="content flex">
+
+	<div class="left">
+		<product-preview-app [isPreview]="false" [product]="product$ | async"></product-preview-app>
+	</div>
+
+
+	<div class="right">
+		<card-app>
+
+			<card-title-app>Product Information</card-title-app>
+			<card-action-app>Contact Supplier</card-action-app>
+			
+			<accordion-app>
+				<accordion-title-app>General</accordion-title-app>
+			</accordion-app>
+
+			<accordion-app>
+				<accordion-title-app>Shipping & Packaging</accordion-title-app>
+				<accordion-content-app>
+					<dynamic-form-app
+						[inlineLabel]="true"
+						[fields]="productDescriptor?.descriptor"
+						[value]="product"
+						[colAmount]="2"
+						(update)="update($event)">
+					</dynamic-form-app>
+				</accordion-content-app>
+			</accordion-app>
+
+		</card-app>
+
+	</div>
+
+</div>

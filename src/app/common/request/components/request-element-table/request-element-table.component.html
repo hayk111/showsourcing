@@ -1,20 +1,27 @@
 
 <table-app
-	class="secondary-style"
+	[placeholder]="'placeholder.no-request-items' | translate"  
 	[rows]="rows"
+	[type]="erm.REQUEST_ELEMENT.singular"
+	[currentSort]="currentSort"
 	[pending]="pending"
-	[selected]="selection"
-  [count]="count"
-	[hasSelection]="hasSelection"
+	[count]="count"
 	[currentPage]="currentPage"
-	[placeholder]="'placeholder.no-request-items' | translate"
+	[selected]="selection"
+	[hasMenu]="hasMenu"
+	[hasHeader]="hasHeader"
+	[hasPagination]="hasPagination"
+	[hasSelection]="hasSelection"
 	[contextualMenu]="contextualMenuTemplate"
+	(goToPage)="goToPage.emit($event)"
 	(bottomReached)="bottomReached.emit()"
-	(selectAll)="selectAll.emit($event)"
-	(selectOne)="select.emit($event)"
 	(sort)="sort.emit($event)"
+	(selectOne)="select.emit($event)"
+	(unselectOne)="unselect.emit($event)"
+	(selectAll)="selectAll.emit($event)"
 	(unselectAll)="unselectAll.emit()"
-	(unselectOne)="unselect.emit($event)">
+	(showItemsPerPage)="showItemsPerPage.emit($event)"
+	(createClick)="createClick.emit()">
 
 	<!-- contextual menu -->
 	<ng-template #contextualMenuTemplate let-row="row">
@@ -25,43 +32,64 @@
 		</context-menu-item-app>
 	</ng-template>
 
+	<!-- dynamic columns -->
 	<ng-template
-		[columnApp]="'ERM.' + erm.PRODUCT.translationKey + '.singular' | translate"
-		sortBy="name"
-		let-row="row"
-		width="250">
-		<div class="mainCell ellipsis">
-			<span class="ellipsis">
-				<a class="name txt-btn title" (click)="openReviewRequestReply.emit(row.id)">{{ row?.name }}</a>
-			</span>
-		</div>
-	</ng-template>
+    *ngFor="let column of columnsConfig; trackBy: trackByFn"
+    let-row="row"
+		[columnApp]="'title.' + column.translationKey | translate"
+		[sortable]="column.sortable !== false"
+    [width]="column.width"
+		[sortBy]="column.sortProperty">
+		
+    <ng-container [ngSwitch]="column.name">
 
-	<ng-template
-		let-row="row"
-		let-index="index"
-		width="150"
-		[sortable]="false"
-		*ngFor="let field of fields[0]; index as j; trackBy: trackByFn"
-		[columnApp]="field?.definition?.label">
-		<ng-container [ngSwitch]="field.definition.type">
-			<span *ngSwitchDefault>{{ fields[index][j]?.value }}</span>
-			<price-app *ngSwitchCase="'price'" [price]="parseJson(fields[index][j]?.value)"></price-app>
-			<packaging-app *ngSwitchCase="'packaging'" [packaging]="parseJson(fields[index][j]?.value)"></packaging-app>
+			<!-- name -->
+			<ng-container *ngSwitchCase="'name'">
+				<div class="mainCell ellipsis">
+					<span class="ellipsis">
+						<a class="name txt-btn title" (click)="openReviewRequestReply.emit(row.id)">{{ row?.name }}</a>
+					</span>
+				</div>
+			</ng-container>
+
+			<!-- status -->
+			<ng-container *ngSwitchCase="'status'">
+
+				<request-status-badge-app
+					[status]="row?.reply?.status"
+					[creationDate]="row?.creationDate">
+				</request-status-badge-app>
+
+			</ng-container>
+
+			<!-- fields amount -->
+			<ng-container *ngSwitchCase="'fields'">
+				{{ row.reply.fields.length }}
+			</ng-container>
+
+			<!-- sender -->
+			<ng-container *ngSwitchCase="'fields'">
+				{{ row.reply.sender }}
+			</ng-container>
+
 		</ng-container>
 	</ng-template>
 
-	<ng-template
-		[columnApp]="'title.status' | translate"
-		sortBy="reply.status"
-		let-row="row"
-		width="200">
-
-		<request-status-badge-app
-			[status]="row?.reply?.status"
-			[creationDate]="row?.creationDate">
-		</request-status-badge-app>
-
-	</ng-template>
+	<!-- reply fields -->
+	<ng-container *ngIf="showReplyFields">
+		<ng-template
+			let-row="row"
+			let-index="index"
+			width="150"
+			[sortable]="false"
+			*ngFor="let field of fields[0]; index as j; trackBy: trackByFn"
+			[columnApp]="field?.definition?.label">
+			<ng-container [ngSwitch]="field.definition.type">
+				<span *ngSwitchDefault>{{ fields[index][j]?.value }}</span>
+				<price-app *ngSwitchCase="'price'" [price]="parseJson(fields[index][j]?.value)"></price-app>
+				<packaging-app *ngSwitchCase="'packaging'" [packaging]="parseJson(fields[index][j]?.value)"></packaging-app>
+			</ng-container>
+		</ng-template>
+	</ng-container>
 
 </table-app>

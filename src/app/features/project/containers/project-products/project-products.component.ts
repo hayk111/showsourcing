@@ -148,10 +148,6 @@ export class ProjectProductsComponent extends AutoUnsub implements OnInit, After
 		}
 	}
 
-	getTabPanelUrl(panel: 'products' | 'settings'): string {
-		return this.router.url.substring(0, this.router.url.lastIndexOf('/') + 1) + panel;
-	}
-
 	onClearFilters() {
 		this.listSrv.filterList.resetAll();
 

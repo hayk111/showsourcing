@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { distinctUntilChanged, filter, shareReplay, switchMap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, shareReplay, switchMap, tap } from 'rxjs/operators';
 import { AnalyticsService } from '~core/analytics/analytics.service';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
@@ -18,6 +18,7 @@ export class UserService extends GlobalService<User> {
 	private userId$ = new Subject<string>();
 	private user$ = this.userId$.pipe(
 		distinctUntilChanged(),
+		tap(id => this.userId = id),
 		switchMap(id => this.selectOne(id)),
 		filter(user => !!user),
 		shareReplay(1)

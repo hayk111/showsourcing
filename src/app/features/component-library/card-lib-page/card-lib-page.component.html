@@ -1,28 +1,26 @@
 
 
 <card-app>
-	<card-header-app>Some header</card-header-app>
-	<card-title-app>Title</card-title-app>
+	<card-nav-app>
+		<logo-nav-app
+			(click)="selected = 0" 
+			[selected]="selected === 0"
+			title="10 comments" 
+			subtitle="assigned to you">
+			<logo-app type="comment" size="l"></logo-app>
+		</logo-nav-app>
+		<logo-nav-app 
+			[selected]="selected === 1"
+			(click)="selected = 1" 
+			title="10 product" 
+			subtitle="assigned to you">
+			<logo-app type="product" size="l"></logo-app>
+		</logo-nav-app>
+	</card-nav-app>
+	<card-title-app>
+		Title
+	</card-title-app>
 	<card-title-badge-app>78</card-title-badge-app>
 	<card-action-app>Action</card-action-app>
-	
-	&lt;card-app&gt;  <br>
-	<div class="mg-s">
-	  &lt;card-header-app&gt;Some header&lt;/card-header-app&gt; <br>
-	  &lt;card-title-app&gt;Title&lt;/card-title-app&gt; <br>
-	  &lt;card-title-badge-app&gt;78&lt;/card-title-badge-app&gt; <br>
-	  &lt;card-action-app&gt;Action&lt;/card-action-app&gt; <br>
-	  This is the content of the card <br>
-	</div>
-	&lt;/card-app&gt;
 </card-app>
 
-<card-app>
-	<card-title-app>Title</card-title-app>
-	
-	&lt;card-app&gt;  <br>
-	<div class="mg-s">
-		&lt;card-title-app&gt;Title&lt;/card-title-app&gt; <br>
-	</div>
-	&lt;/card-app&gt;
-</card-app>

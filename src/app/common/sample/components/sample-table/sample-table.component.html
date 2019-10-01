@@ -18,7 +18,8 @@
 	(selectAll)="selectAll.emit($event)"
 	(unselectAll)="unselectAll.emit($event)"
 	(sort)="sort.emit($event)"
-	(bottomReached)="bottomReached.emit()">
+	(bottomReached)="bottomReached.emit()"
+	(createClick)="createClick.emit()">
 
 	<!-- contextual menu -->
 	<ng-template #contextualMenuTemplate let-row="row">
@@ -70,7 +71,7 @@
 									<logo-app class="mini imgCtnr" [logo]="row.product?.images[0]" size="m" type="product"></logo-app>
 								<div class="flexColumn ref-ctnr">
 									<span class="product-ref ellipsis">
-										<a class="name txt-btn" [routerLink]="['/product', row.product?.id]">
+										<a class="name txt-btn" *ngIf="row.product" [routerLink]="['/product', row.product?.id]">
 											{{ row.reference || '-' }}
 										</a>
 									</span>
@@ -106,7 +107,7 @@
 						type="user"
 						[width]="320"
 						[offsetX]="4"
-						(update)="update.emit({ id: row?.id, assignee: $event })">
+						(update)="changeAssignee(row, $event)">
 						<div  class="flex assignee-container ellipsis pointer">
 							<user-picture-app
 								[user]="row?.assignee"

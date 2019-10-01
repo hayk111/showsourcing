@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { TaskDescriptor } from '~core/descriptors';
-import { TaskService } from '~core/entity-services';
+import { TaskService, UserService } from '~core/entity-services';
 import { Product, Supplier, Task } from '~core/models';
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { NotificationService, NotificationType } from '~shared/notifications';
@@ -27,10 +27,19 @@ export class CreationTaskDlgComponent implements OnInit {
 		private dlgSrv: DialogService,
 		private taskSrv: TaskService,
 		private notifSrv: NotificationService,
+		private userSrv: UserService
 	) {
 	}
 
 	ngOnInit() {
+		const user = this.userSrv.userSync;
+		const assignee = {
+			id: user.id,
+			lastName: user.lastName,
+			firstName: user.firstName
+		};
+		const today = new Date();
+		const tomorrow = new Date(today.getTime() + (24 * 60 * 60 * 1000));
 		this.taskDescriptor = new TaskDescriptor([
 			'name', 'assignee', 'dueDate', 'description', 'product', 'supplier'
 		]);
@@ -59,7 +68,9 @@ export class CreationTaskDlgComponent implements OnInit {
 			const supplier = this.supplier ? this.supplier : (this.product && this.product.supplier);
 			this.task = new Task({
 				...this.product && { product: { id: this.product.id, name: this.product.name } },
-				...supplier && { supplier: { id: supplier.id, name: supplier.name } }
+				...supplier && { supplier: { id: supplier.id, name: supplier.name } },
+				assignee,
+				// dueDate: tomorrow, not working
 			});
 		}
 	}

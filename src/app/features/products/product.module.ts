@@ -14,30 +14,22 @@ import { SharedModule } from '~shared/shared.module';
 
 import {
 	ProductActivityComponent,
-	ProductIconsComponent,
-	ProductInformationComponent,
-	ProductSubInfoComponent,
-	ProductSummaryComponent,
-	ProductTeamRatingComponent,
 	ProductHeaderDetailsComponent,
-	ProjectCardComponent,
-	SelectableImageComponent,
-	SelectionActionsComponent,
-} from './components';
-import {
-	ProductDetailsComponent,
+	ProductDetailsPageComponent,
 	ProductSamplesComponent,
-	ProductShippingComponent,
+	ProductInfoComponent,
 	ProductsPageComponent,
 	ProductTasksComponent,
-} from './containers';
-import { ProductRequestsComponent } from './containers/product-requests/product-requests.component';
+	ProductActivityNavComponent
+} from './pages';
 import { ProductFeatureService, QuoteFeatureService } from './services';
+import { AttachmentCommonModule } from '~common/attachment/attachment-common.module';
 
 
 
 @NgModule({
 	imports: [
+		SharedModule,
 		ActivityCommonModule,
 		CommentCommonModule,
 		CommonModule,
@@ -46,27 +38,19 @@ import { ProductFeatureService, QuoteFeatureService } from './services';
 		RequestCommonModule,
 		RouterModule.forChild(routes),
 		SampleCommonModule,
-		SharedModule,
 		SupplierCommonModule,
-		TaskCommonModule
+		TaskCommonModule,
+		AttachmentCommonModule
 	],
 	declarations: [
 		ProductActivityComponent,
-		ProductDetailsComponent,
-		ProductIconsComponent,
-		ProductInformationComponent,
+		ProductDetailsPageComponent,
 		ProductSamplesComponent,
-		ProductShippingComponent,
-		ProductSubInfoComponent,
-		ProductSummaryComponent,
+		ProductInfoComponent,
 		ProductTasksComponent,
-		ProductTeamRatingComponent,
 		ProductHeaderDetailsComponent,
 		ProductsPageComponent,
-		ProjectCardComponent,
-		SelectableImageComponent,
-		SelectionActionsComponent,
-		ProductRequestsComponent,
+		ProductActivityNavComponent,
 	],
 	entryComponents: [],
 	exports: [],

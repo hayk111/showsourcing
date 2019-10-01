@@ -2,31 +2,16 @@
 
 :host {
 	line-height: 1;
-  cursor: pointer;
+	cursor: pointer;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
 }
 
 /** make svg same size as font-size */
 svg, img {
 	width: 1em;
 	height: 1em;
-}
-
-// for icomoon icons
-@font-face {
-  font-family: 'icomoon';
-  src:  url('/assets/fonts/icomoon/icomoon.eot?w2pk4k');
-  src:  url('/assets/fonts/icomoon/icomoon.eot?w2pk4k#iefix') format('embedded-opentype'),
-    url('/assets/fonts/icomoon/icomoon.ttf?w2pk4k') format('truetype'),
-    url('/assets/fonts/icomoon/icomoon.woff?w2pk4k') format('woff'),
-    url('/assets/fonts/icomoon/icomoon.svg?w2pk4k#icomoon') format('svg');
-  font-weight: normal;
-  font-style: normal;
-}
-
-.has-background {
-  border-radius: 3px;
-  padding: 3px;
-  font-size: 9px;
 }
 
 i {

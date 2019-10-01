@@ -4,6 +4,7 @@
 	[searchValue]="listSrv.searchValue"
 	(search)="listSrv.search($event)">
 	<controller-list-right-item-app>
+		
 		<div class="flexCenter show-my-tasks">
 			<checkbox-app
 				[checked]="listSrv.filterList.hasFilterType(assigneeFilterType)"
@@ -12,14 +13,15 @@
 			</checkbox-app>
 			<ng-container translate="text.assigned-to-me"></ng-container>
 		</div>
+
 		<div class="flexCenter show-tasks-done">
 			<checkbox-app
 				(check)="toggleDoneTasks(true)"
 				(uncheck)="toggleDoneTasks(false)">
 			</checkbox-app>
 			<ng-container translate="text.completed-tasks"></ng-container>
-
 		</div>
+
 	</controller-list-right-item-app>
 </controller-list-app>
 

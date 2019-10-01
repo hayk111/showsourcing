@@ -16,6 +16,7 @@
 	--font-size-icon-m: 16px;
 	--font-size-icon-l: 24px;
 	--font-size-icon-xl: 32px;
+	--font-size-icon-xxl: 54px;
 	--font-normal: 'Source Sans Pro', Roboto, sans-serif;
 	--font-title: 'Source Sans Pro', sans-serif;
 }
@@ -116,7 +117,7 @@ h1, h2, h3, h4, h5 {
 }
 
 h1 {
-	color: var(--legacy-color-txt-strong);
+	color: var(--color-txt-primary);
 	font-family: var(--font-title);
 	font-size: var(--font-size-xxxxl);
 	font-weight: 600;
@@ -124,7 +125,7 @@ h1 {
 }
 
 h2 {
-	color: var(--legacy-color-txt-strong);
+	color: var(--color-txt-primary);
 	font-family: var(--font-normal);
 	font-size: var(--font-size-xxl);
 	font-weight: 600;
@@ -132,7 +133,7 @@ h2 {
 
 h3 {
 	align-items: center;
-	color: var(--legacy-color-txt-strong);
+	color: var(--color-txt-primary);
 	display: flex;
 	font-family: var(--font-normal);
 	font-size: var(--font-size-l);
@@ -142,14 +143,14 @@ h3 {
 
 h4 {
 	align-items: center;
-	color: var(--legacy-color-txt-primary);
+	color: var(--color-txt-primary);
 	display: flex;
 	font-family: var(--font-normal);
 	font-size: var(--font-size-m);
 }
 
 h5 {
-	color: var(--legacy-color-txt-strong);
+	color: var(--color-txt-primary);
 	&::first-letter {
 		text-transform: capitalize;
 	}
@@ -159,26 +160,26 @@ label {
 	font-weight: 600;
 	display: block;
 	font-weight: 600;
-	color: var(--legacy-color-txt-primary);
+	color: var(--color-txt-primary);
 	margin-bottom: var(--spacing-s);
 	text-transform: capitalize;
 }
 
 strong {
-	color: var(--legacy-color-txt-strong);
+	color: var(--color-txt-primary);
 	font-weight: 500;
 }
 
 small {
 	font-size: var(--font-size-s);
-	color: var(--legacy-color-txt-secondary);
+	color: var(--color-txt-secondary);
 }
 
 
 time {
 	line-height: 1.4;
 	font-size: var(--font-size-s);
-	color: var(--legacy-color-txt-secondary);
+	color: var(--color-txt-secondary);
 }
 
 b {

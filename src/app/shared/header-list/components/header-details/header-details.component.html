@@ -1,16 +1,15 @@
 
-<div class="panel-container">
+<div class="header-container">
 	<div class="flex left container" >
 
-		<logo-app
+		<icon-app
 			*ngIf="hasBackArrow"
-			class="backArrow"
-			icon="close-pane-left"
+			class="back-arrow"
+			name="arrow-left"
 			size="m"
-			[backgroundSize]="40"
 			(click)="goBack()">
-		</logo-app>
-
+		</icon-app>
+		
 		<div *ngIf="hasLogo" class="logo">
 			<ng-content select="logo-app"></ng-content>
 		</div>
@@ -32,6 +31,8 @@
 	</div>
 </div>
 
-<div class="flex" [ngClass]="{ 'arrow-margin': hasBackArrow }">
-	<ng-content select="header-nav-app"></ng-content>
+<div class="nav-container">
+	<div class="tabs-container flex">
+		<ng-content select="header-nav-app"></ng-content>
+	</div>
 </div>

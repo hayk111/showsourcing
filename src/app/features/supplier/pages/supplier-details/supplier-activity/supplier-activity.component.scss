@@ -1,0 +1,17 @@
+:host {
+	display: block;
+}
+
+.content {
+	justify-content: center;
+	.left {
+		width: 772px;
+	}
+	.right {
+		width: 420px;
+	}
+}
+
+divider-app {
+	margin: var(--spacing-l) 0;
+}

@@ -36,7 +36,6 @@ export class SupplierTableComponent extends EntityTableComponent<Supplier> imple
 
 	@Input() tableConfigType: TableConfigType = 'big';
 	@Output() archive = new EventEmitter<Supplier>();
-	@Output() showItemsPerPage = new EventEmitter<number>();
 
 	constructor(public translate: TranslateService) {
 		super();

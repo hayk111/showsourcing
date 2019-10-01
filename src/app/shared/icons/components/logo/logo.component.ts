@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, Renderer2, AfterViewInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, Input, Renderer2, OnChanges } from '@angular/core';
 import { AppImage, EntityName } from '~models';
 import { Color, Colors, log } from '~utils';
 
 
 export const colorMap = {
+	[EntityName.ATTACHMENT]: Color.SECONDARY,
 	[EntityName.CATEGORY]: Color.ACCENT,
 	[EntityName.COMMENT]: Color.PRIMARY,
 	[EntityName.CONTACT]: Color.SECONDARY,
@@ -14,10 +15,12 @@ export const colorMap = {
 	[EntityName.TAG]: Color.SECONDARY,
 	[EntityName.TASK]: Color.SUCCESS,
 	[EntityName.SUPPLIER]: Color.VIBRANT,
-	[EntityName.LOCATION]: Color.SECONDARY
+	[EntityName.LOCATION]: Color.SECONDARY,
+	[EntityName.REQUEST]: Color.WARN
 };
 
 export const iconMap = {
+	[EntityName.ATTACHMENT]: 'attachment',
 	[EntityName.CATEGORY]: 'category',
 	[EntityName.COMMENT]: 'comments',
 	[EntityName.CONTACT]: 'team',
@@ -28,7 +31,8 @@ export const iconMap = {
 	[EntityName.TAG]: 'tag',
 	[EntityName.TASK]: 'check-circle',
 	[EntityName.SUPPLIER]: 'supplier',
-	[EntityName.LOCATION]: 'location'
+	[EntityName.LOCATION]: 'location',
+	[EntityName.REQUEST]: 'envelope'
 };
 
 
@@ -54,7 +58,7 @@ export const sizeMap: { [key in Size]: { background: number, icon: number } } = 
 		'[class.circle]': 'circle === true',
 	}
 })
-export class LogoComponent implements OnInit, AfterViewInit {
+export class LogoComponent implements OnChanges {
 	/** we can supply an image to override the icon */
 	@Input() logo: AppImage;
 	/** type of entity so we can display its icon */
@@ -79,16 +83,12 @@ export class LogoComponent implements OnInit, AfterViewInit {
 		private renderer: Renderer2
 	) { }
 
-	ngOnInit() {
+	ngOnChanges() {
 		this.renderContainerSize();
-		// this.renderColor();
+		this.renderColor();
 		if (!this.type) {
 			log.error('No type specified in logo');
 		}
-	}
-
-	ngAfterViewInit() {
-		this.renderColor();
 	}
 
 	get computedIcon() {
@@ -96,8 +96,10 @@ export class LogoComponent implements OnInit, AfterViewInit {
 	}
 
 	private renderColor() {
-		const el = this.elRef.nativeElement;
-		this.renderer.addClass(el, this.getComputedColor());
+		const el: HTMLElement = this.elRef.nativeElement;
+		const found = Array.from(el.classList).find(className => className.startsWith('color-'));
+		this.renderer.removeClass(el, found);
+		this.renderer.addClass(el, 'color-' + this.getComputedColor());
 	}
 
 	private getComputedColor() {

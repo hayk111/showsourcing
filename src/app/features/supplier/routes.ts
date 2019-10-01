@@ -3,12 +3,10 @@ import {
 	SupplierDetailsComponent,
 	SupplierProductsPageComponent,
 	SuppliersPageComponent,
-} from '~features/supplier/containers';
-import { SupplierActivityComponent } from '~features/supplier/containers/supplier-activity/supplier-activity.component';
-import { SupplierProductsComponent } from '~features/supplier/containers/supplier-products/supplier-products.component';
-import { SupplierTasksComponent } from '~features/supplier/containers/supplier-tasks/supplier-tasks.component';
-
-import { SupplierSamplesComponent } from './containers/supplier-samples/supplier-samples.component';
+	SupplierActivityComponent,
+ 	SupplierTasksComponent,
+	SupplierSamplesComponent
+} from './pages';
 
 export const routes: Array<Route> = [
 	{
@@ -20,14 +18,10 @@ export const routes: Array<Route> = [
 		component: SupplierDetailsComponent,
 		children: [
 			{ path: 'activity', component: SupplierActivityComponent },
-			{ path: 'products', component: SupplierProductsComponent },
+			{ path: 'products', component: SupplierProductsPageComponent },
 			{ path: 'samples', component: SupplierSamplesComponent },
 			{ path: 'tasks', component: SupplierTasksComponent },
 			{ path: '', redirectTo: 'activity', pathMatch: 'full' }
 		]
-	},
-	{
-		path: 'all-products/:id',
-		component: SupplierProductsPageComponent
 	}
 ];

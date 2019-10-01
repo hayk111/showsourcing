@@ -1,6 +1,7 @@
 <div *ngIf="type==='badge'" class="badge">
 	<div class="badge-item" [ngClass]="getType()">
-		<div class="badge-name" [ngClass]="isHaveStatus() ? 'border' : 'new'">
+		<div class="badge-name first-uppercase" [ngClass]="isHaveStatus() ? 'border' : 'new'">
+			{{ status.step ? (status.step + 1) + '. ' : '' }} 
 			{{ 'text.' + status[displayAttribute] | translate }}
 		</div>
 	</div>
@@ -8,7 +9,8 @@
 <div *ngIf="type==='list'" class="list">
 	<div class="status-item" [ngClass]="getType()" [ngStyle]="{ 'width.px': width }">
 		<div class="status-box" [ngClass]="status?.name"></div>
-		<div class="status-name" [ngClass]="{'new' : !isHaveStatus()}">
+		<div class="status-name first-uppercase" [ngClass]="{'new' : !isHaveStatus()}">
+			{{ status.step ? (status.step + 1) + '. ' : '' }}
 			{{ 'text.' + status[displayAttribute] | translate }}
 		</div>
 	</div>
