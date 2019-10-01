@@ -10,7 +10,7 @@
 			[backgroundSize]="40"
 			(click)="goBack()">
 		</logo-app>
-		
+
 		<div *ngIf="hasLogo" class="logo">
 			<ng-content select="logo-app"></ng-content>
 		</div>
@@ -32,6 +32,6 @@
 	</div>
 </div>
 
-<div class="tabs-container flex">
+<div class="flex" [ngClass]="{ 'arrow-margin': hasBackArrow }">
 	<ng-content select="header-nav-app"></ng-content>
 </div>

@@ -29,9 +29,9 @@ export class ProjectsTableComponent extends EntityTableComponent<Project> {
 
 	@Output() showItemsPerPage = new EventEmitter<number>();
 
-	columns = [
-		'name', 'owner', 'dueDate', 'status', 'createdBy', 'creationDate'
-	];
+	// TODO Backend deudate
+	// columns = ['name', 'owner', 'dueDate', 'status', 'createdBy', 'creationDate'];
+	columns = ['name', 'owner', 'status', 'createdBy', 'creationDate'];
 	tableConfig = tableConfig;
 	erm = ERM;
 	color = Color;

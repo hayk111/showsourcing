@@ -1,14 +1,14 @@
 
 <header-list-app
-			class="max-full-table-width"
-			[title]="'title.my-projects' | translate"
+	class="max-full-table-width"
+	[title]="'title.my-projects' | translate"
   [buttonName]="'button.create-project' | translate"
 	(buttonClick)="listSrv.create()">
 </header-list-app>
 
 <controller-list-app
-			class="max-full-table-width"
-			[entityType]="'PROJECT'"
+	class="max-full-table-width"
+	[entityType]="'PROJECT'"
 	[hasSwitch]="false"
 	[hasExport]="false"
 	[count]="listSrv.count$ | async"
@@ -26,8 +26,8 @@
 <ng-container *ngIf="listSrv.isListening">
 
   <projects-table-app
-			class="max-full-table-width"
-			[selection]="listSrv.selection$ | async"
+		class="max-full-table-width"
+		[selection]="listSrv.selection$ | async"
 		[rows]="listSrv.items$ | async"
 		[pending]="listSrv.pending"
 		[count]="listSrv.count$ | async"
@@ -39,6 +39,7 @@
     (selectAll)="listSrv.selectAll($event, true)"
     (unselectAll)="listSrv.unselectAll()"
 		(sort)="listSrv.sort($event)"
+		(createClick)="listSrv.create()"
 		(showItemsPerPage)="showItemsPerPage($event)"
 		(delete)="listSrv.deleteOne($event)">
 	</projects-table-app>
