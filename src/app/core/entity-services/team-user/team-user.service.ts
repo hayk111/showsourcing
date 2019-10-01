@@ -7,12 +7,15 @@ import { GlobalService } from '~entity-services/_global/global.service';
 import { TeamUser } from '~models';
 import { TeamService } from '../team/team.service';
 import { UserService } from '../user/user.service';
+import { Client } from '~core/apollo/services/apollo-client-names.const';
 
 
 @Injectable({
 	providedIn: 'root'
 })
 export class TeamUserService extends GlobalService<TeamUser> {
+
+	defaultClient = Client.CENTRAL;
 
 	constructor(
 		protected apolloState: ApolloStateService,
