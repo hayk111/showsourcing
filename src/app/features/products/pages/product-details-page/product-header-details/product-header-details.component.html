@@ -13,7 +13,7 @@
 				<span class="reference" *ngIf="product?.reference">
 					{{ product?.reference }}
 				</span>
-				<span class="price" *ngIf="product.price && product.price.value !== null">
+				<span class="price" *ngIf="product?.price && product?.price.value !== null">
 					{{ product?.price | appPrice }}
 				</span>
 				<span *ngIf="product?.category" class="category">
@@ -37,7 +37,7 @@
 		</header-nav-item-app>
 
 		<header-nav-item-app
-			link="./details"
+			link="./info"
 			icon="product"
 			[name]="'nav.product-details' | translate">
 		</header-nav-item-app>

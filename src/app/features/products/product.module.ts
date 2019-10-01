@@ -18,6 +18,7 @@ import {
 	ProductDetailsPageComponent,
 	ProductSamplesComponent,
 	ProductInfoComponent,
+	ProductFilesComponent,
 	ProductsPageComponent,
 	ProductTasksComponent,
 	ProductActivityNavComponent
@@ -45,6 +46,7 @@ import { ProductFeatureService, QuoteFeatureService } from './services';
 		ProductDetailsPageComponent,
 		ProductSamplesComponent,
 		ProductInfoComponent,
+		ProductFilesComponent,
 		ProductTasksComponent,
 		ProductHeaderDetailsComponent,
 		ProductsPageComponent,
