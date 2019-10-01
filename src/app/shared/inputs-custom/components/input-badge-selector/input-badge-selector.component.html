@@ -13,10 +13,6 @@
 
 
 <ng-template #badgeStyle>
-	<!-- <info-badge-app *ngIf="!value?.length" class="pointer" [type]="type">
-		{{ 'OBJ.add-OBJ' | translate: {type: 'ERM.' + type.toUpperCase() + '.plural' | translate} }}
-		<icon-app name="add"></icon-app>
-	</info-badge-app> -->
 	<button *ngIf="!value?.length" class="full-width primary-light capitalize">
 			{{ 'OBJ.add-OBJ' | translate: {type: 'ERM.' + type.toUpperCase() + '.plural' | translate} }}
 	</button>

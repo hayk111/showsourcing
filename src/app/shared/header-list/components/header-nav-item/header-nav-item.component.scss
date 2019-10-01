@@ -3,10 +3,6 @@
 	color: var(--color-txt-third);
 	margin-right: var(--spacing-xxl);
 
-	&:first-child {
-		margin-left: 62px;
-	}
-
 	&>a {
 		display: flex;
 		position: relative;
