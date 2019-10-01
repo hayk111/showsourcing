@@ -88,7 +88,10 @@ export class ProductActivityComponent extends AutoUnsub implements OnInit {
 			case 'request':
 				entitySrv = this.requestElemSrv;
 				entityMetadata = ERM.REQUEST_ELEMENT;
-				selectParams = new SelectParams({ sortBy: 'reply.status' });
+				selectParams = new SelectParams({
+					sortBy: 'reply.status',
+					query: `targetedEntityType == "Product" && targetId == "${this.product.id}" && reply.status == "replied"`
+				});
 				break;
 			case 'sample':
 				entitySrv = this.sampleSrv;
