@@ -10,7 +10,7 @@ import { SelectParamsConfig } from '~core/entity-services/_global/select-params'
 @Component({
 	selector: 'category-data-management-page-app',
 	templateUrl: './../data-management-page.component.html',
-	styleUrls: ['./category-data-management-page.component.scss'],
+	styleUrls: ['./category-data-management-page.component.scss', '../data-management-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
 		ListPageService
@@ -45,8 +45,8 @@ export class CategoryDataManagementPageComponent extends AutoUnsub implements On
 	}
 
 	mergeSelected() {
-		const ids = this.listSrv.getSelectedIds();
-		this.dmSrv.merge(ids, this.listSrv.entityMetadata);
+		const categories = this.listSrv.getSelectedValues();
+		this.dmSrv.merge(categories, this.listSrv.entityMetadata);
 	}
 
 	showItemsPerPage(count: number) {

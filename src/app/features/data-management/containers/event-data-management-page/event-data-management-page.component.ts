@@ -10,7 +10,7 @@ import { SelectParamsConfig } from '~core/entity-services/_global/select-params'
 @Component({
 	selector: 'event-data-management-page-app',
 	templateUrl: './../data-management-page.component.html',
-	styleUrls: ['./event-data-management-page.component.scss'],
+	styleUrls: ['./event-data-management-page.component.scss', '../data-management-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
 		ListPageService
@@ -44,8 +44,8 @@ export class EventDataManagementPageComponent extends AutoUnsub implements OnIni
 	}
 
 	mergeSelected() {
-		const ids = this.listSrv.getSelectedIds();
-		this.dmSrv.merge(ids, this.listSrv.entityMetadata);
+		const events = this.listSrv.getSelectedValues();
+		this.dmSrv.merge(events, this.listSrv.entityMetadata);
 	}
 
 	showItemsPerPage(count: number) {

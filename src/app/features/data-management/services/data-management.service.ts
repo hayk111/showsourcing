@@ -9,10 +9,10 @@ export class DataManagementService {
 
 	constructor(private commonModalSrv: CommonModalService) { }
 
-	merge(ids: string[], entityMetadata: EntityMetadata) {
+	merge(entities: any[], entityMetadata: EntityMetadata) {
 		this.commonModalSrv.openMergeDialog({
 			type: entityMetadata,
-			entities: ids
+			entities
 		});
 	}
 }
