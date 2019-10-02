@@ -33,6 +33,8 @@ export class RatingStarsActionComponent implements AfterViewInit {
 			// e.g vote.value == 40 -> then the array would be [20, 40]
 			// making the index for the slice 2 (the lenght of the array)
 			this.sliceIndexStar = this.stars.filter(starValue => starValue <= myVote.value).length;
+			// adds initial color to stars
+			this.changeStarsColor(this.sliceIndexStar);
 		}
 	}
 	get votes() {
