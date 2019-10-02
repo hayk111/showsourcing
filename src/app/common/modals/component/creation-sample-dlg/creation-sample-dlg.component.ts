@@ -6,6 +6,7 @@ import { CloseEventType, DialogService } from '~shared/dialog';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { TranslateService } from '@ngx-translate/core';
 import { uuid } from '~utils';
+import { Observable } from 'rxjs';
 
 @Component({
 	selector: 'creation-sample-dlg-app',
@@ -109,8 +110,8 @@ export class CreationSampleDlgComponent implements OnInit {
 		this.dlgSrv.close({ type: CloseEventType.CANCEL });
 	}
 
-	close() {
-		this.dlgSrv.close({ type: CloseEventType.OK, data: { sample: this.sample } });
+	close(created$?: Observable<Sample>) {
+		this.dlgSrv.close({ type: CloseEventType.OK, data: { sample: this.sample, created$ } });
 	}
 
 	private resetIds(sample) {

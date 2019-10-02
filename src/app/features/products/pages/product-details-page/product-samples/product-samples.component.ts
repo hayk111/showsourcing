@@ -39,7 +39,7 @@ export class ProductSamplesComponent extends AbstractSampleCommonComponent imple
 		const id$ = this.route.parent.params.pipe(
 			map(params => params.id),
 			takeUntil(this._destroy$)
-		);
+			);
 
 		id$.pipe(
 			switchMap(id => this.featureSrv.selectOne(id)),
@@ -52,5 +52,6 @@ export class ProductSamplesComponent extends AbstractSampleCommonComponent imple
 				value: this.productId
 			}
 		]);
+		super.ngOnInit();
 	}
 }
