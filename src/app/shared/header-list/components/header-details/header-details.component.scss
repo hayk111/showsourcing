@@ -2,8 +2,7 @@
 	display: block;
 	border-bottom: 1px solid var(--color-divider);
 	background-color: var(--color-bg);
-	padding: var(--spacing-l);
-	padding-bottom: 0px;
+	padding: 0;
 }
 
 .header-container {
@@ -11,7 +10,7 @@
 	justify-content: space-between;
 	box-sizing: border-box;
 	align-items: center;
-	padding: var(--spacing-l) var(--spacing-xxxxxl);
+	padding: var(--spacing-l) var(--spacing-l);
 }
 
 .nav-container {
@@ -19,7 +18,7 @@
 	justify-content: space-between;
 	box-sizing: border-box;
 	align-items: center;
-	padding: var(--spacing-none) var(--spacing-xxxxxl);
+	padding: var(--spacing-none) var(--spacing-l);
 }
 
 .left {
@@ -78,6 +77,6 @@
 	border-radius: var(--border-radius-s);
 }
 
-.tabs-container {
-	margin: var(--spacing-none) var(--spacing-xxl);
+.arrow-margin {
+	margin-left: 40px;
 }

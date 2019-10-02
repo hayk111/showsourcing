@@ -9,7 +9,7 @@
 			size="m"
 			(click)="goBack()">
 		</icon-app>
-		
+
 		<div *ngIf="hasLogo" class="logo">
 			<ng-content select="logo-app"></ng-content>
 		</div>
@@ -32,7 +32,7 @@
 </div>
 
 <div class="nav-container">
-	<div class="tabs-container flex">
+	<div class="tabs-container flex" [ngClass]="{ 'arrow-margin': hasBackArrow }">
 		<ng-content select="header-nav-app"></ng-content>
 	</div>
 </div>
