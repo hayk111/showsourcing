@@ -1,5 +1,6 @@
 icon-app {
 	margin: 0 var(--spacing-s);
+	cursor: default;
 
 	&:first-child {
     margin-left: var(--spacing-xs);
@@ -20,7 +21,6 @@ icon-app.star {
 }
 
 .vote-star-container {
-	cursor: pointer;
 	border-radius: var(--border-radius);
 	margin-left: var(--spacing-xs);
 	padding: var(--spacing-xs);

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ActivitiesBarComponent } from '~shared/activities-bar/activities-bar.component';
 import { RatingModule } from '~shared/rating';
 import { IconsModule } from '~shared/icons';
+import { UtilsModule } from '~shared/utils';
 
 
 
@@ -10,7 +11,8 @@ import { IconsModule } from '~shared/icons';
 	imports: [
 		CommonModule,
 		RatingModule,
-		IconsModule
+		IconsModule,
+		UtilsModule
 	],
 	declarations: [
 		ActivitiesBarComponent

@@ -8,7 +8,7 @@
 			<!-- trigger -->
 			<context-menu-trigger-app>
 				<button class="secondary-light flexCenter with-name">
-					<icon-app class="color-action first-uppercase" name="smile"></icon-app>
+					<icon-app class="color-accent first-uppercase" name="smile"></icon-app>
 					{{'button.like' | translate}}
 				</button>
 			</context-menu-trigger-app>
@@ -32,14 +32,14 @@
 					(favorited)="favorited.emit()"
 					(unfavorited)="unfavorited.emit()">
 				 </rating-heart-app>
-				{{'text.favorite' | translate}}
+				{{ 'text.favorite' | translate }}
 			</context-menu-item-app>
 		</context-menu-app>
 
 		<!-- Mass edit -->
 		<button class="secondary-light flexCenter with-name" (click)="massEdit.emit()">
-			<icon-app class="color-primary" name="edit"></icon-app>
-			{{'button.mass-edit'}}
+			<icon-app class="color-primary" name="note"></icon-app>
+			{{ 'button.mass-edit' | translate }}
 		</button>
 
 		<!-- Project -->
@@ -50,13 +50,13 @@
 
 		<!-- Request supplier -->
 		<button class="secondary-light flexCenter with-name" (click)="createRequest.emit()">
-			<icon-app class="color-supplier" name="shipping"></icon-app>
+			<icon-app class="color-supplier" name="square-arrow-diagonal"></icon-app>
 			<span translate="button.send-request-supplier"></span>
 		</button>
 
 		<!-- Compare products -->
 		<button class="secondary-light flexCenter with-name" (click)="compareProducts.emit()">
-			<icon-app class="color-success" name="feedback"></icon-app>
+			<icon-app class="color-success" name="poll"></icon-app>
 			<span translate="button.compare-products"></span>
 		</button>
 
@@ -81,5 +81,4 @@
 			<context-menu-item-app (click)="deleted.emit()" translate="button.delete"></context-menu-item-app>
 		</context-menu-app>
 	</div>
-	{{'text.favorite' | translate}}
 </selection-bar-app>
