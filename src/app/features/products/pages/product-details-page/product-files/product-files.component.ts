@@ -15,7 +15,8 @@ import { AutoUnsub } from '~utils';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductFilesComponent extends AutoUnsub implements OnInit {
-
+	// this is used by upload service, so it can link to the product
+	linkedEntity: any;
 	constructor(
 		protected route: ActivatedRoute,
 		protected userSrv: UserService,
@@ -30,11 +31,13 @@ export class ProductFilesComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		const id = this.route.snapshot.parent.params.id;
+		this.linkedEntity = { id, __typename: 'Product' };
 		this.listSrv.setup({
 			entitySrv: this.attachmentSrv,
 			searchedFields: ['name'],
 			selectParams: new SelectParams({
-				query: `deleted == false && @links.Product.attachments.id == "${id}"`
+				query: `@links.Product.attachments.id == "${id}"`,
+				sortBy: 'fileName'
 			}),
 			entityMetadata: ERM.ATTACHMENT,
 			originComponentDestroy$: this._destroy$

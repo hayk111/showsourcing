@@ -9,6 +9,7 @@
 	[selection]="listSrv.selection$ | async"
 	[count]="listSrv.count$ | async"
 	[currentPage]="listSrv.currentPage"
+	[linkedEntity]="linkedEntity"
 	(delete)="listSrv.deleteOne($event)"
 	(update)="listSrv.update($event)"
 	(open)="listSrv.goToDetails($event)"
@@ -25,7 +26,6 @@
 	(unfavorited)="listSrv.onItemUnfavorited($event)"
 	(unselect)="listSrv.unselectOne($event, true)"
 	(update)="listSrv.update($event)"
-	(createClick)="commonModalSrv.openCreationProductDlg()"
 	(unselectAll)="listSrv.unselectAll()">
 </attachment-table-app>
 
