@@ -1,15 +1,14 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
-import { EntityTableComponent, TableConfig, TableConfigType } from '~core/list-page';
-import { ERM, Attachment } from '~core/models';
-import { ID } from '~utils/id.utils';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { EntityTableComponent, TableConfig } from '~core/list-page';
+import { Attachment, ERM } from '~core/models';
+import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback.service';
 
 
 const bigTableConfig: TableConfig = {
 	name: { name: 'name', translationKey: 'name', width: 200, sortable: true },
 	createdBy: { name: 'createdBy', translationKey: 'createdBy', width: 120, sortProperty: 'reference' },
 	creationDate: { name: 'creationDate', translationKey: 'creationDate', width: 100, sortProperty: 'creationDate' },
-	actions: { name: 'actions', translationKey: 'actions', width: 100, sortProperty: 'product.name' },
+	actions: { name: 'actions', translationKey: 'actions', width: 100, sortProperty: 'product.name', showOnHover: true },
 };
 
 
@@ -20,18 +19,42 @@ const bigTableConfig: TableConfig = {
 		'./attachment-table.component.scss',
 		'../../../../../app/theming/specific/list.scss'
 	],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	providers: [
+		UploaderFeedbackService
+	]
 })
 export class AttachmentTableComponent extends EntityTableComponent<Attachment> implements OnInit {
-
-	@Output() openProduct = new EventEmitter<ID>();
-	@Output() openSupplier = new EventEmitter<ID>();
+	@Input() linkedEntity;
+	@Input() set rows(attachments: Attachment[]) {
+		this.uploadFeedback.setFiles(attachments);
+	}
+	get rows() {
+		return this.uploadFeedback.getFiles();
+	}
+	@Output() upload = new EventEmitter<Attachment[]>();
 
 	tableConfig = bigTableConfig;
-	columns = ['name', 'createdBy', 'creationDate', 'actions'];
+	columns = ['name', 'actions'];
 	erm = ERM;
 
-	constructor(public translate: TranslateService) { super(); }
+	constructor(
+		protected uploadFeedback: UploaderFeedbackService,
+	) { super(); }
+
+	ngOnInit() {
+		super.ngOnInit();
+		this.uploadFeedback.init({ linkedEntity: this.linkedEntity });
+	}
+
+	addFile(files: Array<File>) {
+		this.uploadFeedback.addFiles(files)
+			.subscribe(attachments => this.upload.emit(attachments));
+	}
+
+	download(attachment: Attachment) {
+		saveAs(attachment.url, attachment.fileName);
+	}
 
 
 }

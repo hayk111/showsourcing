@@ -60,6 +60,7 @@ export class ProductTasksComponent extends AbstractTaskCommonComponent
 			{ type: FilterType.PRODUCT, value: this.route.parent.snapshot.params.id },
 			{ type: FilterType.DONE, value: true },
 		]);
+		super.ngOnInit();
 	}
 
 	createTask(name: string) {

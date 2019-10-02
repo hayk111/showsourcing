@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { SampleDescriptor } from '~core/descriptors';
-import { SampleService } from '~core/entity-services';
+import { SampleService, UserService } from '~core/entity-services';
 import { Product, Sample, Supplier } from '~core/models';
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { TranslateService } from '@ngx-translate/core';
 import { uuid } from '~utils';
+import { Observable } from 'rxjs';
 
 @Component({
 	selector: 'creation-sample-dlg-app',
@@ -27,11 +28,18 @@ export class CreationSampleDlgComponent implements OnInit {
 		private dlgSrv: DialogService,
 		private sampleSrv: SampleService,
 		private notifSrv: NotificationService,
-		private translate: TranslateService
+		private translate: TranslateService,
+		private userSrv: UserService
 	) {
 	}
 
 	ngOnInit() {
+		const user = this.userSrv.userSync;
+		const assignee = {
+			id: user.id,
+			lastName: user.lastName,
+			firstName: user.firstName
+		};
 		this.sampleDescriptor = new SampleDescriptor([
 			'name', 'assignee', 'description', 'product', 'supplier'
 		]);
@@ -60,7 +68,8 @@ export class CreationSampleDlgComponent implements OnInit {
 			const supplier = this.supplier ? this.supplier : (this.product && this.product.supplier);
 			this.sample = new Sample({
 				...this.product && { product: { id: this.product.id, name: this.product.name } },
-				...supplier && { supplier: { id: supplier.id, name: supplier.name } }
+				...supplier && { supplier: { id: supplier.id, name: supplier.name } },
+				assignee
 			});
 		}
 	}
@@ -101,8 +110,8 @@ export class CreationSampleDlgComponent implements OnInit {
 		this.dlgSrv.close({ type: CloseEventType.CANCEL });
 	}
 
-	close() {
-		this.dlgSrv.close({ type: CloseEventType.OK, data: { sample: this.sample } });
+	close(created$?: Observable<Sample>) {
+		this.dlgSrv.close({ type: CloseEventType.OK, data: { sample: this.sample, created$ } });
 	}
 
 	private resetIds(sample) {

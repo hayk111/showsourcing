@@ -4,6 +4,7 @@
 	[count]="listSrv.count$ | async"
 	[hasFilter]="false"
 	[hasSwitch]="false"
+	[entityType]="'TASK'"
 	[view]="listSrv.view"
 	(search)="listSrv.search($event)"
 	(smartSearch)="listSrv.smartSearch($event)">

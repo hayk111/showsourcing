@@ -5,8 +5,8 @@ import { switchMap, takeUntil } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { SettingsMembersService } from '~features/settings/services/settings-members.service';
-import { ERM, TeamUser, User } from '~models';
-import { AutoUnsub, EntityTypeEnum } from '~utils';
+import { ERM, TeamUser, User, EntityTypeEnum } from '~models';
+import { AutoUnsub } from '~utils';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 
 @Component({

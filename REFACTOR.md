@@ -2,6 +2,17 @@
 
 File used to put ideas for refactors.
 
+# List Update.
+Add list update to global service
+
+# Make Base component with basic functionalities
+such as:
+
+ - erm
+ - trackFunction
+ - destroy$ ? maybe not this one though could be expesive..
+ - debug code
+
 
 # more use of super class for common behavior
 
@@ -39,3 +50,9 @@ The name and ref column second line could be customized via a template, because 
 
 	so either we put the place holders outside the table, either we make inputs like [placeHolderTitle], [placeholderAction] etc.
 	Outside would be easier to test, therefor it's probably a better design.
+
+# Upload Service
+
+	Rework so it doesn't do so much shit. Especially:
+	 - shouldn't link to the entity
+	or idk, it was added there because it wouldn't link after the upload if we switched components

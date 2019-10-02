@@ -1,12 +1,41 @@
 
-<div class="content flex">
+<controller-list-app
+	class="max-full-table-width"
+	[entityType]="erm.ATTACHMENT.singular"
+	[hasFilter]="false"
+	[hasSwitch]="false"
+	[view]="listSrv.view"
+	(search)="listSrv.search($event)"
+	(smartSearch)="listSrv.smartSearch($event)">
+</controller-list-app>
 
-	<div class="left">
+<attachment-table-app
+	class="max-full-table-width"
+	[hasPagination]="false"
+	[currentSort]="listSrv.currentSort"
+	[pending]="listSrv.pending"
+	[rows]="listSrv.items$ | async"
+	[selection]="listSrv.selection$ | async"
+	[count]="listSrv.count$ | async"
+	[currentPage]="listSrv.currentPage"
+	[linkedEntity]="linkedEntity"
+	(delete)="listSrv.deleteOne($event)"
+	(update)="listSrv.update($event)"
+	(open)="listSrv.goToDetails($event)"
+	(openAddToProjectDialog)="commonModalSrv.openAddToProjectDialog([$event])"
+	(openAddSampleDialog)="commonModalSrv.openAddSampleDialog($event)"
+	(openAddTaskDialog)="commonModalSrv.openCreationTaskDlg($event)"
+	(setFavourite)="listSrv.onItemFavorited($event?.id)"
+	(openRequestFeedbackDialog)="commonModalSrv.openRequestFeedbackDialog([$event])"
+	(openCreateRequestDlg)="commonModalSrv.openSupplierRequest([$event])"
+	(previewClick)="listSrv.openPreview($event)"
+	(select)="listSrv.selectOne($event, true)"
+	(selectAll)="listSrv.selectAll($event, true)"
+	(sort)="listSrv.sort($event)"
+	(unfavorited)="listSrv.onItemUnfavorited($event)"
+	(unselect)="listSrv.unselectOne($event, true)"
+	(update)="listSrv.update($event)"
+	(unselectAll)="listSrv.unselectAll()"
+	(upload)="listSrv.refetch()">
+</attachment-table-app>
 
-	</div>
-
-	<div class="right">
-
-	</div>
-
-</div>

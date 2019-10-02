@@ -172,11 +172,11 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 	}
 
 	addImage(files: File[]) {
-		this.uploaderFeedback.addImages(files);
+		this.uploaderFeedback.addImages(files).subscribe();
 	}
 
 	addAttachment(files: File[]) {
-		this.uploaderFeedback.addFiles(files);
+		this.uploaderFeedback.addFiles(files).subscribe();
 	}
 
 	hasEmptyField() {

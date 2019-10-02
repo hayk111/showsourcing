@@ -1,24 +1,10 @@
-import {
-	ChangeDetectionStrategy,
-	ChangeDetectorRef,
-	Component,
-	ContentChild,
-	ElementRef,
-	EventEmitter,
-	Input,
-	OnInit,
-	Output,
-	Renderer2,
-	AfterViewInit,
-	ViewChild,
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, Input, OnInit, Output, Renderer2 } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import {
-	SearchAutocompleteComponent,
-} from '~shared/search-autocomplete/components/search-autocomplete/search-autocomplete.component';
-import { AutoUnsub, EntityTypeEnum, EntityType } from '~utils';
+import { EntityType, EntityTypeEnum } from '~models';
+import { SearchAutocompleteComponent } from '~shared/search-autocomplete/components/search-autocomplete/search-autocomplete.component';
+import { AutoUnsub } from '~utils';
 import { ControllerListService } from '../../services/controller-list.service';
 
 @Component({
@@ -130,10 +116,9 @@ export class ControllerListComponent extends AutoUnsub implements OnInit {
 	isAssigned = false;
 	isMyExport = false;
 
-	constructor(private element: ElementRef,
-		private renderer: Renderer2,
-		private cdr: ChangeDetectorRef,
-		private controllerListService: ControllerListService) {
+	constructor(
+		private controllerListService: ControllerListService
+	) {
 		super();
 	}
 

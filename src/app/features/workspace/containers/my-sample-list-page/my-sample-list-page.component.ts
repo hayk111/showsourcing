@@ -43,6 +43,7 @@ export class MySampleListPageComponent extends AbstractSampleCommonComponent imp
 
 	ngOnInit() {
 		super.setup();
+		super.ngOnInit();
 	}
 
 	// can be moved to abstract
