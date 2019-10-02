@@ -1,10 +1,10 @@
 <controller-list-app
 	class="max-full-table-width"
 	[entityType]="erm.PRODUCT.singular"
+	[count]="listSrv.count$ | async"
 	[hasFilter]="false"
 	[hasSwitch]="false"
 	[view]="listSrv.view"
-	(viewChange)="onViewChange($event)"
 	(search)="listSrv.search($event)"
 	(smartSearch)="listSrv.smartSearch($event)">
 </controller-list-app>

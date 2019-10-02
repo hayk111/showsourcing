@@ -1,14 +1,14 @@
 
 <div class="header-container">
 	<div class="flex left container" >
-
-		<icon-app
-			*ngIf="hasBackArrow"
-			class="back-arrow"
-			name="arrow-left"
-			size="m"
-			(click)="goBack()">
-		</icon-app>
+		<button *ngIf="hasBackArrow" class="light back-arrow-container">
+			<icon-app
+				class="back-arrow"
+				name="arrow-left"
+				size="m"
+				(click)="goBack()">
+			</icon-app>
+		</button>
 
 		<div *ngIf="hasLogo" class="logo">
 			<ng-content select="logo-app"></ng-content>
