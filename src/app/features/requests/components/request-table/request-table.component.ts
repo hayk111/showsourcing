@@ -8,6 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
 	templateUrl: './request-table.component.html',
 	styleUrls: [
 		'./request-table.component.scss',
+		'../../../../../app/theming/specific/list.scss'
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })

@@ -7,8 +7,8 @@
 
 		<!-- Banner -->
 		<preview-banner-app
-			[canOpen]="canClose"
-			[canClose]="canClose"
+			[canOpen]="true"
+			[canClose]="true"
 			(closed)="close.emit()"
 			(opened)="openSupplier()">
 			<preview-carousel-app
@@ -110,10 +110,8 @@
 
 		<!-- Banner -->
 		<preview-banner-app
-			[canOpen]="canClose"
-			[canClose]="canClose"
-			(closed)="close.emit()"
-			(opened)="openSupplier()">
+			[canOpen]="false"
+			[canClose]="false">
 			<preview-carousel-app
 				[entity]="supplier"
 				[entityMD]="erm.SUPPLIER"
@@ -200,16 +198,16 @@
 			<span class="color-txt-strong">
 				{{
 					'OBJ.created-by-on' | translate: {
-						name: supplier?.createdBy | formatUserName: true,
-						date: supplier?.creationDate | date: 'dd MMMM yyyy':'':translateService.currentLang
+						name: (supplier?.createdBy | formatUserName: true),
+						date: (supplier?.creationDate | date: 'dd MMMM yyyy':'':translateService.currentLang)
 					}
 				}}
 			</span>
 			<span class="color-txt-strong">
 				{{
 					'OBJ.last-updated-by-on' | translate: {
-						name: supplier?.lastUpdatedBy | formatUserName: true,
-						date: (supplier?.lastUpdatedDate || product?.creationDate) | date: 'dd MMMM yyyy':'':translateService.currentLang
+						name: (supplier?.lastUpdatedBy | formatUserName: true),
+						date: ((supplier?.lastUpdatedDate) | date: 'dd MMMM yyyy':'':translateService.currentLang)
 					}
 				}}
 			</span>

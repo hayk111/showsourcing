@@ -131,21 +131,21 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 				fontSet: '',
 				text: translate('add sample'),
 				action: this.openNewSample.bind(this),
-				number: this.product.samplesLinked && this.product.samplesLinked.count
+				number: this.product && this.product.samplesLinked && this.product.samplesLinked.count
 			},
 			{
 				icon: 'check-circle',
 				fontSet: '',
 				text: translate('add task'),
 				action: this.openNewTask.bind(this),
-				number: this.product.tasksLinked && this.product.tasksLinked.count
+				number: this.product && this.product.tasksLinked && this.product.tasksLinked.count
 			},
 			{
 				icon: 'comments',
 				fontSet: '',
 				text: translate(ERM.COMMENT.singular, 'erm'),
 				action: this.scrollToCommentButton.bind(this),
-				number: this.product.comments && this.product.comments.length
+				number: this.product && this.product.comments && this.product.comments.length
 			},
 			{
 				icon: 'export',
@@ -170,7 +170,38 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 		this.product$ = this.productSrv.selectOne(this.product.id);
 		this.product$
 			.pipe(takeUntil(this._destroy$))
-			.subscribe(product => this.product = product);
+			.subscribe(product => {
+				this.product = product;
+				this.actions = [
+					{
+						icon: 'sample',
+						fontSet: '',
+						text: translate('add sample'),
+						action: this.openNewSample.bind(this),
+						number: this.product.samplesLinked && this.product.samplesLinked.count
+					},
+					{
+						icon: 'check-circle',
+						fontSet: '',
+						text: translate('add task'),
+						action: this.openNewTask.bind(this),
+						number: this.product.tasksLinked && this.product.tasksLinked.count
+					},
+					{
+						icon: 'comments',
+						fontSet: '',
+						text: translate(ERM.COMMENT.singular, 'erm'),
+						action: this.scrollToCommentButton.bind(this),
+						number: this.product.comments && this.product.comments.length
+					},
+					{
+						icon: 'export',
+						text: translate('export'),
+						fontSet: '',
+						action: this.openExportModal.bind(this)
+					}
+				];
+			});
 	}
 
 	updateProduct(productConfig: any) {

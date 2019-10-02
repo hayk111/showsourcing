@@ -1,4 +1,6 @@
 <controller-list-app
+	class="max-full-table-width"
+	[entityType]="erm.TASK.singular"
 	[hasFilter]="false"
 	[hasSwitch]="false"
 	[view]="listSrv.view"
@@ -7,6 +9,7 @@
 </controller-list-app>
 
 <task-table-app
+	class="max-full-table-width"
 	[hasHeader]="false"
 	[hasPagination]="false"
 	[rows]="listSrv.items$ | async"
