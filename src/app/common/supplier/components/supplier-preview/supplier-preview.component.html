@@ -31,7 +31,7 @@
 		<!-- Supplier type badge -->
 		<preview-badge-app
 			[badge]="erm.SUPPLIER_TYPE"
-			[value]="'text.' + supplier?.supplierType?.name | translate"
+			[value]="supplier?.supplierType?.name"
 			(update)="update($event, 'supplierType')">
 		</preview-badge-app>
 
@@ -126,13 +126,14 @@
 			[entityMD]="erm.SUPPLIER"
 			[supplier]="supplier"
 			[logoImage]="supplier?.logoImage"
-			[displayEntityInfo]="isPreview"
+			[hasLogo]="true"
+			[displayEntityInfo]="false"
 			(update)="update($event, 'name')">
 
 		<!-- Supplier type badge -->
 		<preview-badge-app
 			[badge]="erm.SUPPLIER_TYPE"
-			[value]="'text.' + supplier?.supplierType?.name | translate"
+			[value]="supplier?.supplierType?.name"
 			(update)="update($event, 'supplierType')">
 		</preview-badge-app>
 
@@ -193,7 +194,7 @@
 	</preview-section-app>
 
 	<!-- Info -->
-	<preview-section-app [title]="'title.info' | translate"  class="mg-bottom-none">
+	<preview-section-app [title]="'title.info' | translate">
 		<div class="flexColumn">
 			<span class="color-txt-strong">
 				{{

@@ -306,8 +306,8 @@
       "singular": "review product"
     },
     "set-category": {
-      "plural": "set categories",
-      "singular": "set category"
+      "plural": "Set categories",
+      "singular": "Set category"
     },
     "show-pagination": "Showing {{fromNumber}} - {{toNumber}} of {{count}}",
     "that-already-exists": "That {{ field }} name already exists. Please choose another one.",

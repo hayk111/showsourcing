@@ -3,9 +3,9 @@ import { CommonModalService } from '~common/modals';
 import { ProjectService } from '~core/entity-services';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
-import { ERM, Project } from '~models';
+import { ERM, Project, EntityTypeEnum } from '~models';
 import { FilterType } from '~shared/filters';
-import { AutoUnsub, EntityTypeEnum } from '~utils';
+import { AutoUnsub } from '~utils';
 
 // Doctor: You're obese.
 // -

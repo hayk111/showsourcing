@@ -46,6 +46,7 @@
 						<ng-container translate="text.assigned-to-me"></ng-container>
 					</div>
 					<task-table-app
+						class="no-padding"
 						tableConfigType="itsTheSameDesignEveryWhereGuys"
 						[columns]="['done', 'name', 'assignee', 'status', 'dueDate']"
 						[hasHeader]="false"
@@ -73,6 +74,7 @@
 
 				<ng-container *ngSwitchCase="'sample'">
 					<sample-table-app
+						class="no-padding"
 						[columns]="['name', 'status']"
 						[hasHeader]="false"
 						[hasSelection]="false"
@@ -98,6 +100,7 @@
 
 				<ng-container *ngSwitchCase="'request'">
 					<request-element-table-app
+						class="no-padding"
 						[columns]="['name', 'sender', 'status']"
 						[showReplyFields]="false"
 						[hasHeader]="false"
