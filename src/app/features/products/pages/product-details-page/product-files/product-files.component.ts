@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModalService } from '~common/modals';
 import { AttachmentService, UserService } from '~core/entity-services';
@@ -7,7 +7,6 @@ import { ListPageService } from '~core/list-page';
 import { Attachment, ERM } from '~core/models';
 import { DialogService } from '~shared/dialog';
 import { AutoUnsub } from '~utils';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'product-files-app',

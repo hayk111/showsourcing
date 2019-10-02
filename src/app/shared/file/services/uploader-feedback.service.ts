@@ -38,7 +38,6 @@ export class UploaderFeedbackService {
 	uploaded$ = this._uploaded$.asObservable();
 
 	constructor(
-		private cd: ChangeDetectorRef,
 		private uploaderSrv: UploaderService,
 		private imgSrv: ImageService,
 		private attachmentSrv: AttachmentService,
@@ -76,7 +75,7 @@ export class UploaderFeedbackService {
 			return;
 
 		const uuids: string[] = await this.addPendingImgs(files);
-		this.cd.markForCheck();
+		// this.cd.markForCheck();
 		// since the this.linkedEntity is only set in the init, its image array is not up to date, so we need to update it
 		const linkedEntity = { ...this.linkedEntity, images: this._images };
 		this.uploaderSrv.uploadImages(files, linkedEntity, this.imageProperty, this.isImagePropertyArray)
@@ -97,7 +96,7 @@ export class UploaderFeedbackService {
 
 	private onSuccessImg(uuids) {
 		this._pendingImages = this._pendingImages.filter(p => !uuids.includes(p.id));
-		this.cd.markForCheck();
+		// this.cd.markForCheck();
 	}
 
 	deleteImg(img: AppImage) {
@@ -120,7 +119,7 @@ export class UploaderFeedbackService {
 
 	private onSuccessFile(uuids) {
 		this._pendingFiles = this._pendingFiles.filter(p => !uuids.includes(p.id));
-		this.cd.markForCheck();
+		// this.cd.markForCheck();
 	}
 
 	deleteFile(file: Attachment) {
