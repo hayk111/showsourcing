@@ -306,8 +306,8 @@
       "singular": "review product"
     },
     "set-category": {
-      "plural": "set categories",
-      "singular": "set category"
+      "plural": "Set categories",
+      "singular": "Set category"
     },
     "show-pagination": "Showing {{fromNumber}} - {{toNumber}} of {{count}}",
     "that-already-exists": "That {{ field }} name already exists. Please choose another one.",
@@ -386,7 +386,7 @@
     "logout": "logout",
     "manage-team": "manage team",
     "mark-done": "mark done",
-    "mass-edit": "mass edit",
+    "mass-edit": "Mass edit",
     "more": "More",
     "new": "New",
     "new-contact": "New contact",
@@ -426,6 +426,7 @@
     "send": "Send",
     "send-back": "Send Back",
     "send-request": "Send request",
+    "send-request-supplier": "Send request to supplier",
     "set-as-favourite": "Set as Favourite",
     "settings": "settings",
     "show-filters": "Filters",

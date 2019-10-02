@@ -20,7 +20,7 @@ export const colorMap = {
 };
 
 export const iconMap = {
-	[EntityName.ATTACHMENT]: 'attachment',
+	[EntityName.ATTACHMENT]: 'file',
 	[EntityName.CATEGORY]: 'category',
 	[EntityName.COMMENT]: 'comments',
 	[EntityName.CONTACT]: 'team',

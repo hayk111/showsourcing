@@ -17,13 +17,11 @@
 		<header-search-app></header-search-app>
 	</div>
 
-	<div
-		class="sidebar-item-content possition-static pointer"
+	<notif-app
+		class="sidebar-item-content pointer"
+		[notifications]="notifications$ | async"
 		(click)="openNotifPanel()">
-		<notif-app
-			[notifications]="notifications$ | async">
-		</notif-app>
-	</div>
+	</notif-app>
 
 	<div class="sidebar-item-content">
 		<user-panel-app [user]="user$ | async" [team]="team$ | async" (logout)="logout()"></user-panel-app>

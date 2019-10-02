@@ -18,14 +18,6 @@ selection-bar-app {
 action-bar-app {
 	overflow: visible;
 
-	icon-app {
-		color: var(--legacy-color-txt-secondary);
-	}
-
-	icon-app[name='trash'] {
-		font-size: var(--font-size-xxl);
-	}
-
 	context-menu-trigger-app {
 		width: 160px;
 	}

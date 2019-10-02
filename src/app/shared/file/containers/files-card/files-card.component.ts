@@ -19,10 +19,10 @@ export enum PageType {
 })
 export class FilesCardComponent extends AutoUnsub implements OnInit {
 
-	@Input() set files(files: Array<Attachment | PendingFile>) {
+	@Input() set files(files: Array<Attachment>) {
 		this.uploaderFeedback.setFiles(files);
 	}
-	get files(): Array<Attachment | PendingFile> {
+	get files(): Array<Attachment> {
 		return this.uploaderFeedback.getFiles();
 	}
 
@@ -48,7 +48,7 @@ export class FilesCardComponent extends AutoUnsub implements OnInit {
 	}
 
 	onFileAdded(files: Array<File>) {
-		this.uploaderFeedback.addFiles(files);
+		this.uploaderFeedback.addFiles(files).subscribe();
 	}
 
 }

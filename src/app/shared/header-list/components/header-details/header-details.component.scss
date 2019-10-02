@@ -1,4 +1,5 @@
 :host {
+<<<<<<< HEAD
   display: block;
   border-bottom: 1px solid var(--color-divider);
   background-color: var(--color-bg);
@@ -7,6 +8,12 @@
 .settings {
   padding: var(--spacing-l);
   padding-bottom: 0px;
+=======
+	display: block;
+	border-bottom: 1px solid var(--color-divider);
+	background-color: var(--color-bg);
+	padding: 0;
+>>>>>>> origin/WEB-2310-header-details-web-app
 }
 
 .header-container {
@@ -97,7 +104,7 @@
 }
 
 .tabs-container-details {
-  margin: var(--spacing-none) var(--spacing-xxl);
+  margin: var(--spacing-none) 40px;
 }
 
 .tabs-container-settings {

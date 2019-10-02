@@ -1,15 +1,16 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { AbstractSampleCommonComponent } from '~common/sample/containers/abstract-sample-common.component';
 import { ListPageService } from '~core/list-page';
 import { UserService } from '~entity-services';
 import { SampleService } from '~entity-services/sample/sample.service';
-import { Sample, Supplier } from '~models';
-import { FilterType } from '~shared/filters';
-import { takeUntil, map, switchMap } from 'rxjs/operators';
-import { DialogService } from '~shared/dialog';
 import { SupplierFeatureService } from '~features/supplier/services';
+import { ERM, Sample, Supplier } from '~models';
+import { DialogService } from '~shared/dialog';
+import { FilterType } from '~shared/filters';
+
 
 
 @Component({
@@ -24,7 +25,8 @@ import { SupplierFeatureService } from '~features/supplier/services';
 
 export class SupplierSamplesComponent extends AbstractSampleCommonComponent implements OnInit {
 	private supplierId: string;
-	private supplier: Supplier;
+	supplier: Supplier;
+	erm = ERM;
 
 	constructor(
 		protected route: ActivatedRoute,
@@ -56,5 +58,6 @@ export class SupplierSamplesComponent extends AbstractSampleCommonComponent impl
 				value: this.supplierId
 			}
 		]);
+		super.ngOnInit();
 	}
 }

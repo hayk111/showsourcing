@@ -1,12 +1,16 @@
 <controller-list-app
+	class="max-full-table-width"
+	[entityType]="erm.TASK.singular"
 	[hasFilter]="false"
 	[hasSwitch]="false"
+	[entityType]="'TASK'"
 	[view]="listSrv.view"
 	(search)="listSrv.search($event)"
 	(smartSearch)="listSrv.smartSearch($event)">
 </controller-list-app>
 
 <task-table-app
+	class="max-full-table-width"
 	[hasHeader]="false"
 	[hasPagination]="false"
 	[rows]="listSrv.items$ | async"
