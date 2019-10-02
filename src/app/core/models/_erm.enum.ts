@@ -62,6 +62,7 @@ export enum EntityName {
 }
 
 export enum EntityTypeEnum {
+	ATTACHMENT = 'ATTACHMENT',
 	CATEGORY = 'CATEGORY',
 	EVENT = 'EVENT',
 	EXPORT = 'EXPORT',

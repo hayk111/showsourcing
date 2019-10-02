@@ -18,6 +18,8 @@ import { ListPageService } from '~core/list-page';
 export class SupplierFilesComponent extends AutoUnsub implements OnInit {
 
 	supplier: Supplier;
+	erm = ERM;
+
 
 	constructor(
 		protected route: ActivatedRoute,

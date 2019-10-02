@@ -5,6 +5,14 @@ File used to put ideas for refactors.
 # List Update.
 Add list update to global service
 
+# Make Base component with basic functionalities
+such as:
+
+ - erm
+ - trackFunction
+ - destroy$ ? maybe not this one though could be expesive..
+ - debug code
+
 
 # more use of super class for common behavior
 
