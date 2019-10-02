@@ -15,7 +15,7 @@
 						{{ 
 							'OBJ.n-OBJ' | translate: {
 								count: todoCount[entity], 
-								field: (todoCount[entity] > 1 ?  'ERM.' + entity.toUpperCase() + '.plural' :  'ERM.' + entity.toUpperCase() + '.singular') | translate
+								field: (todoCount[entity] > 1 ?  'ERM.' + entity?.toUpperCase() + '.plural' :  'ERM.' + entity?.toUpperCase() + '.singular') | translate
 							} 
 						}}
 					</h1>
@@ -27,7 +27,7 @@
 		</div>
 	</card-header-app>
 	<card-title-app> 
-		{{ ((todoCount[selectedEntity] || 0) > 1 ? 'ERM.' + selectedEntity.toUpperCase() + '.plural' : 'ERM.' + selectedEntity.toUpperCase() + '.singular') | translate }} 
+		{{ ((todoCount[selectedEntity] || 0) > 1 ? 'ERM.' + selectedEntity?.toUpperCase() + '.plural' : 'ERM.' + selectedEntity?.toUpperCase() + '.singular') | translate }} 
 		{{ 'label.assigned-to-you' | translate }}
 	</card-title-app>
 	<card-title-badge-app>{{ todoCount[selectedEntity] }}</card-title-badge-app>
@@ -97,12 +97,12 @@
 
 		</ng-container>
 
-		<h1>{{ 'OBJ.no-OBJ-assigned-to-you' | translate: {field: 'ERM.' + selectedEntity.toUpperCase() + '.singular' | translate} }}</h1>
-		<span>{{ 'OBJ.create-a-field-or-assign' | translate: {field: 'ERM.' + selectedEntity.toUpperCase() + '.singular' | translate} }}</span>
+		<h1>{{ 'OBJ.no-OBJ-assigned-to-you' | translate: {field: 'ERM.' + selectedEntity?.toUpperCase() + '.singular' | translate} }}</h1>
+		<span>{{ 'OBJ.create-a-field-or-assign' | translate: {field: 'ERM.' + selectedEntity?.toUpperCase() + '.singular' | translate} }}</span>
 
 		<div class="button-group">
-			<button (click)="openCreationModal()">{{ 'OBJ.create-OBJ' | translate: {field: 'ERM.' + selectedEntity.toUpperCase() + '.singular' | translate} }}</button>
-			<button (click)="dashboardSrv.redirect(route)">{{ 'OBJ.view-OBJ' | translate: {field: 'ERM.' + selectedEntity.toUpperCase() + '.plural' | translate} }}</button>
+			<button (click)="openCreationModal()">{{ 'OBJ.create-OBJ' | translate: {field: 'ERM.' + selectedEntity?.toUpperCase() + '.singular' | translate} }}</button>
+			<button (click)="dashboardSrv.redirect(route)">{{ 'OBJ.view-OBJ' | translate: {field: 'ERM.' + selectedEntity?.toUpperCase() + '.plural' | translate} }}</button>
 		</div>
 	</div>
 </ng-template>
