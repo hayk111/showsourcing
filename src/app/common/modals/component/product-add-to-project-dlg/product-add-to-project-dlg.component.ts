@@ -2,12 +2,12 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
 import { Observable } from 'rxjs';
 import { ProductDialogService } from '~common/modals/services/product-dialog.service';
 import { ListPageService } from '~core/list-page';
-import { ERM, Product, Project } from '~models';
+import { ERM, Product, Project, EntityTypeEnum } from '~models';
 import { DialogService } from '~shared/dialog/services';
 import { FilterType } from '~shared/filters';
 import { ProjectService } from '~entity-services';
 import { NotificationService, NotificationType } from '~shared/notifications';
-import { AutoUnsub, EntityTypeEnum } from '~utils';
+import { AutoUnsub } from '~utils';
 import { CloseEventType } from '~shared/dialog';
 import { TranslateService } from '@ngx-translate/core';
 

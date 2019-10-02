@@ -15,10 +15,11 @@ import {
 import { FormControl } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { EntityType, EntityTypeEnum } from '~models';
 import {
 	SearchAutocompleteComponent,
 } from '~shared/search-autocomplete/components/search-autocomplete/search-autocomplete.component';
-import { AutoUnsub, EntityTypeEnum, EntityType } from '~utils';
+import { AutoUnsub } from '~utils';
 import { ControllerListService } from '../../services/controller-list.service';
 
 @Component({
