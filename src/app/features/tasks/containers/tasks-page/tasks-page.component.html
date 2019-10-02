@@ -88,6 +88,7 @@
 
 	<div class="flex">
 		<status-selector-app
+			class="mg-right-s"
 			toolTip [toolTipMessage]="'message.change-status' | translate" toolTipPosition="above-right"
 			#workActionMenu
 			selectSize="s"
@@ -103,7 +104,7 @@
 			(onFavorite)="listSrv.onFavoriteAllSelected()"
 			(onUnfavorite)="listSrv.onUnfavoriteAllSelected()"	>
 			<button class="icon light" (click)="listSrv.deleteSelected()">
-				<icon-app name="trash"></icon-app>
+				<icon-app class="color-secondary-dark" name="trash" size="l"></icon-app>
 			</button>
 		</action-bar-app>
 	</div>

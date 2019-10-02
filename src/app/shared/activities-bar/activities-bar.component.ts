@@ -1,8 +1,8 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
-import { RequestElementService } from '~core/entity-services';
+import { RequestElementService, TaskService, SampleService } from '~core/entity-services';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { Observable } from 'rxjs';
-import { ReplyStatus, Task } from '~core/models';
+import { ReplyStatus, Task, EntityName } from '~core/models';
 
 @Component({
 	selector: 'activities-bar-app',
@@ -12,6 +12,7 @@ import { ReplyStatus, Task } from '~core/models';
 })
 export class ActivitiesBarComponent implements OnInit {
 	@Input() row: any;
+	@Input() entityName: EntityName.PRODUCT | EntityName.SUPPLIER = EntityName.PRODUCT;
 	@Input() favourite = false;
 	@Input() hasSamples = false;
 	@Input() hasTasks = false;
@@ -22,9 +23,13 @@ export class ActivitiesBarComponent implements OnInit {
 
 	openRequestsCount$: Observable<number>;
 	requestsCount$: Observable<number>;
+	tasksCount$: Observable<number>;
+	samplesCount$: Observable<number>;
 
 	constructor(
 		private requestElementService: RequestElementService,
+		private taskSrv: TaskService,
+		private sampleSrv: SampleService,
 		public thumbService: ThumbService,
 	) { }
 
@@ -36,6 +41,15 @@ export class ActivitiesBarComponent implements OnInit {
 			this.requestsCount$ = this.requestElementService
 				.queryCount(`targetId == "${this.row.id}" AND targetedEntityType == "Product"`);
 
+			if (this.hasTasks) {
+				this.tasksCount$ = this.taskSrv
+					.queryCount(`${this.entityName}.id == "${this.row.id}" AND deleted == false AND archived == false`);
+			}
+
+			if (this.hasSamples) {
+				this.samplesCount$ = this.sampleSrv
+					.queryCount(`${this.entityName}.id == "${this.row.id}" AND deleted == false AND archived == false`);
+			}
 			this.hasTaskOverdue = this.hasTasksOverdue(this.row.id);
 		}
 	}

@@ -136,6 +136,7 @@
 			<ng-container *ngSwitchCase="'activities'">
 				<activities-bar-app
 					[row]="row"
+					[entityName]="erm.SUPPLIER.singular"
 					[favourite]="row?.favorite"
 					[hasSamples]="!!row?.samplesLinked.count"
 					[hasTasks]="!!row?.tasksLinked.count"
