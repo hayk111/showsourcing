@@ -1,9 +1,14 @@
-* {
-	cursor: auto
+
+
+:host {
+	font-size: var(--font-size-icon-l);
 }
+
 icon-app {
 	margin-top: var(--spacing-xs);
+	cursor: pointer;
 }
+
 .bell-color-primary-contrast {
 	color: var(--color-primary-contrast);
 	cursor: pointer;
@@ -23,3 +28,8 @@ icon-app {
 	cursor: pointer;
 }
 
+notif-layout-app {
+	position: absolute;
+	top: 0;
+	left: 0;
+}

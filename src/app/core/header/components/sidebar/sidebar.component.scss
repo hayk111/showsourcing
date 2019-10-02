@@ -30,7 +30,6 @@ nav {
 }
 
 .sidebar-item-content {
-	position: relative;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -51,11 +50,8 @@ nav {
 	height: 200px;
 
 	notif-app {
-		height: 32px;
-		width: 32px;
-		font-size: 24px;
+		height: 64px;
+		width: 64px;
 		cursor: pointer;
-		border-radius: var(--border-radius-s);
 	}
-
 }
