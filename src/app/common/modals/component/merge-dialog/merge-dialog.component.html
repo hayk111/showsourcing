@@ -1,24 +1,36 @@
 	<dialog-app>
 
 		<!-- when ready -->
-		<dialog-header-app *ngIf="!pending" class="first-uppercase">
+		<dialog-header-app *ngIf="!pending" class="merge-categories first-uppercase">
 			{{ 'OBJ.merge-OBJ' | translate: {field: 'ERM.' + type.translationKey + '.plural' | translate} }}
 		</dialog-header-app>
 
-		<form [formGroup]="group" *ngIf="!pending">
-			<form-field-app>
-				<label-app>{{ 'OBJ.OBJ-to-merge-to' | translate: {field: 'ERM.' + type.translationKey + '.singular' | translate} }}</label-app>
-				<input inputApp type="text" formControlName="name" [placeholder]="'OBJ.new-OBJ-name' | translate: {field: 'ERM.' + type.translationKey + '.singular' | translate}" (keyup.enter)="onSubmit()"/>
-			</form-field-app>
-			<label-app>
-				{{'message.please-select-category' | translate}}
-				<p class="color-warn" translate="error.action-cannot-undone"></p>
-			</label-app>
-		</form>
+		<div class="merge-entities-title">You will merge the following {{type.plural}}:</div>
+
+		<div class="merge-entities">
+			<ul><li *ngFor="let entity of entities"><span class="selected-entitiy-name">{{entity?.name}}</span></li></ul>
+		</div>
+
+		<h2 class="merge-into">Merge Into</h2>
+
+		<selector-app
+			*ngIf="!pending"
+			[canCreate]="true"
+			[choices]="entities"
+			[width]="370"
+			(update)="entitySelect($event)">
+			<div class="flexVAlign select-entity ellipsis pointer txt-btn type">
+				<span class="entity-to-merge">
+					{{ selected?.name || 'Select ' + type.singular  }}
+				</span>
+			</div>
+		</selector-app>
+
+		<h2 class="warning-undone">Warning: This action cannot be undone</h2>
 
 		<dialog-footer-app *ngIf="!pending">
 			<!-- TODO Check style is the same - Need first-uppercase -->
-			<input [disabled]="!group.valid" type="submit" [value]="'text.merge' | translate" (click)="onSubmit()"/>
+			<input type="submit" [value]="'text.merge' | translate" (click)="onSubmit()"/>
 		</dialog-footer-app>
 
 		<!-- when pending -->

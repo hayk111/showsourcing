@@ -27,6 +27,7 @@ import { ID } from '~utils';
 export class SelectorComponent extends AbstractInput implements OnInit {
 
 	@Input() value: any;
+	@Input() choices: Array<any>;
 
 	private _type: EntityMetadata;
 	// it can be both types, since selectors are used inside dynamic forms (customField.metadata.target)
@@ -69,6 +70,7 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 	constructor(public elem: ElementRef, private cdr: ChangeDetectorRef) { super(cdr); }
 
 	ngOnInit() {
+		console.log('TCL: SelectorComponent -> ngOnInit -> this.dynamicFields', this.dynamicFields);
 		// everytime we focus the content and hit enter, we are opening the menu
 		if (this.tab) {
 			let word = '';

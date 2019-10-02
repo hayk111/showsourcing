@@ -25,6 +25,7 @@ import {
 	TeamUserService,
 	UserService,
 	WeightUnitService,
+	RpcService
 } from '~entity-services';
 import { EntityMetadata, ERM } from '~models';
 
@@ -74,6 +75,7 @@ export class ERMService {
 		private requestElementService: RequestElementService,
 		private requestReplyService: RequestReplyService,
 		private requestTemplateService: RequestTemplateService,
+		private rpcService: RpcService,
 		private sampleSrv: SampleService,
 		private sampleStatusSrv: SampleStatusService,
 		private selectorElementSrv: SelectorElementService,
@@ -141,6 +143,8 @@ export class ERMService {
 				return this.requestReplyService;
 			case 'RequestTemplate':
 				return this.requestTemplateService;
+			case 'Rpc':
+				return this.rpcService;
 			case 'Sample':
 				return this.sampleSrv;
 			case 'SampleStatus':
@@ -215,6 +219,8 @@ export class ERMService {
 				return this.requestElementService;
 			case ERM.REQUEST_REPLY:
 				return this.requestReplyService;
+			case ERM.REQUEST_RPC:
+				return this.rpcService;
 			case ERM.REQUEST_TEMPLATE:
 				return this.requestTemplateService;
 			case ERM.CREATE_REQUEST:

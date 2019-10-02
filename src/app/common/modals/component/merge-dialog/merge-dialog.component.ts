@@ -1,7 +1,7 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, Input, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, Input, ViewChild, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CrudDialogService } from '~common/modals/services/crud-dialog.service';
-import { EntityMetadata } from '~models';
+import { ERM, EntityMetadata } from '~models';
 import { DialogService } from '~shared/dialog/services';
 import { InputDirective } from '~shared/inputs';
 import { AutoUnsub } from '~utils';
@@ -12,39 +12,33 @@ import { AutoUnsub } from '~utils';
 	styleUrls: ['./merge-dialog.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MergeDialogComponent extends AutoUnsub implements AfterViewInit {
+export class MergeDialogComponent extends AutoUnsub {
 
-	group: FormGroup;
+	selected: any;
+	erm: ERM;
 	pending = false;
 	@Input() type: EntityMetadata;
 	@Input() entities: Array<any>;
-	@ViewChild(InputDirective, { static: false }) input: InputDirective;
 
 	constructor(
-		private fb: FormBuilder,
 		private dlgSrv: DialogService,
 		private crudDlgSrv: CrudDialogService) {
 		super();
-		this.group = this.fb.group({
-			name: ['', Validators.required],
-		});
 	}
 
-	ngAfterViewInit() {
-		// setTimeout because we can't yet see the input
-		setTimeout(() => this.input.focus(), 0);
+	entitySelect(entity: any) {
+		this.selected = entity;
 	}
-
 
 	onSubmit() {
-		if (this.group.valid) {
-			this.pending = true;
-			this.crudDlgSrv.merge(this.group, this.type, this.entities);
-			// .pipe(takeUntil(this._destroy$))
-			// .subscribe(() => {
-			// 	this.pending = false;
-			// 	this.dlgSrv.close();
-			// });
-		}
+		this.pending = true;
+		this.crudDlgSrv.merge(this.selected, this.type, this.entities).subscribe(data => {
+			console.log('TCL: MergeDialogComponent -> onSubmit -> data', data);
+		});
+		// .pipe(takeUntil(this._destroy$))
+		// .subscribe(() => {
+		// 	this.pending = false;
+		// 	this.dlgSrv.close();
+		// });
 	}
 }
