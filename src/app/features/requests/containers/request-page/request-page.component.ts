@@ -4,11 +4,11 @@ import { CommonModalService } from '~common/modals';
 import { RequestReplyService, SupplierRequestService, TeamService } from '~core/entity-services';
 import { SelectParams } from '~core/entity-services/_global/select-params';
 import { ListPageKey, ListPageService } from '~core/list-page';
-import { ERM, ReplyStatus, SupplierRequest } from '~core/models';
+import { ERM, ReplyStatus, SupplierRequest, EntityTypeEnum } from '~core/models';
 import { DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { FilterType } from '~shared/filters';
-import { AutoUnsub, EntityTypeEnum } from '~utils';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'request-page-app',
