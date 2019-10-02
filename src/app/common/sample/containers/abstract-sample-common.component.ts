@@ -1,16 +1,17 @@
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CreationSampleDlgComponent } from '~common/modals/component/creation-sample-dlg/creation-sample-dlg.component';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { SampleService, UserService } from '~entity-services';
 import { ERM, Sample } from '~models';
+import { DialogService } from '~shared/dialog';
 import { Filter, FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils/auto-unsub.component';
-import { DialogService, CloseEventType, CloseEvent } from '~shared/dialog';
-import { CreationSampleDlgComponent } from '~common/modals/component/creation-sample-dlg/creation-sample-dlg.component';
-import { filter, switchMap } from 'rxjs/operators';
+import { switchMap, takeUntil } from 'rxjs/operators';
+import { OnInit } from '@angular/core';
 
 /** since we use the sample component on different pages, this page will keep the methods clean */
-export abstract class AbstractSampleCommonComponent extends AutoUnsub {
+export abstract class AbstractSampleCommonComponent extends AutoUnsub implements OnInit {
 	public trackById = (index, item) => item.id;
 
 	constructor(
@@ -23,6 +24,13 @@ export abstract class AbstractSampleCommonComponent extends AutoUnsub {
 		public commonModalSrv: CommonModalService
 	) {
 		super();
+	}
+
+	ngOnInit() {
+		this.sampleSrv.sampleListUpdate$.pipe(
+			switchMap(_ => this.listSrv.refetch({})),
+			takeUntil(this._destroy$)
+		).subscribe();
 	}
 
 	setup(addedFilters: Filter[] = []) {
@@ -65,9 +73,6 @@ export abstract class AbstractSampleCommonComponent extends AutoUnsub {
 	}
 
 	openCreationSampleDlg(product, supplier) {
-		this.dlgSrv.open(CreationSampleDlgComponent, { product, supplier }).pipe(
-			filter((event: CloseEvent) => event.type === CloseEventType.OK),
-			switchMap(_ => this.listSrv.refetch({}))
-		).subscribe();
+		this.dlgSrv.open(CreationSampleDlgComponent, { product, supplier });
 	}
 }

@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output
 import { EntityTableComponent, TableConfig } from '~core/list-page';
 import { Attachment, ERM } from '~core/models';
 import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback.service';
-import { ID } from '~utils/id.utils';
 
 
 const bigTableConfig: TableConfig = {
@@ -20,18 +19,20 @@ const bigTableConfig: TableConfig = {
 		'./attachment-table.component.scss',
 		'../../../../../app/theming/specific/list.scss'
 	],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	providers: [
+		UploaderFeedbackService
+	]
 })
 export class AttachmentTableComponent extends EntityTableComponent<Attachment> implements OnInit {
-
+	@Input() linkedEntity;
 	@Input() set rows(attachments: Attachment[]) {
 		this.uploadFeedback.setFiles(attachments);
 	}
 	get rows() {
 		return this.uploadFeedback.getFiles();
 	}
-	@Output() openProduct = new EventEmitter<ID>();
-	@Output() openSupplier = new EventEmitter<ID>();
+	@Output() upload = new EventEmitter<Attachment[]>();
 
 	tableConfig = bigTableConfig;
 	columns = ['name', 'createdBy', 'creationDate', 'actions'];
@@ -39,10 +40,16 @@ export class AttachmentTableComponent extends EntityTableComponent<Attachment> i
 
 	constructor(
 		protected uploadFeedback: UploaderFeedbackService,
-		) { super(); }
+	) { super(); }
+
+	ngOnInit() {
+		super.ngOnInit();
+		this.uploadFeedback.init({ linkedEntity: this.linkedEntity });
+	}
 
 	addFile(files: Array<File>) {
-		this.uploadFeedback.addFiles(files);
+		this.uploadFeedback.addFiles(files)
+			.subscribe(attachments => this.upload.emit(attachments));
 	}
 
 

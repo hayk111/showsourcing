@@ -30,7 +30,7 @@
 		<context-menu-item-app
 			class="pointer flexCenter"
 			(click)="delete.emit(row)">
-			{{'text.delete' }}
+			{{ 'text.delete' | translate }}
 		</context-menu-item-app>
 	</ng-template>
 
@@ -48,9 +48,11 @@
 
 			<!-- name -->
 			<ng-container *ngSwitchCase="'name'">
-				<logo-app type="file" *ngIf="!row.pending"></logo-app>
-				<spinner-app size="s" *ngIf="row.pending"></spinner-app>
-					{{ row?.name }}
+				<div class="flexVAlign">
+					<logo-app type="attachment" *ngIf="!row.pending"></logo-app>
+					<spinner-app size="ms" *ngIf="row.pending"></spinner-app>
+					<span class="mg-left-s">{{ row?.fileName }}</span>
+				</div>
 			</ng-container>
 
 			<!-- createdBy -->
@@ -69,7 +71,7 @@
 			<ng-container *ngSwitchCase="'name assignee'">
 				<button class="icon-with-text">
 					<icon-app name="close-pane-bottom"></icon-app>
-					download
+					{{ 'text.download' | translate }}
 				</button>
 			</ng-container>
 

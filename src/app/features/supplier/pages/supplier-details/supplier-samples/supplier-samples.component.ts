@@ -58,5 +58,6 @@ export class SupplierSamplesComponent extends AbstractSampleCommonComponent impl
 				value: this.supplierId
 			}
 		]);
+		super.ngOnInit();
 	}
 }

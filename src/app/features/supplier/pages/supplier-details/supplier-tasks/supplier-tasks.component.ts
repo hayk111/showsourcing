@@ -58,6 +58,7 @@ export class SupplierTasksComponent extends AbstractTaskCommonComponent implemen
 			{ type: FilterType.SUPPLIER, value: this.route.parent.snapshot.params.id },
 			{ type: FilterType.DONE, value: true }
 		]);
+		super.ngOnInit();
 	}
 
 }
