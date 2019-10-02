@@ -34,9 +34,10 @@ export class SupplierFilesComponent extends AutoUnsub implements OnInit {
 		this.listSrv.setup({
 			entitySrv: this.attachmentSrv,
 			searchedFields: ['name'],
-			selectParams: new SelectParams({
-				query: `deleted == false && @links.Supplier.attachments.id == "${id}"`
-			}),
+			selectParams: {
+				query: `@links.Supplier.attachments.id == "${id}"`,
+				sortBy: 'fileName'
+			},
 			entityMetadata: ERM.ATTACHMENT,
 			originComponentDestroy$: this._destroy$
 		});

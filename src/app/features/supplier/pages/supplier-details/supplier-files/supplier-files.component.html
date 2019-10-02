@@ -25,6 +25,7 @@
 	(unselect)="listSrv.unselectOne($event, true)"
 	(update)="listSrv.update($event)"
 	(createClick)="commonModalSrv.openCreationProductDlg()"
-	(unselectAll)="listSrv.unselectAll()">
+	(unselectAll)="listSrv.unselectAll()"
+	(upload)="listSrv.refetch()">
 </attachment-table-app>
 

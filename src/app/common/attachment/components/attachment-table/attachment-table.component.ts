@@ -25,7 +25,6 @@ const bigTableConfig: TableConfig = {
 	]
 })
 export class AttachmentTableComponent extends EntityTableComponent<Attachment> implements OnInit {
-
 	@Input() linkedEntity;
 	@Input() set rows(attachments: Attachment[]) {
 		this.uploadFeedback.setFiles(attachments);
@@ -33,6 +32,7 @@ export class AttachmentTableComponent extends EntityTableComponent<Attachment> i
 	get rows() {
 		return this.uploadFeedback.getFiles();
 	}
+	@Output() upload = new EventEmitter<Attachment[]>();
 
 	tableConfig = bigTableConfig;
 	columns = ['name', 'createdBy', 'creationDate', 'actions'];
@@ -48,7 +48,8 @@ export class AttachmentTableComponent extends EntityTableComponent<Attachment> i
 	}
 
 	addFile(files: Array<File>) {
-		this.uploadFeedback.addFiles(files).subscribe();
+		this.uploadFeedback.addFiles(files)
+			.subscribe(attachments => this.upload.emit(attachments));
 	}
 
 

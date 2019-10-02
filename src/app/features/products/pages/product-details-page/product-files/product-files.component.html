@@ -26,6 +26,7 @@
 	(unfavorited)="listSrv.onItemUnfavorited($event)"
 	(unselect)="listSrv.unselectOne($event, true)"
 	(update)="listSrv.update($event)"
-	(unselectAll)="listSrv.unselectAll()">
+	(unselectAll)="listSrv.unselectAll()"
+	(upload)="listSrv.refetch()">
 </attachment-table-app>
 
