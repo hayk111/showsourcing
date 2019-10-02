@@ -1,4 +1,6 @@
 <controller-list-app
+	class="max-full-table-width"
+	[entityType]="erm.SAMPLE.singular"
 	[hasFilter]="false"
 	[hasSwitch]="false"
 	[entityType]="'SAMPLE'"
@@ -8,6 +10,7 @@
 </controller-list-app>
 
 <sample-table-app
+	class="max-full-table-width"
 	[hasHeader]="false"
 	[hasPagination]="false"
 	[rows]="listSrv.items$ | async"
@@ -25,6 +28,7 @@
 	(favorited)="listSrv.onItemFavorited($event)"
 	(unfavorited)="listSrv.onItemUnfavorited($event)"
 	(previewClick)="listSrv.openPreview($event)"
+	(createClick)="commonModalSrv.openAddSampleDialog(undefined, supplier)"
 	(delete)="listSrv.deleteOne($event)">
 </sample-table-app>
 

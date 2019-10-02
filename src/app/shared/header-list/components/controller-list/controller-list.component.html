@@ -25,8 +25,8 @@
 		<div class="divider"></div>
 
 		<span class="capitalize entities-count">
-			{{ count }} {{ count === 1 ? ('ERM.' + checkEntityType(entityType.toUpperCase()) + '.singular' | translate) 
-				: ('ERM.' + checkEntityType(entityType.toUpperCase()) + '.plural' | translate) }}
+			{{ count }} {{ count === 1 ? ('ERM.' + checkEntityType(entityType.toUpperCase()) + '.singular' | translate)
+				: ('ERM.' + checkEntityType(entityType?.toUpperCase()) + '.plural' | translate) }}
 		</span>
 
 	</div>

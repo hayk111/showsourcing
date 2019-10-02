@@ -131,8 +131,8 @@ export class CommonModalService {
 		);
 	}
 
-	openAddSampleDialog(product?: Product, sample?: Sample) {
-		return this.dlgSrv.open(CreationSampleDlgComponent, { product }).pipe(
+	openAddSampleDialog(product?: Product, supplier?: Supplier) {
+		return this.dlgSrv.open(CreationSampleDlgComponent, { product, supplier }).pipe(
 			filter((event: CloseEvent) => event.type === CloseEventType.OK),
 		);
 	}

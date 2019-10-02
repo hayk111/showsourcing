@@ -5,6 +5,7 @@
 </header-list-app>
 
 <controller-list-app
+	class="max-full-table-width"
 	[entityType]="entityTypeEnum.REQUEST"
 	[hasFilter]="false"
 	[hasSwitch]="false"
@@ -19,7 +20,7 @@
 </controller-list-app>
 
 <request-table-app
-	class="borderless"
+	class="max-full-table-width"
 	[rows]="listSrv.items$ | async"
 	[pending]="listSrv.pending"
 	[selection]="listSrv.selection$ | async"

@@ -1,6 +1,7 @@
 <table-app
 	class="borderless"
 	[rows]="rows"
+	[type]="erm.SUPPLIER_REQUEST.singular"
 	[pending]="pending"
 	[selected]="selection"
 	[placeholder]="'placeholder.no-requests' | translate"
@@ -24,103 +25,77 @@
 		</context-menu-item-app>
 	</ng-template>
 
-	<!-- request title -->
-	<ng-template
-		[columnApp]="'title.title' | translate"
-		sortBy="title"
-		let-row="row"
-		width="300">
-		<div class="mainCell ellipsis">
-			<!-- <img-app
-				class="mini imgCtnr"
-				[image]="row?.images?.length ? row?.images[0] : null"
-				type="request"
-				size="s">
-			</img-app> -->
-			<span class="capitalize ellipsis">
-				<a class="name txt-btn title" [routerLink]="['/request', row.id]">
-					{{ row?.title }}
-				</a>
-			</span>
-		</div>
-	</ng-template>
+	  <!-- dynamic columns -->
+		<ng-template
+			*ngFor="let column of columnsConfig; trackBy: trackByFn"
+			let-row="row"
+			[columnApp]="'title.' + column.translationKey | translate"
+			[sortable]="column.sortable !== false"
+			[width]="column.width"
+			[sortBy]="column.sortProperty">
+			<ng-container [ngSwitch]="column.name">
 
-	<!-- type -->
-	<ng-template
-		[columnApp]="'title.type' | translate"
-		sortBy="templateName"
-		let-row="row"
-		width="175">
-		<div class="capitalize ellipsis">
-			{{ row?.templateName }}
-		</div>
-	</ng-template>
+				<ng-container *ngSwitchCase="'title'">
+					<div class="mainCell ellipsis">
+						<!-- <img-app
+							class="mini imgCtnr"
+							[image]="row?.images?.length ? row?.images[0] : null"
+							type="request"
+							size="s">
+						</img-app> -->
+						<span class="capitalize ellipsis">
+							<a class="name txt-btn title" [routerLink]="['/request', row.id]">
+								{{ row?.title }}
+							</a>
+						</span>
+					</div>
+				</ng-container>
 
-	<!-- supplier -->
-	<ng-template
-		[columnApp]="'ERM.' + erm.SUPPLIER.translationKey + '.singular' | translate"
-		sortBy="recipient.company"
-		let-row="row"
-		width="220">
-		<div class="ellipsis">
-		{{ row?.recipient?.company }}
-		</div>
-	</ng-template>
+				<ng-container *ngSwitchCase="'type'">
+					<div class="capitalize ellipsis">
+						{{ row?.templateName }}
+					</div>
+				</ng-container>
 
-	<!-- recipient -->
-	<ng-template
-		[columnApp]="'title.sent-to' | translate"
-		sortBy="recipient.name"
-		let-row="row"
-		width="175">
-		<div class="capitalize ellipsis">
-			{{ row?.recipient?.name }}
-		</div>
-	</ng-template>
+				<ng-container *ngSwitchCase="'supplier'">
+					<div class="ellipsis">
+						{{ row?.recipient?.company }}
+					</div>
+				</ng-container>
 
-	<!-- # requests -->
-	<ng-template
-		[columnApp]="'# ' + ('ERM.' + erm.SUPPLIER_REQUEST.translationKey + '.singular' | translate)"
-		[sortable]="false"
-		let-row="row"
-		width="90">
-		<div class="fs-l color-black bold-s">
-			{{ row?.requestElements?.length }}
-		</div>
-	</ng-template>
+				<ng-container *ngSwitchCase="'sent to'">
+					<div class="capitalize ellipsis">
+						{{ row?.recipient?.name }}
+					</div>
+				</ng-container>
 
-	<!-- status-->
-	<ng-template
-		[columnApp]="'title.status' | translate"
-		sortBy="status"
-		let-row="row"
-		width="175">
-		<request-status-badge-app
-			[status]="row?.status"
-			[creationDate]="row?.sentDate">
-		</request-status-badge-app>
-	</ng-template>
+				<ng-container *ngSwitchCase="'number requests'">
+					<div class="fs-l color-black bold-s">
+						{{ row?.requestElements?.length }}
+					</div>
+				</ng-container>
 
-	<!-- sent date-->
-	<ng-template
-		[columnApp]="'title.sent-on' | translate"
-		sortBy="sentDate"
-		let-row="row"
-		width="175">
-		<div class="capitalize">
-			{{ row?.sentDate | date: 'dd MMM yyyy':'':translate.currentLang }}
-		</div>
-	</ng-template>
+				<ng-container *ngSwitchCase="'status'">
+					<request-status-badge-app
+						[status]="row?.status"
+						[creationDate]="row?.sentDate">
+					</request-status-badge-app>
+				</ng-container>
 
-	<!-- sender -->
-	<ng-template
-		[columnApp]="'title.sent-by' | translate"
-		sortBy="sender.name"
-		let-row="row"
-		width="175">
-		<div class="capitalize ellipsis">
-			{{ row?.sender?.name }}
-		</div>
-	</ng-template>
+				<ng-container *ngSwitchCase="'sent on'">
+					<div class="capitalize">
+						{{ row?.sentDate | date: 'dd MMM yyyy':'':translate.currentLang }}
+					</div>
+				</ng-container>
+
+				<ng-container *ngSwitchCase="'sender'">
+					<div class="capitalize ellipsis">
+						{{ row?.sender?.name }}
+					</div>
+				</ng-container>
+
+			</ng-container>
+
+		</ng-template>
 
 </table-app>
