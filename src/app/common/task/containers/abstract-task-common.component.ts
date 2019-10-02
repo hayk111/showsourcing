@@ -1,6 +1,6 @@
 import { OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, takeUntil } from 'rxjs/operators';
 import { CreationTaskDlgComponent } from '~common/modals';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { ListPageKey, ListPageService } from '~core/list-page';
@@ -28,7 +28,8 @@ export abstract class AbstractTaskCommonComponent extends AutoUnsub implements O
 
 	ngOnInit() {
 		this.taskSrv.taskListUpdate$.pipe(
-			switchMap(_ => this.listSrv.refetch())
+			switchMap(_ => this.listSrv.refetch()),
+			takeUntil(this._destroy$)
 		).subscribe();
 	}
 
