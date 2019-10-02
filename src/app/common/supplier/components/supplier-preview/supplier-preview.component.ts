@@ -56,7 +56,7 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnChanges, On
 	}
 
 	ngOnChanges() {
-		if (this.shouldSelect) {
+		if (this.shouldSelect && this.supplier) {
 			this.supplier$ = this.supplierSrv.selectOne(this.supplier.id)
 				.pipe(takeUntil(this._destroy$));
 			this.supplier$.subscribe(s => this.supplier = s);

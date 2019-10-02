@@ -9,7 +9,7 @@
 	background: white;
 
 	&.no-padding {
-		padding: 0;
+		padding: 0 !important;
 		// we want to keep always the bottom one cause of the selection
 		padding-bottom: var(--spacing-l);
 	}
