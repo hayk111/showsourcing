@@ -1,6 +1,6 @@
 
-<ng-container [ngClass]="{settings: !hasPadding}">
-	<div class="header-container" [ngClass]="{'header-container-padding': hasPadding}">
+<div [ngClass]="getType()">
+	<div class="header-container" [ngClass]="getType('header-container')">
 		<div class="flex left container" >
 	
 			<icon-app
@@ -13,6 +13,7 @@
 			
 			<div *ngIf="hasLogo" class="logo">
 				<ng-content select="logo-app"></ng-content>
+				<ng-content select="user-picture-app"></ng-content>
 			</div>
 	
 			<div class="info ellipsis">
@@ -32,9 +33,9 @@
 		</div>
 	</div>
 	
-	<div class="nav-container" [ngClass]="{'nav-container-padding': hasPadding}">
-		<div class="tabs-container flex">
+	<div class="nav-container" [ngClass]="getType('nav-container')">
+		<div class="tabs-container flex" [ngClass]="getType('tabs-container')">
 			<ng-content select="header-nav-app"></ng-content>
 		</div>
 	</div>
-</ng-container>
+</div>

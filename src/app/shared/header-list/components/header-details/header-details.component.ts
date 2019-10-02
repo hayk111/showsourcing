@@ -14,7 +14,7 @@ export class HeaderDetailsComponent extends TrackingComponent {
 	@Input() subTitle: string;
 	@Input() hasBackArrow = true;
 	@Input() hasLogo = true;
-	@Input() hasPadding = false;
+	@Input() headerType: 'details' | 'settings' | 'table';
 	@HostBinding('class.z-1') @Input() elevated = true;
 
 	constructor(
@@ -30,4 +30,11 @@ export class HeaderDetailsComponent extends TrackingComponent {
 	toDisplayString(nav: string) {
 		return nav.toLowerCase().replace(/-/g, ' ');
 	}
+
+	getType(cls?: string) {
+		return cls
+			? cls + (this.headerType ? '-' + this.headerType : '')
+			: this.headerType;
+	}
+
 }
