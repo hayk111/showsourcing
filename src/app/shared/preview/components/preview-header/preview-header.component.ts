@@ -20,6 +20,7 @@ export class PreviewHeaderComponent implements OnInit {
 	/** if it displays the entity name and status bar */
 	@Input() displayEntityInfo = true;
 	@Input() supplier: Supplier;
+	@Input() hasLogo = false;
 	/** emits the value that has changed */
 	@Output() update = new EventEmitter<any>();
 	@Output() statusUpdated = new EventEmitter<any>();
