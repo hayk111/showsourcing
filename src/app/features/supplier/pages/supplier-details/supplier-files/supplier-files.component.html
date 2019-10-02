@@ -1,6 +1,16 @@
-
+<controller-list-app
+	class="max-full-table-width"
+	[entityType]="erm.ATTACHMENT.singular"
+	[hasFilter]="false"
+	[hasSwitch]="false"
+	[entityType]="'SAMPLE'"
+	[view]="listSrv.view"
+	(search)="listSrv.search($event)"
+	(smartSearch)="listSrv.smartSearch($event)">
+</controller-list-app>
 
 <attachment-table-app
+	class="max-full-table-width"
 	[hasPagination]="false"
 	[currentSort]="listSrv.currentSort"
 	[pending]="listSrv.pending"

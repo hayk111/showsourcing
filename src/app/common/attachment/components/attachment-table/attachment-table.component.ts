@@ -8,7 +8,7 @@ const bigTableConfig: TableConfig = {
 	name: { name: 'name', translationKey: 'name', width: 200, sortable: true },
 	createdBy: { name: 'createdBy', translationKey: 'createdBy', width: 120, sortProperty: 'reference' },
 	creationDate: { name: 'creationDate', translationKey: 'creationDate', width: 100, sortProperty: 'creationDate' },
-	actions: { name: 'actions', translationKey: 'actions', width: 100, sortProperty: 'product.name' },
+	actions: { name: 'actions', translationKey: 'actions', width: 100, sortProperty: 'product.name', showOnHover: true },
 };
 
 
@@ -35,7 +35,7 @@ export class AttachmentTableComponent extends EntityTableComponent<Attachment> i
 	@Output() upload = new EventEmitter<Attachment[]>();
 
 	tableConfig = bigTableConfig;
-	columns = ['name', 'createdBy', 'creationDate', 'actions'];
+	columns = ['name', 'actions'];
 	erm = ERM;
 
 	constructor(
@@ -50,6 +50,10 @@ export class AttachmentTableComponent extends EntityTableComponent<Attachment> i
 	addFile(files: Array<File>) {
 		this.uploadFeedback.addFiles(files)
 			.subscribe(attachments => this.upload.emit(attachments));
+	}
+
+	download(attachment: Attachment) {
+		saveAs(attachment.url, attachment.fileName);
 	}
 
 

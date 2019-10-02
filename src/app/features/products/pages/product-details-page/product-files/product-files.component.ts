@@ -17,6 +17,8 @@ import { AutoUnsub } from '~utils';
 export class ProductFilesComponent extends AutoUnsub implements OnInit {
 	// this is used by upload service, so it can link to the product
 	linkedEntity: any;
+	erm = ERM;
+	
 	constructor(
 		protected route: ActivatedRoute,
 		protected userSrv: UserService,

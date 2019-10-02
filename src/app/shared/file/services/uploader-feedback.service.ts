@@ -121,7 +121,7 @@ export class UploaderFeedbackService {
 	private onSuccessFile(addedFiles: Attachment[], uuids: string[]) {
 		this._uploaded$.next(addedFiles);
 		this._pendingFiles = this._pendingFiles.filter(p => !uuids.includes(p.id));
-		// this.cd.markForCheck();
+		this.cd.markForCheck();
 	}
 
 	deleteFile(file: Attachment) {
