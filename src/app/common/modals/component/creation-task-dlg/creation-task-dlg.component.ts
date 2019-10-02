@@ -84,8 +84,10 @@ export class CreationTaskDlgComponent implements OnInit {
 			this.taskSrv.create(this.task).subscribe(task => {
 				if (this.createAnother) {
 					task = this.resetIds(task);
+					this.taskSrv.onUpdateTaskList();
 					this.dlgSrv.open(CreationTaskDlgComponent, { task, createAnother: true });
 				} else {
+					this.taskSrv.onUpdateTaskList();
 					this.close();
 				}
 				this.notifSrv.add({

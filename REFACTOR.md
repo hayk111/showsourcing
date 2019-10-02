@@ -2,6 +2,9 @@
 
 File used to put ideas for refactors.
 
+# List Update.
+Add list update to global service
+
 
 # more use of super class for common behavior
 

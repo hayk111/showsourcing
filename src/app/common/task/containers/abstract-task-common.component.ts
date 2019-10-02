@@ -1,16 +1,17 @@
+import { OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { switchMap, filter } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
+import { CreationTaskDlgComponent } from '~common/modals';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { TaskService, UserService } from '~entity-services';
 import { ERM, Task } from '~models';
+import { DialogService } from '~shared/dialog';
 import { Filter, FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
-import { CreationTaskDlgComponent } from '~common/modals';
-import { CloseEventType, CloseEvent, DialogService } from '~shared/dialog';
 
 /** since we use the task component on different pages, this page will keep the methods clean */
-export abstract class AbstractTaskCommonComponent extends AutoUnsub {
+export abstract class AbstractTaskCommonComponent extends AutoUnsub implements OnInit {
 	assigneeFilterType = FilterType.ASSIGNEE;
 
 	constructor(
@@ -23,6 +24,12 @@ export abstract class AbstractTaskCommonComponent extends AutoUnsub {
 		public listSrv: ListPageService<Task, TaskService>,
 	) {
 		super();
+	}
+
+	ngOnInit() {
+		this.taskSrv.taskListUpdate$.pipe(
+			switchMap(_ => this.listSrv.refetch())
+		).subscribe();
 	}
 
 	setup(addedFilters: Filter[]) {
@@ -72,10 +79,7 @@ export abstract class AbstractTaskCommonComponent extends AutoUnsub {
 	}
 
 	openCreationTaskDlg(product, supplier) {
-		this.dlgSrv.open(CreationTaskDlgComponent, { product, supplier }).pipe(
-			filter((event: CloseEvent) => event.type === CloseEventType.OK),
-			switchMap(_ => this.listSrv.refetch())
-		).subscribe();
+		this.dlgSrv.open(CreationTaskDlgComponent, { product, supplier });
 	}
 
 	openProduct(id: string) {

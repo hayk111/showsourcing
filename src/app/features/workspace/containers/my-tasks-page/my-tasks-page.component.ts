@@ -46,6 +46,7 @@ export class MyTasksPageComponent extends AbstractTaskCommonComponent implements
 				value: userId
 			}
 		]);
+		super.ngOnInit();
 	}
 
 }
