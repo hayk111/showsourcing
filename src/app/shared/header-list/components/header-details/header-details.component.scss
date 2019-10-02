@@ -1,19 +1,18 @@
 :host {
-<<<<<<< HEAD
   display: block;
   border-bottom: 1px solid var(--color-divider);
   background-color: var(--color-bg);
+  padding: 0px;
+}
+
+.details {
+  padding: var(--spacing-l) var(--spacing-xl);
+  padding-bottom: var(--spacing-none);
 }
 
 .settings {
   padding: var(--spacing-l);
-  padding-bottom: 0px;
-=======
-	display: block;
-	border-bottom: 1px solid var(--color-divider);
-	background-color: var(--color-bg);
-	padding: 0;
->>>>>>> origin/WEB-2310-header-details-web-app
+  padding-bottom: var(--spacing-none);
 }
 
 .header-container {
@@ -24,7 +23,7 @@
 }
 
 .header-container-details {
-  padding: var(--spacing-l) var(--spacing-xxxxxl);
+  padding-bottom: var(--spacing-l);
 }
 
 .header-container-settings {
@@ -39,7 +38,7 @@
 }
 
 .nav-container-details {
-  padding: var(--spacing-none) var(--spacing-xxxxxl);
+  padding: var(--spacing-none);
 }
 
 .nav-container-settings {
@@ -89,7 +88,6 @@
 .back-arrow {
   color: var(--color-txt-secondary);
   font-size: var(--font-size-s);
-  margin-right: var(--spacing-l);
   display: flex;
   align-items: center;
   & > * {
