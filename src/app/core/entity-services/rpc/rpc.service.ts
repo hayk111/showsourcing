@@ -27,7 +27,7 @@ export class RpcService extends GlobalService<RPCRequest> {
 	createRPC(rpcRequest: IRPCRequest): Observable<RPCRequest> {
 		const request = new RPCRequest(rpcRequest);
 		return this.create(request).pipe(
-			switchMap( req => this.waitForOne(`id == "${req.id}" AND status == "ready"`))
+			switchMap( req => this.waitForOne(`id == "${req.id}" AND (status == "ready" OR status == "error")`))
 		);
 	}
 }

@@ -4,7 +4,8 @@ import { CrudDialogService } from '~common/modals/services/crud-dialog.service';
 import { ERM, EntityMetadata } from '~models';
 import { DialogService } from '~shared/dialog/services';
 import { InputDirective } from '~shared/inputs';
-import { AutoUnsub } from '~utils';
+import { NotificationService, NotificationType } from '~shared/notifications';
+import { AutoUnsub, translate } from '~utils';
 
 @Component({
 	selector: 'merge-dialog-app',
@@ -21,8 +22,9 @@ export class MergeDialogComponent extends AutoUnsub {
 	@Input() entities: Array<any>;
 
 	constructor(
-		private dlgSrv: DialogService,
-		private crudDlgSrv: CrudDialogService) {
+		public dlgSrv: DialogService,
+		private crudDlgSrv: CrudDialogService,
+		private notifSrv: NotificationService) {
 		super();
 	}
 
@@ -33,12 +35,29 @@ export class MergeDialogComponent extends AutoUnsub {
 	onSubmit() {
 		this.pending = true;
 		this.crudDlgSrv.merge(this.selected, this.type, this.entities).subscribe(data => {
-			console.log('TCL: MergeDialogComponent -> onSubmit -> data', data);
+			this.dlgSrv.close();
+			this.pending = false;
+
+			if (data.status === 'error') {
+				this.notifSrv.add({
+					type: NotificationType.ERROR,
+					title: 'Error',
+					message: 'There is an error, please try again later',
+					timeout: 3500
+				});
+				return;
+			}
+
+			this.notifSrv.add({
+				type: NotificationType.SUCCESS,
+				title: translate(this.capitalize(this.type.plural) + ' merged'),
+				message: translate(`Selected ${this.type.plural} were merged into ${this.selected.name}`),
+				timeout: 3500
+			});
 		});
-		// .pipe(takeUntil(this._destroy$))
-		// .subscribe(() => {
-		// 	this.pending = false;
-		// 	this.dlgSrv.close();
-		// });
+	}
+
+	private capitalize(txt: string): string {
+		return txt.charAt(0).toUpperCase() + txt.slice(1);
 	}
 }

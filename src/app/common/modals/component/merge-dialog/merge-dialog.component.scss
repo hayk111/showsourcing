@@ -1,11 +1,33 @@
 dialog-app {
 	width: 474px;
 	display: block;
-	padding: 20px var(--spacing-l) var(--spacing-l) var(--spacing-l);
+	padding: 20px var(--spacing-l) var(--spacing-ms) var(--spacing-l);
 }
 
 dialog-header-app {
 	padding-bottom: var(--spacing-ms);
+}
+
+.load-spinner {
+	margin-right: var(--spacing-m);
+}
+
+.opacity {
+	opacity: 0.2;
+}
+
+.cancel {
+	width: 78px;
+	height: 32px;
+	background: transparent;
+	color: var(--color-txt-secondary);
+	font-size: var(--font-size-m);
+	margin-right: var(--spacing-m);
+
+	&:hover {
+		background: var(--color-bg-secondary);
+		color: var(--color-txt-secondary);
+	}
 }
 
 .merge-entities-title {
@@ -32,10 +54,6 @@ dialog-header-app {
 	}
 }
 
-spinner-app {
-	margin: 1rem auto auto 1rem;
-}
-
 .entity-to-merge {
 	margin-left: var(--spacing-ms);
 }
@@ -43,10 +61,14 @@ spinner-app {
 .select-entity {
 	margin-top: var(--spacing-s);
 	height: 34px;
-	color: var(--color-bg-dark);
+	color: var(--color-txt-secondary);
 	font-size: var(--font-size-m);
 	border-radius: var(--border-radius);
-  border: solid 1px var(--color-primary);
+	border: solid 1px var(--legacy-color-divider);
+	
+	&:hover {
+		border: solid 1px var(--color-primary);
+	}
 }
 
 .warning-undone {

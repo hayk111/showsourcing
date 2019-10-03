@@ -28,17 +28,14 @@ export class CrudDialogService {
 
 	merge(item: any, type: EntityMetadata, entities: Array<any>): Observable<any> {
 		const ids = entities.map(entity => entity.id);
+		const payload = {
+			margeInto: item.id,
+			target: ids,
+		};
 		return this.rpcSrv.createRPC({
-			id: item.id,
 			action: RPCActionTypes['MERGE_' + type.singular.toUpperCase()],
-			payload: JSON.stringify(ids)
+			payload: JSON.stringify(payload)
 		});
-
-		// return this.rpcSrv.createRPC({
-		// 	action: RPCActionTypes.GET_TEAM_STATS,
-		// });
-		// return this.http.post<Company>('/api/company', company);
-
 	}
 
 	checkExists(type: EntityMetadata, valueInput: string) {
