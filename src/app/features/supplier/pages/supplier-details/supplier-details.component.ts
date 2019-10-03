@@ -11,6 +11,8 @@ import { Supplier } from '~models/supplier.model';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub, log } from '~utils';
 import { TranslateService } from '@ngx-translate/core';
+import { DialogService } from '~shared/dialog';
+import { SupplierRequestDialogComponent } from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
 
 // Guest to the waiter: “Can you bring me what the lady at the next table is having?”
 // -
@@ -23,14 +25,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 
-	supplier: Supplier;
-
 	supplier$: Observable<Supplier>;
-	products$: Observable<Product[]>;
-	contacts$: Observable<Contact[]>;
-	taskCount$: Observable<number>;
-
-	tabs: { name: string, number$?: Observable<number> }[];
 
 	constructor(
 		private route: ActivatedRoute,
@@ -38,9 +33,8 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 		private featureSrv: SupplierFeatureService,
 		private notifSrv: NotificationService,
 		public commonModalSrv: CommonModalService,
-		private taskSrv: TaskService,
-		private userSrv: UserService,
-		private translate: TranslateService
+		private translate: TranslateService,
+		private dlgSrv: DialogService
 	) {
 		super();
 	}
@@ -53,35 +47,12 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 
 		this.supplier$ = id$.pipe(
 			switchMap(id => this.featureSrv.selectOne(id)),
-			tap(supplier => (this.supplier = supplier)),
 		);
 
 		this.supplier$.subscribe(
 			supplier => this.onSupplier(supplier),
 			err => this.onError(err)
 		);
-
-		this.taskCount$ = id$.pipe(
-			switchMap(id => this.taskSrv
-				.queryCount(`supplier.id == "${id}" AND assignee.id == "${this.userSrv.userSync.id}" AND done == false AND deleted == false`)),
-			takeUntil(this._destroy$)
-		);
-
-		// getting the products
-		this.products$ = id$.pipe(
-			switchMap(id => this.featureSrv.getProducts(id))
-		);
-
-		this.contacts$ = id$.pipe(
-			switchMap(id => this.featureSrv.getContacts(id)),
-		);
-
-		this.tabs = [
-			{ name: 'activity' },
-			{ name: 'products' },
-			{ name: 'samples' },
-			{ name: 'tasks', number$: this.taskCount$ }
-		];
 
 	}
 
@@ -90,18 +61,45 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 	}
 
 	delete(supplier: Supplier) {
-			this.commonModalSrv.openConfirmDialog({ text: this.translate.instant('message.confirm-delete-supplier') }).pipe(
-
+		this.commonModalSrv.openConfirmDialog({
+			text: this.translate.instant('message.confirm-delete-supplier')
+		}).pipe(
 			switchMap(_ => this.featureSrv.delete(supplier.id))
 		).subscribe(_ => this.router.navigate(['supplier']));
-
 	}
 
 	export(supplier: Supplier) {
-		this.products$.pipe(take(1)).subscribe((products: Product[]) => this.commonModalSrv.openExportDialog(products));
+		this.commonModalSrv.openExportDialog([supplier]);
 	}
 
-	onSupplier(supplier) {
+	contact(supplier: Supplier) {
+		return this.dlgSrv.open(SupplierRequestDialogComponent, { supplier });
+	}
+
+	// TODO: When we put that on the global service, remove from here
+	onArchive(supplier: Supplier | Supplier[]) {
+		if (Array.isArray(supplier)) {
+			this.featureSrv.updateMany(supplier.map((s: Supplier) => ({ id: s.id, archived: true })))
+				.subscribe(_ => {
+					this.notifSrv.add({
+						type: NotificationType.SUCCESS,
+						title: this.translate.instant('title.suppliers-archived'),
+						message: this.translate.instant('message.suppliers-archived-successfully')
+					});
+				});
+		} else {
+			const { id } = supplier;
+			this.featureSrv.update({ id, archived: true })
+				.subscribe(_ => {
+					this.notifSrv.add({
+						type: NotificationType.SUCCESS,
+						title: this.translate.instant('title.supplier-archived'),
+						message: this.translate.instant('message.supplier-archived-successfully')
+					});
+				});
+		}
+	}
+	private onSupplier(supplier) {
 		if (!supplier) {
 			this.notifSrv.add({
 				type: NotificationType.ERROR,
@@ -113,11 +111,10 @@ export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
 			if (supplier.supplierType) {
 				supplier.supplierType.name = supplier.supplierType.name.toLowerCase().replace(' ', '-');
 			}
-			this.supplier = supplier;
 		}
 	}
 
-	onError(error: Error) {
+	private onError(error: Error) {
 		log.error(error);
 		this.notifSrv.add({
 			type: NotificationType.ERROR,

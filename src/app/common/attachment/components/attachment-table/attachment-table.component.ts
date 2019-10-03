@@ -56,5 +56,4 @@ export class AttachmentTableComponent extends EntityTableComponent<Attachment> i
 		saveAs(attachment.url, attachment.fileName);
 	}
 
-
 }
