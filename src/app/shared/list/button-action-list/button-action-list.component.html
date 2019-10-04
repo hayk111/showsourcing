@@ -2,7 +2,7 @@
 	*ngFor="let btn of actions; index as index; trackBy: trackByFn"
 	class="pointer action-button-container centered-text">
 	<!-- button -->
-	<div class="btn-icon round-button">
+	<div class="btn-icon round-button" (click)="btn.subMenuItems !== undefined ? toggleContext() : clickOnAction.emit(btn)">
 		<!-- since its not a rectangle (its round) the badge is left outside, so we create a smaller container -->
 		<div
 			*ngIf="btn.number"
@@ -14,7 +14,7 @@
 			[isBadgeColorLight]="true"
 			[hasBadgeBorder]="true">
 		</div>
-		<icon-app [name]="btn.icon" (click)="btn.subMenuItems !== undefined ? toggleContext() : clickOnAction.emit(btn)" [fontSet]="btn.fontSet"></icon-app>
+		<icon-app [name]="btn.icon" [fontSet]="btn.fontSet"></icon-app>
 	</div>
 
 	<!-- text -->
