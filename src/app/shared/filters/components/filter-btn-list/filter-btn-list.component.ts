@@ -20,8 +20,9 @@ export class FilterBtnListComponent {
 		// favorite and archived aren't buttons but simple checkboxes
 		this.hasFavoriteFilter = types.includes(FilterType.FAVORITE);
 		this.hasArchivedFilter = types.includes(FilterType.ARCHIVED);
+		this.hasDoneFilter = types.includes(FilterType.DONE);
 		// we set the buttons with the others
-		this.filterBtns = types.filter(t => t !== FilterType.FAVORITE && t !== FilterType.ARCHIVED);
+		this.filterBtns = types.filter(t => t !== FilterType.FAVORITE && t !== FilterType.ARCHIVED && t !== FilterType.DONE);
 	}
 	/** for each buttons the filters applied */
 	@Input() filterMap: FilterByType;
@@ -36,6 +37,8 @@ export class FilterBtnListComponent {
 	hasFavoriteFilter = true;
 	/** whether we display a checkbox for archived */
 	hasArchivedFilter = true;
+	/** whether we display a checkbox for completed task */
+	hasDoneFilter = true;
 	filterBtns: FilterType[] = [];
 	archivedType = FilterType.ARCHIVED;
 	favoriteType = FilterType.FAVORITE;
@@ -69,8 +72,21 @@ export class FilterBtnListComponent {
 		this.addFilter(next);
 	}
 
+	onDoneChange() {
+		// simple copy of what's for ARCHIVED. The whole filter thing needs to be
+		// refactored because it's hard to get into.
+		const current = this.filterMap.get(FilterType.DONE).get(this.isDone());
+		const next = { type: FilterType.DONE, value: !this.isArchived() };
+		this.removeFilter(current);
+		this.addFilter(next);
+	}
+
 	isFavorite() {
 		return this.filterMap.get(FilterType.FAVORITE).has(true);
+	}
+
+	isDone() {
+		return this.filterMap.get(FilterType.DONE).has(true);
 	}
 
 	getDisplayName(filter: Filter, type: FilterType) {

@@ -28,6 +28,11 @@ export class SupplierSamplesComponent extends AbstractSampleCommonComponent impl
 	supplier: Supplier;
 	erm = ERM;
 
+	filterTypes = [
+		FilterType.PRODUCT,
+		FilterType.SAMPLE_STATUS,
+	];
+
 	constructor(
 		protected route: ActivatedRoute,
 		protected router: Router,
@@ -59,5 +64,9 @@ export class SupplierSamplesComponent extends AbstractSampleCommonComponent impl
 			}
 		]);
 		super.ngOnInit();
+	}
+
+	onExport() {
+		this.commonModalSrv.openExportDialog(this.listSrv.getSelectedValues());
 	}
 }

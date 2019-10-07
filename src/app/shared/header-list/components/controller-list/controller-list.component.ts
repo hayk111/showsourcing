@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, Input, OnInit, Output, Renderer2 } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChild, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -7,19 +7,22 @@ import { SearchAutocompleteComponent } from '~shared/search-autocomplete/compone
 import { AutoUnsub } from '~utils';
 import { ControllerListService } from '../../services/controller-list.service';
 
+
+
 @Component({
 	selector: 'controller-list-app',
 	templateUrl: './controller-list.component.html',
 	styleUrls: ['./controller-list.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-
 export class ControllerListComponent extends AutoUnsub implements OnInit {
 	/** whether we should display the filter icon */
 	@Input() hasFilter = true;
-	// whether the screen can be switched from table to list view
+	/** whether the screen can be switched from table to list view */
 	@Input() hasSwitch = true;
 	@Input() hasThumb = true;
+	// TODO: doc comments should be like so /** */ and not //
+	// so we have some semantic in the comments and for jsdoc as well
 	// whether we should display show archived checkbox
 	@Input() hasArchived = true;
 	// whether we should display assigned to me checkbox
@@ -28,6 +31,7 @@ export class ControllerListComponent extends AutoUnsub implements OnInit {
 	@Input() hasMyExport = false;
 	// whether we should display export button
 	@Input() hasExport = true;
+	// TODO: should rename to 'list-menu' to table, 'kanban' is 'kanban' only, and 'board' to 'cards'
 	// content of the switch
 	@Input() switchContent: ['list-menu', 'board', 'kanban' | 'grid'] = ['list-menu', 'board', 'grid'];
 	// whether the screen has a search input

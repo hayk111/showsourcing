@@ -3,7 +3,6 @@
 	[entityType]="erm.ATTACHMENT.singular"
 	[hasFilter]="false"
 	[hasSwitch]="false"
-	[entityType]="'SAMPLE'"
 	[view]="listSrv.view"
 	(search)="listSrv.search($event)"
 	(smartSearch)="listSrv.smartSearch($event)">
@@ -39,3 +38,14 @@
 	(upload)="listSrv.refetch()">
 </attachment-table-app>
 
+
+<selection-bar-app
+	[isShown]="(listSrv.selection$ | async).size > 0"
+	[selection]="listSrv.selection$ | async"
+	(close)="listSrv.unselectAll()">
+
+	<button class="icon light" (click)="listSrv.deleteSelected()">
+		<icon-app name="trash"></icon-app>
+	</button>
+	
+</selection-bar-app>

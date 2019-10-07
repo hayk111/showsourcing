@@ -95,10 +95,6 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		this.listSrv.loadData(this._destroy$);
 	}
 
-	onViewChange(view: 'list' | 'board' | 'card') {
-		this.listSrv.changeView(view);
-	}
-
 	onClearFilters() {
 		this.listSrv.filterList.resetAll();
 
