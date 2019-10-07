@@ -1,6 +1,7 @@
 <controller-list-app
 	class="max-full-table-width"
 	[entityType]="erm.SAMPLE.singular"
+	[count]="listSrv.count$ | async"
 	[hasFilter]="false"
 	[hasSwitch]="false"
 	[entityType]="'SAMPLE'"

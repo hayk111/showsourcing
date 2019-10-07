@@ -33,6 +33,7 @@ import { RequestTemplate } from './request-template.model';
 import { SelectorElement } from './selector-element.model';
 import { SupplierRequest } from './supplier-request.model';
 import { Company } from './company.model';
+import { RPCRequest } from './rpc-request.model';
 
 
 export enum EntityName {
@@ -151,6 +152,7 @@ export class ERM {
 	static readonly REQUEST = new EntityMetadata('request', 'requests', 'REQUEST', Request);
 	static readonly REQUEST_ELEMENT = new EntityMetadata('request element', 'request elements', 'REQUEST_ELEMENT', RequestElement);
 	static readonly REQUEST_REPLY = new EntityMetadata('request reply', 'request replies', 'REQUEST_REPLY', RequestReply);
+	static readonly REQUEST_RPC = new EntityMetadata('request', 'requests', 'REQUEST_RPC', RPCRequest);
 	static readonly REQUEST_TEMPLATE = new EntityMetadata('request template', 'request templates', 'REQUEST_TEMPLATE', RequestTemplate);
 	static readonly REVIEW = new EntityMetadata('review', 'reviews', 'REVIEW', Product);
 	static readonly SAMPLE = new EntityMetadata('sample', 'samples', 'SAMPLE', Sample);

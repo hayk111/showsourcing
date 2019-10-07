@@ -33,28 +33,6 @@
 	(export)="onExport()"
 	(showFilters)="listSrv.openFilterPanel()"
 	(viewChange)="onViewChange($event)">
-
-	<controller-list-right-item-app class="flex">
-	<product-sorting-menu-app
-			[currentSort]="listSrv.currentSort"
-			(sortFromMenu)="listSrv.sortFromMenu($event)">
-		</product-sorting-menu-app>
-		<checkbox-app
-			[checked]="listSrv.filterList.hasFilterType(filterTypeEnum.ASSIGNEE)"
-			(check)="toggleMyProducts(true)"
-			(uncheck)="toggleMyProducts(false)">
-			<span translate="text.assigned-to-me"></span>
-		</checkbox-app>
-		<button
-			*ngIf="tasksCount$ | async as count"
-			class="capitalize"
-			(click)="commonModalSrv.openExportDialog([], listSrv.filterList.asPredicate())">
-			<ng-container translate="button.export"></ng-container>
-			{{ ((count || 0) > 1 ? 'OBJ.n-item.plural' : 'OBJ.n-item.singular') | translate: {count : count || 0} }}
-		</button>
-
-	</controller-list-right-item-app>
-
 </controller-list-app>
 
 <task-table-app

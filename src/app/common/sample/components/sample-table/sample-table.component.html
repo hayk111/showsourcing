@@ -25,8 +25,13 @@
 	<ng-template #contextualMenuTemplate let-row="row">
 		<context-menu-item-app
 			class="pointer flexCenter"
-			(click)="delete.emit(row)">
-			{{'text.delete' | translate}}
+			(click)="archive.emit(row)"
+			translate="button.archive">
+		</context-menu-item-app>
+		<context-menu-item-app
+			class="pointer flexCenter"
+			(click)="delete.emit(row)"
+			translate="button.delete">
 		</context-menu-item-app>
 	</ng-template>
 
@@ -43,9 +48,19 @@
 			<ng-container *ngSwitchCase="'name'">
 				<div class="ellipsis name-container contain-strict">
 					<div class="ellipsis">
-						<logo-app [logo]="row.logoImage" [ngStyle]="{'float': 'left'}" type="sample" size="m"></logo-app>
+						<div class="preview-icon" (click)="previewClick.emit(row)">
+							<logo-app
+								[logo]="row.logoImage"
+								[ngStyle]="{'float': 'left'}"
+								[logo]="row?.images?.length ? row.images[0] : null"
+								type="sample"
+								size="m"
+								(click)="previewClick.emit(row)">
+							</logo-app>
+							<icon-app class="preview-hover-eye" name="eye" size="18"></icon-app>
+						</div>
 						<span class="sample-ref ellipsis">
-							<a class="name txt-btn" >
+							<a class="name txt-btn" (click)="previewClick.emit(row)">
 								{{ row.reference || '-' }}
 							</a>
 						</span>
@@ -59,36 +74,48 @@
 			<!-- assignee -->
 			<ng-container *ngSwitchCase="'assignee'">
 				<div class="flex assignee-container ellipsis">
-					<user-picture-app	[user]="row?.assignee" size="24" [border]="true"></user-picture-app>
+					<user-picture-app	[user]="row?.assignee" size="24"></user-picture-app>
 					{{ row?.assignee | formatUserName }}
 				</div>
 			</ng-container>
 
 			<!-- product -->
 			<ng-container *ngSwitchCase="'product'">
-					<div class="ellipsis name-container contain-strict">
-							<div class="ellipsis flexVAlign">
-									<logo-app class="mini imgCtnr" [logo]="row.product?.images[0]" size="m" type="product"></logo-app>
-								<div class="flexColumn ref-ctnr">
-									<span class="product-ref ellipsis">
-										<a class="name txt-btn" *ngIf="row.product" [routerLink]="['/product', row.product?.id]">
-											{{ row.reference || '-' }}
-										</a>
-									</span>
-
-									<div class="product-name-ref ellipsis">
-										{{ row.name || '-' }}
-									</div>
-								</div>
-
-							</div>
+				<selector-app
+					[type]="erm.PRODUCT.singular"
+					[offsetX]="4"
+					[width]="350"
+					(update)="update.emit({ id: row?.id, product: $event })">
+					<div class="ellipsis" [ngClass]="{ 'flexVAlign': !row?.product }">
+						<span class="product-ref ellipsis txt-btn" [ngClass]="{ 'empty-field': !row?.product }">
+							{{ row?.product?.reference || 'Link to product'}}
+						</span>
+						<div class="product-name-ref">
+							{{ row?.product?.name }}
 						</div>
+					</div>
+				</selector-app>
 			</ng-container>
 
 
 			<!-- supplier -->
 			<ng-container *ngSwitchCase="'supplier'">
-				<div *ngIf="row?.supplier" class="pointer ellipsis" (click)="openSupplier.emit(row.supplier.id)">{{ row?.supplier?.name }}</div>
+				<selector-app
+					[type]="erm.SUPPLIER.singular"
+					[width]="350"
+					[offsetX]="4"
+					(update)="update.emit({ id: row?.id, supplier: $event })">
+					<div class="ellipsis supplier-name flexVAlign txt-btn" [ngClass]="{ 'empty-field': !row?.supplier }">
+						{{ row?.supplier?.name || 'Link to supplier'}}
+					</div>
+				</selector-app>
+			</ng-container>
+
+			<!-- type -->
+			<ng-container *ngSwitchCase="'type'">
+				<div class="ellipsis type" [ngClass]="{ 'empty-field': !row?.type }">
+					{{ row?.type || '-' }}
+				</div>
 			</ng-container>
 
 			<!-- comments -->
@@ -102,12 +129,12 @@
 
 			<!-- status -->
 			<ng-container *ngSwitchCase="'status'">
-				<div class="status-col flexVAlign flexEnd">
+				<div class="status-col flexVAlign">
 					<selector-app
-						type="user"
+						[type]="erm.USER.singular"
 						[width]="320"
 						[offsetX]="4"
-						(update)="changeAssignee(row, $event)">
+						(update)="update.emit({ id: row?.id, assignee: $event })">
 						<div  class="flex assignee-container ellipsis pointer">
 							<user-picture-app
 								[user]="row?.assignee"
@@ -115,15 +142,34 @@
 							</user-picture-app>
 						</div>
 					</selector-app>
-					<status-selector-app [entity]="row" [typeEntity]="erm.SUPPLIER" [canUpdate]="canUpdate" selectSize="s"></status-selector-app>
+					<status-selector-app [entity]="row" [typeEntity]="erm.SAMPLE" selectSize="s"></status-selector-app>
 				</div>
+			</ng-container>
+
+			<!-- activities -->
+			<ng-container *ngSwitchCase="'activity'">
+				<activities-bar-app
+					[row]="row"
+					[favourite]="row?.favorite"
+					[hasComments]="!!row?.comments?.length">
+				</activities-bar-app>
 			</ng-container>
 
 			<!-- created on -->
 			<ng-container *ngSwitchCase="'created on'">
 				{{ row?.creationDate | date: 'dd MMMM y':'':translate.currentLang }}
 			</ng-container>
+
+			<!-- created by -->
+			<ng-container *ngSwitchCase="'created by'">
+				<span class="created-by">{{ row?.createdBy | formatUserName }}</span>
+				<div class="created-by-date">
+					{{ row?.creationDate | date: 'dd MMMM y':'':translate.currentLang }}
+				</div>
+			</ng-container>
+
 		</ng-container>
+
 	</ng-template>
 
 </table-app>

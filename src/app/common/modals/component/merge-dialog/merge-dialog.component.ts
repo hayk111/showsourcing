@@ -1,10 +1,11 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, Input, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, Input, ViewChild, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CrudDialogService } from '~common/modals/services/crud-dialog.service';
-import { EntityMetadata } from '~models';
+import { ERM, EntityMetadata } from '~models';
 import { DialogService } from '~shared/dialog/services';
 import { InputDirective } from '~shared/inputs';
-import { AutoUnsub } from '~utils';
+import { NotificationService, NotificationType } from '~shared/notifications';
+import { AutoUnsub, translate } from '~utils';
 
 @Component({
 	selector: 'merge-dialog-app',
@@ -12,39 +13,51 @@ import { AutoUnsub } from '~utils';
 	styleUrls: ['./merge-dialog.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MergeDialogComponent extends AutoUnsub implements AfterViewInit {
+export class MergeDialogComponent extends AutoUnsub {
 
-	group: FormGroup;
+	selected: any;
+	erm: ERM;
 	pending = false;
 	@Input() type: EntityMetadata;
 	@Input() entities: Array<any>;
-	@ViewChild(InputDirective, { static: false }) input: InputDirective;
 
 	constructor(
-		private fb: FormBuilder,
-		private dlgSrv: DialogService,
-		private crudDlgSrv: CrudDialogService) {
+		public dlgSrv: DialogService,
+		private crudDlgSrv: CrudDialogService,
+		private notifSrv: NotificationService) {
 		super();
-		this.group = this.fb.group({
-			name: ['', Validators.required],
+	}
+
+	entitySelect(entity: any) {
+		this.selected = entity;
+	}
+
+	onSubmit() {
+		this.pending = true;
+		this.crudDlgSrv.merge(this.selected, this.type, this.entities).subscribe(data => {
+			this.dlgSrv.close();
+			this.pending = false;
+
+			if (data.status === 'error') {
+				this.notifSrv.add({
+					type: NotificationType.ERROR,
+					title: 'Error',
+					message: 'There is an error, please try again later',
+					timeout: 3500
+				});
+				return;
+			}
+
+			this.notifSrv.add({
+				type: NotificationType.SUCCESS,
+				title: translate(this.capitalize(this.type.plural) + ' merged'),
+				message: translate(`Selected ${this.type.plural} were merged into ${this.selected.name}`),
+				timeout: 3500
+			});
 		});
 	}
 
-	ngAfterViewInit() {
-		// setTimeout because we can't yet see the input
-		setTimeout(() => this.input.focus(), 0);
-	}
-
-
-	onSubmit() {
-		if (this.group.valid) {
-			this.pending = true;
-			this.crudDlgSrv.merge(this.group, this.type, this.entities);
-			// .pipe(takeUntil(this._destroy$))
-			// .subscribe(() => {
-			// 	this.pending = false;
-			// 	this.dlgSrv.close();
-			// });
-		}
+	private capitalize(txt: string): string {
+		return txt.charAt(0).toUpperCase() + txt.slice(1);
 	}
 }

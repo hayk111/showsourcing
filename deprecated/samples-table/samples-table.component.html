@@ -1,5 +1,6 @@
 <table-app
 	[rows]="rows"
+	[type]="erm.SAMPLE.singular"
 	type="sample"
 	[pending]="pending"
 	[selected]="selection"
@@ -7,7 +8,10 @@
 	[currentSort]="currentSort"
 	[count]="count"
 	[currentPage]="currentPage"
-	[placeholder]="'placeholder.no-sample' | translate"
+	[hasPagination]="hasPagination"
+	[hasSelection]="hasSelection"
+	[hasMenu]="hasMenu"
+	[hasHeader]="hasHeader"
 	(goToPage)="goToPage.emit($event)"
 	(selectOne)="select.emit($event)"
 	(unselectOne)="unselect.emit($event)"
@@ -23,6 +27,11 @@
 		<context-menu-item-app
 			class="pointer flexCenter"
 			(click)="archive.emit(row)"
+			translate="button.archive">
+		</context-menu-item-app>
+		<context-menu-item-app
+			class="pointer flexCenter"
+			(click)="delete.emit(row)"
 			translate="button.delete">
 		</context-menu-item-app>
 	</ng-template>
