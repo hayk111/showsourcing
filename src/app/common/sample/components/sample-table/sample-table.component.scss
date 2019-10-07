@@ -1,5 +1,31 @@
 :host {
-	height: 100% !important;
+	display: flex;
+	// if we put a margin here, the style will look wrong
+	// margin: 0 var(--spacing-l);
+	box-sizing: border-box;
+
+	&.no-padding {
+		padding: 0;
+		// we want to keep always the bottom one cause of the selection
+		padding-bottom: var(--spacing-l);
+	}
+}
+
+.preview-icon {
+	position: relative;
+	&:hover .preview-hover-eye {
+		display: flex;
+	}
+}
+
+.preview-hover-eye {
+	display: none;
+	position: absolute;
+	background: rgba(255, 216, 69, 0.5);
+	border-radius: var(--border-radius);
+	color: white;
+	height: 32px;
+	width: 32px;
 }
 
 .assignee-container {
@@ -91,5 +117,17 @@
 		font-size: var(--font-size-m);
 		color: var(--txt-primary);
 	}
+
+	.created-by-date {
+		height: 15px;
+		font-size: var(--font-size-s);
+		color: var(--txt-primary);
+	}
+
+
+.empty-field {
+	color: var(--color-txt-secondary);
+}
+
 
 }
