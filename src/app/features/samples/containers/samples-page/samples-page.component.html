@@ -26,32 +26,12 @@
 	(export)="onExport()"
 	(showFilters)="listSrv.openFilterPanel()"
 	(viewChange)="onViewChange($event)">
-
-	<controller-list-right-item-app class="flex">
-		<product-sorting-menu-app
-			[currentSort]="listSrv.currentSort"
-			(sortFromMenu)="listSrv.sortFromMenu($event)">
-		</product-sorting-menu-app>
-		<checkbox-app
-			[checked]="listSrv.filterList.hasFilterType(filterTypeEnum.ASSIGNEE)"
-			(check)="toggleMyProducts(true)"
-			(uncheck)="toggleMyProducts(false)">
-			<span translate="text.assigned-to-me"></span>
-		</checkbox-app>
-		<button
-			*ngIf="samplesCount$ | async as count"
-			class="capitalize"
-			(click)="commonModalSrv.openExportDialog([], listSrv.filterList.asPredicate())">
-			{{ (count || 0) > 1 ? 'OBJ.export-item.plural' : 'OBJ.export-item.singular' | translate: { count: (count || 0) } }}
-		</button>
-
-	</controller-list-right-item-app>
-
 </controller-list-app>
 
-<samples-table-app
+<sample-table-app
 	*ngIf="listSrv.view === 'list'"
 	class="max-full-table-width"
+	[columns]="['name', 'product', 'supplier', 'type', 'createdBy', 'activity', 'status']"
 	[rows]="listSrv.items$ | async"
 	[selection]="listSrv.selection$ | async"
 	[pending]="listSrv.pending"
@@ -72,7 +52,7 @@
 	(update)="listSrv.update($event)"
 	(createClick)="commonModalSrv.openAddSampleDialog()"
 	(delete)="listSrv.deleteOne($event)">
-</samples-table-app>
+</sample-table-app>
 
 <selection-bar-app
 	[isShown]="(listSrv.selection$ | async).size > 0"

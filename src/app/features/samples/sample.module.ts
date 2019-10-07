@@ -11,7 +11,6 @@ import { TaskCommonModule } from '~common/task';
 import { NavBarModule } from '~shared/navbar';
 import { SharedModule } from '~shared/shared.module';
 import { SamplesPageComponent } from './containers';
-import { SamplesTableComponent } from './components';
 import { routes } from '~features/samples/routes';
 
 @NgModule({
@@ -30,7 +29,6 @@ import { routes } from '~features/samples/routes';
 	],
 	declarations: [
 		SamplesPageComponent,
-		SamplesTableComponent,
 	],
 	entryComponents: [],
 	exports: [],
