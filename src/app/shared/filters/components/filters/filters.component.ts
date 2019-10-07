@@ -29,7 +29,6 @@ export class FiltersComponent {
 	}
 
 	removeFilter(filter: Filter) {
-		debugger;
 		this.filterList.removeFilter(filter);
 	}
 
