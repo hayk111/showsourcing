@@ -1,9 +1,8 @@
 :host {
 	display: block;
 	height: 115px;
-	width: 327px;
 	box-sizing: border-box;
-	background: var(--legacy-color-bgg);
+	background: var(--legacy-color-bg);
 	border-radius: var(--border-radius);
 	box-shadow: 0 2px 4px 0 #e6ebf5;
 	border: solid 1px var(--legacy-color-secondaryy);
@@ -159,7 +158,7 @@ $image-width: 99px;
 				margin-right: var(--spacing-xs);
 			}
 		}
-		
+
 		.vote-star-value {
 			width: 19px;
 			height: 18px;
@@ -167,10 +166,10 @@ $image-width: 99px;
 			font-weight: 600;
 			color: var(--color-accent-dark);
 		}
-	
+
 		.light-background {
 			background-color: var(--color-accent-light);
-		}	
+		}
 	}
 
 }
