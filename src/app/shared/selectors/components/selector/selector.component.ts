@@ -27,6 +27,7 @@ import { ID } from '~utils';
 export class SelectorComponent extends AbstractInput implements OnInit {
 
 	@Input() value: any;
+	@Input() choices: Array<any>;
 
 	private _type: EntityMetadata;
 	// it can be both types, since selectors are used inside dynamic forms (customField.metadata.target)

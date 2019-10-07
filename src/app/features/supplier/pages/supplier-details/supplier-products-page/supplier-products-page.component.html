@@ -7,7 +7,7 @@
 	[hasSwitch]="false"
 	[view]="listSrv.view"
 	[count]="listSrv.count$ | async"
-	[entityType]="'PRODUCT'"
+	[entityType]="erm.PRODUCT.singular"
 	[searchValue]="listSrv.searchValue"
 	(buttonClick)="openCreationProductDlg()"
 	(search)="listSrv.search($event)"

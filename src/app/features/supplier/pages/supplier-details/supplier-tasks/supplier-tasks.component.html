@@ -6,6 +6,7 @@
 	[entityType]="'TASK'"
 	[view]="listSrv.view"
 	[buttonName]="'create task'"
+	[count]="listSrv.count$ | async"
 	(search)="listSrv.search($event)"
 	(showFilters)="listSrv.openFilterPanel()"
 	(showArchived)="listSrv.filterByArchived(true)"

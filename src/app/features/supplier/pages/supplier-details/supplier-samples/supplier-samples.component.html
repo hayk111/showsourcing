@@ -4,6 +4,7 @@
 	[entityType]="erm.SAMPLE.singular"
 	[hasFilter]="true"
 	[hasSwitch]="false"
+	[count]="listSrv.count$ | async"
 	[entityType]="'SAMPLE'"
 	[view]="listSrv.view"
 	(showFilters)="listSrv.openFilterPanel()"
