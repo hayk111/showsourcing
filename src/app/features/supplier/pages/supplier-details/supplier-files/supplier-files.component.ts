@@ -33,6 +33,7 @@ export class SupplierFilesComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		const id = this.route.snapshot.parent.params.id;
+		this.supplier = { id, __typename: 'Supplier' };
 		this.listSrv.setup({
 			entitySrv: this.attachmentSrv,
 			searchedFields: ['name'],

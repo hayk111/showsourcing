@@ -10,7 +10,7 @@ import { CardNavComponent } from '../card-nav/card-nav.component';
 	styleUrls: ['./card.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
-		class: 'flexColumn mg-l'
+		class: 'flexColumn mg-l card-shadow'
 	}
 })
 export class CardComponent {

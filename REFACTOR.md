@@ -19,6 +19,9 @@ for each entity and see what to do.
 
 # List & common behaviors
 
+## Refect Subscription In list page service
+In list-page.service every funciton is subscribed except refetch
+
 
 ## controller list
 	- remove smart search thing or at least do smtg about it
