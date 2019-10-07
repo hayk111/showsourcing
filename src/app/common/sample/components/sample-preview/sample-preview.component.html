@@ -47,10 +47,9 @@
 	<!-- Sample information -->
 	<preview-section-app [title]="'title.sample-information' | translate">
 		<dynamic-form-app
+			[config]="formConfig"
 			[fields]="sampleDescriptor?.descriptor"
-			[inlineLabel]="true"
 			[value]="sample"
-			[colAmount]="1"
 			(update)="updateSample($event)">
 		</dynamic-form-app>
 	</preview-section-app>
@@ -58,7 +57,6 @@
 	<!-- Extended Fields -->
 	<preview-section-app *ngIf="(fieldDefinitions$ | async)?.length" [title]="'title.extended-fields' | translate">
 		<extended-form-app
-			[inlineLabel]="true"
 			[definitions]="fieldDefinitions$ | async"
 			[fields]="sample?.extendedFields"
 			(update)="updateSample({extendedFields: $event})">

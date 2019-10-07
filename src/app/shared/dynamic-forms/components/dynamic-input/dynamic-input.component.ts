@@ -16,6 +16,7 @@ import { ExtendedFieldDefinition } from '~core/models';
 import { DynamicField } from '~shared/dynamic-forms/models';
 import { DynamicUpdate } from '~shared/dynamic-forms/models/dynamic-update.interface';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
+import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
 
 /**
  * Component that selects the correct input and display it as an editable text
@@ -34,6 +35,7 @@ export class DynamicInputComponent extends AbstractInput implements OnInit, Afte
 
 	@Input() customField: DynamicField;
 	@Input() autofocus = false;
+	@Input() config: DynamicFormConfig;
 	@Output() update = new EventEmitter<DynamicUpdate>();
 	/** accumulates what the user types in input and if he doesn't press cancel we save it */
 	accumulator: any;

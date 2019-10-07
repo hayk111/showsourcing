@@ -72,9 +72,7 @@
 	<preview-section-app [title]="'title.supplier-details' | translate">
 		<dynamic-form-app
 			[fields]="supplierDescirptor?.descriptor"
-			[inlineLabel]="true"
 			[value]="supplier"
-			[colAmount]="1"
 			(update)="updateSupplier($event)">
 		</dynamic-form-app>
 	</preview-section-app>
@@ -83,7 +81,6 @@
 	<!-- Extended Fields -->
 	<preview-section-app *ngIf="(fieldDefinitions$ | async)?.length" [title]="'title.extended-fields' | translate">
 		<extended-form-app
-			[inlineLabel]="true"
 			[definitions]="fieldDefinitions$ | async"
 			[fields]="supplier?.extendedFields"
 			(update)="updateSupplier({extendedFields: $event})">
@@ -174,10 +171,9 @@
 	<!-- Supplier Details -->
 	<preview-section-app [title]="'title.supplier-details' | translate">
 		<dynamic-form-app
+			[config]="formConfig"
 			[fields]="supplierDescirptor?.descriptor"
-			[inlineLabel]="true"
 			[value]="supplier"
-			[colAmount]="1"
 			(update)="updateSupplier($event)">
 		</dynamic-form-app>
 	</preview-section-app>
@@ -186,7 +182,6 @@
 	<!-- Extended Fields -->
 	<preview-section-app *ngIf="(fieldDefinitions$ | async)?.length" [title]="'title.extended-fields' | translate">
 		<extended-form-app
-			[inlineLabel]="true"
 			[definitions]="fieldDefinitions$ | async"
 			[fields]="supplier?.extendedFields"
 			(update)="updateSupplier({extendedFields: $event})">

@@ -28,6 +28,7 @@ import { UploaderService } from '~shared/file/services/uploader.service';
 import { PreviewCommentComponent, PreviewService } from '~shared/preview';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { AutoUnsub, PendingImage, translate } from '~utils';
+import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
 
 @Component({
 	selector: 'product-preview-app',
@@ -39,6 +40,8 @@ import { AutoUnsub, PendingImage, translate } from '~utils';
 	}
 })
 export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChanges {
+
+	formConfig = new DynamicFormConfig({ mode: 'editable-text' });
 	/** This is the product passed as input, but it's not yet fully loaded */
 	@Input() _product: Product;
 	@Input()

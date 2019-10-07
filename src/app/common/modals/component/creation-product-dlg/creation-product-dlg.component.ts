@@ -14,7 +14,6 @@ import { TranslateService } from '@ngx-translate/core';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CreationProductDlgComponent implements OnInit {
-
 	@Input() product: Product;
 	@Input() createAnother = false;
 

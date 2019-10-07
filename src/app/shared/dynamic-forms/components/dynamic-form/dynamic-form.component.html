@@ -4,22 +4,23 @@
 		[ngClass]="{ 'last': last }"
 		[ngStyle]="{ 'width' : 'calc(100% / ' + colAmount + ')' }">
 
-		<ng-container *ngIf="isFormStyle; else textStyle">
+		<ng-container *ngIf="config.mode === 'form'; else editableText">
 			<dynamic-input-app
 				*ngFor="let field of col; index as index; trackBy: trackByFn"
 				[autofocus]="index === indexFocus"
 				[customField]="field"
 				[formControlName]="field.name"
+				[config]="config"
 				(update)="update.emit($event)">
 			</dynamic-input-app>
 		</ng-container>
 
-		<ng-template #textStyle>
+		<ng-template #editableText>
 			<dynamic-editable-text-app
 				*ngFor="let field of col; trackBy: trackByFn"
 				[customField]="field"
 				[formControlName]="field.name"
-				[inlineLabel]="inlineLabel"
+				[config]="config"
 				(update)="update.emit($event)">
 			</dynamic-editable-text-app>
 		</ng-template>

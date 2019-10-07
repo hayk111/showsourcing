@@ -6,6 +6,7 @@ import { ProductDescriptor } from '~core/descriptors';
 import { ProductService } from '~core/entity-services';
 import { Product } from '~core/models';
 import { AutoUnsub } from '~utils';
+import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
 
 
 @Component({
@@ -19,6 +20,12 @@ export class ProductInfoComponent extends AutoUnsub implements OnInit {
 	product$: Observable<Product>;
 	product: Product;
 	productDescriptor: ProductDescriptor;
+	dynamicFormConfig = new DynamicFormConfig({
+		mode: 'editable-text',
+		colAmount: 2,
+		inlineLabel: true,
+		alignValue: 'right'
+	});
 
 	constructor(
 		private route: ActivatedRoute,

@@ -6,8 +6,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 	styleUrls: ['./logo-nav.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
-		class: 'clickable' // TODO: michael this is a note, I added
-		// clickable class on the accordion merge request
+		class: 'clickable'
 	}
 })
 export class LogoNavComponent {

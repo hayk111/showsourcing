@@ -65,7 +65,6 @@
 						<h5 class="ms">{{ choice?.label || choice?.name }}</h5>
 						<extended-form-app
 							*ngIf="definitions$ | async as definitions; else spinner"
-							[isFormStyle]="true"
 							[fields]="value || []"
 							[definitions]="definitions"
 							(update)="valueUpdate($event)">
@@ -76,7 +75,6 @@
 					<ng-container *ngSwitchDefault>
 						<dynamic-form-app
 							[fields]="[choice]"
-							[isFormStyle]="true"
 							(update)="valueUpdate($event, choice?.name)">
 						</dynamic-form-app>
 					</ng-container>

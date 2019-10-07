@@ -11,6 +11,7 @@ import { TaskService } from '~entity-services';
 import { Comment, ERM, ExtendedFieldDefinition, Task } from '~models';
 import { AutoUnsub } from '~utils';
 import { TranslateService } from '@ngx-translate/core';
+import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
 
 @Component({
 	selector: 'task-preview-app',
@@ -19,7 +20,7 @@ import { TranslateService } from '@ngx-translate/core';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TaskPreviewComponent extends AutoUnsub implements OnInit, OnChanges {
-
+	formConfig = new DynamicFormConfig({ mode: 'editable-text' });
 	private _task: Task;
 	@Input() set task(value: Task) {
 		this._task = value;

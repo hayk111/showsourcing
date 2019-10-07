@@ -3,6 +3,7 @@ import { Subject } from 'rxjs';
 import { debounceTime, takeUntil } from 'rxjs/operators';
 import { ExtendedField, ExtendedFieldDefinition } from '~core/models';
 import { AutoUnsub } from '~utils';
+import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
 
 
 @Component({
@@ -23,10 +24,7 @@ export class ExtendedFormComponent extends AutoUnsub implements OnInit, OnChange
 
 
 	@Input() definitions: ExtendedFieldDefinition[];
-	/** some forms have inline labels which is very annoying but w.e */
-	@Input() inlineLabel: boolean;
-	@Input() isFormStyle = false;
-	@Input() colAmount = 1;
+	@Input() config = new DynamicFormConfig();
 	@Input() disabled = false;
 	@Input() autofocus = false;
 	// index where the focus starts
@@ -39,7 +37,7 @@ export class ExtendedFormComponent extends AutoUnsub implements OnInit, OnChange
 	) { super(); }
 
 	ngOnInit() {
-		if (this.isFormStyle)
+		if (this.config.mode === 'form')
 			this.update$.pipe(
 				takeUntil(this._destroy$),
 				// we use this timer for the debounce only on formstyle, since the update inputs work like
@@ -70,7 +68,7 @@ export class ExtendedFormComponent extends AutoUnsub implements OnInit, OnChange
 		else
 			updatedFields = this._fields;
 
-		this.isFormStyle ? this.update$.next(updatedFields) : this.update.emit(updatedFields);
+		this.config.mode === 'form' ? this.update$.next(updatedFields) : this.update.emit(updatedFields);
 	}
 
 	/** put the custom fields into columns
@@ -81,8 +79,8 @@ export class ExtendedFormComponent extends AutoUnsub implements OnInit, OnChange
 		this.cols = [];
 		const fields = this.definitions;
 		if (fields) {
-			const fieldPerCol = Math.ceil(fields.length / this.colAmount);
-			for (let i = 0; i < this.colAmount; i++) {
+			const fieldPerCol = Math.ceil(fields.length / this.config.colAmount);
+			for (let i = 0; i < this.config.colAmount; i++) {
 				const start = i * fieldPerCol;
 				const end = i * fieldPerCol + fieldPerCol;
 				this.cols[i] = fields.slice(start, end);

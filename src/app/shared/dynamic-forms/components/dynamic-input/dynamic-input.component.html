@@ -129,7 +129,7 @@
 	<ng-container *ngSwitchCase="'packaging'">
 		<h4 class="ms capitalize bold-s">{{ customField?.label || customField?.name }}</h4>
 		<editable-packaging-app
-			[isFormStyle]="true"
+			[config]="config"
 			[autofocus]="autofocus"
 			name="packaging"
 			[(ngModel)]="accumulator"
@@ -149,7 +149,7 @@
 			<h3 *ngIf="definitions?.length" class="ms" translate="text.extended-fields"></h3>
 			<extended-form-app
 				[fields]="accumulator || []"
-				[isFormStyle]="true"
+				[config]="config"
 				[definitions]="definitions"
 				(update)="accumulator = $event; onChange();">
 			</extended-form-app>
