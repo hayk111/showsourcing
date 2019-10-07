@@ -1,0 +1,38 @@
+.canvas-container {
+	height: 169px;
+	width: 385px;
+}
+
+.legend-item {
+	display: inline-block;
+	margin-left: var(--spacing-l);
+	width: var(--spacing-s);
+  height: var(--spacing-s);
+	border-radius: var(--border-radius-s);
+}
+
+.legends {
+	div:nth-child(odd) {
+		.legend-item {
+			background-color: #789DF8;
+		}
+	}
+
+	div:nth-child(even) {
+		.legend-item {
+			background-color: #D7E3FD;
+		}
+	}
+}
+
+.legend-item-title {
+	display: inline;
+	margin-left: var(--spacing-s);
+	color: var(--color-txt-secondary);
+	font-size: var(--font-size-m);
+	text-decoration: line-through;
+}
+
+.selected {
+  text-decoration: none;
+}

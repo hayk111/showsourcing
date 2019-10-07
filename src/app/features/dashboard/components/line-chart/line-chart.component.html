@@ -1,0 +1,26 @@
+<div class="flex">
+	<div class="flex-item">
+		<div>
+			<div class="canvas-container">
+				<canvas
+					baseChart
+					[ngStyle]="{height: '100%', width: '100%'}"
+					[datasets]="lineChartData"
+					[labels]="lineChartLabels"
+					[options]="lineChartOptions"
+					[colors]="lineChartColors"
+					[chartType]="lineChartType"
+					[plugins]="lineChartPlugins">
+				</canvas>
+			</div>
+			<div class="legends flexCenter">
+				<div *ngFor="let item of chartData" class="pointer" (click)="toggleItem(item.label.toLowerCase())">
+					<div [ngClass]="['legend-item', item.label.toLowerCase()]"></div>
+					<h2 
+						class="legend-item-title" 
+						[class.selected]="legends[item.label.toLowerCase()]">{{item.label}}</h2>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
