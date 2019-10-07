@@ -14,11 +14,11 @@
 				</canvas>
 			</div>
 			<div class="legends flexCenter">
-				<div *ngFor="let item of chartData" class="pointer" (click)="toggleItem(item.label.toLowerCase())">
-					<div [ngClass]="['legend-item', item.label.toLowerCase()]"></div>
+				<div *ngFor="let item of chartData" class="pointer" (click)="toggleItem(item.label)">
+					<div [ngClass]="['legend-item', item.label]"></div>
 					<h2 
 						class="legend-item-title" 
-						[class.selected]="legends[item.label.toLowerCase()]">{{item.label}}</h2>
+						[class.selected]="legends[item.label]">{{item.label}}</h2>
 				</div>
 			</div>
 		</div>
