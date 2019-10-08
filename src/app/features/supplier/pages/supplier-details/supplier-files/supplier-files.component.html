@@ -3,12 +3,15 @@
 	[entityType]="erm.ATTACHMENT.singular"
 	[hasFilter]="false"
 	[hasSwitch]="false"
+	[buttonName]="'Add file'"
 	[view]="listSrv.view"
 	(search)="listSrv.search($event)"
-	(smartSearch)="listSrv.smartSearch($event)">
+	(smartSearch)="listSrv.smartSearch($event)"
+	(buttonClick)="table.openFileBrowser()">
 </controller-list-app>
 
 <attachment-table-app
+	#table
 	class="max-full-table-width"
 	[hasPagination]="false"
 	[currentSort]="listSrv.currentSort"

@@ -11,6 +11,7 @@ import {
 } from '~core/entity-services/extended-field-definition/extended-field-definition.service';
 import { AppImage, Comment, ERM, ExtendedFieldDefinition, Supplier } from '~core/models';
 import { AutoUnsub, translate } from '~utils';
+import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
 
 @Component({
 	selector: 'supplier-preview-app',
@@ -19,7 +20,7 @@ import { AutoUnsub, translate } from '~utils';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SupplierPreviewComponent extends AutoUnsub implements OnChanges, OnInit {
-
+	formConfig = new DynamicFormConfig({ mode: 'editable-text' });
 	@Input() supplier: Supplier;
 	@Input() canClose = true;
 	/** wether we display it as a preview or part of a component (supplier details) */

@@ -12,6 +12,7 @@ import { ERM } from '~core/models';
 import { EditableTextComponent } from '~shared/editable-field';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 import { ID } from '~utils';
+import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
 
 @Component({
 	selector: 'editable-selector-app',
@@ -38,7 +39,7 @@ export class EditableSelectorComponent extends AbstractInput {
 
 	@Input() isOpen: boolean;
 	@Input() isShowLabel: true;
-	@Input() inlineLabel: string;
+	@Input() config: DynamicFormConfig;
 	@Input() closeOnOutsideClick: boolean;
 	@Output() opened = new EventEmitter();
 	@Output() closed = new EventEmitter();

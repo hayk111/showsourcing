@@ -29,9 +29,7 @@
 		<div class="right">
 			<h3 class="ms" translate="label.product-details"></h3>
 			<dynamic-form-app
-				[colAmount]="1"
 				[fields]="productDescriptor?.descriptor"
-				[isFormStyle]="true"
 				[value]="product"
 				(update)="updateProduct($event)">
 			</dynamic-form-app>

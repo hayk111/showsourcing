@@ -19,6 +19,7 @@ import { AutoUnsub } from '~utils/auto-unsub.component';
 import { RefuseReplyDlgComponent } from '../refuse-reply-dlg/refuse-reply-dlg.component';
 import { ReplySentDlgComponent } from '../reply-sent-dlg/reply-sent-dlg.component';
 import { TranslateService } from '@ngx-translate/core';
+import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
 
 @Component({
 	selector: 'request-reply-dlg-app',
@@ -28,7 +29,7 @@ import { TranslateService } from '@ngx-translate/core';
 	providers: [UploaderFeedbackService]
 })
 export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
-
+	formConfig = new DynamicFormConfig({ colAmount: 2 });
 	@Input() selectedIndex = 0;
 	@Input() requestId: string;
 	@Input() elements: RequestElement[] = [];

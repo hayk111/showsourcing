@@ -6,6 +6,7 @@ import { ProductDescriptor } from '~core/descriptors';
 import { ProductService } from '~core/entity-services';
 import { Product } from '~core/models';
 import { AutoUnsub } from '~utils';
+import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
 
 
 @Component({
@@ -18,7 +19,14 @@ export class ProductInfoComponent extends AutoUnsub implements OnInit {
 
 	product$: Observable<Product>;
 	product: Product;
+	shippingDescriptor: ProductDescriptor;
 	productDescriptor: ProductDescriptor;
+	dynamicFormConfig = new DynamicFormConfig({
+		mode: 'editable-text',
+		colAmount: 2,
+		inlineLabel: true,
+		alignValue: 'right'
+	});
 
 	constructor(
 		private route: ActivatedRoute,
@@ -37,17 +45,25 @@ export class ProductInfoComponent extends AutoUnsub implements OnInit {
 		);
 
 		this.productDescriptor = new ProductDescriptor([
+			'name',
+			'reference',
+			'price',
+			'moq',
+			'category',
+			'event'
+		]);
+		this.shippingDescriptor = new ProductDescriptor([
 			'innerCarton', 'sample', 'samplePrice', 'priceMatrix', 'masterCarton', 'incoTerm',
 			'harbour', 'masterCbm', 'quantityPer20ft', 'quantityPer40ft', 'quantityPer40ftHC'
 		]);
 
-		this.productDescriptor.insert({ name: 'sample', type: 'title' }, 'sample');
-		this.productDescriptor.insert({ name: 'shipping', type: 'title' }, 'incoTerm');
+		this.shippingDescriptor.insert({ name: 'sample', type: 'title' }, 'sample');
+		this.shippingDescriptor.insert({ name: 'shipping', type: 'title' }, 'incoTerm');
 		// we need this empty objects since innercarton, mastercarton, pricematrix, have more rows inside the dynamic form
 		// therefore we have to add extra spaces, so we get the correct alignment
-		this.productDescriptor.insertBlank('masterCarton');
-		this.productDescriptor.insertBlank('masterCarton');
-		this.productDescriptor.insertBlank('masterCarton');
+		this.shippingDescriptor.insertBlank('masterCarton');
+		this.shippingDescriptor.insertBlank('masterCarton');
+		this.shippingDescriptor.insertBlank('masterCarton');
 	}
 
 	update(product: Product) {

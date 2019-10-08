@@ -1,7 +1,7 @@
 
 .placeholder {
 	font-style: italic;
-	color: var(--legacy-color-txt-secondary);
+	color: var(--color-txt-secondary);
 	font-weight: normal;
 }
 
@@ -10,7 +10,7 @@
 	justify-content: space-between;
 	align-items: center;
 	// we always display the border on single line
-	border-bottom: 1px solid var(--legacy-color-secondary);
+	border-bottom: 1px solid var(--color-secondary);
 
 	height: 33px;
 
@@ -19,9 +19,8 @@
 		width: 50%;
 		display: flex;
 		font-size: var(--font-size-m);
-		font-weight: 600;
 		&:hover {
-			color: var(--legacy-color-primary);
+			color: var(--color-primary);
 		}
 	}
 
@@ -29,10 +28,9 @@
 		height: 100%;
 		width: 50%;
 		display: flex;
-		color: var(--legacy-color-txt-secondary);
-		font-weight: 600;
+		color: var(--color-txt-secondary);
 		&:hover {
-			color: var(--legacy-color-primary);
+			color: var(--color-primary);
 		}
 		editable-label-app {
 			justify-content: flex-end;

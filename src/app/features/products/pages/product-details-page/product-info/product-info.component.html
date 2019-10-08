@@ -11,23 +11,29 @@
 
 			<card-title-app>Product Information</card-title-app>
 			<card-action-app>Contact Supplier</card-action-app>
-			<div class="color-warn bold fs-l">To be finished</div>
-			<!-- <accordion-app>
+			<accordion-app>
 				<accordion-title-app>General</accordion-title-app>
+				<accordion-content-app>
+					<dynamic-form-app
+						[fields]="productDescriptor?.descriptor"
+						[value]="product"
+						[config]="dynamicFormConfig"
+						(update)="update($event)">
+					</dynamic-form-app>
+				</accordion-content-app>
 			</accordion-app>
 
 			<accordion-app>
 				<accordion-title-app>Shipping & Packaging</accordion-title-app>
 				<accordion-content-app>
 					<dynamic-form-app
-						[inlineLabel]="true"
-						[fields]="productDescriptor?.descriptor"
+						[fields]="shippingDescriptor?.descriptor"
 						[value]="product"
-						[colAmount]="2"
+						[config]="dynamicFormConfig"
 						(update)="update($event)">
 					</dynamic-form-app>
 				</accordion-content-app>
-			</accordion-app> -->
+			</accordion-app>
 
 		</card-app>
 

@@ -92,10 +92,9 @@
 	<!-- Product details -->
 	<preview-section-app #contentTab1 [title]="'title.product-details'">
 		<dynamic-form-app
-			[inlineLabel]="true"
 			[fields]="productDescriptor1?.descriptor"
 			[value]="product"
-			[colAmount]="1"
+			[config]="formConfig"
 			(update)="updateProduct($event)">
 		</dynamic-form-app>
 	</preview-section-app>
@@ -103,7 +102,6 @@
 	<!-- Extended Fields -->
 	<preview-section-app #contentTab1 *ngIf="(fieldDefinitions$ | async)?.length" [title]="'title.extended-fields' | translate">
 		<extended-form-app
-			[inlineLabel]="true"
 			[definitions]="fieldDefinitions$ | async"
 			[fields]="product?.extendedFields"
 			(update)="update($event, 'extendedFields')">
@@ -113,10 +111,9 @@
 	<!-- Trading information -->
 	<preview-section-app #contentTab1 [title]="'title.trading-information' | translate">
 		<dynamic-form-app
-			[inlineLabel]="true"
 			[fields]="productDescriptor2?.descriptor"
 			[value]="product"
-			[colAmount]="1"
+			[config]="formConfig"
 			(update)="updateProduct($event)">
 		</dynamic-form-app>
 	</preview-section-app>

@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { AbstractExtendedFormComponent } from '../abstract-extended-form.component';
+import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
 
 @Component({
 	selector: 'extended-form-editable-text-app',
@@ -13,7 +14,7 @@ import { AbstractExtendedFormComponent } from '../abstract-extended-form.compone
 	}
 })
 export class ExtendedFormEditableTextComponent extends AbstractExtendedFormComponent {
-
+	@Input() config: DynamicFormConfig;
 	/** whether the input should be on the same line as the label */
 	@Input() inlineLabel: boolean;
 	/** when the editable field opens */

@@ -76,7 +76,10 @@ export class TeamClientInitializer extends AbstractApolloClient {
 			ERM.TEAM_USER,
 			ERM.USER
 		];
-		const newSubs = entities.map((erm: EntityMetadata) => this.ermSrv.getGlobalService(erm).openSubscription(Client.TEAM));
+		const newSubs = entities.map(
+			(erm: EntityMetadata) => this.ermSrv.getGlobalService(erm)
+				.openSubscription(Client.TEAM)
+		);
 		return forkJoin(newSubs);
 	}
 

@@ -1,10 +1,11 @@
 <!-- when the value is undefined, null or 0 we display '-'.
 A package with 0cm makes no sens -->
-<ng-container *ngIf="!isFormStyle; else other">
+<ng-container *ngIf="!(config.mode === 'form'); else other">
 	<!-- length -->
 	<editable-field-app
 		#cell1
 		[inlineLabel]="true"
+		[align]="config.alignValue"
 		(closed)="onClose($event)"
 		(opened)="inp1.select();">
 		<label-app translate="label.length"></label-app>
@@ -27,6 +28,7 @@ A package with 0cm makes no sens -->
 	<editable-field-app
 		#cell2
 		[inlineLabel]="true"
+		[align]="config.alignValue"
 		(closed)="onClose($event)"
 		(opened)="inp2.select();">
 		<label-app translate="label.width"></label-app>
@@ -49,6 +51,7 @@ A package with 0cm makes no sens -->
 	<editable-field-app
 		#cell3
 		[inlineLabel]="true"
+		[align]="config.alignValue"
 		(closed)="onClose($event)"
 		(opened)="inp3.select();">
 		<label-app translate="label.height"></label-app>
@@ -78,6 +81,7 @@ A package with 0cm makes no sens -->
 		<editable-field-app
 			#cell4
 			[hasAction]="false"
+			[align]="config.alignValue"
 			[inlineLabel]="true"
 			(closed)="onClose($event)">
 			<label-app translate="label.dimension-unit"></label-app>
@@ -91,6 +95,7 @@ A package with 0cm makes no sens -->
 	<editable-field-app
 		#cell5
 		[inlineLabel]="true"
+		[align]="config.alignValue"
 		(closed)="onClose($event)"
 		(opened)="inp5.select();">
 		<label-app translate="label.quantity"></label-app>
@@ -113,6 +118,7 @@ A package with 0cm makes no sens -->
 	<editable-field-app
 		#cell6
 		[inlineLabel]="true"
+		[align]="config.alignValue"
 		(closed)="onClose($event)"
 		(opened)="inp6.select();">
 		<label-app translate="label.weight"></label-app>
@@ -142,6 +148,7 @@ A package with 0cm makes no sens -->
 		<editable-field-app
 			#cell7
 			[inlineLabel]="true"
+			[align]="config.alignValue"
 			[hasAction]="false"
 			(closed)="onClose($event)">
 			<label-app translate="label.units"></label-app>

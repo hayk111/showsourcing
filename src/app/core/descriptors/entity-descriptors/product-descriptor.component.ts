@@ -26,13 +26,14 @@ export class ProductDescriptor extends AbstractDescriptorComponent {
 
 		{ name: 'description', type: 'textarea', metadata: { rows: 5 } },
 		{ name: 'name', type: 'text', required: true, label: translate('name') },
+		{ name: 'reference', type: 'text', label: translate('reference') },
+		{ name: 'moq', type: 'text', label: translate('moq') },
 		{ name: 'moqDescription', type: 'textarea', label: translate('MOQ description') },
 
 		{ name: 'status', type: 'status' },
 		{ name: 'votes', type: 'votes' },
 
 		{ name: 'extendedFields', type: 'extendedField', label: 'extended fields', metadata: { target: 'Product' } },
-
 		{
 			name: 'assignee', type: 'selector',
 			label: translate('assigned to'),

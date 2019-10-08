@@ -4,9 +4,7 @@
 		<div class="container flex">
 				<div class="inner-container">
 					<dynamic-form-app
-						[colAmount]="1"
 						[fields]="taskDescriptor?.descriptor"
-						[isFormStyle]="true"
 						[value]="task"
 						(update)="updateTask($event)">
 					</dynamic-form-app>

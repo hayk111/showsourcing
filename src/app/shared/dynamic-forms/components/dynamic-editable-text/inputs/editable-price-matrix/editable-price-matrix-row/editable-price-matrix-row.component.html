@@ -1,6 +1,6 @@
 <!-- label -->
 <editable-text-app #editableLabel
-	class="label"
+	class="label clickable"
 	(closed)="onClose($event)"
 	(opened)="inp1.select()">
 
@@ -32,7 +32,7 @@
 
 <!-- price -->
 <editable-text-app #editableValue
-	class="value"
+	class="value clickable"
 	(closed)="onClose($event)"
 	(opened)="inpPrice.select()">
 	<editable-label-app class="fullWidth">
