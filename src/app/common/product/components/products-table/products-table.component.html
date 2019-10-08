@@ -173,6 +173,7 @@
 					(closed)="update.emit({ id: row.id, price: inp.price })">
 					<editable-label-app>
 						<price-app
+							class="full-width"
 							[price]="row?.price"
 							[moq]="row?.minimumOrderQuantity"
 							[moqDesc]="row?.moqDescription">
