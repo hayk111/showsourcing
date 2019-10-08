@@ -1,12 +1,11 @@
 <ng-container *ngIf="supplier">
-	<!-- top card -->
-	<supplier-top-card-app
+	<supplier-header-details-app
 		class="supplier-top-header"
 		[supplier]="supplier"
 		(delete)="delete($event)"
 		(export)="export($event)"
 		(updateFavorite)="update($event)">
-	</supplier-top-card-app>
+	</supplier-header-details-app>
 
 	<router-outlet></router-outlet>
 </ng-container>
