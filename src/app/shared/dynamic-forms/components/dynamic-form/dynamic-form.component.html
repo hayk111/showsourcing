@@ -1,12 +1,12 @@
-<div [formGroup]="form" class="form" [ngClass]="{ multiple: (cols?.length > 0) }">
-
+<div [formGroup]="form" class="form" [ngClass]="{ multiple: (cols?.length > 1) }">
 	<div *ngFor="let col of cols; let last = last; trackBy: trackByFn" class="col"
 		[ngClass]="{ 'last': last }"
-		[ngStyle]="{ 'width' : 'calc(100% / ' + colAmount + ')' }">
+		[ngStyle]="{ 'width' : 'calc(100% / ' + config.colAmount + ')' }">
 
 		<ng-container *ngIf="config.mode === 'form'; else editableText">
 			<dynamic-input-app
 				*ngFor="let field of col; index as index; trackBy: trackByFn"
+				[indexInCol]="index"
 				[autofocus]="index === indexFocus"
 				[customField]="field"
 				[formControlName]="field.name"
@@ -17,7 +17,8 @@
 
 		<ng-template #editableText>
 			<dynamic-editable-text-app
-				*ngFor="let field of col; trackBy: trackByFn"
+				*ngFor="let field of col; index as index; trackBy: trackByFn"
+				[indexInCol]="index"
 				[customField]="field"
 				[formControlName]="field.name"
 				[config]="config"

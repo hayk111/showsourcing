@@ -36,6 +36,8 @@ export class DynamicInputComponent extends AbstractInput implements OnInit, Afte
 	@Input() customField: DynamicField;
 	@Input() autofocus = false;
 	@Input() config: DynamicFormConfig;
+	/** number that specify what index is an input in its column */
+	@Input() indexInCol: number;
 	@Output() update = new EventEmitter<DynamicUpdate>();
 	/** accumulates what the user types in input and if he doesn't press cancel we save it */
 	accumulator: any;

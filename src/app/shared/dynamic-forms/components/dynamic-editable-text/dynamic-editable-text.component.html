@@ -209,7 +209,7 @@
 
 		<!-- price matrix -->
 		<ng-container *ngSwitchCase="'priceMatrix'">
-			<h3 class="s color-primary">
+			<h3 class="s color-primary" [ngClass]="{ 'first': indexInCol === 0 }">
 				{{ 'text.' + customField.name | translate }}
 			</h3>
 			<editable-price-matrix-app
@@ -222,7 +222,7 @@
 
 		<!-- packaging -->
 		<ng-container *ngSwitchCase="'packaging'">
-			<h3 class="s color-primary">
+			<h3 class="s color-primary" [ngClass]="{ 'first': indexInCol === 0 }">
 				{{ 'text.' + customField.name | translate }}
 			</h3>
 			<editable-packaging-app
@@ -252,7 +252,7 @@
 		</editable-selector-app>
 
 		<!-- title -->
-		<h3 *ngSwitchCase="'title'" class="color-{{ config.colorTitle }}">
+		<h3 *ngSwitchCase="'title'" class="color-primary" [ngClass]="{ 'first': indexInCol === 0 }">
 			{{ 'text.' + customField.name | translate }}
 		</h3>
 

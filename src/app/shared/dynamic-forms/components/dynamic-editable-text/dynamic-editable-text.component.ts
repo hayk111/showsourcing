@@ -33,7 +33,8 @@ import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-con
 })
 export class DynamicEditableTextComponent extends AbstractInput {
 	@Input() config: DynamicFormConfig;
-
+	/** number that specify what index is an input in its column */
+	@Input() indexInCol: number;
 	@Input() set value(v: any) {
 		this._value = v;
 		this.accumulator = v;
