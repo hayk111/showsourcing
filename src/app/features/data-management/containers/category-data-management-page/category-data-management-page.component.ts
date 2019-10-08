@@ -32,7 +32,6 @@ export class CategoryDataManagementPageComponent extends AutoUnsub implements On
 		private dmSrv: DataManagementService
 	) { super(); }
 
-
 	ngOnInit() {
 		this.listSrv.setup({
 			key: ListPageKey.CATEGORY,
