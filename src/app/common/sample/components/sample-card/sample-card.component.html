@@ -35,13 +35,14 @@
 		</div>
 		<!-- created by and votes -->
 		<div class="card-footer flexBetween">
-			<div class="created-by">
-				<user-picture-app 
-					[user]="sample?.createdBy" 
+			<div class="created-by flexVAlign">
+				<user-picture-app
+					*ngIf="sample?.assignee"
+					[user]="sample?.assignee"
 					[size]="24"
 					fontSize="12"
-					[background]="false" 
-					[image]="sample?.createdBy?.avatar"></user-picture-app>
+					[background]="false"
+					[image]="sample?.assignee?.avatar"></user-picture-app>
 				<div class="sample-reference">
 					{{sample?.reference}}
 				</div>
