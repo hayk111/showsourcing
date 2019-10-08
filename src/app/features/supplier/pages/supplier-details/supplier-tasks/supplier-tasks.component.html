@@ -1,19 +1,24 @@
 <controller-list-app
 	class="max-full-table-width"
 	[entityType]="erm.TASK.singular"
-	[count]="listSrv.count$ | async"
-	[hasFilter]="false"
+	[hasFilter]="true"
 	[hasSwitch]="false"
 	[entityType]="'TASK'"
 	[view]="listSrv.view"
+	[buttonName]="'create task'"
+	[count]="listSrv.count$ | async"
 	(search)="listSrv.search($event)"
-	(smartSearch)="listSrv.smartSearch($event)">
+	(showFilters)="listSrv.openFilterPanel()"
+	(showArchived)="listSrv.filterByArchived(true)"
+	(hideArchived)="listSrv.filterByArchived(false)"
+	(showAssigned)="listSrv.filterByAssignee(true)"
+	(hideAssigned)="listSrv.filterByAssignee(false)"
+	(smartSearch)="listSrv.smartSearch($event)"
+	(buttonClick)="openCreationTaskDlg(undefined, supplier)">
 </controller-list-app>
 
 <task-table-app
 	class="max-full-table-width"
-	[hasHeader]="false"
-	[hasPagination]="false"
 	[rows]="listSrv.items$ | async"
 	[selection]="listSrv.selection$ | async"
 	[pending]="listSrv.pending"
@@ -30,7 +35,7 @@
 	(unfavorited)="listSrv.onItemUnfavorited($event)"
 	(previewClick)="listSrv.openPreview($event)"
 	(createClick)="openCreationTaskDlg(undefined, supplier)"
-	(delete)="listSrv.deleteOne($event)">
+	(delete)="listSrv.deleteOne($event, true)">
 </task-table-app>
 
 <task-preview-app
@@ -39,26 +44,22 @@
 	(close)="listSrv.closePreview()">
 </task-preview-app>
 
+<filters-app
+	*ngIf="listSrv.filterPanelOpen"
+	[filterList]="listSrv.filterList"
+	[filterTypes]="filterTypes"
+	(clickOutside)="listSrv.closeFilterPanel()"
+	(close)="listSrv.closeFilterPanel()">
+</filters-app>
+
 
 <selection-bar-app
 	[isShown]="(listSrv.selection$ | async)?.size > 0"
 	[selection]="listSrv.selection$ | async"
 	(close)="listSrv.unselectAll()">
 
-	<div class="flex">
-		<context-menu-app>
-			<context-menu-trigger-app>
-				<button class="icon light">
-					<icon-app name="dots-vertical" size="m"></icon-app>
-				</button>
-      </context-menu-trigger-app>
-      <context-menu-item-app (click)="listSrv.deleteSelected()" translate="button.delete">
-      </context-menu-item-app>
-		</context-menu-app>
-
-		<button class="icon light" (click)="listSrv.deleteSelected()">
-			<icon-app name="trash" size="m"></icon-app>
-		</button>
-	</div>
+	<button class="icon light" (click)="listSrv.deleteSelected(true)">
+		<icon-app name="trash" size="m"></icon-app>
+	</button>
 
 </selection-bar-app>

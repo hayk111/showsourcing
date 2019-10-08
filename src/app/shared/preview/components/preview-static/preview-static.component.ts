@@ -13,7 +13,8 @@ import {
 	selector: 'preview-static-app',
 	templateUrl: './preview-static.component.html',
 	styleUrls: ['./preview-static.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: { class: 'card-shadow' }
 })
 export class PreviewStaticComponent implements OnInit, AfterViewInit {
 	@Input() hasLogo = false;

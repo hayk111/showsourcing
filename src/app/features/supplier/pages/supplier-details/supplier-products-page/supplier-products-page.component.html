@@ -1,12 +1,27 @@
 <controller-list-app
 	class="max-full-table-width"
-	[entityType]="erm.PRODUCT.singular"
-	[count]="listSrv.count$ | async"
-	[hasFilter]="false"
+	searchType="short"
+	buttonName="Add Product"
+	[filtersAmount]="listSrv.getFilterAmount([{ type: filterTypeEnum.ARCHIVED, value: false }, { type: filterTypeEnum.DELETED, value: false }])"
+	[hasFilter]="true"
 	[hasSwitch]="false"
 	[view]="listSrv.view"
+	[count]="listSrv.count$ | async"
+	[entityType]="erm.PRODUCT.singular"
+	[searchValue]="listSrv.searchValue"
+	(buttonClick)="openCreationProductDlg()"
 	(search)="listSrv.search($event)"
-	(smartSearch)="listSrv.smartSearch($event)">
+	(clearFilters)="onClearFilters()"
+	(showArchived)="listSrv.filterByArchived(true)"
+	(hideArchived)="listSrv.filterByArchived(false)"
+	(showAssigned)="listSrv.filterByAssignee(true)"
+	(hideAssigned)="listSrv.filterByAssignee(false)"
+	(export)="commonModalSrv.openExportDialog(listSrv.getSelectedValues())"
+	(showFilters)="listSrv.openFilterPanel()"
+	(viewChange)="listSrv.changeView($event)">
+	<!-- <controller-list-right-item-app class="flex">
+		<button class="primary">Create Product</button>
+	</controller-list-right-item-app> -->
 </controller-list-app>
 
 <ng-container *ngIf="(listSrv.items$ | async) as products; else spinner">
@@ -18,6 +33,7 @@
 		[rows]="products"
 		[count]="listSrv.count$ | async"
 		[currentPage]="listSrv.currentPage"
+		(update)="listSrv.update($event)"
 		(goToPage)="listSrv.loadPage($event)"
 		(delete)="listSrv.deleteOne($event)"
 		(favorited)="listSrv.onItemFavorited($event)"
@@ -59,5 +75,13 @@
 	(deleted)="listSrv.deleteSelected()"
 	(close)="listSrv.unselectAll()">
 </product-selection-bar-app>
+
+<filters-app
+	*ngIf="listSrv.filterPanelOpen"
+	[filterList]="listSrv.filterList"
+	[filterTypes]="filterTypes"
+	(clickOutside)="listSrv.closeFilterPanel()"
+	(close)="listSrv.closeFilterPanel()">
+</filters-app>
 
 <ng-template #spinner> <spinner-app></spinner-app> </ng-template>

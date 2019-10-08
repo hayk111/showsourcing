@@ -10,13 +10,13 @@
 
 	<controller-list-app
 		class="max-full-table-width"
+		searchType="short"
 		[filtersAmount]="listSrv.getFilterAmount([{ type: filterTypeEnum.ARCHIVED, value: false }, { type: filterTypeEnum.DELETED, value: false }])"
 		[hasFilter]="true"
 		[hasSwitch]="true"
 		[view]="listSrv.view"
 		[count]="listSrv.count$ | async"
 		[entityType]="'PRODUCT'"
-		searchType="short"
 		[searchValue]="listSrv.searchValue"
 		(search)="listSrv.search($event)"
 		(clearFilters)="onClearFilters()"
@@ -26,7 +26,7 @@
 		(hideAssigned)="listSrv.filterByAssignee(false)"
 		(export)="commonModalSrv.openExportDialog(listSrv.getSelectedValues())"
 		(showFilters)="listSrv.openFilterPanel()"
-		(viewChange)="onViewChange($event)">
+		(viewChange)="listSrv.changeView($event)">
 
 		<controller-list-right-item-app class="flex" right-sort-elem>
 			<product-sorting-menu-app

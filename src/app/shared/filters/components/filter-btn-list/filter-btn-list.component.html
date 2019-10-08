@@ -60,6 +60,7 @@
 		</checkbox-app>
 	</ng-container>
 	
+	<!-- archived -->
 	<ng-container *ngIf="hasArchivedFilter">
 		<label class="capitalize" translate="text.archived">
 		</label>
@@ -68,7 +69,19 @@
 			[checked]="isArchived()"
 			(check)="onArchivedChange()"
 			(uncheck)="onArchivedChange()">
-				<span translate="text.show-archived-products"></span>
+			<span translate="text.show-archived-products"></span>
+		</checkbox-app>
+	</ng-container>
+
+	<!-- done -->
+	<ng-container *ngIf="hasDoneFilter">
+		<label class="capitalize" translate="text.completed"></label>
+	
+		<checkbox-app
+			[checked]="isDone()"
+			(check)="onDoneChange()"
+			(uncheck)="onDoneChange()">
+			<span translate="text.show-completed-tasks"></span>
 		</checkbox-app>
 	</ng-container>
 </div>

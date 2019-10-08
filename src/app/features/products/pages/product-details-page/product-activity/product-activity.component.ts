@@ -15,9 +15,6 @@ import { CreationSampleDlgComponent, CreationTaskDlgComponent } from '~common/mo
 import { SupplierRequestDialogComponent } from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
 
 
-
-
-
 @Component({
 	selector: 'product-activity-app',
 	templateUrl: './product-activity.component.html',

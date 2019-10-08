@@ -35,7 +35,7 @@ export class AttachmentTableComponent extends EntityTableComponent<Attachment> i
 	@Output() upload = new EventEmitter<Attachment[]>();
 
 	tableConfig = bigTableConfig;
-	columns = ['name', 'actions'];
+	columns = ['name', 'createdBy', 'creationDate', 'actions'];
 	erm = ERM;
 
 	constructor(
@@ -55,6 +55,5 @@ export class AttachmentTableComponent extends EntityTableComponent<Attachment> i
 	download(attachment: Attachment) {
 		saveAs(attachment.url, attachment.fileName);
 	}
-
 
 }
