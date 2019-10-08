@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Color } from '~utils';
 
 @Component({
 	selector: 'card-action-app',
@@ -7,7 +8,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CardActionComponent {
-
+	@Input() color: Color = Color.PRIMARY_LIGHT;
 	constructor() { }
 
 }

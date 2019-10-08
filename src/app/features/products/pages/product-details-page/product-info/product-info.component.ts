@@ -7,6 +7,8 @@ import { ProductService } from '~core/entity-services';
 import { Product } from '~core/models';
 import { AutoUnsub } from '~utils';
 import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
+import { SupplierRequestDialogComponent } from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
+import { CloseEventType, DialogService } from '~shared/dialog';
 
 
 @Component({
@@ -31,7 +33,8 @@ export class ProductInfoComponent extends AutoUnsub implements OnInit {
 	constructor(
 		private route: ActivatedRoute,
 		private productSrv: ProductService,
-		private cd: ChangeDetectorRef
+		private cd: ChangeDetectorRef,
+		private dlgSrv: DialogService
 	) {
 		super();
 	}
@@ -69,6 +72,11 @@ export class ProductInfoComponent extends AutoUnsub implements OnInit {
 	update(product: Product) {
 		product.id = this.product.id;
 		this.productSrv.update(product).subscribe();
+	}
+
+
+	openCreateRequest() {
+		this.dlgSrv.open(SupplierRequestDialogComponent, { products: [this.product] });
 	}
 
 }
