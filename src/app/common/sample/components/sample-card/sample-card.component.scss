@@ -2,16 +2,16 @@
 	display: block;
 	height: 115px;
 	box-sizing: border-box;
-	background: var(--legacy-color-bg);
+	background: var(--color-bg);
 	border-radius: var(--border-radius);
 	box-shadow: 0 2px 4px 0 #e6ebf5;
-	border: solid 1px var(--legacy-color-secondaryy);
+	border: solid 1px var(--color-secondaryy);
 	padding: var(--spacing-s);
 
 
 	&.highlight-checked {
 		background-color: rgba(69, 173, 255, 0.1);
-		border: solid 1px var(--legacy-color-primary);
+		border: solid 1px var(--color-primary);
 		border-radius: 1px;
 	}
 }
@@ -90,7 +90,7 @@ $image-width: 99px;
 		}
 
 		.icon-heart {
-			color: var(--legacy-color-warn);
+			color: var(--color-warn);
 			font-size: var(--font-size-xs);
 			cursor: default;
 		}
