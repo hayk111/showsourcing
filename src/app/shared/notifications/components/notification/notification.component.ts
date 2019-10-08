@@ -57,4 +57,5 @@ export class NotificationComponent implements OnInit {
 	onActionClick() {
 		this.action.subscribe(({ file, name }) => saveAs(file, name));
 	}
+
 }
