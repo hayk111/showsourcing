@@ -2,10 +2,16 @@
 	<dialog-header-app translate="header.export-generating"></dialog-header-app>
 
 	<main class="flex container">
-		<icon-app class="settings-image" name="settings-multiple" fontSet="svg"></icon-app>
+		<img class="settings-image" src="/assets/img/multiple-cogs.svg"/>
 		<div class="generating-message">
 			<div translate="text.export-generated-msg"></div>
-			<span class="color-primary pointer capitalize" (click)="goToExports()" translate="link.exports"></span>
+			<div translate="text.export-notified-msg"></div>
+			<div translate="text.export-retrieve-msg"></div>
+			<div class="flex capitalize">
+				<div translate="text.settings"></div>
+				<div class="mg-right-xs mg-left-xs">></div>
+				<span class="color-primary pointer capitalize" (click)="goToExports()" translate="link.exports"></span>
+			</div>
 			<div *ngIf="!fileReady" class="status-container loading">
 				<div class="bar-container fullWidth">
 					<div class="moving-bar"></div>
@@ -16,7 +22,7 @@
 				<icon-app class="file" name="file"></icon-app>
 				<div>
 					<span translate="text.export-ready"></span>
-					<div class="status-info" translate="link.click-to-download"></div>
+					<div class="status-info txt-btn" translate="link.click-to-download"></div>
 				</div>
 			</div>
 		</div>
