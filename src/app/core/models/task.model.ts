@@ -15,8 +15,7 @@ export class Task extends EntityWithAudit<TaskConfig> {
 	comments?: Comment[];
 	lastUpdatedBy: User;
 	reference?: string;
-	// TODO: add property in the backend
-	// archived = false;
+	archived = false;
 	__typename ?= 'Task';
 }
 
