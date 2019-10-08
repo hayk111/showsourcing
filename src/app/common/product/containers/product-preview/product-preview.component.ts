@@ -44,6 +44,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 	@Input()
 	set product(value: Product) {
 		this._product = value;
+		this.setActions();
 		if (value) {
 			this.images = this._product.images;
 		}
@@ -125,6 +126,46 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 		this.productDescriptor2.insert({ name: 'sample', type: 'title' }, 'sample');
 		this.productDescriptor2.insert({ name: 'shipping', type: 'title' }, 'incoTerm');
 
+		this.setActions();
+
+		// TODO Backend add field
+		// this.taskSrv.queryMany({ query: `product.id == "${this.product.id}" AND delete == false AND archived == false  ` });
+		this.tasks$ = this.taskSrv.queryMany({ query: `product.id == "${this.product.id}" AND deleted == false` });
+
+		// TODO Backend add field
+		// this.taskSrv.queryMany({ query: `product.id == "${this.product.id}" AND delete == false AND archived == false  ` });
+		this.samples$ = this.sampleSrv.queryMany({ query: `product.id == "${this.product.id}" AND deleted == false` });
+
+		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "Product"', sortBy: 'order' });
+	}
+
+	ngOnChanges() {
+		this.product$ = this.productSrv.selectOne(this.product.id);
+		this.product$
+			.pipe(takeUntil(this._destroy$))
+			.subscribe(product => {
+				this.product = product;
+				this.setActions();
+			});
+	}
+
+	updateProduct(productConfig: any) {
+		const product = ({ ...productConfig, id: this.product.id });
+		this.productSrv.update(product)
+			.subscribe(_ => this.updated.emit(product));
+	}
+
+	update(value: any, prop: string) {
+		this.updateProduct({ [prop]: value });
+	}
+
+	clickOnAction(action: PreviewActionButton) {
+		if (action.action) {
+			action.action();
+		}
+	}
+
+	private setActions() {
 		this.actions = [
 			{
 				icon: 'sample',
@@ -154,70 +195,6 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 				action: this.openExportModal.bind(this)
 			}
 		];
-
-		// TODO Backend add field
-		// this.taskSrv.queryMany({ query: `product.id == "${this.product.id}" AND delete == false AND archived == false  ` });
-		this.tasks$ = this.taskSrv.queryMany({ query: `product.id == "${this.product.id}" AND deleted == false` });
-
-		// TODO Backend add field
-		// this.taskSrv.queryMany({ query: `product.id == "${this.product.id}" AND delete == false AND archived == false  ` });
-		this.samples$ = this.sampleSrv.queryMany({ query: `product.id == "${this.product.id}" AND deleted == false` });
-
-		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "Product"', sortBy: 'order' });
-	}
-
-	ngOnChanges() {
-		this.product$ = this.productSrv.selectOne(this.product.id);
-		this.product$
-			.pipe(takeUntil(this._destroy$))
-			.subscribe(product => {
-				this.product = product;
-				this.actions = [
-					{
-						icon: 'sample',
-						fontSet: '',
-						text: translate('add sample'),
-						action: this.openNewSample.bind(this),
-						number: this.product.samplesLinked && this.product.samplesLinked.count
-					},
-					{
-						icon: 'check-circle',
-						fontSet: '',
-						text: translate('add task'),
-						action: this.openNewTask.bind(this),
-						number: this.product.tasksLinked && this.product.tasksLinked.count
-					},
-					{
-						icon: 'comments',
-						fontSet: '',
-						text: translate(ERM.COMMENT.singular, 'erm'),
-						action: this.scrollToCommentButton.bind(this),
-						number: this.product.comments && this.product.comments.length
-					},
-					{
-						icon: 'export',
-						text: translate('export'),
-						fontSet: '',
-						action: this.openExportModal.bind(this)
-					}
-				];
-			});
-	}
-
-	updateProduct(productConfig: any) {
-		const product = ({ ...productConfig, id: this.product.id });
-		this.productSrv.update(product)
-			.subscribe(_ => this.updated.emit(product));
-	}
-
-	update(value: any, prop: string) {
-		this.updateProduct({ [prop]: value });
-	}
-
-	clickOnAction(action: PreviewActionButton) {
-		if (action.action) {
-			action.action();
-		}
 	}
 
 	openProduct() {
@@ -233,11 +210,11 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 	}
 
 	openNewTask() {
-		this.modalSrv.openCreationTaskDlg();
+		this.modalSrv.openCreationTaskDlg(this.product, this.product && this.product.supplier).subscribe();
 	}
 
 	openNewSample() {
-		this.dlgSrv.open(CreationSampleDlgComponent, {}).subscribe();
+		this.modalSrv.openAddSampleDialog(this.product, this.product && this.product.supplier).subscribe();
 	}
 
 	openExportModal() {

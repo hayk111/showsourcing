@@ -8,11 +8,13 @@
 .details {
   padding: var(--spacing-l) var(--spacing-l);
   padding-bottom: var(--spacing-none);
+  display: flex;
 }
 
 .settings {
   padding: var(--spacing-l);
   padding-bottom: var(--spacing-none);
+  display: flex;
 }
 
 .header-container {
@@ -23,11 +25,11 @@
 }
 
 .header-container-details {
-  padding-bottom: var(--spacing-l);
+  padding: var(--spacing-l);
 }
 
 .header-container-settings {
-  padding-bottom: var(--spacing-l);
+  padding: var(--spacing-l);
 }
 
 .nav-container {
@@ -38,11 +40,11 @@
 }
 
 .nav-container-details {
-  padding: var(--spacing-none);
+  padding: 0 var(--spacing-l);
 }
 
 .nav-container-settings {
-  padding: var(--spacing-none);
+  padding: 0 var(--spacing-l);
 }
 
 .left {
@@ -85,19 +87,26 @@
   }
 }
 
-.back-arrow {
-  color: var(--color-txt-secondary);
-  font-size: var(--font-size-s);
-  display: flex;
-  align-items: center;
-  & > * {
-    display: flex;
-  }
+$back-arrow-size: 40px;
+.back-arrow-container {
+	height: $back-arrow-size;
+	width: $back-arrow-size;
+
+	.back-arrow {
+		color: var(--color-txt-secondary);
+		font-size: var(--font-size-s);
+		display: flex;
+		align-items: center;
+		& > * {
+			display: flex;
+		}
+	}
 }
 
 .logo {
   max-width: 54px;
   max-height: 54px;
+  margin: var(--spacing-none) !important;
   border-radius: var(--border-radius-s);
 }
 
@@ -107,4 +116,8 @@
 
 .tabs-container-settings {
   margin: var(--spacing-none);
+}
+
+.arrow-margin {
+	margin-left: $back-arrow-size;
 }

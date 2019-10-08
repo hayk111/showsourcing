@@ -2,7 +2,9 @@ import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core
 import { RequestElementService, TaskService, SampleService } from '~core/entity-services';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { Observable } from 'rxjs';
-import { ReplyStatus, Task, EntityName } from '~core/models';
+import { ReplyStatus, Task, EntityName, ERM } from '~core/models';
+import { ERMService } from '~core/entity-services/_global/erm.service';
+import { map } from 'rxjs/operators';
 
 @Component({
 	selector: 'activities-bar-app',
@@ -25,11 +27,13 @@ export class ActivitiesBarComponent implements OnInit {
 	requestsCount$: Observable<number>;
 	tasksCount$: Observable<number>;
 	samplesCount$: Observable<number>;
+	commentsCount$: Observable<number>;
 
 	constructor(
 		private requestElementService: RequestElementService,
 		private taskSrv: TaskService,
 		private sampleSrv: SampleService,
+		private ermSrv: ERMService,
 		public thumbService: ThumbService,
 	) { }
 
@@ -49,6 +53,11 @@ export class ActivitiesBarComponent implements OnInit {
 			if (this.hasSamples) {
 				this.samplesCount$ = this.sampleSrv
 					.queryCount(`${this.entityName}.id == "${this.row.id}" AND deleted == false AND archived == false`);
+			}
+
+			if (this.hasComments) {
+				this.commentsCount$ = this.ermSrv.getGlobalService(ERM.getEntityMetadata(this.entityName))
+					.queryOne(this.row.id).pipe(map(entity => entity && entity.comments && entity.comments.length));
 			}
 			this.hasTaskOverdue = this.hasTasksOverdue(this.row.id);
 		}

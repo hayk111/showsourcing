@@ -35,3 +35,4 @@ export * from './team-user/team-user.service';
 export * from './team/team.service';
 export * from './user/user.service';
 export * from './weight-unit/weight-unit.service';
+export * from './rpc/rpc.service';

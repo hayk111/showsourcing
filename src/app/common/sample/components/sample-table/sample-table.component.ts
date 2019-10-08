@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { EntityTableComponent, TableConfig, TableConfigType } from '~core/list-page';
 import { ERM, Sample, Task, User } from '~core/models';
@@ -12,6 +12,9 @@ const bigTableConfig: TableConfig = {
 	supplier: { name: 'supplier', translationKey: 'supplier', width: 190, sortProperty: 'supplier.name' },
 	comments: { name: 'comments', translationKey: 'comments', width: 140 },
 	status: { name: 'status', translationKey: 'status', width: 190, sortProperty: 'status.step' },
+	type: { name: 'type', translationKey: 'type', width: 140, sortProperty: 'type' },
+	activity: { name: 'activity', translationKey: 'activity', width: 250, sortable: false },
+	createdBy: { name: 'created by', translationKey: 'created-by', width: 250, sortProperty: 'createdBy.firstName' },
 	creationDate: { name: 'created on', translationKey: 'created-on', width: 190, sortProperty: 'creationDate' },
 };
 
@@ -36,10 +39,14 @@ const smallTableConfig: TableConfig = {
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SampleTableComponent extends EntityTableComponent<Sample> implements OnInit {
-	columns = ['name', 'assignee', 'product', 'supplier', 'comments', 'status', 'creationDate'];
+	columns = ['name', 'assignee', 'product', 'supplier', 'comments', 'status', 'creationDate',];
 	@Input() tableConfigType: TableConfigType = 'big';
 	@Output() openSupplier = new EventEmitter<ID>();
 	@Output() openProduct = new EventEmitter<ID>();
+	@Output() archive = new EventEmitter<Sample>();
+	@Output() showItemsPerPage = new EventEmitter<number>();
+
+	@ViewChild('contextualMenu', { static: false }) contextualMenuTemplate: TemplateRef<any>;
 
 	erm = ERM;
 

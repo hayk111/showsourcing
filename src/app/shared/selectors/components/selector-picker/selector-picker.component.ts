@@ -18,7 +18,7 @@ import {
 	ViewChildren,
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { Category, Contact, EntityMetadata, ERM, Event, Product, Project, Supplier, SupplierType, Tag } from '~core/models';
 import { DynamicField } from '~shared/dynamic-forms';
@@ -43,6 +43,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	get type(): EntityMetadata {
 		return this._type;
 	}
+	@Input() choices: any[];
 	@Input() multiple = false;
 	@Input() canCreate = false;
 	@Input() dynamicFields: DynamicField[];
@@ -134,11 +135,15 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 
 	ngOnChanges() {
 		this.selectorSrv.setFilters(this.filterList);
-		// if its multiple we want to filter the values that we have currently selected, so they don't appear on the options
-		if (this.multiple)
+
+		if (this.choices) {
+			this.choices$ = of(this.choices);
+		} else if (this.multiple) {
+			// if its multiple we want to filter the values that we have currently selected, so they don't appear on the options
 			this.choices$ = this.getChoices(this.type).pipe(map((items) => this.filterValues(items)));
-		else
+		} else {
 			this.choices$ = this.getChoices(this.type);
+		}
 
 		if (this.searchTxt)
 			this.search(this.searchTxt);
