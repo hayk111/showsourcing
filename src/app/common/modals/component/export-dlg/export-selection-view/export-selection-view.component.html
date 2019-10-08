@@ -32,6 +32,6 @@
 		<span class="txt-secondary">
 			{{ ((length || 0) > 1 ? 'OBJ.item-selected.plural' : 'OBJ.item-selected.singular') | translate: {count: length || 0} }}
 		</span>
-		<button tabFocusAction class="small capitalize" (click)="export.emit()" translate="button.export"></button>
+		<button tabFocusAction class="capitalize" (click)="export.emit()" translate="button.export"></button>
 	</dialog-footer-app>
 </dialog-app>

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { DialogService } from '~shared/dialog';
+import { Observable } from 'rxjs';
+import { first } from 'rxjs/operators';
 import { NotificationType } from '~shared/notifications/model/notification.interface';
 import { NotificationService } from '~shared/notifications/services/notification.service';
 
@@ -39,15 +39,13 @@ export class NotificationComponent implements OnInit {
 
 	@Input() title: string;
 	@Input() message: string;
-	@Input() uriMessage: string;
-	@Input() uri: Array<String>;
+	@Input() actionMessage: string;
+	@Input() action: Observable<any>;
 
 	public NotificationType = NotificationType;
 
 	constructor(
-		protected notifSrv: NotificationService,
-		private router: Router,
-		private dlgSrv: DialogService
+		protected notifSrv: NotificationService
 	) { }
 
 	ngOnInit() { }
@@ -56,10 +54,8 @@ export class NotificationComponent implements OnInit {
 		this.notifSrv.removeNotification(this.id);
 	}
 
-	goTo() {
-		if (this.uri) {
-			this.router.navigate(this.uri);
-			this.dlgSrv.close();
-		}
+	onActionClick() {
+		this.action.subscribe(({ file, name }) => saveAs(file, name));
 	}
+
 }
