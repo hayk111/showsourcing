@@ -1,5 +1,7 @@
 <ng-container *ngIf="project$ | async as project; else spinner">
-	<header-details-app [elevated]="false">
+	<header-details-app 
+		[elevated]="false" 
+		[headerType]="'details'">
 
 		<header-details-title-app>{{ project?.name }}</header-details-title-app>
 
