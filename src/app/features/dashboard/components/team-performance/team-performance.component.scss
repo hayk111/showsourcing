@@ -1,0 +1,78 @@
+card-app {
+	width: 420px;
+}
+
+user-picture-app {
+	margin-right: var(--spacing-ms);
+}
+
+.team-performance-title {
+	font-size: var(--font-size-xl);
+	color: var(--color-bg-dark);
+	font-weight: 600;
+}
+
+.total-products-created, .products-this-week, .total-suppliers-created, .suppliers-this-week {
+	h3 {
+		font-size: var(--font-size-m);
+		color: var(--color-txt-secondary);
+	}
+
+	h2 {
+		font-size: var(--font-size-xl);
+		color: var(--color-bg-dark);
+		font-weight: 600;
+	}
+}
+
+.products-this-week, .suppliers-this-week {
+	margin-top: var(--spacing-ms);
+}
+
+.team-stats {
+	margin-top: var(--spacing-l);
+	justify-content: space-between;
+}
+
+.name {
+	font-family: var(--font-normal);
+	font-weight: 600;
+	color: var(--legacy-color-txt-strong);
+}
+
+.member {
+	margin: var(--spacing-l) 0px;
+}
+
+h4 {
+	font-weight: 500;
+}
+
+.team-leader {
+	padding: 0px var(--spacing-xs);
+	margin-left: var(--spacing-s);
+	background: var(--legacy-color-success);
+	color: white;
+	border-radius: var(--border-radius-s);
+}
+
+.chart {
+	margin-top: var(--spacing-l);
+}
+
+card-footer-app {
+	button {
+		width: 100%;
+		font-weight: 600;
+		line-height: 1.43;
+	}
+}
+
+.no-team {
+	font-size: var( --font-size-xxxl);
+	color: var(--legacy-color-txt-strong);
+	font-weight: 600;
+	display: flex;
+	justify-content: center;
+	margin: var(--spacing-xl) 0px;
+}
