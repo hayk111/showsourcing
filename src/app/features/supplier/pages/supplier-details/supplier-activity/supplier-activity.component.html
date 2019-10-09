@@ -1,19 +1,15 @@
 <div class="content flex">
 
-	<div class="left">
-		<card-app>
-			<card-title-app>Comments</card-title-app>
-			<ng-container *ngIf="supplier$ | async as supplier; else spinner">
-				<add-comment-app (added)="sendComment($event)"></add-comment-app>
-				<divider-app *ngIf="supplier.comments.length > 0"></divider-app>
-				<comment-list-app [comments]="supplier.comments"></comment-list-app>
-			</ng-container>
-			<ng-template #spinner><spinner-app></spinner-app></ng-template>
-		</card-app>
-	</div>
+	<card-app class="left">
+		<card-title-app>Comments</card-title-app>
+		<ng-container *ngIf="supplier$ | async as supplier; else spinner">
+			<add-comment-app (added)="sendComment($event)"></add-comment-app>
+			<divider-app *ngIf="supplier.comments.length > 0"></divider-app>
+			<comment-list-app [comments]="supplier.comments"></comment-list-app>
+		</ng-container>
+		<ng-template #spinner><spinner-app></spinner-app></ng-template>
+	</card-app>
 
-	<div class="right">
-		<supplier-preview-app [isPreview]="false" [supplier]="supplier$ | async"></supplier-preview-app>
-	</div>
+	<supplier-preview-app class="right mg-l" [isPreview]="false" [supplier]="supplier$ | async"></supplier-preview-app>
 
 </div>

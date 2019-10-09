@@ -4,9 +4,11 @@
 
 .content {
 	justify-content: center;
+	.right {
+		margin: var(--spacing-l);
+	}
 	.left {
 		width: 420px;
-		padding-top: var(--spacing-l);
 	}
 	.right {
 		width: 772px;
