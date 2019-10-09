@@ -24,7 +24,7 @@ export class LineChartComponent implements OnInit {
 	lineChartData: Array<ChartDataSets>;
 	legends: { [key: string]: boolean; };
 
-	lineChartLabels: Label[] = ['This Week', 'Last Week', '2 weeks ago', '3 weeks ago', '4 weeks ago'];
+	lineChartLabels: Label[] = ['4 weeks ago', '3 weeks ago', '2 weeks ago', 'Last Week', 'This Week'];
 	lineChartOptions: (ChartOptions & { annotation: any }) = {
 		maintainAspectRatio: false,
 		elements: {
@@ -76,6 +76,7 @@ export class LineChartComponent implements OnInit {
 	constructor() { }
 
 	ngOnInit() {
+		console.log('TCL: ngOnInit -> this._chartData', this._chartData);
 		this.lineChartData = this._chartData.slice();
 		this.legends = {};
 

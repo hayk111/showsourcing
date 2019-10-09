@@ -3,8 +3,8 @@ import { TrackingComponent } from '~utils/tracking-component';
 import { RPCActionTypes, RPCRequestStatus } from '~models';
 import { RpcService } from '~core/entity-services';
 import { ChartDataSets } from 'chart.js';
-import { Observable } from 'rxjs';
-import { map, first, tap, switchMap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { map, first, tap, catchError } from 'rxjs/operators';
 
 @Component({
 	selector: 'team-performance-app',
@@ -32,12 +32,15 @@ export class TeamPerformanceComponent extends TrackingComponent implements OnIni
 	}
 
 	ngOnInit() {
-
 		this.teamStats$ = this.rpcSrv.createRPC({
 			action: RPCActionTypes.GET_TEAM_STATS,
 		}).pipe(
+				catchError(err => {
+					console.log(err);
+					return of();
+				}),
 				first(),
-				map((data: any) => (JSON.parse(JSON.parse(data.reply)))),
+				map((data: any) => JSON.parse(JSON.parse(data.reply))),
 				tap((teamStats: any) => {
 					this.totalProducts = teamStats.products.total;
 					this.productsThisWeek = teamStats.products.week0;
@@ -59,6 +62,7 @@ export class TeamPerformanceComponent extends TrackingComponent implements OnIni
 						}
 					}
 
+					item.data.reverse();
 					items.push(item);
 				}
 
