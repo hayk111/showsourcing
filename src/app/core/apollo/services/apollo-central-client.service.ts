@@ -6,12 +6,13 @@ import { forkJoin, from, Observable } from 'rxjs';
 import { catchError, switchMap, take, takeUntil, tap } from 'rxjs/operators';
 import { AbstractApolloClient } from '~core/apollo/services/abstract-apollo-client.class';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
-import { CompanyService, ImageUploadRequestService, TeamService } from '~core/entity-services';
+import { TeamService } from '~core/entity-services';
+import { ERMService } from '~core/entity-services/_global/erm.service';
+import { LocalStorageService } from '~core/local-storage';
+import { ERM } from '~core/models';
 import { RealmServerService } from '~entity-services/realm-server/realm-server.service';
 import { UserService } from '~entity-services/user/user.service';
 import { ApolloStateService } from './apollo-state.service';
-import { ERMService } from '~core/entity-services/_global/erm.service';
-import { EntityName, ERM } from '~core/models';
 
 
 
@@ -25,9 +26,10 @@ export class CentralClientInitializer extends AbstractApolloClient {
 		protected userSrv: UserService,
 		protected realmServerSrv: RealmServerService,
 		protected teamSrv: TeamService,
-		private ermSrv: ERMService
+		protected ermSrv: ERMService,
+		protected localStorage: LocalStorageService
 	) {
-		super(apollo, link, apolloState, realmServerSrv, Client.CENTRAL);
+		super(apollo, link, apolloState, realmServerSrv, Client.CENTRAL, ermSrv, localStorage);
 	}
 
 	init(realmUser: RealmUser): Observable<any> {
@@ -62,9 +64,7 @@ export class CentralClientInitializer extends AbstractApolloClient {
 			ERM.TEAM_USER,
 			ERM.USER
 		];
-		return forkJoin(
-			entities.map(erm => this.ermSrv.getGlobalService(erm).openSubscription(this.client))
-		);
+		return super.createMissingSubscription(entities);
 	}
 
 }

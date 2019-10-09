@@ -6,13 +6,18 @@ import { WebSocketLink } from 'apollo-link-ws';
 import { environment } from 'environments/environment';
 import gql from 'graphql-tag';
 import { GraphQLConfig, User as RealmUser } from 'realm-graphql-client';
-import { Observable, of, Subject, throwError } from 'rxjs';
+import { Observable, of, Subject, throwError, forkJoin } from 'rxjs';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
 import { cleanTypenameLink } from '~core/apollo/services/clean.typename.link';
 import { RealmServerService } from '~entity-services/realm-server/realm-server.service';
 import { log, LogColor } from '~utils';
 import { showsourcing } from '~utils/debug-object.utils';
+import { EntityMetadata } from '~core/models';
+import { ERMService } from '~core/entity-services/_global/erm.service';
+import { LocalStorageService } from '~core/local-storage';
+import { tap } from 'rxjs/operators';
+
 
 
 /**
@@ -34,6 +39,8 @@ export abstract class AbstractApolloClient {
 		protected apolloState: ApolloStateService,
 		protected realmServerSrv: RealmServerService,
 		protected client: Client,
+		protected ermSrv: ERMService,
+		protected localStorage: LocalStorageService
 	) {
 		// for debugging purpose
 		if (!showsourcing.realm.clients)
@@ -122,6 +129,29 @@ export abstract class AbstractApolloClient {
 		// closing the websocket (as any) because property is private..
 		if (this.ws && (this.ws as any).subscriptionClient)
 			(this.ws as any).subscriptionClient.close();
+	}
+
+	protected createMissingSubscription(entities: EntityMetadata[]) {
+		const storageKey = `${this.client}_sub_map`;
+		const submap = this.localStorage.getItem(storageKey) || {};
+
+		// when not found in the map we do the subscription
+		const entitiesToSub = entities.filter(erm => !submap[erm.singular]);
+		if (entitiesToSub.length === 0) {
+			return of(true);
+		}
+
+		const newSubs = entitiesToSub
+		.map(
+			(erm: EntityMetadata) => this.ermSrv.getGlobalService(erm)
+				.openSubscription(Client.TEAM)
+		);
+		return forkJoin(newSubs).pipe(
+			tap(_ => {
+				entitiesToSub.forEach(erm => submap[erm.singular] = true);
+				this.localStorage.setItem(storageKey, submap);
+			})
+		);
 	}
 }
 
