@@ -278,7 +278,7 @@
 							[user]="row?.assignee"
 							[image]="row?.assignee?.avatar">
 						</user-picture-app>
-						<div class="ellipsis pointer txt-btn" [ngClass]="{ 'empty-field': !row?.assignee }">
+						<div class="flexVAlign ellipsis pointer txt-btn" [ngClass]="{ 'empty-field': !row?.assignee }">
 							{{ row?.assignee ? (row?.assignee | formatUserName: true) : 'Assign to' }}
 						</div>
 					</div>

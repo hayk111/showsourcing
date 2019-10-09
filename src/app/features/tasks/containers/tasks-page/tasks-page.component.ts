@@ -57,15 +57,13 @@ export class TasksPageComponent extends AutoUnsub implements OnInit, AfterViewIn
 	}
 
 	ngOnInit() {
-		const selectParams = new SelectParams({ sortBy: 'name' });
 		this.listSrv.setup({
 			key: ListPageKey.TASK,
 			entitySrv: this.taskSrv,
-			searchedFields: ['name', 'reference', 'assignee'],
+			searchedFields: ['name', 'reference', 'assignee.firstName', 'createdBy.firstName', 'product.name', 'supplier.name'],
 			entityMetadata: ERM.TASK,
 			initialFilters: [{ type: FilterType.DONE, value: false }],
-			originComponentDestroy$: this._destroy$,
-			selectParams
+			originComponentDestroy$: this._destroy$
 		});
 
 		this.tasksCount$ = this.listSrv.filterList.valueChanges$.pipe(

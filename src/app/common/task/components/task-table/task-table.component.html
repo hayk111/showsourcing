@@ -177,6 +177,16 @@
 				</div>
 			</ng-container>
 
+			<!-- created on -->
+			<ng-container *ngSwitchCase="'created on'">
+				{{ row?.creationDate | date: 'dd MMMM y':'':translate.currentLang }}
+			</ng-container>
+
+			<!-- created by -->
+			<ng-container *ngSwitchCase="'created by'">
+				<span class="created-by">{{ row?.createdBy | formatUserName: true }}</span>
+			</ng-container>
+
 		</ng-container>
 
 	</ng-template>
