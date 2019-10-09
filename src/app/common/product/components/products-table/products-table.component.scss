@@ -17,6 +17,10 @@ editable-label-app {
 	width: 100%;
 }
 
+.preview-button {
+	display: none;
+}
+
 .preview-imgs {
 	position: relative;
 	border-radius: var(--border-radius);
@@ -34,6 +38,12 @@ editable-label-app {
 	bottom: 0;
 	right: 0;
 	display: none;
+}
+
+.name-container:hover {
+	.preview-button {
+		display: flex;
+	}
 }
 
 .reference {

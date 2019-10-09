@@ -15,7 +15,7 @@ const bigTableConfig: TableConfig = {
 	moq: { name: 'moq', translationKey: 'moq', width: 120, sortProperty: 'minimumOrderQuantity' },
 	price: { name: 'price', translationKey: 'price', width: 170, sortProperty: 'price.value' },
 	projects: { name: 'projects', translationKey: 'projects', width: 190, sortProperty: 'creationDate' },
-	reference: { name: 'reference', translationKey: 'reference', width: 320, sortProperty: 'reference' },
+	reference: { name: 'reference', translationKey: 'reference', width: 340, sortProperty: 'reference' },
 	status: { name: 'status', translationKey: 'status', width: 190, sortProperty: 'status.step' },
 	supplier: { name: 'supplier', translationKey: 'supplier', width: 190, sortProperty: 'supplier.id' },
 };
