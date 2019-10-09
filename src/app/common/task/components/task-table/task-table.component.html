@@ -35,7 +35,7 @@
 		<ng-template
 			*ngFor="let column of columnsConfig; trackBy: trackByFn"
 			let-row="row"
-			[columnApp]="'title.' + column.translationKey | translate"
+			[columnApp]="column.translationKey ? ('title.' + column.translationKey | translate) : ''"
 			[sortable]="column.sortable !== false"
 			[width]="column.width"
 			[sortBy]="column.sortProperty"
@@ -175,6 +175,16 @@
 				<div class="status-col flexVAlign">
 					<status-selector-app [entity]="row" [typeEntity]="erm.TASK" [canUpdate]="canUpdate" selectSize="s"></status-selector-app>
 				</div>
+			</ng-container>
+
+			<!-- created on -->
+			<ng-container *ngSwitchCase="'created on'">
+				{{ row?.creationDate | date: 'dd MMMM y':'':translate.currentLang }}
+			</ng-container>
+
+			<!-- created by -->
+			<ng-container *ngSwitchCase="'created by'">
+				<span class="created-by">{{ row?.createdBy | formatUserName: true }}</span>
 			</ng-container>
 
 		</ng-container>

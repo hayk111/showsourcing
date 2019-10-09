@@ -16,7 +16,7 @@
 
 	&.max-full-table-width {
 		@media only screen and (max-width:3400px){
-			margin: var(--spacing-ms) 0 32px 0;
+			margin: var(--spacing-ms) var(--spacing-l) 32px var(--spacing-l);
 		}
 		@media only screen and (min-width:3400px){
 			margin: var(--spacing-ms) auto 32px auto;

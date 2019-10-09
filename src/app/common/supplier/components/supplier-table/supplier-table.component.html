@@ -51,7 +51,7 @@
 
 			<!-- reference -->
 			<ng-container *ngSwitchCase="'name'">
-				<div class="ellipsis name-container contain-strict">
+				<div class="ellipsis name-container contain-strict flexVAlign">
 					<div class="ellipsis reference">
 						<div class="preview-imgs" (click)="previewClick.emit(row)">
 							<logo-app class="imgCtnr" (click)="previewClick.emit(row)" [logo]="row.logoImage"
@@ -73,6 +73,8 @@
 							</div>
 						</div>
 					</div>
+
+					<button *ngIf="hasPreview" class="small secondary-light preview-button" (click)="previewClick.emit(row)">Preview</button>
 				</div>
 			</ng-container>
 
@@ -124,12 +126,14 @@
 				</selector-app>
 			</ng-container>
 
+      <!-- creation date -->
+      <ng-container *ngSwitchCase="'created on'">
+				{{ row?.creationDate | date: 'dd MMMM y':'':translate.currentLang  }}
+			</ng-container>
+
 			<!-- created by -->
 			<ng-container *ngSwitchCase="'created by'">
-				<span class="created-by">{{ row?.createdBy | formatUserName }}</span>
-				<div class="created-by-date">
-					{{ row?.creationDate | date: 'dd MMMM y':'':translate.currentLang }}
-				</div>
+				{{ row?.createdBy | formatUserName: true }}
 			</ng-container>
 
 			<!-- activities -->
@@ -144,19 +148,28 @@
 				</activities-bar-app>
 			</ng-container>
 
-			<!-- status -->
-      <ng-container *ngSwitchCase="'status'">
-				<div class="status-col flexVAlign">
+			<!-- assignee -->
+			<ng-container *ngSwitchCase="'assignee'">
 					<selector-app
 						[type]="erm.USER.singular"
 						[width]="320"
 						[offsetX]="4"
 						(update)="update.emit({ id: row?.id, assignee: $event })">
-						<user-picture-app
-							[user]="row?.assignee"
-							[image]="row?.assignee?.avatar">
-						</user-picture-app>
+						<div class="flex pointer">
+							<user-picture-app
+								[user]="row?.assignee"
+								[image]="row?.assignee?.avatar">
+							</user-picture-app>
+							<div class="flexVAlign ellipsis pointer txt-btn" [ngClass]="{ 'empty-field': !row?.assignee }">
+								{{ row?.assignee ? (row?.assignee | formatUserName: true) : 'Assign to' }}
+							</div>
+						</div>
 					</selector-app>
+				</ng-container>
+
+			<!-- status -->
+      <ng-container *ngSwitchCase="'status'">
+				<div class="status-col flexVAlign">
 					<status-selector-app [entity]="row" [typeEntity]="supplierErm" [canUpdate]="canUpdate" selectSize="s"></status-selector-app>
 				</div>
 			</ng-container>

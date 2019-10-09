@@ -68,7 +68,7 @@
 
       <!-- product reference -->
       <ng-container *ngSwitchCase="'reference'">
-        <div class="ellipsis name-container contain-strict">
+        <div class="ellipsis name-container contain-strict flexVAlign">
           <div class="ellipsis flexVAlign">
 
             <div *ngIf="hasPreview" class="preview-imgs" (click)="previewClick.emit(row)">
@@ -95,7 +95,9 @@
               </div>
             </div>
 
-          </div>
+					</div>
+
+					<button *ngIf="hasPreview" class="small secondary-light preview-button" (click)="previewClick.emit(row)">Preview</button>
         </div>
       </ng-container>
 
@@ -153,7 +155,7 @@
 			</ng-container>
 
       <!-- activities -->
-      <ng-container *ngSwitchCase="'activity'">
+      <ng-container *ngSwitchCase="'activities'">
         <activities-bar-app
           [row]="row"
           [favourite]="row?.favorite"
@@ -171,12 +173,10 @@
 					[hasAction]="false"
 					(opened)="inp.focus()"
 					(closed)="update.emit({ id: row.id, price: inp.price })">
-					<editable-label-app>
+					<editable-label-app [ngClass]="{ 'empty-field': row?.price }">
 						<price-app
 							class="full-width"
-							[price]="row?.price"
-							[moq]="row?.minimumOrderQuantity"
-							[moqDesc]="row?.moqDescription">
+							[price]="row?.price">
 						</price-app>
 					</editable-label-app>
 					<input-price-app
@@ -190,32 +190,29 @@
       <!-- moq -->
       <ng-container *ngSwitchCase="'moq'">
         <editable-text-app
-          #editable
+					#editable
           [hasAction]="false"
           (opened)="inp.focus()"
           (closed)="update.emit({ id: row.id, minimumOrderQuantity: inp.value })">
-          <editable-label-app>
+          <editable-label-app [ngClass]="{ 'empty-field': row?.price }">
             <moq-app
-              *ngIf="row?.minimumOrderQuantity; else noMoq"
+              *ngIf="row?.minimumOrderQuantity"
               [amount]="row?.minimumOrderQuantity">
             </moq-app>
-            <ng-template #noMoq> <div>-</div> </ng-template>
+						<div *ngIf="!row?.minimumOrderQuantity">Set a Moq</div>
           </editable-label-app>
           <input #inp inputApp type="number" [value]="row?.minimumOrderQuantity" (keyup.enter)="editable.close()"/>
         </editable-text-app>
       </ng-container>
 
       <!-- creation date -->
-      <ng-container *ngSwitchCase="'creation date'">
-        {{ row?.creationDate | date: 'dd MMMM y' }}
+      <ng-container *ngSwitchCase="'created on'">
+        {{ row?.creationDate | date: 'dd MMMM y':'':translate.currentLang  }}
 			</ng-container>
 
       <!-- created by -->
       <ng-container *ngSwitchCase="'created by'">
-				<span class="created-by">{{ row?.createdBy | formatUserName }}</span>
-				<div class="created-by-date">
-					{{ row?.creationDate | date: 'dd MMMM y':'':translate.currentLang }}
-				</div>
+				{{ row?.createdBy | formatUserName: true }}
 			</ng-container>
 
 			<!-- favorite -->
@@ -253,16 +250,6 @@
       <!-- status -->
       <ng-container *ngSwitchCase="'status'">
 				<div class="status-col flexVAlign">
-					<selector-app
-						[type]="erm.USER.singular"
-						[width]="320"
-						[offsetX]="4"
-						(update)="update.emit({ id: row?.id, assignee: $event })">
-						<user-picture-app
-							[user]="row?.assignee"
-							[image]="row?.assignee?.avatar">
-						</user-picture-app>
-					</selector-app>
 					<status-selector-app [entity]="row" [typeEntity]="erm.PRODUCT" [canUpdate]="canUpdate" selectSize="s"></status-selector-app>
 				</div>
 			</ng-container>
@@ -279,6 +266,25 @@
 					</logo-app>
 					<span class="product-name">{{ row?.name }}</span>
 				</div>
+			</ng-container>
+
+			<!-- assignee -->
+			<ng-container *ngSwitchCase="'assignee'">
+				<selector-app
+					[type]="erm.USER.singular"
+					[width]="320"
+					[offsetX]="4"
+					(update)="update.emit({ id: row?.id, assignee: $event })">
+					<div class="flex pointer">
+						<user-picture-app
+							[user]="row?.assignee"
+							[image]="row?.assignee?.avatar">
+						</user-picture-app>
+						<div class="flexVAlign ellipsis pointer txt-btn" [ngClass]="{ 'empty-field': !row?.assignee }">
+							{{ row?.assignee ? (row?.assignee | formatUserName: true) : 'Assign to' }}
+						</div>
+					</div>
+				</selector-app>
 			</ng-container>
 
       <!-- default -->

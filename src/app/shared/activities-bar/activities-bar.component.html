@@ -1,6 +1,6 @@
 <div class="action-container flexBetween">
 	<div class="flexVAlign icons-container no-select">
-		<icon-app *ngIf="favourite" name="heart" size="ms" class="favourite"></icon-app>
+		<icon-app *ngIf="favourite" name="heart" size="ms" class="favourite" toolTip toolTipMessage="Favorite"></icon-app>
 		<!-- TODO ngx -->
 		<icon-app *ngIf="hasSamples" name="sample" size="ms"
 			toolTip [toolTipMessage]="(samplesCount$ | async) + ((samplesCount$ | async) === 1 ? ' sample' : ' samples')">
@@ -22,7 +22,8 @@
 			class="vote-star-container"
 			[ngClass]="{
 				'bg-accent-light color-accent-dark': thumbService.computeScoreVotes(votes) >= 3.5,
-				'bg-secondary-light color-txt-third': thumbService.computeScoreVotes(votes) < 3.5 }">
+				'bg-secondary-light color-txt-third': thumbService.computeScoreVotes(votes) < 3.5 }"
+			toolTip toolTipMessage="Team rating">
 			<icon-app class="star" name="star" size="ms"></icon-app>
 			<span class="vote-star-value">{{ thumbService.computeScoreVotes(votes) | number: '1.1-2' }}</span>
 		</span>

@@ -6,16 +6,17 @@
 	(bottomReached)="bottomReached.emit()">
 	<div class="contentCtnr" [ngStyle]="{ width: width ? width + 'px' : getWidth() + 'px' }">
 		<!-- empty column for space between border bottom and side -->
-		<div class="col emptyBorder" *ngIf="hasHeader">
+		<div *ngIf="hasHeader" class="col empty-border">
 			<div
 				class="header"
 				[style.height]="rowHeight + 'px'"
-				[ngStyle]="headerSecondary && {'background': 'var(--color-bg-secondary)', 'border-bottom': getHeaderBorder()}"
-				>
+				[ngStyle]="headerSecondary && {'background': 'var(--color-bg-secondary)', 'border-bottom': getHeaderBorder()}">
 			</div>
-			<div class="cell" *ngFor="let row of rows; index as i; trackBy: trackByIdentify"
-			[style.height]="rowHeight + 'px'"
-			[ngClass]="{ selected: (i === hoverIndex) || isSelected(row, i) }"
+			<div
+				*ngFor="let row of rows; index as i; trackBy: trackByIdentify"
+				class="cell"
+				[ngClass]="{ selected: (i === hoverIndex) || isSelected(row, i) }"
+				[style.height]="rowHeight + 'px'"
 				(mouseenter)="hoverRow(i)" (mouseleave)="hoverRow(-1)"></div>
 		</div>
 
@@ -32,8 +33,9 @@
 				</ng-container>
 			</div>
 			<ng-container *ngIf="!pending">
-				<div class="cell"
+				<div
 					*ngFor="let row of rows; index as i; trackBy: trackByIdentify"
+					class="cell"
 					[ngClass]="{ selected: (i === hoverIndex) || isSelected(row, i) }"
 					[style.height]="rowHeight + 'px'"
 					(mouseenter)="hoverRow(i)" (mouseleave)="hoverRow(-1)">
@@ -51,8 +53,10 @@
 
 
 		<!-- content columns -->
-		<div *ngFor="let column of columns; trackBy: columnTrackByFn" [style.width]="column.width + 'px'" [style.minWidth]="column.minWidth + 'px'"
-			class="col {{ column.grows ? 'flexGrow' : '' }}">
+		<div *ngFor="let column of columns; trackBy: columnTrackByFn"
+			class="col {{ column.grows ? 'flexGrow' : '' }}"
+			[style.width]="column.width + 'px'"
+			[style.minWidth]="column.minWidth + 'px'">
 			<!-- header -->
 			<div *ngIf="hasHeader"
 				class="header {{ column.sortable ? 'pointer' : 'defaultCursor'}} capitalize"
@@ -63,8 +67,8 @@
 				{{ column.title }}
 				<ng-container *ngIf="column.sortOrder !== 'NONE'">
 					<icon-app
-						[name]="column.sortOrder === 'DESC' ? 'angle-down' : 'angle-up'"
 						class="sortIcon fs-xs"
+						[name]="column.sortOrder === 'DESC' ? 'angle-down' : 'angle-up'"
 						name="angle-down">
 					</icon-app>
 				</ng-container>
@@ -72,9 +76,11 @@
 
 			<!-- cells -->
 			<ng-container *ngIf="!pending">
-				<div class="cell" *ngFor="let row of rows; index as i; trackBy: trackById"
-					[style.height]="rowHeight + 'px'"
+				<div
+					*ngFor="let row of rows; index as i; trackBy: trackById"
+					class="cell"
 					[ngClass]="{ selected: (i === hoverIndex) || isSelected(row, i), hover: (i === hoverIndex), main: (column.type === 'main') }"
+					[style.height]="rowHeight + 'px'"
 					(mouseenter)="hoverRow(i)" (mouseleave)="hoverRow(-1)">
 					<!-- ellipsis wrapper because ellipsis cannot be added to flex elements, and cell is flex -->
 					<div class="full-width">
@@ -91,7 +97,7 @@
 		</div>
 
 		<!-- contextual menu -->
-		<div class="col" *ngIf="hasMenu">
+		<div *ngIf="hasMenu" class="col">
 			<div *ngIf="hasHeader" class="header context-menu" [style.height]="rowHeight + 'px'" [style.minWidth]="'50px'">
 			</div>
 				<ng-container *ngIf="!pending">

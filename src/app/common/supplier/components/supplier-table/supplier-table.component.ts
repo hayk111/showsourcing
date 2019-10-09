@@ -8,10 +8,12 @@ const bigTableConfig: TableConfig = {
 	country: { name: 'country', translationKey: 'country', width: 140, sortProperty: 'country' },
 	supplierType: { name: 'type', translationKey: 'type', width: 190, sortProperty: 'supplierType.name' },
 	productType: { name: 'product type', translationKey: 'product-type', width: 190, sortable: false },
-	createdBy: { name: 'created by', translationKey: 'created-by', width: 190, sortProperty: 'creationDate' },
+	createdOn: { name: 'created on', translationKey: 'created-on', width: 190, sortProperty: 'creationDate' },
+	createdBy: { name: 'created by', translationKey: 'created-by', width: 190, sortProperty: 'createdBy.firstName' },
 	favorite: { name: 'favorite', translationKey: 'favorite', width: 50, sortProperty: 'favorite' },
-	name: { name: 'name', translationKey: 'name', width: 190, sortProperty: 'name' },
+	name: { name: 'name', translationKey: 'name', width: 320, sortProperty: 'name' },
 	status: { name: 'status', translationKey: 'status', width: 190, sortProperty: 'status.step' },
+	assignee: { name: 'assignee', translationKey: 'assignee', width: 190, sortProperty: 'assignee.firstName' },
 };
 
 const mediumTableConfig: TableConfig = {
@@ -30,7 +32,7 @@ const mediumTableConfig: TableConfig = {
 })
 export class SupplierTableComponent extends EntityTableComponent<Supplier> implements OnInit {
 
-	columns = ['name', 'country', 'productType', 'supplierType', 'createdBy', 'activities', 'status'];
+	columns = ['name', 'country', 'productType', 'supplierType', 'assignee', 'status', 'activities', 'createdBy', 'createdOn'];
 	erm = ERM;
 	supplierErm = ERM.SUPPLIER;
 
