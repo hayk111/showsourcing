@@ -75,12 +75,10 @@
 		<span class="flexVAlign created-by-container">
 			<user-picture-app
 				[user]="row?.createdBy"
-				[image]="row.createdBy?.avatar"
-				[background]="false"
-				[fontSize]="16"
-				size="32"></user-picture-app>
+				[image]="row?.createdBy?.avatar">
+			</user-picture-app>
 			<span class="created-by">
-				{{ row?.createdBy ? row?.createdBy?.firstName : '' }} {{ row?.createdBy ? row?.createdBy?.lastName : '' }}
+				{{ row?.createdBy | formatUserName: true }}
 			</span>
 		</span>
 	</ng-template>

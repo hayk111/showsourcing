@@ -1,9 +1,17 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Output, TemplateRef, ViewChild } from '@angular/core';
-import { EntityTableComponent } from '~core/list-page';
+import { EntityTableComponent, TableConfig } from '~core/list-page';
 import { ERM, ExportRequest } from '~core/models';
 import { TranslateService } from '@ngx-translate/core';
 
 type ExportStatus = 'ready' | 'pending' | 'processing' | 'failed' | 'done' | 'error';
+
+const tableConfig: TableConfig = {
+	name: { name: 'name', translationKey: 'file-name', width: 190, sortProperty: 'documentUrl' },
+	status: { name: 'status', translationKey: 'status', width: 150, sortProperty: 'status' },
+	download: { name: 'download', translationKey: 'action', width: 100, sortable: false },
+	createdBy: { name: 'created by', translationKey: 'created-by', width: 190, sortProperty: 'createdBy.firstName' },
+	createdOn: { name: 'created on', translationKey: 'created-on', width: 190, sortProperty: 'creationDate' },
+};
 
 @Component({
 	selector: 'export-table-app',
@@ -15,12 +23,14 @@ type ExportStatus = 'ready' | 'pending' | 'processing' | 'failed' | 'done' | 'er
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExportTableComponent extends EntityTableComponent<ExportRequest> {
-
-	erm = ERM;
+	columns = ['name', 'status', 'download', 'createdBy', 'createdOn'];
 	@Output() download = new EventEmitter<ExportRequest>();
 	@Output() showItemsPerPage = new EventEmitter<number>();
 
 	@ViewChild('contextualMenu', { static: false }) contextualMenuTemplate: TemplateRef<any>;
+
+	erm = ERM;
+	tableConfig = tableConfig;
 
 	constructor(
 		public translate: TranslateService

@@ -13,34 +13,6 @@
 	(bottomReached)="bottomReached.emit()"
 	(showItemsPerPage)="showItemsPerPage.emit($event)">
 
-		<!-- user -->
-		<ng-template
-			[columnApp]="'created by' | const: 'messages'"
-			let-row="row"
-			sortBy="createdBy.lastName"
-			width="200">
-			<div class="flex flexVAlign created-by">
-				<user-picture-app
-					[user]="row?.createdBy"
-					[image]="row.createdBy?.avatar"
-					[background]="false"
-					[fontSize]="16"
-					size="32"></user-picture-app>
-				<span class="ellipsis">{{ row?.createdBy?.firstName }} {{row?.createdBy?.lastName}}</span>
-			</div>
-		</ng-template>
-
-		<!-- creation date -->
-		<ng-template
-			[columnApp]="'created on' | const: 'messages'"
-			let-row="row"
-			sortBy="creationDate"
-			width="200">
-			<div class="flex flexCenter">
-				<span class="created-on ellipsis">{{ row?.creationDate | date: 'dd MMM y' }}</span>
-			</div>
-		</ng-template>
-
 		<!-- contextual menu -->
 		<ng-template #contextualMenuTemplate let-row="row">
 			<context-menu-item-app
@@ -50,44 +22,60 @@
 			</context-menu-item-app>
 		</ng-template>
 
-		<!-- export name -->
-		<!-- TODO: translation to be added -->
+		<!-- dynamic columns -->
 		<ng-template
-			[columnApp]="'File Name' | translate"
-			[sortable]="false"
+			*ngFor="let column of columnsConfig; trackBy: trackByFn"
 			let-row="row"
-			width="200">
-			<div class="capitalize file-name">
-				{{ getFileName(row?.documentUrl) }}
-			</div>
-		</ng-template>
+			[columnApp]="'title.' + column.translationKey | translate"
+			[sortable]="column.sortable !== false"
+			[width]="column.width"
+			[sortBy]="column.sortProperty">
+			<ng-container [ngSwitch]="column.name">
 
-		<!-- status -->
-		<ng-template
-			[columnApp]="'header.status' | translate"
-			let-row="row"
-			sortBy="status"
-			width="150"
-			[sortOrder]="'DESC'">
-			<span class="status capitalize" [ngStyle]="{'color': getStatusColor(row?.status)}">
-				{{ 'text.' + row?.status | translate }}
-			</span>
-		</ng-template>
+				<!-- file name -->
+				<ng-container *ngSwitchCase="'name'">
+					<div class="capitalize file-name">
+						{{ getFileName(row?.documentUrl) }}
+					</div>
+				</ng-container>
 
-		<!-- action download -->
-		<!-- TODO: translation to be added -->
-		<ng-template
-			[columnApp]="'Action' | translate"
-			let-row="row"
-			[sortable]="false"
-			[grows]="false"
-			width="100">
-			<div toolTip [toolTipMessage]="getToolTipMsg(row?.status)" toolTipPosition="above-right">
-				<div 
-					class="download pointer" 
-					[ngClass]="{'disabled': row?.status !== 'ready'}" 
-					(click)="download.emit(row)">Download</div>
-			</div>
+				<!-- action -->
+				<ng-container *ngSwitchCase="'download'">
+					<div toolTip [toolTipMessage]="getToolTipMsg(row?.status)" toolTipPosition="above-right">
+						<div
+							class="download pointer"
+							[ngClass]="{'disabled': row?.status !== 'ready'}"
+							(click)="download.emit(row)">Download</div>
+					</div>
+				</ng-container>
+
+				<!-- status -->
+				<ng-container *ngSwitchCase="'status'">
+					<span class="status capitalize" [ngStyle]="{'color': getStatusColor(row?.status)}">
+						{{ 'text.' + row?.status | translate }}
+					</span>
+				</ng-container>
+
+				<!-- creation date -->
+				<ng-container *ngSwitchCase="'creation date'">
+					<div class="flex flexCenter">
+						<span class="created-on ellipsis">{{ row?.creationDate | date: 'dd MMM y':'':translate.currentLang }}</span>
+					</div>
+				</ng-container>
+
+				<!-- created by -->
+				<ng-container *ngSwitchCase="'created by'">
+					<div class="flex flexVAlign created-by">
+						<user-picture-app
+							[user]="row?.createdBy"
+							[image]="row.createdBy?.avatar">
+						</user-picture-app>
+						<span class="ellipsis">{{ row?.createdBy | formatUserName: true }}</span>
+					</div>
+				</ng-container>
+
+			</ng-container>
+
 		</ng-template>
 
 </table-app>

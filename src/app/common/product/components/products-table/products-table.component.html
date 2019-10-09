@@ -205,7 +205,7 @@
 
       <!-- creation date -->
       <ng-container *ngSwitchCase="'created on'">
-        {{ row?.creationDate | date: 'dd MMMM y':translate.currentLang }}
+        {{ row?.creationDate | date: 'dd MMMM y':'':translate.currentLang  }}
 			</ng-container>
 
       <!-- created by -->
