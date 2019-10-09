@@ -68,14 +68,16 @@ export class RatingStarsActionComponent implements AfterViewInit {
 	 * @sliceIndex index that will be used to slice array
 	 */
 	changeStarsColor(sliceIndex: number) {
-		const fillStars = this.iconStars.toArray().slice(0, sliceIndex);
-		const emptyStars = this.iconStars.toArray().slice(sliceIndex);
-		fillStars.forEach((star) => {
-			this.renderer.setStyle(star.nativeElement, 'color', 'var(--color-accent)');
-		});
-		emptyStars.forEach((star) => {
-			this.renderer.setStyle(star.nativeElement, 'color', 'var(--color-secondary)');
-		});
+		if (this.iconStars) {
+			const fillStars = this.iconStars.toArray().slice(0, sliceIndex);
+			const emptyStars = this.iconStars.toArray().slice(sliceIndex);
+			fillStars.forEach((star) => {
+				this.renderer.setStyle(star.nativeElement, 'color', 'var(--color-accent)');
+			});
+			emptyStars.forEach((star) => {
+				this.renderer.setStyle(star.nativeElement, 'color', 'var(--color-secondary)');
+			});
+		}
 	}
 
 }
