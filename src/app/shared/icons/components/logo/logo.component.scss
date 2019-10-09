@@ -17,8 +17,12 @@
 		color: var(--color-primary);
 	}
 	&.color-secondary {
-		background: var(--color-secondary-light);
+		background: var(--color-secondary);
 		color: var(--color-secondary-contrast);
+	}
+	&.color-secondary-light {
+		background: var(--color-secondary-light);
+		color: white;
 	}
 	&.color-vibrant {
 		background: var(--color-vibrant-light);
