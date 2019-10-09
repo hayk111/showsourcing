@@ -77,7 +77,7 @@
 			<!-- cells -->
 			<ng-container *ngIf="!pending">
 				<div
-					*ngFor="let row of rows; index as i; trackBy: trackByIdentify"
+					*ngFor="let row of rows; index as i; trackBy: trackById"
 					class="cell"
 					[ngClass]="{ selected: (i === hoverIndex) || isSelected(row, i), hover: (i === hoverIndex), main: (column.type === 'main') }"
 					[style.height]="rowHeight + 'px'"
@@ -131,6 +131,7 @@
 
 	</div>
 
+
 	<div *ngIf="rows?.length === 0 && !pending" class="flexCenter flexColumn placeholderCtnr">
 		<logo-app
 			class="placeholder-logo"
@@ -140,7 +141,7 @@
 		</logo-app>
 		<div class="placeholder-title">No {{ type }} found</div>
 		<div class="placeholder-description">Create a new one!</div>
-		<button class="min-width" (click)="createClick.emit()">create a {{ type }}</button>
+		<button (click)="createClick.emit()">create a {{ type }}</button>
 	</div>
 
 	<!-- pending -->
@@ -150,7 +151,7 @@
 </div>
 
 <pagination-app
-	*ngIf="hasPagination"
+	*ngIf="hasPagination && !pending"
 	[count]="count"
 	[currentPage]="currentPage"
 	[hasSidePadding]="hasPaddingPagination"

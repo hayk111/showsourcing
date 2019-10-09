@@ -17,6 +17,7 @@ import { RealmAuthenticationService } from '~core/auth/services/realm-authentica
 import { ListPageService } from '~core/list-page';
 import { CompanyService, TeamService, UserService } from '~entity-services';
 import { Team } from '~models';
+import { log } from '~utils/log';
 
 
 // Doctor: “Do you do sports?”
@@ -74,7 +75,7 @@ export class AppComponent implements OnInit {
 		this.realmAuthSrv.realmUser$.pipe(
 			filter(user => !!user),
 			switchMap(_ => this.startBaseClients()),
-		).subscribe();
+		).subscribe(_ => log.info(`base client started, time: ${performance.now()}`));
 
 		// when logging off we destroy all clients
 		this.authSrv.notAuthenticated$.subscribe(_ => this.destroyAllClients());

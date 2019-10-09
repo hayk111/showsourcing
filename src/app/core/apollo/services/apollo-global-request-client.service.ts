@@ -10,6 +10,7 @@ import { ERMService } from '~core/entity-services/_global/erm.service';
 import { EntityMetadata, ERM } from '~core/models';
 import { RealmServerService } from '~entity-services/realm-server/realm-server.service';
 import { ApolloStateService } from './apollo-state.service';
+import { LocalStorageService } from '~core/local-storage';
 
 
 
@@ -23,8 +24,9 @@ export class GlobalRequestClientsInitializer extends AbstractApolloClient {
 		protected ermSrv: ERMService,
 		protected httpLink: HttpLink,
 		protected realmServerSrv: RealmServerService,
+		protected localStorage: LocalStorageService
 	) {
-		super(apollo, httpLink, apolloState, realmServerSrv, Client.GLOBAL_REQUEST);
+		super(apollo, httpLink, apolloState, realmServerSrv, Client.GLOBAL_REQUEST, ermSrv, localStorage);
 	}
 
 	init(realmUser: RealmUser): Observable<any> {
@@ -45,7 +47,7 @@ export class GlobalRequestClientsInitializer extends AbstractApolloClient {
 	}
 
 	createMissingSubscription(): Observable<any> {
-		const toSub = [
+		const entities = [
 			ERM.SUPPLIER_REQUEST,
 			ERM.REQUEST_ELEMENT,
 			ERM.REQUEST_REPLY,
@@ -57,9 +59,8 @@ export class GlobalRequestClientsInitializer extends AbstractApolloClient {
 			ERM.ATTACHMENT_UPLOAD_REQUEST,
 			ERM.USER
 		];
-		const newSubs = toSub
-			.map((erm: EntityMetadata) => this.ermSrv.getGlobalService(erm).openSubscription(this.client));
-		return forkJoin(newSubs);
+		return super.createMissingSubscription(entities);
+
 	}
 
 }

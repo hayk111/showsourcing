@@ -149,6 +149,10 @@ export class ListPageService
 		return this.dataSrv.pending;
 	}
 
+	get pending$() {
+		return this.dataSrv.pending$;
+	}
+
 	get count$() {
 		return this.dataSrv.count$;
 	}

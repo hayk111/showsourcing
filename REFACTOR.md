@@ -69,6 +69,14 @@ Some order needs to be set in that module, we have creation dialogs, tables etc.
 
 # Dialogs
 
+# Card
+
+  - margin and padding should be done via class, to do so, we need to have `card-content-app`
+	```
+	<card-app class="mg-s">
+		<card-content class="pd-s"><>
+	```
+
 ## Common Modal
 
 ## Creation dialogs
