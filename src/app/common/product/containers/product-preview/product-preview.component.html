@@ -103,6 +103,7 @@
 	<preview-section-app #contentTab1 *ngIf="(fieldDefinitions$ | async)?.length" [title]="'title.extended-fields' | translate">
 		<extended-form-app
 			[definitions]="fieldDefinitions$ | async"
+			[config]="formConfig"
 			[fields]="product?.extendedFields"
 			(update)="update($event, 'extendedFields')">
 		</extended-form-app>

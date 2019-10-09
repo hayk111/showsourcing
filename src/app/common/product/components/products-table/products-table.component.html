@@ -275,7 +275,7 @@
 					[width]="320"
 					[offsetX]="4"
 					(update)="update.emit({ id: row?.id, assignee: $event })">
-					<div class="flex">
+					<div class="flex pointer">
 						<user-picture-app
 							[user]="row?.assignee"
 							[image]="row?.assignee?.avatar">
