@@ -10,7 +10,7 @@ const bigTableConfig: TableConfig = {
 	productType: { name: 'product type', translationKey: 'product-type', width: 190, sortable: false },
 	createdBy: { name: 'created by', translationKey: 'created-by', width: 190, sortProperty: 'creationDate' },
 	favorite: { name: 'favorite', translationKey: 'favorite', width: 50, sortProperty: 'favorite' },
-	name: { name: 'name', translationKey: 'name', width: 190, sortProperty: 'name' },
+	name: { name: 'name', translationKey: 'name', width: 320, sortProperty: 'name' },
 	status: { name: 'status', translationKey: 'status', width: 190, sortProperty: 'status.step' },
 };
 

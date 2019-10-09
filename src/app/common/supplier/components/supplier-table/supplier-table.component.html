@@ -51,7 +51,7 @@
 
 			<!-- reference -->
 			<ng-container *ngSwitchCase="'name'">
-				<div class="ellipsis name-container contain-strict">
+				<div class="ellipsis name-container contain-strict flexVAlign">
 					<div class="ellipsis reference">
 						<div class="preview-imgs" (click)="previewClick.emit(row)">
 							<logo-app class="imgCtnr" (click)="previewClick.emit(row)" [logo]="row.logoImage"
@@ -73,6 +73,8 @@
 							</div>
 						</div>
 					</div>
+
+					<button class="small secondary-light preview-button" (click)="previewClick.emit(row)">Preview</button>
 				</div>
 			</ng-container>
 

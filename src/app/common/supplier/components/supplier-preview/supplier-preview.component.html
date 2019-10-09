@@ -72,6 +72,7 @@
 	<preview-section-app [title]="'title.supplier-details' | translate">
 		<dynamic-form-app
 			[fields]="supplierDescirptor?.descriptor"
+			[config]="formConfig"
 			[value]="supplier"
 			(update)="updateSupplier($event)">
 		</dynamic-form-app>
