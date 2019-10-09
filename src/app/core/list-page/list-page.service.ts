@@ -80,6 +80,7 @@ export class ListPageService
 	}
 
 	setup(config: ListPageConfig, shouldInitDataLoading = true) {
+		console.log('we are setting up');
 		this.zone.runOutsideAngular(() => {
 			// getting back the services from their map
 			this.initServices(config.key || '');
@@ -90,6 +91,7 @@ export class ListPageService
 			showsourcing.lists[config.entityMetadata.singular + '-' + config.key] = this;
 		});
 		if (shouldInitDataLoading) {
+			console.log('we are loading data init');
 			this.loadData(config.originComponentDestroy$);
 		}
 	}
@@ -99,7 +101,7 @@ export class ListPageService
 		if (!destroy$) {
 			throw Error('Please provide a originComponentDestroyed$ observable');
 		}
-
+		this.closePreview();
 		this.dataSrv.loadData(destroy$);
 		// we need to reset selection when filter changes
 		this.dataSrv.filterList.valueChanges$.pipe(
