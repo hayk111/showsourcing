@@ -273,13 +273,12 @@
 					[width]="320"
 					[offsetX]="4"
 					(update)="update.emit({ id: row?.id, assignee: $event })">
-					<div class="flexVAlign">
+					<div class="flex">
 						<user-picture-app
-							*ngIf="row?.assignee"
 							[user]="row?.assignee"
 							[image]="row?.assignee?.avatar">
 						</user-picture-app>
-						<div class="ellipsis pointer txt-btn"  [ngClass]="{ 'empty-field': !row?.assignee }">
+						<div class="ellipsis pointer txt-btn" [ngClass]="{ 'empty-field': !row?.assignee }">
 							{{ row?.assignee ? (row?.assignee | formatUserName: true) : 'Assign to' }}
 						</div>
 					</div>

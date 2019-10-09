@@ -73,10 +73,21 @@
 
 			<!-- assignee -->
 			<ng-container *ngSwitchCase="'assignee'">
-				<div class="flex assignee-container ellipsis">
-					<user-picture-app	[user]="row?.assignee" size="24"></user-picture-app>
-					{{ row?.assignee | formatUserName }}
-				</div>
+				<selector-app
+					[type]="erm.USER.singular"
+					[width]="320"
+					[offsetX]="4"
+					(update)="update.emit({ id: row?.id, assignee: $event })">
+					<div class="flex assignee-container ellipsis pointer">
+						<user-picture-app
+							[user]="row?.assignee"
+							[image]="row?.assignee?.avatar">
+						</user-picture-app>
+						<div class="ellipsis pointer txt-btn"  [ngClass]="{ 'empty-field': !row?.assignee }">
+							{{ row?.assignee ? (row?.assignee | formatUserName: true) : 'Assign to' }}
+						</div>
+					</div>
+				</selector-app>
 			</ng-container>
 
 			<!-- product -->
@@ -118,7 +129,7 @@
 				</div>
 			</ng-container>
 
-			<!-- comments -->
+			<!-- comments deprecated -->
 			<ng-container *ngSwitchCase="'comments'">
 				<div class="flex ellipsis">
 					<div class="number">{{ row?.comments?.length || '0' }}</div>
@@ -130,24 +141,12 @@
 			<!-- status -->
 			<ng-container *ngSwitchCase="'status'">
 				<div class="status-col flexVAlign">
-					<selector-app
-						[type]="erm.USER.singular"
-						[width]="320"
-						[offsetX]="4"
-						(update)="update.emit({ id: row?.id, assignee: $event })">
-						<div  class="flex assignee-container ellipsis pointer">
-							<user-picture-app
-								[user]="row?.assignee"
-								[image]="row?.assignee?.avatar">
-							</user-picture-app>
-						</div>
-					</selector-app>
 					<status-selector-app [entity]="row" [typeEntity]="erm.SAMPLE" selectSize="s"></status-selector-app>
 				</div>
 			</ng-container>
 
 			<!-- activities -->
-			<ng-container *ngSwitchCase="'activity'">
+			<ng-container *ngSwitchCase="'activities'">
 				<activities-bar-app
 					[row]="row"
 					[favourite]="row?.favorite"
@@ -162,10 +161,7 @@
 
 			<!-- created by -->
 			<ng-container *ngSwitchCase="'created by'">
-				<span class="created-by">{{ row?.createdBy | formatUserName }}</span>
-				<div class="created-by-date">
-					{{ row?.creationDate | date: 'dd MMMM y':'':translate.currentLang }}
-				</div>
+				<span class="created-by">{{ row?.createdBy | formatUserName: true }}</span>
 			</ng-container>
 
 		</ng-container>

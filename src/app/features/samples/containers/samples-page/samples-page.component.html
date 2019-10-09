@@ -31,7 +31,6 @@
 <sample-table-app
 	*ngIf="listSrv.view === 'list'"
 	class="max-full-table-width"
-	[columns]="['name', 'product', 'supplier', 'type', 'createdBy', 'activity', 'status']"
 	[rows]="listSrv.items$ | async"
 	[selection]="listSrv.selection$ | async"
 	[pending]="listSrv.pending"

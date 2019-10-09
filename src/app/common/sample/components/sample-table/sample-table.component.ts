@@ -13,9 +13,9 @@ const bigTableConfig: TableConfig = {
 	comments: { name: 'comments', translationKey: 'comments', width: 140 },
 	status: { name: 'status', translationKey: 'status', width: 190, sortProperty: 'status.step' },
 	type: { name: 'type', translationKey: 'type', width: 140, sortProperty: 'type' },
-	activity: { name: 'activity', translationKey: 'activity', width: 250, sortable: false },
-	createdBy: { name: 'created by', translationKey: 'created-by', width: 250, sortProperty: 'createdBy.firstName' },
-	creationDate: { name: 'created on', translationKey: 'created-on', width: 190, sortProperty: 'creationDate' },
+	activities: { name: 'activities', translationKey: 'activities', width: 250, sortable: false },
+	createdBy: { name: 'created by', translationKey: 'created-by', width: 190, sortProperty: 'createdBy.firstName' },
+	createdOn: { name: 'created on', translationKey: 'created-on', width: 190, sortProperty: 'creationDate' },
 };
 
 const mediumTableConfig: TableConfig = {
@@ -39,7 +39,7 @@ const smallTableConfig: TableConfig = {
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SampleTableComponent extends EntityTableComponent<Sample> implements OnInit {
-	columns = ['name', 'assignee', 'product', 'supplier', 'comments', 'status', 'creationDate',];
+	columns = ['name', 'product', 'supplier', 'type', 'assignee', 'status', 'activities', 'createdBy', 'createdOn'];
 	@Input() tableConfigType: TableConfigType = 'big';
 	@Output() openSupplier = new EventEmitter<ID>();
 	@Output() openProduct = new EventEmitter<ID>();

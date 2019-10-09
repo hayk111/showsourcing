@@ -7,7 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 const bigTableConfig: TableConfig = {
 	activities: { name: 'activities', translationKey: 'activities', width: 190, sortable: false },
 	category: { name: 'category', translationKey: 'category', width: 190, sortProperty: 'category.name' },
-	createdBy: { name: 'created by', translationKey: 'created-by', width: 140, sortProperty: 'createdBy.firstName' },
+	createdBy: { name: 'created by', translationKey: 'created-by', width: 190, sortProperty: 'createdBy.firstName' },
 	assignee: { name: 'assignee', translationKey: 'assignee', width: 190, sortProperty: 'assignee.firstName' },
 	createdOn: { name: 'created on', translationKey: 'created-on', width: 190, sortProperty: 'creationDate' },
 	about: { name: 'about', translationKey: 'about', width: 190, sortProperty: 'creationDate' },

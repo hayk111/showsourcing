@@ -124,10 +124,13 @@
 		color: var(--txt-primary);
 	}
 
+	.empty-fieldo {
+		color: red;
+	}
 
-.empty-field {
-	color: var(--color-txt-secondary);
-}
-
+	.empty-field {
+		color: var(--color-txt-secondary);
+		font-weight: 600;
+	}
 
 }
