@@ -21,7 +21,7 @@ export class StatusBadgeComponent {
 
 	getType() {
 		if (!this.status)
-			return 'third';
+			return 'secondary-light';
 
 		switch (this.status.category) {
 			case 'inProgress':
@@ -31,7 +31,7 @@ export class StatusBadgeComponent {
 			case 'refused':
 				return 'warn';
 			default:
-				return 'third';
+				return 'secondary-light';
 		}
 	}
 
