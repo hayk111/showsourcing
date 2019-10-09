@@ -11,6 +11,7 @@ import { Price } from '~models';
 import { DynamicField } from '~shared/dynamic-forms/models';
 import { EditableTextComponent } from '~shared/editable-field';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
+import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
 
 @Component({
 	selector: 'editable-price-app',
@@ -19,12 +20,12 @@ import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [makeAccessorProvider(EditablePriceComponent)],
 	host: {
-		'[class.oneLine]': 'inlineLabel',
-		'[class.twoLine]': '!inlineLabel'
+		'[class.oneLine]': 'config.inlineLabel',
+		'[class.twoLine]': '!config.inlineLabel'
 	}
 })
 export class EditablePriceComponent extends AbstractInput {
-	@Input() inlineLabel: boolean;
+	@Input() config: DynamicFormConfig;
 	@Input() customField: DynamicField;
 	@Output() change = new EventEmitter();
 	@Output() open = new EventEmitter();

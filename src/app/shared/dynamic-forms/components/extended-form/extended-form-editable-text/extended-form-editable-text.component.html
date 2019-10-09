@@ -1,7 +1,7 @@
 <ng-container [ngSwitch]="definition.type">
 
 	<!-- text -->
-	<editable-field-app *ngSwitchCase="'text'" #editable [inlineLabel]="inlineLabel" (closed)="onClose($event)"
+	<editable-field-app *ngSwitchCase="'text'" #editable [inlineLabel]="config.inlineLabel" (closed)="onClose($event)"
 		(opened)="inp.select();">
 
 		<label-app>{{ definition?.label }}</label-app>
@@ -19,7 +19,7 @@
 	</editable-field-app>
 
 	<!-- string same code as text-->
-	<editable-field-app *ngSwitchCase="'string'" #editable [inlineLabel]="inlineLabel" (closed)="onClose($event)"
+	<editable-field-app *ngSwitchCase="'string'" #editable [inlineLabel]="config.inlineLabel" (closed)="onClose($event)"
 		(opened)="inp.select();">
 
 		<label-app>{{ definition?.label }}</label-app>
@@ -38,7 +38,7 @@
 
 
 	<!-- tel -->
-	<editable-field-app *ngSwitchCase="'tel'" #editable [inlineLabel]="inlineLabel" (closed)="onClose($event)"
+	<editable-field-app *ngSwitchCase="'tel'" #editable [inlineLabel]="config.inlineLabel" (closed)="onClose($event)"
 		(opened)="inp.select();">
 
 		<label-app>{{ definition?.label }}</label-app>
@@ -57,7 +57,7 @@
 
 
 	<!-- int -->
-	<editable-field-app *ngSwitchCase="'int'" #editable [inlineLabel]="inlineLabel" (closed)="onClose($event)"
+	<editable-field-app *ngSwitchCase="'int'" #editable [inlineLabel]="config.inlineLabel" (closed)="onClose($event)"
 		(opened)="inp.select();">
 
 		<label-app>{{ definition?.label }}</label-app>
@@ -76,7 +76,7 @@
 
 
 	<!-- decimal -->
-	<editable-field-app *ngSwitchCase="'decimal'" #editable [inlineLabel]="inlineLabel" (closed)="onClose($event)"
+	<editable-field-app *ngSwitchCase="'decimal'" #editable [inlineLabel]="config.inlineLabel" (closed)="onClose($event)"
 		(opened)="inp.select();">
 
 		<label-app>{{ definition?.label }}</label-app>
@@ -97,7 +97,7 @@
 	<editable-field-app
 		#editable
 		*ngSwitchCase="'boolean'"
-		[inlineLabel]="inlineLabel"
+		[inlineLabel]="config.inlineLabel"
 		[openOnClick]="false"
 		(click)="booleanEditableField($event)">
 		<label-app>{{ definition?.label }}</label-app>
@@ -113,7 +113,7 @@
 	</editable-field-app>
 
 	<!-- price -->
-	<editable-field-app *ngSwitchCase="'price'" #editable [inlineLabel]="inlineLabel" (closed)="onClose($event)"
+	<editable-field-app *ngSwitchCase="'price'" #editable [inlineLabel]="config.inlineLabel" (closed)="onClose($event)"
 		(opened)="inp.select()">
 
 		<label-app>{{ definition?.label }}</label-app>
@@ -147,7 +147,7 @@
 		[definitionReference]="definition?.id"
 		[multiple]="metadata?.multiple"
 		[canCreate]="metadata?.canCreate"
-		[inlineLabel]="inlineLabel"
+		[config]="config"
 		[width]="width"
 		(change)="onInput($event)">
 	</editable-selector-app>

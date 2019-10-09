@@ -4,12 +4,15 @@
 	[entityType]="erm.ATTACHMENT.singular"
 	[hasFilter]="false"
 	[hasSwitch]="false"
+	[buttonName]="'Add file'"
 	[view]="listSrv.view"
 	(search)="listSrv.search($event)"
-	(smartSearch)="listSrv.smartSearch($event)">
+	(smartSearch)="listSrv.smartSearch($event)"
+	(buttonClick)="table.openFileBrowser()">
 </controller-list-app>
 
 <attachment-table-app
+	#table
 	class="max-full-table-width"
 	[hasPagination]="false"
 	[currentSort]="listSrv.currentSort"
@@ -36,6 +39,16 @@
 	(unselect)="listSrv.unselectOne($event, true)"
 	(update)="listSrv.update($event)"
 	(unselectAll)="listSrv.unselectAll()"
-	(upload)="listSrv.refetch()">
+	(upload)="listSrv.refetch().subscribe()">
 </attachment-table-app>
 
+<selection-bar-app
+	[isShown]="(listSrv.selection$ | async).size > 0"
+	[selection]="listSrv.selection$ | async"
+	(close)="listSrv.unselectAll()">
+
+	<button class="icon light" (click)="listSrv.deleteSelected()">
+		<icon-app name="trash"></icon-app>
+	</button>
+	
+</selection-bar-app>

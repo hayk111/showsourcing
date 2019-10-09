@@ -90,10 +90,9 @@
 	<!-- Task details form -->
 	<preview-section-app>
 		<dynamic-form-app
-			[inlineLabel]="true"
 			[fields]="taskDescriptor?.descriptor"
 			[value]="task"
-			[colAmount]="1"
+			[config]="formConfig"
 			(update)="updateTask($event)">
 		</dynamic-form-app>
 	</preview-section-app>
@@ -101,7 +100,6 @@
 	<!-- Extended Fields -->
 	<preview-section-app *ngIf="(fieldDefinitions$ | async)?.length" [title]="'title.extended-fields' | translate">
 		<extended-form-app
-			[inlineLabel]="true"
 			[definitions]="fieldDefinitions$ | async"
 			[fields]="task?.extendedFields"
 			(update)="updateTask({extendedFields: $event})">

@@ -6,8 +6,8 @@
 		<editable-field-app
 			*ngSwitchDefault
 			#editable
-			[inlineLabel]="inlineLabel"
-			[align]="inlineAlign"
+			[inlineLabel]="config.inlineLabel"
+			[align]="config.alignValue"
 			(closed)="onClose($event)"
 			(opened)="inp.select();">
 			<label-app>{{ 'text.' + customField.name | translate }}</label-app>
@@ -31,8 +31,8 @@
 		<editable-field-app
 			*ngSwitchCase="'tel'"
 			#editable
-			[inlineLabel]="inlineLabel"
-			[align]="inlineAlign"
+			[inlineLabel]="config.inlineLabel"
+			[align]="config.alignValue"
 			(closed)="onClose($event)"
 			(opened)="inp.select()">
 			<label-app>{{ 'text.' + customField.name | translate }}</label-app>
@@ -53,8 +53,8 @@
 		<editable-field-app
 			*ngSwitchCase="'number'"
 			#editable
-			[inlineLabel]="inlineLabel"
-			[align]="inlineAlign"
+			[inlineLabel]="config.inlineLabel"
+			[align]="config.alignValue"
 			(closed)="onClose($event)"
 			(opened)="inp.select()">
 			<label-app>{{ 'text.' + customField.name | translate }}</label-app>
@@ -75,8 +75,8 @@
 		<editable-field-app
 			*ngSwitchCase="'decimal'"
 			#editable
-			[inlineLabel]="inlineLabel"
-			[align]="inlineAlign"
+			[inlineLabel]="config.inlineLabel"
+			[align]="config.alignValue"
 			(closed)="onClose($event)"
 			(opened)="inp.select()">
 			<label-app>{{ 'text.' + customField.name | translate }}</label-app>
@@ -100,8 +100,8 @@
 			#editable
 			[class.no-hover]="customField?.metadata?.disabled"
 			[openOnClick]="!(customField?.metadata?.disabled)"
-			[inlineLabel]="inlineLabel"
-			[align]="inlineAlign"
+			[inlineLabel]="config.inlineLabel"
+			[align]="config.alignValue"
 			(closed)="onClose($event)"
 			(opened)="inp.select()">
 			<label-app>{{ 'text.' + customField.name | translate }}</label-app>
@@ -124,8 +124,8 @@
 		<editable-field-app
 			*ngSwitchCase="'days'"
 			#editable
-			[inlineLabel]="inlineLabel"
-			[align]="inlineAlign"
+			[inlineLabel]="config.inlineLabel"
+			[align]="config.alignValue"
 			(closed)="onClose($event)"
 			(opened)="inp.select()">
 			<label-app>{{ 'text.' + customField.name | translate }}</label-app>
@@ -146,8 +146,8 @@
 			*ngSwitchCase="'textarea'"
 			#editable
 			[canGrow]="true"
-			[inlineLabel]="inlineLabel"
-			[align]="inlineAlign"
+			[inlineLabel]="config.inlineLabel"
+			[align]="config.alignValue"
 			(closed)="onClose($event)"
 			(opened)="inp.select()">
 			<label-app>{{ 'text.' + customField.name | translate }}</label-app>
@@ -167,8 +167,8 @@
 		<editable-field-app
 			*ngSwitchCase="'price'"
 			#editable
-			[inlineLabel]="inlineLabel"
-			[align]="inlineAlign"
+			[inlineLabel]="config.inlineLabel"
+			[align]="config.alignValue"
 			(closed)="onClose($event)"
 			(opened)="inp.select()">
 			<label-app>{{ 'text.' + customField.name | translate }}</label-app>
@@ -193,9 +193,9 @@
 		<editable-field-app
 			#editable
 			*ngSwitchCase="'boolean'"
-			[inlineLabel]="inlineLabel"
+			[inlineLabel]="config.inlineLabel"
 			[openOnClick]="false"
-			[align]="inlineAlign"
+			[align]="config.alignValue"
 			(click)="toggleValue($event)">
 			<label-app>{{ 'text.' + customField.name | translate }}</label-app>
 			<editable-label-app [disabled]="true">
@@ -209,7 +209,7 @@
 
 		<!-- price matrix -->
 		<ng-container *ngSwitchCase="'priceMatrix'">
-			<h3 class="s">
+			<h3 class="s color-primary" [ngClass]="{ 'first': indexInCol === 0 }">
 				{{ 'text.' + customField.name | translate }}
 			</h3>
 			<editable-price-matrix-app
@@ -222,10 +222,11 @@
 
 		<!-- packaging -->
 		<ng-container *ngSwitchCase="'packaging'">
-			<h3 class="s">
+			<h3 class="s color-primary" [ngClass]="{ 'first': indexInCol === 0 }">
 				{{ 'text.' + customField.name | translate }}
 			</h3>
 			<editable-packaging-app
+				[config]="config"
 				[customField]="customField"
 				[(ngModel)]="accumulator"
 				(input)="onChange();"
@@ -245,13 +246,13 @@
 			[canCreate]="customField?.metadata?.canCreate"
 			[label]="'text.' + customField.name | translate"
 			[hasBadge]="customField?.metadata?.hasBadge"
-			[inlineLabel]="inlineLabel"
+			[config]="config"
 			(change)="onSave(false)"
 			(blur)="onBlur()">
 		</editable-selector-app>
 
 		<!-- title -->
-		<h3 *ngSwitchCase="'title'">
+		<h3 *ngSwitchCase="'title'" class="color-primary" [ngClass]="{ 'first': indexInCol === 0 }">
 			{{ 'text.' + customField.name | translate }}
 		</h3>
 

@@ -2,13 +2,11 @@
 	display: flex;
 }
 
-.col {
-	flex-grow: 1;
-	box-sizing: border-box;
-}
 
 .multiple {
-	.col:not(.last) {
-		padding-right: 60px;
+	.col {
+		flex-grow: 1;
+		box-sizing: border-box;
+		padding: var(--spacing-ms);
 	}
 }

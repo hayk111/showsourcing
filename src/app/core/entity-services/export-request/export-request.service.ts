@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, switchMap, take, tap } from 'rxjs/operators';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
-import { TeamUserService, UserService } from '~entity-services';
+import { UserService } from '~entity-services';
 import { GlobalService } from '~entity-services/_global/global.service';
 import { ExportRequestQueries } from '~entity-services/export-request/export-request.queries';
 import { ExportRequest } from '~models';
@@ -19,7 +19,6 @@ export class ExportRequestService extends GlobalService<ExportRequest> {
 	constructor(
 		protected apolloState: ApolloStateService,
 		private userSrv: UserService,
-		private teamUserSrv: TeamUserService,
 		private notifSrv: NotificationService,
 		private http: HttpClient,
 		private datePipe: DatePipe
@@ -27,17 +26,18 @@ export class ExportRequestService extends GlobalService<ExportRequest> {
 		super(apolloState, ExportRequestQueries, 'exportRequest', 'exportRequests');
 	}
 
-	addNotif(type: NotificationType) {
+	async addNotif(type: NotificationType, exportReq: ExportRequest) {
 		this.notifSrv.add({
 			type,
 			title: 'Exporting file',
 			message: type === NotificationType.SUCCESS ?
 				'Export successfully completed' : 'Failed exporting files',
-			uriMessage: 'Click here to be redirected',
-			uri: ['settings', 'exports'],
-			timeout: 6500
+			actionMessage: 'Click here to download the file',
+			timeout: 6500,
+			action: this.retrieveFile(exportReq)
 		});
 	}
+
 
 	create(request: ExportRequest) {
 		return this.userSrv.selectUser().pipe(
@@ -62,12 +62,12 @@ export class ExportRequestService extends GlobalService<ExportRequest> {
 
 	isExportReady(exportReq: ExportRequest) {
 		return this.waitForOne(`id == "${exportReq.id}" AND (status == "ready" OR status == "rejected")`).pipe(
-			tap(res => {
-				if (res.status === 'rejected') {
-					this.addNotif(NotificationType.ERROR);
+			tap(latestExport => {
+				if (latestExport.status === 'rejected') {
+					this.addNotif(NotificationType.ERROR, latestExport);
 					throw Error('Abort');
 				} else
-					this.addNotif(NotificationType.SUCCESS);
+					this.addNotif(NotificationType.SUCCESS, latestExport);
 			}),
 		);
 	}

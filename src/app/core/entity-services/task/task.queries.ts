@@ -55,5 +55,6 @@ export abstract class TaskQueries extends GlobalQueries {
 		${TaskQueries.supplier}
 		${TaskQueries.assignee}
 		description
+		deleted
 	`;
 }

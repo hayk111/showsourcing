@@ -4,6 +4,7 @@ import { DynamicField } from '~shared/dynamic-forms/models';
 import { DynamicUpdate } from '~shared/dynamic-forms/models/dynamic-update.interface';
 import { DynamicFormsService } from '~shared/dynamic-forms/services/dynamic-forms.service';
 import { TrackingComponent } from '~utils/tracking-component';
+import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
 
 @Component({
 	selector: 'dynamic-form-app',
@@ -12,8 +13,9 @@ import { TrackingComponent } from '~utils/tracking-component';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DynamicFormComponent extends TrackingComponent implements OnInit, OnChanges {
-
+	@Input() config: DynamicFormConfig = new DynamicFormConfig();
 	private _fields: DynamicField[];
+
 	@Input() set fields(fields: DynamicField[]) {
 		this._fields = fields;
 		this.makeCols();
@@ -23,13 +25,6 @@ export class DynamicFormComponent extends TrackingComponent implements OnInit, O
 	}
 	/** value of those custom field */
 	@Input() value: any;
-	/** number of columns */
-	@Input() colAmount = 1;
-	/** when is open we see form inputs directly */
-	@Input() isFormStyle = false;
-	/** some forms have inline labels which is very annoying but w.e */
-	@Input() inlineLabel: boolean;
-	@Input() isShowLabel = true;
 	// index of the item in the dynamic form that we want to focus by default
 	@Input() indexFocus = 0;
 	@Output() formCreated = new EventEmitter<FormGroup>();
@@ -64,8 +59,8 @@ export class DynamicFormComponent extends TrackingComponent implements OnInit, O
 	makeCols() {
 		this.cols = [];
 		const fields = this.fields;
-		const fieldPerCol = Math.ceil(fields.length / this.colAmount);
-		for (let i = 0; i < this.colAmount; i++) {
+		const fieldPerCol = Math.ceil(fields.length / this.config.colAmount);
+		for (let i = 0; i < this.config.colAmount; i++) {
 			const start = i * fieldPerCol;
 			const end = i * fieldPerCol + fieldPerCol;
 			this.cols[i] = fields.slice(start, end);
