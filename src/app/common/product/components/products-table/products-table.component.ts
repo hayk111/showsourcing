@@ -5,14 +5,15 @@ import { Color } from '~utils';
 import { TranslateService } from '@ngx-translate/core';
 
 const bigTableConfig: TableConfig = {
-	activities: { name: 'activity', translationKey: 'activity', width: 190, sortable: false },
+	activities: { name: 'activities', translationKey: 'activities', width: 190, sortable: false },
 	category: { name: 'category', translationKey: 'category', width: 190, sortProperty: 'category.name' },
-	createdBy: { name: 'created by', translationKey: 'created-by', width: 140, sortProperty: 'creationDate' },
-	creationDate: { name: 'creation date', translationKey: 'creation-date', width: 190, sortProperty: 'creationDate' },
+	createdBy: { name: 'created by', translationKey: 'created-by', width: 140, sortProperty: 'createdBy.firstName' },
+	assignee: { name: 'assignee', translationKey: 'assignee', width: 190, sortProperty: 'assignee.firstName' },
+	createdOn: { name: 'created on', translationKey: 'created-on', width: 190, sortProperty: 'creationDate' },
 	about: { name: 'about', translationKey: 'about', width: 190, sortProperty: 'creationDate' },
 	favorite: { name: 'favorite', translationKey: 'favorite', width: 50, sortProperty: 'favorite' },
 	moq: { name: 'moq', translationKey: 'moq', width: 120, sortProperty: 'minimumOrderQuantity' },
-	price: { name: 'price', translationKey: 'price', width: 120, sortProperty: 'price.value' },
+	price: { name: 'price', translationKey: 'price', width: 170, sortProperty: 'price.value' },
 	projects: { name: 'projects', translationKey: 'projects', width: 190, sortProperty: 'creationDate' },
 	reference: { name: 'reference', translationKey: 'reference', width: 247, sortProperty: 'reference' },
 	status: { name: 'status', translationKey: 'status', width: 190, sortProperty: 'status.step' },
@@ -35,7 +36,7 @@ const mediumTableConfig: TableConfig = {
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductsTableComponent extends EntityTableComponent<Product> implements OnInit {
-	columns = ['reference', 'price', 'supplier', 'category', 'createdBy', 'activities', 'status'];
+	columns = ['reference', 'price', 'moq', 'supplier', 'category', 'assignee', 'status', 'activities', 'createdBy', 'createdOn'];
 	@Input() tableWidth: number;
 	@Input() hasVerticalScroll: boolean;
 	@Input() headerSecondary: boolean;
