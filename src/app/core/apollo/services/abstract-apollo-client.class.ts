@@ -132,7 +132,7 @@ export abstract class AbstractApolloClient {
 	}
 
 	protected createMissingSubscription(entities: EntityMetadata[]) {
-		const storageKey = `${this.client}_sub_map`;
+		const storageKey = `sub_map_${this.client}`;
 		const submap = this.localStorage.getItem(storageKey) || {};
 
 		// when not found in the map we do the subscription
@@ -144,7 +144,7 @@ export abstract class AbstractApolloClient {
 		const newSubs = entitiesToSub
 		.map(
 			(erm: EntityMetadata) => this.ermSrv.getGlobalService(erm)
-				.openSubscription(Client.TEAM)
+				.openSubscription(this.client)
 		);
 		return forkJoin(newSubs).pipe(
 			tap(_ => {
