@@ -72,7 +72,7 @@
 
 			<!-- cells -->
 			<ng-container *ngIf="!pending">
-				<div class="cell" *ngFor="let row of rows; index as i; trackBy: trackByIdentify"
+				<div class="cell" *ngFor="let row of rows; index as i; trackBy: trackById"
 					[style.height]="rowHeight + 'px'"
 					[ngClass]="{ selected: (i === hoverIndex) || isSelected(row, i), hover: (i === hoverIndex), main: (column.type === 'main') }"
 					(mouseenter)="hoverRow(i)" (mouseleave)="hoverRow(-1)">
@@ -125,6 +125,7 @@
 
 	</div>
 
+
 	<div *ngIf="rows?.length === 0 && !pending" class="flexCenter flexColumn placeholderCtnr">
 		<logo-app
 			class="placeholder-logo"
@@ -144,7 +145,7 @@
 </div>
 
 <pagination-app
-	*ngIf="hasPagination"
+	*ngIf="hasPagination && !pending"
 	[count]="count"
 	[currentPage]="currentPage"
 	[hasSidePadding]="hasPaddingPagination"
