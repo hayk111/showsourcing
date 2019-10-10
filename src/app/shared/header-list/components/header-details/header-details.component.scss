@@ -47,9 +47,15 @@
   padding: 0 var(--spacing-l);
 }
 
+.action-list {
+  > * {
+    margin-right: var(--spacing-ms);
+  }
+}
+
 .left {
   > *:not(:first-child) {
-    margin-left: var(--spacing-l);
+    margin-left: var(--spacing-ms);
   }
   .info {
     .title-container {
@@ -106,12 +112,11 @@ $back-arrow-size: 40px;
 .logo {
   max-width: 54px;
   max-height: 54px;
-  margin: var(--spacing-none) !important;
   border-radius: var(--border-radius-s);
 }
 
 .tabs-container-details {
-  margin: var(--spacing-none) 40px;
+  margin: var(--spacing-none) 52px;
 }
 
 .tabs-container-settings {

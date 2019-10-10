@@ -10,10 +10,10 @@
 		<div class="flex flexVAlign">
 			<icon-app class="product-icon" name="product" size="s"></icon-app>&nbsp;
 			<div class="flex flexVAlign info-container dot-separator">
-				<span class="reference" *ngIf="product?.reference">
+				<span *ngIf="product?.reference" class="reference">
 					{{ product?.reference }}
 				</span>
-				<span class="price" *ngIf="product && product.price && product.price.value !== null">
+				<span *ngIf="product && product.price && product.price.value !== null" class="price">
 					{{ product?.price | appPrice }}
 				</span>
 				<span *ngIf="product?.category" class="category">
