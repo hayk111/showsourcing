@@ -23,6 +23,7 @@
 		<!-- Price -->
 		<price-with-quantity-app
 			*ngIf="product?.price?.value"
+			class="custom-padding pd-top-xs"
 			[product]="product"
 			(updateField)="update($event.newValue,  $event.field)">
 		</price-with-quantity-app>
@@ -53,7 +54,8 @@
 
 		<preview-section-app class="mg-none">
 
-			<divider-app></divider-app>
+			<!-- blame designer for inconsistency in the design -->
+			<divider-app class="mg-top-ms"></divider-app>
 
 			<button-action-list-app
 				class="button-action-list"
