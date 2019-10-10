@@ -11,7 +11,16 @@ import { UploaderService } from '~shared/file/services/uploader.service';
 })
 export class PreviewLogoComponent {
 
-	@Input() supplier: Supplier;
+	private _supplier: Supplier;
+	@Input() set supplier(supplier: Supplier) {
+		this._supplier = supplier;
+		if (supplier && supplier.name)
+			this.setInitials(supplier.name);
+	}
+	get supplier() {
+		return this._supplier;
+	}
+	private _image: AppImage;
 	@Input() set image(image: AppImage) {
 		this._image = image;
 	}
@@ -19,12 +28,17 @@ export class PreviewLogoComponent {
 		return this._image;
 	}
 
-	private _image: AppImage;
+	initials: string;
 
 	constructor(private uploaderSrv: UploaderService) { }
 
 	addLogo(files: File[]) {
 		this.uploaderSrv.uploadImages(files, this.supplier, 'logoImage', false, Client.TEAM).subscribe();
+	}
+
+	private setInitials(text?: string) {
+		const splitName = text.split(' ', 3);
+		this.initials = splitName.map(char => char.length ? char[0] : '').join('');
 	}
 
 }
