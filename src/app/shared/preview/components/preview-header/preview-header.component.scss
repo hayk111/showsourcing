@@ -4,13 +4,12 @@
 	padding: 0 var(--spacing-l);
 
 	& > * {
-		padding-top: var(--spacing-ms);
+		&:not(.custom-padding) {
+			padding-top: var(--spacing-ms);
+		}
 		&:empty {
 			display: none;
 		}
-	}
-	.noPaddingTop {
-		padding-top: 0;
 	}
 }
 

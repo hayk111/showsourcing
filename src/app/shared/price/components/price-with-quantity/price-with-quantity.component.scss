@@ -1,3 +1,9 @@
+:host {
+	height: 25px;
+	display: flex;
+	align-items: center;
+}
+
 .price {
 	margin-right: var(--spacing-m);
 

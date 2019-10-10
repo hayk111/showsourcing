@@ -10,7 +10,7 @@
 		</preview-logo-app>
 	<ng-container *ngIf="displayEntityInfo">
 		<logo-app class="icon-logo" [type]="entityMD?.singular" size="xs"></logo-app>
-		<span>{{ 'ERM.' + entityMD?.translationKey + '.singular' | translate }}</span>
+		<span>{{ entity?.reference }}</span>
 		</ng-container>
 	</div>
 	<div class="right">
@@ -27,7 +27,7 @@
 <!-- Title name -->
 <editable-text-app
 	#edt
-	class="{{ displayEntityInfo ? '' : 'noPaddingTop' }}"
+	class="{{ displayEntityInfo ? '' : 'pd-top-none' }}"
 	(closed)="updateEntity($event, inpName.value)"
 	(opened)="inpName.select()">
 	<editable-label-app class="ellipsis">
@@ -40,6 +40,10 @@
 		[value]="entity?.name"
 		(keyup.enter)="edt.close()"/>
 </editable-text-app>
+
+<div class="custom-padding">
+	<ng-content select=".custom-padding"></ng-content>
+</div>
 
 <div>
 	<ng-content></ng-content>
