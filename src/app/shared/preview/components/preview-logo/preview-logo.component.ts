@@ -37,6 +37,7 @@ export class PreviewLogoComponent {
 	}
 
 	private setInitials(text?: string) {
+		// we just take the first 3 separate strings
 		const splitName = text.split(' ', 3);
 		this.initials = splitName.map(char => char.length ? char[0] : '').join('');
 	}
