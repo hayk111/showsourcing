@@ -4,6 +4,7 @@ export abstract class RequestTemplateQueries extends GlobalQueries {
 
 	static readonly requestedFields = `requestedFields { id, label, type }`;
 
+	// TODO Backend remove requested fields and add fields
 	static readonly one = `
 		name
 		targetedEntity
