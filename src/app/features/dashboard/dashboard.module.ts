@@ -7,6 +7,7 @@ import { DashboardHeaderComponent } from '~features/dashboard/components/dashboa
 import { TeamCardComponent } from '~features/dashboard/components/team-card/team-card.component';
 import { DashboardComponent } from '~features/dashboard/containers/dashboard/dashboard.component';
 import { TodoBoxComponent } from '~features/dashboard/components/todo-box/todo-box.component';
+import { TodoNavComponent } from '~features/dashboard/components/todo-box/todo-nav/todo-nav.component';
 import { TeamPerformanceComponent} from '~features/dashboard/components/team-performance/team-performance.component';
 import { LineChartComponent } from '~features/dashboard/components/line-chart/line-chart.component';
 import { routes } from '~features/dashboard/routes';
@@ -44,6 +45,7 @@ import {
 		DashboardHeaderComponent,
 		LineChartComponent,
 		TodoBoxComponent,
+		TodoNavComponent,
 		TodoBoxTaskPreviewComponent,
 		TodoBoxProductsPreviewComponent,
 		TodoBoxSamplePreviewComponent,

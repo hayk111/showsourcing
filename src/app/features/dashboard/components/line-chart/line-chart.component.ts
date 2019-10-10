@@ -76,7 +76,6 @@ export class LineChartComponent implements OnInit {
 	constructor() { }
 
 	ngOnInit() {
-		console.log('TCL: ngOnInit -> this._chartData', this._chartData);
 		this.lineChartData = this._chartData.slice();
 		this.legends = {};
 
