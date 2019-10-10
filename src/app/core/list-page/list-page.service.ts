@@ -99,7 +99,7 @@ export class ListPageService
 		if (!destroy$) {
 			throw Error('Please provide a originComponentDestroyed$ observable');
 		}
-
+		this.closePreview();
 		this.dataSrv.loadData(destroy$);
 		// we need to reset selection when filter changes
 		this.dataSrv.filterList.valueChanges$.pipe(

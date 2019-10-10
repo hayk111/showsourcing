@@ -11,10 +11,12 @@ const bigTableConfig: TableConfig = {
 	reference: { name: 'reference', translationKey: 'reference', width: 80, sortProperty: 'reference' },
 	name: { name: 'name', translationKey: 'name', width: 120, sortProperty: 'name' },
 	product: { name: 'product', translationKey: 'product', width: 160, sortProperty: 'product.name' },
-	supplier: { name: 'supplier', translationKey: 'supplier', width: 150, sortProperty: 'supplier.name' },
-	dueDate: { name: 'due date', translationKey: 'due-date', width: 103, sortProperty: 'dueDate' },
-	assignee: { name: 'assigned to', translationKey: 'assigned-to', width: 140, sortProperty: 'assignee.firstName' },
+	supplier: { name: 'supplier', translationKey: 'supplier', width: 160, sortProperty: 'supplier.name' },
+	dueDate: { name: 'due date', translationKey: 'due-date', width: 110, sortProperty: 'dueDate' },
+	assignee: { name: 'assigned to', translationKey: 'assigned-to', width: 160, sortProperty: 'assignee.firstName' },
 	status: { name: 'status', translationKey: 'status', width: 85, sortProperty: 'status.step', sortable: false },
+	createdBy: { name: 'created by', translationKey: 'created-by', width: 160, sortProperty: 'createdBy.firstName' },
+	createdOn: { name: 'created on', translationKey: 'created-on', width: 160, sortProperty: 'creationDate' },
 };
 
 const mediumTableConfig: TableConfig = {
@@ -59,7 +61,7 @@ export class TaskTableComponent extends EntityTableComponent<Task> implements On
 	@Output() openProduct = new EventEmitter<ID>();
 	@Output() openSupplier = new EventEmitter<ID>();
 
-	columns = ['done', 'reference', 'name', 'product', 'supplier', 'dueDate', 'assignee', 'status'];
+	columns = ['done', 'reference', 'name', 'product', 'supplier', 'dueDate', 'assignee', 'status', 'createdBy', 'createdOn'];
 	erm = ERM;
 
 	constructor(
@@ -86,7 +88,7 @@ export class TaskTableComponent extends EntityTableComponent<Task> implements On
 	}
 
 	toggleStatus(task: Task) {
-		this.taskSrv.update({ id: task.id, done: !task.done}).subscribe();
+		this.taskSrv.update({ id: task.id, done: !task.done }).subscribe();
 	}
 
 	changeAssignee(task: Task, assignee: User) {

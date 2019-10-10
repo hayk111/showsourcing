@@ -54,6 +54,7 @@ export enum EntityName {
 	PRODUCT = 'product',
 	PROJECT = 'project',
 	REQUEST = 'request',
+	REQUEST_ELEMENT = 'request element',
 	SAMPLE = 'sample',
 	SUPPLIER = 'supplier',
 	TAG = 'tag',

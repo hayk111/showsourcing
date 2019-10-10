@@ -22,6 +22,9 @@ export class SupplierTasksComponent extends AbstractTaskCommonComponent implemen
 
 	supplier: Supplier;
 	erm = ERM;
+	filterTypes = [
+		FilterType.DONE
+	];
 
 	constructor(
 		protected route: ActivatedRoute,

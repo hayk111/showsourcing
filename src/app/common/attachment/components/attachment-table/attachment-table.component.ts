@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewChild, ElementRef } from '@angular/core';
 import { EntityTableComponent, TableConfig } from '~core/list-page';
 import { Attachment, ERM } from '~core/models';
 import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback.service';
@@ -25,6 +25,7 @@ const bigTableConfig: TableConfig = {
 	]
 })
 export class AttachmentTableComponent extends EntityTableComponent<Attachment> implements OnInit {
+	@ViewChild('inpFile', { static: true }) inpFile: ElementRef<HTMLInputElement>;
 	@Input() linkedEntity;
 	@Input() set rows(attachments: Attachment[]) {
 		this.uploadFeedback.setFiles(attachments);
@@ -35,7 +36,7 @@ export class AttachmentTableComponent extends EntityTableComponent<Attachment> i
 	@Output() upload = new EventEmitter<Attachment[]>();
 
 	tableConfig = bigTableConfig;
-	columns = ['name', 'actions'];
+	columns = ['name', 'createdBy', 'creationDate', 'actions'];
 	erm = ERM;
 
 	constructor(
@@ -56,5 +57,8 @@ export class AttachmentTableComponent extends EntityTableComponent<Attachment> i
 		saveAs(attachment.url, attachment.fileName);
 	}
 
+	openFileBrowser() {
+		this.inpFile.nativeElement.click();
+	}
 
 }

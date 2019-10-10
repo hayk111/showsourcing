@@ -12,6 +12,7 @@ import { DynamicUpdate } from '~shared/dynamic-forms/models/dynamic-update.inter
 import { EditableTextComponent } from '~shared/editable-field';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 import { TranslateService } from '@ngx-translate/core';
+import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
 
 /**
  * Component that selects the correct input and display it as an editable text
@@ -26,11 +27,14 @@ import { TranslateService } from '@ngx-translate/core';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [makeAccessorProvider(DynamicEditableTextComponent)],
 	host: {
-		'[class.oneLine]': 'inlineLabel',
-		'[class.twoLine]': '!inlineLabel'
+		'[class.oneLine]': 'config.inlineLabel',
+		'[class.twoLine]': '!config.inlineLabel'
 	}
 })
 export class DynamicEditableTextComponent extends AbstractInput {
+	@Input() config: DynamicFormConfig;
+	/** number that specify what index is an input in its column */
+	@Input() indexInCol: number;
 	@Input() set value(v: any) {
 		this._value = v;
 		this.accumulator = v;
@@ -40,9 +44,6 @@ export class DynamicEditableTextComponent extends AbstractInput {
 	}
 	private _value: any;
 	@Input() customField: DynamicField;
-	/** whether the input should be on the same line as the label */
-	@Input() inlineLabel: boolean;
-	@Input() inlineAlign = 'center';
 	/** when the editable field opens */
 	@Output() open = new EventEmitter<null>();
 	/** blur event for onTouchedFn */

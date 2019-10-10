@@ -1,19 +1,18 @@
 :host {
 	display: block;
 	height: 115px;
-	width: 327px;
 	box-sizing: border-box;
-	background: var(--legacy-color-bgg);
+	background: var(--color-bg);
 	border-radius: var(--border-radius);
-	box-shadow: 0 2px 4px 0 #e6ebf5;
-	border: solid 1px var(--legacy-color-secondaryy);
+	box-shadow: 0 0 12px 4px rgba(0, 0, 0, 0.02);
+	border: solid 1px var(--color-secondary);
 	padding: var(--spacing-s);
 	cursor: pointer;
 
 
 	&.highlight-checked {
 		background-color: rgba(69, 173, 255, 0.1);
-		border: solid 1px var(--legacy-color-primary);
+		border: solid 1px var(--color-primary);
 		border-radius: 1px;
 	}
 }
@@ -96,7 +95,7 @@ $image-width: 99px;
 		}
 
 		.icon-heart {
-			color: var(--legacy-color-warn);
+			color: var(--color-warn);
 			font-size: var(--font-size-xs);
 			cursor: default;
 		}
@@ -114,7 +113,7 @@ $image-width: 99px;
     overflow: hidden;
 
 		.price-container {
-			color: var(--legacy-color-primary);
+			color: var(--color-primary);
 		}
 	}
 

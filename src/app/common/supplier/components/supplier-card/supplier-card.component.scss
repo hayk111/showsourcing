@@ -1,18 +1,17 @@
 :host {
 	display: block;
 	height: 115px;
-	width: 327px;
 	box-sizing: border-box;
-	background: var(--legacy-color-bgg);
+	background: var(--color-bg);
 	border-radius: var(--border-radius);
 	box-shadow: 0 2px 4px 0 #e6ebf5;
-	border: solid 1px var(--legacy-color-secondaryy);
+	border: solid 1px var(--color-secondaryy);
 	padding: var(--spacing-s);
 
 
 	&.highlight-checked {
 		background-color: rgba(69, 173, 255, 0.1);
-		border: solid 1px var(--legacy-color-primary);
+		border: solid 1px var(--color-primary);
 		border-radius: 1px;
 	}
 }
@@ -95,7 +94,7 @@ $image-width: 99px;
 		}
 
 		.icon-heart {
-			color: var(--legacy-color-warn);
+			color: var(--color-warn);
 			font-size: var(--font-size-xs);
 			cursor: default;
 		}
@@ -113,7 +112,7 @@ $image-width: 99px;
     overflow: hidden;
 
 		.price-container {
-			color: var(--legacy-color-primary);
+			color: var(--color-primary);
 		}
 	}
 
@@ -155,7 +154,7 @@ $image-width: 99px;
 				margin-right: var(--spacing-xs);
 			}
 		}
-		
+
 		.vote-star-value {
 			width: 19px;
 			height: 18px;
@@ -163,10 +162,10 @@ $image-width: 99px;
 			font-weight: 600;
 			color: var(--color-accent-dark);
 		}
-	
+
 		.light-background {
 			background-color: var(--color-accent-light);
-		}	
+		}
 	}
 
 }

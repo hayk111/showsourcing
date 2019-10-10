@@ -13,6 +13,21 @@
 	}
 }
 
+editable-label-app {
+	width: 100%;
+}
+
+
+.name-container:hover {
+	.preview-button {
+		display: flex;
+	}
+}
+
+.preview-button {
+	display: none;
+}
+
 .preview-imgs {
 	position: relative;
 	border-radius: var(--border-radius);

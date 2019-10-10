@@ -1,19 +1,25 @@
 <controller-list-app
 	class="max-full-table-width"
+	buttonName="create sample"
 	[entityType]="erm.SAMPLE.singular"
-	[count]="listSrv.count$ | async"
-	[hasFilter]="false"
+	[hasFilter]="true"
 	[hasSwitch]="false"
+	[count]="listSrv.count$ | async"
 	[entityType]="'SAMPLE'"
 	[view]="listSrv.view"
+	(showFilters)="listSrv.openFilterPanel()"
+	(showArchived)="listSrv.filterByArchived(true)"
+	(hideArchived)="listSrv.filterByArchived(false)"
+	(showAssigned)="listSrv.filterByAssignee(true)"
+	(hideAssigned)="listSrv.filterByAssignee(false)"
 	(search)="listSrv.search($event)"
-	(smartSearch)="listSrv.smartSearch($event)">
+	(smartSearch)="listSrv.smartSearch($event)"
+	(export)="onExport()"
+	(buttonClick)="commonModalSrv.openAddSampleDialog(undefined, supplier)">
 </controller-list-app>
 
 <sample-table-app
 	class="max-full-table-width"
-	[hasHeader]="false"
-	[hasPagination]="false"
 	[rows]="listSrv.items$ | async"
 	[selection]="listSrv.selection$ | async"
 	[pending]="listSrv.pending"
@@ -40,3 +46,24 @@
 	(close)="listSrv.closePreview()"
 	(clickOutside)="listSrv.closePreview()">
 </sample-preview-app>
+
+
+<filters-app
+	*ngIf="listSrv.filterPanelOpen"
+	[filterList]="listSrv.filterList"
+	[filterTypes]="filterTypes"
+	(clickOutside)="listSrv.closeFilterPanel()"
+	(close)="listSrv.closeFilterPanel()">
+</filters-app>
+
+
+<selection-bar-app
+	[isShown]="(listSrv.selection$ | async).size > 0"
+	[selection]="listSrv.selection$ | async"
+	(close)="listSrv.unselectAll()">
+
+	<button class="icon light" (click)="listSrv.deleteSelected()">
+		<icon-app name="trash"></icon-app>
+	</button>
+	
+</selection-bar-app>

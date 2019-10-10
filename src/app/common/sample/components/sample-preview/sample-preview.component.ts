@@ -10,6 +10,7 @@ import {
 } from '~core/entity-services/extended-field-definition/extended-field-definition.service';
 import { Comment, ERM, ExtendedFieldDefinition, Sample } from '~core/models';
 import { AutoUnsub } from '~utils';
+import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
 
 @Component({
 	selector: 'sample-preview-app',
@@ -18,6 +19,7 @@ import { AutoUnsub } from '~utils';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SamplePreviewComponent extends AutoUnsub implements OnInit, OnChanges {
+	formConfig = new DynamicFormConfig({ mode: 'editable-text' });
 
 	private _sample: Sample;
 	@Input() set sample(value: Sample) {

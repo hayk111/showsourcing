@@ -16,7 +16,8 @@ export const colorMap = {
 	[EntityName.TASK]: Color.SUCCESS,
 	[EntityName.SUPPLIER]: Color.VIBRANT,
 	[EntityName.LOCATION]: Color.SECONDARY,
-	[EntityName.REQUEST]: Color.WARN
+	[EntityName.REQUEST]: Color.SECONDARY,
+	[EntityName.REQUEST_ELEMENT]: Color.SECONDARY
 };
 
 export const iconMap = {
@@ -32,7 +33,9 @@ export const iconMap = {
 	[EntityName.TASK]: 'check-circle',
 	[EntityName.SUPPLIER]: 'supplier',
 	[EntityName.LOCATION]: 'location',
-	[EntityName.REQUEST]: 'envelope'
+	[EntityName.REQUEST]: 'envelope',
+	[EntityName.REQUEST_ELEMENT]: 'envelope'
+
 };
 
 

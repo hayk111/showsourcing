@@ -154,3 +154,9 @@ $_ambient-elevation-map: (
 .z-h:hover, .z-a:active {
   @extend .z-5;
 }
+
+
+// Antoine's special
+.card-shadow {
+	box-shadow: 0 0 12px 4px rgba(0, 0, 0, 0.01);
+}

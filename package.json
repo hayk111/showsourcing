@@ -1,6 +1,6 @@
 {
   "name": "showsourcin-supplier-app",
-  "version": "3.0.0-9",
+  "version": "3.0.0-16",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
@@ -56,12 +56,15 @@
     "apollo-cache-inmemory": "^1.5.1",
     "apollo-client": "^2.5.1",
     "apollo-link-ws": "^1.0.17",
+    "chart.js": "^2.8.0",
+    "chartjs-plugin-annotation": "^0.5.7",
     "core-js": "^2.5.4",
     "file-saver": "^2.0.0",
     "getstream": "^4.1.0",
     "graphql": "^14.2.1",
     "graphql-tag": "^2.10.1",
     "hubspot": "^2.1.1",
+    "ng2-charts": "^2.3.0",
     "npm": "^6.4.1",
     "realm-graphql-client": "^1.4.0",
     "rxjs": "^6.4.0",

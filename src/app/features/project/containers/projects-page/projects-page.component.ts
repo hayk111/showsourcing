@@ -2,7 +2,7 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { CommonModalService } from '~common/modals';
 import { ProjectService } from '~core/entity-services';
 import { ListPageKey, ListPageService } from '~core/list-page';
-import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
+import { SelectParamsConfig, SelectParams } from '~core/entity-services/_global/select-params';
 import { ERM, Project, EntityTypeEnum } from '~models';
 import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
@@ -37,11 +37,12 @@ export class ProjectsPageComponent extends AutoUnsub implements OnInit, AfterVie
 	}
 
 	ngOnInit() {
+		const selectParams = new SelectParams({ query: 'deleted == false' });
 		this.listSrv.setup({
 			key: ListPageKey.PROJECTS,
 			entitySrv: this.projectSrv,
 			searchedFields: ['name', 'createdBy.firstName', 'createdBy.lastName'],
-			selectParams: { sortBy: 'name', descending: false, query: 'deleted == false' },
+			selectParams,
 			entityMetadata: ERM.PROJECT,
 		}, false);
 	}

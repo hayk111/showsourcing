@@ -5,7 +5,7 @@
   <div class="middle-part">
 		<div *ngIf="title?.length" class="title first-uppercase">{{ title }}</div>
 		<div *ngIf="message?.length" class="message">{{ message }}</div>
-		<div *ngIf="uriMessage?.length" class="uri-message" (click)="goTo()"> {{ uriMessage }}</div>
+		<div *ngIf="(action | async) && actionMessage?.length" class="uri-message" (click)="onActionClick()"> {{ actionMessage }}</div>
   </div>
   <div class="right-part">
       <icon-app name="close" (click)="forceClose()"></icon-app>

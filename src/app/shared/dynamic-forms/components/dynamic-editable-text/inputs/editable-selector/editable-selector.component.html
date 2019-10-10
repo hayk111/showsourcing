@@ -13,14 +13,15 @@
 	<editable-field-app
 		#editable
 		[class.no-hover]="disabled"
-		[inlineLabel]="inlineLabel"
+		[inlineLabel]="config.inlineLabel"
+		[align]="config.alignValue"
 		[openOnClick]="!disabled"
 		[hasAction]="false"
 		[canGrow]="multiple">
 		<label-app>{{ label }}</label-app>
 		<editable-label-app
 			class="flex"
-			[class.flexEnd]="inlineLabel"
+			[class.flexEnd]="config.inlineLabel"
 			[class.flexWrap]="multiple"
 			[disabled]="disabled">
 			<ng-container *ngTemplateOutlet="getLabelTemplate()"></ng-container>
@@ -39,6 +40,7 @@
 				*ngIf="value && !inlineLabel"
 				class="user-icon"
 				size="20"
+				[fontSize]="10"
 				[user]="value"
 				[image]="value?.avatar">
 			</user-picture-app>

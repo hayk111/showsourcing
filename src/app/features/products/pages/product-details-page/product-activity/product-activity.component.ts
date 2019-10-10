@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import { map, switchMap, tap, filter } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { map, switchMap, tap, filter, startWith } from 'rxjs/operators';
 import { CommentService, RequestElementService, SampleService, TaskService, UserService } from '~core/entity-services';
 import { SelectParams } from '~core/entity-services/_global/select-params';
 import { ListPageService } from '~core/list-page';
@@ -13,9 +13,6 @@ import { Counts } from './product-activity-nav/product-activity-nav.component';
 import { DialogService, CloseEventType, CloseEvent } from '~shared/dialog';
 import { CreationSampleDlgComponent, CreationTaskDlgComponent } from '~common/modals';
 import { SupplierRequestDialogComponent } from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
-
-
-
 
 
 @Component({
@@ -33,7 +30,7 @@ export class ProductActivityComponent extends AutoUnsub implements OnInit {
 	counts$: Observable<Counts>;
 	typeEntity = ERM.PRODUCT;
 	assigneeFilterType = FilterType.ASSIGNEE;
-	private product: Product;
+	product: Product;
 
 	constructor(
 		private route: ActivatedRoute,
@@ -50,15 +47,18 @@ export class ProductActivityComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
+
+		this.product = { id: (this.route.parent.params as any).id };
 		const id$ = this.route.parent.params.pipe(
 			map(params => params.id),
 		);
 		this.product$ = id$.pipe(
 			switchMap(id => this.productSrv.selectOne(id)),
-			tap(product => this.product = product)
+			tap(product => this.product = product),
 		);
 		this.counts$ = this.product$.pipe(
-			map(product => this.productSrv.getActivityCount(product) )
+			map(product => this.productSrv.getActivityCount(product) ),
+			startWith({ comment: of(0), task: of(0), sample: of(0), request: of(0) })
 		);
 		this.onTabChange(this.selectedTab);
 	}
@@ -70,8 +70,6 @@ export class ProductActivityComponent extends AutoUnsub implements OnInit {
 		let selectParams = new SelectParams();
 		let initialFilters = [];
 
-		// TODO: ListPageSrv needs a refactor to make it more modulable and intuitive to do this kind of stuff
-		// It's not that bad, but it could be better
 		switch (tabName) {
 			case 'comment':
 				entitySrv = this.commentSrv;

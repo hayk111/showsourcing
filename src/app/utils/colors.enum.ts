@@ -8,6 +8,10 @@ export enum Color {
 	ACCENT = 'accent',
 	VIBRANT = 'vibrant',
 	WARN = 'warn',
-	SUCCESS = 'success'
+	SUCCESS = 'success',
+
+	PRIMARY_LIGHT = 'primary-light',
+	SECONDARY_LIGHT = 'secondary-light'
+
 }
 

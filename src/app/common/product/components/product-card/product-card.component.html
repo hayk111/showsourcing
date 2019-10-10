@@ -43,13 +43,15 @@
 		</div>
 		<!-- created by and votes -->
 		<div class="card-footer flexBetween">
-			<div class="created-by">
+			<div class="created-by flexVAlign">
 				<user-picture-app
-					[user]="product?.createdBy"
+					*ngIf="product?.assignee"
+					[user]="product?.assignee"
 					[size]="24"
 					fontSize="12"
 					[background]="false"
-					[image]="product?.createdBy?.avatar"></user-picture-app>
+					[image]="product?.assignee?.avatar">
+				</user-picture-app>
 				<div class="product-reference">
 					{{product?.reference}}
 				</div>

@@ -143,7 +143,10 @@ export class ListPageDataService
 	 */
 	refetch(config?: SelectParamsConfig) {
 		this.onLoading();
-		return this.listResult.refetch(config || this.selectParams).pipe(first());
+		return this.listResult.refetch(config || this.selectParams).pipe(
+			tap(_ => this.onLoaded()),
+			first()
+		);
 	}
 
 	/** Loads more items when we reach the bottom of the page */

@@ -1,14 +1,25 @@
 dialog-app {
 	width: 470px;
+
+	.user-info-container {
+		&:first-child {
+			padding-bottom: var(--spacing-ms);			
+		}
+
+		&:last-child {
+			padding-top: var(--spacing-ms);
+		}
+
+		&:not(:first-child):not(:last-child) {
+			padding: var(--spacing-ms) 0;
+		}
+	}
 }
 
 .row {
 	border-bottom: 1px solid var(--legacy-color-secondary);
 }
 
-.user-info {
-	margin-bottom: var(--spacing-s);
-}
 user-picture-app {
 	font-size: var(--font-size-s);
 }

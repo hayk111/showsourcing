@@ -3,13 +3,15 @@
 	[entityType]="erm.ATTACHMENT.singular"
 	[hasFilter]="false"
 	[hasSwitch]="false"
-	[entityType]="'SAMPLE'"
+	[buttonName]="'Add file'"
 	[view]="listSrv.view"
 	(search)="listSrv.search($event)"
-	(smartSearch)="listSrv.smartSearch($event)">
+	(smartSearch)="listSrv.smartSearch($event)"
+	(buttonClick)="table.openFileBrowser()">
 </controller-list-app>
 
 <attachment-table-app
+	#table
 	class="max-full-table-width"
 	[hasPagination]="false"
 	[currentSort]="listSrv.currentSort"
@@ -18,6 +20,7 @@
 	[selection]="listSrv.selection$ | async"
 	[count]="listSrv.count$ | async"
 	[currentPage]="listSrv.currentPage"
+	[linkedEntity]="supplier"
 	(delete)="listSrv.deleteOne($event)"
 	(update)="listSrv.update($event)"
 	(open)="listSrv.goToDetails($event)"
@@ -36,6 +39,17 @@
 	(update)="listSrv.update($event)"
 	(createClick)="commonModalSrv.openCreationProductDlg()"
 	(unselectAll)="listSrv.unselectAll()"
-	(upload)="listSrv.refetch()">
+	(upload)="listSrv.refetch().subscribe()">
 </attachment-table-app>
 
+
+<selection-bar-app
+	[isShown]="(listSrv.selection$ | async).size > 0"
+	[selection]="listSrv.selection$ | async"
+	(close)="listSrv.unselectAll()">
+
+	<button class="icon light" (click)="listSrv.deleteSelected()">
+		<icon-app name="trash"></icon-app>
+	</button>
+	
+</selection-bar-app>

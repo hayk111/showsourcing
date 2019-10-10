@@ -71,7 +71,7 @@ export class ActivitiesBarComponent implements OnInit {
 		if (this.row
 			&& this.row.tasksLinked
 			&& this.row.tasksLinked.count
-			&& (this.row.tasksLinked.items.some(task => this.isTaskOverdued(task)).length > 0)) {
+			&& (this.row.tasksLinked.items.some(task => this.isTaskOverdued(task)))) {
 			return true;
 		}
 

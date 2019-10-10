@@ -196,10 +196,12 @@ button, input[type="submit"], .button {
 	}
 
 	&.small {
-		min-width: 60px;
+		min-width: 70px;
 		height: 24px;
 	}
 
+	// TODO: Michael is still used ? 
+	// wassn't that for some project we had like a year ago ?
 	&.boarding, &.big {
 		height: 40px;
     min-width: 120px;
@@ -213,9 +215,10 @@ button, input[type="submit"], .button {
 	&.icon {
 		width: 32px;
 		height: 32px;
-		padding: 6px;
-		min-width: 0;
 		font-size: inherit;
+		display: inline-flex;
+		justify-content: center;
+		align-items: center;
 	}
 
 	// when there is an icon + text

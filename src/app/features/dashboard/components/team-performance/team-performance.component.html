@@ -1,0 +1,40 @@
+<card-app>
+	<h2 class="team-performance-title">Team performance</h2>
+	<div class="flex team-stats">
+		<div>
+			<div class="total-products-created">
+				<h3>Total Products Created</h3>
+				<h2 class="total-products-created-count">{{totalProducts}}</h2>
+			</div>
+			<div class="products-this-week">
+				<h3>Products this week</h3>
+				<h2 class="products-this-week-count">{{productsThisWeek}}</h2>
+			</div>
+		</div>
+		<div>
+			<div class="total-suppliers-created">
+				<h3>Total Supplier Created</h3>
+				<h2 class="total-suppliers-created-count">{{totalSuppliers}}</h2>
+			</div>
+			<div class="suppliers-this-week">
+				<h3>Suppliers this week</h3>
+				<h2 class="suppliers-this-week-count">{{suppliersThisWeek}}</h2>
+			</div>
+		</div>
+	</div>
+	<div class="chart flexCenter">
+
+		<div *ngIf="teamStats$ | async as teamStats; else spinner">
+			<line-chart-app
+				[chartData]="teamStats">
+			</line-chart-app>
+		</div>
+
+		<ng-template #spinner>
+			<div class="flexColumn flexCenter">
+				<spinner-app></spinner-app>
+			</div>
+		</ng-template>
+	</div>
+
+</card-app>

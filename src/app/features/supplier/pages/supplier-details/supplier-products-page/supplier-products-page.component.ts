@@ -8,6 +8,9 @@ import { ERM, Product, Supplier } from '~core/models';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { AutoUnsub } from '~utils';
 import { ID } from '~utils/id.utils';
+import { FilterType } from '~shared/filters';
+import { ControllerListService } from '~shared/header-list/services/controller-list.service';
+import { SelectParams } from '~core/entity-services/_global/select-params';
 
 @Component({
 	selector: 'supplier-products-page-app',
@@ -20,6 +23,18 @@ export class SupplierProductsPageComponent extends AutoUnsub implements OnInit {
 	supplierId: ID;
 	private supplier: Supplier;
 	erm = ERM;
+	filterTypeEnum = FilterType;
+	// filter displayed as button in the filter panel
+	filterTypes = [
+		FilterType.ARCHIVED,
+		FilterType.CATEGORY,
+		FilterType.CREATED_BY,
+		FilterType.EVENT,
+		FilterType.FAVORITE,
+		FilterType.PRODUCT_STATUS,
+		FilterType.PROJECTS,
+		FilterType.TAGS
+	];
 
 	constructor(
 		private route: ActivatedRoute,
@@ -27,7 +42,8 @@ export class SupplierProductsPageComponent extends AutoUnsub implements OnInit {
 		private supplierSrv: SupplierService,
 		public listSrv: ListPageService<Product, ProductService>,
 		public commonModalSrv: CommonModalService,
-		public dlgSrv: DialogService
+		public dlgSrv: DialogService,
+		private controllerListService: ControllerListService,
 	) { super(); }
 
 	ngOnInit() {
@@ -41,9 +57,8 @@ export class SupplierProductsPageComponent extends AutoUnsub implements OnInit {
 			key: `supplier-products-${this.supplierId}`,
 			entitySrv: this.productSrv,
 			searchedFields: ['name', 'description'],
-			selectParams: {
-				query: `supplier.id == "${this.supplierId}" AND archived == false AND deleted == false`,
-			},
+			initialFilters: [ { type: FilterType.ARCHIVED, value: false }, { type: FilterType.DELETED, value: false } ],
+			selectParams: new SelectParams({ query: `supplier.id == "${this.supplierId}"` }),
 			entityMetadata: ERM.PRODUCT,
 			originComponentDestroy$: this._destroy$
 		});
@@ -56,6 +71,14 @@ export class SupplierProductsPageComponent extends AutoUnsub implements OnInit {
 			map((evt: CloseEvent) => evt.data),
 			switchMap(_ => this.listSrv.refetch())
 		).subscribe();
+	}
+
+	onClearFilters() {
+		this.listSrv.filterList.resetAll();
+
+		this.listSrv.addFilter({ type: FilterType.ARCHIVED, value: false });
+		this.listSrv.addFilter({ type: FilterType.DELETED, value: false });
+		this.controllerListService.onFiltersClear();
 	}
 
 }
