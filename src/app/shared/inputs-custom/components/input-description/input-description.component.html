@@ -12,6 +12,7 @@
 		<label-app class="capitalize" translate="text.description"></label-app>
 		<editable-label-app
 			*ngIf="description?.length && description"
+			[disabled]="true"
 			class="fs-m">
 			{{ (description?.length && description)  }}
 		</editable-label-app>
