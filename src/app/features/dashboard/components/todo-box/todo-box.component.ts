@@ -7,7 +7,6 @@ import { SupplierService } from '~core/entity-services';
 import { Supplier, ERM } from '~core/models';
 import { FilterType } from '~shared/filters';
 
-
 @Component({
 	selector: 'todo-box-app',
 	templateUrl: './todo-box.component.html',
@@ -20,7 +19,7 @@ import { FilterType } from '~shared/filters';
 export class TodoBoxComponent implements OnInit {
 	public todoCounters$: Observable<TodoCounts>;
 	public rows$: Observable<TodoEntities>;
-	selectedEntity = 'product';
+	selectedTab = 'product';
 	entities = ['product', 'task', 'supplier', 'sample'];
 
 	constructor(
@@ -48,12 +47,12 @@ export class TodoBoxComponent implements OnInit {
 	}
 
 	get route() {
-		if (this.selectedEntity === 'product' || this.selectedEntity === 'supplier') return this.selectedEntity;
-		return this.selectedEntity + 's';
+		if (this.selectedTab === 'product' || this.selectedTab === 'supplier') return this.selectedTab;
+		return this.selectedTab + 's';
 	}
 
 	openCreationModal() {
-		switch (this.selectedEntity) {
+		switch (this.selectedTab) {
 			case 'product':
 				this.commonModalSrv.openCreationProductDlg();
 				break;
