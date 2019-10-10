@@ -48,27 +48,33 @@ import { CrudDialogService } from './services/crud-dialog.service';
 
 const modals = [
 	ChangePswdDlgComponent,
+	CompareColumnComponent,
+	CompareLabelsComponent,
 	CompareProductComponent,
 	CreationDialogComponent,
 	CreationProductDlgComponent,
+	CreationSampleDlgComponent,
+	CreationTaskDlgComponent,
 	DescriptionDlgComponent,
 	EditionDialogComponent,
 	ExportDlgComponent,
+	ExportSelectionViewComponent,
+	ExportWaitingViewComponent,
 	InviteUserDlgComponent,
 	MassEditDlgComponent,
 	MergeDialogComponent,
 	NewContactDlgComponent,
 	ProductAddToProjectDlgComponent,
+	ProductRequestListComponent,
 	ProductRequestTeamFeedbackDlgComponent,
+	ProductSelectDlgComponent,
+	ProductsCardViewDialogComponent,
 	RefuseReplyDlgComponent,
 	ReplySentDlgComponent,
 	RequestReplyDlgComponent,
+	ReviewRequestReplyDlgComponent,
 	SupplierRequestDialogComponent,
 	VoteDetailsDialogComponent,
-	ReviewRequestReplyDlgComponent,
-	CreationTaskDlgComponent,
-	CreationSampleDlgComponent,
-	ProductSelectDlgComponent
 ];
 
 @NgModule({
@@ -82,12 +88,7 @@ const modals = [
 	],
 	declarations: [
 		...modals,
-		ProductsCardViewDialogComponent,
-		ExportSelectionViewComponent,
-		ExportWaitingViewComponent,
-		ProductRequestListComponent,
-		CompareLabelsComponent,
-		CompareColumnComponent,
+
 	],
 	entryComponents: modals,
 	providers: [

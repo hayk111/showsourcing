@@ -15,7 +15,7 @@
 			<form [formGroup]="form">
 
 				<form-field-app class="modal pdng-btm-l">
-					<label-app><ng-container i18n="@@select-products">Select products</ng-container> *</label-app>
+					<label-app class="flex"><ng-container i18n="@@select-products">Select products</ng-container> *</label-app>
 					<product-request-list-app
 						[products]="request?.products"
 						(update)="updateProducts($event)"
@@ -26,7 +26,7 @@
 				</form-field-app>
 
 				<form-field-app class="modal pdng-btm-l">
-					<label-app><ng-container i18n="@@request-tempaltes">Request Templates</ng-container> *</label-app>
+					<label-app class="flex"><ng-container i18n="@@request-tempaltes">Request Templates</ng-container> *</label-app>
 					<selector-app
 						#selectorReqTemplate
 						type="request template"
@@ -61,7 +61,7 @@
 
 
 				<form-field-app class="modal">
-					<label-app i18n="@@share-product-info">Share my product information</label-app>
+					<label-app class="flex" i18n="@@share-product-info">Share my product information</label-app>
 					<div class="flex share-info">
 						<checkbox-app
 							#checkShare
@@ -82,7 +82,7 @@
 				<form [formGroup]="form">
 					<form-field-app
 						class="modal">
-						<label-app><ng-container i18n="@@send-to-supplier">Send to Supplier</ng-container> *</label-app>
+						<label-app class="flex"><ng-container i18n="@@send-to-supplier">Send to Supplier</ng-container> *</label-app>
 						<selector-app
 							type="supplier"
 							[canCreate]="true"
@@ -98,7 +98,7 @@
 					</form-field-app>
 
 				<form-field-app class="modal">
-					<label-app><ng-container i18n="@@select-contact">Select Contact</ng-container> *</label-app>
+					<label-app class="flex"><ng-container i18n="@@select-contact">Select Contact</ng-container> *</label-app>
 					<selector-app
 						#contactSelector
 						type="contact"
@@ -137,7 +137,7 @@
 				</form-field-app> -->
 
 				<form-field-app class="modal pdng-btm-l">
-					<label-app><ng-container i18n="@@request-title">Request Title</ng-container> *</label-app>
+					<label-app class="flex"><ng-container i18n="@@request-title">Request Title</ng-container> *</label-app>
 					<input inputApp type="text" formControlName="title" placeholder="Quote Request" i18n-placeholder="@@quote-request"/>
 				</form-field-app>
 				<form-field-app class="modal">
