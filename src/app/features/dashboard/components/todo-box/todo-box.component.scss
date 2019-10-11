@@ -1,6 +1,10 @@
 card-app {
 	height: 475px;
 
+	card-title-app {
+		color: var(--color-bg-dark);
+	}
+
 	card-footer-app {
 		border-top: none;
 	}

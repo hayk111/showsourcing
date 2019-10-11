@@ -38,6 +38,7 @@ import { RPCRequest } from './rpc-request.model';
 
 export enum EntityName {
 	ATTACHMENT = 'attachment',
+	ACTIVITY = 'activity',
 	CATEGORY = 'category',
 	COMMENT = 'comment',
 	COMPANY = 'company',
@@ -65,6 +66,7 @@ export enum EntityName {
 
 export enum EntityTypeEnum {
 	ATTACHMENT = 'ATTACHMENT',
+	ACTIVITY = 'ACTIVITY',
 	CATEGORY = 'CATEGORY',
 	EVENT = 'EVENT',
 	EXPORT = 'EXPORT',
