@@ -99,8 +99,6 @@
 </preview-panel-app>
 
 
-
-
 <!-- Static -->
 <preview-static-app
 	*ngIf="!isPreview"
@@ -186,6 +184,7 @@
 		<extended-form-app
 			[definitions]="fieldDefinitions$ | async"
 			[fields]="supplier?.extendedFields"
+			[config]="formConfig"
 			(update)="updateSupplier({extendedFields: $event})">
 		</extended-form-app>
 	</preview-section-app>

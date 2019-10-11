@@ -16,10 +16,10 @@ export interface DashboardCounters {
 }
 
 export interface TodoCounts {
-	product: number;
-	task: number;
-	supplier: number;
-	sample: number;
+	product?: number;
+	task?: number;
+	supplier?: number;
+	sample?: number;
 }
 
 export interface TodoEntities {
