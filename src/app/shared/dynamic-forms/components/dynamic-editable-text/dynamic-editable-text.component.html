@@ -51,9 +51,9 @@
 			</form-field-app>
 		</editable-field-app>
 
-		<!-- number -->
+		<!-- int -->
 		<editable-field-app
-			*ngSwitchCase="'number'"
+			*ngSwitchCase="'int'"
 			#editable
 			[hasAction]="hasAction"
 			[hasLabel]="hasLabel"
@@ -252,7 +252,7 @@
 			*ngSwitchCase="'selector'"
 			[(ngModel)]="value"
 			[hasLabel]="hasLabel"
-			[type]="customField?.metadata?.target"
+			[type]="getMetadata(customField?.metadata)"
 			[disabled]="customField?.metadata?.disabled"
 			[width]="customField?.metadata?.width"
 			[multiple]="customField?.metadata?.multiple"

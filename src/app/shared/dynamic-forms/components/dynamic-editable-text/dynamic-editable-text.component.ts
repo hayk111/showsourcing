@@ -116,4 +116,17 @@ export class DynamicEditableTextComponent extends AbstractInput {
 		}
 	}
 
+	getMetadata(metadata) {
+		const stringConstructor = 'string'.constructor;
+		const objectConstructor = ({}).constructor;
+		// we check if the metadata has to be trasnformed into an Object
+		if (metadata.constructor === stringConstructor) {
+			const objMetadata = JSON.parse(metadata);
+			return objMetadata ? objMetadata.source : null;
+		} else if (metadata.constructor === objectConstructor) { // if tis already an object, we return the target if exists
+			return metadata && metadata.target || null;
+		}
+		return null;
+	}
+
 }

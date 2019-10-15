@@ -17,6 +17,8 @@ export interface DynamicFieldMetadata {
 	placeholder?: string;
 	disabled?: boolean;
 	rows?: number;
+	// only used when using dynamic form from metadata of the extended Fields
+	source?: string;
 }
 
 /*
