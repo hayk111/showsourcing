@@ -29,6 +29,7 @@ export class ProjectProductListComponent extends ListViewComponent<Product> impl
 	@Output() openExportDialog = new EventEmitter<Product>();
 	@Output() openRequestFeedbackDialog = new EventEmitter<Product>();
 	@Output() openRequestQuotationDialog = new EventEmitter<Product>();
+	@Output() archiveProduct = new EventEmitter<Product>();
 	// templates
 	// load cells template for custom table
 	@ViewChild('main', { static: true }) mainTemplate: TemplateRef<any>;
@@ -47,14 +48,14 @@ export class ProjectProductListComponent extends ListViewComponent<Product> impl
 	prodErm = ERM.PRODUCT;
 
 	descriptor: TableDescriptor = [
-		{ title: translate('name'), type: 'main', sortable: true, sortBy: 'name', width: 280, minWidth: 120 },
-		{ title: translate(ERM.CATEGORY.singular, 'erm'), type: 'category', sortBy: 'category.name', width: 120, minWidth: 120 },
-		{ title: translate(ERM.SUPPLIER.singular, 'erm'), type: 'supplier', sortBy: 'supplier.name', width: 120, minWidth: 120 },
-		{ title: translate(ERM.PRICE.singular, 'erm'), type: 'price.value', sortBy: 'price', width: 50, minWidth: 50 },
-		{ title: translate('MOQ'), type: 'moq', propName: 'minimumOrderQuantity', sortBy: 'minimumOrderQuantity', width: 50, minWidth: 50 },
-		{ title: translate('Fav'), type: 'rating', sortBy: 'favorite', width: 15, minWidth: 50 },
-		{ title: translate('status'), type: 'status', sortBy: 'status.step', width: 85, minWidth: 120 },
-		{ title: translate('created on'), type: 'creationDate', sortBy: 'creationDate', width: 120, minWidth: 120 }
+		{ title: translate('name'), type: 'main', sortable: true, sortBy: 'name', width: 350 },
+		{ title: translate(ERM.CATEGORY.singular, 'erm'), type: 'category', sortBy: 'category.name', width: 200 },
+		{ title: translate(ERM.SUPPLIER.singular, 'erm'), type: 'supplier', sortBy: 'supplier.name', width: 200 },
+		{ title: translate(ERM.PRICE.singular, 'erm'), type: 'price', sortBy: 'price.value', width: 130 },
+		{ title: translate('MOQ'), type: 'moq', propName: 'minimumOrderQuantity', sortBy: 'minimumOrderQuantity', width: 130 },
+		{ title: translate('Fav'), type: 'rating', sortBy: 'favorite', width: 100 },
+		{ title: translate('status'), type: 'status', sortBy: 'status.step', width: 170 },
+		{ title: translate('created on'), type: 'creationDate', sortBy: 'creationDate', width: 200 }
 	];
 
 	constructor(

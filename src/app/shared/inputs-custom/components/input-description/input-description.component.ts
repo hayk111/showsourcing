@@ -1,17 +1,18 @@
 import {
-	AfterViewInit,
 	ChangeDetectionStrategy,
 	ChangeDetectorRef,
 	Component,
 	ElementRef,
 	EventEmitter,
 	Input,
+	OnChanges,
+	OnInit,
 	Output,
 	Renderer2,
 	ViewChild,
 } from '@angular/core';
 import { DescriptionDlgComponent } from '~common/modals/component/description-dlg/description-dlg.component';
-import { DialogService } from '~shared/dialog';
+import { CloseEventType, DialogService } from '~shared/dialog';
 
 @Component({
 	selector: 'input-description-app',
@@ -19,11 +20,18 @@ import { DialogService } from '~shared/dialog';
 	styleUrls: ['./input-description.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class InputDescriptionComponent implements AfterViewInit {
+export class InputDescriptionComponent implements OnChanges, OnInit {
 
-	@Input() description = '';
+	private _description = '';
+	@Input() set description(description: string) {
+		this._description = description;
+		this.adaptSize();
+	}
+	get description() {
+		return this._description;
+	}
 	@Input() hasLabel = false;
-	@Input() isBig = false;
+	@Input() isSmall = false;
 	// wether we display a modal or not
 	@Input() asModal = true;
 	@Output() update = new EventEmitter<string>();
@@ -37,8 +45,11 @@ export class InputDescriptionComponent implements AfterViewInit {
 		private dlgSrv: DialogService,
 		private cd: ChangeDetectorRef) { }
 
+	ngOnInit() {
+		this.adaptSize();
+	}
 
-	ngAfterViewInit() {
+	ngOnChanges() {
 		this.adaptSize();
 	}
 
@@ -55,14 +66,12 @@ export class InputDescriptionComponent implements AfterViewInit {
 	}
 
 	adaptSize() {
-		if (this.container.nativeElement.clientHeight > 85 && !this.showMore) {
+		// we set the height the the limit
+		this.showAll();
+		// if the height is bigger than 85 and it has a description, we limit the height
+		if (this.container.nativeElement.clientHeight > 85 && (this.description && this.description.length)) {
 			this.render.setStyle(this.container.nativeElement, 'height', '85px');
 			this.showMore = true;
-		} else if (this.showMore === true) {
-			this.render.setStyle(this.container.nativeElement, 'height', '85px');
-		} else {
-			this.render.setStyle(this.container.nativeElement, 'height', '100%');
-			this.showMore = false;
 		}
 		this.cd.detectChanges();
 	}
@@ -70,6 +79,9 @@ export class InputDescriptionComponent implements AfterViewInit {
 	openDescModal() {
 		if (this.asModal)
 			this.dlgSrv.open(DescriptionDlgComponent, { description: this.description })
-				.subscribe(({ type, data }) => this.update.emit(data.description));
+				.subscribe(({ type, data }) => {
+					if (type === CloseEventType.OK)
+						this.update.emit(data.description);
+				});
 	}
 }

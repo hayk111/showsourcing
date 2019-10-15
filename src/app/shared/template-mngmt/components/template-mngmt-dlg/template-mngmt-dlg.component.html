@@ -51,7 +51,7 @@
 				</div>
 
 				<list-app>
-					<list-item-app *ngFor="let fc of (newState | keyvalue)" (click)="toggle(fc.key)">
+					<list-item-app *ngFor="let fc of (newState | keyvalue); trackBy: trackByFn" (click)="toggle(fc.key)">
 						<div class="flexBetween flexVAlign fullWidth">
 							<span> {{ fc.key.label }}</span>
 							<checkbox-app [checked]="fc.value"></checkbox-app>

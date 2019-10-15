@@ -1,30 +1,31 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { filter, map } from 'rxjs/operators';
 import {
 	CompareProductComponent,
 	CreationDialogComponent,
+	CreationProductDlgComponent,
+	CreationTaskDlgComponent,
 	EditionDialogComponent,
 	ExportDlgComponent,
 	InviteUserDlgComponent,
+	MassEditDlgComponent,
 	MergeDialogComponent,
 	NewContactDlgComponent,
 	ProductAddToProjectDlgComponent,
 	ProductRequestTeamFeedbackDlgComponent,
-	SupplierRequestDialogComponent,
-	VoteDetailsDialogComponent,
-	MassEditDlgComponent,
+	ProductSelectDlgComponent,
 	RefuseReplyDlgComponent,
-	CreationProductDlgComponent,
+	VoteDetailsDialogComponent,
 } from '~common/modals/component';
-import { FindProductsDialogComponent } from '~common/product/containers/find-products-dialog/find-products-dialog.component';
-import { EntityMetadata, Product, ProductVote, Project, Supplier, ERM } from '~models';
+import { EntityMetadata, ERM, Product, ProductVote, Supplier } from '~models';
+import { CloseEvent, CloseEventType } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { DialogService } from '~shared/dialog/services';
 import { ID } from '~utils';
 
 import { ReviewRequestReplyDlgComponent } from '../component/review-request-reply-dlg/review-request-reply-dlg.component';
-import { filter, map } from 'rxjs/operators';
-import { CloseEventType, CloseEvent } from '~shared/dialog';
-import { Router } from '@angular/router';
+import { SupplierRequestDialogComponent } from '../component/supplier-request-dialog/supplier-request-dialog.component';
 
 /**
  * Service used to open dialogs, the goal of this service is to bring easy typing
@@ -67,9 +68,10 @@ export class CommonModalService {
 		return this.dlgSrv.open(ProductRequestTeamFeedbackDlgComponent, { products });
 	}
 
-	openFindProductDlg(initialSelectedProducts: Product[], project: Project) {
-		return this.dlgSrv.open(FindProductsDialogComponent, {
-			initialSelectedProducts, project
+	openSelectProductDlg(initialSelectedProducts?: Product[], submitProducts = true) {
+		return this.dlgSrv.open(ProductSelectDlgComponent, {
+			initialSelectedProducts,
+			submitProducts
 		});
 	}
 
@@ -79,10 +81,6 @@ export class CommonModalService {
 
 	openConfirmDialog(data: { text: string }) {
 		return this.dlgSrv.open(ConfirmDialogComponent, data);
-	}
-
-	openSupplierRequest(products: Product[]) {
-		return this.dlgSrv.open(SupplierRequestDialogComponent, { products });
 	}
 
 	openMergeDialog(data: { type: any, entities: any[] }) {
@@ -121,6 +119,14 @@ export class CommonModalService {
 		).subscribe(({ product }) => {
 			this.router.navigate([ERM.PRODUCT.destUrl, product.id]);
 		});
+	}
+
+	openSupplierRequest(products: Product[]) {
+		return this.dlgSrv.open(SupplierRequestDialogComponent, { products });
+	}
+
+	openCreationTaskDlg() {
+		this.dlgSrv.open(CreationTaskDlgComponent);
 	}
 
 	close() {

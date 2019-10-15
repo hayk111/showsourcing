@@ -7,8 +7,8 @@
 				[checked]="filterList.hasFilterType(filterTypeEnum.ASSIGNEE)"
 				(check)="toggleMySamples.emit(true)"
 				(uncheck)="toggleMySamples.emit(false)">
-				<span i18n="@@show-samples-only">
-					Show my samples only
+				<span i18n="@@assigned-to-me">
+					Assigned to me
 				</span>
 			</checkbox-app>
 		</div>
@@ -27,9 +27,9 @@
 			</sample-app>
 		</list-item-app>
 	</list-app>
-
-	<div class="flexBetween create-sample">
-		<input #inp [formControl]="sampleCtrl" inputApp type="text" placeholder="+ Create a new sample" (keydown.enter)="onSubmit()" />
-		<button *ngIf="inp?.focussed || sampleCtrl.value" class="secondary-light capitalize" (click)="onSubmit()" i18n="@@create">create</button>
+	<div class="flexEnd create-sample">
+		<button class="primary" (click)="openCreationSampleDlg.emit()" i18n="button@@create">
+			Create
+		</button>
 	</div>
 </card-app>

@@ -37,6 +37,9 @@ export class TemplateMngmtDlgComponent extends AutoUnsub implements OnInit {
 
 	@ViewChild(InputDirective, { static: true }) inp: InputDirective;
 
+	trackByFn(index, item) {
+		return item.key.id;
+	}
 	static count = 0;
 	count = TemplateMngmtDlgComponent.count++;
 	createCtrl = new FormControl();
@@ -123,4 +126,5 @@ export class TemplateMngmtDlgComponent extends AutoUnsub implements OnInit {
 	isSelected(template: RequestTemplate) {
 		return this.templateSelected.id === template.id;
 	}
+
 }

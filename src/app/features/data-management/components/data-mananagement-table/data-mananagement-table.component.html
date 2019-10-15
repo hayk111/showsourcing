@@ -1,22 +1,11 @@
-<ng-template #contextualMenuTemplate let-row="row">
-	<context-menu-item-app
-		class="pointer flexCenter"
-		(click)="delete.emit(row)"
-		i18n="button@@delete">
-		Delete
-	</context-menu-item-app>
-</ng-template>
-
 <table-app
 	[rows]="rows"
 	[pending]="pending"
   [selected]="selection"
   [contextualMenu]="contextualMenuTemplate"
 	[count]="count"
-	[skipped]="skipped"
+	[currentPage]="currentPage"
 	placeholder="No data"
-	(next)="next.emit()"
-	(previous)="previous.emit()"
 	(goToPage)="goToPage.emit($event)"
 	(selectOne)="select.emit($event)"
 	(unselectOne)="unselect.emit($event)"
@@ -27,16 +16,27 @@
 	(hovered)="onHover($event)"
 	i18n-placeholder="@@no-data">
 
+	<!-- context menu -->
+	<ng-template #contextualMenuTemplate let-row="row">
+		<context-menu-item-app
+			class="pointer flexCenter"
+			(click)="delete.emit(row)"
+			i18n="button@@delete">
+			Delete
+		</context-menu-item-app>
+	</ng-template>
+
 	<!-- Name Category -->
-	<ng-template *ngIf="ermEvent !== entityMetadata"
+	<ng-template
+		*ngIf="ermEvent !== entityMetadata"
 		[columnApp]="'name' | const: 'messages'"
 		let-row="row"
 		width="250">
-		<div class="flexBetween">
+		<div class="flexBetween ellipsis">
       <!-- <div> {{ row.name }} </div> -->
 			<editable-text-app
 				#editable
-				(closed)="updateNameEntity(row, txtName?.value)"
+				(closed)="updateNameEntity($event, row, txtName?.value)"
 				[hasAction]="true">
         <editable-label-app class="task-name">
           {{ row?.name }}
@@ -48,14 +48,15 @@
 	</ng-template>
 
 	<!-- Name Event -->
-	<ng-template *ngIf="ermEvent === entityMetadata"
+	<ng-template
+		*ngIf="ermEvent === entityMetadata"
 		[columnApp]="'name' | const: 'messages'"
 		let-row="row"
 		width="250"
 		sortBy="description.name">
 		<div class="flexBetween">
 			<!-- remember that we take the name inside the even description entity -->
-      <editable-text-app #editable (closed)="updateNameEntity(row, txtName?.value, 'description')" [hasAction]="true">
+      <editable-text-app #editable (closed)="updateNameEntity($event, row, txtName?.value, 'description')" [hasAction]="true">
         <editable-label-app class="task-name">
           {{ row?.description?.name }}
         </editable-label-app>
@@ -66,7 +67,8 @@
 	</ng-template>
 
 	<!-- Created By -->
-	<ng-template *ngIf="ermEvent !== entityMetadata"
+	<ng-template
+		*ngIf="ermEvent !== entityMetadata"
 		[columnApp]="'created by' | const: 'messages'"
 		let-row="row"
 		sortBy="createdBy.firstName"
@@ -77,7 +79,8 @@
 	</ng-template>
 
 	<!-- Products Count -->
-	<ng-template *ngIf="ermCategory === entityMetadata || ermTag === entityMetadata"
+	<ng-template
+		*ngIf="ermCategory === entityMetadata || ermTag === entityMetadata"
 		[columnApp]="'Products count' | const: 'messages'"
 		let-row="row"
 		[sortable]="false"
@@ -88,7 +91,8 @@
 	</ng-template>
 
 	<!-- Supplier Count -->
-	<ng-template *ngIf="ermCategory === entityMetadata || ermTag === entityMetadata"
+	<ng-template
+		*ngIf="ermCategory === entityMetadata || ermTag === entityMetadata"
 		[columnApp]="'Suppliers count' | const: 'messages'"
 		let-row="row"
 		[sortable]="false"
@@ -99,7 +103,8 @@
 	</ng-template>
 
 	<!-- Start Date (Event only) -->
-	<ng-template *ngIf="ermEvent === entityMetadata"
+	<ng-template
+		*ngIf="ermEvent === entityMetadata"
 		[columnApp]="'Start date' | const: 'messages'"
 		let-row="row"
 		sortBy="description.startDate"
@@ -110,7 +115,8 @@
 	</ng-template>
 
 	<!-- End Date (Event only) -->
-	<ng-template *ngIf="ermEvent === entityMetadata"
+	<ng-template
+		*ngIf="ermEvent === entityMetadata"
 		[columnApp]="'End Date' | const: 'messages'"
 		let-row="row"
 		sortBy="description.endDate"

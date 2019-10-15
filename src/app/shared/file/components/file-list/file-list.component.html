@@ -6,7 +6,7 @@
     <!-- file list -->
     <list-app>
 
-      <list-item-app (click)="downloadFile(file)" *ngFor="let file of files; let last = last;" [border]="!last">
+      <list-item-app (click)="downloadFile(file)" *ngFor="let file of files; let last = last; trackBy: trackByFn" [border]="!last">
         <spinner-app *ngIf="isPending(file)" size="35" width="3"></spinner-app>
 
         <div class="space-icon flexAround">

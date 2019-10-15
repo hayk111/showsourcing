@@ -12,7 +12,8 @@ import {
 } from '@angular/core';
 import { ERM } from '~core/models';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
-import { TabFocusDirective } from '~shared/utils';
+import { TabFocusActionDirective } from '~shared/utils';
+import { ID } from '~utils';
 
 @Component({
 	selector: 'input-selector-app',
@@ -30,14 +31,17 @@ export class InputSelectorComponent extends AbstractInput implements OnInit, Aft
 	@Input() canCreate = false;
 	@Input() width: number;
 	@Input() autofocus = false;
+	@Input() placeholder: string;
 	// wether we display a info-badge-app or just plain tex
 	@Input() hasBadge = false;
+	@Input() disabled = false;
+	@Input() definitionReference: ID;
 	@Output() update = new EventEmitter<any>();
 
 	@ViewChild('oneValueLabel', { static: true }) oneLabel: TemplateRef<any>;
 	@ViewChild('multipleValuesLabel', { static: true }) manyLabel: TemplateRef<any>;
 	@ViewChild('switchType', { static: true }) switchType: TemplateRef<any>;
-	@ViewChild(TabFocusDirective, { static: false }) tab: TabFocusDirective;
+	@ViewChild(TabFocusActionDirective, { static: false }) tab: TabFocusActionDirective;
 
 	// wether the value is a literal string or an Object e.g.(harbour vs category)
 	isEntity = true;
@@ -49,11 +53,11 @@ export class InputSelectorComponent extends AbstractInput implements OnInit, Aft
 
 	ngOnInit() {
 		switch (this.type) {
-			case 'length unit':
-			case 'weight unit':
-			case 'harbour':
-			case 'inco term':
-			case 'country':
+			case ERM.LENGTH_UNIT.singular:
+			case ERM.WEIGHT_UNIT.singular:
+			case ERM.HARBOUR.singular:
+			case ERM.INCO_TERM.singular:
+			case ERM.COUNTRY.singular:
 				this.isEntity = false;
 				break;
 		}
@@ -76,6 +80,10 @@ export class InputSelectorComponent extends AbstractInput implements OnInit, Aft
 
 	onValueChange(item) {
 		this.onChange(item);
+	}
+
+	trackByFn(index, value) {
+		return index;
 	}
 
 }

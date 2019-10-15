@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest } from 'rxjs';
 import { filter, first, map, startWith, switchMap, takeUntil, tap } from 'rxjs/operators';
-import { CreationDialogComponent } from '~common/modals';
+import { CreationDialogComponent, CreationSampleDlgComponent } from '~common/modals';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { SampleService, SampleStatusService, UserService } from '~core/entity-services';
 import { ListPageService } from '~core/list-page';
@@ -37,7 +37,7 @@ export class MySampleBoardPageComponent extends AutoUnsub implements OnInit {
 	];
 	erm = ERM;
 	statuses: SampleStatus[];
-	amountLoaded = this.amountLoaded;
+	amountLoaded = 15;
 
 	constructor(
 		private kanbanSrv: KanbanService,
@@ -139,11 +139,12 @@ export class MySampleBoardPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	openCreateDlg() {
-		const assignee = { id: this.userSrv.userSync.id };
-		this.dlgSrv.open(CreationDialogComponent, { type: ERM.SAMPLE, extra: { assignee } }).pipe(
+		this.dlgSrv.open(CreationSampleDlgComponent).pipe(
 			filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
 			map((evt: CloseEvent) => evt.data)
-		).subscribe(({ item }) => this.kanbanSrv.addItems([item], NEW_STATUS_ID));
+		).subscribe(({ sample }) => {
+			this.kanbanSrv.addItems([sample], NEW_STATUS_ID);
+		});
 	}
 
 	updateSampleStatus(event: KanbanDropEvent) {

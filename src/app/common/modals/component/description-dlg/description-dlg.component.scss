@@ -1,11 +1,11 @@
 dialog-app {
-	min-width: 580px;
+	width: 580px;
 	height: 60vh;
 }
 
 .description-container {
 	white-space: pre-line;
-	overflow: hidden;
+	overflow: auto;
 	height: 100%;
 
 	.placeholder {

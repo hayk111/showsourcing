@@ -5,12 +5,13 @@ import { ProductService } from '~core/entity-services';
 import {
 	ExtendedFieldDefinitionService,
 } from '~core/entity-services/extended-field-definition/extended-field-definition.service';
-import { EntityMetadata, ERM, ExtendedFieldDefinition, productFields } from '~core/models';
+import { EntityMetadata, ERM, ExtendedFieldDefinition } from '~core/models';
 import { CloseEventType, DialogService } from '~shared/dialog';
+import { DynamicField } from '~shared/dynamic-forms';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
-import { PickerField } from '~shared/selectors';
 import { AutoUnsub, translate, uuid } from '~utils';
+import { ProductDescriptor } from '~core/descriptors';
 
 @Component({
 	selector: 'mass-edit-dlg-app',
@@ -23,10 +24,11 @@ export class MassEditDlgComponent extends AutoUnsub implements OnInit {
 	@Input() type: EntityMetadata;
 	@Input() items: any[];
 
-	pickerFields: PickerField[] = productFields;
+	dynamicFields: DynamicField[];
 	erm = ERM;
-	choice$: ReplaySubject<PickerField> = new ReplaySubject<PickerField>(1);
+	choice$: ReplaySubject<DynamicField> = new ReplaySubject<DynamicField>(1);
 	definitions$: Observable<ExtendedFieldDefinition[]>;
+	private _productDescriptor: ProductDescriptor;
 	value: any;
 	like = false;
 	dislike = false;
@@ -43,49 +45,46 @@ export class MassEditDlgComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		switch (this.type) {
 			case ERM.PRODUCT:
-				this.pickerFields = productFields;
+				this._productDescriptor = new ProductDescriptor([
+					'name', 'assignee', 'description', 'category', 'supplier', 'price', 'event', 'tags', 'extendedFields',
+					'innerCarton', 'masterCarton', 'minimumOrderQuantity', 'moqDescription', 'votes', 'samplePrice', 'projects',
+					'masterCbm', 'quantityPer20ft', 'quantityPer40ft', 'quantityPer40ftHC', 'incoTerm', 'harbour', 'status'
+				]);
+				this._productDescriptor.modify([
+					{ name: 'assignee', metadata: { placeholder: `${translate('choose')} ${translate('assignee')}`, width: 500 } },
+					{ name: 'category', metadata: { placeholder: `${translate('choose')} ${translate(ERM.CATEGORY.singular, 'erm')}`, width: 500 } },
+					{ name: 'supplier', metadata: { placeholder: `${translate('choose')} ${translate(ERM.SUPPLIER.singular, 'erm')}`, width: 500 } },
+					{ name: 'event', metadata: { placeholder: `${translate('choose')} ${translate(ERM.EVENT.singular, 'erm')}`, width: 500 } },
+					{ name: 'tags', metadata: { placeholder: `${translate('choose')} ${translate(ERM.TAG.plural, 'erm')}`, width: 500 } },
+					{ name: 'projects', metadata: { placeholder: `${translate('choose')} ${translate(ERM.PROJECT.plural, 'erm')}`, width: 500 } },
+					{ name: 'incoTerm', metadata: { width: 500 } },
+					{ name: 'harbour', metadata: { width: 500 } }
+				]);
+				this.dynamicFields = this._productDescriptor.descriptor;
 				this.definitions$ = this.extendedFDSrv.queryAll(undefined, {
 					query: 'target == "Product"',
 					sortBy: 'order',
 					descending: false
 				});
 				break;
-			default: throw Error(`No PickerField associated to this ERM ${this.type}`);
+			default: throw Error(`No DynamicField associated to this ERM ${this.type}`);
 		}
 	}
 
 	updateChoice(choice) {
-		const temp = this.pickerFields.find(field => field.name === choice);
+		const temp = this.dynamicFields.find(field => field.label === choice || field.name === choice);
 		this.choice$.next(temp || null);
 		this.value = null;
 	}
 
-	getName(type) {
-		let name;
-		const entityName = ERM.getEntityMetadata(type);
-		switch (entityName) {
-			case ERM.USER:
-				const firstName = this.value && this.value.firstName ? this.value.firstName : '';
-				const lastName = this.value && this.value.lastName ? this.value.lastName : '';
-				name = firstName + (lastName ? ' ' : '') + lastName;
-				break;
-			default:
-				name = this.value && this.value.name ? this.value.name : '';
-				break;
-		}
-		return name;
-	}
-
-	statusUpdated(item) {
+	// since the dynamic form returns the key of the prop we have to extract it
+	// e.g. dynamic form returns -> { category: { data of category } },
+	// instead extended form, status selector return just { data of category }
+	valueUpdate(item, prop?: string) {
 		// this condition exists since input price, when blur drop a change that returns the element in the DOM
 		// instead of the price object. This way we don't store the DOM element
 		if (item && item.__proto__.constructor.name !== 'Event')
-			this.value = item;
-	}
-
-	getMultipleName() {
-		const name = (this.value || []).map(val => val.name).join(', ');
-		return name;
+			this.value = prop ? item[prop] : item;
 	}
 
 	update() {
@@ -107,8 +106,8 @@ export class MassEditDlgComponent extends AutoUnsub implements OnInit {
 
 	}
 
-	private mapItems(choice: PickerField) {
-		const prop = choice.attribute || choice.name;
+	private mapItems(choice: DynamicField) {
+		const prop = choice.name;
 		let mapped;
 		// checks if the type needs to update the id's so they don't share the same entity (Price, ExtendedField, Packaging)
 		// since the relationship on this objects is 1 - 1
@@ -129,8 +128,8 @@ export class MassEditDlgComponent extends AutoUnsub implements OnInit {
 				// the votes are an array, so we have to put this condition first
 				if (prop === 'votes')
 					auxVal = this.getVotes(item);
-				// if the value is an array we need to merge it with the current item[property] (i.e. tags, projects)
-				// array in order not to override it with the new values
+				// if the value2 is an array we need to merge it with the current item[property] (i.e. tags, projects)
+				// array in order not to override it with the new value2s
 				else if (Array.isArray(this.value)) {
 					const currentArray = item[prop];
 					// these are the items that are not in the array of the original item
@@ -172,4 +171,5 @@ export class MassEditDlgComponent extends AutoUnsub implements OnInit {
 	close() {
 		this.dlgSrv.close({ type: CloseEventType.CANCEL });
 	}
+
 }

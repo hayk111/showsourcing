@@ -1,12 +1,15 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
+import { SampleDescriptor } from '~core/descriptors';
 import { SampleService, UserService } from '~core/entity-services';
 import { CommentService } from '~core/entity-services/comment/comment.service';
-import { Comment, ERM, Sample } from '~core/models';
-import { DynamicField } from '~shared/dynamic-forms';
-import { AutoUnsub, translate } from '~utils';
+import {
+	ExtendedFieldDefinitionService,
+} from '~core/entity-services/extended-field-definition/extended-field-definition.service';
+import { Comment, ERM, ExtendedFieldDefinition, Sample } from '~core/models';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'sample-preview-app',
@@ -14,7 +17,7 @@ import { AutoUnsub, translate } from '~utils';
 	styleUrls: ['./sample-preview.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SamplePreviewComponent extends AutoUnsub implements OnChanges {
+export class SamplePreviewComponent extends AutoUnsub implements OnInit, OnChanges {
 
 	private _sample: Sample;
 	@Input() set sample(value: Sample) {
@@ -27,39 +30,33 @@ export class SamplePreviewComponent extends AutoUnsub implements OnChanges {
 	@Output() close = new EventEmitter<null>();
 
 	sample$: Observable<Sample>;
+	sampleDescriptor: SampleDescriptor;
 	selectedIndex = 0;
 	modalOpen = false;
 	erm = ERM;
 
-	customFields: DynamicField[] = [
-		{ name: 'name', type: 'text', required: true, label: translate('name', 'message') },
-		{
-			name: 'supplier', type: 'selector', label: translate(ERM.SUPPLIER.singular, 'erm'),
-			metadata: { target: ERM.SUPPLIER.singular, type: 'entity', labelName: 'name', canCreate: true }
-		},
-		{
-			name: 'product', type: 'selector', label: translate(ERM.PRODUCT.singular, 'erm'),
-			metadata: { target: ERM.PRODUCT.singular, type: 'entity', labelName: 'name', canCreate: true }
-		},
-		{ name: 'price', type: 'price', label: translate(ERM.PRICE.singular, 'erm') },
-		{ name: 'paid', type: 'boolean', label: translate('paid', 'message') },
-		{
-			name: 'assignee', label: translate('assignee', 'message'), type: 'selector',
-			metadata: { target: ERM.USER.singular, type: 'entity', labelName: 'name' }
-		},
-		{
-			name: 'createdBy', label: translate('created by', 'message'), type: 'selector',
-			metadata: { target: ERM.USER.singular, type: 'entity', labelName: 'name' }
-		},
-
-	];
+	fieldDefinitions$: Observable<ExtendedFieldDefinition[]>;
 
 	constructor(
 		private commentSrv: CommentService,
 		private router: Router,
 		private userSrv: UserService,
-		private sampleSrv: SampleService) {
+		private sampleSrv: SampleService,
+		private extendedFieldDefSrv: ExtendedFieldDefinitionService
+	) {
 		super();
+	}
+
+	ngOnInit() {
+		this.sampleDescriptor = new SampleDescriptor([
+			'name', 'supplier', 'product', 'price', 'paid', 'assignee', 'createdBy'
+		]);
+		this.sampleDescriptor.modify([
+			{ name: 'product', metadata: { hasBadge: false } },
+			{ name: 'supplier', metadata: { hasBadge: false } }
+		]);
+
+		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "sample.extendedFields"' });
 	}
 
 	ngOnChanges() {

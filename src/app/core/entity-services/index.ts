@@ -23,6 +23,7 @@ export * from './request-reply/request-reply.service';
 export * from './request-template/request-template.service';
 export * from './sample-status/sample-status.service';
 export * from './sample/sample.service';
+export * from './selector-element/selector-element.service';
 export * from './show/show.service';
 export * from './supplier-request/supplier-request.service';
 export * from './supplier-status/supplier-status.service';

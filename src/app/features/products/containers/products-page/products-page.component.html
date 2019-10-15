@@ -23,7 +23,14 @@
 			[currentSort]="listSrv.currentSort"
 			(sortFromMenu)="listSrv.sortFromMenu($event)">
 		</product-sorting-menu-app>
-
+		<checkbox-app
+			[checked]="listSrv.filterList.hasFilterType(filterTypeEnum.ASSIGNEE)"
+			(check)="toggleMyProducts(true)"
+			(uncheck)="toggleMyProducts(false)">
+			<span i18n="text@@assigned-to-me">
+				Assigned to me
+			</span>
+		</checkbox-app>
 		<button
 			*ngIf="productsCount$ | async as count"
 			class="capitalize"
@@ -47,15 +54,14 @@
 		[rows]="listSrv.items$ | async"
 		[selection]="listSrv.selection$ | async"
 		[count]="listSrv.count$ | async"
-		[skipped]="listSrv.skipped"
-		(previous)="listSrv.loadPreviousPage()"
-		(next)="listSrv.loadNextPage()"
+		[currentPage]="listSrv.currentPage"
 		(goToPage)="listSrv.loadPage($event)"
 		(delete)="listSrv.deleteOne($event)"
 		(favorited)="listSrv.onItemFavorited($event)"
 		(update)="listSrv.update($event)"
 		(open)="listSrv.goToDetails($event)"
 		(openAddToProjectDialog)="commonModalSrv.openAddToProjectDialog([$event])"
+		(archiveProduct)="onArchive($event)"
 		(openExportDialog)="commonModalSrv.openExportDialog([$event])"
 		(openRequestFeedbackDialog)="commonModalSrv.openRequestFeedbackDialog([$event])"
 		(openCreateRequestDlg)="commonModalSrv.openSupplierRequest([$event])"
@@ -101,6 +107,7 @@
 		(export)="commonModalSrv.openExportDialog(listSrv.getSelectedValues())"
 		(createRequest)="commonModalSrv.openSupplierRequest(listSrv.getSelectedValues())"
 		(requestTeamFeedback)="commonModalSrv.openRequestFeedbackDialog(listSrv.getSelectedValues())"
+		(archiveProducts)="onArchive(listSrv.getSelectedValues())"
 		(compareProducts)="commonModalSrv.openCompareProductDialog(listSrv.getSelectedValues())"
 		(statusUpdated)="listSrv.updateSelected({status: $event})"
 		(massEdit)="commonModalSrv.openMassEditDialog(listSrv.getSelectedValues(), erm.PRODUCT)"

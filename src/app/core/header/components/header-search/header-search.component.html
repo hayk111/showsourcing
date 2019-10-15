@@ -14,7 +14,7 @@
 					[selectable]="false"
 					[status]="result?.status?.status" [title]="result.name" [subtitle]="result.supplier?.name"
 					[image]="result.images[0]"
-					[link]="'/product/details/' + result.id">
+					[link]="'/product/' + result.id">
 				</search-autocomplete-item-content-app>
 				<search-autocomplete-item-content-app
 					*ngIf="result.type === 'supplier'"
@@ -22,7 +22,7 @@
 					[selectable]="false"
 					[status]="result?.status?.status" [title]="result.name" [subtitle]="supplierSubtitle(result)"
 					[image]="result.images[0]"
-					[link]="'/supplier/details/' + result.id ">
+					[link]="'/supplier/' + result.id ">
 				</search-autocomplete-item-content-app>
 			</search-autocomplete-item-app>
 		</ng-container>

@@ -13,13 +13,20 @@ import { TrackingComponent } from '~utils/tracking-component';
 })
 export class DynamicFormComponent extends TrackingComponent implements OnInit, OnChanges {
 
-	@Input() fields: DynamicField[];
+	private _fields: DynamicField[];
+	@Input() set fields(fields: DynamicField[]) {
+		this._fields = fields;
+		this.makeCols();
+	}
+	get fields() {
+		return this._fields;
+	}
 	/** value of those custom field */
 	@Input() value: any;
 	/** number of columns */
 	@Input() colAmount = 1;
 	/** when is open we see form inputs directly */
-	@Input() textMode = true;
+	@Input() isFormStyle = false;
 	/** some forms have inline labels which is very annoying but w.e */
 	@Input() inlineLabel: boolean;
 	@Input() isShowLabel = true;

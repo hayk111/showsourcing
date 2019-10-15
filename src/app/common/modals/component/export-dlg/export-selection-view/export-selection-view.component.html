@@ -39,7 +39,7 @@
 			{{ length }}
 			<ng-container i18n="text@@items-selected">{ length || 0, plural, =0 { item } =1 { item } other { items } } selected</ng-container>
 		</span>
-		<button class="small capitalize" (click)="export.emit()" i18n="button@@export">
+		<button tabFocusAction class="small capitalize" (click)="export.emit()" i18n="button@@export">
 			export
 		</button>
 	</dialog-footer-app>

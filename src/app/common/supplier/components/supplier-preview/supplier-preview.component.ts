@@ -2,13 +2,13 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnI
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
+import { SupplierDescriptor } from '~core/descriptors';
 import { SupplierService } from '~core/entity-services';
 import { CommentService } from '~core/entity-services/comment/comment.service';
 import {
 	ExtendedFieldDefinitionService,
 } from '~core/entity-services/extended-field-definition/extended-field-definition.service';
 import { AppImage, Comment, ERM, ExtendedFieldDefinition, Supplier } from '~core/models';
-import { DynamicField } from '~shared/dynamic-forms';
 import { AutoUnsub, translate } from '~utils';
 
 @Component({
@@ -30,29 +30,12 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnChanges, On
 	@Input() isFixed = true;
 
 	supplier$: Observable<Supplier>;
+	supplierDescirptor: SupplierDescriptor;
 	selectedIndex = 0;
 	modalOpen = false;
 	erm = ERM;
 
 	fieldDefinitions$: Observable<ExtendedFieldDefinition[]>;
-	customFields: DynamicField[] = [
-		{ name: 'name', type: 'text', required: true, label: 'name' },
-		{
-			name: 'supplierType',
-			type: 'selector',
-			metadata: { target: ERM.SUPPLIER_TYPE.singular, type: 'entity', canCreate: true, labelName: 'name' },
-			label: 'type'
-		},
-		{ name: 'generalMOQ', type: 'number', label: 'MOQ' },
-		{ name: 'generalLeadTime', type: 'days', label: 'Lead Time' },
-		{ name: 'country', type: 'selector', metadata: { target: ERM.COUNTRY.singular, type: 'const' }, label: 'country' },
-		{ name: 'address', type: 'text', label: 'address' },
-		{ name: 'harbour', type: 'selector', metadata: { target: ERM.HARBOUR.singular, type: 'const' } },
-		{ name: 'incoTerm', type: 'selector', metadata: { target: ERM.INCO_TERM.singular, type: 'const' } },
-		{ name: 'website', type: 'url', label: 'website' },
-		{ name: 'officeEmail', type: 'email', label: 'Email', required: true },
-		{ name: 'officePhone', type: 'tel', label: 'Tel' }
-	];
 
 	constructor(
 		private supplierSrv: SupplierService,
@@ -63,6 +46,12 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnChanges, On
 	}
 
 	ngOnInit() {
+		this.supplierDescirptor = new SupplierDescriptor([
+			'name', ERM.SUPPLIER_TYPE.singular, 'generalMOQ', 'generalLeadTime', 'country',
+			'address', 'harbour', 'incoTerm', 'website', 'officeEmail', 'officePhone',
+			'createdBy', 'creationDate', 'lastUpdatedBy', 'lastUpdatedDate'
+		]);
+
 		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "supplier.extendedFields"' });
 	}
 

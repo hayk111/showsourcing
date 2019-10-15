@@ -24,6 +24,8 @@ export class ListPageDataService
 	items$: ConnectableObservable<Array<T>>;
 	/** number of total items */
 	count$: Observable<number>;
+	/** current page we are at */
+	currentPage = 0;
 
 	/** can be used on when to fetch more etc. */
 	private listResult: ListQuery<T>;
@@ -68,7 +70,7 @@ export class ListPageDataService
 		// we merge the default parameter
 		const mergedParams = { ...this.selectParams, ...config.selectParams };
 		Object.assign(this, config);
-		this.selectParams = mergedParams;
+		this.selectParams = { ...mergedParams };
 		this.filterList = new FilterList(
 			config.initialFilters,
 			config.searchedFields,
@@ -98,10 +100,13 @@ export class ListPageDataService
 
 	/** subscribe to items and get the list result */
 	setItems() {
+		// in case we have an initial query and we have to apply a filter
+		const query = this.selectParams.query &&
+			this.filterList.asPredicate() ? this.selectParams.query + ' AND (' + this.filterList.asPredicate() + ')' :
+			this.filterList.asPredicate();
+		this.selectParams = { ...this.selectParams, query };
 		this.listResult = this.entitySrv.getListQuery({
 			...this.selectParams,
-			// overriding query in case there is a filter / search
-			query: this.filterList.asPredicate()
 		});
 
 		this.items$ = this.listResult.items$.pipe(
@@ -122,6 +127,7 @@ export class ListPageDataService
 			.valueChanges$
 			.pipe(
 				skip(1),
+				tap(_ => this.currentPage = 0),
 				tap(filterList => this.selectParams.query = filterList.asPredicate()),
 				switchMap(_ => this.refetch()),
 				takeUntil(destroy$)
@@ -152,21 +158,25 @@ export class ListPageDataService
 	}
 
 	loadPage(page: number): Observable<any> {
+		this.currentPage = page;
 		this.selectParams.skip = this.selectParams.take * page;
 		return this.refetch(this.selectParams);
 	}
 
 	loadNextPage(): Observable<any> {
+		this.currentPage++;
 		this.selectParams.skip = this.selectParams.skip + this.selectParams.take;
 		return this.refetch(this.selectParams);
 	}
 
 	loadPreviousPage(): Observable<any> {
+		this.currentPage--;
 		this.selectParams.skip = Math.max(this.selectParams.skip - this.selectParams.take, 0);
 		return this.refetch(this.selectParams);
 	}
 
 	loadFirstPage(): Observable<any> {
+		this.currentPage = 0;
 		this.selectParams.skip = 0;
 		return this.refetch(this.selectParams);
 	}

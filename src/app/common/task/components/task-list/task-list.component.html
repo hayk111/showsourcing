@@ -8,8 +8,8 @@
 				[checked]="filterList.hasFilterType(filterTypeEnum.ASSIGNEE)"
 				(check)="toggleMyTasks.emit(true)"
 				(uncheck)="toggleMyTasks.emit(false)">
-				<span i18n="text@@show-only-my-tasks">
-					Show my tasks only
+				<span i18n="text@@assigned-to-me">
+					Assigned to me
 				</span>
 			</checkbox-app>
 		</div>
@@ -36,9 +36,9 @@
 			</task-app>
 		</list-item-app>
 	</list-app>
-	<div class="flexBetween create-task">
-		<input inputApp type="text" [formControl]="taskCtrl"
-			placeholder="+ Create a new task" (keydown.enter)="onEnter($event)" i18n-placeholder="@@+-create-new-task"/>
-		<button *ngIf="inp?.focussed || taskCtrl.value"class="secondary-light" (click)="onSubmit()">Create</button>
+	<div class="flexEnd create-task">
+			<button class="primary" (click)="openCreationTaskDlg.emit()" i18n="button@@create">
+				Create
+			</button>
 	</div>
 </card-app>

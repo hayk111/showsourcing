@@ -5,6 +5,7 @@
 		(update)="updateProduct($event)"
 		(export)="commonModalSrv.openExportDialog([$event])"
 		(delete)="deleteProduct($event)"
+		(archive)="onArchive($event)"	
 		(supplierRequest)="openSupplierRequest($event)">
 	</product-top-panel-app>
 
@@ -13,6 +14,7 @@
 
 			<card-app padding="0">
 				<carousel-app
+					[entity]="product"
 					#carousel
 					objectFit="contain"
 					[hasPreview]="true"
@@ -21,11 +23,6 @@
 					[entity]="product">
 				</carousel-app>
 			</card-app>
-
-			<product-resume-app
-				[product]="product"
-				(openPreview)="openPreview()">
-			</product-resume-app>
 
 			<!-- Product information -->
 			<product-information-app
@@ -42,12 +39,14 @@
 				(openVoteDetails)="commonModalSrv.openVoteDetailsDialog(product?.votes)">
 			</product-team-rating-app>
 
+			<!-- projects card -->
 			<project-card-app
 				[projects]="product?.projects"
 				(removeProject)="removeProject($event)"
 				(updated)="updateProduct({id: product?.id, projects: $event})">
 			</project-card-app>
 
+			<!-- files card -->
 			<files-card-app
 				[files]="product?.attachments"
 				[linkedItem]="product">
@@ -56,8 +55,18 @@
 		</div>
 
 		<div class="right">
+
+			<!-- Product resume -->
+			<product-resume-app
+				[product]="product"
+				(openPreview)="openPreview()"
+				(update)="updateProduct($event)">
+			</product-resume-app>
+
+			<!-- navigation bar -->
 			<navbar-app [tabs]="tabs"></navbar-app>
 			<router-outlet></router-outlet>
+
     </div>
 
 	</div>

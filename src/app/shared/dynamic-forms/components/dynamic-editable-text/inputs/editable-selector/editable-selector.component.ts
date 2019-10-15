@@ -8,9 +8,10 @@ import {
 	TemplateRef,
 	ViewChild,
 } from '@angular/core';
-import { DynamicField } from '~shared/dynamic-forms/models';
+import { ERM } from '~core/models';
 import { EditableTextComponent } from '~shared/editable-field';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
+import { ID } from '~utils';
 
 @Component({
 	selector: 'editable-selector-app',
@@ -25,10 +26,19 @@ import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 })
 export class EditableSelectorComponent extends AbstractInput {
 
+	@Input() type: string;
+	@Input() typeSelector: string;
+	@Input() disabled: boolean;
+	@Input() width: 330;
+	@Input() multiple: boolean;
+	@Input() canCreate: boolean;
+	@Input() label: string;
+	@Input() hasBadge: boolean;
+	@Input() definitionReference: ID;
+
 	@Input() isOpen: boolean;
 	@Input() isShowLabel: true;
 	@Input() inlineLabel: string;
-	@Input() customField: DynamicField;
 	@Input() closeOnOutsideClick: boolean;
 	@Output() opened = new EventEmitter();
 	@Output() closed = new EventEmitter();
@@ -39,13 +49,14 @@ export class EditableSelectorComponent extends AbstractInput {
 	@ViewChild('oneValueLabel', { static: true }) oneLabel: TemplateRef<any>;
 	@ViewChild('multipleValuesLabel', { static: true }) manyLabel: TemplateRef<any>;
 
+	erm = ERM;
 
 	constructor(protected cd: ChangeDetectorRef) {
 		super(cd);
 	}
 
 	getLabelTemplate() {
-		return this.customField.multiple ? this.manyLabel : this.oneLabel;
+		return this.multiple ? this.manyLabel : this.oneLabel;
 	}
 
 	/** check if a value is empty */
@@ -59,7 +70,7 @@ export class EditableSelectorComponent extends AbstractInput {
 	/** when the selector has changed, we don't use the accumulator */
 	onSelectorChange(item?) {
 		this.value = item;
-		if (!this.customField.multiple) {
+		if (!this.multiple) {
 			this.editable.close();
 		}
 		this.onChange(item);
@@ -77,9 +88,5 @@ export class EditableSelectorComponent extends AbstractInput {
 	onBlur() {
 		this.onTouchedFn();
 		this.blur.emit();
-	}
-
-	get labelName() {
-		return this.customField.metadata.labelName || 'name';
 	}
 }

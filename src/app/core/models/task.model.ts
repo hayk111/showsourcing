@@ -13,6 +13,7 @@ export class Task extends EntityWithAudit<TaskConfig> {
 	product?: Product;
 	supplier?: Supplier;
 	comments?: Comment[];
+	lastUpdatedBy: User;
 	__typename ?= 'Task';
 }
 

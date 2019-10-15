@@ -23,7 +23,7 @@ export class CompareQuotationComponent extends AutoUnsub
 			.map(x => x.priceMatrix.rows.map(row => row.label))
 			.reduce((acc, val) => acc.concat(val), [])
 			.filter((el, i, a) => i === a.indexOf(el));
-		//TODO i18n if used in the future
+		// TODO i18n if used in the future
 		this.comparisonData = [
 			{
 				type: 'header',
@@ -135,5 +135,10 @@ export class CompareQuotationComponent extends AutoUnsub
 
 	closeDlg() {
 		this.dlgSrv.close();
+	}
+
+	/** Trackby function for ngFor */
+	trackByFn(index, quote) {
+		return quote.id;
 	}
 }

@@ -5,7 +5,7 @@
 	[selection]="listSrv.selection$ | async"
 	[tasks]="listSrv.items$ | async"
 	(bottomReached)="listSrv.loadMore()"
-	(createTask)="createTask($event)"
+	(openCreationTaskDlg)="openCreationTaskDlg(product)"
 	(openCreateDlg)="listSrv.create(false)"
 	(taskSelect)="listSrv.selectOne($event, false)"
 	(taskUnselect)="listSrv.unselectOne($event, false)"

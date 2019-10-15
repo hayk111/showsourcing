@@ -1,14 +1,18 @@
-import { ChangeDetectionStrategy, Component, OnInit, AfterViewInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { ProductService } from '~entity-services';
-import { ProjectFeatureService } from '~features/project/services';
 import { ERM, Product, Project } from '~models';
 import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
+import { NotificationService, NotificationType } from '~shared/notifications';
+import { ProductFeatureService } from '~features/products/services';
+import { ProjectFeatureService } from '~features/project/services';
+import { DialogService } from '~shared/dialog/services';
+import { SupplierRequestDialogComponent } from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
 
 @Component({
 	selector: 'project-products-app',
@@ -16,7 +20,7 @@ import { AutoUnsub } from '~utils';
 	templateUrl: './project-products.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
-		ListPageService
+		ListPageService, ProductFeatureService
 	]
 })
 export class ProjectProductsComponent extends AutoUnsub implements OnInit, AfterViewInit {
@@ -39,10 +43,13 @@ export class ProjectProductsComponent extends AutoUnsub implements OnInit, After
 
 	constructor(
 		private featureSrv: ProjectFeatureService,
+		private productFeatureSrv: ProductFeatureService,
+		private dlgSrv: DialogService,
 		private route: ActivatedRoute,
 		private productSrv: ProductService,
 		public listSrv: ListPageService<Product, ProductService>,
-		public commonModalSrv: CommonModalService
+		public commonModalSrv: CommonModalService,
+		private notifSrv: NotificationService
 	) {
 		super();
 	}
@@ -52,6 +59,7 @@ export class ProjectProductsComponent extends AutoUnsub implements OnInit, After
 		this.project$ = this.featureSrv.queryOne(id);
 
 		this.project$.subscribe(proj => this.project = proj);
+
 		// we need to wait to have the id to call super.ngOnInit, because we want to specify the initialQuery
 		// whne the id is there
 		this.listSrv.setup({
@@ -59,10 +67,11 @@ export class ProjectProductsComponent extends AutoUnsub implements OnInit, After
 			entitySrv: this.productSrv,
 			searchedFields: ['name'],
 			selectParams: {
-				query: `projects.id == "${id}" AND deleted == false AND archived == false`,
+				query: `projects.id == "${id}" AND deleted == false`,
 				sortBy: 'category.name',
 				descending: true
 			},
+			initialFilters: [{ type: FilterType.ARCHIVED, value: false }, { type: FilterType.DELETED, value: false }],
 			originComponentDestroy$: this._destroy$,
 			entityMetadata: ERM.PRODUCT,
 		});
@@ -102,4 +111,33 @@ export class ProjectProductsComponent extends AutoUnsub implements OnInit, After
 		).subscribe();
 	}
 
+	onArchive(product: Product | Product[]) {
+		// TODO i18n
+		if (Array.isArray(product)) {
+			this.productFeatureSrv.updateMany(product.map((p: Product) => ({id: p.id, archived: true})))
+				.pipe(switchMap(_ => this.listSrv.refetch()))
+				.subscribe(_ => {
+					this.notifSrv.add({
+						type: NotificationType.SUCCESS,
+						title: 'Products archived',
+						message: 'Products have been archived with success'
+					});
+				});
+		} else {
+			const { id } = product;
+			this.productFeatureSrv.update({ id, archived: true })
+				.pipe(switchMap(_ => this.listSrv.refetch()))
+				.subscribe(_ => {
+					this.notifSrv.add({
+						type: NotificationType.SUCCESS,
+						title: 'Product archived',
+						message: 'Products have been archived with success'
+					});
+				});
+		}
+	}
+
+	onOpenCreateRequestDlg(products: Product[]) {
+		return this.dlgSrv.open(SupplierRequestDialogComponent, { products });
+	}
 }

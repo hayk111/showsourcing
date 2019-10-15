@@ -3,13 +3,20 @@ export interface DynamicField {
 	name?: string;
 	value?: any;
 	type?: DynamicFieldType;
-	metadata?: any;
+	metadata?: DynamicFieldMetadata;
 	label?: string;
-	placeholder?: string;
 	required?: boolean;
+}
+
+export interface DynamicFieldMetadata {
 	multiple?: boolean;
-	// when multiple choices
-	choices?: Array<any>;
+	canCreate?: boolean;
+	target?: string;
+	hasBadge?: boolean;
+	width?: number;
+	placeholder?: string;
+	disabled?: boolean;
+	rows?: number;
 }
 
 /*
@@ -23,8 +30,9 @@ export interface DynamicField {
 		· canCreate: if it can create an entity // Default false
 		· hasBadge: if we display the result with a badge or plain text // Default false
 		· width: indicated the width of the selector // Default 390 on dynamic form
+		· placeholder: placeholder if we need one different from label/name
 */
 
 export type DynamicFieldType =
 	'text' | 'tel' | 'number' | 'decimal' | 'days' | 'textarea' | 'selector' | 'boolean' | 'price'
-	| 'priceMatrix' | 'packaging' | 'title' | 'url' | 'email' | 'extendedField';
+	| 'priceMatrix' | 'packaging' | 'title' | 'url' | 'email' | 'extendedField' | 'date' | 'status' | 'votes';

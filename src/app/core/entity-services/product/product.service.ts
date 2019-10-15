@@ -1,4 +1,5 @@
 import { Injectable, NgZone } from '@angular/core';
+import { Subject, BehaviorSubject } from 'rxjs';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
 import { GlobalWithAuditService } from '~entity-services/_global/global-with-audit.service';
 import { ProductQueries } from '~entity-services/product/product.queries';
@@ -18,4 +19,17 @@ export class ProductService extends GlobalWithAuditService<Product> {
 		super(apolloState, ProductQueries, 'product', 'products', userSrv, analytics);
 	}
 
+	private _selectedProds$ = new Subject<Product[]>();
+	selectedProds$ = this._selectedProds$.asObservable();
+
+	private _productListUpdate$ = new Subject<void>();
+	productListUpdate$ = this._productListUpdate$.asObservable();
+
+	addProducts(products: Product[]) {
+		this._selectedProds$.next(products);
+	}
+
+	onUpdateProductList() {
+		this._productListUpdate$.next();
+	}
 }

@@ -1,0 +1,24 @@
+dialog-app {
+	margin-top: 50px;
+	height: 500px;
+	
+	dialog-header-app {
+		font-size: 16px;
+	}
+
+	dialog-footer-app {
+		justify-content: space-between;
+	}
+
+	products-list-view-app {
+		height: 100%;
+	}
+
+	.select-products-count {
+		min-width: 80px;
+	}
+}
+
+.search-container {
+	width: 0;
+}

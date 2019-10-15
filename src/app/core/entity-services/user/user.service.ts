@@ -1,15 +1,12 @@
 import { Injectable } from '@angular/core';
-import { distinctUntilChanged, shareReplay, switchMap, filter, publishReplay, first } from 'rxjs/operators';
-import { AuthenticationService } from '~core/auth/services/authentication.service';
-import { GlobalService } from '~entity-services/_global/global.service';
-import { UserQueries } from '~entity-services/user/user.queries';
-import { User } from '~models';
+import { distinctUntilChanged, filter, shareReplay, switchMap } from 'rxjs/operators';
+import { AnalyticsService } from '~core/analytics/analytics.service';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
-import { SelectParamsConfig } from '../_global/select-params';
-import { ListQuery } from '../_global/list-query.interface';
-import { TeamUserService } from '../team-user/team-user.service';
-import { combineLatest, ConnectableObservable } from 'rxjs';
+import { AuthenticationService } from '~core/auth/services/authentication.service';
+import { UserQueries } from '~entity-services/user/user.queries';
+import { GlobalService } from '~entity-services/_global/global.service';
+import { User } from '~models';
 
 @Injectable({
 	providedIn: 'root',
@@ -29,9 +26,13 @@ export class UserService extends GlobalService<User> {
 	constructor(
 		private authSrv: AuthenticationService,
 		protected apolloState: ApolloStateService,
+		protected analyticsSrv: AnalyticsService
 	) {
 		super(apolloState, UserQueries, 'user', 'users');
-		this.user$.subscribe(user => this.userSync = user);
+		this.user$.subscribe(user => {
+			this.userSync = user;
+			this.analyticsSrv.setupUser(user);
+		});
 		this.authSrv.userId$.subscribe(id => this.userId = id);
 	}
 

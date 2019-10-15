@@ -19,7 +19,8 @@
 					<product-request-list-app
 						[products]="request?.products"
 						(update)="updateProducts($event)"
-						(remove)="removeProduct($event)">
+						(remove)="removeProduct($event)"
+						(addProduct)="addProduct($event)">
 					</product-request-list-app>
 					<input inputApp [hidden]="true" type="text"/>
 				</form-field-app>
@@ -32,6 +33,8 @@
 						formControlName="requestTemplate"
 						(update)="selectTemplate($event)">
 							<selector-placeholder-app
+								tabFocusAction
+								autoFocus
 								[name]="selectorReqTemplate?.value?.name"
 								placeholder="Select a template"
 								i18n-placeholder="@@select-template">
@@ -59,7 +62,7 @@
 
 				<form-field-app class="modal">
 					<label-app i18n="@@share-product-info">Share my product information</label-app>
-					<div class="flex">
+					<div class="flex share-info">
 						<checkbox-app
 							#checkShare
 							inputApp
@@ -85,6 +88,7 @@
 							[canCreate]="true"
 							(update)="updateSupplier($event)">
 							<selector-placeholder-app
+								tabFocusAction
 								[name]="supplier?.name"
 								placeholder="Select a supplier"
 								i18n-placeholder="@@select-supplier">
@@ -104,6 +108,7 @@
 						formControlName="recipient"
 						(update)="contactUpdate($event)">
 						<selector-placeholder-app
+							tabFocusAction
 							[ngClass]="{ disabled: !supplier }"
 							[hasArrow]="supplier"
 							[name]="!supplier ? ('Select a supplier first' | const: 'messages') : contactSelector?.value?.email"
@@ -156,7 +161,7 @@
 
 	<dialog-footer-app>
 		<spinner-app *ngIf="pending" size="18"></spinner-app>
-		<button class="capitalize" [disabled]="!form.valid || pending" (click)="createRequest()" i18n="@@send-request">send request</button>
+		<button tabFocusAction class="capitalize" [disabled]="!form.valid || pending" (click)="createRequest()" i18n="@@send-request">send request</button>
 	</dialog-footer-app>
 
 </dialog-app>

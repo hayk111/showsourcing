@@ -10,7 +10,7 @@
 				(check)="toggleMyTasks(true)"
 				(uncheck)="toggleMyTasks(false)">
 			</checkbox-app>
-			<ng-container i18n="text@@show-only-my-tasks">Show my tasks only</ng-container>
+			<ng-container i18n="text@@assigned-to-me">Assigned to me</ng-container>
 		</div>
 		<div class="flexCenter show-tasks-done">
 			<checkbox-app
@@ -35,7 +35,7 @@
 	(taskUnselect)="listSrv.unselectOne($event, false)"
 	(bottomReached)="listSrv.loadMore()"
 	(updateTask)="listSrv.update($event)"
-	(createTask)="createTask($event)">
+	(openCreationTaskDlg)="openCreationTaskDlg()">
 </task-list-app>
 
 <task-preview-app

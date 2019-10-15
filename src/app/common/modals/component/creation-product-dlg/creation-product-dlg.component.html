@@ -30,8 +30,8 @@
 			<h3 class="ms" i18n="@@product-details">product details</h3>
 			<dynamic-form-app
 				[colAmount]="1"
-				[fields]="dynamicFields"
-				[textMode]="false"
+				[fields]="productDescriptor?.descriptor"
+				[isFormStyle]="true"
 				[value]="product"
 				(update)="updateProduct($event)">
 			</dynamic-form-app>
@@ -44,8 +44,8 @@
 			(update)="createAnother = !createAnother">
 			create another
 		</checkbox-app>
-		<button tabFocus class="secondary" (click)="cancel()" i18n="@@cancel">cancel</button>
-		<button tabFocus [disabled]="!(product?.name)" (click)="save()" i18n="@@save-product">save product</button>
+		<button tabFocusAction class="secondary" (click)="cancel()" i18n="@@cancel">cancel</button>
+		<button tabFocusAction [disabled]="!(product?.name)" (click)="save()" i18n="@@save-product">save product</button>
 	</dialog-footer-app>
 
 </dialog-app>

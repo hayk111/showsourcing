@@ -1,60 +1,40 @@
-
-<!-- const selector -->
+<!-- entity selector -->
 <selector-app
-	*ngIf="customField.metadata.type === 'const'; else entitySelector"
-	[type]="customField.metadata.target"
-	[offsetY]="-30"
-	[width]="265"
-	[multiple]="customField.multiple"
 	[value]="value"
+	[offsetY]="-30"
+	[width]="width || 330"
+	[disabled]="disabled"
+	[type]="type"
+	[multiple]="multiple"
+	[canCreate]="canCreate"
+	[definitionReference]="definitionReference"
 	(update)="onSelectorChange($event)"
 	(menuClosed)="editable.close()">
 	<editable-field-app
 		#editable
+		[class.no-hover]="disabled"
 		[inlineLabel]="inlineLabel"
+		[openOnClick]="!disabled"
 		[hasAction]="false"
-		[canGrow]="customField.multiple">
-		<label-app>{{ customField.label || customField.name }}</label-app>
-		<editable-label-app class="flex" [class.flexWrap]="customField.multiple">
-			{{ (value | const: customField.metadata.target) || '-'}}
+		[canGrow]="multiple">
+		<label-app>{{ label }}</label-app>
+		<editable-label-app
+			class="flex"
+			[class.flexEnd]="inlineLabel"
+			[class.flexWrap]="multiple"
+			[disabled]="disabled">
+			<ng-container *ngTemplateOutlet="getLabelTemplate()"></ng-container>
 		</editable-label-app>
 	</editable-field-app>
 </selector-app>
-
-<!-- entity selector -->
-<ng-template #entitySelector>
-	<selector-app
-		[value]="value"
-		[offsetY]="-30"
-		[width]="330"
-		[type]="customField.metadata.target"
-		[multiple]="customField.multiple"
-		[canCreate]="customField.metadata.canCreate"
-		(update)="onSelectorChange($event)"
-		(menuClosed)="editable.close()">
-		<editable-field-app
-			#editable
-			[inlineLabel]="inlineLabel"
-			[hasAction]="false"
-			[canGrow]="customField.multiple">
-			<label-app>{{ customField.label || customField.name }}</label-app>
-			<editable-label-app class="flex"
-				[class.flexEnd]="inlineLabel"
-				[class.flexWrap]="customField.multiple">
-				<ng-container *ngTemplateOutlet="getLabelTemplate()"></ng-container>
-			</editable-label-app>
-		</editable-field-app>
-	</selector-app>
-</ng-template>
-
 
 
 <!-- one value, label template -->
 <!-- hint: we don't display icons when using inlineLabel -->
 <ng-template #oneValueLabel>
-	<ng-container [ngSwitch]="customField.metadata.target">
+	<ng-container [ngSwitch]="type">
 		<!-- user -->
-		<div class="flexVAlign" *ngSwitchCase="'user'">
+		<div class="flexVAlign" *ngSwitchCase="erm.USER.singular">
 			<user-picture-app
 				*ngIf="value && !inlineLabel"
 				class="user-icon"
@@ -62,34 +42,40 @@
 				[user]="value"
 				[image]="value?.avatar">
 			</user-picture-app>
-			<span class="ellipsis">{{ value ? (value.firstName +  ' ' + value.lastName ) : '-'}}</span>
+			<span class="ellipsis">{{ value ? (value?.firstName +  ' ' + value?.lastName) : '-'}}</span>
 		</div>
 
 		<!-- category -->
-		<!-- hidelogo is whether we want to display the info-badge or not -->
-		<ng-container *ngSwitchCase="'category'">
-			<info-badge-app *ngIf="!customField.metadata.hideLogo; else noLogo" type="category"> {{ value?.name }}</info-badge-app>
-			<ng-template #noLogo> {{ value?.name}} </ng-template>
+		<ng-container *ngSwitchCase="erm.CATEGORY.singular">
+			<info-badge-app *ngIf="hasBadge; else noLogo" type="category"> {{ value?.name }}</info-badge-app>
+			<ng-template #noLogo> {{ value?.name || '-' }} </ng-template>
 		</ng-container>
 
 		<!-- supplier type -->
-		<ng-container *ngSwitchCase="'supplierType'">
-			<span>{{ value ? (value[labelName] | const: 'supplierType')  : '-'  }}</span>
+		<ng-container *ngSwitchCase="erm.SUPPLIER_TYPE.singular">
+			<span>{{ value ? (value?.name | const: 'supplierType')  : '-'  }}</span>
 		</ng-container>
 
 		<!-- event -->
-		<ng-container *ngSwitchCase="'event'">
-			<span> {{ value && value['description'] ? value['description'][labelName] : '-' }}</span>
+		<ng-container *ngSwitchCase="erm.EVENT.singular">
+			<span> {{ value?.description?.name || '-' }}</span>
+		</ng-container>
+
+		<!-- selector element -->
+		<!-- we read these 2 values, since when we are updating it takes a bit to be converted to an array -->
+		<!-- this strange behaviour happens since we share same value on extended field -> selectorValue: SelectorElement[] -->
+		<!--  we share it as when the value is single and when its multiple -->
+		<ng-container *ngSwitchCase="erm.SELECTOR_ELEMENT.singular">
+			<span> {{ value?.value || value[0]?.value || '-' }}</span>
 		</ng-container>
 
 		<!-- others we display an icon and the value next to it -->
-		<!-- hidelogo is whether we want to display the default logos or not, by default we display them -->
 		<ng-container *ngSwitchDefault>
 			<img class="defaultLabelIcon"
-				*ngIf="(value | logo:customField.metadata.target) && !inlineLabel && !customField.metadata.hideLogo"
-				[src]="value | logo:customField.metadata.target" />
+				*ngIf="(value | logo:type) && !inlineLabel && hasBadge"
+				[src]="value | logo:type" />
 			<span class="ellipsis fullWidth">
-				{{ value ? value[labelName] : '-' }}
+				{{ value?.name || '-' }}
 			</span>
 		</ng-container>
 
@@ -98,20 +84,19 @@
 
 <!-- multiple values, label template (we display badges) -->
 <ng-template #multipleValuesLabel>
-	<!-- hidelogo is whether we want to display the info-badge or not -->
-	<ng-container *ngIf="!customField.metadata.hideLogo; else noBadge">
+	<ng-container *ngIf="hasBadge; else noBadge">
 		<info-badge-app
-			class="tag"
-			*ngFor="let tag of value; trackBy: trackByFn"
-			[type]="customField.metadata.target">
-			{{ tag.name }}
+			class="multiple-item"
+			*ngFor="let item of value; trackBy: trackByFn"
+			[type]="type">
+			{{ item.name }}
 		</info-badge-app>
 	</ng-container>
 	<ng-template #noBadge>
 		<span
-			*ngFor="let tag of value; trackBy: trackByFn; last as last"
-			class="tag">
-			{{ tag.name }}{{last ? '' : ', '}}
+			*ngFor="let item of value; trackBy: trackByFn; last as last"
+			class="multiple-item">
+			{{ item.name }}{{last ? '' : ', '}}
 		</span>
 	</ng-template>
 </ng-template>

@@ -14,13 +14,13 @@
 				(check)="toggleMySamples(true)"
 				(uncheck)="toggleMySamples(false)">
 			</checkbox-app>
-			<span class="ellipsis" i18n="text@@show-only-my-sample">
-				Show my samples only
+			<span class="ellipsis" i18n="text@@assigned-to-me">
+				Assigned to me
 			</span>
 		</div>
 	</sub-panel-left-item-app>
 	<sub-panel-right-item-app>
-		<button (click)="openCreateDlg()" i18n="button@@add-sample">
+		<button (click)="openCreationSampleDlg()" i18n="button@@add-sample">
 			Add Sample
 		</button>
 	</sub-panel-right-item-app>
@@ -31,9 +31,7 @@
 	[rows]="listSrv.items$ | async"
 	[pending]="listSrv.pending"
 	[count]="listSrv.count$ | async"
-	[skipped]="listSrv.skipped"
-	(next)="listSrv.loadNextPage()"
-	(previous)="listSrv.loadPreviousPage()"
+	[currentPage]="listSrv.currentPage"
 	(goToPage)="listSrv.loadPage($event)"
 	(previewClick)="listSrv.openPreview($event)"
 	(select)="listSrv.selectOne($event)"

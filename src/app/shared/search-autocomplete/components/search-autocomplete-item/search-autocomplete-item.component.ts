@@ -42,11 +42,12 @@ export class SearchAutocompleteItemComponent extends AutoUnsub implements OnInit
 	}
 
 	ngAfterContentInit() {
-		this.content.itemDisplayed.pipe(
-			takeUntil(this._destroy$)
-		).subscribe(() => {
-			this.itemDisplayed.emit();
-		});
+		if (this.content)
+			this.content.itemDisplayed.pipe(
+				takeUntil(this._destroy$)
+			).subscribe(() => {
+				this.itemDisplayed.emit();
+			});
 	}
 
 	selectItem() {

@@ -1,6 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
-import { empty, Observable } from 'rxjs';
+import { empty, Observable, Subject } from 'rxjs';
 import { switchMap, takeUntil, tap, filter, map } from 'rxjs/operators';
 import { CreationDialogComponent } from '~common/modals/component/creation-dialog/creation-dialog.component';
 import { GlobalServiceInterface } from '~core/entity-services/_global/global.service';
@@ -26,7 +26,7 @@ const dataSrvMap = new Map<ListPageKey | string, ListPageDataService<any, any>>(
 const viewSrvMap = new Map<ListPageKey | string, ListPageViewService<any>>();
 
 export interface ListPageConfig extends ListPageDataConfig {
-	key: ListPageKey | string;
+	key?: ListPageKey | string;
 	entityMetadata: EntityMetadata;
 	originComponentDestroy$?: Observable<void>;
 }
@@ -66,7 +66,7 @@ export class ListPageService
 	setup(config: ListPageConfig, shouldInitDataLoading = true) {
 		this.zone.runOutsideAngular(() => {
 			// getting back the services from their map
-			this.initServices(config.key);
+			this.initServices(config.key || '');
 			this.dataSrv.setup(config);
 			// setting up the view service so we know what panel is open etc
 			this.viewSrv.setup(config.entityMetadata);
@@ -88,7 +88,6 @@ export class ListPageService
 			takeUntil(destroy$)
 		).subscribe(_ => this.selectionSrv.unselectAll());
 	}
-	y;
 
 	/**
 	 * takes the existing stateful services from the maps above,
@@ -107,10 +106,13 @@ export class ListPageService
 			this.viewSrv = new ListPageViewService<T>(this.router);
 			this.dataSrv = new ListPageDataService<T, G>();
 
-			selectionSrvMap.set(key, this.selectionSrv);
-			viewSrvMap.set(key, this.viewSrv);
-			dataSrvMap.set(key, this.dataSrv);
+			if (key) {
+				selectionSrvMap.set(key, this.selectionSrv);
+				viewSrvMap.set(key, this.viewSrv);
+				dataSrvMap.set(key, this.dataSrv);
+			}
 		}
+
 	}
 
 	/** Here we are gonna bridge the functions from the other services */
@@ -119,6 +121,10 @@ export class ListPageService
 
 	get items$() {
 		return this.dataSrv.items$;
+	}
+
+	get currentPage() {
+		return this.dataSrv.currentPage;
 	}
 
 	get pending() {
@@ -300,10 +306,10 @@ export class ListPageService
 		this.dlgSrv.open(ConfirmDialogComponent, { text }).pipe(
 			filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
 			switchMap(_ => this.dataSrv.deleteMany(itemIds)),
+			// unselect must go before refetch, otherwise it won't update
+			tap(_ => this.selectionSrv.unselectAll()),
 			switchMap(_ => refetch ? this.refetch() : empty())
-		).subscribe(_ => {
-			this.selectionSrv.unselectAll();
-		});
+		).subscribe();
 	}
 
 	/** creates a new entity, can also create with defaul values with extra?: any */

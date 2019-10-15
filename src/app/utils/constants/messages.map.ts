@@ -104,6 +104,13 @@ export const messagesMap = {
 			}
 		}
 	},
+	'assigned to': {
+		locales: {
+			en: {
+				name: 'assigned to'
+			}
+		}
+	},
 	// ########### \B ############
 	// ########### \C ############
 	'cancel item': {
@@ -454,13 +461,20 @@ export const messagesMap = {
 			}
 		}
 	},
-	'Last upadted date': {
+	'last updated date': {
 		locales: {
 			en: {
-				name: 'Last upadted date'
+				name: 'last updated date'
 			},
 			'zh-Hans': {
 				name: '最近更新日期'
+			}
+		}
+	},
+	'last updated by': {
+		locales: {
+			en: {
+				name: 'last updated by'
 			}
 		}
 	},
