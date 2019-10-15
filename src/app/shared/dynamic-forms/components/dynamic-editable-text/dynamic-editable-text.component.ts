@@ -41,6 +41,8 @@ export class DynamicEditableTextComponent extends AbstractInput {
 	@Input() customField: DynamicField;
 	/** whether the input should be on the same line as the label */
 	@Input() inlineLabel: boolean;
+	@Input() hasAction = true;
+	@Input() hasLabel = true;
 	/** when the editable field opens */
 	@Output() open = new EventEmitter<null>();
 	/** blur event for onTouchedFn */

@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { EntityTableComponent, TableConfig } from '~core/list-page/entity-table.component';
-import { ERM, TemplateField } from '~models';
+import { ERM, TemplateField, ExtendedFieldDefinition } from '~models';
+import { DynamicUpdate } from '~shared/dynamic-forms/models/dynamic-update.interface';
 
 const tableConfig: TableConfig = {
 	name: { name: 'name', translationKey: 'name', width: 120, sortable: false },
@@ -19,12 +20,22 @@ const tableConfig: TableConfig = {
 	]
 })
 export class TemplateFieldsTableComponent extends EntityTableComponent<TemplateField> {
-
+	@Output() addField = new EventEmitter<TemplateField>();
+	@Output() removeField = new EventEmitter<TemplateField>();
 	columns = ['name', 'defaultValue', 'fixedValue', 'inTemplate'];
 	tableConfig = tableConfig;
 	erm = ERM;
 
 	constructor(public translate: TranslateService) {
 		super();
+	}
+
+	updateField(field: TemplateField, event: DynamicUpdate) {
+		Object.assign(field, event);
+		this.update.emit();
+	}
+
+	getCustomField(field: TemplateField) {
+		return { ...field.definition, name: 'defaultValue' };
 	}
 }

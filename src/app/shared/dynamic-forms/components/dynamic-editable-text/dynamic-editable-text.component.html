@@ -4,12 +4,14 @@
 		to avoid very hard to debug ExpressionChangedAfterItWasCheckedError -->
 		<!-- default -->
 		<editable-field-app
-			*ngSwitchDefault
+			*ngSwitchCase="'text'"
 			#editable
+			[hasAction]="hasAction"
+			[hasLabel]="hasLabel"
 			[inlineLabel]="inlineLabel"
 			(closed)="onClose($event)"
 			(opened)="inp.select();">
-			<label-app>{{ customField.label || customField.name }}</label-app>
+			<label-app *ngIf="hasLabel">{{ customField.label || customField.name }}</label-app>
 			<!-- hint: editable text is the clickable label that transforms into an input -->
 			<editable-label-app>
 				{{ value || '-' }}
@@ -19,7 +21,7 @@
 				<input
 					#inp
 					inputApp
-					[type]="customField.type"
+					type="text"
 					[value]="accumulator"
 					(input)="accumulate(inp.value)"
 					(keyup.enter)="editable.close();"/>
@@ -30,10 +32,12 @@
 		<editable-field-app
 			*ngSwitchCase="'tel'"
 			#editable
+			[hasAction]="hasAction"
+			[hasLabel]="hasLabel"
 			[inlineLabel]="inlineLabel"
 			(closed)="onClose($event)"
 			(opened)="inp.select()">
-			<label-app>{{ customField.label || customField.name }}</label-app>
+			<label-app *ngIf="hasLabel">{{ customField.label || customField.name }}</label-app>
 			<editable-label-app>{{ value || '-' }}</editable-label-app>
 			<form-field-app class="editable">
 				<input inputApp
@@ -51,10 +55,12 @@
 		<editable-field-app
 			*ngSwitchCase="'number'"
 			#editable
+			[hasAction]="hasAction"
+			[hasLabel]="hasLabel"
 			[inlineLabel]="inlineLabel"
 			(closed)="onClose($event)"
 			(opened)="inp.select()">
-			<label-app>{{ customField.label || customField.name }}</label-app>
+			<label-app *ngIf="hasLabel">{{ customField.label || customField.name }}</label-app>
 			<editable-label-app>{{ value || '-' }}</editable-label-app>
 			<form-field-app class="editable">
 				<input inputApp
@@ -62,7 +68,7 @@
 					restrictInput="number"
 					autofocus="true"
 					[value]="accumulator"
-					[type]="customField.type"
+					type="number"
 					(input)="accumulate(+inp.value)"
 					(keyup.enter)="editable.close()"/>
 			</form-field-app>
@@ -72,10 +78,12 @@
 		<editable-field-app
 			*ngSwitchCase="'decimal'"
 			#editable
+			[hasAction]="hasAction"
+			[hasLabel]="hasLabel"
 			[inlineLabel]="inlineLabel"
 			(closed)="onClose($event)"
 			(opened)="inp.select()">
-			<label-app>{{ customField.label || customField.name }}</label-app>
+			<label-app *ngIf="hasLabel">{{ customField.label || customField.name }}</label-app>
 			<editable-label-app>{{ value || '-' }}</editable-label-app>
 			<form-field-app class="editable">
 				<input inputApp
@@ -94,12 +102,14 @@
 		<editable-field-app
 			*ngSwitchCase="'date'"
 			#editable
+			[hasAction]="hasAction"
+			[hasLabel]="hasLabel"
 			[class.no-hover]="customField?.metadata?.disabled"
 			[openOnClick]="!(customField?.metadata?.disabled)"
 			[inlineLabel]="inlineLabel"
 			(closed)="onClose($event)"
 			(opened)="inp.select()">
-			<label-app>{{ customField?.label || customField?.name }}</label-app>
+			<label-app *ngIf="hasLabel">{{ customField?.label || customField?.name }}</label-app>
 			<editable-label-app [disabled]="customField?.metadata?.disabled">
 				{{ value ? (value | date: 'dd MMMM yyyy') : '-' }}
 			</editable-label-app>
@@ -119,10 +129,12 @@
 		<editable-field-app
 			*ngSwitchCase="'days'"
 			#editable
+			[hasAction]="hasAction"
+			[hasLabel]="hasLabel"
 			[inlineLabel]="inlineLabel"
 			(closed)="onClose($event)"
 			(opened)="inp.select()">
-			<label-app>{{ customField.label || customField.name }}</label-app>
+			<label-app *ngIf="hasLabel">{{ customField.label || customField.name }}</label-app>
 			<editable-label-app>{{ value || '-' }} days</editable-label-app>
 			<form-field-app class="editable">
 				<input inputApp
@@ -139,11 +151,13 @@
 		<editable-field-app
 			*ngSwitchCase="'textarea'"
 			#editable
+			[hasAction]="hasAction"
+			[hasLabel]="hasLabel"
 			[canGrow]="true"
 			[inlineLabel]="inlineLabel"
 			(closed)="onClose($event)"
 			(opened)="inp.select()">
-			<label-app>{{ customField.label || customField.name }}</label-app>
+			<label-app *ngIf="hasLabel">{{ customField.label || customField.name }}</label-app>
 			<editable-label-app style="white-space: pre-line">{{ value || '-' }}</editable-label-app>
 			<form-field-app class="editable">
 				<textarea
@@ -160,10 +174,12 @@
 		<editable-field-app
 			*ngSwitchCase="'price'"
 			#editable
+			[hasAction]="hasAction"
+			[hasLabel]="hasLabel"
 			[inlineLabel]="inlineLabel"
 			(closed)="onClose($event)"
 			(opened)="inp.select()">
-			<label-app>{{ customField.label || customField.name }}</label-app>
+			<label-app *ngIf="hasLabel">{{ customField.label || customField.name }}</label-app>
 			<editable-label-app [vAlign]="false">
 				<span class="fs-s"
 					*ngIf="value && value.currency">{{ value?.currency | const : 'currency' : 'symbol'}}</span>
@@ -188,7 +204,7 @@
 			[inlineLabel]="inlineLabel"
 			[openOnClick]="false"
 			(click)="toggleValue($event)">
-			<label-app>{{ customField.label || customField.name }}</label-app>
+			<label-app *ngIf="hasLabel">{{ customField.label || customField.name }}</label-app>
 			<editable-label-app [disabled]="true">
 				<radio-app
 					[(ngModel)]="accumulator"
@@ -229,6 +245,7 @@
 		<editable-selector-app
 			*ngSwitchCase="'selector'"
 			[(ngModel)]="value"
+			[hasLabel]="hasLabel"
 			[type]="customField?.metadata?.target"
 			[disabled]="customField?.metadata?.disabled"
 			[width]="customField?.metadata?.width"

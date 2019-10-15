@@ -41,6 +41,7 @@ import { RequestTemplateService } from '../request-template/request-template.ser
 import { SupplierRequestService } from '../supplier-request/supplier-request.service';
 import { GlobalService } from './global.service';
 import { SelectorElementService } from '../selector-element/selector-element.service';
+import { TemplateFieldService } from '../template-field/template-field.service';
 
 @Injectable(
 	{ providedIn: 'root' }
@@ -83,6 +84,7 @@ export class ERMService {
 		private taskSrv: TaskService,
 		private teamService: TeamService,
 		private teamUserSrv: TeamUserService,
+		private templateFieldSrv: TemplateFieldService,
 		private userSrv: UserService,
 		private weightUnitSrv: WeightUnitService
 	) { }
@@ -153,6 +155,8 @@ export class ERMService {
 				return this.teamService;
 			case 'TeamUser':
 				return this.teamUserSrv;
+			case 'TemplateField':
+				return this.templateFieldSrv;
 			case 'User':
 				return this.userSrv;
 			case 'WeightUnit':
@@ -235,6 +239,8 @@ export class ERMService {
 				return this.teamService;
 			case ERM.TEAM_USER:
 				return this.teamUserSrv;
+			case ERM.TEMPLATE_FIELD:
+				return this.templateFieldSrv;
 			case ERM.USER:
 				return this.userSrv;
 			case ERM.WEIGHT_UNIT:

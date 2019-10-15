@@ -17,7 +17,7 @@
 		[openOnClick]="!disabled"
 		[hasAction]="false"
 		[canGrow]="multiple">
-		<label-app>{{ label }}</label-app>
+		<label-app *ngIf="hasLabel">{{ label }}</label-app>
 		<editable-label-app
 			class="flex"
 			[class.flexEnd]="inlineLabel"
