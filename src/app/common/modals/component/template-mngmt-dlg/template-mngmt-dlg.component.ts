@@ -1,13 +1,14 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable, ReplaySubject } from 'rxjs';
-import { switchMap, tap } from 'rxjs/operators';
-import { ExtendedFieldDefinition, RequestTemplate } from '~core/models';
+import { switchMap, tap, distinctUntilChanged, takeUntil } from 'rxjs/operators';
+import { TemplateMngmtService } from '~common/modals/services';
+import { ExtendedFieldDefinition, RequestTemplate, TemplateField } from '~core/models';
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { InputDirective } from '~shared/inputs';
-import { TemplateMngmtService } from '~shared/template-mngmt/services/template-mngmt.service';
 import { AutoUnsub } from '~utils';
+import { TemplateFieldService } from '~core/entity-services';
 
 @Component({
 	selector: 'template-mngmt-dlg-app',
@@ -19,7 +20,8 @@ export class TemplateMngmtDlgComponent extends AutoUnsub implements OnInit {
 
 	private _templateSelected$ = new ReplaySubject<RequestTemplate>(1);
 	// let's call queryOne to have the updates from cache
-	private templateSelected$ = this._templateSelected$.asObservable().pipe(
+	templateSelected$ = this._templateSelected$.asObservable().pipe(
+		distinctUntilChanged((x, y) => x.id !== y.id),
 		switchMap(tmp => this.templateMngmtSrv.getOne(tmp.id))
 	);
 
@@ -46,13 +48,14 @@ export class TemplateMngmtDlgComponent extends AutoUnsub implements OnInit {
 	pending = false;
 
 	templates$: Observable<RequestTemplate[]>;
-	initialState = new Map<ExtendedFieldDefinition, boolean>();
-	newState = new Map<ExtendedFieldDefinition, boolean>();
+	initialState: TemplateField[] = [];
+	newState: TemplateField[] = [];
 
 	constructor(
 		private dlgSrv: DialogService,
 		public templateMngmtSrv: TemplateMngmtService,
-		private cd: ChangeDetectorRef
+		private cd: ChangeDetectorRef,
+		private templateFieldSrv: TemplateFieldService
 	) {
 		super();
 	}
@@ -60,13 +63,20 @@ export class TemplateMngmtDlgComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		this.templates$ = this.templateMngmtSrv.getTemplates();
 		this.templateSelected$.pipe(
-			switchMap(templateSelected => this.templateMngmtSrv.getExtendedFields(templateSelected)),
-		).subscribe(fieldsChecked => {
-			this.initialState = new Map(fieldsChecked);
-			this.newState = new Map(fieldsChecked);
+			distinctUntilChanged((x, y) => x.id !== y.id),
+			switchMap(templateSelected => this.templateMngmtSrv.getTemplateFields(templateSelected.fields)),
+			takeUntil(this._destroy$)
+		).subscribe(fields => {
+			this.pending = false;
+			this.newState = fields;
+			this.initialState = fields.map(f => ({ ...f }));
 			this.cd.markForCheck();
 		});
 		this.inp.focus();
+	}
+
+	onUpdate() {
+		this.cd.markForCheck();
 	}
 
 	close(event: MouseEvent) {
@@ -99,28 +109,25 @@ export class TemplateMngmtDlgComponent extends AutoUnsub implements OnInit {
 		).subscribe(_ => this.dlgSrv.open(TemplateMngmtDlgComponent, { templateSelected }));
 	}
 
-	toggle(field: ExtendedFieldDefinition) {
-		this.newState.set(field, !this.newState.get(field));
-		this.cd.markForCheck();
-	}
-
 	reset() {
-		this.newState = new Map(this.initialState);
+		this.newState = this.initialState.map(f => ({ ...f }));
 		this.cd.markForCheck();
 	}
 
 	save() {
-		const requestedFields: ExtendedFieldDefinition[] = [];
-		this.newState.forEach((value, key) => {
-			if (value)
-				requestedFields.push(key);
-		});
-		this.templateSelected = { ...this.templateSelected, requestedFields };
+		const fields = this.newState.filter(field => field.inTemplate);
+		// delete local property before saving to db
+		fields.forEach(f => delete f.inTemplate);
+		this.templateSelected = { ...this.templateSelected, fields };
 		this.templateMngmtSrv.updateTemplate(this.templateSelected).subscribe();
 	}
 
 	hasChanged() {
-		return !Array.from(this.initialState).every(([key, val]) => val === this.newState.get(key));
+		return !this.initialState.every((field, index) => {
+			return field.defaultValue === this.newState[index].defaultValue &&
+				field.fixedValue === this.newState[index].fixedValue &&
+				field.inTemplate === this.newState[index].inTemplate;
+		});
 	}
 
 	isSelected(template: RequestTemplate) {

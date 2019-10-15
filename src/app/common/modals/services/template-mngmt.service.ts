@@ -4,7 +4,7 @@ import { RequestTemplateService } from '~core/entity-services';
 import {
 	ExtendedFieldDefinitionService,
 } from '~core/entity-services/extended-field-definition/extended-field-definition.service';
-import { ExtendedFieldDefinition, RequestTemplate } from '~core/models';
+import { ExtendedFieldDefinition, RequestTemplate, TemplateField } from '~core/models';
 import { ListQuery } from '~core/entity-services/_global/list-query.interface';
 
 @Injectable({
@@ -18,7 +18,7 @@ export class TemplateMngmtService {
 		private templateSrv: RequestTemplateService,
 		private extendedFieldDefSrv: ExtendedFieldDefinitionService
 	) {
-		this.listQuery = this.templateSrv.getListQuery({ take: 1000 });
+		this.listQuery = this.templateSrv.getListQuery({ take: 1000, sortBy: '' });
 		this.listQuery.items$.connect();
 	}
 
@@ -31,18 +31,25 @@ export class TemplateMngmtService {
 		return this.templateSrv.create(template);
 	}
 
-	getExtendedFields(template: RequestTemplate) {
+	/**
+	 * return an array of TemplateField. Made of all the extendedFields.
+	 * So we can display existing templateFields from the RequestTemplate, but also the ones
+	 * that aren't selectioned yet inside it
+	 */
+	getTemplateFields(existings: TemplateField[]) {
+		const findTempField = (def: ExtendedFieldDefinition) => existings.find(field => field.definition.id === def.id);
+
 		return this.extendedFieldDefSrv
-			.queryAll(undefined, {
-				query: 'target contains[c] "product." OR target == "Product"',
-				sortBy: 'order',
-				descending: false
-			}).pipe(
-				map(fields => fields.reduce((prev, curr) => {
-					const isFound = template && !!template.requestedFields.find(f => f.id === curr.id);
-					return prev.set(curr, isFound);
-				}, new Map<ExtendedFieldDefinition, boolean>())),
-			);
+			.queryMany({ query: 'target contains[c] "product." OR target == "Product"', sortBy: 'order', descending: false }).pipe(
+				map(defs => defs.map(definition => {
+					const field = findTempField(definition);
+					if (field) {
+						field.inTemplate = true;
+					}
+					return field || new TemplateField({ definition, inTemplate: false });
+				}
+				)));
+
 	}
 
 	deleteTemplate(template: RequestTemplate) {
@@ -64,4 +71,5 @@ export class TemplateMngmtService {
 	refetch() {
 		return this.listQuery.refetch({});
 	}
+
 }

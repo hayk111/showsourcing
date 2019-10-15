@@ -43,6 +43,7 @@ import {
 } from './component/supplier-request-dialog/product-request-list/product-request-list.component';
 import { ProductDialogService } from './services';
 import { CrudDialogService } from './services/crud-dialog.service';
+import { TemplateMngmtDlgComponent } from './component/template-mngmt-dlg/template-mngmt-dlg.component';
 
 // imported at the root because https://github.com/angular/angular/issues/14324
 
@@ -74,6 +75,7 @@ const modals = [
 	RequestReplyDlgComponent,
 	ReviewRequestReplyDlgComponent,
 	SupplierRequestDialogComponent,
+	TemplateMngmtDlgComponent,
 	VoteDetailsDialogComponent,
 ];
 
