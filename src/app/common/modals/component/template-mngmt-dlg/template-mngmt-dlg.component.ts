@@ -2,13 +2,13 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, V
 import { FormControl } from '@angular/forms';
 import { Observable, ReplaySubject } from 'rxjs';
 import { switchMap, tap, distinctUntilChanged, takeUntil } from 'rxjs/operators';
-import { TemplateMngmtService } from '~common/modals/services';
 import { ExtendedFieldDefinition, RequestTemplate, TemplateField } from '~core/models';
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { InputDirective } from '~shared/inputs';
 import { AutoUnsub } from '~utils';
 import { TemplateFieldService } from '~core/entity-services';
+import { TemplateMngmtService } from '~common/modals/services/template-mngmt.service';
 
 @Component({
 	selector: 'template-mngmt-dlg-app',

@@ -41,8 +41,11 @@ export class DynamicEditableTextComponent extends AbstractInput {
 	@Input() customField: DynamicField;
 	/** whether the input should be on the same line as the label */
 	@Input() inlineLabel: boolean;
+	// TODO put this on a config -> hasAction, hasLabel, showComplexTypes
 	@Input() hasAction = true;
 	@Input() hasLabel = true;
+	/** we use this to not display packaging, pricematrix and future complex types */
+	@Input() showComplexTypes = true;
 	/** when the editable field opens */
 	@Output() open = new EventEmitter<null>();
 	/** blur event for onTouchedFn */

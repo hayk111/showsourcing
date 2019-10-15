@@ -22,7 +22,7 @@
 					#inp
 					inputApp
 					type="text"
-					[value]="accumulator"
+					[value]="accumulator || ''"
 					(input)="accumulate(inp.value)"
 					(keyup.enter)="editable.close();"/>
 			</form-field-app>
@@ -201,6 +201,8 @@
 		<editable-field-app
 			#editable
 			*ngSwitchCase="'boolean'"
+			[hasAction]="hasAction"
+			[hasLabel]="hasLabel"
 			[inlineLabel]="inlineLabel"
 			[openOnClick]="false"
 			(click)="toggleValue($event)">
@@ -216,29 +218,33 @@
 
 		<!-- price matrix -->
 		<ng-container *ngSwitchCase="'priceMatrix'">
-			<h3 class="s">
-				{{ customField.label || customField.name }}
-			</h3>
-			<editable-price-matrix-app
-				[(ngModel)]="accumulator"
-				(change)="onChange()"
-				(rowClosed)="onClose($event)"
-				(blur)="onBlur()">
-			</editable-price-matrix-app>
+			<ng-container *ngIf="showComplexTypes">
+				<h3 class="s">
+					{{ customField.label || customField.name }}
+				</h3>
+				<editable-price-matrix-app
+					[(ngModel)]="accumulator"
+					(change)="onChange()"
+					(rowClosed)="onClose($event)"
+					(blur)="onBlur()">
+				</editable-price-matrix-app>
+			</ng-container>
 		</ng-container>
 
 		<!-- packaging -->
 		<ng-container *ngSwitchCase="'packaging'">
-			<h3 class="s">
-				{{ customField.label || customField.name }}
-			</h3>
-			<editable-packaging-app
-				[customField]="customField"
-				[(ngModel)]="accumulator"
-				(input)="onChange();"
-				(blur)="onBlur()"
-				(rowClosed)="onClose($event)">
-			</editable-packaging-app>
+			<ng-container *ngIf="showComplexTypes">
+				<h3 class="s">
+					{{ customField.label || customField.name }}
+				</h3>
+				<editable-packaging-app
+					[customField]="customField"
+					[(ngModel)]="accumulator"
+					(input)="onChange();"
+					(blur)="onBlur()"
+					(rowClosed)="onClose($event)">
+				</editable-packaging-app>
+			</ng-container>
 		</ng-container>
 
 		<!-- selector -->

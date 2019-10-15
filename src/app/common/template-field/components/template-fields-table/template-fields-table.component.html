@@ -3,6 +3,7 @@
 	[pending]="pending"
 	[selected]="selection"
 	[hasMenu]="false"
+	[hasPagination]="false"
 	[currentSort]="currentSort"
 	[hasSelection]="false"
 	[contextualMenu]="contextualMenuTemplate"
@@ -37,9 +38,12 @@
 				<div class="name">{{ row?.definition?.label }}</div>
 			</ng-container>
 
+			<!-- TODO add a config here -->
 			<ng-container *ngSwitchCase="'default value'">
 				<dynamic-editable-text-app
 					[value]="row.defaultValue"
+					[showComplexTypes]="false"
+					[inlineLabel]="true"
 					[hasAction]="false"
 					[hasLabel]="false"
 					[customField]="getCustomField(row)"
