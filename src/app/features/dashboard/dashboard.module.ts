@@ -10,6 +10,8 @@ import { TodoBoxComponent } from '~features/dashboard/components/todo-box/todo-b
 import { TodoNavComponent } from '~features/dashboard/components/todo-box/todo-nav/todo-nav.component';
 import { TeamPerformanceComponent} from '~features/dashboard/components/team-performance/team-performance.component';
 import { LineChartComponent } from '~features/dashboard/components/line-chart/line-chart.component';
+import { ActivityComponent } from '~features/dashboard/components/activity/activity.component';
+import { ActivityEmptyComponent } from '~features/dashboard/components/activity/activity-empty/activity-empty.component';
 import { routes } from '~features/dashboard/routes';
 import { DialogModule } from '~shared/dialog';
 import { SharedModule } from '~shared/shared.module';
@@ -40,6 +42,8 @@ import {
 	],
 	declarations: [
 		DashboardComponent,
+		ActivityComponent,
+		ActivityEmptyComponent,
 		SummaryComponent,
 		TeamCardComponent,
 		DashboardHeaderComponent,

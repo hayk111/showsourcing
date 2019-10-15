@@ -6,7 +6,6 @@
 			(tabSelected)="selectedTab = $event">
 		</todo-nav-app>
 	</card-nav-app>
-	<divider-app></divider-app>
 	<card-title-app> 
 		{{ ((todoCount[selectedTab] || 0) > 1 ? 'ERM.' + selectedTab.toUpperCase() + '.plural' : 'ERM.' + selectedTab.toUpperCase() + '.singular') | translate }} 
 		{{ 'label.assigned-to-you' | translate }}
@@ -50,34 +49,34 @@
 				*ngSwitchCase="'product'"
 				type="product"
 				[circle]="true"
-				size="xl">
+				size="xxl">
 			</logo-app>
 
 			<logo-app
 				*ngSwitchCase="'sample'"
 				type="sample"
 				[circle]="true"
-				size="xl">
+				size="xxl">
 			</logo-app>
 
 			<logo-app
 				*ngSwitchCase="'task'"
 				type="task"
 				[circle]="true"
-				size="xl">
+				size="xxl">
 			</logo-app>
 
 			<logo-app
 				*ngSwitchCase="'supplier'"
 				type="supplier"
 				[circle]="true"
-				size="xl">
+				size="xxl">
 			</logo-app>
 
 		</ng-container>
 
 		<h1>{{ 'OBJ.no-OBJ-assigned-to-you' | translate: {field: 'ERM.' + selectedTab.toUpperCase() + '.singular' | translate} }}</h1>
-		<span>{{ 'OBJ.create-a-field-or-assign' | translate: {field: 'ERM.' + selectedTab.toUpperCase() + '.singular' | translate} }}</span>
+		<span class="secondary">{{ 'OBJ.create-a-field-or-assign' | translate: {field: 'ERM.' + selectedTab.toUpperCase() + '.singular' | translate} }}</span>
 
 		<div class="button-group">
 			<button (click)="openCreationModal()">{{ 'OBJ.create-OBJ' | translate: {field: 'ERM.' + selectedTab.toUpperCase() + '.singular' | translate} }}</button>
