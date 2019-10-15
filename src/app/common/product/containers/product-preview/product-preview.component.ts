@@ -147,7 +147,11 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 		this.productDescriptor2.insert({ name: 'sample', type: 'title' }, 'sample');
 		this.productDescriptor2.insert({ name: 'shipping', type: 'title' }, 'incoTerm');
 
-		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "Product"' });
+		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryAll(undefined, {
+			query: 'target == "Product"',
+			sortBy: 'order',
+			descending: false
+		});
 	}
 
 	ngOnChanges() {
