@@ -13,8 +13,10 @@
 	<editable-field-app
 		#editable
 		[class.no-hover]="disabled"
+		[class.borderless]="borderless"
 		[inlineLabel]="inlineLabel"
 		[openOnClick]="!disabled"
+		[hasLabel]="hasLabel"
 		[hasAction]="false"
 		[canGrow]="multiple">
 		<label-app *ngIf="hasLabel">{{ label }}</label-app>
@@ -75,7 +77,7 @@
 				*ngIf="(value | logo:type) && !inlineLabel && hasBadge"
 				[src]="value | logo:type" />
 			<span class="ellipsis fullWidth">
-				{{ value?.name || '-' }}
+				{{ value?.name ? value?.name : (value || '-') }}
 			</span>
 		</ng-container>
 

@@ -281,7 +281,7 @@ export class SupplierRequestDialogComponent implements OnInit, AfterViewChecked 
 	}
 
 	getTemplateFields(tmp: RequestTemplate) {
-		return tmp.requestedFields.map(f => f.label).join(', ');
+		return tmp.fields.map(f => f.definition.label).join(', ');
 	}
 
 }
