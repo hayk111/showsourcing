@@ -75,7 +75,7 @@
 				*ngIf="(value | logo:type) && !inlineLabel && hasBadge"
 				[src]="value | logo:type" />
 			<span class="ellipsis fullWidth">
-				{{ value?.name || '-' }}
+				{{ value?.name ? value?.name : (value || '-') }}
 			</span>
 		</ng-container>
 
