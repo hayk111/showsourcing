@@ -44,6 +44,7 @@ export class DynamicEditableTextComponent extends AbstractInput {
 	// TODO put this on a config -> hasAction, hasLabel, showComplexTypes
 	@Input() hasAction = true;
 	@Input() hasLabel = true;
+	@Input() borderless = false;
 	/** we use this to not display packaging, pricematrix and future complex types */
 	@Input() showComplexTypes = true;
 	/** when the editable field opens */

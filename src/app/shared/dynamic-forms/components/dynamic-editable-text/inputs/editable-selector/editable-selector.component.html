@@ -13,8 +13,10 @@
 	<editable-field-app
 		#editable
 		[class.no-hover]="disabled"
+		[class.borderless]="borderless"
 		[inlineLabel]="inlineLabel"
 		[openOnClick]="!disabled"
+		[hasLabel]="hasLabel"
 		[hasAction]="false"
 		[canGrow]="multiple">
 		<label-app *ngIf="hasLabel">{{ label }}</label-app>
