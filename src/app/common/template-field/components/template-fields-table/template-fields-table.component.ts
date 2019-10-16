@@ -35,7 +35,6 @@ export class TemplateFieldsTableComponent extends EntityTableComponent<TemplateF
 	}
 
 	getCustomField(field: TemplateField) {
-		console.log(field.definition);
 		return { ...field.definition, name: 'defaultValue' };
 	}
 }
