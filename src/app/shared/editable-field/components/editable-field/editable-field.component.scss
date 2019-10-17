@@ -6,9 +6,9 @@
 	&.closed:hover {
 		background: var(--color-secondary-light);
 		cursor: pointer;
-		editable-text-app {
-			color: var(--color-primary);
-		}
+		// editable-text-app {
+		// 	color: var(--color-primary);
+		// }
 
 		&.no-hover {
 			background: unset;

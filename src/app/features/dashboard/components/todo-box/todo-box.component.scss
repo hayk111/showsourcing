@@ -1,6 +1,10 @@
 card-app {
 	height: 475px;
 
+	card-title-app {
+		color: var(--color-bg-dark);
+	}
+
 	card-footer-app {
 		border-top: none;
 	}
@@ -80,12 +84,18 @@ card-app {
 		}
 	}
 
-	.view-all {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		height: 20px;
-		margin-top: var(--spacing-s);
-		margin-bottom: var(--spacing-ml);
+	.view-all-container {
+		margin-top: var(--spacing-m);
+
+		.view-all {
+			font-weight: 600;
+			font-size: var(--font-size-m);
+			text-transform: capitalize;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 20px;
+		}
 	}
+
 }

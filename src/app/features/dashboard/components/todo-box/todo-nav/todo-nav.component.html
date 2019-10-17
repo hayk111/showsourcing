@@ -2,7 +2,7 @@
 
 <logo-nav-app 
 	*ngFor="let tab of tabConfig"
-	[title]="(counts[tab.type] | async) + ' ' + tab.title"
+	[title]="counts[tab.type] + ' ' + tab.title"
 	[subtitle]="tab.subtitle"
 	[selected]="selectedTab === tab.type"
 	(click)="tabSelected.emit(tab.type)">
@@ -11,7 +11,7 @@
 	<logo-app 
 		size="l" 
 		[type]="tab.type" 
-		[color]="(counts[tab.type] | async) ? undefined : 'secondary-light'">
+		[color]="counts[tab.type] || counts[tab.type] === 0 ? undefined : 'secondary-light'">
 	</logo-app>
 </logo-nav-app>
 

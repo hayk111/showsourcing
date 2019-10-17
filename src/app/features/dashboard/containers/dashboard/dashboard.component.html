@@ -5,17 +5,7 @@
 	<div class="left">
 		<notif-box-app></notif-box-app>
 		<todo-box-app></todo-box-app>
-		<ng-container *ngIf="feedResult?.feed$ | async as feed">
-			<grouped-feed-list-app *ngIf="feed?.length > 0; else empty" [feedResult]="feedResult"></grouped-feed-list-app>
-			<ng-template #spinner>
-				<spinner-app></spinner-app>
-			</ng-template>
-			<ng-template #empty>
-				<div class="empty flexCenter flexColumn">
-					<h2 translate="header.no-recent-activity"></h2>
-				</div>
-			</ng-template>
-		</ng-container>
+		<dashboard-activity-app [feedResult]="feedResult"></dashboard-activity-app>
 	</div>
 	<div class="right">
 		<team-performance-app></team-performance-app>
