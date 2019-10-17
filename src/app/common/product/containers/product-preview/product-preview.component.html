@@ -99,11 +99,10 @@
 			[config]="formConfig"
 			(update)="updateProduct($event)">
 		</dynamic-form-app>
-	</preview-section-app>
 
-	<!-- Extended Fields -->
-	<preview-section-app #contentTab1 *ngIf="(fieldDefinitions$ | async)?.length" [title]="'title.extended-fields' | translate">
+		<!-- Extended Fields -->
 		<extended-form-app
+			*ngIf="(fieldDefinitions$ | async)?.length"
 			[definitions]="fieldDefinitions$ | async"
 			[config]="formConfig"
 			[fields]="product?.extendedFields"
