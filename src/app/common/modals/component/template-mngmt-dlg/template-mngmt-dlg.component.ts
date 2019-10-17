@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable, ReplaySubject } from 'rxjs';
-import { switchMap, tap, distinctUntilChanged, takeUntil } from 'rxjs/operators';
+import { switchMap, tap, distinctUntilChanged, takeUntil, distinctUntilKeyChanged } from 'rxjs/operators';
 import { ExtendedFieldDefinition, RequestTemplate, TemplateField } from '~core/models';
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
@@ -21,7 +21,7 @@ export class TemplateMngmtDlgComponent extends AutoUnsub implements OnInit {
 	private _templateSelected$ = new ReplaySubject<RequestTemplate>(1);
 	// let's call queryOne to have the updates from cache
 	templateSelected$ = this._templateSelected$.asObservable().pipe(
-		distinctUntilChanged((x, y) => x.id !== y.id),
+		distinctUntilKeyChanged('id'),
 		switchMap(tmp => this.templateMngmtSrv.getOne(tmp.id))
 	);
 
@@ -55,7 +55,6 @@ export class TemplateMngmtDlgComponent extends AutoUnsub implements OnInit {
 		private dlgSrv: DialogService,
 		public templateMngmtSrv: TemplateMngmtService,
 		private cd: ChangeDetectorRef,
-		private templateFieldSrv: TemplateFieldService
 	) {
 		super();
 	}
@@ -63,7 +62,6 @@ export class TemplateMngmtDlgComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		this.templates$ = this.templateMngmtSrv.getTemplates();
 		this.templateSelected$.pipe(
-			distinctUntilChanged((x, y) => x.id !== y.id),
 			switchMap(templateSelected => this.templateMngmtSrv.getTemplateFields(templateSelected.fields)),
 			takeUntil(this._destroy$)
 		).subscribe(fields => {
