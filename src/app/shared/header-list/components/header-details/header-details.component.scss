@@ -47,8 +47,8 @@
   padding: 0 var(--spacing-l);
 }
 
-.action-list {
-  > * {
+.action-list ::ng-deep header-details-actions-app {
+  > status-selector-app {
     margin-right: var(--spacing-ms);
   }
 }
@@ -94,15 +94,17 @@
 }
 
 $back-arrow-size: 40px;
+$arrow-margin-right: 10px;
 .back-arrow-container {
 	height: $back-arrow-size;
-	width: $back-arrow-size;
+  width: $back-arrow-size;
+  margin-right: $arrow-margin-right;
 
 	.back-arrow {
 		color: var(--color-txt-secondary);
 		font-size: var(--font-size-s);
 		display: flex;
-		align-items: center;
+    align-items: center;
 		& > * {
 			display: flex;
 		}
@@ -116,7 +118,7 @@ $back-arrow-size: 40px;
 }
 
 .tabs-container-details {
-  margin: var(--spacing-none) 52px;
+  margin: var(--spacing-none) 62px;
 }
 
 .tabs-container-settings {
