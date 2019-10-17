@@ -115,7 +115,10 @@ export class TemplateMngmtDlgComponent extends AutoUnsub implements OnInit {
 	save() {
 		const fields = this.newState.filter(field => field.inTemplate);
 		// delete local property before saving to db
-		fields.forEach(f => delete f.inTemplate);
+		fields.forEach(f => {
+			delete f.inTemplate;
+			f.defaultValue = JSON.stringify(f.defaultValue);
+		});
 		this.templateSelected = { ...this.templateSelected, fields };
 		this.templateMngmtSrv.updateTemplate(this.templateSelected).subscribe();
 	}
