@@ -61,8 +61,10 @@ export class TokenService {
 	}
 
 	storeJwtTokens(token: TokenState) {
-		this.localStorageSrv.setItem(FEED_TOKEN, token);
-		this._jwtTokenFeed$.next(token);
+		if (token) {
+			this.localStorageSrv.setItem(FEED_TOKEN, token);
+			this._jwtTokenFeed$.next(token);
+		}
 	}
 
 	restoreFeedToken() {
