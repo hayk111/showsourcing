@@ -54,7 +54,6 @@ export class UploaderFeedbackService {
 			// remove unefined in case we are passing [undefined]
 			// for example in for contact we only have one image so we do [images]="[contact.businessCardImage]"
 			this._images = images.filter(x => !!x);
-			this._pendingImages = [];
 		}
 	}
 
@@ -74,7 +73,6 @@ export class UploaderFeedbackService {
 	addImages(files: Array<File>) {
 		if (files.length === 0)
 			return;
-
 		const uuids: string[] = this.addPendingImgs(files).map(p => p.id);
 		this.cd.markForCheck();
 		// since the this.linkedEntity is only set in the init, its image array is not up to date, so we need to update it
@@ -92,7 +90,13 @@ export class UploaderFeedbackService {
 		// adding a pending image so we can see there is an image pending visually
 		const pendingImgs: PendingImage[] = files.map(file => new PendingImage(file));
 		this._pendingImages.push(...pendingImgs);
-		Promise.all(pendingImgs.map(p => p.createData()));
+		// creating base64 data and refreshing view when it's done
+		Promise.all(pendingImgs.map(p => p.createData()))
+			.then(_ => {
+				this._pendingImages = this._pendingImages.map((p: PendingImage) => ({...p} as PendingImage));
+				this.cd.markForCheck();
+			});
+
 		return pendingImgs;
 	}
 

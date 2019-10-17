@@ -57,12 +57,14 @@
 
 			<!-- createdBy -->
 			<ng-container *ngSwitchCase="'createdBy'">
-				<user-picture-app [user]="row?.createdBy"></user-picture-app>
-				{{ row?.createdBy | formatUserName }}
+				<div class="flexVAlign">
+					<user-picture-app [user]="row?.createdBy"></user-picture-app>
+					<span class="mg-xs">{{ row?.createdBy | formatUserName }}</span>
+				</div>
 			</ng-container>
 
 			<!-- creationDate -->
-			<ng-container *ngSwitchCase="'reference'">
+			<ng-container *ngSwitchCase="'creationDate'">
 				{{ row?.creationDate | date: 'dd MMMM y' }}
 			</ng-container>
 

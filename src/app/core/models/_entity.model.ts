@@ -1,5 +1,6 @@
 import { ID, uuid } from '~utils';
 import { User } from '~models/user.model';
+import { UserService } from '~core/entity-services';
 
 export interface Entity {
 	id?: ID;
@@ -17,6 +18,7 @@ export class EntityWithAudit<G> implements Entity {
 		this.creationDate = '' + new Date();
 		this.lastUpdatedDate = '' + new Date();
 		this.deleted = false;
+		this.createdBy = UserService.userSync;
 		Object.assign(this, config);
 	}
 }
