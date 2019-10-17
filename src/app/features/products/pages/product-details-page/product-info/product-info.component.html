@@ -1,41 +1,35 @@
 <div class="content flex">
 
-	<div class="left">
-		<product-preview-app [isPreview]="false" [product]="product$ | async"></product-preview-app>
-	</div>
+	<product-preview-app class="left mg-l" [isPreview]="false" [product]="product$ | async"></product-preview-app>
 
+	<card-app class="right">
 
-	<div class="right">
-		<card-app>
+		<card-title-app>Product Information</card-title-app>
+		<card-action-app color="secondary-light" (click)="openCreateRequest()">Contact Supplier</card-action-app>
+		<accordion-app>
+			<accordion-title-app>General</accordion-title-app>
+			<accordion-content-app>
+				<dynamic-form-app
+					[fields]="productDescriptor?.descriptor"
+					[value]="product"
+					[config]="dynamicFormConfig"
+					(update)="update($event)">
+				</dynamic-form-app>
+			</accordion-content-app>
+		</accordion-app>
 
-			<card-title-app>Product Information</card-title-app>
-			<card-action-app color="secondary-light" (click)="openCreateRequest()">Contact Supplier</card-action-app>
-			<accordion-app>
-				<accordion-title-app>General</accordion-title-app>
-				<accordion-content-app>
-					<dynamic-form-app
-						[fields]="productDescriptor?.descriptor"
-						[value]="product"
-						[config]="dynamicFormConfig"
-						(update)="update($event)">
-					</dynamic-form-app>
-				</accordion-content-app>
-			</accordion-app>
+		<accordion-app>
+			<accordion-title-app>Shipping & Packaging</accordion-title-app>
+			<accordion-content-app>
+				<dynamic-form-app
+					[fields]="shippingDescriptor?.descriptor"
+					[value]="product"
+					[config]="dynamicFormConfig"
+					(update)="update($event)">
+				</dynamic-form-app>
+			</accordion-content-app>
+		</accordion-app>
 
-			<accordion-app>
-				<accordion-title-app>Shipping & Packaging</accordion-title-app>
-				<accordion-content-app>
-					<dynamic-form-app
-						[fields]="shippingDescriptor?.descriptor"
-						[value]="product"
-						[config]="dynamicFormConfig"
-						(update)="update($event)">
-					</dynamic-form-app>
-				</accordion-content-app>
-			</accordion-app>
-
-		</card-app>
-
-	</div>
+	</card-app>
 
 </div>
