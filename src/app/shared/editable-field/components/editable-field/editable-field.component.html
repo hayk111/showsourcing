@@ -8,7 +8,7 @@
   </div>
 
   <!-- editable part -->
-  <div class="content ellipsis">
+  <div class="content ellipsis" [class.fullWidth]="!hasLabel">
     <editable-text-app
       [hasAction]="hasAction"
       [openOnClick]="openOnClick"

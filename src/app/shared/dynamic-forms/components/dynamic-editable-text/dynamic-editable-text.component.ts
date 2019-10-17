@@ -41,6 +41,12 @@ export class DynamicEditableTextComponent extends AbstractInput {
 	@Input() customField: DynamicField;
 	/** whether the input should be on the same line as the label */
 	@Input() inlineLabel: boolean;
+	// TODO put this on a config -> hasAction, hasLabel, showComplexTypes
+	@Input() hasAction = true;
+	@Input() hasLabel = true;
+	@Input() borderless = false;
+	/** we use this to not display packaging, pricematrix and future complex types */
+	@Input() showComplexTypes = true;
 	/** when the editable field opens */
 	@Output() open = new EventEmitter<null>();
 	/** blur event for onTouchedFn */
@@ -109,6 +115,19 @@ export class DynamicEditableTextComponent extends AbstractInput {
 			this.accumulator = !this.accumulator;
 			this.onSave();
 		}
+	}
+
+	getMetadata(metadata) {
+		const stringConstructor = 'string'.constructor;
+		const objectConstructor = ({}).constructor;
+		// we check if the metadata has to be trasnformed into an Object
+		if (metadata.constructor === stringConstructor) {
+			const objMetadata = JSON.parse(metadata);
+			return objMetadata ? objMetadata.source : null;
+		} else if (metadata.constructor === objectConstructor) { // if tis already an object, we return the target if exists
+			return metadata && metadata.target || null;
+		}
+		return null;
 	}
 
 }

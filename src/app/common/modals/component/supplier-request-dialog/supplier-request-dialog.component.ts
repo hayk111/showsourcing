@@ -9,13 +9,11 @@ import { ProductService } from '~entity-services';
 import { DialogService } from '~shared/dialog';
 import { FilterList, FilterType } from '~shared/filters';
 import { NotificationService, NotificationType } from '~shared/notifications';
-import {
-	TemplateMngmtDlgComponent,
-} from '~shared/template-mngmt/components/template-mngmt-dlg/template-mngmt-dlg.component';
 import { ID, translate } from '~utils';
 
 import { ProductSelectDlgComponent } from '../product-select-dlg/product-select-dlg.component';
 import { ReplySentDlgComponent } from '../reply-sent-dlg/reply-sent-dlg.component';
+import { TemplateMngmtDlgComponent } from '../template-mngmt-dlg/template-mngmt-dlg.component';
 
 @Component({
 	selector: 'supplier-request-dialog-app',
@@ -283,7 +281,7 @@ export class SupplierRequestDialogComponent implements OnInit, AfterViewChecked 
 	}
 
 	getTemplateFields(tmp: RequestTemplate) {
-		return tmp.requestedFields.map(f => f.label).join(', ');
+		return tmp.fields.map(f => f.definition.label).join(', ');
 	}
 
 }

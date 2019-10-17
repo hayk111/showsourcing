@@ -14,6 +14,10 @@
 		// we want to keep always the bottom one cause of the selection
 		padding-bottom: var(--spacing-l);
 	}
+
+	&.unset-height {
+		height: unset;
+	}
 }
 
 a.title {

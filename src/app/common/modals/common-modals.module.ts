@@ -1,9 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import {
+	SupplierRequestDialogComponent,
+} from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
+import {
 	ProductsCardViewDialogComponent,
 } from '~common/product/components/products-card-view-dialog/products-card-view-dialog.component';
 import { ProductCommonModule } from '~common/product/product-common.module';
+import { TemplateFieldCommonModule } from '~common/template-field/template-field-common.module';
 import { InputsModule } from '~shared/inputs';
 import { PricePipe } from '~shared/price/price.pipe';
 import { SharedModule } from '~shared/shared.module';
@@ -14,6 +18,9 @@ import {
 	ChangePswdDlgComponent,
 	CompareProductComponent,
 	CreationDialogComponent,
+	CreationProductDlgComponent,
+	CreationSampleDlgComponent,
+	CreationTaskDlgComponent,
 	DescriptionDlgComponent,
 	EditionDialogComponent,
 	ExportDlgComponent,
@@ -23,16 +30,12 @@ import {
 	NewContactDlgComponent,
 	ProductAddToProjectDlgComponent,
 	ProductRequestTeamFeedbackDlgComponent,
+	ProductSelectDlgComponent,
 	RefuseReplyDlgComponent,
 	ReplySentDlgComponent,
 	RequestReplyDlgComponent,
 	VoteDetailsDialogComponent,
-	CreationProductDlgComponent,
-	CreationTaskDlgComponent,
-	CreationSampleDlgComponent,
-	ProductSelectDlgComponent
 } from './component';
-import { SupplierRequestDialogComponent } from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
 import { CompareColumnComponent } from './component/compare-product/compare-column/compare-column.component';
 import { CompareLabelsComponent } from './component/compare-product/compare-labels/compare-labels.component';
 import { ExportSelectionViewComponent } from './component/export-dlg/export-selection-view/export-selection-view.component';
@@ -41,6 +44,7 @@ import { ReviewRequestReplyDlgComponent } from './component/review-request-reply
 import {
 	ProductRequestListComponent,
 } from './component/supplier-request-dialog/product-request-list/product-request-list.component';
+import { TemplateMngmtDlgComponent } from './component/template-mngmt-dlg/template-mngmt-dlg.component';
 import { ProductDialogService } from './services';
 import { CrudDialogService } from './services/crud-dialog.service';
 
@@ -48,27 +52,34 @@ import { CrudDialogService } from './services/crud-dialog.service';
 
 const modals = [
 	ChangePswdDlgComponent,
+	CompareColumnComponent,
+	CompareLabelsComponent,
 	CompareProductComponent,
 	CreationDialogComponent,
 	CreationProductDlgComponent,
+	CreationSampleDlgComponent,
+	CreationTaskDlgComponent,
 	DescriptionDlgComponent,
 	EditionDialogComponent,
 	ExportDlgComponent,
+	ExportSelectionViewComponent,
+	ExportWaitingViewComponent,
 	InviteUserDlgComponent,
 	MassEditDlgComponent,
 	MergeDialogComponent,
 	NewContactDlgComponent,
 	ProductAddToProjectDlgComponent,
+	ProductRequestListComponent,
 	ProductRequestTeamFeedbackDlgComponent,
+	ProductSelectDlgComponent,
+	ProductsCardViewDialogComponent,
 	RefuseReplyDlgComponent,
 	ReplySentDlgComponent,
 	RequestReplyDlgComponent,
-	SupplierRequestDialogComponent,
-	VoteDetailsDialogComponent,
 	ReviewRequestReplyDlgComponent,
-	CreationTaskDlgComponent,
-	CreationSampleDlgComponent,
-	ProductSelectDlgComponent
+	SupplierRequestDialogComponent,
+	TemplateMngmtDlgComponent,
+	VoteDetailsDialogComponent,
 ];
 
 @NgModule({
@@ -78,16 +89,12 @@ const modals = [
 		ProductCommonModule,
 		TableModule,
 		InputsModule,
-		UtilsModule
+		UtilsModule,
+		TemplateFieldCommonModule
 	],
 	declarations: [
 		...modals,
-		ProductsCardViewDialogComponent,
-		ExportSelectionViewComponent,
-		ExportWaitingViewComponent,
-		ProductRequestListComponent,
-		CompareLabelsComponent,
-		CompareColumnComponent,
+
 	],
 	entryComponents: modals,
 	providers: [

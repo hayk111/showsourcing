@@ -35,6 +35,8 @@ export class EditableSelectorComponent extends AbstractInput {
 	@Input() label: string;
 	@Input() hasBadge: boolean;
 	@Input() definitionReference: ID;
+	@Input() hasLabel = true;
+	@Input() borderless = false;
 
 	@Input() isOpen: boolean;
 	@Input() isShowLabel: true;

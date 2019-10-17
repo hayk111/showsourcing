@@ -15,6 +15,7 @@ export * from './product-request-team-feedback-dlg/product-request-team-feedback
 export * from './refuse-reply-dlg/refuse-reply-dlg.component';
 export * from './reply-sent-dlg/reply-sent-dlg.component';
 export * from './request-reply-dlg/request-reply-dlg.component';
+// export * from './template-mngmt-dlg/template-mngmt-dlg.component'; // circular dependency
 export * from './vote-details-dialog/vote-details-dialog.component';
 export * from './creation-task-dlg/creation-task-dlg.component';
 export * from './creation-sample-dlg/creation-sample-dlg.component';

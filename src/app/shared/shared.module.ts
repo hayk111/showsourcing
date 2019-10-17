@@ -44,7 +44,6 @@ import { PaginationModule } from './pagination/pagination.module';
 import { TopPanelModule } from './top-panel/top-panel.module';
 import { BottomPanelModule } from './bottom-panel';
 import { ComparisonRowModule } from './comparison-row/comparison-row.module';
-import { TemplateMngmtModule } from './template-mngmt/template-mngmt.module';
 import { OnBoardingModule } from './on-boarding/on-boarding.module';
 import { PackagingModule } from './packaging/packaging.module';
 
@@ -100,7 +99,6 @@ const modules = [
 	UserPictureModule,
 	UtilsModule,
 	ComparisonRowModule,
-	TemplateMngmtModule,
 	OnBoardingModule,
 	PackagingModule
 ];

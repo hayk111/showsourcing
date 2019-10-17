@@ -104,6 +104,7 @@
 </div>
 
 <pagination-app
+ 	*ngIf="hasPagination"
 	[count]="count"
 	[currentPage]="currentPage"
 	(goToPage)="goToIndexPage($event)">

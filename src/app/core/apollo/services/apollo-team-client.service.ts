@@ -79,6 +79,7 @@ export class TeamClientInitializer extends AbstractApolloClient {
 			ERM.TASK,
 			ERM.TEAM,
 			ERM.TEAM_USER,
+			ERM.TEMPLATE_FIELD,
 			ERM.USER
 		]);
 		const newSubs = Array.from(toSubSet)

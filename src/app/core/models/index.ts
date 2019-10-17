@@ -52,5 +52,6 @@ export * from './tag.model';
 export * from './task.model';
 export * from './team-user.model';
 export * from './team.model';
+export * from './template-field.model';
 export * from './user.model';
 export * from './weight-unit.model';
