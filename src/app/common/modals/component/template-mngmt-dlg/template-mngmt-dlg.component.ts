@@ -79,7 +79,11 @@ export class TemplateMngmtDlgComponent extends AutoUnsub implements OnInit {
 
 	close(event: MouseEvent) {
 		event.stopPropagation();
-		this.dlgSrv.close({ type: CloseEventType.OK, data: { template: this.templateSelected } });
+		const template = this.templateSelected.fields.map(field => {
+			delete field.inTemplate;
+			return field;
+		});
+		this.dlgSrv.close({ type: CloseEventType.OK, data: { template } });
 	}
 
 	createTemplate() {
