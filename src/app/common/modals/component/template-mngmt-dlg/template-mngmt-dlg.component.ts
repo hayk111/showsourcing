@@ -118,7 +118,13 @@ export class TemplateMngmtDlgComponent extends AutoUnsub implements OnInit {
 		fields.forEach(f => {
 			delete f.inTemplate;
 			// if its an object we stirngify if not we keep the value
-			f.fixedValue = f.fixedValue && !!f.defaultValue && this.objectIsValid(f.defaultValue);
+			f.fixedValue = f.fixedValue && !!f.defaultValue;
+			if (f.definition && f.definition.type === 'price') {
+				const price = this.getObjectFromString(f.defaultValue);
+				// if the value of the price is 0, means it cannot be a fixed value
+				if (price && price.value === 0)
+					f.fixedValue = false;
+			}
 			// this case belong to the price, so the default is never 0
 		});
 		this.templateSelected = { ...this.templateSelected, fields };
@@ -126,22 +132,17 @@ export class TemplateMngmtDlgComponent extends AutoUnsub implements OnInit {
 	}
 
 	/**
-	 * checks if we can parse a string and if it can be parsed, checks that the value of that object is bigger than 0
-	 * @param price
-	 * @returns true if the string cannot be parsed or the object can be parsed and is not 0.
-	 *  false if the object can be parsed and the value is 0
+	 * parses a string into an Object
+	 * @param value
+	 * @returns object if the string is valid, otherwise returns null
 	 */
-	private objectIsValid(price: string) {
+	private getObjectFromString(value: string) {
 		try {
-			const object = JSON.parse(price);
-			// case price, where the value has to be different than 0, else the object is valid
-			if (object && object.value === 0)
-				return false;
-			else
-				return true;
+			const object = JSON.parse(value);
+			return object;
 		} catch (e) {
 			// if we could not parse the object it means is a literal string therefore its true
-			return true;
+			return null;
 		}
 	}
 
