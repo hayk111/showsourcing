@@ -189,18 +189,21 @@
 			(opened)="inp.select()">
 			<label-app *ngIf="hasLabel">{{ customField.label || customField.name }}</label-app>
 			<editable-label-app [vAlign]="false">
-				<span class="fs-s"
-					*ngIf="value && value.currency">{{ value?.currency | const : 'currency' : 'symbol'}}</span>
-				<span *ngIf="value && value.currency" class="mg-xs spacer"></span>
-				<span>{{ value && (value.value) ? (value.value / 10000) : '-' }}</span>
+				<ng-container *ngIf="(objectAsString ? stringToObject() : value) as val; else noPrice">
+					<span class="fs-s"
+						*ngIf="val && val.currency">{{ val?.currency | const :  'currency' : 'symbol' : '1.0-2' }}</span>
+					<span *ngIf="val && val.currency" class="mg-xs spacer"></span>
+					<span>{{ val && (val.value) ? (val.value / 10000) : '-' }}</span>
+				</ng-container>
+				<ng-template #noPrice>-</ng-template>
 			</editable-label-app>
 			<form-field-app class="editable">
 				<input-price-app
 					#inp
-					formFieldCtrl
-					[price]="accumulator"
+					inputApp
+					[price]="objectAsString ? stringToObject() : accumulator"
 					(keyup.enter)="editable.close()"
-					(change)="accumulate(inp.price);">
+					(change)="objectAsString ? accumulateObjectToString(inp.price) : accumulate(inp.price);">
 				</input-price-app>
 			</form-field-app>
 		</editable-field-app>
