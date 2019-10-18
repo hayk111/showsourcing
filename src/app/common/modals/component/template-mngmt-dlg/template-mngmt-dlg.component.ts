@@ -117,10 +117,32 @@ export class TemplateMngmtDlgComponent extends AutoUnsub implements OnInit {
 		// delete local property before saving to db
 		fields.forEach(f => {
 			delete f.inTemplate;
-			f.defaultValue = JSON.stringify(f.defaultValue);
+			// if its an object we stirngify if not we keep the value
+			f.fixedValue = f.fixedValue && !!f.defaultValue && this.objectIsValid(f.defaultValue);
+			// this case belong to the price, so the default is never 0
 		});
 		this.templateSelected = { ...this.templateSelected, fields };
 		this.templateMngmtSrv.updateTemplate(this.templateSelected).subscribe();
+	}
+
+	/**
+	 * checks if we can parse a string and if it can be parsed, checks that the value of that object is bigger than 0
+	 * @param price
+	 * @returns true if the string cannot be parsed or the object can be parsed and is not 0.
+	 *  false if the object can be parsed and the value is 0
+	 */
+	private objectIsValid(price: string) {
+		try {
+			const object = JSON.parse(price);
+			// case price, where the value has to be different than 0, else the object is valid
+			if (object && object.value === 0)
+				return false;
+			else
+				return true;
+		} catch (e) {
+			// if we could not parse the object it means is a literal string therefore its true
+			return true;
+		}
 	}
 
 	hasChanged() {

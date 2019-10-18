@@ -11,6 +11,7 @@ import { DynamicField } from '~shared/dynamic-forms/models';
 import { DynamicUpdate } from '~shared/dynamic-forms/models/dynamic-update.interface';
 import { EditableTextComponent } from '~shared/editable-field';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
+import { Price, Packaging } from '~core/models';
 
 /**
  * Component that selects the correct input and display it as an editable text
@@ -45,6 +46,8 @@ export class DynamicEditableTextComponent extends AbstractInput {
 	@Input() hasAction = true;
 	@Input() hasLabel = true;
 	@Input() borderless = false;
+	/** whether objects like price or packaging are treated as strings or objects */
+	@Input() objectAsString = false;
 	/** we use this to not display packaging, pricematrix and future complex types */
 	@Input() showComplexTypes = true;
 	/** when the editable field opens */
@@ -128,6 +131,24 @@ export class DynamicEditableTextComponent extends AbstractInput {
 			return metadata && metadata.target || null;
 		}
 		return null;
+	}
+
+	// we only use this kind of function with Price & Packaging when objectAsString input is true
+	/**
+	 * converts the string on the accumulator on Object format
+	 */
+	stringToObject() {
+		return this.accumulator ? JSON.parse(this.accumulator) : undefined;
+	}
+
+	// we only use this kind of function with Price & Packaging since their value is a string that needs to be transformed to object
+	/**
+	 * transforms an object into a string
+	 * @param json object to be transformed into string
+	 */
+	accumulateObjectToString(json: Price | Packaging) {
+		// we need to stringify it since it's stored as a string+
+		this.accumulate(JSON.stringify(json));
 	}
 
 }
