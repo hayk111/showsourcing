@@ -79,6 +79,7 @@ export class TemplateMngmtDlgComponent extends AutoUnsub implements OnInit {
 
 	close(event: MouseEvent) {
 		event.stopPropagation();
+		this.templateSelected.fields.forEach(f => delete f.inTemplate);
 		this.dlgSrv.close({ type: CloseEventType.OK, data: { template: this.templateSelected } });
 	}
 
@@ -114,10 +115,9 @@ export class TemplateMngmtDlgComponent extends AutoUnsub implements OnInit {
 
 	save() {
 		const fields = this.newState.filter(field => field.inTemplate);
-		// delete local property before saving to db
 		fields.forEach(f => {
+			// delete local property before saving to db
 			delete f.inTemplate;
-			// if its an object we stirngify if not we keep the value
 			f.fixedValue = f.fixedValue && !!f.defaultValue && this.objectIsValid(f.defaultValue);
 			// this case belong to the price, so the default is never 0
 		});
