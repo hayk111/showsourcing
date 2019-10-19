@@ -118,9 +118,6 @@ export class TemplateMngmtDlgComponent extends AutoUnsub implements OnInit {
 		fields.forEach(f => {
 			// delete local property before saving to db
 			delete f.inTemplate;
-<<<<<<< HEAD
-			f.fixedValue = f.fixedValue && !!f.defaultValue && this.objectIsValid(f.defaultValue);
-=======
 			// if its an object we stirngify if not we keep the value
 			f.fixedValue = f.fixedValue && !!f.defaultValue;
 			if (f.definition && f.definition.type === 'price') {
@@ -129,7 +126,6 @@ export class TemplateMngmtDlgComponent extends AutoUnsub implements OnInit {
 				if (price && price.value === 0)
 					f.fixedValue = false;
 			}
->>>>>>> 293a6ef522d9683297d98c7f5d6104ebf0cd6a60
 			// this case belong to the price, so the default is never 0
 		});
 		this.templateSelected = { ...this.templateSelected, fields };
