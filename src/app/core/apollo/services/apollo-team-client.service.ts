@@ -17,6 +17,7 @@ import { TeamService } from '~entity-services/team/team.service';
 import { Team } from '~models/team.model';
 
 import { ApolloStateService } from './apollo-state.service';
+import { LocalStorageService } from '~core/local-storage';
 
 
 
@@ -33,10 +34,11 @@ export class TeamClientInitializer extends AbstractApolloClient {
 		protected teamSrv: TeamService,
 		protected realmServerSrv: RealmServerService,
 		protected basedSubSrv: QueryBasedSubscriptionService,
-		protected ermSrv: ERMService
+		protected ermSrv: ERMService,
+		protected localStorage: LocalStorageService
 
 	) {
-		super(apollo, link, apolloState, realmServerSrv, Client.TEAM);
+		super(apollo, link, apolloState, realmServerSrv, Client.TEAM, ermSrv, localStorage);
 	}
 
 	init(realmUser: RealmUser, team: Team): Observable<any> {
@@ -54,7 +56,7 @@ export class TeamClientInitializer extends AbstractApolloClient {
 	}
 
 	createMissingSubscription(): Observable<any> {
-		const toSubSet = new Set([
+		const entities = [
 			ERM.ATTACHMENT,
 			ERM.ATTACHMENT_UPLOAD_REQUEST,
 			ERM.CATEGORY,
@@ -81,10 +83,8 @@ export class TeamClientInitializer extends AbstractApolloClient {
 			ERM.TEAM_USER,
 			ERM.TEMPLATE_FIELD,
 			ERM.USER
-		]);
-		const newSubs = Array.from(toSubSet)
-			.map((erm: EntityMetadata) => this.ermSrv.getGlobalService(erm).openSubscription(Client.TEAM));
-		return forkJoin(newSubs);
+		];
+		return super.createMissingSubscription(entities);
 	}
 
 }

@@ -42,6 +42,7 @@ import { SupplierRequestService } from '../supplier-request/supplier-request.ser
 import { GlobalService } from './global.service';
 import { SelectorElementService } from '../selector-element/selector-element.service';
 import { TemplateFieldService } from '../template-field/template-field.service';
+import { CompanyService } from '../company/company.service';
 
 @Injectable(
 	{ providedIn: 'root' }
@@ -53,13 +54,15 @@ export class ERMService {
 		private attachmentUploadRequestSrv: AttachmentUploadRequestService,
 		private categoryService: CategoryService,
 		private commentSrv: CommentService,
+		private companySrv: CompanyService,
 		private contactService: ContactService,
 		private countryService: CountryService,
+		private createRequestService: CreateRequestService,
 		private currencyService: CurrencyService,
 		private eventService: EventService,
 		private exportRequestService: ExportRequestService,
-		private extendedFieldSrv: ExtendedFieldService,
 		private extendedFieldDefinitionSrv: ExtendedFieldDefinitionService,
+		private extendedFieldSrv: ExtendedFieldService,
 		private harbourService: HarbourService,
 		private imageService: ImageService,
 		private imageUploadRequestService: ImageUploadRequestService,
@@ -69,15 +72,14 @@ export class ERMService {
 		private productService: ProductService,
 		private productStatusSrv: ProductStatusService,
 		private projectService: ProjectService,
-		private createRequestService: CreateRequestService,
 		private requestElementService: RequestElementService,
 		private requestReplyService: RequestReplyService,
 		private requestTemplateService: RequestTemplateService,
 		private sampleSrv: SampleService,
-		private selectorElementSrv: SelectorElementService,
 		private sampleStatusSrv: SampleStatusService,
-		private supplierService: SupplierService,
+		private selectorElementSrv: SelectorElementService,
 		private supplierRequestSrv: SupplierRequestService,
+		private supplierService: SupplierService,
 		private supplierStatusSrv: SupplierStatusService,
 		private supplierTypeSrv: SupplierTypeService,
 		private tagService: TagService,
@@ -101,6 +103,8 @@ export class ERMService {
 				return this.categoryService;
 			case 'Comment':
 				return this.commentSrv;
+			case 'Company':
+				return this.companySrv;
 			case 'Contact':
 				return this.contactService;
 			case 'Country':
@@ -176,6 +180,8 @@ export class ERMService {
 				return this.categoryService;
 			case ERM.COMMENT:
 				return this.commentSrv;
+			case ERM.COMPANY:
+				return this.companySrv;
 			case ERM.EMAIL:
 			case ERM.CONTACT:
 				return this.contactService;

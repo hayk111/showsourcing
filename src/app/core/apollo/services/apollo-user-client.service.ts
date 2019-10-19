@@ -16,6 +16,9 @@ import { RealmServerService } from '~entity-services/realm-server/realm-server.s
 import { UserService } from '~entity-services/user/user.service';
 
 import { ApolloStateService } from './apollo-state.service';
+import { LocalStorageService } from '~core/local-storage';
+import { ERMService } from '~core/entity-services/_global/erm.service';
+import { ERM } from '~core/models';
 
 
 @Injectable({ providedIn: 'root' })
@@ -31,10 +34,10 @@ export class UserClientInitializer extends AbstractApolloClient {
 		protected realmServerSrv: RealmServerService,
 		protected basedSubSrv: QueryBasedSubscriptionService,
 		protected teamSrv: TeamService,
-		private imageUploadRequest: ImageUploadRequestService,
-		private companySrv: CompanyService
+		protected ermSrv: ERMService,
+		protected localStorageSrv: LocalStorageService
 	) {
-		super(apollo, link, apolloState, realmServerSrv, Client.USER);
+		super(apollo, link, apolloState, realmServerSrv, Client.USER, ermSrv, localStorageSrv);
 	}
 
 	init(realmUser: RealmUser): Observable<any> {
@@ -55,11 +58,11 @@ export class UserClientInitializer extends AbstractApolloClient {
 	}
 
 	createMissingSubscription(): Observable<any> {
-		return forkJoin([
-			this.teamSrv.openSubscription(this.client),
-			this.userSrv.openSubscription(this.client),
-			this.companySrv.openSubscription(this.client),
-			this.imageUploadRequest.openSubscription(this.client)
+		return super.createMissingSubscription([
+			ERM.TEAM,
+			ERM.USER,
+			ERM.COMPANY,
+			ERM.IMAGE_UPLOAD_REQUEST
 		]);
 	}
 

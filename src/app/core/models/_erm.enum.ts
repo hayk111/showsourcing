@@ -121,6 +121,7 @@ export class ERM {
 		'attachment upload request', 'attachment upload requests', 'ATTACHMENT_UPLOAD_REQUEST', Attachment);
 	static readonly CATEGORY = new EntityMetadata('category', 'categories', 'CATEGORY', Category);
 	static readonly COMMENT = new EntityMetadata('comment', 'comments', 'COMMENT');
+	static readonly COMPANY = new EntityMetadata('company', 'company', 'COMPANY');
 	// static readonly COMPANY = new EntityMetadata('company', 'companies', 'COMPANY', Company);
 	static readonly CONTACT = new EntityMetadata('contact', 'contacts', 'CONTACT', Contact);
 	static readonly COUNTRY = new EntityMetadata('country', 'countries', 'COUNTRY', Country);
