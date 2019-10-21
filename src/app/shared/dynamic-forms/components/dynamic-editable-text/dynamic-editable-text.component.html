@@ -221,8 +221,7 @@
 			<label-app *ngIf="hasLabel">{{ customField.label || customField.name }}</label-app>
 			<editable-label-app [disabled]="true">
 				<radio-app
-					[(ngModel)]="accumulator"
-					[checked]="accumulator !== undefined ? accumulator : null"
+					[checked]="accumulator"
 					[items]="[{ name: 'Yes', value: true }, { name: 'No', value: false }]">
 				</radio-app>
 			</editable-label-app>
