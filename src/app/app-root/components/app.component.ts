@@ -6,7 +6,7 @@ import localeZh from '@angular/common/locales/zh';
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, combineLatest, forkJoin, Observable, of } from 'rxjs';
-import { distinctUntilChanged, filter, switchMap, tap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, switchMap, tap, first } from 'rxjs/operators';
 import { AnalyticsService } from '~core/analytics/analytics.service';
 import { ApolloStateService, ClientStatus, TeamClientInitializer, CentralClientInitializer } from '~core/apollo/services';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
