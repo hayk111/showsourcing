@@ -14,6 +14,7 @@ import {
 	ProjectWorkflowComponent,
 } from './containers';
 import { ProjectCommonModule } from '~common/project/project-common.module';
+import { ProjectHeaderDetailsComponent } from './containers/project-header-details/project-header-details.component';
 
 @NgModule({
 	imports: [
@@ -30,6 +31,7 @@ import { ProjectCommonModule } from '~common/project/project-common.module';
 		ProjectSettingsComponent,
 		ProjectWorkflowComponent,
 		ProjectsPageComponent,
+		ProjectHeaderDetailsComponent,
 	],
 	exports: [RouterModule, ProjectsPageComponent],
 	providers: []

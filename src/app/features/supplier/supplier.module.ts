@@ -18,7 +18,7 @@ import {
 	SuppliersPageComponent,
 	SupplierTasksComponent,
 	SupplierFilesComponent,
-	SupplierTopCardComponent,
+	SupplierHeaderDetailsComponent,
 } from './pages';
 import { SupplierFeatureService } from './services';
 import { CommentCommonModule } from '~common/comment';
@@ -49,7 +49,7 @@ import { AttachmentCommonModule } from '~common/attachment';
 		SupplierTasksComponent,
 		SuppliersPageComponent,
 		SupplierFilesComponent,
-		SupplierTopCardComponent
+		SupplierHeaderDetailsComponent
 	],
 	entryComponents: [],
 	exports: [SuppliersPageComponent],

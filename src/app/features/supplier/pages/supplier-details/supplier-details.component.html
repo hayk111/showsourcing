@@ -1,12 +1,11 @@
-	<!-- top card -->
-	<supplier-top-card-app
-		class="supplier-top-header"
-		[supplier]="supplier$ | async"
-		(delete)="delete($event)"
-		(contact)="contact($event)"
-		(archive)="onArchive($event)"
-		(export)="export($event)"
-		(updateFavorite)="update($event)">
-	</supplier-top-card-app>
+<supplier-header-details-app
+	class="supplier-top-header"
+	[supplier]="supplier$ | async"
+	(delete)="delete($event)"
+	(contact)="contact($event)"
+	(archive)="onArchive($event)"
+	(export)="export($event)"
+	(updateFavorite)="update($event)">
+</supplier-header-details-app>
 
-	<router-outlet></router-outlet>
+<router-outlet></router-outlet>
