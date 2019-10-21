@@ -1,0 +1,9 @@
+:host {
+	padding: 8px var(--spacing-ms);
+	white-space: nowrap;
+	min-width: 140px;
+
+	&:hover {
+		background: var(--legacy-color-secondary-light);
+	}
+}
