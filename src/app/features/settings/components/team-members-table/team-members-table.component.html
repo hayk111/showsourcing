@@ -81,9 +81,9 @@
 				<span i18n="@@contributor" class="access">Contributor</span>
 			</context-menu-item-app>
 			<context-menu-divider-app></context-menu-divider-app>
-			<context-menu-item-app class="remove-user" (click)="delete.emit(row)">
+			<context-menu-item-warn-app class="remove-user" (click)="delete.emit(row)">
 				<span i18n="@@remove-user" class="access">Remove User</span>
-			</context-menu-item-app>
+			</context-menu-item-warn-app>
 		 </context-menu-app>
 
 		 <ng-template #noSelector>

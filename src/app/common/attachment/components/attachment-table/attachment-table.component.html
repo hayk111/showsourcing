@@ -27,11 +27,11 @@
 
 	<!-- contextual menu -->
 	<ng-template #contextualMenuTemplate let-row="row">
-		<context-menu-item-app
-			class="pointer flexCenter"
+		<context-menu-item-warn-app
+			class="color-warn pointer flexCenter"
 			(click)="delete.emit(row)">
 			{{ 'text.delete' | translate }}
-		</context-menu-item-app>
+		</context-menu-item-warn-app>
 	</ng-template>
 
 		<!-- dynamic columns -->
