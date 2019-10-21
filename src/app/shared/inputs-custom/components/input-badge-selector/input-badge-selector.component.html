@@ -14,12 +14,12 @@
 
 <ng-template #badgeStyle>
 	<button *ngIf="!value?.length" class="full-width primary-light capitalize">
-			{{ 'OBJ.add-OBJ' | translate: {type: 'ERM.' + type.toUpperCase() + '.plural' | translate} }}
+			{{ 'OBJ.add-OBJ' | translate: {type: 'ERM.' + type?.toUpperCase() + '.plural' | translate} }}
 	</button>
 </ng-template>
 
 <ng-template #textStyle>
 	<div *ngIf="!value?.length" class="flexCenter pointer selected bold-s">
-		{{ 'OBJ.add-OBJ' | translate: {type: 'ERM.' + type.toUpperCase() + '.plural' | translate} }}
+		{{ 'OBJ.add-OBJ' | translate: {type: 'ERM.' + type?.toUpperCase() + '.plural' | translate} }}
 	</div>
 </ng-template>

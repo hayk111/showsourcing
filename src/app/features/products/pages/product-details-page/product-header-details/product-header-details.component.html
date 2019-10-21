@@ -1,6 +1,6 @@
-<header-details-app>
+<header-details-app [headerType]="'details'">
 
-	<header-details-title-app> 
+	<header-details-title-app>
 		{{ product?.name || ('message.unnamed-product' | translate) }}
 	</header-details-title-app>
 
@@ -10,10 +10,10 @@
 		<div class="flex flexVAlign">
 			<icon-app class="product-icon" name="product" size="s"></icon-app>&nbsp;
 			<div class="flex flexVAlign info-container dot-separator">
-				<span class="reference" *ngIf="product?.reference">
+				<span *ngIf="product?.reference" class="reference">
 					{{ product?.reference }}
 				</span>
-				<span class="price" *ngIf="product && product.price && product.price.value !== null">
+				<span *ngIf="product && product.price && product.price.value !== null" class="price">
 					{{ product?.price | appPrice }}
 				</span>
 				<span *ngIf="product?.category" class="category">
@@ -22,33 +22,23 @@
 				<span *ngIf="product?.supplier" class="hyphen-separator">
 					{{ product?.supplier?.name }}
 				</span>
-				<activities-bar-app *ngIf="product?.votes?.length > 0"
-					[votes]="product?.votes">
+				<activities-bar-app *ngIf="product?.votes?.length > 0" [votes]="product?.votes">
 				</activities-bar-app>
 			</div>
 		</div>
 	</header-details-info-app>
 
 	<header-nav-app>
-		<header-nav-item-app
-			link="./activity"
-			icon="activity"
-			[name]="'nav.activity' | translate">
+		<header-nav-item-app link="./activity" icon="activity" [name]="'nav.activity' | translate">
 		</header-nav-item-app>
 
-		<header-nav-item-app
-			link="./info"
-			icon="product"
-			[name]="'nav.product-details' | translate">
+		<header-nav-item-app link="./info" icon="product" [name]="'nav.product-details' | translate">
 		</header-nav-item-app>
 
-		<header-nav-item-app
-			link="./files"
-			icon="files"
-			[name]="'nav.files' | translate">
+		<header-nav-item-app link="./files" icon="files" [name]="'nav.files' | translate">
 		</header-nav-item-app>
 	</header-nav-app>
-	
+
 	<header-details-actions-app>
 
 		<!-- 
@@ -62,25 +52,21 @@
 			(changeUser)="onUserChanged($event)">
 		</header-list-action-buttons-app> 
 		-->
-	
-		<status-selector-app
-			[typeEntity]="productEntity"
-			[entity]="product"
-			selectSize="l"
-			type="button">
+
+		<status-selector-app [typeEntity]="productEntity" [entity]="product" selectSize="l" type="button">
 		</status-selector-app>
-	
-		<context-menu-app>
+
+		<context-menu-app class="mg-left-ms">
 
 			<context-menu-trigger-app>
 				<button class="icon light dots pointer">
-					<icon-app [size]="20" name="dots-vertical"></icon-app>
+					<icon-app [size]="16" name="dots-vertical"></icon-app>
 				</button>
 			</context-menu-trigger-app>
-			
+
 			<context-menu-item-app (click)="supplierRequest.emit(product)" translate="button.supplier-request">
 			</context-menu-item-app>
-			
+
 			<context-menu-item-app (click)="archive.emit(product)" translate="button.archive">
 			</context-menu-item-app>
 

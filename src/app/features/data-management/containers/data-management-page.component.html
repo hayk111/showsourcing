@@ -1,8 +1,8 @@
 
 <header-details-app
-	[title]="'title.data-cleansing' | translate"
 	[hasBackArrow]="false"
-	[elevated]="false">
+	[elevated]="false"
+	[headerType]="'settings'">
 
 	<header-details-title-app>
 		<span class="my-team capitalize">
@@ -10,7 +10,7 @@
 		</span>
 	</header-details-title-app>
 
-	<logo-app color="primary" icon="smile" size="xl"></logo-app>
+	<logo-app color="primary" icon="company" size="xl"></logo-app>
 	<header-details-info-app>{{ 'text.manage-your-categories' | translate }}</header-details-info-app>
 
 	<!-- navigation tabs of panel -->
@@ -27,11 +27,11 @@
 			[name]="'nav.tags' | translate">
 		</header-nav-item-app>
 	
-		<!-- <header-nav-item-app
+		<header-nav-item-app
 			link="/settings/data/supplier"
 			icon="supplier"
 			[name]="'nav.suppliers' | translate">
-		</header-nav-item-app> -->
+		</header-nav-item-app>
 	
 		<header-nav-item-app
 			link="/settings/data/event"
@@ -44,7 +44,7 @@
 
 <header-list-app
 	class="smaller-padding"
-	[title]="listSrv.entityMetadata.plural"
+	[title]="'ERM.' + listSrv.entityMetadata.translationKey + '.plural' | translate"
 	[buttonName]="'Add ' + listSrv.entityMetadata.singular"
 	[buttonWidth]="addButtonWidth"
 	[buttonHeight]="addButtonHeight"

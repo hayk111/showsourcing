@@ -4,12 +4,12 @@ import { ERM, Supplier } from '~models';
 import { TrackingComponent } from '~utils/tracking-component';
 
 @Component({
-	selector: 'supplier-top-card-app',
-	templateUrl: './supplier-top-card.component.html',
-	styleUrls: ['./supplier-top-card.component.scss'],
+	selector: 'supplier-header-details-app',
+	templateUrl: './supplier-header-details.component.html',
+	styleUrls: ['./supplier-header-details.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SupplierTopCardComponent extends TrackingComponent implements OnInit {
+export class SupplierHeaderDetailsComponent extends TrackingComponent implements OnInit {
 	@Input() supplier: Supplier;
 	@Output() delete = new EventEmitter<Supplier>();
 	@Output() archive = new EventEmitter<Supplier>();

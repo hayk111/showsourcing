@@ -1,13 +1,14 @@
 <header-details-app
 	[hasBackArrow]="false"
-	[elevated]="false">
+	[elevated]="false"
+	[headerType]="'settings'">
 	<header-details-title-app>
 		<span class="my-export capitalize">
 			{{ 'title.my-exports' | translate }}
 		</span>
 	</header-details-title-app>
 	<logo-app color="primary" icon="close-pane-bottom" size="xl"></logo-app>
-	<header-details-info-app>Exports from my team</header-details-info-app>
+	<header-details-info-app>{{'header.exports-from-my-team'}}</header-details-info-app>
 </header-details-app>
 
 <controller-list-app

@@ -9,14 +9,14 @@ import { map, tap, switchMap, take, filter } from 'rxjs/operators';
 import { ProjectService } from '~core/entity-services';
 
 @Component({
-	selector: 'app-project-details',
-	templateUrl: './project-details.component.html',
-	styleUrls: ['./project-details.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'app-project-header-details',
+  templateUrl: './project-header-details.component.html',
+  styleUrls: ['./project-header-details.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProjectDetailsComponent extends AutoUnsub implements OnInit {
+export class ProjectHeaderDetailsComponent extends AutoUnsub implements OnInit {
 
-	project$: Observable<Project>;
+  project$: Observable<Project>;
 	project: Project;
 	id: string;
 	erm = ERM;
