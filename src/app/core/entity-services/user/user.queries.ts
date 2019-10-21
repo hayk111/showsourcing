@@ -4,6 +4,15 @@ import { GlobalQueries } from '~entity-services/_global/global-queries.class';
 
 export class UserQueries extends GlobalQueries {
 
+	static readonly userWithAvatar = `
+		id,
+		firstName,
+		lastName,
+		avatar {
+			id, urls { id, url }
+		},
+	`;
+
 	static readonly one = `
 		id,
 		firstName,

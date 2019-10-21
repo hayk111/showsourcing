@@ -24,6 +24,7 @@ export class UserService extends GlobalService<User> {
 		shareReplay(1)
 	);
 	userSync: User;
+	static userSync: User;
 	userId: string;
 	defaultClient = Client.CENTRAL;
 
@@ -39,6 +40,7 @@ export class UserService extends GlobalService<User> {
 	init() {
 		this.user$.subscribe(user => {
 			this.userSync = user;
+			UserService.userSync = user;
 			this.userId = user.id;
 			this.analyticsSrv.setupUser(user);
 		});

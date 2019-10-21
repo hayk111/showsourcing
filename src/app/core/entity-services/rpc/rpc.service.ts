@@ -1,5 +1,5 @@
 import { GlobalService } from '../_global/global.service';
-import { RPCRequest, IRPCRequest } from '~core/models';
+import { RPCRequest, IRPCRequest } from '~core/models/rpc-request.model';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
 import { Injectable } from '@angular/core';
 import { RpcQueries } from './rpc.queries';
