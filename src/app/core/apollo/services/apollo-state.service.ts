@@ -106,14 +106,6 @@ export class ApolloStateService {
 		return this.apollo.use(name);
 	}
 
-	private redirect(allState: AllClientState) {
-		// when any of those has error, we redirect to server issue
-		const hasError = Object.values(allState).some(value => value === ClientStatus.ERROR);
-		if (hasError) {
-			this.router.navigate(['error', 'generic']);
-		}
-	}
-
 	private getCurrentStatus(clientName: string): ClientStatus {
 		return this.clientsState[clientName] || ClientStatus.PENDING;
 	}
