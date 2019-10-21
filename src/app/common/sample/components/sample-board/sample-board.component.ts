@@ -53,7 +53,6 @@ export class SampleBoardPageComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 
 		this.listSrv.setup({
-			key: `sample-kanban`,
 			entityMetadata: ERM.SAMPLE,
 			entitySrv: this.sampleSrv,
 			searchedFields: ['name', 'reference'],

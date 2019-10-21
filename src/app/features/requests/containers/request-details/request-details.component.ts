@@ -1,18 +1,16 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { CommonModalService, RefuseReplyDlgComponent } from '~common/modals';
-import {
-	ReviewRequestReplyDlgComponent,
-} from '~common/modals/component/review-request-reply-dlg/review-request-reply-dlg.component';
+import { ReviewRequestReplyDlgComponent } from '~common/modals/component/review-request-reply-dlg/review-request-reply-dlg.component';
 import { RequestElementService, RequestReplyService, SupplierRequestService } from '~core/entity-services';
-import { ListPageKey, ListPageService } from '~core/list-page';
+import { ListPageService } from '~core/list-page';
 import { ERM, ReplyStatus, RequestElement, SupplierRequest } from '~core/models';
 import { DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub, ID } from '~utils';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'request-details-app',
@@ -51,7 +49,6 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 		id$.pipe(
 			tap(id => {
 				this.listSrv.setup({
-					key: `${ListPageKey.REQUEST_ELEMENT}-${id}`,
 					entitySrv: this.reqElementSrv,
 					selectParams: { sortBy: 'name', query: `@links.Request.requestElements.id == "${id}"`, descending: false },
 					searchedFields: [],

@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { CreationTaskDlgComponent } from '~common/modals';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
-import { ListPageKey, ListPageService } from '~core/list-page';
+import { ListPageService } from '~core/list-page';
 import { TaskService, UserService } from '~entity-services';
 import { ERM, Task } from '~models';
 import { DialogService } from '~shared/dialog';
@@ -37,7 +37,6 @@ export abstract class AbstractTaskCommonComponent extends AutoUnsub implements O
 		const userId = this.userSrv.userSync.id;
 		const routeId = this.route.parent.snapshot.params.id;
 		this.listSrv.setup({
-			key: `${ListPageKey.TASK}-${routeId}`,
 			entitySrv: this.taskSrv,
 			searchedFields: ['name', 'supplier.name', 'product.name'],
 			selectParams: {

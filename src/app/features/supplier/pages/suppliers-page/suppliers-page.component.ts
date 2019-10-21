@@ -1,15 +1,15 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { switchMap } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals';
 import { SupplierService } from '~core/entity-services';
-import { ListPageKey, ListPageService } from '~core/list-page';
+import { ListPageService } from '~core/list-page';
+import { SelectParamsConfig } from '~entity-services/_global/select-params';
+import { SupplierFeatureService } from '~features/supplier/services';
 import { ERM, Supplier } from '~models';
 import { FilterType } from '~shared/filters';
+import { ControllerListService } from '~shared/header-list/services/controller-list.service';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub } from '~utils';
-import { SupplierFeatureService } from '~features/supplier/services';
-import { SelectParamsConfig } from '~entity-services/_global/select-params';
-import { ControllerListService } from '~shared/header-list/services/controller-list.service';
 
 
 // A doctor accidentally prescribes his patient a laxative instead of a coughing syrup.
@@ -59,7 +59,6 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit, AfterVi
 
 	ngOnInit() {
 		this.listSrv.setup({
-			key: ListPageKey.SUPPLIER,
 			entitySrv: this.supplierSrv,
 			searchedFields: ['name', 'tags.name', 'categories.name', 'description'],
 			// initialFilters: [{ type: FilterType.ARCHIVED, value: false }, { type: FilterType.DELETED, value: false }],

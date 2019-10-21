@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { combineLatest, Observable } from 'rxjs';
 import { filter, first, map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ProductStatusService } from '~core/entity-services/product-status/product-status.service';
-import { ListPageKey, ListPageService } from '~core/list-page';
+import { ListPageService } from '~core/list-page';
 import { NEW_STATUS_ID } from '~core/models/status.model';
 import { ProductService } from '~entity-services';
 import { ERM, Product, ProductStatus } from '~models';
@@ -15,7 +16,6 @@ import { KanbanDropEvent } from '~shared/kanban/interfaces';
 import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.interface';
 import { KanbanService } from '~shared/kanban/services/kanban.service';
 import { AutoUnsub } from '~utils/auto-unsub.component';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'workspace-my-workflow-page-app',
@@ -60,7 +60,6 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		this.listSrv.setup({
-			key: ListPageKey.MY_WORKFLOW,
 			entitySrv: this.productSrv,
 			searchedFields: ['name'],
 			entityMetadata: ERM.PRODUCT,

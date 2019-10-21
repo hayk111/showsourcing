@@ -1,14 +1,14 @@
+import { OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { switchMap, takeUntil } from 'rxjs/operators';
 import { CreationSampleDlgComponent } from '~common/modals/component/creation-sample-dlg/creation-sample-dlg.component';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
-import { ListPageKey, ListPageService } from '~core/list-page';
+import { ListPageService } from '~core/list-page';
 import { SampleService, UserService } from '~entity-services';
 import { ERM, Sample } from '~models';
 import { DialogService } from '~shared/dialog';
 import { Filter, FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils/auto-unsub.component';
-import { switchMap, takeUntil } from 'rxjs/operators';
-import { OnInit } from '@angular/core';
 
 /** since we use the sample component on different pages, this page will keep the methods clean */
 export abstract class AbstractSampleCommonComponent extends AutoUnsub implements OnInit {
@@ -37,7 +37,6 @@ export abstract class AbstractSampleCommonComponent extends AutoUnsub implements
 		const id = this.route.parent.snapshot.params.id;
 		const userId = this.userSrv.userSync.id;
 		this.listSrv.setup({
-			key: `${ListPageKey.SAMPLE}-${id}`,
 			entitySrv: this.sampleSrv,
 			searchedFields: ['name', 'supplier.name', 'product.name', 'assignee.firstName', 'assignee.lastName'],
 			selectParams: { query: 'deleted == false' },
