@@ -1,19 +1,15 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChildren, QueryList, OnChanges, ViewChild, HostListener } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
-import { FilterType } from '~shared/filters';
 import { CommonModalService } from '~common/modals';
-import { UserService, TaskService } from '~core/entity-services';
-import { ListPageService, ListPageKey } from '~core/list-page';
-import { ERM, Task } from '~models';
-import { CreationTaskDlgComponent } from '~common/modals';
-import { AutoUnsub } from '~utils';
-import { DialogService } from '~shared/dialog';
-import { NotificationService } from '~shared/notifications';
-import { SupplierRequestDialogComponent } from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
+import { TaskService, UserService } from '~core/entity-services';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
-import { SelectParams } from '~core/entity-services/_global/select-params';
+import { ListPageService } from '~core/list-page';
+import { ERM, Task } from '~models';
+import { DialogService } from '~shared/dialog';
+import { FilterType } from '~shared/filters';
 import { ControllerListComponent } from '~shared/header-list/components/controller-list/controller-list.component';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'tasks-page-app',
@@ -58,7 +54,6 @@ export class TasksPageComponent extends AutoUnsub implements OnInit, AfterViewIn
 
 	ngOnInit() {
 		this.listSrv.setup({
-			key: ListPageKey.TASK,
 			entitySrv: this.taskSrv,
 			searchedFields: ['name', 'reference', 'assignee.firstName', 'createdBy.firstName', 'product.name', 'supplier.name'],
 			entityMetadata: ERM.TASK,

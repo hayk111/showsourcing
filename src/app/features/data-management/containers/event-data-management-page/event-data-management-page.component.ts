@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { EventService } from '~core/entity-services';
-import { ListPageKey, ListPageService } from '~core/list-page';
+import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
+import { ListPageService } from '~core/list-page';
 import { DataManagementService } from '~features/data-management/services/data-management.service';
 import { ERM, Event } from '~models';
 import { AutoUnsub } from '~utils';
-import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 
 @Component({
 	selector: 'event-data-management-page-app',
@@ -34,7 +34,6 @@ export class EventDataManagementPageComponent extends AutoUnsub implements OnIni
 
 	ngOnInit() {
 		this.listSrv.setup({
-			key: ListPageKey.EVENT,
 			entitySrv: this.eventSrv,
 			searchedFields: ['description.name'],
 			selectParams: { sortBy: 'description.name', descending: false, query: 'deleted == false' },

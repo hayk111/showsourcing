@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { SupplierService } from '~core/entity-services';
-import { ListPageKey, ListPageService } from '~core/list-page';
-import { DataManagementService } from '~features/data-management/services/data-management.service';
-import { Supplier, ERM } from '~models';
-import { AutoUnsub } from '~utils';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
+import { ListPageService } from '~core/list-page';
+import { DataManagementService } from '~features/data-management/services/data-management.service';
+import { ERM, Supplier } from '~models';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'supplier-data-management-page-app',
@@ -34,7 +34,6 @@ export class SupplierDataManagementPageComponent extends AutoUnsub implements On
 
 	ngOnInit() {
 		this.listSrv.setup({
-			key: ListPageKey.SUPPLIER,
 			entitySrv: this.supplierSrv,
 			searchedFields: ['name'],
 			selectParams: { sortBy: 'name', descending: false, query: 'deleted == false' },

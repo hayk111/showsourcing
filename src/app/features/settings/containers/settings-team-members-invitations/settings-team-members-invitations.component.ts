@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
-import { ListPageKey, ListPageService } from '~core/list-page';
-import { SettingsInvitationService } from '~features/settings/services/settings-invitation.service';
-import { ERM, Invitation, User, EntityTypeEnum } from '~models';
-import { AutoUnsub } from '~utils';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
-import { TranslateService } from '@ngx-translate/core';
+import { ListPageService } from '~core/list-page';
+import { SettingsInvitationService } from '~features/settings/services/settings-invitation.service';
+import { EntityTypeEnum, ERM, Invitation, User } from '~models';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'settings-team-members-invitations-app',
@@ -34,7 +34,6 @@ export class SettingsTeamMembersInvitationsComponent extends AutoUnsub implement
 
 	ngOnInit() {
 		this.listSrv.setup({
-			key: ListPageKey.INVITATION,
 			entitySrv: this.featureSrv,
 			searchedFields: ['email'],
 			selectParams: { query: '', sortBy: 'email', descending: true },

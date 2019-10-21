@@ -6,7 +6,7 @@ import { CommonModalService } from '~common/modals';
 import { SupplierRequestDialogComponent } from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
 import { ProductService, UserService } from '~core/entity-services';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
-import { ListPageKey, ListPageService } from '~core/list-page';
+import { ListPageService } from '~core/list-page';
 import { ProductFeatureService } from '~features/products/services';
 import { ERM, Product } from '~models';
 import { DialogService } from '~shared/dialog';
@@ -77,7 +77,6 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 	}
 	ngOnInit() {
 		this.listSrv.setup({
-			key: ListPageKey.PRODUCTS,
 			entitySrv: this.productSrv,
 			searchedFields: ['name', 'supplier.name', 'category.name', 'description'],
 			// we use the deleted filter there so we can send the query to export all to the export dlg

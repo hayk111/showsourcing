@@ -3,11 +3,11 @@ import { TranslateService } from '@ngx-translate/core';
 import { forkJoin } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
-import { ListPageKey, ListPageService } from '~core/list-page';
-import { SettingsMembersService } from '~features/settings/services/settings-members.service';
-import { ERM, TeamUser, User, EntityTypeEnum } from '~models';
-import { AutoUnsub } from '~utils';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
+import { ListPageService } from '~core/list-page';
+import { SettingsMembersService } from '~features/settings/services/settings-members.service';
+import { EntityTypeEnum, ERM, TeamUser, User } from '~models';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'settings-team-members-users-app',
@@ -36,7 +36,6 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub implements OnIn
 
 	ngOnInit() {
 		this.listSrv.setup({
-			key: ListPageKey.TEAM_USER,
 			entitySrv: this.featureSrv,
 			searchedFields: ['user.firstName', 'user.lastName', 'user.email'],
 			selectParams: { query: '', sortBy: 'user.firstName', descending: true },

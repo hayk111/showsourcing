@@ -30,7 +30,6 @@ export class RequestsPageComponent extends AutoUnsub implements OnInit {
 		this.listSrv.setup({
 			entityMetadata: ERM.SUPPLIER_REQUEST,
 			entitySrv: this.suppRequestSrv,
-			key: ListPageKey.SUPPLIER_REQUEST,
 			searchedFields: ['sender.name', 'status', 'title', 'sender.company'],
 			initialFilters: [{ type: FilterType.CUSTOM, value: `recipientUser.id == "${this.userSrv.userId}"` }],
 			selectParams,

@@ -1,16 +1,15 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { switchMap, takeUntil, tap } from 'rxjs/operators';
-import { FilterType } from '~shared/filters';
+import { switchMap, takeUntil } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals';
-import { UserService, SampleService } from '~core/entity-services';
-import { ListPageService, ListPageKey } from '~core/list-page';
+import { SampleService, UserService } from '~core/entity-services';
+import { SelectParams, SelectParamsConfig } from '~core/entity-services/_global/select-params';
+import { ListPageService } from '~core/list-page';
 import { ERM, Sample } from '~models';
-import { AutoUnsub } from '~utils';
 import { DialogService } from '~shared/dialog';
-import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
-import { SelectParams } from '~core/entity-services/_global/select-params';
+import { FilterType } from '~shared/filters';
 import { ControllerListService } from '~shared/header-list/services/controller-list.service';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'samples-page-app',
@@ -51,7 +50,6 @@ export class SamplesPageComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		const selectParams = new SelectParams({ sortBy: 'creationDate' });
 		this.listSrv.setup({
-			key: ListPageKey.REQUEST,
 			entitySrv: this.sampleSrv,
 			searchedFields: ['name', 'supplier.name', 'product.name', 'assignee.firstName', 'assignee.lastName', 'type'],
 			entityMetadata: ERM.SAMPLE,

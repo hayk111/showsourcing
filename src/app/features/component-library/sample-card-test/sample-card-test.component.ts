@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { combineLatest, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { first, map } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals';
 import { SampleService, SampleStatusService } from '~core/entity-services';
-import { ListPageKey, ListPageService } from '~core/list-page';
+import { ListPageService } from '~core/list-page';
 import { ERM, Sample } from '~core/models';
 import { KanbanColumn, KanbanDropEvent } from '~shared/kanban/interfaces';
 import { AutoUnsub } from '~utils';
@@ -43,7 +43,6 @@ export class SampleCardTestComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		this.listSrv.setup({
-			key: ListPageKey.SAMPLE,
 			entitySrv: this.sampleSrv,
 			searchedFields: ['name', 'supplier.name', 'product.name'],
 			selectParams: { sortBy: 'name', descending: false, query: 'deleted == false' },

@@ -1,9 +1,9 @@
-import { Component, ChangeDetectionStrategy, TemplateRef, ViewChild, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
-import { ListPageKey, EntityTableComponent, ListPageService } from '~core/list-page';
-import { Sort } from '~shared/table/components/sort.interface';
-import { SupplierService } from '~core/entity-services';
-import { ERM, Supplier } from '~core/models';
+import { AfterViewInit, ChangeDetectionStrategy, Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
+import { SupplierService } from '~core/entity-services';
+import { EntityTableComponent, ListPageService } from '~core/list-page';
+import { ERM, Supplier } from '~core/models';
+import { Sort } from '~shared/table/components/sort.interface';
 
 @Component({
 	selector: 'table-lib-page-app',
@@ -31,7 +31,6 @@ export class TableLibPageComponent extends EntityTableComponent<Supplier> implem
 
 	ngOnInit() {
 		this.listSrv.setup({
-			key: ListPageKey.SUPPLIER,
 			entitySrv: this.supplierSrv,
 			searchedFields: ['name', 'tags.name', 'categories.name', 'description'],
 			selectParams: { query: 'deleted == false' },

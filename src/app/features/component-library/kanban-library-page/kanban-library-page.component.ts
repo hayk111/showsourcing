@@ -1,13 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { combineLatest, Observable } from 'rxjs';
-import { map, takeUntil, first, tap } from 'rxjs/operators';
+import { first, map, takeUntil, tap } from 'rxjs/operators';
 import { ProductService, ProductStatusService } from '~core/entity-services';
-import { ListPageKey, ListPageService } from '~core/list-page';
+import { ListPageService } from '~core/list-page';
 import { ERM, Product, ProductStatus } from '~core/models';
-import { KanbanColumn } from '~shared/kanban/interfaces';
+import { FilterList } from '~shared/filters';
 import { KanbanService } from '~shared/kanban/services/kanban.service';
 import { AutoUnsub } from '~utils';
-import { FilterList } from '~shared/filters';
 
 @Component({
 	selector: 'kanban-library-page-app',
@@ -34,7 +33,6 @@ export class KanbanLibraryPageComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		this.listSrv.setup({
-			key: ListPageKey.LIB_KANBAN,
 			entitySrv: this.productSrv,
 			searchedFields: ['name', 'supplier.name', 'category.name'],
 			selectParams: { sortBy: 'category.name', descending: true, query: 'deleted == false' },
