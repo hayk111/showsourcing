@@ -119,7 +119,7 @@ export class TemplateMngmtDlgComponent extends AutoUnsub implements OnInit {
 			// delete local property before saving to db
 			delete f.inTemplate;
 			// if its an object we stirngify if not we keep the value
-			f.fixedValue = f.fixedValue && !!f.defaultValue;
+			f.fixedValue = f.fixedValue && !!f.defaultValue.toString();
 			if (f.definition && f.definition.type === 'price') {
 				const price = this.getObjectFromString(f.defaultValue);
 				// if the value of the price is 0, means it cannot be a fixed value

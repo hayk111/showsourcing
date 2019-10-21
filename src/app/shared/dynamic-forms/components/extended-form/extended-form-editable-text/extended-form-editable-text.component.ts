@@ -29,7 +29,7 @@ export class ExtendedFormEditableTextComponent extends AbstractExtendedFormCompo
 	 */
 	booleanEditableField(event) {
 		if (event && event.target.type !== 'radio') {
-			this.field.value === 'true' ? this.toggleBoolean(true) : this.toggleBoolean(false);
+			this.accumulator === 'true' ? this.toggleBoolean(true) : this.toggleBoolean(false);
 		}
 	}
 
