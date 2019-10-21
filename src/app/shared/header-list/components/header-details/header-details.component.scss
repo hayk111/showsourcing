@@ -47,12 +47,6 @@
   padding: 0 var(--spacing-l);
 }
 
-.action-list ::ng-deep header-details-actions-app {
-  > status-selector-app {
-    margin-right: var(--spacing-ms);
-  }
-}
-
 .left {
   > *:not(:first-child) {
     margin-left: var(--spacing-ms);
