@@ -11,7 +11,7 @@ import { RequestSortingMenuComponent } from './request-sorting-menu/request-sort
 import { RequestsTableComponent } from './requests-table/requests-table.component';
 import { SamplesTableComponent } from './samples-table/samples-table.component';
 import { SuppliersTableComponent } from './suppliers-table/suppliers-table.component';
-import { TaskTableComponent } from './task-table/task-table.component';
+import { TasksTableComponent } from './tasks-table/tasks-table.component';
 import { ProductSortingMenuComponent } from './product-sorting-menu/product-sorting-menu.component';
 
 
@@ -31,7 +31,7 @@ import { ProductSortingMenuComponent } from './product-sorting-menu/product-sort
 		RequestElementsTableComponent,
 		SamplesTableComponent,
 		SuppliersTableComponent,
-		TaskTableComponent,
+		TasksTableComponent,
 	],
 	exports: [
 		AttachmentsTableComponent,
@@ -43,7 +43,7 @@ import { ProductSortingMenuComponent } from './product-sorting-menu/product-sort
 		RequestElementsTableComponent,
 		SamplesTableComponent,
 		SuppliersTableComponent,
-		TaskTableComponent,
+		TasksTableComponent,
 	],
 	entryComponents: []
 })

@@ -48,14 +48,14 @@ const itsTheSameDesignEveryWhereGuys: TableConfig = {
 
 @Component({
 	selector: 'task-table-app',
-	templateUrl: './task-table.component.html',
+	templateUrl: './tasks-table.component.html',
 	styleUrls: [
-		'./task-table.component.scss',
+		'./tasks-table.component.scss',
 		'../../../../app/theming/specific/list.scss'
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TaskTableComponent extends EntityTableComponent<Task> implements OnInit {
+export class TasksTableComponent extends EntityTableComponent<Task> implements OnInit {
 
 	@Input() tableConfigType: TableConfigType = 'big';
 	@Output() openProduct = new EventEmitter<ID>();
