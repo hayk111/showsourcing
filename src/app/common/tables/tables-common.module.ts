@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ProductSortingMenuComponent } from '~common/sorting-menus/product-sorting-menu/product-sorting-menu.component';
 import { SharedModule } from '~shared/shared.module';
 
 import { AttachmentsTableComponent } from './attachments-table/attachments-table.component';
@@ -22,7 +21,6 @@ import { TasksTableComponent } from './tasks-table/tasks-table.component';
 	],
 	declarations: [
 		AttachmentsTableComponent,
-		ProductSortingMenuComponent,
 		ProductsTableComponent,
 		ProjectsTableComponent,
 		RequestsTableComponent,
@@ -35,7 +33,6 @@ import { TasksTableComponent } from './tasks-table/tasks-table.component';
 		AttachmentsTableComponent,
 		ProductsTableComponent,
 		ProjectsTableComponent,
-		ProductSortingMenuComponent,
 		RequestsTableComponent,
 		RequestElementsTableComponent,
 		SamplesTableComponent,
