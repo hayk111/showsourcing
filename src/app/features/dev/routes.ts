@@ -25,7 +25,7 @@ export const routes: Array<Route> = [
 
 	},
 	{
-		path: '',
+		path: 'component-library',
 		component: ComponentLibraryComponent,
 		children: [
 			{ path: '', redirectTo: 'guidelines', pathMatch: 'full' },
@@ -46,7 +46,6 @@ export const routes: Array<Route> = [
 			// { path: 'selector', component: SelectorLibraryComponent },
 			// { path: 'kanban', component: KanbanLibraryPageComponent },
 			// { path: 'workflow-table', component: WorkflowMngmntTableLibComponent },
-
 		]
 	}
 ];

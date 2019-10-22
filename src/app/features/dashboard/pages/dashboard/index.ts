@@ -5,5 +5,6 @@ export * from './summary/summary.component';
 export * from './team-card/team-card.component';
 export * from './team-performance/team-performance.component';
 export * from './todo-box';
+export * from './dashboard-page.component';
 
 

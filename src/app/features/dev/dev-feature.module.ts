@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ProductCommonModule } from '~common/product/product-common.module';
-import { SampleCommonModule } from '~common/sample';
+
 import { WorkflowMngmtCommonModule } from '~common/workflow/workflow-mngmt.module';
 import { SharedModule } from '~shared/shared.module';
 
@@ -20,9 +19,13 @@ import { routes } from './routes';
 import { SelectorPageComponent } from './pages/component-library/selector/selector-page.component';
 import { TablePageComponent } from './pages/component-library/table/table-page.component';
 import { CommonListPageComponent } from './pages/component-library/common-list/common-list-page.component';
-import { SupplierCommonModule } from '~common/supplier';
 import { ButtonPageComponent } from './pages/component-library/button/button-page.component';
 import { AccordionPageComponent } from './pages/component-library/accordion/accordion-page.component';
+import { TablesCommonModule } from '~common/tables/tables-common.module';
+import { PlaygroundPageComponent } from './pages';
+import { CommonModalsModule } from '~common/modals/common-modals.module';
+import { BoardsCommonModule } from '~common/boards/boards-common.module';
+import { CardsCommonModule } from '~common/cards/cards-common.module';
 
 
 
@@ -30,10 +33,11 @@ import { AccordionPageComponent } from './pages/component-library/accordion/acco
 	imports: [
 		RouterModule.forChild(routes),
 		SharedModule,
-		SampleCommonModule,
-		ProductCommonModule,
-		SupplierCommonModule,
 		WorkflowMngmtCommonModule,
+		TablesCommonModule,
+		CommonModalsModule,
+		BoardsCommonModule,
+		CardsCommonModule
 	],
 	declarations: [
 		ComponentLibraryComponent,
@@ -51,7 +55,8 @@ import { AccordionPageComponent } from './pages/component-library/accordion/acco
 		RatingPageComponent,
 		CommonListPageComponent,
 		ButtonPageComponent,
-		AccordionPageComponent
+		AccordionPageComponent,
+		PlaygroundPageComponent
 	],
 	exports: [ComponentLibraryComponent],
 	providers: []

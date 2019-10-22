@@ -9,7 +9,6 @@
  - [File structure](#file-structure)
  - [Style structure](#style-structure)
  - [Code style](#code-style)
- - [Before starting](#before-starting)
  - [Entity services](#entity-services)
  - [List page service](#list-page-service)
  - [Auto unsub](#auto-unsub)
@@ -132,7 +131,7 @@ At the root of src/app we have
 
  ```
   - app-root: small folder containing only the root module and root component
-  - common: folder containing big modules like ProductCommonModule, TaskCommonModule.
+  - common: folder containing functionalities shared accross the application
   - core: folder containing essential classes on which the application is based
   - features: folder containing feature modules (pages)
   - shared: folder containing modules shared. The SharedModule contains them all.
@@ -169,6 +168,35 @@ Folder containing modules organized by functionality, these modules hold common 
 - SelectionBarsCommonModule -> holds the common components that are related to selection bars
 - SortingMenusCommonModule -> holds the common components that are related to the sorting menus
 - TablesCommonModule -> holds the common components that are related to tables
+
+
+## Feature
+
+Features are organized this way:
+
+```
+feature
+   auth
+       shared
+           auth-form
+       pages
+           login
+              login-page.component
+           user
+              pick-a-team
+                  pick-a-team-page.component
+```
+
+  - inside `pages` the folder structure must respect the url strictly
+  - a page component must end with -page
+  - an optional shared folder for components shared between pages but not outside this module
+
+examples:
+
+  - http://localhost:4200/auth/login
+  - http://localhost:4200/auth/user/pick-a-team
+
+
 
 # Style Structure
 The theming is done in ./src/app/theming and should be straight forward. `styles.scss` is the entry point and imports everything it needs. Inside this file we import some core styling files:
@@ -212,11 +240,6 @@ Basic guidelines on how the Elements should order Directives, Inputs, Outputs...
 - i18n or any type of translation
 
 ***
-
-# Before starting
-To have a smooth time understanding the app, two big features have to be understood first.
-The Entity Services and the ListPageService. Those will be described below
-
 
 # Entity Services
 When accessing the db for an entity we use its entity service. For example if we want to access the ProductVotes in the database we will use `ProductVoteService`. If you open the file you'll notice the file is quite empty, the class `ProductVoteService` merely extends GlobalService that does the heavy lifting.

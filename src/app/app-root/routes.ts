@@ -23,7 +23,6 @@ export const routes: Array<Route> = [
 		component: GuestTemplateComponent,
 		canActivateChild: [InvitationGuard],
 		loadChildren: 'app/features/invitation/invitation.module#InvitationModule',
-		data: { showLogout: true }
 	},
 	{
 		path: 'dev',
@@ -47,7 +46,7 @@ export const routes: Array<Route> = [
 			{ path: '', redirectTo: 'dashboard', pathMatch: 'full' },
 			{
 				path: 'dashboard',
-				loadChildren: 'app/features/dashboard/dashboard.module#DashboardModule'
+				loadChildren: 'app/features/dashboard/dashboard-feature.module#DashboardFeatureModule'
 			},
 			{
 				path: 'project',

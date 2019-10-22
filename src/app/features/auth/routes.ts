@@ -29,22 +29,21 @@ export const routes: Routes = [
 	{
 		path: 'user',
 		canActivateChild: [AuthenticatedGuard, CentralClientReadyGuard],
-		data: { showLogout: true },
 		children: [
 		{
 			path: '',
 			redirectTo: 'pick-a-team',
-			pathMatch: 'full'
+			pathMatch: 'full',
 		},
 		{
 			path: 'create-a-team',
 			component: CreateATeamPageComponent,
-			canActivate: [HasCompanyGuard]
+			canActivate: [HasCompanyGuard],
 		},
 		{
 			path: 'pick-a-team',
 			component: PickATeamPageComponent,
-			canActivate: [HasTeamGuard]
+			canActivate: [HasTeamGuard],
 		},
 		{ path: 'create-a-company', component: CreateACompanyPageComponent }
 	]}

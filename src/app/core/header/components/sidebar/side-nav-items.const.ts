@@ -18,12 +18,12 @@ const subNavItemsProducts = [{
 const subNavItemsDev = [
 	{
 		icon: 'dev',
-		link: ['/component-library'],
+		link: ['/dev', 'component-library'],
 		translationKey: 'component-library'
 	},
 	{
 		icon: 'cercle',
-		link: ['/playground'],
+		link: ['/dev', 'playground'],
 		translationKey: 'playground'
 	}
 ];
