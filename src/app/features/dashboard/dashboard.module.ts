@@ -4,7 +4,6 @@ import { ChartsModule } from 'ng2-charts';
 import { ActivityCommonModule } from '~common/activity/activity-common.module';
 import { ProductDialogService } from '~common/modals/services/product-dialog.service';
 import { PreviewsCommonModule } from '~common/previews/previews-common.module';
-import { ProductCommonModule } from '~common/product';
 import { TablesCommonModule } from '~common/tables/tables-common.module';
 import { ActivityEmptyComponent } from '~features/dashboard/components/activity/activity-empty/activity-empty.component';
 import { ActivityComponent } from '~features/dashboard/components/activity/activity.component';
@@ -33,7 +32,6 @@ import { SharedModule } from '~shared/shared.module';
 		RouterModule.forChild(routes),
 		ActivityCommonModule,
 		DialogModule,
-		ProductCommonModule,
 		TablesCommonModule,
 		PreviewsCommonModule
 	],

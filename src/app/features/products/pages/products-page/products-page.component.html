@@ -79,7 +79,7 @@
 			(preview) = "listSrv.openPreview($event)">
 		</product-board-app>
 
-		<products-card-view-app
+		<products-grid-app
 			cdk-scrollable
 			*ngIf="listSrv.view === 'card'"
 			class="card-view will-change-scroll"
@@ -96,7 +96,7 @@
 			(unfavorited)="listSrv.onItemUnfavorited($event)"
 			(unselect)="listSrv.unselectOne($event, true)"
 			(update)="listSrv.update($event)">
-		</products-card-view-app>
+		</products-grid-app>
 
 		<product-selection-bar-app
 			[isShown]="(listSrv.selection$ | async).size > 0"

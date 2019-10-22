@@ -4,6 +4,7 @@ import { ScrollDispatchModule, ScrollingModule } from '@angular/cdk/scrolling';
 import { CommonModule, DatePipe } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 import { BadgeModule } from '~shared/badge';
 import { CardModule } from '~shared/card';
 import { ContextMenuModule } from '~shared/context-menu/context-menu.module';
@@ -20,17 +21,27 @@ import { SelectorsModule } from '~shared/selectors/selectors.module';
 import { UserPictureModule } from '~shared/user-picture';
 import { UtilsModule } from '~shared/utils';
 
+import { AccordionModule } from './accordion/accordion.module';
 import { ActionBarModule } from './action-bar/action-bar.module';
 import { ActivitiesBarModule } from './activities-bar/activities-bar.module';
 import { AnimatedStackModule } from './animated-stack/animated-stack.module';
+import { BottomPanelModule } from './bottom-panel';
 import { CarouselModule } from './carousel/carousel.module';
+import { ComparisonRowModule } from './comparison-row/comparison-row.module';
 import { DialogModule } from './dialog/dialog.module';
 import { DynamicFormsModule } from './dynamic-forms/dynamic-forms.module';
 import { FileModule } from './file/file.module';
 import { FiltersModule } from './filters/filters.module';
+import { HeaderListModule } from './header-list/header-list.module';
 import { InputsCustomModule } from './inputs-custom/inputs-custom.module';
 import { KanbanModule } from './kanban/kanban.module';
+import { LogoNavModule } from './logo-nav/logo-nav.module';
+import { MoqModule } from './moq/moq.module';
+import { NotifModule } from './notif/notif.module';
 import { NotificationsModule } from './notifications/notifications.module';
+import { OnBoardingModule } from './on-boarding/on-boarding.module';
+import { PackagingModule } from './packaging/packaging.module';
+import { PaginationModule } from './pagination/pagination.module';
 import { PreviewModule } from './preview/preview.module';
 import { RatingModule } from './rating/rating.module';
 import { SearchAutocompleteModule } from './search-autocomplete/search-autocomplete.module';
@@ -41,17 +52,7 @@ import { SidenavModule } from './sidenav/sidenav.module';
 import { StageIndicatorModule } from './stage-indicator/stage-indicator.module';
 import { StatusSelectorModule } from './status-selector/status-selector.module';
 import { TableModule } from './table/table.module';
-import { PaginationModule } from './pagination/pagination.module';
-import { HeaderListModule } from './header-list/header-list.module';
-import { BottomPanelModule } from './bottom-panel';
-import { ComparisonRowModule } from './comparison-row/comparison-row.module';
 import { TemplateMngmtModule } from './template-mngmt/template-mngmt.module';
-import { OnBoardingModule } from './on-boarding/on-boarding.module';
-import { PackagingModule } from './packaging/packaging.module';
-import { NotifModule } from './notif/notif.module';
-import { LogoNavModule } from './logo-nav/logo-nav.module';
-import { AccordionModule } from './accordion/accordion.module';
-import { TranslateModule } from '@ngx-translate/core';
 
 // those modules are used so commonly that we will just import the shared module
 const modules = [
@@ -90,6 +91,7 @@ const modules = [
 	ListModule,
 	LoadersModule,
 	LogoNavModule,
+	MoqModule,
 	NotifModule,
 	NotificationsModule,
 	OnBoardingModule,

@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import {
 	SupplierRequestDialogComponent,
 } from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
-import { ProductCommonModule } from '~common/product/product-common.module';
 import { TablesCommonModule } from '~common/tables/tables-common.module';
 import { InputsModule } from '~shared/inputs';
 import { PricePipe } from '~shared/price/price.pipe';
@@ -75,7 +74,6 @@ const modals = [
 	imports: [
 		CommonModule,
 		SharedModule,
-		ProductCommonModule,
 		TableModule,
 		InputsModule,
 		UtilsModule,

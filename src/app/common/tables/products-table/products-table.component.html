@@ -197,7 +197,8 @@
           <editable-label-app [ngClass]="{ 'empty-field': row?.price }">
             <moq-app
               *ngIf="row?.minimumOrderQuantity"
-              [amount]="row?.minimumOrderQuantity">
+							[moq]="row?.minimumOrderQuantity"
+							[moqDescription]="row?.moqDescription">
             </moq-app>
 						<div *ngIf="!row?.minimumOrderQuantity">Set a Moq</div>
           </editable-label-app>

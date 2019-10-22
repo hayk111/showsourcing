@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ProductCommonModule } from '~common/product/product-common.module';
-import { SharedModule } from '~shared/shared.module';
-
+import { TablesCommonModule } from '~common/tables/tables-common.module';
 import {
 	MySampleBoardPageComponent,
 	MySampleListPageComponent,
@@ -12,6 +10,7 @@ import {
 	WorkspaceComponent,
 } from '~features/workspace/containers';
 import { routes } from '~features/workspace/routes';
+import { SharedModule } from '~shared/shared.module';
 
 
 
@@ -19,8 +18,7 @@ import { routes } from '~features/workspace/routes';
 	imports: [
 		RouterModule.forChild(routes),
 		SharedModule,
-		ProductCommonModule,
-		ProductCommonModule,
+		TablesCommonModule
 	],
 	declarations: [
 		WorkspaceComponent,

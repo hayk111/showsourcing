@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router';
 import { ActivityCommonModule } from '~common/activity/activity-common.module';
 import { CommentCommonModule } from '~common/comment';
 import { PreviewsCommonModule } from '~common/previews/previews-common.module';
-import { ProductCommonModule } from '~common/product';
 import { TablesCommonModule } from '~common/tables/tables-common.module';
 import { routes } from '~features/tasks/routes';
 import { NavBarModule } from '~shared/navbar';
@@ -19,7 +18,6 @@ import { TasksPageComponent } from './containers';
 		CommentCommonModule,
 		CommonModule,
 		NavBarModule,
-		ProductCommonModule,
 		SharedModule,
 		PreviewsCommonModule,
 		TablesCommonModule

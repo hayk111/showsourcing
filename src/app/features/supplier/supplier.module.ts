@@ -3,7 +3,6 @@ import { RouterModule } from '@angular/router';
 import { ActivityCommonModule } from '~common/activity/activity-common.module';
 import { CommentCommonModule } from '~common/comment';
 import { PreviewsCommonModule } from '~common/previews/previews-common.module';
-import { ProductCommonModule } from '~common/product/product-common.module';
 import { TablesCommonModule } from '~common/tables/tables-common.module';
 import { routes } from '~features/supplier/routes';
 import { NavBarModule } from '~shared/navbar';
@@ -26,12 +25,9 @@ import { SupplierFeatureService } from './services';
 	imports: [
 		ActivityCommonModule,
 		NavBarModule,
-		ProductCommonModule,
-		ProductCommonModule,
 		RatingModule,
 		RouterModule.forChild(routes),
 		SharedModule,
-		ProductCommonModule,
 		CommentCommonModule,
 		PreviewsCommonModule,
 		TablesCommonModule

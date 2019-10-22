@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ProductCommonModule } from '~common/product';
 import { TablesCommonModule } from '~common/tables/tables-common.module';
 import { routes } from '~features/project/routes';
 import { SharedModule } from '~shared/shared.module';
@@ -21,7 +20,6 @@ import { ProjectHeaderDetailsComponent } from './containers/project-header-detai
 		CommonModule,
 		RouterModule.forChild(routes),
 		SharedModule,
-		ProductCommonModule,
 		TablesCommonModule
 	],
 	declarations: [

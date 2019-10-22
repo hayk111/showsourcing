@@ -1,19 +1,19 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ProductService } from '~core/entity-services';
+import { ListPageService } from '~core/list-page';
 import { EntityTableComponent } from '~core/list-page/entity-table.component';
+import { TemplateService } from '~core/template/services/template.service';
 import { Product } from '~models';
 import { Sort } from '~shared/table/components/sort.interface';
 import { translate } from '~utils';
-import { ProductService } from '~core/entity-services';
-import { TemplateService } from '~core/template/services/template.service';
-import { ListPageService } from '~core/list-page';
 
 @Component({
-	selector: 'products-card-view-app',
-	templateUrl: './products-card-view.component.html',
-	styleUrls: ['./products-card-view.component.scss'],
+	selector: 'products-grid-app',
+	templateUrl: './products-grid.component.html',
+	styleUrls: ['./products-grid.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductsCardViewComponent extends EntityTableComponent<Product> implements OnInit {
+export class ProductsGridComponent extends EntityTableComponent<Product> implements OnInit {
 	@Input() currentSort: Sort;
 	@Output() productVote = new EventEmitter<{ id: string; value: number }>();
 	@Output() addToProject = new EventEmitter<string>();
