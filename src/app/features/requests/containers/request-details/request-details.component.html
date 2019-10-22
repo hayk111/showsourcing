@@ -27,7 +27,7 @@
 
 		<card-app>
 			<h3 class="l" translate="header.request-items"></h3>
-				<request-element-table-app
+				<request-elements-table-app
 					class="no-padding"
 					[rows]="listSrv.items$ | async"
 					[pending]="listSrv.pending"
@@ -43,7 +43,7 @@
 					(sort)="listSrv.sort($event)"
 					(unselect)="listSrv.unselectOne($event)"
 					(unselectAll)="listSrv.unselectAll()">
-				</request-element-table-app>
+				</request-elements-table-app>
 		</card-app>
 	</div>
 </div>

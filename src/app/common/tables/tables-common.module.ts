@@ -6,7 +6,7 @@ import { SharedModule } from '~shared/shared.module';
 import { AttachmentsTableComponent } from './attachments-table/attachments-table.component';
 import { ProductsTableComponent } from './products-table/products-table.component';
 import { ProjectsTableComponent } from './projects-table/projects-table.component';
-import { RequestElementTableComponent } from './request-element-table/request-element-table.component';
+import { RequestElementsTableComponent } from './request-elements-table/request-elements-table.component';
 import { RequestSortingMenuComponent } from './request-sorting-menu/request-sorting-menu.component';
 import { RequestTableComponent } from './request-table/request-table.component';
 import { SampleTableComponent } from './sample-table/sample-table.component';
@@ -28,7 +28,7 @@ import { ProductSortingMenuComponent } from './product-sorting-menu/product-sort
 		ProjectsTableComponent,
 		RequestSortingMenuComponent,
 		RequestTableComponent,
-		RequestElementTableComponent,
+		RequestElementsTableComponent,
 		SampleTableComponent,
 		SupplierTableComponent,
 		TaskTableComponent,
@@ -40,7 +40,7 @@ import { ProductSortingMenuComponent } from './product-sorting-menu/product-sort
 		ProductSortingMenuComponent,
 		RequestSortingMenuComponent,
 		RequestTableComponent,
-		RequestElementTableComponent,
+		RequestElementsTableComponent,
 		SampleTableComponent,
 		SupplierTableComponent,
 		TaskTableComponent,

@@ -1,9 +1,9 @@
 
 <div class="content flex">
 
-	<product-preview-app 
-		class="left mg-l" 
-		[isPreview]="false" 
+	<product-preview-app
+		class="left mg-l"
+		[isPreview]="false"
 		[product]="product">
 	</product-preview-app>
 
@@ -98,7 +98,7 @@
 			</ng-container>
 
 			<ng-container *ngSwitchCase="'request'">
-				<request-element-table-app
+				<request-elements-table-app
 					class="no-padding"
 					[columns]="['name', 'sender', 'status']"
 					[showReplyFields]="false"
@@ -122,7 +122,7 @@
 					(previewClick)="listSrv.openPreview($event)"
 					(delete)="listSrv.deleteOne($event)"
 					(createClick)="openCreateRequest()">
-				</request-element-table-app>
+				</request-elements-table-app>
 			</ng-container>
 
 		</ng-container>

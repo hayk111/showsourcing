@@ -19,8 +19,8 @@ import { AutoUnsub } from '~utils/auto-unsub.component';
 
 @Component({
 	selector: 'samples-board-app',
-	templateUrl: './sample-board.component.html',
-	styleUrls: ['./sample-board.component.scss'],
+	templateUrl: './samples-board.component.html',
+	styleUrls: ['./samples-board.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
 		KanbanService,

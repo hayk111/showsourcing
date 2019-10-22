@@ -15,15 +15,15 @@ const tableConfig: TableConfig = {
  */
 
 @Component({
-	selector: 'request-element-table-app',
-	templateUrl: './request-element-table.component.html',
+	selector: 'request-elements-table-app',
+	templateUrl: './request-elements-table.component.html',
 	styleUrls: [
-		'./request-element-table.component.scss',
+		'./request-elements-table.component.scss',
 		'../../../../app/theming/specific/list.scss'
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RequestElementTableComponent extends EntityTableComponent<RequestElement> {
+export class RequestElementsTableComponent extends EntityTableComponent<RequestElement> {
 	columns = ['name', 'status'];
 	@Input() tableConfig = tableConfig;
 	/** whether we want to show the reply fields */
