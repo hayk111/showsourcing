@@ -4,7 +4,6 @@ import { BoardsCommonModule } from '~common/boards/boards-common.module';
 import { CardsCommonModule } from '~common/cards/cards-common.module';
 import { PreviewsCommonModule } from '~common/previews/previews-common.module';
 import { ProductCommonModule } from '~common/product/product-common.module';
-import { SupplierCommonModule } from '~common/supplier';
 import { TablesCommonModule } from '~common/tables/tables-common.module';
 import { WorkflowMngmtCommonModule } from '~common/workflow/workflow-mngmt.module';
 import { SharedModule } from '~shared/shared.module';
@@ -36,7 +35,6 @@ import { WorkflowMngmntTableLibComponent } from './workflow-mngmnt-table-lib/wor
 		RouterModule.forChild(routes),
 		SharedModule,
 		ProductCommonModule,
-		SupplierCommonModule,
 		WorkflowMngmtCommonModule,
 		PreviewsCommonModule,
 		BoardsCommonModule,

@@ -5,7 +5,6 @@ import { AttachmentCommonModule } from '~common/attachment';
 import { CommentCommonModule } from '~common/comment';
 import { PreviewsCommonModule } from '~common/previews/previews-common.module';
 import { ProductCommonModule } from '~common/product/product-common.module';
-import { SupplierCommonModule } from '~common/supplier';
 import { TablesCommonModule } from '~common/tables/tables-common.module';
 import { routes } from '~features/supplier/routes';
 import { NavBarModule } from '~shared/navbar';
@@ -33,10 +32,8 @@ import { SupplierFeatureService } from './services';
 		RatingModule,
 		RouterModule.forChild(routes),
 		SharedModule,
-		SupplierCommonModule,
 		ProductCommonModule,
 		CommentCommonModule,
-		SupplierCommonModule,
 		AttachmentCommonModule,
 		PreviewsCommonModule,
 		TablesCommonModule

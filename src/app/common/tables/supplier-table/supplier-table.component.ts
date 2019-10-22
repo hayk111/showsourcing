@@ -26,7 +26,7 @@ const mediumTableConfig: TableConfig = {
 	templateUrl: './supplier-table.component.html',
 	styleUrls: [
 		'./supplier-table.component.scss',
-		'../../../../../app/theming/specific/list.scss'
+		'../../../../app/theming/specific/list.scss'
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })

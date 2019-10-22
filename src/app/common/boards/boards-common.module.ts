@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { SampleBoardPageComponent } from './sample-board/sample-board.component';
+
+import { SampleBoardComponent } from './sample-board/sample-board.component';
+import { SupplierBoardComponent } from './supplier-board/supplier-board.component';
 
 
 @NgModule({
@@ -8,10 +10,12 @@ import { SampleBoardPageComponent } from './sample-board/sample-board.component'
 		CommonModule,
 	],
 	declarations: [
-		SampleBoardPageComponent,
+		SampleBoardComponent,
+		SupplierBoardComponent,
 	],
 	exports: [
-		SampleBoardPageComponent,
+		SampleBoardComponent,
+		SupplierBoardComponent,
 	],
 	entryComponents: []
 })

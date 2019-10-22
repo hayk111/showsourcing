@@ -5,7 +5,6 @@ import { ActivityCommonModule } from '~common/activity/activity-common.module';
 import { CommentCommonModule } from '~common/comment';
 import { PreviewsCommonModule } from '~common/previews/previews-common.module';
 import { ProductCommonModule } from '~common/product';
-import { SupplierCommonModule } from '~common/supplier';
 import { TablesCommonModule } from '~common/tables/tables-common.module';
 import { routes } from '~features/samples/routes';
 import { NavBarModule } from '~shared/navbar';
@@ -22,7 +21,6 @@ import { SamplesPageComponent } from './containers';
 		NavBarModule,
 		ProductCommonModule,
 		SharedModule,
-		SupplierCommonModule,
 		PreviewsCommonModule,
 		TablesCommonModule
 	],

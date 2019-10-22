@@ -27,7 +27,7 @@ import { AutoUnsub } from '~utils/auto-unsub.component';
 		ListPageService
 	]
 })
-export class SampleBoardPageComponent extends AutoUnsub implements OnInit {
+export class SampleBoardComponent extends AutoUnsub implements OnInit {
 	columns$ = this.kanbanSrv.columns$;
 	filterType = FilterType;
 	filterTypes = [

@@ -8,6 +8,7 @@ import { RequestElementTableComponent } from './request-element-table/request-el
 import { RequestSortingMenuComponent } from './request-sorting-menu/request-sorting-menu.component';
 import { SampleTableComponent } from './sample-table/sample-table.component';
 import { TaskTableComponent } from './task-table/task-table.component';
+import { SupplierTableComponent } from './supplier-table/supplier-table.component';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { TaskTableComponent } from './task-table/task-table.component';
 		RequestSortingMenuComponent,
 		RequestElementTableComponent,
 		SampleTableComponent,
+		SupplierTableComponent,
 		TaskTableComponent,
 	],
 	exports: [
@@ -28,6 +30,7 @@ import { TaskTableComponent } from './task-table/task-table.component';
 		RequestSortingMenuComponent,
 		RequestElementTableComponent,
 		SampleTableComponent,
+		SupplierTableComponent,
 		TaskTableComponent,
 	],
 	entryComponents: []

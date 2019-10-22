@@ -5,7 +5,6 @@ import { ActivityCommonModule } from '~common/activity/activity-common.module';
 import { ProductDialogService } from '~common/modals/services/product-dialog.service';
 import { PreviewsCommonModule } from '~common/previews/previews-common.module';
 import { ProductCommonModule } from '~common/product';
-import { SupplierCommonModule } from '~common/supplier';
 import { TablesCommonModule } from '~common/tables/tables-common.module';
 import { ActivityEmptyComponent } from '~features/dashboard/components/activity/activity-empty/activity-empty.component';
 import { ActivityComponent } from '~features/dashboard/components/activity/activity.component';
@@ -35,7 +34,6 @@ import { SharedModule } from '~shared/shared.module';
 		ActivityCommonModule,
 		DialogModule,
 		ProductCommonModule,
-		SupplierCommonModule,
 		TablesCommonModule,
 		PreviewsCommonModule
 	],
