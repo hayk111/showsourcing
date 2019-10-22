@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ErrorPagesModule } from '~features/error-pages/error-pages.module';
+import { ErrorPagesModule } from '~features/error/error-pages.module';
 
 @NgModule({
 	declarations: [],

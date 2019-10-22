@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '~shared/shared.module';
 
-import { GenericErrorPageComponent } from './generic-error-page/generic-error-page.component';
+import { GenericErrorPageComponent } from './pages/generic-error/generic-error-page.component';
 
 @NgModule({
 	imports: [
@@ -16,4 +16,4 @@ import { GenericErrorPageComponent } from './generic-error-page/generic-error-pa
 		GenericErrorPageComponent
 	]
 })
-export class ErrorPagesModule { }
+export class ErrorFeatureModule { }
