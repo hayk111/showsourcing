@@ -38,7 +38,7 @@ export class UserPanelComponent implements OnInit {
 
 	pickTeam() {
 		this.teamSrv.resetSelectedTeam();
-		this.router.navigateByUrl('/user/pick-a-team');
+		this.router.navigateByUrl('auth/user/pick-a-team');
 		this.close.emit();
 	}
 

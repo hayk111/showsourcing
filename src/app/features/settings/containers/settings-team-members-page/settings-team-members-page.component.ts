@@ -41,7 +41,7 @@ export class SettingsTeamMembersPageComponent implements OnInit {
 
 	/** Opens the dialog for creating a new team */
 	redirectNewTeamScreen() {
-		this.router.navigate(['user', 'create-a-team']);
+		this.router.navigate(['auth', 'user', 'create-a-team']);
 	}
 	updateTeamName(newName: string) {
 		// 	if (newName.length) {

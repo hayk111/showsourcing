@@ -37,6 +37,6 @@ export class SettingsCompanyPageComponent implements OnInit {
 
 	/** Opens the dialog for creating a new team */
 	redirectNewTeamScreen() {
-		this.router.navigate(['user', 'create-a-team']);
+		this.router.navigate(['auth', 'user', 'create-a-team']);
 	}
 }

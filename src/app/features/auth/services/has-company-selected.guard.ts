@@ -27,7 +27,7 @@ export class HasCompanySelectGuard implements CanActivate, CanActivateChild {
 	redirect(hasCompany: boolean, route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
 		if (!hasCompany) {
 			const returnUrl = route.queryParams.returnUrl ? route.queryParams.returnUrl : state.url;
-			this.router.navigate(['user', 'pick-a-company'], { queryParams: { returnUrl } });
+			this.router.navigate(['auth', 'user', 'pick-a-company'], { queryParams: { returnUrl } });
 		}
 	}
 }

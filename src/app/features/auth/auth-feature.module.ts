@@ -16,6 +16,13 @@ import {
 	CreateACompanyPageComponent
 } from './pages';
 import { routes } from './routes';
+import {
+	AuthFormHeaderComponent,
+	AuthFormBaseComponent,
+	AuthHeaderSubtitleComponent,
+	AuthHeaderTitleComponent,
+	AuthHeaderContentComponent
+} from './shared';
 
 @NgModule({
 	imports: [
@@ -33,7 +40,12 @@ import { routes } from './routes';
 		ValidateEmailPageComponent,
 		PickATeamPageComponent,
 		CreateATeamPageComponent,
-		CreateACompanyPageComponent
+		CreateACompanyPageComponent,
+		AuthFormHeaderComponent,
+		AuthFormBaseComponent,
+		AuthHeaderContentComponent,
+		AuthHeaderSubtitleComponent,
+		AuthHeaderTitleComponent
 	],
 	exports: []
 })
