@@ -18,7 +18,6 @@ import {
 	StatsIconsComponent,
 } from './components';
 import { ProductPreviewComponent } from './containers';
-import { TaskCommonModule } from '~common/task/task-common.module';
 import { SampleCommonModule } from '~common/sample/sample-common.module';
 
 @NgModule({
@@ -26,7 +25,6 @@ import { SampleCommonModule } from '~common/sample/sample-common.module';
 		RouterModule,
 		SharedModule,
 		CommentCommonModule,
-		TaskCommonModule,
 		SampleCommonModule
 	],
 	declarations: [

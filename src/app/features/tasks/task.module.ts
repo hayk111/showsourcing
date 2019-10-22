@@ -3,14 +3,16 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ActivityCommonModule } from '~common/activity/activity-common.module';
 import { CommentCommonModule } from '~common/comment';
+import { PreviewsCommonModule } from '~common/previews/previews-common.module';
+import { ProductCommonModule } from '~common/product';
 import { RequestCommonModule } from '~common/request';
 import { SupplierCommonModule } from '~common/supplier';
-import { ProductCommonModule } from '~common/product';
-import { TaskCommonModule } from '~common/task';
+import { TablesCommonModule } from '~common/tables/tables-common.module';
+import { routes } from '~features/tasks/routes';
 import { NavBarModule } from '~shared/navbar';
 import { SharedModule } from '~shared/shared.module';
+
 import { TasksPageComponent } from './containers';
-import { routes } from '~features/tasks/routes';
 
 @NgModule({
 	imports: [
@@ -23,7 +25,8 @@ import { routes } from '~features/tasks/routes';
 		ProductCommonModule,
 		SharedModule,
 		SupplierCommonModule,
-		TaskCommonModule,
+		PreviewsCommonModule,
+		TablesCommonModule
 	],
 	declarations: [
 		TasksPageComponent,

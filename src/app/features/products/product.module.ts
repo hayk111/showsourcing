@@ -2,29 +2,30 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ActivityCommonModule } from '~common/activity/activity-common.module';
+import { AttachmentCommonModule } from '~common/attachment/attachment-common.module';
 import { CommentCommonModule } from '~common/comment';
+import { PreviewsCommonModule } from '~common/previews/previews-common.module';
 import { ProductCommonModule } from '~common/product';
 import { RequestCommonModule } from '~common/request';
 import { SampleCommonModule } from '~common/sample';
 import { SupplierCommonModule } from '~common/supplier';
-import { TaskCommonModule } from '~common/task';
+import { TablesCommonModule } from '~common/tables/tables-common.module';
 import { routes } from '~features/products/routes';
 import { NavBarModule } from '~shared/navbar';
 import { SharedModule } from '~shared/shared.module';
 
 import {
 	ProductActivityComponent,
-	ProductHeaderDetailsComponent,
+	ProductActivityNavComponent,
 	ProductDetailsPageComponent,
-	ProductSamplesComponent,
-	ProductInfoComponent,
 	ProductFilesComponent,
+	ProductHeaderDetailsComponent,
+	ProductInfoComponent,
+	ProductSamplesComponent,
 	ProductsPageComponent,
 	ProductTasksComponent,
-	ProductActivityNavComponent
 } from './pages';
 import { ProductFeatureService, QuoteFeatureService } from './services';
-import { AttachmentCommonModule } from '~common/attachment/attachment-common.module';
 
 
 
@@ -40,8 +41,9 @@ import { AttachmentCommonModule } from '~common/attachment/attachment-common.mod
 		RouterModule.forChild(routes),
 		SampleCommonModule,
 		SupplierCommonModule,
-		TaskCommonModule,
-		AttachmentCommonModule
+		AttachmentCommonModule,
+		PreviewsCommonModule,
+		TablesCommonModule
 	],
 	declarations: [
 		ProductActivityComponent,
