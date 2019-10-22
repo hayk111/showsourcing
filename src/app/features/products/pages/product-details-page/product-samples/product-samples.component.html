@@ -1,4 +1,4 @@
-<sample-table-app
+<samples-table-app
 	[hasHeader]="false"
 	[hasPagination]="false"
 	[rows]="listSrv.items$ | async"
@@ -18,7 +18,7 @@
 	(createClick)="commonModalSrv.openAddSampleDialog(product)"
 	(previewClick)="listSrv.openPreview($event)"
 	(delete)="listSrv.deleteOne($event)">
-</sample-table-app>
+</samples-table-app>
 
 <sample-preview-app
 	*ngIf="listSrv.previewOpen"

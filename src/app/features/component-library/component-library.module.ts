@@ -1,12 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ProductCommonModule } from '~common/product/product-common.module';
-import { SampleCommonModule } from '~common/sample';
+import { BoardsCommonModule } from '~common/boards/boards-common.module';
+import { CardsCommonModule } from '~common/cards/cards-common.module';
+import { PreviewsCommonModule } from '~common/previews/previews-common.module';
+import { TablesCommonModule } from '~common/tables/tables-common.module';
 import { WorkflowMngmtCommonModule } from '~common/workflow/workflow-mngmt.module';
 import { SharedModule } from '~shared/shared.module';
 
+import { AccordionLibPageComponent } from './accordion-lib-page/accordion-lib-page.component';
 import { BadgeLibPageComponent } from './badge-lib-page/badge-lib-page.component';
+import { ButtonLibPageComponent } from './button-lib-page/button-lib-page.component';
 import { CardLibPageComponent } from './card-lib-page/card-lib-page.component';
+import { CommonListsLibPageComponent } from './common-lists-lib-page/common-lists-lib-page.component';
 import { ComponentLibraryComponent } from './component-library-page/component-library-page.component';
 import { GuidelinesComponent } from './guidelines/guidelines.component';
 import { IconsLibPageComponent } from './icons-lib-page/icons-lib-page.component';
@@ -21,10 +26,6 @@ import { SampleCardTestComponent } from './sample-card-test/sample-card-test.com
 import { SelectorLibraryComponent } from './selector-library/selector-library.component';
 import { TableLibPageComponent } from './table-lib-page/table-lib-page.component';
 import { WorkflowMngmntTableLibComponent } from './workflow-mngmnt-table-lib/workflow-mngmnt-table-lib.component';
-import { CommonListsLibPageComponent } from './common-lists-lib-page/common-lists-lib-page.component';
-import { SupplierCommonModule } from '~common/supplier';
-import { ButtonLibPageComponent } from './button-lib-page/button-lib-page.component';
-import { AccordionLibPageComponent } from './accordion-lib-page/accordion-lib-page.component';
 
 
 
@@ -32,10 +33,11 @@ import { AccordionLibPageComponent } from './accordion-lib-page/accordion-lib-pa
 	imports: [
 		RouterModule.forChild(routes),
 		SharedModule,
-		SampleCommonModule,
-		ProductCommonModule,
-		SupplierCommonModule,
 		WorkflowMngmtCommonModule,
+		PreviewsCommonModule,
+		BoardsCommonModule,
+		TablesCommonModule,
+		CardsCommonModule
 	],
 	declarations: [
 		ComponentLibraryComponent,

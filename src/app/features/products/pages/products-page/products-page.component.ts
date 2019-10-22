@@ -3,7 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals';
-import { SupplierRequestDialogComponent } from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
+import { SupplierRequestDialogComponent } from '~common/modals/custom/supplier-request-dialog/supplier-request-dialog.component';
 import { ProductService, UserService } from '~core/entity-services';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 import { ListPageService } from '~core/list-page';
@@ -80,7 +80,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 			entitySrv: this.productSrv,
 			searchedFields: ['name', 'supplier.name', 'category.name', 'description'],
 			// we use the deleted filter there so we can send the query to export all to the export dlg
-			initialFilters: [ { type: FilterType.ARCHIVED, value: false }, { type: FilterType.DELETED, value: false } ],
+			initialFilters: [{ type: FilterType.ARCHIVED, value: false }, { type: FilterType.DELETED, value: false }],
 			entityMetadata: ERM.PRODUCT,
 			originComponentDestroy$: this._destroy$
 		}, false);
@@ -97,8 +97,8 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 	onClearFilters() {
 		this.listSrv.filterList.resetAll();
 
-		this.listSrv.addFilter({ type: FilterType.ARCHIVED, value: false});
-		this.listSrv.addFilter({ type: FilterType.DELETED, value: false});
+		this.listSrv.addFilter({ type: FilterType.ARCHIVED, value: false });
+		this.listSrv.addFilter({ type: FilterType.DELETED, value: false });
 		this.controllerListService.onFiltersClear();
 	}
 

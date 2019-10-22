@@ -2,29 +2,28 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ActivityCommonModule } from '~common/activity/activity-common.module';
-import { CommentCommonModule } from '~common/comment';
-import { ProductCommonModule } from '~common/product';
-import { RequestCommonModule } from '~common/request';
-import { SampleCommonModule } from '~common/sample';
-import { SupplierCommonModule } from '~common/supplier';
-import { TaskCommonModule } from '~common/task';
+import { BoardsCommonModule } from '~common/boards/boards-common.module';
+import { GridsCommonModule } from '~common/grids/grids-common.module';
+import { PreviewsCommonModule } from '~common/previews/previews-common.module';
+import { SelectionBarsCommonModule } from '~common/selection-bars/selection-bars-common.module';
+import { SortingMenusCommonModule } from '~common/sorting-menus/sorting-menus-common.module';
+import { TablesCommonModule } from '~common/tables/tables-common.module';
 import { routes } from '~features/products/routes';
 import { NavBarModule } from '~shared/navbar';
 import { SharedModule } from '~shared/shared.module';
 
 import {
 	ProductActivityComponent,
-	ProductHeaderDetailsComponent,
+	ProductActivityNavComponent,
 	ProductDetailsPageComponent,
-	ProductSamplesComponent,
-	ProductInfoComponent,
 	ProductFilesComponent,
+	ProductHeaderDetailsComponent,
+	ProductInfoComponent,
+	ProductSamplesComponent,
 	ProductsPageComponent,
 	ProductTasksComponent,
-	ProductActivityNavComponent
 } from './pages';
 import { ProductFeatureService, QuoteFeatureService } from './services';
-import { AttachmentCommonModule } from '~common/attachment/attachment-common.module';
 
 
 
@@ -32,16 +31,15 @@ import { AttachmentCommonModule } from '~common/attachment/attachment-common.mod
 	imports: [
 		SharedModule,
 		ActivityCommonModule,
-		CommentCommonModule,
 		CommonModule,
 		NavBarModule,
-		ProductCommonModule,
-		RequestCommonModule,
 		RouterModule.forChild(routes),
-		SampleCommonModule,
-		SupplierCommonModule,
-		TaskCommonModule,
-		AttachmentCommonModule
+		PreviewsCommonModule,
+		TablesCommonModule,
+		BoardsCommonModule,
+		GridsCommonModule,
+		SelectionBarsCommonModule,
+		SortingMenusCommonModule
 	],
 	declarations: [
 		ProductActivityComponent,

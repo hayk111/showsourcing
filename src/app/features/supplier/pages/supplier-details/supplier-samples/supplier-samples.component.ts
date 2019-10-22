@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map, switchMap, takeUntil } from 'rxjs/operators';
+import { AbstractSampleCommonComponent } from '~common/abstracts/abstract-sample-common.component';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
-import { AbstractSampleCommonComponent } from '~common/sample/containers/abstract-sample-common.component';
 import { ListPageService } from '~core/list-page';
 import { UserService } from '~entity-services';
 import { SampleService } from '~entity-services/sample/sample.service';

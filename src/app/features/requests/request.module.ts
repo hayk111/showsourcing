@@ -1,26 +1,23 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { RequestCommonModule } from '~common/request';
+import { SortingMenusCommonModule } from '~common/sorting-menus/sorting-menus-common.module';
+import { TablesCommonModule } from '~common/tables/tables-common.module';
 import { routes } from '~features/requests/routes';
 import { SharedModule } from '~shared/shared.module';
 
-import {
-	RequestInformationComponent,
-	RequestTableComponent,
-	RequestHeaderDetailsComponent,
-} from './components';
+import { RequestHeaderDetailsComponent, RequestInformationComponent } from './components';
 import { RequestDetailsComponent, RequestPageComponent } from './containers';
 
 @NgModule({
 	imports: [
 		RouterModule.forChild(routes),
 		SharedModule,
-		RequestCommonModule
+		TablesCommonModule,
+		SortingMenusCommonModule
 	],
 	declarations: [
 		RequestDetailsComponent,
 		RequestInformationComponent,
-		RequestTableComponent,
 		RequestPageComponent,
 		RequestHeaderDetailsComponent,
 	],

@@ -2,31 +2,32 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { filter, map } from 'rxjs/operators';
 import {
-	CompareProductComponent,
 	CreationDialogComponent,
 	CreationProductDlgComponent,
-	CreationTaskDlgComponent,
 	CreationSampleDlgComponent,
+	CreationTaskDlgComponent,
+} from '~common/modals/creation';
+import {
+	CompareProductComponent,
 	EditionDialogComponent,
 	ExportDlgComponent,
 	InviteUserDlgComponent,
 	MassEditDlgComponent,
 	MergeDialogComponent,
 	NewContactDlgComponent,
-	ProductAddToProjectDlgComponent,
 	ProductRequestTeamFeedbackDlgComponent,
-	ProductSelectDlgComponent,
 	RefuseReplyDlgComponent,
 	VoteDetailsDialogComponent,
-} from '~common/modals/component';
-import { EntityMetadata, ERM, Product, ProductVote, Supplier, Sample, Project } from '~models';
+} from '~common/modals/custom';
+import { ProductAddToProjectDlgComponent, ProductSelectDlgComponent } from '~common/modals/selection';
+import { EntityMetadata, Product, ProductVote, Project, Supplier } from '~models';
 import { CloseEvent, CloseEventType } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { DialogService } from '~shared/dialog/services';
 import { ID } from '~utils';
 
-import { ReviewRequestReplyDlgComponent } from '../component/review-request-reply-dlg/review-request-reply-dlg.component';
-import { SupplierRequestDialogComponent } from '../component/supplier-request-dialog/supplier-request-dialog.component';
+import { ReviewRequestReplyDlgComponent } from '../custom/review-request-reply-dlg/review-request-reply-dlg.component';
+import { SupplierRequestDialogComponent } from '../custom/supplier-request-dialog/supplier-request-dialog.component';
 
 /**
  * Service used to open dialogs, the goal of this service is to bring easy typing

@@ -12,7 +12,7 @@
 	(buttonClick)="table.openFileBrowser()">
 </controller-list-app>
 
-<attachment-table-app
+<attachments-table-app
 	#table
 	class="max-full-table-width"
 	[hasPagination]="false"
@@ -42,7 +42,7 @@
 	(createClick)="commonModalSrv.openCreationProductDlg()"
 	(unselectAll)="listSrv.unselectAll()"
 	(upload)="listSrv.refetch().subscribe()">
-</attachment-table-app>
+</attachments-table-app>
 
 
 <selection-bar-app
@@ -53,5 +53,5 @@
 	<button class="icon light" (click)="listSrv.deleteSelected()">
 		<icon-app name="trash"></icon-app>
 	</button>
-	
+
 </selection-bar-app>

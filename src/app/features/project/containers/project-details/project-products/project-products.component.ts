@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { SupplierRequestDialogComponent } from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
+import { SupplierRequestDialogComponent } from '~common/modals/custom/supplier-request-dialog/supplier-request-dialog.component';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 import { ListPageService } from '~core/list-page';
@@ -55,7 +55,7 @@ export class ProjectProductsComponent extends AutoUnsub implements OnInit, After
 		private featureSrv: ProjectFeatureService,
 		private productFeatureSrv: ProductFeatureService,
 		private dlgSrv: DialogService,
-		private	router: Router,
+		private router: Router,
 		private route: ActivatedRoute,
 		private productSrv: ProductService,
 		public listSrv: ListPageService<Product, ProductService>,
@@ -151,8 +151,8 @@ export class ProjectProductsComponent extends AutoUnsub implements OnInit, After
 	onClearFilters() {
 		this.listSrv.filterList.resetAll();
 
-		this.listSrv.addFilter({ type: FilterType.ARCHIVED, value: false});
-		this.listSrv.addFilter({ type: FilterType.DELETED, value: false});
+		this.listSrv.addFilter({ type: FilterType.ARCHIVED, value: false });
+		this.listSrv.addFilter({ type: FilterType.DELETED, value: false });
 
 		this.controllerListService.onFiltersClear();
 	}

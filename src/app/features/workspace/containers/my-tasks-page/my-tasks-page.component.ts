@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AbstractTaskCommonComponent } from '~common/abstracts/abstract-task-common.component';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
-import { AbstractTaskCommonComponent } from '~common/task/containers/abstract-task-common.component';
 import { ListPageService } from '~core/list-page';
 import { TaskService, UserService } from '~entity-services';
 import { Task } from '~models';
-import { FilterType } from '~shared/filters';
 import { DialogService } from '~shared/dialog';
+import { FilterType } from '~shared/filters';
 
 @Component({
 	selector: 'my-tasks-page-app',

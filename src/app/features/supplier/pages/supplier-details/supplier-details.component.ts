@@ -12,7 +12,7 @@ import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub, log } from '~utils';
 import { TranslateService } from '@ngx-translate/core';
 import { DialogService } from '~shared/dialog';
-import { SupplierRequestDialogComponent } from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
+import { SupplierRequestDialogComponent } from '~common/modals/custom/supplier-request-dialog/supplier-request-dialog.component';
 
 // Guest to the waiter: “Can you bring me what the lady at the next table is having?”
 // -

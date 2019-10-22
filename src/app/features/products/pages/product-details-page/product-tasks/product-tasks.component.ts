@@ -2,13 +2,13 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap, takeUntil, map } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
-import { AbstractTaskCommonComponent } from '~common/task';
 import { ListPageService } from '~core/list-page';
 import { TaskService, UserService } from '~entity-services';
 import { ERM, Task, Product } from '~models';
 import { FilterType } from '~shared/filters';
 import { DialogService } from '~shared/dialog';
 import { ProductFeatureService } from '~features/products/services';
+import { AbstractTaskCommonComponent } from '~common/abstracts/abstract-task-common.component';
 
 @Component({
 	selector: 'product-tasks-app',

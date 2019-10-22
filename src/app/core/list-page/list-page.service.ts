@@ -2,7 +2,7 @@ import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { empty, Observable } from 'rxjs';
 import { filter, map, switchMap, takeUntil, tap } from 'rxjs/operators';
-import { CreationDialogComponent } from '~common/modals/component/creation-dialog/creation-dialog.component';
+import { CreationDialogComponent } from '~common/modals/creation/creation-dialog/creation-dialog.component';
 import { UserService } from '~core/entity-services';
 import { GlobalServiceInterface } from '~core/entity-services/_global/global.service';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
