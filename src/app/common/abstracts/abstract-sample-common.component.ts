@@ -1,7 +1,7 @@
 import { OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap, takeUntil } from 'rxjs/operators';
-import { CreationSampleDlgComponent } from '~common/modals/component/creation-sample-dlg/creation-sample-dlg.component';
+import { CreationSampleDlgComponent } from '~common/modals/creation/creation-sample-dlg/creation-sample-dlg.component';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { ListPageService } from '~core/list-page';
 import { SampleService, UserService } from '~entity-services';

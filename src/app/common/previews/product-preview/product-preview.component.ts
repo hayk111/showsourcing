@@ -13,22 +13,20 @@ import {
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { first, switchMap, takeUntil } from 'rxjs/operators';
-import { CreationSampleDlgComponent } from '~common/modals/component/creation-sample-dlg/creation-sample-dlg.component';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { ProductDescriptor } from '~core/descriptors';
 import { CommentService } from '~core/entity-services/comment/comment.service';
 import {
 	ExtendedFieldDefinitionService,
 } from '~core/entity-services/extended-field-definition/extended-field-definition.service';
-import { TableConfig } from '~core/list-page';
 import { ProductService, SampleService, TaskService } from '~entity-services';
 import { AppImage, Comment, ERM, ExtendedFieldDefinition, PreviewActionButton, Product, Sample, Task } from '~models';
 import { DialogService } from '~shared/dialog/services';
+import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { PreviewCommentComponent, PreviewService } from '~shared/preview';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { AutoUnsub, PendingImage, translate } from '~utils';
-import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
 
 @Component({
 	selector: 'product-preview-app',

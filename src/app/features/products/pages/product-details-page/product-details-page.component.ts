@@ -4,7 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { filter, map, switchMap, takeUntil } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals';
-import { SupplierRequestDialogComponent } from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
+import { SupplierRequestDialogComponent } from '~common/modals/custom/supplier-request-dialog/supplier-request-dialog.component';
 import { ProductFeatureService } from '~features/products/services';
 import { ERM, Product, Project } from '~models';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';

@@ -12,7 +12,7 @@ import { AutoUnsub } from '~utils';
 import { Counts } from './product-activity-nav/product-activity-nav.component';
 import { DialogService, CloseEventType, CloseEvent } from '~shared/dialog';
 import { CreationSampleDlgComponent, CreationTaskDlgComponent } from '~common/modals';
-import { SupplierRequestDialogComponent } from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
+import { SupplierRequestDialogComponent } from '~common/modals/custom/supplier-request-dialog/supplier-request-dialog.component';
 
 
 @Component({
@@ -57,7 +57,7 @@ export class ProductActivityComponent extends AutoUnsub implements OnInit {
 			tap(product => this.product = product),
 		);
 		this.counts$ = this.product$.pipe(
-			map(product => this.productSrv.getActivityCount(product) ),
+			map(product => this.productSrv.getActivityCount(product)),
 			startWith({ comment: of(0), task: of(0), sample: of(0), request: of(0) })
 		);
 		this.onTabChange(this.selectedTab);
@@ -78,7 +78,7 @@ export class ProductActivityComponent extends AutoUnsub implements OnInit {
 			case 'task':
 				entitySrv = this.taskSrv;
 				entityMetadata = ERM.TASK;
-				initialFilters = [{ type: FilterType.ASSIGNEE, value: this.userSrv.userSync.id}];
+				initialFilters = [{ type: FilterType.ASSIGNEE, value: this.userSrv.userSync.id }];
 				selectParams = new SelectParams({
 					query: `product.id == "${this.product.id}" && deleted == false`
 				});

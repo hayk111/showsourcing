@@ -1,8 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import {
-	SupplierRequestDialogComponent,
-} from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
 import { TablesCommonModule } from '~common/tables/tables-common.module';
 import { InputsModule } from '~shared/inputs';
 import { PricePipe } from '~shared/price/price.pipe';
@@ -10,13 +7,12 @@ import { SharedModule } from '~shared/shared.module';
 import { TableModule } from '~shared/table';
 import { UtilsModule } from '~shared/utils';
 
+import { CrudDialogService, ProductDialogService } from '.';
+import { CreationProductDlgComponent, CreationSampleDlgComponent, CreationTaskDlgComponent } from './creation';
+import { CreationDialogComponent } from './creation/creation-dialog/creation-dialog.component';
 import {
 	ChangePswdDlgComponent,
 	CompareProductComponent,
-	CreationDialogComponent,
-	CreationProductDlgComponent,
-	CreationSampleDlgComponent,
-	CreationTaskDlgComponent,
 	DescriptionDlgComponent,
 	EditionDialogComponent,
 	ExportDlgComponent,
@@ -24,24 +20,23 @@ import {
 	MassEditDlgComponent,
 	MergeDialogComponent,
 	NewContactDlgComponent,
-	ProductAddToProjectDlgComponent,
 	ProductRequestTeamFeedbackDlgComponent,
-	ProductSelectDlgComponent,
 	RefuseReplyDlgComponent,
 	ReplySentDlgComponent,
 	RequestReplyDlgComponent,
 	VoteDetailsDialogComponent,
-} from './component';
-import { CompareColumnComponent } from './component/compare-product/compare-column/compare-column.component';
-import { CompareLabelsComponent } from './component/compare-product/compare-labels/compare-labels.component';
-import { ExportSelectionViewComponent } from './component/export-dlg/export-selection-view/export-selection-view.component';
-import { ExportWaitingViewComponent } from './component/export-dlg/export-waiting-view/export-waiting-view.component';
-import { ReviewRequestReplyDlgComponent } from './component/review-request-reply-dlg/review-request-reply-dlg.component';
+} from './custom';
+import { CompareColumnComponent } from './custom/compare-product/compare-column/compare-column.component';
+import { CompareLabelsComponent } from './custom/compare-product/compare-labels/compare-labels.component';
+import { ExportSelectionViewComponent } from './custom/export-dlg/export-selection-view/export-selection-view.component';
+import { ExportWaitingViewComponent } from './custom/export-dlg/export-waiting-view/export-waiting-view.component';
+import { ReviewRequestReplyDlgComponent } from './custom/review-request-reply-dlg/review-request-reply-dlg.component';
 import {
 	ProductRequestListComponent,
-} from './component/supplier-request-dialog/product-request-list/product-request-list.component';
-import { ProductDialogService } from './services';
-import { CrudDialogService } from './services/crud-dialog.service';
+} from './custom/supplier-request-dialog/product-request-list/product-request-list.component';
+import { SupplierRequestDialogComponent } from './custom/supplier-request-dialog/supplier-request-dialog.component';
+import { ProductAddToProjectDlgComponent, ProductSelectDlgComponent } from './selection';
+
 
 // imported at the root because https://github.com/angular/angular/issues/14324
 

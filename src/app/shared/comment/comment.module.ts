@@ -1,15 +1,22 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedModule } from '~shared/shared.module';
-import { CommentComponent } from './comment/comment.component';
-import { CommentListComponent } from './comment-list/comment-list.component';
+import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+import { IconsModule } from '~shared/icons';
+import { UserPictureModule } from '~shared/user-picture';
+
 import { AddCommentComponent } from './add-comment/add-comment.component';
+import { CommentListComponent } from './comment-list/comment-list.component';
+import { CommentComponent } from './comment/comment.component';
 
 
 @NgModule({
 	imports: [
 		CommonModule,
-		SharedModule
+		IconsModule,
+		ReactiveFormsModule,
+		TranslateModule,
+		UserPictureModule,
 	],
 	declarations: [
 		CommentComponent,

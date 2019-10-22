@@ -14,7 +14,7 @@ import {
 } from '~shared/template-mngmt/components/template-mngmt-dlg/template-mngmt-dlg.component';
 import { ID } from '~utils';
 
-import { ProductSelectDlgComponent } from '../product-select-dlg/product-select-dlg.component';
+import { ProductSelectDlgComponent } from '../../selection/product-select-dlg/product-select-dlg.component';
 import { ReplySentDlgComponent } from '../reply-sent-dlg/reply-sent-dlg.component';
 import { TranslateService } from '@ngx-translate/core';
 
