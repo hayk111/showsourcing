@@ -12,7 +12,7 @@
 	(buttonClick)="table.openFileBrowser()">
 </controller-list-app>
 
-<attachments-app
+<attachments-table-app
 	#table
 	class="max-full-table-width"
 	[hasPagination]="false"
@@ -42,7 +42,7 @@
 	(createClick)="commonModalSrv.openCreationProductDlg()"
 	(unselectAll)="listSrv.unselectAll()"
 	(upload)="listSrv.refetch().subscribe()">
-</attachments-app>
+</attachments-table-app>
 
 
 <selection-bar-app
