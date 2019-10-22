@@ -3,9 +3,9 @@ import { imageMock as mock } from '~core/models';
 import { iconMap } from '~shared/icons/components/logo/logo.component';
 
 @Component({
-	selector: 'icons-page-app',
-	templateUrl: './icons-page.component.html',
-	styleUrls: ['./icons-page.component.scss'],
+	selector: 'icon-page-app',
+	templateUrl: './icon-page.component.html',
+	styleUrls: ['./icon-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class IconsPageComponent implements OnInit {

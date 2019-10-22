@@ -3,12 +3,12 @@ import { productsJson, suppliersJSON } from './mock-data';
 import { SelectionService } from '~core/list-page';
 
 @Component({
-	selector: 'common-lists-page-app',
-	templateUrl: './common-lists-page.component.html',
-	styleUrls: ['./common-lists-page.component.scss'],
+	selector: 'common-list-page-app',
+	templateUrl: './common-list-page.component.html',
+	styleUrls: ['./common-list-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CommonListsPageComponent implements OnInit {
+export class CommonListPageComponent implements OnInit {
 	pending = true;
 	products = JSON.parse(productsJson);
 	productSelectionSrv = new SelectionService();
