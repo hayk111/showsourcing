@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { DashboardService, TodoCounts, TodoEntities } from '~features/dashboard/services/dashboard.service';
 import { Observable } from 'rxjs';
 import { CommonModalService } from '~common/modals';
-import { ListPageService, ListPageKey } from '~core/list-page';
 import { SupplierService } from '~core/entity-services';
-import { Supplier, ERM } from '~core/models';
+import { ListPageService } from '~core/list-page';
+import { ERM, Supplier } from '~core/models';
+import { DashboardService, TodoCounts, TodoEntities } from '~features/dashboard/services/dashboard.service';
 import { FilterType } from '~shared/filters';
 
 @Component({
@@ -37,7 +37,6 @@ export class TodoBoxComponent implements OnInit {
 		 * Supplier creation is not organized with common modal service so we need to copy settings from supplier page
 		 */
 		this.listSrv.setup({
-			key: ListPageKey.SUPPLIER,
 			entitySrv: this.supplierSrv,
 			searchedFields: ['name', 'tags.name', 'categories.name', 'description'],
 			initialFilters: [{ type: FilterType.ARCHIVED, value: false }, { type: FilterType.DELETED, value: false }],

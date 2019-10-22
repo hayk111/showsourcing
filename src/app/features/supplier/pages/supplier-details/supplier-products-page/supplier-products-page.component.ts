@@ -54,7 +54,6 @@ export class SupplierProductsPageComponent extends AutoUnsub implements OnInit {
 		).subscribe(sup => this.supplier = sup);
 
 		this.listSrv.setup({
-			key: `supplier-products-${this.supplierId}`,
 			entitySrv: this.productSrv,
 			searchedFields: ['name', 'description'],
 			initialFilters: [ { type: FilterType.ARCHIVED, value: false }, { type: FilterType.DELETED, value: false } ],

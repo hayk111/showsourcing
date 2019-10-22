@@ -2,12 +2,12 @@ import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit } from '@angu
 import { first } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals';
 import { ExportRequestService } from '~core/entity-services/export-request/export-request.service';
-import { ListPageKey, ListPageService } from '~core/list-page';
-import { ERM, ExportRequest } from '~core/models';
-import { AutoUnsub } from '~utils';
-import { FilterType } from '~shared/filters';
-import { UserService } from '~entity-services';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
+import { ListPageService } from '~core/list-page';
+import { ERM, ExportRequest } from '~core/models';
+import { UserService } from '~entity-services';
+import { FilterType } from '~shared/filters';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'settings-export-app',
@@ -30,7 +30,6 @@ export class SettingsExportComponent extends AutoUnsub implements OnInit, AfterV
 
 	ngOnInit() {
 		this.listSrv.setup({
-			key: ListPageKey.EXPORT,
 			entitySrv: this.exportSrv,
 			searchedFields: ['format', 'status', 'createdBy.firstName', 'createdBy.lastName'],
 			// by default we have deleted == false

@@ -4,7 +4,7 @@ import { filter, first, map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ProductStatusService } from '~core/entity-services/product-status/product-status.service';
-import { ListPageKey, ListPageService } from '~core/list-page';
+import { ListPageService } from '~core/list-page';
 import { NEW_STATUS_ID } from '~core/models/status.model';
 import { ProductService } from '~entity-services';
 import { ERM, Product, ProductStatus } from '~models';

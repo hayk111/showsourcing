@@ -1,0 +1,10 @@
+
+:host {
+	display: flex;
+	flex-direction: column;
+}
+
+icon-app {
+	font-size: var(--font-size-xxxl);
+	color: var(--legacy-color-txt-primary);
+}

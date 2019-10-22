@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CommonModalService } from '~common/modals';
 import { ProductStatusService } from '~core/entity-services';
-import { ListPageKey, ListPageService } from '~core/list-page';
+import { ListPageService } from '~core/list-page';
 import { ERM, ProductStatus } from '~core/models';
 import { AbstractStatusWorkflowComponent } from '~features/settings/containers/abstract-status-workflow.component';
 
@@ -14,9 +14,9 @@ import { AbstractStatusWorkflowComponent } from '~features/settings/containers/a
 export class ProductStatusWorkflowComponent extends AbstractStatusWorkflowComponent<ProductStatus, ProductStatusService> implements OnInit {
 
 	constructor(
-		private productStatusSrv: ProductStatusService,
+		protected productStatusSrv: ProductStatusService,
 		public listSrv: ListPageService<ProductStatus, ProductStatusService>,
 		public commonModalSrv: CommonModalService
-	) { super(productStatusSrv, listSrv, commonModalSrv, ListPageKey.PRODUCT_STATUS, ERM.PRODUCT_STATUS); }
+	) { super(productStatusSrv, listSrv, commonModalSrv, ERM.PRODUCT_STATUS); }
 
 }

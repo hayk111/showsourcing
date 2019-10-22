@@ -1,21 +1,21 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+import { SupplierRequestDialogComponent } from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
-import { ListPageKey, ListPageService } from '~core/list-page';
+import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
+import { ListPageService } from '~core/list-page';
 import { ProductService } from '~entity-services';
-import { ERM, Product, Project, EntityTypeEnum } from '~models';
-import { FilterType } from '~shared/filters';
-import { AutoUnsub } from '~utils';
-import { NotificationService, NotificationType } from '~shared/notifications';
 import { ProductFeatureService } from '~features/products/services';
 import { ProjectFeatureService } from '~features/project/services';
+import { EntityTypeEnum, ERM, Product, Project } from '~models';
 import { DialogService } from '~shared/dialog/services';
-import { SupplierRequestDialogComponent } from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
-import { TranslateService } from '@ngx-translate/core';
-import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
+import { FilterType } from '~shared/filters';
 import { ControllerListService } from '~shared/header-list/services/controller-list.service';
+import { NotificationService, NotificationType } from '~shared/notifications';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'project-products-app',
@@ -76,7 +76,6 @@ export class ProjectProductsComponent extends AutoUnsub implements OnInit, After
 		// we need to wait to have the id to call super.ngOnInit, because we want to specify the initialQuery
 		// whne the id is there
 		this.listSrv.setup({
-			key: `${ListPageKey.PROJECTS_PRODUCT}-${id}`,
 			entitySrv: this.productSrv,
 			searchedFields: ['name'],
 			selectParams: {

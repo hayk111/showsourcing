@@ -3,8 +3,8 @@ import { switchMap } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals';
 import { RequestReplyService, SupplierRequestService, TeamService } from '~core/entity-services';
 import { SelectParams } from '~core/entity-services/_global/select-params';
-import { ListPageKey, ListPageService } from '~core/list-page';
-import { ERM, ReplyStatus, SupplierRequest, EntityTypeEnum } from '~core/models';
+import { ListPageService } from '~core/list-page';
+import { EntityTypeEnum, ERM, ReplyStatus, SupplierRequest } from '~core/models';
 import { DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { FilterType } from '~shared/filters';
@@ -33,7 +33,6 @@ export class RequestPageComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		const selectParams = new SelectParams({ sortBy: 'sentDate' });
 		this.listSrv.setup({
-			key: ListPageKey.REQUEST,
 			entitySrv: this.requestSrv,
 			searchedFields: ['title', 'message', 'recipient.name', 'recipient.email', 'recipient.company', 'templateName', 'requestElements.name'],
 			entityMetadata: ERM.SUPPLIER_REQUEST,

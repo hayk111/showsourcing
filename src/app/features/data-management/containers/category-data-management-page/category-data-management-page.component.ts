@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { CategoryService } from '~core/entity-services';
-import { ListPageKey, ListPageService } from '~core/list-page';
+import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
+import { ListPageService } from '~core/list-page';
 import { DataManagementService } from '~features/data-management/services/data-management.service';
 import { Category, ERM } from '~models';
 import { AutoUnsub } from '~utils';
-import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 
 @Component({
 	selector: 'category-data-management-page-app',
@@ -34,7 +34,6 @@ export class CategoryDataManagementPageComponent extends AutoUnsub implements On
 
 	ngOnInit() {
 		this.listSrv.setup({
-			key: ListPageKey.CATEGORY,
 			entitySrv: this.categorySrv,
 			searchedFields: ['name'],
 			selectParams: { sortBy: 'name', descending: false, query: 'deleted == false' },

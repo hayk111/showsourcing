@@ -17,11 +17,11 @@
 
 	<!-- contextual menu -->
 	<ng-template #contextualMenuTemplate let-row="row">
-		<context-menu-item-app
+		<context-menu-item-warn-app
 			class="pointer flexCenter capitalize"
 			(click)="openRefuseReplyDlg.emit(row.reply.id)">
 			{{'button.refuse' | translate}}
-		</context-menu-item-app>
+		</context-menu-item-warn-app>
 	</ng-template>
 
 	<ng-template

@@ -84,8 +84,6 @@ export class AppComponent implements OnInit {
 		this.teamSrv.teamSelectionEvent$.pipe(
 			distinctUntilChanged((x, y) => x && y && x.id !== y.id),
 			switchMap(team => this.startOrDestroyTeamClient(team)),
-			// we need to reset list page to not have data from other team in cache
-			tap(_ => ListPageService.reset())
 		).subscribe(_ => this.isSpinnerShown$.next(false));
 
 		// translate

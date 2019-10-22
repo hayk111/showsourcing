@@ -64,14 +64,14 @@
 				</button>
 			</context-menu-trigger-app>
 
-			<context-menu-item-app (click)="delete.emit(product)" translate="button.delete">
-			</context-menu-item-app>
-
 			<context-menu-item-app (click)="supplierRequest.emit(product)" translate="button.supplier-request">
 			</context-menu-item-app>
 
 			<context-menu-item-app (click)="archive.emit(product)" translate="button.archive">
 			</context-menu-item-app>
+
+			<context-menu-item-warn-app (click)="delete.emit(product)" translate="button.delete">
+			</context-menu-item-warn-app>
 
 		</context-menu-app>
 

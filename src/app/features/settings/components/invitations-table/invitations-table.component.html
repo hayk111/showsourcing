@@ -60,9 +60,9 @@
 				translate="text.contributor">
 			</context-menu-item-app>
 			<context-menu-divider-app></context-menu-divider-app>
-			<context-menu-item-app class="remove-user" (click)="delete.emit(row)">
+			<context-menu-item-warn-app class="remove-user" (click)="delete.emit(row)">
 				<span translate="button.remove-invitation"></span>
-			</context-menu-item-app>
+			</context-menu-item-warn-app>
 		</context-menu-app>
 		<span *ngIf="!teamOwner" class="capitalize">
 			<ng-container *ngIf="row.accessType === 'TeamMember'" i18n="@@team-member">
