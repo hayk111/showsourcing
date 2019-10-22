@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ActivityCommonModule } from '~common/activity/activity-common.module';
 import { PreviewsCommonModule } from '~common/previews/previews-common.module';
+import { SelectionBarsCommonModule } from '~common/selection-bars/selection-bars-common.module';
 import { TablesCommonModule } from '~common/tables/tables-common.module';
 import { routes } from '~features/supplier/routes';
 import { NavBarModule } from '~shared/navbar';
@@ -19,6 +20,7 @@ import {
 	SupplierTasksComponent,
 } from './pages';
 import { SupplierFeatureService } from './services';
+import { BoardsCommonModule } from '~common/boards/boards-common.module';
 
 @NgModule({
 	imports: [
@@ -28,7 +30,9 @@ import { SupplierFeatureService } from './services';
 		RouterModule.forChild(routes),
 		SharedModule,
 		PreviewsCommonModule,
-		TablesCommonModule
+		TablesCommonModule,
+		SelectionBarsCommonModule,
+		BoardsCommonModule
 	],
 	declarations: [
 		SupplierActivityComponent,

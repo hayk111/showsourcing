@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ActivityCommonModule } from '~common/activity/activity-common.module';
+import { BoardsCommonModule } from '~common/boards/boards-common.module';
 import { PreviewsCommonModule } from '~common/previews/previews-common.module';
 import { TablesCommonModule } from '~common/tables/tables-common.module';
 import { routes } from '~features/samples/routes';
@@ -18,7 +19,8 @@ import { SamplesPageComponent } from './containers';
 		NavBarModule,
 		SharedModule,
 		PreviewsCommonModule,
-		TablesCommonModule
+		TablesCommonModule,
+		BoardsCommonModule
 	],
 	declarations: [
 		SamplesPageComponent,
