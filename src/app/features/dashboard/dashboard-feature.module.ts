@@ -5,13 +5,13 @@ import { ProductDialogService } from '~common/modals/services/product-dialog.ser
 import { SummaryComponent } from '~features/dashboard/components/summary/summary.component';
 import { DashboardHeaderComponent } from '~features/dashboard/components/dashboard-header/dashboard-header.component';
 import { TeamCardComponent } from '~features/dashboard/components/team-card/team-card.component';
-import { DashboardComponent } from '~features/dashboard/containers/dashboard/dashboard.component';
-import { TodoBoxComponent } from '~features/dashboard/components/todo-box/todo-box.component';
-import { TodoNavComponent } from '~features/dashboard/components/todo-box/todo-nav/todo-nav.component';
+import { DashboardPageComponent } from '~features/dashboard/pages/dashboard/dashboard-page.component';
+import { TodoBoxComponent } from '~features/dashboard/pages/dashboard/todo-box/todo-box.component';
+import { TodoNavComponent } from '~features/dashboard/pages/dashboard/todo-box/todo-nav/todo-nav.component';
 import { TeamPerformanceComponent} from '~features/dashboard/components/team-performance/team-performance.component';
 import { LineChartComponent } from '~features/dashboard/components/line-chart/line-chart.component';
-import { ActivityComponent } from '~features/dashboard/components/activity/activity.component';
-import { ActivityEmptyComponent } from '~features/dashboard/components/activity/activity-empty/activity-empty.component';
+import { ActivityComponent } from '~features/dashboard/pages/dashboard/activity/activity.component';
+import { ActivityEmptyComponent } from '~features/dashboard/pages/dashboard/activity/activity-empty/activity-empty.component';
 import { routes } from '~features/dashboard/routes';
 import { DialogModule } from '~shared/dialog';
 import { SharedModule } from '~shared/shared.module';
@@ -26,7 +26,7 @@ import {
 	TodoBoxProductsPreviewComponent,
 	TodoBoxSamplePreviewComponent,
 	TodoBoxSupplierPreviewComponent
-} from '~features/dashboard/components/todo-box/todo-box-tables';
+} from '~features/dashboard/pages/dashboard/todo-box/todo-box-tables';
 
 @NgModule({
 	imports: [
@@ -41,7 +41,7 @@ import {
 		SupplierCommonModule,
 	],
 	declarations: [
-		DashboardComponent,
+		DashboardPageComponent,
 		ActivityComponent,
 		ActivityEmptyComponent,
 		SummaryComponent,
@@ -60,4 +60,4 @@ import {
 		ProductDialogService
 	]
 })
-export class DashboardModule { }
+export class DashboardFeatureModule { }

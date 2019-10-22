@@ -13,14 +13,14 @@ import { ActivityService } from '~common/activity/services/activity.service';
 // Boy: That the potato should go in the front.
 
 @Component({
-	selector: 'dashboard-app',
-	templateUrl: './dashboard.component.html',
-	styleUrls: ['./dashboard.component.scss'],
+	selector: 'dashboard-page-app',
+	templateUrl: './dashboard-page.component.html',
+	styleUrls: ['./dashboard-page.component.scss'],
 	host: {
 		class: 'flex'
 	}
 })
-export class DashboardComponent implements OnInit {
+export class DashboardPageComponent implements OnInit {
 	feedResult: GroupedActivityFeed;
 	user$: Observable<User>;
 	counters$: Observable<DashboardCounters>;
