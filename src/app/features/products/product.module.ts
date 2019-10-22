@@ -6,7 +6,6 @@ import { AttachmentCommonModule } from '~common/attachment/attachment-common.mod
 import { CommentCommonModule } from '~common/comment';
 import { PreviewsCommonModule } from '~common/previews/previews-common.module';
 import { ProductCommonModule } from '~common/product';
-import { RequestCommonModule } from '~common/request';
 import { SupplierCommonModule } from '~common/supplier';
 import { TablesCommonModule } from '~common/tables/tables-common.module';
 import { routes } from '~features/products/routes';
@@ -36,7 +35,6 @@ import { ProductFeatureService, QuoteFeatureService } from './services';
 		CommonModule,
 		NavBarModule,
 		ProductCommonModule,
-		RequestCommonModule,
 		RouterModule.forChild(routes),
 		SupplierCommonModule,
 		AttachmentCommonModule,
