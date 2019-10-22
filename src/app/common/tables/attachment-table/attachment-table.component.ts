@@ -1,4 +1,13 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewChild, ElementRef } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	ElementRef,
+	EventEmitter,
+	Input,
+	OnInit,
+	Output,
+	ViewChild,
+} from '@angular/core';
 import { EntityTableComponent, TableConfig } from '~core/list-page';
 import { Attachment, ERM } from '~core/models';
 import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback.service';
@@ -17,7 +26,7 @@ const bigTableConfig: TableConfig = {
 	templateUrl: './attachment-table.component.html',
 	styleUrls: [
 		'./attachment-table.component.scss',
-		'../../../../../app/theming/specific/list.scss'
+		'../../../../app/theming/specific/list.scss'
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [

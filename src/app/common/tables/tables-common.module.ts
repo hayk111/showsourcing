@@ -9,6 +9,7 @@ import { RequestSortingMenuComponent } from './request-sorting-menu/request-sort
 import { SampleTableComponent } from './sample-table/sample-table.component';
 import { TaskTableComponent } from './task-table/task-table.component';
 import { SupplierTableComponent } from './supplier-table/supplier-table.component';
+import { AttachmentTableComponent } from './attachment-table/attachment-table.component';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { SupplierTableComponent } from './supplier-table/supplier-table.componen
 		RouterModule
 	],
 	declarations: [
+		AttachmentTableComponent,
 		ProjectsTableComponent,
 		RequestSortingMenuComponent,
 		RequestElementTableComponent,
@@ -26,6 +28,7 @@ import { SupplierTableComponent } from './supplier-table/supplier-table.componen
 		TaskTableComponent,
 	],
 	exports: [
+		AttachmentTableComponent,
 		ProjectsTableComponent,
 		RequestSortingMenuComponent,
 		RequestElementTableComponent,

@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ActivityCommonModule } from '~common/activity/activity-common.module';
-import { AttachmentCommonModule } from '~common/attachment/attachment-common.module';
 import { CommentCommonModule } from '~common/comment';
 import { PreviewsCommonModule } from '~common/previews/previews-common.module';
 import { ProductCommonModule } from '~common/product';
@@ -35,7 +34,6 @@ import { ProductFeatureService, QuoteFeatureService } from './services';
 		NavBarModule,
 		ProductCommonModule,
 		RouterModule.forChild(routes),
-		AttachmentCommonModule,
 		PreviewsCommonModule,
 		TablesCommonModule
 	],

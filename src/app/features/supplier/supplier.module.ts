@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ActivityCommonModule } from '~common/activity/activity-common.module';
-import { AttachmentCommonModule } from '~common/attachment';
 import { CommentCommonModule } from '~common/comment';
 import { PreviewsCommonModule } from '~common/previews/previews-common.module';
 import { ProductCommonModule } from '~common/product/product-common.module';
@@ -34,7 +33,6 @@ import { SupplierFeatureService } from './services';
 		SharedModule,
 		ProductCommonModule,
 		CommentCommonModule,
-		AttachmentCommonModule,
 		PreviewsCommonModule,
 		TablesCommonModule
 	],
