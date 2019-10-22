@@ -6,6 +6,7 @@ import { SamplePreviewComponent } from './sample-preview/sample-preview.componen
 import { SupplierPreviewComponent } from './supplier-preview/supplier-preview.component';
 import { BannerTaskComponent } from './task-preview';
 import { TaskPreviewComponent } from './task-preview/task-preview.component';
+import { ProductPreviewComponent } from './product-preview/product-preview.component';
 
 
 @NgModule({
@@ -14,12 +15,14 @@ import { TaskPreviewComponent } from './task-preview/task-preview.component';
 		CommentCommonModule,
 	],
 	declarations: [
+		ProductPreviewComponent,
 		SamplePreviewComponent,
 		SupplierPreviewComponent,
 		TaskPreviewComponent,
 		BannerTaskComponent
 	],
 	exports: [
+		ProductPreviewComponent,
 		SamplePreviewComponent,
 		SupplierPreviewComponent,
 		TaskPreviewComponent

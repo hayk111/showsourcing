@@ -25,6 +25,7 @@ import {
 import { ActivityCardComponent } from '~common/activity/components/activity-card/activity-card.component';
 import { ActivityListComponent } from '~common/activity/components/activity-list/activity-list.component';
 import { UtilsModule } from '~shared/utils/utils.module';
+import { StatsIconsComponent } from './components/grouped-feed-list/stats-icons/stats-icons.component';
 @NgModule({
 	imports: [
 		CommonModule,
@@ -43,6 +44,7 @@ import { UtilsModule } from '~shared/utils/utils.module';
 		MultipleProductCarouselComponent,
 		ActivityCardComponent,
 		ActivityListComponent,
+		StatsIconsComponent
 	],
 	exports: [
 		OneProductActivityCardComponent,

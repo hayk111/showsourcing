@@ -3,9 +3,6 @@ import { NgModule } from '@angular/core';
 import {
 	SupplierRequestDialogComponent,
 } from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
-import {
-	ProductsCardViewDialogComponent,
-} from '~common/product/components/products-card-view-dialog/products-card-view-dialog.component';
 import { ProductCommonModule } from '~common/product/product-common.module';
 import { TablesCommonModule } from '~common/tables/tables-common.module';
 import { InputsModule } from '~shared/inputs';
@@ -86,7 +83,6 @@ const modals = [
 	],
 	declarations: [
 		...modals,
-		ProductsCardViewDialogComponent,
 		ExportSelectionViewComponent,
 		ExportWaitingViewComponent,
 		ProductRequestListComponent,

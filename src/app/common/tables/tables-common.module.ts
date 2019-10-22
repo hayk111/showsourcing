@@ -3,14 +3,16 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '~shared/shared.module';
 
+import { AttachmentTableComponent } from './attachment-table/attachment-table.component';
+import { ProductsTableComponent } from './products-table/products-table.component';
 import { ProjectsTableComponent } from './projects-table/projects-table.component';
 import { RequestElementTableComponent } from './request-element-table/request-element-table.component';
 import { RequestSortingMenuComponent } from './request-sorting-menu/request-sorting-menu.component';
-import { SampleTableComponent } from './sample-table/sample-table.component';
-import { TaskTableComponent } from './task-table/task-table.component';
-import { SupplierTableComponent } from './supplier-table/supplier-table.component';
-import { AttachmentTableComponent } from './attachment-table/attachment-table.component';
 import { RequestTableComponent } from './request-table/request-table.component';
+import { SampleTableComponent } from './sample-table/sample-table.component';
+import { SupplierTableComponent } from './supplier-table/supplier-table.component';
+import { TaskTableComponent } from './task-table/task-table.component';
+import { ProductSortingMenuComponent } from './product-sorting-menu/product-sorting-menu.component';
 
 
 @NgModule({
@@ -21,9 +23,11 @@ import { RequestTableComponent } from './request-table/request-table.component';
 	],
 	declarations: [
 		AttachmentTableComponent,
+		ProductSortingMenuComponent,
+		ProductsTableComponent,
 		ProjectsTableComponent,
-		RequestTableComponent,
 		RequestSortingMenuComponent,
+		RequestTableComponent,
 		RequestElementTableComponent,
 		SampleTableComponent,
 		SupplierTableComponent,
@@ -31,9 +35,11 @@ import { RequestTableComponent } from './request-table/request-table.component';
 	],
 	exports: [
 		AttachmentTableComponent,
+		ProductsTableComponent,
 		ProjectsTableComponent,
-		RequestTableComponent,
+		ProductSortingMenuComponent,
 		RequestSortingMenuComponent,
+		RequestTableComponent,
 		RequestElementTableComponent,
 		SampleTableComponent,
 		SupplierTableComponent,
