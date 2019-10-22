@@ -1,5 +1,5 @@
 <ng-container *ngIf="project$ | async as project; else spinner">
-	
+
 	<controller-list-app
 		class="max-full-table-width"
 		[hasSwitch]="true"
@@ -59,7 +59,7 @@
 			(archiveProduct)="onArchive($event)">
 		</products-table-app>
 
-		<products-card-view-app
+		<products-grid-app
 			infiniScroll
 			cdk-scrollable
 			*ngIf="listSrv.view === 'card'"
@@ -78,15 +78,15 @@
 			(unfavorited)="listSrv.onItemUnfavorited($event)"
 			(unselect)="listSrv.unselectOne($event, true)"
 			(update)="listSrv.update($event)">
-		</products-card-view-app>
+		</products-grid-app>
 
-		<product-board-app
+		<products-board-app
 			*ngIf="listSrv.view === 'board'"
 			[selection]="listSrv.selection$"
 			(selectOne)="listSrv.selectOne($event, true)"
 			(unselectOne)="listSrv.unselectOne($event, true)"
 			(preview) = "listSrv.openPreview($event)">
-		</product-board-app>
+		</products-board-app>
 
 		<product-selection-bar-app
 			[isShown]="(listSrv.selection$ | async).size > 0"

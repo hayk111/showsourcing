@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { GetStreamGroup } from '~common/activity/interfaces/get-stream-feed.interfaces';
-import { ProductAddToProjectDlgComponent } from '~common/modals/component';
+import { ProductAddToProjectDlgComponent } from '~common/modals/selection';
 import { CommentService } from '~core/entity-services/comment/comment.service';
 import { ProductService } from '~entity-services';
 import { Comment, ERM, Product } from '~models';

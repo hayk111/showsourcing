@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map, switchMap, takeUntil } from 'rxjs/operators';
+import { AbstractTaskCommonComponent } from '~common/abstracts/abstract-task-common.component';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
-import { AbstractTaskCommonComponent } from '~common/task';
 import { ListPageService } from '~core/list-page';
 import { TaskService, UserService } from '~entity-services';
 import { SupplierFeatureService } from '~features/supplier/services';

@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { CommonModalService, RefuseReplyDlgComponent } from '~common/modals';
-import { ReviewRequestReplyDlgComponent } from '~common/modals/component/review-request-reply-dlg/review-request-reply-dlg.component';
+import { ReviewRequestReplyDlgComponent } from '~common/modals/custom/review-request-reply-dlg/review-request-reply-dlg.component';
 import { RequestElementService, RequestReplyService, SupplierRequestService } from '~core/entity-services';
 import { ListPageService } from '~core/list-page';
 import { ERM, ReplyStatus, RequestElement, SupplierRequest } from '~core/models';

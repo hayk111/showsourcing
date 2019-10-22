@@ -7,7 +7,7 @@ import { ProductService } from '~core/entity-services';
 import { Product } from '~core/models';
 import { AutoUnsub } from '~utils';
 import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
-import { SupplierRequestDialogComponent } from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
+import { SupplierRequestDialogComponent } from '~common/modals/custom/supplier-request-dialog/supplier-request-dialog.component';
 import { CloseEventType, DialogService } from '~shared/dialog';
 
 

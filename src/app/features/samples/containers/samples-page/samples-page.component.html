@@ -28,7 +28,7 @@
 	(viewChange)="onViewChange($event)">
 </controller-list-app>
 
-<sample-table-app
+<samples-table-app
 	*ngIf="listSrv.view === 'list'"
 	class="max-full-table-width"
 	[rows]="listSrv.items$ | async"
@@ -51,7 +51,7 @@
 	(update)="listSrv.update($event)"
 	(createClick)="commonModalSrv.openAddSampleDialog()"
 	(delete)="listSrv.deleteOne($event)">
-</sample-table-app>
+</samples-table-app>
 
 <selection-bar-app
 	[isShown]="(listSrv.selection$ | async).size > 0"
@@ -82,12 +82,12 @@
 	</div>
 </selection-bar-app>
 
-<sample-board-app
+<samples-board-app
 	*ngIf="listSrv.view === 'board'"
 	(selectOne)="listSrv.selectOne($event, true)"
 	(unselectOne)="listSrv.unselectOne($event, true)"
 	(preview) = "listSrv.openPreview($event)">
-</sample-board-app>
+</samples-board-app>
 
 <filters-app
 	[filterList]="listSrv.filterList"

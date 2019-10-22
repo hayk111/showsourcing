@@ -8,7 +8,7 @@ import { Angulartics2Module } from 'angulartics2';
 import { environment } from 'environments/environment';
 import { AppComponent } from '~app-root/components/app.component';
 import { routes } from '~app-root/routes';
-import { CommonModalsModule } from '~common/modals';
+import { CommonModalsModule } from '~common/modals/common-modals.module';
 import { AppApolloModule } from '~core/apollo/apollo.module';
 import { PortalModule } from '~core/portal';
 import { TemplateModule } from '~core/template';
