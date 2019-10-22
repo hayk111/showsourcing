@@ -3,17 +3,17 @@ import { FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
-import { AuthFormButton, AuthFormElement } from '~common/auth-pages/components';
+import { AuthFormButton, AuthFormElement } from '../../shared';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { AutoUnsub } from '~utils';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-	selector: 'registration-app',
-	templateUrl: './registration.component.html',
-	styleUrls: ['./registration.component.scss', '../../../../common/auth-pages/components/form-style.scss']
+	selector: 'registration-page-app',
+	templateUrl: './registration-page.component.html',
+	styleUrls: ['./registration-page.component.scss', '../../shared/form-style.scss']
 })
-export class RegistrationComponent extends AutoUnsub implements OnInit {
+export class RegistrationPageComponent extends AutoUnsub implements OnInit {
 
 	pending$ = new Subject<boolean>();
 	error: string;

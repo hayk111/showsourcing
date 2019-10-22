@@ -13,7 +13,7 @@ import { TrackingComponent } from '~utils/tracking-component';
 @Component({
 	selector: 'pick-a-team-page-app',
 	templateUrl: './pick-a-team-page.component.html',
-	styleUrls: ['./pick-a-team-page.component.scss', '../../../../common/auth-pages/components/form-style.scss'],
+	styleUrls: ['./pick-a-team-page.component.scss', '../../../shared/form-style.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PickATeamPageComponent extends TrackingComponent implements OnInit {

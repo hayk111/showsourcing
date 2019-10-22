@@ -3,12 +3,12 @@ import { AuthenticationService } from '~core/auth/services/authentication.servic
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-	selector: 'validate-email-app',
-	templateUrl: './validate-email.component.html',
-	styleUrls: ['./validate-email.component.scss'],
+	selector: 'validate-email-page-app',
+	templateUrl: './validate-email-page.component.html',
+	styleUrls: ['./validate-email-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ValidateEmailComponent implements OnInit {
+export class ValidateEmailPageComponent implements OnInit {
 
 	constructor(
 		private authSrv: AuthenticationService,

@@ -1,20 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { AuthFormButton, AuthFormElement } from '~common/auth-pages/components';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
-import { LocalStorageService } from '~core/local-storage';
 import { AutoUnsub } from '~utils';
-import { TranslateService } from '@ngx-translate/core';
+import { AuthFormButton, AuthFormElement } from '../../shared';
 
 @Component({
-	selector: 'login-app',
-	templateUrl: './login.component.html',
-	styleUrls: ['./login.component.scss', '../../../../common/auth-pages/components/form-style.scss']
+	selector: 'login-page-app',
+	templateUrl: './login-page.component.html',
+	styleUrls: ['./login-page.component.scss', '../../shared/form-style.scss']
 })
-export class LoginComponent extends AutoUnsub implements OnInit {
+export class LoginPageComponent extends AutoUnsub implements OnInit {
 	pending$ = new Subject<boolean>();
 	error: string;
 	queryParams: any;

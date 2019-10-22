@@ -10,11 +10,11 @@ import { AutoUnsub } from '~utils/auto-unsub.component';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-	selector: 'reset-password-app',
-	templateUrl: './reset-password.component.html',
-	styleUrls: ['./reset-password.component.scss', '../../../../common/auth-pages/components/form-style.scss']
+	selector: 'reset-password-page-app',
+	templateUrl: './reset-password-page.component.html',
+	styleUrls: ['./reset-password-page.component.scss', '../../shared/form-style.scss']
 })
-export class ResetPasswordComponent extends AutoUnsub implements OnInit {
+export class ResetPasswordPageComponent extends AutoUnsub implements OnInit {
 
 	form: FormGroup;
 	pending: boolean;

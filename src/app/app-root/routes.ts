@@ -3,27 +3,20 @@ import { TeamClientReadyGuard, CentralClientReadyGuard } from '~core/apollo/guar
 import { AuthenticatedGuard } from '~core/auth';
 import { HasUserGuard } from '~core/auth/services/has-user.guard';
 import { GuestTemplateComponent, TemplateComponent } from '~core/template';
-import { HasTeamSelectedGuard } from '~features/pick-a-team/services/has-team-selected.guard';
-import { InvitationGuard } from '~features/pick-a-team/services/invitation.guard';
+import { HasTeamSelectedGuard } from '~features/auth/services/has-team-selected.guard';
+import { InvitationGuard } from '~features/invitation/services/invitation.guard';
 import { DevModeGuard } from '~utils/dev-mode.guard';
 
 export const routes: Array<Route> = [
 	{
 		path: 'auth',
 		component: GuestTemplateComponent,
-		loadChildren: 'app/features/auth-pages/auth-pages.module#AuthPagesModule'
+		loadChildren: 'app/features/auth/auth-feature.module#AuthFeatureModule'
 	},
 	{
 		path: 'error',
 		component: GuestTemplateComponent,
 		loadChildren: 'app/features/error-pages/error-pages.module#ErrorPagesModule'
-	},
-	{
-		path: 'user',
-		component: GuestTemplateComponent,
-		canActivateChild: [AuthenticatedGuard, CentralClientReadyGuard],
-		loadChildren: 'app/features/pick-a-team/pick-a-team.module#PickATeamModule',
-		data: { showLogout: true }
 	},
 	{
 		path: 'invitation',
@@ -95,10 +88,6 @@ export const routes: Array<Route> = [
 			{
 				path: 'tasks',
 				loadChildren: 'app/features/tasks/task.module#TaskModule'
-			},
-			{
-				path: 'workspace',
-				loadChildren: 'app/features/workspace/workspace.module#WorkspaceModule'
 			}
 		]
 	},

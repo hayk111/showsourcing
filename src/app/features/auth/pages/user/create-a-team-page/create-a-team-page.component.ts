@@ -1,34 +1,37 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { first, mergeMap } from 'rxjs/operators';
-import { AuthFormButton, AuthFormElement } from '~common/auth-pages/components';
+import { Observable } from 'rxjs';
+import { first } from 'rxjs/operators';
+import { AuthFormButton, AuthFormElement } from '../../../shared';
 import { CompanyService, TeamService, UserService } from '~entity-services';
-import { Company, Team } from '~models';
-import { AutoUnsub } from '~utils/auto-unsub.component';
+import { Team } from '~models';
+import { Company } from '~models/company.model';
+import { AutoUnsub } from '~utils';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-	selector: 'create-a-company-page-app',
-	templateUrl: './create-a-company-page.component.html',
-	styleUrls: ['./create-a-company-page.component.scss', '../../../../common/auth-pages/components/form-style.scss'],
+	selector: 'create-a-team-page-app',
+	templateUrl: './create-a-team-page.component.html',
+	styleUrls: ['./create-a-team-page.component.scss', '../../../shared/form-style.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CreateACompanyPageComponent extends AutoUnsub implements OnInit {
+export class CreateATeamPageComponent extends AutoUnsub implements OnInit {
+
+	@Input() buttons: AuthFormButton[];
 
 	hideForm = false;
 	pending = false;
 	error: string;
+	hasTeam$: Observable<boolean>;
 	returnUrl: string;
 
 	listForm: AuthFormElement[];
-	@Input() buttons: AuthFormButton[];
-	@Input() hasSpinner: boolean;
 
 	constructor(
 		private fb: FormBuilder,
-		private srv: CompanyService,
-		private teamService: TeamService,
+		private srv: TeamService,
+		private companySrv: CompanyService,
 		private router: Router,
 		private userSrv: UserService,
 		private route: ActivatedRoute,
@@ -37,22 +40,15 @@ export class CreateACompanyPageComponent extends AutoUnsub implements OnInit {
 	) {
 		super();
 		this.listForm = [{
-			label: this.translate.instant('label.company-name'),
-			type: 'text',
-			name: 'companyName',
-			isRequired: true,
-			placeHolder: '',
-			validators: [Validators.required]
-		}, {
 			label: this.translate.instant('label.team-name'),
 			type: 'text',
-			name: 'teamName',
+			name: 'name',
 			isRequired: true,
 			placeHolder: '',
 			validators: [Validators.required]
 		}];
 		this.buttons = [{
-			label: this.translate.instant('label.create-a-team'),
+			label: this.translate.instant('label.create-new-team'),
 			type: 'button'
 		}];
 	}
@@ -62,13 +58,12 @@ export class CreateACompanyPageComponent extends AutoUnsub implements OnInit {
 			first()
 		).subscribe(all => {
 			if (all.length > 0) {
-				this.buttons = [...this.buttons,
-					// 	{
-					// 	label: 'Select Company Instead',
-					// 	type: 'link',
-					// 	link: '../pick-a-company'
-					// }
-				];
+				this.buttons = [...this.buttons, {
+					label: this.translate.instant('label.select-a-team-instead'),
+					type: 'link',
+					link: '../pick-a-team'
+				}];
+				this.cdr.detectChanges();
 			}
 		});
 		this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
@@ -78,19 +73,9 @@ export class CreateACompanyPageComponent extends AutoUnsub implements OnInit {
 		this.pending = true;
 		this.hideForm = true;
 		const formValue = form.value;
-		const company = new Company({ name: formValue.companyName });
-		this.srv.create(company)
-			.pipe(
-				first(),
-				mergeMap((_company: Company) => {
-					const team = new Team({
-						name: formValue.teamName,
-						company: _company,
-						ownerUser: this.userSrv.userSync
-					});
-					return this.teamService.create(team);
-				})
-			)
+		const company: Company = { id: this.companySrv.companySync.id };
+		const team = new Team({ name: formValue.name, company, ownerUser: { id: this.userSrv.userSync.id } });
+		this.srv.create(team)
 			.subscribe(
 				_ => {
 					this.pending = false;
@@ -100,10 +85,11 @@ export class CreateACompanyPageComponent extends AutoUnsub implements OnInit {
 				e => {
 					this.hideForm = false;
 					this.pending = false;
-					this.error = this.translate.instant('error.create-company');
+					this.error = this.translate.instant('error.create-team');
 					this.cdr.detectChanges();
 				}
 			);
 	}
+
 
 }

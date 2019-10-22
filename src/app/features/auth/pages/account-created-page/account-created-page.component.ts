@@ -4,11 +4,11 @@ import { Router } from '@angular/router';
 import { TrackingComponent } from '~utils/tracking-component';
 
 @Component({
-	selector: 'account-created-app',
-	templateUrl: './account-created.component.html',
-	styleUrls: ['./account-created.component.scss']
+	selector: 'account-created-page-app',
+	templateUrl: './account-created-page.component.html',
+	styleUrls: ['./account-created-page.component.scss']
 })
-export class AccountCreatedComponent extends TrackingComponent implements OnInit {
+export class AccountCreatedPageComponent extends TrackingComponent implements OnInit {
 
 	form: FormArray;
 

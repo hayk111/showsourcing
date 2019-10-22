@@ -3,17 +3,17 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { AuthFormButton, AuthFormElement } from '~common/auth-pages/components';
+import { AuthFormButton, AuthFormElement } from '../../shared';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-	selector: 'forgot-password-app',
-	templateUrl: './forgot-password.component.html',
-	styleUrls: ['./forgot-password.component.scss', '../../../../common/auth-pages/components/form-style.scss']
+	selector: 'forgot-password-page-app',
+	templateUrl: './forgot-password-page.component.html',
+	styleUrls: ['./forgot-password-page.component.scss', '../../shared/form-style.scss']
 })
-export class ForgotPasswordComponent extends AutoUnsub implements OnInit {
+export class ForgotPasswordPageComponent extends AutoUnsub implements OnInit {
 
 	pending: boolean;
 	error: string;
