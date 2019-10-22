@@ -9,7 +9,6 @@ import {
 	OneSupplierActivityCardComponent,
 } from '~common/activity/components/grouped-feed-list/one-supplier-activity-card/one-supplier-activity-card.component';
 import { CardsCommonModule } from '~common/cards/cards-common.module';
-import { CommentCommonModule } from '~common/comment';
 import { PreviewsCommonModule } from '~common/previews/previews-common.module';
 import { SharedModule } from '~shared/shared.module';
 import { UtilsModule } from '~shared/utils/utils.module';
@@ -32,7 +31,6 @@ import { StatsIconsComponent } from './components/grouped-feed-list/stats-icons/
 		CommonModule,
 		SharedModule,
 		UtilsModule,
-		CommentCommonModule,
 		PreviewsCommonModule,
 		CardsCommonModule
 	],

@@ -53,6 +53,7 @@ import { StageIndicatorModule } from './stage-indicator/stage-indicator.module';
 import { StatusSelectorModule } from './status-selector/status-selector.module';
 import { TableModule } from './table/table.module';
 import { TemplateMngmtModule } from './template-mngmt/template-mngmt.module';
+import { CommentModule } from './comment/comment.module';
 
 // those modules are used so commonly that we will just import the shared module
 const modules = [
@@ -75,6 +76,7 @@ const modules = [
 	BottomPanelModule,
 	CardModule,
 	CarouselModule,
+	CommentModule,
 	ComparisonRowModule,
 	ContextMenuModule,
 	DialogModule,

@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ActivityCommonModule } from '~common/activity/activity-common.module';
 import { BoardsCommonModule } from '~common/boards/boards-common.module';
-import { CommentCommonModule } from '~common/comment';
 import { GridsCommonModule } from '~common/grids/grids-common.module';
 import { PreviewsCommonModule } from '~common/previews/previews-common.module';
 import { SelectionBarsCommonModule } from '~common/selection-bars/selection-bars-common.module';
@@ -31,7 +30,6 @@ import { ProductFeatureService, QuoteFeatureService } from './services';
 	imports: [
 		SharedModule,
 		ActivityCommonModule,
-		CommentCommonModule,
 		CommonModule,
 		NavBarModule,
 		RouterModule.forChild(routes),

@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ActivityCommonModule } from '~common/activity/activity-common.module';
-import { CommentCommonModule } from '~common/comment';
 import { PreviewsCommonModule } from '~common/previews/previews-common.module';
 import { TablesCommonModule } from '~common/tables/tables-common.module';
 import { routes } from '~features/supplier/routes';
@@ -28,7 +27,6 @@ import { SupplierFeatureService } from './services';
 		RatingModule,
 		RouterModule.forChild(routes),
 		SharedModule,
-		CommentCommonModule,
 		PreviewsCommonModule,
 		TablesCommonModule
 	],

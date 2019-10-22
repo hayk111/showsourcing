@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CardsCommonModule } from '~common/cards/cards-common.module';
-import { CommentCommonModule } from '~common/comment';
 import { TablesCommonModule } from '~common/tables/tables-common.module';
 import { SharedModule } from '~shared/shared.module';
 
@@ -14,7 +13,6 @@ import { TaskPreviewComponent } from './task-preview/task-preview.component';
 @NgModule({
 	imports: [
 		SharedModule,
-		CommentCommonModule,
 		TablesCommonModule,
 		CardsCommonModule
 	],
