@@ -6,6 +6,7 @@ import { BoardsCommonModule } from '~common/boards/boards-common.module';
 import { GridsCommonModule } from '~common/grids/grids-common.module';
 import { PreviewsCommonModule } from '~common/previews/previews-common.module';
 import { SelectionBarsCommonModule } from '~common/selection-bars/selection-bars-common.module';
+import { SortingMenusCommonModule } from '~common/sorting-menus/sorting-menus-common.module';
 import { TablesCommonModule } from '~common/tables/tables-common.module';
 import { routes } from '~features/products/routes';
 import { NavBarModule } from '~shared/navbar';
@@ -37,7 +38,8 @@ import { ProductFeatureService, QuoteFeatureService } from './services';
 		TablesCommonModule,
 		BoardsCommonModule,
 		GridsCommonModule,
-		SelectionBarsCommonModule
+		SelectionBarsCommonModule,
+		SortingMenusCommonModule
 	],
 	declarations: [
 		ProductActivityComponent,

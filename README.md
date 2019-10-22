@@ -167,6 +167,7 @@ Folder containing modules organized by functionality, these modules hold common 
 - CommonModalsModule -> holds all the modals used around the app. Inside this folder we divide the modals by functionality as well: creation, selection and custom.
 - PreviewsCommonModule -> holds the common components that are related to the preview
 - SelectionBarsCommonModule -> holds the common components that are related to selection bars
+- SortingMenusCommonModule -> holds the common components that are related to the sorting menus
 - TablesCommonModule -> holds the common components that are related to tables
 
 # Style Structure

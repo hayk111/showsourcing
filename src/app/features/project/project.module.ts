@@ -21,6 +21,7 @@ import {
 import {
 	ProjectHeaderDetailsComponent,
 } from './containers/project-details/project-header-details/project-header-details.component';
+import { SortingMenusCommonModule } from '~common/sorting-menus/sorting-menus-common.module';
 
 @NgModule({
 	imports: [
@@ -32,7 +33,8 @@ import {
 		SelectionBarsCommonModule,
 		PreviewsCommonModule,
 		GridsCommonModule,
-		CardsCommonModule
+		CardsCommonModule,
+		SortingMenusCommonModule
 	],
 	declarations: [
 		ProjectDetailsComponent,

@@ -1,14 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { ProductSortingMenuComponent } from '~common/sorting-menus/product-sorting-menu/product-sorting-menu.component';
 import { SharedModule } from '~shared/shared.module';
 
 import { AttachmentsTableComponent } from './attachments-table/attachments-table.component';
-import { ProductSortingMenuComponent } from './products-table/product-sorting-menu/product-sorting-menu.component';
 import { ProductsTableComponent } from './products-table/products-table.component';
 import { ProjectsTableComponent } from './projects-table/projects-table.component';
 import { RequestElementsTableComponent } from './request-elements-table/request-elements-table.component';
-import { RequestSortingMenuComponent } from './requests-table/request-sorting-menu/request-sorting-menu.component';
 import { RequestsTableComponent } from './requests-table/requests-table.component';
 import { SamplesTableComponent } from './samples-table/samples-table.component';
 import { SuppliersTableComponent } from './suppliers-table/suppliers-table.component';
@@ -26,7 +25,6 @@ import { TasksTableComponent } from './tasks-table/tasks-table.component';
 		ProductSortingMenuComponent,
 		ProductsTableComponent,
 		ProjectsTableComponent,
-		RequestSortingMenuComponent,
 		RequestsTableComponent,
 		RequestElementsTableComponent,
 		SamplesTableComponent,
@@ -38,7 +36,6 @@ import { TasksTableComponent } from './tasks-table/tasks-table.component';
 		ProductsTableComponent,
 		ProjectsTableComponent,
 		ProductSortingMenuComponent,
-		RequestSortingMenuComponent,
 		RequestsTableComponent,
 		RequestElementsTableComponent,
 		SamplesTableComponent,
