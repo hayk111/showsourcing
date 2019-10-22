@@ -82,13 +82,13 @@
 	</div>
 </selection-bar-app>
 
-<supplier-board-app
+<suppliers-board-app
 	*ngIf="listSrv.view === 'board'"
 	[selection]="listSrv.selection$"
 	(selectOne)="listSrv.selectOne($event, true)"
 	(unselectOne)="listSrv.unselectOne($event, true)"
 	(preview) = "listSrv.openPreview($event)">
-</supplier-board-app>
+</suppliers-board-app>
 
 <supplier-preview-app
 	*ngIf="listSrv.previewOpen"

@@ -3,11 +3,11 @@ import { combineLatest, Observable } from 'rxjs';
 import { filter, first, map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
-import { SupplierStatusService } from '~core/entity-services/supplier-status/supplier-status.service';
+import { ProductStatusService } from '~core/entity-services/product-status/product-status.service';
 import { ListPageService } from '~core/list-page';
 import { NEW_STATUS_ID } from '~core/models/status.model';
-import { SupplierService } from '~entity-services';
-import { ERM, Supplier, SupplierStatus } from '~models';
+import { ProductService } from '~entity-services';
+import { ERM, Product, ProductStatus } from '~models';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { FilterList, FilterType } from '~shared/filters';
@@ -18,19 +18,19 @@ import { translate } from '~utils';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 
 @Component({
-	selector: 'supplier-board-app',
-	templateUrl: './supplier-board.component.html',
-	styleUrls: ['./supplier-board.component.scss'],
+	selector: 'products-board-app',
+	templateUrl: './products-board.component.html',
+	styleUrls: ['./products-board.component.scss'],
 	providers: [
 		KanbanService
 	]
 })
-export class SupplierBoardComponent extends AutoUnsub implements OnInit {
+export class ProductsBoardComponent extends AutoUnsub implements OnInit {
 
 	@Input() selection: Observable<Map<string, any>>;
 	@Output() preview = new EventEmitter<undefined>();
-	@Output() selectOne = new EventEmitter<Supplier>();
-	@Output() unselectOne = new EventEmitter<Supplier>();
+	@Output() selectOne = new EventEmitter<Product>();
+	@Output() unselectOne = new EventEmitter<Product>();
 
 
 	columns$ = this.kanbanSrv.columns$;
@@ -46,16 +46,16 @@ export class SupplierBoardComponent extends AutoUnsub implements OnInit {
 		FilterType.CREATED_BY,
 		FilterType.EVENT,
 		FilterType.FAVORITE,
-		FilterType.SUPPLIER_STATUS,
+		FilterType.PRODUCT_STATUS,
 		FilterType.PROJECTS,
 		FilterType.SUPPLIER,
 		FilterType.TAGS
 	];
 
 	constructor(
-		private supplierSrv: SupplierService,
-		private supplierStatusSrv: SupplierStatusService,
-		private listSrv: ListPageService<Supplier, SupplierService>,
+		private productSrv: ProductService,
+		private productStatusSrv: ProductStatusService,
+		private listSrv: ListPageService<Product, ProductService>,
 		public commonModalSrv: CommonModalService,
 		public kanbanSrv: KanbanService,
 		public dlgSrv: DialogService
@@ -68,8 +68,9 @@ export class SupplierBoardComponent extends AutoUnsub implements OnInit {
 			takeUntil(this._destroy$)
 		);
 
-		const statuses$ = this.supplierStatusSrv
+		const statuses$ = this.productStatusSrv
 			.queryAll(undefined, {
+				query: 'category != "refused"',
 				sortBy: 'step',
 				descending: false
 			}).pipe(
@@ -80,31 +81,31 @@ export class SupplierBoardComponent extends AutoUnsub implements OnInit {
 		combineLatest(
 			filters$,
 			statuses$,
-			(filterList, statuses) => this.getSuppliers(statuses, filterList)
+			(filterList, statuses) => this.getProducts(statuses, filterList)
 		).subscribe();
 		this.selected$ = this.listSrv.selection$;
 	}
 
 	loadMore(col: KanbanColumn) {
 		const query = this.getColQuery(col.id);
-		this.supplierSrv.selectMany({
+		this.productSrv.selectMany({
 			query,
 			take: col.data.length + this.amountLoaded,
 			sortBy: 'lastUpdatedDate'
 		}).pipe(first())
-			.subscribe(suppliers => this.kanbanSrv.setData(suppliers, col.id));
+			.subscribe(products => this.kanbanSrv.setData(products, col.id));
 	}
 
-	private getSuppliers(statuses: SupplierStatus[], filterList: FilterList) {
+	private getProducts(statuses: ProductStatus[], filterList: FilterList) {
 		statuses.forEach(status => {
 			const query = this.getColQuery(status.id, filterList);
-			this.supplierSrv.selectMany({ query, take: this.amountLoaded, sortBy: 'lastUpdatedDate' }).
+			this.productSrv.selectMany({ query, take: this.amountLoaded, sortBy: 'lastUpdatedDate' }).
 				pipe(
 					first(),
 					// we use selectCount instead of queryCount, since queryCount wasn't giving the latest values, when requerying
-					switchMap(_ => this.supplierSrv.selectCount(query).pipe(first()), (suppliers, total) => ({ suppliers, total })),
+					switchMap(_ => this.productSrv.selectCount(query).pipe(first()), (prods, total) => ({ prods, total })),
 				).subscribe(data => {
-					this.kanbanSrv.setData(data.suppliers, status.id);
+					this.kanbanSrv.setData(data.prods, status.id);
 					this.kanbanSrv.setTotal(data.total, status.id);
 				});
 		});
@@ -122,24 +123,24 @@ export class SupplierBoardComponent extends AutoUnsub implements OnInit {
 			.join(' && ');
 	}
 
-	onUpdate(supplier: Supplier) {
-		this.kanbanSrv.updateData(supplier);
+	onUpdate(product: Product) {
+		this.kanbanSrv.updateData(product);
 	}
 
-	previewStatusUpdate(supplier: Supplier) {
-		this.kanbanSrv.onExternalStatusChange([supplier]);
+	previewStatusUpdate(product: Product) {
+		this.kanbanSrv.onExternalStatusChange([product]);
 	}
 
-	onUpdateSupplierStatus(event: KanbanDropEvent) {
+	onUpdateProductStatus(event: KanbanDropEvent) {
 		// if dropped in the same column do nothing
 		if (event.to === event.from) {
 			return;
 		}
 		// we update on the server
 		const isNewStatus = event.to.id === NEW_STATUS_ID;
-		this.supplierSrv.update({
+		this.productSrv.update({
 			id: event.item.id,
-			status: isNewStatus ? null : new SupplierStatus({ id: event.to.id })
+			status: isNewStatus ? null : new ProductStatus({ id: event.to.id })
 		},
 			Client.TEAM,
 			isNewStatus ? 'status { id }' : ''
@@ -147,25 +148,25 @@ export class SupplierBoardComponent extends AutoUnsub implements OnInit {
 	}
 
 	/** multiple */
-	updateSupplierStatus(event: KanbanDropEvent) {
+	updateProductsStatus(event: KanbanDropEvent) {
 		const isNewStatus = event.to.id === NEW_STATUS_ID;
-		const suppliers = event.items.map(id => ({
+		const products = event.items.map(id => ({
 			id,
-			status: isNewStatus ? null : new SupplierStatus({ id: event.to.id })
+			status: isNewStatus ? null : new ProductStatus({ id: event.to.id })
 		}));
-		this.supplierSrv.updateMany(
-			suppliers,
+		this.productSrv.updateMany(
+			products,
 			Client.TEAM,
 			isNewStatus ? 'status { id }' : ''
 		).subscribe();
 	}
 
-	onColumnSelected(suppliers: Supplier[]) {
-		suppliers.forEach(supplier => this.listSrv.selectOne(supplier, true));
+	onColumnSelected(products: Product[]) {
+		products.forEach(prod => this.listSrv.selectOne(prod, true));
 	}
 
-	onColumnUnselected(suppliers: Supplier[]) {
-		suppliers.forEach(supplier => this.listSrv.unselectOne(supplier, true));
+	onColumnUnselected(products: Product[]) {
+		products.forEach(prod => this.listSrv.unselectOne(prod, true));
 	}
 
 	onFavoriteAllSelected() {
@@ -195,8 +196,8 @@ export class SupplierBoardComponent extends AutoUnsub implements OnInit {
 	deleteSelected() {
 		const itemIds = this.listSrv.getSelectedIds();
 		const del = translate('delete');
-		const supplier = itemIds.length <= 1 ? translate('supplier') : translate('suppliers');
-		const text = `${del} ${itemIds.length} ${supplier}`;
+		const prod = itemIds.length <= 1 ? translate('product') : translate('products');
+		const text = `${del} ${itemIds.length} ${prod}`;
 
 		this.dlgSrv.open(ConfirmDialogComponent, { text }).pipe(
 			filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
@@ -207,10 +208,10 @@ export class SupplierBoardComponent extends AutoUnsub implements OnInit {
 		});
 	}
 
-	onMultipleStatusChange(status: SupplierStatus) {
+	onMultipleStatusChange(status: ProductStatus) {
 		const updated = this.listSrv.getSelectedIds()
 			.map(id => ({ id, status }));
 		this.kanbanSrv.onExternalStatusChange(updated);
-		this.supplierSrv.updateMany(updated).subscribe();
+		this.productSrv.updateMany(updated).subscribe();
 	}
 }

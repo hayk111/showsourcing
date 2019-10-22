@@ -18,7 +18,7 @@ import { AutoUnsub } from '~utils/auto-unsub.component';
 
 
 @Component({
-	selector: 'sample-board-app',
+	selector: 'samples-board-app',
 	templateUrl: './sample-board.component.html',
 	styleUrls: ['./sample-board.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -27,7 +27,7 @@ import { AutoUnsub } from '~utils/auto-unsub.component';
 		ListPageService
 	]
 })
-export class SampleBoardComponent extends AutoUnsub implements OnInit {
+export class SamplesBoardComponent extends AutoUnsub implements OnInit {
 	columns$ = this.kanbanSrv.columns$;
 	filterType = FilterType;
 	filterTypes = [

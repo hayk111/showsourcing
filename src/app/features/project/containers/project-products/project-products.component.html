@@ -80,13 +80,13 @@
 			(update)="listSrv.update($event)">
 		</products-grid-app>
 
-		<product-board-app
+		<products-board-app
 			*ngIf="listSrv.view === 'board'"
 			[selection]="listSrv.selection$"
 			(selectOne)="listSrv.selectOne($event, true)"
 			(unselectOne)="listSrv.unselectOne($event, true)"
 			(preview) = "listSrv.openPreview($event)">
-		</product-board-app>
+		</products-board-app>
 
 		<product-selection-bar-app
 			[isShown]="(listSrv.selection$ | async).size > 0"
