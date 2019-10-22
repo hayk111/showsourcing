@@ -102,6 +102,7 @@
 		<extended-form-app
 			[definitions]="fieldDefinitions$ | async"
 			[fields]="task?.extendedFields"
+			[config]="formConfig"
 			(update)="updateTask({extendedFields: $event})">
 		</extended-form-app>
 	</preview-section-app>

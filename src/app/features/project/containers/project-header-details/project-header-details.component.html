@@ -1,4 +1,4 @@
-<header-details-app 
+<header-details-app
 		[elevated]="false"
 		[headerType]="'details'">
 
@@ -6,7 +6,7 @@
 
 		<logo-app color="primary" type="project" size="xl"></logo-app>
 
-		<header-details-info-app *ngIf="product !== null">
+		<header-details-info-app *ngIf="project$ | async as project">
 			{{ (project?.status ? 'text.' + project?.status : 'text.new') | translate }}
 			<div class="small-gray-badge-separator"></div>
 			{{ 'OBJ.due-on-date' | translate: {date: project?.creationDate | date: 'dd-mm-yyyy':'':translate.currentLang} }}
@@ -30,13 +30,13 @@
 
 		<header-details-actions-app>
 			<button
-				*ngIf="isTabUrl('products')" 
-				class="add-product big" 
-				(click)="openFindProductDlg()" 
+				*ngIf="isTabUrl('products')"
+				class="add-product big"
+				(click)="openFindProductDlg()"
 				translate="button.add-product">
 			</button>
 
-			<status-selector-app 
+			<status-selector-app
 				*ngIf="isTabUrl('settings')"
 				[typeEntity]="erm.PROJECT"
 				[entity]="project$"
