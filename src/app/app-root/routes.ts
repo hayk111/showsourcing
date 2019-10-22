@@ -31,19 +31,7 @@ export const routes: Array<Route> = [
 		canLoad: [DevModeGuard],
 		canActivate: [DevModeGuard],
 		canActivateChild: [DevModeGuard],
-		children: [
-			{
-				path: 'component-library',
-				loadChildren: 'app/features/component-library/component-library.module#ComponentLibraryModule'
-			}, {
-				path: 'test',
-				loadChildren: 'app/features/test-page/test-page.module#TestPageModule'
-			}, {
-				path: '',
-				redirectTo: 'component-library',
-				pathMatch: 'full'
-			}
-		]
+		loadChildren: 'app/features/dev/dev-feature.module#DevFeatureModule'
 	},
 	{
 		path: '',

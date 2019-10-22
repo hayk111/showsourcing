@@ -8,7 +8,7 @@ import { iconMap } from '~shared/icons/components/logo/logo.component';
 	styleUrls: ['./icon-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class IconsPageComponent implements OnInit {
+export class IconPageComponent implements OnInit {
 	imageMock = mock;
 	types = Object.keys(iconMap);
 	constructor() { }
