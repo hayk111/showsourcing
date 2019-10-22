@@ -17,8 +17,10 @@ import {
 	ProjectSettingsComponent,
 	ProjectsPageComponent,
 	ProjectWorkflowComponent,
-} from './containers';
-import { ProjectHeaderDetailsComponent } from './containers/project-header-details/project-header-details.component';
+} from './containers/project-details';
+import {
+	ProjectHeaderDetailsComponent,
+} from './containers/project-details/project-header-details/project-header-details.component';
 
 @NgModule({
 	imports: [
