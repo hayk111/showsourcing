@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { EntityTableComponent, TableConfig } from '~core/list-page/entity-table.component';
-import { Project, ERM } from '~models';
-import { Color } from '~utils';
 import { TranslateService } from '@ngx-translate/core';
+import { EntityTableComponent, TableConfig } from '~core/list-page/entity-table.component';
+import { ERM, Project } from '~models';
+import { Color } from '~utils';
 
 const tableConfig: TableConfig = {
 	name: { name: 'name', translationKey: 'name', width: 240, sortProperty: 'name' },
@@ -19,7 +19,7 @@ const tableConfig: TableConfig = {
 	templateUrl: './projects-table.component.html',
 	styleUrls: [
 		'./projects-table.component.scss',
-		'../../../../../app/theming/specific/list.scss'
+		'../../../../app/theming/specific/list.scss'
 	]
 })
 export class ProjectsTableComponent extends EntityTableComponent<Project> {

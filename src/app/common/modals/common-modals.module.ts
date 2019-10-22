@@ -1,10 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import {
+	SupplierRequestDialogComponent,
+} from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
+import {
 	ProductsCardViewDialogComponent,
 } from '~common/product/components/products-card-view-dialog/products-card-view-dialog.component';
 import { ProductCommonModule } from '~common/product/product-common.module';
-import { ProjectCommonModule } from '~common/project/project-common.module';
+import { TablesCommonModule } from '~common/tables/tables-common.module';
 import { InputsModule } from '~shared/inputs';
 import { PricePipe } from '~shared/price/price.pipe';
 import { SharedModule } from '~shared/shared.module';
@@ -15,6 +18,9 @@ import {
 	ChangePswdDlgComponent,
 	CompareProductComponent,
 	CreationDialogComponent,
+	CreationProductDlgComponent,
+	CreationSampleDlgComponent,
+	CreationTaskDlgComponent,
 	DescriptionDlgComponent,
 	EditionDialogComponent,
 	ExportDlgComponent,
@@ -24,16 +30,12 @@ import {
 	NewContactDlgComponent,
 	ProductAddToProjectDlgComponent,
 	ProductRequestTeamFeedbackDlgComponent,
+	ProductSelectDlgComponent,
 	RefuseReplyDlgComponent,
 	ReplySentDlgComponent,
 	RequestReplyDlgComponent,
 	VoteDetailsDialogComponent,
-	CreationProductDlgComponent,
-	CreationTaskDlgComponent,
-	CreationSampleDlgComponent,
-	ProductSelectDlgComponent
 } from './component';
-import { SupplierRequestDialogComponent } from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
 import { CompareColumnComponent } from './component/compare-product/compare-column/compare-column.component';
 import { CompareLabelsComponent } from './component/compare-product/compare-labels/compare-labels.component';
 import { ExportSelectionViewComponent } from './component/export-dlg/export-selection-view/export-selection-view.component';
@@ -77,10 +79,10 @@ const modals = [
 		CommonModule,
 		SharedModule,
 		ProductCommonModule,
-		ProjectCommonModule,
 		TableModule,
 		InputsModule,
-		UtilsModule
+		UtilsModule,
+		TablesCommonModule
 	],
 	declarations: [
 		...modals,

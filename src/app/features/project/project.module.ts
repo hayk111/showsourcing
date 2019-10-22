@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ProductCommonModule } from '~common/product';
+import { TablesCommonModule } from '~common/tables/tables-common.module';
 import { routes } from '~features/project/routes';
 import { SharedModule } from '~shared/shared.module';
 
@@ -13,7 +14,6 @@ import {
 	ProjectsPageComponent,
 	ProjectWorkflowComponent,
 } from './containers';
-import { ProjectCommonModule } from '~common/project/project-common.module';
 import { ProjectHeaderDetailsComponent } from './containers/project-header-details/project-header-details.component';
 
 @NgModule({
@@ -22,7 +22,7 @@ import { ProjectHeaderDetailsComponent } from './containers/project-header-detai
 		RouterModule.forChild(routes),
 		SharedModule,
 		ProductCommonModule,
-		ProjectCommonModule
+		TablesCommonModule
 	],
 	declarations: [
 		ProjectDetailsComponent,
