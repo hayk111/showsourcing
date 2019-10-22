@@ -22,10 +22,10 @@ const bigTableConfig: TableConfig = {
 
 
 @Component({
-	selector: 'attachment-table-app',
-	templateUrl: './attachment-table.component.html',
+	selector: 'attachments-table-app',
+	templateUrl: './attachments-table.component.html',
 	styleUrls: [
-		'./attachment-table.component.scss',
+		'./attachments-table.component.scss',
 		'../../../../app/theming/specific/list.scss'
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -33,7 +33,7 @@ const bigTableConfig: TableConfig = {
 		UploaderFeedbackService
 	]
 })
-export class AttachmentTableComponent extends EntityTableComponent<Attachment> implements OnInit {
+export class AttachmentsTableComponent extends EntityTableComponent<Attachment> implements OnInit {
 	@ViewChild('inpFile', { static: true }) inpFile: ElementRef<HTMLInputElement>;
 	@Input() linkedEntity;
 	@Input() set rows(attachments: Attachment[]) {

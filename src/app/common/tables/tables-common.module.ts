@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '~shared/shared.module';
 
-import { AttachmentTableComponent } from './attachment-table/attachment-table.component';
+import { AttachmentsTableComponent } from './attachments-table/attachments-table.component';
 import { ProductsTableComponent } from './products-table/products-table.component';
 import { ProjectsTableComponent } from './projects-table/projects-table.component';
 import { RequestElementTableComponent } from './request-element-table/request-element-table.component';
@@ -22,7 +22,7 @@ import { ProductSortingMenuComponent } from './product-sorting-menu/product-sort
 		RouterModule
 	],
 	declarations: [
-		AttachmentTableComponent,
+		AttachmentsTableComponent,
 		ProductSortingMenuComponent,
 		ProductsTableComponent,
 		ProjectsTableComponent,
@@ -34,7 +34,7 @@ import { ProductSortingMenuComponent } from './product-sorting-menu/product-sort
 		TaskTableComponent,
 	],
 	exports: [
-		AttachmentTableComponent,
+		AttachmentsTableComponent,
 		ProductsTableComponent,
 		ProjectsTableComponent,
 		ProductSortingMenuComponent,
