@@ -22,15 +22,15 @@ const mediumTableConfig: TableConfig = {
 };
 
 @Component({
-	selector: 'supplier-table-app',
-	templateUrl: './supplier-table.component.html',
+	selector: 'suppliers-table-app',
+	templateUrl: './suppliers-table.component.html',
 	styleUrls: [
-		'./supplier-table.component.scss',
+		'./suppliers-table.component.scss',
 		'../../../../app/theming/specific/list.scss'
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SupplierTableComponent extends EntityTableComponent<Supplier> implements OnInit {
+export class SuppliersTableComponent extends EntityTableComponent<Supplier> implements OnInit {
 
 	columns = ['name', 'country', 'productType', 'supplierType', 'assignee', 'status', 'activities', 'createdBy', 'createdOn'];
 	erm = ERM;

@@ -2,7 +2,7 @@
 <card-app>
 	<card-title-app>Common lists</card-title-app>
 
-	Wa have configurable lists for some entities which use the @input() columns to 
+	Wa have configurable lists for some entities which use the @input() columns to
 	receive an array of the columns we wish to display.
 	You can also choose to hide the header, menu, selection and pagination.
 </card-app>
@@ -11,7 +11,7 @@
 	<card-title-app>Product example #1</card-title-app>
 	<products-table-app
 	[pending]="pending"
-	[rows]="products" 
+	[rows]="products"
 	[selection]="productSelectionSrv.selection"
 	[currentPage]="0"
 	[count]="1556"
@@ -25,7 +25,7 @@
 		[hasHeader]="false"
 		[hasPagination]="false"
 		[pending]="pending"
-		[rows]="products" 
+		[rows]="products"
 		[selection]="productSelectionSrv.selection"
 		[columns]="[ 'reference', 'supplier']"
 		[currentPage]="0"
@@ -37,12 +37,12 @@
 
 <card-app class="ex">
 	<card-title-app>Supplier example</card-title-app>
-	<supplier-table-app
+	<suppliers-table-app
 		[pending]="pending"
-		[rows]="suppliers" 
+		[rows]="suppliers"
 		[selection]="supplierSelectionSrv.selection"
 		[currentPage]="0"
 		[count]="155"
 		(selectAll)="supplierSelectionSrv.selectAll(suppliers)"
-		(unselectAll)="supplierSelectionSrv.unselectAll()"></supplier-table-app>
+		(unselectAll)="supplierSelectionSrv.unselectAll()"></suppliers-table-app>
 </card-app>

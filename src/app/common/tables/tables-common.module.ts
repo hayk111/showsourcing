@@ -10,7 +10,7 @@ import { RequestElementsTableComponent } from './request-elements-table/request-
 import { RequestSortingMenuComponent } from './request-sorting-menu/request-sorting-menu.component';
 import { RequestsTableComponent } from './requests-table/requests-table.component';
 import { SamplesTableComponent } from './samples-table/samples-table.component';
-import { SupplierTableComponent } from './supplier-table/supplier-table.component';
+import { SuppliersTableComponent } from './suppliers-table/suppliers-table.component';
 import { TaskTableComponent } from './task-table/task-table.component';
 import { ProductSortingMenuComponent } from './product-sorting-menu/product-sorting-menu.component';
 
@@ -30,7 +30,7 @@ import { ProductSortingMenuComponent } from './product-sorting-menu/product-sort
 		RequestsTableComponent,
 		RequestElementsTableComponent,
 		SamplesTableComponent,
-		SupplierTableComponent,
+		SuppliersTableComponent,
 		TaskTableComponent,
 	],
 	exports: [
@@ -42,7 +42,7 @@ import { ProductSortingMenuComponent } from './product-sorting-menu/product-sort
 		RequestsTableComponent,
 		RequestElementsTableComponent,
 		SamplesTableComponent,
-		SupplierTableComponent,
+		SuppliersTableComponent,
 		TaskTableComponent,
 	],
 	entryComponents: []
