@@ -10,6 +10,7 @@ import { SampleTableComponent } from './sample-table/sample-table.component';
 import { TaskTableComponent } from './task-table/task-table.component';
 import { SupplierTableComponent } from './supplier-table/supplier-table.component';
 import { AttachmentTableComponent } from './attachment-table/attachment-table.component';
+import { RequestTableComponent } from './request-table/request-table.component';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { AttachmentTableComponent } from './attachment-table/attachment-table.co
 	declarations: [
 		AttachmentTableComponent,
 		ProjectsTableComponent,
+		RequestTableComponent,
 		RequestSortingMenuComponent,
 		RequestElementTableComponent,
 		SampleTableComponent,
@@ -30,6 +32,7 @@ import { AttachmentTableComponent } from './attachment-table/attachment-table.co
 	exports: [
 		AttachmentTableComponent,
 		ProjectsTableComponent,
+		RequestTableComponent,
 		RequestSortingMenuComponent,
 		RequestElementTableComponent,
 		SampleTableComponent,
