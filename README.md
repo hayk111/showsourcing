@@ -158,6 +158,17 @@ In each module the division of the file structure is with those folders (each on
 
 ***
 
+## Common
+Folder containing modules organized by functionality, these modules hold common components used around the app, since we use it around the app they are not bound to a feature, they are bound to common.
+
+- CardsCommonModule -> holds the common components that are related to cards
+- BoardsCommonModule -> holds the common components that are related to board view
+- GridsCommonModule -> holds the common components that are related to grid view
+- CommonModalsModule -> holds all the modals used around the app. Inside this folder we divide the modals by functionality as well: creation, selection and custom.
+- PreviewsCommonModule -> holds the common components that are related to the preview
+- SelectionBarsCommonModule -> holds the common components that are related to selection bars
+- TablesCommonModule -> holds the common components that are related to tables
+
 # Style Structure
 The theming is done in ./src/app/theming and should be straight forward. `styles.scss` is the entry point and imports everything it needs. Inside this file we import some core styling files:
 
