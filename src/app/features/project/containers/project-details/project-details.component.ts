@@ -9,7 +9,7 @@ import { map, tap, switchMap, take, filter } from 'rxjs/operators';
 import { ProjectService } from '~core/entity-services';
 
 @Component({
-	selector: 'app-project-details',
+	selector: 'project-details-app',
 	templateUrl: './project-details.component.html',
 	styleUrls: ['./project-details.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush

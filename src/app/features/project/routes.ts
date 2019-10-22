@@ -6,7 +6,7 @@ import {
 	ProjectSettingsComponent,
 	ProjectsPageComponent,
 	ProjectWorkflowComponent,
-} from './containers';
+} from './containers/project-details';
 
 export const routes: Array<Route> = [
 	{ path: '', component: ProjectsPageComponent },
