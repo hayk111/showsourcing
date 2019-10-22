@@ -12,9 +12,9 @@ import {
 	ProjectSettingsComponent,
 	ProjectsPageComponent,
 	ProjectWorkflowComponent,
-} from './containers';
+} from './containers/project-details';
 import { ProjectCommonModule } from '~common/project/project-common.module';
-import { ProjectHeaderDetailsComponent } from './containers/project-header-details/project-header-details.component';
+import { ProjectHeaderDetailsComponent } from './containers/project-details/project-header-details/project-header-details.component';
 
 @NgModule({
 	imports: [
