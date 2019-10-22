@@ -2,8 +2,11 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ActivityCommonModule } from '~common/activity/activity-common.module';
+import { BoardsCommonModule } from '~common/boards/boards-common.module';
 import { CommentCommonModule } from '~common/comment';
+import { GridsCommonModule } from '~common/grids/grids-common.module';
 import { PreviewsCommonModule } from '~common/previews/previews-common.module';
+import { SelectionBarsCommonModule } from '~common/selection-bars/selection-bars-common.module';
 import { TablesCommonModule } from '~common/tables/tables-common.module';
 import { routes } from '~features/products/routes';
 import { NavBarModule } from '~shared/navbar';
@@ -33,7 +36,10 @@ import { ProductFeatureService, QuoteFeatureService } from './services';
 		NavBarModule,
 		RouterModule.forChild(routes),
 		PreviewsCommonModule,
-		TablesCommonModule
+		TablesCommonModule,
+		BoardsCommonModule,
+		GridsCommonModule,
+		SelectionBarsCommonModule
 	],
 	declarations: [
 		ProductActivityComponent,

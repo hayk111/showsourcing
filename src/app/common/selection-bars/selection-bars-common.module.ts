@@ -1,15 +1,20 @@
 import { NgModule } from '@angular/core';
 
 import { ProductSelectionBarComponent } from './product-selection-bar/product-selection-bar.component';
+import { SharedModule } from '~shared/shared.module';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
 	imports: [
-		ProductSelectionBarComponent
+		CommonModule,
+		SharedModule
 	],
 	declarations: [
 		ProductSelectionBarComponent
 	],
-	exports: [],
+	exports: [
+		ProductSelectionBarComponent
+	],
 	providers: []
 })
 export class SelectionBarsCommonModule { }
