@@ -1,18 +1,21 @@
 import { Route } from '@angular/router';
+import {
+	PlaygroundPageComponent,
+	ComponentLibraryComponent,
+	GuidelinesComponent,
+	ButtonPageComponent,
+	LoaderPageComponent,
+	IconPageComponent,
+	CardPageComponent,
+	BadgePageComponent,
+	PipesPageComponent,
+	TablePageComponent,
+	AccordionPageComponent,
+	RatingPageComponent,
+	CommonListPageComponent
+} from './pages';
 
-import { BadgePageComponent } from './pages/component-library/badge/badge-page.component';
-import { CardPageComponent } from './pages/component-library/card/card-page.component';
-import { ComponentLibraryComponent } from './pages/component-library/component-library-page.component';
-import { GuidelinesComponent } from './pages/component-library/guidelines/guidelines-page.component';
-import { IconPageComponent } from './pages/component-library/icon/icon-page.component';
-import { LoaderPageComponent } from './pages/component-library/loader/loader-page.component';
-import { PipesPageComponent } from './pages/component-library/pipes/pipes-page.component';
-import { RatingPageComponent } from './pages/component-library/rating/rating-page.component';
-import { TablePageComponent } from './pages/component-library/table/table-page.component';
-import { CommonListPageComponent } from './pages/component-library/common-list/common-list-page.component';
-import { ButtonPageComponent } from './pages/component-library/button/button-page.component';
-import { AccordionPageComponent } from './pages/component-library/accordion/accordion-page.component';
-import { PlaygroundPageComponent } from './pages/playground/playground-page.component';
+
 
 
 export const routes: Array<Route> = [
