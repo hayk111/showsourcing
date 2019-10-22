@@ -8,7 +8,7 @@ import { ProductsTableComponent } from './products-table/products-table.componen
 import { ProjectsTableComponent } from './projects-table/projects-table.component';
 import { RequestElementsTableComponent } from './request-elements-table/request-elements-table.component';
 import { RequestSortingMenuComponent } from './request-sorting-menu/request-sorting-menu.component';
-import { RequestTableComponent } from './request-table/request-table.component';
+import { RequestsTableComponent } from './requests-table/requests-table.component';
 import { SampleTableComponent } from './sample-table/sample-table.component';
 import { SupplierTableComponent } from './supplier-table/supplier-table.component';
 import { TaskTableComponent } from './task-table/task-table.component';
@@ -27,7 +27,7 @@ import { ProductSortingMenuComponent } from './product-sorting-menu/product-sort
 		ProductsTableComponent,
 		ProjectsTableComponent,
 		RequestSortingMenuComponent,
-		RequestTableComponent,
+		RequestsTableComponent,
 		RequestElementsTableComponent,
 		SampleTableComponent,
 		SupplierTableComponent,
@@ -39,7 +39,7 @@ import { ProductSortingMenuComponent } from './product-sorting-menu/product-sort
 		ProjectsTableComponent,
 		ProductSortingMenuComponent,
 		RequestSortingMenuComponent,
-		RequestTableComponent,
+		RequestsTableComponent,
 		RequestElementsTableComponent,
 		SampleTableComponent,
 		SupplierTableComponent,

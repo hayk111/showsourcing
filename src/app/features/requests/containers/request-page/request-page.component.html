@@ -20,7 +20,7 @@
 	</controller-list-right-item-app>
 </controller-list-app>
 
-<request-table-app
+<requests-table-app
 	class="max-full-table-width"
 	[rows]="listSrv.items$ | async"
 	[pending]="listSrv.pending"
@@ -34,7 +34,7 @@
 	(sort)="listSrv.sort($event)"
 	(unselect)="listSrv.unselectOne($event)"
 	(unselectAll)="listSrv.unselectAll()">
-</request-table-app>
+</requests-table-app>
 
 <selection-bar-app
 	[isShown]="(listSrv.selection$ | async).size > 0"

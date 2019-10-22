@@ -15,15 +15,15 @@ const tableConfig: TableConfig = {
 };
 
 @Component({
-	selector: 'request-table-app',
-	templateUrl: './request-table.component.html',
+	selector: 'requests-table-app',
+	templateUrl: './requests-table.component.html',
 	styleUrls: [
-		'./request-table.component.scss',
+		'./requests-table.component.scss',
 		'../../../../app/theming/specific/list.scss'
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RequestTableComponent extends EntityTableComponent<SupplierRequest> {
+export class RequestsTableComponent extends EntityTableComponent<SupplierRequest> {
 	columns = ['title', 'type', 'supplier', 'sentTo', 'requests', 'status', 'sentOn', 'sender'];
 	@Output() cancelRequest = new EventEmitter<SupplierRequest>();
 	@ViewChild('contextualMenu', { static: false }) contextualMenuTemplate: TemplateRef<any>;
