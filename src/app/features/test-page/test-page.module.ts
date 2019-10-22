@@ -2,16 +2,16 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '~shared/shared.module';
 
-import { TestPageComponent } from './test-page.component';
+import { PlaygroundPageComponent } from '../dev/pages/playground/playground-page.component';
 
 @NgModule({
 	imports: [
 		SharedModule,
 		RouterModule.forChild([
-			{ path: '', component: TestPageComponent }
+			{ path: '', component: PlaygroundPageComponent }
 		])
 	],
-	declarations: [TestPageComponent],
-	exports: [TestPageComponent]
+	declarations: [PlaygroundPageComponent],
+	exports: [PlaygroundPageComponent]
 })
 export class TestPageModule { }

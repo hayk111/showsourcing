@@ -4,8 +4,8 @@ import {
 	AccountCreatedPageComponent,
 	ForgotPasswordPageComponent,
 	LoginPageComponent,
-	PwResettedPageComponent,
-	RegistrationPageComponent,
+	PasswordResettedPageComponent,
+	RegisterPageComponent,
 	ResetPasswordPageComponent,
 	UnvalidatedEmailPageComponent,
 	ValidateEmailPageComponent,
@@ -18,14 +18,14 @@ import { AuthenticatedGuard } from '~core/auth';
 import { CentralClientReadyGuard } from '~core/apollo/guards/client-ready.guard.service';
 
 export const routes: Routes = [
-	{ path: 'login', component: LoginPageComponent },
-	{ path: 'forgot-password', component: ForgotPasswordPageComponent },
-	{ path: 'reset-password/:token', component: ResetPasswordPageComponent },
-	{ path: 'register', component: RegistrationPageComponent },
-	{ path: 'password-resetted', component: PwResettedPageComponent },
 	{ path: 'account-created', component: AccountCreatedPageComponent },
-	{ path: 'validate-email/:token', component: ValidateEmailPageComponent },
+	{ path: 'forgot-password', component: ForgotPasswordPageComponent },
+	{ path: 'login', component: LoginPageComponent },
+	{ path: 'password-resetted', component: PasswordResettedPageComponent },
+	{ path: 'register', component: RegisterPageComponent },
+	{ path: 'reset-password/:token', component: ResetPasswordPageComponent },
 	{ path: 'unvalidated-email', component: UnvalidatedEmailPageComponent },
+	{ path: 'validate-email/:token', component: ValidateEmailPageComponent },
 	{
 		path: 'user',
 		canActivateChild: [AuthenticatedGuard, CentralClientReadyGuard],
