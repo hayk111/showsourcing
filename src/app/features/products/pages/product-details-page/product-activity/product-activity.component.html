@@ -72,7 +72,7 @@
 			</ng-container>
 
 			<ng-container *ngSwitchCase="'sample'">
-				<sample-table-app
+				<samples-table-app
 					class="no-padding"
 					[columns]="['name', 'status']"
 					[hasHeader]="false"
@@ -94,7 +94,7 @@
 					(unfavorited)="listSrv.onItemUnfavorited($event)"
 					(previewClick)="listSrv.openPreview($event)"
 					(delete)="listSrv.deleteOne($event)"
-					(createClick)="openCreateSample()"></sample-table-app>
+					(createClick)="openCreateSample()"></samples-table-app>
 			</ng-container>
 
 			<ng-container *ngSwitchCase="'request'">

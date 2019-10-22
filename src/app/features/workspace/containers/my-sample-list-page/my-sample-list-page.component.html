@@ -24,7 +24,7 @@
 	</controller-list-right-item-app>
 </controller-list-app>
 
-<sample-table-app
+<samples-table-app
 	[selection]="listSrv.selection$ | async"
 	[rows]="listSrv.items$ | async"
 	[pending]="listSrv.pending"
@@ -40,7 +40,7 @@
 	(delete)="listSrv.deleteOne($event)"
 	(openProduct)="openProduct($event)"
 	(openSupplier)="openSupplier($event)">
-</sample-table-app>
+</samples-table-app>
 
 <selection-bar-app
 	[isShown]="(listSrv.selection$ | async)?.size > 0"

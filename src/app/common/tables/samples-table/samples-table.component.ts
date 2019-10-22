@@ -30,15 +30,15 @@ const smallTableConfig: TableConfig = {
 };
 
 @Component({
-	selector: 'sample-table-app',
-	templateUrl: './sample-table.component.html',
+	selector: 'samples-table-app',
+	templateUrl: './samples-table.component.html',
 	styleUrls: [
-		'./sample-table.component.scss',
+		'./samples-table.component.scss',
 		'../../../../app/theming/specific/list.scss'
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SampleTableComponent extends EntityTableComponent<Sample> implements OnInit {
+export class SamplesTableComponent extends EntityTableComponent<Sample> implements OnInit {
 	columns = ['name', 'product', 'supplier', 'type', 'assignee', 'status', 'activities', 'createdBy', 'createdOn'];
 	@Input() tableConfigType: TableConfigType = 'big';
 	@Output() openSupplier = new EventEmitter<ID>();

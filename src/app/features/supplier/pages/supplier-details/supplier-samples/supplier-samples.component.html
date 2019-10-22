@@ -18,7 +18,7 @@
 	(buttonClick)="commonModalSrv.openAddSampleDialog(undefined, supplier)">
 </controller-list-app>
 
-<sample-table-app
+<samples-table-app
 	class="max-full-table-width"
 	[rows]="listSrv.items$ | async"
 	[selection]="listSrv.selection$ | async"
@@ -37,7 +37,7 @@
 	(previewClick)="listSrv.openPreview($event)"
 	(createClick)="commonModalSrv.openAddSampleDialog(undefined, supplier)"
 	(delete)="listSrv.deleteOne($event)">
-</sample-table-app>
+</samples-table-app>
 
 
 <sample-preview-app
@@ -65,5 +65,5 @@
 	<button class="icon light" (click)="listSrv.deleteSelected()">
 		<icon-app name="trash"></icon-app>
 	</button>
-	
+
 </selection-bar-app>
