@@ -1,14 +1,14 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { map, switchMap, takeUntil } from 'rxjs/operators';
+import { AbstractSampleCommonComponent } from '~common/abstracts/abstract-sample-common.component';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
-import { AbstractSampleCommonComponent } from '~common/sample/containers/abstract-sample-common.component';
 import { ListPageService } from '~core/list-page';
 import { SampleService, UserService } from '~entity-services';
-import { Sample, Product } from '~models';
-import { FilterType } from '~shared/filters';
-import { switchMap, map, takeUntil } from 'rxjs/operators';
-import { DialogService } from '~shared/dialog';
 import { ProductFeatureService } from '~features/products/services';
+import { Product, Sample } from '~models';
+import { DialogService } from '~shared/dialog';
+import { FilterType } from '~shared/filters';
 
 @Component({
 	selector: 'product-samples-app',
@@ -39,7 +39,7 @@ export class ProductSamplesComponent extends AbstractSampleCommonComponent imple
 		const id$ = this.route.parent.params.pipe(
 			map(params => params.id),
 			takeUntil(this._destroy$)
-			);
+		);
 
 		id$.pipe(
 			switchMap(id => this.featureSrv.selectOne(id)),

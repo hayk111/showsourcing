@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ProductCommonModule } from '~common/product/product-common.module';
-import { SampleCommonModule } from '~common/sample';
 import { SharedModule } from '~shared/shared.module';
 
 import {
@@ -22,7 +21,6 @@ import { routes } from '~features/workspace/routes';
 		SharedModule,
 		ProductCommonModule,
 		ProductCommonModule,
-		SampleCommonModule
 	],
 	declarations: [
 		WorkspaceComponent,

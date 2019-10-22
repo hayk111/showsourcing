@@ -34,7 +34,7 @@ const smallTableConfig: TableConfig = {
 	templateUrl: './sample-table.component.html',
 	styleUrls: [
 		'./sample-table.component.scss',
-		'../../../../../app/theming/specific/list.scss'
+		'../../../../app/theming/specific/list.scss'
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })

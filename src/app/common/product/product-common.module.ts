@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommentCommonModule } from '~common/comment';
+import { TablesCommonModule } from '~common/tables/tables-common.module';
 import { SharedModule } from '~shared/shared.module';
 
 import {
@@ -13,19 +14,19 @@ import {
 	ProductResumeComponent,
 	ProductsCardViewComponent,
 	ProductSelectionBarComponent,
-	ProductsTableComponent,
 	ProductSortingMenuComponent,
+	ProductsTableComponent,
 	StatsIconsComponent,
 } from './components';
 import { ProductPreviewComponent } from './containers';
-import { SampleCommonModule } from '~common/sample/sample-common.module';
 
 @NgModule({
 	imports: [
+		CommonModule,
 		RouterModule,
 		SharedModule,
 		CommentCommonModule,
-		SampleCommonModule
+		TablesCommonModule
 	],
 	declarations: [
 		MoqComponent,
