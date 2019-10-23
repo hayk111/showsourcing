@@ -6,9 +6,9 @@ import { ERM, SampleStatus } from '~core/models';
 import { AbstractStatusWorkflowComponent } from '../shared/abstract-status-workflow.component';
 
 @Component({
-	selector: 'sample-status-workflow-app',
-	templateUrl: '../shared/status-workflow.component.html',
-	styleUrls: ['./sample-status-workflow.component.scss'],
+	selector: 'sample-status-page-app',
+	templateUrl: '../shared/status-page.component.html',
+	styleUrls: ['./sample-status-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SampleStatusPageComponent extends AbstractStatusWorkflowComponent<SampleStatus, SampleStatusService> implements OnInit {

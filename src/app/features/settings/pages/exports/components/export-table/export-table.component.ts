@@ -18,7 +18,7 @@ const tableConfig: TableConfig = {
 	templateUrl: './export-table.component.html',
 	styleUrls: [
 		'./export-table.component.scss',
-		'../../../../../app/theming/specific/list.scss'
+		'../../../../../../theming/specific/list.scss'
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })

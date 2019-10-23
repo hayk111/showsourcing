@@ -7,8 +7,8 @@ import { AbstractStatusWorkflowComponent } from '../shared/abstract-status-workf
 
 @Component({
 	selector: 'product-status-page-app',
-	templateUrl: '../shared/status-workflow.component.html',
-	styleUrls: ['./product-status-workflow.component.scss'],
+	templateUrl: '../shared/status-page.component.html',
+	styleUrls: ['./product-status-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductStatusPageComponent extends AbstractStatusWorkflowComponent<ProductStatus, ProductStatusService> implements OnInit {
