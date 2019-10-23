@@ -1,14 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Supplier, Attachment, ERM } from '~models';
-import { switchMap, map, takeUntil } from 'rxjs/operators';
-import { SupplierFeatureService } from '~features/supplier/services';
-import { AutoUnsub } from '~utils/auto-unsub.component';
-import { SelectParams } from '~core/entity-services/_global/select-params';
-import { DialogService } from '~shared/dialog';
-import { AttachmentService } from '~core/entity-services';
+import { ActivatedRoute } from '@angular/router';
 import { CommonModalService } from '~common/modals';
+import { AttachmentService } from '~core/entity-services';
 import { ListPageService } from '~core/list-page';
+import { Attachment, ERM, Supplier } from '~models';
+import { DialogService } from '~shared/dialog';
+import { AutoUnsub } from '~utils/auto-unsub.component';
 
 @Component({
 	selector: 'supplier-files-app',

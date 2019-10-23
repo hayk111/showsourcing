@@ -50,7 +50,7 @@ export const routes: Array<Route> = [
 			},
 			{
 				path: 'projects',
-				loadChildren: 'app/features/project/projects-feature.module#ProjectsFeatureModule'
+				loadChildren: 'app/features/projects/projects-feature.module#ProjectsFeatureModule'
 			},
 			{
 				path: 'products',

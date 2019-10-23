@@ -4,7 +4,7 @@ import { ActivityCommonModule } from '~common/activity/activity-common.module';
 import { PreviewsCommonModule } from '~common/previews/previews-common.module';
 import { SelectionBarsCommonModule } from '~common/selection-bars/selection-bars-common.module';
 import { TablesCommonModule } from '~common/tables/tables-common.module';
-import { routes } from '~features/supplier/routes';
+import { routes } from './routes';
 import { NavBarModule } from '~shared/navbar';
 import { RatingModule } from '~shared/rating';
 import { SharedModule } from '~shared/shared.module';

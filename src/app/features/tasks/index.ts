@@ -1,2 +1,1 @@
-export * from './pages';
-export * from './task.module';
+export * from './tasks-feature.module';
