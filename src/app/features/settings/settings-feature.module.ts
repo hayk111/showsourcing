@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { WorkflowMngmtCommonModule } from '~common/workflow/workflow-mngmt.module';
-import { DataManagementModule } from '~features/data-management/data-management.module';
 import { routes } from '~features/settings/routes';
 import { SharedModule } from '~shared/shared.module';
 
@@ -18,8 +17,6 @@ import * as DataPages from './pages/data-management';
 	imports: [
 		RouterModule.forChild(routes),
 		SharedModule,
-		DataManagementModule,
-		WorkflowMngmtCommonModule
 	],
 	declarations: [
 		SettingsPageComponent,
@@ -55,14 +52,15 @@ import * as DataPages from './pages/data-management';
 		WorkflowPages.WorkflowPageComponent,
 		WorkflowPages.ProductStatusPageComponent,
 		WorkflowPages.SampleStatusPageComponent,
-		WorkflowPages.SupplierStatusPageComponent
+		WorkflowPages.SupplierStatusPageComponent,
+		WorkflowPages.WorkflowManagamentTableComponent
 
 	],
 	entryComponents: [],
 	exports: [],
 	providers: []
 })
-export class SettingsModule {
+export class SettingsFeatureModule {
 
 
 }
