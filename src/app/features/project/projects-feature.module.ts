@@ -48,4 +48,4 @@ import { SortingMenusCommonModule } from '~common/sorting-menus/sorting-menus-co
 	exports: [RouterModule, ProjectsPageComponent],
 	providers: []
 })
-export class ProjectModule { }
+export class ProjectsFeatureModule { }
