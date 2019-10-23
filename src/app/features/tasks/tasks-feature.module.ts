@@ -28,6 +28,6 @@ import * as Pages from './pages';
 	providers: [
 	]
 })
-export class TaskFeatureModule {
+export class TasksFeatureModule {
 
 }

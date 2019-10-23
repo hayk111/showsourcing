@@ -30,6 +30,6 @@ import * as Pages from './pages';
 	providers: [
 	]
 })
-export class SampleFeatureModule {
+export class SamplesFeatureModule {
 
 }

@@ -50,23 +50,23 @@ export const routes: Array<Route> = [
 			},
 			{
 				path: 'projects',
-				loadChildren: 'app/features/project/project.module#ProjectModule'
+				loadChildren: 'app/features/project/projects-feature.module#ProjectsFeatureModule'
 			},
 			{
 				path: 'products',
-				loadChildren: 'app/features/products/product.module#ProductModule'
+				loadChildren: 'app/features/products/products-feature.module#ProductsFeatureModule'
 			},
 			{
 				path: 'requests',
-				loadChildren: 'app/features/requests/request.module#RequestModule'
+				loadChildren: 'app/features/requests/requests.module#RequestsFeatureModule'
 			},
 			{
 				path: 'samples',
-				loadChildren: 'app/features/samples/sample-feature.module#SampleFeatureModule'
+				loadChildren: 'app/features/samples/samples-feature.module#SamplesFeatureModule'
 			},
 			{
 				path: 'suppliers',
-				loadChildren: 'app/features/supplier/supplier.module#SuppliersModule'
+				loadChildren: 'app/features/suppliers/suppliers.module#SuppliersFeatureModule'
 			},
 			{
 				path: 'settings',
@@ -74,7 +74,7 @@ export const routes: Array<Route> = [
 			},
 			{
 				path: 'tasks',
-				loadChildren: 'app/features/tasks/task-feature.module#TaskFeatureModule'
+				loadChildren: 'app/features/tasks/tasks-feature.module#TasksFeatureModule'
 			}
 		]
 	},

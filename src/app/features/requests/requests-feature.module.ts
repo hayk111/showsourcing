@@ -25,6 +25,6 @@ import { RequestDetailsComponent, RequestPageComponent } from './containers';
 	exports: [],
 	providers: []
 })
-export class RequestModule {
+export class RequestsFeatureModule {
 
 }

@@ -50,4 +50,4 @@ import { BoardsCommonModule } from '~common/boards/boards-common.module';
 		SupplierFeatureService
 	]
 })
-export class SuppliersModule { }
+export class SuppliersFeatureModule { }
