@@ -51,6 +51,6 @@ import { ProductFeatureService, QuoteFeatureService } from './services';
 		QuoteFeatureService
 	]
 })
-export class ProductFeatureModule {
+export class ProductsFeatureModule {
 
 }

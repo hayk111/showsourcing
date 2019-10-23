@@ -58,7 +58,7 @@ export const routes: Array<Route> = [
 			},
 			{
 				path: 'requests',
-				loadChildren: 'app/features/requests/requests.module#RequestsFeatureModule'
+				loadChildren: 'app/features/requests/requests-feature.module#RequestsFeatureModule'
 			},
 			{
 				path: 'samples',
