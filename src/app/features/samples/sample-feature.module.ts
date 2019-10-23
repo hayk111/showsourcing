@@ -2,13 +2,14 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ActivityCommonModule } from '~common/activity/activity-common.module';
+import { BoardsCommonModule } from '~common/boards/boards-common.module';
 import { PreviewsCommonModule } from '~common/previews/previews-common.module';
 import { TablesCommonModule } from '~common/tables/tables-common.module';
-import { routes } from '~features/tasks/routes';
+import { routes } from '~features/samples/routes';
 import { NavBarModule } from '~shared/navbar';
 import { SharedModule } from '~shared/shared.module';
 
-import * as Pages from './pages';
+import { SamplesPageComponent } from './containers';
 
 @NgModule({
 	imports: [
@@ -18,16 +19,17 @@ import * as Pages from './pages';
 		NavBarModule,
 		SharedModule,
 		PreviewsCommonModule,
-		TablesCommonModule
+		TablesCommonModule,
+		BoardsCommonModule
 	],
 	declarations: [
-		Pages.TasksPageComponent,
+		SamplesPageComponent,
 	],
 	entryComponents: [],
 	exports: [],
 	providers: [
 	]
 })
-export class TaskModule {
+export class SampleFeatureModule {
 
 }

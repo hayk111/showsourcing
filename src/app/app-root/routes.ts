@@ -62,7 +62,7 @@ export const routes: Array<Route> = [
 			},
 			{
 				path: 'samples',
-				loadChildren: 'app/features/samples/sample.module#SampleModule'
+				loadChildren: 'app/features/samples/sample-feature.module#SampleFeatureModule'
 			},
 			{
 				path: 'supplier',
@@ -74,7 +74,7 @@ export const routes: Array<Route> = [
 			},
 			{
 				path: 'tasks',
-				loadChildren: 'app/features/tasks/task.module#TaskModule'
+				loadChildren: 'app/features/tasks/task-feature.module#TaskFeatureModule'
 			}
 		]
 	},
