@@ -3,7 +3,7 @@ import { Project, ERM, Product } from '~core/models';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { AutoUnsub } from '~utils';
 import { TranslateService } from '@ngx-translate/core';
-import { ProjectFeatureService } from '~features/project/services';
+import { ProjectFeatureService } from '~features/projects/services';
 import { ListPageService } from '~core/list-page';
 import { ProductService } from '~entity-services';
 import { switchMap } from 'rxjs/operators';

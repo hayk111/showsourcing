@@ -9,7 +9,7 @@ import { SelectParamsConfig } from '~core/entity-services/_global/select-params'
 import { ListPageService } from '~core/list-page';
 import { ProductService } from '~entity-services';
 import { ProductFeatureService } from '~features/products/services';
-import { ProjectFeatureService } from '~features/project/services';
+import { ProjectFeatureService } from '~features/projects/services';
 import { EntityTypeEnum, ERM, Product, Project } from '~models';
 import { DialogService } from '~shared/dialog/services';
 import { FilterType } from '~shared/filters';

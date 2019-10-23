@@ -7,7 +7,7 @@ import { GridsCommonModule } from '~common/grids/grids-common.module';
 import { PreviewsCommonModule } from '~common/previews/previews-common.module';
 import { SelectionBarsCommonModule } from '~common/selection-bars/selection-bars-common.module';
 import { TablesCommonModule } from '~common/tables/tables-common.module';
-import { routes } from '~features/project/routes';
+import { routes } from '~features/projects/routes';
 import { SharedModule } from '~shared/shared.module';
 
 import { ProjectNavComponent } from './components';

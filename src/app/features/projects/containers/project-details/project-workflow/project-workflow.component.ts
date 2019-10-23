@@ -8,7 +8,7 @@ import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ListPageService } from '~core/list-page';
 import { NEW_STATUS_ID } from '~core/models/status.model';
 import { ProductService, ProductStatusService, ProjectService } from '~entity-services';
-import { ProjectFeatureService } from '~features/project/services';
+import { ProjectFeatureService } from '~features/projects/services';
 import { ERM, Product, ProductStatus, Project } from '~models';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';

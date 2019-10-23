@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { Project, ERM } from '~core/models';
 import { TranslateService } from '@ngx-translate/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
-import { ProjectFeatureService } from '~features/project/services';
+import { ProjectFeatureService } from '~features/projects/services';
 import { AutoUnsub } from '~utils';
 import { map, tap, switchMap, take, filter } from 'rxjs/operators';
 import { ProjectService } from '~core/entity-services';
