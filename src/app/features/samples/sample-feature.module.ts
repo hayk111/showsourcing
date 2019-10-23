@@ -9,7 +9,7 @@ import { routes } from '~features/samples/routes';
 import { NavBarModule } from '~shared/navbar';
 import { SharedModule } from '~shared/shared.module';
 
-import { SamplesPageComponent } from './containers';
+import * as Pages from './pages';
 
 @NgModule({
 	imports: [
@@ -23,7 +23,7 @@ import { SamplesPageComponent } from './containers';
 		BoardsCommonModule
 	],
 	declarations: [
-		SamplesPageComponent,
+		Pages.SamplesPageComponent,
 	],
 	entryComponents: [],
 	exports: [],
