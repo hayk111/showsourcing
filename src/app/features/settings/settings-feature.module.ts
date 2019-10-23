@@ -35,7 +35,6 @@ import * as DataPages from './pages/data-management';
 		TeamPages.TeamCardComponent,
 		TeamPages.SettingsTeamMembersInvitationsComponent,
 		TeamPages.SettingsTeamMembersUsersComponent,
-		// TODO: Hayk those 2 needs to be in the common/tables
 		TeamPages.InvitationsTableComponent,
 		TeamPages.TeamMembersTableComponent,
 		// exports
@@ -47,6 +46,7 @@ import * as DataPages from './pages/data-management';
 		DataPages.EventDataPageComponent,
 		DataPages.SupplierDataPageComponent,
 		DataPages.TagDataPageComponent,
+		DataPages.DataMananagementTableComponent,
 		// workflow
 		WorkflowPages.WorkflowPageComponent,
 		WorkflowPages.ProductStatusPageComponent,
