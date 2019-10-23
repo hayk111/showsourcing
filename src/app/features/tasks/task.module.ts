@@ -8,7 +8,7 @@ import { routes } from '~features/tasks/routes';
 import { NavBarModule } from '~shared/navbar';
 import { SharedModule } from '~shared/shared.module';
 
-import { TasksPageComponent } from './containers';
+import * as Pages from './pages';
 
 @NgModule({
 	imports: [
@@ -21,7 +21,7 @@ import { TasksPageComponent } from './containers';
 		TablesCommonModule
 	],
 	declarations: [
-		TasksPageComponent,
+		Pages.TasksPageComponent,
 	],
 	entryComponents: [],
 	exports: [],
