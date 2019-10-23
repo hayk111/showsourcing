@@ -13,19 +13,16 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class GuestTemplateComponent implements OnInit {
 	auth$: Observable<boolean>;
-	/** sometimes we don't wanna display the logout button */
-	showLogout = false;
 
 	constructor(
 		private authSrv: AuthenticationService,
-		private route: ActivatedRoute
 	) { }
 
 	ngOnInit() {
 		this.auth$ = this.authSrv.authStatus$.pipe(
 			map(status => status === AuthStatus.AUTHENTICATED)
 		);
-		this.showLogout = this.route.snapshot.data.showLogout;
+
 	}
 
 	logout() {

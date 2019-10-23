@@ -1,7 +1,7 @@
 
 const subNavItemsProducts = [{
 	icon: 'product',
-	link: ['/product'],
+	link: ['/products'],
 	translationKey: 'products',
 },
 {
@@ -11,9 +11,22 @@ const subNavItemsProducts = [{
 },
 {
 	icon: 'kanban',
-	link: ['/product'],
+	link: ['/products'],
 	translationKey: 'boards',
 }];
+
+const subNavItemsDev = [
+	{
+		icon: 'dev',
+		link: ['/dev', 'component-library'],
+		translationKey: 'component-library'
+	},
+	{
+		icon: 'cercle',
+		link: ['/dev', 'playground'],
+		translationKey: 'playground'
+	}
+];
 
 export const sideNavItems = new Map<string, any>([
 	['product', subNavItemsProducts],
@@ -21,4 +34,5 @@ export const sideNavItems = new Map<string, any>([
 	['project', []],
 	['task', []],
 	['request', []],
+	['dev', subNavItemsDev]
 ]);

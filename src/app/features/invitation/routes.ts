@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { HandleInvitationComponent } from '~features/invitation/components';
+import { HandleInvitationComponent } from '~features/invitation/pages';
 
 export const routes: Routes = [
 	{

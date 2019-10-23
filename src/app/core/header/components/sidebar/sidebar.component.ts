@@ -27,8 +27,7 @@ export class SidebarComponent implements OnInit {
 		private userSrv: UserService,
 		private requestSrv: SupplierRequestService,
 		private teamSrv: TeamService,
-		private notifActivitySrv: NotificationActivityService,
-		private translate: TranslateService) { }
+		private notifActivitySrv: NotificationActivityService) { }
 
 	ngOnInit() {
 		this.user$ = this.userSrv.selectUser();

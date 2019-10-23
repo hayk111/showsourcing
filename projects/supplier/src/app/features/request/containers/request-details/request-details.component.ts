@@ -72,7 +72,7 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 				title: translate('The request doesn\'t exist'),
 				timeout: 3500
 			});
-			this.router.navigate(['request']);
+			this.router.navigate(['requests']);
 		} else
 			this.request = request;
 	}
@@ -84,7 +84,7 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 			message: translate('There is an error, please try again later'),
 			timeout: 3500
 		});
-		this.router.navigate(['request']);
+		this.router.navigate(['requests']);
 	}
 
 	open(element: RequestElement) {

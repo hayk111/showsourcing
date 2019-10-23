@@ -76,7 +76,7 @@ export class OneSupplierActivityCardComponent extends AutoUnsub implements OnIni
 	}
 
 	onViewSupplier() {
-		this.router.navigate(['supplier', this.supplier.id]);
+		this.router.navigate(['suppliers', this.supplier.id]);
 	}
 
 	onEnter(event) {

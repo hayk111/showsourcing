@@ -119,3 +119,8 @@ The name and ref column second line could be customized via a template, because 
 
 ## Filter Panel
   - Filter panel need to be refactored to make it easier to understand
+
+
+# sidebar
+
+  subnav items should be in html

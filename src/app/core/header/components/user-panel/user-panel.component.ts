@@ -32,13 +32,13 @@ export class UserPanelComponent implements OnInit {
 	}
 
 	goToSettings() {
-		this.router.navigate(['settings', 'data', 'category']);
+		this.router.navigate(['settings', 'data-management', 'category-data']);
 		this.close.emit();
 	}
 
 	pickTeam() {
 		this.teamSrv.resetSelectedTeam();
-		this.router.navigateByUrl('/user/pick-a-team');
+		this.router.navigateByUrl('auth/user/pick-a-team');
 		this.close.emit();
 	}
 
