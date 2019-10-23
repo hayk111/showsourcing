@@ -9,7 +9,7 @@ import { AutoUnsub } from '~utils';
 @Component({
 	selector: 'tag-data-page-app',
 	templateUrl: '../shared/data-management-template.html',
-	styleUrls: ['./tag-data-page.component.scss', '../sared/data-management-styles.scss'],
+	styleUrls: ['./tag-data-page.component.scss', '../shared/data-management-styles.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
 		ListPageService

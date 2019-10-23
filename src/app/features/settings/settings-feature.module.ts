@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { WorkflowMngmtCommonModule } from '~common/workflow/workflow-mngmt.module';
 import { routes } from '~features/settings/routes';
 import { SharedModule } from '~shared/shared.module';
 

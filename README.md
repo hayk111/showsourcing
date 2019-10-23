@@ -172,24 +172,56 @@ Folder containing modules organized by functionality, these modules hold common 
 
 ## Feature
 
+There is two ways to organize a feature folder and that depends on wether or not a feature folder
+is a detail/list type or not.
+
 Features are organized this way:
 
 ```
 feature
    auth
        shared
-           auth-form
+           auth-form-base
        pages
            login
-              login-page.component
+              components
+							   login-button.component.ts
+							login-page.component.ts
+							
            user
               pick-a-team
-                  pick-a-team-page.component
+                  pick-a-team-page.component.ts
 ```
 
+Inside the module:
+
+````
+
+import * as Pages from './pages';
+import { routes } from './routes';
+import * as SharedComponents from './shared';
+
+@NgModule({
+	imports: [
+		SharedModule,
+		RouterModule.forChild(routes)
+	],
+	declarations: [
+		Pages.LoginPageComponent,
+		// ...
+		SharedComponents.AuthFormBaseComponent,
+		// ...
+	],
+```
+
+Rules:
+
+  - A feature module name must end with `Feature`. So if we have a Product Feature the file will be product-feature.module.ts and the exported module is `ProductFeatureModule`
   - inside `pages` the folder structure must respect the url strictly
   - a page component must end with -page
+	- component that are used uniquely within the page will be put at the page level under the `components` folder
   - an optional shared folder for components shared between pages but not outside this module
+	- at the module level there is a distiction between pages and components.
 
 examples:
 

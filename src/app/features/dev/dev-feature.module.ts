@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { WorkflowMngmtCommonModule } from '~common/workflow/workflow-mngmt.module';
 import { SharedModule } from '~shared/shared.module';
 
 import * as Pages from './pages';
@@ -17,7 +16,6 @@ import { routes } from './routes';
 	imports: [
 		RouterModule.forChild(routes),
 		SharedModule,
-		WorkflowMngmtCommonModule,
 		TablesCommonModule,
 		CommonModalsModule,
 		BoardsCommonModule,

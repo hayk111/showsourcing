@@ -70,7 +70,7 @@ export const routes: Array<Route> = [
 			},
 			{
 				path: 'settings',
-				loadChildren: 'app/features/settings/settings.module#SettingsModule'
+				loadChildren: 'app/features/settings/settings-feature.module#SettingsFeatureModule'
 			},
 			{
 				path: 'tasks',
