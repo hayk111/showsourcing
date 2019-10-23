@@ -1,1 +1,0 @@
-export * from './supplier-header-details.component';

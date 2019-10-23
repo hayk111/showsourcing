@@ -1,2 +1,2 @@
 export * from './supplier-details';
-export * from './suppliers-page';
+export * from './suppliers';

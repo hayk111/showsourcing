@@ -13,12 +13,12 @@ import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub, ID } from '~utils';
 
 @Component({
-	selector: 'request-details-app',
-	templateUrl: './request-details.component.html',
-	styleUrls: ['./request-details.component.scss'],
+	selector: 'request-details-page-app',
+	templateUrl: './request-details-page.component.html',
+	styleUrls: ['./request-details-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RequestDetailsComponent extends AutoUnsub implements OnInit {
+export class RequestDetailsPageComponent extends AutoUnsub implements OnInit {
 
 	private requestElements: RequestElement[];
 	request: SupplierRequest;

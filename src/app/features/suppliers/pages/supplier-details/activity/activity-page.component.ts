@@ -2,20 +2,19 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
-import { SupplierFeatureService } from '~features/supplier/services/supplier-feature.service';
+import { CommentService, SupplierService } from '~core/entity-services';
+import { SupplierFeatureService } from '../../../services/supplier-feature.service';
 import { Comment, ERM, Product, Supplier } from '~models';
 import { Contact } from '~models/contact.model';
-import { DialogService } from '~shared/dialog/services';
 import { AutoUnsub } from '~utils';
-import { CommentService, SupplierService } from '~core/entity-services';
 
 @Component({
-	selector: 'supplier-activity-app',
-	templateUrl: './supplier-activity.component.html',
-	styleUrls: ['./supplier-activity.component.scss'],
+	selector: 'activity-page-app',
+	templateUrl: './activity-page.component.html',
+	styleUrls: ['./activity-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SupplierActivityComponent extends AutoUnsub implements OnInit {
+export class ActivityPageComponent extends AutoUnsub implements OnInit {
 
 	supplier: Supplier;
 	supplier$: Observable<Supplier>;

@@ -13,12 +13,12 @@ import { ControllerListService } from '~shared/header-list/services/controller-l
 import { SelectParams } from '~core/entity-services/_global/select-params';
 
 @Component({
-	selector: 'supplier-products-page-app',
-	templateUrl: './supplier-products-page.component.html',
-	styleUrls: ['./supplier-products-page.component.scss'],
+	selector: 'products-page-app',
+	templateUrl: './products-page.component.html',
+	styleUrls: ['./products-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SupplierProductsPageComponent extends AutoUnsub implements OnInit {
+export class ProductsPageComponent extends AutoUnsub implements OnInit {
 
 	supplierId: ID;
 	private supplier: Supplier;

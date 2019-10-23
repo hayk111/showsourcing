@@ -1,12 +1,12 @@
 import { Route } from '@angular/router';
 import {
-	SupplierDetailsComponent,
-	SupplierProductsPageComponent,
+	SupplierDetailsPageComponent,
+	ProductsPageComponent,
 	SuppliersPageComponent,
-	SupplierActivityComponent,
+	ActivityPageComponent,
 	SupplierTasksComponent,
 	SupplierSamplesComponent,
-	SupplierFilesComponent
+	FilesPageComponent
 } from './pages';
 
 export const routes: Array<Route> = [
@@ -16,13 +16,13 @@ export const routes: Array<Route> = [
 	},
 	{
 		path: ':id',
-		component: SupplierDetailsComponent,
+		component: SupplierDetailsPageComponent,
 		children: [
-			{ path: 'activity', component: SupplierActivityComponent },
-			{ path: 'products', component: SupplierProductsPageComponent },
+			{ path: 'activity', component: ActivityPageComponent },
+			{ path: 'products', component: ProductsPageComponent },
 			{ path: 'samples', component: SupplierSamplesComponent },
 			{ path: 'tasks', component: SupplierTasksComponent },
-			{ path: 'files', component: SupplierFilesComponent },
+			{ path: 'files', component: FilesPageComponent },
 			{ path: '', redirectTo: 'activity', pathMatch: 'full' }
 		]
 	}

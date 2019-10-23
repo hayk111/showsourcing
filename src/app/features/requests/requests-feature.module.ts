@@ -5,8 +5,10 @@ import { TablesCommonModule } from '~common/tables/tables-common.module';
 import { routes } from '~features/requests/routes';
 import { SharedModule } from '~shared/shared.module';
 
-import { RequestHeaderDetailsComponent, RequestInformationComponent } from './components';
-import { RequestDetailsComponent, RequestPageComponent } from './containers';
+import * as DetailsPage from './pages/request-details';
+import * as TablePage from './pages/requests';
+
+
 
 @NgModule({
 	imports: [
@@ -16,10 +18,10 @@ import { RequestDetailsComponent, RequestPageComponent } from './containers';
 		SortingMenusCommonModule
 	],
 	declarations: [
-		RequestDetailsComponent,
-		RequestInformationComponent,
-		RequestPageComponent,
-		RequestHeaderDetailsComponent,
+		DetailsPage.RequestDetailsPageComponent,
+		DetailsPage.RequestHeaderDetailsComponent,
+		DetailsPage.RequestInformationComponent,
+		TablePage.RequestsPageComponent,
 	],
 	entryComponents: [],
 	exports: [],

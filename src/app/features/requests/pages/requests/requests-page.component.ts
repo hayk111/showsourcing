@@ -11,12 +11,12 @@ import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
 
 @Component({
-	selector: 'request-page-app',
-	templateUrl: './request-page.component.html',
-	styleUrls: ['./request-page.component.scss'],
+	selector: 'requests-page-app',
+	templateUrl: './requests-page.component.html',
+	styleUrls: ['./requests-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RequestPageComponent extends AutoUnsub implements OnInit {
+export class RequestsPageComponent extends AutoUnsub implements OnInit {
 
 	erm = ERM;
 	entityTypeEnum = EntityTypeEnum;

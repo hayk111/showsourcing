@@ -19,11 +19,11 @@ import { SupplierRequestDialogComponent } from '~common/modals/custom/supplier-r
 // Waiter: “Sorry, sir, but I’m pretty sure she wants to eat it herself.”
 
 @Component({
-	selector: 'supplier-details-app',
-	templateUrl: './supplier-details.component.html',
-	styleUrls: ['./supplier-details.component.scss']
+	selector: 'supplier-details-page-app',
+	templateUrl: './supplier-details-page.component.html',
+	styleUrls: ['./supplier-details-page.component.scss']
 })
-export class SupplierDetailsComponent extends AutoUnsub implements OnInit {
+export class SupplierDetailsPageComponent extends AutoUnsub implements OnInit {
 
 	supplier$: Observable<Supplier>;
 

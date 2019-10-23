@@ -5,20 +5,20 @@ import { AbstractTaskCommonComponent } from '~common/abstracts/abstract-task-com
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { ListPageService } from '~core/list-page';
 import { TaskService, UserService } from '~entity-services';
-import { SupplierFeatureService } from '~features/supplier/services';
+import { SupplierFeatureService } from '../../../services';
 import { ERM, Supplier, Task } from '~models';
 import { DialogService } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
 
 @Component({
-	selector: 'supplier-tasks-app',
-	templateUrl: './supplier-tasks.component.html',
-	styleUrls: ['./supplier-tasks.component.scss'],
+	selector: 'tasks-page-app',
+	templateUrl: './tasks-page.component.html',
+	styleUrls: ['./tasks-page.component.scss'],
 	providers: [
 		ListPageService
 	]
 })
-export class SupplierTasksComponent extends AbstractTaskCommonComponent implements OnInit {
+export class TasksPageComponent extends AbstractTaskCommonComponent implements OnInit {
 
 	supplier: Supplier;
 	erm = ERM;

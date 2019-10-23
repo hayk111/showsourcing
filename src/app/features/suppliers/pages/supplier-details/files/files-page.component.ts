@@ -8,11 +8,11 @@ import { DialogService } from '~shared/dialog';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 
 @Component({
-	selector: 'supplier-files-app',
-	templateUrl: './supplier-files.component.html',
-	styleUrls: ['./supplier-files.component.scss'],
+	selector: 'files-page-app',
+	templateUrl: './files-page.component.html',
+	styleUrls: ['./files-page.component.scss'],
 })
-export class SupplierFilesComponent extends AutoUnsub implements OnInit {
+export class FilesPageComponent extends AutoUnsub implements OnInit {
 
 	supplier: Supplier;
 	erm = ERM;

@@ -23,7 +23,7 @@ import { FilterType } from '~shared/filters';
 	]
 })
 
-export class SupplierSamplesComponent extends AbstractSampleCommonComponent implements OnInit {
+export class SamplesPageComponent extends AbstractSampleCommonComponent implements OnInit {
 	private supplierId: string;
 	supplier: Supplier;
 	erm = ERM;

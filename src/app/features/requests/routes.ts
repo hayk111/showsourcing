@@ -1,6 +1,8 @@
 import { Routes } from '@angular/router';
 
-import { RequestDetailsComponent, RequestPageComponent } from './containers';
+
+import { RequestDetailsComponent, RequestPageComponent } from './pages';
+
 
 export const routes: Routes = [
 	{

@@ -10,11 +10,11 @@ import { RatingModule } from '~shared/rating';
 import { SharedModule } from '~shared/shared.module';
 
 import {
-	SupplierActivityComponent,
-	SupplierDetailsComponent,
-	SupplierFilesComponent,
+	ActivityPageComponent,
+	SupplierDetailsPageComponent,
+	FilesPageComponent,
 	SupplierHeaderDetailsComponent,
-	SupplierProductsPageComponent,
+	ProductsPageComponent,
 	SupplierSamplesComponent,
 	SuppliersPageComponent,
 	SupplierTasksComponent,
@@ -35,13 +35,13 @@ import { BoardsCommonModule } from '~common/boards/boards-common.module';
 		BoardsCommonModule
 	],
 	declarations: [
-		SupplierActivityComponent,
-		SupplierDetailsComponent,
-		SupplierProductsPageComponent,
+		ActivityPageComponent,
+		SupplierDetailsPageComponent,
+		ProductsPageComponent,
 		SupplierSamplesComponent,
 		SupplierTasksComponent,
 		SuppliersPageComponent,
-		SupplierFilesComponent,
+		FilesPageComponent,
 		SupplierHeaderDetailsComponent
 	],
 	entryComponents: [],
