@@ -18,16 +18,16 @@ import { KanbanService } from '~shared/kanban/services/kanban.service';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 
 @Component({
-	selector: 'project-workflow-app',
-	templateUrl: './project-workflow.component.html',
-	styleUrls: ['./project-workflow.component.scss'],
+	selector: 'workflow-page-app',
+	templateUrl: './workflow-page.component.html',
+	styleUrls: ['./workflow-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
 		ListPageService,
 		KanbanService
 	]
 })
-export class ProjectWorkflowComponent extends AutoUnsub implements OnInit {
+export class WorkflowPageComponent extends AutoUnsub implements OnInit {
 	project$: Observable<Project>;
 	columns$ = this.kanbanSrv.columns$;
 	project: Project;

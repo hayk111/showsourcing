@@ -1,20 +1,19 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Project, ERM } from '~core/models';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { Observable } from 'rxjs';
+import { ProjectService } from '~core/entity-services';
+import { ERM, Project } from '~core/models';
 import { ProjectFeatureService } from '~features/projects/services';
 import { AutoUnsub } from '~utils';
-import { map, tap, switchMap, take, filter } from 'rxjs/operators';
-import { ProjectService } from '~core/entity-services';
 
 @Component({
-	selector: 'project-details-app',
-	templateUrl: './project-details.component.html',
-	styleUrls: ['./project-details.component.scss'],
+	selector: 'project-details-page-app',
+	templateUrl: './project-details-page.component.html',
+	styleUrls: ['./project-details-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProjectDetailsComponent extends AutoUnsub implements OnInit {
+export class ProjectDetailsPageComponent extends AutoUnsub implements OnInit {
 
 	project$: Observable<Project>;
 	project: Project;
@@ -25,8 +24,6 @@ export class ProjectDetailsComponent extends AutoUnsub implements OnInit {
 		private route: ActivatedRoute,
 		public router: Router,
 		private featureSrv: ProjectFeatureService,
-		private projectSrv: ProjectService,
-		private translate: TranslateService,
 	) {
 		super();
 	}

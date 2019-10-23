@@ -10,17 +10,8 @@ import { TablesCommonModule } from '~common/tables/tables-common.module';
 import { routes } from '~features/projects/routes';
 import { SharedModule } from '~shared/shared.module';
 
-import { ProjectNavComponent } from './components';
-import {
-	ProjectDetailsComponent,
-	ProjectProductsComponent,
-	ProjectSettingsComponent,
-	ProjectsPageComponent,
-	ProjectWorkflowComponent,
-} from './containers/project-details';
-import {
-	ProjectHeaderDetailsComponent,
-} from './containers/project-details/project-header-details/project-header-details.component';
+import * as DetailsPage from './pages/project-details';
+import * as TablePage from './pages/projects';
 import { SortingMenusCommonModule } from '~common/sorting-menus/sorting-menus-common.module';
 
 @NgModule({
@@ -37,15 +28,14 @@ import { SortingMenusCommonModule } from '~common/sorting-menus/sorting-menus-co
 		SortingMenusCommonModule
 	],
 	declarations: [
-		ProjectDetailsComponent,
-		ProjectNavComponent,
-		ProjectProductsComponent,
-		ProjectSettingsComponent,
-		ProjectWorkflowComponent,
-		ProjectsPageComponent,
-		ProjectHeaderDetailsComponent,
+		DetailsPage.ProjectDetailsPageComponent,
+		DetailsPage.ProductsPageComponent,
+		DetailsPage.ProjectHeaderDetailsComponent,
+		DetailsPage.SettingsPageComponent,
+		DetailsPage.WorkflowPageComponent,
+		TablePage.ProjectsPageComponent
 	],
-	exports: [RouterModule, ProjectsPageComponent],
+	exports: [],
 	providers: []
 })
 export class ProjectsFeatureModule { }

@@ -18,15 +18,15 @@ import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub } from '~utils';
 
 @Component({
-	selector: 'project-products-app',
-	styleUrls: ['project-products.component.scss'],
-	templateUrl: './project-products.component.html',
+	selector: 'products-page-app',
+	styleUrls: ['products-page.component.scss'],
+	templateUrl: './products-page.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
 		ListPageService, ProductFeatureService
 	]
 })
-export class ProjectProductsComponent extends AutoUnsub implements OnInit, AfterViewInit {
+export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterViewInit {
 
 	@Output() delete = new EventEmitter<Project>();
 	@Output() archive = new EventEmitter<Project>();

@@ -1,22 +1,18 @@
 import { Route } from '@angular/router';
 
-import {
-	ProjectDetailsComponent,
-	ProjectProductsComponent,
-	ProjectSettingsComponent,
-	ProjectsPageComponent,
-	ProjectWorkflowComponent,
-} from './containers/project-details';
+import * as DetailsPage from './pages/project-details';
+import * as TablePage from './pages/projects';
+
 
 export const routes: Array<Route> = [
-	{ path: '', component: ProjectsPageComponent },
+	{ path: '', component: TablePage.ProjectsPageComponent },
 	{
 		path: ':id',
-		component: ProjectDetailsComponent,
+		component: DetailsPage.ProjectDetailsPageComponent,
 		children: [
-			{ path: 'products', component: ProjectProductsComponent },
-			{ path: 'settings', component: ProjectSettingsComponent },
-			{ path: 'workflow', component: ProjectWorkflowComponent },
+			{ path: 'products', component: DetailsPage.ProductsPageComponent },
+			{ path: 'settings', component: DetailsPage.SettingsPageComponent },
+			{ path: 'workflow', component: DetailsPage.WorkflowPageComponent },
 			{ path: '', redirectTo: 'products', pathMatch: 'full' }
 		],
 	}

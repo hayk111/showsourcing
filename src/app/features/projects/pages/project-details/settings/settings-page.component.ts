@@ -10,12 +10,12 @@ import { AutoUnsub } from '~utils';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-	selector: 'project-settings-app',
-	templateUrl: './project-settings.component.html',
-	styleUrls: ['./project-settings.component.scss'],
+	selector: 'settings-page-app',
+	templateUrl: './settings-page.component.html',
+	styleUrls: ['./settings-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProjectSettingsComponent extends AutoUnsub implements OnInit {
+export class SettingsPageComponent extends AutoUnsub implements OnInit {
 
 	@Output() delete = new EventEmitter<Project>();
 	@Output() archive = new EventEmitter<Project>();
