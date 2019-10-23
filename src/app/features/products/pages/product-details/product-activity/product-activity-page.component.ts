@@ -9,22 +9,22 @@ import { ProductFeatureService } from '~features/products/services';
 import { Comment, ERM, Product } from '~models';
 import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
-import { Counts } from './product-activity-nav/product-activity-nav.component';
+import { Counts } from './components/product-activity-nav/product-activity-nav.component';
 import { DialogService, CloseEventType, CloseEvent } from '~shared/dialog';
 import { CreationSampleDlgComponent, CreationTaskDlgComponent } from '~common/modals';
 import { SupplierRequestDialogComponent } from '~common/modals/custom/supplier-request-dialog/supplier-request-dialog.component';
 
 
 @Component({
-	selector: 'product-activity-app',
-	templateUrl: './product-activity.component.html',
-	styleUrls: ['./product-activity.component.scss'],
+	selector: 'product-activity-page-app',
+	templateUrl: './product-activity-page.component.html',
+	styleUrls: ['./product-activity-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
 		ListPageService
 	]
 })
-export class ProductActivityComponent extends AutoUnsub implements OnInit {
+export class ProductActivityPageComponent extends AutoUnsub implements OnInit {
 	selectedTab = 'comment';
 	product$: Observable<Product>;
 	counts$: Observable<Counts>;

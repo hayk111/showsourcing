@@ -172,8 +172,10 @@ Folder containing modules organized by functionality, these modules hold common 
 
 ## Feature
 
-There is two ways to organize a feature folder and that depends on wether or not a feature folder
-is a detail/list type or not.
+There is two ways to organize a feature folder and that depends on wether or not a feature folder is a detail/list type or not. 
+
+
+Case 1: Not a list / detail type
 
 Features are organized this way:
 
@@ -229,6 +231,24 @@ examples:
   - http://localhost:4200/auth/user/pick-a-team
 
 
+## Case 2: List / detail feature
+
+routing is like this:
+
+  - /products
+	- /products/:id
+
+in that case the folder structure is like this
+
+```
+features
+  products
+	  pages
+		  products
+			  products-page.component
+			product-detail
+			  product-detail-page.component
+```
 
 # Style Structure
 The theming is done in ./src/app/theming and should be straight forward. `styles.scss` is the entry point and imports everything it needs. Inside this file we import some core styling files:

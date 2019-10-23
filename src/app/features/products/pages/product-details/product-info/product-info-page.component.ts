@@ -2,22 +2,22 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap, takeUntil, tap } from 'rxjs/operators';
+import { SupplierRequestDialogComponent } from '~common/modals/custom/supplier-request-dialog/supplier-request-dialog.component';
 import { ProductDescriptor } from '~core/descriptors';
 import { ProductService } from '~core/entity-services';
 import { Product } from '~core/models';
-import { AutoUnsub } from '~utils';
+import { DialogService } from '~shared/dialog';
 import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
-import { SupplierRequestDialogComponent } from '~common/modals/custom/supplier-request-dialog/supplier-request-dialog.component';
-import { CloseEventType, DialogService } from '~shared/dialog';
+import { AutoUnsub } from '~utils';
 
 
 @Component({
-	selector: 'product-info-app',
-	templateUrl: './product-info.component.html',
-	styleUrls: ['./product-info.component.scss'],
+	selector: 'product-info-page-app',
+	templateUrl: './product-info-page.component.html',
+	styleUrls: ['./product-info-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductInfoComponent extends AutoUnsub implements OnInit {
+export class ProductInfoPageComponent extends AutoUnsub implements OnInit {
 
 	product$: Observable<Product>;
 	product: Product;

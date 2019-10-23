@@ -12,17 +12,9 @@ import { routes } from '~features/products/routes';
 import { NavBarModule } from '~shared/navbar';
 import { SharedModule } from '~shared/shared.module';
 
-import {
-	ProductActivityComponent,
-	ProductActivityNavComponent,
-	ProductDetailsPageComponent,
-	ProductFilesComponent,
-	ProductHeaderDetailsComponent,
-	ProductInfoComponent,
-	ProductSamplesComponent,
-	ProductsPageComponent,
-	ProductTasksComponent,
-} from './pages';
+import * as DetailsPage from './pages/product-details';
+import * as TablePage from './pages/products';
+
 import { ProductFeatureService, QuoteFeatureService } from './services';
 
 
@@ -42,15 +34,15 @@ import { ProductFeatureService, QuoteFeatureService } from './services';
 		SortingMenusCommonModule
 	],
 	declarations: [
-		ProductActivityComponent,
-		ProductDetailsPageComponent,
-		ProductSamplesComponent,
-		ProductInfoComponent,
-		ProductFilesComponent,
-		ProductTasksComponent,
-		ProductHeaderDetailsComponent,
-		ProductsPageComponent,
-		ProductActivityNavComponent,
+		DetailsPage.ProductDetailsPageComponent,
+		DetailsPage.ProductActivityPageComponent,
+		DetailsPage.ProductActivityNavComponent,
+		DetailsPage.ProductSamplesPageComponent,
+		DetailsPage.ProductInfoPageComponent,
+		DetailsPage.ProductFilesPageComponent,
+		DetailsPage.ProductTasksPageComponent,
+		DetailsPage.ProductHeaderDetailsComponent,
+		TablePage.ProductsPageComponent,
 	],
 	entryComponents: [],
 	exports: [],

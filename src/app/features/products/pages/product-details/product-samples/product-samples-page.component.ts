@@ -11,15 +11,15 @@ import { DialogService } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
 
 @Component({
-	selector: 'product-samples-app',
-	templateUrl: './product-samples.component.html',
-	styleUrls: ['./product-samples.component.scss'],
+	selector: 'product-samples-page-app',
+	templateUrl: './product-samples-page.component.html',
+	styleUrls: ['./product-samples-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
 		ListPageService
 	]
 })
-export class ProductSamplesComponent extends AbstractSampleCommonComponent implements OnInit {
+export class ProductSamplesPageComponent extends AbstractSampleCommonComponent implements OnInit {
 	private productId: string;
 	product: Product;
 	constructor(
