@@ -9,8 +9,8 @@ import {
 
 
 import {
-	SettingsComponent,
-} from './containers';
+	SettingsPageComponent,
+} from './pages/settings-page.component';
 
 import * as CompanyPages from './pages/company';
 import * as ProfilePages from './pages/profile';
@@ -23,7 +23,7 @@ import * as WorkflowPages from './pages/workflow';
 export const routes: Routes = [
 	{
 		path: '',
-		component: SettingsComponent,
+		component: SettingsPageComponent,
 		children: [
 			{ path: '', redirectTo: 'profile', pathMatch: 'full' },
 			{ path: 'profile', component: ProfilePages.ProfilePageComponent },
@@ -36,18 +36,18 @@ export const routes: Routes = [
 				]
 			},
 			{
+				path: 'team', component: TeamPages.TeamPageComponent, children: [
+					{ path: '', redirectTo: 'members', pathMatch: 'full' },
+					{ path: 'members', component:  TeamPages.MembersPageComponent },
+					{ path: 'info', component:  TeamPages.InfoPageComponent }
+				]
+			},
+			{
 				path: 'workflow', component: WorkflowPages.WorkflowPageComponent, children: [
 					{ path: '', redirectTo: 'product', pathMatch: 'full' },
 					{ path: 'product-status', component: WorkflowPages.ProductStatusPageComponent },
 					{ path: 'supplier-status', component: WorkflowPages.SupplierStatusPageComponent },
 					{ path: 'sample-status', component: WorkflowPages.SampleStatusPageComponent }
-				]
-			},
-			{
-				path: 'team', component: TeamPages.TeamPageComponent, children: [
-					{ path: '', redirectTo: 'members', pathMatch: 'full' },
-					{ path: 'members', component:  TeamPages.MembersPageComponent },
-					{ path: 'info', component:  TeamPages.InfoPageComponent }
 				]
 			},
 			{

@@ -4,11 +4,11 @@ import { ERM } from '~models';
 import { CompanyService, TeamService } from '~core/entity-services';
 
 @Component({
-	selector: 'settings-app',
-	templateUrl: './settings.component.html',
-	styleUrls: ['./settings.component.scss']
+	selector: 'settings-page-app',
+	templateUrl: './settings-page.component.html',
+	styleUrls: ['./settings-page.component.scss']
 })
-export class SettingsComponent {
+export class SettingsPageComponent {
 
 	erm = ERM;
 	teamName: string;

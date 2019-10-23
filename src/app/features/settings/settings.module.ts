@@ -2,32 +2,23 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { WorkflowMngmtCommonModule } from '~common/workflow/workflow-mngmt.module';
 import { DataManagementModule } from '~features/data-management/data-management.module';
-
+import { routes } from '~features/settings/routes';
+import { SharedModule } from '~shared/shared.module';
 import {
 	CompanyProfileCardComponent,
 	ExportTableComponent,
-	ProductStatusWorkflowComponent,
 	ProfileCardComponent,
-	SampleStatusWorkflowComponent,
-	SupplierStatusWorkflowComponent,
 	CompanyCardComponent,
 } from '~features/settings/components';
 import {
-	SettingsComponent,
-	MembersPageComponent,
-	ExportsPageComponent,
-	SettingsFieldsPageComponent,
-	SettingsTeamMembersInvitationsComponent,
-	SettingsTeamMembersUsersComponent,
-	SettingsWorkflowsPageComponent,
-} from '~features/settings/containers';
-import { routes } from '~features/settings/routes';
-import { SharedModule } from '~shared/shared.module';
+	SettingsPageComponent,
+} from './pages/settings-page.component';
+
 import * as CompanyPages from './pages/company';
 import * as ProfilePages from './pages/profile';
 import * as TeamPages from './pages/team';
 import * as ExportsPages from './pages/exports';
-
+import * as WorkflowPages from './pages/workflow';
 
 @NgModule({
 	imports: [
@@ -39,16 +30,9 @@ import * as ExportsPages from './pages/exports';
 	declarations: [
 		CompanyProfileCardComponent,
 		ExportTableComponent,
-		ProductStatusWorkflowComponent,
 		ProfileCardComponent,
-		SampleStatusWorkflowComponent,
-		SettingsComponent,
-		MembersPageComponent,
-		ExportsPageComponent,
-		SettingsFieldsPageComponent,
-		SettingsWorkflowsPageComponent,
 		CompanyCardComponent,
-		SupplierStatusWorkflowComponent,
+		SettingsPageComponent,
 		// profile
 		ProfilePages.ProfilePageComponent,
 		// company
@@ -69,6 +53,12 @@ import * as ExportsPages from './pages/exports';
 		// exports
 		ExportsPages.ExportsPageComponent,
 		// data
+		// workflow
+		WorkflowPages.WorkflowPageComponent,
+		WorkflowPages.ProductStatusPageComponent,
+		WorkflowPages.SampleStatusPageComponent,
+		WorkflowPages.SupplierStatusPageComponent
+
 	],
 	entryComponents: [],
 	exports: [],
