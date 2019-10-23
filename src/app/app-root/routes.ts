@@ -49,15 +49,15 @@ export const routes: Array<Route> = [
 				loadChildren: 'app/features/dashboard/dashboard-feature.module#DashboardFeatureModule'
 			},
 			{
-				path: 'project',
+				path: 'projects',
 				loadChildren: 'app/features/project/project.module#ProjectModule'
 			},
 			{
-				path: 'product',
+				path: 'products',
 				loadChildren: 'app/features/products/product.module#ProductModule'
 			},
 			{
-				path: 'request',
+				path: 'requests',
 				loadChildren: 'app/features/requests/request.module#RequestModule'
 			},
 			{
@@ -65,7 +65,7 @@ export const routes: Array<Route> = [
 				loadChildren: 'app/features/samples/sample-feature.module#SampleFeatureModule'
 			},
 			{
-				path: 'supplier',
+				path: 'suppliers',
 				loadChildren: 'app/features/supplier/supplier.module#SuppliersModule'
 			},
 			{

@@ -105,7 +105,7 @@ export class EntityMetadata {
 		this.singular = singular;
 		this.plural = plural;
 		this.translationKey = translationKey;
-		this.url = url || singular;
+		this.url = url || plural;
 		this.destUrl = destUrl || this.url;
 		this.constClass = constClass;
 	}
