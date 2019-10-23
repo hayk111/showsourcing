@@ -4,15 +4,8 @@ import { WorkflowMngmtCommonModule } from '~common/workflow/workflow-mngmt.modul
 import { DataManagementModule } from '~features/data-management/data-management.module';
 import { routes } from '~features/settings/routes';
 import { SharedModule } from '~shared/shared.module';
-import {
-	CompanyProfileCardComponent,
-	ExportTableComponent,
-	ProfileCardComponent,
-	CompanyCardComponent,
-} from '~features/settings/components';
-import {
-	SettingsPageComponent,
-} from './pages/settings-page.component';
+
+import { SettingsPageComponent } from './pages/settings-page.component';
 
 import * as CompanyPages from './pages/company';
 import * as ProfilePages from './pages/profile';
@@ -28,18 +21,16 @@ import * as WorkflowPages from './pages/workflow';
 		WorkflowMngmtCommonModule
 	],
 	declarations: [
-		CompanyProfileCardComponent,
-		ExportTableComponent,
-		ProfileCardComponent,
-		CompanyCardComponent,
 		SettingsPageComponent,
 		// profile
 		ProfilePages.ProfilePageComponent,
+		ProfilePages.ProfileCardComponent,
 		// company
 		CompanyPages.CompanyPageComponent,
 		CompanyPages.InfoPageComponent,
 		CompanyPages.UsersPageComponent,
 		CompanyPages.TeamsPageComponent,
+		CompanyPages.CompanyCardComponent,
 		// team
 		TeamPages.TeamPageComponent,
 		TeamPages.InfoPageComponent,
@@ -52,6 +43,7 @@ import * as WorkflowPages from './pages/workflow';
 		TeamPages.TeamMembersTableComponent,
 		// exports
 		ExportsPages.ExportsPageComponent,
+		ExportsPages.ExportTableComponent,
 		// data
 		// workflow
 		WorkflowPages.WorkflowPageComponent,

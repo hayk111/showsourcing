@@ -2,27 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '~shared/shared.module';
 
-import {
-	AccountCreatedPageComponent,
-	ForgotPasswordPageComponent,
-	LoginPageComponent,
-	PasswordResettedPageComponent,
-	RegisterPageComponent,
-	ResetPasswordPageComponent,
-	UnvalidatedEmailPageComponent,
-	ValidateEmailPageComponent,
-	PickATeamPageComponent,
-	CreateATeamPageComponent,
-	CreateACompanyPageComponent
-} from './pages';
+import * as Pages from './pages';
 import { routes } from './routes';
-import {
-	AuthFormHeaderComponent,
-	AuthFormBaseComponent,
-	AuthHeaderSubtitleComponent,
-	AuthHeaderTitleComponent,
-	AuthHeaderContentComponent
-} from './shared';
+import * as SharedComponents from './shared';
 
 @NgModule({
 	imports: [
@@ -30,22 +12,22 @@ import {
 		RouterModule.forChild(routes)
 	],
 	declarations: [
-		AccountCreatedPageComponent,
-		ForgotPasswordPageComponent,
-		LoginPageComponent,
-		PasswordResettedPageComponent,
-		RegisterPageComponent,
-		ResetPasswordPageComponent,
-		UnvalidatedEmailPageComponent,
-		ValidateEmailPageComponent,
-		PickATeamPageComponent,
-		CreateATeamPageComponent,
-		CreateACompanyPageComponent,
-		AuthFormHeaderComponent,
-		AuthFormBaseComponent,
-		AuthHeaderContentComponent,
-		AuthHeaderSubtitleComponent,
-		AuthHeaderTitleComponent
+		Pages.AccountCreatedPageComponent,
+		Pages.ForgotPasswordPageComponent,
+		Pages.LoginPageComponent,
+		Pages.PasswordResettedPageComponent,
+		Pages.RegisterPageComponent,
+		Pages.ResetPasswordPageComponent,
+		Pages.UnvalidatedEmailPageComponent,
+		Pages.ValidateEmailPageComponent,
+		Pages.PickATeamPageComponent,
+		Pages.CreateATeamPageComponent,
+		Pages.CreateACompanyPageComponent,
+		SharedComponents.AuthFormHeaderComponent,
+		SharedComponents.AuthFormBaseComponent,
+		SharedComponents.AuthHeaderContentComponent,
+		SharedComponents.AuthHeaderSubtitleComponent,
+		SharedComponents.AuthHeaderTitleComponent
 	],
 	exports: []
 })

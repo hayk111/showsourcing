@@ -1,51 +1,35 @@
 import { Route } from '@angular/router';
-import {
-	PlaygroundPageComponent,
-	ComponentLibraryComponent,
-	GuidelinesComponent,
-	ButtonPageComponent,
-	LoaderPageComponent,
-	IconPageComponent,
-	CardPageComponent,
-	BadgePageComponent,
-	PipesPageComponent,
-	TablePageComponent,
-	AccordionPageComponent,
-	RatingPageComponent,
-	CommonListPageComponent
-} from './pages';
-
-
+import * as Pages from './pages';
 
 
 export const routes: Array<Route> = [
 	{
 		path: 'playground',
-		component: PlaygroundPageComponent
+		component: Pages.PlaygroundPageComponent
 
 	},
 	{
 		path: 'component-library',
-		component: ComponentLibraryComponent,
+		component: Pages.ComponentLibraryComponent,
 		children: [
 			{ path: '', redirectTo: 'guidelines', pathMatch: 'full' },
-			{ path: 'guidelines', component: GuidelinesComponent },
-			{ path: 'button', component: ButtonPageComponent },
-			{ path: 'loader', component: LoaderPageComponent },
-			{ path: 'icon', component: IconPageComponent },
-			{ path: 'card', component: CardPageComponent },
-			{ path: 'badge', component: BadgePageComponent },
-			{ path: 'pipes', component: PipesPageComponent },
-			{ path: 'table', component: TablePageComponent },
-			{ path: 'accordion', component: AccordionPageComponent },
-			{ path: 'rating-star', component: RatingPageComponent },
-			{ path: 'common-list', component: CommonListPageComponent },
-			// { path: 'sample-card', component: SampleCardTestComponent },
-			// { path: 'preview', component: PreviewPageComponent },
-			// { path: 'product-card', component: ProductCardLibraryPageComponent },
-			// { path: 'selector', component: SelectorLibraryComponent },
-			// { path: 'kanban', component: KanbanLibraryPageComponent },
-			// { path: 'workflow-table', component: WorkflowMngmntTableLibComponent },
+			{ path: 'guidelines', component: Pages.GuidelinesComponent },
+			{ path: 'button', component: Pages.ButtonPageComponent },
+			{ path: 'loader', component: Pages.LoaderPageComponent },
+			{ path: 'icon', component: Pages.IconPageComponent },
+			{ path: 'card', component: Pages.CardPageComponent },
+			{ path: 'badge', component: Pages.BadgePageComponent },
+			{ path: 'pipes', component: Pages.PipesPageComponent },
+			{ path: 'table', component: Pages.TablePageComponent },
+			{ path: 'accordion', component: Pages.AccordionPageComponent },
+			{ path: 'rating-star', component: Pages.RatingPageComponent },
+			{ path: 'common-list', component: Pages.CommonListPageComponent },
+			// { path: 'sample-card', component: Pages.SampleCardTestComponent },
+			// { path: 'preview', component: Pages.PreviewPageComponent },
+			// { path: 'product-card', component: Pages.ProductCardLibraryPageComponent },
+			// { path: 'selector', component: Pages.SelectorLibraryComponent },
+			// { path: 'kanban', component: Pages.KanbanLibraryPageComponent },
+			// { path: 'workflow-table', component: Pages.WorkflowMngmntTableLibComponent },
 		]
 	}
 ];

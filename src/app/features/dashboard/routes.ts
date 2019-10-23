@@ -1,5 +1,5 @@
 import { Route } from '@angular/router';
-import { DashboardPageComponent } from '~features/dashboard/pages/dashboard/dashboard-page.component';
+import { DashboardPageComponent } from './pages/dashboard';
 
 
 export const routes: Array<Route> = [

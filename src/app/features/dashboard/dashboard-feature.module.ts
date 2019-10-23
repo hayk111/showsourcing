@@ -9,22 +9,7 @@ import { TablesCommonModule } from '~common/tables/tables-common.module';
 import { routes } from '~features/dashboard/routes';
 import { DialogModule } from '~shared/dialog';
 import { SharedModule } from '~shared/shared.module';
-import {
-	DashboardPageComponent,
-	ActivityComponent,
-	ActivityEmptyComponent,
-	SummaryComponent,
-	TeamCardComponent,
-	DashboardHeaderComponent,
-	LineChartComponent,
-	TodoBoxComponent,
-	TodoNavComponent,
-	TodoBoxTaskPreviewComponent,
-	TodoBoxProductsPreviewComponent,
-	TodoBoxSamplePreviewComponent,
-	TodoBoxSupplierPreviewComponent,
-	TeamPerformanceComponent
-} from './pages/dashboard';
+import * as Pages from './pages/dashboard';
 
 @NgModule({
 	imports: [
@@ -37,20 +22,20 @@ import {
 		PreviewsCommonModule
 	],
 	declarations: [
-		DashboardPageComponent,
-		ActivityComponent,
-		ActivityEmptyComponent,
-		SummaryComponent,
-		TeamCardComponent,
-		DashboardHeaderComponent,
-		LineChartComponent,
-		TodoBoxComponent,
-		TodoNavComponent,
-		TodoBoxTaskPreviewComponent,
-		TodoBoxProductsPreviewComponent,
-		TodoBoxSamplePreviewComponent,
-		TodoBoxSupplierPreviewComponent,
-		TeamPerformanceComponent,
+		Pages.DashboardPageComponent,
+		Pages.ActivityComponent,
+		Pages.ActivityEmptyComponent,
+		Pages.SummaryComponent,
+		Pages.TeamCardComponent,
+		Pages.DashboardHeaderComponent,
+		Pages.LineChartComponent,
+		Pages.TodoBoxComponent,
+		Pages.TodoNavComponent,
+		Pages.TodoBoxTaskPreviewComponent,
+		Pages.TodoBoxProductsPreviewComponent,
+		Pages.TodoBoxSamplePreviewComponent,
+		Pages.TodoBoxSupplierPreviewComponent,
+		Pages.TeamPerformanceComponent,
 	],
 	providers: [
 		ProductDialogService

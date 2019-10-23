@@ -1,31 +1,19 @@
 import { Routes } from '@angular/router';
 
-import {
-	AccountCreatedPageComponent,
-	ForgotPasswordPageComponent,
-	LoginPageComponent,
-	PasswordResettedPageComponent,
-	RegisterPageComponent,
-	ResetPasswordPageComponent,
-	UnvalidatedEmailPageComponent,
-	ValidateEmailPageComponent,
-	CreateATeamPageComponent,
-	PickATeamPageComponent,
-	CreateACompanyPageComponent,
-} from './pages';
+import * as Pages from './pages';
 import { HasCompanyGuard, HasTeamGuard } from './services';
 import { AuthenticatedGuard } from '~core/auth';
 import { CentralClientReadyGuard } from '~core/apollo/guards/client-ready.guard.service';
 
 export const routes: Routes = [
-	{ path: 'account-created', component: AccountCreatedPageComponent },
-	{ path: 'forgot-password', component: ForgotPasswordPageComponent },
-	{ path: 'login', component: LoginPageComponent },
-	{ path: 'password-resetted', component: PasswordResettedPageComponent },
-	{ path: 'register', component: RegisterPageComponent },
-	{ path: 'reset-password/:token', component: ResetPasswordPageComponent },
-	{ path: 'unvalidated-email', component: UnvalidatedEmailPageComponent },
-	{ path: 'validate-email/:token', component: ValidateEmailPageComponent },
+	{ path: 'account-created', component: Pages.AccountCreatedPageComponent },
+	{ path: 'forgot-password', component: Pages.ForgotPasswordPageComponent },
+	{ path: 'login', component: Pages.LoginPageComponent },
+	{ path: 'password-resetted', component: Pages.PasswordResettedPageComponent },
+	{ path: 'register', component: Pages.RegisterPageComponent },
+	{ path: 'reset-password/:token', component: Pages.ResetPasswordPageComponent },
+	{ path: 'unvalidated-email', component: Pages.UnvalidatedEmailPageComponent },
+	{ path: 'validate-email/:token', component: Pages.ValidateEmailPageComponent },
 	{
 		path: 'user',
 		canActivateChild: [AuthenticatedGuard, CentralClientReadyGuard],
@@ -37,14 +25,14 @@ export const routes: Routes = [
 		},
 		{
 			path: 'create-a-team',
-			component: CreateATeamPageComponent,
+			component: Pages.CreateATeamPageComponent,
 			canActivate: [HasCompanyGuard],
 		},
 		{
 			path: 'pick-a-team',
-			component: PickATeamPageComponent,
+			component: Pages.PickATeamPageComponent,
 			canActivate: [HasTeamGuard],
 		},
-		{ path: 'create-a-company', component: CreateACompanyPageComponent }
+		{ path: 'create-a-company', component: Pages.CreateACompanyPageComponent }
 	]}
 ];
