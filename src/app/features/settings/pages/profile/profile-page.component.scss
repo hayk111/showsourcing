@@ -1,0 +1,32 @@
+:host {
+	display: block;
+}
+
+bread-crumb-app {
+	margin: var(--spacing-l);
+}
+
+.my-profile {
+	font-size: var(--font-size-xxxl);
+	color: var(--color-bg-dark);
+}
+
+.user-name {
+	.name, .user-email {
+		font-size: var(--font-size-m);
+		font-weight: normal;
+		color: var(--color-txt-secondary);
+	}
+}
+
+.card-style {
+	display: block;
+	margin: auto;
+	margin-top: var(--spacing-xxxl);
+	width: 520px;
+	position: relative;
+	border: 1px solid var(--legacy-color-secondary);
+	padding: var(--spacing-l);
+	background: white;
+	border-radius: var(--border-radius);
+}

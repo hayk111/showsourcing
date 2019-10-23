@@ -6,31 +6,27 @@ import { DataManagementModule } from '~features/data-management/data-management.
 import {
 	CompanyProfileCardComponent,
 	ExportTableComponent,
-	InvitationsTableComponent,
 	ProductStatusWorkflowComponent,
 	ProfileCardComponent,
-	TeamCardComponent,
 	SampleStatusWorkflowComponent,
-	SettingsProfileComponent,
-	SettingsTeamMembersComponent,
 	SupplierStatusWorkflowComponent,
-	TeamMembersTableComponent,
-	SettingsCompanyComponent,
 	CompanyCardComponent,
 } from '~features/settings/components';
 import {
 	SettingsComponent,
-	SettingsTeamMembersContentComponent,
-	SettingsCompanyPageComponent,
-	SettingsExportComponent,
+	MembersPageComponent,
+	ExportsPageComponent,
 	SettingsFieldsPageComponent,
 	SettingsTeamMembersInvitationsComponent,
-	SettingsTeamMembersPageComponent,
 	SettingsTeamMembersUsersComponent,
 	SettingsWorkflowsPageComponent,
 } from '~features/settings/containers';
 import { routes } from '~features/settings/routes';
 import { SharedModule } from '~shared/shared.module';
+import * as CompanyPages from './pages/company';
+import * as ProfilePages from './pages/profile';
+import * as TeamPages from './pages/team';
+import * as ExportsPages from './pages/exports';
 
 
 @NgModule({
@@ -43,26 +39,36 @@ import { SharedModule } from '~shared/shared.module';
 	declarations: [
 		CompanyProfileCardComponent,
 		ExportTableComponent,
-		SettingsCompanyComponent,
-		InvitationsTableComponent,
 		ProductStatusWorkflowComponent,
 		ProfileCardComponent,
-		TeamCardComponent,
 		SampleStatusWorkflowComponent,
 		SettingsComponent,
-		SettingsTeamMembersContentComponent,
-		SettingsExportComponent,
+		MembersPageComponent,
+		ExportsPageComponent,
 		SettingsFieldsPageComponent,
-		SettingsProfileComponent,
-		SettingsTeamMembersComponent,
-		SettingsTeamMembersInvitationsComponent,
-		SettingsTeamMembersPageComponent,
-		SettingsTeamMembersUsersComponent,
 		SettingsWorkflowsPageComponent,
 		CompanyCardComponent,
 		SupplierStatusWorkflowComponent,
-		SettingsCompanyPageComponent,
-		TeamMembersTableComponent,
+		// profile
+		ProfilePages.ProfilePageComponent,
+		// company
+		CompanyPages.CompanyPageComponent,
+		CompanyPages.InfoPageComponent,
+		CompanyPages.UsersPageComponent,
+		CompanyPages.TeamsPageComponent,
+		// team
+		TeamPages.TeamPageComponent,
+		TeamPages.InfoPageComponent,
+		TeamPages.MembersPageComponent,
+		TeamPages.TeamCardComponent,
+		TeamPages.SettingsTeamMembersInvitationsComponent,
+		TeamPages.SettingsTeamMembersUsersComponent,
+		// TODO: Hayk those 2 needs to be in the common/tables
+		TeamPages.InvitationsTableComponent,
+		TeamPages.TeamMembersTableComponent,
+		// exports
+		ExportsPages.ExportsPageComponent,
+		// data
 	],
 	entryComponents: [],
 	exports: [],

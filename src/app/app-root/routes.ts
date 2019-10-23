@@ -16,13 +16,13 @@ export const routes: Array<Route> = [
 	{
 		path: 'error',
 		component: GuestTemplateComponent,
-		loadChildren: 'app/features/error-pages/error-pages.module#ErrorPagesModule'
+		loadChildren: 'app/features/error/error-feature.module#ErrorFeatureModule'
 	},
 	{
 		path: 'invitation',
 		component: GuestTemplateComponent,
 		canActivateChild: [InvitationGuard],
-		loadChildren: 'app/features/invitation/invitation.module#InvitationModule',
+		loadChildren: 'app/features/invitation/invitation-feature.module#InvitationFeatureModule',
 	},
 	{
 		path: 'dev',
