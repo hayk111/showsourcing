@@ -1,50 +1,51 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
-import { CategoryService } from '~core/entity-services';
+import { SupplierService } from '~core/entity-services';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 import { ListPageService } from '~core/list-page';
-import { DataManagementService } from '~features/data-management/services/data-management.service';
-import { Category, ERM } from '~models';
+import { ERM, Supplier } from '~models';
 import { AutoUnsub } from '~utils';
 
 @Component({
-	selector: 'category-data-management-page-app',
-	templateUrl: './../data-management-page.component.html',
-	styleUrls: ['./category-data-management-page.component.scss', '../data-management-page.component.scss'],
+	selector: 'supplier-data-page-app',
+	templateUrl: '../shared/data-management-template.html',
+	styleUrls: ['./supplier-data-page.component.scss', '../shared/data-management-styles.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
 		ListPageService
 	]
 })
-export class CategoryDataManagementPageComponent extends AutoUnsub implements OnInit {
+export class SupplierDataPageComponent extends AutoUnsub implements OnInit {
 
-	erm = ERM.CATEGORY;
-
+	erm = ERM.SUPPLIER;
 	addButtonWidth = '111px';
 	addButtonHeight = '32px';
 
 	selectItemsConfig: SelectParamsConfig;
 
 	constructor(
-		private categorySrv: CategoryService,
-		public listSrv: ListPageService<Category, CategoryService>,
+		private supplierSrv: SupplierService,
+		public listSrv: ListPageService<Supplier, SupplierService>,
 		public commonModalSrv: CommonModalService,
-		private dmSrv: DataManagementService
 	) { super(); }
+
 
 	ngOnInit() {
 		this.listSrv.setup({
-			entitySrv: this.categorySrv,
+			entitySrv: this.supplierSrv,
 			searchedFields: ['name'],
 			selectParams: { sortBy: 'name', descending: false, query: 'deleted == false' },
-			entityMetadata: ERM.CATEGORY,
+			entityMetadata: ERM.SUPPLIER,
 			originComponentDestroy$: this._destroy$
 		});
 	}
 
 	mergeSelected() {
-		const categories = this.listSrv.getSelectedValues();
-		this.dmSrv.merge(categories, this.listSrv.entityMetadata);
+		const suppliers = this.listSrv.getSelectedValues();
+		this.commonModalSrv.openMergeDialog({
+			type: this.listSrv.entityMetadata,
+			entities: suppliers
+		});
 	}
 
 	showItemsPerPage(count: number) {

@@ -1,23 +1,23 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
-import { TagService } from '~core/entity-services';
+import { CategoryService } from '~core/entity-services';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 import { ListPageService } from '~core/list-page';
-import { DataManagementService } from '~features/data-management/services/data-management.service';
-import { ERM, Tag } from '~models';
+import { Category, ERM } from '~models';
 import { AutoUnsub } from '~utils';
 
 @Component({
-	selector: 'tag-data-management-page-app',
-	templateUrl: './../data-management-page.component.html',
-	styleUrls: ['./tag-data-management-page.component.scss', '../data-management-page.component.scss'],
+	selector: 'category-data-page-app',
+	templateUrl: '../shared/data-management-template.html',
+	styleUrls: ['./category-data-page.component.scss', '../shared/data-management-styles.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
 		ListPageService
 	]
 })
-export class TagDataManagementPageComponent extends AutoUnsub implements OnInit {
-	erm = ERM.TAG;
+export class CategoryDataPageComponent extends AutoUnsub implements OnInit {
+
+	erm = ERM.CATEGORY;
 
 	addButtonWidth = '111px';
 	addButtonHeight = '32px';
@@ -25,30 +25,32 @@ export class TagDataManagementPageComponent extends AutoUnsub implements OnInit 
 	selectItemsConfig: SelectParamsConfig;
 
 	constructor(
-		private tagSrv: TagService,
-		public listSrv: ListPageService<Tag, TagService>,
-		public commonModalSrv: CommonModalService,
-		private dmSrv: DataManagementService) {
-		super();
-	}
+		private categorySrv: CategoryService,
+		public listSrv: ListPageService<Category, CategoryService>,
+		public commonModalSrv: CommonModalService
+	) { super(); }
 
 	ngOnInit() {
 		this.listSrv.setup({
-			entitySrv: this.tagSrv,
+			entitySrv: this.categorySrv,
 			searchedFields: ['name'],
 			selectParams: { sortBy: 'name', descending: false, query: 'deleted == false' },
-			entityMetadata: this.erm,
+			entityMetadata: ERM.CATEGORY,
 			originComponentDestroy$: this._destroy$
 		});
 	}
 
 	mergeSelected() {
-		const tags = this.listSrv.getSelectedValues();
-		this.dmSrv.merge(tags, this.listSrv.entityMetadata);
+		const categories = this.listSrv.getSelectedValues();
+		this.commonModalSrv.openMergeDialog({
+			type: this.listSrv.entityMetadata,
+			entities: categories
+		});
 	}
 
 	showItemsPerPage(count: number) {
 		this.selectItemsConfig = {take: Number(count)};
 		this.listSrv.refetch(this.selectItemsConfig).subscribe();
 	}
+
 }

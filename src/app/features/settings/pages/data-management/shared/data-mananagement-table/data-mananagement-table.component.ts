@@ -33,6 +33,7 @@ export class DataMananagementTableComponent extends EntityTableComponent<any> {
 
 		this.renameEntity.emit(item);
 	}
+
 	onHover(id: string) {
 		this.idEntityHovered = id;
 	}

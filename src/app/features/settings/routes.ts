@@ -1,12 +1,4 @@
 import { Routes } from '@angular/router';
-import {
-	CategoryDataManagementPageComponent,
-	DataManagementPageComponent,
-	SupplierDataManagementPageComponent,
-	EventDataManagementPageComponent,
-	TagDataManagementPageComponent,
-} from '~features/data-management';
-
 
 import {
 	SettingsPageComponent,
@@ -17,6 +9,7 @@ import * as ProfilePages from './pages/profile';
 import * as TeamPages from './pages/team';
 import * as ExportsPages from './pages/exports';
 import * as WorkflowPages from './pages/workflow';
+import * as DataPages from './pages/data-management';
 
 
 
@@ -51,12 +44,12 @@ export const routes: Routes = [
 				]
 			},
 			{
-				path: 'data', component: DataManagementPageComponent, children: [
+				path: 'data-management', component: DataPages.DataManagementPageComponent, children: [
 					{ path: '', redirectTo: 'category', pathMatch: 'full' },
-					{ path: 'category', component: CategoryDataManagementPageComponent },
-					{ path: 'tag', component: TagDataManagementPageComponent },
-					{ path: 'supplier', component: SupplierDataManagementPageComponent },
-					{ path: 'event', component: EventDataManagementPageComponent }
+					{ path: 'category-data', component: DataPages.CategoryDataPageComponent },
+					{ path: 'tag-data', component: DataPages.TagDataPageComponent },
+					{ path: 'supplier-data', component: DataPages.SupplierDataPageComponent },
+					{ path: 'event-data', component: DataPages.EventDataPageComponent }
 				]
 			},
 			{ path: 'exports', component: ExportsPages.ExportsPageComponent }

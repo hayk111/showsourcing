@@ -3,20 +3,19 @@ import { CommonModalService } from '~common/modals/services/common-modal.service
 import { EventService } from '~core/entity-services';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 import { ListPageService } from '~core/list-page';
-import { DataManagementService } from '~features/data-management/services/data-management.service';
 import { ERM, Event } from '~models';
 import { AutoUnsub } from '~utils';
 
 @Component({
-	selector: 'event-data-management-page-app',
-	templateUrl: './../data-management-page.component.html',
-	styleUrls: ['./event-data-management-page.component.scss', '../data-management-page.component.scss'],
+	selector: 'event-data-page-app',
+	templateUrl: '../shared/data-management-template.html',
+	styleUrls: ['./event-data-page.component.scss', '../shared/data-management-styles.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
 		ListPageService
 	]
 })
-export class EventDataManagementPageComponent extends AutoUnsub implements OnInit {
+export class EventDataPageComponent extends AutoUnsub implements OnInit {
 	erm = ERM.EVENT;
 
 	addButtonWidth = '111px';
@@ -27,8 +26,7 @@ export class EventDataManagementPageComponent extends AutoUnsub implements OnIni
 	constructor(
 		private eventSrv: EventService,
 		public listSrv: ListPageService<Event, EventService>,
-		public commonModalSrv: CommonModalService,
-		private dmSrv: DataManagementService) {
+		public commonModalSrv: CommonModalService) {
 		super();
 	}
 
@@ -44,7 +42,10 @@ export class EventDataManagementPageComponent extends AutoUnsub implements OnIni
 
 	mergeSelected() {
 		const events = this.listSrv.getSelectedValues();
-		this.dmSrv.merge(events, this.listSrv.entityMetadata);
+		this.commonModalSrv.openMergeDialog({
+			type: this.listSrv.entityMetadata,
+			entities: events
+		});
 	}
 
 	showItemsPerPage(count: number) {
