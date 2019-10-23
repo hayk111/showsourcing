@@ -6,7 +6,7 @@ import { ApolloStateService } from '~core/apollo';
 import { ContactService, ProductService, UserService } from '~entity-services';
 import { ProductQueries } from '~entity-services/product/product.queries';
 import { SupplierService } from '~entity-services/supplier/supplier.service';
-import { Contact, Product } from '../pages/supplier-details/activity/node_modules/~models';
+import { Contact, Product } from '~models';
 
 
 @Injectable({

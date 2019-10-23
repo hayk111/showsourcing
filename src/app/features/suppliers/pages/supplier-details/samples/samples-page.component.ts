@@ -6,7 +6,7 @@ import { CommonModalService } from '~common/modals/services/common-modal.service
 import { ListPageService } from '~core/list-page';
 import { UserService } from '~entity-services';
 import { SampleService } from '~entity-services/sample/sample.service';
-import { SupplierFeatureService } from '~features/supplier/services';
+import { SupplierFeatureService } from '../../../services';
 import { ERM, Sample, Supplier } from '~models';
 import { DialogService } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
@@ -14,9 +14,9 @@ import { FilterType } from '~shared/filters';
 
 
 @Component({
-	selector: 'supplier-samples-app',
-	templateUrl: './supplier-samples.component.html',
-	styleUrls: ['./supplier-samples.component.scss'],
+	selector: 'samples-page-app',
+	templateUrl: './samples-page.component.html',
+	styleUrls: ['./samples-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
 		ListPageService

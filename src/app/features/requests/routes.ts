@@ -1,16 +1,16 @@
 import { Routes } from '@angular/router';
 
 
-import { RequestDetailsComponent, RequestPageComponent } from './pages';
+import * as Pages from './pages';
 
 
 export const routes: Routes = [
 	{
 		path: '',
-		component: RequestPageComponent
+		component: Pages.RequestsPageComponent
 	},
 	{
 		path: ':id',
-		component: RequestDetailsComponent
+		component: Pages.RequestDetailsPageComponent
 	},
 ];

@@ -66,7 +66,7 @@ export const routes: Array<Route> = [
 			},
 			{
 				path: 'suppliers',
-				loadChildren: 'app/features/suppliers/suppliers.module#SuppliersFeatureModule'
+				loadChildren: 'app/features/suppliers/suppliers-feature.module#SuppliersFeatureModule'
 			},
 			{
 				path: 'settings',

@@ -1,18 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { map, switchMap, take, takeUntil, tap } from 'rxjs/operators';
+import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals';
-import { TaskService, UserService } from '~core/entity-services';
-import { SupplierFeatureService } from '~features/supplier/services/supplier-feature.service';
-import { Product } from '~models';
-import { Contact } from '~models/contact.model';
+import { SupplierRequestDialogComponent } from '~common/modals/custom/supplier-request-dialog/supplier-request-dialog.component';
 import { Supplier } from '~models/supplier.model';
+import { DialogService } from '~shared/dialog';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub, log } from '~utils';
-import { TranslateService } from '@ngx-translate/core';
-import { DialogService } from '~shared/dialog';
-import { SupplierRequestDialogComponent } from '~common/modals/custom/supplier-request-dialog/supplier-request-dialog.component';
+import { SupplierFeatureService } from '../../services/supplier-feature.service';
 
 // Guest to the waiter: “Can you bring me what the lady at the next table is having?”
 // -
@@ -65,7 +62,7 @@ export class SupplierDetailsPageComponent extends AutoUnsub implements OnInit {
 			text: this.translate.instant('message.confirm-delete-supplier')
 		}).pipe(
 			switchMap(_ => this.featureSrv.delete(supplier.id))
-		).subscribe(_ => this.router.navigate(['supplier']));
+		).subscribe(_ => this.router.navigate(['suppliers']));
 	}
 
 	export(supplier: Supplier) {
@@ -106,7 +103,7 @@ export class SupplierDetailsPageComponent extends AutoUnsub implements OnInit {
 				title: this.translate.instant('title.supplier-not-exist'),
 				timeout: 3500
 			});
-			this.router.navigate(['supplier']);
+			this.router.navigate(['suppliers']);
 		} else {
 			if (supplier.supplierType) {
 				supplier.supplierType.name = supplier.supplierType.name.toLowerCase().replace(' ', '-');
@@ -122,6 +119,6 @@ export class SupplierDetailsPageComponent extends AutoUnsub implements OnInit {
 			message: this.translate.instant('message.there-is-an-error'),
 			timeout: 3500
 		});
-		this.router.navigate(['supplier']);
+		this.router.navigate(['suppliers']);
 	}
 }

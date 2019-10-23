@@ -74,7 +74,7 @@ export class RequestDetailsPageComponent extends AutoUnsub implements OnInit {
 				title: this.translate.instant('title.request-not-exist'),
 				timeout: 3500
 			});
-			this.router.navigate(['request']);
+			this.router.navigate(['requests']);
 		} else {
 			this.request = request;
 			this.cdr.detectChanges();
@@ -88,7 +88,7 @@ export class RequestDetailsPageComponent extends AutoUnsub implements OnInit {
 			message: this.translate.instant('error.there-is-an-error'),
 			timeout: 3500
 		});
-		this.router.navigate(['request']);
+		this.router.navigate(['requests']);
 	}
 
 	openReviewRequestReply(id: string) {

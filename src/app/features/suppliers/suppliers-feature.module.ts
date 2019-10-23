@@ -9,16 +9,8 @@ import { NavBarModule } from '~shared/navbar';
 import { RatingModule } from '~shared/rating';
 import { SharedModule } from '~shared/shared.module';
 
-import {
-	ActivityPageComponent,
-	SupplierDetailsPageComponent,
-	FilesPageComponent,
-	SupplierHeaderDetailsComponent,
-	ProductsPageComponent,
-	SupplierSamplesComponent,
-	SuppliersPageComponent,
-	SupplierTasksComponent,
-} from './pages';
+import * as DetailsPage from './pages/supplier-details';
+import * as TablePage from './pages/suppliers';
 import { SupplierFeatureService } from './services';
 import { BoardsCommonModule } from '~common/boards/boards-common.module';
 
@@ -35,17 +27,17 @@ import { BoardsCommonModule } from '~common/boards/boards-common.module';
 		BoardsCommonModule
 	],
 	declarations: [
-		ActivityPageComponent,
-		SupplierDetailsPageComponent,
-		ProductsPageComponent,
-		SupplierSamplesComponent,
-		SupplierTasksComponent,
-		SuppliersPageComponent,
-		FilesPageComponent,
-		SupplierHeaderDetailsComponent
+		TablePage.SuppliersPageComponent,
+		DetailsPage.ActivityPageComponent,
+		DetailsPage.SupplierDetailsPageComponent,
+		DetailsPage.FilesPageComponent,
+		DetailsPage.SamplesPageComponent,
+		DetailsPage.ProductsPageComponent,
+		DetailsPage.SupplierHeaderDetailsComponent,
+		DetailsPage.TasksPageComponent
 	],
 	entryComponents: [],
-	exports: [SuppliersPageComponent],
+	exports: [],
 	providers: [
 		SupplierFeatureService
 	]

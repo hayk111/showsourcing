@@ -4,7 +4,7 @@ import { CommonModalService } from '~common/modals';
 import { SupplierService } from '~core/entity-services';
 import { ListPageService } from '~core/list-page';
 import { SelectParamsConfig } from '~entity-services/_global/select-params';
-import { SupplierFeatureService } from '~features/supplier/services';
+import { SupplierFeatureService } from '../../services';
 import { ERM, Supplier } from '~models';
 import { FilterType } from '~shared/filters';
 import { ControllerListService } from '~shared/header-list/services/controller-list.service';

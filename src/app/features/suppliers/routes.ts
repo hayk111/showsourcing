@@ -1,28 +1,22 @@
 import { Route } from '@angular/router';
-import {
-	SupplierDetailsPageComponent,
-	ProductsPageComponent,
-	SuppliersPageComponent,
-	ActivityPageComponent,
-	SupplierTasksComponent,
-	SupplierSamplesComponent,
-	FilesPageComponent
-} from './pages';
+import * as DetailsPage from './pages/supplier-details';
+import * as TablePage from './pages/suppliers';
+
 
 export const routes: Array<Route> = [
 	{
 		path: '',
-		component: SuppliersPageComponent
+		component: TablePage.SuppliersPageComponent
 	},
 	{
 		path: ':id',
-		component: SupplierDetailsPageComponent,
+		component: DetailsPage.SupplierDetailsPageComponent,
 		children: [
-			{ path: 'activity', component: ActivityPageComponent },
-			{ path: 'products', component: ProductsPageComponent },
-			{ path: 'samples', component: SupplierSamplesComponent },
-			{ path: 'tasks', component: SupplierTasksComponent },
-			{ path: 'files', component: FilesPageComponent },
+			{ path: 'activity', component: DetailsPage.ActivityPageComponent },
+			{ path: 'products', component: DetailsPage.ProductsPageComponent },
+			{ path: 'samples', component: DetailsPage.SamplesPageComponent },
+			{ path: 'tasks', component: DetailsPage.TasksPageComponent },
+			{ path: 'files', component: DetailsPage.FilesPageComponent },
 			{ path: '', redirectTo: 'activity', pathMatch: 'full' }
 		]
 	}

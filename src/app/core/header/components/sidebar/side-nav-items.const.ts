@@ -1,7 +1,7 @@
 
 const subNavItemsProducts = [{
 	icon: 'product',
-	link: ['/product'],
+	link: ['/products'],
 	translationKey: 'products',
 },
 {
@@ -11,7 +11,7 @@ const subNavItemsProducts = [{
 },
 {
 	icon: 'kanban',
-	link: ['/product'],
+	link: ['/products'],
 	translationKey: 'boards',
 }];
 

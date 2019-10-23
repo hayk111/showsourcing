@@ -68,7 +68,7 @@ export class ProductDetailsPageComponent extends AutoUnsub implements OnInit {
 				title: this.translate.instant('title.product-not-exist'),
 				timeout: 3500
 			});
-			this.router.navigate(['product']);
+			this.router.navigate(['products']);
 		} else {
 			this.product = product;
 		}
@@ -82,7 +82,7 @@ export class ProductDetailsPageComponent extends AutoUnsub implements OnInit {
 			message: this.translate.instant('error.there-is-an-error'),
 			timeout: 3500
 		});
-		this.router.navigate(['product']);
+		this.router.navigate(['products']);
 	}
 
 	onArchive(product: Product | Product[]) {
@@ -152,7 +152,7 @@ export class ProductDetailsPageComponent extends AutoUnsub implements OnInit {
 		this.dlgSrv.open(ConfirmDialogComponent, { text }).pipe(
 			filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
 			switchMap(_ => this.featureSrv.delete(product.id))
-		).subscribe(_ => this.router.navigate(['product']));
+		).subscribe(_ => this.router.navigate(['products']));
 	}
 
 	openSupplierRequest(product: Product) {
