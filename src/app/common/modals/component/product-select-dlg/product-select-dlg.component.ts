@@ -38,8 +38,8 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 	selectedProducts: { [key: string]: Product } = {};
 
 	productsCount$: Observable<number>;
-	private selectedProductsCount = 0;
-	private selectedAllCount = 15;
+	selectedProductsCount = 0;
+	selectedAllCount = 15;
 
 	filtersPanelOpened = false;
 
