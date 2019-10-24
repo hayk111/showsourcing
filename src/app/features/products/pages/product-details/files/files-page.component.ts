@@ -9,12 +9,12 @@ import { DialogService } from '~shared/dialog';
 import { AutoUnsub } from '~utils';
 
 @Component({
-	selector: 'product-files-page-app',
-	templateUrl: './product-files-page.component.html',
-	styleUrls: ['./product-files-page.component.scss'],
+	selector: 'files-page-app',
+	templateUrl: './files-page.component.html',
+	styleUrls: ['./files-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductFilesPageComponent extends AutoUnsub implements OnInit {
+export class FilesPageComponent extends AutoUnsub implements OnInit {
 	// this is used by upload service, so it can link to the product
 	linkedEntity: any;
 	erm = ERM;

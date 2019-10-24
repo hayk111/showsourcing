@@ -16,15 +16,15 @@ import { SupplierRequestDialogComponent } from '~common/modals/custom/supplier-r
 
 
 @Component({
-	selector: 'product-activity-page-app',
-	templateUrl: './product-activity-page.component.html',
-	styleUrls: ['./product-activity-page.component.scss'],
+	selector: 'activity-page-app',
+	templateUrl: './activity-page.component.html',
+	styleUrls: ['./activity-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
 		ListPageService
 	]
 })
-export class ProductActivityPageComponent extends AutoUnsub implements OnInit {
+export class ActivityPageComponent extends AutoUnsub implements OnInit {
 	selectedTab = 'comment';
 	product$: Observable<Product>;
 	counts$: Observable<Counts>;
