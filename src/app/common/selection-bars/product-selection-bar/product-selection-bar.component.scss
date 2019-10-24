@@ -5,12 +5,6 @@
 button {
 	min-width: unset;
 
-	&:hover {
-		icon-app {
-			color: white;
-		}
-	}
-
 	&.with-name icon-app {
 		margin-right: var(--spacing-s);
 	}
