@@ -1,5 +1,5 @@
 export * from './components/product-header-details';
-export * from './product-activity';
+export * from './activity';
 export * from './samples';
 export * from './info';
 export * from './tasks';
