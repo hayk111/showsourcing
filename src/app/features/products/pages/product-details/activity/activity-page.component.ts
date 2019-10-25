@@ -1,18 +1,18 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { map, switchMap, tap, filter, startWith } from 'rxjs/operators';
+import { filter, map, startWith, switchMap, tap } from 'rxjs/operators';
+import { CommonModalService, CreationSampleDlgComponent, CreationTaskDlgComponent } from '~common/modals';
+import { SupplierRequestDialogComponent } from '~common/modals/custom/supplier-request-dialog/supplier-request-dialog.component';
 import { CommentService, RequestElementService, SampleService, TaskService, UserService } from '~core/entity-services';
 import { SelectParams } from '~core/entity-services/_global/select-params';
 import { ListPageService } from '~core/list-page';
 import { ProductFeatureService } from '~features/products/services';
 import { Comment, ERM, Product } from '~models';
+import { CloseEvent, CloseEventType } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
 import { Counts } from './components/product-activity-nav/product-activity-nav.component';
-import { DialogService, CloseEventType, CloseEvent } from '~shared/dialog';
-import { CreationSampleDlgComponent, CreationTaskDlgComponent } from '~common/modals';
-import { SupplierRequestDialogComponent } from '~common/modals/custom/supplier-request-dialog/supplier-request-dialog.component';
 
 
 @Component({
@@ -41,7 +41,7 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 		private sampleSrv: SampleService,
 		private requestElemSrv: RequestElementService,
 		private userSrv: UserService,
-		private dlgSrv: DialogService
+		private commonDlgSrv: CommonModalService
 	) {
 		super();
 	}
@@ -122,7 +122,7 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	openCreateSample() {
-		this.dlgSrv.open(CreationSampleDlgComponent, { product: this.product }).pipe(
+		this.commonDlgSrv.openCreationSampleDialog(this.product).pipe(
 			filter((event: CloseEvent) => event.type === CloseEventType.OK),
 			switchMap(_ => this.listSrv.refetch())
 		).subscribe();
@@ -130,20 +130,20 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 
 	openCreateTask() {
 
-		this.dlgSrv.open(CreationTaskDlgComponent, { product: this.product }).pipe(
+		this.commonDlgSrv.openCreationTaskDlg(this.product).pipe(
 			filter((event: CloseEvent) => event.type === CloseEventType.OK),
 			switchMap(_ => this.listSrv.refetch())
 		).subscribe();
 	}
 
 	openCreateRequest() {
-		this.dlgSrv.open(SupplierRequestDialogComponent, { products: [this.product] }).pipe(
+		this.commonDlgSrv.openSupplierRequest([this.product]).pipe(
 			filter((event: CloseEvent) => event.type === CloseEventType.OK),
 			switchMap(_ => this.listSrv.refetch())
 		).subscribe();
 	}
 
-	toggleMyTasks(show: boolean) {
+	toggleAssigneeFilter(show: boolean) {
 		const userId = this.userSrv.userSync.id;
 
 		const filterAssignee = {

@@ -5,7 +5,7 @@ import { CreationTaskDlgComponent } from '~common/modals';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { ListPageService } from '~core/list-page';
 import { TaskService, UserService } from '~entity-services';
-import { ERM, Task } from '~models';
+import { ERM, Task, Product, Supplier } from '~models';
 import { DialogService } from '~shared/dialog';
 import { Filter, FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
@@ -78,7 +78,7 @@ export abstract class AbstractTaskCommonComponent extends AutoUnsub implements O
 		this.listSrv.update(task);
 	}
 
-	openCreationTaskDlg(product, supplier) {
+	openCreationTaskDlg(product?: Product, supplier?: Supplier) {
 		this.dlgSrv.open(CreationTaskDlgComponent, { product, supplier });
 	}
 
