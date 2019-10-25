@@ -159,8 +159,8 @@
         <activities-bar-app
           [row]="row"
           [favourite]="row?.favorite"
-          [hasSamples]="!!row?.samplesLinked.count"
-          [hasTasks]="!!row?.tasksLinked.count"
+          [hasSamples]="!!row?.samplesLinked"
+          [hasTasks]="!!row?.tasksLinked"
           [hasComments]="!!row?.comments.length"
           [votes]="row?.votes">
         </activities-bar-app>

@@ -45,20 +45,6 @@ export class ActivitiesBarComponent implements OnInit {
 			this.requestsCount$ = this.requestElementService
 				.queryCount(`targetId == "${this.row.id}" AND targetedEntityType == "Product"`);
 
-			if (this.hasTasks) {
-				this.tasksCount$ = this.taskSrv
-					.queryCount(`${this.entityName}.id == "${this.row.id}" AND deleted == false AND archived == false`);
-			}
-
-			if (this.hasSamples) {
-				this.samplesCount$ = this.sampleSrv
-					.queryCount(`${this.entityName}.id == "${this.row.id}" AND deleted == false AND archived == false`);
-			}
-
-			if (this.hasComments) {
-				this.commentsCount$ = this.ermSrv.getGlobalService(ERM.getEntityMetadata(this.entityName))
-					.queryOne(this.row.id).pipe(map(entity => entity && entity.comments && entity.comments.length));
-			}
 			this.hasTaskOverdue = this.hasTasksOverdue(this.row.id);
 		}
 	}
@@ -80,5 +66,17 @@ export class ActivitiesBarComponent implements OnInit {
 
 	isTaskOverdued(task: Task): boolean {
 		return task && task.dueDate && new Date().getTime() >= Date.parse(task.dueDate.toString());
+	}
+
+	get taskCount() {
+		return this.row.tasksLinked.count;
+	}
+
+	get sampleCount() {
+		return this.row.samplesLinked.count;
+	}
+
+	get commentCount() {
+		return this.row.comments.length;
 	}
 }

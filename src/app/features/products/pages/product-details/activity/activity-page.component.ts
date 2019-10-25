@@ -58,6 +58,7 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 		);
 		this.counts$ = this.product$.pipe(
 			map(product => this.productSrv.getActivityCount(product)),
+			tap(_ => this.listSrv.refetch().subscribe()),
 			startWith({ comment: of(0), task: of(0), sample: of(0), request: of(0) })
 		);
 		this.onTabChange(this.selectedTab);

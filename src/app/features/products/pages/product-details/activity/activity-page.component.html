@@ -21,6 +21,8 @@
 		</card-header-app>
 
 		<card-title-app>{{ selectedTab }}</card-title-app>
+		<ng-container *ngIf="counts$ | async as counts">
+		</ng-container>
 
 		<ng-container [ngSwitch]="selectedTab">
 
