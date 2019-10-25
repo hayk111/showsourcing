@@ -104,7 +104,4 @@ export class SamplesPageComponent extends AutoUnsub implements OnInit {
 		this.controllerListService.onFiltersClear();
 	}
 
-	onExport() {
-		this.commonModalSrv.openExportDialog(this.listSrv.getSelectedValues());
-	}
 }

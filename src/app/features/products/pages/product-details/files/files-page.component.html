@@ -28,7 +28,7 @@
 	(update)="listSrv.update($event)"
 	(open)="listSrv.goToDetails($event)"
 	(openAddToProjectDialog)="commonModalSrv.openAddToProjectDialog([$event])"
-	(openAddSampleDialog)="commonModalSrv.openAddSampleDialog($event)"
+	(openAddSampleDialog)="commonModalSrv.openCreationSampleDialog($event)"
 	(openAddTaskDialog)="commonModalSrv.openCreationTaskDlg($event)"
 	(setFavourite)="listSrv.onItemFavorited($event?.id)"
 	(openRequestFeedbackDialog)="commonModalSrv.openRequestFeedbackDialog([$event])"

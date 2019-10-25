@@ -66,7 +66,5 @@ export class SamplesPageComponent extends AbstractSampleCommonComponent implemen
 		super.ngOnInit();
 	}
 
-	onExport() {
-		this.commonModalSrv.openExportDialog(this.listSrv.getSelectedValues());
-	}
+
 }

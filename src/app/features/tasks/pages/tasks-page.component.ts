@@ -10,6 +10,7 @@ import { DialogService } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
 import { ControllerListComponent } from '~shared/header-list/components/controller-list/controller-list.component';
 import { AutoUnsub } from '~utils';
+import { QueryBuilder } from '~core/entity-services/_global/query-builder.class';
 
 @Component({
 	selector: 'tasks-page-app',
@@ -107,7 +108,7 @@ export class TasksPageComponent extends AutoUnsub implements OnInit, AfterViewIn
 	}
 
 	onExport() {
-		this.commonModalSrv.openExportDialog(this.listSrv.getSelectedValues());
+		this.commonModalSrv.openExportDialog(undefined);
 	}
 
 }
