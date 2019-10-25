@@ -38,6 +38,7 @@
 
 			<ng-container *ngSwitchCase="'task'">
 				<div class="flexVAlign show-my-tasks">
+					<button>Create</button>
 					<checkbox-app
 						[checked]="listSrv.filterList.hasFilterType(assigneeFilterType)"
 						(check)="toggleMyTasks(true)"
@@ -74,6 +75,16 @@
 			</ng-container>
 
 			<ng-container *ngSwitchCase="'sample'">
+				<div class="flexVAlign show-my-tasks">
+					<button>Create</button>
+					<checkbox-app
+						[checked]="listSrv.filterList.hasFilterType(assigneeFilterType)"
+						(check)="toggleMyTasks(true)"
+						(uncheck)="toggleMyTasks(false)">
+					</checkbox-app>
+					Assigned to me
+					<ng-container translate="text.assigned-to-me"></ng-container>
+				</div>
 				<samples-table-app
 					class="no-padding"
 					[columns]="['name', 'status']"
