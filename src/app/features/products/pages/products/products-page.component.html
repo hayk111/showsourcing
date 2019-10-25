@@ -24,7 +24,7 @@
 		(hideArchived)="listSrv.filterByArchived(false)"
 		(showAssigned)="listSrv.filterByAssignee(true)"
 		(hideAssigned)="listSrv.filterByAssignee(false)"
-		(export)="commonModalSrv.openExportDialog()"
+		(export)="commonModalSrv.openExportDialog(undefined, listSrv.filterList.asPredicate())"
 		(showFilters)="listSrv.openFilterPanel()"
 		(viewChange)="listSrv.changeView($event)">
 
