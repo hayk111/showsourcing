@@ -3,34 +3,26 @@ import { TeamClientReadyGuard, CentralClientReadyGuard } from '~core/apollo/guar
 import { AuthenticatedGuard } from '~core/auth';
 import { HasUserGuard } from '~core/auth/services/has-user.guard';
 import { GuestTemplateComponent, TemplateComponent } from '~core/template';
-import { HasTeamSelectedGuard } from '~features/pick-a-team/services/has-team-selected.guard';
-import { InvitationGuard } from '~features/pick-a-team/services/invitation.guard';
+import { HasTeamSelectedGuard } from '~features/auth/services/has-team-selected.guard';
+import { InvitationGuard } from '~features/invitation/services/invitation.guard';
 import { DevModeGuard } from '~utils/dev-mode.guard';
 
 export const routes: Array<Route> = [
 	{
 		path: 'auth',
 		component: GuestTemplateComponent,
-		loadChildren: 'app/features/auth-pages/auth-pages.module#AuthPagesModule'
+		loadChildren: 'app/features/auth/auth-feature.module#AuthFeatureModule'
 	},
 	{
 		path: 'error',
 		component: GuestTemplateComponent,
-		loadChildren: 'app/features/error-pages/error-pages.module#ErrorPagesModule'
-	},
-	{
-		path: 'user',
-		component: GuestTemplateComponent,
-		canActivateChild: [AuthenticatedGuard, CentralClientReadyGuard],
-		loadChildren: 'app/features/pick-a-team/pick-a-team.module#PickATeamModule',
-		data: { showLogout: true }
+		loadChildren: 'app/features/error/error-feature.module#ErrorFeatureModule'
 	},
 	{
 		path: 'invitation',
 		component: GuestTemplateComponent,
 		canActivateChild: [InvitationGuard],
-		loadChildren: 'app/features/invitation/invitation.module#InvitationModule',
-		data: { showLogout: true }
+		loadChildren: 'app/features/invitation/invitation-feature.module#InvitationFeatureModule',
 	},
 	{
 		path: 'dev',
@@ -38,19 +30,7 @@ export const routes: Array<Route> = [
 		canLoad: [DevModeGuard],
 		canActivate: [DevModeGuard],
 		canActivateChild: [DevModeGuard],
-		children: [
-			{
-				path: 'component-library',
-				loadChildren: 'app/features/component-library/component-library.module#ComponentLibraryModule'
-			}, {
-				path: 'test',
-				loadChildren: 'app/features/test-page/test-page.module#TestPageModule'
-			}, {
-				path: '',
-				redirectTo: 'component-library',
-				pathMatch: 'full'
-			}
-		]
+		loadChildren: 'app/features/dev/dev-feature.module#DevFeatureModule'
 	},
 	{
 		path: '',
@@ -66,39 +46,35 @@ export const routes: Array<Route> = [
 			{ path: '', redirectTo: 'dashboard', pathMatch: 'full' },
 			{
 				path: 'dashboard',
-				loadChildren: 'app/features/dashboard/dashboard.module#DashboardModule'
+				loadChildren: 'app/features/dashboard/dashboard-feature.module#DashboardFeatureModule'
 			},
 			{
-				path: 'project',
-				loadChildren: 'app/features/project/project.module#ProjectModule'
+				path: 'projects',
+				loadChildren: 'app/features/projects/projects-feature.module#ProjectsFeatureModule'
 			},
 			{
-				path: 'product',
-				loadChildren: 'app/features/products/product.module#ProductModule'
+				path: 'products',
+				loadChildren: 'app/features/products/products-feature.module#ProductsFeatureModule'
 			},
 			{
-				path: 'request',
-				loadChildren: 'app/features/requests/request.module#RequestModule'
+				path: 'requests',
+				loadChildren: 'app/features/requests/requests-feature.module#RequestsFeatureModule'
 			},
 			{
 				path: 'samples',
-				loadChildren: 'app/features/samples/sample.module#SampleModule'
+				loadChildren: 'app/features/samples/samples-feature.module#SamplesFeatureModule'
 			},
 			{
-				path: 'supplier',
-				loadChildren: 'app/features/supplier/supplier.module#SuppliersModule'
+				path: 'suppliers',
+				loadChildren: 'app/features/suppliers/suppliers-feature.module#SuppliersFeatureModule'
 			},
 			{
 				path: 'settings',
-				loadChildren: 'app/features/settings/settings.module#SettingsModule'
+				loadChildren: 'app/features/settings/settings-feature.module#SettingsFeatureModule'
 			},
 			{
 				path: 'tasks',
-				loadChildren: 'app/features/tasks/task.module#TaskModule'
-			},
-			{
-				path: 'workspace',
-				loadChildren: 'app/features/workspace/workspace.module#WorkspaceModule'
+				loadChildren: 'app/features/tasks/tasks-feature.module#TasksFeatureModule'
 			}
 		]
 	},

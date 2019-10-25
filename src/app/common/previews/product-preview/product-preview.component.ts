@@ -199,11 +199,11 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 	}
 
 	openProduct() {
-		this.router.navigate(['product', this.product.id]);
+		this.router.navigate(['products', this.product.id]);
 	}
 
 	openSupplier() {
-		this.router.navigate(['supplier', this.product.supplier.id]);
+		this.router.navigate(['suppliers', this.product.supplier.id]);
 	}
 
 	openAddToProject() {

@@ -2,7 +2,7 @@ import { AfterViewInit, ChangeDetectionStrategy, Component, ViewChild } from '@a
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
-import { SupplierFeatureService } from '~features/supplier/services/supplier-feature.service';
+import { SupplierFeatureService } from '~features/suppliers/services/supplier-feature.service';
 import { Supplier } from '~models/supplier.model';
 import { DialogService } from '~shared/dialog/services';
 import { InputDirective } from '~shared/inputs';

@@ -9,7 +9,6 @@
  - [File structure](#file-structure)
  - [Style structure](#style-structure)
  - [Code style](#code-style)
- - [Before starting](#before-starting)
  - [Entity services](#entity-services)
  - [List page service](#list-page-service)
  - [Auto unsub](#auto-unsub)
@@ -132,7 +131,7 @@ At the root of src/app we have
 
  ```
   - app-root: small folder containing only the root module and root component
-  - common: folder containing big modules like ProductCommonModule, TaskCommonModule.
+  - common: folder containing functionalities shared accross the application
   - core: folder containing essential classes on which the application is based
   - features: folder containing feature modules (pages)
   - shared: folder containing modules shared. The SharedModule contains them all.
@@ -161,6 +160,87 @@ In each module the division of the file structure is with those folders (each on
 ## Common
 Folder containing modules organized by functionality, these modules hold common components used around the app, since we use it around the app they are not bound to a feature, they are bound to common.
 Folder containing modules organized by functionality, the purpose of this folder is to have specific behaviour components in a common folder.
+
+
+## Feature
+
+There is two ways to organize a feature folder and that depends on wether or not a feature folder is a detail/list type or not. 
+
+
+Case 1: Not a list / detail type
+
+Features are organized this way:
+
+```
+feature
+   auth
+       shared
+           auth-form-base
+       pages
+           login
+              components
+							   login-button.component.ts
+							login-page.component.ts
+							
+           user
+              pick-a-team
+                  pick-a-team-page.component.ts
+```
+
+Inside the module:
+
+````
+
+import * as Pages from './pages';
+import { routes } from './routes';
+import * as SharedComponents from './shared';
+
+@NgModule({
+	imports: [
+		SharedModule,
+		RouterModule.forChild(routes)
+	],
+	declarations: [
+		Pages.LoginPageComponent,
+		// ...
+		SharedComponents.AuthFormBaseComponent,
+		// ...
+	],
+```
+
+Rules:
+
+  - A feature module name must end with `Feature`. So if we have a Product Feature the file will be product-feature.module.ts and the exported module is `ProductFeatureModule`
+  - inside `pages` the folder structure must respect the url strictly
+  - a page component must end with -page
+	- component that are used uniquely within the page will be put at the page level under the `components` folder
+  - an optional shared folder for components shared between pages but not outside this module
+	- at the module level there is a distiction between pages and components.
+
+examples:
+
+  - http://localhost:4200/auth/login
+  - http://localhost:4200/auth/user/pick-a-team
+
+
+## Case 2: List / detail feature
+
+routing is like this:
+
+  - /products
+	- /products/:id
+
+in that case the folder structure is like this
+
+```
+features
+  products
+	  pages
+		  products
+			  products-page.component
+			product-detail
+			  product-detail-page.component
+```
 
 # Style Structure
 The theming is done in ./src/app/theming and should be straight forward. `styles.scss` is the entry point and imports everything it needs. Inside this file we import some core styling files:
@@ -204,11 +284,6 @@ Basic guidelines on how the Elements should order Directives, Inputs, Outputs...
 - i18n or any type of translation
 
 ***
-
-# Before starting
-To have a smooth time understanding the app, two big features have to be understood first.
-The Entity Services and the ListPageService. Those will be described below
-
 
 # Entity Services
 When accessing the db for an entity we use its entity service. For example if we want to access the ProductVotes in the database we will use `ProductVoteService`. If you open the file you'll notice the file is quite empty, the class `ProductVoteService` merely extends GlobalService that does the heavy lifting.

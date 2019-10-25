@@ -74,7 +74,7 @@ export class OneProductActivityCardComponent extends AutoUnsub implements OnInit
 	}
 
 	onViewProduct() {
-		this.router.navigate(['product', this.product.id]);
+		this.router.navigate(['products', this.product.id]);
 	}
 
 	openAddToProject() {
