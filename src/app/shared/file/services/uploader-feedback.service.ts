@@ -83,6 +83,7 @@ export class UploaderFeedbackService {
 			.subscribe(imgs => {
 				this._uploaded$.next(imgs);
 				this.onSuccessImg(uuids);
+				this._images = [...this._images, ...imgs];
 			}, e => this._pendingImages = []);
 	}
 
@@ -113,6 +114,7 @@ export class UploaderFeedbackService {
 			.subscribe(addedFiles => {
 				this._uploaded$.next(addedFiles);
 				this.onSuccessFile(uuids);
+				this._files = [...this._files, ...addedFiles];
 			},
 				e => this._pendingFiles = []
 			);
