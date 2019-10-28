@@ -1,4 +1,4 @@
-# run comment 
+# run comment
 image: cedvdb/ss-gitlab-pipeline-docker
 stages:
   - install
@@ -14,20 +14,22 @@ app-install:
   script:
     - npm install
     - npm install --save-dev --unsafe-perm node-sass # avoid sass errors
-  cache: 
+  cache:
     key: cache_key
     paths:
       - node_modules/
   only:
     changes:
       - package-lock.json
+  only:
+    - development
 
 # tests
 app-test:karma:
   stage: test
   image: trion/ng-cli-karma
   allow_failure: false
-  cache: 
+  cache:
     key: cache_key
     paths:
       - node_modules/
@@ -38,12 +40,14 @@ app-test:karma:
   artifacts:
     paths:
       - coverage/
+  only:
+    - development
 
 app-test:e2e:
   stage: test
   image: trion/ng-cli-e2e
   allow_failure: true
-  cache: 
+  cache:
     key: cache_key
     paths:
       - node_modules/
@@ -51,12 +55,13 @@ app-test:e2e:
   script:
     - npm install
     - ng e2e
-
+  only:
+    - development
 
 app-test:lint:
   stage: test
   image: trion/ng-cli
-  cache: 
+  cache:
     key: cache_key
     paths:
       - node_modules/
@@ -64,12 +69,14 @@ app-test:lint:
   allow_failure: true
   script:
     - ng lint
+  only:
+    - development
 
 # build
 app-build-test:
   stage: build
   allow_failure: false
-  cache: 
+  cache:
     key: cache_key
     paths:
       - node_modules/
@@ -79,11 +86,13 @@ app-build-test:
   artifacts:
     paths:
       - dist
+  only:
+    - development
 
 app-build-dev:
   stage: build
   allow_failure: false
-  cache: 
+  cache:
     key: cache_key
     paths:
       - node_modules/
@@ -99,7 +108,7 @@ app-build-dev:
 app-build-sta:
   stage: build
   allow_failure: false
-  cache: 
+  cache:
     key: cache_key
     paths:
       - node_modules/

@@ -1,2 +1,2 @@
-export * from '~features/invitation/components';
-export * from '~features/invitation/invitation.module';
+export * from '~features/invitation/pages';
+export * from '~features/invitation/invitation-feature.module';

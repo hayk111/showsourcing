@@ -1,8 +1,0 @@
-
-
-	<sample-card-app
-		[sample]="sample"
-		[checked]="(listSrv.selection$ | async).has(sample.id)"
-		(select)="listSrv.selectOne($event)"
-		(unselect)="listSrv.unselectOne($event)">
-	</sample-card-app>

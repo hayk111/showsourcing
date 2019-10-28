@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
-import { RefuseReplyDlgComponent, RequestReplyDlgComponent } from '~common/modals';
+import { RefuseReplyDlgComponent, RequestReplyDlgComponent } from '~common/dialogs/services/dialog-common.service';
 import { RequestElementService, SupplierRequestService } from '~core/entity-services';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { DEFAULT_REPLIED_STATUS, ERM, RequestElement, SupplierRequest } from '~core/models';
@@ -72,7 +72,7 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 				title: translate('The request doesn\'t exist'),
 				timeout: 3500
 			});
-			this.router.navigate(['request']);
+			this.router.navigate(['requests']);
 		} else
 			this.request = request;
 	}
@@ -84,7 +84,7 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 			message: translate('There is an error, please try again later'),
 			timeout: 3500
 		});
-		this.router.navigate(['request']);
+		this.router.navigate(['requests']);
 	}
 
 	open(element: RequestElement) {

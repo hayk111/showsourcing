@@ -1,2 +1,2 @@
 export * from './pages';
-export * from './product.module';
+export * from './products-feature.module';

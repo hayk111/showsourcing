@@ -1,7 +1,7 @@
 <div class="flexBetween mg-l">
 	<span class="spacer fs-l"></span>
 
-	<div class="flex pointer" *ngIf="showLogout && auth$ | async" (click)="logout()">
+	<div class="flex pointer" *ngIf="auth$ | async" (click)="logout()">
 		<icon-app name="logout"></icon-app>
 		<span class="mg-xs"></span>
 		<span class="capitalize" translate="button.logout"></span>

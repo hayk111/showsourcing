@@ -1,0 +1,44 @@
+<header-list-app
+	class="max-full-table-width"
+	[title]="'title.requests' | translate"
+	[buttonName]="'button.new-request' | translate"
+	(buttonClick)="dialogCommonSrv.openSupplierRequest([])">
+</header-list-app>
+
+<controller-list-app
+	class="max-full-table-width"
+	[entityType]="entityTypeEnum.REQUEST"
+	[hasFilter]="false"
+	[hasSwitch]="false"
+	[searchValue]="listSrv.searchValue"
+	(search)="listSrv.search($event)">
+	<controller-list-right-item-app>
+		<request-sorting-menu-app
+			[currentSort]="listSrv.currentSort"
+			(sortFromMenu)="listSrv.sortFromMenu($event)">
+		</request-sorting-menu-app>
+	</controller-list-right-item-app>
+</controller-list-app>
+
+<requests-table-app
+	class="max-full-table-width"
+	[rows]="listSrv.items$ | async"
+	[pending]="listSrv.pending"
+	[selection]="listSrv.selection$ | async"
+	[count]="listSrv.count$ | async"
+	[currentPage]="listSrv.currentPage"
+	(goToPage)="listSrv.loadPage($event)"
+	(cancelRequest)="cancelRequest($event)"
+	(select)="listSrv.selectOne($event)"
+	(selectAll)="listSrv.selectAll($event)"
+	(sort)="listSrv.sort($event)"
+	(unselect)="listSrv.unselectOne($event)"
+	(unselectAll)="listSrv.unselectAll()">
+</requests-table-app>
+
+<selection-bar-app
+	[isShown]="(listSrv.selection$ | async).size > 0"
+	[selection]="listSrv.selection$ | async"
+	(close)="listSrv.unselectAll()">
+	<button class="warn" (click)="cancelSelectedRequests()" translate="button.cancel-requests"></button>
+</selection-bar-app>

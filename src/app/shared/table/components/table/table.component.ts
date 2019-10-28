@@ -123,7 +123,7 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 		}
 	}
 
-	// note: we don't do it on ngAfterViewInit since in some cases we have to wait for async columns (e.g. request-element-table-app)
+	// note: we don't do it on ngAfterViewInit since in some cases we have to wait for async columns (e.g. request-elements-table-app)
 	// calculate the width based on the columns width
 	getWidth() {
 		let width = 0;

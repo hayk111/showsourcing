@@ -1,0 +1,69 @@
+<controller-list-app
+	class="max-full-table-width"
+	buttonName="create sample"
+	[entityType]="erm.SAMPLE.singular"
+	[hasFilter]="true"
+	[hasSwitch]="false"
+	[count]="listSrv.count$ | async"
+	[entityType]="'SAMPLE'"
+	[view]="listSrv.view"
+	(showFilters)="listSrv.openFilterPanel()"
+	(showArchived)="listSrv.filterByArchived(true)"
+	(hideArchived)="listSrv.filterByArchived(false)"
+	(showAssigned)="listSrv.filterByAssignee(true)"
+	(hideAssigned)="listSrv.filterByAssignee(false)"
+	(search)="listSrv.search($event)"
+	(smartSearch)="listSrv.smartSearch($event)"
+	(export)="onExport()"
+	(buttonClick)="dialogCommonSrv.openAddSampleDialog(undefined, supplier)">
+</controller-list-app>
+
+<samples-table-app
+	class="max-full-table-width"
+	[rows]="listSrv.items$ | async"
+	[selection]="listSrv.selection$ | async"
+	[pending]="listSrv.pending"
+	[count]="listSrv.count$ | async"
+	[currentPage]="listSrv.currentPage"
+	(goToPage)="listSrv.loadPage($event)"
+	(sort)="listSrv.sort($event)"
+	(select)="listSrv.selectOne($event, true)"
+	(unselect)="listSrv.unselectOne($event, true)"
+	(selectAll)="listSrv.selectAll($event, true)"
+	(unselectAll)="listSrv.unselectAll()"
+	(open)="listSrv.goToDetails($event)"
+	(favorited)="listSrv.onItemFavorited($event)"
+	(unfavorited)="listSrv.onItemUnfavorited($event)"
+	(previewClick)="listSrv.openPreview($event)"
+	(createClick)="dialogCommonSrv.openAddSampleDialog(undefined, supplier)"
+	(delete)="listSrv.deleteOne($event)">
+</samples-table-app>
+
+
+<sample-preview-app
+	*ngIf="listSrv.previewOpen"
+	[sample]="listSrv.previewed"
+	(close)="listSrv.closePreview()"
+	(clickOutside)="listSrv.closePreview()">
+</sample-preview-app>
+
+
+<filters-app
+	*ngIf="listSrv.filterPanelOpen"
+	[filterList]="listSrv.filterList"
+	[filterTypes]="filterTypes"
+	(clickOutside)="listSrv.closeFilterPanel()"
+	(close)="listSrv.closeFilterPanel()">
+</filters-app>
+
+
+<selection-bar-app
+	[isShown]="(listSrv.selection$ | async).size > 0"
+	[selection]="listSrv.selection$ | async"
+	(close)="listSrv.unselectAll()">
+
+	<button class="icon light" (click)="listSrv.deleteSelected()">
+		<icon-app name="trash"></icon-app>
+	</button>
+
+</selection-bar-app>

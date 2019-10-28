@@ -1,2 +1,1 @@
-export * from './containers';
-export * from './task.module';
+export * from './tasks-feature.module';
