@@ -12,6 +12,8 @@
 }
 
 .legends {
+	margin-top: var(--spacing-xs);
+	
 	div:nth-child(odd) {
 		.legend-item {
 			background-color: #789DF8;
