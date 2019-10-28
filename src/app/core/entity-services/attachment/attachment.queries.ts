@@ -1,4 +1,5 @@
 import { GlobalQueries } from '~entity-services/_global/global-queries.class';
+import { UserQueries } from '../user/user.queries';
 
 export abstract class AttachmentQueries extends GlobalQueries {
 
@@ -6,12 +7,16 @@ export abstract class AttachmentQueries extends GlobalQueries {
 		fileName
 		url
 		size
+		createdBy { ${UserQueries.userWithAvatar} }
+		creationDate
 	`;
 
 	static readonly many = `
 		fileName
 		url
 		size
+		createdBy { ${UserQueries.userWithAvatar} }
+		creationDate
 	`;
 
 }

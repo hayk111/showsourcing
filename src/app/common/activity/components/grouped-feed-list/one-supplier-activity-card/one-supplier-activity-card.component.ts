@@ -1,19 +1,24 @@
 import {
-	Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter,
-	NgModuleRef, ViewChild, ElementRef
+	ChangeDetectionStrategy,
+	Component,
+	EventEmitter,
+	Input,
+	NgModuleRef,
+	OnInit,
+	Output,
+	ViewChild,
 } from '@angular/core';
-import { Supplier, ERM, Comment } from '~models';
-import { Router } from '@angular/router';
-import { DialogService } from '~shared/dialog/services';
-import { ProductAddToProjectDlgComponent } from '~common/modals/component';
-import { DEFAULT_IMG, AutoUnsub } from '~utils';
-import { InputDirective } from '~shared/inputs';
-import { Observable } from 'rxjs';
-import { GetStreamGroup } from '~common/activity/interfaces/get-stream-feed.interfaces';
-import { takeUntil } from 'rxjs/operators';
-import { SupplierService } from '~entity-services';
 import { FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { GetStreamGroup } from '~common/activity/interfaces/get-stream-feed.interfaces';
 import { CommentService } from '~core/entity-services/comment/comment.service';
+import { SupplierService } from '~entity-services';
+import { Comment, ERM, Supplier } from '~models';
+import { DialogService } from '~shared/dialog/services';
+import { InputDirective } from '~shared/inputs';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'one-supplier-activity-card-app',
@@ -71,7 +76,7 @@ export class OneSupplierActivityCardComponent extends AutoUnsub implements OnIni
 	}
 
 	onViewSupplier() {
-		this.router.navigate(['supplier', this.supplier.id]);
+		this.router.navigate(['suppliers', this.supplier.id]);
 	}
 
 	onEnter(event) {

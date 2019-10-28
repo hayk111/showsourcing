@@ -1,72 +1,58 @@
 import { Routes } from '@angular/router';
-import {
-	CategoryDataManagementPageComponent,
-	DataManagementPageComponent,
-	SupplierDataManagementPageComponent,
-	EventDataManagementPageComponent,
-	TagDataManagementPageComponent,
-} from '~features/data-management';
 
 import {
-	ProductStatusWorkflowComponent,
-	SampleStatusWorkflowComponent,
-	SettingsProfileComponent,
-	SettingsTeamMembersComponent,
-	SupplierStatusWorkflowComponent,
-	SettingsCompanyComponent,
-} from './components';
-import {
-	SettingsComponent,
-	SettingsTeamMembersContentComponent,
-	SettingsExportComponent,
-	SettingsFieldsPageComponent,
-	SettingsTeamMembersPageComponent,
-	SettingsWorkflowsPageComponent,
-	SettingsCompanyPageComponent,
-} from './containers';
+	SettingsPageComponent,
+} from './pages/settings-page.component';
+
+import * as CompanyPages from './pages/company';
+import * as ProfilePages from './pages/profile';
+import * as TeamPages from './pages/team';
+import * as ExportsPages from './pages/exports';
+import * as WorkflowPages from './pages/workflow';
+import * as DataPages from './pages/data-management';
+
 
 
 export const routes: Routes = [
 	{
 		path: '',
-		component: SettingsComponent,
+		component: SettingsPageComponent,
 		children: [
 			{ path: '', redirectTo: 'profile', pathMatch: 'full' },
-			{ path: 'profile', component: SettingsProfileComponent },
-			{ path: 'fields', component: SettingsFieldsPageComponent },
+			{ path: 'profile', component: ProfilePages.ProfilePageComponent },
 			{
-				path: 'company', component: SettingsCompanyPageComponent, children: [
+				path: 'company', component: CompanyPages.CompanyPageComponent, children: [
 					{ path: '', redirectTo: 'settings', pathMatch: 'full' },
-					{ path: 'settings', component: SettingsCompanyComponent },
-					{ path: 'teams', component:  SettingsCompanyComponent },
-					{ path: 'users', component:  SettingsCompanyComponent }
+					{ path: 'settings', component: CompanyPages.InfoPageComponent },
+					{ path: 'teams', component:  CompanyPages.TeamsPageComponent },
+					{ path: 'users', component:  CompanyPages.UsersPageComponent }
 				]
 			},
 			{
-				path: 'workflow', component: SettingsWorkflowsPageComponent, children: [
-					{ path: '', redirectTo: 'product', pathMatch: 'full' },
-					{ path: 'product', component: ProductStatusWorkflowComponent },
-					{ path: 'supplier', component: SupplierStatusWorkflowComponent },
-					{ path: 'sample', component: SampleStatusWorkflowComponent }
-				]
-			},
-			{
-				path: 'team', component: SettingsTeamMembersPageComponent, children: [
+				path: 'team', component: TeamPages.TeamPageComponent, children: [
 					{ path: '', redirectTo: 'members', pathMatch: 'full' },
-					{ path: 'members', component:  SettingsTeamMembersContentComponent },
-					{ path: 'settings', component:  SettingsTeamMembersComponent }
+					{ path: 'members', component:  TeamPages.MembersPageComponent },
+					{ path: 'info', component:  TeamPages.InfoPageComponent }
 				]
 			},
 			{
-				path: 'data', component: DataManagementPageComponent, children: [
-					{ path: '', redirectTo: 'category', pathMatch: 'full' },
-					{ path: 'category', component: CategoryDataManagementPageComponent },
-					{ path: 'tag', component: TagDataManagementPageComponent },
-					{ path: 'supplier', component: SupplierDataManagementPageComponent },
-					{ path: 'event', component: EventDataManagementPageComponent }
+				path: 'workflow', component: WorkflowPages.WorkflowPageComponent, children: [
+					{ path: '', redirectTo: 'product', pathMatch: 'full' },
+					{ path: 'product-status', component: WorkflowPages.ProductStatusPageComponent },
+					{ path: 'supplier-status', component: WorkflowPages.SupplierStatusPageComponent },
+					{ path: 'sample-status', component: WorkflowPages.SampleStatusPageComponent }
 				]
 			},
-			{ path: 'exports', component: SettingsExportComponent }
+			{
+				path: 'data-management', component: DataPages.DataManagementPageComponent, children: [
+					{ path: '', redirectTo: 'category', pathMatch: 'full' },
+					{ path: 'category-data', component: DataPages.CategoryDataPageComponent },
+					{ path: 'tag-data', component: DataPages.TagDataPageComponent },
+					{ path: 'supplier-data', component: DataPages.SupplierDataPageComponent },
+					{ path: 'event-data', component: DataPages.EventDataPageComponent }
+				]
+			},
+			{ path: 'exports', component: ExportsPages.ExportsPageComponent }
 		]
 	}
 ];

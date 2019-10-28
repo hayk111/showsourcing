@@ -38,11 +38,11 @@ export class MultipleProductsActivityCardComponent extends AutoUnsub implements 
 	}
 
 	viewProduct(product: Product) {
-		this.router.navigate(['product', product.id]);
+		this.router.navigate(['products', product.id]);
 	}
 
 	viewSupplier(supplier: Supplier) {
-		this.router.navigate(['supplier', supplier.id]);
+		this.router.navigate(['suppliers', supplier.id]);
 	}
 
 }

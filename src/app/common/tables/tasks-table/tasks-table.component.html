@@ -1,0 +1,194 @@
+<table-app
+	[rows]="rows"
+	[type]="erm.TASK.singular"
+	[pending]="pending"
+	[selected]="selection"
+	[contextualMenu]="contextualMenuTemplate"
+	[currentSort]="currentSort"
+	[isContextMenuHorizontal]="false"
+	[count]="count"
+	[currentPage]="currentPage"
+	[hasHeader]="hasHeader"
+	[hasMenu]="hasMenu"
+	[hasSelection]="hasSelection"
+	[hasPagination]="hasPagination"
+	[placeholder]="'placeholder.no-task' | translate"
+	(goToPage)="goToPage.emit($event)"
+	(selectOne)="select.emit($event)"
+	(unselectOne)="unselect.emit($event)"
+	(selectAll)="selectAll.emit($event)"
+	(unselectAll)="unselectAll.emit($event)"
+	(sort)="sort.emit($event)"
+	(createClick)="createClick.emit()"
+	(bottomReached)="bottomReached.emit()">
+
+	<!-- contextual menu -->
+	<ng-template #contextualMenuTemplate let-row="row">
+		<context-menu-item-warn-app
+			class="pointer flexCenter"
+			(click)="delete.emit(row)">
+			{{'text.delete' | translate}}
+		</context-menu-item-warn-app>
+	</ng-template>
+
+		<!-- dynamic columns -->
+		<ng-template
+			*ngFor="let column of columnsConfig; trackBy: trackByFn"
+			let-row="row"
+			[columnApp]="column.translationKey ? ('title.' + column.translationKey | translate) : ''"
+			[sortable]="column.sortable !== false"
+			[width]="column.width"
+			[sortBy]="column.sortProperty"
+			[showOnHover]="column.showOnHover">
+
+    <ng-container [ngSwitch]="column.name">
+
+			<!-- task done -->
+			<!-- the only way to read 2 options on single switch case -->
+			<ng-container *ngSwitchCase="'done'">
+				<icon-app
+					class="pointer"
+					[ngClass]="row?.done ? 'task-is-done': 'task-not-done'"
+					[name]="row?.done ? 'check-circle' : 'check-circle-light'"
+					[size]="24"
+					(click)="toggleStatus(row)">
+				</icon-app>
+			</ng-container>
+
+			<!--about: task done + name + product -->
+			<ng-container *ngSwitchCase="'about'">
+				<div class="about flex">
+					<icon-app
+						class="about flexStart"
+						[ngClass]="row?.done ? 'task-is-done': 'task-not-done'"
+						[name]="row?.done ? 'check-circle' : 'check-circle-light'"
+						[size]="24" >
+					</icon-app>
+					<div class="about-container flex">
+						<span class="ellipsis pointer task-name">{{ row?.name }}</span>
+						<span class="ellipsis pointer product-name">{{ row?.product?.name }}</span>
+					</div>
+				</div>
+			</ng-container>
+
+			<!-- reference -->
+			<ng-container *ngSwitchCase="'reference'">
+				<div class="mainCellWrapper reference-container ellipsis">
+					<span class="ellipsis pointer txt-btn" (click)="previewClick.emit(row)">{{ row?.reference }}</span>
+				</div>
+			</ng-container>
+
+			<!-- name -->
+			<ng-container *ngSwitchCase="'name'">
+				<div class="mainCellWrapper name-container ellipsis">
+					<span
+						class="ellipsis pointer txt-btn"
+						[ngClass]="{ 'txt-task-done-empty': row?.done }"
+						(click)="previewClick.emit(row)">
+						{{ row?.name }}
+					</span>
+				</div>
+			</ng-container>
+
+			<!-- name assignee -->
+			<ng-container *ngSwitchCase="'name assignee'">
+				<div class="mainCellWrapper name-container ellipsis flexColumn">
+					<span class="ellipsis pointer txt-btn" (click)="previewClick.emit(row)">{{ row?.name }}</span>
+					<span *ngIf="row?.assignee" class="sub-property">
+						{{ row.done ? 'Completed by' : 'Assigned to' }} {{ row?.assignee | formatUserName: true }}
+					</span>
+				</div>
+			</ng-container>
+
+			<!-- product -->
+			<ng-container *ngSwitchCase="'product'">
+				<selector-app
+					type="product"
+					[width]="350"
+					[offsetX]="4"
+					(update)="update.emit({ id: row?.id, product: $event })">
+					<div class="mainCellWrapper product-container ellipsis">
+						<span
+							class="ellipsis pointer txt-btn"
+							[ngClass]="{ 'txt-task-done-empty': row?.done || !row?.product }"
+							(click)="openProduct.emit(row?.product?.id)">
+							{{ row?.product?.name || 'Link to product' }}
+						</span>
+					</div>
+				</selector-app>
+			</ng-container>
+
+			<!-- supplier -->
+			<ng-container *ngSwitchCase="'supplier'">
+				<selector-app
+					type="supplier"
+					[width]="350"
+					[offsetX]="4"
+					(update)="update.emit({ id: row?.id, supplier: $event })">
+					<div class="mainCellWrapper supplier-container ellipsis">
+						<span
+							class="ellipsis pointer txt-btn"
+							[ngClass]="{ 'txt-task-done-empty': row?.done || !row?.supplier }"
+							(click)="openSupplier.emit(row?.supplier?.id)">
+							{{ row?.supplier?.name || 'Link to supplier'}}
+						</span>
+					</div>
+				</selector-app>
+			</ng-container>
+
+			<!-- due date -->
+			<ng-container *ngSwitchCase="'due date'">
+				<div class="mainCellWrapper due-date-container ellipsis">
+					<span class="ellipsis" [ngClass]="{ 'txt-task-done-empty': row?.done || !row?.dueDate }">{{ row?.dueDate ? (row?.dueDate | date: 'dd MMM y':'':translate.currentLang) : 'Set due date' }}</span>
+				</div>
+			</ng-container>
+
+			<!-- due date small -->
+			<ng-container *ngSwitchCase="'due date small'">
+				<div class="mainCellWrapper ellipsis">
+					<span class="ellipsis due-date-small">{{ row?.dueDate | date: 'dd MMM' }}</span>
+				</div>
+			</ng-container>
+
+			<!-- assignee -->
+			<ng-container *ngSwitchCase="'assigned to'">
+				<selector-app
+					type="user"
+					[width]="350"
+					[offsetX]="4"
+					(update)="changeAssignee(row, $event)">
+					<div  class="flex assignee-container ellipsis pointer">
+						<user-picture-app [user]="row?.assignee">
+						</user-picture-app>
+						<span
+							*ngIf="(!column.metadata) || (!column.metadata.nameOnly)"
+							class="assignee-name ellipsis txt-btn"
+						 	[ngClass]="{ 'txt-task-done-empty': row?.done || !row?.assignee }">
+						 	{{ row?.assignee ? (row?.assignee | formatUserName: true) : 'Assign Task' }}
+						</span>
+					</div>
+				</selector-app>
+			</ng-container>
+
+			<!-- status -->
+			<ng-container *ngSwitchCase="'status'">
+				<div class="status-col flexVAlign">
+					<status-selector-app [entity]="row" [typeEntity]="erm.TASK" [canUpdate]="canUpdate" selectSize="s"></status-selector-app>
+				</div>
+			</ng-container>
+
+			<!-- created on -->
+			<ng-container *ngSwitchCase="'created on'">
+				{{ row?.creationDate | date: 'dd MMMM y':'':translate.currentLang }}
+			</ng-container>
+
+			<!-- created by -->
+			<ng-container *ngSwitchCase="'created by'">
+				<span class="created-by">{{ row?.createdBy | formatUserName: true }}</span>
+			</ng-container>
+
+		</ng-container>
+
+	</ng-template>
+
+</table-app>

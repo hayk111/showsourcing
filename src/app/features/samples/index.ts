@@ -1,2 +1,1 @@
-export * from './containers';
-export * from './sample.module';
+export * from './samples-feature.module';

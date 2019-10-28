@@ -2,7 +2,7 @@ import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { empty, Observable } from 'rxjs';
 import { filter, map, switchMap, takeUntil, tap } from 'rxjs/operators';
-import { CreationDialogComponent } from '~common/modals/component/creation-dialog/creation-dialog.component';
+import { CreationDialogComponent } from '~common/dialogs/creation-dialogs';
 import { UserService } from '~core/entity-services';
 import { GlobalServiceInterface } from '~core/entity-services/_global/global.service';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
@@ -13,9 +13,9 @@ import { Filter, FilterType } from '~shared/filters';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { Sort } from '~shared/table/components/sort.interface';
 import { showsourcing } from '~utils/debug-object.utils';
+
 import { ListPageDataConfig } from './list-page-config.interface';
 import { ListPageDataService } from './list-page-data.service';
-import { ListPageKey } from './list-page-keys.enum';
 import { ListPageViewService } from './list-page-view.service';
 import { SelectionWithFavoriteService } from './selection-with-favorite.service';
 
@@ -25,13 +25,8 @@ import { SelectionWithFavoriteService } from './selection-with-favorite.service'
 
 // TODO: refacotr needed to make it more modulable. For example see product-activity.ts
 
-// where we can save the services
-const selectionSrvMap = new Map<ListPageKey | string, SelectionWithFavoriteService>();
-const dataSrvMap = new Map<ListPageKey | string, ListPageDataService<any, any>>();
-const viewSrvMap = new Map<ListPageKey | string, ListPageViewService<any>>();
 
 export interface ListPageConfig extends ListPageDataConfig {
-	key?: ListPageKey | string;
 	entityMetadata: EntityMetadata;
 	originComponentDestroy$?: Observable<void>;
 }
@@ -73,21 +68,15 @@ export class ListPageService
 		}
 	}
 
-	static reset() {
-		selectionSrvMap.clear();
-		dataSrvMap.clear();
-		viewSrvMap.clear();
-	}
-
 	setup(config: ListPageConfig, shouldInitDataLoading = true) {
 		this.zone.runOutsideAngular(() => {
 			// getting back the services from their map
-			this.initServices(config.key || '');
+			this.initServices();
 			this.dataSrv.setup(config);
 			// setting up the view service so we know what panel is open etc
 			this.viewSrv.setup(config.entityMetadata);
 			// storing the state for debugging purpose
-			showsourcing.lists[config.entityMetadata.singular + '-' + config.key] = this;
+			showsourcing.lists[config.entityMetadata.singular] = this;
 		});
 		if (shouldInitDataLoading) {
 			this.loadData(config.originComponentDestroy$);
@@ -112,25 +101,10 @@ export class ListPageService
 	 * this is done so we keep the state even when navigating
 	 * from page to page. (angular component providers are recreated upon nav)
 	 */
-	private initServices(key: ListPageKey | string) {
-		// we are gonna set the right services in the map
-		this.selectionSrv = selectionSrvMap.get(key);
-		this.viewSrv = viewSrvMap.get(key);
-		this.dataSrv = dataSrvMap.get(key);
-		// if any of those srv doesnt exist we reset the state
-		if (!this.selectionSrv || !this.viewSrv || !this.dataSrv) {
-			// we have to create instance manually instead of injecting those
-			this.selectionSrv = new SelectionWithFavoriteService();
-			this.viewSrv = new ListPageViewService<T>(this.router);
-			this.dataSrv = new ListPageDataService<T, G>();
-
-			if (key) {
-				selectionSrvMap.set(key, this.selectionSrv);
-				viewSrvMap.set(key, this.viewSrv);
-				dataSrvMap.set(key, this.dataSrv);
-			}
-		}
-
+	private initServices() {
+		this.selectionSrv = new SelectionWithFavoriteService();
+		this.viewSrv = new ListPageViewService<T>(this.router);
+		this.dataSrv = new ListPageDataService<T, G>();
 	}
 
 	/** Here we are gonna bridge the functions from the other services */

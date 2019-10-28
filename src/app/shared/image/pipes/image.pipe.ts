@@ -1,6 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { DEFAULT_IMG, ImageUrls } from '~utils';
+import { imageMock } from '~core/models';
 
 /**
  * Pipes that adds the begining url for images,
@@ -45,6 +46,7 @@ export class ImagePipe implements PipeTransform {
 		size: ('xs' | 's' | 'm' | 'l' | 'xl') = 'xl',
 		type: string = 'image' // can be supplier, product etc..
 	): string | SafeUrl {
+
 		try {
 			// we get the size index from the map
 			const sizeIndex = this.sizeIndexMap.get(size);

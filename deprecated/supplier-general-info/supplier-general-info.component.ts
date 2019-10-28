@@ -5,7 +5,7 @@ import { Supplier } from '~models/supplier.model';
 import { Contact } from '~models/contact.model';
 import { Product, Attachment } from '~models';
 import { AutoUnsub } from '~utils';
-import { SupplierFeatureService } from '~features/supplier/services/supplier-feature.service';
+import { SupplierFeatureService } from '~features/suppliers/services/supplier-feature.service';
 import { DialogService } from '~shared/dialog/services';
 import { takeUntil, map, switchMap, tap } from 'rxjs/operators';
 import { ActivityService } from '~common/activity/services/activity.service';

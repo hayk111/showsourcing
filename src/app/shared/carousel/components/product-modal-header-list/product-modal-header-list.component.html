@@ -47,13 +47,13 @@
 					<icon-app [size]="20" name="dots-vertical"></icon-app>
 				</button>
 			</context-menu-trigger-app>
-			<context-menu-item-app (click)="delete.emit()">
-				<span class="warning-text" translate="button.delete-picture"></span>
-			</context-menu-item-app>
 			<context-menu-item-app
 				(click)="openFileBrowser.emit()">
 				<span>{{'button.upload-picture' | translate}}</span>
 			</context-menu-item-app>
+			<context-menu-item-warn-app (click)="delete.emit()">
+				<span class="warning-text" translate="button.delete-picture"></span>
+			</context-menu-item-warn-app>
 		</context-menu-app>
 		<divider-app [vertical]="true"></divider-app>
 		<div class="close flexCenter pointer" (click)="closePanel()">

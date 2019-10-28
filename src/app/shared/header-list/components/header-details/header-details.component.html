@@ -1,6 +1,6 @@
 
-<div class="header-container">
-	<div class="flex left container" >
+<div class="header-container" [ngClass]="getType('header-container')">
+	<div class="flex left container">
 		<button *ngIf="hasBackArrow" class="light back-arrow-container">
 			<icon-app
 				class="back-arrow"
@@ -12,27 +12,29 @@
 
 		<div *ngIf="hasLogo" class="logo">
 			<ng-content select="logo-app"></ng-content>
+			<ng-content select="user-picture-app"></ng-content>
 		</div>
 
 		<div class="info ellipsis">
 			<div class="flex title-container">
 				<ng-content select="header-details-title-app"></ng-content>
-				<ng-content selecto="[titleExtra]"></ng-content>
+				<ng-content select="[titleExtra]"></ng-content>
 			</div>
+	
 			<div class="flex title-container">
 				<ng-content select="header-details-info-app"></ng-content>
-			</div>
+			</div>	
 		</div>
-
 	</div>
-
-	<div class="flex right container action-list">
+	
+	<div class="flex right container">
 		<ng-content select="header-details-actions-app"></ng-content>
 	</div>
 </div>
 
-<div class="nav-container">
-	<div class="tabs-container flex" [ngClass]="{ 'arrow-margin': hasBackArrow }">
+<div class="nav-container" [ngClass]="getType('nav-container')">
+	<div class="tabs-container flex" [ngClass]="getType('tabs-container')">
 		<ng-content select="header-nav-app"></ng-content>
 	</div>
 </div>
+

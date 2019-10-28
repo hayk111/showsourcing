@@ -38,6 +38,7 @@ import { RPCRequest } from './rpc-request.model';
 
 export enum EntityName {
 	ATTACHMENT = 'attachment',
+	ACTIVITY = 'activity',
 	CATEGORY = 'category',
 	COMMENT = 'comment',
 	COMPANY = 'company',
@@ -65,6 +66,7 @@ export enum EntityName {
 
 export enum EntityTypeEnum {
 	ATTACHMENT = 'ATTACHMENT',
+	ACTIVITY = 'ACTIVITY',
 	CATEGORY = 'CATEGORY',
 	EVENT = 'EVENT',
 	EXPORT = 'EXPORT',
@@ -103,7 +105,7 @@ export class EntityMetadata {
 		this.singular = singular;
 		this.plural = plural;
 		this.translationKey = translationKey;
-		this.url = url || singular;
+		this.url = url || plural;
 		this.destUrl = destUrl || this.url;
 		this.constClass = constClass;
 	}

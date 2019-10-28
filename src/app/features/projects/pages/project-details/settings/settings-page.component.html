@@ -1,0 +1,46 @@
+<div *ngIf="project$ | async as project">
+	<card-app>
+		<h3 class="ms" translate="header.project-settings"></h3>
+
+		<label translate="text.project-picture"></label>
+
+		<div class="flex picCtnr">
+			<div class="circle pointer">
+				<img-app size="s" [image]="project?.logoImage" type="project" (click)="fileInp.click()"></img-app>
+			</div>
+			<div class="color-primary sel">
+				<b class="semi pointer" (click)="fileInp.click()" translate="button.select-img">
+				</b>
+			</div>
+		</div>
+
+		<input #fileInp type="file" (fileSelect)="onNewFiles($event)"/>
+
+		<form [formGroup]="form">
+			<form-field-app class="borderless">
+				<label-app translate="text.project-name"></label-app>
+				<input class="borderless" inputApp type="text" formControlName="name"/>
+			</form-field-app>
+
+			<form-field-app class="borderless">
+				<label-app translate="text.description"></label-app>
+				<textarea inputApp autoGrows formControlName="description" class="borderless"></textarea>
+			</form-field-app>
+		</form>
+
+		<div class="bottom">
+			<div class="flex">
+				<b class="semi" translate="text.created-by"></b>
+				{{ project?.createdBy?.firstName }} {{ project?.createdBy?.lastName }}
+			</div>
+			<div class="flex">
+				<b class="semi" translate="text.created-on"></b>
+				{{ project?.creationDate | date: 'd MMMM y':'':translate.currentLang }}
+			</div>
+			<div class="flex">
+				<b class="semi" translate="text.last-updated-on"></b>
+				{{ project?.lastUpdatedDate | date: 'd MMMM y':'':translate.currentLang }}
+			</div>
+		</div>
+	</card-app>
+</div>

@@ -5,6 +5,7 @@ import { Color, Colors, log } from '~utils';
 
 export const colorMap = {
 	[EntityName.ATTACHMENT]: Color.SECONDARY,
+	[EntityName.ACTIVITY]: Color.PRIMARY,
 	[EntityName.CATEGORY]: Color.ACCENT,
 	[EntityName.COMMENT]: Color.PRIMARY,
 	[EntityName.CONTACT]: Color.SECONDARY,
@@ -22,6 +23,7 @@ export const colorMap = {
 
 export const iconMap = {
 	[EntityName.ATTACHMENT]: 'file',
+	[EntityName.ACTIVITY]: 'activity',
 	[EntityName.CATEGORY]: 'category',
 	[EntityName.COMMENT]: 'comments',
 	[EntityName.CONTACT]: 'team',

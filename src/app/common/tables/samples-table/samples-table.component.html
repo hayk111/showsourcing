@@ -1,0 +1,171 @@
+<table-app
+	[rows]="rows"
+	[type]="erm.SAMPLE.singular"
+	[pending]="pending"
+	[selected]="selection"
+	[contextualMenu]="contextualMenuTemplate"
+	[currentSort]="currentSort"
+	[count]="count"
+	[currentPage]="currentPage"
+	[hasPagination]="hasPagination"
+	[hasSelection]="hasSelection"
+	[hasMenu]="hasMenu"
+	[hasHeader]="hasHeader"
+	[placeholder]="'placeholder.no-sample' | translate"
+	(goToPage)="goToPage.emit($event)"
+	(selectOne)="select.emit($event)"
+	(unselectOne)="unselect.emit($event)"
+	(selectAll)="selectAll.emit($event)"
+	(unselectAll)="unselectAll.emit($event)"
+	(sort)="sort.emit($event)"
+	(bottomReached)="bottomReached.emit()"
+	(createClick)="createClick.emit()">
+
+	<!-- contextual menu -->
+	<ng-template #contextualMenuTemplate let-row="row">
+		<context-menu-item-app
+			class="pointer flexCenter"
+			(click)="archive.emit(row)"
+			translate="button.archive">
+		</context-menu-item-app>
+		<context-menu-item-warn-app
+			class="pointer flexCenter"
+			(click)="delete.emit(row)"
+			translate="button.delete">
+		</context-menu-item-warn-app>
+	</ng-template>
+
+	  <!-- dynamic columns -->
+		<ng-template
+    *ngFor="let column of columnsConfig; trackBy: trackByFn"
+    let-row="row"
+    [columnApp]="'title.' + column.translationKey | translate"
+    [width]="column.width"
+		[sortBy]="column.sortProperty">
+
+    <ng-container [ngSwitch]="column.name">
+			<!-- name -->
+			<ng-container *ngSwitchCase="'name'">
+				<div class="ellipsis name-container contain-strict">
+					<div class="ellipsis">
+						<div class="preview-icon" (click)="previewClick.emit(row)">
+							<logo-app
+								[logo]="row.logoImage"
+								[ngStyle]="{'float': 'left'}"
+								[logo]="row?.images?.length ? row.images[0] : null"
+								type="sample"
+								size="m"
+								(click)="previewClick.emit(row)">
+							</logo-app>
+							<icon-app class="preview-hover-eye" name="eye" size="18"></icon-app>
+						</div>
+						<span class="sample-ref ellipsis">
+							<a class="name txt-btn" (click)="previewClick.emit(row)">
+								{{ row.reference || '-' }}
+							</a>
+						</span>
+						<div class="sample-name-ref">
+							{{ row.name || '-' }}
+						</div>
+					</div>
+				</div>
+			</ng-container>
+
+			<!-- assignee -->
+			<ng-container *ngSwitchCase="'assignee'">
+				<selector-app
+					[type]="erm.USER.singular"
+					[width]="320"
+					[offsetX]="4"
+					(update)="update.emit({ id: row?.id, assignee: $event })">
+					<div class="flex assignee-container ellipsis pointer">
+						<user-picture-app
+							[user]="row?.assignee"
+							[image]="row?.assignee?.avatar">
+						</user-picture-app>
+						<div class="ellipsis pointer txt-btn"  [ngClass]="{ 'empty-field': !row?.assignee }">
+							{{ row?.assignee ? (row?.assignee | formatUserName: true) : 'Assign to' }}
+						</div>
+					</div>
+				</selector-app>
+			</ng-container>
+
+			<!-- product -->
+			<ng-container *ngSwitchCase="'product'">
+				<selector-app
+					[type]="erm.PRODUCT.singular"
+					[offsetX]="4"
+					[width]="350"
+					(update)="update.emit({ id: row?.id, product: $event })">
+					<div class="ellipsis" [ngClass]="{ 'flexVAlign': !row?.product }">
+						<span class="product-ref ellipsis txt-btn" [ngClass]="{ 'empty-field': !row?.product }">
+							{{ row?.product?.reference || 'Link to product'}}
+						</span>
+						<div class="product-name-ref">
+							{{ row?.product?.name }}
+						</div>
+					</div>
+				</selector-app>
+			</ng-container>
+
+
+			<!-- supplier -->
+			<ng-container *ngSwitchCase="'supplier'">
+				<selector-app
+					[type]="erm.SUPPLIER.singular"
+					[width]="350"
+					[offsetX]="4"
+					(update)="update.emit({ id: row?.id, supplier: $event })">
+					<div class="ellipsis supplier-name flexVAlign txt-btn" [ngClass]="{ 'empty-field': !row?.supplier }">
+						{{ row?.supplier?.name || 'Link to supplier'}}
+					</div>
+				</selector-app>
+			</ng-container>
+
+			<!-- type -->
+			<ng-container *ngSwitchCase="'type'">
+				<div class="ellipsis type" [ngClass]="{ 'empty-field': !row?.type }">
+					{{ row?.type || '-' }}
+				</div>
+			</ng-container>
+
+			<!-- comments deprecated -->
+			<ng-container *ngSwitchCase="'comments'">
+				<div class="flex ellipsis">
+					<div class="number">{{ row?.comments?.length || '0' }}</div>
+					&nbsp;
+					{{ ((row?.comments?.length || 0) > 1 ? 'OBJ.comment.plural' : 'OBJ.comment.singular') | translate }}
+				</div>
+			</ng-container>
+
+			<!-- status -->
+			<ng-container *ngSwitchCase="'status'">
+				<div class="status-col flexVAlign">
+					<status-selector-app [entity]="row" [typeEntity]="erm.SAMPLE" selectSize="s"></status-selector-app>
+				</div>
+			</ng-container>
+
+			<!-- activities -->
+			<ng-container *ngSwitchCase="'activities'">
+				<activities-bar-app
+					[row]="row"
+					[favourite]="row?.favorite"
+					[hasComments]="!!row?.comments?.length">
+				</activities-bar-app>
+			</ng-container>
+
+			<!-- created on -->
+			<ng-container *ngSwitchCase="'created on'">
+				{{ row?.creationDate | date: 'dd MMMM y':'':translate.currentLang }}
+			</ng-container>
+
+			<!-- created by -->
+			<ng-container *ngSwitchCase="'created by'">
+				<span class="created-by">{{ row?.createdBy | formatUserName: true }}</span>
+			</ng-container>
+
+		</ng-container>
+
+	</ng-template>
+
+</table-app>
