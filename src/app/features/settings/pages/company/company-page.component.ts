@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TeamService, CompanyService } from '~entity-services';
 import { Team, User } from '~models';
 import { DialogService } from '~shared/dialog/services';
-import { CommonModalService } from '~common/modals/services/common-modal.service';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 
 @Component({
 	selector: 'company-page-app',
@@ -21,8 +21,8 @@ export class CompanyPageComponent implements OnInit {
 		protected router: Router,
 		protected route: ActivatedRoute,
 		private teamSrv: TeamService,
-		private companySrv:  CompanyService,
-		public commonModalSrv:  CommonModalService,
+		private companySrv: CompanyService,
+		public dialogCommonSrv: DialogCommonService,
 	) { }
 
 	ngOnInit() {

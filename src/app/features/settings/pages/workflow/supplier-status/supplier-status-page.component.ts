@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { CommonModalService } from '~common/modals';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { SupplierStatusService } from '~core/entity-services';
 import { ListPageService } from '~core/list-page';
 import { ERM, SupplierStatus } from '~core/models';
@@ -19,7 +19,7 @@ export class SupplierStatusPageComponent
 	constructor(
 		protected supplierStatusSrv: SupplierStatusService,
 		public listSrv: ListPageService<SupplierStatus, SupplierStatusService>,
-		public commonModalSrv: CommonModalService
-	) { super(supplierStatusSrv, listSrv, commonModalSrv,  ERM.SUPPLIER_STATUS); }
+		public dialogCommonSrv: DialogCommonService
+	) { super(supplierStatusSrv, listSrv, dialogCommonSrv, ERM.SUPPLIER_STATUS); }
 
 }

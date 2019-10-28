@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
-import { ChangePswdDlgComponent } from '~common/modals';
+import { ChangePswdDlgComponent } from '~common/dialogs/custom-dialogs';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { UserService } from '~core/entity-services';
 import { User } from '~models';

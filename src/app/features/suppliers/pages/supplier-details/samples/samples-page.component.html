@@ -15,7 +15,7 @@
 	(search)="listSrv.search($event)"
 	(smartSearch)="listSrv.smartSearch($event)"
 	(export)="onExport()"
-	(buttonClick)="commonModalSrv.openAddSampleDialog(undefined, supplier)">
+	(buttonClick)="dialogCommonSrv.openAddSampleDialog(undefined, supplier)">
 </controller-list-app>
 
 <samples-table-app
@@ -35,7 +35,7 @@
 	(favorited)="listSrv.onItemFavorited($event)"
 	(unfavorited)="listSrv.onItemUnfavorited($event)"
 	(previewClick)="listSrv.openPreview($event)"
-	(createClick)="commonModalSrv.openAddSampleDialog(undefined, supplier)"
+	(createClick)="dialogCommonSrv.openAddSampleDialog(undefined, supplier)"
 	(delete)="listSrv.deleteOne($event)">
 </samples-table-app>
 

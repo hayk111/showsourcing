@@ -1,8 +1,8 @@
 import { OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap, takeUntil } from 'rxjs/operators';
-import { CreationSampleDlgComponent } from '~common/modals/creation/creation-sample-dlg/creation-sample-dlg.component';
-import { CommonModalService } from '~common/modals/services/common-modal.service';
+import { CreationSampleDlgComponent } from '~common/dialogs/creation-dialogs';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { ListPageService } from '~core/list-page';
 import { SampleService, UserService } from '~entity-services';
 import { ERM, Sample } from '~models';
@@ -21,7 +21,7 @@ export abstract class AbstractSampleCommonComponent extends AutoUnsub implements
 		protected sampleSrv: SampleService,
 		protected dlgSrv: DialogService,
 		public listSrv: ListPageService<Sample, SampleService>,
-		public commonModalSrv: CommonModalService
+		public dialogCommonSrv: DialogCommonService
 	) {
 		super();
 	}

@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { filter, first, map, switchMap, take, takeUntil, tap } from 'rxjs/operators';
-import { CommonModalService } from '~common/modals/services/common-modal.service';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ListPageService } from '~core/list-page';
 import { NEW_STATUS_ID } from '~core/models/status.model';
@@ -42,7 +42,7 @@ export class WorkflowPageComponent extends AutoUnsub implements OnInit {
 		private productStatusSrv: ProductStatusService,
 		private featureSrv: ProjectFeatureService,
 		public listSrv: ListPageService<Product, ProjectFeatureService>,
-		public commonModalSrv: CommonModalService,
+		public dialogCommonSrv: DialogCommonService,
 		private kanbanSrv: KanbanService,
 		private dlgSrv: DialogService,
 		private translate: TranslateService

@@ -3,9 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { Observable } from 'subscriptions-transport-ws';
+import { CrudDialogService } from '~common/dialogs/services/crud-dialog.service';
 import { EntityMetadata } from '~models';
 import { DialogService } from '~shared/dialog/services';
-import { CrudDialogService } from '~common/modals/services/crud-dialog.service';
 import { InputDirective } from '~shared/inputs';
 import { AutoUnsub } from '~utils';
 

@@ -1,18 +1,21 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { map, switchMap, tap, filter, startWith } from 'rxjs/operators';
+import { filter, map, startWith, switchMap, tap } from 'rxjs/operators';
+import { CreationSampleDlgComponent, CreationTaskDlgComponent } from '~common/dialogs/creation-dialogs';
+import {
+	SupplierRequestDialogComponent,
+} from '~common/dialogs/custom-dialogs/supplier-request-dialog/supplier-request-dialog.component';
 import { CommentService, RequestElementService, SampleService, TaskService, UserService } from '~core/entity-services';
 import { SelectParams } from '~core/entity-services/_global/select-params';
 import { ListPageService } from '~core/list-page';
 import { ProductFeatureService } from '~features/products/services';
 import { Comment, ERM, Product } from '~models';
+import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
+
 import { Counts } from './components/product-activity-nav/product-activity-nav.component';
-import { DialogService, CloseEventType, CloseEvent } from '~shared/dialog';
-import { CreationSampleDlgComponent, CreationTaskDlgComponent } from '~common/modals';
-import { SupplierRequestDialogComponent } from '~common/modals/custom/supplier-request-dialog/supplier-request-dialog.component';
 
 
 @Component({

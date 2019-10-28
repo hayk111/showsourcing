@@ -1,15 +1,14 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { ProductDialogService } from '~common/modals/services/product-dialog.service';
+import { TranslateService } from '@ngx-translate/core';
+import { ProductDialogService } from '~common/dialogs/services/product-dialog.service';
 import { ListPageService } from '~core/list-page';
-import { ERM, Product, Project, EntityTypeEnum } from '~models';
+import { ProjectService } from '~entity-services';
+import { EntityTypeEnum, ERM, Product, Project } from '~models';
+import { CloseEventType } from '~shared/dialog';
 import { DialogService } from '~shared/dialog/services';
 import { FilterType } from '~shared/filters';
-import { ProjectService } from '~entity-services';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub } from '~utils';
-import { CloseEventType } from '~shared/dialog';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'product-add-to-project-dlg-app',
@@ -38,7 +37,7 @@ export class ProductAddToProjectDlgComponent extends AutoUnsub implements OnInit
 		private translate: TranslateService,
 		private projectSrv: ProjectService,
 		public listSrv: ListPageService<Project, ProjectService>,
-		) {
+	) {
 		super();
 	}
 
@@ -77,7 +76,7 @@ export class ProductAddToProjectDlgComponent extends AutoUnsub implements OnInit
 		}
 	}
 
-	selectAll(projects:  Project[]) {
+	selectAll(projects: Project[]) {
 		this.listSrv.selectAll(projects, true);
 
 		projects.forEach(project => {

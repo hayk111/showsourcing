@@ -11,7 +11,7 @@ import {
 	Renderer2,
 	ViewChild,
 } from '@angular/core';
-import { DescriptionDlgComponent } from '~common/modals/custom/description-dlg/description-dlg.component';
+import { DescriptionDlgComponent } from '~common/dialogs/custom-dialogs';
 import { CloseEventType, DialogService } from '~shared/dialog';
 
 @Component({

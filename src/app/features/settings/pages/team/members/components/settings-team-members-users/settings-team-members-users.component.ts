@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { forkJoin } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
-import { CommonModalService } from '~common/modals/services/common-modal.service';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 import { ListPageService } from '~core/list-page';
 import { SettingsMembersService } from '~features/settings/services/settings-members.service';
@@ -28,7 +28,7 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub implements OnIn
 	constructor(
 		private featureSrv: SettingsMembersService,
 		public listSrv: ListPageService<TeamUser, SettingsMembersService>,
-		public commonModalSrv: CommonModalService,
+		public dialogCommonSrv: DialogCommonService,
 		private translate: TranslateService
 	) {
 		super();
@@ -60,13 +60,13 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub implements OnIn
 
 	/** Opens the dialog for inviting a new user */
 	openInviteDialog() {
-		this.commonModalSrv.openInvitationDialog();
+		this.dialogCommonSrv.openInvitationDialog();
 	}
 
 	updateAccessType({ accessType, userId }: { accessType: string, userId: string }) {
 		this.featureSrv.updateAccessType(accessType, userId).pipe(
-				switchMap(_ => this.listSrv.refetch())
-			).subscribe(_ => this.listSrv.selectionSrv.unselectAll());
+			switchMap(_ => this.listSrv.refetch())
+		).subscribe(_ => this.listSrv.selectionSrv.unselectAll());
 	}
 
 	updateAccessTypeSelected(accessType) {
