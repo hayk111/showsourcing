@@ -48,7 +48,7 @@ const modals = [
 	VoteDetailsDialogComponent
 ];
 
-NgModule({
+@NgModule({
 	imports: [
 		CommonModule,
 		SharedModule
@@ -67,5 +67,5 @@ NgModule({
 		PricePipe,
 		ProductDialogService
 	]
-});
+})
 export class CustomDialogsCommonModule { }

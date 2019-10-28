@@ -15,7 +15,7 @@ const modals = [
 	CreationTaskDlgComponent
 ];
 
-NgModule({
+@NgModule({
 	imports: [
 		CommonModule,
 		SharedModule
@@ -23,5 +23,5 @@ NgModule({
 	declarations: modals,
 	entryComponents: modals,
 	providers: [CrudDialogService]
-});
+})
 export class CreationDialogsCommonModule { }
