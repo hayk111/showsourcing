@@ -6,7 +6,7 @@ import {
 	CreationProductDlgComponent,
 	CreationSampleDlgComponent,
 	CreationTaskDlgComponent,
-} from '~common/modals/creation';
+} from '~common/dialogs/creation-dialogs';
 import {
 	CompareProductComponent,
 	EditionDialogComponent,
@@ -18,16 +18,16 @@ import {
 	ProductRequestTeamFeedbackDlgComponent,
 	RefuseReplyDlgComponent,
 	VoteDetailsDialogComponent,
-} from '~common/modals/custom';
-import { ProductAddToProjectDlgComponent, ProductSelectDlgComponent } from '~common/modals/selection';
+} from '~common/dialogs/custom-dialogs';
+import { ProductAddToProjectDlgComponent, ProductSelectDlgComponent } from '~common/dialogs/selection-dialogs';
 import { EntityMetadata, Product, ProductVote, Project, Supplier } from '~models';
 import { CloseEvent, CloseEventType } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { DialogService } from '~shared/dialog/services';
 import { ID } from '~utils';
 
-import { ReviewRequestReplyDlgComponent } from '../custom/review-request-reply-dlg/review-request-reply-dlg.component';
-import { SupplierRequestDialogComponent } from '../custom/supplier-request-dialog/supplier-request-dialog.component';
+import { ReviewRequestReplyDlgComponent } from '../custom-dialogs/review-request-reply-dlg/review-request-reply-dlg.component';
+import { SupplierRequestDialogComponent } from '../custom-dialogs/supplier-request-dialog/supplier-request-dialog.component';
 
 /**
  * Service used to open dialogs, the goal of this service is to bring easy typing
@@ -35,7 +35,7 @@ import { SupplierRequestDialogComponent } from '../custom/supplier-request-dialo
  * which might bring some circular dependencies from time to time
  */
 @Injectable({ providedIn: 'root' })
-export class CommonModalService {
+export class DialogCommonModalService {
 
 	constructor(
 		private router: Router,
