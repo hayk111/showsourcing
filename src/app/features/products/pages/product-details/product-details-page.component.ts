@@ -3,10 +3,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { filter, map, switchMap, takeUntil } from 'rxjs/operators';
-import { CommonModalService } from '~common/modals';
-import { SupplierRequestDialogComponent } from '~common/modals/custom/supplier-request-dialog/supplier-request-dialog.component';
+import {
+	SupplierRequestDialogComponent,
+} from '~common/dialogs/custom-dialogs/supplier-request-dialog/supplier-request-dialog.component';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { ProductFeatureService } from '~features/products/services';
-import { ERM, Product, Project } from '~models';
+import { ERM, Product } from '~models';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { NotificationService, NotificationType } from '~shared/notifications';
@@ -39,7 +41,7 @@ export class ProductDetailsPageComponent extends AutoUnsub implements OnInit {
 		private dlgSrv: DialogService,
 		private notifSrv: NotificationService,
 		private thumbSrv: ThumbService,
-		public commonModalSrv: CommonModalService,
+		public dialogCommonSrv: DialogCommonService,
 		private translate: TranslateService
 	) {
 		super();

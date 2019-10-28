@@ -2,7 +2,9 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap, takeUntil, tap } from 'rxjs/operators';
-import { SupplierRequestDialogComponent } from '~common/modals/custom/supplier-request-dialog/supplier-request-dialog.component';
+import {
+	SupplierRequestDialogComponent,
+} from '~common/dialogs/custom-dialogs/supplier-request-dialog/supplier-request-dialog.component';
 import { ProductDescriptor } from '~core/descriptors';
 import { ProductService } from '~core/entity-services';
 import { Product } from '~core/models';

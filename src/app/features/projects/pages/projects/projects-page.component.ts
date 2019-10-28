@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { CommonModalService } from '~common/modals';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { ProjectService } from '~core/entity-services';
 import { SelectParams, SelectParamsConfig } from '~core/entity-services/_global/select-params';
 import { ListPageService } from '~core/list-page';
@@ -31,7 +31,7 @@ export class ProjectsPageComponent extends AutoUnsub implements OnInit, AfterVie
 	constructor(
 		private projectSrv: ProjectService,
 		public listSrv: ListPageService<Project, ProjectService>,
-		public commonModalSrv: CommonModalService,
+		public dialogCommonSrv: DialogCommonService,
 	) {
 		super();
 	}

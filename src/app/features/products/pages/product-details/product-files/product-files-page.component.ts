@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CommonModalService } from '~common/modals';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { AttachmentService, UserService } from '~core/entity-services';
 import { SelectParams } from '~core/entity-services/_global/select-params';
 import { ListPageService } from '~core/list-page';
@@ -25,7 +25,7 @@ export class ProductFilesPageComponent extends AutoUnsub implements OnInit {
 		protected router: Router,
 		protected dlgSrv: DialogService,
 		protected attachmentSrv: AttachmentService,
-		public commonModalSrv: CommonModalService,
+		public dialogCommonSrv: DialogCommonService,
 		public listSrv: ListPageService<Attachment, AttachmentService>
 	) {
 		super();

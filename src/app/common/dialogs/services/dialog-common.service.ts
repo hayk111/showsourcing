@@ -35,7 +35,7 @@ import { SupplierRequestDialogComponent } from '../custom-dialogs/supplier-reque
  * which might bring some circular dependencies from time to time
  */
 @Injectable({ providedIn: 'root' })
-export class DialogCommonModalService {
+export class DialogCommonService {
 
 	constructor(
 		private router: Router,

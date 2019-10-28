@@ -2,7 +2,8 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { SharedModule } from '~shared/shared.module';
 
-import { CrudDialogService, ProductDialogService } from '../services';
+import { CrudDialogService } from '../services/crud-dialog.service';
+import { ProductDialogService } from '../services/product-dialog.service';
 import { ChangePswdDlgComponent } from './change-pswd-dlg/change-pswd-dlg.component';
 import { CompareColumnComponent } from './compare-product/compare-column/compare-column.component';
 import { CompareLabelsComponent } from './compare-product/compare-labels/compare-labels.component';
@@ -67,4 +68,4 @@ NgModule({
 		ProductDialogService
 	]
 });
-export class CreationDialogsCommonModule { }
+export class CustomDialogsCommonModule { }

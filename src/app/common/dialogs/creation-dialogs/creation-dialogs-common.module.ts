@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { SharedModule } from '~shared/shared.module';
 
-import { CrudDialogService } from '../services';
+import { CrudDialogService } from '../services/crud-dialog.service';
 import { CreationDialogComponent } from './creation-dialog/creation-dialog.component';
 import { CreationProductDlgComponent } from './creation-product-dlg/creation-product-dlg.component';
 import { CreationSampleDlgComponent } from './creation-sample-dlg/creation-sample-dlg.component';

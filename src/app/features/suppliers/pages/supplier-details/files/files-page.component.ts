@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CommonModalService } from '~common/modals';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { AttachmentService } from '~core/entity-services';
 import { ListPageService } from '~core/list-page';
 import { Attachment, ERM, Supplier } from '~models';
@@ -22,7 +22,7 @@ export class FilesPageComponent extends AutoUnsub implements OnInit {
 		protected route: ActivatedRoute,
 		protected dlgSrv: DialogService,
 		protected attachmentSrv: AttachmentService,
-		public commonModalSrv: CommonModalService,
+		public dialogCommonSrv: DialogCommonService,
 		public listSrv: ListPageService<Attachment, AttachmentService>
 	) {
 		super();

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { AbstractTaskCommonComponent } from '~common/abstracts/abstract-task-common.component';
-import { CommonModalService } from '~common/modals/services/common-modal.service';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { ListPageService } from '~core/list-page';
 import { TaskService, UserService } from '~entity-services';
 import { SupplierFeatureService } from '../../../services';
@@ -33,7 +33,7 @@ export class TasksPageComponent extends AbstractTaskCommonComponent implements O
 		protected taskSrv: TaskService,
 		protected dlgSrv: DialogService,
 		protected featureSrv: SupplierFeatureService,
-		public commonModalSrv: CommonModalService,
+		public dialogCommonSrv: DialogCommonService,
 		public listSrv: ListPageService<Task, TaskService>
 	) {
 		super(
@@ -42,7 +42,7 @@ export class TasksPageComponent extends AbstractTaskCommonComponent implements O
 			userSrv,
 			taskSrv,
 			dlgSrv,
-			commonModalSrv,
+			dialogCommonSrv,
 			listSrv
 		);
 	}

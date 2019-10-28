@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { CommonModalService } from '~common/modals/services/common-modal.service';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { TagService } from '~core/entity-services';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 import { ListPageService } from '~core/list-page';
@@ -26,7 +26,7 @@ export class TagDataPageComponent extends AutoUnsub implements OnInit {
 	constructor(
 		private tagSrv: TagService,
 		public listSrv: ListPageService<Tag, TagService>,
-		public commonModalSrv: CommonModalService) {
+		public dialogCommonSrv: DialogCommonService) {
 		super();
 	}
 
@@ -42,14 +42,14 @@ export class TagDataPageComponent extends AutoUnsub implements OnInit {
 
 	mergeSelected() {
 		const tags = this.listSrv.getSelectedValues();
-		this.commonModalSrv.openMergeDialog({
+		this.dialogCommonSrv.openMergeDialog({
 			type: this.listSrv.entityMetadata,
 			entities: tags
 		});
 	}
 
 	showItemsPerPage(count: number) {
-		this.selectItemsConfig = {take: Number(count)};
+		this.selectItemsConfig = { take: Number(count) };
 		this.listSrv.refetch(this.selectItemsConfig).subscribe();
 	}
 }

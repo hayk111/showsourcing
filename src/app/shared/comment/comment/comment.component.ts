@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { filter, switchMap } from 'rxjs/operators';
-import { CommonModalService } from '~common/modals/services/common-modal.service';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { CommentService, UserService } from '~core/entity-services';
 import { Comment, User } from '~models';
 import { CloseEventType } from '~shared/dialog';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'comment-app',
@@ -32,7 +32,7 @@ export class CommentComponent implements OnInit {
 	constructor(
 		private userSrv: UserService,
 		private commentSrv: CommentService,
-		private commonModalSrv: CommonModalService,
+		private dialogCommonSrv: DialogCommonService,
 		public translate: TranslateService
 	) { }
 
@@ -65,7 +65,7 @@ export class CommentComponent implements OnInit {
 	onDelete() {
 		// TODO i18n
 		const text = `Are you sure you want to delete this comment ?`;
-		this.commonModalSrv.openConfirmDialog({ text }).pipe(
+		this.dialogCommonSrv.openConfirmDialog({ text }).pipe(
 			filter(data => data.type === CloseEventType.OK),
 			switchMap(_ => this.commentSrv.delete(this.comment.id))
 		).subscribe();

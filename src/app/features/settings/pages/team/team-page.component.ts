@@ -5,7 +5,7 @@ import { switchMap } from 'rxjs/operators';
 import { TeamService, CompanyService } from '~entity-services';
 import { Team } from '~models';
 import { DialogService } from '~shared/dialog/services';
-import { CommonModalService } from '~common/modals/services/common-modal.service';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 
 @Component({
 	selector: 'team-page-app',
@@ -25,7 +25,7 @@ export class TeamPageComponent implements OnInit {
 		protected route: ActivatedRoute,
 		private teamSrv: TeamService,
 		private companySrv: CompanyService,
-		public commonModalSrv: CommonModalService,
+		public dialogCommonSrv: DialogCommonService,
 	) { }
 
 	ngOnInit() {
