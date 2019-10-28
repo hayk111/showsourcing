@@ -22,8 +22,8 @@ export class ProductFeatureService extends ProductService {
 
 	getActivityCount(product: Product) {
 		const comment = of(product.comments.length);
-		const task = of(product.tasksLinked.count);
-		const sample = of(product.samplesLinked.count);
+		const task = of(product.tasksLinkedAssignedToMe.count);
+		const sample = of(product.samplesLinkedAssignedToMe.count);
 		const request = this.requestElemSrv.queryCount(
 			`targetedEntityType == "Product" && targetId == "${product.id}" && reply.status == "replied"`
 		);

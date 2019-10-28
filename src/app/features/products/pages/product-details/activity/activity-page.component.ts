@@ -58,13 +58,16 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 		);
 		this.counts$ = this.product$.pipe(
 			map(product => this.productSrv.getActivityCount(product)),
-			tap(_ => this.listSrv.refetch().subscribe()),
+			switchMap(_ => this.listSrv.refetch(), count => count),
 			startWith({ comment: of(0), task: of(0), sample: of(0), request: of(0) })
 		);
 		this.onTabChange(this.selectedTab);
 	}
 
 	onTabChange(tabName: string) {
+		// here we are using the list service because request isn't
+		// on the same realm as other entities.
+		// infos are already on the product for other tabs though so we could change
 		this.selectedTab = tabName;
 		let entitySrv;
 		let entityMetadata;

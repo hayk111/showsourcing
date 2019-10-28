@@ -1,4 +1,5 @@
 import { GlobalQueries } from '~entity-services/_global/global-queries.class';
+import { UserService } from '../user/user.service';
 
 export abstract class ProductQueries extends GlobalQueries {
 
@@ -17,6 +18,20 @@ export abstract class ProductQueries extends GlobalQueries {
 				status { id, name, category, inWorkflow, step },
 				assignee { id, firstName, lastName, avatar { id, urls { id, url } } }
 			}
+		}
+	}`;
+
+	// tslint:disable-next-line: max-line-length
+	static readonly tasksLinkedAssignedToMe = `tasksLinked: _linkingObjects(objectType: "Task" property:"product" query:"deleted == false AND assignee.id == '${UserService.userSync.id}'") {
+		... on TaskCollection {
+			count
+		 }
+		}`;
+
+	// tslint:disable-next-line: max-line-length
+	static readonly samplesLinkedAssignedToMe = `samplesLinked: _linkingObjects(objectType: "Sample" property:"product" query:"deleted == false AND assignee.id == '${UserService.userSync.id}'") {
+		... on SampleCollection {
+			count
 		}
 	}`;
 
@@ -102,6 +117,8 @@ export abstract class ProductQueries extends GlobalQueries {
 			${ProductQueries.votes}
 			${ProductQueries.tasksLinked}
 			${ProductQueries.samplesLinked}
+			${ProductQueries.tasksLinkedAssignedToMe}
+			${ProductQueries.samplesLinkedAssignedToMe}
 			`;
 
 	static readonly many = `
@@ -133,6 +150,8 @@ export abstract class ProductQueries extends GlobalQueries {
 			${ProductQueries.tags}
 			${ProductQueries.tasksLinked},
 			${ProductQueries.samplesLinked},
+			${ProductQueries.tasksLinkedAssignedToMe}
+			${ProductQueries.samplesLinkedAssignedToMe}
 			`;
 
 	static readonly update = `
