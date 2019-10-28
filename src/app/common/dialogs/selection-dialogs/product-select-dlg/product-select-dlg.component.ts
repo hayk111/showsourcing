@@ -1,17 +1,13 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { switchMap, takeUntil } from 'rxjs/operators';
+import { ProductDialogService } from '~common/dialogs/services/product-dialog.service';
 import { ProductService, UserService } from '~core/entity-services';
-import { ListPageService } from '~core/list-page';
-import { ERM, Product, Project, EntityTypeEnum } from '~models';
-import { CloseEventType, DialogService } from '~shared/dialog';
-import { NotificationService, NotificationType } from '~shared/notifications';
-import { FilterType } from '~shared/filters';
-import { AutoUnsub } from '~utils';
-import { ProductDialogService } from '~common/modals/services/product-dialog.service';
-import { translate } from '~utils';
-import { TableConfig } from '~core/list-page';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
+import { ListPageService } from '~core/list-page';
+import { EntityTypeEnum, ERM, Product, Project } from '~models';
+import { CloseEventType, DialogService } from '~shared/dialog';
+import { FilterType } from '~shared/filters';
+import { NotificationService, NotificationType } from '~shared/notifications';
+import { AutoUnsub, translate } from '~utils';
 
 @Component({
 	selector: 'product-select-dlg',

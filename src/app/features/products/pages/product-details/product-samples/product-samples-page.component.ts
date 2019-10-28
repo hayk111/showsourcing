@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { AbstractSampleCommonComponent } from '~common/abstracts/abstract-sample-common.component';
-import { CommonModalService } from '~common/modals/services/common-modal.service';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { ListPageService } from '~core/list-page';
 import { SampleService, UserService } from '~entity-services';
 import { ProductFeatureService } from '~features/products/services';
@@ -30,9 +30,9 @@ export class ProductSamplesPageComponent extends AbstractSampleCommonComponent i
 		protected dlgSrv: DialogService,
 		protected featureSrv: ProductFeatureService,
 		public listSrv: ListPageService<Sample, SampleService>,
-		public commonModalSrv: CommonModalService
+		public dialogCommonSrv: DialogCommonService
 	) {
-		super(router, route, userSrv, sampleSrv, dlgSrv, listSrv, commonModalSrv);
+		super(router, route, userSrv, sampleSrv, dlgSrv, listSrv, dialogCommonSrv);
 	}
 
 	ngOnInit() {

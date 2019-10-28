@@ -1,15 +1,16 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { switchMap } from 'rxjs/operators';
-import { CommonModalService } from '~common/modals';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { SupplierService } from '~core/entity-services';
 import { ListPageService } from '~core/list-page';
 import { SelectParamsConfig } from '~entity-services/_global/select-params';
-import { SupplierFeatureService } from '../../services';
 import { ERM, Supplier } from '~models';
 import { FilterType } from '~shared/filters';
 import { ControllerListService } from '~shared/header-list/services/controller-list.service';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub } from '~utils';
+
+import { SupplierFeatureService } from '../../services';
 
 
 // A doctor accidentally prescribes his patient a laxative instead of a coughing syrup.
@@ -51,7 +52,7 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit, AfterVi
 		private featureSrv: SupplierFeatureService,
 		private notifSrv: NotificationService,
 		public listSrv: ListPageService<Supplier, SupplierService>,
-		public commonModalSrv: CommonModalService,
+		public dialogCommonSrv: DialogCommonService,
 		private controllerListService: ControllerListService
 	) {
 		super();
@@ -83,8 +84,8 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit, AfterVi
 	onClearFilters() {
 		this.listSrv.filterList.resetAll();
 
-		this.listSrv.addFilter({ type: FilterType.ARCHIVED, value: false});
-		this.listSrv.addFilter({ type: FilterType.DELETED, value: false});
+		this.listSrv.addFilter({ type: FilterType.ARCHIVED, value: false });
+		this.listSrv.addFilter({ type: FilterType.DELETED, value: false });
 
 		this.controllerListService.onFiltersClear();
 	}

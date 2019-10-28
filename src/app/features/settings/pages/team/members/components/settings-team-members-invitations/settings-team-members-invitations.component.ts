@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { switchMap, takeUntil } from 'rxjs/operators';
-import { CommonModalService } from '~common/modals/services/common-modal.service';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 import { ListPageService } from '~core/list-page';
 import { SettingsInvitationService } from '~features/settings/services/settings-invitation.service';
@@ -26,7 +26,7 @@ export class SettingsTeamMembersInvitationsComponent extends AutoUnsub implement
 	constructor(
 		private featureSrv: SettingsInvitationService,
 		public listSrv: ListPageService<any, SettingsInvitationService>,
-		public commonModalSrv: CommonModalService,
+		public dialogCommonSrv: DialogCommonService,
 		private translate: TranslateService
 	) {
 		super();
@@ -57,7 +57,7 @@ export class SettingsTeamMembersInvitationsComponent extends AutoUnsub implement
 
 	/** Opens the dialog for inviting a new user */
 	openInviteDialog() {
-		this.commonModalSrv.openInvitationDialog().pipe(
+		this.dialogCommonSrv.openInvitationDialog().pipe(
 			switchMap(_ => this.listSrv.refetch())
 		).subscribe();
 	}

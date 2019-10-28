@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { forkJoin, Observable, of } from 'rxjs';
 import { first, switchMap, tap } from 'rxjs/operators';
-import { CommonModalService } from '~common/modals';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { AnalyticsService } from '~core/analytics/analytics.service';
 import { ApolloStateService } from '~core/apollo';
 import { Product, ProductStatus, Project } from '~core/models';
@@ -17,7 +17,7 @@ export class ProjectFeatureService extends ProjectService {
 		protected productStatusSrv: ProductStatusService,
 		protected userSrv: UserService,
 		protected notificationSrv: NotificationService,
-		protected commonModalSrv: CommonModalService
+		protected dialogCommonSrv: DialogCommonService
 	) {
 		super(analyticsSrv, apolloState, userSrv);
 	}
@@ -45,7 +45,7 @@ export class ProjectFeatureService extends ProjectService {
 		if (project) {
 			return this.getProjectProducts(project).pipe(
 				first(),
-				switchMap((products: Product[]) => this.commonModalSrv.openSelectProductDlg(products, project)),
+				switchMap((products: Product[]) => this.dialogCommonSrv.openSelectProductDlg(products, project)),
 				switchMap((data: any) => this.manageProjectsToProductsAssociations([project], data.data))
 			);
 		} return of();

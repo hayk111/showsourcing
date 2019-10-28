@@ -1,16 +1,17 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { filter, map, takeUntil, switchMap } from 'rxjs/operators';
-import { CommonModalService, CreationProductDlgComponent } from '~common/modals';
+import { filter, map, switchMap, takeUntil } from 'rxjs/operators';
+import { CreationProductDlgComponent } from '~common/dialogs/creation-dialogs';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { ProductService, SupplierService } from '~core/entity-services';
+import { SelectParams } from '~core/entity-services/_global/select-params';
 import { ListPageService } from '~core/list-page';
 import { ERM, Product, Supplier } from '~core/models';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
-import { AutoUnsub } from '~utils';
-import { ID } from '~utils/id.utils';
 import { FilterType } from '~shared/filters';
 import { ControllerListService } from '~shared/header-list/services/controller-list.service';
-import { SelectParams } from '~core/entity-services/_global/select-params';
+import { AutoUnsub } from '~utils';
+import { ID } from '~utils/id.utils';
 
 @Component({
 	selector: 'products-page-app',
@@ -41,7 +42,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		private productSrv: ProductService,
 		private supplierSrv: SupplierService,
 		public listSrv: ListPageService<Product, ProductService>,
-		public commonModalSrv: CommonModalService,
+		public dialogCommonSrv: DialogCommonService,
 		public dlgSrv: DialogService,
 		private controllerListService: ControllerListService,
 	) { super(); }
@@ -56,7 +57,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		this.listSrv.setup({
 			entitySrv: this.productSrv,
 			searchedFields: ['name', 'description'],
-			initialFilters: [ { type: FilterType.ARCHIVED, value: false }, { type: FilterType.DELETED, value: false } ],
+			initialFilters: [{ type: FilterType.ARCHIVED, value: false }, { type: FilterType.DELETED, value: false }],
 			selectParams: new SelectParams({ query: `supplier.id == "${this.supplierId}"` }),
 			entityMetadata: ERM.PRODUCT,
 			originComponentDestroy$: this._destroy$

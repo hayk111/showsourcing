@@ -3,7 +3,7 @@
 	class="max-full-table-width"
 	[title]="'title.my-samples' | translate"
 	[buttonName]="'button.create-sample' | translate"
-	(buttonClick)="commonModalSrv.openAddSampleDialog()">
+	(buttonClick)="dialogCommonSrv.openAddSampleDialog()">
 </header-list-app>
 
 <controller-list-app
@@ -49,7 +49,7 @@
 	(previewClick)="listSrv.openPreview($event)"
 	(showItemsPerPage)="showItemsPerPage($event)"
 	(update)="listSrv.update($event)"
-	(createClick)="commonModalSrv.openAddSampleDialog()"
+	(createClick)="dialogCommonSrv.openAddSampleDialog()"
 	(delete)="listSrv.deleteOne($event)">
 </samples-table-app>
 

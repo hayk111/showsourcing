@@ -1,6 +1,6 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
-import { CommonModalService } from '~common/modals';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { ExportRequestService } from '~core/entity-services/export-request/export-request.service';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 import { ListPageService } from '~core/list-page';
@@ -24,7 +24,7 @@ export class ExportsPageComponent extends AutoUnsub implements OnInit, AfterView
 		private userSrv: UserService,
 		private exportSrv: ExportRequestService,
 		public listSrv: ListPageService<ExportRequest, ExportRequestService>,
-		public commonModalSrv: CommonModalService
+		public dialogCommonSrv: DialogCommonService
 	) { super(); }
 
 

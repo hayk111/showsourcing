@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { CommonModalService } from '~common/modals';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { ProductStatusService } from '~core/entity-services';
 import { ListPageService } from '~core/list-page';
 import { ERM, ProductStatus } from '~core/models';
@@ -16,7 +16,7 @@ export class ProductStatusPageComponent extends AbstractStatusWorkflowComponent<
 	constructor(
 		protected productStatusSrv: ProductStatusService,
 		public listSrv: ListPageService<ProductStatus, ProductStatusService>,
-		public commonModalSrv: CommonModalService
-	) { super(productStatusSrv, listSrv, commonModalSrv, ERM.PRODUCT_STATUS); }
+		public dialogCommonSrv: DialogCommonService
+	) { super(productStatusSrv, listSrv, dialogCommonSrv, ERM.PRODUCT_STATUS); }
 
 }
