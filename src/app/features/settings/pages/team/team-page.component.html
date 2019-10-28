@@ -23,7 +23,7 @@
 			icon="team"
 			[name]="'nav.team-members' | translate">
 		</header-nav-item-app>
-	
+
 		<!-- TODO create route for settings tab -->
 		<header-nav-item-app
 			link="/settings/team/info"
@@ -33,8 +33,8 @@
 	</header-nav-app>
 
 	<header-details-actions-app>
-		<button action class="invite-team-member capitalize" 
-			(click)="commonModalSrv.openInvitationDialog()"
+		<button action class="invite-team-member capitalize"
+			(click)="dialogCommonSrv.openInvitationDialog()"
 			translate="button.invite-team-member">
 		</button>
 	</header-details-actions-app>

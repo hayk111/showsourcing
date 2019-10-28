@@ -1,6 +1,6 @@
 import { OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
-import { CommonModalService } from '~common/modals';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { GlobalService } from '~core/entity-services/_global/global.service';
 import { ListPageService } from '~core/list-page';
 import { EntityMetadata } from '~core/models';
@@ -12,7 +12,7 @@ export abstract class AbstractStatusWorkflowComponent<T, G extends GlobalService
 	constructor(
 		protected statusSrv: G,
 		public listSrv: ListPageService<T, G>,
-		public commonModalSrv: CommonModalService,
+		public dialogCommonSrv: DialogCommonService,
 		public entityMetadata: EntityMetadata
 	) {
 		super();

@@ -2,9 +2,9 @@
 <product-header-details-app
 	[product]="product"
 	(update)="updateProduct($event)"
-	(export)="commonModalSrv.openExportDialog([$event])"
+	(export)="dialogCommonSrv.openExportDialog([$event])"
 	(delete)="deleteProduct($event)"
-	(archive)="onArchive($event)"	
+	(archive)="onArchive($event)"
 	(supplierRequest)="openSupplierRequest($event)">
 </product-header-details-app>
 

@@ -2,13 +2,13 @@ import { AfterViewChecked, ChangeDetectorRef, Component, Input, OnInit, ViewChil
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
 import { debounceTime, switchMap, takeUntil } from 'rxjs/operators';
-import { CrudDialogService } from '~common/modals/services/crud-dialog.service';
 import { ERMService } from '~core/entity-services/_global/erm.service';
 import { EntityMetadata } from '~models';
 import { CloseEventType } from '~shared/dialog';
 import { DialogService } from '~shared/dialog/services';
 import { InputDirective } from '~shared/inputs';
 import { AutoUnsub } from '~utils';
+import { CrudDialogService } from '~common/dialogs/services/crud-dialog.service';
 
 @Component({
 	selector: 'creation-dialog-app',

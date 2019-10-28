@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap, takeUntil, map } from 'rxjs/operators';
-import { CommonModalService } from '~common/modals/services/common-modal.service';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { ListPageService } from '~core/list-page';
 import { TaskService, UserService } from '~entity-services';
 import { ERM, Task, Product } from '~models';
@@ -32,7 +32,7 @@ export class TasksPageComponent extends AbstractTaskCommonComponent
 		protected taskSrv: TaskService,
 		protected dlgSrv: DialogService,
 		protected featureSrv: ProductFeatureService,
-		public commonModalSrv: CommonModalService,
+		public dialogCommonSrv: DialogCommonService,
 		public listSrv: ListPageService<Task, TaskService>
 	) {
 		super(
@@ -41,7 +41,7 @@ export class TasksPageComponent extends AbstractTaskCommonComponent
 			userSrv,
 			taskSrv,
 			dlgSrv,
-			commonModalSrv,
+			dialogCommonSrv,
 			listSrv,
 		);
 	}

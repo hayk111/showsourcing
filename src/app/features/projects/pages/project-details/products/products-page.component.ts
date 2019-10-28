@@ -3,8 +3,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { SupplierRequestDialogComponent } from '~common/modals/custom/supplier-request-dialog/supplier-request-dialog.component';
-import { CommonModalService } from '~common/modals/services/common-modal.service';
+import {
+	SupplierRequestDialogComponent,
+} from '~common/dialogs/custom-dialogs/supplier-request-dialog/supplier-request-dialog.component';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 import { ListPageService } from '~core/list-page';
 import { ProductService } from '~entity-services';
@@ -59,7 +61,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		private route: ActivatedRoute,
 		private productSrv: ProductService,
 		public listSrv: ListPageService<Product, ProductService>,
-		public commonModalSrv: CommonModalService,
+		public dialogCommonSrv: DialogCommonService,
 		private notifSrv: NotificationService,
 		private controllerListService: ControllerListService,
 		private translate: TranslateService

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CommonModalService } from '~common/modals';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { SupplierService } from '~core/entity-services';
 import { ListPageService } from '~core/list-page';
 import { ERM, Supplier } from '~core/models';
@@ -24,7 +24,7 @@ export class TodoBoxComponent implements OnInit {
 
 	constructor(
 		private supplierSrv: SupplierService,
-		public commonModalSrv: CommonModalService,
+		public dialogCommonSrv: DialogCommonService,
 		public dashboardSrv: DashboardService,
 		private listSrv: ListPageService<Supplier, SupplierService>
 	) { }
@@ -53,13 +53,13 @@ export class TodoBoxComponent implements OnInit {
 	openCreationModal() {
 		switch (this.selectedTab) {
 			case 'product':
-				this.commonModalSrv.openCreationProductDlg();
+				this.dialogCommonSrv.openCreationProductDlg();
 				break;
 			case 'task':
-				this.commonModalSrv.openCreationTaskDlg();
+				this.dialogCommonSrv.openCreationTaskDlg();
 				break;
 			case 'sample':
-				this.commonModalSrv.openCreationSampleDialog();
+				this.dialogCommonSrv.openCreationSampleDialog();
 				break;
 			case 'supplier':
 				this.listSrv.create();

@@ -2,8 +2,10 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angula
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { CommonModalService } from '~common/modals';
-import { SupplierRequestDialogComponent } from '~common/modals/custom/supplier-request-dialog/supplier-request-dialog.component';
+import {
+	SupplierRequestDialogComponent,
+} from '~common/dialogs/custom-dialogs/supplier-request-dialog/supplier-request-dialog.component';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { ProductService, UserService } from '~core/entity-services';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 import { ListPageService } from '~core/list-page';
@@ -25,7 +27,7 @@ import { AutoUnsub } from '~utils';
 	styleUrls: ['./products-page.component.scss'],
 	providers: [
 		ListPageService,
-		CommonModalService
+		DialogCommonService
 	]
 })
 export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterViewInit {
@@ -56,7 +58,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 	constructor(
 		private productSrv: ProductService,
 		private notifSrv: NotificationService,
-		public commonModalSrv: CommonModalService,
+		public dialogCommonSrv: DialogCommonService,
 		public listSrv: ListPageService<Product, ProductService>,
 		private featureSrv: ProductFeatureService,
 		public elem: ElementRef,

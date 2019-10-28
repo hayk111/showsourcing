@@ -2,8 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { filter, map, startWith, switchMap, tap } from 'rxjs/operators';
-import { CommonModalService, CreationSampleDlgComponent, CreationTaskDlgComponent } from '~common/modals';
-import { SupplierRequestDialogComponent } from '~common/modals/custom/supplier-request-dialog/supplier-request-dialog.component';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { CommentService, RequestElementService, SampleService, TaskService, UserService } from '~core/entity-services';
 import { SelectParams } from '~core/entity-services/_global/select-params';
 import { ListPageService } from '~core/list-page';
@@ -13,6 +12,7 @@ import { CloseEvent, CloseEventType } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
 import { Counts } from './components/product-activity-nav/product-activity-nav.component';
+
 
 
 @Component({
@@ -41,7 +41,7 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 		private sampleSrv: SampleService,
 		private requestElemSrv: RequestElementService,
 		private userSrv: UserService,
-		private commonDlgSrv: CommonModalService
+		private commonDlgSrv: DialogCommonService
 	) {
 		super();
 	}

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { switchMap } from 'rxjs/operators';
-import { CommonModalService } from '~common/modals';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { RequestReplyService, SupplierRequestService, TeamService } from '~core/entity-services';
 import { SelectParams } from '~core/entity-services/_global/select-params';
 import { ListPageService } from '~core/list-page';
@@ -25,7 +25,7 @@ export class RequestsPageComponent extends AutoUnsub implements OnInit {
 		private requestSrv: SupplierRequestService,
 		private replySrv: RequestReplyService,
 		public listSrv: ListPageService<SupplierRequest, SupplierRequestService>,
-		public commonModalSrv: CommonModalService,
+		public dialogCommonSrv: DialogCommonService,
 		private dlgSrv: DialogService,
 		private teamSrv: TeamService
 	) { super(); }
