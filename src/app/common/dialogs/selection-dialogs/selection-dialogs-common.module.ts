@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { TablesCommonModule } from '~common/tables/tables-common.module';
 import { SharedModule } from '~shared/shared.module';
 
 import { CrudDialogService } from '../services/crud-dialog.service';
@@ -14,7 +15,8 @@ const modals = [
 @NgModule({
 	imports: [
 		CommonModule,
-		SharedModule
+		SharedModule,
+		TablesCommonModule
 	],
 	declarations: modals,
 	entryComponents: modals,
