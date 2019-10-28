@@ -12,11 +12,11 @@ icon-app.star {
 	margin: 0 var(--spacing-xs) 0 0;
 }
 
-.icons-container > icon-app:not(.favourite) {
+.icons-container > icon-app:not(.favorite) {
 	color: var(--color-txt-third);
 }
 
-.icons-container > icon-app.favourite {
+.icons-container > icon-app.favorite {
 	color: var(--color-warn);
 }
 

@@ -1,6 +1,6 @@
 <div class="action-container flexBetween">
 	<div class="flexVAlign icons-container no-select">
-		<icon-app *ngIf="favourite" name="heart" size="ms" class="favourite" toolTip toolTipMessage="Favorite"></icon-app>
+		<icon-app *ngIf="favorite" name="heart" size="ms" class="favorite" toolTip toolTipMessage="Favorite"></icon-app>
 		<!-- TODO ngx -->
 		<icon-app *ngIf="hasSamples && sampleCount > 0" name="sample" size="ms"
 			toolTip [toolTipMessage]="sampleCount + (sampleCount === 1 ? ' sample' : ' samples')">

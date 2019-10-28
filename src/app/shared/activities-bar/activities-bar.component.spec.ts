@@ -10,7 +10,7 @@ import { By } from '@angular/platform-browser';
 	selector: `test-host-component`,
 	template:
 		`<activities-bar-app
-			[favourite]="favourite"
+			[favorite]="favorite"
 			[hasSamples]="hasSamples"
 			[hasTasks]="hasTasks"
 			[hasComments]="hasComments"
@@ -21,7 +21,7 @@ import { By } from '@angular/platform-browser';
 export class TestHostComponent {
 	@ViewChild('activities', { static: true }) component: ActivitiesBarComponent;
 	votes = [];
-	favourite = false;
+	favorite = false;
 	hasSamples = false;
 	hasComments = false;
 	hasTasks = false;
@@ -43,13 +43,13 @@ describe('Component: ActivitiesBar', () => {
 		testComp = fixture.componentInstance;
 	});
 
-	it('should display heart icon when `favourite` is true and not otherwise', () => {
-		testComp.favourite = true;
+	it('should display heart icon when `favorite` is true and not otherwise', () => {
+		testComp.favorite = true;
 		fixture.detectChanges();
 		let favIcon = fixture.nativeElement.querySelector('icon-app[name="heart"]');
 		expect(favIcon).toBeTruthy();
 
-		testComp.favourite = false;
+		testComp.favorite = false;
 		fixture.detectChanges();
 		favIcon = fixture.nativeElement.querySelector('icon-app[name="heart"]');
 		expect(favIcon).toBeFalsy();

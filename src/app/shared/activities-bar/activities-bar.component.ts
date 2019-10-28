@@ -15,10 +15,10 @@ import { map } from 'rxjs/operators';
 export class ActivitiesBarComponent implements OnInit {
 	@Input() row: any;
 	@Input() entityName: EntityName.PRODUCT | EntityName.SUPPLIER = EntityName.PRODUCT;
-	@Input() favourite = false;
-	@Input() hasSamples = false;
-	@Input() hasTasks = false;
-	@Input() hasComments = false;
+	@Input() favorite = false;
+	@Input() hasSamples = true;
+	@Input() hasTasks = true;
+	@Input() hasComments = true;
 	@Input() votes: any[];
 
 	hasTaskOverdue: boolean;
@@ -31,9 +31,6 @@ export class ActivitiesBarComponent implements OnInit {
 
 	constructor(
 		private requestElementService: RequestElementService,
-		private taskSrv: TaskService,
-		private sampleSrv: SampleService,
-		private ermSrv: ERMService,
 		public thumbService: ThumbService,
 	) { }
 

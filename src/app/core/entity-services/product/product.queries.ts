@@ -1,5 +1,4 @@
 import { GlobalQueries } from '~entity-services/_global/global-queries.class';
-import { UserService } from '../user/user.service';
 
 export abstract class ProductQueries extends GlobalQueries {
 
@@ -22,18 +21,18 @@ export abstract class ProductQueries extends GlobalQueries {
 	}`;
 
 	// tslint:disable-next-line: max-line-length
-	static readonly tasksLinkedAssignedToMe = `tasksLinked: _linkingObjects(objectType: "Task" property:"product" query:"deleted == false AND assignee.id == '${UserService.userSync.id}'") {
+	static readonly tasksLinkedAssignedToMe = (userId: string) => `tasksLinkedAssignedToMe: _linkingObjects(objectType: "Task" property:"product" query:"deleted == false AND assignee.id == '${userId}'") {
 		... on TaskCollection {
 			count
 		 }
-		}`;
+		}`
 
 	// tslint:disable-next-line: max-line-length
-	static readonly samplesLinkedAssignedToMe = `samplesLinked: _linkingObjects(objectType: "Sample" property:"product" query:"deleted == false AND assignee.id == '${UserService.userSync.id}'") {
+	static readonly samplesLinkedAssignedToMe = (userId: string) => `samplesLinkedAssignedToMe: _linkingObjects(objectType: "Sample" property:"product" query:"deleted == false AND assignee.id == '${userId}'") {
 		... on SampleCollection {
 			count
 		}
-	}`;
+	}`
 
 	// in a product there are many sub entities, those are utilities
 	// so when we query a product we can do things like selectOne(id, ProductQueries.images)
@@ -74,8 +73,24 @@ export abstract class ProductQueries extends GlobalQueries {
 		${ProductQueries.definition('definition')}
 	}`;
 
-	// This is the default selection when using selectOne or queryOne
-	static readonly one = `
+	// to be built at runtime via the buildQuery function
+	static one = '';
+	// to be built at runtime via the buildQuery function
+	static many = '';
+
+	static readonly update = `
+		favorite
+		lastUpdatedDate,
+		archived,
+		score
+		${ProductQueries.status}
+		${ProductQueries.votes}
+		${ProductQueries.projects}
+		${ProductQueries.comments}`;
+
+
+	static buildQueries(userId: string) {
+		ProductQueries.one = `
 			name,
 			description
 			favorite,
@@ -117,50 +132,41 @@ export abstract class ProductQueries extends GlobalQueries {
 			${ProductQueries.votes}
 			${ProductQueries.tasksLinked}
 			${ProductQueries.samplesLinked}
-			${ProductQueries.tasksLinkedAssignedToMe}
-			${ProductQueries.samplesLinkedAssignedToMe}
-			`;
+			${ProductQueries.tasksLinkedAssignedToMe(userId)}
+			${ProductQueries.samplesLinkedAssignedToMe(userId)}
+		`;
 
-	static readonly many = `
-			name,
-			description,
-			creationDate,
-			favorite,
-			score,
-			minimumOrderQuantity,
-			lastUpdatedDate,
-			reference,
-			deleted,
-			archived,
-			deleted,
-			${ProductQueries.comments},
-			${ProductQueries.user('assignee')}
-			${ProductQueries.user('createdBy')},
-			${ProductQueries.user('lastUpdatedBy')},
-			${ProductQueries.images},
-			${ProductQueries.event},
-			supplier { id, name },
-			${ProductQueries.category},
-			${ProductQueries.price()},
-			${ProductQueries.packaging('innerCarton')}
-			${ProductQueries.packaging('masterCarton')}
-			${ProductQueries.status},
-			${ProductQueries.votes},
-			${ProductQueries.projects},
-			${ProductQueries.tags}
-			${ProductQueries.tasksLinked},
-			${ProductQueries.samplesLinked},
-			${ProductQueries.tasksLinkedAssignedToMe}
-			${ProductQueries.samplesLinkedAssignedToMe}
-			`;
-
-	static readonly update = `
-		favorite
+		ProductQueries.many = `
+		name,
+		description,
+		creationDate,
+		favorite,
+		score,
+		minimumOrderQuantity,
 		lastUpdatedDate,
+		reference,
+		deleted,
 		archived,
-		score
-		${ProductQueries.status}
-		${ProductQueries.votes}
-		${ProductQueries.projects}
-		${ProductQueries.comments}`;
+		deleted,
+		${ProductQueries.comments},
+		${ProductQueries.user('assignee')}
+		${ProductQueries.user('createdBy')},
+		${ProductQueries.user('lastUpdatedBy')},
+		${ProductQueries.images},
+		${ProductQueries.event},
+		supplier { id, name },
+		${ProductQueries.category},
+		${ProductQueries.price()},
+		${ProductQueries.packaging('innerCarton')}
+		${ProductQueries.packaging('masterCarton')}
+		${ProductQueries.status},
+		${ProductQueries.votes},
+		${ProductQueries.projects},
+		${ProductQueries.tags}
+		${ProductQueries.tasksLinked},
+		${ProductQueries.samplesLinked},
+		${ProductQueries.tasksLinkedAssignedToMe(userId)}
+		${ProductQueries.samplesLinkedAssignedToMe(userId)}
+		`;
+	}
 }
