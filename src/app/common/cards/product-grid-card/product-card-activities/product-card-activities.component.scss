@@ -22,11 +22,11 @@
 	margin: 0 2px 0 0;
 }
 
-:host .icons-container > icon-app:not(.favourite) {
+:host .icons-container > icon-app:not(.favorite) {
 	color: var(--color-txt-third);
 }
 
-:host .icons-container > icon-app.favourite {
+:host .icons-container > icon-app.favorite {
 	color: var(--color-warn);
 }
 

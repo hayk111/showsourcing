@@ -21,6 +21,8 @@
 		</card-header-app>
 
 		<card-title-app>{{ selectedTab }}</card-title-app>
+		<ng-container *ngIf="counts$ | async as counts">
+		</ng-container>
 
 		<ng-container [ngSwitch]="selectedTab">
 
@@ -35,14 +37,15 @@
 			</ng-container>
 
 			<ng-container *ngSwitchCase="'task'">
-				<div class="flexVAlign show-my-tasks">
+				<div class="flexVAlign actions">
 					<checkbox-app
 						[checked]="listSrv.filterList.hasFilterType(assigneeFilterType)"
-						(check)="toggleMyTasks(true)"
-						(uncheck)="toggleMyTasks(false)">
+						(check)="toggleAssigneeFilter(true)"
+						(uncheck)="toggleAssigneeFilter(false)">
 					</checkbox-app>
 					Assigned to me
 					<ng-container translate="text.assigned-to-me"></ng-container>
+					<button class="mg-left-ms" (click)="openCreateTask()">Create</button>
 				</div>
 				<task-table-app
 					class="no-padding"
@@ -72,6 +75,16 @@
 			</ng-container>
 
 			<ng-container *ngSwitchCase="'sample'">
+				<div class="flexVAlign actions">
+					<checkbox-app
+						[checked]="listSrv.filterList.hasFilterType(assigneeFilterType)"
+						(check)="toggleAssigneeFilter(true)"
+						(uncheck)="toggleAssigneeFilter(false)">
+					</checkbox-app>
+					Assigned to me
+					<ng-container translate="text.assigned-to-me"></ng-container>
+					<button class="mg-left-ms" (click)="openCreateSample()">Create</button>
+				</div>
 				<samples-table-app
 					class="no-padding"
 					[columns]="['name', 'status']"
@@ -98,6 +111,9 @@
 			</ng-container>
 
 			<ng-container *ngSwitchCase="'request'">
+				<div class="flexVAlign actions">
+					<button class="mg-left-ms" (click)="openCreateRequest()">Create</button>
+				</div>
 				<request-elements-table-app
 					class="no-padding"
 					[columns]="['name', 'sender', 'status']"

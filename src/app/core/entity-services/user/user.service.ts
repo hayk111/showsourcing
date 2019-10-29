@@ -9,6 +9,8 @@ import { UserQueries } from '~entity-services/user/user.queries';
 import { GlobalService } from '~entity-services/_global/global.service';
 import { User } from '~models';
 import { RealmAuthenticationService } from '~core/auth/services/realm-authentication.service';
+import { ProductQueries } from '../product/product.queries';
+import { SupplierQueries } from '../supplier/supplier.queries';
 
 @Injectable({
 	providedIn: 'root',
@@ -19,6 +21,10 @@ export class UserService extends GlobalService<User> {
 	private user$ = this.userId$.pipe(
 		distinctUntilChanged(),
 		tap(id => this.userId = id),
+		tap(id => {
+			ProductQueries.buildQueries(id);
+			SupplierQueries.buildQueries(id);
+		}),
 		switchMap(id => this.selectOne(id)),
 		filter(user => !!user),
 		shareReplay(1)

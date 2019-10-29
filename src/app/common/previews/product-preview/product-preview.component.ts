@@ -215,7 +215,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 	}
 
 	openNewSample() {
-		this.modalSrv.openAddSampleDialog(this.product, this.product && this.product.supplier).subscribe();
+		this.modalSrv.openCreationSampleDialog(this.product, this.product && this.product.supplier).subscribe();
 	}
 
 	openExportModal() {

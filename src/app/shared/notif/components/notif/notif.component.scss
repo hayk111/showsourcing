@@ -1,8 +1,11 @@
 
 
 :host {
-	position: relative;
 	font-size: var(--font-size-icon-l);
+}
+
+.icon-ctnr {
+	position: relative;
 }
 
 icon-app {
@@ -22,8 +25,8 @@ icon-app {
   color: var(--color-primary-contrast);
 	padding-bottom: var(--spacing-xxs);
 	position: absolute;
-	right: 12px;
-	top: 10px;
+	right: -5px;
+	top: -1px;
   font-size: var(--font-size-s);
 	text-align: center;
 	cursor: pointer;

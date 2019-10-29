@@ -2,20 +2,17 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { filter, map, startWith, switchMap, tap } from 'rxjs/operators';
-import { CreationSampleDlgComponent, CreationTaskDlgComponent } from '~common/dialogs/creation-dialogs';
-import {
-	SupplierRequestDialogComponent,
-} from '~common/dialogs/custom-dialogs/supplier-request-dialog/supplier-request-dialog.component';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { CommentService, RequestElementService, SampleService, TaskService, UserService } from '~core/entity-services';
 import { SelectParams } from '~core/entity-services/_global/select-params';
 import { ListPageService } from '~core/list-page';
 import { ProductFeatureService } from '~features/products/services';
 import { Comment, ERM, Product } from '~models';
-import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
+import { CloseEvent, CloseEventType } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
-
 import { Counts } from './components/product-activity-nav/product-activity-nav.component';
+
 
 
 @Component({
@@ -44,7 +41,7 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 		private sampleSrv: SampleService,
 		private requestElemSrv: RequestElementService,
 		private userSrv: UserService,
-		private dlgSrv: DialogService
+		private commonDlgSrv: DialogCommonService
 	) {
 		super();
 	}
@@ -61,12 +58,16 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 		);
 		this.counts$ = this.product$.pipe(
 			map(product => this.productSrv.getActivityCount(product)),
+			switchMap(_ => this.listSrv.refetch(), count => count),
 			startWith({ comment: of(0), task: of(0), sample: of(0), request: of(0) })
 		);
 		this.onTabChange(this.selectedTab);
 	}
 
 	onTabChange(tabName: string) {
+		// here we are using the list service because request isn't
+		// on the same realm as other entities.
+		// infos are already on the product for other tabs though so we could change
 		this.selectedTab = tabName;
 		let entitySrv;
 		let entityMetadata;
@@ -124,7 +125,7 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	openCreateSample() {
-		this.dlgSrv.open(CreationSampleDlgComponent, { product: this.product }).pipe(
+		this.commonDlgSrv.openCreationSampleDialog(this.product).pipe(
 			filter((event: CloseEvent) => event.type === CloseEventType.OK),
 			switchMap(_ => this.listSrv.refetch())
 		).subscribe();
@@ -132,20 +133,20 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 
 	openCreateTask() {
 
-		this.dlgSrv.open(CreationTaskDlgComponent, { product: this.product }).pipe(
+		this.commonDlgSrv.openCreationTaskDlg(this.product).pipe(
 			filter((event: CloseEvent) => event.type === CloseEventType.OK),
 			switchMap(_ => this.listSrv.refetch())
 		).subscribe();
 	}
 
 	openCreateRequest() {
-		this.dlgSrv.open(SupplierRequestDialogComponent, { products: [this.product] }).pipe(
+		this.commonDlgSrv.openSupplierRequest([this.product]).pipe(
 			filter((event: CloseEvent) => event.type === CloseEventType.OK),
 			switchMap(_ => this.listSrv.refetch())
 		).subscribe();
 	}
 
-	toggleMyTasks(show: boolean) {
+	toggleAssigneeFilter(show: boolean) {
 		const userId = this.userSrv.userSync.id;
 
 		const filterAssignee = {
