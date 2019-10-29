@@ -39,26 +39,26 @@ export class ActivitiesBarComponent implements OnInit {
 
 	ngOnInit() {
 		if (this.row && this.row.id) {
-			this.openRequestsCount$ = this.requestElementService
-				.queryCount(`targetId == "${this.row.id}" AND targetedEntityType == "Product" AND (reply.status == "${ReplyStatus.REPLIED}")`);
+			// this.openRequestsCount$ = this.requestElementService
+			// 	.queryCount(`targetId == "${this.row.id}" AND targetedEntityType == "Product" AND (reply.status == "${ReplyStatus.REPLIED}")`);
 
-			this.requestsCount$ = this.requestElementService
-				.queryCount(`targetId == "${this.row.id}" AND targetedEntityType == "Product"`);
+			// this.requestsCount$ = this.requestElementService
+			// 	.queryCount(`targetId == "${this.row.id}" AND targetedEntityType == "Product"`);
 
-			if (this.hasTasks) {
-				this.tasksCount$ = this.taskSrv
-					.queryCount(`${this.entityName}.id == "${this.row.id}" AND deleted == false AND archived == false`);
-			}
+			// if (this.hasTasks) {
+			// 	this.tasksCount$ = this.taskSrv
+			// 		.queryCount(`${this.entityName}.id == "${this.row.id}" AND deleted == false AND archived == false`);
+			// }
 
-			if (this.hasSamples) {
-				this.samplesCount$ = this.sampleSrv
-					.queryCount(`${this.entityName}.id == "${this.row.id}" AND deleted == false AND archived == false`);
-			}
+			// if (this.hasSamples) {
+			// 	this.samplesCount$ = this.sampleSrv
+			// 		.queryCount(`${this.entityName}.id == "${this.row.id}" AND deleted == false AND archived == false`);
+			// }
 
-			if (this.hasComments) {
-				this.commentsCount$ = this.ermSrv.getGlobalService(ERM.getEntityMetadata(this.entityName))
-					.queryOne(this.row.id).pipe(map(entity => entity && entity.comments && entity.comments.length));
-			}
+			// if (this.hasComments) {
+			// 	this.commentsCount$ = this.ermSrv.getGlobalService(ERM.getEntityMetadata(this.entityName))
+			// 		.queryOne(this.row.id).pipe(map(entity => entity && entity.comments && entity.comments.length));
+			// }
 			this.hasTaskOverdue = this.hasTasksOverdue(this.row.id);
 		}
 	}
