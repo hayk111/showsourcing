@@ -40,6 +40,7 @@ export class LineChartComponent implements OnInit {
 					display: false
 				},
 				ticks: {
+					fontSize: 10,
 					fontColor: '#C8CBE1',
 					beginAtZero: true
 				}
@@ -51,6 +52,8 @@ export class LineChartComponent implements OnInit {
 					color: '#F3F5FE',
 				},
 				ticks: {
+					padding: 10,
+					fontSize: 10,
 					fontColor: '#C8CBE1',
 					beginAtZero: true
 				}

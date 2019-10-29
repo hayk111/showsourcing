@@ -53,7 +53,7 @@
 			(update)="listSrv.update($event)"
 			(open)="listSrv.goToDetails($event)"
 			(openAddToProjectDialog)="dialogCommonSrv.openAddToProjectDialog([$event])"
-			(openAddSampleDialog)="dialogCommonSrv.openAddSampleDialog($event)"
+			(openAddSampleDialog)="dialogCommonSrv.openCreationSampleDialog($event)"
 			(openAddTaskDialog)="dialogCommonSrv.openCreationTaskDlg($event)"
 			(setFavourite)="listSrv.onItemFavorited($event?.id)"
 			(archive)="onArchive($event)"

@@ -1,6 +1,6 @@
 <card-app>
 	<card-title-app translate="title.lastest-noti"></card-title-app>
-	<ng-container *ngIf="notifications$ | async as notifications">
+	<ng-container *ngIf="notifications$ | async as notifications; else emptyNotif">
 		<notif-list-app
 			[isDashboardBox]="true"
 			[activities]="notifications?.results.slice(0, 4)"
@@ -10,4 +10,10 @@
 			<span (click)="openPanel()" translate="button.view-all"></span>
 		</card-footer-app>
 	</ng-container>
+
+	<ng-template #emptyNotif>
+		<notif-empty-app
+			class="empty-notification">
+		</notif-empty-app>
+	</ng-template>
 </card-app>
