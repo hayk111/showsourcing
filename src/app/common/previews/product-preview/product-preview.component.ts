@@ -13,7 +13,7 @@ import {
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { first, switchMap, takeUntil } from 'rxjs/operators';
-import { CommonModalService } from '~common/modals/services/common-modal.service';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { ProductDescriptor } from '~core/descriptors';
 import { CommentService } from '~core/entity-services/comment/comment.service';
 import {
@@ -92,10 +92,10 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 		private uploader: UploaderService,
 		private cd: ChangeDetectorRef,
 		private productSrv: ProductService,
-		private modalSrv: CommonModalService,
+		private modalSrv: DialogCommonService,
 		private dlgSrv: DialogService,
 		private router: Router,
-		public commonModalSrv: CommonModalService,
+		public dialogCommonSrv: DialogCommonService,
 		private commentSrv: CommentService,
 		private extendedFieldDefSrv: ExtendedFieldDefinitionService,
 		public previewSrv: PreviewService,
@@ -215,7 +215,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 	}
 
 	openNewSample() {
-		this.modalSrv.openAddSampleDialog(this.product, this.product && this.product.supplier).subscribe();
+		this.modalSrv.openCreationSampleDialog(this.product, this.product && this.product.supplier).subscribe();
 	}
 
 	openExportModal() {

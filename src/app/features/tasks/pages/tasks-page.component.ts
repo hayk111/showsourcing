@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
-import { CommonModalService } from '~common/modals';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { TaskService, UserService } from '~core/entity-services';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 import { ListPageService } from '~core/list-page';
@@ -10,6 +10,7 @@ import { DialogService } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
 import { ControllerListComponent } from '~shared/header-list/components/controller-list/controller-list.component';
 import { AutoUnsub } from '~utils';
+import { QueryBuilder } from '~core/entity-services/_global/query-builder.class';
 
 @Component({
 	selector: 'tasks-page-app',
@@ -17,7 +18,7 @@ import { AutoUnsub } from '~utils';
 	styleUrls: ['./tasks-page.component.scss'],
 	providers: [
 		ListPageService,
-		CommonModalService
+		DialogCommonService
 	]
 })
 export class TasksPageComponent extends AutoUnsub implements OnInit, AfterViewInit {
@@ -42,7 +43,7 @@ export class TasksPageComponent extends AutoUnsub implements OnInit, AfterViewIn
 	selectItemsConfig: SelectParamsConfig;
 
 	constructor(
-		public commonModalSrv: CommonModalService,
+		public dialogCommonSrv: DialogCommonService,
 		public listSrv: ListPageService<Task, TaskService>,
 		private taskSrv: TaskService,
 		public elem: ElementRef,
@@ -107,7 +108,7 @@ export class TasksPageComponent extends AutoUnsub implements OnInit, AfterViewIn
 	}
 
 	onExport() {
-		this.commonModalSrv.openExportDialog(this.listSrv.getSelectedValues());
+		this.dialogCommonSrv.openExportDialog(undefined);
 	}
 
 }

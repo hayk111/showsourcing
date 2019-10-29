@@ -1,22 +1,24 @@
-import { HttpClientModule, HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterModule, PreloadAllModules } from '@angular/router';
+import { PreloadAllModules, RouterModule } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { Angulartics2Module } from 'angulartics2';
 import { environment } from 'environments/environment';
 import { AppComponent } from '~app-root/components/app.component';
 import { routes } from '~app-root/routes';
-import { CommonModalsModule } from '~common/modals/common-modals.module';
+import { CreationDialogsCommonModule } from '~common/dialogs/creation-dialogs/creation-dialogs-common.module';
+import { CustomDialogsCommonModule } from '~common/dialogs/custom-dialogs/custom-dialogs-common.module';
+import { SelectionDialogsCommonModule } from '~common/dialogs/selection-dialogs/selection-dialogs-common.module';
 import { AppApolloModule } from '~core/apollo/apollo.module';
+import * as i18n from '~core/i18n/i18n.service';
+import { ApiInterceptor } from '~core/interceptors/api.interceptor';
+import { TokenInterceptor } from '~core/interceptors/token.interceptor';
 import { PortalModule } from '~core/portal';
 import { TemplateModule } from '~core/template';
 import { SharedModule } from '~shared/shared.module';
-import { ApiInterceptor } from '~core/interceptors/api.interceptor';
-import { TokenInterceptor } from '~core/interceptors/token.interceptor';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import * as i18n from '~core/i18n/i18n.service';
 
 // Can a kangaroo jump higher than a house ?
 // Of course, a house doesn’t jump at all.
@@ -30,7 +32,9 @@ import * as i18n from '~core/i18n/i18n.service';
 		SharedModule,
 		AppApolloModule,
 		TemplateModule,
-		CommonModalsModule,
+		CreationDialogsCommonModule,
+		SelectionDialogsCommonModule,
+		CustomDialogsCommonModule,
 		// keep router as last module
 		ServiceWorkerModule.register('ngsw-worker.js', {
 			enabled: environment.production,
@@ -38,7 +42,7 @@ import * as i18n from '~core/i18n/i18n.service';
 		RouterModule.forRoot(routes, {
 			scrollPositionRestoration: 'top',
 			preloadingStrategy: PreloadAllModules,
-			enableTracing: true
+			// enableTracing: true
 		}),
 		Angulartics2Module.forRoot({
 			pageTracking: {

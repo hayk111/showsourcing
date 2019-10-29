@@ -14,9 +14,9 @@ export const routes: Array<Route> = [
 		component: DetailsPage.ProductDetailsPageComponent,
 		children: [
 			{ path: '', redirectTo: 'activity', pathMatch: 'full' },
-			{ path: 'activity', component: DetailsPage.ProductActivityPageComponent },
-			{ path: 'info', component: DetailsPage.ProductInfoPageComponent },
-			{ path: 'files', component: DetailsPage.ProductFilesPageComponent },
+			{ path: 'activity', component: DetailsPage.ActivityPageComponent },
+			{ path: 'info', component: DetailsPage.InfoPageComponent },
+			{ path: 'files', component: DetailsPage.FilesPageComponent },
 			// { path: 'samples', component: ProductSamplesComponent },
 			// { path: 'tasks', component: ProductTasksComponent },
 			// { path: 'requests', component: ProductRequestsComponent }

@@ -19,7 +19,7 @@ import { Task } from './task.model';
 
 export class Product extends EntityWithAudit<ProductConfig> {
 	id?: string;
-	archived?= false;
+	archived ?= false;
 	assignee?: User;
 	attachments?: Attachment[];
 	category?: Category;
@@ -27,7 +27,7 @@ export class Product extends EntityWithAudit<ProductConfig> {
 	description?: string;
 	event?: Event;
 	extendedFields?: ExtendedField[];
-	favorite?= false;
+	favorite ?= false;
 	harbour?: string;
 	images?: AppImage[];
 	incoTerm?: string;
@@ -57,8 +57,10 @@ export class Product extends EntityWithAudit<ProductConfig> {
 	tags?: Tag[];
 	tasksLinked?: { count: number, items: Task[] };
 	samplesLinked?: { count: number, items: Sample[] };
+	tasksLinkedAssignedToMe?: { count: number };
+	samplesLinkedAssignedToMe?: { count: number };
 	votes?: ProductVote[];
-	__typename?= 'Product';
+	__typename ?= 'Product';
 
 }
 

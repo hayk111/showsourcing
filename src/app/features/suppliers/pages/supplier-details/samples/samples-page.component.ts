@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { AbstractSampleCommonComponent } from '~common/abstracts/abstract-sample-common.component';
-import { CommonModalService } from '~common/modals/services/common-modal.service';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { ListPageService } from '~core/list-page';
 import { UserService } from '~entity-services';
 import { SampleService } from '~entity-services/sample/sample.service';
@@ -41,9 +41,9 @@ export class SamplesPageComponent extends AbstractSampleCommonComponent implemen
 		protected dlgSrv: DialogService,
 		protected featureSrv: SupplierFeatureService,
 		public listSrv: ListPageService<Sample, SampleService>,
-		public commonModalSrv: CommonModalService
+		public dialogCommonSrv: DialogCommonService
 	) {
-		super(router, route, userSrv, sampleSrv, dlgSrv, listSrv, commonModalSrv);
+		super(router, route, userSrv, sampleSrv, dlgSrv, listSrv, dialogCommonSrv);
 	}
 
 	ngOnInit() {
@@ -66,7 +66,4 @@ export class SamplesPageComponent extends AbstractSampleCommonComponent implemen
 		super.ngOnInit();
 	}
 
-	onExport() {
-		this.commonModalSrv.openExportDialog(this.listSrv.getSelectedValues());
-	}
 }

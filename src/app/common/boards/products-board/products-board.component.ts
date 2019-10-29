@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { combineLatest, Observable } from 'rxjs';
 import { filter, first, map, switchMap, takeUntil, tap } from 'rxjs/operators';
-import { CommonModalService } from '~common/modals/services/common-modal.service';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ProductStatusService } from '~core/entity-services/product-status/product-status.service';
 import { ListPageService } from '~core/list-page';
@@ -56,7 +56,7 @@ export class ProductsBoardComponent extends AutoUnsub implements OnInit {
 		private productSrv: ProductService,
 		private productStatusSrv: ProductStatusService,
 		private listSrv: ListPageService<Product, ProductService>,
-		public commonModalSrv: CommonModalService,
+		public dialogCommonSrv: DialogCommonService,
 		public kanbanSrv: KanbanService,
 		public dlgSrv: DialogService
 	) {

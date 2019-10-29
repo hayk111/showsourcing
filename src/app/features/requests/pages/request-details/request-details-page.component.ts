@@ -2,8 +2,11 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
-import { CommonModalService, RefuseReplyDlgComponent } from '~common/modals';
-import { ReviewRequestReplyDlgComponent } from '~common/modals/custom/review-request-reply-dlg/review-request-reply-dlg.component';
+import { RefuseReplyDlgComponent } from '~common/dialogs/custom-dialogs';
+import {
+	ReviewRequestReplyDlgComponent,
+} from '~common/dialogs/custom-dialogs/review-request-reply-dlg/review-request-reply-dlg.component';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { RequestElementService, RequestReplyService, SupplierRequestService } from '~core/entity-services';
 import { ListPageService } from '~core/list-page';
 import { ERM, ReplyStatus, RequestElement, SupplierRequest } from '~core/models';
@@ -33,7 +36,7 @@ export class RequestDetailsPageComponent extends AutoUnsub implements OnInit {
 		private requestReplySrv: RequestReplyService,
 		private cdr: ChangeDetectorRef,
 		private reqElementSrv: RequestElementService,
-		public commonModalSrv: CommonModalService,
+		public dialogCommonSrv: DialogCommonService,
 		public listSrv: ListPageService<RequestElement, RequestElementService>,
 		private dlgSrv: DialogService,
 		private translate: TranslateService

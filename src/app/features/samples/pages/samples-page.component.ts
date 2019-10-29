@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
-import { CommonModalService } from '~common/modals';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { SampleService, UserService } from '~core/entity-services';
 import { SelectParams, SelectParamsConfig } from '~core/entity-services/_global/select-params';
 import { ListPageService } from '~core/list-page';
@@ -17,7 +17,7 @@ import { AutoUnsub } from '~utils';
 	styleUrls: ['./samples-page.component.scss'],
 	providers: [
 		ListPageService,
-		CommonModalService
+		DialogCommonService
 	]
 })
 export class SamplesPageComponent extends AutoUnsub implements OnInit {
@@ -36,7 +36,7 @@ export class SamplesPageComponent extends AutoUnsub implements OnInit {
 	selectItemsConfig: SelectParamsConfig;
 
 	constructor(
-		public commonModalSrv: CommonModalService,
+		public dialogCommonSrv: DialogCommonService,
 		public listSrv: ListPageService<Sample, SampleService>,
 		private sampleSrv: SampleService,
 		public elem: ElementRef,
@@ -104,7 +104,4 @@ export class SamplesPageComponent extends AutoUnsub implements OnInit {
 		this.controllerListService.onFiltersClear();
 	}
 
-	onExport() {
-		this.commonModalSrv.openExportDialog(this.listSrv.getSelectedValues());
-	}
 }

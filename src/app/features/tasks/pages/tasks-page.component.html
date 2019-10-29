@@ -4,7 +4,7 @@
 	class="max-full-table-width"
 	[title]="'title.my-tasks' | translate"
 	[buttonName]="'button.create-task' | translate"
-	(buttonClick)="commonModalSrv.openCreationTaskDlg()">
+	(buttonClick)="dialogCommonSrv.openCreationTaskDlg()">
 </header-list-app>
 
 <controller-list-app
@@ -30,7 +30,7 @@
 	(hideTasksCreatedByMeOnly)="hideTasksCreatedByMeOnly()"
 	(showTasksCompleted)="listSrv.filterByDone(false)"
 	(hideTasksCompleted)="listSrv.filterByDone(true)"
-	(export)="onExport()"
+	(export)="commonModalSrv.openExportDialog()"
 	(showFilters)="listSrv.openFilterPanel()"
 	(viewChange)="onViewChange($event)">
 </controller-list-app>
@@ -56,7 +56,7 @@
 	(previewClick)="listSrv.openPreview($event)"
 	(showItemsPerPage)="showItemsPerPage($event)"
 	(delete)="listSrv.deleteOne($event, true)"
-	(createClick)="commonModalSrv.openCreationTaskDlg()">
+	(createClick)="dialogCommonSrv.openCreationTaskDlg()">
 </task-table-app>
 
 <selection-bar-app

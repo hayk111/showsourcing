@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PreloadAllModules, RouterModule } from '@angular/router';
 import { Angulartics2Module } from 'angulartics2';
-import { CommonModalsModule } from '~common/modals';
+import { CommonModalsModule } from '~common/dialogs/services/dialog-common.service';
 import { AppApolloModule } from '~core/apollo';
 import { ApiInterceptor } from '~core/interceptors/api.interceptor';
 import { SharedModule } from '~shared/shared.module';

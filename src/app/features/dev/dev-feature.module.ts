@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-
+import { BoardsCommonModule } from '~common/boards/boards-common.module';
+import { CardsCommonModule } from '~common/cards/cards-common.module';
+import { CreationDialogsCommonModule } from '~common/dialogs/creation-dialogs/creation-dialogs-common.module';
+import { CustomDialogsCommonModule } from '~common/dialogs/custom-dialogs/custom-dialogs-common.module';
+import { SelectionDialogsCommonModule } from '~common/dialogs/selection-dialogs/selection-dialogs-common.module';
+import { TablesCommonModule } from '~common/tables/tables-common.module';
 import { SharedModule } from '~shared/shared.module';
 
 import * as Pages from './pages';
-import { TablesCommonModule } from '~common/tables/tables-common.module';
-import { CommonModalsModule } from '~common/modals/common-modals.module';
-import { BoardsCommonModule } from '~common/boards/boards-common.module';
-import { CardsCommonModule } from '~common/cards/cards-common.module';
 import { routes } from './routes';
 
 
@@ -17,7 +18,9 @@ import { routes } from './routes';
 		RouterModule.forChild(routes),
 		SharedModule,
 		TablesCommonModule,
-		CommonModalsModule,
+		CreationDialogsCommonModule,
+		SelectionDialogsCommonModule,
+		CustomDialogsCommonModule,
 		BoardsCommonModule,
 		CardsCommonModule
 	],

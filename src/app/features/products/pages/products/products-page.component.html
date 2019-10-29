@@ -4,7 +4,7 @@
 		class="max-full-table-width"
 		[title]="'title.my-products' | translate"
 		[buttonName]="'button.create-product' | translate"
-		(buttonClick)="commonModalSrv.openCreationProductDlg()"
+		(buttonClick)="dialogCommonSrv.openCreationProductDlg()"
 		[buttonRightMargin]="addProductMargin">
 	</header-list-app>
 
@@ -24,7 +24,7 @@
 		(hideArchived)="listSrv.filterByArchived(false)"
 		(showAssigned)="listSrv.filterByAssignee(true)"
 		(hideAssigned)="listSrv.filterByAssignee(false)"
-		(export)="commonModalSrv.openExportDialog(listSrv.getSelectedValues())"
+		(export)="dialogCommonSrv.openExportDialog(listSrv.getSelectedValues())"
 		(showFilters)="listSrv.openFilterPanel()"
 		(viewChange)="listSrv.changeView($event)">
 
@@ -53,12 +53,12 @@
 			(update)="listSrv.update($event)"
 			(open)="listSrv.goToDetails($event)"
 			(openAddToProjectDialog)="onProjectDlgOpen()"
-			(openAddSampleDialog)="commonModalSrv.openAddSampleDialog($event)"
-			(openAddTaskDialog)="commonModalSrv.openCreationTaskDlg($event)"
+			(openAddSampleDialog)="dialogCommonSrv.openCreationSampleDialog($event)"
+			(openAddTaskDialog)="dialogCommonSrv.openCreationTaskDlg($event)"
 			(setFavourite)="listSrv.onItemFavorited($event?.id)"
 			(archive)="onArchive($event)"
-			(openRequestFeedbackDialog)="commonModalSrv.openRequestFeedbackDialog([$event])"
-			(openCreateRequestDlg)="commonModalSrv.openSupplierRequest([$event])"
+			(openRequestFeedbackDialog)="dialogCommonSrv.openRequestFeedbackDialog([$event])"
+			(openCreateRequestDlg)="dialogCommonSrv.openSupplierRequest([$event])"
 			(previewClick)="listSrv.openPreview($event)"
 			(select)="listSrv.selectOne($event, true)"
 			(selectAll)="listSrv.selectAll($event, true)"
@@ -67,7 +67,7 @@
 			(unfavorited)="listSrv.onItemUnfavorited($event)"
 			(unselect)="listSrv.unselectOne($event, true)"
 			(update)="listSrv.update($event)"
-			(createClick)="commonModalSrv.openCreationProductDlg()"
+			(createClick)="dialogCommonSrv.openCreationProductDlg()"
 			(unselectAll)="listSrv.unselectAll()">
 		</products-table-app>
 
@@ -107,13 +107,13 @@
 			(favorited)="listSrv.onFavoriteAllSelected()"
 			(unfavorited)="listSrv.onUnfavoriteAllSelected()"
 			(addProject)="onProjectDlgOpen()"
-			(export)="commonModalSrv.openExportDialog(listSrv.getSelectedValues())"
-			(createRequest)="commonModalSrv.openSupplierRequest(listSrv.getSelectedValues())"
-			(requestTeamFeedback)="commonModalSrv.openRequestFeedbackDialog(listSrv.getSelectedValues())"
+			(export)="dialogCommonSrv.openExportDialog(listSrv.getSelectedValues())"
+			(createRequest)="dialogCommonSrv.openSupplierRequest(listSrv.getSelectedValues())"
+			(requestTeamFeedback)="dialogCommonSrv.openRequestFeedbackDialog(listSrv.getSelectedValues())"
 			(archiveProducts)="onArchive(listSrv.getSelectedValues())"
-			(compareProducts)="commonModalSrv.openCompareProductDialog(listSrv.getSelectedValues())"
+			(compareProducts)="dialogCommonSrv.openCompareProductDialog(listSrv.getSelectedValues())"
 			(statusUpdated)="listSrv.updateSelected({status: $event})"
-			(massEdit)="commonModalSrv.openMassEditDialog(listSrv.getSelectedValues(), erm.PRODUCT)"
+			(massEdit)="dialogCommonSrv.openMassEditDialog(listSrv.getSelectedValues(), erm.PRODUCT)"
 			(deleted)="listSrv.deleteSelected()"
 			(close)="listSrv.unselectAll()">
 		</product-selection-bar-app>

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { combineLatest, Observable } from 'rxjs';
 import { filter, first, map, switchMap, takeUntil, tap } from 'rxjs/operators';
-import { CommonModalService } from '~common/modals/services/common-modal.service';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { SupplierStatusService } from '~core/entity-services/supplier-status/supplier-status.service';
 import { ListPageService } from '~core/list-page';
@@ -56,7 +56,7 @@ export class SuppliersBoardComponent extends AutoUnsub implements OnInit {
 		private supplierSrv: SupplierService,
 		private supplierStatusSrv: SupplierStatusService,
 		private listSrv: ListPageService<Supplier, SupplierService>,
-		public commonModalSrv: CommonModalService,
+		public dialogCommonSrv: DialogCommonService,
 		public kanbanSrv: KanbanService,
 		public dlgSrv: DialogService
 	) {

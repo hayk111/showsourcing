@@ -3,12 +3,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { map, switchMap, takeUntil } from 'rxjs/operators';
-import { CommonModalService } from '~common/modals';
-import { SupplierRequestDialogComponent } from '~common/modals/custom/supplier-request-dialog/supplier-request-dialog.component';
+import {
+	SupplierRequestDialogComponent,
+} from '~common/dialogs/custom-dialogs/supplier-request-dialog/supplier-request-dialog.component';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { Supplier } from '~models/supplier.model';
 import { DialogService } from '~shared/dialog';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub, log } from '~utils';
+
 import { SupplierFeatureService } from '../../services/supplier-feature.service';
 
 // Guest to the waiter: “Can you bring me what the lady at the next table is having?”
@@ -29,7 +32,7 @@ export class SupplierDetailsPageComponent extends AutoUnsub implements OnInit {
 		private router: Router,
 		private featureSrv: SupplierFeatureService,
 		private notifSrv: NotificationService,
-		public commonModalSrv: CommonModalService,
+		public dialogCommonSrv: DialogCommonService,
 		private translate: TranslateService,
 		private dlgSrv: DialogService
 	) {
@@ -58,7 +61,7 @@ export class SupplierDetailsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	delete(supplier: Supplier) {
-		this.commonModalSrv.openConfirmDialog({
+		this.dialogCommonSrv.openConfirmDialog({
 			text: this.translate.instant('message.confirm-delete-supplier')
 		}).pipe(
 			switchMap(_ => this.featureSrv.delete(supplier.id))
@@ -66,7 +69,7 @@ export class SupplierDetailsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	export(supplier: Supplier) {
-		this.commonModalSrv.openExportDialog([supplier]);
+		this.dialogCommonSrv.openExportDialog([supplier]);
 	}
 
 	contact(supplier: Supplier) {

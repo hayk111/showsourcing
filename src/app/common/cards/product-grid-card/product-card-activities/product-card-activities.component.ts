@@ -13,7 +13,7 @@ import { ThumbService } from '~shared/rating/services/thumbs.service';
 export class ProductCardActivitiesComponent implements OnInit {
 	@Input() rows: any[];
 	@Input() id?: string;
-	@Input() favourite = false;
+	@Input() favorite = false;
 	@Input() hasSamples = false;
 	@Input() hasTasks = false;
 	@Input() hasComments = false;

@@ -1,11 +1,11 @@
 import { OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap, takeUntil } from 'rxjs/operators';
-import { CreationTaskDlgComponent } from '~common/modals';
-import { CommonModalService } from '~common/modals/services/common-modal.service';
+import { CreationTaskDlgComponent } from '~common/dialogs/creation-dialogs';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { ListPageService } from '~core/list-page';
 import { TaskService, UserService } from '~entity-services';
-import { ERM, Task } from '~models';
+import { ERM, Task, Product, Supplier } from '~models';
 import { DialogService } from '~shared/dialog';
 import { Filter, FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
@@ -20,7 +20,7 @@ export abstract class AbstractTaskCommonComponent extends AutoUnsub implements O
 		protected userSrv: UserService,
 		protected taskSrv: TaskService,
 		protected dlgSrv: DialogService,
-		public commonModalSrv: CommonModalService,
+		public dialogCommonSrv: DialogCommonService,
 		public listSrv: ListPageService<Task, TaskService>,
 	) {
 		super();
@@ -78,7 +78,7 @@ export abstract class AbstractTaskCommonComponent extends AutoUnsub implements O
 		this.listSrv.update(task);
 	}
 
-	openCreationTaskDlg(product, supplier) {
+	openCreationTaskDlg(product?: Product, supplier?: Supplier) {
 		this.dlgSrv.open(CreationTaskDlgComponent, { product, supplier });
 	}
 
