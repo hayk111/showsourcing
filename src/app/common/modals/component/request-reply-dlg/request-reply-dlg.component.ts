@@ -113,13 +113,14 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 				fields: this.fields,
 				__typename: 'RequestReply'
 			});
-
+		// since update is async we have to save the index before it changes
+		const localSelectIndex = this.selectedIndex;
 		this.replySrv.update(reply).subscribe(_ => {
 			if (updateStatus && lastItem)
 				this.dlgSrv.open(ReplySentDlgComponent);
 			else if (updateStatus) {
 				// since we are sending the elements as an Input, we have to manually set the status so it does not show as not replied
-				this.elements[this.selectedIndex].reply.status = ReplyStatus.REPLIED;
+				this.elements[localSelectIndex].reply.status = ReplyStatus.REPLIED;
 				this.descriptionCtrl.reset();
 				this.content.nativeElement.scrollIntoView();
 			}
