@@ -14,12 +14,12 @@ import { AutoUnsub } from '~utils';
 
 
 @Component({
-	selector: 'product-info-page-app',
-	templateUrl: './product-info-page.component.html',
-	styleUrls: ['./product-info-page.component.scss'],
+	selector: 'info-page-app',
+	templateUrl: './info-page.component.html',
+	styleUrls: ['./info-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductInfoPageComponent extends AutoUnsub implements OnInit {
+export class InfoPageComponent extends AutoUnsub implements OnInit {
 
 	product$: Observable<Product>;
 	product: Product;

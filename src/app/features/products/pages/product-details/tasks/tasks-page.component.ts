@@ -11,15 +11,15 @@ import { ProductFeatureService } from '~features/products/services';
 import { AbstractTaskCommonComponent } from '~common/abstracts/abstract-task-common.component';
 
 @Component({
-	selector: 'product-tasks-page-app',
-	templateUrl: './product-tasks-page.component.html',
-	styleUrls: ['./product-tasks-page.component.scss'],
+	selector: 'tasks-page-app',
+	templateUrl: './tasks-page.component.html',
+	styleUrls: ['./tasks-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
 		ListPageService
 	]
 })
-export class ProductTasksPageComponent extends AbstractTaskCommonComponent
+export class TasksPageComponent extends AbstractTaskCommonComponent
 	implements OnInit {
 
 	erm = ERM.TASK;

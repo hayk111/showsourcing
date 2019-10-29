@@ -19,7 +19,13 @@ for each entity and see what to do.
 
 # List & common behaviors
 
-## Refect Subscription In list page service
+## Common behavior:
+we have common behaviors like archive, open creation task dlg etc that are on either list srv, abstractTaskComopnent
+or sprinked a bit every where, we could regroup them in a service. A super class component is annoying when you want 
+to use things from abstractTask and abstractSample at the same time
+
+
+## Refetch Subscription In list page service
 In list-page.service every funciton is subscribed except refetch
 
 

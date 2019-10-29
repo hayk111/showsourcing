@@ -4,6 +4,10 @@
 	font-size: var(--font-size-icon-l);
 }
 
+.icon-ctnr {
+	position: relative;
+}
+
 icon-app {
 	margin-top: var(--spacing-xs);
 	cursor: pointer;
@@ -21,8 +25,8 @@ icon-app {
   color: var(--color-primary-contrast);
 	padding-bottom: var(--spacing-xxs);
 	position: absolute;
-	right: -4px;
-	top: -6px;
+	right: -5px;
+	top: -1px;
   font-size: var(--font-size-s);
 	text-align: center;
 	cursor: pointer;
