@@ -1,4 +1,5 @@
 <table-app
+	[class.no-min-height]="!hasMinHeight"
 	[rows]="rows"
 	[type]="erm.SAMPLE.singular"
 	[pending]="pending"
@@ -140,7 +141,7 @@
 
 			<!-- status -->
 			<ng-container *ngSwitchCase="'status'">
-				<div class="status-col flexVAlign">
+				<div class="status-col flexVAlign" [class.flexEnd]="tableConfigType === 'small'">
 					<status-selector-app [entity]="row" [typeEntity]="erm.SAMPLE" selectSize="s"></status-selector-app>
 				</div>
 			</ng-container>

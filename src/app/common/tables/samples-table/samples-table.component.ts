@@ -25,7 +25,7 @@ const mediumTableConfig: TableConfig = {
 };
 
 const smallTableConfig: TableConfig = {
-	name: { name: 'name', translationKey: 'name', width: 120, sortProperty: 'name' },
+	name: { name: 'name', translationKey: 'name', width: 160, sortProperty: 'name' },
 	status: { name: 'status', translationKey: 'status', width: 130, sortProperty: 'status.step' },
 };
 
@@ -61,6 +61,7 @@ export class SamplesTableComponent extends EntityTableComponent<Sample> implemen
 	}
 
 	getTableFromType() {
+		console.log(this.tableConfigType);
 		switch (this.tableConfigType) {
 			case 'big':
 				return bigTableConfig;

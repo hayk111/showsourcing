@@ -3,6 +3,10 @@
 	position: relative;
 	background: var(--legacy-color-bg);
 	overflow: hidden;
+
+	&.no-min-height .ctnr {
+		min-height: unset;
+	}
 }
 
 .ctnr {
