@@ -6,12 +6,11 @@
 
 	<header-details-info-app >
 		<div class="flex flexVAlign info-container dot-separator">
-			<span class="first-uppercase" *ngIf="supplier?.supplierType">
-				{{ supplier?.supplierType?.name }}
+			<span class="color-primary" *ngIf="supplier?.reference">
+				{{ supplier?.reference }}
 			</span>
-			<span *ngIf="supplier?.city || supplier?.country">
-				{{ supplier?.city ? supplier?.city + ',&nbsp;' : ''}}
-				{{ supplier?.country | const: 'country' }}
+			<span *ngIf="supplier?.__typename">
+				{{ supplier?.__typename ? supplier?.__typename + '&nbsp;' : ''}}
 			</span>
 			<!-- TODO: uncomment when votes added on backend -->
 			<!-- <activities-bar-app *ngIf="supplier?.votes?.length > 0"
