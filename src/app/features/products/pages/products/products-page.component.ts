@@ -107,6 +107,24 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		this.listSrv.refetch(this.selectItemsConfig).subscribe();
 	}
 
+	onProjectDlgOpen() {
+		let initialProjects = [];
+
+		this.listSrv.getSelectedValues().forEach((product: Product) => {
+			initialProjects = [...initialProjects, ...product.projects];
+		});
+
+		initialProjects = this.removeDuplicates(initialProjects, 'id');
+
+		this.commonModalSrv.openAddToProjectDialog(this.listSrv.getSelectedValues(), initialProjects);
+	}
+
+	private removeDuplicates(originalArr, prop) {
+		return originalArr.filter((obj, pos, arr) => {
+				return arr.map(mapObj => mapObj[prop]).indexOf(obj[prop]) === pos;
+		});
+	}
+
 	onArchive(product: Product | Product[]) {
 		if (Array.isArray(product)) {
 			this.featureSrv.updateMany(product.map((p: Product) => ({ id: p.id, archived: true })))

@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { ProductDialogService } from '~common/modals/services/product-dialog.service';
 import { ListPageService } from '~core/list-page';
 import { ERM, Product, Project, EntityTypeEnum } from '~models';
@@ -21,8 +22,8 @@ import { TranslateService } from '@ngx-translate/core';
 export class ProductAddToProjectDlgComponent extends AutoUnsub implements OnInit {
 
 	@Input() initialSelectedProjects: Project[];
-
 	@Input() products: Product[];
+
 	selected = {};
 	filterType = FilterType;
 	erm = ERM;
@@ -51,6 +52,8 @@ export class ProductAddToProjectDlgComponent extends AutoUnsub implements OnInit
 			entityMetadata: ERM.PROJECT,
 			originComponentDestroy$: this._destroy$
 		});
+
+		this.initialSelection();
 	}
 
 	select(project: Project) {
@@ -96,8 +99,18 @@ export class ProductAddToProjectDlgComponent extends AutoUnsub implements OnInit
 
 	create() {
 		setTimeout(() => {
-			this.listSrv.create();
+			this.listSrv.create(false, {
+				cb: (project: Project) => {
+					this.selected[project.id] = {...project};
+					const selectedProjects = <Project[]>Object.values(this.selected);
+					this.productDlgSrv.addProjectsToProducts(selectedProjects, this.products).subscribe();
+				}
+			});
 		});
+	}
+
+	cancel() {
+		this.listSrv.refetch().subscribe();
 	}
 
 	submit() {
@@ -105,9 +118,14 @@ export class ProductAddToProjectDlgComponent extends AutoUnsub implements OnInit
 		const selectedProjects = <Project[]>Object.values(this.selected);
 		this.dlgSrv.close({ type: CloseEventType.OK, data: { selectedProjects, products: this.products } });
 
-		this.productDlgSrv.addProjectsToProducts(selectedProjects, this.products)
+		const addedProjects = selectedProjects.filter(project => {
+			return !this.initialSelectedProjects.find(elem => elem.id === project.id);
+		});
+
+		this.productDlgSrv.addProjectsToProducts(addedProjects, this.products)
 			.subscribe(projects => {
 				this.dlgSrv.close();
+				this.initialSelectedProjects = [...this.initialSelectedProjects, ...addedProjects];
 				this.notifSrv.add({
 					type: NotificationType.SUCCESS,
 					title: this.translate.instant('title.projects-added'),

@@ -79,7 +79,18 @@ export class CreationDialogComponent extends AutoUnsub implements OnInit, AfterV
 	}
 
 	private createItem(item) {
-		const entity = new this.type.constClass(item);
+		const entityItem = Object.assign({}, item);
+
+		if ('cb' in entityItem) {
+			delete entityItem.cb;
+		}
+
+		const entity = new this.type.constClass(entityItem);
+
+		if ('cb' in item) {
+			item.cb(entity);
+		}
+
 		return this.ermSrv.getGlobalService(this.type)
 			.create(entity);
 	}

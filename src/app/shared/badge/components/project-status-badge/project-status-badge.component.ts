@@ -20,9 +20,10 @@ export class ProjectStatusBadgeComponent implements OnInit {
 	// this is done for projects since we don't have it on the DB
 	getProjectStatus() {
 		let projectStatus = ProjectStatus.PENDING;
-		if (this.project && this.project.done)
-			projectStatus = ProjectStatus.DONE;
-		else if (this.project && this.project.dueDate && (new Date().getTime() >= Date.parse(this.project.dueDate.toString())))
+		// TODO backend: to be added done
+		// if (this.project && this.project.done)
+		// projectStatus = ProjectStatus.DONE;
+		if (this.project && this.project.dueDate && (new Date().getTime() >= Date.parse(this.project.dueDate.toString())))
 			projectStatus = ProjectStatus.OVERDUE;
 		return projectStatus;
 	}
@@ -30,9 +31,10 @@ export class ProjectStatusBadgeComponent implements OnInit {
 	// this is done for projects since we don't have it on the DB
 	getType() {
 		let projectStatusColor = 'third'; // pending
-		if (this.project && this.project.done)
-			projectStatusColor = 'success'; // done
-		else if (this.project && this.project.dueDate && (new Date().getTime() >= Date.parse(this.project.dueDate.toString())))
+		// TODO backend: to be added done
+		// if (this.project && this.project.done)
+		// projectStatusColor = 'success'; // done
+		if (this.project && this.project.dueDate && (new Date().getTime() >= Date.parse(this.project.dueDate.toString())))
 			projectStatusColor = 'warn'; // overdue
 		return projectStatusColor;
 	}
