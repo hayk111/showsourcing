@@ -77,6 +77,7 @@ export abstract class AbstractApolloClient {
 		return throwError(e);
 	}
 
+
 	/** we use the path as client name.. */
 	protected async createClient(realmPath: string, user: RealmUser, name: Client): Promise<void> {
 		const config = await GraphQLConfig.create(
@@ -84,42 +85,46 @@ export abstract class AbstractApolloClient {
 			realmPath
 		);
 
-		log.debug(`%c 🌈creating client ${name}, path: ${realmPath}`, LogColor.APOLLO_CLIENT_PRE);
-		const linker = new WebSocketLink({
-			uri: config.webSocketEndpoint,
-			options: {
-				reconnect: true,
-				connectionParams: config.connectionParams,
-			}
-		});
+		return new Promise((res) => {
 
-		// https://github.com/apollographql/subscriptions-transport-ws/issues/377
-		// @ts-ignore
-		linker.subscriptionClient.maxConnectTimeGenerator.duration = () => linker.subscriptionClient.maxConnectTimeGenerator.max;
-
-		const link = from([
-			cleanTypenameLink,
-			linker
-		]);
-
-		// by default the fetchPolicy is 'cache-first', this means that if a query that has been done in the past
-		// with the same parameters, it will look at the cache instead of waiting for network response,
-		// we use 'cache-and-network' since first it looks at the cache and regardless of whether any data was found,
-		// it passes the query along to the APi to get the most up-to-date data.
-		// https://medium.com/@galen.corey/understanding-apollo-fetch-policies-705b5ad71980
-		this.apollo.create({
-			link,
-			connectToDevTools: !environment.production,
-			cache: new InMemoryCache({}),
-			queryDeduplication: true,
-			defaultOptions: {
-				watchQuery: {
-					fetchPolicy: 'cache-and-network'
+			log.debug(`%c 🌈creating client ${name}, path: ${realmPath}`, LogColor.APOLLO_CLIENT_PRE);
+			const linker = new WebSocketLink({
+				uri: config.webSocketEndpoint,
+				options: {
+					reconnect: true,
+					connectionParams: config.connectionParams,
+					connectionCallback: () => res()
 				}
-			}
-		}, name);
+			});
 
-		showsourcing.clients.set(name, this.apollo.use(name));
+			// https://github.com/apollographql/subscriptions-transport-ws/issues/377
+			// @ts-ignore
+			linker.subscriptionClient.maxConnectTimeGenerator.duration = () => linker.subscriptionClient.maxConnectTimeGenerator.max;
+
+			const link: any = from([
+				cleanTypenameLink,
+				linker
+			]);
+
+
+			// by default the fetchPolicy is 'cache-first', this means that if a query that has been done in the past
+			// with the same parameters, it will look at the cache instead of waiting for network response,
+			// we use 'cache-and-network' since first it looks at the cache and regardless of whether any data was found,
+			// it passes the query along to the APi to get the most up-to-date data.
+			// https://medium.com/@galen.corey/understanding-apollo-fetch-policies-705b5ad71980
+			this.apollo.create({
+				link,
+				connectToDevTools: !environment.production,
+				cache: new InMemoryCache({}),
+				queryDeduplication: true,
+				defaultOptions: {
+					watchQuery: {
+						fetchPolicy: 'cache-and-network'
+					}
+				}
+			}, name);
+
+		});
 	}
 
 	// https://github.com/apollographql/apollo-angular/issues/736

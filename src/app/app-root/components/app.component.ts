@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject, combineLatest, forkJoin, Observable, of } from 'rxjs';
 import { distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
@@ -5,13 +6,11 @@ import { AnalyticsService } from '~core/analytics/analytics.service';
 import { ApolloStateService, ClientStatus, TeamClientInitializer, UserClientInitializer } from '~core/apollo/services';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { GlobalDataClientsInitializer } from '~core/apollo/services/apollo-global-data-client.service';
-import { TokenService } from '~core/auth';
+import { GlobalRequestClientsInitializer } from '~core/apollo/services/apollo-global-request-client.service';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { ListPageService } from '~core/list-page';
 import { CompanyService, TeamService } from '~entity-services';
 import { Team } from '~models';
-import { GlobalRequestClientsInitializer } from '~core/apollo/services/apollo-global-request-client.service';
-import { Location } from '@angular/common';
 
 
 @Component({
@@ -51,6 +50,8 @@ export class AppComponent implements OnInit {
 		const hasTeam$ = this.teamSrv.hasTeamSelected$;
 		const teamClientStatus$ = this.apolloState.getClientStatus(Client.TEAM);
 		// we only want the loader to appear when we have a team selected and the team client status is pending
+		// because that means we are accessing the main app and since the client is pending the page is not yet visible
+		// TODO what we could do instead is have the spinner property come from the guards directly.
 		combineLatest(
 			hasTeam$,
 			teamClientStatus$,
