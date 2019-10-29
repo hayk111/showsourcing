@@ -1,10 +1,9 @@
 :host {
   display: block;
-  // color: var(--color-txt-third);
-  color: #5d6d8b;
+  color: var(--color-txt-secondary);
   margin-right: var(--spacing-xxl);
 
-	&>a {
+  & > a {
     display: flex;
     position: relative;
     padding-bottom: var(--spacing-m);
@@ -15,12 +14,13 @@
       width: 100%;
       height: 3px;
       bottom: 0;
-      background:	var(--color-primary);
+      background: var(--color-primary);
     }
 
     icon-app {
       margin-right: var(--spacing-s);
     }
+
     &:hover {
       text-decoration: underline;
       color: var(--color-primary);
@@ -28,17 +28,13 @@
   }
 
   .active-tab {
-    &:hover {
-      text-decoration: none;
-      cursor: none;
-      pointer-events: none;
-    }
     color: var(--color-primary);
+    cursor: none;
+    pointer-events: none;
+    text-decoration: none;
     divider-app {
       display: block;
       background: var(--color-primary);
     }
   }
-
 }
-

@@ -8,7 +8,9 @@
 
 	<header-details-info-app>
 		<div class="flex flexVAlign">
-			<icon-app class="product-icon" name="product" size="xs"></icon-app>&nbsp;
+			<div class="icon-background">
+				<icon-app class="product-icon" name="product" size="xs"></icon-app>
+			</div>
 			<div class="flex flexVAlign info-container dot-separator">
 				<span *ngIf="product?.reference" class="reference">
 					{{ product?.reference }}
