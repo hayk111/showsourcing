@@ -93,6 +93,10 @@ export abstract class AbstractApolloClient {
 			}
 		});
 
+		// https://github.com/apollographql/subscriptions-transport-ws/issues/377
+		// @ts-ignore
+		linker.subscriptionClient.maxConnectTimeGenerator.duration = () => linker.subscriptionClient.maxConnectTimeGenerator.max;
+
 		const link = from([
 			cleanTypenameLink,
 			linker

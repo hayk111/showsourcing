@@ -38,9 +38,9 @@ export const routes: Array<Route> = [
 		canActivateChild: [
 			AuthenticatedGuard,
 			UserClientReadyGuard,
-			HasTeamSelectedGuard,
+			HasUserGuard,
 			TeamClientReadyGuard,
-			HasUserGuard
+			HasTeamSelectedGuard,
 		],
 		children: [
 			{ path: '', redirectTo: 'dashboard', pathMatch: 'full' },
