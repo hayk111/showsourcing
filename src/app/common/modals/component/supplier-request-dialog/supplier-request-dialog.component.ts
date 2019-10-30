@@ -1,7 +1,7 @@
 import { AfterViewChecked, ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, of, ReplaySubject } from 'rxjs';
-import { switchMap, take } from 'rxjs/operators';
+import { switchMap, take, tap } from 'rxjs/operators';
 import { ContactService, CreateRequestService, RequestTemplateService, UserService } from '~core/entity-services';
 import { ListPageService } from '~core/list-page';
 import { Contact, CreateRequest, ERM, Product, RequestTemplate, Supplier } from '~core/models';
@@ -29,7 +29,6 @@ export class SupplierRequestDialogComponent implements OnInit, AfterViewChecked 
 		this._request = request;
 		if (request && request.recipient && request.recipient.supplier)
 			this.supplier = request.recipient.supplier;
-		this.setTemplate();
 	}
 	get request() {
 		return this._request;
@@ -83,7 +82,8 @@ export class SupplierRequestDialogComponent implements OnInit, AfterViewChecked 
 			this.request = new CreateRequest({ products: [], sendCopyTo: [], shareInformation: false });
 		this.form.patchValue(this.request);
 		this.selectedTemplate$ = this.templateSelectedAction$.pipe(
-			switchMap(id => this.requestTemplateSrv.queryOne(id))
+			switchMap(id => this.requestTemplateSrv.queryOne(id)),
+			tap(requestTemplate => this._request = { ...this.request, requestTemplate })
 		);
 		if (!this.fromTemplateDlg)
 			this.initFormValues();
@@ -108,7 +108,7 @@ export class SupplierRequestDialogComponent implements OnInit, AfterViewChecked 
 		const prod = this.request.products.length === 1 ? translate('product') : translate('products');
 		const reqFor = translate('Request for');
 		const title = `${reqFor} ${this.request.products.length} ${prod}`;
-		this.request = { ...this.request, title };
+		this._request = { ...this.request, title };
 		this.form.patchValue(this.request);
 	}
 
@@ -134,7 +134,7 @@ export class SupplierRequestDialogComponent implements OnInit, AfterViewChecked 
 				.subscribe(reqTemplate => {
 					if (reqTemplate) {
 						this.templateSelectedAction$.next(reqTemplate.id);
-						this.request = { ...this.request, requestTemplate: reqTemplate };
+						this._request = { ...this.request, requestTemplate: reqTemplate };
 						this.form.patchValue(this.request);
 					}
 				});
@@ -161,7 +161,7 @@ export class SupplierRequestDialogComponent implements OnInit, AfterViewChecked 
 						switchMap(contact => this.createOrUseContact(contact, this.supplier)),
 						take(1)
 					).subscribe(contact => {
-						this.request = { ...this.request, recipient: contact };
+						this._request = { ...this.request, recipient: contact };
 						this.form.patchValue(this.request);
 					});
 
@@ -169,7 +169,7 @@ export class SupplierRequestDialogComponent implements OnInit, AfterViewChecked 
 				this.contactSrv.queryOneByPredicate(`supplier.id == "${this.supplier.id}" AND email contains "@"`)
 					.pipe(take(1))
 					.subscribe(contact => {
-						this.request = { ...this.request, recipient: contact };
+						this._request = { ...this.request, recipient: contact };
 						this.form.patchValue(this.request);
 					});
 			}
@@ -195,7 +195,7 @@ export class SupplierRequestDialogComponent implements OnInit, AfterViewChecked 
 		if (contact && !contact.supplier) {
 			// we update the contact on the form and on realm, since it's a new contact and we have to insert a supplier
 			// other wise when we create the request its gona get the form value and the supplier will be null again
-			this.request = { ...this.request, recipient: { ...contact, supplier: { id: this.supplier.id, name: this.supplier.name } } };
+			this._request = { ...this.request, recipient: { ...contact, supplier: { id: this.supplier.id, name: this.supplier.name } } };
 			this.contactSrv
 				.update({ id: contact.id, supplier: { id: this.supplier.id } })
 				.subscribe(_ => this.form.patchValue(this.request));
@@ -210,7 +210,7 @@ export class SupplierRequestDialogComponent implements OnInit, AfterViewChecked 
 				}
 			});
 
-			setTimeout(_ => this.dlgSrv.open(SupplierRequestDialogComponent, { products: this._products }));
+			setTimeout(_ => this.dlgSrv.open(SupplierRequestDialogComponent, { products: this._products, request: this._request }));
 		});
 
 		setTimeout(_ => {
@@ -223,12 +223,12 @@ export class SupplierRequestDialogComponent implements OnInit, AfterViewChecked 
 
 	removeProduct(id: ID) {
 		const products = this.request.products.filter(product => product.id !== id);
-		this.request = { ...this.request, products };
+		this._request = { ...this.request, products };
 		this.setTitle();
 	}
 
 	updateProducts(products: Product[]) {
-		this.request = { ...this.request, products };
+		this._request = { ...this.request, products };
 		this.setTitle();
 	}
 

@@ -3,16 +3,17 @@ import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
 import { AttachmentQueries } from '~entity-services/attachment/attachment.queries';
 import { Attachment } from '~models';
 
-import { GlobalService } from '../_global/global.service';
+import { GlobalWithAuditService } from '../_global/global-with-audit.service';
+import { UserService } from '../user/user.service';
 
 
 @Injectable({
 	providedIn: 'root'
 })
-export class AttachmentService extends GlobalService<Attachment> {
+export class AttachmentService extends GlobalWithAuditService<Attachment> {
 
-	constructor(protected apolloState: ApolloStateService) {
-		super(apolloState, AttachmentQueries, 'attachment', 'attachments');
+	constructor(protected apolloState: ApolloStateService, protected userSrv: UserService) {
+		super(apolloState, AttachmentQueries, 'attachment', 'attachments', userSrv);
 	}
 
 	download(file: Attachment) {

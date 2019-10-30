@@ -14,6 +14,7 @@
 		<div class="left">
 			<form [formGroup]="form">
 
+				<!-- select products -->
 				<form-field-app class="modal pdng-btm-l">
 					<label-app class="flex"><ng-container i18n="@@select-products">Select products</ng-container> *</label-app>
 					<product-request-list-app
@@ -25,6 +26,7 @@
 					<input inputApp [hidden]="true" type="text"/>
 				</form-field-app>
 
+				<!-- request templates -->
 				<form-field-app class="modal pdng-btm-l">
 					<label-app class="flex"><ng-container i18n="@@request-tempaltes">Request Templates</ng-container> *</label-app>
 					<selector-app
@@ -32,14 +34,14 @@
 						type="request template"
 						formControlName="requestTemplate"
 						(update)="selectTemplate($event)">
-							<selector-placeholder-app
-								tabFocusAction
-								autoFocus
-								[name]="selectorReqTemplate?.value?.name"
-								placeholder="Select a template"
-								i18n-placeholder="@@select-template">
-							</selector-placeholder-app>
-						</selector-app>
+						<selector-placeholder-app
+							tabFocusAction
+							autoFocus
+							[name]="selectorReqTemplate?.value?.name"
+							placeholder="Select a template"
+							i18n-placeholder="@@select-template">
+						</selector-placeholder-app>
+					</selector-app>
 					<input [hidden]="true" inputApp type="text"/>
 
 					<ng-container *ngIf="selectedTemplate$ | async as tmpSlctd; else noTemplate">
@@ -59,7 +61,7 @@
 
 				</form-field-app>
 
-
+				<!-- checbox share information -->
 				<form-field-app class="modal">
 					<label-app class="flex" i18n="@@share-product-info">Share my product information</label-app>
 					<div class="flex share-info">
@@ -80,6 +82,7 @@
 			<div class="right">
 
 				<form [formGroup]="form">
+					<!-- supplier selector -->
 					<form-field-app
 						class="modal">
 						<label-app class="flex"><ng-container i18n="@@send-to-supplier">Send to Supplier</ng-container> *</label-app>
@@ -97,6 +100,7 @@
 						<input [hidden]="true" inputApp type="text"/>
 					</form-field-app>
 
+					<!-- contact selector -->
 				<form-field-app class="modal">
 					<label-app class="flex"><ng-container i18n="@@select-contact">Select Contact</ng-container> *</label-app>
 					<selector-app
@@ -136,10 +140,13 @@
 					<input [hidden]="true" inputApp type="text"/>
 				</form-field-app> -->
 
+				<!-- title input -->
 				<form-field-app class="modal pdng-btm-l">
 					<label-app class="flex"><ng-container i18n="@@request-title">Request Title</ng-container> *</label-app>
 					<input inputApp type="text" formControlName="title" placeholder="Quote Request" i18n-placeholder="@@quote-request"/>
 				</form-field-app>
+
+				<!-- message to supplier -->
 				<form-field-app class="modal">
 					<label-app i18n="@@message-for-supplier">Message for the supplier</label-app>
 					<textarea inputApp type="text" formControlName="message" cols="30" rows="10" placeholder="Quick RFQ" i18n-placeholder="@@quick-rfq"></textarea>
