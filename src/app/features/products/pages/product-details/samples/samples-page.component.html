@@ -1,6 +1,25 @@
+<controller-list-app
+	class="max-full-table-width"
+	buttonName="create sample"
+	[entityType]="erm.SAMPLE.singular"
+	[hasFilter]="true"
+	[hasSwitch]="false"
+	[count]="listSrv.count$ | async"
+	[entityType]="'SAMPLE'"
+	[view]="listSrv.view"
+	(showFilters)="listSrv.openFilterPanel()"
+	(showArchived)="listSrv.filterByArchived(true)"
+	(hideArchived)="listSrv.filterByArchived(false)"
+	(showAssigned)="listSrv.filterByAssignee(true)"
+	(hideAssigned)="listSrv.filterByAssignee(false)"
+	(search)="listSrv.search($event)"
+	(smartSearch)="listSrv.smartSearch($event)"
+	(export)="dialogCommonSrv.openExportDialog()"
+	(buttonClick)="dialogCommonSrv.openCreationSampleDialog(product)">
+</controller-list-app>
+
 <samples-table-app
-	[hasHeader]="false"
-	[hasPagination]="false"
+	class="max-full-table-width"
 	[rows]="listSrv.items$ | async"
 	[selection]="listSrv.selection$ | async"
 	[pending]="listSrv.pending"
@@ -15,13 +34,36 @@
 	(open)="listSrv.goToDetails($event)"
 	(favorited)="listSrv.onItemFavorited($event)"
 	(unfavorited)="listSrv.onItemUnfavorited($event)"
-	(createClick)="dialogCommonSrv.openCreationSampleDialog(product)"
 	(previewClick)="listSrv.openPreview($event)"
+	(createClick)="dialogCommonSrv.openCreationSampleDialog(undefined, supplier)"
 	(delete)="listSrv.deleteOne($event)">
 </samples-table-app>
+
 
 <sample-preview-app
 	*ngIf="listSrv.previewOpen"
 	[sample]="listSrv.previewed"
-	(close)="listSrv.closePreview()">
+	(close)="listSrv.closePreview()"
+	(clickOutside)="listSrv.closePreview()">
 </sample-preview-app>
+
+
+<filters-app
+	*ngIf="listSrv.filterPanelOpen"
+	[filterList]="listSrv.filterList"
+	[filterTypes]="filterTypes"
+	(clickOutside)="listSrv.closeFilterPanel()"
+	(close)="listSrv.closeFilterPanel()">
+</filters-app>
+
+
+<selection-bar-app
+	[isShown]="(listSrv.selection$ | async).size > 0"
+	[selection]="listSrv.selection$ | async"
+	(close)="listSrv.unselectAll()">
+
+	<button class="icon light" (click)="listSrv.deleteSelected()">
+		<icon-app name="trash"></icon-app>
+	</button>
+
+</selection-bar-app>

@@ -17,9 +17,9 @@ export const routes: Array<Route> = [
 			{ path: 'activity', component: DetailsPage.ActivityPageComponent },
 			{ path: 'info', component: DetailsPage.InfoPageComponent },
 			{ path: 'files', component: DetailsPage.FilesPageComponent },
-			// { path: 'samples', component: ProductSamplesComponent },
-			// { path: 'tasks', component: ProductTasksComponent },
-			// { path: 'requests', component: ProductRequestsComponent }
+			{ path: 'samples', component: DetailsPage.SamplesPageComponent },
+			{ path: 'tasks', component: DetailsPage.TasksPageComponent },
+			// { path: 'requests', component: DetailsPage. }
 		],
 	},
 ];

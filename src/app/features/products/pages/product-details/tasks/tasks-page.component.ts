@@ -24,7 +24,10 @@ export class TasksPageComponent extends AbstractTaskCommonComponent
 
 	erm = ERM.TASK;
 	product: Product;
-
+	filterTypes = [
+		FilterType.DONE
+	];
+	
 	constructor(
 		protected route: ActivatedRoute,
 		protected userSrv: UserService,

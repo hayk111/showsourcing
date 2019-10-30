@@ -6,7 +6,7 @@ import { DialogCommonService } from '~common/dialogs/services/dialog-common.serv
 import { ListPageService } from '~core/list-page';
 import { SampleService, UserService } from '~entity-services';
 import { ProductFeatureService } from '~features/products/services';
-import { Product, Sample } from '~models';
+import { Product, Sample, ERM } from '~models';
 import { DialogService } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
 
@@ -22,6 +22,7 @@ import { FilterType } from '~shared/filters';
 export class SamplesPageComponent extends AbstractSampleCommonComponent implements OnInit {
 	private productId: string;
 	product: Product;
+	erm = ERM;
 	constructor(
 		protected route: ActivatedRoute,
 		protected router: Router,
