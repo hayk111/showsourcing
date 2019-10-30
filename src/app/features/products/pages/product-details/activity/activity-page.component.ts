@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
 import { ListPageService } from '~core/list-page';
 import { ProductFeatureService } from '~features/products/services';
-import { Product } from '~models';
+import { Product, Comment } from '~models';
 import { AutoUnsub } from '~utils';
+import { CommentService } from '~core/entity-services';
 
 
 
@@ -20,11 +21,12 @@ import { AutoUnsub } from '~utils';
 })
 export class ActivityPageComponent extends AutoUnsub implements OnInit {
 	product$: Observable<Product>;
+	private product: Product;
 
 	constructor(
 		private route: ActivatedRoute,
 		private productSrv: ProductFeatureService,
-		public listSrv: ListPageService<any, any>
+		private commentSrv: CommentService
 	) {
 		super();
 	}
@@ -35,8 +37,19 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 		);
 		this.product$ = id$.pipe(
 			switchMap(id => this.productSrv.selectOne(id)),
+			tap(product => this.product = product)
 		);
-
 	}
+
+	sendComment(text: string) {
+		const comment = new Comment({ text });
+		const commentUser = { ...comment };
+		const comments = [...(this.product.comments || [])];
+		comments.push(commentUser);
+		this.commentSrv.create(comment).pipe(
+			switchMap(_ => this.productSrv.update({ id: this.product.id, comments }))
+		).subscribe();
+	}
+
 
 }
