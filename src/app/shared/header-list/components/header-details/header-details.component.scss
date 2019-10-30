@@ -25,7 +25,7 @@
 }
 
 .header-container-details {
-  padding: var(--spacing-l);
+  padding: var(--spacing-ms) var(--spacing-ms) 25px;
 }
 
 .header-container-settings {
@@ -40,7 +40,7 @@
 }
 
 .nav-container-details {
-  padding: 0 var(--spacing-l);
+  padding: 0 var(--spacing-ms);
 }
 
 .nav-container-settings {
@@ -92,7 +92,6 @@ $arrow-margin-right: 10px;
 .back-arrow-container {
 	height: $back-arrow-size;
   width: $back-arrow-size;
-  margin-right: $arrow-margin-right;
 
 	.back-arrow {
 		color: var(--color-txt-secondary);
@@ -112,7 +111,7 @@ $arrow-margin-right: 10px;
 }
 
 .tabs-container-details {
-  margin: var(--spacing-none) 62px;
+  margin: var(--spacing-none) 52px;
 }
 
 .tabs-container-settings {
