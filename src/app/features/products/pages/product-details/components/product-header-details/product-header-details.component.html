@@ -1,13 +1,20 @@
 <header-details-app [headerType]="'details'">
 
-	<header-details-title-app>
+	<header-details-title-app class="mg-top-xxs">
+		<!-- <editable-text-app #edt (closed)="updateProductProp($event, inpName.value, 'name')" (opened)="inpName.select()">
+			<editable-label-app>
+				{{ product?.name || ('message.unnamed-product' | translate) }}
+			</editable-label-app>
+			<input inputApp type="text" #inpName [value]="product.name" (keyup.enter)="edt.close()">
+		</editable-text-app> -->
 		{{ product?.name || ('message.unnamed-product' | translate) }}
 	</header-details-title-app>
+
 
 	<logo-app [logo]="product?.images[0]" size="xl" type="product"></logo-app>
 
 	<header-details-info-app>
-		<div class="flex flexVAlign">
+		<div class="flex flexVAlign mg-bottom-xxs">
 			<logo-app type="product" name="product" size="xs"></logo-app>
 			<div class="flex flexVAlign info-container dot-separator">
 				<span *ngIf="product?.reference" class="reference">
@@ -35,7 +42,15 @@
 		<header-nav-item-app link="./info" icon="product" [name]="'nav.product-details' | translate">
 		</header-nav-item-app>
 
+		<!-- TODO: add router -->
+		<header-nav-item-app link="./samples" icon="sample" [name]="'nav.samples' | translate">
+		</header-nav-item-app>
+
 		<header-nav-item-app link="./files" icon="files" [name]="'nav.files' | translate">
+		</header-nav-item-app>
+
+		<!-- TODO: add router -->
+		<header-nav-item-app link="./tasks" icon="check-circle" [name]="'nav.tasks' | translate">
 		</header-nav-item-app>
 	</header-nav-app>
 
