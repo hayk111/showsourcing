@@ -1,0 +1,8 @@
+<div class="left">
+	<ng-content></ng-content>
+</div>
+<div class="right flex">
+	<icon-app name="maximize"></icon-app>
+	<icon-app name="dots-vertical"></icon-app>
+	<icon-app name="close" (click)="closed.emit()"></icon-app>
+</div>
