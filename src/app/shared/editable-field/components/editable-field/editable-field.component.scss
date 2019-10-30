@@ -83,10 +83,10 @@
 			display: flex;
 		}
 		&.cannotGrow {
-			height: 33px;
+			height: 24px;
 		}
 		&.canGrow {
-			min-height: 33px;
+			min-height: 24px;
 		}
 		&.alignCenter {
 			.labelCtnr {

@@ -35,7 +35,7 @@
 	(favorited)="listSrv.onItemFavorited($event)"
 	(unfavorited)="listSrv.onItemUnfavorited($event)"
 	(previewClick)="listSrv.openPreview($event)"
-	(createClick)="dialogCommonSrv.openCreationSampleDialog(undefined, supplier)"
+	(createClick)="dialogCommonSrv.openCreationSampleDialog(product)"
 	(delete)="listSrv.deleteOne($event)">
 </samples-table-app>
 

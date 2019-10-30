@@ -51,6 +51,10 @@ export class SamplesPageComponent extends AbstractSampleCommonComponent implemen
 			{
 				type: FilterType.PRODUCT,
 				value: this.productId
+			},
+			{
+				type: FilterType.ASSIGNEE,
+				value: this.userSrv.userId
 			}
 		]);
 		super.ngOnInit();
