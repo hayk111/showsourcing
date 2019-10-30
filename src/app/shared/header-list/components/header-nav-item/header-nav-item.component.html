@@ -1,6 +1,7 @@
 <a [routerLink]="[link]" routerLinkActive="active-tab" skipLocationChange>
 		<icon-app [name]="icon" size="m" ></icon-app>
 		<span class="first-uppercase">{{name}}</span>
+		<div class="circle mg-left-ms" *ngIf="hasBadge"></div>
 
 		<divider-app></divider-app>
 </a>

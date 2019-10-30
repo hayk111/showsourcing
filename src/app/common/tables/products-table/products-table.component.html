@@ -110,7 +110,7 @@
           [width]="370"
           (update)="update.emit({ id: row.id, supplier: $event })">
           <div class="ellipsis supplier-col txt-btn" [ngClass]="{ 'empty-field': !row?.supplier }">
-						{{ row?.supplier?.name || 'Link to supplier' }}
+						{{ row?.supplier?.name || '-' }}
 					</div>
         </selector-app>
       </ng-container>
@@ -124,7 +124,7 @@
           [width]="370"
           (update)="update.emit({ id: row.id, category: $event })">
 					<div class="ellipsis pointer txt-btn category"  [ngClass]="{ 'empty-field': !row?.category }">
-						{{ row?.category?.name || 'Set a category' }}
+						{{ row?.category?.name || '-' }}
 					</div>
         </selector-app>
 			</ng-container>
@@ -139,7 +139,7 @@
           [width]="370"
           (update)="update.emit({ id: row.id, supplier: $event })">
           <div class="ellipsis supplier-col txt-btn"  [ngClass]="{ 'empty-field': !row?.supplier }">
-						{{ row?.supplier?.name || 'Link to supplier' }}
+						{{ row?.supplier?.name || '-' }}
 					</div>
         </selector-app>
 				<selector-app
@@ -149,7 +149,7 @@
 					[width]="370"
 					(update)="update.emit({ id: row.id, category: $event })">
 					<div class="ellipsis pointer txt-btn category"  [ngClass]="{ 'empty-field': !row?.category }">
-						{{ row?.category?.name || 'Set a cateogry' }}
+						{{ row?.category?.name || '-' }}
 					</div>
 				</selector-app>
 			</ng-container>
@@ -197,7 +197,7 @@
 							[moq]="row?.minimumOrderQuantity"
 							[moqDescription]="row?.moqDescription">
             </moq-app>
-						<div *ngIf="!row?.minimumOrderQuantity">Set a Moq</div>
+						<div *ngIf="!row?.minimumOrderQuantity">-</div>
           </editable-label-app>
           <input #inp inputApp type="number" [value]="row?.minimumOrderQuantity" (keyup.enter)="editable.close()"/>
         </editable-text-app>
@@ -275,11 +275,11 @@
 					(update)="update.emit({ id: row?.id, assignee: $event })">
 					<div class="flex pointer">
 						<user-picture-app
-							[user]="row?.assignee"
-							[image]="row?.assignee?.avatar">
+							*ngIf="row?.assignee"
+							[user]="row?.assignee">
 						</user-picture-app>
 						<div class="flexVAlign ellipsis pointer txt-btn" [ngClass]="{ 'empty-field': !row?.assignee }">
-							{{ row?.assignee ? (row?.assignee | formatUserName: true) : 'Assign to' }}
+							{{ row?.assignee ? (row?.assignee | formatUserName: true) : '-' }}
 						</div>
 					</div>
 				</selector-app>
