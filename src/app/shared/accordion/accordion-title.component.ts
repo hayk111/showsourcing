@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
 	template: '<ng-content></ng-content>',
 	styles: [`
 	:host {
-		font-size: var(--font-size-xl);
+		font-size: var(--font-size-l);
 		font-weight: 600;
 	}
 	`]
