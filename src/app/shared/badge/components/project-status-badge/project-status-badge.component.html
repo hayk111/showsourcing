@@ -1,9 +1,0 @@
-<badge-app
-	class="pointer uppercase bold-s"
-	size="m"
-	[type]="getType()"
-	(click)="update.emit(!project.done)">
-		<div>
-			{{ 'text.' + getProjectStatus() | translate }}
-		</div>
-</badge-app>

@@ -1,36 +1,40 @@
 :host {
-	display: block;
-	color: var(--color-txt-third);
-	margin-right: var(--spacing-xxl);
+  display: block;
+  color: var(--color-txt-secondary);
+  margin-right: var(--spacing-xxl);
 
-	&>a {
-		display: flex;
-		position: relative;
-		padding-bottom: var(--spacing-m);
+  & > a {
+    display: flex;
+    position: relative;
+    padding-bottom: var(--spacing-m);
 
-		divider-app {
-			display: none;
-			position: absolute;
-			width: 100%;
-			height: 3px;
-			bottom: 0;
-			background:	var(--color-primary);
-		}
+    divider-app {
+      display: none;
+      position: absolute;
+      width: 100%;
+      height: 3px;
+      bottom: 0;
+      background: var(--color-primary);
+    }
 
-		icon-app {
-			margin-right: var(--spacing-s);
-		}
+    icon-app {
+      margin-right: var(--spacing-s);
+    }
 
-	}
+    &:hover {
+      text-decoration: underline;
+      color: var(--color-primary);
+    }
+  }
 
-	.active-tab {
-		color: var(--color-primary);
-
-		divider-app {
-			display: block;
-			background: var(--color-primary);
-		}
-	}
-
+  .active-tab {
+    color: var(--color-primary);
+    cursor: none;
+    pointer-events: none;
+    text-decoration: none;
+    divider-app {
+      display: block;
+      background: var(--color-primary);
+    }
+  }
 }
-

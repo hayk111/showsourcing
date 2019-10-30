@@ -9,7 +9,7 @@ const tableConfig: TableConfig = {
 	owner: { name: 'project lead', translationKey: 'project-lead', width: 184, sortProperty: 'createdBy.firstName' },
 	// TODO Backend duedate
 	// dueDate: { name: 'due date', translationKey: 'due-date', width: 140, sortProperty: 'dueDate' },
-	status: { name: 'status', translationKey: 'status', width: 100, sortProperty: 'status.step' },
+	status: { name: 'status', translationKey: 'status', width: 100, sortable: false },
 	createdBy: { name: 'created by', translationKey: 'created-by', width: 140, sortProperty: 'createdBy.firstName' },
 	creationDate: { name: 'created on', translationKey: 'created-on', width: 140, sortProperty: 'creationDate' },
 };
@@ -24,6 +24,7 @@ const tableConfig: TableConfig = {
 })
 export class ProjectsTableComponent extends EntityTableComponent<Project> {
 
+	@Input() navigation = true;
 	@Input() headerSecondary: boolean;
 	@Input() hasHeaderBorder: boolean;
 
