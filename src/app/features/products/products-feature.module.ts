@@ -40,6 +40,7 @@ import { ProductFeatureService, QuoteFeatureService } from './services';
 		DetailsPage.InfoPageComponent,
 		DetailsPage.FilesPageComponent,
 		DetailsPage.TasksPageComponent,
+		DetailsPage.RequestsPageComponent,
 		DetailsPage.ProductHeaderDetailsComponent,
 		TablePage.ProductsPageComponent,
 	],

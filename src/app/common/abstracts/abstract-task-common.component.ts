@@ -38,7 +38,7 @@ export abstract class AbstractTaskCommonComponent extends AutoUnsub implements O
 		const routeId = this.route.parent.snapshot.params.id;
 		this.listSrv.setup({
 			entitySrv: this.taskSrv,
-			searchedFields: ['name', 'supplier.name', 'product.name'],
+			searchedFields: ['name', 'supplier.name', 'product.name', 'reference'],
 			selectParams: {
 				sortBy: 'creationDate',
 				descending: true,
