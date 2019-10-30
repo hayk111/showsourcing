@@ -8,8 +8,6 @@ carousel-app {
 }
 
 .ctnr {
-	border-top-left-radius: var(--border-radius);
-	border-top-right-radius: var(--border-radius);
 	position: relative;
 	display: flex;
 	flex-direction: column;
@@ -89,7 +87,6 @@ carousel-app {
 .img-ctnr {
 	height: 100%;
 	width: 100%;
-	border-radius: var(--border-radius-s);
 	overflow: hidden;
 	img-app {
 		background: var(--legacy-color-secondary-light);

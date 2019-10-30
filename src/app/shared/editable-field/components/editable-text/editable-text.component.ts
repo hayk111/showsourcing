@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
 
 
-
 @Component({
 	selector: 'editable-text-app',
 	templateUrl: './editable-text.component.html',
@@ -16,6 +15,7 @@ export class EditableTextComponent {
 	/** Whether click on the value should open the editor */
 	@Input() openOnClick = true;
 	@Input() closeOnOutsideClick = true;
+	@Input() hoverable = false;
 	/** whether we display cancel / save buttons */
 	@Input() hasAction = true;
 	@Output() opened = new EventEmitter<null>();

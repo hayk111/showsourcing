@@ -200,7 +200,7 @@ button, input[type="submit"], .button {
 		height: 24px;
 	}
 
-	// TODO: Michael is still used ? 
+	// TODO: Michael is still used ?
 	// wassn't that for some project we had like a year ago ?
 	&.boarding, &.big {
 		height: 40px;
@@ -211,14 +211,42 @@ button, input[type="submit"], .button {
 		background: var(--color-primary-dark);
 	}
 
+
 	// when the button is just an icon
-	&.icon {
+	&.icon-s, &.icon {
 		width: 32px;
 		height: 32px;
+	}
+
+	// when the button is just an icon
+	&.icon-m {
+		width: 40px;
+		height: 40px;
+
+		icon-app {
+			font-size: var(--font-size-l);
+		}
+	}
+
+	&.icon, &.icon-s, &.icon-m {
+		background: none;
 		font-size: inherit;
 		display: inline-flex;
 		justify-content: center;
 		align-items: center;
+		border-radius: 0px;
+
+		icon-app {
+			color: var(--color-txt-third);
+		}
+
+		&:hover {
+			background: var(--color-bg-secondary);
+
+			icon-app {
+				color: var(--color-txt-secondary);
+			}
+		}
 	}
 
 	// when there is an icon + text

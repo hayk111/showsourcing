@@ -1,11 +1,23 @@
 <!-- Panel preview -->
 <preview-panel-app *ngIf="isPreview && (product$ | async)" cdk-scrollable>
 	<!-- Banner -->
-	<preview-banner-app
-		[canOpen]="true"
-		(closed)="close.emit()"
-		(opened)="openProduct()">
+	<preview-banner-app>
+		<preview-top-bar-app
+			(closed)="close.emit()"
+			(opened)="openProduct()">
+			<div class="title ellipsis">
+				<span class="color-primary mg-right-xs">{{ product?.reference }}</span>
+				<span class="color-txt-primary">{{ product?.name }}</span>
+			</div>
+			<div class="info dot-separator ellipsis">
+				<span *ngIf="product?.price">{{ product?.price | appPrice }}</span>
+				<span *ngIf="product?.category">{{ product?.category?.name }}</span>
+				<!-- TODO create a compoentn for star icon -->
+				<span *ngIf="product?.votes && product?.votes?.length">4.3</span>
+			</div>
+		</preview-top-bar-app>
 		<preview-carousel-app
+
 			[entity]="product"
 			[entityMD]="erm.PRODUCT"
 			[images]="product?.images"
@@ -58,7 +70,7 @@
 			<divider-app class="mg-top-ms"></divider-app>
 
 			<button-action-list-app
-				class="button-action-list"
+				class="button-action-list hoverable"
 				[actions]="actions"
 				(clickOnAction)="clickOnAction($event)">
 			</button-action-list-app>
@@ -99,11 +111,10 @@
 			[config]="formConfig"
 			(update)="updateProduct($event)">
 		</dynamic-form-app>
-	</preview-section-app>
 
-	<!-- Extended Fields -->
-	<preview-section-app #contentTab1 *ngIf="(fieldDefinitions$ | async)?.length" [title]="'title.extended-fields' | translate">
+		<!-- Extended Fields -->
 		<extended-form-app
+			*ngIf="(fieldDefinitions$ | async)?.length"
 			[definitions]="fieldDefinitions$ | async"
 			[config]="formConfig"
 			[fields]="product?.extendedFields"
@@ -145,6 +156,7 @@
 		<task-table-app
 			class="no-padding"
 			[rows]="tasks$ | async"
+			[hasMinHeight]="false"
 			[pending]="false"
 			tableConfigType="small"
 			[columns]="['done', 'name', 'dueDate']"
@@ -161,8 +173,9 @@
 		<samples-table-app
 			class="no-padding"
 			[rows]="samples$ | async"
+			[hasMinHeight]="false"
 			[columns]="['name', 'status']"
-			tableConfig="small"
+			tableConfigType="small"
 			[pending]="false"
 			[hasMenu]="false"
 			[hasHeader]="false"
@@ -189,9 +202,7 @@
 <preview-static-app	*ngIf="!isPreview">
 
 	<!-- Banner -->
-	<preview-banner-app
-		[canOpen]="false"
-		[canClose]="false">
+	<preview-banner-app>
 		<preview-carousel-app
 			[entity]="product"
 			[entityMD]="erm.PRODUCT"

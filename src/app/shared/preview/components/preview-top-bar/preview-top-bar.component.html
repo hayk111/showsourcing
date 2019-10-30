@@ -1,0 +1,14 @@
+	<div class="left flexColumn">
+		<ng-content></ng-content>
+	</div>
+	<div class="right flex">
+		<button *ngIf="canOpen" class="icon-m" (click)="opened.emit()">
+			<icon-app class="color-txt-third" name="maximize"></icon-app>
+		</button>
+		<button class="icon-m">
+			<icon-app class="color-txt-third" name="dots-vertical"></icon-app>
+		</button>
+		<button class="icon-m" (click)="closed.emit()">
+			<icon-app class="color-txt-third" name="close"></icon-app>
+		</button>
+	</div>

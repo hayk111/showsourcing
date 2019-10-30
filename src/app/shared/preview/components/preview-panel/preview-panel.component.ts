@@ -32,7 +32,6 @@ export class PreviewPanelComponent extends AutoUnsub implements OnInit, AfterVie
 	@Input() hasLogo = false;
 
 	@ViewChild('top', { static: false }) topSection: ElementRef<HTMLElement>;
-	@ViewChild('scrollSection', { static: false }) scrollSection: ElementRef<HTMLElement>;
 
 	// Tabs that are used on the preview
 	@ContentChild('tab1', { static: false }) tab1: PreviewTabComponent;
@@ -55,7 +54,6 @@ export class PreviewPanelComponent extends AutoUnsub implements OnInit, AfterVie
 		let topHeight = this.topSection.nativeElement.getBoundingClientRect().height - 6;
 		if (this.hasLogo)
 			topHeight -= 50;
-		this.renderer.setStyle(this.scrollSection.nativeElement, 'margin-top', `${topHeight}px`);
 
 		// we initialize the first tab if it exists
 		if (this.tab1)
