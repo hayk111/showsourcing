@@ -34,6 +34,7 @@
 	<projects-table-app
 		class="list-view"
 		[hasPagination]="false"
+		[navigation]="false"
 		[hasMenu]="false"
 		[hasHeaderBorder]="true"
 		[headerSecondary]="true"
@@ -58,7 +59,7 @@
 			<span class="selected-product-count">{{ selectedProjectsCount }}</span>
 			<span class="selected-product">Project Selected</span> <!-- TODO: add translation -->
 		</div>
-		<button class="primary-light cancel secondary capitalize" translate="button.cancel"></button>
+		<button class="primary-light cancel secondary capitalize" (click)="cancel()" translate="button.cancel"></button>
 		<button class="add-to-project capitalize" (click)="submit()" translate="button.add-to-project"></button>
 	</dialog-footer-app>
 

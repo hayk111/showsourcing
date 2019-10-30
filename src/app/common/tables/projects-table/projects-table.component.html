@@ -40,7 +40,8 @@
     *ngFor="let column of columnsConfig; trackBy: trackByFn"
     let-row="row"
     [columnApp]="'title.' + column.translationKey | translate"
-    [width]="column.width"
+		[width]="column.width"
+		[sortable]="column.sortable !== false"		
 		[sortBy]="column.sortProperty">
 
     <ng-container [ngSwitch]="column.name">
@@ -50,7 +51,7 @@
 				<div class="project flexVAlign">
 					<logo-app class="mini imgCtnr" [color]="color.PRIMARY" size="m" type="project"></logo-app>
 					<a class="project-name flexVAlign txt-btn capitalize ellipsis"
-						[routerLink]="['/projects', row.id]">
+						[routerLink]="navigation ? ['/projects', row.id] : null">
 						{{ row?.name }}
 					</a>
 				</div>

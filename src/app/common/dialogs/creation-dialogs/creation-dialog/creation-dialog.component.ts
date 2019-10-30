@@ -71,6 +71,10 @@ export class CreationDialogComponent extends AutoUnsub implements OnInit, AfterV
 				return exists ? Observable.create(obs => obs.next(false)) : this.createItem({ name, ...this.extra });
 			}),
 		).subscribe(item => {
+			if ('onProjectCreated' in this.extra) {
+				this.extra.onProjectCreated(item);
+			}
+
 			if (item)
 				this.dlgSrv.close({ type: CloseEventType.OK, data: { redirect, item } });
 			this.pending = false;
@@ -79,7 +83,12 @@ export class CreationDialogComponent extends AutoUnsub implements OnInit, AfterV
 	}
 
 	private createItem(item) {
+		if ('onProjectCreated' in item) {
+			delete item.onProjectCreated;
+		}
+
 		const entity = new this.type.constClass(item);
+
 		return this.ermSrv.getGlobalService(this.type)
 			.create(entity);
 	}
