@@ -32,7 +32,7 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		const id$ = this.route.params.pipe(
+		const id$ = this.route.parent.params.pipe(
 			map(params => params.id)
 		);
 		this.product$ = id$.pipe(
