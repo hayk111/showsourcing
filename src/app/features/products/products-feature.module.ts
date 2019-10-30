@@ -36,7 +36,6 @@ import { ProductFeatureService, QuoteFeatureService } from './services';
 	declarations: [
 		DetailsPage.ProductDetailsPageComponent,
 		DetailsPage.ActivityPageComponent,
-		DetailsPage.ProductActivityNavComponent,
 		DetailsPage.SamplesPageComponent,
 		DetailsPage.InfoPageComponent,
 		DetailsPage.FilesPageComponent,

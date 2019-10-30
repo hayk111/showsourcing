@@ -22,12 +22,12 @@ import { AbstractTaskCommonComponent } from '~common/abstracts/abstract-task-com
 export class TasksPageComponent extends AbstractTaskCommonComponent
 	implements OnInit {
 
-	erm = ERM.TASK;
+	erm = ERM;
 	product: Product;
 	filterTypes = [
 		FilterType.DONE
 	];
-	
+
 	constructor(
 		protected route: ActivatedRoute,
 		protected userSrv: UserService,
