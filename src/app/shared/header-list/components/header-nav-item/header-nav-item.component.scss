@@ -22,7 +22,6 @@
     }
 
     &:hover {
-      text-decoration: underline;
       color: var(--color-primary);
     }
   }
@@ -37,4 +36,11 @@
       background: var(--color-primary);
     }
   }
+}
+
+
+.circle {
+	width: 8px;
+	height: 8px;
+	background: var(--color-warn);
 }

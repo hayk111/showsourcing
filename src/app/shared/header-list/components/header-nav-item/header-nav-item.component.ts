@@ -10,6 +10,7 @@ export class HeaderNavItemComponent implements OnInit {
 	@Input() icon: string;
 	@Input() name: string;
 	@Input() link: string;
+	@Input() hasBadge: boolean;
 
 	constructor() {}
 

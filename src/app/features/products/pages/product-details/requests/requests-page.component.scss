@@ -1,0 +1,17 @@
+:host {
+	display: flex;
+	flex-direction: column;
+}
+
+icon-app {
+	color: var(--legacy-color-txt-secondary);
+}
+
+.show-my-tasks, .show-tasks-done {
+	font-weight: 600;
+	line-height: 1.43;
+
+	&:not(.show-tasks-done) {
+		margin-right: var(--spacing-ms);
+	}
+}

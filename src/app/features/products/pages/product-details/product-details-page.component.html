@@ -1,6 +1,7 @@
 
 <product-header-details-app
 	[product]="product"
+	[requestCount]="requestCount$"
 	(update)="updateProduct($event)"
 	(export)="dialogCommonSrv.openExportDialog([$event])"
 	(delete)="deleteProduct($event)"
