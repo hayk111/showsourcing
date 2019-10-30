@@ -1,9 +1,1 @@
 <ng-content></ng-content>
-<!-- close -->
-<div class="floating-buttons flex">
-	<button *ngIf="canOpen" class="open capitalize" (click)="opened.emit()" translate="button.open">
-	</button>
-	<div class="close flexCenter pointer" *ngIf="canClose" (click)="closed.emit()">
-		<icon-app name="close"></icon-app>
-	</div>
-</div>

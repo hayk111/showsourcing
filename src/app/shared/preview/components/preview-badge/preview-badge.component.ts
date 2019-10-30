@@ -7,6 +7,9 @@ import { TrackingComponent } from '~utils/tracking-component';
 	selector: 'preview-badge-app',
 	templateUrl: './preview-badge.component.html',
 	styleUrls: ['./preview-badge.component.scss'],
+	host: {
+		'[class.clickable]': 'true'
+	},
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PreviewBadgesComponent extends TrackingComponent implements OnInit {

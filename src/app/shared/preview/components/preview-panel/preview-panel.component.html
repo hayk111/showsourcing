@@ -1,4 +1,4 @@
-<div #top class="banner-fixed">
+<div #top>
 	<ng-content select="preview-banner-app"></ng-content>
 	<ng-content select="preview-header-app"></ng-content>
 	<!-- TODO change flexAround when adding preview tab component -->
@@ -7,7 +7,7 @@
 	</div>
 	<div class="horizontal-division"></div>
 </div>
-<div #scrollSection class="scrollable">
+<div class="scrollable">
 	<div *ngIf="hasLogo" class="logo-transparent"></div>
 	<div class="white-bg">
 		<ng-content select="preview-section-app"></ng-content>

@@ -8,11 +8,6 @@ import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter, Input
 })
 export class PreviewBannerComponent implements OnInit {
 
-	@Input() canClose = true;
-	@Input() canOpen = false;
-	@Output() opened = new EventEmitter<null>();
-	@Output() closed = new EventEmitter<null>();
-
 	constructor() { }
 
 	ngOnInit() {

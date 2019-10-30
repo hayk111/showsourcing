@@ -8,6 +8,10 @@ selector-app {
 	max-width: 100%;
 }
 
+.icon-preview:hover {
+	visibility: visible;
+}
+
 .icon-container {
 	margin-bottom: var(--spacing-xs);
 	position: relative;
@@ -17,14 +21,14 @@ selector-app {
 	}
 
 	logo-app {
+		flex-shrink: 0;
 		margin-right: var(--spacing-s);
 	}
 
 	.icon-preview {
 		visibility: hidden;
-		font-size: 10px !important;
 		margin-right: 0px;
-		margin-left: var(--spacing-s);
+		padding-left: var(--spacing-s);
 
 		&:hover {
 			color: var(--legacy-color-primary);

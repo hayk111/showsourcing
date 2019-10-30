@@ -2,6 +2,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 import { CarouselModule } from '~shared/carousel';
 import { EditableFieldModule } from '~shared/editable-field';
 import { FileModule } from '~shared/file';
@@ -10,19 +11,19 @@ import { ImageModule } from '~shared/image/image.module';
 import { SelectorsModule } from '~shared/selectors/selectors.module';
 import { StatusSelectorModule } from '~shared/status-selector/status-selector.module';
 import { UtilsModule } from '~shared/utils';
-import { TranslateModule } from '@ngx-translate/core';
 
 import {
 	PreviewBadgesComponent,
 	PreviewBannerComponent,
+	PreviewCarouselComponent,
 	PreviewCommentComponent,
 	PreviewHeaderComponent,
-	PreviewSectionComponent,
 	PreviewLogoComponent,
-	PreviewCarouselComponent,
-	PreviewTabComponent,
 	PreviewPanelComponent,
+	PreviewSectionComponent,
 	PreviewStaticComponent,
+	PreviewTabComponent,
+	PreviewTopBarComponent,
 } from './components';
 
 
@@ -43,28 +44,30 @@ import {
 		TranslateModule
 	],
 	declarations: [
-		PreviewHeaderComponent,
-		PreviewSectionComponent,
 		PreviewBadgesComponent,
 		PreviewBannerComponent,
-		PreviewLogoComponent,
 		PreviewCarouselComponent,
 		PreviewCommentComponent,
-		PreviewTabComponent,
+		PreviewHeaderComponent,
+		PreviewLogoComponent,
+		PreviewPanelComponent,
+		PreviewSectionComponent,
 		PreviewStaticComponent,
-		PreviewPanelComponent
+		PreviewTabComponent,
+		PreviewTopBarComponent,
 	],
 	exports: [
-		PreviewHeaderComponent,
-		PreviewSectionComponent,
 		PreviewBadgesComponent,
 		PreviewBannerComponent,
-		PreviewLogoComponent,
 		PreviewCarouselComponent,
 		PreviewCommentComponent,
-		PreviewTabComponent,
+		PreviewHeaderComponent,
+		PreviewLogoComponent,
+		PreviewPanelComponent,
+		PreviewSectionComponent,
 		PreviewStaticComponent,
-		PreviewPanelComponent
+		PreviewTabComponent,
+		PreviewTopBarComponent,
 	]
 })
 export class PreviewModule { }

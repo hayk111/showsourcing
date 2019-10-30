@@ -1,38 +1,4 @@
 :host {
 	display: block;
-	max-height: 371px;
-}
-
-.floating-buttons {
-	position: absolute;
-	top: var(--spacing-m);
-	right: var(--spacing-m);
-
-	& > * {
-		margin-left: var(--spacing-ms);
-	}
-
-	.close, .open {
-		position: relative;
-		height: 37px;
-		background: rgba(24, 40, 68, 0.4);
-		border-radius: var(--border-radius);
-
-		&:hover {
-			background: rgba(132, 134, 139, 0.4);
-		}
-	}
-
-	.close {
-		width: 37px;
-
-		icon-app {
-			color: white;
-			font-size: var(--font-size-l);
-		}
-	}
-
-	.open {
-		min-width: 71px;
-	}
+	max-height: 475px;
 }

@@ -28,6 +28,7 @@
 <editable-text-app
 	#edt
 	class="{{ displayEntityInfo ? '' : 'pd-top-none' }}"
+	[hoverable]="true"
 	(closed)="updateEntity($event, inpName.value)"
 	(opened)="inpName.select()">
 	<editable-label-app class="ellipsis">

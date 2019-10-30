@@ -12,22 +12,18 @@
 	overflow-x: hidden;
 	overflow-y: auto;
 	box-sizing: border-box;
-	height: calc(100vh - 16px); // this way we perserve the ratio and the margin otp
+	height: 100vh; // this way we perserve the ratio and the margin otp
+	top: 0px;
 
   box-shadow: 0 0 24px 0 rgba(163, 175, 198, 0.2);
 
 	&.alignRight {
-		right: var(--spacing-s);
+		right: 0;
 	}
 	&.alignLeft {
-		left: var(--spacing-s);
+		left: 0;
 	}
 	&::-webkit-scrollbar { width: 0 !important } // we make invisible the scrollbar
-}
-
-.banner-fixed {
-	position: fixed;
-	width: 424px;
 }
 
 .scrollable {
