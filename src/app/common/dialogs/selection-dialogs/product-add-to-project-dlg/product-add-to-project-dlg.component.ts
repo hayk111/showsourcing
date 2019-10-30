@@ -98,7 +98,7 @@ export class ProductAddToProjectDlgComponent extends AutoUnsub implements OnInit
 	create() {
 		setTimeout(() => {
 			this.listSrv.create(false, {
-				cb: (project: Project) => {
+				onProjectCreated: (project: Project) => {
 					this.selected[project.id] = {...project};
 					const selectedProjects = <Project[]>Object.values(this.selected);
 					this.productDlgSrv.addProjectsToProducts(selectedProjects, this.products).subscribe();
