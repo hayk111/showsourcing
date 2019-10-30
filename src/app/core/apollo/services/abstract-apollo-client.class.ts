@@ -125,8 +125,6 @@ export abstract class AbstractApolloClient {
 
 			showsourcing.realm.clients.set(name, this.apollo.use(name));
 		});
-
-
 	}
 
 	// https://github.com/apollographql/apollo-angular/issues/736

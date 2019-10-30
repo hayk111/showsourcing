@@ -43,7 +43,7 @@ export class RequestStatusBadgeComponent implements OnInit {
 				case RequestStatus.REFUSED:
 					return 'warn';
 				default:
-					return 'third';
+					return 'secondary-light';
 			}
 		} else {
 			switch (this.status) {
@@ -59,7 +59,7 @@ export class RequestStatusBadgeComponent implements OnInit {
 				case RequestStatus.REFUSED:
 					return 'warn';
 				default:
-					return 'third';
+					return 'secondary-light';
 			}
 		}
 	}

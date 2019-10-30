@@ -15,7 +15,6 @@ export class HeaderDetailsComponent extends TrackingComponent {
 	@Input() hasBackArrow = true;
 	@Input() hasLogo = true;
 	@Input() headerType: 'details' | 'settings' | 'table';
-	@HostBinding('class.z-1') @Input() elevated = true;
 
 	constructor(
 		private location: Location

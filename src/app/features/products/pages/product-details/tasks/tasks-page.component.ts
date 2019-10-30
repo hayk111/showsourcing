@@ -22,8 +22,11 @@ import { AbstractTaskCommonComponent } from '~common/abstracts/abstract-task-com
 export class TasksPageComponent extends AbstractTaskCommonComponent
 	implements OnInit {
 
-	erm = ERM.TASK;
+	erm = ERM;
 	product: Product;
+	filterTypes = [
+		FilterType.DONE
+	];
 
 	constructor(
 		protected route: ActivatedRoute,
@@ -58,7 +61,8 @@ export class TasksPageComponent extends AbstractTaskCommonComponent
 		).subscribe(product => this.product = product);
 		super.setup([
 			{ type: FilterType.PRODUCT, value: this.route.parent.snapshot.params.id },
-			{ type: FilterType.DONE, value: true },
+			{ type: FilterType.DONE, value: false },
+			{ type: FilterType.ASSIGNEE, value: this.userSrv.userId }
 		]);
 		super.ngOnInit();
 	}

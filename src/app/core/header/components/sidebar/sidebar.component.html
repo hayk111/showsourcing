@@ -13,7 +13,7 @@
 	<sidebar-item-app [icon]="'check-circle'" [link]="['/tasks']"></sidebar-item-app>
 	<sidebar-item-app [icon]="'envelope'" [link]="['/requests']" [badge]="(requestCount$ | async) > 0 ? (requestCount$ | async) : null"></sidebar-item-app>
 	<sidebar-item-app 
-		*ngIf="!isProd"
+		*ngIf="!isProd && isLocal"
 		[icon]="'development'" 
 		[link]="['/dev']" 
 		[subItems]="sideNavItems.get('dev')">

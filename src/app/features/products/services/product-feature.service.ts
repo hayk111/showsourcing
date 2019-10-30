@@ -20,14 +20,4 @@ export class ProductFeatureService extends ProductService {
 		super(analyticsSrv, apolloState, userSrv);
 	}
 
-	getActivityCount(product: Product) {
-		const comment = of(product.comments.length);
-		const task = of(product.tasksLinkedAssignedToMe.count);
-		const sample = of(product.samplesLinkedAssignedToMe.count);
-		const request = this.requestElemSrv.queryCount(
-			`targetedEntityType == "Product" && targetId == "${product.id}" && reply.status == "replied"`
-		);
-		return { comment, task, sample, request };
-	}
-
 }

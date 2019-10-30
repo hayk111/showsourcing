@@ -1,24 +1,25 @@
+
 <controller-list-app
 	class="max-full-table-width"
-	buttonName="create sample"
-	[entityType]="erm.SAMPLE.singular"
-	[hasFilter]="true"
+	[entityType]="erm.REQUEST.singular"
+	[hasFilter]="false"
 	[hasSwitch]="false"
-	[count]="listSrv.count$ | async"
-	[entityType]="'SAMPLE'"
 	[view]="listSrv.view"
+	[hasArchived]="false"
+	[hasAssigned]="false"
+	[buttonName]="'send request'"
+	[count]="listSrv.count$ | async"
+	(search)="listSrv.search($event)"
 	(showFilters)="listSrv.openFilterPanel()"
 	(showArchived)="listSrv.filterByArchived(true)"
 	(hideArchived)="listSrv.filterByArchived(false)"
 	(showAssigned)="listSrv.filterByAssignee(true)"
 	(hideAssigned)="listSrv.filterByAssignee(false)"
-	(search)="listSrv.search($event)"
 	(smartSearch)="listSrv.smartSearch($event)"
-	(export)="dialogCommonSrv.openExportDialog()"
-	(buttonClick)="dialogCommonSrv.openCreationSampleDialog(product)">
+	(buttonClick)="openSupplierRequest()">
 </controller-list-app>
 
-<samples-table-app
+<request-elements-table-app
 	class="max-full-table-width"
 	[rows]="listSrv.items$ | async"
 	[selection]="listSrv.selection$ | async"
@@ -35,35 +36,17 @@
 	(favorited)="listSrv.onItemFavorited($event)"
 	(unfavorited)="listSrv.onItemUnfavorited($event)"
 	(previewClick)="listSrv.openPreview($event)"
-	(createClick)="dialogCommonSrv.openCreationSampleDialog(product)"
-	(delete)="listSrv.deleteOne($event)">
-</samples-table-app>
-
-
-<sample-preview-app
-	*ngIf="listSrv.previewOpen"
-	[sample]="listSrv.previewed"
-	(close)="listSrv.closePreview()"
-	(clickOutside)="listSrv.closePreview()">
-</sample-preview-app>
-
-
-<filters-app
-	*ngIf="listSrv.filterPanelOpen"
-	[filterList]="listSrv.filterList"
-	[filterTypes]="filterTypes"
-	(clickOutside)="listSrv.closeFilterPanel()"
-	(close)="listSrv.closeFilterPanel()">
-</filters-app>
-
+	(createClick)="openSupplierRequest()"
+	(delete)="listSrv.deleteOne($event, true)">
+</request-elements-table-app>
 
 <selection-bar-app
-	[isShown]="(listSrv.selection$ | async).size > 0"
+	[isShown]="(listSrv.selection$ | async)?.size > 0"
 	[selection]="listSrv.selection$ | async"
 	(close)="listSrv.unselectAll()">
 
-	<button class="icon light" (click)="listSrv.deleteSelected()">
-		<icon-app name="trash"></icon-app>
+	<button class="icon light" (click)="listSrv.deleteSelected(true)">
+		<icon-app name="trash" size="m"></icon-app>
 	</button>
 
 </selection-bar-app>

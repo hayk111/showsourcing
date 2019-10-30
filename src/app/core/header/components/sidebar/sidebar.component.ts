@@ -20,6 +20,7 @@ export class SidebarComponent implements OnInit {
 	requestCount$: Observable<number>;
 	notifications$: Observable<GetStreamNotification>;
 	isProd = environment.production;
+	isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
 	sideNavItems = sideNavItems;
 
 	constructor(
