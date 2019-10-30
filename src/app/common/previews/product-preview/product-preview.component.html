@@ -1,19 +1,19 @@
 <!-- Panel preview -->
 <preview-panel-app *ngIf="isPreview && (product$ | async)" cdk-scrollable>
 	<!-- Banner -->
-	<preview-banner-app
-		[canOpen]="true"
-		(closed)="close.emit()"
-		(opened)="openProduct()">
+	<preview-banner-app>
 		<preview-top-bar-app
-			(closed)="close.emit()">
-			<div class="flexColumn">
-				<div class="title">
-
-				</div>
-				<div class="info">
-
-				</div>
+			(closed)="close.emit()"
+			(opened)="openProduct()">
+			<div class="title ellipsis">
+				<span class="color-primary mg-right-xs">{{ product?.reference }}</span>
+				<span class="color-txt-primary">{{ product?.name }}</span>
+			</div>
+			<div class="info dot-separator ellipsis">
+				<span *ngIf="product?.price">{{ product?.price | appPrice }}</span>
+				<span *ngIf="product?.category">{{ product?.category?.name }}</span>
+				<!-- TODO create a compoentn for star icon -->
+				<span *ngIf="product?.votes && product?.votes?.length">4.3</span>
 			</div>
 		</preview-top-bar-app>
 		<preview-carousel-app
@@ -202,9 +202,7 @@
 <preview-static-app	*ngIf="!isPreview">
 
 	<!-- Banner -->
-	<preview-banner-app
-		[canOpen]="false"
-		[canClose]="false">
+	<preview-banner-app>
 		<preview-carousel-app
 			[entity]="product"
 			[entityMD]="erm.PRODUCT"

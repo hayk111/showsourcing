@@ -5,11 +5,11 @@
 	[align]="'right'">
 
 		<!-- Banner -->
-		<preview-banner-app
-			[canOpen]="true"
-			[canClose]="true"
-			(closed)="close.emit()"
-			(opened)="openSupplier()">
+		<preview-banner-app>
+			<preview-top-bar-app
+				(closed)="close.emit()"
+				(opened)="openSupplier()">
+			</preview-top-bar-app>
 			<preview-carousel-app
 				[entity]="supplier"
 				[entityMD]="erm.SUPPLIER"
@@ -104,9 +104,7 @@
 	[hasLogo]="true">
 
 		<!-- Banner -->
-		<preview-banner-app
-			[canOpen]="false"
-			[canClose]="false">
+		<preview-banner-app>
 			<preview-carousel-app
 				[entity]="supplier"
 				[entityMD]="erm.SUPPLIER"

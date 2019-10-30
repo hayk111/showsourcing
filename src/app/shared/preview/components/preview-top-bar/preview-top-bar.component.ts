@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
 	selector: 'preview-top-bar-app',
@@ -8,7 +8,8 @@ import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter } from
 })
 export class PreviewTopBarComponent implements OnInit {
 
-	@Output() expand = new EventEmitter<null>();
+	@Input() canOpen = true;
+	@Output() opened = new EventEmitter<null>();
 	@Output() closed = new EventEmitter<null>();
 
 	constructor() { }
