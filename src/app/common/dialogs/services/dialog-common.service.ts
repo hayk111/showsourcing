@@ -56,8 +56,8 @@ export class DialogCommonService {
 	}
 
 	/** Opens a dialog that lets the user add different products to different projects (many to many) */
-	openAddToProjectDialog(products?: Product[]) {
-		return this.dlgSrv.open(ProductAddToProjectDlgComponent, { products });
+	openAddToProjectDialog(products?: Product[], initialSelectedProjects?: Project[]) {
+		return this.dlgSrv.open(ProductAddToProjectDlgComponent, { products, initialSelectedProjects });
 	}
 
 	/** Opens a dialog that lets the user export a product either in PDF or EXCEL format */
