@@ -7,7 +7,7 @@ icon-app {
 	}
 }
 
-.icons-container > icon-app:not(.favourite) {
+.icons-container > icon-app:not(.favourite), .with-badge icon-app {
 	color: var(--color-txt-third);
 }
 

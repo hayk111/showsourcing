@@ -26,9 +26,9 @@ export class RatingBadgeComponent {
 	constructor(public thumbSrv: ThumbService) { }
 
 	getClasses() {
-		let classes = this.score >= 3.5 ? 'bg-accent-light color-accent-dark' : 'bg-secondary-light color-txt-third';
-		if (!this.background) {
-			classes = this.score >= 3.5 ? 'bg-white color-accent-dark' : 'bg-white color-txt-third';
+		let classes = this.score >= 3.5 ? 'color-accent-dark' : 'color-txt-third';
+		if (this.background) {
+			classes += this.score >= 3.5 ? ' bg-accent-light' : ' bg-secondary-light';
 		}
 		return classes;
 	}

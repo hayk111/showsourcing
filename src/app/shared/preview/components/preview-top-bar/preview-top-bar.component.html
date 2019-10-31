@@ -7,7 +7,7 @@
 <!-- buttons -->
 <div class="right flex">
 	<!-- Open -->
-	<button *ngIf="canOpen" class="icon-m" (click)="opened.emit()">
+	<button *ngIf="canOpen" class="icon-m" (click)="opened.emit()" toolTip toolTipMessage="Open" toolTipPosition="below-right">
 		<icon-app class="color-txt-third" name="maximize"></icon-app>
 	</button>
 

@@ -5,6 +5,7 @@ export class ProductVote {
 	id: string;
 	user: User;
 	value: number;
+	creationDate: string;
 	__typename?= 'ProductVote';
 
 	constructor(config: ProductVoteConfig) {
@@ -16,6 +17,7 @@ export class ProductVote {
 export interface ProductVoteConfig {
 	value: number;
 	user: User;
+	creationDate: string;
 }
 
 export const mockVotes = [

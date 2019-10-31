@@ -17,7 +17,13 @@ preview-carousel-app {
 
 .info {
 	color: var(--color-txt-secondary);
-	> * {
-		max-width: 33%;
+	.price {
+		max-width: 25%;
+	}
+	.category {
+		max-width: 50%;
+	}
+	.rating-badge {
+		max-width: 25%;
 	}
 }

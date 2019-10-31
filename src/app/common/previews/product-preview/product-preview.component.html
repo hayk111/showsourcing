@@ -11,9 +11,9 @@
 				<span class="color-txt-primary">{{ product?.name }}</span>
 			</div>
 			<div class="info dot-separator ellipsis flex">
-				<span *ngIf="product?.price" class="ellipsis">{{ product?.price | appPrice }}</span>
-				<span *ngIf="product?.category" class="ellipsis">{{ product?.category?.name }}</span>
-				<rating-badge-app *ngIf="product?.votes?.length" [votes]="product?.votes" [background]="false"></rating-badge-app>
+				<span *ngIf="product?.price" class="ellipsis price">{{ product?.price | appPrice }}</span>
+				<span *ngIf="product?.category" class="ellipsis category">{{ product?.category?.name }}</span>
+				<rating-badge-app *ngIf="product?.votes?.length" class="rating-badge" [votes]="product?.votes" [background]="false"></rating-badge-app>
 			</div>
 
 			<!-- items 3 dots -->
