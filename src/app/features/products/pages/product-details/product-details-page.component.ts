@@ -14,6 +14,7 @@ import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { AutoUnsub, log } from '~utils';
+import { RequestElementService } from '~core/entity-services';
 
 /**
  *
@@ -30,6 +31,7 @@ import { AutoUnsub, log } from '~utils';
 })
 export class ProductDetailsPageComponent extends AutoUnsub implements OnInit {
 	product: Product;
+	requestCount$: Observable<number>;
 	/** projects for this product */
 	typeEntity = ERM.PRODUCT;
 	tabs: { name: string, number$?: Observable<number> }[];
@@ -42,7 +44,8 @@ export class ProductDetailsPageComponent extends AutoUnsub implements OnInit {
 		private notifSrv: NotificationService,
 		private thumbSrv: ThumbService,
 		public dialogCommonSrv: DialogCommonService,
-		private translate: TranslateService
+		private translate: TranslateService,
+		private reqElemSrv: RequestElementService
 	) {
 		super();
 	}
@@ -59,6 +62,10 @@ export class ProductDetailsPageComponent extends AutoUnsub implements OnInit {
 		).subscribe(
 			product => this.onProduct(product),
 			err => this.onError(err)
+		);
+
+		this.requestCount$ = id$.pipe(
+			switchMap(id => this.reqElemSrv.queryCount(`targetedEntityType == "Product" && targetId == "${id}"`))
 		);
 
 	}

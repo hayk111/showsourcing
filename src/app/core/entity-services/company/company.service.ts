@@ -10,6 +10,7 @@ import { GlobalService } from '~entity-services/_global/global.service';
 import { Company } from '~models';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
+import { UserService } from '../user/user.service';
 
 
 const COMPANY = 'company';
@@ -53,7 +54,12 @@ export class CompanyService extends GlobalService<Company> {
 
 	/** creates and picks it */
 	create(company: Company): Observable<any> {
-		return this.http.post<Company>('/api/company', company);
+		const currentUser = { id: UserService.userSync.id };
+		return this.http.post<Company>('/api/company', {
+			...company,
+			ownerUser: currentUser,
+			users: [currentUser]
+		});
 	}
 
 	/** picks a company, puts the selection in local storage */

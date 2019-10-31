@@ -86,10 +86,3 @@
 	[typeEntity]="typeEntity"
 	[size]="selectSize">
 </status-badge-app>
-
-<!-- specific for project since we dont have the status on the DB we just have done, over-due and pending -->
-<project-status-badge-app
-	*ngIf="typeEntity === erm.PROJECT"
-	[project]="entity"
-	(update)="updateProject($event)">
-</project-status-badge-app>

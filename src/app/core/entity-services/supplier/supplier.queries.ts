@@ -18,10 +18,24 @@ export abstract class SupplierQueries extends GlobalQueries {
 	// tslint:disable-next-line:max-line-length
 	static readonly tasksLinked = `tasksLinked: _linkingObjects(objectType: "Task" property:"supplier" query:"deleted == false") { ... on TaskCollection { count, items { dueDate } }}`;
 	// tslint:disable-next-line:max-line-length
-	static readonly contactsLinked = `contactsLinked: _linkingObjects(objectType: "Contact" property:"supplier" query:"deleted == false") { ... on ContactCollection { count }}`;
+	static readonly samplesLinked = `samplesLinked: _linkingObjects(objectType: "Sample" property:"supplier" query:"deleted == false") { ... on SampleCollection { count }}`;
+	// tslint:disable-next-line: max-line-length
+	static readonly tasksLinkedAssignedToMe = (userId: string) => `tasksLinkedAssignedToMe: _linkingObjects(objectType: "Task" property:"supplier" query:"deleted == false AND assignee.id == '${userId}' AND done == false") {
+		... on TaskCollection {
+			count
+			}
+		}`
+
+	// tslint:disable-next-line: max-line-length
+	static readonly samplesLinkedAssignedToMe = (userId: string) => `samplesLinkedAssignedToMe: _linkingObjects(objectType: "Sample" property:"supplier" query:"deleted == false AND assignee.id == '${userId}'") {
+		... on SampleCollection {
+			count
+		}
+	}`
 
 	// tslint:disable-next-line:max-line-length
-	static readonly samplesLinked = `samplesLinked: _linkingObjects(objectType: "Sample" property:"supplier" query:"deleted == false") { ... on SampleCollection { count }}`;
+	static readonly contactsLinked = `contactsLinked: _linkingObjects(objectType: "Contact" property:"supplier" query:"deleted == false") { ... on ContactCollection { count }}`;
+
 	static readonly comments = `comments {
 		id, text, creationDate, lastUpdatedDate, deleted,
 		${SupplierQueries.user('createdBy')},
@@ -34,69 +48,11 @@ export abstract class SupplierQueries extends GlobalQueries {
 		${SupplierQueries.definition('definition')}
 	}`;
 
-	static readonly one = `
-			name,
-			description,
-			website,
-			phoneNumber,
-			country,
-			city,
-			address,
-			officeEmail,
-			officePhone,
-			incoTerm,
-			harbour,
-			favorite,
-			generalMOQ,
-			generalLeadTime,
-			creationDate,
-			lastUpdatedDate,
-			reference,
-			archived,
-			${SupplierQueries.extendedFields}
-			${SupplierQueries.comments}
-			${SupplierQueries.supplierType}
-			${SupplierQueries.logoImage}
-			${SupplierQueries.user('assignee')}
-			${SupplierQueries.user('createdBy')}
-			${SupplierQueries.user('lastUpdatedBy')}
-			${SupplierQueries.status}
-			${SupplierQueries.categories}
-			${SupplierQueries.images}
-			${SupplierQueries.attachments}
-			${SupplierQueries.tags}
-			${SupplierQueries.productsLinked}
-			${SupplierQueries.tasksLinked}
-			${SupplierQueries.samplesLinked}
-			${SupplierQueries.contactsLinked}
-		`;
+	// to be built at runtime via the buildQuery function
+	static one = '';
 
-	static readonly many = `
-		name,
-		description,
-		country,
-		favorite,
-		deleted,
-		creationDate,
-		lastUpdatedDate,
-		reference,
-		archived,
-		${SupplierQueries.extendedFields}
-		${SupplierQueries.status}
-		${SupplierQueries.categories}
-		${SupplierQueries.comments}
-		${SupplierQueries.images}
-		${SupplierQueries.tags}
-		${SupplierQueries.user('assignee')}
-		${SupplierQueries.user('createdBy')}
-		${SupplierQueries.user('lastUpdatedBy')}
-		${SupplierQueries.productsLinked}
-		${SupplierQueries.tasksLinked}
-		${SupplierQueries.samplesLinked}
-		${SupplierQueries.contactsLinked}
-		${SupplierQueries.logoImage}
-		${SupplierQueries.supplierType}
-	`;
+	// to be built at runtime via the buildQuery function
+	static many = '';
 
 	static readonly all = `
 		name,
@@ -127,6 +83,75 @@ export abstract class SupplierQueries extends GlobalQueries {
 		favorite,
 		${SupplierQueries.comments}
 	`;
+
+	static buildQueries(userId: string) {
+		SupplierQueries.one = `
+		name,
+		description,
+		website,
+		phoneNumber,
+		country,
+		city,
+		address,
+		officeEmail,
+		officePhone,
+		incoTerm,
+		harbour,
+		favorite,
+		generalMOQ,
+		generalLeadTime,
+		creationDate,
+		lastUpdatedDate,
+		reference,
+		archived,
+		${SupplierQueries.extendedFields}
+		${SupplierQueries.comments}
+		${SupplierQueries.supplierType}
+		${SupplierQueries.logoImage}
+		${SupplierQueries.user('assignee')}
+		${SupplierQueries.user('createdBy')}
+		${SupplierQueries.user('lastUpdatedBy')}
+		${SupplierQueries.status}
+		${SupplierQueries.categories}
+		${SupplierQueries.images}
+		${SupplierQueries.attachments}
+		${SupplierQueries.tags}
+		${SupplierQueries.productsLinked}
+		${SupplierQueries.contactsLinked}
+		${SupplierQueries.tasksLinked}
+		${SupplierQueries.samplesLinked}
+		${SupplierQueries.tasksLinkedAssignedToMe(userId)}
+		${SupplierQueries.samplesLinkedAssignedToMe(userId)}
+		`;
+		SupplierQueries.many = `
+		name,
+		description,
+		country,
+		favorite,
+		deleted,
+		creationDate,
+		lastUpdatedDate,
+		reference,
+		archived,
+		${SupplierQueries.extendedFields}
+		${SupplierQueries.status}
+		${SupplierQueries.categories}
+		${SupplierQueries.comments}
+		${SupplierQueries.images}
+		${SupplierQueries.tags}
+		${SupplierQueries.user('assignee')}
+		${SupplierQueries.user('createdBy')}
+		${SupplierQueries.user('lastUpdatedBy')}
+		${SupplierQueries.productsLinked}
+		${SupplierQueries.tasksLinked}
+		${SupplierQueries.samplesLinked}
+		${SupplierQueries.contactsLinked}
+		${SupplierQueries.logoImage}
+		${SupplierQueries.supplierType}
+		${SupplierQueries.samplesLinkedAssignedToMe(userId)}
+		${SupplierQueries.tasksLinkedAssignedToMe(userId)}
+		`;
+	}
 
 }
 

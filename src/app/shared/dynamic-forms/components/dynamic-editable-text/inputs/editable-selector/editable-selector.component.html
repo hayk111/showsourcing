@@ -63,6 +63,16 @@
 			<span> {{ value?.description?.name || '-' }}</span>
 		</ng-container>
 
+		<!-- incoTerm -->
+		<ng-container *ngSwitchCase="erm.INCO_TERM.singular">
+			<span> {{ value || '-' }}</span>
+		</ng-container>
+
+		<!-- harbour -->
+		<ng-container *ngSwitchCase="erm.HARBOUR.singular">
+			<span> {{ value || '-' }}</span>
+		</ng-container>
+
 		<!-- selector element -->
 		<!-- we read these 2 values, since when we are updating it takes a bit to be converted to an array -->
 		<!-- this strange behaviour happens since we share same value on extended field -> selectorValue: SelectorElement[] -->

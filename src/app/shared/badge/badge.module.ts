@@ -8,7 +8,6 @@ import {
 	BadgeComponent,
 	InfoBadgeComponent,
 	NotificationBadgeDirective,
-	ProjectStatusBadgeComponent,
 	RatingBadgeComponent,
 	RequestStatusBadgeComponent,
 	StatusBadgeComponent,
@@ -32,7 +31,6 @@ import {
 		StatusBadgeComponent,
 		StatusBoxComponent,
 		TaskStatusBadgeComponent,
-		ProjectStatusBadgeComponent,
 		RatingBadgeComponent,
 	],
 	exports: [
@@ -43,7 +41,6 @@ import {
 		StatusBadgeComponent,
 		StatusBoxComponent,
 		TaskStatusBadgeComponent,
-		ProjectStatusBadgeComponent,
 		RatingBadgeComponent,
 	],
 	entryComponents: []

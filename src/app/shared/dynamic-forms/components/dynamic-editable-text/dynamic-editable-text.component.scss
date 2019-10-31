@@ -5,9 +5,8 @@
 h3 {
 	display: block;
 	margin-top: var(--spacing-m);
-	&::first-letter {
-		text-transform: uppercase;
-	}
+	text-transform: uppercase;
+	font-size: var(--font-size-m);
 	&.first {
 		margin-top: 0;
 	}

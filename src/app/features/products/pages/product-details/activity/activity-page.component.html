@@ -1,0 +1,31 @@
+
+<div class="content flex">
+
+	<product-preview-app
+		*ngIf="product$ | async as product"
+		class="left mg-l"
+		[isPreview]="false"
+		[product]="product">
+	</product-preview-app>
+
+	<!-- activity card -->
+	<!-- using a div ctnr so it's not resized vertically by flex  -->
+	<div>
+		<card-app class="right">
+			<card-title-app>Activity</card-title-app>
+	
+				<ng-container *ngIf="product$ | async as product; else spinner">
+					<add-comment-app (added)="sendComment($event)"></add-comment-app>
+					<divider-app *ngIf="product.comments.length > 0"></divider-app>
+					<comment-list-app [comments]="product.comments"></comment-list-app>
+				</ng-container>
+	
+				<ng-template #spinner>
+					<spinner-app></spinner-app>
+				</ng-template>
+	
+		</card-app>
+	</div>
+
+</div>
+

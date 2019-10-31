@@ -38,7 +38,7 @@ export abstract class AbstractSampleCommonComponent extends AutoUnsub implements
 		const userId = this.userSrv.userSync.id;
 		this.listSrv.setup({
 			entitySrv: this.sampleSrv,
-			searchedFields: ['name', 'supplier.name', 'product.name', 'assignee.firstName', 'assignee.lastName'],
+			searchedFields: ['name', 'supplier.name', 'product.name', 'assignee.firstName', 'assignee.lastName', 'reference'],
 			selectParams: { query: 'deleted == false' },
 			entityMetadata: ERM.SAMPLE,
 			initialFilters: [

@@ -16,7 +16,7 @@ dialog-app {
 	}
 
 	dialog-footer-app {
-		margin-top: var(--spacing-xl);
+		margin-top: var(--spacing-l);
 
 		.show-my-samples-only {
 			font-weight: 600;
@@ -62,7 +62,6 @@ dialog-app {
 		margin: var(--spacing-l) 0 0 0;
 		border: solid 1px var(--legacy-color-divider);
 		border-radius: var(--border-radius);
-		border-bottom: none;
 	}
 
 	sub-panel-left-item-app {

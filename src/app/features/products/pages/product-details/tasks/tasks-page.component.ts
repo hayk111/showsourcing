@@ -11,19 +11,22 @@ import { ProductFeatureService } from '~features/products/services';
 import { AbstractTaskCommonComponent } from '~common/abstracts/abstract-task-common.component';
 
 @Component({
-	selector: 'product-tasks-page-app',
-	templateUrl: './product-tasks-page.component.html',
-	styleUrls: ['./product-tasks-page.component.scss'],
+	selector: 'tasks-page-app',
+	templateUrl: './tasks-page.component.html',
+	styleUrls: ['./tasks-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
 		ListPageService
 	]
 })
-export class ProductTasksPageComponent extends AbstractTaskCommonComponent
+export class TasksPageComponent extends AbstractTaskCommonComponent
 	implements OnInit {
 
-	erm = ERM.TASK;
+	erm = ERM;
 	product: Product;
+	filterTypes = [
+		FilterType.DONE
+	];
 
 	constructor(
 		protected route: ActivatedRoute,
@@ -58,7 +61,7 @@ export class ProductTasksPageComponent extends AbstractTaskCommonComponent
 		).subscribe(product => this.product = product);
 		super.setup([
 			{ type: FilterType.PRODUCT, value: this.route.parent.snapshot.params.id },
-			{ type: FilterType.DONE, value: true },
+			{ type: FilterType.DONE, value: false },
 		]);
 		super.ngOnInit();
 	}

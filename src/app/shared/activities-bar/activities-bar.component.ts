@@ -15,10 +15,10 @@ import { map } from 'rxjs/operators';
 export class ActivitiesBarComponent implements OnInit {
 	@Input() row: any;
 	@Input() entityName: EntityName.PRODUCT | EntityName.SUPPLIER = EntityName.PRODUCT;
-	@Input() favourite = false;
-	@Input() hasSamples = false;
-	@Input() hasTasks = false;
-	@Input() hasComments = false;
+	@Input() favorite = false;
+	@Input() hasSamples = true;
+	@Input() hasTasks = true;
+	@Input() hasComments = true;
 	@Input() votes: any[];
 
 	hasTaskOverdue: boolean;
@@ -29,12 +29,7 @@ export class ActivitiesBarComponent implements OnInit {
 	samplesCount$: Observable<number>;
 	commentsCount$: Observable<number>;
 
-	constructor(
-		private requestElementService: RequestElementService,
-		private taskSrv: TaskService,
-		private sampleSrv: SampleService,
-		private ermSrv: ERMService
-	) { }
+	constructor(private requestElementService: RequestElementService) { }
 
 	ngOnInit() {
 		if (this.row && this.row.id) {
@@ -44,20 +39,6 @@ export class ActivitiesBarComponent implements OnInit {
 			this.requestsCount$ = this.requestElementService
 				.queryCount(`targetId == "${this.row.id}" AND targetedEntityType == "Product"`);
 
-			if (this.hasTasks) {
-				this.tasksCount$ = this.taskSrv
-					.queryCount(`${this.entityName}.id == "${this.row.id}" AND deleted == false AND archived == false`);
-			}
-
-			if (this.hasSamples) {
-				this.samplesCount$ = this.sampleSrv
-					.queryCount(`${this.entityName}.id == "${this.row.id}" AND deleted == false AND archived == false`);
-			}
-
-			if (this.hasComments) {
-				this.commentsCount$ = this.ermSrv.getGlobalService(ERM.getEntityMetadata(this.entityName))
-					.queryOne(this.row.id).pipe(map(entity => entity && entity.comments && entity.comments.length));
-			}
 			this.hasTaskOverdue = this.hasTasksOverdue(this.row.id);
 		}
 	}
@@ -79,5 +60,17 @@ export class ActivitiesBarComponent implements OnInit {
 
 	isTaskOverdued(task: Task): boolean {
 		return task && task.dueDate && new Date().getTime() >= Date.parse(task.dueDate.toString());
+	}
+
+	get taskCount() {
+		return this.row.tasksLinkedAssignedToMe && this.row.tasksLinkedAssignedToMe.count;
+	}
+
+	get sampleCount() {
+		return this.row.samplesLinkedAssignedToMe && this.row.samplesLinkedAssignedToMe.count;
+	}
+
+	get commentCount() {
+		return this.row.comments && this.row.comments.length;
 	}
 }

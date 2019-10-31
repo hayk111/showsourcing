@@ -18,6 +18,7 @@ export class Sample extends EntityWithAudit<SampleConfig> {
 	shippingCompany?: string;
 	price?: Price;
 	paid ?= false;
+	type ?= '';
 	// type ?= 'Product'; TODO Backend add type
 	__typename ?= 'Sample';
 
