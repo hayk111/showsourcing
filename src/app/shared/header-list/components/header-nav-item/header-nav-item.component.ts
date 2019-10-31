@@ -1,4 +1,5 @@
 import { Component, ChangeDetectionStrategy, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'header-nav-item-app',
@@ -12,7 +13,7 @@ export class HeaderNavItemComponent implements OnInit {
 	@Input() link: string;
 	@Input() hasBadge: boolean;
 
-	constructor() {}
+	constructor(private router: Router) {}
 
 	ngOnInit() {
 		if (this.link === undefined) {

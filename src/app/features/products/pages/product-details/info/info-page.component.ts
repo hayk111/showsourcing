@@ -29,7 +29,7 @@ export class InfoPageComponent extends AutoUnsub implements OnInit {
 		mode: 'editable-text',
 		colAmount: 2,
 		inlineLabel: true,
-		alignValue: 'right'
+		alignValue: 'center'
 	});
 
 	constructor(

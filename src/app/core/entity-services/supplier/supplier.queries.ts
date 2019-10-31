@@ -20,7 +20,7 @@ export abstract class SupplierQueries extends GlobalQueries {
 	// tslint:disable-next-line:max-line-length
 	static readonly samplesLinked = `samplesLinked: _linkingObjects(objectType: "Sample" property:"supplier" query:"deleted == false") { ... on SampleCollection { count }}`;
 	// tslint:disable-next-line: max-line-length
-	static readonly tasksLinkedAssignedToMe = (userId: string) => `tasksLinkedAssignedToMe: _linkingObjects(objectType: "Task" property:"supplier" query:"deleted == false AND assignee.id == '${userId}'") {
+	static readonly tasksLinkedAssignedToMe = (userId: string) => `tasksLinkedAssignedToMe: _linkingObjects(objectType: "Task" property:"supplier" query:"deleted == false AND assignee.id == '${userId}' AND done == false") {
 		... on TaskCollection {
 			count
 			}

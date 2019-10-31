@@ -59,6 +59,7 @@ export class Product extends EntityWithAudit<ProductConfig> {
 	samplesLinked?: { count: number, items: Sample[] };
 	tasksLinkedAssignedToMe?: { count: number };
 	samplesLinkedAssignedToMe?: { count: number };
+	tasksLinkedUndone?: { count: number };
 	votes?: ProductVote[];
 	__typename ?= 'Product';
 

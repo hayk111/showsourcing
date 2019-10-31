@@ -2,9 +2,10 @@
 <div class="content flex">
 
 	<product-preview-app
+		*ngIf="product$ | async as product"
 		class="left mg-l"
 		[isPreview]="false"
-		[product]="product$ | async">
+		[product]="product">
 	</product-preview-app>
 
 	<!-- activity card -->
