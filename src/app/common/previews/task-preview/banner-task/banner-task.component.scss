@@ -35,6 +35,22 @@
 		top: var(--spacing-m);
 	}
 
+	.close {
+		position: absolute;
+		height: 37px;
+		width: 37px;
+		background: rgba(24, 40, 68, 0.4);
+		border-radius: var(--border-radius);
+		border-radius: var(--border-radius);
+    top: var(--spacing-m);
+    right: var(--spacing-m);
+
+		&:hover {
+			background: rgba(132, 134, 139, 0.4);
+		}
+
+	}
+
 	.task-info {
 
 		icon-app {

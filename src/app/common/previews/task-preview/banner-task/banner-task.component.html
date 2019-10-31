@@ -14,16 +14,20 @@
 		translate="button.mark-done">
 	</button>
 
-	<div class="task-info">
+	<div class="close flexCenter pointer" (click)="closed.emit()">
+		<icon-app class="color-white" name="close" size="m"></icon-app>
+	</div>
+
+	<div class="task-info flexColumn">
 		<icon-app name="task"></icon-app>
 		<div class="info first-uppercase">
 			<ng-container *ngIf="status === enumTaskStatus.OVERDUE; else notOverdued">
-				{{ ('header.status' | translate) + ' - ' }}
+				{{ ('text.' + status | translate) + ' - '}}
 			</ng-container>
 			<ng-template #notOverdued>
-				{{ ('header.task' | translate) + ' ' + ('header.status' | translate) }}
+				{{ ('header.task' | translate) + ' ' + ('text.' + status | translate) }}
 			</ng-template>
-			{{ task?.dueDate | date: 'dd MM yyyy':'':translate.currentLang || ''}}
+			{{ task?.dueDate | date: 'dd MMMM yyyy':'':translate.currentLang || ''}}
 		</div>
 	</div>
 
