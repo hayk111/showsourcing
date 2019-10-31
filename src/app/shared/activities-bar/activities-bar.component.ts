@@ -33,8 +33,7 @@ export class ActivitiesBarComponent implements OnInit {
 		private requestElementService: RequestElementService,
 		private taskSrv: TaskService,
 		private sampleSrv: SampleService,
-		private ermSrv: ERMService,
-		public thumbService: ThumbService,
+		private ermSrv: ERMService
 	) { }
 
 	ngOnInit() {

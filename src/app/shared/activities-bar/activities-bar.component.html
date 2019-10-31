@@ -17,15 +17,10 @@
 			<span class="red-badge"></span>
 			<icon-app name="envelope" size="ms" notifBadge toolTip [toolTipMessage]="numRequests + numRequests === 1 ? 'request' : 'requests'"></icon-app>
 		</div>
-		<span
-			*ngIf="thumbService.computeScoreVotes(votes) !== null"
-			class="vote-star-container"
-			[ngClass]="{
-				'bg-accent-light color-accent-dark': thumbService.computeScoreVotes(votes) >= 3.5,
-				'bg-secondary-light color-txt-third': thumbService.computeScoreVotes(votes) < 3.5 }"
+		<rating-badge-app
+			class="votes"
+			[votes]="votes"
 			toolTip toolTipMessage="Team rating">
-			<icon-app class="star" name="star" size="ms"></icon-app>
-			<span class="vote-star-value">{{ thumbService.computeScoreVotes(votes) | number: '1.1-2' }}</span>
-		</span>
+		</rating-badge-app>
 	</div>
 </div>

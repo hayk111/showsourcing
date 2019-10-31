@@ -10,11 +10,10 @@
 				<span class="color-primary mg-right-xs">{{ product?.reference }}</span>
 				<span class="color-txt-primary">{{ product?.name }}</span>
 			</div>
-			<div class="info dot-separator ellipsis">
-				<span *ngIf="product?.price">{{ product?.price | appPrice }}</span>
-				<span *ngIf="product?.category">{{ product?.category?.name }}</span>
-				<!-- TODO create a compoentn for star icon -->
-				<span *ngIf="product?.votes && product?.votes?.length">4.3</span>
+			<div class="info dot-separator ellipsis flex">
+				<span *ngIf="product?.price" class="ellipsis">{{ product?.price | appPrice }}</span>
+				<span *ngIf="product?.category" class="ellipsis">{{ product?.category?.name }}</span>
+				<rating-badge-app *ngIf="product?.votes?.length" [votes]="product?.votes" [background]="false"></rating-badge-app>
 			</div>
 
 			<!-- items 3 dots -->

@@ -1,18 +1,19 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { IconsModule } from '~shared/icons';
 import { UtilsModule } from '~shared/utils';
-import { TranslateModule } from '@ngx-translate/core';
 
 import {
 	BadgeComponent,
 	InfoBadgeComponent,
 	NotificationBadgeDirective,
+	ProjectStatusBadgeComponent,
+	RatingBadgeComponent,
 	RequestStatusBadgeComponent,
 	StatusBadgeComponent,
 	StatusBoxComponent,
 	TaskStatusBadgeComponent,
-	ProjectStatusBadgeComponent,
 } from './components';
 
 
@@ -32,6 +33,7 @@ import {
 		StatusBoxComponent,
 		TaskStatusBadgeComponent,
 		ProjectStatusBadgeComponent,
+		RatingBadgeComponent,
 	],
 	exports: [
 		BadgeComponent,
@@ -42,6 +44,7 @@ import {
 		StatusBoxComponent,
 		TaskStatusBadgeComponent,
 		ProjectStatusBadgeComponent,
+		RatingBadgeComponent,
 	],
 	entryComponents: []
 })

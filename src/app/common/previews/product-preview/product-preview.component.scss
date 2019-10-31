@@ -17,4 +17,7 @@ preview-carousel-app {
 
 .info {
 	color: var(--color-txt-secondary);
+	> * {
+		max-width: 33%;
+	}
 }

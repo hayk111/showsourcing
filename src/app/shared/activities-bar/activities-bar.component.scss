@@ -7,11 +7,6 @@ icon-app {
 	}
 }
 
-icon-app.star {
-	display: inline;
-	margin: 0 var(--spacing-xs) 0 0;
-}
-
 .icons-container > icon-app:not(.favourite) {
 	color: var(--color-txt-third);
 }
@@ -20,20 +15,9 @@ icon-app.star {
 	color: var(--color-warn);
 }
 
-.vote-star-container {
-	border-radius: var(--border-radius);
+.votes {
 	margin-left: var(--spacing-xs);
-	padding: var(--spacing-xs);
 }
-
-.vote-star-value {
-	width: 19px;
-  height: 18px;
-  font-size: 14px;
-  font-weight: 600;
-	margin: 0 0 0 2px;
-}
-
 .warn-circle {
 	color: var(--color-warn) !important;
 }

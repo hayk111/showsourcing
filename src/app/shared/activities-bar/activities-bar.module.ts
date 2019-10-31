@@ -1,8 +1,9 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { ActivitiesBarComponent } from '~shared/activities-bar/activities-bar.component';
-import { RatingModule } from '~shared/rating';
+import { BadgeModule } from '~shared/badge';
 import { IconsModule } from '~shared/icons';
+import { RatingModule } from '~shared/rating';
 import { UtilsModule } from '~shared/utils';
 
 
@@ -12,7 +13,8 @@ import { UtilsModule } from '~shared/utils';
 		CommonModule,
 		RatingModule,
 		IconsModule,
-		UtilsModule
+		UtilsModule,
+		BadgeModule
 	],
 	declarations: [
 		ActivitiesBarComponent
