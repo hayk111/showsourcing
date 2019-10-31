@@ -8,8 +8,8 @@
 
 	.round-button {
     display: inline-grid;
-		width: 41px;
-		height: 41px;
+		width: 42px;
+		height: 42px;
 		border-radius: 500px;
 		background-color: var(--color-primary);
 		font-size: 20px;
@@ -17,7 +17,7 @@
 	}
 	.btn-text {
 		color: var(--color-txt-primary);
-		margin-top: var(--spacing-s);
+		margin: var(--spacing-s) 0;
 		font-weight: 600;
 	}
 }
@@ -31,6 +31,6 @@
 .empty-smaller-container {
 	position: absolute;
 	width: 36px;
-	height: 30px;
+	height: 34px;
 	display: inline-grid;
 }

@@ -58,7 +58,7 @@ carousel-app {
 	background: black;
 	color: white;
 	height: 44px;
-	width: 110px;
+	padding: 0 var(--spacing-l);
 	border-radius: 22px;
 	right: var(--spacing-ms);
 	bottom: var(--spacing-m);
@@ -67,6 +67,10 @@ carousel-app {
 
 	> *:not(:last-child) {
 		margin-right: var(--spacing-ms);
+	}
+
+	.text-image-counter {
+		margin: var(--spacing-ms) 0;
 	}
 }
 

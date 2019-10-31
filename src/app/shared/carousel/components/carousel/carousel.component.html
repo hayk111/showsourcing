@@ -61,8 +61,8 @@
 
 	<!-- number of pictures -->
 	<div *ngIf="isImagePropertyArray && images?.length" class="image-counter flexCenter absolute">
-		<icon-app name="pictures"></icon-app>
-		<span>{{ selectedIndex + 1 }} of {{ images?.length }}</span>
+		<icon-app name="pictures" [size]="19"></icon-app>
+		<span class="text-image-counter">{{ selectedIndex + 1 }} of {{ images?.length }}</span>
 	</div>
 
 	<!-- add -->

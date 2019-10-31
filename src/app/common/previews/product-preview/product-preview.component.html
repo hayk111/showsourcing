@@ -2,6 +2,7 @@
 <preview-panel-app *ngIf="isPreview && (product$ | async)" cdk-scrollable>
 	<!-- Banner -->
 	<preview-banner-app>
+		<!-- top bar -->
 		<preview-top-bar-app
 			(closed)="close.emit()"
 			(opened)="openProduct()">
@@ -15,9 +16,27 @@
 				<!-- TODO create a compoentn for star icon -->
 				<span *ngIf="product?.votes && product?.votes?.length">4.3</span>
 			</div>
-		</preview-top-bar-app>
-		<preview-carousel-app
 
+			<!-- items 3 dots -->
+			<context-menu-item-app
+				(click)="update(true, 'favorite')"
+				translate="button.set-as-favourite">
+			</context-menu-item-app>
+
+			<divider-app></divider-app>
+
+			<context-menu-item-app
+				(click)="archive()"
+				translate="button.archive">
+			</context-menu-item-app>
+			<context-menu-item-warn-app
+				(click)="delete(product)"
+				translate="button.delete">
+			</context-menu-item-warn-app>
+		</preview-top-bar-app>
+
+		<!-- carousel -->
+		<preview-carousel-app
 			[entity]="product"
 			[entityMD]="erm.PRODUCT"
 			[images]="product?.images"
