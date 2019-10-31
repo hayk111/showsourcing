@@ -21,7 +21,7 @@ export abstract class ProductQueries extends GlobalQueries {
 	}`;
 
 	// tslint:disable-next-line: max-line-length
-	static readonly tasksLinkedAssignedToMe = (userId: string) => `tasksLinkedAssignedToMe: _linkingObjects(objectType: "Task" property:"product" query:"deleted == false AND assignee.id == '${userId}'") {
+	static readonly tasksLinkedAssignedToMe = (userId: string) => `tasksLinkedAssignedToMe: _linkingObjects(objectType: "Task" property:"product" query:"deleted == false AND assignee.id == '${userId}' AND done == false") {
 		... on TaskCollection {
 			count
 		 }
@@ -33,6 +33,13 @@ export abstract class ProductQueries extends GlobalQueries {
 			count
 		}
 	}`
+
+	// tslint:disable-next-line: max-line-length
+	static readonly tasksLinkedUndone = `tasksLinkedUndone: _linkingObjects(objectType: "Task" property:"product" query:"deleted == false AND done == false") {
+		... on TaskCollection {
+			count
+		 }
+		}`;
 
 	// in a product there are many sub entities, those are utilities
 	// so when we query a product we can do things like selectOne(id, ProductQueries.images)
@@ -132,6 +139,7 @@ export abstract class ProductQueries extends GlobalQueries {
 			${ProductQueries.votes}
 			${ProductQueries.tasksLinked}
 			${ProductQueries.samplesLinked}
+			${ProductQueries.tasksLinkedUndone}
 			${ProductQueries.tasksLinkedAssignedToMe(userId)}
 			${ProductQueries.samplesLinkedAssignedToMe(userId)}
 		`;
@@ -167,6 +175,7 @@ export abstract class ProductQueries extends GlobalQueries {
 		${ProductQueries.samplesLinked},
 		${ProductQueries.tasksLinkedAssignedToMe(userId)}
 		${ProductQueries.samplesLinkedAssignedToMe(userId)}
+		${ProductQueries.tasksLinkedUndone}
 		`;
 	}
 }

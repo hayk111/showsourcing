@@ -36,6 +36,7 @@
 	(unfavorited)="listSrv.onItemUnfavorited($event)"
 	(previewClick)="listSrv.openPreview($event)"
 	(createClick)="openCreationTaskDlg(product)"
+	(update)="listSrv.update($event)"
 	(delete)="listSrv.deleteOne($event, true)">
 </task-table-app>
 

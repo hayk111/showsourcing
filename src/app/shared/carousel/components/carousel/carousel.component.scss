@@ -7,6 +7,11 @@ carousel-app {
 	margin: var(--spacing-xs);
 }
 
+// so the mouse event don't pass on them and we can have a mouseover zoom effect
+.counter, .image-counter {
+	pointer-events: none;
+}
+
 .ctnr {
 	position: relative;
 	display: flex;

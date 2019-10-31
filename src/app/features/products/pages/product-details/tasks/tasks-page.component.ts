@@ -62,7 +62,6 @@ export class TasksPageComponent extends AbstractTaskCommonComponent
 		super.setup([
 			{ type: FilterType.PRODUCT, value: this.route.parent.snapshot.params.id },
 			{ type: FilterType.DONE, value: false },
-			{ type: FilterType.ASSIGNEE, value: this.userSrv.userId }
 		]);
 		super.ngOnInit();
 	}

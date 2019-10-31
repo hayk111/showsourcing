@@ -39,6 +39,7 @@ export class Supplier extends EntityWithAudit<SupplierConfig> {
 	extendedFields?: ExtendedField[];
 	tasksLinkedAssignedToMe?: { count: number };
 	samplesLinkedAssignedToMe?: { count: number };
+	tasksLinkedUndone?: { count: number };
 	__typename?= 'Supplier';
 }
 
