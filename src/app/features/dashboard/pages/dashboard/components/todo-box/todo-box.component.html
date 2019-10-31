@@ -16,7 +16,8 @@
 		<ng-container [ngSwitch]="selectedTab" *ngIf="todoCount[selectedTab] > 0; else empty">
 			<todo-box-products-preview-app
 				*ngSwitchCase="'product'"
-				[rows]="rows.product">
+				[rows]="rows.product"
+				(updated)="updated()">
 			</todo-box-products-preview-app>
 
 			<todo-box-sample-preview-app
@@ -31,7 +32,8 @@
 
 			<todo-box-supplier-preview-app
 				*ngSwitchCase="'supplier'"
-				[rows]="rows.supplier">
+				[rows]="rows.supplier"
+				(updated)="updated()">
 			</todo-box-supplier-preview-app>
 		</ng-container>
 

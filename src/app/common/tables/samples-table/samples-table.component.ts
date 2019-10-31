@@ -61,7 +61,6 @@ export class SamplesTableComponent extends EntityTableComponent<Sample> implemen
 	}
 
 	getTableFromType() {
-		console.log(this.tableConfigType);
 		switch (this.tableConfigType) {
 			case 'big':
 				return bigTableConfig;

@@ -7,7 +7,7 @@ import { TaskService } from '~core/entity-services';
 import { User } from 'getstream';
 
 const bigTableConfig: TableConfig = {
-	done: { name: 'done', translationKey: '', width: 0, sortable: false },
+	done: { name: 'done', translationKey: '', width: 50, sortable: false },
 	reference: { name: 'reference', translationKey: 'reference', width: 80, sortProperty: 'reference' },
 	name: { name: 'name', translationKey: 'name', width: 120, sortProperty: 'name' },
 	product: { name: 'product', translationKey: 'product', width: 160, sortProperty: 'product.name' },
@@ -25,7 +25,7 @@ const mediumTableConfig: TableConfig = {
 };
 
 const smallTableConfig: TableConfig = {
-	done: { name: 'done', translationKey: 'done', width: 50 },
+	done: { name: 'done', translationKey: 'done', width: 50, sortable: false },
 	name: { name: 'name assignee', translationKey: 'name', width: 240, sortProperty: 'name' },
 	dueDate: { name: 'due date small', translationKey: 'due-date', width: 80, sortProperty: 'dueDate' },
 };

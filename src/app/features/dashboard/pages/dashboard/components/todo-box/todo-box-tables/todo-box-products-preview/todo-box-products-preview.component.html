@@ -9,5 +9,6 @@
 	[hasSelection]="false"
 	[hasPagination]="false"
 	[hasPreview]="false"
-	[canUpdate]="false">
+	(statusUpdated)="update($event)"
+	(update)="update($event)">
 </products-table-app>
