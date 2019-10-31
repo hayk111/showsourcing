@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, ViewChild, ElementRef, Renderer2 } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { AppImage } from '~models';
 
 @Component({
@@ -9,7 +9,6 @@ import { AppImage } from '~models';
 })
 export class ImageComponent {
 	private _image: AppImage;
-	public transform = 'none';
 
 	get image(): any {
 		return this._image;
@@ -25,14 +24,5 @@ export class ImageComponent {
 
 	constructor() { }
 
-	getRotation() {
-		if (!this.image || !this.image.orientation)
-			return 'none';
-		else
-			return 'rotate(' + (this.image.orientation * 90) % 360 + 'deg)';
-	}
 
-	rotate() {
-		this.transform = this.getRotation();
-	}
 }

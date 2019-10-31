@@ -8,6 +8,8 @@ import {
 	OnInit,
 	Output,
 	ViewChild,
+	Renderer2,
+	AfterViewInit,
 } from '@angular/core';
 import { saveAs } from 'file-saver';
 import { filter, switchMap, takeUntil } from 'rxjs/operators';
@@ -57,10 +59,13 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	@Output() deleted = new EventEmitter<AppImage>();
 
 	@ViewChild('imgApp', { static: false }) imgApp: ImageComponent;
+	@ViewChild('imgApp', { static: false, read: ElementRef}) imgElem: ElementRef<HTMLElement>;
+	@ViewChild('imgCtnr', { static: false, read: ElementRef}) imgCtnr: ElementRef<HTMLDivElement>;
 	/** hidden file input */
-	@ViewChild('inpFile', { static: false }) inpFile: ElementRef;
+	@ViewChild('inpFile', { static: false }) inpFile: ElementRef<HTMLInputElement>;
 
 	defaultImg = DEFAULT_IMG;
+	private imageCtnrSize: any;
 
 
 	constructor(
@@ -68,7 +73,8 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 		private dlgSrv: DialogService,
 		private uploaderFeedback: UploaderFeedbackService,
 		private ermSrv: ERMService,
-		private cd: ChangeDetectorRef
+		private cd: ChangeDetectorRef,
+		private renderer: Renderer2
 	) {
 		super();
 	}
@@ -180,6 +186,23 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	/** Trackby function for ngFor */
 	trackByFn(index, image) {
 		return index;
+	}
+
+	zoomin(event: MouseEvent) {
+		const elem = this.imgElem.nativeElement;
+		const ctnr = this.imgCtnr.nativeElement;
+		const ctnrBox = ctnr.getBoundingClientRect();
+		const deltaEventCtnrX = ctnrBox.left - event.clientX;
+		const deltaEventCtnrY = ctnrBox.top - event.clientY;
+		const transX = deltaEventCtnrX / 2;
+		const transY = deltaEventCtnrY / 2;
+		this.renderer.setStyle(elem, 'transform-origin', 'top left');
+		this.renderer.setStyle(elem, 'transform', `scale(2) translate(${transX}px, ${transY}px)`);
+	}
+
+	zoomout() {
+		const elem = this.imgElem.nativeElement;
+		this.renderer.removeStyle(elem, 'transform');
 	}
 
 }
