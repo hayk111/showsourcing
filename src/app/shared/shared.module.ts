@@ -32,7 +32,7 @@ import { DialogModule } from './dialog/dialog.module';
 import { DynamicFormsModule } from './dynamic-forms/dynamic-forms.module';
 import { FileModule } from './file/file.module';
 import { FiltersModule } from './filters/filters.module';
-import { HeaderListModule } from './header-list/header-list.module';
+import { HeaderListModule } from './header/header.module';
 import { InputsCustomModule } from './inputs-custom/inputs-custom.module';
 import { KanbanModule } from './kanban/kanban.module';
 import { LogoNavModule } from './logo-nav/logo-nav.module';

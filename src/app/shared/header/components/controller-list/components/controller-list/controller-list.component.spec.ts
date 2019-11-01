@@ -9,7 +9,7 @@ import {
 	DebugElement
 } from '@angular/core';
 import { ControllerListComponent } from './controller-list.component';
-import { HeaderListModule } from '../../header-detail.module';
+import { HeaderListModule } from '../../../../header.module';
 import { By } from '@angular/platform-browser';
 import { ColumnDirective } from '~shared/table/components/column.directive';
 import { EntityTableComponent } from '~core/list-page/entity-table.component';
@@ -103,7 +103,7 @@ describe('ControllerListComponent', () => {
 		controllerListComponent.isArchivedShown = true;
 
 		spyOn(controllerListComponent.showArchived, 'emit');
-		controllerListComponent.archiveChange();
+		controllerListComponent.archivedChange();
 		fixtureTestComponent.detectChanges();
 
 		expect(controllerListComponent.showArchived.emit)
@@ -115,7 +115,7 @@ describe('ControllerListComponent', () => {
 		controllerListComponent.isArchivedShown = false;
 
 		spyOn(controllerListComponent.hideArchived, 'emit');
-		controllerListComponent.archiveChange();
+		controllerListComponent.archivedChange();
 		fixtureTestComponent.detectChanges();
 
 		expect(controllerListComponent.hideArchived.emit)

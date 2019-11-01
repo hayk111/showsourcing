@@ -6,7 +6,7 @@ import { ListPageService } from '~core/list-page';
 import { SelectParamsConfig } from '~entity-services/_global/select-params';
 import { ERM, Supplier } from '~models';
 import { FilterType } from '~shared/filters';
-import { ControllerListService } from '~shared/header-list/services/controller-list.service';
+import { ControllerListService } from '~shared/header/components/controller-list/services/controller-list.service';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub } from '~utils';
 

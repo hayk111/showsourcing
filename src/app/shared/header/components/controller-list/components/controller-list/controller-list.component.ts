@@ -203,7 +203,7 @@ export class ControllerListComponent extends AutoUnsub implements OnInit {
 		}
 	}
 
-	private archivedChange() {
+	archivedChange() {
 		if (this.isArchivedShown) {
 			this.showArchived.emit();
 		} else {
@@ -211,7 +211,7 @@ export class ControllerListComponent extends AutoUnsub implements OnInit {
 		}
 	}
 
-	private assignedChange() {
+	assignedChange() {
 		if (this.isAssigned) {
 			this.showAssigned.emit();
 		} else {
