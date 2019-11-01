@@ -122,7 +122,7 @@ export class DialogCommonService {
 		).subscribe();
 	}
 
-	openCreationSupplierDlg() {
+	openCreationSupplierDlg(products: Product[]) {
 		return this.dlgSrv.open(SupplierRequestDialogComponent, { products });
 	}
 
