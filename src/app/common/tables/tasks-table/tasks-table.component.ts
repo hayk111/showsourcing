@@ -5,6 +5,7 @@ import { ERM, Task } from '~core/models';
 import { ID } from '~utils/id.utils';
 import { TaskService } from '~core/entity-services';
 import { User } from 'getstream';
+import { Status } from '~core/models/status.model';
 
 const bigTableConfig: TableConfig = {
 	done: { name: 'done', translationKey: '', width: 50, sortable: false },
@@ -60,13 +61,14 @@ export class TasksTableComponent extends EntityTableComponent<Task> implements O
 	@Input() tableConfigType: TableConfigType = 'big';
 	@Output() openProduct = new EventEmitter<ID>();
 	@Output() openSupplier = new EventEmitter<ID>();
+	@Output() statusUpdated = new EventEmitter<Status>();
 
 	columns = ['done', 'reference', 'name', 'product', 'supplier', 'dueDate', 'assignee', 'status', 'createdBy', 'createdOn'];
 	erm = ERM;
 
 	constructor(
 		public translate: TranslateService,
-		private taskSrv: TaskService
+		public taskSrv: TaskService
 	) { super(); }
 
 	ngOnInit() {
@@ -88,7 +90,7 @@ export class TasksTableComponent extends EntityTableComponent<Task> implements O
 	}
 
 	toggleStatus(task: Task) {
-		this.taskSrv.update({ id: task.id, done: !task.done }).subscribe();
+		this.taskSrv.updateTask({ id: task.id, done: !task.done });
 	}
 
 	changeAssignee(task: Task, assignee: User) {

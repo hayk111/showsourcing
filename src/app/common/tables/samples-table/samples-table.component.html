@@ -51,14 +51,15 @@
 					<div class="ellipsis">
 						<div class="preview-icon" (click)="previewClick.emit(row)">
 							<logo-app
-								[logo]="row.logoImage"
 								[ngStyle]="{'float': 'left'}"
+								[style.cursor]="hasPreview ? 'pointer' : 'default'"
+								[logo]="row.logoImage"
 								[logo]="row?.images?.length ? row.images[0] : null"
 								type="sample"
 								size="m"
 								(click)="previewClick.emit(row)">
 							</logo-app>
-							<icon-app class="preview-hover-eye" name="eye" size="18"></icon-app>
+							<icon-app *ngIf="hasPreview" class="preview-hover-eye" name="eye" size="18"></icon-app>
 						</div>
 						<span class="sample-ref ellipsis">
 							<a class="name txt-btn" (click)="previewClick.emit(row)">
@@ -142,7 +143,12 @@
 			<!-- status -->
 			<ng-container *ngSwitchCase="'status'">
 				<div class="status-col flexVAlign" [class.flexEnd]="tableConfigType === 'small'">
-					<status-selector-app [entity]="row" [typeEntity]="erm.SAMPLE" selectSize="s"></status-selector-app>
+					<status-selector-app 
+						[entity]="row" 
+						[typeEntity]="erm.SAMPLE" 
+						selectSize="s"
+						(statusUpdated)="sampleSrv.onUpdateSampleList()"
+					></status-selector-app>
 				</div>
 			</ng-container>
 

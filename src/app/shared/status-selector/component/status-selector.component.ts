@@ -44,6 +44,7 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 	@Input() type: 'badge' | 'dropdown' | 'multiple-selection' | 'button' = 'badge';
 	@Input() width: number;
 	@Output() statusUpdated = new EventEmitter<any>();
+	@Output() taskUpdated = new EventEmitter<any>();
 	@ViewChild(ContextMenuComponent, { static: false }) menu: ContextMenuComponent;
 	/** string[] since tasks does not have a status entity */
 	status$: Observable<ProductStatus[] | SupplierStatus[] | SampleStatus[]>;
@@ -99,6 +100,7 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 	updateTask(done: boolean) {
 		if (this.canUpdate) {
 			this.statusSlctSrv.updateTask({ id: this.entity.id, done });
+			this.taskUpdated.emit(done);
 		}
 	}
 

@@ -22,12 +22,14 @@
 
 			<todo-box-sample-preview-app
 				*ngSwitchCase="'sample'"
-				[rows]="rows.sample">
+				[rows]="rows.sample"
+				(updated)="updated()">
 			</todo-box-sample-preview-app>
 
 			<todo-box-task-preview-app
 				*ngSwitchCase="'task'"
-				[rows]="rows.task">
+				[rows]="rows.task"
+				(updated)="updated()">
 			</todo-box-task-preview-app>
 
 			<todo-box-supplier-preview-app
