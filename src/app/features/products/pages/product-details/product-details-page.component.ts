@@ -33,6 +33,7 @@ export class ProductDetailsPageComponent extends AutoUnsub implements OnInit {
 	product: Product;
 	requestCount$: Observable<number>;
 	/** projects for this product */
+	erm = ERM;
 	typeEntity = ERM.PRODUCT;
 	tabs: { name: string, number$?: Observable<number> }[];
 
