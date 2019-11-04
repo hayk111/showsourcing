@@ -1,4 +1,3 @@
-
 <product-header-details-app
 	[product]="product"
 	[requestCount]="requestCount$"
@@ -8,53 +7,5 @@
 	(archive)="onArchive($event)"
 	(supplierRequest)="openSupplierRequest($event)">
 </product-header-details-app>
-
-<!-- this whole thing would go on a component -->
-<div content class="flex">
-	<carousel-app
-		[images]="product?.images"
-		[entity]="product"
-		[selectedIndex]="0">
-	</carousel-app>
-	<preview-static-app>
-		<preview-header-app
-			[displayEntityInfo]="false"
-			[entityMD]="erm.PRODUCT"
-			[entity]="product">
-
-			<!-- Price -->
-			<price-with-quantity-app
-				*ngIf="product?.price?.value"
-				[product]="product">
-			</price-with-quantity-app>
-
-			<!-- category -->
-			<preview-section-app [title]="'category'">
-				<preview-badge-app
-					[badge]="erm.CATEGORY"
-					[value]="product?.category">
-				</preview-badge-app>
-			</preview-section-app>
-
-			<!-- Description -->
-			<preview-section-app #contentTab1 [title]="'title.description' | translate">
-				<input-description-app
-					[description]="product?.description">
-				</input-description-app>
-			</preview-section-app>
-
-			<!-- Tags -->
-			<preview-section-app #contentTab1 [title]="'title.tags' | translate">
-				<input-badge-selector-app
-					[value]="product?.tags"
-					type="tag">
-				</input-badge-selector-app>
-			</preview-section-app>
-
-		</preview-header-app>
-
-		<!--  -->
-	</preview-static-app>
-</div>
 
 <router-outlet></router-outlet>
