@@ -29,10 +29,7 @@ export class ActivitiesBarComponent implements OnInit {
 	samplesCount$: Observable<number>;
 	commentsCount$: Observable<number>;
 
-	constructor(
-		private requestElementService: RequestElementService,
-		public thumbService: ThumbService,
-	) { }
+	constructor(private requestElementService: RequestElementService) { }
 
 	ngOnInit() {
 		if (this.row && this.row.id) {

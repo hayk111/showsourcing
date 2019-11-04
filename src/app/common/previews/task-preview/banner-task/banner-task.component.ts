@@ -23,6 +23,7 @@ export class BannerTaskComponent implements OnInit {
 		return this._task;
 	}
 	@Output() update = new EventEmitter<any>();
+	@Output() closed = new EventEmitter<null>();
 	_task: Task;
 	status: TaskStatus = TaskStatus.PENDING;
 	enumTaskStatus = TaskStatus;

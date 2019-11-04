@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { CarouselModule } from '~shared/carousel';
+import { ContextMenuModule } from '~shared/context-menu/context-menu.module';
 import { EditableFieldModule } from '~shared/editable-field';
 import { FileModule } from '~shared/file';
 import { IconsModule } from '~shared/icons';
@@ -41,7 +42,8 @@ import {
 		OverlayModule,
 		ReactiveFormsModule,
 		UtilsModule,
-		TranslateModule
+		TranslateModule,
+		ContextMenuModule
 	],
 	declarations: [
 		PreviewBadgesComponent,

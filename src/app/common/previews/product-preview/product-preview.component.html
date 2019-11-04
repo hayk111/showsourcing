@@ -2,22 +2,40 @@
 <preview-panel-app *ngIf="isPreview && (product$ | async)" cdk-scrollable>
 	<!-- Banner -->
 	<preview-banner-app>
+		<!-- top bar -->
 		<preview-top-bar-app
 			(closed)="close.emit()"
 			(opened)="openProduct()">
-			<div class="title ellipsis">
+			<div class="fs-l semi-bold ellipsis">
 				<span class="color-primary mg-right-xs">{{ product?.reference }}</span>
 				<span class="color-txt-primary">{{ product?.name }}</span>
 			</div>
-			<div class="info dot-separator ellipsis">
-				<span *ngIf="product?.price">{{ product?.price | appPrice }}</span>
-				<span *ngIf="product?.category">{{ product?.category?.name }}</span>
-				<!-- TODO create a compoentn for star icon -->
-				<span *ngIf="product?.votes && product?.votes?.length">4.3</span>
+			<div class="info dot-separator ellipsis flex">
+				<span *ngIf="product?.price" class="ellipsis price">{{ product?.price | appPrice }}</span>
+				<span *ngIf="product?.category" class="ellipsis category">{{ product?.category?.name }}</span>
+				<rating-badge-app *ngIf="product?.votes?.length" class="rating-badge" [votes]="product?.votes" [background]="false"></rating-badge-app>
 			</div>
-		</preview-top-bar-app>
-		<preview-carousel-app
 
+			<!-- items 3 dots -->
+			<context-menu-item-app
+				(click)="update(true, 'favorite')"
+				translate="button.set-as-favourite">
+			</context-menu-item-app>
+
+			<divider-app></divider-app>
+
+			<context-menu-item-app
+				(click)="archive()"
+				translate="button.archive">
+			</context-menu-item-app>
+			<context-menu-item-warn-app
+				(click)="delete(product)"
+				translate="button.delete">
+			</context-menu-item-warn-app>
+		</preview-top-bar-app>
+
+		<!-- carousel -->
+		<preview-carousel-app
 			[entity]="product"
 			[entityMD]="erm.PRODUCT"
 			[images]="product?.images"

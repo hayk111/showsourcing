@@ -5,21 +5,25 @@
 }
 
 preview-carousel-app {
-	height: 371px;
+	height: 411px;
 	border-top-left-radius: var(--border-radius-l);
 	border-top-right-radius: var(--border-radius-l);
 }
 
 .button-action-list {
-	padding-top: var(--spacing-ms);
-	padding-bottom: var(--spacing-l);
-}
+	padding: var(--spacing-ms) 0;
 
-.title {
-	font-size: var(--font-size-l);
-	font-weight: 600;
 }
 
 .info {
 	color: var(--color-txt-secondary);
+	.price {
+		max-width: 25%;
+	}
+	.category {
+		max-width: 50%;
+	}
+	.rating-badge {
+		max-width: 25%;
+	}
 }
