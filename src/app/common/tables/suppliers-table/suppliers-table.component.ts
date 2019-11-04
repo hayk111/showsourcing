@@ -39,7 +39,6 @@ export class SuppliersTableComponent extends EntityTableComponent<Supplier> impl
 
 	@Input() tableConfigType: TableConfigType = 'big';
 	@Output() archive = new EventEmitter<Supplier>();
-	@Output() statusUpdated = new EventEmitter<Status>();
 
 	constructor(public translate: TranslateService) {
 		super();

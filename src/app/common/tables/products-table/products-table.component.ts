@@ -49,7 +49,6 @@ export class ProductsTableComponent extends EntityTableComponent<Product> implem
 	@Output() openAddTaskDialog = new EventEmitter<Product>();
 	@Output() openAddSampleDialog = new EventEmitter<Product>();
 
-	@Output() statusUpdated = new EventEmitter<Status>();
 	@Output() archive = new EventEmitter<Product>();
 	@Output() delete = new EventEmitter<Product>();
 	color = Color;

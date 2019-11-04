@@ -1,5 +1,6 @@
 card-app {
 	height: 475px;
+	margin-top: var(--spacing-l);
 
 	card-title-app {
 		color: var(--color-bg-dark);
@@ -7,6 +8,12 @@ card-app {
 
 	card-footer-app {
 		border-top: none;
+	}
+
+	todo-nav-app {
+		justify-content: space-between;
+		width: 100%;
+		margin: 0 var(--spacing-l);
 	}
 
 	a {

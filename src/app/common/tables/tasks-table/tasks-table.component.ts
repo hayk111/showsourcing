@@ -61,7 +61,6 @@ export class TasksTableComponent extends EntityTableComponent<Task> implements O
 	@Input() tableConfigType: TableConfigType = 'big';
 	@Output() openProduct = new EventEmitter<ID>();
 	@Output() openSupplier = new EventEmitter<ID>();
-	@Output() statusUpdated = new EventEmitter<Status>();
 
 	columns = ['done', 'reference', 'name', 'product', 'supplier', 'dueDate', 'assignee', 'status', 'createdBy', 'createdOn'];
 	erm = ERM;
