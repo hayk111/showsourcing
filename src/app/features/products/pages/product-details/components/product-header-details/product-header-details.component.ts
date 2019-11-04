@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 import { User } from '~core/models';
 import { Product } from '~models/product.model';
 import { ERM } from '~models/_erm.enum';
+import { ProductFeatureService } from '~features/products/services';
 
 @Component({
 	selector: 'product-header-details-app',
@@ -19,6 +20,8 @@ export class ProductHeaderDetailsComponent {
 	@Output() archive = new EventEmitter<Product>();
 	@Output() supplierRequest = new EventEmitter<Product>();
 	productEntity = ERM.PRODUCT;
+
+	constructor(private srv: ProductFeatureService) {}
 
 	onFavorited() {
 		this.update.emit({ id: this.product.id, favorite: true });
@@ -41,6 +44,10 @@ export class ProductHeaderDetailsComponent {
 			case 'samples': return this.product.samplesLinkedAssignedToMe.count > 0;
 			case 'requests': return this.requestCount > 0;
 		}
+	}
+
+	updateProductName(isCancel: boolean, value: any, prop: string) {
+		(isCancel) ? console.log("Not update product name") : console.log(`Product new name is ${value}`);
 	}
 
 }
