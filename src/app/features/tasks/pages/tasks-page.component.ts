@@ -8,7 +8,7 @@ import { ListPageService } from '~core/list-page';
 import { ERM, Task } from '~models';
 import { DialogService } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
-import { ControllerListComponent } from '~shared/header-list/components/controller-list/controller-list.component';
+import { ControllerListComponent } from '~shared/header/components/controller-list/components/controller-list/controller-list.component';
 import { AutoUnsub } from '~utils';
 import { QueryBuilder } from '~core/entity-services/_global/query-builder.class';
 
