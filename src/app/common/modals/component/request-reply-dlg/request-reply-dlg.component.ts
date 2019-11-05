@@ -192,6 +192,7 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 
 	deleteImg(img: AppImage) {
 		this.uploaderFeedback.deleteImg(img);
+		this.uploaderFeedback.setImages(this.element.reply.images.filter(image => !image.deleted));
 	}
 
 	getTooltipMessage() {

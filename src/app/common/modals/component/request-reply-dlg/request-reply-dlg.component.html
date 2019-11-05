@@ -27,7 +27,7 @@
     <!-- left -->
     <div class="left">
       <h3 class="ms" i18n="header@@product-images">product images</h3>
-      <carousel-app [hasPreview]="true" [static]="true" [images]="element?.images"></carousel-app>
+      <carousel-app [hasPreview]="true" [static]="true" [images]="element.images"></carousel-app>
 			<span class="spacer mg-ms"></span>
       <h3 *ngIf="element?.attachments?.length" class="ms" i18n="header@@product-attachments">product attachments</h3>
       <file-list-app [hasPlaceholder]="false" [static]="true" [files]="element?.attachments"></file-list-app>
