@@ -65,8 +65,6 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	@ViewChild('inpFile', { static: false }) inpFile: ElementRef<HTMLInputElement>;
 
 	defaultImg = DEFAULT_IMG;
-	private imageCtnrSize: any;
-
 
 	constructor(
 		private imageSrv: ImageService,
@@ -189,6 +187,9 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	}
 
 	zoomin(event: MouseEvent) {
+		if (!this.imgElem)
+			return;
+
 		const elem = this.imgElem.nativeElement;
 		const ctnr = this.imgCtnr.nativeElement;
 		const ctnrBox = ctnr.getBoundingClientRect();
@@ -201,6 +202,9 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	}
 
 	zoomout() {
+		if (!this.imgElem)
+			return;
+
 		const elem = this.imgElem.nativeElement;
 		this.renderer.removeStyle(elem, 'transform');
 	}
