@@ -44,6 +44,7 @@ export abstract class EntityTableComponent<T> extends TrackingComponent implemen
 	@Input() canUpdate = true;
 	@Input() columns = [];
 	@Input() hasMinHeight = true;
+	@Input() hasRequestCount = false;
 	tableConfig: TableConfig = undefined;
 	columnsConfig: ColumnConfig[] = [];
 	@Output() select = new EventEmitter<any>();

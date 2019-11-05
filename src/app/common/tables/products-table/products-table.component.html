@@ -161,7 +161,8 @@
       <ng-container *ngSwitchCase="'activities'">
         <activities-bar-app
           [row]="row"
-          [favorite]="row?.favorite"
+					[favorite]="row?.favorite"
+					[hasRequestCount]="hasRequestCount"
           [votes]="row?.votes">
         </activities-bar-app>
       </ng-container>
