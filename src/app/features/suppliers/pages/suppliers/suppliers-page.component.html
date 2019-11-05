@@ -2,7 +2,7 @@
 	class="max-full-table-width"
 	[title]="'title.my-suppliers' | translate"
 	[buttonName]="'button.create-supplier' | translate"
-	(buttonClick)="listSrv.create()">
+	(buttonClick)="dialogCommonSrv.openCreateDlg(erm.SUPPLIER)">
 </header-list-app>
 
 <controller-list-app

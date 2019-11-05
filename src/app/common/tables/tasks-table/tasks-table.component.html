@@ -63,11 +63,12 @@
 						class="about flexStart"
 						[ngClass]="row?.done ? 'task-is-done': 'task-not-done'"
 						[name]="row?.done ? 'check-circle' : 'check-circle-light'"
-						[size]="24" >
+						[size]="24"
+						(click)="toggleStatus(row)">
 					</icon-app>
 					<div class="about-container flex">
-						<span class="ellipsis pointer task-name">{{ row?.name }}</span>
-						<span class="ellipsis pointer product-name">{{ row?.product?.name }}</span>
+						<span class="ellipsis task-name txt-btn">{{ row?.name }}</span>
+						<span class="ellipsis task-reference ellipsis">{{ row?.reference }}</span>
 					</div>
 				</div>
 			</ng-container>
@@ -174,7 +175,13 @@
 			<!-- status -->
 			<ng-container *ngSwitchCase="'status'">
 				<div class="status-col flexVAlign">
-					<status-selector-app [entity]="row" [typeEntity]="erm.TASK" [canUpdate]="canUpdate" selectSize="s"></status-selector-app>
+					<status-selector-app
+						[entity]="row" 
+						[typeEntity]="erm.TASK" 
+						[canUpdate]="canUpdate"
+						selectSize="s"
+						(statusUpdated)="taskSrv.onUpdateTaskList()">
+					</status-selector-app>
 				</div>
 			</ng-container>
 

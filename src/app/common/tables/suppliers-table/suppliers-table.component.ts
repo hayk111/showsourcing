@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnInit
 import { TranslateService } from '@ngx-translate/core';
 import { EntityTableComponent, TableConfig, TableConfigType } from '~core/list-page/entity-table.component';
 import { ERM, Supplier } from '~models';
+import { Status } from '~core/models/status.model';
 
 const bigTableConfig: TableConfig = {
 	activities: { name: 'activities', translationKey: 'activities', width: 190, sortable: false },

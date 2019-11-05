@@ -3,9 +3,8 @@ import { Observable } from 'rxjs';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { SupplierService } from '~core/entity-services';
 import { ListPageService } from '~core/list-page';
-import { ERM, Supplier } from '~core/models';
+import { ERM } from '~core/models';
 import { DashboardService, TodoCounts, TodoEntities } from '~features/dashboard/services/dashboard.service';
-import { FilterType } from '~shared/filters';
 
 @Component({
 	selector: 'todo-box-app',
@@ -26,28 +25,19 @@ export class TodoBoxComponent implements OnInit {
 		private supplierSrv: SupplierService,
 		public dialogCommonSrv: DialogCommonService,
 		public dashboardSrv: DashboardService,
-		private listSrv: ListPageService<Supplier, SupplierService>
 	) { }
 
 	ngOnInit() {
 		this.todoCounters$ = this.dashboardSrv.getTodoCounters();
 		this.rows$ = this.dashboardSrv.getFirstFewEntitiesAssignedToMe();
-
-		/**
-		 * Supplier creation is not organized with common modal service so we need to copy settings from supplier page
-		 */
-		this.listSrv.setup({
-			entitySrv: this.supplierSrv,
-			searchedFields: ['name', 'tags.name', 'categories.name', 'description'],
-			initialFilters: [{ type: FilterType.ARCHIVED, value: false }, { type: FilterType.DELETED, value: false }],
-			entityMetadata: ERM.SUPPLIER,
-		}, false);
-
 	}
 
 	get route() {
-		if (this.selectedTab === 'product' || this.selectedTab === 'supplier') return this.selectedTab;
 		return this.selectedTab + 's';
+	}
+
+	updated() {
+		this.rows$ = this.dashboardSrv.getFirstFewEntitiesAssignedToMe();
 	}
 
 	openCreationModal() {
@@ -62,7 +52,7 @@ export class TodoBoxComponent implements OnInit {
 				this.dialogCommonSrv.openCreationSampleDialog();
 				break;
 			case 'supplier':
-				this.listSrv.create();
+				this.dialogCommonSrv.openCreateDlg(ERM.SUPPLIER);
 				break;
 		}
 	}
