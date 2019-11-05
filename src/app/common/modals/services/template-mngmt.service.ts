@@ -1,11 +1,17 @@
 import { Injectable } from '@angular/core';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, first } from 'rxjs/operators';
 import { RequestTemplateService } from '~core/entity-services';
 import {
 	ExtendedFieldDefinitionService,
 } from '~core/entity-services/extended-field-definition/extended-field-definition.service';
 import { ExtendedFieldDefinition, RequestTemplate, TemplateField } from '~core/models';
 import { ListQuery } from '~core/entity-services/_global/list-query.interface';
+import { Observable } from 'rxjs';
+
+
+export interface InTemplateField extends TemplateField {
+	inTemplate: boolean;
+}
 
 @Injectable({
 	providedIn: 'root'
@@ -24,6 +30,7 @@ export class TemplateMngmtService {
 
 	getTemplates() {
 		// we use list query here because the user can create templates
+		// and we want to easily refetch
 		return this.listQuery.items$;
 	}
 
@@ -36,20 +43,21 @@ export class TemplateMngmtService {
 	 * So we can display existing templateFields from the RequestTemplate, but also the ones
 	 * that aren't selectioned yet inside it
 	 */
-	getTemplateFields(existings: TemplateField[]) {
+	getTemplateFields(existings: TemplateField[]): Observable<InTemplateField[]> {
 		const findTempField = (def: ExtendedFieldDefinition) => existings.find(field => field.definition.id === def.id);
 
 		return this.extendedFieldDefSrv
-			.queryMany({ query: 'target contains[c] "product." OR target == "Product"', sortBy: 'order', descending: false }).pipe(
+			.queryMany({ query: 'target contains[c] "product." OR target == "Product"', sortBy: 'order', descending: false })
+			.pipe(
 				map(defs => defs.map(definition => {
 					const field = findTempField(definition);
-					if (field) {
-						field.inTemplate = true;
-					}
-					return field || new TemplateField({ definition, inTemplate: false });
-				}
-				)));
-
+					if (field)
+						return { ...field, inTemplate: true };
+					else
+						return { ...(new TemplateField({ definition })), inTemplate: false };
+				})),
+				first()
+			);
 	}
 
 	deleteTemplate(template: RequestTemplate) {
@@ -60,7 +68,6 @@ export class TemplateMngmtService {
 
 	updateTemplate(template: RequestTemplate) {
 		return this.templateSrv.update(template).pipe(
-			switchMap(_ => this.listQuery.refetch({}))
 		);
 	}
 

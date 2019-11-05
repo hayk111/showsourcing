@@ -1,14 +1,14 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable, ReplaySubject } from 'rxjs';
-import { switchMap, tap, distinctUntilChanged, takeUntil, distinctUntilKeyChanged } from 'rxjs/operators';
-import { ExtendedFieldDefinition, RequestTemplate, TemplateField } from '~core/models';
+import { map, switchMap, takeUntil, tap, distinctUntilKeyChanged } from 'rxjs/operators';
+import { TemplateMngmtService, InTemplateField } from '~common/modals/services/template-mngmt.service';
+import { RequestTemplate, TemplateField } from '~core/models';
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { InputDirective } from '~shared/inputs';
 import { AutoUnsub } from '~utils';
-import { TemplateFieldService } from '~core/entity-services';
-import { TemplateMngmtService } from '~common/modals/services/template-mngmt.service';
+
 
 @Component({
 	selector: 'template-mngmt-dlg-app',
@@ -22,7 +22,8 @@ export class TemplateMngmtDlgComponent extends AutoUnsub implements OnInit {
 	// let's call queryOne to have the updates from cache
 	templateSelected$ = this._templateSelected$.asObservable().pipe(
 		distinctUntilKeyChanged('id'),
-		switchMap(tmp => this.templateMngmtSrv.getOne(tmp.id))
+		switchMap(tmp => this.templateMngmtSrv.getOne(tmp.id)),
+		distinctUntilKeyChanged('id'),
 	);
 
 	@Input()
@@ -48,8 +49,8 @@ export class TemplateMngmtDlgComponent extends AutoUnsub implements OnInit {
 	pending = false;
 
 	templates$: Observable<RequestTemplate[]>;
-	initialState: TemplateField[] = [];
-	newState: TemplateField[] = [];
+	initialState: InTemplateField[] = [];
+	newState: InTemplateField[] = [];
 
 	constructor(
 		private dlgSrv: DialogService,
@@ -62,6 +63,8 @@ export class TemplateMngmtDlgComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		this.templates$ = this.templateMngmtSrv.getTemplates();
 		this.templateSelected$.pipe(
+			// replacing input template with the one from db
+			tap(template => this.templateSelected = template),
 			switchMap(templateSelected => this.templateMngmtSrv.getTemplateFields(templateSelected.fields)),
 			takeUntil(this._destroy$)
 		).subscribe(fields => {
@@ -79,8 +82,13 @@ export class TemplateMngmtDlgComponent extends AutoUnsub implements OnInit {
 
 	close(event: MouseEvent) {
 		event.stopPropagation();
-		this.templateSelected.fields.forEach(f => delete f.inTemplate);
-		this.dlgSrv.close({ type: CloseEventType.OK, data: { template: this.templateSelected } });
+		const template = {
+			...this.templateSelected,
+			fields: this.templateSelected.fields.map(f => ({
+				defaultValue: f.defaultValue, definition: f.definition, fixedValue: f.fixedValue, id: f.id
+			}))
+		};
+		this.dlgSrv.close({ type: CloseEventType.OK, data: { template } });
 	}
 
 	createTemplate() {
@@ -114,10 +122,15 @@ export class TemplateMngmtDlgComponent extends AutoUnsub implements OnInit {
 	}
 
 	save() {
-		const fields = this.newState.filter(field => field.inTemplate);
-		fields.forEach(f => {
+		const fields = this.newState
+		.filter(field => field.inTemplate);
+		// make a copy because we are modifying it
+		const fieldsCopy = fields.map(field => ({ ...field }))
+		.filter(field => field.inTemplate) as TemplateField[];
+
+		fieldsCopy.forEach(f => {
 			// delete local property before saving to db
-			delete f.inTemplate;
+			delete (f as any).inTemplate;
 			// if its an object we stirngify if not we keep the value
 			f.fixedValue = f.fixedValue && !!f.defaultValue.toString();
 			if (f.definition && f.definition.type === 'price') {
@@ -126,10 +139,8 @@ export class TemplateMngmtDlgComponent extends AutoUnsub implements OnInit {
 				if (price && price.value === 0)
 					f.fixedValue = false;
 			}
-			// this case belong to the price, so the default is never 0
 		});
-		this.templateSelected = { ...this.templateSelected, fields };
-		this.templateMngmtSrv.updateTemplate(this.templateSelected).subscribe();
+		this.templateMngmtSrv.updateTemplate({ id: this.templateSelected.id, fields: fieldsCopy }).subscribe();
 	}
 
 	/**

@@ -2,6 +2,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import { EntityTableComponent, TableConfig } from '~core/list-page/entity-table.component';
 import { ERM, TemplateField, ExtendedFieldDefinition } from '~models';
 import { DynamicUpdate } from '~shared/dynamic-forms/models/dynamic-update.interface';
+import { InTemplateField } from '~common/modals/services/template-mngmt.service';
 
 const tableConfig: TableConfig = {
 	name: { name: 'name', translationKey: 'name', width: 120, sortable: false },
@@ -29,12 +30,20 @@ export class TemplateFieldsTableComponent extends EntityTableComponent<TemplateF
 		super();
 	}
 
-	updateField(field: TemplateField, event: DynamicUpdate) {
+	updateField(field: InTemplateField, event: DynamicUpdate) {
 		Object.assign(field, event);
 		this.update.emit();
 	}
 
-	getCustomField(field: TemplateField) {
+	getCustomField(field: InTemplateField) {
 		return { ...field.definition, name: 'defaultValue' };
+	}
+
+	toggleInTemplate(field: InTemplateField) {
+		field.inTemplate = !field.inTemplate;
+	}
+
+	toggleFixedValue(field: InTemplateField) {
+		field.fixedValue = !field.fixedValue;
 	}
 }
