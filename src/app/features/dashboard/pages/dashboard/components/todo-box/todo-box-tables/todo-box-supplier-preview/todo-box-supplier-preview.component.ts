@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { TableConfig } from '~core/list-page';
 import { Supplier } from '~models';
+import { SupplierService } from '~core/entity-services';
 
 const tableConfig: TableConfig = {
 	reference: { name: 'reference', translationKey: 'reference', width: 500, sortProperty: 'reference' },
@@ -14,13 +15,17 @@ const tableConfig: TableConfig = {
 })
 export class TodoBoxSupplierPreviewComponent implements OnInit {
 
+	@Input() rows: Supplier[];
+	@Output() updated = new EventEmitter<undefined>();
+
 	tableConfig = tableConfig;
 
-	@Input() rows: Supplier[];
-
-	constructor() {
-	}
+	constructor(private supplierSrv: SupplierService) {}
 
 	ngOnInit() { }
 
+	update(ev: any) {
+		this.supplierSrv.update(ev).subscribe();
+		this.updated.emit();
+	}
 }

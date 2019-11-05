@@ -48,13 +48,49 @@
 
 		<ng-container [ngSwitch]="column.name">
 
-			<!-- reference -->
+			<!-- name -->
 			<ng-container *ngSwitchCase="'name'">
 				<div class="ellipsis name-container contain-strict flexVAlign">
 					<div class="ellipsis reference">
 						<div class="preview-imgs" (click)="previewClick.emit(row)">
-							<logo-app class="imgCtnr" (click)="previewClick.emit(row)" [logo]="row.logoImage"
-							 type="supplier" size="m"></logo-app>
+							<logo-app 
+								class="imgCtnr"
+								[logo]="row.logoImage"
+								type="supplier" size="m"
+								(click)="previewClick.emit(row)" 
+							></logo-app>
+							<div class="hover-img" *ngIf="hasPreview">
+								<icon-app name="eye" [size]="18" class="preview-hover-img"></icon-app>
+							</div>
+						</div>
+
+						<div class="flexColumn ref-ctnr">
+							<span class="supplier-ref ellipsis-no-width">
+								<a class="name txt-btn" [routerLink]="['/suppliers', row.id]">
+									{{ row.name || '-' }}
+								</a>
+							</span>
+
+							<div class="supplier-name-ref">
+								{{ row.reference || '-' }}
+							</div>
+						</div>
+					</div>
+
+					<button *ngIf="hasPreview" class="small secondary-light preview-button" (click)="previewClick.emit(row)">Preview</button>
+				</div>
+			</ng-container>
+
+			<ng-container *ngSwitchCase="'reference'">
+				<div class="ellipsis name-container contain-strict flexVAlign">
+					<div class="ellipsis reference">
+						<div class="preview-imgs" (click)="previewClick.emit(row)">
+							<logo-app 
+								class="imgCtnr"
+								[style.cursor]="hasPreview ? 'pointer' : 'default'"
+								(click)="previewClick.emit(row)" 
+								[logo]="row.logoImage"
+								type="supplier" size="m"></logo-app>
 							<div class="hover-img" *ngIf="hasPreview">
 								<icon-app name="eye" [size]="18" class="preview-hover-img"></icon-app>
 							</div>
@@ -72,8 +108,6 @@
 							</div>
 						</div>
 					</div>
-
-					<button *ngIf="hasPreview" class="small secondary-light preview-button" (click)="previewClick.emit(row)">Preview</button>
 				</div>
 			</ng-container>
 
@@ -165,7 +199,7 @@
 			<!-- status -->
       <ng-container *ngSwitchCase="'status'">
 				<div class="status-col flexVAlign">
-					<status-selector-app [entity]="row" [typeEntity]="supplierErm" [canUpdate]="canUpdate" selectSize="s"></status-selector-app>
+					<status-selector-app [entity]="row" [typeEntity]="supplierErm" [canUpdate]="canUpdate" selectSize="s" (statusUpdated)="update.emit($event)"></status-selector-app>
 				</div>
 			</ng-container>
 		</ng-container>

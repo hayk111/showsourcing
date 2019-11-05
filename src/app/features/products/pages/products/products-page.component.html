@@ -50,7 +50,6 @@
 			[currentPage]="listSrv.currentPage"
 			(goToPage)="listSrv.loadPage($event, selectItemsConfig)"
 			(delete)="listSrv.deleteOne($event)"
-			(update)="listSrv.update($event)"
 			(open)="listSrv.goToDetails($event)"
 			(openAddToProjectDialog)="onProjectDlgOpen()"
 			(openAddSampleDialog)="dialogCommonSrv.openCreationSampleDialog($event)"

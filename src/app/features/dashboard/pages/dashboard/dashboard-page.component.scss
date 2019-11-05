@@ -18,12 +18,14 @@
 .left {
 	width: 820px;
 	margin-top: 75px;
+	margin-right: var(--spacing-l);
 	z-index: var(--z-top-selection);
 }
 
 .right {
 	width: 474px;
 	margin-top: 75px;
+	margin-left: var(--spacing-l);
 	z-index: var(--z-top-selection);
 }
 

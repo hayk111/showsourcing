@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component, OnInit, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { TableConfig } from '~core/list-page';
 import { Sample } from '~core/models';
+import { SampleService } from '~core/entity-services';
 
 const tableConfig: TableConfig = {
 	name: { name: 'name', translationKey: 'name', width: 240, sortProperty: 'name' },
@@ -15,14 +16,20 @@ const tableConfig: TableConfig = {
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TodoBoxSamplePreviewComponent implements OnInit {
+	@Output() updated = new EventEmitter<undefined>();
+	@Input() rows: Sample[];
 
 	tableConfig = tableConfig;
 
-	@Input() rows: Sample[];
-
-	constructor() { }
+	constructor(private sampleSrv: SampleService) { }
 
 	ngOnInit() {
+		this.sampleSrv.sampleListUpdate$.subscribe(_ => this.updated.emit());
+	}
+
+	update(ev: any) {
+		this.sampleSrv.update(ev).subscribe();
+		this.updated.emit();
 	}
 
 }

@@ -5,7 +5,7 @@ import { GlobalWithAuditService } from '~entity-services/_global/global-with-aud
 import { TaskQueries } from '~entity-services/task/task.queries';
 import { UserService } from '~entity-services/user/user.service';
 import { Task } from '~models';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 
 
 @Injectable({
@@ -23,6 +23,11 @@ export class TaskService extends GlobalWithAuditService<Task> {
 	}
 
 	onUpdateTaskList() {
+		this._taskListUpdate$.next();
+	}
+
+	updateTask(updatedTask: { id: string, done: boolean }) {
+		this.update(updatedTask).subscribe();
 		this._taskListUpdate$.next();
 	}
 
