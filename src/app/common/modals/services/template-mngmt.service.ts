@@ -9,10 +9,6 @@ import { ListQuery } from '~core/entity-services/_global/list-query.interface';
 import { Observable } from 'rxjs';
 
 
-export interface InTemplateField extends TemplateField {
-	inTemplate: boolean;
-}
-
 @Injectable({
 	providedIn: 'root'
 })
@@ -39,25 +35,34 @@ export class TemplateMngmtService {
 	}
 
 	/**
-	 * return an array of TemplateField. Made of all the extendedFields.
-	 * So we can display existing templateFields from the RequestTemplate, but also the ones
-	 * that aren't selectioned yet inside it
+	 * returns array of template field and a map that says whether or not they are in the template
 	 */
-	getTemplateFields(existings: TemplateField[]): Observable<InTemplateField[]> {
-		const findTempField = (def: ExtendedFieldDefinition) => existings.find(field => field.definition.id === def.id);
+	getTemplateFields(existings: TemplateField[]): Observable<{ allFields: TemplateField[], inTemplate: Map<string, boolean> }> {
 
 		return this.extendedFieldDefSrv
 			.queryMany({ query: 'target contains[c] "product." OR target == "Product"', sortBy: 'order', descending: false })
 			.pipe(
-				map(defs => defs.map(definition => {
-					const field = findTempField(definition);
-					if (field)
-						return { ...field, inTemplate: true };
-					else
-						return { ...(new TemplateField({ definition })), inTemplate: false };
-				})),
+				map(defs => this.mapDefinitions(defs, existings)),
 				first()
 			);
+	}
+
+	private mapDefinitions(definitions: ExtendedFieldDefinition[], existings: TemplateField[]) {
+		const allFields = [];
+		const inTemplate = new Map<string, boolean>();
+		const findTempField = (def: ExtendedFieldDefinition) => existings.find(field => field.definition.id === def.id);
+		definitions.forEach(definition => {
+			const field = findTempField(definition);
+			if (field) {
+				allFields.push(field);
+				inTemplate.set(field.id, true);
+			} else {
+				allFields.push(new TemplateField({ definition }));
+				inTemplate.set(field.id, false);
+			}
+		});
+
+		return { allFields, inTemplate };
 	}
 
 	deleteTemplate(template: RequestTemplate) {

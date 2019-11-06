@@ -49,7 +49,8 @@
 				<template-fields-table-app
 					class="no-padding unset-height"
 					[pending]="pending"
-					[rows]="newState"
+					[rows]="allFields"
+					[inTemplate]="inTemplate"
 					(update)="onUpdate()">
 				</template-fields-table-app>
 

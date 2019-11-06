@@ -63,9 +63,9 @@
 
 			<ng-container *ngSwitchCase="'in template'">
 				<checkbox-app
-					[checked]="row?.inTemplate"
-					(check)="toggleInTemplate(row)"
-					(uncheck)="toggleInTemplate(row)">
+					[checked]="inTemplate.get(row.id)"
+					(check)="toggleInTemplate(row, true)"
+					(uncheck)="toggleInTemplate(row, false)">
 				</checkbox-app>
 			</ng-container>
 

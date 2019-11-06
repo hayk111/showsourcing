@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable, ReplaySubject } from 'rxjs';
-import { map, switchMap, takeUntil, tap, distinctUntilKeyChanged } from 'rxjs/operators';
-import { TemplateMngmtService, InTemplateField } from '~common/modals/services/template-mngmt.service';
+import { distinctUntilKeyChanged, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { TemplateMngmtService } from '~common/modals/services/template-mngmt.service';
 import { RequestTemplate, TemplateField } from '~core/models';
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
@@ -59,8 +59,10 @@ export class TemplateMngmtDlgComponent extends AutoUnsub implements OnInit {
 	pending = false;
 
 	templates$: Observable<RequestTemplate[]>;
-	initialState: InTemplateField[] = [];
-	newState: InTemplateField[] = [];
+	initialAllFields: TemplateField[];
+	allFields: TemplateField[];
+	initialInTemplate: Map<string, boolean>;
+	inTemplate: Map<string, boolean>;
 
 	constructor(
 		private dlgSrv: DialogService,
@@ -77,10 +79,12 @@ export class TemplateMngmtDlgComponent extends AutoUnsub implements OnInit {
 			tap(template => this.templateSelected = template),
 			switchMap(templateSelected => this.templateMngmtSrv.getTemplateFields(templateSelected.fields)),
 			takeUntil(this._destroy$)
-		).subscribe(fields => {
+		).subscribe(({ allFields, inTemplate }) => {
 			this.pending = false;
-			this.newState = fields;
-			this.initialState = fields.map(f => ({ ...f }));
+			this.initialAllFields = allFields;
+			this.allFields = allFields.map(f => ({...f })); // copies
+			this.initialInTemplate = inTemplate;
+			this.inTemplate = new Map(inTemplate);
 			this.cd.markForCheck();
 		});
 		this.inp.focus();
@@ -127,20 +131,16 @@ export class TemplateMngmtDlgComponent extends AutoUnsub implements OnInit {
 	}
 
 	reset() {
-		this.newState = this.initialState.map(f => ({ ...f }));
+		this.allFields = this.initialAllFields.map(f => ({ ...f }));
+		this.inTemplate = new Map(this.initialInTemplate);
 		this.cd.markForCheck();
 	}
 
 	save() {
-		const fields = this.newState
-		.filter(field => field.inTemplate);
-		// make a copy because we are modifying it
-		const fieldsCopy = fields.map(field => ({ ...field }))
-		.filter(field => field.inTemplate) as TemplateField[];
+		const fields = this.allFields
+		.filter(field => this.inTemplate.get(field.id));
 
-		fieldsCopy.forEach(f => {
-			// delete local property before saving to db
-			delete (f as any).inTemplate;
+		fields.forEach(f => {
 			// if its an object we stirngify if not we keep the value
 			f.fixedValue = f.fixedValue && !!f.defaultValue.toString();
 			if (f.definition && f.definition.type === 'price') {
@@ -151,7 +151,9 @@ export class TemplateMngmtDlgComponent extends AutoUnsub implements OnInit {
 			}
 		});
 		this._templateSelected = { ...this.templateSelected, fields };
-		this.templateMngmtSrv.updateTemplate({ id: this.templateSelected.id, fields: fieldsCopy }).subscribe();
+		this.templateMngmtSrv.updateTemplate({ id: this.templateSelected.id, fields }).subscribe();
+		this.initialAllFields = this.allFields.map(f => ({...f }));
+		this.initialInTemplate = new Map(this.inTemplate);
 	}
 
 	/**
@@ -170,8 +172,12 @@ export class TemplateMngmtDlgComponent extends AutoUnsub implements OnInit {
 	}
 
 	hasChanged() {
-		return this.initialState.some((field, index) => {
-			return field.inTemplate !== this.newState[index].inTemplate;
+		return this.allFields.some((field, index) => {
+			return (this.initialInTemplate.get(field.id) !== this.initialInTemplate.get(field.id)) ||
+				this.initialInTemplate.get(field.id) && (
+					field.fixedValue !== this.initialAllFields[index].fixedValue ||
+					field.defaultValue !== this.initialAllFields[index].defaultValue
+				);
 		});
 	}
 
