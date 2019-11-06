@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { Product } from '~models';
+import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter } from '@angular/core';
+import { Product, ERM } from '~models';
 import { DialogService } from '~shared/dialog/services';
+import { StatusSelectorService } from '~shared/status-selector/service/status-selector.service';
 import { AutoUnsub } from '~utils';
 
 @Component({
@@ -12,13 +13,20 @@ import { AutoUnsub } from '~utils';
 export class CompareProductComponent extends AutoUnsub {
 	@Input() products: Product[] = [];
 
+	erm = ERM;
+
 	constructor(
-		private dlgSrv: DialogService) {
+		private dlgSrv: DialogService,
+		private statusSelectorSrv: StatusSelectorService) {
 		super();
 	}
 
 	closeDlg() {
 		this.dlgSrv.close();
+	}
+
+	updated(entity) {
+		this.statusSelectorSrv.updateStatus(entity, this.erm.PRODUCT).subscribe();
 	}
 
 	/** Trackby function for ngFor */

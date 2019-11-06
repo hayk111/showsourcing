@@ -22,6 +22,6 @@
 
 	<!-- footer -->
 	<!-- <divider-app></divider-app> -->
-	<div class="footer">
+	<div *ngIf="hasFooter" class="footer">
 		<ng-content select="dialog-footer-app"></ng-content>
 	</div>

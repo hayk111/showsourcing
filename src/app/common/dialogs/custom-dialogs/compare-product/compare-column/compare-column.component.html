@@ -30,6 +30,16 @@
     <span *ngFor="let tag of product?.tags; trackBy: trackByFn">{{ tag?.name }}</span>
   </div>
 
+	<h3></h3>
+	
+	<div>
+    <span>{{ product?.supplier?.incoTerm }}</span>
+  </div>
+
+  <div>
+    <span>{{ product?.supplier?.harbour }}</span>
+  </div>
+
   <h3></h3>
 
   <div>
@@ -46,15 +56,9 @@
 
   <div>
     <span>{{ product?.masterCarton?.itemsQuantity}}</span>
-  </div>
-
-  <h3></h3>
-
-  <div>
-    <span>{{ product?.supplier?.incoTerm }}</span>
-  </div>
-
-  <div>
-    <span>{{ product?.supplier?.harbour }}</span>
-  </div>
+	</div>
+	
+	<div class="status-selector">
+		<status-selector-app [entity]="product" [typeEntity]="erm.PRODUCT" selectSize="s" (statusUpdated)="statusUpdated.emit($event)"></status-selector-app>
+	</div>
 </div>
