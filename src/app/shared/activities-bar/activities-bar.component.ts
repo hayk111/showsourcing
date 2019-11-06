@@ -14,6 +14,7 @@ export class ActivitiesBarComponent implements OnInit {
 	@Input() row: any;
 	@Input() entityName: EntityName.PRODUCT | EntityName.SUPPLIER = EntityName.PRODUCT;
 	@Input() favorite = false;
+	@Input() hasRequestCount = false;
 	@Input() hasSamples = true;
 	@Input() hasTasks = true;
 	@Input() hasComments = true;
@@ -28,11 +29,13 @@ export class ActivitiesBarComponent implements OnInit {
 
 	ngOnInit() {
 		if (this.row && this.row.id) {
-			this.openRequestsCount$ = this.requestElementService
-				.queryCount(`targetId == "${this.row.id}" AND targetedEntityType == "Product" AND (reply.status == "${ReplyStatus.REPLIED}")`);
+			if (this.hasRequestCount) {
+				this.openRequestsCount$ = this.requestElementService
+					.queryCount(`targetId == "${this.row.id}" AND targetedEntityType == "Product" AND (reply.status == "${ReplyStatus.REPLIED}")`);
 
-			this.requestsCount$ = this.requestElementService
-				.queryCount(`targetId == "${this.row.id}" AND targetedEntityType == "Product"`);
+				this.requestsCount$ = this.requestElementService
+					.queryCount(`targetId == "${this.row.id}" AND targetedEntityType == "Product"`);
+			}
 
 			this.hasTaskOverdue = this.hasTasksOverdue(this.row.id);
 		}

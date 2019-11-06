@@ -22,6 +22,7 @@
 	class="max-full-table-width"
 	[rows]="listSrv.items$ | async"
 	[selection]="listSrv.selection$ | async"
+	[hasRequestCount]="true"
 	[pending]="listSrv.pending"
 	[count]="listSrv.count$ | async"
 	[currentPage]="listSrv.currentPage"
