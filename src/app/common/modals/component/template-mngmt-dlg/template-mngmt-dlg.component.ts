@@ -10,9 +10,6 @@ import { InputDirective } from '~shared/inputs';
 import { AutoUnsub } from '~utils';
 
 
-
-// hi
-
 @Component({
 	selector: 'template-mngmt-dlg-app',
 	templateUrl: './template-mngmt-dlg.component.html',
