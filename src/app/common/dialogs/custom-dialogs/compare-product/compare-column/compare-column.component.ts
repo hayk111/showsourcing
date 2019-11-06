@@ -1,5 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
-import { Product } from '~core/models';
+import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
+import { Product, ERM } from '~core/models';
 
 @Component({
 	selector: 'compare-column-app',
@@ -9,6 +9,9 @@ import { Product } from '~core/models';
 })
 export class CompareColumnComponent implements OnInit {
 	@Input() product: Product;
+	@Output() statusUpdated = new EventEmitter<any>();
+	erm = ERM;
+
 	constructor() { }
 
 	ngOnInit() {
