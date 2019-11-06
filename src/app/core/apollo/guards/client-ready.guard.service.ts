@@ -46,6 +46,7 @@ export abstract class ClientReadyGuard implements CanActivate, CanActivateChild 
 
 	protected redirectOnError(status: ClientStatus, route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
 		if (status === ClientStatus.ERROR) {
+			// clearing local storage on error to clean incompatibilities
 			this.router.navigate(['error', 'generic']);
 		}
 	}
