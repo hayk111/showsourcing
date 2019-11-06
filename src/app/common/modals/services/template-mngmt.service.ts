@@ -57,8 +57,9 @@ export class TemplateMngmtService {
 				allFields.push(field);
 				inTemplate.set(field.id, true);
 			} else {
-				allFields.push(new TemplateField({ definition }));
-				inTemplate.set(field.id, false);
+				const newField = new TemplateField({ definition });
+				allFields.push(newField);
+				inTemplate.set(newField.id, false);
 			}
 		});
 

@@ -98,9 +98,8 @@ export class TemplateMngmtDlgComponent extends AutoUnsub implements OnInit {
 		event.stopPropagation();
 		const template = {
 			...this.templateSelected,
-			fields: this.templateSelected.fields.map(f => ({
-				defaultValue: f.defaultValue, definition: f.definition, fixedValue: f.fixedValue, id: f.id
-			}))
+			// using initial because it might have changed without the user having saved
+			fields: this.initialAllFields.filter(field => this.initialInTemplate.get(field.id))
 		};
 		this.dlgSrv.close({ type: CloseEventType.OK, data: { template } });
 	}
@@ -173,7 +172,7 @@ export class TemplateMngmtDlgComponent extends AutoUnsub implements OnInit {
 
 	hasChanged() {
 		return this.allFields.some((field, index) => {
-			return (this.initialInTemplate.get(field.id) !== this.initialInTemplate.get(field.id)) ||
+			return (this.inTemplate.get(field.id) !== this.initialInTemplate.get(field.id)) ||
 				this.initialInTemplate.get(field.id) && (
 					field.fixedValue !== this.initialAllFields[index].fixedValue ||
 					field.defaultValue !== this.initialAllFields[index].defaultValue
@@ -182,7 +181,7 @@ export class TemplateMngmtDlgComponent extends AutoUnsub implements OnInit {
 	}
 
 	isSelected(template: RequestTemplate) {
-		return this.templateSelected.id === template.id;
+		return this.templateSelected && this.templateSelected.id === template.id;
 	}
 
 }
