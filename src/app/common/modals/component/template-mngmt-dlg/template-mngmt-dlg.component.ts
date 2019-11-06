@@ -10,16 +10,6 @@ import { InputDirective } from '~shared/inputs';
 import { AutoUnsub } from '~utils';
 
 
-// TODO: we should refactor this so instead of getting InTemplateField ( which can be removed)
-// we get normal template fields. and we do two different updates
-// One for updating the template with the fields that are in the template
-// One for updating specific fields with default value or fixed value.
-
-// initialAllfields = all fields copy.
-// allFields = all fields copy.
-// initialInTemplate = Map<id, boolean>
-// intemplate = Map<id, boolean>
-
 @Component({
 	selector: 'template-mngmt-dlg-app',
 	templateUrl: './template-mngmt-dlg.component.html',
