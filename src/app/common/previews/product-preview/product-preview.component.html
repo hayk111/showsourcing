@@ -104,6 +104,14 @@
 	<preview-tab-app #tab2 (click)="previewSrv.onSelectedTab(2)">Activity</preview-tab-app>
 	<preview-tab-app #tab3 (click)="previewSrv.onSelectedTab(3)">Comments</preview-tab-app>
 
+	<!-- Rating -->
+	<preview-section-app #contentTab2 [title]="'tasks'">
+		<h4 class="flexCenter mg-top-ms ms">Tasks</h4>
+		<div class="preview-task" *ngFor="let item of product?.tasksLinked?.items">
+			{{ item.name }}
+		</div>
+	</preview-section-app>
+	
 	<!-- Description -->
 	<preview-section-app #contentTab1 [title]="'title.description' | translate">
 		<input-description-app
@@ -230,7 +238,7 @@
 	</preview-banner-app>
 
 		<!-- Header -->
-		<preview-header-app
+	<preview-header-app
 			[entityMD]="erm.PRODUCT"
 			[entity]="product"
 			(update)="update($event, 'name')"
@@ -284,50 +292,80 @@
 
 	</preview-section-app>
 
-		<!-- Description -->
-		<preview-section-app #contentTab1 [title]="'title.description' | translate">
-			<input-description-app
-				[description]="product?.description"
-				(update)="update($event, 'description')">
-			</input-description-app>
-		</preview-section-app>
+	<!-- Tasks -->
+	<preview-section-app #contentTab2 [title]="'tasks'">
+		<div class="preview-task flexVAlign" *ngFor="let item of product?.tasksLinked?.items">
+			<icon-app
+				class="pointer"
+				[ngClass]="item?.done ? 'task-is-done': 'task-not-done'"
+				[name]="item?.done ? 'check-circle' : 'check-circle-light'"
+				[size]="12">
+			</icon-app>
+			<h4>{{ item.name }}</h4>
+		</div>
+		
+	</preview-section-app>
 
-		<!-- Tags -->
-		<preview-section-app #contentTab1 [title]="'title.tags' | translate">
-			<input-badge-selector-app
-				[value]="product?.tags"
-				type="tag"
-				(change)="update($event, 'tags')">
-			</input-badge-selector-app>
-		</preview-section-app>
+	<!-- Samples -->
+	<preview-section-app #contentTab2 [title]="'samples'">
+		<div class="preview-task flexVAlign" *ngFor="let item of product?.samplesLinked?.items">
+			<icon-app
+				class="pointer"
+				[name]="'sample'"
+				[size]="12">
+			</icon-app>
+			<h4>{{ item.name }}</h4>
+		</div>
+		
+	</preview-section-app>
 
-		<!-- Projects -->
-		<preview-section-app #contentTab1 [title]="'title.projects' | translate">
-			<input-badge-selector-app
-				[value]="product?.projects"
-				type="project"
-				(change)="update($event, 'projects')">
-			</input-badge-selector-app>
-		</preview-section-app>
+	<!-- Description -->
+	<preview-section-app #contentTab1 [title]="'title.description' | translate">
+		<input-description-app
+			[description]="product?.description"
+			(update)="update($event, 'description')">
+		</input-description-app>
+	</preview-section-app>
 
-		<!-- Rating -->
-		<preview-section-app #contentTab2 [title]="'team rating'">
-			<rating-stars-score-view-app
-				class="mg-bottom-l mg-left-l"
-				[votes]="product?.votes">
-			</rating-stars-score-view-app>
-			<divider-app></divider-app>
-			<h4 class="flexCenter mg-top-ms ms">Your Rating</h4>
-			<rating-stars-action-app
-				class="flexCenter"
-				[votes]="product?.votes"
-				(valueVoted)="onStarVote($event)">
-			</rating-stars-action-app>
-			<button class="primary-light fullWidth mg-top-ms" (click)="dialogCommonSrv.openVoteDetailsDialog(product?.votes)">
-				View ratings
-			</button>
-		</preview-section-app>
+	<!-- Tags -->
+	<preview-section-app #contentTab1 [title]="'title.tags' | translate">
+		<input-badge-selector-app
+			[value]="product?.tags"
+			type="tag"
+			(change)="update($event, 'tags')">
+		</input-badge-selector-app>
+	</preview-section-app>
 
+	<!-- Rating -->
+	<preview-section-app #contentTab2 [title]="'team rating'">
+		<rating-stars-score-view-app
+			class="mg-bottom-l mg-left-l"
+			[votes]="product?.votes">
+		</rating-stars-score-view-app>
+		<divider-app></divider-app>
+		<h4 class="flexCenter mg-top-ms ms">Your Rating</h4>
+		<rating-stars-action-app
+			class="flexCenter"
+			[votes]="product?.votes"
+			(valueVoted)="onStarVote($event)">
+		</rating-stars-action-app>
+		<button class="primary-light fullWidth mg-top-ms" (click)="dialogCommonSrv.openVoteDetailsDialog(product?.votes)">
+			View ratings
+		</button>
+	</preview-section-app>
+
+	<!-- Projects -->
+	<preview-section-app #contentTab2 [title]="'projects'">
+		<div class="preview-task flexVAlign" *ngFor="let project of product?.projects">
+			<icon-app
+				class="pointer"
+				[name]="'project'"
+				[size]="12">
+			</icon-app>
+			<h4>{{ project.name }}</h4>
+		</div>
+		
+	</preview-section-app>
 
 </preview-static-app>
 

@@ -4,6 +4,22 @@
 	}
 }
 
+.preview-task {
+	h4 {
+		margin-left: var(--spacing-s);
+		font-size: var(--font-size-m);
+		color: var(--color-bg-dark);
+	}
+}
+
+.task-is-done {
+	color: var(--color-task);
+}
+
+.task-not-done {
+	color: var(--color-txt-third);
+}
+
 preview-carousel-app {
 	height: 411px;
 	border-top-left-radius: var(--border-radius-l);
@@ -12,7 +28,6 @@ preview-carousel-app {
 
 .button-action-list {
 	padding: var(--spacing-ms) 0;
-
 }
 
 .info {
