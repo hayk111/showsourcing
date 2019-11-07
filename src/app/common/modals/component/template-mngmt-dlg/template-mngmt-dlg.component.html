@@ -49,12 +49,13 @@
 				<template-fields-table-app
 					class="no-padding unset-height"
 					[pending]="pending"
-					[rows]="newState"
+					[rows]="allFields"
+					[inTemplate]="inTemplate"
 					(update)="onUpdate()">
 				</template-fields-table-app>
 
-				<div class="actions flexEnd">
-					<button [disabled]="!hasChanged()" class="secondary" (click)="reset()">Reset</button>
+				<div *ngIf="allFields" class="actions flexEnd">
+					<button *ngIf="hasChanged()" class="secondary" (click)="reset()">Reset</button>
 					<button [disabled]="!hasChanged()" (click)="save()">Save changes</button>
 				</div>
 			</ng-container>

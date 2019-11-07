@@ -1,7 +1,7 @@
 import { AfterViewChecked, ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, of, ReplaySubject } from 'rxjs';
-import { switchMap, take, tap } from 'rxjs/operators';
+import { switchMap, take, tap, takeUntil } from 'rxjs/operators';
 import { ContactService, CreateRequestService, RequestTemplateService, UserService } from '~core/entity-services';
 import { ListPageService } from '~core/list-page';
 import { Contact, CreateRequest, ERM, Product, RequestTemplate, Supplier } from '~core/models';
@@ -9,7 +9,7 @@ import { ProductService } from '~entity-services';
 import { DialogService } from '~shared/dialog';
 import { FilterList, FilterType } from '~shared/filters';
 import { NotificationService, NotificationType } from '~shared/notifications';
-import { ID, translate } from '~utils';
+import { ID, translate, AutoUnsub } from '~utils';
 
 import { ProductSelectDlgComponent } from '../product-select-dlg/product-select-dlg.component';
 import { ReplySentDlgComponent } from '../reply-sent-dlg/reply-sent-dlg.component';
@@ -22,7 +22,7 @@ import { TemplateMngmtDlgComponent } from '../template-mngmt-dlg/template-mngmt-
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [ListPageService]
 })
-export class SupplierRequestDialogComponent implements OnInit, AfterViewChecked {
+export class SupplierRequestDialogComponent extends AutoUnsub implements OnInit, AfterViewChecked {
 
 	private _request: CreateRequest;
 	@Input() set request(request: CreateRequest) {
@@ -51,8 +51,9 @@ export class SupplierRequestDialogComponent implements OnInit, AfterViewChecked 
 	pending = false;
 	filterList = new FilterList([]);
 	supplier: Supplier;
+
 	private templateSelectedAction$ = new ReplaySubject<ID>(1);
-	selectedTemplate$: Observable<RequestTemplate>;
+	selectedTemplate$ = new ReplaySubject<RequestTemplate>(1);
 
 	constructor(
 		private fb: FormBuilder,
@@ -66,6 +67,7 @@ export class SupplierRequestDialogComponent implements OnInit, AfterViewChecked 
 		private cd: ChangeDetectorRef,
 		public listSrv: ListPageService<Product, ProductService>,
 	) {
+		super();
 		this.form = this.fb.group({
 			products: ['', Validators.required],
 			requestTemplate: ['', Validators.required],
@@ -80,13 +82,21 @@ export class SupplierRequestDialogComponent implements OnInit, AfterViewChecked 
 	ngOnInit() {
 		if (!this.request)
 			this.request = new CreateRequest({ products: [], sendCopyTo: [], shareInformation: false });
+
 		this.form.patchValue(this.request);
-		this.selectedTemplate$ = this.templateSelectedAction$.pipe(
+		this.templateSelectedAction$.pipe(
 			switchMap(id => this.requestTemplateSrv.queryOne(id)),
-			tap(requestTemplate => this._request = { ...this.request, requestTemplate })
-		);
+			tap(requestTemplate => this._request = { ...this.request, requestTemplate }),
+			takeUntil(this._destroy$)
+		).subscribe(this.selectedTemplate$);
+
 		if (!this.fromTemplateDlg)
 			this.initFormValues();
+		else {
+			if (this.request && this.request.requestTemplate) {
+				this.selectedTemplate$.next(this.request.requestTemplate);
+			}
+		}
 	}
 
 	ngAfterViewChecked() {
