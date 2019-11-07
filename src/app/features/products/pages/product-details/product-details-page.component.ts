@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
@@ -30,6 +30,7 @@ import { RequestElementService } from '~core/entity-services';
 	styleUrls: ['./product-details-page.component.scss']
 })
 export class ProductDetailsPageComponent extends AutoUnsub implements OnInit {
+	@Input() requestCount: number;
 	product: Product;
 	requestCount$: Observable<number>;
 	/** projects for this product */
@@ -168,4 +169,14 @@ export class ProductDetailsPageComponent extends AutoUnsub implements OnInit {
 		this.dlgSrv.open(SupplierRequestDialogComponent, { products: [product] });
 	}
 
+	hasBadge(type: string) {
+		if (!this.product)
+			return;
+
+		switch (type) {
+			case 'tasks': return this.product.tasksLinkedAssignedToMe.count > 0;
+			case 'samples': return this.product.samplesLinkedAssignedToMe.count > 0;
+			case 'requests': return this.requestCount > 0;
+		}
+	}
 }
