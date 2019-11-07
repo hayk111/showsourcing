@@ -47,7 +47,11 @@ export class ProductHeaderDetailsComponent {
 	}
 
 	updateProductName(isCancel: boolean, value: any, prop: string) {
-		(isCancel) ? console.log("Not update product name") : console.log(`Product new name is ${value}`);
+		if (!isCancel) {
+			this.srv.update({ id: this.product.id, name: value });
+		} else {
+			return;
+		}
 	}
 
 }
