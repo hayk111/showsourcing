@@ -30,20 +30,18 @@ const smallTableConfig: TableConfig = {
 	dueDate: { name: 'due date small', translationKey: 'due-date', width: 80, sortProperty: 'dueDate' },
 };
 
-const itsTheSameDesignEveryWhereGuys: TableConfig = {
-	done: { name: 'done', translationKey: 'done', width: 24 },
-	name: { name: 'name assignee', translationKey: 'name', width: 340, sortProperty: 'name' },
+const mediumSmallTableConfig: TableConfig = {
+	name: { name: 'small done name', translationKey: 'name', width: 240, sortProperty: 'name' },
 	// aboutCompletion: { name: 'about completion', translationKey: 'name', width: 240, sortProperty: 'name' },
-	assignee: {
-		name: 'assigned to',
-		translationKey: 'assigned-to',
-		width: 40,
-		sortProperty: 'assignee.firstName',
-		showOnHover: true,
-		metadata: { nameOnly: true }
-	},
-	status: { name: 'status', translationKey: 'status', width: 80, sortProperty: 'status.step', sortable: false, showOnHover: true },
-	dueDate: { name: 'due date small', translationKey: 'due-date', width: 50, sortProperty: 'dueDate', showOnHover: true },
+	// assignee: {
+	// 	name: 'assigned to',
+	// 	translationKey: 'assigned-to',
+	// 	width: 40,
+	// 	sortProperty: 'assignee.firstName',
+	// 	showOnHover: true,
+	// 	metadata: { nameOnly: true }
+	// },
+	assigneeDueDate: { name: 'assignee due date', translationKey: '', width: 180, sortable: false },
 };
 
 @Component({
@@ -82,9 +80,26 @@ export class TasksTableComponent extends EntityTableComponent<Task> implements O
 				return mediumTableConfig;
 			case 'small':
 				return smallTableConfig;
-			case 'itsTheSameDesignEveryWhereGuys':
-				return itsTheSameDesignEveryWhereGuys;
+			case 'mediumSmallTableConfig':
+				return mediumSmallTableConfig;
 		}
+	}
+
+	isOverdue(task: Task) {
+		return task && task.dueDate && (new Date().getTime() >= Date.parse(task.dueDate.toString()));
+	}
+
+	iconClass(task: Task) {
+		let iconClass = 'task-not-done';
+		if (task && task.done)
+			iconClass = 'task-done';
+		else if (this.isOverdue(task))
+			iconClass = 'task-overdue';
+		return iconClass;
+	}
+
+	iconName(task: Task) {
+		return (task && task.done) || this.isOverdue(task) ? 'check-circle' : 'check-circle-light';
 	}
 
 	toggleStatus(task: Task) {

@@ -63,11 +63,11 @@ export class ActivitiesBarComponent implements OnInit {
 	}
 
 	get taskCount() {
-		return this.row.tasksLinkedAssignedToMe && this.row.tasksLinkedAssignedToMe.count;
+		return this.row && this.row.tasksLinkedAssignedToMe && this.row.tasksLinkedAssignedToMe.count;
 	}
 
 	get sampleCount() {
-		return this.row.samplesLinkedAssignedToMe && this.row.samplesLinkedAssignedToMe.count;
+		return this.row && this.row.samplesLinkedAssignedToMe && this.row.samplesLinkedAssignedToMe.count;
 	}
 
 	get commentCount() {

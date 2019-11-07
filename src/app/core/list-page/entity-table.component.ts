@@ -21,7 +21,7 @@ export interface TableConfig {
 	[key: string]: ColumnConfig;
 }
 
-export type TableConfigType = 'small' | 'medium' | 'big' | 'itsTheSameDesignEveryWhereGuys';
+export type TableConfigType = 'small' | 'medium' | 'big' | 'mediumSmallTableConfig';
 
 export abstract class EntityTableComponent<T> extends TrackingComponent implements OnInit {
 	/** current selection */
