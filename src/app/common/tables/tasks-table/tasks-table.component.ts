@@ -32,15 +32,6 @@ const smallTableConfig: TableConfig = {
 
 const mediumSmallTableConfig: TableConfig = {
 	name: { name: 'small done name', translationKey: 'name', width: 240, sortProperty: 'name' },
-	// aboutCompletion: { name: 'about completion', translationKey: 'name', width: 240, sortProperty: 'name' },
-	// assignee: {
-	// 	name: 'assigned to',
-	// 	translationKey: 'assigned-to',
-	// 	width: 40,
-	// 	sortProperty: 'assignee.firstName',
-	// 	showOnHover: true,
-	// 	metadata: { nameOnly: true }
-	// },
 	assigneeDueDate: { name: 'assignee due date', translationKey: '', width: 180, sortable: false },
 };
 
