@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { CardModule } from '~shared/card';
 import {
 	CarouselComponent,
-	ImagePreviewer2Component,
+	ImagePreviewerComponent,
 	ImageReviewerComponent,
 	ModalCarouselComponent,
 	PreviewHeaderListComponent,
@@ -42,14 +42,14 @@ import { TranslateModule } from '@ngx-translate/core';
 	],
 	declarations: [
 		CarouselComponent,
-		ImagePreviewer2Component,
+		ImagePreviewerComponent,
 		ImageReviewerComponent,
 		ModalCarouselComponent,
 		PreviewHeaderListComponent,
 	],
 	exports: [
 		CarouselComponent,
-		ImagePreviewer2Component,
+		ImagePreviewerComponent,
 		ImageReviewerComponent,
 		ModalCarouselComponent,
 		PreviewHeaderListComponent,

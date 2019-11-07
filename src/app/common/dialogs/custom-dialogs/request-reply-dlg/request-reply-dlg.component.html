@@ -65,13 +65,13 @@
 
       <!-- images -->
       <h3 class="ms capitalize" translate="label.images"></h3>
-      <image-previewer-2-app
+      <image-previewer-app
         [isDeletable]="true"
         [size]="120"
         [images]="images"
         (delete)="deleteImg($event)"
         (imageClick)="modal.open($event)">
-      </image-previewer-2-app>
+      </image-previewer-app>
 			<modal-carousel-app
         #modal
         [images]="images">

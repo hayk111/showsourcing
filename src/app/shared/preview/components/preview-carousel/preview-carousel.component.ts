@@ -17,6 +17,7 @@ export class PreviewCarouselComponent extends AutoUnsub {
 		| Supplier;
 	@Input() entityMD: EntityMetadata;
 	@Input() objectFit: 'fill' | 'contain' | 'cover' | 'none' = 'cover';
+	@Input() hasPreview: boolean;
 	@Input() set images(images: AppImage[]) {
 		this._images = images || [];
 	}
