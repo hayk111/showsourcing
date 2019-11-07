@@ -54,7 +54,7 @@
 					(update)="onUpdate()">
 				</template-fields-table-app>
 
-				<div class="actions flexEnd" *ngIf="allFields">
+				<div *ngIf="allFields" class="actions flexEnd">
 					<button *ngIf="hasChanged()" class="secondary" (click)="reset()">Reset</button>
 					<button [disabled]="!hasChanged()" (click)="save()">Save changes</button>
 				</div>
