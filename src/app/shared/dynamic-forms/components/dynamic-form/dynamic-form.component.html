@@ -16,14 +16,14 @@
 		</ng-container>
 
 		<ng-template #editableText>
-			<dynamic-editable-text-app
+			<dynamic-editable-container-app
 				*ngFor="let field of col; index as index; trackBy: trackByFn"
 				[indexInCol]="index"
 				[customField]="field"
 				[formControlName]="field.name"
 				[config]="config"
 				(update)="update.emit($event)">
-			</dynamic-editable-text-app>
+			</dynamic-editable-container-app>
 		</ng-template>
 
 	</div>

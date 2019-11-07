@@ -1,10 +1,10 @@
-<editable-text-app
+<editable-container-app
 	#editablePrice
 	class="price"
 	(closed)="updateProductField($event, inpPrice.price, 'price')"
 	(opened)="inpPrice.select()"
 	(saved)="updateProductField(false, inpPrice.price, 'price')">
-	<editable-label-app [disabled]="true">
+	<editable-container-display-app [disabled]="true">
 			<div *ngIf="product?.price?.value; else priceHolder" class="amount">
 				{{ product?.price | appPrice: 2 : '1.2-2' }}
 			</div>
@@ -14,17 +14,17 @@
 					<span>set price</span>
 				</button>
 			</ng-template>
-	</editable-label-app>
+	</editable-container-display-app>
 	<input-price-app #inpPrice [price]="product?.price" (keyup.enter)="editablePrice.close()"></input-price-app>
-</editable-text-app>
+</editable-container-app>
 
-<editable-text-app
+<editable-container-app
 	#editableMOQ
 	class="moq"
 	(closed)="updateProductField($event, inputMOQ.value, 'minimumOrderQuantity')"
 	(opened)="inputMOQ.select()"
 	(saved)="updateProductField(false, inputMOQ.value, 'minimumOrderQuantity')">
-	<editable-label-app [disabled]="true">
+	<editable-container-display-app [disabled]="true">
 		<div *ngIf="product?.price?.value || product?.minimumOrderQuantity; else moqHolder" class="moq flexCenter">
 			{{ 'OBJ.min-pcs' | translate: { count : (product?.minimumOrderQuantity || 0)} }}
 			{{ product?.moqDescription ? ' ' + product?.moqDescription : ''}}
@@ -32,11 +32,11 @@
 		<ng-template #moqHolder>
 			<button class="secondary-light capitalize">set moq</button>
 		</ng-template>
-	</editable-label-app>
+	</editable-container-display-app>
 	<input inputApp
 		#inputMOQ
 		restrictInput="decimal"
 		[value]="product?.minimumOrderQuantity"
 		type="number"
 		(keyup.enter)="editableMOQ.close();"/>
-</editable-text-app>
+</editable-container-app>

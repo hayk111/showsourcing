@@ -2,15 +2,15 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, In
 
 
 @Component({
-	selector: 'editable-text-app',
-	templateUrl: './editable-text.component.html',
-	styleUrls: ['./editable-text.component.scss'],
+	selector: 'editable-container-app',
+	templateUrl: './editable-container.component.html',
+	styleUrls: ['./editable-container.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[class.open]': 'isOpen'
 	}
 })
-export class EditableTextComponent {
+export class EditableContainerComponent {
 	@Input() isOpen = false;
 	/** Whether click on the value should open the editor */
 	@Input() openOnClick = true;

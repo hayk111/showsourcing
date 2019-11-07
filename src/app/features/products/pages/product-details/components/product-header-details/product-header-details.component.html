@@ -1,12 +1,12 @@
 <header-details-app [headerType]="'details'">
 
 	<header-details-title-app class="mg-top-xxs">
-		<!-- <editable-text-app #edt (closed)="updateProductProp($event, inpName.value, 'name')" (opened)="inpName.select()">
-			<editable-label-app>
+		<!-- <editable-container-app #edt (closed)="updateProductProp($event, inpName.value, 'name')" (opened)="inpName.select()">
+			<editable-container-display-app>
 				{{ product?.name || ('message.unnamed-product' | translate) }}
-			</editable-label-app>
+			</editable-container-display-app>
 			<input inputApp type="text" #inpName [value]="product.name" (keyup.enter)="edt.close()">
-		</editable-text-app> -->
+		</editable-container-app> -->
 		{{ product?.name || ('message.unnamed-product' | translate) }}
 	</header-details-title-app>
 

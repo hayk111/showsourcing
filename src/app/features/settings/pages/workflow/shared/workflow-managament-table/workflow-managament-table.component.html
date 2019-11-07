@@ -28,17 +28,17 @@
 			<div class="w-5 cell">{{ status?.step }}</div>
 			<!-- name -->
 			<div class="w-40 cell">
-				<editable-text-app
+				<editable-container-app
 					class="pointer"
 					#editable
 					[openOnClick]="status?.step !== 0"
 					(opened)="inp.focus()" (closed)="onEditableClose($event, inp.value, status)">
-					<editable-label-app [ngClass]="{ 'no-hover': status.step == 0 }">
+					<editable-container-display-app [ngClass]="{ 'no-hover': status.step == 0 }">
 						{{ 'text.' + status.name | translate }}
 						<button *ngIf="status?.step !== 0" class="ugly-btn" translate="button.rename"></button>
-					</editable-label-app>
+					</editable-container-display-app>
 					<input #inp inputApp type="text" [value]="status?.name" (keyup.enter)="editable.close()"/>
-				</editable-text-app>
+				</editable-container-app>
 			</div>
 			<!-- category -->
 			<div class="w-20 cell">

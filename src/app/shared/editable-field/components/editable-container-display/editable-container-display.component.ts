@@ -1,9 +1,9 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 
 @Component({
-	selector: 'editable-label-app',
-	templateUrl: './editable-label.component.html',
-	styleUrls: ['./editable-label.component.scss'],
+	selector: 'editable-container-display-app',
+	templateUrl: './editable-container-display.component.html',
+	styleUrls: ['./editable-container-display.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[class.flexVAlign]': 'vAlign',
@@ -11,7 +11,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core
 		'[class.txt-btn]': '!disabled'
 	}
 })
-export class EditableValueComponent implements OnInit {
+export class EditableContainerDisplayComponent implements OnInit {
 
 	@Input() vAlign = true;
 	@Input() disabled = false;

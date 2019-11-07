@@ -2,15 +2,13 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BadgeModule } from '~shared/badge/badge.module';
-import { EditableValueComponent } from '~shared/editable-field/components/editable-label/editable-label.component';
-import { EditableTextComponent } from '~shared/editable-field/components/editable-text/editable-text.component';
 import { IconsModule } from '~shared/icons/icons.module';
 import { ImageModule } from '~shared/image/image.module';
 import { InputsModule } from '~shared/inputs/inputs.module';
 import { SelectorsModule } from '~shared/selectors/selectors.module';
 import { UtilsModule } from '~shared/utils/utils.module';
 
-import { EditableFieldComponent } from './components/editable-field/editable-field.component';
+import { EditableContainerDisplayComponent, EditableContainerComponent, EditableFieldComponent } from './components';
 
 // text where when it is clicked an input appears
 @NgModule({
@@ -25,13 +23,13 @@ import { EditableFieldComponent } from './components/editable-field/editable-fie
 		ImageModule
 	],
 	declarations: [
-		EditableTextComponent,
-		EditableValueComponent,
+		EditableContainerComponent,
+		EditableContainerDisplayComponent,
 		EditableFieldComponent
 	],
 	exports: [
-		EditableTextComponent,
-		EditableValueComponent,
+		EditableContainerComponent,
+		EditableContainerDisplayComponent,
 		EditableFieldComponent
 	],
 })

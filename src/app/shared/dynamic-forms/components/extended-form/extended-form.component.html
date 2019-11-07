@@ -16,14 +16,14 @@
 		</ng-container>
 
 		<ng-template #textStyle>
-			<extended-form-editable-text-app
+			<extended-form-editable-container-app
 				*ngFor="let definition of col; trackBy: trackByFn"
 				[config]="config"
 				[disabled]="disabled"
 				[definition]="definition"
 				[field]="getFieldForDefinition(definition.id)"
 				(update)="onUpdate($event)">
-			</extended-form-editable-text-app>
+			</extended-form-editable-container-app>
 		</ng-template>
 
 	</div>

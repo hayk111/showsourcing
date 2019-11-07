@@ -1,11 +1,11 @@
 
 	<div class="flexBetween editablePrice">
 		<!-- value -->
-		<editable-text-app #editable1 (closed)="onClose($event)" (opened)="onOpen()">
-			<editable-label-app>
+		<editable-container-app #editable1 (closed)="onClose($event)" (opened)="onOpen()">
+			<editable-container-display-app>
 				<span>{{ currency | const : 'currency' : 'symbol'}} </span>
 				<span>{{ amount !== undefined ? amount : '-' }}</span>
-			</editable-label-app>
+			</editable-container-display-app>
 
 
 			<ng-container>
@@ -22,7 +22,7 @@
 					(input)="accumulatePrice(+inp.value)"/>
 			</ng-container>
 
-		</editable-text-app>
+		</editable-container-app>
 		<!-- currency goes after after when on double line -->
 		<span *ngIf="!config.inlineLabel" class="currencyLabel2 pointer">
 			{{ currency | const:'currency':'id' }}
