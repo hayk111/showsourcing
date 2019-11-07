@@ -20,8 +20,8 @@
 
 <task-table-app
 	class="no-padding"
-	tableConfigType="mediumSmallTableConfig"
 	[rows]="listSrv.items$ | async"
+	tableConfigType="mediumSmallTableConfig"
 	[columns]="['name', 'assigneeDueDate']"
 	[selection]="listSrv.selection$ | async"
 	[pending]="listSrv.pending"
@@ -29,9 +29,7 @@
 	[hasMenu]="false"
 	[hasPagination]="false"
 	[hasSelection]="false"
-	[count]="listSrv.count$ | async"
-	[currentPage]="listSrv.currentPage"
-	(goToPage)="listSrv.loadPage($event)"
+	[rowHeight]="34"
 	(sort)="listSrv.sort($event)"
 	(select)="listSrv.selectOne($event, true)"
 	(unselect)="listSrv.unselectOne($event, true)"

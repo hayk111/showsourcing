@@ -6,7 +6,7 @@ import { ID } from '~utils/id.utils';
 import { TaskService, SampleService } from '~core/entity-services';
 
 const bigTableConfig: TableConfig = {
-	name: { name: 'name', translationKey: 'name', width: 190, sortProperty: 'name' },
+	name: { name: 'icon name', translationKey: 'name', width: 190, sortProperty: 'name' },
 	assignee: { name: 'assignee', translationKey: 'assignee', width: 190, sortProperty: 'assignee.firstName' },
 	product: { name: 'product', translationKey: 'product', width: 190, sortProperty: 'product.name' },
 	supplier: { name: 'supplier', translationKey: 'supplier', width: 190, sortProperty: 'supplier.name' },
@@ -20,12 +20,15 @@ const bigTableConfig: TableConfig = {
 
 const mediumTableConfig: TableConfig = {
 	name: { name: 'name', translationKey: 'name', width: 240, sortProperty: 'name' },
+	reference: { name: 'reference', translationKey: 'reference', width: 60, sortProperty: 'reference' },
+	referenceName: { name: 'reference name', translationKey: 'reference', width: 160, sortable: false },
 	product: { name: 'product', translationKey: 'product', width: 180, sortProperty: 'product.name' },
 	status: { name: 'status', translationKey: 'status', width: 110, sortProperty: 'status.step' },
+	statusCreationDate: { name: 'status creation date', translationKey: 'status', width: 240, sortable: false },
 };
 
 const smallTableConfig: TableConfig = {
-	name: { name: 'name', translationKey: 'name', width: 160, sortProperty: 'name' },
+	name: { name: 'icon name', translationKey: 'name', width: 160, sortProperty: 'name' },
 	status: { name: 'status', translationKey: 'status', width: 130, sortProperty: 'status.step' },
 };
 
@@ -61,7 +64,6 @@ export class SamplesTableComponent extends EntityTableComponent<Sample> implemen
 	}
 
 	getTableFromType() {
-		console.log(this.tableConfigType);
 		switch (this.tableConfigType) {
 			case 'big':
 				return bigTableConfig;

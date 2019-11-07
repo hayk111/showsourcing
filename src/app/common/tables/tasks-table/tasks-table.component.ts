@@ -71,7 +71,7 @@ export class TasksTableComponent extends EntityTableComponent<Task> implements O
 				return mediumTableConfig;
 			case 'small':
 				return smallTableConfig;
-			case 'mediumSmallTableConfig':
+			case 'medium-small':
 				return mediumSmallTableConfig;
 		}
 	}

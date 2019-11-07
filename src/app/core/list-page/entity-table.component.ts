@@ -21,7 +21,7 @@ export interface TableConfig {
 	[key: string]: ColumnConfig;
 }
 
-export type TableConfigType = 'small' | 'medium' | 'big' | 'mediumSmallTableConfig';
+export type TableConfigType = 'small' | 'medium' | 'big' | 'medium-small';
 
 export abstract class EntityTableComponent<T> extends TrackingComponent implements OnInit {
 	/** current selection */
@@ -44,6 +44,7 @@ export abstract class EntityTableComponent<T> extends TrackingComponent implemen
 	@Input() canUpdate = true;
 	@Input() columns = [];
 	@Input() hasMinHeight = true;
+	@Input() rowHeight: number;
 	tableConfig: TableConfig = undefined;
 	columnsConfig: ColumnConfig[] = [];
 	@Output() select = new EventEmitter<any>();
