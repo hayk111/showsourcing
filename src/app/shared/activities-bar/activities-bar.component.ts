@@ -71,6 +71,6 @@ export class ActivitiesBarComponent implements OnInit {
 	}
 
 	get commentCount() {
-		return this.row.comments && this.row.comments.length;
+		return this.row && this.row.comments && this.row.comments.length;
 	}
 }

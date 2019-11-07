@@ -1,6 +1,6 @@
 
 <table-app
-	[placeholder]="'placeholder.no-request-items' | translate"  
+	[placeholder]="'placeholder.no-request-items' | translate"
 	[rows]="rows"
 	[type]="erm.REQUEST_ELEMENT.singular"
 	[currentSort]="currentSort"
@@ -40,7 +40,7 @@
 		[sortable]="column.sortable !== false"
     [width]="column.width"
 		[sortBy]="column.sortProperty">
-		
+
     <ng-container [ngSwitch]="column.name">
 
 			<!-- name -->
