@@ -57,6 +57,10 @@ editable-container-app input, editable-container-app input:focus {
 	height: unset;
 }
 
+form-field-app.editable {
+	padding-bottom: 0px;
+}
+
 form-field-app.borderless {
 	padding-bottom: 0px;
 	padding-top: 16px;

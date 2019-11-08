@@ -1,6 +1,7 @@
 <!-- label -->
 <editable-container-app #editableLabel
 	class="label clickable"
+	[defaultStyle]="false"
 	(closed)="onClose($event)"
 	(opened)="inp1.select()">
 
@@ -33,6 +34,7 @@
 <!-- price -->
 <editable-container-app #editableValue
 	class="value clickable"
+	[defaultStyle]="false"
 	(closed)="onClose($event)"
 	(opened)="inpPrice.select()">
 	<editable-display-app class="fullWidth">
