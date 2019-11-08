@@ -1,6 +1,6 @@
 <header-details-app [headerType]="'details'">
 
-	<header-details-title-app>
+	<header-details-title-app *ngIf="product">
 		<editable-text-app #edt (closed)="updateProductName($event, inpName.value, 'name')" (opened)="inpName.select()">
 			<editable-label-app>
 				{{ product?.name || ('message.unnamed-product' | translate) }}
@@ -11,7 +11,7 @@
 	</header-details-title-app>
 
 
-	<logo-app [logo]="product?.images[0]" size="l" type="product"></logo-app>
+	<logo-app *ngIf="product?.images[0]" [logo]="product?.images[0]" size="l" type="product"></logo-app>
 
 	<header-details-info-app>
 		<div class="flex flexVAlign">
