@@ -205,20 +205,9 @@ button, input[type="submit"], .button {
 		text-transform: capitalize;
 	}
 
-	&.min-width {
-		min-width: 120px;
-	}
-
 	&.small {
 		min-width: 70px;
 		height: 24px;
-	}
-
-	// TODO: Michael is still used ?
-	// wassn't that for some project we had like a year ago ?
-	&.boarding, &.big {
-		height: 40px;
-    min-width: 120px;
 	}
 
 	&:hover, &.cdk-keyboard-focused {
@@ -247,12 +236,13 @@ button, input[type="submit"], .button {
 		}
 	}
 
-	&.icon, &.icon-s, &.icon-m {
+	&.icon, &.icon-s, &.icon-m, &.icon-ms {
 		background: none;
 		font-size: inherit;
 		display: inline-flex;
 		justify-content: center;
 		align-items: center;
+		min-width: unset;
 		border-radius: 0px;
 
 		icon-app {
