@@ -1,6 +1,18 @@
-:host {
+.container {
 	display: flex;
 	background: white;
+	// margin: 0 auto;
+	padding-top: var(--spacing-ms);
+	padding-bottom: var(--spacing-l);
+	padding-left: 300px;
+
+	carousel-app {
+		margin-right: var(--spacing-l);
+	}
+}
+
+.title {
+	margin-bottom: var(--spacing-ms);
 }
 
 .section {

@@ -1,26 +1,43 @@
-<carousel-app>
+<div class="flex container">
+	<carousel-app
+		[entity]="product"
+		[images]="product?.images"
+		[hasPreview]="true">
+	</carousel-app>
 
-</carousel-app>
-
-<div class="flexColumn product-info">
-	<div class="title"></div>
-	<div class="price"></div>
-	<div class="section">
-		<h3>supplier</h3>
-	</div>
-	<div class="section">
-		<h3>category</h3>
-		<editable-display-app>
+	<div class="flexColumn product-info">
+		<div class="title">
+			<h1 class="flexStart">{{product?.name}}</h1>
+			<div class="flex dot-separator">
+				<div>{{product?.samplesLinked.count || 0}} {{product?.samplesLinked.count === 1 ? 'Samples':''}}</div>
+				<div>{{product?.tasksLinked.count || 0}} {{product?.samplesLinked.count === 1 ? 'Tasks':''}}</div>
+				<div>{{product?.comments?.length || 0 }} {{product?.samplesLinked.count === 1 ? 'Comments':''}}</div>
+			</div>
+		</div>
+		<div class="price"></div>
+		<div class="section">
+			<h3>supplier</h3>
+			<editable-display-app>
+			</editable-display-app>
+		</div>
+		<div class="section">
+			<h3>category</h3>
+			<editable-display-app>
+			</editable-display-app>
+		</div>
+		<div class="section">
+			<h3>description</h3>
+			<editable-display-app>
+				<input-description-app
+				*ngIf="product?.description?.length"
+				[description]="product?.description">
+			</input-description-app>
 		</editable-display-app>
 	</div>
 	<div class="section">
-		<h3>description</h3>
-		<input-description-app
-			*ngIf="product?.description?.length"
-			[description]="product?.description">
-		</input-description-app>
-	</div>
-	<div class="section">
 		<h3>tags</h3>
+		<editable-display-app>
+		</editable-display-app>
+		</div>
 	</div>
 </div>
