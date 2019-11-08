@@ -1,30 +1,12 @@
-
-<controller-list-app
-	class="max-full-table-width"
-	[entityType]="erm.TASK.singular"
-	[hasFilter]="true"
-	[hasSwitch]="false"
-	[entityType]="'TASK'"
-	[view]="listSrv.view"
-	[buttonName]="'create task'"
-	[count]="listSrv.count$ | async"
-	(search)="listSrv.search($event)"
-	(showFilters)="listSrv.openFilterPanel()"
-	(showArchived)="listSrv.filterByArchived(true)"
-	(hideArchived)="listSrv.filterByArchived(false)"
-	(showAssigned)="listSrv.filterByAssignee(true)"
-	(hideAssigned)="listSrv.filterByAssignee(false)"
-	(smartSearch)="listSrv.smartSearch($event)"
-	(buttonClick)="openCreationTaskDlg(product)">
-</controller-list-app>
-
+<!-- table -->
 <task-table-app
 	class="no-padding"
 	[rows]="listSrv.items$ | async"
-	tableConfigType="mediumSmallTableConfig"
+	tableConfigType="medium-small"
 	[columns]="['name', 'assigneeDueDate']"
 	[selection]="listSrv.selection$ | async"
 	[pending]="listSrv.pending"
+	[hasMinHeight]="false"
 	[hasHeader]="false"
 	[hasMenu]="false"
 	[hasPagination]="false"
@@ -44,28 +26,19 @@
 	(delete)="listSrv.deleteOne($event, true)">
 </task-table-app>
 
+<!-- preview -->
 <task-preview-app
 	*ngIf="listSrv.previewOpen"
 	[task]="listSrv.previewed"
 	(close)="listSrv.closePreview()">
 </task-preview-app>
 
-<filters-app
-	*ngIf="listSrv.filterPanelOpen"
-	[filterList]="listSrv.filterList"
-	[filterTypes]="filterTypes"
-	(clickOutside)="listSrv.closeFilterPanel()"
-	(close)="listSrv.closeFilterPanel()">
-</filters-app>
-
-
-<selection-bar-app
-	[isShown]="(listSrv.selection$ | async)?.size > 0"
-	[selection]="listSrv.selection$ | async"
-	(close)="listSrv.unselectAll()">
-
-	<button class="icon light" (click)="listSrv.deleteSelected(true)">
-		<icon-app name="trash" size="m"></icon-app>
+<!-- buttons -->
+<div class="flex buttons-container">
+	<button
+		class="flexVAlign"
+		(click)="openCreationTaskDlg(product)">
+		<icon-app class="mg-right-xs" name="plus"></icon-app>
+		Create task
 	</button>
-
-</selection-bar-app>
+</div>
