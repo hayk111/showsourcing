@@ -1,21 +1,8 @@
-
-<controller-list-app
-	class="max-full-table-width"
-	[entityType]="erm.ATTACHMENT.singular"
-	[hasFilter]="false"
-	[hasSwitch]="false"
-	[hasArchived]="false"
-	[hasAssigned]="false"
-	[buttonName]="'Add file'"
-	[view]="listSrv.view"
-	(search)="listSrv.search($event)"
-	(smartSearch)="listSrv.smartSearch($event)"
-	(buttonClick)="table.openFileBrowser()">
-</controller-list-app>
-
+<!-- table -->
 <attachments-table-app
 	#table
 	class="no-padding"
+	[hasMinHeight]="false"
 	[hasHeader]="false"
 	[hasMenu]="false"
 	[hasPagination]="false"
@@ -46,13 +33,15 @@
 	(upload)="listSrv.refetch().subscribe()">
 </attachments-table-app>
 
-<selection-bar-app
-	[isShown]="(listSrv.selection$ | async).size > 0"
-	[selection]="listSrv.selection$ | async"
-	(close)="listSrv.unselectAll()">
-
-	<button class="icon light" (click)="listSrv.deleteSelected()">
-		<icon-app name="trash"></icon-app>
+<!-- buttons -->
+<div class="flex buttons-container">
+	<button	(click)="table.openFileBrowser()">
+		Add file
 	</button>
-
-</selection-bar-app>
+	<button
+		*ngIf="(listSrv.selection$ | async).size > 0"
+		class="warn"
+		(click)="listSrv.deleteSelected(true)">
+		delete
+	</button>
+</div>
