@@ -61,20 +61,14 @@ export class ActivitiesBarComponent implements OnInit {
 	}
 
 	get taskCount() {
-		if (this.row) {
-			return this.row.tasksLinked && this.row.tasksLinked.count;
-		}
+		return this.row && this.row.tasksLinked && this.row.tasksLinked.count;
 	}
 
 	get sampleCount() {
-		if (this.row) {
-			return this.row.samplesLinked && this.row.samplesLinked.count;
-		}
+		return this.row && this.row.samplesLinked && this.row.samplesLinked.count;
 	}
 
 	get commentCount() {
-		if (this.row) {
-			return this.row.comments && this.row.comments.length;
-		}
+		return this.row && this.row.comments && this.row.comments.length;
 	}
 }

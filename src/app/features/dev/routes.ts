@@ -17,7 +17,6 @@ export const routes: Array<Route> = [
 			{ path: 'button', component: Pages.ButtonPageComponent },
 			{ path: 'loader', component: Pages.LoaderPageComponent },
 			{ path: 'icon', component: Pages.IconPageComponent },
-			{ path: 'list', component: Pages.ListPageComponent },
 			{ path: 'card', component: Pages.CardPageComponent },
 			{ path: 'badge', component: Pages.BadgePageComponent },
 			{ path: 'pipes', component: Pages.PipesPageComponent },
