@@ -8,7 +8,11 @@
 		(archive)="onArchive($event)"
 		(supplierRequest)="openSupplierRequest($event)">
 	</product-header-details-app>
-	
+
+	<product-sub-header-details-app
+		[product]="product">
+	</product-sub-header-details-app>
+
 	<div class="flex ctnr">
 		<div class="left">
 			<product-docket-app 
@@ -22,7 +26,7 @@
 </ng-container>
 
 <ng-template #spinner>
-	<div class="spinner-ctnr flexCenter"> 
+	<div class="spinner-ctnr flexCenter">
 		<spinner-app></spinner-app>
 	</div>
 </ng-template>
