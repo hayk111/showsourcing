@@ -230,17 +230,20 @@ button, input[type="submit"], .button {
 	&.icon-s, &.icon {
 		width: 32px;
 		height: 32px;
+		min-width: unset;
 	}
 
 	&.icon-ms {
 		width: 36px;
 		height: 36px;
+		min-width: unset;
 	}
 
 	// when the button is just an icon
 	&.icon-m {
 		width: 40px;
 		height: 40px;
+		min-width: unset;
 
 		icon-app {
 			font-size: var(--font-size-l);

@@ -44,7 +44,7 @@ export class ProductDetailsPageComponent extends AutoUnsub implements OnInit {
 		private dlgSrv: DialogService,
 		private notifSrv: NotificationService,
 		private thumbSrv: ThumbService,
-		public dialogCommonSrv: DialogCommonService,
+		public dlgCommonSrv: DialogCommonService,
 		private translate: TranslateService
 	) {
 		super();
@@ -60,6 +60,7 @@ export class ProductDetailsPageComponent extends AutoUnsub implements OnInit {
 			switchMap(id => this.featureSrv.selectOne(id)),
 			takeUntil(this._destroy$)
 		);
+
 		this.product$.pipe(
 			takeUntil(this._destroy$)
 		).subscribe(
@@ -148,7 +149,7 @@ export class ProductDetailsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	/** update the product */
-	updateProduct(product: any) {
+	updateProduct(product: Product) {
 		this.featureSrv
 			.update({ id: this.product.id, ...product })
 			.subscribe();
