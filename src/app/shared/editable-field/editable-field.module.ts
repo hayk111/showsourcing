@@ -8,7 +8,7 @@ import { InputsModule } from '~shared/inputs/inputs.module';
 import { SelectorsModule } from '~shared/selectors/selectors.module';
 import { UtilsModule } from '~shared/utils/utils.module';
 
-import { EditableContainerDisplayComponent, EditableContainerComponent, EditableFieldComponent } from './components';
+import { EditableDisplayComponent, EditableContainerComponent, EditableFieldComponent } from './components';
 
 // text where when it is clicked an input appears
 @NgModule({
@@ -24,12 +24,12 @@ import { EditableContainerDisplayComponent, EditableContainerComponent, Editable
 	],
 	declarations: [
 		EditableContainerComponent,
-		EditableContainerDisplayComponent,
+		EditableDisplayComponent,
 		EditableFieldComponent
 	],
 	exports: [
 		EditableContainerComponent,
-		EditableContainerDisplayComponent,
+		EditableDisplayComponent,
 		EditableFieldComponent
 	],
 })

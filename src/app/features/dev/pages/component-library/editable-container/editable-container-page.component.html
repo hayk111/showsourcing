@@ -1,0 +1,29 @@
+<card-app>
+	<card-title-app>Editable container</card-title-app>
+
+	<p>
+		Container that displays something and when clicked display something else
+	</p>
+
+	<p>
+		<editable-container-app>
+			<editable-display-app>{{ ctrl1.value }}</editable-display-app>
+			<input name="val1" inputApp [formControl]="ctrl1"/>
+		</editable-container-app>
+	</p>
+
+
+	<h3>Field under this has no value</h3>
+	<editable-container-app>
+		<editable-display-app>{{ ctrl2.value }}</editable-display-app>
+		<input inputApp [formControl]="ctrl2">
+	</editable-container-app>
+
+	<h3>Field under this has no value but has a default </h3>
+	<editable-container-app>
+		<editable-display-app>{{ ctrl3.value || '-' }}</editable-display-app>
+		<input inputApp [formControl]="ctrl3">
+	</editable-container-app>
+
+</card-app>
+

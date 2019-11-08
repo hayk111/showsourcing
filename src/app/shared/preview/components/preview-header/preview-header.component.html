@@ -31,9 +31,9 @@
 	[hoverable]="true"
 	(closed)="updateEntity($event, inpName.value)"
 	(opened)="inpName.select()">
-	<editable-container-display-app class="ellipsis">
+	<editable-display-app class="ellipsis">
 		{{ entity?.name || '-' }}
-	</editable-container-display-app>
+	</editable-display-app>
 	<input
 		inputApp
 		#inpName

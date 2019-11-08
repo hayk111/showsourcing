@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, Output, ContentChild, HostBinding } from '@angular/core';
+import { EditableDisplayComponent } from '../editable-display/editable-display.component';
 
 
 @Component({
@@ -7,7 +8,11 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, In
 	styleUrls: ['./editable-container.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
-		'[class.open]': 'isOpen'
+		'[class.open]': 'isOpen',
+		'[class.clickable]': 'true',
+		// TODO we need to refactor the editable module a bit so we don't need this.
+		// it's actually only he editable field that does need this
+		'[class.default]': 'defaultStyle'
 	}
 })
 export class EditableContainerComponent {
@@ -18,8 +23,11 @@ export class EditableContainerComponent {
 	@Input() hoverable = false;
 	/** whether we display cancel / save buttons */
 	@Input() hasAction = true;
+	/** it has a default padding and height by default, we don't want it in some cases (editable field) */
+	@Input() defaultStyle = true;
 	@Output() opened = new EventEmitter<null>();
 	@Output() closed = new EventEmitter<boolean>();
+	@ContentChild(EditableDisplayComponent, { static: true }) display: EditableDisplayComponent;
 
 	constructor(private cd: ChangeDetectorRef) { }
 

@@ -174,12 +174,12 @@
 					[hasAction]="false"
 					(opened)="inp.focus()"
 					(closed)="update.emit({ id: row.id, price: inp.price })">
-					<editable-container-display-app [ngClass]="{ 'empty-field': row?.price }">
+					<editable-display-app [ngClass]="{ 'empty-field': row?.price }">
 						<price-app
 							class="full-width"
 							[price]="row?.price">
 						</price-app>
-					</editable-container-display-app>
+					</editable-display-app>
 					<input-price-app
 						#inp
 						(keyup.enter)="editable.close()"
@@ -195,14 +195,14 @@
           [hasAction]="false"
           (opened)="inp.focus()"
           (closed)="update.emit({ id: row.id, minimumOrderQuantity: inp.value })">
-          <editable-container-display-app [ngClass]="{ 'empty-field': row?.price }">
+          <editable-display-app [ngClass]="{ 'empty-field': row?.price }">
             <moq-app
               *ngIf="row?.minimumOrderQuantity"
 							[moq]="row?.minimumOrderQuantity"
 							[moqDescription]="row?.moqDescription">
             </moq-app>
 						<div *ngIf="!row?.minimumOrderQuantity">-</div>
-          </editable-container-display-app>
+          </editable-display-app>
           <input #inp inputApp type="number" [value]="row?.minimumOrderQuantity" (keyup.enter)="editable.close()"/>
         </editable-container-app>
       </ng-container>

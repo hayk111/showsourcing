@@ -3,42 +3,42 @@
 
 	<editable-field-app class="no-hover" [openOnClick]="false">
 		<label-app translate="header.sent-to"></label-app>
-		<editable-container-display-app>
+		<editable-display-app>
 			{{ request?.recipient?.name }}
-		</editable-container-display-app>
+		</editable-display-app>
 	</editable-field-app>
 
 	<editable-field-app class="no-hover" [openOnClick]="false">
 		<label-app translate="header.supplier"></label-app>
-		<editable-container-display-app>
+		<editable-display-app>
 			{{ request?.recipient?.company }}
-		</editable-container-display-app>
+		</editable-display-app>
 	</editable-field-app>
 
 	<editable-field-app class="no-hover" [openOnClick]="false">
 		<label-app translate="header.sent-on"></label-app>
-		<editable-container-display-app>
+		<editable-display-app>
 			{{ 'OBJ.date-at-time' | translate : { date: (request?.creationDate | date: 'dd MMMM yyyy':'':translate.currentLang) , time : (request?.creationDate | date: 'HH:mm':'':translate.currentLang) } }}
-		</editable-container-display-app>
+		</editable-display-app>
 	</editable-field-app>
 
 	<editable-field-app class="no-hover" [openOnClick]="false">
 		<label-app translate="header.sent-by"></label-app>
-		<editable-container-display-app>
+		<editable-display-app>
 			{{ request?.sender?.name }}
-		</editable-container-display-app>
+		</editable-display-app>
 	</editable-field-app>
 	<editable-field-app class="no-hover" [openOnClick]="false">
 		<label-app translate="header.template"></label-app>
-		<editable-container-display-app>
+		<editable-display-app>
 			{{ request?.templateName }}
-		</editable-container-display-app>
+		</editable-display-app>
 	</editable-field-app>
 
 	<editable-field-app class="no-hover" [openOnClick]="false">
 		<label-app translate="header.status"></label-app>
-		<editable-container-display-app>
+		<editable-display-app>
 			{{ 'const.statusRequestTeam.' + request?.status | translate }}
-		</editable-container-display-app>
+		</editable-display-app>
 	</editable-field-app>
 </card-app>

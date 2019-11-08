@@ -33,10 +33,10 @@
 					#editable
 					[openOnClick]="status?.step !== 0"
 					(opened)="inp.focus()" (closed)="onEditableClose($event, inp.value, status)">
-					<editable-container-display-app [ngClass]="{ 'no-hover': status.step == 0 }">
+					<editable-display-app [ngClass]="{ 'no-hover': status.step == 0 }">
 						{{ 'text.' + status.name | translate }}
 						<button *ngIf="status?.step !== 0" class="ugly-btn" translate="button.rename"></button>
-					</editable-container-display-app>
+					</editable-display-app>
 					<input #inp inputApp type="text" [value]="status?.name" (keyup.enter)="editable.close()"/>
 				</editable-container-app>
 			</div>

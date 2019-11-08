@@ -1,6 +1,11 @@
 :host {
-	display: block;
+	display: flex;
+	align-items: center;
 	width: 100%;
+	&.default {
+		margin-left: -8px;
+		padding: 6px 8px;
+	}
 }
 
 .labelCtnr {
@@ -26,10 +31,10 @@
 		align-items: center;
 		justify-content: center;
 		&.save{
-			background: var(--legacy-color-primary);
+			background: var(--color-primary);
 		}
 		&.cancel {
-			background: var(--legacy-color-secondary-dark);
+			background: var(--color-secondary);
 		}
 	}
 	.confirmIconSave {

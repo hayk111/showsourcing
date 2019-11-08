@@ -2,10 +2,10 @@
 	<div class="flexBetween editablePrice">
 		<!-- value -->
 		<editable-container-app #editable1 (closed)="onClose($event)" (opened)="onOpen()">
-			<editable-container-display-app>
+			<editable-display-app>
 				<span>{{ currency | const : 'currency' : 'symbol'}} </span>
 				<span>{{ amount !== undefined ? amount : '-' }}</span>
-			</editable-container-display-app>
+			</editable-display-app>
 
 
 			<ng-container>

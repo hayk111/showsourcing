@@ -10,13 +10,13 @@
 		[canGrow]="true"
 		(click)="openDescModal()">
 		<label-app class="capitalize" translate="text.description"></label-app>
-		<editable-container-display-app
+		<editable-display-app
 			*ngIf="description?.length && description"
 			[disabled]="true"
 			class="fs-m">
 			{{ (description?.length && description)  }}
-		</editable-container-display-app>
-		<editable-container-display-app
+		</editable-display-app>
+		<editable-display-app
 			*ngIf="!(description?.length && description)"
 			[disabled]="true"
 			class="fullWidth fs-m">
@@ -25,7 +25,7 @@
 				[ngStyle]="{'width': isSmall ? '30%' : '100%'}"
 				translate="text.add-description">
 			</button>
-		</editable-container-display-app>
+		</editable-display-app>
 		<textarea inputApp #inpDescription autofocus="true"
 			class="fullWidth"
 			[value]="description || ''"

@@ -38,9 +38,9 @@
 				#editable
 				(closed)="updateNameEntity($event, row, txtName?.value)"
 				[hasAction]="true">
-        <editable-container-display-app class="task-name">
+        <editable-display-app class="task-name">
           {{ row?.name }}
-        </editable-container-display-app>
+        </editable-display-app>
         <input inputApp #txtName [value]="row?.name || ''" (keyup.enter)="editable.close()">
       </editable-container-app>
 			<!-- <button *ngIf="(row.id === idEntityHovered) && (selection.size == 0)"  class="button secondary-dark" (click)="renameEntity.emit(row)">Rename</button> -->
@@ -57,9 +57,9 @@
 		<div class="flexBetween">
 			<!-- remember that we take the name inside the even description entity -->
       <editable-container-app #editable (closed)="updateNameEntity($event, row, txtName?.value, 'description')" [hasAction]="true">
-        <editable-container-display-app class="task-name">
+        <editable-display-app class="task-name">
           {{ row?.description?.name }}
-        </editable-container-display-app>
+        </editable-display-app>
         <input inputApp class="task-name" #txtName [value]="row?.description?.name || ''">
       </editable-container-app>
 			<!-- <button *ngIf="(row.id === idEntityHovered) && (selection.size == 0)"  class="button secondary-dark" (click)="renameEntity.emit(row)">Rename</button> -->

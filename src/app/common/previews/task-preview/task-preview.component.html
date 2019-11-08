@@ -42,12 +42,12 @@
 				<editable-field-app #editable [hasAction]="false" [inlineLabel]="false"
 					(opened)="inpDueDate.select()" [canGrow]="true">
 					<label-app translate="label.due-date"></label-app>
-					<editable-container-display-app>
+					<editable-display-app>
 						<ng-container *ngIf="task?.dueDate; else selectDue">{{ (task?.dueDate | date:'dd-MM-yyyy':'':translate.currentLang) }}</ng-container>
 						<ng-template #selectDue>
 							{{'label.select-due-date' | translate}}
 						</ng-template>
-					</editable-container-display-app>
+					</editable-display-app>
 					<form-field-app>
 						<input inputApp #inpDueDate autofocus="true" [value]="task?.dueDate ? (task?.dueDate | date:'yyyy-MM-dd':'':translate.currentLang) : ''" type="date"
 						(keyup.enter)="updateDueDate(false, inpDueDate.value)" (change)="updateDueDate(false, $event.target.value)"/>
@@ -65,12 +65,12 @@
 					<editable-field-app
 						#editable [hasAction]="false" [inlineLabel]="false" [canGrow]="true" [openOnClick]="false">
 						<label-app translate="label.assigned-to"></label-app>
-						<editable-container-display-app class="flex">
+						<editable-display-app class="flex">
 							<user-picture-app
 								[user]="task?.assignee" [size]="16" [border]="true">
 							</user-picture-app>
 							{{ task?.assignee?.firstName }} {{ task?.assignee?.lastName ? task?.assignee?.lastName[0] : ''}}
-						</editable-container-display-app>
+						</editable-display-app>
 					</editable-field-app>
 				</selector-app>
 			</div>
