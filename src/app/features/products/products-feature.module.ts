@@ -13,8 +13,10 @@ import { NavBarModule } from '~shared/navbar';
 import { SharedModule } from '~shared/shared.module';
 
 import * as DetailsPage from './pages/product-details';
+import {
+	ProductSubHeaderDetailsComponent,
+} from './pages/product-details/components/product-sub-header-details/product-sub-header-details.component';
 import * as TablePage from './pages/products';
-
 import { ProductFeatureService, QuoteFeatureService } from './services';
 
 
@@ -42,6 +44,8 @@ import { ProductFeatureService, QuoteFeatureService } from './services';
 		DetailsPage.TasksPageComponent,
 		DetailsPage.RequestsPageComponent,
 		DetailsPage.ProductHeaderDetailsComponent,
+		DetailsPage.ProductDetailsPageComponent,
+		ProductSubHeaderDetailsComponent,
 		TablePage.ProductsPageComponent,
 	],
 	entryComponents: [],

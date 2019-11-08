@@ -1,0 +1,10 @@
+:host {
+	display: flex;
+	background: white;
+}
+
+.section {
+	&:not(.mg-none), h3 {
+		margin-bottom: var(--spacing-ms);
+	}
+}

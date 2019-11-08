@@ -1,0 +1,26 @@
+<carousel-app>
+
+</carousel-app>
+
+<div class="flexColumn product-info">
+	<div class="title"></div>
+	<div class="price"></div>
+	<div class="section">
+		<h3>supplier</h3>
+	</div>
+	<div class="section">
+		<h3>category</h3>
+		<editable-display-app>
+		</editable-display-app>
+	</div>
+	<div class="section">
+		<h3>description</h3>
+		<input-description-app
+			*ngIf="product?.description?.length"
+			[description]="product?.description">
+		</input-description-app>
+	</div>
+	<div class="section">
+		<h3>tags</h3>
+	</div>
+</div>
