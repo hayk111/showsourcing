@@ -34,15 +34,15 @@
 		width="250">
 		<div class="flexBetween ellipsis">
       <!-- <div> {{ row.name }} </div> -->
-			<editable-text-app
+			<editable-container-app
 				#editable
 				(closed)="updateNameEntity($event, row, txtName?.value)"
 				[hasAction]="true">
-        <editable-label-app class="task-name">
+        <editable-display-app class="task-name">
           {{ row?.name }}
-        </editable-label-app>
+        </editable-display-app>
         <input inputApp #txtName [value]="row?.name || ''" (keyup.enter)="editable.close()">
-      </editable-text-app>
+      </editable-container-app>
 			<!-- <button *ngIf="(row.id === idEntityHovered) && (selection.size == 0)"  class="button secondary-dark" (click)="renameEntity.emit(row)">Rename</button> -->
 		</div>
 	</ng-template>
@@ -56,12 +56,12 @@
 		sortBy="description.name">
 		<div class="flexBetween">
 			<!-- remember that we take the name inside the even description entity -->
-      <editable-text-app #editable (closed)="updateNameEntity($event, row, txtName?.value, 'description')" [hasAction]="true">
-        <editable-label-app class="task-name">
+      <editable-container-app #editable (closed)="updateNameEntity($event, row, txtName?.value, 'description')" [hasAction]="true">
+        <editable-display-app class="task-name">
           {{ row?.description?.name }}
-        </editable-label-app>
+        </editable-display-app>
         <input inputApp class="task-name" #txtName [value]="row?.description?.name || ''">
-      </editable-text-app>
+      </editable-container-app>
 			<!-- <button *ngIf="(row.id === idEntityHovered) && (selection.size == 0)"  class="button secondary-dark" (click)="renameEntity.emit(row)">Rename</button> -->
 		</div>
 	</ng-template>

@@ -1,12 +1,12 @@
 <header-details-app [headerType]="'details'">
 
 	<header-details-title-app *ngIf="product">
-		<editable-text-app #edt (closed)="updateProductName($event, inpName.value, 'name')" (opened)="inpName.select()">
-			<editable-label-app>
+		<editable-container-app #edt (closed)="updateProductName($event, inpName.value, 'name')" (opened)="inpName.select()">
+			<editable-display-app>
 				{{ product?.name || ('message.unnamed-product' | translate) }}
-			</editable-label-app>
+			</editable-display-app>
 			<input inputApp type="text" #inpName [value]="product?.name" (keyup.enter)="edt.close()">
-		</editable-text-app>
+		</editable-container-app>
 		<!-- {{ product?.name || ('message.unnamed-product' | translate) }} -->
 	</header-details-title-app>
 

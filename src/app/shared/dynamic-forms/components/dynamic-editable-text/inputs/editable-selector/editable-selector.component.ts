@@ -9,7 +9,7 @@ import {
 	ViewChild,
 } from '@angular/core';
 import { ERM } from '~core/models';
-import { EditableTextComponent } from '~shared/editable-field';
+import { EditableContainerComponent } from '~shared/editable-field';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 import { ID } from '~utils';
 import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
@@ -45,7 +45,7 @@ export class EditableSelectorComponent extends AbstractInput {
 	@Output() closed = new EventEmitter();
 	@Output() change = new EventEmitter<any>();
 	@Output() blur = new EventEmitter<null>();
-	@ViewChild('editable', { static: false }) editable: EditableTextComponent;
+	@ViewChild('editable', { static: false }) editable: EditableContainerComponent;
 	@ViewChild('selector', { static: false }) selector: any;
 	@ViewChild('oneValueLabel', { static: true }) oneLabel: TemplateRef<any>;
 	@ViewChild('multipleValuesLabel', { static: true }) manyLabel: TemplateRef<any>;

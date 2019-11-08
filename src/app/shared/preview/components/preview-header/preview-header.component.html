@@ -25,22 +25,22 @@
 </div>
 
 <!-- Title name -->
-<editable-text-app
+<editable-container-app
 	#edt
-	class="{{ displayEntityInfo ? '' : 'pd-top-none' }}"
+	class="{{ displayEntityInfo ? '' : 'pd-top-none' }} custom-padding"
 	[hoverable]="true"
 	(closed)="updateEntity($event, inpName.value)"
 	(opened)="inpName.select()">
-	<editable-label-app class="ellipsis">
+	<editable-display-app class="ellipsis">
 		{{ entity?.name || '-' }}
-	</editable-label-app>
+	</editable-display-app>
 	<input
 		inputApp
 		#inpName
 		type="text"
 		[value]="entity?.name"
 		(keyup.enter)="edt.close()"/>
-</editable-text-app>
+</editable-container-app>
 
 <div class="custom-padding">
 	<ng-content select=".custom-padding"></ng-content>

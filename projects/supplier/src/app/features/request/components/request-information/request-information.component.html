@@ -2,29 +2,29 @@
 	<h3 class="l" translate="header.request-information"></h3>
 	<editable-field-app class="no-hover" [openOnClick]="false">
 		<label-app translate="label.received-from"></label-app>
-		<editable-label-app>
+		<editable-display-app>
 			{{ request?.sender?.name }}
-		</editable-label-app>
+		</editable-display-app>
 	</editable-field-app>
 
 	<editable-field-app class="no-hover" [openOnClick]="false">
 		<label-app translate="label.sent-on"></label-app>
-		<editable-label-app>
+		<editable-display-app>
 			{{ 'OBJ.date-at-time' | translate : { date: (request?.creationDate | date: 'dd MMMM yyyy':'':translate.currentLang) , time: (request?.creationDate | date: 'HH:mm':'':translate.currentLang)  } }}
-		</editable-label-app>
+		</editable-display-app>
 	</editable-field-app>
 
 	<!-- <editable-field-app class="no-hover" [openOnClick]="false">
 		<label-app>Sent By</label-app>
-		<editable-label-app>
+		<editable-display-app>
 			{{ request?.sender?.name }}
-		</editable-label-app>
+		</editable-display-app>
 	</editable-field-app> -->
 
 	<editable-field-app class="no-hover" [openOnClick]="false">
 		<label-app translate="label.status"></label-app>
-		<editable-label-app>
+		<editable-display-app>
 			{{ 'const.statusRequestSupplier.' + request?.status | translate }}
-		</editable-label-app>
+		</editable-display-app>
 	</editable-field-app>
 </card-app>

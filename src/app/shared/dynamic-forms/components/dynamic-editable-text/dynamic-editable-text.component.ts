@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { DynamicField } from '~shared/dynamic-forms/models';
 import { DynamicUpdate } from '~shared/dynamic-forms/models/dynamic-update.interface';
-import { EditableTextComponent } from '~shared/editable-field';
+import { EditableContainerComponent } from '~shared/editable-field';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 import { TranslateService } from '@ngx-translate/core';
 import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
@@ -21,7 +21,7 @@ import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-con
  * in case the user cancels.
  */
 @Component({
-	selector: 'dynamic-editable-text-app',
+	selector: 'dynamic-editable-container-app',
 	templateUrl: './dynamic-editable-text.component.html',
 	styleUrls: ['./dynamic-editable-text.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -50,7 +50,7 @@ export class DynamicEditableTextComponent extends AbstractInput {
 	@Output() blur = new EventEmitter<null>();
 	@Output() update = new EventEmitter<DynamicUpdate>();
 	/** editable field ref, used to close it programmatically */
-	@ViewChild('editable', { static: false }) editable: EditableTextComponent;
+	@ViewChild('editable', { static: false }) editable: EditableContainerComponent;
 	/** accumulates what the user types in input and if he doesn't press cancel we save it */
 	accumulator: any;
 	/** whenever someone cancels an input this flag goes true */
@@ -106,7 +106,7 @@ export class DynamicEditableTextComponent extends AbstractInput {
 	 */
 	toggleValue(event) {
 		// since the radio-app already handles click, what this part handles
-		// is the click on the editable-text-app, since the radio is inside the editable, we have to check
+		// is the click on the editable-container-app, since the radio is inside the editable, we have to check
 		// that the target type is not radio, that means that we are not clicking the radio component but outside
 		if (event && event.target.type !== 'radio') {
 			this.accumulator = !this.accumulator;

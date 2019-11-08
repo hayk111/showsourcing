@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, ViewChild, Output, EventEmitter, ElementRef } from '@angular/core';
-import { EditableTextComponent } from '~shared/editable-field/components/editable-text/editable-text.component';
+import { EditableContainerComponent } from '~shared/editable-field/components/editable-container/editable-container.component';
 import { Supplier } from '~models';
 
 @Component({
@@ -10,7 +10,7 @@ import { Supplier } from '~models';
 })
 export class SupplierDescriptionComponent {
 	@Input() supplier;
-	@ViewChild(EditableTextComponent) editable: EditableTextComponent;
+	@ViewChild(EditableContainerComponent) editable: EditableContainerComponent;
 	@ViewChild('txt') textarea: ElementRef;
 	@Output() update = new EventEmitter<Supplier>();
 
