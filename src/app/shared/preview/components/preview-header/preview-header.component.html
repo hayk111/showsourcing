@@ -27,7 +27,7 @@
 <!-- Title name -->
 <editable-container-app
 	#edt
-	class="{{ displayEntityInfo ? '' : 'pd-top-none' }}"
+	class="{{ displayEntityInfo ? '' : 'pd-top-none' }} custom-padding"
 	[hoverable]="true"
 	(closed)="updateEntity($event, inpName.value)"
 	(opened)="inpName.select()">
