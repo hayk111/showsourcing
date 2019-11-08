@@ -13,6 +13,7 @@
 	[hasMenu]="hasMenu"
 	[hasHeader]="hasHeader"
 	[placeholder]="'placeholder.no-sample' | translate"
+	[rowHeight]="rowHeight"
 	(goToPage)="goToPage.emit($event)"
 	(selectOne)="select.emit($event)"
 	(unselectOne)="unselect.emit($event)"
@@ -46,7 +47,7 @@
 
     <ng-container [ngSwitch]="column.name">
 			<!-- name -->
-			<ng-container *ngSwitchCase="'name'">
+			<ng-container *ngSwitchCase="'icon name'">
 				<div class="ellipsis name-container contain-strict">
 					<div class="ellipsis">
 						<div class="preview-icon" (click)="previewClick.emit(row)">
@@ -69,6 +70,20 @@
 						<div class="sample-name-ref">
 							{{ row.name || '-' }}
 						</div>
+					</div>
+				</div>
+			</ng-container>
+
+			<!-- name + reference -->
+			<ng-container *ngSwitchCase="'reference name'">
+				<div class="flex">
+					<span class="sample-ref ellipsis mg-right-ms">
+						<a class="name txt-btn" (click)="previewClick.emit(row)">
+							{{ row.reference || '-' }}
+						</a>
+					</span>
+					<div class="sample-name-ref txt-btn" (click)="previewClick.emit(row)">
+						{{ row.name || '-' }}
 					</div>
 				</div>
 			</ng-container>
@@ -170,6 +185,14 @@
 			<!-- created by -->
 			<ng-container *ngSwitchCase="'created by'">
 				<span class="created-by">{{ row?.createdBy | formatUserName: true }}</span>
+			</ng-container>
+
+			<!-- status + creation date -->
+			<ng-container *ngSwitchCase="'status creation date'">
+				<div class="flexVAlign flexEnd status-creation">
+					<status-selector-app size="s" [entity]="row" [typeEntity]="erm.SAMPLE"></status-selector-app>
+					<div>{{ row?.creationDate | date: 'dd MMMM y':'':translate.currentLang }}</div>
+				</div>
 			</ng-container>
 
 		</ng-container>

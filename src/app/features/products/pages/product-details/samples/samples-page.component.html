@@ -1,32 +1,17 @@
-<controller-list-app
-	class="max-full-table-width"
-	buttonName="create sample"
-	[entityType]="erm.SAMPLE.singular"
-	[hasFilter]="true"
-	[hasSwitch]="false"
-	[count]="listSrv.count$ | async"
-	[entityType]="'SAMPLE'"
-	[view]="listSrv.view"
-	(showFilters)="listSrv.openFilterPanel()"
-	(showArchived)="listSrv.filterByArchived(true)"
-	(hideArchived)="listSrv.filterByArchived(false)"
-	(showAssigned)="listSrv.filterByAssignee(true)"
-	(hideAssigned)="listSrv.filterByAssignee(false)"
-	(search)="listSrv.search($event)"
-	(smartSearch)="listSrv.smartSearch($event)"
-	(export)="dialogCommonSrv.openExportDialog()"
-	(buttonClick)="dialogCommonSrv.openCreationSampleDialog(product)">
-</controller-list-app>
-
+<!-- table -->
 <samples-table-app
-	class="max-full-table-width"
+	class="no-padding"
 	[rows]="listSrv.items$ | async"
+	tableConfigType="medium"
+	[columns]="['referenceName', 'statusCreationDate']"
 	[selection]="listSrv.selection$ | async"
 	[hasRequestCount]="true"
 	[pending]="listSrv.pending"
-	[count]="listSrv.count$ | async"
-	[currentPage]="listSrv.currentPage"
-	(goToPage)="listSrv.loadPage($event)"
+	[hasMinHeight]="false"
+	[hasHeader]="false"
+	[hasMenu]="false"
+	[hasPagination]="false"
+	[rowHeight]="34"
 	(sort)="listSrv.sort($event)"
 	(select)="listSrv.selectOne($event, true)"
 	(unselect)="listSrv.unselectOne($event, true)"
@@ -41,31 +26,26 @@
 	(delete)="listSrv.deleteOne($event)">
 </samples-table-app>
 
+<!-- buttons -->
+<div class="flex buttons-container">
+	<button
+		class="flexVAlign"
+		(click)="dialogCommonSrv.openCreationSampleDialog(product)">
+		<icon-app class="mg-right-xs" name="plus"></icon-app>
+		Create sample
+	</button>
+	<button
+		*ngIf="(listSrv.selection$ | async).size > 0"
+		class="warn"
+		(click)="listSrv.deleteSelected(true)">
+		delete
+	</button>
+</div>
 
+<!-- preview -->
 <sample-preview-app
 	*ngIf="listSrv.previewOpen"
 	[sample]="listSrv.previewed"
 	(close)="listSrv.closePreview()"
 	(clickOutside)="listSrv.closePreview()">
 </sample-preview-app>
-
-
-<filters-app
-	*ngIf="listSrv.filterPanelOpen"
-	[filterList]="listSrv.filterList"
-	[filterTypes]="filterTypes"
-	(clickOutside)="listSrv.closeFilterPanel()"
-	(close)="listSrv.closeFilterPanel()">
-</filters-app>
-
-
-<selection-bar-app
-	[isShown]="(listSrv.selection$ | async).size > 0"
-	[selection]="listSrv.selection$ | async"
-	(close)="listSrv.unselectAll()">
-
-	<button class="icon light" (click)="listSrv.deleteSelected()">
-		<icon-app name="trash"></icon-app>
-	</button>
-
-</selection-bar-app>

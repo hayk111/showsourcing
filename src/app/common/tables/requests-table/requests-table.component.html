@@ -2,6 +2,11 @@
 	class="borderless"
 	[rows]="rows"
 	[type]="erm.SUPPLIER_REQUEST.singular"
+	[rowHeight]="rowHeight"
+	[hasHeader]="hasHeader"
+	[hasMenu]="hasMenu"
+	[hasSelection]="hasSelection"
+	[hasPagination]="hasPagination"
 	[pending]="pending"
 	[selected]="selection"
 	[placeholder]="'placeholder.no-requests' | translate"
@@ -13,6 +18,7 @@
 	(selectAll)="selectAll.emit($event)"
 	(selectOne)="select.emit($event)"
 	(sort)="sort.emit($event)"
+	(createClick)="createClick.emit()"
 	(unselectAll)="unselectAll.emit()"
 	(unselectOne)="unselect.emit($event)">
 
@@ -35,6 +41,7 @@
 			[sortBy]="column.sortProperty">
 			<ng-container [ngSwitch]="column.name">
 
+				<!-- title  -->
 				<ng-container *ngSwitchCase="'title'">
 					<div class="mainCell ellipsis">
 						<!-- <img-app
@@ -51,30 +58,35 @@
 					</div>
 				</ng-container>
 
+				<!-- type -->
 				<ng-container *ngSwitchCase="'type'">
 					<div class="capitalize ellipsis">
 						{{ row?.templateName }}
 					</div>
 				</ng-container>
 
+				<!-- supplier (recipient company) -->
 				<ng-container *ngSwitchCase="'supplier'">
 					<div class="ellipsis">
 						{{ row?.recipient?.company }}
 					</div>
 				</ng-container>
 
+				<!-- sent to -->
 				<ng-container *ngSwitchCase="'sent to'">
 					<div class="capitalize ellipsis">
 						{{ row?.recipient?.name }}
 					</div>
 				</ng-container>
 
+				<!-- number requests -->
 				<ng-container *ngSwitchCase="'number requests'">
 					<div class="fs-l color-black bold-s">
 						{{ row?.requestElements?.length }}
 					</div>
 				</ng-container>
 
+				<!-- status -->
 				<ng-container *ngSwitchCase="'status'">
 					<request-status-badge-app
 						[status]="row?.status"
@@ -82,15 +94,31 @@
 					</request-status-badge-app>
 				</ng-container>
 
+				<!-- sent on -->
 				<ng-container *ngSwitchCase="'sent on'">
 					<div class="capitalize">
 						{{ row?.sentDate | date: 'dd MMM yyyy':'':translate.currentLang }}
 					</div>
 				</ng-container>
 
+				<!-- sender -->
 				<ng-container *ngSwitchCase="'sender'">
 					<div class="capitalize ellipsis">
 						{{ row?.sender?.name }}
+					</div>
+				</ng-container>
+
+				<!-- status + template name + create info -->
+				<ng-container *ngSwitchCase="'status templateName createInfo'">
+					<div class="flexEnd flexVAlign dot-separator flexGrow">
+						<request-status-badge-app size="s" [status]="row?.status"></request-status-badge-app>
+						<div>{{ row?.templateName }}</div>
+						<div class="capitalize">
+							{{ row?.sender?.name }}
+						</div>
+						<div class="capitalize">
+							{{ row?.sentDate | date: 'dd MMM yyyy':'':translate.currentLang }}
+						</div>
 					</div>
 				</ng-container>
 

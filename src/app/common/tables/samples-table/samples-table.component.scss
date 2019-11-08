@@ -130,3 +130,7 @@
 	color: var(--color-txt-secondary);
 	font-weight: normal;
 }
+
+.status-creation > *:not(:last-child) {
+ margin-right: var(--spacing-ms);
+}
