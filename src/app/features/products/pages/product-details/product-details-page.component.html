@@ -1,9 +1,9 @@
 
-<ng-container *ngIf="product$ | async; else spinner">
+<ng-container *ngIf="product$ | async as product; else spinner">
 	<product-header-details-app
 		[product]="product"
 		(update)="updateProduct($event)"
-		(export)="dialogCommonSrv.openExportDialog([$event])"
+		(export)="dlgCommonSrv.openExportDialog([$event])"
 		(delete)="deleteProduct($event)"
 		(archive)="onArchive($event)"
 		(supplierRequest)="openSupplierRequest($event)">
@@ -11,7 +11,11 @@
 	
 	<div class="flex ctnr">
 		<div class="left">
-			<product-docket-app></product-docket-app>
+			<product-docket-app 
+				[product]="product"
+				(update)="updateProduct($event)"
+				(addTask)="dlgCommonSrv.openCreationTaskDlg(product)"
+				(addSample)="dlgCommonSrv.openCreationSampleDialog(product)"></product-docket-app>
 		</div>
 		<product-main-app class="right"></product-main-app>
 	</div>
