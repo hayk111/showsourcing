@@ -32,7 +32,8 @@ import { RequestElementService } from '~core/entity-services';
 export class ProductDetailsPageComponent extends AutoUnsub implements OnInit {
 	@Input() requestCount: number;
 	product: Product;
-	requestCount$: Observable<number>;
+	product$: Observable<Product>;
+
 	/** projects for this product */
 	typeEntity = ERM.PRODUCT;
 	tabs: { name: string, number$?: Observable<number> }[];
@@ -44,9 +45,8 @@ export class ProductDetailsPageComponent extends AutoUnsub implements OnInit {
 		private dlgSrv: DialogService,
 		private notifSrv: NotificationService,
 		private thumbSrv: ThumbService,
-		public dialogCommonSrv: DialogCommonService,
-		private translate: TranslateService,
-		private reqElemSrv: RequestElementService
+		public dlgCommonSrv: DialogCommonService,
+		private translate: TranslateService
 	) {
 		super();
 	}
@@ -57,16 +57,16 @@ export class ProductDetailsPageComponent extends AutoUnsub implements OnInit {
 			takeUntil(this._destroy$)
 		);
 
-		id$.pipe(
+		this.product$ = id$.pipe(
 			switchMap(id => this.featureSrv.selectOne(id)),
+			takeUntil(this._destroy$)
+		);
+
+		this.product$.pipe(
 			takeUntil(this._destroy$)
 		).subscribe(
 			product => this.onProduct(product),
 			err => this.onError(err)
-		);
-
-		this.requestCount$ = id$.pipe(
-			switchMap(id => this.reqElemSrv.queryCount(`targetedEntityType == "Product" && targetId == "${id}"`))
 		);
 
 	}
@@ -150,7 +150,7 @@ export class ProductDetailsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	/** update the product */
-	updateProduct(product: any) {
+	updateProduct(product: Product) {
 		this.featureSrv
 			.update({ id: this.product.id, ...product })
 			.subscribe();

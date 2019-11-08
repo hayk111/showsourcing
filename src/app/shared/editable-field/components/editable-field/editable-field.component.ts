@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, Output, ViewChild } from '@angular/core';
-import { EditableTextComponent } from '~shared/editable-field/components/editable-text/editable-text.component';
+import { EditableContainerComponent } from '~shared/editable-field/components/editable-container/editable-container.component';
 
 @Component({
 	selector: 'editable-field-app',
@@ -35,7 +35,7 @@ export class EditableFieldComponent {
 	@Output() opened = new EventEmitter<null>();
 	@Output() closed = new EventEmitter<boolean>();
 
-	@ViewChild(EditableTextComponent, { static: true }) editable: EditableTextComponent;
+	@ViewChild(EditableContainerComponent, { static: true }) editable: EditableContainerComponent;
 	isOpen = false;
 
 

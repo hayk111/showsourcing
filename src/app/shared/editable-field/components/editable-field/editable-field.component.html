@@ -9,15 +9,16 @@
 
   <!-- editable part -->
   <div class="content ellipsis">
-    <editable-text-app
+    <editable-container-app
       [hasAction]="hasAction"
-      [openOnClick]="openOnClick"
+			[openOnClick]="openOnClick"
+			[defaultStyle]="false"
       (closed)="onClosed($event)"
       (opened)="onOpened()">
       <!-- using ngProjectAs so it's caught by the nested ng-content select -->
-      <ng-content select="editable-label-app" ngProjectAs="editable-label-app"></ng-content>
+      <ng-content select="editable-display-app" ngProjectAs="editable-display-app"></ng-content>
       <ng-content></ng-content>
-    </editable-text-app>
+    </editable-container-app>
   </div>
 
 </div>

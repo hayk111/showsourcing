@@ -1,37 +1,28 @@
-<product-header-details-app
-	[product]="product"
-	[requestCount]="requestCount$"
-	(update)="updateProduct($event)"
-	(export)="dialogCommonSrv.openExportDialog([$event])"
-	(delete)="deleteProduct($event)"
-	(archive)="onArchive($event)"
-	(supplierRequest)="openSupplierRequest($event)">
-</product-header-details-app>
 
-<div class="content flex">
-	<product-preview-app
-		*ngIf="product"
-		class="left mg-l"
-		[isPreview]="false"
-		[product]="product">
-	</product-preview-app>
-	<div class="right mg-l">
-		<nav-app class="pd-left-l pd-top-l">
-			<nav-item-app link="./activity" icon="activity" [name]="'nav.activity' | translate"></nav-item-app>
-
-			<nav-item-app link="./info" icon="product" [name]="'nav.product-details' | translate"></nav-item-app>
-
-			<nav-item-app link="./files" icon="files" [name]="'nav.files' | translate"></nav-item-app>
-
-			<nav-item-app link="./samples" icon="sample" [name]="'nav.samples' | translate" [hasBadge]="hasBadge('samples')"></nav-item-app>
-
-			<nav-item-app link="./tasks" icon="check-circle" [name]="'nav.tasks' | translate" [hasBadge]="hasBadge('tasks')"></nav-item-app>
-
-			<nav-item-app link="./requests" icon="envelope" [name]="'nav.requests' | translate" [hasBadge]="hasBadge('requests')"></nav-item-app>
-		</nav-app>
-		<divider-app></divider-app>
-		<router-outlet></router-outlet>
-	</div>
-</div>
+<ng-container *ngIf="product$ | async as product; else spinner">
+	<product-header-details-app
+		[product]="product"
+		(update)="updateProduct($event)"
+		(export)="dlgCommonSrv.openExportDialog([$event])"
+		(delete)="deleteProduct($event)"
+		(archive)="onArchive($event)"
+		(supplierRequest)="openSupplierRequest($event)">
+	</product-header-details-app>
 	
-<!-- <router-outlet></router-outlet> -->
+	<div class="flex ctnr">
+		<div class="left">
+			<product-docket-app 
+				[product]="product"
+				(update)="updateProduct($event)"
+				(addTask)="dlgCommonSrv.openCreationTaskDlg(product)"
+				(addSample)="dlgCommonSrv.openCreationSampleDialog(product)"></product-docket-app>
+		</div>
+		<product-main-app class="right"></product-main-app>
+	</div>
+</ng-container>
+
+<ng-template #spinner>
+	<div class="spinner-ctnr flexCenter"> 
+		<spinner-app></spinner-app>
+	</div>
+</ng-template>

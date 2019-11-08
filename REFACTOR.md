@@ -97,7 +97,14 @@ rename "row" input to something more meaningful.
 
 
 ## Dynamic Form
-too much properties passed around, we could do with a config passed down..
+We need to refactor it to make it less error prone.
+We need to refactor those modules first:
+
+  - editable
+	- input
+	- selector
+
+Then analyse what can be done
 
 ## Table dynamic columns
 The name and ref column second line could be customized via a template, because they change often
@@ -130,3 +137,7 @@ The name and ref column second line could be customized via a template, because 
 # sidebar
 
   subnav items should be in html
+
+# erm
+
+add ERM pipe instead of having `erm = ERM;` this on components

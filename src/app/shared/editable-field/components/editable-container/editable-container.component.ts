@@ -1,16 +1,21 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, Output, ContentChild, HostBinding } from '@angular/core';
+import { EditableDisplayComponent } from '../editable-display/editable-display.component';
 
 
 @Component({
-	selector: 'editable-text-app',
-	templateUrl: './editable-text.component.html',
-	styleUrls: ['./editable-text.component.scss'],
+	selector: 'editable-container-app',
+	templateUrl: './editable-container.component.html',
+	styleUrls: ['./editable-container.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
-		'[class.open]': 'isOpen'
+		'[class.open]': 'isOpen',
+		'[class.clickable]': '!isOpen',
+		// TODO we need to refactor the editable module a bit so we don't need this.
+		// it's actually only he editable field that does need this
+		'[class.default]': 'defaultStyle'
 	}
 })
-export class EditableTextComponent {
+export class EditableContainerComponent {
 	@Input() isOpen = false;
 	/** Whether click on the value should open the editor */
 	@Input() openOnClick = true;
@@ -18,8 +23,11 @@ export class EditableTextComponent {
 	@Input() hoverable = false;
 	/** whether we display cancel / save buttons */
 	@Input() hasAction = true;
+	/** it has a default padding and height by default, we don't want it in some cases (editable field) */
+	@Input() defaultStyle = true;
 	@Output() opened = new EventEmitter<null>();
 	@Output() closed = new EventEmitter<boolean>();
+	@ContentChild(EditableDisplayComponent, { static: true }) display: EditableDisplayComponent;
 
 	constructor(private cd: ChangeDetectorRef) { }
 

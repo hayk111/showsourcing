@@ -4,7 +4,7 @@ import { AbstractExtendedFormComponent } from '../abstract-extended-form.compone
 import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
 
 @Component({
-	selector: 'extended-form-editable-text-app',
+	selector: 'extended-form-editable-container-app',
 	templateUrl: './extended-form-editable-text.component.html',
 	styleUrls: ['./extended-form-editable-text.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,

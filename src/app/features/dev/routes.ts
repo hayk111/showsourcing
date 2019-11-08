@@ -24,6 +24,7 @@ export const routes: Array<Route> = [
 			{ path: 'accordion', component: Pages.AccordionPageComponent },
 			{ path: 'rating-star', component: Pages.RatingPageComponent },
 			{ path: 'common-list', component: Pages.CommonListPageComponent },
+			{ path: 'editable-container', component: Pages.EditableContainerPageComponent }
 			// { path: 'sample-card', component: Pages.SampleCardTestComponent },
 			// { path: 'preview', component: Pages.PreviewPageComponent },
 			// { path: 'product-card', component: Pages.ProductCardLibraryPageComponent },

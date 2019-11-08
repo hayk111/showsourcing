@@ -18,7 +18,6 @@ import * as TablePage from './pages/products';
 import { ProductFeatureService, QuoteFeatureService } from './services';
 
 
-
 @NgModule({
 	imports: [
 		SharedModule,
@@ -42,6 +41,8 @@ import { ProductFeatureService, QuoteFeatureService } from './services';
 		DetailsPage.TasksPageComponent,
 		DetailsPage.RequestsPageComponent,
 		DetailsPage.ProductHeaderDetailsComponent,
+		DetailsPage.ProductDocketComponent,
+		DetailsPage.ProductMainComponent,
 		TablePage.ProductsPageComponent,
 	],
 	entryComponents: [],

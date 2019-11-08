@@ -1,0 +1,7 @@
+:host {
+	text-transform: none;
+}
+
+.ctnr:not(:empty) + .default {
+	display: none;
+}

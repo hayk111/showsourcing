@@ -169,42 +169,42 @@
 
       <!-- price -->
       <ng-container *ngSwitchCase="'price'">
-				<editable-text-app
+				<editable-container-app
 					#editable
 					[hasAction]="false"
 					(opened)="inp.focus()"
 					(closed)="update.emit({ id: row.id, price: inp.price })">
-					<editable-label-app [ngClass]="{ 'empty-field': row?.price }">
+					<editable-display-app [ngClass]="{ 'empty-field': row?.price }">
 						<price-app
 							class="full-width"
 							[price]="row?.price">
 						</price-app>
-					</editable-label-app>
+					</editable-display-app>
 					<input-price-app
 						#inp
 						(keyup.enter)="editable.close()"
 						[price]="row?.price">
 					</input-price-app>
-				</editable-text-app>
+				</editable-container-app>
       </ng-container>
 
       <!-- moq -->
       <ng-container *ngSwitchCase="'moq'">
-        <editable-text-app
+        <editable-container-app
 					#editable
           [hasAction]="false"
           (opened)="inp.focus()"
           (closed)="update.emit({ id: row.id, minimumOrderQuantity: inp.value })">
-          <editable-label-app [ngClass]="{ 'empty-field': row?.price }">
+          <editable-display-app [ngClass]="{ 'empty-field': row?.price }">
             <moq-app
               *ngIf="row?.minimumOrderQuantity"
 							[moq]="row?.minimumOrderQuantity"
 							[moqDescription]="row?.moqDescription">
             </moq-app>
 						<div *ngIf="!row?.minimumOrderQuantity">-</div>
-          </editable-label-app>
+          </editable-display-app>
           <input #inp inputApp type="number" [value]="row?.minimumOrderQuantity" (keyup.enter)="editable.close()"/>
-        </editable-text-app>
+        </editable-container-app>
       </ng-container>
 
       <!-- creation date -->
