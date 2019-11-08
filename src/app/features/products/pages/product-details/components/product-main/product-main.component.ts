@@ -1,4 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Product } from '~core/models';
 
 @Component({
 	selector: 'product-main-app',
@@ -6,11 +7,25 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 	styleUrls: ['./product-main.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductMainComponent implements OnInit {
+export class ProductMainComponent {
+	@Input() product: Product;
 
-	constructor() { }
 
-	ngOnInit() {
+	getCount(type: string) {
+		if (!this.product)
+			return;
+			
+		switch (type) {
+			case 'tasks':
+				return this.product.tasksLinked.count;
+			case 'files':
+				return this.product.attachments.length;
+			case 'samples':
+				return this.product.samplesLinked.count;
+			case 'requests':
+				return 0; // TODO find a solution for this
+			case 'comments':
+				return this.product.comments.length;
+		}
 	}
-
 }
