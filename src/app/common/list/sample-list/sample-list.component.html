@@ -1,0 +1,8 @@
+<div class="preview-sample flexVAlign" *ngFor="let sample of samples; trackBy: trackByFn">
+	<icon-app
+		class="pointer"
+		[name]="'sample'"
+		[size]="12">
+	</icon-app>
+	<h4 class="ellipsis">{{ sample.name }}</h4>
+</div>

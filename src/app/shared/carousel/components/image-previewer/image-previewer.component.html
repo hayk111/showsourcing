@@ -16,16 +16,17 @@
 </div>
 
 <div class="ctnr square pointer"
-	[ngClass]="{'last-item': i > 3, 'selected': i === selectedIndex}"
-	[ngStyle]="getStyle()"
+	[ngClass]="{'last-item': i > 3, 
+		'selected': (i === selectedIndex) || (selectedIndex > 4 && i > 3) }"
+	[ngStyle]="getStyle(i)"
 	*ngFor="let img of getPreviews(); let i = index; trackBy: trackByFn"
-	(click)="imageClick.emit(i)">
+	(click)="imageClick.emit(img.index)">
 	<div *ngIf="(isDeletable && images.length <= 5) || (isDeletable && i < 4)" class="delete flexCenter pointer" (click)="doDelete($event, img)">
 		<icon-app name="close"></icon-app>
 	</div>
 	<img-app
-		[ngClass]="{ 'pending': img.pending }"
-		[image]="img"
+		[ngClass]="{ 'pending': img.image.pending }"
+		[image]="img.image"
 		size="xl">
 	</img-app>
 </div>
