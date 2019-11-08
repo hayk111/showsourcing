@@ -1,4 +1,4 @@
-export * from './components/product-header-details';
+export * from './components';
 export * from './product-details-page.component';
 export * from './activity';
 export * from './files';
