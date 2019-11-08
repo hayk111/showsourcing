@@ -184,6 +184,14 @@ button, input[type="submit"], .button {
 		}
 	}
 
+	&.warn-light {
+		background: transparent;
+		color: var(--color-warn);
+		&:hover, &.cdk-keyboard-focused {
+			background: var(--color-bg-secondary);
+		}
+	}
+
 	&.secondary-light {
 		background: var(--color-secondary-light);
 		color: var(--color-secondary-contrast);
@@ -228,7 +236,7 @@ button, input[type="submit"], .button {
 		width: 36px;
 		height: 36px;
 	}
-	
+
 	// when the button is just an icon
 	&.icon-m {
 		width: 40px;
