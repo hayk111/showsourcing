@@ -1,38 +1,33 @@
-<div class="content flex">
 
-	<product-preview-app class="left mg-l" [isPreview]="false" [product]="product$ | async"></product-preview-app>
-
-	<card-app class="right">
-
-		<card-title-app>Product Information</card-title-app>
-		<card-action-app color="secondary-light" (click)="openCreateRequest()">
-			<icon-app name="export"></icon-app>
-			Contact Supplier
-		</card-action-app>
-		<accordion-app>
-			<accordion-title-app>General</accordion-title-app>
-			<accordion-content-app>
-				<dynamic-form-app
-					[fields]="productDescriptor?.descriptor"
-					[value]="product"
-					[config]="dynamicFormConfig"
-					(update)="update($event)">
-				</dynamic-form-app>
-			</accordion-content-app>
-		</accordion-app>
-
-		<accordion-app>
-			<accordion-title-app>Shipping & Packaging</accordion-title-app>
-			<accordion-content-app>
-				<dynamic-form-app
-					[fields]="shippingDescriptor?.descriptor"
-					[value]="product"
-					[config]="dynamicFormConfig"
-					(update)="update($event)">
-				</dynamic-form-app>
-			</accordion-content-app>
-		</accordion-app>
-
-	</card-app>
-
+<div class="flexBetween mg-bottom-l">
+	<h2>Product Details</h2>
+	<button 
+		class="vibrant" 
+		(click)="dlgCommonSrv.openSupplierRequest([product])">
+		Ask supplier
+	</button>
 </div>
+
+<accordion-app>
+	<accordion-title-app>General</accordion-title-app>
+	<accordion-content-app>
+		<dynamic-form-app
+			[fields]="productDescriptor?.descriptor"
+			[value]="product"
+			[config]="dynamicFormConfig"
+			(update)="update($event)">
+		</dynamic-form-app>
+	</accordion-content-app>
+</accordion-app>
+
+<accordion-app>
+	<accordion-title-app>Shipping & Packaging</accordion-title-app>
+	<accordion-content-app>
+		<dynamic-form-app
+			[fields]="shippingDescriptor?.descriptor"
+			[value]="product"
+			[config]="dynamicFormConfig"
+			(update)="update($event)">
+		</dynamic-form-app>
+	</accordion-content-app>
+</accordion-app>

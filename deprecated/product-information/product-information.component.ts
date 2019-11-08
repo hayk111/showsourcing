@@ -5,6 +5,8 @@ import {
 	ExtendedFieldDefinitionService,
 } from '~core/entity-services/extended-field-definition/extended-field-definition.service';
 import { ExtendedFieldDefinition, Product } from '~core/models';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
+
 
 @Component({
 	selector: 'product-information-app',
@@ -21,7 +23,10 @@ export class ProductInformationComponent implements OnInit {
 	productDescriptor: ProductDescriptor;
 	fieldDefinitions$: Observable<ExtendedFieldDefinition[]>;
 
-	constructor(private extendedFieldDefSrv: ExtendedFieldDefinitionService) { }
+	constructor(
+		private extendedFieldDefSrv: ExtendedFieldDefinitionService,
+		public dlgCommonSrv: DialogCommonService
+	) { }
 
 	ngOnInit() {
 		this.productDescriptor = new ProductDescriptor([
