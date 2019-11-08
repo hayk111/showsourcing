@@ -2,10 +2,11 @@
 	<div *ngIf="amountShown > 0 && hasViewMore" class="show-previous"
 		(click)="showMore()" translate="button.show-previous-comments">
 	</div>
-	<ng-container *ngFor="let comment of comments; index as i;trackBy: trackByFn">
+	<ng-container *ngFor="let comment of comments; index as i; last as last; trackBy: trackByFn">
 		<!-- with this condition we ensure to display only the last items first -->
 		<comment-app
 			*ngIf="i >= amountShown"
+			[class.mg-bottom-s]="!last"
 			[comment]="comment"
 			[user]="comment.createdBy">
 		</comment-app>

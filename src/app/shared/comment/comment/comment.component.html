@@ -16,7 +16,7 @@
 		</div>
 		<!-- buttons -->
 		<div *ngIf="isMine && !isEditing" class="buttons flex hover-buttons">
-			<button class="warn" (click)="onDelete()" translate="button.delete"></button>
+			<button class="warn-light" (click)="onDelete()" translate="button.delete"></button>
 			<button class="light" (click)="enableEdit(text?.nativeElement?.clientHeight)" translate="button.edit"></button>
 		</div>
 	</div>
