@@ -37,8 +37,8 @@ export class ProductHeaderDetailsComponent {
 			return;
 
 		switch (type) {
-			case 'tasks': return this.product.tasksLinkedAssignedToMe.count > 0;
-			case 'samples': return this.product.samplesLinkedAssignedToMe.count > 0;
+			case 'tasks': return this.product && this.product.tasksLinkedAssignedToMe.count > 0;
+			case 'samples': return this.product && this.product.samplesLinkedAssignedToMe.count > 0;
 			case 'requests': return this.requestCount > 0;
 		}
 	}

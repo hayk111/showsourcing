@@ -19,13 +19,16 @@
 	(buttonClick)="openSupplierRequest()">
 </controller-list-app>
 
-<request-elements-table-app
-	class="max-full-table-width"
+<requests-table-app
+	class="no-padding"
 	[rows]="listSrv.items$ | async"
+	[hasHeader]="false"
+	[hasMenu]="false"
+	[hasPagination]="false"
+	[rowHeight]="34"
+	[columns]="['title', 'statusCreateInfo']"
 	[selection]="listSrv.selection$ | async"
 	[pending]="listSrv.pending"
-	[count]="listSrv.count$ | async"
-	[currentPage]="listSrv.currentPage"
 	(goToPage)="listSrv.loadPage($event)"
 	(sort)="listSrv.sort($event)"
 	(select)="listSrv.selectOne($event, true)"
@@ -38,7 +41,7 @@
 	(previewClick)="listSrv.openPreview($event)"
 	(createClick)="openSupplierRequest()"
 	(delete)="listSrv.deleteOne($event, true)">
-</request-elements-table-app>
+</requests-table-app>
 
 <selection-bar-app
 	[isShown]="(listSrv.selection$ | async)?.size > 0"

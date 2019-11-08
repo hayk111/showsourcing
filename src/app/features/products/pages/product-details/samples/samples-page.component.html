@@ -19,14 +19,17 @@
 </controller-list-app>
 
 <samples-table-app
-	class="max-full-table-width"
+	class="no-padding"
 	[rows]="listSrv.items$ | async"
+	tableConfigType="medium"
+	[columns]="['referenceName', 'statusCreationDate']"
 	[selection]="listSrv.selection$ | async"
 	[hasRequestCount]="true"
 	[pending]="listSrv.pending"
-	[count]="listSrv.count$ | async"
-	[currentPage]="listSrv.currentPage"
-	(goToPage)="listSrv.loadPage($event)"
+	[hasHeader]="false"
+	[hasMenu]="false"
+	[hasPagination]="false"
+	[rowHeight]="34"
 	(sort)="listSrv.sort($event)"
 	(select)="listSrv.selectOne($event, true)"
 	(unselect)="listSrv.unselectOne($event, true)"

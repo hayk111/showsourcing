@@ -19,13 +19,17 @@
 </controller-list-app>
 
 <task-table-app
-	class="max-full-table-width"
+	class="no-padding"
 	[rows]="listSrv.items$ | async"
+	tableConfigType="mediumSmallTableConfig"
+	[columns]="['name', 'assigneeDueDate']"
 	[selection]="listSrv.selection$ | async"
 	[pending]="listSrv.pending"
-	[count]="listSrv.count$ | async"
-	[currentPage]="listSrv.currentPage"
-	(goToPage)="listSrv.loadPage($event)"
+	[hasHeader]="false"
+	[hasMenu]="false"
+	[hasPagination]="false"
+	[hasSelection]="false"
+	[rowHeight]="34"
 	(sort)="listSrv.sort($event)"
 	(select)="listSrv.selectOne($event, true)"
 	(unselect)="listSrv.unselectOne($event, true)"
