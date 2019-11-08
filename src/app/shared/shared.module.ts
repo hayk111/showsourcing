@@ -54,7 +54,6 @@ import { StatusSelectorModule } from './status-selector/status-selector.module';
 import { TableModule } from './table/table.module';
 import { TemplateMngmtModule } from './template-mngmt/template-mngmt.module';
 import { CommentModule } from './comment/comment.module';
-import { NavModule } from './nav/nav.module';
 
 // those modules are used so commonly that we will just import the shared module
 const modules = [
@@ -122,8 +121,7 @@ const modules = [
 	TemplateMngmtModule,
 	OnBoardingModule,
 	PackagingModule,
-	TranslateModule,
-	NavModule
+	TranslateModule
 ];
 
 @NgModule({

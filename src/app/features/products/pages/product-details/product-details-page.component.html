@@ -8,30 +8,5 @@
 	(archive)="onArchive($event)"
 	(supplierRequest)="openSupplierRequest($event)">
 </product-header-details-app>
-
-<div class="content flex">
-	<product-preview-app
-		*ngIf="product"
-		class="left mg-l"
-		[isPreview]="false"
-		[product]="product">
-	</product-preview-app>
-	<div class="right mg-l">
-		<nav-app>
-			<nav-item-app link="./activity" icon="activity" [name]="'nav.activity' | translate"></nav-item-app>
-
-			<nav-item-app link="./info" icon="product" [name]="'nav.product-details' | translate"></nav-item-app>
-
-			<nav-item-app link="./files" icon="files" [name]="'nav.files' | translate"></nav-item-app>
-
-			<nav-item-app link="./samples" icon="sample" [name]="'nav.samples' | translate" [hasBadge]="hasBadge('samples')"></nav-item-app>
-
-			<nav-item-app link="./tasks" icon="check-circle" [name]="'nav.tasks' | translate" [hasBadge]="hasBadge('tasks')"></nav-item-app>
-
-			<nav-item-app link="./requests" icon="envelope" [name]="'nav.requests' | translate" [hasBadge]="hasBadge('requests')"></nav-item-app>
-		</nav-app>
-		<router-outlet></router-outlet>
-	</div>
-</div>
 	
-<!-- <router-outlet></router-outlet> -->
+<router-outlet></router-outlet>
