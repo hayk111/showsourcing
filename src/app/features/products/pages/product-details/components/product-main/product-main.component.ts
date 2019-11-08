@@ -14,7 +14,7 @@ export class ProductMainComponent {
 	getCount(type: string) {
 		if (!this.product)
 			return;
-			
+
 		switch (type) {
 			case 'tasks':
 				return this.product.tasksLinked.count;
@@ -26,6 +26,8 @@ export class ProductMainComponent {
 				return 0; // TODO find a solution for this
 			case 'comments':
 				return this.product.comments.length;
+			default:
+				return 'INVALID';
 		}
 	}
 }
