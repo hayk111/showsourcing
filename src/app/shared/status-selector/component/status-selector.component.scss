@@ -16,7 +16,8 @@ context-menu-app {
 	position: relative;
 	border-left: 1px solid white;
 	color: white;
-	border-radius: 2px;
+	border-top-right-radius: var(--border-radius);
+	border-bottom-right-radius: var(--border-radius);
 
 	.new {
 		color: var(--legacy-color-txt-primary);

@@ -2,8 +2,8 @@
   display: block;
   // border-bottom: 1px solid var(--color-divider);
   background-color: var(--color-bg);
-	padding: 0px;
-	border-bottom: 1px solid var(--color-divider)
+  padding: 0px;
+  border-bottom: 1px solid var(--color-divider);
 }
 
 .details {
@@ -22,11 +22,11 @@
   display: flex;
   justify-content: space-between;
   box-sizing: border-box;
-	align-items: center;
+  align-items: center;
 }
 
 .header-container-details {
-  padding: var(--spacing-ms) var(--spacing-ms) 25px;
+  padding: var(--spacing-ms) var(--spacing-ms);
 }
 
 .header-container-settings {
@@ -66,7 +66,6 @@
 }
 
 .right {
-  max-width: 35%;
   white-space: nowrap;
   align-items: center;
 }
@@ -88,26 +87,26 @@
   }
 }
 
-$back-arrow-size: 40px;
+$back-arrow-size: 36px;
 $arrow-margin-right: 10px;
 .back-arrow-container {
-	height: $back-arrow-size;
+  height: $back-arrow-size;
   width: $back-arrow-size;
 
-	.back-arrow {
-		color: var(--color-txt-secondary);
-		font-size: var(--font-size-s);
-		display: flex;
+  .back-arrow {
+    color: var(--color-txt-secondary);
+    font-size: var(--font-size-s);
+    display: flex;
     align-items: center;
-		& > * {
-			display: flex;
-		}
-	}
+    & > * {
+      display: flex;
+    }
+  }
 }
 
 .logo {
-  max-width: 54px;
-  max-height: 54px;
+  max-width: 36px;
+  max-height: 36px;
   border-radius: var(--border-radius-s);
 }
 
@@ -120,5 +119,5 @@ $arrow-margin-right: 10px;
 }
 
 .arrow-margin {
-	margin-left: $back-arrow-size;
+  margin-left: $back-arrow-size;
 }

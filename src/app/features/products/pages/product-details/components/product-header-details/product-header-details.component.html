@@ -1,20 +1,20 @@
 <header-details-app [headerType]="'details'">
 
-	<header-details-title-app class="mg-top-xxs">
-		<!-- <editable-container-app #edt (closed)="updateProductProp($event, inpName.value, 'name')" (opened)="inpName.select()">
+	<header-details-title-app *ngIf="product">
+		<editable-container-app #edt (closed)="updateProductName($event, inpName.value, 'name')" (opened)="inpName.select()">
 			<editable-display-app>
 				{{ product?.name || ('message.unnamed-product' | translate) }}
 			</editable-display-app>
-			<input inputApp type="text" #inpName [value]="product.name" (keyup.enter)="edt.close()">
-		</editable-container-app> -->
-		{{ product?.name || ('message.unnamed-product' | translate) }}
+			<input inputApp type="text" #inpName [value]="product?.name" (keyup.enter)="edt.close()">
+		</editable-container-app>
+		<!-- {{ product?.name || ('message.unnamed-product' | translate) }} -->
 	</header-details-title-app>
 
 
-	<logo-app [logo]="product?.images[0]" size="xl" type="product"></logo-app>
+	<logo-app *ngIf="product?.images[0]" [logo]="product?.images[0]" size="l" type="product"></logo-app>
 
 	<header-details-info-app>
-		<div class="flex flexVAlign mg-bottom-xxs">
+		<div class="flex flexVAlign">
 			<logo-app type="product" name="product" size="xs"></logo-app>
 			<div class="flex flexVAlign info-container dot-separator">
 				<span *ngIf="product?.reference" class="reference">
@@ -35,7 +35,7 @@
 		</div>
 	</header-details-info-app>
 
-	<header-nav-app>
+	<!-- <header-nav-app>
 		<header-nav-item-app link="./activity" icon="activity" [name]="'nav.activity' | translate"></header-nav-item-app>
 
 		<header-nav-item-app link="./info" icon="product" [name]="'nav.product-details' | translate"></header-nav-item-app>
@@ -47,7 +47,7 @@
 		<header-nav-item-app link="./tasks" icon="check-circle" [name]="'nav.tasks' | translate" [hasBadge]="hasBadge('tasks')"></header-nav-item-app>
 
 		<header-nav-item-app link="./requests" icon="envelope" [name]="'nav.requests' | translate" [hasBadge]="hasBadge('requests')"></header-nav-item-app>
-	</header-nav-app>
+	</header-nav-app> -->
 
 	<header-details-actions-app>
 
@@ -62,8 +62,8 @@
 			(changeUser)="onUserChanged($event)">
 		</header-list-action-buttons-app>
 		-->
-
-		<status-selector-app [typeEntity]="productEntity" [entity]="product" selectSize="m" type="button">
+		
+		<status-selector-app class="mg-left-ms" [typeEntity]="productEntity" [entity]="product" selectSize="m" type="button">
 		</status-selector-app>
 
 		<context-menu-app class="mg-left-ms">
