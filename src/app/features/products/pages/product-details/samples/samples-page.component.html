@@ -7,6 +7,7 @@
 	[selection]="listSrv.selection$ | async"
 	[hasRequestCount]="true"
 	[pending]="listSrv.pending"
+	[hasMinHeight]="false"
 	[hasHeader]="false"
 	[hasMenu]="false"
 	[hasPagination]="false"
@@ -36,7 +37,7 @@
 	<button
 		*ngIf="(listSrv.selection$ | async).size > 0"
 		class="warn"
-		(click)="listSrv.deleteSelected()">
+		(click)="listSrv.deleteSelected(true)">
 		delete
 	</button>
 </div>

@@ -2,6 +2,9 @@
 	display: block;
 }
 
-.buttons-container > *:not(:last-child) {
-	margin-right: var(--spacing-ms);
+.buttons-container {
+	margin-top: var(--spacing-ms);
+	> *:not(:last-child) {
+		margin-right: var(--spacing-ms);
+	}
 }
