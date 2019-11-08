@@ -215,7 +215,7 @@
 			<ng-container *ngSwitchCase="'assignee due date'">
 				<div class="flexEnd dot-separator">
 					<div>{{ row?.assignee | formatUserName: true }}</div>
-					<div [ngClass]="!row?.done && isOverdue(row) ? 'task-overdue' : 'color-unset'">{{ row?.dueDate | date: 'dd MMMM y':'':translate.currentLang }}</div>
+					<div [ngClass]="!row?.done && isOverdue(row) ? 'color-warn' : ''">{{ row?.dueDate | date: 'dd MMMM y':'':translate.currentLang }}</div>
 				</div>
 			</ng-container>
 

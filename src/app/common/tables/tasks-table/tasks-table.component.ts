@@ -82,11 +82,11 @@ export class TasksTableComponent extends EntityTableComponent<Task> implements O
 	}
 
 	iconClass(task: Task) {
-		let iconClass = 'task-not-done';
+		let iconClass = 'color-txt-third';
 		if (task && task.done)
 			iconClass = 'task-done';
 		else if (this.isOverdue(task))
-			iconClass = 'task-overdue';
+			iconClass = 'color-warn';
 		return iconClass;
 	}
 
