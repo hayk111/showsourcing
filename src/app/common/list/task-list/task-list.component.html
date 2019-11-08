@@ -1,0 +1,11 @@
+<list-page-app>
+	<div class="preview-task flexVAlign" *ngFor="let task of tasks; trackBy: trackByFn">
+		<icon-app
+			class="pointer"
+			[ngClass]="task?.done ? 'task-is-done': 'task-not-done'"
+			[name]="task?.done ? 'check-circle' : 'check-circle-light'"
+			[size]="12">
+		</icon-app>
+		<h4 class="ellipsis">{{ task.name }}</h4>
+	</div>
+</list-page-app>

@@ -292,31 +292,12 @@
 
 	</preview-section-app>
 
-	<!-- Tasks -->
-	<preview-section-app #contentTab2 [title]="'tasks'">
-		<div class="preview-task flexVAlign" *ngFor="let item of product?.tasksLinked?.items">
-			<icon-app
-				class="pointer"
-				[ngClass]="item?.done ? 'task-is-done': 'task-not-done'"
-				[name]="item?.done ? 'check-circle' : 'check-circle-light'"
-				[size]="12">
-			</icon-app>
-			<h4>{{ item.name }}</h4>
-		</div>
-		
+	<preview-section-app [title]="'tasks'">
+		<task-list-app [tasks]="product?.tasksLinked?.items"></task-list-app>
 	</preview-section-app>
 
-	<!-- Samples -->
-	<preview-section-app #contentTab2 [title]="'samples'">
-		<div class="preview-task flexVAlign" *ngFor="let item of product?.samplesLinked?.items">
-			<icon-app
-				class="pointer"
-				[name]="'sample'"
-				[size]="12">
-			</icon-app>
-			<h4>{{ item.name }}</h4>
-		</div>
-		
+	<preview-section-app [title]="'samples'">
+		<sample-list-app [samples]="product?.samplesLinked?.items"></sample-list-app>
 	</preview-section-app>
 
 	<!-- Description -->
@@ -355,16 +336,8 @@
 	</preview-section-app>
 
 	<!-- Projects -->
-	<preview-section-app #contentTab2 [title]="'projects'">
-		<div class="preview-task flexVAlign" *ngFor="let project of product?.projects">
-			<icon-app
-				class="pointer"
-				[name]="'project'"
-				[size]="12">
-			</icon-app>
-			<h4>{{ project.name }}</h4>
-		</div>
-		
+	<preview-section-app [title]="'projects'">
+		<project-list-app [projects]="product?.projects"></project-list-app>
 	</preview-section-app>
 
 </preview-static-app>
