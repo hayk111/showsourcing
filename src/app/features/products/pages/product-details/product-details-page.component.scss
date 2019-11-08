@@ -1,4 +1,30 @@
-product-header-list-app {
-  margin-bottom: var(--spacing-ms);
+
+:host {
+	display: block;
+	height: 100%;
 }
 
+.ctnr {
+	margin: auto;
+	margin-top: var(--spacing-l);
+	justify-content: center;
+}
+
+.left {
+	width: 340px;
+	margin-right: var(--spacing-l);
+}
+
+.right {
+	width: 835px;
+}
+
+@media only screen and (max-width:1300px){
+	.right {
+		width: 735px;
+	}
+}
+
+.spinner-ctnr {
+	height: 100%;
+}
