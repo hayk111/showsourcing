@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, Templa
 import { EntityTableComponent, TableConfig } from '~core/list-page';
 import { ExtendedField, RequestElement, ERM } from '~core/models';
 import { ID } from '~utils';
+import { TranslateService } from '@ngx-translate/core';
 
 const tableConfig: TableConfig = {
 	name: { name: 'name', translationKey: 'name', width: 190, sortable: false },
@@ -25,7 +26,7 @@ const tableConfig: TableConfig = {
 })
 export class RequestElementsTableComponent extends EntityTableComponent<RequestElement> {
 	columns = ['name', 'status'];
-	@Input() tableConfig = tableConfig;
+	tableConfig = tableConfig;
 	/** whether we want to show the reply fields */
 	@Input() showReplyFields = true;
 
@@ -50,7 +51,7 @@ export class RequestElementsTableComponent extends EntityTableComponent<RequestE
 	fields: ExtendedField[][] = [];
 	erm = ERM;
 
-	constructor() { super(); }
+	constructor(public translate: TranslateService) { super(); }
 
 	parseJson(item: any) {
 		return item ? JSON.parse(item) : undefined;

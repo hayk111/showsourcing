@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { first, switchMap, takeUntil } from 'rxjs/operators';
+import { first, switchMap, takeUntil, filter, tap } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { ProductDescriptor } from '~core/descriptors';
 import { CommentService } from '~core/entity-services/comment/comment.service';
@@ -27,15 +27,14 @@ import { UploaderService } from '~shared/file/services/uploader.service';
 import { PreviewCommentComponent, PreviewService } from '~shared/preview';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { AutoUnsub, PendingImage, translate } from '~utils';
+import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
+import { CloseEventType, CloseEvent } from '~shared/dialog';
 
 @Component({
 	selector: 'product-preview-app',
 	templateUrl: './product-preview.component.html',
 	styleUrls: ['./product-preview.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	host: {
-		'[class.hide-sections]': 'isPreview'
-	}
 })
 export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChanges {
 
@@ -66,7 +65,6 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 	@Input() isPreview = true;
 
 	@Output() close = new EventEmitter<any>();
-	@Output() delete = new EventEmitter<null>();
 	@Output() updated = new EventEmitter<Product>();
 	@Output() statusUpdated = new EventEmitter<Product>();
 	@Output() clickOutside = new EventEmitter<null>();
@@ -281,6 +279,32 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 
 	updateSample(sample: Sample) {
 		this.sampleSrv.update(sample).subscribe();
+	}
+
+	delete(product: Product) {
+		const text = `Are you sure you want to delete this product ?`;
+		this.dlgSrv.open(ConfirmDialogComponent, { text })
+			.pipe(
+				filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
+				switchMap(_ => this.productSrv.delete(product.id)),
+				tap(prod => {
+					this.updated.emit(prod);
+					this.close.emit();
+				})
+			).subscribe();
+	}
+
+	archive() {
+		const text = `Are you sure you want to archive this product ?`;
+		const action = 'archive';
+		this.dlgSrv.open(ConfirmDialogComponent, { text, action })
+			.pipe(
+				filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
+				tap(_ => {
+					this.update(true, 'archived');
+					this.close.emit();
+				}),
+			).subscribe();
 	}
 
 }

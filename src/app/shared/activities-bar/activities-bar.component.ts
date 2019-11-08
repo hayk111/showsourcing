@@ -1,10 +1,8 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
-import { RequestElementService, TaskService, SampleService } from '~core/entity-services';
+import { RequestElementService } from '~core/entity-services';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { Observable } from 'rxjs';
-import { ReplyStatus, Task, EntityName, ERM } from '~core/models';
-import { ERMService } from '~core/entity-services/_global/erm.service';
-import { map } from 'rxjs/operators';
+import { ReplyStatus, Task, EntityName } from '~core/models';
 
 @Component({
 	selector: 'activities-bar-app',
@@ -16,6 +14,7 @@ export class ActivitiesBarComponent implements OnInit {
 	@Input() row: any;
 	@Input() entityName: EntityName.PRODUCT | EntityName.SUPPLIER = EntityName.PRODUCT;
 	@Input() favorite = false;
+	@Input() hasRequestCount = false;
 	@Input() hasSamples = true;
 	@Input() hasTasks = true;
 	@Input() hasComments = true;
@@ -25,22 +24,18 @@ export class ActivitiesBarComponent implements OnInit {
 
 	openRequestsCount$: Observable<number>;
 	requestsCount$: Observable<number>;
-	tasksCount$: Observable<number>;
-	samplesCount$: Observable<number>;
-	commentsCount$: Observable<number>;
 
-	constructor(
-		private requestElementService: RequestElementService,
-		public thumbService: ThumbService,
-	) { }
+	constructor(private requestElementService: RequestElementService) { }
 
 	ngOnInit() {
 		if (this.row && this.row.id) {
-			this.openRequestsCount$ = this.requestElementService
-				.queryCount(`targetId == "${this.row.id}" AND targetedEntityType == "Product" AND (reply.status == "${ReplyStatus.REPLIED}")`);
+			if (this.hasRequestCount) {
+				this.openRequestsCount$ = this.requestElementService
+					.queryCount(`targetId == "${this.row.id}" AND targetedEntityType == "Product" AND (reply.status == "${ReplyStatus.REPLIED}")`);
 
-			this.requestsCount$ = this.requestElementService
-				.queryCount(`targetId == "${this.row.id}" AND targetedEntityType == "Product"`);
+				this.requestsCount$ = this.requestElementService
+					.queryCount(`targetId == "${this.row.id}" AND targetedEntityType == "Product"`);
+			}
 
 			this.hasTaskOverdue = this.hasTasksOverdue(this.row.id);
 		}
@@ -66,14 +61,14 @@ export class ActivitiesBarComponent implements OnInit {
 	}
 
 	get taskCount() {
-		return this.row.tasksLinkedAssignedToMe && this.row.tasksLinkedAssignedToMe.count;
+		return this.row && this.row.tasksLinked && this.row.tasksLinked.count;
 	}
 
 	get sampleCount() {
-		return this.row.samplesLinkedAssignedToMe && this.row.samplesLinkedAssignedToMe.count;
+		return this.row && this.row.samplesLinked && this.row.samplesLinked.count;
 	}
 
 	get commentCount() {
-		return this.row.comments && this.row.comments.length;
+		return this.row && this.row.comments && this.row.comments.length;
 	}
 }

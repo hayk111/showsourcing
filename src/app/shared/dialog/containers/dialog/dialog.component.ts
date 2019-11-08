@@ -18,6 +18,7 @@ export class DialogComponent {
 
 	@Input() closeIcon = true;
 	@Input() hasHeader = true;
+	@Input() hasFooter = true;
 	@Input() hasBorder = true;
 	@Output() close = new EventEmitter<any>();
 	@ContentChild(DialogFooterComponent, { static: false }) footer: DialogFooterComponent;

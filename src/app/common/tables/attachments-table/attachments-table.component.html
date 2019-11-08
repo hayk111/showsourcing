@@ -14,6 +14,7 @@
 	[hasMenu]="hasMenu"
 	[hasSelection]="hasSelection"
 	[hasPagination]="hasPagination"
+	[rowHeight]="rowHeight"
 	[placeholder]="'placeholder.no-task'"
 	(goToPage)="goToPage.emit($event)"
 	(selectOne)="select.emit($event)"
@@ -46,13 +47,18 @@
     <ng-container [ngSwitch]="column.name">
 
 
-			<!-- name -->
-			<ng-container *ngSwitchCase="'name'">
+			<!-- name + icon -->
+			<ng-container *ngSwitchCase="'name icon'">
 				<div class="flexVAlign">
 					<logo-app type="attachment" *ngIf="!row.pending"></logo-app>
 					<spinner-app size="ms" *ngIf="row.pending"></spinner-app>
 					<span class="mg-left-s">{{ row?.fileName }}</span>
 				</div>
+			</ng-container>
+
+			<!-- name -->
+			<ng-container *ngSwitchCase="'name'">
+				<span>{{ row?.fileName }}</span>
 			</ng-container>
 
 			<!-- createdBy -->
@@ -71,10 +77,21 @@
 
 			<!-- Actions -->
 			<ng-container *ngSwitchCase="'actions'">
-				<button (click)="download(row)" class="primary icon-with-text">
+				<button class="primary icon-with-text" (click)="download(row)">
 					<icon-app name="close-pane-bottom"></icon-app>
 					{{ 'text.download' | translate }}
 				</button>
+			</ng-container>
+
+			<!-- created by + creation date + download -->
+			<ng-container *ngSwitchCase="'createdBy creationDate action'">
+				<div class="flexVAlign flexEnd dot-separator">
+					<div>{{ row?.createdBy | formatUserName: true }}</div>
+					<div>{{ row?.creationDate | date: 'dd MMMM y':'':translate.currentLang }}</div>
+					<button class="icon" (click)="download(row)">
+						<icon-app name="close-pane-bottom"></icon-app>
+					</button>
+				</div>
 			</ng-container>
 
 		</ng-container>

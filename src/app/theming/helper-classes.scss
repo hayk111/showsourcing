@@ -160,6 +160,13 @@
 	text-overflow: ellipsis;
 }
 
+.ellipsis-no-width {
+	width: unset;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
 .centered-text {
   text-align: center;
 }

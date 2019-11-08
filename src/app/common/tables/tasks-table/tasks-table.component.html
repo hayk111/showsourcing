@@ -6,6 +6,7 @@
 	[selected]="selection"
 	[contextualMenu]="contextualMenuTemplate"
 	[currentSort]="currentSort"
+	[rowHeight]="rowHeight"
 	[isContextMenuHorizontal]="false"
 	[count]="count"
 	[currentPage]="currentPage"
@@ -13,6 +14,7 @@
 	[hasMenu]="hasMenu"
 	[hasSelection]="hasSelection"
 	[hasPagination]="hasPagination"
+	[rowHeight]="rowHeight"
 	[placeholder]="'placeholder.no-task' | translate"
 	(goToPage)="goToPage.emit($event)"
 	(selectOne)="select.emit($event)"
@@ -49,8 +51,8 @@
 			<ng-container *ngSwitchCase="'done'">
 				<icon-app
 					class="pointer"
-					[ngClass]="row?.done ? 'task-is-done': 'task-not-done'"
-					[name]="row?.done ? 'check-circle' : 'check-circle-light'"
+					[ngClass]="iconClass(row)"
+					[name]="iconName(row)"
 					[size]="24"
 					(click)="toggleStatus(row)">
 				</icon-app>
@@ -61,13 +63,14 @@
 				<div class="about flex">
 					<icon-app
 						class="about flexStart"
-						[ngClass]="row?.done ? 'task-is-done': 'task-not-done'"
-						[name]="row?.done ? 'check-circle' : 'check-circle-light'"
-						[size]="24" >
+						[ngClass]="iconClass(row)"
+						[name]="iconName(row)"
+						[size]="24"
+						(click)="toggleStatus(row)">
 					</icon-app>
 					<div class="about-container flex">
-						<span class="ellipsis pointer task-name">{{ row?.name }}</span>
-						<span class="ellipsis pointer product-name">{{ row?.product?.name }}</span>
+						<span class="ellipsis task-name txt-btn">{{ row?.name }}</span>
+						<span class="ellipsis task-reference ellipsis">{{ row?.reference }}</span>
 					</div>
 				</div>
 			</ng-container>
@@ -174,7 +177,13 @@
 			<!-- status -->
 			<ng-container *ngSwitchCase="'status'">
 				<div class="status-col flexVAlign">
-					<status-selector-app [entity]="row" [typeEntity]="erm.TASK" [canUpdate]="canUpdate" selectSize="s"></status-selector-app>
+					<status-selector-app
+						[entity]="row"
+						[typeEntity]="erm.TASK"
+						[canUpdate]="canUpdate"
+						selectSize="m"
+						(statusUpdated)="taskSrv.onUpdateTaskList()">
+					</status-selector-app>
 				</div>
 			</ng-container>
 
@@ -186,6 +195,28 @@
 			<!-- created by -->
 			<ng-container *ngSwitchCase="'created by'">
 				<span class="created-by">{{ row?.createdBy | formatUserName: true }}</span>
+			</ng-container>
+
+			<!-- small done -->
+			<ng-container *ngSwitchCase="'small done name'">
+				<div class="flex">
+					<icon-app
+						class="pointer mg-right-ms"
+						[ngClass]="iconClass(row)"
+						[name]="iconName(row)"
+						[size]="16"
+						(click)="toggleStatus(row)">
+					</icon-app>
+					<span class="ellipsis pointer task-name txt-btn" (click)="previewClick.emit(row)">{{ row?.name }}</span>
+				</div>
+			</ng-container>
+
+			<!-- assignee + due date -->
+			<ng-container *ngSwitchCase="'assignee due date'">
+				<div class="flexEnd dot-separator">
+					<div>{{ row?.assignee | formatUserName: true }}</div>
+					<div [ngClass]="!row?.done && isOverdue(row) ? 'color-warn' : ''">{{ row?.dueDate | date: 'dd MMMM y':'':translate.currentLang }}</div>
+				</div>
 			</ng-container>
 
 		</ng-container>

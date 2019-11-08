@@ -2,7 +2,6 @@
 <header-details-app
 	*ngIf="user$ | async as user"
 	[hasBackArrow]="false"
-	[elevated]="false"
 	[headerType]="'settings'"
 	[hasLogo]="true">
 
@@ -35,7 +34,7 @@
 			</span>
 		</div>
 	</header-details-title-app>
-	
+
 </header-details-app>
 
 <ng-container *ngIf="user$ | async as user">

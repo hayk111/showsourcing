@@ -1,4 +1,4 @@
-<card-app *ngIf="todoCounters$ | async as todoCount">
+<card-app *ngIf="todoCounters$ | async as todoCount" margin="none">
 	<card-nav-app class="flexCenter">
 		<todo-nav-app
 			[selectedTab]="selectedTab"
@@ -16,22 +16,26 @@
 		<ng-container [ngSwitch]="selectedTab" *ngIf="todoCount[selectedTab] > 0; else empty">
 			<todo-box-products-preview-app
 				*ngSwitchCase="'product'"
-				[rows]="rows.product">
+				[rows]="rows.product"
+				(updated)="updated()">
 			</todo-box-products-preview-app>
 
 			<todo-box-sample-preview-app
 				*ngSwitchCase="'sample'"
-				[rows]="rows.sample">
+				[rows]="rows.sample"
+				(updated)="updated()">
 			</todo-box-sample-preview-app>
 
 			<todo-box-task-preview-app
 				*ngSwitchCase="'task'"
-				[rows]="rows.task">
+				[rows]="rows.task"
+				(updated)="updated()">
 			</todo-box-task-preview-app>
 
 			<todo-box-supplier-preview-app
 				*ngSwitchCase="'supplier'"
-				[rows]="rows.supplier">
+				[rows]="rows.supplier"
+				(updated)="updated()">
 			</todo-box-supplier-preview-app>
 		</ng-container>
 

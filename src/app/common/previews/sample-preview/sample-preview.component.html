@@ -1,7 +1,15 @@
 <preview-panel-app cdk-scrollable *ngIf="sample$ | async">
 
 	<!-- Banner -->
-	<preview-banner-app (closed)="close.emit()">
+	<preview-banner-app>
+		<!-- Top bar -->
+		<preview-top-bar-app
+			[canOpen]="false"
+			[hasOptions]="false"
+			(closed)="close.emit()">
+		</preview-top-bar-app>
+
+		<!-- Carousel -->
 		<preview-carousel-app
 			[entity]="sample"
 			[entityMD]="erm.SAMPLE"
@@ -32,7 +40,6 @@
 			[value]="sample?.supplier?.name"
 			(openActionClicked)="openSupplier()"
 			(update)="update($event, 'supplier')">
-			<divider-app></divider-app>
 		</preview-badge-app>
 	</preview-header-app>
 

@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component, OnInit, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { TableConfig } from '~core/list-page';
 import { Product } from '~core/models';
+import { ProductService } from '~core/entity-services';
 
 const tableConfig: TableConfig = {
 	about: { name: 'about', translationKey: 'about', width: 190, sortProperty: 'creationDate' },
@@ -16,12 +17,20 @@ const tableConfig: TableConfig = {
 })
 export class TodoBoxProductsPreviewComponent implements OnInit {
 	@Input() rows: Product[];
+	@Output() updated = new EventEmitter<undefined>();
+
 	tableConfig = tableConfig;
 
-	constructor() { }
+	constructor(
+		private productSrv: ProductService,
+	) { }
 
 	ngOnInit() {
 	}
 
+	update(ev: any) {
+		this.productSrv.update(ev).subscribe();
+		this.updated.emit();
+	}
 
 }

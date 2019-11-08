@@ -1,14 +1,30 @@
-	<div class="left flexColumn">
-		<ng-content></ng-content>
-	</div>
-	<div class="right flex">
-		<button *ngIf="canOpen" class="icon-m" (click)="opened.emit()">
-			<icon-app class="color-txt-third" name="maximize"></icon-app>
-		</button>
-		<button class="icon-m">
-			<icon-app class="color-txt-third" name="dots-vertical"></icon-app>
-		</button>
-		<button class="icon-m" (click)="closed.emit()">
-			<icon-app class="color-txt-third" name="close"></icon-app>
-		</button>
-	</div>
+<!-- Info -->
+<div class="left flexColumn">
+	<!-- default ng-content -->
+	<ng-content></ng-content>
+</div>
+
+<!-- buttons -->
+<div class="right flex">
+	<!-- Open -->
+	<button *ngIf="canOpen" class="icon-m" (click)="opened.emit()" toolTip toolTipMessage="Open" toolTipPosition="below-right">
+		<icon-app class="color-txt-third" name="maximize"></icon-app>
+	</button>
+
+	<!-- 3 dots -->
+	<context-menu-app *ngIf="hasOptions">
+		<context-menu-trigger-app>
+			<button class="icon-m">
+				<icon-app class="color-txt-third" name="dots-vertical"></icon-app>
+			</button>
+		</context-menu-trigger-app>
+		<!-- context menu/divider-app ng-content -->
+		<ng-content select="context-menu-item-app, divider-app"></ng-content>
+		<ng-content select="context-menu-item-warn-app"></ng-content>
+	</context-menu-app>
+
+	<!-- Close -->
+	<button class="icon-m" (click)="closed.emit()">
+		<icon-app class="color-txt-third" name="close"></icon-app>
+	</button>
+</div>

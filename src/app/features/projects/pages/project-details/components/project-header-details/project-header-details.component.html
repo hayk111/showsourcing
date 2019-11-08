@@ -1,5 +1,4 @@
 <header-details-app
-		[elevated]="false"
 		[headerType]="'details'">
 
 		<header-details-title-app>{{ project?.name }}</header-details-title-app>
@@ -40,7 +39,7 @@
 				*ngIf="isTabUrl('settings')"
 				[typeEntity]="erm.PROJECT"
 				[entity]="project$"
-				selectSize="l"
+				selectSize="m"
 				type="button">
 			</status-selector-app>
 

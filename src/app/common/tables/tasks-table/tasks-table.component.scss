@@ -35,7 +35,7 @@ user-picture-app {
 
 .about-container {
 	flex-direction: column;
-	margin-left: var(--spacing-ms);
+	margin-left: var(--spacing-m);
 	.task-name {
 		font-size: var(--font-size-m);
 		color: var(--color-txt-primary);
@@ -43,6 +43,12 @@ user-picture-app {
 	.product-name {
 		font-size: var(--font-size-s)
 	}
+}
+
+.task-reference {
+	height: 15px;
+	font-size: var(--font-size-s);
+	color: var(--color-txt-secondary);
 }
 
 .product-container, .supplier-container, .due-date-container {
@@ -56,12 +62,8 @@ user-picture-app {
 	color: var(--color-bg-dark);
 }
 
-.task-is-done {
+.task-done {
 	color: var(--color-task);
-}
-
-.task-not-done {
-	color: var(--color-txt-third);
 }
 
 .due-date-small {

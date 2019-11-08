@@ -5,9 +5,10 @@ import { ERM, Task } from '~core/models';
 import { ID } from '~utils/id.utils';
 import { TaskService } from '~core/entity-services';
 import { User } from 'getstream';
+import { Status } from '~core/models/status.model';
 
 const bigTableConfig: TableConfig = {
-	done: { name: 'done', translationKey: '', width: 0, sortable: false },
+	done: { name: 'done', translationKey: '', width: 50, sortable: false },
 	reference: { name: 'reference', translationKey: 'reference', width: 80, sortProperty: 'reference' },
 	name: { name: 'name', translationKey: 'name', width: 120, sortProperty: 'name' },
 	product: { name: 'product', translationKey: 'product', width: 160, sortProperty: 'product.name' },
@@ -25,25 +26,14 @@ const mediumTableConfig: TableConfig = {
 };
 
 const smallTableConfig: TableConfig = {
-	done: { name: 'done', translationKey: 'done', width: 50 },
+	done: { name: 'done', translationKey: 'done', width: 50, sortable: false },
 	name: { name: 'name assignee', translationKey: 'name', width: 240, sortProperty: 'name' },
 	dueDate: { name: 'due date small', translationKey: 'due-date', width: 80, sortProperty: 'dueDate' },
 };
 
-const itsTheSameDesignEveryWhereGuys: TableConfig = {
-	done: { name: 'done', translationKey: 'done', width: 24 },
-	name: { name: 'name assignee', translationKey: 'name', width: 340, sortProperty: 'name' },
-	// aboutCompletion: { name: 'about completion', translationKey: 'name', width: 240, sortProperty: 'name' },
-	assignee: {
-		name: 'assigned to',
-		translationKey: 'assigned-to',
-		width: 40,
-		sortProperty: 'assignee.firstName',
-		showOnHover: true,
-		metadata: { nameOnly: true }
-	},
-	status: { name: 'status', translationKey: 'status', width: 80, sortProperty: 'status.step', sortable: false, showOnHover: true },
-	dueDate: { name: 'due date small', translationKey: 'due-date', width: 50, sortProperty: 'dueDate', showOnHover: true },
+const mediumSmallTableConfig: TableConfig = {
+	name: { name: 'small done name', translationKey: 'name', width: 240, sortProperty: 'name' },
+	assigneeDueDate: { name: 'assignee due date', translationKey: '', width: 180, sortable: false },
 };
 
 @Component({
@@ -66,7 +56,7 @@ export class TasksTableComponent extends EntityTableComponent<Task> implements O
 
 	constructor(
 		public translate: TranslateService,
-		private taskSrv: TaskService
+		public taskSrv: TaskService
 	) { super(); }
 
 	ngOnInit() {
@@ -82,13 +72,30 @@ export class TasksTableComponent extends EntityTableComponent<Task> implements O
 				return mediumTableConfig;
 			case 'small':
 				return smallTableConfig;
-			case 'itsTheSameDesignEveryWhereGuys':
-				return itsTheSameDesignEveryWhereGuys;
+			case 'medium-small':
+				return mediumSmallTableConfig;
 		}
 	}
 
+	isOverdue(task: Task) {
+		return task && task.dueDate && (new Date().getTime() >= Date.parse(task.dueDate.toString()));
+	}
+
+	iconClass(task: Task) {
+		let iconClass = 'color-txt-third';
+		if (task && task.done)
+			iconClass = 'task-done';
+		else if (this.isOverdue(task))
+			iconClass = 'color-warn';
+		return iconClass;
+	}
+
+	iconName(task: Task) {
+		return (task && task.done) || this.isOverdue(task) ? 'check-circle' : 'check-circle-light';
+	}
+
 	toggleStatus(task: Task) {
-		this.taskSrv.update({ id: task.id, done: !task.done }).subscribe();
+		this.taskSrv.updateTask({ id: task.id, done: !task.done });
 	}
 
 	changeAssignee(task: Task, assignee: User) {

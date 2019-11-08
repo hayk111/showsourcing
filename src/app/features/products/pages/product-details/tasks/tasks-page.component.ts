@@ -66,15 +66,4 @@ export class TasksPageComponent extends AbstractTaskCommonComponent
 		super.ngOnInit();
 	}
 
-	createTask(name: string) {
-		const newTask = new Task({
-			name,
-			product: { id: this.route.parent.snapshot.params.id },
-			assignee: { id: this.userSrv.userSync.id }
-		});
-		this.taskSrv.create(newTask).pipe(
-			switchMap(_ => this.listSrv.refetch({}))
-		).subscribe();
-	}
-
 }

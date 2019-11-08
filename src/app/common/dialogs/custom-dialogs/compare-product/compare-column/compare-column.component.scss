@@ -1,7 +1,7 @@
 
 :host {
 	display: block;
-	width: 200px;
+	width: 187px;
 	flex-shrink: 0;
 	&:hover {
 		background: var(--legacy-color-secondary-light);
@@ -11,10 +11,10 @@
 
 .top {
 	height: 270px;
-	padding: 6px;
+	padding: 0 6px;
 	box-sizing: border-box;
 	img-app {
-		width: 174px;
+		width: 175px;
 		height: 174px;
 		border-radius: var(--border-radius);
 		overflow: hidden;
@@ -53,6 +53,12 @@
 		border-bottom: 1px solid var(--legacy-color-divider);
 		color: var(--txt-strong);
 	}
+
+	div.status-selector {
+		margin-top: var(--spacing-l);
+		border-bottom: none;
+	}
+
 	span {
 		padding: 0 6px;
 	}

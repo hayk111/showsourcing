@@ -16,14 +16,16 @@
 }
 
 .left {
-	width: 820px;
-	margin-top: 75px;
+	width: 772px;
+	margin-top: 98px;
+	margin-right: var(--spacing-l);
 	z-index: var(--z-top-selection);
 }
 
 .right {
-	width: 474px;
-	margin-top: 75px;
+	width: 420px;
+	margin-top: 98px;
+	margin-left: var(--spacing-l);
 	z-index: var(--z-top-selection);
 }
 

@@ -183,7 +183,8 @@ export class ThumbService {
 				lastName: this.userSrv.userSync.lastName,
 				// avatar: this.userSrv.userSync.avatar,
 				__typename: 'User'
-			}
+			},
+			creationDate: new Date().toString()
 		});
 		votes.push(vote);
 	}
