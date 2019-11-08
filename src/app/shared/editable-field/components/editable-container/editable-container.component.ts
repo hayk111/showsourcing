@@ -9,7 +9,7 @@ import { EditableDisplayComponent } from '../editable-display/editable-display.c
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[class.open]': 'isOpen',
-		'[class.clickable]': 'true',
+		'[class.clickable]': '!isOpen',
 		// TODO we need to refactor the editable module a bit so we don't need this.
 		// it's actually only he editable field that does need this
 		'[class.default]': 'defaultStyle'

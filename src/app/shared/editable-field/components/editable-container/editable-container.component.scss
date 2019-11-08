@@ -1,10 +1,21 @@
+$padding-horizontal: 8px;
+$padding-vertical: 6px;
+
 :host {
 	display: flex;
 	align-items: center;
 	width: 100%;
 	&.default {
-		margin-left: -8px;
-		padding: 6px 8px;
+		margin-left: -$padding-horizontal;
+		padding: $padding-vertical $padding-horizontal;
+		&.open {
+			.openBlock {
+				border-bottom: 1px solid var(--color-primary);
+				padding-bottom: 2px;
+			}
+			// minus the rest added on the open block (border padding etc)
+			padding-bottom: $padding-vertical - 3px;
+		}
 	}
 }
 
