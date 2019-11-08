@@ -1,8 +1,8 @@
 <header-details-app [headerType]="'details'">
 
-	<header-details-title-app class="mg-top-xxs">{{ supplier?.name }}</header-details-title-app>
+	<header-details-title-app>{{ supplier?.name }}</header-details-title-app>
 
-	<logo-app [logo]="supplier?.logoImage" size="xl" type="supplier"></logo-app>
+	<logo-app [logo]="supplier?.logoImage" size="l" type="supplier"></logo-app>
 
 	<header-details-info-app >
 		<div class="flex flexVAlign info-container dot-separator mg-bottom-xxs">
@@ -19,7 +19,7 @@
 		</div>
 	</header-details-info-app>
 
-	<header-nav-app>
+	<!-- <header-nav-app>
 		<header-nav-item-app
 			link="./activity"
 			icon="activity"
@@ -49,14 +49,14 @@
 			icon="check-circle" 
 			[name]="'nav.tasks' | translate">
 		</header-nav-item-app>
-	</header-nav-app>
+	</header-nav-app> -->
 
 	<header-details-actions-app>
-		<button (click)="contact.emit(supplier)" class="contact" translate="button.contact-supplier"></button>
+		<!-- <button (click)="contact.emit(supplier)" class="contact" translate="button.contact-supplier"></button> -->
 
 		<context-menu-app>
 			<context-menu-trigger-app>
-				<button class="icon light dots">
+				<button class="icon light dots mg-left-ms">
 					<icon-app [size]="20" name="dots-vertical"></icon-app>
 				</button>
 			</context-menu-trigger-app>

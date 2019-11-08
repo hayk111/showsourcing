@@ -220,6 +220,11 @@ button, input[type="submit"], .button {
 		height: 32px;
 	}
 
+	&.icon-ms {
+		width: 36px;
+		height: 36px;
+	}
+	
 	// when the button is just an icon
 	&.icon-m {
 		width: 40px;
