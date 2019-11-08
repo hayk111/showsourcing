@@ -1,27 +1,8 @@
-
-<controller-list-app
-	class="max-full-table-width"
-	[entityType]="erm.REQUEST.singular"
-	[hasFilter]="false"
-	[hasSwitch]="false"
-	[view]="listSrv.view"
-	[hasArchived]="false"
-	[hasAssigned]="false"
-	[buttonName]="'send request'"
-	[count]="listSrv.count$ | async"
-	(search)="listSrv.search($event)"
-	(showFilters)="listSrv.openFilterPanel()"
-	(showArchived)="listSrv.filterByArchived(true)"
-	(hideArchived)="listSrv.filterByArchived(false)"
-	(showAssigned)="listSrv.filterByAssignee(true)"
-	(hideAssigned)="listSrv.filterByAssignee(false)"
-	(smartSearch)="listSrv.smartSearch($event)"
-	(buttonClick)="openSupplierRequest()">
-</controller-list-app>
-
+<!-- table -->
 <requests-table-app
 	class="no-padding"
 	[rows]="listSrv.items$ | async"
+	[hasMinHeight]="false"
 	[hasHeader]="false"
 	[hasMenu]="false"
 	[hasPagination]="false"
@@ -43,13 +24,19 @@
 	(delete)="listSrv.deleteOne($event, true)">
 </requests-table-app>
 
-<selection-bar-app
-	[isShown]="(listSrv.selection$ | async)?.size > 0"
-	[selection]="listSrv.selection$ | async"
-	(close)="listSrv.unselectAll()">
-
-	<button class="icon light" (click)="listSrv.deleteSelected(true)">
-		<icon-app name="trash" size="m"></icon-app>
+<!-- buttons -->
+<div class="flex buttons-container">
+	<button	(click)="openSupplierRequest()">
+		contact supplier
 	</button>
-
-</selection-bar-app>
+	<button
+		*ngIf="(listSrv.selection$ | async).size > 1">
+		compare
+	</button>
+	<button
+		*ngIf="(listSrv.selection$ | async).size > 0"
+		class="warn"
+		(click)="listSrv.deleteSelected(true)">
+		delete
+	</button>
+</div>
