@@ -49,8 +49,6 @@ export class ProductHeaderDetailsComponent {
 	updateProductName(isCancel: boolean, value: any, prop: string) {
 		if (!isCancel) {
 			this.srv.update({ id: this.product.id, name: value });
-		} else {
-			return;
 		}
 	}
 
