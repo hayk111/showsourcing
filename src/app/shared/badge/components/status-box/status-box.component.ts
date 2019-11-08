@@ -15,13 +15,12 @@ export class StatusBoxComponent {
 
 	// we need to pass this so when the
 	// status is null, because the product or supplier are new
-	@Input() typeEntity: EntityMetadata;
-	@Input() type: ('list' | 'badge') = 'badge';
+	// @Input() type: ('list' | 'badge') = 'badge';
 
 	constructor() {
 	}
 
-	isHaveStatus() {
+	hasStatus() {
 		return this.status && this.status.category !== 'new';
 	}
 
