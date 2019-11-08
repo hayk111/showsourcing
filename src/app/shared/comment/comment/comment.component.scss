@@ -13,8 +13,8 @@ user-picture-app {
 
 .comment-content {
 	flex-grow: 1;
-	margin-left: var(--spacing-s);
-	padding: var(--spacing-s);
+	padding-left: var(--spacing-ms);
+	padding-top: var(--spacing-xs);
 	border-radius: var(--border-radius-l);
 
 	.comment-header {
@@ -26,9 +26,6 @@ user-picture-app {
 				font-size: var(--font-size-l);
 				color: var(--legacy-color-txt-strong);
 				letter-spacing: -0.3px;
-			}
-			.date {
-				font-size: var(--font-size-s);
 			}
 		}
 	}
@@ -47,7 +44,6 @@ user-picture-app {
 .text {
 	width: calc(100% - 1px);
 	white-space: pre-line;
-	font-size: var(--font-size-l);
 	color: var(--color-txt-primary);
 }
 
