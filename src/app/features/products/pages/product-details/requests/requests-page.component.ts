@@ -4,10 +4,10 @@ import { Observable } from 'rxjs';
 import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { ListPageService } from '~core/list-page';
-import { RequestElementService, TaskService } from '~entity-services';
-import { ERM, RequestElement, Task, Product } from '~models';
-import { AutoUnsub } from '~utils';
+import { SupplierRequestService, TaskService } from '~entity-services';
 import { ProductFeatureService } from '~features/products/services';
+import { ERM, Product, SupplierRequest, Task } from '~models';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'requests-page-app',
@@ -21,12 +21,12 @@ import { ProductFeatureService } from '~features/products/services';
 export class RequestsPageComponent extends AutoUnsub implements OnInit {
 
 	erm = ERM;
-	requestElements$: Observable<RequestElement[]>;
+	supplierRequests$: Observable<SupplierRequest[]>;
 	private product: Product;
 
 	constructor(
 		protected route: ActivatedRoute,
-		protected reqElemSrv: RequestElementService,
+		protected requestSrv: SupplierRequestService,
 		public dialogCommonSrv: DialogCommonService,
 		public listSrv: ListPageService<Task, TaskService>,
 		private productSrv: ProductFeatureService
@@ -41,10 +41,10 @@ export class RequestsPageComponent extends AutoUnsub implements OnInit {
 
 		id$.subscribe(id => {
 			this.listSrv.setup({
-				entitySrv: this.reqElemSrv,
-				selectParams: { sortBy: 'name', query: `targetedEntityType == "Product" && targetId == "${id}"` },
-				entityMetadata: ERM.REQUEST_ELEMENT,
-				searchedFields: ['name'],
+				entitySrv: this.requestSrv,
+				selectParams: { sortBy: 'title', query: `requestElements.targetedEntityType == "Product" && requestElements.targetId == "${id}"` },
+				entityMetadata: ERM.SUPPLIER_REQUEST,
+				searchedFields: ['title'],
 				originComponentDestroy$: this._destroy$
 			});
 		});

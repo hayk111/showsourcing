@@ -4,7 +4,7 @@
 	<div 
 		#imgCtnr 
 		class="img-ctnr flexCenter"	
-		[ngStyle]="{'transform': getRotation(getImg())}"
+		[ngStyle]="{'transform': getRotation(getImg()), 'height': size + 'px'}"
 		(mouseover)="zoomin($event)"
 		(mousemove)="zoomin($event)"
 		(mouseleave)="zoomout()">
@@ -37,7 +37,7 @@
 		*ngIf="images?.length > 1"
 		class="move-btn back flexCenter circle pointer btn visible-on-hover"
 		(mousedown)="back($event)">
-		<icon-app name="angle-left" color="white"></icon-app>
+		<icon-app name="angle-left"></icon-app>
 	</div>
 
 	<!-- move next -->
@@ -45,7 +45,7 @@
 		*ngIf="images?.length > 1"
 		class="move-btn next flexCenter circle pointer btn visible-on-hover"
 		(mousedown)="next($event)">
-		<icon-app name="angle-right" color="white"></icon-app>
+		<icon-app name="angle-right"></icon-app>
 	</div>
 
 	<!-- menu -->
@@ -56,7 +56,6 @@
 		<context-menu-trigger-app (mousemove)="zoomin($event)">
 				<icon-app
 					name="dots-vertical"
-					color="white"
 					class="btn"
 					aria-label="more">
 				</icon-app>
@@ -67,12 +66,6 @@
 		<context-menu-item-app (click)="rotate()" translate="button.rotate"></context-menu-item-app>
 		<context-menu-item-warn-app (click)="delete()" translate="button.delete"></context-menu-item-warn-app>
 	</context-menu-app>
-
-	<!-- number of pictures -->
-	<div *ngIf="isImagePropertyArray && images?.length" class="image-counter flexCenter absolute">
-		<icon-app name="pictures" [size]="19"></icon-app>
-		<span class="text-image-counter">{{ selectedIndex + 1 }} of {{ images?.length }}</span>
-	</div>
 
 	<!-- add -->
 	<!-- hint: we zoomin on mousemove because that's what we do when hovering the image, 
@@ -85,15 +78,6 @@
 		(mousemove)="zoomin($event)"
 		translate="button.add">
 	</div>
-
-	<!-- counter -->
-	<div class="counter flexCenter">
-		<div
-			*ngFor="let image of images; index as i; trackBy: trackByFn"
-			class="dot {{ i === selectedIndex ? 'full' : '' }}">
-		</div>
-	</div>
-
 
 	<modal-carousel-app
 		#modalCarousel
@@ -110,10 +94,13 @@
 
 </div>
 
-<image-previewer-2-app
+<image-previewer-app
 	*ngIf="hasPreview && images.length > 0"
 	[images]="images"
-	(imageClick)="selectedIndex = $event">
-</image-previewer-2-app>
+	[selectedIndex]="selectedIndex"
+	(imageClick)="selectedIndex = $event"
+	(previous)="back($event)"
+	(next)="next($event)">
+</image-previewer-app>
 
 

@@ -12,7 +12,7 @@ import { switchMap, takeUntil, tap } from 'rxjs/operators';
 import { ProductFeatureService } from '~features/products/services';
 import { ERM, Product } from '~models';
 import { DialogService } from '~shared/dialog/services';
-import { EditableTextComponent } from '~shared/editable-field';
+import { EditableContainerComponent } from '~shared/editable-field';
 import { AutoUnsub } from '~utils';
 import { RfqDialogComponent } from '~common/modals';
 
@@ -28,7 +28,7 @@ export class ProductGeneralInfoComponent extends AutoUnsub implements OnInit {
 	product: Product;
 
 
-	@ViewChild(EditableTextComponent) editable: EditableTextComponent;
+	@ViewChild(EditableContainerComponent) editable: EditableContainerComponent;
 	@ViewChild('txt') textarea: ElementRef;
 
 	typeEntity = ERM.PRODUCT;

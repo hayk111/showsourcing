@@ -14,4 +14,5 @@ export * from './product-card/product-card-page.component';
 export * from './rating/rating-page.component';
 export * from './selector/selector-page.component';
 export * from './table/table-page.component';
+export * from './editable-container/editable-container-page.component';
 export * from './component-library-page.component';

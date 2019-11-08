@@ -1,6 +1,22 @@
+$padding-horizontal: 8px;
+$padding-vertical: 6px;
+
 :host {
-	display: block;
+	display: flex;
+	align-items: center;
 	width: 100%;
+	&.default {
+		margin-left: -$padding-horizontal;
+		padding: $padding-vertical $padding-horizontal;
+		&.open {
+			.openBlock {
+				border-bottom: 1px solid var(--color-primary);
+				padding-bottom: 2px;
+			}
+			// minus the rest added on the open block (border padding etc)
+			padding-bottom: $padding-vertical - 3px;
+		}
+	}
 }
 
 .labelCtnr {
@@ -26,10 +42,10 @@
 		align-items: center;
 		justify-content: center;
 		&.save{
-			background: var(--legacy-color-primary);
+			background: var(--color-primary);
 		}
 		&.cancel {
-			background: var(--legacy-color-secondary-dark);
+			background: var(--color-secondary);
 		}
 	}
 	.confirmIconSave {

@@ -1,12 +1,24 @@
 
-<product-header-details-app
-	[product]="product"
-	[requestCount]="requestCount$"
-	(update)="updateProduct($event)"
-	(export)="dialogCommonSrv.openExportDialog([$event])"
-	(delete)="deleteProduct($event)"
-	(archive)="onArchive($event)"
-	(supplierRequest)="openSupplierRequest($event)">
-</product-header-details-app>
+<ng-container *ngIf="product$ | async; else spinner">
+	<product-header-details-app
+		[product]="product"
+		(update)="updateProduct($event)"
+		(export)="dialogCommonSrv.openExportDialog([$event])"
+		(delete)="deleteProduct($event)"
+		(archive)="onArchive($event)"
+		(supplierRequest)="openSupplierRequest($event)">
+	</product-header-details-app>
+	
+	<div class="flex ctnr">
+		<div class="left">
+			<product-docket-app></product-docket-app>
+		</div>
+		<product-main-app class="right"></product-main-app>
+	</div>
+</ng-container>
 
-<router-outlet></router-outlet>
+<ng-template #spinner>
+	<div class="spinner-ctnr flexCenter"> 
+		<spinner-app></spinner-app>
+	</div>
+</ng-template>

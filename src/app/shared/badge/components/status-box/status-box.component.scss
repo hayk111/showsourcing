@@ -29,8 +29,9 @@ icon-app {
 
 .badge-item {
   font-size: var(--font-size-m);
-  border-radius: var(--border-radius-s);
-	padding: 11px;
+  border-top-left-radius: var(--border-radius);
+  border-bottom-left-radius: var(--border-radius);
+	padding: 7px;
   font-weight: 600;
   .badge-name {
     display: inline-block;

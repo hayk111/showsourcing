@@ -1,10 +1,10 @@
 <badge-app #badge
-	*ngIf="status?.category !== 'new'; else noStatus" size="medium" [type]="getType()">
+	*ngIf="status?.category !== 'new'; else noStatus" [size]="size" [type]="getType()">
 	{{ status?.step + 1 }}. {{ 'text.' + status?.name | translate }}
 </badge-app>
 
 <ng-template #noStatus>
-	<badge-app #badge size="medium" color="third" [type]="getType()">
+	<badge-app #badge [size]="size" color="third" [type]="getType()">
 		{{ 'OBJ.new-OBJ' | translate: {field: ('ERM.' + typeEntity?.translationKey + '.singular' | translate)} }}
 	</badge-app>
 </ng-template>

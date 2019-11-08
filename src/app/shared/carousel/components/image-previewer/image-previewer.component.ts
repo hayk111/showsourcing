@@ -3,24 +3,28 @@ import { AppImage } from '~models';
 import { TrackingComponent } from '~utils/tracking-component';
 
 @Component({
-	selector: 'image-previewer-2-app',
-	templateUrl: './image-previewer2.component.html',
-	styleUrls: ['./image-previewer2.component.scss'],
+	selector: 'image-previewer-app',
+	templateUrl: './image-previewer.component.html',
+	styleUrls: ['./image-previewer.component.scss'],
 	host: {
 		'[class.overflow]': 'showOneLine'
 	}
 })
-export class ImagePreviewer2Component extends TrackingComponent {
+export class ImagePreviewerComponent extends TrackingComponent {
 
 	/** array of images displayed */
 	@Input() images: Array<AppImage> = [];
 	/** size in px of the images */
-	@Input() size = 72;
+	@Input() size = 48;
 	/** whether previews can be deleted */
 	@Input() isDeletable = false;
+	// index of currently displaying img
+	@Input() selectedIndex = 0;
 	/** returns the index of the images clicked */
 	@Output() imageClick = new EventEmitter<number>();
 	@Output() delete = new EventEmitter<AppImage>();
+	@Output() previous = new EventEmitter<any>();
+	@Output() next = new EventEmitter<any>();
 
 
 	constructor() {

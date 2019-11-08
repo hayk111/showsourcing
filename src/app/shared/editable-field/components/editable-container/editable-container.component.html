@@ -1,6 +1,6 @@
 <!-- closed -->
 <div *ngIf="!isOpen" class="labelCtnr flex fullWidth" [class.hoverable]="hoverable" (click)="open(true)">
-	<ng-content select="editable-label-app"></ng-content>
+	<ng-content select="editable-display-app"></ng-content>
 </div>
 
 <!-- open -->
@@ -8,7 +8,7 @@
 
 	<ng-content></ng-content>
 
-	<div class="confirmBlock" *ngIf="hasAction">
+	<div *ngIf="hasAction" class="confirmBlock">
 		<div class="confirmIcon cancel pointer" (click)="cancel()">
 			<icon-app name="close" size="xs"></icon-app>
 		</div>
@@ -18,4 +18,3 @@
 	</div>
 
 </div>
-

@@ -35,9 +35,6 @@ import { CloseEventType, CloseEvent } from '~shared/dialog';
 	templateUrl: './product-preview.component.html',
 	styleUrls: ['./product-preview.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	host: {
-		'[class.hide-sections]': 'isPreview'
-	}
 })
 export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChanges {
 

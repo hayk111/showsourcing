@@ -19,12 +19,6 @@ import { Colors } from '~utils';
 		'[class.circle]': 'circle',
 		'[class.small]': 'size === "s" || size === "small"',
 		'[class.medium]': 'size === "m" || size === "medium"',
-		/** @deprecated legacy sizes please remove the scss as well*/
-		'[class.tiny]': 'size === "tiny"',
-		'[class.mini]': 'size === "mini"',
-		'[class.xsmall]': 'size === "xs"',
-		'[class.thick]': 'size === "thick"',
-		'[class.large]': 'size === "l" || size === "large"'
 	}
 })
 export class BadgeComponent {
