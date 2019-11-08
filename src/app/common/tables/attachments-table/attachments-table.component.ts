@@ -11,13 +11,16 @@ import {
 import { EntityTableComponent, TableConfig } from '~core/list-page';
 import { Attachment, ERM } from '~core/models';
 import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback.service';
+import { TranslateService } from '@ngx-translate/core';
 
 
 const bigTableConfig: TableConfig = {
-	name: { name: 'name', translationKey: 'name', width: 200, sortable: true },
+	name: { name: 'name', translationKey: 'name', width: 200, sortProperty: 'fileName' },
+	nameIcon: { name: 'name icon', translationKey: 'name', width: 200, sortProperty: 'fileName' },
 	createdBy: { name: 'createdBy', translationKey: 'createdBy', width: 120, sortProperty: 'reference' },
 	creationDate: { name: 'creationDate', translationKey: 'creationDate', width: 100, sortProperty: 'creationDate' },
 	actions: { name: 'actions', translationKey: 'actions', width: 100, sortProperty: 'product.name', showOnHover: true },
+	creationInfoAction: { name: 'createdBy creationDate action', translationKey: '', width: 100, sortable: false },
 };
 
 
@@ -49,6 +52,7 @@ export class AttachmentsTableComponent extends EntityTableComponent<Attachment> 
 	erm = ERM;
 
 	constructor(
+		public translate: TranslateService,
 		protected uploadFeedback: UploaderFeedbackService,
 	) { super(); }
 

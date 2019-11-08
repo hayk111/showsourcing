@@ -3,22 +3,9 @@
 	flex-direction: column;
 }
 
-icon-app {
-	color: var(--legacy-color-txt-secondary);
-}
-
-.show-my-tasks, .show-tasks-done {
-	font-weight: 600;
-	line-height: 1.43;
-
-	&:not(.show-tasks-done) {
+.buttons-container {
+	margin-top: var(--spacing-ms);
+	> *:not(:last-child) {
 		margin-right: var(--spacing-ms);
 	}
-}
-
-selection-bar-app {
-	width: 100%;
-	position: absolute;
-	bottom: 0px;
-	left: 0px;
 }

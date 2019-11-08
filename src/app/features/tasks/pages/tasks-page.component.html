@@ -30,7 +30,7 @@
 	(hideTasksCreatedByMeOnly)="hideTasksCreatedByMeOnly()"
 	(showTasksCompleted)="listSrv.filterByDone(false)"
 	(hideTasksCompleted)="listSrv.filterByDone(true)"
-	(export)="commonModalSrv.openExportDialog()"
+	(export)="dialogCommonSrv.openExportDialog()"
 	(showFilters)="listSrv.openFilterPanel()"
 	(viewChange)="onViewChange($event)">
 </controller-list-app>

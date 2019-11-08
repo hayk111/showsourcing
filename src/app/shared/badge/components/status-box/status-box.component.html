@@ -1,7 +1,7 @@
 <div *ngIf="type==='badge'" class="badge">
 	<div class="badge-item" [ngClass]="getType()">
 		<div class="badge-name first-uppercase" [ngClass]="isHaveStatus() ? 'border' : 'new'">
-			{{ status.step ? (status.step + 1) + '. ' : '' }} 
+			{{ status.step ? (status.step + 1) + '. ' : '' }}
 			{{ 'text.' + status[displayAttribute] | translate }}
 		</div>
 	</div>
