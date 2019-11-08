@@ -1,3 +1,19 @@
 <card-app>
 	Product Docket
+
+	<h3>Owner</h3>
+	<span>{{ product.assignee | formatUserName }}</span>
+	
+	<h3>Product Status</h3>
+
+	<h3>Tasks</h3>
+	<task-list-app [rows]="product.tasksLinked"></task-list-app>
+
+	<h3>Samples</h3>
+	<sample-list-app [rows]="product.samplesLinked"></sample-list-app>
+
+	<h3>About this product</h3>
+	<span>Created by x on y</span>
+	<span>Last updated by x on y</span>
+	<span>Found at x on y</span>
 </card-app>

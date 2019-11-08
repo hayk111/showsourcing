@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Product } from '~core/models';
 
 @Component({
 	selector: 'product-docket-app',
@@ -7,7 +8,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductDocketComponent implements OnInit {
-
+	product: Product;
 	constructor() { }
 
 	ngOnInit() {
