@@ -1,10 +1,10 @@
-<dialog-app [headerSpacing]="'l'"class="vertical-scroll-content">
+<dialog-app class="vertical-scroll-content" [hasBorder]="false" [hasFooter]="false">
 
 	<dialog-header-app translate="header.compare-products"></dialog-header-app>
 
 	<div class="flex ctnr">
 		<compare-labels-app></compare-labels-app>
-		<compare-column-app *ngFor="let product of products; trackBy: trackByFn" [product]="product"></compare-column-app>
+		<compare-column-app *ngFor="let product of products; trackBy: trackByFn" [product]="product" (statusUpdated)="updated($event)"></compare-column-app>
 	</div>
 
 </dialog-app>

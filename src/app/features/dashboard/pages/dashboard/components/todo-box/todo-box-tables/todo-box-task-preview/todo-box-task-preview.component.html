@@ -1,12 +1,12 @@
 <task-table-app
 	*ngIf="rows"
+	tableConfigType="medium"
 	[rows]="rows"
 	[pending]="!rows"
-	[columns]="['reference', 'status']"
+	[columns]="['about', 'status']"
 	[hasMenu]="false"
 	[hasHeader]="false"
 	[hasSelection]="false"
 	[hasPreview]="false"
-	[hasPagination]="false"
-	[canUpdate]="false">
+	[hasPagination]="false">
 </task-table-app>

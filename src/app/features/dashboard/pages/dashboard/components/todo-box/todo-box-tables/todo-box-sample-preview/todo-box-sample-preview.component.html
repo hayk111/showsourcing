@@ -4,8 +4,9 @@
 	tableConfigType="medium"
 	[pending]="!rows"
 	[hasMenu]="false"
+	[hasPreview]="false"
 	[hasHeader]="false"
 	[hasSelection]="false"
 	[hasPagination]="false"
-	[canUpdate]="false">
+	(update)="update($event)">
 </samples-table-app>

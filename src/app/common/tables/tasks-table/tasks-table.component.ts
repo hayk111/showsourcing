@@ -5,9 +5,10 @@ import { ERM, Task } from '~core/models';
 import { ID } from '~utils/id.utils';
 import { TaskService } from '~core/entity-services';
 import { User } from 'getstream';
+import { Status } from '~core/models/status.model';
 
 const bigTableConfig: TableConfig = {
-	done: { name: 'done', translationKey: '', width: 0, sortable: false },
+	done: { name: 'done', translationKey: '', width: 50, sortable: false },
 	reference: { name: 'reference', translationKey: 'reference', width: 80, sortProperty: 'reference' },
 	name: { name: 'name', translationKey: 'name', width: 120, sortProperty: 'name' },
 	product: { name: 'product', translationKey: 'product', width: 160, sortProperty: 'product.name' },
@@ -25,7 +26,7 @@ const mediumTableConfig: TableConfig = {
 };
 
 const smallTableConfig: TableConfig = {
-	done: { name: 'done', translationKey: 'done', width: 50 },
+	done: { name: 'done', translationKey: 'done', width: 50, sortable: false },
 	name: { name: 'name assignee', translationKey: 'name', width: 240, sortProperty: 'name' },
 	dueDate: { name: 'due date small', translationKey: 'due-date', width: 80, sortProperty: 'dueDate' },
 };
@@ -55,7 +56,7 @@ export class TasksTableComponent extends EntityTableComponent<Task> implements O
 
 	constructor(
 		public translate: TranslateService,
-		private taskSrv: TaskService
+		public taskSrv: TaskService
 	) { super(); }
 
 	ngOnInit() {
@@ -94,7 +95,7 @@ export class TasksTableComponent extends EntityTableComponent<Task> implements O
 	}
 
 	toggleStatus(task: Task) {
-		this.taskSrv.update({ id: task.id, done: !task.done }).subscribe();
+		this.taskSrv.updateTask({ id: task.id, done: !task.done });
 	}
 
 	changeAssignee(task: Task, assignee: User) {

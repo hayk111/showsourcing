@@ -99,6 +99,7 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 	updateTask(done: boolean) {
 		if (this.canUpdate) {
 			this.statusSlctSrv.updateTask({ id: this.entity.id, done });
+			this.statusUpdated.emit(done);
 		}
 	}
 

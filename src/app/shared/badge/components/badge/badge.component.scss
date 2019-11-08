@@ -35,7 +35,8 @@
 
 	// sizes
 	&.small {
-		padding: 2px 4px;
+		height: 15px;
+		padding: 0 2px;
 		font-size: var(--font-size-s);
 		border-radius: var(--border-radius-s);
 	}
@@ -49,45 +50,5 @@
 
 	&.circle {
 		border-radius: 50%;
-	}
-
-	/** @deprecated */
-	&.tiny {
-		font-family: var(--font-title);
-		font-size: var(--font-size-xxs);
-		font-weight: 600;
-		text-transform: uppercase;
-		text-align: center;
-		border-radius: var(--border-radius);
-		padding: 1px 5px;
-	}
-	&.mini {
-		font-family: var(--font-title);
-		font-size: var(--font-size-s);
-		font-weight: 600;
-		padding: var(--spacing-xs) var(--spacing-ms);
-		border-radius: var(--border-radius-s);
-	}
-	&.thick {
-		width: fit-content;
-		padding: var(--spacing-ms) var(--spacing-s);
-		font-weight: 600;
-	}
-	&.xsmall {
-		font-size: var(--font-size-xs);
-		font-size: 12px;
-		font-weight: bold;
-		padding: 2px var(--spacing-xs);
-		padding: 2px 8px 3px;
-		text-transform: uppercase;
-		border-radius: var(--border-radius-s);
-		font-weight: 600;
-	}
-	&.large {
-		height: 32px;
-		font-size: var(--font-size-m);
-		border-radius: var(--border-radius-s);
-		padding: var(--spacing-s) var(--spacing-ms);
-		font-weight: 600;
 	}
 }

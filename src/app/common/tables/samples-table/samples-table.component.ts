@@ -55,7 +55,7 @@ export class SamplesTableComponent extends EntityTableComponent<Sample> implemen
 
 	constructor(
 		public translate: TranslateService,
-		private sampleSrv: SampleService
+		public sampleSrv: SampleService
 	) { super(); }
 
 	ngOnInit() {

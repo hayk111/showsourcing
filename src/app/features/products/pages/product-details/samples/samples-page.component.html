@@ -24,6 +24,7 @@
 	tableConfigType="medium"
 	[columns]="['referenceName', 'statusCreationDate']"
 	[selection]="listSrv.selection$ | async"
+	[hasRequestCount]="true"
 	[pending]="listSrv.pending"
 	[hasHeader]="false"
 	[hasMenu]="false"

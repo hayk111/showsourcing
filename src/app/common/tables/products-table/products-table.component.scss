@@ -119,6 +119,25 @@ editable-label-app {
 	color: var(--color-bg-dark);
 }
 
+.about-category {
+	width: min-content;
+	color: var(--color-accent-dark);
+	background-color: var(--color-accent-light);
+	border-radius: var(--border-radius);
+	padding: var(--spacing-xxs) var(--spacing-xs);
+
+	&:hover {
+		text-decoration: none;
+		color: var(--color-accent-dark) !important;
+	}
+}
+
+.about-supplier {
+	font-size: var(--font-size-m);
+	color: var(--color-txt-secondary);
+	margin-left: var(--spacing-xs);
+}
+
 .status-col {
 	status-selector-app {
 		margin-left: var(--spacing-ms);

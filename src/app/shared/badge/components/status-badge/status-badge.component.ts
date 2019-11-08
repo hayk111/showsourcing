@@ -9,10 +9,7 @@ import { Status } from '~core/models/status.model';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StatusBadgeComponent {
-	/** @deprecated all statuses badges have the same size */
 	@Input() size = 's';
-	/** @deprecated */
-	@Input() round = true;
 
 	@Input() status: Status;
 	// we need to pass this so when the

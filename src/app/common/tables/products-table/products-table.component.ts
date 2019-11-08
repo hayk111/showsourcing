@@ -3,6 +3,7 @@ import { EntityTableComponent, TableConfig, TableConfigType } from '~core/list-p
 import { ERM, Product } from '~models';
 import { Color } from '~utils';
 import { TranslateService } from '@ngx-translate/core';
+import { Status } from '~core/models/status.model';
 
 const bigTableConfig: TableConfig = {
 	activities: { name: 'activities', translationKey: 'activities', width: 190, sortable: false },
