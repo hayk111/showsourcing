@@ -9,15 +9,7 @@ import { Sample } from '~core/models';
 })
 export class SampleListComponent {
 
-	@Input() set samples(samples: Array<Sample>) {
-		this._samples = samples;
-	}
-
-	get samples() {
-		return this._samples;
-	}
-
-	private _samples: Array<Sample>;
+	@Input() samples: Array<Sample>;
 
 	constructor() {}
 

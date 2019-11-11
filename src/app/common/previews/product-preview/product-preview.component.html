@@ -294,14 +294,6 @@
 
 	</preview-section-app>
 
-	<preview-section-app [title]="'tasks'">
-		<task-list-app [tasks]="product?.tasksLinked?.items"></task-list-app>
-	</preview-section-app>
-
-	<preview-section-app [title]="'samples'">
-		<sample-list-app [samples]="product?.samplesLinked?.items"></sample-list-app>
-	</preview-section-app>
-
 	<!-- Description -->
 	<preview-section-app #contentTab1 [title]="'title.description' | translate">
 		<input-description-app
@@ -335,11 +327,6 @@
 		<button class="primary-light fullWidth mg-top-ms" (click)="dialogCommonSrv.openVoteDetailsDialog(product?.votes)">
 			View ratings
 		</button>
-	</preview-section-app>
-
-	<!-- Projects -->
-	<preview-section-app [title]="'projects'">
-		<project-list-app [projects]="product?.projects"></project-list-app>
 	</preview-section-app>
 
 </preview-static-app>

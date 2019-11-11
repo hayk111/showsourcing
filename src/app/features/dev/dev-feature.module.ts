@@ -31,7 +31,7 @@ import { routes } from './routes';
 		Pages.PreviewPageComponent,
 		Pages.GuidelinesComponent,
 		Pages.SelectorPageComponent,
-		Pages.ListPageComponent,
+		Pages.ListComponent,
 		Pages.KanbanPageComponent,
 		Pages.ProductCardPageComponent,
 		Pages.LoaderPageComponent,

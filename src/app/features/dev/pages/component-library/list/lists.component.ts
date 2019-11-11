@@ -3,12 +3,12 @@ import { productsJson } from './mock-data';
 import { Sample, Task, Project } from '~core/models';
 
 @Component({
-	selector: 'list-page-app',
-	templateUrl: './list-page.component.html',
-	styleUrls: ['./list-page.component.scss'],
+	selector: 'list-app',
+	templateUrl: './list.component.html',
+	styleUrls: ['./list.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ListPageComponent implements OnInit {
+export class ListComponent implements OnInit {
 	products = JSON.parse(productsJson);
 
 	projects: Array<Project>;

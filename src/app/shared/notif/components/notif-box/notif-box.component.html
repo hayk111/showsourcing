@@ -1,4 +1,4 @@
-<card-app margin="none">
+<card-app>
 	<card-title-app translate="title.lastest-noti"></card-title-app>
 	<ng-container *ngIf="notifications$ | async as notifications; else emptyNotif">
 		<notif-list-app

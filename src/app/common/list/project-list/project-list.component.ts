@@ -1,6 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, ChangeDetectorRef, Input } from '@angular/core';
-import { productsJson } from '../mock-data';
-import { SelectionService } from '~core/list-page';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Project } from '~core/models';
 
 @Component({
@@ -11,15 +9,7 @@ import { Project } from '~core/models';
 })
 export class ProjectListComponent {
 
-	@Input() set projects(projects: Array<Project>) {
-		this._projects = projects;
-	}
-
-	get projects() {
-		return this._projects;
-	}
-
-	private _projects: Array<Project>;
+	@Input() projects: Array<Project>;
 
 	constructor() {}
 
