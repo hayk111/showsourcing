@@ -1,4 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, EventEmitter, Output } from '@angular/core';
+import { Product, ERM } from '~core/models';
 
 @Component({
 	selector: 'product-docket-app',
@@ -7,7 +8,11 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductDocketComponent implements OnInit {
-
+	@Input() product: Product;
+	@Output() update = new EventEmitter<Product>();
+	@Output() addTask = new EventEmitter<undefined>();
+	@Output() addSample = new EventEmitter<undefined>();
+	erm = ERM;
 	constructor() { }
 
 	ngOnInit() {

@@ -184,6 +184,14 @@ button, input[type="submit"], .button {
 		}
 	}
 
+	&.warn-light {
+		background: transparent;
+		color: var(--color-warn);
+		&:hover, &.cdk-keyboard-focused {
+			background: var(--color-bg-secondary);
+		}
+	}
+
 	&.secondary-light {
 		background: var(--color-secondary-light);
 		color: var(--color-secondary-contrast);
@@ -197,20 +205,9 @@ button, input[type="submit"], .button {
 		text-transform: capitalize;
 	}
 
-	&.min-width {
-		min-width: 120px;
-	}
-
 	&.small {
 		min-width: 70px;
 		height: 24px;
-	}
-
-	// TODO: Michael is still used ?
-	// wassn't that for some project we had like a year ago ?
-	&.boarding, &.big {
-		height: 40px;
-    min-width: 120px;
 	}
 
 	&:hover, &.cdk-keyboard-focused {
@@ -222,29 +219,33 @@ button, input[type="submit"], .button {
 	&.icon-s, &.icon {
 		width: 32px;
 		height: 32px;
+		min-width: unset;
 	}
 
 	&.icon-ms {
 		width: 36px;
 		height: 36px;
+		min-width: unset;
 	}
-	
+
 	// when the button is just an icon
 	&.icon-m {
 		width: 40px;
 		height: 40px;
+		min-width: unset;
 
 		icon-app {
 			font-size: var(--font-size-l);
 		}
 	}
 
-	&.icon, &.icon-s, &.icon-m {
+	&.icon, &.icon-s, &.icon-m, &.icon-ms {
 		background: none;
 		font-size: inherit;
 		display: inline-flex;
 		justify-content: center;
 		align-items: center;
+		min-width: unset;
 		border-radius: 0px;
 
 		icon-app {

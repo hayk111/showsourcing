@@ -1,3 +1,16 @@
 :host {
 	display: block;
 }
+
+small {
+	font-size: var(--font-size-m);
+}
+
+.show-action-on-hover {
+	.action {
+		display: none;
+	}
+	&:hover .action {
+		display: block;
+	}
+}

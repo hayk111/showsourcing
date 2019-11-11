@@ -14,7 +14,6 @@ import { SharedModule } from '~shared/shared.module';
 
 import * as DetailsPage from './pages/product-details';
 import * as TablePage from './pages/products';
-
 import { ProductFeatureService, QuoteFeatureService } from './services';
 
 
@@ -41,6 +40,7 @@ import { ProductFeatureService, QuoteFeatureService } from './services';
 		DetailsPage.TasksPageComponent,
 		DetailsPage.RequestsPageComponent,
 		DetailsPage.ProductHeaderDetailsComponent,
+		DetailsPage.ProductSubHeaderDetailsComponent,
 		DetailsPage.ProductDocketComponent,
 		DetailsPage.ProductMainComponent,
 		TablePage.ProductsPageComponent,

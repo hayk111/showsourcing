@@ -105,14 +105,6 @@
 	<preview-tab-app #tab2 (click)="previewSrv.onSelectedTab(2)">Activity</preview-tab-app>
 	<preview-tab-app #tab3 (click)="previewSrv.onSelectedTab(3)">Comments</preview-tab-app>
 
-	<!-- Rating -->
-	<preview-section-app #contentTab2 [title]="'tasks'">
-		<h4 class="flexCenter mg-top-ms ms">Tasks</h4>
-		<div class="preview-task" *ngFor="let item of product?.tasksLinked?.items">
-			{{ item.name }}
-		</div>
-	</preview-section-app>
-	
 	<!-- Description -->
 	<preview-section-app #contentTab1 [title]="'title.description' | translate">
 		<input-description-app
@@ -240,7 +232,7 @@
 	</preview-banner-app>
 
 		<!-- Header -->
-	<preview-header-app
+		<preview-header-app
 			[entityMD]="erm.PRODUCT"
 			[entity]="product"
 			(update)="update($event, 'name')"
@@ -294,40 +286,49 @@
 
 	</preview-section-app>
 
-	<!-- Description -->
-	<preview-section-app #contentTab1 [title]="'title.description' | translate">
-		<input-description-app
-			[description]="product?.description"
-			(update)="update($event, 'description')">
-		</input-description-app>
-	</preview-section-app>
+		<!-- Description -->
+		<preview-section-app #contentTab1 [title]="'title.description' | translate">
+			<input-description-app
+				[description]="product?.description"
+				(update)="update($event, 'description')">
+			</input-description-app>
+		</preview-section-app>
 
-	<!-- Tags -->
-	<preview-section-app #contentTab1 [title]="'title.tags' | translate">
-		<input-badge-selector-app
-			[value]="product?.tags"
-			type="tag"
-			(change)="update($event, 'tags')">
-		</input-badge-selector-app>
-	</preview-section-app>
+		<!-- Tags -->
+		<preview-section-app #contentTab1 [title]="'title.tags' | translate">
+			<input-badge-selector-app
+				[value]="product?.tags"
+				type="tag"
+				(change)="update($event, 'tags')">
+			</input-badge-selector-app>
+		</preview-section-app>
 
-	<!-- Rating -->
-	<preview-section-app #contentTab2 [title]="'team rating'">
-		<rating-stars-score-view-app
-			class="mg-bottom-l mg-left-l"
-			[votes]="product?.votes">
-		</rating-stars-score-view-app>
-		<divider-app></divider-app>
-		<h4 class="flexCenter mg-top-ms ms">Your Rating</h4>
-		<rating-stars-action-app
-			class="flexCenter"
-			[votes]="product?.votes"
-			(valueVoted)="onStarVote($event)">
-		</rating-stars-action-app>
-		<button class="primary-light fullWidth mg-top-ms" (click)="dialogCommonSrv.openVoteDetailsDialog(product?.votes)">
-			View ratings
-		</button>
-	</preview-section-app>
+		<!-- Projects -->
+		<preview-section-app #contentTab1 [title]="'title.projects' | translate">
+			<input-badge-selector-app
+				[value]="product?.projects"
+				type="project"
+				(change)="update($event, 'projects')">
+			</input-badge-selector-app>
+		</preview-section-app>
+
+		<!-- Rating -->
+		<preview-section-app #contentTab2 [title]="'team rating'">
+			<rating-stars-score-view-app
+				class="mg-bottom-l mg-left-l"
+				[votes]="product?.votes">
+			</rating-stars-score-view-app>
+			<divider-app></divider-app>
+			<h4 class="flexCenter mg-top-ms ms">Your Rating</h4>
+			<rating-stars-action-app
+				class="flexCenter"
+				[votes]="product?.votes"
+				(valueVoted)="onStarVote($event)">
+			</rating-stars-action-app>
+			<button class="primary-light fullWidth mg-top-ms" (click)="dialogCommonSrv.openVoteDetailsDialog(product?.votes)">
+				View ratings
+			</button>
+		</preview-section-app>
 
 </preview-static-app>
 

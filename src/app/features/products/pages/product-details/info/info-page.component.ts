@@ -11,6 +11,7 @@ import { Product } from '~core/models';
 import { DialogService } from '~shared/dialog';
 import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
 import { AutoUnsub } from '~utils';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 
 
 @Component({
@@ -36,7 +37,7 @@ export class InfoPageComponent extends AutoUnsub implements OnInit {
 		private route: ActivatedRoute,
 		private productSrv: ProductService,
 		private cd: ChangeDetectorRef,
-		private dlgSrv: DialogService
+		public dlgCommonSrv: DialogCommonService
 	) {
 		super();
 	}
@@ -75,10 +76,4 @@ export class InfoPageComponent extends AutoUnsub implements OnInit {
 		product.id = this.product.id;
 		this.productSrv.update(product).subscribe();
 	}
-
-
-	openCreateRequest() {
-		this.dlgSrv.open(SupplierRequestDialogComponent, { products: [this.product] });
-	}
-
 }
