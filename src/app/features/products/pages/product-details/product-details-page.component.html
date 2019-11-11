@@ -17,7 +17,7 @@
 				(addTask)="dlgCommonSrv.openCreationTaskDlg(product)"
 				(addSample)="dlgCommonSrv.openCreationSampleDialog(product)"></product-docket-app>
 		</div>
-		<product-main-app class="right"></product-main-app>
+		<product-main-app [product]="product" class="right"></product-main-app>
 	</div>
 </ng-container>
 

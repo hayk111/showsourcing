@@ -32,10 +32,15 @@
 		background: var(--color-success-light);
 		color: var(--color-success);
 	}
+	&.count {
+		background: var(--color-bg-third);
+		color: var(--color-txt-secondary);
+	}
 
 	// sizes
 	&.small {
 		height: 15px;
+		width: 15px;
 		padding: 0 2px;
 		font-size: var(--font-size-s);
 		border-radius: var(--border-radius-s);
