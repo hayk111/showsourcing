@@ -17,7 +17,7 @@
 			<ng-container *ngIf="description?.length">{{ description }}</ng-container>
 		</editable-display-app>
 		<textarea inputApp #inpDescription autofocus="true"
-			class="fullWidth"
+			class="full-width"
 			[value]="description || ''"
 			(keyup.enter)="updateDescription(false, inpDescription.value)">
 		</textarea>

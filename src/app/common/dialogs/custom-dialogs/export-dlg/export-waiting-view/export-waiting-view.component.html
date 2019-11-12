@@ -13,7 +13,7 @@
 				<span class="color-primary pointer capitalize" (click)="goToExports()" translate="link.exports"></span>
 			</div>
 			<div *ngIf="!fileReady" class="status-container loading">
-				<div class="bar-container fullWidth">
+				<div class="bar-container full-width">
 					<div class="moving-bar"></div>
 				</div>
 				<div class="status-info" translate="text.export-generating"></div>
@@ -28,7 +28,7 @@
 		</div>
 	</main>
 
-	<dialog-footer-app class="fullWidth">
+	<dialog-footer-app class="full-width">
 		<button tabFocusAction class="open-export secondary" (click)="goToExports()" translate="button.open-exports"></button>
 		<button tabFocusAction (click)="dlgSrv.close()" translate="button.close"></button>
 	</dialog-footer-app>
