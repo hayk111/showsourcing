@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Sample } from '~core/models';
+import { TrackingComponent } from '~utils/tracking-component';
 
 @Component({
 	selector: 'sample-list-app',
@@ -7,13 +8,12 @@ import { Sample } from '~core/models';
 	styleUrls: ['./sample-list.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SampleListComponent {
+export class SampleListComponent extends TrackingComponent {
 
 	@Input() samples: { count: Number, items: Array<Sample> };
 
-	constructor() {}
-
-	trackByFn(sample: Sample) {
-		return sample.id;
+	constructor() {
+		super();
 	}
+
 }

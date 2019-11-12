@@ -1,4 +1,4 @@
-<div class="preview-project flexVAlign" *ngFor="let project of projects">
+<div class="preview-project flexVAlign" *ngFor="let project of projects; trackBy: trackById">
 	<icon-app
 		class="pointer"
 		[name]="'project'"

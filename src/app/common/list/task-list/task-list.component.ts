@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Task } from '~core/models';
+import { TrackingComponent } from '~utils/tracking-component';
 
 @Component({
 	selector: 'task-list-app',
@@ -7,13 +8,12 @@ import { Task } from '~core/models';
 	styleUrls: ['./task-list.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TaskListComponent {
+export class TaskListComponent extends TrackingComponent {
 
 	@Input() tasks: { count: Number, items: Array<Task> };
 
-	constructor() {}
-
-	trackByFn(task: Task) {
-		return task.id;
+	constructor() {
+		super();
 	}
+
 }
