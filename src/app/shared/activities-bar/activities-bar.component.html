@@ -6,10 +6,10 @@
 			toolTip [toolTipMessage]="sampleCount + (sampleCount === 1 ? ' sample' : ' samples')">
 		</icon-app>
 		<!-- TODO ngx -->
-		<icon-app *ngIf="hasTasks" name="check-circle" [ngClass]="{'warn-circle': hasTaskOverdue}" size="ms"
+		<icon-app *ngIf="hasTasks && taskCount > 0" name="check-circle" [ngClass]="{'warn-circle': hasTaskOverdue}" size="ms"
 			toolTip [toolTipMessage]="taskCount + (taskCount === 1 ? ' task' : ' tasks')">
 		</icon-app>
-		<icon-app *ngIf="hasComments" name="comments" size="ms"
+		<icon-app *ngIf="hasComments && commentCount" name="comments" size="ms"
 			toolTip [toolTipMessage]="commentCount + (commentCount === 1 ? ' comment' : ' comments')">
 		</icon-app>
 		<icon-app *ngIf="hasRequestCount && (requestsCount$ | async) && !(openRequestsCount$ | async)" name="envelope" size="ms"></icon-app>

@@ -13,6 +13,7 @@ import {
 	StatusBadgeComponent,
 	StatusBoxComponent,
 	TaskStatusBadgeComponent,
+	BadgeSelectorComponent,
 } from './components';
 
 
@@ -25,6 +26,7 @@ import {
 	],
 	declarations: [
 		BadgeComponent,
+		BadgeSelectorComponent,
 		InfoBadgeComponent,
 		NotificationBadgeDirective,
 		RequestStatusBadgeComponent,
@@ -35,6 +37,7 @@ import {
 	],
 	exports: [
 		BadgeComponent,
+		BadgeSelectorComponent,
 		InfoBadgeComponent,
 		NotificationBadgeDirective,
 		RequestStatusBadgeComponent,
