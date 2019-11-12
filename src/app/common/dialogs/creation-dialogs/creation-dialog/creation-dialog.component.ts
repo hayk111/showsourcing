@@ -71,7 +71,7 @@ export class CreationDialogComponent extends AutoUnsub implements OnInit, AfterV
 				return exists ? Observable.create(obs => obs.next(false)) : this.createItem({ name, ...this.extra });
 			}),
 		).subscribe(item => {
-			if ('onProjectCreated' in this.extra) {
+			if (this.extra && 'onProjectCreated' in this.extra) {
 				this.extra.onProjectCreated(item);
 			}
 

@@ -1,0 +1,10 @@
+.preview-sample {
+	margin: var(--spacing-xs) 0;
+	
+	span {
+		display: block; // this property is needed for text overflow "ellipsis"
+		margin-left: var(--spacing-s);
+		font-size: var(--font-size-m);
+		color: var(--color-bg-dark);
+	}
+}

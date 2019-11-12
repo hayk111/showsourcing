@@ -27,30 +27,33 @@
 
 	<div class="show-action-on-hover">
 		<div class="flexBetween">
-			<h3 class="mg-top-ms mg-bottom-ms">Tasks</h3> 
+			<h3 class="mg-top-ms mg-bottom-s">Tasks</h3> 
 			<icon-app 
 				class="action color-primary" 
 				name="plus"
 				(click)="addTask.emit()"></icon-app>
 		</div>
-		<!-- <task-list-app [rows]="product.tasksLinked"></task-list-app> -->
-		<span>Need Merge request</span>
+		<task-list-app [tasks]="product?.tasksLinked"></task-list-app>
 	</div>
 
 	<div class="show-action-on-hover">
 		<div class="flexBetween">
-			<h3 class="mg-top-ms mg-bottom-ms">Samples</h3> 
+			<h3 class="mg-top-s mg-bottom-s">Samples</h3> 
 			<icon-app 
 				class="action color-primary" 
 				name="plus"
 				(click)="addSample.emit()"></icon-app>
 		</div>
-		<!-- <sample-list-app [rows]="product.samplesLinked"></sample-list-app> -->
-		<span>Need Merge request</span>
+		<sample-list-app [samples]="product?.samplesLinked"></sample-list-app>
 	</div>
 
 	<h3 class="mg-top-ms mg-bottom-ms">About this product</h3>
 	<small>Created by {{ product.createdBy | formatUserName }} on  {{ product.creationDate | date: 'dd MMMM yyyy' }}</small> <br>
 	<small>Last updated by {{ product.lastUpdatedBy | formatUserName }} on {{ product.lastUpdatedDate | date: 'dd MMMM yyyy' }}</small><br>
 	<small *ngIf="product.event">Found at {{ product?.event?.description?.name }}</small>
+</card-app>
+
+<card-app class="project-card">
+	<h3 class="mg-bottom-s">Projects</h3> 
+	<project-list-app [projects]="product?.projects"></project-list-app>
 </card-app>

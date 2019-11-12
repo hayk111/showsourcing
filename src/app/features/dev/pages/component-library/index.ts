@@ -5,6 +5,7 @@ export * from './card/card-page.component';
 export * from './common-list/common-list-page.component';
 export * from './guidelines/guidelines-page.component';
 export * from './icon/icon-page.component';
+export * from './list/lists.component';
 export * from './kanban/kanban-page.component';
 export * from './loader/loader-page.component';
 export * from './pipes/pipes-page.component';
