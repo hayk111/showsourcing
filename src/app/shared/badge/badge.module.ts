@@ -13,7 +13,6 @@ import {
 	StatusBadgeComponent,
 	StatusBoxComponent,
 	TaskStatusBadgeComponent,
-	BadgeSelectorComponent,
 } from './components';
 
 
@@ -22,11 +21,10 @@ import {
 		CommonModule,
 		IconsModule,
 		UtilsModule,
-		TranslateModule
+		TranslateModule,
 	],
 	declarations: [
 		BadgeComponent,
-		BadgeSelectorComponent,
 		InfoBadgeComponent,
 		NotificationBadgeDirective,
 		RequestStatusBadgeComponent,
@@ -37,7 +35,6 @@ import {
 	],
 	exports: [
 		BadgeComponent,
-		BadgeSelectorComponent,
 		InfoBadgeComponent,
 		NotificationBadgeDirective,
 		RequestStatusBadgeComponent,

@@ -1,5 +1,4 @@
 export * from './badge/badge.component';
-export * from './badge-selector/badge-selector.component';
 export * from './info-badge/info-badge.component';
 export * from './notification-badge/notification-badge.directive';
 export * from './rating-badge/rating-badge.component';
