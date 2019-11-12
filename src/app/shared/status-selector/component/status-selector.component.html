@@ -20,8 +20,7 @@
 			<ng-container *ngIf="type === 'button'">
 				<status-box-app
 					class="pointer flexCenter"
-					[status]="entity?.status"
-					[typeEntity]="typeEntity">
+					[status]="entity?.status">
 				</status-box-app>
 			</ng-container>
 
@@ -40,7 +39,7 @@
 		</context-menu-trigger-app>
 
 		<div *ngFor="let stat of (status$ | async); trackBy: trackByFn" class="{{ selectSize }}">
-			<status-box-app class="pointer" [type]="'list'" [status]="stat" [typeEntity]="typeEntity" [width]="width" (click)="updateStatus(stat)"></status-box-app>
+			<status-box-app class="pointer" [status]="stat" [width]="width" (click)="updateStatus(stat)"></status-box-app>
 		</div>
 
 	</context-menu-app>
