@@ -5,8 +5,8 @@ import { CardsCommonModule } from '~common/cards/cards-common.module';
 import { CreationDialogsCommonModule } from '~common/dialogs/creation-dialogs/creation-dialogs-common.module';
 import { CustomDialogsCommonModule } from '~common/dialogs/custom-dialogs/custom-dialogs-common.module';
 import { SelectionDialogsCommonModule } from '~common/dialogs/selection-dialogs/selection-dialogs-common.module';
-import { TablesCommonModule } from '~common/tables/tables-common.module';
 import { ListCommonModule } from '~common/list/list-common.module';
+import { TablesCommonModule } from '~common/tables/tables-common.module';
 import { SharedModule } from '~shared/shared.module';
 
 import * as Pages from './pages';
@@ -19,12 +19,12 @@ import { routes } from './routes';
 		RouterModule.forChild(routes),
 		SharedModule,
 		TablesCommonModule,
+		ListCommonModule,
 		CreationDialogsCommonModule,
 		SelectionDialogsCommonModule,
 		CustomDialogsCommonModule,
 		BoardsCommonModule,
-		CardsCommonModule,
-		ListCommonModule
+		CardsCommonModule
 	],
 	declarations: [
 		Pages.ComponentLibraryComponent,

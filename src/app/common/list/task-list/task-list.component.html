@@ -1,4 +1,4 @@
-<ng-container *ngIf="tasks.count; else noTask">
+<ng-container *ngIf="tasks?.count; else noTask">
 	<div class="preview-task flexVAlign" *ngFor="let task of tasks.items; trackBy: trackByFn">
 		<icon-app
 			class="pointer"

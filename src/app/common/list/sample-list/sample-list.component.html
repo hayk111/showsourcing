@@ -1,4 +1,4 @@
-<ng-container *ngIf="samples.count; else noSample">
+<ng-container *ngIf="samples?.count; else noSample">
 	<div class="preview-sample flexVAlign" *ngFor="let sample of samples.items; trackBy: trackByFn">
 		<icon-app
 			class="pointer"
