@@ -8,7 +8,22 @@
 	<div class="flexColumn product-info">
 		<!-- title -->
 		<div class="title">
-			<h1 class="flexStart xs">{{ product?.name }}</h1>
+			<editable-container-app
+				#edt
+				[defaultStyle]="false"
+				[hoverable]="true"
+				(opened)="inpName.select()">
+				<editable-display-app class="ellipsis bold-s color-txt-primary fs-xxxxl">
+					{{ product?.name || '-' }}
+				</editable-display-app>
+				<input
+					inputApp
+					#inpName
+					type="text"
+					[value]="product?.name"
+					(keyup.enter)="edt.close()"/>
+			</editable-container-app>
+			<!-- info title -->
 			<div class="flex dot-separator">
 				<rating-badge-app	[votes]="product?.votes" [hasNumber]="true"></rating-badge-app>
 				<div>{{ product?.samplesLinked.count || 0 }} {{ product?.samplesLinked?.count === 1 ? 'Sample' : 'Samples' }}</div>
