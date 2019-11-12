@@ -9,7 +9,7 @@ import { Project } from '~core/models';
 })
 export class ProjectListComponent {
 
-	@Input() projects: Array<Project>;
+	@Input() projects: { count: Number, items: Array<Project> };
 
 	constructor() {}
 

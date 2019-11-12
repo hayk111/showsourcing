@@ -1,8 +1,14 @@
-<div class="preview-sample flexVAlign" *ngFor="let sample of samples; trackBy: trackByFn">
-	<icon-app
-		class="pointer"
-		[name]="'sample'"
-		[size]="12">
-	</icon-app>
-	<span class="ellipsis">{{ sample.name }}</span>
-</div>
+<ng-container *ngIf="samples.count; else noSample">
+	<div class="preview-sample flexVAlign" *ngFor="let sample of samples.items; trackBy: trackByFn">
+		<icon-app
+			class="pointer"
+			[name]="'sample'"
+			[size]="12">
+		</icon-app>
+		<span class="ellipsis">{{ sample.name }}</span>
+	</div>
+</ng-container>
+
+<ng-template #noSample>
+	<span>None</span>
+</ng-template>

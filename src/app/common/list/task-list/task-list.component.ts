@@ -9,10 +9,10 @@ import { Task } from '~core/models';
 })
 export class TaskListComponent {
 
-	@Input() tasks: Array<Task>;
-	
+	@Input() tasks: { count: Number, items: Array<Task> };
+
 	constructor() {}
-	
+
 	trackByFn(task: Task) {
 		return task.id;
 	}

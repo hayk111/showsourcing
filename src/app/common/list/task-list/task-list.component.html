@@ -1,9 +1,15 @@
-<div class="preview-task flexVAlign" *ngFor="let task of tasks; trackBy: trackByFn">
-	<icon-app
-		class="pointer"
-		[ngClass]="task?.done ? 'task-is-done': 'task-not-done'"
-		[name]="task?.done ? 'check-circle' : 'check-circle-light'"
-		[size]="12">
-	</icon-app>
-	<span class="ellipsis">{{ task.name }}</span>
-</div>
+<ng-container *ngIf="tasks.count; else noTask">
+	<div class="preview-task flexVAlign" *ngFor="let task of tasks.items; trackBy: trackByFn">
+		<icon-app
+			class="pointer"
+			[ngClass]="task?.done ? 'task-is-done': 'task-not-done'"
+			[name]="task?.done ? 'check-circle' : 'check-circle-light'"
+			[size]="12">
+		</icon-app>
+		<span class="ellipsis">{{ task.name }}</span>
+	</div>
+</ng-container>
+
+<ng-template #noTask>
+	<span>None</span>
+</ng-template>

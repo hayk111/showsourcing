@@ -9,7 +9,7 @@ import { Sample } from '~core/models';
 })
 export class SampleListComponent {
 
-	@Input() samples: Array<Sample>;
+	@Input() samples: { count: Number, items: Array<Sample> };
 
 	constructor() {}
 
