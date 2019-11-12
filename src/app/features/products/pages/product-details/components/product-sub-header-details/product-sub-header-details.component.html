@@ -11,9 +11,9 @@
 			<h1 class="flexStart xs">{{ product?.name }}</h1>
 			<div class="flex dot-separator">
 				<!-- rating here -->
-				<div>{{ product?.samplesLinked.count || 0 }} {{ product?.samplesLinked.count === 1 ? 'Sample' : 'Samples' }}</div>
-				<div>{{ product?.tasksLinked.count || 0 }} {{ product?.samplesLinked.count === 1 ? 'Task' : 'Tasks' }}</div>
-				<div>{{ product?.comments?.length || 0  }} {{ product?.samplesLinked.count === 1 ? 'Comment' : 'Comments' }}</div>
+				<div>{{ product?.samplesLinked.count || 0 }} {{ product?.samplesLinked?.count === 1 ? 'Sample' : 'Samples' }}</div>
+				<div>{{ product?.tasksLinked.count || 0 }} {{ product?.samplesLinked?.count === 1 ? 'Task' : 'Tasks' }}</div>
+				<div>{{ product?.comments?.length || 0  }} {{ product?.comments?.length === 1 ? 'Comment' : 'Comments' }}</div>
 			</div>
 		</div>
 
@@ -27,8 +27,32 @@
 		<!-- supplier -->
 		<div class="section">
 			<h3>supplier</h3>
-			<editable-display-app>
-			</editable-display-app>
+			<selector-app
+				type="supplier"
+				[canCreate]="true"
+				[width]="370">
+				<editable-display-app>
+					<div *ngIf="product?.supplier as supplier" class="flex">
+						<logo-app
+							class="mg-right-s"
+							[type]="erm.SUPPLIER.singular"
+							[logo]="supplier?.logoImage">
+						</logo-app>
+						<div class="supplier-info mg-right-xxl">
+							<span class="fs-l color-txt-primary bold-s">{{ supplier?.name }}</span>
+							<div class="flex dot-separator">
+								<div *ngIf="supplier?.supplierType">{{ supplier?.supplierType }}</div>
+								<div *ngIf="supplier?.country">{{ supplier?.country }}</div>
+								<!-- rating -->
+							</div>
+						</div>
+						<button class="flexVAlign capitalize">
+							<icon-app class="mg-right-xs" name="export"></icon-app>
+							contact supplier
+						</button>
+					</div>
+				</editable-display-app>
+			</selector-app>
 		</div>
 
 		<!-- category -->
@@ -41,11 +65,9 @@
 		<!-- description -->
 		<div class="section">
 			<h3>description</h3>
-			<editable-display-app>
-				<input-description-app
-					[description]="product?.description">
-				</input-description-app>
-		</editable-display-app>
+			<input-description-app
+				[description]="product?.description">
+			</input-description-app>
 	</div>
 
 	<!-- tags -->
@@ -55,6 +77,8 @@
 			[value]="product?.tags"
 			type="tag">
 		</input-badge-selector-app>
-		</div>
+	</div>
+
 	</div>
 </div>
+<divider-app></divider-app>
