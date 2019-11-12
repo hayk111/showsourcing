@@ -6,25 +6,39 @@
 	</carousel-app>
 
 	<div class="flexColumn product-info">
+		<!-- title -->
 		<div class="title">
-			<h1 class="flexStart xs">{{product?.name}}</h1>
+			<h1 class="flexStart xs">{{ product?.name }}</h1>
 			<div class="flex dot-separator">
-				<div>{{ product?.samplesLinked.count || 0 }} {{ product?.samplesLinked.count === 1 ? 'Samples':'' }}</div>
-				<div>{{ product?.tasksLinked.count || 0 }} {{ product?.samplesLinked.count === 1 ? 'Tasks':'' }}</div>
-				<div>{{ product?.comments?.length || 0  }} {{ product?.samplesLinked.count === 1 ? 'Comments':'' }}</div>
+				<!-- rating here -->
+				<div>{{ product?.samplesLinked.count || 0 }} {{ product?.samplesLinked.count === 1 ? 'Sample' : 'Samples' }}</div>
+				<div>{{ product?.tasksLinked.count || 0 }} {{ product?.samplesLinked.count === 1 ? 'Task' : 'Tasks' }}</div>
+				<div>{{ product?.comments?.length || 0  }} {{ product?.samplesLinked.count === 1 ? 'Comment' : 'Comments' }}</div>
 			</div>
 		</div>
-		<div class="price"></div>
+
+		<!-- price -->
+		<div class="section">
+			<price-with-quantity-app
+				[product]="product">
+			</price-with-quantity-app>
+		</div>
+
+		<!-- supplier -->
 		<div class="section">
 			<h3>supplier</h3>
 			<editable-display-app>
 			</editable-display-app>
 		</div>
+
+		<!-- category -->
 		<div class="section">
 			<h3>category</h3>
 			<editable-display-app>
 			</editable-display-app>
 		</div>
+
+		<!-- description -->
 		<div class="section">
 			<h3>description</h3>
 			<editable-display-app>
@@ -33,6 +47,8 @@
 				</input-description-app>
 		</editable-display-app>
 	</div>
+
+	<!-- tags -->
 	<div class="section">
 		<h3>tags</h3>
 		<input-badge-selector-app

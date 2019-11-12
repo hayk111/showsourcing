@@ -1,4 +1,13 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, Output, ContentChild, HostBinding } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	ContentChild,
+	EventEmitter,
+	Input,
+	Output,
+} from '@angular/core';
+
 import { EditableDisplayComponent } from '../editable-display/editable-display.component';
 
 

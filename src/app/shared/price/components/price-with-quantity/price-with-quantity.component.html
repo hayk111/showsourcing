@@ -1,6 +1,8 @@
 <editable-container-app
 	#editablePrice
 	class="price"
+	[defaultStyle]="false"
+	[hasAction]="false"
 	(closed)="updateProductField($event, inpPrice.price, 'price')"
 	(opened)="inpPrice.select()"
 	(saved)="updateProductField(false, inpPrice.price, 'price')">
@@ -9,10 +11,7 @@
 				{{ product?.price | appPrice: 2 : '1.2-2' }}
 			</div>
 			<ng-template #priceHolder>
-				<button class="secondary-light capitalize flex">
-					<span class="bold-s mg-right-s">$</span>
-					<span>set price</span>
-				</button>
+				<div class="capitalize pd-top-s pd-bottom-s">set price</div>
 			</ng-template>
 	</editable-display-app>
 	<input-price-app #inpPrice [price]="product?.price" (keyup.enter)="editablePrice.close()"></input-price-app>
@@ -21,6 +20,8 @@
 <editable-container-app
 	#editableMOQ
 	class="moq"
+	[defaultStyle]="false"
+	[hasAction]="false"
 	(closed)="updateProductField($event, inputMOQ.value, 'minimumOrderQuantity')"
 	(opened)="inputMOQ.select()"
 	(saved)="updateProductField(false, inputMOQ.value, 'minimumOrderQuantity')">
@@ -30,7 +31,7 @@
 			{{ product?.moqDescription ? ' ' + product?.moqDescription : ''}}
 		</div>
 		<ng-template #moqHolder>
-			<button class="secondary-light capitalize">set moq</button>
+			<div class="capitalize pd-top-s pd-bottom-s">set MOQ</div>
 		</ng-template>
 	</editable-display-app>
 	<input inputApp
