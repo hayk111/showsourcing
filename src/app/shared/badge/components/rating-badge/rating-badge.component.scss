@@ -1,0 +1,32 @@
+:host {
+	font-size: var(--font-size-s);
+	align-items: center;
+	display: flex;
+}
+
+.stars-empty {
+  display: inline-block;
+  position: relative;
+  font-family: 'icomoon' !important;
+	color: var(--color-secondary);
+}
+
+.stars-empty::before {
+	content: "\e94f \e94f \e94f \e94f \e94f";
+	letter-spacing: 2px;
+}
+
+.stars-full {
+  font-family: 'icomoon' !important;
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+}
+
+.stars-full::before {
+	letter-spacing: 2px;
+  content: "\e94f \e94f \e94f \e94f \e94f";
+}
