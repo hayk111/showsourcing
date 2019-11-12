@@ -3,12 +3,12 @@ import { ProductVote } from '~core/models';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 
 @Component({
-	selector: 'rating-badge-app',
-	templateUrl: './rating-badge.component.html',
-	styleUrls: ['./rating-badge.component.scss'],
+	selector: 'rating-number-badge-app',
+	templateUrl: './rating-number-badge.component.html',
+	styleUrls: ['./rating-number-badge.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RatingBadgeComponent {
+export class RatingNumberBadgeComponent {
 
 	private _votes: ProductVote[];
 	@Input() set votes(votes: ProductVote[]) {
