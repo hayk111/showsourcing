@@ -5,8 +5,8 @@ import { TrackingComponent } from '~utils/tracking-component';
 
 @Component({
 	selector: 'badge-selector-app',
-	templateUrl: './preview-badge.component.html',
-	styleUrls: ['./preview-badge.component.scss'],
+	templateUrl: './badge-selector.component.html',
+	styleUrls: ['./badge-selector.component.scss'],
 	host: {
 		'[class.clickable]': 'true'
 	},
