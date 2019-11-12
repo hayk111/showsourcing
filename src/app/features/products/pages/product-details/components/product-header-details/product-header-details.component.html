@@ -29,8 +29,7 @@
 				<span *ngIf="product?.supplier" class="hyphen-separator">
 					{{ product?.supplier?.name }}
 				</span>
-				<activities-bar-app *ngIf="product?.votes?.length > 0" [votes]="product?.votes">
-				</activities-bar-app>
+				<rating-badge-app [votes]="product?.votes"></rating-badge-app>
 			</div>
 		</div>
 	</header-details-info-app>
@@ -49,7 +48,7 @@
 		<button class="secondary vibrant icon-with-text mg-left-ms">
 			<icon-app name="export"></icon-app>Ask Supplier
 		</button>
-		
+
 		<status-selector-app class="mg-left-ms" [typeEntity]="productEntity" [entity]="product" selectSize="m" type="button">
 		</status-selector-app>
 

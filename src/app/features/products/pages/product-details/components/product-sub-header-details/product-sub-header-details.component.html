@@ -10,7 +10,7 @@
 		<div class="title">
 			<h1 class="flexStart xs">{{ product?.name }}</h1>
 			<div class="flex dot-separator">
-				<rating-badge-app	[votes]="product?.votes"></rating-badge-app>
+				<rating-badge-app	[votes]="product?.votes" [hasNumber]="true"></rating-badge-app>
 				<div>{{ product?.samplesLinked.count || 0 }} {{ product?.samplesLinked?.count === 1 ? 'Sample' : 'Samples' }}</div>
 				<div>{{ product?.tasksLinked.count || 0 }} {{ product?.samplesLinked?.count === 1 ? 'Task' : 'Tasks' }}</div>
 				<div>{{ product?.comments?.length || 0  }} {{ product?.comments?.length === 1 ? 'Comment' : 'Comments' }}</div>

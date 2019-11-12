@@ -19,6 +19,8 @@ export class RatingBadgeComponent {
 		return this._votes;
 	}
 	@Input() activeColor = 'accent';
+	/** whether we display the number on the side or not */
+	@Input() hasNumber = false;
 
 	score: number = null;
 
