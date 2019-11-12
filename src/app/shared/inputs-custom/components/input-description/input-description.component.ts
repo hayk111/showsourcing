@@ -31,7 +31,6 @@ export class InputDescriptionComponent implements OnChanges, OnInit {
 		return this._description;
 	}
 	@Input() hasLabel = false;
-	@Input() isSmall = false;
 	// wether we display a modal or not
 	@Input() asModal = true;
 	@Output() update = new EventEmitter<string>();
