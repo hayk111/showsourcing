@@ -1,7 +1,7 @@
 <header-details-app [headerType]="'details'">
 
 	<header-details-title-app *ngIf="product">
-		<editable-container-app #edt (closed)="updateProductName($event, inpName.value, 'name')" (opened)="inpName.select()">
+		<editable-container-app #edt [defaultStyle]="false" (closed)="updateProductName($event, inpName.value, 'name')" (opened)="inpName.select()">
 			<editable-display-app>
 				{{ product?.name || ('message.unnamed-product' | translate) }}
 			</editable-display-app>
@@ -11,7 +11,7 @@
 	</header-details-title-app>
 
 
-	<logo-app *ngIf="product?.images[0]" [logo]="product?.images[0]" size="l" type="product"></logo-app>
+	<logo-app [logo]="product?.images[0]" size="l" type="product"></logo-app>
 
 	<header-details-info-app>
 		<div class="flex flexVAlign">
@@ -37,6 +37,18 @@
 
 
 	<header-details-actions-app>
+
+		<button class="secondary icon mg-left-ms">
+			<icon-app name="export"></icon-app>
+		</button>
+
+		<button class="secondary icon-with-text mg-left-ms">
+			<icon-app name="share"></icon-app>Share
+		</button>
+
+		<button class="secondary vibrant icon-with-text mg-left-ms">
+			<icon-app name="export"></icon-app>Ask Supplier
+		</button>
 		
 		<status-selector-app class="mg-left-ms" [typeEntity]="productEntity" [entity]="product" selectSize="m" type="button">
 		</status-selector-app>

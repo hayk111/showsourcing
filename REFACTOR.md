@@ -137,3 +137,7 @@ The name and ref column second line could be customized via a template, because 
 # sidebar
 
   subnav items should be in html
+
+# erm
+
+add ERM pipe instead of having `erm = ERM;` this on components

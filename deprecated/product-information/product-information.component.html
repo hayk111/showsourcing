@@ -1,25 +1,27 @@
-<card-app>
 
-	<card-title-app>
-		<icon-app name="product"></icon-app> 
-		<span translate="header.product-info"></span>
-	</card-title-app>
+<div class="flexBetween">
+	<h3>Product Details</h3>
+	<button 
+		class="vibrant" 
+		(click)="dlgCommonSrv.openSupplierRequest([product])">
+		Ask supplier
+	</button>
+</div>
 
 
-	<dynamic-form-app
-		[fields]="productDescriptor?.descriptor"
-		[value]="product"
-		(update)="update.emit($event)">
-	</dynamic-form-app>
+<dynamic-form-app
+	[fields]="productDescriptor?.descriptor"
+	[value]="product"
+	(update)="update.emit($event)">
+</dynamic-form-app>
 
-	<extended-form-app
-		*ngIf="fieldDefinitions$ | async as definitions; else spinner"
-		[definitions]="definitions"
-		[fields]="product?.extendedFields"
-		(update)="updateProduct({extendedFields: $event})">
-	</extended-form-app>
+<extended-form-app
+	*ngIf="fieldDefinitions$ | async as definitions; else spinner"
+	[definitions]="definitions"
+	[fields]="product?.extendedFields"
+	(update)="updateProduct({extendedFields: $event})">
+</extended-form-app>
 
-</card-app>
 
 <ng-template #spinner>
 	<spinner-app></spinner-app>
