@@ -7,11 +7,11 @@
 
 	<div class="flexColumn product-info">
 		<div class="title">
-			<h1 class="flexStart">{{product?.name}}</h1>
+			<h1 class="flexStart xs">{{product?.name}}</h1>
 			<div class="flex dot-separator">
-				<div>{{product?.samplesLinked.count || 0}} {{product?.samplesLinked.count === 1 ? 'Samples':''}}</div>
-				<div>{{product?.tasksLinked.count || 0}} {{product?.samplesLinked.count === 1 ? 'Tasks':''}}</div>
-				<div>{{product?.comments?.length || 0 }} {{product?.samplesLinked.count === 1 ? 'Comments':''}}</div>
+				<div>{{ product?.samplesLinked.count || 0 }} {{ product?.samplesLinked.count === 1 ? 'Samples':'' }}</div>
+				<div>{{ product?.tasksLinked.count || 0 }} {{ product?.samplesLinked.count === 1 ? 'Tasks':'' }}</div>
+				<div>{{ product?.comments?.length || 0  }} {{ product?.samplesLinked.count === 1 ? 'Comments':'' }}</div>
 			</div>
 		</div>
 		<div class="price"></div>
@@ -35,8 +35,10 @@
 	</div>
 	<div class="section">
 		<h3>tags</h3>
-		<editable-display-app>
-		</editable-display-app>
+		<input-badge-selector-app
+			[value]="product?.tags"
+			type="tag">
+		</input-badge-selector-app>
 		</div>
 	</div>
 </div>
