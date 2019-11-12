@@ -37,6 +37,10 @@ context-menu-app {
 	}
 }
 
+.caret {
+	font-size: var(--font-size-xxs);
+}
+
 badge-app.task {
 	text-transform: capitalize;
 	color: var(--legacy-color-txt-strong);

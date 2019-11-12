@@ -247,9 +247,15 @@ button, input[type="submit"], .button {
 		align-items: center;
 		min-width: unset;
 		border-radius: 0px;
+		padding: 0;
+
+		&.txt-secondary icon-app {
+			color: var(--color-txt-secondary);
+		}
 
 		icon-app {
 			color: var(--color-txt-third);
+			cursor: pointer;
 		}
 
 		&:hover {
@@ -264,6 +270,7 @@ button, input[type="submit"], .button {
 	// when there is an icon + text
 	&.icon-with-text {
 		icon-app {
+			cursor: pointer;
 			margin-right: 6px;
 		}
 	}

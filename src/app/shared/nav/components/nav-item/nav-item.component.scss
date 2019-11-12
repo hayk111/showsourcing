@@ -18,7 +18,8 @@
     }
 
     icon-app {
-      margin-right: var(--spacing-s);
+			margin-right: var(--spacing-s);
+			color: var(--color-txt-third);
     }
 
     &:hover {
@@ -30,7 +31,12 @@
     color: var(--color-primary);
     cursor: none;
     pointer-events: none;
-    text-decoration: none;
+		text-decoration: none;
+
+		icon-app {
+			color: var(--color-primary);
+		}
+
     divider-app {
       display: block;
       background: var(--color-primary);
