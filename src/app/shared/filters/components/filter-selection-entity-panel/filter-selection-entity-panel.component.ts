@@ -21,7 +21,7 @@ export class FilterSelectionEntityPanelComponent extends AutoUnsub implements On
 	@Output() filterRemoved = new EventEmitter<Filter>();
 	@Input() selected = new Map<string, Filter>();
 	@Input() type: FilterType;
-	pending$ = new BehaviorSubject(true);
+	pending$ = new BehaviorSubject(false);
 	/** List result */
 	listResult: ListQuery<any>;
 	/** Different choices that are displayed in the view */
@@ -101,15 +101,15 @@ export class FilterSelectionEntityPanelComponent extends AutoUnsub implements On
 			case FilterType.CREATED_BY:
 				this.listResult.refetch({
 					query: `firstName CONTAINS[c] "${value}" OR lastName CONTAINS[c] "${value}"`
-				}).subscribe();
+				}).subscribe(_ => this.pending$.next(false));
 				break;
 			case FilterType.EVENT:
 			case FilterType.EVENTS:
 				return this.listResult.refetch({
 					query: `description.name CONTAINS[c] "${value}" OR name CONTAINS[c] "${value}"`
-				}).subscribe();
+				}).subscribe(_ => this.pending$.next(false));
 			default:
-				this.listResult.refetch({ query: `name CONTAINS[c] "${value}"` }).subscribe();
+				this.listResult.refetch({ query: `name CONTAINS[c] "${value}"` }).subscribe(_ => this.pending$.next(false));
 		}
 	}
 
