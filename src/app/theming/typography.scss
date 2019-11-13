@@ -73,12 +73,26 @@ body, .body, .body1 {
 }
 
 .txt-secondary {
-	color: var(--legacy-color-txt-secondary);
+	color: var(--color-txt-secondary);
 }
 
-.txt-clickable:hover {
-	color: var(--legacy-color-primary);
-	text-decoration: underline;
+.txt-clickable {
+	transition: 0.3s;
+
+	&:hover {
+			color: var(--color-primary);
+			text-decoration: underline;
+	}
+}
+
+.txt-btn {
+	transition: 0.3s;
+
+	&:hover{
+		color: var(--color-primary) !important;
+		text-decoration: underline;
+		cursor: pointer;
+	}
 }
 
 .capitalize, [capitalize] {

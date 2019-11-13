@@ -1,7 +1,8 @@
 <img-app *ngIf="image; else default"
 	[image]="image" size="m" type="user" [ngClass]="{ 'border': border }"
 	[style.height]="size + 'px'"
-	[style.width]="size + 'px'"></img-app>
+	[style.width]="size + 'px'">
+</img-app>
 <ng-template #default>
 	<div class="gradient-border flexCenter" [ngClass]="{ 'gradient-border': initials && background }"
 		[ngStyle]="commonStyle()">
@@ -11,3 +12,6 @@
 		</div>
 	</div>
 </ng-template>
+<div *ngIf="hasName" class="mg-left-ms flexVAlign ellipsis pointer txt-btn">
+	{{ user | formatUserName: true }}
+</div>

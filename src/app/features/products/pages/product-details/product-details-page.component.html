@@ -15,11 +15,12 @@
 
 	<div class="flex ctnr">
 		<div class="left">
-			<product-docket-app 
+			<product-docket-app
 				[product]="product"
 				(update)="updateProduct($event)"
 				(addTask)="dlgCommonSrv.openCreationTaskDlg(product)"
-				(addSample)="dlgCommonSrv.openCreationSampleDialog(product)"></product-docket-app>
+				(addSample)="dlgCommonSrv.openCreationSampleDialog(product)">
+			</product-docket-app>
 		</div>
 		<product-main-app class="right"></product-main-app>
 	</div>

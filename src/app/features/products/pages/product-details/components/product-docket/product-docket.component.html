@@ -1,59 +1,73 @@
+<!-- product info card -->
 <card-app>
+	<!-- owner -->
+	<div class="section">
+		<h3 class="title">Product Owner</h3>
 
-	<h3 class="mg-bottom-ms">Owner</h3>
-
-	<editable-container-app (opened)="sel.openMenu()" [hasAction]="false">
-		<editable-display-app>{{ product.assignee | formatUserName }}</editable-display-app>
 		<selector-app
 			#sel
 			[type]="erm.USER.singular"
 			[width]="320"
 			[offsetX]="4"
 			(update)="update.emit({ assignee: $event })">
-			{{ product?.assignee ? (product?.assignee | formatUserName) : 'None' }}
+			<editable-display-app>
+				<div *ngIf="product?.assignee" class="flex">
+					<user-picture-app	class="mg-right-ms" [user]="product?.assignee" size="24" fontSize="12" [hasName]="true"></user-picture-app>
+				</div>
+			</editable-display-app>
 		</selector-app>
-	</editable-container-app>
-	
-	<h3 class="mg-top-ms mg-bottom-ms">Product Status</h3>
-	<span>
-		<status-selector-app 
-			[typeEntity]="erm.PRODUCT" 
-			[entity]="product" 
-			selectSize="m" 
-			type="button">
-		</status-selector-app>
-	</span>
+	</div>
 
+	<!-- status -->
+	<div class="section">
+		<h3 class="title">Product Status</h3>
+		<span>
+			<status-selector-app
+				[typeEntity]="erm.PRODUCT"
+				[entity]="product"
+				selectSize="m"
+				type="button">
+			</status-selector-app>
+		</span>
+	</div>
 
-	<div class="show-action-on-hover">
-		<div class="flexBetween">
-			<h3 class="mg-top-ms mg-bottom-s">Tasks</h3> 
-			<icon-app 
-				class="action color-primary" 
+	<!-- task list -->
+	<div class="section action-hover-container">
+		<div class="title flexVAlign">
+			<h3>Tasks</h3>
+			<icon-app
+				class="mg-left-ms action-hover-item color-primary"
 				name="plus"
-				(click)="addTask.emit()"></icon-app>
+				(click)="addTask.emit()">
+			</icon-app>
 		</div>
 		<task-list-app [tasks]="product?.tasksLinked"></task-list-app>
 	</div>
 
-	<div class="show-action-on-hover">
-		<div class="flexBetween">
-			<h3 class="mg-top-s mg-bottom-s">Samples</h3> 
-			<icon-app 
-				class="action color-primary" 
+	<!-- sample list -->
+	<div class="section action-hover-container">
+		<div class="title flexVAlign">
+			<h3>Samples</h3>
+			<icon-app
+				class="mg-left-ms action-hover-item color-primary"
 				name="plus"
-				(click)="addSample.emit()"></icon-app>
+				(click)="addSample.emit()">
+			</icon-app>
 		</div>
 		<sample-list-app [samples]="product?.samplesLinked"></sample-list-app>
 	</div>
 
-	<h3 class="mg-top-ms mg-bottom-ms">About this product</h3>
-	<small>Created by {{ product.createdBy | formatUserName }} on  {{ product.creationDate | date: 'dd MMMM yyyy' }}</small> <br>
-	<small>Last updated by {{ product.lastUpdatedBy | formatUserName }} on {{ product.lastUpdatedDate | date: 'dd MMMM yyyy' }}</small><br>
-	<small *ngIf="product.event">Found at {{ product?.event?.description?.name }}</small>
+	<!-- about -->
+	<div class="section">
+		<h3 class="title">About this product</h3>
+		<small>Created by {{ product.createdBy | formatUserName }} on  {{ product.creationDate | date: 'dd MMMM yyyy' }}</small> <br>
+		<small>Last updated by {{ product.lastUpdatedBy | formatUserName }} on {{ product.lastUpdatedDate | date: 'dd MMMM yyyy' }}</small><br>
+		<small *ngIf="product.event">Found at {{ product?.event?.description?.name }}</small>
+	</div>
 </card-app>
 
+<!-- Project card -->
 <card-app class="project-card">
-	<h3 class="mg-bottom-s">Projects</h3> 
+	<h3 class="title">Projects</h3>
 	<project-list-app [projects]="product?.projects"></project-list-app>
 </card-app>

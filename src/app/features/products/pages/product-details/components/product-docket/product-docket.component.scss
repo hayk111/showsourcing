@@ -6,15 +6,16 @@ small {
 	font-size: var(--font-size-m);
 }
 
-.show-action-on-hover {
-	.action {
-		display: none;
-	}
-	&:hover .action {
-		display: block;
-	}
-}
-
 .project-card {
 	margin: var(--spacing-l) 0;
+}
+
+.section {
+	&:not(:last-child) {
+		margin-bottom: var(--spacing-ms);
+	}
+
+	.title {
+		margin-bottom: var(--spacing-ms);
+	}
 }

@@ -1,19 +1,23 @@
 :host {
   display: block;
   color: var(--color-txt-secondary);
-  margin-right: var(--spacing-xxl);
+	margin-right: var(--spacing-xxl);
+	font-weight: 600;
 
   & > a {
     display: flex;
     position: relative;
-    padding-bottom: var(--spacing-m);
+		padding-bottom: var(--spacing-m);
+		transition: 0.3s;
 
     divider-app {
-      display: none;
+			display: blocK;
       position: absolute;
       width: 100%;
       height: 3px;
-      bottom: 0;
+			bottom: 0;
+			opacity: 0;
+			transition: 0.3s;
       background: var(--color-primary);
     }
 
@@ -21,16 +25,11 @@
 			margin-right: var(--spacing-s);
 			color: var(--color-txt-third);
     }
-
-    &:hover {
-      color: var(--color-primary);
-    }
   }
 
-  .active-tab {
+  .active-tab, & > a:hover {
     color: var(--color-primary);
-    cursor: none;
-    pointer-events: none;
+    cursor: pointer;
 		text-decoration: none;
 
 		icon-app {
@@ -38,7 +37,7 @@
 		}
 
     divider-app {
-      display: block;
+			opacity: 1;
       background: var(--color-primary);
     }
   }

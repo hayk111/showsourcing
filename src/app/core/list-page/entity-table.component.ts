@@ -44,7 +44,7 @@ export abstract class EntityTableComponent<T> extends TrackingComponent implemen
 	@Input() canUpdate = true;
 	@Input() columns = [];
 	@Input() hasMinHeight = true;
-	@Input() rowHeight: number;
+	@Input() rowHeight = 47;
 	@Input() hasRequestCount = false;
 	tableConfig: TableConfig = undefined;
 	columnsConfig: ColumnConfig[] = [];

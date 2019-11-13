@@ -3,7 +3,7 @@
 
 		<header-details-title-app>{{ project?.name }}</header-details-title-app>
 
-		<logo-app color="primary" type="project" size="xl"></logo-app>
+		<logo-app color="primary" type="project" size="l"></logo-app>
 
 		<header-details-info-app *ngIf="project$ | async as project">
 			{{ (project?.status ? 'text.' + project?.status : 'text.new') | translate }}
