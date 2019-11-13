@@ -14,7 +14,6 @@ import { Colors } from '~utils';
 		'[class.success]': 'color === "success"',
 		'[class.accent]': 'color === "accent"',
 		'[class.vibrant]': 'color === "vibrant"',
-		'[class.count]': 'color === "count"',
 		'[class.flexVAlign]': 'true',
 		'[class.flexCenter]': 'true',
 		'[class.circle]': 'circle',
