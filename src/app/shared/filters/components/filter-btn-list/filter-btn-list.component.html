@@ -1,19 +1,19 @@
 <div class="filter-btn">
 	<ng-container *ngFor="let type of filterBtns; trackBy: trackByFilterBtnsFn">
-	
+
 		<ng-container *ngIf="!hasFilterFor(type); else list">
-	
+
 			<label>
 				{{ type }}
 			</label>
-	
-			<button class="secondary-light fullWidth"
+
+			<button class="secondary-light full-width"
 				(click)="editClicked.emit(type)">
 				<ng-container translate="button.filter-by"></ng-container> {{ type }}
 			</button>
-	
+
 		</ng-container>
-	
+
 			<!-- if there is a filter the button doesn't appear and we display a list of filters -->
 			<ng-template #list>
 				<div class="flexBetween">
@@ -31,7 +31,7 @@
 						</span>
 					</div>
 				</div>
-	
+
 				<div class="flexColumn">
 					<checkbox-app
 						*ngFor="let filter of getFiltersFor(type); trackBy: trackByFn"
@@ -40,17 +40,17 @@
 						{{ getDisplayName(filter, type) }}
 					</checkbox-app>
 				</div>
-	
+
 			</ng-template>
-	
+
 	</ng-container>
-	
+
 	<ng-container *ngIf="hasFavoriteFilter">
-	
+
 		<!-- favorite -->
 		<label class="capitalize" translate="text.favorite">
 		</label>
-	
+
 		<checkbox-app
 			[checked]="isFavorite()"
 			(check)="addFilter({ type: favoriteType, value: true })"
@@ -59,12 +59,12 @@
 				<span translate="button.only-show-favorites"></span>
 		</checkbox-app>
 	</ng-container>
-	
+
 	<!-- archived -->
 	<ng-container *ngIf="hasArchivedFilter">
 		<label class="capitalize" translate="text.archived">
 		</label>
-	
+
 		<checkbox-app
 			[checked]="isArchived()"
 			(check)="onArchivedChange()"
@@ -76,7 +76,7 @@
 	<!-- done -->
 	<ng-container *ngIf="hasDoneFilter">
 		<label class="capitalize" translate="text.completed"></label>
-	
+
 		<checkbox-app
 			[checked]="isDone()"
 			(check)="onDoneChange()"

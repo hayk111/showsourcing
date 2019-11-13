@@ -4,15 +4,15 @@ import { SelectorComponent } from '~shared/selectors';
 import { TrackingComponent } from '~utils/tracking-component';
 
 @Component({
-	selector: 'preview-badge-app',
-	templateUrl: './preview-badge.component.html',
-	styleUrls: ['./preview-badge.component.scss'],
+	selector: 'badge-selector-app',
+	templateUrl: './badge-selector.component.html',
+	styleUrls: ['./badge-selector.component.scss'],
 	host: {
 		'[class.clickable]': 'true'
 	},
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PreviewBadgesComponent extends TrackingComponent implements OnInit {
+export class BadgeSelectorComponent extends TrackingComponent implements OnInit {
 
 	@Input() badge: EntityMetadata;
 	@Input() value: any;

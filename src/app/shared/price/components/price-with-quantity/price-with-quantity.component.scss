@@ -1,21 +1,15 @@
 :host {
-	height: 25px;
 	display: flex;
-	align-items: center;
+	flex-direction: column;
 }
 
 .price {
-	margin-right: var(--spacing-m);
 
 	.amount {
 		color: var(--color-primary);
-		font-size: var(--font-size-l);
-		font-weight: bold;
+		font-size: var(--font-size-xxxl);
+		font-weight: 600;
 	}
-}
-
-.mg-right-s {
-	margin-right: var(--spacing-s);
 }
 
 .moq {

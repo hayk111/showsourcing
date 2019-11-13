@@ -45,7 +45,7 @@
 				<context-menu-app *ngIf="status.step !== 0; else zeroStep">
 					<context-menu-trigger-app>
 						<div class="flexBetween badge" [ngClass]="getType(status)">
-							<div class="flexCenter fullWidth">	{{ 'const.statusCategory.' + status?.category | translate }}	</div>
+							<div class="flexCenter full-width">	{{ 'const.statusCategory.' + status?.category | translate }}	</div>
 							<div> <icon-app name="caret-down"></icon-app> </div>
 						</div>
 					</context-menu-trigger-app>

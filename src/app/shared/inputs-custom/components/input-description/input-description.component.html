@@ -11,39 +11,23 @@
 		(click)="openDescModal()">
 		<label-app class="capitalize" translate="text.description"></label-app>
 		<editable-display-app
-			*ngIf="description?.length && description"
 			[disabled]="true"
 			class="fs-m">
-			{{ (description?.length && description)  }}
-		</editable-display-app>
-		<editable-display-app
-			*ngIf="!(description?.length && description)"
-			[disabled]="true"
-			class="fullWidth fs-m flexCenter">
-			<button
-				class="primary-light flexCenter edit-description capitalize"
-				[ngStyle]="{'width': isSmall ? '30%' : '100%'}"
-				translate="text.add-description">
-			</button>
+			<!-- we need an ng-container, so editable-display knows when its empty to place the default placeholder -->
+			<ng-container *ngIf="description?.length">{{ description }}</ng-container>
 		</editable-display-app>
 		<textarea inputApp #inpDescription autofocus="true"
-			class="fullWidth"
+			class="full-width"
 			[value]="description || ''"
 			(keyup.enter)="updateDescription(false, inpDescription.value)">
 		</textarea>
 	</editable-field-app>
 </div>
+<!-- show more button -->
 <button
-	*ngIf="showMore && !isSmall"
+	*ngIf="showMore"
 	tabFocusAction
 	class="secondary-light flexCenter view-more"
 	(click)="showAll()"
 	translate="button.view-more">
 </button>
-<span
-	*ngIf="showMore && isSmall"
-	tabFocusAction
-	class="text-more"
-	(click)="showAll()"
-	translate="button.view-more">
-</span>

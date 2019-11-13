@@ -22,7 +22,7 @@ import { EntityName } from '~core/models';
 	styleUrls: ['./table.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
-		class: 'fullWidth',
+		class: 'full-width',
 		'[class.scrollable-y]': 'hasVerticalScroll'
 	}
 })

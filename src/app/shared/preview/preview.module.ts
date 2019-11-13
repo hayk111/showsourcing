@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
+import { BadgeModule } from '~shared/badge';
 import { CarouselModule } from '~shared/carousel';
 import { ContextMenuModule } from '~shared/context-menu/context-menu.module';
 import { EditableFieldModule } from '~shared/editable-field';
@@ -14,7 +15,6 @@ import { StatusSelectorModule } from '~shared/status-selector/status-selector.mo
 import { UtilsModule } from '~shared/utils';
 
 import {
-	PreviewBadgesComponent,
 	PreviewBannerComponent,
 	PreviewCarouselComponent,
 	PreviewCommentComponent,
@@ -30,23 +30,23 @@ import {
 
 @NgModule({
 	imports: [
+		BadgeModule,
+		CarouselModule,
 		CommonModule,
-		StatusSelectorModule,
+		ContextMenuModule,
+		EditableFieldModule,
+		FileModule,
 		FormsModule,
 		IconsModule,
-		EditableFieldModule,
-		SelectorsModule,
 		ImageModule,
-		CarouselModule,
-		FileModule,
 		OverlayModule,
 		ReactiveFormsModule,
-		UtilsModule,
+		SelectorsModule,
+		StatusSelectorModule,
 		TranslateModule,
-		ContextMenuModule
+		UtilsModule,
 	],
 	declarations: [
-		PreviewBadgesComponent,
 		PreviewBannerComponent,
 		PreviewCarouselComponent,
 		PreviewCommentComponent,
@@ -59,7 +59,6 @@ import {
 		PreviewTopBarComponent,
 	],
 	exports: [
-		PreviewBadgesComponent,
 		PreviewBannerComponent,
 		PreviewCarouselComponent,
 		PreviewCommentComponent,

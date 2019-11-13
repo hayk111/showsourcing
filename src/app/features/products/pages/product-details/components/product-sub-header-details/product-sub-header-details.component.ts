@@ -1,5 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
-import { Product } from '~core/models';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ERM, Product } from '~models';
 
 @Component({
 	selector: 'product-sub-header-details-app',
@@ -10,6 +10,8 @@ import { Product } from '~core/models';
 export class ProductSubHeaderDetailsComponent implements OnInit {
 
 	@Input() product: Product;
+
+	erm = ERM;
 
 	constructor() { }
 

@@ -21,7 +21,7 @@ import {
 		CommonModule,
 		IconsModule,
 		UtilsModule,
-		TranslateModule
+		TranslateModule,
 	],
 	declarations: [
 		BadgeComponent,

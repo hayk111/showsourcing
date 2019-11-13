@@ -22,7 +22,7 @@
 					*ngFor="let template of templates$ | async"
 					[selected]="isSelected(template)"
           (click)="templateSelected = template">
-          <div class="item flexBetween fullWidth">
+          <div class="item flexBetween full-width">
             <span class="name">{{ template.name }}</span>
             <context-menu-app>
               <context-menu-trigger-app>
@@ -47,7 +47,7 @@
 
 				<list-app>
 					<list-item-app *ngFor="let fc of (newState | keyvalue); trackBy: trackByFn" (click)="toggle(fc.key)">
-						<div class="flexBetween flexVAlign fullWidth">
+						<div class="flexBetween flexVAlign full-width">
 							<span> {{ fc.key.label }}</span>
 							<checkbox-app [checked]="fc.value"></checkbox-app>
 						</div>

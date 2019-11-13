@@ -27,26 +27,26 @@
 			(update)="update($event, 'name')">
 
 		<!-- Supplier type badge -->
-		<preview-badge-app
+		<badge-selector-app
 			[badge]="erm.SUPPLIER_TYPE"
 			[value]="supplier?.supplierType?.name"
 			(update)="update($event, 'supplierType')">
-		</preview-badge-app>
+		</badge-selector-app>
 
 		<!-- Location badge -->
-		<preview-badge-app
+		<badge-selector-app
 			[badge]="erm.LOCATION"
 			[value]="getLocationName(supplier)"
 			(update)="update($event, 'country')">
-		</preview-badge-app>
+		</badge-selector-app>
 
 		<!-- Categories badge -->
-		<preview-badge-app
+		<badge-selector-app
 			[badge]="erm.CATEGORY"
 			[multiple]="true"
 			[value]="supplier?.categories"
 			(update)="update($event, 'categories')">
-		</preview-badge-app>
+		</badge-selector-app>
 	</preview-header-app>
 
 	<!-- Description -->
@@ -124,27 +124,27 @@
 			(update)="update($event, 'name')">
 
 		<!-- Supplier type badge -->
-		<preview-badge-app
+		<badge-selector-app
 			[badge]="erm.SUPPLIER_TYPE"
 			[value]="supplier?.supplierType?.name"
 			(update)="update($event, 'supplierType')">
-		</preview-badge-app>
+		</badge-selector-app>
 
 		<!-- Location badge -->
-		<preview-badge-app
+		<badge-selector-app
 			[badge]="erm.LOCATION"
 			[value]="getLocationName(supplier)"
 			(update)="update($event, 'country')">
-		</preview-badge-app>
+		</badge-selector-app>
 
 		<!-- Categories badge -->
-		<preview-badge-app
+		<badge-selector-app
 			[badge]="erm.CATEGORY"
 			[multiple]="true"
 			[value]="supplier?.categories"
 			(update)="update($event, 'categories')">
 			<divider-app></divider-app>
-		</preview-badge-app>
+		</badge-selector-app>
 	</preview-header-app>
 
 	<!-- Description -->

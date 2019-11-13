@@ -60,28 +60,28 @@
 		</price-with-quantity-app>
 
 		<!-- Badge supplier -->
-		<preview-badge-app
+		<badge-selector-app
 			[hasOpenAction]="true"
 			[badge]="erm.SUPPLIER"
 			[value]="product?.supplier?.name"
 			(openActionClicked)="openSupplier()"
 			(update)="update($event, 'supplier')">
-		</preview-badge-app>
+		</badge-selector-app>
 
 		<!-- Badge category -->
-		<preview-badge-app
+		<badge-selector-app
 			[badge]="erm.CATEGORY"
 			[value]="product?.category"
 			(update)="update($event, 'category')">
-		</preview-badge-app>
+		</badge-selector-app>
 
 		<!-- Badge event -->
-		<preview-badge-app
+		<badge-selector-app
 			*ngIf="product?.event"
 			[badge]="erm.EVENT"
 			[value]="product?.event"
 			(update)="update($event, 'event')">
-		</preview-badge-app>
+		</badge-selector-app>
 
 		<preview-section-app class="mg-none">
 
@@ -165,7 +165,7 @@
 			[votes]="product?.votes"
 			(valueVoted)="onStarVote($event)">
 		</rating-stars-action-app>
-		<button class="primary-light fullWidth mg-top-ms" (click)="dialogCommonSrv.openVoteDetailsDialog(product?.votes)">
+		<button class="primary-light full-width mg-top-ms" (click)="dialogCommonSrv.openVoteDetailsDialog(product?.votes)">
 			View ratings
 		</button>
 	</preview-section-app>
@@ -246,28 +246,28 @@
 		</price-with-quantity-app>
 
 		<!-- Badge supplier -->
-		<preview-badge-app
+		<badge-selector-app
 			[hasOpenAction]="true"
 			[badge]="erm.SUPPLIER"
 			[value]="product?.supplier?.name"
 			(openActionClicked)="openSupplier()"
 			(update)="update($event, 'supplier')">
-		</preview-badge-app>
+		</badge-selector-app>
 
 		<!-- Badge category -->
-		<preview-badge-app
+		<badge-selector-app
 			[badge]="erm.CATEGORY"
 			[value]="product?.category"
 			(update)="update($event, 'category')">
-		</preview-badge-app>
+		</badge-selector-app>
 
 		<!-- Badge event -->
-		<preview-badge-app
+		<badge-selector-app
 			*ngIf="product?.event"
 			[badge]="erm.EVENT"
 			[value]="product?.event"
 			(update)="update($event, 'event')">
-		</preview-badge-app>
+		</badge-selector-app>
 
 	</preview-header-app>
 
@@ -325,7 +325,7 @@
 				[votes]="product?.votes"
 				(valueVoted)="onStarVote($event)">
 			</rating-stars-action-app>
-			<button class="primary-light fullWidth mg-top-ms" (click)="dialogCommonSrv.openVoteDetailsDialog(product?.votes)">
+			<button class="primary-light full-width mg-top-ms" (click)="dialogCommonSrv.openVoteDetailsDialog(product?.votes)">
 				View ratings
 			</button>
 		</preview-section-app>

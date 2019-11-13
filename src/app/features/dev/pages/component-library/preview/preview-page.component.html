@@ -19,26 +19,26 @@
 				[entity]="(product$ | async)"
 				(update)="update($event, 'name')">
 				<!-- Badge -->
-				<preview-badge-app
+				<badge-selector-app
 					[badge]="erm.SUPPLIER"
 					[value]="(product$ | async)?.supplier?.name"
 					(update)="update($event, 'supplier')">
-				</preview-badge-app>
-				<preview-badge-app
+				</badge-selector-app>
+				<badge-selector-app
 					[badge]="erm.CATEGORY"
 					[value]="[(product$ | async)?.category]"
 					(update)="update($event, 'category')">
-				</preview-badge-app>
+				</badge-selector-app>
 				<!--
 					this would be the example if the categories came form the supplier
 					but since we are using a product this cannot be, categories has multiple option
 				-->
-				<!-- <preview-badge-app
+				<!-- <badge-selector-app
 					[badge]="erm.CATEGORY"
 					[multiple]="true"
 					[value]="(product$ | async)?.categories"
 					(update)="update($event, 'categories')">
-				</preview-badge-app>-->
+				</badge-selector-app>-->
 				<div>This is Transcluded for anything else</div>
 			</preview-header-app>
 			<preview-section-app
@@ -66,7 +66,7 @@
 		<card-app>
 			<card-header-app>Header</card-header-app>
 			Has a common styling and a 2 transclude sections <br>
-			The transclusion for the preview-badge-app <br>
+			The transclusion for the badge-selector-app <br>
 			And the transclusion for anything else
 		</card-app>
 		<card-app>

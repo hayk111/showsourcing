@@ -7,19 +7,7 @@
 	[leftSideOrientation]="leftSideOrientationSelector"
 	[value]="value"
 	(update)="onUpdate($event)">
-	<ng-container *ngTemplateOutlet="getTemplate()"></ng-container>
-	<info-badge-app *ngFor="let item of value; trackBy: trackById" [type]="type">{{ item.name }}</info-badge-app>
+	<editable-display-app>
+		<info-badge-app *ngFor="let item of value; trackBy: trackById" [type]="type">{{ item.name }}</info-badge-app>
+	</editable-display-app>
 </selector-app>
-
-
-<ng-template #badgeStyle>
-	<button *ngIf="!value?.length" class="full-width primary-light capitalize">
-			{{ 'OBJ.add-OBJ' | translate: {type: 'ERM.' + type?.toUpperCase() + '.plural' | translate} }}
-	</button>
-</ng-template>
-
-<ng-template #textStyle>
-	<div *ngIf="!value?.length" class="flexCenter pointer selected bold-s">
-		{{ 'OBJ.add-OBJ' | translate: {type: 'ERM.' + type?.toUpperCase() + '.plural' | translate} }}
-	</div>
-</ng-template>

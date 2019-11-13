@@ -37,7 +37,7 @@
 // .pd-none, .pd-left-none, .pd-right-none, .pd-top-none, .pd-bottom-none, .pd-xs, .pd-left-xs, .pd-right-xs, .pd-top-xs, .pd-bottom-xs, .pd-s, .pd-left-s, .pd-right-s, .pd-top-s, .pd-bottom-s, .pd-ms, .pd-left-ms, .pd-right-ms, .pd-top-ms, .pd-bottom-ms, .pd-m, .pd-left-m, .pd-right-m, .pd-top-m, .pd-bottom-m, .pd-l, .pd-left-l, .pd-right-l, .pd-top-l, .pd-bottom-l, .pd-xl, .pd-left-xl, .pd-right-xl, .pd-top-xl, .pd-bottom-xl, .mg-none, .mg-left-none, .mg-right-none, .mg-top-none, .mg-bottom-none, .mg-xs, .mg-left-xs, .mg-right-xs, .mg-top-xs, .mg-bottom-xs, .mg-s, .mg-left-s, .mg-right-s, .mg-top-s, .mg-bottom-s, .mg-ms, .mg-left-ms, .mg-right-ms, .mg-top-ms, .mg-bottom-ms, .mg-m, .mg-left-m, .mg-right-m, .mg-top-m, .mg-bottom-m, .mg-l, .mg-left-l, .mg-right-l, .mg-top-l, .mg-bottom-l, .mg-xl, .mg-left-xl, .mg-right-xl, .mg-top-xl, .mg-bottom-xl
 
 $type-spacing: ("pd": "padding", "mg": "margin");
-$size-spacing: ("none": var(--spacing-none), "xxs": var(--spacing-xxs), "xs": var(--spacing-xs), "s": var(--spacing-s), "ms": var(--spacing-ms), "m": var(--spacing-m), "l": var(--spacing-l), "xl": var(--spacing-xl));
+$size-spacing: ("none": var(--spacing-none), "xxs": var(--spacing-xxs), "xs": var(--spacing-xs), "s": var(--spacing-s), "ms": var(--spacing-ms), "m": var(--spacing-m), "l": var(--spacing-l), "xl": var(--spacing-xl), "xxl": var(--spacing-xxl), "xxxl": var(--spacing-xxxl));
 $direction-spacing: left, right, top, bottom;
 
 // this method adds a class for each direction, type of spacing and size

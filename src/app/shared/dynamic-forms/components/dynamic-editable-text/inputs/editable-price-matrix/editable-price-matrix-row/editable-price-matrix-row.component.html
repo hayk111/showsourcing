@@ -5,7 +5,7 @@
 	(closed)="onClose($event)"
 	(opened)="inp1.select()">
 
-	<editable-display-app class="pointer fullWidth">
+	<editable-display-app class="pointer full-width">
 		<ng-container *ngIf="value.label; else placeholder">
 			{{ value.label }}
 		</ng-container>
@@ -37,7 +37,7 @@
 	[defaultStyle]="false"
 	(closed)="onClose($event)"
 	(opened)="inpPrice.select()">
-	<editable-display-app class="fullWidth">
+	<editable-display-app class="full-width">
 		<span *ngIf="currency">{{ (currency || 'USD') | const : 'currency' : 'symbol'}} </span>
 		<span class="mg-xs spacer"></span>
 		<span>{{ amount ? amount  : '-'}}</span>

@@ -46,7 +46,7 @@ import {
 } from '~models';
 import { Supplier } from '~models/supplier.model';
 import { DynamicField } from '~shared/dynamic-forms';
-import { FilterList } from '~shared/filters';
+import { FilterList } from '~shared/filters/models/filter-list.class';
 import { ID } from '~utils';
 import { countries, currencies, harbours, incoTerms } from '~utils/constants';
 import { businessTypes } from '~utils/constants/business-types.const';

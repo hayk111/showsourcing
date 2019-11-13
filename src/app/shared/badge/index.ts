@@ -1,2 +1,2 @@
-export * from '~shared/badge/badge.module';
-export * from '~shared/badge/components';
+export * from './badge.module';
+export * from './components';
