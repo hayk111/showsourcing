@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?w7s4jo');
-  src:  url('fonts/icomoon.eot?w7s4jo#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?w7s4jo') format('truetype'),
-    url('fonts/icomoon.woff?w7s4jo') format('woff'),
-    url('fonts/icomoon.svg?w7s4jo#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?uj2rh2');
+  src:  url('fonts/icomoon.eot?uj2rh2#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?uj2rh2') format('truetype'),
+    url('fonts/icomoon.woff?uj2rh2') format('woff'),
+    url('fonts/icomoon.svg?uj2rh2#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -25,6 +25,33 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-archive:before {
+  content: "\e968";
+}
+.icon-question-circle:before {
+  content: "\e969";
+}
+.icon-close-square:before {
+  content: "\e96a";
+}
+.icon-sort:before {
+  content: "\e96b";
+}
+.icon-close-circle:before {
+  content: "\e96c";
+}
+.icon-rocket:before {
+  content: "\e96d";
+}
+.icon-fat-check:before {
+  content: "\e96e";
+}
+.icon-merge:before {
+  content: "\e962";
+}
+.icon-compare:before {
+  content: "\e967";
+}
 .icon-activity:before {
   content: "\e913";
 }
