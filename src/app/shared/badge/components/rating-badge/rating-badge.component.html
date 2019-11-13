@@ -1,7 +1,6 @@
-<div
-	*ngIf="score !== null"
-	class="container flexCenter"
-	[ngClass]="getClasses()">
-	<icon-app class="icon-star" name="star" size="ms"></icon-app>
-	<span class="score">{{ score | number: '1.1-2' }}</span>
+<div class="stars-empty">
+	<div class="stars-full" [ngClass]="'color-' + activeColor" [style.width]="setWidth()"></div>
+</div>
+<div *ngIf="hasNumber" class="mg-left-xs">
+	({{ score }})
 </div>

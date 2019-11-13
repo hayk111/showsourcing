@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { ProductVote } from '~core/models';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 
@@ -18,19 +18,16 @@ export class RatingBadgeComponent {
 	get votes() {
 		return this._votes;
 	}
-	/** whether it has a background color or not*/
-	@Input() background = true;
+	@Input() activeColor = 'accent';
+	/** whether we display the number on the side or not */
+	@Input() hasNumber = false;
 
 	score: number = null;
 
 	constructor(public thumbSrv: ThumbService) { }
 
-	getClasses() {
-		let classes = this.score >= 3.5 ? 'color-accent-dark' : 'color-txt-third';
-		if (this.background) {
-			classes += this.score >= 3.5 ? ' bg-accent-light' : ' bg-secondary-light';
-		}
-		return classes;
+	setWidth() {
+		return (this.score * 20 || 0) + '%';
 	}
 
 }

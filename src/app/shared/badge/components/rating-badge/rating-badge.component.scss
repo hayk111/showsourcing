@@ -1,23 +1,32 @@
-
 :host {
+	font-size: var(--font-size-s);
+	align-items: center;
 	display: flex;
-	max-width: 54px;
-	height: 22px;
-}
-.container {
-	border-radius: var(--border-radius);
-	padding: var(--spacing-xs);
-	width: 100%;
-	height: 100%;
-	box-sizing: border-box;
 }
 
-.icon-star {
-	margin-right: var(--spacing-xs);
-	cursor: default;
+.stars-empty {
+  display: inline-block;
+  position: relative;
+  font-family: 'icomoon' !important;
+	color: var(--color-secondary);
 }
 
-.score {
-  font-size: var(--font-size-m);
-  font-weight: 600;
+.stars-empty::before {
+	content: "\e94f \e94f \e94f \e94f \e94f";
+	letter-spacing: 2px;
+}
+
+.stars-full {
+  font-family: 'icomoon' !important;
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+}
+
+.stars-full::before {
+	letter-spacing: 2px;
+  content: "\e94f \e94f \e94f \e94f \e94f";
 }
