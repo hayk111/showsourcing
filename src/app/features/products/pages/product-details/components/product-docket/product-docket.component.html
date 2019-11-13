@@ -41,7 +41,7 @@
 				(click)="addTask.emit()">
 			</icon-app>
 		</div>
-		<task-list-app [tasks]="product?.tasksLinked"></task-list-app>
+		<task-list-app [tasks]="product?.tasksLinked" (taskClicked)="previewTask.emit($event)"></task-list-app>
 	</div>
 
 	<!-- sample list -->
@@ -54,7 +54,7 @@
 				(click)="addSample.emit()">
 			</icon-app>
 		</div>
-		<sample-list-app [samples]="product?.samplesLinked"></sample-list-app>
+		<sample-list-app [samples]="product?.samplesLinked" (sampleClicked)="previewSample.emit($event)"></sample-list-app>
 	</div>
 
 	<!-- about -->
@@ -68,6 +68,9 @@
 
 <!-- Project card -->
 <card-app class="project-card">
-	<h3 class="title">Projects</h3>
-	<project-list-app [projects]="product?.projects"></project-list-app>
+	<!-- project list -->
+	<div class="section">
+		<h3 class="title">Projects</h3>
+		<project-list-app [projects]="product?.projects" (projectClicked)="openProject.emit($event)"></project-list-app>
+	</div>
 </card-app>

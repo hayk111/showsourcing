@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { Project } from '~core/models';
 import { TrackingComponent } from '~utils/tracking-component';
 
@@ -11,6 +11,7 @@ import { TrackingComponent } from '~utils/tracking-component';
 export class ProjectListComponent extends TrackingComponent {
 
 	@Input() projects: { count: Number, items: Array<Project> };
+	@Output() projectClicked = new EventEmitter<Project>();
 
 	constructor() {
 		super();
