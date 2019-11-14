@@ -2,8 +2,10 @@
 	<div *ngFor="let sample of samples?.items; trackBy: trackById" class="preview-sample flexVAlign">
 		<icon-app
 			class="pointer"
+			[ngClass]="'color-' + colorClass(sample)"
 			[name]="'sample'"
-			[size]="12">
+			[size]="12"
+			(click)="sampleClicked.emit(sample)">
 		</icon-app>
 		<span class="ellipsis txt-btn" (click)="sampleClicked.emit(sample)">{{ sample.name }}</span>
 	</div>
