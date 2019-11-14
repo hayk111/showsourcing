@@ -269,9 +269,11 @@ button, input[type="submit"], .button {
 
 	// when there is an icon + text
 	&.icon-with-text {
+		min-width: unset;
+
 		icon-app {
 			cursor: pointer;
-			margin-right: 6px;
+			margin-right: var(--spacing-s);
 		}
 	}
 

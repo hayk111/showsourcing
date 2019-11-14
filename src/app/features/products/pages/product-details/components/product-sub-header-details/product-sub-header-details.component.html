@@ -12,7 +12,7 @@
 				#edt
 				[hoverable]="true"
 				(opened)="inpName.select()"
-				(closed)="update('name', inpName.value)">
+				(closed)="update(inpName.value, 'name')">
 				<editable-display-app class="ellipsis bold-s color-txt-primary fs-xxxxl">
 					{{ product?.name || '-' }}
 				</editable-display-app>
@@ -36,7 +36,7 @@
 		<div class="section">
 			<price-with-quantity-app
 				[product]="product"
-				(updateField)="update($event.field,  $event.newValue)">
+				(updateField)="update($event.newValue, $event.field)">
 			</price-with-quantity-app>
 		</div>
 
@@ -47,7 +47,7 @@
 				type="supplier"
 				[canCreate]="true"
 				[width]="370"
-				(update)="update('supplier', $event)">
+				(update)="update($event, 'supplier')">
 				<editable-display-app>
 					<div *ngIf="product?.supplier as supplier" class="flex">
 						<logo-app
@@ -74,7 +74,7 @@
 			<badge-selector-app
 				[badge]="erm.CATEGORY"
 				[value]="product?.category"
-				(update)="update('category', $event)">
+				(update)="update($event, 'category')">
 			</badge-selector-app>
 		</div>
 
@@ -83,7 +83,7 @@
 			<h3>description</h3>
 			<input-description-app
 				[description]="product?.description"
-				(update)="update('description', $event)">
+				(update)="update($event, 'description')">
 			</input-description-app>
 	</div>
 
@@ -93,7 +93,7 @@
 		<input-badge-selector-app
 			[value]="product?.tags"
 			type="tag"
-			(change)="update('tags', $event)">
+			(change)="update($event, 'tags')">
 		</input-badge-selector-app>
 	</div>
 

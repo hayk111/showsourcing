@@ -21,7 +21,7 @@ export class ProductSubHeaderDetailsComponent implements OnInit {
 	ngOnInit() {
 	}
 
-	update(prop: string, value: any) {
+	update(value: any, prop: string) {
 		this.updated.emit({ id: this.product.id, [prop]: value });
 	}
 
