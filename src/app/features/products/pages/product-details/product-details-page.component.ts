@@ -31,6 +31,8 @@ import { AutoUnsub, log } from '~utils';
 export class ProductDetailsPageComponent extends AutoUnsub implements OnInit {
 	@Input() requestCount: number;
 	@ViewChild('main', { read: ElementRef, static: false }) main: ElementRef;
+	@ViewChild('rating', { read: ElementRef, static: false }) rating: ElementRef;
+
 	product: Product;
 	product$: Observable<Product>;
 
@@ -48,7 +50,7 @@ export class ProductDetailsPageComponent extends AutoUnsub implements OnInit {
 		private featureSrv: ProductFeatureService,
 		private dlgSrv: DialogService,
 		private notifSrv: NotificationService,
-		private thumbSrv: ThumbService,
+		private ratingSrv: ThumbService,
 		public dlgCommonSrv: DialogCommonService,
 		private translate: TranslateService
 	) {
@@ -144,12 +146,12 @@ export class ProductDetailsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	onThumbUp() {
-		const votes = this.thumbSrv.thumbUp(this.product);
+		const votes = this.ratingSrv.thumbUp(this.product);
 		this.updateProduct({ votes });
 	}
 
 	onThumbDown() {
-		const votes = this.thumbSrv.thumbDown(this.product);
+		const votes = this.ratingSrv.thumbDown(this.product);
 		this.updateProduct({ votes });
 	}
 
@@ -225,4 +227,9 @@ export class ProductDetailsPageComponent extends AutoUnsub implements OnInit {
 		this.router.navigate(['products', this.product.id, page]);
 		this.main.nativeElement.scrollIntoView({ behavior: 'smooth' });
 	}
+
+	scrollToRating() {
+		this.rating.nativeElement.scrollIntoView({ behavior: 'smooth' });
+	}
+
 }

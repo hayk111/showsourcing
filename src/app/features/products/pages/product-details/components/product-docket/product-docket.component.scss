@@ -6,10 +6,6 @@ small {
 	font-size: var(--font-size-m);
 }
 
-card-app:not(:first-child) {
-	margin: var(--spacing-l) 0;
-}
-
 .section {
 	&:not(:last-child) {
 		margin-bottom: var(--spacing-ms);

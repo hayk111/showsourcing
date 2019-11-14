@@ -13,22 +13,38 @@
 		[product]="product"
 		(updated)="updateProduct($event)"
 		(redirect)="redirect($event)"
-		(scrollToRating)="docket?.rating?.nativeElement?.scrollIntoView({ behavior: 'smooth' })">
+		(scrollToRating)="scrollToRating()">
 	</product-sub-header-details-app>
 
 	<div class="flex ctnr">
 		<div class="left">
+			<!-- docket card -->
 			<product-docket-app
-				#docket
 				[product]="product"
 				(update)="updateProduct($event)"
 				(addTask)="dlgCommonSrv.openCreationTaskDlg(product)"
 				(addSample)="dlgCommonSrv.openCreationSampleDialog(product)"
 				(previewSample)="openSamplePreview($event)"
-				(previewTask)="openTaskPreview($event)"
-				(openProject)="openProjectDetails($event)"
-				(openVotes)="dlgCommonSrv.openVoteDetailsDialog($event)">
+				(previewTask)="openTaskPreview($event)">
 			</product-docket-app>
+
+			<!-- rating card -->
+			<card-app #rating class="mg-top-l">
+				<h3 class="l">Team Rating</h3>
+				<rating-dashboard-app
+					[votes]="product?.votes"
+					(viewRatings)="dlgCommonSrv.openVoteDetailsDialog($event)"
+					(update)="updateProduct({ id: product?.id, votes: $event })">
+				</rating-dashboard-app>
+			</card-app>
+
+			<!-- Project card -->
+			<project-list-card-app
+				[projects]="product?.projects"
+				(update)="updateProduct({ id: product?.id, projects: $event })"
+				(projectClicked)="openProjectDetails($event)">
+			</project-list-card-app>
+
 		</div>
 		<product-main-app #main class="right"></product-main-app>
 	</div>
@@ -39,6 +55,8 @@
 		<spinner-app></spinner-app>
 	</div>
 </ng-template>
+
+<!-- previews -->
 
 <sample-preview-app
 	*ngIf="previewOpened && sample"
