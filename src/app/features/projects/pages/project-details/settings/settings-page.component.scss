@@ -1,7 +1,8 @@
 .settings {
-	margin-top: 37px;
+	margin-top: var(--spacing-l);
 	width: 592px;
-	height: 342px;
+	border-radius: var(--border-radius);
+	box-shadow: 0 0 var(--spacing-ms) var(--spacing-xs) rgba(0, 0, 0, 0.01);
 	display: flex;
 	flex-wrap: nowrap;
 	justify-content: center;
