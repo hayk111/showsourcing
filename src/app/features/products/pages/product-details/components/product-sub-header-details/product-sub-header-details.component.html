@@ -43,39 +43,56 @@
 		<!-- supplier -->
 		<div class="section">
 			<h3>supplier</h3>
-			<selector-app
-				type="supplier"
-				[canCreate]="true"
-				[width]="370"
-				(update)="update($event, 'supplier')">
+			<editable-container-app
+				[hasAction]="false"
+				[openOnClick]="false"
+				(click)="supplierSelector?.openMenu()">
 				<editable-display-app>
-					<div *ngIf="product?.supplier as supplier" class="flex">
-						<logo-app
-							class="mg-right-s"
-							[type]="erm.SUPPLIER.singular"
-							[logo]="supplier?.logoImage">
-						</logo-app>
-						<div class="supplier-info mg-right-xxl">
-							<span class="fs-l color-txt-primary bold-s flex mg-bottom-xs supplier-name">{{ supplier?.name }}</span>
-							<div class="flex dot-separator">
-								<div *ngIf="supplier?.supplierType">{{ supplier?.supplierType }}</div>
-								<div *ngIf="supplier?.country">{{ supplier?.country }}</div>
-								<rating-badge-app	[votes]="supplier?.votes" [activeColor]="'primary'"></rating-badge-app>
+					<!-- Put this inside a component has a unique style tho -->
+					<selector-app
+						#supplierSelector
+						type="supplier"
+						[canCreate]="true"
+						[width]="370"
+						(update)="update($event, 'supplier')">
+						<editable-display-app>
+							<div *ngIf="product?.supplier as supplier" class="flex">
+								<logo-app
+									class="mg-right-s"
+									[type]="erm.SUPPLIER.singular"
+									[logo]="supplier?.logoImage">
+								</logo-app>
+								<div class="supplier-info mg-right-xxl">
+									<span class="fs-l color-txt-primary bold-s flex mg-bottom-xs supplier-name">{{ supplier?.name }}</span>
+									<div class="flex dot-separator">
+										<div *ngIf="supplier?.supplierType">{{ supplier?.supplierType }}</div>
+										<div *ngIf="supplier?.country">{{ supplier?.country }}</div>
+										<rating-badge-app	[votes]="supplier?.votes" [activeColor]="'primary'"></rating-badge-app>
+									</div>
+								</div>
 							</div>
-						</div>
-					</div>
+						</editable-display-app>
+					</selector-app>
 				</editable-display-app>
-			</selector-app>
+			</editable-container-app>
 		</div>
 
 		<!-- category -->
 		<div class="section">
 			<h3>category</h3>
-			<badge-selector-app
-				[badge]="erm.CATEGORY"
-				[value]="product?.category"
-				(update)="update($event, 'category')">
-			</badge-selector-app>
+			<editable-container-app
+				[hasAction]="false"
+				[openOnClick]="false"
+				(click)="categorySelector?.selector?.openMenu()">
+				<editable-display-app>
+					<badge-selector-app
+						#categorySelector
+						[badge]="erm.CATEGORY"
+						[value]="product?.category"
+						(update)="update($event, 'category')">
+					</badge-selector-app>
+				</editable-display-app>
+			</editable-container-app>
 		</div>
 
 		<!-- description -->
