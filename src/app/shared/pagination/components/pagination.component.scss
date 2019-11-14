@@ -40,13 +40,13 @@
 	user-select: none;
 	box-sizing: border-box;
 	icon-app {
-		color: var(--legacy-color-primary);
+		color: var(--color-primary);
 		font-size: var(--spacing-l);
 		cursor: pointer;
 		margin-top: var(--spacing-xxs);
 
 		&.disabled {
-			color: var(--legacy-color-txt-secondary);
+			color: var(--color-txt-secondary);
 			cursor: default;
 		}
 	}

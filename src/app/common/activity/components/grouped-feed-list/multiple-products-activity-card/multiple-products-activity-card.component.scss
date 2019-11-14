@@ -26,14 +26,14 @@ activity-user-app {
 	.supplier-type {
 		margin-top: var(--spacing-xs);
 		font-size: var(--font-size-s);
-		color: var(--legacy-color-txt-secondary);
+		color: var(--color-txt-secondary);
 		letter-spacing: -0.1px;
 	}
 
 	.supplier-name {
 		line-height: 1;
 		font-weight: 600;
-		color: var(--legacy-color-txt-strong);
+		color: var(--color-txt-primary);
 		letter-spacing: -0.3px;
 	}
 }

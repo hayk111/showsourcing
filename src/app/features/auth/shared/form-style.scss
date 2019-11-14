@@ -15,11 +15,11 @@ h3 {
 	margin-bottom: var(--spacing-l);
 	text-transform: none;
 	font-weight: normal;
-	color: var(--legacy-color-txt-primary);
+	color: var(--color-txt-primary);
 }
 
 error-app {
-	color: var(--legacy-color-warn);
+	color: var(--color-warn);
 	margin-bottom: var(--spacing-m);
 	display: block;
 }
@@ -27,7 +27,7 @@ error-app {
 a {
 	font-size: 14px;
 	font-weight: 600;
-	color: var(--legacy-color-txt-primary);
+	color: var(--color-txt-primary);
 	&.button {
 		text-transform: none;
 	}
@@ -70,7 +70,7 @@ input  {
 		}
 	}
 	.forgot-password {
-		color: var(--legacy-color-txt-primary);
+		color: var(--color-txt-primary);
 		float: right;
 	}
 }

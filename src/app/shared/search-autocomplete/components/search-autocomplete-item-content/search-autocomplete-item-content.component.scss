@@ -1,7 +1,7 @@
 .search {
 	&__item {
 		/* padding: 0 var(--spacing-m);
-    border-bottom: 1px solid var(--legacy-color-secondary); */
+    border-bottom: 1px solid var(--color-secondary); */
     height: 48px;
     display: flex;
 		align-items: center;
@@ -46,7 +46,7 @@
 						font-family: var(--font-normal);
 						font-size: 14px;
 						font-weight: 600;
-						color: var(--legacy-color-txt-strong);
+						color: var(--color-txt-primary);
 						line-height: 0.9rem;
 						text-transform: capitalize;
 					}
@@ -59,7 +59,7 @@
 				.subtitle {
 					font-family: var(--font-normal);
 					font-size: 14px;
-					color: var(--legacy-color-txt-primary);
+					color: var(--color-txt-primary);
 					line-height: 0.9rem;
 				}
 			}

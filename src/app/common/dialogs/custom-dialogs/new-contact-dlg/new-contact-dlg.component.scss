@@ -17,7 +17,7 @@ form {
 	width: 340px;
   height: 255px;
 	border-radius: var(--border-radius);
-	background: var(--legacy-color-secondary-light);
+	background: var(--color-secondary-light);
 	overflow:hidden;
 	.previewImg {
 		max-width: 100%;
@@ -27,5 +27,5 @@ form {
 
 .secondary {
 	margin-top: var(--spacing-s);
-	color: var(--legacy-color-txt-secondary);
+	color: var(--color-txt-secondary);
 }

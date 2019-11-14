@@ -3,15 +3,15 @@
 	white-space: nowrap;
 	padding-left: 10px;
 	&:hover {
-		background: var(--legacy-color-secondary-light);
+		background: var(--color-secondary-light);
 	}
 	&.selected {
-		background: var(--legacy-color-secondary-light);
+		background: var(--color-secondary-light);
 	}
 }
 
 .item {
 	padding: 4px 10px;
 	padding-left: 0;
-	border-bottom: 1px solid var(--legacy-color-secondary);
+	border-bottom: 1px solid var(--color-secondary);
 }

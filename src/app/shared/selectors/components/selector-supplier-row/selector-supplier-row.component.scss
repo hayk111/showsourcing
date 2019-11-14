@@ -5,7 +5,7 @@
 	cursor: pointer;
 
 	&.active, &:hover {
-		background-color: var(--legacy-color-primary);
+		background-color: var(--color-primary);
 		color: #fff;
 
 		.container > *:not(icon-app), .name-container .name {
@@ -24,7 +24,7 @@ icon-app.circle {
 .container {
 	height: 100%;
 	width: 100%;
-	border-bottom: 1px solid var(--legacy-color-divider);
+	border-bottom: 1px solid var(--color-divider);
 	// margin-right: var(--spacing-xs);
 
 	.name-container {
@@ -33,7 +33,7 @@ icon-app.circle {
 	}
 
 	.categories {
-		color: var(--legacy-color-txt-secondary);
+		color: var(--color-txt-secondary);
 		margin-bottom: 10px;
 
 		// just for the title and descrption have the same align

@@ -31,11 +31,11 @@
 	position: absolute;
 	color: white;
 	right: 0;
-	background: var(--legacy-color-warn);
+	background: var(--color-warn);
 	width: 20px;
 	height: 20px;
 	&:hover {
-		background: var(--legacy-color-warn);
+		background: var(--color-warn);
 	}
 }
 .last-item {

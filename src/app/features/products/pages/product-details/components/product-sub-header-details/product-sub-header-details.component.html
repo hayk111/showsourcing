@@ -46,27 +46,29 @@
 				type="supplier"
 				[canCreate]="true"
 				[width]="370">
-				<editable-display-app>
-					<div *ngIf="product?.supplier as supplier" class="flex">
-						<logo-app
-							class="mg-right-s"
-							[type]="erm.SUPPLIER.singular"
-							[logo]="supplier?.logoImage">
-						</logo-app>
-						<div class="supplier-info mg-right-xxl">
-							<span class="fs-l color-txt-primary bold-s">{{ supplier?.name }}</span>
-							<div class="flex dot-separator">
-								<div *ngIf="supplier?.supplierType">{{ supplier?.supplierType }}</div>
-								<div *ngIf="supplier?.country">{{ supplier?.country }}</div>
-								<rating-badge-app	[votes]="supplier?.votes" [activeColor]="'primary'"></rating-badge-app>
+				<editable-container-app>
+					<editable-display-app>
+						<div *ngIf="product?.supplier as supplier" class="flex">
+							<logo-app
+								class="mg-right-s"
+								[type]="erm.SUPPLIER.singular"
+								[logo]="supplier?.logoImage">
+							</logo-app>
+							<div class="supplier-info mg-right-xxl">
+								<span class="fs-l color-txt-primary bold-s">{{ supplier?.name }}</span>
+								<div class="flex dot-separator">
+									<div *ngIf="supplier?.supplierType">{{ supplier?.supplierType }}</div>
+									<div *ngIf="supplier?.country">{{ supplier?.country }}</div>
+									<rating-badge-app	[votes]="supplier?.votes" [activeColor]="'primary'"></rating-badge-app>
+								</div>
 							</div>
+							<button class="flexVAlign capitalize">
+								<icon-app class="mg-right-xs" name="export"></icon-app>
+								contact supplier
+							</button>
 						</div>
-						<button class="flexVAlign capitalize">
-							<icon-app class="mg-right-xs" name="export"></icon-app>
-							contact supplier
-						</button>
-					</div>
-				</editable-display-app>
+					</editable-display-app>
+				</editable-container-app>
 			</selector-app>
 		</div>
 

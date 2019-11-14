@@ -1,7 +1,7 @@
 :host {
 	display: block;
 	position: relative;
-	background: var(--legacy-color-bg);
+	background: var(--color-bg);
 	overflow: hidden;
 
 	&.no-min-height .ctnr {

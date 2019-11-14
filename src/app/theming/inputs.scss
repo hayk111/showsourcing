@@ -1,0 +1,132 @@
+@import './ripple';
+
+// default style for inputs
+input {
+	height: 32px;
+}
+
+input, textarea {
+	&::placeholder {
+		color: var(--color-secondary-dark);
+	}
+}
+
+// when cdk focuses with a11y module they use this classes to tell the user the focus/selection/hover...
+// buttons have already a style for it
+// :not(button)
+.cdk-focused.cdk-keyboard-focused {
+	border: 1px solid var(--color-primary);
+	border-radius: var(--border-radius);
+
+}
+
+input, textarea {
+	padding: 0 var(--spacing-s);
+	width: 100%;
+	font-size: var(--font-size-m);
+	box-sizing: border-box;
+	font-family: inherit;
+	color: var(--color-txt-primary);
+	border: 1px solid var(--color-secondary);
+	border-radius: var(--border-radius);
+
+	&:focus {
+		border: 1px solid var(--color-primary);
+	}
+	&.small {
+		padding: 3px;
+	}
+	&:not([type="submit"]):disabled {
+		background: var(--color-secondary-light);
+		color: var(--color-txt-primary);
+	}
+}
+
+// override the color of the textarea
+textarea {
+	color: var(--color-txt-primary);
+	padding-top: var(--spacing-s);
+	resize: none;
+}
+
+editable-container-app input, editable-container-app input:focus {
+	border-radius: 0;
+	border: none;
+	padding: 0;
+	background: transparent;
+	height: unset;
+}
+
+form-field-app.editable {
+	padding-bottom: 0px;
+}
+
+form-field-app.borderless {
+	padding-bottom: 0px;
+	padding-top: 16px;
+	box-sizing: border-box;
+
+	input, textarea {
+		height: 25px;
+		box-sizing: border-box;
+		padding: 0;
+		background: transparent;
+		border-radius: 0;
+		border: none;
+		border-bottom: 1px solid #e6ebf5;
+		padding-bottom: 7px;
+		&:not(.ng-pristine).ng-invalid {
+			border-bottom: 1px solid var(--color-warn);
+		}
+		&:focus {
+			border-bottom: 1px solid var(--color-primary);
+		}
+	}
+}
+
+form-field-app.boarding {
+
+	label-app {
+		font-size: var(--font-size-l);
+		font-weight: 600;
+	}
+
+	input {
+		margin-top: var(--spacing-m);
+		font-size: var(--font-size-l);
+		height: 50px;
+		padding: var(--spacing-m);
+	}
+}
+
+form-field-app.field-focused {
+	label-app {
+		color: var(--color-primary);
+	}
+}
+
+form-field-app.modal {
+	label-app {
+		color: var(--color-txt-primary);
+		font-weight: normal;
+		text-transform: none;
+	}
+	input, textarea {
+		background: white;
+	}
+}
+
+form-field-app.field-error {
+	&:not(.field-focused) {
+		label-app {
+			color: var(--color-warn);
+		}
+	}
+}
+
+input[type="file"] {
+	display: none;
+}
+
+
+
