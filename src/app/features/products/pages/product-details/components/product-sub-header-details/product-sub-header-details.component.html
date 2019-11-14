@@ -10,7 +10,6 @@
 		<div class="title">
 			<editable-container-app
 				#edt
-				[defaultStyle]="false"
 				[hoverable]="true"
 				(opened)="inpName.select()"
 				(closed)="update('name', inpName.value)">
@@ -26,10 +25,10 @@
 			</editable-container-app>
 			<!-- info title -->
 			<div class="flex dot-separator">
-				<rating-badge-app	[votes]="product?.votes" [hasNumber]="true"></rating-badge-app>
-				<div>{{ product?.samplesLinked.count || 0 }} {{ product?.samplesLinked?.count === 1 ? 'Sample' : 'Samples' }}</div>
-				<div>{{ product?.tasksLinked.count || 0 }} {{ product?.samplesLinked?.count === 1 ? 'Task' : 'Tasks' }}</div>
-				<div>{{ product?.comments?.length || 0  }} {{ product?.comments?.length === 1 ? 'Comment' : 'Comments' }}</div>
+				<rating-badge-app class="pointer"	[votes]="product?.votes" [hasNumber]="true" (click)="scrollToRating.emit()"></rating-badge-app>
+				<div class="txt-btn" (click)="redirect.emit('samples')">{{ product?.samplesLinked.count || 0 }} {{ product?.samplesLinked?.count === 1 ? 'Sample' : 'Samples' }}</div>
+				<div class="txt-btn" (click)="redirect.emit('tasks')">{{ product?.tasksLinked.count || 0 }} {{ product?.samplesLinked?.count === 1 ? 'Task' : 'Tasks' }}</div>
+				<div class="txt-btn" (click)="redirect.emit('activity')">{{ product?.comments?.length || 0  }} {{ product?.comments?.length === 1 ? 'Comment' : 'Comments' }}</div>
 			</div>
 		</div>
 

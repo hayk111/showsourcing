@@ -66,8 +66,28 @@
 	</div>
 </card-app>
 
+<card-app #rating>
+	<div class="section">
+		<h3 class="l">Team Rating</h3>
+		<rating-stars-score-view-app
+			class="mg-bottom-l"
+			[votes]="product?.votes">
+		</rating-stars-score-view-app>
+		<divider-app></divider-app>
+		<h4 class="flexCenter mg-top-ms ms">Your Rating</h4>
+		<rating-stars-action-app
+			class="flexCenter"
+			[votes]="product?.votes"
+			(valueVoted)="onStarVote($event)">
+		</rating-stars-action-app>
+		<button class="primary-light full-width mg-top-ms" (click)="openVotes.emit(product?.votes)">
+			View ratings
+		</button>
+	</div>
+</card-app>
+
 <!-- Project card -->
-<card-app class="project-card">
+<card-app>
 	<!-- project list -->
 	<div class="section action-hover-container">
 		<div class="title flexVAlign">

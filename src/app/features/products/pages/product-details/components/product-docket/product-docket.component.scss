@@ -6,7 +6,7 @@ small {
 	font-size: var(--font-size-m);
 }
 
-.project-card {
+card-app:not(:first-child) {
 	margin: var(--spacing-l) 0;
 }
 

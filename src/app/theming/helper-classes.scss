@@ -203,6 +203,7 @@
 		&:not(:first-child)::before {
 			content: "\00a0 \00a0 \2022 \00a0 \00a0"; // 00a0 is a space and 2022 is the bullet
 			font-weight: bolder;
+			display: inline-block;
 		}
 	}
 }
@@ -211,6 +212,7 @@
 	&::before {
 		content: "\00a0 \00a0 \2022 \00a0 \00a0";
 		font-weight: bolder;
+		display: inline-block;
 	}
 }
 
@@ -230,6 +232,7 @@
 			height: 80%;
 			margin-top: auto;
 			margin-bottom: auto;
+			display: inline-block;
 		}
 	}
 }

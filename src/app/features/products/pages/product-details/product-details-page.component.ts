@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
@@ -30,6 +30,7 @@ import { AutoUnsub, log } from '~utils';
 })
 export class ProductDetailsPageComponent extends AutoUnsub implements OnInit {
 	@Input() requestCount: number;
+	@ViewChild('main', { read: ElementRef, static: false }) main: ElementRef;
 	product: Product;
 	product$: Observable<Product>;
 
@@ -183,29 +184,45 @@ export class ProductDetailsPageComponent extends AutoUnsub implements OnInit {
 		}
 	}
 
+	/** navigate to project details */
 	openProjectDetails(project: Project) {
 		this.router.navigate(['projects', project.id || '']);
 	}
 
+	/** open preview */
 	openPreview() {
 		this.previewOpened = true;
 	}
 
+	/**
+	 * open task preview and sets sample to null
+	 * @param task
+	 */
 	openTaskPreview(task: Task) {
 		this.task = task;
 		this.sample = null;
 		this.openPreview();
 	}
-
+	/**
+	 * open sample preview and sets task to null
+	 * @param sample
+	 */
 	openSamplePreview(sample: Sample) {
 		this.sample = sample;
 		this.task = null;
 		this.openPreview();
 	}
 
+	/** close preview and sets task & sample to null */
 	closePreview() {
 		this.task = null;
 		this.sample = null;
 		this.previewOpened = false;
+	}
+
+	/** redirects to a page inside products and scroll into that view */
+	redirect(page: string) {
+		this.router.navigate(['products', this.product.id, page]);
+		this.main.nativeElement.scrollIntoView({ behavior: 'smooth' });
 	}
 }
