@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
@@ -8,13 +8,12 @@ import {
 } from '~common/dialogs/custom-dialogs/supplier-request-dialog/supplier-request-dialog.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { ProductFeatureService } from '~features/products/services';
-import { ERM, Product } from '~models';
+import { ERM, Product, Sample, Task, Project } from '~models';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { ThumbService } from '~shared/rating/services/thumbs.service';
 import { AutoUnsub, log } from '~utils';
-import { RequestElementService } from '~core/entity-services';
 
 /**
  *
@@ -37,6 +36,10 @@ export class ProductDetailsPageComponent extends AutoUnsub implements OnInit {
 	/** projects for this product */
 	typeEntity = ERM.PRODUCT;
 	tabs: { name: string, number$?: Observable<number> }[];
+	// sample & task used for the preview
+	sample: Sample;
+	task: Task;
+	previewOpened = false;
 
 	constructor(
 		private route: ActivatedRoute,
@@ -178,5 +181,31 @@ export class ProductDetailsPageComponent extends AutoUnsub implements OnInit {
 			case 'samples': return this.product.samplesLinkedAssignedToMe.count > 0;
 			case 'requests': return this.requestCount > 0;
 		}
+	}
+
+	openProjectDetails(project: Project) {
+		this.router.navigate(['projects', project.id || '']);
+	}
+
+	openPreview() {
+		this.previewOpened = true;
+	}
+
+	openTaskPreview(task: Task) {
+		this.task = task;
+		this.sample = null;
+		this.openPreview();
+	}
+
+	openSamplePreview(sample: Sample) {
+		this.sample = sample;
+		this.task = null;
+		this.openPreview();
+	}
+
+	closePreview() {
+		this.task = null;
+		this.sample = null;
+		this.previewOpened = false;
 	}
 }

@@ -1,10 +1,9 @@
 
-<div class="flexBetween mg-bottom-l">
+<div class="action-hover-container flexBetween mg-bottom-l">
 	<h2>Product Details</h2>
-	<button 
-		class="vibrant" 
-		(click)="dlgCommonSrv.openSupplierRequest([product])">
-		Ask supplier
+	<button class="action-hover-item vibrant icon-with-text mg-left-ms flexVAlign" (click)="dlgCommonSrv.openSupplierRequest([product])">
+		<icon-app name="envelope"></icon-app>
+		Contact Supplier
 	</button>
 </div>
 

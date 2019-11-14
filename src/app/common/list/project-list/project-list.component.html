@@ -4,5 +4,5 @@
 		[name]="'project'"
 		[size]="12">
 	</icon-app>
-	<span class="ellipsis">{{ project.name }}</span>
+	<span class="ellipsis txt-btn" (click)="projectClicked.emit(project)">{{ project.name }}</span>
 </div>
