@@ -15,11 +15,15 @@
 
 	<div class="flex ctnr">
 		<div class="left">
-			<product-docket-app 
+			<product-docket-app
 				[product]="product"
 				(update)="updateProduct($event)"
 				(addTask)="dlgCommonSrv.openCreationTaskDlg(product)"
-				(addSample)="dlgCommonSrv.openCreationSampleDialog(product)"></product-docket-app>
+				(addSample)="dlgCommonSrv.openCreationSampleDialog(product)"
+				(previewSample)="openSamplePreview($event)"
+				(previewTask)="openTaskPreview($event)"
+				(openProject)="openProjectDetails($event)">
+			</product-docket-app>
 		</div>
 		<product-main-app class="right"></product-main-app>
 	</div>
@@ -30,3 +34,15 @@
 		<spinner-app></spinner-app>
 	</div>
 </ng-template>
+
+<sample-preview-app
+	*ngIf="previewOpened && sample"
+	[sample]="sample"
+	(close)="closePreview()">
+</sample-preview-app>
+
+<task-preview-app
+	*ngIf="previewOpened && task"
+	[task]="task"
+	(close)="closePreview()">
+</task-preview-app>

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { Task } from '~core/models';
 import { TrackingComponent } from '~utils/tracking-component';
 
@@ -11,6 +11,7 @@ import { TrackingComponent } from '~utils/tracking-component';
 export class TaskListComponent extends TrackingComponent {
 
 	@Input() tasks: { count: Number, items: Array<Task> };
+	@Output() taskClicked = new EventEmitter<Task>();
 
 	constructor() {
 		super();

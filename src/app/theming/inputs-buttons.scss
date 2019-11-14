@@ -291,12 +291,6 @@ button:disabled, input[type="submit"]:disabled {
 	}
 }
 
-.txt-btn:hover{
-	color: var(--color-primary) !important;
-	text-decoration: underline;
-	cursor: pointer;
-}
-
 input[type="file"] {
 	display: none;
 }

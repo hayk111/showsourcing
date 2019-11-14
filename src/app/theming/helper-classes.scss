@@ -261,6 +261,21 @@
 }
 
 
+
+// container that will activate hover effect over item, we use opacity in order to use transition
+.action-hover-container {
+	// item that is hidden before hovering
+	.action-hover-item {
+		opacity: 0;
+		transition: 0.3s;
+	}
+	// item visible when container hovered
+	&:hover .action-hover-item {
+		opacity: 1;
+	}
+}
+
+
 // https://developer.mozilla.org/en-US/docs/Web/CSS/will-change
 .will-change-scroll {
 	&:hover {
