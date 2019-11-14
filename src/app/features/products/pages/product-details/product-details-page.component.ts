@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
@@ -8,7 +8,7 @@ import {
 } from '~common/dialogs/custom-dialogs/supplier-request-dialog/supplier-request-dialog.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { ProductFeatureService } from '~features/products/services';
-import { ERM, Product, Sample, Task, Project } from '~models';
+import { ERM, Product, Project, Sample, Task } from '~models';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { NotificationService, NotificationType } from '~shared/notifications';
@@ -224,8 +224,10 @@ export class ProductDetailsPageComponent extends AutoUnsub implements OnInit {
 
 	/** redirects to a page inside products and scroll into that view */
 	redirect(page: string) {
-		this.router.navigate(['products', this.product.id, page]);
-		this.main.nativeElement.scrollIntoView({ behavior: 'smooth' });
+		// if we dont scroll after the navigate, the navigation will stop the scroll mid-way
+		this.router.navigate(['products', this.product.id, page]).then(_ => {
+			this.main.nativeElement.scrollIntoView({ behavior: 'smooth' });
+		});
 	}
 
 	scrollToRating() {
