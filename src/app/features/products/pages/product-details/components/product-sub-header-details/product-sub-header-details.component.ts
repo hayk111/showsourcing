@@ -12,7 +12,7 @@ export class ProductSubHeaderDetailsComponent implements OnInit {
 	@Input() product: Product;
 	@Output() updated = new EventEmitter<Product>();
 	@Output() redirect = new EventEmitter<string>();
-	@Output() scrollToRating = new EventEmitter<undefined>();
+	@Output() ratingClicked = new EventEmitter<undefined>();
 
 	erm = ERM;
 
