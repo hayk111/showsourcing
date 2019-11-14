@@ -40,6 +40,10 @@
 		background: var(--color-success-light);
 		color: var(--color-success);
 	}
+	&.color-task {
+		background: var(--color-task-light);
+		color: var(--color-task);
+	}
 
 	// size
 	&.size-m {

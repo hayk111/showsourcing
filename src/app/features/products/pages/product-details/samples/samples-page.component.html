@@ -1,3 +1,4 @@
+<h1 class="l flexStart">Samples</h1>
 <!-- table -->
 <samples-table-app
 	class="no-padding"
@@ -27,7 +28,7 @@
 </samples-table-app>
 
 <!-- buttons -->
-<div class="flex buttons-container">
+<div *ngIf="(listSrv.items$ | async)?.length" class="flex buttons-container">
 	<button
 		class="flexVAlign"
 		(click)="dialogCommonSrv.openCreationSampleDialog(product)">

@@ -56,7 +56,7 @@
 							[logo]="supplier?.logoImage">
 						</logo-app>
 						<div class="supplier-info mg-right-xxl">
-							<span class="fs-l color-txt-primary bold-s">{{ supplier?.name }}</span>
+							<span class="fs-l color-txt-primary bold-s flex mg-bottom-xs supplier-name">{{ supplier?.name }}</span>
 							<div class="flex dot-separator">
 								<div *ngIf="supplier?.supplierType">{{ supplier?.supplierType }}</div>
 								<div *ngIf="supplier?.country">{{ supplier?.country }}</div>

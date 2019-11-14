@@ -1,6 +1,6 @@
 
 
-export type Colors = 'primary' | 'secondary' | 'accent' | 'vibrant' | 'warn' | 'success';
+export type Colors = 'primary' | 'secondary' | 'accent' | 'vibrant' | 'warn' | 'success' | 'task';
 
 export enum Color {
 	PRIMARY = 'primary',
@@ -9,6 +9,7 @@ export enum Color {
 	VIBRANT = 'vibrant',
 	WARN = 'warn',
 	SUCCESS = 'success',
+	TASK = 'task',
 
 	PRIMARY_LIGHT = 'primary-light',
 	SECONDARY_LIGHT = 'secondary-light'
