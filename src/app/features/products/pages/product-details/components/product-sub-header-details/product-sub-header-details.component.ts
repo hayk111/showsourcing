@@ -1,6 +1,5 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ERM, Product } from '~models';
-import { ProductService } from '~core/entity-services';
 
 @Component({
 	selector: 'product-sub-header-details-app',
@@ -11,20 +10,17 @@ import { ProductService } from '~core/entity-services';
 export class ProductSubHeaderDetailsComponent implements OnInit {
 
 	@Input() product: Product;
+	@Output() updated = new EventEmitter<Product>();
 
 	erm = ERM;
 
-	constructor(private productSrv: ProductService) { }
+	constructor() { }
 
 	ngOnInit() {
 	}
 
-	updateProduct(product: Product) {
-		this.productSrv.update({ id: product.id, ...product }).subscribe();
-	}
-
 	update(prop: string, value: any) {
-		this.updateProduct({ [prop]: value });
+		this.updated.emit({ id: this.product.id, [prop]: value });
 	}
 
 }

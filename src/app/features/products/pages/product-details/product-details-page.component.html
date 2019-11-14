@@ -10,7 +10,8 @@
 	</product-header-details-app>
 
 	<product-sub-header-details-app
-		[product]="product">
+		[product]="product"
+		(updated)="updateProduct($event)">
 	</product-sub-header-details-app>
 
 	<div class="flex ctnr">
