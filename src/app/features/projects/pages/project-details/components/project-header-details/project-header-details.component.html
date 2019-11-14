@@ -3,10 +3,9 @@
 
 		<header-details-title-app>{{ project?.name }}</header-details-title-app>
 
-		<logo-app color="primary" type="project" size="xl"></logo-app>
+		<logo-app color="primary" type="project" size="l"></logo-app>
 
-		<header-details-info-app *ngIf="project$ | async as project">
-			{{ (project?.status ? 'text.' + project?.status : 'text.new') | translate }}
+		<header-details-info-app *ngIf="project">
 			<div class="small-gray-badge-separator"></div>
 			{{ 'OBJ.due-on-date' | translate: {date: project?.creationDate | date: 'dd-mm-yyyy':'':translate.currentLang} }}
 			<div class="small-gray-badge-separator"></div>
@@ -38,7 +37,7 @@
 			<status-selector-app
 				*ngIf="isTabUrl('settings')"
 				[typeEntity]="erm.PROJECT"
-				[entity]="project$"
+				[entity]="project"
 				selectSize="m"
 				type="button">
 			</status-selector-app>
