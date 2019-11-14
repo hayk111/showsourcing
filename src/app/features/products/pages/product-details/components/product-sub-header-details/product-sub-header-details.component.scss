@@ -1,10 +1,18 @@
+:host {
+	background: white;
+	display: flex;
+	border-bottom: 1px solid var(--color-divider);
+}
+
 .container {
 	display: flex;
+	align-items: center;
 	background: white;
+	width: 1000px;
 	// margin: 0 auto;
+	margin-left: 300px;
 	padding-top: var(--spacing-ms);
 	padding-bottom: var(--spacing-l);
-	padding-left: 300px;
 
 	carousel-app {
 		margin-right: var(--spacing-l);
