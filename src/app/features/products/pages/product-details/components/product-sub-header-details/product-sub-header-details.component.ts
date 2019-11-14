@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { ERM, Product } from '~models';
+import { ProductService } from '~core/entity-services';
 
 @Component({
 	selector: 'product-sub-header-details-app',
@@ -13,9 +14,17 @@ export class ProductSubHeaderDetailsComponent implements OnInit {
 
 	erm = ERM;
 
-	constructor() { }
+	constructor(private productSrv: ProductService) { }
 
 	ngOnInit() {
+	}
+
+	updateProduct(product: Product) {
+		this.productSrv.update({ id: product.id, ...product }).subscribe();
+	}
+
+	update(prop: string, value: any) {
+		this.updateProduct({ [prop]: value });
 	}
 
 }
