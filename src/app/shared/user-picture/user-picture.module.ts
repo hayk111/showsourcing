@@ -1,12 +1,14 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UserPictureComponent } from '~shared/user-picture/user-picture.component';
+import { NgModule } from '@angular/core';
 import { ImageModule } from '~shared/image/image.module';
+import { UserPictureComponent } from '~shared/user-picture/user-picture.component';
+import { UtilsModule } from '~shared/utils';
 
 @NgModule({
 	imports: [
 		CommonModule,
-		ImageModule
+		ImageModule,
+		UtilsModule,
 	],
 	declarations: [UserPictureComponent],
 	exports: [UserPictureComponent]

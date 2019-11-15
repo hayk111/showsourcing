@@ -76,11 +76,6 @@ body, .body, .body1 {
 	color: var(--color-txt-secondary);
 }
 
-.txt-clickable:hover {
-	color: var(--color-primary);
-	text-decoration: underline;
-}
-
 .capitalize, [capitalize] {
 	text-transform: capitalize;
 }
@@ -96,8 +91,6 @@ body, .body, .body1 {
 .bold-s, .semi-bold {
 	font-weight: 600;
 }
-
-
 
 h1, h2, h3, h4, h5 {
 	line-height: 1;

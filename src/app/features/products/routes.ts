@@ -13,7 +13,7 @@ export const routes: Array<Route> = [
 		path: ':id',
 		component: DetailsPage.ProductDetailsPageComponent,
 		children: [
-			{ path: '', redirectTo: 'activity', pathMatch: 'full' },
+			{ path: '', redirectTo: 'info', pathMatch: 'full' },
 			{ path: 'activity', component: DetailsPage.ActivityPageComponent },
 			{ path: 'info', component: DetailsPage.InfoPageComponent },
 			{ path: 'files', component: DetailsPage.FilesPageComponent },

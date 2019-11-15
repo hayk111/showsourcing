@@ -15,7 +15,10 @@ export class UserPictureComponent {
 	@Input() border = false;
 	@Input() fontSize = 14;
 	@Input() background = false;
+	/** whether we display the name along side the picture */
+	@Input() hasName = false;
 	/** user */
+	private _user: User;
 	@Input() set user(user: User) {
 		this._user = user;
 		if (user) {
@@ -24,26 +27,26 @@ export class UserPictureComponent {
 
 			this._image = user.avatar;
 		}
-
 	}
-	private _user: User;
-
+	get user() {
+		return this._user;
+	}
 	/** initials */
+	private _initials: string;
 	@Input() set initials(initials: string) {
 		this._initials = initials;
 	}
 	get initials() {
 		return this._initials;
 	}
-	private _initials: string;
 	/** image */
+	private _image: AppImage;
 	@Input() set image(image: AppImage) {
 		this._image = image;
 	}
 	get image() {
 		return this._image;
 	}
-	private _image: AppImage;
 
 	commonStyle() {
 		// This ratio is needed so we don't have to declare each time a font-size, given a circle size

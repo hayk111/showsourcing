@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { Sample } from '~core/models';
 import { TrackingComponent } from '~utils/tracking-component';
 
@@ -11,6 +11,7 @@ import { TrackingComponent } from '~utils/tracking-component';
 export class SampleListComponent extends TrackingComponent {
 
 	@Input() samples: { count: Number, items: Array<Sample> };
+	@Output() sampleClicked = new EventEmitter<Sample>();
 
 	constructor() {
 		super();

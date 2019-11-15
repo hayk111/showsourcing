@@ -2,16 +2,12 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap, takeUntil, tap } from 'rxjs/operators';
-import {
-	SupplierRequestDialogComponent,
-} from '~common/dialogs/custom-dialogs/supplier-request-dialog/supplier-request-dialog.component';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { ProductDescriptor } from '~core/descriptors';
 import { ProductService } from '~core/entity-services';
 import { Product } from '~core/models';
-import { DialogService } from '~shared/dialog';
 import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
 import { AutoUnsub } from '~utils';
-import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 
 
 @Component({
