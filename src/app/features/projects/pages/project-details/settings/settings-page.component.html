@@ -1,46 +1,42 @@
-<div *ngIf="project$ | async as project">
-	<card-app>
-		<h3 class="ms" translate="header.project-settings"></h3>
-
-		<label translate="text.project-picture"></label>
-
-		<div class="flex picCtnr">
-			<div class="circle pointer">
-				<img-app size="s" [image]="project?.logoImage" type="project" (click)="fileInp.click()"></img-app>
-			</div>
-			<div class="color-primary sel">
-				<b class="semi pointer" (click)="fileInp.click()" translate="button.select-img">
-				</b>
+<div *ngIf="project$ | async as project" class="flexCenter">
+	<div class="settings">
+		<div class="left">
+			<div class="project-logo flexCenter">
+				<logo-app [logo]="project?.logoImage" color="primary" [iconSize]="32" size="xxl" type="project" (click)="fileInp.click()"></logo-app>
+				<input #fileInp type="file" (fileSelect)="onNewFiles($event)"/>
 			</div>
 		</div>
+		<div class="right">
+			<h3 class="ms right-item" translate="text.project-name"></h3>
+			<editable-container-app
+				#edt
+				[hoverable]="true"
+				(closed)="update(inpName.value, 'name')"
+				(opened)="inpName.select()">
+				<editable-display-app class="ellipsis bg-dark">
+					{{ project?.name || '-' }}
+				</editable-display-app>
+				<input
+					inputApp
+					#inpName
+					type="text"
+					[value]="project?.name"
+					(keyup.enter)="edt.close()"/>
+			</editable-container-app>
 
-		<input #fileInp type="file" (fileSelect)="onNewFiles($event)"/>
-
-		<form [formGroup]="form">
-			<form-field-app class="borderless">
-				<label-app translate="text.project-name"></label-app>
-				<input class="borderless" inputApp type="text" formControlName="name"/>
-			</form-field-app>
-
-			<form-field-app class="borderless">
-				<label-app translate="text.description"></label-app>
-				<textarea inputApp autoGrows formControlName="description" class="borderless"></textarea>
-			</form-field-app>
-		</form>
-
-		<div class="bottom">
-			<div class="flex">
-				<b class="semi" translate="text.created-by"></b>
-				{{ project?.createdBy?.firstName }} {{ project?.createdBy?.lastName }}
-			</div>
-			<div class="flex">
-				<b class="semi" translate="text.created-on"></b>
-				{{ project?.creationDate | date: 'd MMMM y':'':translate.currentLang }}
-			</div>
-			<div class="flex">
-				<b class="semi" translate="text.last-updated-on"></b>
-				{{ project?.lastUpdatedDate | date: 'd MMMM y':'':translate.currentLang }}
+			<h3 class="ms right-item" translate="text.description"></h3>
+			<input-description-app
+				class="right-item"
+				[description]="project?.description"
+				(update)="update($event, 'description')">
+			</input-description-app>
+	
+			<h3 class="ms right-item">About this project</h3>
+	
+			<div class="about-project">
+				<div>Created by {{ project?.createdBy?.firstName }} {{ project?.createdBy?.lastName }} on {{ project?.creationDate | date: 'd MMMM y':'':translate.currentLang }}</div>
+				<div>Last Updated by {{ project?.createdBy?.firstName }} {{ project?.createdBy?.lastName }} on {{ project?.lastUpdatedDate | date: 'd MMMM y':'':translate.currentLang }}</div>
 			</div>
 		</div>
-	</card-app>
+	</div>
 </div>

@@ -109,7 +109,7 @@
       "singular": "product"
     },
     "PRODUCT_STATUS": {
-      "plural": "product status",
+      "plural": "product statuses",
       "singular": "product status"
     },
     "PRODUCT_VOTE": {
@@ -173,7 +173,7 @@
       "singular": "request"
     },
     "SUPPLIER_STATUS": {
-      "plural": "supplier status",
+      "plural": "supplier statuses",
       "singular": "supplier status"
     },
     "SUPPLIER_TAG": {
@@ -441,6 +441,9 @@
     "sort-by-name": "sort by name",
     "sort-by-price": "Sort By Price",
     "sort-by-received": "sort by received",
+    "sort-by-sent-by": "sort by sent by",
+    "sort-by-sent-on": "sort by sent on",
+    "sort-by-sent-to": "sort by sent to",
     "sort-by-status": "sort by status",
     "sort-by-supplier": "Sort By Supplier",
     "sort-by-title": "sort by title",
@@ -925,12 +928,12 @@
     "error": "error",
     "event": "event",
     "export": "export",
-    "exports-from-my-team": "Exports from my team",
-		"export-generated-msg": "Your export is being generated. This may take a few minutes.",
-		"export-generating": "Your export is being generated",
-		"export-notified-msg": "You will be notified when the export is ready.",
+    "export-generated-msg": "Your export is being generated. This may take a few minutes.",
+    "export-generating": "Your export is being generated",
+    "export-notified-msg": "You will be notified when the export is ready.",
     "export-ready": "Your export is ready!",
-		"export-retrieve-msg": "You can also retrieve your previous export in:",
+    "export-retrieve-msg": "You can also retrieve your previous export in:",
+    "exports-from-my-team": "Exports from my team",
     "extended-fields": "Extended fields",
     "favorite": "Favorite",
     "fields": "fields",
@@ -963,6 +966,7 @@
     "merge": "merge",
     "message": "message",
     "minimumOrderQuantity": "minimum order quantity",
+    "moq": "moq",
     "moqDescription": "mod description",
     "more": "More",
     "name": "name",
@@ -970,6 +974,7 @@
     "new-product": "new product",
     "new-pwd": "New password",
     "new-pwd-must-match": "New password must match",
+    "new-sample": "new sample",
     "new-supplier": "new supplier",
     "new-template": "New Template",
     "no-contact-for-supplier": "No contact for this supplier",
@@ -1011,6 +1016,7 @@
     "quantityPer40ftHC": "Quantity per 40ft HC",
     "ready": "ready",
     "received": "received",
+    "reference": "reference",
     "refused": "refused",
     "rename": "rename",
     "replied": "replied",
@@ -1033,6 +1039,7 @@
     "show-only-my-sample": "Show my samples only",
     "step": "step",
     "supplier": "supplier",
+    "supplier-type": "supplier type",
     "tag": "tag",
     "tasks": "tasks",
     "team-leader": "Team Leader",
@@ -1045,6 +1052,7 @@
     "to-order": "to order",
     "trader": "trader",
     "trading": "Trading",
+    "under-assessment": "under assessment",
     "validate-sample": "validate sample",
     "validated": "validated",
     "validating-email": "Validating email...",
@@ -1084,6 +1092,7 @@
   },
   "title": {
     "about": "about",
+    "action": "action",
     "activities": "activities",
     "activity": "activity",
     "assigned-to": "assigned to",
@@ -1107,6 +1116,7 @@
     "extended-fields": "extended fields",
     "favorite": "favorite",
     "fields": "fields",
+    "file-name": "file name",
     "info": "info",
     "invitation-accepted": "Invitation accepted",
     "invitation-refused": "Invitation refused",

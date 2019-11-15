@@ -109,7 +109,7 @@
       "singular": "produit"
     },
     "PRODUCT_STATUS": {
-      "plural": "État du produit",
+      "plural": "États du produit",
       "singular": "État du produit"
     },
     "PRODUCT_VOTE": {
@@ -173,7 +173,7 @@
       "singular": "demande"
     },
     "SUPPLIER_STATUS": {
-      "plural": "statut du fournisseur",
+      "plural": "statuts de fournisseur",
       "singular": "statut du fournisseur"
     },
     "SUPPLIER_TAG": {
@@ -426,6 +426,7 @@
     "send": "Envoyer",
     "send-back": "Renvoyer",
     "send-request": "Envoyer une demande",
+    "send-request-supplier": "Envoyer la demande au fournisseur",
     "set-as-favorite": "Définir comme favori",
     "settings": "réglages",
     "show-filters": "Les filtres",
@@ -440,6 +441,9 @@
     "sort-by-name": "Trier par nom",
     "sort-by-price": "Trier par prix",
     "sort-by-received": "trier par reçu",
+    "sort-by-sent-by": "trier par envoyé par",
+    "sort-by-sent-on": "trier par envoyé sur",
+    "sort-by-sent-to": "trier par envoyé à",
     "sort-by-status": "trier par statut",
     "sort-by-supplier": "Trier par fournisseur",
     "sort-by-title": "trier par titre",
@@ -960,6 +964,7 @@
     "merge": "fusionner",
     "message": "message",
     "minimumOrderQuantity": "Quantité minimum d'achat",
+    "moq": "moq",
     "moqDescription": "description du mod",
     "more": "Plus",
     "name": "nom",
@@ -967,6 +972,7 @@
     "new-product": "nouveau produit",
     "new-pwd": "Nouveau mot de passe",
     "new-pwd-must-match": "Le nouveau mot de passe doit correspondre",
+    "new-sample": "nouvel échantillon",
     "new-supplier": "nouveau fournisseur",
     "new-template": "Nouveau modèle",
     "no-contact-for-supplier": "Pas de contact pour ce fournisseur",
@@ -1008,6 +1014,7 @@
     "quantityPer40ftHC": "Quantité par 40ft HC",
     "ready": "prêt",
     "received": "reçu",
+    "reference": "référence",
     "refused": "refusée",
     "rename": "Renommer",
     "replied": "a répondu",
@@ -1030,6 +1037,7 @@
     "show-only-my-sample": "Montrer mes échantillons seulement",
     "step": "étape",
     "supplier": "fournisseur",
+    "supplier-type": "type de fournisseur",
     "tag": "étiquette",
     "tasks": "les tâches",
     "team-leader": "Chef d'équipe",
@@ -1042,6 +1050,7 @@
     "to-order": "commander",
     "trader": "commerçant",
     "trading": "Commerce",
+    "under-assessment": "en cours d'évaluation",
     "validate-sample": "valider l'échantillon",
     "validated": "validé",
     "validating-email": "Validation de l'email ...",
@@ -1081,6 +1090,7 @@
   },
   "title": {
     "about": "sur",
+    "action": "action",
     "activities": "Activités",
     "activity": "activité",
     "assigned-to": "assigné à",
@@ -1104,6 +1114,7 @@
     "extended-fields": "champs étendus",
     "favorite": "préféré",
     "fields": "des champs",
+    "file-name": "nom de fichier",
     "info": "info",
     "invitation-accepted": "Invitation acceptée",
     "invitation-refused": "Invitation refusée",

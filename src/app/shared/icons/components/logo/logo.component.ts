@@ -50,7 +50,7 @@ export const sizeMap: { [key in Size]: { background: number, icon: number } } = 
 	m: { background: 32, icon: 16 },
 	l: { background: 36, icon: 24 },
 	xl: { background: 54, icon: 24 },
-	xxl: { background: 92, icon: 40 }
+	xxl: { background: 88, icon: 40 }
 };
 
 @Component({
