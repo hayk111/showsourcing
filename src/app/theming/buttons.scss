@@ -86,7 +86,7 @@ button, input[type="submit"], .button {
 		align-items: center;
 		icon-app {
 			cursor: pointer;
-			margin-right: 6px;
+			margin-right: var(--spacing-s);
 		}
 	}
 
