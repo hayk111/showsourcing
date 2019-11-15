@@ -12,18 +12,18 @@
 	padding-bottom: var(--spacing-l);
 
 	carousel-app {
-		width: 430px;
 		margin-right: var(--spacing-l);
 	}
 
 	.product-info {
-		width: 770px;
+		width: 765px;
 	}
 }
 
 
 .title {
-	margin-bottom: var(--spacing-ms);
+	// we cannot use 12px since the editable-container uses a 6px top
+	margin-bottom: 6px;
 }
 
 .section {
