@@ -1,11 +1,34 @@
-card-app {
-	width: 548px;
-	height: 455px;
-	margin: auto;
-	margin-top: 37px;
+.settings {
+	margin-top: var(--spacing-l);
+	width: 592px;
+	border-radius: var(--border-radius);
+	box-shadow: 0 0 var(--spacing-ms) var(--spacing-xs) rgba(0, 0, 0, 0.01);
+	display: flex;
+	flex-wrap: nowrap;
+	justify-content: center;
+	background: var(--color-bg);
+
+	.left {
+		width: 136px;
+
+		.project-logo {
+			margin-top: var(--spacing-l);
+		}
+	}
+
+	.right {
+		width: 456px;
+		padding: var(--spacing-l) 0;
+		
+		editable-container-app {
+			padding: 0;
+			margin: 0;
+			margin-bottom: var(--spacing-ms);
+		}
+	}
 }
 
-b{
+b {
 	width: 165px;
 	display: block;
 	height: 33px;
@@ -33,8 +56,12 @@ input[type="file"] {
 	display: none;
 }
 
-.right-items {
-	margin-bottom: 10px;
+.right-item {
+	margin-bottom: var(--spacing-ms);
+}
+
+.bg-dark {
+	color: var(--color-bg-dark);
 }
 
 .vertical-dots {

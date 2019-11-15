@@ -5,8 +5,7 @@
 
 		<logo-app color="primary" type="project" size="l"></logo-app>
 
-		<header-details-info-app *ngIf="project$ | async as project">
-			{{ (project?.status ? 'text.' + project?.status : 'text.new') | translate }}
+		<header-details-info-app *ngIf="project">
 			<div class="small-gray-badge-separator"></div>
 			{{ 'OBJ.due-on-date' | translate: {date: project?.creationDate | date: 'dd-mm-yyyy':'':translate.currentLang} }}
 			<div class="small-gray-badge-separator"></div>
