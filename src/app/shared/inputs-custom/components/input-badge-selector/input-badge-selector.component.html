@@ -1,13 +1,22 @@
-<selector-app
-	[canCreate]="true"
-	[type]="type"
-	[multiple]="true"
-	[offsetX]="offsetX"
-	[offsetY]="offsetY"
-	[leftSideOrientation]="leftSideOrientationSelector"
-	[value]="value"
-	(update)="onUpdate($event)">
+<editable-container-app
+	[hasAction]="false"
+	[openOnClick]="false"
+	(click)="selector?.openMenu()">
 	<editable-display-app>
-		<info-badge-app *ngFor="let item of value; trackBy: trackById" [type]="type">{{ item.name }}</info-badge-app>
+		<selector-app
+			#selector
+			[canCreate]="true"
+			[type]="type"
+			[multiple]="true"
+			[offsetX]="offsetX"
+			[offsetY]="offsetY"
+			[leftSideOrientation]="leftSideOrientationSelector"
+			[value]="value"
+			(update)="onUpdate($event)">
+				<ng-container *ngIf="!value?.length; else hasItems">None</ng-container>
+				<ng-template #hasItems>
+					<info-badge-app *ngFor="let item of value; trackBy: trackById" [type]="type">{{ item.name }}</info-badge-app>
+				</ng-template>
+		</selector-app>
 	</editable-display-app>
-</selector-app>
+</editable-container-app>

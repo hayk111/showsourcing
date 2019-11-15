@@ -1,14 +1,10 @@
 <div #container class="descripton-container">
-	<editable-field-app
+	<editable-container-app
 		[openOnClick]="!asModal"
-		[ngStyle]="{'padding-top': hasLabel ? 'inherit' : '0px'}"
-		[hasLabel]="hasLabel"
-		[inlineLabel]="false"
 		(closed)="updateDescription($event, inpDescription.value)"
 		(clickOutside)="adaptSize()"
 		(opened)="inpDescription.select()"
-		[canGrow]="true"
-		(click)="openDescModal()">
+		(click)="asModal ? openDescModal() : null">
 		<label-app class="capitalize" translate="text.description"></label-app>
 		<editable-display-app
 			[disabled]="true"
@@ -21,13 +17,13 @@
 			[value]="description || ''"
 			(keyup.enter)="updateDescription(false, inpDescription.value)">
 		</textarea>
-	</editable-field-app>
+	</editable-container-app>
 </div>
-<!-- show more button -->
-<button
+<!-- show more text -->
+<span
 	*ngIf="showMore"
 	tabFocusAction
-	class="secondary-light flexCenter view-more"
+	class="txt-btn color-primary pointer"
 	(click)="showAll()"
 	translate="button.view-more">
-</button>
+</span>
