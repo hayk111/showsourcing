@@ -7,5 +7,5 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ButtonPageComponent  {
-
+	colors = ['primary', 'secondary', 'success', 'warn', 'accent', 'vibrant'];
 }

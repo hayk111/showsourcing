@@ -28,7 +28,7 @@
 
 		.message-container {
 			.name {
-				color: var(--legacy-color-txt-strong);
+				color: var(--color-txt-primary);
 				margin-bottom: var(--spacing-ms);
 				font-weight: 600;
 			}
@@ -36,7 +36,7 @@
 				white-space: pre-line;
 				word-break: break-all;
 				padding-right: var(--spacing-l);
-				color: var(--legacy-color-txt-strong);
+				color: var(--color-txt-primary);
 		 }
 		}
 

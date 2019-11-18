@@ -5,10 +5,10 @@
 .menu {
 	z-index: var(--z-draganddrop-progress);
 	background: white;
-	color: var(--legacy-color-txt-primary);
+	color: var(--color-txt-primary);
 	display: block;
 	flex-direction: column;
-	border: solid 1px var(--legacy-color-divider);
+	border: solid 1px var(--color-divider);
 	border-radius: var(--border-radius);
 	box-shadow: 1px 2px 4px 0 rgba(163, 175, 198, 0.5);
 	padding-top: 8px;

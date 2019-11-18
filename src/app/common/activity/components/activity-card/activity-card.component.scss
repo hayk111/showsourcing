@@ -17,8 +17,8 @@ card-footer-app {
 
 		&:focus {
 			border-radius: 500px;
-			border: 1px solid var(--legacy-color-secondary);
-			background: var(--legacy-color-secondary-light);
+			border: 1px solid var(--color-secondary);
+			background: var(--color-secondary-light);
 		}
 	}
 
@@ -36,7 +36,7 @@ card-footer-app {
 	.body-container {
 		display: inline-block;
 		border-radius: 8px;
-		background-color: var(--legacy-color-secondary-light);
+		background-color: var(--color-secondary-light);
 		width: calc(100% - 58px);
 		margin-left: var(--spacing-xs);
 		padding: var(--spacing-ms);
@@ -46,19 +46,19 @@ card-footer-app {
 				display: inline-block;
 				font-size: var(--font-size-m);
 				font-weight: 600;
-				color: var(--legacy-color-txt-strong);
+				color: var(--color-txt-primary);
 			}
 			.time {
 				display: inline-block;
 				font-size: var(--font-size-s);
-				color: var(--legacy-color-txt-strong);
+				color: var(--color-txt-primary);
 				vertical-align: baseline;
 				margin-left: var(--spacing-xs);
 			}
 		}
 		.text {
 			font-size: vaf(--font-size-l);
-			color: var(--legacy-color-txt-strong);
+			color: var(--color-txt-primary);
 		}
 	}
 }

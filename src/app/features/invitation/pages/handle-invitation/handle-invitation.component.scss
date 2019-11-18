@@ -13,7 +13,7 @@
     font-size: 36px;
     font-weight: bold;
     text-align: center;
-    color: var(--legacy-color-txt-strong);
+    color: var(--color-txt-primary);
     margin-bottom: 16px;
   }
 
@@ -22,11 +22,11 @@
     font-size: 20px;
     font-weight: normal;
     text-align: center;
-    color: var(--legacy-color-txt-primary);
+    color: var(--color-txt-primary);
     margin-bottom: 24px;
 
     .name {
-      color: var(--legacy-color-txt-strong);
+      color: var(--color-txt-primary);
     }
   }
 

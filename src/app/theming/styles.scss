@@ -1,14 +1,14 @@
-@import './z-layer.scss';
-@import './browser-fixes';
-@import './spacing';
-@import './legacy_palette.scss'; // to be removed
-@import './palette';
-@import './elevation';
-@import './typography';
 @import './animations';
-@import './inputs-buttons';
+@import './browser-fixes';
+@import './buttons.scss';
+@import './elevation';
 @import './helper-classes';
+@import './inputs';
 @import './notification-badges';
+@import './palette';
+@import './spacing';
+@import './typography';
+@import './z-layer.scss';
 
 @import './global.scss';
 @import '~@angular/cdk/overlay-prebuilt.css';

@@ -13,7 +13,7 @@
 
 	--color-vibrant: rgb(159, 104, 255);
 	--color-vibrant-light: rgb(246, 238, 255);
-	--color-vibrant-dark: rgb(159, 104, 255);
+	--color-vibrant-dark: rgb(139, 94, 218);
 	--color-vibrant-contrast: rgb(255, 255, 255);
 
 	--color-accent: rgb(252, 200, 16);
@@ -75,7 +75,8 @@ $colors: (
 	'warn',
 	'success',
 	'vibrant',
-	'accent'
+	'accent',
+	'task'
 );
 
 // for search purposes

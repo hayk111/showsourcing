@@ -24,7 +24,7 @@ export class RatingCylinderComponent implements OnInit {
 
 	get styleDislike() {
 		return {
-			background: `var(--legacy-color-${this.dislikeColor})`,
+			background: `var(--color-${this.dislikeColor})`,
 			height: this._height,
 			width: this.width + 'px'
 		};
@@ -32,7 +32,7 @@ export class RatingCylinderComponent implements OnInit {
 
 	get styleLike() {
 		return {
-			background: `var(--legacy-color-${this.likeColor})`
+			background: `var(--color-${this.likeColor})`
 		};
 	}
 

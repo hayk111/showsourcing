@@ -109,7 +109,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		const serverChanges = this.getClient(clientName, title).pipe(
 			tap(_ => this.log(title, gql, queryName, clientName, variables)),
 			switchMap(client => client.subscribe({ query: gql, variables })),
-			filter((r: any) => this.checkError(r)),
+			filter((r: any) => this.checkError(r, title)),
 			// extracting the result
 			// since we are getting an array back we only need the first one
 			map(({ data }) => data[queryName].items[0]),
@@ -149,7 +149,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		return this.getClient(clientName, title).pipe(
 			tap(_ => this.log(title, gql, queryName, clientName, variables)),
 			switchMap(client => client.watchQuery({ query: gql, variables }).valueChanges),
-			filter((r: any) => this.checkError(r)),
+			filter((r: any) => this.checkError(r, title)),
 			// extracting the result
 			// since we are getting an array back we only need the first one
 			map(({ data }) => data[queryName]),
@@ -179,7 +179,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		return this.getClient(clientName, title).pipe(
 			tap(_ => this.log(title, gql, queryName, clientName, variables)),
 			switchMap(client => client.subscribe({ query: gql, variables })),
-			filter((r: any) => this.checkError(r)),
+			filter((r: any) => this.checkError(r, title)),
 			// extracting the result
 			// since we are getting an array back we only need the first one
 			map(({ data }) => data[queryName].items[0]),
@@ -208,7 +208,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		return this.getClient(clientName, title).pipe(
 			tap(_ => this.log(title, gql, queryName, clientName, variables)),
 			switchMap(client => client.watchQuery({ query: gql, variables }).valueChanges),
-			filter((r: any) => this.checkError(r)),
+			filter((r: any) => this.checkError(r, title)),
 			// extracting the result
 			// since we are getting an array back we only need the first one
 			map(({ data }) => data[queryName].items[0]),
@@ -237,7 +237,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		return this.getClient(clientName, title).pipe(
 			tap(_ => this.log(title, gql, queryName, clientName, variables)),
 			switchMap(client => client.subscribe({ query: gql, variables })),
-			filter((r: any) => this.checkError(r)),
+			filter((r: any) => this.checkError(r, title)),
 			// extracting the result
 			// since we are getting an array back we only need the first one
 			map(({ data }) => data[queryName].items[0]),
@@ -271,7 +271,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		return this.getClient(clientName, title).pipe(
 			tap(_ => this.log(title, gql, queryName, clientName, variables)),
 			switchMap(client => client.subscribe({ query: gql, variables })),
-			filter((r: any) => this.checkError(r)),
+			filter((r: any) => this.checkError(r, title)),
 			// extracting the result
 			map((r) => r.data[queryName].items),
 			tap(data => this.logResult(title, queryName, data)),
@@ -299,7 +299,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		return this.getClient(clientName, title).pipe(
 			tap(_ => this.log(title, gql, queryName, clientName, variables)),
 			switchMap(client => client.watchQuery({ query: gql, variables }).valueChanges),
-			filter((r: any) => this.checkError(r)),
+			filter((r: any) => this.checkError(r, title)),
 			// extracting the result
 			map((r) => r.data[queryName].items),
 			tap(data => this.logResult(title, queryName, data)),
@@ -343,7 +343,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 			tap(_ => this.log(title, gql, queryName, clientName, variables)),
 			switchMap(queryRef => queryRef.valueChanges),
 			distinctUntilChanged(),
-			filter((r: any) => this.checkError(r)),
+			filter((r: any) => this.checkError(r, title)),
 			map(r => r.data[queryName])
 		);
 
@@ -456,7 +456,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		return this.getClient(clientName, title).pipe(
 			tap(_ => this.log(title, gql, queryName, clientName, variables)),
 			switchMap(client => client.watchQuery({ query: gql, variables }).valueChanges),
-			filter((r: any) => this.checkError(r)),
+			filter((r: any) => this.checkError(r, title)),
 			// extracting the result
 			map((r) => {
 				if (!r.data)
@@ -486,7 +486,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		return this.getClient(clientName, title).pipe(
 			tap(_ => this.log(title, gql, queryName, clientName, variables)),
 			switchMap(client => client.watchQuery({ query: gql, variables }).valueChanges),
-			filter((r: any) => this.checkError(r)),
+			filter((r: any) => this.checkError(r, title)),
 			// extracting the result
 			map((r) => {
 				if (!r.data)
@@ -558,7 +558,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		return this.getClient(clientName, title).pipe(
 			tap(_ => this.log(title, gql, queryName, clientName, variables)),
 			switchMap(client => client.mutate(options)),
-			filter((r: any) => this.checkError(r)),
+			filter((r: any) => this.checkError(r, title)),
 			map(({ data }) => data[queryName]),
 			tap(data => this.logResult(title, queryName, data)),
 			tap(data => this.sendTrack('Update', data, 'update', fields)),
@@ -592,7 +592,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 			tap(_ => this.log(title, gql, queryName, clientName, variables)),
 			switchMap(client => client.mutate(options)),
 			first(),
-			filter((r: any) => this.checkError(r)),
+			filter((r: any) => this.checkError(r, title)),
 			map(({ data }) => data[queryName]),
 			tap(data => this.logResult(title, queryName, data)),
 			tap(data => this.sendTrack('Update many', data, 'update', fields)),
@@ -620,7 +620,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 			tap(_ => this.log(title, gql, queryName, clientName, variables)),
 			switchMap(client => client.mutate({ mutation: gql, variables })),
 			first(),
-			filter((r: any) => this.checkError(r)),
+			filter((r: any) => this.checkError(r, title)),
 			map(({ data }) => data[queryName]),
 			tap(data => this.logResult(title, queryName, data)),
 			tap(data => this.sendTrack('Create', data, 'creation')),
@@ -661,7 +661,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 			tap(_ => this.log(title, gql, queryName, clientName, options.variables)),
 			switchMap(client => client.mutate(options)),
 			first(),
-			filter((r: any) => this.checkError(r)),
+			filter((r: any) => this.checkError(r, title)),
 			map(({ data }) => data[queryName]),
 			catchError(errors => of(log.table(errors)))
 		);
@@ -698,7 +698,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 			tap(_ => this.log(title, gql, queryName, clientName, options.variables)),
 			switchMap(client => client.mutate(options)),
 			first(),
-			filter((r: any) => this.checkError(r)),
+			filter((r: any) => this.checkError(r, title)),
 			map(({ data }) => data[queryName]),
 			catchError(errors => of(log.table(errors)))
 		);
@@ -717,7 +717,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 				return client.mutate({ mutation: gql });
 			}),
 			first(),
-			filter((r: any) => this.checkError(r)),
+			filter((r: any) => this.checkError(r, title)),
 			map(({ data }) => data[queryName].count),
 			tap(data => this.logResult(title, queryName, data)),
 			catchError(errors => of(log.table(errors)))
@@ -810,12 +810,14 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	}
 
 	/** check if a graphql call has given any error */
-	protected checkError(r: { data: any, errors: any[] }) {
+	protected checkError(r: { data: any, errors: any[], loading: boolean }, title: string) {
 		if (r.errors) {
 			r.errors.forEach(e => log.error(e));
 			return false;
+		} else if (r.loading) {
+			return false;
 		} else if (!r.data) {
-			log.error('No data, there must be something wrong with the query, here is the response');
+			log.error(`No data, there must be something wrong with the query "${title}", here is the response`);
 			log.debug(r);
 			return false;
 		}

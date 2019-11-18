@@ -9,26 +9,25 @@
   .description-text {
     font-family: var(--font-normal);
     font-size: var(--font-size-m);
-    color: var(--legacy-color-txt-strong);
+    color: var(--color-txt-primary);
 	}
 
 }
 
-editable-field-app {
-	min-height: unset !important;
-	padding-bottom: 0 !important;
+editable-container-app {
+	width: unset;
+}
 
-	editable-display-app {
-		white-space: pre-line;
+editable-display-app {
+	white-space: pre-line;
 
-		icon-app.edit {
-			margin-right: var(--spacing-xs);
-		}
+	icon-app.edit {
+		margin-right: var(--spacing-xs);
+	}
 
-		button.edit-description {
-			width: 100%;
-			font-weight: 600;
-		}
+	button.edit-description {
+		width: 100%;
+		font-weight: 600;
 	}
 }
 

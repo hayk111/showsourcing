@@ -1,6 +1,7 @@
 export * from './accordion/accordion-page.component';
 export * from './badge/badge-page.component';
 export * from './button/button-page.component';
+export * from './input/input-page.component';
 export * from './card/card-page.component';
 export * from './common-list/common-list-page.component';
 export * from './guidelines/guidelines-page.component';

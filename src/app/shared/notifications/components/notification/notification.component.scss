@@ -3,25 +3,25 @@
 	margin: var(--spacing-m);
 }
 .success {
-	border-left: 4px solid var(--legacy-color-success);
+	border-left: 4px solid var(--color-success);
 }
 .error {
-	border-left: 4px solid var(--legacy-color-warn);
+	border-left: 4px solid var(--color-warn);
 }
 .warning {
-	border-left: 4px solid var(--legacy-color-accent);
+	border-left: 4px solid var(--color-accent);
 }
 .deleted {
-	border-left: 4px solid var(--legacy-color-warn);
+	border-left: 4px solid var(--color-warn);
 }
 .danger {
-	border-left: 4px solid var(--legacy-color-warn);
+	border-left: 4px solid var(--color-warn);
 }
 
 .success {
   .left-part {
     icon-app {
-      color: var(--legacy-color-success);
+      color: var(--color-success);
     }
   }
 }
@@ -29,7 +29,7 @@
 .warning {
   .left-part {
     icon-app {
-      color: var(--legacy-color-accent);
+      color: var(--color-accent);
     }
   }
 }
@@ -39,15 +39,15 @@
 .deleted {
   .left-part {
     icon-app {
-      color: var(--legacy-color-warn);
+      color: var(--color-warn);
     }
   }
 }
 .notification-body-container {
   display: table;
-	border-right: 1px solid var(--legacy-color-divider);
-	border-top: 1px solid var(--legacy-color-divider);
-  border-bottom: 1px solid var(--legacy-color-divider);
+	border-right: 1px solid var(--color-divider);
+	border-top: 1px solid var(--color-divider);
+  border-bottom: 1px solid var(--color-divider);
   background: white;
 }
 
@@ -69,30 +69,30 @@
   padding: 12px;
   padding-left: 0;
   .title {
-    color: var(--legacy-color-txt-strong);
+    color: var(--color-txt-primary);
     font-size: var(--font-size-m);
   }
   .message {
-    color: var(--legacy-color-txt-primary);
+    color: var(--color-txt-primary);
     font-size: var(--font-size-s);
 	}
 	.uri-message {
 		cursor: pointer;
-		color: var(--legacy-color-txt-strong);
+		color: var(--color-txt-primary);
 		font-size: var(--font-size-s);
 		&:hover {
-			color: var(--legacy-color-primary);
+			color: var(--color-primary);
 		}
 	}
 }
 
 
 .right-part {
-	border-left: 1px solid var(--legacy-color-divider);
+	border-left: 1px solid var(--color-divider);
   icon-app {
-    color: var(--legacy-color-secondary);
+    color: var(--color-secondary);
     &:hover {
-      color: var(--legacy-color-secondary-dark);
+      color: var(--color-secondary-dark);
     }
   }
 }

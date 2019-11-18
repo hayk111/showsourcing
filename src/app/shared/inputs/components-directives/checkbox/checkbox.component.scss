@@ -3,7 +3,7 @@
 	align-items: center;
 	&.longText .label {
 		width: 100%;
-		color:var(--legacy-color-text-primary);
+		color:var(--color-text-primary);
 		font-weight: normal;
 	}
 }
@@ -25,8 +25,8 @@ label {
 
 
 .unChecked {
-	border: 1px solid var(--legacy-color-secondary);
-	background: var(--legacy-color-secondary-light);
+	border: 1px solid var(--color-secondary);
+	background: var(--color-secondary-light);
 	border-radius: 2px;
 }
 

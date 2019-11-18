@@ -1,10 +1,10 @@
 /*navbar*/
 :host {
 	display: flex;
-	border: 1px solid var(--legacy-color-secondary);
+	border: 1px solid var(--color-secondary);
 	margin: var(--spacing-ms);
 	white-space: nowrap;
-	background-color: var(--legacy-color-bg);
+	background-color: var(--color-bg);
   margin: var(--spacing-l);
 }
 
@@ -17,14 +17,14 @@
 }
 
 .active {
-	border-bottom: 4px solid var(--legacy-color-primary);
-	color:  var(--legacy-color-primary);
-	background-color: var(--legacy-color-secondary-light);
+	border-bottom: 4px solid var(--color-primary);
+	color:  var(--color-primary);
+	background-color: var(--color-secondary-light);
 }
 
 notification-badge-app {
 	position: unset;
-	background-color: var(--legacy-color-primary);
+	background-color: var(--color-primary);
 	margin-left: 15px;
 	font-size: var(--font-size-xs);
 	width: 11px;

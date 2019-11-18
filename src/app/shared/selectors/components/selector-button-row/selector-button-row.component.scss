@@ -5,7 +5,7 @@
 	cursor: pointer;
 
 	&.active, &:hover {
-		background-color: var(--legacy-color-primary);
+		background-color: var(--color-primary);
 		color: #fff;
 		button.create {
 			background: white;

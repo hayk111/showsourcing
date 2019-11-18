@@ -3,7 +3,7 @@
 	padding: unset;
 	padding-bottom: 0 !important;
 	margin: var(--spacing-l) 0 0 0;
-	border: solid 1px var(--legacy-color-divider);
+	border: solid 1px var(--color-divider);
 	border-radius: var(--border-radius);
 }
 
@@ -56,7 +56,7 @@ dialog-footer-app {
 
 .productNumber {
   font-size: 19px;
-  color: var(--legacy-color-txt-secondary);
+  color: var(--color-txt-secondary);
 }
 
 .scrollable {

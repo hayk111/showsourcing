@@ -24,16 +24,16 @@ dialog-footer-app {
 }
 
 .info-banner {
-	background: var(--legacy-color-secondary-light);
+	background: var(--color-secondary-light);
 	font-size: var(--font-size-xxl);
-	color: var(--legacy-color-txt-strong);
+	color: var(--color-txt-primary);
 	font-weight: 600;
 	height: 62px;
 	width: 100%;
 }
 
 .reply-message {
-	color: var(--legacy-color-txt-strong);
+	color: var(--color-txt-primary);
 	white-space: pre-line;
 	max-width: 686px;
 }
