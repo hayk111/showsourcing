@@ -1,0 +1,25 @@
+<!-- Project card -->
+<card-app class="mg-top-l">
+	<!-- project list -->
+	<div class="action-hover-container">
+		<div class="mg-bottom-ms flexVAlign">
+			<h3>Projects</h3>
+			<selector-app
+				class="selector"
+				type="project"
+				[value]="projects"
+				[canCreate]="true"
+				[offsetY]="8"
+				[offsetX]="316"
+				[multiple]="true"
+				[width]="330"
+				(update)="update.emit($event)">
+				<icon-app
+					class="mg-left-ms action-hover-item color-primary"
+					name="plus">
+				</icon-app>
+			</selector-app>
+		</div>
+		<project-list-app [projects]="projects" (projectClicked)="projectClicked.emit($event)"></project-list-app>
+	</div>
+</card-app>

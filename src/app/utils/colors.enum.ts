@@ -14,4 +14,3 @@ export enum Color {
 	SECONDARY_LIGHT = 'secondary-light'
 
 }
-

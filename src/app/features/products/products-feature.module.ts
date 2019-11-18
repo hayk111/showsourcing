@@ -16,6 +16,7 @@ import { SharedModule } from '~shared/shared.module';
 import * as DetailsPage from './pages/product-details';
 import * as TablePage from './pages/products';
 import { ProductFeatureService, QuoteFeatureService } from './services';
+import { CardsCommonModule } from '~common/cards/cards-common.module';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { ProductFeatureService, QuoteFeatureService } from './services';
 		TablesCommonModule,
 		BoardsCommonModule,
 		GridsCommonModule,
+		CardsCommonModule,
 		SelectionBarsCommonModule,
 		SortingMenusCommonModule
 	],

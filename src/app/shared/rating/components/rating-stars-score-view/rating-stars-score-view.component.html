@@ -17,6 +17,6 @@
 		class="flexCenter number-cylinder"
 		[ngClass]="{ 'mg-bottom-ms': !last }">
 		<span class="number-star">{{ item.key }}</span>
-		<rating-cylinder-app class="cylinder" [width]="240" [score]="item?.value ? ((item.value / totalVotes) * 100) : 0" likeColor="accent" [height]="8"></rating-cylinder-app>
+		<rating-cylinder-app class="cylinder" [width]="200" [score]="item?.value ? ((item.value / totalVotes) * 100) : 0" likeColor="accent" [height]="8"></rating-cylinder-app>
 	</div>
 </div>
