@@ -1,12 +1,12 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { ERM, EntityMetadata } from '~models';
+import { ERM, EntityMetadata, EntityName } from '~models';
 
 @Pipe({
 	name: 'erm'
 })
 export class ERMPipe implements PipeTransform {
 
-	transform(value: string, singular: boolean): EntityMetadata {
+	transform(value: EntityName, singular: boolean): EntityMetadata {
 		if (!value) {
 			return;
 		}
