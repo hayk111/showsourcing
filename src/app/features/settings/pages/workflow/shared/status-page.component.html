@@ -1,0 +1,17 @@
+<controller-list-app
+	[title]="listSrv.entityMetadata.plural"
+	[buttonName]="button.add-a-status"
+	[hasFilter]="false"
+	[hasSearch]="false"
+	[hasSwitch]="false"
+	(buttonClick)="create()">
+</controller-list-app>
+
+<workflow-managament-table-app
+	[statuses]="listSrv.items$ | async"
+	[typeEntity]="listSrv.entityMetadata"
+	(update)="listSrv.updateMany($event)"
+	(delete)="listSrv.deleteOne($event, true)">
+</workflow-managament-table-app>
+
+<div *ngIf="listSrv.entityMetadata.singular === 'product status'" class="status-tip" translate="message.products-sent-new-idea"></div>

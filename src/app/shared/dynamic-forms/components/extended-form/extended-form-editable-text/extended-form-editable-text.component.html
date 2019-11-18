@@ -1,0 +1,155 @@
+<ng-container [ngSwitch]="definition.type">
+
+	<!-- text -->
+	<editable-field-app *ngSwitchCase="'text'" #editable [inlineLabel]="config.inlineLabel" (closed)="onClose($event)"
+		(opened)="inp.select();">
+
+		<label-app>{{ definition?.label }}</label-app>
+		<!-- hint: editable text is the clickable label that transforms into an input -->
+		<editable-display-app>
+			{{ field?.value || '-' }}
+		</editable-display-app>
+
+		<form-field-app class="editable">
+			<!-- hint: couldn't ngModel to accumulator -->
+			<input #inp [disabled]="disabled" inputApp type="text" [value]="accumulator || ''" (change)="accumulator = inp.value"
+				(keyup.enter)="$event.target.blur(); editable.close();" />
+		</form-field-app>
+
+	</editable-field-app>
+
+	<!-- string same code as text-->
+	<editable-field-app *ngSwitchCase="'string'" #editable [inlineLabel]="config.inlineLabel" (closed)="onClose($event)"
+		(opened)="inp.select();">
+
+		<label-app>{{ definition?.label }}</label-app>
+		<!-- hint: editable text is the clickable label that transforms into an input -->
+		<editable-display-app>
+			{{ field?.value || '-' }}
+		</editable-display-app>
+
+		<form-field-app class="editable">
+			<!-- hint: couldn't ngModel to accumulator -->
+			<input #inp inputApp [disabled]="disabled" type="text" [value]="accumulator || ''" (change)="accumulator = inp.value"
+				(keyup.enter)="$event.target.blur(); editable.close();" />
+		</form-field-app>
+
+	</editable-field-app>
+
+
+	<!-- tel -->
+	<editable-field-app *ngSwitchCase="'tel'" #editable [inlineLabel]="config.inlineLabel" (closed)="onClose($event)"
+		(opened)="inp.select();">
+
+		<label-app>{{ definition?.label }}</label-app>
+		<!-- hint: editable text is the clickable label that transforms into an input -->
+		<editable-display-app>
+			{{ field?.value || '-' }}
+		</editable-display-app>
+
+		<form-field-app class="editable">
+			<!-- hint: couldn't ngModel to accumulator -->
+			<input #inp inputApp [disabled]="disabled" restrictInput="tel" type="text" [value]="accumulator || ''"
+				(change)="accumulator = inp.value" (keyup.enter)="$event.target.blur(); editable.close();" />
+		</form-field-app>
+
+	</editable-field-app>
+
+
+	<!-- int -->
+	<editable-field-app *ngSwitchCase="'int'" #editable [inlineLabel]="config.inlineLabel" (closed)="onClose($event)"
+		(opened)="inp.select();">
+
+		<label-app>{{ definition?.label }}</label-app>
+		<!-- hint: editable text is the clickable label that transforms into an input -->
+		<editable-display-app>
+			{{ field?.value || '-' }}
+		</editable-display-app>
+
+		<form-field-app class="editable">
+			<!-- hint: couldn't ngModel to accumulator -->
+			<input #inp inputApp [disabled]="disabled" restrictInput="number" type="text" [value]="accumulator || ''"
+				(change)="accumulator = inp.value" (keyup.enter)="$event.target.blur(); editable.close();" />
+		</form-field-app>
+
+	</editable-field-app>
+
+
+	<!-- decimal -->
+	<editable-field-app *ngSwitchCase="'decimal'" #editable [inlineLabel]="config.inlineLabel" (closed)="onClose($event)"
+		(opened)="inp.select();">
+
+		<label-app>{{ definition?.label }}</label-app>
+		<!-- hint: editable text is the clickable label that transforms into an input -->
+		<editable-display-app>
+			{{ field?.value || '-' }}
+		</editable-display-app>
+
+		<form-field-app class="editable">
+			<!-- hint: couldn't ngModel to accumulator -->
+			<input #inp inputApp [disabled]="disabled" restrictInput="decimal" type="number" step="any" [value]="accumulator || ''"
+				(change)="accumulator = inp.value" (keyup.enter)="$event.target.blur(); editable.close();" />
+		</form-field-app>
+
+	</editable-field-app>
+
+	<!-- boolean -->
+	<editable-field-app
+		#editable
+		*ngSwitchCase="'boolean'"
+		[inlineLabel]="config.inlineLabel"
+		[openOnClick]="false"
+		(click)="booleanEditableField($event)">
+		<label-app>{{ definition?.label }}</label-app>
+		<editable-display-app [disabled]="true">
+			<radio-app
+				inputApp
+				[disabled]="disabled"
+				[checked]="field?.value === 'true' ? true : field?.value === 'false' ? false : null"
+				[items]="[{ name: 'Yes', value: true }, { name: 'No', value: false }]"
+				(update)="toggleBoolean($event)">
+			</radio-app>
+		</editable-display-app>
+	</editable-field-app>
+
+	<!-- price -->
+	<editable-field-app *ngSwitchCase="'price'" #editable [inlineLabel]="config.inlineLabel" (closed)="onClose($event)"
+		(opened)="inp.select()">
+
+		<label-app>{{ definition?.label }}</label-app>
+
+		<editable-display-app [vAlign]="false">
+			<span *ngIf="stringToObject()" class="fs-s">{{ stringToObject()?.currency | const : 'currency' : 'symbol' }}</span>
+			<span *ngIf="stringToObject()" class="mg-xs spacer"></span>
+			<span>{{ stringToObject()?.value / 10000 ||  '-' }}</span>
+		</editable-display-app>
+
+		<form-field-app class="editable">
+			<input-price-app
+				#inp
+				inputApp
+				[disabled]="disabled"
+				[price]="stringToObject()"
+				(keyup.enter)="editable.close()"
+				(change)="accumulateObjectToString(inp.price)">
+			</input-price-app>
+		</form-field-app>
+
+	</editable-field-app>
+
+	<!-- selector -->
+	<editable-selector-app
+		*ngSwitchCase="'selector'"
+		[(ngModel)]="accumulator"
+		[label]="definition?.label"
+		[type]="metadata?.source"
+		[disabled]="disabled"
+		[definitionReference]="definition?.id"
+		[multiple]="metadata?.multiple"
+		[canCreate]="metadata?.canCreate"
+		[config]="config"
+		[width]="width"
+		(change)="onInput($event)">
+	</editable-selector-app>
+
+</ng-container>

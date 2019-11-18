@@ -1,0 +1,21 @@
+	<div class="action-container flexBetween">
+		<div class="flex icons-container no-select">
+			<rating-heart-app
+			 *ngIf="hasHeart"
+			 size="18"
+			 [favorite]="favorite"
+			 (favorited)="onFavorite.emit()"
+			 (unfavorited)="onUnfavorite.emit()">
+			</rating-heart-app>
+			<thumb-buttons-app
+				*ngIf="hasLikes"
+				size="m"
+				[votes]="votes"
+				[multiple]="multiple"
+				(liked)="liked.emit($event)"
+				(disliked)="disliked.emit($event)">
+			</thumb-buttons-app>
+			<ng-content></ng-content>
+		</div>
+		<button *ngIf="buttonName" (click)="buttonClick.emit()">{{buttonName}}</button>
+	</div>

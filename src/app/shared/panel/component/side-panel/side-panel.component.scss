@@ -1,0 +1,45 @@
+$max-screen-overlap: 1500px;
+$filters-pane-width: 380px;
+
+:host {
+	display: block;
+	position: relative;
+	width: 100%;
+	background: white;
+	z-index: var(--z-card-container);
+	overflow-x: hidden;
+	overflow-y: auto;
+	box-sizing: border-box;
+	padding: 30px var(--spacing-l);
+	height: 100vh;
+}
+
+@media only screen and (max-width: $max-screen-overlap) {
+	:host {
+		position: absolute;
+		box-shadow: 0 0 12px 4px rgba(0, 0, 0, 0.1);
+		bottom: 0;
+		width: $filters-pane-width;
+		right: 0;
+	}
+}
+
+@media only screen and (min-width: $max-screen-overlap) {
+	:host {
+		position: absolute;
+		bottom: 0;
+		width: $filters-pane-width;
+		right: 0;
+	}
+}
+
+divider-app {
+	margin: var(--spacing-ms) 0;
+}
+
+.top {
+	line-height: 1;
+	side-panel-title-app{
+		margin-bottom: 0;
+	}
+}

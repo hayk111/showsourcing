@@ -1,0 +1,37 @@
+:host {
+	background: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-bottom: 1px solid var(--color-divider);
+}
+
+.container {
+	background: white;
+	padding-top: var(--spacing-ms);
+	padding-bottom: var(--spacing-l);
+
+	carousel-app {
+		margin-right: var(--spacing-l);
+	}
+
+	.product-info {
+		width: 765px;
+	}
+}
+
+
+.title {
+	// we cannot use 12px since the editable-container uses a 6px top
+	margin-bottom: 6px;
+}
+
+.section {
+	&:not(.mg-none), h3 {
+		margin-bottom: var(--spacing-ms);
+	}
+}
+
+.supplier-name {
+	line-height: 1;
+}

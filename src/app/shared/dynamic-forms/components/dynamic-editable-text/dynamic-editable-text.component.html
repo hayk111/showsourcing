@@ -1,0 +1,260 @@
+<ng-container *ngIf="customField.type">
+	<ng-container [ngSwitch]="customField.type">
+		<!-- hint: the onTouched and onChanged function must be called when needed (refer to ng doc)
+		to avoid very hard to debug ExpressionChangedAfterItWasCheckedError -->
+		<!-- default -->
+		<editable-field-app
+			*ngSwitchDefault
+			#editable
+			[inlineLabel]="config.inlineLabel"
+			[align]="config.alignValue"
+			(closed)="onClose($event)"
+			(opened)="inp.select();">
+			<label-app>{{ 'text.' + customField.name | translate }}</label-app>
+			<!-- hint: editable text is the clickable label that transforms into an input -->
+			<editable-display-app>
+				{{ value || '-' }}
+			</editable-display-app>
+			<form-field-app class="editable">
+				<!-- hint: couldn't ngModel to accumulator -->
+				<input
+					#inp
+					inputApp
+					[type]="customField.type"
+					[value]="accumulator"
+					(input)="accumulate(inp.value)"
+					(keyup.enter)="editable.close();"/>
+			</form-field-app>
+		</editable-field-app>
+
+		<!-- tel (restricted input)-->
+		<editable-field-app
+			*ngSwitchCase="'tel'"
+			#editable
+			[inlineLabel]="config.inlineLabel"
+			[align]="config.alignValue"
+			(closed)="onClose($event)"
+			(opened)="inp.select()">
+			<label-app>{{ 'text.' + customField.name | translate }}</label-app>
+			<editable-display-app>{{ value || '-' }}</editable-display-app>
+			<form-field-app class="editable">
+				<input inputApp
+					#inp
+					restrictInput="tel"
+					autofocus="true"
+					[value]="accumulator"
+					[type]="customField.type"
+					(input)="accumulate(inp.value)"
+					(keyup.enter)="editable.close();"/>
+			</form-field-app>
+		</editable-field-app>
+
+		<!-- number -->
+		<editable-field-app
+			*ngSwitchCase="'number'"
+			#editable
+			[inlineLabel]="config.inlineLabel"
+			[align]="config.alignValue"
+			(closed)="onClose($event)"
+			(opened)="inp.select()">
+			<label-app>{{ 'text.' + customField.name | translate }}</label-app>
+			<editable-display-app>{{ value || '-' }}</editable-display-app>
+			<form-field-app class="editable">
+				<input inputApp
+					#inp
+					restrictInput="number"
+					autofocus="true"
+					[value]="accumulator"
+					[type]="customField.type"
+					(input)="accumulate(+inp.value)"
+					(keyup.enter)="editable.close()"/>
+			</form-field-app>
+		</editable-field-app>
+
+		<!-- decimal -->
+		<editable-field-app
+			*ngSwitchCase="'decimal'"
+			#editable
+			[inlineLabel]="config.inlineLabel"
+			[align]="config.alignValue"
+			(closed)="onClose($event)"
+			(opened)="inp.select()">
+			<label-app>{{ 'text.' + customField.name | translate }}</label-app>
+			<editable-display-app>{{ value || '-' }}</editable-display-app>
+			<form-field-app class="editable">
+				<input inputApp
+					#inp
+					restrictInput="decimal"
+					autofocus="true"
+					[value]="accumulator"
+					type="number"
+					step="any"
+					(input)="accumulate(+inp.value)"
+					(keyup.enter)="editable.close()"/>
+			</form-field-app>
+		</editable-field-app>
+
+		<!-- date -->
+		<editable-field-app
+			*ngSwitchCase="'date'"
+			#editable
+			[class.no-hover]="customField?.metadata?.disabled"
+			[openOnClick]="!(customField?.metadata?.disabled)"
+			[inlineLabel]="config.inlineLabel"
+			[align]="config.alignValue"
+			(closed)="onClose($event)"
+			(opened)="inp.select()">
+			<label-app>{{ 'text.' + customField.name | translate }}</label-app>
+			<editable-display-app [disabled]="customField?.metadata?.disabled">
+				{{ value ? (value | date: 'dd MMMM yyyy':'':translate.currentLang) : '-' }}
+			</editable-display-app>
+			<form-field-app class="editable">
+				<input
+					inputApp #inpDueDate
+					[disabled]="customField?.metadata?.disabled"
+					autofocus="true"
+					[value]="value ? (value | date:'yyyy-MM-dd':'':translate.currentLang) : '-'"
+					type="date"
+					(keyup.enter)="accumulate(inpDueDate.value)"
+					(change)="accumulate($event.target.value)"/>
+			</form-field-app>
+		</editable-field-app>
+
+		<!-- days -->
+		<editable-field-app
+			*ngSwitchCase="'days'"
+			#editable
+			[inlineLabel]="config.inlineLabel"
+			[align]="config.alignValue"
+			(closed)="onClose($event)"
+			(opened)="inp.select()">
+			<label-app>{{ 'text.' + customField.name | translate }}</label-app>
+			<editable-display-app>{{ value || '-' }} days</editable-display-app>
+			<form-field-app class="editable">
+				<input inputApp
+					#inp
+					autofocus="true"
+					[value]="accumulator"
+					[type]="'number'"
+					(input)="accumulate(+inp.value)"
+					(keyup.enter)="editable.close();"/>
+			</form-field-app>
+		</editable-field-app>
+
+		<!-- textarea -->
+		<editable-field-app
+			*ngSwitchCase="'textarea'"
+			#editable
+			[canGrow]="true"
+			[inlineLabel]="config.inlineLabel"
+			[align]="config.alignValue"
+			(closed)="onClose($event)"
+			(opened)="inp.select()">
+			<label-app>{{ 'text.' + customField.name | translate }}</label-app>
+			<editable-display-app style="white-space: pre-line">{{ value || '-' }}</editable-display-app>
+			<form-field-app class="editable">
+				<textarea
+					inputApp
+					#inp
+					autofocus="true"
+					[value]="accumulator"
+					(input)="accumulate(inp.value)">
+				</textarea>
+			</form-field-app>
+		</editable-field-app>
+
+		<!-- price -->
+		<editable-field-app
+			*ngSwitchCase="'price'"
+			#editable
+			[inlineLabel]="config.inlineLabel"
+			[align]="config.alignValue"
+			(closed)="onClose($event)"
+			(opened)="inp.select()">
+			<label-app>{{ 'text.' + customField.name | translate }}</label-app>
+			<editable-display-app [vAlign]="false">
+				<span class="fs-s"
+					*ngIf="value && value.currency">{{ value?.currency | const : 'currency' : 'symbol'}}</span>
+				<span *ngIf="value && value.currency" class="mg-xs spacer"></span>
+				<span>{{ value && (value.value) ? (value.value / 10000) : '-' }}</span>
+			</editable-display-app>
+			<form-field-app class="editable">
+				<input-price-app
+					#inp
+					formFieldCtrl
+					[price]="accumulator"
+					(keyup.enter)="editable.close()"
+					(change)="accumulate(inp.price);">
+				</input-price-app>
+			</form-field-app>
+		</editable-field-app>
+
+		<!-- boolean -->
+		<editable-field-app
+			#editable
+			*ngSwitchCase="'boolean'"
+			[inlineLabel]="config.inlineLabel"
+			[openOnClick]="false"
+			[align]="config.alignValue"
+			(click)="toggleValue($event)">
+			<label-app>{{ 'text.' + customField.name | translate }}</label-app>
+			<editable-display-app [disabled]="true">
+				<radio-app
+					[(ngModel)]="accumulator"
+					[checked]="accumulator !== undefined ? accumulator : null"
+					[items]="[{ name: 'Yes', value: true }, { name: 'No', value: false }]">
+				</radio-app>
+			</editable-display-app>
+		</editable-field-app>
+
+		<!-- price matrix -->
+		<ng-container *ngSwitchCase="'priceMatrix'">
+			<h3 class="s color-primary" [ngClass]="{ 'first': indexInCol === 0 }">
+				{{ 'text.' + customField.name | translate }}
+			</h3>
+			<editable-price-matrix-app
+				[(ngModel)]="accumulator"
+				(change)="onChange()"
+				(rowClosed)="onClose($event)"
+				(blur)="onBlur()">
+			</editable-price-matrix-app>
+		</ng-container>
+
+		<!-- packaging -->
+		<ng-container *ngSwitchCase="'packaging'">
+			<h3 class="s color-primary" [ngClass]="{ 'first': indexInCol === 0 }">
+				{{ 'text.' + customField.name | translate }}
+			</h3>
+			<editable-packaging-app
+				[config]="config"
+				[customField]="customField"
+				[(ngModel)]="accumulator"
+				(input)="onChange();"
+				(blur)="onBlur()"
+				(rowClosed)="onClose($event)">
+			</editable-packaging-app>
+		</ng-container>
+
+		<!-- selector -->
+		<editable-selector-app
+			*ngSwitchCase="'selector'"
+			[(ngModel)]="value"
+			[type]="customField?.metadata?.target"
+			[disabled]="customField?.metadata?.disabled"
+			[width]="customField?.metadata?.width"
+			[multiple]="customField?.metadata?.multiple"
+			[canCreate]="customField?.metadata?.canCreate"
+			[label]="'text.' + customField.name | translate"
+			[hasBadge]="customField?.metadata?.hasBadge"
+			[config]="config"
+			(change)="onSave(false)"
+			(blur)="onBlur()">
+		</editable-selector-app>
+
+		<!-- title -->
+		<h3 *ngSwitchCase="'title'" class="color-primary" [ngClass]="{ 'first': indexInCol === 0 }">
+			{{ 'text.' + customField.name | translate }}
+		</h3>
+
+	</ng-container>
+</ng-container>

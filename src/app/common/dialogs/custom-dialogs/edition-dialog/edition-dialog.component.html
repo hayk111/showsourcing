@@ -1,0 +1,23 @@
+	<dialog-app>
+
+		<!-- when ready -->
+		<dialog-header-app *ngIf="!pending" translate="label.change-name"></dialog-header-app>
+
+		<form [formGroup]="group" *ngIf="!pending">
+			<form-field-app>
+				<label-app class="capitalize"> {{ 'OBJ.OBJ-name' | translate: {field: 'ERM.' + type.translationKey + '.singular' | translate} }}</label-app>
+				<input inputApp autoFocus type="text" (input)="checkExists()" formControlName="name" [placeholder]="'OBJ.new-OBJ-name' | translate: {field: 'ERM.' + type.translationKey + '.singular' | translate}" (keyup.enter)="onSubmit()"/>
+			</form-field-app>
+			<label-app>{{ 'OBJ.provide-new-name' | translate: {field: 'ERM.' + type.translationKey + '.singular' | translate, entityName: entity.name || ''} }}</label-app>
+		</form>
+
+		<dialog-footer-app *ngIf="!pending ">
+				<div class="color-warn" *ngIf="exists$ | async" > {{ 'OBJ.that-already-exists' | translate: {field: 'ERM.' + type.translationKey + '.singular' | translate} }}</div>
+				<input [disabled]="!group.valid || (exists$ | async)" type="submit" [value]="'text.rename' | translate" (click)="onSubmit()"/>
+		</dialog-footer-app>
+
+		<!-- when pending -->
+		<spinner-app *ngIf="pending"></spinner-app>
+
+</dialog-app>
+

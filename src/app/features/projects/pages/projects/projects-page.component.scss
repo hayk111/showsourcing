@@ -1,0 +1,20 @@
+:host {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+projects-table-app {
+	margin: 13px 114px 32px 98px;
+	padding: var(--spacing-l);
+}
+
+.ctnr {
+	height: 100%;
+}
+
+.hr {
+	margin: var(--spacing-xl);
+	// top already has a padding, we don't want to double the space
+	margin-top: 0;
+}

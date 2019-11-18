@@ -1,0 +1,12 @@
+:host {
+	font-size: var(--font-size-l);
+	font-weight: 600;
+	padding-bottom: var(--spacing-ms);
+	margin: 0 var(--spacing-ms);
+	cursor: pointer;
+
+	&.active {
+		color: var(--color-primary);
+		border-bottom: 2px solid var(--color-primary);
+	}
+}

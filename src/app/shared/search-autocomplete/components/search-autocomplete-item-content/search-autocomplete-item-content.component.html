@@ -1,0 +1,24 @@
+<div class="search__item cell ng-star-inserted main" (click)="displayItem()">
+  <div class="mainCellWrapper ellipsis ng-star-inserted">
+    <div class="mainCell">
+      <div class="checkboxCtnr" *ngIf="selectable">
+        <checkbox-app class="ng-star-inserted" (check)="onCheck()" (uncheck)="onUncheck()" [checked]="checked">
+          <div class="icon pointer flexCenter mg-right">
+            <div class="unChecked ng-star-inserted"></div>
+          </div>
+          <input class="hidden" type="checkbox" id="checkbox-1" [checked]="checked">
+        </checkbox-app>
+      </div>
+      <div class="imgCtnr">
+        <img class="mini image ng-star-inserted" [src]="image | image : 'm' : type">
+      </div>
+      <div class="description">
+        <div class="titleCtnr">
+          <div class="title">{{title}}</div>
+          <status-badge-app *ngIf="status" size="tiny" [status]="status"></status-badge-app>
+        </div>
+        <span class="subtitle">{{subtitle}}</span>
+      </div>
+    </div>
+  </div>
+</div>

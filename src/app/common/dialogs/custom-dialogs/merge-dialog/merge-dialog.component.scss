@@ -1,0 +1,90 @@
+dialog-app {
+	width: 474px;
+	display: block;
+	padding: 20px var(--spacing-l) var(--spacing-ms) var(--spacing-l);
+}
+
+dialog-header-app {
+	padding-bottom: var(--spacing-ms);
+}
+
+.load-spinner {
+	margin-right: var(--spacing-m);
+}
+
+.opacity {
+	opacity: 0.2;
+}
+
+.cancel {
+	width: 78px;
+	height: 32px;
+	background: transparent;
+	color: var(--color-txt-secondary);
+	font-size: var(--font-size-m);
+	margin-right: var(--spacing-m);
+
+	&:hover {
+		background: var(--color-bg-secondary);
+		color: var(--color-txt-secondary);
+	}
+}
+
+.merge-entities-title {
+	color: var(--color-bg-dark);
+	font-size: var(--font-size-m);
+}
+
+.merge-entities {
+	margin: var(--spacing-m) 0 0 var(--spacing-m);
+
+	ul {
+		list-style-type: disc;
+
+		li {
+			font-size: var(--font-size-s);
+			color: var(--color-bg-dark);
+		}
+	}
+
+	.selected-entitiy-name {
+		position: relative;
+		left: -5px;
+		font-size: var(--font-size-m);
+	}
+}
+
+.entity-to-merge {
+	margin-left: var(--spacing-ms);
+}
+
+.select-entity {
+	margin-top: var(--spacing-s);
+	height: 34px;
+	color: var(--color-txt-secondary);
+	font-size: var(--font-size-m);
+	border-radius: var(--border-radius);
+	border: solid 1px var(--color-divider);
+	
+	&:hover {
+		border: solid 1px var(--color-primary);
+	}
+}
+
+.warning-undone {
+	color: var(--color-warn);
+	font-size: var(--font-size-m);
+	margin-top: var(--spacing-l);
+}
+
+.merge-into {
+	margin-top: var(--spacing-l);
+	font-size: var(--font-size-m);
+	color: var(--color-primary);
+}
+
+.merge-categories {
+	color: var(--color-bg-dark);
+	font-size: var(--font-size-l);
+	font-weight: 600;
+}

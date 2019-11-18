@@ -1,0 +1,92 @@
+<card-app padding="none">
+	<ng-container *ngIf="product$ | async; else spinner">
+		<!-- user -->
+		<activity-user-app
+			[user]="product?.createdBy"
+			[time]="product?.creationDate"
+			[action]="title">
+		</activity-user-app>
+
+		<!-- preview  -->
+		<one-activity-carousel-app
+			*ngIf="product?.images?.length > 0"
+			[images]="product?.images">
+		</one-activity-carousel-app>
+
+		<!-- actions on buttons -->
+		<div class="action-section flexBetween">
+			<action-bar-app
+				[favorite]="product?.favorite"
+				[votes]="product?.votes"
+				(onFavorite)="onFavorite()"
+				(onUnfavorite)="onUnfavorite()"
+				(liked)="liked.emit(product)"
+				(disliked)="disliked.emit(product)">
+				<selector-app
+					type="project"
+					[value]="product?.projects"
+					[offsetX]="322"
+					[canCreate]="true"
+					[multiple]="true"
+					[width]="360"
+					(update)="updateProduct({id: product?.id, projects: $event})">
+					<button class="icon light">
+						<icon-app class="fs-xl" name="folder"></icon-app>
+					</button>
+				</selector-app>
+			</action-bar-app>
+			<div class="right flex">
+				<button class="light" (click)="onViewProduct()" translate="button.open-product"></button>
+				<!-- <button class="icon light">
+					<icon-app name="dots-vertical" class="color-txt-secondary"></icon-app>
+				</button> -->
+			</div>
+		</div>
+
+		<!-- information of the product -->
+		<div class="flexColumn prodInfo">
+			<span class="name ellipsis">{{ product?.name }}</span>
+			<div class="flex status-info flexWrap dot-separator">
+				<span *ngIf="product?.price?.value" class="price">
+					{{ product?.price | appPrice }}
+				</span>
+				<span *ngIf="product?.category?.name">{{ product?.category?.name }}</span>
+				<span *ngIf="product?.supplier?.name" class="supplier">{{ product?.supplier?.name }}</span>
+				<stats-icons-app
+					*ngIf="score() != null"
+					class="flex"
+					[onlyLike]="true"
+					[product]="product">
+				</stats-icons-app>
+				<span *ngIf="product?.comments?.length > 0">
+					{{ ((product?.comments?.length || 0) > 1 ? 'OBJ.n-comment.plural' : 'OBJ.n-comment.singular') | translate: {count: (product?.comments?.length || 0)} }}
+				</span>
+			</div>
+			<div class="badges flex flexWrap">
+				<status-badge-app
+					size="mini"
+					[typeEntity]="typeEntity"
+					[status]="product?.status">
+				</status-badge-app>
+				<info-badge-app *ngIf="product?.category?.name" type="category">{{ product?.category?.name }}</info-badge-app>
+				<info-badge-app *ngFor="let tag of product?.tags;trackBy: trackByFn" type="tag">{{ tag?.name }}</info-badge-app>
+				<info-badge-app *ngFor="let project of product?.projects; trackBy: trackByFn" type="project">{{ project?.name }}</info-badge-app>
+			</div>
+		</div>
+
+	</ng-container>
+	<card-footer-app *ngIf="product$ | async" align="left" class="flexColumn">
+		<!-- here the comment component with previosu commennts loaded -->
+		<comment-list-app [comments]="product?.comments"></comment-list-app>
+		<div class="flexBetween">
+			<textarea inputApp type="text" [formControl]="commentCtrl"
+			[placeholder]="'placeholder.leave-a-comment' | translate" (keydown.enter)="onEnter($event)"></textarea>
+			<button *ngIf="inp?.focussed || commentCtrl.value" class="secondary-light" (click)="onSubmit()" translate="button.send"></button>
+		</div>
+	</card-footer-app>
+
+	<ng-template #spinner>
+		<spinner-app></spinner-app>
+	</ng-template>
+
+</card-app>

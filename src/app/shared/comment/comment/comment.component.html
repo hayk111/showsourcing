@@ -1,0 +1,43 @@
+<user-picture-app
+	[user]="user"
+	[image]="user?.avatar"
+	[border]="true"
+	[fontSize]="16"
+	[size]="44">
+</user-picture-app>
+
+<div class="comment-content flexColumn">
+	<!-- comment header -->
+	<div class="comment-header flexBetween">
+		<!-- title -->
+		<div class="title flexColumn">
+			<span class="name flex">{{user?.firstName }} {{user?.lastName }}</span>
+			<span class="date">{{ comment?.creationDate | date: 'dd MMM y':'':translate.currentLang }}</span>
+		</div>
+		<!-- buttons -->
+		<div *ngIf="isMine && !isEditing" class="buttons flex hover-buttons">
+			<button class="warn-light" (click)="onDelete()" translate="button.delete"></button>
+			<button class="light" (click)="enableEdit(text?.nativeElement?.clientHeight)" translate="button.edit"></button>
+		</div>
+	</div>
+
+	<!-- comment content -->
+	<!-- editing -->
+	<ng-container *ngIf="isEditing; else notEditing">
+		<!-- DON'T put the comment text on a new line, since it has property 'white-space: pre-line' it will modify the view -->
+		<textarea
+			inputApp
+			autoFocus
+			#textArea
+			[ngStyle]="{ 'height': currentHeight < minHeight ? minHeight : currentHeight + 'px' }">{{ comment?.text }}</textarea>
+		<div class="buttons flexEnd">
+			<button class="light" (click)="isEditing = false" translate="button.cancel"></button>
+			<button (click)="onSave(textArea?.value)" translate="button.save"></button>
+		</div>
+	</ng-container>
+
+	<!-- not editing -->
+	<ng-template #notEditing>
+		<div #text class="text" [innerHtml]="urlify(comment?.text)"></div>
+	</ng-template>
+</div>

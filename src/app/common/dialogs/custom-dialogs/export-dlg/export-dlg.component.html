@@ -1,0 +1,13 @@
+<export-selection-view-app
+	[ngClass]="{ 'hide': requestCreated }"
+	[targets]="targets"
+	[length]="length$ | async"
+	(export)="export()"
+	(selected)="select($event)">
+</export-selection-view-app>
+
+<export-waiting-view-app
+	[ngClass]="{ 'hide': !requestCreated }"
+	[fileReady]="fileReady"
+	(download)="downloadFile()">
+</export-waiting-view-app>

@@ -1,0 +1,87 @@
+<controller-list-app
+	class="max-full-table-width"
+	searchType="short"
+	buttonName="Add Product"
+	[filtersAmount]="listSrv.getFilterAmount([{ type: filterTypeEnum.ARCHIVED, value: false }, { type: filterTypeEnum.DELETED, value: false }])"
+	[hasFilter]="true"
+	[hasSwitch]="false"
+	[view]="listSrv.view"
+	[count]="listSrv.count$ | async"
+	[entityType]="erm.PRODUCT.singular"
+	[searchValue]="listSrv.searchValue"
+	(buttonClick)="openCreationProductDlg()"
+	(search)="listSrv.search($event)"
+	(clearFilters)="onClearFilters()"
+	(showArchived)="listSrv.filterByArchived(true)"
+	(hideArchived)="listSrv.filterByArchived(false)"
+	(showAssigned)="listSrv.filterByAssignee(true)"
+	(hideAssigned)="listSrv.filterByAssignee(false)"
+	(export)="dialogCommonSrv.openExportDialog(listSrv.getSelectedValues())"
+	(showFilters)="listSrv.openFilterPanel()"
+	(viewChange)="listSrv.changeView($event)">
+	<!-- <controller-list-right-item-app class="flex">
+		<button class="primary">Create Product</button>
+	</controller-list-right-item-app> -->
+</controller-list-app>
+
+<ng-container *ngIf="(listSrv.items$ | async) as products; else spinner">
+	<products-table-app
+		*ngIf="listSrv.view === 'list'"
+		class="max-full-table-width"
+		[pending]="false"
+		[selection]="listSrv.selection"
+		[rows]="products"
+		[count]="listSrv.count$ | async"
+		[currentPage]="listSrv.currentPage"
+		(update)="listSrv.update($event)"
+		(goToPage)="listSrv.loadPage($event)"
+		(delete)="listSrv.deleteOne($event)"
+		(favorited)="listSrv.onItemFavorited($event)"
+		(open)="listSrv.goToDetails($event)"
+		(openAddToProjectDialog)="dialogCommonSrv.openAddToProjectDialog([$event])"
+		(openExportDialog)="dialogCommonSrv.openExportDialog([$event])"
+		(openRequestFeedbackDialog)="dialogCommonSrv.openRequestFeedbackDialog([$event])"
+		(previewClick)="listSrv.openPreview($event)"
+		(select)="listSrv.selectOne($event, true)"
+		(selectAll)="listSrv.selectAll($event, true)"
+		(sort)="listSrv.sort($event)"
+		(unfavorited)="listSrv.onItemUnfavorited($event)"
+		(unselect)="listSrv.unselectOne($event, true)"
+		(unselectAll)="listSrv.unselectAll()"
+		(createClick)="openCreationProductDlg()">
+	</products-table-app>
+
+</ng-container>
+
+<product-preview-app
+	*ngIf="listSrv.previewOpen"
+	[product]="listSrv.previewed"
+	(close)="listSrv.closePreview()">
+</product-preview-app>
+
+<product-selection-bar-app
+	[isShown]="(listSrv.selection$ | async).size > 0"
+	[selection]="listSrv.selection$ | async"
+	[favorite]="listSrv.allSelectedFavorite"
+	(disliked)="listSrv.onMultipleThumbDown($event)"
+	(liked)="listSrv.onMultipleThumbUp($event)"
+	(favorited)="listSrv.onFavoriteAllSelected()"
+	(unfavorited)="listSrv.onUnfavoriteAllSelected()"
+	(addProject)="dialogCommonSrv.openAddToProjectDialog(listSrv.getSelectedValues())"
+	(export)="dialogCommonSrv.openExportDialog(listSrv.getSelectedValues())"
+	(requestTeamFeedback)="dialogCommonSrv.openRequestFeedbackDialog(listSrv.getSelectedValues())"
+	(compareProducts)="dialogCommonSrv.openCompareProductDialog(listSrv.getSelectedValues())"
+	(statusUpdated)="listSrv.updateSelected({status: $event})"
+	(deleted)="listSrv.deleteSelected()"
+	(close)="listSrv.unselectAll()">
+</product-selection-bar-app>
+
+<filters-app
+	*ngIf="listSrv.filterPanelOpen"
+	[filterList]="listSrv.filterList"
+	[filterTypes]="filterTypes"
+	(clickOutside)="listSrv.closeFilterPanel()"
+	(close)="listSrv.closeFilterPanel()">
+</filters-app>
+
+<ng-template #spinner> <spinner-app></spinner-app> </ng-template>

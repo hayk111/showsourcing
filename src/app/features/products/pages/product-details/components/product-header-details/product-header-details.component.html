@@ -1,0 +1,76 @@
+<header-details-app [headerType]="'details'">
+
+	<header-details-title-app *ngIf="product">
+		<editable-container-app #edt [defaultStyle]="false" (closed)="updateProductName($event, inpName.value, 'name')" (opened)="inpName.select()">
+			<editable-display-app>
+				{{ product?.name || ('message.unnamed-product' | translate) }}
+			</editable-display-app>
+			<input inputApp type="text" #inpName [value]="product?.name" (keyup.enter)="edt.close()">
+		</editable-container-app>
+		<!-- {{ product?.name || ('message.unnamed-product' | translate) }} -->
+	</header-details-title-app>
+
+
+	<logo-app [logo]="product?.images[0]" size="l" type="product"></logo-app>
+
+	<header-details-info-app>
+		<div class="flex flexVAlign">
+			<logo-app type="product" name="product" size="xs"></logo-app>
+			<div class="flex flexVAlign info-container dot-separator">
+				<span *ngIf="product?.reference" class="reference">
+					{{ product?.reference }}
+				</span>
+				<span *ngIf="product && product.price && product.price.value !== null" class="price">
+					{{ product?.price | appPrice }}
+				</span>
+				<span *ngIf="product?.category" class="category">
+					{{ product?.category?.name }}
+				</span>
+				<span *ngIf="product?.supplier" class="hyphen-separator">
+					{{ product?.supplier?.name }}
+				</span>
+				<rating-badge-app [votes]="product?.votes"></rating-badge-app>
+			</div>
+		</div>
+	</header-details-info-app>
+
+
+	<header-details-actions-app>
+
+		<button class="icon big txt-secondary mg-left-ms">
+			<icon-app name="export" size="m"></icon-app>
+		</button>
+
+		<button class="light big icon-with-text mg-left-ms flexVAlign flexAround">
+			<icon-app name="share" size="m"></icon-app>Share
+		</button>
+
+		<button class="vibrant big icon-with-text mg-left-ms flexVAlign">
+			<icon-app name="envelope"></icon-app>Contact Supplier
+		</button>
+
+		<status-selector-app class="mg-left-ms" [typeEntity]="productEntity" [entity]="product" selectSize="m" type="button">
+		</status-selector-app>
+
+		<context-menu-app class="mg-left-ms">
+
+			<context-menu-trigger-app>
+				<button class="icon light dots pointer">
+					<icon-app [size]="16" name="dots-vertical"></icon-app>
+				</button>
+			</context-menu-trigger-app>
+
+			<context-menu-item-app (click)="supplierRequest.emit(product)" translate="button.supplier-request">
+			</context-menu-item-app>
+
+			<context-menu-item-app (click)="archive.emit(product)" translate="button.archive">
+			</context-menu-item-app>
+
+			<context-menu-item-warn-app (click)="delete.emit(product)" translate="button.delete">
+			</context-menu-item-warn-app>
+
+		</context-menu-app>
+
+	</header-details-actions-app>
+
+</header-details-app>

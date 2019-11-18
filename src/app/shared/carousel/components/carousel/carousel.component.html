@@ -1,0 +1,106 @@
+<div class="ctnr" (fileDrop)="add($event)">
+
+	<!-- image -->
+	<div 
+		#imgCtnr 
+		class="img-ctnr flexCenter"	
+		[ngStyle]="{'transform': getRotation(getImg()), 'height': size + 'px'}"
+		(mouseover)="zoomin($event)"
+		(mousemove)="zoomin($event)"
+		(mouseleave)="zoomout()">
+		<img-app
+			#imgApp
+			*ngIf="images?.length !== 0; else noImg"
+			class="pointer"
+			[ngStyle]="{ 'height': size + 'px', 'width': size + 'px' }"
+			[image]="getImg()"
+			[size]="'xl'"
+			[objectFit]="objectFit"
+			(click)="modalCarousel.open()">
+		</img-app>
+
+		<!-- no image -->
+		<ng-template #noImg>
+			<div
+				class="flexColumn flexCenter empty"
+				[ngStyle]="{ 'height': size + 'px', 'width': size + 'px' }">
+				<span class="bold" translate="text.no-picture"></span>
+				<button *ngIf="!static" class="secondary" tabFocusAction (click)="openFileBrowser()" (keyEnter)="openFileBrowser()" translate="button.add-picture"></button>
+			</div>
+		</ng-template>
+	</div>
+
+  <spinner-app *ngIf="getImg()?.pending" size="xl"></spinner-app>
+
+	<!-- move back -->
+	<div
+		*ngIf="images?.length > 1"
+		class="move-btn back flexCenter circle pointer btn visible-on-hover"
+		(mousedown)="back($event)">
+		<icon-app name="angle-left"></icon-app>
+	</div>
+
+	<!-- move next -->
+	<div
+		*ngIf="images?.length > 1"
+		class="move-btn next flexCenter circle pointer btn visible-on-hover"
+		(mousedown)="next($event)">
+		<icon-app name="angle-right"></icon-app>
+	</div>
+
+	<!-- menu -->
+	<context-menu-app class="menu visible-on-hover" *ngIf="!static">
+		<!-- hint: we zoomin on mousemove because that's what we do when hovering the image, 
+		since this is above the image we do it here too, we can't let the event pass through like
+		for the counter because this should respond to clicks -->
+		<context-menu-trigger-app (mousemove)="zoomin($event)">
+				<icon-app
+					name="dots-vertical"
+					class="btn"
+					aria-label="more">
+				</icon-app>
+		</context-menu-trigger-app>
+		<context-menu-item-app>
+			<a [href]="getImg() | image:'xl'" download translate="button.download"></a>
+		</context-menu-item-app>
+		<context-menu-item-app (click)="rotate()" translate="button.rotate"></context-menu-item-app>
+		<context-menu-item-warn-app (click)="delete()" translate="button.delete"></context-menu-item-warn-app>
+	</context-menu-app>
+
+	<!-- add -->
+	<!-- hint: we zoomin on mousemove because that's what we do when hovering the image, 
+	since this is above the image we do it here too, we can't let the event pass through like
+	for the counter because this should respond to clicks -->
+	<div 
+		*ngIf="!static" 
+		class="btn add pointer visible-on-hover"
+		(click)="openFileBrowser()"
+		(mousemove)="zoomin($event)"
+		translate="button.add">
+	</div>
+
+	<modal-carousel-app
+		#modalCarousel
+		[selectedIndex]="selectedIndex"
+		[images]="images"
+		[entity]="entity"
+		(delete)="delete()"
+		(openFileBrowser)="openFileBrowser()"
+		(indexChange)="selectedIndex = $event">
+	</modal-carousel-app>
+
+	<!-- input used to input files -->
+	<input *ngIf="!static" #inpFile [multiple]="isImagePropertyArray" type="file" accept="image/*" (fileSelect)="add($event)"/>
+
+</div>
+
+<image-previewer-app
+	*ngIf="hasPreview && images.length > 0"
+	[images]="images"
+	[selectedIndex]="selectedIndex"
+	(imageClick)="selectedIndex = $event"
+	(previous)="back($event)"
+	(next)="next($event)">
+</image-previewer-app>
+
+

@@ -1,0 +1,38 @@
+<header-list-app
+	[title]="'Requests'"
+	[hasAction]="false">
+</header-list-app>
+
+<controller-list-app
+	[hasFilter]="false"
+	[hasSwitch]="false"
+	[searchValue]="listSrv.searchValue"
+	(search)="listSrv.search($event)">
+	<controller-list-right-item-app>
+		<request-sorting-menu-sup
+			[currentSort]="listSrv.currentSort"
+			(sortFromMenu)="listSrv.sortFromMenu($event)">>
+		</request-sorting-menu-sup>
+	</controller-list-right-item-app>
+</controller-list-app>
+
+<request-table-sup
+	class="no-padding"
+	[rows]="listSrv.items$ | async"
+	[pending]="listSrv.pending"
+	[selection]="listSrv.selection$ | async"
+	[count]="listSrv.count$ | async"
+	[currentPage]="listSrv.currentPage"
+	(goToPage)="listSrv.loadPage($event)"
+	(select)="listSrv.selectOne($event)"
+	(selectAll)="listSrv.selectAll($event)"
+	(sort)="listSrv.sort($event)"
+	(unselect)="listSrv.unselectOne($event)"
+	(unselectAll)="listSrv.unselectAll()">
+</request-table-sup>
+
+<selection-bar-app
+	[isShown]="(listSrv.selection$ | async).size > 0"
+	[selection]="listSrv.selection$ | async"
+	(close)="listSrv.unselectAll()">
+</selection-bar-app>

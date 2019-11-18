@@ -1,0 +1,13 @@
+<div class="ctnr z-4 notification-body-container {{ type }}">
+  <div class="left-part ">
+      <icon-app style="cursor: default;" [name]="iconLeft"></icon-app>
+  </div>
+  <div class="middle-part">
+		<div *ngIf="title?.length" class="title first-uppercase">{{ title }}</div>
+		<div *ngIf="message?.length" class="message">{{ message }}</div>
+		<div *ngIf="(action | async) && actionMessage?.length" class="uri-message" (click)="onActionClick()"> {{ actionMessage }}</div>
+  </div>
+  <div class="right-part">
+      <icon-app name="close" (click)="forceClose()"></icon-app>
+  </div>
+</div>

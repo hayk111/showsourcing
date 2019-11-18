@@ -1,0 +1,22 @@
+:host {
+	display: flex;
+}
+
+.icon-thumb-up, .icon-thumb-down {
+  margin-right: var(--spacing-xs);
+  color: var(--color-white);
+}
+
+p {
+	padding-left: var(--spacing-ms);
+	font-weight: 600;
+	line-height: 1.54;
+}
+
+.total-width {
+	width: 90px;
+}
+
+.first {
+	margin-right: var(--spacing-ms);
+}

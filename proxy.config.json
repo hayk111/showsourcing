@@ -1,0 +1,11 @@
+{
+	"/api/*": {
+			"target": "http://vps540915.ovh.net:9080",
+			"secure": "false",
+			"logLevel": "debug",
+			"pathRewrite": {
+			"^/api": ""
+			}
+	},
+	"compress": true
+}

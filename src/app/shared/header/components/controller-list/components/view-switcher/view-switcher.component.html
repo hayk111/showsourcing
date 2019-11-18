@@ -1,0 +1,28 @@
+<div class="ctnr c-{{ view }} border-radius flex">
+	<div class="slider"
+		[class.left]="view === 'list'"
+		[class.mid]="view === 'board' && hasThumb"
+		[class.right]="view === 'card'"
+		[class.right-two-items]="view === 'board' && !hasThumb"
+		[ngStyle]="{'width': hasThumb ? 'calc(100% / 3)' : 'calc(100% / 2)'}">
+	</div>
+	<button class="flexCenter {{ view === 'list' ? 'selected' : ''}}"
+		[ngStyle]="{'width': hasThumb ? 'calc(100% / 3)' : 'calc(100% / 2)'}"
+		(mousedown)="switchView('list')">
+		<icon-app class="list" name="list-menu"></icon-app>
+		<div translate="text.list"></div>
+	</button>
+	<button class="flexCenter {{ view === 'board' ? 'selected' : ''}}"
+		[ngStyle]="{'width': hasThumb ? 'calc(100% / 3)' : 'calc(100% / 2)'}"
+		(mousedown)="switchView('board')">
+		<icon-app class="board" name="kanban"></icon-app>
+		<div translate="text.board"></div>
+	</button>
+	<button *ngIf="hasThumb"
+		class="flexCenter {{ view === 'card' ? 'selected' : ''}}"
+		[ngStyle]="{'width': hasThumb ? 'calc(100% / 3)' : 'calc(100% / 2)'}"
+		(mousedown)="switchView('card')">
+		<icon-app class="cards" name="cards"></icon-app>
+		<div translate="text.thumb"></div>
+	</button>
+</div>

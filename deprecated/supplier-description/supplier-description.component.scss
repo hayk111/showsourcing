@@ -1,0 +1,61 @@
+card-header-app {
+	margin: var(--spacing-xs);
+	background-image: url("/assets/img/supplier-bg.jpg");
+	height: 158px;
+	h2, h3 {
+		color: white;
+	}
+	h2 {
+		margin-bottom: var(--spacing-s);
+		font-family: var(--font-title);
+	}
+	.alignCenter {
+		text-align: center;
+	}
+}
+
+main {
+	padding: var(--spacing-ms) var(--spacing-l) var(--spacing-l) var(--spacing-l);
+
+	.noDesc {
+		font-style: italic;
+		color: var(--legacy-color-txt-secondary);
+		font-weight: normal;
+	}
+
+}
+
+textarea {
+	height: 79px;
+	resize: none;
+}
+
+.cancel {
+	margin-right: var(--spacing-m);
+}
+
+.desc {
+	font-weight: 400;
+}
+
+editable-label-app {
+	white-space: pre-line;
+}
+
+.fav {
+	margin-right: var(--spacing-ms);
+	icon-app {
+		margin-right: var(--spacing-s);
+	}
+}
+
+.userInfo {
+	font-size: var(--font-size-s);
+	user-picture-app {
+		margin-right: var(--spacing-s);
+	}
+}
+
+.footer {
+	padding: var(--spacing-ms);
+}

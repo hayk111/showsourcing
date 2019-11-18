@@ -1,0 +1,75 @@
+<div
+	class="card-container flex"
+	[ngClass]="{ 'pointer' : clickable, 'hover-content-enabled': enabledHoverContent }"
+	(clickOutside)="onClickOutsideCard()"
+	(click)="clickImage.emit()">
+
+	<!-- left side -->
+	<div class="left">
+		<img-app
+			class="image"
+			[image]="product?.images"
+			type="product"
+			size="m"
+			(click)="clickImage.emit()">
+		</img-app>
+		<div *ngIf="showCheckbox" class="check" [ngClass]="{ checked: checked, selected: checked, 'drag-in-progress': dragInProgress }">
+			<checkbox-app
+				[checked]="checked"
+				(check)="onChecked()"
+				(uncheck)="onUnchecked()">
+			</checkbox-app>
+		</div>
+	</div>
+
+	<!-- right side -->
+	<div class="right">
+		<!-- title -->
+		<div class="title-section flex" (click)="clickTitle()">
+			<h5 class="title ellipsis">{{ product?.name }}</h5>
+		</div>
+		<div class="information-section flexWrap">
+			<!-- price - moq -->
+			<span class="price-container ellipsis">
+				<ng-container *ngIf="product?.price">{{ product?.price | appPrice }}</ng-container>
+				<ng-container *ngIf="product?.price && product?.minimumOrderQuantity">&nbsp;-&nbsp;</ng-container>
+				<ng-container *ngIf="product?.minimumOrderQuantity"> {{'OBJ.min-pcs' | translate: {count : product?.minimumOrderQuantity || 0} }}</ng-container>
+			</span>
+			<!-- description - supplier-->
+			<span class="description-text ellipsis">
+				{{ product?.price || product?.minimumOrderQuantity ? ' -' : ''}}
+				{{ product?.supplier?.name}} {{product?.category?.name && product?.supplier?.name ? '-' : '' }} {{ product?.category?.name }}
+			</span>
+		</div>
+		<!-- created by and votes -->
+		<div class="card-footer flexBetween">
+			<div class="created-by flexVAlign">
+				<user-picture-app
+					*ngIf="product?.assignee"
+					[user]="product?.assignee"
+					[size]="24"
+					fontSize="12"
+					[background]="false"
+					[image]="product?.assignee?.avatar">
+				</user-picture-app>
+				<div class="product-reference">
+					{{product?.reference}}
+				</div>
+			</div>
+
+			<span *ngIf="thumbSrv.computeScore(product?.votes) !== null" class="vote-star-container"
+				[ngClass]="{
+					'bg-accent-light color-accent-dark': thumbService.computeScoreVotes(votes) >= 3.5,
+					'bg-secondary-light color-txt-third': thumbService.computeScoreVotes(votes) < 3.5
+				}">
+				<icon-app name="star" size="sm" class="star"></icon-app>
+				<span class="vote-star-value">{{ thumbSrv.computeScore(product?.votes) | number: '1.1-2' }}</span>
+			</span>
+		</div>
+	</div>
+
+	<!-- hover effect -->
+	<div class="card-hover" [ngClass]="{ 'hover-content-enabled': enabledHoverContent }">
+		<ng-content></ng-content>
+	</div>
+</div>

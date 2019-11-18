@@ -1,0 +1,12 @@
+:host {
+	background: var(--color-txt-primary);
+	color: rgba(255, 255, 255, 0.6);
+	height: 100%;
+	width: 300px;
+	display: block;
+}
+
+h3 {
+	padding: var(--spacing-m);
+	color: var(--color-txt-primary-contrast);
+}

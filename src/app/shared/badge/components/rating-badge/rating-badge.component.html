@@ -1,0 +1,6 @@
+<div class="stars-empty">
+	<div class="stars-full" [ngClass]="'color-' + activeColor" [style.width]="setWidth()"></div>
+</div>
+<div *ngIf="hasNumber && score" class="mg-left-xs">
+	({{ score }})
+</div>

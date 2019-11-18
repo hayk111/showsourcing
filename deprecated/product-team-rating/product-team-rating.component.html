@@ -1,0 +1,59 @@
+<card-app>
+
+	<card-title-app>
+		<icon-app name="poll"></icon-app> 
+		<span translate="header.team-rating"></span>
+	</card-title-app>
+
+	<ng-container *ngIf="votes?.length > 0; else noVotes">
+		<div class="rating-info">
+			<div class="thumb-info flexVAlign">
+				<icon-app class="thumb" [name]="name" [ngStyle]="buttonStyle"></icon-app>
+				<div class="score-info flexColumn">
+					<span class="number">{{ score !== undefined ? score : '-' }} %</span>
+					<span>({{ votes?.length || '0'}} votes)</span>
+				</div>
+			</div>
+			<rating-cylinder-app
+				[score]="score"
+				dislikeColor="warn"
+				width="342">
+			</rating-cylinder-app>
+		</div>
+
+		<card-footer-app>
+			<thumb-buttons-app
+				size="m"
+				[votes]="votes"
+				[hasText]="true"
+				(liked)="liked.emit()"
+				(disliked)="disliked.emit()">
+			</thumb-buttons-app>
+			<button class="secondary-light"
+				(click)="openVoteDetails.emit()"
+				translate="button.view-vote-details">
+			</button>
+		</card-footer-app>
+	</ng-container>
+
+	<ng-template #noVotes>
+		<span class="no-vote" translate="text.no-vote"></span>
+		<rating-cylinder-app
+			dislikeColor="divider"
+			width="342">
+		</rating-cylinder-app>
+
+		<card-footer-app>
+			<thumb-buttons-app
+				size="m"
+				[votes]="votes"
+				[hasText]="true"
+				(liked)="liked.emit()"
+				(disliked)="disliked.emit()">
+			</thumb-buttons-app>
+			<button class="primary fullWidth" (click)="requestTeamVotes.emit()"
+				translate="button.request-team"></button>
+		</card-footer-app>
+	</ng-template>
+
+</card-app>

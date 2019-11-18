@@ -1,0 +1,25 @@
+
+<div *ngFor="let category of getGroupedProducts(currentSort); first as first; index as i; trackBy: trackByFn" 
+	class="category-section">
+	<div *ngIf="getGroupedValue(category, currentSort)" class="section-title" >
+		{{ getGroupedValue(category, currentSort) }}
+	</div>
+	<div class="products-section">
+		<ng-container *ngFor="let product of category.value; index as i; trackBy: trackById">
+			<product-grid-card-app
+				[product]="product"
+				[selected]="selection.has(product?.id)"
+				(favorited)="favorited.emit(product?.id)"
+				(unfavorited)="unfavorited.emit(product?.id)"
+				(liked)="liked.emit(product)"
+				(disliked)="disliked.emit(product)"
+				(open)="open.emit(product.id)"
+				(preview)="previewClick.emit(product)"
+				(select)="select.emit(product)"
+				(unselect)="unselect.emit(product)"
+				(update)="update.emit($event)">
+			</product-grid-card-app>
+		</ng-container>
+	</div>
+</div>
+

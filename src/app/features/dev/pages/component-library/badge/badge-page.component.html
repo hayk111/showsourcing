@@ -1,0 +1,63 @@
+
+
+<card-app>
+	<h3>Badge</h3>
+	
+
+	<p>
+		<small>badge-app  color='primary' | 'secondary' | 'accent' | 'vibrant' | 'success' | 'warn'</small>
+	</p>
+	<div class="flex">
+		<badge-app *ngFor="let color of colors" size="m" [color]="color">{{ color.toUpperCase() }}</badge-app>
+	</div>
+
+	<p>
+		<small>badge-app size="s"</small>
+	</p>
+	<div class="flex">
+		<badge-app size="s">small</badge-app>
+	</div>
+
+	<p>
+		<small>badge-app size="m"</small>
+	</p>
+	<div class="flex">
+		<badge-app size="m">medium</badge-app>
+	</div>
+
+	<p>
+		<small>badge-app [circle]="true" color="primary"</small>
+	</p>
+	<div class="flex">
+		<badge-app [circle]="true" color="primary">22</badge-app>
+	</div>
+</card-app>
+
+<card-app>
+	<h3>Status Badge</h3>
+
+	
+	<div>
+		<p>
+			<small>status-badge-app size="s" [status]="status"</small>
+		</p>
+		<p>
+			<status-badge-app 
+				*ngFor="let status of statuses" 
+				size="s"
+				[status]="status">
+			</status-badge-app>
+		</p>
+		<p>
+			<small>status-badge-app size="m" [status]="status"</small>
+		</p>
+		<p>
+			<status-badge-app 
+				*ngFor="let status of statuses" 
+				size="m"
+				[status]="status">
+			</status-badge-app>
+		</p>
+	</div>
+
+</card-app>

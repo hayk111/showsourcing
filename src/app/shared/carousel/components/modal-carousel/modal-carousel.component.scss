@@ -1,0 +1,82 @@
+.modal {
+	background: rgba(0, 0, 0, 0.8);
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: var(--z-dialog-container);
+	.carousel-body {
+		width: calc(100% - 48px);
+		height: calc(100vh - 110px);
+		padding: var(--spacing-l);
+	}
+}
+
+.tooltip {
+	position: absolute;
+	top: 50%;
+	z-index: var(--z-dialog-container);
+}
+.move-btn {
+	position: absolute;
+	background: var(--color-txt-primary);
+	color: var(--color-accent-contrast);
+	border-radius: 50%;
+	top: 50%;
+	width: 20px;
+	height: 20px;
+	padding: var(--spacing-m);
+}
+.back {
+	left: var(--spacing-ms);
+}
+
+.next {
+	right: var(--spacing-ms);
+}
+
+.close-btn {
+	position: absolute;
+	background: rgba(0, 0, 0, 0.3);
+	padding: var(--spacing-s) var(--spacing-m);
+	color: white;
+	right: var(--spacing-xl);
+	top: var(--spacing-xl);
+}
+
+.img-ctnr {
+	margin: auto;
+	height: 100%;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+img-app {
+	height: 100%;
+	max-width: 70%;
+}
+
+.page-info {
+	position: absolute;
+	bottom: var(--spacing-l);
+	right: var(--spacing-l);
+	width: 113px;
+	height: 44px;
+	border-radius: 22px;
+	background: black;
+	color: white;
+	font-weight: 600;
+	icon-app {
+		margin-right: var(--spacing-s);
+	}
+}
+
+.spinner-container {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}

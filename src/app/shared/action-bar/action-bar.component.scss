@@ -1,0 +1,33 @@
+:host {
+	overflow: hidden;
+	background: white;
+	display: block;
+	visibility: hidden;
+	opacity: 0;
+	transition: visibility 0s, opacity 0.4s linear;
+	.action-container {
+		max-height: 0px;
+		transition: max-height 0.2s ease-out;
+	}
+	&.isVisible {
+		visibility: visible;
+		opacity: 1;
+		.action-container {
+			max-height: 46px;
+			transition: max-height 0.1s ease-out;
+		}
+	}
+}
+
+thumb-buttons-app, icon-app, rating-heart-app {
+	color: var(--color-secondary-dark);
+}
+
+thumb-buttons-app, rating-heart-app {
+	margin-right: var(--spacing-ms);
+}
+
+button {
+	overflow: hidden;
+	min-width: 86px;
+}

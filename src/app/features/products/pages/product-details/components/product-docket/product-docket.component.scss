@@ -1,0 +1,17 @@
+:host {
+	display: block;
+}
+
+small {
+	font-size: var(--font-size-m);
+}
+
+.section {
+	&:not(:last-child) {
+		margin-bottom: var(--spacing-ms);
+	}
+
+	.title {
+		margin-bottom: var(--spacing-ms);
+	}
+}

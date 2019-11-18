@@ -1,0 +1,103 @@
+
+<!-- top panel -->
+<header-list-app
+	class="max-full-table-width"
+	[title]="'title.my-tasks' | translate"
+	[buttonName]="'button.create-task' | translate"
+	(buttonClick)="dialogCommonSrv.openCreationTaskDlg()">
+</header-list-app>
+
+<controller-list-app
+	#controller
+	class="max-full-table-width"
+	[hasFilter]="false"
+	[hasSwitch]="false"
+	[hasArchived]="false"
+	[hasCompletedTask]="true"
+	[hasTaskCreatedByMeOnly]="true"
+	[hasExport]="false"
+	[view]="listSrv.view"
+	[count]="listSrv.count$ | async"
+	[entityType]="'TASK'"
+	searchType="short"
+	[searchValue]="listSrv.searchValue"
+	[ngStyle]="tableWidth && {'width': getSubPanelWidth()}"
+	(search)="listSrv.search($event)"
+	(clearFilters)="listSrv.filterList.resetAll()"
+	(showAssigned)="listSrv.filterByAssignee(true)"
+	(hideAssigned)="listSrv.filterByAssignee(false)"
+	(showTasksCreatedByMeOnly)="showTasksCreatedByMeOnly()"
+	(hideTasksCreatedByMeOnly)="hideTasksCreatedByMeOnly()"
+	(showTasksCompleted)="listSrv.filterByDone(false)"
+	(hideTasksCompleted)="listSrv.filterByDone(true)"
+	(export)="dialogCommonSrv.openExportDialog()"
+	(showFilters)="listSrv.openFilterPanel()"
+	(viewChange)="onViewChange($event)">
+</controller-list-app>
+
+<task-table-app
+	class="max-full-table-width"
+	[rows]="listSrv.items$ | async"
+	[selection]="listSrv.selection$ | async"
+	[pending]="listSrv.pending"
+	[count]="listSrv.count$ | async"
+	[currentSort]="listSrv.currentSort"
+	[currentPage]="listSrv.currentPage"
+	(update)="listSrv.update($event)"
+	(goToPage)="listSrv.loadPage($event)"
+	(sort)="listSrv.sort($event)"
+	(select)="listSrv.selectOne($event, true)"
+	(unselect)="listSrv.unselectOne($event, true)"
+	(selectAll)="listSrv.selectAll($event, true)"
+	(unselectAll)="listSrv.unselectAll()"
+	(open)="listSrv.goToDetails($event)"
+	(favorited)="listSrv.onItemFavorited($event)"
+	(unfavorited)="listSrv.onItemUnfavorited($event)"
+	(previewClick)="listSrv.openPreview($event)"
+	(showItemsPerPage)="showItemsPerPage($event)"
+	(delete)="listSrv.deleteOne($event, true)"
+	(createClick)="dialogCommonSrv.openCreationTaskDlg()">
+</task-table-app>
+
+<selection-bar-app
+	[isShown]="(listSrv.selection$ | async).size > 0"
+	[selection]="listSrv.selection$ | async"
+	(close)="listSrv.unselectAll()">
+
+	<div class="flex">
+		<status-selector-app
+			class="mg-right-s"
+			toolTip [toolTipMessage]="'message.change-status' | translate" toolTipPosition="above-right"
+			#workActionMenu
+			selectSize="m"
+			[typeEntity]="erm.TASK"
+			type="multiple-selection"
+			[internalUpdate]="false"
+			(statusUpdated)="this.listSrv.updateSelected({status: $event})">
+		</status-selector-app>
+		<action-bar-app
+			[favorite]="listSrv.allSelectedFavorite"
+			[hasLikes]="false"
+			[multiple]="true"
+			(onFavorite)="listSrv.onFavoriteAllSelected()"
+			(onUnfavorite)="listSrv.onUnfavoriteAllSelected()"	>
+			<button class="icon light" (click)="listSrv.deleteSelected()">
+				<icon-app class="color-secondary-dark" name="trash" size="l"></icon-app>
+			</button>
+		</action-bar-app>
+	</div>
+</selection-bar-app>
+
+<filters-app
+	[filterList]="listSrv.filterList"
+	[filterTypes]="filterTypes"
+	(clickOutside)="listSrv.closeFilterPanel()"
+	(close)="listSrv.closeFilterPanel()"
+	*ngIf="listSrv.filterPanelOpen">
+</filters-app>
+
+<task-preview-app
+	*ngIf="listSrv.previewOpen"
+	[task]="listSrv.previewed"
+	(close)="listSrv.closePreview()">
+</task-preview-app>

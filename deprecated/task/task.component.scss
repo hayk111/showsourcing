@@ -1,0 +1,54 @@
+:host {
+	width: 100%;
+}
+
+.row {
+	padding-right: var(--spacing-ms);
+
+	.task-name {
+		color: var(--legacy-color-txt-strong);
+
+		icon-app {
+			font-size: var(--spacing-m);
+			margin-right: var(--spacing-s);
+    }
+
+    &:hover {
+      .task-preview {
+        opacity: 1;
+			}
+			div.name {
+				color: var(--legacy-color-primary);
+			}
+    }
+
+    .task-preview {
+      opacity: 0;
+    }
+	}
+
+	.task-product {
+		margin-right: var(--spacng-ms);
+	}
+
+	.task-product, .task-supplier {
+		img-app {
+			margin-right: var(--spacing-s);
+			height: 20px;
+    	width: 20px;
+		}
+	}
+
+	.task-user-status, .task-user {
+
+		user-picture-app {
+			margin-right: var(--spacing-s);
+			font-size: var(--font-size-xs);
+		}
+	}
+
+	.task-user {
+		margin-left: var(--spacing-ms);
+	}
+
+}

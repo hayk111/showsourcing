@@ -1,0 +1,96 @@
+<dialog-app class="vertical-scroll-content">
+
+	<dialog-header-app>
+		{{ ((items?.length || 0) > 1 ? 'OBJ.mass-edit.plural' : 'OBJ.mass-edit.singular') | translate: {count: items?.length || 0} }}
+	</dialog-header-app>
+
+	<div class="container">
+		<h5 class="ms" translate="lable.property-update"></h5>
+		<selector-app
+			[type]="erm.PICKER_FIELD"
+			[width]="500"
+			[dynamicFields]="dynamicFields"
+			(update)="updateChoice($event)">
+			<selector-placeholder-app
+				tabFocusAction
+				autoFocus
+				class="first-uppercase"
+				[name]="(choice$ | async)?.label || (choice$ | async)?.name"
+				[placeholder]="'placeholder.choose-property' | translate">
+			</selector-placeholder-app>
+		</selector-app>
+
+		<!-- content when no pending -->
+		<ng-container *ngIf="!pending; else spinner">
+			<!-- switch case with out choices -->
+			<ng-container [ngSwitch]="(choice$ | async)?.type">
+				<!-- this way we just subscribe once and its cleaner -->
+				<ng-container *ngIf="choice$ | async as choice">
+
+					<!-- status -->
+					<ng-container *ngSwitchCase="'status'">
+						<h5 class="ms">{{ choice?.label || choice?.name }}</h5>
+						<status-selector-app
+							#statusSelector
+							[typeEntity]="erm.PRODUCT"
+							type="multiple-selection"
+							[internalUpdate]="false"
+							[width]="460"
+							(statusUpdated)="valueUpdate($event)">
+							<selector-placeholder-app
+								tabFocusAction
+								class="status-selector first-uppercase"
+								[name]="value?.name"
+								[placeholder]="'placeholder.choose-status' | translate"
+								(keyEnter)="statusSelector?.openMenu()">
+							</selector-placeholder-app>
+						</status-selector-app>
+					</ng-container>
+
+					<!-- votes -->
+					<ng-container *ngSwitchCase="'votes'">
+						<h5 class="ms">{{ choice?.label || choice?.name }}</h5>
+						<thumb-buttons-app
+							*ngSwitchCase="'votes'"
+							size="m"
+							[multiple]="true"
+							[hasText]="true"
+							(liked)="like = $event"
+							(disliked)="dislike = $event">
+						</thumb-buttons-app>
+					</ng-container>
+
+					<!-- extended fields -->
+					<ng-container *ngSwitchCase="'extendedField'">
+						<h5 class="ms">{{ choice?.label || choice?.name }}</h5>
+						<extended-form-app
+							*ngIf="definitions$ | async as definitions; else spinner"
+							[fields]="value || []"
+							[definitions]="definitions"
+							(update)="valueUpdate($event)">
+						</extended-form-app>
+					</ng-container>
+
+					<!-- dynamic form for the rest -->
+					<ng-container *ngSwitchDefault>
+						<dynamic-form-app
+							[fields]="[choice]"
+							(update)="valueUpdate($event, choice?.name)">
+						</dynamic-form-app>
+					</ng-container>
+
+				</ng-container>
+			</ng-container>
+		</ng-container>
+	</div>
+
+	<dialog-footer-app>
+		<button tabFocusAction class="capitalize secondary" (click)="close()" translate="button.cancel"></button>
+		<button tabFocusAction class="capitalize" (click)="update()" translate="button.update"></button>
+	</dialog-footer-app>
+
+</dialog-app>
+
+<ng-template #spinner>
+	<spinner-app></spinner-app>
+</ng-template>

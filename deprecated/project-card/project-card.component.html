@@ -1,0 +1,56 @@
+
+<card-app>
+	<card-title-app>
+		<icon-app name="project"></icon-app> 
+		<span translate="header.projects"></span>
+	</card-title-app>
+
+	<div *ngFor="let project of projects; last as last;trackBy: trackByFn" (click)="openProject(project)">
+		<article class="flexBetween pointer" [class.last-item]="last">
+			<div class="flex project-row-info">
+				<div class="space-icon flexAround">
+					<icon-app class="fs-m pointer" fontSet="svg" name="folder-light" ></icon-app>
+				</div>
+				<div class="flexColumn middle" >
+					<span class="name capitalize ellipsis">
+						{{ project?.name }}
+					</span>
+					<!-- TODO check style is the same -->
+					<span
+						*ngIf="project?.description"
+						class="description"
+						translate="text.projectCard_description">
+						{{ project?.description }}
+					</span>
+				</div>
+			</div>
+			<div class="flexCenter">
+				<icon-app class="minus pointer fs-xl color-primary-light"
+					(click)="onRemove(project, $event)" name="trash">
+				</icon-app>
+			</div>
+		</article>
+		<divider-app *ngIf="!last"></divider-app>
+	</div>
+	<span
+		*ngIf="projects?.length === 0"
+		class="no-projects"
+		translate="text.no-projects-added">
+	</span>
+
+	<card-footer-app>
+		<selector-app
+			class="selector"
+			type="project"
+			[value]="projects"
+			[canCreate]="true"
+			[offsetY]="8"
+			[offsetX]="210"
+			[multiple]="true"
+			[width]="330"
+			(menuClosed)="updated.emit(tempProject)"
+			(update)="addLocalProjects($event)">
+			<button	translate="button.add-to-project"></button>
+		</selector-app>
+	</card-footer-app>
+</card-app>

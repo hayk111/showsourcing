@@ -1,0 +1,19 @@
+<div class="add-new-comment">
+
+	<div class="title" translate="button.add-comment"></div>
+
+	<div class="text-input-new-comment">
+		<textarea
+			[formControl]="commentCtrl"
+			rows="4"
+			[placeholder]="'placeholder.write-comment-here' | translate">
+		</textarea>
+	</div>
+
+	<div class="button-container">
+		<button class="capitalize" (click)="send()" translate="button.send"></button>
+	</div>
+
+</div>
+
+<comment-list-app [comments]="activities"></comment-list-app>

@@ -1,0 +1,42 @@
+:host {
+	display: block;
+	text-align: left;
+}
+
+selector-app {
+	cursor: pointer;
+	max-width: 100%;
+}
+
+.icon-preview:hover {
+	visibility: visible;
+}
+
+.icon-container {
+	margin-bottom: var(--spacing-xs);
+	position: relative;
+
+	&:hover .icon-preview {
+			visibility: visible;
+	}
+
+	logo-app {
+		flex-shrink: 0;
+		margin-right: var(--spacing-s);
+	}
+
+	.icon-preview {
+		visibility: hidden;
+		margin-right: 0px;
+		padding-left: var(--spacing-s);
+
+		&:hover {
+			color: var(--color-primary);
+		}
+	}
+
+	.category-info {
+		display: flex;
+		flex-wrap: wrap;
+	}
+}

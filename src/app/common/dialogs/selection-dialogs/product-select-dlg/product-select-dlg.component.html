@@ -1,0 +1,88 @@
+<dialog-app class="zero-content-height" [hasBorder]="false">
+
+	<dialog-header-app translate="header.select-products"></dialog-header-app>
+
+	<controller-list-app
+		[entityType]="entityTypeEnum.PRODUCT"
+		[hasFilter]="true"
+		[hasSwitch]="false"
+		[hasExport]="false"
+		[count]="listSrv.count$ | async"
+		[filtersPanelOpened]="filtersPanelOpened"
+		[view]="listSrv.view"
+		[searchValue]="listSrv.searchValue"
+		[searchFullWidth]="false"
+		[subPanelDialog]="true"
+		(search)="searchProduct($event)"
+		(showArchived)="listSrv.filterByArchived(true)"
+		(hideArchived)="listSrv.filterByArchived(false)"
+		(showAssigned)="listSrv.filterByAssignee(true)"
+		(hideAssigned)="listSrv.filterByAssignee(false)"
+		(showFilters)="showFilters()"
+		(hideFilters)="hideFilters()">
+
+		<controller-list-left-item-app class="flex">
+			<div class="flex show-my-samples">
+				<checkbox-app
+					[checked]="listSrv.filterList.hasFilterType(filterType.ASSIGNEE)"
+					(check)="toggleMySamples(true)"
+					(uncheck)="toggleMySamples(false)">
+				</checkbox-app>
+				<span class="ellipsis" translate="text.show-only-my-sample"></span>
+			</div>
+		</controller-list-left-item-app>
+
+	</controller-list-app>
+
+	<products-table-app
+		class="list-view"
+		*ngIf="listSrv.view === 'list'"
+		[ngStyle]="filtersPanelOpened && {'width': 'calc(100% - 296px)'}"
+		[hasMenu]="false"
+		[hasPagination]="false"
+		[hasHeaderBorder]="true"
+		[headerSecondary]="true"
+		[currentSort]="listSrv.currentSort"
+		[pending]="listSrv.pending"
+		[rows]="listSrv.items$ | async"
+		[selection]="listSrv.selection$ | async"
+		[count]="listSrv.count$ | async"
+		[currentPage]="listSrv.currentPage"
+		(goToPage)="loadPage($event)"
+		(delete)="listSrv.deleteOne($event)"
+		(favorited)="listSrv.onItemFavorited($event)"
+		(update)="listSrv.update($event)"
+		(open)="listSrv.goToDetails($event)"
+		(showItemsPerPage)="showItemsPerPage($event)"
+		(bottomReached)="listSrv.loadMore()"
+		(select)="onItemSelected($event, true)"
+		(previewClick)="listSrv.openPreview($event)"
+		(selectAll)="onSelectAll($event, true)"
+		(sort)="listSrv.sort($event)"
+		(unfavorited)="listSrv.onItemUnfavorited($event)"
+		(unselect)="onItemUnselected($event)"
+		(unselectAll)="onUnselectAll()">
+	</products-table-app>
+
+	<dialog-footer-app class="flexVAlign">
+		<div class="product-action">
+			<span class="selected-product-count">{{ selectedProductsCount }}</span>
+			<span class="selected-product">{{'label.products-selected' | translate}}</span>
+		</div>
+		<button *ngIf="submitProducts" class="primary-light cancel secondary capitalize" (click)="cancel()" translate="button.cancel"></button>
+		<button *ngIf="submitProducts" class="add-to-project capitalize" (click)="submit()" translate="button.add-to-project"></button>
+		<button *ngIf="!submitProducts" class="footer-done capitalize" (click)="done()" translate="button.done"></button>
+	</dialog-footer-app>
+
+	<filters-app
+		*ngIf="filtersPanelOpened"
+		[filterList]="listSrv.filterList"
+		[filterTypes]="filterTypes"
+		[sidePanel]="false"
+		(close)="hideFilters()">
+	</filters-app>
+
+	<ng-template #spinner>
+		<spinner-app></spinner-app>
+	</ng-template>
+</dialog-app>

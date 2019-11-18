@@ -1,0 +1,100 @@
+:host {
+	background-color: #f2f5fb;
+	border-radius: var(--border-radius-l);
+
+	header {
+		text-align: center;
+		font-weight: 600;
+		color: var(--color-txt-primary);
+		font-size: 14px;
+		padding: var(--spacing-m);
+		padding-top: 10px;
+		padding-bottom: 10px;
+		height: 28px;
+
+		.product-count {
+			width: 9px;
+			height: 20px;
+			font-size: var(--font-size-l);
+			color: var(--color-txt-secondary);
+			margin-right: var(--spacing-ms);
+		}
+
+		.status-badge {
+			display: inline-block;
+			width: var(--spacing-ms);
+			height: var(--spacing-ms);
+			margin-right: var(--spacing-xxs);
+			border-radius: 50%;
+		}
+	}
+
+	main {
+		margin: 0 var(--spacing-s);
+		height: calc(100% - 51px);
+		box-sizing: border-box;
+    overflow-y: auto;
+	}
+
+	kanban-item-app {
+		height: 115px;
+		width: 326px;
+		border-radius: var(--border-radius);
+		box-shadow: 0 0 12px 4px rgba(0, 0, 0, 0.02);
+		background-color: var(--color-bg);
+		margin-bottom: var(--spacing-s);
+	}
+
+	.left-section {
+		display: inline-flex;
+
+		.title {
+			height: 20px;
+			margin-left: var(--spacing-s);
+			font-size: var(--font-size-l);
+			color: var(--color-bg-dark);
+		}
+	}
+
+	.overlay {
+		background: var(--color-secondary);
+		position: absolute;
+		top:0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 2;
+		display: none;
+		.arrow {
+			color: white;
+			font-size: 64px;
+		}
+	}
+
+	.custom-placeholder {
+		background: #ccc;
+		border: dotted 3px #999;
+		min-height: 60px;
+		height: 115px;
+	}
+
+	/* Animate items as they're being sorted. */
+	.cdk-drop-list-dragging {
+		.overlay {
+			display: flex;
+		}
+		.cdk-drag {
+			transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+		}
+	}
+
+	/* Animate an item that has been dropped. */
+	.cdk-drag-animating {
+		transition: transform 800ms cubic-bezier(0, 0, 0.2, 1);
+	}
+
+	.cdk-drag-placeholder {
+		opacity: 0.4;
+	}
+}
+

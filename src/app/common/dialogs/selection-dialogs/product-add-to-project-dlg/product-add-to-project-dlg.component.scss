@@ -1,0 +1,64 @@
+:host projects-table-app {
+	height: calc(100% - 42px);
+	padding: unset;
+	padding-bottom: 0 !important;
+	margin: var(--spacing-l) 0 0 0;
+	border: solid 1px var(--color-divider);
+	border-radius: var(--border-radius);
+}
+
+dialog-app {
+	height: calc(100vh - 100px);
+	width: 1149px;
+	
+	controller-list-app {
+		padding: 0;
+		margin: 0;
+	}
+}
+
+dialog-footer-app {
+	margin-top: var(--spacing-xl);
+
+	.selected-product-count {
+		color: #45adff;
+		font-size: var(--font-size-l);
+		margin-right: var(--spacing-xs);
+	}
+	
+	.selected-product {
+		color: var(--color-bg-dark);
+		font-size: var(--font-size-l);
+	}
+
+	.product-action {
+		margin-right: var(--spacing-l);
+	}
+
+	.add-to-project, .footer-done {
+		width: 128px;
+		height: var(--spacing-xl);
+	}
+
+	.cancel {
+		width: 88px;
+		background: transparent;
+		color: var(--color-txt-secondary);
+		font-weight: 600;
+		font-size: var(--font-size-m);
+		margin-right: var(--spacing-ms);
+
+		&:hover {
+			background: var(--color-bg-secondary);
+		}
+	}
+}
+
+.productNumber {
+  font-size: 19px;
+  color: var(--color-txt-secondary);
+}
+
+.scrollable {
+	height: 350px;
+}

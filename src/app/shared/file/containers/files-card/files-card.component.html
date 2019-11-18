@@ -1,0 +1,28 @@
+<card-app *ngIf="!secondaryStyle; else secondary" (fileDrop)="onFileAdded($event)">
+
+	<card-title-app>
+		<icon-app name="file"></icon-app> 
+		<span translate="header.attached-files"></span>
+	</card-title-app>
+	
+	<file-list-app [linkedItem]="linkedItem" [files]="files" (deleted)="deleted.emit($event)"></file-list-app>
+
+	<card-footer-app>
+		<button (click)="inp.click()" translate="button.add-file"></button>
+	</card-footer-app>
+</card-app>
+
+<ng-template #secondary>
+	<file-list-app
+		class="secondary"
+		[linkedItem]="linkedItem"
+		[files]="files"
+		[showConfirmOnDelete]="false"
+		(deleted)="deleted.emit($event)">
+	</file-list-app>
+	<button class="secondary" tabFocusAction (click)="inp.click()" translate="button.add-file"></button>
+</ng-template>
+
+<input #inp type="file" class="hidden" (fileSelect)="onFileAdded($event)"/>
+
+

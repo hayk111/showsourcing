@@ -1,0 +1,12 @@
+<suppliers-table-app
+	[rows]="rows"
+	[columns]="['reference', 'status']"
+	tableConfigType="medium"
+	[pending]="!rows"
+	[hasMenu]="false"
+	[hasSelection]="false"
+	[hasPagination]="false"
+	[hasHeader]="false"
+	[hasPreview]="false"
+	(update)="update($event)">
+</suppliers-table-app>

@@ -1,0 +1,142 @@
+:host {
+	display: block;
+	position: relative;
+	background: var(--color-bg);
+	overflow: hidden;
+
+	&.no-min-height .ctnr {
+		min-height: unset;
+	}
+}
+
+.ctnr {
+	position: relative;
+	box-sizing: border-box;
+	overflow: auto;
+	// so spinner shows
+	min-height: 200px;
+	// pagination
+	display: flex;
+	flex-direction: column;
+}
+
+.menu-context {
+	margin-top: var(--spacing-xs);
+}
+
+.placeholderCtnr {
+	margin: var(--spacing-l) 0;
+	height: 100%;
+
+	.placeholder-logo {
+		margin-bottom: var(--spacing-ms);
+	}
+
+	.placeholder-title {
+		color: var(--color-txt-primary);
+		font-weight: 600;
+		margin-bottom: var(--spacing-xs);
+	}
+
+	.placeholder-description {
+		color: var(--color-txt-secondary);
+		margin-bottom: var(--spacing-ms);
+	}
+
+}
+
+.context-menu {
+	padding: 0 !important;
+	icon-app {
+		padding-left: var(--spacing-s) !important;
+		padding-right: var(--spacing-xs) !important;
+	}
+}
+
+.hide {
+	display: none;
+}
+
+.contentCtnr {
+	display: flex;
+	min-width: 100%;
+}
+
+.pendingCtnr {
+	padding: var(--spacing-xl);
+	position: absolute;
+	left: 50%;
+	height: 50%;
+	transform: translateX(-50%);
+}
+
+.cell, .header {
+	color: var(--color-txt-primary);
+	padding: 0 var(--spacing-ms);
+	border-bottom: 1px solid  var(--color-bg-third);
+	display: flex;
+	align-items: center;
+	position: relative;
+}
+
+.cell {
+	color: var(--color-txt-primary);
+}
+
+.header {
+	text-transform: capitalize;
+	font-weight: 600;
+	font-size: 14px;
+}
+
+.selected {
+	background: var(--color-bg-secondary);
+}
+
+
+.selectionCol {
+	.header, .cell {
+		padding: 0 var(--spacing-ms) 0 0;
+	}
+}
+
+.selectionColDlg {
+	.header, .cell {
+		padding: 0;
+	}
+}
+
+.sorted {
+	color: var(--color-primary);
+}
+
+.flexGrow {
+	flex-grow: 1;
+}
+
+.defaultCursor {
+	cursor: default;
+}
+
+.empty-border {
+	.header {
+		// this border need to be transparent so the height doesn't get affected (since on the other places we have a border
+		border-bottom: 1px solid transparent;
+	}
+
+	.cell {
+		border-bottom: 1px solid var(--color-bg-third);
+	}
+	.cell, .header {
+		padding: 0;
+		width: var(--spacing-ms);
+	}
+}
+
+.ellipsis {
+	width: 100%;
+}
+
+.sortIcon {
+	margin-left: var(--spacing-xs);
+}

@@ -1,0 +1,13 @@
+
+
+.empty {
+	font-style: italic;
+	color: var(--legacy-color-txt-secondary);
+	img {
+		margin-bottom: var(--spacing-s);
+	}
+}
+ul {
+	padding: var(--spacing-ms);
+	padding-top: 0;
+}

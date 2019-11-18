@@ -1,0 +1,35 @@
+<!-- the trigger -->
+<div
+	#trigger="cdkOverlayOrigin"
+	cdkOverlayOrigin
+	class="full-width"
+	(click)="openMenu()">
+	<ng-content></ng-content>
+</div>
+
+<cdk-overlay-app
+	*ngIf="menuOpen && hasPicker"
+	[trigger]="trigger"
+	[isOpen]="menuOpen"
+	[offsetY]="offsetY"
+	[offsetX]="offsetX"
+	[leftSideOrientation]="leftSideOrientation"
+	[closeOnScroll]="true"
+	(clickOutside)="closeMenu(true)">
+	<selector-picker-app
+		class="z-2"
+		[ngStyle]="{ width: width + 'px'}"
+		[choices]="choices"
+		[searchTxt]="searchTxt"
+		[value]="value"
+		[type]="type"
+		[dynamicFields]="dynamicFields"
+		[multiple]="multiple"
+		[filterList]="filterList"
+		[canCreate]="canCreate"
+		[definitionReference]="definitionReference"
+		(update)="onChange($event)"
+		(close)="closeMenu(true)"
+		cdkTrapFocus>
+	</selector-picker-app>
+</cdk-overlay-app>

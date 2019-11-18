@@ -1,0 +1,33 @@
+<div class="title-container-boarding flex">
+		<button class="icon light" (click)="previousPage()">
+			<icon-app name="back-arrow"></icon-app>
+		</button>
+		<h1>Where are you located?</h1>
+</div>
+<form [formGroup]="form">
+	<form-field-app class="boarding">
+		<label-app>Country / Region</label-app>
+		<selector-const-app
+			#selector
+			type="country"
+			itemName="your country"
+			customStyle="onboarding-big"
+			formControlName="country">
+		</selector-const-app>
+		<input [hidden]="true" inputApp type="text"/>
+	</form-field-app>
+	<form-field-app class="boarding">
+		<label-app>Street Name</label-app>
+		<input inputApp type="text" formControlName="street" placeholder="Street name and number"/>
+	</form-field-app>
+	<form-field-app class="boarding">
+		<label-app>City</label-app>
+		<input inputApp type="text" formControlName="city" placeholder="Type your city"/>
+	</form-field-app>
+	<form-field-app class="boarding">
+		<label-app>Postal Code</label-app>
+		<input inputApp type="text" formControlName="zipCode" placeholder="Type your postal code"/>
+	</form-field-app>
+</form>
+
+<button class="boarding" type="submit" (click)="onSubmit()">Next</button>

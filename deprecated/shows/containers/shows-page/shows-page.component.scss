@@ -1,0 +1,25 @@
+:host {
+	display: block;
+	height: 100%;
+}
+
+.scroller {
+	height: 100%;
+}
+
+.ctnr {
+	width: 804px;
+	margin: auto;
+	.top {
+		margin-top: var(--spacing-xl);
+		margin-bottom: var(--spacing-ms);
+	}
+}
+
+controller-list-app {
+	padding: var(--spacing-l) 0 var(--spacing-ms) 0;
+}
+
+checkbox-app {
+	margin-right: var(--spacing-ms);
+}

@@ -1,0 +1,25 @@
+:host {
+	display: block;
+	position: relative;
+	width: 100%;
+}
+
+
+.currencyLabel1 {
+	margin-right: 50px;
+}
+
+.rightSelector {
+	min-width: 200px;
+	position: absolute;
+	right: -100px;
+	top: 25px;
+}
+
+.editablePrice:hover .currencyLabel2 {
+	visibility: visible;
+}
+
+input {
+	width: 100px;
+}

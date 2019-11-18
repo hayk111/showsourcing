@@ -1,0 +1,55 @@
+
+<!--
+debug helper
+
+range: {{ range | json }} <br>
+count: {{ count }} <br>
+total pages: {{ totalPages }} <br>
+index: {{ currentPage }}  -->
+
+
+
+<div class="pagination-ctrl">
+
+	<button
+		class="arrow-btn icon"
+		(click)="goToFirstPage(currentPage === 0)">
+		<icon-app name="double-fat-angle-left" size="xs" [ngClass]="{ disabled: currentPage === 0 }"></icon-app>
+	</button>
+
+	<button
+		class="arrow-btn icon"
+		(click)="goToPreviousPage(currentPage === 0)">
+		<icon-app name="fat-angle-left" size="xs" [ngClass]="{ disabled: currentPage === 0 }"></icon-app>
+	</button>
+
+	<button
+		*ngFor="let page of range; trackBy: trackByFn"
+		class="icon"
+		[ngClass]="{ selected: page === currentPage }"
+		(click)="goToIndexPage(page, page === currentPage)">
+		{{ page + 1 }}
+	</button>
+
+	<button
+		class="arrow-btn icon"
+		(click)="goToNextPage(currentPage === totalPages - 1)">
+		<icon-app name="fat-angle-right" size="xs" [ngClass]="{ disabled: currentPage === totalPages - 1 }"></icon-app>
+	</button>
+
+	<button
+		class="arrow-btn icon"
+		(click)="goToLastPage(currentPage === totalPages - 1)">
+		<icon-app name="double-fat-angle-right" size="xs" [ngClass]="{ disabled: currentPage === totalPages - 1 }"></icon-app>
+	</button>
+
+	<div *ngIf="hasPageItemsCount" class="right">
+		<select class="custom-select" (change)="onChangePerPageCount($event.target.value)">
+			<option *ngFor="let i of pageItemsCount">{{i}}</option>
+		</select>
+		<span class="items-page-count">
+			{{'OBJ.show-pagination' | translate: getPerPageItemsCount() }}
+		</span>
+	</div>
+
+</div>

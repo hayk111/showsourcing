@@ -1,0 +1,38 @@
+
+.placeholder {
+	font-style: italic;
+	color: var(--color-txt-secondary);
+	font-weight: normal;
+}
+
+:host {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	// we always display the border on single line
+	border-bottom: 1px solid var(--color-secondary);
+	height: 24px;
+
+	.label {
+		height: 100%;
+		width: 50%;
+		display: flex;
+		font-size: var(--font-size-m);
+		&:hover {
+			color: var(--color-primary);
+		}
+	}
+
+	.value {
+		height: 100%;
+		width: 50%;
+		display: flex;
+		color: var(--color-txt-secondary);
+		&:hover {
+			color: var(--color-primary);
+		}
+		editable-display-app {
+			justify-content: flex-end;
+		}
+	}
+}

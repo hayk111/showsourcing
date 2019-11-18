@@ -1,0 +1,16 @@
+:host {
+	display: block;
+}
+
+.cylinder {
+	margin: auto;
+	border-radius: 500px;
+	height: 16px;
+	width: 270px;
+	overflow: hidden;
+	.value {
+		height: 100%;
+		border-top-right-radius: 500px;
+		border-bottom-right-radius: 500px;
+	}
+}

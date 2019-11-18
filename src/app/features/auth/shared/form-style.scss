@@ -1,0 +1,76 @@
+.top {
+	text-align: center;
+}
+
+h1,
+h3 {
+	white-space: nowrap;
+}
+
+h1 {
+	margin-bottom: var(--spacing-m);
+}
+
+h3 {
+	margin-bottom: var(--spacing-l);
+	text-transform: none;
+	font-weight: normal;
+	color: var(--color-txt-primary);
+}
+
+error-app {
+	color: var(--color-warn);
+	margin-bottom: var(--spacing-m);
+	display: block;
+}
+
+a {
+	font-size: 14px;
+	font-weight: 600;
+	color: var(--color-txt-primary);
+	&.button {
+		text-transform: none;
+	}
+}
+
+form {
+	display: block;
+	width: 376px;
+}
+
+.button {
+	height: 42px;
+	margin-top: var(--spacing-m);
+	width: 216px;
+	line-height: 42px;
+	font-size: 14px;
+	font-weight: 600;
+}
+spinner-app {
+	margin: auto;
+}
+
+input  {
+	border-radius: var(--border-radius);
+}
+
+.options {
+	margin-top: var(--spacing-s);
+	margin-bottom: var(--spacing-s);
+	display: flow-root;
+
+	font-size: 14px;
+	font-weight: 600;
+
+	.checkbox-container {
+		float: left;
+		.label-rememberme {
+			font-size: 14px;
+			font-weight: 600;
+		}
+	}
+	.forgot-password {
+		color: var(--color-txt-primary);
+		float: right;
+	}
+}

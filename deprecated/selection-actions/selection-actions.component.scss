@@ -1,0 +1,33 @@
+.btn {
+    margin-right: var(--spacing-edge);
+    color: var(--legacy-color-primary);
+    font-weight: 600;
+}
+
+.flex {
+    align-items: center;
+}
+
+[class^="icon-"],
+[class*=" icon-"] {
+    color: var(--legacy-color-primary);
+    font-size: 14px;
+    margin-right: 13px;
+}
+
+button {
+    padding: 0 var(--spacing-l);
+    height: 35px;
+    border-radius: 2px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: var(--spacing-ms);
+    width: 180px;
+    /* Rectangle 7: */
+    background-image: linear-gradient(90deg, #3ACCF1 0%, #58AAFF 99%);
+}
+

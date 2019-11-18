@@ -1,0 +1,12 @@
+:host {
+	background: var(--color-bg);
+	border-radius: var(--border-radius);
+	overflow: hidden;
+	main {
+		height: 100%;
+	}
+}
+
+.top {
+	margin-bottom: var(--spacing-l);
+}

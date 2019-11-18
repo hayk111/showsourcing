@@ -1,0 +1,13 @@
+<div class="card-container">
+	<div class="avatar-container">
+		<user-picture-app [user]="activity.createdBy" [image]="activity.createdBy?.avatar" [border]="true" size="27">
+		</user-picture-app>
+	</div>
+	<div class="body-container">
+		<div class="header">
+			<div class="user-name">{{activity.createdBy.firstName}} {{activity.createdBy.lastName}}</div>
+			<div class="time">{{activity.creationDate | timeAgo}}</div>
+		</div>
+		<div class="text">{{activity.text}}</div>
+	</div>
+</div>

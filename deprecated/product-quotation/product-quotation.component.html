@@ -1,0 +1,7 @@
+<ng-container *ngIf="(product$ | async)">
+	<quote-list-app [quotes]="quotes"
+		(hovered)="hovered($event)"
+		(bottomReached)="loadMoreQuote()"
+		(openRfq)="openRfq($event)">
+	</quote-list-app>
+</ng-container>

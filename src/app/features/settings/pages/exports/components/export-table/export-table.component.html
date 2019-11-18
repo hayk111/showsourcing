@@ -1,0 +1,81 @@
+<table-app
+	[placeholder]="'placeholder.no-exports' | translate"
+	[rows]="rows"
+	[hasSelection]="false"
+	[hasPaddingPagination]="true"
+	[currentSort]="currentSort"
+	[pending]="pending"
+	[contextualMenu]="contextualMenuTemplate"
+	[count]="count"
+	[currentPage]="currentPage"
+	(goToPage)="goToPage.emit($event)"
+	(sort)="sort.emit($event)"
+	(bottomReached)="bottomReached.emit()"
+	(showItemsPerPage)="showItemsPerPage.emit($event)">
+
+		<!-- contextual menu -->
+		<ng-template #contextualMenuTemplate let-row="row">
+			<context-menu-item-app
+				class="pointer flexCenter"
+				(click)="download.emit(row)"
+				translate="button.download">
+			</context-menu-item-app>
+		</ng-template>
+
+		<!-- dynamic columns -->
+		<ng-template
+			*ngFor="let column of columnsConfig; trackBy: trackByFn"
+			let-row="row"
+			[columnApp]="'title.' + column.translationKey | translate"
+			[sortable]="column.sortable !== false"
+			[width]="column.width"
+			[sortBy]="column.sortProperty">
+			<ng-container [ngSwitch]="column.name">
+
+				<!-- file name -->
+				<ng-container *ngSwitchCase="'name'">
+					<div class="capitalize file-name">
+						{{ getFileName(row?.documentUrl) }}
+					</div>
+				</ng-container>
+
+				<!-- action -->
+				<ng-container *ngSwitchCase="'download'">
+					<div toolTip [toolTipMessage]="getToolTipMsg(row?.status)" toolTipPosition="above-right">
+						<div
+							class="download pointer"
+							[ngClass]="{'disabled': row?.status !== 'ready'}"
+							(click)="download.emit(row)">Download</div>
+					</div>
+				</ng-container>
+
+				<!-- status -->
+				<ng-container *ngSwitchCase="'status'">
+					<span class="status capitalize" [ngStyle]="{'color': getStatusColor(row?.status)}">
+						{{ 'text.' + row?.status | translate }}
+					</span>
+				</ng-container>
+
+				<!-- created on-->
+				<ng-container *ngSwitchCase="'created on'">
+					<div class="flex flexCenter">
+						<span class="created-on ellipsis">{{ row?.creationDate | date: 'dd MMM y':'':translate.currentLang }}</span>
+					</div>
+				</ng-container>
+
+				<!-- created by -->
+				<ng-container *ngSwitchCase="'created by'">
+					<div class="flex flexVAlign created-by">
+						<user-picture-app
+							[user]="row?.createdBy"
+							[image]="row.createdBy?.avatar">
+						</user-picture-app>
+						<span class="ellipsis">{{ row?.createdBy | formatUserName: true }}</span>
+					</div>
+				</ng-container>
+
+			</ng-container>
+
+		</ng-template>
+
+</table-app>

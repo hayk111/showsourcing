@@ -1,0 +1,15 @@
+.modal{
+	z-index: var(--z-dialog-container);
+	background: rgba(24,40,68,0.70);
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+  overflow-y: overlay;
+	padding-top: 18px;
+	padding-bottom: 18px;
+}

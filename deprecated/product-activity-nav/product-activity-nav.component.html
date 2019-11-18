@@ -1,0 +1,17 @@
+
+
+<logo-nav-app 
+	*ngFor="let tab of tabConfig"
+	[title]="(counts[tab.type] | async) + ' ' + tab.title"
+	[subtitle]="tab.subtitle"
+	[selected]="selectedTab === tab.type"
+	(click)="tabSelected.emit(tab.type)">
+	<!-- using undefined color when we have a count higher than 0 so it displays 
+	the color of the type -->
+	<logo-app 
+		size="l" 
+		[type]="tab.type" 
+		[color]="(counts[tab.type] | async) ? undefined : 'secondary-light'">
+	</logo-app>
+</logo-nav-app>
+

@@ -1,0 +1,35 @@
+<div class="step-container">
+	<div class="step">
+		<stage-indicator-app
+			[titles]="['Review', 'Fill Information', 'Review & Send']"
+			[index]="4">
+		</stage-indicator-app>
+
+		<!-- TODO: icon -->
+		<div class="check-container">
+			<div class="fa fa-check-circle fa-3x check"></div>
+		</div>
+
+		<h1>Your Quotation has been sent<br/> Thanks you!</h1>
+
+		<h2>Quotation sent to</h2>
+
+		<div class="flexVAlign">
+			<div class="imgCtnr">
+				<div class="circle">
+					<img-app image="e35b11bf-d284-414c-8997-69cd2b2c2db5.jpg" type="user"></img-app>
+				</div>
+			</div>
+			<div class="flexColumn person">
+				<a class="name"><strong>Jerone Vanmeulen</strong></a>
+				<span class="text">Wanlixing rubber S.A.S.</span>
+			</div>
+		</div>
+	</div>
+
+	<div class="toolbar-wrapper">
+		<div class="toolbar">
+			<button class="btn" routerLink="/">Go to ShowSourcing</button>
+		</div>
+	</div>
+</div>

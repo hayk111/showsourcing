@@ -1,0 +1,209 @@
+<!-- Panel preview -->
+<preview-panel-app
+	cdk-scrollable
+	*ngIf="isPreview && (supplier$ | async)"
+	[align]="'right'">
+
+		<!-- Banner -->
+		<preview-banner-app>
+			<preview-top-bar-app
+				(closed)="close.emit()"
+				(opened)="openSupplier()">
+			</preview-top-bar-app>
+			<preview-carousel-app
+				[entity]="supplier"
+				[entityMD]="erm.SUPPLIER"
+				[images]="supplier?.images"
+				objectFit="cover">
+			</preview-carousel-app>
+		</preview-banner-app>
+
+		<!-- Header -->
+		<preview-header-app
+			[entity]="supplier"
+			[entityMD]="erm.SUPPLIER"
+			[supplier]="supplier"
+			[displayEntityInfo]="isPreview"
+			(update)="update($event, 'name')">
+
+		<!-- Supplier type badge -->
+		<badge-selector-app
+			[badge]="erm.SUPPLIER_TYPE"
+			[value]="supplier?.supplierType?.name"
+			(update)="update($event, 'supplierType')">
+		</badge-selector-app>
+
+		<!-- Location badge -->
+		<badge-selector-app
+			[badge]="erm.LOCATION"
+			[value]="getLocationName(supplier)"
+			(update)="update($event, 'country')">
+		</badge-selector-app>
+
+		<!-- Categories badge -->
+		<badge-selector-app
+			[badge]="erm.CATEGORY"
+			[multiple]="true"
+			[value]="supplier?.categories"
+			(update)="update($event, 'categories')">
+		</badge-selector-app>
+	</preview-header-app>
+
+	<!-- Description -->
+	<preview-section-app [title]="'title.description' | translate">
+		<input-description-app
+			[description]="supplier?.description"
+			(update)="update($event, 'description')">
+		</input-description-app>
+	</preview-section-app>
+
+	<!-- Tags -->
+	<preview-section-app [title]="'title.tags' | translate">
+		<input-badge-selector-app
+			[value]="supplier?.tags"
+			type="tag"
+			(change)="update($event, 'tags')">
+		</input-badge-selector-app>
+	</preview-section-app>
+
+	<!-- Supplier Details -->
+	<preview-section-app [title]="'title.supplier-details' | translate">
+		<dynamic-form-app
+			[fields]="supplierDescirptor?.descriptor"
+			[config]="formConfig"
+			[value]="supplier"
+			(update)="updateSupplier($event)">
+		</dynamic-form-app>
+	</preview-section-app>
+
+
+	<!-- Extended Fields -->
+	<preview-section-app *ngIf="(fieldDefinitions$ | async)?.length" [title]="'title.extended-fields' | translate">
+		<extended-form-app
+			[definitions]="fieldDefinitions$ | async"
+			[config]="formConfig"
+			[fields]="supplier?.extendedFields"
+			(update)="updateSupplier({extendedFields: $event})">
+		</extended-form-app>
+	</preview-section-app>
+
+	<!-- Activity -->
+	<preview-section-app *ngIf="supplier?.comments?.length" [title]="'title.comments' | translate">
+		<comment-list-app [comments]="supplier.comments"></comment-list-app>
+	</preview-section-app>
+
+	<preview-comment-app (added)="addComment($event)"></preview-comment-app>
+
+</preview-panel-app>
+
+
+<!-- Static -->
+<preview-static-app
+	*ngIf="!isPreview"
+	class="static"
+	[hasLogo]="true">
+
+		<!-- Banner -->
+		<preview-banner-app>
+			<preview-carousel-app
+				[entity]="supplier"
+				[entityMD]="erm.SUPPLIER"
+				[images]="supplier?.images"
+				objectFit="cover">
+			</preview-carousel-app>
+		</preview-banner-app>
+
+		<!-- Header -->
+		<preview-header-app
+			[entity]="supplier"
+			[entityMD]="erm.SUPPLIER"
+			[supplier]="supplier"
+			[logoImage]="supplier?.logoImage"
+			[hasLogo]="true"
+			[displayEntityInfo]="false"
+			(update)="update($event, 'name')">
+
+		<!-- Supplier type badge -->
+		<badge-selector-app
+			[badge]="erm.SUPPLIER_TYPE"
+			[value]="supplier?.supplierType?.name"
+			(update)="update($event, 'supplierType')">
+		</badge-selector-app>
+
+		<!-- Location badge -->
+		<badge-selector-app
+			[badge]="erm.LOCATION"
+			[value]="getLocationName(supplier)"
+			(update)="update($event, 'country')">
+		</badge-selector-app>
+
+		<!-- Categories badge -->
+		<badge-selector-app
+			[badge]="erm.CATEGORY"
+			[multiple]="true"
+			[value]="supplier?.categories"
+			(update)="update($event, 'categories')">
+			<divider-app></divider-app>
+		</badge-selector-app>
+	</preview-header-app>
+
+	<!-- Description -->
+	<preview-section-app [title]="'title.description' | translate">
+		<input-description-app
+			[description]="supplier?.description"
+			(update)="update($event, 'description')">
+		</input-description-app>
+	</preview-section-app>
+
+	<!-- Tags -->
+	<preview-section-app [title]="'title.tags' | translate">
+		<input-badge-selector-app
+			[value]="supplier?.tags"
+			type="tag"
+			(change)="update($event, 'tags')">
+		</input-badge-selector-app>
+	</preview-section-app>
+
+	<!-- Supplier Details -->
+	<preview-section-app [title]="'title.supplier-details' | translate">
+		<dynamic-form-app
+			[config]="formConfig"
+			[fields]="supplierDescirptor?.descriptor"
+			[value]="supplier"
+			(update)="updateSupplier($event)">
+		</dynamic-form-app>
+	</preview-section-app>
+
+
+	<!-- Extended Fields -->
+	<preview-section-app *ngIf="(fieldDefinitions$ | async)?.length" [title]="'title.extended-fields' | translate">
+		<extended-form-app
+			[definitions]="fieldDefinitions$ | async"
+			[fields]="supplier?.extendedFields"
+			[config]="formConfig"
+			(update)="updateSupplier({extendedFields: $event})">
+		</extended-form-app>
+	</preview-section-app>
+
+	<!-- Info -->
+	<preview-section-app [title]="'title.info' | translate">
+		<div class="flexColumn">
+			<span class="color-txt-strong">
+				{{
+					'OBJ.created-by-on' | translate: {
+						name: (supplier?.createdBy | formatUserName: true),
+						date: (supplier?.creationDate | date: 'dd MMMM yyyy':'':translateService.currentLang)
+					}
+				}}
+			</span>
+			<span class="color-txt-strong">
+				{{
+					'OBJ.last-updated-by-on' | translate: {
+						name: (supplier?.lastUpdatedBy | formatUserName: true),
+						date: ((supplier?.lastUpdatedDate) | date: 'dd MMMM yyyy':'':translateService.currentLang)
+					}
+				}}
+			</span>
+		</div>
+	</preview-section-app>
+</preview-static-app>

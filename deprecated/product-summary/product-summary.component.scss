@@ -1,0 +1,53 @@
+
+.summaryBar {
+	background-color: var(--legacy-color-bg);
+	display: flex;
+	align-items: center;
+	padding: var(--spacing-s);
+	.cell {
+		display: flex;
+		justify-content: center;
+		flex-direction: column;
+		height: 100%;
+		.title {
+			font-weight: 600;
+			font-size: var(--font-size-s);
+			color: var(--legacy-color-txt-secondary);
+			text-transform: uppercase;
+		}
+		.content {
+			display: flex;
+			height: 29px;
+			font-weight: 600;
+			font-size: 23px;
+			color: var(--legacy-color-txt-primary);
+			padding: 0;
+			margin-top: 9px;
+			flex-direction: row;
+			align-items: center;
+
+			&.success {
+				color: var(--legacy-color-success);
+			}
+
+			&.warn {
+				color: var(--legacy-color-warn);
+			}
+
+			[class^="icon-"],
+			[class*=" icon-"] {
+				margin-right: var(--spacing-s);
+				font-size: var(--font-size-xl);
+			}
+		}
+		badge-app {
+			color: var(--legacy-color-txt-secondary);
+			font-weight: 500;
+			font-size: var(--font-size-m);
+		}
+	}
+	divider-app {
+		height: 64px;
+		margin: 0 var(--spacing-xl);
+	}
+}

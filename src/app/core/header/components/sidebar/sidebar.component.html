@@ -1,0 +1,38 @@
+<a [routerLink]="['/dashboard']" class="logo flexCenter">
+	<icon-app name="showsourcing" size="25"></icon-app>
+</a>
+
+<nav>
+	<sidebar-item-app 
+		[icon]="'product'" 
+		[link]="['/products']" 
+		[subItems]="sideNavItems.get('product')">
+	</sidebar-item-app>
+	<sidebar-item-app [icon]="'supplier'" [link]="['/suppliers']"></sidebar-item-app>
+	<sidebar-item-app [icon]="'project'" [link]="['/projects']"></sidebar-item-app>
+	<sidebar-item-app [icon]="'check-circle'" [link]="['/tasks']"></sidebar-item-app>
+	<sidebar-item-app [icon]="'envelope'" [link]="['/requests']" [badge]="(requestCount$ | async) > 0 ? (requestCount$ | async) : null"></sidebar-item-app>
+	<sidebar-item-app 
+		*ngIf="!isProd && isLocal"
+		[icon]="'development'" 
+		[link]="['/dev']" 
+		[subItems]="sideNavItems.get('dev')">
+	</sidebar-item-app>
+</nav>
+
+<div class="flexCenter bottom">
+	<!-- Let's move this in a component, for the love of god Thierry... -->
+	<div class="sidebar-item-content">
+		<header-search-app></header-search-app>
+	</div>
+
+	<notif-app
+		class="sidebar-item-content pointer"
+		[notifications]="notifications$ | async"
+		(click)="openNotifPanel()">
+	</notif-app>
+
+	<div class="sidebar-item-content">
+		<user-panel-app [user]="user$ | async" [team]="team$ | async" (logout)="logout()"></user-panel-app>
+	</div>
+</div>

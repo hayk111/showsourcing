@@ -1,0 +1,60 @@
+<div class="step-container">
+	<div class="step">
+
+		<stage-indicator-app
+			[titles]="['Review', 'Fill Information', 'Review & Send']"
+			[index]="0">
+		</stage-indicator-app>
+
+		<h1>You got a Request for Quotation<br/> from Jerone Vanmeulen</h1>
+
+		<h2>Request from</h2>
+
+		<div class="flexVAlign">
+			<div class="imgCtnr">
+				<div class="circle">
+					<img-app image="e35b11bf-d284-414c-8997-69cd2b2c2db5.jpg" type="user"></img-app>
+				</div>
+			</div>
+			<div class="flexColumn person">
+				<a class="name"><strong>Name</strong></a>
+				<span class="text">Wanlixing rubber S.A.S.</span>
+			</div>
+		</div>
+
+		<h2>Description</h2>
+
+		<div class="description">
+			<div class="text">
+				Hello!<br/><br/>
+
+				It was a pleasure meeting you at Canton Fair 2018 - Phase 2.<br/>
+				Could you update this product information sheet?<br/><br/>
+
+				Thank you very much,<br/>
+				Jerone Vanmeulen<br/>
+				Wanlixing ubber S.A.A.
+			</div>
+		</div>
+
+		<h2>Product</h2>
+
+		<image-previewer-app
+			[hasAdd]="false"
+			[showOneLine]="true"
+			[images]="product.images">
+		</image-previewer-app>
+
+		<h3>minh-0023-AC</h3>
+
+		<div class="text">Created on Monday 12 May 2018</div>
+		<div class="text">Canton Fair 2018 - Phase 2</div>
+	</div>
+
+	<div class="toolbar-wrapper">
+		<div class="toolbar">
+			<button class="btn danger" (click)="openRefuseModal()">Decline RFQ</button>
+			<button class="btn" routerLink="../fill-information">Reply to RFQ</button>
+		</div>
+	</div>
+</div>

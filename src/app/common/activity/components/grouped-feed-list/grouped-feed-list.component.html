@@ -1,0 +1,60 @@
+
+<ng-container *ngIf="feedResult.feed$ | async as feeds; else spinner">
+  <ng-container *ngFor="let feed of feeds;trackBy: trackByFn">
+
+    <ng-container [ngSwitch]="getGroupName(feed)">
+
+			<!-- product activity -->
+			<one-product-activity-card-app
+				*ngSwitchCase="'product_activity'"
+				[groupFeed]="feed"
+				[title]="'title.new-comment' | translate"
+				(createComment)="createComment($event)"
+				(update)="updateProduct($event)"
+				(liked)="onThumbUp($event)"
+				(disliked)="onThumbDown($event)">
+			</one-product-activity-card-app>
+
+			<!-- product created -->
+			<one-product-activity-card-app
+				*ngSwitchCase="'product_one_created'"
+				[groupFeed]="feed"
+				[title]="'title.created-new-product' | translate"
+				(createComment)="createComment($event)"
+				(update)="updateProduct($event)"
+				(liked)="onThumbUp($event)"
+				(disliked)="onThumbDown($event)">
+			</one-product-activity-card-app>
+
+			<multiple-products-activity-card-app
+				*ngSwitchCase="'product_many_created'"
+				[groupFeed]="feed"
+				(update)="updateProduct($event)"
+				(liked)="onThumbUp($event)"
+				(previewClick)="openProductPreview($event)"
+				(disliked)="onThumbDown($event)">
+			</multiple-products-activity-card-app>
+
+			<!-- supplier -->
+			<one-supplier-activity-card-app
+				*ngSwitchCase="'supplier_one_created'"
+				[groupFeed]="feed"
+				[title]="'title.created-new-supplier' | translate"
+				(createComment)="createComment($event)"
+				(update)="updateSupplier($event)">
+			</one-supplier-activity-card-app>
+
+    </ng-container>
+  </ng-container>
+
+</ng-container>
+
+<product-preview-app
+	*ngIf="previewOpen"
+	[product]="productPreview"
+	(close)="closeProductPreview()">
+</product-preview-app>
+
+<ng-template #spinner>
+  <spinner-app></spinner-app>
+</ng-template>

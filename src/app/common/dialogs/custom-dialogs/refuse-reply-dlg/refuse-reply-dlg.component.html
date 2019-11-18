@@ -1,0 +1,18 @@
+<dialog-app>
+	<dialog-header-app translate="header.send-reply"></dialog-header-app>
+	<div class="container" [ngStyle]="{ opacity: pending ? 0.5 : 1 }">
+		<span class="color-txt-strong" translate="message.about-send-back-info"></span>
+		<div class="flex contact-container">
+			<img src="/assets/img/user-temp.png"/>
+			<div class="name">{{ senderName }}</div>
+		</div>
+		<h4 class="s bold-s color-txt-strong" translate="title.your-message"></h4>
+		<textarea inputApp #inp type="text" [value]="message"></textarea>
+	</div>
+
+	<dialog-footer-app>
+		<spinner-app *ngIf="pending" size="18"></spinner-app>
+		<button tabFocusAction autoFocus class="secondary capitalize" [disabled]="pending" (click)="close()" translate="button.cancel"></button>
+		<button tabFocusAction class="warn capitalize" [disabled]="pending" (click)="refuse(inp.value)" translate="button.send"></button>
+	</dialog-footer-app>
+</dialog-app>

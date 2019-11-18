@@ -1,0 +1,35 @@
+:host {
+	display: flex;
+}
+
+img-app {
+	border-radius: 50%;
+	overflow: hidden;
+}
+
+.border {
+	border: 1px solid var(--color-primary-light);
+}
+
+.initials {
+	color: var(--color-primary);
+	border: 1px solid white;
+	box-sizing: border-box;
+	text-transform: uppercase;
+}
+
+.bg-initials {
+	background-color: #def0fe;
+}
+
+.bg-primary-light-no-border {
+	color: var(--color-primary);
+	background-color: var(--color-primary-light);
+	font-weight: 600;
+	border: none;
+}
+
+.gradient-border {
+	background: linear-gradient(#7bd6ff, var(--color-primary));
+	padding: 1px;
+}

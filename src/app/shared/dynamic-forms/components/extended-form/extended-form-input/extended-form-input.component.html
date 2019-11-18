@@ -1,0 +1,119 @@
+	<ng-container [ngSwitch]="definition.type">
+
+		<!-- text -->
+		<form-field-app *ngSwitchCase="'text'" class="modal">
+			<label-app>{{ definition?.label }}</label-app>
+			<!-- hint: couldn't ngModel to accumulator -->
+			<input
+				inputApp autoFocus
+				[canFocus]="autofocus"
+				#inp [disabled]="disabled" type="text" [value]="accumulator || ''"
+				(input)="onInput(inp.value)"
+				(keyup.enter)="$event.target.blur()" [placeholder]="definition.label"/>
+		</form-field-app>
+
+		<!-- string -->
+		<form-field-app *ngSwitchCase="'string'" class="modal">
+			<label-app>{{ definition?.label }}</label-app>
+			<!-- hint: couldn't ngModel to accumulator -->
+			<input
+				inputApp autoFocus
+				[canFocus]="autofocus"
+				#inp [disabled]="disabled" type="text" [value]="accumulator || ''"
+				(input)="onInput(inp.value)"
+				(keyup.enter)="$event.target.blur()" [placeholder]="definition.label"/>
+		</form-field-app>
+
+		<!-- tel -->
+		<form-field-app *ngSwitchCase="'tel'" class="modal">
+			<label-app>{{ definition?.label }}</label-app>
+			<!-- hint: couldn't ngModel to accumulator -->
+			<input
+				inputApp autoFocus
+				[canFocus]="autofocus"
+				#inp [disabled]="disabled" restrictInput="tel" type="text" [value]="accumulator || ''"
+				(input)="onInput(inp.value)"
+				(keyup.enter)="$event.target.blur()" [placeholder]="definition.label"/>
+		</form-field-app>
+
+		<!-- decimal -->
+		<form-field-app *ngSwitchCase="'decimal'" class="modal">
+			<label-app>{{ definition?.label }}</label-app>
+			<!-- hint: couldn't ngModel to accumulator -->
+			<input
+				inputApp autoFocus
+				[canFocus]="autofocus"
+				#inp [disabled]="disabled" restrictInput="decimal" type="number" step="any" [value]="accumulator || ''"
+				(input)="onInput(inp.value)"
+			 	(keyup.enter)="$event.target.blur()" [placeholder]="definition.label"/>
+		</form-field-app>
+
+		<!-- number (int) -->
+		<form-field-app *ngSwitchCase="'int'" class="modal">
+			<label-app>{{ definition?.label }}</label-app>
+			<!-- hint: couldn't ngModel to accumulator -->
+			<input
+				inputApp autoFocus
+				[canFocus]="autofocus"
+				#inp [disabled]="disabled" restrictInput="number" type="text" [value]="accumulator || ''"
+				(input)="onInput(inp.value)"
+			 	(keyup.enter)="$event.target.blur()" [placeholder]="definition.label"/>
+		</form-field-app>
+
+		<!-- boolean -->
+		<form-field-app *ngSwitchCase="'boolean'" class="modal">
+			<label-app>{{ definition?.label }}</label-app>
+			<radio-app
+				inputApp autoFocus
+				[canFocus]="autofocus"
+				[disabled]="disabled"
+				[checked]="field?.value === 'true' ? true : field?.value === 'false' ? false : null"
+				[items]="[{ name: 'Yes', value: true }, { name: 'No', value: false }]"
+				(update)="toggleBoolean($event)">
+			</radio-app>
+		</form-field-app>
+
+		<!-- price -->
+		<form-field-app *ngSwitchCase="'price'" class="modal">
+			<label-app>{{ definition?.label }}</label-app>
+			<input-price-app
+				#inp
+				inputApp
+				[canFocus]="autofocus"
+				[disabled]="disabled"
+				[price]="stringToObject()"
+				(keyup.enter)="onSave()"
+				(change)="onInput(inp.price, true)">
+			</input-price-app>
+		</form-field-app>
+
+		<!-- packaging -->
+		<form-field-app *ngSwitchCase="'packaging'" class="modal">
+			<label-app>{{ definition?.label }}</label-app>
+			<editable-packaging-app
+				inputApp
+				[value]="stringToObject()"
+				[autofocus]="autofocus"
+				[disabled]="disabled"
+				(update)="onInput($event, true)">
+			</editable-packaging-app>
+		</form-field-app>
+
+		<!-- selector -->
+		<form-field-app *ngSwitchCase="'selector'" class="modal">
+			<label-app>{{ definition?.label }}</label-app>
+			<input-selector-app
+				[(ngModel)]="accumulator"
+				[type]="metadata?.source"
+				[definitionReference]="definition?.id"
+				[multiple]="metadata?.multiple"
+				[canCreate]="metadata?.canCreate"
+				[autofocus]="autofocus"
+				[width]="width"
+				[placeholder]="definition?.label"
+				(update)="onInput($event)">
+			</input-selector-app>
+			<input inputApp [hidden]="true" type="text"/>
+		</form-field-app>
+
+	</ng-container>

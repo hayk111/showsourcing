@@ -1,0 +1,50 @@
+.invite {
+  width: 305px;
+  &.large {
+    width: 397px;
+
+    .subtitle {
+      margin-bottom: 44px;
+    }
+  }
+
+  .title {
+    font-family: var(--font-title);
+    font-size: 36px;
+    font-weight: bold;
+    text-align: center;
+    color: var(--color-txt-primary);
+    margin-bottom: 16px;
+  }
+
+  .subtitle {
+    font-family: var(--font-normal);
+    font-size: 20px;
+    font-weight: normal;
+    text-align: center;
+    color: var(--color-txt-primary);
+    margin-bottom: 24px;
+
+    .name {
+      color: var(--color-txt-primary);
+    }
+  }
+
+  .buttons {
+    align-items: center;
+
+    & > button {
+      width: 231px;
+      margin-bottom: 12px;
+      margin-left: 27px;
+      margin-right: 27px;
+    }
+  }
+}
+
+.loading-ctnr {
+	position: absolute;
+	top: 40%;
+	left: 50%;
+	transform: translateX(-50%) translateY(-50%);
+}

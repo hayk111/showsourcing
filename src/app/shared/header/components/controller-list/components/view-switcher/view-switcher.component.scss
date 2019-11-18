@@ -1,0 +1,85 @@
+.selected {
+	// background: var(--color-txt-primary);
+	color: var(--color-bg);
+	>[class^="icon-"],
+	[class*=" icon-"] {
+		&:before {
+			color: var(--color-bg);
+		}
+	}
+}
+
+:host {
+	border-radius: 2px;
+	background: var(--color-secondary);
+	position: relative;
+  height: 32px;
+	border-radius: var(--border-radius);
+}
+
+.ctnr {
+	// to suppress the shadow from the btn
+	overflow: hidden;
+	width: 192px;
+}
+
+button {
+	min-width: unset;
+	height: 32px;
+	line-height: 0;
+	border-radius: var(--border-radius);
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	font-size: var(--font-size-s);
+	background: transparent;
+	color:  var(--color-txt-secondary);
+	padding: var(--spacing-s) var(--spacing-ms);
+	z-index: var(--z-button);
+	text-transform: none;
+}
+
+
+
+icon-app {
+	padding: 0 6px;
+	padding-left: 0;
+	font-size: var(--font-size-xs);
+
+	&.list {
+		font-size: var(--font-size-s);
+	}
+	&.board {
+		font-size: var(--font-size-xs);
+	}
+	&.cards {
+		font-size: var(--font-size-s);
+	}
+
+	&:before {
+		color: var(--color-txt-primary);
+	}
+}
+
+.slider {
+	background: var(--color-txt-primary);
+	height: 32px;
+	border-radius: 2px;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	z-index: var(--z-base);
+	transition: all 0.35s ease-out;
+	&.left {
+		left: 0;
+	}
+	&.mid {
+		left: calc(100% / 3);
+	}
+	&.right {
+		left: calc((100% / 3) * 2);
+	}
+	&.right-two-items {
+		left: calc(100% / 2);
+	}
+}

@@ -1,0 +1,9 @@
+<badge-app
+	class="pointer uppercase bold-s"
+	size="m"
+	[type]="getType()"
+	(click)="update.emit(!task.done)">
+		<div>
+			{{ 'text.' + getTaskStatus() | translate }}
+		</div>
+</badge-app>

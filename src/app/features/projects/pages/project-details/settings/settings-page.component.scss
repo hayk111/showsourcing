@@ -1,0 +1,84 @@
+.settings {
+	margin-top: var(--spacing-l);
+	width: 592px;
+	border-radius: var(--border-radius);
+	box-shadow: 0 0 var(--spacing-ms) var(--spacing-xs) rgba(0, 0, 0, 0.01);
+	display: flex;
+	flex-wrap: nowrap;
+	justify-content: center;
+	background: var(--color-bg);
+
+	.left {
+		width: 136px;
+
+		.project-logo {
+			margin-top: var(--spacing-l);
+		}
+	}
+
+	.right {
+		width: 456px;
+		padding: var(--spacing-l) 0;
+		
+		editable-container-app {
+			padding: 0;
+			margin: 0;
+			margin-bottom: var(--spacing-ms);
+		}
+	}
+}
+
+b {
+	width: 165px;
+	display: block;
+	height: 33px;
+}
+
+.bottom {
+	margin-top: var(--spacing-m);
+}
+
+.picCtnr {
+	align-items: flex-end;
+}
+
+.sel {
+	padding: 0 0 8px 24px;
+}
+
+.circle {
+	height: 48px;
+	width: 48px;
+	margin-bottom: 16px;
+}
+
+input[type="file"] {
+	display: none;
+}
+
+.right-item {
+	margin-bottom: var(--spacing-ms);
+}
+
+.bg-dark {
+	color: var(--color-bg-dark);
+}
+
+.vertical-dots {
+	background: var(--color-bg-secondary);
+	width: 40px;
+	height: 40px;
+	padding: 0;
+	margin-left: var(--spacing-ms);
+
+	icon-app {
+		color: var(--color-txt-third);
+	}
+}
+
+header-details-app {
+	background: var(--color-bg);
+	.tabs-container {
+		margin-left: 86px;
+	}
+}

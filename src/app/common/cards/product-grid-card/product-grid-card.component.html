@@ -1,0 +1,87 @@
+<div class="card-container" [class.selected-card]="selected">
+	<img-app
+		[image]="product?.images"
+		objectFit="cover"
+		size="xl">
+	</img-app>
+
+	<div *ngIf="product?.price" class="product-price">
+		<div class="price-dislayed">{{ product?.price | appPrice }}</div>
+	</div>
+
+	<!-- Floating Elements -->
+	<!-- anything that floats needs the overlay class -->
+	<div class="black-hover">
+	</div>
+
+	<checkbox-app
+		*ngIf="hasCheckbox"
+		class="overlay"
+		[size]="17"
+		[ngClass]="{'full-opacity': selected}"
+		[checked]="selected"
+		(check)="select.emit()"
+		(uncheck)="unselect.emit()">
+	</checkbox-app>
+
+	<div class="flex icons-container">
+		<selector-app
+			class="selector"
+			type="project"
+			[value]="product?.projects"
+			[canCreate]="true"
+			[offsetY]="8"
+			[offsetX]="316"
+			[multiple]="true"
+			[width]="330"
+			(update)="update.emit({id: product?.id, projects: $event})">
+			<icon-app class="folder overlay-icons pointer" [size]="13" name="folder"></icon-app>
+		</selector-app>
+		<thumb-buttons-app
+			class="thumb-up overlay-icons"
+			size="m"
+			[lineStyle]="true"
+			[votes]="product?.votes"
+			(liked)="liked.emit()"
+			(disliked)="disliked.emit()">
+		</thumb-buttons-app>
+		<rating-heart-app
+			class="heart"
+			size="m"
+			[favorite]="product?.favorite"
+			[lineStyle]="true"
+			(favorited)="favorited.emit()"
+			(unfavorited)="unfavorited.emit()">
+		</rating-heart-app>
+	</div>
+
+	<button class="preview overlay capitalize" (click)="preview.emit()">
+		<icon-app class="eye-icon" name="eye"></icon-app> {{ 'button.preview' | translate }}
+	</button>
+	<button class="open overlay capitalize" (click)="open.emit()">
+		<icon-app class="export-icon" name="export"></icon-app> {{ 'button.open-product' | translate }}
+	</button>
+
+	<!-- Content (Non Floating) -->
+	<div class="content">
+		<div class="title ellipsis">
+			<div class="badge" [ngStyle]="{ 'background-color': 'var(' + getColor(product?.status) + ')'}"></div>
+			{{ product?.name || ('message.unnamed-product' | translate) }}
+		</div>
+		<div class="category">
+			<span class="category-name">{{ product?.category?.name }}</span>
+			<span *ngIf="product?.supplier && product?.category" class="small-gray-badge-separator"></span>
+			<span class="supplier-name">{{ product?.supplier?.name }}</span>
+		</div>
+
+		<product-card-activities-app
+			[favorite]="product?.favorite"
+			[hasSamples]="!!product?.samplesLinked?.count"
+			[hasTasks]="!!product?.tasksLinked?.count"
+			[hasComments]="!!product?.comments.length"
+			[votes]="product?.votes">
+		</product-card-activities-app>
+	</div>
+
+</div>
+

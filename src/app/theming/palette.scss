@@ -1,0 +1,197 @@
+
+:root {
+
+	--color-primary: rgb(69, 173, 255);
+	--color-primary-dark: rgb(64, 161, 235);
+	--color-primary-light: rgb(236, 246, 255);
+	--color-primary-contrast: rgb(255, 255, 255);
+
+	--color-secondary-light: rgb(249, 250, 252);
+	--color-secondary: rgb(233, 237, 245);
+	--color-secondary-dark: rgb(220, 225, 235);
+	--color-secondary-contrast: rgb(93, 109, 139);
+
+	--color-vibrant: rgb(159, 104, 255);
+	--color-vibrant-light: rgb(246, 238, 255);
+	--color-vibrant-dark: rgb(139, 94, 218);
+	--color-vibrant-contrast: rgb(255, 255, 255);
+
+	--color-accent: rgb(252, 200, 16);
+	--color-accent-light: rgb(254, 246, 233);
+	--color-accent-dark: rgb(245, 166, 35);
+	--color-accent-contrast: rgb(255, 255, 255);
+
+	--color-warn: rgb(249, 66, 89);
+	--color-warn-light: rgb(254, 236, 238);
+	--color-warn-dark: rgb(221, 50, 73);
+	--color-warn-contrast: rgb(255, 255, 255);
+
+	--color-success: rgb(71, 199, 108);
+	--color-success-light: rgb(240, 252, 244);
+	--color-success-dark: rgb(58, 172, 90);
+	--color-success-contrast: rgb(255, 255, 255);
+
+	--color-divider:  rgb(230, 235, 245);
+
+	--color-txt-primary: rgb(24, 40, 68);
+	--color-txt-secondary: rgb(93, 109, 139);
+	--color-txt-third: rgb(163, 175, 198);
+
+	--color-bg: rgb(255, 255, 255);
+	--color-bg-dark: rgb(24, 40, 68);
+	--color-bg-secondary: rgb(249, 250, 252);
+	--color-bg-third: rgb(230, 235, 245);
+
+	// entities
+	--color-product: var(--color-primary);
+	--color-product-light: var(--color-primary-light);
+	--color-supplier: var(--color-vibrant);
+	--color-supplier-light: var(--color-vibrant-light);
+	--color-tag: var(--color-secondary);
+	--color-tag-light: var(--color-accent-light);
+	--color-category: var(--color-accent);
+	--color-category-light: var(--color-accent-light);
+	--color-sample: var(--color-accent);
+	--color-sample-light: var(--color-accent-light);
+	--color-task: rgb(113, 229, 145);
+	--color-task-light: rgb(240, 252, 244);
+
+	// status
+	--color-status-new: var(--color-secondary-contrast);
+	--color-status-new-light: var(--color-secondary);
+	--color-status-in-progress: var(--color-primary);
+	--color-status-in-progress-light: var(--color-primary-light);
+	--color-status-refused: var(--color-warn);
+	--color-status-refused-light: var(--color-warn-light);
+	--color-status-validated: var(--color-success);
+	--color-status-validated-light: var(--color-success-light);
+}
+
+
+/* Color - Background classes */
+$colors: (
+	'primary',
+	'secondary',
+	'warn',
+	'success',
+	'vibrant',
+	'accent',
+	'task'
+);
+
+// for search purposes
+// .color-primary, .color-primary-light, .color-primary-dark, .bg-primary, .bg-primary-light, .bg-primary-dark, .color-secondary, .color-secondary-light, .color-secondary-dark, .bg-secondary, .bg-secondary-light, .bg-secondary-dark, .color-warn, .color-warn-light, .color-warn-dark, .bg-warn, .bg-warn-light, .bg-warn-dark, .color-success, .color-success-light, .color-success-dark, .bg-success, .bg-success-light, .bg-success-dark, .color-vibrant, .color-vibrant-light, .color-vibrant-dark, .bg-vibrant, .bg-vibrant-light, .bg-vibrant-dark, .color-accent, .color-accent-light, .color-accent-dark, .bg-accent, .bg-accent-light,
+// Generates class for colors and backgrounds, including light and dark
+@each $color in $colors {
+	.color-#{$color} {
+		color: var(--color-#{$color});
+	}
+	.color-#{$color}-light {
+		color: var(--color-#{$color}-light);
+	}
+	.color-#{$color}-dark {
+		color: var(--color-#{$color}-dark);
+	}
+	.bg-#{$color} {
+		background: var(--color-#{$color});
+	}
+	.bg-#{$color}-light {
+		background: var(--color-#{$color}-light);
+	}
+	.bg-#{$color}-dark {
+		background: var(--color-#{$color}-dark);
+	}
+}
+
+
+.color-bg-dark {
+	color: var(--color-bg-dark);
+}
+
+.color-new {
+	color: var(--color-secondary);
+}
+
+.color-black {
+	color: black;
+}
+
+.color-refused {
+	color: var(--color-warn);
+}
+
+.color-validated {
+	color: var(--color-success);
+}
+
+.color-in-progress, .color-inProgress {
+	color: var(--color-status-in-progress);
+}
+
+.color-action {
+	color: var(--color-action);
+}
+
+.color-supplier {
+	color: var(--color-supplier);
+}
+
+.color-accent {
+	color: var(--color-accent);
+}
+
+/** text */
+
+.color-txt-primary {
+	color: var(--color-txt-primary);
+}
+
+.color-txt-secondary {
+	color: var(--color-txt-secondary);
+}
+
+.color-txt-third {
+	color: var(--color-txt-third);
+}
+
+.color-txt-dark {
+	color: var(--color-txt-primary);
+}
+
+.color-txt-light, .color-white {
+	color: white;
+}
+
+.color-txt-strong, .color-strong {
+	color: var(--color-txt-strong);
+}
+
+/* Background */
+
+.bg-new {
+	background: var(--color-status-new-light);
+}
+
+.bg-success {
+	background-color: var(--color-status-in-progress);
+}
+
+.bg-validated {
+	background-color: var(--color-status-validated);
+}
+
+.bg-rejected, .bg-refused {
+	background-color: var(--color-status-refused);
+}
+
+.bg-inProgress, .bg-in-progress {
+	background-color: var(--color-status-in-progress);
+}
+
+.bg-inspiration {
+	background-color: var(--color-secondary-dark);
+}
+
+.bg-white {
+	background: white;
+}

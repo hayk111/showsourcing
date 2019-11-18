@@ -1,0 +1,8 @@
+:host {
+	display: inline-block;
+	cursor: default;
+
+	&.pointer {
+		cursor: pointer;
+	}
+}

@@ -1,0 +1,20 @@
+<div class="flexVAlign icons-container no-select">
+	<icon-app name="heart" size="ms" class="favorite" *ngIf="favorite"></icon-app>
+	<icon-app name="sample" size="ms" *ngIf="hasSamples"></icon-app>
+	<icon-app name="check-circle" [ngClass]="{'warn-circle': hasTaskOverdue}" size="ms" *ngIf="hasTasks"></icon-app>
+	<icon-app name="comments" size="ms" *ngIf="hasComments"></icon-app>
+	<icon-app name="envelope" size="ms" *ngIf="(requestsCount$ | async) && !(openRequestsCount$ | async)" ></icon-app>
+	<div class="with-badge" *ngIf="openRequestsCount$ | async">
+		<span class="red-badge"></span>
+		<!-- TODO add notif directive so we dont have to do this span -->
+		<icon-app name="envelope" size="ms" notifBadge></icon-app>
+	</div>
+	<span *ngIf="thumbService.computeScoreVotes(votes) !== null" class="vote-star-container"
+		[ngClass]="{
+			'bg-accent-light color-accent-dark': thumbService.computeScoreVotes(votes) >= 3.5,
+			'bg-secondary-light color-txt-third': thumbService.computeScoreVotes(votes) < 3.5
+		}">
+		<icon-app name="star" size="ms" class="star"></icon-app>
+		<span class="vote-star-value">{{ thumbService.computeScoreVotes(votes) }}</span>
+	</span>
+</div>

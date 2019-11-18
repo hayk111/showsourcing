@@ -1,0 +1,14 @@
+.preview-project {
+	margin: var(--spacing-xs) 0;
+
+	span {
+		display: block;
+		margin-left: var(--spacing-s);
+		font-size: var(--font-size-m);
+		color: var(--color-bg-dark);
+	}
+
+	icon-app {
+		color: var(--color-txt-third);
+	}
+}

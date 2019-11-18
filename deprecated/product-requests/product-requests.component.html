@@ -1,0 +1,14 @@
+<card-app>
+	<h2 class="l" translate="header.request-items"></h2>
+	<request-element-table-app
+		class="no-padding"
+		[rows]="listSrv.items$ | async"
+		[hasSelection]="false"
+		[count]="listSrv.count$ | async"
+		[currentPage]="listSrv.currentPage"
+		[pending]="listSrv.pending"
+		(cancelReply)="cancelReply($event)"
+		(openReviewRequestReply)="openRequestDetails($event)"
+		(bottomReached)="listSrv.loadMore()">
+	</request-element-table-app>
+</card-app>

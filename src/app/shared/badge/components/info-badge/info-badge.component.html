@@ -1,0 +1,6 @@
+<badge-app [size]="size" [type]="infoType">
+	<div class="ellipsis flex">
+		<ng-content></ng-content>
+	</div>
+	<icon-app *ngIf="hasDelete" class="close"  name="close" (click)="delete.emit()"></icon-app>
+</badge-app>

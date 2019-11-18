@@ -1,0 +1,20 @@
+<div *ngIf="!pending" class="top">
+	<div class="logo">
+		<img src="/assets/img/logo.svg">
+	</div>
+
+	<h1 class="header" #titleRef><ng-content select="auth-header-title-app"></ng-content></h1>
+	<!-- default (check scss) -->
+	<h1 class="header-default" translate="header.welcome-to-showsourcing"></h1>
+
+	<h3 class="subtitle flexCenter ms" #subtitleRef>
+		<ng-content select="auth-header-subtitle-app"></ng-content>
+	</h3>
+	<!-- default  (check scss)-->
+	<h3 class="subtitle-default flexCenter ms" [innerHtml]="'text.your-collab-plat' | translate"></h3>
+
+	<h3 class="content-wrapper">
+		<ng-content select="auth-header-content-app"></ng-content>
+	</h3>
+
+</div>

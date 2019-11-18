@@ -1,0 +1,27 @@
+
+
+<ng-content select="card-header-app card-nav-app"></ng-content>
+
+<divider-app *ngIf="header || nav"></divider-app>
+
+<main class="pd-{{ padding }}">
+
+	<div class="top flexBetween flexVAlign" *ngIf="title || action">
+
+		<div class="flex flexVAlign">
+			<ng-content select="card-title-app"></ng-content>
+			<ng-content select="card-title-badge-app"></ng-content>
+		</div>
+
+		<ng-content select="card-action-app"></ng-content>
+
+	</div>
+
+	<ng-content></ng-content>
+
+</main>
+
+<footer>
+	<ng-content select="card-footer-app"></ng-content>
+</footer>
+

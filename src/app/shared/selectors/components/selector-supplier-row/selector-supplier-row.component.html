@@ -1,0 +1,12 @@
+<div class="container">
+	<div class="flex name-container" [ngStyle]="{'margin-bottom': supplier?.categories?.length ? 'var(--spacing-xs)' : 'var(--spacing-ms)'}">
+		<icon-app class="circle color-{{color}}" name="circle"></icon-app>
+		<div class="name">{{ supplier?.name || '-'}}</div>
+	</div>
+	<div *ngIf="supplier?.categories?.length" class="flex categories">
+		<icon-app class="circle" name="circle"></icon-app>
+		<div class="categories-container ellipsis">
+			<span *ngFor="let category of supplier?.categories; trackBy: category?.id" class="category">{{ category?.name }}</span>
+		</div>
+	</div>
+</div>

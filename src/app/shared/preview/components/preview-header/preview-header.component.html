@@ -1,0 +1,59 @@
+<!-- since the supplier is the only one with logo if we want the displayEntityInfo = false, we still have to display the logo -->
+<div *ngIf="displayEntityInfo || hasLogo" class="top-section flexBetween">
+	<div class="left flex">
+		<preview-logo-app
+			*ngIf="hasLogo"
+			[ngClass]="{ 'mg-bottom': (hasLogo && !displayEntityInfo ) }"
+			[image]="logoImage"
+			[supplier]="supplier"
+			(updateLogo)="updateLogo.emit($event)">
+		</preview-logo-app>
+	<ng-container *ngIf="displayEntityInfo">
+		<logo-app class="icon-logo" [type]="entityMD?.singular" size="xs"></logo-app>
+		<span>{{ entity?.reference }}</span>
+		</ng-container>
+	</div>
+	<div class="right">
+		<status-selector-app
+			*ngIf="entityMD && displayEntityInfo"
+			[entity]="entity"
+			[typeEntity]="entityMD"
+			[offsetX]="-15"
+			(statusUpdated)="statusUpdated.emit({ id: entity.id, status: $event})">
+		</status-selector-app>
+	</div>
+</div>
+
+<!-- Title name -->
+<editable-container-app
+	#edt
+	class="{{ displayEntityInfo ? '' : 'pd-top-none' }} custom-padding"
+	[hoverable]="true"
+	(closed)="updateEntity($event, inpName.value)"
+	(opened)="inpName.select()">
+	<editable-display-app class="ellipsis">
+		{{ entity?.name || '-' }}
+	</editable-display-app>
+	<input
+		inputApp
+		#inpName
+		type="text"
+		[value]="entity?.name"
+		(keyup.enter)="edt.close()"/>
+</editable-container-app>
+
+<div class="custom-padding">
+	<ng-content select=".custom-padding"></ng-content>
+</div>
+
+<div>
+	<ng-content></ng-content>
+</div>
+
+<div>
+	<ng-content select="badge-selector-app"></ng-content>
+</div>
+
+<div>
+	<ng-content select="preview-section-app"></ng-content>
+</div>

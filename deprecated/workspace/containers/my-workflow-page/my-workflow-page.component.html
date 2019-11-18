@@ -1,0 +1,97 @@
+<controller-list-app
+  [hasSwitch]="false"
+  [hasFilter]="true"
+  [entityType]="'PRODUCT'"
+  [filtersAmount]="listSrv.filterList.asFilters().length"
+  (showFilters)="listSrv.openFilterPanel()"
+  [searchValue]="listSrv.searchValue"
+  (search)="listSrv.search($event)">
+</controller-list-app>
+
+<kanban-app
+  [cols]="columns$ | async"
+  [cardTemplate]="card"
+  [selection]="listSrv.selection$ | async"
+  [amountLoaded]="amountLoaded"
+  (drop)="onUpdateProductStatus($event)"
+  (multipleDrop)="updateProductsStatus($event)"
+  (selectColumn)="onColumnSelected($event)"
+  (unselectColumn)="onColumnUnselected($event)"
+  (loadMore)="loadMore($event)">
+</kanban-app>
+
+<ng-template #card
+  let-data="data"
+  let-column="column"
+  let-dragInProgress="dragInProgress"
+  let-checked="checked"
+  let-selectItem="selectItem"
+  let-unselectItem="unselectItem"
+  let-previewClick="previewClick">
+	<product-card-app
+    [product]="data"
+		[enablePreviewLink]="true"
+		[highlightOnChecked]="true"
+    [checked]="(listSrv.selection$ | async).has(data.id)"
+    (clickImage)="listSrv.openPreview(data)"
+    (select)="listSrv.selectOne($event, true)"
+    (unselect)="listSrv.unselectOne($event, true)">
+  </product-card-app>
+</ng-template>
+
+<ng-template #contextualMenu let-row="row">
+  <context-menu-app>
+    <context-menu-trigger-app>
+      <button class="icon light">
+        <icon-app name="dots-vertical" size="m"></icon-app>
+      </button>
+    </context-menu-trigger-app>
+    <context-menu-item-app
+      (click)="commonModalSrv.openAddToProjectDialog([row])">
+      <div class="border" translate="button.add-to-project"></div>
+    </context-menu-item-app>
+    <context-menu-item-app (click)="commonModalSrv.openRequestFeedbackDialog([row])">
+      <div class="border" translate="button.request-feedback"></div>
+    </context-menu-item-app>
+    <context-menu-item-app (click)="commonModalSrv.openExportDialog([row])">
+      <div class="border" translate="button.export"></div>
+    </context-menu-item-app>
+    <context-menu-item-warn-app (click)="listSrv.deleteOne(row)">
+      <div class="border" translate="button.delete"></div>
+    </context-menu-item-warn-app>
+  </context-menu-app>
+</ng-template>
+
+<product-selection-bar-app
+	[isShown]="(listSrv.selection$ | async).size > 0"
+	[selection]="listSrv.selection$ | async"
+	[favorite]="listSrv.allSelectedFavorite"
+	(disliked)="onMultipleThumbDown($event)"
+	(liked)="onMultipleThumbUp($event)"
+	(favorited)="onFavoriteAllSelected()"
+	(unfavorited)="onUnfavoriteAllSelected()"
+	(addProject)="commonModalSrv.openAddToProjectDialog(listSrv.getSelectedValues())"
+	(export)="commonModalSrv.openExportDialog(listSrv.getSelectedValues())"
+	(createRequest)="commonModalSrv.openSupplierRequest(listSrv.getSelectedValues())"
+	(requestTeamFeedback)="commonModalSrv.openRequestFeedbackDialog(listSrv.getSelectedValues())"
+	(compareProducts)="commonModalSrv.openCompareProductDialog(listSrv.getSelectedValues())"
+	(statusUpdated)="onMultipleStatusChange($event)"
+	(massEdit)="commonModalSrv.openMassEditDialog(listSrv.getSelectedValues(), erm.PRODUCT)"
+	(deleted)="deleteSelected()"
+	(close)="listSrv.unselectAll()">
+</product-selection-bar-app>
+
+<filters-app
+	*ngIf="listSrv.filterPanelOpen"
+  [filterList]="listSrv.filterList"
+  [filterTypes]="filterTypes"
+  (clickOutside)="listSrv.closeFilterPanel()">
+</filters-app>
+
+<product-preview-app
+  *ngIf="listSrv.previewOpen"
+  [product]="listSrv.previewed"
+  (close)="listSrv.closePreview()"
+  (updated)="onUpdate($event)"
+  (statusUpdated)="previewStatusUpdate($event)">
+</product-preview-app>

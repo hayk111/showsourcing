@@ -1,0 +1,14 @@
+<dialog-app>
+
+	<dialog-header-app translate="header.reply-sent"></dialog-header-app>
+
+	<div class="container" [ngStyle]="style">
+		<icon-app name="send-envelope"></icon-app>
+		<h2 class="color-txt-strong"> {{'OBJ.your-OBJ-been-sent' | translate: {actionName: actionName} }}</h2>
+	</div>
+
+	<dialog-footer-app>
+			<button tabFocusAction autoFocus class="capitalize" (click)="close()" translate="button.ok"></button>
+	</dialog-footer-app>
+
+</dialog-app>

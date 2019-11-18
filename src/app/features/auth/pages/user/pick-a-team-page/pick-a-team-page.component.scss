@@ -1,0 +1,51 @@
+:host {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-top: -100px;
+}
+
+ul {
+	width: 320px;
+}
+
+.border {
+	&:after {
+		content: "";
+		width: 280px;
+    position: absolute;
+    padding-top: 48px;
+    margin-left: var(--spacing-l);
+		border-bottom: 1px solid var(--color-divider);
+	}
+}
+
+.item {
+	padding: var(--spacing-m);
+	align-items: center;
+	font-weight: 600;
+	// &.border{
+	// 	border-bottom: 1px solid var(--color-divider);
+	// }
+	&:hover {
+		background: var(--color-secondary-light);
+		color: var(--color-primary);
+	}
+}
+
+icon-app {
+	margin-right: var(--spacing-m);
+}
+
+a {
+	width: 340px;
+	font-size: var(--font-size-l);
+}
+
+spinner-app {
+	position: absolute;
+	left: 50%;
+  top: calc(50% - 100px); // this 100px comes from the guest-template -> main
+  transform: translate(-50%, -50%);
+}

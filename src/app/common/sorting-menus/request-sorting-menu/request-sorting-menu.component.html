@@ -1,0 +1,89 @@
+<context-menu-app>
+  <context-menu-trigger-app>
+    <button class="secondary flexVAlign sort-1">
+        <p *ngIf="currentSort?.sortBy === 'title'" class="flex">
+          {{ 'button.sort-by-name' | translate }}
+          <ng-container *ngTemplateOutlet="direction"></ng-container>
+        </p>
+        <p *ngIf="currentSort?.sortBy === 'recipient.company'" class="flex">
+          {{ 'button.sort-by-supplier' | translate }}
+          <ng-container *ngTemplateOutlet="direction"></ng-container>
+        </p>
+        <p *ngIf="currentSort?.sortBy === 'templateName'" class="flex">
+          {{ 'button.sort-by-type' | translate }}
+          <ng-container *ngTemplateOutlet="direction"></ng-container>
+        </p>
+        <p *ngIf="currentSort?.sortBy === 'status'" class="flex">
+          {{ 'button.sort-by-status' | translate }}
+          <ng-container *ngTemplateOutlet="direction"></ng-container>
+        </p>
+        <p *ngIf="currentSort?.sortBy === 'recipient.name'" class="flex">
+          {{ 'button.sort-by-sent-to' | translate }}
+          <ng-container *ngTemplateOutlet="direction"></ng-container>
+        </p>
+        <p *ngIf="currentSort?.sortBy === 'sender.name'" class="flex">
+          {{ 'button.sort-by-sent-by' | translate }}
+          <ng-container *ngTemplateOutlet="direction"></ng-container>
+        </p>
+        <p *ngIf="currentSort?.sortBy === 'sentDate'" class="flex">
+          {{ 'button.sort-by-sent-on' | translate }}
+          <ng-container *ngTemplateOutlet="direction"></ng-container>
+        </p>
+        <div><icon-app name="angle-down"></icon-app></div>
+    </button>
+  </context-menu-trigger-app>
+  <context-menu-item-app (click)="sortFromMenu.emit('title')" class="menu-item first-uppercase">
+    {{ 'title.name' | translate }}
+    <ng-container *ngIf="currentSort?.sortBy === 'title'">
+      <ng-container *ngTemplateOutlet="direction"></ng-container>
+    </ng-container>
+  </context-menu-item-app>
+  <context-menu-item-app (click)="sortFromMenu.emit('recipient.company')" class="menu-item first-uppercase">
+    {{ 'title.supplier' | translate }}
+    <ng-container *ngIf="currentSort?.sortBy === 'recipient.company'">
+      <ng-container *ngTemplateOutlet="direction"></ng-container>
+    </ng-container>
+  </context-menu-item-app>
+  <context-menu-item-app (click)="sortFromMenu.emit('templateName')" class="menu-item first-uppercase">
+    {{ 'title.type' | translate }}
+    <ng-container *ngIf="currentSort?.sortBy === 'templateName'">
+      <ng-container *ngTemplateOutlet="direction"></ng-container>
+    </ng-container>
+	</context-menu-item-app>
+  <context-menu-item-app (click)="sortFromMenu.emit('status')" class="menu-item first-uppercase">
+    {{ 'title.status' | translate }}
+    <ng-container *ngIf="currentSort?.sortBy === 'status'">
+      <ng-container *ngTemplateOutlet="direction"></ng-container>
+    </ng-container>
+	</context-menu-item-app>
+	<context-menu-item-app (click)="sortFromMenu.emit('recipient.name')" class="menu-item first-uppercase">
+    {{ 'title.sent-to' | translate }}
+    <ng-container *ngIf="currentSort?.sortBy === 'recipient.name'">
+      <ng-container *ngTemplateOutlet="direction"></ng-container>
+    </ng-container>
+  </context-menu-item-app>
+	<context-menu-item-app (click)="sortFromMenu.emit('sender.name')" class="menu-item first-uppercase">
+    {{ 'title.sent-by' | translate }}
+    <ng-container *ngIf="currentSort?.sortBy === 'sender.name'">
+      <ng-container *ngTemplateOutlet="direction"></ng-container>
+    </ng-container>
+  </context-menu-item-app>
+  <context-menu-item-app (click)="sortFromMenu.emit('sentDate')" class="menu-item">
+    {{ 'title.sent-on' | translate }}
+    <ng-container *ngIf="currentSort?.sortBy === 'sentDate'">
+      <ng-container *ngTemplateOutlet="direction"></ng-container>
+    </ng-container>
+  </context-menu-item-app>
+</context-menu-app>
+
+<ng-template #direction>
+  <ng-container>
+		<icon-app
+			*ngIf="currentSort?.descending; else upArrow;"
+			class="sortIcon fs-xs"	name="angle-down">
+		</icon-app>
+    <ng-template #upArrow>
+      <icon-app  class="sortIcon fs-xs" name="angle-up"></icon-app>
+    </ng-template>
+  </ng-container>
+</ng-template>

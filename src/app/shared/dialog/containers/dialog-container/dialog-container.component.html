@@ -1,0 +1,4 @@
+<!-- we have to use another component to wrap the template else the viewcontainer is gonna be undefined-->
+<dialog-modal-app inputApp [isOpen]="isOpen" (click)="closeIfNeeded()">
+	<ng-template dialogHostApp></ng-template>
+</dialog-modal-app>

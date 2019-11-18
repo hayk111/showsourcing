@@ -1,0 +1,34 @@
+<div
+	class="cntr"
+	[ngClass]="{
+		'task-done': status === enumTaskStatus.DONE,
+		'task-overdue': status === enumTaskStatus.OVERDUE,
+		'task-pending': status === enumTaskStatus.PENDING
+	}">
+
+	<button
+		*ngIf="status !== enumTaskStatus.DONE"
+		class="task-mark"
+		[ngClass]="status === enumTaskStatus.PENDING ? 'secondary-dark' : 'secondary' "
+		(click)="update.emit(true)"
+		translate="button.mark-done">
+	</button>
+
+	<div class="close flexCenter pointer" (click)="closed.emit()">
+		<icon-app class="color-white" name="close" size="m"></icon-app>
+	</div>
+
+	<div class="task-info flexColumn">
+		<icon-app name="task"></icon-app>
+		<div class="info first-uppercase">
+			<ng-container *ngIf="status === enumTaskStatus.OVERDUE; else notOverdued">
+				{{ ('text.' + status | translate) + ' - '}}
+			</ng-container>
+			<ng-template #notOverdued>
+				{{ ('header.task' | translate) + ' ' + ('text.' + status | translate) }}
+			</ng-template>
+			{{ task?.dueDate | date: 'dd MMMM yyyy':'':translate.currentLang || ''}}
+		</div>
+	</div>
+
+</div>

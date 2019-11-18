@@ -1,0 +1,64 @@
+
+<div class="top flexColumn">
+  <img-app [image]="product.images"></img-app>
+  <div class="name ellipsis"> {{ product.name }} </div>
+  <div class="description"> {{ product.description }} </div>
+</div>
+
+<div class="bottom">
+  <div>
+    <span>{{ product?.supplier?.name }}</span>
+  </div>
+
+  <div>
+    <span>{{ product.price | appPrice}}</span>
+  </div>
+
+  <div>
+    <span>{{ product.minimumOrderQuantity }}</span>
+  </div>
+
+  <div>
+    <span>{{ product.moqDescription }}</span>
+  </div>
+
+  <div>
+    <span>{{ product?.category?.name }}</span>
+  </div>
+
+  <div>
+    <span *ngFor="let tag of product?.tags; trackBy: trackByFn">{{ tag?.name }}</span>
+  </div>
+
+	<h3></h3>
+	
+	<div>
+    <span>{{ product?.supplier?.incoTerm }}</span>
+  </div>
+
+  <div>
+    <span>{{ product?.supplier?.harbour }}</span>
+  </div>
+
+  <h3></h3>
+
+  <div>
+    <ng-container *ngIf="product.innerCarton as c">
+      <packaging-app [packaging]="c"></packaging-app>
+    </ng-container>
+  </div>
+
+  <div>
+    <ng-container *ngIf="product.masterCarton as c">
+      <packaging-app [packaging]="c"></packaging-app>
+    </ng-container>
+  </div>
+
+  <div>
+    <span>{{ product?.masterCarton?.itemsQuantity}}</span>
+	</div>
+	
+	<div class="status-selector">
+		<status-selector-app [entity]="product" [typeEntity]="erm.PRODUCT" selectSize="s" (statusUpdated)="statusUpdated.emit($event)"></status-selector-app>
+	</div>
+</div>

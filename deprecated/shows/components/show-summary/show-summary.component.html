@@ -1,0 +1,20 @@
+<card-app padding="xs">
+  <div class="top">
+    <h2>{{ show?.description?.name }}</h2>
+    <h3>
+      {{ show?.description?.startDate | date: 'd' }} - {{ show?.description?.endDate | date: 'd MMMM' }}
+      <ng-container *ngIf="show && show.description && show.description.venue">
+        -
+        {{ show?.description?.venue?.addressFull }},
+        {{ show?.description?.venue?.country | const: 'country'  }}
+      </ng-container>
+    </h3>
+  </div>
+
+  <div class="ctnr">
+    <h3>Show Description</h3>
+
+    {{ show?.description?.description }}
+  </div>
+
+</card-app>

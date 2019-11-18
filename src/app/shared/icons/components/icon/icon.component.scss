@@ -1,0 +1,33 @@
+@import '../../../../../assets/fonts/icomoon/style.css';
+
+:host {
+	line-height: 1;
+	cursor: pointer;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+}
+
+/** make svg same size as font-size */
+svg, img {
+	width: 1em;
+	height: 1em;
+}
+
+i {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+	text-transform: none;
+	font-size: inherit;
+	line-height: 1;
+	color: inherit;
+	cursor: inherit;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+

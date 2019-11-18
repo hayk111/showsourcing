@@ -1,0 +1,72 @@
+.circle {
+	width: 68px;
+	height: 68px;
+	border: 2px solid var(--color-primary);
+	margin-bottom: var(--spacing-ms);
+}
+
+.top {
+	user-picture-app {
+		margin-bottom: var(--spacing-ms);
+		font-size: var(--font-size-huge);
+	}
+}
+
+.secondBlock {
+	padding: 18px;
+
+	& > *:not(:last-child) {
+		margin-bottom: var(--spacing-ms);
+	}
+
+	.amount {
+		font-family: var(--font-normal);
+		font-size: 40px;
+		width: 80px;
+	}
+	.desc {
+		justify-content: center;
+	}
+
+	.taskType {
+		font-size: var(--font-size-l);
+	}
+	a {
+		color: var(--color-primary);
+	}
+}
+
+.taskTitle {
+	text-align: center;
+	font-weight: 600;
+	color: var(--color-txt-primary);
+	margin: var(--spacing-ms) 0;
+}
+
+rating-cylinder-app {
+	margin-bottom: var(--spacing-l);
+}
+
+.user-tasks {
+
+	 &:not(.last) {
+		 margin-bottom: var(--spacing-ms);
+	 }
+
+	icon-app {
+		margin-right: var(--spacing-s);
+		font-size: var(--font-size-l);
+	}
+	user-picture-app {
+		margin-right: var(--spacing-s);
+		font-size: var(--font-size-xxs);
+	}
+}
+
+card-footer-app {
+	button {
+		width: 100%;
+		font-weight: 600;
+		line-height: 1.43;
+	}
+}

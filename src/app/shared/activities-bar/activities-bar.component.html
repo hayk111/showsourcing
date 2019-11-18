@@ -1,0 +1,26 @@
+<div class="action-container flexBetween">
+	<div class="flexVAlign icons-container no-select">
+		<icon-app *ngIf="favorite" name="heart" size="ms" class="favorite" toolTip toolTipMessage="Favorite"></icon-app>
+		<!-- TODO ngx -->
+		<icon-app *ngIf="hasSamples && sampleCount > 0" name="sample" size="ms"
+			toolTip [toolTipMessage]="sampleCount + (sampleCount === 1 ? ' sample' : ' samples')">
+		</icon-app>
+		<!-- TODO ngx -->
+		<icon-app *ngIf="hasTasks && taskCount > 0" name="check-circle" [ngClass]="{'warn-circle': hasTaskOverdue}" size="ms"
+			toolTip [toolTipMessage]="taskCount + (taskCount === 1 ? ' task' : ' tasks')">
+		</icon-app>
+		<icon-app *ngIf="hasComments && commentCount" name="comments" size="ms"
+			toolTip [toolTipMessage]="commentCount + (commentCount === 1 ? ' comment' : ' comments')">
+		</icon-app>
+		<icon-app *ngIf="hasRequestCount && (requestsCount$ | async) && !(openRequestsCount$ | async)" name="envelope" size="ms"></icon-app>
+		<div *ngIf="hasRequestCount && openRequestsCount$ | async as numRequests" class="with-badge">
+			<span class="red-badge"></span>
+			<icon-app name="envelope" size="ms" notifBadge toolTip [toolTipMessage]="numRequests + numRequests === 1 ? 'request' : 'requests'"></icon-app>
+		</div>
+		<rating-number-badge-app
+			class="votes"
+			[votes]="votes"
+			toolTip toolTipMessage="Team rating">
+		</rating-number-badge-app>
+	</div>
+</div>

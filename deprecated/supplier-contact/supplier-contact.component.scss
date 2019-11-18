@@ -1,0 +1,49 @@
+
+:host {
+	display: block;
+	padding-top: var(--spacing-s);
+	context-menu-trigger-app {
+		visibility: hidden;
+	}
+	&:hover context-menu-trigger-app {
+		visibility: visible;
+	}
+}
+
+.right {
+	margin-left: var(--spacing-l);
+	&.border {
+		border-bottom: 1px solid var(--legacy-color-secondary);
+	}
+}
+
+
+img-app {
+	width: 32px;
+	height: 32px;
+}
+
+/** col on the right that need to take the remainder space */
+.middle {
+	flex-grow: 1;
+	padding-bottom: var(--spacing-s);
+	> * {
+		margin-bottom: var(--spacing-xs);
+		height: 18px;
+	}
+}
+
+
+.valign {
+	display: flex;
+	align-items: center;
+}
+
+.name {
+	font-weight: 600;
+}
+
+a:hover, .name:hover {
+	color: var(--legacy-color-primary);
+	text-decoration: underline;
+}

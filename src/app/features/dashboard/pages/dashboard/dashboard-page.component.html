@@ -1,0 +1,23 @@
+<div class="ctnr">
+	<dashboard-header-app></dashboard-header-app>
+	<div class="scorllable-background">
+	</div>
+	<div class="left">
+		<notif-box-app></notif-box-app>
+		<todo-box-app></todo-box-app>
+		<dashboard-activity-app [feedResult]="feedResult"></dashboard-activity-app>
+	</div>
+	<div class="right">
+		<team-performance-app></team-performance-app>
+		<!-- <dashboard-summary-app
+			[user]="user$ | async"
+			[tasks]="tasks$ | async"
+			[counters]="counters$ | async"
+			(updateTask)="updateTask($event)">
+		</dashboard-summary-app>
+		<team-card-app
+			(inviteTeam)="redirInviteTeam()">
+		</team-card-app> -->
+		<!-- <events-card-app></events-card-app> -->
+	</div>
+</div>

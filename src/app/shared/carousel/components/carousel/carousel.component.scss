@@ -1,0 +1,119 @@
+:host{
+	display: flex;
+	flex-direction: column;
+}
+
+carousel-app {
+	margin: var(--spacing-xs);
+}
+
+// so the mouse event don't pass on them and we can have a mouseover zoom effect
+.counter, .image-counter {
+	pointer-events: none;
+}
+
+.ctnr {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	box-sizing: border-box;
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+	min-height: 200px;
+	background: var(--color-secondary-light);
+}
+
+.absolute {
+	position: absolute;
+}
+
+.visible-on-hover {
+	visibility: hidden;
+}
+
+.ctnr:hover > .visible-on-hover {
+	visibility: visible;
+}
+
+.empty > * {
+	margin: var(--spacing-xs);
+}
+
+.menu {
+	position: absolute;
+	top: var(--spacing-m);
+	left: var(--spacing-m);
+}
+
+.btn {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: var(--border-radius-s);
+	width: var(--spacing-l);
+	height: var(--spacing-l);
+	color: white;
+	background: rgba(93, 109, 139, 0.7);
+}
+
+.image-counter {
+	background: black;
+	color: white;
+	height: 44px;
+	padding: 0 var(--spacing-l);
+	border-radius: 22px;
+	right: var(--spacing-ms);
+	bottom: var(--spacing-m);
+	font-size: var(--font-size-l);
+	font-weight: 600;
+
+	> *:not(:last-child) {
+		margin-right: var(--spacing-ms);
+	}
+
+	.text-image-counter {
+		margin: var(--spacing-ms) 0;
+	}
+}
+
+.move-btn {
+	color: white;
+	position: absolute;
+	top: 50%;
+}
+
+.back {
+	left: var(--spacing-m);
+}
+
+.next {
+	right: var(--spacing-m);
+}
+
+.img-ctnr {
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+	img-app {
+		background: var(--color-secondary-light);
+		min-width: 100%;
+		min-height: 100%;
+	}
+}
+
+.add {
+	position: absolute;
+	padding: 0 var(--spacing-m);
+	color: white;
+	display: flex;
+	align-items: center;
+	left: var(--spacing-xxxl);
+	top: var(--spacing-m);
+}
+
+spinner-app {
+  position: absolute;
+}

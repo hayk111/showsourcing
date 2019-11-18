@@ -1,0 +1,19 @@
+.ctnr {
+	justify-content: center;
+	.left {
+		width: 798px;
+	}
+
+	.right {
+		width: 414px;
+	}
+}
+
+.info {
+	color: var(--legacy-color-primary);
+}
+
+.tags {
+	margin-top: var(--spacing-s);
+}
+

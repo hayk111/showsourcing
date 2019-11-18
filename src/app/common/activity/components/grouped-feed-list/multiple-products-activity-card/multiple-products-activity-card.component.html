@@ -1,0 +1,47 @@
+<card-app padding="none">
+
+	<ng-container *ngIf="products$ | async as products; else spinner">
+		<!-- user -->
+		<activity-user-app
+			[user]="products[0]?.createdBy"
+			[time]="time"
+			[action]="'OBJ.added-n-products' | translate: {noProducts: products?.length}">
+		</activity-user-app>
+
+		<!-- previews -->
+		<multiple-product-carousel-app
+			[products]="products"
+			(update)="update.emit($event)"
+			(open)="viewProduct($event)"
+			(previewClick)="previewClick.emit($event)"
+			(liked)="liked.emit($event)"
+			(disliked)="disliked.emit($event)">
+		</multiple-product-carousel-app>
+
+		<!-- supplier -->
+		<card-footer-app>
+			<div class="flexBetween" *ngIf="products[0]?.supplier as supplier">
+
+				<div class="flex supplier pointer" (click)="viewSupplier(supplier)">
+					<logo-app class="supplier-img" [logo]="supplier?.logoImage" type="supplier"></logo-app>
+
+					<div class="flexColumn supplier-info">
+						<span class="supplier-name flexStart ellipsis">{{ supplier.name }}</span>
+						<span class="supplier-type flexStart ellipsis">
+							{{ supplier?.supplierType ||  ('ERM.' + erm.SUPPLIER.translationKey + '.singular' | translate)}}
+							<ng-container *ngIf="supplier.country">
+								{{ supplier.country | const: 'country'  }}
+							</ng-container>
+						</span>
+					</div>
+				</div>
+
+				<!-- <button class="light">View Products</button> -->
+			</div>
+		</card-footer-app>
+	</ng-container>
+
+	<ng-template #spinner>
+		<spinner-app></spinner-app>
+	</ng-template>
+</card-app>

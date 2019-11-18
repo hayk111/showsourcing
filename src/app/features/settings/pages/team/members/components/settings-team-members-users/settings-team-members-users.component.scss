@@ -1,0 +1,39 @@
+:host {
+	display: block;
+}
+
+header-list-app {
+	padding-bottom: var(--spacing-s);
+}
+
+team-members-table-app {
+	border-radius: var(--border-radius);
+	box-shadow: 0 0 12px 4px rgba(0, 0, 0, 0.01);
+	margin: var(--spacing-ms) var(--spacing-l) 0 var(--spacing-l);
+}
+
+context-menu-trigger-app {
+	margin-left: var(--spacing-ms);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: var(--color-primary);
+
+	.text {
+		color: #fff;
+		border-radius: 4px;
+		font-size: var(--font-size-m);
+	}
+
+	.selector {
+		color: #fff;
+	}
+}
+
+context-menu-item-app {
+	width: 200px;
+
+	&.remove-user {
+		color: var(--color-warn);
+	}
+}

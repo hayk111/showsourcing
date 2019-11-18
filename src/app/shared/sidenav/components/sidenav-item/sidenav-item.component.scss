@@ -1,0 +1,19 @@
+.item {
+	display: flex;
+	align-items: center;
+	padding: var(--spacing-s);
+	margin-bottom: var(--spacing-s);
+	color: var(--color-txt-secondary);
+
+	icon-app {
+		font-size: var(--font-size-l);
+		margin-right: var(--spacing-s);
+	}
+
+}
+
+.active-item {
+	color: var(--color-primary);
+	background: var(--color-divider);
+	border-radius: var(--border-radius)
+}

@@ -1,0 +1,26 @@
+<h2 *ngIf="!isModifiable" class="s">{{ title }}</h2>
+<editable-container-app
+	#edt
+	*ngIf="isModifiable"
+	(closed)="updateText($event, inpName.value)"
+	(opened)="inpName.select()"
+>
+	<editable-display-app>
+		<h2 class="s">{{ title }}</h2>
+	</editable-display-app>
+	<input
+		inputApp
+		type="text"
+		#inpName
+		[value]="title"
+		(keyup.enter)="edt.close()"
+	/>
+</editable-container-app>
+<!-- subtitles -->
+<div>
+	<span
+		*ngFor="let sub of subtitles;	let first = first; let last = last;	trackBy: trackByFn"
+		class="{{ first ? 'bold': '' }}">
+		{{ sub }} {{ !last ? '&gt; ' : '' }}
+	</span>
+</div>

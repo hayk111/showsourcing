@@ -1,0 +1,70 @@
+context-menu-trigger-app {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: var(--color-primary);
+	padding-left: 25px;
+	padding-right: 10px;
+	margin-right: 15px;
+
+	.text {
+		color: #fff;
+		border-radius: 4px;
+		font-size: var(--font-size-m);
+	}
+
+	.selector {
+		color: #fff;
+	}
+
+}
+
+.create-team {
+	width: 107px;
+	height: 40px;
+	margin-right: var(--spacing-ms);
+}
+
+.purchase-license {
+  background-color: var(--color-success);
+}
+
+.my-company {
+	font-size: var(--font-size-xxxl);
+	color: var(--color-bg-dark);
+}
+
+.invite-team-member {
+  width: 148px;
+  height: 40px;
+}
+
+context-menu-item-app {
+	width: 200px;
+
+	&.remove-user {
+		color: var(--color-warn);
+	}
+}
+
+nav {
+	margin-left: 156px;
+	> * {
+		width: 120px;
+		margin-right: var(--font-size-l);
+		font-size: var(--font-size-l);
+		display: block;
+		height: 28px;
+		border-bottom: 2px solid transparent;
+		box-sizing: border-box;
+		display: flex;
+		justify-content: center;
+		cursor: pointer;
+		&.active {
+			font-weight: bold;
+			color: var(--color-primary);
+			border-color: var(--color-primary);
+		}
+	}
+}

@@ -1,0 +1,17 @@
+<auth-form-header-app [pending]="(pending$ | async)">
+	<auth-header-content-app translate="text.please-login-to-your-account">
+	</auth-header-content-app>
+</auth-form-header-app>
+
+<auth-form-app
+	[error]="error"
+	[defaultFocused]="filedFocused"
+	[pending]="(pending$ | async)"
+	[listForm]="listForm"
+	[buttons]="buttons"
+	(onSubmit)="onSubmit($event)">
+	<div class="options">
+		<div translate="button.forgotten-pswd" class="pointer forgot-password" (click)="forgotPw()"></div>
+	</div>
+
+</auth-form-app>

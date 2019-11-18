@@ -1,0 +1,47 @@
+	<dialog-app>
+
+		<!-- when ready -->
+		<dialog-header-app class="merge-categories first-uppercase">
+			{{ 'OBJ.merge-OBJ' | translate: {field: 'ERM.' + type.translationKey + '.plural' | translate} }}
+		</dialog-header-app>
+
+		<div [class.opacity]="pending">
+			<div class="merge-entities-title">You will merge the following {{type.plural}}:</div>
+	
+			<div class="merge-entities">
+				<ul><li *ngFor="let entity of entities"><span class="selected-entitiy-name">{{entity?.name}}</span></li></ul>
+			</div>
+	
+			<h2 class="merge-into">Merge Into</h2>
+	
+			<selector-app
+				[type]="type.singular"
+				[disabled]="pending"
+				[canCreate]="false"
+				[choices]="entities"
+				[width]="370"
+				(update)="entitySelect($event)">
+				<div class="flexVAlign select-entity ellipsis pointer txt-btn type">
+					<span class="entity-to-merge">
+						{{ selected?.name || 'Select ' + type.singular  }}
+					</span>
+				</div>
+			</selector-app>
+	
+			<h2 class="warning-undone">Warning: This action cannot be undone</h2>
+		</div>
+
+		<dialog-footer-app>
+			<button class="cancel secondary" [disabled]="pending" (click)="dlgSrv.close()">Cancel</button> <!-- TODO: add translation -->
+			<div *ngIf="pending" class="flexVAlign load-spinner">
+				<spinner-app size="m"></spinner-app>
+			</div>
+			<input 
+				class="capitalize" 
+				[disabled]="pending || !selected" 
+				type="submit" 
+				[value]="'text.merge' | translate"
+				(click)="onSubmit()"/>
+		</dialog-footer-app>
+
+</dialog-app>

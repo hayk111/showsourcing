@@ -1,0 +1,18 @@
+<auth-form-header-app
+	[pending]="(pending || hideForm)">
+	<auth-header-title-app translate="header.create-team">
+	</auth-header-title-app>
+	<auth-header-subtitle-app translate="text.create-team-and-source">
+	</auth-header-subtitle-app>
+</auth-form-header-app>
+
+<auth-form-app
+	[error]="error"
+	[defaultFocused]="'teamName'"
+	[spinnerMessage]="'message.we-are-creating-team' | translate"
+	[hideForm]="hideForm"
+	[pending]="pending"
+	[listForm]="listForm"
+	[buttons]="buttons"
+	(onSubmit)="onSubmit($event)">
+</auth-form-app>

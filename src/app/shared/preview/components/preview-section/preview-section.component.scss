@@ -1,0 +1,17 @@
+:host {
+	display: block;
+	padding: 0;
+	margin: var(--spacing-l);
+
+	.deep-class:not(:empty):not(.no-padding) {
+		padding-top: var(--spacing-ms);
+	}
+
+	&.mg-bottom-none {
+		margin-bottom: 0px;
+	}
+
+	&.mg-none {
+		margin: 0px;
+	}
+}

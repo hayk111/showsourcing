@@ -1,0 +1,38 @@
+:host {
+	display: flex;
+}
+
+.left {
+	width: 75px;
+	margin-right: var(--spacing-l);
+	justify-content: center;
+
+	.number-score {
+		font-size: 36px;
+		color: var(--color-txt-primary);
+		font-weight: 600;
+		height: 45px;
+		line-height: 1;
+	}
+
+	.number-votes {
+		font-size: var(--font-size-s);
+		line-height: 1;
+	}
+}
+
+.right {
+
+	.number-cylinder {
+
+		.number-star {
+			margin-right: var(--spacing-s);
+			font-size: var(--font-size-s);
+			line-height: 0.8;
+		}
+
+		.cylinder {
+			height: 100%;
+		}
+	}
+}

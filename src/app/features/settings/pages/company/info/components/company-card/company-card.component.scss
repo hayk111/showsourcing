@@ -1,0 +1,51 @@
+h2 {
+	margin-bottom: var(--spacing-s);
+}
+
+button.auto {
+	margin-top: var(--spacing-l);
+}
+
+.team-name {
+	font-size: var(--font-size-m);
+	color: var(--color-txt-third);
+}
+
+.name-input {
+	font-size: var(--font-size-m);
+	color: var(--color-bg-dark);
+}
+
+.title {
+	color: var(--color-bg-dark);
+	font-weight: 600;
+	font-size: var(--font-size-xl);
+}
+
+.photoContainer {
+	margin-top: 8px;
+	width: 180px;
+	height: 48px;
+	p {
+		margin: 14px;
+		font-weight: 600;
+	}
+}
+
+user-picture-app {
+	margin: 0;
+	z-index: var(--z-button);
+	border-radius: 20px;
+	font-size: var(--font-size-xl);
+}
+
+label-app {
+	font-weight: 600;
+}
+
+.company-created-date {
+	margin-top: var(--spacing-l);
+	margin-bottom: 0;
+	color: var(--color-txt-secondary);
+	font-size: var(--font-size-s);
+}

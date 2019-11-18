@@ -1,0 +1,34 @@
+
+<label
+	*ngIf="label"
+	class="first-uppercase"
+	[attr.for]="input.id"
+	[attr.aria-owns]="input.id">
+
+	<ng-content select="label-app"></ng-content>
+</label>
+
+<ng-content></ng-content>
+
+<div class="msgWrapper" [ngSwitch]="displayedMessage">
+
+	<!-- hint messages -->
+	<div *ngSwitchCase="'hint'"
+		@transitionMessages class="hint {{ hint?.align === 'left' ? 'left-align' : 'right-align'  }}">
+		<ng-content select="hint-app"></ng-content>
+	</div>
+
+	<!-- we have to pass a formControl as input for this to work -->
+	<div @transitionMessages *ngSwitchCase="'error'">
+		<!-- default errors -->
+		<div class="error" *ngIf="!hasCustomError()  && !control.pristine">
+			{{ defaultErrorMsg }}
+		</div>
+		<!-- for custom error messages -->
+		<div class="error" *ngIf="hasCustomError()">
+			<ng-content select="error-app"></ng-content>
+		</div>
+	</div>
+
+</div>
+

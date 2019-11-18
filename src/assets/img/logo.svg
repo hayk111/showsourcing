@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="70" height="82" viewBox="0 0 70 82">
+    <defs>
+        <radialGradient id="b" cx="22.14%" cy="100%" r="162.586%" fx="22.14%" fy="100%" gradientTransform="matrix(0 1 -.34877 0 .57 .779)">
+            <stop offset="0%" stop-color="#FFF" stop-opacity=".5"/>
+            <stop offset="100%" stop-opacity=".5"/>
+        </radialGradient>
+        <path id="a" d="M52.636 61.663L70 71.413l-17.364 10.29-16.822-10.29z"/>
+        <radialGradient id="d" cx="-15.625%" r="295.257%" fx="-15.625%" fy="50%" gradientTransform="matrix(0 .34472 -.22394 0 -.044 .554)">
+            <stop offset="0%" stop-color="#FFF" stop-opacity=".5"/>
+            <stop offset="100%" stop-opacity=".5"/>
+        </radialGradient>
+        <path id="c" d="M52.636 41.622L70 31.332v40.08L52.636 81.703z"/>
+        <radialGradient id="f" cx="33.349%" cy="79.281%" r="82.642%" fx="33.349%" fy="79.281%" gradientTransform="matrix(0 1 -.42222 0 .668 .46)">
+            <stop offset="0%" stop-color="#FFF" stop-opacity=".5"/>
+            <stop offset="100%" stop-opacity=".5"/>
+        </radialGradient>
+        <path id="e" d="M52.636 21.04L70 31.331 52.636 41.622l-16.822-10.29z"/>
+        <radialGradient id="h" cx="74.052%" cy="100%" r="115.477%" fx="74.052%" fy="100%" gradientTransform="matrix(0 1 -.44945 0 1.19 .26)">
+            <stop offset="0%" stop-color="#FFF" stop-opacity=".5"/>
+            <stop offset="100%" stop-opacity=".5"/>
+        </radialGradient>
+        <path id="g" d="M17.907 41.622L0 51.372l17.907 10.29 17.907-10.29z"/>
+        <radialGradient id="j" cx="112.174%" cy="57.166%" r="62.706%" fx="112.174%" fy="57.166%" gradientTransform="matrix(-1 0 0 -.9593 2.243 1.12)">
+            <stop offset="0%" stop-color="#FFF" stop-opacity=".5"/>
+            <stop offset="100%" stop-opacity=".5"/>
+        </radialGradient>
+        <path id="i" d="M17.907 21.04L0 11.291v40.08l17.907 10.292z"/>
+        <radialGradient id="l" cx="67.85%" cy="100%" r="142.208%" fx="67.85%" fy="100%" gradientTransform="matrix(0 1 -.3863 0 1.065 .322)">
+            <stop offset="0%" stop-color="#FFF" stop-opacity=".5"/>
+            <stop offset="100%" stop-opacity=".5"/>
+        </radialGradient>
+        <path id="k" d="M17.907 0L0 11.318 17.907 22.04l17.907-10.722z"/>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <g>
+            <use fill="#45ADFF" xlink:href="#a"/>
+            <use fill="#000" style="mix-blend-mode:overlay" xlink:href="#a"/>
+            <use fill="url(#b)" style="mix-blend-mode:screen" xlink:href="#a"/>
+        </g>
+        <g opacity=".8">
+            <use fill="#45ADFF" xlink:href="#c"/>
+            <use fill="url(#d)" style="mix-blend-mode:screen" xlink:href="#c"/>
+        </g>
+        <g>
+            <use fill="#45ADFF" xlink:href="#e"/>
+            <use fill="#FFF" fill-opacity=".5" style="mix-blend-mode:overlay" xlink:href="#e"/>
+            <use fill="url(#f)" fill-opacity=".6" style="mix-blend-mode:screen" xlink:href="#e"/>
+        </g>
+        <g>
+            <use fill="#FCA410" xlink:href="#g"/>
+            <use fill="#000" style="mix-blend-mode:overlay" xlink:href="#g"/>
+            <use fill="url(#h)" style="mix-blend-mode:screen" xlink:href="#g"/>
+        </g>
+        <g opacity=".8">
+            <use fill="#FCA410" xlink:href="#i"/>
+            <use fill="url(#j)" style="mix-blend-mode:screen" xlink:href="#i"/>
+        </g>
+        <g>
+            <use fill="#FCA410" xlink:href="#k"/>
+            <use fill="#FFF" fill-opacity=".5" style="mix-blend-mode:overlay" xlink:href="#k"/>
+            <use fill="url(#l)" fill-opacity=".7" style="mix-blend-mode:screen" xlink:href="#k"/>
+        </g>
+    </g>
+</svg>

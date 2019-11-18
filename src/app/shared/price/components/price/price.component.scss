@@ -1,0 +1,19 @@
+.flex {
+	align-items: center;
+	font-size: var(--font-size-m);
+}
+
+.currency {
+	display: block;
+	margin-left: 0px;
+	margin-right: var(--spacing-xs);
+}
+
+.currency, .amount {
+	color: var(--color-bg-dark);
+}
+
+.price-desc {
+  font-size: var(--font-size-s);
+	color: var(--color-txt-secondary)
+}

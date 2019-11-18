@@ -1,0 +1,12 @@
+
+<bottom-panel-app *ngIf="isShown" class="z-6 flexBetween" @selectionBarTrigger>
+
+  <div class="closeSection pointer">
+    {{ ((selection?.size || 0) > 1 ? 'OBJ.n-item-selected.plural' : 'OBJ.n-item-selected.singular') | translate: {count: (selection?.size || 0)} }}
+  </div>
+
+  <ng-content></ng-content>
+
+	<icon-app class="icon-close" name="close" (click)="close.emit()"></icon-app>
+
+</bottom-panel-app>

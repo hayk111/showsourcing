@@ -1,0 +1,54 @@
+context-menu-app {
+	status-box-app {
+		cursor: pointer;
+	}
+
+	.context-menu-item-app {
+		min-width: 220px;
+	}
+}
+
+.caretCtnr {
+	display: flex;
+	align-items: center;
+	padding: var(--spacing-s);
+	position: relative;
+	border-left: 1px solid white;
+	color: white;
+	border-top-right-radius: var(--border-radius);
+	border-bottom-right-radius: var(--border-radius);
+
+	.new {
+		color: var(--color-txt-primary);
+	}
+}
+
+.change-status {
+	padding: 0 10px 0 6px;
+
+	&:hover {
+		icon-app {
+			color: white;
+		}
+	}
+
+	icon-app {
+		margin-right: 6px;
+	}
+}
+
+.caret {
+	font-size: var(--font-size-xxs);
+}
+
+badge-app.task {
+	text-transform: capitalize;
+	color: var(--color-txt-primary);
+
+	icon-app[name="circle"] {
+		padding: var(--spacing-xs);
+		padding-top: 5px;
+		padding-left: 0;
+		font-size: 6px;
+	}
+}

@@ -1,0 +1,38 @@
+icon-app {
+	margin: 0 var(--spacing-s);
+	cursor: default;
+
+	&:first-child {
+    margin-left: var(--spacing-xs);
+	}
+}
+
+.icons-container > icon-app:not(.favourite), .with-badge icon-app {
+	color: var(--color-txt-third);
+}
+
+.icons-container > icon-app.favorite {
+	color: var(--color-warn);
+}
+
+.votes {
+	margin-left: var(--spacing-xs);
+}
+.warn-circle {
+	color: var(--color-warn) !important;
+}
+
+.with-badge {
+	position: relative;
+}
+
+.red-badge { // this will be replaced in future with the notif-badge-component
+	position: absolute;
+	top: 0;
+	right: 6px;
+  height: 4px;
+  width: 4px;
+  background-color: var(--color-warn);
+  border-radius: 50%;
+  display: inline-block;
+}

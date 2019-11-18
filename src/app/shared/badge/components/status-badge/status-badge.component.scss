@@ -1,0 +1,9 @@
+:host {
+	display: inline-block;
+	cursor: default;
+	text-transform: uppercase;
+
+	&.pointer {
+		cursor: pointer;
+	}
+}

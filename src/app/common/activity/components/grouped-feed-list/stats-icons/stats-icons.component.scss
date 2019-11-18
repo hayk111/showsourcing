@@ -1,0 +1,41 @@
+:host {
+	.numbers {
+		white-space: nowrap;
+		margin-right: var(--spacing-s);
+		margin-top: 0px;
+		font-size: var(--font-size-m);
+	}
+
+	&.spacing-ms {
+		.numbers {
+			white-space: nowrap;
+			margin-right: var(--spacing-ms);
+			margin-top: 0px;
+			font-size: var(--font-size-m);
+		}
+	}
+}
+
+.ml-xs {
+	padding-left: var(--spacing-xs);
+}
+
+icon-app {
+	margin-right: var(--spacing-xs);
+	cursor: default;
+}
+
+icon-app[name="heart"] {
+	margin-right: var(--spacing-s);
+	color: var(--color-warn);
+}
+
+.thumb {
+	margin-top: 2px;
+}
+
+.one {
+	icon-app[name="heart"] {
+		margin-right: var(--spacing-m);
+	}
+}

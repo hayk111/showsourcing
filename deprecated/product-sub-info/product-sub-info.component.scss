@@ -1,0 +1,20 @@
+icon-app{
+	color: var(--legacy-color-icon);
+}
+
+table > * {
+	margin-top: var(--spacing-s);
+}
+
+table {
+	line-height: 1;
+	font-size: var(--font-size-s);
+	td {
+		padding-bottom: var(--spacing-s);
+		vertical-align: bottom;
+	}
+}
+
+.big {
+	font-size: var(--font-size-m);
+}

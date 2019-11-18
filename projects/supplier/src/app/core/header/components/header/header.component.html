@@ -1,0 +1,11 @@
+<a [routerLink]="['/dashboard']">
+  <img src="assets/img/favicon.svg" class="logo"/>
+</a>
+
+<nav>
+  <a class="capitalize" [routerLink]="['/request']" routerLinkActive="selected" translate="nav.request"></a>
+</nav>
+
+<div class="power-off flexCenter pointer" (click)="logout()">
+	<icon-app class="color-white" name="logout"></icon-app>
+</div>

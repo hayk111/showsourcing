@@ -1,0 +1,34 @@
+<div class="card card2">
+	<div class="border"></div>
+	<div class="content">
+
+		<h3 class="ms" translate="header.account-created"></h3>
+
+		<p translate="text.now-invite-members"></p>
+
+		<form [formGroup]="form">
+			<div *ngFor="let c of form.controls; let i = index;trackBy: trackByFn">
+				<div class="flex members" [formGroupName]="i">
+					<!-- email -->
+					<form-field-app>
+						<label-app translate="label.email"></label-app>
+						<input inputApp type="email" placeholder="example@email.com" formControlName="email" />
+					</form-field-app>
+					<!-- full name -->
+					<form-field-app>
+						<label-app translate="label.full-name"></label-app>
+						<input inputApp type="text" placeholder="Jhon Doe" formControlName="fullName" />
+					</form-field-app>
+
+				</div>
+
+			</div>
+
+			<div (click)="addMore()" class="flex pointer" translate="text.invite-more-members"></div>
+
+			<div class="right">
+				<input type="submit" value="invite" (click)="goHome()" translate="button.invite" />
+			</div>
+		</form>
+	</div>
+</div>

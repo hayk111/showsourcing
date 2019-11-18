@@ -1,0 +1,23 @@
+<dialog-app class="vertical-scroll-content">
+
+	<dialog-header-app translate="label.new-sample"></dialog-header-app>
+	<div class="container flex">
+			<div class="inner-container">
+				<dynamic-form-app
+					[fields]="sampleDescriptor?.descriptor"
+					[value]="sample"
+					(update)="updateSample($event)">
+				</dynamic-form-app>
+			</div>
+		</div>
+	<dialog-footer-app>
+		<checkbox-app
+			[checked]="createAnother"
+			(update)="createAnother = !createAnother">
+			{{'label.create-another' | translate}}
+		</checkbox-app>
+		<button tabFocusAction class="secondary" (click)="cancel()" translate="button.cancel"></button>
+		<button tabFocusAction [disabled]="!(sample?.name)" (click)="save()" translate="button.create-sample"></button>
+	</dialog-footer-app>
+
+</dialog-app>

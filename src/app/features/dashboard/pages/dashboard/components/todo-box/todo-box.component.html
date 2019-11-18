@@ -1,0 +1,90 @@
+<card-app *ngIf="todoCounters$ | async as todoCount">
+	<card-nav-app class="flexCenter">
+		<todo-nav-app
+			[selectedTab]="selectedTab"
+			[counts]="todoCount"
+			(tabSelected)="selectedTab = $event">
+		</todo-nav-app>
+	</card-nav-app>
+	<card-title-app> 
+		{{ ((todoCount[selectedTab] || 0) > 1 ? 'ERM.' + selectedTab.toUpperCase() + '.plural' : 'ERM.' + selectedTab.toUpperCase() + '.singular') | translate }} 
+		{{ 'label.assigned-to-you' | translate }}
+	</card-title-app>
+	<card-title-badge-app>{{ todoCount[selectedTab] }}</card-title-badge-app>
+
+	<div class="todo-content"  *ngIf="(rows$ | async) as rows" >
+		<ng-container [ngSwitch]="selectedTab" *ngIf="todoCount[selectedTab] > 0; else empty">
+			<todo-box-products-preview-app
+				*ngSwitchCase="'product'"
+				[rows]="rows.product"
+				(updated)="updated()">
+			</todo-box-products-preview-app>
+
+			<todo-box-sample-preview-app
+				*ngSwitchCase="'sample'"
+				[rows]="rows.sample"
+				(updated)="updated()">
+			</todo-box-sample-preview-app>
+
+			<todo-box-task-preview-app
+				*ngSwitchCase="'task'"
+				[rows]="rows.task"
+				(updated)="updated()">
+			</todo-box-task-preview-app>
+
+			<todo-box-supplier-preview-app
+				*ngSwitchCase="'supplier'"
+				[rows]="rows.supplier"
+				(updated)="updated()">
+			</todo-box-supplier-preview-app>
+		</ng-container>
+
+		<div class="view-all-container">
+			<a class="view-all" [routerLink]="['/'+route]">{{'nav.view-all' | translate}}</a>
+		</div>
+	</div>
+</card-app>
+
+<ng-template #empty>
+
+	<div class="container">
+		<ng-container [ngSwitch]="selectedTab">
+			<logo-app
+				*ngSwitchCase="'product'"
+				type="product"
+				[circle]="true"
+				size="xxl">
+			</logo-app>
+
+			<logo-app
+				*ngSwitchCase="'sample'"
+				type="sample"
+				[circle]="true"
+				size="xxl">
+			</logo-app>
+
+			<logo-app
+				*ngSwitchCase="'task'"
+				type="task"
+				[circle]="true"
+				size="xxl">
+			</logo-app>
+
+			<logo-app
+				*ngSwitchCase="'supplier'"
+				type="supplier"
+				[circle]="true"
+				size="xxl">
+			</logo-app>
+
+		</ng-container>
+
+		<h1>{{ 'OBJ.no-OBJ-assigned-to-you' | translate: {field: 'ERM.' + selectedTab.toUpperCase() + '.singular' | translate} }}</h1>
+		<span class="secondary">{{ 'OBJ.create-a-field-or-assign' | translate: {field: 'ERM.' + selectedTab.toUpperCase() + '.singular' | translate} }}</span>
+
+		<div class="button-group">
+			<button (click)="openCreationModal()">{{ 'OBJ.create-OBJ' | translate: {field: 'ERM.' + selectedTab.toUpperCase() + '.singular' | translate} }}</button>
+			<button (click)="dashboardSrv.redirect(route)">{{ 'OBJ.view-OBJ' | translate: {field: 'ERM.' + selectedTab.toUpperCase() + '.plural' | translate} }}</button>
+		</div>
+	</div>
+</ng-template>

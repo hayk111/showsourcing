@@ -1,0 +1,21 @@
+:host {
+	display: block;
+	max-width: 100%;
+}
+
+icon-app {
+	cursor: default;
+	margin-right: var(--spacing-xs);
+	font-size: 11px;
+}
+badge-app {
+	margin-right: var(--spacing-s);
+}
+
+icon-app.close {
+	padding-left: var(--spacing-xs);
+	margin-right: -3px;
+	cursor: pointer;
+	margin-top: 2px;
+	font-size: var(--font-size-xxs);
+}

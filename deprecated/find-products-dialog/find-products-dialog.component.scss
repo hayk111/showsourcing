@@ -1,0 +1,12 @@
+dialog-app {
+  width: 1103px;
+  height: 80vh;
+}
+
+controller-list-app {
+	padding-top: 0px;
+}
+
+.right > *:not(:last-child) {
+	margin-right: var(--spacing-ms);
+}

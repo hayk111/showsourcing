@@ -1,0 +1,19 @@
+<!-- the trigger -->
+<div class="trigger" (click)="toggleMenu()" (dragstart)="preventDrag($event)"
+	cdkOverlayOrigin
+	#trigger="cdkOverlayOrigin">
+	<ng-content select="context-menu-trigger-app"></ng-content>
+</div>
+
+<!-- the menu card -->
+<ng-template
+	cdkConnectedOverlay
+	[cdkConnectedOverlayOrigin]="trigger"
+	[cdkConnectedOverlayOpen]="menuOpen"
+	[cdkConnectedOverlayScrollStrategy]="scrollStrat"
+	[cdkConnectedOverlayOffsetY]="offsetY"
+	[cdkConnectedOverlayOffsetX]="offsetX">
+	<div class="menu z-4 flexColumn ellipsis" (clickOutside)="closeMenu()" (click)="closeMenu(true)">
+		<ng-content></ng-content>
+	</div>
+</ng-template>

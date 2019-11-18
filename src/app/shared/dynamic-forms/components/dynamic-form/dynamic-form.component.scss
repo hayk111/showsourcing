@@ -1,0 +1,12 @@
+.form {
+	display: flex;
+}
+
+
+.multiple {
+	.col {
+		flex-grow: 1;
+		box-sizing: border-box;
+		padding: var(--spacing-ms) var(--spacing-m) var(--spacing-ms) 0;
+	}
+}

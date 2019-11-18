@@ -1,0 +1,41 @@
+:host {
+	display: block;
+	width: 100%;
+}
+
+.descripton-container {
+	overflow-y: hidden;
+
+  .description-text {
+    font-family: var(--font-normal);
+    font-size: var(--font-size-m);
+    color: var(--color-txt-primary);
+	}
+
+}
+
+editable-container-app {
+	width: unset;
+}
+
+editable-display-app {
+	white-space: pre-line;
+
+	icon-app.edit {
+		margin-right: var(--spacing-xs);
+	}
+
+	button.edit-description {
+		width: 100%;
+		font-weight: 600;
+	}
+}
+
+textarea {
+	resize: none;
+}
+
+button.view-more {
+	width: 100%;
+	margin-top: var(--spacing-s);
+}

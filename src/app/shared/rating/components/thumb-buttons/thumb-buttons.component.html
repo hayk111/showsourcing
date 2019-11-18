@@ -1,0 +1,27 @@
+<!-- <ng-container *ngIf="single; else double">
+<button class="icon light" (click)="singleClick()">
+	<icon-app
+		[size]="size"
+		[@thumbAnimation]="state"
+		name="thumbs-up">
+	</icon-app>
+</button>
+</ng-container> -->
+
+<ng-container *ngIf="!lineStyle; else other">
+	<button tabFocusAction class="icon light first flex" [ngClass]="{'total-width': hasText}" (click)="thumbUp()">
+		<icon-app [ngClass]="{'color-primary': like, 'color-txt-secondary': !like}" name="thumbs-up" [size]="size" ></icon-app>
+		<p *ngIf="hasText" translate="text.like"></p>
+	</button>
+	<button tabFocusAction class="icon light second flex" [ngClass]="{'total-width': hasText}" (click)="thumbDown()">
+		<icon-app [ngClass]="{'color-warn': dislike, 'color-txt-secondary': !dislike}" name="thumbs-down" [size]="size"></icon-app>
+		<p *ngIf="hasText" translate="text.dislike"></p>
+	</button>
+</ng-container>
+
+<ng-template #other>
+	<!-- TODO change both last string [name] = dis/like ? 'thumbs-up/down' : 'thumbs-up/down-line' -->
+	<icon-app [ngClass]="{'color-success': like, 'color-white': !like}" [name]="like ? 'thumbs-up' : 'thumbs-up-light'" [size]="size" (click)="thumbUp()"></icon-app>
+	<span style="margin-right: var(--spacing-s)"></span>
+	<icon-app [ngClass]="{'color-warn': dislike, 'color-white': !dislike}" [name]="dislike ? 'thumbs-down' : 'thumbs-down-light'" [size]="size" (click)="thumbDown()"></icon-app>
+</ng-template>

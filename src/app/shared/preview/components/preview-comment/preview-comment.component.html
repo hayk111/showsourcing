@@ -1,0 +1,10 @@
+<h3 class="m" translate="header.add-comment"></h3>
+<input
+  type="text"
+  #inp
+  name="comment"
+  [formControl]="commentCtrl"
+  (keydown.enter)="addComment()"/>
+<div class="flexEnd">
+  <button class="capitalize" (click)="addComment()" translate="button.add"></button>
+</div>

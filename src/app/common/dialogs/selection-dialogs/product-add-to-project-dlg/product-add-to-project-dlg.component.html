@@ -1,0 +1,69 @@
+<dialog-app [hasBorder]="false">
+
+	<dialog-header-app translate="Select Project"></dialog-header-app> <!-- TODO: translation to be added -->
+
+	<controller-list-app
+		[buttonName]="'button.create-project' | translate"
+		[entityType]="entityTypeEnum.PROJECT"
+		[hasFilter]="false"
+		[hasSwitch]="false"
+		[hasExport]="false"
+		[count]="listSrv.count$ | async"
+		[view]="listSrv.view"
+		[searchValue]="listSrv.searchValue"
+		[searchFullWidth]="false"
+		[subPanelDialog]="true"
+		(buttonClick)="create()"
+		(search)="listSrv.search($event)"
+		(showArchived)="listSrv.filterByArchived(true)"
+		(hideArchived)="listSrv.filterByArchived(false)"
+		(showAssigned)="listSrv.filterByAssignee(true)"
+		(hideAssigned)="listSrv.filterByAssignee(false)">
+
+		<controller-list-left-item-app class="flex">
+			<div class="flex show-my-samples">
+				<checkbox-app
+					[checked]="listSrv.filterList.hasFilterType(filterType.ASSIGNEE)">
+				</checkbox-app>
+				<span class="ellipsis" translate="text.show-only-my-sample"></span>
+			</div>
+		</controller-list-left-item-app>
+
+	</controller-list-app>
+
+	<projects-table-app
+		class="list-view"
+		[hasPagination]="false"
+		[navigation]="false"
+		[hasMenu]="false"
+		[hasHeaderBorder]="true"
+		[headerSecondary]="true"
+		[selection]="listSrv.selection$ | async"
+		[rows]="listSrv.items$ | async"
+		[pending]="listSrv.pending"
+		[count]="listSrv.count$ | async"
+		[currentSort]="listSrv.currentSort"
+		[currentPage]="listSrv.currentPage"
+		(goToPage)="listSrv.loadPage($event)"
+    (select)="select($event)"
+    (unselect)="unselect($event)"
+    (selectAll)="selectAll($event)"
+    (unselectAll)="unselectAll()"
+		(sort)="listSrv.sort($event)"
+		(bottomReached)="listSrv.loadMore()"
+		(delete)="listSrv.deleteOne($event)">
+	</projects-table-app>
+
+	<dialog-footer-app class="flexVAlign">
+		<div class="product-action">
+			<span class="selected-product-count">{{ selectedProjectsCount }}</span>
+			<span class="selected-product">Project Selected</span> <!-- TODO: add translation -->
+		</div>
+		<button class="primary-light cancel secondary capitalize" (click)="cancel()" translate="button.cancel"></button>
+		<button class="add-to-project capitalize" (click)="submit()" translate="button.add-to-project"></button>
+	</dialog-footer-app>
+
+	<ng-template #spinner>
+		<spinner-app></spinner-app>
+	</ng-template>
+</dialog-app>

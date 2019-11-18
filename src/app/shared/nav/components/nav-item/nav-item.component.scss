@@ -1,0 +1,51 @@
+:host {
+  display: block;
+  color: var(--color-txt-secondary);
+	margin-right: var(--spacing-xxl);
+	font-weight: 600;
+
+  & > a {
+    display: flex;
+    position: relative;
+		padding-bottom: var(--spacing-m);
+		transition: 0.3s;
+
+    divider-app {
+			display: blocK;
+      position: absolute;
+      width: 100%;
+      height: 3px;
+			bottom: 0;
+			opacity: 0;
+			transition: 0.3s;
+      background: var(--color-primary);
+    }
+
+    icon-app {
+			margin-right: var(--spacing-s);
+			color: var(--color-txt-third);
+    }
+  }
+
+  .active-tab, & > a:hover {
+    color: var(--color-primary);
+    cursor: pointer;
+		text-decoration: none;
+
+		icon-app {
+			color: var(--color-primary);
+		}
+
+    divider-app {
+			opacity: 1;
+      background: var(--color-primary);
+    }
+  }
+}
+
+
+.circle {
+	width: 8px;
+	height: 8px;
+	background: var(--color-warn);
+}

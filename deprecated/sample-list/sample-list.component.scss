@@ -1,0 +1,44 @@
+:host {
+	display: block;
+}
+
+list-app {
+	max-height: 507px;
+}
+
+.top {
+	margin-bottom: var(--spacing-l);
+	align-items: baseline;
+}
+
+list-app {
+	overflow-x: hidden;
+	max-height: 507px;
+
+	list-item-app.border-top {
+		border-top: 1px solid var(--legacy-color-secondary);
+	}
+}
+
+.create-sample {
+	background: white;
+	padding-top: var(--spacing-l);
+
+	input, textarea {
+		height: 36px;
+		resize: none;
+		border: none;
+		background: none;
+		border: 1px solid transparent; // this way we avoid movement on the input when focusing
+
+		&:focus {
+			border-radius: 500px;
+			border: 1px solid var(--legacy-color-secondary);
+			background: var(--legacy-color-secondary-light);
+		}
+	}
+
+	button {
+		margin-left: var(--spacing-ms);
+	}
+}

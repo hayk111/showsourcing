@@ -1,0 +1,40 @@
+<div class="title-container-boarding flex">
+	<button class="icon light" (click)="previousPage()">
+		<icon-app name="back-arrow"></icon-app>
+	</button>
+	<h1>Account Creation</h1>
+</div>
+
+<form [formGroup]="form">
+	<!-- email -->
+	<form-field-app class="boarding">
+		<label-app>Email (your personal email) *</label-app>
+		<input inputApp type="email" placeholder="Type your email" formControlName="accountEmail" />
+	</form-field-app>
+	<!-- first name -->
+	<form-field-app class="boarding">
+		<label-app>First Name</label-app>
+		<input inputApp type="text" placeholder="Type your first name" formControlName="firstName" />
+	</form-field-app>
+
+	<!-- Family name -->
+	<form-field-app class="boarding">
+		<label-app>Last Name</label-app>
+		<input inputApp type="text" placeholder="Type your last name" formControlName="lastName" />
+	</form-field-app>
+	<!-- Phone number -->
+	<form-field-app class="boarding">
+		<label-app>Phone Number</label-app>
+		<input inputApp type="tel" restrictInput="tel" placeholder="Type your phone number" formControlName="accountPhone" />
+	</form-field-app>
+	<!-- password -->
+	<form-field-app class="boarding">
+		<label-app>Desired Password *</label-app>
+		<input inputApp type="password" placeholder="Type your password here" formControlName="password" minlength="8"/>
+		<error-app *ngIf="form.get('password').hasError('minlength')">Minimum 8 characters required</error-app>
+	</form-field-app>
+
+	<div class="left">
+		<button [disabled]="!form.valid" class="boarding" type="submit" (click)="onSubmit()">Next</button>
+	</div>
+</form>

@@ -1,0 +1,159 @@
+<dialog-app class="vertical-scroll-content">
+	<dialog-header-app class="flex">
+			<ng-container translate="label.send-request-supplier"></ng-container>
+	</dialog-header-app>
+
+	<div class="title-container flex">
+		<div class="left"><h2 class="l" translate="label.request-settings"></h2></div>
+		<div class="right"><h2 class="l" translate="label.recipients"></h2></div>
+	</div>
+
+	<div class="request-container flex" [ngStyle]="{ opacity: pending ? 0.5 : 1 }">
+
+		<div class="left">
+			<form [formGroup]="form">
+
+				<form-field-app class="modal pdng-btm-l">
+					<label-app><ng-container translate="header.select-products"></ng-container> *</label-app>
+					<product-request-list-app
+						[products]="request?.products"
+						(update)="updateProducts($event)"
+						(remove)="removeProduct($event)"
+						(addProduct)="addProduct($event)">
+					</product-request-list-app>
+					<input inputApp [hidden]="true" type="text"/>
+				</form-field-app>
+
+				<form-field-app class="modal pdng-btm-l">
+					<label-app><ng-container translate="header.request-templates"></ng-container> *</label-app>
+					<selector-app
+						#selectorReqTemplate
+						type="request template"
+						formControlName="requestTemplate"
+						(update)="selectTemplate($event)">
+							<selector-placeholder-app
+								tabFocusAction
+								autoFocus
+								[name]="selectorReqTemplate?.value?.name"
+								[placeholder]="'placeholder.select-template' | translate">
+							</selector-placeholder-app>
+						</selector-app>
+					<input [hidden]="true" inputApp type="text"/>
+
+					<ng-container *ngIf="selectedTemplate$ | async as tmpSlctd; else noTemplate">
+						<small class="browse flexEnd color-primary pointer"
+							(click)="openTemplateMngmtDialog($event, tmpSlctd)" translate="button.browse-templates">
+						</small>
+						<div><b>{{'label.template-fields' | translate}}:</b> {{ getTemplateFields(tmpSlctd) }}</div>
+					</ng-container>
+					<!-- we have to display the browse templates, when we have no templates on the DB -->
+					<ng-template #noTemplate>
+							<small class="browse flexEnd color-primary pointer"
+							(click)="openTemplateMngmtDialog($event, null)" translate="button.browse-templates">
+						</small>
+					</ng-template>
+
+				</form-field-app>
+
+
+				<form-field-app class="modal">
+					<label-app translate="label.share-product-info"></label-app>
+					<div class="flex share-info">
+						<checkbox-app
+							#checkShare
+							inputApp
+							formControlName="shareInformation">
+							<span class="checkbox-label" translate="label.share-info-text"></span>
+						</checkbox-app>
+					</div>
+				</form-field-app>
+
+			</form>
+		</div>
+
+			<div class="right">
+
+				<form [formGroup]="form">
+					<form-field-app
+						class="modal">
+						<label-app><ng-container translate="label.send-to-supplier"></ng-container> *</label-app>
+						<selector-app
+							type="supplier"
+							[canCreate]="true"
+							(update)="updateSupplier($event)">
+							<selector-placeholder-app
+								tabFocusAction
+								[name]="supplier?.name"
+								[placeholder]="'placeholder.select-supplier' | translate">
+							</selector-placeholder-app>
+						</selector-app>
+						<input [hidden]="true" inputApp type="text"/>
+					</form-field-app>
+
+				<form-field-app class="modal">
+					<label-app><ng-container translate="label.select-contact"></ng-container> *</label-app>
+					<selector-app
+						#contactSelector
+						type="contact"
+						[disabled]="!supplier"
+						[canCreate]="true"
+						[filterList]="filterList"
+						formControlName="recipient"
+						(update)="contactUpdate($event)">
+						<selector-placeholder-app
+							tabFocusAction
+							[ngClass]="{ disabled: !supplier }"
+							[hasArrow]="supplier"
+							[name]="!supplier ? ('message.select-a-supplier-first' | translate) : contactSelector?.value?.email"
+							[placeholder]="'placeholder.email-or-contact' | translate">
+						</selector-placeholder-app>
+					</selector-app>
+					<input [hidden]="true" inputApp type="text"/>
+				</form-field-app>
+
+				<!-- <form-field-app class="modal">
+					<label-app>Send Copy to</label-app>
+					<selector-app
+						#copySelector
+						type="email"
+						[value]="copySelector.value"
+						[canCreate]="true"
+						[multiple]="true"
+						formControlName="sendCopyTo">
+						<selector-placeholder-app
+							[name]="arrayToString(copySelector?.value)"
+							placeholder="Send copy to">
+						</selector-placeholder-app>
+					</selector-app>
+					<input [hidden]="true" inputApp type="text"/>
+				</form-field-app> -->
+
+				<form-field-app class="modal pdng-btm-l">
+					<label-app><ng-container translate="label.request-title"></ng-container> *</label-app>
+					<input inputApp type="text" formControlName="title" [placeholder]="'placeholder.quote-request' | translate"/>
+				</form-field-app>
+				<form-field-app class="modal">
+					<label-app translate="label.message-for-supplier"></label-app>
+					<textarea inputApp type="text" formControlName="message" cols="30" rows="10" [placeholder]="'placeholder.quick-rfq' | translate"></textarea>
+				</form-field-app>
+
+				<!-- <form-field-app class="modal">
+					<label-app>Send me a copy</label-app>
+					<div class="flex">
+						<checkbox-app inputApp>
+							<span class="checkbox-label">Send a copy of the request to your email address.</span>
+						</checkbox-app>
+					</div>
+				</form-field-app> -->
+
+			</form>
+		</div>
+
+	</div>
+
+	<dialog-footer-app>
+		<spinner-app *ngIf="pending" size="18"></spinner-app>
+		<button tabFocusAction class="capitalize" [disabled]="!form.valid || pending" (click)="createRequest()" translate="button.send-request"></button>
+	</dialog-footer-app>
+
+</dialog-app>

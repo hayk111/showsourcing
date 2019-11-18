@@ -1,0 +1,101 @@
+<input #inpFile type="file" hidden="true" (fileSelect)="addFile($event)"/>
+
+<table-app
+	[rows]="rows"
+	[type]="erm.ATTACHMENT.singular"
+	[pending]="pending"
+	[selected]="selection"
+	[contextualMenu]="contextualMenuTemplate"
+	[currentSort]="currentSort"
+	[isContextMenuHorizontal]="false"
+	[count]="count"
+	[currentPage]="currentPage"
+	[hasHeader]="hasHeader"
+	[hasMenu]="hasMenu"
+	[hasSelection]="hasSelection"
+	[hasPagination]="hasPagination"
+	[rowHeight]="rowHeight"
+	[placeholder]="'placeholder.no-task'"
+	(goToPage)="goToPage.emit($event)"
+	(selectOne)="select.emit($event)"
+	(unselectOne)="unselect.emit($event)"
+	(selectAll)="selectAll.emit($event)"
+	(unselectAll)="unselectAll.emit($event)"
+	(sort)="sort.emit($event)"
+	(createClick)="inpFile.click()"
+	(bottomReached)="bottomReached.emit()"
+	(fileDrop)="addFile($event)">
+
+	<!-- contextual menu -->
+	<ng-template #contextualMenuTemplate let-row="row">
+		<context-menu-item-warn-app
+			class="color-warn pointer flexCenter"
+			(click)="delete.emit(row)">
+			{{ 'text.delete' | translate }}
+		</context-menu-item-warn-app>
+	</ng-template>
+
+		<!-- dynamic columns -->
+		<ng-template
+			*ngFor="let column of columnsConfig; trackBy: trackByFn"
+			let-row="row"
+			[columnApp]="'title.' + column.translationKey"
+			[sortable]="column.sortable !== false"
+			[width]="column.width"
+			[sortBy]="column.sortProperty">
+
+    <ng-container [ngSwitch]="column.name">
+
+
+			<!-- name + icon -->
+			<ng-container *ngSwitchCase="'name icon'">
+				<div class="flexVAlign">
+					<logo-app type="attachment" *ngIf="!row.pending"></logo-app>
+					<spinner-app size="ms" *ngIf="row.pending"></spinner-app>
+					<span class="mg-left-s">{{ row?.fileName }}</span>
+				</div>
+			</ng-container>
+
+			<!-- name -->
+			<ng-container *ngSwitchCase="'name'">
+				<span>{{ row?.fileName }}</span>
+			</ng-container>
+
+			<!-- createdBy -->
+			<ng-container *ngSwitchCase="'createdBy'">
+				<div class="flexVAlign">
+					<user-picture-app [user]="row?.createdBy"></user-picture-app>
+					<span class="mg-xs">{{ row?.createdBy | formatUserName }}</span>
+				</div>
+			</ng-container>
+
+			<!-- creationDate -->
+			<ng-container *ngSwitchCase="'creationDate'">
+				{{ row?.creationDate | date: 'dd MMMM y' }}
+			</ng-container>
+
+
+			<!-- Actions -->
+			<ng-container *ngSwitchCase="'actions'">
+				<button class="primary icon-with-text" (click)="download(row)">
+					<icon-app name="close-pane-bottom"></icon-app>
+					{{ 'text.download' | translate }}
+				</button>
+			</ng-container>
+
+			<!-- created by + creation date + download -->
+			<ng-container *ngSwitchCase="'createdBy creationDate action'">
+				<div class="flexVAlign flexEnd dot-separator">
+					<div>{{ row?.createdBy | formatUserName: true }}</div>
+					<div>{{ row?.creationDate | date: 'dd MMMM y':'':translate.currentLang }}</div>
+					<button class="icon" (click)="download(row)">
+						<icon-app name="close-pane-bottom"></icon-app>
+					</button>
+				</div>
+			</ng-container>
+
+		</ng-container>
+
+	</ng-template>
+
+</table-app>

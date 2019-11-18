@@ -1,0 +1,68 @@
+.search {
+	&__item {
+		/* padding: 0 var(--spacing-m);
+    border-bottom: 1px solid var(--color-secondary); */
+    height: 48px;
+    display: flex;
+		align-items: center;
+
+		.mainCell {
+			display: flex;
+			align-items: center;
+
+      .imgCtnr {
+				border-radius: var(--border-radius);
+    		width: 44px;
+				height: 44px;
+				margin-right: 10px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+				justify-content: center;
+
+				.mini.image {
+					width: 48px;
+					height: 48px;
+				}
+
+				.mini.image.adding {
+					width: 22px;
+					height: 22px;
+					padding: 2px var(--spacing-ms);
+				}
+			}
+
+			.description {
+				display: flex;
+				flex-direction: column;
+				/* justify-content: space-between; */
+
+				.titleCtnr {
+					display: flex;
+					align-items: center;
+
+					.title {
+						margin-bottom: 0;
+						font-family: var(--font-normal);
+						font-size: 14px;
+						font-weight: 600;
+						color: var(--color-txt-primary);
+						line-height: 0.9rem;
+						text-transform: capitalize;
+					}
+				}
+
+				status-box-app {
+					margin-left: var(--spacing-ms);
+				}
+
+				.subtitle {
+					font-family: var(--font-normal);
+					font-size: 14px;
+					color: var(--color-txt-primary);
+					line-height: 0.9rem;
+				}
+			}
+		}
+	}
+}

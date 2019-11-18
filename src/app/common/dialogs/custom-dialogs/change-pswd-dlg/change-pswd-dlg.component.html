@@ -1,0 +1,44 @@
+
+	<dialog-app>
+
+		<!-- when ready -->
+		<dialog-header-app *ngIf="!pending" translate="button.change-pwd">
+		</dialog-header-app>
+
+		<form [formGroup]="group" *ngIf="!pending">
+			<form-field-app>
+				<label-app translate="label.current-pwd"></label-app>
+				<input
+					autoFocus autocomplete="current-password"
+					inputApp type="password" formControlName="currentPswd"
+					[placeholder]="'placeholder.intro-current-pwd' | translate"/>
+			</form-field-app>
+			<form-field-app>
+				<label-app translate="text.new-pwd"></label-app>
+				<input [class.warn-border]="group.get('newPswd').touched  && group.hasError('nomatch')"
+					minlength="8"	inputApp type="password" formControlName="newPswd" [placeholder]="'placeholder.intro-new-pwd' | translate"
+					autocomplete="new-password"/>
+				<error-app *ngIf="group.get('newPswd').hasError('minlength')" translate="error.min-characters-required"></error-app>
+			</form-field-app>
+			<form-field-app>
+				<label-app translate="text.confirm-new-pwd"></label-app>
+				<input [class.warn-border]="group.get('confirmPswd').touched && group.hasError('nomatch')"
+					minlength="8"	inputApp type="password" formControlName="confirmPswd" [placeholder]="'placeholder.confirm-new-pwd' | translate"
+					autocomplete="new-password"/>
+					<p
+						*ngIf="group.get('newPswd').touched && group.get('confirmPswd').touched && group.hasError('nomatch')"
+						class="color-warn fs-s italic"
+						translate="text.pwd-must-match">
+					</p>
+			</form-field-app>
+		</form>
+
+		<dialog-footer-app *ngIf="!pending">
+			<input tabFocusAction [disabled]="!group.valid" type="submit" value="change" (click)="onSubmit()"/>
+		</dialog-footer-app>
+
+		<spinner-app *ngIf="pending"></spinner-app>
+
+		<!-- when pending -->
+</dialog-app>
+

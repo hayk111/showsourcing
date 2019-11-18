@@ -1,0 +1,12 @@
+:host {
+	display: block;
+}
+
+card-title-app {
+	icon-app {
+		margin-right: var(--spacing-ms);
+		color: var(--legacy-color-primary);
+		cursor: default;
+		font-size: var(--font-size-xxl);
+	}
+}

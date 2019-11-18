@@ -1,0 +1,25 @@
+
+<card-app>
+	<h3 class="ms">Latest Products</h3>
+
+	<div class="flex" *ngIf="products?.length > 0; else noProduct">
+		<a *ngFor="let product of products;trackBy: trackByFn"
+			[routerLink]="['/product', product.id, 'general']"
+			class="imgCtnr">
+			<img [src]="product | image:'m'"/>
+		</a>
+
+	</div>
+
+	<ng-template #noProduct>
+		<div class="flexColumn flexCenter empty">
+			<img src="assets/img/product.svg"/>
+			<span>No product for this supplier</span>
+		</div>
+	</ng-template>
+
+	<card-footer-app>
+		<button>Add Product</button>
+	</card-footer-app>
+</card-app>
+

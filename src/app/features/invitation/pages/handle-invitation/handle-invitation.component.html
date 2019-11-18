@@ -1,0 +1,56 @@
+<ng-container *ngIf="!(hasAccepted$ | async)">
+
+	<div class="invite" *ngIf="!(authenticated$ | async)">
+		<div class="title" translate="header.congratz"></div>
+		<div class="subtitle" translate="text.you-r-invited"></div>
+		<div class="subtitle" translate="text.do-you-have-acc"></div>
+		<div class="flexColumn buttons">
+			<button class="secondary"
+				routerLink="/auth/login"
+				[queryParams]="{ returnUrl: returnUrl }"
+				translate="button.yes-log-me-in">
+			</button>
+			<button class="secondary"
+				routerLink="/auth/register"
+				[queryParams]="{ returnUrl: returnUrl }"
+				translate="button.no-create-account">
+			</button>
+		</div>
+	</div>
+
+	<div *ngIf="authenticated$ | async" class="invite large">
+
+		<ng-container *ngIf="invitation$ | async as invitation; else spinner">
+
+			<div class="title" translate="header.congratz"></div>
+
+			<div class="subtitle">
+				<span class="name">
+					{{invitation?.inviterFirstName}} {{invitation?.inviterLastName}}
+				</span>
+				<ng-container translate="text.invites-you-join"></ng-container>
+				<span class="name">
+					{{invitation?.teamName}}.
+				</span>
+			</div>
+
+			<div class="flexColumn buttons">
+				<button (click)="accept(invitation)" translate="button.yes-join-team"></button>
+				<button class="secondary" (click)="refuse(invitation)" translate="button.no-no-join-team"></button>
+			</div>
+
+		</ng-container>
+
+		<ng-template #spinner>
+			<div class="loading-ctnr">
+				<spinner-app
+					[isHaveLogo]="true"
+					[size]="150">
+				</spinner-app>
+				<h3 translate="header.loading-info-please-wait"></h3>
+			</div>
+		</ng-template>
+
+	</div>
+
+</ng-container>

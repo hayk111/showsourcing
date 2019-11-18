@@ -1,0 +1,13 @@
+
+/** for packaging and price matrix */
+
+
+h3 {
+	display: block;
+	margin-top: var(--spacing-m);
+	text-transform: uppercase;
+	font-size: var(--font-size-m);
+	&.first {
+		margin-top: 0;
+	}
+}

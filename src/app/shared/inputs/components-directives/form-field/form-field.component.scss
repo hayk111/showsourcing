@@ -1,0 +1,31 @@
+:host {
+	display: block;
+	padding-bottom: var(--spacing-m);
+	position: relative;
+}
+
+.left-align {
+	text-align: left;
+}
+
+.right-align {
+	text-align: right;
+}
+
+.msgWrapper {
+	font-size:var(--font-size-s);
+	position: absolute;
+}
+
+.error {
+	color: var(--color-warn);
+	font-style: italic;
+}
+
+.hint {
+	color: var(--color-txt-secondary);
+}
+
+label {
+	margin-bottom: 6px;
+}

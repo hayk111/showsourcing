@@ -1,0 +1,77 @@
+.assignee-container {
+	align-items: center;
+}
+
+.number {
+	color: var(--color-txt-primary);
+	font-weight: 600;
+}
+
+user-picture-app {
+	margin-right: 0 !important;
+}
+
+.reference-container {
+	font-size: var(--font-size-m);
+	color: var(--color-primary);
+}
+
+.name-container {
+	font-size: var(--font-size-m);
+	color: var(--color-txt-primary);
+
+	.sub-property {
+		font-size: var(--font-size-s);
+		color: var(--color-txt-third);
+		height: 15px;
+	}
+
+	img-app {
+		max-width: 28px;
+		min-width: 28px;
+		margin-right: var(--spacing-xs);
+	}
+}
+
+.about-container {
+	flex-direction: column;
+	margin-left: var(--spacing-m);
+	.task-name {
+		font-size: var(--font-size-m);
+		color: var(--color-txt-primary);
+	}
+	.product-name {
+		font-size: var(--font-size-s)
+	}
+}
+
+.task-reference {
+	height: 15px;
+	font-size: var(--font-size-s);
+	color: var(--color-txt-secondary);
+}
+
+.product-container, .supplier-container, .due-date-container {
+	font-size: var(--font-size-m);
+	color: var(--color-bg-dark);
+}
+
+.assignee-name {
+	margin-left: var(--spacing-ms);
+	font-size: var(--font-size-m);
+	color: var(--color-bg-dark);
+}
+
+.task-done {
+	color: var(--color-task);
+}
+
+.due-date-small {
+	font-size: var(--font-size-s);
+	color: var(--color-warn);
+	font-weight: 600;
+}
+
+.txt-task-done-empty {
+	color: var(--color-txt-secondary);
+}

@@ -1,0 +1,92 @@
+<ng-container *ngIf="columns$ | async as columns; else spinner">
+	<controller-list-app
+		[hasSwitch]="true"
+		[switchContent]="['list', 'kanban']"
+		[hasFilter]="true"
+		[filtersAmount]="listSrv.getFilterAmount([{ type: filterType.ASSIGNEE }, { type: filterType.DELETED, value: false }])"
+		[view]="'card'"
+		(showFilters)="listSrv.openFilterPanel()"
+		(search)="listSrv.search($event, false)"
+		(viewChange)="goToList()">
+		<controller-list-left-item-app>
+			<div class="flex show-my-samples">
+				<checkbox-app
+					[checked]="listSrv.filterList.hasFilterType(filterType.ASSIGNEE)"
+					(check)="toggleMySamples(true)"
+					(uncheck)="toggleMySamples(false)">
+				</checkbox-app>
+				<span class="ellipsis" translate="text.assigned-to-me">
+				</span>
+			</div>
+		</controller-list-left-item-app>
+		<controller-list-right-item-app>
+			<button (click)="openCreateDlg()" translate="button.add-sample">
+			</button>
+		</controller-list-right-item-app>
+	</controller-list-app>
+
+	<kanban-app
+		[cols]="columns"
+		[width]="354"
+		[cardTemplate]="card"
+		[selection]="listSrv.selection"
+		[amountLoaded]="amountLoaded"
+		(drop)="updateSampleStatus($event)"
+		(multipleDrop)="updateSamplesStatus($event)"
+		(selectColumn)="onColumnSelected($event)"
+		(unselectColumn)="onColumnUnselected($event)"
+		(loadMore)="loadMore($event)">
+	</kanban-app>
+
+	<ng-template #card let-data="data">
+		<sample-card-app
+			[sample]="data"
+			[checked]="selection?.has(data.id)"
+			(select)="listSrv.selectOne($event)"
+			(unselect)="listSrv.unselectOne($event)"
+			(previewClick)="listSrv.openPreview($event)">
+		</sample-card-app>
+	</ng-template>
+
+
+	<selection-bar-app
+		[isShown]="(listSrv.selection$ | async)?.size > 0"
+		[selection]="listSrv.selection$ | async"
+		(close)="listSrv.unselectAll()">
+		<div class="flex">
+			<status-selector-app
+				toolTip [toolTipMessage]="'message.change-status' | translate" toolTipPosition="above-right"
+				#workActionMenu
+				selectSize="s"
+				[typeEntity]="erm.SAMPLE"
+				type="multiple-selection"
+				[internalUpdate]="false"
+				(statusUpdated)="onMultipleStatusUpdated($event)">
+			</status-selector-app>
+
+			<button class="icon light" (click)="deleteSelected()">
+				<icon-app class="trash" name="trash"></icon-app>
+			</button>
+		</div>
+	</selection-bar-app>
+
+	<filters-app
+		*ngIf="listSrv.filterPanelOpen"
+		[filterList]="listSrv.filterList"
+		[filterTypes]="filterTypes"
+		(clickOutside)="listSrv.closeFilterPanel()">
+	</filters-app>
+
+	<sample-preview-app
+		*ngIf="listSrv.previewOpen"
+		[sample]="listSrv.previewed"
+		(close)="listSrv.closePreview()">
+	</sample-preview-app>
+</ng-container>
+
+<ng-template #spinner>
+	<spinner-app></spinner-app>
+</ng-template>
+
+
+

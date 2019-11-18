@@ -1,0 +1,23 @@
+<!-- images -->
+<ng-container *ngIf="images?.length > 0; else noImg">
+	<!-- carousel -->
+	<carousel-app
+		[entity]="entity"
+		[images]="images"
+		[selectedIndex]="selectedIndex"
+		[hasPreview]="hasPreview"
+		[objectFit]="objectFit"
+		(imgClick)="openModal($event)"
+		(deleted)="onDelete($event)">
+	</carousel-app>
+
+</ng-container>
+<!-- no image -->
+<ng-template #noImg>
+	<div class="flexColumn flexCenter empty">
+		<span translate="text.no-picture"></span>
+		<button class="secondary" (click)="openFileBrowser()" translate="button.add-picture"></button>
+	</div>
+</ng-template>
+
+<input #inpFile multiple="true" type="file" accept="image/*" (fileSelect)="add($event)"/>

@@ -1,0 +1,21 @@
+<form [formGroup]="form" *ngIf="!pending; else spinner">
+	<dialog-app>
+		<dialog-header-app translate="label.invite-user"></dialog-header-app>
+
+		<form-field-app>
+			<label-app class="capitalize" translate="label.email"></label-app>
+			<input type="text" autofocus inputApp formControlName="email" (keyup.enter)="submit()"/>
+		</form-field-app>
+
+		<dialog-footer-app class="full-width flexCenter flexBetween">
+			<button [disabled]="!form.valid" class="small capitalize" type="button" (click)="submit()" translate="button.invite"></button>
+		</dialog-footer-app>
+	</dialog-app>
+</form>
+
+<!-- when pending -->
+<ng-template #spinner>
+	<dialog-app>
+		<spinner-app></spinner-app>
+	</dialog-app>
+</ng-template>

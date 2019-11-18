@@ -1,0 +1,43 @@
+<h2 class="l flexStart">Quotes</h2>
+<!-- table -->
+<requests-table-app
+	class="no-padding"
+	[rows]="listSrv.items$ | async"
+	[hasMinHeight]="false"
+	[hasHeader]="false"
+	[hasMenu]="false"
+	[hasPagination]="false"
+	[rowHeight]="34"
+	[columns]="['title', 'statusCreateInfo']"
+	[selection]="listSrv.selection$ | async"
+	[pending]="listSrv.pending"
+	(goToPage)="listSrv.loadPage($event)"
+	(sort)="listSrv.sort($event)"
+	(select)="listSrv.selectOne($event, true)"
+	(unselect)="listSrv.unselectOne($event, true)"
+	(selectAll)="listSrv.selectAll($event, true)"
+	(unselectAll)="listSrv.unselectAll()"
+	(open)="listSrv.goToDetails($event)"
+	(favorited)="listSrv.onItemFavorited($event)"
+	(unfavorited)="listSrv.onItemUnfavorited($event)"
+	(previewClick)="listSrv.openPreview($event)"
+	(createClick)="openSupplierRequest()"
+	(delete)="listSrv.deleteOne($event, true)">
+</requests-table-app>
+
+<!-- buttons -->
+<div *ngIf="(listSrv.items$ | async)?.length" class="flex buttons-container">
+	<button	(click)="openSupplierRequest()">
+		contact supplier
+	</button>
+	<button
+		*ngIf="(listSrv.selection$ | async).size > 1">
+		compare
+	</button>
+	<button
+		*ngIf="(listSrv.selection$ | async).size > 0"
+		class="warn"
+		(click)="listSrv.deleteSelected(true)">
+		delete
+	</button>
+</div>

@@ -1,0 +1,30 @@
+:host {
+	display: block;
+}
+.ctnr {
+	display: flex;
+	align-items: center;
+}
+
+.field {
+	border-radius: 4px;
+}
+
+icon-app {
+	height: 32px;
+	width: 32px;
+	flex-basis: unset;
+}
+
+.input-wrapper {
+	margin: 0;
+	overflow: hidden;
+}
+
+.grower {
+	flex-grow: 1;
+}
+
+.border {
+	border-bottom: 1px solid currentColor;
+}

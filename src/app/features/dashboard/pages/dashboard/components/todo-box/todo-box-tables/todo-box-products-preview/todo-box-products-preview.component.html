@@ -1,0 +1,13 @@
+<products-table-app
+	class="list-view"
+	[rows]="rows"
+	[pending]="!rows"
+	[columns]="['reference', 'about', 'status']"
+	tableConfigType="medium"
+	[hasMenu]="false"
+	[hasHeader]="false"
+	[hasSelection]="false"
+	[hasPagination]="false"
+	[hasPreview]="false"
+	(update)="update($event)">
+</products-table-app>

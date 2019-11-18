@@ -1,0 +1,30 @@
+<dialog-app>
+	<dialog-header-app translate="header.team-feedback"></dialog-header-app>
+
+	<dialog-subtitle-app>{{'text.team-members' | translate}}</dialog-subtitle-app>
+
+	<main class="scrollable">
+		<list-app *ngIf="teamMembers$ | async as teamMembers">
+			<list-item-app *ngFor="let member of teamMembers; first as first; trackBy: trackByFn" [selected]="selected[member.id]" (click)="checkbox.onClick()">
+				<checkbox-app
+					#checkbox
+					[autoFocus]="first"
+					[checked]="selected[member.id]"
+					(check)="select(member.id, member)"
+					(uncheck)="unselect(member.id, member)"
+					(click)="checkbox.onClick()">
+				</checkbox-app>
+				<span class="name" (click)="checkbox.onClick()">{{ member.user.firstName }} {{ member.user.lastName }}</span>
+			</list-item-app>
+		</list-app>
+	</main>
+
+  <dialog-footer-app class="full-width flexCenter flexBetween">
+		<span class="txt-secondary">
+			{{ ((products?.length || 0) > 1 ? 'OBJ.product-selected-feedback.plural' : 'OBJ.product-selected-feedback.singular') | translate: {count: products?.length || 0} }}
+		</span>
+		<button [disabled]="numSelected < 1" (click)="submit()"
+			translate="button.request-feedback">
+		</button>
+	</dialog-footer-app>
+</dialog-app>

@@ -1,0 +1,12 @@
+header-details-actions-app {
+  & > * {
+    margin-right: var(--spacing-ms);
+  }
+}
+
+.info-container {
+  activities-bar-app {
+		display: flex;
+		align-items: center;
+	}
+}

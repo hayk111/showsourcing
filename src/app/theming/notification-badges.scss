@@ -1,0 +1,102 @@
+@mixin _notif-badge-size($size, $font-size) {
+  .notif-badge-content {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		box-sizing: border-box;
+		min-width: $size;
+    max-width: $size + 2px; // for 2 digit numbers
+    height: $size;
+		font-size: $font-size;
+		font-weight: 600;
+		padding: 2px;
+		// line-height: 1;
+		// border: 2px solid white;
+	}
+
+  &.notif-badge-above {
+    .notif-badge-content {
+      top: -$size / 2;
+    }
+  }
+
+  &.notif-badge-below {
+    .notif-badge-content {
+      bottom: -$size / 2;
+    }
+	}
+
+  &.notif-badge-center {
+    .notif-badge-content {
+      bottom: 0;
+			top: 0;
+			margin-left: 10px;
+    }
+	}
+
+  &.notif-badge-overlap {
+    &.notif-badge-before {
+      .notif-badge-content {
+        left: -$size / 2;
+      }
+    }
+
+    &.notif-badge-after {
+      .notif-badge-content {
+        right: -$size / 2;
+      }
+    }
+  }
+}
+
+.notif-badge {
+	position: relative;
+}
+
+.notif-badge-hidden {
+	.notif-badge-content {
+		display: none;
+	}
+}
+
+.notif-badge-content {
+	position: absolute;
+	text-align: center;
+	display: inline-block;
+	border-radius: 50%;
+	// transform: scale(0.6);
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	pointer-events: none;
+}
+
+.notif-badge-no-content {
+	.notif-badge-content {
+		position: unset;
+		top: unset;
+	}
+}
+
+// The active class is added after the element is added
+// so it can aninotife scale to default
+.notif-badge-content.notif-badge-active {
+	// Scale to `none` instead of `1` to avoid blurry text in some browsers.
+	transform: none;
+}
+
+/** border notification **/
+.notif-badge-white-border {
+	box-shadow: 0 0 0 2px white;
+}
+
+/** size notification **/
+.notif-badge-s {
+	@include _notif-badge-size(14px, var(--font-size-s));
+}
+.notif-badge-m {
+	@include _notif-badge-size(16px, var(--font-size-m));
+}
+.notif-badge-l {
+	@include _notif-badge-size(18px, var(--font-size-m));
+}

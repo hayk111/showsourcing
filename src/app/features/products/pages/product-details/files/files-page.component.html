@@ -1,0 +1,48 @@
+<h2 class="l flexStart">Files</h2>
+<!-- table -->
+<attachments-table-app
+	#table
+	class="no-padding"
+	[hasMinHeight]="false"
+	[hasHeader]="false"
+	[hasMenu]="false"
+	[hasPagination]="false"
+	[rowHeight]="34"
+	[columns]="['name', 'creationInfoAction']"
+	[currentSort]="listSrv.currentSort"
+	[pending]="listSrv.pending"
+	[rows]="listSrv.items$ | async"
+	[selection]="listSrv.selection$ | async"
+	[linkedEntity]="linkedEntity"
+	(delete)="listSrv.deleteOne($event, true)"
+	(update)="listSrv.update($event)"
+	(open)="listSrv.goToDetails($event)"
+	(openAddToProjectDialog)="dialogCommonSrv.openAddToProjectDialog([$event])"
+	(openAddSampleDialog)="dialogCommonSrv.openCreationSampleDialog($event)"
+	(openAddTaskDialog)="dialogCommonSrv.openCreationTaskDlg($event)"
+	(setFavourite)="listSrv.onItemFavorited($event?.id)"
+	(openRequestFeedbackDialog)="dialogCommonSrv.openRequestFeedbackDialog([$event])"
+	(openCreateRequestDlg)="dialogCommonSrv.openSupplierRequest([$event])"
+	(previewClick)="listSrv.openPreview($event)"
+	(select)="listSrv.selectOne($event, true)"
+	(selectAll)="listSrv.selectAll($event, true)"
+	(sort)="listSrv.sort($event)"
+	(unfavorited)="listSrv.onItemUnfavorited($event)"
+	(unselect)="listSrv.unselectOne($event, true)"
+	(update)="listSrv.update($event)"
+	(unselectAll)="listSrv.unselectAll()"
+	(upload)="listSrv.refetch().subscribe()">
+</attachments-table-app>
+
+<!-- buttons -->
+<div *ngIf="(listSrv.items$ | async)?.length" class="flex buttons-container">
+	<button	(click)="table.openFileBrowser()">
+		Add file
+	</button>
+	<button
+		*ngIf="(listSrv.selection$ | async).size > 0"
+		class="warn"
+		(click)="listSrv.deleteSelected(true)">
+		delete
+	</button>
+</div>

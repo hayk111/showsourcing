@@ -1,0 +1,50 @@
+<!-- header -->
+<header class="flexBetween">
+	<div class="left-section">
+		<checkbox-app
+			[checked]="hasAllSelected()"
+			(check)="selectAll.emit(col.data)"
+			(uncheck)="unselectAll.emit(col.data)">
+		</checkbox-app>
+		<span class="title">
+			{{ col.title }}
+		</span>
+	</div>
+	<div class="right-section">
+		<span class="product-count">{{ col.totalData }}</span>
+		<div class="status-badge" [ngStyle]="getStyle(col)"></div>
+	</div>
+</header>
+
+<!-- main list -->
+<main
+  cdkDropList
+  [id]="col.id"
+  [cdkDropListConnectedTo]="connectedLists"
+  [cdkDropListData]="col.data"
+  (cdkDropListDropped)="onDrop($event)">
+
+  <!-- <div class="overlay flexCenter">
+    <icon-app class="arrow" name="arrow-circle-down"></icon-app>
+  </div> -->
+  <kanban-item-app
+    *ngFor="let item of col.data; trackBy: trackById"
+    cdkDrag
+    [badgeNumber]="selection.size"
+    [showBadge]="selection.size > 0 && selection.has(draggedId)"
+    (mouseenter)="onMouseEnter(item)">
+
+    <!-- <div class="custom-placeholder" *cdkDragPlaceholder></div> -->
+    <ng-container *ngTemplateOutlet="cardTemplate; context: { column: column, data: item }">
+    </ng-container>
+  </kanban-item-app>
+	<div
+		*ngIf="col.data.length < col.totalData"
+		class="txt-btn flexCenter"
+		(click)="loadMore.emit(col)">
+		<ng-container translate="button.load"></ng-container>
+		&nbsp;{{ amountLoaded }}
+		<ng-container translate="button.more"></ng-container>
+		 &nbsp;({{ col.totalData - col.data.length }})
+	</div>
+</main>

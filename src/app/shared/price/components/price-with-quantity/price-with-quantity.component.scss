@@ -1,0 +1,22 @@
+:host {
+	display: flex;
+	flex-direction: column;
+}
+
+.price {
+
+	.amount {
+		color: var(--color-primary);
+		font-size: var(--font-size-xxxl);
+		font-weight: 600;
+	}
+}
+
+.moq {
+	color: var(--color-txt-secondary);
+}
+
+editable-container-app {
+	width: auto;
+	display: inline-block;
+}

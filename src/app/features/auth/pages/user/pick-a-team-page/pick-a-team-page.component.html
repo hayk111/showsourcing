@@ -1,0 +1,24 @@
+<ng-container *ngIf="!(pending$ | async)">
+	<auth-form-header-app>
+		<auth-header-title-app translate="header.join-team">
+		</auth-header-title-app>
+		<!-- TODO Check style is the same -->
+		<auth-header-subtitle-app translate="text.select-team-or-create">
+		</auth-header-subtitle-app>
+	</auth-form-header-app>
+	<ul>
+		<div
+			class="flex pointer item border"
+			*ngFor="let team of (teams$ | async); let last = last; trackBy: trackByFn"
+		 	(click)="pickTeam(team)">
+			<icon-app name="team" size="m"></icon-app>
+			<span>{{ team.name }}</span>
+		</div>
+	</ul>
+
+	<a
+		class="button light flexCenter"
+		[routerLink]="['../create-a-team']"
+		translate="link.create-new-team">
+	</a>
+</ng-container>

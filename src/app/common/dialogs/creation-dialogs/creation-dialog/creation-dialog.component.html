@@ -1,0 +1,28 @@
+	<dialog-app>
+
+		<!-- when ready -->
+		<dialog-header-app *ngIf="!pending" class="first-uppercase">
+			<ng-container translate="button.new"></ng-container> {{ 'ERM.' + type.translationKey + '.singular' | translate }}
+		</dialog-header-app>
+
+		<form *ngIf="!pending" [formGroup]="group">
+			<form-field-app>
+				<label-app> {{ 'ERM.' + type.translationKey + '.singular' | translate }} <span class="capitalize" translate="label.name"></span> </label-app>
+				<input inputApp autoFocus type="text" (input)="checkExists()" formControlName="name" placeholder="{{ 'OBJ.new-OBJ' | translate: {field: 'ERM.' + type.translationKey + '.singular' | translate} }}" (keyup.enter)="onSubmit(canRedirect)"/>
+			</form-field-app>
+			<label-app>{{ 'OBJ.provide-name-create' | translate: {field: 'ERM.' + type.translationKey + '.singular' | translate} }}</label-app>
+		</form>
+
+		<dialog-footer-app *ngIf="!pending ">
+			<div class="color-warn" *ngIf="exists$ | async">{{ 'OBJ.that-already-exists' | translate: {field: 'ERM.' + type.translationKey + '.singular' | translate} }}</div>
+			<input *ngIf="canRedirect" [disabled]="!group.valid || (exists$ | async)" type="submit" class="secondary" value="Create & Stay" (click)="onSubmit(false)"/>
+			<span *ngIf="canRedirect" class="spacer mg-s"></span>
+			<input *ngIf="canRedirect" [disabled]="!group.valid || (exists$ | async)" type="submit" value="Create & Go" (click)="onSubmit()"/>
+			<input *ngIf="!canRedirect" [disabled]="!group.valid || (exists$ | async)" type="submit" value="Create" (click)="onSubmit(false)"/>
+		</dialog-footer-app>
+
+		<!-- when pending -->
+		<spinner-app *ngIf="pending"></spinner-app>
+
+</dialog-app>
+

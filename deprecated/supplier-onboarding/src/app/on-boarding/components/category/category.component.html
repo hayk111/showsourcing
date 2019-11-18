@@ -1,0 +1,32 @@
+<div class="title-container-boarding flex">
+	<button class="icon light" (click)="previousPage()">
+		<icon-app name="back-arrow"></icon-app>
+	</button>
+	<h1>What kind of product / services do you provide?</h1>
+</div>
+
+<div class="product-container flexColumn">
+		<p class="label">Product/Service categories</p>
+		<div class="flexBetween">
+			<div class="categories flexWrap">
+				<info-badge-app *ngFor="let category of categories; trackBy: trackByFn" [hasDelete]="true" size="thick" type="tag" (delete)="delete(category)">
+					{{ category }}
+				</info-badge-app>
+			</div>
+			<div class="select-categories">
+				<selector-const-app
+					#selector
+					type="category"
+					itemName="categories"
+					customStyle="onboarding-small"
+					displayedValue="Select category"
+					(change)="change($event)">
+				</selector-const-app>
+			</div>
+		</div>
+</div>
+
+
+
+
+<button class="boarding" type="submit" (click)="onSubmit()">Next</button>

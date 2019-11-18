@@ -1,0 +1,31 @@
+:host {
+	display: block;
+}
+
+.space-icon {
+	height: var(--spacing-xl);
+	width: var(--spacing-xl);
+	margin-right: var(--spacing-ms);
+}
+
+card-title-app {
+	icon-app {
+		margin-right: var(--spacing-ms);
+		color: var(--color-primary);
+		cursor: default;
+		font-size: var(--font-size-xxl);
+	}
+}
+
+card-footer-app {
+	padding-bottom: var(--spacing-l);
+}
+
+.hidden {
+	width: 0;
+	visibility: hidden;
+}
+
+file-list-app.secondary {
+	margin-bottom: var(--spacing-ms);
+}

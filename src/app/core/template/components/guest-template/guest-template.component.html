@@ -1,0 +1,13 @@
+<div class="flexBetween mg-l">
+	<span class="spacer fs-l"></span>
+
+	<div class="flex pointer" *ngIf="auth$ | async" (click)="logout()">
+		<icon-app name="logout"></icon-app>
+		<span class="mg-xs"></span>
+		<span class="capitalize" translate="button.logout"></span>
+	</div>
+
+</div>
+<main class="flex">
+	<router-outlet #o="outlet"></router-outlet>
+</main>

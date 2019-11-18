@@ -1,0 +1,57 @@
+:host {
+	display: flex;
+
+	&:hover .hover-buttons {
+		visibility: visible;
+	}
+}
+
+user-picture-app {
+	font-size: var(--font-size-s);
+	margin-top: var(--spacing-xs);
+}
+
+.comment-content {
+	flex-grow: 1;
+	padding-left: var(--spacing-ms);
+	padding-top: var(--spacing-xs);
+	border-radius: var(--border-radius-l);
+
+	.comment-header {
+		padding-bottom: var(--spacing-s);
+
+		.title {
+			.name {
+				font-weight: 600;
+				font-size: var(--font-size-l);
+				color: var(--color-txt-primary);
+				letter-spacing: -0.3px;
+			}
+		}
+	}
+}
+
+.hover-buttons {
+	visibility: hidden;
+}
+
+.buttons {
+	> *:not(:last-child) {
+		margin-right: var(--spacing-ms);
+	}
+}
+
+.text {
+	width: calc(100% - 1px);
+	white-space: pre-line;
+	color: var(--color-txt-primary);
+}
+
+textarea {
+	white-space: pre-line;
+	font-size: var(--font-size-l);
+	padding: var(--spacing-ms);
+	background: var(--color-bg-secondary);
+	resize: none;
+	margin-bottom: var(--spacing-ms);
+}

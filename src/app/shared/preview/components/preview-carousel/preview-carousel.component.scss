@@ -1,0 +1,29 @@
+:host {
+	display: block;
+}
+
+.with-preview {
+	height: 450px;
+}
+
+.no-preview {
+	height: 411px;
+}
+
+carousel-app {
+	height: 100%;
+}
+
+.empty {
+	height: 100%;
+	font-style: italic;
+	color: var(--color-txt-secondary);
+	background: var(--color-secondary-light);
+	img {
+		margin-bottom: var(--spacing-s);
+	}
+	button.secondary {
+		margin-top: var(--spacing-s);
+		font-weight: 600;
+	}
+}

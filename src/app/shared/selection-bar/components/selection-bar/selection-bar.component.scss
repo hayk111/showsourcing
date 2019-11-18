@@ -1,0 +1,32 @@
+:host {
+	display: block;
+	position: fixed;
+	width: 100%;
+	bottom: 0;
+	left: 0;
+	z-index: var(--z-selection-bar);
+
+	&.expanded-menu {
+			width: calc(100% - 260px);
+	}
+	&.collapsed-menu {
+			width: calc(100% - 72px);
+	}
+}
+
+bottom-panel-app {
+	height: 64px;
+}
+
+.closeSection {
+	font-size: var(--font-size-l);
+	display: flex;
+	align-items: center;
+	line-height: 1;
+	cursor: default;
+}
+
+.icon-close {
+	color: var(--color-secondary-dark);
+	font-size: var(--font-size-l);
+}

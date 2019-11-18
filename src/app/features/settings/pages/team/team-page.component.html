@@ -1,0 +1,43 @@
+<header-details-app
+	[hasBackArrow]="false"
+	[headerType]="'settings'">
+
+	<header-details-title-app>
+		<span class="my-team capitalize">
+			{{ 'title.my-team' | translate }}
+		</span>
+	</header-details-title-app>
+
+	<logo-app color="primary" icon="team" size="xl"></logo-app>
+
+	<header-details-info-app>
+		<ng-container subinfo *ngIf="team">{{team.name}}</ng-container>
+		<div class="small-gray-badge-separator"></div>
+		<ng-container subinfo *ngIf="companyName">{{companyName}}</ng-container>
+	</header-details-info-app>
+
+	<header-nav-app>
+		<header-nav-item-app
+			link="/settings/team/members"
+			icon="team"
+			[name]="'nav.team-members' | translate">
+		</header-nav-item-app>
+
+		<!-- TODO create route for settings tab -->
+		<header-nav-item-app
+			link="/settings/team/info"
+			icon="settings"
+			[name]="'nav.settings' | translate">
+		</header-nav-item-app>
+	</header-nav-app>
+
+	<header-details-actions-app>
+		<button action class="invite-team-member capitalize"
+			(click)="dialogCommonSrv.openInvitationDialog()"
+			translate="button.invite-team-member">
+		</button>
+	</header-details-actions-app>
+
+</header-details-app>
+
+<router-outlet></router-outlet>

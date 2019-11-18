@@ -1,0 +1,37 @@
+icon-app {
+	cursor: default;
+}
+
+img-app {
+	border-radius: var(--border-radius);
+}
+
+.section-info {
+	info-badge-app {
+		margin-top: var(--spacing-ms);
+	}
+}
+
+.product-icon {
+	color: var(--color-primary);
+}
+
+.info-container {
+	font-size: var(--font-size-m);
+	margin-left: 10px;
+
+	.reference {
+		display: flex;
+	}
+
+	icon-app {
+		color: var(--color-primary);
+		font-size: 4px;
+	}
+
+	activities-bar-app {
+		display: flex;
+		align-items: center;
+	}
+}
+

@@ -1,0 +1,16 @@
+
+
+.topBar {
+	padding: var(--spacing-ms) 0;
+	font-weight: 600;
+	font-size: 16px;
+	color: var(--color-txt-primary);
+	icon-app {
+		color: var(--color-txt-third);
+		font-weight: bold;
+	}
+}
+
+.content {
+	padding: var(--spacing-ms) 0;
+}

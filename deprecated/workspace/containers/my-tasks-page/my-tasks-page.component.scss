@@ -1,0 +1,27 @@
+:host {
+	display: flex;
+	flex-direction: column;
+	width: 980px;
+	height: 100%;
+	overflow: auto;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.show-my-tasks, .show-tasks-done {
+	font-weight: 600;
+	line-height: 1.43;
+
+	&:not(.show-tasks-done) {
+		margin-right: var(--spacing-ms);
+	}
+}
+
+controller-list-app {
+	padding-left: 0;
+	padding-right: 0;
+	controller-list-right-item-app {
+		display: flex;
+		min-width: 285px;
+	}
+}

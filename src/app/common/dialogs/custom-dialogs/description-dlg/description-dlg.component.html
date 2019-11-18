@@ -1,0 +1,31 @@
+<dialog-app class="no-content-height">
+	<dialog-header-app class="capitalize" headerSpacing="l" translate="header.description"></dialog-header-app>
+
+	<div
+		*ngIf="!(editing$ | async)"
+		class="description-container pointer"
+		(click)="toggleEdition(true)">
+		<ng-container *ngIf="description; else noDesc">{{ description }}</ng-container>
+		<ng-template #noDesc><div class="placeholder" translate="placeholer.no-description-yet"></div></ng-template>
+	</div>
+	<!-- We don't use else condition here, otherwise we cannot focus the element cause it doesn't exists, therfore we just hide visibility -->
+	<textarea
+		inputApp #txtArea
+		[ngClass]="(editing$ | async) ? 'show' : 'hide'"
+		[value]="description"
+		(input)="txtAreaDesc = txtArea.value"
+		[placeholder]="'placeholer.no-description-yet' | translate">
+	</textarea>
+
+	<dialog-footer-app>
+		<ng-container *ngIf="editing$ | async; else noEditing">
+			<button tabFocusAction class="secondary capitalize" (click)="toggleEdition(false)" translate="button.cancel"></button>
+			<button tabFocusAction class="capitalize" (click)="save(txtArea.value)" translate="button.save"></button>
+		</ng-container>
+		<ng-template #noEditing>
+			<button tabFocusAction #editBtn class="secondary capitalize" (click)="toggleEdition(true)" translate="button.edit"></button>
+			<button tabFocusAction class="capitalize" (click)="close()" translate="button.close"></button>
+		</ng-template>
+	</dialog-footer-app>
+
+</dialog-app>
