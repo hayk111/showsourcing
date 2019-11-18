@@ -4,7 +4,7 @@
 	width: 187px;
 	flex-shrink: 0;
 	&:hover {
-		background: var(--legacy-color-secondary-light);
+		background: var(--color-secondary-light);
 	}
 }
 
@@ -24,7 +24,7 @@
 		margin-top: 12px;
 		margin-bottom: 4px;
 		height: 18px;
-		color: var(--legacy-color-txt-strong);
+		color: var(--color-txt-primary);
 		font-weight: 600;
 	}
 
@@ -50,7 +50,7 @@
 		display: flex;
 		align-items: center;
 		height: 32px;
-		border-bottom: 1px solid var(--legacy-color-divider);
+		border-bottom: 1px solid var(--color-divider);
 		color: var(--txt-strong);
 	}
 

@@ -12,13 +12,13 @@
 	min-width: 656px;
 	height: 490px;
 	border-radius: var(--border-radius-l);
-	background: var(--legacy-color-secondary-light);
+	background: var(--color-secondary-light);
 
 	.empty {
 		width: 100%;
 		font-style: italic;
-		color: var(--legacy-color-txt-secondary);
-		background: var(--legacy-color-secondary-light);
+		color: var(--color-txt-secondary);
+		background: var(--color-secondary-light);
 		font-size: var(--font-size-xxl);
 
 		img {

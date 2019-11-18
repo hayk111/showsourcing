@@ -36,7 +36,7 @@ $image-height: 240px;
 
 .card-container {
 	&.selected-card {
-		box-shadow: 0px 0px 0px 2px var(--legacy-color-primary);
+		box-shadow: 0px 0px 0px 2px var(--color-primary);
 		height: 100%;
     border-radius: var(--border-radius-l);
     border-radius: var(--border-radius-l);
@@ -180,11 +180,11 @@ img-app {
 	}
 
 	.price {
-		color: var(--legacy-color-primary);
+		color: var(--color-primary);
 	}
 
 	.moq {
-		color: var(--legacy-color-secondary-dark);
+		color: var(--color-secondary-dark);
 	}
 
 	.category {

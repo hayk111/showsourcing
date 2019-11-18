@@ -3,7 +3,7 @@ context-menu-trigger-app {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	background-color: var(--legacy-color-primary);
+	background-color: var(--color-primary);
 	padding-left: 25px;
 	padding-right: 10px;
 	margin-right: 15px;
@@ -27,7 +27,7 @@ context-menu-trigger-app {
 }
 
 .purchase-license {
-  background-color: var(--legacy-color-success);
+  background-color: var(--color-success);
 }
 
 .my-company {
@@ -44,7 +44,7 @@ context-menu-item-app {
 	width: 200px;
 
 	&.remove-user {
-		color: var(--legacy-color-warn);
+		color: var(--color-warn);
 	}
 }
 
@@ -63,8 +63,8 @@ nav {
 		cursor: pointer;
 		&.active {
 			font-weight: bold;
-			color: var(--legacy-color-primary);
-			border-color: var(--legacy-color-primary);
+			color: var(--color-primary);
+			border-color: var(--color-primary);
 		}
 	}
 }

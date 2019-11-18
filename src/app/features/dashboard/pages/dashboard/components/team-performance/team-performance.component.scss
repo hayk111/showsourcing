@@ -37,7 +37,7 @@ user-picture-app {
 .name {
 	font-family: var(--font-normal);
 	font-weight: 600;
-	color: var(--legacy-color-txt-strong);
+	color: var(--color-txt-primary);
 }
 
 .member {
@@ -51,7 +51,7 @@ h4 {
 .team-leader {
 	padding: 0px var(--spacing-xs);
 	margin-left: var(--spacing-s);
-	background: var(--legacy-color-success);
+	background: var(--color-success);
 	color: white;
 	border-radius: var(--border-radius-s);
 }
@@ -70,7 +70,7 @@ card-footer-app {
 
 .no-team {
 	font-size: var( --font-size-xxxl);
-	color: var(--legacy-color-txt-strong);
+	color: var(--color-txt-primary);
 	font-weight: 600;
 	display: flex;
 	justify-content: center;

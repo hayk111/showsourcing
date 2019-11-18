@@ -3,7 +3,7 @@
 	padding: 0 var(--spacing-l);
 	padding-bottom: var(--spacing-ms);
 	flex-shrink: 0;
-	border-bottom: 1px solid var(--legacy-color-divider);
+	border-bottom: 1px solid var(--color-divider);
 
 	&.max-full-table-width {
 		padding-left: 0px;
@@ -43,14 +43,14 @@
 
 .ctnr {
 	background-color: #fff;
-	border: solid 1px var(--legacy-color-secondary);
+	border: solid 1px var(--color-secondary);
 	border-left: 0;
 }
 
 .actions {
 	text-transform: uppercase;
 	font-size: var(--font-size-s);
-	color: var(--legacy-color-txt-secondary);
+	color: var(--color-txt-secondary);
 	padding-bottom: 10px;
 }
 

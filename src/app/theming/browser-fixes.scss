@@ -6,7 +6,7 @@ body{
 	margin: 0;
 	padding: 0;
 	min-height: 100vh;
-	background: var(--legacy-color-bg-secondary);
+	background: var(--color-bg-secondary);
 }
 
 // reset
@@ -47,9 +47,19 @@ q:before, q:after {
 	content: '';
 	content: none;
 }
+
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
+	
+	thead {
+		font-weight: 600;
+	}
+
+	td {
+		padding: var(--spacing-s);
+		border-bottom: 1px solid var(--color-divider);
+	}
 }
 //
 
@@ -76,8 +86,8 @@ dialog{
 }
 
 ::selection{
-	background: var(--legacy-color-primary);
-	color: var(--legacy-color-primary-contrast);
+	background: var(--color-primary);
+	color: var(--color-primary-contrast);
 }
 
 ul{
@@ -96,11 +106,11 @@ menu {
 	padding: 0;
 	menuitem {
 		cursor: pointer;
-		background: var(--legacy-color-bg);
+		background: var(--color-bg);
 		padding: var(--spacing-xs) var(--spacing-m);
 	}
 	menuitem:hover {
-		background: var(--legacy-color-secondary-light);
+		background: var(--color-secondary-light);
 	}
 }
 

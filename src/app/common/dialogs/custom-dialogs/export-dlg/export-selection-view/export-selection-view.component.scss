@@ -30,7 +30,7 @@ dialog-app {
 			cursor: pointer;
 			icon-app {
 				font-size: 48px;
-				color: var(--legacy-color-txt-secondary);
+				color: var(--color-txt-secondary);
 				margin-bottom: var(--spacing-m);
 			}
 			&.image {
@@ -42,15 +42,15 @@ dialog-app {
 			}
 			.title {
 					font-weight: 600;
-					color: var(--legacy-color-button-dark);
+					color: var(--color-button-dark);
 			}
 			.subtitle {
-					color: var(--legacy-color-txt-secondary);
+					color: var(--color-txt-secondary);
 			}
 			&.selected {
-					border: 2px solid var(--legacy-color-primary);
+					border: 2px solid var(--color-primary);
 					icon-app {
-							color: var(--legacy-color-primary);
+							color: var(--color-primary);
 					}
 			}
 			&:hover {

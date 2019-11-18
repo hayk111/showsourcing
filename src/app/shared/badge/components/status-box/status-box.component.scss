@@ -38,7 +38,7 @@ icon-app {
     color: white;
 		white-space: nowrap;
 		&.new {
-			color: var(--legacy-color-txt-primary);
+			color: var(--color-txt-primary);
 		}
   }
   .badge-icon {
@@ -49,13 +49,13 @@ icon-app {
 
 .badge {
   .primary {
-    background: var(--legacy-color-primary);
+    background: var(--color-primary);
   }
   .secondary-light {
-    background: var(--legacy-color-secondary-light);
+    background: var(--color-secondary-light);
   }
   .accent {
-    background: var(--legacy-color-accent);
+    background: var(--color-accent);
   }
 
   .new {
@@ -78,7 +78,7 @@ icon-app {
 //   }
 //   .status-item {
 // 		min-width: 200px;
-//     color: var(--legacy-color-txt-strong);
+//     color: var(--color-txt-primary);
 //     margin: 5px 10px;
 //     padding: 5px 10px;
 //     .status-box {
@@ -98,72 +98,72 @@ icon-app {
 //   }
 //   .in-progress {
 //     .status-box {
-//       background-color: var(--legacy-color-in-progress);
+//       background-color: var(--color-in-progress);
 //     }
 //     &:hover {
 //       color: white;
 //       border-radius: 5px;
-//       background-color: var(--legacy-color-in-progress);
+//       background-color: var(--color-in-progress);
 //     }
 //   }
 //   .secondary {
 //     .status-box {
-//       background-color: var(--legacy-color-secondary);
+//       background-color: var(--color-secondary);
 //     }
 //     &:hover {
 //       color: white;
 //       border-radius: 5px;
-//       background-color: var(--legacy-color-secondary);
+//       background-color: var(--color-secondary);
 //     }
 //   }
 //   .primary {
 //     .status-box {
-//       background-color: var(--legacy-color-primary);
+//       background-color: var(--color-primary);
 //     }
 //     &:hover {
 //       color: white;
 //       border-radius: 5px;
-//       background-color: var(--legacy-color-primary);
+//       background-color: var(--color-primary);
 //     }
 //   }
 //   .secondary-light {
 //     .status-box {
-//       background-color: var(--legacy-color-secondary-light);
+//       background-color: var(--color-secondary-light);
 //     }
 //     &:hover {
 //       color: white;
 //       border-radius: 5px;
-//       background-color: var(--legacy-color-secondary-light);
+//       background-color: var(--color-secondary-light);
 //     }
 //   }
 //   .accent {
 //     .status-box {
-//       background-color: var(--legacy-color-accent);
+//       background-color: var(--color-accent);
 //     }
 //     &:hover {
 //       color: white;
 //       border-radius: 5px;
-//       background-color: var(--legacy-color-accent);
+//       background-color: var(--color-accent);
 //     }
 //   }
 //   .warn {
 //     .status-box {
-//       background-color: var(--legacy-color-warn);
+//       background-color: var(--color-warn);
 //     }
 //     &:hover {
 //       color: white;
 //       border-radius: 5px;
-//       background-color: var(--legacy-color-warn);
+//       background-color: var(--color-warn);
 //     }
 //   }
 //   .success {
 //     .status-box {
-//       background-color: var(--legacy-color-success);
+//       background-color: var(--color-success);
 //     }
 //     &:hover {
 //       color: white;
 //       border-radius: 5px;
-//       background-color: var(--legacy-color-success);
+//       background-color: var(--color-success);
 //     }
 //   }
 // }

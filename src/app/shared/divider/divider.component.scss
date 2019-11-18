@@ -3,13 +3,13 @@
   margin: 0;
   border-top-width: 1px;
 	border-top-style: solid;
-	border-color: var(--legacy-color-divider);
+	border-color: var(--color-divider);
 
   &.vertical {
     border-top: 0;
     border-right-width: 1px;
 		border-right-style: solid;
-		border-color: var(--legacy-color-divider);
+		border-color: var(--color-divider);
   }
 
 }

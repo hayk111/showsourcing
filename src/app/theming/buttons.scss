@@ -1,0 +1,139 @@
+
+$colors: (
+	'primary',
+	'secondary',
+	'warn',
+	'success',
+	'vibrant',
+	'accent',
+);
+
+
+button, input[type="submit"], .button {
+	@extend .ripple;
+	display: inline-block;
+	cursor: pointer;
+	font-weight: 600;
+	padding: 6px var(--spacing-ms);
+	line-height: 1.43;
+	border-radius: var(--border-radius);
+	font-size: var(--font-size-m);
+	border: none;
+	outline: none;
+	margin: 0;
+  box-sizing: border-box;
+	font-family: inherit;
+	white-space: nowrap;
+	text-align: center;
+	transition: background 0.3s;
+
+
+	height: 32px;
+
+	&::first-letter {
+		text-transform: capitalize;
+	}
+	// size
+	height: 32px;
+	.big {
+		height: 36px;
+	}
+
+	// defaults colors
+	background: var(--color-primary);
+	color: var(--color-primary-contrast);
+	&:hover {
+		background: var(--color-primary-dark);
+	}
+
+	&.light {
+		background: transparent;
+		color: var(--color-txt-secondary);
+		&:hover, &.cdk-keyboard-focused {
+			background: var(--color-secondary-light);
+		}
+	}
+
+	&.icon {
+		background: transparent;
+		color: var(--color-txt-secondary);
+		&:hover, &.cdk-keyboard-focused {
+			background: var(--color-secondary-light);
+		}
+	}
+
+	// colors
+	@each $var in $colors {
+		&.#{$var} {
+			background: var(--color-#{$var});
+			color: var(--color-#{$var}-contrast);
+			&:hover, &:active, &.cdk-keyboard-focused {
+				background: var(--color-#{$var}-dark);
+			}
+		}
+		&.#{$var}-light {
+			background: transparent;
+			color: var(--color-#{$var});
+			&:hover, &.cdk-keyboard-focused {
+				background: var(--color-#{$var}-light);
+			}
+		}
+	}
+
+	// icons
+	&.icon-with-text {
+		display: inline-flex;
+		align-items: center;
+		icon-app {
+			cursor: pointer;
+			margin-right: var(--spacing-s);
+		}
+	}
+
+	&.icon {
+		width: 32px;
+		height: 32px;
+		font-size: inherit;
+		display: inline-flex;
+		justify-content: center;
+		align-items: center;
+		min-width: unset;
+		padding: 0;
+	}
+
+	&.icon.big {
+		width: 36px;
+		height: 36px;
+		icon-app {
+			font-size: var(--font-size-l);
+		}
+	}
+
+}
+
+// disabled buttons
+button:disabled, input[type="submit"]:disabled {
+	background: var(--color-secondary);
+	color: var(--color-secondary-dark);
+	border: none;
+	cursor: default;
+	&:hover {
+		background: var(--color-secondary);
+		color: var(--color-secondary-dark);
+		border: none;
+		cursor: default;
+	}
+}
+
+.txt-btn:hover{
+	color: var(--color-primary);
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.clickable, .hoverable {
+	cursor: pointer;
+	&:hover {
+		background: var(--color-bg-secondary);
+	}
+}
