@@ -67,4 +67,8 @@ export class SettingsPageComponent extends AutoUnsub implements OnInit {
 		this.projectSrv.update({ id: this.id, ...proj }).subscribe();
 	}
 
+	update(value: any, prop: string) {
+		this.projectSrv.update({ id: this.id, [prop]: value }).subscribe();
+	}
+
 }

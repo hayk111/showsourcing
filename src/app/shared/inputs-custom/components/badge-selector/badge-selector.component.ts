@@ -7,9 +7,6 @@ import { TrackingComponent } from '~utils/tracking-component';
 	selector: 'badge-selector-app',
 	templateUrl: './badge-selector.component.html',
 	styleUrls: ['./badge-selector.component.scss'],
-	host: {
-		'[class.clickable]': 'true'
-	},
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BadgeSelectorComponent extends TrackingComponent implements OnInit {
@@ -24,7 +21,7 @@ export class BadgeSelectorComponent extends TrackingComponent implements OnInit 
 	@Output() update = new EventEmitter<any>();
 	@Output() openActionClicked = new EventEmitter<null>();
 
-	@ViewChild(SelectorComponent, { static: false }) elem: SelectorComponent;
+	@ViewChild(SelectorComponent, { static: false }) selector: SelectorComponent;
 
 	erm = ERM;
 
@@ -37,7 +34,7 @@ export class BadgeSelectorComponent extends TrackingComponent implements OnInit 
 
 	getDynamicOffsetX() {
 		// Y (the offset that we want to move the selector) = -X (size of the selector) + 395, linear function
-		return this.elem ? - this.elem.elem.nativeElement.offsetWidth + 395 : 0;
+		return this.selector ? - this.selector.elem.nativeElement.offsetWidth + 395 : 0;
 	}
 
 	/** Trackby function for ngFor */
