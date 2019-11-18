@@ -2,6 +2,10 @@
 	text-transform: none;
 }
 
+.ctnr {
+	width: 100%;
+}
+
 .ctnr:not(:empty) + .default {
 	display: none;
 }

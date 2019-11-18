@@ -2,7 +2,8 @@
 	<icon-app
 		class="pointer"
 		[name]="'project'"
-		[size]="12">
+		[size]="12"
+		(click)="projectClicked.emit(project)">
 	</icon-app>
 	<span class="ellipsis txt-btn" (click)="projectClicked.emit(project)">{{ project.name }}</span>
 </div>

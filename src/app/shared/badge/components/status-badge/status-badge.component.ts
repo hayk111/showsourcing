@@ -21,6 +21,8 @@ export class StatusBadgeComponent {
 			return 'secondary-light';
 
 		switch (this.status.category) {
+			case 'new':
+				return 'secondary';
 			case 'inProgress':
 				return 'primary';
 			case 'validated':

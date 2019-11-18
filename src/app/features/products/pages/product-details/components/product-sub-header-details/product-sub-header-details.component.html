@@ -10,9 +10,9 @@
 		<div class="title">
 			<editable-container-app
 				#edt
-				[defaultStyle]="false"
 				[hoverable]="true"
-				(opened)="inpName.select()">
+				(opened)="inpName.select()"
+				(closed)="update(inpName.value, 'name')">
 				<editable-display-app class="ellipsis bold-s color-txt-primary fs-xxxxl">
 					{{ product?.name || '-' }}
 				</editable-display-app>
@@ -25,61 +25,82 @@
 			</editable-container-app>
 			<!-- info title -->
 			<div class="flex dot-separator">
-				<rating-badge-app	[votes]="product?.votes" [hasNumber]="true"></rating-badge-app>
-				<div>{{ product?.samplesLinked.count || 0 }} {{ product?.samplesLinked?.count === 1 ? 'Sample' : 'Samples' }}</div>
-				<div>{{ product?.tasksLinked.count || 0 }} {{ product?.samplesLinked?.count === 1 ? 'Task' : 'Tasks' }}</div>
-				<div>{{ product?.comments?.length || 0  }} {{ product?.comments?.length === 1 ? 'Comment' : 'Comments' }}</div>
+				<rating-badge-app class="pointer"	[votes]="product?.votes" [hasNumber]="true" (click)="ratingClicked.emit()"></rating-badge-app>
+				<div class="txt-btn" (click)="redirect.emit('samples')">{{ product?.samplesLinked.count || 0 }} {{ product?.samplesLinked?.count === 1 ? 'Sample' : 'Samples' }}</div>
+				<div class="txt-btn" (click)="redirect.emit('tasks')">{{ product?.tasksLinked.count || 0 }} {{ product?.samplesLinked?.count === 1 ? 'Task' : 'Tasks' }}</div>
+				<div class="txt-btn" (click)="redirect.emit('activity')">{{ product?.comments?.length || 0  }} {{ product?.comments?.length === 1 ? 'Comment' : 'Comments' }}</div>
 			</div>
 		</div>
 
 		<!-- price -->
 		<div class="section">
 			<price-with-quantity-app
-				[product]="product">
+				[product]="product"
+				(updateField)="update($event.newValue, $event.field)">
 			</price-with-quantity-app>
 		</div>
 
 		<!-- supplier -->
 		<div class="section">
 			<h3>supplier</h3>
-			<selector-app
-				type="supplier"
-				[canCreate]="true"
-				[width]="370">
+			<editable-container-app
+				[hasAction]="false"
+				[openOnClick]="false"
+				(click)="supplierSelector?.openMenu()">
 				<editable-display-app>
-					<div *ngIf="product?.supplier as supplier" class="flex">
-						<logo-app
-							class="mg-right-s"
-							[type]="erm.SUPPLIER.singular"
-							[logo]="supplier?.logoImage">
-						</logo-app>
-						<div class="supplier-info mg-right-xxl">
-							<span class="fs-l color-txt-primary bold-s">{{ supplier?.name }}</span>
-							<div class="flex dot-separator">
-								<div *ngIf="supplier?.supplierType">{{ supplier?.supplierType }}</div>
-								<div *ngIf="supplier?.country">{{ supplier?.country }}</div>
-								<rating-badge-app	[votes]="supplier?.votes" [activeColor]="'primary'"></rating-badge-app>
+					<!-- Put this inside a component has a unique style tho -->
+					<selector-app
+						#supplierSelector
+						type="supplier"
+						[canCreate]="true"
+						[width]="370"
+						(update)="update($event, 'supplier')">
+						<editable-display-app>
+							<div *ngIf="product?.supplier as supplier" class="flex">
+								<logo-app
+									class="mg-right-s"
+									[type]="erm.SUPPLIER.singular"
+									[logo]="supplier?.logoImage">
+								</logo-app>
+								<div class="supplier-info mg-right-xxl">
+									<span class="fs-l color-txt-primary bold-s flex mg-bottom-xs supplier-name">{{ supplier?.name }}</span>
+									<div class="flex dot-separator">
+										<div *ngIf="supplier?.supplierType">{{ supplier?.supplierType }}</div>
+										<div *ngIf="supplier?.country">{{ supplier?.country }}</div>
+										<rating-badge-app	[votes]="supplier?.votes" [activeColor]="'primary'"></rating-badge-app>
+									</div>
+								</div>
 							</div>
-						</div>
-					</div>
+						</editable-display-app>
+					</selector-app>
 				</editable-display-app>
-			</selector-app>
+			</editable-container-app>
 		</div>
 
 		<!-- category -->
 		<div class="section">
 			<h3>category</h3>
-			<badge-selector-app
-				[badge]="erm.CATEGORY"
-				[value]="product?.category">
-			</badge-selector-app>
+			<editable-container-app
+				[hasAction]="false"
+				[openOnClick]="false"
+				(click)="categorySelector?.selector?.openMenu()">
+				<editable-display-app>
+					<badge-selector-app
+						#categorySelector
+						[badge]="erm.CATEGORY"
+						[value]="product?.category"
+						(update)="update($event, 'category')">
+					</badge-selector-app>
+				</editable-display-app>
+			</editable-container-app>
 		</div>
 
 		<!-- description -->
 		<div class="section">
 			<h3>description</h3>
 			<input-description-app
-				[description]="product?.description">
+				[description]="product?.description"
+				(update)="update($event, 'description')">
 			</input-description-app>
 	</div>
 
@@ -88,10 +109,10 @@
 		<h3>tags</h3>
 		<input-badge-selector-app
 			[value]="product?.tags"
-			type="tag">
+			type="tag"
+			(change)="update($event, 'tags')">
 		</input-badge-selector-app>
 	</div>
 
 	</div>
 </div>
-<divider-app></divider-app>

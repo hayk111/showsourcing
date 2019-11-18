@@ -1,3 +1,4 @@
+<h2 class="l flexStart">Files</h2>
 <!-- table -->
 <attachments-table-app
 	#table
@@ -34,7 +35,7 @@
 </attachments-table-app>
 
 <!-- buttons -->
-<div class="flex buttons-container">
+<div *ngIf="(listSrv.items$ | async)?.length" class="flex buttons-container">
 	<button	(click)="table.openFileBrowser()">
 		Add file
 	</button>

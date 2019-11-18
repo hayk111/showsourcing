@@ -9,12 +9,15 @@ import {
 import { ProductGridCardComponent } from './product-grid-card/product-grid-card.component';
 import { SampleCardComponent } from './sample-card/sample-card.component';
 import { SupplierCardComponent } from './supplier-card/supplier-card.component';
+import { ProjectListCardComponent } from './project-list-card/project-list-card.component';
+import { ListCommonModule } from '~common/list/list-common.module';
 
 
 @NgModule({
 	imports: [
 		CommonModule,
-		SharedModule
+		SharedModule,
+		ListCommonModule
 	],
 	declarations: [
 		ProductCardComponent,
@@ -22,6 +25,7 @@ import { SupplierCardComponent } from './supplier-card/supplier-card.component';
 		ProductCardActivitiesComponent,
 		SampleCardComponent,
 		SupplierCardComponent,
+		ProjectListCardComponent,
 	],
 	exports: [
 		ProductCardComponent,
@@ -29,6 +33,7 @@ import { SupplierCardComponent } from './supplier-card/supplier-card.component';
 		ProductCardActivitiesComponent,
 		SampleCardComponent,
 		SupplierCardComponent,
+		ProjectListCardComponent,
 	],
 	entryComponents: []
 })

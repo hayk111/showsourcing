@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
@@ -8,7 +8,7 @@ import {
 } from '~common/dialogs/custom-dialogs/supplier-request-dialog/supplier-request-dialog.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { ProductFeatureService } from '~features/products/services';
-import { ERM, Product, Sample, Task, Project } from '~models';
+import { ERM, Product, Project, Sample, Task } from '~models';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { NotificationService, NotificationType } from '~shared/notifications';
@@ -30,6 +30,9 @@ import { AutoUnsub, log } from '~utils';
 })
 export class ProductDetailsPageComponent extends AutoUnsub implements OnInit {
 	@Input() requestCount: number;
+	@ViewChild('main', { read: ElementRef, static: false }) main: ElementRef;
+	@ViewChild('rating', { read: ElementRef, static: false }) rating: ElementRef;
+
 	product: Product;
 	product$: Observable<Product>;
 
@@ -47,7 +50,7 @@ export class ProductDetailsPageComponent extends AutoUnsub implements OnInit {
 		private featureSrv: ProductFeatureService,
 		private dlgSrv: DialogService,
 		private notifSrv: NotificationService,
-		private thumbSrv: ThumbService,
+		private ratingSrv: ThumbService,
 		public dlgCommonSrv: DialogCommonService,
 		private translate: TranslateService
 	) {
@@ -143,12 +146,12 @@ export class ProductDetailsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	onThumbUp() {
-		const votes = this.thumbSrv.thumbUp(this.product);
+		const votes = this.ratingSrv.thumbUp(this.product);
 		this.updateProduct({ votes });
 	}
 
 	onThumbDown() {
-		const votes = this.thumbSrv.thumbDown(this.product);
+		const votes = this.ratingSrv.thumbDown(this.product);
 		this.updateProduct({ votes });
 	}
 
@@ -183,29 +186,52 @@ export class ProductDetailsPageComponent extends AutoUnsub implements OnInit {
 		}
 	}
 
+	/** navigate to project details */
 	openProjectDetails(project: Project) {
 		this.router.navigate(['projects', project.id || '']);
 	}
 
+	/** open preview */
 	openPreview() {
 		this.previewOpened = true;
 	}
 
+	/**
+	 * open task preview and sets sample to null
+	 * @param task
+	 */
 	openTaskPreview(task: Task) {
 		this.task = task;
 		this.sample = null;
 		this.openPreview();
 	}
-
+	/**
+	 * open sample preview and sets task to null
+	 * @param sample
+	 */
 	openSamplePreview(sample: Sample) {
 		this.sample = sample;
 		this.task = null;
 		this.openPreview();
 	}
 
+	/** close preview and sets task & sample to null */
 	closePreview() {
 		this.task = null;
 		this.sample = null;
 		this.previewOpened = false;
 	}
+
+	/** redirects to a page inside products and scroll into that view */
+	redirect(page: string) {
+		// if we dont scroll after the navigate, the navigation will stop the scroll mid-way
+		this.router.navigate(['products', this.product.id, page]).then(_ => {
+			this.main.nativeElement.scrollIntoView({ behavior: 'smooth' });
+		});
+	}
+
+	scrollToRating() {
+		this.rating.nativeElement.scrollIntoView({ behavior: 'smooth' });
+	}
+
 }
