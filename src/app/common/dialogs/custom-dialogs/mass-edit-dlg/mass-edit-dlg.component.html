@@ -7,7 +7,7 @@
 	<div class="container">
 		<h5 class="ms" translate="lable.property-update"></h5>
 		<selector-app
-			[type]="erm.PICKER_FIELD"
+			[type]="'PICKER_FIELD' | erm"
 			[width]="500"
 			[dynamicFields]="dynamicFields"
 			(update)="updateChoice($event)">
@@ -32,7 +32,7 @@
 						<h5 class="ms">{{ choice?.label || choice?.name }}</h5>
 						<status-selector-app
 							#statusSelector
-							[typeEntity]="erm.PRODUCT"
+							[typeEntity]="'PRODUCT' | erm"
 							type="multiple-selection"
 							[internalUpdate]="false"
 							[width]="460"

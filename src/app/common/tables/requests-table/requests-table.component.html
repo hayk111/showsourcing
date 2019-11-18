@@ -1,7 +1,7 @@
 <table-app
 	class="borderless"
 	[rows]="rows"
-	[type]="erm.SUPPLIER_REQUEST.singular"
+	[type]="'SUPPLIER_REQUEST' | erm: true"
 	[rowHeight]="rowHeight"
 	[hasHeader]="hasHeader"
 	[hasMenu]="hasMenu"

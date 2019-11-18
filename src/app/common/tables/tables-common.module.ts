@@ -12,7 +12,6 @@ import { SamplesTableComponent } from './samples-table/samples-table.component';
 import { SuppliersTableComponent } from './suppliers-table/suppliers-table.component';
 import { TasksTableComponent } from './tasks-table/tasks-table.component';
 
-
 @NgModule({
 	imports: [
 		CommonModule,

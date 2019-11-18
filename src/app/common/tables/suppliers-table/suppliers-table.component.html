@@ -114,7 +114,7 @@
 			<!-- country -->
 			<ng-container *ngSwitchCase="'country'">
 					<selector-app
-						[type]="erm.COUNTRY.singular"
+						[type]="'COUNTRY' | erm: true"
 						[offsetX]="4"
 						[width]="320"
 						(update)="update.emit({ id: row?.id, country: $event })">
@@ -130,7 +130,7 @@
 			<!-- product type -->
 			<ng-container *ngSwitchCase="'product type'">
 					<selector-app
-						[type]="erm.CATEGORY.singular"
+						[type]="'CATEGORY' | erm: true"
 						[offsetX]="4"
 						[value]="row?.categories"
 						[multiple]="true"
@@ -149,7 +149,7 @@
 			<!-- type row -->
 			<ng-container *ngSwitchCase="'type'">
 				<selector-app
-					[type]="erm.SUPPLIER_TYPE.singular"
+					[type]="'SUPPLIER_TYPE' | erm: true"
 					[width]="320"
 					[offsetX]="4"
 					(update)="update.emit({ id: row?.id, supplierType: $event })">
@@ -181,7 +181,7 @@
 			<!-- assignee -->
 			<ng-container *ngSwitchCase="'assignee'">
 					<selector-app
-						[type]="erm.USER.singular"
+						[type]="'USER' | erm: true"
 						[width]="320"
 						[offsetX]="4"
 						(update)="update.emit({ id: row?.id, assignee: $event })">
@@ -200,7 +200,7 @@
 			<!-- status -->
       <ng-container *ngSwitchCase="'status'">
 				<div class="status-col flexVAlign">
-					<status-selector-app [entity]="row" [typeEntity]="supplierErm" [canUpdate]="canUpdate" selectSize="m" (statusUpdated)="update.emit($event)"></status-selector-app>
+					<status-selector-app [entity]="row" [typeEntity]="'SUPPLIER' | erm" [canUpdate]="canUpdate" selectSize="m" (statusUpdated)="update.emit($event)"></status-selector-app>
 				</div>
 			</ng-container>
 		</ng-container>

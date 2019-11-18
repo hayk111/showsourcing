@@ -6,7 +6,7 @@
 
 		<selector-app
 			#sel
-			[type]="erm.USER.singular"
+			[type]="'USER' | erm: true"
 			[width]="320"
 			[offsetX]="4"
 			(update)="update.emit({ assignee: $event })">
@@ -23,7 +23,7 @@
 		<h3 class="title">Product Status</h3>
 		<span>
 			<status-selector-app
-				[typeEntity]="erm.PRODUCT"
+				[typeEntity]="'PRODUCT' | erm"
 				[entity]="product"
 				selectSize="m"
 				type="button">

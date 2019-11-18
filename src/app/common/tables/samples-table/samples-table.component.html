@@ -1,7 +1,7 @@
 <table-app
 	[class.no-min-height]="!hasMinHeight"
 	[rows]="rows"
-	[type]="erm.SAMPLE.singular"
+	[type]="'SAMPLE' | erm: true"
 	[pending]="pending"
 	[selected]="selection"
 	[contextualMenu]="contextualMenuTemplate"
@@ -91,7 +91,7 @@
 			<!-- assignee -->
 			<ng-container *ngSwitchCase="'assignee'">
 				<selector-app
-					[type]="erm.USER.singular"
+					[type]="'USER' | erm: true"
 					[width]="320"
 					[offsetX]="4"
 					(update)="update.emit({ id: row?.id, assignee: $event })">
@@ -110,7 +110,7 @@
 			<!-- product -->
 			<ng-container *ngSwitchCase="'product'">
 				<selector-app
-					[type]="erm.PRODUCT.singular"
+					[type]="'PRODUCT' | erm: true"
 					[offsetX]="4"
 					[width]="350"
 					(update)="update.emit({ id: row?.id, product: $event })">
@@ -129,7 +129,7 @@
 			<!-- supplier -->
 			<ng-container *ngSwitchCase="'supplier'">
 				<selector-app
-					[type]="erm.SUPPLIER.singular"
+					[type]="'SUPPLIER' | erm: true"
 					[width]="350"
 					[offsetX]="4"
 					(update)="update.emit({ id: row?.id, supplier: $event })">
@@ -160,7 +160,7 @@
 				<div class="status-col flexVAlign" [class.flexEnd]="tableConfigType === 'small'">
 					<status-selector-app 
 						[entity]="row" 
-						[typeEntity]="erm.SAMPLE" 
+						[typeEntity]="'SAMPLE' | erm"
 						selectSize="m"
 						(statusUpdated)="sampleSrv.onUpdateSampleList()"
 					></status-selector-app>
@@ -190,7 +190,7 @@
 			<!-- status + creation date -->
 			<ng-container *ngSwitchCase="'status creation date'">
 				<div class="flexVAlign flexEnd status-creation">
-					<status-selector-app size="s" [entity]="row" [typeEntity]="erm.SAMPLE"></status-selector-app>
+					<status-selector-app size="s" [entity]="row" [typeEntity]="'SAMPLE' | erm"></status-selector-app>
 					<div>{{ row?.creationDate | date: 'dd MMMM y':'':translate.currentLang }}</div>
 				</div>
 			</ng-container>
