@@ -35,7 +35,7 @@ import { FiltersModule } from './filters/filters.module';
 import { HeaderListModule } from './header/header.module';
 import { InputsCustomModule } from './inputs-custom/inputs-custom.module';
 import { KanbanModule } from './kanban/kanban.module';
-import { LogoNavModule } from './logo-nav/logo-nav.module';
+import { LogoModule } from './logo/logo.module';
 import { MoqModule } from './moq/moq.module';
 import { NotifModule } from './notif/notif.module';
 import { NotificationsModule } from './notifications/notifications.module';
@@ -93,7 +93,7 @@ const modules = [
 	KanbanModule,
 	ListModule,
 	LoadersModule,
-	LogoNavModule,
+	LogoModule,
 	MoqModule,
 	NotifModule,
 	NotificationsModule,

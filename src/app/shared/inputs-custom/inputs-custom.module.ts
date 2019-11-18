@@ -14,6 +14,7 @@ import { BadgeSelectorComponent } from './components/badge-selector/badge-select
 import { InputBadgeSelectorComponent } from './components/input-badge-selector/input-badge-selector.component';
 import { InputDescriptionComponent } from './components/input-description/input-description.component';
 import { InputPriceInlineComponent } from './components/input-price-inline/input-price-inline.component';
+import { LogoModule } from '~shared/logo';
 
 @NgModule({
 	imports: [
@@ -22,6 +23,7 @@ import { InputPriceInlineComponent } from './components/input-price-inline/input
 		ReactiveFormsModule,
 		SelectorsModule,
 		IconsModule,
+		LogoModule,
 		UtilsModule,
 		InputsModule,
 		EditableFieldModule,

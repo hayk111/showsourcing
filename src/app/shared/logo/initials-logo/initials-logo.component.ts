@@ -4,12 +4,12 @@ import { AppImage, Supplier } from '~core/models';
 import { UploaderService } from '~shared/file/services/uploader.service';
 
 @Component({
-	selector: 'preview-logo-app',
-	templateUrl: './preview-logo.component.html',
-	styleUrls: ['./preview-logo.component.scss'],
+	selector: 'initials-logo-app',
+	templateUrl: './initials-logo.component.html',
+	styleUrls: ['./initials-logo.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PreviewLogoComponent {
+export class InitialsLogoComponent {
 
 	private _supplier: Supplier;
 	@Input() set supplier(supplier: Supplier) {

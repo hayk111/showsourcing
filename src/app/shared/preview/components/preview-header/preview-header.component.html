@@ -1,13 +1,13 @@
 <!-- since the supplier is the only one with logo if we want the displayEntityInfo = false, we still have to display the logo -->
 <div *ngIf="displayEntityInfo || hasLogo" class="top-section flexBetween">
 	<div class="left flex">
-		<preview-logo-app
+		<initials-logo-app
 			*ngIf="hasLogo"
 			[ngClass]="{ 'mg-bottom': (hasLogo && !displayEntityInfo ) }"
 			[image]="logoImage"
 			[supplier]="supplier"
 			(updateLogo)="updateLogo.emit($event)">
-		</preview-logo-app>
+		</initials-logo-app>
 	<ng-container *ngIf="displayEntityInfo">
 		<logo-app class="icon-logo" [type]="entityMD?.singular" size="xs"></logo-app>
 		<span>{{ entity?.reference }}</span>
