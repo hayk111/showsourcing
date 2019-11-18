@@ -4,8 +4,11 @@
 		<initials-logo-app
 			*ngIf="hasLogo"
 			[ngClass]="{ 'mg-bottom': (hasLogo && !displayEntityInfo ) }"
+			size="xl"
 			[image]="logoImage"
-			[supplier]="supplier"
+			[name]="supplier?.name"
+			[type]="'supplier'"
+			[entity]="supplier"
 			(updateLogo)="updateLogo.emit($event)">
 		</initials-logo-app>
 	<ng-container *ngIf="displayEntityInfo">
