@@ -12,12 +12,13 @@ export const routes: Array<Route> = [
 		path: ':id',
 		component: DetailsPage.SupplierDetailsPageComponent,
 		children: [
+			{ path: '', redirectTo: 'activity', pathMatch: 'full' },
 			{ path: 'activity', component: DetailsPage.ActivityPageComponent },
 			{ path: 'products', component: DetailsPage.ProductsPageComponent },
 			{ path: 'samples', component: DetailsPage.SamplesPageComponent },
 			{ path: 'tasks', component: DetailsPage.TasksPageComponent },
 			{ path: 'files', component: DetailsPage.FilesPageComponent },
-			{ path: '', redirectTo: 'activity', pathMatch: 'full' }
+			{ path: 'requests', component: DetailsPage.FilesPageComponent },
 		]
 	}
 ];

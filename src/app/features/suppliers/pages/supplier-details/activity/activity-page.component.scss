@@ -6,13 +6,10 @@
 	justify-content: center;
 
 	.left {
-		width: 772px;
+		width: 836px;
+		margin-right: var(--spacing-l);
 	}
 	.right {
-		width: 420px;
+		width: 340px;
 	}
-}
-
-divider-app {
-	margin: var(--spacing-l) 0;
 }
