@@ -1,0 +1,93 @@
+
+<card-app>
+	<h3 class="mg-l">Buttons</h3>
+
+	<table>
+		<thead>
+			<td>Colors</td>
+			<td>default</td>
+			<td>light</td>
+			<td>icon</td>
+			<td>icon.light</td>
+			<td>icon-with-text</td>
+			<td>icon-with-text.light</td>
+		</thead>
+		<tbody>	
+			<!-- defautls -->
+			<tr>
+				<td>Default</td>
+				<td><button>default</button></td>
+				<td><button class="light">default</button></td>
+				<td><button class="icon"><icon-app name="star"></icon-app></button></td>
+				<td><button class="icon light mg-left-s"><icon-app name="heart"></icon-app></button></td>
+				<td><button class="icon-with-text"><icon-app name="share"></icon-app>Share</button></td>
+				<td><button class="icon-with-text light"><icon-app name="plane"></icon-app>Send</button></td>
+			</tr>
+			<!-- customs -->
+			<tr *ngFor="let color of colors">
+				<td>
+					{{ color }}
+				</td>
+				<td>
+					<button class="{{ color }}">default</button> 
+				</td>		
+				<td>
+					<button class="{{ color }}-light">light</button> 
+				</td>
+				<td>
+					<button class="icon {{ color }}">
+						<icon-app name="star"></icon-app>
+					</button>
+				</td>
+				<td>
+					<button class="icon mg-left-s {{ color }}-light">
+						<icon-app name="heart"></icon-app>
+					</button>
+				</td>
+				<td>
+					<button class="icon-with-text {{ color }}">
+						<icon-app name="share"></icon-app>
+						<span>Share</span>
+					</button>
+				</td>
+				<td>
+					<button class="icon-with-text {{ color }}-light">
+						<icon-app name="plane"></icon-app>
+						<span>Send</span>
+					</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<h3 class="mg-top-l mg-bottom-s">sizes</h3>
+	<p>
+		<small>default</small><br>
+		<button class="icon primary">
+			<icon-app name="star"></icon-app>
+		</button>
+	</p>
+	<p>
+		<small>big</small><br>
+		<button class="icon big primary">
+			<icon-app name="star"></icon-app>
+		</button>
+	</p>
+
+	<h3 class="mg-top-l mg-bottom-s">Special classes</h3>
+	<p class="mg-bottom-l">
+		<small>hoverable, clickable</small><br/>
+		<span class="clickable">this text is clickable</span>
+	</p>
+	<p class="mg-bottom-l">
+		<small>txt-btn</small><br/>
+		<span class="txt-btn">this text is a text btn</span>
+	</p>
+	<p class="mg-bottom-l">
+		<small>txt-btn.color-primary</small><br/>
+		<span class="txt-btn color-primary">this text is a text btn</span>
+	</p>
+	
+
+
+</card-app>

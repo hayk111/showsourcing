@@ -14,7 +14,7 @@
 		</p>
 	</div>
 	<ng-container *ngIf="product?.projects?.length as numProjects">
-		<icon-app class="fs-s" fontSet="svg" name="folder-light"></icon-app>
+		<icon-app class="fs-s" name="folder"></icon-app>
 		<p class="numbers color-{{colorTxt}}">
 			{{ ((numProjects || 0) > 1 ? 'OBJ.n-project.plural' : 'OBJ.n-project.singular') | translate: {count: numProjects || 0} }}
 		</p>

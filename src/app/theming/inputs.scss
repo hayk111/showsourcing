@@ -84,21 +84,6 @@ form-field-app.borderless {
 	}
 }
 
-form-field-app.boarding {
-
-	label-app {
-		font-size: var(--font-size-l);
-		font-weight: 600;
-	}
-
-	input {
-		margin-top: var(--spacing-m);
-		font-size: var(--font-size-l);
-		height: 50px;
-		padding: var(--spacing-m);
-	}
-}
-
 form-field-app.field-focused {
 	label-app {
 		color: var(--color-primary);

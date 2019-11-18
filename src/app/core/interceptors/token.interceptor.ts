@@ -35,6 +35,7 @@ export class TokenInterceptor implements HttpInterceptor {
 	}
 
 	private onError(error: Error, request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+
 		// We don't want to refresh token for some requests like login or refresh token itself
 		// So we verify url and we throw an error if it's the case
 		if (request.url.startsWith(`${environment.apiUrl}/user`)) {
@@ -51,7 +52,6 @@ export class TokenInterceptor implements HttpInterceptor {
 		if (!(error instanceof HttpErrorResponse) || error.status !== 401) {
 			return throwError(error);
 		}
-
 		if (this.refreshTokenInProgress) {
 			// If refreshTokenInProgress is true, we will wait until refreshTokenSubject has a non-null value
 			// – which means the new token is ready and we can retry the request again
