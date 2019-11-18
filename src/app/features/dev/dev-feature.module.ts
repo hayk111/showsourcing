@@ -33,6 +33,7 @@ import { routes } from './routes';
 		Pages.GuidelinesComponent,
 		Pages.SelectorPageComponent,
 		Pages.ListComponent,
+		Pages.InputPageComponent,
 		Pages.KanbanPageComponent,
 		Pages.ProductCardPageComponent,
 		Pages.LoaderPageComponent,
