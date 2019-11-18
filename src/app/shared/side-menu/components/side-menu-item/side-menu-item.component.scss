@@ -7,8 +7,8 @@ article {
 }
 
 article.selected {
-	background: var(--legacy-color-primary);
-	color: var(--legacy-color-primary-contrast);
+	background: var(--color-primary);
+	color: var(--color-primary-contrast);
 }
 
 article:not(.selected):hover {

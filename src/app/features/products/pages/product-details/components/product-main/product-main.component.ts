@@ -10,7 +10,6 @@ import { Product } from '~core/models';
 export class ProductMainComponent {
 	@Input() product: Product;
 
-
 	getCount(type: string) {
 		if (!this.product)
 			return;

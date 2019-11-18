@@ -76,14 +76,14 @@
 
 			<!-- name + reference -->
 			<ng-container *ngSwitchCase="'reference name'">
-				<div class="flex">
-					<span class="sample-ref ellipsis mg-right-ms">
+				<div class="flex ellipsis">
+					<span class="sample-ref mg-right-ms">
 						<a class="name txt-btn" (click)="previewClick.emit(row)">
-							{{ row.reference || '-' }}
+							{{ row?.reference || '-' }}
 						</a>
 					</span>
 					<div class="sample-name-ref txt-btn" (click)="previewClick.emit(row)">
-						{{ row.name || '-' }}
+						{{ row?.name || '-' }}
 					</div>
 				</div>
 			</ng-container>

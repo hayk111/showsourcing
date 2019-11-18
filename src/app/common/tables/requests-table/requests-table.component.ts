@@ -12,7 +12,7 @@ const tableConfig: TableConfig = {
 	status: { name: 'status', translationKey: 'status', width: 175, sortProperty: 'status' },
 	sentOn: { name: 'sent on', translationKey: 'sent-on', width: 175, sortProperty: 'sentDate' },
 	sender: { name: 'sender', translationKey: 'sender', width: 175, sortProperty: 'sender.name' },
-	statusCreateInfo: { name: 'status templateName createInfo', translationKey: '', width: 180, sortable: false },
+	statusCreateInfo: { name: 'status templateName createInfo', translationKey: '', width: 450, sortable: false },
 };
 
 @Component({

@@ -17,7 +17,7 @@ ul {
     position: absolute;
     padding-top: 48px;
     margin-left: var(--spacing-l);
-		border-bottom: 1px solid var(--legacy-color-divider);
+		border-bottom: 1px solid var(--color-divider);
 	}
 }
 
@@ -26,11 +26,11 @@ ul {
 	align-items: center;
 	font-weight: 600;
 	// &.border{
-	// 	border-bottom: 1px solid var(--legacy-color-divider);
+	// 	border-bottom: 1px solid var(--color-divider);
 	// }
 	&:hover {
-		background: var(--legacy-color-secondary-light);
-		color: var(--legacy-color-primary);
+		background: var(--color-secondary-light);
+		color: var(--color-primary);
 	}
 }
 

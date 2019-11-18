@@ -17,16 +17,16 @@
 
 	&.task-done {
 		color: white;
-		background: var(--legacy-color-success);
+		background: var(--color-success);
 	}
 
 	&.task-overdue {
 		color: white;
-		background: var(--legacy-color-warn);
+		background: var(--color-warn);
 	}
 
 	&.task-pending {
-		background: var(--legacy-color-secondary);
+		background: var(--color-secondary);
 	}
 
 	.task-mark {

@@ -5,7 +5,7 @@ form {
 
 
 p.error {
-	color: var(--legacy-color-warn);
+	color: var(--color-warn);
 }
 
 .logo {
@@ -16,7 +16,7 @@ p.error {
 	font-family: var(--font-normal);
   font-size: 28px;
 	font-weight: 600;
-	color: var(--legacy-color-txt-strong);
+	color: var(--color-txt-primary);
 	margin-bottom: var(--spacing-ms);
 }
 

@@ -45,7 +45,8 @@ import { routes } from './routes';
 		Pages.ButtonPageComponent,
 		Pages.AccordionPageComponent,
 		Pages.PlaygroundPageComponent,
-		Pages.EditableContainerPageComponent
+		Pages.EditableContainerPageComponent,
+		Pages.InputPageComponent
 	],
 	exports: [],
 	providers: []

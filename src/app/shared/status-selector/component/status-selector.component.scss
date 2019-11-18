@@ -19,7 +19,7 @@ context-menu-app {
 	border-bottom-right-radius: var(--border-radius);
 
 	.new {
-		color: var(--legacy-color-txt-primary);
+		color: var(--color-txt-primary);
 	}
 }
 
@@ -43,7 +43,7 @@ context-menu-app {
 
 badge-app.task {
 	text-transform: capitalize;
-	color: var(--legacy-color-txt-strong);
+	color: var(--color-txt-primary);
 
 	icon-app[name="circle"] {
 		padding: var(--spacing-xs);

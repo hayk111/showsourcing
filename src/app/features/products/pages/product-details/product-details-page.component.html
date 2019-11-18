@@ -10,22 +10,43 @@
 	</product-header-details-app>
 
 	<product-sub-header-details-app
-		[product]="product">
+		[product]="product"
+		(updated)="updateProduct($event)"
+		(redirect)="redirect($event)"
+		(ratingClicked)="scrollToRating()">
 	</product-sub-header-details-app>
 
 	<div class="flex ctnr">
 		<div class="left">
+			<!-- docket card -->
 			<product-docket-app
 				[product]="product"
 				(update)="updateProduct($event)"
 				(addTask)="dlgCommonSrv.openCreationTaskDlg(product)"
 				(addSample)="dlgCommonSrv.openCreationSampleDialog(product)"
 				(previewSample)="openSamplePreview($event)"
-				(previewTask)="openTaskPreview($event)"
-				(openProject)="openProjectDetails($event)">
+				(previewTask)="openTaskPreview($event)">
 			</product-docket-app>
+
+			<!-- rating card -->
+			<card-app #rating class="mg-top-l">
+				<h3 class="l">Team Rating</h3>
+				<rating-dashboard-app
+					[votes]="product?.votes"
+					(viewRatings)="dlgCommonSrv.openVoteDetailsDialog($event)"
+					(update)="updateProduct({ id: product?.id, votes: $event })">
+				</rating-dashboard-app>
+			</card-app>
+
+			<!-- Project card -->
+			<project-list-card-app
+				[projects]="product?.projects"
+				(update)="updateProduct({ id: product?.id, projects: $event })"
+				(projectClicked)="openProjectDetails($event)">
+			</project-list-card-app>
+
 		</div>
-		<product-main-app [product]="product" class="right"></product-main-app>
+		<product-main-app #main class="right" [product]="product"></product-main-app>
 	</div>
 </ng-container>
 
@@ -34,6 +55,8 @@
 		<spinner-app></spinner-app>
 	</div>
 </ng-template>
+
+<!-- previews -->
 
 <sample-preview-app
 	*ngIf="previewOpened && sample"

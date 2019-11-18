@@ -120,7 +120,7 @@ export class NotificationBadgeDirective implements OnChanges {
 		const contentClass = 'notif-badge-content';
 		const backgroundClass = this._isColorLight ? `bg-${this.badgeColor}-light` : `bg-${this.badgeColor}`;
 		const colorClass = this._isColorLight ? `color-${this.badgeColor}` : 'color-white';
-		const borderClass = this._hasBorder ? 'notif-badge-white-border' : '';
+		const borderClass = this._hasBorder ? 'notif-badge-white-border' : 'no-border';
 
 		badgeElement.setAttribute('color', this.badgeColor);
 		// Clear any existing badges which may have persisted from a server-side render.

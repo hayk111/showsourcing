@@ -14,7 +14,6 @@ export class ProductDocketComponent {
 	@Output() addSample = new EventEmitter<undefined>();
 	@Output() previewTask = new EventEmitter<Task>();
 	@Output() previewSample = new EventEmitter<Sample>();
-	@Output() openProject = new EventEmitter<Project>();
 
 	constructor() { }
 

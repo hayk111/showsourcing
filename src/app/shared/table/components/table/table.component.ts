@@ -135,7 +135,7 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	}
 
 	getHeaderBorder(): string {
-		return this.hasHeaderBorder ? '1px solid var(--legacy-color-divider)' : 'none';
+		return this.hasHeaderBorder ? '1px solid var(--color-divider)' : 'none';
 	}
 
 	onSelectOne(entity: any) {

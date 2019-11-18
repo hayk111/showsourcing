@@ -3,7 +3,7 @@
 	display: block;
 	cursor: pointer;
 	padding: var(--spacing-s);
-  border: 1px solid var(--legacy-color-divider);
+  border: 1px solid var(--color-divider);
 	border-radius: var(--border-radius);
 	display: flex;
 	justify-content: space-between;
@@ -11,8 +11,8 @@
 
 	&.disabled {
 		cursor: default;
-		background: var(--legacy-color-secondary-light);
-		color: var(--legacy-color-txt-strong);
+		background: var(--color-secondary-light);
+		color: var(--color-txt-primary);
 	}
 
 	&.cdk-focused.cdk-keyboard-focused .container {
@@ -25,11 +25,11 @@
 }
 
 .place-holder {
-	color: var(--legacy-color-txt-secondary);
+	color: var(--color-txt-secondary);
 	font-style: italic;
 }
 
 icon-app {
 	font-size: 4px;
-	color: var(--legacy-color-secondary-dark);
+	color: var(--color-secondary-dark);
 }

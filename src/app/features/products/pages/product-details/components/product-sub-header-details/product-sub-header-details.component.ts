@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Product } from '~models';
 
 @Component({
@@ -10,10 +10,17 @@ import { Product } from '~models';
 export class ProductSubHeaderDetailsComponent implements OnInit {
 
 	@Input() product: Product;
+	@Output() updated = new EventEmitter<Product>();
+	@Output() redirect = new EventEmitter<string>();
+	@Output() ratingClicked = new EventEmitter<undefined>();
 
 	constructor() { }
 
 	ngOnInit() {
+	}
+
+	update(value: any, prop: string) {
+		this.updated.emit({ id: this.product.id, [prop]: value });
 	}
 
 }
