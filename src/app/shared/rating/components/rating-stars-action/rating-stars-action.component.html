@@ -1,7 +1,7 @@
 <icon-app
 	*ngFor="let value of stars; index as index; last as last"
 	class="star"
-	[ngClass]="{ 'pd-right-s': !last }"
+	[ngClass]="{ 'pd-right-ms': !last }"
 	name="star"
 	(mouseenter)="changeStarsColor(index + 1)"
 	(mouseleave)="changeStarsColor(sliceIndexStar)"

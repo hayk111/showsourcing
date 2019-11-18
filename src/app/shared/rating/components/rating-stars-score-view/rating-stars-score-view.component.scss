@@ -8,16 +8,16 @@
 	justify-content: center;
 
 	.number-score {
-		font-size: 58px;
+		font-size: 36px;
 		color: var(--color-txt-primary);
 		font-weight: 600;
+		height: 45px;
 		line-height: 1;
 	}
 
 	.number-votes {
 		font-size: var(--font-size-s);
 		line-height: 1;
-    margin-bottom: 16px;
 	}
 }
 

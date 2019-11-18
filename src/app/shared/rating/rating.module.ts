@@ -1,11 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
+import { DividerModule } from '~shared/divider/divider.module';
 import { IconsModule } from '~shared/icons/icons.module';
 import { UtilsModule } from '~shared/utils';
-import { TranslateModule } from '@ngx-translate/core';
 
 import {
 	RatingCylinderComponent,
+	RatingDashboardComponent,
 	RatingHeartComponent,
 	RatingStarsActionComponent,
 	RatingStarsScoreViewComponent,
@@ -17,21 +19,22 @@ import {
 		CommonModule,
 		IconsModule,
 		UtilsModule,
-		TranslateModule
+		TranslateModule,
+		DividerModule
 	],
 	declarations: [
 		ThumbButtonsComponent,
 		RatingHeartComponent,
 		RatingCylinderComponent,
 		RatingStarsScoreViewComponent,
-		RatingStarsActionComponent
+		RatingStarsActionComponent,
+		RatingDashboardComponent
 	],
 	exports: [
 		ThumbButtonsComponent,
 		RatingHeartComponent,
 		RatingCylinderComponent,
-		RatingStarsScoreViewComponent,
-		RatingStarsActionComponent
+		RatingDashboardComponent
 	]
 })
 export class RatingModule { }

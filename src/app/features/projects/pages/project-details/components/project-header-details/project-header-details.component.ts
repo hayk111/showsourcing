@@ -9,10 +9,10 @@ import { ProductService } from '~entity-services';
 import { switchMap } from 'rxjs/operators';
 
 @Component({
-  selector: 'project-header-details-app',
-  templateUrl: './project-header-details.component.html',
-  styleUrls: ['./project-header-details.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+	selector: 'project-header-details-app',
+	templateUrl: './project-header-details.component.html',
+	styleUrls: ['./project-header-details.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProjectHeaderDetailsComponent extends AutoUnsub implements OnInit {
 

@@ -1,7 +1,6 @@
 <editable-container-app
 	#editablePrice
 	class="price"
-	[defaultStyle]="false"
 	[hasAction]="false"
 	(closed)="updateProductField($event, inpPrice.price, 'price')"
 	(opened)="inpPrice.select()"
@@ -20,7 +19,6 @@
 <editable-container-app
 	#editableMOQ
 	class="moq"
-	[defaultStyle]="false"
 	[hasAction]="false"
 	(closed)="updateProductField($event, inputMOQ.value, 'minimumOrderQuantity')"
 	(opened)="inputMOQ.select()"

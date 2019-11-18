@@ -36,6 +36,7 @@
 	// sizes
 	&.small {
 		height: 15px;
+		min-width: 15px;
 		padding: 0 2px;
 		font-size: var(--font-size-s);
 		border-radius: var(--border-radius-s);
