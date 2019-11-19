@@ -42,7 +42,6 @@ export class InitialsLogoComponent implements AfterViewInit {
 	) { }
 
 	ngAfterViewInit() {
-		// we choose the background color using the colors set on the logo-app
 		const color = colorMap[this.type] || 'secondary';
 		const size = sizeMap[this.size] || sizeMap.m;
 		this.render.setStyle(this.hostElement.nativeElement, 'height', `${size.background}px`);
@@ -57,8 +56,8 @@ export class InitialsLogoComponent implements AfterViewInit {
 
 	private setInitials(text?: string) {
 		if (text) {
-			// we just take the first 3 separate strings
-			const splitName = text.split(' ', 3);
+			// we just take the first 4 separate strings
+			const splitName = text.split(' ', 4);
 			this.initials = splitName.map(char => char.length ? char[0] : '').join('');
 		} else {
 			this.initials = '-';
