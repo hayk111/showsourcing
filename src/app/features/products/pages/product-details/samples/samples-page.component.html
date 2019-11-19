@@ -33,7 +33,7 @@
 		(click)="dialogCommonSrv.openCreationSampleDialog(product)">
 		Create sample
 	</button>
-	<divider-app [vertical]="true"></divider-app>
+	<divider-app *ngIf="(listSrv.selection$ | async).size > 0" [vertical]="true"></divider-app>
 	<button
 		*ngIf="(listSrv.selection$ | async).size > 0"
 		class="warn-light"

@@ -14,6 +14,8 @@
 .stars-empty::before {
 	content: "\e94f \e94f \e94f \e94f \e94f";
 	letter-spacing: 2px;
+	// border for fonts
+	text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
 }
 
 .stars-full {
@@ -27,6 +29,8 @@
 }
 
 .stars-full::before {
+	content: "\e94f \e94f \e94f \e94f \e94f";
 	letter-spacing: 2px;
-  content: "\e94f \e94f \e94f \e94f \e94f";
+	// border for fonts
+	text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
 }
