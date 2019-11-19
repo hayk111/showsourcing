@@ -4,20 +4,22 @@
 	infiniScroll
 	cdk-scrollable
 	(bottomReached)="bottomReached.emit()">
+
 	<div class="contentCtnr" [ngStyle]="{ width: width ? width + 'px' : getWidth() + 'px' }">
+
 		<!-- empty column for space between border bottom and side -->
 		<div *ngIf="hasHeader" class="col empty-border">
 			<div
 				class="header"
-				[style.height]="rowHeight + 'px'"
-				[ngStyle]="headerSecondary && {'background': 'var(--color-bg-secondary)', 'border-bottom': getHeaderBorder()}">
+				[style.height]="rowHeight + 'px'">
 			</div>
 			<div
 				*ngFor="let row of rows; index as i; trackBy: trackByIdentify"
 				class="cell"
 				[ngClass]="{ selected: (i === hoverIndex) || isSelected(row, i) }"
 				[style.height]="rowHeight + 'px'"
-				(mouseenter)="hoverRow(i)" (mouseleave)="hoverRow(-1)"></div>
+				(mouseenter)="hoverRow(i)" (mouseleave)="hoverRow(-1)">
+			</div>
 		</div>
 
 		<!-- selection column -->
@@ -26,8 +28,7 @@
 			class="col selectionCol"
 			[style.height]="rowHeight + 'px'">
 			<div *ngIf="hasHeader" class="header"
-				[style.height]="rowHeight + 'px'"
-				[ngStyle]="headerSecondary && {'background': 'var(--color-bg-secondary)', 'border-bottom': getHeaderBorder()}">
+				[style.height]="rowHeight + 'px'">
 				<ng-container>
 					<checkbox-app [checked]="isAllSelected()" (check)="onSelectAll(rows)" (uncheck)="onUnselectAll()"></checkbox-app>
 				</ng-container>
@@ -60,7 +61,6 @@
 				class="header {{ column.sortable ? 'pointer' : 'defaultCursor'}} capitalize"
 				[class.sorted]="currentSort?.sortBy === column?.sortBy"
 				[style.height]="rowHeight + 'px'"
-				[ngStyle]="headerSecondary && {'background': 'var(--color-bg-secondary)', 'border-bottom': getHeaderBorder()}"
 				(click)="onSort(column)">
 				{{ column.title }}
 				<ng-container *ngIf="column.sortOrder !== 'NONE'">

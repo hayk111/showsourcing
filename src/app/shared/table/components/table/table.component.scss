@@ -3,7 +3,8 @@
 	position: relative;
 	background: var(--color-bg);
 	overflow: hidden;
-
+	border: 1px solid var(--color-divider);
+	height: 100%;
 	&.no-min-height .ctnr {
 		min-height: unset;
 	}
@@ -13,8 +14,7 @@
 	position: relative;
 	box-sizing: border-box;
 	overflow: auto;
-	// so spinner shows
-	min-height: 200px;
+	height: calc(100% - 50px);
 	// pagination
 	display: flex;
 	flex-direction: column;
@@ -87,6 +87,7 @@
 	text-transform: capitalize;
 	font-weight: 600;
 	font-size: 14px;
+	background: var(--color-bg-secondary);
 }
 
 .selected {
@@ -119,13 +120,8 @@
 }
 
 .empty-border {
-	.header {
-		// this border need to be transparent so the height doesn't get affected (since on the other places we have a border
-		border-bottom: 1px solid transparent;
-	}
-
 	.cell {
-		border-bottom: 1px solid var(--color-bg-third);
+		border-bottom: 1px solid transparent;
 	}
 	.cell, .header {
 		padding: 0;

@@ -3,14 +3,7 @@
 	// if we put a margin here, the style will look wrong
 	// margin: 0 var(--spacing-l);
 	box-sizing: border-box;
-	margin: 0 var(--spacing-l) var(--spacing-l) var(--spacing-l);
-	background: var(--color-bg);
-
-	&.no-padding {
-		padding: 0;
-		// we want to keep always the bottom one cause of the selection
-		padding-bottom: var(--spacing-l);
-	}
+	height: 100%;
 }
 
 editable-display-app {

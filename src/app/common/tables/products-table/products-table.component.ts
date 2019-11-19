@@ -40,8 +40,6 @@ export class ProductsTableComponent extends EntityTableComponent<Product> implem
 	columns = ['reference', 'price', 'moq', 'supplier', 'category', 'assignee', 'status', 'activities', 'createdBy', 'createdOn'];
 	@Input() tableWidth: number;
 	@Input() hasVerticalScroll: boolean;
-	@Input() headerSecondary: boolean;
-	@Input() hasHeaderBorder: boolean;
 	@Input() hasShowItemsPerPage: boolean;
 	@Input() tableConfigType: TableConfigType = 'big';
 	@Output() setFavourite = new EventEmitter<Product>();

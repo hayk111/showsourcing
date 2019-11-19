@@ -25,12 +25,10 @@ const tableConfig: TableConfig = {
 export class ProjectsTableComponent extends EntityTableComponent<Project> {
 
 	@Input() navigation = true;
-	@Input() headerSecondary: boolean;
-	@Input() hasHeaderBorder: boolean;
 
 	@Output() showItemsPerPage = new EventEmitter<number>();
 
-	// TODO Backend deudate
+	// TODO Backend duedate
 	// columns = ['name', 'owner', 'dueDate', 'status', 'createdBy', 'creationDate'];
 	columns = ['name', 'owner', 'status', 'createdBy', 'creationDate'];
 	tableConfig = tableConfig;

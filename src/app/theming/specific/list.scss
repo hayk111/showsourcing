@@ -2,10 +2,7 @@
 
 :host {
 	display: flex;
-	// if we put a margin here, the style will look wrong
-	// margin: 0 var(--spacing-l);
 	box-sizing: border-box;
-	padding: var(--spacing-l);
 	background: white;
 
 	&.no-padding {

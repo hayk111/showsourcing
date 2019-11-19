@@ -35,10 +35,6 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	@Input() hasMenu = true;
 	/** whether the table has header row */
 	@Input() hasHeader = true;
-	/** whether the table header has background color secondary */
-	@Input() headerSecondary = false;
-	/** whether the table header has bottom border */
-	@Input() hasHeaderBorder = false;
 	/** whether the table has vertical scroll */
 	@Input() hasVerticalScroll = false;
 	/** the placeholder text if no element displayed in the table */
@@ -132,10 +128,6 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 			width += typeof (column.width) === 'string' ? parseInt(column.width) : column.width;
 		});
 		return width;
-	}
-
-	getHeaderBorder(): string {
-		return this.hasHeaderBorder ? '1px solid var(--color-divider)' : 'none';
 	}
 
 	onSelectOne(entity: any) {
