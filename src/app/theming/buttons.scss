@@ -142,6 +142,6 @@ button:disabled, input[type="submit"]:disabled {
 	transition: 0.3s;
 	cursor: pointer;
 	&:hover {
-		background: var(--color-bg-third);
+		background: var(--color-bg-secondary);
 	}
 }
