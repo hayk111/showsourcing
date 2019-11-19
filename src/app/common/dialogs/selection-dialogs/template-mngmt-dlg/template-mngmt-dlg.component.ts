@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, V
 import { FormControl } from '@angular/forms';
 import { Observable, ReplaySubject } from 'rxjs';
 import { distinctUntilKeyChanged, switchMap, takeUntil, tap } from 'rxjs/operators';
-import { TemplateMngmtService } from '~common/modals/services/template-mngmt.service';
+import { TemplateMngmtService } from '~common/dialogs/services/template-mngmt.service';
 import { RequestTemplate, TemplateField } from '~core/models';
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
@@ -72,7 +72,7 @@ export class TemplateMngmtDlgComponent extends AutoUnsub implements OnInit {
 		).subscribe(({ allFields, inTemplate }) => {
 			this.pending = false;
 			this.initialAllFields = allFields;
-			this.allFields = allFields.map(f => ({...f })); // copies
+			this.allFields = allFields.map(f => ({ ...f })); // copies
 			this.initialInTemplate = inTemplate;
 			this.inTemplate = new Map(inTemplate);
 			this.cd.markForCheck();
@@ -127,7 +127,7 @@ export class TemplateMngmtDlgComponent extends AutoUnsub implements OnInit {
 
 	save() {
 		const fields = this.allFields
-		.filter(field => this.inTemplate.get(field.id));
+			.filter(field => this.inTemplate.get(field.id));
 
 		fields.forEach(f => {
 			// if its an object we stirngify if not we keep the value
@@ -141,7 +141,7 @@ export class TemplateMngmtDlgComponent extends AutoUnsub implements OnInit {
 		});
 		this._templateSelected = { ...this.templateSelected, fields };
 		this.templateMngmtSrv.updateTemplate({ id: this.templateSelected.id, fields }).subscribe();
-		this.initialAllFields = this.allFields.map(f => ({...f }));
+		this.initialAllFields = this.allFields.map(f => ({ ...f }));
 		this.initialInTemplate = new Map(this.inTemplate);
 	}
 

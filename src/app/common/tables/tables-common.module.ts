@@ -11,6 +11,7 @@ import { RequestsTableComponent } from './requests-table/requests-table.componen
 import { SamplesTableComponent } from './samples-table/samples-table.component';
 import { SuppliersTableComponent } from './suppliers-table/suppliers-table.component';
 import { TasksTableComponent } from './tasks-table/tasks-table.component';
+import { TemplateFieldsTableComponent } from './template-fields-table/template-fields-table.component';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { TasksTableComponent } from './tasks-table/tasks-table.component';
 		SamplesTableComponent,
 		SuppliersTableComponent,
 		TasksTableComponent,
+		TemplateFieldsTableComponent,
 	],
 	exports: [
 		AttachmentsTableComponent,
@@ -38,6 +40,7 @@ import { TasksTableComponent } from './tasks-table/tasks-table.component';
 		SamplesTableComponent,
 		SuppliersTableComponent,
 		TasksTableComponent,
+		TemplateFieldsTableComponent,
 	],
 	entryComponents: []
 })

@@ -1,6 +1,7 @@
-import { Component, Output, EventEmitter, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { EntityTableComponent, TableConfig } from '~core/list-page/entity-table.component';
-import { ERM, TemplateField, ExtendedFieldDefinition } from '~models';
+import { ERM, TemplateField } from '~models';
+import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
 import { DynamicUpdate } from '~shared/dynamic-forms/models/dynamic-update.interface';
 
 const tableConfig: TableConfig = {
@@ -15,13 +16,16 @@ const tableConfig: TableConfig = {
 	templateUrl: './template-fields-table.component.html',
 	styleUrls: [
 		'./template-fields-table.component.scss',
-		'../../../../../app/theming/specific/list.scss'
+		'../../../../app/theming/specific/list.scss'
 	]
 })
 export class TemplateFieldsTableComponent extends EntityTableComponent<TemplateField> {
+
+	@Input() inTemplate = new Map<string, boolean>();
+	@Input() config =
+		new DynamicFormConfig({ objectAsString: true, borderless: true, hasAction: false, hasLabel: false, showComplexTypes: false });
 	@Output() addField = new EventEmitter<TemplateField>();
 	@Output() removeField = new EventEmitter<TemplateField>();
-	@Input() inTemplate = new Map<string, boolean>();
 	columns = ['name', 'defaultValue', 'fixedValue', 'inTemplate'];
 	tableConfig = tableConfig;
 	erm = ERM;

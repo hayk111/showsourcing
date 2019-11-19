@@ -1,7 +1,5 @@
 <dialog-app class="vertical-scroll-content">
-	<dialog-header-app class="flex">
-			<ng-container translate="label.send-request-supplier"></ng-container>
-	</dialog-header-app>
+	<dialog-header-app class="flex" translate="label.send-request-supplier"></dialog-header-app>
 
 	<div class="title-container flex">
 		<div class="left"><h2 class="l" translate="label.request-settings"></h2></div>
@@ -15,7 +13,7 @@
 
 				<!-- select products -->
 				<form-field-app class="modal pdng-btm-l">
-					<label-app translate="header.select-products"> *</label-app>
+					<label-app class="flex"><div translate="header.select-products"></div>&nbsp;*</label-app>
 					<product-request-list-app
 						[products]="request?.products"
 						(update)="updateProducts($event)"
@@ -27,7 +25,7 @@
 
 				<!-- request templates -->
 				<form-field-app class="modal pdng-btm-l">
-					<label-app><ng-container translate="header.request-templates"></ng-container> *</label-app>
+					<label-app class="flex"><div translate="header.request-templates"></div>&nbsp;*</label-app>
 					<selector-app
 						#selectorReqTemplate
 						type="request template"
@@ -79,7 +77,7 @@
 					<!-- supplier selector -->
 					<form-field-app
 						class="modal">
-						<label-app translate="label.send-to-supplier"> *</label-app>
+						<label-app class="flex"><div translate="label.send-to-supplier"></div>&nbsp;*</label-app>
 						<selector-app
 							type="supplier"
 							[canCreate]="true"
@@ -95,7 +93,7 @@
 
 					<!-- contact selector -->
 				<form-field-app class="modal">
-					<label-app translate="label.select-contact"> *</label-app>
+					<label-app class="flex"><div translate="label.select-contact"></div>&nbsp;*</label-app>
 					<selector-app
 						#contactSelector
 						type="contact"
@@ -134,7 +132,7 @@
 
 				<!-- title input -->
 				<form-field-app class="modal pdng-btm-l">
-					<label-app translate="label.request-title"> *</label-app>
+					<label-app class="flex"><div translate="label.request-title"></div>&nbsp;*</label-app>
 					<input inputApp type="text" formControlName="title" [placeholder]="'placeholder.quote-request' | translate"/>
 				</form-field-app>
 

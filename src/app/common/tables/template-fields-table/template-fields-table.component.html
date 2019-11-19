@@ -40,17 +40,12 @@
 
 			<!-- TODO add a config here -->
 			<ng-container *ngSwitchCase="'default value'">
-				<dynamic-editable-text-app
+				<dynamic-editable-container-app
 					[value]="row.defaultValue"
-					[showComplexTypes]="false"
-					[inlineLabel]="true"
-					[objectAsString]="true"
-					[borderless]="true"
-					[hasAction]="false"
-					[hasLabel]="false"
+					[config]="config"
 					[customField]="getCustomField(row)"
 					(update)="updateField(row, $event)">
-				</dynamic-editable-text-app>
+				</dynamic-editable-container-app>
 			</ng-container>
 
 			<ng-container *ngSwitchCase="'fixed value'">
