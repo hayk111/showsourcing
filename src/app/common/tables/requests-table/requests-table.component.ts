@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Output, TemplateRef, ViewChild } from '@angular/core';
 import { EntityTableComponent, TableConfig } from '~core/list-page';
-import { ERM, SupplierRequest } from '~core/models';
+import { SupplierRequest } from '~core/models';
 import { TranslateService } from '@ngx-translate/core';
 
 const tableConfig: TableConfig = {
@@ -29,7 +29,6 @@ export class RequestsTableComponent extends EntityTableComponent<SupplierRequest
 	@Output() cancelRequest = new EventEmitter<SupplierRequest>();
 	@ViewChild('contextualMenu', { static: false }) contextualMenuTemplate: TemplateRef<any>;
 	tableConfig = tableConfig;
-	erm = ERM;
 
 	constructor(public translate: TranslateService) { super(); }
 
