@@ -8,7 +8,7 @@ const tableConfig: TableConfig = {
 	type: { name: 'type', translationKey: 'type', width: 175, sortProperty: 'templateName' },
 	supplier: { name: 'supplier', translationKey: 'supplier', width: 220, sortProperty: 'recipient.company' },
 	sentTo: { name: 'sent to', translationKey: 'sent-to', width: 175, sortProperty: 'recipient.name' },
-	requests: { name: 'number requests', translationKey: '#-requests', width: 90, sortable: false },
+	requests: { name: 'number requests', translationKey: 'requests', width: 90, sortable: false },
 	status: { name: 'status', translationKey: 'status', width: 175, sortProperty: 'status' },
 	sentOn: { name: 'sent on', translationKey: 'sent-on', width: 175, sortProperty: 'sentDate' },
 	sender: { name: 'sender', translationKey: 'sender', width: 175, sortProperty: 'sender.name' },
