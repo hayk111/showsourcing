@@ -101,21 +101,20 @@
 				<ng-container *ngIf="!pending">
 					<div
 						*ngFor="let row of rows; index as i; trackBy: trackByIdentify"
-						class="menuCell cell context-menu flexCenter"
+						class="menuCell cell context-menu-cell flexCenter"
 						[ngClass]="{ selected: (i === hoverIndex) || isSelected(row, i) }"
 						[style.height]="rowHeight + 'px'"
 						(mouseenter)="hoverRow(i)"
 						(mouseleave)="hoverRow(-1)">
 						<context-menu-app
 							*ngIf="isSelectable(row)"
-							class="menu-context"
 							[ngClass]="{ hover: (i === hoverIndex) }"
 							[ngStyle]="{ visibility: ((i === hoverIndex) || isSelected(row, i)) ? 'visible' : 'hidden' }"
 							[closeOnScroll]="true">
 							<context-menu-trigger-app>
 								<icon-app
 									class="color-txt-third"
-									[name]="isContextMenuHorizontal ? 'dots-horizontal' : 'dots-vertical'"
+									name="dots-vertical"
 									size="18">
 								</icon-app>
 							</context-menu-trigger-app>
@@ -125,6 +124,10 @@
 						</context-menu-app>
 					</div>
 				</ng-container>
+			</div>
+			<!-- pending -->
+			<div *ngIf="pending" class="pendingCtnr flexCenter">
+				<dots-app></dots-app>
 			</div>
 
 	</div>
@@ -142,10 +145,6 @@
 		<button (click)="createClick.emit()">create a {{ type }}</button>
 	</div>
 
-	<!-- pending -->
-	<div *ngIf="pending" class="pendingCtnr flexCenter">
-		<dots-app></dots-app>
-	</div>
 </div>
 
 <pagination-app

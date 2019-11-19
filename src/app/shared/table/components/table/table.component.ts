@@ -1,20 +1,8 @@
-import {
-	ChangeDetectionStrategy,
-	Component,
-	ContentChildren,
-	EventEmitter,
-	HostListener,
-	Input,
-	OnChanges,
-	Output,
-	QueryList,
-	TemplateRef,
-	ContentChild,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChildren, EventEmitter, HostListener, Input, OnChanges, Output, QueryList, TemplateRef } from '@angular/core';
+import { EntityName } from '~core/models';
 import { ColumnDirective } from '~shared/table/components/column.directive';
 import { Sort } from '~shared/table/components/sort.interface';
 import { TrackingComponent } from '~utils/tracking-component';
-import { EntityName } from '~core/models';
 
 @Component({
 	selector: 'table-app',
@@ -45,8 +33,6 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	@Input() hasPaddingPagination;
 	/** whether the pagination component has show items per page */
 	@Input() hasShowItemsPerPage = true;
-	/** whether the context menu icon is horizontal dots or vertical */
-	@Input() isContextMenuHorizontal = true;
 
 	@Input() type: EntityName;
 	@Input() width: number;

@@ -1,8 +1,6 @@
 :host {
 	display: block;
-	position: relative;
-	margin-top: var(--spacing-l);
-	
+	position: relative;	
 	button {	
 		&.disabled {
 			cursor: default;
