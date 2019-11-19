@@ -3,7 +3,7 @@
 <table-app
 	[class.no-min-height]="!hasMinHeight"
 	[rows]="rows"
-	[type]="erm.ATTACHMENT.singular"
+	[type]="'ATTACHMENT' | erm: true"
 	[pending]="pending"
 	[selected]="selection"
 	[contextualMenu]="contextualMenuTemplate"

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { ERM, Product, Sample, Task } from '~core/models';
+import { Product, Project, Sample, Task } from '~core/models';
 
 @Component({
 	selector: 'product-docket-app',
@@ -14,8 +14,6 @@ export class ProductDocketComponent {
 	@Output() addSample = new EventEmitter<undefined>();
 	@Output() previewTask = new EventEmitter<Task>();
 	@Output() previewSample = new EventEmitter<Sample>();
-
-	erm = ERM;
 
 	constructor() { }
 
