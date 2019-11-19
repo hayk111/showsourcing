@@ -15,13 +15,15 @@
 </button>
 
 <div class="ctnr square pointer"
-	[ngClass]="{ 'last-item': i > 3, 'selected': i === selectedIndex }"
+	[class.mg-right-s]="i <= 3"
 	[ngStyle]="getStyle()"
 	*ngFor="let img of getPreviews(); let i = index; trackBy: trackByFn"
 	(click)="imageClick.emit(i)">
 	<div *ngIf="(isDeletable && images.length <= 5) || (isDeletable && i < 4)" class="delete flexCenter pointer" (click)="doDelete($event, img)">
 		<icon-app name="close"></icon-app>
 	</div>
+	<!-- we use this to place a border, otherwise the image would resize or the content itself creating a wanky display -->
+	<div *ngIf="i === selectedIndex" class="selected"></div>
 	<img-app
 		[ngClass]="{ 'pending': img.pending }"
 		[image]="img"
