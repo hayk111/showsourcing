@@ -46,6 +46,11 @@ button, input[type="submit"], .button {
 		background: var(--color-primary-dark);
 	}
 
+	&:disabled {
+		background: transparent;
+		color: var(--color-secondary);
+	}
+
 	&.light {
 		background: transparent;
 		color: var(--color-txt-secondary);
@@ -79,6 +84,7 @@ button, input[type="submit"], .button {
 			}
 		}
 	}
+
 
 	// icons
 	&.icon-with-text {
@@ -116,16 +122,10 @@ button, input[type="submit"], .button {
 
 // disabled buttons
 button:disabled, input[type="submit"]:disabled {
-	background: var(--color-secondary);
-	color: var(--color-secondary-dark);
+	background: var(--color-secondary-light);
+	color: var(--color-secondary);
 	border: none;
 	cursor: default;
-	&:hover {
-		background: var(--color-secondary);
-		color: var(--color-secondary-dark);
-		border: none;
-		cursor: default;
-	}
 }
 
 .txt-btn {
