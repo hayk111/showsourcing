@@ -59,7 +59,7 @@
 							<div *ngIf="product?.supplier as supplier" class="flex">
 								<logo-app
 									class="mg-right-s"
-									[type]="erm.SUPPLIER.singular"
+									[type]="'SUPPLIER' | erm: true"
 									[logo]="supplier?.logoImage">
 								</logo-app>
 								<div class="supplier-info mg-right-xxl">
@@ -87,7 +87,7 @@
 				<editable-display-app>
 					<badge-selector-app
 						#categorySelector
-						[badge]="erm.CATEGORY"
+						[badge]="'CATEGORY' | erm"
 						[value]="product?.category"
 						(update)="update($event, 'category')">
 					</badge-selector-app>

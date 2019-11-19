@@ -2,7 +2,7 @@
 <table-app
 	[placeholder]="'placeholder.no-request-items' | translate"
 	[rows]="rows"
-	[type]="erm.REQUEST_ELEMENT.singular"
+	[type]="'REQUEST_ELEMENT' | erm: true"
 	[currentSort]="currentSort"
 	[pending]="pending"
 	[count]="count"

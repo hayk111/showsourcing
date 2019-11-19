@@ -32,7 +32,6 @@ export class ProjectsTableComponent extends EntityTableComponent<Project> {
 	// columns = ['name', 'owner', 'dueDate', 'status', 'createdBy', 'creationDate'];
 	columns = ['name', 'owner', 'status', 'createdBy', 'creationDate'];
 	tableConfig = tableConfig;
-	erm = ERM;
 	color = Color;
 
 	constructor(public translate: TranslateService) {

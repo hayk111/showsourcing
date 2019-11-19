@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { BadgeModule } from '~shared/badge';
 import { EditableFieldModule } from '~shared/editable-field';
+import { ERMModule } from '~shared/erm/erm.module';
 import { IconsModule } from '~shared/icons';
 import { InputsModule } from '~shared/inputs';
 import { InputPriceComponent } from '~shared/inputs-custom/components/input-price/input-price.component';
@@ -25,6 +26,7 @@ import { InputPriceInlineComponent } from './components/input-price-inline/input
 		UtilsModule,
 		InputsModule,
 		EditableFieldModule,
+		ERMModule,
 		BadgeModule,
 		TranslateModule
 	],

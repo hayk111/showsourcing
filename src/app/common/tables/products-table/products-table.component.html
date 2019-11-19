@@ -3,7 +3,7 @@
 	[class.no-min-height]="!hasMinHeight"
 	[placeholder]="'placeholder.no-product' | translate"
 	[rows]="rows"
-	[type]="erm.PRODUCT.singular"
+	[type]="'PRODUCT' | erm: true"
 	[hasVerticalScroll]="hasVerticalScroll"
   [currentSort]="currentSort"
   [pending]="pending"
@@ -103,7 +103,7 @@
       <!-- supplier -->
       <ng-container *ngSwitchCase="'supplier'">
         <selector-app
-					[type]="erm.SUPPLIER.singular"
+					[type]="'SUPPLIER' | erm: true"
 					[hasPicker]="canUpdate"
           [canCreate]="true"
           [width]="370"
@@ -117,7 +117,7 @@
       <!-- category -->
       <ng-container *ngSwitchCase="'category'">
         <selector-app
-					[type]="erm.CATEGORY.singular"
+          [type]="'CATEGORY' | erm: true"
 					[hasPicker]="canUpdate"
           [canCreate]="true"
           [width]="370"
@@ -131,8 +131,8 @@
 			<!-- category + supplier -->
 
 			<ng-container *ngSwitchCase="'about'">
-				<selector-app
-					[type]="erm.SUPPLIER.singular"
+        <selector-app
+          [type]="'SUPPLIER' | erm: true"
 					[hasPicker]="canUpdate"
           [canCreate]="true"
           [width]="370"
@@ -141,8 +141,8 @@
 						{{ row?.supplier?.name || '-' }}
 					</div>
         </selector-app>
-				<selector-app
-					[type]="erm.CATEGORY.singular"
+        <selector-app
+          [type]="'CATEGORY' | erm: true"
 					[hasPicker]="canUpdate"
 					[canCreate]="true"
 					[width]="370"
@@ -250,7 +250,7 @@
       <!-- status -->
       <ng-container *ngSwitchCase="'status'">
 				<div class="status-col flexVAlign">
-					<status-selector-app [entity]="row" [typeEntity]="erm.PRODUCT" [canUpdate]="canUpdate" selectSize="m" (statusUpdated)="update.emit($event)"></status-selector-app>
+					<status-selector-app [entity]="row" [typeEntity]="'PRODUCT' | erm" [canUpdate]="canUpdate" selectSize="m" (statusUpdated)="update.emit($event)"></status-selector-app>
 				</div>
 			</ng-container>
 
@@ -271,7 +271,7 @@
 			<!-- assignee -->
 			<ng-container *ngSwitchCase="'assignee'">
 				<selector-app
-					[type]="erm.USER.singular"
+					[type]="'USER' | erm: true"
 					[width]="320"
 					[offsetX]="4"
 					(update)="update.emit({ id: row?.id, assignee: $event })">
