@@ -30,6 +30,7 @@ import { CarouselModule } from './carousel/carousel.module';
 import { ComparisonRowModule } from './comparison-row/comparison-row.module';
 import { DialogModule } from './dialog/dialog.module';
 import { DynamicFormsModule } from './dynamic-forms/dynamic-forms.module';
+import { ERMModule } from './erm/erm.module';
 import { FileModule } from './file/file.module';
 import { FiltersModule } from './filters/filters.module';
 import { HeaderListModule } from './header/header.module';
@@ -84,6 +85,7 @@ const modules = [
 	DividerModule,
 	DynamicFormsModule,
 	EditableFieldModule,
+	ERMModule,
 	FileModule,
 	FiltersModule,
 	IconsModule,

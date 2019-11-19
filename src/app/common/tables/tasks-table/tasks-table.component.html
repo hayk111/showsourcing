@@ -1,7 +1,7 @@
 <table-app
 	[class.no-min-height]="!hasMinHeight"
 	[rows]="rows"
-	[type]="erm.TASK.singular"
+	[type]="'TASK' | erm: true"
 	[pending]="pending"
 	[selected]="selection"
 	[contextualMenu]="contextualMenuTemplate"
@@ -179,7 +179,7 @@
 				<div class="status-col flexVAlign">
 					<status-selector-app
 						[entity]="row"
-						[typeEntity]="erm.TASK"
+						[typeEntity]="'TASK' | erm"
 						[canUpdate]="canUpdate"
 						selectSize="m"
 						(statusUpdated)="taskSrv.onUpdateTaskList()">

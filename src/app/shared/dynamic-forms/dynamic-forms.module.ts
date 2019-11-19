@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BadgeModule } from '~shared/badge';
+import { ERMModule } from '~shared/erm/erm.module';
 import { EditableFieldModule } from '~shared/editable-field';
 import { FileModule } from '~shared/file';
 import { ImageModule } from '~shared/image/image.module';
@@ -43,6 +44,7 @@ import { InputSelectorComponent } from './components/dynamic-input/inputs/input-
 		FileModule,
 		ImageModule,
 		UserPictureModule,
+		ERMModule,
 		TranslateModule
 	],
 	declarations: [

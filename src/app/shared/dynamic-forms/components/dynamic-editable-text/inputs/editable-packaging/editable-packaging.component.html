@@ -72,7 +72,7 @@ A package with 0cm makes no sens -->
 
 	<!-- units -->
 	<selector-app
-		[type]="erm.LENGTH_UNIT"
+		[type]="'LENGTH_UNIT' | erm"
 		[width]="180"
 		[offsetY]="-34"
 		[value]="value.unit"
@@ -139,7 +139,7 @@ A package with 0cm makes no sens -->
 
 	<!-- weigth units -->
 	<selector-app
-		[type]="erm.WEIGHT_UNIT"
+		[type]="'WEIGHT_UNIT' | erm"
 		[value]="value.weightUnit"
 		[width]="180"
 		[offsetY]="-34"
@@ -184,7 +184,7 @@ A package with 0cm makes no sens -->
 			<label-app translate="label.units"></label-app>
 			<selector-app
 			 	[disabled]="disabled"
-				[type]="erm.LENGTH_UNIT"
+				[type]="'LENGTH_UNIT' | erm"
 				[value]="value.unit"
 				(update)="onChangePackaging('unit', $event)">
 				<selector-placeholder-app
@@ -215,7 +215,7 @@ A package with 0cm makes no sens -->
 			<label-app translate="label.unit"></label-app>
 			<selector-app
 				[disabled]="disabled"
-				[type]="erm.WEIGHT_UNIT"
+				[type]="'WEIGHT_UNIT' | erm"
 				[value]="value.weightUnit"
 				(update)="onChangePackaging('weightUnit', $event)">
 				<selector-placeholder-app
