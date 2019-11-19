@@ -4,7 +4,7 @@
 <table-app
 	[class.no-min-height]="!hasMinHeight"
 	[rows]="rows"
-	[type]="erm.PROJECT.singular"
+	[type]="'PROJECT' | erm: true"
 	[pending]="pending"
 	[selected]="selection"
 	[hasPagination]="hasPagination"
@@ -79,7 +79,7 @@
 			<!-- status -->
 			<ng-container *ngSwitchCase="'status'">
 				<div class="status-col flexVAlign">
-					<status-selector-app [entity]="row" [typeEntity]="erm.PROJECT" selectSize="m"></status-selector-app>
+					<status-selector-app [entity]="row" [typeEntity]="'PROJECT' | erm" selectSize="m"></status-selector-app>
 				</div>
 			</ng-container>
 

@@ -59,6 +59,6 @@
 	</div>
 	
 	<div class="status-selector">
-		<status-selector-app [entity]="product" [typeEntity]="erm.PRODUCT" selectSize="s" (statusUpdated)="statusUpdated.emit($event)"></status-selector-app>
+		<status-selector-app [entity]="product" [typeEntity]="'PRODUCT' | erm" selectSize="s" (statusUpdated)="statusUpdated.emit($event)"></status-selector-app>
 	</div>
 </div>

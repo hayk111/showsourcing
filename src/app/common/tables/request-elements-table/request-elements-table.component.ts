@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, TemplateRef, ViewChild } from '@angular/core';
 import { EntityTableComponent, TableConfig } from '~core/list-page';
-import { ExtendedField, RequestElement, ERM } from '~core/models';
+import { ExtendedField, RequestElement } from '~core/models';
 import { ID } from '~utils';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -49,7 +49,6 @@ export class RequestElementsTableComponent extends EntityTableComponent<RequestE
 	// is matrix since we need to iterate over requestElement and then over requestElement.reply.fields
 	// M[i][j] -> i: request element rows // j: fields
 	fields: ExtendedField[][] = [];
-	erm = ERM;
 
 	constructor(public translate: TranslateService) { super(); }
 

@@ -36,7 +36,7 @@ import {
 		RatingCylinderComponent,
 		RatingDashboardComponent,
 		RatingStarsScoreViewComponent,
-		RatingStarsActionComponent,
+		RatingStarsActionComponent
 	]
 })
 export class RatingModule { }

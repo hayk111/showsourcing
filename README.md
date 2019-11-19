@@ -396,55 +396,106 @@ The AutoUnsub class should be used as a standard app wise.
 ***
 
 # Translation
-(29/08/19) by Michael
-*Deprecated* Since now we are using ngx instead of i18n
-[Documentation on xliffmerge](https://github.com/martinroob/ngx-i18nsupport)
-`npm run translate` will generate `messages.xlf`
+Using `ngx-translate`
+Install the npm module: `npm install @ngx-translate/core --save`
 
-Since the current version of Angular/cli@~6.0.0 doesn't support the previous format to start the server with a given language
-e.g. `ng serve --aot --i18n-file src/locale/messages.fr.xlf --i18n-locale fr --i18n-format xlf --i18n-missing-translations warning` it has to be declared on `angular.json`. Following the previous example with `fr` we have to declare:
+**USAGE**
 
-```JSON
-"projects": {
-    "showsourcing": {
-        ···
-        "build": {
-            "configurations": {
-                ···
-                "fr": {
-                    "aot": true,
-                    "outputPath": "dist/fr",
-                    "i18nFile": "src/locale/messages.fr.xlf",
-                    "i18nFormat": "xlf",
-                    "i18nLocale": "fr"
-                }
-            }
-        },
-        "serve": {
-            ···
-            "configurations": {
-               ···
-                "fr": {
-                    "browserTarget": "showsourcing:build:fr"
-                }
-            }
-        }
+Import the `**TranslateModule**`:
+In other to use ngx-translate, we have to import `TranslateModule.forRoot()` in the root NgModule of the application, ours is `AppRootModule`
+```
+@NgModule({
+    imports: [
+        BrowserModule,
+        TranslateModule.forRoot()
+    ],
+    bootstrap: [AppComponent]
+})
+export class AppRootModule { }
+```
+In other components we just have to import `TranslateModule`.
+
+Configuration:
+By default, there is no loader available. We can add translations manually using `setTranslation` but it is better to use a loader.
+To use it, we need to install the http-loader package from @ngx-translate: `npm install @ngx-translate/http-loader --save` and then import it in `i18n.service`:
+```
+import { HttpClient } from '@angular/common/http';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+export function HttpLoaderFactory(http: HttpClient) {
+	return new TranslateHttpLoader(http, 'assets/i18n/', '/translations.json');
 }
 ```
-Now to run the serve with this config we have to `npm run start:fr` that is the same as `ng serve --configuration=fr`
-In order to merge the already translate file with the new translations we have to `npm run translate` and then
-`xliffmerge --profile xliffmerge.json LANGUAGES HERE`, this will add the new item to be translated to the already existent translation file.
 
-Everytime we execute `npm run translate:fr` the `messages.fr.xlf` file will contain the original data and, if there are new `i18n` translations, it will update the file and let us know in that same file which translations are new using the target state.
-
-In each `messages.lang.xlf` we have 3 different types of target. When we translate we will have to manually change that state, this way xliffmerge can read and update the files properly. The same author developed this [tool](https://martinroob.github.io/tiny-translator/en/#/home) in order to translate this type of files. Even if we use another kind of tool for translation, the state from 'new' to 'translated' can be changed manually with a refactor.
+Back to the `AppRootModule`, in the `TranslateModule.forRoot()` we do some configurations: 
 ```
-<target state='new'>Hello</target> 'new' indicates that it hasn't been translated
-<target state='final'>Hello</target> 'final' indicates that it matches with our default language translation
-<target state='translated'>Bonjour</target> 'translated' indicates that it has been translated
+TranslateModule.forRoot({
+	loader: {
+		provide: TranslateLoader,
+		useFactory: i18n.HttpLoaderFactory,
+		deps: [HttpClient]
+	}
+})
 ```
-locale name by default is english since we always translate english to another language`ng xi18n --i18nLocale LOCALE_NAME --outFile NAMEOFFILE.xlf --outputPath locale`
 
+Now we could use the `TranslateHttpLoader` to load translations from `'/assets/i18n/[lang]/translation.json'` (`[lang]` is the language that we use for our translations, for English is `en`)
+
+Next step is init the `TranslateService` in our components:
+```
+import {Component} from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
+@Component({
+    selector: 'test-app',
+    template: `
+        <div>{{ 'HELLO' | translate:param }}</div>
+    `
+})
+export class TestAppComponent {
+    param = {value: 'world'};
+
+    constructor(translate: TranslateService) {
+        translate.setDefaultLang('en');
+
+        translate.use('en');
+    }
+}
+```
+
+Now we have to define the translations, for example, in the `translation.json` for `en`, we will have this: 
+```
+{
+    "HELLO": "hello {{ value }}"
+}
+```
+or we can define it manually using:
+```
+translate.setTranslation('en', {
+    HELLO: 'hello {{value}}'
+});
+```
+The `TranslateParser` understands nested JSON objects. So we can have a translation like this:
+```
+{
+    "HOME": {
+        "HELLO": "hello {{value}}"
+    }
+}
+```
+We can access the value by using dot notation, like `HOME.HELLO`
+
+And this is how we use the translation:
+We can do it with the **pipe**: `<div>{{ 'HELLO' | translate:param }}</div>`
+This is how we define the `param`: `param = { value: 'world' };`
+
+Or we use the **directive**: `<div [translate]="'HELLO'" [translateParams]="{value: 'world'}"></div>`
+
+Or use it like an HTML Element attribute: `<div translate [translateParams]="{value: 'world'}">HELLO</div>`
+
+**Notice: the key we put in the param must be the same as the one that we've defined in the translation.json files, in this example it is the `value`** 
+
+In other to edit the translations, we use the `i18n-editor`, we just have to go to [](https://github.com/jcbvm/i18n-editor) to download it and open our translation folder with it to edit
+
+**Read more about `ngx-translate` at: [](https://github.com/ngx-translate/core)
 ***
 
 # Refactor List

@@ -1,8 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { EntityTableComponent, TableConfig, TableConfigType } from '~core/list-page/entity-table.component';
-import { ERM, Supplier } from '~models';
-import { Status } from '~core/models/status.model';
+import { Supplier } from '~models';
 
 const bigTableConfig: TableConfig = {
 	activities: { name: 'activities', translationKey: 'activities', width: 190, sortable: false },
@@ -34,8 +33,6 @@ const mediumTableConfig: TableConfig = {
 export class SuppliersTableComponent extends EntityTableComponent<Supplier> implements OnInit {
 
 	columns = ['name', 'country', 'productType', 'supplierType', 'assignee', 'status', 'activities', 'createdBy', 'createdOn'];
-	erm = ERM;
-	supplierErm = ERM.SUPPLIER;
 
 	@Input() tableConfigType: TableConfigType = 'big';
 	@Output() archive = new EventEmitter<Supplier>();

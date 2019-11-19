@@ -6,6 +6,7 @@ import { Client } from '~core/apollo/services/apollo-client-names.const';
 
 export const environment = {
 	production: true,
+	hmr: false,
 	version: WEB_VERSION,
 	graphqlUrl: 'wss://showsourcingprod.us1.cloud.realm.io/graphql',
 	graphqlAuthUrl: 'https://showsourcingprod.us1.cloud.realm.io/auth',
