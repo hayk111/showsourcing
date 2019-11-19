@@ -34,7 +34,9 @@ import {
 		ThumbButtonsComponent,
 		RatingHeartComponent,
 		RatingCylinderComponent,
-		RatingDashboardComponent
+		RatingDashboardComponent,
+		RatingStarsScoreViewComponent,
+		RatingStarsActionComponent,
 	]
 })
 export class RatingModule { }

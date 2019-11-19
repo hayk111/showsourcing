@@ -1,4 +1,4 @@
-<div class="content flex">
+<div *ngIf="supplier$ | async as suplier; else spinner" class="content flex">
 	<div class="left">
 		<!-- supplier-resume -->
 		<!-- products card -->
@@ -11,3 +11,7 @@
 		<!-- supplier rating -->
 	</div>
 </div>
+
+<ng-template #spinner>
+	<spinner-app></spinner-app>
+</ng-template>
