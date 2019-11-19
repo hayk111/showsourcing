@@ -102,5 +102,5 @@ if [ -d "$DIR" ]; then
 	aws s3 sync . s3://"$ENDPOINT" --delete --region "$REGION"
 	aws s3 cp s3://"$ENDPOINT"/index.html s3://"$ENDPOINT"/index.html --metadata-directive REPLACE --cache-control max-age=0 --region "$REGION"
 else
-	echo "\e[1m\e[31mBuild has failed or no build has been made, no deployment was given\e[0m\e[39m"
+	echo -e "\e[1m\e[31mBuild has failed or no build has been made, no deployment was given\e[0m\e[39m"
 fi
