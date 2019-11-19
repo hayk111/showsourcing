@@ -5,11 +5,10 @@ import { TemplateField } from './template-field.model';
 
 export class RequestTemplate {
 	id: ID;
-	name: string;
-	targetedEntity = 'Product';
-	fields: TemplateField[];
-	requestedFields: ExtendedFieldDefinition[]; // TODO Backend remove this
-	__typename?= 'RequestTemplate';
+	name?: string;
+	targetedEntity ?= 'Product';
+	fields?: TemplateField[];
+	__typename ?= 'RequestTemplate';
 
 	constructor(config: RequestTemplateConfig) {
 		Object.assign(this, config);
@@ -21,5 +20,5 @@ export interface RequestTemplateConfig {
 	id?: ID;
 	name?: string;
 	targetedEntity?: string;
-	requestedFields?: ExtendedFieldDefinition[];
+	fields?: TemplateField[];
 }

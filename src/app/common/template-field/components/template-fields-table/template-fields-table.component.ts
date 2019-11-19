@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { EntityTableComponent, TableConfig } from '~core/list-page/entity-table.component';
 import { ERM, TemplateField, ExtendedFieldDefinition } from '~models';
 import { DynamicUpdate } from '~shared/dynamic-forms/models/dynamic-update.interface';
@@ -21,6 +21,7 @@ const tableConfig: TableConfig = {
 export class TemplateFieldsTableComponent extends EntityTableComponent<TemplateField> {
 	@Output() addField = new EventEmitter<TemplateField>();
 	@Output() removeField = new EventEmitter<TemplateField>();
+	@Input() inTemplate = new Map<string, boolean>();
 	columns = ['name', 'defaultValue', 'fixedValue', 'inTemplate'];
 	tableConfig = tableConfig;
 	erm = ERM;
@@ -36,5 +37,13 @@ export class TemplateFieldsTableComponent extends EntityTableComponent<TemplateF
 
 	getCustomField(field: TemplateField) {
 		return { ...field.definition, name: 'defaultValue' };
+	}
+
+	toggleInTemplate(field: TemplateField, value) {
+		this.inTemplate.set(field.id, value);
+	}
+
+	toggleFixedValue(field: TemplateField) {
+		field.fixedValue = !field.fixedValue;
 	}
 }

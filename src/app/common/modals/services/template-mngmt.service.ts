@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, first } from 'rxjs/operators';
 import { RequestTemplateService } from '~core/entity-services';
 import {
 	ExtendedFieldDefinitionService,
 } from '~core/entity-services/extended-field-definition/extended-field-definition.service';
 import { ExtendedFieldDefinition, RequestTemplate, TemplateField } from '~core/models';
 import { ListQuery } from '~core/entity-services/_global/list-query.interface';
+import { Observable } from 'rxjs';
+
 
 @Injectable({
 	providedIn: 'root'
@@ -24,6 +26,7 @@ export class TemplateMngmtService {
 
 	getTemplates() {
 		// we use list query here because the user can create templates
+		// and we want to easily refetch
 		return this.listQuery.items$;
 	}
 
@@ -32,24 +35,35 @@ export class TemplateMngmtService {
 	}
 
 	/**
-	 * return an array of TemplateField. Made of all the extendedFields.
-	 * So we can display existing templateFields from the RequestTemplate, but also the ones
-	 * that aren't selectioned yet inside it
+	 * returns array of template field and a map that says whether or not they are in the template
 	 */
-	getTemplateFields(existings: TemplateField[]) {
-		const findTempField = (def: ExtendedFieldDefinition) => existings.find(field => field.definition.id === def.id);
+	getTemplateFields(existings: TemplateField[]): Observable<{ allFields: TemplateField[], inTemplate: Map<string, boolean> }> {
 
 		return this.extendedFieldDefSrv
-			.queryMany({ query: 'target contains[c] "product." OR target == "Product"', sortBy: 'order', descending: false }).pipe(
-				map(defs => defs.map(definition => {
-					const field = findTempField(definition);
-					if (field) {
-						field.inTemplate = true;
-					}
-					return field || new TemplateField({ definition, inTemplate: false });
-				}
-				)));
+			.queryMany({ query: 'target contains[c] "product." OR target == "Product"', sortBy: 'order', descending: false })
+			.pipe(
+				map(defs => this.mapDefinitions(defs, existings)),
+				first()
+			);
+	}
 
+	private mapDefinitions(definitions: ExtendedFieldDefinition[], existings: TemplateField[]) {
+		const allFields = [];
+		const inTemplate = new Map<string, boolean>();
+		const findTempField = (def: ExtendedFieldDefinition) => existings.find(field => field.definition.id === def.id);
+		definitions.forEach(definition => {
+			const field = findTempField(definition);
+			if (field) {
+				allFields.push(field);
+				inTemplate.set(field.id, true);
+			} else {
+				const newField = new TemplateField({ definition });
+				allFields.push(newField);
+				inTemplate.set(newField.id, false);
+			}
+		});
+
+		return { allFields, inTemplate };
 	}
 
 	deleteTemplate(template: RequestTemplate) {
@@ -60,7 +74,6 @@ export class TemplateMngmtService {
 
 	updateTemplate(template: RequestTemplate) {
 		return this.templateSrv.update(template).pipe(
-			switchMap(_ => this.listQuery.refetch({}))
 		);
 	}
 

@@ -9,9 +9,7 @@ export class TemplateField {
 	defaultValue: string;
 	definition: ExtendedFieldDefinition;
 	fixedValue: boolean;
-	__typename?= 'TemplateField';
-	/** temp so we can set if it's one from the db or not */
-	inTemplate?: boolean;
+	__typename ?= 'TemplateField';
 
 	constructor(config?: TemplateFieldConfig) {
 		Object.assign(this, config);
@@ -24,5 +22,4 @@ export interface TemplateFieldConfig {
 	defaultValue?: string;
 	definition?: ExtendedFieldDefinition;
 	fixedValue?: boolean;
-	inTemplate?: boolean;
 }

@@ -111,6 +111,7 @@ export class ApolloStateService {
 		// when any of those has error, we redirect to server issue
 		const hasError = Object.values(allState).some(value => value === ClientStatus.ERROR);
 		if (hasError) {
+			window.localStorage.clear();
 			this.router.navigate(['error', 'generic']);
 		}
 	}
