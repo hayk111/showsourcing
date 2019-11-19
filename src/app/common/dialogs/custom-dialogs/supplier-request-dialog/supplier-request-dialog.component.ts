@@ -49,12 +49,12 @@ export class SupplierRequestDialogComponent implements OnInit, AfterViewChecked 
 	}
 	// wether if we come from the template dialog or not
 	@Input() fromTemplateDlg = false;
+	@Input() supplier: Supplier;
 
 	form: FormGroup;
 	copyEmail = false;
 	pending = false;
 	filterList = new FilterList([]);
-	supplier: Supplier;
 	private templateSelectedAction$ = new ReplaySubject<ID>(1);
 	selectedTemplate$: Observable<RequestTemplate>;
 

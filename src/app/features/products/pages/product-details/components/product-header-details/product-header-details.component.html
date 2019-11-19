@@ -37,22 +37,22 @@
 
 	<header-details-actions-app>
 
-		<button class="icon big txt-secondary mg-left-ms">
+		<button class="icon big txt-secondary">
 			<icon-app name="export" size="m"></icon-app>
 		</button>
 
-		<button class="light big icon-with-text mg-left-ms flexVAlign flexAround">
-			<icon-app name="share" size="m"></icon-app>Share
+		<button class="light big icon-with-text flexVAlign flexAround">
+			<icon-app name="share" size="m"></icon-app><div class="capitalize" translate="button.share"></div>
 		</button>
 
-		<button class="vibrant big icon-with-text mg-left-ms flexVAlign">
-			<icon-app name="envelope"></icon-app>Contact Supplier
+		<button class="vibrant big icon-with-text flexVAlign">
+			<icon-app name="envelope"></icon-app><div class="capitalize" translate="button.contact-supplier"></div>
 		</button>
 
-		<status-selector-app class="mg-left-ms" [typeEntity]="productEntity" [entity]="product" selectSize="m" type="button">
+		<status-selector-app [typeEntity]="productEntity" [entity]="product" selectSize="m" type="button">
 		</status-selector-app>
 
-		<context-menu-app class="mg-left-ms">
+		<context-menu-app>
 
 			<context-menu-trigger-app>
 				<button class="icon light dots pointer">

@@ -1,6 +1,3 @@
-header-details-actions-app {
-  & > * {
-    margin-right: var(--spacing-ms);
-  }
+header-details-actions-app > *:not(:last-child) {
+	margin-right: var(--spacing-ms);
 }
-
