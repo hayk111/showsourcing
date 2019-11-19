@@ -13,8 +13,9 @@
 		<div class="left">
 			<form [formGroup]="form">
 
+				<!-- select products -->
 				<form-field-app class="modal pdng-btm-l">
-					<label-app><ng-container translate="header.select-products"></ng-container> *</label-app>
+					<label-app translate="header.select-products"> *</label-app>
 					<product-request-list-app
 						[products]="request?.products"
 						(update)="updateProducts($event)"
@@ -24,6 +25,7 @@
 					<input inputApp [hidden]="true" type="text"/>
 				</form-field-app>
 
+				<!-- request templates -->
 				<form-field-app class="modal pdng-btm-l">
 					<label-app><ng-container translate="header.request-templates"></ng-container> *</label-app>
 					<selector-app
@@ -55,7 +57,7 @@
 
 				</form-field-app>
 
-
+				<!-- checbox share information -->
 				<form-field-app class="modal">
 					<label-app translate="label.share-product-info"></label-app>
 					<div class="flex share-info">
@@ -74,9 +76,10 @@
 			<div class="right">
 
 				<form [formGroup]="form">
+					<!-- supplier selector -->
 					<form-field-app
 						class="modal">
-						<label-app><ng-container translate="label.send-to-supplier"></ng-container> *</label-app>
+						<label-app translate="label.send-to-supplier"> *</label-app>
 						<selector-app
 							type="supplier"
 							[canCreate]="true"
@@ -90,8 +93,9 @@
 						<input [hidden]="true" inputApp type="text"/>
 					</form-field-app>
 
+					<!-- contact selector -->
 				<form-field-app class="modal">
-					<label-app><ng-container translate="label.select-contact"></ng-container> *</label-app>
+					<label-app translate="label.select-contact"> *</label-app>
 					<selector-app
 						#contactSelector
 						type="contact"
@@ -128,10 +132,13 @@
 					<input [hidden]="true" inputApp type="text"/>
 				</form-field-app> -->
 
+				<!-- title input -->
 				<form-field-app class="modal pdng-btm-l">
-					<label-app><ng-container translate="label.request-title"></ng-container> *</label-app>
+					<label-app translate="label.request-title"> *</label-app>
 					<input inputApp type="text" formControlName="title" [placeholder]="'placeholder.quote-request' | translate"/>
 				</form-field-app>
+
+				<!-- message to supplier -->
 				<form-field-app class="modal">
 					<label-app translate="label.message-for-supplier"></label-app>
 					<textarea inputApp type="text" formControlName="message" cols="30" rows="10" [placeholder]="'placeholder.quick-rfq' | translate"></textarea>

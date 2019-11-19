@@ -119,7 +119,6 @@ const modules = [
 	UserPictureModule,
 	UtilsModule,
 	ComparisonRowModule,
-	TemplateMngmtModule,
 	OnBoardingModule,
 	PackagingModule,
 	TranslateModule,

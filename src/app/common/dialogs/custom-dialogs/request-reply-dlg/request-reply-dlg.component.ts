@@ -57,11 +57,15 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		this.request$ = this.requestSrv.selectOne(this.requestId);
+		// first time we want to set the element, but the next calls we dont want to override the uploadfeedbackvlaues
+		let initialCall = true;
 		this.request$.pipe(
 			tap(request => this.request = request),
 			takeUntil(this._destroy$)
-		).subscribe(_ => this.setElement());
-
+		).subscribe(_ => {
+			this.setElement(initialCall);
+			initialCall = false;
+		});
 		if (this.isDisabled())
 			this.descriptionCtrl.disable();
 	}
@@ -85,7 +89,7 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 		this.setElement();
 	}
 
-	private setElement() {
+	private setElement(initialCall = true) {
 		this.element = this.elements[this.selectedIndex];
 
 		if (!this.element) {
@@ -95,9 +99,12 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 		this.reply = this.element.reply;
 		this.fields = this.reply.fields;
 		this.definitions = this.reply.fields.map(field => field.definition);
-		this.uploaderFeedback.init({ linkedEntity: this.reply });
-		this.uploaderFeedback.setImages(this.reply.images.filter(img => !img.deleted));
-		this.uploaderFeedback.setFiles(this.reply.attachments);
+		// first time we want to set the element, but the next calls we dont want to override the uploadfeedbackvlaues
+		if (initialCall) {
+			this.uploaderFeedback.init({ linkedEntity: this.reply });
+			this.uploaderFeedback.setImages(this.reply.images.filter(img => !img.deleted));
+			this.uploaderFeedback.setFiles(this.reply.attachments);
+		}
 	}
 
 	save(updateStatus = false, lastItem = false) {
@@ -115,13 +122,14 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 				fields: this.fields,
 				__typename: 'RequestReply'
 			});
-
+		// since update is async we have to save the index before it changes
+		const localSelectIndex = this.selectedIndex;
 		this.replySrv.update(reply).subscribe(_ => {
 			if (updateStatus && lastItem)
 				this.dlgSrv.open(ReplySentDlgComponent);
 			else if (updateStatus) {
 				// since we are sending the elements as an Input, we have to manually set the status so it does not show as not replied
-				this.elements[this.selectedIndex].reply.status = ReplyStatus.REPLIED;
+				this.elements[localSelectIndex].reply.status = ReplyStatus.REPLIED;
 				this.descriptionCtrl.reset();
 				this.content.nativeElement.scrollIntoView();
 			}
@@ -186,6 +194,7 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 
 	deleteImg(img: AppImage) {
 		this.uploaderFeedback.deleteImg(img);
+		this.uploaderFeedback.setImages(this.element.reply.images.filter(image => !image.deleted));
 	}
 
 	getTooltipMessage() {

@@ -7,8 +7,8 @@ import {
 	Output,
 	QueryList,
 	ViewChildren,
+	OnChanges,
 	AfterViewInit,
-	OnInit,
 } from '@angular/core';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs/components-directives/abstract-input.class';
 
@@ -18,7 +18,7 @@ import { AbstractInput, makeAccessorProvider } from '~shared/inputs/components-d
 	styleUrls: ['./radio.component.scss'],
 	providers: [makeAccessorProvider(RadioComponent)],
 })
-export class RadioComponent extends AbstractInput implements OnInit {
+export class RadioComponent extends AbstractInput implements AfterViewInit {
 	protected static NEXT_UID = 0;
 
 	@Input() isVeritical = false;
@@ -38,7 +38,14 @@ export class RadioComponent extends AbstractInput implements OnInit {
 	@Input()
 	get checked(): boolean { return this._checked; }
 	set checked(value: boolean) {
-		this._checked = value;
+		const stringConstructor = 'string'.constructor;
+		if (value && value.constructor === stringConstructor) {
+			this._checked = value.toString() === 'true' ? true : false;
+		} else if (value !== undefined) {
+			this._checked = value;
+		} else {
+			this._checked = null;
+		}
 	}
 	private _checked = null;
 
@@ -58,8 +65,8 @@ export class RadioComponent extends AbstractInput implements OnInit {
 		super(cd);
 	}
 
-	ngOnInit() {
-		// for some reason if we didn't use explicitly detect changes, it would detect the value from checked
+	ngAfterViewInit() {
+		// mark for check doesnt work
 		this.cd.detectChanges();
 	}
 
@@ -91,7 +98,6 @@ export class RadioComponent extends AbstractInput implements OnInit {
 		if (value === null || this.disabled)
 			return;
 		this.checked = value;
-		this.cd.markForCheck();
 	}
 
 }
