@@ -2,20 +2,19 @@
 
 	<header-details-title-app>{{ supplier?.name }}</header-details-title-app>
 
-	<logo-app [logo]="supplier?.logoImage" size="l" type="supplier"></logo-app>
+	<initials-logo-app
+	 	[entity]="supplier"
+		[image]="supplier?.logoImage"
+		[name]="supplier?.name"
+		size="l"
+		[type]="'SUPPLIER' | erm">
+	</initials-logo-app>
 
-	<header-details-info-app >
-		<div class="flex flexVAlign info-container dot-separator mg-bottom-xxs">
-			<span class="color-primary" *ngIf="supplier?.reference">
-				{{ supplier?.reference }}
-			</span>
-			<span *ngIf="supplier?.__typename">
-				{{ supplier?.__typename ? supplier?.__typename + '&nbsp;' : ''}}
-			</span>
-			<!-- TODO: uncomment when votes added on backend -->
-			<!-- <activities-bar-app *ngIf="supplier?.votes?.length > 0"
-				[votes]="supplier?.votes">
-			</activities-bar-app> -->
+	<header-details-info-app>
+		<div class="flex dot-separator">
+			<rating-badge-app [votes]="supplier?.votes" activeColor="primary"></rating-badge-app>
+			<status-badge-app [status]="supplier?.status" size="s" [typeEntity]="'SUPPLIER' | erm"></status-badge-app>
+			<div>{{ supplier?.country }}</div>
 		</div>
 	</header-details-info-app>
 
@@ -46,7 +45,7 @@
 
 		<header-nav-item-app
 			link="./tasks"
-			icon="check-circle" 
+			icon="check-circle"
 			[name]="'nav.tasks' | translate">
 		</header-nav-item-app>
 	</header-nav-app> -->
