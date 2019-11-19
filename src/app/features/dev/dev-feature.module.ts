@@ -14,6 +14,7 @@ import { routes } from './routes';
 
 
 
+
 @NgModule({
 	imports: [
 		RouterModule.forChild(routes),
@@ -32,6 +33,7 @@ import { routes } from './routes';
 		Pages.GuidelinesComponent,
 		Pages.SelectorPageComponent,
 		Pages.ListComponent,
+		Pages.InputPageComponent,
 		Pages.KanbanPageComponent,
 		Pages.ProductCardPageComponent,
 		Pages.LoaderPageComponent,
@@ -46,7 +48,8 @@ import { routes } from './routes';
 		Pages.AccordionPageComponent,
 		Pages.PlaygroundPageComponent,
 		Pages.EditableContainerPageComponent,
-		Pages.InputPageComponent
+		Pages.ColorsPageComponent,
+		Pages.SpacingPageComponent
 	],
 	exports: [],
 	providers: []
