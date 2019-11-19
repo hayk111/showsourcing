@@ -30,13 +30,14 @@
 	<button	(click)="openSupplierRequest()">
 		contact supplier
 	</button>
+	<divider-app [vertical]="true"></divider-app>
 	<button
 		*ngIf="(listSrv.selection$ | async).size > 1">
 		compare
 	</button>
 	<button
 		*ngIf="(listSrv.selection$ | async).size > 0"
-		class="warn"
+		class="warn-light"
 		(click)="listSrv.deleteSelected(true)">
 		delete
 	</button>

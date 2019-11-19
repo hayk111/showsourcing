@@ -30,14 +30,13 @@
 <!-- buttons -->
 <div *ngIf="(listSrv.items$ | async)?.length" class="flex buttons-container">
 	<button
-		class="flexVAlign"
 		(click)="dialogCommonSrv.openCreationSampleDialog(product)">
-		<icon-app class="mg-right-xs" name="plus"></icon-app>
 		Create sample
 	</button>
+	<divider-app [vertical]="true"></divider-app>
 	<button
 		*ngIf="(listSrv.selection$ | async).size > 0"
-		class="warn"
+		class="warn-light"
 		(click)="listSrv.deleteSelected(true)">
 		delete
 	</button>
