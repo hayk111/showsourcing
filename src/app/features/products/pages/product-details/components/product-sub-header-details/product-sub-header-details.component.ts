@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ERM, Product } from '~models';
+import { Product } from '~models';
 
 @Component({
 	selector: 'product-sub-header-details-app',
@@ -13,8 +13,6 @@ export class ProductSubHeaderDetailsComponent implements OnInit {
 	@Output() updated = new EventEmitter<Product>();
 	@Output() redirect = new EventEmitter<string>();
 	@Output() ratingClicked = new EventEmitter<undefined>();
-
-	erm = ERM;
 
 	constructor() { }
 

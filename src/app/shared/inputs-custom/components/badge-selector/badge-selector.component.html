@@ -58,7 +58,7 @@
 	<div *ngSwitchCase="erm.SUPPLIER_TYPE" class="flexStart icon-container" (click)="selector?.openMenu()">
 		<selector-app
 			#selector
-			[type]="erm.SUPPLIER_TYPE"
+			[type]="'SUPPLIER_TYPE' | erm"
 			[offsetY]="offsetY"
 			[offsetX]="getDynamicOffsetX()"
 			[canCreate]="true"

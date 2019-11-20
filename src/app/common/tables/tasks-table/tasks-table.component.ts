@@ -1,11 +1,10 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { EntityTableComponent, TableConfig, TableConfigType } from '~core/list-page';
-import { ERM, Task } from '~core/models';
+import { Task } from '~core/models';
 import { ID } from '~utils/id.utils';
 import { TaskService } from '~core/entity-services';
 import { User } from 'getstream';
-import { Status } from '~core/models/status.model';
 
 const bigTableConfig: TableConfig = {
 	done: { name: 'done', translationKey: '', width: 50, sortable: false },
@@ -52,7 +51,6 @@ export class TasksTableComponent extends EntityTableComponent<Task> implements O
 	@Output() openSupplier = new EventEmitter<ID>();
 
 	columns = ['done', 'reference', 'name', 'product', 'supplier', 'dueDate', 'assignee', 'status', 'createdBy', 'createdOn'];
-	erm = ERM;
 
 	constructor(
 		public translate: TranslateService,

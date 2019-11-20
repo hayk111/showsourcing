@@ -49,7 +49,6 @@ export class AttachmentsTableComponent extends EntityTableComponent<Attachment> 
 
 	tableConfig = bigTableConfig;
 	columns = ['name', 'createdBy', 'creationDate', 'actions'];
-	erm = ERM;
 
 	constructor(
 		public translate: TranslateService,
