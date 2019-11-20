@@ -12,7 +12,7 @@ import { TableComponent } from './table.component';
 import { TableModule } from '../../table.module';
 import { By } from '@angular/platform-browser';
 import { ColumnDirective } from '~shared/table/components/column.directive';
-import { EntityTableComponent } from '~core/list-page/entity-table.component';
+import { EntityTableComponent } from '~common/tables/entity-table.component';
 import { Sort } from '~shared/table/components/sort.interface';
 import { Subscription } from 'rxjs';
 

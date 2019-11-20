@@ -64,40 +64,14 @@
     [sortBy]="column.sortProperty">
     <ng-container [ngSwitch]="column.name">
 
-      <!-- product reference -->
-      <ng-container *ngSwitchCase="'reference'">
-        <div class="ellipsis name-container contain-strict flexVAlign">
-          <div class="ellipsis flexVAlign">
 
-            <div *ngIf="hasPreview" class="preview-imgs" (click)="previewClick.emit(row)">
-              <logo-app class="mini imgCtnr"
-                [logo]="row.images[0]" size="m" type="product"></logo-app>
-              <div class="hover-img">
-                <icon-app name="eye" [size]="18" class="preview-hover-img"></icon-app>
-              </div>
-						</div>
+			<!-- default columns: Those are the usual suspect columns that are almost always there
+				put those at the top for easy copy paste -->
+	
 
-						<div *ngIf="!hasPreview">
-							<logo-app class="mini imgCtnr" [logo]="row.images[0]" size="m" type="product"></logo-app>
-						</div>
+			<!-- end of usual suspects -->
 
-            <div class="flexColumn ref-ctnr">
-              <span class="product-ref ellipsis">
-                <a class="name txt-btn" [routerLink]="['/products', row.id]">
-									{{ row.name || '-' }}
-                </a>
-              </span>
 
-              <div class="product-name-ref ellipsis">
-                  {{ row.reference || '-' }}
-              </div>
-            </div>
-
-					</div>
-
-					<button *ngIf="hasPreview" class="small secondary preview-button" (click)="previewClick.emit(row)">Preview</button>
-        </div>
-      </ng-container>
 
       <!-- supplier -->
       <ng-container *ngSwitchCase="'supplier'">
@@ -126,43 +100,6 @@
 					</div>
         </selector-app>
 			</ng-container>
-
-			<!-- category + supplier -->
-
-			<ng-container *ngSwitchCase="'about'">
-        <selector-app
-          [type]="'SUPPLIER' | erm: true"
-					[hasPicker]="canUpdate"
-          [canCreate]="true"
-          [width]="370"
-          (update)="update.emit({ id: row.id, supplier: $event })">
-          <div class="ellipsis about-supplier txt-btn"  [ngClass]="{ 'empty-field': !row?.supplier }">
-						{{ row?.supplier?.name || '-' }}
-					</div>
-        </selector-app>
-        <selector-app
-          [type]="'CATEGORY' | erm: true"
-					[hasPicker]="canUpdate"
-					[canCreate]="true"
-					[width]="370"
-					(update)="update.emit({ id: row.id, category: $event })">
-					<div class="about-category pointer txt-btn"  [ngClass]="{ 'empty-field': !row?.category }">
-						<div class="ellipsis">
-							{{ row?.category?.name || '-' }}
-						</div>
-					</div>
-				</selector-app>
-			</ng-container>
-
-      <!-- activities -->
-      <ng-container *ngSwitchCase="'activities'">
-        <activities-bar-app
-          [row]="row"
-					[favorite]="row?.favorite"
-					[hasRequestCount]="hasRequestCount"
-          [votes]="row?.votes">
-        </activities-bar-app>
-      </ng-container>
 
       <!-- price -->
       <ng-container *ngSwitchCase="'price'">
@@ -204,39 +141,6 @@
         </editable-container-app>
       </ng-container>
 
-      <!-- creation date -->
-      <ng-container *ngSwitchCase="'created on'">
-        {{ row?.creationDate | date: 'dd MMMM y':'':translate.currentLang  }}
-			</ng-container>
-
-      <!-- created by -->
-      <ng-container *ngSwitchCase="'created by'">
-				{{ row?.createdBy | formatUserName: true }}
-			</ng-container>
-
-			<!-- favorite -->
-			<ng-container *ngSwitchCase="'favorite'">
-				<div>
-					<rating-heart-app
-						[favorite]="row?.favorite"
-						(favorited)="favorited.emit(row.id)"
-						(unfavorited)="unfavorited.emit(row.id)">
-					</rating-heart-app>
-				</div>
-			</ng-container>
-
-      <!-- favorite -->
-      <ng-container *ngSwitchCase="'FAV'">
-        <div>
-          <rating-heart-app
-						size="20"
-						[favorite]="row?.favorite"
-            (favorited)="favorited.emit(row.id)"
-            (unfavorited)="unfavorited.emit(row.id)">
-          </rating-heart-app>
-        </div>
-      </ng-container>
-
       <!-- projects -->
       <ng-container *ngSwitchCase="'projects'">
         <div class="flexCenter">
@@ -246,12 +150,7 @@
         </div>
       </ng-container>
 
-      <!-- status -->
-      <ng-container *ngSwitchCase="'status'">
-				<div class="status-col flexVAlign">
-					<status-selector-app [entity]="row" [typeEntity]="'PRODUCT' | erm" [canUpdate]="canUpdate" selectSize="m" (statusUpdated)="update.emit($event)"></status-selector-app>
-				</div>
-			</ng-container>
+
 
 			<!-- name -->
       <ng-container *ngSwitchCase="'name'">
@@ -265,25 +164,6 @@
 					</logo-app>
 					<span class="product-name">{{ row?.name }}</span>
 				</div>
-			</ng-container>
-
-			<!-- assignee -->
-			<ng-container *ngSwitchCase="'assignee'">
-				<selector-app
-					[type]="'USER' | erm: true"
-					[width]="320"
-					[offsetX]="4"
-					(update)="update.emit({ id: row?.id, assignee: $event })">
-					<div class="flex pointer">
-						<user-picture-app
-							*ngIf="row?.assignee"
-							[user]="row?.assignee">
-						</user-picture-app>
-						<div class="flexVAlign ellipsis pointer txt-btn" [ngClass]="{ 'empty-field': !row?.assignee }">
-							{{ row?.assignee ? (row?.assignee | formatUserName: true) : '-' }}
-						</div>
-					</div>
-				</selector-app>
 			</ng-container>
 
       <!-- default -->

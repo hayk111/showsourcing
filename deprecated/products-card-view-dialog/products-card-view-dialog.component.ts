@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { EntityTableComponent } from '~core/list-page/entity-table.component';
+import { EntityTableComponent } from '~common/tables/entity-table.component';
 import { Product } from '~models';
 
 

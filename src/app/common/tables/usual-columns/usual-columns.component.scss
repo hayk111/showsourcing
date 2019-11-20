@@ -1,0 +1,183 @@
+:host {
+	display: flex;
+	// if we put a margin here, the style will look wrong
+	// margin: 0 var(--spacing-l);
+	box-sizing: border-box;
+	height: 100%;
+}
+
+editable-display-app {
+	width: 100%;
+}
+
+
+.name-container:hover {
+	.preview-button {
+		display: flex;
+	}
+}
+
+.preview-button {
+	display: none;
+}
+
+.preview-imgs {
+	position: relative;
+	border-radius: var(--border-radius);
+}
+
+.preview-imgs .hover-img {
+	background-color: rgb(69, 173, 255, 0.5);
+	position: absolute;
+	border-radius: var(--border-radius);
+	color: var(--color-bg);
+	position: absolute;
+	cursor: pointer;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	display: none;
+}
+
+.reference {
+	display: flex;
+}
+
+.preview-imgs:hover .hover-img {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.preview-imgs .hover-img {
+	position: absolute;
+	cursor: pointer;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	display: none;
+}
+
+.ellipsis {
+	width: 100%;
+}
+
+.mainCellWrapper {
+	display: flex;
+	justify-content: space-between;
+
+	&:hover {
+		.preview {
+			opacity: 1;
+		}
+	}
+}
+
+.mainCell {
+	display: flex;
+	align-items: center;
+}
+
+.mainCell > * {
+	&:not(:first-child) {
+		margin-left: var(--spacing-s);
+	}
+}
+
+.preview {
+	opacity: 0;
+	transition: opacity 0.3s;
+	min-width: 70px;
+}
+
+.ref-ctnr {
+	margin-left: var(--spacing-ms);
+	width: 160px;
+	.product-ref {
+		height: 18px;
+		font-size: var(--font-size-m);
+		color: var(--color-txt-primary);
+	}
+	.product-name-ref {
+		height: 15px;
+		font-size: var(--font-size-s);
+		color: var(--color-txt-secondary);
+	}
+}
+
+.supplier-col {
+  font-size: var(--font-size-m);
+	color: var(--color-bg-dark);
+}
+
+.about-category {
+	width: min-content;
+	color: var(--color-accent-dark);
+	background-color: var(--color-accent-light);
+	border-radius: var(--border-radius);
+	padding: var(--spacing-xxs) var(--spacing-xs);
+
+	&:hover {
+		text-decoration: none;
+		color: var(--color-accent-dark) !important;
+	}
+}
+
+.about-supplier {
+	font-size: var(--font-size-m);
+	color: var(--color-txt-secondary);
+	margin-left: var(--spacing-xs);
+}
+
+.status-col {
+	status-selector-app {
+		margin-left: var(--spacing-ms);
+	}
+}
+
+.created-by {
+  height: 18px;
+  font-size: var(--font-size-m);
+	color: var(--color-txt-secondary);
+	overflow: hidden;
+}
+
+.created-by-date {
+  height: 15px;
+  font-size: var(--font-size-s);
+	color: var(--color-txt-secondary);
+	overflow: hidden;
+}
+
+.category, .category-dark {
+  font-size: var(--font-size-m);
+  font-weight: 600;
+	color: var(--color-accent-dark);
+	overflow: hidden;
+	white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.category-dark {
+	color: var(--color-bg-dark);
+	font-weight: normal;
+}
+
+.product-name {
+	color: var(--color-bg-dark);
+	font-size: var(--font-size-m);
+	margin-left: var(--spacing-ms);
+}
+
+.price-dialog {
+	color: var(--color-bg-dark);
+	font-size: var(--font-size-m);
+  font-weight: 600;
+}
+
+.empty-field {
+	color: var(--color-txt-secondary);
+	font-weight: normal;
+}

@@ -1,9 +1,23 @@
-import { ChangeDetectionStrategy, Component, ContentChildren, EventEmitter, HostListener, Input, OnChanges, Output, QueryList, TemplateRef } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	ContentChildren,
+	EventEmitter,
+	HostListener,
+	Input,
+	OnChanges,
+	Output,
+	QueryList,
+	TemplateRef
+} from '@angular/core';
 import { EntityName } from '~core/models';
 import { ColumnDirective } from '~shared/table/components/column.directive';
 import { Sort } from '~shared/table/components/sort.interface';
 import { TrackingComponent } from '~utils/tracking-component';
 
+// Here is a stackblitz with a smaller version of the tables to understand it more easily
+
+// https://stackblitz.com/edit/angular-vtluff?file=src/app/app.component.ts
 @Component({
 	selector: 'table-app',
 	templateUrl: './table.component.html',

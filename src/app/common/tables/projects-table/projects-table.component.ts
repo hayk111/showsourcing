@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { EntityTableComponent, TableConfig } from '~core/list-page/entity-table.component';
+import { EntityTableComponent, TableConfig } from '~common/tables/entity-table.component';
 import { ERM, Project } from '~models';
 import { Color } from '~utils';
 

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { EntityTableComponent, TableConfig, TableConfigType } from '~core/list-page/entity-table.component';
+import { EntityTableComponent, TableConfig, TableConfigType } from '~common/tables/entity-table.component';
 import { Supplier } from '~models';
 
 const bigTableConfig: TableConfig = {
