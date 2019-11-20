@@ -119,7 +119,7 @@ img-app {
 	height: $image-height;
 	border-top-left-radius: var(--border-radius-l);
 	border-top-right-radius: var(--border-radius-l);
-	margin-bottom: 9px;
+	margin-bottom: var(--spacing-s);
 }
 
 .product-price {
