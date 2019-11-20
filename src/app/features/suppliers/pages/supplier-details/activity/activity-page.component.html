@@ -2,6 +2,11 @@
 	<div class="left">
 		<!-- supplier-resume -->
 		<!-- products card -->
+		<products-card-app
+			[products]="products$ | async"
+			(addProducts)="openSelectProductDlg(supplier)"
+			(viewAll)="goToProducts()">
+		</products-card-app>
 		<!-- picutres card -->
 		<!-- comments -->
 	</div>
