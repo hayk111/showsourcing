@@ -429,6 +429,7 @@
     "send-request-supplier": "Send request to supplier",
     "set-as-favorite": "Set as Favourite",
     "settings": "settings",
+    "share": "share",
     "show-filters": "Filters",
     "show-previous-comments": "Show previous comments",
     "sign-up": "Sign-up",
@@ -768,6 +769,7 @@
   "nav": {
     "activity": "activity",
     "categories": "categories",
+    "contacts": "contacts",
     "company-info": "Company Info",
     "company-users": "Company Users",
     "event": "event",
