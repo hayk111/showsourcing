@@ -1,0 +1,34 @@
+<card-app>
+	<div class="flex">
+		<initials-logo-app
+			[image]="supplier?.logoImage"
+			[name]="supplier?.name"
+			[entity]="supplier">
+		</initials-logo-app>
+		<div class="flexColumn information">
+			<!-- title -->
+			<div class="title">
+
+			</div>
+
+			<!-- description -->
+			<div class="section">
+				<h3>description</h3>
+				<input-description-app
+					[description]="supplier?.description"
+					(update)="update($event, 'description')">
+				</input-description-app>
+			</div>
+
+			<!-- product categories -->
+			<div class="section">
+
+			</div>
+
+			<!-- tags -->
+			<div class="section">
+
+			</div>
+		</div>
+	</div>
+</card-app>

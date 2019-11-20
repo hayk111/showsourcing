@@ -38,6 +38,7 @@ import { SupplierFeatureService } from './services';
 		DetailsPage.SupplierHeaderDetailsComponent,
 		DetailsPage.TasksPageComponent,
 		TablePage.SuppliersPageComponent,
+		DetailsPage.SupplierResumeComponent,
 	],
 	entryComponents: [],
 	exports: [],
