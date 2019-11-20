@@ -13,6 +13,11 @@
 		& > *:not(:last-child) {
 			margin-bottom: var(--spacing-l);
 		}
+
+		divider-app {
+			margin: var(--spacing-l) 0;
+		}
+
 	}
 	.right {
 		width: 340px;

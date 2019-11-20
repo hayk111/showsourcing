@@ -13,6 +13,13 @@
 			[entity]="supplier">
 		</pictures-card-app>
 		<!-- comments -->
+		<card-app>
+			<card-title-app translate="title.comments"></card-title-app>
+			<add-comment-app (added)="sendComment($event)"></add-comment-app>
+			<divider-app *ngIf="supplier?.comments?.length"></divider-app>
+			<comment-list-app [amountViewMore]="8" [comments]="supplier?.comments"></comment-list-app>
+		</card-app>
+
 	</div>
 	<div class="right">
 		<!-- supplier docket -->
