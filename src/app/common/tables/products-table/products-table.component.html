@@ -25,35 +25,6 @@
 	(showItemsPerPage)="showItemsPerPage.emit($event)"
 	(hovered)="hovered = $event">
 
-  <!-- contextual menu -->
-  <ng-template #contextualMenuTemplate let-row="row">
-    <context-menu-item-app
-      (click)="setFavourite.emit(row)"
-      translate="button.set-as-favorite">
-    </context-menu-item-app>
-    <context-menu-item-app
-      (click)="openAddToProjectDialog.emit(row)"
-      translate="button.add-to-project">
-    </context-menu-item-app>
-    <context-menu-item-app
-      (click)="openAddTaskDialog.emit(row)"
-      translate="button.add-task">
-    </context-menu-item-app>
-    <context-menu-item-app
-      (click)="openAddSampleDialog.emit(row)"
-      translate="button.add-sample">
-    </context-menu-item-app>
-    <divider-app></divider-app>
-    <context-menu-item-app
-      (click)="archive.emit(row)"
-      translate="button.archive">
-    </context-menu-item-app>
-    <context-menu-item-warn-app
-      (click)="delete.emit(row)"
-      translate="button.delete">
-    </context-menu-item-warn-app>
-  </ng-template>
-
   <!-- dynamic columns -->
   <ng-template
     *ngFor="let column of columnsConfig; trackBy: trackByFn"
@@ -152,4 +123,33 @@
   </ng-template>
 
 </table-app>
+
+<!-- contextual menu -->
+<ng-template #contextualMenuTemplate let-row="row">
+	<context-menu-item-app
+		(click)="setFavourite.emit(row)"
+		translate="button.set-as-favorite">
+	</context-menu-item-app>
+	<context-menu-item-app
+		(click)="openAddToProjectDialog.emit(row)"
+		translate="button.add-to-project">
+	</context-menu-item-app>
+	<context-menu-item-app
+		(click)="openAddTaskDialog.emit(row)"
+		translate="button.add-task">
+	</context-menu-item-app>
+	<context-menu-item-app
+		(click)="openAddSampleDialog.emit(row)"
+		translate="button.add-sample">
+	</context-menu-item-app>
+	<divider-app></divider-app>
+	<context-menu-item-app
+		(click)="archive.emit(row)"
+		translate="button.archive">
+	</context-menu-item-app>
+	<context-menu-item-warn-app
+		(click)="delete.emit(row)"
+		translate="button.delete">
+	</context-menu-item-warn-app>
+</ng-template>
 

@@ -1,24 +1,22 @@
 import { TableConfig } from '~core/list-page';
 
 export const bigTableConfig: TableConfig = {
-	logo: { name: 'logo', translationKey: '', width: 56, sortable: false },
-	preview: { name: 'preview', translationKey: '', width: 190, sortable: false },
+	// start usual suspsects
+	logo: { name: 'logo', translationKey: '', width: 44, sortable: false },
+	preview: { name: 'preview', translationKey: '', width: 84, sortable: false },
 	name: { name: 'name', translationKey: 'name', width: 190, sortable: false },
 	reference: { name: 'reference', translationKey: 'reference', width: 190, sortable: false },
-	rating: { name: 'rating', translationKey: 'rating', width: 190, sortable: false },
-
-	activities: { name: 'activities', translationKey: 'activities', width: 190, sortable: false },
-	category: { name: 'category', translationKey: 'category', width: 190, sortProperty: 'category.name' },
-	createdBy: { name: 'created by', translationKey: 'created-by', width: 190, sortProperty: 'createdBy.firstName' },
-	assignee: { name: 'assignee', translationKey: 'assignee', width: 190, sortProperty: 'assignee.firstName' },
-	createdOn: { name: 'created on', translationKey: 'created-on', width: 190, sortProperty: 'creationDate' },
-	about: { name: 'about', translationKey: 'about', width: 190, sortProperty: 'creationDate' },
-	favorite: { name: 'favorite', translationKey: 'favorite', width: 50, sortProperty: 'favorite' },
-	moq: { name: 'moq', translationKey: 'moq', width: 120, sortProperty: 'minimumOrderQuantity' },
-	price: { name: 'price', translationKey: 'price', width: 170, sortProperty: 'price.value' },
-	projects: { name: 'projects', translationKey: 'projects', width: 190, sortProperty: 'creationDate' },
-	status: { name: 'status', translationKey: 'status', width: 190, sortProperty: 'status.step' },
-	supplier: { name: 'supplier', translationKey: 'supplier', width: 190, sortProperty: 'supplier.id' },
+	favorite: { name: 'favorite', translationKey: 'FAV', width: 50, sortProperty: 'favorite' },
+	rating: { name: 'rating', translationKey: 'rating', width: 70, sortable: false },
+	createdBy: { name: 'created by', translationKey: 'created-by', width: 100, sortProperty: 'createdBy.firstName' },
+	assignee: { name: 'assignee', translationKey: 'assignee', width: 152, sortProperty: 'assignee.firstName' },
+	createdOn: { name: 'created on', translationKey: 'created-on', width: 100, sortProperty: 'creationDate' },
+	status: { name: 'status', translationKey: 'status', width: 140, sortProperty: 'status.step' },
+	// end usual suspsects
+	price: { name: 'price', translationKey: 'price', width: 100, sortProperty: 'price.value' },
+	moq: { name: 'moq', translationKey: 'moq', width: 60, sortProperty: 'minimumOrderQuantity' },
+	supplier: { name: 'supplier', translationKey: 'supplier', width: 210, sortProperty: 'supplier.id' },
+	category: { name: 'category', translationKey: 'category', width: 90, sortProperty: 'category.name' },
 };
 
 export const mediumTableConfig: TableConfig = {

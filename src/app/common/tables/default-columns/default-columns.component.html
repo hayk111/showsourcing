@@ -34,6 +34,11 @@
 		</rating-heart-app>
 	</ng-container>
 
+	<!-- rating -->
+	<ng-container *ngSwitchCase="'rating'">
+		<rating-badge-app [votes]="row?.votes"></rating-badge-app>
+	</ng-container>
+
 	<!-- status -->
 	<ng-container *ngSwitchCase="'status'">
 		<status-selector-app 

@@ -1,12 +1,11 @@
 
 :root {
-
 	--color-primary: rgb(69, 173, 255);
 	--color-primary-dark: rgb(64, 161, 235);
 	--color-primary-light: rgb(236, 246, 255);
 	--color-primary-contrast: rgb(255, 255, 255);
 
-	--color-secondary-light: rgb(249, 250, 252);
+	--color-secondary-light: rgb(242, 245, 251);
 	--color-secondary: rgb(233, 237, 245);
 	--color-secondary-dark: rgb(220, 225, 235);
 	--color-secondary-contrast: rgb(93, 109, 139);
@@ -39,9 +38,8 @@
 	--color-bg: rgb(255, 255, 255);
 	--color-bg-dark: rgb(24, 40, 68);
 	--color-bg-secondary: rgb(249, 250, 252);
-	--color-bg-third: rgb(242, 245, 251);
 	
-	--color-divider:  rgb(230, 235, 245);
+	--color-divider: rgb(230, 235, 245);
 	--color-hover: var(--color-bg-secondary);
 
 	// entities

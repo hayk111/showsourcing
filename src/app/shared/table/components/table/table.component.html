@@ -86,7 +86,7 @@ https://stackblitz.com/edit/angular-vtluff?file=src/app/app.component.ts -->
 					[style.height]="rowHeight + 'px'"
 					(mouseenter)="hoverRow(i)" (mouseleave)="hoverRow(-1)">
 					<!-- ellipsis wrapper because ellipsis cannot be added to flex elements, and cell is flex -->
-					<div class="full-width">
+					<div class="full-width ellipsis">
 						<!-- Render the column template when specified -->
 						<ng-container *ngIf="!column.showOnHover || i === hoverIndex">
 							<ng-container
