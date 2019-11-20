@@ -4,18 +4,23 @@
 	<div class="section">
 		<h3 class="title">Product Owner</h3>
 
-		<selector-app
-			#sel
-			[type]="'USER' | erm: true"
-			[width]="320"
-			[offsetX]="4"
-			(update)="update.emit({ assignee: $event })">
+		<editable-container-app
+			[hasAction]="false"
+			[openOnClick]="false"
+			(click)="sel?.selector?.openMenu()">
 			<editable-display-app>
-				<div *ngIf="product?.assignee" class="flex">
-					<user-picture-app	class="mg-right-ms" [user]="product?.assignee" size="24" fontSize="12" [hasName]="true"></user-picture-app>
-				</div>
+				<selector-app
+					#sel
+					[type]="'USER' | erm: true"
+					[width]="320"
+					[offsetX]="4"
+					(update)="update.emit({ assignee: $event })">
+					<div *ngIf="product?.assignee" class="flex">
+						<user-picture-app	class="mg-right-ms" [user]="product?.assignee" size="24" fontSize="12" [hasName]="true"></user-picture-app>
+					</div>
+				</selector-app>
 			</editable-display-app>
-		</selector-app>
+		</editable-container-app>
 	</div>
 
 	<!-- status -->
@@ -35,11 +40,7 @@
 	<div class="section action-hover-container">
 		<div class="title flexVAlign">
 			<h3>Tasks</h3>
-			<icon-app
-				class="mg-left-ms action-hover-item color-primary"
-				name="plus"
-				(click)="addTask.emit()">
-			</icon-app>
+			<div class="mg-left-ms action-hover-item color-primary txt-btn" (click)="addTask.emit()">Add</div>
 		</div>
 		<task-list-app [tasks]="product?.tasksLinked" (taskClicked)="previewTask.emit($event)"></task-list-app>
 	</div>
@@ -48,11 +49,7 @@
 	<div class="section action-hover-container">
 		<div class="title flexVAlign">
 			<h3>Samples</h3>
-			<icon-app
-				class="mg-left-ms action-hover-item color-primary"
-				name="plus"
-				(click)="addSample.emit()">
-			</icon-app>
+			<div class="mg-left-ms action-hover-item color-primary txt-btn" (click)="addSample.emit()">Add</div>
 		</div>
 		<sample-list-app [samples]="product?.samplesLinked" (sampleClicked)="previewSample.emit($event)"></sample-list-app>
 	</div>
