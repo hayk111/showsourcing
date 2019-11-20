@@ -53,7 +53,7 @@ export class FileListComponent extends AutoUnsub implements OnInit {
 
 	onFileAdded(files: Array<File>) {
 		if (!this.static)
-			this.uploaderFeedback.addFiles(files);
+			this.uploaderFeedback.addFiles(files).subscribe();
 	}
 
 	onFileRemoved(file: Attachment, event: MouseEvent) {
