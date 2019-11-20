@@ -1,12 +1,13 @@
 import { ID, uuid } from '~utils';
 
 import { ExtendedFieldDefinition } from './extended-field-definition.model';
+import { TemplateField } from './template-field.model';
 
 export class RequestTemplate {
 	id: ID;
-	name: string;
-	targetedEntity = 'Product';
-	requestedFields: ExtendedFieldDefinition[];
+	name?: string;
+	targetedEntity ?= 'Product';
+	fields?: TemplateField[];
 	__typename ?= 'RequestTemplate';
 
 	constructor(config: RequestTemplateConfig) {
@@ -19,5 +20,5 @@ export interface RequestTemplateConfig {
 	id?: ID;
 	name?: string;
 	targetedEntity?: string;
-	requestedFields?: ExtendedFieldDefinition[];
+	fields?: TemplateField[];
 }
