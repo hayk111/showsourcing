@@ -67,7 +67,7 @@
 
 			<!-- default columns: Those are the usual suspect columns that are almost always there
 				put those at the top for easy copy paste -->
-	
+			<default-columns-app [row]="row" [column]="column" [type]="'PRODUCT' | erm"></default-columns-app>
 
 			<!-- end of usual suspects -->
 
@@ -148,27 +148,6 @@
             {{ project.name || '-' }}
           </span>
         </div>
-      </ng-container>
-
-
-
-			<!-- name -->
-      <ng-container *ngSwitchCase="'name'">
-				<div class="flexVAlign">
-					<logo-app
-						class="mini imgCtnr"
-						[logo]="row.images[0]"
-						[color]="color.SECONDARY"
-						size="ms"
-						type="product">
-					</logo-app>
-					<span class="product-name">{{ row?.name }}</span>
-				</div>
-			</ng-container>
-
-      <!-- default -->
-      <ng-container *ngSwitchDefault>
-        {{ row[column.name] }}
       </ng-container>
 
     </ng-container>

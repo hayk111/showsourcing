@@ -11,6 +11,7 @@ import { RequestsTableComponent } from './requests-table/requests-table.componen
 import { SamplesTableComponent } from './samples-table/samples-table.component';
 import { SuppliersTableComponent } from './suppliers-table/suppliers-table.component';
 import { TasksTableComponent } from './tasks-table/tasks-table.component';
+import { DefaultColumnsComponent } from './default-columns/default-columns.component';
 
 @NgModule({
 	imports: [
@@ -27,6 +28,7 @@ import { TasksTableComponent } from './tasks-table/tasks-table.component';
 		SamplesTableComponent,
 		SuppliersTableComponent,
 		TasksTableComponent,
+		DefaultColumnsComponent
 	],
 	exports: [
 		AttachmentsTableComponent,

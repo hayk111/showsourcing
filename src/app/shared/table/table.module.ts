@@ -11,7 +11,6 @@ import { PaginationModule } from '~shared/pagination/pagination.module';
 import { PriceModule } from '~shared/price';
 import { StatusSelectorModule } from '~shared/status-selector/status-selector.module';
 import { ColumnDirective, TableComponent } from '~shared/table/components';
-import { CustomTableComponent } from '~shared/table/components/custom-table/custom-table.component';
 import { UtilsModule } from '~shared/utils';
 
 @NgModule({
@@ -29,7 +28,7 @@ import { UtilsModule } from '~shared/utils';
 		UtilsModule,
 		PaginationModule,
 	],
-	declarations: [TableComponent, ColumnDirective, CustomTableComponent],
-	exports: [TableComponent, ColumnDirective, CustomTableComponent],
+	declarations: [TableComponent, ColumnDirective],
+	exports: [TableComponent, ColumnDirective],
 })
 export class TableModule { }
