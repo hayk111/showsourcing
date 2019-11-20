@@ -135,11 +135,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 		// this.taskSrv.queryMany({ query: `product.id == "${this.product.id}" AND delete == false AND archived == false  ` });
 		this.samples$ = this.sampleSrv.queryMany({ query: `product.id == "${this.product.id}" AND deleted == false` });
 
-		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryAll(undefined, {
-			query: 'target == "Product"',
-			sortBy: 'order',
-			descending: false
-		});
+		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "Product"', sortBy: 'order' });
 	}
 
 	ngOnChanges() {

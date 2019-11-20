@@ -1,12 +1,12 @@
 import { OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { filter, switchMap, takeUntil } from 'rxjs/operators';
+import { switchMap, takeUntil } from 'rxjs/operators';
 import { CreationSampleDlgComponent } from '~common/dialogs/creation-dialogs';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { ListPageService } from '~core/list-page';
 import { SampleService, UserService } from '~entity-services';
-import { ERM, Product, Sample, Supplier } from '~models';
-import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
+import { ERM, Sample } from '~models';
+import { DialogService } from '~shared/dialog';
 import { Filter, FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 
@@ -71,10 +71,7 @@ export abstract class AbstractSampleCommonComponent extends AutoUnsub implements
 			this.listSrv.removeFilter(filterAssignee);
 	}
 
-	openCreationSampleDlg(product?: Product, supplier?: Supplier) {
-		this.dlgSrv.open(CreationSampleDlgComponent, { product, supplier }).pipe(
-			filter((event: CloseEvent) => event.type === CloseEventType.OK),
-			switchMap(_ => this.listSrv.refetch({}))
-		).subscribe();
+	openCreationSampleDlg(product, supplier) {
+		this.dlgSrv.open(CreationSampleDlgComponent, { product, supplier });
 	}
 }

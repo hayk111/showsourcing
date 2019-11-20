@@ -33,7 +33,6 @@ export * from './tag/tag.service';
 export * from './task/task.service';
 export * from './team-user/team-user.service';
 export * from './team/team.service';
-export * from './template-field/template-field.service';
 export * from './user/user.service';
 export * from './weight-unit/weight-unit.service';
 export * from './rpc/rpc.service';

@@ -1,12 +1,12 @@
 import { OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { filter, switchMap, takeUntil } from 'rxjs/operators';
+import { switchMap, takeUntil } from 'rxjs/operators';
 import { CreationTaskDlgComponent } from '~common/dialogs/creation-dialogs';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { ListPageService } from '~core/list-page';
 import { TaskService, UserService } from '~entity-services';
-import { ERM, Product, Supplier, Task } from '~models';
-import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
+import { ERM, Task, Product, Supplier } from '~models';
+import { DialogService } from '~shared/dialog';
 import { Filter, FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
 
@@ -79,10 +79,7 @@ export abstract class AbstractTaskCommonComponent extends AutoUnsub implements O
 	}
 
 	openCreationTaskDlg(product?: Product, supplier?: Supplier) {
-		this.dlgSrv.open(CreationTaskDlgComponent, { product, supplier }).pipe(
-			filter((event: CloseEvent) => event.type === CloseEventType.OK),
-			switchMap(_ => this.listSrv.refetch())
-		).subscribe();
+		this.dlgSrv.open(CreationTaskDlgComponent, { product, supplier });
 	}
 
 	openProduct(id: string) {

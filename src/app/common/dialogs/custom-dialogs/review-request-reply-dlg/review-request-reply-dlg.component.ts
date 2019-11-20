@@ -235,10 +235,8 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 		// this types are coming from the extended field
 		switch (item.definition.type) {
 			case 'price':
-				tempProduct = ({ ...tempProduct, [property]: { ...JSON.parse(item.value), __typename: 'Price' } });
-				break;
 			case 'packaging':
-				tempProduct = ({ ...tempProduct, [property]: { ...JSON.parse(item.value), __typename: 'Packaging' } });
+				tempProduct = ({ ...tempProduct, [property]: { ...JSON.parse(item.value) } });
 				break;
 			case 'boolean':
 				const toBoolean = item.value === 'true' ? true : false;

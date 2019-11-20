@@ -6,14 +6,15 @@ import localeZh from '@angular/common/locales/zh';
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, combineLatest, forkJoin, Observable, of } from 'rxjs';
-import { distinctUntilChanged, filter, switchMap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, switchMap, tap, first } from 'rxjs/operators';
 import { AnalyticsService } from '~core/analytics/analytics.service';
-import { ApolloStateService, CentralClientInitializer, ClientStatus, TeamClientInitializer } from '~core/apollo/services';
+import { ApolloStateService, ClientStatus, TeamClientInitializer, CentralClientInitializer } from '~core/apollo/services';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { GlobalDataClientsInitializer } from '~core/apollo/services/apollo-global-data-client.service';
 import { GlobalRequestClientsInitializer } from '~core/apollo/services/apollo-global-request-client.service';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { RealmAuthenticationService } from '~core/auth/services/realm-authentication.service';
+import { ListPageService } from '~core/list-page';
 import { CompanyService, TeamService, UserService } from '~entity-services';
 import { Team } from '~models';
 import { log } from '~utils/log';
@@ -64,8 +65,6 @@ export class AppComponent implements OnInit {
 		const hasTeam$ = this.teamSrv.hasTeamSelected$;
 		const teamClientStatus$ = this.apolloState.getClientStatus(Client.TEAM);
 		// we only want the loader to appear when we have a team selected and the team client status is pending
-		// because that means we are accessing the main app and since the client is pending the page is not yet visible
-		// TODO what we could do instead is have the spinner property come from the guards directly.
 		combineLatest(
 			hasTeam$,
 			teamClientStatus$,

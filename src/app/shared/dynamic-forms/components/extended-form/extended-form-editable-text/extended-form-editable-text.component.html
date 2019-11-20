@@ -105,8 +105,9 @@
 			<radio-app
 				inputApp
 				[disabled]="disabled"
-				[checked]="accumulator"
-				[items]="[{ name: 'Yes', value: true }, { name: 'No', value: false }]">
+				[checked]="field?.value === 'true' ? true : field?.value === 'false' ? false : null"
+				[items]="[{ name: 'Yes', value: true }, { name: 'No', value: false }]"
+				(update)="toggleBoolean($event)">
 			</radio-app>
 		</editable-display-app>
 	</editable-field-app>

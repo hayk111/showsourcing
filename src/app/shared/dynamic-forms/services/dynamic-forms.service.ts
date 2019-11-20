@@ -32,7 +32,7 @@ export class DynamicFormsService {
 		const validators = [];
 		if (field.required) validators.push(Validators.required);
 		switch (field.type) {
-			case 'int':
+			case 'number':
 				validators.push(Validators.pattern(RegexpApp.DIGITS));
 				break;
 			case 'url':

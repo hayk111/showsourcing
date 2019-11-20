@@ -89,11 +89,7 @@ export class MassEditDlgComponent extends AutoUnsub implements OnInit {
 					{ name: 'harbour', metadata: { width: 500 } }
 				]);
 				this.dynamicFields = this._productDescriptor.descriptor;
-				this.definitions$ = this.extendedFDSrv.queryAll(undefined, {
-					query: 'target == "Product"',
-					sortBy: 'order',
-					descending: false
-				});
+				this.definitions$ = this.extendedFDSrv.queryMany({ query: 'target == "Product"', sortBy: 'order' });
 				break;
 			default: throw Error(`No DynamicField associated to this ERM ${this.type}`);
 		}
