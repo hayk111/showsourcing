@@ -28,7 +28,8 @@ export const routes: Array<Route> = [
 			{ path: 'common-list', component: Pages.CommonListPageComponent },
 			{ path: 'editable-container', component: Pages.EditableContainerPageComponent },
 			{ path: 'colors', component: Pages.ColorsPageComponent },
-			{ path: 'spacing', component: Pages.SpacingPageComponent }
+			{ path: 'spacing', component: Pages.SpacingPageComponent },
+			{ path: 'typography', component: Pages.TypographyPageComponent }
 			// { path: 'sample-card', component: Pages.SampleCardTestComponent },
 			// { path: 'preview', component: Pages.PreviewPageComponent },
 			// { path: 'product-card', component: Pages.ProductCardLibraryPageComponent },

@@ -18,4 +18,5 @@ export * from './table/table-page.component';
 export * from './editable-container/editable-container-page.component';
 export * from './colors/colors-page.component';
 export * from './spacing/spacing-page.component';
+export * from './typography/typography-page.component';
 export * from './component-library-page.component';
