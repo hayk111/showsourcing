@@ -1,0 +1,35 @@
+<card-app>
+	<card-title-app translate="title.products"></card-title-app>
+
+	<ng-container *ngIf="products?.length; else empty">
+		<div class="flex">
+			<div *ngFor="let product of products; index as i; last as last; trackBy: trackById">
+				<product-grid-card-app
+					*ngIf="i < 4"
+					[class.mg-right-ms]="!last"
+					[product]="product"
+					[hasCheckbox]="false">
+				</product-grid-card-app>
+			</div>
+		</div>
+	</ng-container>
+
+	<card-footer-app *ngIf="products?.length" align="center">
+		<button class="primary-light view-all" (click)="viewAll.emit()">view all products</button>
+	</card-footer-app>
+
+</card-app>
+
+<ng-template #empty>
+	<div class="flexColumn flexCenter full-width pd-bottom-l">
+		<logo-app
+			class="mg-bottom-ms"
+			[circle]="true"
+			size="xxl"
+			[type]="'PRODUCT' | erm: true">
+		</logo-app>
+		<div class="color-txt-primary bold-s mg-bottom-xs">No products linked</div>
+		<div class="color-txt-secondary mg-bottom-ms">Link a new one!</div>
+		<button (click)="addProducts.emit()">add products</button>
+	</div>
+</ng-template>

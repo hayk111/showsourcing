@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, HostBinding } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 @Component({
 	selector: 'card-footer-app',
@@ -7,26 +7,14 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, HostBinding } from '
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[class.right]': 'align == "right"',
-		'[class.left]': 'align == "left"'
+		'[class.left]': 'align == "left"',
+		'[class.center]': 'align == "center"'
 	}
 })
-export class CardFooterComponent implements OnInit {
-	@Input() align: 'left' | 'right' = 'right';
-	@Input() paddingSide: 'ms' | 'l' = 'ms';
+export class CardFooterComponent {
 
-	col = {
-		data: []
-	};
+	@Input() align: 'left' | 'right' | 'center' = 'right';
+
 	constructor() { }
 
-	ngOnInit() {
-	}
-
-	public getStyle(col) {
-
-	}
-
-	public hasAllSelected() {
-
-	}
 }
