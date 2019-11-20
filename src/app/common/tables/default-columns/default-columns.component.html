@@ -20,7 +20,7 @@
 
 	<!-- preview -->
 	<ng-container *ngSwitchCase="'preview'">
-		<button class="secondary-light" (click)="previewClick.emit()">
+		<button *ngIf="hovered" class="secondary" (click)="previewClick.emit()">
 			preview
 		</button>
 	</ng-container>

@@ -67,7 +67,8 @@ export abstract class EntityTableComponent<T> extends TrackingComponent implemen
 	@Output() next = new EventEmitter<undefined>();
 	@Output() goToPage = new EventEmitter<number>();
 	@Output() showItemsPerPage = new EventEmitter<number>();
-	erm = ERM;
+	/** id of the row being hovered */
+	hovered: string;
 
 	constructor() {
 		super();

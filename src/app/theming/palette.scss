@@ -31,16 +31,18 @@
 	--color-success-dark: rgb(58, 172, 90);
 	--color-success-contrast: rgb(255, 255, 255);
 
-	--color-divider:  rgb(230, 235, 245);
-
+	
 	--color-txt-primary: rgb(24, 40, 68);
 	--color-txt-secondary: rgb(93, 109, 139);
 	--color-txt-third: rgb(163, 175, 198);
-
+	
 	--color-bg: rgb(255, 255, 255);
 	--color-bg-dark: rgb(24, 40, 68);
 	--color-bg-secondary: rgb(249, 250, 252);
-	--color-bg-third: rgb(230, 235, 245);
+	--color-bg-third: rgb(242, 245, 251);
+	
+	--color-divider:  rgb(230, 235, 245);
+	--color-hover: var(--color-bg-secondary);
 
 	// entities
 	--color-product: var(--color-primary);
@@ -53,8 +55,8 @@
 	--color-category-light: var(--color-accent-light);
 	--color-sample: var(--color-accent);
 	--color-sample-light: var(--color-accent-light);
-	--color-task: rgb(113, 229, 145);
-	--color-task-light: rgb(240, 252, 244);
+	--color-task: var(--color-success);
+	--color-task-light: var(--color-success-light);
 
 	// status
 	--color-status-new: var(--color-secondary-contrast);

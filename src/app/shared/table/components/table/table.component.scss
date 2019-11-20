@@ -64,6 +64,9 @@ pagination-app {
 	context-menu-app {
 		margin-top: var(--spacing-xs);
 	}
+	.col {
+		flex-shrink: 0;
+	}
 	.cell, .header {
 		color: var(--color-txt-primary);
 		padding: 0 var(--spacing-ms);
@@ -81,7 +84,7 @@ pagination-app {
 		text-transform: capitalize;
 		font-weight: 600;
 		font-size: 14px;
-		background: var(--color-bg-secondary);
+		background: var(--color-bg-third);
 	}
 	
 	.selected {

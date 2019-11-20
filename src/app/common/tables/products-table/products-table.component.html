@@ -3,7 +3,6 @@
 	[placeholder]="'placeholder.no-product' | translate"
 	[rows]="rows"
 	[type]="'PRODUCT' | erm: true"
-	[hasVerticalScroll]="hasVerticalScroll"
   [currentSort]="currentSort"
   [pending]="pending"
   [count]="count"
@@ -23,7 +22,8 @@
   (selectAll)="selectAll.emit($event)"
 	(unselectAll)="unselectAll.emit()"
 	(createClick)="createClick.emit()"
-  (showItemsPerPage)="showItemsPerPage.emit($event)">
+	(showItemsPerPage)="showItemsPerPage.emit($event)"
+	(hovered)="hovered = $event">
 
   <!-- contextual menu -->
   <ng-template #contextualMenuTemplate let-row="row">
@@ -58,20 +58,18 @@
   <ng-template
     *ngFor="let column of columnsConfig; trackBy: trackByFn"
     let-row="row"
-		[columnApp]="'title.' + column.translationKey | translate"
+		[columnApp]="column.translationKey ? ('title.' + column.translationKey | translate) : ''"
 		[sortable]="column.sortable !== false"
     [width]="column.width"
     [sortBy]="column.sortProperty">
     <ng-container [ngSwitch]="column.name">
 
-
-			<!-- default columns: Those are the usual suspect columns that are almost always there
-				put those at the top for easy copy paste -->
-			<default-columns-app [row]="row" [column]="column" [type]="'PRODUCT' | erm"></default-columns-app>
-
-			<!-- end of usual suspects -->
-
-
+			<default-columns-app 
+				[row]="row" 
+				[column]="column" 
+				[hovered]="row.id === hovered"
+				[type]="'PRODUCT' | erm">
+			</default-columns-app>
 
       <!-- supplier -->
       <ng-container *ngSwitchCase="'supplier'">
