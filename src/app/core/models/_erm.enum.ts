@@ -61,7 +61,6 @@ export enum EntityName {
 	TAG = 'tag',
 	TASK = 'task',
 	TEAM = 'team',
-	TEMPALTE_FIELD = 'template field',
 	USER = 'user',
 }
 
@@ -80,11 +79,10 @@ export enum EntityTypeEnum {
 	USER = 'USER',
 	TASK = 'TASK',
 	TAG = 'TAG',
-	TEMPALTE_FIELD = 'TEMPLATE_FIELD',
 }
 
 export type EntityType = 'CATEGORY' | 'EVENT' | 'PRODUCT' | 'REQUEST' | 'EXPORT'
-	| 'PROJECT' | 'TASK' | 'SUPPLIER' | 'SAMPLE' | 'USER' | 'TAG' | 'INVITATION' | 'TEMPLATE_FIELD';
+	| 'PROJECT' | 'TASK' | 'SUPPLIER' | 'SAMPLE' | 'USER' | 'TAG' | 'INVITATION';
 
 export class EntityMetadata {
 	readonly constClass: new (...args: any[]) => any;
@@ -175,7 +173,6 @@ export class ERM {
 	static readonly TASK = new EntityMetadata('task', 'tasks', 'TASK', Task);
 	static readonly TEAM = new EntityMetadata('team', 'teams', 'TEAM', Team);
 	static readonly TEAM_USER = new EntityMetadata('team user', 'team users', 'TEAM_USER');
-	static readonly TEMPLATE_FIELD = new EntityMetadata('template field', 'template fields', 'TEMPLATE_FIELD');
 	static readonly USER = new EntityMetadata('user', 'users', 'USER', User);
 	static readonly WEIGHT_UNIT = new EntityMetadata('weight unit', 'weight units', 'WEIGHT_UNIT');
 

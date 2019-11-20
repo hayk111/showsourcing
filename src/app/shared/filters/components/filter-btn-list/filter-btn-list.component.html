@@ -1,5 +1,5 @@
 <div class="filter-btn">
-	<ng-container *ngFor="let type of filterBtns; trackBy: trackByFiltersFn">
+	<ng-container *ngFor="let type of filterBtns; trackBy: trackByFilterBtnsFn">
 
 		<ng-container *ngIf="!hasFilterFor(type); else list">
 

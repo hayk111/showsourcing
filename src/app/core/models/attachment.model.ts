@@ -5,7 +5,7 @@ export class Attachment extends EntityWithAudit<AttachmentConfig> {
 	url: string;
 	size?: number;
 	pending?: boolean;
-	__typename?= 'Attachment';
+	__typename ?= 'Attachment';
 
 	constructor(config: AttachmentConfig) {
 		super(config);

@@ -4,18 +4,20 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { from } from 'apollo-link';
 import { WebSocketLink } from 'apollo-link-ws';
 import { environment } from 'environments/environment';
+import gql from 'graphql-tag';
 import { GraphQLConfig, User as RealmUser } from 'realm-graphql-client';
-import { forkJoin, Observable, of, Subject, throwError } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Observable, of, Subject, throwError, forkJoin, bindCallback } from 'rxjs';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
 import { cleanTypenameLink } from '~core/apollo/services/clean.typename.link';
-import { ERMService } from '~core/entity-services/_global/erm.service';
-import { LocalStorageService } from '~core/local-storage';
-import { EntityMetadata } from '~core/models';
 import { RealmServerService } from '~entity-services/realm-server/realm-server.service';
 import { log, LogColor } from '~utils';
 import { showsourcing } from '~utils/debug-object.utils';
+import { EntityMetadata } from '~core/models';
+import { ERMService } from '~core/entity-services/_global/erm.service';
+import { LocalStorageService } from '~core/local-storage';
+import { tap } from 'rxjs/operators';
+import { resolve } from 'url';
 
 
 
@@ -74,7 +76,6 @@ export abstract class AbstractApolloClient {
 		this.apolloState.setClientError(this.client, e);
 		return throwError(e);
 	}
-
 
 	/** we use the path as client name.. */
 	protected async createClient(realmPath: string, user: RealmUser, name: Client): Promise<void> {
@@ -151,10 +152,10 @@ export abstract class AbstractApolloClient {
 		}
 
 		const newSubs = entitiesToSub
-			.map(
-				(erm: EntityMetadata) => this.ermSrv.getGlobalService(erm)
-					.openSubscription(this.client)
-			);
+		.map(
+			(erm: EntityMetadata) => this.ermSrv.getGlobalService(erm)
+				.openSubscription(this.client)
+		);
 		return forkJoin(newSubs).pipe(
 			tap(_ => {
 				entitiesToSub.forEach(erm => submap[erm.singular] = true);
