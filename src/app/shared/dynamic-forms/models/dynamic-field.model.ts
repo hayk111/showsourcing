@@ -17,6 +17,8 @@ export interface DynamicFieldMetadata {
 	placeholder?: string;
 	disabled?: boolean;
 	rows?: number;
+	// only used when using dynamic form from metadata of the extended Fields
+	source?: string;
 }
 
 /*
@@ -34,5 +36,5 @@ export interface DynamicFieldMetadata {
 */
 
 export type DynamicFieldType =
-	'text' | 'tel' | 'number' | 'decimal' | 'days' | 'textarea' | 'selector' | 'boolean' | 'price'
+	'text' | 'tel' | 'int' | 'decimal' | 'days' | 'textarea' | 'selector' | 'boolean' | 'price'
 	| 'priceMatrix' | 'packaging' | 'title' | 'url' | 'email' | 'extendedField' | 'date' | 'status' | 'votes';

@@ -40,7 +40,7 @@ export const routes: Array<Route> = [
 			CentralClientReadyGuard,
 			HasTeamSelectedGuard,
 			TeamClientReadyGuard,
-			HasUserGuard
+			HasTeamSelectedGuard,
 		],
 		children: [
 			{ path: '', redirectTo: 'dashboard', pathMatch: 'full' },
