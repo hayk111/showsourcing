@@ -11,6 +11,7 @@ import { SampleCardComponent } from './sample-card/sample-card.component';
 import { SupplierCardComponent } from './supplier-card/supplier-card.component';
 import { ProjectListCardComponent } from './project-list-card/project-list-card.component';
 import { ListCommonModule } from '~common/list/list-common.module';
+import { PicturesCardComponent } from './pictures-card/pictures-card.component';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { ListCommonModule } from '~common/list/list-common.module';
 		SampleCardComponent,
 		SupplierCardComponent,
 		ProjectListCardComponent,
+		PicturesCardComponent,
 	],
 	exports: [
 		ProductCardComponent,
@@ -34,6 +36,7 @@ import { ListCommonModule } from '~common/list/list-common.module';
 		SampleCardComponent,
 		SupplierCardComponent,
 		ProjectListCardComponent,
+		PicturesCardComponent,
 	],
 	entryComponents: []
 })
