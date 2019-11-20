@@ -20,6 +20,7 @@ ENDPOINT=$3
 APP_ENDPOINTS[1]="app-dev.showsourcing.com"
 APP_ENDPOINTS[2]="app-sta.showsourcing.com"
 APP_ENDPOINTS[3]="app.showsourcing.com"
+APP_ENDPOINTS[4]="app2.showsourcing.com"
 
 SUPP_ENDPOINTS[1]="supplier-dev.showsourcing.com"
 SUPP_ENDPOINTS[2]="supplier-sta.showsourcing.com"
@@ -32,23 +33,23 @@ DIR="./dist/showsourcing"
 
 # About booleans in shell
 # https://stackoverflow.com/questions/2953646/how-to-declare-and-use-boolean-variables-in-shell-script/21210966#21210966
-
 if [ -z "$ENDPOINT" ]; then
 	echo -e "\n\e[1mPlease pick an endpoint to deploy to:\e[0m "
 
 	# FOR PROJECT APP
 	if [ "$PROJECT" = "app" ]; then
+
 		# DISPLAY OPTIONS
-		for I in 1 2 3; do
-			echo "$I) ${APP_ENDPOINTS[I]}"
+		for I in 1 2 3 4; do
+				echo "$I) ${APP_ENDPOINTS[I]}"
 		done
 		read n_epoint
-
 		ENDPOINT=${APP_ENDPOINTS[n_epoint]}
 		case $n_epoint in
 		1) REGION="us-east-2" ENVIRONMENT="1" ;; # app-dev
 		2) REGION="eu-west-1" ENVIRONMENT="2" ;; # app-sta
 		3) REGION="eu-central-1" ENVIRONMENT="3" ASK_PSWD=true ;; # app (prod)
+		4) REGION="us-east-2" ENVIRONMENT="1" ;; # app2 (dev)
 		*) echo "You had 1 job, pick the correct endpoint, NEXT!" && exit 0 ;;
 		esac
 
@@ -59,7 +60,6 @@ if [ -z "$ENDPOINT" ]; then
 			echo "$I) ${SUPP_ENDPOINTS[I]}"
 		done
 		read n_epoint
-
 		DIR="./dist/supplier"
 		ENDPOINT=${SUPP_ENDPOINTS[n_epoint]}
 		case $n_epoint in
@@ -71,7 +71,6 @@ if [ -z "$ENDPOINT" ]; then
 	else
 		echo "Project named: ${PROJECT} does not exist" && exit 0
 	fi
-
 	[ -z "$ENDPOINT" ] && echo "Invalid endpoint" && exit 0
 fi
 
@@ -95,6 +94,7 @@ if [ -x "$(aws --version)" ]; then
 fi
 
 echo -e "\nChecking if the build has been created on: '${DIR}'"
+
 if [ -d "$DIR" ]; then
 	echo -e "Indeed, \e[1m\e[35mDeploying to: \e[39m $ENDPOINT \e[0m"
 	# Control will enter here if $DIRECTORY exists.
