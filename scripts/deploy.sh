@@ -20,6 +20,7 @@ ENDPOINT=$3
 APP_ENDPOINTS[1]="app-dev.showsourcing.com"
 APP_ENDPOINTS[2]="app-sta.showsourcing.com"
 APP_ENDPOINTS[3]="app.showsourcing.com"
+APP_ENDPOINTS[4]="app2.showsourcing.com"
 
 SUPP_ENDPOINTS[1]="supplier-dev.showsourcing.com"
 SUPP_ENDPOINTS[2]="supplier-sta.showsourcing.com"
@@ -39,7 +40,7 @@ if [ -z "$ENDPOINT" ]; then
 	# FOR PROJECT APP
 	if [ "$PROJECT" = "app" ]; then
 		# DISPLAY OPTIONS
-		for I in 1 2 3; do
+		for I in 1 2 3 4; do
 			echo "$I) ${APP_ENDPOINTS[I]}"
 		done
 		read n_epoint
@@ -49,6 +50,7 @@ if [ -z "$ENDPOINT" ]; then
 		1) REGION="us-east-2" ENVIRONMENT="1" ;; # app-dev
 		2) REGION="eu-west-1" ENVIRONMENT="2" ;; # app-sta
 		3) REGION="eu-central-1" ENVIRONMENT="3" ASK_PSWD=true ;; # app (prod)
+		4) REGION="us-east-2" ENVIRONMENT="1" ;; # app2 (dev)
 		*) echo "You had 1 job, pick the correct endpoint, NEXT!" && exit 0 ;;
 		esac
 
