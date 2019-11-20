@@ -131,7 +131,7 @@ export class TemplateMngmtDlgComponent extends AutoUnsub implements OnInit {
 
 		fields.forEach(f => {
 			// if its an object we stirngify if not we keep the value
-			f.fixedValue = f.fixedValue && !!f.defaultValue.toString();
+			f.fixedValue = f.fixedValue && !!f.defaultValue;
 			if (f.definition && f.definition.type === 'price') {
 				const price = this.getObjectFromString(f.defaultValue);
 				// if the value of the price is 0, means it cannot be a fixed value

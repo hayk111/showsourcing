@@ -31,13 +31,12 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 
 	@Input() selectedIndex = 0;
 	@Input() requestId: string;
-	@Input() elements: RequestElement[] = [];
 
 	@ViewChild('content', { static: false }) content: ElementRef;
 
 	request$: Observable<SupplierRequest>;
 	request: SupplierRequest;
-	element: RequestElement;
+	selectedElement: RequestElement;
 	reply: RequestReply;
 	fields: ExtendedField[];
 	definitions: ExtendedFieldDefinition[];
@@ -55,14 +54,11 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		this.request$ = this.requestSrv.selectOne(this.requestId);
-		// first time we want to set the element, but the next calls we dont want to override the uploadfeedbackvlaues
-		let initialCall = true;
 		this.request$.pipe(
 			tap(request => this.request = request),
 			takeUntil(this._destroy$)
 		).subscribe(_ => {
-			this.setElement(initialCall);
-			initialCall = false;
+			this.setElement();
 		});
 		if (this.isDisabled())
 			this.descriptionCtrl.disable();
@@ -78,31 +74,28 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 	}
 
 	next() {
-		this.selectedIndex = (this.selectedIndex + 1) % (this.elements.length);
+		this.selectedIndex = (this.selectedIndex + 1) % (this.request.requestElements.length);
 		this.setElement();
 	}
 
 	back() {
-		this.selectedIndex = this.selectedIndex - 1 >= 0 ? this.selectedIndex - 1 : this.elements.length - 1;
+		this.selectedIndex = this.selectedIndex - 1 >= 0 ? this.selectedIndex - 1 : this.request.requestElements.length - 1;
 		this.setElement();
 	}
 
-	private setElement(initialCall = true) {
-		this.element = this.elements[this.selectedIndex];
+	private setElement() {
+		this.selectedElement = this.request.requestElements[this.selectedIndex];
 
-		if (!this.element) {
-			throw Error(`no element at index ${this.selectedIndex} in array: ${this.elements.toString()}`);
+		if (!this.selectedElement) {
+			throw Error(`no element at index ${this.selectedIndex} in array: ${this.selectedElement.toString()}`);
 		}
 
-		this.reply = this.element.reply;
+		this.reply = this.selectedElement.reply;
 		this.fields = this.reply.fields;
 		this.definitions = this.reply.fields.map(field => field.definition);
-		// first time we want to set the element, but the next calls we dont want to override the uploadfeedbackvlaues
-		if (initialCall) {
-			this.uploaderFeedback.init({ linkedEntity: this.reply });
-			this.uploaderFeedback.setImages(this.reply.images.filter(img => !img.deleted));
-			this.uploaderFeedback.setFiles(this.reply.attachments);
-		}
+		this.uploaderFeedback.setImages(this.reply.images);
+		this.uploaderFeedback.setFiles(this.reply.attachments);
+		this.uploaderFeedback.init({ linkedEntity: this.reply });
 	}
 
 	save(updateStatus = false, lastItem = false) {
@@ -127,7 +120,7 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 				this.dlgSrv.open(ReplySentDlgComponent);
 			else if (updateStatus) {
 				// since we are sending the elements as an Input, we have to manually set the status so it does not show as not replied
-				this.elements[localSelectIndex].reply.status = ReplyStatus.REPLIED;
+				this.selectedElement[localSelectIndex].reply.status = ReplyStatus.REPLIED;
 				this.descriptionCtrl.reset();
 				this.content.nativeElement.scrollIntoView();
 			}
@@ -155,7 +148,7 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 
 	private getNextUnrepliedIndex() {
 		// we map the elements that are still unreplied and we filter the undefined ones
-		const unrepliedElements = this.elements.map(
+		const unrepliedElements = this.request.requestElements.map(
 			(elem, index) => {
 				if ((
 					elem.reply.status === ReplyStatus.PENDING ||
@@ -171,7 +164,7 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 	}
 
 	hasNext() {
-		return this.elements.some(elem => (
+		return this.request.requestElements.some(elem => (
 			elem.reply.status === ReplyStatus.PENDING ||
 			elem.reply.status === ReplyStatus.ERROR ||
 			elem.reply.status === ReplyStatus.RESENT
@@ -179,11 +172,11 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 	}
 
 	addImage(files: File[]) {
-		this.uploaderFeedback.addImages(files);
+		this.uploaderFeedback.addImages(files).subscribe();
 	}
 
 	addAttachment(files: File[]) {
-		this.uploaderFeedback.addFiles(files);
+		this.uploaderFeedback.addFiles(files).subscribe();
 	}
 
 	hasEmptyField() {
@@ -192,7 +185,7 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 
 	deleteImg(img: AppImage) {
 		this.uploaderFeedback.deleteImg(img);
-		this.uploaderFeedback.setImages(this.element.reply.images.filter(image => !image.deleted));
+		this.uploaderFeedback.setImages(this.selectedElement.reply.images.filter(image => !image.deleted));
 	}
 
 	getTooltipMessage() {
