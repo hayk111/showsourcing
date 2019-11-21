@@ -32,7 +32,8 @@
 		[columnApp]="column.translationKey ? ('title.' + column.translationKey | translate) : ''"
 		[sortable]="column.sortable !== false"
     [width]="column.width"
-    [sortBy]="column.sortProperty">
+		[sortBy]="column.sortProperty"
+		[grows]="!column.fixedWidth">
     <ng-container [ngSwitch]="column.name">
 
 			<default-columns-app 

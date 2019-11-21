@@ -97,22 +97,22 @@
 	<!-- product -->
 	<ng-container *ngSwitchCase="'product'">
 		<selector-app
-			[type]="type.singular"
+			type="product"
 			[offsetX]="4"
 			[width]="350"
 			(update)="update.emit({ id: row?.id, product: $event })">
-				{{ row?.product?.name || '-' }}
+			<span class="txt-btn">{{ row?.product?.name || '-'}}</span>
 		</selector-app>
 	</ng-container>
 
 	<!-- supplier -->
-	<ng-container *ngSwitchCase="'product'">
+	<ng-container *ngSwitchCase="'supplier'">
 		<selector-app
-			[type]="type.singular"
+			type="supplier"
 			[width]="350"
 			[offsetX]="4"
 			(update)="update.emit({ id: row?.id, supplier: $event })">
-			{{ row?.supplier?.name || '-'}}
+			<span class="txt-btn">{{ row?.supplier?.name || '-'}}</span>
 		</selector-app>
 	</ng-container>
 

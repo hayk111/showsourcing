@@ -1,16 +1,8 @@
 import { TableConfig } from '~core/list-page';
+import { defaultConfig } from '../default-columns/default-config';
 
 export const bigTableConfig: TableConfig = {
-	name: { name: 'icon name', translationKey: 'name', width: 190, sortProperty: 'name' },
-	assignee: { name: 'assignee', translationKey: 'assignee', width: 190, sortProperty: 'assignee.firstName' },
-	product: { name: 'product', translationKey: 'product', width: 190, sortProperty: 'product.name' },
-	supplier: { name: 'supplier', translationKey: 'supplier', width: 190, sortProperty: 'supplier.name' },
-	comments: { name: 'comments', translationKey: 'comments', width: 140 },
-	status: { name: 'status', translationKey: 'status', width: 190, sortProperty: 'status.step' },
-	type: { name: 'type', translationKey: 'type', width: 140, sortProperty: 'type' },
-	activities: { name: 'activities', translationKey: 'activities', width: 250, sortable: false },
-	createdBy: { name: 'created by', translationKey: 'created-by', width: 190, sortProperty: 'createdBy.firstName' },
-	createdOn: { name: 'created on', translationKey: 'created-on', width: 190, sortProperty: 'creationDate' },
+	...defaultConfig,
 };
 
 export const mediumTableConfig: TableConfig = {

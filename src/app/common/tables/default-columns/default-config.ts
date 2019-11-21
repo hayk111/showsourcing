@@ -1,7 +1,8 @@
+import { TableConfig } from '~core/list-page';
 
 
-export const defaultConfig = {
-	logo: { name: 'logo', translationKey: '', width: 44, sortable: false },
+export const defaultConfig: TableConfig = {
+	logo: { name: 'logo', translationKey: '', width: 44, sortable: false, fixedWidth: true },
 	preview: { name: 'preview', translationKey: '', width: 84, sortable: false },
 	name: { name: 'name', translationKey: 'name', width: 190, sortable: false },
 	reference: { name: 'reference', translationKey: 'reference', width: 190, sortable: false },

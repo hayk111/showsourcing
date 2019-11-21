@@ -28,10 +28,11 @@
 	<ng-template
 		*ngFor="let column of columnsConfig; trackBy: trackByFn"
 		let-row="row"
-		[columnApp]="'title.' + column.translationKey | translate"
+		[columnApp]="column.translationKey ? ('title.' + column.translationKey | translate) : ''"
 		[sortable]="column.sortable !== false"
 		[width]="column.width"
-		[sortBy]="column.sortProperty">
+		[sortBy]="column.sortProperty"
+		[grows]="!column.fixedWidth">
 
 		<ng-container [ngSwitch]="column.name">
 

@@ -22,15 +22,14 @@
 	(bottomReached)="bottomReached.emit()"
 	(createClick)="createClick.emit()">
 
-
-
 	<!-- dynamic columns -->
 	<ng-template
     *ngFor="let column of columnsConfig; trackBy: trackByFn"
     let-row="row"
-    [columnApp]="'title.' + column.translationKey | translate"
+		[columnApp]="column.translationKey ? ('title.' + column.translationKey | translate) : ''"
     [width]="column.width"
-		[sortBy]="column.sortProperty">
+		[sortBy]="column.sortProperty"
+		[grows]="!column.fixedWidth">
 
     <ng-container [ngSwitch]="column.name">
 

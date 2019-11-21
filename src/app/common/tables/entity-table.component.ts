@@ -15,6 +15,7 @@ export interface ColumnConfig {
 	// when the table is only visible on hover
 	showOnHover?: boolean;
 	metadata?: any;
+	fixedWidth?: boolean;
 }
 
 export interface TableConfig {
