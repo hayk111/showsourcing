@@ -21,4 +21,15 @@ export class SupplierResumeComponent implements OnInit {
 		this.updated.emit({ id: this.supplier.id, [prop]: value });
 	}
 
+	getCityCountry(city, country) {
+		let cityCountryName = '';
+		if (city && country)
+			cityCountryName = city + ', ' + country;
+		else if (city)
+			cityCountryName = city;
+		else if (country)
+			cityCountryName = country;
+		return cityCountryName;
+	}
+
 }

@@ -1,14 +1,37 @@
 <card-app>
 	<div class="flex">
 		<initials-logo-app
+			class="mg-right-l"
 			[image]="supplier?.logoImage"
 			[name]="supplier?.name"
-			[entity]="supplier">
+			[type]="'SUPPLIER' | erm: true"
+			[entity]="supplier"
+			size="xxl">
 		</initials-logo-app>
 		<div class="flexColumn information">
+
 			<!-- title -->
 			<div class="title">
-
+				<editable-container-app
+					#edt
+					[hoverable]="true"
+					(opened)="inpName.select()"
+					(closed)="update(inpName.value, 'name')">
+					<editable-display-app class="ellipsis bold-s color-txt-primary fs-xxxxl">
+						{{ supplier?.name || '-' }}
+					</editable-display-app>
+					<input
+						inputApp
+						#inpName
+						type="text"
+						[value]="supplier?.name"
+						(keyup.enter)="edt.close()"/>
+				</editable-container-app>
+				<!-- info title -->
+				<div class="flex dot-separator">
+					<div *ngIf="supplier?.supplierType?.name">{{ supplier?.supplierType?.name }}</div>
+					<div *ngIf="supplier?.city || supplier?.country">{{ getCityCountry(supplier?.city, supplier?.country) }}</div>
+				</div>
 			</div>
 
 			<!-- description -->
@@ -22,12 +45,32 @@
 
 			<!-- product categories -->
 			<div class="section">
-
+				<h3>category</h3>
+				<editable-container-app
+					[hasAction]="false"
+					[openOnClick]="false"
+					(click)="categorySelector?.selector?.openMenu()">
+					<editable-display-app>
+						<badge-selector-app
+							#categorySelector
+							class="mg-bottom-none"
+							[badge]="'CATEGORY' | erm"
+							[multiple]="true"
+							[value]="supplier?.categories"
+							(update)="update($event, 'categories')">
+						</badge-selector-app>
+					</editable-display-app>
+				</editable-container-app>
 			</div>
 
 			<!-- tags -->
 			<div class="section">
-
+				<h3>tags</h3>
+				<input-badge-selector-app
+					[value]="supplier?.tags"
+					type="tag"
+					(change)="update($event, 'tags')">
+				</input-badge-selector-app>
 			</div>
 		</div>
 	</div>

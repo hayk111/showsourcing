@@ -1,6 +1,10 @@
 <div *ngIf="supplier$ | async as suplier; else spinner" class="content flex">
 	<div class="left">
 		<!-- supplier-resume -->
+		<supplier-resume-app
+			[supplier]="supplier"
+			(updated)="update($event)">
+		</supplier-resume-app>
 		<!-- products card -->
 		<products-card-app
 			[products]="products$ | async"
@@ -19,7 +23,6 @@
 			<divider-app *ngIf="supplier?.comments?.length"></divider-app>
 			<comment-list-app [amountViewMore]="8" [comments]="supplier?.comments"></comment-list-app>
 		</card-app>
-
 	</div>
 	<div class="right">
 		<!-- supplier docket -->
