@@ -15,12 +15,12 @@
 	
 	<!-- reference -->
 	<ng-container *ngSwitchCase="'reference'">
-		<span>{{ row.reference || '-' }}</span>
+		<span class="txt-btn">{{ row.reference || '-' }}</span>
 	</ng-container>
 
 	<!-- preview -->
 	<ng-container *ngSwitchCase="'preview'">
-		<button *ngIf="hovered" class="secondary" (click)="previewClick.emit()">
+		<button *ngIf="hovered" class="secondary" (click)="previewClick.emit(row)">
 			preview
 		</button>
 	</ng-container>
@@ -62,7 +62,7 @@
 					class="mg-right-xs"
 					[user]="row?.assignee">
 				</user-picture-app>
-				<div class="flexVAlign ellipsis pointer txt-btn" [ngClass]="{ 'empty-field': !row?.assignee }">
+				<div class="flexVAlign ellipsis pointer txt-btn">
 					{{ row?.assignee ? (row?.assignee | formatUserName: true) : '-' }}
 				</div>
 			</div>

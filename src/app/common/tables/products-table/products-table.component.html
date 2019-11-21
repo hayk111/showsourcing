@@ -41,7 +41,9 @@
 				[row]="row" 
 				[column]="column" 
 				[hovered]="row.id === hovered"
-				[type]="'PRODUCT' | erm">
+				[type]="'PRODUCT' | erm"
+				(update)="update.emit($event)"
+				(previewClick)="previewClick.emit($event)">
 			</default-columns-app>
 
       <!-- category -->
@@ -67,14 +69,14 @@
 					(closed)="update.emit({ id: row.id, price: inp.price })">
 					<editable-display-app>
 						<price-app
-							class="full-width"
+							class="full-width txt-btn"
 							[price]="row?.price">
 						</price-app>
 					</editable-display-app>
 					<input-price-app
 						#inp
-						(keyup.enter)="editable.close()"
-						[price]="row?.price">
+						[price]="row?.price"
+						(keyup.enter)="editable.close()">
 					</input-price-app>
 				</editable-container-app>
       </ng-container>
@@ -88,7 +90,8 @@
           (closed)="update.emit({ id: row.id, minimumOrderQuantity: inp.value })">
           <editable-display-app>
             <moq-app
-              *ngIf="row?.minimumOrderQuantity"
+							*ngIf="row?.minimumOrderQuantity"
+							class="txt-btn"
 							[moq]="row?.minimumOrderQuantity"
 							[moqDescription]="row?.moqDescription">
             </moq-app>
@@ -102,7 +105,7 @@
       <!-- projects -->
       <ng-container *ngSwitchCase="'projects'">
         <div class="flexCenter">
-          <span *ngFor="let project of row.projects; trackBy: trackByFn">
+          <span *ngFor="let project of row.projects; trackBy: trackByFn" class="txt-btn">
             {{ project.name || '-' }}
           </span>
         </div>

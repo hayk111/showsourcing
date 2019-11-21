@@ -11,11 +11,13 @@ import * as TeamPages from './pages/team';
 import * as ExportsPages from './pages/exports';
 import * as WorkflowPages from './pages/workflow';
 import * as DataPages from './pages/data-management';
+import { TablesCommonModule } from '~common/tables/tables-common.module';
 
 @NgModule({
 	imports: [
 		RouterModule.forChild(routes),
 		SharedModule,
+		TablesCommonModule
 	],
 	declarations: [
 		SettingsPageComponent,
@@ -39,7 +41,6 @@ import * as DataPages from './pages/data-management';
 		TeamPages.TeamMembersTableComponent,
 		// exports
 		ExportsPages.ExportsPageComponent,
-		ExportsPages.ExportTableComponent,
 		// data
 		DataPages.DataManagementPageComponent,
 		DataPages.CategoryDataPageComponent,

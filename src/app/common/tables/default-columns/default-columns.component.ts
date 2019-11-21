@@ -25,7 +25,7 @@ export class DefaultColumnsComponent {
 	@Input() type: EntityMetadata;
 	@Input() hovered: boolean;
 	@Output() update = new EventEmitter<EditableEntity>();
-	@Output() previewClick = new EventEmitter<undefined>();
+	@Output() previewClick = new EventEmitter<any>();
 
 	constructor(public translate: TranslateService) {}
 }

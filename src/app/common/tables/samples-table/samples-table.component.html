@@ -38,7 +38,9 @@
 				[row]="row" 
 				[column]="column" 
 				[hovered]="row.id === hovered"
-				[type]="'SAMPLE' | erm">
+				[type]="'SAMPLE' | erm"
+				(update)="update.emit($event)"
+				(previewClick)="previewClick.emit($event)">
 			</default-columns-app>
 
 		</ng-container>

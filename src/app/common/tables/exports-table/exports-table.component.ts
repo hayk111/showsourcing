@@ -14,11 +14,11 @@ const tableConfig: TableConfig = {
 };
 
 @Component({
-	selector: 'export-table-app',
-	templateUrl: './export-table.component.html',
+	selector: 'exports-table-app',
+	templateUrl: './exports-table.component.html',
 	styleUrls: [
-		'./export-table.component.scss',
-		'../../../../../../theming/specific/list.scss'
+		'./exports-table.component.scss',
+		'../table.scss'
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })

@@ -1,5 +1,4 @@
 <table-app
-	[class.no-min-height]="!hasMinHeight"
 	[rows]="rows"
 	[type]="'TASK' | erm: true"
 	[pending]="pending"
@@ -24,15 +23,6 @@
 	(createClick)="createClick.emit()"
 	(bottomReached)="bottomReached.emit()">
 
-	<!-- contextual menu -->
-	<ng-template #contextualMenuTemplate let-row="row">
-		<context-menu-item-warn-app
-			class="pointer flexCenter"
-			(click)="delete.emit(row)">
-			{{'text.delete' | translate}}
-		</context-menu-item-warn-app>
-	</ng-template>
-
 		<!-- dynamic columns -->
 		<ng-template
 			*ngFor="let column of columnsConfig; trackBy: trackByFn"
@@ -45,8 +35,7 @@
 
     <ng-container [ngSwitch]="column.name">
 
-			<!-- task done -->
-			<!-- the only way to read 2 options on single switch case -->
+			<!-- done -->
 			<ng-container *ngSwitchCase="'done'">
 				<icon-app
 					class="pointer"
@@ -74,71 +63,6 @@
 				</div>
 			</ng-container>
 
-			<!-- reference -->
-			<ng-container *ngSwitchCase="'reference'">
-				<div class="mainCellWrapper reference-container ellipsis">
-					<span class="ellipsis pointer txt-btn" (click)="previewClick.emit(row)">{{ row?.reference }}</span>
-				</div>
-			</ng-container>
-
-			<!-- name -->
-			<ng-container *ngSwitchCase="'name'">
-				<div class="mainCellWrapper name-container ellipsis">
-					<span
-						class="ellipsis pointer txt-btn"
-						[ngClass]="{ 'txt-task-done-empty': row?.done }"
-						(click)="previewClick.emit(row)">
-						{{ row?.name }}
-					</span>
-				</div>
-			</ng-container>
-
-			<!-- name assignee -->
-			<ng-container *ngSwitchCase="'name assignee'">
-				<div class="mainCellWrapper name-container ellipsis flexColumn">
-					<span class="ellipsis pointer txt-btn" (click)="previewClick.emit(row)">{{ row?.name }}</span>
-					<span *ngIf="row?.assignee" class="sub-property">
-						{{ row.done ? 'Completed by' : 'Assigned to' }} {{ row?.assignee | formatUserName: true }}
-					</span>
-				</div>
-			</ng-container>
-
-			<!-- product -->
-			<ng-container *ngSwitchCase="'product'">
-				<selector-app
-					type="product"
-					[width]="350"
-					[offsetX]="4"
-					(update)="update.emit({ id: row?.id, product: $event })">
-					<div class="mainCellWrapper product-container ellipsis">
-						<span
-							class="ellipsis pointer txt-btn"
-							[ngClass]="{ 'txt-task-done-empty': row?.done || !row?.product }"
-							(click)="openProduct.emit(row?.product?.id)">
-							{{ row?.product?.name || 'Link to product' }}
-						</span>
-					</div>
-				</selector-app>
-			</ng-container>
-
-			<!-- supplier -->
-			<ng-container *ngSwitchCase="'supplier'">
-				<selector-app
-					type="supplier"
-					[width]="350"
-					[offsetX]="4"
-					(update)="update.emit({ id: row?.id, supplier: $event })">
-					<div class="mainCellWrapper supplier-container ellipsis">
-						<span
-							class="ellipsis pointer txt-btn"
-							[ngClass]="{ 'txt-task-done-empty': row?.done || !row?.supplier }"
-							(click)="openSupplier.emit(row?.supplier?.id)">
-							{{ row?.supplier?.name || 'Link to supplier'}}
-						</span>
-					</div>
-				</selector-app>
-			</ng-container>
-
 			<!-- due date -->
 			<ng-container *ngSwitchCase="'due date'">
 				<div class="mainCellWrapper due-date-container ellipsis">
@@ -151,49 +75,6 @@
 				<div class="mainCellWrapper ellipsis">
 					<span class="ellipsis due-date-small">{{ row?.dueDate | date: 'dd MMM' }}</span>
 				</div>
-			</ng-container>
-
-			<!-- assignee -->
-			<ng-container *ngSwitchCase="'assigned to'">
-				<selector-app
-					type="user"
-					[width]="350"
-					[offsetX]="4"
-					(update)="changeAssignee(row, $event)">
-					<div  class="flex assignee-container ellipsis pointer">
-						<user-picture-app [user]="row?.assignee">
-						</user-picture-app>
-						<span
-							*ngIf="(!column.metadata) || (!column.metadata.nameOnly)"
-							class="assignee-name ellipsis txt-btn"
-						 	[ngClass]="{ 'txt-task-done-empty': row?.done || !row?.assignee }">
-						 	{{ row?.assignee ? (row?.assignee | formatUserName: true) : 'Assign Task' }}
-						</span>
-					</div>
-				</selector-app>
-			</ng-container>
-
-			<!-- status -->
-			<ng-container *ngSwitchCase="'status'">
-				<div class="status-col flexVAlign">
-					<status-selector-app
-						[entity]="row"
-						[typeEntity]="'TASK' | erm"
-						[canUpdate]="canUpdate"
-						selectSize="m"
-						(statusUpdated)="taskSrv.onUpdateTaskList()">
-					</status-selector-app>
-				</div>
-			</ng-container>
-
-			<!-- created on -->
-			<ng-container *ngSwitchCase="'created on'">
-				{{ row?.creationDate | date: 'dd MMMM y':'':translate.currentLang }}
-			</ng-container>
-
-			<!-- created by -->
-			<ng-container *ngSwitchCase="'created by'">
-				<span class="created-by">{{ row?.createdBy | formatUserName: true }}</span>
 			</ng-container>
 
 			<!-- small done -->
@@ -210,16 +91,18 @@
 				</div>
 			</ng-container>
 
-			<!-- assignee + due date -->
-			<ng-container *ngSwitchCase="'assignee due date'">
-				<div class="flexEnd dot-separator">
-					<div>{{ row?.assignee | formatUserName: true }}</div>
-					<div [ngClass]="!row?.done && isOverdue(row) ? 'color-warn' : ''">{{ row?.dueDate | date: 'dd MMMM y':'':translate.currentLang }}</div>
-				</div>
-			</ng-container>
-
 		</ng-container>
 
 	</ng-template>
 
 </table-app>
+
+
+<!-- contextual menu -->
+<ng-template #contextualMenuTemplate let-row="row">
+	<context-menu-item-warn-app
+		class="pointer flexCenter"
+		(click)="delete.emit(row)">
+		{{'text.delete' | translate}}
+	</context-menu-item-warn-app>
+</ng-template>
