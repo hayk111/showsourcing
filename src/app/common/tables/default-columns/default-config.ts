@@ -2,9 +2,9 @@ import { TableConfig } from '~core/list-page';
 
 
 export const defaultConfig: TableConfig = {
-	logo: { name: 'logo', translationKey: '', width: 44, sortable: false, fixedWidth: true },
+	logo: { name: 'logo', translationKey: '', width: 36, sortable: false, fixedWidth: true },
 	preview: { name: 'preview', translationKey: '', width: 84, sortable: false },
-	name: { name: 'name', translationKey: 'name', width: 190, sortable: false },
+	name: { name: 'name', translationKey: 'name', width: 190, sortable: true },
 	reference: { name: 'reference', translationKey: 'reference', width: 190, sortable: false },
 	favorite: { name: 'favorite', translationKey: 'FAV', width: 50, sortProperty: 'favorite' },
 	rating: { name: 'rating', translationKey: 'rating', width: 70, sortable: false },

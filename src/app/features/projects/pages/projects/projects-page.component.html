@@ -41,7 +41,8 @@
 		(sort)="listSrv.sort($event)"
 		(createClick)="listSrv.create()"
 		(showItemsPerPage)="showItemsPerPage($event)"
-		(delete)="listSrv.deleteOne($event)">
+		(delete)="listSrv.deleteOne($event)"
+		(update)="listSrv.update($event)">
 	</projects-table-app>
 
   <selection-bar-app

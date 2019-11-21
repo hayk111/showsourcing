@@ -13,27 +13,20 @@
 	(bottomReached)="bottomReached.emit()"
 	(showItemsPerPage)="showItemsPerPage.emit($event)">
 
-		<!-- contextual menu -->
-		<ng-template #contextualMenuTemplate let-row="row">
-			<context-menu-item-app
-				class="pointer flexCenter"
-				(click)="download.emit(row)"
-				translate="button.download">
-			</context-menu-item-app>
-		</ng-template>
-
 		<!-- dynamic columns -->
 		<ng-template
 			*ngFor="let column of columnsConfig; trackBy: trackByFn"
 			let-row="row"
-			[columnApp]="'title.' + column.translationKey | translate"
+			[columnApp]="column.translationKey ? ('title.' + column.translationKey | translate) : ''"
 			[sortable]="column.sortable !== false"
 			[width]="column.width"
-			[sortBy]="column.sortProperty">
+			[sortBy]="column.sortProperty"
+			[grows]="!column.fixedWidth"
+			[showOnHover]="column.showOnHover">
 			<ng-container [ngSwitch]="column.name">
 
 				<!-- file name -->
-				<ng-container *ngSwitchCase="'name'">
+				<ng-container *ngSwitchCase="'fileName'">
 					<div class="capitalize file-name">
 						{{ getFileName(row?.documentUrl) }}
 					</div>
@@ -42,10 +35,12 @@
 				<!-- action -->
 				<ng-container *ngSwitchCase="'download'">
 					<div toolTip [toolTipMessage]="getToolTipMsg(row?.status)" toolTipPosition="above-right">
-						<div
-							class="download pointer"
-							[ngClass]="{'disabled': row?.status !== 'ready'}"
-							(click)="download.emit(row)">Download</div>
+						<button
+							class="primary"
+							[disabled]="row?.status !== 'ready'"
+							(click)="download.emit(row)">
+							<icon-app name="import"></icon-app>
+						</button>
 					</div>
 				</ng-container>
 
@@ -56,26 +51,18 @@
 					</span>
 				</ng-container>
 
-				<!-- created on-->
-				<ng-container *ngSwitchCase="'created on'">
-					<div class="flex flexCenter">
-						<span class="created-on ellipsis">{{ row?.creationDate | date: 'dd MMM y':'':translate.currentLang }}</span>
-					</div>
-				</ng-container>
-
-				<!-- created by -->
-				<ng-container *ngSwitchCase="'created by'">
-					<div class="flex flexVAlign created-by">
-						<user-picture-app
-							[user]="row?.createdBy"
-							[image]="row.createdBy?.avatar">
-						</user-picture-app>
-						<span class="ellipsis">{{ row?.createdBy | formatUserName: true }}</span>
-					</div>
-				</ng-container>
-
 			</ng-container>
 
 		</ng-template>
 
 </table-app>
+
+<!-- contextual menu -->
+<ng-template #contextualMenuTemplate let-row="row">
+	<context-menu-item-app
+		class="pointer flexCenter"
+		(click)="download.emit(row)"
+		translate="button.download">
+	</context-menu-item-app>
+</ng-template>
+	

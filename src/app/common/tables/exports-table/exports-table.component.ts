@@ -2,15 +2,15 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Output, TemplateRef, 
 import { EntityTableComponent, TableConfig } from '~core/list-page';
 import { ERM, ExportRequest } from '~core/models';
 import { TranslateService } from '@ngx-translate/core';
+import { defaultConfig } from '../default-columns/default-config';
 
 type ExportStatus = 'ready' | 'pending' | 'processing' | 'failed' | 'done' | 'error';
 
 const tableConfig: TableConfig = {
-	name: { name: 'name', translationKey: 'file-name', width: 190, sortProperty: 'documentUrl' },
+	...defaultConfig,
+	fileName: { name: 'fileName', translationKey: 'file-name', width: 190, sortProperty: 'documentUrl' },
 	status: { name: 'status', translationKey: 'status', width: 150, sortProperty: 'status' },
 	download: { name: 'download', translationKey: 'action', width: 100, sortable: false },
-	createdBy: { name: 'created by', translationKey: 'created-by', width: 190, sortProperty: 'createdBy.firstName' },
-	createdOn: { name: 'created on', translationKey: 'created-on', width: 190, sortProperty: 'creationDate' },
 };
 
 @Component({
@@ -23,7 +23,7 @@ const tableConfig: TableConfig = {
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExportTableComponent extends EntityTableComponent<ExportRequest> {
-	columns = ['name', 'status', 'download', 'createdBy', 'createdOn'];
+	columns = ['logo', 'fileName', 'status',  'createdBy', 'createdOn', 'download'];
 	@Output() download = new EventEmitter<ExportRequest>();
 	@Output() showItemsPerPage = new EventEmitter<number>();
 

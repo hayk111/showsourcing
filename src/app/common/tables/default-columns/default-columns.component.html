@@ -2,8 +2,7 @@
 
 	<!-- logo -->
 	<ng-container *ngSwitchCase="'logo'">
-		<logo-app class="mini imgCtnr"
-			[logo]="row.images[0]" [type]="type.singular" size="m"></logo-app>
+		<logo-app	[logo]="row.images && row.images[0]" [type]="type.singular" size="s"></logo-app>
 	</ng-container>
 
 	<!-- name -->
