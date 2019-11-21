@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { ActivityCommonModule } from '~common/activity/activity-common.module';
 import { BoardsCommonModule } from '~common/boards/boards-common.module';
 import { CardsCommonModule } from '~common/cards/cards-common.module';
+import { ListCommonModule } from '~common/list/list-common.module';
 import { PreviewsCommonModule } from '~common/previews/previews-common.module';
 import { SelectionBarsCommonModule } from '~common/selection-bars/selection-bars-common.module';
 import { TablesCommonModule } from '~common/tables/tables-common.module';
@@ -26,7 +27,8 @@ import { SupplierFeatureService } from './services';
 		TablesCommonModule,
 		SelectionBarsCommonModule,
 		BoardsCommonModule,
-		CardsCommonModule
+		CardsCommonModule,
+		ListCommonModule,
 	],
 	declarations: [
 		DetailsPage.ActivityPageComponent,
@@ -37,6 +39,7 @@ import { SupplierFeatureService } from './services';
 		DetailsPage.SupplierDetailsPageComponent,
 		DetailsPage.SupplierHeaderDetailsComponent,
 		DetailsPage.TasksPageComponent,
+		DetailsPage.SupplierDocketComponent,
 		TablePage.SuppliersPageComponent,
 	],
 	entryComponents: [],

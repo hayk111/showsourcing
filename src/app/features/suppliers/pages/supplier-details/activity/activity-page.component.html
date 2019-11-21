@@ -16,6 +16,14 @@
 	</div>
 	<div class="right">
 		<!-- supplier docket -->
+		<supplier-docket-app
+			[supplier]="supplier"
+			(update)="update($event)"
+			(addTask)="dlgCommonSrv.openCreationTaskDlg(null, supplier)"
+			(addSample)="dlgCommonSrv.openCreationSampleDialog(null, supplier)"
+			(previewSample)="openSamplePreview($event)"
+			(previewTask)="openTaskPreview($event)">
+		</supplier-docket-app>
 		<!-- supplier info -->
 		<!-- supplier rating -->
 	</div>
@@ -24,3 +32,16 @@
 <ng-template #spinner>
 	<spinner-app></spinner-app>
 </ng-template>
+
+<!-- previews -->
+<sample-preview-app
+	*ngIf="previewOpened && sample"
+	[sample]="sample"
+	(close)="closePreview()">
+</sample-preview-app>
+
+<task-preview-app
+	*ngIf="previewOpened && task"
+	[task]="task"
+	(close)="closePreview()">
+</task-preview-app>

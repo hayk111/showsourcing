@@ -7,6 +7,8 @@ import { SupplierType } from '~models/supplier-type.model';
 import { Tag } from '~models/tag.model';
 
 import { ExtendedField } from './extended-field.model';
+import { Sample } from './sample.model';
+import { Task } from './task.model';
 import { User } from './user.model';
 
 export class Supplier extends EntityWithAudit<SupplierConfig> {
@@ -37,6 +39,8 @@ export class Supplier extends EntityWithAudit<SupplierConfig> {
 	assignee?: User;
 	archived?= false;
 	extendedFields?: ExtendedField[];
+	tasksLinked?: { count: number, items: Task[] };
+	samplesLinked?: { count: number, items: Sample[] };
 	tasksLinkedAssignedToMe?: { count: number };
 	samplesLinkedAssignedToMe?: { count: number };
 	tasksLinkedUndone?: { count: number };

@@ -15,10 +15,25 @@ export abstract class SupplierQueries extends GlobalQueries {
 	// static readonly productsLinked = `productsLinked: _linkingObjects(objectType: "Product" property:"supplier" query:"deleted == false AND archived == false") { ... on ProductCollection { count }}`;
 	// tslint:disable-next-line:max-line-length
 	static readonly productsLinked = `productsLinked: _linkingObjects(objectType: "Product" property:"supplier" query:"deleted == false") { ... on ProductCollection { count }}`;
-	// tslint:disable-next-line:max-line-length
-	static readonly tasksLinked = `tasksLinked: _linkingObjects(objectType: "Task" property:"supplier" query:"deleted == false") { ... on TaskCollection { count, items { dueDate } }}`;
-	// tslint:disable-next-line:max-line-length
-	static readonly samplesLinked = `samplesLinked: _linkingObjects(objectType: "Sample" property:"supplier" query:"deleted == false") { ... on SampleCollection { count }}`;
+
+	static readonly tasksLinked = `tasksLinked: _linkingObjects(objectType: "Task" property:"supplier" query:"deleted == false") {
+		... on TaskCollection {
+			count, items {
+				id, name, reference, dueDate, done
+			}
+		 }
+		}`;
+
+	static readonly samplesLinked = `samplesLinked: _linkingObjects(objectType: "Sample" property:"supplier" query:"deleted == false") {
+		... on SampleCollection {
+			count, items {
+				id, name, reference,
+				status { id, name, category, inWorkflow, step },
+				assignee { id, firstName, lastName, avatar { id, urls { id, url } } }
+			}
+		}
+	}`;
+
 	// tslint:disable-next-line: max-line-length
 	static readonly tasksLinkedAssignedToMe = (userId: string) => `tasksLinkedAssignedToMe: _linkingObjects(objectType: "Task" property:"supplier" query:"deleted == false AND assignee.id == '${userId}' AND done == false") {
 		... on TaskCollection {
