@@ -4,8 +4,12 @@
 	background: var(--color-bg);
 	overflow: hidden;
 
-	&.no-min-height .ctnr {
+	&.no-min-height:not(.pending) .ctnr {
 		min-height: unset;
+	}
+	// when we have no-min-height and we are pending we need a minimum height so we can see the loader
+	&.no-min-height.pending .ctrn {
+		min-height: 200px;
 	}
 }
 
@@ -25,7 +29,6 @@
 }
 
 .placeholderCtnr {
-	margin: var(--spacing-l) 0;
 	height: 100%;
 
 	.placeholder-logo {

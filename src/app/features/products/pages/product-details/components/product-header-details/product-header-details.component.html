@@ -37,7 +37,7 @@
 
 	<header-details-actions-app>
 
-		<button class="icon big txt-secondary">
+		<button class="icon big txt-secondary" (click)="export.emit(product)">
 			<icon-app name="export" size="m"></icon-app>
 		</button>
 
@@ -45,7 +45,7 @@
 			<icon-app name="share" size="m"></icon-app><div class="capitalize" translate="button.share"></div>
 		</button>
 
-		<button class="vibrant big icon-with-text flexVAlign">
+		<button class="vibrant big icon-with-text flexVAlign" (click)="supplierRequest.emit(product)">
 			<icon-app name="envelope"></icon-app><div class="capitalize" translate="button.contact-supplier"></div>
 		</button>
 
@@ -59,9 +59,6 @@
 					<icon-app [size]="16" name="dots-vertical"></icon-app>
 				</button>
 			</context-menu-trigger-app>
-
-			<context-menu-item-app (click)="supplierRequest.emit(product)" translate="button.supplier-request">
-			</context-menu-item-app>
 
 			<context-menu-item-app (click)="archive.emit(product)" translate="button.archive">
 			</context-menu-item-app>

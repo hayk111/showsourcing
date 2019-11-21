@@ -105,6 +105,9 @@ button, input[type="submit"], .button {
 		align-items: center;
 		min-width: unset;
 		padding: 0;
+		icon-app {
+			cursor: pointer;
+		}
 	}
 
 	&.icon.big {
@@ -125,13 +128,18 @@ button:disabled, input[type="submit"]:disabled {
 	cursor: default;
 }
 
-.txt-btn:hover{
-	color: var(--color-primary);
-	text-decoration: underline;
-	cursor: pointer;
+.txt-btn {
+	transition: 0.3s;
+	&:hover {
+		// we always want to replace the color when hovering, no matter what
+		color: var(--color-primary) !important;
+		text-decoration: underline;
+		cursor: pointer;
+	}
 }
 
 .clickable, .hoverable {
+	transition: 0.3s;
 	cursor: pointer;
 	&:hover {
 		background: var(--color-bg-secondary);
