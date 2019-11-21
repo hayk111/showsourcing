@@ -25,7 +25,8 @@ import { TrackingComponent } from '~utils/tracking-component';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'full-width',
-		'[class.scrollable-y]': 'hasVerticalScroll'
+		'[class.scrollable-y]': 'hasVerticalScroll',
+		'[class.pending]': 'pending'
 	}
 })
 export class TableComponent extends TrackingComponent implements OnChanges {

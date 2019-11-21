@@ -33,18 +33,17 @@ DIR="./dist/showsourcing"
 
 # About booleans in shell
 # https://stackoverflow.com/questions/2953646/how-to-declare-and-use-boolean-variables-in-shell-script/21210966#21210966
-
 if [ -z "$ENDPOINT" ]; then
 	echo -e "\n\e[1mPlease pick an endpoint to deploy to:\e[0m "
 
 	# FOR PROJECT APP
 	if [ "$PROJECT" = "app" ]; then
+
 		# DISPLAY OPTIONS
 		for I in 1 2 3 4; do
 			echo "$I) ${APP_ENDPOINTS[I]}"
 		done
 		read n_epoint
-
 		ENDPOINT=${APP_ENDPOINTS[n_epoint]}
 		case $n_epoint in
 		1) REGION="us-east-2" ENVIRONMENT="1" ;; # app-dev
@@ -61,7 +60,6 @@ if [ -z "$ENDPOINT" ]; then
 			echo "$I) ${SUPP_ENDPOINTS[I]}"
 		done
 		read n_epoint
-
 		DIR="./dist/supplier"
 		ENDPOINT=${SUPP_ENDPOINTS[n_epoint]}
 		case $n_epoint in
@@ -73,7 +71,6 @@ if [ -z "$ENDPOINT" ]; then
 	else
 		echo "Project named: ${PROJECT} does not exist" && exit 0
 	fi
-
 	[ -z "$ENDPOINT" ] && echo "Invalid endpoint" && exit 0
 fi
 
@@ -97,6 +94,7 @@ if [ -x "$(aws --version)" ]; then
 fi
 
 echo -e "\nChecking if the build has been created on: '${DIR}'"
+
 if [ -d "$DIR" ]; then
 	echo -e "Indeed, \e[1m\e[35mDeploying to: \e[39m $ENDPOINT \e[0m"
 	# Control will enter here if $DIRECTORY exists.
@@ -104,5 +102,5 @@ if [ -d "$DIR" ]; then
 	aws s3 sync . s3://"$ENDPOINT" --delete --region "$REGION"
 	aws s3 cp s3://"$ENDPOINT"/index.html s3://"$ENDPOINT"/index.html --metadata-directive REPLACE --cache-control max-age=0 --region "$REGION"
 else
-	echo "\e[1m\e[31mBuild has failed or no build has been made, no deployment was given\e[0m\e[39m"
+	echo -e "\e[1m\e[31mBuild has failed or no build has been made, no deployment was given\e[0m\e[39m"
 fi

@@ -143,7 +143,11 @@ https://stackblitz.com/edit/angular-vtluff?file=src/app/app.component.ts -->
 	</div>
 
 
-	<div *ngIf="rows?.length === 0 && !pending" class="flexCenter flexColumn placeholderCtnr">
+	<div
+		*ngIf="rows?.length === 0 && !pending"
+	 	class="flexCenter flexColumn placeholderCtnr"
+		[class.mg-top-l]="hasHeader"
+		[class.mg-bottom-l]="hasHeader">
 		<logo-app
 			class="placeholder-logo"
 			[circle]="true"

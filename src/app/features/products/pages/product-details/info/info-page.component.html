@@ -9,7 +9,7 @@
 
 <accordion-app>
 	<accordion-title-app>General</accordion-title-app>
-	<accordion-content-app>
+	<accordion-content-app *ngIf="product$ | async as product; else loader">
 		<dynamic-form-app
 			[fields]="productDescriptor?.descriptor"
 			[value]="product"
@@ -21,7 +21,7 @@
 
 <accordion-app>
 	<accordion-title-app>Shipping & Packaging</accordion-title-app>
-	<accordion-content-app>
+	<accordion-content-app *ngIf="product$ | async as product; else loader">
 		<dynamic-form-app
 			[fields]="shippingDescriptor?.descriptor"
 			[value]="product"
@@ -30,3 +30,7 @@
 		</dynamic-form-app>
 	</accordion-content-app>
 </accordion-app>
+
+<ng-template #loader>
+	<dots-app></dots-app>
+</ng-template>
