@@ -29,7 +29,7 @@ const bigTableConfig: TableConfig = {
 	templateUrl: './attachments-table.component.html',
 	styleUrls: [
 		'./attachments-table.component.scss',
-		'../../../../app/theming/specific/list.scss'
+		'../table.scss'
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [

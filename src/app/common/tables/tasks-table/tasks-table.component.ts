@@ -40,7 +40,7 @@ const mediumSmallTableConfig: TableConfig = {
 	templateUrl: './tasks-table.component.html',
 	styleUrls: [
 		'./tasks-table.component.scss',
-		'../../../../app/theming/specific/list.scss'
+		'../table.scss'
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
