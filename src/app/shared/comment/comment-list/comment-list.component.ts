@@ -21,6 +21,8 @@ export class CommentListComponent extends TrackingComponent implements OnInit {
 	get comments() {
 		return this._comments;
 	}
+	/** amount of comments we display at first and when we show more*/
+	@Input() amountViewMore = 2;
 
 	/** index to keep track of which comments we display */
 	amountShown = 0;
@@ -41,6 +43,6 @@ export class CommentListComponent extends TrackingComponent implements OnInit {
 	 * will be able to see 2 more items until the index is 0
 	 */
 	showMore() {
-		this.amountShown = this.amountShown >= 2 ? this.amountShown - 2 : 0;
+		this.amountShown = this.amountShown >= this.amountViewMore ? this.amountShown - this.amountViewMore : 0;
 	}
 }

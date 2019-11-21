@@ -18,5 +18,10 @@
 		& > *:not(:last-child) {
 			margin-bottom: var(--spacing-l);
 		}
+
+		divider-app {
+			margin: var(--spacing-l) 0;
+		}
+
 	}
 }
