@@ -1,0 +1,15 @@
+:host {
+	display: block;
+}
+
+.title {
+	margin-top: -10px;
+	// we cannot use 12px since the editable-container uses a 6px top
+	margin-bottom: 6px;
+}
+
+.section {
+	&:not(.mg-none), h3 {
+		margin-bottom: var(--spacing-ms);
+	}
+}

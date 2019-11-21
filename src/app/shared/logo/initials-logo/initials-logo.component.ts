@@ -61,7 +61,7 @@ export class InitialsLogoComponent implements AfterViewInit {
 			if (splitName.length === 1) {
 				this.initials = splitName[0].slice(0, 4);
 			} else if (splitName.length === 2) {
-				this.initials = splitName.map(char => char.length ? char.slice(0, 3) : '').join('');
+				this.initials = splitName.map(char => char.length ? char.slice(0, 2) : '').join('');
 			} else if (splitName.length === 3) {
 				// we got the first letter of of the first 2 words, and the first 2 of the last
 				this.initials = splitName.map((char, i) => char.length ? char.slice(0, i === 2 ? 2 : 1) : '').join('');

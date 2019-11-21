@@ -61,7 +61,7 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	/** updates supplier */
-	patch(supplier: Supplier) {
+	update(supplier: Supplier) {
 		this.featureSrv.update({ id: this.supplier.id, ...supplier })
 			.subscribe();
 	}
