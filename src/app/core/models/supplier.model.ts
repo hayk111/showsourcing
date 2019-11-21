@@ -10,6 +10,7 @@ import { ExtendedField } from './extended-field.model';
 import { Sample } from './sample.model';
 import { Task } from './task.model';
 import { User } from './user.model';
+import { ProductVote } from './product-vote.model';
 
 export class Supplier extends EntityWithAudit<SupplierConfig> {
 	name?: string;
@@ -37,6 +38,7 @@ export class Supplier extends EntityWithAudit<SupplierConfig> {
 	comments?: Comment[];
 	lastUpdatedBy?: User;
 	assignee?: User;
+	votes?: ProductVote[];
 	archived?= false;
 	extendedFields?: ExtendedField[];
 	tasksLinked?: { count: number, items: Task[] };
