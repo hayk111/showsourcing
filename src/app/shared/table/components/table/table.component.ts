@@ -9,12 +9,11 @@ import {
 	Output,
 	QueryList,
 	TemplateRef,
-	ContentChild,
 } from '@angular/core';
+import { EntityName } from '~core/models';
 import { ColumnDirective } from '~shared/table/components/column.directive';
 import { Sort } from '~shared/table/components/sort.interface';
 import { TrackingComponent } from '~utils/tracking-component';
-import { EntityName } from '~core/models';
 
 @Component({
 	selector: 'table-app',
@@ -23,7 +22,8 @@ import { EntityName } from '~core/models';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'full-width',
-		'[class.scrollable-y]': 'hasVerticalScroll'
+		'[class.scrollable-y]': 'hasVerticalScroll',
+		'[class.pending]': 'pending'
 	}
 })
 export class TableComponent extends TrackingComponent implements OnChanges {

@@ -6,26 +6,40 @@
 	justify-content: center;
 	margin-bottom: var(--spacing-s);
 	flex-wrap: wrap;
+
 	&.overflow {
 		height: 60px;
 		overflow: overlay;
 	}
+
 	.square {
+		box-sizing: border-box;
+		position: relative;
 		overflow: hidden;
 		border-radius: var(--border-radius-s);
-		margin-right: var(--spacing-s);
 		img-app {
 			min-height: 100%;
 			min-width: 100%;
 		}
+
 		&:hover > .delete {
 			display: flex;
 		}
 	}
 }
+
+.selected{
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	border: var(--spacing-xxs) solid var(--color-primary);
+	box-sizing: border-box;
+}
+
 .ctnr {
 	position: relative;
 }
+
 .delete {
 	display: none;
 	position: absolute;
@@ -37,9 +51,6 @@
 	&:hover {
 		background: var(--color-warn);
 	}
-}
-.last-item {
-	margin-right: 0px !important;
 }
 
 .move-btn {
@@ -57,8 +68,4 @@
 
 .pending {
 	opacity: 0.4;
-}
-
-.selected {
-	border: solid var(--spacing-xxs) #45adff;
 }
