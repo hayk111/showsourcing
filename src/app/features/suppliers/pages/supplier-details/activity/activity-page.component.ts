@@ -9,6 +9,8 @@ import { Contact } from '~models/contact.model';
 import { AutoUnsub } from '~utils';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { CloseEvent, CloseEventType } from '~shared/dialog';
+import { SupplierDescriptor } from '~core/descriptors';
+import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
 
 @Component({
 	selector: 'activity-page-app',
@@ -23,6 +25,8 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 	products$: Observable<Product[]>;
 	contacts$: Observable<Contact[]>;
 	erm = ERM;
+	supplierDescriptor: SupplierDescriptor;
+	config = new DynamicFormConfig({ mode: 'editable-text' });
 
 	// sample & task used for the preview
 	sample: Sample;
@@ -62,6 +66,16 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 		this.contacts$ = id$.pipe(
 			switchMap(id => this.featureSrv.getContacts(id))
 		);
+
+		this.supplierDescriptor = new SupplierDescriptor([
+			'country', 'generalMOQ', 'generalLeadTime', 'incoTerm', 'harbour', 'officeEmail', 'officePhone', 'website', 'supplierType', 'address'
+		]);
+		this.supplierDescriptor.modify([
+			{ name: 'generalMOQ', label: 'general MOQ' },
+			{ name: 'officePhone', label: 'phone' },
+			{ name: 'generalLeadTime', label: 'general lead time' },
+			{ name: 'website', label: 'web' },
+		]);
 
 	}
 

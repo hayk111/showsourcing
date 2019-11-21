@@ -25,6 +25,16 @@
 			(previewTask)="openTaskPreview($event)">
 		</supplier-docket-app>
 		<!-- supplier info -->
+		<card-app>
+			<h3 class="ms" translate="title.supplier-information"></h3>
+			<dynamic-form-app
+				class="mg-bottom-l"
+				[value]="supplier"
+				[fields]="supplierDescriptor?.descriptor"
+				[config]="config"
+				(update)="update($event)">
+			</dynamic-form-app>
+		</card-app>
 		<!-- supplier rating -->
 	</div>
 </div>

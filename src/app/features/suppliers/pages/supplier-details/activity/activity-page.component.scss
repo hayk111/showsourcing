@@ -9,12 +9,14 @@
 	.left {
 		width: 836px;
 		margin-right: var(--spacing-l);
-
-		& > *:not(:last-child) {
-			margin-bottom: var(--spacing-l);
-		}
 	}
 	.right {
 		width: 340px;
+	}
+
+	.left, .right {
+		& > *:not(:last-child) {
+			margin-bottom: var(--spacing-l);
+		}
 	}
 }
