@@ -79,4 +79,41 @@
 		{{ row?.createdBy | formatUserName: true }}
 	</ng-container>
 
+	<!-- product count -->
+	<ng-container *ngSwitchCase="'productCount'">
+		{{ row.productsLinked.count }}
+	</ng-container>
+
+	<!-- task count -->
+	<ng-container *ngSwitchCase="'taskCount'">
+		{{ row.tasksLinked.count }}
+	</ng-container>
+
+	<!-- sample count -->
+	<ng-container *ngSwitchCase="'sampleCount'">
+		{{ row.samplesLinked.count }}
+	</ng-container>
+
+	<!-- product -->
+	<ng-container *ngSwitchCase="'product'">
+		<selector-app
+			[type]="type.singular"
+			[offsetX]="4"
+			[width]="350"
+			(update)="update.emit({ id: row?.id, product: $event })">
+				{{ row?.product?.name || '-' }}
+		</selector-app>
+	</ng-container>
+
+	<!-- supplier -->
+	<ng-container *ngSwitchCase="'product'">
+		<selector-app
+			[type]="type.singular"
+			[width]="350"
+			[offsetX]="4"
+			(update)="update.emit({ id: row?.id, supplier: $event })">
+			{{ row?.supplier?.name || '-'}}
+		</selector-app>
+	</ng-container>
+
 </ng-container>

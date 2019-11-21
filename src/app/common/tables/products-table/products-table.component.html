@@ -36,25 +36,12 @@
     <ng-container [ngSwitch]="column.name">
 
 			<default-columns-app 
+				*ngSwitchDefault
 				[row]="row" 
 				[column]="column" 
 				[hovered]="row.id === hovered"
 				[type]="'PRODUCT' | erm">
 			</default-columns-app>
-
-      <!-- supplier -->
-      <ng-container *ngSwitchCase="'supplier'">
-        <selector-app
-					[type]="'SUPPLIER' | erm: true"
-					[hasPicker]="canUpdate"
-          [canCreate]="true"
-          [width]="370"
-          (update)="update.emit({ id: row.id, supplier: $event })">
-          <div class="ellipsis supplier-col txt-btn" [ngClass]="{ 'empty-field': !row?.supplier }">
-						{{ row?.supplier?.name || '-' }}
-					</div>
-        </selector-app>
-      </ng-container>
 
       <!-- category -->
       <ng-container *ngSwitchCase="'category'">
@@ -64,7 +51,7 @@
           [canCreate]="true"
           [width]="370"
           (update)="update.emit({ id: row.id, category: $event })">
-					<div class="ellipsis pointer txt-btn category"  [ngClass]="{ 'empty-field': !row?.category }">
+					<div class="pointer txt-btn" >
 						{{ row?.category?.name || '-' }}
 					</div>
         </selector-app>
@@ -77,7 +64,7 @@
 					[hasAction]="false"
 					(opened)="inp.focus()"
 					(closed)="update.emit({ id: row.id, price: inp.price })">
-					<editable-display-app [ngClass]="{ 'empty-field': row?.price }">
+					<editable-display-app>
 						<price-app
 							class="full-width"
 							[price]="row?.price">
@@ -98,7 +85,7 @@
           [hasAction]="false"
           (opened)="inp.focus()"
           (closed)="update.emit({ id: row.id, minimumOrderQuantity: inp.value })">
-          <editable-display-app [ngClass]="{ 'empty-field': row?.price }">
+          <editable-display-app>
             <moq-app
               *ngIf="row?.minimumOrderQuantity"
 							[moq]="row?.minimumOrderQuantity"
@@ -106,7 +93,8 @@
             </moq-app>
 						<div *ngIf="!row?.minimumOrderQuantity">-</div>
           </editable-display-app>
-          <input #inp inputApp type="number" [value]="row?.minimumOrderQuantity" (keyup.enter)="editable.close()"/>
+					<input #inp inputApp type="number" 
+						[value]="row?.minimumOrderQuantity" (keyup.enter)="editable.close()"/>
         </editable-container-app>
       </ng-container>
 

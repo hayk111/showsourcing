@@ -10,10 +10,10 @@ https://stackblitz.com/edit/angular-vtluff?file=src/app/app.component.ts -->
 	cdk-scrollable
 	(bottomReached)="bottomReached.emit()">
 
-	<div class="contentCtnr" [ngStyle]="{ width: width ? width + 'px' : getWidth() + 'px' }">
+	<div class="contentCtnr">
 
 		<!-- empty column for space between border bottom and side -->
-		<div *ngIf="hasHeader" class="col empty-border">
+		<div *ngIf="hasHeader" class="col empty-border no-grows">
 			<div
 				class="header"
 				[style.height]="rowHeight + 'px'">
@@ -30,7 +30,7 @@ https://stackblitz.com/edit/angular-vtluff?file=src/app/app.component.ts -->
 		<!-- selection column -->
 		<div
 			*ngIf="hasSelection"
-			class="col selectionCol"
+			class="col selectionCol no-grows"
 			[style.height]="rowHeight + 'px'">
 			<div *ngIf="hasHeader" class="header"
 				[style.height]="rowHeight + 'px'">
@@ -58,7 +58,7 @@ https://stackblitz.com/edit/angular-vtluff?file=src/app/app.component.ts -->
 
 		<!-- content columns -->
 		<div *ngFor="let column of columns; trackBy: columnTrackByFn"
-			class="col {{ column.grows ? 'flexGrow' : '' }}"
+			class="col {{ column.grows ? 'grows' : '' }}"
 			[style.width]="column.width + 'px'"
 			[style.minWidth]="column.minWidth + 'px'">
 			<!-- header -->
@@ -100,40 +100,45 @@ https://stackblitz.com/edit/angular-vtluff?file=src/app/app.component.ts -->
 		</div>
 
 		<!-- contextual menu -->
-		<div *ngIf="hasMenu" class="col">
-			<div *ngIf="hasHeader" class="header context-menu" [style.height]="rowHeight + 'px'" [style.minWidth]="'50px'">
+		<div *ngIf="hasMenu" class="col no-grows">
+			<div 
+				*ngIf="hasHeader" 
+				class="header" 
+				[style.height]="rowHeight + 'px'" 
+				[style.minWidth]="'50px'">
 			</div>
-				<ng-container *ngIf="!pending">
-					<div
-						*ngFor="let row of rows; index as i; trackBy: trackByIdentify"
-						class="menuCell cell context-menu-cell flexCenter"
-						[ngClass]="{ selected: (i === hoverIndex) || isSelected(row, i) }"
-						[style.height]="rowHeight + 'px'"
-						(mouseenter)="hoverRow(i)"
-						(mouseleave)="hoverRow(-1)">
-						<context-menu-app
-							*ngIf="isSelectable(row)"
-							[ngClass]="{ hover: (i === hoverIndex) }"
-							[ngStyle]="{ visibility: ((i === hoverIndex) || isSelected(row, i)) ? 'visible' : 'hidden' }"
-							[closeOnScroll]="true">
-							<context-menu-trigger-app>
-								<icon-app
-									class="color-txt-third"
-									name="dots-vertical"
-									size="18">
-								</icon-app>
-							</context-menu-trigger-app>
-							<ng-container
-								*ngTemplateOutlet="contextualMenu; context: { column: column, row: row }">
-							</ng-container>
-						</context-menu-app>
-					</div>
-				</ng-container>
-			</div>
-			<!-- pending -->
-			<div *ngIf="pending" class="pendingCtnr flexCenter">
-				<dots-app></dots-app>
-			</div>
+			<ng-container *ngIf="!pending">
+				<div
+					*ngFor="let row of rows; index as i; trackBy: trackByIdentify"
+					class="menuCell cell flexCenter"
+					[ngClass]="{ selected: (i === hoverIndex) || isSelected(row, i) }"
+					[style.height]="rowHeight + 'px'"
+					(mouseenter)="hoverRow(i)"
+					(mouseleave)="hoverRow(-1)">
+					<context-menu-app
+						*ngIf="isSelectable(row)"
+						[ngClass]="{ hover: (i === hoverIndex) }"
+						[ngStyle]="{ visibility: ((i === hoverIndex) || isSelected(row, i)) ? 'visible' : 'hidden' }"
+						[closeOnScroll]="true">
+						<context-menu-trigger-app>
+							<icon-app
+								class="color-txt-third"
+								name="dots-vertical"
+								size="18">
+							</icon-app>
+						</context-menu-trigger-app>
+						<ng-container
+							*ngTemplateOutlet="contextualMenu; context: { column: column, row: row }">
+						</ng-container>
+					</context-menu-app>
+				</div>
+			</ng-container>
+		</div>
+		
+		<!-- pending -->
+		<div *ngIf="pending" class="pendingCtnr flexCenter">
+			<dots-app></dots-app>
+		</div>
 
 	</div>
 
