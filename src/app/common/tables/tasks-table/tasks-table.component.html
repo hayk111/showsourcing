@@ -35,6 +35,16 @@
 
     <ng-container [ngSwitch]="column.name">
 
+			<default-columns-app
+				*ngSwitchDefault
+				[row]="row" 
+				[column]="column" 
+				[hovered]="row.id === hovered"
+				[type]="'TASK' | erm"
+				(update)="update.emit($event)"
+				(previewClick)="previewClick.emit($event)">
+			</default-columns-app>
+
 			<!-- done -->
 			<ng-container *ngSwitchCase="'done'">
 				<icon-app

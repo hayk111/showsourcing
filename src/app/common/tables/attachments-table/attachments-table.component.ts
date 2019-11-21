@@ -1,26 +1,14 @@
-import {
-	ChangeDetectionStrategy,
-	Component,
-	ElementRef,
-	EventEmitter,
-	Input,
-	OnInit,
-	Output,
-	ViewChild,
-} from '@angular/core';
-import { EntityTableComponent, TableConfig } from '~core/list-page';
-import { Attachment, ERM } from '~core/models';
-import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback.service';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { EntityTableComponent, TableConfig } from '~core/list-page';
+import { Attachment } from '~core/models';
+import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback.service';
+import { defaultConfig } from '../default-columns/default-config';
 
 
-const bigTableConfig: TableConfig = {
-	name: { name: 'name', translationKey: 'name', width: 200, sortProperty: 'fileName' },
-	nameIcon: { name: 'name icon', translationKey: 'name', width: 200, sortProperty: 'fileName' },
-	createdBy: { name: 'createdBy', translationKey: 'createdBy', width: 120, sortProperty: 'reference' },
-	creationDate: { name: 'creationDate', translationKey: 'creationDate', width: 100, sortProperty: 'creationDate' },
-	actions: { name: 'actions', translationKey: 'actions', width: 100, sortProperty: 'product.name', showOnHover: true },
-	creationInfoAction: { name: 'createdBy creationDate action', translationKey: '', width: 100, sortable: false },
+const config: TableConfig = {
+	...defaultConfig,
+	actions: { name: 'actions', translationKey: 'actions', width: 100, sortable: false, showOnHover: true, fixedWidth: true },
 };
 
 
@@ -47,8 +35,14 @@ export class AttachmentsTableComponent extends EntityTableComponent<Attachment> 
 	}
 	@Output() upload = new EventEmitter<Attachment[]>();
 
-	tableConfig = bigTableConfig;
-	columns = ['name', 'createdBy', 'creationDate', 'actions'];
+	tableConfig = config;
+	columns = [
+		'logo',
+		'name',
+		'createdBy',
+		'creationDate',
+		'actions'
+	];
 
 	constructor(
 		public translate: TranslateService,
