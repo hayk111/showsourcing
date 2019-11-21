@@ -11,9 +11,9 @@ import { AppImage, User } from '~models';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserPictureComponent {
-	@Input() size = 32;
+	@Input() size = 24;
 	@Input() border = false;
-	@Input() fontSize = 14;
+	@Input() fontSize = 12;
 	@Input() background = false;
 	/** whether we display the name along side the picture */
 	@Input() hasName = false;
