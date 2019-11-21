@@ -12,8 +12,9 @@
 	<product-sub-header-details-app
 		[product]="product"
 		(updated)="updateProduct($event)"
-		(redirect)="redirect($event)"
-		(ratingClicked)="scrollToRating()">
+		(redirect)="goToTable($event)"
+		(ratingClicked)="scrollToRating()"
+		(openSupplier)="goToSupplier($event)">
 	</product-sub-header-details-app>
 
 	<div class="flex ctnr">
