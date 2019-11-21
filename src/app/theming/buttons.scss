@@ -11,10 +11,11 @@ $colors: (
 
 button, input[type="submit"], .button {
 	@extend .ripple;
-	display: inline-block;
+	display: inline-flex;
+	align-items: center;
+	padding: 0 var(--spacing-ms);
 	cursor: pointer;
 	font-weight: 600;
-	padding: 6px var(--spacing-ms);
 	line-height: 1.43;
 	border-radius: var(--border-radius);
 	font-size: var(--font-size-m);
@@ -35,8 +36,11 @@ button, input[type="submit"], .button {
 	}
 	// size
 	height: 32px;
-	.big {
+	&.big {
 		height: 36px;
+	}
+	&.small {
+		height: 24px;
 	}
 
 	// defaults colors
