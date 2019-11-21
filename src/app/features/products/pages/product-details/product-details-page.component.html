@@ -43,7 +43,8 @@
 			<project-list-card-app
 				[projects]="product?.projects"
 				(update)="updateProduct({ id: product?.id, projects: $event })"
-				(projectClicked)="openProjectDetails($event)">
+				(openProject)="openProjectDetails($event)"
+				(deleteProject)="dissociateProject(product?.projects, $event)">
 			</project-list-card-app>
 
 		</div>

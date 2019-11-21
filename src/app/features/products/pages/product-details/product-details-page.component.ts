@@ -238,4 +238,9 @@ export class ProductDetailsPageComponent extends AutoUnsub implements OnInit {
 		this.rating.nativeElement.scrollIntoView({ behavior: 'smooth' });
 	}
 
+	dissociateProject(productProjects: Project[], projectToDelete: Project) {
+		const projects = (productProjects || []).filter(project => project.id !== projectToDelete.id);
+		this.updateProduct({ projects });
+	}
+
 }
