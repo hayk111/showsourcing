@@ -2,7 +2,7 @@
 <table-app
 	[placeholder]="'placeholder.no-product' | translate"
 	[rows]="rows"
-	[type]="'PRODUCT' | erm: true"
+	[type]="'PRODUCT' | erm: 'singular'"
   [currentSort]="currentSort"
   [pending]="pending"
   [count]="count"
@@ -49,7 +49,7 @@
       <!-- category -->
       <ng-container *ngSwitchCase="'category'">
         <selector-app
-          [type]="'CATEGORY' | erm: true"
+          [type]="'CATEGORY' | erm: 'singular'"
 					[hasPicker]="canUpdate"
           [canCreate]="true"
           [width]="370"

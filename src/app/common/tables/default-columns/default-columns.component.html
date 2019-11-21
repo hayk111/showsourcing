@@ -42,9 +42,9 @@
 	<!-- status -->
 	<ng-container *ngSwitchCase="'status'">
 		<status-selector-app 
+			selectSize="m" 
 			[entity]="row" 
 			[typeEntity]="type" 
-			selectSize="m" 
 			(statusUpdated)="update.emit($event)">
 		</status-selector-app>
 	</ng-container>
@@ -52,7 +52,7 @@
 	<!-- assignee -->
 	<ng-container *ngSwitchCase="'assignee'">
 		<selector-app
-			[type]="type"
+			[type]="'USER' | erm"
 			[width]="320"
 			[offsetX]="4"
 			(update)="update.emit({ id: row?.id, assignee: $event })">

@@ -11,7 +11,7 @@
 			<editable-display-app>
 				<selector-app
 					#sel
-					[type]="'USER' | erm: true"
+					[type]="'USER' | erm: 'singular'"
 					[width]="320"
 					[offsetX]="4"
 					(update)="update.emit({ assignee: $event })">
