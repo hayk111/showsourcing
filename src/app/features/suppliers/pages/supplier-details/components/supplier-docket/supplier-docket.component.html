@@ -4,18 +4,24 @@
 	<div class="section">
 		<h3 class="title">Supplier Owner</h3>
 
-		<selector-app
-			#sel
-			[type]="'USER' | erm: true"
-			[width]="320"
-			[offsetX]="4"
-			(update)="update.emit({ assignee: $event })">
+		<editable-container-app
+			[hasAction]="false"
+			[openOnClick]="false"
+			(click)="sel?.selector?.openMenu()">
 			<editable-display-app>
-				<div *ngIf="supplier?.assignee" class="flex">
-					<user-picture-app	class="mg-right-ms" [user]="supplier?.assignee" size="24" fontSize="12" [hasName]="true"></user-picture-app>
-				</div>
+				<selector-app
+					#sel
+					[type]="'USER' | erm: true"
+					[width]="320"
+					[offsetX]="4"
+					(update)="update.emit({ assignee: $event })">
+					<div *ngIf="supplier?.assignee; else none" class="flex">
+						<user-picture-app	class="mg-right-ms" [user]="supplier?.assignee" size="24" fontSize="12" [hasName]="true"></user-picture-app>
+					</div>
+					<ng-template #none>None</ng-template>
+				</selector-app>
 			</editable-display-app>
-		</selector-app>
+		</editable-container-app>
 	</div>
 
 	<!-- status -->
