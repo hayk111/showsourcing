@@ -2,12 +2,17 @@
 
 	<!-- logo -->
 	<ng-container *ngSwitchCase="'logo'">
-		<logo-app	[logo]="row.images && row.images[0]" [type]="type.singular" size="s"></logo-app>
+		<logo-app 
+			size="s" 
+			[logo]="row.images && row.images[0]" 
+			[type]="type.singular" 	
+			(click)="onLogoClick(row)">
+		</logo-app>
 	</ng-container>
 
 	<!-- name -->
 	<ng-container *ngSwitchCase="'name'">
-		<a class="txt-btn" [routerLink]="['/', type.destUrl, row.id]"> 
+		<a class="txt-btn" (click)="onNameClick(row)"> 
 			{{ row.name || '-' }}
 		</a>
 	</ng-container>

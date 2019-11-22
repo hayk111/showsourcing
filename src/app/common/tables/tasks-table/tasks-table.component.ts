@@ -6,6 +6,7 @@ import { ID } from '~utils/id.utils';
 import { TaskService } from '~core/entity-services';
 import { User } from 'getstream';
 import { mediumSmallTableConfig, smallTableConfig, mediumTableConfig, bigTableConfig } from './config';
+import { Color } from '~utils/colors.enum';
 
 
 @Component({
@@ -22,7 +23,6 @@ export class TasksTableComponent extends EntityTableComponent<Task> implements O
 	@Input() tableConfigType: TableConfigType = 'big';
 	@Output() openProduct = new EventEmitter<ID>();
 	@Output() openSupplier = new EventEmitter<ID>();
-
 	columns = [
 		'logo',
 		'name',
@@ -57,6 +57,15 @@ export class TasksTableComponent extends EntityTableComponent<Task> implements O
 			case 'medium-small':
 				return mediumSmallTableConfig;
 		}
+	}
+
+	getColor(task: Task) {
+		if (task.done)
+			return Color.SUCCESS;
+		else if (this.isOverdue(task))
+			return Color.WARN;
+		else
+			return Color.SECONDARY;
 	}
 
 	isOverdue(task: Task) {

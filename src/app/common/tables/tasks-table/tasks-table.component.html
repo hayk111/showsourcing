@@ -41,6 +41,7 @@
 				[column]="column" 
 				[hovered]="row.id === hovered"
 				[type]="'TASK' | erm"
+				[logoColor]="getColor(row)"
 				(update)="update.emit($event)"
 				(previewClick)="previewClick.emit($event)">
 			</default-columns-app>

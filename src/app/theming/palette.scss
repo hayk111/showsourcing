@@ -42,6 +42,7 @@
 	--color-divider: rgb(230, 235, 245);
 	--color-hover: var(--color-bg-secondary);
 
+	// TODO those are not used, is there a need to keep them ?
 	// entities
 	--color-product: var(--color-primary);
 	--color-product-light: var(--color-primary-light);
@@ -56,6 +57,7 @@
 	--color-task: var(--color-success);
 	--color-task-light: var(--color-success-light);
 
+	// TODO those need to be updated
 	// status
 	--color-status-new: var(--color-secondary-contrast);
 	--color-status-new-light: var(--color-secondary);
@@ -103,6 +105,7 @@ $colors: (
 	}
 }
 
+// TODO we need to clean those a bit
 
 .color-bg-dark {
 	color: var(--color-bg-dark);
@@ -167,7 +170,6 @@ $colors: (
 }
 
 /* Background */
-
 .bg-new {
 	background: var(--color-status-new-light);
 }
