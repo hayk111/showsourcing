@@ -55,7 +55,7 @@ button, input[type="submit"], .button {
 		background: transparent;
 		color: var(--color-txt-secondary);
 		&:hover, &.cdk-keyboard-focused {
-			background: var(--color-secondary-light);
+			background: var(--color-secondary);
 		}
 	}
 
@@ -63,7 +63,7 @@ button, input[type="submit"], .button {
 		background: transparent;
 		color: var(--color-txt-secondary);
 		&:hover, &.cdk-keyboard-focused {
-			background: var(--color-secondary-light);
+			background: var(--color-secondary);
 		}
 	}
 
@@ -142,6 +142,6 @@ button:disabled, input[type="submit"]:disabled {
 	transition: 0.3s;
 	cursor: pointer;
 	&:hover {
-		background: var(--color-bg-secondary);
+		background: var(--color-bg-third);
 	}
 }

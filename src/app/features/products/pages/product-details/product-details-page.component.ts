@@ -8,7 +8,7 @@ import {
 } from '~common/dialogs/custom-dialogs/supplier-request-dialog/supplier-request-dialog.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { ProductFeatureService } from '~features/products/services';
-import { ERM, Product, Project, Sample, Task } from '~models';
+import { ERM, Product, Project, Sample, Task, Supplier } from '~models';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { NotificationService, NotificationType } from '~shared/notifications';
@@ -223,15 +223,24 @@ export class ProductDetailsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	/** redirects to a page inside products and scroll into that view */
-	redirect(page: string) {
+	goToTable(page: string) {
 		// if we dont scroll after the navigate, the navigation will stop the scroll mid-way
 		this.router.navigate(['products', this.product.id, page]).then(_ => {
 			this.main.nativeElement.scrollIntoView({ behavior: 'smooth' });
 		});
 	}
 
+	goToSupplier(supplier: Supplier) {
+		this.router.navigate(['suppliers', supplier.id]);
+	}
+
 	scrollToRating() {
 		this.rating.nativeElement.scrollIntoView({ behavior: 'smooth' });
+	}
+
+	dissociateProject(productProjects: Project[], projectToDelete: Project) {
+		const projects = (productProjects || []).filter(project => project.id !== projectToDelete.id);
+		this.updateProduct({ projects });
 	}
 
 }

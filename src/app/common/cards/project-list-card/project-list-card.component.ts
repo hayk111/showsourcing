@@ -10,7 +10,8 @@ import { Project } from '~core/models';
 export class ProjectListCardComponent {
 
 	@Input() projects: Project[];
-	@Output() projectClicked = new EventEmitter<Project>();
+	@Output() openProject = new EventEmitter<Project>();
+	@Output() deleteProject = new EventEmitter<Project>();
 	@Output() update = new EventEmitter<Project[]>();
 
 	constructor() { }

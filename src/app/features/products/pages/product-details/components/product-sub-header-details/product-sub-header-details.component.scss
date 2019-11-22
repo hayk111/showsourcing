@@ -20,7 +20,6 @@
 	}
 }
 
-
 .title {
 	// we cannot use 12px since the editable-container uses a 6px top
 	margin-bottom: 6px;
@@ -32,6 +31,24 @@
 	}
 }
 
-.supplier-name {
-	line-height: 1;
+.supplier-container {
+	position: relative;
+	.supplier-name {
+		line-height: 1;
+	}
+
+	button.eye-icon {
+		position: absolute;
+		right: 0;
+		top: 0;
+		icon-app {
+			transition: 0.3s;
+			color: white;
+		}
+
+		&:hover icon-app {
+			color: var(--color-vibrant);
+		}
+	}
 }
+

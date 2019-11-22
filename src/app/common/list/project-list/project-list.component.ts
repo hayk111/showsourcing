@@ -11,7 +11,8 @@ import { TrackingComponent } from '~utils/tracking-component';
 export class ProjectListComponent extends TrackingComponent {
 
 	@Input() projects: { count: Number, items: Array<Project> };
-	@Output() projectClicked = new EventEmitter<Project>();
+	@Output() openProject = new EventEmitter<Project>();
+	@Output() deleteProject = new EventEmitter<Project>();
 
 	constructor() {
 		super();
