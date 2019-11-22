@@ -1,6 +1,6 @@
 .selected {
 	// background: var(--color-txt-primary);
-	color: var(--color-bg);
+	color: var(--color-primary);
 	>[class^="icon-"],
 	[class*=" icon-"] {
 		&:before {
@@ -15,29 +15,29 @@
 	position: relative;
   height: 32px;
 	border-radius: var(--border-radius);
+	display: flex;
 }
 
 .ctnr {
 	// to suppress the shadow from the btn
 	overflow: hidden;
-	width: 192px;
 }
 
-button {
-	min-width: unset;
-	height: 32px;
-	line-height: 0;
-	border-radius: var(--border-radius);
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	font-size: var(--font-size-s);
-	background: transparent;
-	color:  var(--color-txt-secondary);
-	padding: var(--spacing-s) var(--spacing-ms);
-	z-index: var(--z-button);
-	text-transform: none;
-}
+// button {
+// 	min-width: unset;
+// 	height: 32px;
+// 	line-height: 0;
+// 	border-radius: var(--border-radius);
+// 	display: flex;
+// 	flex-direction: row;
+// 	align-items: center;
+// 	font-size: var(--font-size-s);
+// 	background: transparent;
+// 	color:  var(--color-txt-third);
+// 	padding: var(--spacing-s) var(--spacing-ms);
+// 	z-index: var(--z-button);
+// 	text-transform: none;
+// }
 
 
 

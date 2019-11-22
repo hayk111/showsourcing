@@ -77,17 +77,17 @@
 .right-container {
 	align-items: center;
 
-	> *:not(view-switcher-app) {
-		margin-left: var(--spacing-ms);
-	}
+	// > *:not(view-switcher-app) {
+	// 	margin-left: var(--spacing-ms);
+	// }
 
-	view-switcher-app {
-		margin-left: 9px;
-	}
+	// view-switcher-app {
+	// 	margin-left: 9px;
+	// }
 
-	.notification {
-		height: 20px;
-	}
+	// .notification {
+	// 	height: 20px;
+	// }
 }
 
 .items-container {
@@ -103,9 +103,7 @@
 }
 
 .filter-button {
-	width: 65px;
-  height: 32px;
-	background-color: var(--color-secondary);
+  height: 24px;
   font-size: var(--font-size-m);
   font-weight: 600;
   line-height: 1.43;
@@ -115,8 +113,7 @@
 }
 
 .export-button {
-	width: 97px;
-	height: 32px;
+	height: 24px;
 	margin-left:  var(--spacing-s) !important;
 	background-color: var(--color-secondary);
   font-size: 14px;
@@ -152,9 +149,8 @@
 .my-exports-only-container,
 .show-completed-container {
 	position: relative;
-	height: 32px;
-  line-height: 32px;
-	background-color: var(--color-secondary);
+	height: 24px;
+  line-height: 24px;
   color: var(--color-txt-secondary);
   font-size: var(--font-size-m);
   font-weight: 600;
@@ -239,7 +235,7 @@
 
 .assigned-to-me-button {
 	width: 132px;
-  height: 32px;
+  height: 24px;
 	background-color: var(--color-secondary);
   font-size: var(--font-size-m);
   font-weight: 600;
