@@ -515,9 +515,9 @@
       "validated": "Validated"
     },
     "supplierType": {
-      "_Manufacturer": "Manufacturer",
-      "_Supplier": "Supplier",
-      "_Trader": "Trader"
+      "manufacturer": "Manufacturer",
+      "supplier": "Supplier",
+      "trader": "Trader"
     }
   },
   "error": {
@@ -1045,6 +1045,7 @@
     "step": "step",
     "supplier": "supplier",
     "supplier-type": "supplier type",
+    "supplierType": "supplier type",
     "tag": "tag",
     "tasks": "tasks",
     "team-leader": "Team Leader",
@@ -1181,6 +1182,7 @@
     "status": "status",
     "supplier": "supplier",
     "supplier-details": "supplier details",
+    "supplier-information": "supplier information",
     "supplier-not-exist": "The supplier doesn't exist",
     "tags": "tags",
     "team-members": "Team members",

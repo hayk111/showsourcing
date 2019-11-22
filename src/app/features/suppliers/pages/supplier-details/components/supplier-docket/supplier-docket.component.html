@@ -1,0 +1,72 @@
+<!-- supplier info card -->
+<card-app>
+	<!-- owner -->
+	<div class="section">
+		<h3 class="title">Supplier Owner</h3>
+
+		<editable-container-app
+			[hasAction]="false"
+			[openOnClick]="false"
+			(click)="sel?.selector?.openMenu()">
+			<editable-display-app>
+				<selector-app
+					#sel
+					[type]="'USER' | erm: true"
+					[width]="320"
+					[offsetX]="4"
+					(update)="update.emit({ assignee: $event })">
+					<div *ngIf="supplier?.assignee; else none" class="flex">
+						<user-picture-app	class="mg-right-ms" [user]="supplier?.assignee" size="24" fontSize="12" [hasName]="true"></user-picture-app>
+					</div>
+					<ng-template #none>None</ng-template>
+				</selector-app>
+			</editable-display-app>
+		</editable-container-app>
+	</div>
+
+	<!-- status -->
+	<div class="section">
+		<h3 class="title">Supplier Status</h3>
+		<span>
+			<status-selector-app
+				[typeEntity]="'SUPPLIER' | erm"
+				[entity]="supplier"
+				selectSize="m"
+				type="button">
+			</status-selector-app>
+		</span>
+	</div>
+
+	<!-- task list -->
+	<div class="section action-hover-container">
+		<div class="title flexVAlign">
+			<h3>Tasks</h3>
+			<icon-app
+				class="mg-left-ms action-hover-item color-primary"
+				name="plus"
+				(click)="addTask.emit()">
+			</icon-app>
+		</div>
+		<task-list-app [tasks]="supplier?.tasksLinked" (taskClicked)="previewTask.emit($event)"></task-list-app>
+	</div>
+
+	<!-- sample list -->
+	<div class="section action-hover-container">
+		<div class="title flexVAlign">
+			<h3>Samples</h3>
+			<icon-app
+				class="mg-left-ms action-hover-item color-primary"
+				name="plus"
+				(click)="addSample.emit()">
+			</icon-app>
+		</div>
+		<sample-list-app [samples]="supplier?.samplesLinked" (sampleClicked)="previewSample.emit($event)"></sample-list-app>
+	</div>
+
+	<!-- about -->
+	<div class="section">
+		<h3 class="title">About this supplier</h3>
+		<small>Created by {{ supplier.createdBy | formatUserName }} on  {{ supplier.creationDate | date: 'dd MMMM yyyy' }}</small> <br>
+		<small>Last updated by {{ supplier.lastUpdatedBy | formatUserName }} on {{ supplier.lastUpdatedDate | date: 'dd MMMM yyyy' }}</small><br>
+	</div>
+</card-app>
