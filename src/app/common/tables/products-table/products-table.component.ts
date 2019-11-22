@@ -19,7 +19,7 @@ export class ProductsTableComponent extends EntityTableComponent<Product> implem
 		'logo',
 		'name',
 		'preview',
-		//  'reference',
+		'reference',
 		'price',
 		'moq',
 		'supplier',
@@ -29,7 +29,7 @@ export class ProductsTableComponent extends EntityTableComponent<Product> implem
 		'status',
 		'assignee',
 		'createdBy',
-		'createdOn'
+		'creationDate'
 	];
 	@Input() tableWidth: number;
 	@Input() hasShowItemsPerPage: boolean;

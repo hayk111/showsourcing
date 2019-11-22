@@ -19,8 +19,7 @@
 	(bottomReached)="bottomReached.emit()"
 	(sort)="sort.emit($event)"
 	(showItemsPerPage)="showItemsPerPage.emit($event)"
-	(createClick)="createClick.emit()"
-	[placeholder]="'placeholder.no-project' | translate">
+	(createClick)="createClick.emit()">
 
 	<!-- contextual menu -->
 	<ng-template #contextualMenuTemplate let-row="row">
@@ -51,10 +50,18 @@
 				[hovered]="row.id === hovered"
 				[type]="'PROJECT' | erm"
 				(update)="update.emit($event)"
-				(previewClick)="previewClick.emit($event)">
+				(previewClick)="previewClick.emit($event)"
+				(nameClick)="open.emit($event)"
+				(previewClick)="previewClick.emit($event)"
+				(logoClick)="open.emit($event)">
 			</default-columns-app>
 
 			<ng-container *ngSwitchCase="'status'">
+				Need Property on backend
+			</ng-container>
+
+			
+			<ng-container *ngSwitchCase="'dueDate'">
 				Need Property on backend
 			</ng-container>
 

@@ -45,4 +45,5 @@ export class DefaultColumnsComponent {
 		else
 			this.nameClick.emit(row);
 	}
+
 }

@@ -47,7 +47,9 @@
 				[hovered]="row.id === hovered"
 				[type]="'ATTACHMENT' | erm"
 				(update)="update.emit($event)"
-				(previewClick)="previewClick.emit($event)">
+				(previewClick)="previewClick.emit($event)"
+				(nameClick)="download(row)"
+				(logoClick)="download(row)">
 			</default-columns-app>
 
 			<!-- Actions -->

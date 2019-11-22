@@ -27,7 +27,7 @@ export class SamplesTableComponent extends EntityTableComponent<Sample> implemen
 		'status',
 		'assignee',
 		'createdBy',
-		'createdOn'
+		'creationDate'
 	];
 	@Input() tableConfigType: TableConfigType = 'big';
 	@Output() openSupplier = new EventEmitter<ID>();

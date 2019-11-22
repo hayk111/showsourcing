@@ -33,7 +33,7 @@ export class TasksTableComponent extends EntityTableComponent<Task> implements O
 		'assignee',
 		'status',
 		'createdBy',
-		'createdOn'
+		'creationDate'
 	];
 
 	constructor(

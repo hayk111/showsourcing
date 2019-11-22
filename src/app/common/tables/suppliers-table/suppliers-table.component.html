@@ -44,7 +44,10 @@
 				[hovered]="row.id === hovered"
 				[type]="'SUPPLIER' | erm"
 				(update)="update.emit($event)"
-				(previewClick)="previewClick.emit($event)">
+				(previewClick)="previewClick.emit($event)"
+				(nameClick)="open.emit($event)"
+				(previewClick)="previewClick.emit($event)"
+				(logoClick)="previewClick.emit($event)">
 			</default-columns-app>
 
 			<!-- country -->

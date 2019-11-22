@@ -29,7 +29,7 @@ export class SuppliersTableComponent extends EntityTableComponent<Supplier> impl
 		'assignee',
 		'country',
 		'createdBy',
-		'createdOn',
+		'creationDate',
 	];
 
 	@Input() tableConfigType: TableConfigType = 'big';

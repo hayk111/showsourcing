@@ -20,7 +20,7 @@ const tableConfig: TableConfig = {
 export class ProjectsTableComponent extends EntityTableComponent<Project> {
 	@Input() navigation = true;
 
-	columns = ['logo', 'name', 'reference', 'productCount', 'status', 'createdBy', 'creationDate'];
+	columns = ['logo', 'name', 'reference', 'productCount', 'status', 'dueDate', 'createdBy', 'creationDate'];
 	tableConfig = tableConfig;
 	color = Color;
 

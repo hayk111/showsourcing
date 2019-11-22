@@ -5,14 +5,12 @@
 	[selected]="selection"
 	[contextualMenu]="contextualMenuTemplate"
 	[currentSort]="currentSort"
-	[rowHeight]="rowHeight"
 	[count]="count"
 	[currentPage]="currentPage"
 	[hasHeader]="hasHeader"
 	[hasMenu]="hasMenu"
 	[hasSelection]="hasSelection"
 	[hasPagination]="hasPagination"
-	[rowHeight]="rowHeight"
 	[placeholder]="'placeholder.no-task' | translate"
 	(goToPage)="goToPage.emit($event)"
 	(selectOne)="select.emit($event)"
@@ -43,11 +41,15 @@
 				[type]="'TASK' | erm"
 				[logoColor]="getColor(row)"
 				(update)="update.emit($event)"
-				(previewClick)="previewClick.emit($event)">
+				(nameClick)="previewClick.emit($event)"
+				(previewClick)="previewClick.emit($event)"
+				(logoClick)="previewClick.emit($event)">
 			</default-columns-app>
 
+			<!-- TODO remove the bottom columns or not depending on what we are going to receive in the upcoming designs -->
+
 			<!-- done -->
-			<ng-container *ngSwitchCase="'done'">
+			<!-- <ng-container *ngSwitchCase="'done'">
 				<icon-app
 					class="pointer"
 					[ngClass]="iconClass(row)"
@@ -55,10 +57,10 @@
 					[size]="24"
 					(click)="toggleStatus(row)">
 				</icon-app>
-			</ng-container>
+			</ng-container> -->
 
 			<!--about: task done + name + product -->
-			<ng-container *ngSwitchCase="'about'">
+			<!-- <ng-container *ngSwitchCase="'about'">
 				<div class="about flex">
 					<icon-app
 						class="about flexStart"
@@ -72,24 +74,17 @@
 						<span class="ellipsis task-reference ellipsis">{{ row?.reference }}</span>
 					</div>
 				</div>
-			</ng-container>
-
-			<!-- due date -->
-			<ng-container *ngSwitchCase="'due date'">
-				<div class="mainCellWrapper due-date-container ellipsis">
-					<span class="ellipsis" [ngClass]="{ 'txt-task-done-empty': row?.done || !row?.dueDate }">{{ row?.dueDate ? (row?.dueDate | date: 'dd MMM y':'':translate.currentLang) : 'Set due date' }}</span>
-				</div>
-			</ng-container>
+			</ng-container> -->
 
 			<!-- due date small -->
-			<ng-container *ngSwitchCase="'due date small'">
+			<!-- <ng-container *ngSwitchCase="'due date small'">
 				<div class="mainCellWrapper ellipsis">
 					<span class="ellipsis due-date-small">{{ row?.dueDate | date: 'dd MMM' }}</span>
 				</div>
-			</ng-container>
+			</ng-container> -->
 
 			<!-- small done -->
-			<ng-container *ngSwitchCase="'small done name'">
+			<!-- <ng-container *ngSwitchCase="'small done name'">
 				<div class="flex">
 					<icon-app
 						class="pointer mg-right-ms"
@@ -100,14 +95,13 @@
 					</icon-app>
 					<span class="ellipsis pointer task-name txt-btn" (click)="previewClick.emit(row)">{{ row?.name }}</span>
 				</div>
-			</ng-container>
+			</ng-container> -->
 
 		</ng-container>
 
 	</ng-template>
 
 </table-app>
-
 
 <!-- contextual menu -->
 <ng-template #contextualMenuTemplate let-row="row">

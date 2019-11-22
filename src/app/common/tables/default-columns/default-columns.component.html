@@ -5,6 +5,7 @@
 		<logo-app 
 			size="s" 
 			[logo]="row.images && row.images[0]" 
+			[color]="logoColor"
 			[type]="type.singular" 	
 			(click)="onLogoClick(row)">
 		</logo-app>
@@ -74,13 +75,32 @@
 	</ng-container>
 
 	<!-- creation date -->
-	<ng-container *ngSwitchCase="'created on'">
+	<ng-container *ngSwitchCase="'creationDate'">
 		{{ row?.creationDate | date: 'dd MMMM y':'':translate.currentLang  }}
 	</ng-container>
 
 	<!-- created by -->
-	<ng-container *ngSwitchCase="'created by'">
-		{{ row?.createdBy | formatUserName: true }}
+	<ng-container *ngSwitchCase="'createdBy'">
+		<div class="flexVAlign">
+			<user-picture-app
+				*ngIf="row?.createdBy"
+				class="mg-right-s"
+				[user]="row?.createdBy">
+			</user-picture-app>
+			<span>{{ row?.createdBy | formatUserName: true }}</span>
+		</div>
+	</ng-container>
+
+	
+	<!-- due date -->
+	<ng-container *ngSwitchCase="'dueDate'">
+		<editable-container-app #edt 
+			(closed)="update.emit({ id: row.id, dueDate: inp.value })">
+			<editable-display-app>
+				{{ row?.dueDate ? (row?.dueDate | date: 'dd MMM y':'':translate.currentLang) : '-' }}
+			</editable-display-app>
+			<input #inp inputApp type="date" (keyup.enter)="edt.close()">
+		</editable-container-app>
 	</ng-container>
 
 	<!-- product count -->

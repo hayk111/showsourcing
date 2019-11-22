@@ -3,7 +3,6 @@ import { defaultConfig } from '../default-columns/default-config';
 
 export const bigTableConfig: TableConfig = {
 	...defaultConfig,
-	dueDate: { name: 'due date', translationKey: 'due-date', width: 110, sortProperty: 'dueDate' },
 };
 
 export const mediumTableConfig: TableConfig = {

@@ -23,8 +23,7 @@ const tableConfig: TableConfig = {
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExportTableComponent extends EntityTableComponent<ExportRequest> {
-	columns = ['logo', 'fileName', 'status',  'createdBy', 'createdOn', 'download'];
-	@Output() download = new EventEmitter<ExportRequest>();
+	columns = ['logo', 'fileName', 'status',  'createdBy', 'creationDate', 'download'];
 	@Output() showItemsPerPage = new EventEmitter<number>();
 
 	@ViewChild('contextualMenu', { static: false }) contextualMenuTemplate: TemplateRef<any>;
