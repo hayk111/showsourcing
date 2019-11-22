@@ -1,8 +1,18 @@
 
 <bottom-panel-app *ngIf="isShown" class="z-6 flexBetween" @selectionBarTrigger>
 
-  <div class="closeSection pointer">
-    {{ ((selection?.size || 0) > 1 ? 'OBJ.n-item-selected.plural' : 'OBJ.n-item-selected.singular') | translate: {count: (selection?.size || 0)} }}
+  <div class="flexCenter">
+    <div class="selected">
+      <select-checkbox-app [size]="24"></select-checkbox-app>
+    </div>
+
+    <div class="closeSection pointer">
+      <div *ngIf="!entityType" class="entity-selected">{{ ((selection?.size || 0) > 1 ? 'OBJ.n-item-selected.plural' : 'OBJ.n-item-selected.singular') | translate: {count: (selection?.size || 0)} }}</div>
+      <div *ngIf="entityType" class="capitalize entity-selected">{{ ((selection?.size || 0) > 1 ? 'OBJ.n-' + entityType + '-selected.plural' : 'OBJ.n-' + entityType + '-selected.singular') | translate: {count: (selection?.size || 0)} }}</div>
+      <div class="entity-select-count">
+        {{ 'Select the ' + count + ' ' + ((count || 0) > 1 ? capitalize(entityType) + 's' : capitalize(entityType))}}
+      </div>
+    </div>
   </div>
 
   <ng-content></ng-content>

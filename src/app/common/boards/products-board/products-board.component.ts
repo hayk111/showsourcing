@@ -3,6 +3,7 @@ import { combineLatest, Observable } from 'rxjs';
 import { filter, first, map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
+import { SelectionService } from '~core/list-page';
 import { ProductStatusService } from '~core/entity-services/product-status/product-status.service';
 import { ListPageService } from '~core/list-page';
 import { NEW_STATUS_ID } from '~core/models/status.model';
@@ -27,7 +28,7 @@ import { AutoUnsub } from '~utils/auto-unsub.component';
 })
 export class ProductsBoardComponent extends AutoUnsub implements OnInit {
 
-	@Input() selection: Observable<Map<string, any>>;
+	@Input() selection: Observable<Map<string, Product>>;
 	@Output() preview = new EventEmitter<undefined>();
 	@Output() selectOne = new EventEmitter<Product>();
 	@Output() unselectOne = new EventEmitter<Product>();
@@ -35,7 +36,8 @@ export class ProductsBoardComponent extends AutoUnsub implements OnInit {
 
 	columns$ = this.kanbanSrv.columns$;
 	/** keeps tracks of the current selection */
-	selected$: Observable<Map<string, boolean>>;
+	selected: Map<string, Product>;
+	slectedColumns: Map<string, string> = new Map();
 	erm = ERM;
 	amountLoaded = 15;
 
@@ -56,6 +58,7 @@ export class ProductsBoardComponent extends AutoUnsub implements OnInit {
 		private productSrv: ProductService,
 		private productStatusSrv: ProductStatusService,
 		private listSrv: ListPageService<Product, ProductService>,
+		private selectionSrv: SelectionService,
 		public dialogCommonSrv: DialogCommonService,
 		public kanbanSrv: KanbanService,
 		public dlgSrv: DialogService
@@ -83,7 +86,12 @@ export class ProductsBoardComponent extends AutoUnsub implements OnInit {
 			statuses$,
 			(filterList, statuses) => this.getProducts(statuses, filterList)
 		).subscribe();
-		this.selected$ = this.listSrv.selection$;
+
+		this.listSrv.selection$
+			.pipe(
+				takeUntil(this._destroy$),
+			)
+			.subscribe(data => this.selected = data);
 	}
 
 	loadMore(col: KanbanColumn) {
@@ -161,12 +169,56 @@ export class ProductsBoardComponent extends AutoUnsub implements OnInit {
 		).subscribe();
 	}
 
-	onColumnSelected(products: Product[]) {
-		products.forEach(prod => this.listSrv.selectOne(prod, true));
+	onColumnSelected({ data, column }) {
+		this.slectedColumns.set(column.id, 'selectedAll');
+
+		this.emitSelection();
+		data.forEach(prod => this.listSrv.selectOne(prod, true));
 	}
 
-	onColumnUnselected(products: Product[]) {
-		products.forEach(prod => this.listSrv.unselectOne(prod, true));
+	onColumnUnselected({ data, column }) {
+		this.slectedColumns.set(column.id, 'unchecked');
+
+		this.emitSelection();
+		data.forEach(prod => this.listSrv.unselectOne(prod, true));
+	}
+
+	onSelectedOne(product: Product, column: any) {
+		this.selected.set(product.id, product);
+
+		if (column.data.every(item => this.selected.has(item.id))) {
+			this.slectedColumns.set(column.id, 'selectedAll');
+		} else {
+			this.slectedColumns.set(column.id, 'selectedPartial');
+		}
+
+		this.emitSelection();
+		this.selectOne.emit(product);
+	}
+
+	onUnselectedOne(product: Product, column) {
+		this.selected.delete(product.id);
+
+		if (column.data.every(item => !this.selected.has(item.id))) {
+			this.slectedColumns.set(column.id, 'unchecked');
+		} else {
+			this.slectedColumns.set(column.id, 'selectedPartial');
+		}
+
+		this.emitSelection();
+		this.unselectOne.emit(product);
+	}
+
+	emitSelection() {
+		const selectedCols = [...this.slectedColumns.values()];
+
+		if (selectedCols.includes('selectedAll')) {
+			this.selectionSrv.setSelectionState('selectedAll');
+		} else if (selectedCols.includes('selectedPartial')) {
+			this.selectionSrv.setSelectionState('selectedPartial');
+		} else {
+			this.selectionSrv.setSelectionState('unchecked');
+		}
 	}
 
 	onFavoriteAllSelected() {

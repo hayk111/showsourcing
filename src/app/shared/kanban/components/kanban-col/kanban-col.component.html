@@ -3,8 +3,8 @@
 	<div class="left-section">
 		<checkbox-app
 			[checked]="hasAllSelected()"
-			(check)="selectAll.emit(col.data)"
-			(uncheck)="unselectAll.emit(col.data)">
+			(check)="selectAll.emit({data: col.data, column: col})"
+			(uncheck)="unselectAll.emit({data: col.data, column: col})">
 		</checkbox-app>
 		<span class="title">
 			{{ col.title }}
@@ -35,7 +35,7 @@
     (mouseenter)="onMouseEnter(item)">
 
     <!-- <div class="custom-placeholder" *cdkDragPlaceholder></div> -->
-    <ng-container *ngTemplateOutlet="cardTemplate; context: { column: column, data: item }">
+    <ng-container *ngTemplateOutlet="cardTemplate; context: { column: col, data: item }">
     </ng-container>
   </kanban-item-app>
 	<div

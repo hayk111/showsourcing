@@ -18,8 +18,8 @@ export class KanbanColComponent extends TrackingComponent implements OnInit {
 	@Input() connectedLists: string[];
 	@Input() selection: Map<string, any>;
 	@Input() amountLoaded: number;
-	@Output() selectAll = new EventEmitter<any[]>();
-	@Output() unselectAll = new EventEmitter<any[]>();
+	@Output() selectAll = new EventEmitter<{data: any[], column: any}>();
+	@Output() unselectAll = new EventEmitter<{data: any[], column: any} > ();
 	@Output() drop = new EventEmitter<CdkDragDrop<any>>();
 	@Output() loadMore = new EventEmitter<KanbanColumn>();
 	draggedId: string;

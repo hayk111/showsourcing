@@ -7,6 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class SelectionService {
 	selection = new Map<string, any>();
+	private _selectionState$ = new BehaviorSubject<'selectedPartial' | 'unchecked' | 'selectedAll'>('unchecked');
 	private _selection$ = new BehaviorSubject<Map<string, any>>(this.selection);
 	selection$ = this._selection$.asObservable();
 
@@ -42,6 +43,14 @@ export class SelectionService {
 	unselectAll() {
 		this.selection = new Map();
 		this.emit();
+	}
+
+	setSelectionState(state: 'selectedPartial' | 'unchecked' | 'selectedAll') {
+		this._selectionState$.next(state);
+	}
+
+	getSelectionState() {
+		return this._selectionState$;
 	}
 
 	getSelectionValues() {
