@@ -41,4 +41,10 @@ export class BadgeSelectorComponent extends TrackingComponent implements OnInit 
 	trackByFn(index, category) {
 		return category.key;
 	}
+
+	onOpenActionClick(event: MouseEvent) {
+		// we stop the propagation of the click so the selector is not opened
+		event.stopImmediatePropagation();
+		this.openActionClicked.emit();
+	}
 }

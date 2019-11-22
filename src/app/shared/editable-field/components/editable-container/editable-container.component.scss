@@ -6,6 +6,7 @@ $padding-vertical: 6px;
 	align-items: center;
 	width: max-content;
 	&.default {
+		border-radius: var(--border-radius);
 		margin-left: -$padding-horizontal;
 		padding: $padding-vertical $padding-horizontal;
 		&.open {
