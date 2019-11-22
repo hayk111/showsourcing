@@ -25,7 +25,7 @@
 	(hideMyExport)="toggleMyExports(false)">
 </controller-list-app>
 
-<export-table-app
+<exports-table-app
 	[rows]="listSrv.items$ | async"
 	[currentSort]="listSrv.currentSort"
 	[pending]="listSrv.pending"
@@ -35,7 +35,7 @@
 	(sort)="listSrv.sort($event)"
 	(showItemsPerPage)="showItemsPerPage($event)"
 	(download)="downloadOne($event)">
-</export-table-app>
+</exports-table-app>
 
 <!-- in case selection comes back -->
 <!-- <selection-bar-app

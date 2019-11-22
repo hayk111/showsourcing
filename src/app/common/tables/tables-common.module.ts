@@ -13,6 +13,10 @@ import { SuppliersTableComponent } from './suppliers-table/suppliers-table.compo
 import { TasksTableComponent } from './tasks-table/tasks-table.component';
 import { DefaultColumnsComponent } from './default-columns/default-columns.component';
 import { ExportTableComponent } from './exports-table/exports-table.component';
+import { TeamMembersTableComponent } from './team-members-table/team-members-table.component';
+import { InvitationsTableComponent } from './invitations-table/invitations-table.component';
+import { DataManagementTableComponent } from './data-management-table/data-management-table.component';
+import { WorkflowManagamentTableComponent } from './workflow-managament-table/workflow-managament-table.component';
 
 @NgModule({
 	imports: [
@@ -30,7 +34,11 @@ import { ExportTableComponent } from './exports-table/exports-table.component';
 		SuppliersTableComponent,
 		TasksTableComponent,
 		ExportTableComponent,
-		DefaultColumnsComponent
+		DefaultColumnsComponent,
+		TeamMembersTableComponent,
+		InvitationsTableComponent,
+		DataManagementTableComponent,
+		WorkflowManagamentTableComponent,
 	],
 	exports: [
 		AttachmentsTableComponent,
@@ -40,7 +48,12 @@ import { ExportTableComponent } from './exports-table/exports-table.component';
 		RequestElementsTableComponent,
 		SamplesTableComponent,
 		SuppliersTableComponent,
+		ExportTableComponent,
 		TasksTableComponent,
+		TeamMembersTableComponent,
+		InvitationsTableComponent,
+		DataManagementTableComponent,
+		WorkflowManagamentTableComponent,
 	],
 	entryComponents: []
 })

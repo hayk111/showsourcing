@@ -37,8 +37,6 @@ import { TablesCommonModule } from '~common/tables/tables-common.module';
 		TeamPages.TeamCardComponent,
 		TeamPages.SettingsTeamMembersInvitationsComponent,
 		TeamPages.SettingsTeamMembersUsersComponent,
-		TeamPages.InvitationsTableComponent,
-		TeamPages.TeamMembersTableComponent,
 		// exports
 		ExportsPages.ExportsPageComponent,
 		// data
@@ -47,14 +45,11 @@ import { TablesCommonModule } from '~common/tables/tables-common.module';
 		DataPages.EventDataPageComponent,
 		DataPages.SupplierDataPageComponent,
 		DataPages.TagDataPageComponent,
-		DataPages.DataMananagementTableComponent,
 		// workflow
 		WorkflowPages.WorkflowPageComponent,
 		WorkflowPages.ProductStatusPageComponent,
 		WorkflowPages.SampleStatusPageComponent,
 		WorkflowPages.SupplierStatusPageComponent,
-		WorkflowPages.WorkflowManagamentTableComponent
-
 	],
 	entryComponents: [],
 	exports: [],
