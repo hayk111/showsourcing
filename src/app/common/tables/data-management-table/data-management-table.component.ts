@@ -5,11 +5,11 @@ import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'data-management-table-app',
-	templateUrl: './data-mananagement-table.component.html',
-	styleUrls: ['./data-mananagement-table.component.scss'],
+	templateUrl: './data-management-table.component.html',
+	styleUrls: ['./data-management-table.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DataMananagementTableComponent extends EntityTableComponent<any> {
+export class DataManagementTableComponent extends EntityTableComponent<any> {
 	@Input() entityMetadata: EntityMetadata;
 	@Output() renameEntity = new EventEmitter<any>();
 	@Output() showItemsPerPage = new EventEmitter<number>();
