@@ -4,7 +4,7 @@ import { UserService } from '~entity-services/user/user.service';
 import { Product, ProductVote } from '~models';
 
 @Injectable({ providedIn: 'root' })
-export class ThumbService {
+export class RatingService {
 
 	constructor(
 		private voteSrv: ProductVoteService,

@@ -5,7 +5,7 @@ import { CommonModalService } from '~common/modals/services/common-modal.service
 import { ListPageService } from '~core/list-page';
 import { ProductService } from '~entity-services';
 import { ERM, Product } from '~models';
-import { ThumbService } from '~shared/rating/services/thumbs.service';
+import { RatingService } from '~shared/rating/services/thumbs.service';
 import { AutoUnsub } from '~utils';
 import { ID } from '~utils/id.utils';
 
@@ -27,7 +27,7 @@ export class SupplierProductsComponent extends AutoUnsub implements OnInit {
 	constructor(
 		protected router: Router,
 		private route: ActivatedRoute,
-		public thumbSrv: ThumbService,
+		public thumbSrv: RatingService,
 		private productSrv: ProductService,
 		public listSrv: ListPageService<Product, ProductService>,
 		public commonModalSrv: CommonModalService

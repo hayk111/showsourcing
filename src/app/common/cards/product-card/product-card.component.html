@@ -57,13 +57,13 @@
 				</div>
 			</div>
 
-			<span *ngIf="thumbSrv.computeScore(product?.votes) !== null" class="vote-star-container"
+			<span *ngIf="ratingSrv.computeScore(product?.votes) !== null" class="vote-star-container"
 				[ngClass]="{
-					'bg-accent-light color-accent-dark': thumbService.computeScoreVotes(votes) >= 3.5,
-					'bg-secondary-light color-txt-third': thumbService.computeScoreVotes(votes) < 3.5
+					'bg-accent-light color-accent-dark': ratingSrv.computeScoreVotes(votes) >= 3.5,
+					'bg-secondary-light color-txt-third': ratingSrv.computeScoreVotes(votes) < 3.5
 				}">
 				<icon-app name="star" size="sm" class="star"></icon-app>
-				<span class="vote-star-value">{{ thumbSrv.computeScore(product?.votes) | number: '1.1-2' }}</span>
+				<span class="vote-star-value">{{ ratingSrv.computeScore(product?.votes) | number: '1.1-2' }}</span>
 			</span>
 		</div>
 	</div>
