@@ -20,6 +20,7 @@ for each entity and see what to do.
 Remove non used colors from palette.scss
 Remove non used spacing from spacing.scss
 Clean Typography.scss
+Add horizontal (h) and vertical (v) mg-, pd- classes.
 
 # List & common behaviors
 
