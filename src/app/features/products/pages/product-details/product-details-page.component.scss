@@ -6,7 +6,7 @@
 
 product-header-details-app {
 	position: fixed;
-	z-index: var(--z-top-selector);
+	z-index: var(--z-top-selection);
 	width: calc(100% - #{var(--side-bar-width)});
 }
 
