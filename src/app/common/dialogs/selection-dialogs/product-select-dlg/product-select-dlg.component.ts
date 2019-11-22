@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { ProductDialogService } from '~common/dialogs/services/product-dialog.service';
 import { ProductService, UserService } from '~core/entity-services';
+import { DEFAULT_TAKE_PAGINATION } from '~entity-services/_global/select-params';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 import { ListPageService } from '~core/list-page';
 import { EntityTypeEnum, ERM, Product, Project } from '~models';
@@ -44,7 +45,7 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 	selectedProducts: { [key: string]: Product } = {};
 
 	selectedProductsCount = 0;
-	private selectedAllCount = 25;
+	private selectedAllCount = DEFAULT_TAKE_PAGINATION;
 
 	filtersPanelOpened = false;
 

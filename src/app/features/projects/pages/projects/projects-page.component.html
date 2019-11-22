@@ -45,7 +45,8 @@
 	</projects-table-app>
 
   <selection-bar-app
-    [isShown]="(listSrv.selection$ | async).size > 0"
+		[isShown]="(listSrv.selection$ | async).size > 0"
+		[count]="listSrv.count$ | async"
     [selection]="listSrv.selection$ | async"
     (close)="listSrv.unselectAll()">
     <action-bar-app [hasHeart]="false" [hasLikes]="false">
