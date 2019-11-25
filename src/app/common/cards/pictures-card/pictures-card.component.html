@@ -1,5 +1,7 @@
-<card-app>
+<card-app class="action-hover-container">
 	<card-title-app translate="title.pictures"></card-title-app>
+
+	<card-action-app class="action-hover-item" (click)="inpFile?.click()"><div translate="button.add-pictures"></div></card-action-app>
 
 	<ng-container *ngIf="images?.length; else empty">
 		<div class="flex flexWrap">
