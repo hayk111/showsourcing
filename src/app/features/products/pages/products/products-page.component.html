@@ -1,13 +1,11 @@
 <!-- top panel -->
 <header-list-app
-	class="max-full-table-width"
 	[title]="'title.my-products' | translate"
 	[buttonName]="'button.create-product' | translate"
 	(buttonClick)="dialogCommonSrv.openCreationProductDlg()">
 </header-list-app>
 
 <controller-list-app
-	class="max-full-table-width"
 	searchType="short"
 	[filtersAmount]="listSrv.getFilterAmount([{ type: filterTypeEnum.ARCHIVED, value: false }, { type: filterTypeEnum.DELETED, value: false }])"
 	[hasFilter]="true"
@@ -38,7 +36,6 @@
 <ng-container *ngIf="listSrv.isListening">
 	<products-table-app
 		*ngIf="listSrv.view === 'list'"
-		class="max-full-table-width"
 		#productList
 		[currentSort]="listSrv.currentSort"
 		[pending]="listSrv.pending"

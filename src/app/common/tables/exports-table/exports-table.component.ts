@@ -25,7 +25,7 @@ const tableConfig: TableConfig = {
 export class ExportTableComponent extends EntityTableComponent<ExportRequest> {
 	columns = ['logo', 'fileName', 'status',  'createdBy', 'creationDate', 'download'];
 	@Output() showItemsPerPage = new EventEmitter<number>();
-
+	@Output() download = new EventEmitter<ExportRequest>();
 	@ViewChild('contextualMenu', { static: false }) contextualMenuTemplate: TemplateRef<any>;
 
 	erm = ERM;

@@ -1,7 +1,14 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { EntityTableComponent } from '~common/tables/entity-table.component';
+import { EntityTableComponent, TableConfig } from '~common/tables/entity-table.component';
 import { EntityMetadata, ERM } from '~models';
 import { TranslateService } from '@ngx-translate/core';
+import { defaultConfig } from '../default-columns/default-config';
+
+
+const tableConfig: TableConfig = {
+	...defaultConfig,
+	action: { name: 'action', translationKey: 'action', width: 120, fixedWidth: true }
+};
 
 @Component({
 	selector: 'data-management-table-app',
@@ -19,6 +26,15 @@ export class DataManagementTableComponent extends EntityTableComponent<any> {
 	ermSupplier = ERM.SUPPLIER;
 	ermEvent = ERM.EVENT;
 	idEntityHovered: string;
+	tableConfig: TableConfig = tableConfig;
+	columns = [
+		'name',
+		'createdBy',
+		'productCount',
+		'supplierCount',
+		'action',
+	];
+
 
 	constructor(public translate: TranslateService) { super(); }
 

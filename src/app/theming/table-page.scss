@@ -1,19 +1,19 @@
 
 .table-page {
-	margin: var(--spacing-l);
-
-	.table-page-header {
-
-	}
-
-	.table-page-table {
-
-	}
-
 	controller-list-app {
-
+		margin: var(--spacing-ms) var(--spacing-l);
 	}
+
+	table-app {
+		// remove margin from table component
+		flex-grow: 1;
+    margin-left: 24px;
+    margin-right: 24px;
+		margin-bottom: var(--spacing-ms);
+	}
+
 }
+
 
 
 
