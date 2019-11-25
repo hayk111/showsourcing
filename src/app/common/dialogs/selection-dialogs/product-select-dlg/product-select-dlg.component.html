@@ -11,8 +11,6 @@
 		[filtersPanelOpened]="filtersPanelOpened"
 		[view]="listSrv.view"
 		[searchValue]="listSrv.searchValue"
-		[searchFullWidth]="false"
-		[subPanelDialog]="true"
 		(search)="searchProduct($event)"
 		(showArchived)="listSrv.filterByArchived(true)"
 		(hideArchived)="listSrv.filterByArchived(false)"
