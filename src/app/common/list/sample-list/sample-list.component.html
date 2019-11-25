@@ -1,14 +1,20 @@
 <ng-container *ngIf="samples?.length; else noSample">
-	<div *ngFor="let sample of samples; trackBy: trackById" class="preview-sample flexVAlign">
-		<icon-app
-			class="pointer"
-			[ngClass]="'color-' + colorClass(sample)"
-			[name]="'sample'"
-			[size]="12"
-			(click)="sampleClicked.emit(sample)">
-		</icon-app>
-		<span class="ellipsis txt-btn" (click)="sampleClicked.emit(sample)">{{ sample.name }}</span>
+	<div
+		*ngFor="let sample of samples; index as i; trackBy: trackById"
+		class="flexVAlign"
+		[ngClass]="{ 'preview-sample': i < displayIndex }">
+		<ng-container *ngIf="i < displayIndex">
+			<icon-app
+				class="pointer"
+				[ngClass]="'color-' + colorClass(sample)"
+				[name]="'sample'"
+				[size]="12"
+				(click)="sampleClicked.emit(sample)">
+			</icon-app>
+			<span class="ellipsis txt-btn" (click)="sampleClicked.emit(sample)">{{ sample.name }}</span>
+		</ng-container>
 	</div>
+	<div *ngIf="samples?.length > displayIndex" class="color-primary txt-btn" (click)="displayIndex = displayIndex + 3">View more</div>
 </ng-container>
 
 <ng-template #noSample>

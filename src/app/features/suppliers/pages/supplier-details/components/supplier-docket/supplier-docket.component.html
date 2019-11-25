@@ -52,7 +52,7 @@
 			<h3>Samples</h3>
 			<div class="mg-left-ms action-hover-item color-primary txt-btn" (click)="addTask.emit()" translate="button.add"></div>
 		</div>
-		<sample-list-app [samples]="supplier?.samplesLinked" (sampleClicked)="previewSample.emit($event)"></sample-list-app>
+		<sample-list-app [samples]="supplier?.samplesLinked?.items" (sampleClicked)="previewSample.emit($event)"></sample-list-app>
 	</div>
 
 	<!-- about -->

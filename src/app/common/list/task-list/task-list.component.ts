@@ -13,6 +13,8 @@ export class TaskListComponent extends TrackingComponent {
 	@Input() tasks: Task[];
 	@Output() taskClicked = new EventEmitter<Task>();
 
+	displayIndex = 3;
+
 	constructor() {
 		super();
 	}
