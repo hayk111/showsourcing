@@ -11,6 +11,7 @@ export class ProductSelectionBarComponent implements OnInit {
 
 	@Input() isShown = false;
 	@Input() selection: Map<string, boolean>;
+	@Input() count: number;
 	@Input() favorite: boolean;
 	@Output() close = new EventEmitter<null>();
 	@Output() compareProducts = new EventEmitter<null>();

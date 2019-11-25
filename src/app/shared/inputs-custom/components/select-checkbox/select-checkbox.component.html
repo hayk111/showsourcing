@@ -1,0 +1,22 @@
+<div
+	class="icon flexCenter bg-{{ boxColor }}"
+	[ngClass]="{ 'mg-right': hasContent, 'pointer': !disabled, 'unchecked': state === 'unchecked' }"
+	[ngStyle]="iconSize()"
+	(click)="onClick()">
+	<!-- we need this to wrap both items, we cannot use the container above cause of the styling that has -->
+	<div class="select-container flexCenter" tabFocusAction autoFocus (keyEnter)="focusClick()">
+		<ng-container [ngSwitch]="state">
+			<icon-app *ngSwitchCase="'selectedAll'" class="check-icon" name="check"></icon-app>
+			<icon-app *ngSwitchCase="'selectedPartial'" class="check-icon" name="close"></icon-app> <!--TODO: icon needs to be replaced-->
+		</ng-container>
+	</div>
+</div>
+
+<input #input
+	type="checkbox"
+	class="hidden"
+	[hidden]="true" />
+
+<label class="label" [ngClass]="{ 'pointer': !disabled }" #label (click)="onClick()" class="flexVAlign">
+	<ng-content></ng-content>
+</label>

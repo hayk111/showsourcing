@@ -14,16 +14,26 @@
 	}
 }
 
-bottom-panel-app {
-	height: 64px;
-}
-
 .closeSection {
 	font-size: var(--font-size-l);
 	display: flex;
-	align-items: center;
+	flex-direction: column;
+	align-items: flex-start;
 	line-height: 1;
 	cursor: default;
+	margin-left: var(--spacing-ms);
+}
+
+.entity-selected {
+	font-size: var(--font-size-m);
+	font-weight: 600;
+	color: var(--bg-dark);
+}
+
+.entity-select-count {
+	margin-top: var(--spacing-xxs);
+	font-size: var(--font-size-s);
+	color: var(--bg-dark);
 }
 
 .icon-close {

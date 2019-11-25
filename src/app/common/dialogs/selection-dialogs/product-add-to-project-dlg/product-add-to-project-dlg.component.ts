@@ -3,6 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { ProductDialogService } from '~common/dialogs/services/product-dialog.service';
 import { ListPageService } from '~core/list-page';
 import { ProjectService } from '~entity-services';
+import { DEFAULT_TAKE_PAGINATION } from '~entity-services/_global/select-params';
 import { EntityTypeEnum, ERM, Product, Project } from '~models';
 import { CloseEventType } from '~shared/dialog';
 import { DialogService } from '~shared/dialog/services';
@@ -27,7 +28,7 @@ export class ProductAddToProjectDlgComponent extends AutoUnsub implements OnInit
 	erm = ERM;
 	entityTypeEnum = EntityTypeEnum;
 
-	private projectCount = 25;
+	private projectCount = DEFAULT_TAKE_PAGINATION;
 	selectedProjectsCount = 0;
 
 	constructor(
