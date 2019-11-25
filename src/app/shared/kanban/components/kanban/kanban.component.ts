@@ -22,8 +22,8 @@ export class KanbanComponent extends TrackingComponent {
 	@Output() drop = new EventEmitter<KanbanDropEvent>();
 	@Output() multipleDrop = new EventEmitter<KanbanDropEvent>();
 	/** when the top checkbox is checked */
-	@Output() selectColumn = new EventEmitter<any[]>();
-	@Output() unselectColumn = new EventEmitter<any[]>();
+	@Output() selectColumn = new EventEmitter<{data: any[], column: any}>();
+	@Output() unselectColumn = new EventEmitter<{data: any[], column: any}>();
 	@Output() loadMore = new EventEmitter<KanbanColumn>();
 
 

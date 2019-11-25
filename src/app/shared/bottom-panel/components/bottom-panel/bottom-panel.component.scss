@@ -1,7 +1,7 @@
 :host {
 	background: var(--color-bg);
-	border-top: 3px solid var(--color-primary);
 	box-sizing: border-box;
 	width: 100%;
-	padding: var(--spacing-ms) var(--spacing-l);
+	box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.1);
+	padding: var(--spacing-ms);
 }
