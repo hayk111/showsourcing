@@ -10,7 +10,7 @@ import { TrackingComponent } from '~utils/tracking-component';
 })
 export class SampleListComponent extends TrackingComponent {
 
-	@Input() samples: { count: Number, items: Array<Sample> };
+	@Input() samples: Sample[];
 	@Output() sampleClicked = new EventEmitter<Sample>();
 
 	constructor() {

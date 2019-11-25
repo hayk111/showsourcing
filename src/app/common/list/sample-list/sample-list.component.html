@@ -1,5 +1,5 @@
-<ng-container *ngIf="samples?.count; else noSample">
-	<div *ngFor="let sample of samples?.items; trackBy: trackById" class="preview-sample flexVAlign">
+<ng-container *ngIf="samples?.length; else noSample">
+	<div *ngFor="let sample of samples; trackBy: trackById" class="preview-sample flexVAlign">
 		<icon-app
 			class="pointer"
 			[ngClass]="'color-' + colorClass(sample)"

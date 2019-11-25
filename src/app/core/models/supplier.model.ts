@@ -45,7 +45,7 @@ export class Supplier extends EntityWithAudit<SupplierConfig> {
 	samplesLinked?: { count: number, items: Sample[] };
 	tasksLinkedAssignedToMe?: { count: number };
 	samplesLinkedAssignedToMe?: { count: number };
-	tasksLinkedUndone?: { count: number };
+	tasksLinkedUndone?: { count: number, items: Task[] };
 	__typename?= 'Supplier';
 }
 

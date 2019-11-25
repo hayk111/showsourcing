@@ -461,7 +461,9 @@
     "view": "view",
     "view-all": "View All",
     "view-all-products": "View All Products",
+    "view-less-pictures": "view less pictures",
     "view-more": "View more",
+    "view-more-pictures": "view more pictures",
     "view-vote-details": "View Vote Details",
     "yes-join-team": "Yes - Join the team",
     "yes-log-me-in": "Yes - Let me log-in"
@@ -804,6 +806,7 @@
   },
   "placeholder": {
     "add-price-label": "Add price label",
+    "add-new-one": "Add a new one!",
     "choose": "Choose",
     "choose-assignee": "Choose assignee",
     "choose-property": "Choose a property",
@@ -823,6 +826,7 @@
     "no-exports": "No exports",
     "no-invitation": "No invitation",
     "no-items-found": "No items found",
+    "no-pictures-found": "No pictures found",
     "no-product": "No product",
     "no-project": "no project",
     "no-request-items": "no request items",
