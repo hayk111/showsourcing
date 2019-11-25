@@ -3,33 +3,29 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
+import { SupplierRequestService, SupplierService } from '~core/entity-services';
 import { ListPageService } from '~core/list-page';
-import { SupplierRequestService } from '~entity-services';
-import { ProductFeatureService } from '~features/products/services';
-import { ERM, Product, SupplierRequest } from '~models';
+import { ERM, Supplier, SupplierRequest } from '~core/models';
 import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'requests-page-app',
 	templateUrl: './requests-page.component.html',
 	styleUrls: ['./requests-page.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [
-		ListPageService
-	]
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RequestsPageComponent extends AutoUnsub implements OnInit {
 
 	erm = ERM;
 	supplierRequests$: Observable<SupplierRequest[]>;
-	private product: Product;
+	supplier: Supplier;
 
 	constructor(
 		protected route: ActivatedRoute,
 		protected requestSrv: SupplierRequestService,
 		public dialogCommonSrv: DialogCommonService,
 		public listSrv: ListPageService<SupplierRequest, SupplierRequestService>,
-		private productSrv: ProductFeatureService
+		private supplierSrv: SupplierService
 	) {
 		super();
 	}
@@ -39,24 +35,26 @@ export class RequestsPageComponent extends AutoUnsub implements OnInit {
 			map(params => params.id),
 		);
 
-		id$.subscribe(id => {
-			this.listSrv.setup({
-				entitySrv: this.requestSrv,
-				selectParams: { sortBy: 'title', query: `requestElements.targetedEntityType == "Product" && requestElements.targetId == "${id}"` },
-				entityMetadata: ERM.SUPPLIER_REQUEST,
-				searchedFields: ['title'],
-				originComponentDestroy$: this._destroy$
-			});
-		});
+		// currently we don't save any information of the supplier, not even the id, therefore we cannot check the requests of it
+		// id$.subscribe(id => {
+		// this.listSrv.setup({
+		// 	entitySrv: this.requestSrv,
+		// 	selectParams: { sortBy: 'title', query: `requestElements.targetedEntityType == "Supplier" && requestElements.targetId == "${id}"` },
+		// 	entityMetadata: ERM.SUPPLIER_REQUEST,
+		// 	searchedFields: ['title'],
+		// 	originComponentDestroy$: this._destroy$
+		// });
+		// });
 
 		id$.pipe(
-			switchMap(id => this.productSrv.queryOne(id)),
+			switchMap(id => this.supplierSrv.queryOne(id)),
 			takeUntil(this._destroy$)
-		).subscribe(product => this.product = product);
+		).subscribe(supplier => this.supplier = supplier);
 	}
 
 	openSupplierRequest() {
-		this.dialogCommonSrv.openSupplierRequest([this.product]);
+		this.dialogCommonSrv.openSupplierRequest([], this.supplier);
 	}
+
 
 }
