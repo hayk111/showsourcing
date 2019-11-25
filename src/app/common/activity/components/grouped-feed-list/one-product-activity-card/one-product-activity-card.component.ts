@@ -10,7 +10,7 @@ import { ProductService } from '~entity-services';
 import { Comment, ERM, Product } from '~models';
 import { DialogService } from '~shared/dialog/services';
 import { InputDirective } from '~shared/inputs';
-import { ThumbService } from '~shared/rating/services/thumbs.service';
+import { RatingService } from '~shared/rating/services/thumbs.service';
 import { AutoUnsub } from '~utils';
 
 @Component({
@@ -37,7 +37,7 @@ export class OneProductActivityCardComponent extends AutoUnsub implements OnInit
 		private router: Router,
 		private dlgSrv: DialogService,
 		private productSrv: ProductService,
-		private thumbSrv: ThumbService,
+		private ratingSrv: RatingService,
 		private commentSrv: CommentService) {
 		super();
 	}
@@ -95,7 +95,7 @@ export class OneProductActivityCardComponent extends AutoUnsub implements OnInit
 	}
 
 	score() {
-		return this.thumbSrv.computeScore(this.product);
+		return this.ratingSrv.computeScore(this.product);
 	}
 
 }

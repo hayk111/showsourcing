@@ -12,7 +12,7 @@ import { ERM, Product, Project, Sample, Task, Supplier } from '~models';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { NotificationService, NotificationType } from '~shared/notifications';
-import { ThumbService } from '~shared/rating/services/thumbs.service';
+import { RatingService } from '~shared/rating/services/thumbs.service';
 import { AutoUnsub, log } from '~utils';
 
 /**
@@ -50,7 +50,7 @@ export class ProductDetailsPageComponent extends AutoUnsub implements OnInit {
 		private featureSrv: ProductFeatureService,
 		private dlgSrv: DialogService,
 		private notifSrv: NotificationService,
-		private ratingSrv: ThumbService,
+		private ratingSrv: RatingService,
 		public dlgCommonSrv: DialogCommonService,
 		private translate: TranslateService
 	) {

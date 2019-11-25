@@ -9,7 +9,7 @@ import { EntityMetadata, ERM, ExtendedFieldDefinition } from '~core/models';
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { DynamicField } from '~shared/dynamic-forms';
 import { NotificationService, NotificationType } from '~shared/notifications';
-import { ThumbService } from '~shared/rating/services/thumbs.service';
+import { RatingService } from '~shared/rating/services/thumbs.service';
 import { AutoUnsub, uuid } from '~utils';
 import { ProductDescriptor } from '~core/descriptors';
 import { TranslateService } from '@ngx-translate/core';
@@ -39,7 +39,7 @@ export class MassEditDlgComponent extends AutoUnsub implements OnInit {
 		private extendedFDSrv: ExtendedFieldDefinitionService,
 		private productSrv: ProductService,
 		private dlgSrv: DialogService,
-		private thumbSrv: ThumbService,
+		private ratingSrv: RatingService,
 		private notificationSrv: NotificationService,
 		private translate: TranslateService
 	) { super(); }
@@ -183,12 +183,12 @@ export class MassEditDlgComponent extends AutoUnsub implements OnInit {
 	private getVotes(item) {
 		let votes;
 		if (this.like)
-			votes = this.thumbSrv.thumbUpFromMulti(item, true);
+			votes = this.ratingSrv.thumbUpFromMulti(item, true);
 		else if (this.dislike)
-			votes = this.thumbSrv.thumbDownFromMulti(item, true);
+			votes = this.ratingSrv.thumbDownFromMulti(item, true);
 		else
 			// it could be thumbUpFromMulti or thumbDownFromMulti, we just want to delete the vote
-			votes = this.thumbSrv.thumbUpFromMulti(item, false);
+			votes = this.ratingSrv.thumbUpFromMulti(item, false);
 		return votes;
 	}
 
