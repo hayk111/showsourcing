@@ -30,7 +30,7 @@ export class ThumbButtonsComponent {
 		}
 	}
 	// we only use the boolean item inside the emitter when using multiple selection
-	// if its not multiple we don't care, we just send the product on a higher level to the thumbSrv
+	// if its not multiple we don't care, we just send the product on a higher level to the ratingSrv
 	@Output() liked = new EventEmitter<boolean>();
 	@Output() disliked = new EventEmitter<boolean>();
 	like = false;

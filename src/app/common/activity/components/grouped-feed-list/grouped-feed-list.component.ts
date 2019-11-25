@@ -7,7 +7,7 @@ import { ProductService } from '~entity-services/product/product.service';
 import { Comment, Product, Supplier, EntityMetadata, ERM } from '~models';
 import { GroupedActivityFeed } from '~common/activity/interfaces/client-feed.interfaces';
 import { GetStreamGroup } from '~common/activity/interfaces/get-stream-feed.interfaces';
-import { ThumbService } from '~shared/rating/services/thumbs.service';
+import { RatingService } from '~shared/rating/services/thumbs.service';
 import { TemplateService } from '~core/template/services/template.service';
 import { AutoUnsub } from '~utils';
 
@@ -32,7 +32,7 @@ export class GroupedFeedListComponent extends AutoUnsub implements OnInit {
 		private productSrv: ProductService,
 		private supplierSrv: SupplierService,
 		private templateSrv: TemplateService,
-		private thumbSrv: ThumbService,
+		private ratingSrv: RatingService,
 		private userSrv: UserService
 	) {
 		super();
@@ -63,12 +63,12 @@ export class GroupedFeedListComponent extends AutoUnsub implements OnInit {
 	}
 
 	onThumbUp(product) {
-		const votes = this.thumbSrv.thumbUp(product);
+		const votes = this.ratingSrv.thumbUp(product);
 		this.updateProduct({ id: product.id, votes });
 	}
 
 	onThumbDown(product) {
-		const votes = this.thumbSrv.thumbDown(product);
+		const votes = this.ratingSrv.thumbDown(product);
 		this.updateProduct({ id: product.id, votes });
 	}
 

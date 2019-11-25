@@ -39,6 +39,7 @@
 	<button	(click)="table.openFileBrowser()">
 		Add file
 	</button>
+	<divider-app *ngIf="(listSrv.selection$ | async).size > 0" [vertical]="true"></divider-app>
 	<button
 		*ngIf="(listSrv.selection$ | async).size > 0"
 		class="warn"

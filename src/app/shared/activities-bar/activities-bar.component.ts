@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 import { RequestElementService } from '~core/entity-services';
-import { ThumbService } from '~shared/rating/services/thumbs.service';
+import { RatingService } from '~shared/rating/services/thumbs.service';
 import { Observable } from 'rxjs';
 import { ReplyStatus, Task, EntityName } from '~core/models';
 

@@ -14,12 +14,9 @@
 				[multiple]="true"
 				[width]="330"
 				(update)="update.emit($event)">
-				<icon-app
-					class="mg-left-ms action-hover-item color-primary"
-					name="plus">
-				</icon-app>
+				<div class="mg-left-ms action-hover-item color-primary txt-btn">Add</div>
 			</selector-app>
 		</div>
-		<project-list-app [projects]="projects" (projectClicked)="projectClicked.emit($event)"></project-list-app>
+		<project-list-app [projects]="projects" (openProject)="openProject.emit($event)" (deleteProject)="deleteProject.emit($event)"></project-list-app>
 	</div>
 </card-app>

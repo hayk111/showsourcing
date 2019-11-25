@@ -4,10 +4,22 @@
 	height: 100%;
 }
 
+product-header-details-app {
+	position: fixed;
+	z-index: var(--z-top-selection);
+	width: calc(100% - #{var(--side-bar-width)});
+}
+
+product-sub-header-details-app {
+	// product header details app height
+	padding-top: 62px;
+}
+
 .ctnr {
 	margin: auto;
 	margin-top: var(--spacing-l);
 	justify-content: center;
+	padding-bottom: 160px;
 }
 
 .left {

@@ -1,6 +1,7 @@
 <input #inpFile type="file" hidden="true" (fileSelect)="addFile($event)"/>
 
 <table-app
+	[class.no-min-height]="!hasMinHeight"
 	[rows]="rows"
 	[type]="'ATTACHMENT' | erm: true"
 	[pending]="pending"
@@ -58,7 +59,7 @@
 
 			<!-- name -->
 			<ng-container *ngSwitchCase="'name'">
-				<span>{{ row?.fileName }}</span>
+				<span class="ellipsis">{{ row?.fileName }}</span>
 			</ng-container>
 
 			<!-- createdBy -->

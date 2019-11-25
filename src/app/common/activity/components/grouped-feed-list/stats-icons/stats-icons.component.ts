@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 import { Product, ProductVote } from '~models';
 import { UserService } from '~entity-services/user/user.service';
-import { ThumbService } from '~shared/rating/services/thumbs.service';
+import { RatingService } from '~shared/rating/services/thumbs.service';
 
 @Component({
 	selector: 'stats-icons-app',
@@ -54,13 +54,13 @@ export class StatsIconsComponent implements OnInit {
 
 	constructor(
 		private userSrv: UserService,
-		private thumbSrv: ThumbService) { }
+		private ratingSrv: RatingService) { }
 
 	ngOnInit() {
 	}
 
 	score() {
-		return this.thumbSrv.computeScore(this._product);
+		return this.ratingSrv.computeScore(this._product);
 	}
 
 	get successTxt() {

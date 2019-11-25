@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { ProductVote } from '~core/models';
-import { ThumbService } from '~shared/rating/services/thumbs.service';
+import { RatingService } from '~shared/rating/services/thumbs.service';
 
 @Component({
 	selector: 'rating-dashboard-app',
@@ -14,7 +14,7 @@ export class RatingDashboardComponent {
 	@Output() viewRatings = new EventEmitter<ProductVote[]>();
 	@Output() update = new EventEmitter<ProductVote[]>();
 
-	constructor(private ratingSrv: ThumbService) { }
+	constructor(private ratingSrv: RatingService) { }
 
 	onStarVote(number: number) {
 		this.update.emit(this.ratingSrv.starVote(this.votes, number));

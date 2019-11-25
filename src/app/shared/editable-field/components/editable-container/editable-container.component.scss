@@ -4,8 +4,9 @@ $padding-vertical: 6px;
 :host {
 	display: flex;
 	align-items: center;
-	width: 100%;
+	width: max-content;
 	&.default {
+		border-radius: var(--border-radius);
 		margin-left: -$padding-horizontal;
 		padding: $padding-vertical $padding-horizontal;
 		&.open {
@@ -21,6 +22,7 @@ $padding-vertical: 6px;
 
 .labelCtnr {
 	margin-bottom: 0;
+	width: unset;
 }
 
 .openBlock {

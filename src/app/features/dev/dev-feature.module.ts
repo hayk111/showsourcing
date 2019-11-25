@@ -49,7 +49,8 @@ import { routes } from './routes';
 		Pages.PlaygroundPageComponent,
 		Pages.EditableContainerPageComponent,
 		Pages.ColorsPageComponent,
-		Pages.SpacingPageComponent
+		Pages.SpacingPageComponent,
+		Pages.TypographyPageComponent
 	],
 	exports: [],
 	providers: []

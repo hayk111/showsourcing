@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { mockVotes } from '~core/models';
 import { RatingModule } from '~shared/rating/rating.module';
-import { ThumbService } from '~shared/rating/services/thumbs.service';
+import { RatingService } from '~shared/rating/services/thumbs.service';
 
 import { RatingStarsScoreViewComponent } from './rating-stars-score-view.component';
 
@@ -12,7 +12,7 @@ describe('Rating stars score view', () => {
 
 	beforeEach(async () => {
 		TestBed.configureTestingModule({
-			providers: [ThumbService],
+			providers: [RatingService],
 			imports: [RatingModule]
 		}).compileComponents();
 

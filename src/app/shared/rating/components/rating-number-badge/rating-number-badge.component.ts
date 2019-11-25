@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { ProductVote } from '~core/models';
-import { ThumbService } from '~shared/rating/services/thumbs.service';
+import { RatingService } from '~shared/rating/services/thumbs.service';
 
 @Component({
 	selector: 'rating-number-badge-app',
@@ -13,7 +13,7 @@ export class RatingNumberBadgeComponent {
 	private _votes: ProductVote[];
 	@Input() set votes(votes: ProductVote[]) {
 		this._votes = votes;
-		this.score = this.thumbSrv.computeScoreVotes(votes);
+		this.score = this.ratingSrv.computeScoreVotes(votes);
 	}
 	get votes() {
 		return this._votes;
@@ -23,7 +23,7 @@ export class RatingNumberBadgeComponent {
 
 	score: number = null;
 
-	constructor(public thumbSrv: ThumbService) { }
+	constructor(public ratingSrv: RatingService) { }
 
 	getClasses() {
 		let classes = this.score >= 3.5 ? 'color-accent-dark' : 'color-txt-third';
