@@ -14,7 +14,7 @@ export const colorMap = {
 	[EntityName.PRODUCT]: Color.PRIMARY,
 	[EntityName.PROJECT]: Color.SECONDARY,
 	[EntityName.SAMPLE]: Color.ACCENT,
-	[EntityName.TAG]: Color.SECONDARY,
+	[EntityName.TAG]: Color.ACCENT,
 	[EntityName.TASK]: Color.SUCCESS,
 	[EntityName.SUPPLIER]: Color.VIBRANT,
 	[EntityName.LOCATION]: Color.SECONDARY,

@@ -10,7 +10,7 @@ import { EntityMetadata } from '~core/models';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { Filter, FilterType } from '~shared/filters';
-import { ThumbService } from '~shared/rating/services/thumbs.service';
+import { RatingService } from '~shared/rating/services/thumbs.service';
 import { Sort } from '~shared/table/components/sort.interface';
 import { showsourcing } from '~utils/debug-object.utils';
 
@@ -58,7 +58,7 @@ export class ListPageService
 
 	constructor(
 		private router: Router,
-		private thumbSrv: ThumbService,
+		private ratingSrv: RatingService,
 		private dlgSrv: DialogService,
 		private zone: NgZone,
 		private userSrv: UserService
@@ -238,12 +238,12 @@ export class ListPageService
 	}
 
 	onThumbUp(item: T) {
-		const votes = this.thumbSrv.thumbUp(item);
+		const votes = this.ratingSrv.thumbUp(item);
 		return this.dataSrv.update({ id: item.id, votes } as any).subscribe();
 	}
 
 	onThumbDown(item: T) {
-		const votes = this.thumbSrv.thumbDown(item);
+		const votes = this.ratingSrv.thumbDown(item);
 		return this.dataSrv.update({ id: item.id, votes } as any).subscribe();
 	}
 
@@ -254,7 +254,7 @@ export class ListPageService
 	onMultipleThumbUp(isCreated: boolean) {
 		const updated = [];
 		this.getSelectedValues().forEach(item => {
-			const votes = this.thumbSrv.thumbUpFromMulti(item, isCreated);
+			const votes = this.ratingSrv.thumbUpFromMulti(item, isCreated);
 			updated.push({ id: item.id, votes });
 		});
 		this.dataSrv.updateMany(updated).subscribe();
@@ -268,7 +268,7 @@ export class ListPageService
 	onMultipleThumbDown(isCreated: boolean) {
 		const updated = [];
 		this.getSelectedValues().forEach(item => {
-			const votes = this.thumbSrv.thumbDownFromMulti(item, isCreated);
+			const votes = this.ratingSrv.thumbDownFromMulti(item, isCreated);
 			updated.push({ id: item.id, votes });
 		});
 		this.dataSrv.updateMany(updated).subscribe();

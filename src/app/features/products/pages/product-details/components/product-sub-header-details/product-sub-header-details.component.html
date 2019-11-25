@@ -44,6 +44,7 @@
 		<div class="section">
 			<h3>supplier</h3>
 			<editable-container-app
+				class="action-hover-container"
 				[hasAction]="false"
 				[openOnClick]="false"
 				(click)="supplierSelector?.openMenu()">
@@ -56,20 +57,28 @@
 						[width]="370"
 						(update)="update($event, 'supplier')">
 						<editable-display-app>
-							<div *ngIf="product?.supplier as supplier" class="flex">
+							<div *ngIf="product?.supplier as supplier" class="supplier-container flex">
 								<logo-app
 									class="mg-right-s"
 									[type]="'SUPPLIER' | erm: true"
 									[logo]="supplier?.logoImage">
 								</logo-app>
 								<div class="supplier-info mg-right-xxl">
-									<span class="fs-l color-txt-primary bold-s flex mg-bottom-xs supplier-name">{{ supplier?.name }}</span>
+									<span class="supplier-name fs-l color-txt-primary bold-s flex mg-bottom-xs">{{ supplier?.name }}</span>
 									<div class="flex dot-separator">
 										<div *ngIf="supplier?.supplierType">{{ supplier?.supplierType }}</div>
 										<div *ngIf="supplier?.country">{{ supplier?.country }}</div>
 										<rating-badge-app	[votes]="supplier?.votes" [activeColor]="'primary'"></rating-badge-app>
 									</div>
 								</div>
+								<button class="eye-icon icon light action-hover-item">
+									<icon-app
+										size="20"
+										name="eye"
+										toolTip [toolTipMessage]="'text.open-supplier' | translate" toolTipPosition="above-left" [offsetX]="-15" [offsetY]="-7"
+										(click)="onOpenSupplier(supplier, $event)">
+									</icon-app>
+								</button>
 							</div>
 						</editable-display-app>
 					</selector-app>

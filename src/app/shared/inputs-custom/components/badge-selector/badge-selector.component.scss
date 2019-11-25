@@ -36,6 +36,9 @@ selector-app {
 
 		&:hover {
 			color: var(--color-primary);
+			&.supplier {
+				color: var(--color-vibrant);
+			}
 		}
 	}
 
