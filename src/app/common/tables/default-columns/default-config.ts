@@ -7,7 +7,7 @@ export const defaultConfig: TableConfig = {
 	name: { name: 'name', translationKey: 'name', width: 190, sortable: true },
 	reference: { name: 'reference', translationKey: 'reference', width: 190, sortable: false },
 	favorite: { name: 'favorite', translationKey: 'FAV', width: 50, sortProperty: 'favorite' },
-	rating: { name: 'rating', translationKey: 'rating', width: 70, sortable: false },
+	rating: { name: 'rating', translationKey: 'rating', width: 80, sortable: false },
 	createdBy: { name: 'createdBy', translationKey: 'created-by', width: 152, sortProperty: 'createdBy.firstName' },
 	assignee: { name: 'assignee', translationKey: 'assignee', width: 152, sortProperty: 'assignee.firstName' },
 	creationDate: { name: 'creationDate', translationKey: 'created-on', width: 120, sortProperty: 'creationDate' },

@@ -17,7 +17,6 @@ const config: TableConfig = {
 	templateUrl: './attachments-table.component.html',
 	styleUrls: [
 		'./attachments-table.component.scss',
-		'../table.scss'
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [

@@ -18,7 +18,6 @@ const tableConfig: TableConfig = {
 	templateUrl: './exports-table.component.html',
 	styleUrls: [
 		'./exports-table.component.scss',
-		'../table.scss'
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })

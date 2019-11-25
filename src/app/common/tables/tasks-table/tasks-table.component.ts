@@ -14,8 +14,10 @@ import { Color } from '~utils/colors.enum';
 	templateUrl: './tasks-table.component.html',
 	styleUrls: [
 		'./tasks-table.component.scss',
-		'../table.scss'
 	],
+	host: {
+		class: 'table-page'
+	},
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TasksTableComponent extends EntityTableComponent<Task> implements OnInit {

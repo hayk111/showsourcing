@@ -13,7 +13,6 @@ import { smallTableConfig } from './config';
 	templateUrl: './samples-table.component.html',
 	styleUrls: [
 		'./samples-table.component.scss',
-		'../table.scss'
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })

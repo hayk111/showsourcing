@@ -10,7 +10,6 @@ import { mediumTableConfig, bigTableConfig } from './config';
 	templateUrl: './products-table.component.html',
 	styleUrls: [
 		'./products-table.component.scss',
-		'../table.scss'
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })

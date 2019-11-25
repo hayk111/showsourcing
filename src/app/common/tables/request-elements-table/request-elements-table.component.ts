@@ -20,7 +20,6 @@ const tableConfig: TableConfig = {
 	templateUrl: './request-elements-table.component.html',
 	styleUrls: [
 		'./request-elements-table.component.scss',
-		'../table.scss'
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })

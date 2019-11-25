@@ -1,15 +1,8 @@
 :host {
-	padding: 0 var(--spacing-l);
-	padding-bottom: var(--spacing-ms);
+	padding: var(--spacing-ms) var(--spacing-l);
+	background: var(--color-bg);
 	flex-shrink: 0;
 	border-bottom: 1px solid var(--color-divider);
-
-	&.smaller-padding {
-		margin: var(--spacing-l);
-		margin-bottom: 0px;
-		padding-left: 0px;
-		padding-right: 0px;
-}
 
 	h2 {
 		width: 182px;
@@ -17,11 +10,6 @@
 		font-size: var(--font-size-xxxxl);
 		font-weight: 600;
 		color: var(--color-bg-dark);
-	}
-
-	button {
-		border-radius: var(--border-radius);
-		background-color: var(--color-primary);
 	}
 }
 

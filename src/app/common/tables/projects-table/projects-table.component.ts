@@ -14,7 +14,6 @@ const tableConfig: TableConfig = {
 	templateUrl: './projects-table.component.html',
 	styleUrls: [
 		'./projects-table.component.scss',
-		'../table.scss'
 	]
 })
 export class ProjectsTableComponent extends EntityTableComponent<Project> {

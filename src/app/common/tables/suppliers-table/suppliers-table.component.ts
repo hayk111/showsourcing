@@ -9,7 +9,6 @@ import { bigTableConfig, mediumTableConfig } from './config';
 	templateUrl: './suppliers-table.component.html',
 	styleUrls: [
 		'./suppliers-table.component.scss',
-		'../table.scss'
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
