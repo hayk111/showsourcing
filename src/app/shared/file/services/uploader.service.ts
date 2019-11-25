@@ -226,10 +226,10 @@ export class UploaderService {
 		// then we queryMany
 		if (isImage && files.length)
 			return baseSrv.waitForOne(`id == "${files[0].id}" AND urls.@size > 0`).pipe(
-				switchMap(_ => baseSrv.queryMany({ query }))
+				switchMap(_ => baseSrv.queryMany({ query, take: 0 }))
 			);
 		// if its a file we don't need to wait to send the results
 		else
-			return baseSrv.queryMany({ query });
+			return baseSrv.queryMany({ query, take: 0 });
 	}
 }
