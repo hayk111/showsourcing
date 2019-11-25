@@ -3,16 +3,11 @@
 }
 
 button {
-	color: var(--color-bg-dark);
-
 	&.with-name icon-app {
 		margin-right: var(--spacing-s);
 	}
 
 	&.request-supplier {
-		background-color: var(--color-vibrant);
-		color: var(--color-bg);
-
 		icon-app {
 			color: var(--color-bg);
 		}
