@@ -5,13 +5,13 @@
 		[class.right]="view === 'card'"
 		[class.right-two-items]="view === 'board' && !hasThumb">
 	</div>
-	<button class="flexCenter {{ view === 'list' ? 'selected' : ''}} light"
+	<button class="flexCenter {{ view === 'list' ? 'selected' : ''}} icon light"
 		(mousedown)="switchView('list')">
-		<icon-app class="list" name="list-menu"></icon-app>
+		<icon-app class="list" name="list-menu" size="m"></icon-app>
 	</button>
-	<button class="flexCenter {{ view === 'board' ? 'selected' : ''}} light"
+	<button class="flexCenter {{ view === 'board' ? 'selected' : ''}} icon light"
 		(mousedown)="switchView('board')">
-		<icon-app class="board" name="kanban"></icon-app>
+		<icon-app class="board" name="kanban" size="m"></icon-app>
 	</button>
 	<!-- <button *ngIf="hasThumb"
 		class="flexCenter {{ view === 'card' ? 'selected' : ''}}"
