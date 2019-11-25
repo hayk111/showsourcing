@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, OnChanges, AfterCont
 import { RequestElementService } from '~core/entity-services';
 import { Observable } from 'rxjs';
 import { ReplyStatus, Task } from '~core/models';
-import { ThumbService } from '~shared/rating/services/thumbs.service';
+import { RatingService } from '~shared/rating/services/thumbs.service';
 
 @Component({
 	selector: 'product-card-activities-app',
@@ -26,15 +26,15 @@ export class ProductCardActivitiesComponent implements OnInit {
 
 	constructor(
 		private requestElementService: RequestElementService,
-		public thumbService: ThumbService,
+		public ratingSrv: RatingService,
 	) { }
 
 	ngOnInit() {
-			this.openRequestsCount$ = this.requestElementService
-				.queryCount(`targetId == "${this.id}" AND targetedEntityType == "Product" AND (reply.status == "${ReplyStatus.REPLIED}")`);
+		this.openRequestsCount$ = this.requestElementService
+			.queryCount(`targetId == "${this.id}" AND targetedEntityType == "Product" AND (reply.status == "${ReplyStatus.REPLIED}")`);
 
-			this.requestsCount$ = this.requestElementService
-				.queryCount(`targetId == "${this.id}" AND targetedEntityType == "Product"`);
+		this.requestsCount$ = this.requestElementService
+			.queryCount(`targetId == "${this.id}" AND targetedEntityType == "Product"`);
 
 		this.hasTaskOverdue = this.hasTasksOverdue(this.id);
 	}

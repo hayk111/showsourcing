@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, ChangeDetectorRef } from '@angular/core';
 import { ProductVote } from '~core/models';
-import { ThumbService } from '~shared/rating/services/thumbs.service';
+import { RatingService } from '~shared/rating/services/thumbs.service';
 
 @Component({
 	selector: 'rating-stars-score-view-app',
@@ -30,7 +30,7 @@ export class RatingStarsScoreViewComponent {
 
 	constructor(
 		private cdr: ChangeDetectorRef,
-		private thumbSrv: ThumbService
+		private ratingSrv: RatingService
 	) { }
 
 	/**
@@ -61,7 +61,7 @@ export class RatingStarsScoreViewComponent {
 					break;
 			}
 		});
-		this.score = this.thumbSrv.computeScoreVotes(this.votes);
+		this.score = this.ratingSrv.computeScoreVotes(this.votes);
 		this.cdr.markForCheck();
 	}
 

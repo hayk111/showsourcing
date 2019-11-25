@@ -6,9 +6,11 @@ import { IconsModule } from '~shared/icons/icons.module';
 import { UtilsModule } from '~shared/utils';
 
 import {
+	RatingBadgeComponent,
 	RatingCylinderComponent,
 	RatingDashboardComponent,
 	RatingHeartComponent,
+	RatingNumberBadgeComponent,
 	RatingStarsActionComponent,
 	RatingStarsScoreViewComponent,
 	ThumbButtonsComponent,
@@ -28,7 +30,9 @@ import {
 		RatingCylinderComponent,
 		RatingStarsScoreViewComponent,
 		RatingStarsActionComponent,
-		RatingDashboardComponent
+		RatingDashboardComponent,
+		RatingBadgeComponent,
+		RatingNumberBadgeComponent,
 	],
 	exports: [
 		ThumbButtonsComponent,
@@ -36,7 +40,9 @@ import {
 		RatingCylinderComponent,
 		RatingDashboardComponent,
 		RatingStarsScoreViewComponent,
-		RatingStarsActionComponent
+		RatingStarsActionComponent,
+		RatingBadgeComponent,
+		RatingNumberBadgeComponent,
 	]
 })
 export class RatingModule { }

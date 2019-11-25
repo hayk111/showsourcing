@@ -25,7 +25,7 @@ import { DialogService } from '~shared/dialog/services';
 import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { PreviewCommentComponent, PreviewService } from '~shared/preview';
-import { ThumbService } from '~shared/rating/services/thumbs.service';
+import { RatingService } from '~shared/rating/services/thumbs.service';
 import { AutoUnsub, PendingImage, translate } from '~utils';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { CloseEventType, CloseEvent } from '~shared/dialog';
@@ -97,7 +97,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 		private commentSrv: CommentService,
 		private extendedFieldDefSrv: ExtendedFieldDefinitionService,
 		public previewSrv: PreviewService,
-		private ratingSrv: ThumbService,
+		private ratingSrv: RatingService,
 		private taskSrv: TaskService,
 		private sampleSrv: SampleService
 	) {

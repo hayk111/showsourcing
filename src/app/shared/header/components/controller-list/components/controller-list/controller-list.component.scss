@@ -64,18 +64,6 @@
 
 .right-container {
 	align-items: center;
-
-	> *:not(view-switcher-app) {
-		margin-left: var(--spacing-ms);
-	}
-
-	view-switcher-app {
-		margin-left: 9px;
-	}
-
-	.notification {
-		height: 20px;
-	}
 }
 
 .items-container {
@@ -90,45 +78,6 @@
 	}
 }
 
-.filter-button {
-	width: 65px;
-  height: 32px;
-	background-color: var(--color-secondary);
-  font-size: var(--font-size-m);
-  font-weight: 600;
-  line-height: 1.43;
-  text-align: center;
-	color: var(--color-txt-secondary);
-	border-radius: var(--border-radius);
-}
-
-.export-button {
-	width: 97px;
-	height: 32px;
-	margin-left:  var(--spacing-s) !important;
-	background-color: var(--color-secondary);
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 1.43;
-  text-align: center;
-	color: var(--color-txt-secondary);
-	border-radius: var(--border-radius);
-}
-
-.clear-filter-button {
-	margin-left: 0px !important;
-	padding: 0 0 0 var(--spacing-ms);
-	background: transparent;
-  font-size: var(--font-size-m);
-  font-weight: 600;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1.43;
-  letter-spacing: normal;
-  text-align: center;
-  color: var(--color-txt-secondary);
-}
-
 .entities-count {
   font-size: var(--font-size-m);
   color: var(--color-bg-dark);
@@ -140,9 +89,8 @@
 .my-exports-only-container,
 .show-completed-container {
 	position: relative;
-	height: 32px;
-  line-height: 32px;
-	background-color: var(--color-secondary);
+	height: 24px;
+  line-height: 24px;
   color: var(--color-txt-secondary);
   font-size: var(--font-size-m);
   font-weight: 600;
@@ -227,7 +175,7 @@
 
 .assigned-to-me-button {
 	width: 132px;
-  height: 32px;
+  height: 24px;
 	background-color: var(--color-secondary);
   font-size: var(--font-size-m);
   font-weight: 600;
