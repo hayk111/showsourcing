@@ -37,7 +37,7 @@ export class ProductsBoardComponent extends AutoUnsub implements OnInit {
 	columns$ = this.kanbanSrv.columns$;
 	/** keeps tracks of the current selection */
 	selected: Map<string, Product>;
-	slectedColumns: Map<string, string> = new Map();
+	selectedColumns: Map<string, string> = new Map();
 	erm = ERM;
 	amountLoaded = 15;
 
@@ -170,47 +170,27 @@ export class ProductsBoardComponent extends AutoUnsub implements OnInit {
 	}
 
 	onColumnSelected({ data, column }) {
-		this.slectedColumns.set(column.id, 'selectedAll');
-
-		this.emitSelection();
+		this.selectionSrv.selectColumn(column);
 		data.forEach(prod => this.listSrv.selectOne(prod, true));
 	}
 
 	onColumnUnselected({ data, column }) {
-		this.slectedColumns.set(column.id, 'unchecked');
-
-		this.emitSelection();
+		this.selectionSrv.unselectColumn(column);
 		data.forEach(prod => this.listSrv.unselectOne(prod, true));
 	}
 
 	onSelectedOne(product: Product, column: any) {
-		this.selected.set(product.id, product);
-
-		if (column.data.every(item => this.selected.has(item.id))) {
-			this.slectedColumns.set(column.id, 'selectedAll');
-		} else {
-			this.slectedColumns.set(column.id, 'selectedPartial');
-		}
-
-		this.emitSelection();
+		this.selectionSrv.selectOne(product, column);
 		this.selectOne.emit(product);
 	}
 
-	onUnselectedOne(product: Product, column) {
-		this.selected.delete(product.id);
-
-		if (column.data.every(item => !this.selected.has(item.id))) {
-			this.slectedColumns.set(column.id, 'unchecked');
-		} else {
-			this.slectedColumns.set(column.id, 'selectedPartial');
-		}
-
-		this.emitSelection();
+	onUnselectedOne(product: Product, column: any) {
+		this.selectionSrv.unselectOne(product, column);
 		this.unselectOne.emit(product);
 	}
 
 	emitSelection() {
-		const selectedCols = [...this.slectedColumns.values()];
+		const selectedCols = [...this.selectedColumns.values()];
 
 		if (selectedCols.includes('selectedAll')) {
 			this.selectionSrv.setSelectionState('selectedAll');

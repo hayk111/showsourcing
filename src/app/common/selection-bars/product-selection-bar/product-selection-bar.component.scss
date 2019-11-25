@@ -4,14 +4,13 @@
 
 button {
 	color: var(--color-bg-dark);
-	min-width: unset;
 
 	&.with-name icon-app {
 		margin-right: var(--spacing-s);
 	}
 
 	&.request-supplier {
-		background-color: var(--color-purple);
+		background-color: var(--color-vibrant);
 		color: var(--color-bg);
 
 		icon-app {
