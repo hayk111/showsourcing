@@ -48,6 +48,15 @@ export abstract class SupplierQueries extends GlobalQueries {
 		}
 	}`
 
+	// tslint:disable-next-line: max-line-length
+	static readonly tasksLinkedUndone = `tasksLinkedUndone: _linkingObjects(objectType: "Task" property:"supplier" query:"deleted == false AND done == false") {
+		... on TaskCollection {
+			count, items {
+				id, name, reference, dueDate, done
+			}
+		}
+	}`;
+
 	// tslint:disable-next-line:max-line-length
 	static readonly contactsLinked = `contactsLinked: _linkingObjects(objectType: "Contact" property:"supplier" query:"deleted == false") { ... on ContactCollection { count }}`;
 
@@ -89,6 +98,7 @@ export abstract class SupplierQueries extends GlobalQueries {
 		${SupplierQueries.user('lastUpdatedBy')}
 		${SupplierQueries.productsLinked}
 		${SupplierQueries.tasksLinked}
+		${SupplierQueries.tasksLinkedUndone}
 		${SupplierQueries.samplesLinked}
 		${SupplierQueries.contactsLinked}
 	`;
@@ -134,6 +144,7 @@ export abstract class SupplierQueries extends GlobalQueries {
 		${SupplierQueries.productsLinked}
 		${SupplierQueries.contactsLinked}
 		${SupplierQueries.tasksLinked}
+		${SupplierQueries.tasksLinkedUndone}
 		${SupplierQueries.samplesLinked}
 		${SupplierQueries.tasksLinkedAssignedToMe(userId)}
 		${SupplierQueries.samplesLinkedAssignedToMe(userId)}

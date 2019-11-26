@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, EventEmitter, Input, Output } from '@angular/core';
 import { Supplier, Product } from '~core/models';
+import { ConstPipe } from '~shared/utils/pipes/const.pipe';
 
 @Component({
 	selector: 'supplier-resume-app',
@@ -12,7 +13,7 @@ export class SupplierResumeComponent implements OnInit {
 	@Input() supplier: Supplier;
 	@Output() updated = new EventEmitter<Product>();
 
-	constructor() { }
+	constructor(private constPipe: ConstPipe) { }
 
 	ngOnInit() {
 	}
@@ -24,11 +25,11 @@ export class SupplierResumeComponent implements OnInit {
 	getCityCountry(city, country) {
 		let cityCountryName = '';
 		if (city && country)
-			cityCountryName = city + ', ' + country;
+			cityCountryName = city + ', ' + this.constPipe.transform(country, 'country');
 		else if (city)
 			cityCountryName = city;
 		else if (country)
-			cityCountryName = country;
+			cityCountryName = this.constPipe.transform(country, 'country');
 		return cityCountryName;
 	}
 

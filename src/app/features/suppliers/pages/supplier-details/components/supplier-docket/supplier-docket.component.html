@@ -41,26 +41,18 @@
 	<div class="section action-hover-container">
 		<div class="title flexVAlign">
 			<h3>Tasks</h3>
-			<icon-app
-				class="mg-left-ms action-hover-item color-primary"
-				name="plus"
-				(click)="addTask.emit()">
-			</icon-app>
+			<div class="mg-left-ms action-hover-item color-primary txt-btn" (click)="addTask.emit()" translate="button.add"></div>
 		</div>
-		<task-list-app [tasks]="supplier?.tasksLinked" (taskClicked)="previewTask.emit($event)"></task-list-app>
+		<task-list-app [tasks]="supplier?.tasksLinkedUndone?.items" (taskClicked)="previewTask.emit($event)"></task-list-app>
 	</div>
 
 	<!-- sample list -->
 	<div class="section action-hover-container">
 		<div class="title flexVAlign">
 			<h3>Samples</h3>
-			<icon-app
-				class="mg-left-ms action-hover-item color-primary"
-				name="plus"
-				(click)="addSample.emit()">
-			</icon-app>
+			<div class="mg-left-ms action-hover-item color-primary txt-btn" (click)="addTask.emit()" translate="button.add"></div>
 		</div>
-		<sample-list-app [samples]="supplier?.samplesLinked" (sampleClicked)="previewSample.emit($event)"></sample-list-app>
+		<sample-list-app [samples]="supplier?.samplesLinked?.items" (sampleClicked)="previewSample.emit($event)"></sample-list-app>
 	</div>
 
 	<!-- about -->

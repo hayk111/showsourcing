@@ -2,13 +2,18 @@
 	display: block;
 }
 
+editable-container-app {
+	width: 100%;
+}
+
 editable-display-app {
 	width: 100%;
+	margin-bottom: -4px;
 }
 
 info-badge-app {
 	display: inline-block;
-	margin-bottom: 5px;
+	margin-bottom: var(--spacing-xs);
 	cursor: pointer;
 
 	icon-app {
