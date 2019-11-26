@@ -26,7 +26,7 @@ button, input[type="submit"], .button {
 	font-family: inherit;
 	white-space: nowrap;
 	text-align: center;
-	transition: background 0.3s;
+	transition: 0.3s;
 
 
 	height: 32px;
@@ -51,8 +51,9 @@ button, input[type="submit"], .button {
 	}
 
 	&:disabled {
-		background: transparent;
-		color: var(--color-secondary);
+		cursor: default;
+		background: var(--color-secondary-light);
+		color: var(--color-txt-third);
 	}
 
 	&.light {
@@ -124,16 +125,9 @@ button, input[type="submit"], .button {
 
 }
 
-// disabled buttons
-button:disabled, input[type="submit"]:disabled {
-	background: var(--color-secondary-light);
-	color: var(--color-secondary);
-	border: none;
-	cursor: default;
-}
-
 .txt-btn {
 	transition: 0.3s;
+	cursor: pointer;
 	&:hover {
 		// we always want to replace the color when hovering, no matter what
 		color: var(--color-primary) !important;
@@ -143,9 +137,9 @@ button:disabled, input[type="submit"]:disabled {
 }
 
 .clickable, .hoverable {
-	transition: 0.3s;
 	cursor: pointer;
+	transition: 0.3s;
 	&:hover {
-		background: var(--color-bg-third);
+		background: var(--color-hover);
 	}
 }
