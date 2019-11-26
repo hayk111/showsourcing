@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Product } from '~models';
+import { Product, Supplier } from '~models';
 
 @Component({
 	selector: 'product-sub-header-details-app',
@@ -13,6 +13,7 @@ export class ProductSubHeaderDetailsComponent implements OnInit {
 	@Output() updated = new EventEmitter<Product>();
 	@Output() redirect = new EventEmitter<string>();
 	@Output() ratingClicked = new EventEmitter<undefined>();
+	@Output() openSupplier = new EventEmitter<Supplier>();
 
 	constructor() { }
 
@@ -21,6 +22,12 @@ export class ProductSubHeaderDetailsComponent implements OnInit {
 
 	update(value: any, prop: string) {
 		this.updated.emit({ id: this.product.id, [prop]: value });
+	}
+
+	onOpenSupplier(supplier: Supplier, event: MouseEvent) {
+		// we stop the propagation of the click so the editable container is not opened
+		event.stopImmediatePropagation();
+		this.openSupplier.emit(supplier);
 	}
 
 }

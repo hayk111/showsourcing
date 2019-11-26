@@ -28,16 +28,6 @@ export class SelectionBarComponent implements OnInit {
 	ngOnInit() {
 	}
 
-	getSelectedStatus(): 'selectedPartial' | 'unchecked' | 'selectedAll' {
-		if (this.selection.size === 0) {
-			return 'unchecked';
-		} else if (this.selection.size === DEFAULT_TAKE_PAGINATION) {
-			return 'selectedAll';
-		} else {
-			return 'selectedPartial';
-		}
-	}
-
 	capitalize(txt: string): string {
 		return txt.charAt(0).toUpperCase() + txt.slice(1);
 	}

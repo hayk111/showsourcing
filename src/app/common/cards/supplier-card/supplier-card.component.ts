@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 import { UserService } from '~entity-services';
 import { Supplier } from '~models';
 import { ContextMenuComponent } from '~shared/context-menu/components/context-menu/context-menu.component';
-import { ThumbService } from '~shared/rating/services/thumbs.service';
+import { RatingService } from '~shared/rating/services/thumbs.service';
 import { TrackingComponent } from '~utils/tracking-component';
 
 @Component({
@@ -86,7 +86,7 @@ export class SupplierCardComponent extends TrackingComponent {
 		private elementRef: ElementRef,
 		private renderer: Renderer2,
 		private router: Router,
-		private thumbSrv: ThumbService
+		private ratingSrv: RatingService
 	) {
 		super();
 	}
@@ -143,6 +143,6 @@ export class SupplierCardComponent extends TrackingComponent {
 	}
 
 	computeScore() {
-		this.score = this.thumbSrv.computeScore(this.supplier);
+		this.score = this.ratingSrv.computeScore(this.supplier);
 	}
 }

@@ -23,7 +23,7 @@
 			class="icon-preview"
 			toolTip [toolTipMessage]="toolTipMessage" toolTipPosition="above-left" [offsetX]="-15" [offsetY]="-7"
 			name="eye"
-			(click)="openActionClicked.emit()">
+			(click)="onOpenActionClick($event)">
 		</icon-app>
 	</div>
 
@@ -47,10 +47,10 @@
 		</selector-app>
 		<icon-app
 			*ngIf="hasOpenAction && value"
-			class="icon-preview"
+			class="icon-preview supplier"
 			toolTip [toolTipMessage]="toolTipMessage" toolTipPosition="above-left" [offsetX]="-15" [offsetY]="-7"
 			name="eye"
-			(click)="openActionClicked.emit()">
+			(click)="onOpenActionClick($event)">
 		</icon-app>
 	</div>
 
