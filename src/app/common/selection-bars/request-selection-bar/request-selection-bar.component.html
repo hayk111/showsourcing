@@ -1,0 +1,8 @@
+<selection-bar-app
+	entityName="request"
+	[count]="count"
+	[isShown]="isShown"
+	[selection]="selection"
+	(close)="close.emit()">
+	<button class="warn" (click)="cancelSelectedRequests.emit()" translate="button.cancel-requests"></button>
+</selection-bar-app>
