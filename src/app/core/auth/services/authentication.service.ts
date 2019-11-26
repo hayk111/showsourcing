@@ -42,7 +42,7 @@ export class AuthenticationService {
 	userId$ = this._authState$.asObservable().pipe(
 		map(state => state.userId),
 		filter(id => !!id),
-		shareReplay(1)
+		shareReplay(1),
 	);
 	urlToRedirectOnAuth: string;
 
@@ -100,7 +100,7 @@ export class AuthenticationService {
 	logout(redirect = true) {
 		if (redirect)
 			this.router.navigate(['auth', 'login']);
-		this.tokenSrv.clearTokens();
+		(window).localStorage.clear();
 		this._authState$.next({ status: AuthStatus.NOT_AUTHENTICATED });
 		setTimeout(_ => window.location.reload());
 	}

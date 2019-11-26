@@ -85,7 +85,7 @@ export class CreateACompanyPageComponent extends AutoUnsub implements OnInit {
 					const team = new Team({
 						name: formValue.teamName,
 						company: _company,
-						ownerUser: this.userSrv.userSync
+						ownerUser: { id: this.userSrv.userId, __typename: 'User' }
 					});
 					return this.teamService.create(team);
 				})
