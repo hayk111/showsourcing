@@ -28,7 +28,7 @@ export class SupplierFeatureService extends SupplierService {
 	/** gets the products of the supplier */
 	getProducts(supplierId: string): Observable<Product[]> {
 		return this.productSrv.queryMany(
-			{ query: `supplier.id == '${supplierId}'` },
+			{ query: `supplier.id == '${supplierId}' AND archived == false AND deleted == false` },
 			ProductQueries.images
 		).pipe(
 			first()
@@ -37,7 +37,7 @@ export class SupplierFeatureService extends SupplierService {
 
 	getContacts(supplierId) {
 		return this.contactSrv.selectMany({
-			query: `supplier.id == "${supplierId}"`
+			query: `supplier.id == "${supplierId}" AND deleted == false`
 		});
 	}
 
