@@ -35,7 +35,7 @@ export class CountryCityPipe implements PipeTransform {
 
 	private getCountry(country: string) {
 		const value = countryMap[country] ? countryMap[country] : country;
-		return this.getI18nValue(value, 'country', this.localeCountry) || value;
+		return this.getI18nValue(value, 'name', this.localeCountry) || value;
 	}
 
 	private getI18nValue(obj: any, propertyName: string, localeCountry: string) {
