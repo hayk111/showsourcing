@@ -5,12 +5,12 @@
 </header-list-app>
 
 <controller-list-app
+	searchType="short"
 	[hasSwitch]="true"
 	[hasFilter]="true"
 	[hasThumb]="false"
 	[view]="listSrv.view"
 	[entityType]="'SUPPLIER'"
-	searchType="short"
 	[count]="listSrv.count$ | async"
 	[filtersAmount]="listSrv.getFilterAmount([{ type: filterType.ARCHIVED, value: false }, { type: filterType.DELETED, value: false }])"
 	[searchValue]="listSrv.searchValue"
