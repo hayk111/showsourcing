@@ -10,9 +10,6 @@ import { ControllerListService } from '~shared/header/components/controller-list
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub } from '~utils';
 
-import { SupplierFeatureService } from '../../services';
-
-
 // A doctor accidentally prescribes his patient a laxative instead of a coughing syrup.
 // -
 // Three days later the patient comes for a check-up and the doctor asks: “Well? Are you still coughing?”
@@ -49,7 +46,6 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit, AfterVi
 
 	constructor(
 		private supplierSrv: SupplierService,
-		private featureSrv: SupplierFeatureService,
 		private notifSrv: NotificationService,
 		public listSrv: ListPageService<Supplier, SupplierService>,
 		public dialogCommonSrv: DialogCommonService,
@@ -93,7 +89,7 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit, AfterVi
 	onArchive(supplier: Supplier | Supplier[]) {
 		// TODO i18n
 		if (Array.isArray(supplier)) {
-			this.featureSrv.updateMany(supplier.map((p: Supplier) => ({ id: p.id, archived: true })))
+			this.supplierSrv.updateMany(supplier.map((p: Supplier) => ({ id: p.id, archived: true })))
 				.pipe(switchMap(_ => this.listSrv.refetch()))
 				.subscribe(_ => {
 					this.notifSrv.add({
@@ -104,7 +100,7 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit, AfterVi
 				});
 		} else {
 			const { id } = supplier;
-			this.featureSrv.update({ id, archived: true })
+			this.supplierSrv.update({ id, archived: true })
 				.pipe(switchMap(_ => this.listSrv.refetch()))
 				.subscribe(_ => {
 					this.notifSrv.add({
