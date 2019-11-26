@@ -1,62 +1,31 @@
-$image-height: 240px;
+$image-height: 184px;
 
 :host {
 	display: block;
-	height: 344px;
-	width: 240px;
+	height: 257px;
+	width: 184px;
 	position: relative;
 	background-color: var(--color-bg);
-	border-radius: var(--border-radius-l);
-	border-radius: var(--border-radius-l);
+	border-radius: var(--border-radius);
+	border-radius: var(--border-radius);
 	box-shadow: 0 0 12px 4px rgba(0, 0, 0, 0.02);
-
-	&:hover {
-		.overlay {
-      opacity: 1;
-		}
-
-		.icons-container .overlay-icons {
-			opacity: 1;
-		}
-
-		.black-hover {
-			top: 0;
-			position: absolute;
-			background: rgba(0, 0, 0, 0.7);
-			height: $image-height;
-			width: 100%;
-			border-top-left-radius: var(--border-radius-l);
-			border-top-right-radius: var(--border-radius-l);
-		}
-	}
 }
 
-.card-container {
-	&.selected-card {
-		box-shadow: 0px 0px 0px 2px var(--color-primary);
-		height: 100%;
-    border-radius: var(--border-radius-l);
-    border-radius: var(--border-radius-l);
-	}
-
-	.eye-icon {
-		display: inline-block;
-		font-size: var(--font-size-l); // the eye icon looks way too big when font-size is --font-size-m
-		margin-right: 6px;
-		color: var(--color-bg);
-	}
-
-	.export-icon {
-		display: inline-block;
-		font-size: var(--font-size-l);
-		margin-right: 6px;
-		color: var(--color-txt-secondary);
-	}
-}
-
-.overlay {
-	opacity: 0;
+.black-container {
+	top: 0;
 	position: absolute;
+	background: rgba(0, 0, 0, 0.7);
+	height: $image-height;
+	width: 100%;
+	border-top-left-radius: var(--border-radius);
+	border-top-right-radius: var(--border-radius);
+}
+
+.card-container.selected-card {
+	box-shadow: 0px 0px 0px 2px var(--color-primary);
+	height: 100%;
+	border-radius: var(--border-radius);
+	border-radius: var(--border-radius);
 }
 
 .full-opacity {
@@ -74,41 +43,24 @@ $image-height: 240px;
 		position: relative;
 		margin-left: var(--spacing-s);
 	}
-
-	icon-app {
-		color: white;
-	}
-
-	.overlay-icons {
-		opacity: 0;
-	}
 }
 
 button.preview, button.open {
-	display: flex;
-  align-items: center;
+	position: absolute;
 	left: calc(50% - 73px);
 	width: 146px;
-	height: 40px;
 }
 
 button.preview {
-	background-color: var(--color-primary);
-	border-radius: var(--border-radius);
-	font-size: var(--font-size-m);
-	color: var(--color-bg);
-	top: 74px;
+	top: 54px;
 }
 
 button.open {
-	background-color: var(--color-secondary);
-	border-radius: var(--border-radius);
-	color: var(--color-text-secondary);
-	font-size: var(--font-size-m);
-	top: 126px;
+	top: 106px;
 }
 
 checkbox-app {
+	position: absolute;
 	top: var(--spacing-s);
 	left: var(--spacing-s);
 }
@@ -117,89 +69,25 @@ checkbox-app {
 img-app {
 	width: 100%;
 	height: $image-height;
-	border-top-left-radius: var(--border-radius-l);
-	border-top-right-radius: var(--border-radius-l);
+	border-top-left-radius: var(--border-radius);
+	border-top-right-radius: var(--border-radius);
 	margin-bottom: var(--spacing-s);
 }
 
 .product-price {
 	position: absolute;
-	border-radius: 4px;
+	border-radius: var(--border-radius);
 	height: 21px;
-	width: 52px;
-	top: 211px;
+	top: 155px;
 	left: 8px;
+	padding: var(--spacing-xxs) var(--spacing-xs);
+	box-sizing: border-box;
 	background-color: rgba(0, 0, 0, 0.72);
-	text-align: center;
-
-	.price-dislayed {
-		height: inherit;
-		margin-top: 1px;
-		font-weight: bold;
-		color: var(--color-bg);
-		font-size: var(--font-size-m);
-	}
 }
 
-.content {
-
-	& > *:not(product-card-activities-app) {
-		margin-left: var(--spacing-l);
-	}
-
-	& > :first-child {
-		margin-left: var(--spacing-s);
-	}
-
-	.title {
-		height: 22px;
-		color: var(--color-bg-dark);
-		font-weight: 600;
-		font-size: 17px;
-		padding-bottom: var(--spacing-xxs);
-	}
-
-	status-badge-app {
-		height: 8px;
-		width: 8px;
-		border-radius: 50%;
-		display: inline-block;
-		margin-right: var(--spacing-s);
-	}
-
+.info-container {
 	.badge {
-		background-color: var(--color-txt-secondary);
 		height: 8px;
-		width: 8px;
-		border-radius: 50%;
-		display: inline-block;
-		margin-right: var(--spacing-s);
-	}
-
-	.price {
-		color: var(--color-primary);
-	}
-
-	.moq {
-		color: var(--color-secondary-dark);
-	}
-
-	.category {
-		width: 204px;
-		word-wrap: break-word;
-	}
-
-	.price, .moq, .category, .status-info {
-		font-size: var(--font-size-m);
-		color: var(--color-txt-secondary);
-	}
-
-	.status-info {
-		icon-app {
-			cursor: default;
-			margin-top: 2px;
-			font-size: 4px;
-			margin-right: var(--spacing-xs);
-		}
+		min-width: 8px;
 	}
 }
