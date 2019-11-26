@@ -55,7 +55,10 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		this.request$ = this.requestSrv.selectOne(this.requestId);
 		this.request$.pipe(
-			tap(request => this.request = request),
+			tap(request => {
+				(request.requestElements || []).sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
+				this.request = request;
+			}),
 			takeUntil(this._destroy$)
 		).subscribe(_ => {
 			this.setElement();
@@ -205,6 +208,7 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 	// supplier can only reply when the status is pending, error o sentBack
 	isDisabled() {
 		return (
+			this.reply &&
 			this.reply.status !== ReplyStatus.PENDING &&
 			this.reply.status !== ReplyStatus.ERROR &&
 			this.reply.status !== ReplyStatus.RESENT
