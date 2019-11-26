@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, switchMap, takeUntil, tap, filter } from 'rxjs/operators';
 import { CommentService, SupplierService } from '~core/entity-services';
-import { SupplierFeatureService } from '../../../services/supplier-feature.service';
 import { Comment, ERM, Product, Supplier, Sample, Task } from '~models';
 import { Contact } from '~models/contact.model';
 import { AutoUnsub } from '~utils';
@@ -36,7 +35,6 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 	constructor(
 		private route: ActivatedRoute,
 		private router: Router,
-		private featureSrv: SupplierFeatureService,
 		private commentSrv: CommentService,
 		private supplierSrv: SupplierService,
 		public dlgCommonSrv: DialogCommonService
@@ -54,17 +52,17 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 
 		// getting supplier
 		this.supplier$ = id$.pipe(
-			switchMap(id => this.featureSrv.selectOne(id)),
+			switchMap(id => this.supplierSrv.selectOne(id)),
 			tap(supplier => this.supplier = supplier)
 		);
 
 		// getting its products
 		this.products$ = id$.pipe(
-			switchMap(id => this.featureSrv.getProducts(id))
+			switchMap(id => this.supplierSrv.getProducts(id))
 		);
 
 		this.contacts$ = id$.pipe(
-			switchMap(id => this.featureSrv.getContacts(id))
+			switchMap(id => this.supplierSrv.getContacts(id))
 		);
 
 		this.supplierDescriptor = new SupplierDescriptor([
@@ -81,7 +79,7 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 
 	/** updates supplier */
 	update(supplier: Supplier) {
-		this.featureSrv.update({ id: this.supplier.id, ...supplier })
+		this.supplierSrv.update({ id: this.supplier.id, ...supplier })
 			.subscribe();
 	}
 
