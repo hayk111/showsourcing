@@ -3,7 +3,7 @@
 <ng-container *ngIf="product$ | async as product; else spinner">
 	<add-comment-app (added)="sendComment($event)"></add-comment-app>
 	<divider-app *ngIf="product.comments.length > 0"></divider-app>
-	<comment-list-app [comments]="product.comments"></comment-list-app>
+	<comment-list-app [amountViewMore]="8" [comments]="product.comments"></comment-list-app>
 </ng-container>
 
 <ng-template #spinner>

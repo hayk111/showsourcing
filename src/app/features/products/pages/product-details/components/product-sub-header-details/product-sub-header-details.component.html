@@ -96,6 +96,7 @@
 				<editable-display-app>
 					<badge-selector-app
 						#categorySelector
+						class="mg-bottom-none"
 						[badge]="'CATEGORY' | erm"
 						[value]="product?.category"
 						(update)="update($event, 'category')">

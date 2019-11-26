@@ -10,6 +10,7 @@ export abstract class ProductQueries extends GlobalQueries {
 		 }
 		}`;
 
+	// tslint:disable-next-line: max-line-length
 	static readonly samplesLinked = `samplesLinked: _linkingObjects(objectType: "Sample" property:"product" query:"deleted == false") {
 		... on SampleCollection {
 			count, items {
@@ -37,7 +38,9 @@ export abstract class ProductQueries extends GlobalQueries {
 	// tslint:disable-next-line: max-line-length
 	static readonly tasksLinkedUndone = `tasksLinkedUndone: _linkingObjects(objectType: "Task" property:"product" query:"deleted == false AND done == false") {
 		... on TaskCollection {
-			count
+			count, items {
+				id, name, reference, dueDate, done
+			}
 		 }
 		}`;
 

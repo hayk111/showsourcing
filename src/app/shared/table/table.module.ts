@@ -7,6 +7,7 @@ import { IconsModule } from '~shared/icons';
 import { ImageModule } from '~shared/image/image.module';
 import { InputsModule } from '~shared/inputs';
 import { LoadersModule } from '~shared/loaders';
+import { LogoModule } from '~shared/logo';
 import { PaginationModule } from '~shared/pagination/pagination.module';
 import { PriceModule } from '~shared/price';
 import { StatusSelectorModule } from '~shared/status-selector/status-selector.module';
@@ -21,6 +22,7 @@ import { UtilsModule } from '~shared/utils';
 		ImageModule,
 		InputsModule,
 		LoadersModule,
+		LogoModule,
 		OverlayModule,
 		PriceModule,
 		ScrollingModule,

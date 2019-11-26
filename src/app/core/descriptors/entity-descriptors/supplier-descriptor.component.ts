@@ -45,7 +45,7 @@ export class SupplierDescriptor extends AbstractDescriptorComponent {
 			}
 		},
 		{
-			name: ERM.SUPPLIER_TYPE.singular, type: 'selector',
+			name: 'supplierType', type: 'selector',
 			label: 'type',
 			metadata: {
 				target: ERM.SUPPLIER_TYPE.singular,
