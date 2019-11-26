@@ -8,6 +8,7 @@ import { ERMModule } from '~shared/erm/erm.module';
 import { IconsModule } from '~shared/icons';
 import { InputsModule } from '~shared/inputs';
 import { InputPriceComponent } from '~shared/inputs-custom/components/input-price/input-price.component';
+import { LogoModule } from '~shared/logo';
 import { SelectorsModule } from '~shared/selectors/selectors.module';
 import { UtilsModule } from '~shared/utils';
 
@@ -15,7 +16,7 @@ import { BadgeSelectorComponent } from './components/badge-selector/badge-select
 import { InputBadgeSelectorComponent } from './components/input-badge-selector/input-badge-selector.component';
 import { InputDescriptionComponent } from './components/input-description/input-description.component';
 import { InputPriceInlineComponent } from './components/input-price-inline/input-price-inline.component';
-import { LogoModule } from '~shared/logo';
+import { SelectCheckboxComponent } from './components/select-checkbox/select-checkbox.component';
 
 @NgModule({
 	imports: [
@@ -37,14 +38,16 @@ import { LogoModule } from '~shared/logo';
 		InputPriceComponent,
 		InputPriceInlineComponent,
 		InputDescriptionComponent,
-		InputBadgeSelectorComponent
+		InputBadgeSelectorComponent,
+		SelectCheckboxComponent,
 	],
 	exports: [
 		BadgeSelectorComponent,
 		InputPriceComponent,
 		InputPriceInlineComponent,
 		InputDescriptionComponent,
-		InputBadgeSelectorComponent
+		InputBadgeSelectorComponent,
+		SelectCheckboxComponent
 	]
 })
 export class InputsCustomModule { }

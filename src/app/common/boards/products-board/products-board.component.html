@@ -24,7 +24,7 @@
 		[highlightOnChecked]="true"
     [checked]="(selection | async).has(data.id)"
     (clickImage)="preview.emit(data)"
-    (select)="selectOne.emit($event)"
-    (unselect)="unselectOne.emit($event)">
+    (select)="onSelectedOne($event, column)"
+    (unselect)="onUnselectedOne($event, column)">
   </product-card-app>
 </ng-template>
