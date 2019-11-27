@@ -13,7 +13,8 @@
 	[hasSwitch]="false"
 	[hasFilter]="false"
 	(search)="listSrv.search($event)"
-	i18n-title="@@team-members">
+	i18n-title="@@team-members"
+	[filtersPanelOpened]="listSrv.filterPanelOpen">
 
 	<controller-list-right-item-app>
 

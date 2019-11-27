@@ -14,7 +14,8 @@
 	(showAssigned)="listSrv.filterByAssignee(true)"
 	(hideAssigned)="listSrv.filterByAssignee(false)"
 	(smartSearch)="listSrv.smartSearch($event)"
-	(buttonClick)="openCreationTaskDlg(undefined, supplier)">
+	(buttonClick)="openCreationTaskDlg(undefined, supplier)"
+	[filtersPanelOpened]="listSrv.filterPanelOpen">
 </controller-list-app>
 
 <task-table-app

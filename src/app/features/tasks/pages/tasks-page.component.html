@@ -32,7 +32,8 @@
 	(hideTasksCompleted)="listSrv.filterByDone(true)"
 	(export)="dialogCommonSrv.openExportDialog()"
 	(showFilters)="listSrv.openFilterPanel()"
-	(viewChange)="onViewChange($event)">
+	(viewChange)="onViewChange($event)"
+	[filtersPanelOpened]="listSrv.filterPanelOpen">
 </controller-list-app>
 
 <task-table-app

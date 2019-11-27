@@ -21,7 +21,8 @@
 	(showAssigned)="listSrv.filterByAssignee(true)"
 	(hideAssigned)="listSrv.filterByAssignee(false)"
 	(viewChange)="onViewChange($event)"
-	(search)="listSrv.search($event)">
+	(search)="listSrv.search($event)"
+	[filtersPanelOpened]="listSrv.filterPanelOpen">
 </controller-list-app>
 
 <suppliers-table-app

@@ -18,7 +18,8 @@
 	(hideAssigned)="listSrv.filterByAssignee(false)"
 	(export)="dialogCommonSrv.openExportDialog(listSrv.getSelectedValues())"
 	(showFilters)="listSrv.openFilterPanel()"
-	(viewChange)="listSrv.changeView($event)">
+	(viewChange)="listSrv.changeView($event)"
+	[filtersPanelOpened]="listSrv.filterPanelOpen">
 	<!-- <controller-list-right-item-app class="flex">
 		<button class="primary">Create Product</button>
 	</controller-list-right-item-app> -->

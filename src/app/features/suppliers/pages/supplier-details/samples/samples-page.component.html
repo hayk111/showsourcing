@@ -15,7 +15,8 @@
 	(search)="listSrv.search($event)"
 	(smartSearch)="listSrv.smartSearch($event)"
 	(export)="dialogCommonSrv.openExportDialog()"
-	(buttonClick)="dialogCommonSrv.openCreationSampleDialog(undefined, supplier)">
+	(buttonClick)="dialogCommonSrv.openCreationSampleDialog(undefined, supplier)"
+	[filtersPanelOpened]="listSrv.filterPanelOpen">
 </controller-list-app>
 
 <samples-table-app

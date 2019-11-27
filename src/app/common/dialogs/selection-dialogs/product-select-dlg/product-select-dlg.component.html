@@ -8,7 +8,7 @@
 		[hasSwitch]="false"
 		[hasExport]="false"
 		[count]="listSrv.count$ | async"
-		[filtersPanelOpened]="filtersPanelOpened"
+		[filtersPanelOpened]="listSrv.filterPanelOpen"
 		[view]="listSrv.view"
 		[searchValue]="listSrv.searchValue"
 		(search)="searchProduct($event)"

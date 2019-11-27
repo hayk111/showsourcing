@@ -9,7 +9,8 @@
 	[view]="listSrv.view"
 	(search)="listSrv.search($event)"
 	(smartSearch)="listSrv.smartSearch($event)"
-	(buttonClick)="table.openFileBrowser()">
+	(buttonClick)="table.openFileBrowser()"
+	[filtersPanelOpened]="listSrv.filterPanelOpen">
 </controller-list-app>
 
 <attachments-table-app

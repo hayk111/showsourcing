@@ -7,7 +7,8 @@
 		[view]="'card'"
 		(showFilters)="listSrv.openFilterPanel()"
 		(search)="listSrv.search($event, false)"
-		(viewChange)="goToList()">
+		(viewChange)="goToList()"
+		[filtersPanelOpened]="listSrv.filterPanelOpen">
 		<controller-list-left-item-app>
 			<div class="flex show-my-samples">
 				<checkbox-app

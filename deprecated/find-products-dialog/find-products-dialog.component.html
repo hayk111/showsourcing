@@ -7,7 +7,8 @@
       [hasSwitch]="false"
       [hasFilter]="false"
       (search)="listSrv.search($event)"
-      (smartSearch)="listSrv.smartSearch($event)">
+      (smartSearch)="listSrv.smartSearch($event)"
+      [filtersPanelOpened]="listSrv.filterPanelOpen">
 
       <search-autocomplete-app [xPosition]="0" [yPosition]="35" [width]="386">
         <search-autocomplete-item-app *ngFor="let element of (listSrv.smartSearchFilterElements$ | async);trackBy: trackByFn">

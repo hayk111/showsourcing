@@ -14,7 +14,8 @@
 		(showArchived)="listSrv.filterByArchived(true)"
 		(hideArchived)="listSrv.filterByArchived(false)"
 		(showAssigned)="listSrv.filterByAssignee(true)"
-		(hideAssigned)="listSrv.filterByAssignee(false)">
+		(hideAssigned)="listSrv.filterByAssignee(false)"
+		[filtersPanelOpened]="listSrv.filterPanelOpen">
 
 		<controller-list-left-item-app class="flex">
 			<div class="flex show-my-samples">

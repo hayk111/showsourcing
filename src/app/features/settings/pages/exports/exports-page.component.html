@@ -22,7 +22,8 @@
 	[searchValue]="listSrv.searchValue"
 	(search)="listSrv.search($event)"
 	(showMyExport)="toggleMyExports(true)"
-	(hideMyExport)="toggleMyExports(false)">
+	(hideMyExport)="toggleMyExports(false)"
+	[filtersPanelOpened]="listSrv.filterPanelOpen">
 </controller-list-app>
 
 <exports-table-app

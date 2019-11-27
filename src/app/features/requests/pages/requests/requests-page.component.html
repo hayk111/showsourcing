@@ -11,7 +11,8 @@
 	[hasFilter]="false"
 	[hasSwitch]="false"
 	[searchValue]="listSrv.searchValue"
-	(search)="listSrv.search($event)">
+	(search)="listSrv.search($event)"
+	[filtersPanelOpened]="listSrv.filterPanelOpen">
 	<controller-list-right-item-app>
 		<request-sorting-menu-app
 			[currentSort]="listSrv.currentSort"
