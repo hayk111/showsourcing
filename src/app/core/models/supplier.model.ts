@@ -34,7 +34,7 @@ export class Supplier extends EntityWithAudit<SupplierConfig> {
 	lastUpdatedBy?: User;
 	archived ?= true;
 	assignee ?: User;
-	extendedFields: ExtendedField[];
+	extendedFields ?: ExtendedField[];
 	// extendedFields?: ExtendedField[];
 	__typename ?= 'Supplier';
 }
