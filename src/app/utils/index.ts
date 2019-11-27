@@ -17,7 +17,6 @@ export * from './pending-image.class';
 export * from './product.utils';
 export * from './realm-date-format.util';
 export * from './regexes';
-export * from './status-to-color.function';
 export * from './status.utils';
 export * from './tracking-component';
 export * from './translate.utils';
