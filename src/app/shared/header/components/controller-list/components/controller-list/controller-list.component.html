@@ -19,7 +19,7 @@
 		(click)="showFilters.emit()"
 		translate="button.show-filters">
 			<!-- TODO: add icon for filter -->
-			<icon-app name="smile" size="m"></icon-app>
+			<icon-app name="smile" size="m" [ngClass]="{'color-primary' : filtersPanelOpened}"></icon-app>
 	</button>
 
 	<divider-app [vertical]="true"></divider-app>
@@ -77,7 +77,15 @@
 	</button>
 
 	<divider-app [vertical]="true"></divider-app>
+
 	<!-- TODO export and sort -->
+		<button class="icon light mg-left-ms">
+				<icon-app name="export" size="m"></icon-app>
+		</button>
+		
+		<button class="icon light mg-left-ms mg-right-ms">
+				<icon-app name="sort" size="m"></icon-app>
+		</button>
 
 	<ng-content select="controller-list-right-item-app"></ng-content>
 
