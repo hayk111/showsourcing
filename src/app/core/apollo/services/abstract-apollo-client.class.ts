@@ -156,12 +156,7 @@ export abstract class AbstractApolloClient {
 			(erm: EntityMetadata) => this.ermSrv.getGlobalService(erm)
 				.openSubscription(this.client)
 		);
-		return forkJoin(newSubs).pipe(
-			tap(_ => {
-				entitiesToSub.forEach(erm => submap[erm.singular] = true);
-				this.localStorage.setItem(storageKey, submap);
-			})
-		);
+		return forkJoin(newSubs);
 	}
 }
 
