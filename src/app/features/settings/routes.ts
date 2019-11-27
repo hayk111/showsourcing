@@ -9,7 +9,7 @@ import * as ProfilePages from './pages/profile';
 import * as TeamPages from './pages/team';
 import * as ExportsPages from './pages/exports';
 import * as WorkflowPages from './pages/workflow';
-import * as DataPages from './pages/data-management';
+import * as DataPages from './pages/list-management';
 
 
 
@@ -44,7 +44,7 @@ export const routes: Routes = [
 				]
 			},
 			{
-				path: 'data-management', component: DataPages.DataManagementPageComponent, children: [
+				path: 'list-management', component: DataPages.ListManagementPageComponent, children: [
 					{ path: '', redirectTo: 'category', pathMatch: 'full' },
 					{ path: 'category-data', component: DataPages.CategoryDataPageComponent },
 					{ path: 'tag-data', component: DataPages.TagDataPageComponent },

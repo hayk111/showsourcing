@@ -28,9 +28,12 @@
 			<div *ngIf="hasHeader" class="header"
 				[style.height]="rowHeight + 'px'"
 				[ngStyle]="headerSecondary && {'background': 'var(--color-bg-secondary)', 'border-bottom': getHeaderBorder()}">
-				<ng-container>
+				<ng-container *ngIf="isSimpleSelection; else selectCheckbox">
 					<checkbox-app [checked]="isAllSelected()" (check)="onSelectAll(rows)" (uncheck)="onUnselectAll()"></checkbox-app>
 				</ng-container>
+				<ng-template #selectCheckbox>
+					<select-checkbox-app [state]="getSelectCheckboxState()" (check)="onSelectAll(rows)" (uncheck)="onUnselectAll()"></select-checkbox-app>
+				</ng-template>
 			</div>
 			<ng-container *ngIf="!pending">
 				<div

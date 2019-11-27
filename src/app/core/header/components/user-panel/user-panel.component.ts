@@ -32,7 +32,7 @@ export class UserPanelComponent implements OnInit {
 	}
 
 	goToSettings() {
-		this.router.navigate(['settings', 'data-management', 'category-data']);
+		this.router.navigate(['settings', 'list-management', 'category-data']);
 		this.close.emit();
 	}
 

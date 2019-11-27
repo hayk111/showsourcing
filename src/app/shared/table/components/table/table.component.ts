@@ -59,6 +59,8 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	/** the name of the property than uniquely identifies a row. This is used to know if a row is currently selectioned
 	so this is only useful when the table has selection enabled. */
 	@Input() idName = 'id';
+	/** whether the component has generic (i.e true/false) selection or custom */
+	@Input() isSimpleSelection = true;
 	/** maps of the <id, true> so we can access the items that are selected */
 	@Input() selected: Map<string, boolean> = new Map();
 	// TODO this should be transcluded instead
@@ -136,6 +138,19 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 
 	getHeaderBorder(): string {
 		return this.hasHeaderBorder ? '1px solid var(--color-divider)' : 'none';
+	}
+
+	getSelectCheckboxState(): 'selectedPartial' | 'unchecked' | 'selectedAll' {
+		if (!this.rows || this.rows.length === 0)
+			return 'unchecked';
+
+		if (this.selected.size === this.rows.length) {
+			return 'selectedAll';
+		} else if (this.selected.size === 0) {
+			return 'unchecked';
+		} else {
+			return 'selectedPartial';
+		}
 	}
 
 	onSelectOne(entity: any) {

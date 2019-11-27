@@ -10,7 +10,7 @@ import * as ProfilePages from './pages/profile';
 import * as TeamPages from './pages/team';
 import * as ExportsPages from './pages/exports';
 import * as WorkflowPages from './pages/workflow';
-import * as DataPages from './pages/data-management';
+import * as DataPages from './pages/list-management';
 
 @NgModule({
 	imports: [
@@ -41,12 +41,12 @@ import * as DataPages from './pages/data-management';
 		ExportsPages.ExportsPageComponent,
 		ExportsPages.ExportTableComponent,
 		// data
-		DataPages.DataManagementPageComponent,
+		DataPages.ListManagementPageComponent,
 		DataPages.CategoryDataPageComponent,
 		DataPages.EventDataPageComponent,
 		DataPages.SupplierDataPageComponent,
 		DataPages.TagDataPageComponent,
-		DataPages.DataMananagementTableComponent,
+		DataPages.ListMananagementTableComponent,
 		// workflow
 		WorkflowPages.WorkflowPageComponent,
 		WorkflowPages.ProductStatusPageComponent,

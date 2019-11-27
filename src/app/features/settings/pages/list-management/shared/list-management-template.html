@@ -4,36 +4,41 @@
 	[headerType]="'settings'">
 
 	<header-details-title-app>
-		<span class="my-team capitalize">
-			{{ 'title.data-cleansing' | translate }}
+		<span class="list-management-title">
+			List Product Management <!-- TODO: translation to be added -->
 		</span>
 	</header-details-title-app>
 
-	<logo-app color="primary" icon="company" size="xl"></logo-app>
-	<header-details-info-app>{{ 'text.manage-your-categories' | translate }}</header-details-info-app>
+	<logo-app color="secondary" icon="category"></logo-app>
+	<header-details-info-app>
+		<div class="dot-separator list-management-info">
+			<span>{{ teamSrv.selectedTeamSync.name }}</span>
+			<span>{{ companySrv.companySync.name}}</span>
+		</div>
+	</header-details-info-app>
 
 	<!-- navigation tabs of panel -->
 	<header-nav-app>
 		<header-nav-item-app
-			link="/settings/data-management/category-data"
+			link="/settings/list-management/category-data"
 			icon="category"
 			[name]="'nav.categories' | translate">
 		</header-nav-item-app>
 
 		<header-nav-item-app
-			link="/settings/data-management/tag-data"
+			link="/settings/list-management/tag-data"
 			icon="tag"
 			[name]="'nav.tags' | translate">
 		</header-nav-item-app>
 
 		<header-nav-item-app
-			link="/settings/data-management/supplier-data"
+			link="/settings/list-management/supplier-data"
 			icon="supplier"
 			[name]="'nav.suppliers' | translate">
 		</header-nav-item-app>
 
 		<header-nav-item-app
-			link="/settings/data-management/event-data"
+			link="/settings/list-management/event-data"
 			icon="event"
 			[name]="'nav.event' | translate">
 		</header-nav-item-app>
@@ -41,17 +46,17 @@
 
 </header-details-app>
 
-<header-list-app
+<!-- <header-list-app
 	class="smaller-padding"
 	[title]="'ERM.' + listSrv.entityMetadata.translationKey + '.plural' | translate"
 	[buttonName]="'Add ' + listSrv.entityMetadata.singular"
 	[buttonWidth]="addButtonWidth"
 	[buttonHeight]="addButtonHeight"
 	(buttonClick)="listSrv.create(false)">
-</header-list-app>
+</header-list-app> -->
 
 <controller-list-app
-	class="smaller-padding"
+	class="padding-ms"
 	[count]="listSrv.count$ | async"
 	[hasFilter]="false"
 	[hasSwitch]="false"
@@ -65,10 +70,13 @@
 			<span class="mg-s"></span>
 			<button class="merge-selected" (click)="mergeSelected()">Merge Selected</button> <!-- TODO: translation to be added-->
 		</div>
+		<div class="flex" *ngIf="(listSrv.selection$ | async).size === 0">
+			<button class="capitalize" (click)="listSrv.create(false)">Create {{erm.singular | translate}}</button> <!-- TODO: translation to be added-->
+		</div>
 	</controller-list-right-item-app>
 </controller-list-app>
 
-<data-management-table-app
+<list-management-table-app
 	[rows]="listSrv.items$ | async"
 	[selection]="listSrv.selection$ | async"
 	[pending]="listSrv.pending"
@@ -84,4 +92,4 @@
 	(showItemsPerPage)="showItemsPerPage($event)"
 	(unselectAll)="listSrv.unselectAll()"
 	(renameEntity)="listSrv.update($event)">
-</data-management-table-app>
+</list-management-table-app>

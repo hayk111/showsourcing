@@ -1,23 +1,22 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { CategoryService } from '~core/entity-services';
+import { EventService, TeamService, CompanyService } from '~core/entity-services';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 import { ListPageService } from '~core/list-page';
-import { Category, ERM } from '~models';
+import { ERM, Event } from '~models';
 import { AutoUnsub } from '~utils';
 
 @Component({
-	selector: 'category-data-page-app',
-	templateUrl: '../shared/data-management-template.html',
-	styleUrls: ['./category-data-page.component.scss', '../shared/data-management-styles.scss'],
+	selector: 'event-data-page-app',
+	templateUrl: '../shared/list-management-template.html',
+	styleUrls: ['./event-data-page.component.scss', '../shared/list-management-styles.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
 		ListPageService
 	]
 })
-export class CategoryDataPageComponent extends AutoUnsub implements OnInit {
-
-	erm = ERM.CATEGORY;
+export class EventDataPageComponent extends AutoUnsub implements OnInit {
+	erm = ERM.EVENT;
 
 	addButtonWidth = '111px';
 	addButtonHeight = '32px';
@@ -25,26 +24,29 @@ export class CategoryDataPageComponent extends AutoUnsub implements OnInit {
 	selectItemsConfig: SelectParamsConfig;
 
 	constructor(
-		private categorySrv: CategoryService,
-		public listSrv: ListPageService<Category, CategoryService>,
-		public dialogCommonSrv: DialogCommonService
-	) { super(); }
+		private eventSrv: EventService,
+		public listSrv: ListPageService<Event, EventService>,
+		public teamSrv: TeamService,
+		public companySrv: CompanyService,
+		public dialogCommonSrv: DialogCommonService) {
+		super();
+	}
 
 	ngOnInit() {
 		this.listSrv.setup({
-			entitySrv: this.categorySrv,
-			searchedFields: ['name'],
-			selectParams: { sortBy: 'name', descending: false, query: 'deleted == false' },
-			entityMetadata: ERM.CATEGORY,
+			entitySrv: this.eventSrv,
+			searchedFields: ['description.name'],
+			selectParams: { sortBy: 'description.name', descending: false, query: 'deleted == false' },
+			entityMetadata: ERM.EVENT,
 			originComponentDestroy$: this._destroy$
 		});
 	}
 
 	mergeSelected() {
-		const categories = this.listSrv.getSelectedValues();
+		const events = this.listSrv.getSelectedValues();
 		this.dialogCommonSrv.openMergeDialog({
 			type: this.listSrv.entityMetadata,
-			entities: categories
+			entities: events
 		});
 	}
 

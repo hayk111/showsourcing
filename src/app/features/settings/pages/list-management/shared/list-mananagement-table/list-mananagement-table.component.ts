@@ -4,12 +4,12 @@ import { EntityMetadata, ERM } from '~models';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-	selector: 'data-management-table-app',
-	templateUrl: './data-mananagement-table.component.html',
-	styleUrls: ['./data-mananagement-table.component.scss'],
+	selector: 'list-management-table-app',
+	templateUrl: './list-mananagement-table.component.html',
+	styleUrls: ['./list-mananagement-table.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DataMananagementTableComponent extends EntityTableComponent<any> {
+export class ListMananagementTableComponent extends EntityTableComponent<any> {
 	@Input() entityMetadata: EntityMetadata;
 	@Output() renameEntity = new EventEmitter<any>();
 	@Output() showItemsPerPage = new EventEmitter<number>();

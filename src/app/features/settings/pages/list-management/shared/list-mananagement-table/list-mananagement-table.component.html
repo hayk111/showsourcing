@@ -6,6 +6,7 @@
 	[count]="count"
 	[currentPage]="currentPage"
 	[placeholder]="'placeholder.no-data' | translate"
+	[isSimpleSelection]="false"
 	(goToPage)="goToPage.emit($event)"
 	(selectOne)="select.emit($event)"
 	(unselectOne)="unselect.emit($event)"

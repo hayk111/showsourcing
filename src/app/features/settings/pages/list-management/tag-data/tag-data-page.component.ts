@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { TagService } from '~core/entity-services';
+import { TagService, TeamService, CompanyService } from '~core/entity-services';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 import { ListPageService } from '~core/list-page';
 import { ERM, Tag } from '~models';
@@ -8,8 +8,8 @@ import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'tag-data-page-app',
-	templateUrl: '../shared/data-management-template.html',
-	styleUrls: ['./tag-data-page.component.scss', '../shared/data-management-styles.scss'],
+	templateUrl: '../shared/list-management-template.html',
+	styleUrls: ['./tag-data-page.component.scss', '../shared/list-management-styles.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
 		ListPageService
@@ -26,6 +26,8 @@ export class TagDataPageComponent extends AutoUnsub implements OnInit {
 	constructor(
 		private tagSrv: TagService,
 		public listSrv: ListPageService<Tag, TagService>,
+		public teamSrv: TeamService,
+		public companySrv: CompanyService,
 		public dialogCommonSrv: DialogCommonService) {
 		super();
 	}

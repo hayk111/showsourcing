@@ -17,6 +17,10 @@
 		margin: var(--spacing-l);
 		margin-bottom: var(--spacing-ms);
 	}
+
+	&.padding-ms {
+		margin: var(--spacing-ms);
+	}
 }
 
 .export-button icon-app {
