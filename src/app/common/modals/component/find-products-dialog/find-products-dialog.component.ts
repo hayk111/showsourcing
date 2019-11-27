@@ -45,9 +45,13 @@ export class FindProductsDialogComponent extends AutoUnsub implements OnInit {
 		this.initialSelection();
 	}
 
-	private initialSelection() {
-		if (this.initialSelectedProducts && this.initialSelectedProducts.length > 0)
+	initialSelection() {
+		if (this.initialSelectedProducts && this.initialSelectedProducts.length > 0) {
+			this.initialSelectedProducts.forEach(product => {
+				this.selectedProducts[product.id] = product;
+			});
 			this.listSrv.selectAll(this.initialSelectedProducts.map(product => ({ id: product.id })));
+		}
 	}
 
 	hasSelectedProducts() {

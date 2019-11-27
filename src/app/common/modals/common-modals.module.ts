@@ -47,6 +47,7 @@ import {
 import { TemplateMngmtDlgComponent } from './component/template-mngmt-dlg/template-mngmt-dlg.component';
 import { ProductDialogService } from './services';
 import { CrudDialogService } from './services/crud-dialog.service';
+import { FindProductsDialogComponent } from './component/find-products-dialog/find-products-dialog.component';
 
 // imported at the root because https://github.com/angular/angular/issues/14324
 
@@ -80,6 +81,8 @@ const modals = [
 	SupplierRequestDialogComponent,
 	TemplateMngmtDlgComponent,
 	VoteDetailsDialogComponent,
+	/** deprecated */
+	FindProductsDialogComponent
 ];
 
 @NgModule({

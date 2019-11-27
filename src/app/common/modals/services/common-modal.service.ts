@@ -18,7 +18,7 @@ import {
 	RefuseReplyDlgComponent,
 	VoteDetailsDialogComponent,
 } from '~common/modals/component';
-import { EntityMetadata, ERM, Product, ProductVote, Supplier } from '~models';
+import { EntityMetadata, ERM, Product, ProductVote, Supplier, Project } from '~models';
 import { CloseEvent, CloseEventType } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { DialogService } from '~shared/dialog/services';
@@ -26,6 +26,7 @@ import { ID } from '~utils';
 
 import { ReviewRequestReplyDlgComponent } from '../component/review-request-reply-dlg/review-request-reply-dlg.component';
 import { SupplierRequestDialogComponent } from '../component/supplier-request-dialog/supplier-request-dialog.component';
+import { FindProductsDialogComponent } from '../component/find-products-dialog/find-products-dialog.component';
 
 /**
  * Service used to open dialogs, the goal of this service is to bring easy typing
@@ -68,9 +69,10 @@ export class CommonModalService {
 		return this.dlgSrv.open(ProductRequestTeamFeedbackDlgComponent, { products });
 	}
 
-	openSelectProductDlg(initialSelectedProducts?: Product[], submitProducts = true) {
-		return this.dlgSrv.open(ProductSelectDlgComponent, {
+	openSelectProductDlg(initialSelectedProducts?: Product[], project?: Project, submitProducts = true) {
+		return this.dlgSrv.open(FindProductsDialogComponent, {
 			initialSelectedProducts,
+			project,
 			submitProducts
 		});
 	}
