@@ -9,6 +9,7 @@ export class Project extends EntityWithAudit<ProjectConfig> {
 	description?: string;
 	products?: Product[];
 	deleted?: boolean;
+	archived ?= false;
 	__typename ?= 'Project';
 
 }

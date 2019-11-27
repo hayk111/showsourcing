@@ -17,6 +17,7 @@ export class Sample extends EntityWithAudit<SampleConfig> {
 	shippingCompany?: string;
 	price?: Price;
 	paid ?= false;
+	archived ?= false;
 	__typename ?= 'Sample';
 
 	constructor(config: SampleConfig) {
