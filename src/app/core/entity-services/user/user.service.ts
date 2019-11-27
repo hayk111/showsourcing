@@ -16,9 +16,7 @@ export class UserService extends GlobalService<User> {
 	private user$ = this.authSrv.userId$.pipe(
 		distinctUntilChanged(),
 		switchMap(id => this.selectOne(id)),
-		tap(d => { debugger; }),
 		filter(user => !!user),
-		tap(d => { debugger; }),
 		shareReplay(1)
 	);
 	userSync: User;
