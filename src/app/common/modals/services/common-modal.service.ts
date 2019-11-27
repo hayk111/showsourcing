@@ -125,8 +125,8 @@ export class CommonModalService {
 		return this.dlgSrv.open(SupplierRequestDialogComponent, { products });
 	}
 
-	openCreationTaskDlg() {
-		this.dlgSrv.open(CreationTaskDlgComponent);
+	openCreationTaskDlg(product?: Product) {
+		this.dlgSrv.open(CreationTaskDlgComponent, { product });
 	}
 
 	close() {

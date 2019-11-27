@@ -190,11 +190,11 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 	}
 
 	openNewTask() {
-		this.modalSrv.openCreationTaskDlg();
+		this.modalSrv.openCreationTaskDlg(this.product);
 	}
 
 	openNewSample() {
-		this.dlgSrv.open(CreationSampleDlgComponent, {}).subscribe();
+		this.dlgSrv.open(CreationSampleDlgComponent, { product: this.product }).subscribe();
 	}
 
 	openExportModal() {
