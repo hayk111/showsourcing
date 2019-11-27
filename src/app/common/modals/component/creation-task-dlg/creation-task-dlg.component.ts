@@ -61,7 +61,7 @@ export class CreationTaskDlgComponent implements OnInit {
 			this.task = new Task({
 				...this.product && { product: { id: this.product.id, name: this.product.name } },
 				...supplier && { supplier: { id: supplier.id, name: supplier.name } },
-				assignee: this.userSrv.userSync
+				assignee: { id: this.userSrv.userSync.id, firstName: this.userSrv.userSync.firstName, lastName: this.userSrv.userSync.lastName }
 			});
 		}
 	}
