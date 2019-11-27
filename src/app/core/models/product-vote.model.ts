@@ -5,7 +5,8 @@ export class ProductVote {
 	id: string;
 	user: User;
 	value: number;
-	__typename ?= 'ProductVote';
+	creationDate: string;
+	__typename?= 'ProductVote';
 
 	constructor(config: ProductVoteConfig) {
 		Object.assign(this, config);
@@ -16,5 +17,6 @@ export class ProductVote {
 export interface ProductVoteConfig {
 	value: number;
 	user: User;
+	creationDate: string;
 }
 
