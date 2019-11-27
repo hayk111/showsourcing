@@ -1,5 +1,5 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { LogoComponent, colorMap, iconMap, sizeMap, Size } from './logo.component';
+import { LogoComponent, iconsColorMap, iconSizeMap, Size } from './logo.component';
 import { EntityName, imageMock } from '~core/models';
 import { IconsModule } from '~shared/icons/icons.module';
 import { Color } from '~utils';
@@ -54,7 +54,7 @@ describe('Logo component', () => {
 	});
 
 	it('should display the color depending on the entity if no [color] specified', () => {
-		Object.entries(colorMap).forEach(([name, color]) => {
+		Object.entries(iconsColorMap).forEach(([name, color]) => {
 			component.type = name as EntityName;
 			component.ngOnInit();
 			fixture.detectChanges();
@@ -69,7 +69,7 @@ describe('Logo component', () => {
 	});
 
 	it('Should use [size] "s" | "m" | "l" | "xl" ', () => {
-		Object.entries(sizeMap).forEach(([sizeName, sizes]: [Size, { background: number, icon: number }]) => {
+		Object.entries(iconSizeMap).forEach(([sizeName, sizes]: [Size, { background: number, icon: number }]) => {
 			component.size = sizeName;
 			component.ngOnInit();
 			fixture.detectChanges();

@@ -20,6 +20,7 @@ export class StatusBadgeComponent {
 		if (!this.status)
 			return 'secondary-light';
 
+		// TODO palette color status change
 		switch (this.status.category) {
 			case 'new':
 				return 'secondary';

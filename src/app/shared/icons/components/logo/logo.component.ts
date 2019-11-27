@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, Component, ElementRef, Input, Renderer2, OnChanges } from '@angular/core';
 import { AppImage, EntityName } from '~models';
 import { Color, Colors, log } from '~utils';
+import { iconMap } from '~core/models/utils/icons.utils';
 
 
-export const colorMap = {
+export const iconsColorMap = {
 	[EntityName.ATTACHMENT]: Color.SECONDARY,
 	[EntityName.ACTIVITY]: Color.PRIMARY,
 	[EntityName.CATEGORY]: Color.ACCENT,
@@ -21,29 +22,9 @@ export const colorMap = {
 	[EntityName.REQUEST_ELEMENT]: Color.SECONDARY
 };
 
-export const iconMap = {
-	[EntityName.ATTACHMENT]: 'file',
-	[EntityName.ACTIVITY]: 'activity',
-	[EntityName.CATEGORY]: 'category',
-	[EntityName.COMMENT]: 'comments',
-	[EntityName.CONTACT]: 'team',
-	[EntityName.EVENT]: 'event',
-	[EntityName.PRODUCT]: 'product',
-	[EntityName.PROJECT]: 'project',
-	[EntityName.SAMPLE]: 'sample',
-	[EntityName.TAG]: 'tag',
-	[EntityName.TASK]: 'check-circle',
-	[EntityName.SUPPLIER]: 'supplier',
-	[EntityName.LOCATION]: 'location',
-	[EntityName.REQUEST]: 'envelope',
-	[EntityName.REQUEST_ELEMENT]: 'envelope'
-
-};
-
-
 export type Size = 'xs' | 's' | 'ms' | 'm' | 'l' | 'xl' | 'xxl';
 
-export const sizeMap: { [key in Size]: { background: number, icon: number } } = {
+export const iconSizeMap: { [key in Size]: { background: number, icon: number } } = {
 	xs: { background: 14, icon: 10 },
 	s: { background: 20, icon: 12 },
 	ms: { background: 27, icon: 12 },
@@ -110,8 +91,8 @@ export class LogoComponent implements OnChanges {
 	private getComputedColor() {
 		if (this.color)
 			return this.color;
-		if (colorMap[this.type])
-			return colorMap[this.type];
+		if (iconsColorMap[this.type])
+			return iconsColorMap[this.type];
 		throw Error('no color or type specified in logo');
 	}
 
@@ -133,8 +114,8 @@ export class LogoComponent implements OnChanges {
 	}
 
 	private getComputedSize() {
-		if (sizeMap[this.size])
-			return sizeMap[this.size];
+		if (iconSizeMap[this.size])
+			return iconSizeMap[this.size];
 		throw Error(`${this.size} is not a valid size`);
 	}
 }

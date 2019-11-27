@@ -55,4 +55,4 @@ export * from './team.model';
 export * from './user.model';
 export * from './weight-unit.model';
 export * from './rpc-request.model';
-
+export * from './utils';
