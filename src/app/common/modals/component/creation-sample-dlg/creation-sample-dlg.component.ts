@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { SampleDescriptor } from '~core/descriptors';
-import { SampleService } from '~core/entity-services';
+import { SampleService, UserService } from '~core/entity-services';
 import { Product, Sample, Supplier } from '~core/models';
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { NotificationService, NotificationType } from '~shared/notifications';
@@ -26,7 +26,8 @@ export class CreationSampleDlgComponent implements OnInit {
 	constructor(
 		private dlgSrv: DialogService,
 		private sampleSrv: SampleService,
-		private notifSrv: NotificationService
+		private notifSrv: NotificationService,
+		private userSrv: UserService
 	) {
 	}
 
@@ -59,7 +60,8 @@ export class CreationSampleDlgComponent implements OnInit {
 			const supplier = this.supplier ? this.supplier : (this.product && this.product.supplier);
 			this.sample = new Sample({
 				...this.product && { product: { id: this.product.id, name: this.product.name } },
-				...supplier && { supplier: { id: supplier.id, name: supplier.name } }
+				...supplier && { supplier: { id: supplier.id, name: supplier.name } },
+				assignee: this.userSrv.userSync
 			});
 		}
 	}
