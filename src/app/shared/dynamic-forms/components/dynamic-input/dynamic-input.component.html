@@ -43,6 +43,20 @@
       (input)="onChange()"/>
 	</form-field-app>
 
+	<!-- number -->
+	<!-- TODO Delete this when on v3 switchCase="int" is deprecated we use number -->
+  <form-field-app *ngSwitchCase="'int'"  class="modal">
+    <label-app>{{ customField?.label || customField?.name }}</label-app>
+    <input inputApp
+			autoFocus
+			[canFocus]="autofocus"
+      restrictInput="number"
+      type="number"
+			[placeholder]="customField?.metadata?.placeholder || customField?.label || customField?.name"
+      [(ngModel)]="accumulator"
+      (input)="onChange()"/>
+	</form-field-app>
+
 	<!-- date -->
 	<form-field-app *ngSwitchCase="'date'"  class="modal">
 			<label-app>{{ customField?.label || customField?.name }}</label-app>
