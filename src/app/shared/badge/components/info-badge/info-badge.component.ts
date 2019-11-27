@@ -1,7 +1,6 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { EntityName } from '~core/models';
-import { iconsColorMap } from '~shared/icons';
-import { Color } from '~utils';
+import { Color, iconsColorMap } from '~utils';
 
 @Component({
 	selector: 'info-badge-app',

@@ -1,38 +1,6 @@
-import { ChangeDetectionStrategy, Component, ElementRef, Input, Renderer2, OnChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, Input, OnChanges, Renderer2 } from '@angular/core';
 import { AppImage, EntityName } from '~models';
-import { Color, Colors, log } from '~utils';
-import { iconMap } from '~core/models/utils/icons.utils';
-
-
-export const iconsColorMap = {
-	[EntityName.ATTACHMENT]: Color.SECONDARY,
-	[EntityName.ACTIVITY]: Color.PRIMARY,
-	[EntityName.CATEGORY]: Color.ACCENT,
-	[EntityName.COMMENT]: Color.PRIMARY,
-	[EntityName.CONTACT]: Color.SECONDARY,
-	[EntityName.EVENT]: Color.SECONDARY,
-	[EntityName.PRODUCT]: Color.PRIMARY,
-	[EntityName.PROJECT]: Color.SECONDARY,
-	[EntityName.SAMPLE]: Color.ACCENT,
-	[EntityName.TAG]: Color.ACCENT,
-	[EntityName.TASK]: Color.SUCCESS,
-	[EntityName.SUPPLIER]: Color.VIBRANT,
-	[EntityName.LOCATION]: Color.SECONDARY,
-	[EntityName.REQUEST]: Color.SECONDARY,
-	[EntityName.REQUEST_ELEMENT]: Color.SECONDARY
-};
-
-export type Size = 'xs' | 's' | 'ms' | 'm' | 'l' | 'xl' | 'xxl';
-
-export const iconSizeMap: { [key in Size]: { background: number, icon: number } } = {
-	xs: { background: 14, icon: 10 },
-	s: { background: 20, icon: 12 },
-	ms: { background: 27, icon: 12 },
-	m: { background: 32, icon: 16 },
-	l: { background: 36, icon: 24 },
-	xl: { background: 54, icon: 24 },
-	xxl: { background: 88, icon: 40 }
-};
+import { Colors, iconMap, iconsColorMap, iconSizeMap, log, Size } from '~utils';
 
 @Component({
 	selector: 'logo-app',

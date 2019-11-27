@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { imageMock as mock, iconMap } from '~core/models';
+import { imageMock as mock } from '~core/models';
+import { iconMap } from '~utils';
 
 @Component({
 	selector: 'icon-page-app',

@@ -1,4 +1,4 @@
-import { Color } from '~utils';
+import { Color } from '~utils/colors.enum';
 
 export enum StatusCategory {
 	NEW = 'new',
