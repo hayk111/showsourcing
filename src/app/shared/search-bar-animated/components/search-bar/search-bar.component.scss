@@ -5,7 +5,6 @@
 	border: 1px solid var(--color-secondary);
 	border-radius: var(--border-radius);
 	// width: 378px;
-	padding-left: var(--spacing-s);
 	&.focus {
 		border: 1px solid var(--color-primary);
 	}
@@ -20,4 +19,5 @@
 
 icon-app {
 	cursor: default;
+	padding: 0 var(--spacing-s);
 }
