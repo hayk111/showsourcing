@@ -6,24 +6,11 @@
 			{{ 'title.my-exports' | translate }}
 		</span>
 	</header-details-title-app>
-	<logo-app color="primary" icon="close-pane-bottom" size="xl"></logo-app>
-	<header-details-info-app>{{'header.exports-from-my-team' | translate}}</header-details-info-app>
+	<logo-app color="secondary" icon="close-pane-bottom"></logo-app>
+	<header-details-info-app>
+		<span>Access all your exports</span> <!-- TODO: translation to be added -->
+	</header-details-info-app>
 </header-details-app>
-
-<controller-list-app
-	class="max-full-table-width"
-	[entityType]="'Export'"
-	[hasFilter]="false"
-	[count]="listSrv.count$ | async"
-	[hasSwitch]="false"
-	[hasArchived]="false"
-	[hasAssigned]="false"
-	[hasMyExport]="true"
-	[searchValue]="listSrv.searchValue"
-	(search)="listSrv.search($event)"
-	(showMyExport)="toggleMyExports(true)"
-	(hideMyExport)="toggleMyExports(false)">
-</controller-list-app>
 
 <export-table-app
 	[rows]="listSrv.items$ | async"

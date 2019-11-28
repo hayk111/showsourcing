@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { EventService, TeamService, CompanyService } from '~core/entity-services';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
+import { SelectionService } from '~core/list-page';
 import { ListPageService } from '~core/list-page';
 import { ERM, Event } from '~models';
 import { AutoUnsub } from '~utils';
@@ -12,7 +13,8 @@ import { AutoUnsub } from '~utils';
 	styleUrls: ['./event-data-page.component.scss', '../shared/list-management-styles.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
-		ListPageService
+		ListPageService,
+		SelectionService
 	]
 })
 export class EventDataPageComponent extends AutoUnsub implements OnInit {
@@ -28,7 +30,8 @@ export class EventDataPageComponent extends AutoUnsub implements OnInit {
 		public listSrv: ListPageService<Event, EventService>,
 		public teamSrv: TeamService,
 		public companySrv: CompanyService,
-		public dialogCommonSrv: DialogCommonService) {
+		public dialogCommonSrv: DialogCommonService,
+		public selectionSrv: SelectionService) {
 		super();
 	}
 

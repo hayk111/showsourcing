@@ -8,6 +8,12 @@ table-app {
 	}
 }
 
+.export-icon {
+	icon-app {
+		color: var(--color-txt-third);
+	}
+}
+
 .download {
 	font-size: var(--font-size-m);
 	color: var(--color-primary);
@@ -29,7 +35,7 @@ table-app {
 	align-items: center;
 }
 
-.created-by {
+.generated-by {
 	span {
 		margin-left: var(--spacing-xs);
 	}
@@ -38,9 +44,4 @@ table-app {
 .created-on, .file-name {
 	color: var(--color-bg-dark);
 	font-size: var(--font-size-m);
-}
-
-.status {
-	font-size: var(--font-size-m);
-	font-weight: 600;
 }

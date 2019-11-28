@@ -3,6 +3,7 @@ import { DialogCommonService } from '~common/dialogs/services/dialog-common.serv
 import { SupplierService, TeamService, CompanyService } from '~core/entity-services';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 import { ListPageService } from '~core/list-page';
+import { SelectionService } from '~core/list-page';
 import { ERM, Supplier } from '~models';
 import { AutoUnsub } from '~utils';
 
@@ -12,7 +13,8 @@ import { AutoUnsub } from '~utils';
 	styleUrls: ['./supplier-data-page.component.scss', '../shared/list-management-styles.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
-		ListPageService
+		ListPageService,
+		SelectionService
 	]
 })
 export class SupplierDataPageComponent extends AutoUnsub implements OnInit {
@@ -29,6 +31,7 @@ export class SupplierDataPageComponent extends AutoUnsub implements OnInit {
 		public teamSrv: TeamService,
 		public companySrv: CompanyService,
 		public dialogCommonSrv: DialogCommonService,
+		public selectionSrv: SelectionService,
 	) { super(); }
 
 

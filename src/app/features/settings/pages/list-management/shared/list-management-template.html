@@ -65,12 +65,7 @@
 	[entityType]="erm.singular"
 	(search)="listSrv.search($event)">
 	<controller-list-right-item-app>
-		<div class="flex" *ngIf="(listSrv.selection$ | async).size > 0">
-			<button class="delete-selected button warn capitalize" (click)="listSrv.deleteSelected(true)">Delete Selected</button> <!-- TODO: translation to be added-->
-			<span class="mg-s"></span>
-			<button class="merge-selected" (click)="mergeSelected()">Merge Selected</button> <!-- TODO: translation to be added-->
-		</div>
-		<div class="flex" *ngIf="(listSrv.selection$ | async).size === 0">
+		<div class="flex">
 			<button class="capitalize" (click)="listSrv.create(false)">Create {{erm.singular | translate}}</button> <!-- TODO: translation to be added-->
 		</div>
 	</controller-list-right-item-app>
@@ -93,3 +88,27 @@
 	(unselectAll)="listSrv.unselectAll()"
 	(renameEntity)="listSrv.update($event)">
 </list-management-table-app>
+
+<selection-bar-app
+	*ngIf="(listSrv.selection$ | async) as selection"
+	[entityType]="erm.singular"
+	[isShown]="selection.size > 0"
+	[selection]="selection"
+	[state]="selectionSrv.getListCheckboxState(selection, listSrv.items$ | async)"
+	[count]="listSrv.count$ | async"
+	(close)="listSrv.unselectAll()">
+
+	<div class="flex elements-container">
+		<!-- Merge -->
+		<button class="icon-with-text secondary" (click)="mergeSelected()">
+			<icon-app name="merge"></icon-app>
+			<span>Merge</span> <!-- TODO: translation to be added -->
+		</button>
+
+		<!-- Delete -->
+		<button class="icon-with-text secondary" (click)="listSrv.deleteSelected(true)">
+			<icon-app name="delete"></icon-app>
+			<span>{{ 'button.delete' | translate }}</span>
+		</button>
+	</div>
+</selection-bar-app>

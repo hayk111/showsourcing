@@ -87,7 +87,7 @@
 	<!-- Products Count -->
 	<ng-template
 		*ngIf="ermCategory === entityMetadata || ermTag === entityMetadata || ermSupplier === entityMetadata"
-		[columnApp]="'header.products-count' | translate"
+		[columnApp]="'nav.products' | translate"
 		let-row="row"
 		[sortable]="false"
 		width="140">
@@ -99,7 +99,7 @@
 	<!-- Supplier Count -->
 	<ng-template
 		*ngIf="ermCategory === entityMetadata || ermTag === entityMetadata"
-		[columnApp]="'header.suppliers-count' | translate"
+		[columnApp]="'nav.suppliers' | translate"
 		let-row="row"
 		[sortable]="false"
 		width="140">
@@ -111,7 +111,7 @@
 	<!-- Contacts Count -->
 	<ng-template
 		*ngIf="ermSupplier === entityMetadata"
-		[columnApp]="'Contact count' | const: 'messages'"
+		[columnApp]="'header.contacts' | translate"
 		let-row="row"
 		[sortable]="false"
 		width="140">
@@ -150,7 +150,9 @@
 		let-row="row"
 		width="160">
 		<div class="flex">
-			<span class="action pointer capitalize" (click)="delete.emit(row)" i18n="@@delete">delete</span>
+			<button class="icon warn" (click)="delete.emit(row)">
+				<icon-app name="delete"></icon-app>
+			</button>
 		</div>
 	</ng-template>
 </table-app>

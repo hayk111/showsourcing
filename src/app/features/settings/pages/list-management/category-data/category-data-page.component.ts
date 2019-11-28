@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { CategoryService, TeamService, CompanyService } from '~core/entity-services';
+import { SelectionService } from '~core/list-page';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 import { ListPageService } from '~core/list-page';
 import { Category, ERM } from '~models';
@@ -12,7 +13,8 @@ import { AutoUnsub } from '~utils';
 	styleUrls: ['./category-data-page.component.scss', '../shared/list-management-styles.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
-		ListPageService
+		ListPageService,
+		SelectionService
 	]
 })
 export class CategoryDataPageComponent extends AutoUnsub implements OnInit {
@@ -29,7 +31,8 @@ export class CategoryDataPageComponent extends AutoUnsub implements OnInit {
 		public listSrv: ListPageService<Category, CategoryService>,
 		public teamSrv: TeamService,
 		public companySrv: CompanyService,
-		public dialogCommonSrv: DialogCommonService
+		public dialogCommonSrv: DialogCommonService,
+		public selectionSrv: SelectionService
 	) { super(); }
 
 	ngOnInit() {

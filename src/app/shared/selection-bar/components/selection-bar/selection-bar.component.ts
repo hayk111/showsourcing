@@ -19,6 +19,7 @@ import { EntityType } from '~core/models';
 export class SelectionBarComponent implements OnInit {
 	@Input() selection: Map<string, boolean>;
 	@Input() entityType: EntityType;
+	@Input() state: 'selectedPartial' | 'unchecked' | 'selectedAll';
 	@Input() count: number;
 	@Input() isShown = false;
 	@Output() close = new EventEmitter();
@@ -28,8 +29,10 @@ export class SelectionBarComponent implements OnInit {
 	ngOnInit() {
 	}
 
-	capitalize(txt: string): string {
-		return txt.charAt(0).toUpperCase() + txt.slice(1);
+	capitalize(txt: string): string | void {
+		if (txt && (typeof txt) === 'string') {
+			return txt.charAt(0).toUpperCase() + txt.slice(1);
+		}
 	}
 
 }
