@@ -56,7 +56,7 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 		this.request$ = this.requestSrv.selectOne(this.requestId);
 		this.request$.pipe(
 			tap(request => {
-				(request.requestElements || []).sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
+				(request.requestElements || []).sort((a, b) => a.id.localeCompare(b.id));
 				this.request = request;
 			}),
 			takeUntil(this._destroy$)
