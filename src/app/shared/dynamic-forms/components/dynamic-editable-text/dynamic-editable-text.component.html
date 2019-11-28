@@ -54,8 +54,33 @@
 		</editable-field-app>
 
 		<!-- int -->
+		<!-- TODO Delete this when on v3 switchCase="int" is deprecated we use number -->
 		<editable-field-app
 			*ngSwitchCase="'int'"
+			#editable
+			[class.borderless]="borderless"
+			[hasAction]="hasAction"
+			[hasLabel]="hasLabel"
+			[inlineLabel]="inlineLabel"
+			(closed)="onClose($event)"
+			(opened)="inp.select()">
+			<label-app *ngIf="hasLabel">{{ customField.label || customField.name }}</label-app>
+			<editable-label-app>{{ value || '-' }}</editable-label-app>
+			<form-field-app class="editable">
+				<input inputApp
+					#inp
+					restrictInput="number"
+					autofocus="true"
+					[value]="accumulator"
+					type="number"
+					(input)="accumulate(+inp.value)"
+					(keyup.enter)="editable.close()"/>
+			</form-field-app>
+		</editable-field-app>
+
+		<!-- number -->
+		<editable-field-app
+			*ngSwitchCase="'number'"
 			#editable
 			[class.borderless]="borderless"
 			[hasAction]="hasAction"
