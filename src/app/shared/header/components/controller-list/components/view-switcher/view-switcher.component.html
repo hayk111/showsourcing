@@ -6,16 +6,16 @@
 		[class.right-two-items]="view === 'board' && !hasThumb">
 	</div>
 	<button class="flexCenter mg-right-ms {{ view === 'list' ? 'primary' : 'light'}} icon"
-		(mousedown)="switchView('list')">
+		(mousedown)="switchView('list')" toolTip toolTipMessage="List view">
 		<icon-app class="list" name="list-menu" size="m"></icon-app>
 	</button>
 	<button class="flexCenter mg-right-ms {{ view === 'board' ? 'primary' : 'light'}} icon"
-		(mousedown)="switchView('board')">
+		(mousedown)="switchView('board')" toolTip toolTipMessage="Board view">
 		<icon-app class="board" name="kanban" size="m"></icon-app>
 	</button>
 	<button *ngIf="hasThumb"
 		class="flexCenter {{ view === 'card' ? 'primary' : 'light'}}"
-		(mousedown)="switchView('card')">
+		(mousedown)="switchView('card')" toolTip toolTipMessage="Card view">
 		<icon-app class="cards" name="cards"></icon-app>
 	</button>
 </div>
