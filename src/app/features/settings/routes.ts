@@ -32,7 +32,7 @@ export const routes: Routes = [
 				path: 'team', component: TeamPages.TeamPageComponent, children: [
 					{ path: '', redirectTo: 'members', pathMatch: 'full' },
 					{ path: 'members', component:  TeamPages.MembersPageComponent },
-					{ path: 'info', component:  TeamPages.InfoPageComponent }
+					{ path: 'settings', component:  TeamPages.SettingsPageComponent }
 				]
 			},
 			{

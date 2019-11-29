@@ -1,12 +1,7 @@
-<header-list-app
-	class="smaller-padding"
-	[hasAction]="false"
-	title="Team Members">
-</header-list-app>
-
+<!-- TODO: translation to be added for TEAM_MEMBER-->
 <controller-list-app
 	class="max-full-table-width"
-	[entityType]="entityTypeEnum.USER"
+	[entityType]="entityTypeEnum.TEAM_MEMBER"
 	[count]="listSrv.count$ | async"
 	[hasArchived]="false"
 	[hasAssigned]="false"
@@ -18,7 +13,7 @@
 	<controller-list-right-item-app>
 
 		<div toolTip [toolTipMessage]="getTooltipMsg()" toolTipPosition="above-right">
-			<button [disabled]="!teamOwner" (click)="openInviteDialog()" i18n="@@invite-collaborator">Invite Collaborator</button>
+			<button [disabled]="!teamOwner" (click)="openInviteDialog()" i18n="@@invite-team-member">Invite Team Member</button>
 		</div>
 
 		<context-menu-app *ngIf="teamOwner && hasSelected" [closeOnScroll]="true">

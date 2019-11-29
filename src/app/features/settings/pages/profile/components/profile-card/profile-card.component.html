@@ -1,31 +1,37 @@
-
-<h2 translate="title.user-profile"></h2>
-<label-app translate="label.profile-picture"></label-app>
-
-<div class="photoContainer flex">
-	<user-picture-app class="z-3 z-h pointer" [user]="user" [size]="48" [image]="user.avatar" (click)="openFileBrowser()"></user-picture-app>
-	<p class="color-primary pointer" (click)="openFileBrowser()" translate="button.select-img"></p>
+<div class="profile-card">
+	<div class="left">
+		<div class="photoContainer flex">
+			<logo-app
+				class="pointer"
+				[logo]="user.avatar" 
+				[iconSize]="47" 
+				size="xxl" 
+				type="user" 
+				(click)="openFileBrowser()"></logo-app>
+		</div>
+		
+		<input #inpFile type="file" accept="image/*" (fileSelect)="addFile.emit($event)" class="hidden"/>
+	</div>
+	
+	<div class="right">
+		<h2 class="form-title">Your Profile</h2> <!-- TODO: translation to be added -->
+		
+		<form [formGroup]="form">
+			<form-field-app class="borderless-ms">
+				<label-app class="uppercase" translate="label.first-name"></label-app>
+				<input inputApp type="text" formControlName="firstName" autocomplete='given-name'/>
+			</form-field-app>
+			<form-field-app class="borderless-ms">
+				<label-app class="uppercase" translate="label.last-name"></label-app>
+				<input inputApp type="text"  formControlName="lastName"/>
+			</form-field-app>
+			<form-field-app class="borderless-ms">
+				<label-app class="uppercase">E-Mail</label-app> <!-- TODO: translation to be added -->
+				<input inputApp type="text" formControlName="email"/>
+			</form-field-app>
+		</form>
+		
+		<h2 class="change-password">Change Password</h2> <!-- TODO: translation to be added -->
+		<button class="change" (click)="changePswd.emit()" translate="button.change-pwd"></button>
+	</div>
 </div>
-
-<input #inpFile type="file" accept="image/*" (fileSelect)="addFile.emit($event)" class="hidden"/>
-
-<form [formGroup]="form">
-	<form-field-app class="borderless">
-		<label-app class="capitalize" translate="label.first-name"></label-app>
-		<input inputApp type="text" formControlName="firstName" autocomplete='given-name'/>
-	</form-field-app>
-	<form-field-app class="borderless">
-		<label-app class="capitalize" translate="label.last-name"></label-app>
-		<input inputApp type="text"  formControlName="lastName"/>
-	</form-field-app>
-	<form-field-app class="borderless">
-		<label-app class="capitalize" translate="label.email"></label-app>
-		<input inputApp type="text" formControlName="email"/>
-	</form-field-app>
-	<form-field-app class="borderless">
-		<label-app class="capitalize" translate="label.phone-number"></label-app>
-		<input restrictInput="tel" inputApp type="text"  formControlName="phoneNumber"/>
-	</form-field-app>
-</form>
-
-<button class="auto" (click)="changePswd.emit()" translate="button.change-pwd"></button>

@@ -7,11 +7,11 @@ import { ERM } from '~models';
 import { AutoUnsub } from '~utils';
 
 @Component({
-	selector: 'info-page-app',
-	templateUrl: './info-page.component.html',
-	styleUrls: ['./info-page.component.scss']
+	selector: 'settings-page-app',
+	templateUrl: './settings-page.component.html',
+	styleUrls: ['./settings-page.component.scss']
 })
-export class InfoPageComponent extends AutoUnsub implements OnInit {
+export class SettingsPageComponent extends AutoUnsub implements OnInit {
 	teamOwner: boolean;
 	team: Team;
 	erm = ERM;

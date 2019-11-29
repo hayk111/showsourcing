@@ -30,7 +30,7 @@ import * as DataPages from './pages/list-management';
 		CompanyPages.CompanyCardComponent,
 		// team
 		TeamPages.TeamPageComponent,
-		TeamPages.InfoPageComponent,
+		TeamPages.SettingsPageComponent,
 		TeamPages.MembersPageComponent,
 		TeamPages.TeamCardComponent,
 		TeamPages.SettingsTeamMembersInvitationsComponent,

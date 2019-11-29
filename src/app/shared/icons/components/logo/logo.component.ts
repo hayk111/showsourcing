@@ -16,6 +16,7 @@ export const colorMap = {
 	[EntityName.TAG]: Color.ACCENT,
 	[EntityName.TASK]: Color.SUCCESS,
 	[EntityName.SUPPLIER]: Color.VIBRANT,
+	[EntityName.USER]: Color.PRIMARY,
 	[EntityName.LOCATION]: Color.SECONDARY,
 	[EntityName.REQUEST]: Color.SECONDARY,
 	[EntityName.REQUEST_ELEMENT]: Color.SECONDARY
@@ -36,8 +37,8 @@ export const iconMap = {
 	[EntityName.SUPPLIER]: 'supplier',
 	[EntityName.LOCATION]: 'location',
 	[EntityName.REQUEST]: 'envelope',
-	[EntityName.REQUEST_ELEMENT]: 'envelope'
-
+	[EntityName.REQUEST_ELEMENT]: 'envelope',
+	[EntityName.USER]: 'user',
 };
 
 

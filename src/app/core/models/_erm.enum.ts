@@ -61,6 +61,7 @@ export enum EntityName {
 	TAG = 'tag',
 	TASK = 'task',
 	TEAM = 'team',
+	TEAM_MEMBER = 'team-member',
 	USER = 'user',
 }
 
@@ -78,11 +79,12 @@ export enum EntityTypeEnum {
 	SAMPLE = 'SAMPLE',
 	USER = 'USER',
 	TASK = 'TASK',
+	TEAM_MEMBER = 'TEAM-MEMBER',
 	TAG = 'TAG',
 }
 
 export type EntityType = 'CATEGORY' | 'EVENT' | 'PRODUCT' | 'REQUEST' | 'EXPORT'
-	| 'PROJECT' | 'TASK' | 'SUPPLIER' | 'SAMPLE' | 'USER' | 'TAG' | 'INVITATION';
+	| 'PROJECT' | 'TASK' | 'TEAM-MEMBER' | 'SUPPLIER' | 'SAMPLE' | 'USER' | 'TAG' | 'INVITATION';
 
 export class EntityMetadata {
 	readonly constClass: new (...args: any[]) => any;
