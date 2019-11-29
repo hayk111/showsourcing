@@ -1,24 +1,27 @@
-<div class="card-container" [class.selected-card]="selected">
+<div
+	class="card-container action-hover-container"
+	[ngClass]="{ 'disable-action-hover': !hasHoverEffect, 'selected-card': selected }">
+	<!-- picture -->
 	<img-app
 		[image]="product?.images"
 		objectFit="cover"
 		size="xl">
 	</img-app>
 
-	<div *ngIf="product?.price" class="product-price">
-		<div class="price-dislayed">{{ product?.price | appPrice }}</div>
+	<!-- price floating -->
+	<div *ngIf="product?.price" class="product-price flexVAlign">
+		<div class="bold-s color-white">{{ product?.price | appPrice: 2: '1.2-2' }}</div>
 	</div>
 
-	<!-- Floating Elements -->
-	<!-- anything that floats needs the overlay class -->
-	<div class="black-hover">
-	</div>
+	<!-- black backgorund on hover -->
+	<div class="black-container action-hover-item"></div>
 
+	<!-- top icons floating on hover -->
 	<checkbox-app
 		*ngIf="hasCheckbox"
-		class="overlay"
+		class="action-hover-item"
 		[size]="17"
-		[ngClass]="{'full-opacity': selected}"
+		[ngClass]="{ 'full-opacity': selected }"
 		[checked]="selected"
 		(check)="select.emit()"
 		(uncheck)="unselect.emit()">
@@ -34,11 +37,11 @@
 			[offsetX]="316"
 			[multiple]="true"
 			[width]="330"
-			(update)="update.emit({id: product?.id, projects: $event})">
-			<icon-app class="folder overlay-icons pointer" [size]="13" name="folder"></icon-app>
+			(update)="update.emit({ id: product?.id, projects: $event })">
+			<icon-app class="folder action-hover-item pointer color-white" [size]="13" name="folder-light"></icon-app>
 		</selector-app>
 		<thumb-buttons-app
-			class="thumb-up overlay-icons"
+			class="thumb-up action-hover-item"
 			size="m"
 			[lineStyle]="true"
 			[votes]="product?.votes"
@@ -46,7 +49,7 @@
 			(disliked)="disliked.emit()">
 		</thumb-buttons-app>
 		<rating-heart-app
-			class="heart"
+			class="heart action-hover-item"
 			size="m"
 			[favorite]="product?.favorite"
 			[lineStyle]="true"
@@ -55,32 +58,27 @@
 		</rating-heart-app>
 	</div>
 
-	<button class="preview overlay capitalize" (click)="preview.emit()">
-		<icon-app class="eye-icon" name="eye"></icon-app> {{ 'button.preview' | translate }}
+	<!-- buttons floating on hover-->
+	<button class="preview action-hover-item capitalize icon-with-text" (click)="preview.emit()">
+		<icon-app class="eye-icon" name="eye"></icon-app> {{ 'button.preview-product' | translate }}
 	</button>
-	<button class="open overlay capitalize" (click)="open.emit()">
-		<icon-app class="export-icon" name="export"></icon-app> {{ 'button.open-product' | translate }}
+	<button class="open secondary action-hover-item capitalize icon-with-text" (click)="open.emit()">
+		<icon-app class="export-icon" name="exit"></icon-app> {{ 'button.open-product' | translate }}
 	</button>
 
-	<!-- Content (Non Floating) -->
-	<div class="content">
-		<div class="title ellipsis">
-			<div class="badge" [ngStyle]="{ 'background-color': 'var(' + getColor(product?.status) + ')'}"></div>
-			{{ product?.name || ('message.unnamed-product' | translate) }}
+	<!-- info content -->
+	<div class="info-container">
+		<div class="flexVAlign ellipsis">
+			<badge-app class="badge mg-right-s" [circle]="true" [ngStyle]="{ 'background-color': 'var(' + getColor(product?.status) + ')'}"></badge-app>
+			<div class="bold-s color-txt-primary">{{ product?.name || ('message.unnamed-product' | translate) }}</div>
 		</div>
-		<div class="category">
-			<span class="category-name">{{ product?.category?.name }}</span>
-			<span *ngIf="product?.supplier && product?.category" class="small-gray-badge-separator"></span>
-			<span class="supplier-name">{{ product?.supplier?.name }}</span>
+		<div class="color-txt-secondary fs-s mg-bottom-xs ellipsis dot-separator">
+			<span *ngIf="product?.category?.name">{{ product?.category?.name }}</span>
+			<span *ngIf="product?.supplier?.name">{{ product?.supplier?.name }}</span>
 		</div>
-
-		<product-card-activities-app
-			[favorite]="product?.favorite"
-			[hasSamples]="!!product?.samplesLinked?.count"
-			[hasTasks]="!!product?.tasksLinked?.count"
-			[hasComments]="!!product?.comments?.length"
+		<rating-number-badge-app
 			[votes]="product?.votes">
-		</product-card-activities-app>
+		</rating-number-badge-app>
 	</div>
 
 </div>
