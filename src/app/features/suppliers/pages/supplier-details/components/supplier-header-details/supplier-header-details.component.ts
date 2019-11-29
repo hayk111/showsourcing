@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ERM, Supplier } from '~models';
+import { Supplier } from '~models';
 import { TrackingComponent } from '~utils/tracking-component';
 
 @Component({
@@ -15,8 +15,6 @@ export class SupplierHeaderDetailsComponent extends TrackingComponent implements
 	@Output() archive = new EventEmitter<Supplier>();
 	@Output() export = new EventEmitter<Supplier>();
 	@Output() contact = new EventEmitter<Supplier>();
-
-	typeEntity = ERM.SUPPLIER;
 
 	constructor(
 		private location: Location

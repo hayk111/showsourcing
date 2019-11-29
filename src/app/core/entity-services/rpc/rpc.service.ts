@@ -3,7 +3,7 @@ import { RPCRequest, IRPCRequest } from '~core/models/rpc-request.model';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
 import { Injectable } from '@angular/core';
 import { RpcQueries } from './rpc.queries';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, timeout } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -27,7 +27,8 @@ export class RpcService extends GlobalService<RPCRequest> {
 	createRPC(rpcRequest: IRPCRequest): Observable<RPCRequest> {
 		const request = new RPCRequest(rpcRequest);
 		return this.create(request).pipe(
-			switchMap( req => this.waitForOne(`id == "${req.id}" AND (status == "ready" OR status == "error")`))
+			switchMap( req => this.waitForOne(`id == "${req.id}" AND (status == "ready" OR status == "error")`)),
+			timeout(5000)
 		);
 	}
 }
