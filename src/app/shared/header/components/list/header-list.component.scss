@@ -7,9 +7,9 @@
 	h2 {
 		width: 182px;
 		height: 36px;
-		font-size: var(--font-size-xxxxl);
 		font-weight: 600;
 		color: var(--color-bg-dark);
+		font-size: var(--font-size-xxl)
 	}
 }
 
@@ -28,4 +28,8 @@
 
 .navCtnr {
 	margin-top: 36px;
+}
+
+.info {
+	flex-direction: column;
 }

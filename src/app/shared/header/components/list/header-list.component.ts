@@ -22,5 +22,7 @@ export class HeaderListComponent {
 	@Input() hasAction = true;
 	// Can update title or not
 	@Input() isModifiable = false;
+	@Input() info: string;
+	@Input() logoName: string;
 	@Output() update = new EventEmitter<string>();
 }
