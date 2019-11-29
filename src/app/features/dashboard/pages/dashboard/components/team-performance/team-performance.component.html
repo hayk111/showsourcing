@@ -31,10 +31,19 @@
 		</div>
 
 		<ng-template #spinner>
-			<div class="flexColumn flexCenter">
-				<spinner-app></spinner-app>
-			</div>
+			<ng-container *ngIf="!requestTimedOut; else empty">
+				<div class="flexColumn flexCenter">
+					<spinner-app></spinner-app>
+				</div>
+			</ng-container>
 		</ng-template>
+		
+		<ng-template #empty>
+			<line-chart-app
+				[chartData]="[]">
+			</line-chart-app>
+		</ng-template>
+
 	</div>
 
 </card-app>
