@@ -30,7 +30,7 @@
 				<!-- info title -->
 				<div class="flex dot-separator">
 					<div *ngIf="supplier?.supplierType?.name">{{ supplier?.supplierType?.name }}</div>
-					<div *ngIf="supplier?.city || supplier?.country">{{ getCityCountry(supplier?.city, supplier?.country) }}</div>
+					<div *ngIf="supplier?.city || supplier?.country">{{ { country: supplier?.country, city: supplier?.city } | countryCity }}</div>
 				</div>
 			</div>
 
