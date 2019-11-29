@@ -1,0 +1,77 @@
+<card-app>
+	<div class="flex">
+		<initials-logo-app
+			class="mg-right-l"
+			[image]="supplier?.logoImage"
+			[name]="supplier?.name"
+			[type]="'SUPPLIER' | erm: true"
+			[entity]="supplier"
+			size="xxl">
+		</initials-logo-app>
+		<div class="flexColumn information">
+
+			<!-- title -->
+			<div class="title">
+				<editable-container-app
+					#edt
+					[hoverable]="true"
+					(opened)="inpName.select()"
+					(closed)="update(inpName.value, 'name')">
+					<editable-display-app class="ellipsis bold-s color-txt-primary fs-xxxxl">
+						{{ supplier?.name || '-' }}
+					</editable-display-app>
+					<input
+						inputApp
+						#inpName
+						type="text"
+						[value]="supplier?.name"
+						(keyup.enter)="edt.close()"/>
+				</editable-container-app>
+				<!-- info title -->
+				<div class="flex dot-separator">
+					<div *ngIf="supplier?.supplierType?.name">{{ supplier?.supplierType?.name }}</div>
+					<div *ngIf="supplier?.city || supplier?.country">{{ { country: supplier?.country, city: supplier?.city } | countryCity }}</div>
+				</div>
+			</div>
+
+			<!-- description -->
+			<section>
+				<h3 class="section-title">description</h3>
+				<input-description-app
+					[description]="supplier?.description"
+					(update)="update($event, 'description')">
+				</input-description-app>
+			</section>
+
+			<!-- product categories -->
+			<section>
+				<h3 class="section-title">category</h3>
+				<editable-container-app
+					[hasAction]="false"
+					[openOnClick]="false"
+					(click)="categorySelector?.selector?.openMenu()">
+					<editable-display-app>
+						<badge-selector-app
+							#categorySelector
+							class="mg-bottom-none"
+							[badge]="'CATEGORY' | erm"
+							[multiple]="true"
+							[value]="supplier?.categories"
+							(update)="update($event, 'categories')">
+						</badge-selector-app>
+					</editable-display-app>
+				</editable-container-app>
+			</section>
+
+			<!-- tags -->
+			<section>
+				<h3 class="section-title">tags</h3>
+				<input-badge-selector-app
+					[value]="supplier?.tags"
+					type="tag"
+					(change)="update($event, 'tags')">
+				</input-badge-selector-app>
+			</section>
+		</div>
+	</div>
+</card-app>

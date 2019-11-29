@@ -38,7 +38,6 @@ import { CloseEventType, CloseEvent } from '~shared/dialog';
 })
 export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChanges {
 
-	formConfig = new DynamicFormConfig({ mode: 'editable-text' });
 	/** This is the product passed as input, but it's not yet fully loaded */
 	@Input() _product: Product;
 	@Input()
@@ -78,6 +77,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 	samples$: Observable<Sample[]>;
 	productDescriptor1: ProductDescriptor;
 	productDescriptor2: ProductDescriptor;
+	formConfig = new DynamicFormConfig({ mode: 'editable-text' });
 	erm = ERM;
 
 	actions: PreviewActionButton[];

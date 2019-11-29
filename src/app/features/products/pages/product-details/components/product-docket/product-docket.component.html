@@ -1,9 +1,8 @@
 <!-- product info card -->
 <card-app>
 	<!-- owner -->
-	<div class="section">
-		<h3 class="title">Product Owner</h3>
-
+	<section>
+		<h3 class="section-title">Product Owner</h3>
 		<editable-container-app
 			[hasAction]="false"
 			[openOnClick]="false"
@@ -15,17 +14,18 @@
 					[width]="320"
 					[offsetX]="4"
 					(update)="update.emit({ assignee: $event })">
-					<div *ngIf="product?.assignee" class="flex">
+					<div *ngIf="product?.assignee; else none" class="flex">
 						<user-picture-app	class="mg-right-ms" [user]="product?.assignee" size="24" fontSize="12" [hasName]="true"></user-picture-app>
 					</div>
+					<ng-template #none>None</ng-template>
 				</selector-app>
-			</editable-display-app>
+				</editable-display-app>
 		</editable-container-app>
-	</div>
+	</section>
 
 	<!-- status -->
-	<div class="section">
-		<h3 class="title">Product Status</h3>
+	<section>
+		<h3 class="section-title">Product Status</h3>
 		<span>
 			<status-selector-app
 				[typeEntity]="'PRODUCT' | erm"
@@ -34,31 +34,31 @@
 				type="button">
 			</status-selector-app>
 		</span>
-	</div>
+	</section>
 
 	<!-- task list -->
-	<div class="section action-hover-container">
-		<div class="title flexVAlign">
+	<section class="action-hover-container">
+		<div class="section-title flexVAlign">
 			<h3>Tasks</h3>
-			<div class="mg-left-ms action-hover-item color-primary txt-btn" (click)="addTask.emit()">Add</div>
+			<div class="mg-left-ms action-hover-item color-primary txt-btn" (click)="addTask.emit()" translate="button.add"></div>
 		</div>
-		<task-list-app [tasks]="product?.tasksLinked" (taskClicked)="previewTask.emit($event)"></task-list-app>
-	</div>
+		<task-list-app [tasks]="product?.tasksLinkedUndone?.items" (taskClicked)="previewTask.emit($event)"></task-list-app>
+	</section>
 
 	<!-- sample list -->
-	<div class="section action-hover-container">
-		<div class="title flexVAlign">
+	<section class="action-hover-container">
+		<div class="section-title flexVAlign">
 			<h3>Samples</h3>
-			<div class="mg-left-ms action-hover-item color-primary txt-btn" (click)="addSample.emit()">Add</div>
+			<div class="mg-left-ms action-hover-item color-primary txt-btn" (click)="addSample.emit()" translate="button.add"></div>
 		</div>
-		<sample-list-app [samples]="product?.samplesLinked" (sampleClicked)="previewSample.emit($event)"></sample-list-app>
-	</div>
+		<sample-list-app [samples]="product?.samplesLinked?.items" (sampleClicked)="previewSample.emit($event)"></sample-list-app>
+	</section>
 
 	<!-- about -->
-	<div class="section">
-		<h3 class="title">About this product</h3>
+	<section>
+		<h3 class="section-title">About this product</h3>
 		<small>Created by {{ product.createdBy | formatUserName }} on  {{ product.creationDate | date: 'dd MMMM yyyy' }}</small> <br>
 		<small>Last updated by {{ product.lastUpdatedBy | formatUserName }} on {{ product.lastUpdatedDate | date: 'dd MMMM yyyy' }}</small><br>
 		<small *ngIf="product.event">Found at {{ product?.event?.description?.name }}</small>
-	</div>
+	</section>
 </card-app>

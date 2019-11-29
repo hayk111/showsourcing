@@ -34,7 +34,6 @@ export abstract class AbstractSampleCommonComponent extends AutoUnsub implements
 	}
 
 	setup(addedFilters: Filter[] = []) {
-		const id = this.route.parent.snapshot.params.id;
 		const userId = this.userSrv.userSync.id;
 		this.listSrv.setup({
 			entitySrv: this.sampleSrv,

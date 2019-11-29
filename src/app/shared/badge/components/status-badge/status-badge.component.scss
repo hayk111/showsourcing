@@ -6,4 +6,9 @@
 	&.pointer {
 		cursor: pointer;
 	}
+
+	&.flexVAlign {
+		display: flex;
+		align-items: center;
+	}
 }

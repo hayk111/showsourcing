@@ -4,9 +4,9 @@ import { Observable } from 'rxjs';
 import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { ListPageService } from '~core/list-page';
-import { SupplierRequestService, TaskService } from '~entity-services';
+import { SupplierRequestService } from '~entity-services';
 import { ProductFeatureService } from '~features/products/services';
-import { ERM, Product, SupplierRequest, Task } from '~models';
+import { ERM, Product, SupplierRequest } from '~models';
 import { AutoUnsub } from '~utils';
 
 @Component({
@@ -28,7 +28,7 @@ export class RequestsPageComponent extends AutoUnsub implements OnInit {
 		protected route: ActivatedRoute,
 		protected requestSrv: SupplierRequestService,
 		public dialogCommonSrv: DialogCommonService,
-		public listSrv: ListPageService<Task, TaskService>,
+		public listSrv: ListPageService<SupplierRequest, SupplierRequestService>,
 		private productSrv: ProductFeatureService
 	) {
 		super();
