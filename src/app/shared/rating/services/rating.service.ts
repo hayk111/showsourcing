@@ -4,9 +4,9 @@ import { ProductVoteService } from '~entity-services/product-vote/product-vote.s
 import { UserService } from '~entity-services/user/user.service';
 import { EntityName, Product, ProductVote, Supplier, SupplierVote } from '~models';
 
-type Vote = ProductVote | SupplierVote;
-type EntityWithVotes = Product | Supplier;
-type TypeWithVotes = EntityName.PRODUCT | EntityName.SUPPLIER;
+export type Vote = ProductVote | SupplierVote;
+export type EntityWithVotes = Product | Supplier;
+export type TypeWithVotes = EntityName.PRODUCT | EntityName.SUPPLIER;
 
 @Injectable({ providedIn: 'root' })
 export class RatingService {

@@ -8,7 +8,7 @@ import {
 } from '~common/dialogs/custom-dialogs/supplier-request-dialog/supplier-request-dialog.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { ProductFeatureService } from '~features/products/services';
-import { ERM, Product, Project, Sample, Task, Supplier } from '~models';
+import { ERM, Product, Project, Sample, Task, Supplier, EntityName } from '~models';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { NotificationService, NotificationType } from '~shared/notifications';
@@ -146,12 +146,12 @@ export class ProductDetailsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	onThumbUp() {
-		const votes = this.ratingSrv.thumbUp(this.product);
+		const votes = this.ratingSrv.thumbUp(this.product, EntityName.PRODUCT);
 		this.updateProduct({ votes });
 	}
 
 	onThumbDown() {
-		const votes = this.ratingSrv.thumbDown(this.product);
+		const votes = this.ratingSrv.thumbDown(this.product, EntityName.PRODUCT);
 		this.updateProduct({ votes });
 	}
 

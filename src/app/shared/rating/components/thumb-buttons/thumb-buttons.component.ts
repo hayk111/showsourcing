@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { UserService } from '~entity-services';
-import { ProductVote } from '~models';
+import { Vote } from '~shared/rating/services/rating.service';
 
 @Component({
 	selector: 'thumb-buttons-app',
@@ -17,7 +17,7 @@ export class ThumbButtonsComponent {
 	@Input() lineStyle = false;
 	@Input() multiple = false;
 	// when multiple is true we don't have to pass votes as a parameter
-	@Input() set votes(votes: ProductVote[]) {
+	@Input() set votes(votes: Vote[]) {
 		this.like = false;
 		this.dislike = false;
 		if (!this.multiple) {

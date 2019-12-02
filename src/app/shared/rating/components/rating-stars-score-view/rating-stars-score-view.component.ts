@@ -1,6 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, ChangeDetectorRef } from '@angular/core';
-import { ProductVote } from '~core/models';
-import { RatingService } from '~shared/rating/services/rating.service';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input } from '@angular/core';
+import { RatingService, Vote } from '~shared/rating/services/rating.service';
 
 @Component({
 	selector: 'rating-stars-score-view-app',
@@ -10,8 +9,8 @@ import { RatingService } from '~shared/rating/services/rating.service';
 })
 export class RatingStarsScoreViewComponent {
 
-	private _votes: ProductVote[];
-	@Input() set votes(votes: ProductVote[]) {
+	private _votes: Vote[];
+	@Input() set votes(votes: Vote[]) {
 		this._votes = votes;
 		this.setValues();
 	}

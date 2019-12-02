@@ -7,7 +7,7 @@ import { SupplierStatusService } from '~core/entity-services/supplier-status/sup
 import { ListPageService } from '~core/list-page';
 import { NEW_STATUS_ID } from '~core/models/status.model';
 import { SupplierService } from '~entity-services';
-import { ERM, Supplier, SupplierStatus } from '~models';
+import { ERM, Supplier, SupplierStatus, EntityName } from '~models';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { FilterList, FilterType } from '~shared/filters';
@@ -183,12 +183,12 @@ export class SuppliersBoardComponent extends AutoUnsub implements OnInit {
 	}
 
 	onMultipleThumbUp(isCreated) {
-		const updated = this.listSrv.onMultipleThumbUp(isCreated);
+		const updated = this.listSrv.onMultipleThumbUp(isCreated, EntityName.SUPPLIER);
 		this.kanbanSrv.updateMany(updated);
 	}
 
 	onMultipleThumbDown(isCreated) {
-		const updated = this.listSrv.onMultipleThumbDown(isCreated);
+		const updated = this.listSrv.onMultipleThumbDown(isCreated, EntityName.SUPPLIER);
 		this.kanbanSrv.updateMany(updated);
 	}
 
