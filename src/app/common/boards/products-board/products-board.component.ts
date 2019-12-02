@@ -1,12 +1,10 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { combineLatest, Observable } from 'rxjs';
-import { filter, first, map, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { filter, first, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
-import { SelectionService } from '~core/list-page';
 import { ProductStatusService } from '~core/entity-services/product-status/product-status.service';
-import { ListPageService } from '~core/list-page';
-import { NEW_STATUS_ID } from '~core/models/status.model';
+import { ListPageService, SelectionService } from '~core/list-page';
 import { ProductService } from '~entity-services';
 import { ERM, Product, ProductStatus } from '~models';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
@@ -15,7 +13,7 @@ import { FilterList, FilterType } from '~shared/filters';
 import { KanbanDropEvent } from '~shared/kanban/interfaces';
 import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.interface';
 import { KanbanService } from '~shared/kanban/services/kanban.service';
-import { translate } from '~utils';
+import { StatusUtils, translate } from '~utils';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 
 @Component({
@@ -121,7 +119,7 @@ export class ProductsBoardComponent extends AutoUnsub implements OnInit {
 
 	// returns the query of the columns based on the parameters on the list srv and a constant query
 	private getColQuery(colId: string, filterList?: FilterList) {
-		const constQuery = colId !== NEW_STATUS_ID ?
+		const constQuery = colId !== StatusUtils.NEW_STATUS_ID ?
 			`status.id == "${colId}"` : `status == null`;
 		const predicate = filterList ? filterList.asPredicate() : this.listSrv.filterList.asPredicate();
 		return [
@@ -145,7 +143,7 @@ export class ProductsBoardComponent extends AutoUnsub implements OnInit {
 			return;
 		}
 		// we update on the server
-		const isNewStatus = event.to.id === NEW_STATUS_ID;
+		const isNewStatus = event.to.id === StatusUtils.NEW_STATUS_ID;
 		this.productSrv.update({
 			id: event.item.id,
 			status: isNewStatus ? null : new ProductStatus({ id: event.to.id })
@@ -157,7 +155,7 @@ export class ProductsBoardComponent extends AutoUnsub implements OnInit {
 
 	/** multiple */
 	updateProductsStatus(event: KanbanDropEvent) {
-		const isNewStatus = event.to.id === NEW_STATUS_ID;
+		const isNewStatus = event.to.id === StatusUtils.NEW_STATUS_ID;
 		const products = event.items.map(id => ({
 			id,
 			status: isNewStatus ? null : new ProductStatus({ id: event.to.id })

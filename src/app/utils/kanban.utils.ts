@@ -6,7 +6,7 @@ import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.interface'
 import { ConstPipe } from '~shared/utils/pipes/const.pipe';
 
 import { ID } from './id.utils';
-import { statusColorMap, StatusCategory } from './status.utils';
+import { StatusUtils } from './status.utils';
 
 
 export function makeColumns(
@@ -42,7 +42,7 @@ export function statusToKanbanCol(
 	return {
 		id: type.id,
 		title: constPipe.transform(type.name, 'status'),
-		color: statusColorMap[type && type.category] ? statusColorMap[type.category] : statusColorMap[StatusCategory.NEW],
+		color: StatusUtils.getStatusColor(type),
 		data,
 		totalData
 	};

@@ -2,7 +2,7 @@
 	<div *ngFor="let sample of samples?.items; trackBy: trackById" class="preview-sample flexVAlign">
 		<icon-app
 			class="pointer"
-			[ngClass]="'color-' + colorClass(sample)"
+			[ngClass]="'color-' + statusUtils.getStatusColor(sample?.status)"
 			[name]="'sample'"
 			[size]="12"
 			(click)="sampleClicked.emit(sample)">

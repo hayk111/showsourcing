@@ -4,7 +4,7 @@ import { Observable, ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Status } from '~core/models/status.model';
 import { ConstPipe } from '~shared/utils/pipes/const.pipe';
-import { StatusCategory, statusColorMap } from '~utils';
+import { StatusUtils } from '~utils';
 
 import { KanbanColumn, KanbanConfig } from '../interfaces';
 
@@ -62,7 +62,7 @@ export class KanbanService {
 		return {
 			id: status.id,
 			title: constPipe.transform(status.name, 'status'),
-			color: statusColorMap[status && status.category] ? statusColorMap[status.category] : statusColorMap[StatusCategory.NEW],
+			color: StatusUtils.getStatusColor(status),
 			dataMap,
 			totalData
 		};

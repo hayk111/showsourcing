@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Task } from '~core/models';
-import { TaskStatus } from '~core/models/status.model';
+import { TaskStatus } from '~utils';
 
 @Component({
 	selector: 'task-status-badge-app',

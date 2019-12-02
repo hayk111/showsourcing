@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { Sample } from '~core/models';
 import { TrackingComponent } from '~utils/tracking-component';
+import { StatusUtils } from '~utils';
 
 @Component({
 	selector: 'sample-list-app',
@@ -13,23 +14,10 @@ export class SampleListComponent extends TrackingComponent {
 	@Input() samples: { count: Number, items: Array<Sample> };
 	@Output() sampleClicked = new EventEmitter<Sample>();
 
+	statusUtils = StatusUtils;
+
 	constructor() {
 		super();
-	}
-
-	colorClass(sample: Sample) {
-		switch (sample && sample.status && sample.status.category) {
-			case 'new':
-				return 'txt-secondary';
-			case 'inProgress':
-				return 'primary';
-			case 'validated':
-				return 'success';
-			case 'refused':
-				return 'warn';
-			default:
-				return 'secondary';
-		}
 	}
 
 }
