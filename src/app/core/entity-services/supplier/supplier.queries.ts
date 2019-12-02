@@ -10,6 +10,7 @@ export abstract class SupplierQueries extends GlobalQueries {
 	static readonly tags = ` tags { id, name }`;
 	static readonly images = `images { id, urls { url }, orientation }`;
 	static readonly attachments = `attachments { id, fileName, url, size }`;
+	static readonly votes = `votes { id, value, user { id, firstName, lastName } }`;
 
 	// tslint:disable-next-line:max-line-length
 	static readonly productsLinked = `productsLinked: _linkingObjects(objectType: "Product" property:"supplier" query:"deleted == false AND archived == false") {
@@ -106,6 +107,7 @@ export abstract class SupplierQueries extends GlobalQueries {
 		${SupplierQueries.tasksLinkedUndone}
 		${SupplierQueries.samplesLinked}
 		${SupplierQueries.contactsLinked}
+		${SupplierQueries.votes}
 	`;
 
 	static readonly update = `
@@ -153,6 +155,7 @@ export abstract class SupplierQueries extends GlobalQueries {
 		${SupplierQueries.samplesLinked}
 		${SupplierQueries.tasksLinkedAssignedToMe(userId)}
 		${SupplierQueries.samplesLinkedAssignedToMe(userId)}
+		${SupplierQueries.votes}
 		`;
 		SupplierQueries.many = `
 		name,
@@ -181,6 +184,7 @@ export abstract class SupplierQueries extends GlobalQueries {
 		${SupplierQueries.supplierType}
 		${SupplierQueries.samplesLinkedAssignedToMe(userId)}
 		${SupplierQueries.tasksLinkedAssignedToMe(userId)}
+		${SupplierQueries.votes}
 		`;
 	}
 
