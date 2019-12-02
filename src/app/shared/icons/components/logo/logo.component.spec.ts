@@ -1,8 +1,8 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { LogoComponent, iconsColorMap, iconSizeMap, Size } from './logo.component';
+import { LogoComponent } from './logo.component';
 import { EntityName, imageMock } from '~core/models';
 import { IconsModule } from '~shared/icons/icons.module';
-import { Color } from '~utils';
+import { Color, IconUtils, Size } from '~utils';
 
 
 const colors = Object.values(Color);
@@ -47,16 +47,14 @@ describe('Logo component', () => {
 	it('should display the colors of the [color] input', () => {
 		colors.forEach(color => {
 			component.color = color;
-			component.ngOnInit();
 			fixture.detectChanges();
 			expect(el.className).toContain(color);
 		});
 	});
 
 	it('should display the color depending on the entity if no [color] specified', () => {
-		Object.entries(iconsColorMap).forEach(([name, color]) => {
+		Object.entries(IconUtils.iconsColorMap).forEach(([name, color]) => {
 			component.type = name as EntityName;
-			component.ngOnInit();
 			fixture.detectChanges();
 			expect(el.className).toContain(color);
 		});
@@ -69,9 +67,8 @@ describe('Logo component', () => {
 	});
 
 	it('Should use [size] "s" | "m" | "l" | "xl" ', () => {
-		Object.entries(iconSizeMap).forEach(([sizeName, sizes]: [Size, { background: number, icon: number }]) => {
+		Object.entries(IconUtils.iconsSizeMap).forEach(([sizeName, sizes]: [Size, { background: number, icon: number, font: number }]) => {
 			component.size = sizeName;
-			component.ngOnInit();
 			fixture.detectChanges();
 			expect(el.style.height).toEqual(`${sizes.background}px`);
 			expect(el.style.width).toEqual(`${sizes.background}px`);
@@ -81,14 +78,12 @@ describe('Logo component', () => {
 
 	it('Should set the [iconSize] if defined', () => {
 		component.iconSize = 13;
-		component.ngOnInit();
 		fixture.detectChanges();
 		expect(el.style.fontSize).toEqual('13px');
 	});
 
 	it('Should set [backgroundSize] if defined', () => {
 		component.backgroundSize = 30;
-		component.ngOnInit();
 		fixture.detectChanges();
 		expect(el.style.height).toEqual('30px');
 		expect(el.style.width).toEqual('30px');
@@ -116,7 +111,7 @@ describe('Logo component', () => {
 			newComponent.type = type;
 			newFixture.detectChanges();
 			const i = newEl.querySelector('i');
-			expect(i.className).toContain(iconMap[type]);
+			expect(i.className).toContain(IconUtils.iconsMap[type]);
 		});
 	});
 

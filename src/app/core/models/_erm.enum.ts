@@ -35,6 +35,7 @@ import { SupplierRequest } from './supplier-request.model';
 import { Company } from './company.model';
 import { RPCRequest } from './rpc-request.model';
 
+export const ERM_TOKEN = new InjectionToken<string>('ERM_TOKEN');
 
 export class EntityMetadata {
 	readonly constClass: new (...args: any[]) => any;
@@ -139,5 +140,3 @@ export class ERM {
 		throw Error(`The string "${name}" does not exist on the _erm.enum.ts`);
 	}
 }
-
-export const ERM_TOKEN = new InjectionToken<string>('ERM_TOKEN');

@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { StatusUtils, StatusCategory, Color } from '~utils';
+import { StatusUtils } from '~utils';
+
 @Component({
 	selector: 'playground-page-app',
 	templateUrl: './playground-page.component.html',
@@ -8,15 +9,8 @@ import { StatusUtils, StatusCategory, Color } from '~utils';
 })
 export class PlaygroundPageComponent {
 
-	lep = StatusUtils.statusColorMap;
-	mep = StatusUtils.statusColorMap;
-
 	test() {
 		// Test function
-		console.log(this.lep);
-		this.lep[StatusCategory.NEW] = Color.WARN;
-		console.log(this.lep);
-		console.log(this.mep);
 	}
 
 }
