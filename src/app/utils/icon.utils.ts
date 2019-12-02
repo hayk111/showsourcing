@@ -15,7 +15,7 @@ export class IconUtils {
 		[EntityName.LOCATION]: 'location',
 		[EntityName.PROJECT]: 'project',
 		[EntityName.REQUEST]: 'envelope',
-		[EntityName.REQUEST_ELEMENT]: 'envelope'
+		[EntityName.REQUEST_ELEMENT]: 'envelope',
 		[EntityName.SAMPLE]: 'sample',
 		[EntityName.SUPPLIER]: 'supplier',
 		[EntityName.TAG]: 'tag',
