@@ -7,7 +7,7 @@ import { ProductService } from '~entity-services/product/product.service';
 import { Comment, Product, Supplier, EntityMetadata, ERM } from '~models';
 import { GroupedActivityFeed } from '~common/activity/interfaces/client-feed.interfaces';
 import { GetStreamGroup } from '~common/activity/interfaces/get-stream-feed.interfaces';
-import { RatingService } from '~shared/rating/services/thumbs.service';
+import { RatingService } from '~shared/rating/services/rating.service';
 import { TemplateService } from '~core/template/services/template.service';
 import { AutoUnsub } from '~utils';
 

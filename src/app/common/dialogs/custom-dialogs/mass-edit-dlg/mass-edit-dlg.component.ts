@@ -9,7 +9,7 @@ import { EntityMetadata, ERM, ExtendedFieldDefinition } from '~core/models';
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { DynamicField } from '~shared/dynamic-forms';
 import { NotificationService, NotificationType } from '~shared/notifications';
-import { RatingService } from '~shared/rating/services/thumbs.service';
+import { RatingService } from '~shared/rating/services/rating.service';
 import { AutoUnsub, uuid } from '~utils';
 import { ProductDescriptor } from '~core/descriptors';
 import { TranslateService } from '@ngx-translate/core';
