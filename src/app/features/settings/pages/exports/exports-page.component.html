@@ -12,7 +12,21 @@
 	</header-details-info-app>
 </header-details-app>
 
-<export-table-app
+<controller-list-app
+	[entityType]="'Export'"
+	[hasFilter]="false"
+	[count]="listSrv.count$ | async"
+	[hasSwitch]="false"
+	[hasArchived]="false"
+	[hasAssigned]="false"
+	[hasMyExport]="true"
+	[searchValue]="listSrv.searchValue"
+	(search)="listSrv.search($event)"
+	(showMyExport)="toggleMyExports(true)"
+	(hideMyExport)="toggleMyExports(false)">
+</controller-list-app>
+
+<exports-table-app
 	[rows]="listSrv.items$ | async"
 	[currentSort]="listSrv.currentSort"
 	[pending]="listSrv.pending"
@@ -22,7 +36,7 @@
 	(sort)="listSrv.sort($event)"
 	(showItemsPerPage)="showItemsPerPage($event)"
 	(download)="downloadOne($event)">
-</export-table-app>
+</exports-table-app>
 
 <!-- in case selection comes back -->
 <!-- <selection-bar-app

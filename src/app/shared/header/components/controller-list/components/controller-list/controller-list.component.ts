@@ -14,6 +14,9 @@ import { ControllerListService } from '../../services/controller-list.service';
 	templateUrl: './controller-list.component.html',
 	styleUrls: ['./controller-list.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		class: 'flexBetween'
+	}
 })
 export class ControllerListComponent extends AutoUnsub implements OnInit {
 	/** whether we should display the filter icon */
@@ -21,43 +24,35 @@ export class ControllerListComponent extends AutoUnsub implements OnInit {
 	/** whether the screen can be switched from table to list view */
 	@Input() hasSwitch = true;
 	@Input() hasThumb = true;
-	// TODO: doc comments should be like so /** */ and not //
-	// so we have some semantic in the comments and for jsdoc as well
-	// whether we should display show archived checkbox
+
+	/** whether we should display show archived checkbox */
 	@Input() hasArchived = true;
-	// whether we should display assigned to me checkbox
+	/** whether we should display assigned to me checkbox */
 	@Input() hasAssigned = true;
-	// whether we should display my exports only checkbox
+	/** whether we should display my exports only checkbox */
 	@Input() hasMyExport = false;
-	// whether we should display export button
+	/** whether we should display export button */
 	@Input() hasExport = true;
 	// TODO: should rename to 'list-menu' to table, 'kanban' is 'kanban' only, and 'board' to 'cards'
 	// content of the switch
 	@Input() switchContent: ['list-menu', 'board', 'kanban' | 'grid'] = ['list-menu', 'board', 'grid'];
-	// whether the screen has a search input
+	/** whether the screen has a search input */
 	@Input() hasSearch = true;
-	// whether we should display show completed checkbox
+	/** whether we should display show completed checkbox */
 	@Input() hasCompletedTask = false;
-	// whether we should display show tasks created by me checkbox
+	/** whether we should display show tasks created by me checkbox */
 	@Input() hasTaskCreatedByMeOnly = false;
 
-	// whether the subpanel is inside dialog
-	@Input() subPanelDialog = false;
-
-	@Input() searchFullWidth = true;
-
-	@Input() title: string;
+	/** total number of entities */
 	@Input() count = 0;
 	@Input() entityType: EntityType;
 
-	// view that can be switched into
+	/** view that can be switched into */
 	@Input() view: 'list' | 'board' | 'card' = 'list';
 
-	// whether the filters tab is opened
+	/** whether the filters tab is opened */
 	@Input() filtersPanelOpened = false;
 
-	/** what appears in the button on the right for adding an entity */
-	@Input() buttonName: string;
 	/** number of filters set */
 	@Input() filtersAmount: number;
 

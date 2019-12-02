@@ -1,4 +1,3 @@
-
 <!--
 debug helper
 
@@ -12,33 +11,35 @@ index: {{ currentPage }}  -->
 <div class="pagination-ctrl">
 
 	<button
-		class="arrow-btn icon"
-		(click)="goToFirstPage(currentPage === 0)">
-		<icon-app name="double-fat-angle-left" size="xs" [ngClass]="{ disabled: currentPage === 0 }"></icon-app>
+		class="arrow-btn icon primary-light"
+		(click)="goToFirstPage(currentPage === 0)"
+		[ngClass]="{ 'secondary-light': currentPage === 0 }">
+		<icon-app name="double-fat-angle-left" size="xs"></icon-app>
 	</button>
 
 	<button
-		class="arrow-btn icon"
-		(click)="goToPreviousPage(currentPage === 0)">
-		<icon-app name="fat-angle-left" size="xs" [ngClass]="{ disabled: currentPage === 0 }"></icon-app>
+		class="arrow-btn icon primary-light"
+		(click)="goToPreviousPage(currentPage === 0)"
+		[ngClass]="{ 'secondary-light': currentPage === 0 }">
+		<icon-app name="fat-angle-left" size="xs"></icon-app>
 	</button>
 
 	<button
 		*ngFor="let page of range; trackBy: trackByFn"
 		class="icon"
-		[ngClass]="{ selected: page === currentPage }"
+		[ngClass]="{ primary: page === currentPage }"
 		(click)="goToIndexPage(page, page === currentPage)">
 		{{ page + 1 }}
 	</button>
 
 	<button
-		class="arrow-btn icon"
+		class="arrow-btn icon primary-light"
 		(click)="goToNextPage(currentPage === totalPages - 1)">
 		<icon-app name="fat-angle-right" size="xs" [ngClass]="{ disabled: currentPage === totalPages - 1 }"></icon-app>
 	</button>
 
 	<button
-		class="arrow-btn icon"
+		class="arrow-btn icon primary-light"
 		(click)="goToLastPage(currentPage === totalPages - 1)">
 		<icon-app name="double-fat-angle-right" size="xs" [ngClass]="{ disabled: currentPage === totalPages - 1 }"></icon-app>
 	</button>

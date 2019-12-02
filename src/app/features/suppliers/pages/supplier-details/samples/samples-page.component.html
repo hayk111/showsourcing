@@ -1,5 +1,4 @@
 <controller-list-app
-	class="max-full-table-width"
 	buttonName="create sample"
 	[entityType]="erm.SAMPLE.singular"
 	[hasFilter]="true"
@@ -19,7 +18,6 @@
 </controller-list-app>
 
 <samples-table-app
-	class="max-full-table-width"
 	[rows]="listSrv.items$ | async"
 	[selection]="listSrv.selection$ | async"
 	[pending]="listSrv.pending"

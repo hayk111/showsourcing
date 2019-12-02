@@ -1,7 +1,7 @@
 <selection-bar-app
+	entityType="product"
 	[isShown]="isShown"
 	[count]="count"
-	entityType="product"
 	[selection]="selection"
 	(close)="close.emit()">
 	<div class="flex elements-container">
@@ -13,25 +13,25 @@
 		</button>
 
 		<!-- Mass edit -->
-		<button class="icon-with-text secondary flexCenter with-name" (click)="massEdit.emit()">
+		<button class="icon-with-text light flexCenter with-name" (click)="massEdit.emit()">
 			<icon-app name="note"></icon-app>
 			{{ 'button.edit' | translate }}
 		</button>
 
 		<!-- Project -->
-		<button class="icon-with-text secondary flexCenter with-name" (click)="addProject.emit()">
+		<button class="icon-with-text light flexCenter with-name" (click)="addProject.emit()">
 			<icon-app name="project"></icon-app>
 			<span>Project</span> <!-- Todo: add translation -->
 		</button>
 
 		<!-- Compare products -->
-		<button class="icon-with-text secondary flexCenter with-name" (click)="compareProducts.emit()">
+		<button class="icon-with-text light flexCenter with-name" (click)="compareProducts.emit()">
 			<icon-app name="compare"></icon-app>
 			<span>Compare</span> <!-- Todo: add translation --> 
 		</button>
 
 		<!-- Export -->
-		<button class="icon-with-text secondary flexCenter with-name" (click)="export.emit()">
+		<button class="icon-with-text light flexCenter with-name" (click)="export.emit()">
 			<icon-app name="export"></icon-app>
 			<span translate="button.export"></span>
 		</button>

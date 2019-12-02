@@ -19,7 +19,10 @@ import { AutoUnsub } from '~utils';
 	styleUrls: ['./projects-page.component.scss'],
 	providers: [
 		ListPageService
-	]
+	], 
+	host: {
+		class: 'table-page'
+	}
 })
 export class ProjectsPageComponent extends AutoUnsub implements OnInit, AfterViewInit {
 	filterTypes = [FilterType.CREATED_BY];

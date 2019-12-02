@@ -1,14 +1,12 @@
 <input #inpFile type="file" hidden="true" (fileSelect)="addFile($event)"/>
 
 <table-app
-	[class.no-min-height]="!hasMinHeight"
 	[rows]="rows"
-	[type]="'ATTACHMENT' | erm: true"
+	[type]="'ATTACHMENT' | erm: 'singular'"
 	[pending]="pending"
 	[selected]="selection"
 	[contextualMenu]="contextualMenuTemplate"
 	[currentSort]="currentSort"
-	[isContextMenuHorizontal]="false"
 	[count]="count"
 	[currentPage]="currentPage"
 	[hasHeader]="hasHeader"
@@ -27,54 +25,32 @@
 	(bottomReached)="bottomReached.emit()"
 	(fileDrop)="addFile($event)">
 
-	<!-- contextual menu -->
-	<ng-template #contextualMenuTemplate let-row="row">
-		<context-menu-item-warn-app
-			class="color-warn pointer flexCenter"
-			(click)="delete.emit(row)">
-			{{ 'text.delete' | translate }}
-		</context-menu-item-warn-app>
-	</ng-template>
 
-		<!-- dynamic columns -->
-		<ng-template
-			*ngFor="let column of columnsConfig; trackBy: trackByFn"
-			let-row="row"
-			[columnApp]="'title.' + column.translationKey"
-			[sortable]="column.sortable !== false"
-			[width]="column.width"
-			[sortBy]="column.sortProperty">
+	<!-- dynamic columns -->
+	<ng-template
+		*ngFor="let column of columnsConfig; trackBy: trackByFn"
+		let-row="row"
+		[columnApp]="column.translationKey ? ('title.' + column.translationKey | translate) : ''"
+		[sortable]="column.sortable !== false"
+		[width]="column.width"
+		[sortBy]="column.sortProperty"
+		[grows]="!column.fixedWidth"
+		[showOnHover]="column.showOnHover">
 
     <ng-container [ngSwitch]="column.name">
 
-
-			<!-- name + icon -->
-			<ng-container *ngSwitchCase="'name icon'">
-				<div class="flexVAlign">
-					<logo-app type="attachment" *ngIf="!row.pending"></logo-app>
-					<spinner-app size="ms" *ngIf="row.pending"></spinner-app>
-					<span class="mg-left-s">{{ row?.fileName }}</span>
-				</div>
-			</ng-container>
-
-			<!-- name -->
-			<ng-container *ngSwitchCase="'name'">
-				<span class="ellipsis">{{ row?.fileName }}</span>
-			</ng-container>
-
-			<!-- createdBy -->
-			<ng-container *ngSwitchCase="'createdBy'">
-				<div class="flexVAlign">
-					<user-picture-app [user]="row?.createdBy"></user-picture-app>
-					<span class="mg-xs">{{ row?.createdBy | formatUserName }}</span>
-				</div>
-			</ng-container>
-
-			<!-- creationDate -->
-			<ng-container *ngSwitchCase="'creationDate'">
-				{{ row?.creationDate | date: 'dd MMMM y' }}
-			</ng-container>
-
+			
+			<default-columns-app 
+				*ngSwitchDefault
+				[row]="row" 
+				[column]="column" 
+				[hovered]="row.id === hovered"
+				[type]="'ATTACHMENT' | erm"
+				(update)="update.emit($event)"
+				(previewClick)="previewClick.emit($event)"
+				(nameClick)="download(row)"
+				(logoClick)="download(row)">
+			</default-columns-app>
 
 			<!-- Actions -->
 			<ng-container *ngSwitchCase="'actions'">
@@ -84,19 +60,18 @@
 				</button>
 			</ng-container>
 
-			<!-- created by + creation date + download -->
-			<ng-container *ngSwitchCase="'createdBy creationDate action'">
-				<div class="flexVAlign flexEnd dot-separator">
-					<div>{{ row?.createdBy | formatUserName: true }}</div>
-					<div>{{ row?.creationDate | date: 'dd MMMM y':'':translate.currentLang }}</div>
-					<button class="icon" (click)="download(row)">
-						<icon-app name="close-pane-bottom"></icon-app>
-					</button>
-				</div>
-			</ng-container>
-
 		</ng-container>
 
 	</ng-template>
 
 </table-app>
+
+
+<!-- contextual menu -->
+<ng-template #contextualMenuTemplate let-row="row">
+	<context-menu-item-warn-app
+		class="color-warn pointer flexCenter"
+		(click)="delete.emit(row)">
+		{{ 'text.delete' | translate }}
+	</context-menu-item-warn-app>
+</ng-template>

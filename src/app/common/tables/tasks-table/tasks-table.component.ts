@@ -5,43 +5,19 @@ import { Task } from '~core/models';
 import { ID } from '~utils/id.utils';
 import { TaskService } from '~core/entity-services';
 import { User } from 'getstream';
+import { mediumSmallTableConfig, smallTableConfig, mediumTableConfig, bigTableConfig } from './config';
+import { Color } from '~utils/colors.enum';
 
-const bigTableConfig: TableConfig = {
-	done: { name: 'done', translationKey: '', width: 50, sortable: false },
-	reference: { name: 'reference', translationKey: 'reference', width: 80, sortProperty: 'reference' },
-	name: { name: 'name', translationKey: 'name', width: 120, sortProperty: 'name' },
-	product: { name: 'product', translationKey: 'product', width: 160, sortProperty: 'product.name' },
-	supplier: { name: 'supplier', translationKey: 'supplier', width: 160, sortProperty: 'supplier.name' },
-	dueDate: { name: 'due date', translationKey: 'due-date', width: 110, sortProperty: 'dueDate' },
-	assignee: { name: 'assigned to', translationKey: 'assigned-to', width: 160, sortProperty: 'assignee.firstName' },
-	status: { name: 'status', translationKey: 'status', width: 85, sortProperty: 'status.step', sortable: false },
-	createdBy: { name: 'created by', translationKey: 'created-by', width: 160, sortProperty: 'createdBy.firstName' },
-	createdOn: { name: 'created on', translationKey: 'created-on', width: 160, sortProperty: 'creationDate' },
-};
-
-const mediumTableConfig: TableConfig = {
-	about: { name: 'about', translationKey: 'about', width: 590, sortProperty: 'name' },
-	status: { name: 'status', translationKey: 'status', width: 80, sortProperty: 'status.step', sortable: false },
-};
-
-const smallTableConfig: TableConfig = {
-	done: { name: 'done', translationKey: 'done', width: 50, sortable: false },
-	name: { name: 'name assignee', translationKey: 'name', width: 240, sortProperty: 'name' },
-	dueDate: { name: 'due date small', translationKey: 'due-date', width: 80, sortProperty: 'dueDate' },
-};
-
-const mediumSmallTableConfig: TableConfig = {
-	name: { name: 'small done name', translationKey: 'name', width: 240, sortProperty: 'name' },
-	assigneeDueDate: { name: 'assignee due date', translationKey: '', width: 180, sortable: false },
-};
 
 @Component({
 	selector: 'task-table-app',
 	templateUrl: './tasks-table.component.html',
 	styleUrls: [
 		'./tasks-table.component.scss',
-		'../../../../app/theming/specific/list.scss'
 	],
+	host: {
+		class: 'table-page'
+	},
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TasksTableComponent extends EntityTableComponent<Task> implements OnInit {
@@ -49,8 +25,18 @@ export class TasksTableComponent extends EntityTableComponent<Task> implements O
 	@Input() tableConfigType: TableConfigType = 'big';
 	@Output() openProduct = new EventEmitter<ID>();
 	@Output() openSupplier = new EventEmitter<ID>();
-
-	columns = ['done', 'reference', 'name', 'product', 'supplier', 'dueDate', 'assignee', 'status', 'createdBy', 'createdOn'];
+	columns = [
+		'logo',
+		'name',
+		'reference',
+		'product',
+		'supplier',
+		'dueDate',
+		'assignee',
+		'status',
+		'createdBy',
+		'creationDate'
+	];
 
 	constructor(
 		public translate: TranslateService,
@@ -73,6 +59,15 @@ export class TasksTableComponent extends EntityTableComponent<Task> implements O
 			case 'medium-small':
 				return mediumSmallTableConfig;
 		}
+	}
+
+	getColor(task: Task) {
+		if (task.done)
+			return Color.SUCCESS;
+		else if (this.isOverdue(task))
+			return Color.WARN;
+		else
+			return Color.SECONDARY;
 	}
 
 	isOverdue(task: Task) {

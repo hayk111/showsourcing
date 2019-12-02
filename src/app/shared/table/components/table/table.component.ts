@@ -8,20 +8,22 @@ import {
 	OnChanges,
 	Output,
 	QueryList,
-	TemplateRef,
+	TemplateRef
 } from '@angular/core';
 import { EntityName } from '~core/models';
 import { ColumnDirective } from '~shared/table/components/column.directive';
 import { Sort } from '~shared/table/components/sort.interface';
 import { TrackingComponent } from '~utils/tracking-component';
 
+// Here is a stackblitz with a smaller version of the tables to understand it more easily
+
+// https://stackblitz.com/edit/angular-vtluff?file=src/app/app.component.ts
 @Component({
 	selector: 'table-app',
 	templateUrl: './table.component.html',
 	styleUrls: ['./table.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
-		class: 'full-width',
 		'[class.scrollable-y]': 'hasVerticalScroll',
 		'[class.pending]': 'pending'
 	}
@@ -35,10 +37,6 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	@Input() hasMenu = true;
 	/** whether the table has header row */
 	@Input() hasHeader = true;
-	/** whether the table header has background color secondary */
-	@Input() headerSecondary = false;
-	/** whether the table header has bottom border */
-	@Input() hasHeaderBorder = false;
 	/** whether the table has vertical scroll */
 	@Input() hasVerticalScroll = false;
 	/** the placeholder text if no element displayed in the table */
@@ -49,12 +47,10 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	@Input() hasPaddingPagination;
 	/** whether the pagination component has show items per page */
 	@Input() hasShowItemsPerPage = true;
-	/** whether the context menu icon is horizontal dots or vertical */
-	@Input() isContextMenuHorizontal = true;
 
 	@Input() type: EntityName;
 	@Input() width: number;
-	@Input() rowHeight = 47;
+	@Input() rowHeight = 42;
 
 	/** the name of the property than uniquely identifies a row. This is used to know if a row is currently selectioned
 	so this is only useful when the table has selection enabled. */
@@ -123,21 +119,6 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 				}
 			}
 		}
-	}
-
-	// note: we don't do it on ngAfterViewInit since in some cases we have to wait for async columns (e.g. request-elements-table-app)
-	// calculate the width based on the columns width
-	getWidth() {
-		let width = 0;
-		this.columns.forEach(column => {
-			// tslint:disable-next-line: radix
-			width += typeof (column.width) === 'string' ? parseInt(column.width) : column.width;
-		});
-		return width;
-	}
-
-	getHeaderBorder(): string {
-		return this.hasHeaderBorder ? '1px solid var(--color-divider)' : 'none';
 	}
 
 	getSelectCheckboxState(): 'selectedPartial' | 'unchecked' | 'selectedAll' {

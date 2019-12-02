@@ -19,7 +19,10 @@ import { QueryBuilder } from '~core/entity-services/_global/query-builder.class'
 	providers: [
 		ListPageService,
 		DialogCommonService
-	]
+	],
+	host: {
+		class: 'table-page'
+	}
 })
 export class TasksPageComponent extends AutoUnsub implements OnInit, AfterViewInit {
 	@ViewChild(ControllerListComponent, { static: false }) controller: ControllerListComponent;

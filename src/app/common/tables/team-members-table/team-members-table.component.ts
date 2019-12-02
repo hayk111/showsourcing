@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { TeamService } from '~core/entity-services';
-import { EntityTableComponent } from '~core/list-page/entity-table.component';
+import { EntityTableComponent } from '~common/tables/entity-table.component';
 import { TeamUser, User } from '~models';
 
 

@@ -1,18 +1,16 @@
 <header-list-app
-	class="max-full-table-width"
 	[title]="'title.my-suppliers' | translate"
 	[buttonName]="'button.create-supplier' | translate"
 	(buttonClick)="dialogCommonSrv.openCreateDlg(erm.SUPPLIER)">
 </header-list-app>
 
 <controller-list-app
-	class="max-full-table-width"
+	searchType="short"
 	[hasSwitch]="true"
 	[hasFilter]="true"
 	[hasThumb]="false"
 	[view]="listSrv.view"
 	[entityType]="'SUPPLIER'"
-	searchType="short"
 	[count]="listSrv.count$ | async"
 	[filtersAmount]="listSrv.getFilterAmount([{ type: filterType.ARCHIVED, value: false }, { type: filterType.DELETED, value: false }])"
 	[searchValue]="listSrv.searchValue"
@@ -29,7 +27,6 @@
 <suppliers-table-app
 	#supplierList
 	*ngIf="listSrv.view === 'list'"
-	class="max-full-table-width"
 	[rows]="listSrv.items$ | async"
 	[currentSort]="listSrv.currentSort"
 	[selection]="listSrv.selection$ | async"

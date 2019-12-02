@@ -21,7 +21,9 @@
 			[columnApp]="column.translationKey ? ('title.' + column.translationKey | translate) : ''"
 			[sortable]="column.sortable !== false"
 			[width]="column.width"
-			[sortBy]="column.sortProperty">
+			[sortBy]="column.sortProperty"
+			[grows]="!column.fixedWidth"
+			[showOnHover]="column.showOnHover">
 			<ng-container [ngSwitch]="column.name">
 
 				<!-- export icon -->
@@ -30,9 +32,23 @@
 						<icon-app name="file" size="s"></icon-app>
 					</div>
 				</ng-container>
+				
+				<!-- type attachment for logo -->
+				<default-columns-app
+					*ngSwitchDefault
+					[row]="row" 
+					[column]="column" 
+					[hovered]="row.id === hovered"
+					[type]="'ATTACHMENT' | erm"
+					(update)="update.emit($event)"
+					(previewClick)="previewClick.emit($event)"
+					(nameClick)="open.emit($event)"
+					(previewClick)="previewClick.emit($event)"
+					(logoClick)="previewClick.emit($event)">
+				</default-columns-app>
 
 				<!-- file name -->
-				<ng-container *ngSwitchCase="'name'">
+				<ng-container *ngSwitchCase="'fileName'">
 					<div class="capitalize file-name">
 						{{ getFileName(row?.documentUrl) }}
 					</div>
@@ -48,6 +64,12 @@
 								<icon-app name="close-pane-bottom"></icon-app>
 							</button>
 						</div>
+						<button
+							class="primary"
+							[disabled]="row?.status !== 'ready'"
+							(click)="download.emit(row)">
+							<icon-app name="import"></icon-app>
+						</button>
 					</div>
 				</ng-container>
 
@@ -70,3 +92,13 @@
 		</ng-template>
 
 </table-app>
+
+<!-- contextual menu -->
+<ng-template #contextualMenuTemplate let-row="row">
+	<context-menu-item-app
+		class="pointer flexCenter"
+		(click)="download.emit(row)"
+		translate="button.download">
+	</context-menu-item-app>
+</ng-template>
+	

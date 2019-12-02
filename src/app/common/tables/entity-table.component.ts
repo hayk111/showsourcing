@@ -1,4 +1,4 @@
-import { EventEmitter, Input, Output, OnInit } from '@angular/core';
+import { EventEmitter, Input, Output, OnInit, HostBinding } from '@angular/core';
 import { Sort } from '~shared/table/components/sort.interface';
 import { TrackingComponent } from '~utils/tracking-component';
 import { ERM } from '~core/models/_erm.enum';
@@ -15,6 +15,7 @@ export interface ColumnConfig {
 	// when the table is only visible on hover
 	showOnHover?: boolean;
 	metadata?: any;
+	fixedWidth?: boolean;
 }
 
 export interface TableConfig {
@@ -48,17 +49,19 @@ export abstract class EntityTableComponent<T> extends TrackingComponent implemen
 	@Input() hasRequestCount = false;
 	tableConfig: TableConfig = undefined;
 	columnsConfig: ColumnConfig[] = [];
+	// column clicks
+	@Output() previewClick = new EventEmitter<T>();
+	@Output() open = new EventEmitter<string>();
+	// selection
 	@Output() select = new EventEmitter<any>();
 	@Output() unselect = new EventEmitter<any>();
 	@Output() selectAll = new EventEmitter<Map<string, boolean>>();
 	@Output() unselectAll = new EventEmitter<Map<string, boolean>>();
-	@Output() open = new EventEmitter<string>();
 	@Output() favorited = new EventEmitter<string>();
 	@Output() unfavorited = new EventEmitter<string>();
 	@Output() update = new EventEmitter<T>();
 	@Output() bottomReached = new EventEmitter<string>();
 	@Output() sort = new EventEmitter<Sort>();
-	@Output() previewClick = new EventEmitter<T>();
 	/** emits when a click has been performed on the placeholder */
 	@Output() createClick = new EventEmitter<null>();
 	@Output() delete = new EventEmitter<T>();
@@ -67,7 +70,9 @@ export abstract class EntityTableComponent<T> extends TrackingComponent implemen
 	@Output() next = new EventEmitter<undefined>();
 	@Output() goToPage = new EventEmitter<number>();
 	@Output() showItemsPerPage = new EventEmitter<number>();
-	erm = ERM;
+	@HostBinding('class.entity-table') entityTableClass = true;
+	/** id of the row being hovered */
+	hovered: string;
 
 	constructor() {
 		super();

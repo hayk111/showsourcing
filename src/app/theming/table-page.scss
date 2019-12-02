@@ -1,0 +1,29 @@
+
+.table-page {
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	height: 100%;
+
+	controller-list-app {
+		margin: var(--spacing-ms) var(--spacing-l) 0 var(--spacing-l);
+	}
+
+	.entity-table {
+		// remove margin from table component
+		flex-grow: 1;
+		margin: var(--spacing-ms) var(--spacing-l);
+		display: flex;
+		box-sizing: border-box;
+		height: 100%;
+	}
+
+}
+
+
+
+
+
+
+
+

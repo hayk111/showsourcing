@@ -396,13 +396,12 @@ The AutoUnsub class should be used as a standard app wise.
 ***
 
 # Translation
-Using `ngx-translate`
-Install the npm module: `npm install @ngx-translate/core --save`
 
-**USAGE**
+
+## USAGE**
 
 Import the `**TranslateModule**`:
-In other to use ngx-translate, we have to import `TranslateModule.forRoot()` in the root NgModule of the application, ours is `AppRootModule`
+In order to use ngx-translate, we have to import `TranslateModule.forRoot()` in the root NgModule of the application, ours is `AppRootModule`
 ```
 @NgModule({
     imports: [
@@ -413,7 +412,7 @@ In other to use ngx-translate, we have to import `TranslateModule.forRoot()` in 
 })
 export class AppRootModule { }
 ```
-In other components we just have to import `TranslateModule`.
+In other components we just have to import `TranslateService`.
 
 Configuration:
 By default, there is no loader available. We can add translations manually using `setTranslation` but it is better to use a loader.
@@ -498,8 +497,6 @@ In other to edit the translations, we use the `i18n-editor`, we just have to go 
 **Read more about `ngx-translate` at: [](https://github.com/ngx-translate/core)
 ***
 
-# Refactor List
-- Status selector updates, not inside the component but above. `<status-selector-app (updateStatus)="update({id: entity.id, status: $event })>`
 
 ***
 

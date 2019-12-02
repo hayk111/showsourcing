@@ -1,10 +1,8 @@
 
 <table-app
-	[class.no-min-height]="!hasMinHeight"
 	[placeholder]="'placeholder.no-product' | translate"
 	[rows]="rows"
-	[type]="'PRODUCT' | erm: true"
-	[hasVerticalScroll]="hasVerticalScroll"
+	[type]="'PRODUCT' | erm: 'singular'"
   [currentSort]="currentSort"
   [pending]="pending"
   [count]="count"
@@ -14,8 +12,6 @@
   [hasHeader]="hasHeader"
 	[hasPagination]="hasPagination"
 	[hasSelection]="hasSelection"
-	[headerSecondary]="headerSecondary"
-	[hasHeaderBorder]="hasHeaderBorder"
 	[hasShowItemsPerPage]="hasShowItemsPerPage"
   [contextualMenu]="contextualMenuTemplate"
   (goToPage)="goToPage.emit($event)"
@@ -26,146 +22,45 @@
   (selectAll)="selectAll.emit($event)"
 	(unselectAll)="unselectAll.emit()"
 	(createClick)="createClick.emit()"
-  (showItemsPerPage)="showItemsPerPage.emit($event)">
-
-  <!-- contextual menu -->
-  <ng-template #contextualMenuTemplate let-row="row">
-    <context-menu-item-app
-      (click)="setFavourite.emit(row)"
-      translate="button.set-as-favorite">
-    </context-menu-item-app>
-    <context-menu-item-app
-      (click)="openAddToProjectDialog.emit(row)"
-      translate="button.add-to-project">
-    </context-menu-item-app>
-    <context-menu-item-app
-      (click)="openAddTaskDialog.emit(row)"
-      translate="button.add-task">
-    </context-menu-item-app>
-    <context-menu-item-app
-      (click)="openAddSampleDialog.emit(row)"
-      translate="button.add-sample">
-    </context-menu-item-app>
-    <divider-app></divider-app>
-    <context-menu-item-app
-      (click)="archive.emit(row)"
-      translate="button.archive">
-    </context-menu-item-app>
-    <context-menu-item-warn-app
-      (click)="delete.emit(row)"
-      translate="button.delete">
-    </context-menu-item-warn-app>
-  </ng-template>
+	(showItemsPerPage)="showItemsPerPage.emit($event)"
+	(hovered)="hovered = $event">
 
   <!-- dynamic columns -->
   <ng-template
     *ngFor="let column of columnsConfig; trackBy: trackByFn"
     let-row="row"
-		[columnApp]="'title.' + column.translationKey | translate"
+		[columnApp]="column.translationKey ? ('title.' + column.translationKey | translate) : ''"
 		[sortable]="column.sortable !== false"
     [width]="column.width"
-    [sortBy]="column.sortProperty">
+		[sortBy]="column.sortProperty"
+		[grows]="!column.fixedWidth">
     <ng-container [ngSwitch]="column.name">
 
-      <!-- product reference -->
-      <ng-container *ngSwitchCase="'reference'">
-        <div class="ellipsis name-container contain-strict flexVAlign">
-          <div class="ellipsis flexVAlign">
-
-            <div *ngIf="hasPreview" class="preview-imgs" (click)="previewClick.emit(row)">
-              <logo-app class="mini imgCtnr"
-                [logo]="row.images[0]" size="m" type="product"></logo-app>
-              <div class="hover-img">
-                <icon-app name="eye" [size]="18" class="preview-hover-img"></icon-app>
-              </div>
-						</div>
-
-						<div *ngIf="!hasPreview">
-							<logo-app class="mini imgCtnr" [logo]="row.images[0]" size="m" type="product"></logo-app>
-						</div>
-
-            <div class="flexColumn ref-ctnr">
-              <span class="product-ref ellipsis">
-                <a class="name txt-btn" [routerLink]="['/products', row.id]">
-									{{ row.name || '-' }}
-                </a>
-              </span>
-
-              <div class="product-name-ref ellipsis">
-                  {{ row.reference || '-' }}
-              </div>
-            </div>
-
-					</div>
-
-					<button *ngIf="hasPreview" class="small secondary preview-button" (click)="previewClick.emit(row)">Preview</button>
-        </div>
-      </ng-container>
-
-      <!-- supplier -->
-      <ng-container *ngSwitchCase="'supplier'">
-        <selector-app
-					[type]="'SUPPLIER' | erm: true"
-					[hasPicker]="canUpdate"
-          [canCreate]="true"
-          [width]="370"
-          (update)="update.emit({ id: row.id, supplier: $event })">
-          <div class="ellipsis supplier-col txt-btn" [ngClass]="{ 'empty-field': !row?.supplier }">
-						{{ row?.supplier?.name || '-' }}
-					</div>
-        </selector-app>
-      </ng-container>
+			<default-columns-app 
+				*ngSwitchDefault
+				[row]="row" 
+				[column]="column" 
+				[hovered]="row.id === hovered"
+				[type]="'PRODUCT' | erm"
+				(update)="update.emit($event)"
+				(previewClick)="previewClick.emit($event)"
+				(nameClick)="open.emit($event)"
+				(logoClick)="previewClick.emit($event)">
+			</default-columns-app>
 
       <!-- category -->
       <ng-container *ngSwitchCase="'category'">
         <selector-app
-          [type]="'CATEGORY' | erm: true"
+          [type]="'CATEGORY' | erm: 'singular'"
 					[hasPicker]="canUpdate"
           [canCreate]="true"
           [width]="370"
           (update)="update.emit({ id: row.id, category: $event })">
-					<div class="ellipsis pointer txt-btn category"  [ngClass]="{ 'empty-field': !row?.category }">
+					<div class="pointer txt-btn" >
 						{{ row?.category?.name || '-' }}
 					</div>
         </selector-app>
 			</ng-container>
-
-			<!-- category + supplier -->
-
-			<ng-container *ngSwitchCase="'about'">
-        <selector-app
-          [type]="'SUPPLIER' | erm: true"
-					[hasPicker]="canUpdate"
-          [canCreate]="true"
-          [width]="370"
-          (update)="update.emit({ id: row.id, supplier: $event })">
-          <div class="ellipsis about-supplier txt-btn"  [ngClass]="{ 'empty-field': !row?.supplier }">
-						{{ row?.supplier?.name || '-' }}
-					</div>
-        </selector-app>
-        <selector-app
-          [type]="'CATEGORY' | erm: true"
-					[hasPicker]="canUpdate"
-					[canCreate]="true"
-					[width]="370"
-					(update)="update.emit({ id: row.id, category: $event })">
-					<div class="about-category pointer txt-btn"  [ngClass]="{ 'empty-field': !row?.category }">
-						<div class="ellipsis">
-							{{ row?.category?.name || '-' }}
-						</div>
-					</div>
-				</selector-app>
-			</ng-container>
-
-      <!-- activities -->
-      <ng-container *ngSwitchCase="'activities'">
-        <activities-bar-app
-          [row]="row"
-					[favorite]="row?.favorite"
-					[hasRequestCount]="hasRequestCount"
-          [votes]="row?.votes">
-        </activities-bar-app>
-      </ng-container>
 
       <!-- price -->
       <ng-container *ngSwitchCase="'price'">
@@ -174,16 +69,16 @@
 					[hasAction]="false"
 					(opened)="inp.focus()"
 					(closed)="update.emit({ id: row.id, price: inp.price })">
-					<editable-display-app [ngClass]="{ 'empty-field': row?.price }">
+					<editable-display-app>
 						<price-app
-							class="full-width"
+							class="full-width txt-btn"
 							[price]="row?.price">
 						</price-app>
 					</editable-display-app>
 					<input-price-app
 						#inp
-						(keyup.enter)="editable.close()"
-						[price]="row?.price">
+						[price]="row?.price"
+						(keyup.enter)="editable.close()">
 					</input-price-app>
 				</editable-container-app>
       </ng-container>
@@ -195,107 +90,60 @@
           [hasAction]="false"
           (opened)="inp.focus()"
           (closed)="update.emit({ id: row.id, minimumOrderQuantity: inp.value })">
-          <editable-display-app [ngClass]="{ 'empty-field': row?.price }">
+          <editable-display-app>
             <moq-app
-              *ngIf="row?.minimumOrderQuantity"
+							*ngIf="row?.minimumOrderQuantity"
+							class="txt-btn"
 							[moq]="row?.minimumOrderQuantity"
 							[moqDescription]="row?.moqDescription">
             </moq-app>
 						<div *ngIf="!row?.minimumOrderQuantity">-</div>
           </editable-display-app>
-          <input #inp inputApp type="number" [value]="row?.minimumOrderQuantity" (keyup.enter)="editable.close()"/>
+					<input #inp inputApp type="number" 
+						[value]="row?.minimumOrderQuantity" (keyup.enter)="editable.close()"/>
         </editable-container-app>
-      </ng-container>
-
-      <!-- creation date -->
-      <ng-container *ngSwitchCase="'created on'">
-        {{ row?.creationDate | date: 'dd MMMM y':'':translate.currentLang  }}
-			</ng-container>
-
-      <!-- created by -->
-      <ng-container *ngSwitchCase="'created by'">
-				{{ row?.createdBy | formatUserName: true }}
-			</ng-container>
-
-			<!-- favorite -->
-			<ng-container *ngSwitchCase="'favorite'">
-				<div>
-					<rating-heart-app
-						[favorite]="row?.favorite"
-						(favorited)="favorited.emit(row.id)"
-						(unfavorited)="unfavorited.emit(row.id)">
-					</rating-heart-app>
-				</div>
-			</ng-container>
-
-      <!-- favorite -->
-      <ng-container *ngSwitchCase="'FAV'">
-        <div>
-          <rating-heart-app
-						size="20"
-						[favorite]="row?.favorite"
-            (favorited)="favorited.emit(row.id)"
-            (unfavorited)="unfavorited.emit(row.id)">
-          </rating-heart-app>
-        </div>
       </ng-container>
 
       <!-- projects -->
       <ng-container *ngSwitchCase="'projects'">
         <div class="flexCenter">
-          <span *ngFor="let project of row.projects; trackBy: trackByFn">
+          <span *ngFor="let project of row.projects; trackBy: trackByFn" class="txt-btn">
             {{ project.name || '-' }}
           </span>
         </div>
-      </ng-container>
-
-      <!-- status -->
-      <ng-container *ngSwitchCase="'status'">
-				<div class="status-col flexVAlign">
-					<status-selector-app [entity]="row" [typeEntity]="'PRODUCT' | erm" [canUpdate]="canUpdate" selectSize="m" (statusUpdated)="update.emit($event)"></status-selector-app>
-				</div>
-			</ng-container>
-
-			<!-- name -->
-      <ng-container *ngSwitchCase="'name'">
-				<div class="flexVAlign">
-					<logo-app
-						class="mini imgCtnr"
-						[logo]="row.images[0]"
-						[color]="color.SECONDARY"
-						size="ms"
-						type="product">
-					</logo-app>
-					<span class="product-name">{{ row?.name }}</span>
-				</div>
-			</ng-container>
-
-			<!-- assignee -->
-			<ng-container *ngSwitchCase="'assignee'">
-				<selector-app
-					[type]="'USER' | erm: true"
-					[width]="320"
-					[offsetX]="4"
-					(update)="update.emit({ id: row?.id, assignee: $event })">
-					<div class="flex pointer">
-						<user-picture-app
-							*ngIf="row?.assignee"
-							[user]="row?.assignee">
-						</user-picture-app>
-						<div class="flexVAlign ellipsis pointer txt-btn" [ngClass]="{ 'empty-field': !row?.assignee }">
-							{{ row?.assignee ? (row?.assignee | formatUserName: true) : '-' }}
-						</div>
-					</div>
-				</selector-app>
-			</ng-container>
-
-      <!-- default -->
-      <ng-container *ngSwitchDefault>
-        {{ row[column.name] }}
       </ng-container>
 
     </ng-container>
   </ng-template>
 
 </table-app>
+
+<!-- contextual menu -->
+<ng-template #contextualMenuTemplate let-row="row">
+	<context-menu-item-app
+		(click)="setFavourite.emit(row)"
+		translate="button.set-as-favorite">
+	</context-menu-item-app>
+	<context-menu-item-app
+		(click)="openAddToProjectDialog.emit(row)"
+		translate="button.add-to-project">
+	</context-menu-item-app>
+	<context-menu-item-app
+		(click)="openAddTaskDialog.emit(row)"
+		translate="button.add-task">
+	</context-menu-item-app>
+	<context-menu-item-app
+		(click)="openAddSampleDialog.emit(row)"
+		translate="button.add-sample">
+	</context-menu-item-app>
+	<divider-app></divider-app>
+	<context-menu-item-app
+		(click)="archive.emit(row)"
+		translate="button.archive">
+	</context-menu-item-app>
+	<context-menu-item-warn-app
+		(click)="delete.emit(row)"
+		translate="button.delete">
+	</context-menu-item-warn-app>
+</ng-template>
 

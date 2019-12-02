@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ProductService } from '~core/entity-services';
 import { ListPageService } from '~core/list-page';
-import { EntityTableComponent } from '~core/list-page/entity-table.component';
+import { EntityTableComponent } from '~common/tables/entity-table.component';
 import { TemplateService } from '~core/template/services/template.service';
 import { Product } from '~models';
 import { Sort } from '~shared/table/components/sort.interface';

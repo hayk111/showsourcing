@@ -6,7 +6,6 @@
 	[count]="count"
 	[currentPage]="currentPage"
 	[placeholder]="'placeholder.no-data' | translate"
-	[isSimpleSelection]="false"
 	(goToPage)="goToPage.emit($event)"
 	(selectOne)="select.emit($event)"
 	(unselectOne)="unselect.emit($event)"
@@ -18,15 +17,7 @@
 	(showItemsPerPage)="showItemsPerPage.emit($event)"
 	i18n-placeholder="@@no-data">
 
-	<!-- context menu -->
-	<ng-template #contextualMenuTemplate let-row="row">
-		<context-menu-item-app
-			class="pointer flexCenter"
-			(click)="delete.emit(row)">
-			{{'button.delete' | translate}}
-		</context-menu-item-app>
-	</ng-template>
-
+	<!-- TODO dynamic columns -->
 	<!-- Name Category -->
 	<ng-template
 		*ngIf="ermEvent !== entityMetadata"
@@ -74,6 +65,10 @@
 		let-row="row"
 		width="140">
 		<span class="flexVAlign created-by-container">
+			<user-picture-app
+				[user]="row?.createdBy"
+				[image]="row?.createdBy?.avatar">
+			</user-picture-app>
 			<span class="created-by">
 				{{ row?.createdBy | formatUserName: true }}
 			</span>
@@ -83,7 +78,7 @@
 	<!-- Products Count -->
 	<ng-template
 		*ngIf="ermCategory === entityMetadata || ermTag === entityMetadata || ermSupplier === entityMetadata"
-		[columnApp]="'nav.products' | translate"
+		[columnApp]="'header.products-count' | translate"
 		let-row="row"
 		[sortable]="false"
 		width="140">
@@ -95,7 +90,7 @@
 	<!-- Supplier Count -->
 	<ng-template
 		*ngIf="ermCategory === entityMetadata || ermTag === entityMetadata"
-		[columnApp]="'nav.suppliers' | translate"
+		[columnApp]="'header.suppliers-count' | translate"
 		let-row="row"
 		[sortable]="false"
 		width="140">
@@ -107,7 +102,7 @@
 	<!-- Contacts Count -->
 	<ng-template
 		*ngIf="ermSupplier === entityMetadata"
-		[columnApp]="'header.contacts' | translate"
+		[columnApp]="'Contact count' | const: 'messages'"
 		let-row="row"
 		[sortable]="false"
 		width="140">
@@ -146,9 +141,17 @@
 		let-row="row"
 		width="160">
 		<div class="flex">
-			<button class="icon warn" (click)="delete.emit(row)">
-				<icon-app name="delete"></icon-app>
-			</button>
+			<span class="action pointer capitalize" (click)="delete.emit(row)" i18n="@@delete">delete</span>
 		</div>
 	</ng-template>
 </table-app>
+
+<!-- context menu -->
+<ng-template #contextualMenuTemplate let-row="row">
+	<context-menu-item-app
+		class="pointer flexCenter"
+		(click)="delete.emit(row)">
+		{{'button.delete' | translate}}
+	</context-menu-item-app>
+</ng-template>
+	
