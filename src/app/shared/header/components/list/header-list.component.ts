@@ -24,5 +24,6 @@ export class HeaderListComponent {
 	@Input() isModifiable = false;
 	@Input() info: string;
 	@Input() logoName: string;
+	@Input() logoColor: string;
 	@Output() update = new EventEmitter<string>();
 }
