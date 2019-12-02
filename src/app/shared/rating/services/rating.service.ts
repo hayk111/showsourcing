@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { ProductVoteService } from '~entity-services/product-vote/product-vote.service';
 import { UserService } from '~entity-services/user/user.service';
-import { Product, ProductVote } from '~models';
+import { Product, ProductVote, SupplierVote, Supplier } from '~models';
+
+type Vote = ProductVote | SupplierVote;
+type EntityWithVotes = Product | Supplier;
 
 @Injectable({ providedIn: 'root' })
 export class RatingService {
@@ -12,19 +15,19 @@ export class RatingService {
 	) { }
 
 	/**
-	 * computes the current score of the votes given a product
-	 * @param product product with votes to be computed
+	 * computes the current score of the votes given a entity
+	 * @param entity entity with votes to be computed
 	 */
-	computeScore(product: Product) {
-		return this.computeScoreVotes(product.votes || []);
+	computeScore(entity: EntityWithVotes) {
+		return this.computeScoreVotes(entity.votes || []);
 	}
 
 	/**
 	 * computes the current score of the votes given votes
-	 * @param votes array of product votes to be computed
+	 * @param votes array of entity votes to be computed
 	 * @result score of the votes per 5
 	 */
-	computeScoreVotes(votes: ProductVote[]): number {
+	computeScoreVotes(votes: Vote[]): number {
 		let score = null;
 		if (votes && votes.length) {
 			votes.forEach(vote => score += vote.value);
@@ -37,10 +40,10 @@ export class RatingService {
 	/**
 	 * computes the current score of the votes given votes
 	 * @deprecated
-	 * @param votes array of product votes to be computed
+	 * @param votes array of entity votes to be computed
 	 * @result score of the votes per 100
 	 */
-	getAvgVotes(votes: ProductVote[]): number {
+	getAvgVotes(votes: Vote[]): number {
 		if (!votes || !votes.length) {
 			return -1;
 		}
@@ -53,12 +56,12 @@ export class RatingService {
 	// Rating Star section
 
 	/**
-	 * updates a vote from the user and return the list of the votes given by a product
-	 * this function is called only when we are updating a single product, with no multiple selection involved
+	 * updates a vote from the user and return the list of the votes given by a entity
+	 * this function is called only when we are updating a single entity, with no multiple selection involved
 	 * @param votes current votes
 	 * @param value value received to update
 	 */
-	starVote(votes: ProductVote[], value: number) {
+	starVote(votes: Vote[], value: number) {
 		const voteIndex = (votes || []).findIndex(vote => vote.user && vote.user.id === this.userSrv.userSync.id);
 		let newVotes = [...votes || []];
 		if (~voteIndex) {
@@ -80,14 +83,14 @@ export class RatingService {
 	// Rating Thumb section
 
 	/**
-	 * updates a vote from the user and return the list of the votes given by a product
-	 * this function is called only when we are updating a single product, with no multiple selection involved
-	 * @param product
+	 * updates a vote from the user and return the list of the votes given by a entity
+	 * this function is called only when we are updating a single entity, with no multiple selection involved
+	 * @param entity
 	 */
-	thumbUp(product: Product) {
-		const voteIndex = (product.votes || []).findIndex(v => v.user && v.user.id === this.userSrv.userSync.id);
+	thumbUp(entity: EntityWithVotes) {
+		const voteIndex = (entity.votes || []).findIndex(v => v.user && v.user.id === this.userSrv.userSync.id);
 		// this way we dont keep the same reference
-		let newVotes = product.votes ? [...product.votes] : [];
+		let newVotes = entity.votes ? [...entity.votes] : [];
 		if (~voteIndex) { // if the user has a vote inside this product
 			const vote = newVotes[voteIndex];
 			if (vote.value === 100) // if the vote was already a thumb up, we delete
@@ -101,13 +104,13 @@ export class RatingService {
 	}
 
 	/**
-	 * updates a vote from the user and return the list of the votes given by a product
-	 * this function is called only when we are updating a single product, with no multiple selection involved
-	 * @param product
+	 * updates a vote from the user and return the list of the votes given by a entity
+	 * this function is called only when we are updating a single entity, with no multiple selection involved
+	 * @param entity
 	 */
-	thumbDown(product: Product) {
-		const voteIndex = (product.votes || []).findIndex(v => v.user && v.user.id === this.userSrv.userSync.id);
-		let newVotes = product.votes ? [...product.votes] : [];
+	thumbDown(entity: EntityWithVotes) {
+		const voteIndex = (entity.votes || []).findIndex(v => v.user && v.user.id === this.userSrv.userSync.id);
+		let newVotes = entity.votes ? [...entity.votes] : [];
 		if (~voteIndex) {
 			const vote = newVotes[voteIndex];
 			if (vote.value === 0)
@@ -121,15 +124,15 @@ export class RatingService {
 	}
 
 	/**
-	 * updates a vote from the user and return the list of the votes given by a product
-	 * this function is called only when we are updating a single product, and multiselection is involved
-	 * @param product
+	 * updates a vote from the user and return the list of the votes given by a entity
+	 * this function is called only when we are updating a single entity, and multiselection is involved
+	 * @param entity
 	 * @param isCreated if true the vote is created, if false, removed
 	 */
-	thumbUpFromMulti(product: Product, isCreated: boolean) {
-		const voteIndex = (product.votes || []).findIndex(v => v.user && v.user.id === this.userSrv.userSync.id);
-		let newVotes = product.votes ? [...product.votes] : [];
-		if (~voteIndex) { // if the user has a vote inside this product
+	thumbUpFromMulti(entity: EntityWithVotes, isCreated: boolean) {
+		const voteIndex = (entity.votes || []).findIndex(v => v.user && v.user.id === this.userSrv.userSync.id);
+		let newVotes = entity.votes ? [...entity.votes] : [];
+		if (~voteIndex) { // if the user has a vote inside this entity
 			const vote = newVotes[voteIndex];
 			if (vote.value === 0 && isCreated) // we only update a vote when it is highlighted and the previous value was thumbdown
 				this.updateVote(newVotes, voteIndex, 100);
@@ -142,14 +145,14 @@ export class RatingService {
 	}
 
 	/**
-	 * updates a vote from the user and return the list of the votes given by a product
-	 * this function is called only when we are updating a single product, and multiselection is involved
-	 * @param product
+	 * updates a vote from the user and return the list of the votes given by a entity
+	 * this function is called only when we are updating a single entity, and multiselection is involved
+	 * @param entity
 	 * @param isCreated if true the vote is created, if false, removed
 	 */
-	thumbDownFromMulti(product: Product, isCreated: boolean) {
-		const voteIndex = (product.votes || []).findIndex(v => v.user && v.user.id === this.userSrv.userSync.id);
-		let newVotes = product.votes ? [...product.votes] : [];
+	thumbDownFromMulti(entity: EntityWithVotes, isCreated: boolean) {
+		const voteIndex = (entity.votes || []).findIndex(v => v.user && v.user.id === this.userSrv.userSync.id);
+		let newVotes = entity.votes ? [...entity.votes] : [];
 		if (~voteIndex) {
 			const vote = newVotes[voteIndex];
 			if (vote.value === 100 && isCreated)
@@ -164,17 +167,17 @@ export class RatingService {
 
 
 	// Component functions
-	private updateVote(votes: ProductVote[], voteIndex: number, value: number) {
+	private updateVote(votes: Vote[], voteIndex: number, value: number) {
 		votes[voteIndex] = { ...votes[voteIndex], value };
 	}
 
-	private deleteVote(votes: ProductVote[], vote: ProductVote) {
+	private deleteVote(votes: Vote[], vote: Vote) {
 		// we decide to delete it here, since we have issue when updating empty arrays (check README)
 		this.voteSrv.delete(vote.id).subscribe();
 		return votes.filter(v => v.id !== vote.id);
 	}
 
-	private createVote(votes: ProductVote[], value: number) {
+	private createVote(votes: Vote[], value: number) {
 		const vote = new ProductVote({
 			value,
 			user: {
