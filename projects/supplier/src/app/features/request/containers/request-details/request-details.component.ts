@@ -48,7 +48,7 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 					// when we send the index to the dialog, we have to take care of how we sort
 					// since the elements on the dialog are not queries by @links.Request.requestElements.id but by request.requestElements
 					// we sort on the dialog manually request.requestElements.sort(name)
-					selectParams: { sortBy: 'name', query: `@links.Request.requestElements.id == "${id}"`, descending: false },
+					selectParams: { sortBy: 'id', query: `@links.Request.requestElements.id == "${id}"`, descending: false },
 					searchedFields: [],
 					entityMetadata: ERM.REQUEST_ELEMENT,
 					initialFilters: [],
