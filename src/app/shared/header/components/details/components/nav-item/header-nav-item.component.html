@@ -1,7 +1,6 @@
-<a class="flexVAlign" [routerLink]="[link]" routerLinkActive="active-tab" replaceUrl>
+<a class="flexVAlign default-transition" [routerLink]="[link]" routerLinkActive="active-tab" replaceUrl>
 		<icon-app [name]="icon" size="m" ></icon-app>
-		<span class="first-uppercase">{{name}}</span>
-		<div class="circle mg-left-s" *ngIf="hasBadge"></div>
-
+		<span class="first-uppercase">{{ name }}</span>
+		<badge-app *ngIf="badgeContent" class="mg-left-s" [circle]="true" color="secondary">{{ badgeContent }}</badge-app>
 		<divider-app></divider-app>
 </a>

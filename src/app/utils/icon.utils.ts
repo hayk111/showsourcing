@@ -6,39 +6,41 @@ export type Size = 'xs' | 's' | 'ms' | 'm' | 'l' | 'xl' | 'xxl';
 export class IconUtils {
 
 	static iconsMap = {
-		[EntityName.ATTACHMENT]: 'file',
 		[EntityName.ACTIVITY]: 'activity',
+		[EntityName.ATTACHMENT]: 'file',
 		[EntityName.CATEGORY]: 'category',
 		[EntityName.COMMENT]: 'comments',
 		[EntityName.CONTACT]: 'team',
 		[EntityName.EVENT]: 'event',
-		[EntityName.PRODUCT]: 'product',
-		[EntityName.PROJECT]: 'project',
-		[EntityName.SAMPLE]: 'sample',
-		[EntityName.TAG]: 'tag',
-		[EntityName.TASK]: 'check-circle',
-		[EntityName.SUPPLIER]: 'supplier',
 		[EntityName.LOCATION]: 'location',
+		[EntityName.PROJECT]: 'project',
 		[EntityName.REQUEST]: 'envelope',
 		[EntityName.REQUEST_ELEMENT]: 'envelope'
+		[EntityName.SAMPLE]: 'sample',
+		[EntityName.SUPPLIER]: 'supplier',
+		[EntityName.TAG]: 'tag',
+		[EntityName.TASK]: 'check-circle',
+		[EntityName.IMAGE]: 'camera',
+		[EntityName.PRODUCT]: 'product',
 	};
 
 	static iconsColorMap = {
-		[EntityName.ATTACHMENT]: Color.SECONDARY,
 		[EntityName.ACTIVITY]: Color.PRIMARY,
+		[EntityName.ATTACHMENT]: Color.SECONDARY,
 		[EntityName.CATEGORY]: Color.ACCENT,
 		[EntityName.COMMENT]: Color.PRIMARY,
 		[EntityName.CONTACT]: Color.SECONDARY,
 		[EntityName.EVENT]: Color.SECONDARY,
+		[EntityName.IMAGE]: Color.SECONDARY,
+		[EntityName.LOCATION]: Color.SECONDARY,
 		[EntityName.PRODUCT]: Color.PRIMARY,
 		[EntityName.PROJECT]: Color.SECONDARY,
+		[EntityName.REQUEST]: Color.SECONDARY,
+		[EntityName.REQUEST_ELEMENT]: Color.SECONDARY,
 		[EntityName.SAMPLE]: Color.ACCENT,
+		[EntityName.SUPPLIER]: Color.VIBRANT,
 		[EntityName.TAG]: Color.ACCENT,
 		[EntityName.TASK]: Color.SUCCESS,
-		[EntityName.SUPPLIER]: Color.VIBRANT,
-		[EntityName.LOCATION]: Color.SECONDARY,
-		[EntityName.REQUEST]: Color.SECONDARY,
-		[EntityName.REQUEST_ELEMENT]: Color.SECONDARY
 	};
 
 	static iconsSizeMap: { [key in Size]: { background: number, icon: number, font: number } } = {

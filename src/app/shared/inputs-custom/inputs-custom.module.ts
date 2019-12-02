@@ -8,6 +8,7 @@ import { ERMModule } from '~shared/erm/erm.module';
 import { IconsModule } from '~shared/icons';
 import { InputsModule } from '~shared/inputs';
 import { InputPriceComponent } from '~shared/inputs-custom/components/input-price/input-price.component';
+import { LogoModule } from '~shared/logo';
 import { SelectorsModule } from '~shared/selectors/selectors.module';
 import { UtilsModule } from '~shared/utils';
 
@@ -24,6 +25,7 @@ import { SelectCheckboxComponent } from './components/select-checkbox/select-che
 		ReactiveFormsModule,
 		SelectorsModule,
 		IconsModule,
+		LogoModule,
 		UtilsModule,
 		InputsModule,
 		EditableFieldModule,

@@ -11,10 +11,17 @@ import { StatusUtils } from '~utils';
 })
 export class SampleListComponent extends TrackingComponent {
 
-	@Input() samples: { count: Number, items: Array<Sample> };
+	private _samples: Sample[];
+	@Input() set samples(samples: Sample[]) {
+		this._samples = (samples || []).sort((a, b) => a.status && b.status ? a.status.step - b.status.step : 1);
+	}
+	get samples() {
+		return this._samples;
+	}
 	@Output() sampleClicked = new EventEmitter<Sample>();
 
 	statusUtils = StatusUtils;
+	displayIndex = 3;
 
 	constructor() {
 		super();

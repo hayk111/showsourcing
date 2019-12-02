@@ -25,12 +25,6 @@
 	margin-bottom: 6px;
 }
 
-.section {
-	&:not(.mg-none), h3 {
-		margin-bottom: var(--spacing-ms);
-	}
-}
-
 .supplier-container {
 	position: relative;
 	.supplier-name {
