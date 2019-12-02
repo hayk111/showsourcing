@@ -10,8 +10,10 @@ import { TrackingComponent } from '~utils/tracking-component';
 })
 export class TaskListComponent extends TrackingComponent {
 
-	@Input() tasks: { count: Number, items: Array<Task> };
+	@Input() tasks: Task[];
 	@Output() taskClicked = new EventEmitter<Task>();
+
+	displayIndex = 3;
 
 	constructor() {
 		super();

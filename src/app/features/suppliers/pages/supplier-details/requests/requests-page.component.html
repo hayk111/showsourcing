@@ -1,0 +1,31 @@
+<controller-list-app
+	[entityType]="'SUPPLIER REQUEST'"
+	[hasFilter]="false"
+	[hasSwitch]="false"
+	[hasAssigned]="false"
+	[hasArchived]="false"
+	[buttonName]="'Contact supplier'"
+	[view]="listSrv.view"
+	(search)="listSrv.search($event)"
+	(smartSearch)="listSrv.smartSearch($event)"
+	(buttonClick)="dialogCommonSrv.openSupplierRequest([], supplier)">
+</controller-list-app>
+
+<requests-table-app
+	class="no-padding"
+	[rows]="listSrv.items$ | async"
+	[selection]="listSrv.selection$ | async"
+	[pending]="listSrv.pending"
+	(goToPage)="listSrv.loadPage($event)"
+	(sort)="listSrv.sort($event)"
+	(select)="listSrv.selectOne($event, true)"
+	(unselect)="listSrv.unselectOne($event, true)"
+	(selectAll)="listSrv.selectAll($event, true)"
+	(unselectAll)="listSrv.unselectAll()"
+	(open)="listSrv.goToDetails($event)"
+	(favorited)="listSrv.onItemFavorited($event)"
+	(unfavorited)="listSrv.onItemUnfavorited($event)"
+	(previewClick)="listSrv.openPreview($event)"
+	(createClick)="openSupplierRequest()"
+	(delete)="listSrv.deleteOne($event, true)">
+</requests-table-app>

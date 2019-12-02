@@ -1,25 +1,33 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { IconsModule } from '~shared/icons/icons.module';
-import { UtilsModule } from '~shared/utils';
-import { DividerModule } from '~shared/divider/divider.module';
-import { CardModule } from '~shared/card/card.module';
 import { TranslateModule } from '@ngx-translate/core';
+import { CardModule } from '~shared/card/card.module';
+import { DividerModule } from '~shared/divider/divider.module';
+import { IconsModule } from '~shared/icons/icons.module';
 import { LoadersModule } from '~shared/loaders';
-
+import { LogoModule } from '~shared/logo';
 import {
+	NotifBoxComponent,
 	NotifComponent,
 	NotifEmptyComponent,
 	NotifItemComponent,
 	NotifLayoutComponent,
 	NotifListComponent,
 	NotifPanelComponent,
-	NotifBoxComponent
 } from '~shared/notif/components';
+import { UtilsModule } from '~shared/utils';
 
 @NgModule({
-	imports: [CommonModule, IconsModule, UtilsModule, DividerModule, CardModule, LoadersModule, TranslateModule],
-
+	imports: [
+		CommonModule,
+		IconsModule,
+		UtilsModule,
+		DividerModule,
+		CardModule,
+		LoadersModule,
+		LogoModule,
+		TranslateModule
+	],
 	declarations: [
 		NotifComponent,
 		NotifEmptyComponent,
@@ -29,7 +37,10 @@ import {
 		NotifListComponent,
 		NotifBoxComponent
 	],
-	exports: [NotifComponent, NotifBoxComponent],
+	exports: [
+		NotifComponent,
+		NotifBoxComponent
+	],
 	providers: [],
 })
 export class NotifModule { }

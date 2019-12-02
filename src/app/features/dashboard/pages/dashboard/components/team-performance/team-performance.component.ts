@@ -1,9 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { TrackingComponent } from '~utils/tracking-component';
 import { RPCActionTypes, RPCRequestStatus } from '~models';
 import { RpcService } from '~core/entity-services';
 import { ChartDataSets } from 'chart.js';
-import { Observable, of } from 'rxjs';
+import { Observable, of, TimeoutError } from 'rxjs';
 import { map, first, tap, catchError } from 'rxjs/operators';
 
 @Component({
@@ -23,10 +23,13 @@ export class TeamPerformanceComponent extends TrackingComponent implements OnIni
 	productsThisWeek = 0;
 	suppliersThisWeek = 0;
 
+	requestTimedOut = false;
+
 	@Output() inviteTeam = new EventEmitter<null>();
 
 	constructor(
-		private rpcSrv: RpcService
+		private rpcSrv: RpcService,
+		private cdr: ChangeDetectorRef
 	) {
 		super();
 	}
@@ -36,7 +39,11 @@ export class TeamPerformanceComponent extends TrackingComponent implements OnIni
 			action: RPCActionTypes.GET_TEAM_STATS,
 		}).pipe(
 				catchError(err => {
-					console.log(err);
+					if (err instanceof TimeoutError) {
+						this.requestTimedOut = true;
+						this.cdr.detectChanges();
+					}
+
 					return of();
 				}),
 				first(),
