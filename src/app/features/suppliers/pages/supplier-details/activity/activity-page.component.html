@@ -24,6 +24,7 @@
 			<comment-list-app [amountViewMore]="8" [comments]="supplier?.comments"></comment-list-app>
 		</card-app>
 	</div>
+
 	<div class="right">
 		<!-- supplier docket -->
 		<supplier-docket-app
@@ -52,7 +53,7 @@
 				[votes]="supplier?.votes"
 				[type]="erm.SUPPLIER.singular"
 				(viewRatings)="dlgCommonSrv.openVoteDetailsDialog($event)"
-				(update)="update({ votes: $event })">
+				(update)="update({ id: supplier?.id, votes: $event })">
 			</rating-dashboard-app>
 		</card-app>
 	</div>
