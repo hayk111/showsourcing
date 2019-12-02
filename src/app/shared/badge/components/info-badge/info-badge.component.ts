@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { EntityName } from '~core/models';
-import { Color, iconsColorMap } from '~utils';
+import { Color, IconUtils } from '~utils';
 
 @Component({
 	selector: 'info-badge-app',
@@ -24,7 +24,7 @@ export class InfoBadgeComponent implements OnInit {
 	}
 
 	initColor() {
-		this.infoType = this.type && iconsColorMap[this.type] ? iconsColorMap[this.type] : Color.SECONDARY;
+		this.infoType = this.type && IconUtils.iconsColorMap[this.type] ? IconUtils.iconsColorMap[this.type] : Color.SECONDARY;
 	}
 
 }

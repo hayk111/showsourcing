@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, ElementRef, Input, OnChanges, Renderer2 } from '@angular/core';
 import { AppImage, EntityName } from '~models';
-import { Colors, iconMap, iconsColorMap, iconSizeMap, log, Size } from '~utils';
+import { Colors, IconUtils, log, Size } from '~utils';
 
 @Component({
 	selector: 'logo-app',
@@ -46,7 +46,7 @@ export class LogoComponent implements OnChanges {
 	}
 
 	get computedIcon() {
-		return this.icon || iconMap[this.type];
+		return this.icon || IconUtils.iconsMap[this.type];
 	}
 
 	private renderColor() {
@@ -59,8 +59,8 @@ export class LogoComponent implements OnChanges {
 	private getComputedColor() {
 		if (this.color)
 			return this.color;
-		if (iconsColorMap[this.type])
-			return iconsColorMap[this.type];
+		if (IconUtils.iconsColorMap[this.type])
+			return IconUtils.iconsColorMap[this.type];
 		throw Error('no color or type specified in logo');
 	}
 
@@ -82,8 +82,8 @@ export class LogoComponent implements OnChanges {
 	}
 
 	private getComputedSize() {
-		if (iconSizeMap[this.size])
-			return iconSizeMap[this.size];
+		if (IconUtils.iconsSizeMap[this.size])
+			return IconUtils.iconsSizeMap[this.size];
 		throw Error(`${this.size} is not a valid size`);
 	}
 }
