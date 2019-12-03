@@ -35,7 +35,6 @@ import { TablesCommonModule } from '~common/tables/tables-common.module';
 		TeamPages.SettingsPageComponent,
 		TeamPages.MembersPageComponent,
 		TeamPages.TeamCardComponent,
-		TeamPages.SettingsTeamMembersInvitationsComponent,
 		TeamPages.SettingsTeamMembersUsersComponent,
 		// exports
 		ExportsPages.ExportsPageComponent,

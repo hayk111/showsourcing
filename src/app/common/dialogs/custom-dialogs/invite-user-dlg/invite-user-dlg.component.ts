@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { SettingsInvitationService } from '~features/settings/services/settings-invitation.service';
+import { SettingsMembersService } from '~features/settings/services/settings-members.service';
 import { DialogService } from '~shared/dialog/services';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub } from '~utils';
@@ -18,7 +18,7 @@ export class InviteUserDlgComponent extends AutoUnsub {
 	pending = false;
 
 	constructor(private dlgSrv: DialogService,
-		private invitationSrv: SettingsInvitationService,
+		private memberSrv: SettingsMembersService,
 		private fb: FormBuilder,
 		private notifSrv: NotificationService,
 		private translate: TranslateService
@@ -36,7 +36,7 @@ export class InviteUserDlgComponent extends AutoUnsub {
 			this.pending = true;
 			const { email } = this.form.value;
 
-			this.invitationSrv.createInvitation(email)
+			this.memberSrv.createInvitation(email)
 				.subscribe(() => {
 					this.pending = false;
 					const invtSent = this.translate.instant('message.your-invitation-was-sent-to');

@@ -56,6 +56,11 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub implements OnIn
 			this.user = <User>user;
 		});
 
+		this.featureSrv.invitationAdd$
+			.subscribe((invitation) => {
+				this.listSrv.combine(invitation);
+			});
+
 	}
 
 	/** Opens the dialog for inviting a new user */
