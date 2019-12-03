@@ -1,20 +1,19 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { combineLatest, Observable } from 'rxjs';
-import { filter, first, map, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { filter, first, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { SupplierStatusService } from '~core/entity-services/supplier-status/supplier-status.service';
 import { ListPageService } from '~core/list-page';
-import { NEW_STATUS_ID } from '~core/models/status.model';
 import { SupplierService } from '~entity-services';
-import { ERM, Supplier, SupplierStatus } from '~models';
+import { ERM, Supplier, SupplierStatus, EntityName } from '~models';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { FilterList, FilterType } from '~shared/filters';
 import { KanbanDropEvent } from '~shared/kanban/interfaces';
 import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.interface';
 import { KanbanService } from '~shared/kanban/services/kanban.service';
-import { translate } from '~utils';
+import { StatusUtils, translate } from '~utils';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 
 @Component({
@@ -112,7 +111,7 @@ export class SuppliersBoardComponent extends AutoUnsub implements OnInit {
 
 	// returns the query of the columns based on the parameters on the list srv and a constant query
 	private getColQuery(colId: string, filterList?: FilterList) {
-		const constQuery = colId !== NEW_STATUS_ID ?
+		const constQuery = colId !== StatusUtils.NEW_STATUS_ID ?
 			`status.id == "${colId}"` : `status == null`;
 		const predicate = filterList ? filterList.asPredicate() : this.listSrv.filterList.asPredicate();
 		return [
@@ -136,7 +135,7 @@ export class SuppliersBoardComponent extends AutoUnsub implements OnInit {
 			return;
 		}
 		// we update on the server
-		const isNewStatus = event.to.id === NEW_STATUS_ID;
+		const isNewStatus = event.to.id === StatusUtils.NEW_STATUS_ID;
 		this.supplierSrv.update({
 			id: event.item.id,
 			status: isNewStatus ? null : new SupplierStatus({ id: event.to.id })
@@ -148,7 +147,7 @@ export class SuppliersBoardComponent extends AutoUnsub implements OnInit {
 
 	/** multiple */
 	updateSupplierStatus(event: KanbanDropEvent) {
-		const isNewStatus = event.to.id === NEW_STATUS_ID;
+		const isNewStatus = event.to.id === StatusUtils.NEW_STATUS_ID;
 		const suppliers = event.items.map(id => ({
 			id,
 			status: isNewStatus ? null : new SupplierStatus({ id: event.to.id })
@@ -183,12 +182,12 @@ export class SuppliersBoardComponent extends AutoUnsub implements OnInit {
 	}
 
 	onMultipleThumbUp(isCreated) {
-		const updated = this.listSrv.onMultipleThumbUp(isCreated);
+		const updated = this.listSrv.onMultipleThumbUp(isCreated, EntityName.SUPPLIER);
 		this.kanbanSrv.updateMany(updated);
 	}
 
 	onMultipleThumbDown(isCreated) {
-		const updated = this.listSrv.onMultipleThumbDown(isCreated);
+		const updated = this.listSrv.onMultipleThumbDown(isCreated, EntityName.SUPPLIER);
 		this.kanbanSrv.updateMany(updated);
 	}
 

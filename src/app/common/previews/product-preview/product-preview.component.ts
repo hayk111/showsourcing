@@ -20,12 +20,12 @@ import {
 	ExtendedFieldDefinitionService,
 } from '~core/entity-services/extended-field-definition/extended-field-definition.service';
 import { ProductService, SampleService, TaskService } from '~entity-services';
-import { AppImage, Comment, ERM, ExtendedFieldDefinition, PreviewActionButton, Product, Sample, Task } from '~models';
+import { AppImage, Comment, ERM, ExtendedFieldDefinition, PreviewActionButton, Product, Sample, Task, EntityName } from '~models';
 import { DialogService } from '~shared/dialog/services';
 import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { PreviewCommentComponent, PreviewService } from '~shared/preview';
-import { RatingService } from '~shared/rating/services/thumbs.service';
+import { RatingService } from '~shared/rating/services/rating.service';
 import { AutoUnsub, PendingImage, translate } from '~utils';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { CloseEventType, CloseEvent } from '~shared/dialog';
@@ -270,7 +270,8 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 	}
 
 	onStarVote(number: number) {
-		this.update(this.ratingSrv.starVote(this.product.votes, number), 'votes');
+		const votes = this.ratingSrv.starVote(this.product.votes, number, EntityName.PRODUCT);
+		this.update(votes, 'votes');
 	}
 
 	updateTask(task: Task) {

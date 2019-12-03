@@ -1,19 +1,18 @@
 import {
+	AfterViewInit,
 	ChangeDetectionStrategy,
 	Component,
 	ElementRef,
 	EventEmitter,
 	Input,
-	OnInit,
 	Output,
 	QueryList,
-	ViewChildren,
 	Renderer2,
-	AfterViewInit,
+	ViewChildren,
 } from '@angular/core';
 import { UserService } from '~core/entity-services';
-import { ProductVote } from '~core/models';
 import { IconComponent } from '~shared/icons';
+import { Vote } from '~shared/rating/services/rating.service';
 
 @Component({
 	selector: 'rating-stars-action-app',
@@ -23,8 +22,8 @@ import { IconComponent } from '~shared/icons';
 })
 export class RatingStarsActionComponent implements AfterViewInit {
 
-	private _votes: ProductVote[];
-	@Input() set votes(votes: ProductVote[]) {
+	private _votes: Vote[];
+	@Input() set votes(votes: Vote[]) {
 		this._votes = votes;
 		const voteIndex = (votes || []).findIndex(v => v.user && v.user.id === this.userSrv.userSync.id);
 		if (~voteIndex) {
@@ -45,7 +44,7 @@ export class RatingStarsActionComponent implements AfterViewInit {
 
 	@ViewChildren(IconComponent, { read: ElementRef }) iconStars: QueryList<ElementRef>;
 
-	myVote: ProductVote;
+	myVote: Vote;
 	// array containing each value of a star
 	stars = Array.from({ length: 5 }, (x, i) => ((i + 1) * 20));
 	// NOTE: this is not a normal index, is an slice index, Array.slice

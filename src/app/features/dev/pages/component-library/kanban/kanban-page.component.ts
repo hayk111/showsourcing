@@ -6,7 +6,7 @@ import { ListPageService } from '~core/list-page';
 import { ERM, Product, ProductStatus } from '~core/models';
 import { FilterList } from '~shared/filters';
 import { KanbanService } from '~shared/kanban/services/kanban.service';
-import { AutoUnsub } from '~utils';
+import { AutoUnsub, StatusUtils } from '~utils';
 
 @Component({
 	selector: 'kanban-page-app',
@@ -51,7 +51,7 @@ export class KanbanPageComponent extends AutoUnsub implements OnInit {
 			}).pipe(
 				first(),
 				// adding new status
-				map(statuses => [{ id: null, name: 'New Product', category: 'new' }, ...statuses]),
+				map(statuses => [{ id: null, name: 'New Product', category: StatusUtils.DEFAULT_STATUS_CATEGORY }, ...statuses]),
 				tap(statuses => this.kanbanSrv.setColumnsFromStatus(statuses)),
 			);
 

@@ -11,7 +11,6 @@ export * from './harbour.map';
 export * from './inco-terms.const';
 export * from './inco-terms.map';
 export * from './messages.map';
-export * from './status-categories.const';
 export * from './status-categories.map';
 export * from './status-requests-supplier.map';
 export * from './status-requests-team.map';

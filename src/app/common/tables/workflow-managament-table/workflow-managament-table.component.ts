@@ -2,7 +2,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { EntityMetadata } from '~core/models';
 import { Status } from '~core/models/status.model';
-import { statusCategories } from '~utils';
+import { StatusCategory, StatusUtils } from '~utils';
 
 @Component({
 	selector: 'workflow-managament-table-app',
@@ -18,7 +18,7 @@ export class WorkflowManagamentTableComponent {
 		if (statuses) {
 			// capitalize name
 			const name = ('_New' + this.typeEntity.singular.charAt(0).toUpperCase() + this.typeEntity.singular.slice(1)).replace(' ', '');
-			this._statuses = [{ id: '-1', category: 'new', name, step: 0 }, ...statuses];
+			this._statuses = [{ id: StatusUtils.NEW_STATUS_ID, category: StatusUtils.DEFAULT_STATUS_CATEGORY, name, step: 0 }, ...statuses];
 		}
 	}
 	get statuses() {
@@ -26,7 +26,14 @@ export class WorkflowManagamentTableComponent {
 	}
 	@Output() update = new EventEmitter<Status[]>();
 	@Output() delete = new EventEmitter<string>();
-	categories = statusCategories;
+
+	categoriesContextItem = [
+		StatusCategory.PREPARATION,
+		StatusCategory.IN_PROGRESS,
+		StatusCategory.VALIDATED,
+		StatusCategory.REFUSED
+	];
+	statusUtils = StatusUtils;
 
 	onDrop(event: CdkDragDrop<string[]>) {
 		// index 0 cannot be changed
@@ -43,24 +50,6 @@ export class WorkflowManagamentTableComponent {
 			return;
 		status.name = value;
 		this.update.emit([status]);
-	}
-
-	getType(status) {
-		// by default is secondary since is the color for NEW elements
-		if (status) {
-			switch (status.category) {
-				case 'inProgress':
-					return 'in-progress';
-				case 'validated':
-					return 'success';
-				case 'refused':
-					return 'warn';
-				case 'inspiration':
-					return 'secondary-light';
-				default:
-					return 'secondary';
-			}
-		}
 	}
 
 	/** Trackby function for ngFor */

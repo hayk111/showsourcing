@@ -1,6 +1,6 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
-import { ProductVote } from '~models';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { DialogService } from '~shared/dialog/services';
+import { Vote } from '~shared/rating/services/rating.service';
 import { TrackingComponent } from '~utils/tracking-component';
 
 @Component({
@@ -11,7 +11,7 @@ import { TrackingComponent } from '~utils/tracking-component';
 })
 export class VoteDetailsDialogComponent extends TrackingComponent implements OnInit {
 
-	@Input() votes: ProductVote[];
+	@Input() votes: Vote[];
 
 	constructor(private dlgSrv: DialogService) {
 		super();
