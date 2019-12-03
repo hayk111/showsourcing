@@ -1,17 +1,4 @@
-<div class="badge">
-	<div class="badge-item" [ngClass]="statusUtils.getStatusColor(status)">
-		<div class="badge-name first-uppercase" [ngClass]="hasStatus() ? 'border' : 'new'">
-			{{ status.step ? (status.step + 1) + '. ' : '' }}
-			{{ 'text.' + status[displayAttribute] | translate }}
-		</div>
-	</div>
-</div>
-<!-- <div *ngIf="type==='list'" class="list">
-	<div class="status-item" [ngClass]="getType()" [ngStyle]="{ 'width.px': width }">
-		<div class="status-box" [ngClass]="status?.name"></div>
-		<div class="status-name first-uppercase" [ngClass]="{'new' : !hasStatus()}">
-			{{ status.step ? (status.step + 1) + '. ' : '' }}
-			{{ 'text.' + status[displayAttribute] | translate }}
-		</div>
-	</div>
-</div> -->
+<button class="capitalize big" [ngClass]="statusUtils.getStatusColor(status)">
+	{{ status.step ? (status.step) + '. ' : '' }}
+	{{ 'text.' + status[displayAttribute] | translate }}
+</button>
