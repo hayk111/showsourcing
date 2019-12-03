@@ -1,13 +1,3 @@
-:host {
-	display: flex;
-	flex-direction: column;
-	height: 100%;
-}
-
-controller-list-app, header-list-app {
-	transform: scale(1);
-  transition: 0.35s all ease;
-}
 
 selection-bar-app {
 	status-selector-app {

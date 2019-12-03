@@ -2,6 +2,7 @@
 	box-sizing: border-box;
 	white-space: nowrap;
 	font-weight: bold;
+	line-height: 1;
 
 	// colors
 	&.primary {
@@ -42,7 +43,7 @@
 		border-radius: var(--border-radius-s);
 	}
 	&.medium {
-		padding: 6px 12px;
+		padding: 6px 8px;
 		font-size: var(--font-size-s);
 		border-radius: var(--border-radius);
 		font-weight: 600;

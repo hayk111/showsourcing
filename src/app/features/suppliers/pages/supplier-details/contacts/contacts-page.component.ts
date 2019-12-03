@@ -10,7 +10,8 @@ import { AutoUnsub } from '~utils';
 	selector: 'contacts-page-app',
 	templateUrl: './contacts-page.component.html',
 	styleUrls: ['./contacts-page.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: { class: 'table-page' }
 })
 export class ContactsPageComponent extends AutoUnsub implements OnInit {
 

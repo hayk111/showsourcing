@@ -21,7 +21,8 @@ import { AutoUnsub, log } from '~utils';
 @Component({
 	selector: 'supplier-details-page-app',
 	templateUrl: './supplier-details-page.component.html',
-	styleUrls: ['./supplier-details-page.component.scss']
+	styleUrls: ['./supplier-details-page.component.scss'],
+	host: { class: 'details-page' }
 })
 export class SupplierDetailsPageComponent extends AutoUnsub implements OnInit {
 

@@ -17,15 +17,7 @@
 	(showItemsPerPage)="showItemsPerPage.emit($event)"
 	i18n-placeholder="@@no-data">
 
-	<!-- context menu -->
-	<ng-template #contextualMenuTemplate let-row="row">
-		<context-menu-item-app
-			class="pointer flexCenter"
-			(click)="delete.emit(row)">
-			{{'button.delete' | translate}}
-		</context-menu-item-app>
-	</ng-template>
-
+	<!-- TODO dynamic columns -->
 	<!-- Name Category -->
 	<ng-template
 		*ngIf="ermEvent !== entityMetadata"
@@ -153,3 +145,13 @@
 		</div>
 	</ng-template>
 </table-app>
+
+<!-- context menu -->
+<ng-template #contextualMenuTemplate let-row="row">
+	<context-menu-item-app
+		class="pointer flexCenter"
+		(click)="delete.emit(row)">
+		{{'button.delete' | translate}}
+	</context-menu-item-app>
+</ng-template>
+	

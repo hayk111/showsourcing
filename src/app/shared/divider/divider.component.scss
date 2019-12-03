@@ -1,15 +1,11 @@
 :host {
   display: block;
-  margin: 0;
-  border-top-width: 1px;
-	border-top-style: solid;
-	border-color: var(--color-divider);
+	height: 1px;
+	width: 100%;
+	background: var(--color-divider);
 
   &.vertical {
-    border-top: 0;
-    border-right-width: 1px;
-		border-right-style: solid;
-		border-color: var(--color-divider);
+		width: 1px;
   }
 
 }

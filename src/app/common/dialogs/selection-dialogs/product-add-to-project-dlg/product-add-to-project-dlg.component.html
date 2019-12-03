@@ -3,7 +3,6 @@
 	<dialog-header-app translate="Select Project"></dialog-header-app> <!-- TODO: translation to be added -->
 
 	<controller-list-app
-		[buttonName]="'button.create-project' | translate"
 		[entityType]="entityTypeEnum.PROJECT"
 		[hasFilter]="false"
 		[hasSwitch]="false"
@@ -11,9 +10,6 @@
 		[count]="listSrv.count$ | async"
 		[view]="listSrv.view"
 		[searchValue]="listSrv.searchValue"
-		[searchFullWidth]="false"
-		[subPanelDialog]="true"
-		(buttonClick)="create()"
 		(search)="listSrv.search($event)"
 		(showArchived)="listSrv.filterByArchived(true)"
 		(hideArchived)="listSrv.filterByArchived(false)"
@@ -36,8 +32,6 @@
 		[hasPagination]="false"
 		[navigation]="false"
 		[hasMenu]="false"
-		[hasHeaderBorder]="true"
-		[headerSecondary]="true"
 		[selection]="listSrv.selection$ | async"
 		[rows]="listSrv.items$ | async"
 		[pending]="listSrv.pending"

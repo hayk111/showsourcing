@@ -28,7 +28,10 @@ import { AutoUnsub } from '~utils';
 	providers: [
 		ListPageService,
 		DialogCommonService
-	]
+	],
+	host: {
+		class: 'table-page'
+	}
 })
 export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterViewInit {
 	@ViewChild('productList', { read: ElementRef, static: false })

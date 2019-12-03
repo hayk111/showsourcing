@@ -2,12 +2,13 @@
 	[class.no-min-height]="!hasMinHeight"
 	class="borderless"
 	[rows]="rows"
-	[type]="'SUPPLIER_REQUEST' | erm: true"
+	[type]="'SUPPLIER_REQUEST' | erm: 'singular'"
 	[rowHeight]="rowHeight"
 	[hasHeader]="hasHeader"
 	[hasMenu]="hasMenu"
 	[hasSelection]="hasSelection"
 	[hasPagination]="hasPagination"
+	[hasBorder]="hasBorder"
 	[pending]="pending"
 	[selected]="selection"
 	[placeholder]="'placeholder.no-requests' | translate"
@@ -36,10 +37,12 @@
 		<ng-template
 			*ngFor="let column of columnsConfig; trackBy: trackByFn"
 			let-row="row"
-			[columnApp]="'title.' + column.translationKey | translate"
+			[columnApp]="column.translationKey ? ('title.' + column.translationKey | translate) : ''"
 			[sortable]="column.sortable !== false"
 			[width]="column.width"
-			[sortBy]="column.sortProperty">
+			[sortBy]="column.sortProperty"
+			[grows]="!column.fixedWidth"
+			[showOnHover]="column.showOnHover">
 			<ng-container [ngSwitch]="column.name">
 
 				<!-- title  -->

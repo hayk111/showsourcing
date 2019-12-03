@@ -1,7 +1,6 @@
 <ng-container *ngIf="project$ | async as project; else spinner">
 
 	<controller-list-app
-		class="max-full-table-width"
 		[hasSwitch]="true"
 		[filtersAmount]="listSrv.getFilterAmount([{ type: filterTypeEnum.ARCHIVED, value: false }, { type: filterTypeEnum.DELETED, value: false }])"
 		[hasFilter]="true"
@@ -32,7 +31,6 @@
 
 		<products-table-app
 			*ngIf="listSrv.view === 'list'"
-			class="max-full-table-width"
 			[selection]="listSrv.selection$ | async"
 			[rows]="listSrv.items$ | async"
 			[pending]="listSrv.pending"
@@ -63,7 +61,6 @@
 			infiniScroll
 			cdk-scrollable
 			*ngIf="listSrv.view === 'card'"
-			class="max-full-table-width"
 			[currentSort]="listSrv.currentSort"
 			[rows]="listSrv.items$ | async"
 			[selection]="listSrv.selection$ | async"

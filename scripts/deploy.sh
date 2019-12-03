@@ -41,7 +41,7 @@ if [ -z "$ENDPOINT" ]; then
 
 		# DISPLAY OPTIONS
 		for I in 1 2 3 4; do
-				echo "$I) ${APP_ENDPOINTS[I]}"
+			echo "$I) ${APP_ENDPOINTS[I]}"
 		done
 		read n_epoint
 		ENDPOINT=${APP_ENDPOINTS[n_epoint]}

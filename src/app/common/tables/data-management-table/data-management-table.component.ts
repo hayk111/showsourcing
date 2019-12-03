@@ -1,15 +1,22 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { EntityTableComponent } from '~core/list-page/entity-table.component';
+import { EntityTableComponent, TableConfig } from '~common/tables/entity-table.component';
 import { EntityMetadata, ERM } from '~models';
 import { TranslateService } from '@ngx-translate/core';
+import { defaultConfig } from '../default-columns/default-config';
+
+
+const tableConfig: TableConfig = {
+	...defaultConfig,
+	action: { name: 'action', translationKey: 'action', width: 120, fixedWidth: true }
+};
 
 @Component({
 	selector: 'data-management-table-app',
-	templateUrl: './data-mananagement-table.component.html',
-	styleUrls: ['./data-mananagement-table.component.scss'],
+	templateUrl: './data-management-table.component.html',
+	styleUrls: ['./data-management-table.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DataMananagementTableComponent extends EntityTableComponent<any> {
+export class DataManagementTableComponent extends EntityTableComponent<any> {
 	@Input() entityMetadata: EntityMetadata;
 	@Output() renameEntity = new EventEmitter<any>();
 	@Output() showItemsPerPage = new EventEmitter<number>();
@@ -19,6 +26,15 @@ export class DataMananagementTableComponent extends EntityTableComponent<any> {
 	ermSupplier = ERM.SUPPLIER;
 	ermEvent = ERM.EVENT;
 	idEntityHovered: string;
+	tableConfig: TableConfig = tableConfig;
+	columns = [
+		'name',
+		'createdBy',
+		'productCount',
+		'supplierCount',
+		'action',
+	];
+
 
 	constructor(public translate: TranslateService) { super(); }
 

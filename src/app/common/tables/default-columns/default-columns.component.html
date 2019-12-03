@@ -1,0 +1,143 @@
+<ng-container [ngSwitch]="column.name">
+
+	<!-- logo -->
+	<ng-container *ngSwitchCase="'logo'">
+		<logo-app 
+			size="s" 
+			[logo]="row.images && row.images[0]" 
+			[color]="logoColor"
+			[type]="type.singular" 	
+			(click)="onLogoClick(row)">
+		</logo-app>
+	</ng-container>
+
+	<!-- name -->
+	<ng-container *ngSwitchCase="'name'">
+		<a class="txt-btn" (click)="onNameClick(row)"> 
+			{{ row.name || '-' }}
+		</a>
+	</ng-container>
+	
+	<!-- reference -->
+	<ng-container *ngSwitchCase="'reference'">
+		<span class="txt-btn">{{ row.reference || '-' }}</span>
+	</ng-container>
+
+	<!-- preview -->
+	<ng-container *ngSwitchCase="'preview'">
+		<button *ngIf="hovered" class="secondary small" (click)="previewClick.emit(row)">
+			Preview
+		</button>
+	</ng-container>
+
+	<!-- favorite -->
+	<ng-container *ngSwitchCase="'favorite'">
+		<rating-heart-app
+			[favorite]="row?.favorite"
+			(favorited)="update.emit({ id: row.id, favorite: true })"
+			(unfavorited)="update.emit({ id: row.id, favorite: false })">
+		</rating-heart-app>
+	</ng-container>
+
+	<!-- rating -->
+	<ng-container *ngSwitchCase="'rating'">
+		<rating-badge-app [votes]="row?.votes"></rating-badge-app>
+	</ng-container>
+
+	<!-- status -->
+	<ng-container *ngSwitchCase="'status'">
+		<status-selector-app 
+			selectSize="m" 
+			[entity]="row" 
+			[typeEntity]="type" 
+			(statusUpdated)="update.emit($event)">
+		</status-selector-app>
+	</ng-container>
+
+	<!-- assignee -->
+	<ng-container *ngSwitchCase="'assignee'">
+		<selector-app
+			[type]="'USER' | erm"
+			[width]="320"
+			[offsetX]="4"
+			(update)="update.emit({ id: row?.id, assignee: $event })">
+			<div class="flex pointer">
+				<user-picture-app
+					*ngIf="row?.assignee"
+					class="mg-right-s"
+					[user]="row?.assignee">
+				</user-picture-app>
+				<div class="flexVAlign ellipsis pointer txt-btn">
+					{{ row?.assignee ? (row?.assignee | formatUserName: true) : '-' }}
+				</div>
+			</div>
+		</selector-app>
+	</ng-container>
+
+	<!-- creation date -->
+	<ng-container *ngSwitchCase="'creationDate'">
+		{{ row?.creationDate | date: 'dd MMMM y':'':translate.currentLang  }}
+	</ng-container>
+
+	<!-- created by -->
+	<ng-container *ngSwitchCase="'createdBy'">
+		<div class="flexVAlign">
+			<user-picture-app
+				*ngIf="row?.createdBy"
+				class="mg-right-s"
+				[user]="row?.createdBy">
+			</user-picture-app>
+			<span>{{ row?.createdBy | formatUserName: true }}</span>
+		</div>
+	</ng-container>
+
+	
+	<!-- due date -->
+	<ng-container *ngSwitchCase="'dueDate'">
+		<editable-container-app #edt 
+			(closed)="update.emit({ id: row.id, dueDate: inp.value })">
+			<editable-display-app>
+				{{ row?.dueDate ? (row?.dueDate | date: 'dd MMM y':'':translate.currentLang) : '-' }}
+			</editable-display-app>
+			<input #inp inputApp type="date" (keyup.enter)="edt.close()">
+		</editable-container-app>
+	</ng-container>
+
+	<!-- product count -->
+	<ng-container *ngSwitchCase="'productCount'">
+		{{ row.productsLinked.count }}
+	</ng-container>
+
+	<!-- task count -->
+	<ng-container *ngSwitchCase="'taskCount'">
+		{{ row.tasksLinked.count }}
+	</ng-container>
+
+	<!-- sample count -->
+	<ng-container *ngSwitchCase="'sampleCount'">
+		{{ row.samplesLinked.count }}
+	</ng-container>
+
+	<!-- product -->
+	<ng-container *ngSwitchCase="'product'">
+		<selector-app
+			type="product"
+			[offsetX]="4"
+			[width]="350"
+			(update)="update.emit({ id: row?.id, product: $event })">
+			<span class="txt-btn">{{ row?.product?.name || '-'}}</span>
+		</selector-app>
+	</ng-container>
+
+	<!-- supplier -->
+	<ng-container *ngSwitchCase="'supplier'">
+		<selector-app
+			type="supplier"
+			[width]="350"
+			[offsetX]="4"
+			(update)="update.emit({ id: row?.id, supplier: $event })">
+			<span class="txt-btn">{{ row?.supplier?.name || '-'}}</span>
+		</selector-app>
+	</ng-container>
+
+</ng-container>

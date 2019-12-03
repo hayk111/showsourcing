@@ -2,31 +2,29 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Output, TemplateRef, 
 import { EntityTableComponent, TableConfig } from '~core/list-page';
 import { ERM, ExportRequest } from '~core/models';
 import { TranslateService } from '@ngx-translate/core';
+import { defaultConfig } from '../default-columns/default-config';
 
 type ExportStatus = 'ready' | 'pending' | 'processing' | 'failed' | 'done' | 'error';
 
 const tableConfig: TableConfig = {
-	name: { name: 'name', translationKey: 'file-name', width: 190, sortProperty: 'documentUrl' },
+	...defaultConfig,
+	fileName: { name: 'fileName', translationKey: 'file-name', width: 190, sortProperty: 'documentUrl' },
 	status: { name: 'status', translationKey: 'status', width: 150, sortProperty: 'status' },
 	download: { name: 'download', translationKey: 'action', width: 100, sortable: false },
-	createdBy: { name: 'created by', translationKey: 'created-by', width: 190, sortProperty: 'createdBy.firstName' },
-	createdOn: { name: 'created on', translationKey: 'created-on', width: 190, sortProperty: 'creationDate' },
 };
 
 @Component({
-	selector: 'export-table-app',
-	templateUrl: './export-table.component.html',
+	selector: 'exports-table-app',
+	templateUrl: './exports-table.component.html',
 	styleUrls: [
-		'./export-table.component.scss',
-		'../../../../../../theming/specific/list.scss'
+		'./exports-table.component.scss',
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExportTableComponent extends EntityTableComponent<ExportRequest> {
-	columns = ['name', 'status', 'download', 'createdBy', 'createdOn'];
-	@Output() download = new EventEmitter<ExportRequest>();
+	columns = ['logo', 'fileName', 'status',  'createdBy', 'creationDate', 'download'];
 	@Output() showItemsPerPage = new EventEmitter<number>();
-
+	@Output() download = new EventEmitter<ExportRequest>();
 	@ViewChild('contextualMenu', { static: false }) contextualMenuTemplate: TemplateRef<any>;
 
 	erm = ERM;
