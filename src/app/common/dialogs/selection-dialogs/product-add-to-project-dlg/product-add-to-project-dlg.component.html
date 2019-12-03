@@ -10,6 +10,7 @@
 		[count]="listSrv.count$ | async"
 		[view]="listSrv.view"
 		[searchValue]="listSrv.searchValue"
+		[filtersPanelOpened]="listSrv.filterPanelOpen"
 		(search)="listSrv.search($event)"
 		(showArchived)="listSrv.filterByArchived(true)"
 		(hideArchived)="listSrv.filterByArchived(false)"
