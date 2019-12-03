@@ -67,9 +67,10 @@ export class DynamicEditableTextComponent extends AbstractInput {
 	}
 
 	onClose(isCancel) {
-		if (!isCancel) {
+		if (!isCancel) 
 			this.onSave();
-		}
+		else
+			this.onCancel();
 	}
 
 	/** saving the value */

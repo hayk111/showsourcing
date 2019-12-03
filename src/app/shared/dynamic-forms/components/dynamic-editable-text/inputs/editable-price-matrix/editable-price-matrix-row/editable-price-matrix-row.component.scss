@@ -18,9 +18,6 @@
 		width: 50%;
 		display: flex;
 		font-size: var(--font-size-m);
-		&:hover {
-			color: var(--color-primary);
-		}
 	}
 
 	.value {
@@ -28,9 +25,6 @@
 		width: 50%;
 		display: flex;
 		color: var(--color-txt-secondary);
-		&:hover {
-			color: var(--color-primary);
-		}
 		editable-display-app {
 			justify-content: flex-end;
 		}
