@@ -7,6 +7,10 @@
 		cursor: default;
 	}
 
+	&.pointer icon-app{
+		cursor: pointer;
+	}
+
 	&.circle {
 		border-radius: 50%;
 	}
