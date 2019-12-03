@@ -7,6 +7,7 @@
 	[view]="listSrv.view"
 	[buttonName]="'create task'"
 	[count]="listSrv.count$ | async"
+	[filtersPanelOpened]="listSrv.filterPanelOpen"
 	(search)="listSrv.search($event)"
 	(showFilters)="listSrv.openFilterPanel()"
 	(showArchived)="listSrv.filterByArchived(true)"
@@ -14,8 +15,7 @@
 	(showAssigned)="listSrv.filterByAssignee(true)"
 	(hideAssigned)="listSrv.filterByAssignee(false)"
 	(smartSearch)="listSrv.smartSearch($event)"
-	(buttonClick)="openCreationTaskDlg(undefined, supplier)"
-	[filtersPanelOpened]="listSrv.filterPanelOpen">
+	(buttonClick)="openCreationTaskDlg(undefined, supplier)">
 </controller-list-app>
 
 <task-table-app

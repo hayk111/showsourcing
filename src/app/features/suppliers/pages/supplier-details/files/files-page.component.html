@@ -7,10 +7,10 @@
 	[hasArchived]="false"
 	[buttonName]="'Add file'"
 	[view]="listSrv.view"
+	[filtersPanelOpened]="listSrv.filterPanelOpen"
 	(search)="listSrv.search($event)"
 	(smartSearch)="listSrv.smartSearch($event)"
-	(buttonClick)="table.openFileBrowser()"
-	[filtersPanelOpened]="listSrv.filterPanelOpen">
+	(buttonClick)="table.openFileBrowser()">
 </controller-list-app>
 
 <attachments-table-app

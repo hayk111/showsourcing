@@ -15,8 +15,9 @@
 	[view]="listSrv.view"
 	[count]="listSrv.count$ | async"
 	[entityType]="'SAMPLE'"
-	searchType="short"
+	[searchType]="'short'"
 	[searchValue]="listSrv.searchValue"
+	[filtersPanelOpened]="listSrv.filterPanelOpen"
 	(search)="listSrv.search($event)"
 	(clearFilters)="onClearFilters()"
 	(showArchived)="listSrv.filterByArchived(false)"
@@ -25,8 +26,7 @@
 	(hideAssigned)="listSrv.filterByAssignee(false)"
 	(export)="dialogCommonSrv.openExportDialog()"
 	(showFilters)="listSrv.openFilterPanel()"
-	(viewChange)="onViewChange($event)"
-	[filtersPanelOpened]="listSrv.filterPanelOpen">
+	(viewChange)="onViewChange($event)">
 </controller-list-app>
 
 <samples-table-app

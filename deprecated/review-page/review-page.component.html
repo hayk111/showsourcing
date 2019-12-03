@@ -1,8 +1,8 @@
 <controller-list-app
   [hasSwitch]="false"
   [hasFilter]="false"
-  (search)="listSrv.search($event)"
-  [filtersPanelOpened]="listSrv.filterPanelOpen">
+  [filtersPanelOpened]="listSrv.filterPanelOpen"
+  (search)="listSrv.search($event)">
 
   <products-review-sorting-menu-app
     [currentSort]="listSrv.currentSort"

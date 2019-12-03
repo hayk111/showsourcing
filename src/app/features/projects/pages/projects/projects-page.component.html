@@ -15,13 +15,13 @@
   [hasFilter]="false"
   [filtersAmount]="listSrv.filterList.asFilters()?.length"
 	[searchValue]="listSrv.searchValue"
+	[filtersPanelOpened]="listSrv.filterPanelOpen"
 	(showArchived)="listSrv.filterByArchived(true)"
 	(hideArchived)="listSrv.filterByArchived(false)"
 	(showAssigned)="listSrv.filterByAssignee(true)"
 	(hideAssigned)="listSrv.filterByAssignee(false)"
   (search)="listSrv.search($event)"
-	(showFilters)="listSrv.openFilterPanel()" 
-	[filtersPanelOpened]="listSrv.filterPanelOpen">
+	(showFilters)="listSrv.openFilterPanel()" >
 </controller-list-app>
 
 <ng-container *ngIf="listSrv.isListening">

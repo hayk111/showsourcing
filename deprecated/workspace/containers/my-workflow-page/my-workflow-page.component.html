@@ -3,10 +3,10 @@
   [hasFilter]="true"
   [entityType]="'PRODUCT'"
   [filtersAmount]="listSrv.filterList.asFilters().length"
-  (showFilters)="listSrv.openFilterPanel()"
   [searchValue]="listSrv.searchValue"
-  (search)="listSrv.search($event)"
-  [filtersPanelOpened]="listSrv.filterPanelOpen">
+  [filtersPanelOpened]="listSrv.filterPanelOpen"
+  (showFilters)="listSrv.openFilterPanel()"
+  (search)="listSrv.search($event)">
 </controller-list-app>
 
 <kanban-app

@@ -1,12 +1,13 @@
 <controller-list-app
 	class="max-full-table-width"
-	buttonName="create sample"
+	[buttonName]="'create sample'"
 	[entityType]="erm.SAMPLE.singular"
 	[hasFilter]="true"
 	[hasSwitch]="false"
 	[count]="listSrv.count$ | async"
 	[entityType]="'SAMPLE'"
 	[view]="listSrv.view"
+	[filtersPanelOpened]="listSrv.filterPanelOpen"
 	(showFilters)="listSrv.openFilterPanel()"
 	(showArchived)="listSrv.filterByArchived(true)"
 	(hideArchived)="listSrv.filterByArchived(false)"
@@ -15,8 +16,7 @@
 	(search)="listSrv.search($event)"
 	(smartSearch)="listSrv.smartSearch($event)"
 	(export)="dialogCommonSrv.openExportDialog()"
-	(buttonClick)="dialogCommonSrv.openCreationSampleDialog(undefined, supplier)"
-	[filtersPanelOpened]="listSrv.filterPanelOpen">
+	(buttonClick)="dialogCommonSrv.openCreationSampleDialog(undefined, supplier)">
 </controller-list-app>
 
 <samples-table-app

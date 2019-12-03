@@ -19,9 +19,10 @@
 	[view]="listSrv.view"
 	[count]="listSrv.count$ | async"
 	[entityType]="'TASK'"
-	searchType="short"
+	[searchType]="'short'"
 	[searchValue]="listSrv.searchValue"
 	[ngStyle]="tableWidth && {'width': getSubPanelWidth()}"
+	[filtersPanelOpened]="listSrv.filterPanelOpen"
 	(search)="listSrv.search($event)"
 	(clearFilters)="listSrv.filterList.resetAll()"
 	(showAssigned)="listSrv.filterByAssignee(true)"
@@ -32,8 +33,7 @@
 	(hideTasksCompleted)="listSrv.filterByDone(true)"
 	(export)="dialogCommonSrv.openExportDialog()"
 	(showFilters)="listSrv.openFilterPanel()"
-	(viewChange)="onViewChange($event)"
-	[filtersPanelOpened]="listSrv.filterPanelOpen">
+	(viewChange)="onViewChange($event)">
 </controller-list-app>
 
 <task-table-app

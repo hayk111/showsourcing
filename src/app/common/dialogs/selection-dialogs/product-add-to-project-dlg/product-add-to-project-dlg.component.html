@@ -10,12 +10,12 @@
 		[count]="listSrv.count$ | async"
 		[view]="listSrv.view"
 		[searchValue]="listSrv.searchValue"
+		[filtersPanelOpened]="listSrv.filterPanelOpen"
 		(search)="listSrv.search($event)"
 		(showArchived)="listSrv.filterByArchived(true)"
 		(hideArchived)="listSrv.filterByArchived(false)"
 		(showAssigned)="listSrv.filterByAssignee(true)"
-		(hideAssigned)="listSrv.filterByAssignee(false)"
-		[filtersPanelOpened]="listSrv.filterPanelOpen">
+		(hideAssigned)="listSrv.filterByAssignee(false)">
 
 		<controller-list-left-item-app class="flex">
 			<div class="flex show-my-samples">

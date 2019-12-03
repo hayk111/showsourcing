@@ -56,8 +56,8 @@
 	[hasAssigned]="false"
 	[hasArchived]="false"
 	[entityType]="erm.singular"
-	(search)="listSrv.search($event)"
-	[filtersPanelOpened]="listSrv.filterPanelOpen">
+	[filtersPanelOpened]="listSrv.filterPanelOpen"
+	(search)="listSrv.search($event)">
 	<controller-list-right-item-app>
 		<div class="flex" *ngIf="(listSrv.selection$ | async).size > 0">
 			<button class="delete-selected button warn capitalize" (click)="listSrv.deleteSelected(true)">Delete Selected</button> <!-- TODO: translation to be added-->

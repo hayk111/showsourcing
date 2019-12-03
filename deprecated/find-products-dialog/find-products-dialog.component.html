@@ -6,9 +6,9 @@
     <controller-list-app
       [hasSwitch]="false"
       [hasFilter]="false"
+      [filtersPanelOpened]="listSrv.filterPanelOpen"
       (search)="listSrv.search($event)"
-      (smartSearch)="listSrv.smartSearch($event)"
-      [filtersPanelOpened]="listSrv.filterPanelOpen">
+      (smartSearch)="listSrv.smartSearch($event)">
 
       <search-autocomplete-app [xPosition]="0" [yPosition]="35" [width]="386">
         <search-autocomplete-item-app *ngFor="let element of (listSrv.smartSearchFilterElements$ | async);trackBy: trackByFn">

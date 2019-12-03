@@ -14,6 +14,7 @@
 	[count]="listSrv.count$ | async"
 	[filtersAmount]="listSrv.getFilterAmount([{ type: filterType.ARCHIVED, value: false }, { type: filterType.DELETED, value: false }])"
 	[searchValue]="listSrv.searchValue"
+	[filtersPanelOpened]="listSrv.filterPanelOpen"
 	(showFilters)="listSrv.openFilterPanel()"
 	(clearFilters)="onClearFilters()"
 	(showArchived)="listSrv.filterByArchived(true)"
@@ -21,8 +22,7 @@
 	(showAssigned)="listSrv.filterByAssignee(true)"
 	(hideAssigned)="listSrv.filterByAssignee(false)"
 	(viewChange)="onViewChange($event)"
-	(search)="listSrv.search($event)"
-	[filtersPanelOpened]="listSrv.filterPanelOpen">
+	(search)="listSrv.search($event)">
 </controller-list-app>
 
 <suppliers-table-app

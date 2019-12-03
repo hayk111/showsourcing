@@ -2,8 +2,9 @@
 	[hasFilter]="false"
 	[hasSwitch]="false"
 	[searchValue]="listSrv.searchValue"
-	(search)="listSrv.search($event)"
-	[filtersPanelOpened]="listSrv.filterPanelOpen">
+	[filtersPanelOpened]="listSrv.filterPanelOpen"
+	(search)="listSrv.search($event)">
+	
 	<controller-list-right-item-app>
 
 		<div class="flexCenter show-my-tasks">

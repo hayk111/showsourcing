@@ -9,6 +9,7 @@
 		[searchValue]="listSrv.searchValue"
 		[view]="listSrv.view"
 		[count]="listSrv.count$ | async"
+		[filtersPanelOpened]="listSrv.filterPanelOpen"
 		(showFilters)="listSrv.openFilterPanel()"
 		(clearFilters)="onClearFilters()"
 		(showArchived)="listSrv.filterByArchived(true)"
@@ -17,8 +18,7 @@
 		(hideAssigned)="listSrv.filterByAssignee(false)"
 		(search)="listSrv.search($event)"
 		(export)="dialogCommonSrv.openExportDialog(listSrv.getSelectedValues())"
-		(viewChange)="listSrv.changeView($event)"
-		[filtersPanelOpened]="listSrv.filterPanelOpen">
+		(viewChange)="listSrv.changeView($event)">
 
 		<controller-list-right-item-app>
 			<product-sorting-menu-app

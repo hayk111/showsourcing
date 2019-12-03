@@ -5,10 +5,11 @@
 		[hasFilter]="true"
 		[filtersAmount]="listSrv.getFilterAmount([{ type: filterType.ASSIGNEE }, { type: filterType.DELETED, value: false }])"
 		[view]="'card'"
+		[filtersPanelOpened]="listSrv.filterPanelOpen"
 		(showFilters)="listSrv.openFilterPanel()"
 		(search)="listSrv.search($event, false)"
-		(viewChange)="goToList()"
-		[filtersPanelOpened]="listSrv.filterPanelOpen">
+		(viewChange)="goToList()">
+		
 		<controller-list-left-item-app>
 			<div class="flex show-my-samples">
 				<checkbox-app

@@ -20,10 +20,10 @@
 	[hasAssigned]="false"
 	[hasMyExport]="true"
 	[searchValue]="listSrv.searchValue"
+	[filtersPanelOpened]="listSrv.filterPanelOpen"
 	(search)="listSrv.search($event)"
 	(showMyExport)="toggleMyExports(true)"
-	(hideMyExport)="toggleMyExports(false)"
-	[filtersPanelOpened]="listSrv.filterPanelOpen">
+	(hideMyExport)="toggleMyExports(false)">
 </controller-list-app>
 
 <exports-table-app

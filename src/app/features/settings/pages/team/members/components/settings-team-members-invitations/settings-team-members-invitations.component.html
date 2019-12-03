@@ -13,8 +13,8 @@
 	[hasArchived]="false"
 	[hasAssigned]="false"
 	[count]="listSrv.count$ | async"
-	(search)="listSrv.search($event)"
-	[filtersPanelOpened]="listSrv.filterPanelOpen">
+	[filtersPanelOpened]="listSrv.filterPanelOpen"
+	(search)="listSrv.search($event)">
 
 	<controller-list-right-item-app>
 		<div toolTip [toolTipMessage]="getToolTipMsg()" toolTipPosition="above-right">
