@@ -5,7 +5,6 @@
 	[entityType]="'TASK'"
 	[view]="listSrv.view"
 	[count]="listSrv.count$ | async"
-	[filtersPanelOpened]="listSrv.filterPanelOpen"
 	(search)="listSrv.search($event)"
 	(showFilters)="listSrv.openFilterPanel()"
 	(showArchived)="listSrv.filterByArchived(true)"

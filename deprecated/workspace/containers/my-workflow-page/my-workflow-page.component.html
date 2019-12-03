@@ -3,9 +3,8 @@
   [hasFilter]="true"
   [entityType]="'PRODUCT'"
   [filtersAmount]="listSrv.filterList.asFilters().length"
-  [searchValue]="listSrv.searchValue"
-  [filtersPanelOpened]="listSrv.filterPanelOpen"
   (showFilters)="listSrv.openFilterPanel()"
+  [searchValue]="listSrv.searchValue"
   (search)="listSrv.search($event)">
 </controller-list-app>
 
