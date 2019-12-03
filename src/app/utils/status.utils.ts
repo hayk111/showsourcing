@@ -37,10 +37,10 @@ export class StatusUtils {
 	static DEFAULT_STATUS_CATEGORY = StatusCategory.NEW;
 
 	static getStatusColor(status: Status) {
-		if (!status || !StatusUtils.statusColorMap[status.category])
-			return StatusUtils.DEFAULT_STATUS_COLOR;
+		if (status && StatusUtils.statusColorMap[status.category])
+			return StatusUtils.statusColorMap[status.category];
 		else
-			return StatusUtils.DEFAULT_STATUS_COLOR[status.category];
+			return StatusUtils.DEFAULT_STATUS_COLOR;
 	}
 
 }
