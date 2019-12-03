@@ -1,15 +1,21 @@
-<div class="preview-project flexVAlign" *ngFor="let project of projects; trackBy: trackById">
-	<context-menu-app>
-		<context-menu-trigger-app class="flex">
-			<icon-app
-				class="pointer"
-				[name]="'project'"
-				[size]="12">
-			</icon-app>
-			<span class="ellipsis txt-btn">{{ project.name }}</span>
-		</context-menu-trigger-app>
-		<context-menu-item-app translate="button.open" (click)="openProject.emit(project)"></context-menu-item-app>
-		<divider-app></divider-app>
-		<context-menu-item-warn-app translate="button.delete" (click)="deleteProject.emit(project)"></context-menu-item-warn-app>
-	</context-menu-app>
-</div>
+<ng-container *ngIf="projects?.length; else noProjects">
+	<div class="preview-project flexVAlign" *ngFor="let project of projects; trackBy: trackById">
+		<context-menu-app>
+			<context-menu-trigger-app class="flex">
+				<icon-app
+					class="pointer"
+					[name]="'project'"
+					[size]="12">
+				</icon-app>
+				<span class="ellipsis txt-btn">{{ project.name }}</span>
+			</context-menu-trigger-app>
+			<context-menu-item-app translate="button.open" (click)="openProject.emit(project)"></context-menu-item-app>
+			<divider-app></divider-app>
+			<context-menu-item-warn-app translate="button.delete" (click)="deleteProject.emit(project)"></context-menu-item-warn-app>
+		</context-menu-app>
+	</div>
+</ng-container>
+
+<ng-template #noProjects>
+	<span>None</span>
+</ng-template>
