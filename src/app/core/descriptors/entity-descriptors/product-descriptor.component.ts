@@ -52,7 +52,7 @@ export class ProductDescriptor extends AbstractDescriptorComponent {
 				target: ERM.CATEGORY.singular,
 				canCreate: true,
 				multiple: false,
-				hasBadge: true
+				hasBadge: false
 			}
 		},
 		{
