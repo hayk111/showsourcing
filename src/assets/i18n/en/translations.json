@@ -649,7 +649,7 @@
     "create-another": "Create another",
     "create-new-team": "Create a new team",
     "current-pwd": "Current Password",
-    "dimension-unit": "Dimension units",
+    "dimension-unit": "Dimension unit",
     "due-date": "due date",
     "email": "Email",
     "first-name": "First name",
@@ -707,6 +707,7 @@
     "unnamed-product": "Unnamed product",
     "view": "view",
     "weight": "Weight",
+    "weight-unit": "Weight unit",
     "width": "Width"
   },
   "lable": {
