@@ -11,6 +11,9 @@ import { AutoUnsub } from '~utils/auto-unsub.component';
 	selector: 'files-page-app',
 	templateUrl: './files-page.component.html',
 	styleUrls: ['./files-page.component.scss'],
+	host: {
+		class: 'table-page'
+	}
 })
 export class FilesPageComponent extends AutoUnsub implements OnInit {
 

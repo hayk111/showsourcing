@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Task } from '~core/models';
-import { TaskStatus } from '~core/models/status.model';
 import { TranslateService } from '@ngx-translate/core';
+import { Task } from '~core/models';
+import { TaskStatus } from '~utils';
 
 @Component({
 	selector: 'banner-task-app',

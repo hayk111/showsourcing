@@ -1,0 +1,12 @@
+<selection-bar-app
+	entityName="sample"
+	[count]="count"
+	[isShown]="isShown"
+	[selection]="selection"
+	(close)="close.emit()">
+
+	<button class="icon light" (click)="deleteSelected.emit()">
+		<icon-app name="trash"></icon-app>
+	</button>
+
+</selection-bar-app>

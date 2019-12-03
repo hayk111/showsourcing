@@ -15,7 +15,8 @@ import { FilterType } from '~shared/filters';
 	styleUrls: ['./tasks-page.component.scss'],
 	providers: [
 		ListPageService
-	]
+	],
+	host: { class: 'table-page' }
 })
 export class TasksPageComponent extends AbstractTaskCommonComponent implements OnInit {
 

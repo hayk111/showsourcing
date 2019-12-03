@@ -1,8 +1,5 @@
-import { CdkDragDrop, CdkDragStart } from '@angular/cdk/drag-drop';
-import {
-	ChangeDetectionStrategy, Component, EventEmitter,
-	Input, OnInit, Output, TemplateRef, ChangeDetectorRef, ViewEncapsulation
-} from '@angular/core';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
 import { KanbanColumn } from '~shared/kanban/interfaces';
 import { TrackingComponent } from '~utils/tracking-component';
 
@@ -18,8 +15,8 @@ export class KanbanColComponent extends TrackingComponent implements OnInit {
 	@Input() connectedLists: string[];
 	@Input() selection: Map<string, any>;
 	@Input() amountLoaded: number;
-	@Output() selectAll = new EventEmitter<{data: any[], column: any}>();
-	@Output() unselectAll = new EventEmitter<{data: any[], column: any} > ();
+	@Output() selectAll = new EventEmitter<{ data: any[], column: any }>();
+	@Output() unselectAll = new EventEmitter<{ data: any[], column: any }>();
 	@Output() drop = new EventEmitter<CdkDragDrop<any>>();
 	@Output() loadMore = new EventEmitter<KanbanColumn>();
 	draggedId: string;

@@ -1,7 +1,6 @@
 
 <!-- top panel -->
 <header-list-app
-	class="max-full-table-width"
 	logoName="task"
 	logoColor="secondary"
 	info="Task management"
@@ -12,7 +11,6 @@
 
 <controller-list-app
 	#controller
-	class="max-full-table-width"
 	[hasFilter]="false"
 	[hasSwitch]="false"
 	[hasArchived]="false"
@@ -39,7 +37,6 @@
 </controller-list-app>
 
 <task-table-app
-	class="max-full-table-width"
 	[rows]="listSrv.items$ | async"
 	[selection]="listSrv.selection$ | async"
 	[pending]="listSrv.pending"
@@ -62,34 +59,16 @@
 	(createClick)="dialogCommonSrv.openCreationTaskDlg()">
 </task-table-app>
 
-<selection-bar-app
-	[isShown]="(listSrv.selection$ | async).size > 0"
+<task-selection-bar-app
+	[isShown]="(listSrv.selection$ | async)?.size > 0"
 	[selection]="listSrv.selection$ | async"
-	(close)="listSrv.unselectAll()">
-
-	<div class="flex">
-		<status-selector-app
-			class="mg-right-s"
-			toolTip [toolTipMessage]="'message.change-status' | translate" toolTipPosition="above-right"
-			#workActionMenu
-			selectSize="m"
-			[typeEntity]="'TASK' | erm"
-			type="multiple-selection"
-			[internalUpdate]="false"
-			(statusUpdated)="this.listSrv.updateSelected({status: $event})">
-		</status-selector-app>
-		<action-bar-app
-			[favorite]="listSrv.allSelectedFavorite"
-			[hasLikes]="false"
-			[multiple]="true"
-			(onFavorite)="listSrv.onFavoriteAllSelected()"
-			(onUnfavorite)="listSrv.onUnfavoriteAllSelected()"	>
-			<button class="icon light" (click)="listSrv.deleteSelected()">
-				<icon-app class="color-secondary-dark" name="trash" size="l"></icon-app>
-			</button>
-		</action-bar-app>
-	</div>
-</selection-bar-app>
+	[count]="listSrv.count$ | async"
+	(close)="listSrv.unselectAll()"
+	(deleteSelected)="listSrv.deleteSelected(true)"
+	(statusUpdated)="this.listSrv.updateSelected({status: $event})"
+	(onFavorite)="listSrv.onFavoriteAllSelected()"
+	(onUnfavorite)="listSrv.onUnfavoriteAllSelected()">
+</task-selection-bar-app>
 
 <filters-app
 	[filterList]="listSrv.filterList"

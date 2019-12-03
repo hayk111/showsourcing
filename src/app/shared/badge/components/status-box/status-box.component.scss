@@ -31,12 +31,12 @@ icon-app {
   font-size: var(--font-size-m);
   border-top-left-radius: var(--border-radius);
   border-bottom-left-radius: var(--border-radius);
-	padding: 7px;
   font-weight: 600;
   .badge-name {
     display: inline-block;
     color: white;
 		white-space: nowrap;
+		padding: var(--spacing-s);
 		&.new {
 			color: var(--color-txt-primary);
 		}

@@ -1,6 +1,5 @@
 
 <header-list-app
-	class="max-full-table-width"
 	logoName="project"
 	logoColor="primary"
 	info="The projects database"
@@ -10,7 +9,6 @@
 </header-list-app>
 
 <controller-list-app
-	class="max-full-table-width"
 	[entityType]="entityTypeEnum.PROJECT"
 	[hasSwitch]="false"
 	[hasExport]="false"
@@ -29,7 +27,6 @@
 <ng-container *ngIf="listSrv.isListening">
 
   <projects-table-app
-		class="max-full-table-width"
 		[selection]="listSrv.selection$ | async"
 		[rows]="listSrv.items$ | async"
 		[pending]="listSrv.pending"
@@ -48,17 +45,14 @@
 		(update)="listSrv.update($event)">
 	</projects-table-app>
 
-  <selection-bar-app
+	<project-selection-bar-app
+		entityType="project"
 		[isShown]="(listSrv.selection$ | async).size > 0"
 		[count]="listSrv.count$ | async"
-    [selection]="listSrv.selection$ | async"
-    (close)="listSrv.unselectAll()">
-    <action-bar-app [hasHeart]="false" [hasLikes]="false">
-      <button class="icon light" (click)="listSrv.deleteSelected()">
-        <icon-app class="color-secondary-dark" name="trash" size="l"></icon-app>
-      </button>
-    </action-bar-app>
-  </selection-bar-app>
+		[selection]="listSrv.selection$ | async"
+		(close)="listSrv.unselectAll()"
+		(deleteSelected)="listSrv.deleteSelected()">
+	</project-selection-bar-app>
 
 	<filters-app
 		*ngIf="listSrv.filterPanelOpen"

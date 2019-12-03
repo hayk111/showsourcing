@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { EntityMetadata, ProductStatus, SampleStatus, SupplierStatus } from '~models';
+import { ProductStatus, SampleStatus, SupplierStatus } from '~models';
+import { StatusUtils, StatusCategory } from '~utils';
 
 @Component({
 	selector: 'status-box-app',
@@ -13,6 +14,8 @@ export class StatusBoxComponent {
 	@Input() round = true;
 	@Input() width = 200;
 
+	statusUtils = StatusUtils;
+
 	// we need to pass this so when the
 	// status is null, because the product or supplier are new
 	// @Input() type: ('list' | 'badge') = 'badge';
@@ -21,25 +24,7 @@ export class StatusBoxComponent {
 	}
 
 	hasStatus() {
-		return this.status && this.status.category !== 'new';
-	}
-
-	getType() {
-		// by default is secondary since is the color for NEW elements
-		if (this.status) {
-			switch (this.status.category) {
-				case 'inProgress':
-					return 'in-progress';
-				case 'validated':
-					return 'validated';
-				case 'refused':
-					return 'refused';
-				case 'inspiration':
-					return 'secondary-light';
-				default:
-					return 'new';
-			}
-		}
+		return this.status && this.status.category !== StatusCategory.NEW;
 	}
 
 }

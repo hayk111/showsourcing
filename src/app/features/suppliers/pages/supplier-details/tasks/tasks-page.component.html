@@ -1,11 +1,9 @@
 <controller-list-app
-	class="max-full-table-width"
 	[entityType]="erm.TASK.singular"
 	[hasFilter]="true"
 	[hasSwitch]="false"
 	[entityType]="'TASK'"
 	[view]="listSrv.view"
-	[buttonName]="'create task'"
 	[count]="listSrv.count$ | async"
 	(search)="listSrv.search($event)"
 	(showFilters)="listSrv.openFilterPanel()"
@@ -18,7 +16,6 @@
 </controller-list-app>
 
 <task-table-app
-	class="max-full-table-width"
 	[rows]="listSrv.items$ | async"
 	[selection]="listSrv.selection$ | async"
 	[pending]="listSrv.pending"

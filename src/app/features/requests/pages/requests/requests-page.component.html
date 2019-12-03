@@ -1,5 +1,4 @@
 <header-list-app
-	class="max-full-table-width"
 	logoName="request"
 	info="Request management"
 	[title]="'title.requests' | translate"
@@ -8,7 +7,6 @@
 </header-list-app>
 
 <controller-list-app
-	class="max-full-table-width"
 	[entityType]="entityTypeEnum.REQUEST"
 	[hasFilter]="false"
 	[hasSwitch]="false"
@@ -23,7 +21,6 @@
 </controller-list-app>
 
 <requests-table-app
-	class="max-full-table-width"
 	[rows]="listSrv.items$ | async"
 	[pending]="listSrv.pending"
 	[selection]="listSrv.selection$ | async"
@@ -38,9 +35,10 @@
 	(unselectAll)="listSrv.unselectAll()">
 </requests-table-app>
 
-<selection-bar-app
+<request-selection-bar-app
 	[isShown]="(listSrv.selection$ | async).size > 0"
 	[selection]="listSrv.selection$ | async"
-	(close)="listSrv.unselectAll()">
-	<button class="warn" (click)="cancelSelectedRequests()" translate="button.cancel-requests"></button>
-</selection-bar-app>
+	[count]="listSrv.count$ | async"
+	(close)="listSrv.unselectAll()"
+	(cancelSelectedRequests)="cancelSelectedRequests()">
+</request-selection-bar-app>

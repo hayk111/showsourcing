@@ -1,3 +1,5 @@
+import { StatusCategory, StatusUtils } from '~utils';
+
 import { StatusBadgeComponent } from './status-badge.component';
 
 
@@ -10,26 +12,26 @@ describe('Status Badge component', () => {
 	});
 
 	it('should be warn color when rejected', () => {
-		badge.status = { category: 'refused'};
-		expect(badge.getType()).toEqual('warn');
+		badge.status = { category: StatusCategory.REFUSED };
+		expect(badge.statusUtils.getStatusColor(badge.status)).toEqual(StatusUtils.statusColorMap[badge.status.category]);
 	});
 
 	it('should be success color when validated', () => {
-		badge.status = { category: 'validated'};
-		expect(badge.getType()).toEqual('success');
+		badge.status = { category: StatusCategory.VALIDATED };
+		expect(badge.statusUtils.getStatusColor(badge.status)).toEqual(StatusUtils.statusColorMap[badge.status.category]);
 	});
 
 	it('should be secondary color when no status or category new', () => {
-		badge.status = 	{ category: 'new'};
-		expect(badge.getType()).toEqual('secondary');
+		badge.status = { category: StatusCategory.NEW };
+		expect(badge.statusUtils.getStatusColor(badge.status)).toEqual(StatusUtils.statusColorMap[badge.status.category]);
 		badge.status = null;
-		expect(badge.getType()).toEqual('secondary');
+		expect(badge.statusUtils.getStatusColor(badge.status)).toEqual(StatusUtils.DEFAULT_STATUS_COLOR);
 		badge.status = undefined;
-		expect(badge.getType()).toEqual('secondary');
+		expect(badge.statusUtils.getStatusColor(badge.status)).toEqual(StatusUtils.DEFAULT_STATUS_COLOR);
 	});
 
 	it('should be primary color when in progress', () => {
-		badge.status = { category: 'inProgress'};
-		expect(badge.getType()).toEqual('primary');
+		badge.status = { category: StatusCategory.IN_PROGRESS };
+		expect(badge.statusUtils.getStatusColor(badge.status)).toEqual(StatusUtils.statusColorMap[badge.status.category]);
 	});
 });

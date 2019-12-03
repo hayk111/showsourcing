@@ -7,13 +7,12 @@ import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { SampleService, SampleStatusService, UserService } from '~core/entity-services';
 import { ListPageService } from '~core/list-page';
 import { ERM, Sample, SampleStatus } from '~core/models';
-import { NEW_STATUS_ID } from '~core/models/status.model';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { FilterList, FilterType } from '~shared/filters';
 import { KanbanColumn, KanbanDropEvent } from '~shared/kanban/interfaces';
 import { KanbanService } from '~shared/kanban/services/kanban.service';
-import { translate } from '~utils';
+import { translate, StatusCategory, StatusUtils } from '~utils';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 
 
@@ -75,7 +74,7 @@ export class SamplesBoardComponent extends AutoUnsub implements OnInit {
 				descending: false
 			}).pipe(
 				first(),
-				map(statuses => [{ id: NEW_STATUS_ID, name: 'New Sample', category: 'new' }, ...statuses]),
+				map(statuses => [{ id: StatusUtils.NEW_STATUS_ID, name: 'New Sample', category: StatusUtils.DEFAULT_STATUS_CATEGORY }, ...statuses]),
 				tap(statuses => this.statuses = statuses),
 				tap(statuses => this.kanbanSrv.setColumnsFromStatus(statuses)),
 			);
@@ -91,7 +90,7 @@ export class SamplesBoardComponent extends AutoUnsub implements OnInit {
 		const predicate = filterList.asPredicate();
 		statuses.forEach(status => {
 			// for sample with null status
-			const statusQuery = status.id !== NEW_STATUS_ID ? `status.id == "${status.id}"` : `status == null`;
+			const statusQuery = status.id !== StatusUtils.NEW_STATUS_ID ? `status.id == "${status.id}"` : `status == null`;
 			const query = [
 				predicate,
 				statusQuery
@@ -105,7 +104,7 @@ export class SamplesBoardComponent extends AutoUnsub implements OnInit {
 	}
 
 	loadMore(col: KanbanColumn) {
-		const statusQuery = col.id !== NEW_STATUS_ID ? `status.id == "${col.id}"` : `status == null`;
+		const statusQuery = col.id !== StatusUtils.NEW_STATUS_ID ? `status.id == "${col.id}"` : `status == null`;
 		const predicate = this.listSrv.filterList.asPredicate();
 		const query = [
 			predicate,
@@ -142,7 +141,7 @@ export class SamplesBoardComponent extends AutoUnsub implements OnInit {
 			filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
 			map((evt: CloseEvent) => evt.data)
 		).subscribe(({ sample }) => {
-			this.kanbanSrv.addItems([sample], NEW_STATUS_ID);
+			this.kanbanSrv.addItems([sample], StatusUtils.NEW_STATUS_ID);
 		});
 	}
 
@@ -152,7 +151,7 @@ export class SamplesBoardComponent extends AutoUnsub implements OnInit {
 			return;
 		}
 		// we update on the server
-		const isNewStatus = event.to.id === NEW_STATUS_ID;
+		const isNewStatus = event.to.id === StatusUtils.NEW_STATUS_ID;
 		this.sampleSrv.update(
 			{
 				id: event.item.id,
@@ -165,7 +164,7 @@ export class SamplesBoardComponent extends AutoUnsub implements OnInit {
 
 	/** multiple */
 	updateSamplesStatus(event: KanbanDropEvent) {
-		const isNewStatus = event.to.id === NEW_STATUS_ID;
+		const isNewStatus = event.to.id === StatusUtils.NEW_STATUS_ID;
 		const samples = event.items.map(id => ({
 			id,
 			status: isNewStatus ? null : new SampleStatus({ id: event.to.id })

@@ -1,7 +1,6 @@
 <ng-container *ngIf="project$ | async as project; else spinner">
 
 	<controller-list-app
-		class="max-full-table-width"
 		[hasSwitch]="true"
 		[filtersAmount]="listSrv.getFilterAmount([{ type: filterTypeEnum.ARCHIVED, value: false }, { type: filterTypeEnum.DELETED, value: false }])"
 		[hasFilter]="true"
@@ -32,7 +31,6 @@
 
 		<products-table-app
 			*ngIf="listSrv.view === 'list'"
-			class="max-full-table-width"
 			[selection]="listSrv.selection$ | async"
 			[rows]="listSrv.items$ | async"
 			[pending]="listSrv.pending"
@@ -63,15 +61,14 @@
 			infiniScroll
 			cdk-scrollable
 			*ngIf="listSrv.view === 'card'"
-			class="max-full-table-width"
 			[currentSort]="listSrv.currentSort"
 			[rows]="listSrv.items$ | async"
 			[selection]="listSrv.selection$ | async"
 			(addToProject)="dialogCommonSrv.openAddToProjectDialog([$event])"
 			(bottomReached)="listSrv.loadMore()"
-			(disliked)="listSrv.onThumbDown($event)"
+			(disliked)="listSrv.onThumbDown($event, erm.PRODUCT.singular)"
 			(favorited)="listSrv.onItemFavorited($event)"
-			(liked)="listSrv.onThumbUp($event)"
+			(liked)="listSrv.onThumbUp($event, erm.PRODUCT.singular)"
 			(open)="listSrv.goToDetails($event)"
 			(previewClick)="listSrv.openPreview($event)"
 			(select)="listSrv.selectOne($event, true)"
@@ -93,8 +90,8 @@
 			[count]="listSrv.count$ | async"
 			[selection]="listSrv.selection$ | async"
 			[favorite]="listSrv.allSelectedFavorite"
-			(disliked)="listSrv.onMultipleThumbDown($event)"
-			(liked)="listSrv.onMultipleThumbUp($event)"
+			(disliked)="listSrv.onMultipleThumbDown($event, erm.PRODUCT.singular)"
+			(liked)="listSrv.onMultipleThumbUp($event, erm.PRODUCT.singular)"
 			(favorited)="listSrv.onFavoriteAllSelected()"
 			(unfavorited)="listSrv.onUnfavoriteAllSelected()"
 			(addProject)="dialogCommonSrv.openAddToProjectDialog(listSrv.getSelectedValues())"

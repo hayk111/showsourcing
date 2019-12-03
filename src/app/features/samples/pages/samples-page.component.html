@@ -1,6 +1,5 @@
 <!-- top panel -->
 <header-list-app
-	class="max-full-table-width"
 	logoName="sample"
 	info="The sample database"
 	[title]="'title.my-samples' | translate"
@@ -9,7 +8,6 @@
 </header-list-app>
 
 <controller-list-app
-	class="max-full-table-width"
 	[filtersAmount]="listSrv.getFilterAmount([{ type: filterTypeEnum.ARCHIVED, value: false }, { type: filterTypeEnum.DELETED, value: false }])"
 	[hasFilter]="true"
 	[hasSwitch]="true"
@@ -32,7 +30,6 @@
 
 <samples-table-app
 	*ngIf="listSrv.view === 'list'"
-	class="max-full-table-width"
 	[rows]="listSrv.items$ | async"
 	[selection]="listSrv.selection$ | async"
 	[pending]="listSrv.pending"
