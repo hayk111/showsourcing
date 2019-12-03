@@ -1,12 +1,16 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { map, switchMap, takeUntil, tap, filter } from 'rxjs/operators';
 import { CommentService, SupplierService } from '~core/entity-services';
 import { SupplierFeatureService } from '../../../services/supplier-feature.service';
-import { Comment, ERM, Product, Supplier } from '~models';
+import { Comment, ERM, Product, Supplier, Sample, Task } from '~models';
 import { Contact } from '~models/contact.model';
 import { AutoUnsub } from '~utils';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
+import { CloseEvent, CloseEventType } from '~shared/dialog';
+import { SupplierDescriptor } from '~core/descriptors';
+import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
 
 @Component({
 	selector: 'activity-page-app',
@@ -21,12 +25,21 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 	products$: Observable<Product[]>;
 	contacts$: Observable<Contact[]>;
 	erm = ERM;
+	supplierDescriptor: SupplierDescriptor;
+	config = new DynamicFormConfig({ mode: 'editable-text' });
+
+	// sample & task used for the preview
+	sample: Sample;
+	task: Task;
+	previewOpened = false;
 
 	constructor(
 		private route: ActivatedRoute,
+		private router: Router,
 		private featureSrv: SupplierFeatureService,
 		private commentSrv: CommentService,
-		private supplierSrv: SupplierService
+		private supplierSrv: SupplierService,
+		public dlgCommonSrv: DialogCommonService
 	) {
 		super();
 	}
@@ -45,7 +58,7 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 			tap(supplier => this.supplier = supplier)
 		);
 
-		// getting his products
+		// getting its products
 		this.products$ = id$.pipe(
 			switchMap(id => this.featureSrv.getProducts(id))
 		);
@@ -54,10 +67,20 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 			switchMap(id => this.featureSrv.getContacts(id))
 		);
 
+		this.supplierDescriptor = new SupplierDescriptor([
+			'country', 'generalMOQ', 'generalLeadTime', 'incoTerm', 'harbour', 'officeEmail', 'officePhone', 'website', 'supplierType', 'address'
+		]);
+		this.supplierDescriptor.modify([
+			{ name: 'generalMOQ', label: 'general MOQ' },
+			{ name: 'officePhone', label: 'phone' },
+			{ name: 'generalLeadTime', label: 'general lead time' },
+			{ name: 'website', label: 'web' },
+		]);
+
 	}
 
 	/** updates supplier */
-	patch(supplier: Supplier) {
+	update(supplier: Supplier) {
 		this.featureSrv.update({ id: this.supplier.id, ...supplier })
 			.subscribe();
 	}
@@ -70,6 +93,47 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 		this.commentSrv.create(comment).pipe(
 			switchMap(_ => this.supplierSrv.update({ id: this.supplier.id, comments }))
 		).subscribe();
+	}
+
+	goToProducts() {
+		this.router.navigate(['suppliers', this.supplier.id, 'products']);
+	}
+
+	openSelectProductDlg(supplier) {
+		this.dlgCommonSrv.openSelectProductDlg().pipe(
+			filter((event: CloseEvent) => event.type === CloseEventType.OK)
+		).subscribe(things => console.log(things));
+	}
+
+	/** open preview */
+	openPreview() {
+		this.previewOpened = true;
+	}
+
+	/**
+	 * open task preview and sets sample to null
+	 * @param task
+	 */
+	openTaskPreview(task: Task) {
+		this.task = task;
+		this.sample = null;
+		this.openPreview();
+	}
+	/**
+	 * open sample preview and sets task to null
+	 * @param sample
+	 */
+	openSamplePreview(sample: Sample) {
+		this.sample = sample;
+		this.task = null;
+		this.openPreview();
+	}
+
+	/** close preview and sets task & sample to null */
+	closePreview() {
+		this.task = null;
+		this.sample = null;
+		this.previewOpened = false;
 	}
 
 }

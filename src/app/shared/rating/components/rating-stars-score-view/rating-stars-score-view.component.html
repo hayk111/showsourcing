@@ -7,7 +7,7 @@
 		{{ (score | number: '1.1-2' | slice:0:3 ) || '-'}}
 	</div>
 	<div class="number-votes flexCenter">
-		{{ (totalVotes > 1 ? 'OBJ.n-vote.plural' : 'OBJ.n-vote.singular') | translate: {count : totalVotes} }}
+		{{ (totalVotes === 1 ? 'OBJ.n-vote.singular' : 'OBJ.n-vote.plural') | translate: {count : totalVotes || 0} }}
 	</div>
 </div>
 

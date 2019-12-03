@@ -126,8 +126,8 @@ export class DialogCommonService {
 		return this.dlgSrv.open(SupplierRequestDialogComponent, { products });
 	}
 
-	openSupplierRequest(products: Product[]) {
-		return this.dlgSrv.open(SupplierRequestDialogComponent, { products });
+	openSupplierRequest(products: Product[], supplier?: Supplier) {
+		return this.dlgSrv.open(SupplierRequestDialogComponent, { products, supplier });
 	}
 
 	openCreationTaskDlg(product?: Product, supplier?: Supplier) {

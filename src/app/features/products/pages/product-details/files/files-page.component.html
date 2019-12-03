@@ -1,6 +1,8 @@
 <h2 class="l flexStart">Files</h2>
 <!-- table -->
-<attachments-table-app
+<span class="color-primary">TODO: waiting for dashboard to see what to do with this</span>
+
+<!-- <attachments-table-app
 	#table
 	class="no-padding"
 	[hasMinHeight]="false"
@@ -32,7 +34,7 @@
 	(update)="listSrv.update($event)"
 	(unselectAll)="listSrv.unselectAll()"
 	(upload)="listSrv.refetch().subscribe()">
-</attachments-table-app>
+</attachments-table-app> -->
 
 <!-- buttons -->
 <div *ngIf="(listSrv.items$ | async)?.length" class="flex buttons-container">

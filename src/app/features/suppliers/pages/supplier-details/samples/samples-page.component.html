@@ -20,7 +20,6 @@
 </controller-list-app>
 
 <samples-table-app
-	class="max-full-table-width"
 	[rows]="listSrv.items$ | async"
 	[selection]="listSrv.selection$ | async"
 	[pending]="listSrv.pending"

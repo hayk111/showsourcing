@@ -1,9 +1,6 @@
 $image-height: 240px;
 
 :host {
-	margin: 0px;
-	margin-left: var(--spacing-ms);
-	margin-bottom: var(--spacing-xl);
 	display: block;
 	height: 344px;
 	width: 240px;
@@ -122,7 +119,7 @@ img-app {
 	height: $image-height;
 	border-top-left-radius: var(--border-radius-l);
 	border-top-right-radius: var(--border-radius-l);
-	margin-bottom: 9px;	
+	margin-bottom: var(--spacing-s);
 }
 
 .product-price {
@@ -149,7 +146,7 @@ img-app {
 	& > *:not(product-card-activities-app) {
 		margin-left: var(--spacing-l);
 	}
-	
+
 	& > :first-child {
 		margin-left: var(--spacing-s);
 	}
@@ -169,7 +166,7 @@ img-app {
 		display: inline-block;
 		margin-right: var(--spacing-s);
 	}
-	
+
 	.badge {
 		background-color: var(--color-txt-secondary);
 		height: 8px;

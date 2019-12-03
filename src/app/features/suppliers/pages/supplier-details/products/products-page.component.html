@@ -28,7 +28,6 @@
 <ng-container *ngIf="(listSrv.items$ | async) as products; else spinner">
 	<products-table-app
 		*ngIf="listSrv.view === 'list'"
-		class="max-full-table-width"
 		[pending]="false"
 		[selection]="listSrv.selection"
 		[rows]="products"

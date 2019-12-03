@@ -3,6 +3,10 @@
 	border-radius: var(--border-radius);
 	overflow: hidden;
 
+	icon-app {
+		cursor: default;
+	}
+
 	&.circle {
 		border-radius: 50%;
 	}

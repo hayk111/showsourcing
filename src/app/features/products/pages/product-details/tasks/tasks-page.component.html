@@ -1,6 +1,7 @@
 <h2 class="l flexStart">Tasks</h2>
 <!-- table -->
-<task-table-app
+<span class="color-primary">TODO: waiting for dashboard to see what to do with this</span>
+<!-- <task-table-app
 	class="no-padding"
 	[rows]="listSrv.items$ | async"
 	tableConfigType="medium-small"
@@ -24,8 +25,8 @@
 	(previewClick)="listSrv.openPreview($event)"
 	(createClick)="openCreationTaskDlg(product)"
 	(update)="listSrv.update($event)"
-	(delete)="listSrv.deleteOne($event, true)">
-</task-table-app>
+	(delete)="listSrv.deleteOne($event, true)"> 
+</task-table-app> -->
 
 <!-- buttons -->
 <div *ngIf="(listSrv.items$ | async)?.length" class="flex buttons-container">
