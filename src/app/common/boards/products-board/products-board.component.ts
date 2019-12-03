@@ -6,7 +6,7 @@ import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ProductStatusService } from '~core/entity-services/product-status/product-status.service';
 import { ListPageService, SelectionService } from '~core/list-page';
 import { ProductService } from '~entity-services';
-import { ERM, Product, ProductStatus } from '~models';
+import { ERM, Product, ProductStatus, EntityName } from '~models';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { FilterList, FilterType } from '~shared/filters';
@@ -214,12 +214,12 @@ export class ProductsBoardComponent extends AutoUnsub implements OnInit {
 	}
 
 	onMultipleThumbUp(isCreated) {
-		const updated = this.listSrv.onMultipleThumbUp(isCreated);
+		const updated = this.listSrv.onMultipleThumbUp(isCreated, EntityName.PRODUCT);
 		this.kanbanSrv.updateMany(updated);
 	}
 
 	onMultipleThumbDown(isCreated) {
-		const updated = this.listSrv.onMultipleThumbDown(isCreated);
+		const updated = this.listSrv.onMultipleThumbDown(isCreated, EntityName.PRODUCT);
 		this.kanbanSrv.updateMany(updated);
 	}
 

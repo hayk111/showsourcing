@@ -65,7 +65,7 @@
 	[selection]="listSrv.selection$ | async"
 	[favorite]="listSrv.allSelectedFavorite"
 	(disliked)="listSrv.onMultipleThumbDown($event)"
-	(liked)="listSrv.onMultipleThumbUp($event)"
+	(liked)="listSrv.onMultipleThumbUp($event, erm.PRODUCT.singular)"
 	(favorited)="listSrv.onFavoriteAllSelected()"
 	(unfavorited)="listSrv.onUnfavoriteAllSelected()"
 	(addProject)="dialogCommonSrv.openAddToProjectDialog(listSrv.getSelectedValues())"

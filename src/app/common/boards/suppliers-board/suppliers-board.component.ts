@@ -6,7 +6,7 @@ import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { SupplierStatusService } from '~core/entity-services/supplier-status/supplier-status.service';
 import { ListPageService } from '~core/list-page';
 import { SupplierService } from '~entity-services';
-import { ERM, Supplier, SupplierStatus } from '~models';
+import { ERM, Supplier, SupplierStatus, EntityName } from '~models';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { FilterList, FilterType } from '~shared/filters';
@@ -182,12 +182,12 @@ export class SuppliersBoardComponent extends AutoUnsub implements OnInit {
 	}
 
 	onMultipleThumbUp(isCreated) {
-		const updated = this.listSrv.onMultipleThumbUp(isCreated);
+		const updated = this.listSrv.onMultipleThumbUp(isCreated, EntityName.SUPPLIER);
 		this.kanbanSrv.updateMany(updated);
 	}
 
 	onMultipleThumbDown(isCreated) {
-		const updated = this.listSrv.onMultipleThumbDown(isCreated);
+		const updated = this.listSrv.onMultipleThumbDown(isCreated, EntityName.SUPPLIER);
 		this.kanbanSrv.updateMany(updated);
 	}
 

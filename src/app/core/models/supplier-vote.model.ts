@@ -1,26 +1,26 @@
 import { User } from '~models/user.model';
 import { uuid } from '~utils/uuid.utils';
 
-export class ProductVote {
+export class SupplierVote {
 	id: string;
 	user: User;
 	value: number;
 	creationDate: string;
-	__typename?= 'ProductVote';
+	__typename?= 'SupplierVote';
 
-	constructor(config: ProductVoteConfig) {
+	constructor(config: SupplierVoteConfig) {
 		Object.assign(this, config);
 		this.id = uuid();
 	}
 }
 
-export interface ProductVoteConfig {
+export interface SupplierVoteConfig {
 	value: number;
 	user: User;
 	creationDate: string;
 }
 
-export const mockProductVotes = [
+export const mockSupplierVotes = [
 	{
 		id: 'fake-vote-id-1',
 		value: 100,
@@ -30,7 +30,7 @@ export const mockProductVotes = [
 			lastName: 'Fake Last 1',
 			__typename: 'User'
 		},
-		__typename: 'ProductVote'
+		__typename: 'SupplierVote'
 	},
 	{
 		id: 'fake-vote-id-2',
@@ -41,7 +41,7 @@ export const mockProductVotes = [
 			lastName: 'Fake Last 2',
 			__typename: 'User'
 		},
-		__typename: 'ProductVote'
+		__typename: 'SupplierVote'
 	},
 	{
 		id: 'fake-vote-id-3',
@@ -52,7 +52,7 @@ export const mockProductVotes = [
 			lastName: 'Fake Last 3',
 			__typename: 'User'
 		},
-		__typename: 'ProductVote'
+		__typename: 'SupplierVote'
 	},
 	{
 		id: 'fake-vote-id-4',
@@ -63,7 +63,7 @@ export const mockProductVotes = [
 			lastName: 'Fake Last 4',
 			__typename: 'User'
 		},
-		__typename: 'ProductVote'
+		__typename: 'SupplierVote'
 	},
 	{
 		id: 'fake-vote-id-5',
@@ -74,7 +74,7 @@ export const mockProductVotes = [
 			lastName: 'Fake Last 5',
 			__typename: 'User'
 		},
-		__typename: 'ProductVote'
+		__typename: 'SupplierVote'
 	},
 	{
 		id: 'fake-vote-id-6',
@@ -85,7 +85,7 @@ export const mockProductVotes = [
 			lastName: 'Fake Last 6',
 			__typename: 'User'
 		},
-		__typename: 'ProductVote'
+		__typename: 'SupplierVote'
 	},
 	{
 		id: 'fake-vote-id-7',
@@ -96,7 +96,7 @@ export const mockProductVotes = [
 			lastName: 'Fake Last 7',
 			__typename: 'User'
 		},
-		__typename: 'ProductVote'
+		__typename: 'SupplierVote'
 	},
 	{
 		id: 'fake-vote-id-8',
@@ -107,7 +107,7 @@ export const mockProductVotes = [
 			lastName: 'Fake Last 8',
 			__typename: 'User'
 		},
-		__typename: 'ProductVote'
+		__typename: 'SupplierVote'
 	},
 	{
 		id: 'fake-vote-id-9',
@@ -118,7 +118,7 @@ export const mockProductVotes = [
 			lastName: 'Fake Last 9',
 			__typename: 'User'
 		},
-		__typename: 'ProductVote'
+		__typename: 'SupplierVote'
 	},
 	{
 		id: 'fake-vote-id-10',
@@ -129,7 +129,7 @@ export const mockProductVotes = [
 			lastName: 'Fake Last 10',
 			__typename: 'User'
 		},
-		__typename: 'ProductVote'
+		__typename: 'SupplierVote'
 	},
 	{
 		id: 'fake-vote-id-11',
@@ -140,7 +140,7 @@ export const mockProductVotes = [
 			lastName: 'Fake Last 11',
 			__typename: 'User'
 		},
-		__typename: 'ProductVote'
+		__typename: 'SupplierVote'
 	},
 	{
 		id: 'fake-vote-id-12',
@@ -151,7 +151,7 @@ export const mockProductVotes = [
 			lastName: 'Fake Last 12',
 			__typename: 'User'
 		},
-		__typename: 'ProductVote'
+		__typename: 'SupplierVote'
 	},
 	{
 		id: 'fake-vote-id-12',
@@ -162,7 +162,7 @@ export const mockProductVotes = [
 			lastName: 'Fake Last 12',
 			__typename: 'User'
 		},
-		__typename: 'ProductVote'
+		__typename: 'SupplierVote'
 	},
 	{
 		id: 'fake-vote-id-13',
@@ -173,7 +173,7 @@ export const mockProductVotes = [
 			lastName: 'Fake Last 13',
 			__typename: 'User'
 		},
-		__typename: 'ProductVote'
+		__typename: 'SupplierVote'
 	},
 	{
 		id: 'fake-vote-id-14',
@@ -184,7 +184,7 @@ export const mockProductVotes = [
 			lastName: 'Fake Last 14',
 			__typename: 'User'
 		},
-		__typename: 'ProductVote'
+		__typename: 'SupplierVote'
 	},
 	{
 		id: 'fake-vote-id-15',
@@ -195,7 +195,7 @@ export const mockProductVotes = [
 			lastName: 'Fake Last 15',
 			__typename: 'User'
 		},
-		__typename: 'ProductVote'
+		__typename: 'SupplierVote'
 	},
 	{
 		id: 'fake-vote-id-16',
@@ -206,7 +206,7 @@ export const mockProductVotes = [
 			lastName: 'Fake Last 16',
 			__typename: 'User'
 		},
-		__typename: 'ProductVote'
+		__typename: 'SupplierVote'
 	},
 	{
 		id: 'fake-vote-id-17',
@@ -217,7 +217,7 @@ export const mockProductVotes = [
 			lastName: 'Fake Last 17',
 			__typename: 'User'
 		},
-		__typename: 'ProductVote'
+		__typename: 'SupplierVote'
 	},
 	{
 		id: 'fake-vote-id-18',
@@ -228,7 +228,7 @@ export const mockProductVotes = [
 			lastName: 'Fake Last 18',
 			__typename: 'User'
 		},
-		__typename: 'ProductVote'
+		__typename: 'SupplierVote'
 	},
 	{
 		id: 'fake-vote-id-19',
@@ -239,7 +239,7 @@ export const mockProductVotes = [
 			lastName: 'Fake Last 19',
 			__typename: 'User'
 		},
-		__typename: 'ProductVote'
+		__typename: 'SupplierVote'
 	},
 	{
 		id: 'fake-vote-id-20',
@@ -250,7 +250,7 @@ export const mockProductVotes = [
 			lastName: 'Fake Last 20',
 			__typename: 'User'
 		},
-		__typename: 'ProductVote'
+		__typename: 'SupplierVote'
 	},
 	{
 		id: 'fake-vote-id-21',
@@ -261,7 +261,7 @@ export const mockProductVotes = [
 			lastName: 'Fake Last 21',
 			__typename: 'User'
 		},
-		__typename: 'ProductVote'
+		__typename: 'SupplierVote'
 	},
 	{
 		id: 'fake-vote-id-22',
@@ -272,7 +272,7 @@ export const mockProductVotes = [
 			lastName: 'Fake Last 22',
 			__typename: 'User'
 		},
-		__typename: 'ProductVote'
+		__typename: 'SupplierVote'
 	},
 	{
 		id: 'fake-vote-id-23',
@@ -283,7 +283,7 @@ export const mockProductVotes = [
 			lastName: 'Fake Last 23',
 			__typename: 'User'
 		},
-		__typename: 'ProductVote'
+		__typename: 'SupplierVote'
 	},
 	{
 		id: 'fake-vote-id-24',
@@ -294,7 +294,7 @@ export const mockProductVotes = [
 			lastName: 'Fake Last 24',
 			__typename: 'User'
 		},
-		__typename: 'ProductVote'
+		__typename: 'SupplierVote'
 	},
 	{
 		id: 'fake-vote-id-25',
@@ -305,7 +305,7 @@ export const mockProductVotes = [
 			lastName: 'Fake Last 25',
 			__typename: 'User'
 		},
-		__typename: 'ProductVote'
+		__typename: 'SupplierVote'
 	},
 	{
 		id: 'fake-vote-id-26',
@@ -316,7 +316,7 @@ export const mockProductVotes = [
 			lastName: 'Fake Last 26',
 			__typename: 'User'
 		},
-		__typename: 'ProductVote'
+		__typename: 'SupplierVote'
 	},
 	{
 		id: 'fake-vote-id-27',
@@ -327,7 +327,7 @@ export const mockProductVotes = [
 			lastName: 'Fake Last 27',
 			__typename: 'User'
 		},
-		__typename: 'ProductVote'
+		__typename: 'SupplierVote'
 	}
 ];
 

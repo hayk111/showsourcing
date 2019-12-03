@@ -8,7 +8,7 @@ import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ListPageService } from '~core/list-page';
 import { ProductService, ProductStatusService, ProjectService } from '~entity-services';
 import { ProjectFeatureService } from '~features/projects/services';
-import { ERM, Product, ProductStatus, Project } from '~models';
+import { EntityName, ERM, Product, ProductStatus, Project } from '~models';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { KanbanDropEvent } from '~shared/kanban/interfaces';
@@ -195,12 +195,12 @@ export class WorkflowPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	onMultipleThumbUp(isCreated) {
-		const updated = this.listSrv.onMultipleThumbUp(isCreated);
+		const updated = this.listSrv.onMultipleThumbUp(isCreated, EntityName.PRODUCT);
 		this.kanbanSrv.updateMany(updated);
 	}
 
 	onMultipleThumbDown(isCreated) {
-		const updated = this.listSrv.onMultipleThumbDown(isCreated);
+		const updated = this.listSrv.onMultipleThumbDown(isCreated, EntityName.PRODUCT);
 		this.kanbanSrv.updateMany(updated);
 	}
 
