@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SortingMenusCommonModule } from '~common/sorting-menus/sorting-menus-common.module';
 import { TablesCommonModule } from '~common/tables/tables-common.module';
+import { SelectionBarsCommonModule } from '~common/selection-bars/selection-bars-common.module';
 import { routes } from '~features/requests/routes';
 import { SharedModule } from '~shared/shared.module';
 
@@ -15,7 +16,8 @@ import * as TablePage from './pages/requests';
 		RouterModule.forChild(routes),
 		SharedModule,
 		TablesCommonModule,
-		SortingMenusCommonModule
+		SortingMenusCommonModule,
+		SelectionBarsCommonModule
 	],
 	declarations: [
 		DetailsPage.RequestDetailsPageComponent,

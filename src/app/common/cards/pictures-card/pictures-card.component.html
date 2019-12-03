@@ -8,7 +8,7 @@
 			<!-- we place the height here so we can have a transition when displaying more or less -->
 			<img-app
 				*ngFor="let image of images; index as i; trackBy: trackById"
-				class="mg-bottom-xs pointer transition"
+				class="mg-bottom-xs pointer default-transition"
 				[class.mg-right-xs]="i%5 !== defaultShown"
 				[style.height]="i > currentShown ? '0px' : '154px'"
 				[style.width]="i > currentShown ? '0px' : '154px'"

@@ -14,7 +14,6 @@ import { SharedModule } from '~shared/shared.module';
 import * as DetailsPage from './pages/supplier-details';
 import * as TablePage from './pages/suppliers';
 import { routes } from './routes';
-import { SupplierFeatureService } from './services';
 
 @NgModule({
 	imports: [
@@ -47,8 +46,6 @@ import { SupplierFeatureService } from './services';
 	],
 	entryComponents: [],
 	exports: [],
-	providers: [
-		SupplierFeatureService
-	]
+	providers: []
 })
 export class SuppliersFeatureModule { }
