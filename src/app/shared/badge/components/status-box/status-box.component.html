@@ -1,5 +1,5 @@
 <div class="badge">
-	<div class="badge-item" [ngClass]="getType()">
+	<div class="badge-item" [ngClass]="statusUtils.getStatusColor(status)">
 		<div class="badge-name first-uppercase" [ngClass]="hasStatus() ? 'border' : 'new'">
 			{{ status.step ? (status.step + 1) + '. ' : '' }}
 			{{ 'text.' + status[displayAttribute] | translate }}

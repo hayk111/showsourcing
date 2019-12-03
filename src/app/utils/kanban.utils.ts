@@ -1,11 +1,12 @@
-import { Product, ProductStatus, Sample, SampleStatus } from '~models';
+import { combineLatest, Observable } from 'rxjs';
+import { ListQuery } from '~core/entity-services/_global/list-query.interface';
+import { Status } from '~core/models/status.model';
+import { ProductStatus } from '~models';
 import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.interface';
 import { ConstPipe } from '~shared/utils/pipes/const.pipe';
-import { statusToColor } from '~utils/status-to-color.function';
-import { combineLatest, zip, Observable, merge } from 'rxjs';
-import { Status } from '~core/models/status.model';
+
 import { ID } from './id.utils';
-import { ListQuery } from '~core/entity-services/_global/list-query.interface';
+import { StatusUtils } from './status.utils';
 
 
 export function makeColumns(
@@ -41,7 +42,7 @@ export function statusToKanbanCol(
 	return {
 		id: type.id,
 		title: constPipe.transform(type.name, 'status'),
-		color: statusToColor(type.category),
+		color: StatusUtils.getStatusColor(type),
 		data,
 		totalData
 	};

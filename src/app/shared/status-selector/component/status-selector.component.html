@@ -6,7 +6,7 @@
 		[closeOnScroll]="true"
 		[offsetX]="offsetX"
 		[offsetY]="offsetY">
-		<context-menu-trigger-app class="flex {{selectSize}}">
+		<context-menu-trigger-app class="flex {{ selectSize }}">
 
 			<ng-container *ngIf="type === 'badge'">
 				<status-badge-app
@@ -54,7 +54,7 @@
 			[offsetX]="26"
 			class="pointer caretCtnr bg-{{ entity?.status?.category }}"
 			(click)="next()">
-			<icon-app class="caret" [ngClass]="{new: entity?.status?.category === 'new'}" name="caret-right" ></icon-app>
+			<icon-app class="caret" [ngClass]="{ new: entity?.status?.category === statusUtils.DEFAULT_STATUS_CATEGORY }" name="caret-right" ></icon-app>
 		</div>
 		<div
 			*ngIf="isLast()"

@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Input, ViewChild, ElementRef, After
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { AppImage, EntityName } from '~core/models';
 import { UploaderService } from '~shared/file/services/uploader.service';
-import { colorMap, Size, sizeMap } from '../logo/logo.component';
+import { Size, IconUtils } from '~utils';
 
 @Component({
 	selector: 'initials-logo-app',
@@ -42,8 +42,8 @@ export class InitialsLogoComponent implements AfterViewInit {
 	) { }
 
 	ngAfterViewInit() {
-		const color = colorMap[this.type] || 'secondary';
-		const size = sizeMap[this.size] || sizeMap.m;
+		const color = IconUtils.iconsColorMap[this.type] || 'secondary';
+		const size = IconUtils.iconsSizeMap[this.size] || IconUtils.iconsSizeMap.m;
 		this.render.setStyle(this.hostElement.nativeElement, 'height', `${size.background}px`);
 		this.render.setStyle(this.hostElement.nativeElement, 'width', `${size.background}px`);
 		this.render.addClass(this.initialsElement.nativeElement, `bg-${color}`);
