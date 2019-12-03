@@ -270,7 +270,8 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 	}
 
 	onStarVote(number: number) {
-		this.update(this.ratingSrv.starVote(this.product.votes, number, EntityName.PRODUCT), 'votes');
+		const votes = this.ratingSrv.starVote(this.product.votes, number, EntityName.PRODUCT);
+		this.update(votes, 'votes');
 	}
 
 	updateTask(task: Task) {
