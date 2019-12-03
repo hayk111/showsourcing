@@ -3,11 +3,11 @@ import { ProductStatus, SampleStatus, SupplierStatus } from '~models';
 import { StatusUtils } from '~utils';
 
 @Component({
-	selector: 'status-box-app',
-	templateUrl: './status-box.component.html',
-	styleUrls: ['./status-box.component.scss']
+	selector: 'status-button-app',
+	templateUrl: './status-button.component.html',
+	styleUrls: ['./status-button.component.scss']
 })
-export class StatusBoxComponent {
+export class StatusButtonComponent {
 
 	@Input() displayAttribute: 'name' | 'category' = 'name';
 	@Input() status: ProductStatus | SupplierStatus | SampleStatus;
