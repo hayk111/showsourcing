@@ -18,10 +18,10 @@
 			</ng-container>
 
 			<ng-container *ngIf="type === 'button'">
-				<status-box-app
+				<status-button-app
 					class="pointer flexCenter border-radius-right-none"
 					[status]="entity?.status">
-				</status-box-app>
+				</status-button-app>
 			</ng-container>
 
 			<ng-container *ngIf="type === 'dropdown'">
@@ -39,7 +39,7 @@
 		</context-menu-trigger-app>
 
 		<div *ngFor="let stat of (status$ | async); last as last; trackBy: trackByFn" class="{{ selectSize }}">
-			<status-box-app class="pointer full-width" [class.mg-bottom-xxs]="!last" [status]="stat" (click)="updateStatus(stat)"></status-box-app>
+			<status-button-app class="pointer full-width" [class.mg-bottom-xxs]="!last" [status]="stat" (click)="updateStatus(stat)"></status-button-app>
 		</div>
 
 	</context-menu-app>
