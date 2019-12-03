@@ -1,4 +1,5 @@
-import { Component, OnInit, EventEmitter, ChangeDetectionStrategy, Input, Output } from '@angular/core';
+import { Component, EventEmitter, ChangeDetectionStrategy, Input, Output } from '@angular/core';
+import { EntitySelectionBarComponent } from '~core/selection';
 
 @Component({
 	selector: 'task-selection-bar-app',
@@ -6,21 +7,14 @@ import { Component, OnInit, EventEmitter, ChangeDetectionStrategy, Input, Output
 	styleUrls: ['./task-selection-bar.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TaskSelectionBarComponent implements OnInit {
+export class TaskSelectionBarComponent extends EntitySelectionBarComponent {
 
-	@Input() isShown = false;
-	@Input() selection: Map<string, boolean>;
-	@Input() count: number;
 	@Input() allSelectedFavorite: boolean;
-	@Output() close = new EventEmitter<null>();
-	@Output() deleteSelected = new EventEmitter<null>();
 	@Output() onFavorite = new EventEmitter<null>();
 	@Output() onUnfavorite = new EventEmitter<null>();
 	@Output() statusUpdated = new EventEmitter<any>();
 
-	constructor() { }
-
-	ngOnInit() {
+	constructor() {
+		super();
 	}
-
 }

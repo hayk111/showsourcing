@@ -1,4 +1,5 @@
-import { Component, OnInit, EventEmitter, ChangeDetectionStrategy, Input, Output } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { EntitySelectionBarComponent } from '~core/selection';
 
 @Component({
 	selector: 'project-selection-bar-app',
@@ -6,17 +7,8 @@ import { Component, OnInit, EventEmitter, ChangeDetectionStrategy, Input, Output
 	styleUrls: ['./project-selection-bar.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProjectSelectionBarComponent implements OnInit {
-
-	@Input() isShown = false;
-	@Input() selection: Map<string, boolean>;
-	@Input() count: number;
-	@Output() close = new EventEmitter<null>();
-	@Output() deleteSelected = new EventEmitter<null>();
-
-	constructor() { }
-
-	ngOnInit() {
+export class ProjectSelectionBarComponent extends EntitySelectionBarComponent {
+	constructor() {
+		super();
 	}
-
 }

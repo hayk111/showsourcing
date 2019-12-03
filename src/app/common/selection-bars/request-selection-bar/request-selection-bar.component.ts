@@ -1,4 +1,5 @@
 import { Component, OnInit, EventEmitter, ChangeDetectionStrategy, Input, Output } from '@angular/core';
+import { EntitySelectionBarComponent } from '~core/selection';
 
 @Component({
 	selector: 'request-selection-bar-app',
@@ -6,16 +7,10 @@ import { Component, OnInit, EventEmitter, ChangeDetectionStrategy, Input, Output
 	styleUrls: ['./request-selection-bar.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RequestSelectionBarComponent implements OnInit {
-
-	@Input() isShown = false;
-	@Input() selection: Map<string, boolean>;
-	@Input() count: number;
+export class RequestSelectionBarComponent extends EntitySelectionBarComponent {
 	@Output() cancelSelectedRequests = new EventEmitter<null>();
 
-	constructor() { }
-
-	ngOnInit() {
+	constructor() {
+		super();
 	}
-
 }
