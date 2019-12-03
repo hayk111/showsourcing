@@ -1,18 +1,18 @@
 <h2 class="l flexStart">Samples</h2>
 <!-- table -->
 <span class="color-primary">TODO: waiting for dashboard to see what to do with this</span>
-<!-- <samples-table-app
-	class="no-padding"
+<samples-table-app
 	[rows]="listSrv.items$ | async"
-	tableConfigType="medium"
-	[columns]="['referenceName', 'statusCreationDate']"
+	[columns]="['logo', 'name', 'assignee', 'status', 'creationDate']"
 	[selection]="listSrv.selection$ | async"
-	[hasRequestCount]="true"
 	[pending]="listSrv.pending"
+	[hasRequestCount]="true"
 	[hasMinHeight]="false"
 	[hasHeader]="false"
 	[hasMenu]="false"
+	[hasSelection]="false"
 	[hasPagination]="false"
+	[hasBorder]="false"
 	[rowHeight]="34"
 	(sort)="listSrv.sort($event)"
 	(select)="listSrv.selectOne($event, true)"
@@ -26,7 +26,7 @@
 	(createClick)="dialogCommonSrv.openCreationSampleDialog(product)"
 	(update)="listSrv.update($event)"
 	(delete)="listSrv.deleteOne($event)">
-</samples-table-app> -->
+</samples-table-app>
 
 <!-- buttons -->
 <div *ngIf="(listSrv.items$ | async)?.length" class="flex buttons-container">

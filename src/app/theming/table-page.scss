@@ -15,9 +15,14 @@
 		margin: var(--spacing-ms) var(--spacing-l);
 		display: flex;
 		box-sizing: border-box;
-		height: 100%;
+		overflow: hidden;
 	}
+}
 
+.details-page {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
 }
 
 

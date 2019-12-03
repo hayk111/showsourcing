@@ -26,7 +26,8 @@ import { AutoUnsub, log } from '~utils';
 @Component({
 	selector: 'product-details-page-app',
 	templateUrl: './product-details-page.component.html',
-	styleUrls: ['./product-details-page.component.scss']
+	styleUrls: ['./product-details-page.component.scss'],
+	host: { class: 'details-page' }
 })
 export class ProductDetailsPageComponent extends AutoUnsub implements OnInit {
 	@Input() requestCount: number;

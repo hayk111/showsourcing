@@ -1,7 +1,6 @@
-import { EventEmitter, Input, Output, OnInit, HostBinding } from '@angular/core';
+import { EventEmitter, HostBinding, Input, OnInit, Output } from '@angular/core';
 import { Sort } from '~shared/table/components/sort.interface';
 import { TrackingComponent } from '~utils/tracking-component';
-import { ERM } from '~core/models/_erm.enum';
 
 
 export interface ColumnConfig {
@@ -42,6 +41,7 @@ export abstract class EntityTableComponent<T> extends TrackingComponent implemen
 	@Input() hasPagination = true;
 	@Input() hasSelection = true;
 	@Input() hasPreview = true;
+	@Input() hasBorder = true;
 	@Input() canUpdate = true;
 	@Input() columns = [];
 	@Input() hasMinHeight = true;
