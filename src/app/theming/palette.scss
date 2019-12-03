@@ -1,12 +1,11 @@
 
 :root {
-
 	--color-primary: rgb(69, 173, 255);
 	--color-primary-dark: rgb(64, 161, 235);
 	--color-primary-light: rgb(236, 246, 255);
 	--color-primary-contrast: rgb(255, 255, 255);
 
-	--color-secondary-light: rgb(249, 250, 252);
+	--color-secondary-light: rgb(242, 245, 251);
 	--color-secondary: rgb(233, 237, 245);
 	--color-secondary-dark: rgb(220, 225, 235);
 	--color-secondary-contrast: rgb(93, 109, 139);
@@ -31,17 +30,19 @@
 	--color-success-dark: rgb(58, 172, 90);
 	--color-success-contrast: rgb(255, 255, 255);
 
-	--color-divider:  rgb(230, 235, 245);
-
+	
 	--color-txt-primary: rgb(24, 40, 68);
 	--color-txt-secondary: rgb(93, 109, 139);
 	--color-txt-third: rgb(163, 175, 198);
-
+	
 	--color-bg: rgb(255, 255, 255);
 	--color-bg-dark: rgb(24, 40, 68);
 	--color-bg-secondary: rgb(249, 250, 252);
-	--color-bg-third: rgb(230, 235, 245);
+	
+	--color-divider: rgb(230, 235, 245);
+	--color-hover: var(--color-bg-secondary);
 
+	// TODO those are not used, is there a need to keep them ?
 	// entities
 	--color-product: var(--color-primary);
 	--color-product-light: var(--color-primary-light);
@@ -53,9 +54,10 @@
 	--color-category-light: var(--color-accent-light);
 	--color-sample: var(--color-accent);
 	--color-sample-light: var(--color-accent-light);
-	--color-task: rgb(113, 229, 145);
-	--color-task-light: rgb(240, 252, 244);
+	--color-task: var(--color-success);
+	--color-task-light: var(--color-success-light);
 
+	// TODO those need to be updated
 	// status
 	--color-status-new: var(--color-secondary-contrast);
 	--color-status-new-light: var(--color-secondary);
@@ -103,6 +105,7 @@ $colors: (
 	}
 }
 
+// TODO we need to clean those a bit
 
 .color-bg-dark {
 	color: var(--color-bg-dark);
@@ -167,7 +170,6 @@ $colors: (
 }
 
 /* Background */
-
 .bg-new {
 	background: var(--color-status-new-light);
 }

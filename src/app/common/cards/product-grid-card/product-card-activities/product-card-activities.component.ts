@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, OnChanges, AfterCont
 import { RequestElementService } from '~core/entity-services';
 import { Observable } from 'rxjs';
 import { ReplyStatus, Task } from '~core/models';
-import { RatingService } from '~shared/rating/services/thumbs.service';
+import { RatingService } from '~shared/rating/services/rating.service';
 
 @Component({
 	selector: 'product-card-activities-app',

@@ -35,8 +35,11 @@ export class StatusSelectorService {
 
 	getTableStatus(typeEntity: EntityMetadata): Observable<SupplierStatus[] | ProductStatus[] | SampleStatus[]> {
 		switch (typeEntity) {
+			case ERM.PRODUCT_STATUS:
 			case ERM.PRODUCT: return this.productStatuses$;
+			case ERM.SUPPLIER_STATUS:
 			case ERM.SUPPLIER: return this.supplierStatuses$;
+			case ERM.SAMPLE_STATUS:
 			case ERM.SAMPLE: return this.sampleStatus$;
 			default: return of();
 		}

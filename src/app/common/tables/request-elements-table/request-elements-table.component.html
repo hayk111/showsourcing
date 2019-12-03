@@ -2,7 +2,7 @@
 	[class.no-min-height]="!hasMinHeight"
 	[placeholder]="'placeholder.no-request-items' | translate"
 	[rows]="rows"
-	[type]="'REQUEST_ELEMENT' | erm: true"
+	[type]="'REQUEST_ELEMENT' | erm: 'singular'"
 	[currentSort]="currentSort"
 	[pending]="pending"
 	[count]="count"
@@ -12,6 +12,7 @@
 	[hasHeader]="hasHeader"
 	[hasPagination]="hasPagination"
 	[hasSelection]="hasSelection"
+	[hasBorder]="hasBorder"
 	[contextualMenu]="contextualMenuTemplate"
 	(goToPage)="goToPage.emit($event)"
 	(bottomReached)="bottomReached.emit()"
@@ -36,10 +37,12 @@
 	<ng-template
     *ngFor="let column of columnsConfig; trackBy: trackByFn"
     let-row="row"
-		[columnApp]="'title.' + column.translationKey | translate"
+		[columnApp]="column.translationKey ? ('title.' + column.translationKey | translate) : ''"
 		[sortable]="column.sortable !== false"
-    [width]="column.width"
-		[sortBy]="column.sortProperty">
+		[width]="column.width"
+		[sortBy]="column.sortProperty"
+		[grows]="!column.fixedWidth"
+		[showOnHover]="column.showOnHover">
 
     <ng-container [ngSwitch]="column.name">
 
@@ -54,12 +57,10 @@
 
 			<!-- status -->
 			<ng-container *ngSwitchCase="'status'">
-
 				<request-status-badge-app
 					[status]="row?.reply?.status"
 					[creationDate]="row?.creationDate">
 				</request-status-badge-app>
-
 			</ng-container>
 
 			<!-- fields amount -->

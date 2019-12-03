@@ -47,6 +47,7 @@ export * from './supplier-claim.model';
 export * from './supplier-request.model';
 export * from './supplier-status.model';
 export * from './supplier-type.model';
+export * from './supplier-vote.model';
 export * from './supplier.model';
 export * from './tag.model';
 export * from './task.model';
@@ -55,4 +56,4 @@ export * from './team.model';
 export * from './user.model';
 export * from './weight-unit.model';
 export * from './rpc-request.model';
-
+export * from './utils';

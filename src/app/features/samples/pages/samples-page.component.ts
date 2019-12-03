@@ -18,7 +18,10 @@ import { AutoUnsub } from '~utils';
 	providers: [
 		ListPageService,
 		DialogCommonService
-	]
+	],
+	host: {
+		class: 'table-page'
+	}
 })
 export class SamplesPageComponent extends AutoUnsub implements OnInit {
 	erm = ERM;

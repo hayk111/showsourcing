@@ -19,7 +19,8 @@ import { FilterType } from '~shared/filters';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
 		ListPageService
-	]
+	],
+	host: { class: 'table-page' }
 })
 
 export class SamplesPageComponent extends AbstractSampleCommonComponent implements OnInit {

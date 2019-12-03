@@ -22,7 +22,10 @@ import { AutoUnsub } from '~utils';
 	styleUrls: ['./suppliers-page.component.scss'],
 	providers: [
 		ListPageService
-	]
+	],
+	host: {
+		class: 'table-page'
+	}
 })
 export class SuppliersPageComponent extends AutoUnsub implements OnInit, AfterViewInit {
 

@@ -1,10 +1,9 @@
 <h2 class="l flexStart">Tasks</h2>
 <!-- table -->
+<span class="color-primary">TODO: waiting for dashboard to see what to do with this</span>
 <task-table-app
-	class="no-padding"
 	[rows]="listSrv.items$ | async"
-	tableConfigType="medium-small"
-	[columns]="['name', 'assigneeDueDate']"
+	[columns]="['logo', 'name', 'assignee', 'status', 'dueDate', 'creationDate']"
 	[selection]="listSrv.selection$ | async"
 	[pending]="listSrv.pending"
 	[hasMinHeight]="false"
@@ -12,6 +11,7 @@
 	[hasMenu]="false"
 	[hasPagination]="false"
 	[hasSelection]="false"
+	[hasBorder]="false"
 	[rowHeight]="34"
 	(sort)="listSrv.sort($event)"
 	(select)="listSrv.selectOne($event, true)"
@@ -24,7 +24,7 @@
 	(previewClick)="listSrv.openPreview($event)"
 	(createClick)="openCreationTaskDlg(product)"
 	(update)="listSrv.update($event)"
-	(delete)="listSrv.deleteOne($event, true)">
+	(delete)="listSrv.deleteOne($event, true)"> 
 </task-table-app>
 
 <!-- buttons -->

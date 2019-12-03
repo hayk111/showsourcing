@@ -4,11 +4,13 @@
 	[hasSwitch]="false"
 	[hasAssigned]="false"
 	[hasArchived]="false"
-	[buttonName]="'Contact supplier'"
 	[view]="listSrv.view"
 	(search)="listSrv.search($event)"
 	(smartSearch)="listSrv.smartSearch($event)"
 	(buttonClick)="dialogCommonSrv.openSupplierRequest([], supplier)">
+		<!-- <controller-list-actions-app>
+		<button class="primary" (click)="dialogCommonSrv.openSupplierRequest([], supplier)">Contact Supplier</button>
+	</controller-list-actions-app> -->
 </controller-list-app>
 
 <requests-table-app

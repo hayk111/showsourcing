@@ -6,15 +6,15 @@ import { filter, first, map, switchMap, take, takeUntil, tap } from 'rxjs/operat
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ListPageService } from '~core/list-page';
-import { NEW_STATUS_ID } from '~core/models/status.model';
 import { ProductService, ProductStatusService, ProjectService } from '~entity-services';
 import { ProjectFeatureService } from '~features/projects/services';
-import { ERM, Product, ProductStatus, Project } from '~models';
+import { EntityName, ERM, Product, ProductStatus, Project } from '~models';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { KanbanDropEvent } from '~shared/kanban/interfaces';
 import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.interface';
 import { KanbanService } from '~shared/kanban/services/kanban.service';
+import { StatusUtils } from '~utils';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 
 @Component({
@@ -72,7 +72,7 @@ export class WorkflowPageComponent extends AutoUnsub implements OnInit {
 			}).pipe(
 				first(),
 				// adding new status
-				map(statuses => [{ id: NEW_STATUS_ID, name: 'New Product', category: 'new' }, ...statuses]),
+				map(statuses => [{ id: StatusUtils.NEW_STATUS_ID, name: 'New Product', category: StatusUtils.DEFAULT_STATUS_CATEGORY }, ...statuses]),
 				tap(statuses => this.kanbanSrv.setColumnsFromStatus(statuses)),
 				tap(statuses => this.statuses = statuses),
 				takeUntil(this._destroy$)
@@ -106,7 +106,7 @@ export class WorkflowPageComponent extends AutoUnsub implements OnInit {
 	// returns the query of the columns based on the parameters on the list srv and a constant query
 	private getColQuery(colId: string) {
 		const predicate = this.listSrv.filterList.asPredicate();
-		const constQuery = colId !== NEW_STATUS_ID ?
+		const constQuery = colId !== StatusUtils.NEW_STATUS_ID ?
 			`status.id == "${colId}" AND projects.id == "${this.project.id}"` :
 			`status == null AND projects.id == "${this.project.id}"`;
 		return [
@@ -139,7 +139,7 @@ export class WorkflowPageComponent extends AutoUnsub implements OnInit {
 			return;
 		}
 		// we update on the server
-		const isNewStatus = event.to.id === NEW_STATUS_ID;
+		const isNewStatus = event.to.id === StatusUtils.NEW_STATUS_ID;
 		this.productSrv.update(
 			{
 				id: event.item.id,
@@ -152,7 +152,7 @@ export class WorkflowPageComponent extends AutoUnsub implements OnInit {
 
 	/** multiple */
 	updateProductsStatus(event: KanbanDropEvent) {
-		const isNewStatus = event.to.id === NEW_STATUS_ID;
+		const isNewStatus = event.to.id === StatusUtils.NEW_STATUS_ID;
 		const products = event.items.map(id => ({
 			id,
 			status: isNewStatus ? null : new ProductStatus({ id: event.to.id })
@@ -195,12 +195,12 @@ export class WorkflowPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	onMultipleThumbUp(isCreated) {
-		const updated = this.listSrv.onMultipleThumbUp(isCreated);
+		const updated = this.listSrv.onMultipleThumbUp(isCreated, EntityName.PRODUCT);
 		this.kanbanSrv.updateMany(updated);
 	}
 
 	onMultipleThumbDown(isCreated) {
-		const updated = this.listSrv.onMultipleThumbDown(isCreated);
+		const updated = this.listSrv.onMultipleThumbDown(isCreated, EntityName.PRODUCT);
 		this.kanbanSrv.updateMany(updated);
 	}
 

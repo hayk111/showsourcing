@@ -1,6 +1,5 @@
 
-
-export type Colors = 'primary' | 'secondary' | 'accent' | 'vibrant' | 'warn' | 'success';
+export type Colors = 'primary' | 'secondary' | 'accent' | 'vibrant' | 'warn' | 'success' | 'primary-light' | 'secondary-light';
 
 export enum Color {
 	PRIMARY = 'primary',

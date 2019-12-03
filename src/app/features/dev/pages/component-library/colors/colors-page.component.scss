@@ -1,6 +1,8 @@
-#content {
-	display: flex;
-	>* {
-		margin-right: 1px;
-	}
+.color-example {
+	width: 30px;
+	height: 12px;
+}
+
+card-app {
+	min-width: 800px;
 }

@@ -8,7 +8,7 @@ import { TemplateService } from '~core/template/services/template.service';
 import { WorkspaceFeatureService } from '~features/workspace/services/workspace-feature.service';
 import { ERM, Product, ProductVote } from '~models';
 import { NotificationService } from '~shared/notifications';
-import { RatingService } from '~shared/rating/services/thumbs.service';
+import { RatingService } from '~shared/rating/services/rating.service';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 
 

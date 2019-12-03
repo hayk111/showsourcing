@@ -12,7 +12,8 @@ import { AutoUnsub } from '~utils';
 	selector: 'requests-page-app',
 	templateUrl: './requests-page.component.html',
 	styleUrls: ['./requests-page.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: { class: 'table-page' }
 })
 export class RequestsPageComponent extends AutoUnsub implements OnInit {
 

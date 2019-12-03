@@ -1,5 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy, EventEmitter, Output, Input } from '@angular/core';
-import { ProductVote, Product } from '~models';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Vote } from '~shared/rating/services/rating.service';
 
 @Component({
 	selector: 'action-bar-app',
@@ -19,7 +19,7 @@ export class ActionBarComponent implements OnInit {
 	@Input() hasLikes = true;
 	/** if we are liking/disliking multiple products */
 	@Input() multiple = false;
-	@Input() votes: ProductVote[];
+	@Input() votes: Vote[];
 	@Input() buttonName: string;
 	/** whether we display the heart or not */
 	@Input() hasHeart = true;

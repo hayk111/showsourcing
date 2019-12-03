@@ -6,16 +6,22 @@ import { ERM, EntityMetadata, EntityName } from '~models';
 })
 export class ERMPipe implements PipeTransform {
 
-	transform(value: EntityName, singular: boolean): EntityMetadata {
+	transform(value: EntityName, property: string): EntityMetadata | string  {
 		if (!value) {
-			return;
+			throw Error('no value specified for erm pipe');
 		}
 
-		if (singular === undefined) {
-			return ERM[value];
+		const	erm = ERM[value];
+
+		if (!erm) {
+			throw Error(`ERM not found for ${value}`);
 		}
 
-		return singular ? ERM[value].singular : ERM[value].plural;
+		if (!property) {
+			return erm;
+		}
+
+		return erm[property];
 	}
 
 }

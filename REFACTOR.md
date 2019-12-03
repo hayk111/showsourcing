@@ -16,6 +16,11 @@ Maybe we can have a document with that just list the functions used in:
 
 for each entity and see what to do.
 
+# Styling
+Remove non used colors from palette.scss
+Remove non used spacing from spacing.scss
+Clean Typography.scss
+Add horizontal (h) and vertical (v) mg-, pd- classes.
 
 # List & common behaviors
 

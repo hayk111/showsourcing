@@ -4,7 +4,7 @@ import { first, map } from 'rxjs/operators';
 import { Category } from '~features/workspace/models';
 import { ProductStatusService } from '~entity-services';
 import { ERM, Product, ProductStatus } from '~models';
-import { EntityTableComponent } from '~core/list-page/entity-table.component';
+import { EntityTableComponent } from '~common/tables/entity-table.component';
 import { SelectionService } from '~core/list-page/selection.service';
 import { Sort } from '~shared/table/components/sort.interface';
 

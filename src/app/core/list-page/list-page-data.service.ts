@@ -81,6 +81,8 @@ export class ListPageDataService
 		// can just do it once
 		if (!this.initialized) {
 			this.setItems();
+			// then we start listening
+			this.listResult.items$.connect();
 			this.initialized = true;
 		} else {
 			this.refetch({}).subscribe();
@@ -90,7 +92,6 @@ export class ListPageDataService
 		this.listenFilterChanges(destroy$);
 		// since the isListening changes after ngAfterViewInit a lot of the time
 		// let's use setTimeout to not have a ViewChangedAfterItWasCheckedError
-
 		setTimeout(_ => this.isListening = true);
 	}
 
@@ -108,11 +109,10 @@ export class ListPageDataService
 			// start at deleted false then are updated as deleted true
 			// and we can't use refetch or we lose the pagination
 			map(items => (items || []).filter(itm => !itm.deleted)),
-			tap(items => this.itemsSync = items)
+			tap(items => this.itemsSync = items),
 		) as ConnectableObservable<T[]>;
-		// then we start listening
-		this.listResult.items$.connect();
 		this.count$ = this.listResult.count$;
+
 	}
 
 	/** when the filter change we want to refetch the items with a new predicate */
