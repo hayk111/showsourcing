@@ -1,7 +1,6 @@
 <controller-list-app
-	class="max-full-table-width"
-	[searchType]="'short'"
-	[buttonName]="'Add Product'"
+	searchType="short"
+	buttonName="Add Product"
 	[filtersAmount]="listSrv.getFilterAmount([{ type: filterTypeEnum.ARCHIVED, value: false }, { type: filterTypeEnum.DELETED, value: false }])"
 	[hasFilter]="true"
 	[hasSwitch]="false"
@@ -9,7 +8,6 @@
 	[count]="listSrv.count$ | async"
 	[entityType]="erm.PRODUCT.singular"
 	[searchValue]="listSrv.searchValue"
-	[filtersPanelOpened]="listSrv.filterPanelOpen"
 	(buttonClick)="openCreationProductDlg()"
 	(search)="listSrv.search($event)"
 	(clearFilters)="onClearFilters()"

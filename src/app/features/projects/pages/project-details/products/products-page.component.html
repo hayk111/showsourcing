@@ -8,7 +8,6 @@
 		[searchValue]="listSrv.searchValue"
 		[view]="listSrv.view"
 		[count]="listSrv.count$ | async"
-		[filtersPanelOpened]="listSrv.filterPanelOpen"
 		(showFilters)="listSrv.openFilterPanel()"
 		(clearFilters)="onClearFilters()"
 		(showArchived)="listSrv.filterByArchived(true)"

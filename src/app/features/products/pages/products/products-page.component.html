@@ -14,7 +14,6 @@
 	[count]="listSrv.count$ | async"
 	[entityType]="'PRODUCT'"
 	[searchValue]="listSrv.searchValue"
-	[filtersPanelOpened]="listSrv.filterPanelOpen"
 	(search)="listSrv.search($event)"
 	(clearFilters)="onClearFilters()"
 	(showArchived)="listSrv.filterByArchived(true)"
