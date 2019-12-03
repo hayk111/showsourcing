@@ -41,8 +41,8 @@
 		</div>
 
 		<!-- supplier -->
-		<div class="section">
-			<h3>supplier</h3>
+		<section>
+			<h3 class="section-title">supplier</h3>
 			<editable-container-app
 				class="action-hover-container"
 				[hasAction]="false"
@@ -84,11 +84,11 @@
 					</selector-app>
 				</editable-display-app>
 			</editable-container-app>
-		</div>
+		</section>
 
 		<!-- category -->
-		<div class="section">
-			<h3>category</h3>
+		<section>
+			<h3 class="section-title">category</h3>
 			<editable-container-app
 				[hasAction]="false"
 				[openOnClick]="false"
@@ -96,32 +96,33 @@
 				<editable-display-app>
 					<badge-selector-app
 						#categorySelector
+						class="mg-bottom-none"
 						[badge]="'CATEGORY' | erm"
 						[value]="product?.category"
 						(update)="update($event, 'category')">
 					</badge-selector-app>
 				</editable-display-app>
 			</editable-container-app>
-		</div>
+		</section>
 
 		<!-- description -->
-		<div class="section">
-			<h3>description</h3>
+		<section>
+			<h3 class="section-title">description</h3>
 			<input-description-app
 				[description]="product?.description"
 				(update)="update($event, 'description')">
 			</input-description-app>
-	</div>
+	</section>
 
 	<!-- tags -->
-	<div class="section">
-		<h3>tags</h3>
+	<section>
+		<h3 class="section-title">tags</h3>
 		<input-badge-selector-app
 			[value]="product?.tags"
 			type="tag"
 			(change)="update($event, 'tags')">
 		</input-badge-selector-app>
-	</div>
+	</section>
 
 	</div>
 </div>

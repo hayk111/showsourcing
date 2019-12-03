@@ -10,6 +10,7 @@ import { EditableFieldModule } from '~shared/editable-field';
 import { FileModule } from '~shared/file';
 import { IconsModule } from '~shared/icons';
 import { ImageModule } from '~shared/image/image.module';
+import { LogoModule } from '~shared/logo';
 import { SelectorsModule } from '~shared/selectors/selectors.module';
 import { StatusSelectorModule } from '~shared/status-selector/status-selector.module';
 import { UtilsModule } from '~shared/utils';
@@ -19,7 +20,6 @@ import {
 	PreviewCarouselComponent,
 	PreviewCommentComponent,
 	PreviewHeaderComponent,
-	PreviewLogoComponent,
 	PreviewPanelComponent,
 	PreviewSectionComponent,
 	PreviewStaticComponent,
@@ -39,6 +39,7 @@ import {
 		FormsModule,
 		IconsModule,
 		ImageModule,
+		LogoModule,
 		OverlayModule,
 		ReactiveFormsModule,
 		SelectorsModule,
@@ -51,7 +52,6 @@ import {
 		PreviewCarouselComponent,
 		PreviewCommentComponent,
 		PreviewHeaderComponent,
-		PreviewLogoComponent,
 		PreviewPanelComponent,
 		PreviewSectionComponent,
 		PreviewStaticComponent,
@@ -63,7 +63,6 @@ import {
 		PreviewCarouselComponent,
 		PreviewCommentComponent,
 		PreviewHeaderComponent,
-		PreviewLogoComponent,
 		PreviewPanelComponent,
 		PreviewSectionComponent,
 		PreviewStaticComponent,

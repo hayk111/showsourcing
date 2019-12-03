@@ -1,6 +1,6 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { EntityName } from '~core/models';
-import { colorMap } from '~shared/icons';
+import { colorMap } from '~shared/logo';
 import { Color } from '~utils';
 
 @Component({

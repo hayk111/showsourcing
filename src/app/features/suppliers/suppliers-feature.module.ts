@@ -1,18 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ActivityCommonModule } from '~common/activity/activity-common.module';
+import { BoardsCommonModule } from '~common/boards/boards-common.module';
+import { CardsCommonModule } from '~common/cards/cards-common.module';
+import { ListCommonModule } from '~common/list/list-common.module';
 import { PreviewsCommonModule } from '~common/previews/previews-common.module';
 import { SelectionBarsCommonModule } from '~common/selection-bars/selection-bars-common.module';
 import { TablesCommonModule } from '~common/tables/tables-common.module';
-import { routes } from './routes';
 import { NavBarModule } from '~shared/navbar';
 import { RatingModule } from '~shared/rating';
 import { SharedModule } from '~shared/shared.module';
 
 import * as DetailsPage from './pages/supplier-details';
 import * as TablePage from './pages/suppliers';
-import { SupplierFeatureService } from './services';
-import { BoardsCommonModule } from '~common/boards/boards-common.module';
+import { routes } from './routes';
 
 @NgModule({
 	imports: [
@@ -24,22 +25,27 @@ import { BoardsCommonModule } from '~common/boards/boards-common.module';
 		PreviewsCommonModule,
 		TablesCommonModule,
 		SelectionBarsCommonModule,
-		BoardsCommonModule
+		BoardsCommonModule,
+		CardsCommonModule,
+		ListCommonModule,
 	],
 	declarations: [
-		TablePage.SuppliersPageComponent,
 		DetailsPage.ActivityPageComponent,
-		DetailsPage.SupplierDetailsPageComponent,
+		DetailsPage.ContactsPageComponent,
 		DetailsPage.FilesPageComponent,
-		DetailsPage.SamplesPageComponent,
+		DetailsPage.ProductsCardComponent,
 		DetailsPage.ProductsPageComponent,
+		DetailsPage.RequestsPageComponent,
+		DetailsPage.SamplesPageComponent,
+		DetailsPage.SupplierDetailsPageComponent,
+		DetailsPage.SupplierDocketComponent,
 		DetailsPage.SupplierHeaderDetailsComponent,
-		DetailsPage.TasksPageComponent
+		DetailsPage.SupplierResumeComponent,
+		DetailsPage.TasksPageComponent,
+		TablePage.SuppliersPageComponent,
 	],
 	entryComponents: [],
 	exports: [],
-	providers: [
-		SupplierFeatureService
-	]
+	providers: []
 })
 export class SuppliersFeatureModule { }

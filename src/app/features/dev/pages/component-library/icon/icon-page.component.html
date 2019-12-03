@@ -21,7 +21,7 @@
 		Or you can give one of our default size "s", "m" or "l"
 		<small>name="product" [size]="'s'" || [size]="'m'" ||  [size]="'l'" </small>
 	</p>
-	
+
 	<div class="flex">
 		<icon-app name="product" [size]="'s'"></icon-app>
 		<icon-app name="product" [size]="'m'"></icon-app>
@@ -32,7 +32,7 @@
 
 <card-app>
 	<h3 class="mg-l">Logos</h3>
-	
+
 	<b>Color</b> <br>
 
 	<p>
@@ -55,7 +55,7 @@
 		<logo-app type="product" color="vibrant"></logo-app>
 	</div>
 
-	<br><br> 
+	<br><br>
 	<b>Circle</b> <br>
 	<p>
 		<small>type="product" [circle]="true" color="accent"</small>
@@ -65,7 +65,7 @@
 	<br><br>
 	<b>Circle</b> <br>
 
-	
+
 	<p>
 		You can use the [circle] input to make it a circle
 		<small>type="product" | "comment" | "task" [circle]="true" </small>
@@ -103,7 +103,7 @@
 		If you specify a [logo] it will be used
 		<small>type="product" [logo]="imageMock"</small>
 	</p>
-	
+
 	<logo-app type="product" [logo]="imageMock"></logo-app>
 
 	<br><br>
@@ -114,4 +114,18 @@
 		<small>icon="star" color="accent"</small>
 	</p>
 	<logo-app icon="star" color="accent"></logo-app>
+
+
+	<br><br>
+	<b>Initials</b> <br>
+
+	<p>
+		You can use initials logo: instead of the default icon it will display the initials of a name
+		<small>name="Supplier with name" type="supplier" size="m" | size="l" | size="xl"</small>
+	</p>
+	<div class="flex">
+		<initials-logo-app [type]="'SUPPLIER' | erm: true" [name]="'Supplier with name'"></initials-logo-app>
+		<initials-logo-app [type]="'SUPPLIER' | erm: true" [name]="'Supplier with name'" size="l"></initials-logo-app>
+		<initials-logo-app [type]="'SUPPLIER' | erm: true" [name]="'Supplier with name'" size="xl"></initials-logo-app>
+	</div>
 </card-app>

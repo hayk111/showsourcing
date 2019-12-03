@@ -272,10 +272,14 @@
 		opacity: 0;
 		transition: 0.3s;
 	}
-	// item visible when container hovered
-	&:hover .action-hover-item {
+	// item visible when container hovered, we use .disable-action-hover when we want to prevent the hover effect
+	&:hover:not(.disable-action-hover) .action-hover-item {
 		opacity: 1;
 	}
+}
+
+.default-transition {
+	transition: 0.3s;
 }
 
 

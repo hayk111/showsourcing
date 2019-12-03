@@ -1,8 +1,9 @@
-import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { LogoComponent, colorMap, iconMap, sizeMap, Size } from './logo.component';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { EntityName, imageMock } from '~core/models';
 import { IconsModule } from '~shared/icons/icons.module';
 import { Color } from '~utils';
+
+import { colorMap, iconMap, LogoComponent, Size, sizeMap } from './logo.component';
 
 
 const colors = Object.values(Color);
