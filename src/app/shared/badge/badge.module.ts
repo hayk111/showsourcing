@@ -10,7 +10,7 @@ import {
 	NotificationBadgeDirective,
 	RequestStatusBadgeComponent,
 	StatusBadgeComponent,
-	StatusBoxComponent,
+	StatusButtonComponent,
 	TaskStatusBadgeComponent,
 } from './components';
 
@@ -28,7 +28,7 @@ import {
 		NotificationBadgeDirective,
 		RequestStatusBadgeComponent,
 		StatusBadgeComponent,
-		StatusBoxComponent,
+		StatusButtonComponent,
 		TaskStatusBadgeComponent,
 	],
 	exports: [
@@ -37,7 +37,7 @@ import {
 		NotificationBadgeDirective,
 		RequestStatusBadgeComponent,
 		StatusBadgeComponent,
-		StatusBoxComponent,
+		StatusButtonComponent,
 		TaskStatusBadgeComponent,
 	],
 	entryComponents: []

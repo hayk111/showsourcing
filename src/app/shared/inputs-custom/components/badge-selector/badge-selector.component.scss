@@ -1,10 +1,6 @@
 :host {
 	display: block;
 	text-align: left;
-
-	&.mg-bottom-none .icon-container {
-		margin-bottom: 0;
-	}
 }
 
 selector-app {
@@ -18,7 +14,6 @@ selector-app {
 
 .icon-container {
 	position: relative;
-	margin-bottom: var(--spacing-xs);
 
 	&:hover .icon-preview {
 			visibility: visible;

@@ -18,10 +18,10 @@
 			</ng-container>
 
 			<ng-container *ngIf="type === 'button'">
-				<status-box-app
-					class="pointer flexCenter"
+				<status-button-app
+					class="pointer flexCenter border-radius-right-none"
 					[status]="entity?.status">
-				</status-box-app>
+				</status-button-app>
 			</ng-container>
 
 			<ng-container *ngIf="type === 'dropdown'">
@@ -38,33 +38,35 @@
 
 		</context-menu-trigger-app>
 
-		<div *ngFor="let stat of (status$ | async); trackBy: trackByFn" class="{{ selectSize }}">
-			<status-box-app class="pointer" [status]="stat" [width]="width" (click)="updateStatus(stat)"></status-box-app>
+		<div *ngFor="let stat of (status$ | async); last as last; trackBy: trackByFn" class="{{ selectSize }}">
+			<status-button-app class="pointer full-width" [class.mg-bottom-xxs]="!last" [status]="stat" (click)="updateStatus(stat)"></status-button-app>
 		</div>
 
 	</context-menu-app>
 
 	<ng-container *ngIf="type === 'button'">
-		<div
+		<button
 			*ngIf="!isLast()"
+			class="caretCtnr big"
+			[ngClass]="statusUtils.getStatusColor(entity?.status)"
 			toolTip
 			[toolTipMessage]="('message.next-status' | translate) +
 				' ' + ('text.' + getNextStatus()?.name | translate)"
 			toolTipPosition="below-left"
-			class="pointer caretCtnr bg-{{ entity?.status?.category }}"
 			(click)="next()">
-			<icon-app class="caret" [ngClass]="{ new: entity?.status?.category === statusUtils.DEFAULT_STATUS_CATEGORY }" name="caret-right" ></icon-app>
-		</div>
-		<div
+			<icon-app class="caret" name="caret-right"></icon-app>
+		</button>
+		<button
 			*ngIf="isLast()"
+			class="caretCtnr big"
+			[ngClass]="statusUtils.getStatusColor(entity?.status)"
 			toolTip
 			[toolTipMessage]="('message.previous-status' | translate) +
 				' ' + ('text.' + getPreviousStatus()?.name | translate)"
 			toolTipPosition="below-left"
-			class="pointer caretCtnr bg-{{ entity?.status.category }}"
 			(click)="previous()">
 			<icon-app class="caret" name="caret-left"></icon-app>
-		</div>
+		</button>
 	</ng-container>
 
 </ng-container>

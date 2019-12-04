@@ -2,22 +2,22 @@
 
 	<!-- logo -->
 	<ng-container *ngSwitchCase="'logo'">
-		<logo-app 
-			size="s" 
-			[logo]="row.images && row.images[0]" 
+		<logo-app
+			size="s"
+			[logo]="row.images && row.images[0]"
 			[color]="logoColor"
-			[type]="type.singular" 	
+			[type]="type.singular"
 			(click)="onLogoClick(row)">
 		</logo-app>
 	</ng-container>
 
 	<!-- name -->
 	<ng-container *ngSwitchCase="'name'">
-		<a class="txt-btn" (click)="onNameClick(row)"> 
+		<a class="txt-btn" (click)="onNameClick(row)">
 			{{ row.name || '-' }}
 		</a>
 	</ng-container>
-	
+
 	<!-- reference -->
 	<ng-container *ngSwitchCase="'reference'">
 		<span class="txt-btn">{{ row.reference || '-' }}</span>
@@ -41,15 +41,15 @@
 
 	<!-- rating -->
 	<ng-container *ngSwitchCase="'rating'">
-		<rating-badge-app [votes]="row?.votes"></rating-badge-app>
+		<rating-badge-app [votes]="row?.votes"[hasNumber]="true"></rating-badge-app>
 	</ng-container>
 
 	<!-- status -->
 	<ng-container *ngSwitchCase="'status'">
-		<status-selector-app 
-			selectSize="m" 
-			[entity]="row" 
-			[typeEntity]="type" 
+		<status-selector-app
+			selectSize="m"
+			[entity]="row"
+			[typeEntity]="type"
 			(statusUpdated)="update.emit($event)">
 		</status-selector-app>
 	</ng-container>
@@ -91,10 +91,10 @@
 		</div>
 	</ng-container>
 
-	
+
 	<!-- due date -->
 	<ng-container *ngSwitchCase="'dueDate'">
-		<editable-container-app #edt 
+		<editable-container-app #edt
 			(closed)="update.emit({ id: row.id, dueDate: inp.value })">
 			<editable-display-app>
 				{{ row?.dueDate ? (row?.dueDate | date: 'dd MMM y':'':translate.currentLang) : '-' }}
