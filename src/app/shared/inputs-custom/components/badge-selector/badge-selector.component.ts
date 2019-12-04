@@ -16,6 +16,7 @@ export class BadgeSelectorComponent extends TrackingComponent implements OnInit 
 	@Input() offsetY = -22;
 	@Input() multiple = false;
 	@Input() hasOpenAction = false;
+	@Input() hasLogo = true;
 	private initialMsg = 'Open';
 	@Input() toolTipMessage = this.initialMsg;
 	@Output() update = new EventEmitter<any>();

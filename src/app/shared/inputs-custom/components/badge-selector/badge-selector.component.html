@@ -11,7 +11,7 @@
 			[width]="370"
 			(update)="update.emit($event)">
 			<div class="flex">
-				<logo-app type="product" size="s"></logo-app>
+				<logo-app *ngIf="hasLogo" type="product" size="s"></logo-app>
 				<span *ngIf="value; else empty" class="ellipsis">{{ value }}</span>
 				<ng-template #empty>
 					<span translate="text.set-product"></span>
@@ -38,7 +38,7 @@
 			[width]="370"
 			(update)="update.emit($event)">
 			<div class="flex">
-				<logo-app type="supplier" size="s"></logo-app>
+				<logo-app *ngIf="hasLogo" type="supplier" size="s"></logo-app>
 				<span *ngIf="value; else empty" class="ellipsis">{{ value }}</span>
 				<ng-template #empty>
 					<span translate="text.set-supplier"></span>
@@ -65,7 +65,7 @@
 			[width]="370"
 			(update)="update.emit($event)">
 			<div class="flex">
-				<logo-app type="supplier" size="s"></logo-app>
+				<logo-app *ngIf="hasLogo" type="supplier" size="s"></logo-app>
 				<span *ngIf="value; else empty" class="ellipsis">{{ value }}</span>
 				<ng-template #empty>
 					<span translate="text.set-supplier-type"></span>
@@ -84,7 +84,7 @@
 			[width]="370"
 			(update)="update.emit($event)">
 			<div class="flex">
-				<logo-app type="location" size="s"></logo-app>
+				<logo-app *ngIf="hasLogo" type="location" size="s"></logo-app>
 				<span *ngIf="value; else empty" class="ellipsis">{{ value }}</span>
 				<ng-template #empty>
 					<span translate="text.set-location"></span>
@@ -106,7 +106,7 @@
 			[width]="370"
 			(update)="update.emit($event)">
 			<div class="flex">
-				<logo-app type="category" size="s"></logo-app>
+				<logo-app *ngIf="hasLogo" type="category" size="s"></logo-app>
 				<div *ngIf="value?.length; else noArray"  class="category-wrap flex flexWrap">
 					<div class="ellipsis category-info dot-separator">
 						<span *ngFor="let category of value; trackBy: trackByFn" class="ellipsis"> {{ category?.name }}  </span>
@@ -135,7 +135,7 @@
 			[width]="370"
 			(update)="update.emit($event)">
 			<div class="flex">
-				<logo-app type="event" size="s"></logo-app>
+				<logo-app *ngIf="hasLogo" type="event" size="s"></logo-app>
 				<span *ngIf="(value?.name || value?.description?.name); else empty" class="ellipsis">
 					{{ value?.name || value?.description?.name }}
 				</span>
