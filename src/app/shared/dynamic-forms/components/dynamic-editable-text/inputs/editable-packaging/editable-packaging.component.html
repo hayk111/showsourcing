@@ -70,7 +70,7 @@ A package with 0cm makes no sens -->
 			</form-field-app>
 	</editable-field-app>
 
-	<!-- units -->
+	<!-- height units -->
 	<selector-app
 		[type]="'LENGTH_UNIT' | erm"
 		[width]="180"
@@ -151,7 +151,7 @@ A package with 0cm makes no sens -->
 			[align]="config.alignValue"
 			[hasAction]="false"
 			(closed)="onClose($event)">
-			<label-app translate="label.units"></label-app>
+			<label-app translate="label.weight-unit"></label-app>
 			<editable-display-app>
 				{{ value?.weightUnit || '-' }}
 			</editable-display-app>

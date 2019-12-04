@@ -6,7 +6,7 @@
 		[closeOnScroll]="true"
 		[offsetX]="offsetX"
 		[offsetY]="offsetY">
-		<context-menu-trigger-app class="flex {{selectSize}}">
+		<context-menu-trigger-app class="flex {{ selectSize }}">
 
 			<ng-container *ngIf="type === 'badge'">
 				<status-badge-app
@@ -51,10 +51,9 @@
 			[toolTipMessage]="('message.next-status' | translate) +
 				' ' + ('text.' + getNextStatus()?.name | translate)"
 			toolTipPosition="below-left"
-			[offsetX]="26"
 			class="pointer caretCtnr bg-{{ entity?.status?.category }}"
 			(click)="next()">
-			<icon-app class="caret" [ngClass]="{new: entity?.status?.category === 'new'}" name="caret-right" ></icon-app>
+			<icon-app class="caret" [ngClass]="{ new: entity?.status?.category === statusUtils.DEFAULT_STATUS_CATEGORY }" name="caret-right" ></icon-app>
 		</div>
 		<div
 			*ngIf="isLast()"
@@ -62,7 +61,6 @@
 			[toolTipMessage]="('message.previous-status' | translate) +
 				' ' + ('text.' + getPreviousStatus()?.name | translate)"
 			toolTipPosition="below-left"
-			[offsetX]="20"
 			class="pointer caretCtnr bg-{{ entity?.status.category }}"
 			(click)="previous()">
 			<icon-app class="caret" name="caret-left"></icon-app>

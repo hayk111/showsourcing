@@ -10,7 +10,7 @@ import { EntityMetadata } from '~core/models';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { Filter, FilterType } from '~shared/filters';
-import { RatingService } from '~shared/rating/services/thumbs.service';
+import { RatingService, TypeWithVotes } from '~shared/rating/services/rating.service';
 import { Sort } from '~shared/table/components/sort.interface';
 import { showsourcing } from '~utils/debug-object.utils';
 
@@ -241,13 +241,13 @@ export class ListPageService
 		this.selectionSrv.allSelectedFavorite = false;
 	}
 
-	onThumbUp(item: T) {
-		const votes = this.ratingSrv.thumbUp(item);
+	onThumbUp(item: T, type: TypeWithVotes) {
+		const votes = this.ratingSrv.thumbUp(item, type);
 		return this.dataSrv.update({ id: item.id, votes } as any).subscribe();
 	}
 
-	onThumbDown(item: T) {
-		const votes = this.ratingSrv.thumbDown(item);
+	onThumbDown(item: T, type: TypeWithVotes) {
+		const votes = this.ratingSrv.thumbDown(item, type);
 		return this.dataSrv.update({ id: item.id, votes } as any).subscribe();
 	}
 
@@ -255,10 +255,10 @@ export class ListPageService
 	 * update the vote of a given selection of items (products) when given thumb up
 	 * @param isCreated if true the vote is created, if false, removed
 	 */
-	onMultipleThumbUp(isCreated: boolean) {
+	onMultipleThumbUp(isCreated: boolean, type: TypeWithVotes) {
 		const updated = [];
 		this.getSelectedValues().forEach(item => {
-			const votes = this.ratingSrv.thumbUpFromMulti(item, isCreated);
+			const votes = this.ratingSrv.thumbUpFromMulti(item, isCreated, type);
 			updated.push({ id: item.id, votes });
 		});
 		this.dataSrv.updateMany(updated).subscribe();
@@ -269,10 +269,10 @@ export class ListPageService
  * update the vote of a given selection of items (products) when given thumb down
  * @param isCreated if true the vote is created, if false, removed
  */
-	onMultipleThumbDown(isCreated: boolean) {
+	onMultipleThumbDown(isCreated: boolean, type: TypeWithVotes) {
 		const updated = [];
 		this.getSelectedValues().forEach(item => {
-			const votes = this.ratingSrv.thumbDownFromMulti(item, isCreated);
+			const votes = this.ratingSrv.thumbDownFromMulti(item, isCreated, type);
 			updated.push({ id: item.id, votes });
 		});
 		this.dataSrv.updateMany(updated).subscribe();

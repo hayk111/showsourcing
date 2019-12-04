@@ -86,6 +86,8 @@ export enum EntityTypeEnum {
 export type EntityType = 'CATEGORY' | 'EVENT' | 'PRODUCT' | 'REQUEST' | 'EXPORT'
 	| 'PROJECT' | 'TASK' | 'TEAM-MEMBER' | 'SUPPLIER' | 'SAMPLE' | 'USER' | 'TAG' | 'INVITATION';
 
+export const ERM_TOKEN = new InjectionToken<string>('ERM_TOKEN');
+
 export class EntityMetadata {
 	readonly constClass: new (...args: any[]) => any;
 	readonly singular: string;
@@ -189,5 +191,3 @@ export class ERM {
 		throw Error(`The string "${name}" does not exist on the _erm.enum.ts`);
 	}
 }
-
-export const ERM_TOKEN = new InjectionToken<string>('ERM_TOKEN');

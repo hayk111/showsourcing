@@ -47,6 +47,8 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	@Input() hasPaddingPagination;
 	/** whether the pagination component has show items per page */
 	@Input() hasShowItemsPerPage = true;
+	/** whether there is a border around the table */
+	@Input() hasBorder = true;
 
 	@Input() type: EntityName;
 	@Input() width: number;

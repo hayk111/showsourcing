@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { EntityMetadata, ERM, ProductStatus, SampleStatus, SupplierStatus } from '~models';
 import { ContextMenuComponent } from '~shared/context-menu/components/context-menu/context-menu.component';
-import { AutoUnsub } from '~utils';
+import { AutoUnsub, StatusUtils } from '~utils';
 
 import { StatusSelectorService } from '../service/status-selector.service';
 
@@ -30,7 +30,7 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 			const typeEntityName = this.typeEntity.singular;
 			// with this name we use the same pipe for translation
 			const name = '_New' + typeEntityName.charAt(0).toUpperCase() + typeEntityName.slice(1) + 'status';
-			status = value.status || { id: '-1', category: 'new', name, step: 0 };
+			status = value.status || { id: StatusUtils.NEW_STATUS_ID, category: StatusUtils.DEFAULT_STATUS_CATEGORY, name, step: 0 };
 			status.name = status.name.toLowerCase().replace(' ', '-');
 			this._entity = { ...value, status };
 		}
@@ -43,12 +43,14 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 	@Input() canUpdate = true;
 	@Input() type: 'badge' | 'dropdown' | 'multiple-selection' | 'button' = 'badge';
 	@Input() width: number;
+	@Input() statuses: any[];
 	@Output() statusUpdated = new EventEmitter<any>();
+
 	@ViewChild(ContextMenuComponent, { static: false }) menu: ContextMenuComponent;
 	/** string[] since tasks does not have a status entity */
 	status$: Observable<ProductStatus[] | SupplierStatus[] | SampleStatus[]>;
-	@Input() statuses: any[];
 	erm = ERM;
+	statusUtils = StatusUtils;
 
 	constructor(
 		private statusSlctSrv: StatusSelectorService

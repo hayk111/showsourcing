@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { mockVotes } from '~core/models';
+import { mockProductVotes } from '~core/models';
 import { RatingModule } from '~shared/rating/rating.module';
-import { RatingService } from '~shared/rating/services/thumbs.service';
+import { RatingService } from '~shared/rating/services/rating.service';
 
 import { RatingStarsScoreViewComponent } from './rating-stars-score-view.component';
 
@@ -18,7 +18,7 @@ describe('Rating stars score view', () => {
 
 		fixture = TestBed.createComponent(RatingStarsScoreViewComponent);
 		component = fixture.componentInstance;
-		component.votes = mockVotes;
+		component.votes = mockProductVotes;
 	});
 
 	it('should display only votes that have value > 0', () => {

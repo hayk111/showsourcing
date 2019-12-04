@@ -4,8 +4,7 @@ import { DialogCommonService } from '~common/dialogs/services/dialog-common.serv
 import { GlobalService } from '~core/entity-services/_global/global.service';
 import { ListPageService } from '~core/list-page';
 import { EntityMetadata } from '~core/models';
-import { DEFAULT_STATUS_CATEGORY } from '~core/models/status.model';
-import { AutoUnsub } from '~utils';
+import { AutoUnsub, StatusCategory } from '~utils';
 
 export abstract class AbstractStatusWorkflowComponent<T, G extends GlobalService<T>> extends AutoUnsub implements OnInit {
 
@@ -29,7 +28,7 @@ export abstract class AbstractStatusWorkflowComponent<T, G extends GlobalService
 
 	create() {
 		this.listSrv.items$.pipe(first()).subscribe(items => {
-			this.listSrv.create(false, { step: items.length + 1, category: DEFAULT_STATUS_CATEGORY }); // default category
+			this.listSrv.create(false, { step: items.length + 1, category: StatusCategory.PREPARATION }); // default category
 		});
 	}
 }

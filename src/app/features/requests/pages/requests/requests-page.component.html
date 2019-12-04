@@ -1,4 +1,6 @@
 <header-list-app
+	logoName="request"
+	info="Request management"
 	[title]="'title.requests' | translate"
 	[buttonName]="'button.new-request' | translate"
 	(buttonClick)="dialogCommonSrv.openSupplierRequest([])">
@@ -33,9 +35,10 @@
 	(unselectAll)="listSrv.unselectAll()">
 </requests-table-app>
 
-<selection-bar-app
+<request-selection-bar-app
 	[isShown]="(listSrv.selection$ | async).size > 0"
 	[selection]="listSrv.selection$ | async"
-	(close)="listSrv.unselectAll()">
-	<button class="warn" (click)="cancelSelectedRequests()" translate="button.cancel-requests"></button>
-</selection-bar-app>
+	[count]="listSrv.count$ | async"
+	(close)="listSrv.unselectAll()"
+	(cancelSelectedRequests)="cancelSelectedRequests()">
+</request-selection-bar-app>
