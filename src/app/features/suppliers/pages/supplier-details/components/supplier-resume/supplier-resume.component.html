@@ -28,7 +28,7 @@
 						(keyup.enter)="edt.close()"/>
 				</editable-container-app>
 				<!-- info title -->
-				<div class="flex dot-separator">
+				<div class="flex dot-separator sub-title">
 					<div *ngIf="supplier?.supplierType?.name">{{ supplier?.supplierType?.name }}</div>
 					<div *ngIf="supplier?.city || supplier?.country">{{ { country: supplier?.country, city: supplier?.city } | countryCity }}</div>
 				</div>

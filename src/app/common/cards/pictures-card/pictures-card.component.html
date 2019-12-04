@@ -5,7 +5,7 @@
 
 	<ng-container *ngIf="images?.length; else empty">
 		<div class="flex flexWrap">
-			<!-- we place the height here so we can have a transition when displaying more or less -->
+			<!-- we place the height here so we can have a transition when displaying more images or less images -->
 			<img-app
 				*ngFor="let image of images; index as i; trackBy: trackById"
 				class="mg-bottom-xs pointer default-transition"
@@ -20,8 +20,18 @@
 
 	<!-- we display a button if we have images and if we have more than the minimum -->
 	<card-footer-app *ngIf="(images?.length)  && (images?.length > defaultShown + 1)" align="center">
-		<button *ngIf="currentShown <= images?.length" class="primary-light view-all" (click)="currentShown = currentShown + 20" translate="button.view-more-pictures"></button>
-		<button *ngIf="currentShown > images?.length  && (images?.length > defaultShown + 1)" class="primary-light view-all" (click)="currentShown = defaultShown" translate="button.view-less-pictures"></button>
+		<button
+			*ngIf="currentShown <= images?.length"
+			class="primary-light view-all"
+			(click)="currentShown = currentShown + 20"
+			translate="button.view-more-pictures">
+		</button>
+		<button
+		 	*ngIf="currentShown > images?.length"
+			class="primary-light view-all"
+			(click)="currentShown = defaultShown"
+			translate="button.view-less-pictures">
+		</button>
 	</card-footer-app>
 
 </card-app>
