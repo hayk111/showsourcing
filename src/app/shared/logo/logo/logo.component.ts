@@ -1,6 +1,61 @@
 import { ChangeDetectionStrategy, Component, ElementRef, Input, OnChanges, Renderer2 } from '@angular/core';
 import { AppImage, EntityName } from '~models';
-import { Colors, IconUtils, log, Size } from '~utils';
+import { Colors, Color, IconUtils, log, Size } from '~utils';
+
+export const colorMap = {
+	[EntityName.ATTACHMENT]: Color.SECONDARY,
+	[EntityName.ACTIVITY]: Color.PRIMARY,
+	[EntityName.CATEGORY]: Color.ACCENT,
+	[EntityName.COMMENT]: Color.PRIMARY,
+	[EntityName.CONTACT]: Color.SECONDARY,
+	[EntityName.EVENT]: Color.SECONDARY,
+	[EntityName.IMAGE]: Color.SECONDARY,
+	[EntityName.PRODUCT]: Color.PRIMARY,
+	[EntityName.PROJECT]: Color.SECONDARY,
+	[EntityName.SAMPLE]: Color.ACCENT,
+	[EntityName.TAG]: Color.ACCENT,
+	[EntityName.TASK]: Color.SUCCESS,
+	[EntityName.TEAM]: Color.PRIMARY,
+	[EntityName.SUPPLIER]: Color.VIBRANT,
+	[EntityName.USER]: Color.PRIMARY,
+	[EntityName.LOCATION]: Color.SECONDARY,
+	[EntityName.REQUEST]: Color.SECONDARY,
+	[EntityName.REQUEST_ELEMENT]: Color.SECONDARY
+};
+
+export const iconMap = {
+	[EntityName.ATTACHMENT]: 'file',
+	[EntityName.ACTIVITY]: 'activity',
+	[EntityName.CATEGORY]: 'category',
+	[EntityName.COMMENT]: 'comments',
+	[EntityName.CONTACT]: 'team',
+	[EntityName.EVENT]: 'event',
+	[EntityName.IMAGE]: 'camera',
+	[EntityName.PRODUCT]: 'product',
+	[EntityName.PROJECT]: 'project',
+	[EntityName.SAMPLE]: 'sample',
+	[EntityName.TAG]: 'tag',
+	[EntityName.TEAM]: 'team',
+	[EntityName.TASK]: 'check-circle',
+	[EntityName.SUPPLIER]: 'supplier',
+	[EntityName.LOCATION]: 'location',
+	[EntityName.REQUEST]: 'envelope',
+	[EntityName.REQUEST_ELEMENT]: 'envelope',
+	[EntityName.USER]: 'user',
+};
+
+
+export type Size = 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+
+export const sizeMap: { [key in Size]: { background: number, icon: number, font: number } } = {
+	xs: { background: 14, icon: 10, font: 2 },
+	s: { background: 24, icon: 12, font: 4 },
+	ms: { background: 27, icon: 12, font: 6 },
+	m: { background: 32, icon: 16, font: 8 },
+	l: { background: 36, icon: 24, font: 10 },
+	xl: { background: 54, icon: 24, font: 16 },
+	xxl: { background: 88, icon: 40, font: 32 }
+};
 
 @Component({
 	selector: 'logo-app',

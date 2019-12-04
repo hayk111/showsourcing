@@ -1,0 +1,17 @@
+.elements-container > * {
+	margin-right: var(--spacing-ms);
+}
+
+.list-management-title {
+	font-size: var(--font-size-xxl);
+	font-weight: normal;
+}
+
+.list-management-info {
+	font-size: var(--font-size-s);
+	color: var(--color-txt-third);
+}
+
+.delete-selected, .merge-selected {
+	height: var(--spacing-xl);
+}

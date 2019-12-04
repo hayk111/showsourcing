@@ -26,21 +26,21 @@
         <note priority="1" from="description">Login on password reset</note>
         <note priority="1" from="meaning">button</note>
       </trans-unit>
-      <trans-unit id="dataManagementPage_merge" datatype="html">
+      <trans-unit id="listManagementPage_merge" datatype="html">
         <source>Merge</source>
         <target state="final">Merge</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/data-management/containers/data-management-page/data-management-page.component.ts</context>
+          <context context-type="sourcefile">app/features/list-management/containers/list-management-page/list-management-page.component.ts</context>
           <context context-type="linenumber">24</context>
         </context-group>
         <note priority="1" from="description">Merge data management items</note>
         <note priority="1" from="meaning">div click</note>
       </trans-unit>
-      <trans-unit id="dataManagementPage_delete" datatype="html">
+      <trans-unit id="listManagementPage_delete" datatype="html">
         <source>Delete</source>
         <target state="final">Delete</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/data-management/containers/data-management-page/data-management-page.component.ts</context>
+          <context context-type="sourcefile">app/features/list-management/containers/list-management-page/list-management-page.component.ts</context>
           <context context-type="linenumber">25</context>
         </context-group>
         <note priority="1" from="description">Delete data management items</note>
@@ -60,7 +60,7 @@
         <note priority="1" from="description">User panel settings</note>
         <note priority="1" from="meaning">menu item</note>
       </trans-unit>
-      <trans-unit id="userPanel_dataManagement" datatype="html">
+      <trans-unit id="userPanel_listManagement" datatype="html">
         <source>
 		 <x id="START_TAG_DIV" ctype="x-div" equiv-text="&lt;div>"/>Data Management<x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div>"/>
 	</source>

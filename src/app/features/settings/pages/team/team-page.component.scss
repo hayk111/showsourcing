@@ -25,8 +25,18 @@ context-menu-trigger-app {
 }
 
 .my-team {
-	font-size: var(--font-size-xxxl);
-	color: var(--color-bg-dark);
+	font-size: var(--font-size-xxl);
+	font-weight: normal;
+}
+
+header-details-info-app {
+	color: var(--color-txt-third);
+	font-size: var(--font-size-s);
+
+	.info {
+		font-size: var(--font-size-s);
+		color: var(--color-txt-third);
+	}
 }
 
 .invite-team-member {

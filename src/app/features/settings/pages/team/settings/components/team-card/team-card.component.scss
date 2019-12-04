@@ -2,8 +2,22 @@
 	display: block;
 }
 
-h2 {
-	margin-bottom: var(--spacing-s);
+.team-card {
+	display: flex;
+	flex-wrap: nowrap;
+	justify-content: center;
+
+	.left {
+		width: 112px;
+
+		.project-logo {
+			margin-top: var(--spacing-l);
+		}
+	}
+
+	.right {
+		width: 480px;
+	}
 }
 
 button.auto {
@@ -20,20 +34,18 @@ button.auto {
 	color: var(--color-bg-dark);
 }
 
-.title {
-	color: var(--color-bg-dark);
+.title, .title-about {
 	font-weight: 600;
-	font-size: var(--font-size-xl);
+	font-size: var(--font-size-l);
+}
+
+.title-about {
+	margin-top: var(--spacing-xl);
 }
 
 .photoContainer {
-	margin-top: 8px;
-	width: 180px;
+	width: 112px;
 	height: 48px;
-	p {
-		margin: 14px;
-		font-weight: 600;
-	}
 }
 
 user-picture-app {
@@ -48,8 +60,13 @@ label-app {
 }
 
 .team-created-date {
-	margin-top: var(--spacing-l);
+	margin-top: var(--spacing-ms);
 	margin-bottom: 0;
 	color: var(--color-txt-secondary);
-	font-size: var(--font-size-s);
+	font-weight: normal;
+	font-size: var(--font-size-m);
+}
+
+.capitalize {
+	text-transform: uppercase;
 }
