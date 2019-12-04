@@ -58,18 +58,11 @@
 				<!-- action -->
 				<ng-container *ngSwitchCase="'download'">
 					<div toolTip [toolTipMessage]="getToolTipMsg(row?.status)" toolTipPosition="above-right">
-						<div
-							class="flex download pointer"
-							[ngClass]="{'disabled': row?.status !== 'ready'}">
-							<button class="icon primary" (click)="download.emit(row)">
-								<icon-app name="close-pane-bottom"></icon-app>
-							</button>
-						</div>
 						<button
-							class="primary"
+							class="primary small"
 							[disabled]="row?.status !== 'ready'"
 							(click)="download.emit(row)">
-							<icon-app name="import"></icon-app>
+							<icon-app name="close-pane-bottom"></icon-app>
 						</button>
 					</div>
 				</ng-container>
