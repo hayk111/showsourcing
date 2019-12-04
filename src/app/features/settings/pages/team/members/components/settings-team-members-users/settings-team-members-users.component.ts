@@ -15,7 +15,10 @@ import { AutoUnsub } from '~utils';
 	styleUrls: ['./settings-team-members-users.component.scss'],
 	providers: [
 		ListPageService
-	]
+	],
+	host: {
+		class: 'table-page'
+	},
 })
 export class SettingsTeamMembersUsersComponent extends AutoUnsub implements OnInit {
 	teamOwner: boolean;

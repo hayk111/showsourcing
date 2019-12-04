@@ -15,7 +15,10 @@ import { AutoUnsub } from '~utils';
 	providers: [
 		ListPageService,
 		SelectionService
-	]
+	],
+	host: {
+		class: 'table-page'
+	},
 })
 export class TagDataPageComponent extends AutoUnsub implements OnInit {
 	erm = ERM.TAG;
