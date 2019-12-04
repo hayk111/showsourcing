@@ -8,12 +8,13 @@
 		</span>
 	</header-details-title-app>
 
-	<logo-app color="primary" icon="company" size="xl"></logo-app>
+	<logo-app color="primary" icon="company"></logo-app>
 
 	<header-details-info-app>
-		<ng-container subinfo *ngIf="companyName">{{companyName}}</ng-container>
-		<div class="small-gray-badge-separator"></div>
-		<ng-container subinfo *ngIf="companyName">Managed by {{ owner | formatUserName: true }}</ng-container>
+		<div class="dot-separator company-info" *ngIf="companyName">
+			<span>{{companyName}}</span>
+			<span>Managed by {{ owner | formatUserName: true }}</span>
+		</div>
 	</header-details-info-app>
 
 	<header-nav-app>

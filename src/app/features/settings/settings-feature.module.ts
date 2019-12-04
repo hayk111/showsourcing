@@ -10,7 +10,7 @@ import * as ProfilePages from './pages/profile';
 import * as TeamPages from './pages/team';
 import * as ExportsPages from './pages/exports';
 import * as WorkflowPages from './pages/workflow';
-import * as DataPages from './pages/data-management';
+import * as DataPages from './pages/list-management';
 import { TablesCommonModule } from '~common/tables/tables-common.module';
 
 @NgModule({
@@ -32,15 +32,14 @@ import { TablesCommonModule } from '~common/tables/tables-common.module';
 		CompanyPages.CompanyCardComponent,
 		// team
 		TeamPages.TeamPageComponent,
-		TeamPages.InfoPageComponent,
+		TeamPages.SettingsPageComponent,
 		TeamPages.MembersPageComponent,
 		TeamPages.TeamCardComponent,
-		TeamPages.SettingsTeamMembersInvitationsComponent,
 		TeamPages.SettingsTeamMembersUsersComponent,
 		// exports
 		ExportsPages.ExportsPageComponent,
 		// data
-		DataPages.DataManagementPageComponent,
+		DataPages.ListManagementPageComponent,
 		DataPages.CategoryDataPageComponent,
 		DataPages.EventDataPageComponent,
 		DataPages.SupplierDataPageComponent,

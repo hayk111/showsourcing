@@ -1,18 +1,20 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { EventService } from '~core/entity-services';
+import { EventService, TeamService, CompanyService } from '~core/entity-services';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
+import { SelectionService } from '~core/list-page';
 import { ListPageService } from '~core/list-page';
 import { ERM, Event } from '~models';
 import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'event-data-page-app',
-	templateUrl: '../shared/data-management-template.html',
-	styleUrls: ['./event-data-page.component.scss', '../shared/data-management-styles.scss'],
+	templateUrl: '../shared/list-management-template.html',
+	styleUrls: ['./event-data-page.component.scss', '../shared/list-management-styles.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
-		ListPageService
+		ListPageService,
+		SelectionService
 	]
 })
 export class EventDataPageComponent extends AutoUnsub implements OnInit {
@@ -26,7 +28,10 @@ export class EventDataPageComponent extends AutoUnsub implements OnInit {
 	constructor(
 		private eventSrv: EventService,
 		public listSrv: ListPageService<Event, EventService>,
-		public dialogCommonSrv: DialogCommonService) {
+		public teamSrv: TeamService,
+		public companySrv: CompanyService,
+		public dialogCommonSrv: DialogCommonService,
+		public selectionSrv: SelectionService) {
 		super();
 	}
 

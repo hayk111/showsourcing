@@ -1,6 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
-import { empty, Observable } from 'rxjs';
+import { empty, Observable, ConnectableObservable } from 'rxjs';
 import { filter, map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { CreationDialogComponent } from '~common/dialogs/creation-dialogs';
 import { UserService } from '~core/entity-services';
@@ -113,6 +113,10 @@ export class ListPageService
 
 	get items$() {
 		return this.dataSrv.items$;
+	}
+
+	combine(items: Observable<any>) {
+		this.dataSrv.combineItems(items);
 	}
 
 	get currentPage() {

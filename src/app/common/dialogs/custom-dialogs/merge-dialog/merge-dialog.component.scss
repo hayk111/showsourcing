@@ -1,7 +1,7 @@
 dialog-app {
 	width: 474px;
 	display: block;
-	padding: 20px var(--spacing-l) var(--spacing-ms) var(--spacing-l);
+	padding: var(--spacing-ms) var(--spacing-l);
 }
 
 dialog-header-app {
@@ -31,19 +31,20 @@ dialog-header-app {
 }
 
 .merge-entities-title {
-	color: var(--color-bg-dark);
+	margin-top: var(--spacing-l);
+	font-weight: 600;
 	font-size: var(--font-size-m);
 }
 
 .merge-entities {
-	margin: var(--spacing-m) 0 0 var(--spacing-m);
+	margin: var(--spacing-ms) 0 0 var(--spacing-m);
 
 	ul {
 		list-style-type: disc;
 
 		li {
 			font-size: var(--font-size-s);
-			color: var(--color-bg-dark);
+			color: var(--color-txt-secondary);
 		}
 	}
 
@@ -79,12 +80,13 @@ dialog-header-app {
 
 .merge-into {
 	margin-top: var(--spacing-l);
-	font-size: var(--font-size-m);
+	font-size: var(--font-size-s);
 	color: var(--color-primary);
+	font-weight: 600;
 }
 
-.merge-categories {
-	color: var(--color-bg-dark);
+.merge-title {
+	padding-bottom: 0;
 	font-size: var(--font-size-l);
 	font-weight: 600;
 }
