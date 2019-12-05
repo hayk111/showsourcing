@@ -15,11 +15,6 @@
 	[filtersPanelOpened]="listSrv.filterPanelOpen"
 	(search)="listSrv.search($event)">
 
-	<controller-list-right-item-app>
-		<div toolTip [toolTipMessage]="getToolTipMsg()" toolTipPosition="above-right">
-			<button [disabled]="!teamOwner" (click)="openInviteDialog()" translate="button.invite-collaborator"></button>
-		</div>
-	</controller-list-right-item-app>
 </controller-list-app>
 
 <ng-container *ngIf="(listSrv.items$ | async) as invitations">

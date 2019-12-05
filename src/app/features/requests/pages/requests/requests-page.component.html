@@ -11,12 +11,7 @@
 	[searchValue]="listSrv.searchValue"
 	[filtersPanelOpened]="listSrv.filterPanelOpen"
 	(search)="listSrv.search($event)">
-	<controller-list-right-item-app>
-		<request-sorting-menu-app
-			[currentSort]="listSrv.currentSort"
-			(sortFromMenu)="listSrv.sortFromMenu($event)">
-		</request-sorting-menu-app>
-	</controller-list-right-item-app>
+	
 </controller-list-app>
 
 <requests-table-app

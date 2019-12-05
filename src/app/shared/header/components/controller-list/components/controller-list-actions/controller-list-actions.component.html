@@ -1,0 +1,36 @@
+<div class="right flexVAlign">
+
+  <button
+    class="icon-with-label light mg-left-ms"
+    (click)="toggleAssigned()">
+    <checkbox-app class="mg-right-xs" [checked]="isAssigned" [size]="15"></checkbox-app>
+    {{ 'label.assigned-to-me' | translate }}
+  </button>
+
+  <button
+		class="icon-with-label light mg-left-ms"
+		(click)="toggleArchived()">
+		<checkbox-app class="mg-right-xs" [checked]="isArchivedShown" [size]="15"></checkbox-app>
+		{{ 'label.show-archived' | translate }}
+  </button>
+
+  <button
+		class="icon-with-label light mg-left-ms"
+		(click)="toggleCompletedTask()">
+		<checkbox-app class="mg-right-xs" [checked]="isCompletedTaskChecked" [size]="15"></checkbox-app>
+		{{ 'label.show-completed' | translate }}
+  </button>
+  
+  <divider-app [vertical]="true"></divider-app>
+
+  <button class="icon light mg-left-ms">
+    <icon-app name="export" size="m"  toolTip toolTipMessage="Export"></icon-app>
+  </button>
+
+  <button class="icon light mg-left-ms mg-right-ms">
+    <icon-app name="sort" size="m"  toolTip toolTipMessage="Sort"></icon-app>
+  </button>
+
+  <divider-app [vertical]="true"></divider-app>
+
+</div>

@@ -9,12 +9,6 @@
 	[searchValue]="listSrv.searchValue"
 	[filtersPanelOpened]="listSrv.filterPanelOpen"
 	(search)="listSrv.search($event)">
-	<controller-list-right-item-app>
-		<request-sorting-menu-sup
-			[currentSort]="listSrv.currentSort"
-			(sortFromMenu)="listSrv.sortFromMenu($event)">>
-		</request-sorting-menu-sup>
-	</controller-list-right-item-app>
 </controller-list-app>
 
 <request-table-sup

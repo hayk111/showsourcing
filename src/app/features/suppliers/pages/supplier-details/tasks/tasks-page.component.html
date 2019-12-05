@@ -8,12 +8,16 @@
 	[filtersPanelOpened]="listSrv.filterPanelOpen"
 	(search)="listSrv.search($event)"
 	(showFilters)="listSrv.openFilterPanel()"
-	(showArchived)="listSrv.filterByArchived(true)"
-	(hideArchived)="listSrv.filterByArchived(false)"
-	(showAssigned)="listSrv.filterByAssignee(true)"
-	(hideAssigned)="listSrv.filterByAssignee(false)"
 	(smartSearch)="listSrv.smartSearch($event)"
 	(buttonClick)="openCreationTaskDlg(undefined, supplier)">
+
+	<controller-list-actions-app 
+		(showArchived)="listSrv.filterByArchived(true"
+		(hideArchived)="listSrv.filterByArchived(false)"
+		(showAssigned)="listSrv.filterByAssignee(true)"
+		(hideAssigned)="listSrv.filterByAssignee(false)">
+	</controller-list-actions-app>
+
 </controller-list-app>
 
 <task-table-app

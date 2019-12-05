@@ -18,13 +18,17 @@
 	[filtersPanelOpened]="listSrv.filterPanelOpen"
 	(search)="listSrv.search($event)"
 	(clearFilters)="onClearFilters()"
-	(showArchived)="listSrv.filterByArchived(false)"
-	(hideArchived)="listSrv.filterByArchived(true)"
-	(showAssigned)="listSrv.filterByAssignee(true)"
-	(hideAssigned)="listSrv.filterByAssignee(false)"
 	(export)="dialogCommonSrv.openExportDialog()"
 	(showFilters)="listSrv.openFilterPanel()"
 	(viewChange)="onViewChange($event)">
+
+	<controller-list-actions-app 
+		(showArchived)="listSrv.filterByArchived(true"
+		(hideArchived)="listSrv.filterByArchived(false)"
+		(showAssigned)="listSrv.filterByAssignee(true)"
+		(hideAssigned)="listSrv.filterByAssignee(false)">
+	</controller-list-actions-app>
+
 </controller-list-app>
 
 <samples-table-app

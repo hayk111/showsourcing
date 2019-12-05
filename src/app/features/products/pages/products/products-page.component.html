@@ -17,20 +17,17 @@
 	[filtersPanelOpened]="listSrv.filterPanelOpen"
 	(search)="listSrv.search($event)"
 	(clearFilters)="onClearFilters()"
-	(showArchived)="listSrv.filterByArchived(true)"
-	(hideArchived)="listSrv.filterByArchived(false)"
-	(showAssigned)="listSrv.filterByAssignee(true)"
-	(hideAssigned)="listSrv.filterByAssignee(false)"
 	(export)="dialogCommonSrv.openExportDialog(listSrv.getSelectedValues())"
 	(showFilters)="listSrv.openFilterPanel()"
 	(viewChange)="listSrv.changeView($event)">
 
-	<controller-list-right-item-app class="flex" right-sort-elem>
-		<product-sorting-menu-app
-			[currentSort]="listSrv.currentSort"
-			(sortFromMenu)="listSrv.sortFromMenu($event)">
-		</product-sorting-menu-app>
-	</controller-list-right-item-app>
+	<controller-list-actions-app
+		(showArchived)="listSrv.filterByArchived(true)"
+		(hideArchived)="listSrv.filterByArchived(false)"
+		(showAssigned)="listSrv.filterByAssignee(true)"
+		(hideAssigned)="listSrv.filterByAssignee(false)">
+	</controller-list-actions-app>
+	
 </controller-list-app>
 
 <!-- views: either one will be displayed when the correct view is selected -->

@@ -23,8 +23,6 @@
 	[filtersPanelOpened]="listSrv.filterPanelOpen"
 	(search)="listSrv.search($event)"
 	(clearFilters)="listSrv.filterList.resetAll()"
-	(showAssigned)="listSrv.filterByAssignee(true)"
-	(hideAssigned)="listSrv.filterByAssignee(false)"
 	(showTasksCreatedByMeOnly)="showTasksCreatedByMeOnly()"
 	(hideTasksCreatedByMeOnly)="hideTasksCreatedByMeOnly()"
 	(showTasksCompleted)="listSrv.filterByDone(false)"
@@ -32,6 +30,12 @@
 	(export)="dialogCommonSrv.openExportDialog()"
 	(showFilters)="listSrv.openFilterPanel()"
 	(viewChange)="onViewChange($event)">
+
+	<controller-list-actions-app
+		(showAssigned)="listSrv.filterByAssignee(true)"
+		(hideAssigned)="listSrv.filterByAssignee(false)">
+	</controller-list-actions-app>
+	
 </controller-list-app>
 
 <task-table-app

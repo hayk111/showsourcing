@@ -15,36 +15,6 @@
 	(search)="listSrv.search($event)"
 	i18n-title="@@team-members">
 
-	<controller-list-right-item-app>
-
-		<div toolTip [toolTipMessage]="getTooltipMsg()" toolTipPosition="above-right">
-			<button [disabled]="!teamOwner" (click)="openInviteDialog()" i18n="@@invite-collaborator">Invite Collaborator</button>
-		</div>
-
-		<context-menu-app *ngIf="teamOwner && hasSelected" [closeOnScroll]="true">
-			<context-menu-trigger-app class="button flex pointer">
-				<div class="text capitalize" i18n="@@selection">selection</div>
-				<div class="selector"><icon-app name="angle-down"></icon-app></div>
-			</context-menu-trigger-app>
-			<context-menu-item-app
-				(click)="updateAccessTypeSelected({ accessType: 'TeamMember' })"
-				i18n="@@team-member">
-				Team Member
-			</context-menu-item-app>
-			<context-menu-item-app
-				(click)="updateAccessTypeSelected({ accessType: 'Contributor' })"
-				i18n="@@contributor">
-				contributor
-			</context-menu-item-app>
-			<context-menu-divider-app></context-menu-divider-app>
-			<context-menu-item-warn-app class="remove-user" (click)="listSrv.deleteSelected()">
-				<span i18n="@@remove-user">Remove User</span>
-			</context-menu-item-warn-app>
-		</context-menu-app>
-
-	</controller-list-right-item-app>
-
-
 </controller-list-app>
 
 <ng-container *ngIf="listSrv.items$ | async as members">

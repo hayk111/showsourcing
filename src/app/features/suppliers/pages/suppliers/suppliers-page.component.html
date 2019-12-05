@@ -17,12 +17,16 @@
 	[filtersPanelOpened]="listSrv.filterPanelOpen"
 	(showFilters)="listSrv.openFilterPanel()"
 	(clearFilters)="onClearFilters()"
-	(showArchived)="listSrv.filterByArchived(true)"
-	(hideArchived)="listSrv.filterByArchived(false)"
-	(showAssigned)="listSrv.filterByAssignee(true)"
-	(hideAssigned)="listSrv.filterByAssignee(false)"
 	(viewChange)="onViewChange($event)"
 	(search)="listSrv.search($event)">
+
+	<controller-list-actions-app 
+		(showArchived)="listSrv.filterByArchived(true"
+		(hideArchived)="listSrv.filterByArchived(false)"
+		(showAssigned)="listSrv.filterByAssignee(true)"
+		(hideAssigned)="listSrv.filterByAssignee(false)">
+	</controller-list-actions-app>
+
 </controller-list-app>
 
 <suppliers-table-app
