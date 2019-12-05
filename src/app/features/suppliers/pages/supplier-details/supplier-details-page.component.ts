@@ -7,12 +7,12 @@ import {
 	SupplierRequestDialogComponent,
 } from '~common/dialogs/custom-dialogs/supplier-request-dialog/supplier-request-dialog.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
+import { SupplierService } from '~core/entity-services';
 import { Supplier } from '~models/supplier.model';
 import { DialogService } from '~shared/dialog';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub, log } from '~utils';
 
-import { SupplierFeatureService } from '../../services/supplier-feature.service';
 
 // Guest to the waiter: “Can you bring me what the lady at the next table is having?”
 // -
@@ -21,7 +21,8 @@ import { SupplierFeatureService } from '../../services/supplier-feature.service'
 @Component({
 	selector: 'supplier-details-page-app',
 	templateUrl: './supplier-details-page.component.html',
-	styleUrls: ['./supplier-details-page.component.scss']
+	styleUrls: ['./supplier-details-page.component.scss'],
+	host: { class: 'details-page' }
 })
 export class SupplierDetailsPageComponent extends AutoUnsub implements OnInit {
 
@@ -30,7 +31,7 @@ export class SupplierDetailsPageComponent extends AutoUnsub implements OnInit {
 	constructor(
 		private route: ActivatedRoute,
 		private router: Router,
-		private featureSrv: SupplierFeatureService,
+		private supplierSrv: SupplierService,
 		private notifSrv: NotificationService,
 		public dialogCommonSrv: DialogCommonService,
 		private translate: TranslateService,
@@ -46,7 +47,7 @@ export class SupplierDetailsPageComponent extends AutoUnsub implements OnInit {
 		);
 
 		this.supplier$ = id$.pipe(
-			switchMap(id => this.featureSrv.selectOne(id)),
+			switchMap(id => this.supplierSrv.selectOne(id)),
 		);
 
 		this.supplier$.subscribe(
@@ -57,14 +58,14 @@ export class SupplierDetailsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	update(supplier: Supplier) {
-		this.featureSrv.update(supplier).subscribe();
+		this.supplierSrv.update(supplier).subscribe();
 	}
 
 	delete(supplier: Supplier) {
 		this.dialogCommonSrv.openConfirmDialog({
 			text: this.translate.instant('message.confirm-delete-supplier')
 		}).pipe(
-			switchMap(_ => this.featureSrv.delete(supplier.id))
+			switchMap(_ => this.supplierSrv.delete(supplier.id))
 		).subscribe(_ => this.router.navigate(['suppliers']));
 	}
 
@@ -79,7 +80,7 @@ export class SupplierDetailsPageComponent extends AutoUnsub implements OnInit {
 	// TODO: When we put that on the global service, remove from here
 	onArchive(supplier: Supplier | Supplier[]) {
 		if (Array.isArray(supplier)) {
-			this.featureSrv.updateMany(supplier.map((s: Supplier) => ({ id: s.id, archived: true })))
+			this.supplierSrv.updateMany(supplier.map((s: Supplier) => ({ id: s.id, archived: true })))
 				.subscribe(_ => {
 					this.notifSrv.add({
 						type: NotificationType.SUCCESS,
@@ -89,7 +90,7 @@ export class SupplierDetailsPageComponent extends AutoUnsub implements OnInit {
 				});
 		} else {
 			const { id } = supplier;
-			this.featureSrv.update({ id, archived: true })
+			this.supplierSrv.update({ id, archived: true })
 				.subscribe(_ => {
 					this.notifSrv.add({
 						type: NotificationType.SUCCESS,

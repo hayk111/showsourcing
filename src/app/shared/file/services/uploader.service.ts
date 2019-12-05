@@ -1,5 +1,6 @@
 import { HttpClient, HttpEvent, HttpEventType, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { forkJoin, Observable, of } from 'rxjs';
 import { delay, first, map, mapTo, mergeMap, retryWhen, switchMap, take, tap } from 'rxjs/operators';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
@@ -13,9 +14,7 @@ import {
 import { AppImage, Attachment, ImageUploadRequest } from '~models';
 import { AttachmentUploadRequest } from '~models/attachment-upload-request.model';
 import { NotificationService, NotificationType } from '~shared/notifications';
-import { resizeSizeToLimit } from '~shared/utils/file.util';
-import { ImageUrls, log, LogColor } from '~utils';
-import { TranslateService } from '@ngx-translate/core';
+import { ImageUrls, log, LogColor, resizeSizeToLimit } from '~utils';
 
 @Injectable({ providedIn: 'root' })
 export class UploaderService {

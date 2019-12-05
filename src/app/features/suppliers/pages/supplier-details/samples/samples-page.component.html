@@ -6,7 +6,6 @@
 	[count]="listSrv.count$ | async"
 	[entityType]="'SAMPLE'"
 	[view]="listSrv.view"
-	[filtersPanelOpened]="listSrv.filterPanelOpen"
 	(showFilters)="listSrv.openFilterPanel()"
 	(search)="listSrv.search($event)"
 	(smartSearch)="listSrv.smartSearch($event)"
@@ -59,14 +58,10 @@
 	(close)="listSrv.closeFilterPanel()">
 </filters-app>
 
-
-<selection-bar-app
+<sample-selection-bar-app
+	[count]="listSrv.count$ | async"
 	[isShown]="(listSrv.selection$ | async).size > 0"
 	[selection]="listSrv.selection$ | async"
-	(close)="listSrv.unselectAll()">
-
-	<button class="icon light" (click)="listSrv.deleteSelected()">
-		<icon-app name="trash"></icon-app>
-	</button>
-
-</selection-bar-app>
+	(close)="listSrv.unselectAll()"
+	(deleteSelected)="listSrv.deleteSelected()">
+</sample-selection-bar-app>

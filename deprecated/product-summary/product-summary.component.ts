@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, EventEmitter, Output } from '@angular/core';
 import { Product } from '~models';
-import { RatingService } from '~shared/rating/services/thumbs.service';
+import { RatingService } from '~shared/rating/services/rating.service';
 
 @Component({
 	selector: 'product-summary-app',

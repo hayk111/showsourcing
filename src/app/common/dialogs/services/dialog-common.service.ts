@@ -20,13 +20,16 @@ import {
 	VoteDetailsDialogComponent,
 } from '~common/dialogs/custom-dialogs';
 import { ProductAddToProjectDlgComponent, ProductSelectDlgComponent } from '~common/dialogs/selection-dialogs';
-import { EntityMetadata, Product, ProductVote, Project, Supplier } from '~models';
+import { EntityMetadata, Product, Project, Supplier } from '~models';
 import { CloseEvent, CloseEventType } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { DialogService } from '~shared/dialog/services';
+import { Vote } from '~shared/rating/services/rating.service';
 import { ID } from '~utils';
 
-import { ReviewRequestReplyDlgComponent } from '../custom-dialogs/review-request-reply-dlg/review-request-reply-dlg.component';
+import {
+	ReviewRequestReplyDlgComponent,
+} from '../custom-dialogs/review-request-reply-dlg/review-request-reply-dlg.component';
 import { SupplierRequestDialogComponent } from '../custom-dialogs/supplier-request-dialog/supplier-request-dialog.component';
 
 /**
@@ -99,7 +102,7 @@ export class DialogCommonService {
 	}
 
 	/** Opens a dialog that let you see the list of people who have voted */
-	openVoteDetailsDialog(votes: ProductVote[]) {
+	openVoteDetailsDialog(votes: Vote[]) {
 		return this.dlgSrv.open(VoteDetailsDialogComponent, { votes });
 	}
 

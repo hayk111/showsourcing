@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 import { UserService } from '~entity-services';
 import { Sample } from '~models';
 import { ContextMenuComponent } from '~shared/context-menu/components/context-menu/context-menu.component';
-import { RatingService } from '~shared/rating/services/thumbs.service';
+import { RatingService } from '~shared/rating/services/rating.service';
 import { TrackingComponent } from '~utils/tracking-component';
 
 @Component({

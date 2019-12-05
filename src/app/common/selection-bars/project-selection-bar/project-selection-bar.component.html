@@ -1,0 +1,12 @@
+<selection-bar-app
+	entityType="project"
+	[isShown]="isShown"
+	[count]="count"
+	[selection]="selection"
+	(close)="close.emit()">
+	<action-bar-app [hasHeart]="false" [hasLikes]="false">
+		<button class="icon light" (click)="deleteSelected.emit()">
+			<icon-app class="color-secondary-dark" name="trash" size="l"></icon-app>
+		</button>
+	</action-bar-app>
+</selection-bar-app>

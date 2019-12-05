@@ -47,17 +47,14 @@
 		(update)="listSrv.update($event)">
 	</projects-table-app>
 
-  <selection-bar-app
+	<project-selection-bar-app
+		entityType="project"
 		[isShown]="(listSrv.selection$ | async).size > 0"
 		[count]="listSrv.count$ | async"
-    [selection]="listSrv.selection$ | async"
-    (close)="listSrv.unselectAll()">
-    <action-bar-app [hasHeart]="false" [hasLikes]="false">
-      <button class="icon light" (click)="listSrv.deleteSelected()">
-        <icon-app class="color-secondary-dark" name="trash" size="l"></icon-app>
-      </button>
-    </action-bar-app>
-  </selection-bar-app>
+		[selection]="listSrv.selection$ | async"
+		(close)="listSrv.unselectAll()"
+		(deleteSelected)="listSrv.deleteSelected()">
+	</project-selection-bar-app>
 
 	<filters-app
 		*ngIf="listSrv.filterPanelOpen"

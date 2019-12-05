@@ -57,11 +57,23 @@ export class SelectionService {
 	}
 
 	selectColumn(column: any) {
+		this.selection = new Map(this.selection);
+
+		column.data.forEach(item => {
+			this.selection.set(item.id, item);
+		});
+
 		this.selectedColumns.set(column.id, 'selectedAll');
 		this.emit();
 	}
 
 	unselectColumn(column: any) {
+		this.selection = new Map(this.selection);
+
+		column.data.forEach(item => {
+			this.selection.delete(item.id);
+		});
+
 		this.selectedColumns.set(column.id, 'unchecked');
 		this.emit();
 	}

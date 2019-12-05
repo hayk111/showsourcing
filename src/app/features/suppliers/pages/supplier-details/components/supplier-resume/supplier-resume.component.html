@@ -30,22 +30,22 @@
 				<!-- info title -->
 				<div class="flex dot-separator">
 					<div *ngIf="supplier?.supplierType?.name">{{ supplier?.supplierType?.name }}</div>
-					<div *ngIf="supplier?.city || supplier?.country">{{ getCityCountry(supplier?.city, supplier?.country) }}</div>
+					<div *ngIf="supplier?.city || supplier?.country">{{ { country: supplier?.country, city: supplier?.city } | countryCity }}</div>
 				</div>
 			</div>
 
 			<!-- description -->
-			<div class="section">
-				<h3>description</h3>
+			<section>
+				<h3 class="section-title">description</h3>
 				<input-description-app
 					[description]="supplier?.description"
 					(update)="update($event, 'description')">
 				</input-description-app>
-			</div>
+			</section>
 
 			<!-- product categories -->
-			<div class="section">
-				<h3>category</h3>
+			<section>
+				<h3 class="section-title">category</h3>
 				<editable-container-app
 					[hasAction]="false"
 					[openOnClick]="false"
@@ -61,17 +61,17 @@
 						</badge-selector-app>
 					</editable-display-app>
 				</editable-container-app>
-			</div>
+			</section>
 
 			<!-- tags -->
-			<div class="section">
-				<h3>tags</h3>
+			<section>
+				<h3 class="section-title">tags</h3>
 				<input-badge-selector-app
 					[value]="supplier?.tags"
 					type="tag"
 					(change)="update($event, 'tags')">
 				</input-badge-selector-app>
-			</div>
+			</section>
 		</div>
 	</div>
 </card-app>

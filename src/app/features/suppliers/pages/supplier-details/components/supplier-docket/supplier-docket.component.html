@@ -1,9 +1,8 @@
 <!-- supplier info card -->
 <card-app>
 	<!-- owner -->
-	<div class="section">
-		<h3 class="title">Supplier Owner</h3>
-
+	<section>
+		<h3 class="section-title">Supplier Owner</h3>
 		<editable-container-app
 			[hasAction]="false"
 			[openOnClick]="false"
@@ -22,11 +21,11 @@
 				</selector-app>
 			</editable-display-app>
 		</editable-container-app>
-	</div>
+	</section>
 
 	<!-- status -->
-	<div class="section">
-		<h3 class="title">Supplier Status</h3>
+	<section>
+		<h3 class="section-title">Supplier Status</h3>
 		<span>
 			<status-selector-app
 				[typeEntity]="'SUPPLIER' | erm"
@@ -35,30 +34,30 @@
 				type="button">
 			</status-selector-app>
 		</span>
-	</div>
+	</section>
 
 	<!-- task list -->
-	<div class="section action-hover-container">
-		<div class="title flexVAlign">
+	<section class="action-hover-container">
+		<div class="section-title flexVAlign">
 			<h3>Tasks</h3>
 			<div class="mg-left-ms action-hover-item color-primary txt-btn" (click)="addTask.emit()" translate="button.add"></div>
 		</div>
 		<task-list-app [tasks]="supplier?.tasksLinkedUndone?.items" (taskClicked)="previewTask.emit($event)"></task-list-app>
-	</div>
+	</section>
 
 	<!-- sample list -->
-	<div class="section action-hover-container">
-		<div class="title flexVAlign">
+	<section class="action-hover-container">
+		<div class="section-title flexVAlign">
 			<h3>Samples</h3>
 			<div class="mg-left-ms action-hover-item color-primary txt-btn" (click)="addTask.emit()" translate="button.add"></div>
 		</div>
 		<sample-list-app [samples]="supplier?.samplesLinked?.items" (sampleClicked)="previewSample.emit($event)"></sample-list-app>
-	</div>
+	</section>
 
 	<!-- about -->
-	<div class="section">
-		<h3 class="title">About this supplier</h3>
+	<section>
+		<h3 class="section-title">About this supplier</h3>
 		<small>Created by {{ supplier.createdBy | formatUserName }} on  {{ supplier.creationDate | date: 'dd MMMM yyyy' }}</small> <br>
 		<small>Last updated by {{ supplier.lastUpdatedBy | formatUserName }} on {{ supplier.lastUpdatedDate | date: 'dd MMMM yyyy' }}</small><br>
-	</div>
+	</section>
 </card-app>

@@ -5,7 +5,7 @@ import { CommonModalService } from '~common/modals/services/common-modal.service
 import { ListPageService } from '~core/list-page';
 import { ProductService } from '~entity-services';
 import { ERM, Product } from '~models';
-import { RatingService } from '~shared/rating/services/thumbs.service';
+import { RatingService } from '~shared/rating/services/rating.service';
 import { AutoUnsub } from '~utils';
 import { ID } from '~utils/id.utils';
 

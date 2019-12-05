@@ -1,14 +1,12 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { switchMap } from 'rxjs/operators';
-import { SupplierService, UserService } from '~entity-services';
-import { ERMService } from '~entity-services/_global/erm.service';
-import { CommentService } from '~entity-services/comment/comment.service';
-import { ProductService } from '~entity-services/product/product.service';
-import { Comment, Product, Supplier, EntityMetadata, ERM } from '~models';
 import { GroupedActivityFeed } from '~common/activity/interfaces/client-feed.interfaces';
 import { GetStreamGroup } from '~common/activity/interfaces/get-stream-feed.interfaces';
-import { RatingService } from '~shared/rating/services/thumbs.service';
 import { TemplateService } from '~core/template/services/template.service';
+import { SupplierService } from '~entity-services';
+import { ERMService } from '~entity-services/_global/erm.service';
+import { ProductService } from '~entity-services/product/product.service';
+import { EntityName, ERM, Product, Supplier } from '~models';
+import { RatingService } from '~shared/rating/services/rating.service';
 import { AutoUnsub } from '~utils';
 
 @Component({
@@ -33,7 +31,6 @@ export class GroupedFeedListComponent extends AutoUnsub implements OnInit {
 		private supplierSrv: SupplierService,
 		private templateSrv: TemplateService,
 		private ratingSrv: RatingService,
-		private userSrv: UserService
 	) {
 		super();
 	}
@@ -63,12 +60,12 @@ export class GroupedFeedListComponent extends AutoUnsub implements OnInit {
 	}
 
 	onThumbUp(product) {
-		const votes = this.ratingSrv.thumbUp(product);
+		const votes = this.ratingSrv.thumbUp(product, EntityName.PRODUCT);
 		this.updateProduct({ id: product.id, votes });
 	}
 
 	onThumbDown(product) {
-		const votes = this.ratingSrv.thumbDown(product);
+		const votes = this.ratingSrv.thumbDown(product, EntityName.PRODUCT);
 		this.updateProduct({ id: product.id, votes });
 	}
 

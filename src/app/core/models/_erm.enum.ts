@@ -35,54 +35,7 @@ import { SupplierRequest } from './supplier-request.model';
 import { Company } from './company.model';
 import { RPCRequest } from './rpc-request.model';
 
-
-export enum EntityName {
-	ATTACHMENT = 'attachment',
-	ACTIVITY = 'activity',
-	CATEGORY = 'category',
-	COMMENT = 'comment',
-	COMPANY = 'company',
-	CONTACT = 'contact',
-	COUNTRY = 'country',
-	CURRENCY = 'currency',
-	EMAIL = 'email',
-	EVENT = 'event',
-	FILE = 'file',
-	HARBOUR = 'harbour',
-	IMAGE = 'image',
-	INVITATION = 'invitation',
-	LOCATION = 'location',
-	PRODUCT = 'product',
-	PROJECT = 'project',
-	REQUEST = 'request',
-	REQUEST_ELEMENT = 'request element',
-	SAMPLE = 'sample',
-	SUPPLIER = 'supplier',
-	TAG = 'tag',
-	TASK = 'task',
-	TEAM = 'team',
-	USER = 'user',
-}
-
-export enum EntityTypeEnum {
-	ATTACHMENT = 'ATTACHMENT',
-	ACTIVITY = 'ACTIVITY',
-	CATEGORY = 'CATEGORY',
-	EVENT = 'EVENT',
-	EXPORT = 'EXPORT',
-	PRODUCT = 'PRODUCT',
-	INVITATION = 'INVITATION',
-	REQUEST = 'REQUEST',
-	PROJECT = 'PROJECT',
-	SUPPLIER = 'SUPPLIER',
-	SAMPLE = 'SAMPLE',
-	USER = 'USER',
-	TASK = 'TASK',
-	TAG = 'TAG',
-}
-
-export type EntityType = 'CATEGORY' | 'EVENT' | 'PRODUCT' | 'REQUEST' | 'EXPORT'
-	| 'PROJECT' | 'TASK' | 'SUPPLIER' | 'SAMPLE' | 'USER' | 'TAG' | 'INVITATION';
+export const ERM_TOKEN = new InjectionToken<string>('ERM_TOKEN');
 
 export class EntityMetadata {
 	readonly constClass: new (...args: any[]) => any;
@@ -187,5 +140,3 @@ export class ERM {
 		throw Error(`The string "${name}" does not exist on the _erm.enum.ts`);
 	}
 }
-
-export const ERM_TOKEN = new InjectionToken<string>('ERM_TOKEN');

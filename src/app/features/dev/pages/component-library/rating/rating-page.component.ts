@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { mockVotes } from '~core/models';
+import { mockProductVotes } from '~core/models';
 
 @Component({
 	selector: 'rating-page-app',
@@ -31,7 +31,7 @@ export class RatingPageComponent implements OnInit {
 				lastName: 'Kea',
 				__typename: 'User'
 			},
-			votes: mockVotes,
+			votes: mockProductVotes,
 			__typename: 'Product'
 		};
 

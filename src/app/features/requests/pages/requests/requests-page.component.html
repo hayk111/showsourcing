@@ -9,7 +9,6 @@
 	[hasFilter]="false"
 	[hasSwitch]="false"
 	[searchValue]="listSrv.searchValue"
-	[filtersPanelOpened]="listSrv.filterPanelOpen"
 	(search)="listSrv.search($event)">
 	
 </controller-list-app>
@@ -29,9 +28,10 @@
 	(unselectAll)="listSrv.unselectAll()">
 </requests-table-app>
 
-<selection-bar-app
+<request-selection-bar-app
 	[isShown]="(listSrv.selection$ | async).size > 0"
 	[selection]="listSrv.selection$ | async"
-	(close)="listSrv.unselectAll()">
-	<button class="warn" (click)="cancelSelectedRequests()" translate="button.cancel-requests"></button>
-</selection-bar-app>
+	[count]="listSrv.count$ | async"
+	(close)="listSrv.unselectAll()"
+	(cancelSelectedRequests)="cancelSelectedRequests()">
+</request-selection-bar-app>

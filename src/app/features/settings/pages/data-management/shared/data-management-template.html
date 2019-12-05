@@ -56,7 +56,6 @@
 	[hasAssigned]="false"
 	[hasArchived]="false"
 	[entityType]="erm.singular"
-	[filtersPanelOpened]="listSrv.filterPanelOpen"
 	(search)="listSrv.search($event)">
 	<controller-list-right-item-app>
 		<div class="flex" *ngIf="(listSrv.selection$ | async).size > 0">

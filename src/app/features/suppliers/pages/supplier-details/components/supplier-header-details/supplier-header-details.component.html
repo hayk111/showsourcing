@@ -28,30 +28,35 @@
 		<header-nav-item-app
 			link="./products"
 			icon="product"
+			[badgeContent]="supplier?.productsLinked?.count"
 			[name]="'nav.products' | translate">
 		</header-nav-item-app>
 
 		<header-nav-item-app
 			link="./contacts"
 			icon="contact"
+			[badgeContent]="supplier?.contactsLinked?.count"
 			[name]="'nav.contacts' | translate">
 		</header-nav-item-app>
 
 		<header-nav-item-app
 			link="./samples"
 			icon="sample"
+			[badgeContent]="supplier?.samplesLinkedAssignedToMe?.count"
 			[name]="'nav.samples' | translate">
 		</header-nav-item-app>
 
 		<header-nav-item-app
 			link="./files"
 			icon="files"
+			[badgeContent]="supplier?.attachments?.length"
 			[name]="'nav.files' | translate">
 		</header-nav-item-app>
 
 		<header-nav-item-app
 			link="./tasks"
 			icon="check-circle"
+			[badgeContent]="supplier?.tasksLinked?.count"
 			[name]="'nav.tasks' | translate">
 		</header-nav-item-app>
 
@@ -63,7 +68,6 @@
 	</header-nav-app>
 
 	<header-details-actions-app>
-		<!-- <button (click)="contact.emit(supplier)" class="contact" translate="button.contact-supplier"></button> -->
 		<button class="icon big txt-secondary" (click)="export.emit(supplier)">
 			<icon-app name="export" size="m"></icon-app>
 		</button>

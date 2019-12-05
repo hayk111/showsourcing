@@ -4,9 +4,8 @@ import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { AbstractSampleCommonComponent } from '~common/abstracts/abstract-sample-common.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { ListPageService } from '~core/list-page';
-import { UserService } from '~entity-services';
+import { SupplierService, UserService } from '~entity-services';
 import { SampleService } from '~entity-services/sample/sample.service';
-import { SupplierFeatureService } from '../../../services';
 import { ERM, Sample, Supplier } from '~models';
 import { DialogService } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
@@ -20,7 +19,8 @@ import { FilterType } from '~shared/filters';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
 		ListPageService
-	]
+	],
+	host: { class: 'table-page' }
 })
 
 export class SamplesPageComponent extends AbstractSampleCommonComponent implements OnInit {
@@ -39,7 +39,7 @@ export class SamplesPageComponent extends AbstractSampleCommonComponent implemen
 		protected userSrv: UserService,
 		protected sampleSrv: SampleService,
 		protected dlgSrv: DialogService,
-		protected featureSrv: SupplierFeatureService,
+		protected supplierSrv: SupplierService,
 		public listSrv: ListPageService<Sample, SampleService>,
 		public dialogCommonSrv: DialogCommonService
 	) {
@@ -53,7 +53,7 @@ export class SamplesPageComponent extends AbstractSampleCommonComponent implemen
 		);
 
 		id$.pipe(
-			switchMap(id => this.featureSrv.selectOne(id)),
+			switchMap(id => this.supplierSrv.selectOne(id)),
 			takeUntil(this._destroy$)
 		).subscribe(supplier => this.supplier = supplier);
 		this.supplierId = this.route.parent.snapshot.params.id;

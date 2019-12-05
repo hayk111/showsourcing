@@ -13,6 +13,7 @@ export class ProductGridCardComponent implements OnInit {
 	@Input() product: Product;
 	@Input() selected: boolean;
 	@Input() hasCheckbox = true;
+	@Input() hasHoverEffect = true;
 	@Output() open = new EventEmitter<null>();
 	@Output() preview = new EventEmitter<null>();
 	@Output() select = new EventEmitter<null>();
@@ -29,6 +30,7 @@ export class ProductGridCardComponent implements OnInit {
 	ngOnInit() {
 	}
 
+	// TODO palette color status
 	getColor(status: Status) {
 		if (!status)
 			return '--color-txt-secondary';

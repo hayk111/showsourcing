@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { EntityMetadata } from '~models';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Status } from '~core/models/status.model';
+import { EntityMetadata } from '~models';
+import { StatusUtils } from '~utils';
 
 @Component({
 	selector: 'status-badge-app',
@@ -16,22 +17,6 @@ export class StatusBadgeComponent {
 	// status is null, because the product or supplier are new
 	@Input() typeEntity: EntityMetadata;
 
-	getType() {
-		if (!this.status)
-			return 'secondary-light';
-
-		switch (this.status.category) {
-			case 'new':
-				return 'secondary';
-			case 'inProgress':
-				return 'primary';
-			case 'validated':
-				return 'success';
-			case 'refused':
-				return 'warn';
-			default:
-				return 'secondary-light';
-		}
-	}
+	statusUtils = StatusUtils;
 
 }

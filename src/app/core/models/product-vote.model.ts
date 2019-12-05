@@ -20,7 +20,7 @@ export interface ProductVoteConfig {
 	creationDate: string;
 }
 
-export const mockVotes = [
+export const mockProductVotes = [
 	{
 		id: 'fake-vote-id-1',
 		value: 100,

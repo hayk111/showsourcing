@@ -4,8 +4,7 @@ import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { AbstractTaskCommonComponent } from '~common/abstracts/abstract-task-common.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { ListPageService } from '~core/list-page';
-import { TaskService, UserService } from '~entity-services';
-import { SupplierFeatureService } from '../../../services';
+import { SupplierService, TaskService, UserService } from '~entity-services';
 import { ERM, Supplier, Task } from '~models';
 import { DialogService } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
@@ -16,7 +15,8 @@ import { FilterType } from '~shared/filters';
 	styleUrls: ['./tasks-page.component.scss'],
 	providers: [
 		ListPageService
-	]
+	],
+	host: { class: 'table-page' }
 })
 export class TasksPageComponent extends AbstractTaskCommonComponent implements OnInit {
 
@@ -32,7 +32,7 @@ export class TasksPageComponent extends AbstractTaskCommonComponent implements O
 		protected router: Router,
 		protected taskSrv: TaskService,
 		protected dlgSrv: DialogService,
-		protected featureSrv: SupplierFeatureService,
+		protected supplierSrv: SupplierService,
 		public dialogCommonSrv: DialogCommonService,
 		public listSrv: ListPageService<Task, TaskService>
 	) {
@@ -54,7 +54,7 @@ export class TasksPageComponent extends AbstractTaskCommonComponent implements O
 		);
 
 		id$.pipe(
-			switchMap(id => this.featureSrv.selectOne(id)),
+			switchMap(id => this.supplierSrv.selectOne(id)),
 			takeUntil(this._destroy$)
 		).subscribe(supplier => this.supplier = supplier);
 		super.setup([
