@@ -1,4 +1,4 @@
-import { AppImage, Attachment, Comment } from '~models';
+import { AppImage, Attachment, Comment, ExtendedField } from '~models';
 import { EntityWithAudit } from '~models/_entity.model';
 import { Category } from '~models/category.model';
 import { SupplierStatus } from '~models/supplier-status.model';
@@ -33,6 +33,8 @@ export class Supplier extends EntityWithAudit<SupplierConfig> {
 	comments?: Comment[];
 	lastUpdatedBy?: User;
 	archived ?= true;
+	assignee ?: User;
+	extendedFields ?: ExtendedField[];
 	// extendedFields?: ExtendedField[];
 	__typename ?= 'Supplier';
 }

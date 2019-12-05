@@ -20,7 +20,7 @@ export class ModalCarouselComponent {
 	@Output() delete = new EventEmitter();
 	isOpen = false;
 	slideAnimationState = 'inactive';
-	direction = 'next';
+	direction = 'none';
 	@HostListener('document:keydown', ['$event'])
 	onKeydownHandler(event: KeyboardEvent) {
 		switch (event.keyCode) {

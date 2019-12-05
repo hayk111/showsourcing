@@ -20,7 +20,7 @@ export class TemplateMngmtService {
 		private templateSrv: RequestTemplateService,
 		private extendedFieldDefSrv: ExtendedFieldDefinitionService
 	) {
-		this.listQuery = this.templateSrv.getListQuery({ take: 1000, sortBy: '' });
+		this.listQuery = this.templateSrv.getListQuery({ take: 0, sortBy: '' });
 		this.listQuery.items$.connect();
 	}
 
@@ -40,7 +40,7 @@ export class TemplateMngmtService {
 	getTemplateFields(existings: TemplateField[]): Observable<{ allFields: TemplateField[], inTemplate: Map<string, boolean> }> {
 
 		return this.extendedFieldDefSrv
-			.queryMany({ query: 'target contains[c] "product." OR target == "Product"', sortBy: 'order', descending: false })
+			.queryMany({ query: 'target contains[c] "product." OR target == "Product"', sortBy: 'order', descending: false, take: 0 })
 			.pipe(
 				map(defs => this.mapDefinitions(defs, existings)),
 				first()

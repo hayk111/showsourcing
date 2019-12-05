@@ -51,7 +51,7 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 				this.listSrv.setup({
 					key: `${ListPageKey.REQUEST_ELEMENT}-${id}`,
 					entitySrv: this.reqElementSrv,
-					selectParams: { sortBy: 'name', query: `@links.Request.requestElements.id == "${id}"`, descending: false },
+					selectParams: { sortBy: 'id', query: `@links.Request.requestElements.id == "${id}"`, descending: false },
 					searchedFields: [],
 					entityMetadata: ERM.REQUEST_ELEMENT,
 					initialFilters: [],

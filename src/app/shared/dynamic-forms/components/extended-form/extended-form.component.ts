@@ -32,6 +32,7 @@ export class ExtendedFormComponent extends AutoUnsub implements OnInit, OnChange
 	// index where the focus starts
 	@Input() indexFocus = 0;
 	@Output() update = new EventEmitter<ExtendedField[]>();
+
 	cols: ExtendedField[][];
 	update$ = new Subject<ExtendedField[]>();
 
@@ -39,7 +40,8 @@ export class ExtendedFormComponent extends AutoUnsub implements OnInit, OnChange
 	) { super(); }
 
 	ngOnInit() {
-		if (this.isFormStyle)
+		if (this.isFormStyle) {
+			// temporary solution to bug WEB-2592
 			this.update$.pipe(
 				takeUntil(this._destroy$),
 				// we use this timer for the debounce only on formstyle, since the update inputs work like
@@ -51,7 +53,8 @@ export class ExtendedFormComponent extends AutoUnsub implements OnInit, OnChange
 				// protip: this could go on a lower level component like extende-form-input, applying a debounce time on
 				// the input, but sadly it doesn't work cause of the same wanky display issue stated above
 				debounceTime(750)
-			).subscribe(extendedField => this.update.emit(extendedField));
+			).subscribe(extendedFields => this.update.emit(extendedFields));
+		}
 	}
 
 	ngOnChanges() {

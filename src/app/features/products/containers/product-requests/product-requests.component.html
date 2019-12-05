@@ -4,6 +4,8 @@
 		class="no-padding"
 		[rows]="listSrv.items$ | async"
 		[hasSelection]="false"
+		[count]="listSrv.count$ | async"
+		[currentPage]="listSrv.currentPage"
 		[pending]="listSrv.pending"
 		(cancelReply)="cancelReply($event)"
 		(openReviewRequestReply)="openRequestDetails($event)"
