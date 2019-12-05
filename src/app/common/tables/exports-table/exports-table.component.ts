@@ -34,23 +34,13 @@ export class ExportTableComponent extends EntityTableComponent<ExportRequest> {
 		public translate: TranslateService
 	) { super(); }
 
-	getFileName(path: string) {
+	getFileName(path: string): string {
+		if (!path) {
+			return '';
+		}
+
 		const split = path.split('/');
 		return split[split.length - 1];
-	}
-
-	getStatusColor(status: ExportStatus) {
-		switch (status) {
-			case 'processing':
-			case 'pending':
-				return 'var(--color-txt-secondary)';
-			case 'error':
-			case 'failed':
-				return 'var(--color-warn)';
-			case 'ready':
-			case 'done':
-				return 'var(--color-success)';
-		}
 	}
 
 	getToolTipMsg(status: string) {

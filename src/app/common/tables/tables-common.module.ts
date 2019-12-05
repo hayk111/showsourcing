@@ -15,7 +15,7 @@ import { DefaultColumnsComponent } from './default-columns/default-columns.compo
 import { ExportTableComponent } from './exports-table/exports-table.component';
 import { TeamMembersTableComponent } from './team-members-table/team-members-table.component';
 import { InvitationsTableComponent } from './invitations-table/invitations-table.component';
-import { DataManagementTableComponent } from './data-management-table/data-management-table.component';
+import { ListManagementTableComponent } from './list-management-table/list-management-table.component';
 import { WorkflowManagamentTableComponent } from './workflow-managament-table/workflow-managament-table.component';
 
 @NgModule({
@@ -37,7 +37,7 @@ import { WorkflowManagamentTableComponent } from './workflow-managament-table/wo
 		DefaultColumnsComponent,
 		TeamMembersTableComponent,
 		InvitationsTableComponent,
-		DataManagementTableComponent,
+		ListManagementTableComponent,
 		WorkflowManagamentTableComponent,
 	],
 	exports: [
@@ -52,7 +52,7 @@ import { WorkflowManagamentTableComponent } from './workflow-managament-table/wo
 		TasksTableComponent,
 		TeamMembersTableComponent,
 		InvitationsTableComponent,
-		DataManagementTableComponent,
+		ListManagementTableComponent,
 		WorkflowManagamentTableComponent,
 	],
 	entryComponents: []

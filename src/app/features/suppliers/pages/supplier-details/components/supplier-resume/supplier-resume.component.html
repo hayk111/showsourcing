@@ -46,22 +46,13 @@
 			<!-- product categories -->
 			<section>
 				<h3 class="section-title">category</h3>
-				<editable-container-app
-					[hasAction]="false"
-					[openOnClick]="false"
-					(click)="categorySelector?.selector?.openMenu()">
-					<editable-display-app>
-						<badge-selector-app
-							#categorySelector
-							class="mg-bottom-none"
-							[badge]="'CATEGORY' | erm"
-							[multiple]="true"
-							[value]="supplier?.categories"
-							[hasLogo]="false"
-							(update)="update($event, 'categories')">
-						</badge-selector-app>
-					</editable-display-app>
-				</editable-container-app>
+				<badge-selector-app
+					[badge]="'CATEGORY' | erm"
+					[multiple]="true"
+					[value]="supplier?.categories"
+					[hasLogo]="false"
+					(update)="update($event, 'categories')">
+				</badge-selector-app>
 			</section>
 
 			<!-- tags -->

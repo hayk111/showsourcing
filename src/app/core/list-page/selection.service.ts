@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-
+import { DEFAULT_TAKE_PAGINATION } from '~entity-services/_global/select-params';
 
 @Injectable({
 	providedIn: 'root'
@@ -15,6 +15,10 @@ export class SelectionService {
 	emit() {
 		this._selection$.next(this.selection);
 		const selectedCols = [...this.selectedColumns.values()];
+
+		if (!selectedCols.length) {
+			return;
+		}
 
 		if (selectedCols.includes('selectedAll')) {
 			this.setSelectionState('selectedAll');
@@ -93,6 +97,25 @@ export class SelectionService {
 	unselectAll() {
 		this.selection = new Map();
 		this.emit();
+	}
+
+	getListCheckboxState(selectedValues: any[], listItems: any[]): 'selectedPartial' | 'unchecked' | 'selectedAll' {
+		if (!selectedValues || !listItems) {
+			return 'unchecked';
+		}
+
+		const selected = [...selectedValues];
+
+		if (selected.length === DEFAULT_TAKE_PAGINATION || selected.length === listItems.length) {
+			this.setSelectionState('selectedAll');
+			return 'selectedAll';
+		} else if (selected.length === 0) {
+			this.setSelectionState('unchecked');
+			return 'unchecked';
+		} else {
+			this.setSelectionState('selectedPartial');
+			return 'selectedPartial';
+		}
 	}
 
 	setSelectionState(state: 'selectedPartial' | 'unchecked' | 'selectedAll') {

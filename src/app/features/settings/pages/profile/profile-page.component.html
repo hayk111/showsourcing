@@ -5,35 +5,19 @@
 	[headerType]="'settings'"
 	[hasLogo]="true">
 
-	<header-nav-app>
-		<header-nav-item-app
-			link="/settings/profile"
-			icon="user"
-			[name]="'nav.my-profiles' | translate">
-		</header-nav-item-app>
-	</header-nav-app>
-
-	<user-picture-app
-		[size]="54"
-		[image]="user?.avatar"
-		[user]="user">
-	</user-picture-app>
+	<logo-app type="user"></logo-app>
 
 	<header-details-title-app>
 		<div class="my-profile capitalize">
 			{{ 'title.my-profile' | translate }}
 		</div>
-
-		<div class="user-name flexVAlign">
-			<span class="name">
-				{{ user | formatUserName: true }}
-			</span>
-			<div class="small-gray-badge-separator"></div>
-			<span class="user-email">
-				{{ user?.email }}
-			</span>
-		</div>
 	</header-details-title-app>
+
+	<header-details-info-app>
+		<div class="user-name flexVAlign">
+			<span class="name">{{ user | formatUserName: true }} {{ 'title.profile' | translate }}</span>
+		</div>
+	</header-details-info-app>
 
 </header-details-app>
 

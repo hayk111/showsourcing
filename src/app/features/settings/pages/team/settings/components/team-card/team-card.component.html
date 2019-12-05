@@ -1,0 +1,27 @@
+<div class="team-card">
+	<div class="left">
+		<div class="photoContainer flex">
+			<logo-app
+				class="pointer"
+				[iconSize]="48"
+				size="xxl" 
+				type="team"></logo-app>
+		</div>
+	</div>
+	<div class="right">
+		<h2 class="title">Team Info</h2> <!-- TODO: translation to be added -->
+
+		<form [formGroup]="form">
+			<form-field-app class="borderless-ms capitalize">
+				<label-app class="team-name capitalize" translate="label.team-name"></label-app>
+				<input class="name-input" [value]="team.name" inputApp type="text" formControlName="teamName"/>
+			</form-field-app>
+		</form>
+		
+		<h2 class="title-about">About this team</h2> <!-- TODO: translation to be added -->
+		<h2 class="team-created-date">Created Team created on {{ team.creationDate | date: 'd MMM y' }}</h2>
+	</div>
+</div>
+
+
+

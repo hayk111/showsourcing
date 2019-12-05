@@ -37,9 +37,8 @@ export class ProductDetailsPageComponent extends AutoUnsub implements OnInit {
 	product: Product;
 	product$: Observable<Product>;
 
-	/** projects for this product */
 	erm = ERM;
-	tabs: { name: string, number$?: Observable<number> }[];
+
 	// sample & task used for the preview
 	sample: Sample;
 	task: Task;

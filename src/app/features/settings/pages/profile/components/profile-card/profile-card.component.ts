@@ -11,7 +11,7 @@ import {
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
 import { User } from '~models';
-import { InputDirective, phoneValidator } from '~shared/inputs';
+import { InputDirective } from '~shared/inputs';
 import { AutoUnsub } from '~utils';
 
 @Component({
@@ -38,8 +38,7 @@ export class ProfileCardComponent extends AutoUnsub implements OnInit {
 		this.form = new FormGroup(this.fb.group({
 			firstName: ['', Validators.required],
 			lastName: ['', Validators.required],
-			email: ['', [Validators.email, Validators.required]],
-			phoneNumber: ['', phoneValidator]
+			email: ['', [Validators.email, Validators.required]]
 		}).controls, { updateOn: 'blur' });
 
 		this.form.patchValue(this.user);

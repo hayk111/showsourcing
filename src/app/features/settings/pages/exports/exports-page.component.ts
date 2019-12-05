@@ -13,7 +13,10 @@ import { AutoUnsub } from '~utils';
 	selector: 'exports-page-app',
 	templateUrl: './exports-page.component.html',
 	styleUrls: ['./exports-page.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		class: 'table-page'
+	},
 })
 export class ExportsPageComponent extends AutoUnsub implements OnInit, AfterViewInit {
 

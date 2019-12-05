@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
-import { zip, forkJoin } from 'rxjs';
+import { zip, Subject, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ApolloStateService } from '~core/apollo';
 import { TeamService, TeamUserService, UserService } from '~entity-services';
 import { HttpClient } from '@angular/common/http';
 import { TeamUser } from '~core/models';
+import { Invitation } from '~models/invitation.model';
 
 @Injectable({ providedIn: 'root' })
 export class SettingsMembersService extends TeamUserService {
+
+	invitationAdd$ = new Subject<any>();
 
 	constructor(
 		protected apolloState: ApolloStateService,
@@ -35,6 +38,15 @@ export class SettingsMembersService extends TeamUserService {
 	updateAccessType(accessType, userId) {
 		const teamId = this.teamSrv.selectedTeamSync.id;
 		return this.http.patch<TeamUser>(`api/team/${teamId}/user/${userId}/team-role`, { accessType });
+	}
+
+	createInvitation(email: string) {
+		const payload = { email, accessType: 'TeamMember', inviter: this.userSrv.userSync };
+
+		this.invitationAdd$.next(of(new Invitation(payload)));
+		return of(new Invitation(payload));
+
+		// return this.http.post(`api/invitation/team/${this.teamSrv.idSync}`, payload);
 	}
 
 }

@@ -11,12 +11,12 @@ const tableConfig: TableConfig = {
 };
 
 @Component({
-	selector: 'data-management-table-app',
-	templateUrl: './data-management-table.component.html',
-	styleUrls: ['./data-management-table.component.scss'],
+	selector: 'list-management-table-app',
+	templateUrl: './list-management-table.component.html',
+	styleUrls: ['./list-management-table.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DataManagementTableComponent extends EntityTableComponent<any> {
+export class ListManagementTableComponent extends EntityTableComponent<any> {
 	@Input() entityMetadata: EntityMetadata;
 	@Output() renameEntity = new EventEmitter<any>();
 	@Output() showItemsPerPage = new EventEmitter<number>();

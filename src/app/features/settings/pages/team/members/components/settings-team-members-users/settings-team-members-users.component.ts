@@ -15,7 +15,10 @@ import { AutoUnsub } from '~utils';
 	styleUrls: ['./settings-team-members-users.component.scss'],
 	providers: [
 		ListPageService
-	]
+	],
+	host: {
+		class: 'table-page'
+	},
 })
 export class SettingsTeamMembersUsersComponent extends AutoUnsub implements OnInit {
 	teamOwner: boolean;
@@ -55,6 +58,11 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub implements OnIn
 			this.teamOwner = teamOwner;
 			this.user = <User>user;
 		});
+
+		this.featureSrv.invitationAdd$
+			.subscribe((invitation) => {
+				this.listSrv.combine(invitation);
+			});
 
 	}
 

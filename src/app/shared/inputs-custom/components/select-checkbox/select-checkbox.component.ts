@@ -1,5 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, Output, OnInit } from '@angular/core';
-import { AbstractInput, makeAccessorProvider } from '~shared/inputs/components-directives/abstract-input.class';
+import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { SelectionService } from '~core/list-page';
 
 type CheckboxState = 'selectedPartial' | 'unchecked' | 'selectedAll';
@@ -13,6 +12,8 @@ export class SelectCheckboxComponent implements OnInit {
 	@Input() boxColor = 'primary';
 	@Input() size = 16;
 	@Output() update = new EventEmitter<CheckboxState>();
+	@Output() check = new EventEmitter<null>();
+	@Output() uncheck = new EventEmitter<null>();
 
 	private _state: CheckboxState;
 
@@ -32,10 +33,32 @@ export class SelectCheckboxComponent implements OnInit {
 
 	onClick(value) {
 		this.update.emit(value);
+		this.emit();
 	}
 
 	focusClick() {
 		console.log('focuse click');
+	}
+
+	private emit() {
+		if (this.state === 'unchecked') {
+			this.check.emit();
+		} else if (this.state === 'selectedAll') {
+			this.uncheck.emit();
+		}
+	}
+
+	uncheckedStyle() {
+		const unWidth = this.size - 1;
+		const unHeight = this.size - 1;
+
+		return {
+			width: `${unWidth}px`,
+			height: `${unHeight}px`,
+			border: `1px solid var(--color-secondary)`,
+			background: `var(--color-secondary-light)`,
+			'border-radius': `2px`
+		};
 	}
 
 	iconSize() {
