@@ -32,11 +32,9 @@ export class ExtendedFormComponent extends AutoUnsub implements OnInit, OnChange
 	// index where the focus starts
 	@Input() indexFocus = 0;
 	@Output() update = new EventEmitter<ExtendedField[]>();
-	@Output() updateSingle = new EventEmitter<ExtendedField>();
 
 	cols: ExtendedField[][];
 	update$ = new Subject<ExtendedField[]>();
-	updateSingle$ = new Subject<ExtendedField>();
 
 	constructor(
 	) { super(); }
@@ -56,12 +54,6 @@ export class ExtendedFormComponent extends AutoUnsub implements OnInit, OnChange
 				// the input, but sadly it doesn't work cause of the same wanky display issue stated above
 				debounceTime(750)
 			).subscribe(extendedFields => this.update.emit(extendedFields));
-
-			// temporary solution to bug WEB-2592
-			this.updateSingle$.pipe(
-				takeUntil(this._destroy$),
-				debounceTime(1200)
-			).subscribe(extendedField => this.updateSingle.emit(extendedField));
 		}
 	}
 
@@ -82,7 +74,6 @@ export class ExtendedFormComponent extends AutoUnsub implements OnInit, OnChange
 			updatedFields = this._fields;
 
 		this.isFormStyle ? this.update$.next(updatedFields) : this.update.emit(updatedFields);
-		this.isFormStyle ? this.updateSingle$.next(field) : this.updateSingle.emit(field);
 	}
 
 	/** put the custom fields into columns

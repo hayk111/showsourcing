@@ -49,8 +49,8 @@
 				[autofocus]="true"
 				[isFormStyle]="true"
         [colAmount]="2"
-				[fields]="fields"
-				(updateSingle)="updateExtendedField($event)">
+				[fields]="localFields"
+				(update)="save()">
       </extended-form-app>
 
 			<!-- reply message -->

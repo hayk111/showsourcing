@@ -42,6 +42,13 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 	fields: ExtendedField[];
 	definitions: ExtendedFieldDefinition[];
 	descriptionCtrl = new FormControl('');
+	// we save this localField the first initial load of the dialog, this way we store the first value of the fields
+	// this way when the object gets updated, we won't have display issues between the new data that we receive from the
+	// updated object and the object that we display
+	/** fields used to display the current and latest information */
+	localFields: ExtendedField[];
+	/** indicates us if its the first time this dialog is rendered */
+	initialLoad = true;
 
 
 	constructor(
@@ -97,6 +104,9 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 
 		this.reply = this.selectedElement.reply;
 		this.fields = this.reply.fields;
+		if (this.initialLoad)
+			this.localFields = [...this.reply.fields];
+		this.initialLoad = false;
 		this.definitions = this.reply.fields.map(field => field.definition);
 		this.uploaderFeedback.setImages(this.reply.images);
 		this.uploaderFeedback.setFiles(this.reply.attachments);
@@ -108,14 +118,14 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 			({
 				id: this.reply.id,
 				message: this.descriptionCtrl.value,
-				fields: this.fields,
+				fields: this.localFields,
 				status: ReplyStatus.REPLIED,
 				__typename: 'RequestReply'
 			}) :
 			({
 				id: this.reply.id,
 				message: this.descriptionCtrl.value,
-				fields: this.fields,
+				fields: this.localFields,
 				__typename: 'RequestReply'
 			});
 		// since update is async we have to save the index before it changes
@@ -140,6 +150,8 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 	saveAndNext() {
 		this.save(true);
 		this.selectedIndex = this.getNextUnrepliedIndex();
+		// since the dialog is not closed, we have to set the default value to initialLoad
+		this.initialLoad = true;
 		this.setElement();
 	}
 
