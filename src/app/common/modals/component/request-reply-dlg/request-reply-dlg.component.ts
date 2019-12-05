@@ -2,7 +2,8 @@ import { ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, ViewChil
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
-import { RequestReplyService, SupplierRequestService } from '~core/entity-services';
+import { Client } from '~core/apollo/services/apollo-client-names.const';
+import { ExtendedFieldService, RequestReplyService, SupplierRequestService } from '~core/entity-services';
 import {
 	AppImage,
 	ExtendedField,
@@ -47,7 +48,8 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 		private replySrv: RequestReplyService,
 		private requestSrv: SupplierRequestService,
 		private dlgSrv: DialogService,
-		private uploaderFeedback: UploaderFeedbackService
+		private uploaderFeedback: UploaderFeedbackService,
+		private extendedFieldSrv: ExtendedFieldService
 	) {
 		super();
 	}
@@ -213,6 +215,11 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 			this.reply.status !== ReplyStatus.ERROR &&
 			this.reply.status !== ReplyStatus.RESENT
 		);
+	}
+
+	updateExtendedField(field: ExtendedField) {
+		if (field && field.id)
+			this.extendedFieldSrv.update(field, Client.GLOBAL_REQUEST).subscribe();
 	}
 
 }

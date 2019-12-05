@@ -32,14 +32,17 @@ export class ExtendedFormComponent extends AutoUnsub implements OnInit, OnChange
 	// index where the focus starts
 	@Input() indexFocus = 0;
 	@Output() update = new EventEmitter<ExtendedField[]>();
+	@Output() updateSingle = new EventEmitter<ExtendedField>();
+
 	cols: ExtendedField[][];
 	update$ = new Subject<ExtendedField[]>();
+	updateSingle$ = new Subject<ExtendedField>();
 
 	constructor(
 	) { super(); }
 
 	ngOnInit() {
-		if (this.isFormStyle)
+		if (this.isFormStyle) {
 			this.update$.pipe(
 				takeUntil(this._destroy$),
 				// we use this timer for the debounce only on formstyle, since the update inputs work like
@@ -51,7 +54,13 @@ export class ExtendedFormComponent extends AutoUnsub implements OnInit, OnChange
 				// protip: this could go on a lower level component like extende-form-input, applying a debounce time on
 				// the input, but sadly it doesn't work cause of the same wanky display issue stated above
 				debounceTime(750)
-			).subscribe(extendedField => this.update.emit(extendedField));
+			).subscribe(extendedFields => this.update.emit(extendedFields));
+
+			this.updateSingle$.pipe(
+				takeUntil(this._destroy$),
+				debounceTime(750)
+			).subscribe(extendedField => this.updateSingle.emit(extendedField));
+		}
 	}
 
 	ngOnChanges() {
@@ -71,6 +80,7 @@ export class ExtendedFormComponent extends AutoUnsub implements OnInit, OnChange
 			updatedFields = this._fields;
 
 		this.isFormStyle ? this.update$.next(updatedFields) : this.update.emit(updatedFields);
+		this.isFormStyle ? this.updateSingle$.next(field) : this.updateSingle.emit(field);
 	}
 
 	/** put the custom fields into columns
