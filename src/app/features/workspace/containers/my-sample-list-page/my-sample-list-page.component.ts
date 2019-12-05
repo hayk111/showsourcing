@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, switchMap } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals';
 import { AbstractSampleCommonComponent } from '~common/sample/containers/abstract-sample-common.component';
 import { SampleService, UserService } from '~core/entity-services';
@@ -8,6 +7,7 @@ import { ListPageService } from '~core/list-page';
 import { ERM, Sample } from '~core/models';
 import { FilterType } from '~shared/filters';
 import { KanbanService } from '~shared/kanban/services/kanban.service';
+import { DialogService } from '~shared/dialog';
 
 @Component({
 	selector: 'my-sample-list-page-app',
@@ -33,11 +33,12 @@ export class MySampleListPageComponent extends AbstractSampleCommonComponent imp
 		protected route: ActivatedRoute,
 		protected userSrv: UserService,
 		protected sampleSrv: SampleService,
+		protected dlgSrv: DialogService,
 		public listSrv: ListPageService<Sample, SampleService>,
 		public commonModalSrv: CommonModalService,
 		public kanbanSrv: KanbanService
 	) {
-		super(router, route, userSrv, sampleSrv, listSrv, commonModalSrv);
+		super(router, route, userSrv, sampleSrv, dlgSrv, listSrv, commonModalSrv);
 	}
 
 	ngOnInit() {

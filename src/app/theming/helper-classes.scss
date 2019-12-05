@@ -187,6 +187,27 @@
 	}
 }
 
+.border-separator {
+	& > * {
+		& {
+			position: relative;
+			padding: 0 10px;
+		}
+		//for each children that is not the first one we add some spaces and bullet dots on the content
+		&:not(:last-child)::before {
+			content: " ";
+			position: absolute;
+			border-left: 1px var(--color-secondary) solid;
+			top: 20%;
+			right: 0;
+			height: 80%;
+			margin-top: auto;
+			margin-bottom: auto;
+		}
+	}
+}
+
+
 // https://developer.mozilla.org/en-US/docs/Web/CSS/will-change
 .will-change-scroll {
 	&:hover {

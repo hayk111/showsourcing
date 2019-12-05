@@ -7,6 +7,7 @@ import {
 	Output,
 	TemplateRef,
 	ViewChild,
+	AfterViewChecked,
 } from '@angular/core';
 import { ListViewComponent } from '~core/list-page/list-view.component';
 import { ERM, Product } from '~models';
@@ -25,11 +26,15 @@ import { translate } from '~utils';
 })
 export class ProductsListViewComponent extends ListViewComponent<Product> implements OnInit {
 
+	@Input() hasMenu = true;
+	@Input() productPreview = true;
+	@Input() isInProductSelectDlg = false;
 	@Input() currentSort: Sort;
 	// TODO, I think we will have to rethink the descriptor / custom table thing
 	// because this won't really work with the type of descriptor Antoine is envisaging
 	@Output() openAddToProjectDialog = new EventEmitter<Product>();
 	@Output() openExportDialog = new EventEmitter<Product>();
+	@Output() archiveProduct = new EventEmitter<Product>();
 	@Output() openRequestFeedbackDialog = new EventEmitter<Product>();
 	@Output() openCreateRequestDlg = new EventEmitter<Product>();
 
@@ -43,6 +48,7 @@ export class ProductsListViewComponent extends ListViewComponent<Product> implem
 	@ViewChild('feedback', { static: false }) feedbackTemplate: TemplateRef<any>;
 	@ViewChild('status', { static: true }) statusTemplate: TemplateRef<any>;
 	@ViewChild('creationDate', { static: true }) creationDateTemplate: TemplateRef<any>;
+	@ViewChild('createdBy', { static: true }) createdByTemplate: TemplateRef<any>;
 	@ViewChild('rating', { static: true }) ratingTemplate: TemplateRef<any>;
 	@ViewChild('user', { static: true }) userTemplate: TemplateRef<any>;
 	@ViewChild('action', { static: false }) actionTemplate: TemplateRef<any>;
@@ -50,22 +56,34 @@ export class ProductsListViewComponent extends ListViewComponent<Product> implem
 	@ViewChild('contextualMenu', { static: true }) contextualMenuTemplate: TemplateRef<any>;
 	prodErm = ERM.PRODUCT;
 
-	descriptor: TableDescriptor = [
-		{ title: translate('name'), type: 'main', sortable: true, sortBy: 'name', width: 280, minWidth: 120 },
-		{ title: translate(ERM.CATEGORY.singular, 'erm'), type: 'category', sortBy: 'category.name', width: 120, minWidth: 120 },
-		{ title: translate(ERM.SUPPLIER.singular, 'erm'), type: 'supplier', sortBy: 'supplier.name', width: 120, minWidth: 120 },
-		{ title: translate(ERM.PRICE.singular, 'erm'), type: 'price', sortBy: 'price.value', width: 50, minWidth: 50 },
-		{ title: translate('MOQ'), type: 'moq', propName: 'minimumOrderQuantity', sortBy: 'minimumOrderQuantity', width: 50, minWidth: 50 },
-		{ title: translate('Fav'), type: 'rating', sortBy: 'favorite', width: 15, minWidth: 50 },
-		{ title: translate('status'), type: 'status', sortBy: 'status.step', width: 85, minWidth: 120 },
-		{ title: translate('created on'), type: 'creationDate', sortBy: 'creationDate', width: 120, minWidth: 120 }
-	];
-
+	descriptor: TableDescriptor = [];
 	constructor() {
 		super();
 	}
 
 	ngOnInit() {
+		if (this.isInProductSelectDlg) {
+			this.descriptor =  [
+				{ title: translate('name'), type: 'main', sortable: true, sortBy: 'name', width: 280, minWidth: 120 },
+				{ title: translate(ERM.CATEGORY.singular, 'erm'), type: 'category', sortBy: 'category.name', width: 120, minWidth: 120 },
+				{ title: translate(ERM.SUPPLIER.singular, 'erm'), type: 'supplier', sortBy: 'supplier.name', width: 120, minWidth: 120 },
+				{ title: translate(ERM.PRICE.singular, 'erm'), type: 'price', sortBy: 'price.value', width: 50, minWidth: 50 },
+				{ title: translate('Fav'), type: 'rating', sortBy: 'favorite', width: 15, minWidth: 50 },
+				{ title: translate('created by'), type: 'createdBy', sortBy: 'createdBy', width: 120, minWidth: 120 }
+			];
+		} else {
+			this.descriptor =  [
+				{ title: translate('name'), type: 'main', sortable: true, sortBy: 'name', width: 280, minWidth: 120 },
+				{ title: translate(ERM.CATEGORY.singular, 'erm'), type: 'category', sortBy: 'category.name', width: 120, minWidth: 120 },
+				{ title: translate(ERM.SUPPLIER.singular, 'erm'), type: 'supplier', sortBy: 'supplier.name', width: 120, minWidth: 120 },
+				{ title: translate(ERM.PRICE.singular, 'erm'), type: 'price', sortBy: 'price.value', width: 50, minWidth: 50 },
+				{ title: translate('MOQ'), type: 'moq', propName: 'minimumOrderQuantity', sortBy: 'minimumOrderQuantity', width: 50, minWidth: 50 },
+				{ title: translate('Fav'), type: 'rating', sortBy: 'favorite', width: 15, minWidth: 50 },
+				{ title: translate('status'), type: 'status', sortBy: 'status.step', width: 85, minWidth: 120 },
+				{ title: translate('created on'), type: 'creationDate', sortBy: 'creationDate', width: 120, minWidth: 120 },
+			];
+		}
+
 		this.linkColumns();
 	}
 
@@ -100,6 +118,9 @@ export class ProductsListViewComponent extends ListViewComponent<Product> implem
 				break;
 			case 'creationDate':
 				column.template = this.creationDateTemplate;
+				break;
+			case 'createdBy':
+				column.template = this.createdByTemplate;
 				break;
 			case 'rating':
 				column.template = this.ratingTemplate;

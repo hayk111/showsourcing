@@ -6,10 +6,8 @@
 	[selected]="selection"
 	[pending]="pending"
 	[count]="count"
-	[skipped]="skipped"
+	[currentPage]="currentPage"
 	placeholder="No product"
-	(next)="next.emit()"
-	(previous)="previous.emit()"
 	(goToPage)="goToPage.emit($event)"
 	(bottomReached)="bottomReached.emit($event)"
 	(sort)="sort.emit($event)"
@@ -22,6 +20,10 @@
 
 <!-- contextual menu -->
 <ng-template #contextualMenuTemplate let-row="row">
+	<context-menu-item-app class="pointer flexCenter" (click)="archiveProduct.emit(row)"
+    i18n="button@@archive">
+    Archive
+  </context-menu-item-app>
   <context-menu-item-app class="pointer flexCenter" (click)="delete.emit(row)"
     i18n="button@@delete">
     Delete
@@ -51,12 +53,16 @@
 
 <!-- name -->
 <ng-template #supplier let-row="row">
-	{{ row?.supplier?.name || '-' }}
+	<div class="ellipsis">
+		{{ row?.supplier?.name || '-' }}
+	</div>
 </ng-template>
 
 <!-- category -->
 <ng-template #category let-row="row">
-    {{ row?.category?.name || '-'}}
+	<div class="ellipsis">
+		{{ row?.category?.name || '-'}}
+	</div>
 </ng-template>
 
 <!-- price -->

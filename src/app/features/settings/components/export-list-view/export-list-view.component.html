@@ -1,13 +1,11 @@
 <table-app
+	placeholder="No exports"
 	[rows]="rows"
 	[hasSelection]="false"
 	[pending]="pending"
 	[contextualMenu]="contextualMenuTemplate"
 	[count]="count"
-	[skipped]="skipped"
-	placeholder="No exports"
-	(next)="next.emit()"
-	(previous)="previous.emit()"
+	[currentPage]="currentPage"
 	(goToPage)="goToPage.emit($event)"
 	(sort)="sort.emit($event)"
 	(bottomReached)="bottomReached.emit()"
@@ -28,7 +26,7 @@
 			[columnApp]="'export' | const: 'messages'"
 			sortBy="name"
 			let-row="row"
-			width="280">
+			width="300">
 			<div class="capitalize">
 				{{ row?.format }} {{ row?.creationDate | date: 'dd-MMM-yy H:mm'}}
 			</div>
@@ -39,7 +37,7 @@
 			[columnApp]="'status' | const: 'messages'"
 			let-row="row"
 			sortBy="status"
-			width="140"
+			width="150"
 			[sortOrder]="'DESC'">
 			{{ row?.status }}
 		</ng-template>
@@ -49,7 +47,7 @@
 			[columnApp]="'creation date' | const: 'messages'"
 			let-row="row"
 			sortBy="creationDate"
-			width="280"
+			width="150"
 			[sortOrder]="'DESC'">
 			{{ row?.creationDate | date: 'MMMM y' }}
 		</ng-template>
@@ -59,7 +57,7 @@
 			[columnApp]="'created by' | const: 'messages'"
 			let-row="row"
 			sortBy="createdBy.lastName"
-			width="280">
+			width="200">
 			<div class="flex flexCenter">
 				<span class="ellipsis">{{ row?.createdBy?.firstName }} {{row?.createdBy?.lastName}}</span>
 			</div>

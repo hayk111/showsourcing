@@ -19,7 +19,7 @@ export class SampleListComponent extends TrackingComponent implements OnInit {
 	@Input() hasFilters = true;
 	@Output() toggleMySamples = new EventEmitter<boolean>();
 	@Output() bottomReached = new EventEmitter<null>();
-	@Output() createSample = new EventEmitter<string>();
+	@Output() openCreationSampleDlg = new EventEmitter<string>();
 	@Output() previewClicked = new EventEmitter<Sample>();
 	@Output() taskSelect = new EventEmitter<Sample>();
 	@Output() taskUnselect = new EventEmitter<Sample>();
@@ -31,12 +31,4 @@ export class SampleListComponent extends TrackingComponent implements OnInit {
 
 	ngOnInit() {
 	}
-
-	onSubmit() {
-		const name = this.sampleCtrl.value;
-		if (name)
-			this.createSample.emit(name);
-		this.sampleCtrl.reset();
-	}
-
 }

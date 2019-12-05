@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { Filter, FilterType } from '~shared/filters/models/filter.class';
 import { FilterByType } from '~shared/filters';
+import { TrackingComponent } from '~utils';
 
 
 /**
@@ -12,7 +13,7 @@ import { FilterByType } from '~shared/filters';
 	styleUrls: ['./filter-btn-list.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FilterBtnListComponent {
+export class FilterBtnListComponent extends TrackingComponent {
 	/** btns displayed */
 	@Input() set filterTypes(types: FilterType[]) {
 		// favorite and archived aren't buttons but simple checkboxes
@@ -82,4 +83,6 @@ export class FilterBtnListComponent {
 				return filter.entity.name;
 		}
 	}
+
+
 }

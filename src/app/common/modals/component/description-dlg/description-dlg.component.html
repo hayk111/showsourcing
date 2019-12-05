@@ -19,12 +19,12 @@
 
 	<dialog-footer-app>
 		<ng-container *ngIf="editing$ | async; else noEditing">
-			<button class="secondary capitalize" (click)="toggleEdition(false)" i18n="@@cancel">cancel</button>
-			<button class="capitalize" (click)="save(txtArea.value)" i18n="@@save">save</button>
+			<button tabFocusAction class="secondary capitalize" (click)="toggleEdition(false)" i18n="@@cancel">cancel</button>
+			<button tabFocusAction class="capitalize" (click)="save(txtArea.value)" i18n="@@save">save</button>
 		</ng-container>
 		<ng-template #noEditing>
-			<button #editBtn class="secondary capitalize" (click)="toggleEdition(true)" i18n="@@edit">edit</button>
-			<button class="capitalize" (click)="close()" i18n="@@close">close</button>
+			<button tabFocusAction #editBtn class="secondary capitalize" (click)="toggleEdition(true)" i18n="@@edit">edit</button>
+			<button tabFocusAction class="capitalize" (click)="close()" i18n="@@close">close</button>
 		</ng-template>
 	</dialog-footer-app>
 

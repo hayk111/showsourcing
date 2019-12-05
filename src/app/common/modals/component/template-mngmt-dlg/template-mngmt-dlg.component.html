@@ -1,0 +1,76 @@
+<dialog-app class="vertical-scroll-content">
+
+  <dialog-header-app>Request templates</dialog-header-app>
+
+  <div class="flex">
+
+    <div class="left">
+
+      <h2 class="ms">My Request Templates</h2>
+
+      <div class="info">New template</div>
+
+      <div class="input-box flexVAlign">
+        <input #inp inputApp [formControl]="createCtrl" type="text" placeholder="template-name" (keyup.enter)="btn.click()"/>
+        <button #btn (click)="createTemplate()">New</button>
+      </div>
+
+      <h3 class="ms">Templates</h3>
+
+      <list-app>
+        <list-item-app
+					*ngFor="let template of templates$ | async"
+					[selected]="isSelected(template)"
+          (click)="templateSelected = template">
+          <div class="item flexBetween fullWidth">
+            <span class="name">{{ template.name }}</span>
+            <context-menu-app>
+              <context-menu-trigger-app>
+                <span class="delete txt-clickable">delete</span>
+              </context-menu-trigger-app>
+              <context-menu-item-app (click)="deleteTemplate($event, template)">
+								delete
+              </context-menu-item-app>
+            </context-menu-app>
+          </div>
+        </list-item-app>
+      </list-app>
+    </div>
+
+    <div class="right flexGrow">
+
+			<ng-container *ngIf="!pending; else spinner">
+				<h2 class="ms">{{ templateSelected?.name }}</h2>
+
+				<h3 class="ms">Template elements</h3>
+
+				<div class="info">Select the information you want to request the supplier.</div>
+
+				<template-fields-table-app
+					class="no-padding unset-height"
+					[pending]="pending"
+					[rows]="allFields"
+					[inTemplate]="inTemplate"
+					(update)="onUpdate()">
+				</template-fields-table-app>
+
+				<div *ngIf="allFields" class="actions flexEnd">
+					<button *ngIf="hasChanged()" class="secondary" (click)="reset()">Reset</button>
+					<button [disabled]="!hasChanged()" (click)="save()">Save changes</button>
+				</div>
+			</ng-container>
+
+			<ng-template #spinner>
+				<spinner-app size="xxxxl"></spinner-app>
+			</ng-template>
+
+		</div>
+
+
+  </div>
+
+  <dialog-footer-app>
+    <button class="secondary" (click)="close($event)">Close</button>
+  </dialog-footer-app>
+
+</dialog-app>

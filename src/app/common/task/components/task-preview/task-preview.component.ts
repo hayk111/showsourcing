@@ -1,12 +1,15 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
+import { TaskDescriptor } from '~core/descriptors';
 import { CommentService } from '~core/entity-services/comment/comment.service';
-import { TaskService, UserService } from '~entity-services';
-import { Comment, ERM, Task } from '~models';
+import {
+	ExtendedFieldDefinitionService,
+} from '~core/entity-services/extended-field-definition/extended-field-definition.service';
+import { TaskService } from '~entity-services';
+import { Comment, ERM, ExtendedFieldDefinition, Task } from '~models';
 import { AutoUnsub } from '~utils';
-
 
 @Component({
 	selector: 'task-preview-app',
@@ -14,7 +17,7 @@ import { AutoUnsub } from '~utils';
 	styleUrls: ['./task-preview.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TaskPreviewComponent extends AutoUnsub implements OnChanges {
+export class TaskPreviewComponent extends AutoUnsub implements OnInit, OnChanges {
 
 	private _task: Task;
 	@Input() set task(value: Task) {
@@ -27,15 +30,26 @@ export class TaskPreviewComponent extends AutoUnsub implements OnChanges {
 	@Output() close = new EventEmitter<null>();
 
 	task$: Observable<Task>;
+	taskDescriptor: TaskDescriptor;
 	erm = ERM;
+
+	fieldDefinitions$: Observable<ExtendedFieldDefinition[]>;
 
 	constructor(
 		private commentSrv: CommentService,
 		private router: Router,
-		private userSrv: UserService,
-		private taskSrv: TaskService
+		private taskSrv: TaskService,
+		private extendedFieldDefSrv: ExtendedFieldDefinitionService
 	) {
 		super();
+	}
+
+	ngOnInit() {
+		this.taskDescriptor = new TaskDescriptor([
+			'createdBy', 'creationDate', 'lastUpdatedBy', 'lastUpdatedDate'
+		]);
+
+		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "task.extendedFields"' });
 	}
 
 	ngOnChanges() {
@@ -44,12 +58,18 @@ export class TaskPreviewComponent extends AutoUnsub implements OnChanges {
 			.subscribe(s => this._task = s);
 	}
 
+	updateTask(taskConfig: any) {
+		const task = ({ ...taskConfig, id: this.task.id });
+		this.taskSrv.update(task).subscribe();
+	}
+
 	update(value: any, prop: string) {
-		this.taskSrv.update({ id: this._task.id, [prop]: value }).subscribe();
+		this.updateTask({ [prop]: value });
 	}
 
 	updateDueDate(isCancel: boolean, value: Date) {
-		if (!isCancel && isCancel !== undefined) this.update(value, 'dueDate');
+		if (!isCancel && isCancel !== undefined)
+			this.update(value, 'dueDate');
 	}
 
 	addComment(comment: Comment) {

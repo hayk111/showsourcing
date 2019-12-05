@@ -2,7 +2,8 @@ import { ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, ViewChil
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
-import { RequestReplyService, SupplierRequestService } from '~core/entity-services';
+import { Client } from '~core/apollo/services/apollo-client-names.const';
+import { ExtendedFieldService, RequestReplyService, SupplierRequestService } from '~core/entity-services';
 import {
 	AppImage,
 	ExtendedField,
@@ -36,19 +37,26 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 
 	request$: Observable<SupplierRequest>;
 	request: SupplierRequest;
-	elements: RequestElement[] = [];
-	element: RequestElement;
+	selectedElement: RequestElement;
 	reply: RequestReply;
 	fields: ExtendedField[];
 	definitions: ExtendedFieldDefinition[];
 	descriptionCtrl = new FormControl('');
+	// we save this localField the first initial load of the dialog, this way we store the first value of the fields
+	// this way when the object gets updated, we won't have display issues between the new data that we receive from the
+	// updated object and the object that we display
+	/** fields used to display the current and latest information */
+	localFields: ExtendedField[];
+	/** indicates us if its the first time this dialog is rendered */
+	initialLoad = true;
 
 
 	constructor(
 		private replySrv: RequestReplyService,
 		private requestSrv: SupplierRequestService,
 		private dlgSrv: DialogService,
-		private uploaderFeedback: UploaderFeedbackService
+		private uploaderFeedback: UploaderFeedbackService,
+		private extendedFieldSrv: ExtendedFieldService
 	) {
 		super();
 	}
@@ -56,9 +64,16 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		this.request$ = this.requestSrv.selectOne(this.requestId);
 		this.request$.pipe(
-			tap(request => this.request = request),
+			tap(request => {
+				(request.requestElements || []).sort((a, b) => a.id.localeCompare(b.id));
+				this.request = request;
+			}),
 			takeUntil(this._destroy$)
-		).subscribe(_ => this.setElement());
+		).subscribe(_ => {
+			this.setElement();
+		});
+		if (this.isDisabled())
+			this.descriptionCtrl.disable();
 	}
 
 
@@ -71,29 +86,31 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 	}
 
 	next() {
-		this.selectedIndex = (this.selectedIndex + 1) % (this.elements.length);
+		this.selectedIndex = (this.selectedIndex + 1) % (this.request.requestElements.length);
 		this.setElement();
 	}
 
 	back() {
-		this.selectedIndex = this.selectedIndex - 1 >= 0 ? this.selectedIndex - 1 : this.elements.length - 1;
+		this.selectedIndex = this.selectedIndex - 1 >= 0 ? this.selectedIndex - 1 : this.request.requestElements.length - 1;
 		this.setElement();
 	}
 
 	private setElement() {
-		this.elements = this.request.requestElements;
-		this.element = this.elements[this.selectedIndex];
+		this.selectedElement = this.request.requestElements[this.selectedIndex];
 
-		if (!this.element) {
-			throw Error(`no element at index ${this.selectedIndex} in array: ${this.elements.toString()}`);
+		if (!this.selectedElement) {
+			throw Error(`no element at index ${this.selectedIndex} in array: ${this.selectedElement.toString()}`);
 		}
 
-		this.reply = this.element.reply;
+		this.reply = this.selectedElement.reply;
 		this.fields = this.reply.fields;
+		if (this.initialLoad)
+			this.localFields = [...this.reply.fields];
+		this.initialLoad = false;
 		this.definitions = this.reply.fields.map(field => field.definition);
-		this.uploaderFeedback.init({ linkedEntity: this.reply });
-		this.uploaderFeedback.setImages(this.reply.images.filter(img => !img.deleted));
+		this.uploaderFeedback.setImages(this.reply.images);
 		this.uploaderFeedback.setFiles(this.reply.attachments);
+		this.uploaderFeedback.init({ linkedEntity: this.reply });
 	}
 
 	save(updateStatus = false, lastItem = false) {
@@ -101,24 +118,28 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 			({
 				id: this.reply.id,
 				message: this.descriptionCtrl.value,
-				fields: this.fields,
+				fields: this.localFields,
 				status: ReplyStatus.REPLIED,
 				__typename: 'RequestReply'
 			}) :
 			({
 				id: this.reply.id,
 				message: this.descriptionCtrl.value,
-				fields: this.fields,
+				fields: this.localFields,
 				__typename: 'RequestReply'
 			});
+		// since update is async we have to save the index before it changes
+		const localSelectIndex = this.selectedIndex;
 		this.replySrv.update(reply).subscribe(_ => {
 			if (updateStatus && lastItem)
 				this.dlgSrv.open(ReplySentDlgComponent);
+			else if (updateStatus) {
+				// since we are sending the elements as an Input, we have to manually set the status so it does not show as not replied
+				this.selectedElement[localSelectIndex].reply.status = ReplyStatus.REPLIED;
+				this.descriptionCtrl.reset();
+				this.content.nativeElement.scrollIntoView();
+			}
 		});
-		if (updateStatus) {
-			this.descriptionCtrl.reset();
-			this.content.nativeElement.scrollIntoView();
-		}
 	}
 
 	saveAndClose() {
@@ -129,6 +150,8 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 	saveAndNext() {
 		this.save(true);
 		this.selectedIndex = this.getNextUnrepliedIndex();
+		// since the dialog is not closed, we have to set the default value to initialLoad
+		this.initialLoad = true;
 		this.setElement();
 	}
 
@@ -142,7 +165,7 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 
 	private getNextUnrepliedIndex() {
 		// we map the elements that are still unreplied and we filter the undefined ones
-		const unrepliedElements = this.elements.map(
+		const unrepliedElements = this.request.requestElements.map(
 			(elem, index) => {
 				if ((
 					elem.reply.status === ReplyStatus.PENDING ||
@@ -158,7 +181,7 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 	}
 
 	hasNext() {
-		return this.elements.some(elem => (
+		return this.request.requestElements.some(elem => (
 			elem.reply.status === ReplyStatus.PENDING ||
 			elem.reply.status === ReplyStatus.ERROR ||
 			elem.reply.status === ReplyStatus.RESENT
@@ -166,11 +189,11 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 	}
 
 	addImage(files: File[]) {
-		this.uploaderFeedback.addImages(files);
+		this.uploaderFeedback.addImages(files).subscribe();
 	}
 
 	addAttachment(files: File[]) {
-		this.uploaderFeedback.addFiles(files);
+		this.uploaderFeedback.addFiles(files).subscribe();
 	}
 
 	hasEmptyField() {
@@ -179,6 +202,7 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 
 	deleteImg(img: AppImage) {
 		this.uploaderFeedback.deleteImg(img);
+		this.uploaderFeedback.setImages(this.selectedElement.reply.images.filter(image => !image.deleted));
 	}
 
 	getTooltipMessage() {
@@ -198,10 +222,16 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 	// supplier can only reply when the status is pending, error o sentBack
 	isDisabled() {
 		return (
+			this.reply &&
 			this.reply.status !== ReplyStatus.PENDING &&
 			this.reply.status !== ReplyStatus.ERROR &&
 			this.reply.status !== ReplyStatus.RESENT
 		);
+	}
+
+	updateExtendedField(field: ExtendedField) {
+		if (field && field.id)
+			this.extendedFieldSrv.update(field, Client.GLOBAL_REQUEST).subscribe();
 	}
 
 }

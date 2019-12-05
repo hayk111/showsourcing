@@ -1,4 +1,3 @@
-import gql from 'graphql-tag';
 import { GlobalQueries } from '~entity-services/_global/global-queries.class';
 
 export abstract class TaskQueries extends GlobalQueries {
@@ -7,9 +6,16 @@ export abstract class TaskQueries extends GlobalQueries {
 	static readonly supplier = `supplier { id, name, logoImage { id, fileName, urls { id, url} }}`;
 	static readonly product = `product { id, name, images { id, fileName, urls { id, url} }}`;
 	static readonly assignee = `assignee { id, firstName, lastName, avatar { id, fileName, urls { id, url} } }`;
-	static readonly createdBy = `createdBy { id, lastName, firstName, avatar { id, fileName, urls { id, url} } }`;
-	static readonly comments = `comments { id, text, ${TaskQueries.createdBy}, creationDate }`;
+	static readonly user = (name) => `${name} { id, lastName, firstName, avatar { id, fileName, urls { id, url} } }`;
+	static readonly comments = `comments { id, text, ${TaskQueries.user('createdBy')}, creationDate }`;
+	static readonly definition = (name: string) => `${name} { id, label, type, order, metadata }`;
+	static readonly extendedFields = `extendedFields {
+		id, value,
+		selectorValue { id, value, ${TaskQueries.definition('fieldDefinition')} },
+		${TaskQueries.definition('definition')}
+	}`;
 
+	// TODO BackEnd add extended fields
 	static one = `
 		${TaskQueries.type}
 		name
@@ -17,6 +23,10 @@ export abstract class TaskQueries extends GlobalQueries {
 		done
 		dueDate
 		completionDate
+		creationDate
+		lastUpdatedDate
+		${TaskQueries.user('createdBy')}
+		${TaskQueries.user('lastUpdatedBy')}
 		${TaskQueries.product}
 		${TaskQueries.supplier}
 		${TaskQueries.assignee}
@@ -31,6 +41,10 @@ export abstract class TaskQueries extends GlobalQueries {
 		done
 		dueDate
 		completionDate
+		creationDate
+		lastUpdatedDate
+		${TaskQueries.user('createdBy')}
+		${TaskQueries.user('lastUpdatedBy')}
 		${TaskQueries.product}
 		${TaskQueries.supplier}
 		${TaskQueries.assignee}

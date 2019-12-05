@@ -1,33 +1,34 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { AfterViewChecked, ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, of, ReplaySubject } from 'rxjs';
-import { switchMap, take } from 'rxjs/operators';
+import { switchMap, take, tap, takeUntil } from 'rxjs/operators';
 import { ContactService, CreateRequestService, RequestTemplateService, UserService } from '~core/entity-services';
+import { ListPageService } from '~core/list-page';
 import { Contact, CreateRequest, ERM, Product, RequestTemplate, Supplier } from '~core/models';
+import { ProductService } from '~entity-services';
 import { DialogService } from '~shared/dialog';
 import { FilterList, FilterType } from '~shared/filters';
 import { NotificationService, NotificationType } from '~shared/notifications';
-import {
-	TemplateMngmtDlgComponent,
-} from '~shared/template-mngmt/components/template-mngmt-dlg/template-mngmt-dlg.component';
-import { ID, translate } from '~utils';
+import { ID, translate, AutoUnsub } from '~utils';
 
+import { ProductSelectDlgComponent } from '../product-select-dlg/product-select-dlg.component';
 import { ReplySentDlgComponent } from '../reply-sent-dlg/reply-sent-dlg.component';
+import { TemplateMngmtDlgComponent } from '../template-mngmt-dlg/template-mngmt-dlg.component';
 
 @Component({
 	selector: 'supplier-request-dialog-app',
 	templateUrl: './supplier-request-dialog.component.html',
 	styleUrls: ['./supplier-request-dialog.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	providers: [ListPageService]
 })
-export class SupplierRequestDialogComponent implements OnInit {
+export class SupplierRequestDialogComponent extends AutoUnsub implements OnInit, AfterViewChecked {
 
 	private _request: CreateRequest;
 	@Input() set request(request: CreateRequest) {
 		this._request = request;
 		if (request && request.recipient && request.recipient.supplier)
 			this.supplier = request.recipient.supplier;
-		this.setTemplate();
 	}
 	get request() {
 		return this._request;
@@ -50,8 +51,9 @@ export class SupplierRequestDialogComponent implements OnInit {
 	pending = false;
 	filterList = new FilterList([]);
 	supplier: Supplier;
+
 	private templateSelectedAction$ = new ReplaySubject<ID>(1);
-	selectedTemplate$: Observable<RequestTemplate>;
+	selectedTemplate$ = new ReplaySubject<RequestTemplate>(1);
 
 	constructor(
 		private fb: FormBuilder,
@@ -60,8 +62,12 @@ export class SupplierRequestDialogComponent implements OnInit {
 		private contactSrv: ContactService,
 		private notifSrv: NotificationService,
 		private userSrv: UserService,
-		private requestTemplateSrv: RequestTemplateService
+		private requestTemplateSrv: RequestTemplateService,
+		private productSrv: ProductService,
+		private cd: ChangeDetectorRef,
+		public listSrv: ListPageService<Product, ProductService>,
 	) {
+		super();
 		this.form = this.fb.group({
 			products: ['', Validators.required],
 			requestTemplate: ['', Validators.required],
@@ -76,12 +82,25 @@ export class SupplierRequestDialogComponent implements OnInit {
 	ngOnInit() {
 		if (!this.request)
 			this.request = new CreateRequest({ products: [], sendCopyTo: [], shareInformation: false });
+
 		this.form.patchValue(this.request);
-		this.selectedTemplate$ = this.templateSelectedAction$.pipe(
-			switchMap(id => this.requestTemplateSrv.queryOne(id))
-		);
+		this.templateSelectedAction$.pipe(
+			switchMap(id => this.requestTemplateSrv.queryOne(id)),
+			tap(requestTemplate => this._request = { ...this.request, requestTemplate }),
+			takeUntil(this._destroy$)
+		).subscribe(this.selectedTemplate$);
+
 		if (!this.fromTemplateDlg)
 			this.initFormValues();
+		else {
+			if (this.request && this.request.requestTemplate) {
+				this.selectedTemplate$.next(this.request.requestTemplate);
+			}
+		}
+	}
+
+	ngAfterViewChecked() {
+		this.cd.detectChanges();
 	}
 
 	private initFormValues() {
@@ -99,7 +118,7 @@ export class SupplierRequestDialogComponent implements OnInit {
 		const prod = this.request.products.length === 1 ? translate('product') : translate('products');
 		const reqFor = translate('Request for');
 		const title = `${reqFor} ${this.request.products.length} ${prod}`;
-		this.request = { ...this.request, title };
+		this._request = { ...this.request, title };
 		this.form.patchValue(this.request);
 	}
 
@@ -125,7 +144,7 @@ export class SupplierRequestDialogComponent implements OnInit {
 				.subscribe(reqTemplate => {
 					if (reqTemplate) {
 						this.templateSelectedAction$.next(reqTemplate.id);
-						this.request = { ...this.request, requestTemplate: reqTemplate };
+						this._request = { ...this.request, requestTemplate: reqTemplate };
 						this.form.patchValue(this.request);
 					}
 				});
@@ -152,7 +171,7 @@ export class SupplierRequestDialogComponent implements OnInit {
 						switchMap(contact => this.createOrUseContact(contact, this.supplier)),
 						take(1)
 					).subscribe(contact => {
-						this.request = { ...this.request, recipient: contact };
+						this._request = { ...this.request, recipient: contact };
 						this.form.patchValue(this.request);
 					});
 
@@ -160,7 +179,7 @@ export class SupplierRequestDialogComponent implements OnInit {
 				this.contactSrv.queryOneByPredicate(`supplier.id == "${this.supplier.id}" AND email contains "@"`)
 					.pipe(take(1))
 					.subscribe(contact => {
-						this.request = { ...this.request, recipient: contact };
+						this._request = { ...this.request, recipient: contact };
 						this.form.patchValue(this.request);
 					});
 			}
@@ -186,21 +205,40 @@ export class SupplierRequestDialogComponent implements OnInit {
 		if (contact && !contact.supplier) {
 			// we update the contact on the form and on realm, since it's a new contact and we have to insert a supplier
 			// other wise when we create the request its gona get the form value and the supplier will be null again
-			this.request = { ...this.request, recipient: { ...contact, supplier: { id: this.supplier.id, name: this.supplier.name } } };
+			this._request = { ...this.request, recipient: { ...contact, supplier: { id: this.supplier.id, name: this.supplier.name } } };
 			this.contactSrv
 				.update({ id: contact.id, supplier: { id: this.supplier.id } })
 				.subscribe(_ => this.form.patchValue(this.request));
 		}
 	}
 
+	addProduct(ev: any) {
+		this.productSrv.selectedProds$.subscribe((products: Product[]) => {
+			products.forEach((product: Product) => {
+				if (this._products.filter((p: Product) => p.id === product.id).length === 0) {
+					this._products.push(product);
+				}
+			});
+
+			setTimeout(_ => this.dlgSrv.open(SupplierRequestDialogComponent, { products: this._products, request: this._request }));
+		});
+
+		setTimeout(_ => {
+			this.dlgSrv.open(ProductSelectDlgComponent, { initialSelectedProducts: [], submitProducts: false })
+				.pipe(
+					switchMap(_ => this.listSrv.refetch())
+				).subscribe();
+		});
+	}
+
 	removeProduct(id: ID) {
 		const products = this.request.products.filter(product => product.id !== id);
-		this.request = { ...this.request, products };
+		this._request = { ...this.request, products };
 		this.setTitle();
 	}
 
 	updateProducts(products: Product[]) {
-		this.request = { ...this.request, products };
+		this._request = { ...this.request, products };
 		this.setTitle();
 	}
 
@@ -253,7 +291,7 @@ export class SupplierRequestDialogComponent implements OnInit {
 	}
 
 	getTemplateFields(tmp: RequestTemplate) {
-		return tmp.requestedFields.map(f => f.label).join(', ');
+		return tmp.fields.map(f => f.definition.label).join(', ');
 	}
 
 }

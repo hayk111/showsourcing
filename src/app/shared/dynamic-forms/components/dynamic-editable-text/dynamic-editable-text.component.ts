@@ -11,6 +11,7 @@ import { DynamicField } from '~shared/dynamic-forms/models';
 import { DynamicUpdate } from '~shared/dynamic-forms/models/dynamic-update.interface';
 import { EditableTextComponent } from '~shared/editable-field';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
+import { Price, Packaging } from '~core/models';
 
 /**
  * Component that selects the correct input and display it as an editable text
@@ -41,6 +42,14 @@ export class DynamicEditableTextComponent extends AbstractInput {
 	@Input() customField: DynamicField;
 	/** whether the input should be on the same line as the label */
 	@Input() inlineLabel: boolean;
+	// TODO put this on a config -> hasAction, hasLabel, showComplexTypes
+	@Input() hasAction = true;
+	@Input() hasLabel = true;
+	@Input() borderless = false;
+	/** whether objects like price or packaging are treated as strings or objects */
+	@Input() objectAsString = false;
+	/** we use this to not display packaging, pricematrix and future complex types */
+	@Input() showComplexTypes = true;
 	/** when the editable field opens */
 	@Output() open = new EventEmitter<null>();
 	/** blur event for onTouchedFn */
@@ -97,10 +106,49 @@ export class DynamicEditableTextComponent extends AbstractInput {
 		this.blur.emit();
 	}
 
-	/** toggle input value from true to false and vice versa */
-	toggleValue() {
-		this.accumulator = !this.accumulator;
-		this.onSave();
+	/**
+	 * toggle input value from true to false and vice versa if the type of target of the event is not 'radio'
+	 * @param event mouse click event
+	 */
+	toggleValue(event) {
+		// since the radio-app already handles click, what this part handles
+		// is the click on the editable-text-app, since the radio is inside the editable, we have to check
+		// that the target type is not radio, that means that we are not clicking the radio component but outside
+		if (event && event.target.type !== 'radio') {
+			this.accumulator = !this.accumulator;
+			this.onSave();
+		}
+	}
+
+	getMetadata(metadata) {
+		const stringConstructor = 'string'.constructor;
+		const objectConstructor = ({}).constructor;
+		// we check if the metadata has to be trasnformed into an Object
+		if (metadata.constructor === stringConstructor) {
+			const objMetadata = JSON.parse(metadata);
+			return objMetadata ? objMetadata.source : null;
+		} else if (metadata.constructor === objectConstructor) { // if tis already an object, we return the target if exists
+			return metadata && metadata.target || null;
+		}
+		return null;
+	}
+
+	// we only use this kind of function with Price & Packaging when objectAsString input is true
+	/**
+	 * converts the string on the accumulator on Object format
+	 */
+	stringToObject() {
+		return this.accumulator ? JSON.parse(this.accumulator) : undefined;
+	}
+
+	// we only use this kind of function with Price & Packaging since their value is a string that needs to be transformed to object
+	/**
+	 * transforms an object into a string
+	 * @param json object to be transformed into string
+	 */
+	accumulateObjectToString(json: Price | Packaging) {
+		// we need to stringify it since it's stored as a string+
+		this.accumulate(JSON.stringify(json));
 	}
 
 }

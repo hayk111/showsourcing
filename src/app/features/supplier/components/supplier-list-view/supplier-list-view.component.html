@@ -4,10 +4,8 @@
 	[selected]="selection"
 	[contextualMenu]="contextualMenuTemplate"
 	[count]="count"
-	[skipped]="skipped"
+	[currentPage]="currentPage"
 	placeholder="No supplier"
-	(previous)="previous.emit()"
-	(next)="next.emit()"
 	(goToPage)="goToPage.emit($event)"
 	(selectOne)="select.emit($event)"
 	(unselectOne)="unselect.emit($event)"
@@ -47,7 +45,7 @@
 		[columnApp]="erm.CATEGORY.plural | const: 'erm'"
 		let-row="row"
 		[sortable]="false"
-		width="280">
+		width="250">
 		<div class="overflow-hidden">
 			<span *ngFor="let cat of row.categories; let last = last; trackBy: trackByFn">
 				{{ cat?.name }}{{ last ? '' : ',&nbsp;'}}
@@ -74,7 +72,7 @@
 		[columnApp]="erm.TAG.plural | const: 'erm'"
 		let-row="row"
 		[sortable]="false"
-		width="280">
+		width="250">
 		<div class="overflow-hidden">
 			<span *ngFor="let tag of row.tags; let last = last;trackBy: trackByFn">
 				{{ tag.name }}{{ last ? '' : ',&nbsp;'}}
@@ -87,7 +85,7 @@
 		[columnApp]="'creation' | const: 'messages'"
 		let-row="row"
 		sortBy="creationDate"
-		width="140"
+		width="150"
 		[grows]="false"
 		[sortOrder]="'DESC'">
 		{{ row?.creationDate | date: 'MMMM y' }}
@@ -98,7 +96,7 @@
 		[columnApp]="'owner' | const: 'messages'"
 		let-row="row"
 		sortBy="createdBy.lastName"
-		width="140"
+		width="150"
 		[grows]="false">
 		<div class="flex flexCenter">
 			<!-- <user-picture-app

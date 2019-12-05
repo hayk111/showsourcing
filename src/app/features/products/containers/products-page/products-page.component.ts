@@ -1,13 +1,17 @@
 import { AfterViewInit, Component, ElementRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { switchMap, takeUntil } from 'rxjs/operators';
+import { Observable, interval } from 'rxjs';
+import { switchMap, takeUntil, timeout, tap } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals';
-import { ProductService } from '~core/entity-services';
+import { ProductService, UserService } from '~core/entity-services';
 import { ListPageKey, ListPageService } from '~core/list-page';
 import { ERM, Product } from '~models';
 import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
+import { ProductFeatureService } from '~features/products/services';
+import { NotificationService, NotificationType } from '~shared/notifications';
+import { SupplierRequestDialogComponent } from '~common/modals/component/supplier-request-dialog/supplier-request-dialog.component';
+import { DialogService } from '~shared/dialog/services';
 
 // dailah lama goes into pizza store
 // servant asks : what pizza do you want sir ?
@@ -18,11 +22,13 @@ import { AutoUnsub } from '~utils';
 	templateUrl: './products-page.component.html',
 	styleUrls: ['./products-page.component.scss'],
 	providers: [
-		ListPageService
+		ListPageService,
+		CommonModalService
 	]
 })
 export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterViewInit {
 	erm = ERM;
+	filterTypeEnum = FilterType;
 	// filter displayed as button in the filter panel
 	filterTypes = [
 		FilterType.ARCHIVED,
@@ -39,15 +45,25 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 	productsCount$: Observable<number>;
 
 	constructor(
-		private router: Router,
 		private productSrv: ProductService,
+		private dlgSrv: DialogService,
 		public commonModalSrv: CommonModalService,
 		public listSrv: ListPageService<Product, ProductService>,
-		public elem: ElementRef
+		private featureSrv: ProductFeatureService,
+		public elem: ElementRef,
+		private userSrv: UserService,
+		private notifSrv: NotificationService
 	) {
 		super();
 	}
 
+	toggleMyProducts(show: boolean) {
+		const filterAssignee = { type: FilterType.ASSIGNEE, value: this.userSrv.userSync.id };
+		if (show)
+			this.listSrv.addFilter(filterAssignee);
+		else
+			this.listSrv.removeFilter(filterAssignee);
+	}
 	ngOnInit() {
 		this.listSrv.setup({
 			key: ListPageKey.PRODUCTS,
@@ -59,6 +75,10 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 			entityMetadata: ERM.PRODUCT,
 			originComponentDestroy$: this._destroy$
 		}, false);
+
+		this.productSrv.productListUpdate$.pipe(
+			switchMap(_ => this.listSrv.refetch())
+		).subscribe();
 
 		this.productsCount$ = this.listSrv.filterList.valueChanges$.pipe(
 			switchMap(_ => this.productSrv.selectCount(this.listSrv.filterList.asPredicate()).pipe(takeUntil(this._destroy$)))
@@ -80,4 +100,33 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		return filters.length;
 	}
 
+	onArchive(product: Product | Product[]) {
+		// TODO i18n
+		if (Array.isArray(product)) {
+			this.featureSrv.updateMany(product.map((p: Product) => ({id: p.id, archived: true})))
+				.pipe(switchMap(_ => this.listSrv.refetch()))
+				.subscribe(_ => {
+					this.notifSrv.add({
+						type: NotificationType.SUCCESS,
+						title: 'Products archived',
+						message: 'Products have been archived with success'
+					});
+				});
+		} else {
+			const { id } = product;
+			this.featureSrv.update({ id, archived: true })
+				.pipe(switchMap(_ => this.listSrv.refetch()))
+				.subscribe(_ => {
+					this.notifSrv.add({
+						type: NotificationType.SUCCESS,
+						title: 'Product archived',
+						message: 'Products have been archived with success'
+					});
+				});
+		}
+	}
+
+	onOpenCreateRequestDlg(products: Product[]) {
+		return this.dlgSrv.open(SupplierRequestDialogComponent, { products });
+	}
 }

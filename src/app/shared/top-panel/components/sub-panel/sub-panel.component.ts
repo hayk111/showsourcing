@@ -39,6 +39,9 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 	// view that can be switched into
 	@Input() view: 'list' | 'card';
 
+	// whether the filters tab is opened
+	@Input() filtersPanelOpened = false;
+
 	/** what appears in the button on the right for adding an entity */
 	@Input() buttonName: string;
 	/** number of filters set */
@@ -50,6 +53,8 @@ export class SubPanelComponent extends AutoUnsub implements OnInit {
 	@Output() viewChange = new EventEmitter<string>();
 	/** show filter panel */
 	@Output() showFilters = new EventEmitter<undefined>();
+	/** hide filter panel */
+	@Output() hideFilters = new EventEmitter<undefined>();
 	/** when said button is clicked */
 	@Output() buttonClick = new EventEmitter<any>();
 	// when the filter button is clicked

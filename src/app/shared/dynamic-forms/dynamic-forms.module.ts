@@ -21,6 +21,7 @@ import {
 	EditablePriceMatrixRowComponent,
 	EditableSelectorComponent,
 	ExtendedFormComponent,
+	ExtendedFormEditableTextComponent,
 	ExtendedFormInputComponent,
 	InputPackagingComponent,
 } from './components';
@@ -55,11 +56,13 @@ import { InputSelectorComponent } from './components/dynamic-input/inputs/input-
 		EditableSelectorComponent,
 		InputPackagingComponent,
 		InputSelectorComponent,
+		ExtendedFormEditableTextComponent,
 	],
 	exports: [
 		DynamicFormComponent,
 		EditablePackagingComponent,
-		ExtendedFormComponent
+		ExtendedFormComponent,
+		DynamicEditableTextComponent
 	]
 })
 export class DynamicFormsModule {

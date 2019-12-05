@@ -4,7 +4,6 @@ import { ScrollDispatchModule, ScrollingModule } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgSelectModule } from '@ng-select/ng-select';
 import { BadgeModule } from '~shared/badge';
 import { DividerModule } from '~shared/divider/divider.module';
 import { IconsModule } from '~shared/icons';
@@ -17,54 +16,45 @@ import { UtilsModule } from '~shared/utils';
 import {
 	CdkOverlayComponent,
 	SelectorButtonRowComponent,
-	SelectorCategoryRowComponent,
 	SelectorComponent,
 	SelectorContactRowComponent,
 	SelectorCountryRowComponent,
 	SelectorCurrencyRowComponent,
 	SelectorEventRowComponent,
-	SelectorIdRowComponent,
+	SelectorLabelNameRowComponent,
 	SelectorNameRowComponent,
 	SelectorPickerComponent,
 	SelectorPlaceholderComponent,
-	SelectorProductRowComponent,
-	SelectorProjectRowComponent,
 	SelectorRequestTemplateRowComponent,
 	SelectorSupplierRowComponent,
-	SelectorSupplierTypeRowComponent,
-	SelectorTagRowComponent,
-	SelectorTextRowComponent,
 	SelectorUserRowComponent,
+	SelectorValueRowComponent,
+	SelectorProductRowComponent
 } from './components';
 
 
 const components = [
 	CdkOverlayComponent,
 	SelectorButtonRowComponent,
-	SelectorCategoryRowComponent,
 	SelectorComponent,
 	SelectorContactRowComponent,
 	SelectorCountryRowComponent,
 	SelectorCurrencyRowComponent,
 	SelectorPlaceholderComponent,
 	SelectorEventRowComponent,
-	SelectorIdRowComponent,
+	SelectorLabelNameRowComponent,
 	SelectorNameRowComponent,
 	SelectorPickerComponent,
-	SelectorProductRowComponent,
-	SelectorProjectRowComponent,
 	SelectorRequestTemplateRowComponent,
 	SelectorSupplierRowComponent,
-	SelectorSupplierTypeRowComponent,
-	SelectorTagRowComponent,
-	SelectorTextRowComponent,
 	SelectorUserRowComponent,
+	SelectorValueRowComponent,
+	SelectorProductRowComponent
 ];
 
 @NgModule({
 	imports: [
 		CommonModule,
-		NgSelectModule,
 		ReactiveFormsModule,
 		FormsModule,
 		InputsModule,

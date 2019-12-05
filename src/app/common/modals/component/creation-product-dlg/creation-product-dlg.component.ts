@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ProductDescriptor } from '~core/descriptors';
 import { ProductService } from '~core/entity-services';
-import { AppImage, Attachment, ERM, ExtendedField, Packaging, Price, Product } from '~core/models';
+import { AppImage, Attachment, ExtendedField, Packaging, Price, Product } from '~core/models';
 import { CloseEventType, DialogService } from '~shared/dialog';
-import { DynamicField } from '~shared/dynamic-forms';
 import { NotificationService, NotificationType } from '~shared/notifications';
-import { translate, uuid } from '~utils';
+import { uuid } from '~utils';
 
 @Component({
 	selector: 'creation-product-dlg-app',
@@ -15,102 +15,9 @@ import { translate, uuid } from '~utils';
 export class CreationProductDlgComponent implements OnInit {
 
 	@Input() product: Product;
+	@Input() createAnother = false;
 
-	// TODO i18n
-	dynamicFields: DynamicField[] = [
-		{ name: 'name', type: 'text', required: true, label: translate('name') },
-		{
-			name: 'supplier',
-			type: 'selector',
-			label: translate(ERM.SUPPLIER.singular, 'erm'),
-			metadata: {
-				target: ERM.SUPPLIER.singular,
-				type: 'entity',
-				labelName: 'name',
-				canCreate: true,
-				hasBadge: true,
-				width: 495
-			}
-		},
-		{ name: 'price', type: 'price', label: translate(ERM.PRICE.singular, 'erm') },
-		{
-			name: 'category',
-			type: 'selector',
-			label: translate(ERM.CATEGORY.singular, 'erm'),
-			metadata: {
-				target: ERM.CATEGORY.singular,
-				type: 'entity',
-				labelName: 'name',
-				canCreate: true,
-				hasBadge: true,
-				width: 495
-			}
-		},
-		{ name: 'minimumOrderQuantity', type: 'number', label: translate('MOQ') },
-		{ name: 'moqDescription', type: 'textarea', label: translate('MOQ description') },
-		{
-			name: 'tags',
-			type: 'selector',
-			label: translate(ERM.TAG.plural, 'erm'),
-			metadata: {
-				target: ERM.TAG.singular,
-				type: 'entity',
-				labelName: 'name',
-				multiple: true,
-				canCreate: true,
-				hasBadge: true,
-				width: 495
-			}
-		},
-		{
-			name: 'projects',
-			type: 'selector',
-			label: translate(ERM.PROJECT.plural, 'erm'),
-			metadata: {
-				target: ERM.PROJECT.singular,
-				type: 'entity',
-				labelName: 'name',
-				multiple: true,
-				canCreate: true,
-				hasBadge: true,
-				width: 495
-			}
-		},
-		{ name: 'sample', type: 'boolean', label: translate('sample available') },
-		{ name: 'samplePrice', type: 'price', label: translate('sample price') },
-		{ name: 'trading information', type: 'title' },
-		{ name: 'innerCarton', type: 'packaging', label: translate('inner carton') },
-		{ name: 'masterCarton', type: 'packaging', label: translate('master carton') },
-		{ name: 'masterCbm', type: 'decimal', label: 'Master Carton CBM' },
-		{ name: 'quantityPer20ft', type: 'number', label: `Quantity per 20'` },
-		{ name: 'quantityPer40ft', type: 'number', label: `Quantity per 40'` },
-		{ name: 'quantityPer40ftHC', type: 'number', label: `Quantity per 40' HC` },
-		{
-			name: 'incoTerm', type: 'selector', label: 'Inco Term',
-			metadata: {
-				target: ERM.INCO_TERM.singular,
-				canCreate: false, multiple: false,
-				labelName: 'name',
-				type: 'const',
-			}
-		},
-		{
-			name: 'harbour', type: 'selector', label: 'Harbour',
-			metadata: {
-				target: ERM.HARBOUR.singular,
-				canCreate: false,
-				multiple: false,
-				labelName: 'name',
-				type: 'const',
-				width: 495
-			}
-		},
-		{
-			name: 'extendedFields', type: 'extendedField', label: 'extended fields',
-			metadata: { target: 'Product' }
-		}
-	];
-	createAnother = false;
+	productDescriptor: ProductDescriptor;
 
 	constructor(
 		private dlgSrv: DialogService,
@@ -119,8 +26,27 @@ export class CreationProductDlgComponent implements OnInit {
 	) { }
 
 	ngOnInit() {
+		this.productDescriptor = new ProductDescriptor([
+			'name', 'supplier', 'price', 'category', 'minimumOrderQuantity', 'mowDescription', 'tags',
+			'projects', 'sample', 'samplePrice', 'innerCarton', 'masterCarton', 'masterCbm', 'quantityPer20ft',
+			'quantityPer40ft', 'quantityPer40ftHC', 'incoTerm', 'harbour', 'extendedFields'
+		]);
+		this.productDescriptor.insert({ name: 'trading information', type: 'title' }, 'innerCarton');
+		this.productDescriptor.modify([
+			{ name: 'supplier', metadata: { width: 495 } },
+			{ name: 'category', metadata: { width: 495 } },
+			{ name: 'projects', metadata: { width: 495 } },
+			{ name: 'tags', metadata: { width: 495 } },
+			{ name: 'incoTerm', metadata: { width: 495 } },
+			{ name: 'harbour', metadata: { width: 495 } },
+		]);
+
+		// if there is not a product created, we create one
+		// else if a product exists but it does not have images or attachments initialized
 		if (!this.product)
 			this.product = new Product({ images: [], attachments: [] });
+		else if (!this.product.images || !this.product.attachments)
+			this.product = { ...this.product, images: [], attachments: [] };
 	}
 
 	updateProduct(product: Product) {
@@ -161,7 +87,8 @@ export class CreationProductDlgComponent implements OnInit {
 				// if we create a new product we create a new id
 				if (this.createAnother) {
 					product = this.resetIds(product);
-					this.dlgSrv.open(CreationProductDlgComponent, { product });
+					this.dlgSrv.open(CreationProductDlgComponent, { product, createAnother: true });
+					this.productSrv.onUpdateProductList();
 				} else
 					this.close();
 				// success

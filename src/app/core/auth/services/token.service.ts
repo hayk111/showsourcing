@@ -32,7 +32,6 @@ export class TokenService {
 
 	/** stores the access token we get on login */
 	storeRealmUser(user: RealmUser) {
-		// "${REALM_USER} = user;secure; HttpOnly; Expires ";
 		log.info(`%c Storring realm user token: ${user.identity} for ${user.server}`, LogColor.SERVICES);
 		this.localStorageSrv.setItem(REALM_USER, user);
 	}
@@ -62,8 +61,10 @@ export class TokenService {
 	}
 
 	storeJwtTokens(token: TokenState) {
-		this.localStorageSrv.setItem(FEED_TOKEN, token);
-		this._jwtTokenFeed$.next(token);
+		if (token) {
+			this.localStorageSrv.setItem(FEED_TOKEN, token);
+			this._jwtTokenFeed$.next(token);
+		}
 	}
 
 	restoreFeedToken() {

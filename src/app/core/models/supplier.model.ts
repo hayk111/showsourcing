@@ -1,11 +1,11 @@
-import { AppImage, Attachment, Comment } from '~models';
+import { AppImage, Attachment, Comment, ExtendedField } from '~models';
 import { EntityWithAudit } from '~models/_entity.model';
 import { Category } from '~models/category.model';
 import { SupplierStatus } from '~models/supplier-status.model';
 import { SupplierType } from '~models/supplier-type.model';
 import { Tag } from '~models/tag.model';
 
-import { ExtendedField } from './extended-field.model';
+import { User } from './user.model';
 
 export class Supplier extends EntityWithAudit<SupplierConfig> {
 	name?: string;
@@ -27,12 +27,16 @@ export class Supplier extends EntityWithAudit<SupplierConfig> {
 	generalLeadTime?: number;
 	tags?: Tag[];
 	categories?: Category[];
-	favorite?= false;
+	favorite ?= false;
 	globalDatabaseId?: string;
 	status?: SupplierStatus;
 	comments?: Comment[];
+	lastUpdatedBy?: User;
+	archived ?= true;
+	assignee ?: User;
+	extendedFields ?: ExtendedField[];
 	// extendedFields?: ExtendedField[];
-	__typename?= 'Supplier';
+	__typename ?= 'Supplier';
 }
 
 export interface SupplierConfig {

@@ -1,21 +1,26 @@
 import { ESCAPE, LEFT_ARROW, RIGHT_ARROW } from '@angular/cdk/keycodes';
 import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
 import { AppImage } from '~models';
+import { slideAnimation } from '~shared/carousel/components/animations/slide.animations';
 
 @Component({
 	selector: 'modal-carousel-app',
 	templateUrl: './modal-carousel.component.html',
 	styleUrls: ['./modal-carousel.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	animations: [slideAnimation]
 })
 export class ModalCarouselComponent {
 
 	@Input() images: Array<AppImage> = [];
 	@Input() selectedIndex = 0;
+	@Input() entity: any;
 	@Output() indexChange = new EventEmitter<number>();
+	@Output() openFileBrowser = new EventEmitter<void>();
+	@Output() delete = new EventEmitter();
 	isOpen = false;
-
-
+	slideAnimationState = 'inactive';
+	direction = 'none';
 	@HostListener('document:keydown', ['$event'])
 	onKeydownHandler(event: KeyboardEvent) {
 		switch (event.keyCode) {
@@ -27,23 +32,56 @@ export class ModalCarouselComponent {
 				break;
 		}
 	}
+	toggleSlideAnimationState() {
+		this.slideAnimationState = (this.slideAnimationState === 'inactive' ? 'active' : 'inactive');
+	}
 
 	back(event) {
+		this.direction = 'back';
+		this.toggleSlideAnimationState();
+		event.stopPropagation();
+	}
+
+	next(event) {
+		this.direction = 'next';
+		this.toggleSlideAnimationState();
+		event.stopPropagation();
+	}
+
+	showPreviousImage() {
+		if (this.slideAnimationState === 'active') return;
 		if (this.selectedIndex > 0)
 			this.selectedIndex--;
 		else
 			this.selectedIndex = this.images.length - 1;
 		this.indexChange.emit(this.selectedIndex);
-		event.stopPropagation();
+		this.toggleSlideAnimationState();
 	}
 
-	next(event) {
+	showNextImage() {
+		if (this.slideAnimationState === 'active') return;
 		if (this.selectedIndex < this.images.length - 1)
 			this.selectedIndex++;
 		else
 			this.selectedIndex = 0;
 		this.indexChange.emit(this.selectedIndex);
-		event.stopPropagation();
+		this.toggleSlideAnimationState();
+	}
+
+	slideAnimationDone() {
+		switch (this.direction) {
+			case 'close':
+				this.isOpen = false;
+				break;
+			case 'next':
+				this.showNextImage();
+				break;
+			case 'back':
+				this.showPreviousImage();
+				break;
+			default:
+				return;
+		}
 	}
 
 	getRotation(img) {
@@ -57,14 +95,22 @@ export class ModalCarouselComponent {
 		return this.images ? this.images[this.selectedIndex] : null;
 	}
 
+	onDelete() {
+		this.close();
+		this.delete.emit();
+	}
+
 	open(index?: number) {
+		this.direction = 'open';
+		this.slideAnimationState = 'active';
 		if (Number.isInteger(index))
 			this.selectedIndex = index;
 		this.isOpen = true;
 	}
 
 	close() {
-		this.isOpen = false;
+		this.direction = 'close';
+		this.slideAnimationState = 'inactive';
 	}
 
 }

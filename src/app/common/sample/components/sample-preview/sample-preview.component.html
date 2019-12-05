@@ -47,12 +47,22 @@
 	<!-- Sample information -->
 	<preview-section-app [title]="'sample information'" i18n-title="@@sample-information">
 		<dynamic-form-app
-			[fields]="customFields"
+			[fields]="sampleDescriptor?.descriptor"
 			[inlineLabel]="true"
 			[value]="sample"
 			[colAmount]="1"
 			(update)="updateSample($event)">
 		</dynamic-form-app>
+	</preview-section-app>
+
+	<!-- Extended Fields -->
+	<preview-section-app *ngIf="(fieldDefinitions$ | async)?.length" [title]="'Extended Fields'">
+		<extended-form-app
+			[inlineLabel]="true"
+			[definitions]="fieldDefinitions$ | async"
+			[fields]="sample?.extendedFields"
+			(update)="updateSample({extendedFields: $event})">
+		</extended-form-app>
 	</preview-section-app>
 
 	<!-- Activity -->

@@ -10,7 +10,7 @@ export abstract class ContactQueries extends GlobalQueries {
 		businessCardImage {
 			id,
 			fileName,
-			urls { url }
+			urls { id, url }
 		}
 		supplier { id, name }
 		creationDate
@@ -24,7 +24,7 @@ export abstract class ContactQueries extends GlobalQueries {
 		businessCardImage {
 			id,
 			fileName,
-			urls { url }
+			urls { id, url }
 		}
 		supplier { id, name }
 		creationDate

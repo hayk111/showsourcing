@@ -23,7 +23,7 @@
 		[showConfirmOnDelete]="false"
 		(deleted)="deleted.emit($event)">
 	</file-list-app>
-	<button class="secondary" tabFocus (click)="inp.click()" i18n="button@@add-file">add file</button>
+	<button class="secondary" tabFocusAction (click)="inp.click()" i18n="button@@add-file">add file</button>
 </ng-template>
 
 <input #inp type="file" class="hidden" (fileSelect)="onFileAdded($event)"/>

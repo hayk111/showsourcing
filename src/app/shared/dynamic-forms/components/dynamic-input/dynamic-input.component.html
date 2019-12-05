@@ -13,7 +13,7 @@
 			[canFocus]="autofocus"
 			type="text"
 			[(ngModel)]="accumulator"
-			[placeholder]="customField?.label || customField?.name"
+			[placeholder]="customField?.metadata?.placeholder || customField?.label || customField?.name"
       (input)="onChange()"/>
 	</form-field-app>
 
@@ -25,7 +25,7 @@
 			[canFocus]="autofocus"
 			restrictInput="tel"
       type="tel"
-			[placeholder]="customField?.label || customField?.name"
+			[placeholder]="customField?.metadata?.placeholder || customField?.label || customField?.name"
       [(ngModel)]="accumulator"
       (input)="onChange()"/>
   </form-field-app>
@@ -38,10 +38,34 @@
 			[canFocus]="autofocus"
       restrictInput="number"
       type="number"
-			[placeholder]="customField?.label || customField?.name"
+			[placeholder]="customField?.metadata?.placeholder || customField?.label || customField?.name"
       [(ngModel)]="accumulator"
       (input)="onChange()"/>
-  </form-field-app>
+	</form-field-app>
+
+	<!-- number -->
+	<!-- TODO Delete this when on v3 switchCase="int" is deprecated we use number -->
+  <form-field-app *ngSwitchCase="'int'"  class="modal">
+    <label-app>{{ customField?.label || customField?.name }}</label-app>
+    <input inputApp
+			autoFocus
+			[canFocus]="autofocus"
+      restrictInput="number"
+      type="number"
+			[placeholder]="customField?.metadata?.placeholder || customField?.label || customField?.name"
+      [(ngModel)]="accumulator"
+      (input)="onChange()"/>
+	</form-field-app>
+
+	<!-- date -->
+	<form-field-app *ngSwitchCase="'date'"  class="modal">
+			<label-app>{{ customField?.label || customField?.name }}</label-app>
+			<input inputApp
+				type="date"
+				[placeholder]="customField?.metadata?.placeholder || customField?.label || customField?.name"
+				[(ngModel)]="accumulator"
+				(input)="onChange()"/>
+		</form-field-app>
 
 	<!-- decimal -->
   <form-field-app *ngSwitchCase="'decimal'"  class="modal">
@@ -52,7 +76,7 @@
       restrictInput="decimal"
 			type="number"
 			step="any"
-			[placeholder]="customField?.label || customField?.name"
+			[placeholder]="customField?.metadata?.placeholder || customField?.label || customField?.name"
       [(ngModel)]="accumulator"
       (input)="onChange()"/>
   </form-field-app>
@@ -64,7 +88,7 @@
 			autoFocus
 			[canFocus]="autofocus"
 			type="number"
-			[placeholder]="customField?.label || customField?.name"
+			[placeholder]="customField?.metadata?.placeholder || customField?.label || customField?.name"
       [(ngModel)]="accumulator"
       (input)="onChange()"/>
   </form-field-app>
@@ -76,7 +100,8 @@
 			autoFocus
 			[canFocus]="autofocus"
       type="text"
-			[placeholder]="customField?.label || customField?.name"
+			[placeholder]="customField?.metadata?.placeholder || customField?.label || customField?.name"
+			[rows]="customField?.metadata?.rows"
       [(ngModel)]="accumulator"
       (input)="onChange()">
     </textarea>
@@ -93,6 +118,7 @@
 				[canCreate]="customField?.metadata?.canCreate"
 				[hasBadge]="customField?.metadata?.hasBadge"
 				[width]="customField?.metadata?.width || 390"
+				[placeholder]="customField?.metadata?.placeholder"
 				[autofocus]="autofocus"
 				(update)="onChange()">
 			</input-selector-app>
@@ -103,8 +129,14 @@
   <ng-container *ngSwitchCase="'boolean'">
     <form-field-app class="modal">
       <label-app>{{ customField?.label || customField?.name }}</label-app>
-      <radio-app 	autoFocus inputApp
-			[canFocus]="autofocus" [(ngModel)]="accumulator" [items]="[{ name: 'Yes', value: true }, { name: 'No', value: false }]" (update)="onChange()"></radio-app>
+			<radio-app
+			 	autoFocus inputApp
+				[(ngModel)]="accumulator"
+				[checked]="accumulator !== undefined ? accumulator : null"
+				[canFocus]="autofocus"
+				[items]="[{ name: 'Yes', value: true }, { name: 'No', value: false }]"
+				(update)="onChange()">
+			</radio-app>
     </form-field-app>
   </ng-container>
 

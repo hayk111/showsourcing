@@ -22,6 +22,17 @@
 			height: 16px;
 			width: 16px;
 		}
+
+		.product-info {
+			// width of the 'remove' button
+			width: calc(100% - 60px);
+
+			.product-name {
+				// width of the image
+				width: calc(100% - 16px);
+			}
+		}
+
 	}
 }
 

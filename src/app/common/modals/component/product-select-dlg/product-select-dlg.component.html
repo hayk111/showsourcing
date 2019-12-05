@@ -1,0 +1,79 @@
+<dialog-app class="zero-content-height">
+
+	<dialog-header-app i18n="@@select-products">
+		select products
+	</dialog-header-app>
+
+	<sub-panel-app
+		[hasFilter]="true"
+		[hasSwitch]="false"
+		[filtersPanelOpened]="filtersPanelOpened"
+		[view]="listSrv.view"
+		[searchValue]="listSrv.searchValue"
+		(search)="searchProduct($event)"
+		(showFilters)="showFilters()"
+		(hideFilters)="hideFilters()">
+
+		<sub-panel-left-item-app class="flex">
+			<span class="select-products-count capitalize" *ngIf="productsCount$ | async as count"> 
+				<b> {{ count || 0 }} products </b>
+			</span>
+		</sub-panel-left-item-app>
+
+		<sub-panel-left-item-app class="flex">
+			<div class="flex show-my-samples">
+				<checkbox-app
+					[checked]="listSrv.filterList.hasFilterType(filterType.ASSIGNEE)"
+					(check)="toggleMySamples(true)"
+					(uncheck)="toggleMySamples(false)">
+				</checkbox-app>
+				<span class="ellipsis" i18n="text@@show-only-my-sample">
+					Show my samples only
+				</span>
+			</div>
+		</sub-panel-left-item-app>
+
+	</sub-panel-app>
+
+	<products-list-view-app
+		class="list-view"
+		*ngIf="listSrv.view === 'list'"
+		[isInProductSelectDlg]="true"
+		[hasMenu]="false"
+		[productPreview]="false"
+		[currentSort]="listSrv.currentSort"
+		[pending]="listSrv.pending"
+		[rows]="listSrv.items$ | async"
+		[selection]="listSrv.selection$ | async"
+		[count]="listSrv.count$ | async"
+		[currentPage]="listSrv.currentPage"
+		(goToPage)="loadPage($event)"
+		(delete)="listSrv.deleteOne($event)"
+		(favorited)="listSrv.onItemFavorited($event)"
+		(update)="listSrv.update($event)"
+		(open)="listSrv.goToDetails($event)"
+		(previewClick)="listSrv.openPreview($event)"
+		(select)="onItemSelected($event, true)"
+		(selectAll)="onSelectAll($event, true)"
+		(sort)="listSrv.sort($event)"
+		(unfavorited)="listSrv.onItemUnfavorited($event)"
+		(unselect)="onItemUnselected($event)"
+		(unselectAll)="onUnselectAll()">
+	</products-list-view-app>
+	
+	<dialog-footer-app>
+		<sub-panel-left-item-app><b>{{ selectedProductsCount }} Products selected</b></sub-panel-left-item-app>
+		<button *ngIf="submitProducts" class="capitalize" (click)="submit()" i18n="button@@add-to-project">add to project</button>
+		<button *ngIf="!submitProducts" class="capitalize" (click)="done()" i18n="button@@done">done</button>
+	</dialog-footer-app>
+
+	<filters-app
+		*ngIf="filtersPanelOpened"
+		[filterList]="listSrv.filterList"
+		[filterTypes]="filterTypes">
+	</filters-app>
+
+	<ng-template #spinner>
+		<spinner-app></spinner-app>
+	</ng-template>
+</dialog-app>

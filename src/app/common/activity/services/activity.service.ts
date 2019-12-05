@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
 import * as getstream from 'getstream';
 import { BehaviorSubject, from, Observable, ReplaySubject, of } from 'rxjs';
-import { first, map, mergeScan, scan, shareReplay, switchMap, takeWhile } from 'rxjs/operators';
+import { first, map, mergeScan, scan, shareReplay, switchMap, takeWhile, tap } from 'rxjs/operators';
 import { TokenService } from '~core/auth';
 import { TokenState } from '~core/auth/interfaces/token-state.interface';
 import { TeamService } from '~entity-services';
@@ -31,7 +31,7 @@ export class ActivityService {
 		private teamSrv: TeamService,
 		private tokenSrv: TokenService
 	) {
-		this.client = getstream.connect(environment.getStreamKey, null, '39385');
+		this.client = getstream.connect(environment.getStreamKey, null, environment.getStreamAppID);
 	}
 
 	getDashboardFeed(): GroupedActivityFeed {
@@ -65,7 +65,9 @@ export class ActivityService {
 			_loadMore$.next(undefined);
 		};
 
-		const _token$ = this.getToken(tokenUrl).pipe(first());
+		const _token$ = this.getToken(tokenUrl).pipe(
+			first(),
+		);
 
 		// the token emits once, when it has emitted we wait for load more,
 		// when we have one load more emitted we get the previous result,

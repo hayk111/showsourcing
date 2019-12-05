@@ -45,15 +45,19 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 				this.listSrv.setup({
 					key: `${ListPageKey.REQUEST_ELEMENT}-${id}`,
 					entitySrv: this.reqElementSrv,
-					selectParams: { sortBy: 'name', query: `@links.Request.requestElements.id == "${id}"` },
+					// when we send the index to the dialog, we have to take care of how we sort
+					// since the elements on the dialog are not queries by @links.Request.requestElements.id but by request.requestElements
+					// we sort on the dialog manually request.requestElements.sort(name)
+					selectParams: { sortBy: 'id', query: `@links.Request.requestElements.id == "${id}"`, descending: false },
 					searchedFields: [],
 					entityMetadata: ERM.REQUEST_ELEMENT,
 					initialFilters: [],
 					originComponentDestroy$: this._destroy$
 				});
 			}),
-			switchMap(id => this.suppReqSrv.selectOne(id)),
-			tap(req => this.requestElements = req ? req.requestElements : []),
+			switchMap(id => this.listSrv.items$, (id, items) => [id, items]),
+			tap(([id, items]) => this.requestElements = items ? items : []),
+			switchMap(([id, items]) => this.suppReqSrv.selectOne(id)),
 			takeUntil(this._destroy$)
 		);
 
@@ -89,7 +93,10 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 
 	open(element: RequestElement) {
 		const selectedIndex = this.requestElements.findIndex(elem => elem.id === element.id);
-		this.dlgSrv.open(RequestReplyDlgComponent, { selectedIndex, requestId: this.requestId });
+		this.dlgSrv.open(RequestReplyDlgComponent, {
+			selectedIndex,
+			requestId: this.requestId
+		});
 	}
 
 	allReplied(reqElements: RequestElement[]) {

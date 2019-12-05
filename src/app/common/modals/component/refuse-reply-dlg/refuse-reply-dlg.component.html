@@ -12,7 +12,7 @@
 
 	<dialog-footer-app>
 		<spinner-app *ngIf="pending" size="18"></spinner-app>
-		<button class="secondary capitalize" [disabled]="pending" (click)="close()" i18n="@@cancel">Cancel</button>
-		<button class="warn capitalize" [disabled]="pending" (click)="refuse(inp.value)" i18n="@@send">Send</button>
+		<button tabFocusAction autoFocus class="secondary capitalize" [disabled]="pending" (click)="close()" i18n="@@cancel">Cancel</button>
+		<button tabFocusAction class="warn capitalize" [disabled]="pending" (click)="refuse(inp.value)" i18n="@@send">Send</button>
 	</dialog-footer-app>
 </dialog-app>

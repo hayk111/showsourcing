@@ -7,11 +7,14 @@ import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[class.flexVAlign]': 'vAlign',
-		'class': 'pointer txt-btn'
+		'[class.pointer]': '!disabled',
+		'[class.txt-btn]': '!disabled'
 	}
 })
 export class EditableValueComponent implements OnInit {
+
 	@Input() vAlign = true;
+	@Input() disabled = false;
 
 	constructor() { }
 

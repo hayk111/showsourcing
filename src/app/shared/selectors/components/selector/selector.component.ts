@@ -11,11 +11,11 @@ import {
 } from '@angular/core';
 import { debounceTime, tap } from 'rxjs/operators';
 import { EntityMetadata, ERM } from '~core/models';
+import { DynamicField } from '~shared/dynamic-forms';
 import { FilterList } from '~shared/filters';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
-import { TabFocusDirective } from '~shared/utils';
-
-import { PickerField } from '../selector-picker/selector-picker.component';
+import { TabFocusActionDirective } from '~shared/utils';
+import { ID } from '~utils';
 
 @Component({
 	selector: 'selector-app',
@@ -41,14 +41,21 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 	@Input() canCreate = false;
 	@Input() filterList = new FilterList([]);
 	@Input() width = 395;
-	@Input() pickerFields: PickerField[];
+	@Input() dynamicFields: DynamicField[];
 	// we use it only if we have to initialize the selector with a search
 	@Input() searchTxt = '';
+	// wheter the selector opens to the most right side or the most left side
+	@Input() leftSideOrientation = false;
+	/**
+	 * this is used when we have a selector that uses Selector Elements, so we can know which selectors elements
+	 * we need to query
+	 */
+	@Input() definitionReference: ID;
 
 	@Output() update = new EventEmitter<any>();
 
 	// some times we want to focus the focus directive on the content inside the selector
-	@ContentChild(TabFocusDirective, { static: true }) tab: TabFocusDirective;
+	@ContentChild(TabFocusActionDirective, { static: true }) tab: TabFocusActionDirective;
 
 	menuOpen = false;
 
@@ -64,7 +71,7 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 		// everytime we focus the content and hit enter, we are opening the menu
 		if (this.tab) {
 			let word = '';
-			this.tab.keydown.pipe(
+			this.tab.typing.pipe(
 				tap(key => word += key),
 				debounceTime(300),
 			).subscribe(_ => {

@@ -4,14 +4,13 @@
 	[rows]="rows"
 	[descriptor]="descriptor"
 	[contextualMenu]="contextualMenuTemplate"
+	[hasMenu]="hasMenu"
 	[selected]="selection"
 	[currentSort]="currentSort"
 	placeholder="No product"
 	[pending]="pending"
 	[count]="count"
-	[skipped]="skipped"
-	(next)="next.emit()"
-	(previous)="previous.emit()"
+	[currentPage]="currentPage"
 	(goToPage)="goToPage.emit($event)"
 	(bottomReached)="bottomReached.emit()"
 	(sort)="sort.emit($event)"
@@ -19,7 +18,6 @@
 	(unselectOne)="unselect.emit($event)"
 	(selectAll)="selectAll.emit($event)"
 	(unselectAll)="unselectAll.emit()"
-	[pending]="pending"
 	i18n-placeholder="@@no-product">
 </custom-table-app>
 
@@ -51,6 +49,12 @@
 	</context-menu-item-app>
 	<context-menu-item-app
 		class="pointer flexCenter"
+		(click)="archiveProduct.emit(row)"
+		i18n="button@@archive">
+		Archive
+	</context-menu-item-app>
+	<context-menu-item-app
+		class="pointer flexCenter"
 		(click)="delete.emit(row)"
 		i18n="button@@delete">
 		Delete
@@ -68,7 +72,7 @@
 					{{ row.name || '-' }}
 				</a>
 			</span>
-			<button class="small secondary-dark preview" (click)="previewClick.emit(row)" i18n="@@preview">Preview</button>
+			<button class="small secondary-dark preview" *ngIf="productPreview" (click)="previewClick.emit(row)" i18n="@@preview">Preview</button>
 		</div>
 	</div>
 </ng-template>
@@ -136,6 +140,11 @@
 <!-- creation date -->
 <ng-template #creationDate let-row="row">
 	{{ row?.creationDate | date: 'dd MMMM y' }}
+</ng-template>
+
+<!-- created by -->
+<ng-template #createdBy let-row="row">
+	{{ row?.createdBy | formatUserName }}
 </ng-template>
 
 <!-- favorite -->

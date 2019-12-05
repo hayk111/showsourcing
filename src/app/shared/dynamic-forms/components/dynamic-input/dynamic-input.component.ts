@@ -20,7 +20,7 @@ import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 /**
  * Component that selects the correct input and display it as an editable text
  *
- * Most inputs wait for a blur event to update, therefor we use an accumulator,
+ * Most inputs wait for a blur event to update, therefore we use an accumulator,
  * in case the user cancels.
  */
 @Component({
@@ -68,7 +68,4 @@ export class DynamicInputComponent extends AbstractInput implements OnInit, Afte
 		this.update.emit({ [this.customField.name]: this.accumulator });
 	}
 
-	get labelName() {
-		return this.customField.metadata.labelName || 'name';
-	}
 }

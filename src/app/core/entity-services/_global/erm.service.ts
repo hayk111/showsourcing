@@ -40,6 +40,9 @@ import { RequestReplyService } from '../request-reply/request-reply.service';
 import { RequestTemplateService } from '../request-template/request-template.service';
 import { SupplierRequestService } from '../supplier-request/supplier-request.service';
 import { GlobalService } from './global.service';
+import { SelectorElementService } from '../selector-element/selector-element.service';
+import { TemplateFieldService } from '../template-field/template-field.service';
+import { CompanyService } from '../company/company.service';
 
 @Injectable(
 	{ providedIn: 'root' }
@@ -51,13 +54,15 @@ export class ERMService {
 		private attachmentUploadRequestSrv: AttachmentUploadRequestService,
 		private categoryService: CategoryService,
 		private commentSrv: CommentService,
+		private companySrv: CompanyService,
 		private contactService: ContactService,
 		private countryService: CountryService,
+		private createRequestService: CreateRequestService,
 		private currencyService: CurrencyService,
 		private eventService: EventService,
 		private exportRequestService: ExportRequestService,
-		private extendedFieldSrv: ExtendedFieldService,
 		private extendedFieldDefinitionSrv: ExtendedFieldDefinitionService,
+		private extendedFieldSrv: ExtendedFieldService,
 		private harbourService: HarbourService,
 		private imageService: ImageService,
 		private imageUploadRequestService: ImageUploadRequestService,
@@ -67,20 +72,21 @@ export class ERMService {
 		private productService: ProductService,
 		private productStatusSrv: ProductStatusService,
 		private projectService: ProjectService,
-		private createRequestService: CreateRequestService,
 		private requestElementService: RequestElementService,
 		private requestReplyService: RequestReplyService,
 		private requestTemplateService: RequestTemplateService,
 		private sampleSrv: SampleService,
 		private sampleStatusSrv: SampleStatusService,
-		private supplierService: SupplierService,
+		private selectorElementSrv: SelectorElementService,
 		private supplierRequestSrv: SupplierRequestService,
+		private supplierService: SupplierService,
 		private supplierStatusSrv: SupplierStatusService,
 		private supplierTypeSrv: SupplierTypeService,
 		private tagService: TagService,
 		private taskSrv: TaskService,
 		private teamService: TeamService,
 		private teamUserSrv: TeamUserService,
+		private templateFieldSrv: TemplateFieldService,
 		private userSrv: UserService,
 		private weightUnitSrv: WeightUnitService
 	) { }
@@ -97,6 +103,8 @@ export class ERMService {
 				return this.categoryService;
 			case 'Comment':
 				return this.commentSrv;
+			case 'Company':
+				return this.companySrv;
 			case 'Contact':
 				return this.contactService;
 			case 'Country':
@@ -139,6 +147,8 @@ export class ERMService {
 				return this.sampleSrv;
 			case 'SampleStatus':
 				return this.sampleStatusSrv;
+			case 'SelectorElement':
+				return this.selectorElementSrv;
 			case 'Supplier':
 				return this.supplierService;
 			case 'SupplierStatus':
@@ -149,6 +159,8 @@ export class ERMService {
 				return this.teamService;
 			case 'TeamUser':
 				return this.teamUserSrv;
+			case 'TemplateField':
+				return this.templateFieldSrv;
 			case 'User':
 				return this.userSrv;
 			case 'WeightUnit':
@@ -168,6 +180,8 @@ export class ERMService {
 				return this.categoryService;
 			case ERM.COMMENT:
 				return this.commentSrv;
+			case ERM.COMPANY:
+				return this.companySrv;
 			case ERM.EMAIL:
 			case ERM.CONTACT:
 				return this.contactService;
@@ -207,12 +221,14 @@ export class ERMService {
 				return this.requestReplyService;
 			case ERM.REQUEST_TEMPLATE:
 				return this.requestTemplateService;
-			case ERM.CRATE_REQUEST:
+			case ERM.CREATE_REQUEST:
 				return this.createRequestService;
 			case ERM.SAMPLE:
 				return this.sampleSrv;
 			case ERM.SAMPLE_STATUS:
 				return this.sampleStatusSrv;
+			case ERM.SELECTOR_ELEMENT:
+				return this.selectorElementSrv;
 			case ERM.SUPPLIER:
 				return this.supplierService;
 			case ERM.SUPPLIER_REQUEST:
@@ -229,6 +245,8 @@ export class ERMService {
 				return this.teamService;
 			case ERM.TEAM_USER:
 				return this.teamUserSrv;
+			case ERM.TEMPLATE_FIELD:
+				return this.templateFieldSrv;
 			case ERM.USER:
 				return this.userSrv;
 			case ERM.WEIGHT_UNIT:

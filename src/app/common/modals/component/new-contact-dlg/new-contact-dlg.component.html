@@ -4,11 +4,12 @@
 
 	<ng-container *ngIf="contactCreated$ | async; else spinner">
 
-		<form [formGroup]="form" (ngSubmit)="createContact()">
+		<form class="container" [formGroup]="form" (ngSubmit)="createContact()">
 
 			<form-field-app>
 				<label-app class="capitalize" i18n="@@name">name</label-app>
 				<input inputApp
+					autoFocus
 					(blur)="updateContact()"
 					formControlName="name"
 					type="text"
@@ -67,12 +68,13 @@
 			</form-field-app>
 
 			<label i18n="@@business-card">Business card</label>
-			<carousel-app *ngIf="contact$ | async as contact"
+			<carousel-app
+				*ngIf="contact$ | async as contact"
 				[imageProperty]="'businessCardImage'"
 				[isImagePropertyArray]="false"
 				[entity]="contact"
 				[size]="340"
-				[images]="[contact.businessCardImage]">
+				[images]="[contact?.businessCardImage]">
 			</carousel-app>
 
 		</form>

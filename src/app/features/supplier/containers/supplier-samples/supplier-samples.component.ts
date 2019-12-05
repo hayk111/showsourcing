@@ -5,9 +5,11 @@ import { AbstractSampleCommonComponent } from '~common/sample/containers/abstrac
 import { ListPageService } from '~core/list-page';
 import { UserService } from '~entity-services';
 import { SampleService } from '~entity-services/sample/sample.service';
-import { Sample } from '~models';
+import { Sample, Supplier } from '~models';
 import { FilterType } from '~shared/filters';
-import { switchMap, takeUntil, map } from 'rxjs/operators';
+import { takeUntil, map, switchMap } from 'rxjs/operators';
+import { DialogService } from '~shared/dialog';
+import { SupplierFeatureService } from '~features/supplier/services';
 
 
 @Component({
@@ -22,41 +24,37 @@ import { switchMap, takeUntil, map } from 'rxjs/operators';
 
 export class SupplierSamplesComponent extends AbstractSampleCommonComponent implements OnInit {
 	private supplierId: string;
+	supplier: Supplier;
 
 	constructor(
 		protected route: ActivatedRoute,
 		protected router: Router,
 		protected userSrv: UserService,
 		protected sampleSrv: SampleService,
+		protected dlgSrv: DialogService,
+		protected featureSrv: SupplierFeatureService,
 		public listSrv: ListPageService<Sample, SampleService>,
 		public commonModalSrv: CommonModalService
 	) {
-		super(router, route, userSrv, sampleSrv, listSrv, commonModalSrv);
+		super(router, route, userSrv, sampleSrv, dlgSrv, listSrv, commonModalSrv);
 	}
 
 	ngOnInit() {
+		const id$ = this.route.parent.params.pipe(
+			map(params => params.id),
+			takeUntil(this._destroy$)
+		);
+
+		id$.pipe(
+			switchMap(id => this.featureSrv.selectOne(id)),
+			takeUntil(this._destroy$)
+		).subscribe(supplier => this.supplier = supplier);
+		this.supplierId = this.route.parent.snapshot.params.id;
 		super.setup([
 			{
 				type: FilterType.SUPPLIER,
 				value: this.supplierId
 			}
 		]);
-		this.route.parent.params.pipe(
-			takeUntil(this._destroy$),
-			map(params => params.id)
-		).subscribe(id => this.supplierId = id);
 	}
-
-
-	createSample(name: string) {
-		const sample = new Sample({
-			name,
-			supplier: { id: this.supplierId },
-			assignee: { id: this.userSrv.userSync.id }
-		});
-		this.sampleSrv.create(sample).pipe(
-			switchMap(_ => this.listSrv.refetch())
-		).subscribe();
-	}
-
 }

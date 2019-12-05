@@ -4,6 +4,7 @@
 	[multiple]="true"
 	[offsetX]="offsetX"
 	[offsetY]="offsetY"
+	[leftSideOrientation]="leftSideOrientationSelector"
 	[value]="value"
 	(update)="onUpdate($event)">
 	<info-badge-app *ngIf="!value?.length" class="pointer" [type]="type">

@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { first } from 'rxjs/operators';
+import { first, tap, catchError, switchMap } from 'rxjs/operators';
 import { AttachmentService } from '~core/entity-services';
 import { ImageService } from '~core/entity-services/image/image.service';
 import { AppImage, Attachment } from '~core/models';
@@ -53,7 +53,7 @@ export class UploaderFeedbackService {
 		if (images) {
 			// remove unefined in case we are passing [undefined]
 			// for example in for contact we only have one image so we do [images]="[contact.businessCardImage]"
-			this._images = images.filter(x => !!x);
+			this._images = images.filter(x => !!x && !x.deleted);
 		}
 	}
 
@@ -61,41 +61,49 @@ export class UploaderFeedbackService {
 		return [...this._images, ...(this._pendingImages as any)];
 	}
 
-	setFiles(files: Array<Attachment | PendingFile>) {
-		this._files = files || [];
+	setFiles(files: Attachment[]) {
+		if (files) {
+			this._files = files.filter(f => !!f && !f.deleted);
+		}
 	}
 
-	getFiles(): Array<Attachment | PendingFile> {
-		return [...this._files, ...this._pendingFiles];
+	getFiles(): Attachment[] {
+		return [...this._files, ...this._pendingFiles] as Attachment[];
 	}
 
 	/** when adding a new image, by selecting in the file browser or by dropping it on the component */
-	async addImages(files: Array<File>) {
+	addImages(files: Array<File>) {
 		if (files.length === 0)
 			return;
-
-		const uuids: string[] = await this.addPendingImgs(files);
+		const uuids: string[] = this.addPendingImgs(files).map(p => p.id);
 		this.cd.markForCheck();
 		// since the this.linkedEntity is only set in the init, its image array is not up to date, so we need to update it
 		const linkedEntity = { ...this.linkedEntity, images: this._images };
-		this.uploaderSrv.uploadImages(files, linkedEntity, this.imageProperty, this.isImagePropertyArray).pipe(
-			first()
-		).subscribe(imgs => {
-			this._uploaded$.next(imgs);
-			this.onSuccessImg(uuids);
-		}, e => this._pendingImages = []);
+		return this.uploaderSrv.uploadImages(files, linkedEntity, this.imageProperty, this.isImagePropertyArray)
+			.pipe(
+				first(),
+				tap(addedImgs => this.onSuccessImg(addedImgs, uuids)),
+				catchError(e => this._pendingFiles = [])
+			);
 	}
 
 	/** adds pending image to the list */
-	private async addPendingImgs(files: File[]) {
+	private addPendingImgs(files: File[]) {
 		// adding a pending image so we can see there is an image pending visually
-		let pendingImgs: PendingImage[] = files.map(file => new PendingImage(file));
-		pendingImgs = await Promise.all(pendingImgs.map(p => p.createData()));
+		const pendingImgs: PendingImage[] = files.map(file => new PendingImage(file));
 		this._pendingImages.push(...pendingImgs);
-		return pendingImgs.map(p => p.id);
+		// creating base64 data and refreshing view when it's done
+		Promise.all(pendingImgs.map(p => p.createData()))
+			.then(_ => {
+				this._pendingImages = this._pendingImages.map((p: PendingImage) => ({...p} as PendingImage));
+				this.cd.markForCheck();
+			});
+
+		return pendingImgs;
 	}
 
-	private onSuccessImg(uuids) {
+	private onSuccessImg(addedImgs: AppImage[], uuids: string[]) {
+		this._uploaded$.next(addedImgs);
 		this._pendingImages = this._pendingImages.filter(p => !uuids.includes(p.id));
 		this.cd.markForCheck();
 	}
@@ -108,17 +116,16 @@ export class UploaderFeedbackService {
 		this._pendingFiles = files.map(file => new PendingFile(file));
 		const uuids = this._pendingFiles.map(f => f.id);
 		// since the linked entity is setup once at the start we need to update the attachments
-		this.uploaderSrv.uploadFiles(files, { ...this.linkedEntity, attachments: this._files })
-			.pipe(first())
-			.subscribe(addedFiles => {
-				this._uploaded$.next(addedFiles);
-				this.onSuccessFile(uuids);
-			},
-				e => this._pendingFiles = []
+		return this.uploaderSrv.uploadFiles(files, { ...this.linkedEntity, attachments: this._files })
+			.pipe(
+				first(),
+				tap(addedFiles => this.onSuccessFile(addedFiles, uuids)),
+				catchError(e => this._pendingFiles = [])
 			);
 	}
 
-	private onSuccessFile(uuids) {
+	private onSuccessFile(addedFiles: Attachment[], uuids: string[]) {
+		this._uploaded$.next(addedFiles);
 		this._pendingFiles = this._pendingFiles.filter(p => !uuids.includes(p.id));
 		this.cd.markForCheck();
 	}

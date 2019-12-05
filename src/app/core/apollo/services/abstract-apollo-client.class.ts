@@ -6,13 +6,17 @@ import { WebSocketLink } from 'apollo-link-ws';
 import { environment } from 'environments/environment';
 import gql from 'graphql-tag';
 import { GraphQLConfig, User as RealmUser } from 'realm-graphql-client';
-import { Observable, of, Subject, throwError } from 'rxjs';
+import { Observable, of, Subject, throwError, forkJoin } from 'rxjs';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
 import { cleanTypenameLink } from '~core/apollo/services/clean.typename.link';
 import { RealmServerService } from '~entity-services/realm-server/realm-server.service';
 import { log, LogColor } from '~utils';
 import { showsourcing } from '~utils/debug-object.utils';
+import { EntityMetadata } from '~core/models';
+import { tap } from 'rxjs/operators';
+import { LocalStorageService } from '~core/local-storage';
+import { ERMService } from '~core/entity-services/_global/erm.service';
 
 
 /**
@@ -34,6 +38,8 @@ export abstract class AbstractApolloClient {
 		protected apolloState: ApolloStateService,
 		protected realmServerSrv: RealmServerService,
 		protected client: Client,
+		protected ermSrv: ERMService,
+		protected localStorage: LocalStorageService,
 	) {
 		// for debugging purpose
 		if (!showsourcing.clients)
@@ -71,6 +77,7 @@ export abstract class AbstractApolloClient {
 		return throwError(e);
 	}
 
+
 	/** we use the path as client name.. */
 	protected async createClient(realmPath: string, user: RealmUser, name: Client): Promise<void> {
 		const config = await GraphQLConfig.create(
@@ -78,38 +85,46 @@ export abstract class AbstractApolloClient {
 			realmPath
 		);
 
-		log.debug(`%c 🌈creating client ${name}, path: ${realmPath}`, LogColor.APOLLO_CLIENT_PRE);
-		const linker = new WebSocketLink({
-			uri: config.webSocketEndpoint,
-			options: {
-				reconnect: true,
-				connectionParams: config.connectionParams,
-			}
-		});
+		return new Promise((res) => {
 
-		const link = from([
-			cleanTypenameLink,
-			linker
-		]);
-
-		// by default the fetchPolicy is 'cache-first', this means that if a query that has been done in the past
-		// with the same parameters, it will look at the cache instead of waiting for network response,
-		// we use 'cache-and-network' since first it looks at the cache and regardless of whether any data was found,
-		// it passes the query along to the APi to get the most up-to-date data.
-		// https://medium.com/@galen.corey/understanding-apollo-fetch-policies-705b5ad71980
-		this.apollo.create({
-			link,
-			connectToDevTools: !environment.production,
-			cache: new InMemoryCache({}),
-			queryDeduplication: true,
-			defaultOptions: {
-				watchQuery: {
-					fetchPolicy: 'cache-and-network'
+			log.debug(`%c 🌈creating client ${name}, path: ${realmPath}`, LogColor.APOLLO_CLIENT_PRE);
+			const linker = new WebSocketLink({
+				uri: config.webSocketEndpoint,
+				options: {
+					reconnect: true,
+					connectionParams: config.connectionParams,
+					connectionCallback: () => res()
 				}
-			}
-		}, name);
+			});
 
-		showsourcing.clients.set(name, this.apollo.use(name));
+			// https://github.com/apollographql/subscriptions-transport-ws/issues/377
+			// @ts-ignore
+			linker.subscriptionClient.maxConnectTimeGenerator.duration = () => linker.subscriptionClient.maxConnectTimeGenerator.max;
+
+			const link: any = from([
+				cleanTypenameLink,
+				linker
+			]);
+
+
+			// by default the fetchPolicy is 'cache-first', this means that if a query that has been done in the past
+			// with the same parameters, it will look at the cache instead of waiting for network response,
+			// we use 'cache-and-network' since first it looks at the cache and regardless of whether any data was found,
+			// it passes the query along to the APi to get the most up-to-date data.
+			// https://medium.com/@galen.corey/understanding-apollo-fetch-policies-705b5ad71980
+			this.apollo.create({
+				link,
+				connectToDevTools: !environment.production,
+				cache: new InMemoryCache({}),
+				queryDeduplication: true,
+				defaultOptions: {
+					watchQuery: {
+						fetchPolicy: 'cache-and-network'
+					}
+				}
+			}, name);
+
+		});
 	}
 
 	// https://github.com/apollographql/apollo-angular/issues/736
@@ -124,6 +139,24 @@ export abstract class AbstractApolloClient {
 		// closing the websocket (as any) because property is private..
 		if (this.ws && (this.ws as any).subscriptionClient)
 			(this.ws as any).subscriptionClient.close();
+	}
+
+	protected createMissingSubscription(entities: EntityMetadata[]) {
+		const storageKey = `sub_map_${this.client}`;
+		const submap = this.localStorage.getItem(storageKey) || {};
+
+		// when not found in the map we do the subscription
+		const entitiesToSub = entities.filter(erm => !submap[erm.singular]);
+		if (entitiesToSub.length === 0) {
+			return of(true);
+		}
+
+		const newSubs = entitiesToSub
+		.map(
+			(erm: EntityMetadata) => this.ermSrv.getGlobalService(erm)
+				.openSubscription(this.client)
+		);
+		return forkJoin(newSubs);
 	}
 }
 

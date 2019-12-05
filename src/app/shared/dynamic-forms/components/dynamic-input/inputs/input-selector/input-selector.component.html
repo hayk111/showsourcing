@@ -1,15 +1,19 @@
 <selector-app
 	[(ngModel)]="value"
+	[disabled]="disabled"
 	[multiple]="multiple"
+	[definitionReference]="definitionReference"
 	[type]="type"
 	[canCreate]="canCreate"
 	[width]="width"
 	(update)="onValueChange($event)">
 	<selector-placeholder-app
-		tabFocus
+		tabFocusAction autoFocus
 		class="first-uppercase"
+		[ngClass]="{ 'disabled': disabled }"
+		[canFocus]="autofocus"
 		[name]="value"
-		[placeholder]="type">
+		[placeholder]="placeholder || type">
 		<div *ngIf="isEntity && value" #content class="flexWrap">
 			<ng-container *ngTemplateOutlet="getLabelTemplate()"></ng-container>
 		</div>
@@ -30,13 +34,13 @@
 <ng-template #multipleValuesLabel>
 	<!-- with badge -->
 	<ng-container *ngIf="hasBadge; else noMultipleBadge">
-		<info-badge-app *ngFor="let item of value" [type]="type" class="multi-badge">
+		<info-badge-app *ngFor="let item of value; trackBy: trackByFn" [type]="type" class="multi-badge">
 			<ng-container *ngTemplateOutlet="switchType; context: { item: item }"></ng-container>
 		</info-badge-app>
 	</ng-container>
 	<!-- without badge, plain text -->
 	<ng-template #noMultipleBadge>
-		<span *ngFor="let item of value; last as last">
+		<span *ngFor="let item of value; last as last; trackBy: trackByFn">
 			<ng-container *ngTemplateOutlet="switchType; context: { item: item }"></ng-container>
 			<ng-container *ngIf="!last">-&nbsp;</ng-container>
 		</span>
@@ -47,10 +51,16 @@
 <ng-template #switchType let-item="item">
 	<ng-container [ngSwitch]="type">
 		<ng-container *ngSwitchCase="erm.USER.singular">
-			{{ item | formatUserName }}
+			{{ item | formatUserName: true }}
 		</ng-container>
 		<ng-container *ngSwitchCase="erm.EVENT.singular">
 			{{ item?.descriptor?.name }}
+		</ng-container>
+		<!-- we read these 2 values, since when we are updating it takes a bit to be converted to an array -->
+		<!-- this strange behaviour happens since we share same value on extended field -> selectorValue: SelectorElement[] -->
+		<!--  we share it as when the value is single and when its multiple -->
+		<ng-container *ngSwitchCase="erm.SELECTOR_ELEMENT.singular">
+			{{ item?.value || item[0]?.value }}
 		</ng-container>
 		<ng-container *ngSwitchDefault>
 			{{ item?.name || 'none' }}

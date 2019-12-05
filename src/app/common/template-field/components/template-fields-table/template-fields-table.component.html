@@ -1,0 +1,77 @@
+<table-app
+	[rows]="rows"
+	[pending]="pending"
+	[selected]="selection"
+	[hasMenu]="false"
+	[hasPagination]="false"
+	[currentSort]="currentSort"
+	[hasSelection]="false"
+	[contextualMenu]="contextualMenuTemplate"
+	[count]="count"
+	[currentPage]="currentPage"
+	(bottomReached)="bottomReached.emit()"
+	(sort)="sort.emit($event)"
+	(showItemsPerPage)="showItemsPerPage.emit($event)"
+	(createClick)="createClick.emit()"
+	placeholder="no project">
+
+	<!-- contextual menu -->
+	<ng-template #contextualMenuTemplate let-row="row">
+		<context-menu-item-app
+			class="pointer flexCenter"
+			(click)="delete.emit(row)">
+			delete
+		</context-menu-item-app>
+	</ng-template>
+
+  <!-- dynamic columns -->
+  <ng-template
+    *ngFor="let column of columnsConfig; trackBy: trackByFn"
+    let-row="row"
+    [columnApp]="column.translationKey"
+    [width]="column.width"
+		[sortBy]="column.sortProperty">
+
+    <ng-container [ngSwitch]="column.name">
+
+			<ng-container *ngSwitchCase="'name'">
+				<div class="name">{{ row?.definition?.label }}</div>
+			</ng-container>
+
+			<!-- TODO add a config here -->
+			<ng-container *ngSwitchCase="'default value'">
+				<dynamic-editable-text-app
+					[value]="row.defaultValue"
+					[showComplexTypes]="false"
+					[inlineLabel]="true"
+					[objectAsString]="true"
+					[borderless]="true"
+					[hasAction]="false"
+					[hasLabel]="false"
+					[customField]="getCustomField(row)"
+					(update)="updateField(row, $event)">
+				</dynamic-editable-text-app>
+			</ng-container>
+
+			<ng-container *ngSwitchCase="'fixed value'">
+				<checkbox-app
+					[checked]="row?.fixedValue"
+					(check)="toggleFixedValue(row)"
+					(uncheck)="toggleFixedValue(row)">
+				</checkbox-app>
+			</ng-container>
+
+			<ng-container *ngSwitchCase="'in template'">
+				<checkbox-app
+					[checked]="inTemplate.get(row.id)"
+					(check)="toggleInTemplate(row, true)"
+					(uncheck)="toggleInTemplate(row, false)">
+				</checkbox-app>
+			</ng-container>
+
+		</ng-container>
+		<!-- end of switch -->
+
+	</ng-template>
+</table-app>
+

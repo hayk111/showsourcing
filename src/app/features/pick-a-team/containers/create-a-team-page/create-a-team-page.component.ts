@@ -61,6 +61,7 @@ export class CreateATeamPageComponent extends AutoUnsub implements OnInit {
 					type: 'link',
 					link: '../pick-a-team'
 				}];
+				this.cdr.detectChanges();
 			}
 		});
 		this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';

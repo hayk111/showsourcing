@@ -3,12 +3,12 @@
 <div class="ctnr fullWidth" [ngClass]="{ 'flexVAlign': inlineLabel }" (clickOutside)="close()">
 
   <!-- label -->
-  <div class="labelCtnr" *ngIf="hasLabel">
+  <div *ngIf="hasLabel" class="labelCtnr">
     <ng-content select="label-app"></ng-content>
   </div>
 
   <!-- editable part -->
-  <div class="content ellipsis">
+  <div class="content ellipsis" [class.fullWidth]="!hasLabel">
     <editable-text-app
       [hasAction]="hasAction"
       [openOnClick]="openOnClick"

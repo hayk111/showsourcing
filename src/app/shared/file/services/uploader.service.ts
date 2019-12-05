@@ -45,6 +45,7 @@ export class UploaderService {
 			// we query the files once again, so we have the latest fromt he backend
 			mergeMap(images => this.queryFiles(true, images)),
 			// add notification
+			first(),
 			tap((files: AppImage[]) => {
 				return this.notifSrv.add({
 					type: NotificationType.SUCCESS,
@@ -222,13 +223,13 @@ export class UploaderService {
 		if (ids.length >= 1)
 			query = 'id == "' + query + '"';
 		// if its an image we have to wait for the first item to have the urls ready
-		// then we queryMany
+		// then we queryMany with take 0 which actually takes all (not using query all because we need a query)
 		if (isImage && files.length)
 			return baseSrv.waitForOne(`id == "${files[0].id}" AND urls.@size > 0`).pipe(
-				switchMap(_ => baseSrv.queryMany({ query }))
+				switchMap(_ => baseSrv.queryMany({ query, take: 0 }))
 			);
 		// if its a file we don't need to wait to send the results
 		else
-			return baseSrv.queryMany({ query });
+			return baseSrv.queryMany({ query, take: 0 });
 	}
 }

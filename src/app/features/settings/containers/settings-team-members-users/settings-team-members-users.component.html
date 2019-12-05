@@ -35,7 +35,6 @@
 
 		</sub-panel-right-item-app>
 
-
 	</sub-panel-app>
 
 <ng-container *ngIf="listSrv.items$ | async as members">
@@ -43,8 +42,11 @@
 		[rows]="members"
 		[teamOwner]="teamOwner"
 		[user]="user"
+		[count]="listSrv.count$ | async"
+		[currentPage]="listSrv.currentPage"
 		[selection]="listSrv.selection$ | async"
 		[pending]="listSrv.pending"
+		(goToPage)="listSrv.loadPage($event)"
 		(bottomReached)="listSrv.loadMore()"
 		(sort)="listSrv.sort($event)"
 		(select)="listSrv.selectOne($event, false)"
