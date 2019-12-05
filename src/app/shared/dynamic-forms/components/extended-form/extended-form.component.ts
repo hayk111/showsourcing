@@ -43,6 +43,7 @@ export class ExtendedFormComponent extends AutoUnsub implements OnInit, OnChange
 
 	ngOnInit() {
 		if (this.isFormStyle) {
+			// temporary solution to bug WEB-2592
 			this.update$.pipe(
 				takeUntil(this._destroy$),
 				// we use this timer for the debounce only on formstyle, since the update inputs work like
@@ -56,9 +57,10 @@ export class ExtendedFormComponent extends AutoUnsub implements OnInit, OnChange
 				debounceTime(750)
 			).subscribe(extendedFields => this.update.emit(extendedFields));
 
+			// temporary solution to bug WEB-2592
 			this.updateSingle$.pipe(
 				takeUntil(this._destroy$),
-				debounceTime(750)
+				debounceTime(1200)
 			).subscribe(extendedField => this.updateSingle.emit(extendedField));
 		}
 	}
