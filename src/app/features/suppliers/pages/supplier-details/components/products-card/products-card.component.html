@@ -16,7 +16,11 @@
 	</ng-container>
 
 	<card-footer-app *ngIf="products?.length" align="center">
-		<button class="primary-light view-all mg-left-ms mg-right-ms flexCenter" (click)="viewAll.emit()">view all products</button>
+		<button
+			class="primary-light view-all mg-left-ms mg-right-ms flexCenter"
+			(click)="viewAll.emit()"
+			translate="button.view-all-products">
+		</button>
 	</card-footer-app>
 
 </card-app>
