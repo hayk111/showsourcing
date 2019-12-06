@@ -47,16 +47,72 @@
 				(logoClick)="open.emit($event)">
 			</default-columns-app>
 
-			<ng-container *ngSwitchCase="'jobTitle'">
-				Need Property on backend
+			<ng-container *ngSwitchCase="'name'">
+				<editable-container-app
+					#edt
+					(opened)="inpName.select()"
+					(closed)="onClose($event, { id: row?.id, name: inpName.value })">
+					<editable-display-app class="ellipsis">
+						{{ row?.name || '-'  }}
+					</editable-display-app>
+					<input
+						inputApp
+						#inpName
+						type="text"
+						[value]="row?.name"
+						(keyup.enter)="edt.close()"/>
+				</editable-container-app>
 			</ng-container>
 
-			<ng-container *ngSwitchCase="'phone'">
-				Need Property on backend
+			<ng-container *ngSwitchCase="'jobTitle'">
+				<editable-container-app
+					#edt
+					(opened)="inpName.select()"
+					(closed)="onClose($event, { id: row?.id, jobTitle: inpName.value })">
+					<editable-display-app class="ellipsis">
+						{{ row?.jobTitle || '-'  }}
+					</editable-display-app>
+					<input
+						inputApp
+						#inpName
+						type="text"
+						[value]="row?.jobTitle"
+						(keyup.enter)="edt.close()"/>
+				</editable-container-app>
+			</ng-container>
+
+			<ng-container *ngSwitchCase="'phoneNumber'">
+				<editable-container-app
+					#edt
+					(opened)="inpName.select()"
+					(closed)="onClose($event, { id: row?.id, phoneNumber: inpName.value })">
+					<editable-display-app class="ellipsis">
+						{{ row?.phoneNumber || '-'  }}
+					</editable-display-app>
+					<input
+						inputApp
+						#inpName
+						type="text"
+						[value]="row?.phoneNumber"
+						(keyup.enter)="edt.close()"/>
+				</editable-container-app>
 			</ng-container>
 
 			<ng-container *ngSwitchCase="'email'">
-				Need Property on backend
+				<editable-container-app
+					#edt
+					(opened)="inpName.select()"
+					(closed)="onClose($event, { id: row?.id, email: inpName.value })">
+					<editable-display-app class="ellipsis">
+						{{ row?.email || '-'  }}
+					</editable-display-app>
+					<input
+						inputApp
+						#inpName
+						type="text"
+						[value]="row?.email"
+						(keyup.enter)="edt.close()"/>
+				</editable-container-app>
 			</ng-container>
 
 		</ng-container>
