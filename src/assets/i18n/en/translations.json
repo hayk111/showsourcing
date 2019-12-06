@@ -232,6 +232,7 @@
     "created-by-name": "created by {{ firstName }} {{ lastName }}",
     "created-by-on": "Created by {{ name }} on {{ date }}",
     "date-at-time": "{{ date }} at {{ time }}",
+    "delete": "delete {{ count }}",
     "due-on-date": "Due on {{ date }}",
     "enter-OBJ": "Enter {{ field }}",
     "export-item": {
@@ -322,6 +323,7 @@
     "add-a-status": "add a status",
     "add-attachments": "Add attachments",
     "add-comment": "Add comment",
+    "add-contact": "add contact",
     "add-file": "Add file",
     "add-image": "Add image",
     "add-new-price-line": "Add new price line",

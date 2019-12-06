@@ -3,8 +3,8 @@
 	[filtersAmount]="listSrv.getFilterAmount([{ type: filterTypeEnum.DELETED, value: false }])"
 	[hasFilter]="false"
 	[hasSwitch]="false"
-	[hasArchived]="false"
 	[hasAssigned]="false"
+	[hasArchived]="false"
 	[view]="listSrv.view"
 	[count]="listSrv.count$ | async"
 	[entityType]="'CONTACT' | erm: 'singular'"
@@ -13,6 +13,19 @@
 	(export)="dialogCommonSrv.openExportDialog(listSrv.getSelectedValues())"
 	(showFilters)="listSrv.openFilterPanel()"
 	(viewChange)="listSrv.changeView($event)">
+	<controller-list-right-item-app>
+		<button
+			*ngIf="(listSrv.selection$ | async)?.size"
+			class="warn mg-right-ms capitalize"
+			(click)="listSrv.deleteSelected(true)">
+			{{ 'OBJ.delete' | translate: { count: (listSrv.selection$ | async)?.size } }}
+		</button>
+		<button
+			class="capitalize"
+			(click)="openNewContactDlg({id: supplierId})"
+			translate="button.add-contact">
+		</button>
+	</controller-list-right-item-app>
 </controller-list-app>
 
 <contacts-table-app
@@ -33,6 +46,6 @@
 	(unfavorited)="listSrv.onItemUnfavorited($event)"
 	(unselect)="listSrv.unselectOne($event, true)"
 	(update)="listSrv.update($event)"
-	(createClick)="dialogCommonSrv.openNewContactDlg({id: supplierId})"
+	(createClick)="openNewContactDlg({id: supplierId})"
 	(unselectAll)="listSrv.unselectAll()">
 </contacts-table-app>

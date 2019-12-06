@@ -1,7 +1,6 @@
-import { Component, OnInit, Input, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
-import { DEFAULT_TAKE_PAGINATION } from '~entity-services/_global/select-params';
-import { selectionBarAnimation } from '~shared/selection-bar/animation/selection-bar.animation';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { EntityType } from '~core/models';
+import { selectionBarAnimation } from '~shared/selection-bar/animation/selection-bar.animation';
 
 @Component({
 	selector: 'selection-bar-app',

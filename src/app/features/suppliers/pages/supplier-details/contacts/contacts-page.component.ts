@@ -1,11 +1,12 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { switchMap } from 'rxjs/operators';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { ContactService } from '~core/entity-services';
 import { ListPageService } from '~core/list-page';
-import { Contact, ERM } from '~core/models';
-import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { ActivatedRoute } from '@angular/router';
-import { AutoUnsub, ID } from '~utils';
+import { Contact, ERM, Supplier } from '~core/models';
 import { FilterType } from '~shared/filters';
+import { AutoUnsub, ID } from '~utils';
 
 @Component({
 	selector: 'contacts-page-app',
@@ -35,6 +36,12 @@ export class ContactsPageComponent extends AutoUnsub implements OnInit {
 			selectParams: { query: `supplier.id == "${this.supplierId}" AND deleted == false` },
 			originComponentDestroy$: this._destroy$
 		});
+	}
+
+	openNewContactDlg(supplier: Supplier) {
+		this.dialogCommonSrv.openNewContactDlg(supplier).pipe(
+			switchMap(_ => this.listSrv.refetch())
+		).subscribe();
 	}
 
 }
