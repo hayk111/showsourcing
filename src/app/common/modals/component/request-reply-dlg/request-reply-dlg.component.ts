@@ -87,11 +87,15 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 
 	next() {
 		this.selectedIndex = (this.selectedIndex + 1) % (this.request.requestElements.length);
+		// since the dialog is not closed, we have to set the default value to initialLoad
+		this.initialLoad = true;
 		this.setElement();
 	}
 
 	back() {
 		this.selectedIndex = this.selectedIndex - 1 >= 0 ? this.selectedIndex - 1 : this.request.requestElements.length - 1;
+		// since the dialog is not closed, we have to set the default value to initialLoad
+		this.initialLoad = true;
 		this.setElement();
 	}
 
