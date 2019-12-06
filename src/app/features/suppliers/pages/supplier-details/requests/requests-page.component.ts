@@ -36,11 +36,11 @@ export class RequestsPageComponent extends AutoUnsub implements OnInit {
 			map(params => params.id),
 		);
 
-		// currently we don't save any information of the supplier, not even the id, therefore we cannot check the requests of it
+		// TODO backend currently we don't save any information of the supplier, not even the id, therefore we cannot check the requests of it
 		// id$.subscribe(id => {
 		// this.listSrv.setup({
 		// 	entitySrv: this.requestSrv,
-		// 	selectParams: { sortBy: 'title', query: `requestElements.targetedEntityType == "Supplier" && requestElements.targetId == "${id}"` },
+		// 	selectParams: { sortBy: 'title', query: `supplierId == "${id}"` },
 		// 	entityMetadata: ERM.SUPPLIER_REQUEST,
 		// 	searchedFields: ['title'],
 		// 	originComponentDestroy$: this._destroy$

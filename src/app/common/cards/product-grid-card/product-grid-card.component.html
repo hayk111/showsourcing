@@ -1,6 +1,6 @@
 <div
 	class="card-container action-hover-container"
-	[ngClass]="{ 'disable-action-hover': !hasHoverEffect, 'selected-card': selected }">
+	[ngClass]="{ 'disable-action-hover disable-pointers': !hasHoverEffect, 'selected-card': selected }">
 	<!-- picture -->
 	<img-app
 		[image]="product?.images"
@@ -69,7 +69,7 @@
 	<!-- info content -->
 	<div class="info-container">
 		<div class="flexVAlign ellipsis">
-			<badge-app class="badge mg-right-s" [circle]="true" [ngStyle]="{ 'background-color': 'var(' + getColor(product?.status) + ')'}"></badge-app>
+			<badge-app class="badge mg-right-s" [ngStyle]="{ 'background': 'var(--color-' + statusUtils?.getStatusColor(product?.status) + ')' }" [circle]="true"></badge-app>
 			<div class="bold-s color-txt-primary">{{ product?.name || ('message.unnamed-product' | translate) }}</div>
 		</div>
 		<div class="color-txt-secondary fs-s mg-bottom-xs ellipsis dot-separator">

@@ -2,6 +2,8 @@ import { GlobalQueries } from '~entity-services/_global/global-queries.class';
 
 export abstract class ContactQueries extends GlobalQueries {
 
+	static readonly user = (name: string) => `${name} { id, firstName, lastName, avatar { id, urls { id, url } } }`;
+
 	static readonly one = `
 		name,
 		phoneNumber,
@@ -14,6 +16,7 @@ export abstract class ContactQueries extends GlobalQueries {
 		}
 		supplier { id, name }
 		creationDate
+		${ContactQueries.user('createdBy')}
 	`;
 
 	static readonly many = `
@@ -28,6 +31,7 @@ export abstract class ContactQueries extends GlobalQueries {
 		}
 		supplier { id, name }
 		creationDate
-		`;
+		${ContactQueries.user('createdBy')}
+	`;
 
 }

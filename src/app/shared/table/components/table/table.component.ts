@@ -8,7 +8,7 @@ import {
 	OnChanges,
 	Output,
 	QueryList,
-	TemplateRef
+	TemplateRef,
 } from '@angular/core';
 import { EntityName } from '~core/models';
 import { ColumnDirective } from '~shared/table/components/column.directive';

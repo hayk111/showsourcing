@@ -1,15 +1,16 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Product, ERM } from '~core/models';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ERM, Product } from '~core/models';
 import { Status } from '~core/models/status.model';
+import { StatusUtils } from '~utils';
+
 @Component({
 	selector: 'product-grid-card-app',
 	templateUrl: './product-grid-card.component.html',
 	styleUrls: ['./product-grid-card.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductGridCardComponent implements OnInit {
+export class ProductGridCardComponent {
 
-	erm = ERM;
 	@Input() product: Product;
 	@Input() selected: boolean;
 	@Input() hasCheckbox = true;
@@ -24,26 +25,9 @@ export class ProductGridCardComponent implements OnInit {
 	@Output() disliked = new EventEmitter<null>();
 	@Output() update = new EventEmitter<Product>();
 
+	erm = ERM;
+	statusUtils = StatusUtils;
+
 	constructor() { }
 
-
-	ngOnInit() {
-	}
-
-	// TODO palette color status
-	getColor(status: Status) {
-		if (!status)
-			return '--color-txt-secondary';
-
-		switch (status.category) {
-			case 'inProgress':
-				return '--color-primary';
-			case 'validated':
-				return '--color-success';
-			case 'refused':
-				return '--color-warn';
-			default:
-				return '--color-txt-secondary';
-		}
-	}
 }

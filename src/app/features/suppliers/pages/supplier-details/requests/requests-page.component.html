@@ -1,4 +1,5 @@
-<controller-list-app
+<div class="color-primary">TODO when we have the new field 'supplierId' on the backend</div>
+<!-- <controller-list-app
 	[entityType]="'SUPPLIER REQUEST'"
 	[hasFilter]="false"
 	[hasSwitch]="false"
@@ -8,13 +9,12 @@
 	(search)="listSrv.search($event)"
 	(smartSearch)="listSrv.smartSearch($event)"
 	(buttonClick)="dialogCommonSrv.openSupplierRequest([], supplier)">
-		<!-- <controller-list-actions-app>
+		<controller-list-right-item-app>
 		<button class="primary" (click)="dialogCommonSrv.openSupplierRequest([], supplier)">Contact Supplier</button>
-	</controller-list-actions-app> -->
+	</controller-list-right-item-app>
 </controller-list-app>
 
 <requests-table-app
-	class="no-padding"
 	[rows]="listSrv.items$ | async"
 	[selection]="listSrv.selection$ | async"
 	[pending]="listSrv.pending"
@@ -30,4 +30,4 @@
 	(previewClick)="listSrv.openPreview($event)"
 	(createClick)="openSupplierRequest()"
 	(delete)="listSrv.deleteOne($event, true)">
-</requests-table-app>
+</requests-table-app> -->
