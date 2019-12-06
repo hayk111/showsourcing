@@ -132,6 +132,7 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 				fields: this.localFields,
 				__typename: 'RequestReply'
 			});
+
 		// since update is async we have to save the index before it changes
 		const localSelectIndex = this.selectedIndex;
 		this.replySrv.update(reply).subscribe(_ => {
