@@ -44,19 +44,6 @@ export const iconMap = {
 	[EntityName.USER]: 'user',
 };
 
-
-export type Size = 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
-
-export const sizeMap: { [key in Size]: { background: number, icon: number, font: number } } = {
-	xs: { background: 14, icon: 10, font: 2 },
-	s: { background: 24, icon: 12, font: 4 },
-	ms: { background: 27, icon: 12, font: 6 },
-	m: { background: 32, icon: 16, font: 8 },
-	l: { background: 36, icon: 24, font: 10 },
-	xl: { background: 54, icon: 24, font: 16 },
-	xxl: { background: 88, icon: 40, font: 32 }
-};
-
 @Component({
 	selector: 'logo-app',
 	templateUrl: './logo.component.html',

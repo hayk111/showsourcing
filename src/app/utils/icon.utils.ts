@@ -43,10 +43,12 @@ export class IconUtils {
 		[EntityName.TASK]: Color.SUCCESS,
 	};
 
+	// @all, please don't add anymore sizes to this map. If your size isn't in this map it's probably something specific.
+	// So put it somewhere else
 	static iconsSizeMap: { [key in Size]: { background: number, icon: number, font: number } } = {
 		xs: { background: 14, icon: 10, font: 2 },
-		s: { background: 20, icon: 12, font: 4 },
-		ms: { background: 27, icon: 12, font: 6 },
+		s: { background: 24, icon: 12, font: 4 },
+		ms: { background: 28, icon: 12, font: 6 },
 		m: { background: 32, icon: 16, font: 8 },
 		l: { background: 36, icon: 24, font: 10 },
 		xl: { background: 54, icon: 24, font: 16 },
