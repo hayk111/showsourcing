@@ -196,14 +196,25 @@
 	border-radius: var(--border-radius-s);
 }
 
-.dot-separator {
-	& > * {
-		//for each children that is not the first one we add some spaces and bullet dots on the content
-		&:not(:first-child)::before {
-			content: "\00a0 \00a0 \2022 \00a0 \00a0"; // 00a0 is a space and 2022 is the bullet
-			font-weight: bolder;
-			display: inline-block;
-		}
+// the size of the dot depends on each item
+.dot-separator > * {
+	//for each children that is not the first one we add some spaces and bullet dots on the content
+	&:not(:first-child)::before {
+		content: "\00a0 \00a0 \2022 \00a0 \00a0"; // 00a0 is a space and 2022 is the bullet
+		font-weight: bolder;
+		display: inline-block;
+	}
+}
+
+// fixed size of the dot font-size-m
+// note: if in the future we use more sizes, implement @each $size in $sizes
+.dot-separator-m > * {
+	//for each children that is not the first one we add some spaces and bullet dots on the content
+	&:not(:first-child)::before {
+		content: "\00a0 \00a0 \2022 \00a0 \00a0"; // 00a0 is a space and 2022 is the bullet
+		font-weight: bolder;
+		display: inline-block;
+		font-size: var(--font-size-m);
 	}
 }
 
