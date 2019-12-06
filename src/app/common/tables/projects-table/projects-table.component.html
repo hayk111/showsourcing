@@ -44,10 +44,10 @@
 
     <ng-container [ngSwitch]="column.name">
 
-			<default-columns-app 
+			<default-columns-app
 				*ngSwitchDefault
-				[row]="row" 
-				[column]="column" 
+				[row]="row"
+				[column]="column"
 				[hovered]="row.id === hovered"
 				[type]="'PROJECT' | erm"
 				(update)="update.emit($event)"
@@ -57,13 +57,18 @@
 				(logoClick)="open.emit($event)">
 			</default-columns-app>
 
-			<ng-container *ngSwitchCase="'status'">
-				Need Property on backend
+			<!-- remove this switch case when property is added (its already on default columns) -->
+			<ng-container *ngSwitchCase="'reference'">
+				<div class="bold-s color-warn"> Property on backend </div>
 			</ng-container>
 
-			
+			<ng-container *ngSwitchCase="'status'">
+				<div class="bold-s color-warn"> Property on backend </div>
+			</ng-container>
+
+
 			<ng-container *ngSwitchCase="'dueDate'">
-				Need Property on backend
+				<div class="bold-s color-warn"> Property on backend </div>
 			</ng-container>
 
 		</ng-container>

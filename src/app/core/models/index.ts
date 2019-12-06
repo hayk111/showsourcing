@@ -54,5 +54,6 @@ export * from './task.model';
 export * from './team-user.model';
 export * from './team.model';
 export * from './user.model';
+export * from './utils';
 export * from './weight-unit.model';
 export * from './rpc-request.model';

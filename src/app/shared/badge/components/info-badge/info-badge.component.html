@@ -1,5 +1,5 @@
-<badge-app [size]="size" [type]="infoType">
-	<div class="ellipsis flex">
+<badge-app class="mg-right-s" size="s" [color]="iconsUtils.getIconColor(type)">
+	<div class="ellipsis flex fs-m bold-s">
 		<ng-content></ng-content>
 	</div>
 	<icon-app *ngIf="hasDelete" class="close"  name="close" (click)="delete.emit()"></icon-app>

@@ -95,7 +95,7 @@
 	</products-grid-app>
 
 	<product-selection-bar-app
-		[isShown]="(listSrv.selection$ | async).size > 0"
+		[isShown]="(listSrv.selection$ | async)?.size"
 		[selection]="listSrv.selection$ | async"
 		[favorite]="listSrv.allSelectedFavorite"
 		[count]="listSrv.count$ | async"

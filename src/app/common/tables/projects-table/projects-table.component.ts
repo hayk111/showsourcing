@@ -12,9 +12,7 @@ const tableConfig: TableConfig = {
 @Component({
 	selector: 'projects-table-app',
 	templateUrl: './projects-table.component.html',
-	styleUrls: [
-		'./projects-table.component.scss',
-	]
+	styleUrls: ['./projects-table.component.scss']
 })
 export class ProjectsTableComponent extends EntityTableComponent<Project> {
 	@Input() navigation = true;

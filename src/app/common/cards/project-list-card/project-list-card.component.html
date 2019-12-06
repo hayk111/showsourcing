@@ -1,22 +1,20 @@
 <!-- Project card -->
-<card-app class="mg-top-l">
+<card-app class="mg-top-l action-hover-container">
 	<!-- project list -->
-	<div class="action-hover-container">
-		<div class="mg-bottom-ms flexVAlign">
-			<h3>Projects</h3>
+	<section>
+		<h3 class="section-title flexVAlign">
+			Projects
 			<selector-app
 				class="selector"
 				type="project"
 				[value]="projects"
 				[canCreate]="true"
-				[offsetY]="8"
-				[offsetX]="316"
 				[multiple]="true"
 				[width]="330"
 				(update)="update.emit($event)">
-				<div class="mg-left-ms action-hover-item color-primary txt-btn">Add</div>
+				<span class="mg-left-ms fs-m action-hover-item color-primary txt-btn">Add</span>
 			</selector-app>
-		</div>
+		</h3>
 		<project-list-app [projects]="projects" (openProject)="openProject.emit($event)" (deleteProject)="deleteProject.emit($event)"></project-list-app>
-	</div>
+	</section>
 </card-app>

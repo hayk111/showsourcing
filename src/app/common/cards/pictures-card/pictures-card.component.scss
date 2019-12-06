@@ -4,4 +4,9 @@
 
 button.view-all {
 	width: calc(100% - 24px);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-left: var(--spacing-ms);
+	margin-right: var(--spacing-ms);
 }

@@ -53,4 +53,13 @@ export class IconUtils {
 		xxl: { background: 88, icon: 40, font: 32 }
 	};
 
+	static DEFAULT_ICON_COLOR = Color.SECONDARY;
+
+	static getIconColor(name: EntityName) {
+		if (name && IconUtils.iconsColorMap[name])
+			return IconUtils.iconsColorMap[name];
+		else
+			return IconUtils.DEFAULT_ICON_COLOR;
+	}
+
 }

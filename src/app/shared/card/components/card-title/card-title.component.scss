@@ -1,7 +1,16 @@
 :host {
 	display: flex;
 	font-weight: 600;
-	font-size: var(--font-size-xl);
 	color: var(--color-txt-primary);
 	text-transform: capitalize;
+
+	&.s {
+		font-size: var(--font-size-l);
+	}
+	&.m {
+		font-size: var(--font-size-xl);
+	}
+	&.l {
+		font-size: var(--font-size-xxl);
+	}
 }
