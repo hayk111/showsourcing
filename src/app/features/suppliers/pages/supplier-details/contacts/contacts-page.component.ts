@@ -5,6 +5,7 @@ import { Contact, ERM } from '~core/models';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { ActivatedRoute } from '@angular/router';
 import { AutoUnsub, ID } from '~utils';
+import { FilterType } from '~shared/filters';
 
 @Component({
 	selector: 'contacts-page-app',
@@ -16,6 +17,7 @@ import { AutoUnsub, ID } from '~utils';
 export class ContactsPageComponent extends AutoUnsub implements OnInit {
 
 	supplierId: ID;
+	filterTypeEnum = FilterType;
 
 	constructor(
 		private route: ActivatedRoute,
