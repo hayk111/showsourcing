@@ -21,7 +21,7 @@ export class ExtendedFormEditableTextComponent extends AbstractExtendedFormCompo
 	@Output() open = new EventEmitter<null>();
 
 	isText(type: string) {
-		return type === 'text' || type === 'decimal' || type === 'tel' || type === 'number';
+		return type === 'text' || type === 'decimal' || type === 'tel' || type === 'int';
 	}
 
 	/**

@@ -6,11 +6,11 @@ import { SupplierStatus } from '~models/supplier-status.model';
 import { SupplierType } from '~models/supplier-type.model';
 import { Tag } from '~models/tag.model';
 
-import { ExtendedField } from './extended-field.model';
 import { ProductVote } from './product-vote.model';
 import { Sample } from './sample.model';
 import { Task } from './task.model';
 import { User } from './user.model';
+
 
 export class Supplier extends EntityWithAudit<SupplierConfig> {
 	name?: string;

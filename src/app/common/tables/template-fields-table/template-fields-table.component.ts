@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { EntityTableComponent, TableConfig } from '~core/list-page/entity-table.component';
+import { EntityTableComponent, TableConfig } from '~core/list-page';
 import { ERM, TemplateField } from '~models';
 import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
 import { DynamicUpdate } from '~shared/dynamic-forms/models/dynamic-update.interface';
@@ -14,10 +14,7 @@ const tableConfig: TableConfig = {
 @Component({
 	selector: 'template-fields-table-app',
 	templateUrl: './template-fields-table.component.html',
-	styleUrls: [
-		'./template-fields-table.component.scss',
-		'../../../../app/theming/specific/list.scss'
-	]
+	styleUrls: ['./template-fields-table.component.scss']
 })
 export class TemplateFieldsTableComponent extends EntityTableComponent<TemplateField> {
 

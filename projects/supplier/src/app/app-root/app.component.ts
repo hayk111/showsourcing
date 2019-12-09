@@ -5,6 +5,7 @@ import { ApolloStateService, ClientStatus, GlobalDataClientsInitializer } from '
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { GlobalRequestClientsInitializer } from '~core/apollo/services/apollo-global-request-client.service';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
+import { RealmAuthenticationService } from '~core/auth/services/realm-authentication.service';
 
 @Component({
 	selector: 'app-root',
@@ -17,6 +18,7 @@ export class AppComponent implements OnInit {
 
 	constructor(
 		private authSrv: AuthenticationService,
+		private realmAuthSrv: RealmAuthenticationService,
 		private globalRequestClient: GlobalRequestClientsInitializer,
 		private globalDataClient: GlobalDataClientsInitializer,
 		private apolloState: ApolloStateService
@@ -46,7 +48,7 @@ export class AppComponent implements OnInit {
 
 	private startBaseClients(): Observable<Client[]> {
 		// when we are authenticated it means we have a token
-		const realmUser = this.authSrv.realmUser;
+		const realmUser = this.realmAuthSrv.realmUser;
 		return forkJoin([
 			this.globalRequestClient.init(realmUser),
 			this.globalDataClient.init(realmUser)

@@ -6,10 +6,7 @@ import { ID } from '~utils';
 @Component({
 	selector: 'request-element-table-sup',
 	templateUrl: './request-element-table.component.html',
-	styleUrls: [
-		'./request-element-table.component.scss',
-		'../../../../../../../../src/app/theming/specific/list.scss'
-	]
+	styleUrls: ['./request-element-table.component.scss']
 })
 export class RequestElementTableComponent extends EntityTableComponent<RequestElement> implements OnInit {
 

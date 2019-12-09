@@ -1,22 +1,19 @@
 import { AfterViewChecked, ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Observable, of, ReplaySubject } from 'rxjs';
-import { switchMap, take, tap, takeUntil } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
+import { of, ReplaySubject } from 'rxjs';
+import { switchMap, take, takeUntil, tap } from 'rxjs/operators';
+import { ProductSelectDlgComponent, TemplateMngmtDlgComponent } from '~common/dialogs/selection-dialogs';
 import { ContactService, CreateRequestService, RequestTemplateService, UserService } from '~core/entity-services';
 import { ListPageService } from '~core/list-page';
-import { Contact, CreateRequest, ERM, Product, RequestTemplate, Supplier } from '~core/models';
+import { Contact, CreateRequest, Product, RequestTemplate, Supplier } from '~core/models';
 import { ProductService } from '~entity-services';
 import { DialogService } from '~shared/dialog';
 import { FilterList, FilterType } from '~shared/filters';
 import { NotificationService, NotificationType } from '~shared/notifications';
-import {
-	TemplateMngmtDlgComponent,
-} from '~shared/template-mngmt/components/template-mngmt-dlg/template-mngmt-dlg.component';
-import { ID, AutoUnsub } from '~utils';
+import { AutoUnsub, ID } from '~utils';
 
 import { ReplySentDlgComponent } from '../reply-sent-dlg/reply-sent-dlg.component';
-import { TranslateService } from '@ngx-translate/core';
-import { ProductSelectDlgComponent } from '~common/dialogs/selection-dialogs';
 
 @Component({
 	selector: 'supplier-request-dialog-app',

@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { SupplierRequestService, UserService } from '~core/entity-services';
 import { SelectParams } from '~core/entity-services/_global/select-params';
-import { ListPageKey, ListPageService } from '~core/list-page';
+import { ListPageService } from '~core/list-page';
 import { ERM, SupplierRequest } from '~models';
-import { AutoUnsub } from '~utils';
 import { FilterType } from '~shared/filters';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'requests-page-sup',
