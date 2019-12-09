@@ -6,14 +6,14 @@
 	(buttonClick)="dialogCommonSrv.openSupplierRequest([])">
 </header-list-app>
 
-<controller-list-app
+<!-- <controller-list-app
 	[entityType]="entityTypeEnum.REQUEST"
 	[hasFilter]="false"
 	[hasSwitch]="false"
 	[searchValue]="listSrv.searchValue"
 	(search)="listSrv.search($event)">
 	
-</controller-list-app>
+</controller-list-app> -->
 
 <requests-table-app
 	[rows]="listSrv.items$ | async"

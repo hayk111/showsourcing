@@ -8,10 +8,8 @@
 </header-list-app>
 
 <controller-list-app
-	searchType="short"
-	[filtersAmount]="listSrv.getFilterAmount([{ type: filterTypeEnum.ARCHIVED, value: false }, { type: filterTypeEnum.DELETED, value: false }])"
-	[hasFilter]="true"
-	[hasSwitch]="true"
+	[filtersAmount]="listSrv.getFilterAmount()"
+	[panels]="['search', 'filters', 'action','quick-filters', 'quick-actions', 'view-switcher']"
 	[view]="listSrv.view"
 	[count]="listSrv.count$ | async"
 	[entityType]="'PRODUCT'"
@@ -22,12 +20,12 @@
 	(showFilters)="listSrv.openFilterPanel()"
 	(viewChange)="listSrv.changeView($event)">
 
-	<controller-list-actions-app
+	<!-- <controller-list-actions-app
 		(showArchived)="listSrv.filterByArchived(true)"
 		(hideArchived)="listSrv.filterByArchived(false)"
 		(showAssigned)="listSrv.filterByAssignee(true)"
 		(hideAssigned)="listSrv.filterByAssignee(false)">
-	</controller-list-actions-app>
+	</controller-list-actions-app> -->
 	
 </controller-list-app>
 

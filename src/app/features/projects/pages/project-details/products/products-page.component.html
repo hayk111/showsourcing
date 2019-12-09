@@ -1,6 +1,6 @@
 <ng-container *ngIf="project$ | async as project; else spinner">
 
-	<controller-list-app
+	<!-- <controller-list-app
 		[hasSwitch]="true"
 		[filtersAmount]="listSrv.getFilterAmount([{ type: filterTypeEnum.ARCHIVED, value: false }, { type: filterTypeEnum.DELETED, value: false }])"
 		[hasFilter]="true"
@@ -21,7 +21,7 @@
 			(hideAssigned)="listSrv.filterByAssignee(false)">
 		</controller-list-actions-app>
 
-	</controller-list-app>
+	</controller-list-app> -->
 
 <ng-container>
 

@@ -1,4 +1,4 @@
-<controller-list-app
+<!-- <controller-list-app
 	[entityType]="erm.TASK.singular"
 	[hasFilter]="true"
 	[hasSwitch]="false"
@@ -17,7 +17,7 @@
 		(hideAssigned)="listSrv.filterByAssignee(false)">
 	</controller-list-actions-app>
 
-</controller-list-app>
+</controller-list-app> -->
 
 <task-table-app
 	[rows]="listSrv.items$ | async"

@@ -7,7 +7,7 @@
 	(buttonClick)="dialogCommonSrv.openCreationSampleDialog()">
 </header-list-app>
 
-<controller-list-app
+<!-- <controller-list-app
 	[filtersAmount]="listSrv.getFilterAmount([{ type: filterTypeEnum.ARCHIVED, value: false }, { type: filterTypeEnum.DELETED, value: false }])"
 	[hasFilter]="true"
 	[hasSwitch]="true"
@@ -30,7 +30,7 @@
 		(hideAssigned)="listSrv.filterByAssignee(false)">
 	</controller-list-actions-app>
 
-</controller-list-app>
+</controller-list-app> -->
 
 <samples-table-app
 	*ngIf="listSrv.view === 'list'"

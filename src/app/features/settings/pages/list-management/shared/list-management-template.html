@@ -53,8 +53,7 @@
 	(buttonClick)="listSrv.create(false)">
 </header-list-app> -->
 
-<controller-list-app
-	class="padding-ms"
+<!-- <controller-list-app
 	[count]="listSrv.count$ | async"
 	[hasFilter]="false"
 	[hasSwitch]="false"
@@ -64,10 +63,10 @@
 	(search)="listSrv.search($event)">
 	<controller-list-right-item-app>
 		<div class="flex">
-			<button class="capitalize" (click)="listSrv.create(false)">Create {{erm.singular | translate}}</button> <!-- TODO: translation to be added-->
+			<button class="capitalize" (click)="listSrv.create(false)">Create {{erm.singular | translate}}</button>
 		</div>
 	</controller-list-right-item-app>
-</controller-list-app>
+</controller-list-app> -->
 
 <list-management-table-app
 	[rows]="listSrv.items$ | async"

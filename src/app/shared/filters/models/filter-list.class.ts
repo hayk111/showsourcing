@@ -22,6 +22,8 @@ export class FilterList {
 
 	/** immovable predicate that stays at all time */
 	constPredicate: string;
+	/** the filters we start with */
+	startFilters: Filter[];
 
 	/** function used to join the initial predicate, the search and the query as predicate */
 	predicateFn = (initial, search, query) => [
@@ -75,6 +77,7 @@ export class FilterList {
 	constructor(startFilters: Filter[] = [], searchedFields = ['name'], constPredicate?: string) {
 		// adding the start filters
 		this.setFilters(startFilters);
+		this.startFilters = startFilters;
 		this.searchedFields = searchedFields;
 		this.constPredicate = constPredicate;
 	}

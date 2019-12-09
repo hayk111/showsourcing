@@ -9,7 +9,7 @@
 	(buttonClick)="dialogCommonSrv.openCreationTaskDlg()">
 </header-list-app>
 
-<controller-list-app
+<!-- <controller-list-app
 	#controller
 	[hasFilter]="false"
 	[hasSwitch]="false"
@@ -38,7 +38,7 @@
 		(hideAssigned)="listSrv.filterByAssignee(false)">
 	</controller-list-actions-app>
 	
-</controller-list-app>
+</controller-list-app> -->
 
 <task-table-app
 	[rows]="listSrv.items$ | async"

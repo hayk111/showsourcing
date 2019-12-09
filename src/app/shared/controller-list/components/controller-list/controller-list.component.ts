@@ -21,7 +21,7 @@ export class ControllerListComponent {
 	/** describes the layout of the controller-list */
 	@Input() panels: Panel[]  = ['search', 'filters', 'actions', 'quick-filters', 'view-switcher'];
 	/** the quick filters checkbox displayed */
-	@Input() filters: QuickFilter[] = ['archived', 'assignee'];
+	@Input() quickFilters: QuickFilter[] = ['archived', 'assignee'];
 	/** the different panel the viewswitcher can switch into */
 	@Input() switchContent: ['table', 'cards', 'kanban'] = ['table', 'cards', 'kanban'];
 
@@ -37,7 +37,7 @@ export class ControllerListComponent {
 	@Input() searchType: 'short' | 'long' = 'long';
 	@Input() searchValue: string;
 
-	// when said view changes
+	// when the view from the switcher changes
 	@Output() viewChange = new EventEmitter<string>();
 	/** show filter panel */
 	@Output() showFilters = new EventEmitter<undefined>();

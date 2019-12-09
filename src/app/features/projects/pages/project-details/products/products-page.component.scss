@@ -14,11 +14,6 @@ products-table-app {
 	padding: var(--spacing-l);
 }
 
-controller-list-app, header-list-app {
-	transform: scale(1);
-  transition: 0.35s all ease;
-}
-
 header-details-app {
 	background: var(--color-bg);
 }
