@@ -65,6 +65,8 @@ export class AppComponent implements OnInit {
 		const hasTeam$ = this.teamSrv.hasTeamSelected$;
 		const teamClientStatus$ = this.apolloState.getClientStatus(Client.TEAM);
 		// we only want the loader to appear when we have a team selected and the team client status is pending
+		// because that means we are accessing the main app and since the client is pending the page is not yet visible
+		// TODO what we could do instead is have the spinner property come from the guards directly.
 		combineLatest(
 			hasTeam$,
 			teamClientStatus$,

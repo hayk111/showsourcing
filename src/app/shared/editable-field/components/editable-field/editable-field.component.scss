@@ -76,7 +76,6 @@
 	}
 
 	&.oneLine {
-		// we always display the border on single line
 		border-bottom: 1px solid var(--color-secondary);
 		// label on same line as input, label on left, input on right side
 		.ctnr {
@@ -102,5 +101,7 @@
 			}
 		}
 	}
+	&.oneLine.borderless {
+		border-bottom: none;
+	}
 }
-

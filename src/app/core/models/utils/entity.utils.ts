@@ -23,6 +23,7 @@ export enum EntityName {
 	TAG = 'tag',
 	TASK = 'task',
 	TEAM = 'team',
+	TEMPALTE_FIELD = 'template field',
 	TEAM_MEMBER = 'team-member',
 	USER = 'user',
 }
@@ -42,9 +43,10 @@ export enum EntityTypeEnum {
 	SAMPLE = 'SAMPLE',
 	USER = 'USER',
 	TASK = 'TASK',
+	TEMPALTE_FIELD = 'template field',
 	TEAM_MEMBER = 'TEAM-MEMBER',
 	TAG = 'TAG',
 }
 
 export type EntityType = 'CATEGORY' | 'CONTACT' | 'EVENT' | 'PRODUCT' | 'REQUEST' | 'EXPORT'
-	| 'PROJECT' | 'TASK' | 'TEAM-MEMBER' | 'SUPPLIER' | 'SAMPLE' | 'USER' | 'TAG' | 'INVITATION';
+	| 'PROJECT' | 'TASK' | 'TEAM-MEMBER' | 'SUPPLIER' | 'SAMPLE' | 'USER' | 'TAG' | 'INVITATION' | 'TEMPLATE_FIELD';

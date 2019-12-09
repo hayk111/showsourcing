@@ -18,6 +18,7 @@ import { InvitationsTableComponent } from './invitations-table/invitations-table
 import { ListManagementTableComponent } from './list-management-table/list-management-table.component';
 import { WorkflowManagamentTableComponent } from './workflow-managament-table/workflow-managament-table.component';
 import { ContactsTableComponent } from './contacts-table/contacts-table.component';
+import { TemplateFieldsTableComponent } from './template-fields-table/template-fields-table.component';
 
 @NgModule({
 	imports: [
@@ -41,6 +42,7 @@ import { ContactsTableComponent } from './contacts-table/contacts-table.componen
 		TasksTableComponent,
 		TeamMembersTableComponent,
 		WorkflowManagamentTableComponent,
+		TemplateFieldsTableComponent,
 	],
 	exports: [
 		AttachmentsTableComponent,
@@ -57,6 +59,7 @@ import { ContactsTableComponent } from './contacts-table/contacts-table.componen
 		TasksTableComponent,
 		TeamMembersTableComponent,
 		WorkflowManagamentTableComponent,
+		TemplateFieldsTableComponent,
 	],
 	entryComponents: []
 })
