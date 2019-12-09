@@ -44,7 +44,10 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 			tap(id => {
 				this.listSrv.setup({
 					entitySrv: this.reqElementSrv,
-					selectParams: { sortBy: 'name', query: `@links.Request.requestElements.id == "${id}"`, descending: false },
+					// when we send the index to the dialog, we have to take care of how we sort
+					// since the elements on the dialog are not queries by @links.Request.requestElements.id but by request.requestElements
+					// we sort on the dialog manually request.requestElements.sort(name)
+					selectParams: { sortBy: 'id', query: `@links.Request.requestElements.id == "${id}"`, descending: false },
 					searchedFields: [],
 					entityMetadata: ERM.REQUEST_ELEMENT,
 					initialFilters: [],
@@ -90,7 +93,6 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 	open(element: RequestElement) {
 		const selectedIndex = this.requestElements.findIndex(elem => elem.id === element.id);
 		this.dlgSrv.open(RequestReplyDlgComponent, {
-			elements: this.requestElements,
 			selectedIndex,
 			requestId: this.requestId
 		});

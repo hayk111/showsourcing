@@ -28,6 +28,21 @@
 				(keyup.enter)="$event.target.blur()" [placeholder]="definition.label"/>
 		</form-field-app>
 
+		<!-- textarea -->
+		<form-field-app *ngSwitchCase="'textarea'" class="modal">
+			<label-app>{{ definition?.label }}</label-app>
+			<!-- hint: couldn't ngModel to accumulator -->
+			<textarea
+				inputApp autoFocus
+				#inp
+				[canFocus]="autofocus"
+				[disabled]="disabled || metadata?.fixedValue"
+				type="text" [value]="accumulator || ''"
+				(input)="onInput(inp.value)"
+				(keyup.enter)="$event.target.blur()" [placeholder]="definition.label">
+			</textarea>
+		</form-field-app>
+
 		<!-- tel -->
 		<form-field-app *ngSwitchCase="'tel'" class="modal">
 			<label-app>{{ definition?.label }}</label-app>
@@ -56,7 +71,7 @@
 			 	(keyup.enter)="$event.target.blur()" [placeholder]="definition.label"/>
 		</form-field-app>
 
-		<!-- number (int) -->
+		<!-- int -->
 		<form-field-app *ngSwitchCase="'int'" class="modal">
 			<label-app>{{ definition?.label }}</label-app>
 			<!-- hint: couldn't ngModel to accumulator -->

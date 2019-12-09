@@ -5,6 +5,7 @@ import { AbstractDescriptorComponent } from '../abstract-descriptor.component';
 
 export class ProductDescriptor extends AbstractDescriptorComponent {
 
+
 	// TODO i18n
 	protected _descriptor: DynamicField[] = [
 		{ name: 'archived', type: 'boolean' },

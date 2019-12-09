@@ -1,4 +1,4 @@
-import { AppImage, Attachment, Comment } from '~models';
+import { AppImage, Attachment, Comment, ExtendedField } from '~models';
 import { EntityWithAudit } from '~models/_entity.model';
 import { imageMock } from '~models/app-image.model';
 import { Category } from '~models/category.model';
