@@ -9,7 +9,7 @@ import { ListPageService } from '~core/list-page';
 import { ERM, Product, Supplier } from '~core/models';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
-import { ControllerListService } from '~shared/header/components/controller-list/services/controller-list.service';
+import { ControllerListService } from '~shared/controller-list/services/controller-list.service';
 import { AutoUnsub } from '~utils';
 import { ID } from '~utils/id.utils';
 

@@ -3,10 +3,12 @@ import { FormControl } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { EntityType, EntityTypeEnum } from '~models';
 import { SearchAutocompleteComponent } from '~shared/search-autocomplete/components/search-autocomplete/search-autocomplete.component';
+import { FilterList } from '~shared/filters';
 
 
 export type Panel = 'search' | 'filters' | 'actions' | 'quick-filters' | 'view-switcher';
 export type QuickFilter = 'archived' | 'assignee' | 'createdBy' | 'completed';
+export type View = 'table' | 'cards' | 'kanban';
 
 @Component({
 	selector: 'controller-list-app',
@@ -23,7 +25,8 @@ export class ControllerListComponent {
 	/** the quick filters checkbox displayed */
 	@Input() quickFilters: QuickFilter[] = ['archived', 'assignee'];
 	/** the different panel the viewswitcher can switch into */
-	@Input() switchContent: ['table', 'cards', 'kanban'] = ['table', 'cards', 'kanban'];
+	@Input() switchContent: View[] = ['table', 'cards', 'kanban'];
+	@Input() view: View = 'table';
 
 	/** total number of entities */
 	@Input() count = 0;
@@ -49,10 +52,6 @@ export class ControllerListComponent {
 	@Output() buttonClick = new EventEmitter<any>();
 	// when the filter button is clicked
 	@Output() filterClick = new EventEmitter<null>();
-	/** show archived products */
-	@Output() showArchived = new EventEmitter<undefined>();
-	/** hide archived products */
-	@Output() hideArchived = new EventEmitter<undefined>();
 
 	/** show only the products assigned to the current user */
 	@Output() showAssigned = new EventEmitter<undefined>();
@@ -86,13 +85,11 @@ export class ControllerListComponent {
 	searchControl: FormControl = new FormControl(this.searchValue);
 	inputFocus = false;
 
-	isArchivedShown = false;
-	isMyProductsShown = false;
-	isCompletedTaskChecked = false;
-	isTaskCreatedByMeOnlyChecked = false;
-	isAssigned = false;
-	isMyExport = false;
-
+	// TODO: we should use the filterList for this
+	isAssignedToMeChecked = false;
+	isCreatedByMeChecked = false;
+	isArchivedChecked = false;
+	isCompletedChecked = false;
 
 	onFocusSearch(event) {
 		if (this.searchAutocomplete) {
@@ -100,18 +97,18 @@ export class ControllerListComponent {
 		}
 	}
 
-	toggleMyProducts() {
-		this.isMyProductsShown = !this.isMyProductsShown;
-		this.myProductsChanged();
+	// todo we should use the filter list
+	toggleCreatedByMe() {
+		this.isCreatedByMeChecked = !this.isCreatedByMeChecked;
 	}
 
 	toggleArchived() {
-		this.isArchivedShown = !this.isArchivedShown;
+		this.isArchivedChecked = !this.isArchivedChecked;
 		this.archivedChange();
 	}
 
-	toggleAssigned() {
-		this.isAssigned = !this.isAssigned;
+	toggleAssignedToMe() {
+		this.isAssignedToMeChecked = !this.isAssignedToMeChecked;
 		this.assignedChange();
 	}
 

@@ -56,6 +56,7 @@ import { TableModule } from './table/table.module';
 import { TemplateMngmtModule } from './template-mngmt/template-mngmt.module';
 import { CommentModule } from './comment/comment.module';
 import { NavModule } from './nav/nav.module';
+import { ControllerListModule } from './controller-list/controller-list.module';
 
 // those modules are used so commonly that we will just import the shared module
 const modules = [
@@ -125,7 +126,8 @@ const modules = [
 	OnBoardingModule,
 	PackagingModule,
 	TranslateModule,
-	NavModule
+	NavModule,
+	ControllerListModule
 ];
 
 @NgModule({
