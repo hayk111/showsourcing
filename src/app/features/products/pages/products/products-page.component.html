@@ -8,25 +8,8 @@
 </header-list-app>
 
 <controller-list-app
-	[filtersAmount]="listSrv.getFilterAmount()"
-	[panels]="['search', 'filters', 'action','quick-filters', 'quick-actions', 'view-switcher']"
-	[view]="listSrv.view"
-	[count]="listSrv.count$ | async"
-	[entityType]="'PRODUCT'"
-	[searchValue]="listSrv.searchValue"
-	(search)="listSrv.search($event)"
-	(clearFilters)="onClearFilters()"
-	(export)="dialogCommonSrv.openExportDialog(listSrv.getSelectedValues())"
-	(showFilters)="listSrv.openFilterPanel()"
-	(viewChange)="listSrv.changeView($event)">
-
-	<!-- <controller-list-actions-app
-		(showArchived)="listSrv.filterByArchived(true)"
-		(hideArchived)="listSrv.filterByArchived(false)"
-		(showAssigned)="listSrv.filterByAssignee(true)"
-		(hideAssigned)="listSrv.filterByAssignee(false)">
-	</controller-list-actions-app> -->
-	
+	[panels]="['search', 'filters', 'action','quick-filters', 'quick-actions', 'view-switcher']">
+	<controller-list-quick-filters-app></controller-list-quick-filters-app>
 </controller-list-app>
 
 <!-- views: either one will be displayed when the correct view is selected -->

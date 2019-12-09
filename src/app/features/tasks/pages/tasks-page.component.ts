@@ -72,7 +72,7 @@ export class TasksPageComponent extends AutoUnsub implements OnInit, AfterViewIn
 
 	ngAfterViewInit() {
 		// this way the check is active, and user can see that this filter is being used
-		this.controller.toggleAssigned();
+		// this.controller.toggleAssigned();
 	}
 
 	showTasksCreatedByMeOnly() {

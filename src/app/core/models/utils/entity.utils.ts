@@ -42,7 +42,7 @@ export enum EntityTypeEnum {
 	SAMPLE = 'SAMPLE',
 	USER = 'USER',
 	TASK = 'TASK',
-	TEAM_MEMBER = 'TEAM-MEMBER',
+	TEAM_MEMBER = 'TEAM_MEMBER',
 	TAG = 'TAG',
 }
 

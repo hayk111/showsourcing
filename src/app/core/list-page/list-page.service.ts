@@ -1,6 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
-import { empty, Observable, ConnectableObservable } from 'rxjs';
+import { empty, Observable } from 'rxjs';
 import { filter, map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { CreationDialogComponent } from '~common/dialogs/creation-dialogs';
 import { UserService } from '~core/entity-services';
@@ -13,11 +13,11 @@ import { Filter, FilterType } from '~shared/filters';
 import { RatingService, TypeWithVotes } from '~shared/rating/services/rating.service';
 import { Sort } from '~shared/table/components/sort.interface';
 import { showsourcing } from '~utils/debug-object.utils';
-
 import { ListPageDataConfig } from './list-page-config.interface';
 import { ListPageDataService } from './list-page-data.service';
 import { ListPageViewService } from './list-page-view.service';
 import { SelectionWithFavoriteService } from './selection-with-favorite.service';
+
 
 // It has four legs and it can fly, what is it?
 // -
@@ -131,10 +131,6 @@ export class ListPageService
 
 	get isListening() {
 		return this.dataSrv.isListening;
-	}
-
-	get smartSearchFilterElements$() {
-		return this.dataSrv.smartSearchFilterElements$;
 	}
 
 	get filterList() {
@@ -336,10 +332,6 @@ export class ListPageService
 		this.dataSrv.removeFilterType(filterType);
 	}
 
-	smartSearch(event: any) {
-		this.dataSrv.smartSearch(event);
-	}
-
 	/** bridge for view service */
 
 	get view() {
@@ -443,7 +435,7 @@ export class ListPageService
 		this.removeFilter(filterParam);
 	}
 
-	filterByAssignee(shouldAdd: boolean) {
+	filterByAssignedToMe(shouldAdd: boolean) {
 		const filterParam = { type: FilterType.ASSIGNEE, value: this.userSrv.userId };
 
 		if (shouldAdd) {
@@ -456,6 +448,17 @@ export class ListPageService
 
 	filterByDone(shouldAdd: boolean) {
 		const filterParam = { type: FilterType.DONE, value: false };
+
+		if (shouldAdd) {
+			this.addFilter(filterParam);
+			return;
+		}
+
+		this.removeFilter(filterParam);
+	}
+
+	filterByCreatedByMe(shouldAdd: boolean) {
+		const filterParam = { type: FilterType.CREATED_BY, value: this.userSrv.userId };
 
 		if (shouldAdd) {
 			this.addFilter(filterParam);

@@ -60,10 +60,14 @@ export class FilterList {
 		this._query = this.filtersToPredicate(this._byType);
 		this._valueChanges$.next(this);
 	}
+	/** returns the array of filters */
 	asFilters() { return this._filters; }
 
 
 	private _byType: FilterByType;
+	/** returns filters by type. Data structure of Map<filterType, Map<FilterValue, Filter>>
+	 * Allows us to check if a filter type has a filter of value x.
+	 */
 	asByType() { return this._byType; }
 
 	/**

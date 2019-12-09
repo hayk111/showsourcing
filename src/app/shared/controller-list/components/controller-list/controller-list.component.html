@@ -7,14 +7,13 @@
 		[formControl]="searchControl"
 		[inputFocus]="inputFocus"
 		[placeHolder]="'placeholder.type-to-search' | translate"
-		(focus)="onFocusSearch($event)"
-		(search)="search.emit($event)">
+		(search)="listSrv.search($event)">
 	</search-bar-app>
 
 	<button
 		*ngIf="panels.includes('filters')"
 		class="icon light"
-		(click)="showFilters.emit()"
+		(click)="listSrv.openFilterPanel()"
 		translate="button.show-filters">
 		<icon-app name="filter" size="m"></icon-app>
 	</button>
@@ -22,8 +21,9 @@
 	<divider-app [vertical]="true"></divider-app>
 
 	<span class="capitalize entities-count">
-		{{ count }} {{ count === 1 ? ('ERM.' + checkEntityType(entityType.toUpperCase()) + '.singular' | translate)
-			: ('ERM.' + checkEntityType(entityType?.toUpperCase()) + '.plural' | translate) }}
+		{{ listSrv.count$ | async }} 
+		{{ (listSrv.count$ | async) < 2 ? 
+			 (listSrv.entityMetadata.singular | translate) : (listSrv.entityMetadata.plural | translate) }}
 	</span>
 
 </div>
@@ -32,40 +32,9 @@
 
 	<!-- <ng-content select="controller-list-actions-app"></ng-content> -->
 
+	<ng-content select="controller-list-quick-filters"></ng-content>
 	<divider-app [vertical]="true"></divider-app>
-
-	<button
-		*ngIf="quickFilters.includes('assignee')"
-		class="icon-with-text light mg-left-ms"
-		(click)="toggleAssignedToMe()">
-		<checkbox-app class="mg-right-xs" [checked]="isAssignedToMeChecked" [size]="15"></checkbox-app>
-		{{ 'label.assigned-to-me' | translate }}
-	</button>
-
-	<button
-		*ngIf="quickFilters.includes('archived')"
-		class="icon-with-text light mg-left-ms"
-		(click)="toggleArchived()">
-		<checkbox-app class="mg-right-xs" [checked]="isArchivedChecked" [size]="15"></checkbox-app>
-		{{ 'label.show-archived' | translate }}
-	</button>
-
-	<button
-		*ngIf="quickFilters.includes('completed')"
-		class="icon-with-text light mg-left-ms"
-		(click)="toggleCompleted()">
-		<checkbox-app class="mg-right-xs" [checked]="isCompletedChecked" [size]="15"></checkbox-app>
-		{{ 'label.show-completed' | translate }}
-	</button>
-
-	<button
-		*ngIf="quickFilters.includes('createdBy')"
-		class="icon-with-text light mg-left-ms"
-		(click)="toggleCreatedByMe()">
-		<checkbox-app class="mg-right-xs" [checked]="isCreatedByMeChecked" [size]="15"></checkbox-app>
-		{{ 'label.show-created-by-me' | translate }}
-	</button>
-
+	<ng-content select="controller-list-quick-filters"></ng-content>
 	<divider-app [vertical]="true"></divider-app>
 
 	<button class="icon light mg-left-ms">
@@ -78,12 +47,11 @@
 
 	<divider-app [vertical]="true"></divider-app>
 
-	<view-switcher-app 
-		*ngIf="panels.includes('view-switcher')" 
+	<!-- <view-switcher-app 
 		class="mg-left-ms"
 		[switchContent]="switchContent" 
 		[view]="view"
 		(viewChange)="viewChange.emit($event)">
-	</view-switcher-app>
+	</view-switcher-app> -->
 
 </div>

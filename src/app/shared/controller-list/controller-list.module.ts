@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import {
 	ControllerListComponent,
 	ControllerListActionsComponent,
-	ViewSwitcherComponent
+	ViewSwitcherComponent,
+	ControllerListQuickFiltersComponent
 } from './components';
 import { SearchBarModule } from '~shared/search-bar-animated/search-bar.module';
 import { CommonModule } from '@angular/common';
@@ -25,8 +26,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 	declarations: [
 		ControllerListComponent,
 		ControllerListActionsComponent,
-		ViewSwitcherComponent
+		ViewSwitcherComponent,
+		ControllerListQuickFiltersComponent
 	],
-	exports: []
+	exports: [
+		ControllerListComponent,
+		ControllerListQuickFiltersComponent
+	]
 })
 export class ControllerListModule { }
