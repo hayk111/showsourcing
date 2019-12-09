@@ -3,7 +3,7 @@ import { marker as _ } from '@biesbjerg/ngx-translate-extract-marker';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 export function HttpLoaderFactory(http: HttpClient) {
-	return new TranslateHttpLoader(http, '../../../../src/assets/i18n/', '/translations.json');
+	return new TranslateHttpLoader(http, 'assets/i18n/', '/translations.json');
 }
 // ERM
 _(`ERM.ATTACHMENT.singular`);
