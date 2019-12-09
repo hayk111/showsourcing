@@ -6,6 +6,7 @@ import { ContextMenuModule } from '~shared/context-menu/context-menu.module';
 import { IconsModule } from '~shared/icons';
 import { ImageModule } from '~shared/image/image.module';
 import { InputsModule } from '~shared/inputs';
+import { InputsCustomModule } from '~shared/inputs-custom/inputs-custom.module';
 import { LoadersModule } from '~shared/loaders';
 import { LogoModule } from '~shared/logo';
 import { PaginationModule } from '~shared/pagination/pagination.module';
@@ -21,6 +22,7 @@ import { UtilsModule } from '~shared/utils';
 		IconsModule,
 		ImageModule,
 		InputsModule,
+		InputsCustomModule,
 		LoadersModule,
 		LogoModule,
 		OverlayModule,

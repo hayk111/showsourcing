@@ -1,0 +1,112 @@
+
+<header-details-app
+	[hasBackArrow]="false"
+	[headerType]="'settings'">
+
+	<header-details-title-app>
+		<span class="list-management-title">
+			List Product Management <!-- TODO: translation to be added -->
+		</span>
+	</header-details-title-app>
+
+	<logo-app color="secondary" icon="category"></logo-app>
+	<header-details-info-app>
+		<div class="dot-separator list-management-info">
+			<span>{{ teamSrv.selectedTeamSync.name }}</span>
+			<span>{{ companySrv.companySync.name}}</span>
+		</div>
+	</header-details-info-app>
+
+	<!-- navigation tabs of panel -->
+	<header-nav-app>
+		<header-nav-item-app
+			link="/settings/list-management/category-data"
+			icon="category"
+			[name]="'nav.categories' | translate">
+		</header-nav-item-app>
+
+		<header-nav-item-app
+			link="/settings/list-management/tag-data"
+			icon="tag"
+			[name]="'nav.tags' | translate">
+		</header-nav-item-app>
+
+		<header-nav-item-app
+			link="/settings/list-management/supplier-data"
+			icon="supplier"
+			[name]="'nav.suppliers' | translate">
+		</header-nav-item-app>
+
+		<header-nav-item-app
+			link="/settings/list-management/event-data"
+			icon="event"
+			[name]="'nav.event' | translate">
+		</header-nav-item-app>
+	</header-nav-app>
+
+</header-details-app>
+
+<!-- <header-list-app
+	class="smaller-padding"
+	[title]="'ERM.' + listSrv.entityMetadata.translationKey + '.plural' | translate"
+	[buttonName]="'Add ' + listSrv.entityMetadata.singular"
+	(buttonClick)="listSrv.create(false)">
+</header-list-app> -->
+
+<controller-list-app
+	class="padding-ms"
+	[count]="listSrv.count$ | async"
+	[hasFilter]="false"
+	[hasSwitch]="false"
+	[hasAssigned]="false"
+	[hasArchived]="false"
+	[entityType]="erm.singular"
+	(search)="listSrv.search($event)">
+	<controller-list-right-item-app>
+		<div class="flex">
+			<button class="capitalize" (click)="listSrv.create(false)">Create {{erm.singular | translate}}</button> <!-- TODO: translation to be added-->
+		</div>
+	</controller-list-right-item-app>
+</controller-list-app>
+
+<list-management-table-app
+	[rows]="listSrv.items$ | async"
+	[selection]="listSrv.selection$ | async"
+	[pending]="listSrv.pending"
+	[entityMetadata]="listSrv.entityMetadata"
+	[count]="listSrv.count$ | async"
+	[currentPage]="listSrv.currentPage"
+	(goToPage)="listSrv.loadPage($event)"
+	(sort)="listSrv.sort($event)"
+	(delete)="listSrv.deleteOne($event, true)"
+	(select)="listSrv.selectOne($event, false)"
+	(unselect)="listSrv.unselectOne($event, false)"
+	(selectAll)="listSrv.selectAll($event, false)"
+	(showItemsPerPage)="showItemsPerPage($event)"
+	(unselectAll)="listSrv.unselectAll()"
+	(renameEntity)="listSrv.update($event)">
+</list-management-table-app>
+
+<selection-bar-app
+	*ngIf="(listSrv.selection$ | async) as selection"
+	[entityType]="erm.singular"
+	[isShown]="selection.size > 0"
+	[selection]="selection"
+	[state]="selectionSrv.getListCheckboxState(selection, listSrv.items$ | async)"
+	[count]="listSrv.count$ | async"
+	(close)="listSrv.unselectAll()">
+
+	<div class="flex elements-container">
+		<!-- Merge -->
+		<button class="icon-with-text secondary" (click)="mergeSelected()">
+			<icon-app name="merge"></icon-app>
+			<span>Merge</span> <!-- TODO: translation to be added -->
+		</button>
+
+		<!-- Delete -->
+		<button class="icon-with-text secondary" (click)="listSrv.deleteSelected(true)">
+			<icon-app name="delete"></icon-app>
+			<span>{{ 'button.delete' | translate }}</span>
+		</button>
+	</div>
+</selection-bar-app>

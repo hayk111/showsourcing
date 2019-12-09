@@ -20,6 +20,11 @@ context-menu-trigger-app {
 
 }
 
+.company-info {
+	font-size: var(--font-size-s);
+	color: var(--color-txt-third);
+}
+
 .create-team {
 	width: 107px;
 	height: 40px;
@@ -31,8 +36,8 @@ context-menu-trigger-app {
 }
 
 .my-company {
-	font-size: var(--font-size-xxxl);
-	color: var(--color-bg-dark);
+	font-size: var(--font-size-xxl);
+	font-weight: normal;
 }
 
 .invite-team-member {

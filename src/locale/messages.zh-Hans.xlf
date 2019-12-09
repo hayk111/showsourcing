@@ -75,11 +75,11 @@
           <context context-type="linenumber">50</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/data-management/components/data-mananagement-table/data-mananagement-table.component.html</context>
+          <context context-type="sourcefile">app/features/list-management/components/list-management-table/list-management-table.component.html</context>
           <context context-type="linenumber">5</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/data-management/components/data-mananagement-table/data-mananagement-table.component.html</context>
+          <context context-type="sourcefile">app/features/list-management/components/list-management-table/list-management-table.component.html</context>
           <context context-type="linenumber">124</context>
         </context-group>
         <context-group purpose="location">
@@ -2296,7 +2296,7 @@
         <source>No data</source>
         <target state="final">无数据</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/data-management/components/data-mananagement-table/data-mananagement-table.component.html</context>
+          <context context-type="sourcefile">app/features/list-management/components/list-management-table/list-management-table.component.html</context>
           <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
@@ -2304,15 +2304,15 @@
         <source> delete selected </source>
         <target state="new"> delete selected </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/data-management/containers/data-management-page.component.html</context>
+          <context context-type="sourcefile">app/features/list-management/containers/list-management-page.component.html</context>
           <context context-type="linenumber">17</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/data-management/containers/data-management-page.component.html</context>
+          <context context-type="sourcefile">app/features/list-management/containers/list-management-page.component.html</context>
           <context context-type="linenumber">17</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">app/features/data-management/containers/data-management-page.component.html</context>
+          <context context-type="sourcefile">app/features/list-management/containers/list-management-page.component.html</context>
           <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit>

@@ -1,22 +1,13 @@
-:host {
-	display: flex;
-	flex-direction: column;
-	height: 100%;
-
-	controller-list-app {
-		margin-bottom: var(--spacing-ms);
+header-details-info-app {
+	span {
+		font-size: var(--font-size-s);
+		color: var(--color-txt-third);
 	}
 }
 
-export-table-app {
-	border-radius: var(--border-radius);
-	box-shadow: 0 0 12px 4px rgba(0, 0, 0, 0.01);
-	margin: var(--spacing-ms) var(--spacing-l) 0 var(--spacing-l);
-}
-
 .my-export {
-	font-size: var(--font-size-xxxl);
-	color: var(--color-bg-dark);
+	font-size: var(--font-size-xxl);
+	font-weight: normal;
 }
 
 selection-bar-app {

@@ -1,0 +1,86 @@
+
+<div class="left flexVAlign">
+
+	<search-bar-app
+		*ngIf="hasSearch"
+		searchType="short"
+		[formControl]="searchControl"
+		[inputFocus]="inputFocus"
+		[placeHolder]="'placeholder.type-to-search' | translate"
+		(focus)="onFocusSearch($event)"
+		(search)="search.emit($event)"
+		(keydown.enter)="triggerSmartSearch($event)">
+	</search-bar-app>
+
+	<button
+		*ngIf="hasFilter"
+		class="icon light"
+		(click)="showFilters.emit()"
+		translate="button.show-filters">
+		<icon-app name="filter" size="m"></icon-app>
+	</button>
+
+	<divider-app [vertical]="true"></divider-app>
+
+	<span class="capitalize entities-count">
+		{{ count }} {{ count === 1 ? ('ERM.' + checkEntityType(entityType.toUpperCase()) + '.singular' | translate)
+			: ('ERM.' + checkEntityType(entityType?.toUpperCase()) + '.plural' | translate) }}
+	</span>
+
+</div>
+
+<div class="right flexVAlign">
+
+	<ng-content select="controller-list-actions-app"></ng-content>
+
+	<divider-app [vertical]="true"></divider-app>
+
+	<button
+		*ngIf="filters.includes('assignee')"
+		class="icon-with-text light mg-left-ms"
+		(click)="toggleAssignedToMe()">
+		<checkbox-app class="mg-right-xs" [checked]="isAssigned" [size]="15"></checkbox-app>
+		{{ 'label.assigned-to-me' | translate }}
+	</button>
+
+	<button
+		*ngIf="filters.includes('archived')"
+		class="icon-with-text light mg-left-ms"
+		(click)="toggleArchived()">
+		<checkbox-app class="mg-right-xs" [checked]="isArchivedShown" [size]="15"></checkbox-app>
+		{{ 'label.show-archived' | translate }}
+	</button>
+
+	<button
+		*ngIf="filters.includes('completed')"
+		class="icon-with-text light mg-left-ms"
+		(click)="toggleCompleted()">
+		<checkbox-app class="mg-right-xs" [checked]="isCompleted" [size]="15"></checkbox-app>
+		{{ 'label.show-completed' | translate }}
+	</button>
+
+	<button
+		*ngIf="filters.includes('createdBy')"
+		class="icon-with-text light mg-left-ms"
+		(click)="toggleCreatedByMe()">
+		<checkbox-app class="mg-right-xs" [checked]="isCreatedByMe" [size]="15"></checkbox-app>
+		{{ 'label.show-created-by-me' | translate }}
+	</button>
+
+	<divider-app [vertical]="true"></divider-app>
+
+	<button class="icon light mg-left-ms">
+		<icon-app name="export" size="m"  toolTip toolTipMessage="Export"></icon-app>
+	</button>
+
+	<button class="icon light mg-left-ms mg-right-ms">
+		<icon-app name="sort" size="m"  toolTip toolTipMessage="Sort"></icon-app>
+	</button>
+
+	<divider-app [vertical]="true"></divider-app>
+
+	<view-switcher-app *ngIf="hasSwitch" [switchContent]="switchContent" [view]="view"
+		(viewChange)="viewChange.emit($event)" class="mg-left-ms">
+	</view-switcher-app>
+
+</div>

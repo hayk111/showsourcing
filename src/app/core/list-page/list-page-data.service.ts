@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { ConnectableObservable, Observable } from 'rxjs';
-import { first, map, skip, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { ConnectableObservable, Observable, combineLatest } from 'rxjs';
+import { first, map, skip, switchMap, takeUntil, tap, merge, combineAll } from 'rxjs/operators';
 import { ListPageDataConfig } from '~core/list-page/list-page-config.interface';
 import { GlobalServiceInterface } from '~entity-services/_global/global.service';
 import { ListQuery } from '~entity-services/_global/list-query.interface';
@@ -113,6 +113,10 @@ export class ListPageDataService
 		) as ConnectableObservable<T[]>;
 		this.count$ = this.listResult.count$;
 
+	}
+
+	combineItems(items: Observable<T[]>) {
+		this.items$ = merge(this.items$, items) as unknown as ConnectableObservable<T[]>;
 	}
 
 	/** when the filter change we want to refetch the items with a new predicate */

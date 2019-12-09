@@ -5,6 +5,7 @@ import { mapTo, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { ContactService } from '~entity-services';
 import { Contact, Supplier } from '~models';
 import { AutoUnsub, RegexpApp } from '~utils';
+import { DialogService, CloseEventType } from '~shared/dialog';
 
 // different cases regarding the image upload and saving the contact
 // 1. contact is not created yet and an image is pending
@@ -33,7 +34,8 @@ export class NewContactDlgComponent extends AutoUnsub implements OnInit {
 
 	constructor(
 		private fb: FormBuilder,
-		private contactSrv: ContactService
+		private contactSrv: ContactService,
+		private dlgSrv: DialogService
 	) {
 		super();
 	}
@@ -82,6 +84,10 @@ export class NewContactDlgComponent extends AutoUnsub implements OnInit {
 			}),
 			mapTo(true)
 		);
+	}
+
+	close() {
+		this.dlgSrv.close({ type: CloseEventType.CANCEL });
 	}
 
 }

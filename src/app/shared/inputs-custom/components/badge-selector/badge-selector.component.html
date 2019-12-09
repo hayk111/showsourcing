@@ -1,150 +1,159 @@
-<ng-container [ngSwitch]="badge">
+<editable-container-app
+	[hasAction]="false"
+	[openOnClick]="false"
+	(click)="selector?.openMenu()">
+	<editable-display-app>
+		<ng-container [ngSwitch]="badge">
 
-	<!-- Product -->
-	<div *ngSwitchCase="erm.PRODUCT" class="flexStart icon-container" (click)="selector?.openMenu()">
-		<selector-app
-			#selector
-			type="product"
-			[offsetY]="offsetY"
-			[offsetX]="getDynamicOffsetX()"
-			[canCreate]="true"
-			[width]="370"
-			(update)="update.emit($event)">
-			<div class="flex">
-				<logo-app type="product" size="s"></logo-app>
-				<span *ngIf="value; else empty" class="ellipsis">{{ value }}</span>
-				<ng-template #empty>
-					<span translate="text.set-product"></span>
-				</ng-template>
-			</div>
-		</selector-app>
-		<icon-app
-			*ngIf="hasOpenAction && value"
-			class="icon-preview"
-			toolTip [toolTipMessage]="toolTipMessage" toolTipPosition="above-left" [offsetX]="-15" [offsetY]="-7"
-			name="eye"
-			(click)="onOpenActionClick($event)">
-		</icon-app>
-	</div>
-
-	<!-- Supplier -->
-	<div *ngSwitchCase="erm.SUPPLIER" class="flexStart icon-container" (click)="selector?.openMenu()">
-		<selector-app
-			#selector
-			type="supplier"
-			[offsetY]="offsetY"
-			[offsetX]="getDynamicOffsetX()"
-			[canCreate]="true"
-			[width]="370"
-			(update)="update.emit($event)">
-			<div class="flex">
-				<logo-app type="supplier" size="s"></logo-app>
-				<span *ngIf="value; else empty" class="ellipsis">{{ value }}</span>
-				<ng-template #empty>
-					<span translate="text.set-supplier"></span>
-				</ng-template>
-			</div>
-		</selector-app>
-		<icon-app
-			*ngIf="hasOpenAction && value"
-			class="icon-preview supplier"
-			toolTip [toolTipMessage]="toolTipMessage" toolTipPosition="above-left" [offsetX]="-15" [offsetY]="-7"
-			name="eye"
-			(click)="onOpenActionClick($event)">
-		</icon-app>
-	</div>
-
-	<!-- Supplier Type -->
-	<div *ngSwitchCase="erm.SUPPLIER_TYPE" class="flexStart icon-container" (click)="selector?.openMenu()">
-		<selector-app
-			#selector
-			[type]="'SUPPLIER_TYPE' | erm"
-			[offsetY]="offsetY"
-			[offsetX]="getDynamicOffsetX()"
-			[canCreate]="true"
-			[width]="370"
-			(update)="update.emit($event)">
-			<div class="flex">
-				<logo-app type="supplier" size="s"></logo-app>
-				<span *ngIf="value; else empty" class="ellipsis">{{ value }}</span>
-				<ng-template #empty>
-					<span translate="text.set-supplier-type"></span>
-				</ng-template>
-			</div>
-		</selector-app>
-	</div>
-
-	<!-- Location -->
-	<div *ngSwitchCase="erm.LOCATION" class="flexStart icon-container" (click)="selector?.openMenu()">
-		<selector-app
-			#selector
-			type="country"
-			[offsetY]="offsetY"
-			[offsetX]="getDynamicOffsetX()"
-			[width]="370"
-			(update)="update.emit($event)">
-			<div class="flex">
-				<logo-app type="location" size="s"></logo-app>
-				<span *ngIf="value; else empty" class="ellipsis">{{ value }}</span>
-				<ng-template #empty>
-					<span translate="text.set-location"></span>
-				</ng-template>
-			</div>
-		</selector-app>
-	</div>
-
-	<!-- Category -->
-	<div *ngSwitchCase="erm.CATEGORY" class="flexStart icon-container" (click)="selector?.openMenu()">
-		<selector-app
-			#selector
-			type="category"
-			[value]="value"
-			[canCreate]="true"
-			[multiple]="multiple"
-			[offsetY]="offsetY"
-			[offsetX]="getDynamicOffsetX()"
-			[width]="370"
-			(update)="update.emit($event)">
-			<div class="flex">
-				<logo-app type="category" size="s"></logo-app>
-				<div *ngIf="value?.length; else noArray"  class="category-wrap flex flexWrap">
-					<div class="ellipsis category-info dot-separator">
-						<span *ngFor="let category of value; trackBy: trackByFn" class="ellipsis"> {{ category?.name }}  </span>
+			<!-- Product -->
+			<div *ngSwitchCase="erm.PRODUCT" class="flexStart icon-container" (click)="selector?.openMenu()">
+				<selector-app
+					#selector
+					type="product"
+					[offsetY]="offsetY"
+					[offsetX]="getDynamicOffsetX()"
+					[canCreate]="true"
+					[width]="370"
+					(update)="update.emit($event)">
+					<div class="flex">
+						<logo-app *ngIf="hasLogo" class="pointer" type="product" size="s"></logo-app>
+						<span *ngIf="value; else empty" class="ellipsis">{{ value }}</span>
+						<ng-template #empty>
+							<span translate="text.set-product"></span>
+						</ng-template>
 					</div>
-				</div>
-				<ng-template #noArray>
-					<span *ngIf="value?.name; else empty" class="ellipsis"> {{ value?.name }} </span>
-					<ng-template #empty>
-						{{ (multiple ? 'OBJ.set-category.plural' : 'OBJ.set-category.singular') | translate }}
-					</ng-template>
-				</ng-template>
+				</selector-app>
+				<icon-app
+					*ngIf="hasOpenAction && value"
+					class="icon-preview"
+					toolTip [toolTipMessage]="toolTipMessage" toolTipPosition="above-left" [offsetX]="-15" [offsetY]="-7"
+					name="eye"
+					(click)="onOpenActionClick($event)">
+				</icon-app>
 			</div>
-		</selector-app>
-	</div>
 
-	<!-- Event -->
-	<div *ngSwitchCase="erm.EVENT" class="flexStart icon-container" (click)="selector?.openMenu()">
-		<selector-app
-			#selector
-			type="event"
-			[value]="value"
-			[canCreate]="true"
-			[offsetY]="offsetY"
-			[offsetX]="getDynamicOffsetX()"
-			[canCreate]="true"
-			[width]="370"
-			(update)="update.emit($event)">
-			<div class="flex">
-				<logo-app type="event" size="s"></logo-app>
-				<span *ngIf="(value?.name || value?.description?.name); else empty" class="ellipsis">
-					{{ value?.name || value?.description?.name }}
-				</span>
-				<ng-template #empty>
-					<span translate="text.set-event"></span>
-				</ng-template>
+			<!-- Supplier -->
+			<div *ngSwitchCase="erm.SUPPLIER" class="flexStart icon-container" (click)="selector?.openMenu()">
+				<selector-app
+					#selector
+					type="supplier"
+					[offsetY]="offsetY"
+					[offsetX]="getDynamicOffsetX()"
+					[canCreate]="true"
+					[width]="370"
+					(update)="update.emit($event)">
+					<div class="flex">
+						<logo-app *ngIf="hasLogo" class="pointer" type="supplier" size="s"></logo-app>
+						<span *ngIf="value; else empty" class="ellipsis">{{ value }}</span>
+						<ng-template #empty>
+							<span translate="text.set-supplier"></span>
+						</ng-template>
+					</div>
+				</selector-app>
+				<icon-app
+					*ngIf="hasOpenAction && value"
+					class="icon-preview supplier"
+					toolTip [toolTipMessage]="toolTipMessage" toolTipPosition="above-left" [offsetX]="-15" [offsetY]="-7"
+					name="eye"
+					(click)="onOpenActionClick($event)">
+				</icon-app>
 			</div>
-		</selector-app>
-	</div>
-</ng-container>
 
-<ng-content></ng-content>
+			<!-- Supplier Type -->
+			<div *ngSwitchCase="erm.SUPPLIER_TYPE" class="flexStart icon-container" (click)="selector?.openMenu()">
+				<selector-app
+					#selector
+					[type]="'SUPPLIER_TYPE' | erm"
+					[offsetY]="offsetY"
+					[offsetX]="getDynamicOffsetX()"
+					[canCreate]="true"
+					[width]="370"
+					(update)="update.emit($event)">
+					<div class="flex">
+						<logo-app *ngIf="hasLogo" class="pointer" type="supplier" size="s"></logo-app>
+						<span *ngIf="value; else empty" class="ellipsis">{{ value }}</span>
+						<ng-template #empty>
+							<span translate="text.set-supplier-type"></span>
+						</ng-template>
+					</div>
+				</selector-app>
+			</div>
+
+			<!-- Location -->
+			<div *ngSwitchCase="erm.LOCATION" class="flexStart icon-container" (click)="selector?.openMenu()">
+				<selector-app
+					#selector
+					type="country"
+					[offsetY]="offsetY"
+					[offsetX]="getDynamicOffsetX()"
+					[width]="370"
+					(update)="update.emit($event)">
+					<div class="flex">
+						<logo-app *ngIf="hasLogo" class="pointer" type="location" size="s"></logo-app>
+						<span *ngIf="value; else empty" class="ellipsis">{{ value }}</span>
+						<ng-template #empty>
+							<span translate="text.set-location"></span>
+						</ng-template>
+					</div>
+				</selector-app>
+			</div>
+
+			<!-- Category -->
+			<div *ngSwitchCase="erm.CATEGORY" class="flexStart icon-container" (click)="selector?.openMenu()">
+				<selector-app
+					#selector
+					type="category"
+					[value]="value"
+					[canCreate]="true"
+					[multiple]="multiple"
+					[offsetY]="offsetY"
+					[offsetX]="getDynamicOffsetX()"
+					[width]="370"
+					(update)="update.emit($event)">
+					<div class="flex">
+						<logo-app *ngIf="hasLogo" class="pointer" type="category" size="s"></logo-app>
+						<div *ngIf="value?.length; else noArray"  class="category-wrap flex flexWrap">
+							<div class="ellipsis category-info dot-separator">
+								<span *ngFor="let category of value; trackBy: trackByFn" class="ellipsis"> {{ category?.name }}  </span>
+							</div>
+						</div>
+						<ng-template #noArray>
+							<span *ngIf="value?.name; else empty" class="ellipsis"> {{ value?.name }} </span>
+							<ng-template #empty>
+								{{ (multiple ? 'OBJ.set-category.plural' : 'OBJ.set-category.singular') | translate }}
+							</ng-template>
+						</ng-template>
+					</div>
+				</selector-app>
+			</div>
+
+			<!-- Event -->
+			<div *ngSwitchCase="erm.EVENT" class="flexStart icon-container" (click)="selector?.openMenu()">
+				<selector-app
+					#selector
+					type="event"
+					[value]="value"
+					[canCreate]="true"
+					[offsetY]="offsetY"
+					[offsetX]="getDynamicOffsetX()"
+					[canCreate]="true"
+					[width]="370"
+					(update)="update.emit($event)">
+					<div class="flex">
+						<logo-app *ngIf="hasLogo" class="pointer" type="event" size="s"></logo-app>
+						<span *ngIf="(value?.name || value?.description?.name); else empty" class="ellipsis">
+							{{ value?.name || value?.description?.name }}
+						</span>
+						<ng-template #empty>
+							<span translate="text.set-event"></span>
+						</ng-template>
+					</div>
+				</selector-app>
+			</div>
+		</ng-container>
+
+		<ng-content></ng-content>
+
+	</editable-display-app>
+</editable-container-app>
+

@@ -1,0 +1,121 @@
+<table-app
+	[class.no-min-height]="!hasMinHeight"
+	[rows]="rows"
+	[type]="'CONTACT' | erm: 'singular'"
+	[pending]="pending"
+	[selected]="selection"
+	[hasPagination]="hasPagination"
+	[hasMenu]="hasMenu"
+	[hasBorder]="hasBorder"
+	[currentSort]="currentSort"
+	[count]="count"
+	[currentPage]="currentPage"
+	[placeholder]="'placeholder.no-contact' | translate"
+	(goToPage)="goToPage.emit($event)"
+	(selectOne)="select.emit($event)"
+	(unselectOne)="unselect.emit($event)"
+	(selectAll)="selectAll.emit($event)"
+	(unselectAll)="unselectAll.emit($event)"
+	(bottomReached)="bottomReached.emit()"
+	(sort)="sort.emit($event)"
+	(showItemsPerPage)="showItemsPerPage.emit($event)"
+	(createClick)="createClick.emit()">
+
+  <!-- dynamic columns -->
+  <ng-template
+    *ngFor="let column of columnsConfig; trackBy: trackByFn"
+    let-row="row"
+		[columnApp]="column.translationKey ? ('title.' + column.translationKey | translate) : ''"
+		[sortable]="column.sortable !== false"
+		[width]="column.width"
+		[sortBy]="column.sortProperty"
+		[grows]="!column.fixedWidth"
+		[showOnHover]="column.showOnHover">
+
+    <ng-container [ngSwitch]="column.name">
+
+			<default-columns-app
+				*ngSwitchDefault
+				[row]="row"
+				[column]="column"
+				[hovered]="row.id === hovered"
+				[type]="'CONTACT' | erm"
+				(update)="update.emit($event)"
+				(previewClick)="previewClick.emit($event)"
+				(nameClick)="open.emit($event)"
+				(previewClick)="previewClick.emit($event)"
+				(logoClick)="open.emit($event)">
+			</default-columns-app>
+
+			<ng-container *ngSwitchCase="'name'">
+				<editable-container-app
+					#edt
+					(opened)="inpName.select()"
+					(closed)="onClose($event, { id: row?.id, name: inpName.value })">
+					<editable-display-app class="ellipsis">
+						{{ row?.name || '-'  }}
+					</editable-display-app>
+					<input
+						inputApp
+						#inpName
+						type="text"
+						[value]="row?.name"
+						(keyup.enter)="edt.close()"/>
+				</editable-container-app>
+			</ng-container>
+
+			<ng-container *ngSwitchCase="'jobTitle'">
+				<editable-container-app
+					#edt
+					(opened)="inpName.select()"
+					(closed)="onClose($event, { id: row?.id, jobTitle: inpName.value })">
+					<editable-display-app class="ellipsis">
+						{{ row?.jobTitle || '-'  }}
+					</editable-display-app>
+					<input
+						inputApp
+						#inpName
+						type="text"
+						[value]="row?.jobTitle"
+						(keyup.enter)="edt.close()"/>
+				</editable-container-app>
+			</ng-container>
+
+			<ng-container *ngSwitchCase="'phoneNumber'">
+				<editable-container-app
+					#edt
+					(opened)="inpName.select()"
+					(closed)="onClose($event, { id: row?.id, phoneNumber: inpName.value })">
+					<editable-display-app class="ellipsis">
+						{{ row?.phoneNumber || '-'  }}
+					</editable-display-app>
+					<input
+						inputApp
+						#inpName
+						type="text"
+						[value]="row?.phoneNumber"
+						(keyup.enter)="edt.close()"/>
+				</editable-container-app>
+			</ng-container>
+
+			<ng-container *ngSwitchCase="'email'">
+				<editable-container-app
+					#edt
+					(opened)="inpName.select()"
+					(closed)="onClose($event, { id: row?.id, email: inpName.value })">
+					<editable-display-app class="ellipsis">
+						{{ row?.email || '-'  }}
+					</editable-display-app>
+					<input
+						inputApp
+						#inpName
+						type="text"
+						[value]="row?.email"
+						(keyup.enter)="edt.close()"/>
+				</editable-container-app>
+			</ng-container>
+
+		</ng-container>
+
+	</ng-template>
+</table-app>

@@ -34,5 +34,5 @@ case $n in
 	2) ./scripts/build.sh $PROJECT;;
 	3) ./scripts/deploy.sh false $PROJECT;;
 	4) ./scripts/deploy.sh true $PROJECT;;
-	*) echo "fuck you, that's not a valid choice";;
+	*) echo "f*#@ you, that's not a valid choice";;
 esac

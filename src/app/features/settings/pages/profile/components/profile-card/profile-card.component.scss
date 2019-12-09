@@ -1,15 +1,23 @@
+.profile-card {
+	display: flex;
+	flex-wrap: nowrap;
+	justify-content: center;
 
-h2 {
-	margin-bottom: var(--spacing-l);
-}
+	.left {
+		width: 112px;
 
-button.auto {
-	margin-top: var(--spacing-l);
+		.project-logo {
+			margin-top: var(--spacing-l);
+		}
+	}
+
+	.right {
+		width: 480px;
+	}
 }
 
 .photoContainer {
-	margin-top: 8px;
-	width: 180px;
+	width: 112px;
 	height: 48px;
 	p {
 		margin: 14px;
@@ -24,6 +32,25 @@ user-picture-app {
 	font-size: var(--font-size-xl);
 }
 
+.form-title {
+	font-size: var(--font-size-l);
+}
+
 label-app {
+	color: var(--color-txt-third);
 	font-weight: 600;
+	font-size: var(--font-size-s);
+}
+
+.change-password {
+	margin-top: var(--spacing-ms);
+	font-size: var(--font-size-l);
+}
+
+button.change {
+	margin-top: var(--spacing-ms);
+}
+
+.uppercase {
+	text-transform: uppercase;
 }

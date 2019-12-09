@@ -1,12 +1,11 @@
 
-
 <ng-content select="card-header-app card-nav-app"></ng-content>
 
 <divider-app *ngIf="header || nav"></divider-app>
 
 <main class="pd-{{ padding }}">
 
-	<div class="top flexBetween flexVAlign" *ngIf="title || action">
+	<div *ngIf="title || action" class="top flexBetween flexVAlign">
 
 		<div class="flex flexVAlign">
 			<ng-content select="card-title-app"></ng-content>
@@ -24,4 +23,3 @@
 <footer>
 	<ng-content select="card-footer-app"></ng-content>
 </footer>
-

@@ -15,8 +15,9 @@ import { DefaultColumnsComponent } from './default-columns/default-columns.compo
 import { ExportTableComponent } from './exports-table/exports-table.component';
 import { TeamMembersTableComponent } from './team-members-table/team-members-table.component';
 import { InvitationsTableComponent } from './invitations-table/invitations-table.component';
-import { DataManagementTableComponent } from './data-management-table/data-management-table.component';
+import { ListManagementTableComponent } from './list-management-table/list-management-table.component';
 import { WorkflowManagamentTableComponent } from './workflow-managament-table/workflow-managament-table.component';
+import { ContactsTableComponent } from './contacts-table/contacts-table.component';
 
 @NgModule({
 	imports: [
@@ -26,33 +27,35 @@ import { WorkflowManagamentTableComponent } from './workflow-managament-table/wo
 	],
 	declarations: [
 		AttachmentsTableComponent,
+		ContactsTableComponent,
+		DefaultColumnsComponent,
+		ExportTableComponent,
+		InvitationsTableComponent,
+		ListManagementTableComponent,
 		ProductsTableComponent,
 		ProjectsTableComponent,
-		RequestsTableComponent,
 		RequestElementsTableComponent,
+		RequestsTableComponent,
 		SamplesTableComponent,
 		SuppliersTableComponent,
 		TasksTableComponent,
-		ExportTableComponent,
-		DefaultColumnsComponent,
 		TeamMembersTableComponent,
-		InvitationsTableComponent,
-		DataManagementTableComponent,
 		WorkflowManagamentTableComponent,
 	],
 	exports: [
 		AttachmentsTableComponent,
+		ContactsTableComponent,
+		ExportTableComponent,
+		InvitationsTableComponent,
+		ListManagementTableComponent,
 		ProductsTableComponent,
 		ProjectsTableComponent,
-		RequestsTableComponent,
 		RequestElementsTableComponent,
+		RequestsTableComponent,
 		SamplesTableComponent,
 		SuppliersTableComponent,
-		ExportTableComponent,
 		TasksTableComponent,
 		TeamMembersTableComponent,
-		InvitationsTableComponent,
-		DataManagementTableComponent,
 		WorkflowManagamentTableComponent,
 	],
 	entryComponents: []

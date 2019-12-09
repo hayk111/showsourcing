@@ -7,26 +7,25 @@ bread-crumb-app {
 }
 
 .my-profile {
-	font-size: var(--font-size-xxxl);
-	color: var(--color-bg-dark);
+	font-size: var(--font-size-xxl);
 }
 
 .user-name {
 	.name, .user-email {
-		font-size: var(--font-size-m);
+		font-size: var(--font-size-s);
 		font-weight: normal;
-		color: var(--color-txt-secondary);
+		color: var(--color-txt-third);
 	}
 }
 
 .card-style {
 	display: block;
 	margin: auto;
-	margin-top: var(--spacing-xxxl);
-	width: 520px;
+	margin-top: var(--spacing-xxl);
+	width: 592px;
 	position: relative;
-	border: 1px solid var(--color-secondary);
 	padding: var(--spacing-l);
 	background: white;
+	box-shadow: 0 0 12px 4px rgba(0, 0, 0, 0.01);
 	border-radius: var(--border-radius);
 }

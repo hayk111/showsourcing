@@ -1,0 +1,72 @@
+:host {
+	display: block;
+}
+
+.team-card {
+	display: flex;
+	flex-wrap: nowrap;
+	justify-content: center;
+
+	.left {
+		width: 112px;
+
+		.project-logo {
+			margin-top: var(--spacing-l);
+		}
+	}
+
+	.right {
+		width: 480px;
+	}
+}
+
+button.auto {
+	margin-top: var(--spacing-l);
+}
+
+.team-name {
+	font-size: var(--font-size-m);
+	color: var(--color-txt-third);
+}
+
+.name-input {
+	font-size: var(--font-size-m);
+	color: var(--color-bg-dark);
+}
+
+.title, .title-about {
+	font-weight: 600;
+	font-size: var(--font-size-l);
+}
+
+.title-about {
+	margin-top: var(--spacing-xl);
+}
+
+.photoContainer {
+	width: 112px;
+	height: 48px;
+}
+
+user-picture-app {
+	margin: 0;
+	z-index: var(--z-button);
+	border-radius: 20px;
+	font-size: var(--font-size-xl);
+}
+
+label-app {
+	font-weight: 600;
+}
+
+.team-created-date {
+	margin-top: var(--spacing-ms);
+	margin-bottom: 0;
+	color: var(--color-txt-secondary);
+	font-weight: normal;
+	font-size: var(--font-size-m);
+}
+
+.capitalize {
+	text-transform: uppercase;
+}

@@ -4,7 +4,7 @@
 			class="mg-right-l"
 			[image]="supplier?.logoImage"
 			[name]="supplier?.name"
-			[type]="'SUPPLIER' | erm: true"
+			[type]="'SUPPLIER' | erm: 'singular'"
 			[entity]="supplier"
 			size="xxl">
 		</initials-logo-app>
@@ -28,7 +28,7 @@
 						(keyup.enter)="edt.close()"/>
 				</editable-container-app>
 				<!-- info title -->
-				<div class="flex dot-separator">
+				<div class="flex dot-separator sub-title">
 					<div *ngIf="supplier?.supplierType?.name">{{ supplier?.supplierType?.name }}</div>
 					<div *ngIf="supplier?.city || supplier?.country">{{ { country: supplier?.country, city: supplier?.city } | countryCity }}</div>
 				</div>
@@ -46,21 +46,13 @@
 			<!-- product categories -->
 			<section>
 				<h3 class="section-title">category</h3>
-				<editable-container-app
-					[hasAction]="false"
-					[openOnClick]="false"
-					(click)="categorySelector?.selector?.openMenu()">
-					<editable-display-app>
-						<badge-selector-app
-							#categorySelector
-							class="mg-bottom-none"
-							[badge]="'CATEGORY' | erm"
-							[multiple]="true"
-							[value]="supplier?.categories"
-							(update)="update($event, 'categories')">
-						</badge-selector-app>
-					</editable-display-app>
-				</editable-container-app>
+				<badge-selector-app
+					[badge]="'CATEGORY' | erm"
+					[multiple]="true"
+					[value]="supplier?.categories"
+					[hasLogo]="false"
+					(update)="update($event, 'categories')">
+				</badge-selector-app>
 			</section>
 
 			<!-- tags -->

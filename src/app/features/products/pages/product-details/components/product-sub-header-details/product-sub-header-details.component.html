@@ -33,12 +33,12 @@
 		</div>
 
 		<!-- price -->
-		<div class="section">
+		<section>
 			<price-with-quantity-app
 				[product]="product"
 				(updateField)="update($event.newValue, $event.field)">
 			</price-with-quantity-app>
-		</div>
+		</section>
 
 		<!-- supplier -->
 		<section>
@@ -59,8 +59,8 @@
 						<editable-display-app>
 							<div *ngIf="product?.supplier as supplier" class="supplier-container flex">
 								<logo-app
-									class="mg-right-s"
-									[type]="'SUPPLIER' | erm: 'singular'" 
+									class="mg-right-s pointer"
+									[type]="'SUPPLIER' | erm: 'singular'"
 									[logo]="supplier?.logoImage">
 								</logo-app>
 								<div class="supplier-info mg-right-xxl">
@@ -89,20 +89,11 @@
 		<!-- category -->
 		<section>
 			<h3 class="section-title">category</h3>
-			<editable-container-app
-				[hasAction]="false"
-				[openOnClick]="false"
-				(click)="categorySelector?.selector?.openMenu()">
-				<editable-display-app>
-					<badge-selector-app
-						#categorySelector
-						class="mg-bottom-none"
-						[badge]="'CATEGORY' | erm"
-						[value]="product?.category"
-						(update)="update($event, 'category')">
-					</badge-selector-app>
-				</editable-display-app>
-			</editable-container-app>
+			<badge-selector-app
+				[badge]="'CATEGORY' | erm"
+				[value]="product?.category"
+				(update)="update($event, 'category')">
+			</badge-selector-app>
 		</section>
 
 		<!-- description -->

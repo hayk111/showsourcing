@@ -1,0 +1,11 @@
+:host {
+	display: flex;
+	&.border-radius-right-none button{
+		border-top-right-radius: 0;
+		border-bottom-right-radius: 0;
+	}
+
+	&.full-width button{
+		width: 100%;
+	}
+}

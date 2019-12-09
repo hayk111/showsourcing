@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { EntityName } from '~core/models';
-import { Color, IconUtils } from '~utils';
+import { IconUtils } from '~utils';
 
 @Component({
 	selector: 'info-badge-app',
@@ -8,23 +8,14 @@ import { Color, IconUtils } from '~utils';
 	styleUrls: ['./info-badge.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class InfoBadgeComponent implements OnInit {
+export class InfoBadgeComponent {
 
 	@Input() type: EntityName.CATEGORY | EntityName.TAG | EntityName.PROJECT;
-	@Input() size = 's';
 	@Input() hasDelete = false;
 	@Output() delete = new EventEmitter<null>();
-	color: string;
-	infoType: string;
+
+	iconsUtils = IconUtils;
 
 	constructor() { }
-
-	ngOnInit() {
-		this.initColor();
-	}
-
-	initColor() {
-		this.infoType = this.type && IconUtils.iconsColorMap[this.type] ? IconUtils.iconsColorMap[this.type] : Color.SECONDARY;
-	}
 
 }
