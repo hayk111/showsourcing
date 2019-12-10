@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
-import { AuthPagesModule } from '~features/auth-pages';
+import { AuthFeatureModule } from '~features/auth';
 
 @NgModule({
 	declarations: [],
 	imports: [],
-	exports: [AuthPagesModule]
+	exports: [AuthFeatureModule]
 })
 export class AuthPagesWrapperModule { }

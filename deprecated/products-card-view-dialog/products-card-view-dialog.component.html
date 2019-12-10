@@ -3,6 +3,7 @@
        class="item">
 		<product-card-app
 			class="mg-s"
+			[class.highlight-checked]="isSelected(product)"
       [checked]="isSelected(product)"
       [product]="product"
       [highlightOnChecked]="true"

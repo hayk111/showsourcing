@@ -30,6 +30,7 @@ import {
 	SelectorSupplierRowComponent,
 	SelectorUserRowComponent,
 	SelectorValueRowComponent,
+	SelectorProductRowComponent
 } from './components';
 
 
@@ -49,6 +50,7 @@ const components = [
 	SelectorSupplierRowComponent,
 	SelectorUserRowComponent,
 	SelectorValueRowComponent,
+	SelectorProductRowComponent
 ];
 
 @NgModule({

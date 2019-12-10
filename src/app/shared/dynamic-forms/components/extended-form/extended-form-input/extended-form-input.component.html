@@ -6,8 +6,10 @@
 			<!-- hint: couldn't ngModel to accumulator -->
 			<input
 				inputApp autoFocus
+				#inp
 				[canFocus]="autofocus"
-				#inp [disabled]="disabled" type="text" [value]="accumulator || ''"
+				[disabled]="disabled || metadata?.fixedValue"
+				type="text" [value]="accumulator || ''"
 				(input)="onInput(inp.value)"
 				(keyup.enter)="$event.target.blur()" [placeholder]="definition.label"/>
 		</form-field-app>
@@ -18,10 +20,27 @@
 			<!-- hint: couldn't ngModel to accumulator -->
 			<input
 				inputApp autoFocus
+				#inp
 				[canFocus]="autofocus"
-				#inp [disabled]="disabled" type="text" [value]="accumulator || ''"
+				[disabled]="disabled || metadata?.fixedValue"
+				type="text" [value]="accumulator || ''"
 				(input)="onInput(inp.value)"
 				(keyup.enter)="$event.target.blur()" [placeholder]="definition.label"/>
+		</form-field-app>
+
+		<!-- textarea -->
+		<form-field-app *ngSwitchCase="'textarea'" class="modal">
+			<label-app>{{ definition?.label }}</label-app>
+			<!-- hint: couldn't ngModel to accumulator -->
+			<textarea
+				inputApp autoFocus
+				#inp
+				[canFocus]="autofocus"
+				[disabled]="disabled || metadata?.fixedValue"
+				type="text" [value]="accumulator || ''"
+				(input)="onInput(inp.value)"
+				(keyup.enter)="$event.target.blur()" [placeholder]="definition.label">
+			</textarea>
 		</form-field-app>
 
 		<!-- tel -->
@@ -30,8 +49,10 @@
 			<!-- hint: couldn't ngModel to accumulator -->
 			<input
 				inputApp autoFocus
+				#inp
 				[canFocus]="autofocus"
-				#inp [disabled]="disabled" restrictInput="tel" type="text" [value]="accumulator || ''"
+				[disabled]="disabled || metadata?.fixedValue"
+				restrictInput="tel" type="text" [value]="accumulator || ''"
 				(input)="onInput(inp.value)"
 				(keyup.enter)="$event.target.blur()" [placeholder]="definition.label"/>
 		</form-field-app>
@@ -42,20 +63,24 @@
 			<!-- hint: couldn't ngModel to accumulator -->
 			<input
 				inputApp autoFocus
+				#inp
 				[canFocus]="autofocus"
-				#inp [disabled]="disabled" restrictInput="decimal" type="number" step="any" [value]="accumulator || ''"
+				[disabled]="disabled || metadata?.fixedValue"
+				restrictInput="decimal" type="number" step="any" [value]="accumulator || ''"
 				(input)="onInput(inp.value)"
 			 	(keyup.enter)="$event.target.blur()" [placeholder]="definition.label"/>
 		</form-field-app>
 
-		<!-- number (int) -->
+		<!-- int -->
 		<form-field-app *ngSwitchCase="'int'" class="modal">
 			<label-app>{{ definition?.label }}</label-app>
 			<!-- hint: couldn't ngModel to accumulator -->
 			<input
 				inputApp autoFocus
 				[canFocus]="autofocus"
-				#inp [disabled]="disabled" restrictInput="number" type="text" [value]="accumulator || ''"
+				#inp
+				[disabled]="disabled || metadata?.fixedValue"
+				restrictInput="number" type="text" [value]="accumulator || ''"
 				(input)="onInput(inp.value)"
 			 	(keyup.enter)="$event.target.blur()" [placeholder]="definition.label"/>
 		</form-field-app>
@@ -66,7 +91,7 @@
 			<radio-app
 				inputApp autoFocus
 				[canFocus]="autofocus"
-				[disabled]="disabled"
+				[disabled]="disabled || metadata?.fixedValue"
 				[checked]="field?.value === 'true' ? true : field?.value === 'false' ? false : null"
 				[items]="[{ name: 'Yes', value: true }, { name: 'No', value: false }]"
 				(update)="toggleBoolean($event)">
@@ -80,7 +105,7 @@
 				#inp
 				inputApp
 				[canFocus]="autofocus"
-				[disabled]="disabled"
+				[disabled]="disabled || metadata?.fixedValue"
 				[price]="stringToObject()"
 				(keyup.enter)="onSave()"
 				(change)="onInput(inp.price, true)">
@@ -94,7 +119,7 @@
 				inputApp
 				[value]="stringToObject()"
 				[autofocus]="autofocus"
-				[disabled]="disabled"
+				[disabled]="disabled || metadata?.fixedValue"
 				(update)="onInput($event, true)">
 			</editable-packaging-app>
 		</form-field-app>
@@ -110,6 +135,7 @@
 				[canCreate]="metadata?.canCreate"
 				[autofocus]="autofocus"
 				[width]="width"
+				[disabled]="disabled || metadata?.fixedValue"
 				[placeholder]="definition?.label"
 				(update)="onInput($event)">
 			</input-selector-app>
