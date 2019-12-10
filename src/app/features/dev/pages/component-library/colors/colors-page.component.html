@@ -1,5 +1,5 @@
-<card-app>
-	<h3 class="mg-l">Colors list</h3>
+<card-app class="mg-l">
+	<card-title-app>Colors list</card-title-app>
 	<table>
 		<thead>
 			<td>Name</td>
@@ -28,8 +28,8 @@
 			</tr>
 		</tbody>
 	</table>
-	
-	<h3 class="mg-l">Usage</h3>
+
+	<h3 class="mg-top-l mg-bottom-ms">Usage</h3>
 	<p>
 		You can use these colors in a class for text
 		<br>
@@ -50,26 +50,45 @@
 	</p>
 </card-app>
 
-<card-app>
-	TODO Add other colors here (background, divider, etc)
-	TODO we are going to remove those colors
-	<card-title-app>Other Colors</card-title-app>
+<card-app class="mg-l">
 
-	<b>Text</b><br>
-	<p class="color-bg-dark">class="color-bg-dark"</p>
-	<p class="color-in-progress">class="color-in-progress"</p>
-	<p class="color-supplier">class="color-supplier"</p>
-	<p class="color-txt-primary">class="color-txt-primary"</p>
-	<p class="color-txt-secondary">class="color-txt-secondary"</p>
-	<p class="color-txt-third">class="color-txt-third"</p>
-	<p class="color-txt-dark">class="color-txt-dark"</p>
-	<p class="color-txt-light">class="color-txt-light"</p>
-	<p class="color-txt-strong">class="color-txt-strong"</p>
-	<b>Background</b><br>
-	<p class="bg-new">class="bg-new"</p>
-	<p class="bg-validated">class="bg-validated"</p>
-	<p class="bg-rejected">class="bg-rejected"</p>
-	<p class="bg-in-progress">class="bg-in-progress"</p>
-	<p class="bg-inspiration">class="bg-inspiration"</p>
-	<p class="bg-white">class="bg-white"</p>
+	<card-title-app>Text Colors</card-title-app>
+
+	<table>
+		<thead>
+			<td>Name</td>
+			<td>Color</td>
+			<td>Text</td>
+			<td>Background</td>
+		</thead>
+		<tbody>
+			<tr *ngFor="let color of textColors">
+				<td>{{ color }}</td>
+				<td><div class="color-example bg-{{ color }}"></div></td>
+				<td><span class="color-{{ color }}">.color-{{ color }}</span></td>
+				<td><div class="bg-{{ color }}" [ngStyle]="{ 'color': 'white' }">.bg-{{ color }}</div></td>
+			</tr>
+		</tbody>
+	</table>
+</card-app>
+
+
+<card-app class="mg-l">
+
+	<card-title-app>Utility Colors</card-title-app>
+
+	<table>
+		<thead>
+			<td>Name</td>
+			<td>Color</td>
+		</thead>
+		<tbody>
+			<tr *ngFor="let color of utilityColors">
+				<td>{{ color }}</td>
+				<td><div class="color-example" 
+					style="border: 1px solid grey"
+					[ngStyle]="{ 'background': 'var(--color-' + color + ')'}"></div></td>
+			</tr>
+		</tbody>
+	</table>
 </card-app>

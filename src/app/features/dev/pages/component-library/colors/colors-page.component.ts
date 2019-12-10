@@ -8,6 +8,8 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 })
 export class ColorsPageComponent implements OnInit {
 	colors = ['primary', 'secondary', 'accent', 'vibrant', 'warn', 'success'];
+	textColors = ['txt-primary', 'txt-secondary', 'txt-third'];
+	utilityColors = ['bg', 'bg-secondary', 'bg-dark', 'divider', 'hover'];
 	constructor() { }
 
 	ngOnInit() {
