@@ -36,11 +36,15 @@ export class StatusUtils {
 	static DEFAULT_STATUS_COLOR = StatusUtils.statusColorMap[StatusCategory.NEW];
 	static DEFAULT_STATUS_CATEGORY = StatusCategory.NEW;
 
-	static getStatusColor(status: Status) {
+	static getStatusColor(status: Status): Color {
 		if (status && StatusUtils.statusColorMap[status.category])
 			return StatusUtils.statusColorMap[status.category];
 		else
 			return StatusUtils.DEFAULT_STATUS_COLOR;
+	}
+
+	static getStatusColorVar(status: Status) {
+		return `var(--color-${StatusUtils.getStatusColor(status)})`;
 	}
 
 }
