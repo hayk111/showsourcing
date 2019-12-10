@@ -34,12 +34,11 @@
 
 		</context-menu-trigger-app>
 
-		<div 
+		<status-selector-item-app 
 			*ngFor="let stat of (status$ | async); last as last; trackBy: trackByFn" 
-			class="status-item flexVAlign pointer mg-xs pd-xs border-radius {{ getStatusColor(stat) }}">
-			<div class="status-square mg-right-xs border-radius"></div>
-			<div class="bold">{{ stat.name }}</div>
-		</div>
+			class="mg-xs"
+			[status]="stat">
+		</status-selector-item-app>
 
 	</context-menu-app>
 
