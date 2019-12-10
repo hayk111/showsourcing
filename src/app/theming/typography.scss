@@ -32,44 +32,43 @@ body, .body, .body1 {
 	-moz-osx-font-smoothing: grayscale;
 }
 
-.fs-xxs {
-	font-size: var(--font-size-xxs);
+/* Font sizes for characters */
+$font-sizes: (
+	'xxs',
+	'xs',
+	's',
+	'm',
+	'l',
+	'xl',
+	'xxl',
+	'xxxl',
+	'xxxxl'
+);
+
+/* Font sizes for icons */
+$icon-sizes: (
+	'xs',
+	's',
+	'ms',
+	'm',
+	'l',
+	'xl',
+	'xxl'
+);
+
+// for search purposes both results
+// .fs-xxs, .fs-xs, .fs-s, .fs-m, .fs-l, .fs-xl, .fs-xxl, .fs-xxxl, .fs-xxxxl, .fs-icon-xs, .fs-icon-s, .fs-icon-ms, .fs-icon-m, .fs-icon-l, .fs-icon-xl, .fs-icon-xxl,
+
+@each $font-size in $font-sizes {
+	.fs-#{$font-size} {
+		font-size: var(--font-size-#{$font-size});
+	}
 }
 
-.fs-xs {
-	font-size: var(--font-size-xs);
-}
-
-.fs-s {
-  font-size: var(--font-size-s);
-}
-
-.fs-m {
-  font-size: var(--font-size-m);
-}
-
-.fs-l {
-  font-size: var(--font-size-l);
-}
-
-.fs-xl {
-  font-size: var(--font-size-xl);
-}
-
-.fs-xxl {
-  font-size: var(--font-size-xxl);
-}
-
-.fs-xxxl {
-  font-size: var(--font-size-xxxl);
-}
-
-.fs-xxxxl {
-	font-size: var(--font-size-xxxxl);
-}
-
-.fs-huge {
-  font-size: var(--font-size-huge);
+@each $icon-size in $icon-sizes {
+	.fs-icon-#{$icon-size} {
+		font-size: var(--font-size-icon-#{$icon-size});
+	}
 }
 
 .txt-secondary {

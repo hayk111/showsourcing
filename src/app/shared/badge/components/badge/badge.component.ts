@@ -5,8 +5,11 @@ import { Colors } from '~utils';
 	selector: 'badge-app',
 	templateUrl: './badge.component.html',
 	styleUrls: ['./badge.component.scss'],
-	/** @deprecated */
 	host: {
+		'[class.small]': 'size === "s"',
+		'[class.medium-small]': 'size === "ms"',
+		'[class.medium]': 'size === "m"',
+		/** @deprecated */
 		'[class.primary]': 'color === "primary"',
 		'[class.secondary]': 'color === "secondary"',
 		'[class.secondary-light]': 'color === "secondary-light"',
@@ -17,18 +20,16 @@ import { Colors } from '~utils';
 		'[class.flexVAlign]': 'true',
 		'[class.flexCenter]': 'true',
 		'[class.circle]': 'circle',
-		'[class.small]': 'size === "s" || size === "small"',
-		'[class.medium]': 'size === "m" || size === "medium"',
 	}
 })
 export class BadgeComponent {
 	@Input() color = 'secondary';
+	@Input() size: 's' | 'ms' | 'm' = 's';
 
 	/** @deprecated use color */
 	@Input() set type(color: Colors) {
 		this.color = color;
 	}
 	/** @deprecated */
-	@Input() size = 's';
 	@Input() circle = false;
 }

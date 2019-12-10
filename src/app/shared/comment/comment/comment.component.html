@@ -11,8 +11,8 @@
 	<div class="comment-header flexBetween">
 		<!-- title -->
 		<div class="title flexColumn">
-			<span class="name flex">{{user?.firstName }} {{user?.lastName }}</span>
-			<span class="date">{{ comment?.creationDate | date: 'dd MMM y':'':translate.currentLang }}</span>
+			<span class="name flex">{{ user?.firstName }} {{ user?.lastName }}</span>
+			<span class="color-txt-secondary">{{  comment?.creationDate | date: 'dd MMM y':'':translate.currentLang }}</span>
 		</div>
 		<!-- buttons -->
 		<div *ngIf="isMine && !isEditing" class="buttons flex hover-buttons">
@@ -29,7 +29,7 @@
 			inputApp
 			autoFocus
 			#textArea
-			[ngStyle]="{ 'height': currentHeight < minHeight ? minHeight : currentHeight + 'px' }">{{ comment?.text }}</textarea>
+			[ngStyle]="{ 'height': currentHeight < minHeight ? minHeight : currentHeight + 'px' }">{{  comment?.text }}</textarea>
 		<div class="buttons flexEnd">
 			<button class="light" (click)="isEditing = false" translate="button.cancel"></button>
 			<button (click)="onSave(textArea?.value)" translate="button.save"></button>
