@@ -81,14 +81,7 @@
 
 	<!-- created by -->
 	<ng-container *ngSwitchCase="'createdBy'">
-		<div class="flexVAlign">
-			<user-picture-app
-				*ngIf="row?.createdBy"
-				class="mg-right-s"
-				[user]="row?.createdBy">
-			</user-picture-app>
-			<span>{{ row?.createdBy | formatUserName: true }}</span>
-		</div>
+		<span>{{ row?.createdBy | formatUserName: true }}</span>
 	</ng-container>
 
 

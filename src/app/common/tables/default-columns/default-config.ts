@@ -9,7 +9,7 @@ export const defaultConfig: TableConfig = {
 	favorite: { name: 'favorite', translationKey: 'FAV', width: 50, sortProperty: 'favorite' },
 	rating: { name: 'rating', translationKey: 'rating', width: 100, sortable: false },
 	createdBy: { name: 'createdBy', translationKey: 'created-by', width: 152, sortProperty: 'createdBy.firstName' },
-	assignee: { name: 'assignee', translationKey: 'assignee', width: 152, sortProperty: 'assignee.firstName' },
+	assignee: { name: 'assignee', translationKey: 'assigned-to', width: 152, sortProperty: 'assignee.firstName' },
 	creationDate: { name: 'creationDate', translationKey: 'created-on', width: 120, sortProperty: 'creationDate' },
 	status: { name: 'status', translationKey: 'status', width: 140, sortProperty: 'status.step' },
 	productCount: { name: 'productCount', translationKey: 'products', width: 72, sortProperty: 'productsLinked.count' },

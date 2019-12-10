@@ -29,7 +29,6 @@ export class ProductsTableComponent extends EntityTableComponent<Product> implem
 		'status',
 		'assignee',
 		'createdBy',
-		'creationDate'
 	];
 	@Input() tableWidth: number;
 	@Input() hasShowItemsPerPage: boolean;
