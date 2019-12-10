@@ -59,6 +59,12 @@ export class InfoPageComponent extends AutoUnsub implements OnInit {
 			'harbour', 'masterCbm', 'quantityPer20ft', 'quantityPer40ft', 'quantityPer40ftHC'
 		]);
 
+		this.productDescriptor.modify([
+			{ name: 'reference', label: 'item reference' },
+			{ name: 'price', label: 'sales price' },
+			{ name: 'event', label: 'trade show' },
+		]);
+
 		this.shippingDescriptor.insert({ name: 'sample', type: 'title' }, 'sample');
 		this.shippingDescriptor.insert({ name: 'shipping', type: 'title' }, 'incoTerm');
 		// we need this empty objects since innercarton, mastercarton, pricematrix, have more rows inside the dynamic form
