@@ -44,8 +44,8 @@ $direction-spacing: left, right, top, bottom;
 
 // e.g. $type-name -> pd, $type-var -> padding
 @each $type-name, $type-var in $type-spacing {
-		// e.g. $size-name -> xs, $size-var -> var(--spacing-xs)
-		@each $size-name, $size-var in $size-spacing {
+	// e.g. $size-name -> xs, $size-var -> var(--spacing-xs)
+	@each $size-name, $size-var in $size-spacing {
 		// e.g .pd-s { padding: var(--spacing-s); }
 		.#{$type-name}-#{$size-name} {
 			#{$type-var}: $size-var
@@ -57,5 +57,23 @@ $direction-spacing: left, right, top, bottom;
 				#{$type-var}-#{$direction}: $size-var;
 			}
 		}
+	}
+}
+
+// for vertical and horizontal directions
+// e.g. $type-name -> pd, $type-var -> padding
+@each $type-name, $type-var in $type-spacing {
+	// e.g. $size-name -> xs, $size-var -> var(--spacing-xs)
+	@each $size-name, $size-var in $size-spacing {
+		// e.g .pd-v-s { padding: var(--spacing-s) 0; }
+		.#{$type-name}-v-#{$size-name} {
+			#{$type-var}: $size-var 0;
+		}
+
+		// e.g .pd-h-s { padding: 0 var(--spacing-s); }
+		.#{$type-name}-h-#{$size-name} {
+			#{$type-var}: 0 $size-var;
+		}
+
 	}
 }
