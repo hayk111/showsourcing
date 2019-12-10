@@ -25,6 +25,7 @@ import {
 	PreviewStaticComponent,
 	PreviewTabComponent,
 	PreviewTopBarComponent,
+	PreviewActionsComponent
 } from './components';
 
 
@@ -57,6 +58,7 @@ import {
 		PreviewStaticComponent,
 		PreviewTabComponent,
 		PreviewTopBarComponent,
+		PreviewActionsComponent
 	],
 	exports: [
 		PreviewBannerComponent,
@@ -68,6 +70,7 @@ import {
 		PreviewStaticComponent,
 		PreviewTabComponent,
 		PreviewTopBarComponent,
+		PreviewActionsComponent
 	]
 })
 export class PreviewModule { }
