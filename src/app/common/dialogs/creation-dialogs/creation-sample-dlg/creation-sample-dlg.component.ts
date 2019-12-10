@@ -69,7 +69,7 @@ export class CreationSampleDlgComponent implements OnInit {
 			this.sample = new Sample({
 				...this.product && { product: { id: this.product.id, name: this.product.name } },
 				...supplier && { supplier: { id: supplier.id, name: supplier.name } },
-				assignee
+				assignee: { id: this.userSrv.userSync.id, firstName: this.userSrv.userSync.firstName, lastName: this.userSrv.userSync.lastName }
 			});
 		}
 	}

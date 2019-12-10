@@ -186,7 +186,9 @@
       "prefix": "sup",
       "schematics": {
         "@schematics/angular:component": {
-          "style": "scss"
+					"spec": false,
+          "styleext": "scss",
+          "changeDetection": "OnPush"
         }
       },
       "architect": {

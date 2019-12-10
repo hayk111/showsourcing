@@ -6,10 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 @Component({
 	selector: 'request-table-sup',
 	templateUrl: './request-table.component.html',
-	styleUrls: [
-		'./request-table.component.scss',
-		'../../../../../../../../src/app/theming/specific/list.scss'
-	]
+	styleUrls: ['./request-table.component.scss']
 })
 export class RequestTableComponent extends EntityTableComponent<SupplierRequest> implements OnInit {
 

@@ -64,7 +64,9 @@ export class ActivityService {
 			_loadMore$.next(undefined);
 		};
 
-		const _token$ = this.getToken(tokenUrl).pipe(first());
+		const _token$ = this.getToken(tokenUrl).pipe(
+			first(),
+		);
 
 		// the token emits once, when it has emitted we wait for load more,
 		// when we have one load more emitted we get the previous result,

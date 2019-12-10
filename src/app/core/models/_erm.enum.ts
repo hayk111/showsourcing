@@ -126,6 +126,7 @@ export class ERM {
 	static readonly TASK = new EntityMetadata('task', 'tasks', 'TASK', Task);
 	static readonly TEAM = new EntityMetadata('team', 'teams', 'TEAM', Team);
 	static readonly TEAM_USER = new EntityMetadata('team user', 'team users', 'TEAM_USER');
+	static readonly TEMPLATE_FIELD = new EntityMetadata('template field', 'template fields', 'TEMPLATE_FIELD');
 	static readonly USER = new EntityMetadata('user', 'users', 'USER', User);
 	static readonly WEIGHT_UNIT = new EntityMetadata('weight unit', 'weight units', 'WEIGHT_UNIT');
 

@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ListPageKey } from '~core/list-page/list-page-keys.enum';
 import { ListPageService } from '~core/list-page/list-page.service';
 import { ProductService } from '~entity-services';
 import { ERM, Product, Project } from '~models';
@@ -35,7 +34,6 @@ export class FindProductsDialogComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		this.listSrv.setup({
-			key: `${ListPageKey.FIND_PRODUCT}-${this.project.id}`,
 			entitySrv: this.productSrv,
 			searchedFields: ['name', 'supplier.name', 'category.name'],
 			selectParams: { sortBy: 'category.name', descending: true, take: 15, query: 'deleted == false' },
@@ -45,9 +43,13 @@ export class FindProductsDialogComponent extends AutoUnsub implements OnInit {
 		this.initialSelection();
 	}
 
-	private initialSelection() {
-		if (this.initialSelectedProducts && this.initialSelectedProducts.length > 0)
+	initialSelection() {
+		if (this.initialSelectedProducts && this.initialSelectedProducts.length > 0) {
+			this.initialSelectedProducts.forEach(product => {
+				this.selectedProducts[product.id] = product;
+			});
 			this.listSrv.selectAll(this.initialSelectedProducts.map(product => ({ id: product.id })));
+		}
 	}
 
 	hasSelectedProducts() {

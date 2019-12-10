@@ -5,22 +5,21 @@ import { Price } from './price.model';
 
 export class Sample extends EntityWithAudit<SampleConfig> {
 	name?: string;
-	reference ?= '';
-	description ?= '';
+	reference?= '';
+	description?= '';
 	assignee?: User;
 	product?: Product;
 	supplier?: Supplier;
 	status?: SampleStatus;
-	archived ?= false;
+	archived?= false;
 	comments?: Comment[];
 	images?: AppImage[];
 	trackingNumber?: string;
 	shippingCompany?: string;
 	price?: Price;
-	paid ?= false;
-	type ?= '';
-	// type ?= 'Product'; TODO Backend add type
-	__typename ?= 'Sample';
+	paid?= false;
+	type?= '';
+	__typename?= 'Sample';
 
 	constructor(config: SampleConfig) {
 		super(config);

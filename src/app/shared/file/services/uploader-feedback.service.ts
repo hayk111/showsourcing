@@ -93,7 +93,7 @@ export class UploaderFeedbackService {
 		// creating base64 data and refreshing view when it's done
 		Promise.all(pendingImgs.map(p => p.createData()))
 			.then(_ => {
-				this._pendingImages = this._pendingImages.map((p: PendingImage) => ({...p} as PendingImage));
+				this._pendingImages = this._pendingImages.map((p: PendingImage) => ({ ...p } as PendingImage));
 				this.cd.markForCheck();
 			});
 
@@ -103,6 +103,8 @@ export class UploaderFeedbackService {
 	private onSuccessImg(addedImgs: AppImage[], uuids: string[]) {
 		this._uploaded$.next(addedImgs);
 		this._pendingImages = this._pendingImages.filter(p => !uuids.includes(p.id));
+		// TODO check if we can delete the line below
+		this._images = [...this._images, ...addedImgs];
 		this.cd.markForCheck();
 	}
 
@@ -125,6 +127,8 @@ export class UploaderFeedbackService {
 	private onSuccessFile(addedFiles: Attachment[], uuids: string[]) {
 		this._uploaded$.next(addedFiles);
 		this._pendingFiles = this._pendingFiles.filter(p => !uuids.includes(p.id));
+		// TODO check if we can delete the line below
+		this._files = [...this._files, ...addedFiles];
 		this.cd.markForCheck();
 	}
 
