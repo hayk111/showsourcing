@@ -6,6 +6,7 @@ import { ContextMenuComponent } from '~shared/context-menu/components/context-me
 import { AutoUnsub, StatusUtils } from '~utils';
 
 import { StatusSelectorService } from '../service/status-selector.service';
+import { Status } from '~core/models/status.model';
 
 @Component({
 	selector: 'status-selector-app',
@@ -149,5 +150,9 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 
 	previous() {
 		return this.updateStatus(this.getPreviousStatus());
+	}
+
+	getStatusColor(status: Status) {
+		return StatusUtils.getStatusColor(status);
 	}
 }

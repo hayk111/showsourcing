@@ -43,4 +43,8 @@ export class StatusUtils {
 			return StatusUtils.DEFAULT_STATUS_COLOR;
 	}
 
+	static getStatusColorVar(status: Status) {
+		return `var(--color-${StatusUtils.getStatusColor(status)})`;
+	}
+
 }
