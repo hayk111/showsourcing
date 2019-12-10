@@ -10,7 +10,6 @@
 			<h3 class="ms right-item" translate="text.project-name"></h3>
 			<editable-container-app
 				#edt
-				[hoverable]="true"
 				(closed)="update(inpName.value, 'name')"
 				(opened)="inpName.select()">
 				<editable-display-app class="ellipsis bg-dark">
@@ -30,9 +29,9 @@
 				[description]="project?.description"
 				(update)="update($event, 'description')">
 			</input-description-app>
-	
+
 			<h3 class="ms right-item">About this project</h3>
-	
+
 			<div class="about-project">
 				<div>Created by {{ project?.createdBy?.firstName }} {{ project?.createdBy?.lastName }} on {{ project?.creationDate | date: 'd MMMM y':'':translate.currentLang }}</div>
 				<div>Last Updated by {{ project?.createdBy?.firstName }} {{ project?.createdBy?.lastName }} on {{ project?.lastUpdatedDate | date: 'd MMMM y':'':translate.currentLang }}</div>

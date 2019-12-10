@@ -1,9 +1,4 @@
-
-.placeholder {
-	font-style: italic;
-	color: var(--color-txt-secondary);
-	font-weight: normal;
-}
+$padding-horizontal: 8px;
 
 :host {
 	display: flex;
@@ -18,13 +13,13 @@
 		width: 50%;
 		display: flex;
 		font-size: var(--font-size-m);
+		color: var(--color-txt-secondary);
 	}
 
 	.value {
 		height: 100%;
 		width: 50%;
 		display: flex;
-		color: var(--color-txt-secondary);
 		editable-display-app {
 			justify-content: flex-end;
 		}

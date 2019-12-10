@@ -281,6 +281,18 @@
 	transition: 0.3s;
 }
 
+$padding-horizontal: 8px;
+/* Adds hover effect that grows outside of the content on the sides */
+.oversized-horizontal-hover:hover {
+	border-radius: var(--border-radius);
+	background: var(--color-secondary-light);
+	cursor: pointer;
+	margin-left: -$padding-horizontal;
+	padding-left: $padding-horizontal;
+	margin-right: -$padding-horizontal;
+	padding-right: $padding-horizontal;
+}
+
 
 // https://developer.mozilla.org/en-US/docs/Web/CSS/will-change
 .will-change-scroll {

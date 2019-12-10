@@ -1,15 +1,10 @@
 /** encapsulation none is used, watchout */
+$padding-horizontal: 8px;
 
 :host, .field-cell {
 	box-sizing: border-box;
-	// when closed and on hover
-	&.closed:hover {
-		background: var(--color-secondary-light);
-		cursor: pointer;
-		// editable-container-app {
-		// 	color: var(--color-primary);
-		// }
-
+	// when closed and on hover -> helper.scss
+	&.oversized-horizontal-hover:hover {
 		&.no-hover {
 			background: unset;
 			cursor: default;

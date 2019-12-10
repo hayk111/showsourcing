@@ -18,7 +18,7 @@ import { EditableDisplayComponent } from '../editable-display/editable-display.c
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[class.open]': 'isOpen',
-		'[class.clickable]': '!isOpen',
+		'[class.clickable]': 'defaultStyle && !isOpen',
 		// TODO we need to refactor the editable module a bit so we don't need this.
 		// it's actually only he editable field that does need this
 		'[class.default]': 'defaultStyle'
@@ -29,7 +29,6 @@ export class EditableContainerComponent {
 	/** Whether click on the value should open the editor */
 	@Input() openOnClick = true;
 	@Input() closeOnOutsideClick = true;
-	@Input() hoverable = false;
 	/** whether we display cancel / save buttons */
 	@Input() hasAction = true;
 	/** it has a default padding and height by default, we don't want it in some cases (editable field) */
