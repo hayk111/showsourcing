@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -8,5 +9,12 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GenericErrorPageComponent {
+
+	constructor(private router: Router) { }
+
+	goHome() {
+		this.router.navigate(['']);
+	}
+
 }
 

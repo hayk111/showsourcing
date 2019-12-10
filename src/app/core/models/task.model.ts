@@ -16,7 +16,7 @@ export class Task extends EntityWithAudit<TaskConfig> {
 	lastUpdatedBy: User;
 	reference?: string;
 	archived = false;
-	__typename ?= 'Task';
+	__typename?= 'Task';
 }
 
 export interface TaskConfig {

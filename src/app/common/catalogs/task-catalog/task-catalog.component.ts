@@ -10,7 +10,13 @@ import { TrackingComponent } from '~utils/tracking-component';
 })
 export class TaskCatalogComponent extends TrackingComponent {
 
-	@Input() tasks: Task[];
+	private _tasks: Task[];
+	@Input() set tasks(tasks: Task[]) {
+		this._tasks = (tasks || []).sort((a, b) => ((a.done === b.done) ? 0 : (a.done ? 1 : -1)));
+	}
+	get tasks() {
+		return this._tasks;
+	}
 	@Output() taskClicked = new EventEmitter<Task>();
 
 	displayIndex = 3;

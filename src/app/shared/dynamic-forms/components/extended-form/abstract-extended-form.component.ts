@@ -62,7 +62,7 @@ export abstract class AbstractExtendedFormComponent implements AfterViewInit, On
 		if (change.field) {
 			// here we could use metadata.type and check if its custom, but since the selectors atm work
 			// with erm only we won't use it until its required in the app
-			this.accumulator = this.metadata && this.getERM(this.metadata.source) === ERM.SELECTOR_ELEMENT ?
+			this.accumulator = this.metadata && this.metadata.source && this.getERM(this.metadata.source) === ERM.SELECTOR_ELEMENT ?
 				this._field.selectorValue : this._field.value;
 		}
 	}
@@ -92,7 +92,7 @@ export abstract class AbstractExtendedFormComponent implements AfterViewInit, On
 	onSave() {
 		// here we could use metadata.type and check if its custom, but since the selectors atm work
 		// with erm only we won't use it until its required in the app
-		if (this.metadata && this.getERM(this.metadata.source) === ERM.SELECTOR_ELEMENT) {
+		if (this.metadata && this.metadata.source && this.getERM(this.metadata.source) === ERM.SELECTOR_ELEMENT) {
 			// in the case the values are multiple, thhe selector will automatically send us back an array
 			// otherwise we have to trasnform it into one
 			this.field.selectorValue = this.metadata.multiple ? this.accumulator : [this.accumulator];

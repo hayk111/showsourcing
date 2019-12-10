@@ -8,6 +8,6 @@ import { SharedModule } from '~shared/shared.module';
 	declarations: [
 
 	],
-	providers: [	]
+	providers: []
 })
-export class CommonModalsModule { }
+export class HeadersCommonModule { }

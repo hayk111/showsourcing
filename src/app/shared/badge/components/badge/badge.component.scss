@@ -38,16 +38,23 @@
 	&.small {
 		height: 15px;
 		min-width: 15px;
-		padding: 0 2px;
+		padding: 0 var(--spacing-xxs);
 		font-size: var(--font-size-s);
 		border-radius: var(--border-radius-s);
+	}
+	&.medium-small {
+		height: 20px;
+		min-width: 15px;
+		padding: 0 var(--spacing-xs);
+		font-size: var(--font-size-m);
+		border-radius: var(--border-radius-s);
+		font-weight: 600;
 	}
 	&.medium {
 		padding: 6px 8px;
 		font-size: var(--font-size-s);
 		border-radius: var(--border-radius);
 		font-weight: 600;
-		border-radius: var(--border-radius);
 	}
 
 	&.circle {

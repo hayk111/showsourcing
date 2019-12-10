@@ -105,10 +105,10 @@ https://stackblitz.com/edit/angular-vtluff?file=src/app/app.component.ts -->
 
 		<!-- contextual menu -->
 		<div *ngIf="hasMenu" class="col no-grows">
-			<div 
-				*ngIf="hasHeader" 
-				class="header" 
-				[style.height]="rowHeight + 'px'" 
+			<div
+				*ngIf="hasHeader"
+				class="header"
+				[style.height]="rowHeight + 'px'"
 				[style.minWidth]="'50px'">
 			</div>
 			<ng-container *ngIf="!pending">
@@ -138,7 +138,7 @@ https://stackblitz.com/edit/angular-vtluff?file=src/app/app.component.ts -->
 				</div>
 			</ng-container>
 		</div>
-		
+
 		<!-- pending -->
 		<div *ngIf="pending" class="pendingCtnr flexCenter">
 			<dots-app></dots-app>

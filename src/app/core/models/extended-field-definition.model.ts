@@ -5,6 +5,7 @@ export interface ExtendedFieldDefinitionMetadata {
 	source?: string;
 	canCreate?: boolean;
 	multiple?: boolean;
+	fixedValue?: boolean;
 }
 
 export class ExtendedFieldDefinition {

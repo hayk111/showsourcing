@@ -26,7 +26,10 @@ import { AutoUnsub } from '~utils';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
 		ListPageService, ProductFeatureService
-	]
+	],
+	host: {
+		class: 'table-page'
+	}
 })
 export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterViewInit {
 

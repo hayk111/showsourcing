@@ -59,8 +59,8 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	@Output() deleted = new EventEmitter<AppImage>();
 
 	@ViewChild('imgApp', { static: false }) imgApp: ImageComponent;
-	@ViewChild('imgApp', { static: false, read: ElementRef}) imgElem: ElementRef<HTMLElement>;
-	@ViewChild('imgCtnr', { static: false, read: ElementRef}) imgCtnr: ElementRef<HTMLDivElement>;
+	@ViewChild('imgApp', { static: false, read: ElementRef }) imgElem: ElementRef<HTMLElement>;
+	@ViewChild('imgCtnr', { static: false, read: ElementRef }) imgCtnr: ElementRef<HTMLDivElement>;
 	/** hidden file input */
 	@ViewChild('inpFile', { static: false }) inpFile: ElementRef<HTMLInputElement>;
 
@@ -85,7 +85,14 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 		});
 		this.uploaderFeedback.uploaded$
 			.pipe(takeUntil(this._destroy$))
-			.subscribe(imgs => this.uploaded.emit(imgs as AppImage[]));
+			.subscribe(imgs => {
+				this.uploaded.emit(imgs as AppImage[]);
+				// we need this condition since when we add an image the selected index will be length - 1
+				// but when property is not an array we have to set manually the index to 0
+				if (!this.isImagePropertyArray)
+					this.selectedIndex = 0;
+			});
+
 	}
 
 	back(event) {

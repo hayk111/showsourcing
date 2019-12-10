@@ -44,7 +44,7 @@
 }
 
 
-/* Color - Background classes */
+/* Color  */
 $colors: (
 	'primary',
 	'secondary',
@@ -58,8 +58,9 @@ $colors: (
 	'txt-third'
 );
 
-// for search purposes (<= nice to whoever did that)
-// .color-primary, .color-primary-light, .color-primary-dark, .bg-primary, .bg-primary-light, .bg-primary-dark, .color-secondary, .color-secondary-light, .color-secondary-dark, .bg-secondary, .bg-secondary-light, .bg-secondary-dark, .color-warn, .color-warn-light, .color-warn-dark, .bg-warn, .bg-warn-light, .bg-warn-dark, .color-success, .color-success-light, .color-success-dark, .bg-success, .bg-success-light, .bg-success-dark, .color-vibrant, .color-vibrant-light, .color-vibrant-dark, .bg-vibrant, .bg-vibrant-light, .bg-vibrant-dark, .color-accent, .color-accent-light, .color-accent-dark, .bg-accent, .bg-accent-light,
+// for search purposes
+// .color-primary, .color-primary-light, .color-primary-dark, .bg-primary, .bg-primary-light, .bg-primary-dark, .color-secondary, .color-secondary-light, .color-secondary-dark, .bg-secondary, .bg-secondary-light, .bg-secondary-dark, .color-warn, .color-warn-light, .color-warn-dark, .bg-warn, .bg-warn-light, .bg-warn-dark, .color-success, .color-success-light, .color-success-dark, .bg-success, .bg-success-light, .bg-success-dark, .color-vibrant, .color-vibrant-light, .color-vibrant-dark, .bg-vibrant, .bg-vibrant-light, .bg-vibrant-dark, .color-accent, .color-accent-light, .color-accent-dark, .bg-accent, .bg-accent-light, .bg-accent-dark, .color-task, .color-task-light, .color-task-dark, .bg-task, .bg-task-light, .bg-task-dark,
+
 // Generates class for colors and backgrounds, including light and dark
 @each $color in $colors {
 	.color-#{$color} {
@@ -82,3 +83,6 @@ $colors: (
 	}
 }
 
+.color-white {
+	color: white;
+}

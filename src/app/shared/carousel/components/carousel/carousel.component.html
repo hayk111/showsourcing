@@ -1,9 +1,9 @@
 <div class="ctnr" (fileDrop)="add($event)">
 
 	<!-- image -->
-	<div 
-		#imgCtnr 
-		class="img-ctnr flexCenter"	
+	<div
+		#imgCtnr
+		class="img-ctnr flexCenter"
 		[ngStyle]="{'transform': getRotation(getImg()), 'height': size + 'px'}"
 		(mouseover)="zoomin($event)"
 		(mousemove)="zoomin($event)"
@@ -50,7 +50,7 @@
 
 	<!-- menu -->
 	<context-menu-app class="menu visible-on-hover" *ngIf="!static">
-		<!-- hint: we zoomin on mousemove because that's what we do when hovering the image, 
+		<!-- hint: we zoomin on mousemove because that's what we do when hovering the image,
 		since this is above the image we do it here too, we can't let the event pass through like
 		for the counter because this should respond to clicks -->
 		<context-menu-trigger-app (mousemove)="zoomin($event)">
@@ -68,11 +68,11 @@
 	</context-menu-app>
 
 	<!-- add -->
-	<!-- hint: we zoomin on mousemove because that's what we do when hovering the image, 
+	<!-- hint: we zoomin on mousemove because that's what we do when hovering the image,
 	since this is above the image we do it here too, we can't let the event pass through like
 	for the counter because this should respond to clicks -->
-	<div 
-		*ngIf="!static" 
+	<div
+		*ngIf="!static"
 		class="btn add pointer visible-on-hover"
 		(click)="openFileBrowser()"
 		(mousemove)="zoomin($event)"

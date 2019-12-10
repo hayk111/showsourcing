@@ -1,12 +1,11 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ErrorPagesModule } from '~features/error/error-pages.module';
+import { NgModule } from '@angular/core';
 
 @NgModule({
 	declarations: [],
 	imports: [
 		CommonModule
 	],
-	exports: [ErrorPagesModule]
+	exports: []
 })
 export class ErrorPagesWrapperModule { }
