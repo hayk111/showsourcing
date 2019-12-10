@@ -5,6 +5,7 @@ import { AbstractDescriptorComponent } from '../abstract-descriptor.component';
 
 export class ProductDescriptor extends AbstractDescriptorComponent {
 
+
 	// TODO i18n
 	protected _descriptor: DynamicField[] = [
 		{ name: 'archived', type: 'boolean' },
@@ -12,10 +13,10 @@ export class ProductDescriptor extends AbstractDescriptorComponent {
 		{ name: 'sample', type: 'boolean', label: translate('sample available') },
 
 		{ name: 'masterCbm', type: 'decimal', label: 'Master Carton CBM' },
-		{ name: 'quantityPer20ft', type: 'number', label: `Quantity per 20'` },
-		{ name: 'quantityPer40ft', type: 'number', label: `Quantity per 40'` },
-		{ name: 'quantityPer40ftHC', type: 'number', label: `Quantity per 40' HC` },
-		{ name: 'minimumOrderQuantity', type: 'number', label: translate('MOQ') },
+		{ name: 'quantityPer20ft', type: 'int', label: `Quantity per 20'` },
+		{ name: 'quantityPer40ft', type: 'int', label: `Quantity per 40'` },
+		{ name: 'quantityPer40ftHC', type: 'int', label: `Quantity per 40' HC` },
+		{ name: 'minimumOrderQuantity', type: 'int', label: translate('MOQ') },
 
 		{ name: 'innerCarton', type: 'packaging', label: translate('inner carton') },
 		{ name: 'masterCarton', type: 'packaging', label: translate('master carton') },

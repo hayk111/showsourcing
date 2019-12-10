@@ -24,10 +24,6 @@
 				</status-button-app>
 			</ng-container>
 
-			<ng-container *ngIf="type === 'dropdown'">
-				<icon-app name="angle-down"></icon-app>
-			</ng-container>
-
 			<ng-container *ngIf="type === 'multiple-selection'">
 				<ng-content></ng-content>
 				<!-- <button class="secondary-light flexCenter change-status">
@@ -38,9 +34,11 @@
 
 		</context-menu-trigger-app>
 
-		<div *ngFor="let stat of (status$ | async); last as last; trackBy: trackByFn" class="{{ selectSize }}">
-			<status-button-app class="pointer full-width" [class.mg-bottom-xxs]="!last" [status]="stat" (click)="updateStatus(stat)"></status-button-app>
-		</div>
+		<status-selector-item-app 
+			*ngFor="let stat of (status$ | async); last as last; trackBy: trackByFn" 
+			class="mg-xs"
+			[status]="stat">
+		</status-selector-item-app>
 
 	</context-menu-app>
 

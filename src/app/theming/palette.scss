@@ -41,32 +41,6 @@
 
 	--color-divider: rgb(230, 235, 245);
 	--color-hover: rgb(230, 235, 245);
-
-	// TODO those are not used, is there a need to keep them ?
-	// entities
-	--color-product: var(--color-primary);
-	--color-product-light: var(--color-primary-light);
-	--color-supplier: var(--color-vibrant);
-	--color-supplier-light: var(--color-vibrant-light);
-	--color-tag: var(--color-secondary);
-	--color-tag-light: var(--color-accent-light);
-	--color-category: var(--color-accent);
-	--color-category-light: var(--color-accent-light);
-	--color-sample: var(--color-accent);
-	--color-sample-light: var(--color-accent-light);
-	--color-task: var(--color-success);
-	--color-task-light: var(--color-success-light);
-
-	// TODO those need to be updated
-	// status
-	--color-status-new: var(--color-secondary-contrast);
-	--color-status-new-light: var(--color-secondary);
-	--color-status-in-progress: var(--color-primary);
-	--color-status-in-progress-light: var(--color-primary-light);
-	--color-status-refused: var(--color-warn);
-	--color-status-refused-light: var(--color-warn-light);
-	--color-status-validated: var(--color-success);
-	--color-status-validated-light: var(--color-success-light);
 }
 
 
@@ -78,13 +52,16 @@ $colors: (
 	'success',
 	'vibrant',
 	'accent',
-	'task'
+	'task',
+	'txt-primary',
+	'txt-secondary',
+	'txt-third'
 );
 
 // for search purposes
 // .color-primary, .color-primary-light, .color-primary-dark, .bg-primary, .bg-primary-light, .bg-primary-dark, .color-secondary, .color-secondary-light, .color-secondary-dark, .bg-secondary, .bg-secondary-light, .bg-secondary-dark, .color-warn, .color-warn-light, .color-warn-dark, .bg-warn, .bg-warn-light, .bg-warn-dark, .color-success, .color-success-light, .color-success-dark, .bg-success, .bg-success-light, .bg-success-dark, .color-vibrant, .color-vibrant-light, .color-vibrant-dark, .bg-vibrant, .bg-vibrant-light, .bg-vibrant-dark, .color-accent, .color-accent-light, .color-accent-dark, .bg-accent, .bg-accent-light, .bg-accent-dark, .color-task, .color-task-light, .color-task-dark, .bg-task, .bg-task-light, .bg-task-dark,
 
- // Generates class for colors and backgrounds, including light and dark
+// Generates class for colors and backgrounds, including light and dark
 @each $color in $colors {
 	.color-#{$color} {
 		color: var(--color-#{$color});
@@ -106,95 +83,3 @@ $colors: (
 	}
 }
 
-// TODO we need to clean those a bit
-
-.color-bg-dark {
-	color: var(--color-bg-dark);
-}
-
-.color-new {
-	color: var(--color-secondary);
-}
-
-.color-black {
-	color: black;
-}
-
-.color-refused {
-	color: var(--color-warn);
-}
-
-.color-validated {
-	color: var(--color-success);
-}
-
-.color-in-progress, .color-inProgress {
-	color: var(--color-status-in-progress);
-}
-
-.color-action {
-	color: var(--color-action);
-}
-
-.color-supplier {
-	color: var(--color-supplier);
-}
-
-.color-accent {
-	color: var(--color-accent);
-}
-
-/** text */
-
-.color-txt-primary {
-	color: var(--color-txt-primary);
-}
-
-.color-txt-secondary {
-	color: var(--color-txt-secondary);
-}
-
-.color-txt-third {
-	color: var(--color-txt-third);
-}
-
-.color-txt-dark {
-	color: var(--color-txt-primary);
-}
-
-.color-txt-light, .color-white {
-	color: white;
-}
-
-.color-txt-strong, .color-strong {
-	color: var(--color-txt-strong);
-}
-
-/* Background */
-.bg-new {
-	background: var(--color-status-new-light);
-}
-
-.bg-validated {
-	background-color: var(--color-status-validated);
-}
-
-.bg-rejected, .bg-refused {
-	background-color: var(--color-status-refused);
-}
-
-.bg-inProgress, .bg-in-progress {
-	background-color: var(--color-status-in-progress);
-}
-
-.bg-inspiration {
-	background-color: var(--color-secondary-dark);
-}
-
-.bg-white {
-	background: white;
-}
-
-.color-bg-secondary {
-	background: var(--color-bg-secondary)
-}

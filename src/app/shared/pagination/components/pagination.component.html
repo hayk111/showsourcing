@@ -1,14 +1,13 @@
+<!-- debug helper -->
 <!--
-debug helper
-
 range: {{ range | json }} <br>
 count: {{ count }} <br>
 total pages: {{ totalPages }} <br>
-index: {{ currentPage }}  -->
+index: {{ currentPage }}
+ -->
 
 
-
-<div class="pagination-ctrl">
+<div *ngIf="range?.length > 1" class="pagination-ctrl">
 
 	<button
 		class="arrow-btn icon primary-light"

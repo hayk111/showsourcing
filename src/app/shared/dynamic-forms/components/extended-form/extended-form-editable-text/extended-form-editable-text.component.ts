@@ -21,7 +21,7 @@ export class ExtendedFormEditableTextComponent extends AbstractExtendedFormCompo
 	@Output() open = new EventEmitter<null>();
 
 	isText(type: string) {
-		return type === 'text' || type === 'decimal' || type === 'tel' || type === 'number';
+		return type === 'text' || type === 'decimal' || type === 'tel' || type === 'int';
 	}
 
 	/**
@@ -30,7 +30,7 @@ export class ExtendedFormEditableTextComponent extends AbstractExtendedFormCompo
 	 */
 	booleanEditableField(event) {
 		if (event && event.target.type !== 'radio') {
-			this.field.value === 'true' ? this.toggleBoolean(true) : this.toggleBoolean(false);
+			this.accumulator === 'true' ? this.toggleBoolean(true) : this.toggleBoolean(false);
 		}
 	}
 

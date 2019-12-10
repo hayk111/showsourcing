@@ -1,3 +1,4 @@
+export * from './preview-actions/preview-actions.component';
 export * from './preview-banner/preview-banner.component';
 export * from './preview-carousel/preview-carousel.component';
 export * from './preview-header/preview-header.component';

@@ -1,15 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { RequestCommonModule } from '~common/request';
+import { TablesCommonModule } from '~common/tables/tables-common.module';
 import { SharedModule } from '~shared/shared.module';
 
 import {
 	RequestElementTableComponent,
-	RequestInformationComponent,
-	RequestTableComponent,
-	RequestSortingMenuComponent,
 	RequestHeaderDetailsComponent,
+	RequestInformationComponent,
+	RequestSortingMenuComponent,
+	RequestTableComponent,
 } from './components';
 import { RequestDetailsComponent, RequestsPageComponent } from './containers';
 import { routes } from './routes';
@@ -28,7 +28,7 @@ import { routes } from './routes';
 	imports: [
 		CommonModule,
 		SharedModule,
-		RequestCommonModule,
+		TablesCommonModule,
 		RouterModule.forChild(routes)
 	]
 })

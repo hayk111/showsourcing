@@ -16,7 +16,7 @@ import { AutoUnsub } from '~utils';
 	templateUrl: './product-add-to-project-dlg.component.html',
 	styleUrls: ['./product-add-to-project-dlg.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [ListPageService]
+	providers: [ListPageService],
 })
 export class ProductAddToProjectDlgComponent extends AutoUnsub implements OnInit {
 
