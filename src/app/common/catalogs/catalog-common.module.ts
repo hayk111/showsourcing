@@ -8,7 +8,9 @@ import { ProjectCatalogComponent } from './project-catalog/project-catalog.compo
 @NgModule({
 	imports: [ CommonModule, SharedModule ],
 	exports: [
-
+		ProjectCatalogComponent,
+		SampleCatalogComponent,
+		TaskCatalogComponent
 	],
 	declarations: [
 		ProjectCatalogComponent,
