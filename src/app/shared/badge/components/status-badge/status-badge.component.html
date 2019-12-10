@@ -1,5 +1,8 @@
-<badge-app #badge
-	*ngIf="status?.category !== statusUtils?.DEFAULT_STATUS_CATEGORY; else noStatus" [size]="size" [color]="statusUtils.getStatusColor(status)">
+<badge-app
+	*ngIf="status?.category !== statusUtils?.DEFAULT_STATUS_CATEGORY; else noStatus"
+	#badge
+	[size]="size"
+	[color]="statusUtils.getStatusColor(status)">
 	{{ status?.step + 1 }}. {{ 'text.' + status?.name | translate }}
 </badge-app>
 
