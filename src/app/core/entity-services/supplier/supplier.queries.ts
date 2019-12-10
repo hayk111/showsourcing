@@ -19,7 +19,8 @@ export abstract class SupplierQueries extends GlobalQueries {
 		}
 	}`;
 
-	static readonly tasksLinked = `tasksLinked: _linkingObjects(objectType: "Task" property:"supplier" query:"deleted == false") {
+	// tslint:disable-next-line: max-line-length
+	static readonly tasksLinked = `tasksLinked: _linkingObjects(objectType: "Task" property:"supplier" query:"deleted == false AND archived == false") {
 		... on TaskCollection {
 			count, items {
 				id, name, reference, dueDate, done
@@ -33,7 +34,8 @@ export abstract class SupplierQueries extends GlobalQueries {
 		 }
 		}`;
 
-	static readonly samplesLinked = `samplesLinked: _linkingObjects(objectType: "Sample" property:"supplier" query:"deleted == false") {
+	// tslint:disable-next-line: max-line-length
+	static readonly samplesLinked = `samplesLinked: _linkingObjects(objectType: "Sample" property:"supplier" query:"deleted == false AND archived == false") {
 		... on SampleCollection {
 			count, items {
 				id, name, reference,
@@ -44,21 +46,21 @@ export abstract class SupplierQueries extends GlobalQueries {
 	}`;
 
 	// tslint:disable-next-line: max-line-length
-	static readonly tasksLinkedAssignedToMe = (userId: string) => `tasksLinkedAssignedToMe: _linkingObjects(objectType: "Task" property:"supplier" query:"deleted == false AND assignee.id == '${userId}' AND done == false") {
+	static readonly tasksLinkedAssignedToMe = (userId: string) => `tasksLinkedAssignedToMe: _linkingObjects(objectType: "Task" property:"supplier" query:"deleted == false AND assignee.id == '${userId}' AND done == false AND archived == false") {
 		... on TaskCollection {
 			count
 			}
 		}`
 
 	// tslint:disable-next-line: max-line-length
-	static readonly samplesLinkedAssignedToMe = (userId: string) => `samplesLinkedAssignedToMe: _linkingObjects(objectType: "Sample" property:"supplier" query:"deleted == false AND assignee.id == '${userId}'") {
+	static readonly samplesLinkedAssignedToMe = (userId: string) => `samplesLinkedAssignedToMe: _linkingObjects(objectType: "Sample" property:"supplier" query:"deleted == false AND assignee.id == '${userId}' AND archived == false") {
 		... on SampleCollection {
 			count
 		}
 	}`
 
 	// tslint:disable-next-line: max-line-length
-	static readonly tasksLinkedUndone = `tasksLinkedUndone: _linkingObjects(objectType: "Task" property:"supplier" query:"deleted == false AND done == false") {
+	static readonly tasksLinkedUndone = `tasksLinkedUndone: _linkingObjects(objectType: "Task" property:"supplier" query:"deleted == false AND done == false AND archived == false") {
 		... on TaskCollection {
 			count, items {
 				id, name, reference, dueDate, done

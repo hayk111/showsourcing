@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { first } from 'rxjs/operators';
+import { AnalyticsService } from '~core/analytics/analytics.service';
+import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
 import { GlobalWithAuditService } from '~entity-services/_global/global-with-audit.service';
 import { SupplierQueries } from '~entity-services/supplier/supplier.queries';
 import { UserService } from '~entity-services/user/user.service';
-import { Supplier, Product } from '~models';
-import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
-import { AnalyticsService } from '~core/analytics/analytics.service';
-import { ProductService } from '../product/product.service';
+import { Product, Supplier } from '~models';
+
 import { ContactService } from '../contact/contact.service';
-import { ProductQueries } from '../product/product.queries';
-import { Observable } from 'rxjs';
-import { first } from 'rxjs/operators';
+import { ProductService } from '../product/product.service';
 
 @Injectable({ providedIn: 'root' })
 export class SupplierService extends GlobalWithAuditService<Supplier> {
@@ -36,6 +36,16 @@ export class SupplierService extends GlobalWithAuditService<Supplier> {
 		return this.contactSrv.selectMany({
 			query: `supplier.id == "${supplierId}" AND deleted == false`
 		});
+	}
+
+	/**
+	 * deassociate an array of products from the products on a supplier
+	 * @param products products to diassociate from supplier
+	 * @returns
+	 */
+	deassociateProducts(products: Product[]): Observable<Product[]> {
+		const deassociatedProducts = (products || []).map(product => ({ id: product.id, supplier: null }));
+		return this.productSrv.updateMany(deassociatedProducts);
 	}
 
 }
