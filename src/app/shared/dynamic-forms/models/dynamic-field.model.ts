@@ -17,6 +17,7 @@ export interface DynamicFieldMetadata {
 	placeholder?: string;
 	disabled?: boolean;
 	rows?: number;
+	nest?: DynamicField;
 }
 
 /*
@@ -34,5 +35,5 @@ export interface DynamicFieldMetadata {
 */
 
 export type DynamicFieldType =
-	'text' | 'tel' | 'number' | 'decimal' | 'days' | 'textarea' | 'selector' | 'boolean' | 'price'
+	'text' | 'tel' | 'number' | 'decimal' | 'days' | 'textarea' | 'selector' | 'boolean' | 'price' | 'nested'
 	| 'priceMatrix' | 'packaging' | 'title' | 'url' | 'email' | 'extendedField' | 'date' | 'status' | 'votes';

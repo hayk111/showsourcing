@@ -49,8 +49,10 @@ export class InfoPageComponent extends AutoUnsub implements OnInit {
 		this.productDescriptor = new ProductDescriptor([
 			'name',
 			'reference',
+			'supplier-reference',
 			'price',
 			'moq',
+			'supplier-name',
 			'category',
 			'event'
 		]);

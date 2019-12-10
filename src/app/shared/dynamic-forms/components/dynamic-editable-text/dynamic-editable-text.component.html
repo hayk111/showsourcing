@@ -251,6 +251,15 @@
 			(blur)="onBlur()">
 		</editable-selector-app>
 
+		<!-- nested -->
+		<dynamic-editable-container-app
+			*ngSwitchCase="'nested'"
+			[indexInCol]="indexInCol"
+			[customField]="customField?.metadata?.nest"
+			[value]="value?.supplier"
+			[config]="config">
+		</dynamic-editable-container-app>
+
 		<!-- title -->
 		<h3 *ngSwitchCase="'title'" class="color-primary" [ngClass]="{ 'first': indexInCol === 0 }">
 			{{ 'text.' + customField.name | translate }}

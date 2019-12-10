@@ -33,6 +33,17 @@ export class ProductDescriptor extends AbstractDescriptorComponent {
 		{ name: 'status', type: 'status' },
 		{ name: 'votes', type: 'votes' },
 
+		{
+			name: 'supplier-name',
+			type: 'nested',
+			metadata: { nest: { name: 'name', type: 'text', label: 'supplier name' } },
+		},
+		{
+			name: 'supplier-reference',
+			type: 'nested',
+			metadata: { nest: { name: 'reference', type: 'text', label: 'supplier reference' } },
+		},
+
 		{ name: 'extendedFields', type: 'extendedField', label: 'extended fields', metadata: { target: 'Product' } },
 		{
 			name: 'assignee', type: 'selector',
