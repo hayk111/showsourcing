@@ -3,12 +3,12 @@ import { Task } from '~core/models';
 import { TrackingComponent } from '~utils/tracking-component';
 
 @Component({
-	selector: 'task-list-app',
-	templateUrl: './task-list.component.html',
-	styleUrls: ['./task-list.component.scss'],
+	selector: 'task-catalog-app',
+	templateUrl: './task-catalog.component.html',
+	styleUrls: ['./task-catalog.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TaskListComponent extends TrackingComponent {
+export class TaskCatalogComponent extends TrackingComponent {
 
 	private _tasks: Task[];
 	@Input() set tasks(tasks: Task[]) {

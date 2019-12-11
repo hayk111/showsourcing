@@ -3,12 +3,12 @@ import { Project } from '~core/models';
 import { TrackingComponent } from '~utils/tracking-component';
 
 @Component({
-	selector: 'project-list-app',
-	templateUrl: './project-list.component.html',
-	styleUrls: ['./project-list.component.scss'],
+	selector: 'project-catalog-app',
+	templateUrl: './project-catalog.component.html',
+	styleUrls: ['./project-catalog.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProjectListComponent extends TrackingComponent {
+export class ProjectCatalogComponent extends TrackingComponent {
 
 	@Input() projects: Project[];
 	@Output() openProject = new EventEmitter<Project>();

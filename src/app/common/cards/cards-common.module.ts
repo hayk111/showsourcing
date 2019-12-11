@@ -1,24 +1,22 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { CatalogCommonModule } from '~common/catalogs/catalog-common.module';
 import { SharedModule } from '~shared/shared.module';
-
+import { PicturesCardComponent } from './pictures-card/pictures-card.component';
 import { ProductCardComponent } from './product-card/product-card.component';
-import {
-	ProductCardActivitiesComponent,
-} from './product-grid-card/product-card-activities/product-card-activities.component';
+import { ProductCardActivitiesComponent } from './product-grid-card/product-card-activities/product-card-activities.component';
 import { ProductGridCardComponent } from './product-grid-card/product-grid-card.component';
+import { ProjectListCardComponent } from './project-list-card/project-list-card.component';
 import { SampleCardComponent } from './sample-card/sample-card.component';
 import { SupplierCardComponent } from './supplier-card/supplier-card.component';
-import { ProjectListCardComponent } from './project-list-card/project-list-card.component';
-import { ListCommonModule } from '~common/list/list-common.module';
-import { PicturesCardComponent } from './pictures-card/pictures-card.component';
+
 
 
 @NgModule({
 	imports: [
 		CommonModule,
 		SharedModule,
-		ListCommonModule
+		CatalogCommonModule
 	],
 	declarations: [
 		ProductCardComponent,
