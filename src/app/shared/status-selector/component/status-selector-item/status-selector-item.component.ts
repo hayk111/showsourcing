@@ -1,6 +1,6 @@
-import { Component, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Status } from '~core/models/status.model';
-import { StatusUtils, Color } from '~utils';
+import { Color, StatusUtils } from '~utils';
 
 
 @Component({
