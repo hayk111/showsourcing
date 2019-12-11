@@ -1,4 +1,4 @@
 <button class="capitalize big" [ngClass]="statusUtils.getStatusColor(status)">
 	{{ status.step ? (status.step) + '. ' : '' }}
-	{{ 'text.' + status[displayAttribute] | translate }}
+	{{ 'const.status.' + status | translate }}
 </button>

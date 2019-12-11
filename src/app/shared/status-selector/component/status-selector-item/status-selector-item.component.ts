@@ -1,6 +1,6 @@
 import { Component, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
 import { Status } from '~core/models/status.model';
-import { StatusUtils } from '~utils';
+import { StatusUtils, Color } from '~utils';
 
 
 @Component({
@@ -8,18 +8,16 @@ import { StatusUtils } from '~utils';
 	templateUrl: './status-selector-item.component.html',
 	styleUrls: ['./status-selector-item.component.scss'],
 	host: {
-		class: 'flexVAlign pointer pd-xs'
+		class: 'flexVAlign pointer'
 	}
 })
 export class StatusSelectorItemComponent implements OnInit {
 
 	@Input() status: Status;
-
-	constructor(private renderer: Renderer2, private elementRef: ElementRef) {}
+	color: Color;
 
 	ngOnInit() {
-		const color = this.getStatusColor(this.status);
-		this.renderer.addClass(this.elementRef.nativeElement, color);
+		this.color = this.getStatusColor(this.status);
 	}
 
 	getStatusColor(status: Status) {

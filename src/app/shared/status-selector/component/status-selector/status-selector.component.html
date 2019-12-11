@@ -33,11 +33,13 @@
 			</ng-container>
 
 		</context-menu-trigger-app>
+		<context-menu-item-app *ngFor="let stat of (status$ | async); last as last; trackBy: trackByFn" >
+			<status-selector-item-app 
+				[status]="stat"
+				(click)="updateStatus(stat)">
+			</status-selector-item-app>
+		</context-menu-item-app>
 
-		<status-selector-item-app 
-			*ngFor="let stat of (status$ | async); last as last; trackBy: trackByFn" 
-			[status]="stat">
-		</status-selector-item-app>
 
 	</context-menu-app>
 

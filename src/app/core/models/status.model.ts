@@ -5,9 +5,9 @@ export class Status {
 	name?: string;
 	category?: string;
 	step?: number;
-	inWorkflow?= true;
-	final?= false;
-	deleted?= false;
+	inWorkflow ?= true;
+	final ?= false;
+	deleted ?= false;
 
 	constructor(config: StatusConfig) {
 		Object.assign(this, config);
