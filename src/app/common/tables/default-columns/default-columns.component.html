@@ -3,6 +3,7 @@
 	<!-- logo -->
 	<ng-container *ngSwitchCase="'logo'">
 		<logo-app
+			class="pointer"
 			size="s"
 			[logo]="row.images && row.images[0]"
 			[color]="logoColor"
@@ -19,7 +20,7 @@
 	</ng-container>
 
 	<!-- reference -->
-	<ng-container *ngSwitchCase="'reference'">
+	<ng-container *ngSwitchCase="'reference'" (click)="onNameClick(row)">
 		<span class="txt-btn">{{ row.reference || '-' }}</span>
 	</ng-container>
 
@@ -81,14 +82,7 @@
 
 	<!-- created by -->
 	<ng-container *ngSwitchCase="'createdBy'">
-		<div class="flexVAlign">
-			<user-picture-app
-				*ngIf="row?.createdBy"
-				class="mg-right-s"
-				[user]="row?.createdBy">
-			</user-picture-app>
-			<span>{{ row?.createdBy | formatUserName: true }}</span>
-		</div>
+		<span>{{ row?.createdBy | formatUserName: true }}</span>
 	</ng-container>
 
 

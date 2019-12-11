@@ -42,7 +42,7 @@
 			<h3>Tasks</h3>
 			<div class="mg-left-ms action-hover-item color-primary txt-btn" (click)="addTask.emit()" translate="button.add"></div>
 		</div>
-		<task-list-app [tasks]="product?.tasksLinkedUndone?.items" (taskClicked)="previewTask.emit($event)"></task-list-app>
+		<task-list-app [tasks]="product?.tasksLinked?.items" (taskClicked)="previewTask.emit($event)"></task-list-app>
 	</section>
 
 	<!-- sample list -->

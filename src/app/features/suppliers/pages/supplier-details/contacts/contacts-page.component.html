@@ -1,0 +1,50 @@
+<controller-list-app
+	searchType="short"
+	[filtersAmount]="listSrv.getFilterAmount([{ type: filterTypeEnum.DELETED, value: false }])"
+	[hasFilter]="false"
+	[hasSwitch]="false"
+	[hasAssigned]="false"
+	[hasArchived]="false"
+	[count]="listSrv.count$ | async"
+	[entityType]="'CONTACT' | erm: 'singular'"
+	[searchValue]="listSrv.searchValue"
+	(search)="listSrv.search($event)"
+	(export)="dialogCommonSrv.openExportDialog(listSrv.getSelectedValues())"
+	(showFilters)="listSrv.openFilterPanel()"
+	(viewChange)="listSrv.changeView($event)">
+	<controller-list-right-item-app>
+		<button
+			*ngIf="(listSrv.selection$ | async)?.size"
+			class="warn mg-right-ms capitalize"
+			(click)="listSrv.deleteSelected(true)">
+			{{ 'OBJ.delete' | translate: { count: (listSrv.selection$ | async)?.size } }}
+		</button>
+		<button
+			class="capitalize"
+			(click)="openNewContactDlg({id: supplierId})"
+			translate="button.add-contact">
+		</button>
+	</controller-list-right-item-app>
+</controller-list-app>
+
+<contacts-table-app
+	[currentSort]="listSrv.currentSort"
+	[hasMenu]="false"
+	[pending]="listSrv.pending"
+	[rows]="listSrv.items$ | async"
+	[selection]="listSrv.selection$ | async"
+	[count]="listSrv.count$ | async"
+	[currentPage]="listSrv.currentPage"
+	(goToPage)="listSrv.loadPage($event)"
+	(delete)="listSrv.deleteOne($event)"
+	(open)="listSrv.goToDetails($event)"
+	(openCreateRequestDlg)="dialogCommonSrv.openSupplierRequest([$event])"
+	(select)="listSrv.selectOne($event, true)"
+	(selectAll)="listSrv.selectAll($event, true)"
+	(sort)="listSrv.sort($event)"
+	(unfavorited)="listSrv.onItemUnfavorited($event)"
+	(unselect)="listSrv.unselectOne($event, true)"
+	(update)="listSrv.update($event)"
+	(createClick)="openNewContactDlg({id: supplierId})"
+	(unselectAll)="listSrv.unselectAll()">
+</contacts-table-app>

@@ -12,7 +12,7 @@ import { EditableContainerComponent } from '~shared/editable-field/components/ed
 		'[class.oneLine]': 'inlineLabel',
 		'[class.twoLine]': '!inlineLabel',
 		'[class.open]': 'isOpen',
-		'[class.closed]': '!isOpen',
+		'[class.oversized-horizontal-hover]': '!isOpen',
 		'[class.canGrow]': 'canGrow',
 		'[class.cannotGrow]': '!canGrow',
 		'[class.alignCenter]': 'align === "center"',

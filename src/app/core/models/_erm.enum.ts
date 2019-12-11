@@ -35,57 +35,6 @@ import { SupplierRequest } from './supplier-request.model';
 import { Company } from './company.model';
 import { RPCRequest } from './rpc-request.model';
 
-
-export enum EntityName {
-	ATTACHMENT = 'attachment',
-	ACTIVITY = 'activity',
-	CATEGORY = 'category',
-	COMMENT = 'comment',
-	COMPANY = 'company',
-	CONTACT = 'contact',
-	COUNTRY = 'country',
-	CURRENCY = 'currency',
-	EMAIL = 'email',
-	EVENT = 'event',
-	FILE = 'file',
-	HARBOUR = 'harbour',
-	IMAGE = 'image',
-	INVITATION = 'invitation',
-	LOCATION = 'location',
-	PRODUCT = 'product',
-	PROJECT = 'project',
-	REQUEST = 'request',
-	REQUEST_ELEMENT = 'request element',
-	SAMPLE = 'sample',
-	SUPPLIER = 'supplier',
-	TAG = 'tag',
-	TASK = 'task',
-	TEAM = 'team',
-	TEAM_MEMBER = 'team-member',
-	USER = 'user',
-}
-
-export enum EntityTypeEnum {
-	ATTACHMENT = 'ATTACHMENT',
-	ACTIVITY = 'ACTIVITY',
-	CATEGORY = 'CATEGORY',
-	EVENT = 'EVENT',
-	EXPORT = 'EXPORT',
-	PRODUCT = 'PRODUCT',
-	INVITATION = 'INVITATION',
-	REQUEST = 'REQUEST',
-	PROJECT = 'PROJECT',
-	SUPPLIER = 'SUPPLIER',
-	SAMPLE = 'SAMPLE',
-	USER = 'USER',
-	TASK = 'TASK',
-	TEAM_MEMBER = 'TEAM-MEMBER',
-	TAG = 'TAG',
-}
-
-export type EntityType = 'CATEGORY' | 'EVENT' | 'PRODUCT' | 'REQUEST' | 'EXPORT'
-	| 'PROJECT' | 'TASK' | 'TEAM-MEMBER' | 'SUPPLIER' | 'SAMPLE' | 'USER' | 'TAG' | 'INVITATION';
-
 export const ERM_TOKEN = new InjectionToken<string>('ERM_TOKEN');
 
 export class EntityMetadata {
@@ -177,6 +126,7 @@ export class ERM {
 	static readonly TASK = new EntityMetadata('task', 'tasks', 'TASK', Task);
 	static readonly TEAM = new EntityMetadata('team', 'teams', 'TEAM', Team);
 	static readonly TEAM_USER = new EntityMetadata('team user', 'team users', 'TEAM_USER');
+	static readonly TEMPLATE_FIELD = new EntityMetadata('template field', 'template fields', 'TEMPLATE_FIELD');
 	static readonly USER = new EntityMetadata('user', 'users', 'USER', User);
 	static readonly WEIGHT_UNIT = new EntityMetadata('weight unit', 'weight units', 'WEIGHT_UNIT');
 

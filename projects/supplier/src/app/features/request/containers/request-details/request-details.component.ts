@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
-import { RefuseReplyDlgComponent, RequestReplyDlgComponent } from '~common/dialogs/services/dialog-common.service';
+import { RefuseReplyDlgComponent, RequestReplyDlgComponent } from '~common/dialogs/custom-dialogs';
 import { RequestElementService, SupplierRequestService } from '~core/entity-services';
-import { ListPageKey, ListPageService } from '~core/list-page';
+import { ListPageService } from '~core/list-page';
 import { DEFAULT_REPLIED_STATUS, ERM, RequestElement, SupplierRequest } from '~core/models';
 import { DialogService } from '~shared/dialog';
 import { NotificationService, NotificationType } from '~shared/notifications';
@@ -44,7 +44,10 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 			tap(id => {
 				this.listSrv.setup({
 					entitySrv: this.reqElementSrv,
-					selectParams: { sortBy: 'name', query: `@links.Request.requestElements.id == "${id}"`, descending: false },
+					// when we send the index to the dialog, we have to take care of how we sort
+					// since the elements on the dialog are not queries by @links.Request.requestElements.id but by request.requestElements
+					// we sort on the dialog manually request.requestElements.sort(name)
+					selectParams: { sortBy: 'id', query: `@links.Request.requestElements.id == "${id}"`, descending: false },
 					searchedFields: [],
 					entityMetadata: ERM.REQUEST_ELEMENT,
 					initialFilters: [],
@@ -90,7 +93,6 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 	open(element: RequestElement) {
 		const selectedIndex = this.requestElements.findIndex(elem => elem.id === element.id);
 		this.dlgSrv.open(RequestReplyDlgComponent, {
-			elements: this.requestElements,
 			selectedIndex,
 			requestId: this.requestId
 		});

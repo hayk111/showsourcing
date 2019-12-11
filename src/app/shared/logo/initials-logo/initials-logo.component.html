@@ -1,3 +1,17 @@
-<img-app *ngIf="image" [image]="image" size="m" (click)="inpFile.click()"></img-app>
-<div #initialsElement *ngIf="!image" class="initials flexCenter" (click)="inpFile.click()">{{ initials }}</div>
+<img-app
+	*ngIf="image"
+	class="pointer"
+	[image]="image"
+	size="m"
+	(click)="inpFile.click()">
+</img-app>
+
+<div
+	*ngIf="!image"
+	#initialsElement
+	class="initials flexCenter"
+	(click)="inpFile.click()">
+	{{ initials }}
+</div>
+
 <input #inpFile [hidden]="true" class="hidden" type="file" accept="image/*" (fileSelect)="addLogo($event)"/>

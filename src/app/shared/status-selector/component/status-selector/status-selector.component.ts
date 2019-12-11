@@ -5,7 +5,8 @@ import { EntityMetadata, ERM, ProductStatus, SampleStatus, SupplierStatus } from
 import { ContextMenuComponent } from '~shared/context-menu/components/context-menu/context-menu.component';
 import { AutoUnsub, StatusUtils } from '~utils';
 
-import { StatusSelectorService } from '../service/status-selector.service';
+import { StatusSelectorService } from '../../service/status-selector.service';
+import { Status } from '~core/models/status.model';
 
 @Component({
 	selector: 'status-selector-app',
@@ -150,4 +151,5 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 	previous() {
 		return this.updateStatus(this.getPreviousStatus());
 	}
+
 }

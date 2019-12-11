@@ -1,5 +1,4 @@
 
-
 <div class="left flexVAlign">
 
 	<search-bar-app
@@ -18,8 +17,7 @@
 		class="icon light"
 		(click)="showFilters.emit()"
 		translate="button.show-filters">
-			<!-- TODO: add icon for filter -->
-			<icon-app name="smile" size="m"></icon-app>
+		<icon-app name="filter" size="m"></icon-app>
 	</button>
 
 	<divider-app [vertical]="true"></divider-app>
@@ -32,8 +30,8 @@
 </div>
 
 <div class="right flexVAlign">
-	
-	<ng-content select="[right-sort-elem]" *ngIf="view === 'card'"></ng-content>
+
+	<ng-content *ngIf="view === 'card'" select="[right-sort-elem]"></ng-content>
 
 	<!-- can be replaced by div.button if a checkbox in a button isn't valid -->
 	<button
@@ -76,15 +74,18 @@
 		Show my exports only
 	</button>
 
-	<divider-app [vertical]="true"></divider-app>
+	<divider-app
+		*ngIf="hasArchived || hasAssigned || hasCompletedTask || hasTaskCreatedByMeOnly || hasMyExport || view === 'card'"
+		[vertical]="true">
+	</divider-app>
 	<!-- TODO export and sort -->
 
 	<ng-content select="controller-list-right-item-app"></ng-content>
 
-	<divider-app [vertical]="true"></divider-app>
+	<divider-app *ngIf="hasSwitch" [vertical]="true"></divider-app>
 
 	<view-switcher-app *ngIf="hasSwitch" [switchContent]="switchContent" [view]="view"
 		(viewChange)="viewChange.emit($event)" class="mg-left-ms">
 	</view-switcher-app>
-	
+
 </div>

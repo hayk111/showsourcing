@@ -55,6 +55,7 @@ export class CentralClientInitializer extends AbstractApolloClient {
 			ERM.COMPANY,
 			// ERM.COMPANY_USER,
 			ERM.IMAGE,
+			// ERM.IMAGE_UPLOAD_REQUEST
 			// ERM.IMAGE_URL,
 			// ERM.INDUSTRY,
 			ERM.INVITATION,

@@ -110,8 +110,8 @@ export class DialogCommonService {
 		return this.dlgSrv.open(MassEditDlgComponent, { items, type });
 	}
 
-	openNewContactDlg(data: { isNewContact?: boolean, supplier?: Supplier, contactId?: string }) {
-		return this.dlgSrv.open(NewContactDlgComponent, data);
+	openNewContactDlg(supplier?: Supplier, isNewContact: boolean = true, contactId?: string) {
+		return this.dlgSrv.open(NewContactDlgComponent, { isNewContact, supplier, contactId });
 	}
 
 	openRefuseReplyDlg(data: { senderName: string, recipientName: string, replyId: ID }) {

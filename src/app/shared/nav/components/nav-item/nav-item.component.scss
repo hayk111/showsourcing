@@ -3,6 +3,7 @@
   color: var(--color-txt-secondary);
 	margin-right: var(--spacing-xl);
 	font-weight: 600;
+	text-transform: capitalize;
 
   & > a {
     display: flex;

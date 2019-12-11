@@ -18,7 +18,7 @@
 		</pictures-card-app>
 		<!-- comments -->
 		<card-app>
-			<card-title-app translate="title.comments"></card-title-app>
+			<card-title-app size="l" translate="title.comments"></card-title-app>
 			<add-comment-app (added)="sendComment($event)"></add-comment-app>
 			<divider-app *ngIf="supplier?.comments?.length"></divider-app>
 			<comment-list-app [amountViewMore]="8" [comments]="supplier?.comments"></comment-list-app>
@@ -37,7 +37,7 @@
 		</supplier-docket-app>
 		<!-- supplier info -->
 		<card-app>
-			<h3 class="ms" translate="title.supplier-information"></h3>
+			<card-title-app size="s">Team Rating</card-title-app>
 			<dynamic-form-app
 				class="mg-bottom-l"
 				[value]="supplier"
@@ -48,7 +48,7 @@
 		</card-app>
 		<!-- supplier rating -->
 		<card-app>
-			<h3 class="l">Team Rating</h3>
+			<card-title-app size="s">Team Rating</card-title-app>
 			<rating-dashboard-app
 				[votes]="supplier?.votes"
 				[type]="erm.SUPPLIER.singular"

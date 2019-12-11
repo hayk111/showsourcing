@@ -1,18 +1,13 @@
-#content {
-  display: flex;
-  > * {
-    margin-right: 1px;
-  }
-  .padding {
-    div {
-      border: 1px solid black;
-      display: inline-block;
-    }
-  }
-  .margin {
-    div {
-      border: 1px solid black;
-      display: inline-block;
-    }
-  }
+
+.padding {
+	div {
+		border: 1px solid black;
+		display: inline-block;
+	}
+}
+.margin {
+	div {
+		border: 1px solid black;
+		display: inline-block;
+	}
 }

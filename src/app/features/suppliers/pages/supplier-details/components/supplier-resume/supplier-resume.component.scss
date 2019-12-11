@@ -4,6 +4,9 @@
 
 .title {
 	margin-top: -10px;
-	// we cannot use 12px since the editable-container uses a 6px top
-	margin-bottom: 6px;
+	margin-bottom: var(--spacing-l);
+
+	.sub-title {
+		margin-top: -4px;
+	}
 }

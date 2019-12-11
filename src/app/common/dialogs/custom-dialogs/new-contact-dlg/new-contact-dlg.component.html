@@ -1,4 +1,4 @@
-<dialog-app>
+<dialog-app (close)="close()" (clickOutside)="close()">
 
 	<dialog-header-app class="capitalize" translate="label.contact"></dialog-header-app>
 
@@ -64,7 +64,8 @@
 			</form-field-app>
 
 			<label translate="label.business-card"></label>
-			<carousel-app *ngIf="contact$ | async as contact"
+			<carousel-app
+				*ngIf="contact$ | async as contact"
 				[imageProperty]="'businessCardImage'"
 				[isImagePropertyArray]="false"
 				[entity]="contact"

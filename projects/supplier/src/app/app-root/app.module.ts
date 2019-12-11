@@ -1,17 +1,19 @@
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PreloadAllModules, RouterModule } from '@angular/router';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { Angulartics2Module } from 'angulartics2';
-import { CommonModalsModule } from '~common/dialogs/services/dialog-common.service';
+import { CustomDialogsCommonModule } from '~common/dialogs/custom-dialogs/custom-dialogs-common.module';
 import { AppApolloModule } from '~core/apollo';
+import * as i18n from '~core/i18n/i18n.service';
 import { ApiInterceptor } from '~core/interceptors/api.interceptor';
 import { SharedModule } from '~shared/shared.module';
+
 import { TemplateModule } from '../core/template';
 import { AppComponent } from './app.component';
 import { routes } from './routes';
-import { environment } from 'environments/environment';
 
 
 @NgModule({
@@ -25,10 +27,10 @@ import { environment } from 'environments/environment';
 		HttpClientModule,
 		SharedModule,
 		AppApolloModule,
-		CommonModalsModule,
+		CustomDialogsCommonModule,
 		RouterModule.forRoot(routes, {
 			preloadingStrategy: PreloadAllModules,
-			enableTracing: !environment.production
+			// enableTracing: !environment.production
 		}),
 		Angulartics2Module.forRoot({
 			pageTracking: {
@@ -37,6 +39,13 @@ import { environment } from 'environments/environment';
 				excludedRoutes: [new RegExp('(validate-email)[\/a-zA-Z0-9]+')]
 			}
 		}),
+		TranslateModule.forRoot({
+			loader: {
+				provide: TranslateLoader,
+				useFactory: i18n.HttpLoaderFactory,
+				deps: [HttpClient]
+			}
+		})
 	],
 	providers: [
 		{

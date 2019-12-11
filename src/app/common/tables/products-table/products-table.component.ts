@@ -16,6 +16,7 @@ import { mediumTableConfig, bigTableConfig } from './config';
 export class ProductsTableComponent extends EntityTableComponent<Product> implements OnInit {
 	columns = [
 		'logo',
+		'reference',
 		'name',
 		'preview',
 		'reference',
@@ -28,7 +29,6 @@ export class ProductsTableComponent extends EntityTableComponent<Product> implem
 		'status',
 		'assignee',
 		'createdBy',
-		'creationDate'
 	];
 	@Input() tableWidth: number;
 	@Input() hasShowItemsPerPage: boolean;

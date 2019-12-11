@@ -16,7 +16,7 @@
 					[width]="370"
 					(update)="update.emit($event)">
 					<div class="flex">
-						<logo-app class="pointer" type="product" size="s"></logo-app>
+						<logo-app *ngIf="hasLogo" class="pointer" type="product" size="s"></logo-app>
 						<span *ngIf="value; else empty" class="ellipsis">{{ value }}</span>
 						<ng-template #empty>
 							<span translate="text.set-product"></span>
@@ -43,7 +43,7 @@
 					[width]="370"
 					(update)="update.emit($event)">
 					<div class="flex">
-						<logo-app class="pointer" type="supplier" size="s"></logo-app>
+						<logo-app *ngIf="hasLogo" class="pointer" type="supplier" size="s"></logo-app>
 						<span *ngIf="value; else empty" class="ellipsis">{{ value }}</span>
 						<ng-template #empty>
 							<span translate="text.set-supplier"></span>
@@ -70,7 +70,7 @@
 					[width]="370"
 					(update)="update.emit($event)">
 					<div class="flex">
-						<logo-app class="pointer" type="supplier" size="s"></logo-app>
+						<logo-app *ngIf="hasLogo" class="pointer" type="supplier" size="s"></logo-app>
 						<span *ngIf="value; else empty" class="ellipsis">{{ value }}</span>
 						<ng-template #empty>
 							<span translate="text.set-supplier-type"></span>
@@ -89,7 +89,7 @@
 					[width]="370"
 					(update)="update.emit($event)">
 					<div class="flex">
-						<logo-app class="pointer" type="location" size="s"></logo-app>
+						<logo-app *ngIf="hasLogo" class="pointer" type="location" size="s"></logo-app>
 						<span *ngIf="value; else empty" class="ellipsis">{{ value }}</span>
 						<ng-template #empty>
 							<span translate="text.set-location"></span>
@@ -111,7 +111,7 @@
 					[width]="370"
 					(update)="update.emit($event)">
 					<div class="flex">
-						<logo-app class="pointer" type="category" size="s"></logo-app>
+						<logo-app *ngIf="hasLogo" class="pointer" type="category" size="s"></logo-app>
 						<div *ngIf="value?.length; else noArray"  class="category-wrap flex flexWrap">
 							<div class="ellipsis category-info dot-separator">
 								<span *ngFor="let category of value; trackBy: trackByFn" class="ellipsis"> {{ category?.name }}  </span>
@@ -140,7 +140,7 @@
 					[width]="370"
 					(update)="update.emit($event)">
 					<div class="flex">
-						<logo-app class="pointer" type="event" size="s"></logo-app>
+						<logo-app *ngIf="hasLogo" class="pointer" type="event" size="s"></logo-app>
 						<span *ngIf="(value?.name || value?.description?.name); else empty" class="ellipsis">
 							{{ value?.name || value?.description?.name }}
 						</span>
@@ -153,6 +153,7 @@
 		</ng-container>
 
 		<ng-content></ng-content>
+
 	</editable-display-app>
 </editable-container-app>
 

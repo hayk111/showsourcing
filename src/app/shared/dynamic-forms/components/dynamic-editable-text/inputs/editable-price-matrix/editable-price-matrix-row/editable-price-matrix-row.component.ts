@@ -7,7 +7,10 @@ import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 	templateUrl: './editable-price-matrix-row.component.html',
 	styleUrls: ['./editable-price-matrix-row.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [makeAccessorProvider(EditablePriceMatrixRowComponent)]
+	providers: [makeAccessorProvider(EditablePriceMatrixRowComponent)],
+	host: {
+		'[class.oversized-horizontal-hover]': '!isOpen',
+	}
 })
 export class EditablePriceMatrixRowComponent extends AbstractInput {
 

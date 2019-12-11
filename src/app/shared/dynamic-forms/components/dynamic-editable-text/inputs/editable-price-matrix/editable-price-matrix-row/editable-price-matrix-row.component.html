@@ -1,16 +1,16 @@
 <!-- label -->
 <editable-container-app #editableLabel
-	class="label clickable"
+	class="label"
 	[defaultStyle]="false"
 	(closed)="onClose($event)"
-	(opened)="inp1.select()">
+	(opened)="onOpen(); inp1.select()">
 
 	<editable-display-app class="pointer full-width">
 		<ng-container *ngIf="value.label; else placeholder">
 			{{ value.label }}
 		</ng-container>
 		<ng-template #placeholder>
-			<span class="placeholder" translate="placeholder.add-price-label"></span>
+			<div class="italic color-txt-third" translate="placeholder.add-price-label"></div>
 		</ng-template>
 	</editable-display-app>
 
@@ -36,7 +36,7 @@
 	class="value clickable"
 	[defaultStyle]="false"
 	(closed)="onClose($event)"
-	(opened)="inpPrice.select()">
+	(opened)="onOpen(); inpPrice.select()">
 	<editable-display-app class="full-width">
 		<span *ngIf="currency">{{ (currency || 'USD') | const : 'currency' : 'symbol'}} </span>
 		<span class="mg-xs spacer"></span>
@@ -48,6 +48,7 @@
 			formFieldCtrl
 			[price]="value.price"
 			(keyup.enter)="editableValue.close();"
-			(change)="accumulate('price', inpPrice.price)"></input-price-app>
+			(change)="accumulate('price', inpPrice.price)">
+		</input-price-app>
 	</form-field-app>
 </editable-container-app>
