@@ -8,5 +8,10 @@
 
 .status {
 	font-size: var(--font-size-m);
-	font-weight: 600;
+}
+
+.small {
+	display: flex;
+	width: var(--spacing-l);
+	height: var(--spacing-l);
 }

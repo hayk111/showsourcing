@@ -66,6 +66,13 @@ pagination-app {
 	.col {
 		flex-shrink: 0;
 	}
+
+	.empty-border + .col {
+		.header, .cell {
+			padding: 0;
+		}
+	}
+
 	.cell, .header {
 		color: var(--color-txt-primary);
 		padding-left: var(--spacing-ms);
@@ -93,7 +100,7 @@ pagination-app {
 	
 	.selectionCol {
 		.header, .cell {
-			padding: 0 var(--spacing-ms) 0 0;
+			padding: 0;
 		}
 	}
 	

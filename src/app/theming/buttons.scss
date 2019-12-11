@@ -123,6 +123,13 @@ button, input[type="submit"], .button {
 		}
 	}
 
+	&.icon.small {
+		width: var(--spacing-l);
+		icon-app {
+			font-size: var(--font-size-s);
+		}
+	}
+
 }
 
 .txt-btn {
