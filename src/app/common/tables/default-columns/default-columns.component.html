@@ -20,8 +20,8 @@
 	</ng-container>
 
 	<!-- reference -->
-	<ng-container *ngSwitchCase="'reference'" (click)="onNameClick(row)">
-		<span class="txt-btn">{{ row.reference || '-' }}</span>
+	<ng-container *ngSwitchCase="'reference'">
+		<span (click)="onNameClick(row)" class="txt-btn">{{ row.reference || '-' }}</span>
 	</ng-container>
 
 	<!-- preview -->
@@ -42,16 +42,16 @@
 
 	<!-- rating -->
 	<ng-container *ngSwitchCase="'rating'">
-		<rating-badge-app [votes]="row?.votes"[hasNumber]="true"></rating-badge-app>
+		<rating-badge-app [votes]="row?.votes"></rating-badge-app>
 	</ng-container>
 
 	<!-- status -->
 	<ng-container *ngSwitchCase="'status'">
 		<status-selector-app
 			selectSize="m"
+			[displayStep]="type === erm.PRODUCT"
 			[entity]="row"
-			[typeEntity]="type"
-			(statusUpdated)="update.emit($event)">
+			[typeEntity]="type">
 		</status-selector-app>
 	</ng-container>
 

@@ -1,61 +1,7 @@
 :host {
+	min-width: 120px;
 	.status-square {
 		height: var(--spacing-ms);
 		width: var(--spacing-ms);
-	}
-
-	&.secondary {
-		.status-square {
-			background: var(--color-secondary);
-		}
-		&:hover {
-			color: var(--color-secondary-contrast);;
-			background: var(--color-secondary-light);
-		}
-	}
-	&.primary {
-		.status-square {
-			background: var(--color-primary);
-		}
-		&:hover {
-			color: var(--color-primary);;
-			background: var(--color-primary-light);
-		}
-	}
-	&.secondary-light {
-		.status-square {
-			background: var(--color-secondary);
-		}
-		&:hover {
-			color: var(--color-secondary);;
-			background: var(--color-secondary-light);
-		}
-	}
-	&.accent {
-		.status-square {
-			background: var(--color-accent);
-		}
-		&:hover {
-			color: var(--color-accent);;
-			background: var(--color-accent-light);
-		}
-	}
-	&.warn {
-		.status-square {
-			background: var(--color-warn);
-		}
-		&:hover {
-			color: var(--color-warn);
-			background: var(--color-warn-light);
-		}
-	}
-	&.success {
-		.status-square {
-			background: var(--color-success);
-		}
-		&:hover {
-			color: var(--color-success);
-			background: var(--color-success-light);
-		}
 	}
 }

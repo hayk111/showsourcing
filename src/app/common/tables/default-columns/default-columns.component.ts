@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { ColumnConfig } from '../entity-table.component';
-import { EntityMetadata } from '~core/models';
+import { EntityMetadata, ERM } from '~core/models';
 import { Color } from '~utils/colors.enum';
 import { Router } from '@angular/router';
 
@@ -32,6 +32,7 @@ export class DefaultColumnsComponent {
 	@Output() previewClick = new EventEmitter<any>();
 	@Output() logoClick = new EventEmitter<any>();
 	@Output() nameClick = new EventEmitter<any>();
+	erm = ERM;
 
 	constructor(public translate: TranslateService, private router: Router) {}
 
