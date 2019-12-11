@@ -1,35 +1,33 @@
 import { ERM } from '~core/models';
 import { DynamicField } from '~shared/dynamic-forms';
-import { translate } from '~utils';
+
 import { AbstractDescriptorComponent } from '../abstract-descriptor.component';
 
 export class ProductDescriptor extends AbstractDescriptorComponent {
 
-
-	// TODO i18n
 	protected _descriptor: DynamicField[] = [
 		{ name: 'archived', type: 'boolean' },
 		{ name: 'favorite', type: 'boolean' },
-		{ name: 'sample', type: 'boolean', label: translate('sample available') },
+		{ name: 'sample', type: 'boolean', label: 'sample-available' },
 
-		{ name: 'masterCbm', type: 'decimal', label: 'Master Carton CBM' },
-		{ name: 'quantityPer20ft', type: 'int', label: `Quantity per 20'` },
-		{ name: 'quantityPer40ft', type: 'int', label: `Quantity per 40'` },
-		{ name: 'quantityPer40ftHC', type: 'int', label: `Quantity per 40' HC` },
-		{ name: 'minimumOrderQuantity', type: 'int', label: translate('MOQ') },
+		{ name: 'masterCbm', type: 'decimal', label: 'master-carton-cbm' },
+		{ name: 'quantityPer20ft', type: 'int', label: 'quantity-per-20' },
+		{ name: 'quantityPer40ft', type: 'int', label: 'quantity-per-40' },
+		{ name: 'quantityPer40ftHC', type: 'int', label: 'quantity-per-40-hc' },
+		{ name: 'minimumOrderQuantity', type: 'int', label: 'moq' },
 
-		{ name: 'innerCarton', type: 'packaging', label: translate('inner carton') },
-		{ name: 'masterCarton', type: 'packaging', label: translate('master carton') },
+		{ name: 'innerCarton', type: 'packaging', label: 'inner-carton' },
+		{ name: 'masterCarton', type: 'packaging', label: 'master-carton' },
 
-		{ name: 'price', type: 'price', label: translate(ERM.PRICE.singular, 'erm') },
-		{ name: 'samplePrice', type: 'price', label: translate('sample price') },
-		{ name: 'priceMatrix', type: 'priceMatrix', label: translate('price matrix') },
+		{ name: 'price', type: 'price', label: 'price' },
+		{ name: 'samplePrice', type: 'price', label: 'sample-price' },
+		{ name: 'priceMatrix', type: 'priceMatrix', label: 'price-matrix' },
 
 		{ name: 'description', type: 'textarea', metadata: { rows: 5 } },
 		{ name: 'name', type: 'text', required: true, label: 'name' },
-		{ name: 'reference', type: 'text', label: translate('reference') },
-		{ name: 'moq', type: 'text', label: translate('moq') },
-		{ name: 'moqDescription', type: 'textarea', label: translate('MOQ description') },
+		{ name: 'reference', type: 'text', label: 'reference' },
+		{ name: 'moq', type: 'text', label: 'moq' },
+		{ name: 'moqDescription', type: 'textarea', label: 'moq-description' },
 
 		{ name: 'status', type: 'status' },
 		{ name: 'votes', type: 'votes' },
@@ -54,13 +52,13 @@ export class ProductDescriptor extends AbstractDescriptorComponent {
 		{ name: 'extendedFields', type: 'extendedField', label: 'extended fields', metadata: { target: 'Product' } },
 		{
 			name: 'assignee', type: 'selector',
-			label: translate('assigned to'),
+			label: 'assigned-to',
 			metadata: {
 				target: ERM.USER.singular,
 				canCreate: false,
 				multiple: false,
 				hasBadge: false,
-				placeholder: `${translate('choose')} ${translate('assignee')}`
+				placeholder: 'choose assignee'
 			}
 		},
 		{
@@ -75,7 +73,7 @@ export class ProductDescriptor extends AbstractDescriptorComponent {
 		},
 		{
 			name: 'event', type: 'selector',
-			label: translate(ERM.EVENT.singular, 'erm'),
+			label: 'event',
 			metadata: {
 				target: ERM.EVENT.singular,
 				canCreate: true,
@@ -85,7 +83,7 @@ export class ProductDescriptor extends AbstractDescriptorComponent {
 		},
 		{
 			name: 'harbour', type: 'selector',
-			label: translate(ERM.HARBOUR.singular, 'erm'),
+			label: 'harbour',
 			metadata: {
 				target: ERM.HARBOUR.singular,
 				canCreate: false,
@@ -95,7 +93,7 @@ export class ProductDescriptor extends AbstractDescriptorComponent {
 		},
 		{
 			name: 'incoTerm', type: 'selector',
-			label: translate(ERM.INCO_TERM.singular, 'erm'),
+			label: 'inco-term',
 			metadata: {
 				target: ERM.INCO_TERM.singular,
 				canCreate: false,
@@ -106,7 +104,7 @@ export class ProductDescriptor extends AbstractDescriptorComponent {
 		{
 			name: 'projects',
 			type: 'selector',
-			label: translate(ERM.PROJECT.plural, 'erm'),
+			label: 'project',
 			metadata: {
 				target: ERM.PROJECT.singular,
 				canCreate: true,
@@ -116,7 +114,7 @@ export class ProductDescriptor extends AbstractDescriptorComponent {
 		},
 		{
 			name: 'supplier', type: 'selector',
-			label: translate(ERM.SUPPLIER.singular, 'erm'),
+			label: 'supplier',
 			metadata: {
 				target: ERM.SUPPLIER.singular,
 				canCreate: true,
@@ -127,7 +125,7 @@ export class ProductDescriptor extends AbstractDescriptorComponent {
 		{
 			name: 'tags',
 			type: 'selector',
-			label: translate(ERM.TAG.plural, 'erm'),
+			label: 'tag',
 			metadata: {
 				target: ERM.TAG.singular,
 				canCreate: true,
@@ -139,30 +137,30 @@ export class ProductDescriptor extends AbstractDescriptorComponent {
 		{
 			name: 'createdBy',
 			type: 'selector',
-			label: translate('created by'),
+			label: 'created-by',
 			metadata: { target: ERM.USER.singular, disabled: true }
 		},
 		{
 			name: 'creationDate',
 			type: 'date',
-			label: translate('creation date'),
+			label: 'creation-date',
 			metadata: { disabled: true }
 		},
 		{
 			name: 'lastUpdatedBy',
 			type: 'selector',
-			label: translate('last updated by'),
+			label: 'last-updated-by',
 			metadata: { target: ERM.USER.singular, disabled: true }
 		},
 		{
 			name: 'lastUpdatedDate',
 			type: 'date',
-			label: translate('last updated date'),
+			label: 'last-updated-date',
 			metadata: { disabled: true }
 		}
 	];
 
-	constructor(only?: string[], ) {
+	constructor(only?: string[]) {
 		super();
 		this.pickFields(only);
 	}

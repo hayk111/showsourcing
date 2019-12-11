@@ -36,8 +36,8 @@ export interface DynamicFieldMetadata {
 		· width: indicated the width of the selector // Default 390 on dynamic form
 		· placeholder: placeholder if we need one different from label/name
 		· disabled: if the attribute displayed is disabled
-		· rows:
-		· nest: nested property we want to display e.g. product.supplier.name
+		· rows:number of rows that the element will occupy inside the form e.g. textarea
+		· nest: nested property we want to display. Nested values are ALWAYS DISABLED e.g. product.supplier.name
 		· nestTarget: target so we know which form control we use e.g. target=supplier
 		· source: only used when using dynamic form from metadata of the extended Fields, the source of our selector
 */
