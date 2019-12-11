@@ -49,6 +49,7 @@
 	<ng-container *ngSwitchCase="'status'">
 		<status-selector-app
 			selectSize="m"
+			[displayStep]="type === erm.PRODUCT"
 			[entity]="row"
 			[typeEntity]="type">
 		</status-selector-app>

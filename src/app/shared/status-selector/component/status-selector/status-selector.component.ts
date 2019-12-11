@@ -19,6 +19,7 @@ import { Status } from '~core/models/status.model';
 export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 
 	@Input() typeEntity: EntityMetadata;
+	@Input() displayStep = false;
 	/** In this case its alwaysgoing to be a product, sample, supplier or task */
 	private _entity: any;
 	@Input()

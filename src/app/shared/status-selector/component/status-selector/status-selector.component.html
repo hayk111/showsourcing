@@ -11,6 +11,7 @@
 			<ng-container *ngIf="type === 'badge'">
 				<status-badge-app
 					class="pointer"
+					[displayStep]="displayStep"
 					[status]="entity?.status"
 					[typeEntity]="typeEntity"
 					[size]="selectSize">
@@ -33,7 +34,7 @@
 			</ng-container>
 
 		</context-menu-trigger-app>
-		
+
 		<context-menu-item-app *ngFor="let stat of (status$ | async); last as last; trackBy: trackByFn" (click)="updateStatus(stat)">
 			<status-selector-item-app [status]="stat"></status-selector-item-app>
 		</context-menu-item-app>
