@@ -14,7 +14,18 @@ export class DynamicFormsService {
 		const formGroup = new FormGroup({});
 		customFields.forEach(field => {
 			const ctrl = this.toFormControl(field);
-			formGroup.addControl(field.name, ctrl);
+			let name: string;
+			// if its nested we use a the nestTarget for the form control name, else we use the field name
+			if (field && field.metadata && field.metadata.nest) {
+				if (!field.metadata.nestTarget)
+					throw Error(`No nestTarget provided for field '${field.name}`);
+				name = field.metadata.nestTarget;
+			} else {
+				name = field.name;
+			}
+
+			formGroup.addControl(name, ctrl);
+
 		});
 		return formGroup;
 	}

@@ -49,8 +49,10 @@ export class InfoPageComponent extends AutoUnsub implements OnInit {
 		this.productDescriptor = new ProductDescriptor([
 			'name',
 			'reference',
+			'supplier-reference',
 			'price',
 			'moq',
+			'supplier-name',
 			'category',
 			'event'
 		]);
@@ -60,9 +62,9 @@ export class InfoPageComponent extends AutoUnsub implements OnInit {
 		]);
 
 		this.productDescriptor.modify([
-			{ name: 'reference', label: 'item reference' },
-			{ name: 'price', label: 'sales price' },
-			{ name: 'event', label: 'trade show' },
+			{ name: 'reference', label: 'item-reference' },
+			{ name: 'price', label: 'sales-price' },
+			{ name: 'event', label: 'trade-show' },
 		]);
 
 		this.shippingDescriptor.insert({ name: 'sample', type: 'title' }, 'sample');
