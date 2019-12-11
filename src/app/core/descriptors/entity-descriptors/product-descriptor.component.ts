@@ -26,7 +26,7 @@ export class ProductDescriptor extends AbstractDescriptorComponent {
 		{ name: 'priceMatrix', type: 'priceMatrix', label: translate('price matrix') },
 
 		{ name: 'description', type: 'textarea', metadata: { rows: 5 } },
-		{ name: 'name', type: 'text', required: true, label: translate('name') },
+		{ name: 'name', type: 'text', required: true, label: 'name' },
 		{ name: 'reference', type: 'text', label: translate('reference') },
 		{ name: 'moq', type: 'text', label: translate('moq') },
 		{ name: 'moqDescription', type: 'textarea', label: translate('MOQ description') },
@@ -37,12 +37,18 @@ export class ProductDescriptor extends AbstractDescriptorComponent {
 		{
 			name: 'supplier-name',
 			type: 'nested',
-			metadata: { nest: { name: 'name', type: 'text', label: 'supplier name' } },
+			metadata: {
+				nestTarget: 'supplier',
+				nest: { name: 'name', type: 'text', label: 'supplier-name', metadata: { disabled: true } }
+			},
 		},
 		{
 			name: 'supplier-reference',
 			type: 'nested',
-			metadata: { nest: { name: 'reference', type: 'text', label: 'supplier reference' } },
+			metadata: {
+				nestTarget: 'supplier',
+				nest: { name: 'reference', type: 'text', label: 'supplier-reference', metadata: { disabled: true } }
+			},
 		},
 
 		{ name: 'extendedFields', type: 'extendedField', label: 'extended fields', metadata: { target: 'Product' } },
@@ -59,7 +65,7 @@ export class ProductDescriptor extends AbstractDescriptorComponent {
 		},
 		{
 			name: 'category', type: 'selector',
-			label: translate(ERM.CATEGORY.singular, 'erm'),
+			label: 'category',
 			metadata: {
 				target: ERM.CATEGORY.singular,
 				canCreate: true,
@@ -156,7 +162,7 @@ export class ProductDescriptor extends AbstractDescriptorComponent {
 		}
 	];
 
-	constructor(only?: string[]) {
+	constructor(only?: string[], ) {
 		super();
 		this.pickFields(only);
 	}

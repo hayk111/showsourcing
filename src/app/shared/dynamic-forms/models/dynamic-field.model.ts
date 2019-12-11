@@ -18,6 +18,7 @@ export interface DynamicFieldMetadata {
 	disabled?: boolean;
 	rows?: number;
 	nest?: DynamicField;
+	nestTarget?: string;
 	// only used when using dynamic form from metadata of the extended Fields
 	source?: string;
 }
@@ -34,6 +35,11 @@ export interface DynamicFieldMetadata {
 		· hasBadge: if we display the result with a badge or plain text // Default false
 		· width: indicated the width of the selector // Default 390 on dynamic form
 		· placeholder: placeholder if we need one different from label/name
+		· disabled: if the attribute displayed is disabled
+		· rows:
+		· nest: nested property we want to display e.g. product.supplier.name
+		· nestTarget: target so we know which form control we use e.g. target=supplier
+		· source: only used when using dynamic form from metadata of the extended Fields, the source of our selector
 */
 
 export type DynamicFieldType =

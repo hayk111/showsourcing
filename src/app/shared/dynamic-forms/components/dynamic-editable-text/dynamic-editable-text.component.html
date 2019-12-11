@@ -2,11 +2,13 @@
 	<ng-container [ngSwitch]="customField.type">
 		<!-- hint: the onTouched and onChanged function must be called when needed (refer to ng doc)
 		to avoid very hard to debug ExpressionChangedAfterItWasCheckedError -->
-		<!-- default -->
+		<!-- text -->
 		<editable-field-app
-			[class.borderless]="config.borderless"
 			*ngSwitchCase="'text'"
 			#editable
+			[class.borderless]="config.borderless"
+			[class.no-hover]="customField?.metadata?.disabled"
+			[openOnClick]="!(customField?.metadata?.disabled)"
 			[hasAction]="config.hasAction"
 			[hasLabel]="config.hasLabel"
 			[inlineLabel]="config.inlineLabel"
@@ -15,7 +17,7 @@
 			(opened)="inp.select();">
 			<label-app *ngIf="config.hasLabel">{{ 'text.' + (customField.label || customField.name) | translate }}</label-app>
 			<!-- hint: editable text is the clickable label that transforms into an input -->
-			<editable-display-app>
+			<editable-display-app [disabled]="customField?.metadata?.disabled">
 				{{ value || '-' }}
 			</editable-display-app>
 			<form-field-app class="editable">
@@ -24,6 +26,7 @@
 					#inp
 					inputApp
 					type="text"
+					[disabled]="customField?.metadata?.disabled"
 					[value]="accumulator || ''"
 					(input)="accumulate(inp.value)"
 					(keyup.enter)="editable.close();"/>
@@ -32,22 +35,27 @@
 
 		<!-- tel (restricted input)-->
 		<editable-field-app
-			[class.borderless]="config.borderless"
 			*ngSwitchCase="'tel'"
 			#editable
+			[class.borderless]="config.borderless"
+			[class.no-hover]="customField?.metadata?.disabled"
+			[openOnClick]="!(customField?.metadata?.disabled)"
 			[hasAction]="config.hasAction"
 			[hasLabel]="config.hasLabel"
 			[inlineLabel]="config.inlineLabel"
 			[align]="config.alignValue"
 			(closed)="onClose($event)"
 			(opened)="inp.select()">
-			<label-app>{{ 'text.' + (customField.label || customField.name) | translate }}</label-app>
-			<editable-display-app>{{ value || '-' }}</editable-display-app>
+			<label-app *ngIf="config.hasLabel">{{ 'text.' + (customField.label || customField.name) | translate }}</label-app>
+			<editable-display-app [disabled]="customField?.metadata?.disabled">
+				{{ value || '-' }}
+			</editable-display-app>
 			<form-field-app class="editable">
 				<input inputApp
 					#inp
 					restrictInput="tel"
 					autofocus="true"
+					[disabled]="customField?.metadata?.disabled"
 					[value]="accumulator"
 					[type]="customField.type"
 					(input)="accumulate(inp.value)"
@@ -57,8 +65,11 @@
 
 		<!-- int -->
 		<editable-field-app
-		*ngSwitchCase="'int'"
+			*ngSwitchCase="'int'"
 			#editable
+			[class.borderless]="config.borderless"
+			[class.no-hover]="customField?.metadata?.disabled"
+			[openOnClick]="!(customField?.metadata?.disabled)"
 			[hasAction]="config.hasAction"
 			[hasLabel]="config.hasLabel"
 			[inlineLabel]="config.inlineLabel"
@@ -66,12 +77,15 @@
 			(closed)="onClose($event)"
 			(opened)="inp.select()">
 			<label-app *ngIf="config.hasLabel">{{ 'text.' + (customField.label || customField.name) | translate }}</label-app>
-			<editable-display-app>{{ value || '-' }}</editable-display-app>
+			<editable-display-app [disabled]="customField?.metadata?.disabled">
+				{{ value || '-' }}
+			</editable-display-app>
 			<form-field-app class="editable">
 				<input inputApp
 					#inp
 					restrictInput="number"
 					autofocus="true"
+					[disabled]="customField?.metadata?.disabled"
 					[value]="accumulator"
 					type="number"
 					(input)="accumulate(+inp.value)"
@@ -81,9 +95,11 @@
 
 		<!-- decimal -->
 		<editable-field-app
-			[class.borderless]="config.borderless"
 			*ngSwitchCase="'decimal'"
 			#editable
+			[class.borderless]="config.borderless"
+			[class.no-hover]="customField?.metadata?.disabled"
+			[openOnClick]="!(customField?.metadata?.disabled)"
 			[hasAction]="config.hasAction"
 			[hasLabel]="config.hasLabel"
 			[inlineLabel]="config.inlineLabel"
@@ -91,12 +107,15 @@
 			(closed)="onClose($event)"
 			(opened)="inp.select()">
 			<label-app *ngIf="config.hasLabel">{{ 'text.' + (customField.label || customField.name) | translate }}</label-app>
-			<editable-display-app>{{ value || '-' }}</editable-display-app>
+			<editable-display-app [disabled]="customField?.metadata?.disabled">
+				{{ value || '-' }}
+			</editable-display-app>
 			<form-field-app class="editable">
 				<input inputApp
 					#inp
 					restrictInput="decimal"
 					autofocus="true"
+					[disabled]="customField?.metadata?.disabled"
 					[value]="accumulator"
 					type="number"
 					step="any"
@@ -111,9 +130,9 @@
 			#editable
 			[class.borderless]="config.borderless"
 			[class.no-hover]="customField?.metadata?.disabled"
+			[openOnClick]="!(customField?.metadata?.disabled)"
 			[hasAction]="config.hasAction"
 			[hasLabel]="config.hasLabel"
-			[openOnClick]="!(customField?.metadata?.disabled)"
 			[inlineLabel]="config.inlineLabel"
 			[align]="config.alignValue"
 			(closed)="onClose($event)"
@@ -136,9 +155,11 @@
 
 		<!-- days -->
 		<editable-field-app
-			[class.borderless]="config.borderless"
 			*ngSwitchCase="'days'"
 			#editable
+			[class.borderless]="config.borderless"
+			[class.no-hover]="customField?.metadata?.disabled"
+			[openOnClick]="!(customField?.metadata?.disabled)"
 			[hasAction]="config.hasAction"
 			[hasLabel]="config.hasLabel"
 			[inlineLabel]="config.inlineLabel"
@@ -146,11 +167,14 @@
 			(closed)="onClose($event)"
 			(opened)="inp.select()">
 			<label-app *ngIf="config.hasLabel">{{ 'text.' + (customField.label || customField.name) | translate }}</label-app>
-			<editable-display-app>{{ value || '-' }} days</editable-display-app>
+			<editable-display-app [disabled]="customField?.metadata?.disabled">
+				{{ value || '-' }} days
+			</editable-display-app>
 			<form-field-app class="editable">
 				<input inputApp
 					#inp
 					autofocus="true"
+					[disabled]="customField?.metadata?.disabled"
 					[value]="accumulator"
 					[type]="'number'"
 					(input)="accumulate(+inp.value)"
@@ -160,9 +184,11 @@
 
 		<!-- textarea -->
 		<editable-field-app
-			[class.borderless]="config.borderless"
 			*ngSwitchCase="'textarea'"
 			#editable
+			[class.borderless]="config.borderless"
+			[class.no-hover]="customField?.metadata?.disabled"
+			[openOnClick]="!(customField?.metadata?.disabled)"
 			[hasAction]="config.hasAction"
 			[hasLabel]="config.hasLabel"
 			[canGrow]="true"
@@ -171,12 +197,15 @@
 			(closed)="onClose($event)"
 			(opened)="inp.select()">
 			<label-app *ngIf="config.hasLabel">{{ 'text.' + (customField.label || customField.name) | translate }}</label-app>
-			<editable-display-app style="white-space: pre-line">{{ value || '-' }}</editable-display-app>
+			<editable-display-app [disabled]="customField?.metadata?.disabled" style="white-space: pre-line">
+				{{ value || '-' }}
+			</editable-display-app>
 			<form-field-app class="editable">
 				<textarea
 					inputApp
 					#inp
 					autofocus="true"
+					[disabled]="customField?.metadata?.disabled"
 					[value]="accumulator"
 					(input)="accumulate(inp.value)">
 				</textarea>
@@ -185,9 +214,11 @@
 
 		<!-- price -->
 		<editable-field-app
-			[class.borderless]="config.borderless"
 			*ngSwitchCase="'price'"
 			#editable
+			[class.borderless]="config.borderless"
+			[class.no-hover]="customField?.metadata?.disabled"
+			[openOnClick]="!(customField?.metadata?.disabled)"
 			[hasAction]="config.hasAction"
 			[hasLabel]="config.hasLabel"
 			[inlineLabel]="config.inlineLabel"
@@ -195,7 +226,7 @@
 			(closed)="onClose($event)"
 			(opened)="inp.select()">
 			<label-app *ngIf="config.hasLabel">{{ 'text.' + (customField.label || customField.name) | translate }}</label-app>
-			<editable-display-app [vAlign]="false">
+			<editable-display-app [disabled]="customField?.metadata?.disabled" [vAlign]="false">
 				<span class="fs-s"
 					*ngIf="value && value.currency">{{ value?.currency | const : 'currency' : 'symbol'}}</span>
 				<span *ngIf="value && value.currency" class="mg-xs spacer"></span>
@@ -205,6 +236,7 @@
 				<input-price-app
 					#inp
 					inputApp
+					[disabled]="customField?.metadata?.disabled"
 					[price]="config.objectAsString ? stringToObject() : accumulator"
 					(keyup.enter)="editable.close()"
 					(change)="config.objectAsString ? accumulateObjectToString(inp.price) : accumulate(inp.price);">
@@ -214,9 +246,11 @@
 
 		<!-- boolean -->
 		<editable-field-app
-			[class.borderless]="config.borderless"
-			#editable
 			*ngSwitchCase="'boolean'"
+			#editable
+			[class.borderless]="config.borderless"
+			[class.no-hover]="customField?.metadata?.disabled"
+			[openOnClick]="!(customField?.metadata?.disabled)"
 			[hasAction]="config.hasAction"
 			[hasLabel]="config.hasLabel"
 			[inlineLabel]="config.inlineLabel"
@@ -226,6 +260,7 @@
 			<label-app *ngIf="config.hasLabel">{{ 'text.' + (customField.label || customField.name) | translate }}</label-app>
 			<editable-display-app [disabled]="true">
 				<radio-app
+					[disabled]="customField?.metadata?.disabled"
 					[checked]="accumulator"
 					[items]="[{ name: 'Yes', value: true }, { name: 'No', value: false }]">
 				</radio-app>
@@ -240,6 +275,7 @@
 				</h3>
 				<editable-price-matrix-app
 					[(ngModel)]="accumulator"
+					[disabled]="customField?.metadata?.disabled"
 					(change)="onChange()"
 					(rowClosed)="onClose($event)"
 					(blur)="onBlur()">
@@ -257,6 +293,7 @@
 					[config]="config"
 					[customField]="customField"
 					[(ngModel)]="accumulator"
+					[disabled]="customField?.metadata?.disabled"
 					(input)="onChange();"
 					(blur)="onBlur()"
 					(rowClosed)="onClose($event)">
@@ -275,7 +312,7 @@
 			[width]="customField?.metadata?.width"
 			[multiple]="customField?.metadata?.multiple"
 			[canCreate]="customField?.metadata?.canCreate"
-			[label]="'text.' + customField.name | translate"
+			[label]="'text.' + (customField.label || customField.name) | translate"
 			[hasBadge]="customField?.metadata?.hasBadge"
 			[config]="config"
 			(change)="onSave(false)"
@@ -285,9 +322,9 @@
 		<!-- nested -->
 		<dynamic-editable-container-app
 			*ngSwitchCase="'nested'"
+			[(ngModel)]="value[customField?.metadata?.nest?.name]"
 			[indexInCol]="indexInCol"
 			[customField]="customField?.metadata?.nest"
-			[value]="value?.supplier"
 			[config]="config">
 		</dynamic-editable-container-app>
 
