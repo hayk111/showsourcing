@@ -36,7 +36,6 @@
 
 		<status-selector-item-app 
 			*ngFor="let stat of (status$ | async); last as last; trackBy: trackByFn" 
-			class="mg-xs"
 			[status]="stat">
 		</status-selector-item-app>
 

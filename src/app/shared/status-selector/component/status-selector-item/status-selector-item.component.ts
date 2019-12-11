@@ -8,7 +8,7 @@ import { StatusUtils } from '~utils';
 	templateUrl: './status-selector-item.component.html',
 	styleUrls: ['./status-selector-item.component.scss'],
 	host: {
-		class: 'flexVAlign pointer border-radius pd-xs'
+		class: 'flexVAlign pointer pd-xs'
 	}
 })
 export class StatusSelectorItemComponent implements OnInit {

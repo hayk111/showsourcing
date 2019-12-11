@@ -472,6 +472,13 @@
   },
   "const": {
     "status": {
+			"new-product": "new product",
+			"get-quotation": "get quotation",
+			"validate-sample": "validate sample",
+			"team-review": "team review",
+      "validated": "validated",
+			"onboarding": "onboarding",
+			"refused": "refused",
       "_Done": "Done",
       "_GetQuotation": "Get Quotation",
       "_Inspiration": "Inspiration",
@@ -490,10 +497,7 @@
       "_ValidateSample": "Validate Sample",
       "_Validated": "Validated",
       "_getQuotation": "Get Quotation",
-      "_toOrder": "to order",
-      "get-quotation": "get quotation",
-      "onboarding": "onboarding",
-      "validated": "validated"
+      "_toOrder": "to order"
     },
     "statusCategory": {
       "inProgress": "In Progress",
@@ -579,7 +583,8 @@
     "join-team": "Join a team",
     "loading-info-please-wait": "We are loading your information, please wait...",
     "message": "message",
-    "moq": "MOQ",
+		"moq": "MOQ",
+		"MOQ": "MOQ",
     "moq-description": "MOQ Description",
     "my-request-templates": "My Request Templates",
     "name": "Name",
@@ -1143,7 +1148,8 @@
     "invitations": "Invitations",
     "last-updated": "last updated",
     "lastest-noti": "Latest Notifications",
-    "moq": "moq",
+		"moq": "moq",
+		"MOQ": "MOQ",
     "multiple-edition": "Multiple edition",
     "my-exports": "my exports",
     "my-products": "My products",
