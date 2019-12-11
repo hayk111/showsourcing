@@ -31,7 +31,7 @@ export class TeamPageComponent implements OnInit {
 	ngOnInit() {
 		this.team$ = this.teamSrv.selectTeam();
 		this.team = this.teamSrv.selectedTeamSync;
-		this.companyName = this.companySrv.companySync.name;
+		this.companyName =  this.companySrv.companySync.name || '';
 	}
 
 	/** Displays specified tab */
