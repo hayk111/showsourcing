@@ -10,7 +10,7 @@
 			[disabled]="true"
 			class="fs-m">
 			<!-- we need an ng-container, so editable-display knows when its empty to place the default placeholder -->
-			<ng-container *ngIf="description?.length">{{ description }}</ng-container>
+			<div *ngIf="description?.length" class="description">{{ description }}</div>
 		</editable-display-app>
 		<textarea inputApp #inpDescription autofocus="true"
 			class="full-width"
