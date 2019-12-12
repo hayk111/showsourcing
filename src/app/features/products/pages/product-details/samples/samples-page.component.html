@@ -4,7 +4,7 @@
 	<ng-container *ngIf="samples?.length; else placeholder">
 		<!-- list -->
 		<sample-list-item-app
-			*ngFor="let sample of (listSrv.items$ | async); first as first; trackBy:trackById"
+			*ngFor="let sample of samples; first as first; trackBy:trackById"
 			[ngStyle]="first ? { 'padding-top' : 0 } : ''"
 			[sample]="sample"
 			[selection]="listSrv.selection$ | async"
@@ -15,15 +15,16 @@
 		<!-- buttons -->
 		<div class="flex buttons-container">
 			<button
-				(click)="dialogCommonSrv.openCreationSampleDialog(product)">
-				Create sample
+				class="capitalize"
+				(click)="dialogCommonSrv.openCreationSampleDialog(product)"
+				translate="button.create-sample">
 			</button>
 			<divider-app *ngIf="(listSrv.selection$ | async).size > 0" [vertical]="true"></divider-app>
 			<button
 				*ngIf="(listSrv.selection$ | async).size > 0"
 				class="warn-light capitalize"
-				(click)="listSrv.deleteSelected(true)">
-				delete
+				(click)="listSrv.deleteSelected(true)"
+				translate="button.delete">
 			</button>
 		</div>
 	</ng-container>
@@ -34,7 +35,7 @@
 		[type]="'SAMPLE' | erm: 'singular'"
 		[title]="'No sample on this product'"
 		[subtitle]="'Create & Track your samples'">
-		<button class="capitalize" translate="button.create-sample"></button>
+		<button class="capitalize" (click)="dialogCommonSrv.openCreationSampleDialog(product)" translate="button.create-sample"></button>
 	</entity-placeholder-app>
 </ng-template>
 

@@ -8,6 +8,7 @@ export abstract class AbstractListItemComponent<T> extends AutoUnsub {
 	@Output() select = new EventEmitter<T>();
 	@Output() unselect = new EventEmitter<T>();
 	@Output() nameClick = new EventEmitter<T>();
+	@Output() iconClick = new EventEmitter<T>();
 
 	isSelected(entity: { id: ID }) {
 		if (!this.hasSelection)
