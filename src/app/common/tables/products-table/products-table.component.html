@@ -122,7 +122,7 @@
 <!-- contextual menu -->
 <ng-template #contextualMenuTemplate let-row="row">
 	<context-menu-item-app
-		(click)="setFavourite.emit(row)"
+		(click)="update.emit({ id: row.id, favorite: true })"
 		translate="button.set-as-favorite">
 	</context-menu-item-app>
 	<context-menu-item-app
@@ -139,7 +139,7 @@
 	</context-menu-item-app>
 	<divider-app></divider-app>
 	<context-menu-item-app
-		(click)="archive.emit(row)"
+		(click)="update.emit({ id: row.id, archived: true })"
 		translate="button.archive">
 	</context-menu-item-app>
 	<context-menu-item-warn-app

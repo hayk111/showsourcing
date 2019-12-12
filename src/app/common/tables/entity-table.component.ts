@@ -24,31 +24,31 @@ export interface TableConfig {
 export type TableConfigType = 'small' | 'medium' | 'big' | 'medium-small';
 
 export abstract class EntityTableComponent<T> extends TrackingComponent implements OnInit {
-	/** current selection */
+	// Config
+	@Input() columns = [];
+	@Input() hasRequestCount = false;
+	tableConfig: TableConfig = undefined;
+	columnsConfig: ColumnConfig[] = [];
+	// Data
 	@Input() selection: Map<string, boolean>;
-	/** entities displayed */
 	@Input() rows: Array<T>;
-	/** whether it's loading */
 	@Input() pending = true;
-	/** when using pagination, that's the total number of items */
 	@Input() count: number;
-	/** how many items were skipped (useful to display pages) */
 	@Input() skipped: number;
 	@Input() currentPage: number;
 	@Input() currentSort: Sort;
+	@Input() canUpdate = true;
+	// VIEW
 	@Input() hasMenu = true;
 	@Input() hasHeader = true;
 	@Input() hasPagination = true;
 	@Input() hasSelection = true;
 	@Input() hasPreview = true;
 	@Input() hasBorder = true;
-	@Input() canUpdate = true;
-	@Input() columns = [];
+	@Input() hasShowItemsPerPage = true;
 	@Input() hasMinHeight = true;
 	@Input() rowHeight = 47;
-	@Input() hasRequestCount = false;
-	tableConfig: TableConfig = undefined;
-	columnsConfig: ColumnConfig[] = [];
+
 	// column clicks
 	@Output() previewClick = new EventEmitter<T>();
 	@Output() open = new EventEmitter<string>();

@@ -16,6 +16,7 @@ import { FilterType } from '~shared/filters';
 import { ControllerListService } from '~shared/controller-list/services/controller-list.service';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub } from '~utils';
+import { ProductsTableComponent } from '~common/tables/products-table/products-table.component';
 
 // dailah lama goes into pizza store
 // servant asks : what pizza do you want sir ?
@@ -34,12 +35,6 @@ import { AutoUnsub } from '~utils';
 	}
 })
 export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterViewInit {
-	@ViewChild('productList', { read: ElementRef, static: false })
-	public productListElem: ElementRef;
-
-	public tableWidth: string;
-	public addProductMargin: string;
-
 	erm = ERM;
 	filterTypeEnum = FilterType;
 	// filter displayed as button in the filter panel
@@ -54,6 +49,8 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		FilterType.SUPPLIER,
 		FilterType.TAGS
 	];
+	columns = ProductsTableComponent.DEFAULT_COLUMNS;
+	tableConfig = ProductsTableComponent.DEFAULT_TABLE_CONFIG;
 
 	selectItemsConfig: SelectParamsConfig;
 	requestCount$: Observable<number>;
@@ -158,4 +155,5 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 	onOpenCreateRequestDlg(products: Product[]) {
 		return this.dlgSrv.open(SupplierRequestDialogComponent, { products });
 	}
+
 }

@@ -10,11 +10,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 		class: 'pointer'
 	}
 })
-export class ContextMenuTriggerComponent implements OnInit {
+export class ContextMenuTriggerComponent {
 
-	constructor() { }
-
-	ngOnInit() {
-	}
 
 }

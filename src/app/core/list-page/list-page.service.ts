@@ -71,7 +71,7 @@ export class ListPageService
 			// setting up the view service so we know what panel is open etc
 			this.viewSrv.setup(config.entityMetadata);
 			// storing the state for debugging purpose
-			showsourcing.lists[config.entityMetadata.singular] = this;
+			showsourcing.tables[config.entityMetadata.singular] = this;
 		});
 		if (shouldInitDataLoading) {
 			this.loadData(config.originComponentDestroy$);

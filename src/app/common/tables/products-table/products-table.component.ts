@@ -1,9 +1,9 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { EntityTableComponent, TableConfigType } from '~common/tables/entity-table.component';
+import { EntityTableComponent } from '~common/tables/entity-table.component';
 import { Product } from '~models';
 import { Color } from '~utils';
-import { mediumTableConfig, bigTableConfig } from './config';
+import { config } from './config';
 
 @Component({
 	selector: 'products-table-app',
@@ -14,7 +14,7 @@ import { mediumTableConfig, bigTableConfig } from './config';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductsTableComponent extends EntityTableComponent<Product> implements OnInit {
-	columns = [
+	static DEFAULT_COLUMNS = [
 		'logo',
 		'reference',
 		'name',
@@ -29,36 +29,15 @@ export class ProductsTableComponent extends EntityTableComponent<Product> implem
 		'assignee',
 		'createdBy',
 	];
-	@Input() tableWidth: number;
-	@Input() hasShowItemsPerPage: boolean;
-	@Input() tableConfigType: TableConfigType = 'big';
-	@Output() setFavourite = new EventEmitter<Product>();
+	static DEFAULT_TABLE_CONFIG = config;
+	@Input() columns = ProductsTableComponent.DEFAULT_COLUMNS;
+	@Input() tableConfig = ProductsTableComponent.DEFAULT_TABLE_CONFIG;
 	@Output() openAddToProjectDialog = new EventEmitter<Product>();
 	@Output() openAddTaskDialog = new EventEmitter<Product>();
 	@Output() openAddSampleDialog = new EventEmitter<Product>();
 
-	@Output() archive = new EventEmitter<Product>();
-	@Output() delete = new EventEmitter<Product>();
-	color = Color;
-
 	constructor(public translate: TranslateService) {
 		super();
-	}
-
-	ngOnInit() {
-		this.tableConfig = this.getTableFromType();
-		super.ngOnInit();
-	}
-
-	getTableFromType() {
-		switch (this.tableConfigType) {
-			case 'big':
-				return bigTableConfig;
-			case 'medium':
-				return mediumTableConfig;
-			default:
-				return bigTableConfig;
-		}
 	}
 
 }
