@@ -1,47 +1,46 @@
 <h2 class="l flexStart">Samples</h2>
-<!-- table -->
-<span class="color-primary">TODO: waiting for dashboard to see what to do with this</span>
-<samples-table-app
-	[rows]="listSrv.items$ | async"
-	[columns]="['logo', 'name', 'assignee', 'status', 'creationDate']"
-	[selection]="listSrv.selection$ | async"
-	[pending]="listSrv.pending"
-	[hasRequestCount]="true"
-	[hasMinHeight]="false"
-	[hasHeader]="false"
-	[hasMenu]="false"
-	[hasSelection]="false"
-	[hasPagination]="false"
-	[hasBorder]="false"
-	[rowHeight]="34"
-	(sort)="listSrv.sort($event)"
-	(select)="listSrv.selectOne($event, true)"
-	(unselect)="listSrv.unselectOne($event, true)"
-	(selectAll)="listSrv.selectAll($event, true)"
-	(unselectAll)="listSrv.unselectAll()"
-	(open)="listSrv.goToDetails($event)"
-	(favorited)="listSrv.onItemFavorited($event)"
-	(unfavorited)="listSrv.onItemUnfavorited($event)"
-	(previewClick)="listSrv.openPreview($event)"
-	(createClick)="dialogCommonSrv.openCreationSampleDialog(product)"
-	(update)="listSrv.update($event)"
-	(delete)="listSrv.deleteOne($event)">
-</samples-table-app>
 
-<!-- buttons -->
-<div *ngIf="(listSrv.items$ | async)?.length" class="flex buttons-container">
-	<button
-		(click)="dialogCommonSrv.openCreationSampleDialog(product)">
-		Create sample
-	</button>
-	<divider-app *ngIf="(listSrv.selection$ | async).size > 0" [vertical]="true"></divider-app>
-	<button
-		*ngIf="(listSrv.selection$ | async).size > 0"
-		class="warn-light"
-		(click)="listSrv.deleteSelected(true)">
-		delete
-	</button>
-</div>
+<ng-container *ngIf="(listSrv.items$ | async) as samples; else spinner">
+	<ng-container *ngIf="samples?.length; else placeholder">
+		<!-- list -->
+		<sample-list-item-app
+			*ngFor="let sample of (listSrv.items$ | async); first as first; trackBy:trackById"
+			[ngStyle]="first ? { 'padding-top' : 0 } : ''"
+			[sample]="sample"
+			[selection]="listSrv.selection$ | async"
+			(nameClick)="listSrv.openPreview($event)"
+			(select)="listSrv.selectOne($event, true)"
+			(unselect)="listSrv.unselectOne($event, true)">
+		</sample-list-item-app>
+		<!-- buttons -->
+		<div class="flex buttons-container">
+			<button
+				(click)="dialogCommonSrv.openCreationSampleDialog(product)">
+				Create sample
+			</button>
+			<divider-app *ngIf="(listSrv.selection$ | async).size > 0" [vertical]="true"></divider-app>
+			<button
+				*ngIf="(listSrv.selection$ | async).size > 0"
+				class="warn-light capitalize"
+				(click)="listSrv.deleteSelected(true)">
+				delete
+			</button>
+		</div>
+	</ng-container>
+</ng-container>
+
+<ng-template #placeholder>
+	<entity-placeholder-app
+		[type]="'SAMPLE' | erm: 'singular'"
+		[title]="'No sample on this product'"
+		[subtitle]="'Create & Track your samples'">
+		<button class="capitalize" translate="button.create-sample"></button>
+	</entity-placeholder-app>
+</ng-template>
+
+<ng-template #spinner>
+	<dots-app class="flexCenter"></dots-app>
+</ng-template>
 
 <!-- preview -->
 <sample-preview-app

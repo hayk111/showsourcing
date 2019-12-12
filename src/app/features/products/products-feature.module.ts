@@ -17,6 +17,7 @@ import * as TablePage from './pages/products';
 import { ProductFeatureService, QuoteFeatureService } from './services';
 import { CardsCommonModule } from '~common/cards/cards-common.module';
 import { CatalogCommonModule } from '~common/catalogs/catalog-common.module';
+import { ListCommonModule } from '~common/list/list-common.module';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { CatalogCommonModule } from '~common/catalogs/catalog-common.module';
 		GridsCommonModule,
 		CardsCommonModule,
 		SelectionBarsCommonModule,
-		SortingMenusCommonModule
+		SortingMenusCommonModule,
+		ListCommonModule
 	],
 	declarations: [
 		DetailsPage.ProductDetailsPageComponent,

@@ -1,0 +1,14 @@
+<div class="left flex">
+	<checkbox-app
+		class="mg-right-ms"
+		[checked]="isSelected(sample)"
+		(check)="select.emit(sample)"
+		(uncheck)="unselect.emit(sample)">
+	</checkbox-app>
+	<div class="mg-right-ms color-primary">{{ sample?.reference }}</div>
+	<div class="txt-btn" (click)="nameClick.emit(sample)">{{ sample?.name }}</div>
+</div>
+<div class="right flex">
+	<status-badge-app class="mg-right-l" [status]="sample?.status"></status-badge-app>
+	<div>{{ sample?.creationDate | date: 'dd MMMM yyyy':'':translate.currentLang }}</div>
+</div>
