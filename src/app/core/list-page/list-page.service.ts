@@ -3,10 +3,12 @@ import { Router } from '@angular/router';
 import { empty, Observable } from 'rxjs';
 import { filter, map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { CreationDialogComponent } from '~common/dialogs/creation-dialogs';
+import { ExportDlgComponent } from '~common/dialogs/custom-dialogs';
 import { UserService } from '~core/entity-services';
 import { GlobalServiceInterface } from '~core/entity-services/_global/global.service';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 import { EntityMetadata } from '~core/models';
+import { View } from '~shared/controller-list/components';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { Filter, FilterType } from '~shared/filters';
@@ -55,17 +57,16 @@ export class ListPageService
 		private ratingSrv: RatingService,
 		private dlgSrv: DialogService,
 		private zone: NgZone,
-		private userSrv: UserService
+		private userSrv: UserService,
 	) {
-		if (!showsourcing.lists) {
-			showsourcing.lists = {};
+		if (!showsourcing.tables) {
+			showsourcing.tables = {};
 		}
+		this.initServices();
 	}
 
 	setup(config: ListPageConfig, shouldInitDataLoading = true) {
 		this.zone.runOutsideAngular(() => {
-			// getting back the services from their map
-			this.initServices();
 			this.dataSrv.setup(config);
 			// setting up the view service so we know what panel is open etc
 			this.viewSrv.setup(config.entityMetadata);
@@ -374,7 +375,7 @@ export class ListPageService
 		this.viewSrv.closeFilterPanel();
 	}
 
-	changeView(view: 'list' | 'board' | 'card') {
+	changeView(view: View) {
 		this.viewSrv.changeView(view);
 	}
 
@@ -466,5 +467,9 @@ export class ListPageService
 		}
 
 		this.removeFilter(filterParam);
+	}
+
+	exportSelection() {
+		this.dlgSrv.open(ExportDlgComponent, { targets: this.getSelectedValues() });
 	}
 }

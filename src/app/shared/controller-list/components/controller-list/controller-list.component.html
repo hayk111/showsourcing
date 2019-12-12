@@ -33,25 +33,15 @@
 	<!-- <ng-content select="controller-list-actions-app"></ng-content> -->
 
 	<ng-content select="controller-list-quick-filters"></ng-content>
+
 	<divider-app [vertical]="true"></divider-app>
 	<ng-content select="controller-list-quick-filters"></ng-content>
 	<divider-app [vertical]="true"></divider-app>
 
-	<button class="icon light mg-left-ms">
-		<icon-app name="export" size="m"  toolTip toolTipMessage="Export"></icon-app>
-	</button>
+	<ng-content select="controller-list-quick-actions-app"></ng-content>
 
-	<button class="icon light mg-left-ms mg-right-ms">
-		<icon-app name="sort" size="m"  toolTip toolTipMessage="Sort"></icon-app>
-	</button>
+	<divider-app class="mg-right-ms" [vertical]="true"></divider-app>
 
-	<divider-app [vertical]="true"></divider-app>
-
-	<!-- <view-switcher-app 
-		class="mg-left-ms"
-		[switchContent]="switchContent" 
-		[view]="view"
-		(viewChange)="viewChange.emit($event)">
-	</view-switcher-app> -->
+	<ng-content select="controller-list-view-switcher-app"></ng-content>
 
 </div>

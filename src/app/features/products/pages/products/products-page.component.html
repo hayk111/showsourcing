@@ -9,7 +9,9 @@
 
 <controller-list-app
 	[panels]="['search', 'filters', 'action','quick-filters', 'quick-actions', 'view-switcher']">
-	<controller-list-quick-filters-app></controller-list-quick-filters-app>
+	<!-- <controller-list-quick-filters-app></controller-list-quick-filters-app> -->
+	<controller-list-quick-actions-app (export)="listSrv.exportSelection()"></controller-list-quick-actions-app>
+	<controller-list-view-switcher-app></controller-list-view-switcher-app>
 </controller-list-app>
 
 <!-- views: either one will be displayed when the correct view is selected -->

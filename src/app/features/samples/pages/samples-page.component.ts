@@ -85,9 +85,6 @@ export class SamplesPageComponent extends AutoUnsub implements OnInit {
 		return filters.length;
 	}
 
-	onViewChange(view: 'list' | 'card') {
-		this.listSrv.changeView(view);
-	}
 
 	onFavourite(sample: Sample) {
 		this.listSrv.onItemFavorited(sample.id);

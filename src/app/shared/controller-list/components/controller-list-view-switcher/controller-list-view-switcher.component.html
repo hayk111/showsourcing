@@ -1,0 +1,40 @@
+
+<button 
+	*ngIf="switchContent.includes('table')"
+	class="flexCenter icon"
+	toolTip
+	toolTipMessage="change view to table view"
+	(mousedown)="view = 'table'">
+	<icon-app 
+		[ngClass]="{'color-primary': view === 'table' }" 
+		name="list-menu"
+		size="m">
+	</icon-app>
+</button>
+
+<button 
+	*ngIf="switchContent.includes('cards')"
+	class="flexCenter icon"
+	toolTip
+	toolTipMessage="change view to cards view"
+	(mousedown)="view = 'cards'">
+	<icon-app 
+		[ngClass]="{'color-primary': view === 'cards' }" 
+		name="cards"
+		size="m">
+	</icon-app>
+</button>
+
+<button 
+	*ngIf="switchContent.includes('kanban')"
+	class="flexCenter icon"
+	toolTip
+	toolTipMessage="change view to kanban view"
+	(mousedown)="view = 'kanban'">
+	<icon-app 
+		[ngClass]="{'color-primary': view === 'kanban' }"
+		name="kanban"
+		size="m">
+	</icon-app>
+</button>
+

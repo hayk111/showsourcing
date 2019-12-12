@@ -96,10 +96,6 @@ export class TasksPageComponent extends AutoUnsub implements OnInit, AfterViewIn
 			this.listSrv.removeFilter(filterAssignee);
 	}
 
-	onViewChange(view: 'list' | 'card') {
-		this.listSrv.changeView(view);
-	}
-
 	onFavourite(task: Task) {
 		this.listSrv.onItemFavorited(task.id);
 	}

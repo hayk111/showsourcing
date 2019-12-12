@@ -1,12 +1,9 @@
-import { ChangeDetectionStrategy, Component, ContentChild, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Subject } from 'rxjs';
 import { ListPageService } from '~core/list-page';
-import { SearchAutocompleteComponent } from '~shared/search-autocomplete/components/search-autocomplete/search-autocomplete.component';
 
 
 export type Panel = 'search' | 'filters' | 'actions' | 'quick-filters' | 'view-switcher';
-export type View = 'table' | 'cards' | 'kanban';
 
 @Component({
 	selector: 'controller-list-app',
