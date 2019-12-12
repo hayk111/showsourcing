@@ -10,6 +10,11 @@
 	--color-secondary-dark: rgb(220, 225, 235);
 	--color-secondary-contrast: rgb(93, 109, 139);
 
+	--color-third-light: rgb(249, 250, 252);
+	--color-third: rgb(163, 175, 198);
+	--color-third-dark: rgb(220, 225, 235);
+	--color-third-contrast: rgb(93, 109, 139);
+
 	--color-vibrant: rgb(150,112,255);
 	--color-vibrant-light: rgb(246, 238, 255);
 	--color-vibrant-dark: rgb(139, 94, 218);
@@ -48,6 +53,7 @@
 $colors: (
 	'primary',
 	'secondary',
+	'third',
 	'warn',
 	'success',
 	'vibrant',
