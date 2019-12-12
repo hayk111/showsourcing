@@ -43,7 +43,7 @@ export class SamplesPageComponent extends AbstractSampleCommonComponent implemen
 		);
 
 		id$.pipe(
-			switchMap(id => this.productSrv.selectOne(id)),
+			switchMap(id => this.productSrv.queryOne(id)),
 			takeUntil(this._destroy$)
 		).subscribe(product => this.product = product);
 		this.productId = this.route.parent.snapshot.params.id;
