@@ -1,7 +1,6 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ListPageService } from '~core/list-page';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
-export type View = 'table' | 'cards' | 'kanban';
+export type View = 'table' | 'card' | 'board';
 
 
 @Component({
@@ -11,17 +10,11 @@ export type View = 'table' | 'cards' | 'kanban';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ControllerListViewSwitcherComponent {
-	@Input() switchContent: View[] = ['table', 'cards' , 'kanban'];
+	@Input() switchContent: View[] = ['table', 'card' , 'board'];
+	@Input() view: View;
 	@Output() viewChange = new EventEmitter<string>();
 
-	constructor(public listSrv: ListPageService<any, any>) {}
-
-	get view() {
-		return this.listSrv.view;
-	}
-
-	set view(view: View) {
+	changeView(view: View) {
 		this.viewChange.emit(view);
-		this.listSrv.changeView(view);
 	}
 }
