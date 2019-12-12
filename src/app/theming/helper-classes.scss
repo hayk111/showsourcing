@@ -203,6 +203,7 @@
 	&:not(:first-child)::before {
 		content: "\00a0 \00a0 \2022 \00a0 \00a0"; // 00a0 is a space and 2022 is the bullet
 		font-weight: bolder;
+		color: var(--color-txt-primary);
 		display: inline-block;
 		font-size: var(--font-size-m);
 	}
