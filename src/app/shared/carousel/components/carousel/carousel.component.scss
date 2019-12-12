@@ -23,7 +23,6 @@ carousel-app {
 	width: 100%;
 	overflow: hidden;
 	min-height: 200px;
-	background: var(--color-secondary-light);
 }
 
 .absolute {
@@ -98,7 +97,7 @@ carousel-app {
 	width: 100%;
 	overflow: hidden;
 	img-app {
-		background: var(--color-secondary-light);
+		background: var(--color-bg-secondary);
 		min-width: 100%;
 		min-height: 100%;
 	}

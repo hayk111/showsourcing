@@ -18,6 +18,6 @@ export class SettingsPageComponent {
 		public teamSrv: TeamService,
 	) {
 		this.teamName = this.teamSrv.selectedTeamSync.name;
-		this.companyName = this.companySrv.companySync.name;
+		this.companyName =  this.companySrv.companySync.name || '';
 	}
 }

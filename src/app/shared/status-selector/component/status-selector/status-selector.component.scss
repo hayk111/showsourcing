@@ -1,0 +1,18 @@
+context-menu-app .context-menu-item-app {
+	min-width: 220px;
+}
+
+.caretCtnr {
+	display: flex;
+	align-items: center;
+	padding: var(--spacing-s);
+	border-left: 1px solid white;
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
+.caret {
+	font-size: var(--font-size-xxs);
+}
+
+

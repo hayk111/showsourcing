@@ -1,8 +1,8 @@
 <table-app
 	[rows]="rows"
 	[pending]="pending"
-  [selected]="selection"
-  [contextualMenu]="contextualMenuTemplate"
+	[selected]="selection"
+	[hasMenu]="false"
 	[count]="count"
 	[currentPage]="currentPage"
 	[placeholder]="'placeholder.no-data' | translate"
@@ -16,6 +16,16 @@
 	(hovered)="onHover($event)"
 	(showItemsPerPage)="showItemsPerPage.emit($event)"
 	i18n-placeholder="@@no-data">
+
+	<!-- icon -->
+	<ng-template
+		[columnApp]="''"
+		let-row="row"
+		width="0">
+		<div class="user-icon flexCenter">
+			<icon-app class="color-txt-third" name="category" size="s"></icon-app>
+		</div>
+	</ng-template>
 
 	<!-- TODO dynamic columns -->
 	<!-- Name Category -->
@@ -33,7 +43,7 @@
         <editable-display-app class="task-name">
           {{ row?.name }}
         </editable-display-app>
-        <input inputApp #txtName [value]="row?.name || ''" (keyup.enter)="editable.close()">
+        <input inputApp #txtName [value]="row?.name || ''" (keyup.enter)="editable.close()" />
       </editable-container-app>
 			<!-- <button *ngIf="(row.id === idEntityHovered) && (selection.size == 0)"  class="button secondary-dark" (click)="renameEntity.emit(row)">Rename</button> -->
 		</div>
@@ -52,7 +62,7 @@
         <editable-display-app class="task-name">
           {{ row?.description?.name }}
         </editable-display-app>
-        <input inputApp class="task-name" #txtName [value]="row?.description?.name || ''">
+        <input inputApp #txtName [value]="row?.description?.name || ''" (keyup.enter)="editable.close()" />
       </editable-container-app>
 			<!-- <button *ngIf="(row.id === idEntityHovered) && (selection.size == 0)"  class="button secondary-dark" (click)="renameEntity.emit(row)">Rename</button> -->
 		</div>
@@ -65,10 +75,6 @@
 		let-row="row"
 		width="140">
 		<span class="flexVAlign created-by-container">
-			<user-picture-app
-				[user]="row?.createdBy"
-				[image]="row?.createdBy?.avatar">
-			</user-picture-app>
 			<span class="created-by">
 				{{ row?.createdBy | formatUserName: true }}
 			</span>
@@ -78,7 +84,7 @@
 	<!-- Products Count -->
 	<ng-template
 		*ngIf="ermCategory === entityMetadata || ermTag === entityMetadata || ermSupplier === entityMetadata"
-		[columnApp]="'header.products-count' | translate"
+		[columnApp]="'nav.products' | translate"
 		let-row="row"
 		[sortable]="false"
 		width="140">
@@ -90,7 +96,7 @@
 	<!-- Supplier Count -->
 	<ng-template
 		*ngIf="ermCategory === entityMetadata || ermTag === entityMetadata"
-		[columnApp]="'header.suppliers-count' | translate"
+		[columnApp]="'nav.suppliers' | translate"
 		let-row="row"
 		[sortable]="false"
 		width="140">
@@ -135,23 +141,16 @@
 		</span>
 	</ng-template>
 
-	<!-- No selection options -->
+	<!-- action -->
 	<ng-template
 		[columnApp]="'Action' | const: 'action'"
 		let-row="row"
-		width="160">
+		width="40">
 		<div class="flex">
-			<span class="action pointer capitalize" (click)="delete.emit(row)" i18n="@@delete">delete</span>
+			<button class="icon warn" (click)="delete.emit(row)">
+				<icon-app name="delete"></icon-app>
+			</button>
 		</div>
 	</ng-template>
-</table-app>
 
-<!-- context menu -->
-<ng-template #contextualMenuTemplate let-row="row">
-	<context-menu-item-app
-		class="pointer flexCenter"
-		(click)="delete.emit(row)">
-		{{'button.delete' | translate}}
-	</context-menu-item-app>
-</ng-template>
-	
+</table-app>

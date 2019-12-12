@@ -8,9 +8,10 @@ type ExportStatus = 'ready' | 'pending' | 'processing' | 'failed' | 'done' | 'er
 
 const tableConfig: TableConfig = {
 	...defaultConfig,
-	fileName: { name: 'fileName', translationKey: 'file-name', width: 190, sortProperty: 'documentUrl' },
+	createdBy: { name: 'createdBy', translationKey: 'generated-by', width: 152, sortProperty: 'createdBy.firstName' },
+	fileName: { name: 'name', translationKey: 'name', width: 190, sortProperty: 'documentUrl' },
 	status: { name: 'status', translationKey: 'status', width: 150, sortProperty: 'status' },
-	download: { name: 'download', translationKey: 'action', width: 100, sortable: false },
+	download: { name: 'download', translationKey: 'download', width: 100, sortable: false },
 };
 
 @Component({
@@ -22,7 +23,7 @@ const tableConfig: TableConfig = {
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExportTableComponent extends EntityTableComponent<ExportRequest> {
-	columns = ['logo', 'fileName', 'status',  'createdBy', 'creationDate', 'download'];
+	columns = ['logo', 'fileName', 'createdBy', 'status', 'download'];
 	@Output() showItemsPerPage = new EventEmitter<number>();
 	@Output() download = new EventEmitter<ExportRequest>();
 	@ViewChild('contextualMenu', { static: false }) contextualMenuTemplate: TemplateRef<any>;

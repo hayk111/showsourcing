@@ -27,7 +27,9 @@ import { ActivitiesBarModule } from './activities-bar/activities-bar.module';
 import { AnimatedStackModule } from './animated-stack/animated-stack.module';
 import { BottomPanelModule } from './bottom-panel';
 import { CarouselModule } from './carousel/carousel.module';
+import { CommentModule } from './comment/comment.module';
 import { ComparisonRowModule } from './comparison-row/comparison-row.module';
+import { ControllerListModule } from './controller-list/controller-list.module';
 import { DialogModule } from './dialog/dialog.module';
 import { DynamicFormsModule } from './dynamic-forms/dynamic-forms.module';
 import { ERMModule } from './erm/erm.module';
@@ -38,6 +40,7 @@ import { InputsCustomModule } from './inputs-custom/inputs-custom.module';
 import { KanbanModule } from './kanban/kanban.module';
 import { LogoModule } from './logo/logo.module';
 import { MoqModule } from './moq/moq.module';
+import { NavModule } from './nav/nav.module';
 import { NotifModule } from './notif/notif.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { OnBoardingModule } from './on-boarding/on-boarding.module';
@@ -53,10 +56,6 @@ import { SidenavModule } from './sidenav/sidenav.module';
 import { StageIndicatorModule } from './stage-indicator/stage-indicator.module';
 import { StatusSelectorModule } from './status-selector/status-selector.module';
 import { TableModule } from './table/table.module';
-import { TemplateMngmtModule } from './template-mngmt/template-mngmt.module';
-import { CommentModule } from './comment/comment.module';
-import { NavModule } from './nav/nav.module';
-import { ControllerListModule } from './controller-list/controller-list.module';
 
 // those modules are used so commonly that we will just import the shared module
 const modules = [
@@ -116,13 +115,11 @@ const modules = [
 	StageIndicatorModule,
 	StatusSelectorModule,
 	TableModule,
-	TemplateMngmtModule,
 	PaginationModule,
 	HeaderListModule,
 	UserPictureModule,
 	UtilsModule,
 	ComparisonRowModule,
-	TemplateMngmtModule,
 	OnBoardingModule,
 	PackagingModule,
 	TranslateModule,

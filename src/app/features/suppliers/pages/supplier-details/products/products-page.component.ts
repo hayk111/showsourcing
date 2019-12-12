@@ -82,4 +82,23 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		this.controllerListService.onFiltersClear();
 	}
 
+	/** instead of deleting the product, we deassociate the supplier from it */
+	deassociateOneProduct(product?: Product) {
+		this.deassociateProducts([product]);
+	}
+
+	/** instead of deleting the selected products, we deassociate the supplier from them */
+	deassociateSelectedProducts(product?: Product) {
+		const products = product ? [product] : this.listSrv.selectionSrv.getSelectionValues();
+		this.deassociateProducts(products);
+		this.listSrv.selectionSrv.unselectAll();
+	}
+
+	/** function that deassociate products from supplier */
+	private deassociateProducts(products: Product[]) {
+		this.supplierSrv.deassociateProducts(products).pipe(
+			switchMap(_ => this.listSrv.refetch())
+		).subscribe();
+	}
+
 }

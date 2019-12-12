@@ -3,6 +3,7 @@
 	<!-- logo -->
 	<ng-container *ngSwitchCase="'logo'">
 		<logo-app
+			class="pointer"
 			size="s"
 			[logo]="row.images && row.images[0]"
 			[color]="logoColor"
@@ -20,7 +21,7 @@
 
 	<!-- reference -->
 	<ng-container *ngSwitchCase="'reference'">
-		<span class="txt-btn">{{ row.reference || '-' }}</span>
+		<span (click)="onNameClick(row)" class="txt-btn">{{ row.reference || '-' }}</span>
 	</ng-container>
 
 	<!-- preview -->
@@ -41,16 +42,16 @@
 
 	<!-- rating -->
 	<ng-container *ngSwitchCase="'rating'">
-		<rating-badge-app [votes]="row?.votes"[hasNumber]="true"></rating-badge-app>
+		<rating-badge-app [votes]="row?.votes"></rating-badge-app>
 	</ng-container>
 
 	<!-- status -->
 	<ng-container *ngSwitchCase="'status'">
 		<status-selector-app
 			selectSize="m"
+			[displayStep]="type === erm.PRODUCT"
 			[entity]="row"
-			[typeEntity]="type"
-			(statusUpdated)="update.emit($event)">
+			[typeEntity]="type">
 		</status-selector-app>
 	</ng-container>
 
@@ -81,14 +82,7 @@
 
 	<!-- created by -->
 	<ng-container *ngSwitchCase="'createdBy'">
-		<div class="flexVAlign">
-			<user-picture-app
-				*ngIf="row?.createdBy"
-				class="mg-right-s"
-				[user]="row?.createdBy">
-			</user-picture-app>
-			<span>{{ row?.createdBy | formatUserName: true }}</span>
-		</div>
+		<span>{{ row?.createdBy | formatUserName: true }}</span>
 	</ng-container>
 
 

@@ -1,11 +1,3 @@
-:host projects-table-app {
-	height: calc(100% - 42px);
-	padding: unset;
-	padding-bottom: 0 !important;
-	margin: var(--spacing-l) 0 0 0;
-	border: solid 1px var(--color-divider);
-	border-radius: var(--border-radius);
-}
 
 dialog-app {
 	height: calc(100vh - 100px);

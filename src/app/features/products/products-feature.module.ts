@@ -8,7 +8,6 @@ import { PreviewsCommonModule } from '~common/previews/previews-common.module';
 import { SelectionBarsCommonModule } from '~common/selection-bars/selection-bars-common.module';
 import { SortingMenusCommonModule } from '~common/sorting-menus/sorting-menus-common.module';
 import { TablesCommonModule } from '~common/tables/tables-common.module';
-import { ListCommonModule } from '~common/list/list-common.module';
 import { routes } from '~features/products/routes';
 import { NavBarModule } from '~shared/navbar';
 import { SharedModule } from '~shared/shared.module';
@@ -17,6 +16,7 @@ import * as DetailsPage from './pages/product-details';
 import * as TablePage from './pages/products';
 import { ProductFeatureService, QuoteFeatureService } from './services';
 import { CardsCommonModule } from '~common/cards/cards-common.module';
+import { CatalogCommonModule } from '~common/catalogs/catalog-common.module';
 
 
 @NgModule({
@@ -25,7 +25,7 @@ import { CardsCommonModule } from '~common/cards/cards-common.module';
 		ActivityCommonModule,
 		CommonModule,
 		NavBarModule,
-		ListCommonModule,
+		CatalogCommonModule,
 		RouterModule.forChild(routes),
 		PreviewsCommonModule,
 		TablesCommonModule,

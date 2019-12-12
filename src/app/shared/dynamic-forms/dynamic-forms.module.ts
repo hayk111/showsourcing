@@ -1,17 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 import { BadgeModule } from '~shared/badge';
-import { ERMModule } from '~shared/erm/erm.module';
 import { EditableFieldModule } from '~shared/editable-field';
+import { ERMModule } from '~shared/erm/erm.module';
 import { FileModule } from '~shared/file';
+import { IconsModule } from '~shared/icons';
 import { ImageModule } from '~shared/image/image.module';
 import { InputsModule } from '~shared/inputs';
 import { InputsCustomModule } from '~shared/inputs-custom/inputs-custom.module';
 import { SelectorsModule } from '~shared/selectors/selectors.module';
 import { UserPictureModule } from '~shared/user-picture';
 import { UtilsModule } from '~shared/utils';
-import { TranslateModule } from '@ngx-translate/core';
 
 import {
 	DynamicEditableTextComponent,
@@ -45,7 +46,8 @@ import { InputSelectorComponent } from './components/dynamic-input/inputs/input-
 		ImageModule,
 		UserPictureModule,
 		ERMModule,
-		TranslateModule
+		TranslateModule,
+		IconsModule
 	],
 	declarations: [
 		ExtendedFormComponent,
@@ -65,7 +67,8 @@ import { InputSelectorComponent } from './components/dynamic-input/inputs/input-
 	exports: [
 		DynamicFormComponent,
 		EditablePackagingComponent,
-		ExtendedFormComponent
+		ExtendedFormComponent,
+		DynamicEditableTextComponent
 	]
 })
 export class DynamicFormsModule {

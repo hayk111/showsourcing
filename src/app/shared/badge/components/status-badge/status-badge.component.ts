@@ -16,6 +16,8 @@ export class StatusBadgeComponent {
 	// we need to pass this so when the
 	// status is null, because the product or supplier are new
 	@Input() typeEntity: EntityMetadata;
+	/** if we display the step or not */
+	@Input() displayStep = false;
 
 	statusUtils = StatusUtils;
 

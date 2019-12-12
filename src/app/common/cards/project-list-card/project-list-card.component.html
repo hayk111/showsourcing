@@ -15,6 +15,9 @@
 				<span class="mg-left-ms fs-m action-hover-item color-primary txt-btn">Add</span>
 			</selector-app>
 		</h3>
-		<project-list-app [projects]="projects" (openProject)="openProject.emit($event)" (deleteProject)="deleteProject.emit($event)"></project-list-app>
+		<project-catalog-app 
+			[projects]="projects" 
+			(openProject)="openProject.emit($event)" 
+			(deleteProject)="deleteProject.emit($event)"></project-catalog-app>
 	</section>
 </card-app>

@@ -1,8 +1,9 @@
 import { Route } from '@angular/router';
+import { GlobalRequestClientReadyGuard } from '~core/apollo/guards/client-ready.guard.service';
 import { AuthenticatedGuard } from '~core/auth';
 import { NotAuthenticatedGuard } from '~core/auth/services/not-authenticated-guard';
+
 import { GuestTemplateComponent, TemplateComponent } from '../core/template';
-import { GlobalRequestClientReadyGuard, UserClientReadyGuard } from '~core/apollo/guards/client-ready.guard.service';
 
 export const routes: Array<Route> = [
 	{

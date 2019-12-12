@@ -32,7 +32,7 @@
 		[currentPage]="listSrv.currentPage"
 		(update)="listSrv.update($event)"
 		(goToPage)="listSrv.loadPage($event)"
-		(delete)="listSrv.deleteOne($event)"
+		(delete)="deassociateOneProduct($event)"
 		(favorited)="listSrv.onItemFavorited($event)"
 		(open)="listSrv.goToDetails($event)"
 		(openAddToProjectDialog)="dialogCommonSrv.openAddToProjectDialog([$event])"
@@ -70,7 +70,7 @@
 	(requestTeamFeedback)="dialogCommonSrv.openRequestFeedbackDialog(listSrv.getSelectedValues())"
 	(compareProducts)="dialogCommonSrv.openCompareProductDialog(listSrv.getSelectedValues())"
 	(statusUpdated)="listSrv.updateSelected({status: $event})"
-	(deleted)="listSrv.deleteSelected()"
+	(deleted)="deassociateSelectedProducts()"
 	(close)="listSrv.unselectAll()">
 </product-selection-bar-app>
 

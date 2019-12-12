@@ -20,7 +20,7 @@
 				*ngFor="let field of col; index as index; trackBy: trackByFn"
 				[indexInCol]="index"
 				[customField]="field"
-				[formControlName]="field.name"
+				[formControlName]="field?.metadata?.nest ? field?.metadata?.nestTarget : field?.name"
 				[config]="config"
 				(update)="update.emit($event)">
 			</dynamic-editable-container-app>

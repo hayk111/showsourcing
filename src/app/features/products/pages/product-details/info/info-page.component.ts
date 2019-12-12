@@ -49,14 +49,22 @@ export class InfoPageComponent extends AutoUnsub implements OnInit {
 		this.productDescriptor = new ProductDescriptor([
 			'name',
 			'reference',
+			'supplier-reference',
 			'price',
 			'moq',
+			'supplier-name',
 			'category',
 			'event'
 		]);
 		this.shippingDescriptor = new ProductDescriptor([
 			'innerCarton', 'sample', 'samplePrice', 'priceMatrix', 'masterCarton', 'incoTerm',
 			'harbour', 'masterCbm', 'quantityPer20ft', 'quantityPer40ft', 'quantityPer40ftHC'
+		]);
+
+		this.productDescriptor.modify([
+			{ name: 'reference', label: 'item-reference' },
+			{ name: 'price', label: 'sales-price' },
+			{ name: 'event', label: 'trade-show' },
 		]);
 
 		this.shippingDescriptor.insert({ name: 'sample', type: 'title' }, 'sample');

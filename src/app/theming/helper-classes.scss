@@ -196,14 +196,15 @@
 	border-radius: var(--border-radius-s);
 }
 
-.dot-separator {
-	& > * {
-		//for each children that is not the first one we add some spaces and bullet dots on the content
-		&:not(:first-child)::before {
-			content: "\00a0 \00a0 \2022 \00a0 \00a0"; // 00a0 is a space and 2022 is the bullet
-			font-weight: bolder;
-			display: inline-block;
-		}
+// fixed size of the dot font-size-m
+// note: if in the future we use more sizes, implement @each $size in $sizes
+.dot-separator > * {
+	//for each children that is not the first one we add some spaces and bullet dots on the content
+	&:not(:first-child)::before {
+		content: "\00a0 \00a0 \2022 \00a0 \00a0"; // 00a0 is a space and 2022 is the bullet
+		font-weight: bolder;
+		display: inline-block;
+		font-size: var(--font-size-m);
 	}
 }
 
@@ -279,6 +280,18 @@
 
 .default-transition {
 	transition: 0.3s;
+}
+
+$padding-horizontal: 8px;
+/* Adds hover effect that grows outside of the content on the sides */
+.oversized-horizontal-hover:hover {
+	border-radius: var(--border-radius);
+	background: var(--color-secondary-light);
+	cursor: pointer;
+	margin-left: -$padding-horizontal;
+	padding-left: $padding-horizontal;
+	margin-right: -$padding-horizontal;
+	padding-right: $padding-horizontal;
 }
 
 

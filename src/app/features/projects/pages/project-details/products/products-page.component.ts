@@ -26,7 +26,10 @@ import { AutoUnsub } from '~utils';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
 		ListPageService, ProductFeatureService
-	]
+	],
+	host: {
+		class: 'table-page'
+	}
 })
 export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterViewInit {
 
@@ -100,8 +103,8 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 	 */
 	deassociateProductById(id: string) {
 		const unselectedProducts = [{ id }];
-		this.featureSrv.manageProjectsToProductsAssociations(
-			[this.project], { unselectedProducts }).pipe(
+		this.featureSrv.manageProjectsToProductsAssociations([this.project], { unselectedProducts })
+			.pipe(
 				switchMap(_ => this.listSrv.refetch())
 			).subscribe();
 	}
@@ -111,8 +114,8 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 	 */
 	deassociateSelectedProducts() {
 		const unselectedProducts = this.listSrv.getSelectedIds().map(id => ({ id }));
-		this.featureSrv.manageProjectsToProductsAssociations(
-			[this.project], { unselectedProducts }).pipe(
+		this.featureSrv.manageProjectsToProductsAssociations([this.project], { unselectedProducts })
+			.pipe(
 				switchMap(_ => this.listSrv.refetch())
 			).subscribe();
 		this.listSrv.unselectAll();
