@@ -15,20 +15,20 @@
 		</request-list-item-app>
 		<!-- buttons -->
 		<div class="flex buttons-container">
-			<button class="vibrant icon-with-text capitalize" (click)="openSupplierRequest()">
+			<button class="vibrant icon-with-text capitalize mg-right-ms" (click)="openSupplierRequest()">
 				<icon-app name="envelope"></icon-app>
 				<span translate="button.contact-supplier"></span>
 			</button>
-			<divider-app *ngIf="(listSrv.selection$ | async).size > 0" [vertical]="true"></divider-app>
+			<divider-app *ngIf="(listSrv.selection$ | async).size > 0" class="mg-right-ms" [vertical]="true"></divider-app>
 			<!-- <button
 				*ngIf="(listSrv.selection$ | async).size > 1"
-				class="capitalize"
+				class="capitalize mg-right-s"
 				translate="button.compare">
 				compare
 			</button> -->
 			<button
 				*ngIf="(listSrv.selection$ | async).size > 0"
-				class="warn-light capitalize mg-left-ms"
+				class="warn-light capitalize"
 				(click)="listSrv.deleteSelected(true)"
 				translate="button.delete">
 			</button>

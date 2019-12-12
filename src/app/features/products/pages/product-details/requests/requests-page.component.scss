@@ -2,10 +2,3 @@
 	display: flex;
 	flex-direction: column;
 }
-
-.buttons-container {
-	margin-top: var(--spacing-ms);
-	> *:not(:last-child) {
-		margin-right: var(--spacing-ms);
-	}
-}
