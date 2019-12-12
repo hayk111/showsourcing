@@ -6,9 +6,3 @@
 	border-bottom: 1px solid var(--color-divider);
 	width: 100%;
 }
-
-.left, .right {
-	& > *:not(:last-child) {
-		margin-right: var(--spacing-ms);
-	}
-}

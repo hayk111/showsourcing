@@ -1,9 +1,11 @@
 <h2 class="l flexStart">Samples</h2>
 <!-- list -->
 <sample-list-item-app
-	*ngFor="let sample of (listSrv.items$ | async); trackBy:trackById"
+	*ngFor="let sample of (listSrv.items$ | async); first as first; trackBy:trackById"
+	[ngStyle]="first ? { 'padding-top' : 0 } : ''"
 	[sample]="sample"
 	[selection]="listSrv.selection$ | async"
+	(nameClick)="listSrv.openPreview($event)"
 	(select)="listSrv.selectOne($event, true)"
 	(unselect)="listSrv.unselectOne($event, true)">
 </sample-list-item-app>
@@ -16,16 +18,16 @@
 	<divider-app *ngIf="(listSrv.selection$ | async).size > 0" [vertical]="true"></divider-app>
 	<button
 		*ngIf="(listSrv.selection$ | async).size > 0"
-		class="warn-light"
+		class="warn-light capitalize"
 		(click)="listSrv.deleteSelected(true)">
 		delete
 	</button>
 </div>
 
 <!-- preview -->
-<!-- <sample-preview-app
+<sample-preview-app
 	*ngIf="listSrv.previewOpen"
 	[sample]="listSrv.previewed"
 	(close)="listSrv.closePreview()"
 	(clickOutside)="listSrv.closePreview()">
-</sample-preview-app> -->
+</sample-preview-app>

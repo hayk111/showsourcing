@@ -4,9 +4,8 @@ import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { AbstractSampleCommonComponent } from '~common/abstracts/abstract-sample-common.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { ListPageService } from '~core/list-page';
-import { SampleService, UserService } from '~entity-services';
-import { ProductFeatureService } from '~features/products/services';
-import { Product, Sample, ERM } from '~models';
+import { ProductService, SampleService, UserService } from '~entity-services';
+import { Product, Sample } from '~models';
 import { DialogService } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
 
@@ -20,16 +19,17 @@ import { FilterType } from '~shared/filters';
 	]
 })
 export class SamplesPageComponent extends AbstractSampleCommonComponent implements OnInit {
+
 	private productId: string;
 	product: Product;
-	erm = ERM;
+
 	constructor(
 		protected route: ActivatedRoute,
 		protected router: Router,
 		protected userSrv: UserService,
 		protected sampleSrv: SampleService,
 		protected dlgSrv: DialogService,
-		protected featureSrv: ProductFeatureService,
+		protected productSrv: ProductService,
 		public listSrv: ListPageService<Sample, SampleService>,
 		public dialogCommonSrv: DialogCommonService
 	) {
@@ -43,7 +43,7 @@ export class SamplesPageComponent extends AbstractSampleCommonComponent implemen
 		);
 
 		id$.pipe(
-			switchMap(id => this.featureSrv.selectOne(id)),
+			switchMap(id => this.productSrv.selectOne(id)),
 			takeUntil(this._destroy$)
 		).subscribe(product => this.product = product);
 		this.productId = this.route.parent.snapshot.params.id;
