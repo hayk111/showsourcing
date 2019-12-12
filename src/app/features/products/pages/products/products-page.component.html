@@ -38,7 +38,7 @@
 		(openAddSampleDialog)="dialogCommonSrv.openCreationSampleDialog($event)"
 		(openAddTaskDialog)="dialogCommonSrv.openCreationTaskDlg($event)"
 		(setFavourite)="listSrv.onItemFavorited($event?.id)"
-		(archive)="onArchive($event)"
+		(archive)="listSrv.archiveOne($event)"
 		(openRequestFeedbackDialog)="dialogCommonSrv.openRequestFeedbackDialog([$event])"
 		(openCreateRequestDlg)="dialogCommonSrv.openSupplierRequest([$event])"
 		(previewClick)="listSrv.openPreview($event)"

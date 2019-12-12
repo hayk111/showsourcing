@@ -127,31 +127,6 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		});
 	}
 
-	onArchive(product: Product | Product[]) {
-		if (Array.isArray(product)) {
-			this.featureSrv.updateMany(product.map((p: Product) => ({ id: p.id, archived: true })))
-				.pipe(switchMap(_ => this.listSrv.refetch()))
-				.subscribe(_ => {
-					this.notifSrv.add({
-						type: NotificationType.SUCCESS,
-						title: this.translate.instant('title.products-archived'),
-						message: this.translate.instant('message.products-archived-successfully')
-					});
-				});
-		} else {
-			const { id } = product;
-			this.featureSrv.update({ id, archived: true })
-				.pipe(switchMap(_ => this.listSrv.refetch()))
-				.subscribe(_ => {
-					this.notifSrv.add({
-						type: NotificationType.SUCCESS,
-						title: this.translate.instant('title.product-archived'),
-						message: this.translate.instant('message.product-archived-successfully')
-					});
-				});
-		}
-	}
-
 	onOpenCreateRequestDlg(products: Product[]) {
 		return this.dlgSrv.open(SupplierRequestDialogComponent, { products });
 	}

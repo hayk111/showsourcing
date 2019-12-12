@@ -57,14 +57,13 @@ export abstract class EntityTableComponent<T> extends TrackingComponent implemen
 	@Output() unselect = new EventEmitter<any>();
 	@Output() selectAll = new EventEmitter<Map<string, boolean>>();
 	@Output() unselectAll = new EventEmitter<Map<string, boolean>>();
-	@Output() favorited = new EventEmitter<string>();
-	@Output() unfavorited = new EventEmitter<string>();
 	@Output() update = new EventEmitter<T>();
 	@Output() bottomReached = new EventEmitter<string>();
 	@Output() sort = new EventEmitter<Sort>();
 	/** emits when a click has been performed on the placeholder */
 	@Output() createClick = new EventEmitter<null>();
 	@Output() delete = new EventEmitter<T>();
+	@Output() archived = new EventEmitter<T>();
 	// pagination
 	@Output() previous = new EventEmitter<undefined>();
 	@Output() next = new EventEmitter<undefined>();

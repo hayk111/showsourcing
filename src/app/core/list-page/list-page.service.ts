@@ -19,6 +19,7 @@ import { ListPageDataConfig } from './list-page-config.interface';
 import { ListPageDataService } from './list-page-data.service';
 import { ListPageViewService } from './list-page-view.service';
 import { SelectionWithFavoriteService } from './selection-with-favorite.service';
+import { NotificationService, NotificationType } from '~shared/notifications';
 
 
 // It has four legs and it can fly, what is it?
@@ -58,6 +59,7 @@ export class ListPageService
 		private dlgSrv: DialogService,
 		private zone: NgZone,
 		private userSrv: UserService,
+		private notifSrv: NotificationService
 	) {
 		if (!showsourcing.tables) {
 			showsourcing.tables = {};
@@ -196,7 +198,9 @@ export class ListPageService
 	}
 
 	update(value: T) {
-		this.dataSrv.update(value).subscribe();
+		this.dataSrv.update(value).pipe(
+			switchMap(_ => this.refetch())
+		).subscribe();
 		// .pipe(
 		// 	// sometimes the optimistic ui fails for some odd reason when updating the supplier of a product
 		// 	// so we just refetch to cover the bug, fuck this.
@@ -313,6 +317,31 @@ export class ListPageService
 		});
 	}
 
+	archiveOne(entity: T) {
+		this.dataSrv.update({ id: entity.id, archived: true } as unknown as T)
+			.pipe(switchMap(_ => this.refetch()))
+			.subscribe(_ => {
+				this.notifSrv.add({
+					type: NotificationType.SUCCESS,
+					title: 'item archived',
+					message: 'item archived successfully'
+				});
+			});
+	}
+
+	archiveMany(entities: T[]) {
+		this.dataSrv.updateMany(
+			entities.map(entity => ({ id: entity.id, archived: true } as unknown as T))
+		).pipe(switchMap(_ => this.refetch()))
+		.subscribe(_ => {
+			this.notifSrv.add({
+				type: NotificationType.SUCCESS,
+				title: 'items archived',
+				message: 'items archived successfully'
+			});
+		});
+	}
+
 
 	private redirectToCreated(id: string) {
 		if (this.entityMetadata.destUrl)
@@ -425,6 +454,9 @@ export class ListPageService
 		return filters.length;
 	}
 
+	/** filter by archived, attention, weird logic:
+	 * if shouldAdd is true we the products archived
+	 * if shouldAdd is false we only see the not archived + not archived */
 	filterByArchived(shouldAdd: boolean) {
 		const filterParam = { type: FilterType.ARCHIVED, value: false };
 
@@ -447,6 +479,9 @@ export class ListPageService
 		this.removeFilter(filterParam);
 	}
 
+	/** filter by done, attention, weird logic:
+	 * if shouldAdd is true we the products done
+	 * if shouldAdd is false we only see the not done + not done */
 	filterByDone(shouldAdd: boolean) {
 		const filterParam = { type: FilterType.DONE, value: false };
 
