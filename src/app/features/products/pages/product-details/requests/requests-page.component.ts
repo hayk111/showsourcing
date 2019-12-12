@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
@@ -26,6 +26,7 @@ export class RequestsPageComponent extends AutoUnsub implements OnInit {
 
 	constructor(
 		protected route: ActivatedRoute,
+		private router: Router,
 		protected requestSrv: SupplierRequestService,
 		public dialogCommonSrv: DialogCommonService,
 		public listSrv: ListPageService<SupplierRequest, SupplierRequestService>,
@@ -57,6 +58,10 @@ export class RequestsPageComponent extends AutoUnsub implements OnInit {
 
 	openSupplierRequest() {
 		this.dialogCommonSrv.openSupplierRequest([this.product]);
+	}
+
+	goToRequest(request: SupplierRequest) {
+		this.router.navigate(['requests', request && request.id]);
 	}
 
 }

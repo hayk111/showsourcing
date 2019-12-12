@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { RequestElement } from '~core/models';
+import { AbstractListItemComponent } from '../abstract-list-item.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'request-element-list-item-app',
@@ -7,6 +9,8 @@ import { RequestElement } from '~core/models';
 	styleUrls: ['./request-element-list-item.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RequestElementListItemComponent {
+export class RequestElementListItemComponent extends AbstractListItemComponent<RequestElement> {
 	@Input() requestElement: RequestElement;
+
+	constructor(public translate: TranslateService) { super(); }
 }
