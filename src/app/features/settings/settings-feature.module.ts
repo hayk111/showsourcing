@@ -27,8 +27,6 @@ import { TablesCommonModule } from '~common/tables/tables-common.module';
 		// company
 		CompanyPages.CompanyPageComponent,
 		CompanyPages.InfoPageComponent,
-		CompanyPages.UsersPageComponent,
-		CompanyPages.TeamsPageComponent,
 		CompanyPages.CompanyCardComponent,
 		// team
 		TeamPages.TeamPageComponent,

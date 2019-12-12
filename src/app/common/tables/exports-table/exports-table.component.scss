@@ -1,3 +1,8 @@
+.export-icon {
+	icon-app {
+		color: var(--color-txt-third);
+	}
+}
 
 .tool-tip {
 	height: 22px;
@@ -11,7 +16,5 @@
 }
 
 .small {
-	display: flex;
-	width: var(--spacing-l);
 	height: var(--spacing-l);
 }
