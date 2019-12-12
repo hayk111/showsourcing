@@ -19,6 +19,7 @@ import { Status } from '~core/models/status.model';
 export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 
 	@Input() typeEntity: EntityMetadata;
+	@Input() displayStep = false;
 	/** In this case its alwaysgoing to be a product, sample, supplier or task */
 	private _entity: any;
 	@Input()
@@ -70,7 +71,7 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 			});
 	}
 
-	updateStatus(status) {
+	updateStatus(status: Status) {
 		if (!this.internalUpdate) {
 			this.statusUpdated.emit(status);
 		} else if (status && status.id !== this.entity.status.id) {

@@ -4,12 +4,12 @@ import { TrackingComponent } from '~utils/tracking-component';
 import { StatusUtils } from '~utils';
 
 @Component({
-	selector: 'sample-list-app',
-	templateUrl: './sample-list.component.html',
-	styleUrls: ['./sample-list.component.scss'],
+	selector: 'sample-catalog-app',
+	templateUrl: './sample-catalog.component.html',
+	styleUrls: ['./sample-catalog.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SampleListComponent extends TrackingComponent {
+export class SampleCatalogComponent extends TrackingComponent {
 
 	private _samples: Sample[];
 	@Input() set samples(samples: Sample[]) {

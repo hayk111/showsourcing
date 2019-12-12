@@ -10,6 +10,7 @@ export class SupplierDescriptor extends AbstractDescriptorComponent {
 	protected _descriptor: DynamicField[] = [
 		{ name: 'address', type: 'text', label: 'address' },
 		{ name: 'name', type: 'text', required: true, label: 'name' },
+		{ name: 'reference', type: 'text', label: translate('reference') },
 		{ name: 'generalMOQ', type: 'int', label: 'MOQ' },
 		{ name: 'generalLeadTime', type: 'days', label: 'Lead Time' },
 		{ name: 'website', type: 'url', label: 'website' },

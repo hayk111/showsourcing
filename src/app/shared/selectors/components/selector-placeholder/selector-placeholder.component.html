@@ -1,5 +1,6 @@
 <div class="container ellipsis" [ngClass]="{ 'place-holder': !name }">
 	<ng-content></ng-content>
+	<!-- TODO ngx test -->
 	<div *ngIf="!content" class="name">{{ name ? name : placeholder }}</div>
 </div>
 <icon-app *ngIf="hasArrow" name="caret-down"></icon-app>

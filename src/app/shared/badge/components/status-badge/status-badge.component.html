@@ -1,13 +1,7 @@
 <badge-app
-	*ngIf="status?.category !== statusUtils?.DEFAULT_STATUS_CATEGORY; else noStatus"
-	#badge
 	[size]="size"
 	[color]="statusUtils.getStatusColor(status)">
-	{{ status?.step + 1 }}. {{ 'text.' + status?.name | translate }}
+	<ng-container *ngIf="displayStep">{{ status?.step + 1 }}.</ng-container> 
+	{{ 'const.status.' + status?.name | translate }}
 </badge-app>
 
-<ng-template #noStatus>
-	<badge-app #badge [size]="size" [color]="statusUtils.getStatusColor(status)">
-		{{ 'OBJ.new-OBJ' | translate: {field: ('ERM.' + typeEntity?.translationKey + '.singular' | translate)} }}
-	</badge-app>
-</ng-template>

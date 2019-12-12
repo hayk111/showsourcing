@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, ViewChild, ElementRef } from '@angular/core';
-import { ChartDataSets, ChartOptions } from 'chart.js';
+import { ChartDataSets, ChartOptions, Chart } from 'chart.js';
 import { Color, BaseChartDirective, Label } from 'ng2-charts';
 import * as pluginAnnotations from 'chartjs-plugin-annotation';
 
@@ -48,7 +48,9 @@ export class LineChartComponent implements OnInit {
 			yAxes: [{
 				gridLines: {
 					drawBorder: false,
+					zeroLineColor: 'rgba(0, 0, 0, 0)',
 					borderDash: [3, 4],
+					borderDashOffset: 200,
 					color: '#F3F5FE',
 				},
 				ticks: {

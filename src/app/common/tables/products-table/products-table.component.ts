@@ -19,7 +19,6 @@ export class ProductsTableComponent extends EntityTableComponent<Product> implem
 		'reference',
 		'name',
 		'preview',
-		'reference',
 		'price',
 		'moq',
 		'supplier',

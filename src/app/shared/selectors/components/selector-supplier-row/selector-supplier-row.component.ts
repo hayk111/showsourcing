@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Supplier } from '~core/models';
 import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlight.ablecomponent';
+import { StatusUtils } from '~utils';
 
 @Component({
 	selector: 'selector-supplier-row-app',
@@ -13,7 +14,7 @@ export class SelectorSupplierRowComponent extends AbstractSelectorHighlightableC
 	private _supplier: Supplier;
 	@Input() set supplier(supplier: Supplier) {
 		this._supplier = supplier;
-		this.color = this.getType(supplier.status);
+		this.color = StatusUtils.getStatusColor(supplier.status);
 	}
 
 	get supplier() {
