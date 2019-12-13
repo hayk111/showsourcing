@@ -8,6 +8,15 @@
 	(buttonClick)="listSrv.create()">
 </header-list-app>
 
+<controller-table-app>
+	<controller-table-quick-filters-app></controller-table-quick-filters-app>
+	<controller-table-quick-actions-app 
+		[hasExport]="false"
+		[columns]="columns" 
+		[tableConfig]="tableConfig">
+	</controller-table-quick-actions-app>
+</controller-table-app>
+
 <!-- <controller-table-app
 	[entityType]="entityTypeEnum.PROJECT"
 	[hasSwitch]="false"

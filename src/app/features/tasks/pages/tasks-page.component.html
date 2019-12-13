@@ -9,36 +9,13 @@
 	(buttonClick)="dialogCommonSrv.openCreationTaskDlg()">
 </header-list-app>
 
-<!-- <controller-table-app
-	#controller
-	[hasFilter]="false"
-	[hasSwitch]="false"
-	[hasArchived]="false"
-	[hasCompletedTask]="true"
-	[hasTaskCreatedByMeOnly]="true"
-	[hasExport]="false"
-	[view]="listSrv.view"
-	[count]="listSrv.count$ | async"
-	[entityType]="'TASK'"
-	searchType="short"
-	[searchValue]="listSrv.searchValue"
-	[ngStyle]="tableWidth && {'width': getSubPanelWidth()}"
-	(search)="listSrv.search($event)"
-	(clearFilters)="listSrv.filterList.resetAll()"
-	(showTasksCreatedByMeOnly)="showTasksCreatedByMeOnly()"
-	(hideTasksCreatedByMeOnly)="hideTasksCreatedByMeOnly()"
-	(showTasksCompleted)="listSrv.filterByDone(false)"
-	(hideTasksCompleted)="listSrv.filterByDone(true)"
-	(export)="dialogCommonSrv.openExportDialog()"
-	(showFilters)="listSrv.openFilterPanel()"
-	(viewChange)="onViewChange($event)">
-
-	<controller-table-actions-app
-		(showAssigned)="listSrv.filterByAssignee(true)"
-		(hideAssigned)="listSrv.filterByAssignee(false)">
-	</controller-table-actions-app>
-	
-</controller-table-app> -->
+<controller-table-app [hasFilters]="false">
+	<controller-table-quick-filters-app></controller-table-quick-filters-app>
+	<controller-table-quick-actions-app 
+		[columns]="columns" 
+		[tableConfig]="tableConfig">
+	</controller-table-quick-actions-app>
+</controller-table-app>
 
 <task-table-app
 	[rows]="listSrv.items$ | async"

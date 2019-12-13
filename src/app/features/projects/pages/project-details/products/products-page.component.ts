@@ -17,6 +17,7 @@ import { DialogService } from '~shared/dialog/services';
 import { FilterType } from '~shared/filters';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub } from '~utils';
+import { ProductsTableComponent } from '~common/tables/products-table/products-table.component';
 
 @Component({
 	selector: 'products-page-app',
@@ -54,6 +55,9 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		FilterType.SUPPLIER,
 		FilterType.TAGS
 	];
+
+	columns = ProductsTableComponent.DEFAULT_COLUMNS;
+	tableConfig = ProductsTableComponent.DEFAULT_TABLE_CONFIG;
 
 	constructor(
 		private featureSrv: ProjectFeatureService,
