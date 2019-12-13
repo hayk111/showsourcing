@@ -10,8 +10,8 @@
 	</context-menu-trigger-app>
 	<context-menu-item-app 
 		*ngFor="let column of sortableColumns"
-		(click)="onSortClick(column)"
-		[ngClass]="{ 'color-primary': currentSort.sortBy === column.sortProperty }">
+		[ngClass]="{ 'color-primary': currentSort.sortBy === column.sortProperty }"
+		(click)="onSortClick(column)">
 		{{ 'title.' + column.translationKey | translate }}
 		<ng-container *ngIf="currentSort.sortBy === column.sortProperty">
 			<icon-app 
