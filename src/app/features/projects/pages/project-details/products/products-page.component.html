@@ -1,6 +1,6 @@
 <ng-container *ngIf="project$ | async as project; else spinner">
 
-	<controller-list-app
+	<!-- <controller-list-app
 		[hasSwitch]="true"
 		[filtersAmount]="listSrv.getFilterAmount([{ type: filterTypeEnum.ARCHIVED, value: false }, { type: filterTypeEnum.DELETED, value: false }])"
 		[hasFilter]="true"
@@ -10,22 +10,18 @@
 		[count]="listSrv.count$ | async"
 		(showFilters)="listSrv.openFilterPanel()"
 		(clearFilters)="onClearFilters()"
-		(showArchived)="listSrv.filterByArchived(true)"
-		(hideArchived)="listSrv.filterByArchived(false)"
-		(showAssigned)="listSrv.filterByAssignee(true)"
-		(hideAssigned)="listSrv.filterByAssignee(false)"
 		(search)="listSrv.search($event)"
 		(export)="dialogCommonSrv.openExportDialog(listSrv.getSelectedValues())"
 		(viewChange)="listSrv.changeView($event)">
 
-		<controller-list-right-item-app>
-			<product-sorting-menu-app
-				[currentSort]="listSrv.currentSort"
-				(sortFromMenu)="listSrv.sortFromMenu($event)">
-			</product-sorting-menu-app>
-		</controller-list-right-item-app>
+		<controller-list-actions-app
+			(showArchived)="listSrv.filterByArchived(true)"
+			(hideArchived)="listSrv.filterByArchived(false)"
+			(showAssigned)="listSrv.filterByAssignee(true)"
+			(hideAssigned)="listSrv.filterByAssignee(false)">
+		</controller-list-actions-app>
 
-	</controller-list-app>
+	</controller-list-app> -->
 
 <ng-container>
 

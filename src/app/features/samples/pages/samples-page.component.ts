@@ -8,7 +8,7 @@ import { ListPageService } from '~core/list-page';
 import { ERM, Sample } from '~models';
 import { DialogService } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
-import { ControllerListService } from '~shared/header/components/controller-list/services/controller-list.service';
+import { ControllerListService } from '~shared/controller-list/services/controller-list.service';
 import { AutoUnsub } from '~utils';
 
 @Component({
@@ -85,9 +85,6 @@ export class SamplesPageComponent extends AutoUnsub implements OnInit {
 		return filters.length;
 	}
 
-	onViewChange(view: 'list' | 'card') {
-		this.listSrv.changeView(view);
-	}
 
 	onFavourite(sample: Sample) {
 		this.listSrv.onItemFavorited(sample.id);

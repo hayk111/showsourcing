@@ -1,5 +1,5 @@
-<controller-list-app
-	buttonName="create sample"
+<!-- <controller-list-app
+	class="max-full-table-width"
 	[entityType]="erm.SAMPLE.singular"
 	[hasFilter]="true"
 	[hasSwitch]="false"
@@ -7,15 +7,19 @@
 	[entityType]="'SAMPLE'"
 	[view]="listSrv.view"
 	(showFilters)="listSrv.openFilterPanel()"
-	(showArchived)="listSrv.filterByArchived(true)"
-	(hideArchived)="listSrv.filterByArchived(false)"
-	(showAssigned)="listSrv.filterByAssignee(true)"
-	(hideAssigned)="listSrv.filterByAssignee(false)"
 	(search)="listSrv.search($event)"
 	(smartSearch)="listSrv.smartSearch($event)"
 	(export)="dialogCommonSrv.openExportDialog()"
 	(buttonClick)="dialogCommonSrv.openCreationSampleDialog(undefined, supplier)">
-</controller-list-app>
+
+	<controller-list-actions-app 
+		(showArchived)="listSrv.filterByArchived(true)"
+		(hideArchived)="listSrv.filterByArchived(false)"
+		(showAssigned)="listSrv.filterByAssignee(true)"
+		(hideAssigned)="listSrv.filterByAssignee(false)">
+	</controller-list-actions-app>
+
+</controller-list-app> -->
 
 <samples-table-app
 	[rows]="listSrv.items$ | async"

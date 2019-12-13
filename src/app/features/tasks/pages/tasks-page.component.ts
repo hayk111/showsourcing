@@ -8,9 +8,8 @@ import { ListPageService } from '~core/list-page';
 import { ERM, Task } from '~models';
 import { DialogService } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
-import { ControllerListComponent } from '~shared/header/components/controller-list/components/controller-list/controller-list.component';
+import { ControllerListComponent } from '~shared/controller-list/components/controller-list/controller-list.component';
 import { AutoUnsub } from '~utils';
-import { QueryBuilder } from '~core/entity-services/_global/query-builder.class';
 
 @Component({
 	selector: 'tasks-page-app',
@@ -73,7 +72,7 @@ export class TasksPageComponent extends AutoUnsub implements OnInit, AfterViewIn
 
 	ngAfterViewInit() {
 		// this way the check is active, and user can see that this filter is being used
-		this.controller.toggleAssigned();
+		// this.controller.toggleAssigned();
 	}
 
 	showTasksCreatedByMeOnly() {
@@ -95,10 +94,6 @@ export class TasksPageComponent extends AutoUnsub implements OnInit, AfterViewIn
 			this.listSrv.addFilter(filterAssignee);
 		else
 			this.listSrv.removeFilter(filterAssignee);
-	}
-
-	onViewChange(view: 'list' | 'card') {
-		this.listSrv.changeView(view);
 	}
 
 	onFavourite(task: Task) {

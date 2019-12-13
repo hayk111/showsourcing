@@ -2,8 +2,7 @@
 
 	<dialog-header-app translate="Select Project"></dialog-header-app> <!-- TODO: translation to be added -->
 
-	<controller-list-app
-		class="mg-bottom-ms"
+	<!-- <controller-list-app
 		[entityType]="entityTypeEnum.PROJECT"
 		[hasFilter]="false"
 		[hasSwitch]="false"
@@ -11,22 +10,17 @@
 		[count]="listSrv.count$ | async"
 		[view]="listSrv.view"
 		[searchValue]="listSrv.searchValue"
-		(search)="listSrv.search($event)"
-		(showArchived)="listSrv.filterByArchived(true)"
-		(hideArchived)="listSrv.filterByArchived(false)"
-		(showAssigned)="listSrv.filterByAssignee(true)"
-		(hideAssigned)="listSrv.filterByAssignee(false)">
+		[filtersPanelOpened]="listSrv.filterPanelOpen"
+		(search)="listSrv.search($event)">
 
-		<controller-list-left-item-app class="flex">
-			<div class="flex show-my-samples">
-				<checkbox-app
-					[checked]="listSrv.filterList.hasFilterType(filterType.ASSIGNEE)">
-				</checkbox-app>
-				<span class="ellipsis" translate="text.show-only-my-sample"></span>
-			</div>
-		</controller-list-left-item-app>
+		<controller-list-actions-app
+			(showArchived)="listSrv.filterByArchived(true)"
+			(hideArchived)="listSrv.filterByArchived(false)"
+			(showAssigned)="listSrv.filterByAssignee(true)"
+			(hideAssigned)="listSrv.filterByAssignee(false)">
+		</controller-list-actions-app>
 
-	</controller-list-app>
+	</controller-list-app> -->
 
 	<projects-table-app
 		class="list-view"

@@ -1,5 +1,5 @@
 <controller-list-app
-	searchType="short"
+	[searchType]="'short'"
 	[filtersAmount]="listSrv.getFilterAmount([{ type: filterTypeEnum.ARCHIVED, value: false }, { type: filterTypeEnum.DELETED, value: false }])"
 	[hasFilter]="true"
 	[hasSwitch]="false"
@@ -9,16 +9,17 @@
 	[searchValue]="listSrv.searchValue"
 	(search)="listSrv.search($event)"
 	(clearFilters)="onClearFilters()"
-	(showArchived)="listSrv.filterByArchived(true)"
-	(hideArchived)="listSrv.filterByArchived(false)"
-	(showAssigned)="listSrv.filterByAssignee(true)"
-	(hideAssigned)="listSrv.filterByAssignee(false)"
 	(export)="dialogCommonSrv.openExportDialog(listSrv.getSelectedValues())"
 	(showFilters)="listSrv.openFilterPanel()"
 	(viewChange)="listSrv.changeView($event)">
-	<!-- <controller-list-actions-app class="flex">
-		<button class="primary" (click)="openCreationProductDlg()">Create Product</button>
-	</controller-list-actions-app> -->
+
+	<controller-list-actions-app 
+		(showArchived)="listSrv.filterByArchived(true)"
+		(hideArchived)="listSrv.filterByArchived(false)"
+		(showAssigned)="listSrv.filterByAssignee(true)"
+		(hideAssigned)="listSrv.filterByAssignee(false)">
+	</controller-list-actions-app>
+
 </controller-list-app>
 
 <ng-container *ngIf="(listSrv.items$ | async) as products; else spinner">

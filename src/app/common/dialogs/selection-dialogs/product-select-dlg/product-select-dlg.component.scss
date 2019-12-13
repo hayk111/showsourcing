@@ -3,11 +3,6 @@ dialog-app {
 	height: calc(100vh - 100px);
 	width: 1149px;
 	border-radius: 4px;
-
-	controller-list-app {
-		padding: 0;
-		margin: 0;
-	}
 	
 	dialog-header-app {
 		margin-top: var(--spacing-s);

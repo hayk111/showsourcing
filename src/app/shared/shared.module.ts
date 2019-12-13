@@ -29,6 +29,7 @@ import { BottomPanelModule } from './bottom-panel';
 import { CarouselModule } from './carousel/carousel.module';
 import { CommentModule } from './comment/comment.module';
 import { ComparisonRowModule } from './comparison-row/comparison-row.module';
+import { ControllerListModule } from './controller-list/controller-list.module';
 import { DialogModule } from './dialog/dialog.module';
 import { DynamicFormsModule } from './dynamic-forms/dynamic-forms.module';
 import { ERMModule } from './erm/erm.module';
@@ -122,7 +123,8 @@ const modules = [
 	OnBoardingModule,
 	PackagingModule,
 	TranslateModule,
-	NavModule
+	NavModule,
+	ControllerListModule
 ];
 
 @NgModule({

@@ -1,0 +1,47 @@
+
+<div class="left flexVAlign">
+
+	<search-bar-app
+		*ngIf="panels.includes('search')"
+		searchType="short"
+		[formControl]="searchControl"
+		[inputFocus]="inputFocus"
+		[placeHolder]="'placeholder.type-to-search' | translate"
+		(search)="listSrv.search($event)">
+	</search-bar-app>
+
+	<button
+		*ngIf="panels.includes('filters')"
+		class="icon light"
+		(click)="listSrv.openFilterPanel()"
+		translate="button.show-filters">
+		<icon-app name="filter" size="m"></icon-app>
+	</button>
+
+	<divider-app [vertical]="true"></divider-app>
+
+	<span class="capitalize entities-count">
+		{{ listSrv.count$ | async }} 
+		{{ (listSrv.count$ | async) < 2 ? 
+			 (listSrv.entityMetadata.singular | translate) : (listSrv.entityMetadata.plural | translate) }}
+	</span>
+
+</div>
+
+<div class="right flexVAlign">
+
+	<!-- <ng-content select="controller-list-actions-app"></ng-content> -->
+
+	<ng-content select="controller-list-quick-filters"></ng-content>
+
+	<divider-app [vertical]="true"></divider-app>
+	<ng-content select="controller-list-quick-filters"></ng-content>
+	<divider-app [vertical]="true"></divider-app>
+
+	<ng-content select="controller-list-quick-actions-app"></ng-content>
+
+	<divider-app class="mg-right-ms" [vertical]="true"></divider-app>
+
+	<ng-content select="controller-list-view-switcher-app"></ng-content>
+
+</div>

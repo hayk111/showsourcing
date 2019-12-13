@@ -2,7 +2,7 @@
 
 	<dialog-header-app translate="header.select-products"></dialog-header-app>
 
-	<controller-list-app
+	<!-- <controller-list-app
 		[entityType]="entityTypeEnum.PRODUCT"
 		[hasFilter]="true"
 		[hasSwitch]="false"
@@ -12,25 +12,17 @@
 		[view]="listSrv.view"
 		[searchValue]="listSrv.searchValue"
 		(search)="searchProduct($event)"
-		(showArchived)="listSrv.filterByArchived(true)"
-		(hideArchived)="listSrv.filterByArchived(false)"
-		(showAssigned)="listSrv.filterByAssignee(true)"
-		(hideAssigned)="listSrv.filterByAssignee(false)"
 		(showFilters)="showFilters()"
 		(hideFilters)="hideFilters()">
 
-		<controller-list-left-item-app class="flex">
-			<div class="flex show-my-samples">
-				<checkbox-app
-					[checked]="listSrv.filterList.hasFilterType(filterType.ASSIGNEE)"
-					(check)="toggleMySamples(true)"
-					(uncheck)="toggleMySamples(false)">
-				</checkbox-app>
-				<span class="ellipsis" translate="text.show-only-my-sample"></span>
-			</div>
-		</controller-list-left-item-app>
+		<controller-list-actions-app
+			(showArchived)="listSrv.filterByArchived(true)"
+			(hideArchived)="listSrv.filterByArchived(false)"
+			(showAssigned)="listSrv.filterByAssignee(true)"
+			(hideAssigned)="listSrv.filterByAssignee(false)">
+		</controller-list-actions-app>
 
-	</controller-list-app>
+	</controller-list-app> -->
 
 	<products-table-app
 		class="list-view"

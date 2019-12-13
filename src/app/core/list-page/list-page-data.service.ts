@@ -46,10 +46,6 @@ export class ListPageDataService
 	/** tells us if loadData has been called */
 	isListening = false;
 
-	/** for the smart search feature... */
-	private searchFilterElements$: Observable<any[]>;
-	smartSearchFilterElements$: Observable<any[]>;
-
 	constructor() {
 		log.debug('creating list-data service');
 	}
@@ -242,10 +238,6 @@ export class ListPageDataService
 
 	removeFilterType(filterType: FilterType) {
 		this.filterList.removeFilterType(filterType);
-	}
-
-	smartSearch(event: any) {
-		throw Error('not implemented');
 	}
 
 }

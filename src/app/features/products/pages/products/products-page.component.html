@@ -8,30 +8,13 @@
 </header-list-app>
 
 <controller-list-app
-	searchType="short"
-	[filtersAmount]="listSrv.getFilterAmount([{ type: filterTypeEnum.ARCHIVED, value: false }, { type: filterTypeEnum.DELETED, value: false }])"
-	[hasFilter]="true"
-	[hasSwitch]="true"
-	[view]="listSrv.view"
-	[count]="listSrv.count$ | async"
-	[entityType]="'PRODUCT'"
-	[searchValue]="listSrv.searchValue"
-	(search)="listSrv.search($event)"
-	(clearFilters)="onClearFilters()"
-	(showArchived)="listSrv.filterByArchived(true)"
-	(hideArchived)="listSrv.filterByArchived(false)"
-	(showAssigned)="listSrv.filterByAssignee(true)"
-	(hideAssigned)="listSrv.filterByAssignee(false)"
-	(export)="dialogCommonSrv.openExportDialog(listSrv.getSelectedValues())"
-	(showFilters)="listSrv.openFilterPanel()"
-	(viewChange)="listSrv.changeView($event)">
-
-	<controller-list-right-item-app class="flex" right-sort-elem>
-		<product-sorting-menu-app
-			[currentSort]="listSrv.currentSort"
-			(sortFromMenu)="listSrv.sortFromMenu($event)">
-		</product-sorting-menu-app>
-	</controller-list-right-item-app>
+	[panels]="['search', 'filters', 'action','quick-filters', 'quick-actions', 'view-switcher']">
+	<!-- <controller-list-quick-filters-app></controller-list-quick-filters-app> -->
+	<controller-list-quick-actions-app (export)="listSrv.exportSelection()"></controller-list-quick-actions-app>
+	<controller-list-view-switcher-app 
+		[view]="listSrv.view"
+		(viewChange)="listSrv.changeView($event)">
+	</controller-list-view-switcher-app>
 </controller-list-app>
 
 <!-- views: either one will be displayed when the correct view is selected -->

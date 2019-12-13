@@ -6,7 +6,7 @@ import { ListPageService } from '~core/list-page';
 import { SelectParamsConfig } from '~entity-services/_global/select-params';
 import { ERM, Supplier } from '~models';
 import { FilterType } from '~shared/filters';
-import { ControllerListService } from '~shared/header/components/controller-list/services/controller-list.service';
+import { ControllerListService } from '~shared/controller-list/services/controller-list.service';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub } from '~utils';
 
@@ -65,10 +65,6 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit, AfterVi
 			initialFilters: [{ type: FilterType.DELETED, value: false }],
 			entityMetadata: ERM.SUPPLIER,
 		}, false);
-	}
-
-	onViewChange(view: 'list' | 'board' | 'card') {
-		this.listSrv.changeView(view);
 	}
 
 	ngAfterViewInit() {
