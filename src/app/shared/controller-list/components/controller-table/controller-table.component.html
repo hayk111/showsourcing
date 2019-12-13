@@ -2,7 +2,6 @@
 <div class="left flexVAlign">
 
 	<search-bar-app
-		*ngIf="panels.includes('search')"
 		searchType="short"
 		[formControl]="searchControl"
 		[inputFocus]="inputFocus"
@@ -11,7 +10,7 @@
 	</search-bar-app>
 
 	<button
-		*ngIf="panels.includes('filters')"
+		*ngIf="hasFilters"
 		class="icon"
 		(click)="listSrv.openFilterPanel()"
 		translate="button.show-filters">

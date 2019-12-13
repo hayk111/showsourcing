@@ -7,15 +7,14 @@ import { FilterType } from '~shared/filters';
 export type QuickFilter = 'archived' | 'assignee' | 'createdBy' | 'completed';
 
 @Component({
-	selector: 'controller-list-quick-filters-app',
-	templateUrl: './controller-list-quick-filters.component.html',
-	styleUrls: ['./controller-list-quick-filters.component.scss'],
-	//  changeDetection: ChangeDetectionStrategy.OnPush,
+	selector: 'controller-table-quick-filters-app',
+	templateUrl: './controller-table-quick-filters.component.html',
+	styleUrls: ['./controller-table-quick-filters.component.scss'],
 	host: {
 		class: 'flexBetween'
 	}
 })
-export class ControllerListQuickFiltersComponent {
+export class ControllerTableQuickFiltersComponent {
 	@Input() quickFilters: QuickFilter[] = ['archived', 'assignee'];
 
 	constructor(private listSrv: ListPageService<any, any>) { }

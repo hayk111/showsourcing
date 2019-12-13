@@ -1,29 +1,34 @@
-import { ChangeDetectionStrategy, Component, Input, EventEmitter, OnInit, Output } from '@angular/core';
-import { ColumnConfig } from '~core/list-page';
+import { Component, Input, OnInit } from '@angular/core';
+import { ColumnConfig, ListPageService } from '~core/list-page';
 
 @Component({
-	selector: 'controller-list-quick-actions-app',
-	templateUrl: './controller-list-quick-actions.component.html',
-	styleUrls: ['./controller-list-quick-actions.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	selector: 'controller-table-quick-actions-app',
+	templateUrl: './controller-table-quick-actions.component.html',
+	styleUrls: ['./controller-table-quick-actions.component.scss'],
 })
-export class ControllerListQuickActionsComponent implements OnInit {
+export class ControllerTableQuickActionsComponent implements OnInit {
 	@Input() hasSort = true;
 	@Input() tableConfig: ColumnConfig[] = [];
 	@Input() columns: string[];
 	@Input() currentSort: { sortBy: string, descending: boolean };
 	sortableColumns = [];
-	@Output() export = new EventEmitter();
-	@Output() sort = new EventEmitter();
+
+
+	constructor(public listSrv: ListPageService<any, any>) {}
 
 	ngOnInit() {
 		this.sortableColumns = this.getSortableColumns();
+		this.currentSort = this.listSrv.currentSort;
+	}
+
+	onExportClick() {
+		this.listSrv.exportSelection();
 	}
 
 	onSortClick(column: ColumnConfig) {
 		const isCurrentSort = this.currentSort.sortBy === column.sortProperty;
 		const descending = isCurrentSort ? !this.currentSort.descending : true;
-		this.sort.emit({ sortBy: column.sortProperty, descending });
+		this.listSrv.sort({ sortBy: column.sortProperty, descending });
 	}
 
 	getSortableColumns() {
