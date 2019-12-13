@@ -361,7 +361,7 @@ export class ListPageService
 	}
 
 	resetFilters() {
-		this.dataSrv.filterList.resetAll();
+		this.dataSrv.filterList.reset();
 	}
 
 	/** bridge for view service */
@@ -452,7 +452,7 @@ export class ListPageService
 
 	getFilterAmount(): number {
 		const filters = this.filterList.asFilters()
-			.filter(fil => !this.filterList.startFilters.some(elem => elem.type === fil.type && elem.value === fil.value));
+			.filter(fil => !this.filterList.initialFilters.some(elem => elem.type === fil.type && elem.value === fil.value));
 		return filters.length;
 	}
 
