@@ -1,13 +1,11 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { switchMap } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { SupplierService } from '~core/entity-services';
 import { ListPageService } from '~core/list-page';
 import { SelectParamsConfig } from '~entity-services/_global/select-params';
 import { ERM, Supplier } from '~models';
 import { FilterType } from '~shared/filters';
-import { ControllerListService } from '~shared/controller-table/services/controller-table.service';
-import { NotificationService, NotificationType } from '~shared/notifications';
+import { NotificationService } from '~shared/notifications';
 import { AutoUnsub } from '~utils';
 
 // A doctor accidentally prescribes his patient a laxative instead of a coughing syrup.
@@ -49,10 +47,8 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit, AfterVi
 
 	constructor(
 		private supplierSrv: SupplierService,
-		private notifSrv: NotificationService,
 		public listSrv: ListPageService<Supplier, SupplierService>,
 		public dialogCommonSrv: DialogCommonService,
-		private controllerListService: ControllerListService
 	) {
 		super();
 	}

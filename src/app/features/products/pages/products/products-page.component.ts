@@ -13,8 +13,7 @@ import { ProductFeatureService } from '~features/products/services';
 import { ERM, Product } from '~models';
 import { DialogService } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
-import { ControllerListService } from '~shared/controller-table/services/controller-table.service';
-import { NotificationService, NotificationType } from '~shared/notifications';
+import { NotificationService } from '~shared/notifications';
 import { AutoUnsub } from '~utils';
 import { ProductsTableComponent } from '~common/tables/products-table/products-table.component';
 
@@ -57,15 +56,11 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 
 	constructor(
 		private productSrv: ProductService,
-		private notifSrv: NotificationService,
 		public dialogCommonSrv: DialogCommonService,
 		public listSrv: ListPageService<Product, ProductService>,
-		private featureSrv: ProductFeatureService,
 		public elem: ElementRef,
 		private userSrv: UserService,
-		private translate: TranslateService,
 		protected dlgSrv: DialogService,
-		private controllerListService: ControllerListService,
 	) {
 		super();
 	}

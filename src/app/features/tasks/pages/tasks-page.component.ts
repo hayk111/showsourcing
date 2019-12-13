@@ -8,7 +8,6 @@ import { ListPageService } from '~core/list-page';
 import { ERM, Task } from '~models';
 import { DialogService } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
-import { ControllerTableComponent } from '~shared/controller-table/components/controller-t/controller-table.componentt';
 import { AutoUnsub } from '~utils';
 
 @Component({
@@ -24,7 +23,6 @@ import { AutoUnsub } from '~utils';
 	}
 })
 export class TasksPageComponent extends AutoUnsub implements OnInit, AfterViewInit {
-	@ViewChild(ControllerTableComponent, { static: false }) controller: ControllerTableComponent;
 	public tableWidth: string;
 
 	erm = ERM;

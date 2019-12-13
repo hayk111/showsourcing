@@ -51,7 +51,7 @@ import { routes } from './routes';
 		Pages.ColorsPageComponent,
 		Pages.SpacingPageComponent,
 		Pages.TypographyPageComponent,
-		Pages.ControllerListPageComponent
+		Pages.ControllerTablePageComponent
 	],
 	exports: [],
 	providers: []
