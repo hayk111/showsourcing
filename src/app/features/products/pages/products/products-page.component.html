@@ -20,7 +20,7 @@
 <!-- views: either one will be displayed when the correct view is selected -->
 <ng-container *ngIf="listSrv.isListening">
 	<products-table-app
-		*ngIf="listSrv.view === 'list'"
+		*ngIf="listSrv.view === 'table'"
 		#productList
 		[currentSort]="listSrv.currentSort"
 		[pending]="listSrv.pending"
