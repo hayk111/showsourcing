@@ -16,7 +16,8 @@ export class DashboardHeaderComponent implements OnInit {
 
 	ngOnInit() {
 		this.teamName = this.teamSrv.selectedTeamSync.name;
-		this.companyName =  this.companySrv.companySync.name || '';
+		const company = this.companySrv.companySync;
+		this.companyName =  company ? company.name : '';
 	}
 
 }
