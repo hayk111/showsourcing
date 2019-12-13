@@ -40,7 +40,7 @@
 	[count]="listSrv.count$ | async"
 	[currentPage]="listSrv.currentPage"
 	(goToPage)="listSrv.loadPage($event)"
-	(archive)="onArchive($event)"
+	(archive)="listSrv.archiveOne()($event)"
 	(sort)="listSrv.sort($event)"
 	(select)="listSrv.selectOne($event, true)"
 	(unselect)="listSrv.unselectOne($event, true)"
@@ -51,7 +51,6 @@
 	(unfavorited)="listSrv.onItemUnfavorited($event)"
 	(previewClick)="listSrv.openPreview($event)"
 	(showItemsPerPage)="showItemsPerPage($event)"
-	(archive)="onArchive($event)"
 	(createClick)="listSrv.create()"
 	(update)="listSrv.update($event)"
 	(delete)="listSrv.deleteOne($event)">
