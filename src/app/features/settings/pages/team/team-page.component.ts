@@ -10,7 +10,10 @@ import { DialogCommonService } from '~common/dialogs/services/dialog-common.serv
 @Component({
 	selector: 'team-page-app',
 	templateUrl: './team-page.component.html',
-	styleUrls: ['./team-page.component.scss']
+	styleUrls: ['./team-page.component.scss'],
+	host: {
+		class: 'table-page'
+	},
 })
 export class TeamPageComponent implements OnInit {
 	team$: Observable<Team>;

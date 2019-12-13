@@ -32,4 +32,8 @@
 
 .info {
 	flex-direction: column;
+
+	small {
+		color: var(--color-txt-third);
+	}
 }
