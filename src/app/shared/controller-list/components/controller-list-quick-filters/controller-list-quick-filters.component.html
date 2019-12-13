@@ -1,9 +1,9 @@
 <button
 	*ngIf="quickFilters.includes('assignee')"
 	class="light mg-left-ms"
-	(click)="toggleAssignedToMe()"
 	toolTip
-	[toolTipMessage]="'tooltip.show-only-assigned-to-me' | translate">
+	[toolTipMessage]="'tooltip.show-only-assigned-to-me' | translate"
+	(click)="toggleAssignedToMe()">
 	<checkbox-app class="mg-right-xs" [checked]="isAssignedToMeChecked"></checkbox-app>
 	{{ 'label.assigned-to-me' | translate }}
 </button>
@@ -11,9 +11,9 @@
 <button
 	*ngIf="quickFilters.includes('archived')"
 	class="light mg-left-ms"
-	(click)="toggleArchived()"
 	toolTip
-	[toolTipMessage]="'tooltip.also-show-archived' | translate">
+	[toolTipMessage]="'tooltip.also-show-archived' | translate"
+	(click)="toggleArchived()">
 	<checkbox-app class="mg-right-xs" [checked]="isArchivedChecked"></checkbox-app>
 	{{ 'label.show-archived' | translate }}
 </button>
@@ -21,9 +21,9 @@
 <button
 	*ngIf="quickFilters.includes('completed')"
 	class="light mg-left-ms"
-	(click)="toggleCompleted()"
 	toolTip
-	[toolTipMessage]="'tooltip.also-show-completed' | translate">
+	[toolTipMessage]="'tooltip.also-show-completed' | translate"
+	(click)="toggleCompleted()">
 	<checkbox-app class="mg-right-xs" [checked]="isCompletedChecked"></checkbox-app>
 	{{ 'label.show-completed' | translate }}
 </button>
@@ -31,9 +31,9 @@
 <button
 	*ngIf="quickFilters.includes('createdBy')"
 	class="light mg-left-ms"
-	(click)="toggleCreatedByMe()"
 	toolTip
-	[toolTipMessage]="'tooltip.only-created-by-me' | translate">
+	[toolTipMessage]="'tooltip.only-created-by-me' | translate"
+	(click)="toggleCreatedByMe()">
 	<checkbox-app class="mg-right-xs" [checked]="isCreatedByMeChecked"></checkbox-app>
 	{{ 'label.show-created-by-me' | translate }}
 </button>
