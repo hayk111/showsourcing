@@ -19,10 +19,8 @@ import { AbstractTaskCommonComponent } from '~common/abstracts/abstract-task-com
 		ListPageService
 	]
 })
-export class TasksPageComponent extends AbstractTaskCommonComponent
-	implements OnInit {
+export class TasksPageComponent extends AbstractTaskCommonComponent implements OnInit {
 
-	erm = ERM;
 	product: Product;
 	filterTypes = [
 		FilterType.DONE
@@ -38,15 +36,7 @@ export class TasksPageComponent extends AbstractTaskCommonComponent
 		public dialogCommonSrv: DialogCommonService,
 		public listSrv: ListPageService<Task, TaskService>
 	) {
-		super(
-			router,
-			route,
-			userSrv,
-			taskSrv,
-			dlgSrv,
-			dialogCommonSrv,
-			listSrv,
-		);
+		super(router, route, userSrv, taskSrv, dlgSrv, dialogCommonSrv, listSrv);
 	}
 
 	ngOnInit() {
