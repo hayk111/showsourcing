@@ -3,8 +3,8 @@
 	*ngIf="switchContent.includes('table')"
 	class="flexCenter icon"
 	toolTip
-	toolTipMessage="table view"
-	(mousedown)="view = 'table'">
+	[toolTipMessage]="'tooltip.table-view' | translate"
+	(mousedown)="changeView('table')">
 	<icon-app 
 		[ngClass]="{'color-primary': view === 'table' }" 
 		name="list-menu"
@@ -16,7 +16,7 @@
 	*ngIf="switchContent.includes('card')"
 	class="flexCenter icon"
 	toolTip
-	toolTipMessage="card view"
+	[toolTipMessage]="'tooltip.card-view' | translate"
 	(mousedown)="view = 'card'">
 	<icon-app 
 		[ngClass]="{'color-primary': view === 'card' }" 
@@ -26,13 +26,13 @@
 </button>
 
 <button 
-	*ngIf="switchContent.includes('kanban')"
+	*ngIf="switchContent.includes('board')"
 	class="flexCenter icon"
 	toolTip
-	toolTipMessage="kanban view"
-	(mousedown)="view = 'kanban'">
+	[toolTipMessage]="'tooltip.board-view' | translate"
+	(mousedown)="changeView('board')">
 	<icon-app 
-		[ngClass]="{'color-primary': view === 'kanban' }"
+		[ngClass]="{'color-primary': view === 'board' }"
 		name="kanban"
 		size="m">
 	</icon-app>
