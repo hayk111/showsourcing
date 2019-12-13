@@ -2,6 +2,23 @@
 	<icon-app name="export" size="m" toolTip toolTipMessage="Export"></icon-app>
 </button>
 
-<button class="icon light mg-left-ms mg-right-ms">
-	<icon-app name="sort" size="m" toolTip toolTipMessage="Sort"></icon-app>
-</button>
+<context-menu-app>
+	<context-menu-trigger-app>
+		<button class="icon light mg-left-ms mg-right-ms">
+			<icon-app name="sort" size="m" toolTip toolTipMessage="Sort"></icon-app>
+		</button>
+	</context-menu-trigger-app>
+	<context-menu-item-app 
+		*ngFor="let column of sortableColumns"
+		[ngClass]="{ 'color-primary': currentSort.sortBy === column.sortProperty }"
+		(click)="onSortClick(column)">
+		{{ 'title.' + column.translationKey | translate }}
+		<ng-container *ngIf="currentSort.sortBy === column.sortProperty">
+			<icon-app 
+				class="mg-left-s"
+				[name]="currentSort.descending ? 'angle-down' : 'angle-up'"
+				size="xs">
+			</icon-app>
+		</ng-container>
+	</context-menu-item-app>
+</context-menu-app>

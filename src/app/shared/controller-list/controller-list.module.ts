@@ -15,6 +15,7 @@ import { IconsModule } from '~shared/icons';
 import { InputsModule } from '~shared/inputs';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UtilsModule } from '~shared/utils';
+import { ContextMenuModule } from '~shared/context-menu/context-menu.module';
 
 @NgModule({
 	imports: [
@@ -25,7 +26,8 @@ import { UtilsModule } from '~shared/utils';
 		IconsModule,
 		InputsModule,
 		ReactiveFormsModule,
-		UtilsModule
+		UtilsModule,
+		ContextMenuModule
 	],
 	declarations: [
 		ControllerListComponent,
