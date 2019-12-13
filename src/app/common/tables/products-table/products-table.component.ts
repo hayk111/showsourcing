@@ -27,6 +27,7 @@ export class ProductsTableComponent extends EntityTableComponent<Product> implem
 		'status',
 		'assignee',
 		'createdBy',
+		'creationDate'
 	];
 	static DEFAULT_TABLE_CONFIG = config;
 	@Input() columns = ProductsTableComponent.DEFAULT_COLUMNS;

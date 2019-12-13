@@ -43,7 +43,6 @@
 		<thumb-buttons-app
 			class="thumb-up action-hover-item"
 			size="m"
-			[lineStyle]="true"
 			[votes]="product?.votes"
 			(liked)="liked.emit()"
 			(disliked)="disliked.emit()">
@@ -52,7 +51,6 @@
 			class="heart action-hover-item"
 			size="m"
 			[favorite]="product?.favorite"
-			[lineStyle]="true"
 			(favorited)="favorited.emit()"
 			(unfavorited)="unfavorited.emit()">
 		</rating-heart-app>
