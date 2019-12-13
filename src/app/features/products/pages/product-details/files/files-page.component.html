@@ -1,51 +1,43 @@
+<input #inpFile type="file" hidden="true" (fileSelect)="addFile($event)"/>
+
 <h2 class="l flexStart">Files</h2>
-<!-- table -->
-<span class="color-primary">TODO: waiting for dashboard to see what to do with this</span>
 
-<!-- <attachments-table-app
-	#table
-	class="no-padding"
-	[hasMinHeight]="false"
-	[hasHeader]="false"
-	[hasMenu]="false"
-	[hasPagination]="false"
-	[rowHeight]="34"
-	[columns]="['name', 'creationInfoAction']"
-	[currentSort]="listSrv.currentSort"
-	[pending]="listSrv.pending"
-	[rows]="listSrv.items$ | async"
-	[selection]="listSrv.selection$ | async"
-	[linkedEntity]="linkedEntity"
-	(delete)="listSrv.deleteOne($event, true)"
-	(update)="listSrv.update($event)"
-	(open)="listSrv.goToDetails($event)"
-	(openAddToProjectDialog)="dialogCommonSrv.openAddToProjectDialog([$event])"
-	(openAddSampleDialog)="dialogCommonSrv.openCreationSampleDialog($event)"
-	(openAddTaskDialog)="dialogCommonSrv.openCreationTaskDlg($event)"
-	(setFavourite)="listSrv.onItemFavorited($event?.id)"
-	(openRequestFeedbackDialog)="dialogCommonSrv.openRequestFeedbackDialog([$event])"
-	(openCreateRequestDlg)="dialogCommonSrv.openSupplierRequest([$event])"
-	(previewClick)="listSrv.openPreview($event)"
-	(select)="listSrv.selectOne($event, true)"
-	(selectAll)="listSrv.selectAll($event, true)"
-	(sort)="listSrv.sort($event)"
-	(unfavorited)="listSrv.onItemUnfavorited($event)"
-	(unselect)="listSrv.unselectOne($event, true)"
-	(update)="listSrv.update($event)"
-	(unselectAll)="listSrv.unselectAll()"
-	(upload)="listSrv.refetch().subscribe()">
-</attachments-table-app> -->
+<ng-container *ngIf="(listSrv.items$ | async) as files; else spinner">
+	<ng-container *ngIf="files?.length; else placeholder">
+		<!-- list -->
+		<attachment-list-item-app
+			*ngFor="let file of files; first as first; trackBy:trackById"
+			[ngStyle]="first ? { 'padding-top' : 0 } : ''"
+			[attachment]="file"
+			[selection]="listSrv.selection$ | async"
+			(nameClick)="download($event)"
+			(download)="download($event)"
+			(select)="listSrv.selectOne($event, true)"
+			(unselect)="listSrv.unselectOne($event, true)">
+		</attachment-list-item-app>
+		<!-- buttons -->
+		<div class="flex buttons-container">
+			<button class="capitalize" (click)="inpFile.click()" translate="button.add-file"></button>
+			<divider-app *ngIf="(listSrv.selection$ | async)?.size" [vertical]="true"></divider-app>
+			<button
+				*ngIf="(listSrv.selection$ | async)?.size"
+				class="warn capitalize"
+				(click)="listSrv.deleteSelected(true)"
+				translate="button.delete">
+			</button>
+		</div>
+	</ng-container>
+</ng-container>
 
-<!-- buttons -->
-<!-- <div *ngIf="(listSrv.items$ | async)?.length" class="flex buttons-container">
-	<button	(click)="table.openFileBrowser()">
-		Add file
-	</button>
-	<divider-app *ngIf="(listSrv.selection$ | async)?.size" [vertical]="true"></divider-app>
-	<button
-		*ngIf="(listSrv.selection$ | async)?.size"
-		class="warn"
-		(click)="listSrv.deleteSelected(true)">
-		delete
-	</button>
-</div> -->
+<ng-template #placeholder>
+	<entity-placeholder-app
+		[type]="'ATTACHMENT' | erm: 'singular'"
+		[title]="'No files on this product'"
+		[subtitle]="'Add your files'">
+		<button class="capitalize" (click)="inpFile.click()" translate="button.add-file"></button>
+	</entity-placeholder-app>
+</ng-template>
+
+<ng-template #spinner>
+	<dots-app class="flexCenter"></dots-app>
+</ng-template>

@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter } from '@angular/core';
 import { Attachment } from '~core/models';
-import { TrackingComponent } from '~utils/tracking-component';
-import { StatusUtils } from '~utils';
+
+import { AbstractListItemComponent } from '../abstract-list-item.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'attachment-list-item-app',
@@ -9,6 +10,9 @@ import { StatusUtils } from '~utils';
 	styleUrls: ['./attachment-list-item.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AttachmentListItemComponent {
+export class AttachmentListItemComponent extends AbstractListItemComponent<Attachment> {
 	@Input() attachment: Attachment;
+	@Output() download = new EventEmitter<Attachment>();
+
+	constructor(public translate: TranslateService) { super(); }
 }

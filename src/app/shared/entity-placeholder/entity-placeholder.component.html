@@ -1,0 +1,10 @@
+<logo-app
+	class="mg-bottom-ms"
+	[circle]="true"
+	size="xxl"
+	[type]="type">
+</logo-app>
+<div *ngIf="title" class="semi-bold mg-bottom-xs">{{ title }}</div>
+<div *ngIf="subtitle" class="color-txt-secondary mg-bottom-ms">{{ subtitle }}</div>
+
+<ng-content></ng-content>

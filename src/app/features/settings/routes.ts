@@ -24,8 +24,6 @@ export const routes: Routes = [
 				path: 'company', component: CompanyPages.CompanyPageComponent, children: [
 					{ path: '', redirectTo: 'settings', pathMatch: 'full' },
 					{ path: 'settings', component: CompanyPages.InfoPageComponent },
-					{ path: 'teams', component:  CompanyPages.TeamsPageComponent },
-					{ path: 'users', component:  CompanyPages.UsersPageComponent }
 				]
 			},
 			{

@@ -26,7 +26,8 @@ export class CompanyPageComponent implements OnInit {
 	) { }
 
 	ngOnInit() {
-		this.companyName =  this.companySrv.companySync.name || '';
+		const company = this.companySrv.companySync;
+		this.companyName =  company ? company.name : '';
 		this.owner = this.companySrv.companySync.owner;
 	}
 
