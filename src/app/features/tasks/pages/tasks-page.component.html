@@ -9,7 +9,7 @@
 	(buttonClick)="dialogCommonSrv.openCreationTaskDlg()">
 </header-list-app>
 
-<!-- <controller-list-app
+<!-- <controller-table-app
 	#controller
 	[hasFilter]="false"
 	[hasSwitch]="false"
@@ -33,12 +33,12 @@
 	(showFilters)="listSrv.openFilterPanel()"
 	(viewChange)="onViewChange($event)">
 
-	<controller-list-actions-app
+	<controller-table-actions-app
 		(showAssigned)="listSrv.filterByAssignee(true)"
 		(hideAssigned)="listSrv.filterByAssignee(false)">
-	</controller-list-actions-app>
+	</controller-table-actions-app>
 	
-</controller-list-app> -->
+</controller-table-app> -->
 
 <task-table-app
 	[rows]="listSrv.items$ | async"

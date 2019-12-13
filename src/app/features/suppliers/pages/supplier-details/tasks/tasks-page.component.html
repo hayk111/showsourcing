@@ -1,4 +1,4 @@
-<!-- <controller-list-app
+<!-- <controller-table-app
 	[entityType]="erm.TASK.singular"
 	[hasFilter]="true"
 	[hasSwitch]="false"
@@ -10,14 +10,14 @@
 	(smartSearch)="listSrv.smartSearch($event)"
 	(buttonClick)="openCreationTaskDlg(undefined, supplier)">
 
-	<controller-list-actions-app 
+	<controller-table-actions-app 
 		(showArchived)="listSrv.filterByArchived(true)"
 		(hideArchived)="listSrv.filterByArchived(false)"
 		(showAssigned)="listSrv.filterByAssignee(true)"
 		(hideAssigned)="listSrv.filterByAssignee(false)">
-	</controller-list-actions-app>
+	</controller-table-actions-app>
 
-</controller-list-app> -->
+</controller-table-app> -->
 
 <task-table-app
 	[rows]="listSrv.items$ | async"

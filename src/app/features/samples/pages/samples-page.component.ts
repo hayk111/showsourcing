@@ -8,7 +8,6 @@ import { ListPageService } from '~core/list-page';
 import { ERM, Sample } from '~models';
 import { DialogService } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
-import { ControllerListService } from '~shared/controller-list/services/controller-list.service';
 import { AutoUnsub } from '~utils';
 
 @Component({
@@ -45,7 +44,6 @@ export class SamplesPageComponent extends AutoUnsub implements OnInit {
 		public elem: ElementRef,
 		protected dlgSrv: DialogService,
 		private userSrv: UserService,
-		private controllerListService: ControllerListService,
 	) {
 		super();
 	}

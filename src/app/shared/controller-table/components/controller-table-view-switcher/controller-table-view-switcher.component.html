@@ -17,7 +17,7 @@
 	class="flexCenter icon"
 	toolTip
 	[toolTipMessage]="'tooltip.card-view' | translate"
-	(mousedown)="view = 'card'">
+	(mousedown)="changeView('card')">
 	<icon-app 
 		class="{{ view === 'card' ? 'color-primary' : 'color-txt-third' }}" 
 		name="cards"

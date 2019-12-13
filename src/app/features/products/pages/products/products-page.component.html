@@ -7,21 +7,14 @@
 	(buttonClick)="dialogCommonSrv.openCreationProductDlg()">
 </header-list-app>
 
-<controller-list-app
-	[panels]="['search', 'filters', 'action','quick-filters', 'quick-actions', 'view-switcher']">
-	<controller-list-quick-filters-app></controller-list-quick-filters-app>
-	<controller-list-quick-actions-app 
-		[columns]="columns"
-		[tableConfig]="tableConfig"
-		[currentSort]="listSrv.currentSort" 
-		(export)="listSrv.exportSelection()"
-		(sort)="listSrv.sort($event)">
-	</controller-list-quick-actions-app>
-	<controller-list-view-switcher-app 
-		[view]="listSrv.view"
-		(viewChange)="listSrv.changeView($event)">
-	</controller-list-view-switcher-app>
-</controller-list-app>
+<controller-table-app>
+	<controller-table-quick-filters-app></controller-table-quick-filters-app>
+	<controller-table-quick-actions-app 
+		[columns]="columns" 
+		[tableConfig]="tableConfig">
+	</controller-table-quick-actions-app>
+	<controller-table-view-switcher-app></controller-table-view-switcher-app>
+</controller-table-app>
 
 <!-- views: either one will be displayed when the correct view is selected -->
 <ng-container *ngIf="listSrv.isListening">

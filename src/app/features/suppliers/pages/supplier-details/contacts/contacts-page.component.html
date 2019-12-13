@@ -1,4 +1,4 @@
-<!-- <controller-list-app
+<!-- <controller-table-app
 	searchType="short"
 	[filtersAmount]="listSrv.getFilterAmount([{ type: filterTypeEnum.DELETED, value: false }])"
 	[hasFilter]="false"
@@ -12,7 +12,7 @@
 	(export)="dialogCommonSrv.openExportDialog(listSrv.getSelectedValues())"
 	(showFilters)="listSrv.openFilterPanel()"
 	(viewChange)="listSrv.changeView($event)">
-	<controller-list-right-item-app>
+	<controller-table-right-item-app>
 		<button
 			*ngIf="(listSrv.selection$ | async)?.size"
 			class="warn mg-right-ms capitalize"
@@ -24,8 +24,8 @@
 			(click)="openNewContactDlg({id: supplierId})"
 			translate="button.add-contact">
 		</button>
-	</controller-list-right-item-app>
-</controller-list-app> -->
+	</controller-table-right-item-app>
+</controller-table-app> -->
 
 <contacts-table-app
 	[currentSort]="listSrv.currentSort"

@@ -1,5 +1,5 @@
 <!-- 
-<controller-list-app
+<controller-table-app
 	[searchType]="'short'"
 	[filtersAmount]="listSrv.getFilterAmount([{ type: filterTypeEnum.ARCHIVED, value: false }, { type: filterTypeEnum.DELETED, value: false }])"
 	[hasFilter]="true"
@@ -14,14 +14,14 @@
 	(showFilters)="listSrv.openFilterPanel()"
 	(viewChange)="listSrv.changeView($event)">
 
-	<controller-list-actions-app 
+	<controller-table-actions-app 
 		(showArchived)="listSrv.filterByArchived(true)"
 		(hideArchived)="listSrv.filterByArchived(false)"
 		(showAssigned)="listSrv.filterByAssignee(true)"
 		(hideAssigned)="listSrv.filterByAssignee(false)">
-	</controller-list-actions-app>
+	</controller-table-actions-app>
 
-</controller-list-app> -->
+</controller-table-app> -->
 
 <ng-container *ngIf="(listSrv.items$ | async) as products; else spinner">
 	<products-table-app

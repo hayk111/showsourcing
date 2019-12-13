@@ -6,7 +6,7 @@
 	(buttonClick)="dialogCommonSrv.openCreateDlg(erm.SUPPLIER)">
 </header-list-app>
 
-<!-- <controller-list-app
+<!-- <controller-table-app
 	searchType="short"
 	[hasSwitch]="true"
 	[hasFilter]="true"
@@ -21,14 +21,14 @@
 	(viewChange)="onViewChange($event)"
 	(search)="listSrv.search($event)">
 
-	<controller-list-actions-app 
+	<controller-table-actions-app 
 		(showArchived)="listSrv.filterByArchived(true)"
 		(hideArchived)="listSrv.filterByArchived(false)"
 		(showAssigned)="listSrv.filterByAssignee(true)"
 		(hideAssigned)="listSrv.filterByAssignee(false)">
-	</controller-list-actions-app>
+	</controller-table-actions-app>
 
-</controller-list-app>
+</controller-table-app>
  -->
 <suppliers-table-app
 	#supplierList

@@ -15,7 +15,6 @@ import { ProjectFeatureService } from '~features/projects/services';
 import { EntityTypeEnum, ERM, Product, Project } from '~models';
 import { DialogService } from '~shared/dialog/services';
 import { FilterType } from '~shared/filters';
-import { ControllerListService } from '~shared/controller-list/services/controller-list.service';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub } from '~utils';
 
@@ -60,13 +59,11 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		private featureSrv: ProjectFeatureService,
 		private productFeatureSrv: ProductFeatureService,
 		private dlgSrv: DialogService,
-		private router: Router,
 		private route: ActivatedRoute,
 		private productSrv: ProductService,
 		public listSrv: ListPageService<Product, ProductService>,
 		public dialogCommonSrv: DialogCommonService,
 		private notifSrv: NotificationService,
-		private controllerListService: ControllerListService,
 		private translate: TranslateService
 	) {
 		super();

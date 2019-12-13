@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import {
-	ControllerListComponent,
-	ControllerListActionsComponent,
-	ControllerListViewSwitcherComponent,
-	ControllerListQuickFiltersComponent,
-	ControllerListQuickActionsComponent
+	ControllerTableComponent,
+	ControllerTableContentComponent,
+	ControllerTableViewSwitcherComponent,
+	ControllerTableQuickFiltersComponent,
+	ControllerTableQuickActionsComponent
 
 } from './components';
 import { SearchBarModule } from '~shared/search-bar-animated/search-bar.module';
@@ -30,17 +30,18 @@ import { ContextMenuModule } from '~shared/context-menu/context-menu.module';
 		ContextMenuModule
 	],
 	declarations: [
-		ControllerListComponent,
-		ControllerListActionsComponent,
-		ControllerListViewSwitcherComponent,
-		ControllerListQuickFiltersComponent,
-		ControllerListQuickActionsComponent
+		ControllerTableComponent,
+		ControllerTableContentComponent,
+		ControllerTableViewSwitcherComponent,
+		ControllerTableQuickFiltersComponent,
+		ControllerTableQuickActionsComponent
 	],
 	exports: [
-		ControllerListComponent,
-		ControllerListViewSwitcherComponent,
-		ControllerListQuickFiltersComponent,
-		ControllerListQuickActionsComponent
+		ControllerTableComponent,
+		ControllerTableContentComponent,
+		ControllerTableViewSwitcherComponent,
+		ControllerTableQuickFiltersComponent,
+		ControllerTableQuickActionsComponent
 	]
 })
-export class ControllerListModule { }
+export class ControllerTableModule { }

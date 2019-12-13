@@ -1,4 +1,4 @@
-<!-- <controller-list-app
+<!-- <controller-table-app
 	class="max-full-table-width"
 	[entityType]="erm.SAMPLE.singular"
 	[hasFilter]="true"
@@ -12,14 +12,14 @@
 	(export)="dialogCommonSrv.openExportDialog()"
 	(buttonClick)="dialogCommonSrv.openCreationSampleDialog(undefined, supplier)">
 
-	<controller-list-actions-app 
+	<controller-table-actions-app 
 		(showArchived)="listSrv.filterByArchived(true)"
 		(hideArchived)="listSrv.filterByArchived(false)"
 		(showAssigned)="listSrv.filterByAssignee(true)"
 		(hideAssigned)="listSrv.filterByAssignee(false)">
-	</controller-list-actions-app>
+	</controller-table-actions-app>
 
-</controller-list-app> -->
+</controller-table-app> -->
 
 <samples-table-app
 	[rows]="listSrv.items$ | async"

@@ -53,7 +53,7 @@
 	(buttonClick)="listSrv.create(false)">
 </header-list-app> -->
 
-<!-- <controller-list-app
+<!-- <controller-table-app
 	[count]="listSrv.count$ | async"
 	[hasFilter]="false"
 	[hasSwitch]="false"
@@ -61,12 +61,12 @@
 	[hasArchived]="false"
 	[entityType]="erm.singular"
 	(search)="listSrv.search($event)">
-	<controller-list-right-item-app>
+	<controller-table-right-item-app>
 		<div class="flex">
 			<button class="capitalize" (click)="listSrv.create(false)">Create {{erm.singular | translate}}</button>
 		</div>
-	</controller-list-right-item-app>
-</controller-list-app> -->
+	</controller-table-right-item-app>
+</controller-table-app> -->
 
 <list-management-table-app
 	[rows]="listSrv.items$ | async"

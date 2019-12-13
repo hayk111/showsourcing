@@ -1,6 +1,6 @@
 <ng-container *ngIf="project$ | async as project; else spinner">
 
-	<!-- <controller-list-app
+	<!-- <controller-table-app
 		[hasSwitch]="true"
 		[filtersAmount]="listSrv.getFilterAmount([{ type: filterTypeEnum.ARCHIVED, value: false }, { type: filterTypeEnum.DELETED, value: false }])"
 		[hasFilter]="true"
@@ -14,14 +14,14 @@
 		(export)="dialogCommonSrv.openExportDialog(listSrv.getSelectedValues())"
 		(viewChange)="listSrv.changeView($event)">
 
-		<controller-list-actions-app
+		<controller-table-actions-app
 			(showArchived)="listSrv.filterByArchived(true)"
 			(hideArchived)="listSrv.filterByArchived(false)"
 			(showAssigned)="listSrv.filterByAssignee(true)"
 			(hideAssigned)="listSrv.filterByAssignee(false)">
-		</controller-list-actions-app>
+		</controller-table-actions-app>
 
-	</controller-list-app> -->
+	</controller-table-app> -->
 
 <ng-container>
 

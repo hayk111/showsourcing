@@ -12,7 +12,7 @@
 	</header-details-info-app>
 </header-details-app>
 
-<!-- <controller-list-app
+<!-- <controller-table-app
 	[entityType]="'Export'"
 	[hasFilter]="false"
 	[count]="listSrv.count$ | async"
@@ -24,7 +24,7 @@
 	(search)="listSrv.search($event)"
 	(showMyExport)="toggleMyExports(true)"
 	(hideMyExport)="toggleMyExports(false)">
-</controller-list-app> -->
+</controller-table-app> -->
 
 <exports-table-app
 	[rows]="listSrv.items$ | async"

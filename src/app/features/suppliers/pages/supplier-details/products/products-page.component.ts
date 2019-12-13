@@ -9,7 +9,6 @@ import { ListPageService } from '~core/list-page';
 import { ERM, Product, Supplier } from '~core/models';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
-import { ControllerListService } from '~shared/controller-list/services/controller-list.service';
 import { AutoUnsub } from '~utils';
 import { ID } from '~utils/id.utils';
 
@@ -45,7 +44,6 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		public listSrv: ListPageService<Product, ProductService>,
 		public dialogCommonSrv: DialogCommonService,
 		public dlgSrv: DialogService,
-		private controllerListService: ControllerListService,
 	) { super(); }
 
 	ngOnInit() {

@@ -1,5 +1,5 @@
 <!-- TODO: translation to be added for TEAM_MEMBER-->
-<!-- <controller-list-app
+<!-- <controller-table-app
 	[entityType]="entityTypeEnum.USER"
 	[count]="listSrv.count$ | async"
 	[hasArchived]="false"
@@ -9,7 +9,7 @@
 	(search)="listSrv.search($event)"
 	i18n-title="@@team-members">
 
-	<controller-list-action-app>
+	<controller-table-action-app>
 
 		<div toolTip [toolTipMessage]="getTooltipMsg()" toolTipPosition="above-right">
 			<button [disabled]="!teamOwner" (click)="openInviteDialog()" i18n="@@invite-team-member">Invite Team Member</button>
@@ -36,10 +36,10 @@
 			</context-menu-item-warn-app>
 		</context-menu-app>
 
-	</controller-list-action-app>
+	</controller-table-action-app>
 
 
-</controller-list-app> -->
+</controller-table-app> -->
 
 <ng-container *ngIf="listSrv.items$ | async as members">
 	<team-members-table-app

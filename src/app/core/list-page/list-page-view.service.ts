@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { EntityMetadata } from '~models';
-import { View } from '~shared/controller-list/components';
+import { View } from '~shared/controller-table/components';
 
 @Injectable({
 	providedIn: 'root'
