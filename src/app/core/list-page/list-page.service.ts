@@ -199,7 +199,6 @@ export class ListPageService
 
 	update(value: T) {
 		this.dataSrv.update(value).pipe(
-			switchMap(_ => this.refetch())
 		).subscribe();
 		// .pipe(
 		// 	// sometimes the optimistic ui fails for some odd reason when updating the supplier of a product
@@ -210,7 +209,6 @@ export class ListPageService
 
 	updateMany(values: T[]) {
 		this.dataSrv.updateMany(values).pipe(
-			switchMap(_ => this.refetch())
 		).subscribe();
 	}
 

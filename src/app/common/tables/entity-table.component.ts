@@ -63,7 +63,7 @@ export abstract class EntityTableComponent<T> extends TrackingComponent implemen
 	/** emits when a click has been performed on the placeholder */
 	@Output() createClick = new EventEmitter<null>();
 	@Output() delete = new EventEmitter<T>();
-	@Output() archived = new EventEmitter<T>();
+	@Output() archive = new EventEmitter<T>();
 	// pagination
 	@Output() previous = new EventEmitter<undefined>();
 	@Output() next = new EventEmitter<undefined>();
