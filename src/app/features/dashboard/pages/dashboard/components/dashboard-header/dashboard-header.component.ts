@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { TeamService, CompanyService } from '~core/entity-services';
+import { environment } from 'environments/environment';
 
 @Component({
 	selector: 'dashboard-header-app',
@@ -11,6 +12,8 @@ export class DashboardHeaderComponent implements OnInit {
 
 	companyName: string;
 	teamName: string;
+	isDev = !environment.production;
+	version = environment.version;
 	constructor(public teamSrv: TeamService, private companySrv: CompanyService) {
 	}
 
