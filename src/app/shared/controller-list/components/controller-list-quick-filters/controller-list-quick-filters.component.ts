@@ -29,12 +29,14 @@ export class ControllerListQuickFiltersComponent {
 	}
 
 	get isArchivedChecked() {
-		return this.listSrv.filterList.asByType().get(FilterType.ARCHIVED).has(true);
+		// if there is an archive filter it's not checked (yeah I know what you are thinking)
+		// If you read this you should buy a boat and leave. And if you don't have the money
+		// leave without a boat
+		return !this.listSrv.filterList.asByType().get(FilterType.ARCHIVED).has(false);
 	}
 
 	get isCompletedChecked() {
-		// just checking if there is a filter on due date here.
-		return this.listSrv.filterList.asByType().get(FilterType.DUE_DATE);
+		return !this.listSrv.filterList.asByType().get(FilterType.DUE_DATE).has(false);
 	}
 
 	toggleAssignedToMe() {
@@ -44,12 +46,14 @@ export class ControllerListQuickFiltersComponent {
 
 	toggleArchived() {
 		const isChecked = this.isArchivedChecked;
-		this.listSrv.filterByArchived(!isChecked);
+		// it's the opposite here we want to remove the filter when it's checked, just buy that boat dude
+		this.listSrv.filterByArchived(isChecked);
 	}
 
 	toggleCompleted() {
 		const isChecked = this.isCompletedChecked;
-		this.listSrv.filterByDone(!isChecked);
+		// it's the opposite here we want to remove the filter when it's checked
+		this.listSrv.filterByDone(isChecked);
 	}
 
 	toggleCreatedByMe() {

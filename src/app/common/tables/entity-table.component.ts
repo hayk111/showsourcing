@@ -24,31 +24,31 @@ export interface TableConfig {
 export type TableConfigType = 'small' | 'medium' | 'big' | 'medium-small';
 
 export abstract class EntityTableComponent<T> extends TrackingComponent implements OnInit {
-	/** current selection */
+	// Config
+	@Input() columns = [];
+	@Input() hasRequestCount = false;
+	tableConfig: TableConfig = undefined;
+	columnsConfig: ColumnConfig[] = [];
+	// Data
 	@Input() selection: Map<string, boolean>;
-	/** entities displayed */
 	@Input() rows: Array<T>;
-	/** whether it's loading */
 	@Input() pending = true;
-	/** when using pagination, that's the total number of items */
 	@Input() count: number;
-	/** how many items were skipped (useful to display pages) */
 	@Input() skipped: number;
 	@Input() currentPage: number;
 	@Input() currentSort: Sort;
+	@Input() canUpdate = true;
+	// VIEW
 	@Input() hasMenu = true;
 	@Input() hasHeader = true;
 	@Input() hasPagination = true;
 	@Input() hasSelection = true;
 	@Input() hasPreview = true;
 	@Input() hasBorder = true;
-	@Input() canUpdate = true;
-	@Input() columns = [];
+	@Input() hasShowItemsPerPage = true;
 	@Input() hasMinHeight = true;
 	@Input() rowHeight = 47;
-	@Input() hasRequestCount = false;
-	tableConfig: TableConfig = undefined;
-	columnsConfig: ColumnConfig[] = [];
+
 	// column clicks
 	@Output() previewClick = new EventEmitter<T>();
 	@Output() open = new EventEmitter<string>();
@@ -57,14 +57,13 @@ export abstract class EntityTableComponent<T> extends TrackingComponent implemen
 	@Output() unselect = new EventEmitter<any>();
 	@Output() selectAll = new EventEmitter<Map<string, boolean>>();
 	@Output() unselectAll = new EventEmitter<Map<string, boolean>>();
-	@Output() favorited = new EventEmitter<string>();
-	@Output() unfavorited = new EventEmitter<string>();
 	@Output() update = new EventEmitter<T>();
 	@Output() bottomReached = new EventEmitter<string>();
 	@Output() sort = new EventEmitter<Sort>();
 	/** emits when a click has been performed on the placeholder */
 	@Output() createClick = new EventEmitter<null>();
 	@Output() delete = new EventEmitter<T>();
+	@Output() archive = new EventEmitter<T>();
 	// pagination
 	@Output() previous = new EventEmitter<undefined>();
 	@Output() next = new EventEmitter<undefined>();

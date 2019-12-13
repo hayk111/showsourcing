@@ -4,7 +4,7 @@ import { TableConfig } from '~core/list-page';
 export const defaultConfig: TableConfig = {
 	logo: { name: 'logo', translationKey: '', width: 36, sortable: false, fixedWidth: true },
 	preview: { name: 'preview', translationKey: '', width: 84, sortable: false },
-	name: { name: 'name', translationKey: 'name', width: 190, sortable: true, sortProperty: 'name' },
+	name: { name: 'name', translationKey: 'name', width: 190, sortProperty: 'name' },
 	reference: { name: 'reference', translationKey: 'reference', width: 72, sortProperty: 'reference' },
 	favorite: { name: 'favorite', translationKey: 'FAV', width: 50, sortProperty: 'favorite' },
 	rating: { name: 'rating', translationKey: 'rating', width: 100, sortable: false },

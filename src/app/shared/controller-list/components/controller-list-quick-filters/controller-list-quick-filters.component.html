@@ -2,7 +2,7 @@
 	*ngIf="quickFilters.includes('assignee')"
 	class="light mg-left-ms"
 	(click)="toggleAssignedToMe()">
-	<checkbox-app class="mg-right-xs" [checked]="isAssignedToMeChecked" [size]="15"></checkbox-app>
+	<checkbox-app class="mg-right-xs" [checked]="isAssignedToMeChecked"></checkbox-app>
 	{{ 'label.assigned-to-me' | translate }}
 </button>
 
@@ -10,7 +10,7 @@
 	*ngIf="quickFilters.includes('archived')"
 	class="light mg-left-ms"
 	(click)="toggleArchived()">
-	<checkbox-app class="mg-right-xs" [checked]="isArchivedChecked" [size]="15"></checkbox-app>
+	<checkbox-app class="mg-right-xs" [checked]="isArchivedChecked"></checkbox-app>
 	{{ 'label.show-archived' | translate }}
 </button>
 
@@ -18,7 +18,7 @@
 	*ngIf="quickFilters.includes('completed')"
 	class=" light mg-left-ms"
 	(click)="toggleCompleted()">
-	<checkbox-app class="mg-right-xs" [checked]="isCompletedChecked" [size]="15"></checkbox-app>
+	<checkbox-app class="mg-right-xs" [checked]="isCompletedChecked"></checkbox-app>
 	{{ 'label.show-completed' | translate }}
 </button>
 
@@ -26,6 +26,6 @@
 	*ngIf="quickFilters.includes('createdBy')"
 	class="light mg-left-ms"
 	(click)="toggleCreatedByMe()">
-	<checkbox-app class="mg-right-xs" [checked]="isCreatedByMeChecked" [size]="15"></checkbox-app>
+	<checkbox-app class="mg-right-xs" [checked]="isCreatedByMeChecked"></checkbox-app>
 	{{ 'label.show-created-by-me' | translate }}
 </button>
