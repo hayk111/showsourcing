@@ -11,6 +11,7 @@ export class StatusButtonComponent {
 
 	@Input() displayAttribute: 'name' | 'category' = 'name';
 	@Input() status: ProductStatus | SupplierStatus | SampleStatus;
+	@Input() size: 'm' | 'l' = 'm';
 
 	statusUtils = StatusUtils;
 

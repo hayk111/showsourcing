@@ -21,6 +21,7 @@
 			<ng-container *ngIf="type === 'button'">
 				<status-button-app
 					class="pointer flexCenter border-radius-right-none"
+					[size]="selectSize"
 					[status]="entity?.status">
 				</status-button-app>
 			</ng-container>
@@ -45,7 +46,8 @@
 	<ng-container *ngIf="type === 'button'">
 		<button
 			*ngIf="!isLast()"
-			class="caretCtnr big"
+			class="caretCtnr"
+			[class.big]="selectSize === 'l'"
 			[ngClass]="statusUtils.getStatusColor(entity?.status)"
 			toolTip
 			[toolTipMessage]="('message.next-status' | translate) +
@@ -56,7 +58,8 @@
 		</button>
 		<button
 			*ngIf="isLast()"
-			class="caretCtnr big"
+			class="caretCtnr"
+			[class.big]="selectSize === 'l'"
 			[ngClass]="statusUtils.getStatusColor(entity?.status)"
 			toolTip
 			[toolTipMessage]="('message.previous-status' | translate) +

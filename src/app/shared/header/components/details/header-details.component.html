@@ -1,7 +1,7 @@
 <div class="header-container" [ngClass]="getType('header-container')">
 	<div class="flex left container">
-		<button *ngIf="hasBackArrow" class="light icon big">
-			<icon-app class="back-arrow" name="arrow-left" size="m" (click)="goBack()">
+		<button *ngIf="hasBackArrow" class="light icon big" (click)="goBack()">
+			<icon-app class="back-arrow" name="arrow-left" size="m">
 			</icon-app>
 		</button>
 
@@ -27,7 +27,8 @@
 	</div>
 </div>
 
-<div class="nav-container" [ngClass]="getType('nav-container')">
+<!-- with this condition we only apply styles when we have a navigation -->
+<div *ngIf="headerNav" class="nav-container" [ngClass]="getType('nav-container')">
 	<div class="tabs-container flex" [ngClass]="getType('tabs-container')">
 		<ng-content select="header-nav-app"></ng-content>
 	</div>
