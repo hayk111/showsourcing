@@ -9,7 +9,7 @@ import { TrackingComponent } from '~utils';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[class.side-padding-l]': 'hasSidePadding',
-		'[class.margin-top-ms]': 'range?.length > 1' // adding margin top only if the element is being shown up
+		'[class.mg-top-ms]': 'range?.length > 1' // adding margin top only if the element is being shown up
 	}
 })
 export class PaginationComponent extends TrackingComponent implements OnChanges {
