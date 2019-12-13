@@ -23,12 +23,10 @@ export class RatingHeartComponent {
 	// whether it can be voted or not.
 	@Input() static = false;
 	@Input() size = '14';
-	@Input() lineStyle = false;
+	@Input() hasButton = true;
 	@Output() favorited = new EventEmitter<null>();
 	@Output() unfavorited = new EventEmitter<null>();
 	@Input() favorite = false;
-	@Input() colorFavorite = 'color-warn';
-	@Input() colorNormal = 'color-secondary-dark';
 	@Input() customClassFavorited = '';
 	@Input() customClassUnFavorited = '';
 

@@ -10,7 +10,7 @@ export type QuickFilter = 'archived' | 'assignee' | 'createdBy' | 'completed';
 	selector: 'controller-list-quick-filters-app',
 	templateUrl: './controller-list-quick-filters.component.html',
 	styleUrls: ['./controller-list-quick-filters.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush,
+	//  changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'flexBetween'
 	}

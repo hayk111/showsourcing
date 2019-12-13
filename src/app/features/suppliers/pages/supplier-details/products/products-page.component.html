@@ -1,3 +1,4 @@
+<!-- 
 <controller-list-app
 	[searchType]="'short'"
 	[filtersAmount]="listSrv.getFilterAmount([{ type: filterTypeEnum.ARCHIVED, value: false }, { type: filterTypeEnum.DELETED, value: false }])"
@@ -8,7 +9,7 @@
 	[entityType]="erm.PRODUCT.singular"
 	[searchValue]="listSrv.searchValue"
 	(search)="listSrv.search($event)"
-	(clearFilters)="onClearFilters()"
+	(clearFilters)="listSrv.resetFilters()"
 	(export)="dialogCommonSrv.openExportDialog(listSrv.getSelectedValues())"
 	(showFilters)="listSrv.openFilterPanel()"
 	(viewChange)="listSrv.changeView($event)">
@@ -20,7 +21,7 @@
 		(hideAssigned)="listSrv.filterByAssignee(false)">
 	</controller-list-actions-app>
 
-</controller-list-app>
+</controller-list-app> -->
 
 <ng-container *ngIf="(listSrv.items$ | async) as products; else spinner">
 	<products-table-app

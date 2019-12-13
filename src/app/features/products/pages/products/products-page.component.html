@@ -9,8 +9,7 @@
 
 <controller-list-app
 	[panels]="['search', 'filters', 'action','quick-filters', 'quick-actions', 'view-switcher']">
-	<!-- <controller-list-quick-filters-app></controller-list-quick-filters-app> -->
-	<controller-list-quick-actions-app (export)="listSrv.exportSelection()"></controller-list-quick-actions-app>
+	<controller-list-quick-filters-app></controller-list-quick-filters-app>
 	<controller-list-quick-actions-app 
 		[columns]="columns"
 		[tableConfig]="tableConfig"
@@ -28,7 +27,6 @@
 <ng-container *ngIf="listSrv.isListening">
 	<products-table-app
 		*ngIf="listSrv.view === 'table'"
-		#table
 		[currentSort]="listSrv.currentSort"
 		[pending]="listSrv.pending"
 		[rows]="listSrv.items$ | async"

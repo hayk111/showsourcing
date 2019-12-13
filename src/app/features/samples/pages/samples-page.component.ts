@@ -95,13 +95,4 @@ export class SamplesPageComponent extends AutoUnsub implements OnInit {
 		this.listSrv.refetch(this.selectItemsConfig).subscribe();
 	}
 
-	onClearFilters() {
-		this.listSrv.filterList.resetAll();
-
-		// this.listSrv.addFilter({ type: FilterType.ARCHIVED, value: false}); TODO backend
-		this.listSrv.addFilter({ type: FilterType.DELETED, value: false });
-
-		this.controllerListService.onFiltersClear();
-	}
-
 }

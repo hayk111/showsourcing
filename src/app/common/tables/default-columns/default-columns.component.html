@@ -34,6 +34,7 @@
 	<!-- favorite -->
 	<ng-container *ngSwitchCase="'favorite'">
 		<rating-heart-app
+			[hasButton]="false"
 			[favorite]="row?.favorite"
 			(favorited)="update.emit({ id: row.id, favorite: true })"
 			(unfavorited)="update.emit({ id: row.id, favorite: false })">

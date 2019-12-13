@@ -76,38 +76,4 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit, AfterVi
 		this.listSrv.refetch(this.selectItemsConfig).subscribe();
 	}
 
-	onClearFilters() {
-		this.listSrv.filterList.resetAll();
-
-		this.listSrv.addFilter({ type: FilterType.ARCHIVED, value: false });
-		this.listSrv.addFilter({ type: FilterType.DELETED, value: false });
-
-		this.controllerListService.onFiltersClear();
-	}
-
-	onArchive(supplier: Supplier | Supplier[]) {
-		// TODO i18n
-		if (Array.isArray(supplier)) {
-			this.supplierSrv.updateMany(supplier.map((p: Supplier) => ({ id: p.id, archived: true })))
-				.pipe(switchMap(_ => this.listSrv.refetch()))
-				.subscribe(_ => {
-					this.notifSrv.add({
-						type: NotificationType.SUCCESS,
-						title: 'Supplier archived',
-						message: 'Suppliers have been archived with success'
-					});
-				});
-		} else {
-			const { id } = supplier;
-			this.supplierSrv.update({ id, archived: true })
-				.pipe(switchMap(_ => this.listSrv.refetch()))
-				.subscribe(_ => {
-					this.notifSrv.add({
-						type: NotificationType.SUCCESS,
-						title: 'Supplier archived',
-						message: 'Suppliers have been archived with success'
-					});
-				});
-		}
-	}
 }

@@ -17,7 +17,7 @@
 	[filtersAmount]="listSrv.getFilterAmount([{ type: filterType.ARCHIVED, value: false }, { type: filterType.DELETED, value: false }])"
 	[searchValue]="listSrv.searchValue"
 	(showFilters)="listSrv.openFilterPanel()"
-	(clearFilters)="onClearFilters()"
+	(clearFilters)="listsrv.resetFilters()"
 	(viewChange)="onViewChange($event)"
 	(search)="listSrv.search($event)">
 
@@ -26,10 +26,10 @@
 		(hideArchived)="listSrv.filterByArchived(false)"
 		(showAssigned)="listSrv.filterByAssignee(true)"
 		(hideAssigned)="listSrv.filterByAssignee(false)">
-	</controller-list-actions-app> -->
+	</controller-list-actions-app>
 
 </controller-list-app>
-
+ -->
 <suppliers-table-app
 	#supplierList
 	*ngIf="listSrv.view === 'list'"
@@ -40,7 +40,7 @@
 	[count]="listSrv.count$ | async"
 	[currentPage]="listSrv.currentPage"
 	(goToPage)="listSrv.loadPage($event)"
-	(archive)="onArchive($event)"
+	(archive)="listSrv.archiveOne($event)"
 	(sort)="listSrv.sort($event)"
 	(select)="listSrv.selectOne($event, true)"
 	(unselect)="listSrv.unselectOne($event, true)"
@@ -51,7 +51,6 @@
 	(unfavorited)="listSrv.onItemUnfavorited($event)"
 	(previewClick)="listSrv.openPreview($event)"
 	(showItemsPerPage)="showItemsPerPage($event)"
-	(archive)="onArchive($event)"
 	(createClick)="listSrv.create()"
 	(update)="listSrv.update($event)"
 	(delete)="listSrv.deleteOne($event)">
