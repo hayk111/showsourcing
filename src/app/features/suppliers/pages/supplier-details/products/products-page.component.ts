@@ -74,14 +74,6 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		).subscribe();
 	}
 
-	onClearFilters() {
-		this.listSrv.filterList.resetAll();
-
-		this.listSrv.addFilter({ type: FilterType.ARCHIVED, value: false });
-		this.listSrv.addFilter({ type: FilterType.DELETED, value: false });
-		this.controllerListService.onFiltersClear();
-	}
-
 	/** instead of deleting the product, we deassociate the supplier from it */
 	deassociateOneProduct(product?: Product) {
 		this.deassociateProducts([product]);

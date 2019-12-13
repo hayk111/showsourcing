@@ -9,7 +9,7 @@
 		[view]="listSrv.view"
 		[count]="listSrv.count$ | async"
 		(showFilters)="listSrv.openFilterPanel()"
-		(clearFilters)="onClearFilters()"
+		(clearFilters)="listsrv.resetFilters()"
 		(search)="listSrv.search($event)"
 		(export)="dialogCommonSrv.openExportDialog(listSrv.getSelectedValues())"
 		(viewChange)="listSrv.changeView($event)">

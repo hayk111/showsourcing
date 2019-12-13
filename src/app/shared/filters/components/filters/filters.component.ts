@@ -33,7 +33,7 @@ export class FiltersComponent {
 	}
 
 	resetAll() {
-		this.filterList.resetAll();
+		this.filterList.reset();
 	}
 
 	resetType(type: FilterType) {

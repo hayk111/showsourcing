@@ -18,7 +18,7 @@
 	searchType="short"
 	[searchValue]="listSrv.searchValue"
 	(search)="listSrv.search($event)"
-	(clearFilters)="onClearFilters()"
+	(clearFilters)="listsrv.resetFilters()"
 	(export)="dialogCommonSrv.openExportDialog()"
 	(showFilters)="listSrv.openFilterPanel()"
 	(viewChange)="onViewChange($event)">

@@ -76,15 +76,6 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit, AfterVi
 		this.listSrv.refetch(this.selectItemsConfig).subscribe();
 	}
 
-	onClearFilters() {
-		this.listSrv.filterList.resetAll();
-
-		this.listSrv.addFilter({ type: FilterType.ARCHIVED, value: false });
-		this.listSrv.addFilter({ type: FilterType.DELETED, value: false });
-
-		this.controllerListService.onFiltersClear();
-	}
-
 	onArchive(supplier: Supplier | Supplier[]) {
 		// TODO i18n
 		if (Array.isArray(supplier)) {

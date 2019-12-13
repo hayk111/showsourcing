@@ -8,7 +8,7 @@
 	[entityType]="erm.PRODUCT.singular"
 	[searchValue]="listSrv.searchValue"
 	(search)="listSrv.search($event)"
-	(clearFilters)="onClearFilters()"
+	(clearFilters)="listSrv.resetFilters()"
 	(export)="dialogCommonSrv.openExportDialog(listSrv.getSelectedValues())"
 	(showFilters)="listSrv.openFilterPanel()"
 	(viewChange)="listSrv.changeView($event)">

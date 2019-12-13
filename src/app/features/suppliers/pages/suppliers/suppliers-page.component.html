@@ -17,7 +17,7 @@
 	[filtersAmount]="listSrv.getFilterAmount([{ type: filterType.ARCHIVED, value: false }, { type: filterType.DELETED, value: false }])"
 	[searchValue]="listSrv.searchValue"
 	(showFilters)="listSrv.openFilterPanel()"
-	(clearFilters)="onClearFilters()"
+	(clearFilters)="listsrv.resetFilters()"
 	(viewChange)="onViewChange($event)"
 	(search)="listSrv.search($event)">
 
