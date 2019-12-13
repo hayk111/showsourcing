@@ -9,8 +9,7 @@
 
 <controller-list-app
 	[panels]="['search', 'filters', 'action','quick-filters', 'quick-actions', 'view-switcher']">
-	<!-- <controller-list-quick-filters-app></controller-list-quick-filters-app> -->
-	<controller-list-quick-actions-app (export)="listSrv.exportSelection()"></controller-list-quick-actions-app>
+	<controller-list-quick-filters-app></controller-list-quick-filters-app>
 	<controller-list-quick-actions-app 
 		[columns]="columns"
 		[tableConfig]="tableConfig"

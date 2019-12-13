@@ -1240,6 +1240,11 @@
 		"card-view": "card view",
 		"export": "export",
 		"sort": "sort",
-		"table-view": "table view"
+		"table-view": "table view",
+		"show-only-assigned-to-me": "show only the ones assigned to me",
+		"also-show-archived": "also show archived",
+		"also-show-completed": "also show completed",
+		"only-created-by-me": "only show created by me"
+
 	}
 }

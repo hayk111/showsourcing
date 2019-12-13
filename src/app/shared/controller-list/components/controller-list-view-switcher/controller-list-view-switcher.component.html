@@ -6,7 +6,7 @@
 	[toolTipMessage]="'tooltip.table-view' | translate"
 	(mousedown)="changeView('table')">
 	<icon-app 
-		[ngClass]="{'color-primary': view === 'table' }" 
+		class="{{ view === 'table' ? 'color-primary' : 'color-txt-third' }}" 
 		name="list-menu"
 		size="m">
 	</icon-app>
@@ -19,7 +19,7 @@
 	[toolTipMessage]="'tooltip.card-view' | translate"
 	(mousedown)="view = 'card'">
 	<icon-app 
-		[ngClass]="{'color-primary': view === 'card' }" 
+		class="{{ view === 'card' ? 'color-primary' : 'color-txt-third' }}" 
 		name="cards"
 		size="m">
 	</icon-app>
@@ -32,7 +32,7 @@
 	[toolTipMessage]="'tooltip.board-view' | translate"
 	(mousedown)="changeView('board')">
 	<icon-app 
-		[ngClass]="{'color-primary': view === 'board' }"
+	class="{{ view === 'board' ? 'color-primary' : 'color-txt-third' }}" 
 		name="kanban"
 		size="m">
 	</icon-app>

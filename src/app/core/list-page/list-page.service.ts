@@ -360,6 +360,10 @@ export class ListPageService
 		this.dataSrv.removeFilterType(filterType);
 	}
 
+	resetFilters() {
+		this.dataSrv.filterList.resetAll();
+	}
+
 	/** bridge for view service */
 
 	get view() {
