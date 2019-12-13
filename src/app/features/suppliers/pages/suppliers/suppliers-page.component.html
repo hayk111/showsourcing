@@ -26,10 +26,10 @@
 		(hideArchived)="listSrv.filterByArchived(false)"
 		(showAssigned)="listSrv.filterByAssignee(true)"
 		(hideAssigned)="listSrv.filterByAssignee(false)">
-	</controller-list-actions-app> -->
+	</controller-list-actions-app>
 
 </controller-list-app>
-
+ -->
 <suppliers-table-app
 	#supplierList
 	*ngIf="listSrv.view === 'list'"
@@ -40,7 +40,7 @@
 	[count]="listSrv.count$ | async"
 	[currentPage]="listSrv.currentPage"
 	(goToPage)="listSrv.loadPage($event)"
-	(archive)="listSrv.archiveOne()($event)"
+	(archive)="listSrv.archiveOne($event)"
 	(sort)="listSrv.sort($event)"
 	(select)="listSrv.selectOne($event, true)"
 	(unselect)="listSrv.unselectOne($event, true)"
