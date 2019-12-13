@@ -1,3 +1,4 @@
+<!-- 
 <controller-list-app
 	[searchType]="'short'"
 	[filtersAmount]="listSrv.getFilterAmount([{ type: filterTypeEnum.ARCHIVED, value: false }, { type: filterTypeEnum.DELETED, value: false }])"
@@ -20,7 +21,7 @@
 		(hideAssigned)="listSrv.filterByAssignee(false)">
 	</controller-list-actions-app>
 
-</controller-list-app>
+</controller-list-app> -->
 
 <ng-container *ngIf="(listSrv.items$ | async) as products; else spinner">
 	<products-table-app
