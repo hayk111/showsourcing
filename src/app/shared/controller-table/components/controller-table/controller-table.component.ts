@@ -14,7 +14,7 @@ export type Panel = 'search' | 'filters' | 'actions' | 'quick-filters' | 'view-s
 	}
 })
 export class ControllerTableComponent {
-	/** describes the layout of the controller-list */
+	/** describes the layout of the controller-table */
 	@Input() hasFilters = true;
 
 	searchControl: FormControl = new FormControl('');

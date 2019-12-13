@@ -13,7 +13,7 @@ import { ProductFeatureService } from '~features/products/services';
 import { ERM, Product } from '~models';
 import { DialogService } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
-import { ControllerListService } from '~shared/controller-list/services/controller-list.service';
+import { ControllerListService } from '~shared/controller-table/services/controller-table.service';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub } from '~utils';
 import { ProductsTableComponent } from '~common/tables/products-table/products-table.component';

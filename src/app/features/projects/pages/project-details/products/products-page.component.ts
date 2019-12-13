@@ -15,7 +15,7 @@ import { ProjectFeatureService } from '~features/projects/services';
 import { EntityTypeEnum, ERM, Product, Project } from '~models';
 import { DialogService } from '~shared/dialog/services';
 import { FilterType } from '~shared/filters';
-import { ControllerListService } from '~shared/controller-list/services/controller-list.service';
+import { ControllerListService } from '~shared/controller-table/services/controller-table.service';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub } from '~utils';
 

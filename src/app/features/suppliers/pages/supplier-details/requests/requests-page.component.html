@@ -1,5 +1,5 @@
 <div class="color-primary">TODO when we have the new field 'supplierId' on the backend</div>
-<!-- <controller-list-app
+<!-- <controller-table-app
 	[entityType]="'SUPPLIER REQUEST'"
 	[hasFilter]="false"
 	[hasSwitch]="false"
@@ -9,10 +9,10 @@
 	(search)="listSrv.search($event)"
 	(smartSearch)="listSrv.smartSearch($event)"
 	(buttonClick)="dialogCommonSrv.openSupplierRequest([], supplier)">
-		<controller-list-right-item-app>
+		<controller-table-right-item-app>
 		<button class="primary" (click)="dialogCommonSrv.openSupplierRequest([], supplier)">Contact Supplier</button>
-	</controller-list-right-item-app>
-</controller-list-app>
+	</controller-table-right-item-app>
+</controller-table-app>
 
 <requests-table-app
 	[rows]="listSrv.items$ | async"

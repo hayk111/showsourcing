@@ -8,7 +8,7 @@
 	(buttonClick)="listSrv.create()">
 </header-list-app>
 
-<!-- <controller-list-app
+<!-- <controller-table-app
 	[entityType]="entityTypeEnum.PROJECT"
 	[hasSwitch]="false"
 	[hasExport]="false"
@@ -20,14 +20,14 @@
   (search)="listSrv.search($event)"
 	(showFilters)="listSrv.openFilterPanel()">
 
-	<controller-list-actions-app 
+	<controller-table-actions-app 
 		(showArchived)="listSrv.filterByArchived(true)"
 		(hideArchived)="listSrv.filterByArchived(false)"
 		(showAssigned)="listSrv.filterByAssignee(true)"
 		(hideAssigned)="listSrv.filterByAssignee(false)">
-	</controller-list-actions-app>
+	</controller-table-actions-app>
 	
-</controller-list-app> -->
+</controller-table-app> -->
 
 <ng-container *ngIf="listSrv.isListening">
 

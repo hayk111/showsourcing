@@ -30,7 +30,7 @@ export const routes: Array<Route> = [
 			{ path: 'colors', component: Pages.ColorsPageComponent },
 			{ path: 'spacing', component: Pages.SpacingPageComponent },
 			{ path: 'typography', component: Pages.TypographyPageComponent },
-			{ path: 'controller-list', component: Pages.ControllerListPageComponent }
+			{ path: 'controller-table', component: Pages.ControllerListPageComponent }
 			// { path: 'sample-card', component: Pages.SampleCardTestComponent },
 			// { path: 'preview', component: Pages.PreviewPageComponent },
 			// { path: 'product-card', component: Pages.ProductCardLibraryPageComponent },

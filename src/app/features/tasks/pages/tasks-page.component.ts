@@ -8,7 +8,7 @@ import { ListPageService } from '~core/list-page';
 import { ERM, Task } from '~models';
 import { DialogService } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
-import { ControllerTableComponent } from '~shared/controller-list/components/controller-t/controller-list.componentt';
+import { ControllerTableComponent } from '~shared/controller-table/components/controller-t/controller-table.componentt';
 import { AutoUnsub } from '~utils';
 
 @Component({
