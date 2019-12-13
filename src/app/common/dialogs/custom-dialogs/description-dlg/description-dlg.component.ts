@@ -1,5 +1,5 @@
-import { OnChanges, ChangeDetectionStrategy, Component, Input, ViewChild } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { ChangeDetectionStrategy, Component, Input, ViewChild } from '@angular/core';
+import { ReplaySubject } from 'rxjs';
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { InputDirective } from '~shared/inputs';
 
@@ -14,14 +14,14 @@ export class DescriptionDlgComponent {
 	private _description: string;
 	@Input() set description(description: string) {
 		this._description = description;
-		// if the description is empty that means editing is true
-		this.toggleEdition(!(this.description && this.description.length));
+		// we set it to edit
+		this.toggleEdition(true);
 	}
 	get description() {
 		return this._description;
 	}
 	// if we are editing or not
-	editing$ = new BehaviorSubject(false);
+	editing$ = new ReplaySubject();
 	// to store the value of the txtArea, since sometimes we will cancel instead of save, this way we don't override initial description
 	txtAreaDesc: string;
 
