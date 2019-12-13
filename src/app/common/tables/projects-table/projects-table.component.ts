@@ -15,11 +15,11 @@ const tableConfig: TableConfig = {
 	styleUrls: ['./projects-table.component.scss']
 })
 export class ProjectsTableComponent extends EntityTableComponent<Project> {
+	static DEFAULT_COLUMNS = [ 'logo', 'name', 'reference', 'productCount', 'status', 'dueDate', 'createdBy', 'creationDate' ];
+	static DEFAULT_TABLE_CONFIG = tableConfig;
+	@Input() columns = ProjectsTableComponent.DEFAULT_COLUMNS;
+	@Input() tableConfig = ProjectsTableComponent.DEFAULT_TABLE_CONFIG;
 	@Input() navigation = true;
-
-	columns = ['logo', 'name', 'reference', 'productCount', 'status', 'dueDate', 'createdBy', 'creationDate'];
-	tableConfig = tableConfig;
-	color = Color;
 
 	constructor(public translate: TranslateService) {
 		super();

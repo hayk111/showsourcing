@@ -7,6 +7,7 @@ import { ERM, Supplier } from '~models';
 import { FilterType } from '~shared/filters';
 import { NotificationService } from '~shared/notifications';
 import { AutoUnsub } from '~utils';
+import { SuppliersTableComponent } from '~common/tables/suppliers-table/suppliers-table.component';
 
 // A doctor accidentally prescribes his patient a laxative instead of a coughing syrup.
 // -
@@ -38,6 +39,9 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit, AfterVi
 		FilterType.TAGS
 	];
 
+	columns = SuppliersTableComponent.DEFAULT_COLUMNS;
+	tableConfig = SuppliersTableComponent.DEFAULT_TABLE_CONFIG;
+
 	// TODO BackEnd
 	// private selectItemsConfig: SelectParamsConfig = { query: 'deleted == false AND archived == false' };
 	private selectItemsConfig: SelectParamsConfig = { query: 'deleted == false' };
@@ -58,7 +62,10 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit, AfterVi
 			entitySrv: this.supplierSrv,
 			searchedFields: ['name', 'tags.name', 'categories.name', 'description'],
 			// initialFilters: [{ type: FilterType.ARCHIVED, value: false }, { type: FilterType.DELETED, value: false }],
-			initialFilters: [{ type: FilterType.DELETED, value: false }],
+			initialFilters: [
+				{ type: FilterType.DELETED, value: false },
+				{ type: FilterType.ARCHIVED, value: false }
+			],
 			entityMetadata: ERM.SUPPLIER,
 		}, false);
 	}
