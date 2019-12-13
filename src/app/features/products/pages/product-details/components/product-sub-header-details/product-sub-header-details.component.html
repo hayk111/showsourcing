@@ -23,7 +23,7 @@
 					(keyup.enter)="edt.close()"/>
 			</editable-container-app>
 			<!-- info title -->
-			<div class="flex dot-separator">
+			<div class="flex color-txt-secondary dot-separator-txt-secondary">
 				<rating-badge-app class="pointer"	[votes]="product?.votes" [hasNumber]="true" (click)="ratingClicked.emit()"></rating-badge-app>
 				<div class="txt-btn" (click)="redirect.emit('samples')">{{ product?.samplesLinked.count || 0 }} {{ product?.samplesLinked?.count === 1 ? 'Sample' : 'Samples' }}</div>
 				<div class="txt-btn" (click)="redirect.emit('tasks')">{{ product?.tasksLinked.count || 0 }} {{ product?.samplesLinked?.count === 1 ? 'Task' : 'Tasks' }}</div>

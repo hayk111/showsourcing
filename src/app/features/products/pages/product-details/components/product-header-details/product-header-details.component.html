@@ -2,7 +2,7 @@
 
 	<header-details-title-app *ngIf="product">
 		<editable-container-app #edt [defaultStyle]="false" (closed)="updateProductName($event, inpName.value, 'name')" (opened)="inpName.select()">
-			<editable-display-app>
+			<editable-display-app style="line-height: normal;">
 				{{ product?.name || ('message.unnamed-product' | translate) }}
 			</editable-display-app>
 			<input inputApp type="text" #inpName [value]="product?.name" (keyup.enter)="edt.close()">
@@ -14,7 +14,7 @@
 	<logo-app [logo]="product?.images[0]" size="l" type="product"></logo-app>
 
 	<header-details-info-app>
-		<div class="flex flexVAlign">
+		<div class="flex flexVAlign color-txt-secondary">
 			<logo-app type="product" name="product" size="xs"></logo-app>
 			<div class="flex flexVAlign info-container dot-separator">
 				<span *ngIf="product?.reference" class="reference">
@@ -49,8 +49,7 @@
 			<icon-app name="envelope"></icon-app><div class="capitalize" translate="button.contact-supplier"></div>
 		</button>
 
-		<status-selector-app [typeEntity]="productEntity" [entity]="product" selectSize="m" type="button">
-		</status-selector-app>
+		<status-selector-app [typeEntity]="productEntity" [entity]="product" selectSize="l" type="button"></status-selector-app>
 
 		<context-menu-app>
 
@@ -60,10 +59,18 @@
 				</button>
 			</context-menu-trigger-app>
 
-			<context-menu-item-app (click)="archive.emit(product)" translate="button.archive">
+			<context-menu-item-app (click)="archive.emit(product)">
+				<div class="square flexCenter mg-right-s">
+					<icon-app name="archive"></icon-app>
+				</div>
+				<span translate="button.archive"></span>
 			</context-menu-item-app>
 
-			<context-menu-item-warn-app (click)="delete.emit(product)" translate="button.delete">
+			<context-menu-item-warn-app (click)="delete.emit(product)">
+				<div class="square flexCenter mg-right-s">
+					<icon-app name="delete"></icon-app>
+				</div>
+				<span translate="button.delete"></span>
 			</context-menu-item-warn-app>
 
 		</context-menu-app>
