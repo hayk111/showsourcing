@@ -1,8 +1,8 @@
+import * as moment from 'moment';
 import { DateToTimeAgoPipe } from './date-ago.pipe';
 
-import * as moment from 'moment';
 
-describe('DateToTimeAgoPipe', () => {
+fdescribe('DateToTimeAgoPipe', () => {
 	let pipe: DateToTimeAgoPipe;
 
 	beforeEach(() => {

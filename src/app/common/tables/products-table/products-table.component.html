@@ -51,30 +51,37 @@
 
       <!-- category -->
       <ng-container *ngSwitchCase="'category'">
-        <selector-app
-          [type]="'CATEGORY' | erm: 'singular'"
-					[hasPicker]="canUpdate"
-          [canCreate]="true"
-          [width]="370"
-          (update)="update.emit({ id: row.id, category: $event })">
-					<div class="pointer txt-btn" >
-						{{ row?.category?.name || '-' }}
-					</div>
-        </selector-app>
+				<editable-container-app
+					class="full-width"
+					[hasAction]="false"
+					[openOnClick]="false"
+					(click)="sel?.selector?.openMenu()">
+					<editable-display-app>
+						<selector-app
+							#sel
+							[type]="'CATEGORY' | erm: 'singular'"
+							[hasPicker]="canUpdate"
+							[canCreate]="true"
+							[width]="370"
+							(update)="update.emit({ id: row.id, category: $event })">
+							<div class="pointer" >
+								{{ row?.category?.name || '-' }}
+							</div>
+						</selector-app>
+					</editable-display-app>
+				</editable-container-app>
 			</ng-container>
 
       <!-- price -->
       <ng-container *ngSwitchCase="'price'">
 				<editable-container-app
 					#editable
+					class="full-width"
 					[hasAction]="false"
 					(opened)="inp.focus()"
 					(closed)="update.emit({ id: row.id, price: inp.price })">
 					<editable-display-app>
-						<price-app
-							class="full-width txt-btn"
-							[price]="row?.price">
-						</price-app>
+						<price-app [price]="row?.price"></price-app>
 					</editable-display-app>
 					<input-price-app
 						#inp
@@ -88,13 +95,13 @@
       <ng-container *ngSwitchCase="'moq'">
         <editable-container-app
 					#editable
+					class="full-width"
           [hasAction]="false"
           (opened)="inp.focus()"
           (closed)="update.emit({ id: row.id, minimumOrderQuantity: inp.value })">
           <editable-display-app>
             <moq-app
 							*ngIf="row?.minimumOrderQuantity"
-							class="txt-btn"
 							[moq]="row?.minimumOrderQuantity"
 							[moqDescription]="row?.moqDescription">
             </moq-app>
@@ -108,7 +115,7 @@
       <!-- projects -->
       <ng-container *ngSwitchCase="'projects'">
         <div class="flexCenter">
-          <span *ngFor="let project of row.projects; trackBy: trackByFn" class="txt-btn">
+          <span *ngFor="let project of row.projects; trackBy: trackByFn">
             {{ project.name || '-' }}
           </span>
         </div>
