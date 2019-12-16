@@ -1,0 +1,91 @@
+
+<div class="left flexVAlign">
+
+	<search-bar-app
+		*ngIf="hasSearch"
+		searchType="short"
+		[formControl]="searchControl"
+		[inputFocus]="inputFocus"
+		[placeHolder]="'placeholder.type-to-search' | translate"
+		(focus)="onFocusSearch($event)"
+		(search)="search.emit($event)"
+		(keydown.enter)="triggerSmartSearch($event)">
+	</search-bar-app>
+
+	<button
+		*ngIf="hasFilter"
+		class="icon light-third"
+		(click)="showFilters.emit()"
+		translate="button.show-filters">
+		<icon-app name="filter" size="m"></icon-app>
+	</button>
+
+	<divider-app [vertical]="true"></divider-app>
+
+	<span class="capitalize entities-count">
+		{{ count }} {{ count === 1 ? ('ERM.' + checkEntityType(entityType.toUpperCase()) + '.singular' | translate)
+			: ('ERM.' + checkEntityType(entityType?.toUpperCase()) + '.plural' | translate) }}
+	</span>
+
+</div>
+
+<div class="right flexVAlign">
+
+	<ng-content *ngIf="view === 'card'" select="[right-sort-elem]"></ng-content>
+
+	<!-- can be replaced by div.button if a checkbox in a button isn't valid -->
+	<button
+		*ngIf="hasArchived"
+		class="icon-with-label light mg-left-ms"
+		(click)="toggleArchived()">
+		<checkbox-app class="mg-right-xs" [checked]="isArchivedShown" [size]="15"></checkbox-app>
+		{{ 'label.show-archived' | translate }}
+	</button>
+
+	<button
+		*ngIf="hasTaskCreatedByMeOnly"
+		class="icon-with-label light mg-left-ms"
+		(click)="toggleCreatedTaskOnly()">
+		<checkbox-app class="mg-right-xs" [checked]="isTaskCreatedByMeOnlyChecked" [size]="15"></checkbox-app>
+		{{ 'label.show-tasks-i-created-only' | translate }}
+	</button>
+
+	<button
+		*ngIf="hasCompletedTask"
+		class="icon-with-label light mg-left-ms"
+		(click)="toggleCompletedTask()">
+		<checkbox-app class="mg-right-xs" [checked]="isCompletedTaskChecked" [size]="15"></checkbox-app>
+		{{ 'label.show-completed' | translate }}
+	</button>
+
+	<button
+		*ngIf="hasAssigned"
+		class="icon-with-label light mg-left-ms"
+		(click)="toggleAssigned()">
+		<checkbox-app class="mg-right-xs" [checked]="isAssigned" [size]="15"></checkbox-app>
+		{{ 'label.assigned-to-me' | translate }}
+	</button>
+
+	<button
+		*ngIf="hasMyExport"
+		class="icon-with-label light mg-left-ms"
+		(click)="toggleMyExport()">
+		<checkbox-app class="mg-right-xs" [checked]="isMyExport" [size]="15"></checkbox-app>
+		Show my exports only
+	</button>
+
+	<divider-app
+		*ngIf="hasArchived || hasAssigned || hasCompletedTask || hasTaskCreatedByMeOnly || hasMyExport || view === 'card'"
+		[vertical]="true">
+	</divider-app>
+	<!-- TODO export and sort -->
+
+	<ng-content select="controller-list-right-item-app"></ng-content>
+
+	<divider-app *ngIf="hasSwitch" [vertical]="true"></divider-app>
+
+	<view-switcher-app *ngIf="hasSwitch" [switchContent]="switchContent" [view]="view"
+		(viewChange)="viewChange.emit($event)" class="mg-left-ms">
+	</view-switcher-app>
+
+</div>
