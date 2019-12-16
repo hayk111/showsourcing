@@ -17,13 +17,15 @@
 }
 
 editable-container-app {
-	width: 100%;
+	max-width: 100%;
+	min-width: 10px;
 	box-sizing: border-box;
 }
 
 editable-display-app {
 	white-space: pre-line;
 	width: inherit;
+	min-width: 10px;
 
 	icon-app.edit {
 		margin-right: var(--spacing-xs);
