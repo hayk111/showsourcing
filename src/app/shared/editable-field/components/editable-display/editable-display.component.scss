@@ -3,9 +3,8 @@
 }
 
 .ctnr:not(:empty) {
-	& {
-		width: 100%;
-	}
+	width: 100%;
+
 	+ .default {
 		display: none;
 		width: 0%;
@@ -13,10 +12,9 @@
 }
 
 .ctnr:empty {
-	& {
-		display: none;
-		width: 0%;
-	}
+	display: none;
+	width: 0%;
+
 	+ .display {
 		width: 100%;
 	}
