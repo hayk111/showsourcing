@@ -1,31 +1,16 @@
-<!-- 
-<controller-table-app
-	[searchType]="'short'"
-	[filtersAmount]="listSrv.getFilterAmount([{ type: filterTypeEnum.ARCHIVED, value: false }, { type: filterTypeEnum.DELETED, value: false }])"
-	[hasFilter]="true"
-	[hasSwitch]="false"
-	[view]="listSrv.view"
-	[count]="listSrv.count$ | async"
-	[entityType]="erm.PRODUCT.singular"
-	[searchValue]="listSrv.searchValue"
-	(search)="listSrv.search($event)"
-	(clearFilters)="listSrv.resetFilters()"
-	(export)="dialogCommonSrv.openExportDialog(listSrv.getSelectedValues())"
-	(showFilters)="listSrv.openFilterPanel()"
-	(viewChange)="listSrv.changeView($event)">
-
-	<controller-table-actions-app 
-		(showArchived)="listSrv.filterByArchived(true)"
-		(hideArchived)="listSrv.filterByArchived(false)"
-		(showAssigned)="listSrv.filterByAssignee(true)"
-		(hideAssigned)="listSrv.filterByAssignee(false)">
-	</controller-table-actions-app>
-
-</controller-table-app> -->
+<controller-table-app>
+	<controller-table-quick-filters-app></controller-table-quick-filters-app>
+	<controller-table-quick-actions-app>
+	</controller-table-quick-actions-app>
+	<controller-table-view-switcher-app 
+		[hasCard]="false" 
+		[hasBoard]="false">
+	</controller-table-view-switcher-app>
+</controller-table-app>
 
 <ng-container *ngIf="(listSrv.items$ | async) as products; else spinner">
 	<products-table-app
-		*ngIf="listSrv.view === 'list'"
+		*ngIf="listSrv.view === 'table'"
 		[pending]="false"
 		[selection]="listSrv.selection"
 		[rows]="products"

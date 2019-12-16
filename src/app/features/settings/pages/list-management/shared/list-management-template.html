@@ -46,27 +46,15 @@
 
 </header-details-app>
 
-<!-- <header-list-app
-	class="smaller-padding"
-	[title]="'ERM.' + listSrv.entityMetadata.translationKey + '.plural' | translate"
-	[buttonName]="'Add ' + listSrv.entityMetadata.singular"
-	(buttonClick)="listSrv.create(false)">
-</header-list-app> -->
-
-<!-- <controller-table-app
-	[count]="listSrv.count$ | async"
-	[hasFilter]="false"
-	[hasSwitch]="false"
-	[hasAssigned]="false"
-	[hasArchived]="false"
-	[entityType]="erm.singular"
-	(search)="listSrv.search($event)">
-	<controller-table-right-item-app>
-		<div class="flex">
-			<button class="capitalize" (click)="listSrv.create(false)">Create {{erm.singular | translate}}</button>
-		</div>
-	</controller-table-right-item-app>
-</controller-table-app> -->
+<controller-table-app>
+	<controller-table-quick-filters-app></controller-table-quick-filters-app>
+	<controller-table-quick-actions-app>
+	</controller-table-quick-actions-app>
+	<controller-table-view-switcher-app 
+		[hasCard]="false" 
+		[hasBoard]="false">
+	</controller-table-view-switcher-app>
+</controller-table-app>
 
 <list-management-table-app
 	[rows]="listSrv.items$ | async"

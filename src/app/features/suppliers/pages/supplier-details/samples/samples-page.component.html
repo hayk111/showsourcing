@@ -1,25 +1,12 @@
-<!-- <controller-table-app
-	class="max-full-table-width"
-	[entityType]="erm.SAMPLE.singular"
-	[hasFilter]="true"
-	[hasSwitch]="false"
-	[count]="listSrv.count$ | async"
-	[entityType]="'SAMPLE'"
-	[view]="listSrv.view"
-	(showFilters)="listSrv.openFilterPanel()"
-	(search)="listSrv.search($event)"
-	(smartSearch)="listSrv.smartSearch($event)"
-	(export)="dialogCommonSrv.openExportDialog()"
-	(buttonClick)="dialogCommonSrv.openCreationSampleDialog(undefined, supplier)">
-
-	<controller-table-actions-app 
-		(showArchived)="listSrv.filterByArchived(true)"
-		(hideArchived)="listSrv.filterByArchived(false)"
-		(showAssigned)="listSrv.filterByAssignee(true)"
-		(hideAssigned)="listSrv.filterByAssignee(false)">
-	</controller-table-actions-app>
-
-</controller-table-app> -->
+<controller-table-app>
+	<controller-table-quick-filters-app></controller-table-quick-filters-app>
+	<controller-table-quick-actions-app>
+	</controller-table-quick-actions-app>
+	<controller-table-view-switcher-app 
+		[hasCard]="false" 
+		[hasBoard]="false">
+	</controller-table-view-switcher-app>
+</controller-table-app>
 
 <samples-table-app
 	[rows]="listSrv.items$ | async"
