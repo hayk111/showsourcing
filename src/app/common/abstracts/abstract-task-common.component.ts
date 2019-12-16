@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { filter, switchMap, takeUntil } from 'rxjs/operators';
 import { CreationTaskDlgComponent } from '~common/dialogs/creation-dialogs';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
+import { SelectParams } from '~core/entity-services/_global/select-params';
 import { ListPageService } from '~core/list-page';
 import { TaskService, UserService } from '~entity-services';
 import { ERM, Product, Supplier, Task } from '~models';
@@ -33,20 +34,20 @@ export abstract class AbstractTaskCommonComponent extends AutoUnsub implements O
 		).subscribe();
 	}
 
-	setup(addedFilters: Filter[]) {
+	setup(addedFilters: Filter[], selectParams?: SelectParams, hasDoneFilter = true) {
 		const userId = this.userSrv.userSync.id;
 		const routeId = this.route.parent.snapshot.params.id;
+		const initialFilters: Filter[] = [];
+		if (hasDoneFilter) {
+			initialFilters.push({ type: FilterType.DONE, value: false });
+		}
 		this.listSrv.setup({
 			entitySrv: this.taskSrv,
 			searchedFields: ['name', 'supplier.name', 'product.name', 'reference'],
-			selectParams: {
-				sortBy: 'creationDate',
-				descending: true,
-				query: 'deleted == false'
-			},
+			selectParams: { ...selectParams, query: 'deleted == false AND archived == false' },
 			initialFilters: [
-				...addedFilters,
-				{ type: FilterType.DONE, value: false }
+				...initialFilters,
+				...addedFilters
 			],
 			entityMetadata: ERM.TASK,
 			originComponentDestroy$: this._destroy$
