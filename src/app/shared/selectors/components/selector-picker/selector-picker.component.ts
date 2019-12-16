@@ -428,15 +428,17 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		if (event.keyCode === ENTER && this.keyManager && this.keyManager.activeItem) {
 			// we get the item label from each row selector
 			const label = this.keyManager.activeItem.getLabel();
-			if (label === 'create-button')
+			if (label === 'create-button') {
 				this.create();
-			else if (this.multiple) {
+			}	else if (this.multiple) {
 				// this is made since sometimes the user types faster, this way we assure that the label he types has to be the same
 				// if he moves with the arrow keys, then we don't care about the typing field
-				if (this.getLabelName(label) === this.searchTxt || this.movedArrow)
+				if (this.getLabelName(label) === this.searchTxt || this.movedArrow) {
 					this.onSelect(label);
-			} else
-				this.onSelect(label);
+				}
+			} else {
+				this.onSelect((this.keyManager.activeItem as any).item);
+			}
 
 		} else if (event.keyCode === UP_ARROW || event.keyCode === DOWN_ARROW) {
 			this.movedArrow = true;

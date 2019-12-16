@@ -3,17 +3,16 @@
 	logoName="project"
 	logoColor="primary"
 	info="The projects database"
-	[title]="'title.my-projects' | translate"
+	[title]="'title.projects' | translate"
   [buttonName]="'button.create-project' | translate"
 	(buttonClick)="listSrv.create()">
 </header-list-app>
 
 <!-- <controller-table-app
 	[entityType]="entityTypeEnum.PROJECT"
-	[hasSwitch]="false"
-	[hasExport]="false"
+	[hasSwitch]="true"
 	[count]="listSrv.count$ | async"
-  [hasFilter]="false"
+  [hasFilter]="true"
   [filtersAmount]="listSrv.filterList.asFilters()?.length"
 	[searchValue]="listSrv.searchValue"
 	[filtersPanelOpened]="listSrv.filterPanelOpen"

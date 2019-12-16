@@ -1,6 +1,8 @@
 import { Location } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input, HostBinding } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChild, Input } from '@angular/core';
 import { TrackingComponent } from '~utils/tracking-component';
+
+import { HeaderNavComponent } from './components/nav/header-nav.component';
 
 @Component({
 	selector: 'header-details-app',
@@ -15,6 +17,7 @@ export class HeaderDetailsComponent extends TrackingComponent {
 	@Input() hasBackArrow = true;
 	@Input() hasLogo = true;
 	@Input() headerType: 'details' | 'settings' | 'table';
+	@ContentChild(HeaderNavComponent, { static: false }) headerNav: HeaderNavComponent;
 
 	constructor(
 		private location: Location

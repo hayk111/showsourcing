@@ -9,9 +9,9 @@
 				</icon-app>
 				<span class="ellipsis txt-btn">{{ project.name }}</span>
 			</context-menu-trigger-app>
-			<context-menu-item-app translate="button.open" (click)="openProject.emit(project)"></context-menu-item-app>
+			<context-menu-item-app (click)="openProject.emit(project)" translate="button.open"></context-menu-item-app>
 			<divider-app></divider-app>
-			<context-menu-item-warn-app translate="button.delete" (click)="deleteProject.emit(project)"></context-menu-item-warn-app>
+			<context-menu-item-warn-app (click)="deleteProject.emit(project)"	translate="button.delete"></context-menu-item-warn-app>
 		</context-menu-app>
 	</div>
 </ng-container>

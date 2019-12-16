@@ -1,7 +1,7 @@
 <table-app
 	[rows]="rows"
-	[contextualMenu]="contextualMenuTemplate"
 	[pending]="pending"
+	[hasMenu]="false"
 	[hasSelection]="false"
 	[count]="count"
 	[currentPage]="currentPage"
@@ -12,21 +12,13 @@
 	(showItemsPerPage)="showItemsPerPage.emit($event)"
 	(sort)="sort.emit($event)">
 
-	<ng-template #contextualMenuTemplate let-row="row">
-		<context-menu-item-app
-				class="pointer flexCenter"
-				(click)="delete.emit(row)"
-				translate="button.delete">
-		</context-menu-item-app>
-	</ng-template>
-
 	<!-- icon -->
 	<ng-template
 		[columnApp]="''"
 		let-row="row"
-		width="0">
+		width="20">
 		<div class="user-icon flexCenter">
-			<icon-app class="color-txt-third" name="user" size="s"></icon-app>
+			<icon-app class="color-txt-third" name="contact" size="s"></icon-app>
 		</div>
 	</ng-template>
 
@@ -35,7 +27,7 @@
 		[columnApp]="'header.name' | translate"
 		sortBy="user.firstName"
 		let-row="row"
-		width="200"
+		width="250"
 		[sortOrder]="'DESC'">
 		<div class="flexVAlign">
 			<span class="user-name">
@@ -51,7 +43,7 @@
 		columnApp="E-Mail"
 		let-row="row"
 		sortBy="user.email"
-		width="200">
+		width="250">
 		<div class="email ellipsis">
 			{{ row.user.email  }}
 		</div>
@@ -62,7 +54,7 @@
 		[columnApp]="'header.status' | translate"
 		let-row="row"
 		sortBy="status"
-		width="80">
+		width="140">
 		<span class="status capitalize">
 			{{ row.accessType }}
 		</span>
@@ -72,10 +64,10 @@
 	<ng-template
 		[columnApp]="'Action' | const: 'action'"
 		let-row="row"
-		width="0">
-		<div class="flexCenter">
-			<button class="icon warn" (click)="delete.emit(row)">
-				<icon-app name="delete"></icon-app>
+		width="100">
+		<div class="flex">
+			<button class="icon small warn" (click)="delete.emit(row)">
+				<icon-app name="trash" size="s"></icon-app>
 			</button>
 		</div>
 	</ng-template>

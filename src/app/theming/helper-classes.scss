@@ -198,7 +198,7 @@
 
 // fixed size of the dot font-size-m
 // note: if in the future we use more sizes, implement @each $size in $sizes
-.dot-separator > * {
+.dot-separator > *, .dot-separator-txt-primary > *, .dot-separator-txt-secondary > *, .dot-separator-txt-third > * {
 	//for each children that is not the first one we add some spaces and bullet dots on the content
 	&:not(:first-child)::before {
 		content: "\00a0 \00a0 \2022 \00a0 \00a0"; // 00a0 is a space and 2022 is the bullet
@@ -206,6 +206,20 @@
 		display: inline-block;
 		font-size: var(--font-size-m);
 	}
+}
+
+// if we need the color txt to persist on the dots
+// we use this e.g. when we want that a hover effect, or a duedate color does not change the original dot color
+.dot-separator-txt-primary > *::before {
+	color: var(--color-txt-primary);
+}
+
+.dot-separator-txt-secondary > *::before {
+	color: var(--color-txt-secondary);
+}
+
+.dot-separator-txt-third > *::before {
+	color: var(--color-txt-third);
 }
 
 .hyphen-separator {

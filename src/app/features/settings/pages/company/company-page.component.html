@@ -11,7 +11,7 @@
 	<logo-app color="primary" icon="company"></logo-app>
 
 	<header-details-info-app>
-		<div class="dot-separator company-info" *ngIf="companyName">
+		<div class="dot-separator-txt-third company-info" *ngIf="companyName">
 			<span>{{companyName}}</span>
 			<span>Managed by {{ owner | formatUserName: true }}</span>
 		</div>
@@ -22,18 +22,6 @@
 			link="/settings/company/settings"
 			icon="company"
 			[name]="'nav.company-info' | translate">
-		</header-nav-item-app>
-
-		<header-nav-item-app
-			link="/settings/company/teams"
-			icon="team"
-			[name]="'nav.teams' | translate">
-		</header-nav-item-app>
-
-		<header-nav-item-app
-			link="/settings/company/users"
-			icon="team"
-			[name]="'nav.company-users' | translate">
 		</header-nav-item-app>
 	</header-nav-app>
 

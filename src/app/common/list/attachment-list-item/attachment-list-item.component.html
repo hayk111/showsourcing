@@ -1,0 +1,16 @@
+<div class="left flexStart">
+	<checkbox-app
+		class="mg-right-ms"
+		[checked]="isSelected(attachment)"
+		(check)="select.emit(attachment)"
+		(uncheck)="unselect.emit(attachment)">
+	</checkbox-app>
+	<div class="txt-btn" (click)="nameClick.emit(attachment)">{{ attachment?.fileName }}</div>
+</div>
+<div class="right flexEnd">
+	<div class="flexEnd dot-separator">
+		<div>{{ attachment?.createdBy | formatUserName: true }}</div>
+		<div>{{ attachment?.creationDate | date: 'dd MMMM yyyy':'':translate.currentLang }}</div>
+	</div>
+	<icon-app class="color-third mg-left-ms" name="close-pane-bottom" (click)="download.emit(attachment)"></icon-app>
+</div>

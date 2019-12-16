@@ -1,7 +1,7 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
-import { DialogService, CloseEventType } from '~shared/dialog';
+import { OnChanges, ChangeDetectionStrategy, Component, Input, ViewChild } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { CloseEventType, DialogService } from '~shared/dialog';
 import { InputDirective } from '~shared/inputs';
-import { BehaviorSubject, ReplaySubject } from 'rxjs';
 
 @Component({
 	selector: 'description-dlg-app',

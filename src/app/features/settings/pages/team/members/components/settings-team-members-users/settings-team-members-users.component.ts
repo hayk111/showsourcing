@@ -16,9 +16,6 @@ import { AutoUnsub } from '~utils';
 	providers: [
 		ListPageService
 	],
-	host: {
-		class: 'table-page'
-	},
 })
 export class SettingsTeamMembersUsersComponent extends AutoUnsub implements OnInit {
 	teamOwner: boolean;

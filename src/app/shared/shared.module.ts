@@ -32,6 +32,7 @@ import { ComparisonRowModule } from './comparison-row/comparison-row.module';
 import { ControllerTableModule } from './controller-table/controller-table.module';
 import { DialogModule } from './dialog/dialog.module';
 import { DynamicFormsModule } from './dynamic-forms/dynamic-forms.module';
+import { EntityPlaceholderModule } from './entity-placeholder/entity-placeholder.module';
 import { ERMModule } from './erm/erm.module';
 import { FileModule } from './file/file.module';
 import { FiltersModule } from './filters/filters.module';
@@ -85,6 +86,7 @@ const modules = [
 	DividerModule,
 	DynamicFormsModule,
 	EditableFieldModule,
+	EntityPlaceholderModule,
 	ERMModule,
 	FileModule,
 	FiltersModule,
