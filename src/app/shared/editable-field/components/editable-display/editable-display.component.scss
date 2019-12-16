@@ -2,22 +2,22 @@
 	text-transform: none;
 }
 
-.ctnr:not(:empty) + {
+.ctnr:not(:empty) {
 	& {
 		width: 100%;
 	}
-	.default {
+	+ .default {
 		display: none;
 		width: 0%;
 	}
 }
 
-.ctnr:empty + {
+.ctnr:empty {
 	& {
 		display: none;
 		width: 0%;
 	}
-	.display {
+	+ .display {
 		width: 100%;
 	}
 }
