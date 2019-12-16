@@ -1,9 +1,7 @@
 <!-- closed -->
 <div 
 	*ngIf="!isOpen" 
-	class="labelCtnr flex" 
-	[class.hoverable]="defaultStyle" 
-	(click)="open(true)">
+	class="labelCtnr flex">
 	<ng-content select="editable-display-app"></ng-content>
 </div>
 
