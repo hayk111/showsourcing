@@ -89,16 +89,13 @@ https://stackblitz.com/edit/angular-vtluff?file=src/app/app.component.ts -->
 					[ngClass]="{ selected: (i === hoverIndex) || isSelected(row, i), hover: (i === hoverIndex), main: (column.type === 'main') }"
 					[style.height]="rowHeight + 'px'"
 					(mouseenter)="hoverRow(i)" (mouseleave)="hoverRow(-1)">
-					<!-- ellipsis wrapper because ellipsis cannot be added to flex elements, and cell is flex -->
-					<div class="full-width ellipsis">
-						<!-- Render the column template when specified -->
-						<ng-container *ngIf="!column.showOnHover || i === hoverIndex">
-							<ng-container
-								*ngTemplateOutlet="column.template; context: { column: column, row: row, index: i }">
-							</ng-container>
-							<!-- <icon-app name="eye"></icon-app> -->
+					<!-- Render the column template when specified -->
+					<ng-container *ngIf="!column.showOnHover || i === hoverIndex">
+						<ng-container
+							*ngTemplateOutlet="column.template; context: { column: column, row: row, index: i }">
 						</ng-container>
-					</div>
+						<!-- <icon-app name="eye"></icon-app> -->
+					</ng-container>
 				</div>
 			</ng-container>
 

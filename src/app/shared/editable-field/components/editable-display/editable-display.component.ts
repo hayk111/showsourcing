@@ -6,6 +6,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core
 	styleUrls: ['./editable-display.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
+		class: 'ellipsis',
 		'[class.flexVAlign]': 'vAlign',
 		'[class.pointer]': '!disabled'
 	}

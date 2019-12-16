@@ -33,6 +33,7 @@ export class DefaultColumnsComponent {
 	@Output() logoClick = new EventEmitter<any>();
 	@Output() nameClick = new EventEmitter<any>();
 	erm = ERM;
+	padding = 12;
 
 	constructor(public translate: TranslateService, private router: Router) {}
 

@@ -58,22 +58,31 @@
 
 	<!-- assignee -->
 	<ng-container *ngSwitchCase="'assignee'">
-		<selector-app
-			[type]="'USER' | erm"
-			[width]="320"
-			[offsetX]="4"
-			(update)="update.emit({ id: row?.id, assignee: $event })">
-			<div class="flex pointer">
-				<user-picture-app
-					*ngIf="row?.assignee"
-					class="mg-right-s"
-					[user]="row?.assignee">
-				</user-picture-app>
-				<div class="flexVAlign ellipsis pointer txt-btn">
-					{{ row?.assignee ? (row?.assignee | formatUserName: true) : '-' }}
-				</div>
-			</div>
-		</selector-app>
+		<editable-container-app
+			[hasAction]="false"
+			[openOnClick]="false"
+			(click)="sel?.selector?.openMenu()">
+			<editable-display-app [style.width]="column.width + 'px'">
+				<selector-app
+					#sel
+					[type]="'USER' | erm"
+					[width]="320"
+					[offsetX]="4"
+					(update)="update.emit({ id: row?.id, assignee: $event })">
+					<div class="flex pointer">
+						<user-picture-app
+							*ngIf="row?.assignee"
+							class="mg-right-s"
+							[user]="row?.assignee">
+						</user-picture-app>
+						<div class="flexVAlign ellipsis pointer txt-btn">
+							{{ row?.assignee ? (row?.assignee | formatUserName: true) : '-' }}
+						</div>
+					</div>
+				</selector-app>
+				</editable-display-app>
+		</editable-container-app>
+
 	</ng-container>
 
 	<!-- creation date -->
@@ -126,13 +135,21 @@
 
 	<!-- supplier -->
 	<ng-container *ngSwitchCase="'supplier'">
-		<selector-app
-			type="supplier"
-			[width]="350"
-			[offsetX]="4"
-			(update)="update.emit({ id: row?.id, supplier: $event })">
-			<span class="txt-btn">{{ row?.supplier?.name || '-'}}</span>
-		</selector-app>
+		<editable-container-app
+			[hasAction]="false"
+			[openOnClick]="false"
+			[style.width]="(column.width - padding) + 'px'"
+			(click)="sel?.selector?.openMenu()">
+			<editable-display-app>
+				<selector-app
+						type="supplier"
+						[width]="350"
+					[offsetX]="4"
+					(update)="update.emit({ id: row?.id, supplier: $event })">
+					<span class="txt-btn">{{ row?.supplier?.name || '-'}}</span>
+				</selector-app>
+			</editable-display-app>
+		</editable-container-app>
 	</ng-container>
 
 </ng-container>
