@@ -100,6 +100,7 @@ export class SupplierDetailsPageComponent extends AutoUnsub implements OnInit {
 				});
 		}
 	}
+
 	private onSupplier(supplier) {
 		if (!supplier) {
 			this.notifSrv.add({

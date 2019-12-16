@@ -1,6 +1,14 @@
-<icon-app *ngIf="hasIcon" name="search" class="flexCenter class-txt-secondary"></icon-app>
+<div class="search-icon-ctnr flexCenter">
+	<icon-app *ngIf="hasIcon" name="search" class="color-txt-secondary"></icon-app>
+</div>
 <input #inp
 	type="text"
 	(blur)="onBlur()"
 	(input)="onChange(inp.value)"
 	[placeholder]="placeHolder" [value]="value"/>
+<div 
+	*ngIf="!(inp.value === '')" 
+	class="remove-icon-ctnr flexCenter pointer" 
+	(click)="inp.value = ''; onChange(inp.value)">
+	<icon-app name="close-circle"></icon-app>
+</div>

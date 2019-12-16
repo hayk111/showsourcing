@@ -15,9 +15,9 @@ import { ProjectFeatureService } from '~features/projects/services';
 import { EntityTypeEnum, ERM, Product, Project } from '~models';
 import { DialogService } from '~shared/dialog/services';
 import { FilterType } from '~shared/filters';
-import { ControllerListService } from '~shared/header/components/controller-list/services/controller-list.service';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub } from '~utils';
+import { ProductsTableComponent } from '~common/tables/products-table/products-table.component';
 
 @Component({
 	selector: 'products-page-app',
@@ -56,17 +56,18 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		FilterType.TAGS
 	];
 
+	columns = ProductsTableComponent.DEFAULT_COLUMNS;
+	tableConfig = ProductsTableComponent.DEFAULT_TABLE_CONFIG;
+
 	constructor(
 		private featureSrv: ProjectFeatureService,
 		private productFeatureSrv: ProductFeatureService,
 		private dlgSrv: DialogService,
-		private router: Router,
 		private route: ActivatedRoute,
 		private productSrv: ProductService,
 		public listSrv: ListPageService<Product, ProductService>,
 		public dialogCommonSrv: DialogCommonService,
 		private notifSrv: NotificationService,
-		private controllerListService: ControllerListService,
 		private translate: TranslateService
 	) {
 		super();
@@ -151,15 +152,6 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 					});
 				});
 		}
-	}
-
-	onClearFilters() {
-		this.listSrv.filterList.resetAll();
-
-		this.listSrv.addFilter({ type: FilterType.ARCHIVED, value: false });
-		this.listSrv.addFilter({ type: FilterType.DELETED, value: false });
-
-		this.controllerListService.onFiltersClear();
 	}
 
 	showItemsPerPage(count: number) {

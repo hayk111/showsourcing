@@ -1,12 +1,12 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { EntityTableComponent, TableConfig, TableConfigType } from '~core/list-page';
-import { Task } from '~core/models';
-import { ID } from '~utils/id.utils';
-import { TaskService } from '~core/entity-services';
 import { User } from 'getstream';
-import { mediumSmallTableConfig, smallTableConfig, mediumTableConfig, bigTableConfig } from './config';
+import { TaskService } from '~core/entity-services';
+import { EntityTableComponent } from '~core/list-page';
+import { Task } from '~core/models';
 import { Color } from '~utils/colors.enum';
+import { ID } from '~utils/id.utils';
+import { defaultConfig } from '../default-columns/default-config';
 
 
 @Component({
@@ -18,11 +18,7 @@ import { Color } from '~utils/colors.enum';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TasksTableComponent extends EntityTableComponent<Task> implements OnInit {
-
-	@Input() tableConfigType: TableConfigType = 'big';
-	@Output() openProduct = new EventEmitter<ID>();
-	@Output() openSupplier = new EventEmitter<ID>();
-	columns = [
+	static DEFAULT_COLUMNS = [
 		'logo',
 		'name',
 		'reference',
@@ -34,29 +30,17 @@ export class TasksTableComponent extends EntityTableComponent<Task> implements O
 		'createdBy',
 		'creationDate'
 	];
+	static DEFAULT_TABLE_CONFIG = defaultConfig;
+	@Input() columns = TasksTableComponent.DEFAULT_COLUMNS;
+	@Input() tableConfig = TasksTableComponent.DEFAULT_TABLE_CONFIG;
+	@Output() openProduct = new EventEmitter<ID>();
+	@Output() openSupplier = new EventEmitter<ID>();
+
 
 	constructor(
 		public translate: TranslateService,
 		public taskSrv: TaskService
 	) { super(); }
-
-	ngOnInit() {
-		this.tableConfig = this.getTableFromType();
-		super.ngOnInit();
-	}
-
-	getTableFromType() {
-		switch (this.tableConfigType) {
-			case 'big':
-				return bigTableConfig;
-			case 'medium':
-				return mediumTableConfig;
-			case 'small':
-				return smallTableConfig;
-			case 'medium-small':
-				return mediumSmallTableConfig;
-		}
-	}
 
 	getColor(task: Task) {
 		if (task.done)

@@ -9,7 +9,6 @@ import { ListPageService } from '~core/list-page';
 import { ERM, Product, Supplier } from '~core/models';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
-import { ControllerListService } from '~shared/header/components/controller-list/services/controller-list.service';
 import { AutoUnsub } from '~utils';
 import { ID } from '~utils/id.utils';
 
@@ -45,7 +44,6 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		public listSrv: ListPageService<Product, ProductService>,
 		public dialogCommonSrv: DialogCommonService,
 		public dlgSrv: DialogService,
-		private controllerListService: ControllerListService,
 	) { super(); }
 
 	ngOnInit() {
@@ -72,14 +70,6 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 			map((evt: CloseEvent) => evt.data),
 			switchMap(_ => this.listSrv.refetch())
 		).subscribe();
-	}
-
-	onClearFilters() {
-		this.listSrv.filterList.resetAll();
-
-		this.listSrv.addFilter({ type: FilterType.ARCHIVED, value: false });
-		this.listSrv.addFilter({ type: FilterType.DELETED, value: false });
-		this.controllerListService.onFiltersClear();
 	}
 
 	/** instead of deleting the product, we deassociate the supplier from it */

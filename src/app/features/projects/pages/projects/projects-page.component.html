@@ -8,20 +8,14 @@
 	(buttonClick)="listSrv.create()">
 </header-list-app>
 
-<controller-list-app
-	[entityType]="entityTypeEnum.PROJECT"
-	[hasSwitch]="true"
-	[count]="listSrv.count$ | async"
-  [hasFilter]="true"
-  [filtersAmount]="listSrv.filterList.asFilters()?.length"
-	[searchValue]="listSrv.searchValue"
-	(showArchived)="listSrv.filterByArchived(true)"
-	(hideArchived)="listSrv.filterByArchived(false)"
-	(showAssigned)="listSrv.filterByAssignee(true)"
-	(hideAssigned)="listSrv.filterByAssignee(false)"
-  (search)="listSrv.search($event)"
-  (showFilters)="listSrv.openFilterPanel()" >
-</controller-list-app>
+<controller-table-app>
+	<controller-table-quick-filters-app></controller-table-quick-filters-app>
+	<controller-table-quick-actions-app 
+		[hasExport]="false"
+		[columns]="columns" 
+		[tableConfig]="tableConfig">
+	</controller-table-quick-actions-app>
+</controller-table-app>
 
 <ng-container *ngIf="listSrv.isListening">
 

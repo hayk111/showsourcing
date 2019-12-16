@@ -1,21 +1,15 @@
 
 
 
-<controller-list-app
-	[entityType]="erm.ATTACHMENT.singular"
-	[hasFilter]="false"
-	[hasSwitch]="false"
-	[hasAssigned]="false"
-	[hasArchived]="false"
-	[view]="listSrv.view"
-	(search)="listSrv.search($event)"
-	(smartSearch)="listSrv.smartSearch($event)">
-	<!-- When action added to controller list we can add
-	(buttonClick)="table.openFileBrowser()"
-	<controller-list-action>
-		<button (click)="table.openFileBrowser()">Add File</button>
-	</controller-list-action> -->
-</controller-list-app>
+<controller-table-app>
+	<controller-table-quick-filters-app></controller-table-quick-filters-app>
+	<controller-table-quick-actions-app>
+	</controller-table-quick-actions-app>
+	<controller-table-view-switcher-app 
+		[hasCard]="false" 
+		[hasBoard]="false">
+	</controller-table-view-switcher-app>
+</controller-table-app>
 
 <attachments-table-app
 	#table

@@ -7,38 +7,19 @@
 	(buttonClick)="dialogCommonSrv.openCreationProductDlg()">
 </header-list-app>
 
-<controller-list-app
-	searchType="short"
-	[filtersAmount]="listSrv.getFilterAmount([{ type: filterTypeEnum.ARCHIVED, value: false }, { type: filterTypeEnum.DELETED, value: false }])"
-	[hasFilter]="true"
-	[hasSwitch]="true"
-	[view]="listSrv.view"
-	[count]="listSrv.count$ | async"
-	[entityType]="'PRODUCT'"
-	[searchValue]="listSrv.searchValue"
-	(search)="listSrv.search($event)"
-	(clearFilters)="onClearFilters()"
-	(showArchived)="listSrv.filterByArchived(true)"
-	(hideArchived)="listSrv.filterByArchived(false)"
-	(showAssigned)="listSrv.filterByAssignee(true)"
-	(hideAssigned)="listSrv.filterByAssignee(false)"
-	(export)="dialogCommonSrv.openExportDialog(listSrv.getSelectedValues())"
-	(showFilters)="listSrv.openFilterPanel()"
-	(viewChange)="listSrv.changeView($event)">
-
-	<controller-list-right-item-app class="flex" right-sort-elem>
-		<product-sorting-menu-app
-			[currentSort]="listSrv.currentSort"
-			(sortFromMenu)="listSrv.sortFromMenu($event)">
-		</product-sorting-menu-app>
-	</controller-list-right-item-app>
-</controller-list-app>
+<controller-table-app>
+	<controller-table-quick-filters-app></controller-table-quick-filters-app>
+	<controller-table-quick-actions-app 
+		[columns]="columns" 
+		[tableConfig]="tableConfig">
+	</controller-table-quick-actions-app>
+	<controller-table-view-switcher-app></controller-table-view-switcher-app>
+</controller-table-app>
 
 <!-- views: either one will be displayed when the correct view is selected -->
 <ng-container *ngIf="listSrv.isListening">
 	<products-table-app
-		*ngIf="listSrv.view === 'list'"
-		#productList
+		*ngIf="listSrv.view === 'table'"
 		[currentSort]="listSrv.currentSort"
 		[pending]="listSrv.pending"
 		[rows]="listSrv.items$ | async"
@@ -52,7 +33,7 @@
 		(openAddSampleDialog)="dialogCommonSrv.openCreationSampleDialog($event)"
 		(openAddTaskDialog)="dialogCommonSrv.openCreationTaskDlg($event)"
 		(setFavourite)="listSrv.onItemFavorited($event?.id)"
-		(archive)="onArchive($event)"
+		(archive)="listSrv.archiveOne($event)"
 		(openRequestFeedbackDialog)="dialogCommonSrv.openRequestFeedbackDialog([$event])"
 		(openCreateRequestDlg)="dialogCommonSrv.openSupplierRequest([$event])"
 		(previewClick)="listSrv.openPreview($event)"
@@ -107,7 +88,7 @@
 		(export)="dialogCommonSrv.openExportDialog(listSrv.getSelectedValues())"
 		(createRequest)="dialogCommonSrv.openSupplierRequest(listSrv.getSelectedValues())"
 		(requestTeamFeedback)="dialogCommonSrv.openRequestFeedbackDialog(listSrv.getSelectedValues())"
-		(archiveProducts)="onArchive(listSrv.getSelectedValues())"
+		(archiveProducts)="listSrv.archiveMany(listSrv.getSelectedValues())"
 		(compareProducts)="dialogCommonSrv.openCompareProductDialog(listSrv.getSelectedValues())"
 		(statusUpdated)="listSrv.updateSelected({status: $event})"
 		(massEdit)="dialogCommonSrv.openMassEditDialog(listSrv.getSelectedValues(), erm.PRODUCT)"

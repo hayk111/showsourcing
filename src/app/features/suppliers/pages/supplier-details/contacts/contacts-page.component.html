@@ -1,31 +1,12 @@
-<controller-list-app
-	searchType="short"
-	[filtersAmount]="listSrv.getFilterAmount([{ type: filterTypeEnum.DELETED, value: false }])"
-	[hasFilter]="false"
-	[hasSwitch]="false"
-	[hasAssigned]="false"
-	[hasArchived]="false"
-	[count]="listSrv.count$ | async"
-	[entityType]="'CONTACT' | erm: 'singular'"
-	[searchValue]="listSrv.searchValue"
-	(search)="listSrv.search($event)"
-	(export)="dialogCommonSrv.openExportDialog(listSrv.getSelectedValues())"
-	(showFilters)="listSrv.openFilterPanel()"
-	(viewChange)="listSrv.changeView($event)">
-	<controller-list-right-item-app>
-		<button
-			*ngIf="(listSrv.selection$ | async)?.size"
-			class="warn mg-right-ms capitalize"
-			(click)="listSrv.deleteSelected(true)">
-			{{ 'OBJ.delete' | translate: { count: (listSrv.selection$ | async)?.size } }}
-		</button>
-		<button
-			class="capitalize"
-			(click)="openNewContactDlg({id: supplierId})"
-			translate="button.add-contact">
-		</button>
-	</controller-list-right-item-app>
-</controller-list-app>
+<controller-table-app>
+	<controller-table-quick-filters-app></controller-table-quick-filters-app>
+	<controller-table-quick-actions-app>
+	</controller-table-quick-actions-app>
+	<controller-table-view-switcher-app 
+		[hasCard]="false" 
+		[hasBoard]="false">
+	</controller-table-view-switcher-app>
+</controller-table-app>
 
 <contacts-table-app
 	[currentSort]="listSrv.currentSort"

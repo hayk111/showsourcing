@@ -1,11 +1,10 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { SampleService } from '~core/entity-services';
-import { EntityTableComponent, TableConfigType } from '~core/list-page';
-import { ERM, Sample, User } from '~core/models';
+import { EntityTableComponent } from '~core/list-page';
+import { ERM, Sample } from '~core/models';
 import { ID } from '~utils/id.utils';
-import { bigTableConfig, mediumTableConfig } from '../products-table/config';
-import { smallTableConfig } from './config';
+import { defaultConfig } from '../default-columns/default-config';
 
 
 @Component({
@@ -17,7 +16,7 @@ import { smallTableConfig } from './config';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SamplesTableComponent extends EntityTableComponent<Sample> implements OnInit {
-	columns = [
+	static DEFAULT_COLUMNS = [
 		'logo',
 		'name',
 		'preview',
@@ -28,7 +27,9 @@ export class SamplesTableComponent extends EntityTableComponent<Sample> implemen
 		'createdBy',
 		'creationDate'
 	];
-	@Input() tableConfigType: TableConfigType = 'big';
+	static DEFAULT_TABLE_CONFIG = defaultConfig;
+	@Input() columns = SamplesTableComponent.DEFAULT_COLUMNS;
+	@Input() tableConfig = SamplesTableComponent.DEFAULT_TABLE_CONFIG;
 	@Output() openSupplier = new EventEmitter<ID>();
 	@Output() openProduct = new EventEmitter<ID>();
 	@Output() archive = new EventEmitter<Sample>();
@@ -42,25 +43,5 @@ export class SamplesTableComponent extends EntityTableComponent<Sample> implemen
 		public translate: TranslateService,
 		public sampleSrv: SampleService
 	) { super(); }
-
-	ngOnInit() {
-		this.tableConfig = this.getTableFromType();
-		super.ngOnInit();
-	}
-
-	getTableFromType() {
-		switch (this.tableConfigType) {
-			case 'big':
-				return bigTableConfig;
-			case 'medium':
-				return mediumTableConfig;
-			case 'small':
-				return smallTableConfig;
-		}
-	}
-
-	changeAssignee(sample: Sample, assignee: User) {
-		this.sampleSrv.update({ id: sample.id, assignee }).subscribe();
-	}
 
 }

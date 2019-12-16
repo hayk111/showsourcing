@@ -2,35 +2,11 @@
 
 	<dialog-header-app translate="header.select-products"></dialog-header-app>
 
-	<controller-list-app
-		[entityType]="entityTypeEnum.PRODUCT"
-		[hasFilter]="true"
-		[hasSwitch]="false"
-		[hasExport]="false"
-		[count]="listSrv.count$ | async"
-		[filtersPanelOpened]="filtersPanelOpened"
-		[view]="listSrv.view"
-		[searchValue]="listSrv.searchValue"
-		(search)="searchProduct($event)"
-		(showArchived)="listSrv.filterByArchived(true)"
-		(hideArchived)="listSrv.filterByArchived(false)"
-		(showAssigned)="listSrv.filterByAssignee(true)"
-		(hideAssigned)="listSrv.filterByAssignee(false)"
-		(showFilters)="showFilters()"
-		(hideFilters)="hideFilters()">
-
-		<controller-list-left-item-app class="flex">
-			<div class="flex show-my-samples">
-				<checkbox-app
-					[checked]="listSrv.filterList.hasFilterType(filterType.ASSIGNEE)"
-					(check)="toggleMySamples(true)"
-					(uncheck)="toggleMySamples(false)">
-				</checkbox-app>
-				<span class="ellipsis" translate="text.show-only-my-sample"></span>
-			</div>
-		</controller-list-left-item-app>
-
-	</controller-list-app>
+	<controller-table-app>
+		<controller-table-quick-filters-app></controller-table-quick-filters-app>
+		<controller-table-quick-actions-app></controller-table-quick-actions-app>
+		<controller-table-view-switcher-app></controller-table-view-switcher-app>
+	</controller-table-app>
 
 	<products-table-app
 		class="list-view"

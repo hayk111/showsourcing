@@ -1,19 +1,12 @@
-<controller-list-app
-	[entityType]="erm.TASK.singular"
-	[hasFilter]="true"
-	[hasSwitch]="false"
-	[entityType]="'TASK'"
-	[view]="listSrv.view"
-	[count]="listSrv.count$ | async"
-	(search)="listSrv.search($event)"
-	(showFilters)="listSrv.openFilterPanel()"
-	(showArchived)="listSrv.filterByArchived(true)"
-	(hideArchived)="listSrv.filterByArchived(false)"
-	(showAssigned)="listSrv.filterByAssignee(true)"
-	(hideAssigned)="listSrv.filterByAssignee(false)"
-	(smartSearch)="listSrv.smartSearch($event)"
-	(buttonClick)="openCreationTaskDlg(undefined, supplier)">
-</controller-list-app>
+<controller-table-app>
+	<controller-table-quick-filters-app></controller-table-quick-filters-app>
+	<controller-table-quick-actions-app>
+	</controller-table-quick-actions-app>
+	<controller-table-view-switcher-app 
+		[hasCard]="false" 
+		[hasBoard]="false">
+	</controller-table-view-switcher-app>
+</controller-table-app>
 
 <task-table-app
 	[rows]="listSrv.items$ | async"

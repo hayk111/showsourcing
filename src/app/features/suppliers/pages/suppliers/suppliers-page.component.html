@@ -6,29 +6,18 @@
 	(buttonClick)="dialogCommonSrv.openCreateDlg(erm.SUPPLIER)">
 </header-list-app>
 
-<controller-list-app
-	searchType="short"
-	[hasSwitch]="true"
-	[hasFilter]="true"
-	[hasThumb]="false"
-	[view]="listSrv.view"
-	[entityType]="'SUPPLIER'"
-	[count]="listSrv.count$ | async"
-	[filtersAmount]="listSrv.getFilterAmount([{ type: filterType.ARCHIVED, value: false }, { type: filterType.DELETED, value: false }])"
-	[searchValue]="listSrv.searchValue"
-	(showFilters)="listSrv.openFilterPanel()"
-	(clearFilters)="onClearFilters()"
-	(showArchived)="listSrv.filterByArchived(true)"
-	(hideArchived)="listSrv.filterByArchived(false)"
-	(showAssigned)="listSrv.filterByAssignee(true)"
-	(hideAssigned)="listSrv.filterByAssignee(false)"
-	(viewChange)="onViewChange($event)"
-	(search)="listSrv.search($event)">
-</controller-list-app>
+<controller-table-app>
+	<controller-table-quick-filters-app></controller-table-quick-filters-app>
+	<controller-table-quick-actions-app 
+		[columns]="columns" 
+		[tableConfig]="tableConfig">
+	</controller-table-quick-actions-app>
+	<controller-table-view-switcher-app [hasCard]="false"></controller-table-view-switcher-app>
+</controller-table-app>
 
 <suppliers-table-app
 	#supplierList
-	*ngIf="listSrv.view === 'list'"
+	*ngIf="listSrv.view === 'table'"
 	[rows]="listSrv.items$ | async"
 	[currentSort]="listSrv.currentSort"
 	[selection]="listSrv.selection$ | async"
@@ -36,7 +25,7 @@
 	[count]="listSrv.count$ | async"
 	[currentPage]="listSrv.currentPage"
 	(goToPage)="listSrv.loadPage($event)"
-	(archive)="onArchive($event)"
+	(archive)="listSrv.archiveOne($event)"
 	(sort)="listSrv.sort($event)"
 	(select)="listSrv.selectOne($event, true)"
 	(unselect)="listSrv.unselectOne($event, true)"
@@ -47,11 +36,18 @@
 	(unfavorited)="listSrv.onItemUnfavorited($event)"
 	(previewClick)="listSrv.openPreview($event)"
 	(showItemsPerPage)="showItemsPerPage($event)"
-	(archive)="onArchive($event)"
 	(createClick)="listSrv.create()"
 	(update)="listSrv.update($event)"
 	(delete)="listSrv.deleteOne($event)">
 </suppliers-table-app>
+
+<suppliers-board-app
+	*ngIf="listSrv.view === 'board'"
+	[selection]="listSrv.selection$"
+	(selectOne)="listSrv.selectOne($event, true)"
+	(unselectOne)="listSrv.unselectOne($event, true)"
+	(preview) = "listSrv.openPreview($event)">
+</suppliers-board-app>
 
 <supplier-selection-bar-app
 	entityType="supplier"
@@ -65,14 +61,6 @@
 	(deleteSelected)="listSrv.deleteSelected()"
 	(close)="listSrv.unselectAll()">
 </supplier-selection-bar-app>
-
-<suppliers-board-app
-	*ngIf="listSrv.view === 'board'"
-	[selection]="listSrv.selection$"
-	(selectOne)="listSrv.selectOne($event, true)"
-	(unselectOne)="listSrv.unselectOne($event, true)"
-	(preview) = "listSrv.openPreview($event)">
-</suppliers-board-app>
 
 <supplier-preview-app
 	*ngIf="listSrv.previewOpen"

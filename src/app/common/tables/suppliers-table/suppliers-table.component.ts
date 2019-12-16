@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { EntityTableComponent, TableConfigType } from '~common/tables/entity-table.component';
+import { EntityTableComponent } from '~common/tables/entity-table.component';
 import { Supplier } from '~models';
-import { bigTableConfig, mediumTableConfig } from './config';
+import { config } from './config';
 
 @Component({
 	selector: 'suppliers-table-app',
@@ -13,8 +13,7 @@ import { bigTableConfig, mediumTableConfig } from './config';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SuppliersTableComponent extends EntityTableComponent<Supplier> implements OnInit {
-
-	columns = [
+	static DEFAULT_COLUMNS = [
 		'logo',
 		'name',
 		'preview',
@@ -30,28 +29,12 @@ export class SuppliersTableComponent extends EntityTableComponent<Supplier> impl
 		'createdBy',
 		'creationDate',
 	];
-
-	@Input() tableConfigType: TableConfigType = 'big';
-	@Output() archive = new EventEmitter<Supplier>();
+	static DEFAULT_TABLE_CONFIG = config;
+	@Input() columns = SuppliersTableComponent.DEFAULT_COLUMNS;
+	@Input() tableConfig = SuppliersTableComponent.DEFAULT_TABLE_CONFIG;
 
 	constructor(public translate: TranslateService) {
 		super();
-	}
-
-	ngOnInit() {
-		this.tableConfig = this.getTableFromType();
-		super.ngOnInit();
-	}
-
-	getTableFromType() {
-		switch (this.tableConfigType) {
-			case 'big':
-				return bigTableConfig;
-			case 'medium':
-				return mediumTableConfig;
-			default:
-				return bigTableConfig;
-		}
 	}
 
 }

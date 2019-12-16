@@ -50,7 +50,8 @@ import { routes } from './routes';
 		Pages.EditableContainerPageComponent,
 		Pages.ColorsPageComponent,
 		Pages.SpacingPageComponent,
-		Pages.TypographyPageComponent
+		Pages.TypographyPageComponent,
+		Pages.ControllerTablePageComponent
 	],
 	exports: [],
 	providers: []

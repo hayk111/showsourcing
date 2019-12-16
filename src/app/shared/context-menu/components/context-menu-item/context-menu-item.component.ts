@@ -9,11 +9,6 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 		class: 'flex pointer capitalize'
 	}
 })
-export class ContextMenuItemComponent implements OnInit {
-
-	constructor() { }
-
-	ngOnInit() {
-	}
+export class ContextMenuItemComponent {
 
 }

@@ -13,9 +13,9 @@ import { ProductFeatureService } from '~features/products/services';
 import { ERM, Product } from '~models';
 import { DialogService } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
-import { ControllerListService } from '~shared/header/components/controller-list/services/controller-list.service';
-import { NotificationService, NotificationType } from '~shared/notifications';
+import { NotificationService } from '~shared/notifications';
 import { AutoUnsub } from '~utils';
+import { ProductsTableComponent } from '~common/tables/products-table/products-table.component';
 
 // dailah lama goes into pizza store
 // servant asks : what pizza do you want sir ?
@@ -34,12 +34,6 @@ import { AutoUnsub } from '~utils';
 	}
 })
 export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterViewInit {
-	@ViewChild('productList', { read: ElementRef, static: false })
-	public productListElem: ElementRef;
-
-	public tableWidth: string;
-	public addProductMargin: string;
-
 	erm = ERM;
 	filterTypeEnum = FilterType;
 	// filter displayed as button in the filter panel
@@ -54,21 +48,19 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		FilterType.SUPPLIER,
 		FilterType.TAGS
 	];
+	columns = ProductsTableComponent.DEFAULT_COLUMNS;
+	tableConfig = ProductsTableComponent.DEFAULT_TABLE_CONFIG;
 
 	selectItemsConfig: SelectParamsConfig;
 	requestCount$: Observable<number>;
 
 	constructor(
 		private productSrv: ProductService,
-		private notifSrv: NotificationService,
 		public dialogCommonSrv: DialogCommonService,
 		public listSrv: ListPageService<Product, ProductService>,
-		private featureSrv: ProductFeatureService,
 		public elem: ElementRef,
 		private userSrv: UserService,
-		private translate: TranslateService,
 		protected dlgSrv: DialogService,
-		private controllerListService: ControllerListService,
 	) {
 		super();
 	}
@@ -99,14 +91,6 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		this.listSrv.loadData(this._destroy$);
 	}
 
-	onClearFilters() {
-		this.listSrv.filterList.resetAll();
-
-		this.listSrv.addFilter({ type: FilterType.ARCHIVED, value: false });
-		this.listSrv.addFilter({ type: FilterType.DELETED, value: false });
-		this.controllerListService.onFiltersClear();
-	}
-
 	showItemsPerPage(count: number) {
 		this.selectItemsConfig = { take: Number(count) };
 		this.listSrv.refetch(this.selectItemsConfig).subscribe();
@@ -130,32 +114,8 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		});
 	}
 
-	onArchive(product: Product | Product[]) {
-		if (Array.isArray(product)) {
-			this.featureSrv.updateMany(product.map((p: Product) => ({ id: p.id, archived: true })))
-				.pipe(switchMap(_ => this.listSrv.refetch()))
-				.subscribe(_ => {
-					this.notifSrv.add({
-						type: NotificationType.SUCCESS,
-						title: this.translate.instant('title.products-archived'),
-						message: this.translate.instant('message.products-archived-successfully')
-					});
-				});
-		} else {
-			const { id } = product;
-			this.featureSrv.update({ id, archived: true })
-				.pipe(switchMap(_ => this.listSrv.refetch()))
-				.subscribe(_ => {
-					this.notifSrv.add({
-						type: NotificationType.SUCCESS,
-						title: this.translate.instant('title.product-archived'),
-						message: this.translate.instant('message.product-archived-successfully')
-					});
-				});
-		}
-	}
-
 	onOpenCreateRequestDlg(products: Product[]) {
 		return this.dlgSrv.open(SupplierRequestDialogComponent, { products });
 	}
+
 }

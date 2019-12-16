@@ -4,10 +4,28 @@
 	height: var(--spacing-xl);
 	border: 1px solid var(--color-secondary);
 	border-radius: var(--border-radius);
-	// width: 378px;
-	padding-left: var(--spacing-s);
 	&.focus {
 		border: 1px solid var(--color-primary);
+		box-shadow: 0 0 4px 0 rgba(69, 173, 255, 0.5);
+	}
+
+	.search-icon-ctnr {
+		width: 32px;
+		background: var(--color-secondary-light);
+		border-top-left-radius: var(--border-radius);
+		border-bottom-left-radius: var(--border-radius);
+		flex-shrink: 0;
+	}
+
+	.remove-icon-ctnr {
+		width: 32px;
+		border-top-right-radius: var(--border-radius);
+		border-bottom-right-radius: var(--border-radius);
+		color: var(--color-txt-secondary);
+		flex-shrink: 0;
+		&:hover {
+			color: var(--color-primary);
+		}
 	}
 
 	input {
@@ -16,8 +34,4 @@
 		outline: none;
 		background: transparent;
 	}
-}
-
-icon-app {
-	cursor: default;
 }

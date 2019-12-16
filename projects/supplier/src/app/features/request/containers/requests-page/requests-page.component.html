@@ -3,18 +3,11 @@
 	[hasAction]="false">
 </header-list-app>
 
-<controller-list-app
-	[hasFilter]="false"
-	[hasSwitch]="false"
-	[searchValue]="listSrv.searchValue"
-	(search)="listSrv.search($event)">
-	<controller-list-right-item-app>
-		<request-sorting-menu-sup
-			[currentSort]="listSrv.currentSort"
-			(sortFromMenu)="listSrv.sortFromMenu($event)">>
-		</request-sorting-menu-sup>
-	</controller-list-right-item-app>
-</controller-list-app>
+<controller-table-app>
+	<controller-table-quick-filters-app></controller-table-quick-filters-app>
+	<controller-table-quick-actions-app></controller-table-quick-actions-app>
+	<controller-table-view-switcher-app></controller-table-view-switcher-app>
+</controller-table-app>
 
 <request-table-sup
 	class="no-padding"

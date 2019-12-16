@@ -29,7 +29,8 @@ export const routes: Array<Route> = [
 			{ path: 'editable-container', component: Pages.EditableContainerPageComponent },
 			{ path: 'colors', component: Pages.ColorsPageComponent },
 			{ path: 'spacing', component: Pages.SpacingPageComponent },
-			{ path: 'typography', component: Pages.TypographyPageComponent }
+			{ path: 'typography', component: Pages.TypographyPageComponent },
+			{ path: 'controller-table', component: Pages.ControllerTablePageComponent }
 			// { path: 'sample-card', component: Pages.SampleCardTestComponent },
 			// { path: 'preview', component: Pages.PreviewPageComponent },
 			// { path: 'product-card', component: Pages.ProductCardLibraryPageComponent },

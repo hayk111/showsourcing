@@ -20,3 +20,4 @@ export * from './colors/colors-page.component';
 export * from './spacing/spacing-page.component';
 export * from './typography/typography-page.component';
 export * from './component-library-page.component';
+export * from './controller-table/controller-table-page.component';

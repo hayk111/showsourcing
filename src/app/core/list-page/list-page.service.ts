@@ -1,23 +1,26 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
-import { empty, Observable, ConnectableObservable } from 'rxjs';
+import { empty, Observable } from 'rxjs';
 import { filter, map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { CreationDialogComponent } from '~common/dialogs/creation-dialogs';
+import { ExportDlgComponent } from '~common/dialogs/custom-dialogs';
 import { UserService } from '~core/entity-services';
 import { GlobalServiceInterface } from '~core/entity-services/_global/global.service';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 import { EntityMetadata } from '~core/models';
+import { View } from '~shared/controller-table/components';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { Filter, FilterType } from '~shared/filters';
 import { RatingService, TypeWithVotes } from '~shared/rating/services/rating.service';
 import { Sort } from '~shared/table/components/sort.interface';
 import { showsourcing } from '~utils/debug-object.utils';
-
 import { ListPageDataConfig } from './list-page-config.interface';
 import { ListPageDataService } from './list-page-data.service';
 import { ListPageViewService } from './list-page-view.service';
 import { SelectionWithFavoriteService } from './selection-with-favorite.service';
+import { NotificationService, NotificationType } from '~shared/notifications';
+
 
 // It has four legs and it can fly, what is it?
 // -
@@ -29,12 +32,6 @@ import { SelectionWithFavoriteService } from './selection-with-favorite.service'
 export interface ListPageConfig extends ListPageDataConfig {
 	entityMetadata: EntityMetadata;
 	originComponentDestroy$?: Observable<void>;
-}
-
-interface FilterEntity {
-	value: boolean;
-	type: FilterType;
-	entity?: string;
 }
 
 /**
@@ -61,22 +58,22 @@ export class ListPageService
 		private ratingSrv: RatingService,
 		private dlgSrv: DialogService,
 		private zone: NgZone,
-		private userSrv: UserService
+		private userSrv: UserService,
+		private notifSrv: NotificationService
 	) {
-		if (!showsourcing.lists) {
-			showsourcing.lists = {};
+		if (!showsourcing.tables) {
+			showsourcing.tables = {};
 		}
+		this.initServices();
 	}
 
 	setup(config: ListPageConfig, shouldInitDataLoading = true) {
 		this.zone.runOutsideAngular(() => {
-			// getting back the services from their map
-			this.initServices();
 			this.dataSrv.setup(config);
 			// setting up the view service so we know what panel is open etc
 			this.viewSrv.setup(config.entityMetadata);
 			// storing the state for debugging purpose
-			showsourcing.lists[config.entityMetadata.singular] = this;
+			showsourcing.tables[config.entityMetadata.singular] = this;
 		});
 		if (shouldInitDataLoading) {
 			this.loadData(config.originComponentDestroy$);
@@ -137,10 +134,6 @@ export class ListPageService
 
 	get isListening() {
 		return this.dataSrv.isListening;
-	}
-
-	get smartSearchFilterElements$() {
-		return this.dataSrv.smartSearchFilterElements$;
 	}
 
 	get filterList() {
@@ -205,7 +198,8 @@ export class ListPageService
 	}
 
 	update(value: T) {
-		this.dataSrv.update(value).subscribe();
+		this.dataSrv.update(value).pipe(
+		).subscribe();
 		// .pipe(
 		// 	// sometimes the optimistic ui fails for some odd reason when updating the supplier of a product
 		// 	// so we just refetch to cover the bug, fuck this.
@@ -215,7 +209,6 @@ export class ListPageService
 
 	updateMany(values: T[]) {
 		this.dataSrv.updateMany(values).pipe(
-			switchMap(_ => this.refetch())
 		).subscribe();
 	}
 
@@ -322,6 +315,31 @@ export class ListPageService
 		});
 	}
 
+	archiveOne(entity: T) {
+		this.dataSrv.update({ id: entity.id, archived: true } as unknown as T)
+			.pipe(switchMap(_ => this.refetch()))
+			.subscribe(_ => {
+				this.notifSrv.add({
+					type: NotificationType.SUCCESS,
+					title: 'item archived',
+					message: 'item archived successfully'
+				});
+			});
+	}
+
+	archiveMany(entities: T[]) {
+		this.dataSrv.updateMany(
+			entities.map(entity => ({ id: entity.id, archived: true } as unknown as T))
+		).pipe(switchMap(_ => this.refetch()))
+		.subscribe(_ => {
+			this.notifSrv.add({
+				type: NotificationType.SUCCESS,
+				title: 'items archived',
+				message: 'items archived successfully'
+			});
+		});
+	}
+
 
 	private redirectToCreated(id: string) {
 		if (this.entityMetadata.destUrl)
@@ -342,8 +360,8 @@ export class ListPageService
 		this.dataSrv.removeFilterType(filterType);
 	}
 
-	smartSearch(event: any) {
-		this.dataSrv.smartSearch(event);
+	resetFilters() {
+		this.dataSrv.filterList.reset();
 	}
 
 	/** bridge for view service */
@@ -388,7 +406,7 @@ export class ListPageService
 		this.viewSrv.closeFilterPanel();
 	}
 
-	changeView(view: 'list' | 'board' | 'card') {
+	changeView(view: View) {
 		this.viewSrv.changeView(view);
 	}
 
@@ -432,12 +450,15 @@ export class ListPageService
 		return this.selectionSrv.getSelectionValues();
 	}
 
-	getFilterAmount(filterArr: FilterEntity[]): number {
+	getFilterAmount(): number {
 		const filters = this.filterList.asFilters()
-			.filter(fil => !filterArr.some(elem => elem.type === fil.type && elem.value === fil.value));
+			.filter(fil => !this.filterList.initialFilters.some(elem => elem.type === fil.type && elem.value === fil.value));
 		return filters.length;
 	}
 
+	/** filter by archived, attention, weird logic:
+	 * if shouldAdd is true we the products archived
+	 * if shouldAdd is false we only see the not archived + not archived */
 	filterByArchived(shouldAdd: boolean) {
 		const filterParam = { type: FilterType.ARCHIVED, value: false };
 
@@ -449,7 +470,7 @@ export class ListPageService
 		this.removeFilter(filterParam);
 	}
 
-	filterByAssignee(shouldAdd: boolean) {
+	filterByAssignedToMe(shouldAdd: boolean) {
 		const filterParam = { type: FilterType.ASSIGNEE, value: this.userSrv.userId };
 
 		if (shouldAdd) {
@@ -460,6 +481,9 @@ export class ListPageService
 		this.removeFilter(filterParam);
 	}
 
+	/** filter by done, attention, weird logic:
+	 * if shouldAdd is true we the products done
+	 * if shouldAdd is false we only see the not done + not done */
 	filterByDone(shouldAdd: boolean) {
 		const filterParam = { type: FilterType.DONE, value: false };
 
@@ -469,5 +493,20 @@ export class ListPageService
 		}
 
 		this.removeFilter(filterParam);
+	}
+
+	filterByCreatedByMe(shouldAdd: boolean) {
+		const filterParam = { type: FilterType.CREATED_BY, value: this.userSrv.userId };
+
+		if (shouldAdd) {
+			this.addFilter(filterParam);
+			return;
+		}
+
+		this.removeFilter(filterParam);
+	}
+
+	exportSelection() {
+		this.dlgSrv.open(ExportDlgComponent, { targets: this.getSelectedValues() });
 	}
 }

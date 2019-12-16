@@ -8,9 +8,8 @@ import { ListPageService } from '~core/list-page';
 import { ERM, Task } from '~models';
 import { DialogService } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
-import { ControllerListComponent } from '~shared/header/components/controller-list/components/controller-list/controller-list.component';
 import { AutoUnsub } from '~utils';
-import { QueryBuilder } from '~core/entity-services/_global/query-builder.class';
+import { TasksTableComponent } from '~common/tables/tasks-table/tasks-table.component';
 
 @Component({
 	selector: 'tasks-page-app',
@@ -25,7 +24,6 @@ import { QueryBuilder } from '~core/entity-services/_global/query-builder.class'
 	}
 })
 export class TasksPageComponent extends AutoUnsub implements OnInit, AfterViewInit {
-	@ViewChild(ControllerListComponent, { static: false }) controller: ControllerListComponent;
 	public tableWidth: string;
 
 	erm = ERM;
@@ -41,6 +39,8 @@ export class TasksPageComponent extends AutoUnsub implements OnInit, AfterViewIn
 		FilterType.SUPPLIER,
 		FilterType.TAGS
 	];
+	columns = TasksTableComponent.DEFAULT_COLUMNS;
+	tableConfig = TasksTableComponent.DEFAULT_TABLE_CONFIG;
 
 	tasksCount$: Observable<number>;
 	selectItemsConfig: SelectParamsConfig;
@@ -73,7 +73,7 @@ export class TasksPageComponent extends AutoUnsub implements OnInit, AfterViewIn
 
 	ngAfterViewInit() {
 		// this way the check is active, and user can see that this filter is being used
-		this.controller.toggleAssigned();
+		// this.controller.toggleAssigned();
 	}
 
 	showTasksCreatedByMeOnly() {
@@ -95,10 +95,6 @@ export class TasksPageComponent extends AutoUnsub implements OnInit, AfterViewIn
 			this.listSrv.addFilter(filterAssignee);
 		else
 			this.listSrv.removeFilter(filterAssignee);
-	}
-
-	onViewChange(view: 'list' | 'card') {
-		this.listSrv.changeView(view);
 	}
 
 	onFavourite(task: Task) {

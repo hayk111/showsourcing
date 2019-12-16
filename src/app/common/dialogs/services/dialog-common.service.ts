@@ -41,7 +41,6 @@ import { SupplierRequestDialogComponent } from '../custom-dialogs/supplier-reque
 export class DialogCommonService {
 
 	constructor(
-		private router: Router,
 		private dlgSrv: DialogService,
 	) { }
 

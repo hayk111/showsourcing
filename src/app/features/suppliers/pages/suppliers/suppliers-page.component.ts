@@ -1,14 +1,13 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { switchMap } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { SupplierService } from '~core/entity-services';
 import { ListPageService } from '~core/list-page';
 import { SelectParamsConfig } from '~entity-services/_global/select-params';
 import { ERM, Supplier } from '~models';
 import { FilterType } from '~shared/filters';
-import { ControllerListService } from '~shared/header/components/controller-list/services/controller-list.service';
-import { NotificationService, NotificationType } from '~shared/notifications';
+import { NotificationService } from '~shared/notifications';
 import { AutoUnsub } from '~utils';
+import { SuppliersTableComponent } from '~common/tables/suppliers-table/suppliers-table.component';
 
 // A doctor accidentally prescribes his patient a laxative instead of a coughing syrup.
 // -
@@ -40,6 +39,9 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit, AfterVi
 		FilterType.TAGS
 	];
 
+	columns = SuppliersTableComponent.DEFAULT_COLUMNS;
+	tableConfig = SuppliersTableComponent.DEFAULT_TABLE_CONFIG;
+
 	// TODO BackEnd
 	// private selectItemsConfig: SelectParamsConfig = { query: 'deleted == false AND archived == false' };
 	private selectItemsConfig: SelectParamsConfig = { query: 'deleted == false' };
@@ -49,10 +51,8 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit, AfterVi
 
 	constructor(
 		private supplierSrv: SupplierService,
-		private notifSrv: NotificationService,
 		public listSrv: ListPageService<Supplier, SupplierService>,
 		public dialogCommonSrv: DialogCommonService,
-		private controllerListService: ControllerListService
 	) {
 		super();
 	}
@@ -62,13 +62,12 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit, AfterVi
 			entitySrv: this.supplierSrv,
 			searchedFields: ['name', 'tags.name', 'categories.name', 'description'],
 			// initialFilters: [{ type: FilterType.ARCHIVED, value: false }, { type: FilterType.DELETED, value: false }],
-			initialFilters: [{ type: FilterType.DELETED, value: false }],
+			initialFilters: [
+				{ type: FilterType.DELETED, value: false },
+				{ type: FilterType.ARCHIVED, value: false }
+			],
 			entityMetadata: ERM.SUPPLIER,
 		}, false);
-	}
-
-	onViewChange(view: 'list' | 'board' | 'card') {
-		this.listSrv.changeView(view);
 	}
 
 	ngAfterViewInit() {
@@ -80,38 +79,4 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit, AfterVi
 		this.listSrv.refetch(this.selectItemsConfig).subscribe();
 	}
 
-	onClearFilters() {
-		this.listSrv.filterList.resetAll();
-
-		this.listSrv.addFilter({ type: FilterType.ARCHIVED, value: false });
-		this.listSrv.addFilter({ type: FilterType.DELETED, value: false });
-
-		this.controllerListService.onFiltersClear();
-	}
-
-	onArchive(supplier: Supplier | Supplier[]) {
-		// TODO i18n
-		if (Array.isArray(supplier)) {
-			this.supplierSrv.updateMany(supplier.map((p: Supplier) => ({ id: p.id, archived: true })))
-				.pipe(switchMap(_ => this.listSrv.refetch()))
-				.subscribe(_ => {
-					this.notifSrv.add({
-						type: NotificationType.SUCCESS,
-						title: 'Supplier archived',
-						message: 'Suppliers have been archived with success'
-					});
-				});
-		} else {
-			const { id } = supplier;
-			this.supplierSrv.update({ id, archived: true })
-				.pipe(switchMap(_ => this.listSrv.refetch()))
-				.subscribe(_ => {
-					this.notifSrv.add({
-						type: NotificationType.SUCCESS,
-						title: 'Supplier archived',
-						message: 'Suppliers have been archived with success'
-					});
-				});
-		}
-	}
 }

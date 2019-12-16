@@ -1,4 +1,3 @@
-<!-- top panel -->
 <header-list-app
 	logoName="sample"
 	info="The sample database"
@@ -7,29 +6,16 @@
 	(buttonClick)="dialogCommonSrv.openCreationSampleDialog()">
 </header-list-app>
 
-<controller-list-app
-	[filtersAmount]="listSrv.getFilterAmount([{ type: filterTypeEnum.ARCHIVED, value: false }, { type: filterTypeEnum.DELETED, value: false }])"
-	[hasFilter]="true"
-	[hasSwitch]="true"
-	[hasThumb]="false"
-	[view]="listSrv.view"
-	[count]="listSrv.count$ | async"
-	[entityType]="'SAMPLE'"
-	searchType="short"
-	[searchValue]="listSrv.searchValue"
-	(search)="listSrv.search($event)"
-	(clearFilters)="onClearFilters()"
-	(showArchived)="listSrv.filterByArchived(false)"
-	(hideArchived)="listSrv.filterByArchived(true)"
-	(showAssigned)="listSrv.filterByAssignee(true)"
-	(hideAssigned)="listSrv.filterByAssignee(false)"
-	(export)="dialogCommonSrv.openExportDialog()"
-	(showFilters)="listSrv.openFilterPanel()"
-	(viewChange)="onViewChange($event)">
-</controller-list-app>
+<controller-table-app>
+	<controller-table-quick-filters-app></controller-table-quick-filters-app>
+	<controller-table-quick-actions-app>
+	</controller-table-quick-actions-app>
+	<controller-table-view-switcher-app [hasCard]="false"></controller-table-view-switcher-app>
+</controller-table-app>
+
 
 <samples-table-app
-	*ngIf="listSrv.view === 'list'"
+	*ngIf="listSrv.view === 'table'"
 	[rows]="listSrv.items$ | async"
 	[selection]="listSrv.selection$ | async"
 	[pending]="listSrv.pending"

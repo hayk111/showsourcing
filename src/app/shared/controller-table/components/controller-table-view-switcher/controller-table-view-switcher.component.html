@@ -1,0 +1,40 @@
+
+<button 
+	*ngIf="hasTable"
+	class="flexCenter icon"
+	toolTip
+	[toolTipMessage]="'tooltip.table-view' | translate"
+	(mousedown)="changeView('table')">
+	<icon-app 
+		class="{{ view === 'table' ? 'color-primary' : 'color-txt-third' }}" 
+		name="list-menu"
+		size="m">
+	</icon-app>
+</button>
+
+<button 
+	*ngIf="hasCard"
+	class="flexCenter icon"
+	toolTip
+	[toolTipMessage]="'tooltip.card-view' | translate"
+	(mousedown)="changeView('card')">
+	<icon-app 
+		class="{{ view === 'card' ? 'color-primary' : 'color-txt-third' }}" 
+		name="cards"
+		size="m">
+	</icon-app>
+</button>
+
+<button 
+	*ngIf="hasBoard"
+	class="flexCenter icon"
+	toolTip
+	[toolTipMessage]="'tooltip.board-view' | translate"
+	(mousedown)="changeView('board')">
+	<icon-app 
+	class="{{ view === 'board' ? 'color-primary' : 'color-txt-third' }}" 
+		name="kanban"
+		size="m">
+	</icon-app>
+</button>
+

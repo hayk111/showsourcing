@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { EntityMetadata } from '~models';
+import { View } from '~shared/controller-table/components';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class ListPageViewService<T> {
 	/** current view */
-	view: 'list' | 'board' | 'card' = 'list';
+	view: View = 'table';
 	/** whether the filter panel is visible */
 	filterPanelOpen: boolean;
 
@@ -57,7 +58,7 @@ export class ListPageViewService<T> {
 	/** Whenever we switch from list to card view
 	 * @param view the view we want to change to either list or card view
 	*/
-	changeView(view: 'list' | 'board' | 'card') {
+	changeView(view: View) {
 		this.view = view;
 	}
 }

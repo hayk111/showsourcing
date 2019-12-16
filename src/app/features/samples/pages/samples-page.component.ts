@@ -8,7 +8,6 @@ import { ListPageService } from '~core/list-page';
 import { ERM, Sample } from '~models';
 import { DialogService } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
-import { ControllerListService } from '~shared/header/components/controller-list/services/controller-list.service';
 import { AutoUnsub } from '~utils';
 
 @Component({
@@ -45,7 +44,6 @@ export class SamplesPageComponent extends AutoUnsub implements OnInit {
 		public elem: ElementRef,
 		protected dlgSrv: DialogService,
 		private userSrv: UserService,
-		private controllerListService: ControllerListService,
 	) {
 		super();
 	}
@@ -85,9 +83,6 @@ export class SamplesPageComponent extends AutoUnsub implements OnInit {
 		return filters.length;
 	}
 
-	onViewChange(view: 'list' | 'card') {
-		this.listSrv.changeView(view);
-	}
 
 	onFavourite(sample: Sample) {
 		this.listSrv.onItemFavorited(sample.id);
@@ -96,15 +91,6 @@ export class SamplesPageComponent extends AutoUnsub implements OnInit {
 	showItemsPerPage(count: number) {
 		this.selectItemsConfig = { take: Number(count) };
 		this.listSrv.refetch(this.selectItemsConfig).subscribe();
-	}
-
-	onClearFilters() {
-		this.listSrv.filterList.resetAll();
-
-		// this.listSrv.addFilter({ type: FilterType.ARCHIVED, value: false}); TODO backend
-		this.listSrv.addFilter({ type: FilterType.DELETED, value: false });
-
-		this.controllerListService.onFiltersClear();
 	}
 
 }
