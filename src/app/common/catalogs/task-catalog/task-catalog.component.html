@@ -6,7 +6,7 @@
 		<ng-container *ngIf="i < displayIndex">
 			<icon-app
 				class="pointer"
-				[ngClass]="task?.done ? 'color-success': 'color-txt-third'"
+				[ngStyle]="{'color': statusUtils.getTaskStatusIconColorVar(task) }"
 				name="check-circle"
 				[size]="12"
 				(click)="taskClicked.emit(task)">
