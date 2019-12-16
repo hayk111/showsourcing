@@ -2,25 +2,11 @@
 
 	<dialog-header-app translate="Select Project"></dialog-header-app> <!-- TODO: translation to be added -->
 
-	<!-- <controller-table-app
-		[entityType]="entityTypeEnum.PROJECT"
-		[hasFilter]="false"
-		[hasSwitch]="false"
-		[hasExport]="false"
-		[count]="listSrv.count$ | async"
-		[view]="listSrv.view"
-		[searchValue]="listSrv.searchValue"
-		[filtersPanelOpened]="listSrv.filterPanelOpen"
-		(search)="listSrv.search($event)">
-
-		<controller-table-actions-app
-			(showArchived)="listSrv.filterByArchived(true)"
-			(hideArchived)="listSrv.filterByArchived(false)"
-			(showAssigned)="listSrv.filterByAssignee(true)"
-			(hideAssigned)="listSrv.filterByAssignee(false)">
-		</controller-table-actions-app>
-
-	</controller-table-app> -->
+	<controller-table-app>
+		<controller-table-quick-filters-app></controller-table-quick-filters-app>
+		<controller-table-quick-actions-app></controller-table-quick-actions-app>
+		<controller-table-view-switcher-app></controller-table-view-switcher-app>
+	</controller-table-app>
 
 	<projects-table-app
 		class="list-view"
