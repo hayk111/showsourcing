@@ -1,14 +1,15 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { switchMap, takeUntil, map } from 'rxjs/operators';
+import { map, switchMap, takeUntil } from 'rxjs/operators';
+import { AbstractTaskCommonComponent } from '~common/abstracts/abstract-task-common.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
+import { SelectParams } from '~core/entity-services/_global/select-params';
 import { ListPageService } from '~core/list-page';
 import { TaskService, UserService } from '~entity-services';
-import { ERM, Task, Product } from '~models';
-import { FilterType } from '~shared/filters';
-import { DialogService } from '~shared/dialog';
 import { ProductFeatureService } from '~features/products/services';
-import { AbstractTaskCommonComponent } from '~common/abstracts/abstract-task-common.component';
+import { Product, Task } from '~models';
+import { DialogService } from '~shared/dialog';
+import { FilterType } from '~shared/filters';
 
 @Component({
 	selector: 'tasks-page-app',
@@ -22,9 +23,6 @@ import { AbstractTaskCommonComponent } from '~common/abstracts/abstract-task-com
 export class TasksPageComponent extends AbstractTaskCommonComponent implements OnInit {
 
 	product: Product;
-	filterTypes = [
-		FilterType.DONE
-	];
 
 	constructor(
 		protected route: ActivatedRoute,
@@ -49,10 +47,11 @@ export class TasksPageComponent extends AbstractTaskCommonComponent implements O
 			switchMap(id => this.featureSrv.selectOne(id)),
 			takeUntil(this._destroy$)
 		).subscribe(product => this.product = product);
+
+		const selectParams = new SelectParams({ sortBy: 'done', descending: false });
 		super.setup([
 			{ type: FilterType.PRODUCT, value: this.route.parent.snapshot.params.id },
-			{ type: FilterType.DONE, value: false },
-		]);
+		], selectParams, false);
 		super.ngOnInit();
 	}
 

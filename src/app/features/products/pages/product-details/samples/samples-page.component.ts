@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { AbstractSampleCommonComponent } from '~common/abstracts/abstract-sample-common.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
+import { SelectParams } from '~core/entity-services/_global/select-params';
 import { ListPageService } from '~core/list-page';
 import { ProductService, SampleService, UserService } from '~entity-services';
 import { Product, Sample } from '~models';
@@ -47,12 +48,11 @@ export class SamplesPageComponent extends AbstractSampleCommonComponent implemen
 			takeUntil(this._destroy$)
 		).subscribe(product => this.product = product);
 		this.productId = this.route.parent.snapshot.params.id;
+
+		const selectParams = new SelectParams({ sortBy: 'status.step', descending: false });
 		super.setup([
-			{
-				type: FilterType.PRODUCT,
-				value: this.productId
-			}
-		]);
+			{ type: FilterType.PRODUCT, value: this.productId }
+		], selectParams, false);
 		super.ngOnInit();
 	}
 }

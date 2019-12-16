@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { filter, switchMap, takeUntil } from 'rxjs/operators';
 import { CreationSampleDlgComponent } from '~common/dialogs/creation-dialogs';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
+import { SelectParams } from '~core/entity-services/_global/select-params';
 import { ListPageService } from '~core/list-page';
 import { SampleService, UserService } from '~entity-services';
 import { ERM, Product, Sample, Supplier } from '~models';
@@ -33,16 +34,20 @@ export abstract class AbstractSampleCommonComponent extends AutoUnsub implements
 		).subscribe();
 	}
 
-	setup(addedFilters: Filter[] = []) {
+	setup(addedFilters: Filter[] = [], selectParams?: SelectParams, hasAssigneFilter = true) {
 		const userId = this.userSrv.userSync.id;
+		const initialFilters: Filter[] = [];
+		if (hasAssigneFilter) {
+			initialFilters.push({ type: FilterType.ASSIGNEE, value: userId });
+		}
+
 		this.listSrv.setup({
 			entitySrv: this.sampleSrv,
 			searchedFields: ['name', 'supplier.name', 'product.name', 'assignee.firstName', 'assignee.lastName', 'reference'],
-			selectParams: { query: 'deleted == false' },
+			selectParams: { ...selectParams, query: 'deleted == false AND archived == false' },
 			entityMetadata: ERM.SAMPLE,
 			initialFilters: [
-				{ type: FilterType.ASSIGNEE, value: userId },
-				{ type: FilterType.DELETED, value: false },
+				...initialFilters,
 				...addedFilters
 			],
 			originComponentDestroy$: this._destroy$
