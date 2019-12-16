@@ -47,7 +47,10 @@
 </header-details-app>
 
 <controller-table-app>
-	<controller-table-quick-filters-app></controller-table-quick-filters-app>
+	<controller-table-content-app>
+		<button class="capitalize" (click)="listSrv.create(false)">Create {{erm.singular | translate}}</button>
+	</controller-table-content-app>
+	<controller-table-quick-filters-app [quickFilters]="['createdBy']"></controller-table-quick-filters-app>
 	<controller-table-quick-actions-app>
 	</controller-table-quick-actions-app>
 	<controller-table-view-switcher-app 
