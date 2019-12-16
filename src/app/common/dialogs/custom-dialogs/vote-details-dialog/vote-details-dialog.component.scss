@@ -3,7 +3,7 @@ dialog-app {
 
 	.user-info-container {
 		&:first-child {
-			padding-bottom: var(--spacing-ms);			
+			padding-bottom: var(--spacing-ms);
 		}
 
 		&:last-child {
@@ -26,11 +26,4 @@ user-picture-app {
 
 .name {
 	margin-left: var(--spacing-ms);
-}
-
-icon-app {
-	cursor: default;
-	font-size: var(--font-size-xxl);
-	margin-right: var(--spacing-ms);
-	margin-bottom: var(--spacing-xs);
 }

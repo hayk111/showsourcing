@@ -7,11 +7,7 @@
 				<user-picture-app [user]="vote.user" [image]="vote?.user?.avatar" [size]="24" [border]="true"></user-picture-app>
 				<span class="name flexCenter">{{ vote?.user?.firstName || '' }} {{ vote?.user?.lastName || '' }}</span>
 			</div>
-			<!-- we explicitly check 100 or 0 since there can be null votes (with value 50) with no button  -->
-			<icon-app *ngIf="vote.value === 100 || vote.value === 0"
-					[name]="vote.value === 100 ? 'thumbs-up' : 'thumbs-down'"
-					[ngClass]="{'color-primary': vote.value === 100, 'color-warn': vote.value === 0}">
-			</icon-app>
+			<rating-badge-app [votes]="[vote]"></rating-badge-app>
 		</div>
 	</ng-container>
 
