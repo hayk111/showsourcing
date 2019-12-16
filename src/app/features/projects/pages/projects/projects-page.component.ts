@@ -6,6 +6,7 @@ import { ListPageService } from '~core/list-page';
 import { EntityTypeEnum, ERM, Project } from '~models';
 import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
+import { ProjectsTableComponent } from '~common/tables/projects-table/projects-table.component';
 
 // Doctor: You're obese.
 // -
@@ -19,7 +20,7 @@ import { AutoUnsub } from '~utils';
 	styleUrls: ['./projects-page.component.scss'],
 	providers: [
 		ListPageService
-	], 
+	],
 	host: {
 		class: 'table-page'
 	}
@@ -30,6 +31,8 @@ export class ProjectsPageComponent extends AutoUnsub implements OnInit, AfterVie
 	entityTypeEnum = EntityTypeEnum;
 
 	selectItemsConfig: SelectParamsConfig;
+	columns = ProjectsTableComponent.DEFAULT_COLUMNS;
+	tableConfig = ProjectsTableComponent.DEFAULT_TABLE_CONFIG;
 
 	constructor(
 		private projectSrv: ProjectService,

@@ -17,6 +17,16 @@ const tableConfig: TableConfig = {
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ListManagementTableComponent extends EntityTableComponent<any> {
+	static DEFAULT_COLUMNS = [
+		'name',
+		'createdBy',
+		'productCount',
+		'supplierCount',
+		'action',
+	];
+	static DEFAULT_TABLE_CONFIG = tableConfig;
+	@Input() columns = ListManagementTableComponent.DEFAULT_COLUMNS;
+	@Input() tableConfig = ListManagementTableComponent.DEFAULT_TABLE_CONFIG;
 	@Input() entityMetadata: EntityMetadata;
 	@Output() renameEntity = new EventEmitter<any>();
 	@Output() showItemsPerPage = new EventEmitter<number>();
@@ -26,15 +36,6 @@ export class ListManagementTableComponent extends EntityTableComponent<any> {
 	ermSupplier = ERM.SUPPLIER;
 	ermEvent = ERM.EVENT;
 	idEntityHovered: string;
-	tableConfig: TableConfig = tableConfig;
-	columns = [
-		'name',
-		'createdBy',
-		'productCount',
-		'supplierCount',
-		'action',
-	];
-
 
 	constructor(public translate: TranslateService) { super(); }
 

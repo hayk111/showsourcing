@@ -10,8 +10,9 @@ export type View = 'table' | 'card' | 'board';
 	styleUrls: ['./controller-table-view-switcher.component.scss'],
 })
 export class ControllerTableViewSwitcherComponent {
-	@Input() switchContent: View[] = ['table', 'card' , 'board'];
-
+	@Input() hasTable = true;
+	@Input() hasCard = true;
+	@Input() hasBoard = true;
 
 	constructor(private listSrv: ListPageService<any, any>) {}
 

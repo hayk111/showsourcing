@@ -8,6 +8,7 @@ import { ColumnConfig, ListPageService } from '~core/list-page';
 })
 export class ControllerTableQuickActionsComponent implements OnInit {
 	@Input() hasSort = true;
+	@Input() hasExport = true;
 	@Input() tableConfig: ColumnConfig[] = [];
 	@Input() columns: string[];
 	@Input() currentSort: { sortBy: string, descending: boolean };

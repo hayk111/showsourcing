@@ -9,6 +9,7 @@ import { ERM, Task } from '~models';
 import { DialogService } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
+import { TasksTableComponent } from '~common/tables/tasks-table/tasks-table.component';
 
 @Component({
 	selector: 'tasks-page-app',
@@ -38,6 +39,8 @@ export class TasksPageComponent extends AutoUnsub implements OnInit, AfterViewIn
 		FilterType.SUPPLIER,
 		FilterType.TAGS
 	];
+	columns = TasksTableComponent.DEFAULT_COLUMNS;
+	tableConfig = TasksTableComponent.DEFAULT_TABLE_CONFIG;
 
 	tasksCount$: Observable<number>;
 	selectItemsConfig: SelectParamsConfig;

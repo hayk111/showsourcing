@@ -2,27 +2,11 @@
 
 	<dialog-header-app translate="header.select-products"></dialog-header-app>
 
-	<!-- <controller-table-app
-		[entityType]="entityTypeEnum.PRODUCT"
-		[hasFilter]="true"
-		[hasSwitch]="false"
-		[hasExport]="false"
-		[count]="listSrv.count$ | async"
-		[filtersPanelOpened]="filtersPanelOpened"
-		[view]="listSrv.view"
-		[searchValue]="listSrv.searchValue"
-		(search)="searchProduct($event)"
-		(showFilters)="showFilters()"
-		(hideFilters)="hideFilters()">
-
-		<controller-table-actions-app
-			(showArchived)="listSrv.filterByArchived(true)"
-			(hideArchived)="listSrv.filterByArchived(false)"
-			(showAssigned)="listSrv.filterByAssignee(true)"
-			(hideAssigned)="listSrv.filterByAssignee(false)">
-		</controller-table-actions-app>
-
-	</controller-table-app> -->
+	<controller-table-app>
+		<controller-table-quick-filters-app></controller-table-quick-filters-app>
+		<controller-table-quick-actions-app></controller-table-quick-actions-app>
+		<controller-table-view-switcher-app></controller-table-view-switcher-app>
+	</controller-table-app>
 
 	<products-table-app
 		class="list-view"

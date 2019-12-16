@@ -3,12 +3,11 @@
 	[hasAction]="false">
 </header-list-app>
 
-<!-- <controller-table-app
-	[hasFilter]="false"
-	[hasSwitch]="false"
-	[searchValue]="listSrv.searchValue"
-	(search)="listSrv.search($event)">
-</controller-table-app> -->
+<controller-table-app>
+	<controller-table-quick-filters-app></controller-table-quick-filters-app>
+	<controller-table-quick-actions-app></controller-table-quick-actions-app>
+	<controller-table-view-switcher-app></controller-table-view-switcher-app>
+</controller-table-app>
 
 <request-table-sup
 	class="no-padding"

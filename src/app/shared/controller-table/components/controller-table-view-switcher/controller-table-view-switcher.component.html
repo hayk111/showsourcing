@@ -1,6 +1,6 @@
 
 <button 
-	*ngIf="switchContent.includes('table')"
+	*ngIf="hasTable"
 	class="flexCenter icon"
 	toolTip
 	[toolTipMessage]="'tooltip.table-view' | translate"
@@ -13,7 +13,7 @@
 </button>
 
 <button 
-	*ngIf="switchContent.includes('card')"
+	*ngIf="hasCard"
 	class="flexCenter icon"
 	toolTip
 	[toolTipMessage]="'tooltip.card-view' | translate"
@@ -26,7 +26,7 @@
 </button>
 
 <button 
-	*ngIf="switchContent.includes('board')"
+	*ngIf="hasBoard"
 	class="flexCenter icon"
 	toolTip
 	[toolTipMessage]="'tooltip.board-view' | translate"

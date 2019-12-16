@@ -24,7 +24,7 @@
 		Clear filters ({{ listSrv.getFilterAmount() }})
 	</button>
 
-	<divider-app [vertical]="true"></divider-app>
+	<divider-app *ngIf="hasFilters" [vertical]="true"></divider-app>
 
 	<span class="capitalize entities-count">
 		{{ listSrv.count$ | async }} 
@@ -36,16 +36,16 @@
 
 <div class="right flexVAlign">
 
-	<!-- <ng-content select="controller-table-actions-app"></ng-content> -->
+	<ng-content select="controller-table-content-app"></ng-content>
+	<divider-app *ngIf="content" [vertical]="true"></divider-app>
 
 
-	<divider-app [vertical]="true"></divider-app>
 	<ng-content select="controller-table-quick-filters-app"></ng-content>
-
 	<divider-app class="mg-left-ms" [vertical]="true"></divider-app>
+
 	<ng-content select="controller-table-quick-actions-app"></ng-content>
-
-	<divider-app class="mg-left-ms" [vertical]="true"></divider-app>
+	
+	<divider-app *ngIf="switcher" class="mg-left-ms" [vertical]="true"></divider-app>
 	<ng-content select="controller-table-view-switcher-app"></ng-content>
 
 </div>
