@@ -22,7 +22,7 @@
 	(unselectAll)="unselectAll.emit()"
 	(createClick)="createClick.emit()"
 	(showItemsPerPage)="showItemsPerPage.emit($event)">
-	
+
 
 
 	<!-- dynamic columns -->
@@ -40,8 +40,8 @@
 
 			<default-columns-app
 				*ngSwitchDefault
-				[row]="row" 
-				[column]="column" 
+				[row]="row"
+				[column]="column"
 				[hovered]="row.id === hovered"
 				[type]="'SUPPLIER' | erm"
 				(update)="update.emit($event)"
@@ -50,6 +50,17 @@
 				(previewClick)="previewClick.emit($event)"
 				(logoClick)="previewClick.emit($event)">
 			</default-columns-app>
+
+			<!-- logo -->
+			<ng-container *ngSwitchCase="'logo'">
+				<logo-app
+					class="pointer"
+					size="s"
+					[logo]="row?.logoImage"
+					[type]="'SUPPLIER' | erm: 'singular'"
+					(click)="previewClick.emit(row)">
+				</logo-app>
+			</ng-container>
 
 			<!-- country -->
 			<ng-container *ngSwitchCase="'country'">

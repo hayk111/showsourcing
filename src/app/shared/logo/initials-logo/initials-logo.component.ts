@@ -1,16 +1,25 @@
-import { ChangeDetectionStrategy, Component, Input, ViewChild, ElementRef, AfterViewInit, Renderer2 } from '@angular/core';
-import { Client } from '~core/apollo/services/apollo-client-names.const';
+import {
+	AfterViewInit,
+	ChangeDetectionStrategy,
+	Component,
+	ElementRef,
+	Input,
+	OnInit,
+	Renderer2,
+	ViewChild,
+} from '@angular/core';
 import { AppImage, EntityName } from '~core/models';
-import { UploaderService } from '~shared/file/services/uploader.service';
-import { Size, IconUtils } from '~utils';
+import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback.service';
+import { IconUtils, Size } from '~utils';
 
 @Component({
 	selector: 'initials-logo-app',
 	templateUrl: './initials-logo.component.html',
 	styleUrls: ['./initials-logo.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	providers: [UploaderFeedbackService]
 })
-export class InitialsLogoComponent implements AfterViewInit {
+export class InitialsLogoComponent implements AfterViewInit, OnInit {
 
 	private _name: string;
 	@Input() set name(name: string) {
@@ -20,12 +29,11 @@ export class InitialsLogoComponent implements AfterViewInit {
 	get name() {
 		return this._name;
 	}
-	private _image: AppImage;
 	@Input() set image(image: AppImage) {
-		this._image = image;
+		this.uploaderFeedbackSrv.setImages([image]);
 	}
 	get image() {
-		return this._image;
+		return this.uploaderFeedbackSrv.getImages().length ? this.uploaderFeedbackSrv.getImages()[0] : null;
 	}
 	@Input() entity: any;
 	@Input() type: EntityName;
@@ -37,21 +45,31 @@ export class InitialsLogoComponent implements AfterViewInit {
 
 	constructor(
 		private hostElement: ElementRef,
-		private uploaderSrv: UploaderService,
+		private uploaderFeedbackSrv: UploaderFeedbackService,
 		private render: Renderer2
 	) { }
+
+	ngOnInit() {
+		this.uploaderFeedbackSrv.init({
+			linkedEntity: this.entity,
+			imageProperty: 'logoImage',
+			isImagePropertyArray: false
+		});
+	}
 
 	ngAfterViewInit() {
 		const color = IconUtils.iconsColorMap[this.type] || 'secondary';
 		const size = IconUtils.iconsSizeMap[this.size] || IconUtils.iconsSizeMap.m;
 		this.render.setStyle(this.hostElement.nativeElement, 'height', `${size.background}px`);
 		this.render.setStyle(this.hostElement.nativeElement, 'width', `${size.background}px`);
-		this.render.addClass(this.initialsElement.nativeElement, `bg-${color}`);
-		this.render.setStyle(this.initialsElement.nativeElement, 'font-size', `${size.font}px`);
+		if (this.initialsElement) {
+			this.render.addClass(this.initialsElement.nativeElement, `bg-${color}`);
+			this.render.setStyle(this.initialsElement.nativeElement, 'font-size', `${size.font}px`);
+		}
 	}
 
 	addLogo(files: File[]) {
-		this.uploaderSrv.uploadImages(files, this.entity, 'logoImage', false, Client.TEAM).subscribe();
+		this.uploaderFeedbackSrv.addImages(files).subscribe();
 	}
 
 	private setInitials(text?: string) {

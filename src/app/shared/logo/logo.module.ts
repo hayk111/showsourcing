@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { FileModule } from '~shared/file';
 import { IconsModule } from '~shared/icons';
 import { ImageModule } from '~shared/image/image.module';
 
@@ -12,6 +13,7 @@ import { LogoComponent } from './logo/logo.component';
 		CommonModule,
 		IconsModule,
 		ImageModule,
+		FileModule,
 	],
 	declarations: [
 		LogoComponent,

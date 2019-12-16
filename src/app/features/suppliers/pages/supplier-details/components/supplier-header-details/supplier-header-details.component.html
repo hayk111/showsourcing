@@ -42,7 +42,7 @@
 		<header-nav-item-app
 			link="./samples"
 			icon="sample"
-			[badgeContent]="supplier?.samplesLinkedAssignedToMe?.count"
+			[badgeContent]="samplesCount$ | async"
 			[name]="'nav.samples' | translate">
 		</header-nav-item-app>
 
