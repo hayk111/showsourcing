@@ -8,7 +8,9 @@
 		[ngStyle]="commonStyle()">
 		<div class="initials flexCenter" [ngClass]="{'bg-initials': initials && background, 'bg-primary-light-no-border': !background,
 			'bg-secondary-light': !initials}" [ngStyle]="commonStyle()">
-			{{ initials }}
+			<div style="line-height: 0.9 ;">
+				{{ initials }}
+			</div>
 		</div>
 	</div>
 </ng-template>

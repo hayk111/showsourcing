@@ -2,10 +2,22 @@
 	text-transform: none;
 }
 
-.ctnr {
-	width: 100%;
+.ctnr:not(:empty) + {
+	& {
+		width: 100%;
+	}
+	.default {
+		display: none;
+		width: 0%;
+	}
 }
 
-.ctnr:not(:empty) + .default {
-	display: none;
+.ctnr:empty + {
+	& {
+		display: none;
+		width: 0%;
+	}
+	.display {
+		width: 100%;
+	}
 }
