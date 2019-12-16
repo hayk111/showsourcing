@@ -74,6 +74,10 @@ export abstract class AbstractTaskCommonComponent extends AutoUnsub implements O
 		}
 	}
 
+	toggleUpdateDone(task: Task) {
+		this.updateTask({ id: task.id, done: !task.done } as Task);
+	}
+
 	updateTask(task: Task) {
 		this.listSrv.update(task);
 	}

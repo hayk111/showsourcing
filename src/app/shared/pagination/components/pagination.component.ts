@@ -8,7 +8,8 @@ import { TrackingComponent } from '~utils';
 	styleUrls: ['./pagination.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
-		'[class.side-padding-l]': 'hasSidePadding'
+		'[class.side-padding-l]': 'hasSidePadding',
+		'[class.mg-top-ms]': 'range?.length > 1' // adding margin top only if the element is being shown up
 	}
 })
 export class PaginationComponent extends TrackingComponent implements OnChanges {

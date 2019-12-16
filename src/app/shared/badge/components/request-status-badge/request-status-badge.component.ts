@@ -21,6 +21,7 @@ export class RequestStatusBadgeComponent implements OnInit {
 	}
 	// wether we are on team page or supplier page
 	@Input() isTeam = true;
+	@Input() size: 's' | 'm' | 'l' = 'm';
 
 	/** magic number for 2 weeks in miliseconds */
 	twoWeeks = 12096e5;

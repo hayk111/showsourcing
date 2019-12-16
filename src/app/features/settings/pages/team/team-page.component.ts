@@ -10,7 +10,10 @@ import { DialogCommonService } from '~common/dialogs/services/dialog-common.serv
 @Component({
 	selector: 'team-page-app',
 	templateUrl: './team-page.component.html',
-	styleUrls: ['./team-page.component.scss']
+	styleUrls: ['./team-page.component.scss'],
+	host: {
+		class: 'table-page'
+	},
 })
 export class TeamPageComponent implements OnInit {
 	team$: Observable<Team>;
@@ -31,7 +34,8 @@ export class TeamPageComponent implements OnInit {
 	ngOnInit() {
 		this.team$ = this.teamSrv.selectTeam();
 		this.team = this.teamSrv.selectedTeamSync;
-		this.companyName =  this.companySrv.companySync.name || '';
+		const company = this.companySrv.companySync;
+		this.companyName =  company ? company.name : '';
 	}
 
 	/** Displays specified tab */

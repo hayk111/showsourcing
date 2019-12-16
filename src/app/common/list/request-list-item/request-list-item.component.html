@@ -1,0 +1,17 @@
+<div class="left flexStart">
+	<checkbox-app
+		class="mg-right-ms"
+		[checked]="isSelected(request)"
+		(check)="select.emit(request)"
+		(uncheck)="unselect.emit(request)">
+	</checkbox-app>
+	<div class="txt-btn" (click)="nameClick.emit(request)">{{ request?.title }}</div>
+</div>
+<div class="right flexEnd">
+	<request-status-badge-app [status]="request?.status" size="s"></request-status-badge-app>
+	<div class="mg-left-l flexEnd dot-separator">
+		<div>{{ request?.templateName }}</div>
+		<div>{{ request?.sender?.name }}</div>
+		<div>{{ request?.creationDate | date: 'dd MMMM yyyy':'':translate.currentLang }}</div>
+	</div>
+</div>

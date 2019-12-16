@@ -21,7 +21,7 @@
 	<ng-template
 		[columnApp]="''"
 		let-row="row"
-		width="0">
+		width="20">
 		<div class="user-icon flexCenter">
 			<icon-app class="color-txt-third" name="category" size="s"></icon-app>
 		</div>
@@ -147,8 +147,8 @@
 		let-row="row"
 		width="40">
 		<div class="flex">
-			<button class="icon warn" (click)="delete.emit(row)">
-				<icon-app name="delete"></icon-app>
+			<button class="icon small warn" (click)="delete.emit(row)">
+				<icon-app name="trash" size="s"></icon-app>
 			</button>
 		</div>
 	</ng-template>

@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { TeamService, CompanyService } from '~core/entity-services';
+import { environment } from 'environments/environment';
 
 @Component({
 	selector: 'dashboard-header-app',
@@ -11,12 +12,15 @@ export class DashboardHeaderComponent implements OnInit {
 
 	companyName: string;
 	teamName: string;
+	isDev = !environment.production;
+	version = environment.version;
 	constructor(public teamSrv: TeamService, private companySrv: CompanyService) {
 	}
 
 	ngOnInit() {
 		this.teamName = this.teamSrv.selectedTeamSync.name;
-		this.companyName =  this.companySrv.companySync.name || '';
+		const company = this.companySrv.companySync;
+		this.companyName =  company ? company.name : '';
 	}
 
 }

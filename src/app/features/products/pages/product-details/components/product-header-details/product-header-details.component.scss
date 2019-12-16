@@ -4,10 +4,13 @@ header-details-actions-app > *:not(:last-child) {
 
 .info-container {
 	font-size: var(--font-size-m);
-	margin-left: var(--spacing-ms);
+	margin-left: var(--spacing-xs);
 
 	.reference {
 		display: flex;
 	}
 }
 
+.square {
+	width: 18px;
+}
