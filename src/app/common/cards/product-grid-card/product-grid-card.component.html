@@ -68,18 +68,20 @@
 	</button>
 
 	<!-- info content -->
-	<div class="info-container">
-		<div class="flexVAlign ellipsis">
-			<badge-app class="badge mg-right-s" [ngStyle]="{ 'background': 'var(--color-' + statusUtils?.getStatusColor(product?.status) + ')' }" [circle]="true"></badge-app>
-			<div class="bold-s color-txt-primary">{{ product?.name || ('message.unnamed-product' | translate) }}</div>
+	<div class="info-container flex">
+		<badge-app class="badge mg-h-s" [ngStyle]="{ 'background': 'var(--color-' + statusUtils?.getStatusColor(product?.status) + ')' }" [circle]="true"></badge-app>
+		<div>
+			<div class="flexVAlign ellipsis">
+				<div class="bold-s color-txt-primary">{{ product?.name || ('message.unnamed-product' | translate) }}</div>
+			</div>
+			<div class="color-txt-secondary fs-s mg-bottom-xs ellipsis dot-separator">
+				<span *ngIf="product?.category?.name">{{ product?.category?.name }}</span>
+				<span *ngIf="product?.supplier?.name">{{ product?.supplier?.name }}</span>
+			</div>
+			<rating-number-badge-app
+				[votes]="product?.votes">
+			</rating-number-badge-app>
 		</div>
-		<div class="color-txt-secondary fs-s mg-bottom-xs ellipsis dot-separator">
-			<span *ngIf="product?.category?.name">{{ product?.category?.name }}</span>
-			<span *ngIf="product?.supplier?.name">{{ product?.supplier?.name }}</span>
-		</div>
-		<rating-number-badge-app
-			[votes]="product?.votes">
-		</rating-number-badge-app>
 	</div>
 
 </div>
