@@ -22,13 +22,13 @@
 	<card-footer-app *ngIf="(images?.length)  && (images?.length > defaultShown + 1)" align="center">
 		<button
 			*ngIf="currentShown <= images?.length"
-			class="primary-light view-all"
+			class="primary-light full-width flexCenter"
 			(click)="currentShown = currentShown + 20"
 			translate="button.view-more-pictures">
 		</button>
 		<button
 		 	*ngIf="currentShown > images?.length"
-			class="primary-light view-all"
+			class="primary-light full-width flexCenter"
 			(click)="currentShown = defaultShown"
 			translate="button.view-less-pictures">
 		</button>
