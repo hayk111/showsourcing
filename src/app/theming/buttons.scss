@@ -1,4 +1,3 @@
-
 $colors: (
 	'primary',
 	'secondary',
@@ -53,7 +52,7 @@ button, input[type="submit"], .button {
 	&:disabled {
 		cursor: default;
 		background: var(--color-secondary-light);
-		color: var(--color-third);
+		color: var(--color-txt-third);
 	}
 
 	&.light {
