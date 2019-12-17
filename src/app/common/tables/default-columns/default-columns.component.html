@@ -34,7 +34,6 @@
 	<!-- favorite -->
 	<ng-container *ngSwitchCase="'favorite'">
 		<rating-heart-app
-			[hasButton]="false"
 			[favorite]="row?.favorite"
 			(favorited)="update.emit({ id: row.id, favorite: true })"
 			(unfavorited)="update.emit({ id: row.id, favorite: false })">
@@ -48,12 +47,21 @@
 
 	<!-- status -->
 	<ng-container *ngSwitchCase="'status'">
-		<status-selector-app
-			selectSize="m"
-			[displayStep]="type === erm.PRODUCT"
-			[entity]="row"
-			[typeEntity]="type">
-		</status-selector-app>
+		<editable-container-app
+			class="full-width"
+			[hasAction]="false"
+			[openOnClick]="false"
+			(click)="sel.openMenu()">
+			<editable-display-app>
+				<status-selector-app
+					#sel
+					selectSize="m"
+					[displayStep]="type === erm.PRODUCT"
+					[entity]="row"
+					[typeEntity]="type">
+				</status-selector-app>
+			</editable-display-app>
+		</editable-container-app>
 	</ng-container>
 
 	<!-- assignee -->
@@ -62,7 +70,7 @@
 			class="full-width"
 			[hasAction]="false"
 			[openOnClick]="false"
-			(click)="sel?.selector?.openMenu()">
+			(click)="sel.openMenu()">
 			<editable-display-app>
 				<selector-app
 					#sel
@@ -130,7 +138,7 @@
 			class="full-width"
 			[hasAction]="false"
 			[openOnClick]="false"
-			(click)="sel?.openMenu()">
+			(click)="sel.openMenu()">
 			<editable-display-app>
 				<selector-app
 					#sel

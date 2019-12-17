@@ -4,10 +4,11 @@
 	[ngStyle]="iconSize()"
 	(click)="onClick()">
 	<!-- we need this to wrap both items, we cannot use the container above cause of the styling that has -->
-	<div class="select-container flexCenter" tabFocusAction (keyEnter)="focusClick()">
+	<div class="select-container flexCenter" tabFocusAction>
 		<ng-container [ngSwitch]="state">
 			<icon-app *ngSwitchCase="'selectedAll'" class="check-icon" name="check"></icon-app>
-			<icon-app *ngSwitchCase="'selectedPartial'" class="check-icon" name="close"></icon-app> <!--TODO: icon needs to be replaced-->
+			<!--TODO: icon needs to be replaced-->
+			<icon-app *ngSwitchCase="'selectedPartial'" class="check-icon" name="close"></icon-app> 
 			<ng-container *ngSwitchDefault>
 				<div [ngStyle]="uncheckedStyle()"></div>
 			</ng-container>

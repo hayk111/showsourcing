@@ -60,7 +60,7 @@ button, input[type="submit"], .button {
 		background: transparent;
 		color: var(--color-txt-secondary);
 		&:hover, &.cdk-keyboard-focused {
-			background: var(--color-secondary);
+			background: var(--color-hover);
 		}
 	}
 
@@ -68,7 +68,7 @@ button, input[type="submit"], .button {
 		background: transparent;
 		color: var(--color-txt-secondary);
 		&:hover, &.cdk-keyboard-focused {
-			background: var(--color-secondary);
+			background: var(--color-hover);
 		}
 	}
 

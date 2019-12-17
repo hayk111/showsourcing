@@ -36,10 +36,6 @@ export class SelectCheckboxComponent implements OnInit {
 		this.emit();
 	}
 
-	focusClick() {
-		console.log('focuse click');
-	}
-
 	private emit() {
 		if (this.state === 'unchecked') {
 			this.check.emit();
