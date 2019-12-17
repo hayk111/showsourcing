@@ -2,22 +2,6 @@
 	margin-right: var(--spacing-ms);
 }
 
-button {
-	&.with-name icon-app {
-		margin-right: var(--spacing-s);
-	}
-
-	&.request-supplier {
-		icon-app {
-			color: var(--color-bg);
-		}
-	}
-}
-
-icon-app {
-	color: var(--color-txt-secondary);
-}
-
 context-menu-item-app {
 	display: flex;
 	align-items: center;

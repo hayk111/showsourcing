@@ -4,34 +4,37 @@
 	[count]="count"
 	[selection]="selection"
 	(close)="close.emit()">
-	<div class="flex elements-container">
+
+	<div class="flex flexVAlign elements-container">
 		
 		<!-- Request supplier -->
-		<button class="icon-with-text vibrant flexCenter request-supplier with-name" (click)="createRequest.emit()">
+		<button class="icon-with-text vibrant" (click)="createRequest.emit()">
 			<icon-app name="envelope"></icon-app>
 			<span class="capitalize" translate="button.contact-supplier"></span>
 		</button>
 
+		<divider-app [vertical]="true" [height]="24"></divider-app>
+
 		<!-- Mass edit -->
-		<button class="icon-with-text light flexCenter with-name" (click)="massEdit.emit()">
+		<button class="icon-with-text light" (click)="massEdit.emit()">
 			<icon-app name="note"></icon-app>
 			{{ 'button.edit' | translate }}
 		</button>
 
 		<!-- Project -->
-		<button class="icon-with-text light flexCenter with-name" (click)="addProject.emit()">
+		<button class="icon-with-text light" (click)="addProject.emit()">
 			<icon-app name="project"></icon-app>
 			<span>Project</span> <!-- Todo: add translation -->
 		</button>
 
 		<!-- Compare products -->
-		<button class="icon-with-text light flexCenter with-name" (click)="compareProducts.emit()">
+		<button class="icon-with-text light" (click)="compareProducts.emit()">
 			<icon-app name="compare"></icon-app>
 			<span>Compare</span> <!-- Todo: add translation --> 
 		</button>
 
 		<!-- Export -->
-		<button class="icon-with-text light flexCenter with-name" (click)="export.emit()">
+		<button class="icon-with-text light" (click)="export.emit()">
 			<icon-app name="export"></icon-app>
 			<span translate="button.export"></span>
 		</button>
