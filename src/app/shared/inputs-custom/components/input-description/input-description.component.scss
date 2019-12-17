@@ -17,6 +17,8 @@
 }
 
 editable-container-app {
+	// since the container hover effects has to work the same when it reaches max-width
+	// we have to set a min-width and a max-width along with the borderbox
 	max-width: 100%;
 	min-width: 10px;
 	box-sizing: border-box;
@@ -25,7 +27,7 @@ editable-container-app {
 editable-display-app {
 	white-space: pre-line;
 	width: inherit;
-	min-width: 10px;
+	min-width: inherit;
 
 	icon-app.edit {
 		margin-right: var(--spacing-xs);

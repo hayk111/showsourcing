@@ -72,6 +72,11 @@ $colors: (
 	.color-#{$color} {
 		color: var(--color-#{$color});
 	}
+	.color-#{$color}-hover {
+		&:hover {
+			color: var(--color-#{$color});
+		}
+	}
 	.color-#{$color}-light {
 		color: var(--color-#{$color}-light);
 	}

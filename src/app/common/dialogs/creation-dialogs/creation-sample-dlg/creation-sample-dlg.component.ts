@@ -7,6 +7,7 @@ import { NotificationService, NotificationType } from '~shared/notifications';
 import { TranslateService } from '@ngx-translate/core';
 import { uuid } from '~utils';
 import { Observable } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 @Component({
 	selector: 'creation-sample-dlg-app',
@@ -80,6 +81,10 @@ export class CreationSampleDlgComponent implements OnInit {
 
 	save() {
 		if (this.sample && this.sample.name) {
+			// this way we can notify that the reference has been created
+			this.sampleSrv.waitForOne(`id == "${this.sample.id}" AND reference.@size > 0`)
+				.subscribe(_ => this.sampleSrv.onUpdateSampleList());
+
 			this.sampleSrv.create(this.sample).subscribe(
 				sample => {
 					if (this.createAnother) {
