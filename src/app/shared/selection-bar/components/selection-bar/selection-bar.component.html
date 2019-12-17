@@ -17,6 +17,8 @@
 
   <ng-content></ng-content>
 
-	<icon-app class="icon-close" name="close" (click)="close.emit()"></icon-app>
+	<!-- <icon-app class="icon-close" name="close" (click)="close.emit()"></icon-app> -->
+	<!-- if we don't have the close icon we need a spacer since it uses flexBetween -->
+	<span class="spacer"></span>
 
 </bottom-panel-app>

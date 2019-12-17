@@ -15,18 +15,13 @@ import { selectionBarAnimation } from '~shared/selection-bar/animation/selection
 		class: 'z-2'
 	}
 })
-export class SelectionBarComponent implements OnInit {
+export class SelectionBarComponent {
 	@Input() selection: Map<string, boolean>;
 	@Input() entityType: EntityType;
 	@Input() state: 'selectedPartial' | 'unchecked' | 'selectedAll';
 	@Input() count: number;
 	@Input() isShown = false;
 	@Output() close = new EventEmitter();
-
-	constructor() { }
-
-	ngOnInit() {
-	}
 
 	capitalize(txt: string): string | void {
 		if (txt && (typeof txt) === 'string') {
