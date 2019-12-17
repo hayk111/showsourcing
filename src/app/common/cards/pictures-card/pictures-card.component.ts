@@ -22,8 +22,8 @@ export class PicturesCardComponent extends AutoUnsub implements OnInit {
 	@Input() imageProperty = 'images';
 	@Input() isImagePropertyArray = true;
 
-	defaultShown = 4;
-	currentShown = this.defaultShown;
+	defaultShown = 5;
+	currentShown = this.defaultShown - 1;
 	selectedIndex = 0;
 	pending = false;
 

@@ -1,15 +1,15 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map, switchMap, takeUntil, tap, filter } from 'rxjs/operators';
-import { CommentService, SupplierService } from '~core/entity-services';
-import { Comment, ERM, Product, Supplier, Sample, Task } from '~models';
-import { Contact } from '~models/contact.model';
-import { AutoUnsub } from '~utils';
+import { filter, map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { CloseEvent, CloseEventType } from '~shared/dialog';
 import { SupplierDescriptor } from '~core/descriptors';
+import { CommentService, SupplierService } from '~core/entity-services';
+import { Comment, ERM, Product, Sample, Supplier, Task } from '~models';
+import { Contact } from '~models/contact.model';
+import { CloseEvent, CloseEventType } from '~shared/dialog';
 import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'activity-page-app',

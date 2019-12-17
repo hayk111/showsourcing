@@ -38,21 +38,24 @@
 			[multiple]="true"
 			[width]="330"
 			(update)="update.emit({ id: product?.id, projects: $event })">
-			<icon-app class="folder action-hover-item pointer color-white" [size]="13" name="folder-light"></icon-app>
+			<icon-app class="folder action-hover-item pointer color-third" size="ms" name="folder-light"></icon-app>
 		</selector-app>
 		<thumb-buttons-app
 			class="thumb-up action-hover-item"
-			size="m"
+			size="ms"
+			[lineStyle]="true"
 			[votes]="product?.votes"
-			(liked)="liked.emit()"
-			(disliked)="disliked.emit()">
+			(liked)="thumbUp()"
+			(disliked)="thumbDown()">
 		</thumb-buttons-app>
 		<rating-heart-app
 			class="heart action-hover-item"
-			size="m"
+			[hasButton]="false"
+			[lightStyle]="true"
+			size="ms"
 			[favorite]="product?.favorite"
-			(favorited)="favorited.emit()"
-			(unfavorited)="unfavorited.emit()">
+			(favorited)="update.emit({ id: product?.id, favorite: true })"
+			(unfavorited)="update.emit({ id: product?.id, favorite: false })">
 		</rating-heart-app>
 	</div>
 

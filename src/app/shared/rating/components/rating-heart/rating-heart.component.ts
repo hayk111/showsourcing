@@ -24,11 +24,10 @@ export class RatingHeartComponent {
 	@Input() static = false;
 	@Input() size = '14';
 	@Input() hasButton = true;
+	@Input() favorite = false;
+	@Input() lightStyle = false;
 	@Output() favorited = new EventEmitter<null>();
 	@Output() unfavorited = new EventEmitter<null>();
-	@Input() favorite = false;
-	@Input() customClassFavorited = '';
-	@Input() customClassUnFavorited = '';
 
 	@ViewChild(IconComponent, { read: ElementRef, static: false }) icon;
 

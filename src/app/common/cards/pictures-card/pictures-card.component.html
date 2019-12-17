@@ -12,7 +12,7 @@
 			<img-app
 				*ngFor="let image of images; index as i; trackBy: trackById"
 				class="mg-bottom-xs pointer default-transition"
-				[class.mg-right-xs]="i%5 !== defaultShown"
+				[class.mg-right-xs]="i%5 !== 4"
 				[style.height]="i > currentShown ? '0px' : '154px'"
 				[style.width]="i > currentShown ? '0px' : '154px'"
 				[image]="image"
@@ -22,7 +22,7 @@
 	</ng-container>
 
 	<!-- we display a button if we have images and if we have more than the minimum -->
-	<card-footer-app *ngIf="(images?.length)  && (images?.length > defaultShown + 1)" align="center">
+	<card-footer-app *ngIf="(images?.length)  && (images?.length > defaultShown)" align="center">
 		<button
 			*ngIf="currentShown <= images?.length"
 			class="primary-light full-width flexCenter"
@@ -32,7 +32,7 @@
 		<button
 		 	*ngIf="currentShown > images?.length"
 			class="primary-light full-width flexCenter"
-			(click)="currentShown = defaultShown"
+			(click)="currentShown = defaultShown - 1"
 			translate="button.view-less-pictures">
 		</button>
 	</card-footer-app>
