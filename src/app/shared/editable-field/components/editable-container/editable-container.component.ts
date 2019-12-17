@@ -6,6 +6,8 @@ import {
 	EventEmitter,
 	Input,
 	Output,
+	HostBinding,
+	HostListener,
 } from '@angular/core';
 
 import { EditableDisplayComponent } from '../editable-display/editable-display.component';
@@ -58,11 +60,18 @@ export class EditableContainerComponent {
 		this.close(false, false);
 	}
 
-	open(isInsideClick?: boolean) {
+
+	@HostListener('click')
+	openFromClick() {
 		// if the click was made from the template of this component
 		// and the editOnClick is disabled we shouldn't open the edit mode.
 		// this will allow us to have some editable text that are only opened via a button and such.
-		if (this.isOpen || (isInsideClick && !this.openOnClick)) {
+		if (this.openOnClick)
+			this.open();
+	}
+
+	open() {
+		if (this.isOpen) {
 			return;
 		}
 		this.isOpen = true;
@@ -70,7 +79,6 @@ export class EditableContainerComponent {
 		setTimeout(_ => this.opened.emit());
 
 		this.cd.markForCheck();
-
 	}
 
 }

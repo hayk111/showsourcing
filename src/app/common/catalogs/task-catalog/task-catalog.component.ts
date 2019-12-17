@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { Task } from '~core/models';
+import { StatusUtils } from '~utils';
 import { TrackingComponent } from '~utils/tracking-component';
 
 @Component({
@@ -20,6 +21,7 @@ export class TaskCatalogComponent extends TrackingComponent {
 	@Output() taskClicked = new EventEmitter<Task>();
 
 	displayIndex = 3;
+	statusUtils = StatusUtils;
 
 	constructor() {
 		super();

@@ -6,7 +6,12 @@ $padding-vertical: 6px;
 	align-items: center;
 	max-width: 100%;
 	width: fit-content;
+	box-sizing: border-box;
 	min-width: 10px;
+	// in case we apply a full-width class
+	&.full-width {
+		width: 100%;
+	}
 	&.default {
 		border-radius: var(--border-radius);
 		margin-left: -$padding-horizontal;
@@ -24,7 +29,7 @@ $padding-vertical: 6px;
 
 .labelCtnr {
 	margin-bottom: 0;
-	width: inherit;
+	width: 100%;
 	min-width: inherit;
 }
 

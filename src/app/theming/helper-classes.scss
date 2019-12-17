@@ -58,6 +58,7 @@
   display: inline-block;
 }
 
+// TODO use scss for this... It's only used in one component also..
 .col-5 {
   width: 5%;
 }
@@ -191,10 +192,6 @@
 	overflow-y: auto !important;
 }
 
-.bordered-table {
-	border: 1px solid #e6ebf5;
-	border-radius: var(--border-radius-s);
-}
 
 // fixed size of the dot font-size-m
 // note: if in the future we use more sizes, implement @each $size in $sizes
@@ -251,22 +248,6 @@
 	}
 }
 
-.header-detail-margin-board {
-	margin: 24px 24px 0 24px !important;
-}
-
-.sub-menu-padding-board {
-	padding: 24px 24px 0 24px !important;
-}
-
-.border-bottom-divider {
-	border-bottom: 1px solid var(--color-divider);
-}
-
-.side-padding-l {
-	padding-left: var(--spacing-l);
-	padding-right: var(--spacing-l);
-}
 
 .small-gray-badge-separator {
 	height: 4px;
