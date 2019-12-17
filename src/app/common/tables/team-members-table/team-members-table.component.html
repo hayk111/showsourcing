@@ -16,8 +16,9 @@
 	<ng-template
 		[columnApp]="''"
 		let-row="row"
-		width="20">
-		<div class="user-icon flexCenter">
+		[grows]="false"
+		width="12">
+		<div class="user-icon">
 			<icon-app class="color-third" name="contact" size="s"></icon-app>
 		</div>
 	</ng-template>
@@ -30,7 +31,7 @@
 		width="250"
 		[sortOrder]="'DESC'">
 		<div class="flexVAlign">
-			<span class="user-name">
+			<span>
 				{{ row.user.firstName }} {{ row.user.lastName }}
 			</span>
 		</div>
