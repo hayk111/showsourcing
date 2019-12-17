@@ -17,6 +17,10 @@
 		box-sizing: border-box;
 		overflow: hidden;
 	}
+
+	.spacing-ms {
+		margin: var(--spacing-ms) var(--spacing-ms) 0 var(--spacing-ms);
+	}
 }
 
 .details-page {

@@ -88,7 +88,7 @@
 
 	<!-- creation date -->
 	<ng-container *ngSwitchCase="'creationDate'">
-		<span class="ellipsis">{{ row?.creationDate | date: 'dd MMMM y':'':translate.currentLang  }}</span>
+		{{ row?.creationDate | date: 'dd MMM y':'':translate.currentLang  }}
 	</ng-container>
 
 	<!-- created by -->

@@ -12,17 +12,13 @@
 	</header-details-info-app>
 </header-details-app>
 
-<controller-table-app>
-	<controller-table-quick-filters-app [quickFilters]="['createdBy']"></controller-table-quick-filters-app>
-	<controller-table-quick-actions-app>
-	</controller-table-quick-actions-app>
-	<controller-table-view-switcher-app 
-		[hasCard]="false" 
-		[hasBoard]="false">
-	</controller-table-view-switcher-app>
+<controller-table-app 
+	class="spacing-ms"
+	[hasFilters]="false">
 </controller-table-app>
 
 <exports-table-app
+	class="spacing-ms"
 	[rows]="listSrv.items$ | async"
 	[currentSort]="listSrv.currentSort"
 	[pending]="listSrv.pending"
