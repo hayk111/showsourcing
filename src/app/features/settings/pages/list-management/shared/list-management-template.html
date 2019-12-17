@@ -46,7 +46,7 @@
 
 </header-details-app>
 
-<controller-table-app>
+<controller-table-app class="spacing-ms">
 	<controller-table-content-app>
 		<button class="capitalize" (click)="listSrv.create(false)">Create {{erm.singular | translate}}</button>
 	</controller-table-content-app>
@@ -60,6 +60,7 @@
 </controller-table-app>
 
 <list-management-table-app
+	class="spacing-ms"
 	[rows]="listSrv.items$ | async"
 	[selection]="listSrv.selection$ | async"
 	[pending]="listSrv.pending"

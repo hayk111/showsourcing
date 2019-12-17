@@ -1,6 +1,6 @@
 <!-- TODO: translation to be added for TEAM_MEMBER-->
 
-<controller-table-app>
+<controller-table-app class="spacing-ms">
 	<controller-table-quick-filters-app></controller-table-quick-filters-app>
 	<controller-table-quick-actions-app>
 	</controller-table-quick-actions-app>
@@ -13,6 +13,7 @@
 
 <ng-container *ngIf="listSrv.items$ | async as members">
 	<team-members-table-app
+		class="spacing-ms"
 		[rows]="members"
 		[teamOwner]="teamOwner"
 		[user]="user"
