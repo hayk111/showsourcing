@@ -1,6 +1,10 @@
 <div
 	class="card-container action-hover-container"
-	[ngClass]="{ 'disable-action-hover disable-pointers': !hasHoverEffect, 'selected-card': selected }">
+	[ngClass]="{
+		'disable-action-hover disable-pointers': !hasHoverEffect,
+		'card-hover-style': hasHoverEffect,
+		'selected-card': selected
+	}">
 	<!-- picture -->
 	<img-app
 		[image]="product?.images"
