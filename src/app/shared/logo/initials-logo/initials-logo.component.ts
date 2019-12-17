@@ -42,6 +42,7 @@ export class InitialsLogoComponent implements AfterViewInit, OnInit {
 	@ViewChild('initialsElement', { static: false }) initialsElement: ElementRef;
 
 	initials: string;
+	pending = false;
 
 	constructor(
 		private hostElement: ElementRef,
@@ -69,7 +70,8 @@ export class InitialsLogoComponent implements AfterViewInit, OnInit {
 	}
 
 	addLogo(files: File[]) {
-		this.uploaderFeedbackSrv.addImages(files).subscribe();
+		this.pending = true;
+		this.uploaderFeedbackSrv.addImages(files).subscribe(_ => this.pending = false);
 	}
 
 	private setInitials(text?: string) {

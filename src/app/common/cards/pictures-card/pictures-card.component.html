@@ -1,5 +1,8 @@
 <card-app class="action-hover-container">
-	<card-title-app size="l" translate="title.pictures"></card-title-app>
+	<card-title-app size="l">
+		<div class="mg-right-ms" translate="title.pictures"></div>
+		<spinner-app *ngIf="pending" size="l"></spinner-app>
+	</card-title-app>
 
 	<card-action-app *ngIf="images?.length" class="action-hover-item" (click)="inpFile?.click()"><div translate="button.add-pictures"></div></card-action-app>
 
