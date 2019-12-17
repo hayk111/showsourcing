@@ -11,10 +11,11 @@
 <controller-table-app>
 	<controller-table-quick-filters-app></controller-table-quick-filters-app>
 	<controller-table-quick-actions-app 
-		[hasExport]="false"
+		[hasExport]="true"
 		[columns]="columns" 
 		[tableConfig]="tableConfig">
 	</controller-table-quick-actions-app>
+	<controller-table-view-switcher-app [hasBoard]="false"></controller-table-view-switcher-app>
 </controller-table-app>
 
 <ng-container *ngIf="listSrv.isListening">
