@@ -66,12 +66,12 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 		);
 
 		this.supplierDescriptor = new SupplierDescriptor([
-			'country', 'generalMOQ', 'generalLeadTime', 'incoTerm', 'harbour', 'officeEmail', 'officePhone', 'website', 'supplierType', 'address'
+			'country', 'generalMOQ', 'generalLeadTime', 'incoTerm', 'harbour', 'officeEmail', 'officePhone',
+			'website', 'supplierType', 'address', 'description'
 		]);
 		this.supplierDescriptor.modify([
-			{ name: 'generalMOQ', label: 'general MOQ' },
-			{ name: 'officePhone', label: 'phone' },
-			{ name: 'generalLeadTime', label: 'general lead time' },
+			{ name: 'generalMOQ', label: 'general-moq' },
+			{ name: 'harbour', label: 'loading-port' },
 			{ name: 'website', label: 'web' },
 		]);
 

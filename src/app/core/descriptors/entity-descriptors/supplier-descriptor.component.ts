@@ -1,21 +1,19 @@
 import { AbstractDescriptorComponent } from '../abstract-descriptor.component';
 import { ERM } from '~core/models';
-import { translate } from '~utils';
 import { DynamicField } from '~shared/dynamic-forms';
 
 export class SupplierDescriptor extends AbstractDescriptorComponent {
 
-	// TODO i18n
-	// TODO ERM ENUM
 	protected _descriptor: DynamicField[] = [
 		{ name: 'address', type: 'text', label: 'address' },
+		{ name: 'description', type: 'textarea', metadata: { rows: 5 } },
 		{ name: 'name', type: 'text', required: true, label: 'name' },
-		{ name: 'reference', type: 'text', label: translate('reference') },
-		{ name: 'generalMOQ', type: 'int', label: 'MOQ' },
-		{ name: 'generalLeadTime', type: 'days', label: 'Lead Time' },
+		{ name: 'reference', type: 'text', label: 'reference' },
+		{ name: 'generalMOQ', type: 'int', label: 'moq' },
+		{ name: 'generalLeadTime', type: 'days', label: 'general-lead-time' },
 		{ name: 'website', type: 'url', label: 'website' },
-		{ name: 'officeEmail', type: 'email', label: 'Email', required: true },
-		{ name: 'officePhone', type: 'tel', label: 'Tel' },
+		{ name: 'officeEmail', type: 'email', label: 'email', required: true },
+		{ name: 'officePhone', type: 'tel', label: 'phone' },
 
 		{
 			name: 'country', type: 'selector',
@@ -47,7 +45,7 @@ export class SupplierDescriptor extends AbstractDescriptorComponent {
 		},
 		{
 			name: 'supplierType', type: 'selector',
-			label: 'type',
+			label: 'supplier-type',
 			metadata: {
 				target: ERM.SUPPLIER_TYPE.singular,
 				canCreate: true,
@@ -58,25 +56,25 @@ export class SupplierDescriptor extends AbstractDescriptorComponent {
 		{
 			name: 'createdBy',
 			type: 'selector',
-			label: translate('created by'),
+			label: 'created-by',
 			metadata: { target: ERM.USER.singular, disabled: true }
 		},
 		{
 			name: 'creationDate',
 			type: 'date',
-			label: translate('creation date'),
+			label: 'creation-date',
 			metadata: { disabled: true }
 		},
 		{
 			name: 'lastUpdatedBy',
 			type: 'selector',
-			label: translate('last updated by'),
+			label: 'last-updated-by',
 			metadata: { target: ERM.USER.singular, disabled: true }
 		},
 		{
 			name: 'lastUpdatedDate',
 			type: 'date',
-			label: translate('last updated date'),
+			label: 'last-updated-date',
 			metadata: { disabled: true }
 		}
 	];

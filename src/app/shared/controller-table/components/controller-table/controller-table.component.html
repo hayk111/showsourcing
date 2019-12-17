@@ -14,12 +14,12 @@
 		class="icon"
 		(click)="listSrv.openFilterPanel()"
 		translate="button.show-filters">
-		<icon-app class="{{ listSrv.filterPanelOpen ? 'color-primary' :  'color-txt-third' }}" name="filter" size="m"></icon-app>
+		<icon-app class="{{ listSrv.filterPanelOpen ? 'color-primary' :  'color-third' }}" name="filter" size="m"></icon-app>
 	</button>
 
-	<button 
+	<button
 		*ngIf="listSrv.getFilterAmount() > 0"
-		class="light" 
+		class="light"
 		(click)="listSrv.resetFilters()">
 		Clear filters ({{ listSrv.getFilterAmount() }})
 	</button>
@@ -27,8 +27,8 @@
 	<divider-app *ngIf="hasFilters" [vertical]="true"></divider-app>
 
 	<span class="capitalize entities-count">
-		{{ listSrv.count$ | async }} 
-		{{ (listSrv.count$ | async) < 2 ? 
+		{{ listSrv.count$ | async }}
+		{{ (listSrv.count$ | async) < 2 ?
 			 (listSrv.entityMetadata.singular | translate) : (listSrv.entityMetadata.plural | translate) }}
 	</span>
 
@@ -44,7 +44,7 @@
 	<divider-app class="mg-left-ms" [vertical]="true"></divider-app>
 
 	<ng-content select="controller-table-quick-actions-app"></ng-content>
-	
+
 	<divider-app *ngIf="switcher" class="mg-left-ms" [vertical]="true"></divider-app>
 	<ng-content select="controller-table-view-switcher-app"></ng-content>
 

@@ -1,8 +1,8 @@
 <ng-container *ngIf="hasButton; else noBtn">
 	<button class="icon light" [ngClass]="favorite ? customClassFavorited : customClassUnFavorited">
-		<icon-app 
-			[ngClass]="favorite ? 'color-warn' : 'color-txt-third'"
-			name="heart" 
+		<icon-app
+			[ngClass]="favorite ? 'color-warn' : 'color-third'"
+			name="heart"
 			[size]="size" >
 		</icon-app>
 	</button>
@@ -10,7 +10,7 @@
 
 <ng-template #noBtn>
 	<icon-app
-		[ngClass]="favorite ? 'color-warn' : 'color-txt-third'"
+		[ngClass]="favorite ? 'color-warn' : 'color-third'"
 		name="heart"
 		[size]="size">
 	</icon-app>

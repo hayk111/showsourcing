@@ -1,20 +1,20 @@
 <button *ngIf="hasExport" class="icon mg-left-ms" (click)="onExportClick()" toolTip [toolTipMessage]="'tooltip.export' | translate">
-	<icon-app class="color-txt-third" name="export" size="m"></icon-app>
+	<icon-app class="color-third" name="export" size="m"></icon-app>
 </button>
 
 <context-menu-app>
 	<context-menu-trigger-app>
 		<button class="icon mg-left-ms" toolTip [toolTipMessage]="'tooltip.sort' | translate">
-			<icon-app class="color-txt-third" name="sort" size="m"></icon-app>
+			<icon-app class="color-third" name="sort" size="m"></icon-app>
 		</button>
 	</context-menu-trigger-app>
-	<context-menu-item-app 
+	<context-menu-item-app
 		*ngFor="let column of sortableColumns"
 		[ngClass]="{ 'color-primary': currentSort.sortBy === column.sortProperty }"
 		(click)="onSortClick(column)">
 		{{ 'title.' + column.translationKey | translate }}
 		<ng-container *ngIf="currentSort.sortBy === column.sortProperty">
-			<icon-app 
+			<icon-app
 				class="mg-left-s"
 				[name]="currentSort.descending ? 'angle-down' : 'angle-up'"
 				size="xs">

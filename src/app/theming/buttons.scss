@@ -53,7 +53,7 @@ button, input[type="submit"], .button {
 	&:disabled {
 		cursor: default;
 		background: var(--color-secondary-light);
-		color: var(--color-txt-third);
+		color: var(--color-third);
 	}
 
 	&.light {
