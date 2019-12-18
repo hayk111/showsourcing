@@ -1,6 +1,8 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ProductService } from '~core/entity-services';
 import { Product } from '~core/models';
 import { TrackingComponent } from '~utils';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'products-card-app',
@@ -8,15 +10,37 @@ import { TrackingComponent } from '~utils';
 	styleUrls: ['./products-card.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductsCardComponent extends TrackingComponent implements OnInit {
+export class ProductsCardComponent extends TrackingComponent {
 
 	@Input() products: Product[];
 	@Output() addProducts = new EventEmitter<undefined>();
 	@Output() viewAll = new EventEmitter<undefined>();
 
-	constructor() { super(); }
+	previewOpen = false;
+	previewProduct: Product;
 
-	ngOnInit() {
+	constructor(
+		private productSrv: ProductService,
+		private router: Router
+	) { super(); }
+
+
+	update(product: Product) {
+		this.productSrv.update(product).subscribe();
+	}
+
+	openPreview(product: Product) {
+		this.previewProduct = product;
+		this.previewOpen = true;
+	}
+
+	closePreview() {
+		this.previewOpen = false;
+		this.previewProduct = null;
+	}
+
+	openProduct(product: Product) {
+		this.router.navigate(['products', product.id]);
 	}
 
 }

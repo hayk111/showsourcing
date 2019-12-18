@@ -1,13 +1,13 @@
 
 	<!-- header -->
 	<div *ngIf="hasHeader" class="header flexBetween"
-		[ngClass]="hasBorder && 'border-bottom-divider'" 
+		[ngClass]="hasBorder && 'border-bottom-divider'"
 		[ngStyle]="{ 'padding-bottom': 'var(--spacing-' + headerSpacing + ')' }">
 		<div class="spacer">
 			<ng-content select="dialog-header-app"></ng-content>
 		</div>
 
-		<icon-app *ngIf="closeIcon" name="close" class="pointer color-txt-third" (click)="doClose()"></icon-app>
+		<icon-app *ngIf="closeIcon" name="close" class="pointer color-third" (click)="doClose()"></icon-app>
 	</div>
 	<!-- <divider-app></divider-app> -->
 

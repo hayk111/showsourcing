@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { ERM, Product } from '~core/models';
-import { Status } from '~core/models/status.model';
+import { EntityName, ERM, Product } from '~core/models';
+import { RatingService } from '~shared/rating/services/rating.service';
 import { StatusUtils } from '~utils';
 
 @Component({
@@ -19,15 +19,21 @@ export class ProductGridCardComponent {
 	@Output() preview = new EventEmitter<null>();
 	@Output() select = new EventEmitter<null>();
 	@Output() unselect = new EventEmitter<null>();
-	@Output() favorited = new EventEmitter<null>();
-	@Output() unfavorited = new EventEmitter<null>();
-	@Output() liked = new EventEmitter<null>();
-	@Output() disliked = new EventEmitter<null>();
 	@Output() update = new EventEmitter<Product>();
 
 	erm = ERM;
 	statusUtils = StatusUtils;
 
-	constructor() { }
+	constructor(private ratingSrv: RatingService) { }
+
+	thumbUp() {
+		const votes = this.ratingSrv.thumbUp(this.product, EntityName.PRODUCT);
+		this.update.emit({ id: this.product.id, votes });
+	}
+
+	thumbDown() {
+		const votes = this.ratingSrv.thumbDown(this.product, EntityName.PRODUCT);
+		this.update.emit({ id: this.product.id, votes });
+	}
 
 }

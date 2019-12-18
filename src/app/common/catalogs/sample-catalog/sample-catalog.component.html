@@ -6,7 +6,7 @@
 		<ng-container *ngIf="i < displayIndex">
 			<icon-app
 				class="pointer"
-				[ngClass]="'color-' + statusUtils.getStatusColor(sample?.status)"
+				[ngClass]="'color-' + statusUtils.getStatusIconColor(sample?.status)"
 				[name]="'sample'"
 				[size]="12"
 				(click)="sampleClicked.emit(sample)">
