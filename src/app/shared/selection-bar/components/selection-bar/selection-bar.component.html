@@ -3,7 +3,12 @@
 
   <div class="flexCenter">
     <div class="selected">
-			<select-checkbox-app [state]="state" [size]="24"></select-checkbox-app>
+			<select-checkbox-app 
+				[state]="getSelectionState()" 
+				[size]="24"
+				(check)="selectAll.emit(items)"
+				(uncheck)="unselectAll.emit()">
+			</select-checkbox-app>
     </div>
 
     <div class="closeSection pointer">

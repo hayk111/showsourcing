@@ -1,5 +1,6 @@
 <card-app padding="none">
 	<ng-container *ngIf="product$ | async; else spinner">
+
 		<!-- user -->
 		<activity-user-app
 			[user]="product?.createdBy"
@@ -47,9 +48,7 @@
 		<div class="flexColumn prodInfo">
 			<span class="name ellipsis">{{ product?.name }}</span>
 			<div class="flex status-info flexWrap dot-separator">
-				<span *ngIf="product?.price?.value" class="price">
-					{{ product?.price | appPrice }}
-				</span>
+				<price-app [price]="product?.price"></price-app>
 				<span *ngIf="product?.category?.name">{{ product?.category?.name }}</span>
 				<span *ngIf="product?.supplier?.name" class="supplier">{{ product?.supplier?.name }}</span>
 				<stats-icons-app

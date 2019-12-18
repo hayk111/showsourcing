@@ -1,10 +1,12 @@
 <selection-bar-app
 	entityType="product"
 	[isShown]="isShown"
-	[count]="count"
+	[items]="items"
 	[selection]="selection"
-	[state]="selectionState"
-	(close)="close.emit()">
+	[selectionCount]="selectionCount"
+	(close)="close.emit()"
+	(selectAll)="selectAll.emit($event)"
+	(unselectAll)="unselectAll.emit()">
 
 	<div class="flex flexVAlign elements-container">
 		

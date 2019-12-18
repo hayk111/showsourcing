@@ -183,7 +183,7 @@ export class ProductsBoardComponent extends AutoUnsub implements OnInit {
 	}
 
 	onUnselectedOne(product: Product, column: any) {
-		this.selectionSrv.unselectOne(product, column);
+		this.selectionSrv.unselectOne(product);
 		this.unselectOne.emit(product);
 	}
 

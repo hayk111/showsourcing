@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { EntityType } from '~core/models';
+import { EntityType, Entity } from '~core/models';
 import { selectionBarAnimation } from '~shared/selection-bar/animation/selection-bar.animation';
-import { SelectionState } from '~core/list-page';
+import { SelectionState } from '~shared/inputs-custom/components/select-checkbox/select-checkbox.component';
 
 @Component({
 	selector: 'selection-bar-app',
@@ -19,8 +19,8 @@ import { SelectionState } from '~core/list-page';
 export class SelectionBarComponent {
 	@Input() selection: Map<string, boolean>;
 	@Input() entityType: EntityType;
-	@Input() state: SelectionState;
-	@Input() count: number;
+	@Input() selectionCount: number;
+	@Input() items: Entity[];
 	@Input() isShown = false;
 	@Output() close = new EventEmitter();
 
@@ -28,6 +28,13 @@ export class SelectionBarComponent {
 		if (txt && (typeof txt) === 'string') {
 			return txt.charAt(0).toUpperCase() + txt.slice(1);
 		}
+	}
+
+	getSelectionState(): SelectionState {
+		if (this.selection.size === 0) {
+			return 'unchecked';
+		}
+		return this.selection.size === this.selectionCount ? 'selectedAll' : 'selectedPartial';
 	}
 
 }

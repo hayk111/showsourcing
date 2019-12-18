@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { SelectionState } from '~core/list-page';
 
+
+export type SelectionState = 'selectedPartial' | 'unchecked' | 'selectedAll';
 
 @Component({
 	selector: 'select-checkbox-app',
