@@ -2,8 +2,8 @@
 	<controller-table-quick-filters-app></controller-table-quick-filters-app>
 	<controller-table-quick-actions-app>
 	</controller-table-quick-actions-app>
-	<controller-table-view-switcher-app 
-		[hasCard]="false" 
+	<controller-table-view-switcher-app
+		[hasCard]="false"
 		[hasBoard]="false">
 	</controller-table-view-switcher-app>
 </controller-table-app>
@@ -22,7 +22,7 @@
 		(favorited)="listSrv.onItemFavorited($event)"
 		(open)="listSrv.goToDetails($event)"
 		(openAddToProjectDialog)="dialogCommonSrv.openAddToProjectDialog([$event])"
-		(openExportDialog)="dialogCommonSrv.openExportDialog([$event])"
+		(openExportDialog)="dialogCommonSrv.openExportDialog(erm.PRODUCT.singular, [$event])"
 		(openRequestFeedbackDialog)="dialogCommonSrv.openRequestFeedbackDialog([$event])"
 		(previewClick)="listSrv.openPreview($event)"
 		(select)="listSrv.selectOne($event, true)"
@@ -52,7 +52,7 @@
 	(favorited)="listSrv.onFavoriteAllSelected()"
 	(unfavorited)="listSrv.onUnfavoriteAllSelected()"
 	(addProject)="dialogCommonSrv.openAddToProjectDialog(listSrv.getSelectedValues())"
-	(export)="dialogCommonSrv.openExportDialog(listSrv.getSelectedValues())"
+	(export)="dialogCommonSrv.openExportDialog(erm.PRODUCT.singular, listSrv.getSelectedValues())"
 	(requestTeamFeedback)="dialogCommonSrv.openRequestFeedbackDialog(listSrv.getSelectedValues())"
 	(compareProducts)="dialogCommonSrv.openCompareProductDialog(listSrv.getSelectedValues())"
 	(statusUpdated)="listSrv.updateSelected({status: $event})"

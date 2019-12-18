@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { filter, map } from 'rxjs/operators';
 import {
 	CreationDialogComponent,
@@ -11,6 +10,7 @@ import {
 	CompareProductComponent,
 	EditionDialogComponent,
 	ExportDlgComponent,
+	ExportEntity,
 	InviteUserDlgComponent,
 	MassEditDlgComponent,
 	MergeDialogComponent,
@@ -20,7 +20,7 @@ import {
 	VoteDetailsDialogComponent,
 } from '~common/dialogs/custom-dialogs';
 import { ProductAddToProjectDlgComponent, ProductSelectDlgComponent } from '~common/dialogs/selection-dialogs';
-import { EntityMetadata, Product, Project, Supplier } from '~models';
+import { EntityMetadata, EntityName, Product, Project, Supplier } from '~models';
 import { CloseEvent, CloseEventType } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { DialogService } from '~shared/dialog/services';
@@ -63,8 +63,8 @@ export class DialogCommonService {
 	}
 
 	/** Opens a dialog that lets the user export a product either in PDF or EXCEL format */
-	openExportDialog(targets?: Product[] | Supplier[], query?: string) {
-		return this.dlgSrv.open(ExportDlgComponent, { targets, query });
+	openExportDialog(type: EntityName, targets?: ExportEntity[], query?: string) {
+		return this.dlgSrv.open(ExportDlgComponent, { type, targets, query });
 	}
 
 	/** Opens a dialog that lets the user request members of his team for feedback regarding the products he selectioned */

@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { first, switchMap, takeUntil, filter, tap } from 'rxjs/operators';
+import { filter, first, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { ProductDescriptor } from '~core/descriptors';
 import { CommentService } from '~core/entity-services/comment/comment.service';
@@ -20,15 +20,25 @@ import {
 	ExtendedFieldDefinitionService,
 } from '~core/entity-services/extended-field-definition/extended-field-definition.service';
 import { ProductService, SampleService, TaskService } from '~entity-services';
-import { AppImage, Comment, ERM, ExtendedFieldDefinition, PreviewActionButton, Product, Sample, Task, EntityName } from '~models';
+import {
+	AppImage,
+	Comment,
+	EntityName,
+	ERM,
+	ExtendedFieldDefinition,
+	PreviewActionButton,
+	Product,
+	Sample,
+	Task,
+} from '~models';
+import { CloseEvent, CloseEventType } from '~shared/dialog';
+import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { DialogService } from '~shared/dialog/services';
 import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { PreviewCommentComponent, PreviewService } from '~shared/preview';
 import { RatingService } from '~shared/rating/services/rating.service';
 import { AutoUnsub, PendingImage, translate } from '~utils';
-import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
-import { CloseEventType, CloseEvent } from '~shared/dialog';
 
 @Component({
 	selector: 'product-preview-app',
@@ -90,10 +100,9 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 		private uploader: UploaderService,
 		private cd: ChangeDetectorRef,
 		private productSrv: ProductService,
-		private modalSrv: DialogCommonService,
+		private dialogCommonSrv: DialogCommonService,
 		private dlgSrv: DialogService,
 		private router: Router,
-		public dialogCommonSrv: DialogCommonService,
 		private commentSrv: CommentService,
 		private extendedFieldDefSrv: ExtendedFieldDefinitionService,
 		public previewSrv: PreviewService,
@@ -209,19 +218,19 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 	}
 
 	openAddToProject() {
-		this.modalSrv.openAddToProjectDialog([this.product]);
+		this.dialogCommonSrv.openAddToProjectDialog([this.product]);
 	}
 
 	openNewTask() {
-		this.modalSrv.openCreationTaskDlg(this.product, this.product && this.product.supplier).subscribe();
+		this.dialogCommonSrv.openCreationTaskDlg(this.product, this.product && this.product.supplier).subscribe();
 	}
 
 	openNewSample() {
-		this.modalSrv.openCreationSampleDialog(this.product, this.product && this.product.supplier).subscribe();
+		this.dialogCommonSrv.openCreationSampleDialog(this.product, this.product && this.product.supplier).subscribe();
 	}
 
 	openExportModal() {
-		this.modalSrv.openExportDialog([this.product]);
+		this.dialogCommonSrv.openExportDialog(EntityName.PRODUCT, [this.product]);
 	}
 
 	scrollToCommentButton() {

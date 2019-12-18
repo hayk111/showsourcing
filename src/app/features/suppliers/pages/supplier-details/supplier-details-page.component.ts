@@ -12,6 +12,7 @@ import { Supplier } from '~models/supplier.model';
 import { DialogService } from '~shared/dialog';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { AutoUnsub, log } from '~utils';
+import { EntityName } from '~core/models';
 
 
 // Guest to the waiter: “Can you bring me what the lady at the next table is having?”
@@ -70,7 +71,7 @@ export class SupplierDetailsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	export(supplier: Supplier) {
-		this.dialogCommonSrv.openExportDialog([supplier]);
+		this.dialogCommonSrv.openExportDialog(EntityName.SUPPLIER, [supplier]);
 	}
 
 	contact(supplier: Supplier) {

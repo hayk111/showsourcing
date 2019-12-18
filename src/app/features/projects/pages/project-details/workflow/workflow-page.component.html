@@ -38,7 +38,7 @@
 		(favorited)="onFavoriteAllSelected()"
 		(unfavorited)="onUnfavoriteAllSelected()"
 		(addProject)="dialogCommonSrv.openAddToProjectDialog(listSrv.getSelectedValues())"
-		(export)="dialogCommonSrv.openExportDialog(listSrv.getSelectedValues())"
+		(export)="dialogCommonSrv.openExportDialog(erm.PRODUCT.singular, listSrv.getSelectedValues())"
 		(requestTeamFeedback)="dialogCommonSrv.openRequestFeedbackDialog(listSrv.getSelectedValues())"
 		(compareProducts)="dialogCommonSrv.openCompareProductDialog(listSrv.getSelectedValues())"
 		(statusUpdated)="onMultipleStatusChange($event)"
