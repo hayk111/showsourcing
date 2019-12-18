@@ -7,6 +7,7 @@ import { DEFAULT_TAKE_PAGINATION } from '~entity-services/_global/select-params'
 })
 export class SelectionService {
 	selection = new Map<string, any>();
+	/** added selection columns because the board view selection partial selection works differently */
 	selectedColumns: Map<string, string> = new Map();
 	private _selectionState$ = new BehaviorSubject<'selectedPartial' | 'unchecked' | 'selectedAll'>('unchecked');
 	private _selection$ = new BehaviorSubject<Map<string, any>>(this.selection);

@@ -103,10 +103,11 @@
 	</product-preview-app>
 </ng-container>
 
-<filters-app
-	*ngIf="listSrv.filterPanelOpen"
-	[filterList]="listSrv.filterList"
-	[filterTypes]="filterTypes"
-	(clickOutside)="listSrv.closeFilterPanel()"
-	(close)="listSrv.closeFilterPanel()">
-</filters-app>
+<side-panel-app *ngIf="listSrv.filterPanelOpen">
+	<filters-app
+		[filterList]="listSrv.filterList"
+		[filterTypes]="filterTypes"
+		(clickOutside)="listSrv.closeFilterPanel()"
+		(close)="listSrv.closeFilterPanel()">
+	</filters-app>
+</side-panel-app>

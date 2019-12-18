@@ -17,6 +17,7 @@ import { AutoUnsub } from '~utils';
 	styleUrls: ['./product-add-to-project-dlg.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [ListPageService],
+	host: { class: 'table-dialog' }
 })
 export class ProductAddToProjectDlgComponent extends AutoUnsub implements OnInit {
 
@@ -24,7 +25,7 @@ export class ProductAddToProjectDlgComponent extends AutoUnsub implements OnInit
 	@Input() products: Product[];
 
 	selected = {};
-	filterType = FilterType;
+	filterTypes = [FilterType.CREATED_BY];
 	erm = ERM;
 	entityTypeEnum = EntityTypeEnum;
 

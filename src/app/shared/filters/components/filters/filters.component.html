@@ -1,21 +1,12 @@
 
-
 <!-- BTN PANEL -->
-<side-panel-app *ngIf="view === 'BTNS' && sidePanel">
-
-	<div class="filters-title-section">
-		<side-panel-title-app class="capitalize filters-title" translate="text.filters">
-    </side-panel-title-app>
-		<div class="clear-filters-container">
-			<side-panel-action-app class="clear" (click)="resetAll()">
-				<span class="clear-filters" translate="text.clear-all-filters"></span>
-			</side-panel-action-app>
-			<icon-app name="close-pane-right" size="24" (click)="close.emit()"></icon-app>
-		</div>
+<ng-container *ngIf="view === 'BTNS' && sidePanel">
+	<div class="flexBetween flexVAlign mg-bottom-ms">
+		<h3>Filters</h3>
+		<button class="icon" (click)="close.emit()">
+			<icon-app name="close" class="fs-s"></icon-app>
+		</button>
 	</div>
-	<divider-app class="title-divider"></divider-app>
-
-
   <filter-btn-list-app
     [filterTypes]="filterTypes"
     [filterMap]="filterList.asByType()"
@@ -24,22 +15,18 @@
     (editClicked)="openEditPanel($event)"
     (resetClicked)="resetType($event)">
   </filter-btn-list-app>
-
-</side-panel-app>
-
+</ng-container>
 
 
 <!-- SELECT ENTITY PANEL -->
-<side-panel-app *ngIf="view === 'SELECTION' && sidePanel">
-  <side-panel-title-app (click)="openBtnPanel()">
-    <div class="flex pointer">
-			<icon-app name="angle-left" size="s"></icon-app>
-      <span class="capitalize" translate="button.back">back</span>
-    </div>
-  </side-panel-title-app>
-  <side-panel-action-app class="clear" (click)="resetType(typeSelected)" translate="button.clear-all">
-    Clear All
-  </side-panel-action-app>
+<ng-container *ngIf="view === 'SELECTION' && sidePanel">
+	<div class="flexBetween flexVAlign mg-bottom-l">
+		<button class="icon-with-text primary-light" (click)="openBtnPanel()">
+			<icon-app class="mg-right-s" name="angle-left fs-s"></icon-app>
+      <span class="capitalize " translate="button.back"></span>
+		</button>
+		<button class="warn-light" (click)="resetType(typeSelected)"> Clear All </button>
+	</div>
 
 	<filter-selection-entity-panel-app
 		*ngIf="view === 'SELECTION'"
@@ -48,50 +35,4 @@
     (filterAdded)="addFilter($event)"
     (filterRemoved)="removeFilter($event)">
   </filter-selection-entity-panel-app>
-</side-panel-app>
-
-<!-- DIALOG PANEL -->
-<dialog-side-panel-app *ngIf="!sidePanel">
-	
-	<div class="filters-title-section flexVAlign">
-		<side-panel-title-app class="capitalize filters-title" translate="text.filters">
-		</side-panel-title-app>
-		<div class="dialog-panel-right-section flexVAlign">
-			<side-panel-action-app class="clear" (click)="resetAll()" i18n="text@@clear-all-filters">
-				Clear All Filters
-			</side-panel-action-app>
-			<icon-app name="close-pane-right" size="24" (click)="close.emit()"></icon-app>
-		</div>
-	</div>
-
-	<filter-btn-list-app
-		*ngIf="view === 'BTNS'"
-		[filterTypes]="filterTypes"
-		[filterMap]="filterList.asByType()"
-		(filterAdded)="addFilter($event)"
-		(filterRemoved)="removeFilter($event)"
-		(editClicked)="openEditPanel($event)"
-		(resetClicked)="resetType($event)">
-	</filter-btn-list-app>
-
-	<side-panel-app *ngIf="view === 'SELECTION'">
-		<side-panel-title-app (click)="openBtnPanel()">
-			<div class="flex pointer">
-				<icon-app name="angle-left" size="s"></icon-app>
-				<span class="capitalize" translate="button.back">back</span>
-			</div>
-		</side-panel-title-app>
-		<side-panel-action-app class="clear" (click)="resetType(typeSelected)" translate="button.clear-all">
-			Clear All
-		</side-panel-action-app>
-	
-		<filter-selection-entity-panel-app
-			*ngIf="view === 'SELECTION'"
-			[type]="typeSelected"
-			[selected]="filterList.asByType().get(typeSelected)"
-			(filterAdded)="addFilter($event)"
-			(filterRemoved)="removeFilter($event)">
-		</filter-selection-entity-panel-app>
-	</side-panel-app>
-	
-</dialog-side-panel-app>
+</ng-container>

@@ -1,12 +1,12 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { debounceTime, takeUntil, tap, take, switchMap } from 'rxjs/operators';
-import { Subject, Observable, BehaviorSubject } from 'rxjs';
-import { AutoUnsub } from '~utils';
-import { Filter, FilterType } from '~shared/filters/models';
-import { EntityMetadata, ERM } from '~models';
-import { ERMService } from '~entity-services/_global/erm.service';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { debounceTime, switchMap, take, takeUntil, tap } from 'rxjs/operators';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
+import { ERMService } from '~entity-services/_global/erm.service';
 import { ListQuery } from '~entity-services/_global/list-query.interface';
+import { ERM } from '~models';
+import { Filter, FilterType } from '~shared/filters/models';
+import { AutoUnsub } from '~utils';
 
 // this is the entity panel that appears once a filter button has been clicked
 // a list of choices is displayed and the user can pick through those choices

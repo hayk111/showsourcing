@@ -7,9 +7,9 @@
 				{{ type }}
 			</label>
 
-			<button class="secondary-light full-width"
+			<button class="secondary-light full-width flexCenter"
 				(click)="editClicked.emit(type)">
-				<ng-container translate="button.filter-by"></ng-container> {{ type }}
+				{{ 'filters.filter-by-' + type | translate }}
 			</button>
 
 		</ng-container>
@@ -37,7 +37,7 @@
 						*ngFor="let filter of getFiltersFor(type); trackBy: trackByFn"
 						[checked]="true"
 						(uncheck)="removeFilter(filter)">
-						{{ getDisplayName(filter, type) }}
+						<span class="mg-left-s">{{ getDisplayName(filter, type) }}</span>
 					</checkbox-app>
 				</div>
 
@@ -45,38 +45,34 @@
 
 	</ng-container>
 
+	<ng-container *ngIf="hasOthers">
+		<label class="capitalize" translate="filters.Others"></label>
+	</ng-container>
+
+	<!-- favorite -->
 	<ng-container *ngIf="hasFavoriteFilter">
-
-		<!-- favorite -->
-		<label class="capitalize" translate="text.favorite">
-		</label>
-
 		<checkbox-app
 			[checked]="isFavorite()"
 			(check)="addFilter({ type: favoriteType, value: true })"
 			(uncheck)="removeFilter({ type: favoriteType, value: true })">
-				<rating-heart-app [static]="true" [favorite]="true"></rating-heart-app>
-				<span translate="button.only-show-favorites"></span>
+			<icon-app class="color-warn mg-h-s" name="heart"></icon-app>
+			<span translate="button.only-show-favorites"></span>
 		</checkbox-app>
 	</ng-container>
 
 	<!-- archived -->
 	<ng-container *ngIf="hasArchivedFilter">
-		<label class="capitalize" translate="text.archived">
-		</label>
-
 		<checkbox-app
 			[checked]="isArchived()"
 			(check)="onArchivedChange()"
 			(uncheck)="onArchivedChange()">
+			<icon-app class="mg-h-s" name="archive"></icon-app>
 			<span translate="text.show-archived-products"></span>
 		</checkbox-app>
 	</ng-container>
 
 	<!-- done -->
 	<ng-container *ngIf="hasDoneFilter">
-		<label class="capitalize" translate="text.completed"></label>
-
 		<checkbox-app
 			[checked]="isDone()"
 			(check)="onDoneChange()"

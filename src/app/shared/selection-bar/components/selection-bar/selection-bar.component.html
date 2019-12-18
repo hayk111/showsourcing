@@ -9,9 +9,6 @@
     <div class="closeSection pointer">
       <div *ngIf="!entityType" class="entity-selected">{{(selection?.size || 0)}} {{ ((selection?.size || 0) > 1 ? 'items' : 'item') + ' selected' }}</div>
       <div *ngIf="entityType" class="capitalize entity-selected">{{(selection?.size || 0)}} {{(selection?.size || 0) > 1 ? entityType + 's selected' : entityType + ' selected' }}</div>
-      <div class="entity-select-count">
-        {{ 'Select the ' + count + ' ' + ((count || 0) > 1 ? capitalize(entityType) + 's' : capitalize(entityType))}}
-      </div>
     </div>
   </div>
 
