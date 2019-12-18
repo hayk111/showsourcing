@@ -1,8 +1,9 @@
-	<label>{{'title.search' | translate}} {{ type }}</label>
 
-	<div class="section">
-		<input type="text" placeholder="Search" (input)="search($event.target.value)"/>
-	</div>
+	<input 
+		class="mg-bottom-l" 
+		type="text" 
+		placeholder="{{'title.search' | translate}} {{ type }}" 
+		(input)="search($event.target.value)"/>
 
 	<ng-container *ngIf="pending$ | async">
 		<spinner-app></spinner-app>
@@ -11,10 +12,11 @@
 	<section *ngIf="!(pending$ | async)" class="choiceCtnr" infiniScroll (bottomReached)="loadMore()">
 		<checkbox-app
 			*ngFor="let choice of choices$ | async; trackBy: trackById"
+			class="mg-bottom-s"
 			[checked]="selected.has(choice.id)"
 			(check)="onItemAdded(choice)"
 			(uncheck)="onItemRemoved(choice)">
-			<div class="flexBetween">
+			<div class="flexBetween mg-left-s">
 				<span>{{ formatDisplayName(type, choice) }}</span>
 				<span>{{ choice.productCount }}</span>
 			</div>
