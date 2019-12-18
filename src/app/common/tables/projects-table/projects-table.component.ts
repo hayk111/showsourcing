@@ -2,7 +2,6 @@ import { Component, Input } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { EntityTableComponent, TableConfig } from '~common/tables/entity-table.component';
 import { Project } from '~models';
-import { Color } from '~utils';
 import { defaultConfig } from '../default-columns/default-config';
 
 const tableConfig: TableConfig = {

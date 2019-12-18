@@ -10,9 +10,26 @@
 	}
 
 	.entity-table {
-		// remove margin from table component
 		flex-grow: 1;
 		margin: var(--spacing-ms) var(--spacing-l);
+		display: flex;
+		box-sizing: border-box;
+		overflow: hidden;
+	}
+}
+
+.table-dialog {
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+
+	controller-table-app {
+		margin-top: var(--spacing-ms);
+	}
+
+	.entity-table {
+		flex-grow: 1;
+		margin-top: var(--spacing-ms);
 		display: flex;
 		box-sizing: border-box;
 		overflow: hidden;
@@ -24,3 +41,5 @@
 	flex-direction: column;
 	height: 100%;
 }
+
+

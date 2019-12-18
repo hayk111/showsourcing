@@ -30,14 +30,9 @@ export class TasksPageComponent extends AutoUnsub implements OnInit, AfterViewIn
 	filterTypeEnum = FilterType;
 	// filter displayed as button in the filter panel
 	filterTypes = [
-		FilterType.CATEGORY,
 		FilterType.CREATED_BY,
-		FilterType.EVENT,
-		FilterType.FAVORITE,
-		FilterType.PRODUCT_STATUS,
 		FilterType.PROJECTS,
 		FilterType.SUPPLIER,
-		FilterType.TAGS
 	];
 	columns = TasksTableComponent.DEFAULT_COLUMNS;
 	tableConfig = TasksTableComponent.DEFAULT_TABLE_CONFIG;

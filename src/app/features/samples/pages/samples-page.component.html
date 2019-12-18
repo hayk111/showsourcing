@@ -74,13 +74,14 @@
 	(preview) = "listSrv.openPreview($event)">
 </samples-board-app>
 
-<filters-app
-	[filterList]="listSrv.filterList"
-	[filterTypes]="filterTypes"
-	(clickOutside)="listSrv.closeFilterPanel()"
-	(close)="listSrv.closeFilterPanel()"
-	*ngIf="listSrv.filterPanelOpen">
-</filters-app>
+<side-panel-app *ngIf="listSrv.filterPanelOpen">
+	<filters-app
+		[filterList]="listSrv.filterList"
+		[filterTypes]="filterTypes"
+		(clickOutside)="listSrv.closeFilterPanel()"
+		(close)="listSrv.closeFilterPanel()">
+	</filters-app>
+</side-panel-app>
 
 <sample-preview-app
 	*ngIf="listSrv.previewOpen"
