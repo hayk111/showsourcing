@@ -35,19 +35,16 @@
 		[columnApp]="'header.name' | translate"
 		let-row="row"
 		width="250">
-		<div class="flexBetween ellipsis">
-      <!-- <div> {{ row.name }} </div> -->
-			<editable-container-app
-				#editable
-				(closed)="updateNameEntity($event, row, txtName?.value)"
-				[hasAction]="true">
-        <editable-display-app class="task-name">
-          {{ row?.name }}
-        </editable-display-app>
-        <input inputApp #txtName [value]="row?.name || ''" (keyup.enter)="editable.close()" />
-      </editable-container-app>
-			<!-- <button *ngIf="(row.id === idEntityHovered) && (selection.size == 0)"  class="button secondary-dark" (click)="renameEntity.emit(row)">Rename</button> -->
-		</div>
+		<editable-container-app
+			#editable
+			(closed)="updateNameEntity($event, row, txtName?.value)"
+			[hasAction]="true">
+			<editable-display-app class="task-name">
+				{{ row?.name }}
+			</editable-display-app>
+			<input inputApp #txtName [value]="row?.name || ''" (keyup.enter)="editable.close()" />
+		</editable-container-app>
+		<!-- <button *ngIf="(row.id === idEntityHovered) && (selection.size == 0)"  class="button secondary-dark" (click)="renameEntity.emit(row)">Rename</button> -->
 	</ng-template>
 
 	<!-- Name Event -->
