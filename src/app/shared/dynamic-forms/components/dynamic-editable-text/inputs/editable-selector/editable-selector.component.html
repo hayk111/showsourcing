@@ -46,7 +46,7 @@
 				[user]="value"
 				[image]="value?.avatar">
 			</user-picture-app>
-			<span class="ellipsis">{{ value ? (value?.firstName +  ' ' + value?.lastName) : '-'}}</span>
+			<span class="ellipsis">{{ value ? (value | formatUserName: true) : '-' }}</span>
 		</div>
 
 		<!-- category -->
@@ -65,14 +65,9 @@
 			<span> {{ value?.description?.name || '-' }}</span>
 		</ng-container>
 
-		<!-- incoTerm -->
-		<ng-container *ngSwitchCase="erm.INCO_TERM.singular">
-			<span> {{ value || '-' }}</span>
-		</ng-container>
-
-		<!-- harbour -->
-		<ng-container *ngSwitchCase="erm.HARBOUR.singular">
-			<span> {{ value || '-' }}</span>
+		<!-- country -->
+		<ng-container *ngSwitchCase="erm.COUNTRY.singular">
+			<span> {{ value ? (value | const: 'country' ) : '-' }}</span>
 		</ng-container>
 
 		<!-- selector element -->
@@ -111,7 +106,7 @@
 		<span
 			*ngFor="let item of value; trackBy: trackByFn; last as last"
 			class="multiple-item">
-			{{ item.name }}{{last ? '' : ', '}}
+			{{ item.name }}{{ last ? '' : ', '}}
 		</span>
 	</ng-template>
 </ng-template>
