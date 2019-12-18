@@ -39,7 +39,7 @@ import { CloseEventType, CloseEvent } from '~shared/dialog';
 export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChanges {
 
 	/** This is the product passed as input, but it's not yet fully loaded */
-	@Input() _product: Product;
+	private _product: Product;
 	@Input()
 	set product(value: Product) {
 		this._product = value;

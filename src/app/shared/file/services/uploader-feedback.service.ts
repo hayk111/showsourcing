@@ -17,7 +17,7 @@ export interface UploaderFeedbackConfig {
 	isImagePropertyArray?: boolean;
 }
 
-
+// TIP: If this component is used on a shared component, DONT FORGET to import FilesModule.ts
 /** this service is different from UploaderService as it's only used to see the rendering of
  * a pending image / file onto the screen
  */

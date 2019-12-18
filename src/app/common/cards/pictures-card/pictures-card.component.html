@@ -1,5 +1,8 @@
 <card-app class="action-hover-container">
-	<card-title-app size="l" translate="title.pictures"></card-title-app>
+	<card-title-app size="l">
+		<div class="mg-right-ms" translate="title.pictures"></div>
+		<spinner-app *ngIf="pending" size="l"></spinner-app>
+	</card-title-app>
 
 	<card-action-app *ngIf="images?.length" class="action-hover-item" (click)="inpFile?.click()"><div translate="button.add-pictures"></div></card-action-app>
 
@@ -9,7 +12,7 @@
 			<img-app
 				*ngFor="let image of images; index as i; trackBy: trackById"
 				class="mg-bottom-xs pointer default-transition"
-				[class.mg-right-xs]="i%5 !== defaultShown"
+				[class.mg-right-xs]="i%5 !== 4"
 				[style.height]="i > currentShown ? '0px' : '154px'"
 				[style.width]="i > currentShown ? '0px' : '154px'"
 				[image]="image"
@@ -19,17 +22,17 @@
 	</ng-container>
 
 	<!-- we display a button if we have images and if we have more than the minimum -->
-	<card-footer-app *ngIf="(images?.length)  && (images?.length > defaultShown + 1)" align="center">
+	<card-footer-app *ngIf="(images?.length)  && (images?.length > defaultShown)" align="center">
 		<button
 			*ngIf="currentShown <= images?.length"
-			class="primary-light view-all"
+			class="primary-light full-width flexCenter"
 			(click)="currentShown = currentShown + 20"
 			translate="button.view-more-pictures">
 		</button>
 		<button
 		 	*ngIf="currentShown > images?.length"
-			class="primary-light view-all"
-			(click)="currentShown = defaultShown"
+			class="primary-light full-width flexCenter"
+			(click)="currentShown = defaultShown - 1"
 			translate="button.view-less-pictures">
 		</button>
 	</card-footer-app>

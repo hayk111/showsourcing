@@ -8,14 +8,14 @@
 <div class="right flex">
 	<!-- Open -->
 	<button *ngIf="canOpen" class="icon big" (click)="opened.emit()" toolTip toolTipMessage="Open" toolTipPosition="below-right">
-		<icon-app class="color-txt-third" name="maximize"></icon-app>
+		<icon-app class="color-third" name="maximize"></icon-app>
 	</button>
 
 	<!-- 3 dots -->
 	<context-menu-app *ngIf="hasOptions">
 		<context-menu-trigger-app>
 			<button class="icon big">
-				<icon-app class="color-txt-third" name="dots-vertical"></icon-app>
+				<icon-app class="color-third" name="dots-vertical"></icon-app>
 			</button>
 		</context-menu-trigger-app>
 		<!-- context menu/divider-app ng-content -->
@@ -25,6 +25,6 @@
 
 	<!-- Close -->
 	<button class="icon big" (click)="closed.emit()">
-		<icon-app class="color-txt-third" name="close"></icon-app>
+		<icon-app class="color-third" name="close"></icon-app>
 	</button>
 </div>

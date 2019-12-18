@@ -1,6 +1,8 @@
+<input #inpFile [multiple]="false" type="file" accept="image/*" (fileSelect)="addLogo($event)"/>
+
 <img-app
 	*ngIf="image"
-	class="pointer"
+	class="pointer border-radius"
 	[image]="image"
 	size="m"
 	(click)="inpFile.click()">
@@ -14,4 +16,4 @@
 	{{ initials }}
 </div>
 
-<input #inpFile [hidden]="true" class="hidden" type="file" accept="image/*" (fileSelect)="addLogo($event)"/>
+<spinner-app *ngIf="pending" [size]="size"></spinner-app>

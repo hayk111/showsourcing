@@ -4,8 +4,10 @@ $padding-vertical: 6px;
 :host {
 	display: flex;
 	align-items: center;
+	max-width: 100%;
+	width: fit-content;
 	box-sizing: border-box;
-	width: max-content;
+	min-width: 10px;
 	// in case we apply a full-width class
 	&.full-width {
 		width: 100%;

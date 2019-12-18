@@ -140,6 +140,8 @@
 	<editable-selector-app
 		*ngSwitchCase="'selector'"
 		[(ngModel)]="accumulator"
+		[borderless]="config.borderless"
+		[hasLabel]="config.hasLabel"
 		[label]="definition?.label"
 		[type]="metadata?.source"
 		[disabled]="disabled"
