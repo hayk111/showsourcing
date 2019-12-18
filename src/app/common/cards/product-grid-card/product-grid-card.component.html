@@ -74,7 +74,8 @@
 	<!-- info content -->
 	<div class="info-container flex">
 		<badge-app class="badge mg-h-s" [ngStyle]="{ 'background': 'var(--color-' + statusUtils?.getStatusColor(product?.status) + ')' }" [circle]="true"></badge-app>
-		<div>
+		<!-- if we don't explicitly set the min-width, ellipsis wont work -->
+		<div style="min-width: 0;">
 			<div class="flexVAlign ellipsis">
 				<div class="bold-s color-txt-primary">{{ product?.name || ('message.unnamed-product' | translate) }}</div>
 			</div>
