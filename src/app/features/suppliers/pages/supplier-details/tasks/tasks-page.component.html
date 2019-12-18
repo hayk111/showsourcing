@@ -34,14 +34,14 @@
 	(close)="listSrv.closePreview()">
 </task-preview-app>
 
-<filters-app
-	*ngIf="listSrv.filterPanelOpen"
-	[filterList]="listSrv.filterList"
-	[filterTypes]="filterTypes"
-	(clickOutside)="listSrv.closeFilterPanel()"
-	(close)="listSrv.closeFilterPanel()">
-</filters-app>
-
+<side-panel-app *ngIf="listSrv.filterPanelOpen">
+	<filters-app
+		[filterList]="listSrv.filterList"
+		[filterTypes]="filterTypes"
+		(clickOutside)="listSrv.closeFilterPanel()"
+		(close)="listSrv.closeFilterPanel()">
+	</filters-app>
+</side-panel-app>
 
 <selection-bar-app
 	[isShown]="(listSrv.selection$ | async)?.size > 0"

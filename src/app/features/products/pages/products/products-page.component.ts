@@ -1,21 +1,16 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import { AfterViewInit, Component, ElementRef, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import {
-	SupplierRequestDialogComponent,
-} from '~common/dialogs/custom-dialogs/supplier-request-dialog/supplier-request-dialog.component';
+import { SupplierRequestDialogComponent } from '~common/dialogs/custom-dialogs/supplier-request-dialog/supplier-request-dialog.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
+import { ProductsTableComponent } from '~common/tables/products-table/products-table.component';
 import { ProductService, UserService } from '~core/entity-services';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 import { ListPageService } from '~core/list-page';
-import { ProductFeatureService } from '~features/products/services';
 import { ERM, Product } from '~models';
 import { DialogService } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
-import { NotificationService } from '~shared/notifications';
 import { AutoUnsub } from '~utils';
-import { ProductsTableComponent } from '~common/tables/products-table/products-table.component';
 
 // dailah lama goes into pizza store
 // servant asks : what pizza do you want sir ?
@@ -38,15 +33,15 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 	filterTypeEnum = FilterType;
 	// filter displayed as button in the filter panel
 	filterTypes = [
-		FilterType.ARCHIVED,
-		FilterType.CATEGORY,
+		FilterType.SUPPLIER,
+		FilterType.PROJECTS,
 		FilterType.CREATED_BY,
 		FilterType.EVENT,
-		FilterType.FAVORITE,
+		FilterType.CATEGORY,
 		FilterType.PRODUCT_STATUS,
-		FilterType.PROJECTS,
-		FilterType.SUPPLIER,
-		FilterType.TAGS
+		FilterType.TAGS,
+		FilterType.ARCHIVED,
+		FilterType.FAVORITE,
 	];
 	columns = ProductsTableComponent.DEFAULT_COLUMNS;
 	tableConfig = ProductsTableComponent.DEFAULT_TABLE_CONFIG;

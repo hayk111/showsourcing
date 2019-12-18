@@ -25,10 +25,8 @@ export class SupplierService extends GlobalWithAuditService<Supplier> {
 
 	/** gets the products of the supplier */
 	getProducts(supplierId: string): Observable<Product[]> {
-		return this.productSrv.queryMany(
+		return this.productSrv.selectMany(
 			{ query: `supplier.id == '${supplierId}' AND archived == false AND deleted == false` }
-		).pipe(
-			first()
 		);
 	}
 

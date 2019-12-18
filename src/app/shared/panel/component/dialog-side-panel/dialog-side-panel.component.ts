@@ -1,5 +1,6 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 
+/** @Deprecated */
 // merely holds styling of the container
 @Component({
 	selector: 'dialog-side-panel-app',

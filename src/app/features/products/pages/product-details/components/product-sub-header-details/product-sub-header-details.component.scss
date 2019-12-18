@@ -37,11 +37,11 @@
 		top: 0;
 		icon-app {
 			transition: 0.3s;
-			color: white;
+			color: var(--color-vibrant);
 		}
 
 		&:hover icon-app {
-			color: var(--color-vibrant);
+			color: var(--color-vibrant-dark);
 		}
 	}
 }

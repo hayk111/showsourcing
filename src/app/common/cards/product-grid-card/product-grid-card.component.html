@@ -1,6 +1,10 @@
 <div
 	class="card-container action-hover-container"
-	[ngClass]="{ 'disable-action-hover disable-pointers': !hasHoverEffect, 'selected-card': selected }">
+	[ngClass]="{
+		'disable-action-hover disable-pointers': !hasHoverEffect,
+		'card-hover-style': hasHoverEffect,
+		'selected-card': selected
+	}">
 	<!-- picture -->
 	<img-app
 		[image]="product?.images"
@@ -38,21 +42,24 @@
 			[multiple]="true"
 			[width]="330"
 			(update)="update.emit({ id: product?.id, projects: $event })">
-			<icon-app class="folder action-hover-item pointer color-white" [size]="13" name="folder-light"></icon-app>
+			<icon-app class="folder action-hover-item pointer color-third" size="ms" name="folder-light"></icon-app>
 		</selector-app>
 		<thumb-buttons-app
 			class="thumb-up action-hover-item"
-			size="m"
+			size="ms"
+			[lineStyle]="true"
 			[votes]="product?.votes"
-			(liked)="liked.emit()"
-			(disliked)="disliked.emit()">
+			(liked)="thumbUp()"
+			(disliked)="thumbDown()">
 		</thumb-buttons-app>
 		<rating-heart-app
 			class="heart action-hover-item"
-			size="m"
+			[hasButton]="false"
+			[lightStyle]="true"
+			size="ms"
 			[favorite]="product?.favorite"
-			(favorited)="favorited.emit()"
-			(unfavorited)="unfavorited.emit()">
+			(favorited)="update.emit({ id: product?.id, favorite: true })"
+			(unfavorited)="update.emit({ id: product?.id, favorite: false })">
 		</rating-heart-app>
 	</div>
 
@@ -65,18 +72,21 @@
 	</button>
 
 	<!-- info content -->
-	<div class="info-container">
-		<div class="flexVAlign ellipsis">
-			<badge-app class="badge mg-right-s" [ngStyle]="{ 'background': 'var(--color-' + statusUtils?.getStatusColor(product?.status) + ')' }" [circle]="true"></badge-app>
-			<div class="bold-s color-txt-primary">{{ product?.name || ('message.unnamed-product' | translate) }}</div>
+	<div class="info-container flex">
+		<badge-app class="badge mg-h-s" [ngStyle]="{ 'background': 'var(--color-' + statusUtils?.getStatusColor(product?.status) + ')' }" [circle]="true"></badge-app>
+		<!-- if we don't explicitly set the min-width, ellipsis wont work -->
+		<div style="min-width: 0;">
+			<div class="flexVAlign ellipsis">
+				<div class="bold-s color-txt-primary">{{ product?.name || ('message.unnamed-product' | translate) }}</div>
+			</div>
+			<div class="color-txt-secondary fs-s mg-bottom-xs ellipsis dot-separator">
+				<span *ngIf="product?.category?.name">{{ product?.category?.name }}</span>
+				<span *ngIf="product?.supplier?.name">{{ product?.supplier?.name }}</span>
+			</div>
+			<rating-number-badge-app
+				[votes]="product?.votes">
+			</rating-number-badge-app>
 		</div>
-		<div class="color-txt-secondary fs-s mg-bottom-xs ellipsis dot-separator">
-			<span *ngIf="product?.category?.name">{{ product?.category?.name }}</span>
-			<span *ngIf="product?.supplier?.name">{{ product?.supplier?.name }}</span>
-		</div>
-		<rating-number-badge-app
-			[votes]="product?.votes">
-		</rating-number-badge-app>
 	</div>
 
 </div>

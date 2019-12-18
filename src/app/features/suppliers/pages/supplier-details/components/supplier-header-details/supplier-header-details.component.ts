@@ -1,10 +1,11 @@
 import { Location } from '@angular/common';
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { ContactService, ProductService, SampleService, TaskService, UserService } from '~core/entity-services';
+import { map, takeUntil } from 'rxjs/operators';
+import { ContactService, ProductService, SampleService, TaskService } from '~core/entity-services';
 import { Supplier } from '~models';
-import { TrackingComponent } from '~utils/tracking-component';
-import { distinctUntilChanged } from 'rxjs/operators';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'supplier-header-details-app',
@@ -12,7 +13,7 @@ import { distinctUntilChanged } from 'rxjs/operators';
 	styleUrls: ['./supplier-header-details.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SupplierHeaderDetailsComponent extends TrackingComponent implements OnChanges {
+export class SupplierHeaderDetailsComponent extends AutoUnsub implements OnInit {
 	@Input() supplier: Supplier;
 	@Output() delete = new EventEmitter<Supplier>();
 	@Output() archive = new EventEmitter<Supplier>();
@@ -25,6 +26,7 @@ export class SupplierHeaderDetailsComponent extends TrackingComponent implements
 	contactsCount$: Observable<number>;
 
 	constructor(
+		private route: ActivatedRoute,
 		private location: Location,
 		private sampleSrv: SampleService,
 		private productSrv: ProductService,
@@ -34,15 +36,20 @@ export class SupplierHeaderDetailsComponent extends TrackingComponent implements
 		super();
 	}
 
-	ngOnChanges() {
-		this.tasksCount$ = this.taskSrv.selectCount(`supplier.id == "${this.supplier.id}" AND deleted == false AND archived == false`)
-			.pipe(distinctUntilChanged());
-		this.samplesCount$ = this.sampleSrv.selectCount(`supplier.id == "${this.supplier.id}" AND deleted == false AND archived == false`)
-			.pipe(distinctUntilChanged());
-		this.productsCount$ = this.productSrv.selectCount(`supplier.id == "${this.supplier.id}" AND deleted == false AND archived == false`)
-			.pipe(distinctUntilChanged());
-		this.contactsCount$ = this.contactSrv.selectCount(`supplier.id == "${this.supplier.id}" AND deleted == false`)
-			.pipe(distinctUntilChanged());
+	ngOnInit() {
+		this.route.params.pipe(
+			map(params => params.id),
+			takeUntil(this._destroy$)
+		).subscribe(id => {
+			this.tasksCount$ = this.taskSrv.selectCount(`supplier.id == "${id}" AND deleted == false AND archived == false`)
+				.pipe(takeUntil(this._destroy$));
+			this.samplesCount$ = this.sampleSrv.selectCount(`supplier.id == "${id}" AND deleted == false AND archived == false`)
+				.pipe(takeUntil(this._destroy$));
+			this.productsCount$ = this.productSrv.selectCount(`supplier.id == "${id}" AND deleted == false AND archived == false`)
+				.pipe(takeUntil(this._destroy$));
+			this.contactsCount$ = this.contactSrv.selectCount(`supplier.id == "${id}" AND deleted == false`)
+				.pipe(takeUntil(this._destroy$));
+		});
 	}
 
 	goBack() {

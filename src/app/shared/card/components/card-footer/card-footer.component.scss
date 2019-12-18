@@ -1,7 +1,9 @@
 :host {
-	border-top: 1px solid var(--color-divider);
-	padding: var(--spacing-ms) 0 var(--spacing-ms) 0;
 	display: block;
+	border-top: 1px solid var(--color-divider);
+	margin: 0 var(--spacing-l);
+	padding: var(--spacing-ms) 0;
+
 	&.right {
 		text-align: right;
 	}

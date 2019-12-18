@@ -3,13 +3,15 @@
 
 	<ng-container *ngIf="products?.length; else empty">
 		<div class="flex">
-			<div *ngFor="let product of products; index as i; last as last; trackBy: trackById">
+			<div *ngFor="let product of products; index as i; trackBy: trackById">
 				<product-grid-card-app
 					*ngIf="i < 4"
-					[class.mg-right-ms]="!last"
+					[class.mg-right-ms]="i%4 !== 3"
 					[product]="product"
 					[hasCheckbox]="false"
-					[hasHoverEffect]="false">
+					(open)="openProduct(product)"
+					(preview)="openPreview(product)"
+					(update)="update($event)">
 				</product-grid-card-app>
 			</div>
 		</div>
@@ -17,7 +19,7 @@
 
 	<card-footer-app *ngIf="products?.length" align="center">
 		<button
-			class="primary-light view-all mg-left-ms mg-right-ms flexCenter"
+			class="primary-light full-width flexCenter"
 			(click)="viewAll.emit()"
 			translate="button.view-all-products">
 		</button>
@@ -38,3 +40,9 @@
 		<button (click)="addProducts.emit()">add products</button>
 	</div>
 </ng-template>
+
+<product-preview-app
+	*ngIf="previewOpen"
+	[product]="previewProduct"
+	(close)="closePreview()">
+</product-preview-app>
