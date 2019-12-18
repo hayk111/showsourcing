@@ -9,8 +9,7 @@
 	</controller-table-app>
 
 	<projects-table-app
-		class="list-view"
-		[hasPagination]="false"
+		[hasPagination]="true"
 		[navigation]="false"
 		[hasMenu]="false"
 		[selection]="listSrv.selection$ | async"
@@ -25,9 +24,16 @@
     (selectAll)="selectAll($event)"
     (unselectAll)="unselectAll()"
 		(sort)="listSrv.sort($event)"
-		(bottomReached)="listSrv.loadMore()"
 		(delete)="listSrv.deleteOne($event)">
 	</projects-table-app>
+
+	<filters-app
+		*ngIf="listSrv.filterPanelOpen"
+		[filterList]="listSrv.filterList"
+		[filterTypes]="filterTypes"
+		(clickOutside)="listSrv.closeFilterPanel()">
+	</filters-app>
+
 
 	<dialog-footer-app class="flexVAlign">
 		<div class="product-action">

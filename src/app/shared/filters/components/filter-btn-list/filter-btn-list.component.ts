@@ -18,6 +18,7 @@ export class FilterBtnListComponent {
 		this.hasFavoriteFilter = types.includes(FilterType.FAVORITE);
 		this.hasArchivedFilter = types.includes(FilterType.ARCHIVED);
 		this.hasDoneFilter = types.includes(FilterType.DONE);
+		this.hasOthers = this.hasFavoriteFilter || this.hasArchivedFilter || this.hasDoneFilter;
 		// we set the buttons with the others
 		this.filterBtns = types.filter(t => t !== FilterType.FAVORITE && t !== FilterType.ARCHIVED && t !== FilterType.DONE);
 	}
@@ -36,6 +37,7 @@ export class FilterBtnListComponent {
 	hasArchivedFilter = true;
 	/** whether we display a checkbox for completed task */
 	hasDoneFilter = true;
+	hasOthers = true;
 	filterBtns: FilterType[] = [];
 	archivedType = FilterType.ARCHIVED;
 	favoriteType = FilterType.FAVORITE;

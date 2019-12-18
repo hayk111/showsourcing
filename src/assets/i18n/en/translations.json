@@ -562,7 +562,23 @@
     "when-requesting-password-reset": "Error when requesting password reset.",
     "you-refused-that-request": "You refused that request",
     "your-request-already-submitted": "Your request has been already submitted"
-  },
+	},
+	"filters": {
+		"filter-by": "Filter by",
+		"filter-by-categories": "Filter by Category",
+		"filter-by-category": "Filter by Category",
+		"filter-by-created by": "Filter by Creator",
+		"filter-by-event": "Filter by Event",
+		"filter-by-events": "Filter by Events",
+		"filter-by-product status": "Filter by Status",
+		"filter-by-project": "Filter by Project",
+		"filter-by-projects": "Filter by Project",
+		"filter-by-supplier": "Filter by Supplier",
+		"filter-by-suppliers": "Filter by Supplier",
+		"filter-by-tag": "Filter by Tag",
+		"filter-by-tags": "Filter by Tag",
+		"Others": "Others"
+	},
   "header": {
     "account-created": "Account created.",
     "account-type": "Account type",
