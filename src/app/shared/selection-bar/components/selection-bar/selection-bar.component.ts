@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { EntityType } from '~core/models';
 import { selectionBarAnimation } from '~shared/selection-bar/animation/selection-bar.animation';
+import { SelectionState } from '~core/list-page';
 
 @Component({
 	selector: 'selection-bar-app',
@@ -18,7 +19,7 @@ import { selectionBarAnimation } from '~shared/selection-bar/animation/selection
 export class SelectionBarComponent {
 	@Input() selection: Map<string, boolean>;
 	@Input() entityType: EntityType;
-	@Input() state: 'selectedPartial' | 'unchecked' | 'selectedAll';
+	@Input() state: SelectionState;
 	@Input() count: number;
 	@Input() isShown = false;
 	@Output() close = new EventEmitter();

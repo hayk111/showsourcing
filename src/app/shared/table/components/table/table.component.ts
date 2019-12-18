@@ -57,8 +57,6 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	/** the name of the property than uniquely identifies a row. This is used to know if a row is currently selectioned
 	so this is only useful when the table has selection enabled. */
 	@Input() idName = 'id';
-	/** whether the component has generic (i.e true/false) selection or custom */
-	@Input() isSimpleSelection = true;
 	/** maps of the <id, true> so we can access the items that are selected */
 	@Input() selected: Map<string, boolean> = new Map();
 	// TODO this should be transcluded instead
@@ -94,8 +92,6 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	@Input() rows;
 	hoverIndex: number;
 
-	contextualMenuOpened = {};
-
 	/** whether specific rows are selectable or not */
 	@Input() isSelectable = (item) => true;
 
@@ -115,7 +111,6 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 			if (this.columns) {
 				this.columns.forEach(c => c.resetSort());
 				const column = this.columns.find(c => c.sortBy === currentSort.sortBy);
-
 				if (column) {
 					column.sortOrder = currentSort.descending ? 'DESC' : 'ASC';
 				}
@@ -192,21 +187,6 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 			return this.selected.has(row.id);
 
 		throw Error(`Selection Input is undefnied`);
-	}
-
-	onToggleContextualMenu(event, i, display = true) {
-		Object.keys(this.contextualMenuOpened).forEach(key => {
-			this.contextualMenuOpened[key] = false;
-		});
-		this.contextualMenuOpened[i] = display;
-		event.stopPropagation();
-	}
-
-	@HostListener('window:click', ['event'])
-	onClickWindow() {
-		Object.keys(this.contextualMenuOpened).forEach(key => {
-			this.contextualMenuOpened[key] = false;
-		});
 	}
 
 	goToIndexPage(page) {

@@ -7,8 +7,7 @@
 	<div class="select-container flexCenter" tabFocusAction>
 		<ng-container [ngSwitch]="state">
 			<icon-app *ngSwitchCase="'selectedAll'" class="check-icon" name="check"></icon-app>
-			<!--TODO: icon needs to be replaced-->
-			<icon-app *ngSwitchCase="'selectedPartial'" class="check-icon" name="close"></icon-app> 
+			<icon-app *ngSwitchCase="'selectedPartial'" class="check-icon" name="minus"></icon-app> 
 			<ng-container *ngSwitchDefault>
 				<div [ngStyle]="uncheckedStyle()"></div>
 			</ng-container>
@@ -19,7 +18,7 @@
 <input #input
 	type="checkbox"
 	class="hidden"
-	[hidden]="true" />
+	[hidden]="true"/>
 
 <label class="label" [ngClass]="{ 'pointer': !disabled }" #label (click)="onClick()" class="flexVAlign">
 	<ng-content></ng-content>

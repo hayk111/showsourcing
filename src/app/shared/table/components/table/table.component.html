@@ -33,14 +33,15 @@ https://stackblitz.com/edit/angular-vtluff?file=src/app/app.component.ts -->
 			*ngIf="hasSelection"
 			class="col selectionCol no-grows"
 			[style.height]="rowHeight + 'px'">
-			<div *ngIf="hasHeader" class="header"
+			<div 
+				*ngIf="hasHeader" 
+				class="header"
 				[style.height]="rowHeight + 'px'">
-				<ng-container *ngIf="isSimpleSelection; else selectCheckbox">
-					<checkbox-app [checked]="isAllSelected()" (check)="onSelectAll(rows)" (uncheck)="onUnselectAll()"></checkbox-app>
-				</ng-container>
-				<ng-template #selectCheckbox>
-					<select-checkbox-app [state]="getSelectCheckboxState()" (check)="onSelectAll(rows)" (uncheck)="onUnselectAll()"></select-checkbox-app>
-				</ng-template>
+				<select-checkbox-app 
+					[state]="getSelectCheckboxState()" 
+					(check)="onSelectAll(rows)" 
+					(uncheck)="onUnselectAll()">
+				</select-checkbox-app>
 			</div>
 			<ng-container *ngIf="!pending">
 				<div

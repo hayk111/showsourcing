@@ -78,6 +78,7 @@
 	<product-selection-bar-app
 		[isShown]="(listSrv.selection$ | async)?.size"
 		[selection]="listSrv.selection$ | async"
+		[selectionState]="listSrv.selectionSrv.selectionState$ | async"
 		[favorite]="listSrv.allSelectedFavorite"
 		[count]="listSrv.count$ | async"
 		(disliked)="listSrv.onMultipleThumbDown($event, erm.PRODUCT.singular)"

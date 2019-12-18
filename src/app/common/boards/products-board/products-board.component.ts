@@ -190,13 +190,13 @@ export class ProductsBoardComponent extends AutoUnsub implements OnInit {
 	emitSelection() {
 		const selectedCols = [...this.selectedColumns.values()];
 
-		if (selectedCols.includes('selectedAll')) {
-			this.selectionSrv.setSelectionState('selectedAll');
-		} else if (selectedCols.includes('selectedPartial')) {
-			this.selectionSrv.setSelectionState('selectedPartial');
-		} else {
-			this.selectionSrv.setSelectionState('unchecked');
-		}
+		// if (selectedCols.includes('selectedAll')) {
+		// 	this.selectionSrv.setSelectionState('selectedAll');
+		// } else if (selectedCols.includes('selectedPartial')) {
+		// 	this.selectionSrv.setSelectionState('selectedPartial');
+		// } else {
+		// 	this.selectionSrv.setSelectionState('unchecked');
+		// }
 	}
 
 	onFavoriteAllSelected() {

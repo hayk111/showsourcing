@@ -1,5 +1,6 @@
-import { Component, OnInit, EventEmitter, ChangeDetectionStrategy, Input, Output } from '@angular/core';
-import { Project, ERM, Product } from '~core/models';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { SelectionState } from '~core/list-page';
+import { Product, Project } from '~core/models';
 import { EntitySelectionBarComponent } from '~core/selection';
 
 @Component({
@@ -11,6 +12,7 @@ import { EntitySelectionBarComponent } from '~core/selection';
 export class ProductSelectionBarComponent extends EntitySelectionBarComponent {
 
 	@Input() favorite: boolean;
+	@Input() selectionState: SelectionState;
 	@Output() compareProducts = new EventEmitter<null>();
 	@Output() archiveProducts = new EventEmitter<Product[]>();
 	@Output() requestTeamFeedback = new EventEmitter<null>();
