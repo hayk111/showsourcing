@@ -24,7 +24,7 @@
 		Clear filters ({{ listSrv.getFilterAmount() }})
 	</button>
 
-	<divider-app *ngIf="hasFilters" [vertical]="true"></divider-app>
+	<divider-app [vertical]="true"></divider-app>
 
 	<span class="capitalize entities-count">
 		{{ listSrv.count$ | async }} 

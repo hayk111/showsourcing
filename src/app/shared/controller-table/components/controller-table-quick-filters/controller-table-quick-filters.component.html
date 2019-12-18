@@ -23,6 +23,16 @@
 
 <!-- completed -->
 <button
+	*ngIf="quickFilters.includes('assignee')"
+	class="light mg-left-ms"
+	toolTip
+	[toolTipMessage]="'tooltip.show-only-assigned-to-me' | translate"
+	(click)="toggleAssignedToMe()">
+	<checkbox-app class="mg-right-xs" [checked]="isAssignedToMeChecked"></checkbox-app>
+	{{ 'label.assigned-to-me' | translate }}
+</button>
+
+<button
 	*ngIf="quickFilters.includes('completed')"
 	class="light mg-left-ms"
 	toolTip

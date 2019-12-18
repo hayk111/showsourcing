@@ -72,6 +72,14 @@ button, input[type="submit"], .button {
 		}
 	}
 
+	&.light-third {
+		background: transparent;
+		color: var(--color-txt-third);
+		&:hover, &.cdk-keyboard-focused {
+			background: var(--color-secondary);
+		}
+	}
+
 	// colors
 	@each $var in $colors {
 		&.#{$var} {
