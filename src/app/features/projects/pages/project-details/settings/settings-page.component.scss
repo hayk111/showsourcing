@@ -58,6 +58,10 @@ input[type="file"] {
 
 .right-item {
 	margin-bottom: var(--spacing-ms);
+
+	&.title {
+		font-size: var(--font-size-l);
+	}
 }
 
 .bg-dark {
@@ -81,4 +85,8 @@ header-details-app {
 	.tabs-container {
 		margin-left: 86px;
 	}
+}
+
+.about-project {
+	color: var(--color-txt-secondary);
 }

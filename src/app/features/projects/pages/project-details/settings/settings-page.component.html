@@ -7,7 +7,7 @@
 			</div>
 		</div>
 		<div class="right">
-			<h3 class="ms right-item" translate="text.project-name"></h3>
+			<h3 class="ms right-item title" translate="text.project-name"></h3>
 			<editable-container-app
 				#edt
 				(closed)="update(inpName.value, 'name')"
@@ -23,14 +23,14 @@
 					(keyup.enter)="edt.close()"/>
 			</editable-container-app>
 
-			<h3 class="ms right-item" translate="text.description"></h3>
+			<h3 class="ms right-item title" translate="text.description"></h3>
 			<input-description-app
 				class="right-item"
 				[description]="project?.description"
 				(update)="update($event, 'description')">
 			</input-description-app>
 
-			<h3 class="ms right-item">About this project</h3>
+			<h3 class="ms right-item title">About this project</h3>
 
 			<div class="about-project">
 				<div>Created by {{ project?.createdBy?.firstName }} {{ project?.createdBy?.lastName }} on {{ project?.creationDate | date: 'd MMMM y':'':translate.currentLang }}</div>
