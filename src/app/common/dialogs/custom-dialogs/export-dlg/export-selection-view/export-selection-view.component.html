@@ -4,24 +4,31 @@
 	<dialog-subtitle-app translate="header.export-type"></dialog-subtitle-app>
 
 	<main class="exportRow">
-		<div class="exportCell" (click)="select('xls', 'xls_product_list')"
-			[class.selected]="selectedType === 'xls_product_list'">
+		<div
+			class="exportCell"
+			[class.selected]="selectedType?.startsWith('xls_')"
+			(click)="selectXls()">
 			<icon-app name="excel"></icon-app>
 			<div class="title" translate="title.excel"></div>
 			<div class="subtitle" translate="text.perfect-for-editing"></div>
 		</div>
 		<div
+			*ngIf="canExportPdf"
+			class="exportCell"
+			[class.selected]="selectedType?.startsWith('pdf_')"
 			toolTip
 			[toolTipMessage]="'message.limit-50-pdf-per-export' | translate"
 			toolTipShowDelay="100"
-			class="exportCell" (click)="select('pdf', 'pdf_product_page')"
-			[class.selected]="selectedType === 'pdf_product_page'">
+			(click)="selectPdf()"			>
 			<icon-app name="pdf"></icon-app>
 			<div class="title" translate="text.pdf"></div>
 			<div class="subtitle" translate="text.perfect-for-sharing"></div>
 		</div>
-		<div class="exportCell image" (click)="select('pictures', 'product_image')"
-			[class.selected]="selectedType === 'product_image'">
+		<div
+			*ngIf="canExportImages"
+			class="exportCell image"
+			[class.selected]="selectedType?.endsWith('_image')"
+			(click)="selectPictures()">
 			<icon-app name="image"></icon-app>
 			<div class="title capitalize" translate="text.pictures"></div>
 			<div class="subtitle" translate="text.all-product-pictures"></div>

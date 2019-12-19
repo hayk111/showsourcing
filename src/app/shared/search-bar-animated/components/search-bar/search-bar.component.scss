@@ -28,6 +28,18 @@
 		}
 	}
 
+	@mixin placeholder {
+		::-webkit-input-placeholder {@content}
+		:-moz-placeholder           {@content}
+		::-moz-placeholder          {@content}
+		:-ms-input-placeholder      {@content}  
+	}
+
+	@include placeholder {
+		color: var(--color-txt-third);
+		font-size: var(--font-size-m);
+	}
+
 	input {
 		height: 100%;
 		border: none;

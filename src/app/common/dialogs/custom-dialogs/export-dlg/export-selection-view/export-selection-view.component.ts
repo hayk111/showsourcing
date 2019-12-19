@@ -1,8 +1,8 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
-import { Product, Supplier } from '~core/models';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
-type ExportFormat = 'pdf' | 'xls' | 'pictures';
-type ExportType = 'pdf_product_page' | 'xls_product_list' | 'product_image';
+import { ExportEntity, ExportFormat, ExportType } from '../export-dlg.component';
+import { EntityName } from '~core/models';
+
 
 @Component({
 	selector: 'export-selection-view-app',
@@ -12,8 +12,11 @@ type ExportType = 'pdf_product_page' | 'xls_product_list' | 'product_image';
 })
 export class ExportSelectionViewComponent implements OnInit {
 
-	@Input() targets: Product[] | Supplier[];
+	@Input() targets: ExportEntity[];
 	@Input() length: number;
+	@Input() canExportPdf: boolean;
+	@Input() type: EntityName;
+	@Input() canExportImages: boolean;
 	@Output() export = new EventEmitter<null>();
 	@Output() selected = new EventEmitter<{ format: ExportFormat, type: ExportType }>();
 
@@ -25,7 +28,19 @@ export class ExportSelectionViewComponent implements OnInit {
 	ngOnInit() {
 	}
 
-	select(format: ExportFormat, type: ExportType) {
+	selectXls() {
+		this.select('xls', ('xls_' + this.type + '_list' as ExportType));
+	}
+
+	selectPdf() {
+		this.select('pdf', ('pdf_' + this.type + '_page' as ExportType));
+	}
+
+	selectPictures() {
+		this.select('pictures', (this.type + '_image' as ExportType));
+	}
+
+	private select(format: ExportFormat, type: ExportType) {
 		this.selectedFormat = format;
 		this.selectedType = type;
 		this.selected.emit({ format: this.selectedFormat, type: this.selectedType });

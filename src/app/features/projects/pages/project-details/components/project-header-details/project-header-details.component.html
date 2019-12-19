@@ -10,9 +10,9 @@
 		<logo-app color="primary" type="project" size="l" [iconSize]="16"></logo-app>
 
 		<header-details-info-app *ngIf="project">
-			{{ 'OBJ.due-on-date' | translate: {date: project?.creationDate | date: 'dd-mm-yyyy':'':translate.currentLang} }}
+			{{ 'title.project' | translate }}
 			<div class="small-gray-badge-separator"></div>
-			{{ 'OBJ.created-by-name' | translate: {firstName: project?.createdBy?.firstName, lastName: project?.createdBy?.lastName} }}
+			<span class="project-type">Collection</span> <!-- TODO: this should be replaced with project type property from the backend later -->
 		</header-details-info-app>
 
 		<header-nav-app>

@@ -81,7 +81,7 @@
 			(favorited)="listSrv.onFavoriteAllSelected()"
 			(unfavorited)="listSrv.onUnfavoriteAllSelected()"
 			(addProject)="dialogCommonSrv.openAddToProjectDialog(listSrv.getSelectedValues())"
-			(export)="dialogCommonSrv.openExportDialog(listSrv.getSelectedValues())"
+			(export)="dialogCommonSrv.openExportDialog(erm.PRODUCT.singular, listSrv.getSelectedValues())"
 			(createRequest)="dialogCommonSrv.openSupplierRequest(listSrv.getSelectedValues())"
 			(requestTeamFeedback)="dialogCommonSrv.openRequestFeedbackDialog(listSrv.getSelectedValues())"
 			(archiveProducts)="listSrv.archiveMany(listSrv.getSelectedValues())"
