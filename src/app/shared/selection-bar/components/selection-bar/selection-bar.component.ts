@@ -20,9 +20,11 @@ export class SelectionBarComponent {
 	@Input() selection: Map<string, boolean>;
 	@Input() entityType: EntityType;
 	@Input() selectionCount: number;
-	@Input() items: Entity[];
+	@Input() selectableItems: Entity[];
 	@Input() isShown = false;
 	@Output() close = new EventEmitter();
+	@Output() selectAll = new EventEmitter<Entity[]>();
+	@Output() unselectAll = new EventEmitter();
 
 	capitalize(txt: string): string | void {
 		if (txt && (typeof txt) === 'string') {

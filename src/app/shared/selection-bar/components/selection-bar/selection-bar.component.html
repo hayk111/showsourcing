@@ -6,7 +6,7 @@
 			<select-checkbox-app 
 				[state]="getSelectionState()" 
 				[size]="24"
-				(check)="selectAll.emit(items)"
+				(check)="selectAll.emit(selectableItems)"
 				(uncheck)="unselectAll.emit()">
 			</select-checkbox-app>
     </div>

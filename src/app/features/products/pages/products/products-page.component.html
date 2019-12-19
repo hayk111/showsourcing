@@ -78,9 +78,8 @@
 	<product-selection-bar-app
 		[isShown]="(listSrv.selection$ | async)?.size"
 		[selection]="listSrv.selection$ | async"
-		[selectionCount]="(listSrv.items$ | async).length"
 		[favorite]="listSrv.allSelectedFavorite"
-		[items]="listSrv.items$ | async"
+		[selectableItems]="listSrv.items$ | async"
 		(disliked)="listSrv.onMultipleThumbDown($event, erm.PRODUCT.singular)"
 		(liked)="listSrv.onMultipleThumbUp($event, erm.PRODUCT.singular)"
 		(favorited)="listSrv.onFavoriteAllSelected()"
@@ -94,7 +93,9 @@
 		(statusUpdated)="listSrv.updateSelected({status: $event})"
 		(massEdit)="dialogCommonSrv.openMassEditDialog(listSrv.getSelectedValues(), erm.PRODUCT)"
 		(deleted)="listSrv.deleteSelected()"
-		(close)="listSrv.unselectAll()">
+		(close)="listSrv.unselectAll()"
+		(selectAll)="listSrv.selectAll($event)"
+		(unselectAll)="listSrv.unselectAll()">
 	</product-selection-bar-app>
 
 	<product-preview-app

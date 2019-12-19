@@ -1,9 +1,8 @@
 <selection-bar-app
 	entityType="product"
 	[isShown]="isShown"
-	[items]="items"
+	[selectableItems]="selectableItems"
 	[selection]="selection"
-	[selectionCount]="selectionCount"
 	(close)="close.emit()"
 	(selectAll)="selectAll.emit($event)"
 	(unselectAll)="unselectAll.emit()">

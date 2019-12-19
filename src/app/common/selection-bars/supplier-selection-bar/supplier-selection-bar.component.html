@@ -2,8 +2,10 @@
 	entityType="supplier"
 	[isShown]="isShown"
 	[selection]="selection"
-	[items]="items"
-	(close)="close.emit()">
+	[selectableItems]="selectableItems"
+	(close)="close.emit()"
+	(selectAll)="selectAll.emit($event)"
+	(unselectAll)="unselectAll.emit()">
 
 	<div class="flex">
 		<status-selector-app

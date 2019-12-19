@@ -1,9 +1,11 @@
 <selection-bar-app
 	entityName="sample"
-	[count]="count"
+	[selectableItems]="selectableItems"
 	[isShown]="isShown"
 	[selection]="selection"
-	(close)="close.emit()">
+	(close)="close.emit()"
+	(selectAll)="selectAll.emit($event)"
+	(unselectAll)="unselectAll.emit()">
 
 	<button class="icon light" (click)="deleteSelected.emit()">
 		<icon-app name="trash"></icon-app>

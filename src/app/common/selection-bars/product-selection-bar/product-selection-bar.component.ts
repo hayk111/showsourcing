@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { Product, Project } from '~core/models';
-import { EntitySelectionBarComponent } from '~core/selection';
+import { EntitySelectionBarComponent } from '../entity-selection-bar.component';
 
 @Component({
 	selector: 'product-selection-bar-app',
