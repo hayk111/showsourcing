@@ -281,6 +281,7 @@ export class ListPageService
 		this.dlgSrv.open(ConfirmDialogComponent, { text })
 			.pipe(
 				tap(_ => this.selectionSrv.unselectOne(entity)),
+				filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
 				switchMap(_ => this.dataSrv.deleteOne(entity.id)),
 				switchMap(_ => refetch ? this.refetch() : empty())
 			).subscribe();

@@ -1,18 +1,22 @@
 <ng-container *ngIf="project$ | async as project; else spinner">
 
-<controller-table-app>
-	<controller-table-quick-filters-app></controller-table-quick-filters-app>
-	<controller-table-quick-actions-app
-		[columns]="columns"
+<controller-table-app [hasExtra]="true">
+	<controller-table-quick-filters-app [quickFilters]="['assignee']"></controller-table-quick-filters-app>
+	<div class="extra">
+		<button (click)="dialogCommonSrv.openAddToProjectDialog([$event])">Add Product</button>
+	</div>
+	<controller-table-quick-actions-app 
+		[columns]="columns" 
 		[tableConfig]="tableConfig">
 	</controller-table-quick-actions-app>
-	<controller-table-view-switcher-app></controller-table-view-switcher-app>
+	<controller-table-view-switcher-app [hasBoard]="false"></controller-table-view-switcher-app>
 </controller-table-app>
 
 <ng-container>
 
 		<products-table-app
 			*ngIf="listSrv.view === 'table'"
+			[columns]="columns"
 			[selection]="listSrv.selection$ | async"
 			[rows]="listSrv.items$ | async"
 			[pending]="listSrv.pending"
@@ -27,6 +31,7 @@
 			(unselectAll)="listSrv.unselectAll()"
 			(archive)="listSrv.archiveOne($event)"
 			(open)="listSrv.goToDetails($event)"
+			(createClick)="dialogCommonSrv.openAddToProjectDialog([$event])"
 			(openAddToProjectDialog)="dialogCommonSrv.openAddToProjectDialog([$event])"
 			(openAddSampleDialog)="dialogCommonSrv.openCreationSampleDialog($event)"
 			(unfavorited)="listSrv.onItemUnfavorited($event)"

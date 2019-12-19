@@ -5,7 +5,7 @@
 		searchType="short"
 		[formControl]="searchControl"
 		[inputFocus]="inputFocus"
-		[placeHolder]="'placeholder.type-to-search' | translate"
+		[placeHolder]="'placeholder.search' | translate"
 		(search)="listSrv.search($event)">
 	</search-bar-app>
 
@@ -39,9 +39,11 @@
 	<ng-content select="controller-table-content-app"></ng-content>
 	<divider-app *ngIf="content" [vertical]="true"></divider-app>
 
-
 	<ng-content select="controller-table-quick-filters-app"></ng-content>
 	<divider-app class="mg-left-ms" [vertical]="true"></divider-app>
+	
+	<ng-content select=".extra"></ng-content>
+	<divider-app *ngIf="hasExtra" [vertical]="true"></divider-app>
 
 	<ng-content select="controller-table-quick-actions-app"></ng-content>
 
