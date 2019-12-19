@@ -9,8 +9,8 @@
 
 <controller-table-app>
 	<controller-table-quick-filters-app></controller-table-quick-filters-app>
-	<controller-table-quick-actions-app 
-		[columns]="columns" 
+	<controller-table-quick-actions-app
+		[columns]="columns"
 		[tableConfig]="tableConfig">
 	</controller-table-quick-actions-app>
 	<controller-table-view-switcher-app></controller-table-view-switcher-app>
@@ -85,7 +85,7 @@
 		(favorited)="listSrv.onFavoriteAllSelected()"
 		(unfavorited)="listSrv.onUnfavoriteAllSelected()"
 		(addProject)="onProjectDlgOpen()"
-		(export)="dialogCommonSrv.openExportDialog(listSrv.getSelectedValues())"
+		(export)="dialogCommonSrv.openExportDialog(erm.PRODUCT.singular, listSrv.getSelectedValues())"
 		(createRequest)="dialogCommonSrv.openSupplierRequest(listSrv.getSelectedValues())"
 		(requestTeamFeedback)="dialogCommonSrv.openRequestFeedbackDialog(listSrv.getSelectedValues())"
 		(archiveProducts)="listSrv.archiveMany(listSrv.getSelectedValues())"

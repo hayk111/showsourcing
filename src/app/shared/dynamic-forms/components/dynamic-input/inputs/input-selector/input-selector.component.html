@@ -50,11 +50,17 @@
 <!-- detects the type and display certain property -->
 <ng-template #switchType let-item="item">
 	<ng-container [ngSwitch]="type">
+		<!-- user -->
 		<ng-container *ngSwitchCase="erm.USER.singular">
 			{{ item | formatUserName: true }}
 		</ng-container>
+		<!-- event -->
 		<ng-container *ngSwitchCase="erm.EVENT.singular">
 			{{ item?.descriptor?.name }}
+		</ng-container>
+		<!-- country -->
+		<ng-container *ngSwitchCase="erm.COUNTRY.singular">
+			<span> {{ value ? (value | const: 'country' ) : '-' }}</span>
 		</ng-container>
 		<!-- we read these 2 values, since when we are updating it takes a bit to be converted to an array -->
 		<!-- this strange behaviour happens since we share same value on extended field -> selectorValue: SelectorElement[] -->

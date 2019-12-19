@@ -58,13 +58,13 @@ export class ProductAddToProjectDlgComponent extends AutoUnsub implements OnInit
 
 	select(project: Project) {
 		this.selected[project.id] = project;
-		this.listSrv.selectOne(project, true);
+		this.listSrv.selectOne(project);
 		++this.selectedProjectsCount;
 	}
 
 	unselect(project: Project) {
 		delete this.selected[project.id];
-		this.listSrv.unselectOne(project, true);
+		this.listSrv.unselectOne(project);
 		--this.selectedProjectsCount;
 	}
 
@@ -81,7 +81,7 @@ export class ProductAddToProjectDlgComponent extends AutoUnsub implements OnInit
 	}
 
 	selectAll(projects: Project[]) {
-		this.listSrv.selectAll(projects, true);
+		this.listSrv.selectAll(projects);
 
 		projects.forEach(project => {
 			this.selected[project.id] = project;

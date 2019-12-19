@@ -6,7 +6,6 @@ import { ERM, Supplier } from '~core/models';
 import { Sort } from '~shared/table/components/sort.interface';
 import { EntityTableComponent } from '~common/tables/entity-table.component';
 
-
 @Component({
 	selector: 'table-page-app',
 	templateUrl: './table-page.component.html',

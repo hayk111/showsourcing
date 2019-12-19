@@ -184,14 +184,12 @@ export class ProductsBoardComponent extends AutoUnsub implements OnInit {
 	}
 
 	onFavoriteAllSelected() {
-		this.listSrv.onFavoriteAllSelected();
 		const updated = this.listSrv.getSelectedIds()
 			.map(id => ({ id, favorite: true }));
 		this.kanbanSrv.updateMany(updated);
 	}
 
 	onUnfavoriteAllSelected() {
-		this.listSrv.onUnfavoriteAllSelected();
 		const updated = this.listSrv.getSelectedIds()
 			.map(id => ({ id, favorite: false }));
 		this.kanbanSrv.updateMany(updated);

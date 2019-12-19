@@ -3,6 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { ERM, ExportRequest } from '~core/models';
 import { EntityTableComponent } from '../entity-table.component';
 import { config } from './config';
+import { EntityTableComponent } from '../entity-table.component';
 
 
 @Component({
