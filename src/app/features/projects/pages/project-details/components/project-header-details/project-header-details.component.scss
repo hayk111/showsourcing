@@ -4,7 +4,22 @@
 	flex-direction: column;
 }
 
+header-details-info-app {
+	color: var(--color-txt-secondary);
+}
+
+.vertical-dots {
+	icon-app {
+		color: var(--color-txt-secondary);
+	}
+}
+
 icon-app {
 	font-size: var(--font-size-xxxl);
 	color: var(--color-txt-primary);
+}
+
+.project-name {
+	font-size: var(--font-size-xxl);
+	height: 21px;
 }
