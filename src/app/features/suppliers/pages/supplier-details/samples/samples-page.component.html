@@ -47,7 +47,6 @@
 </side-panel-app>
 
 <sample-selection-bar-app
-	[count]="listSrv.count$ | async"
 	[isShown]="(listSrv.selection$ | async).size > 0"
 	[selection]="listSrv.selection$ | async"
 	(close)="listSrv.unselectAll()"

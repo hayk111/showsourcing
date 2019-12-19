@@ -20,6 +20,9 @@ export class KanbanSelectionService {
 
 	unselectOne(item: Entity, column: KanbanColumn) {
 		column.unselectOne(item);
+		if (column.selection.size === 0) {
+			this.columnInSelection = undefined;
+		}
 	}
 
 	selectAll(column?: KanbanColumn) {
@@ -31,6 +34,15 @@ export class KanbanSelectionService {
 
 	unselectAll() {
 		this.columnInSelection.unselectAll();
+		this.columnInSelection = undefined;
 	}
 
+	get selection() {
+		return this.columnInSelection ? this.columnInSelection.selection : new Map();
+
+	}
+
+	get selectableItems() {
+		return this.columnInSelection ? this.columnInSelection.data : [];
+	}
 }

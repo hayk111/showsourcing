@@ -3,8 +3,8 @@
 	<div class="left-section">
 		<select-checkbox-app
 			[state]="col.getSelectionState()"
-			(check)="selectAll.emit({data: col.data, column: col})"
-			(uncheck)="unselectAll.emit({data: col.data, column: col})">
+			(check)="selectAll.emit({ data: col.data, column: col })"
+			(uncheck)="unselectAll.emit({ data: col.data, column: col })">
 		</select-checkbox-app>
 		<span class="title">
 			{{ col.title }}

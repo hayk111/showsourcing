@@ -1,6 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
-import { empty, Observable } from 'rxjs';
+import { empty, Observable, of } from 'rxjs';
 import { filter, map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { CreationDialogComponent } from '~common/dialogs/creation-dialogs';
 import { ExportDlgComponent } from '~common/dialogs/custom-dialogs';
@@ -20,6 +20,7 @@ import { ListPageDataService } from './list-page-data.service';
 import { ListPageViewService } from './list-page-view.service';
 import { NotificationService, NotificationType } from '~shared/notifications';
 import { SelectionService } from './selection.service';
+import { KanbanSelectionService } from '~shared/kanban/services/kanban-selection.service';
 
 
 // It has four legs and it can fly, what is it?
@@ -59,7 +60,7 @@ export class ListPageService
 		private dlgSrv: DialogService,
 		private zone: NgZone,
 		private userSrv: UserService,
-		private notifSrv: NotificationService
+		private notifSrv: NotificationService,
 	) {
 		if (!showsourcing.tables) {
 			showsourcing.tables = {};
@@ -110,6 +111,10 @@ export class ListPageService
 
 	get items$() {
 		return this.dataSrv.items$;
+	}
+
+	get selectableItems$() {
+		return this.items$;
 	}
 
 	combine(items: Observable<any>) {

@@ -53,10 +53,6 @@
 	entityType="supplier"
 	[isShown]="(listSrv.selection$ | async).size > 0"
 	[selection]="listSrv.selection$ | async"
-	[count]="listSrv.count$ | async"
-	[allSelectedFavorite]="listSrv.allSelectedFavorite"
-	(onFavorite)="listSrv.onFavoriteAllSelected()"
-	(onUnfavorite)="listSrv.onUnfavoriteAllSelected()"
 	(statusUpdated)="this.listSrv.updateSelected({status: $event})"
 	(deleteSelected)="listSrv.deleteSelected()"
 	(close)="listSrv.unselectAll()">

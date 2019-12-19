@@ -50,9 +50,6 @@
 
 	<products-board-app
 		*ngIf="listSrv.view === 'board'"
-		[selection]="listSrv.selection$"
-		(selectOne)="listSrv.selectOne($event, true)"
-		(unselectOne)="listSrv.unselectOne($event, true)"
 		(preview) = "listSrv.openPreview($event)">
 	</products-board-app>
 
@@ -76,14 +73,11 @@
 	</products-grid-app>
 
 	<product-selection-bar-app
-		[isShown]="(listSrv.selection$ | async)?.size"
-		[selection]="listSrv.selection$ | async"
-		[favorite]="listSrv.allSelectedFavorite"
-		[selectableItems]="listSrv.items$ | async"
+		[isShown]="(getSelection$() | async)?.size"
+		[selection]="getSelection$() | async"
+		[selectableItems]="getSelectableItems$() | async"
 		(disliked)="listSrv.onMultipleThumbDown($event, erm.PRODUCT.singular)"
 		(liked)="listSrv.onMultipleThumbUp($event, erm.PRODUCT.singular)"
-		(favorited)="listSrv.onFavoriteAllSelected()"
-		(unfavorited)="listSrv.onUnfavoriteAllSelected()"
 		(addProject)="onProjectDlgOpen()"
 		(export)="dialogCommonSrv.openExportDialog(erm.PRODUCT.singular, listSrv.getSelectedValues())"
 		(createRequest)="dialogCommonSrv.openSupplierRequest(listSrv.getSelectedValues())"

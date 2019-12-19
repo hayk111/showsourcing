@@ -15,6 +15,7 @@ import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.class';
 import { KanbanService } from '~shared/kanban/services/kanban.service';
 import { StatusUtils, translate } from '~utils';
 import { AutoUnsub } from '~utils/auto-unsub.component';
+import { KanbanSelectionService } from '~shared/kanban/services/kanban-selection.service';
 
 @Component({
 	selector: 'products-board-app',
@@ -26,7 +27,6 @@ import { AutoUnsub } from '~utils/auto-unsub.component';
 })
 export class ProductsBoardComponent extends AutoUnsub implements OnInit {
 
-	@Input() selection: Observable<Map<string, Product>>;
 	@Output() preview = new EventEmitter<undefined>();
 	@Output() selectOne = new EventEmitter<Product>();
 	@Output() unselectOne = new EventEmitter<Product>();
@@ -56,9 +56,9 @@ export class ProductsBoardComponent extends AutoUnsub implements OnInit {
 		private productSrv: ProductService,
 		private productStatusSrv: ProductStatusService,
 		private listSrv: ListPageService<Product, ProductService>,
-		private selectionSrv: SelectionService,
 		public dialogCommonSrv: DialogCommonService,
 		public kanbanSrv: KanbanService,
+		public kanbanSelectionSrv: KanbanSelectionService,
 		public dlgSrv: DialogService
 	) {
 		super();
@@ -167,42 +167,12 @@ export class ProductsBoardComponent extends AutoUnsub implements OnInit {
 		).subscribe();
 	}
 
-	onColumnSelected({ data, column }) {
-		this.selectionSrv.selectAll(data);
+	onSelectedOne(product: Product, column: KanbanColumn) {
+		this.kanbanSelectionSrv.selectOne(product, column);
 	}
 
-	onColumnUnselected() {
-		this.selectionSrv.unselectAll();
-	}
-
-	onSelectedOne(product: Product, column: any) {
-		this.selectionSrv.selectOne(product);
-	}
-
-	onUnselectedOne(product: Product, column: any) {
-		this.selectionSrv.unselectOne(product);
-	}
-
-	onFavoriteAllSelected() {
-		const updated = this.listSrv.getSelectedIds()
-			.map(id => ({ id, favorite: true }));
-		this.kanbanSrv.updateMany(updated);
-	}
-
-	onUnfavoriteAllSelected() {
-		const updated = this.listSrv.getSelectedIds()
-			.map(id => ({ id, favorite: false }));
-		this.kanbanSrv.updateMany(updated);
-	}
-
-	onMultipleThumbUp(isCreated) {
-		const updated = this.listSrv.onMultipleThumbUp(isCreated, EntityName.PRODUCT);
-		this.kanbanSrv.updateMany(updated);
-	}
-
-	onMultipleThumbDown(isCreated) {
-		const updated = this.listSrv.onMultipleThumbDown(isCreated, EntityName.PRODUCT);
-		this.kanbanSrv.updateMany(updated);
+	onUnselectedOne(product: Product, column: KanbanColumn) {
+		this.kanbanSelectionSrv.unselectOne(product, column);
 	}
 
 	deleteSelected() {
