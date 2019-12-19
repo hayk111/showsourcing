@@ -11,7 +11,7 @@
 				<span class="color-txt-primary">{{ product?.name }}</span>
 			</div>
 			<div class="info dot-separator ellipsis flex">
-				<span *ngIf="product?.price" class="ellipsis price">{{ product?.price | appPrice }}</span>
+				<price-app [price]="product?.price"></price-app>
 				<span *ngIf="product?.category" class="ellipsis category">{{ product?.category?.name }}</span>
 				<rating-number-badge-app *ngIf="product?.votes?.length" class="rating-badge" [votes]="product?.votes" [background]="false"></rating-number-badge-app>
 			</div>
