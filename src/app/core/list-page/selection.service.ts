@@ -42,7 +42,7 @@ export class SelectionService {
 		this.emit();
 	}
 
-	getSelectionValues() {
+	getSelectionValues(): any[] {
 		return Array.from(this.selection.values());
 	}
 

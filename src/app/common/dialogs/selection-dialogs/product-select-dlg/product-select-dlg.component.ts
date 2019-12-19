@@ -122,14 +122,14 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 	onItemSelected(entity: any) {
 		this.selectedProducts[entity.id] = entity;
 		delete this.unselectedProducts[entity.id];
-		this.listSrv.selectionSrv.selectOne(entity, false);
+		this.listSrv.selectionSrv.selectOne(entity);
 		this.selectedProductsCount++;
 	}
 
 	onItemUnselected(entity: any) {
 		this.unselectedProducts[entity.id] = entity;
 		delete this.selectedProducts[entity.id];
-		this.listSrv.selectionSrv.unselectOne(entity, false);
+		this.listSrv.selectionSrv.unselectOne(entity);
 		this.selectedProductsCount--;
 	}
 
