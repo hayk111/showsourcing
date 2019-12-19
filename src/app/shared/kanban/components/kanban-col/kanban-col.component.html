@@ -2,7 +2,7 @@
 <header class="flexBetween">
 	<div class="left-section">
 		<select-checkbox-app
-			[state]="getSelectionState()"
+			[state]="col.getSelectionState()"
 			(check)="selectAll.emit({data: col.data, column: col})"
 			(uncheck)="unselectAll.emit({data: col.data, column: col})">
 		</select-checkbox-app>
@@ -37,7 +37,8 @@
     <!-- <div class="custom-placeholder" *cdkDragPlaceholder></div> -->
     <ng-container *ngTemplateOutlet="cardTemplate; context: { column: col, data: item }">
     </ng-container>
-  </kanban-item-app>
+	</kanban-item-app>
+	
 	<div
 		*ngIf="col.data.length < col.totalData"
 		class="txt-btn flexCenter"

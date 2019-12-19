@@ -3,6 +3,12 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 import { KanbanColumn, KanbanDropEvent } from '~shared/kanban/interfaces';
 import { TrackingComponent } from '~utils/tracking-component';
 import { KanbanService } from '~shared/kanban/services/kanban.service';
+import { KanbanSelectionService } from '~shared/kanban/services/kanban-selection.service';
+
+export interface SelectionChangeEvent {
+	selectableItems: any[];
+	selection: Map<string, any>;
+}
 
 @Component({
 	selector: 'kanban-app',
@@ -14,7 +20,6 @@ export class KanbanComponent extends TrackingComponent {
 	@Input() cols: KanbanColumn[] = [];
 	/** template for the displayed item */
 	@Input() cardTemplate: any;
-	@Input() selection: Map<string, any>;
 	@Input() amountLoaded: number;
 	@Input() set width(width: string) {
 		this._width = width + 'px';
@@ -22,14 +27,18 @@ export class KanbanComponent extends TrackingComponent {
 	@Output() drop = new EventEmitter<KanbanDropEvent>();
 	@Output() multipleDrop = new EventEmitter<KanbanDropEvent>();
 	/** when the top checkbox is checked */
-	@Output() selectColumn = new EventEmitter<{data: any[], column: any}>();
-	@Output() unselectColumn = new EventEmitter<{data: any[], column: any}>();
+	@Output() selectionChange;
 	@Output() loadMore = new EventEmitter<KanbanColumn>();
+
+	selection = new Map<string, { id?: string }>();
 
 
 	_width = 'inherit';
 
-	constructor(private kanbanSrv: KanbanService) {
+	constructor(
+		private kanbanSrv: KanbanService,
+		public selectionSrv: KanbanSelectionService
+	) {
 		super();
 	}
 
@@ -77,6 +86,10 @@ export class KanbanComponent extends TrackingComponent {
 
 	getOtherIds(thatId) {
 		return this.ids.filter(id => id !== thatId);
+	}
+
+	onSelectOne() {
+
 	}
 
 }

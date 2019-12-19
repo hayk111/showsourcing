@@ -1,7 +1,6 @@
 <kanban-app
   [cols]="columns$ | async"
   [cardTemplate]="card"
-  [selection]="selection | async"
   [amountLoaded]="amountLoaded"
   (drop)="onUpdateProductStatus($event)"
   (multipleDrop)="updateProductsStatus($event)"

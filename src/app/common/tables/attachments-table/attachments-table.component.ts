@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { EntityTableComponent, TableConfig } from '~core/list-page';
+import { TableConfig, EntityTableComponent } from '../entity-table.component';
 import { Attachment } from '~core/models';
 import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback.service';
 import { defaultConfig } from '../default-columns/default-config';

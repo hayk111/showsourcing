@@ -47,21 +47,6 @@ export class KanbanColComponent extends TrackingComponent implements OnInit {
 		return this.col.data.every(item => this.selection.has(item.id));
 	}
 
-	getSelectionState(): SelectionState {
-		const rows = this.col.data;
-		const selection = this.col.data.map(data => this.selection.has(data.id));
-		if (!rows || rows.length === 0)
-			return 'unchecked';
-
-		if (selection.length === rows.length) {
-			return 'selectedAll';
-		} else if (selection.length === 0) {
-			return 'unchecked';
-		} else {
-			return 'selectedPartial';
-		}
-	}
-
 	/** we use the mouse enter event since it happens before the drag process starts */
 	onMouseEnter(item: any) {
 		this.draggedId = item.id;

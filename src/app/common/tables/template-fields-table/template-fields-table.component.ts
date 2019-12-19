@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { EntityTableComponent, TableConfig } from '~core/list-page';
 import { ERM, TemplateField } from '~models';
 import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
 import { DynamicUpdate } from '~shared/dynamic-forms/models/dynamic-update.interface';
+import { TableConfig, EntityTableComponent } from '../entity-table.component';
 
 const tableConfig: TableConfig = {
 	name: { name: 'name', translationKey: 'name', width: 120, sortable: false },
