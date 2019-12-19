@@ -160,22 +160,20 @@ export class SuppliersBoardComponent extends AutoUnsub implements OnInit {
 	}
 
 	onColumnSelected(suppliers: Supplier[]) {
-		suppliers.forEach(supplier => this.listSrv.selectOne(supplier, true));
+		suppliers.forEach(supplier => this.listSrv.selectOne(supplier));
 	}
 
 	onColumnUnselected(suppliers: Supplier[]) {
-		suppliers.forEach(supplier => this.listSrv.unselectOne(supplier, true));
+		suppliers.forEach(supplier => this.listSrv.unselectOne(supplier));
 	}
 
 	onFavoriteAllSelected() {
-		this.listSrv.onFavoriteAllSelected();
 		const updated = this.listSrv.getSelectedIds()
 			.map(id => ({ id, favorite: true }));
 		this.kanbanSrv.updateMany(updated);
 	}
 
 	onUnfavoriteAllSelected() {
-		this.listSrv.onUnfavoriteAllSelected();
 		const updated = this.listSrv.getSelectedIds()
 			.map(id => ({ id, favorite: false }));
 		this.kanbanSrv.updateMany(updated);

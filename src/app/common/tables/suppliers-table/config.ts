@@ -1,5 +1,5 @@
-import { TableConfig } from '~core/list-page';
 import { defaultConfig } from '../default-columns/default-config';
+import { TableConfig } from '../entity-table.component';
 
 
 export const config: TableConfig = {

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ColumnConfig, ListPageService } from '~core/list-page';
+import { ListPageService } from '~core/list-page';
+import { ColumnConfig } from '~common/tables/entity-table.component';
 
 @Component({
 	selector: 'controller-table-quick-actions-app',

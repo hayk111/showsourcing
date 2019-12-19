@@ -173,22 +173,20 @@ export class WorkflowPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	onColumnSelected(products: Product[]) {
-		products.forEach(prod => this.listSrv.selectOne(prod, true));
+		products.forEach(prod => this.listSrv.selectOne(prod));
 	}
 
 	onColumnUnselected(products: Product[]) {
-		products.forEach(prod => this.listSrv.unselectOne(prod, true));
+		products.forEach(prod => this.listSrv.unselectOne(prod));
 	}
 
 	onFavoriteAllSelected() {
-		this.listSrv.onFavoriteAllSelected();
 		const updated = this.listSrv.getSelectedIds()
 			.map(id => ({ id, favorite: true }));
 		this.kanbanSrv.updateMany(updated);
 	}
 
 	onUnfavoriteAllSelected() {
-		this.listSrv.onUnfavoriteAllSelected();
 		const updated = this.listSrv.getSelectedIds()
 			.map(id => ({ id, favorite: false }));
 		this.kanbanSrv.updateMany(updated);
