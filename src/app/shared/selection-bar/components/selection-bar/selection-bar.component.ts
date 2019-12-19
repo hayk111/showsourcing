@@ -19,7 +19,6 @@ import { SelectionState } from '~shared/inputs-custom/components/select-checkbox
 export class SelectionBarComponent {
 	@Input() selection: Map<string, boolean>;
 	@Input() entityType: EntityType;
-	@Input() selectionCount: number;
 	@Input() selectableItems: Entity[];
 	@Input() isShown = false;
 	@Output() close = new EventEmitter();
@@ -36,7 +35,7 @@ export class SelectionBarComponent {
 		if (this.selection.size === 0) {
 			return 'unchecked';
 		}
-		return this.selection.size === this.selectionCount ? 'selectedAll' : 'selectedPartial';
+		return this.selection.size === this.selectableItems.length ? 'selectedAll' : 'selectedPartial';
 	}
 
 }

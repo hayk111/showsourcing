@@ -2,6 +2,7 @@ import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
 import { KanbanColumn } from '~shared/kanban/interfaces';
 import { TrackingComponent } from '~utils/tracking-component';
+import { SelectionState } from '~shared/inputs-custom/components/select-checkbox/select-checkbox.component';
 
 @Component({
 	selector: 'kanban-col-app',
@@ -38,12 +39,27 @@ export class KanbanColComponent extends TrackingComponent implements OnInit {
 		this.drop.emit(event);
 	}
 
-	hasAllSelected() {
+	getCheckboxState() {
 		const hasData = this.col.data.length > 0;
 		if (!hasData) {
 			return false;
 		}
 		return this.col.data.every(item => this.selection.has(item.id));
+	}
+
+	getSelectionState(): SelectionState {
+		const rows = this.col.data;
+		const selection = this.col.data.map(data => this.selection.has(data.id));
+		if (!rows || rows.length === 0)
+			return 'unchecked';
+
+		if (selection.length === rows.length) {
+			return 'selectedAll';
+		} else if (selection.length === 0) {
+			return 'unchecked';
+		} else {
+			return 'selectedPartial';
+		}
 	}
 
 	/** we use the mouse enter event since it happens before the drag process starts */

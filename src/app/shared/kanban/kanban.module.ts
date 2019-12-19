@@ -8,6 +8,7 @@ import { KanbanColComponent } from './components/kanban-col/kanban-col.component
 import { KanbanItemComponent } from './components/kanban-item/kanban-item.component';
 import { KanbanComponent } from './components/kanban/kanban.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { InputsCustomModule } from '~shared/inputs-custom/inputs-custom.module';
 
 @NgModule({
 	imports: [
@@ -15,7 +16,8 @@ import { TranslateModule } from '@ngx-translate/core';
 		DragDropModule,
 		InputsModule,
 		IconsModule,
-		TranslateModule
+		TranslateModule,
+		InputsCustomModule
 	],
 	declarations: [KanbanComponent, KanbanColComponent, KanbanItemComponent],
 	exports: [KanbanComponent, KanbanItemComponent, KanbanColComponent]

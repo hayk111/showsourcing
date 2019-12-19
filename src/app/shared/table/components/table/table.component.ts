@@ -14,6 +14,7 @@ import { EntityName } from '~core/models';
 import { ColumnDirective } from '~shared/table/components/column.directive';
 import { Sort } from '~shared/table/components/sort.interface';
 import { TrackingComponent } from '~utils/tracking-component';
+import { SelectionState } from '~shared/inputs-custom/components/select-checkbox/select-checkbox.component';
 
 // Here is a stackblitz with a smaller version of the tables to understand it more easily
 
@@ -118,7 +119,7 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 		}
 	}
 
-	getSelectCheckboxState(): 'selectedPartial' | 'unchecked' | 'selectedAll' {
+	getSelectionState(): SelectionState {
 		if (!this.rows || this.rows.length === 0)
 			return 'unchecked';
 

@@ -1,11 +1,11 @@
 <!-- header -->
 <header class="flexBetween">
 	<div class="left-section">
-		<checkbox-app
-			[checked]="hasAllSelected()"
+		<select-checkbox-app
+			[state]="getSelectionState()"
 			(check)="selectAll.emit({data: col.data, column: col})"
 			(uncheck)="unselectAll.emit({data: col.data, column: col})">
-		</checkbox-app>
+		</select-checkbox-app>
 		<span class="title">
 			{{ col.title }}
 		</span>
