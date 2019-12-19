@@ -5,9 +5,10 @@ import { DynamicField } from '~shared/dynamic-forms';
 export class SupplierDescriptor extends AbstractDescriptorComponent {
 
 	protected _descriptor: DynamicField[] = [
-		{ name: 'address', type: 'text', label: 'address' },
+		{ name: 'address', type: 'textarea', label: 'address' },
 		{ name: 'description', type: 'textarea', metadata: { rows: 5 } },
 		{ name: 'name', type: 'text', required: true, label: 'name' },
+		{ name: 'fullName', type: 'text', label: 'legal-name' },
 		{ name: 'reference', type: 'text', label: 'reference' },
 		{ name: 'generalMOQ', type: 'int', label: 'moq' },
 		{ name: 'generalLeadTime', type: 'days', label: 'general-lead-time' },
@@ -27,6 +28,7 @@ export class SupplierDescriptor extends AbstractDescriptorComponent {
 		},
 		{
 			name: 'harbour', type: 'selector',
+			label: 'harbour',
 			metadata: {
 				target: ERM.HARBOUR.singular,
 				canCreate: false,
@@ -36,6 +38,7 @@ export class SupplierDescriptor extends AbstractDescriptorComponent {
 		},
 		{
 			name: 'incoTerm', type: 'selector',
+			label: 'inco-term',
 			metadata: {
 				target: ERM.INCO_TERM.singular,
 				canCreate: false,

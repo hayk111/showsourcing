@@ -3,7 +3,7 @@
 	<product-header-details-app
 		[product]="product"
 		(update)="updateProduct($event)"
-		(export)="dlgCommonSrv.openExportDialog([$event])"
+		(export)="dlgCommonSrv.openExportDialog(erm.PRODUCT.singular, [$event])"
 		(delete)="deleteProduct($event)"
 		(archive)="onArchive($event)"
 		(supplierRequest)="openSupplierRequest($event)">

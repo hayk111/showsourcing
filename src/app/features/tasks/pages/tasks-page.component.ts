@@ -101,8 +101,4 @@ export class TasksPageComponent extends AutoUnsub implements OnInit, AfterViewIn
 		this.listSrv.refetch(this.selectItemsConfig).subscribe();
 	}
 
-	onExport() {
-		this.dialogCommonSrv.openExportDialog(undefined);
-	}
-
 }
