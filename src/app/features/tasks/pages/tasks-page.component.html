@@ -43,12 +43,12 @@
 <task-selection-bar-app
 	[isShown]="(listSrv.selection$ | async)?.size > 0"
 	[selection]="listSrv.selection$ | async"
-	[count]="listSrv.count$ | async"
+	[selectableItems]="listSrv.items$ | async"
 	(close)="listSrv.unselectAll()"
 	(deleteSelected)="listSrv.deleteSelected(true)"
 	(statusUpdated)="this.listSrv.updateSelected({status: $event})"
-	(onFavorite)="listSrv.onFavoriteAllSelected()"
-	(onUnfavorite)="listSrv.onUnfavoriteAllSelected()">
+	(selectAll)="listSrv.selectAll($event)"
+	(unselectAll)="listSrv.unselectAll()">
 </task-selection-bar-app>
 
 <side-panel-app *ngIf="listSrv.filterPanelOpen">

@@ -45,15 +45,16 @@
 <product-selection-bar-app
 	[isShown]="(listSrv.selection$ | async).size > 0"
 	[selection]="listSrv.selection$ | async"
-	(disliked)="listSrv.onMultipleThumbDown($event)"
-	(liked)="listSrv.onMultipleThumbUp($event, erm.PRODUCT.singular)"
+	[selectableItems]="listSrv.items$ | async"
 	(addProject)="dialogCommonSrv.openAddToProjectDialog(listSrv.getSelectedValues())"
 	(export)="dialogCommonSrv.openExportDialog(erm.PRODUCT.singular, listSrv.getSelectedValues())"
 	(requestTeamFeedback)="dialogCommonSrv.openRequestFeedbackDialog(listSrv.getSelectedValues())"
 	(compareProducts)="dialogCommonSrv.openCompareProductDialog(listSrv.getSelectedValues())"
 	(statusUpdated)="listSrv.updateSelected({status: $event})"
 	(deleted)="deassociateSelectedProducts()"
-	(close)="listSrv.unselectAll()">
+	(close)="listSrv.unselectAll()"
+	(selectAll)="listSrv.selectAll($event)"
+	(unselectAll)="listSrv.unselectAll()">
 </product-selection-bar-app>
 
 <side-panel-app *ngIf="listSrv.filterPanelOpen">

@@ -53,9 +53,12 @@
 	entityType="supplier"
 	[isShown]="(listSrv.selection$ | async).size > 0"
 	[selection]="listSrv.selection$ | async"
+	[selectableItems]="listSrv.items$ | async"
 	(statusUpdated)="this.listSrv.updateSelected({status: $event})"
 	(deleteSelected)="listSrv.deleteSelected()"
-	(close)="listSrv.unselectAll()">
+	(close)="listSrv.unselectAll()"
+	(selectAll)="listSrv.selectAll($event)"
+	(unselectAll)="listSrv.unselectAll()">
 </supplier-selection-bar-app>
 
 <supplier-preview-app

@@ -78,9 +78,10 @@
 	[entityType]="erm.singular"
 	[isShown]="selection.size > 0"
 	[selection]="selection"
-	[state]="selectionSrv.getListCheckboxState(selection, listSrv.items$ | async)"
-	[count]="listSrv.count$ | async"
-	(close)="listSrv.unselectAll()">
+	[selectableItems]="listSrv.items$ | async"
+	(close)="listSrv.unselectAll()"
+	(selectAll)="listSrv.selectAll($event)"
+	(unselectAll)="listSrv.unselectAll()">
 
 	<div class="flex elements-container">
 		<!-- Merge -->

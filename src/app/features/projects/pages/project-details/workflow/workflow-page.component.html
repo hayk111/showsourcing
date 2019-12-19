@@ -9,7 +9,6 @@
 	<kanban-app
 		[cols]="columns$ | async"
 		[cardTemplate]="card"
-		[selection]="listSrv.selection$ | async"
 		[amountLoaded]="amountLoaded"
 		(drop)="updateProductStatus($event)"
 		(multipleDrop)="updateProductsStatus($event)"
@@ -32,7 +31,6 @@
 	<product-selection-bar-app
 		[isShown]="(listSrv.selection$ | async).size > 0"
 		[selection]="listSrv.selection$ | async"
-		[favorite]="listSrv.allSelectedFavorite"
 		(disliked)="onMultipleThumbDown($event)"
 		(liked)="onMultipleThumbUp($event)"
 		(favorited)="onFavoriteAllSelected()"

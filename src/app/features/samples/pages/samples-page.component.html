@@ -41,6 +41,7 @@
 <selection-bar-app
 	[isShown]="(listSrv.selection$ | async).size > 0"
 	[selection]="listSrv.selection$ | async"
+	[selectableItems]="listSrv.items$ | async"
 	(close)="listSrv.unselectAll()">
 
 	<div class="flex">
@@ -54,12 +55,9 @@
 			(statusUpdated)="this.listSrv.updateSelected({status: $event})">
 		</status-selector-app>
 		<action-bar-app
-			[favorite]="listSrv.allSelectedFavorite"
 			[hasLikes]="false"
 			[hasHeart]="false"
-			[multiple]="true"
-			(onFavorite)="listSrv.onFavoriteAllSelected()"
-			(onUnfavorite)="listSrv.onUnfavoriteAllSelected()"	>
+			[multiple]="true">
 			<button class="icon light" (click)="listSrv.deleteSelected()">
 				<icon-app name="trash"></icon-app>
 			</button>
