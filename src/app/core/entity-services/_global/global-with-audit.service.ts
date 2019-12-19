@@ -28,7 +28,12 @@ export class GlobalWithAuditService<T extends EntityWithAudit<any>> extends Glob
 	 * Updates on entity with an audit will add properties needed by the backend
 	 */
 	update(entity: any, client?: Client, fields?: string, isOptimistic: boolean = true) {
-		entity.lastUpdatedBy = { id: this.userSrv.userId, __typename: 'User' };
+		entity.lastUpdatedBy = {
+			id: this.userSrv.userId,
+			firstName: this.userSrv.userSync.firstName,
+			lastName: this.userSrv.userSync.lastName,
+			__typename: 'User'
+		};
 		entity.lastUpdatedDate = '' + new Date();
 		return super.update(entity, client, fields, isOptimistic);
 	}
@@ -48,10 +53,15 @@ export class GlobalWithAuditService<T extends EntityWithAudit<any>> extends Glob
 	 * create on entity with an audit will add properties needed by the backend
 	 */
 	create(entity: any, client?: Client) {
-		const userId = { id: this.userSrv.userId, __typename: 'User' };
-		entity.createdBy = userId;
+		const user = {
+			id: this.userSrv.userId,
+			firstName: this.userSrv.userSync.firstName,
+			lastName: this.userSrv.userSync.lastName,
+			__typename: 'User',
+		};
+		entity.createdBy = user;
 		entity.creationDate = '' + new Date();
-		entity.lastUpdatedBy = userId;
+		entity.lastUpdatedBy = user;
 		entity.lastUpdatedDate = '' + new Date();
 		return super.create(entity, client);
 	}

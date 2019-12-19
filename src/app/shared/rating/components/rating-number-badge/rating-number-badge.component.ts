@@ -25,7 +25,7 @@ export class RatingNumberBadgeComponent {
 	constructor(public ratingSrv: RatingService) { }
 
 	getClasses() {
-		let classes = this.score >= 3.5 ? 'color-accent-dark' : 'color-txt-third';
+		let classes = this.score >= 3.5 ? 'color-accent-dark' : 'color-third';
 		if (this.background) {
 			classes += this.score >= 3.5 ? ' bg-accent-light' : ' bg-secondary-light';
 		}

@@ -56,7 +56,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		FilterType.TAGS
 	];
 
-	columns = ProductsTableComponent.DEFAULT_COLUMNS;
+	columns = ProductsTableComponent.DEFAULT_COLUMNS.filter(column => column !== 'creationDate');
 	tableConfig = ProductsTableComponent.DEFAULT_TABLE_CONFIG;
 
 	constructor(
@@ -68,7 +68,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		public listSrv: ListPageService<Product, ProductService>,
 		public dialogCommonSrv: DialogCommonService,
 		private notifSrv: NotificationService,
-		private translate: TranslateService
+		private translate: TranslateService,
 	) {
 		super();
 	}

@@ -1,3 +1,5 @@
+
+<!-- archived -->
 <button
 	*ngIf="quickFilters.includes('archived')"
 	class="light mg-left-ms"
@@ -8,6 +10,7 @@
 	{{ 'label.show-archived' | translate }}
 </button>
 
+<!-- assignee -->
 <button
 	*ngIf="quickFilters.includes('assignee')"
 	class="light mg-left-ms"
@@ -18,6 +21,7 @@
 	{{ 'label.assigned-to-me' | translate }}
 </button>
 
+<!-- completed -->
 <button
 	*ngIf="quickFilters.includes('completed')"
 	class="light mg-left-ms"
@@ -28,6 +32,7 @@
 	{{ 'label.show-completed' | translate }}
 </button>
 
+<!-- createdBy -->
 <button
 	*ngIf="quickFilters.includes('createdBy')"
 	class="light mg-left-ms"

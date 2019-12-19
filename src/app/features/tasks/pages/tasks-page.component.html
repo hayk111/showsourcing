@@ -9,7 +9,7 @@
 	(buttonClick)="dialogCommonSrv.openCreationTaskDlg()">
 </header-list-app>
 
-<controller-table-app [hasFilters]="false">
+<controller-table-app>
 	<controller-table-quick-filters-app></controller-table-quick-filters-app>
 	<controller-table-quick-actions-app 
 		[columns]="columns" 
@@ -51,13 +51,14 @@
 	(onUnfavorite)="listSrv.onUnfavoriteAllSelected()">
 </task-selection-bar-app>
 
-<filters-app
-	[filterList]="listSrv.filterList"
-	[filterTypes]="filterTypes"
-	(clickOutside)="listSrv.closeFilterPanel()"
-	(close)="listSrv.closeFilterPanel()"
-	*ngIf="listSrv.filterPanelOpen">
-</filters-app>
+<side-panel-app *ngIf="listSrv.filterPanelOpen">
+	<filters-app
+		[filterList]="listSrv.filterList"
+		[filterTypes]="filterTypes"
+		(clickOutside)="listSrv.closeFilterPanel()"
+		(close)="listSrv.closeFilterPanel()">
+	</filters-app>
+</side-panel-app>
 
 <task-preview-app
 	*ngIf="listSrv.previewOpen"

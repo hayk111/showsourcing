@@ -24,7 +24,7 @@ export class ThumbButtonsComponent {
 			const voteIndex = (votes || []).findIndex(v => v.user && v.user.id === this.userSrv.userSync.id);
 			if (~voteIndex) {
 				const vote = votes[voteIndex];
-				vote.value === 100 ? this.like = true : this.like = false;
+				vote.value !== 0 ? this.like = true : this.like = false;
 				vote.value === 0 ? this.dislike = true : this.dislike = false;
 			}
 		}

@@ -1,5 +1,5 @@
 button {
-	background: var(--color-secondary-light);
+	background: var(--color-bg-secondary);
 	color: var(--color-txt-secondary);
 }
 
@@ -9,7 +9,7 @@ button:hover {
 }
 
 label {
-	margin: var(--spacing-m) 0;
+	margin: var(--spacing-ms) 0;
 }
 
 .edit {
@@ -25,4 +25,8 @@ label {
 		text-decoration: underline;
 		color: var(--color-warn);
 	}
+}
+
+checkbox-app {
+	margin-bottom: var(--spacing-ms);
 }

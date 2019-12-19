@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { AppImage } from '~core/models';
 import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback.service';
 import { AutoUnsub } from '~utils';
@@ -12,21 +12,20 @@ import { AutoUnsub } from '~utils';
 })
 export class PicturesCardComponent extends AutoUnsub implements OnInit {
 
-	private _images: AppImage[];
 	@Input() set images(images: AppImage[]) {
-		this._images = images;
 		this.uploaderFeedbackSrv.setImages(images);
 	}
 	get images() {
-		return this._images;
+		return this.uploaderFeedbackSrv.getImages();
 	}
 	@Input() entity: any;
 	@Input() imageProperty = 'images';
 	@Input() isImagePropertyArray = true;
 
-	defaultShown = 4;
-	currentShown = this.defaultShown;
+	defaultShown = 5;
+	currentShown = this.defaultShown - 1;
 	selectedIndex = 0;
+	pending = false;
 
 	constructor(public uploaderFeedbackSrv: UploaderFeedbackService) { super(); }
 
@@ -39,7 +38,9 @@ export class PicturesCardComponent extends AutoUnsub implements OnInit {
 	}
 
 	async addImages(files: File[]) {
-		this.uploaderFeedbackSrv.addImages(files).subscribe();
+		this.pending = true;
+		this.uploaderFeedbackSrv.addImages(files)
+			.subscribe(_ => this.pending = false);
 	}
 
 }
