@@ -169,12 +169,12 @@ export class ProductsBoardComponent extends AutoUnsub implements OnInit {
 
 	onColumnSelected({ data, column }) {
 		this.selectionSrv.selectColumn(column);
-		data.forEach(prod => this.listSrv.selectOne(prod, true));
+		data.forEach(prod => this.listSrv.selectOne(prod));
 	}
 
 	onColumnUnselected({ data, column }) {
 		this.selectionSrv.unselectColumn(column);
-		data.forEach(prod => this.listSrv.unselectOne(prod, true));
+		data.forEach(prod => this.listSrv.unselectOne(prod));
 	}
 
 	onSelectedOne(product: Product, column: any) {
@@ -200,14 +200,12 @@ export class ProductsBoardComponent extends AutoUnsub implements OnInit {
 	}
 
 	onFavoriteAllSelected() {
-		this.listSrv.onFavoriteAllSelected();
 		const updated = this.listSrv.getSelectedIds()
 			.map(id => ({ id, favorite: true }));
 		this.kanbanSrv.updateMany(updated);
 	}
 
 	onUnfavoriteAllSelected() {
-		this.listSrv.onUnfavoriteAllSelected();
 		const updated = this.listSrv.getSelectedIds()
 			.map(id => ({ id, favorite: false }));
 		this.kanbanSrv.updateMany(updated);

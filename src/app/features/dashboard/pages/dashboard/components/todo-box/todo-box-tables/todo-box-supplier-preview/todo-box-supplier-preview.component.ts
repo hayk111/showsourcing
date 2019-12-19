@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { TableConfig } from '~core/list-page';
 import { Supplier } from '~models';
 import { SupplierService } from '~core/entity-services';
+import { TableConfig } from '~common/tables/entity-table.component';
 
 const tableConfig: TableConfig = {
 	reference: { name: 'reference', translationKey: 'reference', width: 500, sortProperty: 'reference' },
