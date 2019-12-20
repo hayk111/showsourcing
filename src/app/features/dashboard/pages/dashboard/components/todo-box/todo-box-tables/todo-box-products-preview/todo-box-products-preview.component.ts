@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { TableConfig } from '~core/list-page';
 import { Product } from '~core/models';
 import { ProductService } from '~core/entity-services';
+import { TableConfig } from '~common/tables/entity-table.component';
 
 const tableConfig: TableConfig = {
 	about: { name: 'about', translationKey: 'about', width: 190, sortProperty: 'creationDate' },

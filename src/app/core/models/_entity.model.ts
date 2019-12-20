@@ -4,6 +4,7 @@ import { UserService } from '~core/entity-services';
 
 export interface Entity {
 	id?: ID;
+	__typename?: string;
 }
 
 export class EntityWithAudit<G> implements Entity {

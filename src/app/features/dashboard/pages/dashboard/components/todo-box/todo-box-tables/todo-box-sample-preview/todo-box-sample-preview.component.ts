@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { TableConfig } from '~core/list-page';
 import { Sample } from '~core/models';
 import { SampleService } from '~core/entity-services';
+import { TableConfig } from '~common/tables/entity-table.component';
 
 const tableConfig: TableConfig = {
 	name: { name: 'name', translationKey: 'name', width: 240, sortProperty: 'name' },

@@ -60,7 +60,6 @@ export class KanbanPageComponent extends AutoUnsub implements OnInit {
 			statuses$,
 			(filterList, statuses) => this.getProducts(statuses, filterList)
 		).subscribe();
-		this.selected$ = this.listSrv.selection$;
 	}
 
 	private getProducts(statuses: ProductStatus[], filterList: FilterList) {

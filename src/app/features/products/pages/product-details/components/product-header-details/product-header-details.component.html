@@ -21,7 +21,7 @@
 					{{ product?.reference }}
 				</span>
 				<span *ngIf="product && product.price && product.price.value !== null" class="price">
-					{{ product?.price | appPrice }}
+					<price-app [price]="product?.price"></price-app>
 				</span>
 				<span *ngIf="product?.category" class="category">
 					{{ product?.category?.name }}

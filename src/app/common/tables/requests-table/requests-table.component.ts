@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Output, TemplateRef, ViewChild } from '@angular/core';
-import { EntityTableComponent, TableConfig } from '~core/list-page';
 import { SupplierRequest } from '~core/models';
 import { TranslateService } from '@ngx-translate/core';
+import { EntityTableComponent, TableConfig } from '../entity-table.component';
 
 const tableConfig: TableConfig = {
 	title: { name: 'title', translationKey: 'title', width: 300, sortProperty: 'title' },

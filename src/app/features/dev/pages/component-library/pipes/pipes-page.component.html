@@ -1,13 +1,9 @@
 <card-app>
 	<h2>Price</h2>
-	<p>Input will be an object like this:
-		<small> {{price | json}} | appPrice</small>
-	</p>
-	<b>{{{ value: 55680, currency: "USD"} | appPrice}}</b>
-	<p>Or a number:
+	<p>A number converted:
 		<small>6000000 | appPrice</small>
 	</p>
-	<b>{{6000000 | appPrice}}</b>
+	<b>{{ 6000000 | appPrice}}</b>
 </card-app>
 
 <card-app>

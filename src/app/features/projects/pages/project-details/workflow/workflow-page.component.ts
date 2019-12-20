@@ -12,7 +12,7 @@ import { EntityName, ERM, Product, ProductStatus, Project } from '~models';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { KanbanDropEvent } from '~shared/kanban/interfaces';
-import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.interface';
+import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.class';
 import { KanbanService } from '~shared/kanban/services/kanban.service';
 import { StatusUtils } from '~utils';
 import { AutoUnsub } from '~utils/auto-unsub.component';
@@ -173,22 +173,20 @@ export class WorkflowPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	onColumnSelected(products: Product[]) {
-		products.forEach(prod => this.listSrv.selectOne(prod, true));
+		products.forEach(prod => this.listSrv.selectOne(prod));
 	}
 
 	onColumnUnselected(products: Product[]) {
-		products.forEach(prod => this.listSrv.unselectOne(prod, true));
+		products.forEach(prod => this.listSrv.unselectOne(prod));
 	}
 
 	onFavoriteAllSelected() {
-		this.listSrv.onFavoriteAllSelected();
 		const updated = this.listSrv.getSelectedIds()
 			.map(id => ({ id, favorite: true }));
 		this.kanbanSrv.updateMany(updated);
 	}
 
 	onUnfavoriteAllSelected() {
-		this.listSrv.onUnfavoriteAllSelected();
 		const updated = this.listSrv.getSelectedIds()
 			.map(id => ({ id, favorite: false }));
 		this.kanbanSrv.updateMany(updated);

@@ -1,9 +1,11 @@
 <selection-bar-app
 	entityType="task"
 	[isShown]="isShown"
-	[count]="count"
+	[selectableItems]="selectableItems"
 	[selection]="selection"
-	(close)="close.emit()">
+	(close)="close.emit()"
+	(selectAll)="selectAll.emit($event)"
+	(unselectAll)="unselectAll.emit()">
 
 	<div class="flex">
 		<status-selector-app
