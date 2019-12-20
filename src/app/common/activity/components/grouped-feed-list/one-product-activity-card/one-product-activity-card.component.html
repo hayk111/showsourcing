@@ -48,7 +48,7 @@
 		<div class="flexColumn prodInfo">
 			<span class="name ellipsis">{{ product?.name }}</span>
 			<div class="flex status-info flexWrap dot-separator">
-				<price-app [price]="product?.price"></price-app>
+				<price-app *ngIf="product?.price?.value" [price]="product?.price"></price-app>
 				<span *ngIf="product?.category?.name">{{ product?.category?.name }}</span>
 				<span *ngIf="product?.supplier?.name" class="supplier">{{ product?.supplier?.name }}</span>
 				<stats-icons-app
