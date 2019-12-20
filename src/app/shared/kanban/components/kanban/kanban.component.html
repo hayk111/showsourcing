@@ -4,7 +4,7 @@
   [col]="col"
   [cardTemplate]="cardTemplate"
   [connectedLists]="getOtherIds()"
-  [selection]="selection"
+  [selection]="selectionSrv.selection"
   [amountLoaded]="amountLoaded"
   (selectAll)="selectionSrv.selectAll(col)"
   (unselectAll)="selectionSrv.unselectAll()"

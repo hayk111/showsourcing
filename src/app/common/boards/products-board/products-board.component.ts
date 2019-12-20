@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { combineLatest, Observable } from 'rxjs';
-import { filter, first, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { combineLatest, Observable, concat, zip, merge } from 'rxjs';
+import { filter, first, switchMap, takeUntil, tap, mergeMap } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ProductStatusService } from '~core/entity-services/product-status/product-status.service';
@@ -33,9 +33,6 @@ export class ProductsBoardComponent extends AutoUnsub implements OnInit {
 
 
 	columns$ = this.kanbanSrv.columns$;
-	/** keeps tracks of the current selection */
-	selected: Map<string, Product>;
-	selectedColumns: Map<string, string> = new Map();
 	erm = ERM;
 	amountLoaded = 15;
 
@@ -81,15 +78,15 @@ export class ProductsBoardComponent extends AutoUnsub implements OnInit {
 
 		combineLatest(
 			filters$,
-			statuses$,
-			(filterList, statuses) => this.getProducts(statuses, filterList)
-		).subscribe();
-
-		this.listSrv.selection$
-			.pipe(
-				takeUntil(this._destroy$),
-			)
-			.subscribe(data => this.selected = data);
+			statuses$
+		).pipe(
+			mergeMap(([filterList, statuses]) => combineLatest(...this.getProductColumns(statuses, filterList))),
+		).subscribe(columns => {
+			columns.forEach(column => {
+				this.kanbanSrv.setData(column.products, column.status.id);
+				this.kanbanSrv.setTotal(column.total, column.status.id);
+			});
+		});
 	}
 
 	loadMore(col: KanbanColumn) {
@@ -102,25 +99,25 @@ export class ProductsBoardComponent extends AutoUnsub implements OnInit {
 			.subscribe(products => this.kanbanSrv.setData(products, col.id));
 	}
 
-	private getProducts(statuses: ProductStatus[], filterList: FilterList) {
-		statuses.forEach(status => {
+	private getProductColumns(statuses: ProductStatus[], filterList: FilterList): Observable<any>[] {
+		return statuses.map(status => {
 			const query = this.getColQuery(status.id, filterList);
-			this.productSrv.selectMany({ query, take: this.amountLoaded, sortBy: 'lastUpdatedDate' }).
+			return this.productSrv.selectMany({ query, take: this.amountLoaded, sortBy: 'lastUpdatedDate' }).
 				pipe(
 					first(),
-					// we use selectCount instead of queryCount, since queryCount wasn't giving the latest values, when requerying
-					switchMap(_ => this.productSrv.selectCount(query).pipe(first()), (prods, total) => ({ prods, total })),
-				).subscribe(data => {
-					this.kanbanSrv.setData(data.prods, status.id);
-					this.kanbanSrv.setTotal(data.total, status.id);
-				});
+					// we use selectCount instead of queryCount,
+					// since queryCount wasn't giving the latest values, when requerying
+					switchMap(
+						_ => this.productSrv.selectCount(query).pipe(first()),
+						(products, total) => ({ products, total, status })
+					)
+				);
 		});
 	}
 
-	// returns the query of the columns based on the parameters on the list srv and a constant query
+	// returns the query of the columns based on the parameters on the list srv
 	private getColQuery(colId: string, filterList?: FilterList) {
-		const constQuery = colId !== StatusUtils.NEW_STATUS_ID ?
-			`status.id == "${colId}"` : `status == null`;
+		const constQuery = `status.id == "${colId}"`;
 		const predicate = filterList ? filterList.asPredicate() : this.listSrv.filterList.asPredicate();
 		return [
 			predicate,
@@ -142,29 +139,19 @@ export class ProductsBoardComponent extends AutoUnsub implements OnInit {
 		if (event.to === event.from) {
 			return;
 		}
-		// we update on the server
-		const isNewStatus = event.to.id === StatusUtils.NEW_STATUS_ID;
 		this.productSrv.update({
 			id: event.item.id,
-			status: isNewStatus ? null : new ProductStatus({ id: event.to.id })
-		},
-			Client.TEAM,
-			isNewStatus ? 'status { id }' : ''
-		).subscribe();
+			status: new ProductStatus({ id: event.to.id })
+		}).subscribe();
 	}
 
 	/** multiple */
 	updateProductsStatus(event: KanbanDropEvent) {
-		const isNewStatus = event.to.id === StatusUtils.NEW_STATUS_ID;
 		const products = event.items.map(id => ({
 			id,
-			status: isNewStatus ? null : new ProductStatus({ id: event.to.id })
+			status: new ProductStatus({ id: event.to.id })
 		}));
-		this.productSrv.updateMany(
-			products,
-			Client.TEAM,
-			isNewStatus ? 'status { id }' : ''
-		).subscribe();
+		this.productSrv.updateMany(products).subscribe();
 	}
 
 	onSelectedOne(product: Product, column: KanbanColumn) {

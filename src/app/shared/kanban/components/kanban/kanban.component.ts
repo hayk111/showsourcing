@@ -30,7 +30,6 @@ export class KanbanComponent extends TrackingComponent {
 	@Output() selectionChange;
 	@Output() loadMore = new EventEmitter<KanbanColumn>();
 
-	selection = new Map<string, { id?: string }>();
 
 
 	_width = 'inherit';
@@ -48,8 +47,9 @@ export class KanbanComponent extends TrackingComponent {
 
 	onDrop(event: CdkDragDrop<any>) {
 		const item = event.previousContainer.data[event.previousIndex];
+		const selection = this.selectionSrv.selection;
 
-		if (this.selection.size > 0 && this.selection.has(item.id)) {
+		if (selection.size > 0 && selection.has(item.id)) {
 			return this.onMultipleDrop(event);
 		}
 		const emitted = {
@@ -75,7 +75,7 @@ export class KanbanComponent extends TrackingComponent {
 	}
 
 	onMultipleDrop(event: CdkDragDrop<any>) {
-		const ids = Array.from(this.selection.keys());
+		const ids = Array.from(this.selectionSrv.selection.keys());
 		this.kanbanSrv.transferMultiple(ids, event.container.id, event.currentIndex);
 		this.multipleDrop.emit({
 			from: this.cols.find(col => col.id === event.previousContainer.id),
