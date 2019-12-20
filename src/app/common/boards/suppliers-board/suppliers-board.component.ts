@@ -90,7 +90,7 @@ export class SuppliersBoardComponent extends AutoUnsub implements OnInit {
 			take: col.data.length + this.amountLoaded,
 			sortBy: 'lastUpdatedDate'
 		}).pipe(first())
-			.subscribe(suppliers => this.kanbanSrv.setData(suppliers, col.id));
+			.subscribe(suppliers => this.kanbanSrv.setData(suppliers, [col.id]));
 	}
 
 	private getSuppliers(statuses: SupplierStatus[], filterList: FilterList) {
@@ -102,8 +102,8 @@ export class SuppliersBoardComponent extends AutoUnsub implements OnInit {
 					// we use selectCount instead of queryCount, since queryCount wasn't giving the latest values, when requerying
 					switchMap(_ => this.supplierSrv.selectCount(query).pipe(first()), (suppliers, total) => ({ suppliers, total })),
 				).subscribe(data => {
-					this.kanbanSrv.setData(data.suppliers, status.id);
-					this.kanbanSrv.setTotal(data.total, status.id);
+					this.kanbanSrv.setData(data.suppliers, [status.id]);
+					this.kanbanSrv.setTotal(data.total, [status.id]);
 				});
 		});
 	}

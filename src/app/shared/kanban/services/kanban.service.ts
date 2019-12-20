@@ -69,9 +69,12 @@ export class KanbanService {
 	}
 
 
+
 	/** sets data of specific column */
-	setData(data: any[] = [], colId: string) {
-		this.kanbanConfig.get(colId).dataMap = this.mapFromArray(data);
+	setData(data: any[] = [], colIds: string[]) {
+		colIds.forEach(id => {
+			this.kanbanConfig.get(id).dataMap = this.mapFromArray(data);
+		});
 		this._kanbanConfig$.next(this.kanbanConfig);
 	}
 
@@ -84,8 +87,10 @@ export class KanbanService {
 	}
 
 	/** sets total of specific column */
-	setTotal(total: number, colId: string) {
-		this.kanbanConfig.get(colId).totalData = total;
+	setTotal(total: number, colIds: string[]) {
+		colIds.forEach(id => {
+			this.kanbanConfig.get(id).totalData = total;
+		});
 		this._kanbanConfig$.next(this.kanbanConfig);
 	}
 

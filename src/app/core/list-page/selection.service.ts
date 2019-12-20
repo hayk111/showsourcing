@@ -3,13 +3,15 @@ import { BehaviorSubject } from 'rxjs';
 import { Entity } from '~core/models';
 
 
+export type SelectionMap = Map<string, Entity>;
+
 
 @Injectable({
 	providedIn: 'root'
 })
 export class SelectionService {
-	selection = new Map<string, Entity>();
-	private _selection$ = new BehaviorSubject<Map<string, Entity>>(this.selection);
+	private selection: SelectionMap = new Map();
+	private _selection$ = new BehaviorSubject<SelectionMap>(this.selection);
 	selection$ = this._selection$.asObservable();
 
 	selectOne(item: Entity) {
@@ -46,7 +48,7 @@ export class SelectionService {
 		return Array.from(this.selection.values());
 	}
 
-	getSelectionIds() {
+	getSelectionIds(): string[] {
 		return Array.from(this.selection.keys());
 	}
 

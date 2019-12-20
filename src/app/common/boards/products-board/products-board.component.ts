@@ -80,7 +80,7 @@ export class ProductsBoardComponent extends AutoUnsub implements OnInit {
 			filters$,
 			statuses$
 		).pipe(
-			mergeMap(([filterList, statuses]) => combineLatest(...this.getProductColumns(statuses, filterList))),
+			mergeMap(([filterList, statuses]) => combineLatest(...this.getProductByStatus(statuses, filterList))),
 		).subscribe(columns => {
 			columns.forEach(column => {
 				this.kanbanSrv.setData(column.products, column.status.id);
@@ -96,10 +96,10 @@ export class ProductsBoardComponent extends AutoUnsub implements OnInit {
 			take: col.data.length + this.amountLoaded,
 			sortBy: 'lastUpdatedDate'
 		}).pipe(first())
-			.subscribe(products => this.kanbanSrv.setData(products, col.id));
+			.subscribe(products => this.kanbanSrv.setData(products, [col.id]));
 	}
 
-	private getProductColumns(statuses: ProductStatus[], filterList: FilterList): Observable<any>[] {
+	private getProductByStatus(statuses: ProductStatus[], filterList: FilterList): Observable<any>[] {
 		return statuses.map(status => {
 			const query = this.getColQuery(status.id, filterList);
 			return this.productSrv.selectMany({ query, take: this.amountLoaded, sortBy: 'lastUpdatedDate' }).

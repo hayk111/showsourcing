@@ -88,7 +88,7 @@ export class WorkflowPageComponent extends AutoUnsub implements OnInit {
 			sortBy: 'lastUpdatedDate'
 		}).pipe(
 			first()
-		).subscribe(products => this.kanbanSrv.setData(products, col.id));
+		).subscribe(products => this.kanbanSrv.setData(products, [col.id]));
 	}
 
 	private getProducts(statuses: ProductStatus[]) {
@@ -96,10 +96,10 @@ export class WorkflowPageComponent extends AutoUnsub implements OnInit {
 			const query = this.getColQuery(status.id);
 			this.productSrv.selectMany({ query, take: this.amountLoaded, sortBy: 'lastUpdatedDate' })
 				.pipe(take(1))
-				.subscribe(prods => this.kanbanSrv.setData(prods, status.id));
+				.subscribe(prods => this.kanbanSrv.setData(prods, [status.id]));
 			this.productSrv.selectCount(query)
 				.pipe(take(1))
-				.subscribe(total => this.kanbanSrv.setTotal(total, status.id));
+				.subscribe(total => this.kanbanSrv.setTotal(total, [status.id]));
 		});
 	}
 

@@ -97,9 +97,9 @@ export class SamplesBoardComponent extends AutoUnsub implements OnInit {
 			].join(' && ');
 			this.sampleSrv.queryMany({ query, take: this.amountLoaded, sortBy: 'lastUpdatedDate' })
 				.pipe(first())
-				.subscribe(samples => this.kanbanSrv.setData(samples, status.id));
+				.subscribe(samples => this.kanbanSrv.setData(samples, [status.id]));
 			this.sampleSrv.queryCount(query).pipe(first())
-				.subscribe(total => this.kanbanSrv.setTotal(total, status.id));
+				.subscribe(total => this.kanbanSrv.setTotal(total, [status.id]));
 		});
 	}
 
@@ -117,7 +117,7 @@ export class SamplesBoardComponent extends AutoUnsub implements OnInit {
 			sortBy: 'lastUpdatedDate'
 		}).pipe(
 			first()
-		).subscribe(samples => this.kanbanSrv.setData(samples, col.id));
+		).subscribe(samples => this.kanbanSrv.setData(samples, [col.id]));
 	}
 
 	onColumnSelected(samples: Sample[]) {
