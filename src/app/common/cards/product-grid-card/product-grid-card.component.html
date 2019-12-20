@@ -84,6 +84,7 @@
 				<span *ngIf="product?.supplier?.name">{{ product?.supplier?.name }}</span>
 			</div>
 			<rating-number-badge-app
+				*ngIf="ratingSrv.computeScoreVotes(product?.votes) >= 3.5"
 				[votes]="product?.votes">
 			</rating-number-badge-app>
 		</div>
