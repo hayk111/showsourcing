@@ -26,11 +26,8 @@
 	</header-nav-app>
 
 	<header-details-actions-app>
-		<button action class="create-team capitalize"
-			(click)="redirectNewTeamScreen()"
-			translate="button.create-team"></button>
-		<button action class="purchase-license capitalize"
-			translate="button.purchase-license"></button>
+		<button class="capitalize" (click)="redirectNewTeamScreen()">{{'button.create-team' | translate}}</button>
+		<button class="capitalize success">{{'button.purchase-license' | translate}}</button>
 	</header-details-actions-app>
 
 </header-details-app>

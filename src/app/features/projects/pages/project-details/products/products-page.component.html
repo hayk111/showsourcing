@@ -23,6 +23,7 @@
 			[count]="listSrv.count$ | async"
 			[currentSort]="listSrv.currentSort"
 			[currentPage]="listSrv.currentPage"
+			createEntityBtnName="Add Product"
 			(goToPage)="listSrv.loadPage($event)"
 			(previewClick)="listSrv.openPreview($event)"
 			(select)="listSrv.selectOne($event, true)"

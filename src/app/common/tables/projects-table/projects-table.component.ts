@@ -6,7 +6,7 @@ import { defaultConfig } from '../default-columns/default-config';
 
 const tableConfig: TableConfig = {
 	...defaultConfig,
-	projectLead: { name: 'projectLead', translationKey: 'project-lead', width: 152, sortProperty: 'createdBy.firstName' },
+	assignee: { name: 'assignee', translationKey: 'project-lead', width: 152, sortProperty: 'assignee.firstName' },
 };
 
 @Component({
@@ -15,7 +15,7 @@ const tableConfig: TableConfig = {
 	styleUrls: ['./projects-table.component.scss']
 })
 export class ProjectsTableComponent extends EntityTableComponent<Project> {
-	static DEFAULT_COLUMNS = [ 'logo', 'name', 'projectLead', 'dueDate', 'status', 'createdBy', 'creationDate' ];
+	static DEFAULT_COLUMNS = [ 'logo', 'name', 'assignee', 'dueDate', 'status', 'createdBy', 'creationDate' ];
 	static DEFAULT_TABLE_CONFIG = tableConfig;
 	@Input() columns = ProjectsTableComponent.DEFAULT_COLUMNS;
 	@Input() tableConfig = ProjectsTableComponent.DEFAULT_TABLE_CONFIG;
