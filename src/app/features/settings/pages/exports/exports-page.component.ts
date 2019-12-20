@@ -57,7 +57,7 @@ export class ExportsPageComponent extends AutoUnsub implements OnInit, AfterView
 	}
 
 	downloadSelected() {
-		this.listSrv.selectionSrv.selection.forEach(exportReq => {
+		this.listSrv.selectionSrv.selection.forEach((exportReq: any) => {
 			this.downloadOne(exportReq);
 		});
 	}

@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { EntitySelectionBarComponent } from '~core/selection';
+import { EntitySelectionBarComponent } from '../entity-selection-bar.component';
 
 @Component({
 	selector: 'sample-selection-bar-app',

@@ -11,7 +11,7 @@ import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { FilterList, FilterType } from '~shared/filters';
 import { KanbanDropEvent } from '~shared/kanban/interfaces';
-import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.interface';
+import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.class';
 import { KanbanService } from '~shared/kanban/services/kanban.service';
 import { StatusUtils, translate } from '~utils';
 import { AutoUnsub } from '~utils/auto-unsub.component';
@@ -81,7 +81,6 @@ export class SuppliersBoardComponent extends AutoUnsub implements OnInit {
 			statuses$,
 			(filterList, statuses) => this.getSuppliers(statuses, filterList)
 		).subscribe();
-		this.selected$ = this.listSrv.selection$;
 	}
 
 	loadMore(col: KanbanColumn) {
@@ -160,22 +159,20 @@ export class SuppliersBoardComponent extends AutoUnsub implements OnInit {
 	}
 
 	onColumnSelected(suppliers: Supplier[]) {
-		suppliers.forEach(supplier => this.listSrv.selectOne(supplier, true));
+		suppliers.forEach(supplier => this.listSrv.selectOne(supplier));
 	}
 
 	onColumnUnselected(suppliers: Supplier[]) {
-		suppliers.forEach(supplier => this.listSrv.unselectOne(supplier, true));
+		suppliers.forEach(supplier => this.listSrv.unselectOne(supplier));
 	}
 
 	onFavoriteAllSelected() {
-		this.listSrv.onFavoriteAllSelected();
 		const updated = this.listSrv.getSelectedIds()
 			.map(id => ({ id, favorite: true }));
 		this.kanbanSrv.updateMany(updated);
 	}
 
 	onUnfavoriteAllSelected() {
-		this.listSrv.onUnfavoriteAllSelected();
 		const updated = this.listSrv.getSelectedIds()
 			.map(id => ({ id, favorite: false }));
 		this.kanbanSrv.updateMany(updated);

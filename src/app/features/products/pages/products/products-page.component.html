@@ -50,9 +50,6 @@
 
 	<products-board-app
 		*ngIf="listSrv.view === 'board'"
-		[selection]="listSrv.selection$"
-		(selectOne)="listSrv.selectOne($event, true)"
-		(unselectOne)="listSrv.unselectOne($event, true)"
 		(preview) = "listSrv.openPreview($event)">
 	</products-board-app>
 
@@ -76,14 +73,11 @@
 	</products-grid-app>
 
 	<product-selection-bar-app
-		[isShown]="(listSrv.selection$ | async)?.size"
-		[selection]="listSrv.selection$ | async"
-		[favorite]="listSrv.allSelectedFavorite"
-		[count]="listSrv.count$ | async"
+		[isShown]="(getSelection$() | async)?.size"
+		[selection]="getSelection$() | async"
+		[selectableItems]="getSelectableItems$() | async"
 		(disliked)="listSrv.onMultipleThumbDown($event, erm.PRODUCT.singular)"
 		(liked)="listSrv.onMultipleThumbUp($event, erm.PRODUCT.singular)"
-		(favorited)="listSrv.onFavoriteAllSelected()"
-		(unfavorited)="listSrv.onUnfavoriteAllSelected()"
 		(addProject)="onProjectDlgOpen()"
 		(export)="dialogCommonSrv.openExportDialog(erm.PRODUCT.singular, listSrv.getSelectedValues())"
 		(createRequest)="dialogCommonSrv.openSupplierRequest(listSrv.getSelectedValues())"
@@ -93,7 +87,9 @@
 		(statusUpdated)="listSrv.updateSelected({status: $event})"
 		(massEdit)="dialogCommonSrv.openMassEditDialog(listSrv.getSelectedValues(), erm.PRODUCT)"
 		(deleted)="listSrv.deleteSelected()"
-		(close)="listSrv.unselectAll()">
+		(close)="listSrv.unselectAll()"
+		(selectAll)="listSrv.selectAll($event)"
+		(unselectAll)="listSrv.unselectAll()">
 	</product-selection-bar-app>
 
 	<product-preview-app

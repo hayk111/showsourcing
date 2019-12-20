@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { SupplierRequestDialogComponent } from '~common/dialogs/custom-dialogs/supplier-request-dialog/supplier-request-dialog.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
@@ -11,6 +11,7 @@ import { ERM, Product } from '~models';
 import { DialogService } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
+import { KanbanSelectionService } from '~shared/kanban/services/kanban-selection.service';
 
 // dailah lama goes into pizza store
 // servant asks : what pizza do you want sir ?
@@ -56,6 +57,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		public elem: ElementRef,
 		private userSrv: UserService,
 		protected dlgSrv: DialogService,
+		protected kanbanSelectionSrv: KanbanSelectionService
 	) {
 		super();
 	}
@@ -111,6 +113,22 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 
 	onOpenCreateRequestDlg(products: Product[]) {
 		return this.dlgSrv.open(SupplierRequestDialogComponent, { products });
+	}
+
+	getSelection$() {
+		if (this.listSrv.view !== 'board') {
+			return this.listSrv.selection$;
+		} else {
+			return of(this.kanbanSelectionSrv.selection);
+		}
+	}
+
+	getSelectableItems$() {
+		if (this.listSrv.view !== 'board') {
+			return this.listSrv.items$;
+		} else {
+			return of(this.kanbanSelectionSrv.selectableItems);
+		}
 	}
 
 }

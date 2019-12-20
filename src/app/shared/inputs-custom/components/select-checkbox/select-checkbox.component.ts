@@ -1,46 +1,43 @@
-import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
-import { SelectionService } from '~core/list-page';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-type CheckboxState = 'selectedPartial' | 'unchecked' | 'selectedAll';
+
+export type SelectionState = 'selectedPartial' | 'unchecked' | 'selectedAll';
 
 @Component({
 	selector: 'select-checkbox-app',
 	templateUrl: './select-checkbox.component.html',
 	styleUrls: ['./select-checkbox.component.scss']
 })
-export class SelectCheckboxComponent implements OnInit {
+export class SelectCheckboxComponent {
 	@Input() boxColor = 'primary';
 	@Input() size = 16;
-	@Output() update = new EventEmitter<CheckboxState>();
+	@Output() update = new EventEmitter<SelectionState>();
 	@Output() check = new EventEmitter<null>();
 	@Output() uncheck = new EventEmitter<null>();
 
-	private _state: CheckboxState;
+	private _state: SelectionState;
 
 	@Input()
-	get state(): CheckboxState { return this._state; }
-	set state(value: CheckboxState) {
+	get state(): SelectionState { return this._state; }
+	set state(value: SelectionState) {
 		this._state = value;
 	}
 
-	constructor(private selectionSrv: SelectionService) {	}
-
-	ngOnInit() {
-		this.selectionSrv.getSelectionState().subscribe(state => {
-			this._state = state;
-		});
-	}
-
-	onClick(value) {
-		this.update.emit(value);
+	onClick() {
+		if (this.state === 'unchecked' || this.state === 'selectedPartial') {
+			this.state = 'selectedAll';
+		} else {
+			this.state = 'unchecked';
+		}
+		this.update.emit(this.state);
 		this.emit();
 	}
 
 	private emit() {
 		if (this.state === 'unchecked') {
-			this.check.emit();
-		} else if (this.state === 'selectedAll') {
 			this.uncheck.emit();
+		} else if (this.state === 'selectedAll') {
+			this.check.emit();
 		}
 	}
 

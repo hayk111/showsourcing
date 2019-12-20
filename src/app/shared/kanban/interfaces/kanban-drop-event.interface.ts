@@ -1,4 +1,4 @@
-import { KanbanColumn } from './kanban-column.interface';
+import { KanbanColumn } from './kanban-column.class';
 
 
 export interface KanbanDropEvent {

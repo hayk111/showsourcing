@@ -1,5 +1,15 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter,
-	Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	ElementRef,
+	EventEmitter,
+	Input,
+	OnChanges,
+	OnInit,
+	Output,
+	ViewChild
+} from '@angular/core';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
@@ -21,7 +31,7 @@ export class SearchBarComponent extends AbstractInput implements OnChanges, OnIn
 	focussed = false;
 	@Input() inputFocus: boolean;
 	@Input() hasIcon = true;
-	@Input() placeHolder = 'Type to search';
+	@Input() placeHolder = 'Search';
 	@Input() searchType: 'short' | 'long' = 'long';
 	@Output() search = new EventEmitter<string>();
 	private _searchSubject$ = new Subject();

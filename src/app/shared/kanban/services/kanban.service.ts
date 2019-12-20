@@ -18,7 +18,7 @@ import { KanbanColumn, KanbanConfig } from '../interfaces';
  * an angular template.
  *
  * There is a lot of back and forth between array and map that can
- * probably be optimised. However it was made with a goal of keeping things simple
+ * probably be optimised.
  *
  */
 @Injectable()
@@ -59,13 +59,13 @@ export class KanbanService {
 		// data map
 		const dataMap = this.mapFromArray(data);
 		// make the columns
-		return {
+		return new KanbanColumn({
 			id: status.id,
 			title: constPipe.transform(status.name, 'status'),
 			color: StatusUtils.getStatusColor(status),
 			dataMap,
 			totalData
-		};
+		});
 	}
 
 

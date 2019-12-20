@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, TemplateRef, ViewChild } from '@angular/core';
-import { EntityTableComponent, TableConfig } from '~core/list-page';
 import { ExtendedField, RequestElement } from '~core/models';
 import { ID } from '~utils';
 import { TranslateService } from '@ngx-translate/core';
+import { TableConfig, EntityTableComponent } from '../entity-table.component';
 
 const tableConfig: TableConfig = {
 	name: { name: 'name', translationKey: 'name', width: 190, sortable: false },
