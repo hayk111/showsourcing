@@ -1,5 +1,5 @@
 <!-- Project card -->
-<card-app class="mg-top-l action-hover-container">
+<card-app class="mg-top-l action-hover-container-0">
 	<!-- project list -->
 	<section>
 		<h3 class="section-title flexVAlign">
@@ -12,12 +12,12 @@
 				[multiple]="true"
 				[width]="330"
 				(update)="update.emit($event)">
-				<span class="mg-left-ms fs-m action-hover-item color-primary txt-btn">Add</span>
+				<span class="mg-left-ms fs-m action-hover-item-0 color-primary txt-btn">Add</span>
 			</selector-app>
 		</h3>
-		<project-catalog-app 
-			[projects]="projects" 
-			(openProject)="openProject.emit($event)" 
+		<project-catalog-app
+			[projects]="projects"
+			(openProject)="openProject.emit($event)"
 			(deleteProject)="deleteProject.emit($event)"></project-catalog-app>
 	</section>
 </card-app>

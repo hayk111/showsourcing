@@ -1,5 +1,7 @@
-<card-app>
+<card-app class="action-hover-container-1">
 	<card-title-app size="l" translate="title.products"></card-title-app>
+
+	<card-action-app *ngIf="products?.length" class="action-hover-item-1" (click)="addProducts.emit()"><div translate="button.add-products"></div></card-action-app>
 
 	<ng-container *ngIf="products?.length; else empty">
 		<div class="flex">
