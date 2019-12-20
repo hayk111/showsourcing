@@ -12,7 +12,7 @@ export class SupplierDescriptor extends AbstractDescriptorComponent {
 		{ name: 'reference', type: 'text', label: 'reference' },
 		{ name: 'generalMOQ', type: 'int', label: 'moq' },
 		{ name: 'generalLeadTime', type: 'days', label: 'general-lead-time' },
-		{ name: 'website', type: 'url', label: 'website' },
+		{ name: 'website', type: 'text', label: 'website' },
 		{ name: 'officeEmail', type: 'email', label: 'email', required: true },
 		{ name: 'officePhone', type: 'tel', label: 'phone' },
 
