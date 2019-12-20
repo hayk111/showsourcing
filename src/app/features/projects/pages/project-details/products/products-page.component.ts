@@ -68,7 +68,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		public listSrv: ListPageService<Product, ProductService>,
 		public dialogCommonSrv: DialogCommonService,
 		private notifSrv: NotificationService,
-		private translate: TranslateService
+		private translate: TranslateService,
 	) {
 		super();
 	}

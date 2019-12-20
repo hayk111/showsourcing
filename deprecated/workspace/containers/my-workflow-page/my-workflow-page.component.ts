@@ -13,7 +13,7 @@ import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { FilterList, FilterType } from '~shared/filters';
 import { KanbanDropEvent } from '~shared/kanban/interfaces';
-import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.interface';
+import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.class';
 import { KanbanService } from '~shared/kanban/services/kanban.service';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 

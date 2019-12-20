@@ -6,9 +6,7 @@
 	(opened)="inpPrice.select()"
 	(saved)="updateProductField(false, inpPrice.price, 'price')">
 	<editable-display-app [disabled]="true">
-			<div *ngIf="product?.price?.value; else priceHolder" class="amount">
-				{{ product?.price | appPrice: 2 : '1.2-2' }}
-			</div>
+		<price-app *ngIf="product.price && product.price.value !== null; else priceHolder" [price]="product?.price"></price-app>
 			<ng-template #priceHolder>
 				<div class="capitalize pd-top-s pd-bottom-s">set price</div>
 			</ng-template>

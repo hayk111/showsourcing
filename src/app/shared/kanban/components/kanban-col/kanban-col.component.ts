@@ -2,6 +2,7 @@ import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
 import { KanbanColumn } from '~shared/kanban/interfaces';
 import { TrackingComponent } from '~utils/tracking-component';
+import { SelectionState } from '~shared/inputs-custom/components/select-checkbox/select-checkbox.component';
 
 @Component({
 	selector: 'kanban-col-app',
@@ -38,7 +39,7 @@ export class KanbanColComponent extends TrackingComponent implements OnInit {
 		this.drop.emit(event);
 	}
 
-	hasAllSelected() {
+	getCheckboxState() {
 		const hasData = this.col.data.length > 0;
 		if (!hasData) {
 			return false;

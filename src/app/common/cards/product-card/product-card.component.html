@@ -31,7 +31,9 @@
 		<div class="information-section flexWrap">
 			<!-- price - moq -->
 			<span class="price-container ellipsis">
-				<ng-container *ngIf="product?.price">{{ product?.price | appPrice }}</ng-container>
+				<ng-container *ngIf="product?.price">
+					<price-app [price]="product?.price"></price-app>
+				</ng-container>
 				<ng-container *ngIf="product?.price && product?.minimumOrderQuantity">&nbsp;-&nbsp;</ng-container>
 				<ng-container *ngIf="product?.minimumOrderQuantity"> {{'OBJ.min-pcs' | translate: {count : product?.minimumOrderQuantity || 0} }}</ng-container>
 			</span>

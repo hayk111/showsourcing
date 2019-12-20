@@ -18,6 +18,7 @@ export type Panel = 'search' | 'filters' | 'actions' | 'quick-filters' | 'view-s
 export class ControllerTableComponent {
 	/** describes the layout of the controller-table */
 	@Input() hasFilters = true;
+	@Input() hasExtra = false;
 	@ContentChild(ControllerTableViewSwitcherComponent, { static: true })
 	switcher: ControllerTableViewSwitcherComponent;
 	@ContentChild(ControllerTableContentComponent, { static: true })

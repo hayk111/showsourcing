@@ -42,10 +42,12 @@
 	<project-selection-bar-app
 		entityType="project"
 		[isShown]="(listSrv.selection$ | async).size > 0"
-		[count]="listSrv.count$ | async"
 		[selection]="listSrv.selection$ | async"
+		[selectableItems]="listSrv.items$ | async"
 		(close)="listSrv.unselectAll()"
-		(deleteSelected)="listSrv.deleteSelected()">
+		(deleteSelected)="listSrv.deleteSelected()"
+		(selectAll)="listSrv.selectAll($event)"
+		(unselectAll)="listSrv.unselectAll()">
 	</project-selection-bar-app>
 
 	<side-panel-app *ngIf="listSrv.filterPanelOpen">
@@ -56,6 +58,5 @@
 			(clickOutside)="listSrv.closeFilterPanel()">
 		</filters-app>
 	</side-panel-app>
-
 
 </ng-container>

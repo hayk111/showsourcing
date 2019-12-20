@@ -3,12 +3,21 @@
 
   <div class="flexCenter">
     <div class="selected">
-      <select-checkbox-app [state]="state" [size]="24"></select-checkbox-app>
+			<select-checkbox-app 
+				[state]="getSelectionState()" 
+				[size]="24"
+				(check)="selectAll.emit(selectableItems)"
+				(uncheck)="unselectAll.emit()">
+			</select-checkbox-app>
     </div>
 
     <div class="closeSection pointer">
-      <div *ngIf="!entityType" class="entity-selected">{{(selection?.size || 0)}} {{ ((selection?.size || 0) > 1 ? 'items' : 'item') + ' selected' }}</div>
-      <div *ngIf="entityType" class="capitalize entity-selected">{{(selection?.size || 0)}} {{(selection?.size || 0) > 1 ? entityType + 's selected' : entityType + ' selected' }}</div>
+      <div *ngIf="!entityType" class="entity-selected">
+				{{(selection?.size || 0)}} {{ ((selection?.size || 0) > 1 ? 'items' : 'item') + ' selected' }}
+			</div>
+      <div *ngIf="entityType" class="capitalize entity-selected">
+				{{(selection?.size || 0)}} {{(selection?.size || 0) > 1 ? entityType + 's selected' : entityType + ' selected' }}
+			</div>
     </div>
   </div>
 

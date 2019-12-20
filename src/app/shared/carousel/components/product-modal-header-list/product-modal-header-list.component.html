@@ -20,11 +20,7 @@
 					}}
 				</div>
 				<div class="border-separator">
-					<span
-						class="price"
-						*ngIf="product.price && product.price.value !== null">
-						{{ product?.price | appPrice }}
-					</span>
+						<price-app *ngIf="product.price && product.price.value !== null" [price]="product?.price"></price-app>
 					<span *ngIf="product?.category">
 						{{ product?.category?.name }}
 					</span>

@@ -46,7 +46,10 @@
 <selection-bar-app
 	[isShown]="(listSrv.selection$ | async)?.size > 0"
 	[selection]="listSrv.selection$ | async"
-	(close)="listSrv.unselectAll()">
+	[selectableItems]="listSrv.items$ | async"
+	(close)="listSrv.unselectAll()"
+	(selectAll)="listSrv.selectAll($event)"
+	(unselectAll)="listSrv.unselectAll()">
 
 	<button class="icon light" (click)="listSrv.deleteSelected(true)">
 		<icon-app name="trash" size="m"></icon-app>

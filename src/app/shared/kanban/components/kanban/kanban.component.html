@@ -6,8 +6,8 @@
   [connectedLists]="getOtherIds()"
   [selection]="selection"
   [amountLoaded]="amountLoaded"
-  (selectAll)="selectColumn.emit($event)"
-  (unselectAll)="unselectColumn.emit($event)"
+  (selectAll)="selectionSrv.selectAll(col)"
+  (unselectAll)="selectionSrv.unselectAll()"
   (drop)="onDrop($event)"
   (loadMore)="loadMore.emit($event)">
 </kanban-col-app>
