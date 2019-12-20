@@ -37,7 +37,6 @@ input, textarea {
 		padding: 3px;
 	}
 	&:not([type="submit"]):disabled {
-		background: var(--color-secondary-light);
 		color: var(--color-txt-primary);
 	}
 }
