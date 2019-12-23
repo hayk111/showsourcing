@@ -85,14 +85,14 @@
 
 	<div class="flex elements-container">
 		<!-- Merge -->
-		<button class="icon-with-text secondary" (click)="mergeSelected()">
+		<button class="icon-with-text light" (click)="mergeSelected()">
 			<icon-app name="merge"></icon-app>
 			<span>Merge</span> <!-- TODO: translation to be added -->
 		</button>
 
 		<!-- Delete -->
-		<button class="icon-with-text secondary" (click)="listSrv.deleteSelected(true)">
-			<icon-app name="delete"></icon-app>
+		<button class="icon-with-text light" (click)="listSrv.deleteSelected(true)">
+			<icon-app name="trash"></icon-app>
 			<span>{{ 'button.delete' | translate }}</span>
 		</button>
 	</div>

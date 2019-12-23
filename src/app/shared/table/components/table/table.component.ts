@@ -70,6 +70,7 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	@Input() currentPage: number;
 	@Output() showItemsPerPage = new EventEmitter<number>();
 
+	@Input() createEntityBtnName: string;
 	/** event when we click the create button on placeholder */
 	@Output() createClick = new EventEmitter<null>();
 

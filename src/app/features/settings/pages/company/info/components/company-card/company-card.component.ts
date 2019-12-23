@@ -34,7 +34,7 @@ export class CompanyCardComponent extends AutoUnsub implements OnInit {
 		this.form = new FormGroup(this.fb.group({
 			name: new FormControl({value: this.company.name, disabled: !this.companyOwner}),
 			companyOwner: new FormControl({value: this.company.owner.firstName + ' ' + this.company.owner.lastName,
-				disabled: true}),
+				disabled: !this.companyOwner}),
 			currentPlan: new FormControl({value: '', disabled: !this.companyOwner}), // TODO Backend add field
 		}).controls, { updateOn: 'blur' });
 
