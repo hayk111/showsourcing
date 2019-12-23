@@ -5,7 +5,7 @@ import { SelectionState } from '~shared/inputs-custom/components/select-checkbox
 import { SelectionMap } from '~core/list-page';
 import { KanbanService } from './kanban.service';
 import { Entity } from '~core/models';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 
 export interface SelectedColumn {
@@ -17,7 +17,7 @@ export interface SelectedColumn {
 export class KanbanSelectionService {
 	selection: SelectionMap = new Map();
 	private _selection$ = new BehaviorSubject<SelectionMap>(this.selection);
-	selection$: Observable<SelectionMap>;
+	selection$: Observable<SelectionMap> = this._selection$.asObservable();
 	selectedColumn: SelectedColumn;
 	private _selectedColumn$ = new ReplaySubject<SelectedColumn>(1);
 	selectedColumn$ = this._selectedColumn$.asObservable();
@@ -26,10 +26,13 @@ export class KanbanSelectionService {
 		// TODO check if subscription is removed when we change page
 		this.kanbanSrv.columns$
 			.subscribe(columns => this.checkSelection(columns));
+		this.kanbanSrv.multipleDrop$
+			.subscribe(dropEvent => this.onDrop(dropEvent));
 	}
 
 
-	selectAllFromColumn(column: KanbanColumn) {
+	selectAllFromColumn(optionalColumn?: KanbanColumn) {
+		const column = optionalColumn || this.selectedColumn.column;
 		this.selectedColumn = { column, state: 'selectedAll' };
 		this.selection = new Map(column.dataMap);
 		this.emit();
@@ -67,10 +70,13 @@ export class KanbanSelectionService {
 
 	get selectableItems$ () {
 		return this.selectedColumn$.pipe(
-			map(column => column ? column.column.data : [])
+			map(column => column ? column.column.data : []),
 		);
 	}
 
+	/**
+	 * checks the selection of the current column in case we add / remove items
+	 */
 	private checkSelection(columns: KanbanColumn[]) {
 		if (!this.selectedColumn) {
 			return;
@@ -78,32 +84,28 @@ export class KanbanSelectionService {
 
 		const selectedColId = this.selectedColumn.column.id;
 		const column = columns.find(col => col.id === selectedColId);
-		// we cannot safely just check the length here,
-		// in some cases (like someone else deletes an item and add another)
-		// that would be incorrect.
-		// But I think that bug would be so rare that we can just turn a blind eye
-		const isApproxSame = column.data.length === this.selection.size;
-		if (isApproxSame) {
-			return;
-		}
 
-
-		// if there is more data now than before (adding an item),
-		// then it's now only partially selected
-		if (column.data.length > this.selection.size) {
-			this.selectedColumn = { column, state: 'selectedPartial' };
-			this.emit();
-			return;
-		}
-
-		// if there is less data now than before then we gotta remove the missing
-		// items from the selection
+		// in case of a delete we remove the keys from selection
 		Array.from(this.selection.keys()).forEach(id => {
 			if (!column.dataMap.has(id)) {
 				this.selection.delete(id);
 			}
 		});
 
+		if (this.selection.size === 0) {
+			this.selectedColumn = undefined;
+		} else if (this.selection.size === column.data.length) {
+			this.selectedColumn = { column, state: 'selectedAll' };
+		} else {
+			this.selectedColumn = { column, state: 'selectedPartial' };
+		}
+		this.emit();
+	}
+
+	private onDrop({ to }: { to: KanbanColumn}) {
+		const state = to.data.length === this.selection.size ? 'selectedAll' : 'selectedPartial';
+		this.selectedColumn = { column: to, state };
+		this.emit();
 	}
 
 	private emit() {

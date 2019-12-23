@@ -133,4 +133,20 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		}
 	}
 
+	selectAll(entities: any[]) {
+		if (this.listSrv.view !== 'board') {
+			return this.listSrv.selectAll(entities);
+		} else {
+			return this.kanbanSelectionSrv.selectAllFromColumn();
+		}
+	}
+
+	unselectAll() {
+		if (this.listSrv.view !== 'board') {
+			return this.listSrv.unselectAll();
+		} else {
+			return this.kanbanSelectionSrv.unselectAllFromColumn();
+		}
+	}
+
 }

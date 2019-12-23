@@ -66,8 +66,12 @@ export class ProductsBoardComponent extends AutoUnsub implements OnInit {
 			filters$,
 			statuses$
 		).pipe(
-			mergeMap(([filterList, statuses]) => combineLatest(...this.getProductColumns(statuses, filterList))),
-		).subscribe(columns => this.kanbanSrv.setData(columns));
+			mergeMap(([filterList, statuses]) => combineLatest(...this.getProductColumns(statuses, filterList))
+			// at this point we work with the local data
+			.pipe(first())),
+		).subscribe(columns => {
+			this.kanbanSrv.setData(columns);
+		});
 	}
 
 	loadMore(col: KanbanColumn) {

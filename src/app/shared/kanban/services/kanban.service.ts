@@ -1,6 +1,6 @@
 import { moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Injectable } from '@angular/core';
-import { Observable, ReplaySubject } from 'rxjs';
+import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Status } from '~core/models/status.model';
 import { ConstPipe } from '~shared/utils/pipes/const.pipe';
@@ -29,6 +29,8 @@ export class KanbanService {
 		map(config => this.configToCols(config))
 	);
 	private kanbanConfig: KanbanConfig;
+	private _multipleDrop$ = new Subject<{ to: KanbanColumn }>();
+	multipleDrop$ = this._multipleDrop$.asObservable();
 
 	private configToCols(kanbanConfig: KanbanConfig): KanbanColumn[] {
 		const columns = Array.from(kanbanConfig.values());
@@ -145,7 +147,6 @@ export class KanbanService {
 		currentCol.totalData++;
 		previousCol.dataMap = this.mapFromArray(prevArr);
 		currentCol.dataMap = this.mapFromArray(currArr);
-
 		this._kanbanConfig$.next(this.kanbanConfig);
 	}
 
@@ -171,6 +172,7 @@ export class KanbanService {
 		});
 
 		currentCol.dataMap = this.mapFromArray(currArr);
+		this._multipleDrop$.next({ to: currentCol });
 		this._kanbanConfig$.next(this.kanbanConfig);
 	}
 

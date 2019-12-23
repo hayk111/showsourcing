@@ -76,8 +76,6 @@
 		[isShown]="(getSelection$() | async).size"
 		[selection]="getSelection$() | async"
 		[selectableItems]="getSelectableItems$() | async"
-		(disliked)="listSrv.onMultipleThumbDown($event, erm.PRODUCT.singular)"
-		(liked)="listSrv.onMultipleThumbUp($event, erm.PRODUCT.singular)"
 		(addProject)="onProjectDlgOpen()"
 		(export)="dialogCommonSrv.openExportDialog(erm.PRODUCT.singular, listSrv.getSelectedValues())"
 		(createRequest)="dialogCommonSrv.openSupplierRequest(listSrv.getSelectedValues())"
@@ -87,9 +85,8 @@
 		(statusUpdated)="listSrv.updateSelected({status: $event})"
 		(massEdit)="dialogCommonSrv.openMassEditDialog(listSrv.getSelectedValues(), erm.PRODUCT)"
 		(deleted)="listSrv.deleteSelected()"
-		(close)="listSrv.unselectAll()"
-		(selectAll)="listSrv.selectAll($event)"
-		(unselectAll)="listSrv.unselectAll()">
+		(selectAll)="selectAll($event)"
+		(unselectAll)="unselectAll()">
 	</product-selection-bar-app>
 
 	<product-preview-app
