@@ -99,27 +99,24 @@ export class ExportDlgComponent implements OnInit {
 			case EntityName.PRODUCT:
 				this.canExportPdf = true;
 				this.canExportImages = true;
-				if (this.query)
-					selectCount$.subscribe(len => this.length$.next(len));
-				else
+
+				this.query ?
+					selectCount$.subscribe(len => this.length$.next(len)) :
 					this.length$.next(this.targets.length);
 				break;
 			case EntityName.SUPPLIER:
-				if (this.query)
-					selectCount$.subscribe(len => this.length$.next(len));
-				else
+				this.query ?
+					selectCount$.subscribe(len => this.length$.next(len)) :
 					this.length$.next(this.targets.length);
 				break;
 			case EntityName.SAMPLE:
-				if (this.query)
-					selectCount$.subscribe(len => this.length$.next(len));
-				else
+				this.query ?
+					selectCount$.subscribe(len => this.length$.next(len)) :
 					this.length$.next(this.targets.length);
 				break;
 			case EntityName.TASK:
-				if (this.query)
-					selectCount$.subscribe(len => this.length$.next(len));
-				else
+				this.query ?
+					selectCount$.subscribe(len => this.length$.next(len)) :
 					this.length$.next(this.targets.length);
 				break;
 			default:

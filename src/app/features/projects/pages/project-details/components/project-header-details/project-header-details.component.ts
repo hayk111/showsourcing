@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Project, ERM, Product } from '~core/models';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { AutoUnsub } from '~utils';
@@ -17,6 +17,8 @@ import { switchMap } from 'rxjs/operators';
 export class ProjectHeaderDetailsComponent extends AutoUnsub implements OnInit {
 
 	@Input() project: Project;
+	@Output() delete = new EventEmitter<Project>();
+
 	id: string;
 	erm = ERM;
 

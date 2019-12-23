@@ -93,6 +93,14 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 		).subscribe();
 	}
 
+	goToSamples() {
+		this.router.navigate(['suppliers', this.supplier.id, 'samples']);
+	}
+
+	goToTasks() {
+		this.router.navigate(['suppliers', this.supplier.id, 'tasks']);
+	}
+
 	goToProducts() {
 		this.router.navigate(['suppliers', this.supplier.id, 'products']);
 	}

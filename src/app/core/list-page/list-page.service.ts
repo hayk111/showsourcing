@@ -262,13 +262,14 @@ export class ListPageService
 	// then the query list gets "refetched" automatically since a value inside got updated
 	// but for entities who do NOT have audith we need to refresh it manually since we are deleting it
 	// and not updating it
-	deleteOne(entity: T, refetch = false) {
+	deleteOne(entity: T, refetch = false, callback?: () => void) {
 		const text = `Are you sure you want to delete this ${this.entityMetadata.singular} ?`;
 		this.dlgSrv.open(ConfirmDialogComponent, { text })
 			.pipe(
 				tap(_ => this.selectionSrv.unselectOne(entity)),
 				filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
 				switchMap(_ => this.dataSrv.deleteOne(entity.id)),
+				tap(_ => callback()),
 				switchMap(_ => refetch ? this.refetch() : empty())
 			).subscribe();
 	}

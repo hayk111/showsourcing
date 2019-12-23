@@ -20,7 +20,7 @@
 		</form>
 		
 		<h2 class="title-about">About this team</h2> <!-- TODO: translation to be added -->
-		<h2 class="team-created-date">Created Team created on {{ team.creationDate | date: 'd MMM y' }}</h2>
+		<h2 class="team-created-date">Created by {{team?.ownerUser | formatUserName: true}} on {{ team.creationDate | date: 'd MMM y' }}</h2>
 	</div>
 </div>
 

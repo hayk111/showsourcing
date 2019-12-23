@@ -14,7 +14,7 @@
 			<span class="ellipsis txt-btn" (click)="sampleClicked.emit(sample)">{{ sample.name }}</span>
 		</ng-container>
 	</div>
-	<div *ngIf="samples?.length > displayIndex" class="color-primary txt-btn" (click)="displayIndex = displayIndex + 3">View more</div>
+	<div *ngIf="samples?.length > displayIndex" class="color-primary txt-btn" (click)="viewMore()" translate="button.view-more"></div>
 </ng-container>
 
 <ng-template #noSample>

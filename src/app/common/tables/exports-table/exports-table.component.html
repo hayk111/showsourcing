@@ -30,7 +30,7 @@
 				<!-- export icon -->
 				<ng-container *ngSwitchCase="'logo'">
 					<div class="export-icon flexCenter">
-						<icon-app name="file" size="s"></icon-app>
+						<icon-app name="invoice" size="s"></icon-app>
 					</div>
 				</ng-container>
 				
@@ -51,7 +51,7 @@
 				<!-- file name -->
 				<ng-container *ngSwitchCase="'name'">
 					<div class="capitalize file-name">
-						{{ getFileName(row?.documentUrl) }}
+						{{ getFileName(row) }}
 					</div>
 				</ng-container>
 

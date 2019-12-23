@@ -14,7 +14,7 @@
 			<span class="ellipsis txt-btn" (click)="taskClicked.emit(task)">{{ task.name }}</span>
 		</ng-container>
 	</div>
-	<div *ngIf="tasks?.length > displayIndex" class="color-primary txt-btn" (click)="displayIndex = displayIndex + 3">View more</div>
+	<div *ngIf="tasks?.length > displayIndex" class="color-primary txt-btn" (click)="viewMore()" translate="button.view-more"></div>
 </ng-container>
 
 <ng-template #noTask>

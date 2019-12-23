@@ -158,7 +158,7 @@ https://stackblitz.com/edit/angular-vtluff?file=src/app/app.component.ts -->
 		</logo-app>
 		<div class="placeholder-title">No {{ type }} found</div>
 		<div class="placeholder-description">Create a new one!</div>
-		<button (click)="createClick.emit()">create a {{ type }}</button>
+		<button (click)="createClick.emit()">{{createEntityBtnName || 'create a ' + type }}</button>
 	</div>
 
 </div>

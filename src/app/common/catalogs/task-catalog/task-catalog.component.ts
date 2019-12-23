@@ -18,13 +18,21 @@ export class TaskCatalogComponent extends TrackingComponent {
 	get tasks() {
 		return this._tasks;
 	}
+	@Input() canDisplayMore = false;
 	@Output() taskClicked = new EventEmitter<Task>();
+	@Output() showMore = new EventEmitter<null>();
 
-	displayIndex = 3;
 	statusUtils = StatusUtils;
+	displayIndex = 3;
 
 	constructor() {
 		super();
+	}
+
+	viewMore() {
+		if (this.canDisplayMore)
+			this.displayIndex += 3;
+		this.showMore.emit();
 	}
 
 }

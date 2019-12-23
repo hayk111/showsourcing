@@ -1,6 +1,6 @@
 <!-- closed -->
-<div 
-	*ngIf="!isOpen" 
+<div
+	*ngIf="!isOpen"
 	class="labelCtnr flex">
 	<ng-content select="editable-display-app"></ng-content>
 </div>
@@ -11,10 +11,10 @@
 	<ng-content></ng-content>
 
 	<div *ngIf="hasAction" class="confirmBlock">
-		<div class="confirmIcon cancel pointer" (click)="cancel()">
+		<div class="confirmIcon cancel pointer" (click)="cancel($event)">
 			<icon-app name="close" size="xs"></icon-app>
 		</div>
-		<div class="confirmIcon save pointer" (click)="save()">
+		<div class="confirmIcon save pointer" (click)="save($event)">
 			<icon-app name="check" size="xs"></icon-app>
 		</div>
 	</div>

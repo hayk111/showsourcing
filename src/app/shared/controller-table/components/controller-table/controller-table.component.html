@@ -40,7 +40,7 @@
 	<divider-app *ngIf="content" [vertical]="true"></divider-app>
 
 	<ng-content select="controller-table-quick-filters-app"></ng-content>
-	<divider-app class="mg-left-ms" [vertical]="true"></divider-app>
+	<divider-app *ngIf="quickFilters" class="mg-left-ms" [vertical]="true"></divider-app>
 	
 	<ng-content select=".extra"></ng-content>
 	<divider-app *ngIf="hasExtra" [vertical]="true"></divider-app>

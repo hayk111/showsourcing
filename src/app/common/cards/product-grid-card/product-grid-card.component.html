@@ -1,7 +1,7 @@
 <div
-	class="card-container action-hover-container"
+	class="card-container action-hover-container-0"
 	[ngClass]="{
-		'disable-action-hover disable-pointers': !hasHoverEffect,
+		'disable-action-hover-0 disable-pointers': !hasHoverEffect,
 		'card-hover-style': hasHoverEffect,
 		'selected-card': selected
 	}">
@@ -20,12 +20,12 @@
 	</div>
 
 	<!-- black backgorund on hover -->
-	<div class="black-container action-hover-item"></div>
+	<div class="black-container action-hover-item-0"></div>
 
 	<!-- top icons floating on hover -->
 	<checkbox-app
 		*ngIf="hasCheckbox"
-		class="action-hover-item"
+		class="action-hover-item-0"
 		[size]="17"
 		[ngClass]="{ 'full-opacity': selected }"
 		[checked]="selected"
@@ -44,10 +44,10 @@
 			[multiple]="true"
 			[width]="330"
 			(update)="update.emit({ id: product?.id, projects: $event })">
-			<icon-app class="folder action-hover-item pointer color-third" size="ms" name="folder-light"></icon-app>
+			<icon-app class="folder action-hover-item-0 pointer color-third" size="ms" name="folder-light"></icon-app>
 		</selector-app>
 		<thumb-buttons-app
-			class="thumb-up action-hover-item"
+			class="thumb-up action-hover-item-0"
 			size="ms"
 			[lineStyle]="true"
 			[votes]="product?.votes"
@@ -55,7 +55,7 @@
 			(disliked)="thumbDown()">
 		</thumb-buttons-app>
 		<rating-heart-app
-			class="heart action-hover-item"
+			class="heart action-hover-item-0"
 			[hasButton]="false"
 			[lightStyle]="true"
 			size="ms"
@@ -66,10 +66,10 @@
 	</div>
 
 	<!-- buttons floating on hover-->
-	<button class="preview action-hover-item capitalize icon-with-text" (click)="preview.emit()">
+	<button class="preview action-hover-item-0 capitalize icon-with-text" (click)="preview.emit()">
 		<icon-app class="eye-icon" name="eye"></icon-app> {{ 'button.preview-product' | translate }}
 	</button>
-	<button class="open secondary action-hover-item capitalize icon-with-text" (click)="open.emit()">
+	<button class="open secondary action-hover-item-0 capitalize icon-with-text" (click)="open.emit()">
 		<icon-app class="export-icon" name="exit"></icon-app> {{ 'button.open-product' | translate }}
 	</button>
 
@@ -86,6 +86,7 @@
 				<span *ngIf="product?.supplier?.name">{{ product?.supplier?.name }}</span>
 			</div>
 			<rating-number-badge-app
+				*ngIf="ratingSrv.computeScoreVotes(product?.votes) >= 3.5"
 				[votes]="product?.votes">
 			</rating-number-badge-app>
 		</div>

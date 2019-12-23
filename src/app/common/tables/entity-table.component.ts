@@ -48,6 +48,7 @@ export abstract class EntityTableComponent<T> extends TrackingComponent implemen
 	@Input() hasShowItemsPerPage = true;
 	@Input() hasMinHeight = true;
 	@Input() rowHeight = 47;
+	@Input() createEntityBtnName: string;
 
 	// column clicks
 	@Output() previewClick = new EventEmitter<T>();
