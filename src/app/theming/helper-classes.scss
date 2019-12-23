@@ -259,17 +259,24 @@
 }
 
 
+/* different hovers that we can use, when we have conflicts using hovering effects wit children that use this hovering effect class */
+$levels: (
+	'0',
+	'1'
+);
 
+@each $level in $levels {
 // container that will activate hover effect over item, we use opacity in order to use transition
-.action-hover-container {
+	.action-hover-container-#{$level} {
 	// item that is hidden before hovering
-	.action-hover-item {
-		opacity: 0;
-		transition: 0.3s;
-	}
+		.action-hover-item-#{$level} {
+			opacity: 0;
+			transition: 0.3s;
+		}
 	// item visible when container hovered, we use .disable-action-hover when we want to prevent the hover effect
-	&:hover:not(.disable-action-hover) .action-hover-item {
-		opacity: 1;
+		&:hover:not(.disable-action-hover-#{$level}) .action-hover-item-#{$level} {
+			opacity: 1;
+		}
 	}
 }
 

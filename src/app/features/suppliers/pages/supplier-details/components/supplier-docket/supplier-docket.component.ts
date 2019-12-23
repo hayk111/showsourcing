@@ -14,6 +14,8 @@ export class SupplierDocketComponent {
 	@Output() addSample = new EventEmitter<undefined>();
 	@Output() previewTask = new EventEmitter<Task>();
 	@Output() previewSample = new EventEmitter<Sample>();
+	@Output() goToTasks = new EventEmitter<null>();
+	@Output() goToSamples = new EventEmitter<null>();
 
 	constructor() { }
 

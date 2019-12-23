@@ -31,21 +31,12 @@
 	</editable-field-app>
 </selector-app>
 
-
 <!-- one value, label template -->
 <!-- hint: we don't display icons when using inlineLabel -->
 <ng-template #oneValueLabel>
 	<ng-container [ngSwitch]="type">
 		<!-- user -->
 		<div class="flexVAlign" *ngSwitchCase="erm.USER.singular">
-			<user-picture-app
-				*ngIf="value && !inlineLabel"
-				class="user-icon"
-				size="18"
-				[fontSize]="10"
-				[user]="value"
-				[image]="value?.avatar">
-			</user-picture-app>
 			<span class="ellipsis">{{ value ? (value | formatUserName: true) : '-' }}</span>
 		</div>
 

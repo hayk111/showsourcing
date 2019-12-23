@@ -52,11 +52,13 @@ export class EditableContainerComponent {
 	}
 
 	/** does not send a close event */
-	cancel() {
+	cancel(event: MouseEvent) {
+		event.stopImmediatePropagation();
 		this.close(false, true);
 	}
 
-	save() {
+	save(event: MouseEvent) {
+		event.stopImmediatePropagation();
 		this.close(false, false);
 	}
 
