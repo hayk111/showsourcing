@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 import { ListPageService } from '~core/list-page';
 import { ControllerTableViewSwitcherComponent } from '../controller-table-view-switcher/controller-table-view-switcher.component';
 import { ControllerTableContentComponent } from '../controller-table-content/controller-table-content.component';
-
+import { ControllerTableQuickFiltersComponent } from '../controller-table-quick-filters/controller-table-quick-filters.component';
 
 export type Panel = 'search' | 'filters' | 'actions' | 'quick-filters' | 'view-switcher';
 
@@ -23,6 +23,8 @@ export class ControllerTableComponent {
 	switcher: ControllerTableViewSwitcherComponent;
 	@ContentChild(ControllerTableContentComponent, { static: true })
 	content: ControllerTableContentComponent;
+	@ContentChild(ControllerTableQuickFiltersComponent, { static: true })
+	quickFilters: ControllerTableQuickFiltersComponent;
 
 	searchControl: FormControl = new FormControl('');
 	inputFocus = false;

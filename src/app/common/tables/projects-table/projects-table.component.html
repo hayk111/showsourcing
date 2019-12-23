@@ -58,16 +58,6 @@
 				(logoClick)="open.emit($event)">
 			</default-columns-app>
 
-			<ng-container *ngSwitchCase="'projectLead'">
-				<div class="flex pointer">
-					<user-picture-app
-						[user]="row?.createdBy" 
-						[image]="row?.createdBy?.avatar">
-					</user-picture-app>
-					<div class="flexVAlign project-lead">{{row?.createdBy | formatUserName: true}}</div>
-				</div>
-			</ng-container>
-
 			<!-- remove this switch case when property is added (its already on default columns) -->
 			<ng-container *ngSwitchCase="'reference'">
 				<div class="bold-s color-warn"> Property on backend </div>

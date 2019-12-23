@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, TemplateRef, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, TemplateRef, ViewChild, OnInit } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
 import { ERM, ExportRequest } from '~core/models';
 import { config } from './config';
@@ -24,16 +25,25 @@ export class ExportTableComponent extends EntityTableComponent<ExportRequest> {
 	erm = ERM;
 
 	constructor(
+		private datePipe: DatePipe,
 		public translate: TranslateService
 	) { super(); }
 
-	getFileName(path: string): string {
-		if (!path) {
+	getFileName(row: any): string {
+		if (!row) {
 			return '';
 		}
 
-		const split = path.split('/');
-		return split[split.length - 1];
+		const { type, format, creationDate } = row;
+
+		const firstUnderscoreIndex = type.indexOf('_');
+		const secondUnderscoreIndex = type.indexOf('_', firstUnderscoreIndex + 1);
+
+		const entityType = secondUnderscoreIndex !== -1
+			? type.substring(firstUnderscoreIndex + 1, secondUnderscoreIndex)
+			: type.substring(0, firstUnderscoreIndex);
+
+		return `${entityType}-${format}-${this.datePipe.transform(creationDate, 'yyy-MM-dd hh:mm')}`;
 	}
 
 	getToolTipMsg(status: string) {
