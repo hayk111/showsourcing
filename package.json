@@ -1,6 +1,6 @@
 {
   "name": "showsourcin-supplier-app",
-  "version": "3.0.0-44",
+  "version": "3.0.0-45",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
