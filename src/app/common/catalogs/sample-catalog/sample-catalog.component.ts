@@ -18,13 +18,21 @@ export class SampleCatalogComponent extends TrackingComponent {
 	get samples() {
 		return this._samples;
 	}
+	@Input() canDisplayMore = false;
 	@Output() sampleClicked = new EventEmitter<Sample>();
+	@Output() showMore = new EventEmitter<null>();
 
 	statusUtils = StatusUtils;
 	displayIndex = 3;
 
 	constructor() {
 		super();
+	}
+
+	viewMore() {
+		if (this.canDisplayMore)
+			this.displayIndex += 3;
+		this.showMore.emit();
 	}
 
 }

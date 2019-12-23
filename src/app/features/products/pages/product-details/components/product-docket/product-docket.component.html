@@ -41,7 +41,11 @@
 			<h3>Tasks</h3>
 			<div class="mg-left-ms action-hover-item-0 color-primary txt-btn" (click)="addTask.emit()" translate="button.add"></div>
 		</div>
-		<task-catalog-app [tasks]="product?.tasksLinked?.items" (taskClicked)="previewTask.emit($event)"></task-catalog-app>
+		<task-catalog-app
+			[tasks]="product?.tasksLinked?.items"
+			(taskClicked)="previewTask.emit($event)"
+			(showMore)="goToTasks.emit()">
+		</task-catalog-app>
 	</section>
 
 	<!-- sample list -->
@@ -50,7 +54,11 @@
 			<h3>Samples</h3>
 			<div class="mg-left-ms action-hover-item-0 color-primary txt-btn" (click)="addSample.emit()" translate="button.add"></div>
 		</div>
-		<sample-catalog-app [samples]="product?.samplesLinked?.items" (sampleClicked)="previewSample.emit($event)"></sample-catalog-app>
+		<sample-catalog-app
+			[samples]="product?.samplesLinked?.items"
+			(sampleClicked)="previewSample.emit($event)"
+			(showMore)="goToSamples.emit()">
+		</sample-catalog-app>
 	</section>
 
 	<!-- about -->
