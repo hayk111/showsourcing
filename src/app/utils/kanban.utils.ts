@@ -2,7 +2,7 @@ import { combineLatest, Observable } from 'rxjs';
 import { ListQuery } from '~core/entity-services/_global/list-query.interface';
 import { Status } from '~core/models/status.model';
 import { ProductStatus } from '~models';
-import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.interface';
+import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.class';
 import { ConstPipe } from '~shared/utils/pipes/const.pipe';
 
 import { ID } from './id.utils';
@@ -39,12 +39,12 @@ export function statusToKanbanCol(
 	totalData = 0): KanbanColumn {
 	const constPipe = new ConstPipe();
 	// make the columns
-	return {
+	return new KanbanColumn({
 		id: type.id,
 		title: constPipe.transform(type.name, 'status'),
 		color: StatusUtils.getStatusColor(type),
 		data,
 		totalData
-	};
+	});
 
 }

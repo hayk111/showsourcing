@@ -1,6 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
-import { empty, Observable } from 'rxjs';
+import { empty, Observable, of } from 'rxjs';
 import { filter, map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { CreationDialogComponent } from '~common/dialogs/creation-dialogs';
 import { ExportDlgComponent } from '~common/dialogs/custom-dialogs';
@@ -18,8 +18,9 @@ import { showsourcing } from '~utils/debug-object.utils';
 import { ListPageDataConfig } from './list-page-config.interface';
 import { ListPageDataService } from './list-page-data.service';
 import { ListPageViewService } from './list-page-view.service';
-import { SelectionWithFavoriteService } from './selection-with-favorite.service';
 import { NotificationService, NotificationType } from '~shared/notifications';
+import { SelectionService } from './selection.service';
+import { KanbanSelectionService } from '~shared/kanban/services/kanban-selection.service';
 
 
 // It has four legs and it can fly, what is it?
@@ -49,7 +50,7 @@ export interface ListPageConfig extends ListPageDataConfig {
 export class ListPageService
 	<T extends { id?: string }, G extends GlobalServiceInterface<T>> {
 
-	selectionSrv: SelectionWithFavoriteService;
+	selectionSrv: SelectionService;
 	dataSrv: ListPageDataService<T, G>;
 	viewSrv: ListPageViewService<T>;
 
@@ -59,7 +60,7 @@ export class ListPageService
 		private dlgSrv: DialogService,
 		private zone: NgZone,
 		private userSrv: UserService,
-		private notifSrv: NotificationService
+		private notifSrv: NotificationService,
 	) {
 		if (!showsourcing.tables) {
 			showsourcing.tables = {};
@@ -99,7 +100,7 @@ export class ListPageService
 	 * from page to page. (angular component providers are recreated upon nav)
 	 */
 	private initServices() {
-		this.selectionSrv = new SelectionWithFavoriteService();
+		this.selectionSrv = new SelectionService();
 		this.viewSrv = new ListPageViewService<T>(this.router);
 		this.dataSrv = new ListPageDataService<T, G>();
 	}
@@ -110,6 +111,10 @@ export class ListPageService
 
 	get items$() {
 		return this.dataSrv.items$;
+	}
+
+	get selectableItems$() {
+		return this.items$;
 	}
 
 	combine(items: Observable<any>) {
@@ -220,20 +225,6 @@ export class ListPageService
 		this.dataSrv.update({ id, favorite: false } as any).subscribe();
 	}
 
-	onFavoriteAllSelected() {
-		const elems: any[] = this.getSelectedIds()
-			.map(id => ({ id, favorite: true }));
-		this.updateMany(elems);
-		this.selectionSrv.allSelectedFavorite = true;
-	}
-
-	onUnfavoriteAllSelected() {
-		const elems: any[] = this.getSelectedIds()
-			.map(id => ({ id, favorite: false }));
-		this.updateMany(elems);
-		this.selectionSrv.allSelectedFavorite = false;
-	}
-
 	onThumbUp(item: T, type: TypeWithVotes) {
 		const votes = this.ratingSrv.thumbUp(item, type);
 		return this.dataSrv.update({ id: item.id, votes } as any).subscribe();
@@ -281,6 +272,7 @@ export class ListPageService
 		this.dlgSrv.open(ConfirmDialogComponent, { text })
 			.pipe(
 				tap(_ => this.selectionSrv.unselectOne(entity)),
+				filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
 				switchMap(_ => this.dataSrv.deleteOne(entity.id)),
 				switchMap(_ => refetch ? this.refetch() : empty())
 			).subscribe();
@@ -422,20 +414,16 @@ export class ListPageService
 		return this.selectionSrv.selection;
 	}
 
-	get allSelectedFavorite() {
-		return this.selectionSrv.allSelectedFavorite;
+	selectOne(entity: any) {
+		this.selectionSrv.selectOne(entity);
 	}
 
-	selectOne(entity: any, checkFavorite?: boolean) {
-		this.selectionSrv.selectOne(entity, checkFavorite);
+	unselectOne(entity: any) {
+		this.selectionSrv.unselectOne(entity);
 	}
 
-	unselectOne(entity: any, checkFavorite?: boolean) {
-		this.selectionSrv.unselectOne(entity, checkFavorite);
-	}
-
-	selectAll(entities: any[], checkFavorite?: boolean) {
-		this.selectionSrv.selectAll(entities, checkFavorite);
+	selectAll(entities: any[]) {
+		this.selectionSrv.selectAll(entities);
 	}
 
 	unselectAll() {

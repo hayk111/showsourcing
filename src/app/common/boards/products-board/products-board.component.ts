@@ -11,10 +11,11 @@ import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { FilterList, FilterType } from '~shared/filters';
 import { KanbanDropEvent } from '~shared/kanban/interfaces';
-import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.interface';
+import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.class';
 import { KanbanService } from '~shared/kanban/services/kanban.service';
 import { StatusUtils, translate } from '~utils';
 import { AutoUnsub } from '~utils/auto-unsub.component';
+import { KanbanSelectionService } from '~shared/kanban/services/kanban-selection.service';
 
 @Component({
 	selector: 'products-board-app',
@@ -26,7 +27,6 @@ import { AutoUnsub } from '~utils/auto-unsub.component';
 })
 export class ProductsBoardComponent extends AutoUnsub implements OnInit {
 
-	@Input() selection: Observable<Map<string, Product>>;
 	@Output() preview = new EventEmitter<undefined>();
 	@Output() selectOne = new EventEmitter<Product>();
 	@Output() unselectOne = new EventEmitter<Product>();
@@ -56,9 +56,9 @@ export class ProductsBoardComponent extends AutoUnsub implements OnInit {
 		private productSrv: ProductService,
 		private productStatusSrv: ProductStatusService,
 		private listSrv: ListPageService<Product, ProductService>,
-		private selectionSrv: SelectionService,
 		public dialogCommonSrv: DialogCommonService,
 		public kanbanSrv: KanbanService,
+		public kanbanSelectionSrv: KanbanSelectionService,
 		public dlgSrv: DialogService
 	) {
 		super();
@@ -167,60 +167,12 @@ export class ProductsBoardComponent extends AutoUnsub implements OnInit {
 		).subscribe();
 	}
 
-	onColumnSelected({ data, column }) {
-		this.selectionSrv.selectColumn(column);
-		data.forEach(prod => this.listSrv.selectOne(prod, true));
+	onSelectedOne(product: Product, column: KanbanColumn) {
+		this.kanbanSelectionSrv.selectOne(product, column);
 	}
 
-	onColumnUnselected({ data, column }) {
-		this.selectionSrv.unselectColumn(column);
-		data.forEach(prod => this.listSrv.unselectOne(prod, true));
-	}
-
-	onSelectedOne(product: Product, column: any) {
-		this.selectionSrv.selectOne(product, column);
-		this.selectOne.emit(product);
-	}
-
-	onUnselectedOne(product: Product, column: any) {
-		this.selectionSrv.unselectOne(product, column);
-		this.unselectOne.emit(product);
-	}
-
-	emitSelection() {
-		const selectedCols = [...this.selectedColumns.values()];
-
-		if (selectedCols.includes('selectedAll')) {
-			this.selectionSrv.setSelectionState('selectedAll');
-		} else if (selectedCols.includes('selectedPartial')) {
-			this.selectionSrv.setSelectionState('selectedPartial');
-		} else {
-			this.selectionSrv.setSelectionState('unchecked');
-		}
-	}
-
-	onFavoriteAllSelected() {
-		this.listSrv.onFavoriteAllSelected();
-		const updated = this.listSrv.getSelectedIds()
-			.map(id => ({ id, favorite: true }));
-		this.kanbanSrv.updateMany(updated);
-	}
-
-	onUnfavoriteAllSelected() {
-		this.listSrv.onUnfavoriteAllSelected();
-		const updated = this.listSrv.getSelectedIds()
-			.map(id => ({ id, favorite: false }));
-		this.kanbanSrv.updateMany(updated);
-	}
-
-	onMultipleThumbUp(isCreated) {
-		const updated = this.listSrv.onMultipleThumbUp(isCreated, EntityName.PRODUCT);
-		this.kanbanSrv.updateMany(updated);
-	}
-
-	onMultipleThumbDown(isCreated) {
-		const updated = this.listSrv.onMultipleThumbDown(isCreated, EntityName.PRODUCT);
-		this.kanbanSrv.updateMany(updated);
+	onUnselectedOne(product: Product, column: KanbanColumn) {
+		this.kanbanSelectionSrv.unselectOne(product, column);
 	}
 
 	deleteSelected() {

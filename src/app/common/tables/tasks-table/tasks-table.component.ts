@@ -2,11 +2,11 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output
 import { TranslateService } from '@ngx-translate/core';
 import { User } from 'getstream';
 import { TaskService } from '~core/entity-services';
-import { EntityTableComponent } from '~core/list-page';
 import { Task } from '~core/models';
 import { Color } from '~utils/colors.enum';
 import { ID } from '~utils/id.utils';
 import { defaultConfig } from '../default-columns/default-config';
+import { EntityTableComponent } from '../entity-table.component';
 
 
 @Component({

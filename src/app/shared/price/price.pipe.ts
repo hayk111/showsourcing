@@ -7,21 +7,16 @@ import { CurrencyPipe, DecimalPipe } from '@angular/common';
 })
 export class PricePipe implements PipeTransform {
 
-	transform(price: Price | number, roundedTo = 2, digitsInfo = '1.0-2'): any {
-		let value: number | string = price instanceof Object ? price.value : price;
+	transform(value: number, roundedTo = 2): any {
 		const numberPipe = new DecimalPipe(this._locale);
+		let valueStr;
 		if (!isNaN(value)) {
 			value = Number((value / 10000).toFixed(roundedTo));
-			value = numberPipe.transform(value);
+			valueStr = numberPipe.transform(value);
 		} else {
-			value = '-';
+			valueStr = '-';
 		}
-		if (price instanceof Object) {
-			const currencyPipe = new CurrencyPipe(this._locale);
-			return currencyPipe.transform(value, price.currency, 'symbol-narrow', digitsInfo);
-		} else {
-			return value;
-		}
+		return valueStr;
 	}
 
 	constructor(@Inject(LOCALE_ID) private _locale: string) { }
