@@ -12,7 +12,6 @@ export const routes: Array<Route> = [
 		children: [
 			{ path: 'products', component: DetailsPage.ProductsPageComponent },
 			{ path: 'settings', component: DetailsPage.SettingsPageComponent },
-			{ path: 'workflow', component: DetailsPage.WorkflowPageComponent },
 			{ path: '', redirectTo: 'products', pathMatch: 'full' }
 		],
 	}

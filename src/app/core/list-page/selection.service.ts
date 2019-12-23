@@ -10,7 +10,7 @@ export type SelectionMap = Map<string, Entity>;
 	providedIn: 'root'
 })
 export class SelectionService {
-	private selection: SelectionMap = new Map();
+	selection: SelectionMap = new Map();
 	private _selection$ = new BehaviorSubject<SelectionMap>(this.selection);
 	selection$ = this._selection$.asObservable();
 

@@ -1,28 +1,27 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { combineLatest, Observable, concat, zip, merge } from 'rxjs';
-import { filter, first, switchMap, takeUntil, tap, mergeMap } from 'rxjs/operators';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { combineLatest, Observable } from 'rxjs';
+import { filter, first, mergeMap, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ProductStatusService } from '~core/entity-services/product-status/product-status.service';
-import { ListPageService, SelectionService } from '~core/list-page';
+import { ListPageService } from '~core/list-page';
 import { ProductService } from '~entity-services';
-import { ERM, Product, ProductStatus, EntityName } from '~models';
+import { ERM, Product, ProductStatus } from '~models';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { FilterList, FilterType } from '~shared/filters';
 import { KanbanDropEvent } from '~shared/kanban/interfaces';
-import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.class';
-import { KanbanService } from '~shared/kanban/services/kanban.service';
-import { StatusUtils, translate } from '~utils';
-import { AutoUnsub } from '~utils/auto-unsub.component';
+import { KanbanColumn } from '~shared/kanban/interfaces/kanban-interface.class';
 import { KanbanSelectionService } from '~shared/kanban/services/kanban-selection.service';
+import { KanbanService } from '~shared/kanban/services/kanban.service';
+import { translate } from '~utils';
+import { AutoUnsub } from '~utils/auto-unsub.component';
 
 @Component({
 	selector: 'products-board-app',
 	templateUrl: './products-board.component.html',
 	styleUrls: ['./products-board.component.scss'],
 	providers: [
-		KanbanService
+
 	]
 })
 export class ProductsBoardComponent extends AutoUnsub implements OnInit {
@@ -35,19 +34,6 @@ export class ProductsBoardComponent extends AutoUnsub implements OnInit {
 	columns$ = this.kanbanSrv.columns$;
 	erm = ERM;
 	amountLoaded = 15;
-
-	// filter displayed as button in the filter panel
-	filterTypes = [
-		FilterType.ARCHIVED,
-		FilterType.CATEGORY,
-		FilterType.CREATED_BY,
-		FilterType.EVENT,
-		FilterType.FAVORITE,
-		FilterType.PRODUCT_STATUS,
-		FilterType.PROJECTS,
-		FilterType.SUPPLIER,
-		FilterType.TAGS
-	];
 
 	constructor(
 		private productSrv: ProductService,
@@ -80,38 +66,25 @@ export class ProductsBoardComponent extends AutoUnsub implements OnInit {
 			filters$,
 			statuses$
 		).pipe(
-			mergeMap(([filterList, statuses]) => combineLatest(...this.getProductByStatus(statuses, filterList))),
-		).subscribe(columns => {
-			columns.forEach(column => {
-				this.kanbanSrv.setData(column.products, column.status.id);
-				this.kanbanSrv.setTotal(column.total, column.status.id);
-			});
-		});
+			mergeMap(([filterList, statuses]) => combineLatest(...this.getProductColumns(statuses, filterList))),
+		).subscribe(columns => this.kanbanSrv.setData(columns));
 	}
 
 	loadMore(col: KanbanColumn) {
 		const query = this.getColQuery(col.id);
-		this.productSrv.selectMany({
+		this.productSrv.queryMany({
 			query,
 			take: col.data.length + this.amountLoaded,
 			sortBy: 'lastUpdatedDate'
-		}).pipe(first())
-			.subscribe(products => this.kanbanSrv.setData(products, [col.id]));
+		}).subscribe(products => this.kanbanSrv.setData([{ data: products, id: col.id}]));
 	}
 
-	private getProductByStatus(statuses: ProductStatus[], filterList: FilterList): Observable<any>[] {
+	private getProductColumns(statuses: ProductStatus[], filterList: FilterList): Observable<any>[] {
 		return statuses.map(status => {
 			const query = this.getColQuery(status.id, filterList);
-			return this.productSrv.selectMany({ query, take: this.amountLoaded, sortBy: 'lastUpdatedDate' }).
-				pipe(
-					first(),
-					// we use selectCount instead of queryCount,
-					// since queryCount wasn't giving the latest values, when requerying
-					switchMap(
-						_ => this.productSrv.selectCount(query).pipe(first()),
-						(products, total) => ({ products, total, status })
-					)
-				);
+			const products$ = this.productSrv.queryMany({ query, take: this.amountLoaded, sortBy: 'lastUpdatedDate' });
+			const total$ = this.productSrv.queryCount(query).pipe(first());
+			return combineLatest(total$, products$, (total, products) => ({ total, products, status}));
 		});
 	}
 
@@ -158,8 +131,8 @@ export class ProductsBoardComponent extends AutoUnsub implements OnInit {
 		this.kanbanSelectionSrv.selectOne(product, column);
 	}
 
-	onUnselectedOne(product: Product, column: KanbanColumn) {
-		this.kanbanSelectionSrv.unselectOne(product, column);
+	onUnselectedOne(product: Product) {
+		this.kanbanSelectionSrv.unselectOne(product);
 	}
 
 	deleteSelected() {

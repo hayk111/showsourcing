@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { combineLatest, Observable } from 'rxjs';
-import { filter, first, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { filter, first, switchMap, takeUntil, tap, mergeMap } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { SupplierStatusService } from '~core/entity-services/supplier-status/supplier-status.service';
@@ -11,7 +11,7 @@ import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { FilterList, FilterType } from '~shared/filters';
 import { KanbanDropEvent } from '~shared/kanban/interfaces';
-import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.class';
+import { KanbanColumn } from '~shared/kanban/interfaces/kanban-interface.class';
 import { KanbanService } from '~shared/kanban/services/kanban.service';
 import { StatusUtils, translate } from '~utils';
 import { AutoUnsub } from '~utils/auto-unsub.component';
@@ -78,9 +78,10 @@ export class SuppliersBoardComponent extends AutoUnsub implements OnInit {
 
 		combineLatest(
 			filters$,
-			statuses$,
-			(filterList, statuses) => this.getSuppliers(statuses, filterList)
-		).subscribe();
+			statuses$
+		).pipe(
+			mergeMap(([filterList, statuses]) => combineLatest(...this.getSupplierColumns(statuses, filterList))),
+		).subscribe(columns => this.kanbanSrv.setData(columns));
 	}
 
 	loadMore(col: KanbanColumn) {
@@ -90,34 +91,27 @@ export class SuppliersBoardComponent extends AutoUnsub implements OnInit {
 			take: col.data.length + this.amountLoaded,
 			sortBy: 'lastUpdatedDate'
 		}).pipe(first())
-			.subscribe(suppliers => this.kanbanSrv.setData(suppliers, [col.id]));
+			.subscribe(suppliers => this.kanbanSrv.setData([{ id: col.id, data: suppliers }]));
 	}
 
-	private getSuppliers(statuses: SupplierStatus[], filterList: FilterList) {
-		statuses.forEach(status => {
+	private getSupplierColumns(statuses: SupplierStatus[], filterList: FilterList) {
+		return statuses.map(status => {
 			const query = this.getColQuery(status.id, filterList);
-			this.supplierSrv.selectMany({ query, take: this.amountLoaded, sortBy: 'lastUpdatedDate' }).
-				pipe(
-					first(),
-					// we use selectCount instead of queryCount, since queryCount wasn't giving the latest values, when requerying
-					switchMap(_ => this.supplierSrv.selectCount(query).pipe(first()), (suppliers, total) => ({ suppliers, total })),
-				).subscribe(data => {
-					this.kanbanSrv.setData(data.suppliers, [status.id]);
-					this.kanbanSrv.setTotal(data.total, [status.id]);
-				});
+			const suppliers$ = this.supplierSrv.queryMany({ query, take: this.amountLoaded, sortBy: 'lastUpdatedDate' });
+			const total$ = this.supplierSrv.queryCount(query);
+			return combineLatest(suppliers$, total$, (suppliers, total) => ({ suppliers, total, status }));
 		});
 	}
 
 	// returns the query of the columns based on the parameters on the list srv and a constant query
 	private getColQuery(colId: string, filterList?: FilterList) {
-		const constQuery = colId !== StatusUtils.NEW_STATUS_ID ?
-			`status.id == "${colId}"` : `status == null`;
+		const constQuery = `status.id == "${colId}"`;
 		const predicate = filterList ? filterList.asPredicate() : this.listSrv.filterList.asPredicate();
 		return [
 			predicate,
 			constQuery
 		].filter(x => x !== '')
-			.join(' && ');
+		.join(' && ');
 	}
 
 	onUpdate(supplier: Supplier) {
@@ -134,27 +128,21 @@ export class SuppliersBoardComponent extends AutoUnsub implements OnInit {
 			return;
 		}
 		// we update on the server
-		const isNewStatus = event.to.id === StatusUtils.NEW_STATUS_ID;
 		this.supplierSrv.update({
 			id: event.item.id,
-			status: isNewStatus ? null : new SupplierStatus({ id: event.to.id })
-		},
-			Client.TEAM,
-			isNewStatus ? 'status { id }' : ''
+			status: new SupplierStatus({ id: event.to.id })
+		}
 		).subscribe();
 	}
 
 	/** multiple */
 	updateSupplierStatus(event: KanbanDropEvent) {
-		const isNewStatus = event.to.id === StatusUtils.NEW_STATUS_ID;
 		const suppliers = event.items.map(id => ({
 			id,
-			status: isNewStatus ? null : new SupplierStatus({ id: event.to.id })
+			status: new SupplierStatus({ id: event.to.id })
 		}));
 		this.supplierSrv.updateMany(
-			suppliers,
-			Client.TEAM,
-			isNewStatus ? 'status { id }' : ''
+			suppliers
 		).subscribe();
 	}
 

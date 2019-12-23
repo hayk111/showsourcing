@@ -59,21 +59,24 @@ export class KanbanService {
 		// data map
 		const dataMap = this.mapFromArray(data);
 		// make the columns
-		return new KanbanColumn({
+		return {
 			id: status.id,
 			title: constPipe.transform(status.name, 'status'),
 			color: StatusUtils.getStatusColor(status),
 			dataMap,
 			totalData
-		});
+		};
 	}
 
 
 
 	/** sets data of specific column */
-	setData(data: any[] = [], colIds: string[]) {
-		colIds.forEach(id => {
-			this.kanbanConfig.get(id).dataMap = this.mapFromArray(data);
+	setData(columns: { id: string, data?: any[], total?: number }[]) {
+		columns.forEach(column => {
+			if (column.data)
+				this.kanbanConfig.get(column.id).dataMap = this.mapFromArray(column.data);
+			if (column.total)
+				this.kanbanConfig.get(column.id).totalData = column.total;
 		});
 		this._kanbanConfig$.next(this.kanbanConfig);
 	}
@@ -82,14 +85,6 @@ export class KanbanService {
 		const dataMap = this.kanbanConfig.get(colId).dataMap;
 		data.forEach(item => {
 			dataMap.set(item.id, item);
-		});
-		this._kanbanConfig$.next(this.kanbanConfig);
-	}
-
-	/** sets total of specific column */
-	setTotal(total: number, colIds: string[]) {
-		colIds.forEach(id => {
-			this.kanbanConfig.get(id).totalData = total;
 		});
 		this._kanbanConfig$.next(this.kanbanConfig);
 	}

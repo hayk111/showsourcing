@@ -4,6 +4,9 @@ import { KanbanColumn, KanbanDropEvent } from '~shared/kanban/interfaces';
 import { TrackingComponent } from '~utils/tracking-component';
 import { KanbanService } from '~shared/kanban/services/kanban.service';
 import { KanbanSelectionService } from '~shared/kanban/services/kanban-selection.service';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { SelectionState } from '~shared/inputs-custom/components/select-checkbox/select-checkbox.component';
 
 export interface SelectionChangeEvent {
 	selectableItems: any[];
@@ -26,8 +29,6 @@ export class KanbanComponent extends TrackingComponent {
 	}
 	@Output() drop = new EventEmitter<KanbanDropEvent>();
 	@Output() multipleDrop = new EventEmitter<KanbanDropEvent>();
-	/** when the top checkbox is checked */
-	@Output() selectionChange;
 	@Output() loadMore = new EventEmitter<KanbanColumn>();
 
 
@@ -86,10 +87,6 @@ export class KanbanComponent extends TrackingComponent {
 
 	getOtherIds(thatId) {
 		return this.ids.filter(id => id !== thatId);
-	}
-
-	onSelectOne() {
-
 	}
 
 }

@@ -22,6 +22,6 @@
     [checked]="kanbanSelectionSrv.selection.has(data.id)"
     (clickImage)="preview.emit(data)"
     (select)="onSelectedOne($event, column)"
-    (unselect)="onUnselectedOne($event, column)">
+    (unselect)="onUnselectedOne($event)">
   </product-card-app>
 </ng-template>
