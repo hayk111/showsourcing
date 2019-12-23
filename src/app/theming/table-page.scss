@@ -17,6 +17,10 @@
 		overflow: hidden;
 	}
 
+	.card-view {
+		overflow-y: auto;
+	}
+
 	.spacing-ms {
 		margin: var(--spacing-ms);
 	}
