@@ -1,9 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest } from 'rxjs';
-import { filter, first, map, startWith, switchMap, takeUntil, tap, mergeMap } from 'rxjs/operators';
+import { filter, first, map, mergeMap, startWith, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { CreationSampleDlgComponent } from '~common/dialogs/creation-dialogs';
-import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { SampleService, SampleStatusService, UserService } from '~core/entity-services';
 import { ListPageService } from '~core/list-page';
 import { ERM, Sample, SampleStatus } from '~core/models';
@@ -12,7 +11,7 @@ import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog
 import { FilterList, FilterType } from '~shared/filters';
 import { KanbanColumn, KanbanDropEvent } from '~shared/kanban/interfaces';
 import { KanbanService } from '~shared/kanban/services/kanban.service';
-import { translate, StatusCategory, StatusUtils } from '~utils';
+import { StatusUtils, translate } from '~utils';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 
 
@@ -28,12 +27,6 @@ import { AutoUnsub } from '~utils/auto-unsub.component';
 })
 export class SamplesBoardComponent extends AutoUnsub implements OnInit {
 	columns$ = this.kanbanSrv.columns$;
-	filterType = FilterType;
-	filterTypes = [
-		FilterType.SUPPLIER,
-		FilterType.PRODUCT,
-		FilterType.ASSIGNEE
-	];
 	erm = ERM;
 	statuses: SampleStatus[];
 	amountLoaded = 15;
@@ -98,7 +91,7 @@ export class SamplesBoardComponent extends AutoUnsub implements OnInit {
 			].join(' && ');
 			const samples$ = this.sampleSrv.queryMany({ query, take: this.amountLoaded, sortBy: 'lastUpdatedDate' });
 			const total$ = this.sampleSrv.queryCount(query);
-			return combineLatest(samples$, total$, (samples, total) => ({ samples, total, status }));
+			return combineLatest(samples$, total$, (samples, total) => ({ id: status.id, data: samples, total }));
 		});
 	}
 

@@ -1,19 +1,18 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { combineLatest, Observable } from 'rxjs';
-import { filter, first, switchMap, takeUntil, tap, mergeMap } from 'rxjs/operators';
+import { filter, first, mergeMap, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { SupplierStatusService } from '~core/entity-services/supplier-status/supplier-status.service';
 import { ListPageService } from '~core/list-page';
 import { SupplierService } from '~entity-services';
-import { ERM, Supplier, SupplierStatus, EntityName } from '~models';
+import { EntityName, ERM, Supplier, SupplierStatus } from '~models';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { FilterList, FilterType } from '~shared/filters';
 import { KanbanDropEvent } from '~shared/kanban/interfaces';
 import { KanbanColumn } from '~shared/kanban/interfaces/kanban-interface.class';
 import { KanbanService } from '~shared/kanban/services/kanban.service';
-import { StatusUtils, translate } from '~utils';
+import { translate } from '~utils';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 
 @Component({
@@ -99,7 +98,7 @@ export class SuppliersBoardComponent extends AutoUnsub implements OnInit {
 			const query = this.getColQuery(status.id, filterList);
 			const suppliers$ = this.supplierSrv.queryMany({ query, take: this.amountLoaded, sortBy: 'lastUpdatedDate' });
 			const total$ = this.supplierSrv.queryCount(query);
-			return combineLatest(suppliers$, total$, (suppliers, total) => ({ suppliers, total, status }));
+			return combineLatest(suppliers$, total$, (suppliers, total) => ({ id: status.id, data: suppliers, total }));
 		});
 	}
 

@@ -47,9 +47,13 @@ export class KanbanColComponent extends TrackingComponent implements OnInit {
 		this.draggedId = item.id;
 	}
 
-	getColumnSelectionState$(col: KanbanColumn): Observable<SelectionState> {
+	getColumnSelectionState$(): Observable<SelectionState> {
 		return this.selectionSrv.selectedColumn$.pipe(
-			map(selectedColumn => selectedColumn.column.id === col.id ? selectedColumn.state : 'unchecked')
+			map(selectedColumn => {
+				if (!selectedColumn)
+					return 'unchecked';
+				return selectedColumn.column.id === this.col.id ? selectedColumn.state : 'unchecked';
+			})
 		);
 	}
 

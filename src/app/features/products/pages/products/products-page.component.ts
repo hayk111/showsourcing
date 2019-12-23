@@ -129,9 +129,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		if (this.listSrv.view !== 'board') {
 			return this.listSrv.items$;
 		} else {
-			return this.kanbanSelectionSrv.selectedColumn$.pipe(
-				map(selectedColumn => selectedColumn.column.data)
-			);
+			return this.kanbanSelectionSrv.selectableItems$;
 		}
 	}
 

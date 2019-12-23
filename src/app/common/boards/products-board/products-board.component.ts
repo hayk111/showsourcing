@@ -84,7 +84,7 @@ export class ProductsBoardComponent extends AutoUnsub implements OnInit {
 			const query = this.getColQuery(status.id, filterList);
 			const products$ = this.productSrv.queryMany({ query, take: this.amountLoaded, sortBy: 'lastUpdatedDate' });
 			const total$ = this.productSrv.queryCount(query).pipe(first());
-			return combineLatest(total$, products$, (total, products) => ({ total, products, status}));
+			return combineLatest(total$, products$, (total, products) => ({ id: status.id, data: products, total }));
 		});
 	}
 

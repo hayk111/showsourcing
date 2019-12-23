@@ -73,7 +73,7 @@
 	</products-grid-app>
 
 	<product-selection-bar-app
-		[isShown]="(getSelection$() | async)?.size"
+		[isShown]="(getSelection$() | async).size"
 		[selection]="getSelection$() | async"
 		[selectableItems]="getSelectableItems$() | async"
 		(disliked)="listSrv.onMultipleThumbDown($event, erm.PRODUCT.singular)"

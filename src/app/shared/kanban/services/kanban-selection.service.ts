@@ -5,6 +5,7 @@ import { SelectionState } from '~shared/inputs-custom/components/select-checkbox
 import { SelectionMap } from '~core/list-page';
 import { KanbanService } from './kanban.service';
 import { Entity } from '~core/models';
+import { map } from 'rxjs/operators';
 
 
 export interface SelectedColumn {
@@ -42,7 +43,7 @@ export class KanbanSelectionService {
 	}
 
 	selectOne(item: Entity, column: KanbanColumn) {
-		if (this.selectedColumn.column.id !== column.id) {
+		if (!this.selectedColumn || this.selectedColumn.column.id !== column.id) {
 			this.selection = new Map();
 		}
 		this.selection.set(item.id, item);
@@ -62,6 +63,12 @@ export class KanbanSelectionService {
 			this.selectedColumn = { state: 'selectedPartial', column };
 		}
 		this.emit();
+	}
+
+	get selectableItems$ () {
+		return this.selectedColumn$.pipe(
+			map(column => column ? column.column.data : [])
+		);
 	}
 
 	private checkSelection(columns: KanbanColumn[]) {
