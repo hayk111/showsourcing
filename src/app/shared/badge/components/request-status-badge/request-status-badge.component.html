@@ -1,3 +1,7 @@
-<badge-app class="uppercase bold-s" [type]="getType()" [size]="size">
+<badge-app
+	class="uppercase bold-s"
+	[type]="statusUtils.getRequestStatusColor(status, creationDate, isTeam)"
+	[size]="size">
 	{{ isTeam ? ('const.statusRequestTeam.' + status | translate) : ('const.statusRequestSupplier' + status | translate) }}
-</badge-app>
+</badge-app
+>

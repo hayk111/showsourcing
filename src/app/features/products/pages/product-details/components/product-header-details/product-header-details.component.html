@@ -20,8 +20,8 @@
 				<span *ngIf="product?.reference" class="reference">
 					{{ product?.reference }}
 				</span>
-				<span *ngIf="product && product.price && product.price.value !== null" class="price">
-					<price-app [price]="product?.price"></price-app>
+				<span *ngIf="product && product.price && product.price.value !== null">
+					<price-app class="color-txt-secondary" [price]="product?.price"></price-app>
 				</span>
 				<span *ngIf="product?.category" class="category">
 					{{ product?.category?.name }}
