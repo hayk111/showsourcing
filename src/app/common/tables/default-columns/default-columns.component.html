@@ -154,7 +154,7 @@
 
 	<!-- supplier -->
 	<ng-container *ngSwitchCase="'supplier'">
-		<div class="flex action-hover-container">
+		<div class="flex action-hover-container-0">
 			<editable-container-app
 				class="edit-with-icon"
 				[hasAction]="false"
@@ -172,9 +172,9 @@
 					</selector-app>
 				</editable-display-app>
 			</editable-container-app>
-			<icon-app 
+			<icon-app
 				*ngIf="row.supplier"
-				class="mg-left-xs action-hover-item color-primary"
+				class="mg-left-xs action-hover-item-0 color-primary"
 				name="eye"
 				[routerLink]="['/suppliers', row.supplier.id]">
 			</icon-app>

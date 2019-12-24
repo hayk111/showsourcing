@@ -24,7 +24,7 @@ export class ProductGridCardComponent {
 	erm = ERM;
 	statusUtils = StatusUtils;
 
-	constructor(private ratingSrv: RatingService) { }
+	constructor(public ratingSrv: RatingService) { }
 
 	thumbUp() {
 		const votes = this.ratingSrv.thumbUp(this.product, EntityName.PRODUCT);

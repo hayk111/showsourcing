@@ -43,7 +43,7 @@
 		<section>
 			<h3 class="section-title">supplier</h3>
 			<editable-container-app
-				class="action-hover-container"
+				class="action-hover-container-0"
 				[hasAction]="false"
 				[openOnClick]="false"
 				(click)="supplierSelector?.openMenu()">
@@ -66,11 +66,11 @@
 									<span class="supplier-name fs-l color-txt-primary bold-s flex mg-bottom-xs">{{ supplier?.name }}</span>
 									<div class="flex dot-separator">
 										<div *ngIf="supplier?.supplierType">{{ supplier?.supplierType }}</div>
-										<div *ngIf="supplier?.country">{{ supplier?.country }}</div>
+										<div *ngIf="supplier?.country">{{ supplier?.country | const: 'country' }}</div>
 										<rating-badge-app	[votes]="supplier?.votes" [activeColor]="'primary'"></rating-badge-app>
 									</div>
 								</div>
-								<button class="eye-icon icon light action-hover-item">
+								<button class="eye-icon icon light action-hover-item-0">
 									<icon-app
 										size="20"
 										name="eye"
