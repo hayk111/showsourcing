@@ -9,6 +9,7 @@ export enum EntityName {
 	CURRENCY = 'currency',
 	EMAIL = 'email',
 	EVENT = 'event',
+	EXPORT = 'export',
 	FILE = 'file',
 	HARBOUR = 'harbour',
 	IMAGE = 'image',
