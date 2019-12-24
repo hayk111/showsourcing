@@ -1,10 +1,9 @@
 import { Packaging } from '~models/packaging.model';
 import { PriceMatrix } from '~models/price-matrix.model';
 import { Price } from '~models/price.model';
-import { Supplier } from '~models/supplier.model';
 import { Product } from '~models/product.model';
-import { uuid } from '~utils';
-import { RequestStatus } from './supplier-request.model';
+import { Supplier } from '~models/supplier.model';
+import { RequestStatus, uuid } from '~utils';
 
 export class Quote {
 	id: string;
@@ -30,7 +29,7 @@ export class Quote {
 	samplePrice?: number;
 	supplier?: Supplier;
 
-	__typename ?= 'Quote';
+	__typename?= 'Quote';
 
 	constructor(config: QuoteConfig) {
 		Object.assign(this, config);
