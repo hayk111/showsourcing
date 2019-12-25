@@ -167,6 +167,7 @@ https://stackblitz.com/edit/angular-vtluff?file=src/app/app.component.ts -->
 <pagination-app
 	*ngIf="hasPagination && !pending"
 	[count]="count"
+	[footerTemplate]="footerTemplate"
 	[currentPage]="currentPage"
 	[hasSidePadding]="hasPaddingPagination"
 	[hasPageItemsCount]="hasShowItemsPerPage"

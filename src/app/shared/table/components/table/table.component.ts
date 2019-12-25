@@ -51,6 +51,7 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	/** whether there is a border around the table */
 	@Input() hasBorder = true;
 
+	@Input() footerTemplate: TemplateRef<any>;
 	@Input() type: EntityName;
 	@Input() width: number;
 	@Input() rowHeight = 42;

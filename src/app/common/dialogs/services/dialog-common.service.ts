@@ -74,9 +74,9 @@ export class DialogCommonService {
 
 	openSelectProductDlg(initialSelectedProducts?: Product[], project?: Project, submitProducts = true) {
 		return this.dlgSrv.open(ProductSelectDlgComponent, {
+			project,
 			initialSelectedProducts,
-			submitProducts,
-			project
+			submitProducts
 		});
 	}
 

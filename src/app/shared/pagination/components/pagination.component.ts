@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output, TemplateRef } from '@angular/core';
 import { DEFAULT_TAKE_PAGINATION } from '~core/entity-services/_global/select-params';
 import { TrackingComponent } from '~utils';
 
@@ -28,6 +28,7 @@ export class PaginationComponent extends TrackingComponent implements OnChanges 
 			throw Error(`Width must be an odd number, received ${value}`);
 		this._width = value;
 	}
+	@Input() footerTemplate: TemplateRef<any>;
 	get width() { return this._width; }
 	private _width = 5;
 

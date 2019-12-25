@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { switchMap } from 'rxjs/operators';
 import { ProductDialogService } from '~common/dialogs/services/product-dialog.service';
+import { ProductsTableComponent } from '~common/tables/products-table/products-table.component';
 import { ProductService, UserService } from '~core/entity-services';
 import { DEFAULT_TAKE_PAGINATION } from '~entity-services/_global/select-params';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
@@ -15,14 +17,17 @@ import { AutoUnsub, translate } from '~utils';
 	templateUrl: './product-select-dlg.component.html',
 	styleUrls: ['./product-select-dlg.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [ListPageService]
+	providers: [ListPageService],
+	host: { class: 'table-dialog' }
 })
 export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
-	columns = ['reference', 'price', 'supplier', 'category', 'createdBy', 'activities', 'status'];
 
 	@Input() initialSelectedProducts: Product[];
 	@Input() project: Project;
 	@Input() submitProducts = true;
+
+	columns = ProductsTableComponent.DEFAULT_COLUMNS;
+	tableConfig = ProductsTableComponent.DEFAULT_TABLE_CONFIG;
 
 	selectItemsConfig: SelectParamsConfig;
 	filterType = FilterType;
@@ -46,8 +51,6 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 
 	selectedProductsCount = 0;
 	private selectedAllCount = DEFAULT_TAKE_PAGINATION;
-
-	filtersPanelOpened = false;
 
 	constructor(
 		private productSrv: ProductService,
@@ -107,16 +110,6 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 
 	hasSelectedProducts() {
 		return (Array.from(this.listSrv.selectionSrv.selection.values()).length > 0);
-	}
-
-	showFilters() {
-		this.filtersPanelOpened = true;
-		this.listSrv.openFilterPanel();
-	}
-
-	hideFilters() {
-		this.filtersPanelOpened = false;
-		this.listSrv.closeFilterPanel();
 	}
 
 	onItemSelected(entity: any) {

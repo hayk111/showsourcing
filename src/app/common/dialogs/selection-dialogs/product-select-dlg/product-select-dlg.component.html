@@ -1,22 +1,25 @@
-<dialog-app class="zero-content-height" [hasBorder]="false">
+<dialog-app [hasBorder]="false" [hasFooter]="false">
 
 	<dialog-header-app translate="header.select-products"></dialog-header-app>
 
 	<controller-table-app>
-		<controller-table-quick-filters-app></controller-table-quick-filters-app>
-		<controller-table-quick-actions-app></controller-table-quick-actions-app>
-		<controller-table-view-switcher-app></controller-table-view-switcher-app>
+		<controller-table-quick-filters-app [quickFilters]="['assignee']"></controller-table-quick-filters-app>
+		<controller-table-quick-actions-app 
+			[hasExport]="false"
+			[columns]="columns" 
+			[tableConfig]="tableConfig">
+		</controller-table-quick-actions-app>
 	</controller-table-app>
 
 	<products-table-app
 		class="list-view"
-		*ngIf="listSrv.view === 'list'"
-		[ngStyle]="filtersPanelOpened && {'width': 'calc(100% - 296px)'}"
+		[rows]="listSrv.items$ | async"
+		[hasShowItemsPerPage]="false"
+		[ngStyle]="listSrv.filterPanelOpen && {'width': 'calc(100% - 296px)'}"
 		[hasMenu]="false"
-		[hasPagination]="false"
+		[footerTemplate]="footer"
 		[currentSort]="listSrv.currentSort"
 		[pending]="listSrv.pending"
-		[rows]="listSrv.items$ | async"
 		[selection]="listSrv.selection$ | async"
 		[count]="listSrv.count$ | async"
 		[currentPage]="listSrv.currentPage"
@@ -32,26 +35,33 @@
 		(selectAll)="onSelectAll($event, true)"
 		(sort)="listSrv.sort($event)"
 		(unfavorited)="listSrv.onItemUnfavorited($event)"
+		(setFavourite)="listSrv.onItemFavorited($event?.id)"
+		(favorited)="listSrv.onItemFavorited($event)"
 		(unselect)="onItemUnselected($event)"
 		(unselectAll)="onUnselectAll()">
 	</products-table-app>
 
-	<dialog-footer-app class="flexVAlign">
-		<div class="product-action">
-			<span class="selected-product-count">{{ selectedProductsCount }}</span>
-			<span class="selected-product">{{'label.products-selected' | translate}}</span>
+	<ng-template #footer>
+		<div class="pagination-footer flexVAlign">
+			<div class="product-action">
+				<span class="selected-product capitalize">
+					{{'OBJ.n-product-selected.singular' | translate: {count: selectedProductsCount || 0} }}
+				</span>
+			</div>
+			<divider-app [vertical]="true"></divider-app>
+			<button *ngIf="submitProducts" class="cancel capitalize light" (click)="cancel()" translate="button.cancel"></button>
+			<button *ngIf="submitProducts" class="add-to-project capitalize primary" (click)="submit()" translate="button.add-to-project"></button>
+			<button *ngIf="!submitProducts" class="capitalize primary" (click)="done()" translate="button.done"></button>
 		</div>
-		<button *ngIf="submitProducts" class="primary-light cancel secondary capitalize" (click)="cancel()" translate="button.cancel"></button>
-		<button *ngIf="submitProducts" class="add-to-project capitalize" (click)="submit()" translate="button.add-to-project"></button>
-		<button *ngIf="!submitProducts" class="footer-done capitalize" (click)="done()" translate="button.done"></button>
-	</dialog-footer-app>
+	</ng-template>
 
 	<filters-app
-		*ngIf="filtersPanelOpened"
+		*ngIf="listSrv.filterPanelOpen"
 		[filterList]="listSrv.filterList"
 		[filterTypes]="filterTypes"
 		[sidePanel]="false"
-		(close)="hideFilters()">
+		(clickOutside)="listSrv.closeFilterPanel()"
+		(close)="listSrv.closeFilterPanel()">
 	</filters-app>
 
 	<ng-template #spinner>

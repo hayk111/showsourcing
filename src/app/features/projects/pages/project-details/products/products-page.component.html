@@ -1,19 +1,18 @@
 <ng-container *ngIf="project$ | async as project; else spinner">
 
-<controller-table-app [hasExtra]="true">
-	<controller-table-quick-filters-app [quickFilters]="['assignee']"></controller-table-quick-filters-app>
-	<div class="extra">
-		<button (click)="dialogCommonSrv.openAddToProjectDialog([$event])">Add Product</button>
-	</div>
-	<controller-table-quick-actions-app 
-		[columns]="columns" 
-		[tableConfig]="tableConfig">
-	</controller-table-quick-actions-app>
-	<controller-table-view-switcher-app [hasBoard]="false"></controller-table-view-switcher-app>
-</controller-table-app>
+	<controller-table-app [hasExtra]="true">
+		<controller-table-quick-filters-app [quickFilters]="['assignee']"></controller-table-quick-filters-app>
+		<div class="extra">
+			<button (click)="dialogCommonSrv.openSelectProductDlg([], project)">Add Product</button>
+		</div>
+		<controller-table-quick-actions-app 
+			[columns]="columns" 
+			[tableConfig]="tableConfig">
+		</controller-table-quick-actions-app>
+		<controller-table-view-switcher-app [hasBoard]="false"></controller-table-view-switcher-app>
+	</controller-table-app>
 
-<ng-container>
-
+	<ng-container>
 		<products-table-app
 			*ngIf="listSrv.view === 'table'"
 			[columns]="columns"
@@ -32,12 +31,12 @@
 			(unselectAll)="listSrv.unselectAll()"
 			(archive)="listSrv.archiveOne($event)"
 			(open)="listSrv.goToDetails($event)"
-			(createClick)="dialogCommonSrv.openAddToProjectDialog([$event])"
-			(openAddToProjectDialog)="dialogCommonSrv.openAddToProjectDialog([$event])"
+			(createClick)="dialogCommonSrv.openSelectProductDlg([], project)"
 			(openAddSampleDialog)="dialogCommonSrv.openCreationSampleDialog($event)"
 			(unfavorited)="listSrv.onItemUnfavorited($event)"
 			(setFavourite)="listSrv.onItemFavorited($event?.id)"
 			(favorited)="listSrv.onItemFavorited($event)"
+			(update)="listSrv.update($event)"
 			(openAddTaskDialog)="dialogCommonSrv.openCreationTaskDlg($event)"
 			(sort)="listSrv.sort($event)"
 			(showItemsPerPage)="showItemsPerPage($event)"
@@ -74,6 +73,7 @@
 		<product-selection-bar-app
 			[isShown]="(listSrv.selection$ | async).size > 0"
 			[selection]="listSrv.selection$ | async"
+			[selectableItems]="listSrv.items$ | async"
 			(addProject)="dialogCommonSrv.openAddToProjectDialog(listSrv.getSelectedValues())"
 			(export)="dialogCommonSrv.openExportDialog(erm.PRODUCT.singular, listSrv.getSelectedValues())"
 			(createRequest)="dialogCommonSrv.openSupplierRequest(listSrv.getSelectedValues())"

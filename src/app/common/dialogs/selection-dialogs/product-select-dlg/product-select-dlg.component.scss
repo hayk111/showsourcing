@@ -1,17 +1,16 @@
 dialog-app {
-	position: relative;
 	height: calc(100vh - 100px);
 	width: 1149px;
-	border-radius: 4px;
-	
-	dialog-header-app {
-		margin-top: var(--spacing-s);
-		font-size: var(--font-size-l);
-		color: var(--color-bg-dark);
+	border-radius: var(--border-radius);
+
+	controller-table-app {
+		margin-top: var(--spacing-xs);
 	}
 
-	dialog-footer-app {
-		margin-top: var(--spacing-l);
+	.pagination-footer {
+		.cancel {
+			margin: 0 var(--spacing-ms);
+		}
 
 		.show-my-samples-only {
 			font-weight: 600;
@@ -19,43 +18,21 @@ dialog-app {
 		}
 
 		.selected-product-count {
-			color: #45adff;
-			font-size: var(--font-size-l);
 			margin-right: var(--spacing-xs);
 		}
 		
 		.selected-product {
-			color: var(--color-bg-dark);
-			font-size: var(--font-size-l);
+			font-size: var(--font-size-m);
 		}
 
 		.product-action {
-			margin-right: var(--spacing-l);
-		}
-
-		.add-to-project, .footer-done {
-			width: 128px;
-  		height: var(--spacing-xl);
-		}
-
-		.cancel {
-			width: 88px;
-			background: transparent;
-			color: var(--color-txt-secondary);
-			font-weight: 600;
-			font-size: var(--font-size-m);
 			margin-right: var(--spacing-ms);
-
-			&:hover {
-				background: var(--color-bg-secondary);
-			}
 		}
 	}
-
+	
 	products-table-app {
-		height: calc(100% - 42px);
-		margin: var(--spacing-l) 0 0 0;
-		border: solid 1px var(--color-divider);
+		height: calc(100% - 50px);
+		margin: var(--spacing-ms) 0 0 0;
 		border-radius: var(--border-radius);
 	}
 
