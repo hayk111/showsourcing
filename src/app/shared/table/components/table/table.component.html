@@ -5,7 +5,7 @@ https://stackblitz.com/edit/angular-vtluff?file=src/app/app.component.ts -->
 
 <div
 	class="ctnr will-change-scroll"
-	[ngStyle]="!hasPagination && {'height': '100%'}"
+	[ngStyle]="generateStyles()"
 	[ngClass]="{ 'with-border': hasBorder }"
 	infiniScroll
 	cdk-scrollable

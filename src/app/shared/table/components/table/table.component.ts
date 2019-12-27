@@ -53,7 +53,7 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 
 	@Input() footerTemplate: TemplateRef<any>;
 	@Input() type: EntityName;
-	@Input() width: number;
+	@Input() width: string;
 	@Input() rowHeight = 42;
 
 	/** the name of the property than uniquely identifies a row. This is used to know if a row is currently selectioned
@@ -131,6 +131,14 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 			return 'unchecked';
 		} else {
 			return 'selectedPartial';
+		}
+	}
+
+	generateStyles(): any {
+		if (this.hasPagination) {
+			return { width: this.width };
+		} else {
+			return { height: '100%', width: this.width};
 		}
 	}
 

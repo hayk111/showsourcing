@@ -35,15 +35,15 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 	entityTypeEnum = EntityTypeEnum;
 
 	filterTypes = [
+		FilterType.SUPPLIER,
 		FilterType.ARCHIVED,
 		FilterType.CATEGORY,
+		FilterType.PROJECTS,
 		FilterType.CREATED_BY,
 		FilterType.EVENT,
-		FilterType.FAVORITE,
+		FilterType.TAGS,
 		FilterType.PRODUCT_STATUS,
-		FilterType.PROJECTS,
-		FilterType.SUPPLIER,
-		FilterType.TAGS
+		FilterType.FAVORITE,
 	];
 
 	private unselectedProducts: { [key: string]: Product } = {};

@@ -15,8 +15,8 @@
 		class="list-view"
 		[rows]="listSrv.items$ | async"
 		[hasShowItemsPerPage]="false"
-		[ngStyle]="listSrv.filterPanelOpen && {'width': 'calc(100% - 296px)'}"
 		[hasMenu]="false"
+		[width]="listSrv.filterPanelOpen ? 'calc(100% - 308px)' : '100%'"
 		[footerTemplate]="footer"
 		[currentSort]="listSrv.currentSort"
 		[pending]="listSrv.pending"
@@ -55,14 +55,16 @@
 		</div>
 	</ng-template>
 
-	<filters-app
-		*ngIf="listSrv.filterPanelOpen"
-		[filterList]="listSrv.filterList"
-		[filterTypes]="filterTypes"
-		[sidePanel]="false"
-		(clickOutside)="listSrv.closeFilterPanel()"
-		(close)="listSrv.closeFilterPanel()">
-	</filters-app>
+	<div class="dlg-filters">
+		<filters-app
+			*ngIf="listSrv.filterPanelOpen"
+			[filterList]="listSrv.filterList"
+			[filterTypes]="filterTypes"
+			[sidePanel]="false"
+			(clickOutside)="listSrv.closeFilterPanel()"
+			(close)="listSrv.closeFilterPanel()">
+		</filters-app>
+	</div>
 
 	<ng-template #spinner>
 		<spinner-app></spinner-app>
