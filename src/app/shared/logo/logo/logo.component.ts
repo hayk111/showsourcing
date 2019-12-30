@@ -7,8 +7,9 @@ export const colorMap = {
 	[EntityName.ACTIVITY]: Color.PRIMARY,
 	[EntityName.CATEGORY]: Color.ACCENT,
 	[EntityName.COMMENT]: Color.PRIMARY,
-	[EntityName.CONTACT]: Color.SECONDARY,
+	[EntityName.CONTACT]: Color.SECONDARY_BG,
 	[EntityName.EVENT]: Color.SECONDARY,
+	[EntityName.EXPORT]: Color.SECONDARY_BG,
 	[EntityName.IMAGE]: Color.SECONDARY,
 	[EntityName.PRODUCT]: Color.PRIMARY,
 	[EntityName.PROJECT]: Color.SECONDARY,
@@ -28,8 +29,9 @@ export const iconMap = {
 	[EntityName.ACTIVITY]: 'activity',
 	[EntityName.CATEGORY]: 'category',
 	[EntityName.COMMENT]: 'comments',
-	[EntityName.CONTACT]: 'team',
+	[EntityName.CONTACT]: 'contact',
 	[EntityName.EVENT]: 'event',
+	[EntityName.EXPORT]: 'invoice',
 	[EntityName.IMAGE]: 'camera',
 	[EntityName.PRODUCT]: 'product',
 	[EntityName.PROJECT]: 'project',
@@ -74,6 +76,9 @@ export class LogoComponent implements OnChanges {
 	/** displayed color */
 	@Input() color: Colors;
 
+	// override the background color if type is specified
+	@Input() backgroundColor: Colors;
+
 	constructor(
 		private elRef: ElementRef,
 		private renderer: Renderer2
@@ -96,6 +101,10 @@ export class LogoComponent implements OnChanges {
 		const found = Array.from(el.classList).find(className => className.startsWith('color-'));
 		this.renderer.removeClass(el, found);
 		this.renderer.addClass(el, 'color-' + this.getComputedColor());
+
+		if (this.backgroundColor) {
+			this.renderer.setStyle(el, 'background', 'var(--color-' + this.backgroundColor + ')');
+		}
 	}
 
 	private getComputedColor() {

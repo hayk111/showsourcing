@@ -36,6 +36,7 @@
 	}
 
 	.entity-table {
+		height: calc(100% - 58px);
 		flex-grow: 1;
 		margin-top: var(--spacing-ms);
 		display: flex;

@@ -32,9 +32,10 @@ export class SelectionBarComponent {
 	}
 
 	getSelectionState(): SelectionState {
-		if (this.selection.size === 0) {
+		if (this.selection.size === 0 || !this.selectableItems) {
 			return 'unchecked';
 		}
+
 		return this.selection.size === this.selectableItems.length ? 'selectedAll' : 'selectedPartial';
 	}
 

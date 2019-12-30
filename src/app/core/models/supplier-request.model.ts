@@ -1,20 +1,10 @@
-import { ID, uuid } from '~utils';
+import { ID, uuid, RequestStatus } from '~utils';
 import { Contact } from './contact.model';
 import { AppImage } from './app-image.model';
 import { Attachment } from './attachment.model';
 import { RequestElement } from './request-element.model';
 
 
-export enum RequestStatus {
-	CANCELED = 'canceled',
-	ERROR = 'error',
-	PENDING = 'pending',
-	REFUSED = 'refused',
-	REPLIED = 'replied',
-	RESENT = 'resent',
-	SENT = 'sent',
-	VALIDATED = 'validated',
-}
 
 export class SupplierRequest {
 	id: ID;
@@ -31,7 +21,7 @@ export class SupplierRequest {
 	creationDate: string;
 	lastUpdatedDate: string;
 	sentDate: string;
-	__typename ?= 'Request';
+	__typename?= 'Request';
 
 	constructor(config: SupplierRequestConfig) {
 		this.creationDate = '' + new Date();

@@ -22,6 +22,17 @@ export enum ProjectStatus {
 	OVERDUE = '_Overdue',
 }
 
+export enum RequestStatus {
+	CANCELED = 'canceled',
+	ERROR = 'error',
+	PENDING = 'pending',
+	REFUSED = 'refused',
+	REPLIED = 'replied',
+	RESENT = 'resent',
+	SENT = 'sent',
+	VALIDATED = 'validated',
+}
+
 export class StatusUtils {
 
 	static statusColorMap = {
@@ -45,6 +56,11 @@ export class StatusUtils {
 	static DEFAULT_STATUS_COLOR = StatusUtils.statusColorMap[StatusCategory.NEW];
 	static DEFAULT_STATUS_ICON_COLOR = StatusUtils.statusIconColorMap[StatusCategory.NEW];
 	static DEFAULT_STATUS_CATEGORY = StatusCategory.NEW;
+
+	/** magic number for 2 weeks in miliseconds */
+	static twoWeeks = 12096e5;
+	static twoWeeksAgo = (new Date(+new Date - StatusUtils.twoWeeks));
+
 
 	/**
 	 * gets the color of a status from the status color map
@@ -138,6 +154,114 @@ export class StatusUtils {
 	 */
 	static isOverdue(task: Task) {
 		return task && task.dueDate && (new Date().getTime() >= Date.parse(task.dueDate.toString()));
+	}
+
+	// REQUEST STATUS
+
+	/**
+	 * using the properties status, creation date from a request, calculates the request status color
+	 * @param status
+	 * @param creationDate creation date of the request (only used for request accessed from the Supplier client)
+	 * @param isTeam wheater we are accessing the request from the team client or not
+	 * @returns the specific request status color
+	 */
+	static getRequestStatusColor(status: RequestStatus, creationDate?: Date, isTeam = true) {
+		if (isTeam) {
+			switch (status) {
+				case RequestStatus.REPLIED:
+					return Color.PRIMARY;
+				case RequestStatus.VALIDATED:
+					return Color.SUCCESS;
+				case RequestStatus.CANCELED:
+				case RequestStatus.ERROR:
+				case RequestStatus.REFUSED:
+					return Color.WARN;
+				default:
+					return StatusUtils.DEFAULT_STATUS_COLOR;
+			}
+		} else {
+			if (!creationDate)
+				throw Error(`creation date for the request color status: "${status}", is needed`);
+			switch (status) {
+				case RequestStatus.PENDING:
+				case RequestStatus.SENT:
+				case RequestStatus.RESENT:
+					return creationDate.getTime() < StatusUtils.twoWeeksAgo.getTime() ? Color.ACCENT : Color.PRIMARY;
+				case RequestStatus.REPLIED:
+				case RequestStatus.VALIDATED:
+					return Color.SUCCESS;
+				case RequestStatus.CANCELED:
+				case RequestStatus.ERROR:
+				case RequestStatus.REFUSED:
+					return Color.WARN;
+				default:
+					return StatusUtils.DEFAULT_STATUS_COLOR;
+			}
+		}
+	}
+
+	/**
+	 * using the properties status, creation date from a request, calculates the request status color
+	 * @param status
+	 * @param creationDate creation date of the request (only used for request accessed from the Supplier client)
+	 * @param isTeam wheater we are accessing the request from the team client or not
+	 * @returns the specific request status color
+	 */
+	static getRequestStatusIconColor(status: RequestStatus, creationDate?: Date, isTeam = true) {
+		if (isTeam) {
+			switch (status) {
+				case RequestStatus.REPLIED:
+					return Color.PRIMARY;
+				case RequestStatus.VALIDATED:
+					return Color.SUCCESS;
+				case RequestStatus.CANCELED:
+				case RequestStatus.ERROR:
+				case RequestStatus.REFUSED:
+					return Color.WARN;
+				default:
+					return StatusUtils.DEFAULT_STATUS_ICON_COLOR;
+			}
+		} else {
+			if (!creationDate)
+				throw Error(`creation date for the request icon color status: "${status}", is needed`);
+			switch (status) {
+				case RequestStatus.PENDING:
+				case RequestStatus.SENT:
+				case RequestStatus.RESENT:
+					return creationDate.getTime() < StatusUtils.twoWeeksAgo.getTime() ? Color.ACCENT : Color.PRIMARY;
+				case RequestStatus.REPLIED:
+				case RequestStatus.VALIDATED:
+					return Color.SUCCESS;
+				case RequestStatus.CANCELED:
+				case RequestStatus.ERROR:
+				case RequestStatus.REFUSED:
+					return Color.WARN;
+				default:
+					return StatusUtils.DEFAULT_STATUS_ICON_COLOR;
+			}
+		}
+	}
+
+	/**
+	 * using the properties status, creation date from a request, calculates the request class color
+	 * @param status
+	 * @param creationDate creation date of the request (only used for request accessed from the Supplier client)
+	 * @param isTeam wheater we are accessing the request from the team client or not
+	 * @returns the specific request class color
+	 */
+	static getRequestStatusColorVar(status: RequestStatus, creationDate?: Date, isTeam = true) {
+		return `var(--color-${StatusUtils.getRequestStatusColor(status)})`;
+	}
+
+	/**
+	 * using the properties status, creation date from a request, calculates the request status icon class color
+	 * @param status
+	 * @param creationDate creation date of the request (only used for request accessed from the Supplier client)
+	 * @param isTeam wheater we are accessing the request from the team client or not
+	 * @returns the specific request status icon class color
+	 */
+	static getRequestStatusIconColorVar(status: RequestStatus, creationDate?: Date, isTeam = true) {
+		return `var(--color-${StatusUtils.getRequestStatusIconColor(status)})`;
 	}
 
 }

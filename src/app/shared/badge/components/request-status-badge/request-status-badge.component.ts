@@ -1,5 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
-import { RequestStatus } from '~models';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { RequestStatus, StatusUtils } from '~utils';
 
 
 @Component({
@@ -8,7 +8,7 @@ import { RequestStatus } from '~models';
 	styleUrls: ['./request-status-badge.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RequestStatusBadgeComponent implements OnInit {
+export class RequestStatusBadgeComponent {
 
 	@Input() status: string;
 	private _creationDate: Date;
@@ -23,45 +23,8 @@ export class RequestStatusBadgeComponent implements OnInit {
 	@Input() isTeam = true;
 	@Input() size: 's' | 'm' | 'l' = 'm';
 
-	/** magic number for 2 weeks in miliseconds */
-	twoWeeks = 12096e5;
-	twoWeeksAgo = (new Date(+new Date - this.twoWeeks));
+	statusUtils = StatusUtils;
 
 	constructor() { }
 
-	ngOnInit() {
-	}
-
-	getType() {
-		if (this.isTeam) {
-			switch (this.status) {
-				case RequestStatus.REPLIED:
-					return 'primary';
-				case RequestStatus.VALIDATED:
-					return 'success';
-				case RequestStatus.CANCELED:
-				case RequestStatus.ERROR:
-				case RequestStatus.REFUSED:
-					return 'warn';
-				default:
-					return 'secondary-light';
-			}
-		} else {
-			switch (this.status) {
-				case RequestStatus.PENDING:
-				case RequestStatus.SENT:
-				case RequestStatus.RESENT:
-					return this.creationDate.getTime() < this.twoWeeksAgo.getTime() ? 'accent' : 'primary';
-				case RequestStatus.REPLIED:
-				case RequestStatus.VALIDATED:
-					return 'success';
-				case RequestStatus.CANCELED:
-				case RequestStatus.ERROR:
-				case RequestStatus.REFUSED:
-					return 'warn';
-				default:
-					return 'secondary-light';
-			}
-		}
-	}
 }
