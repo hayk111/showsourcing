@@ -1,4 +1,4 @@
-import { EventEmitter, HostBinding, Input, OnInit, Output } from '@angular/core';
+import { EventEmitter, HostBinding, Input, OnInit, Output, TemplateRef } from '@angular/core';
 import { Sort } from '~shared/table/components/sort.interface';
 import { TrackingComponent } from '~utils/tracking-component';
 
@@ -49,6 +49,7 @@ export abstract class EntityTableComponent<T> extends TrackingComponent implemen
 	@Input() hasMinHeight = true;
 	@Input() rowHeight = 47;
 	@Input() createEntityBtnName: string;
+	@Input() footerTemplate: TemplateRef<any>;
 
 	// column clicks
 	@Output() previewClick = new EventEmitter<T>();

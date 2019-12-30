@@ -2,9 +2,10 @@
 dialog-app {
 	height: calc(100vh - 100px);
 	width: 1149px;
+	border-radius: var(--border-radius);
 }
 
-dialog-footer-app {
+.footer {
 	margin-top: var(--spacing-xl);
 
 	.selected-product-count {
