@@ -4,6 +4,9 @@ import { KanbanColumn, KanbanDropEvent } from '~shared/kanban/interfaces';
 import { TrackingComponent } from '~utils/tracking-component';
 import { KanbanService } from '~shared/kanban/services/kanban.service';
 import { KanbanSelectionService } from '~shared/kanban/services/kanban-selection.service';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { SelectionState } from '~shared/inputs-custom/components/select-checkbox/select-checkbox.component';
 
 export interface SelectionChangeEvent {
 	selectableItems: any[];
@@ -26,11 +29,8 @@ export class KanbanComponent extends TrackingComponent {
 	}
 	@Output() drop = new EventEmitter<KanbanDropEvent>();
 	@Output() multipleDrop = new EventEmitter<KanbanDropEvent>();
-	/** when the top checkbox is checked */
-	@Output() selectionChange;
 	@Output() loadMore = new EventEmitter<KanbanColumn>();
 
-	selection = new Map<string, { id?: string }>();
 
 
 	_width = 'inherit';
@@ -48,8 +48,9 @@ export class KanbanComponent extends TrackingComponent {
 
 	onDrop(event: CdkDragDrop<any>) {
 		const item = event.previousContainer.data[event.previousIndex];
+		const selection = this.selectionSrv.selection;
 
-		if (this.selection.size > 0 && this.selection.has(item.id)) {
+		if (selection.size > 0 && selection.has(item.id)) {
 			return this.onMultipleDrop(event);
 		}
 		const emitted = {
@@ -75,7 +76,7 @@ export class KanbanComponent extends TrackingComponent {
 	}
 
 	onMultipleDrop(event: CdkDragDrop<any>) {
-		const ids = Array.from(this.selection.keys());
+		const ids = Array.from(this.selectionSrv.selection.keys());
 		this.kanbanSrv.transferMultiple(ids, event.container.id, event.currentIndex);
 		this.multipleDrop.emit({
 			from: this.cols.find(col => col.id === event.previousContainer.id),
@@ -86,10 +87,6 @@ export class KanbanComponent extends TrackingComponent {
 
 	getOtherIds(thatId) {
 		return this.ids.filter(id => id !== thatId);
-	}
-
-	onSelectOne() {
-
 	}
 
 }

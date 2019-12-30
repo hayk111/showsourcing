@@ -1,6 +1,6 @@
 import { moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Injectable } from '@angular/core';
-import { Observable, ReplaySubject } from 'rxjs';
+import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Status } from '~core/models/status.model';
 import { ConstPipe } from '~shared/utils/pipes/const.pipe';
@@ -29,6 +29,8 @@ export class KanbanService {
 		map(config => this.configToCols(config))
 	);
 	private kanbanConfig: KanbanConfig;
+	private _multipleDrop$ = new Subject<{ to: KanbanColumn }>();
+	multipleDrop$ = this._multipleDrop$.asObservable();
 
 	private configToCols(kanbanConfig: KanbanConfig): KanbanColumn[] {
 		const columns = Array.from(kanbanConfig.values());
@@ -59,19 +61,25 @@ export class KanbanService {
 		// data map
 		const dataMap = this.mapFromArray(data);
 		// make the columns
-		return new KanbanColumn({
+		return {
 			id: status.id,
 			title: constPipe.transform(status.name, 'status'),
 			color: StatusUtils.getStatusColor(status),
 			dataMap,
 			totalData
-		});
+		};
 	}
 
 
+
 	/** sets data of specific column */
-	setData(data: any[] = [], colId: string) {
-		this.kanbanConfig.get(colId).dataMap = this.mapFromArray(data);
+	setData(columns: { id: string, data?: any[], total?: number }[]) {
+		columns.forEach(column => {
+			if (column.data)
+				this.kanbanConfig.get(column.id).dataMap = this.mapFromArray(column.data);
+			if (column.total)
+				this.kanbanConfig.get(column.id).totalData = column.total;
+		});
 		this._kanbanConfig$.next(this.kanbanConfig);
 	}
 
@@ -80,12 +88,6 @@ export class KanbanService {
 		data.forEach(item => {
 			dataMap.set(item.id, item);
 		});
-		this._kanbanConfig$.next(this.kanbanConfig);
-	}
-
-	/** sets total of specific column */
-	setTotal(total: number, colId: string) {
-		this.kanbanConfig.get(colId).totalData = total;
 		this._kanbanConfig$.next(this.kanbanConfig);
 	}
 
@@ -145,7 +147,6 @@ export class KanbanService {
 		currentCol.totalData++;
 		previousCol.dataMap = this.mapFromArray(prevArr);
 		currentCol.dataMap = this.mapFromArray(currArr);
-
 		this._kanbanConfig$.next(this.kanbanConfig);
 	}
 
@@ -171,6 +172,7 @@ export class KanbanService {
 		});
 
 		currentCol.dataMap = this.mapFromArray(currArr);
+		this._multipleDrop$.next({ to: currentCol });
 		this._kanbanConfig$.next(this.kanbanConfig);
 	}
 
