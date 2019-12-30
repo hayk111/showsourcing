@@ -29,6 +29,7 @@ export abstract class AbstractApolloClient {
 	protected initialized = false;
 	protected destroyed$ = new Subject();
 	protected suffix = 'graphql-client';
+	protected path: string;
 
 	private ws: WebSocketLink;
 
@@ -140,7 +141,7 @@ export abstract class AbstractApolloClient {
 	}
 
 	protected createMissingSubscription(entities: EntityMetadata[]) {
-		const storageKey = `sub_map_${this.client}`;
+		const storageKey = `sub_map_${this.path}`;
 		const submap = this.localStorage.getItem(storageKey) || {};
 
 		// when not found in the map we do the subscription

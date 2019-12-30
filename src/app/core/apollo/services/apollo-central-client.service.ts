@@ -38,9 +38,9 @@ export class CentralClientInitializer extends AbstractApolloClient {
 		this.setPending('initialization');
 
 		const userId = realmUser.identity;
-		const uri = `/${this.client}/__partial/${userId}/${this.suffix}`;
+		this.path = `/${this.client}/__partial/${userId}/${this.suffix}`;
 
-		return from(this.createClient(uri, realmUser, this.client)).pipe(
+		return from(this.createClient(this.path, realmUser, this.client)).pipe(
 			takeUntil(this.destroyed$),
 			switchMap(_ => this.createMissingSubscription()),
 			tap(_ => this.apolloState.setClientReady(this.client)),

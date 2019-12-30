@@ -118,25 +118,6 @@ $image-width: 88px;
 	}
 
 	//thumb
-	.thumb-section {
-		> *:not(:last-child) {
-			margin-right: var(--spacing-xxs);
-		}
-	}
-
-	.tags-section {
-		width: 100%;
-		display: inline-flex;
-		margin-top: var(--spacing-s);
-
-		> * {
-			margin-right: var(--spacing-s);
-		}
-
-		badge-app {
-			max-width: 45%;
-		}
-	}
 
 	.card-footer {
 		position: absolute;

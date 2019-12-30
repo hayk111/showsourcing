@@ -28,19 +28,23 @@
 		<div class="title-section flex" (click)="clickTitle()">
 			<h5 class="title ellipsis">{{ product?.name }}</h5>
 		</div>
-		<div class="information-section flexWrap">
+		<div class="information-section flexWrap dot-separator">
 			<!-- price - moq -->
 			<span class="price-container ellipsis">
 				<ng-container *ngIf="product?.price">
 					<price-app [price]="product?.price"></price-app>
 				</ng-container>
-				<ng-container *ngIf="product?.price && product?.minimumOrderQuantity">&nbsp;-&nbsp;</ng-container>
-				<ng-container *ngIf="product?.minimumOrderQuantity"> {{'OBJ.min-pcs' | translate: {count : product?.minimumOrderQuantity || 0} }}</ng-container>
 			</span>
-			<!-- description - supplier-->
-			<span class="description-text ellipsis">
-				{{ product?.price || product?.minimumOrderQuantity ? ' -' : ''}}
-				{{ product?.supplier?.name}} {{product?.category?.name && product?.supplier?.name ? '-' : '' }} {{ product?.category?.name }}
+			<span *ngIf="product?.minimumOrderQuantity !== null"> 
+				{{'OBJ.min-pcs' | translate: {count : product?.minimumOrderQuantity || 0} }}
+			</span>
+			<!-- supplier-->
+			<span *ngIf="product?.supplier?.name">
+				{{ product?.supplier?.name}}
+			</span>
+
+			<span *ngIf="product?.category?.name">
+				{{ product?.category?.name}}
 			</span>
 		</div>
 		<!-- created by and votes -->
@@ -59,14 +63,10 @@
 				</div>
 			</div>
 
-			<span *ngIf="ratingSrv.computeScore(product?.votes) !== null" class="vote-star-container"
-				[ngClass]="{
-					'bg-accent-light color-accent-dark': ratingSrv.computeScoreVotes(votes) >= 3.5,
-					'bg-secondary-light color-third': ratingSrv.computeScoreVotes(votes) < 3.5
-				}">
-				<icon-app name="star" size="sm" class="star"></icon-app>
-				<span class="vote-star-value">{{ ratingSrv.computeScore(product?.votes) | number: '1.1-2' }}</span>
-			</span>
+			<rating-number-badge-app  
+				*ngIf="ratingSrv.computeScore(product) >= 3.5" 
+				[votes]="product.votes">
+			</rating-number-badge-app>
 		</div>
 	</div>
 

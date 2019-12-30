@@ -50,7 +50,7 @@ export class SelectCheckboxComponent {
 			width: `${unWidth}px`,
 			height: `${unHeight}px`,
 			border: `1px solid var(--color-secondary)`,
-			background: `var(--color-secondary-light)`,
+			background: `white`,
 			'border-radius': `2px`
 		};
 	}
