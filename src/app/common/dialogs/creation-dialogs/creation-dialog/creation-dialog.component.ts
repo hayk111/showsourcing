@@ -1,21 +1,21 @@
-import { AfterViewChecked, ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Observable, Subject } from 'rxjs';
+import { Observable, ReplaySubject } from 'rxjs';
 import { debounceTime, switchMap, takeUntil } from 'rxjs/operators';
+import { CrudDialogService } from '~common/dialogs/services/crud-dialog.service';
 import { ERMService } from '~core/entity-services/_global/erm.service';
 import { EntityMetadata } from '~models';
 import { CloseEventType } from '~shared/dialog';
 import { DialogService } from '~shared/dialog/services';
 import { InputDirective } from '~shared/inputs';
 import { AutoUnsub } from '~utils';
-import { CrudDialogService } from '~common/dialogs/services/crud-dialog.service';
 
 @Component({
 	selector: 'creation-dialog-app',
 	templateUrl: './creation-dialog.component.html',
 	styleUrls: ['./creation-dialog.component.scss']
 })
-export class CreationDialogComponent extends AutoUnsub implements OnInit, AfterViewChecked {
+export class CreationDialogComponent extends AutoUnsub implements OnInit, AfterViewInit {
 
 	group: FormGroup;
 	pending = false;
@@ -25,7 +25,7 @@ export class CreationDialogComponent extends AutoUnsub implements OnInit, AfterV
 	/** whether we display buttons create & stay + create & go */
 	@Input() canRedirect = false;
 	@ViewChild(InputDirective, { static: false }) input: InputDirective;
-	private typed$: Subject<string> = new Subject();
+	private typed$: ReplaySubject<string> = new ReplaySubject();
 	exists$: Observable<boolean>;
 
 	constructor(
@@ -38,8 +38,7 @@ export class CreationDialogComponent extends AutoUnsub implements OnInit, AfterV
 		super();
 	}
 
-	// we need this on viewChecked since if the user introduces a name that already exists, we have to focus again
-	ngAfterViewChecked() {
+	ngAfterViewInit() {
 		if (this.input)
 			this.input.focus();
 	}
@@ -61,9 +60,9 @@ export class CreationDialogComponent extends AutoUnsub implements OnInit, AfterV
 	}
 
 	onSubmit(redirect = true) {
-		if (!this.group.valid) {
+		if (!this.group.valid)
 			return;
-		}
+
 		const name = this.group.value.name.trim();
 		this.pending = true;
 		this.crudDlgSrv.checkExists(this.type, name).pipe(
@@ -71,9 +70,8 @@ export class CreationDialogComponent extends AutoUnsub implements OnInit, AfterV
 				return exists ? Observable.create(obs => obs.next(false)) : this.createItem({ name, ...this.extra });
 			}),
 		).subscribe(item => {
-			if (this.extra && 'onProjectCreated' in this.extra) {
+			if (this.extra && 'onProjectCreated' in this.extra)
 				this.extra.onProjectCreated(item);
-			}
 
 			if (item)
 				this.dlgSrv.close({ type: CloseEventType.OK, data: { redirect, item } });
