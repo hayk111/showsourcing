@@ -4,7 +4,7 @@ import { first, map, switchMap } from 'rxjs/operators';
 import { ProductDialogService } from '~common/dialogs/services/product-dialog.service';
 import { Product, User } from '~models';
 import { DialogService } from '~shared/dialog/services';
-import { NotificationService, NotificationType } from '~shared/notifications';
+import { ToastService, ToastType } from '~shared/toast';
 import { translate } from '~utils';
 import { TrackingComponent } from '~utils/tracking-component';
 
@@ -26,7 +26,7 @@ export class ProductRequestTeamFeedbackDlgComponent extends TrackingComponent im
 	constructor(
 		private dlgSrv: DialogService,
 		private productDlgSrv: ProductDialogService,
-		private notificationSrv: NotificationService) {
+		private notificationSrv: ToastService) {
 		super();
 	}
 
@@ -54,7 +54,7 @@ export class ProductRequestTeamFeedbackDlgComponent extends TrackingComponent im
 		).subscribe(
 			r => {
 				this.notificationSrv.add({
-					type: NotificationType.SUCCESS,
+					type: ToastType.SUCCESS,
 					title: translate('Feedback requested'),
 					message: translate('Your feedback request has been sent with success'),
 					timeout: 3500
@@ -63,7 +63,7 @@ export class ProductRequestTeamFeedbackDlgComponent extends TrackingComponent im
 			},
 			e => {
 				this.notificationSrv.add({
-					type: NotificationType.ERROR,
+					type: ToastType.ERROR,
 					title: translate('Feedback requested'),
 					message: translate('Feedback request could not be sent, server issues'),
 					timeout: 3500

@@ -1,0 +1,14 @@
+<ng-container *ngIf="toast$ | async as toasts">
+	<ng-container *ngFor="let toast of toasts; trackBy: trackByFn">
+
+		<toast-app
+			[id]="toast.id"
+			[type]="toast.type"
+			[title]="toast.title"
+			[message]="toast.message"
+			[actionMessage]="toast.actionMessage"
+			[action]="toast.action">
+		</toast-app>
+
+	</ng-container>
+</ng-container>

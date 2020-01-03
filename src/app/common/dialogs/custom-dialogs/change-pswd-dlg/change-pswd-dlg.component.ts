@@ -6,7 +6,7 @@ import { SettingsProfileService } from '~features/settings/services/settings-pro
 import { DialogService } from '~shared/dialog/services';
 import { InputDirective } from '~shared/inputs';
 import { PasswordValidator } from '~shared/inputs/validators/pswd.validator';
-import { NotificationService, NotificationType } from '~shared/notifications';
+import { ToastService, ToastType } from '~shared/toast';
 import { AutoUnsub } from '~utils';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -29,7 +29,7 @@ export class ChangePswdDlgComponent extends AutoUnsub implements OnInit {
 		private fb: FormBuilder,
 		private dlgSrv: DialogService,
 		private profileSrv: SettingsProfileService,
-		private notificationSrv: NotificationService,
+		private notificationSrv: ToastService,
 		private translate: TranslateService
 	) {
 		super();
@@ -60,14 +60,14 @@ export class ChangePswdDlgComponent extends AutoUnsub implements OnInit {
 			this.pending = false;
 			if (response) {
 				this.notificationSrv.add({
-					type: NotificationType.SUCCESS,
+					type: ToastType.SUCCESS,
 					title: this.translate.instant('title.pwd-changed'),
 					message: this.translate.instant('message.pwd-changed'),
 					timeout: 3500
 				});
 			} else {
 				this.notificationSrv.add({
-					type: NotificationType.ERROR,
+					type: ToastType.ERROR,
 					title: this.translate.instant('title.pwd-unchanged'),
 					message: this.translate.instant('message.pwd-unchanged'),
 					timeout: 4500
