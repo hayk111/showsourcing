@@ -18,4 +18,8 @@ export class SelectorEventRowComponent extends AbstractSelectorHighlightableComp
 		return this.event;
 	}
 
+	getItem() {
+		return this.event;
+	}
+
 }

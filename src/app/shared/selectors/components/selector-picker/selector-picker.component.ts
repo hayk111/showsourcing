@@ -125,17 +125,8 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 				))
 			);
 		}
-	}
 
-	ngAfterViewInit() {
-		this.keyManager = new ActiveDescendantKeyManager(this.virtualItems).withWrap().withTypeAhead();
-		this.inp.focus();
-		this.searched$.next(this.searchTxt);
-	}
-
-	ngOnChanges() {
-		this.selectorSrv.setFilters(this.filterList);
-
+		// init the list query
 		if (this.choices) {
 			this.choices$ = of(this.choices);
 		} else if (this.multiple) {
@@ -147,7 +138,20 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 
 		if (this.searchTxt)
 			this.search(this.searchTxt);
+	}
 
+	ngAfterViewInit() {
+		this.keyManager = new ActiveDescendantKeyManager(this.virtualItems).withWrap().withTypeAhead();
+		this.inp.focus();
+		this.searched$.next(this.searchTxt);
+	}
+
+	ngOnChanges() {
+		this.selectorSrv.setFilters(this.filterList);
+		if (this.choices$ && this.multiple) {
+			// if its multiple we want to filter the values that we have currently selected, so they don't appear on the options
+			this.choices$.pipe(map((items) => this.filterValues(items)));
+		}
 		// we use this refetch, cause sometimes selector wasn't loading the latest data added
 		// the observable was already initialized and didn't trigger the latest changes until you used the search
 		this.selectorSrv.refetch();
@@ -168,19 +172,23 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	private resetInput() {
 		this.inp.control.reset();
 		this.inp.focus();
-		this.search('');
+		this.search('', false);
 	}
 
 	/**
 	 * search a text and set first item active on selector
 	 * @param text
 	 */
-	search(text) {
+	search(text, setFirstItemActive = true) {
 		this.searchTxt = text.trim();
 		this.movedArrow = false;
 		this.selectorSrv.search(this.type, this.searchTxt);
 		this.searched$.next(this.searchTxt);
-		this.keyManager.setFirstItemActive();
+
+		if (setFirstItemActive)
+			this.keyManager.setFirstItemActive();
+		else
+			this.keyManager.updateActiveItem(-1);
 	}
 
 	/** choices of the given type, remember to add a new selector row component if you add a new type or use an existign one */
@@ -345,12 +353,10 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 				break;
 		}
 
-		if (this.multiple) {
-			if (!this.isSelected(itemToReturn)) { // if its multiple and its not selected we add it
-				this.value.push(itemToReturn);
-				this.onChange();
-			}
-		} else { // we update and close
+		if (this.multiple && !this.isSelected(itemToReturn)) { // if its multiple and its not selected we add it
+			this.value.push(itemToReturn);
+			this.onChange();
+		} else if (!this.multiple) { // if not multiple we update and close
 			this.value = itemToReturn;
 			this.onChange();
 		}
@@ -422,11 +428,9 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 					throw Error(`Unsupported type ${this.type}`);
 			}
 			// we add it directly to the value
-			if (this.multiple) {
-				if (added)
-					this.value.push(added);
-				this.resetInput();
-			} else
+			if (this.multiple && added) {
+				this.value.push(added);
+			} else if (!this.multiple)
 				this.value = added;
 
 			if (createObs$ === undefined)
@@ -440,26 +444,21 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		}
 	}
 
-	private getLabelName(label) {
-		if (!label.name)
-			throw Error('This entity selector does not have a name property when using multiple, check onkeyDown else if (this.multiple)');
-		return label.name;
-	}
-
 	onKeydown(event: KeyboardEvent) {
 		if (event.keyCode === ENTER && this.keyManager && this.keyManager.activeItem) {
 			// we get the item label from each row selector
 			const label = this.keyManager.activeItem.getLabel();
+			const item = this.keyManager.activeItem.getItem();
 			if (label === 'create-button') {
 				this.create();
 			} else if (this.multiple) {
 				// this is made since sometimes the user types faster, this way we assure that the label he types has to be the same
 				// if he moves with the arrow keys, then we don't care about the typing field
-				if ((this.getLabelName(label) === this.searchTxt) || this.movedArrow) {
-					this.onSelect(label);
+				if ((label === this.searchTxt) || this.movedArrow) {
+					this.onSelect(item);
 				}
 			} else {
-				this.onSelect((this.keyManager.activeItem as any).item);
+				this.onSelect(item);
 			}
 
 		} else if (event.keyCode === UP_ARROW || event.keyCode === DOWN_ARROW) {

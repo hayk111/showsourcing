@@ -8,6 +8,8 @@ export abstract class AbstractSelectorHighlightableComponent implements Highligh
 
 	public abstract getLabel();
 
+	public abstract getItem();
+
 	constructor() { }
 
 	@HostBinding('class.active') get isActive() {

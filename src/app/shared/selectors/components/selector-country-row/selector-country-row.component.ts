@@ -18,4 +18,8 @@ export class SelectorCountryRowComponent extends AbstractSelectorHighlightableCo
 		return this.country.countryCode;
 	}
 
+	getItem() {
+		return this.country;
+	}
+
 }
