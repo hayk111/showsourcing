@@ -18,8 +18,8 @@ import {
 	ViewChildren,
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Observable, Subject, of } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { Observable, of, Subject } from 'rxjs';
+import { map, switchMap, take } from 'rxjs/operators';
 import { Category, Contact, EntityMetadata, ERM, Event, Product, Project, Supplier, SupplierType, Tag } from '~core/models';
 import { DynamicField } from '~shared/dynamic-forms';
 import { FilterList } from '~shared/filters/models/filter-list.class';
@@ -182,13 +182,15 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	search(text, setFirstItemActive = true) {
 		this.searchTxt = text.trim();
 		this.movedArrow = false;
-		this.selectorSrv.search(this.type, this.searchTxt);
+		this.selectorSrv.search(this.type, this.searchTxt)
+			.subscribe(_ => {
+				if (setFirstItemActive)
+					this.keyManager.setFirstItemActive();
+				else // we use this to hide the first active item, since the focus is on the input now
+					this.keyManager.updateActiveItem(-1);
+				this.cd.markForCheck(); // otherwise sometimes it won't set the first item active until cd is triggered
+			});
 		this.searched$.next(this.searchTxt);
-
-		if (setFirstItemActive)
-			this.keyManager.setFirstItemActive();
-		else
-			this.keyManager.updateActiveItem(-1);
 	}
 
 	/** choices of the given type, remember to add a new selector row component if you add a new type or use an existign one */

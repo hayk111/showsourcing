@@ -1,9 +1,11 @@
+<!-- input -->
 <form [formGroup]="group">
 	<form-field-app class="search-input" [ngClass]="{ 'field-focused': inp.focussed || !!inp.control.value }">
 			<input inputApp formControlName="name" [value]="searchTxt" type="text" [placeholder]="'OBJ.enter-OBJ' | translate: { field: 'ERM.' + type.translationKey + '.singular' | translate }" (keyup)="onKeydown($event)" (input)="search(inp.control.value)">
 	</form-field-app>
 </form>
 
+<!-- if multiple, display badges -->
 <div *ngIf="multiple" class="flexWrap current-values-container">
 	<ng-container *ngIf="value?.length; else empty">
 
@@ -27,6 +29,8 @@
 <div class="top-divider">
 	<divider-app></divider-app>
 </div>
+
+<!-- dropdown items -->
 <!-- [ngClass]="getActiveClass(item)" in case we want set an active class -->
 <div class="container-items" infiniScroll (bottomReached)="selectorSrv.loadMore()">
 
@@ -92,6 +96,7 @@
 
 		</ng-container>
 
+		<!-- create button -->
 		<selector-button-row-app #abstract *ngIf="canCreate && !(nameExists$ | async) && searchTxt" class="selector-row" [type]="type.singular" [searchTxt]="searchTxt" (click)="create()"></selector-button-row-app>
 
 	</ng-container>
