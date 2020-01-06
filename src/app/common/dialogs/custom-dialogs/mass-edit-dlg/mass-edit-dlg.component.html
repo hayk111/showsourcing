@@ -9,6 +9,7 @@
 		<selector-app
 			[type]="'PICKER_FIELD' | erm"
 			[width]="500"
+			[offsetY]="-15"
 			[dynamicFields]="dynamicFields"
 			(update)="updateChoice($event)">
 			<selector-placeholder-app

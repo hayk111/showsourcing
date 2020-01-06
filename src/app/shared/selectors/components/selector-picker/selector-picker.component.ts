@@ -156,7 +156,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	private filterValues(items: any[]) {
 		switch (this.type) {
 			case ERM.EMAIL:
-				return items.filter(i => (this.value) ? !((this.value).some(val => val === i.email)) : true);
+				return items.filter(i => (this.value) ? !((this.value || []).some(val => val === i.email)) : true);
 			default:
 				// only items that are not on the value array so they don't appear in the options
 				return items.filter(i =>
