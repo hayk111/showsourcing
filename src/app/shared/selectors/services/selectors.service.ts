@@ -123,6 +123,7 @@ export class SelectorsService {
 	}
 
 	search(type: EntityMetadata, searchTxt: string) {
+		searchTxt = searchTxt.toLowerCase();
 		if (searchTxt) {
 			switch (type) {
 				case ERM.USER:

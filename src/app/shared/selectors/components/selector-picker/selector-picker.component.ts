@@ -176,7 +176,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	 * @param text
 	 */
 	search(text) {
-		this.searchTxt = text.trim().toLowerCase();
+		this.searchTxt = text.trim();
 		this.movedArrow = false;
 		this.selectorSrv.search(this.type, this.searchTxt);
 		this.searched$.next(this.searchTxt);
@@ -455,7 +455,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			} else if (this.multiple) {
 				// this is made since sometimes the user types faster, this way we assure that the label he types has to be the same
 				// if he moves with the arrow keys, then we don't care about the typing field
-				if (this.getLabelName(label) === this.searchTxt || this.movedArrow) {
+				if ((this.getLabelName(label) === this.searchTxt) || this.movedArrow) {
 					this.onSelect(label);
 				}
 			} else {
