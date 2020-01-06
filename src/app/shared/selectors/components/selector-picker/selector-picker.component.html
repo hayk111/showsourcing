@@ -40,14 +40,14 @@
 			</ng-container>
 
 			<ng-container *ngSwitchCase="erm.COUNTRY">
-				<selector-country-row-app #abstract *ngFor="let item of choices$ | async" class="selector-row" [country]="item" (click)="onSelect(item.countryCode)"></selector-country-row-app>
+				<selector-country-row-app #abstract *ngFor="let item of choices$ | async" class="selector-row" [country]="item" (click)="onSelect(item)"></selector-country-row-app>
 			</ng-container>
 
 			<ng-container *ngSwitchCase="erm.CURRENCY">
 				<!-- we need the top 3 currencies always visible at the top -->
-				<selector-currency-row-app #abstract *ngFor="let item of this.selectorSrv.topCurrencies$ | async; trackBy: trackById" class="selector-row" [currency]="item" (click)="onSelect(item.symbol)"></selector-currency-row-app>
+				<selector-currency-row-app #abstract *ngFor="let item of this.selectorSrv.topCurrencies$ | async; trackBy: trackById" class="selector-row" [currency]="item" (click)="onSelect(item)"></selector-currency-row-app>
 				<divider-app class="top-3-divider" *ngIf="(this.selectorSrv.topCurrencies$ | async)?.length"></divider-app>
-				<selector-currency-row-app #abstract *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [currency]="item" (click)="onSelect(item.symbol)"></selector-currency-row-app>
+				<selector-currency-row-app #abstract *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [currency]="item" (click)="onSelect(item)"></selector-currency-row-app>
 			</ng-container>
 
 			<ng-container *ngSwitchCase="erm.EMAIL">
@@ -58,20 +58,8 @@
 				<selector-event-row-app #abstract  *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [event]="item" (click)="onSelect(item)"></selector-event-row-app>
 			</ng-container>
 
-			<ng-container *ngSwitchCase="erm.HARBOUR">
-				<selector-name-row-app #abstract *ngFor="let item of choices$ | async" class="selector-row" [item]="item" (click)="onSelect(item.name)"></selector-name-row-app>
-			</ng-container>
-
-			<ng-container *ngSwitchCase="erm.INCO_TERM">
-				<selector-name-row-app #abstract *ngFor="let item of choices$ | async" class="selector-row" [item]="item" (click)="onSelect(item.name)"></selector-name-row-app>
-			</ng-container>
-
-			<ng-container *ngSwitchCase="erm.LENGTH_UNIT">
-				<selector-name-row-app #abstract *ngFor="let item of choices$ | async" class="selector-row" [item]="item" (click)="onSelect(item.name)"></selector-name-row-app>
-			</ng-container>
-
 			<ng-container *ngSwitchCase="erm.PICKER_FIELD">
-				<selector-label-name-row-app #abstract *ngFor="let item of choices$ | async" class="selector-row capitalize" [item]="item" (click)="onSelect(item?.label || item?.name)"></selector-label-name-row-app>
+				<selector-label-name-row-app #abstract *ngFor="let item of choices$ | async" class="selector-row capitalize" [item]="item" (click)="onSelect(item)"></selector-label-name-row-app>
 			</ng-container>
 
 			<ng-container *ngSwitchCase="erm.REQUEST_TEMPLATE">
@@ -94,15 +82,9 @@
 				<selector-user-row-app #abstract *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [user]="item" (click)="onSelect(item)"></selector-user-row-app>
 			</ng-container>
 
-			<ng-container *ngSwitchCase="erm.WEIGHT_UNIT">
-				<selector-name-row-app #abstract *ngFor="let item of choices$ | async" class="selector-row" [item]="item" (click)="onSelect(item.name)"></selector-name-row-app>
-			</ng-container>
-
 			<!--
 				this default is for any entity that has property name, and the output emitted is an entity (click)=onSelect(item)
 				this is why category, project, product... are valid defaults,
-				but country, harbour they are not, since their output emits a name (string),
-				therefore we need a switch case where the event (click)="onSelect(item.name)
 			-->
 			<ng-container *ngSwitchDefault>
 				<selector-name-row-app #abstract *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row"  [item]="item" (click)="onSelect(item)"></selector-name-row-app>

@@ -323,13 +323,35 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	 * @param item
 	 */
 	onSelect(item) {
+		let itemToReturn = item;
+		switch (this.type) {
+			case ERM.COUNTRY:
+				itemToReturn = item.countryCode;
+				break;
+			case ERM.CURRENCY:
+				itemToReturn = item.symbol;
+				break;
+			case ERM.PICKER_FIELD:
+				itemToReturn = item.label || item.name;
+				break;
+			case ERM.HARBOUR:
+			case ERM.INCO_TERM:
+			case ERM.LENGTH_UNIT:
+			case ERM.WEIGHT_UNIT:
+				itemToReturn = item.name;
+				break;
+			default:
+				itemToReturn = item;
+				break;
+		}
+
 		if (this.multiple) {
-			if (!this.isSelected(item)) { // if its multiple and its not selected we add it
-				this.value.push(item);
+			if (!this.isSelected(itemToReturn)) { // if its multiple and its not selected we add it
+				this.value.push(itemToReturn);
 				this.onChange();
 			}
 		} else { // we update and close
-			this.value = item;
+			this.value = itemToReturn;
 			this.onChange();
 		}
 		this.resetInput();
@@ -430,7 +452,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			const label = this.keyManager.activeItem.getLabel();
 			if (label === 'create-button') {
 				this.create();
-			}	else if (this.multiple) {
+			} else if (this.multiple) {
 				// this is made since sometimes the user types faster, this way we assure that the label he types has to be the same
 				// if he moves with the arrow keys, then we don't care about the typing field
 				if (this.getLabelName(label) === this.searchTxt || this.movedArrow) {
@@ -532,4 +554,5 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			return [];
 		return this.isSelected(item) ? ['active'] : [];
 	}
+
 }
