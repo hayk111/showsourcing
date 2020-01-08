@@ -1,8 +1,11 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
+import { SelectionState } from '~shared/inputs-custom/components/select-checkbox/select-checkbox.component';
 import { KanbanColumn } from '~shared/kanban/interfaces';
 import { TrackingComponent } from '~utils/tracking-component';
-import { SelectionState } from '~shared/inputs-custom/components/select-checkbox/select-checkbox.component';
+import { KanbanSelectionService } from '~shared/kanban/services/kanban-selection.service';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
 	selector: 'kanban-col-app',
@@ -14,7 +17,7 @@ export class KanbanColComponent extends TrackingComponent implements OnInit {
 	@Input() col: KanbanColumn;
 	@Input() cardTemplate: TemplateRef<any>;
 	@Input() connectedLists: string[];
-	@Input() selection: Map<string, any>;
+	@Input() selectionState: SelectionState;
 	@Input() amountLoaded: number;
 	@Output() selectAll = new EventEmitter<{ data: any[], column: any }>();
 	@Output() unselectAll = new EventEmitter<{ data: any[], column: any }>();
@@ -22,7 +25,7 @@ export class KanbanColComponent extends TrackingComponent implements OnInit {
 	@Output() loadMore = new EventEmitter<KanbanColumn>();
 	draggedId: string;
 
-	constructor() {
+	constructor(public selectionSrv: KanbanSelectionService) {
 		super();
 	}
 
@@ -39,17 +42,27 @@ export class KanbanColComponent extends TrackingComponent implements OnInit {
 		this.drop.emit(event);
 	}
 
-	getCheckboxState() {
-		const hasData = this.col.data.length > 0;
-		if (!hasData) {
-			return false;
-		}
-		return this.col.data.every(item => this.selection.has(item.id));
-	}
-
 	/** we use the mouse enter event since it happens before the drag process starts */
 	onMouseEnter(item: any) {
 		this.draggedId = item.id;
+	}
+
+	getColumnSelectionState$(): Observable<SelectionState> {
+		return this.selectionSrv.selectedColumn$.pipe(
+			map(selectedColumn => {
+				if (!selectedColumn)
+					return 'unchecked';
+				return selectedColumn.column.id === this.col.id ? selectedColumn.state : 'unchecked';
+			})
+		);
+	}
+
+	selectCol() {
+		this.selectionSrv.selectAllFromColumn(this.col);
+	}
+
+	unselectCol() {
+		this.selectionSrv.unselectAllFromColumn();
 	}
 
 }

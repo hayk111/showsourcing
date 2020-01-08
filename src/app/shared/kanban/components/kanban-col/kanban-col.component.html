@@ -2,9 +2,9 @@
 <header class="flexBetween">
 	<div class="left-section">
 		<select-checkbox-app
-			[state]="col.getSelectionState()"
-			(check)="selectAll.emit({ data: col.data, column: col })"
-			(uncheck)="unselectAll.emit({ data: col.data, column: col })">
+			[state]="getColumnSelectionState$() | async"
+			(check)="selectCol()"
+			(uncheck)="unselectCol()">
 		</select-checkbox-app>
 		<span class="title">
 			{{ col.title }}
@@ -30,8 +30,8 @@
   <kanban-item-app
     *ngFor="let item of col.data; trackBy: trackById"
     cdkDrag
-    [badgeNumber]="selection.size"
-    [showBadge]="selection.size > 0 && selection.has(draggedId)"
+    [badgeNumber]="selectionSrv.selection.size"
+    [showBadge]="selectionSrv.selection.size > 0 && selectionSrv.selection.has(draggedId)"
     (mouseenter)="onMouseEnter(item)">
 
     <!-- <div class="custom-placeholder" *cdkDragPlaceholder></div> -->

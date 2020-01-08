@@ -1,6 +1,6 @@
-<dialog-app [hasBorder]="false">
+<dialog-app [hasBorder]="false" [hasFooter]="false">
 
-	<dialog-header-app translate="Select Project"></dialog-header-app> <!-- TODO: translation to be added -->
+	<dialog-header-app translate="Select Projects"></dialog-header-app> <!-- TODO: translation to be added -->
 
 	<controller-table-app>
 		<controller-table-quick-filters-app></controller-table-quick-filters-app>
@@ -10,6 +10,8 @@
 
 	<projects-table-app
 		[hasPagination]="true"
+		[hasShowItemsPerPage]="false"
+		[footerTemplate]="footer"
 		[navigation]="false"
 		[hasMenu]="false"
 		[selection]="listSrv.selection$ | async"
@@ -34,15 +36,16 @@
 		(clickOutside)="listSrv.closeFilterPanel()">
 	</filters-app>
 
-
-	<dialog-footer-app class="flexVAlign">
-		<div class="product-action">
-			<span class="selected-product-count">{{ selectedProjectsCount }}</span>
-			<span class="selected-product">Project Selected</span> <!-- TODO: add translation -->
+	<ng-template #footer>
+		<div class="flexVAlign">
+			<div class="product-action">
+				<span class="selected-product-count">{{ selectedProjectsCount }}</span>
+				<span class="selected-product">Project Selected</span> <!-- TODO: add translation -->
+			</div>
+			<button class="primary-light cancel secondary capitalize" (click)="cancel()" translate="button.cancel"></button>
+			<button class="add-to-project capitalize" (click)="submit()" translate="button.add-to-project"></button>
 		</div>
-		<button class="primary-light cancel secondary capitalize" (click)="cancel()" translate="button.cancel"></button>
-		<button class="add-to-project capitalize" (click)="submit()" translate="button.add-to-project"></button>
-	</dialog-footer-app>
+	</ng-template>
 
 	<ng-template #spinner>
 		<spinner-app></spinner-app>
