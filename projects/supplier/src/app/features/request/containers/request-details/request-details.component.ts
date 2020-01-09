@@ -7,7 +7,7 @@ import { RequestElementService, SupplierRequestService } from '~core/entity-serv
 import { ListPageService } from '~core/list-page';
 import { DEFAULT_REPLIED_STATUS, ERM, RequestElement, SupplierRequest } from '~core/models';
 import { DialogService } from '~shared/dialog';
-import { NotificationService, NotificationType } from '~shared/notifications';
+import { ToastService, ToastType } from '~shared/toast';
 import { AutoUnsub, ID, translate } from '~utils';
 
 @Component({
@@ -27,7 +27,7 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 		private route: ActivatedRoute,
 		private router: Router,
 		private suppReqSrv: SupplierRequestService,
-		private notifSrv: NotificationService,
+		private toastSrv: ToastService,
 		private reqElementSrv: RequestElementService,
 		private dlgSrv: DialogService,
 		public listSrv: ListPageService<RequestElement, RequestElementService>
@@ -70,8 +70,8 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 
 	private onRequest(request) {
 		if (!request) {
-			this.notifSrv.add({
-				type: NotificationType.ERROR,
+			this.toastSrv.add({
+				type: ToastType.ERROR,
 				title: translate('The request doesn\'t exist'),
 				timeout: 3500
 			});
@@ -81,8 +81,8 @@ export class RequestDetailsComponent extends AutoUnsub implements OnInit {
 	}
 
 	private onError(error) {
-		this.notifSrv.add({
-			type: NotificationType.ERROR,
+		this.toastSrv.add({
+			type: ToastType.ERROR,
 			title: translate('error'),
 			message: translate('There is an error, please try again later'),
 			timeout: 3500

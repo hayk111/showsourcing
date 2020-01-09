@@ -13,7 +13,7 @@ import {
 } from '~entity-services/attachment-upload-request/attachment-upload-request.service';
 import { AppImage, Attachment, ImageUploadRequest } from '~models';
 import { AttachmentUploadRequest } from '~models/attachment-upload-request.model';
-import { NotificationService, NotificationType } from '~shared/notifications';
+import { ToastService, ToastType } from '~shared/toast';
 import { ImageUrls, log, LogColor, resizeSizeToLimit } from '~utils';
 
 @Injectable({ providedIn: 'root' })
@@ -25,7 +25,7 @@ export class UploaderService {
 		private imageSrv: ImageService,
 		private attachmentSrv: AttachmentService,
 		private ermSrv: ERMService,
-		private notifSrv: NotificationService,
+		private toastSrv: ToastService,
 		private http: HttpClient,
 		private translate: TranslateService
 	) { }
@@ -48,8 +48,8 @@ export class UploaderService {
 			// add notification
 			first(),
 			tap((files: AppImage[]) => {
-				return this.notifSrv.add({
-					type: NotificationType.SUCCESS,
+				return this.toastSrv.add({
+					type: ToastType.SUCCESS,
 					title: `${files.length} image(s) Uploaded with success`,
 					message: this.translate.instant('message.your-imgs-uploaded-with-success')
 				});
@@ -66,8 +66,8 @@ export class UploaderService {
 			mergeMap(attachments => this.queryFiles(false, attachments)),
 			// add notification
 			tap((attachments: Attachment[]) => {
-				return this.notifSrv.add({
-					type: NotificationType.SUCCESS,
+				return this.toastSrv.add({
+					type: ToastType.SUCCESS,
 					title: `${files.length} Uploaded with success`,
 					message: this.translate.instant('message.your-files-uploaded-with-success')
 				});

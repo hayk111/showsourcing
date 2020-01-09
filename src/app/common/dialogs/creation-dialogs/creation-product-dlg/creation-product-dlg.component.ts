@@ -3,7 +3,7 @@ import { ProductDescriptor } from '~core/descriptors';
 import { ProductService } from '~core/entity-services';
 import { AppImage, Attachment, ExtendedField, Packaging, Price, Product } from '~core/models';
 import { CloseEventType, DialogService } from '~shared/dialog';
-import { NotificationService, NotificationType } from '~shared/notifications';
+import { ToastService, ToastType } from '~shared/toast';
 import { uuid } from '~utils';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -22,7 +22,7 @@ export class CreationProductDlgComponent implements OnInit {
 	constructor(
 		private dlgSrv: DialogService,
 		private productSrv: ProductService,
-		private notifSrv: NotificationService,
+		private toastSrv: ToastService,
 		private translate: TranslateService
 	) { }
 
@@ -95,15 +95,15 @@ export class CreationProductDlgComponent implements OnInit {
 					this.close();
 				}
 				// success
-				this.notifSrv.add({
-					type: NotificationType.SUCCESS,
+				this.toastSrv.add({
+					type: ToastType.SUCCESS,
 					title: this.translate.instant('title.product-created'),
 					message: this.translate.instant('message.product-created-with-success')
 				});
 			},
 				err => {
-					this.notifSrv.add({
-						type: NotificationType.ERROR,
+					this.toastSrv.add({
+						type: ToastType.ERROR,
 						title: this.translate.instant('title.product-not-created'),
 						message: this.translate.instant('message.your-product-not-created')
 					});

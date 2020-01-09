@@ -8,7 +8,7 @@ import { UserService } from '~entity-services';
 import { GlobalService } from '~entity-services/_global/global.service';
 import { ExportRequestQueries } from '~entity-services/export-request/export-request.queries';
 import { ExportRequest } from '~models';
-import { NotificationService, NotificationType } from '~shared/notifications';
+import { ToastService, ToastType } from '~shared/toast';
 
 
 @Injectable({
@@ -19,18 +19,18 @@ export class ExportRequestService extends GlobalService<ExportRequest> {
 	constructor(
 		protected apolloState: ApolloStateService,
 		private userSrv: UserService,
-		private notifSrv: NotificationService,
+		private toastSrv: ToastService,
 		private http: HttpClient,
 		private datePipe: DatePipe
 	) {
 		super(apolloState, ExportRequestQueries, 'exportRequest', 'exportRequests');
 	}
 
-	async addNotif(type: NotificationType, exportReq: ExportRequest) {
-		this.notifSrv.add({
+	async addNotif(type: ToastType, exportReq: ExportRequest) {
+		this.toastSrv.add({
 			type,
 			title: 'Exporting file',
-			message: type === NotificationType.SUCCESS ?
+			message: type === ToastType.SUCCESS ?
 				'Export successfully completed' : 'Failed exporting files',
 			actionMessage: 'Click here to download the file',
 			timeout: 6500,
@@ -64,10 +64,10 @@ export class ExportRequestService extends GlobalService<ExportRequest> {
 		return this.waitForOne(`id == "${exportReq.id}" AND (status == "ready" OR status == "rejected")`).pipe(
 			tap(latestExport => {
 				if (latestExport.status === 'rejected') {
-					this.addNotif(NotificationType.ERROR, latestExport);
+					this.addNotif(ToastType.ERROR, latestExport);
 					throw Error('Abort');
 				} else
-					this.addNotif(NotificationType.SUCCESS, latestExport);
+					this.addNotif(ToastType.SUCCESS, latestExport);
 			}),
 		);
 	}
