@@ -9,7 +9,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter, Input
 export class PreviewTopBarComponent implements OnInit {
 
 	@Input() canOpen = true;
-	@Input() hasOptions = true;
+	@Input() iconColor = 'color-third';
 	@Output() opened = new EventEmitter<null>();
 	@Output() closed = new EventEmitter<null>();
 

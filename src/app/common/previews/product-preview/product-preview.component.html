@@ -6,17 +6,26 @@
 		<preview-top-bar-app
 			(closed)="close.emit()"
 			(opened)="openProduct()">
-			<div class="fs-l semi-bold ellipsis">
-				<span class="color-primary mg-right-xs">{{ product?.reference }}</span>
-				<span class="color-txt-primary">{{ product?.name }}</span>
+			<logo-app
+				class="mg-right-s"
+				size="l"
+				[logo]="product?.images[0] || null"
+				[type]="erm.PRODUCT.singular">
+			</logo-app>
+			<div class="flexColumn">
+				<span class="color-txt-primary semi-bold fs-l">{{ product?.name }}</span>
+				<div class="flexVAlign dot-separator-txt-secondary">
+					<div class="flexVAlign">
+						<logo-app
+							class="mg-right-xs"
+							size="xs"
+							[type]="erm.PRODUCT.singular">
+						</logo-app>
+						<span class="color-txt-secondary">{{ product?.reference }}</span>
+					</div>
+					<price-app [price]="product?.price"></price-app>
+				</div>
 			</div>
-			<div class="info dot-separator ellipsis flex">
-				<price-app [price]="product?.price"></price-app>
-				<span *ngIf="product?.category" class="ellipsis category">{{ product?.category?.name }}</span>
-				<rating-number-badge-app *ngIf="product?.votes?.length" class="rating-badge" [votes]="product?.votes" [background]="false"></rating-number-badge-app>
-			</div>
-
-
 		</preview-top-bar-app>
 
 		<!-- carousel -->
