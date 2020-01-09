@@ -8,11 +8,6 @@ const subNavItemsProducts = [{
 	icon: 'sample',
 	link: ['/samples'],
 	translationKey: 'samples',
-},
-{
-	icon: 'kanban',
-	link: ['/products'],
-	translationKey: 'boards',
 }];
 
 const subNavItemsDev = [
