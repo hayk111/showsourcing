@@ -1,7 +1,7 @@
 :host {
 	display: block;
 	padding: 0;
-	margin: var(--spacing-l);
+	margin: var(--spacing-ms);
 
 	.deep-class:not(:empty):not(.no-padding) {
 		padding-top: var(--spacing-ms);

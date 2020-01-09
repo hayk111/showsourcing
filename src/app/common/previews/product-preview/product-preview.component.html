@@ -16,22 +16,7 @@
 				<rating-number-badge-app *ngIf="product?.votes?.length" class="rating-badge" [votes]="product?.votes" [background]="false"></rating-number-badge-app>
 			</div>
 
-			<!-- items 3 dots -->
-			<context-menu-item-app
-				(click)="update(true, 'favorite')"
-				translate="button.set-as-favourite">
-			</context-menu-item-app>
 
-			<divider-app></divider-app>
-
-			<context-menu-item-app
-				(click)="archive()"
-				translate="button.archive">
-			</context-menu-item-app>
-			<context-menu-item-warn-app
-				(click)="delete(product)"
-				translate="button.delete">
-			</context-menu-item-warn-app>
 		</preview-top-bar-app>
 
 		<!-- carousel -->
@@ -51,10 +36,49 @@
 		(update)="update($event, 'name')"
 		(statusUpdated)="statusUpdated.emit($event)">
 
+		<preview-header-buttons-app>
+			<button class="icon">
+				<icon-app class="color-txt-secondary" name="sample"></icon-app>
+			</button>
+			<button class="icon">
+				<icon-app class="color-txt-secondary" name="check-circle"></icon-app>
+			</button>
+			<button class="icon">
+				<icon-app class="color-txt-secondary" name="comments"></icon-app>
+			</button>
+			<button class="icon">
+				<icon-app class="color-vibrant" name="envelope"></icon-app>
+			</button>
+		</preview-header-buttons-app>
+
+		<!-- items 3 dots -->
+		<context-menu-item-app
+			(click)="update(true, 'favorite')"
+			translate="button.set-as-favourite">
+		</context-menu-item-app>
+
+		<divider-app></divider-app>
+
+		<context-menu-item-app
+			(click)="archive()"
+			translate="button.archive">
+		</context-menu-item-app>
+		<context-menu-item-warn-app
+			(click)="delete(product)"
+			translate="button.delete">
+		</context-menu-item-warn-app>
+
+		<preview-header-subtitle-app>
+			<rating-badge-app class="pointer"	[votes]="product?.votes" [hasNumber]="true"></rating-badge-app>
+			<div class="txt-btn">{{ product?.samplesLinked.count || 0 }} {{ product?.samplesLinked?.count === 1 ? 'Sample' : 'Samples' }}</div>
+			<div class="txt-btn">{{ product?.tasksLinked.count || 0 }} {{ product?.samplesLinked?.count === 1 ? 'Task' : 'Tasks' }}</div>
+			<div class="txt-btn">{{ product?.comments?.length || 0  }} {{ product?.comments?.length === 1 ? 'Comment' : 'Comments' }}</div>
+		</preview-header-subtitle-app>
+
+
 		<!-- Price -->
 		<price-with-quantity-app
 			*ngIf="product?.price?.value"
-			class="custom-padding pd-top-xs"
 			[product]="product"
 			(updateField)="update($event.newValue,  $event.field)">
 		</price-with-quantity-app>
@@ -82,21 +106,6 @@
 			[value]="product?.event"
 			(update)="update($event, 'event')">
 		</badge-selector-app>
-
-		<preview-section-app class="mg-none">
-
-			<!-- blame designer for inconsistency in the design -->
-			<divider-app class="mg-top-ms"></divider-app>
-
-			<preview-actions-app
-				class="pd-v-ms"
-				[actions]="actions"
-				(clickOnAction)="clickOnAction($event)">
-			</preview-actions-app>
-
-			<divider-app></divider-app>
-
-		</preview-section-app>
 
 	</preview-header-app>
 

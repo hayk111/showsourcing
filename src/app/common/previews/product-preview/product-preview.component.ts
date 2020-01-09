@@ -100,7 +100,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 		private uploader: UploaderService,
 		private cd: ChangeDetectorRef,
 		private productSrv: ProductService,
-		private dialogCommonSrv: DialogCommonService,
+		public dialogCommonSrv: DialogCommonService,
 		private dlgSrv: DialogService,
 		private router: Router,
 		private commentSrv: CommentService,

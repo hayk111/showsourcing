@@ -74,7 +74,9 @@ import {
 		PreviewStaticComponent,
 		PreviewTabComponent,
 		PreviewTopBarComponent,
-		PreviewActionsComponent
+		PreviewActionsComponent,
+		PreviewHeaderButtonsComponent,
+		PreviewHeaderSubtitleComponent
 	]
 })
 export class PreviewModule { }
