@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AppImage } from '~models';
 import { TrackingComponent } from '~utils/tracking-component';
 
@@ -10,10 +10,24 @@ import { TrackingComponent } from '~utils/tracking-component';
 		'[class.overflow]': 'showOneLine'
 	}
 })
-export class ImagePreviewerComponent extends TrackingComponent implements OnInit {
+export class ImagePreviewerComponent extends TrackingComponent {
 
 	/** array of images displayed */
-	@Input() images: Array<AppImage> = [];
+	private _images: Array<AppImage> = [];
+	@Input() set images(images: Array<AppImage>) {
+		this._images = images;
+		this.imagesWithIndices = [];
+
+		this.images.forEach((image: AppImage, i) => {
+			this.imagesWithIndices.push({
+				image,
+				index: i
+			});
+		});
+	}
+	get images() {
+		return this._images;
+	}
 	/** size in px of the images */
 	@Input() size = 48;
 	/** whether previews can be deleted */
@@ -30,17 +44,6 @@ export class ImagePreviewerComponent extends TrackingComponent implements OnInit
 
 	constructor() {
 		super();
-	}
-
-	ngOnInit(): void {
-		this.imagesWithIndices = [];
-
-		this.images.forEach((image: AppImage, i) => {
-			this.imagesWithIndices.push({
-				image,
-				index: i
-			});
-		});
 	}
 
 	getPreviews() {
