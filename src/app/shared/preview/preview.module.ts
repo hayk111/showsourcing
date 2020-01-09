@@ -16,16 +16,18 @@ import { StatusSelectorModule } from '~shared/status-selector/status-selector.mo
 import { UtilsModule } from '~shared/utils';
 
 import {
+	PreviewActionsComponent,
 	PreviewBannerComponent,
 	PreviewCarouselComponent,
 	PreviewCommentComponent,
+	PreviewHeaderButtonsComponent,
 	PreviewHeaderComponent,
+	PreviewHeaderSubtitleComponent,
 	PreviewPanelComponent,
 	PreviewSectionComponent,
 	PreviewStaticComponent,
 	PreviewTabComponent,
 	PreviewTopBarComponent,
-	PreviewActionsComponent
 } from './components';
 
 
@@ -58,7 +60,9 @@ import {
 		PreviewStaticComponent,
 		PreviewTabComponent,
 		PreviewTopBarComponent,
-		PreviewActionsComponent
+		PreviewActionsComponent,
+		PreviewHeaderButtonsComponent,
+		PreviewHeaderSubtitleComponent
 	],
 	exports: [
 		PreviewBannerComponent,

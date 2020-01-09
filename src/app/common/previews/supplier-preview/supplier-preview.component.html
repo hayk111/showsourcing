@@ -22,8 +22,6 @@
 		<preview-header-app
 			[entity]="supplier"
 			[entityMD]="erm.SUPPLIER"
-			[supplier]="supplier"
-			[displayEntityInfo]="isPreview"
 			(update)="update($event, 'name')">
 
 		<!-- Supplier type badge -->
@@ -117,10 +115,6 @@
 		<preview-header-app
 			[entity]="supplier"
 			[entityMD]="erm.SUPPLIER"
-			[supplier]="supplier"
-			[logoImage]="supplier?.logoImage"
-			[hasLogo]="true"
-			[displayEntityInfo]="false"
 			(update)="update($event, 'name')">
 
 		<!-- Supplier type badge -->

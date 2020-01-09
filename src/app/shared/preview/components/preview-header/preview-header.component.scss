@@ -37,11 +37,13 @@
 	}
 }
 
-editable-container-app {
-	width: auto;
-}
 editable-display-app {
 	font-size: var(--font-size-xxl);
 	font-weight: 600;
 	color: var(--color-txt-primary);
+}
+
+.title {
+	// we cannot use 12px since the editable-container uses a 6px top
+	margin-bottom: 6px;
 }
