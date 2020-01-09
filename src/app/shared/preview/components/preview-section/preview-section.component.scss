@@ -1,10 +1,10 @@
 :host {
 	display: block;
 	padding: 0;
-	margin: var(--spacing-ms);
+	margin: var(--spacing-l) var(--spacing-ms);
 
 	.deep-class:not(:empty):not(.no-padding) {
-		padding-top: var(--spacing-ms);
+		padding-top: var(--spacing-s);
 	}
 
 	&.mg-bottom-none {

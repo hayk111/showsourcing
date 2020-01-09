@@ -1,8 +1,8 @@
 :host {
-	font-size: var(--font-size-l);
 	font-weight: 600;
 	padding-bottom: var(--spacing-ms);
 	margin: 0 var(--spacing-ms);
+	color: var(--color-txt-secondary);
 	cursor: pointer;
 
 	&.active {
