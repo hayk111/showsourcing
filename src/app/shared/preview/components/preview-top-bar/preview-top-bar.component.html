@@ -1,18 +1,22 @@
-<!-- Info -->
-<div class="left flex">
-	<!-- default ng-content -->
-	<ng-content></ng-content>
+<div class="container flexBetween">
+	<!-- Info -->
+	<div class="left flex">
+		<!-- default ng-content -->
+		<ng-content></ng-content>
+	</div>
+
+	<!-- buttons -->
+	<div class="right flex">
+		<!-- Open -->
+		<button *ngIf="canOpen" class="icon big" (click)="opened.emit()" toolTip toolTipMessage="Open" toolTipPosition="below-right">
+			<icon-app class="{{ iconColor }}" name="maximize"></icon-app>
+		</button>
+
+		<!-- Close -->
+		<button class="icon" (click)="closed.emit()">
+			<icon-app class="{{ iconColor }}" name="close"></icon-app>
+		</button>
+	</div>
 </div>
 
-<!-- buttons -->
-<div class="right flex">
-	<!-- Open -->
-	<button *ngIf="canOpen" class="icon big" (click)="opened.emit()" toolTip toolTipMessage="Open" toolTipPosition="below-right">
-		<icon-app class="{{ iconColor }}" name="maximize"></icon-app>
-	</button>
-
-	<!-- Close -->
-	<button class="icon" (click)="closed.emit()">
-		<icon-app class="{{ iconColor }}" name="close"></icon-app>
-	</button>
-</div>
+<divider-app></divider-app>

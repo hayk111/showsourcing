@@ -6,6 +6,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { BadgeModule } from '~shared/badge';
 import { CarouselModule } from '~shared/carousel';
 import { ContextMenuModule } from '~shared/context-menu/context-menu.module';
+import { DividerModule } from '~shared/divider/divider.module';
 import { EditableFieldModule } from '~shared/editable-field';
 import { FileModule } from '~shared/file';
 import { IconsModule } from '~shared/icons';
@@ -49,6 +50,7 @@ import {
 		StatusSelectorModule,
 		TranslateModule,
 		UtilsModule,
+		DividerModule
 	],
 	declarations: [
 		PreviewBannerComponent,

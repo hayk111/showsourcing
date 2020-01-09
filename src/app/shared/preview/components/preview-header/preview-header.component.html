@@ -1,4 +1,4 @@
-<div class="top-section flexBetween">
+<div class="flexBetween custom-padding pd-top-xs">
 	<div class="left flex">
 		<ng-content select="preview-header-buttons-app"></ng-content>
 
@@ -39,6 +39,7 @@
 			inputApp
 			#inpName
 			type="text"
+			style="height: 23px"
 			[value]="entity[titleProp]"
 			(keyup.enter)="edt.close()"/>
 	</editable-container-app>

@@ -1,9 +1,10 @@
 :host {
+	display: block;
+}
+
+.container {
 	height: 66px;
 	padding: var(--spacing-ms);
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
 	box-sizing: border-box;
 }
 
