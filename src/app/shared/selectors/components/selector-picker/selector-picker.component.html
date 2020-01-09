@@ -1,30 +1,36 @@
+<!-- input -->
 <form [formGroup]="group">
-	<form-field-app class="search-input" [ngClass]="{'field-focused': inp.focussed || !!inp.control.value}">
-			<input inputApp formControlName="name" [value]="searchTxt" type="text" [placeholder]="'OBJ.enter-OBJ' | translate: {field: 'ERM.' + type.translationKey + '.singular' | translate}" (keyup)="onKeydown($event)" (input)="search(inp.control.value)">
+	<form-field-app class="search-input" [ngClass]="{ 'field-focused': inp.focussed || !!inp.control.value }">
+			<input inputApp formControlName="name" [value]="searchTxt" type="text" [placeholder]="'OBJ.enter-OBJ' | translate: { field: 'ERM.' + type.translationKey + '.singular' | translate }" (keyup)="onKeydown($event)" (input)="search(inp.control.value)">
 	</form-field-app>
 </form>
 
+<!-- if multiple, display badges -->
 <div *ngIf="multiple" class="flexWrap current-values-container">
 	<ng-container *ngIf="value?.length; else empty">
 
 		<ng-container [ngSwitch]="type">
 
 			<ng-container *ngSwitchCase="erm.EMAIL">
-				<info-badge-app *ngFor="let item of value" [type]="type.singular" [hasDelete]="true" (delete)="delete(item)">{{item}}</info-badge-app>
+				<info-badge-app *ngFor="let item of value" [type]="type.singular" [hasDelete]="true" (delete)="delete(item)">{{ item }}</info-badge-app>
 			</ng-container>
 
 			<ng-container *ngSwitchDefault>
-				<info-badge-app *ngFor="let item of value; trackBy: trackById" [type]="type.singular" [hasDelete]="true" (delete)="delete(item)">{{item.name}}</info-badge-app>
+				<info-badge-app *ngFor="let item of value; trackBy: trackById" [type]="type.singular" [hasDelete]="true" (delete)="delete(item)">{{ item.name }}</info-badge-app>
 			</ng-container>
 
 		</ng-container>
 	</ng-container>
 	<ng-template #empty>
-		<span class="empty-message">{{'OBJ.no-item-add-one' | translate: {field: 'ERM.' + type.translationKey + '.singular' | translate} }}</span>
+		<span class="empty-message">{{ 'OBJ.no-item-add-one' | translate: { field: 'ERM.' + type.translationKey + '.singular' | translate } }}</span>
 	</ng-template>
 </div>
 
-<divider-app class="top-divider"></divider-app>
+<div class="top-divider">
+	<divider-app></divider-app>
+</div>
+
+<!-- dropdown items -->
 <!-- [ngClass]="getActiveClass(item)" in case we want set an active class -->
 <div class="container-items" infiniScroll (bottomReached)="selectorSrv.loadMore()">
 
@@ -38,14 +44,14 @@
 			</ng-container>
 
 			<ng-container *ngSwitchCase="erm.COUNTRY">
-				<selector-country-row-app #abstract *ngFor="let item of choices$ | async" class="selector-row" [country]="item" (click)="onSelect(item.countryCode)"></selector-country-row-app>
+				<selector-country-row-app #abstract *ngFor="let item of choices$ | async" class="selector-row" [country]="item" (click)="onSelect(item)"></selector-country-row-app>
 			</ng-container>
 
 			<ng-container *ngSwitchCase="erm.CURRENCY">
 				<!-- we need the top 3 currencies always visible at the top -->
-				<selector-currency-row-app #abstract *ngFor="let item of this.selectorSrv.topCurrencies$ | async; trackBy: trackById" class="selector-row" [currency]="item" (click)="onSelect(item.symbol)"></selector-currency-row-app>
+				<selector-currency-row-app #abstract *ngFor="let item of this.selectorSrv.topCurrencies$ | async; trackBy: trackById" class="selector-row" [currency]="item" (click)="onSelect(item)"></selector-currency-row-app>
 				<divider-app class="top-3-divider" *ngIf="(this.selectorSrv.topCurrencies$ | async)?.length"></divider-app>
-				<selector-currency-row-app #abstract *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [currency]="item" (click)="onSelect(item.symbol)"></selector-currency-row-app>
+				<selector-currency-row-app #abstract *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [currency]="item" (click)="onSelect(item)"></selector-currency-row-app>
 			</ng-container>
 
 			<ng-container *ngSwitchCase="erm.EMAIL">
@@ -56,20 +62,8 @@
 				<selector-event-row-app #abstract  *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [event]="item" (click)="onSelect(item)"></selector-event-row-app>
 			</ng-container>
 
-			<ng-container *ngSwitchCase="erm.HARBOUR">
-				<selector-name-row-app #abstract *ngFor="let item of choices$ | async" class="selector-row" [item]="item" (click)="onSelect(item.name)"></selector-name-row-app>
-			</ng-container>
-
-			<ng-container *ngSwitchCase="erm.INCO_TERM">
-				<selector-name-row-app #abstract *ngFor="let item of choices$ | async" class="selector-row" [item]="item" (click)="onSelect(item.name)"></selector-name-row-app>
-			</ng-container>
-
-			<ng-container *ngSwitchCase="erm.LENGTH_UNIT">
-				<selector-name-row-app #abstract *ngFor="let item of choices$ | async" class="selector-row" [item]="item" (click)="onSelect(item.name)"></selector-name-row-app>
-			</ng-container>
-
 			<ng-container *ngSwitchCase="erm.PICKER_FIELD">
-				<selector-label-name-row-app #abstract *ngFor="let item of choices$ | async" class="selector-row capitalize" [item]="item" (click)="onSelect(item?.label || item?.name)"></selector-label-name-row-app>
+				<selector-label-name-row-app #abstract *ngFor="let item of choices$ | async" class="selector-row capitalize" [item]="item" (click)="onSelect(item)"></selector-label-name-row-app>
 			</ng-container>
 
 			<ng-container *ngSwitchCase="erm.REQUEST_TEMPLATE">
@@ -92,15 +86,9 @@
 				<selector-user-row-app #abstract *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [user]="item" (click)="onSelect(item)"></selector-user-row-app>
 			</ng-container>
 
-			<ng-container *ngSwitchCase="erm.WEIGHT_UNIT">
-				<selector-name-row-app #abstract *ngFor="let item of choices$ | async" class="selector-row" [item]="item" (click)="onSelect(item.name)"></selector-name-row-app>
-			</ng-container>
-
 			<!--
 				this default is for any entity that has property name, and the output emitted is an entity (click)=onSelect(item)
 				this is why category, project, product... are valid defaults,
-				but country, harbour they are not, since their output emits a name (string),
-				therefore we need a switch case where the event (click)="onSelect(item.name)
 			-->
 			<ng-container *ngSwitchDefault>
 				<selector-name-row-app #abstract *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row"  [item]="item" (click)="onSelect(item)"></selector-name-row-app>
@@ -108,6 +96,7 @@
 
 		</ng-container>
 
+		<!-- create button -->
 		<selector-button-row-app #abstract *ngIf="canCreate && !(nameExists$ | async) && searchTxt" class="selector-row" [type]="type.singular" [searchTxt]="searchTxt" (click)="create()"></selector-button-row-app>
 
 	</ng-container>
@@ -120,7 +109,9 @@
 
 </div>
 
-<divider-app class="bottom-divider"></divider-app>
+<div class="bottom-divider">
+	<divider-app></divider-app>
+</div>
 
 <div class="flexEnd">
 	<button tabFocusAction class="secondary capitalize" (click)="close.emit()" translate="button.done">done</button>

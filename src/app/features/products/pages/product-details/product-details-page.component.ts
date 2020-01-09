@@ -11,7 +11,7 @@ import { ProductFeatureService } from '~features/products/services';
 import { ERM, Product, Project, Sample, Task, Supplier, EntityName } from '~models';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
-import { NotificationService, NotificationType } from '~shared/notifications';
+import { ToastService, ToastType } from '~shared/toast';
 import { RatingService } from '~shared/rating/services/rating.service';
 import { AutoUnsub, log } from '~utils';
 
@@ -49,7 +49,7 @@ export class ProductDetailsPageComponent extends AutoUnsub implements OnInit {
 		private router: Router,
 		private featureSrv: ProductFeatureService,
 		private dlgSrv: DialogService,
-		private notifSrv: NotificationService,
+		private toastSrv: ToastService,
 		private ratingSrv: RatingService,
 		public dlgCommonSrv: DialogCommonService,
 		private translate: TranslateService
@@ -79,8 +79,8 @@ export class ProductDetailsPageComponent extends AutoUnsub implements OnInit {
 
 	private onProduct(product) {
 		if (!product) {
-			this.notifSrv.add({
-				type: NotificationType.ERROR,
+			this.toastSrv.add({
+				type: ToastType.ERROR,
 				title: this.translate.instant('title.product-not-exist'),
 				timeout: 3500
 			});
@@ -92,8 +92,8 @@ export class ProductDetailsPageComponent extends AutoUnsub implements OnInit {
 
 	private onError(error) {
 		log.error(error);
-		this.notifSrv.add({
-			type: NotificationType.ERROR,
+		this.toastSrv.add({
+			type: ToastType.ERROR,
 			title: this.translate.instant('title.error'),
 			message: this.translate.instant('error.there-is-an-error'),
 			timeout: 3500
@@ -105,8 +105,8 @@ export class ProductDetailsPageComponent extends AutoUnsub implements OnInit {
 		if (Array.isArray(product)) {
 			this.featureSrv.updateMany(product.map((p: Product) => ({ id: p.id, archived: true })))
 				.subscribe(_ => {
-					this.notifSrv.add({
-						type: NotificationType.SUCCESS,
+					this.toastSrv.add({
+						type: ToastType.SUCCESS,
 						title: this.translate.instant('title.products-archived'),
 						message: this.translate.instant('message.products-archived-successfully')
 					});
@@ -115,8 +115,8 @@ export class ProductDetailsPageComponent extends AutoUnsub implements OnInit {
 			const { id } = product;
 			this.featureSrv.update({ id, archived: true })
 				.subscribe(_ => {
-					this.notifSrv.add({
-						type: NotificationType.SUCCESS,
+					this.toastSrv.add({
+						type: ToastType.SUCCESS,
 						title: this.translate.instant('title.product-archived'),
 						message: this.translate.instant('message.product-archived-successfully')
 					});

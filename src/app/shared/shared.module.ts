@@ -43,7 +43,6 @@ import { LogoModule } from './logo/logo.module';
 import { MoqModule } from './moq/moq.module';
 import { NavModule } from './nav/nav.module';
 import { NotifModule } from './notif/notif.module';
-import { NotificationsModule } from './notifications/notifications.module';
 import { OnBoardingModule } from './on-boarding/on-boarding.module';
 import { PackagingModule } from './packaging/packaging.module';
 import { PaginationModule } from './pagination/pagination.module';
@@ -57,6 +56,7 @@ import { SidenavModule } from './sidenav/sidenav.module';
 import { StageIndicatorModule } from './stage-indicator/stage-indicator.module';
 import { StatusSelectorModule } from './status-selector/status-selector.module';
 import { TableModule } from './table/table.module';
+import { ToastModule } from './toast';
 
 // those modules are used so commonly that we will just import the shared module
 const modules = [
@@ -100,7 +100,6 @@ const modules = [
 	LogoModule,
 	MoqModule,
 	NotifModule,
-	NotificationsModule,
 	OnBoardingModule,
 	PackagingModule,
 	PaginationModule,
@@ -117,6 +116,7 @@ const modules = [
 	StageIndicatorModule,
 	StatusSelectorModule,
 	TableModule,
+	ToastModule,
 	PaginationModule,
 	HeaderListModule,
 	UserPictureModule,

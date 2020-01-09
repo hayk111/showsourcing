@@ -12,7 +12,7 @@ import { ListPageService } from '~core/list-page';
 import { ERM, ReplyStatus, RequestElement, SupplierRequest } from '~core/models';
 import { DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
-import { NotificationService, NotificationType } from '~shared/notifications';
+import { ToastService, ToastType } from '~shared/toast';
 import { AutoUnsub, ID } from '~utils';
 
 @Component({
@@ -32,7 +32,7 @@ export class RequestDetailsPageComponent extends AutoUnsub implements OnInit {
 		private route: ActivatedRoute,
 		private router: Router,
 		private suppReqSrv: SupplierRequestService,
-		private notifSrv: NotificationService,
+		private toastSrv: ToastService,
 		private requestReplySrv: RequestReplyService,
 		private cdr: ChangeDetectorRef,
 		private reqElementSrv: RequestElementService,
@@ -72,8 +72,8 @@ export class RequestDetailsPageComponent extends AutoUnsub implements OnInit {
 
 	private onRequest(request) {
 		if (!request) {
-			this.notifSrv.add({
-				type: NotificationType.ERROR,
+			this.toastSrv.add({
+				type: ToastType.ERROR,
 				title: this.translate.instant('title.request-not-exist'),
 				timeout: 3500
 			});
@@ -85,8 +85,8 @@ export class RequestDetailsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	private onError(error) {
-		this.notifSrv.add({
-			type: NotificationType.ERROR,
+		this.toastSrv.add({
+			type: ToastType.ERROR,
 			title: this.translate.instant('title.error'),
 			message: this.translate.instant('error.there-is-an-error'),
 			timeout: 3500

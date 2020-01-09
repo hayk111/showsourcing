@@ -8,7 +8,7 @@ import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { InvitationFeatureService } from '~features/invitation/services/invitation-feature.service';
 import { InvitationUser } from '~models';
-import { NotificationService, NotificationType } from '~shared/notifications';
+import { ToastService, ToastType } from '~shared/toast';
 import { AutoUnsub } from '~utils';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -36,7 +36,7 @@ export class HandleInvitationComponent extends AutoUnsub implements OnInit {
 		private location: Location,
 		private authSrv: AuthenticationService,
 		private invitationSrv: InvitationFeatureService,
-		private notifSrv: NotificationService,
+		private toastSrv: ToastService,
 		private teamClient: TeamClientInitializer,
 		private translate: TranslateService
 	) {
@@ -57,8 +57,8 @@ export class HandleInvitationComponent extends AutoUnsub implements OnInit {
 		this.teamClient.setPending('switching team');
 		this.invitationSrv.acceptInvitation(this.invitationId).subscribe(_ => {
 			this.router.navigateByUrl('/');
-			this.notifSrv.add({
-				type: NotificationType.SUCCESS,
+			this.toastSrv.add({
+				type: ToastType.SUCCESS,
 				title: this.translate.instant('title.invitation-accepted'),
 				message: this.translate.instant('message.invitation-accepted'),
 				timeout: 3500
@@ -69,8 +69,8 @@ export class HandleInvitationComponent extends AutoUnsub implements OnInit {
 	refuse() {
 		this.invitationSrv.refuseInvitation(this.invitationId).subscribe(_ => {
 			this.router.navigateByUrl('/');
-			this.notifSrv.add({
-				type: NotificationType.ERROR,
+			this.toastSrv.add({
+				type: ToastType.ERROR,
 				title: this.translate.instant('title.invitation-refused'),
 				message: this.translate.instant('message.invitation-refused'),
 				timeout: 3500

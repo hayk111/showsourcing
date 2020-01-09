@@ -18,4 +18,8 @@ export class SelectorCurrencyRowComponent extends AbstractSelectorHighlightableC
 		return this.currency.symbol;
 	}
 
+	getItem() {
+		return this.currency;
+	}
+
 }

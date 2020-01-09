@@ -10,7 +10,7 @@ import { DialogCommonService } from '~common/dialogs/services/dialog-common.serv
 import { SupplierService } from '~core/entity-services';
 import { Supplier } from '~models/supplier.model';
 import { DialogService } from '~shared/dialog';
-import { NotificationService, NotificationType } from '~shared/notifications';
+import { ToastService, ToastType } from '~shared/toast';
 import { AutoUnsub, log } from '~utils';
 import { EntityName } from '~core/models';
 
@@ -33,7 +33,7 @@ export class SupplierDetailsPageComponent extends AutoUnsub implements OnInit {
 		private route: ActivatedRoute,
 		private router: Router,
 		private supplierSrv: SupplierService,
-		private notifSrv: NotificationService,
+		private toastSrv: ToastService,
 		public dialogCommonSrv: DialogCommonService,
 		private translate: TranslateService,
 		private dlgSrv: DialogService
@@ -83,8 +83,8 @@ export class SupplierDetailsPageComponent extends AutoUnsub implements OnInit {
 		if (Array.isArray(supplier)) {
 			this.supplierSrv.updateMany(supplier.map((s: Supplier) => ({ id: s.id, archived: true })))
 				.subscribe(_ => {
-					this.notifSrv.add({
-						type: NotificationType.SUCCESS,
+					this.toastSrv.add({
+						type: ToastType.SUCCESS,
 						title: this.translate.instant('title.suppliers-archived'),
 						message: this.translate.instant('message.suppliers-archived-successfully')
 					});
@@ -93,8 +93,8 @@ export class SupplierDetailsPageComponent extends AutoUnsub implements OnInit {
 			const { id } = supplier;
 			this.supplierSrv.update({ id, archived: true })
 				.subscribe(_ => {
-					this.notifSrv.add({
-						type: NotificationType.SUCCESS,
+					this.toastSrv.add({
+						type: ToastType.SUCCESS,
 						title: this.translate.instant('title.supplier-archived'),
 						message: this.translate.instant('message.supplier-archived-successfully')
 					});
@@ -104,8 +104,8 @@ export class SupplierDetailsPageComponent extends AutoUnsub implements OnInit {
 
 	private onSupplier(supplier) {
 		if (!supplier) {
-			this.notifSrv.add({
-				type: NotificationType.ERROR,
+			this.toastSrv.add({
+				type: ToastType.ERROR,
 				title: this.translate.instant('title.supplier-not-exist'),
 				timeout: 3500
 			});
@@ -119,8 +119,8 @@ export class SupplierDetailsPageComponent extends AutoUnsub implements OnInit {
 
 	private onError(error: Error) {
 		log.error(error);
-		this.notifSrv.add({
-			type: NotificationType.ERROR,
+		this.toastSrv.add({
+			type: ToastType.ERROR,
 			title: this.translate.instant('title.error'),
 			message: this.translate.instant('message.there-is-an-error'),
 			timeout: 3500

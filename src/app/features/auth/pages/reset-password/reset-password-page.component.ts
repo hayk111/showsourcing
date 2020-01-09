@@ -5,7 +5,7 @@ import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { PasswordValidator } from '~shared/inputs/validators/pswd.validator';
-import { NotificationService, NotificationType } from '~shared/notifications';
+import { ToastService, ToastType } from '~shared/toast';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -23,7 +23,7 @@ export class ResetPasswordPageComponent extends AutoUnsub implements OnInit {
 
 	constructor(private fb: FormBuilder, private cdr: ChangeDetectorRef,
 		private authSrv: AuthenticationService, private router: Router,
-		private route: ActivatedRoute, private notificationSrv: NotificationService,
+		private route: ActivatedRoute, private notificationSrv: ToastService,
 		private translate: TranslateService
 	) {
 		super();
@@ -52,7 +52,7 @@ export class ResetPasswordPageComponent extends AutoUnsub implements OnInit {
 						this.error = this.translate.instant('error.reset-pwd');
 					}
 					this.notificationSrv.add({
-						type: NotificationType.ERROR,
+						type: ToastType.ERROR,
 						title: this.translate.instant('header.password-reset'),
 						message: this.error,
 						timeout: 4500
@@ -63,7 +63,7 @@ export class ResetPasswordPageComponent extends AutoUnsub implements OnInit {
 				this.pending = false;
 				this.router.navigate(['auth', 'login']);
 				this.notificationSrv.add({
-					type: NotificationType.SUCCESS,
+					type: ToastType.SUCCESS,
 					title: this.translate.instant('header.password-reset'),
 					// message: translate('Password successfully restored'),
 					message: this.translate.instant('message.pwd-reset-successfully'),

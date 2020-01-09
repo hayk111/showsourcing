@@ -17,5 +17,8 @@ export class SelectorValueRowComponent extends AbstractSelectorHighlightableComp
 		return this.item.value;
 	}
 
+	getItem() {
+		return this.item;
+	}
 
 }

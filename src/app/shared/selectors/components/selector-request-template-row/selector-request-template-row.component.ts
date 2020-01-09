@@ -18,4 +18,8 @@ export class SelectorRequestTemplateRowComponent extends AbstractSelectorHighlig
 		return this.requestTemplate;
 	}
 
+	getItem() {
+		return this.requestTemplate;
+	}
+
 }

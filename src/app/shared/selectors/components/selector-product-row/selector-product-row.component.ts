@@ -18,4 +18,8 @@ export class SelectorProductRowComponent extends AbstractSelectorHighlightableCo
 		return this.product;
 	}
 
+	getItem() {
+		return this.product;
+	}
+
 }
