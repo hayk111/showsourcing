@@ -19,7 +19,7 @@
 						<logo-app *ngIf="hasLogo" class="pointer" type="product" size="s"></logo-app>
 						<span *ngIf="value; else empty" class="ellipsis flexVAlign">{{ value }}</span>
 						<ng-template #empty>
-							<span translate="text.set-product"></span>
+							<span class="ellipsis flexVAlign" translate="text.set-product"></span>
 						</ng-template>
 					</div>
 				</selector-app>
@@ -46,7 +46,7 @@
 						<logo-app *ngIf="hasLogo" class="pointer" type="supplier" size="s"></logo-app>
 						<span *ngIf="value; else empty" class="ellipsis flexVAlign">{{ value }}</span>
 						<ng-template #empty>
-							<span translate="text.set-supplier"></span>
+							<span class="ellipsis flexVAlign" translate="text.set-supplier"></span>
 						</ng-template>
 					</div>
 				</selector-app>
@@ -73,7 +73,7 @@
 						<logo-app *ngIf="hasLogo" class="pointer" type="supplier" size="s"></logo-app>
 						<span *ngIf="value; else empty" class="ellipsis flexVAlign">{{ value }}</span>
 						<ng-template #empty>
-							<span translate="text.set-supplier-type"></span>
+							<span class="ellipsis flexVAlign" translate="text.set-supplier-type"></span>
 						</ng-template>
 					</div>
 				</selector-app>
@@ -92,7 +92,7 @@
 						<logo-app *ngIf="hasLogo" class="pointer" type="location" size="s"></logo-app>
 						<span *ngIf="value; else empty" class="ellipsis flexVAlign">{{ value }}</span>
 						<ng-template #empty>
-							<span translate="text.set-location"></span>
+							<span class="ellipsis flexVAlign" translate="text.set-location"></span>
 						</ng-template>
 					</div>
 				</selector-app>
@@ -120,7 +120,9 @@
 						<ng-template #noArray>
 							<span *ngIf="value?.name; else empty" class="ellipsis flexVAlign"> {{ value?.name }} </span>
 							<ng-template #empty>
-								{{ (multiple ? 'OBJ.set-category.plural' : 'OBJ.set-category.singular') | translate }}
+								<span class="ellipsis flexVAlign">
+									{{ (multiple ? 'OBJ.set-category.plural' : 'OBJ.set-category.singular') | translate }}
+								</span >
 							</ng-template>
 						</ng-template>
 					</div>
@@ -145,7 +147,7 @@
 							{{ value?.name || value?.description?.name }}
 						</span>
 						<ng-template #empty>
-							<span translate="text.set-event"></span>
+							<span class="ellipsis flexVAlign" translate="text.set-event"></span>
 						</ng-template>
 					</div>
 				</selector-app>

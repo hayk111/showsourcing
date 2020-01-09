@@ -60,6 +60,7 @@ export abstract class ProductQueries extends GlobalQueries {
 		logoImage { id, urls { url } }
 		categories { id, name }
 		images { id, urls { url }, imageType }
+		votes { id, value }
 	}`;
 	static readonly price = (name = 'price') => `${name} { id, currency, value } `;
 	static readonly category = `category { id, name }`;
