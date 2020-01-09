@@ -133,44 +133,44 @@
 <ng-template #contextualMenuTemplate let-row="row">
 	<context-menu-item-app
 		(click)="update.emit({ id: row.id, favorite: true })">
-		<div class="square flexCenter mg-right-s">
-			<icon-app name="heart"></icon-app>
+		<div class="icon-box square flexCenter mg-right-s">
+			<icon-app name="heart" size="s"></icon-app>
 		</div>
 		<span translate="button.set-as-favorite"></span>
 	</context-menu-item-app>
 	<context-menu-item-app
 		(click)="openAddToProjectDialog.emit(row)">
-		<div class="square flexCenter mg-right-s">
-			<icon-app name="project"></icon-app>
+		<div class="icon-box square flexCenter mg-right-s">
+			<icon-app name="project" size="s"></icon-app>
 		</div>
 		<span translate="button.add-to-project"></span>
 	</context-menu-item-app>
 	<context-menu-item-app
 		(click)="openAddTaskDialog.emit(row)">
-		<div class="square flexCenter mg-right-s">
-			<icon-app name="task"></icon-app>
+		<div class="icon-box square flexCenter mg-right-s">
+			<icon-app name="task" size="s"></icon-app>
 		</div>
 		<span translate="button.add-task"></span>
 	</context-menu-item-app>
 	<context-menu-item-app
 		(click)="openAddSampleDialog.emit(row)">
-		<div class="square flexCenter mg-right-s">
-			<icon-app name="sample"></icon-app>
+		<div class="icon-box square flexCenter mg-right-s">
+			<icon-app name="sample" size="s"></icon-app>
 		</div>
 		<span translate="button.add-sample"></span>
 	</context-menu-item-app>
 	<divider-app></divider-app>
 	<context-menu-item-app
 		(click)="archive.emit({ id: row.id, archived: true })">
-		<div class="square flexCenter mg-right-s">
-			<icon-app name="archive"></icon-app>
+		<div class="icon-box square flexCenter mg-right-s">
+			<icon-app name="archive" size="s"></icon-app>
 		</div>
 		<span translate="button.archive"></span>
 	</context-menu-item-app>
 	<context-menu-item-warn-app
 		(click)="delete.emit(row)">
-		<div class="square flexCenter mg-right-s">
-			<icon-app name="delete"></icon-app>
+		<div class="icon-box square flexCenter mg-right-s">
+			<icon-app name="delete" size="s"></icon-app>
 		</div>
 		<span translate="button.delete"></span>
 	</context-menu-item-warn-app>

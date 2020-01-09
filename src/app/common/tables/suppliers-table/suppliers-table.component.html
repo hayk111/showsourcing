@@ -119,16 +119,15 @@
 	<context-menu-item-app
 		(click)="archive.emit(row)"
 		translate="button.archive">
-		<div class="square flexCenter mg-right-s">
-			<icon-app name="archive"></icon-app>
+		<div class="icon-box square flexCenter mg-right-s">
+			<icon-app name="archive" size="s"></icon-app>
 		</div>
 		<span translate="button.archive"></span>
 	</context-menu-item-app>
 	<context-menu-item-warn-app
-		class="pointer flexCenter"
 		(click)="delete.emit(row)">
-		<div class="square flexCenter mg-right-s">
-			<icon-app name="delete"></icon-app>
+		<div class="icon-box square flexCenter mg-right-s">
+			<icon-app name="delete" size="s"></icon-app>
 		</div>
 		<span translate="button.delete"></span>
 	</context-menu-item-warn-app>

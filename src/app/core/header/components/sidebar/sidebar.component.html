@@ -21,11 +21,6 @@
 </nav>
 
 <div class="flexCenter bottom">
-	<!-- Let's move this in a component, for the love of god Thierry... -->
-	<div class="sidebar-item-content">
-		<header-search-app></header-search-app>
-	</div>
-
 	<notif-app
 		class="sidebar-item-content pointer"
 		[notifications]="notifications$ | async"
