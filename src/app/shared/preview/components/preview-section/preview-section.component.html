@@ -1,4 +1,7 @@
-<h3>{{ title }}</h3>
-<div class="deep-class" [ngClass]="{'no-padding': !title}">
+<div class="flexVAlign">
+	<h3>{{ title }}</h3>
+	<ng-content select="preview-section-action-app"></ng-content>
+</div>
+<div class="deep-class" [ngClass]="{ 'no-padding': !title }">
 	<ng-content></ng-content>
 </div>

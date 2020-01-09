@@ -25,6 +25,7 @@ import {
 	PreviewHeaderComponent,
 	PreviewHeaderSubtitleComponent,
 	PreviewPanelComponent,
+	PreviewSectionActionComponent,
 	PreviewSectionComponent,
 	PreviewStaticComponent,
 	PreviewTabComponent,
@@ -53,32 +54,34 @@ import {
 		DividerModule
 	],
 	declarations: [
+		PreviewActionsComponent,
 		PreviewBannerComponent,
 		PreviewCarouselComponent,
 		PreviewCommentComponent,
+		PreviewHeaderButtonsComponent,
 		PreviewHeaderComponent,
+		PreviewHeaderSubtitleComponent,
 		PreviewPanelComponent,
+		PreviewSectionActionComponent,
 		PreviewSectionComponent,
 		PreviewStaticComponent,
 		PreviewTabComponent,
 		PreviewTopBarComponent,
-		PreviewActionsComponent,
-		PreviewHeaderButtonsComponent,
-		PreviewHeaderSubtitleComponent
 	],
 	exports: [
+		PreviewActionsComponent,
 		PreviewBannerComponent,
 		PreviewCarouselComponent,
 		PreviewCommentComponent,
+		PreviewHeaderButtonsComponent,
 		PreviewHeaderComponent,
+		PreviewHeaderSubtitleComponent,
 		PreviewPanelComponent,
+		PreviewSectionActionComponent,
 		PreviewSectionComponent,
 		PreviewStaticComponent,
 		PreviewTabComponent,
 		PreviewTopBarComponent,
-		PreviewActionsComponent,
-		PreviewHeaderButtonsComponent,
-		PreviewHeaderSubtitleComponent
 	]
 })
 export class PreviewModule { }

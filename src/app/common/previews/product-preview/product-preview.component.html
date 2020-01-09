@@ -170,6 +170,52 @@
 	</preview-section-app>
 
 	<!-- Activity -->
+	<!-- Owner -->
+	<preview-section-app #contentTab2 [title]="'product owner'">
+		<editable-container-app
+			[hasAction]="false"
+			[openOnClick]="false"
+			(click)="sel?.selector?.openMenu()">
+			<editable-display-app>
+				<selector-app
+					#sel
+					[type]="'USER' | erm: 'singular'"
+					[width]="320"
+					[offsetX]="4"
+					(update)="updateProduct({ assignee: $event })">
+					<div *ngIf="product?.assignee; else none" class="flex">
+						<user-picture-app	class="mg-right-ms" [user]="product?.assignee" size="24" fontSize="12" [hasName]="true"></user-picture-app>
+					</div>
+					<ng-template #none>None</ng-template>
+				</selector-app>
+				</editable-display-app>
+		</editable-container-app>
+	</preview-section-app>
+
+	<!-- Tasks -->
+	<preview-section-app #contentTab2 class="action-hover-container-0" [title]="'tasks'">
+		<preview-section-action-app>
+			<div class="mg-left-ms action-hover-item-0 color-primary txt-btn" (click)="null" translate="button.add"></div>
+		</preview-section-action-app>
+		<task-catalog-app
+			[tasks]="product?.tasksLinked?.items"
+			(taskClicked)="null"
+			(showMore)="null">
+		</task-catalog-app>
+	</preview-section-app>
+
+	<!-- Samples -->
+	<preview-section-app #contentTab2 class="action-hover-container-0" [title]="'samples'">
+		<preview-section-action-app>
+			<div class="mg-left-ms action-hover-item-0 color-primary txt-btn" (click)="null" translate="button.add"></div>
+		</preview-section-action-app>
+		<sample-catalog-app
+			[samples]="product?.samplesLinked?.items"
+			(sampleClicked)="null"
+			(showMore)="null">
+		</sample-catalog-app>
+	</preview-section-app>
+
 	<!-- Rating -->
 	<preview-section-app #contentTab2 [title]="'team rating'">
 		<rating-dashboard-app
@@ -180,42 +226,36 @@
 		</rating-dashboard-app>
 	</preview-section-app>
 
-	<!-- Tasks -->
-	<preview-section-app #contentTab2 *ngIf="(tasks$ | async)?.length" [title]="'Tasks'">
-		<task-table-app
-			class="no-padding"
-			[rows]="tasks$ | async"
-			[hasMinHeight]="false"
-			[pending]="false"
-			tableConfigType="small"
-			[columns]="['done', 'name', 'dueDate']"
-			[hasMenu]="false"
-			[hasHeader]="false"
-			[hasSelection]="false"
-			[hasPagination]="false"
-			(update)="updateTask($event)">
-		</task-table-app>
+	<!-- Projects -->
+	<preview-section-app #contentTab2 class="action-hover-container-0" [title]="'projects'">
+		<preview-section-action-app>
+			<selector-app
+				class="selector"
+				type="project"
+				[value]="product?.projects"
+				[canCreate]="true"
+				[multiple]="true"
+				[width]="330"
+				(update)="updateProduct($event)">
+				<span class="mg-left-ms fs-m action-hover-item-0 color-primary txt-btn" translate="button.add"></span>
+			</selector-app>
+		</preview-section-action-app>
+		<project-catalog-app
+			[projects]="product?.projects"
+			(openProject)="null"
+			(deleteProject)="null">
+		</project-catalog-app >
 	</preview-section-app>
 
-	<!-- Samples -->
-	<preview-section-app #contentTab2 *ngIf="(samples$ | async)?.length" [title]="'Samples'">
-		<samples-table-app
-			class="no-padding"
-			[rows]="samples$ | async"
-			[hasMinHeight]="false"
-			[columns]="['name', 'status']"
-			tableConfigType="small"
-			[pending]="false"
-			[hasMenu]="false"
-			[hasHeader]="false"
-			[hasSelection]="false"
-			[hasPagination]="false"
-			(update)="updateSample($event)">
-		</samples-table-app>
+	<!-- About -->
+	<preview-section-app #contentTab2 [title]="'about this product'">
+		<small>Created by {{ product.createdBy | formatUserName }} on  {{ product.creationDate | date: 'dd MMMM yyyy' }}</small> <br>
+		<small>Last updated by {{ product.lastUpdatedBy | formatUserName }} on {{ product.lastUpdatedDate | date: 'dd MMMM yyyy' }}</small><br>
+		<small *ngIf="product?.event">Found at {{ product?.event?.description?.name }}</small>
 	</preview-section-app>
 
 	<!-- Comment -->
-	<preview-section-app  #contentTab3 *ngIf="product?.comments?.length" [title]="'title.comments' | translate">
+	<preview-section-app  #contentTab3 *ngIf="product?.comments?.length">
 		<comment-list-app [comments]="product?.comments"></comment-list-app>
 	</preview-section-app>
 
