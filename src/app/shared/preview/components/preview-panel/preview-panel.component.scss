@@ -2,7 +2,8 @@
 	display: block;
 	background: white;
 	width: 424px;
-	padding-bottom: var(--spacing-l);
+	padding-top: 66px; // padding for the position fix top bar
+	padding-bottom: 84px; // padding for the position fix of the comment input
 	overflow: overlay;
 
 	position: absolute;
