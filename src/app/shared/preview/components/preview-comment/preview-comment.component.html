@@ -1,10 +1,11 @@
 <div class="container">
 	<textarea
-		type="text"
 		#inp
+		inputApp
+		type="text"
 		name="comment"
 		[formControl]="commentCtrl"
-		(keydown.enter)="addComment()">
+		(keyup.enter)="addComment()">
 	</textarea>
 	<button class="icon">
 		<icon-app class="color-white" name="plane"></icon-app>

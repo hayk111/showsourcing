@@ -46,16 +46,16 @@
 		(statusUpdated)="statusUpdated.emit($event)">
 
 		<preview-header-buttons-app>
-			<button class="icon">
+			<button class="icon" (click)="openNewSample()">
 				<icon-app class="color-txt-secondary" name="sample"></icon-app>
 			</button>
-			<button class="icon">
+			<button class="icon" (click)="openNewTask()">
 				<icon-app class="color-txt-secondary" name="check-circle"></icon-app>
 			</button>
-			<button class="icon">
+			<button class="icon" (click)="selectThirdTab()">
 				<icon-app class="color-txt-secondary" name="comments"></icon-app>
 			</button>
-			<button class="icon">
+			<button class="icon" (click)="dialogCommonSrv.openSupplierRequest([product])">
 				<icon-app class="color-vibrant" name="envelope"></icon-app>
 			</button>
 		</preview-header-buttons-app>
@@ -78,10 +78,10 @@
 		</context-menu-item-warn-app>
 
 		<preview-header-subtitle-app>
-			<rating-badge-app class="pointer"	[votes]="product?.votes" [hasNumber]="true"></rating-badge-app>
-			<div class="txt-btn">{{ product?.samplesLinked.count || 0 }} {{ product?.samplesLinked?.count === 1 ? 'Sample' : 'Samples' }}</div>
-			<div class="txt-btn">{{ product?.tasksLinked.count || 0 }} {{ product?.samplesLinked?.count === 1 ? 'Task' : 'Tasks' }}</div>
-			<div class="txt-btn">{{ product?.comments?.length || 0  }} {{ product?.comments?.length === 1 ? 'Comment' : 'Comments' }}</div>
+			<rating-badge-app class="pointer"	[votes]="product?.votes" [hasNumber]="true" (click)="selectSecondTab('rating')"></rating-badge-app>
+			<div class="txt-btn" (click)="selectSecondTab('sample')">{{ product?.samplesLinked.count || 0 }} {{ product?.samplesLinked?.count === 1 ? 'Sample' : 'Samples' }}</div>
+			<div class="txt-btn" (click)="selectSecondTab('task')">{{ product?.tasksLinked.count || 0 }} {{ product?.samplesLinked?.count === 1 ? 'Task' : 'Tasks' }}</div>
+			<div class="txt-btn" (click)="selectThirdTab()">{{ product?.comments?.length || 0  }} {{ product?.comments?.length === 1 ? 'Comment' : 'Comments' }}</div>
 		</preview-header-subtitle-app>
 
 
@@ -119,9 +119,9 @@
 	</preview-header-app>
 
 	<!-- Tabs -->
-	<preview-tab-app #tab1 (click)="previewSrv.onSelectedTab(1)">Product Info</preview-tab-app>
-	<preview-tab-app #tab2 (click)="previewSrv.onSelectedTab(2)">Activity</preview-tab-app>
-	<preview-tab-app #tab3 (click)="previewSrv.onSelectedTab(3)">Comments</preview-tab-app>
+	<preview-tab-app #tab1 (click)="selectFirstTab()">Product Info</preview-tab-app>
+	<preview-tab-app #tab2 (click)="selectSecondTab()">Activity</preview-tab-app>
+	<preview-tab-app #tab3 (click)="selectThirdTab()">Comments</preview-tab-app>
 
 	<!-- Description -->
 	<preview-section-app #contentTab1 [title]="'title.description' | translate">
@@ -321,56 +321,41 @@
 
 	</preview-header-app>
 
-	<!-- buttons -->
-	<preview-section-app>
-
-		<divider-app></divider-app>
-
-		<preview-actions-app
-			class="pd-v-ms"
-			[actions]="actions"
-			(clickOnAction)="clickOnAction($event)">
-		</preview-actions-app>
-
-		<divider-app></divider-app>
-
+	<!-- Description -->
+	<preview-section-app #contentTab1 [title]="'title.description' | translate">
+		<input-description-app
+			[description]="product?.description"
+			(update)="update($event, 'description')">
+		</input-description-app>
 	</preview-section-app>
 
-		<!-- Description -->
-		<preview-section-app #contentTab1 [title]="'title.description' | translate">
-			<input-description-app
-				[description]="product?.description"
-				(update)="update($event, 'description')">
-			</input-description-app>
-		</preview-section-app>
+	<!-- Tags -->
+	<preview-section-app #contentTab1 [title]="'title.tags' | translate">
+		<input-badge-selector-app
+			[value]="product?.tags"
+			type="tag"
+			(change)="update($event, 'tags')">
+		</input-badge-selector-app>
+	</preview-section-app>
 
-		<!-- Tags -->
-		<preview-section-app #contentTab1 [title]="'title.tags' | translate">
-			<input-badge-selector-app
-				[value]="product?.tags"
-				type="tag"
-				(change)="update($event, 'tags')">
-			</input-badge-selector-app>
-		</preview-section-app>
+	<!-- Projects -->
+	<preview-section-app #contentTab1 [title]="'title.projects' | translate">
+		<input-badge-selector-app
+			[value]="product?.projects"
+			type="project"
+			(change)="update($event, 'projects')">
+		</input-badge-selector-app>
+	</preview-section-app>
 
-		<!-- Projects -->
-		<preview-section-app #contentTab1 [title]="'title.projects' | translate">
-			<input-badge-selector-app
-				[value]="product?.projects"
-				type="project"
-				(change)="update($event, 'projects')">
-			</input-badge-selector-app>
-		</preview-section-app>
-
-		<!-- Rating -->
-		<preview-section-app #contentTab2 [title]="'team rating'">
-			<rating-dashboard-app
-				[votes]="product?.votes"
-				[type]="erm.PRODUCT.singular"
-				(update)="update($event, 'votes')"
-				(viewRatings)="dialogCommonSrv.openVoteDetailsDialog($event)">
-			</rating-dashboard-app>
-		</preview-section-app>
+	<!-- Rating -->
+	<preview-section-app #contentTab2 [title]="'team rating'">
+		<rating-dashboard-app
+			[votes]="product?.votes"
+			[type]="erm.PRODUCT.singular"
+			(update)="update($event, 'votes')"
+			(viewRatings)="dialogCommonSrv.openVoteDetailsDialog($event)">
+		</rating-dashboard-app>
+	</preview-section-app>
 
 </preview-static-app>
 
