@@ -20,10 +20,11 @@ export class ProductsGridComponent extends EntityTableComponent<Product> impleme
 	@Output() update = new EventEmitter<Product>();
 	@Output() liked = new EventEmitter<Product>();
 	@Output() disliked = new EventEmitter<Product>();
-	constructor(private templateSrv: TemplateService, private listSrv: ListPageService<Product, ProductService>) { super(); }
+	constructor() {
+			super();
+		}
 
 	ngOnInit() {
-		this._subscription = this.templateSrv.bottomReached$.subscribe(_ => this.listSrv.loadMore());
 	}
 
 	getGroupedProducts(sort: Sort) {

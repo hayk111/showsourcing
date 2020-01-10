@@ -2,7 +2,11 @@
 <!-- BTN PANEL -->
 <ng-container *ngIf="view === 'BTNS' && sidePanel">
 	<div class="flexBetween flexVAlign mg-bottom-ms">
-		<h3>Filters</h3>
+		<h3 class="flexVAlign">
+			<icon-app name="filter" class="fs-s mg-right-ms color-txt-secondary"></icon-app>
+			Filters
+		</h3>
+
 		<button class="icon" (click)="close.emit()">
 			<icon-app name="close" class="fs-s"></icon-app>
 		</button>

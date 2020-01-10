@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { switchMap, map } from 'rxjs/operators';
+import { switchMap, map, takeUntil, filter, tap } from 'rxjs/operators';
 import { SupplierRequestDialogComponent } from '~common/dialogs/custom-dialogs/supplier-request-dialog/supplier-request-dialog.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { ProductsTableComponent } from '~common/tables/products-table/products-table.component';
@@ -13,6 +13,7 @@ import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
 import { KanbanSelectionService } from '~shared/kanban/services/kanban-selection.service';
 import { KanbanService } from '~shared/kanban/services/kanban.service';
+import { TemplateService } from '~core/template/services/template.service';
 
 // dailah lama goes into pizza store
 // servant asks : what pizza do you want sir ?
@@ -59,7 +60,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		public elem: ElementRef,
 		private userSrv: UserService,
 		protected dlgSrv: DialogService,
-		protected kanbanSelectionSrv: KanbanSelectionService
+		protected kanbanSelectionSrv: KanbanSelectionService,
 	) {
 		super();
 	}
