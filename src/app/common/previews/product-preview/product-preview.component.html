@@ -5,15 +5,15 @@
 		<!-- top bar -->
 		<preview-top-bar-app
 			(closed)="close.emit()"
-			(opened)="openProduct()">
+			(opened)="redirect()">
 			<logo-app
 				class="mg-right-s"
 				size="l"
 				[logo]="product?.images[0] || null"
 				[type]="erm.PRODUCT.singular">
 			</logo-app>
-			<div class="flexColumn">
-				<span class="color-txt-primary semi-bold fs-l">{{ product?.name }}</span>
+			<div class="flexColumn ellipsis">
+				<span class="color-txt-primary semi-bold fs-l ellipsis">{{ product?.name }}</span>
 				<div class="flexVAlign dot-separator-txt-secondary">
 					<div class="flexVAlign">
 						<logo-app
@@ -33,7 +33,6 @@
 			[entity]="product"
 			[entityMD]="erm.PRODUCT"
 			[images]="product?.images"
-			[hasPreview]="!isPreview"
 			objectFit="contain">
 		</preview-carousel-app>
 	</preview-banner-app>
@@ -46,10 +45,10 @@
 		(statusUpdated)="statusUpdated.emit($event)">
 
 		<preview-header-buttons-app>
-			<button class="icon" (click)="openNewSample()" toolTip [toolTipMessage]="'tooltip.create-sample' | translate">
+			<button class="icon" (click)="openCreateSample()" toolTip [toolTipMessage]="'tooltip.create-sample' | translate">
 				<icon-app class="color-txt-secondary" name="sample"></icon-app>
 			</button>
-			<button class="icon" (click)="openNewTask()" toolTip [toolTipMessage]="'tooltip.create-task' | translate">
+			<button class="icon" (click)="openCreateTask()" toolTip [toolTipMessage]="'tooltip.create-task' | translate">
 				<icon-app class="color-txt-secondary" name="check-circle"></icon-app>
 			</button>
 			<button class="icon" (click)="selectThirdTab()" toolTip [toolTipMessage]="'tooltip.create-comment' | translate">
@@ -195,24 +194,24 @@
 	<!-- Tasks -->
 	<preview-section-app #contentTab2 class="action-hover-container-0" [title]="'title.tasks' | translate">
 		<preview-section-action-app>
-			<div class="mg-left-ms action-hover-item-0 color-primary txt-btn" (click)="null" translate="button.add"></div>
+			<div class="mg-left-ms action-hover-item-0 color-primary txt-btn" (click)="openCreateTask()" translate="button.add"></div>
 		</preview-section-action-app>
 		<task-catalog-app
 			[tasks]="product?.tasksLinked?.items"
-			(taskClicked)="null"
-			(showMore)="null">
+			(taskClicked)="redirect('tasks')"
+			(showMore)="redirect('tasks')">
 		</task-catalog-app>
 	</preview-section-app>
 
 	<!-- Samples -->
 	<preview-section-app #contentTab2 class="action-hover-container-0" [title]="'title.samples' | translate">
 		<preview-section-action-app>
-			<div class="mg-left-ms action-hover-item-0 color-primary txt-btn" (click)="null" translate="button.add"></div>
+			<div class="mg-left-ms action-hover-item-0 color-primary txt-btn" (click)="openCreateSample()" translate="button.add"></div>
 		</preview-section-action-app>
 		<sample-catalog-app
 			[samples]="product?.samplesLinked?.items"
-			(sampleClicked)="null"
-			(showMore)="null">
+			(sampleClicked)="redirect('samples')"
+			(showMore)="redirect('samples')">
 		</sample-catalog-app>
 	</preview-section-app>
 

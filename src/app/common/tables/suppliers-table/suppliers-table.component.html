@@ -77,15 +77,16 @@
 
 			<!-- categories -->
 			<ng-container *ngSwitchCase="'categories'">
-					<selector-app
-						[type]="'CATEGORY' | erm: 'singular'"
-						[offsetX]="4"
-						[value]="row?.categories"
-						[multiple]="true"
-						[canCreate]="true"
-						[width]="320"
-						(update)="update.emit({ id: row?.id, categories: $event })">
-					<div class="txt-btn">
+				<selector-app
+					class="ellipsis"
+					[type]="'CATEGORY' | erm: 'singular'"
+					[offsetX]="4"
+					[value]="row?.categories"
+					[multiple]="true"
+					[canCreate]="true"
+					[width]="320"
+					(update)="update.emit({ id: row?.id, categories: $event })">
+					<div class="txt-btn ellipsis">
 						<span *ngFor="let cat of row.categories; let last = last; trackBy: trackByFn">
 							{{ cat?.name }}{{ last ? '' : ',&nbsp;'}}
 						</span>
