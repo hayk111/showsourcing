@@ -1,7 +1,7 @@
 <dialog-app class="vertical-scroll-content">
 
 	<dialog-header-app>
-		{{ ((items?.length || 0) > 1 ? 'OBJ.mass-edit.plural' : 'OBJ.mass-edit.singular') | translate: {count: items?.length || 0} }}
+		{{ ((items?.length || 0) > 1 ? 'OBJ.mass-edit.plural' : 'OBJ.mass-edit.singular') | translate: { count: items?.length || 0 } }}
 	</dialog-header-app>
 
 	<div class="container">
@@ -9,6 +9,7 @@
 		<selector-app
 			[type]="'PICKER_FIELD' | erm"
 			[width]="500"
+			[offsetY]="-15"
 			[dynamicFields]="dynamicFields"
 			(update)="updateChoice($event)">
 			<selector-placeholder-app

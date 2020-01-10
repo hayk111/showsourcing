@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
+import { GetStreamNotification } from '~common/activity/interfaces/get-stream-feed.interfaces';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { DEFAULT_REPLIED_STATUS, Team, User } from '~core/models';
 import { SupplierRequestService, TeamService, UserService } from '~entity-services';
-import { sideNavItems } from './side-nav-items.const';
-import { GetStreamNotification } from '~common/activity/interfaces/get-stream-feed.interfaces';
 import { NotificationActivityService } from '~shared/notif/services/notification-activity.service';
-import { TranslateService } from '@ngx-translate/core';
+
+import { sideNavItems } from './side-nav-items.const';
 
 @Component({
 	selector: 'sidebar-app',

@@ -6,7 +6,7 @@ import { AnalyticsService } from '~core/analytics/analytics.service';
 import { ApolloStateService } from '~core/apollo';
 import { Product, ProductStatus, Project } from '~core/models';
 import { ProductService, ProductStatusService, ProjectService, UserService } from '~entity-services';
-import { NotificationService, NotificationType } from '~shared/notifications';
+import { ToastService, ToastType } from '~shared/toast';
 
 @Injectable({ providedIn: 'root' })
 export class ProjectFeatureService extends ProjectService {
@@ -16,7 +16,7 @@ export class ProjectFeatureService extends ProjectService {
 		protected productSrv: ProductService,
 		protected productStatusSrv: ProductStatusService,
 		protected userSrv: UserService,
-		protected notificationSrv: NotificationService,
+		protected notificationSrv: ToastService,
 		protected dialogCommonSrv: DialogCommonService
 	) {
 		super(analyticsSrv, apolloState, userSrv);
@@ -72,7 +72,7 @@ export class ProjectFeatureService extends ProjectService {
 		const obs = (requests.length > 0) ? forkJoin(requests) : of();
 		return obs.pipe(
 			tap(_ => this.notificationSrv.add({
-				type: NotificationType.SUCCESS,
+				type: ToastType.SUCCESS,
 				title: 'Products Updated',
 				message: 'The products were updated in the project with success',
 				timeout: 3500

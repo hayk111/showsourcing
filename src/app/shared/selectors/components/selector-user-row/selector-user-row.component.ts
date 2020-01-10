@@ -18,4 +18,8 @@ export class SelectorUserRowComponent extends AbstractSelectorHighlightableCompo
 		return this.user;
 	}
 
+	getItem() {
+		return this.user;
+	}
+
 }

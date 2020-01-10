@@ -10,7 +10,7 @@ import { Contact, CreateRequest, Product, RequestTemplate, Supplier } from '~cor
 import { ProductService } from '~entity-services';
 import { DialogService } from '~shared/dialog';
 import { FilterList, FilterType } from '~shared/filters';
-import { NotificationService, NotificationType } from '~shared/notifications';
+import { ToastService, ToastType } from '~shared/toast';
 import { AutoUnsub, ID } from '~utils';
 
 import { ReplySentDlgComponent } from '../reply-sent-dlg/reply-sent-dlg.component';
@@ -59,7 +59,7 @@ export class SupplierRequestDialogComponent extends AutoUnsub implements OnInit,
 		private dlgSrv: DialogService,
 		private requestSrv: CreateRequestService,
 		private contactSrv: ContactService,
-		private notifSrv: NotificationService,
+		private toastSrv: ToastService,
 		private userSrv: UserService,
 		private requestTemplateSrv: RequestTemplateService,
 		private productSrv: ProductService,
@@ -263,9 +263,9 @@ export class SupplierRequestDialogComponent extends AutoUnsub implements OnInit,
 				this.dlgSrv.open(ReplySentDlgComponent, { actionName: this.translate.instant('ERM.SUPPLIER_REQUEST.singular') });
 			}, err => {
 				this.dlgSrv.close();
-				this.notifSrv.add({
+				this.toastSrv.add({
 					title: 'Service error when creating request',
-					type: NotificationType.ERROR,
+					type: ToastType.ERROR,
 					message: 'We could not create the request due to a server issue'
 				});
 			});

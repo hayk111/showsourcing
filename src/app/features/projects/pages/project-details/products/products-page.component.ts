@@ -15,7 +15,7 @@ import { ProjectFeatureService } from '~features/projects/services';
 import { EntityTypeEnum, ERM, Product, Project } from '~models';
 import { DialogService } from '~shared/dialog/services';
 import { FilterType } from '~shared/filters';
-import { NotificationService, NotificationType } from '~shared/notifications';
+import { ToastService, ToastType } from '~shared/toast';
 import { AutoUnsub } from '~utils';
 import { ProductsTableComponent } from '~common/tables/products-table/products-table.component';
 
@@ -67,7 +67,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		private productSrv: ProductService,
 		public listSrv: ListPageService<Product, ProductService>,
 		public dialogCommonSrv: DialogCommonService,
-		private notifSrv: NotificationService,
+		private toastSrv: ToastService,
 		private translate: TranslateService,
 	) {
 		super();
@@ -134,8 +134,8 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 			this.productFeatureSrv.updateMany(product.map((p: Product) => ({ id: p.id, archived: true })))
 				.pipe(switchMap(_ => this.listSrv.refetch()))
 				.subscribe(_ => {
-					this.notifSrv.add({
-						type: NotificationType.SUCCESS,
+					this.toastSrv.add({
+						type: ToastType.SUCCESS,
 						title: this.translate.instant('title.products-archived'),
 						message: this.translate.instant('message.products-archived-successfully')
 					});
@@ -145,8 +145,8 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 			this.productFeatureSrv.update({ id, archived: true })
 				.pipe(switchMap(_ => this.listSrv.refetch()))
 				.subscribe(_ => {
-					this.notifSrv.add({
-						type: NotificationType.SUCCESS,
+					this.toastSrv.add({
+						type: ToastType.SUCCESS,
 						title: this.translate.instant('title.product-archived'),
 						message: this.translate.instant('message.product-archived-successfully')
 					});

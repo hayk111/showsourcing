@@ -30,7 +30,6 @@
 <request-selection-bar-app
 	[isShown]="(listSrv.selection$ | async).size > 0"
 	[selection]="listSrv.selection$ | async"
-	[count]="listSrv.count$ | async"
 	(close)="listSrv.unselectAll()"
 	(cancelSelectedRequests)="cancelSelectedRequests()">
 </request-selection-bar-app>
