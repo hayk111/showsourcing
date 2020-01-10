@@ -1138,6 +1138,7 @@
   },
   "title": {
     "about": "about",
+    "about-product": "about this product",
     "action": "action",
     "activities": "activities",
     "activity": "activity",
@@ -1205,8 +1206,10 @@
     "product-count": "product count",
     "product-created": "Product created",
     "product-details": "product details",
+    "product-info": "product info",
     "product-not-created": "Product not created",
     "product-not-exist": "The product doesn't exist",
+    "product-owner": "product owner",
     "product-type": "product type",
     "products-archived": "Products archived",
     "profile": "Profile",
@@ -1236,7 +1239,8 @@
     "supplier-not-exist": "The supplier doesn't exist",
 		"tags": "tags",
 		"tasks": "tasks",
-    "team-members": "Team members",
+    "team-members": "team members",
+    "team-rating": "team rating",
     "title": "title",
     "trading-information": "trading information",
     "type": "type",
@@ -1245,15 +1249,20 @@
     "your-message": "Your Message"
 	},
 	"tooltip": {
-		"board-view": "board view",
-		"card-view": "card view",
-		"export": "export",
-		"sort": "sort",
-		"table-view": "table view",
-		"show-only-assigned-to-me": "show only the ones assigned to me",
 		"also-show-archived": "also show archived",
 		"also-show-completed": "also show completed",
-		"only-created-by-me": "only show created by me"
-
+		"board-view": "board view",
+		"card-view": "card view",
+		"close": "close",
+		"contact-supplier": "contact supplier",
+		"create-sample": "create sample",
+		"create-task": "create task",
+		"create-comment": "create comment",
+		"export": "export",
+		"only-created-by-me": "only show created by me",
+		"open": "open",
+		"show-only-assigned-to-me": "show only the ones assigned to me",
+		"sort": "sort",
+		"table-view": "table view"
 	}
 }

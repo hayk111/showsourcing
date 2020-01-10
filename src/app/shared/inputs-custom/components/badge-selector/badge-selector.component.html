@@ -15,8 +15,8 @@
 					[canCreate]="true"
 					[width]="370"
 					(update)="update.emit($event)">
-					<div class="flex">
-						<logo-app *ngIf="hasLogo" class="pointer" type="product" size="s"></logo-app>
+					<div class="flexVAlign">
+						<logo-app *ngIf="hasLogo" class="pointer" type="product" size="xs"></logo-app>
 						<span *ngIf="value; else empty" class="ellipsis flexVAlign">{{ value }}</span>
 						<ng-template #empty>
 							<span class="ellipsis flexVAlign" translate="text.set-product"></span>
@@ -42,8 +42,8 @@
 					[canCreate]="true"
 					[width]="370"
 					(update)="update.emit($event)">
-					<div class="flex">
-						<logo-app *ngIf="hasLogo" class="pointer" type="supplier" size="s"></logo-app>
+					<div class="flexVAlign">
+						<logo-app *ngIf="hasLogo" class="pointer" type="supplier" size="xs"></logo-app>
 						<span *ngIf="value; else empty" class="ellipsis flexVAlign">{{ value }}</span>
 						<ng-template #empty>
 							<span class="ellipsis flexVAlign" translate="text.set-supplier"></span>
@@ -69,8 +69,8 @@
 					[canCreate]="true"
 					[width]="370"
 					(update)="update.emit($event)">
-					<div class="flex">
-						<logo-app *ngIf="hasLogo" class="pointer" type="supplier" size="s"></logo-app>
+					<div class="flexVAlign">
+						<logo-app *ngIf="hasLogo" class="pointer" type="supplier" size="xs"></logo-app>
 						<span *ngIf="value; else empty" class="ellipsis flexVAlign">{{ value }}</span>
 						<ng-template #empty>
 							<span class="ellipsis flexVAlign" translate="text.set-supplier-type"></span>
@@ -88,8 +88,8 @@
 					[offsetX]="getDynamicOffsetX()"
 					[width]="370"
 					(update)="update.emit($event)">
-					<div class="flex">
-						<logo-app *ngIf="hasLogo" class="pointer" type="location" size="s"></logo-app>
+					<div class="flexVAlign">
+						<logo-app *ngIf="hasLogo" class="pointer" type="location" size="xs"></logo-app>
 						<span *ngIf="value; else empty" class="ellipsis flexVAlign">{{ value }}</span>
 						<ng-template #empty>
 							<span class="ellipsis flexVAlign" translate="text.set-location"></span>
@@ -110,8 +110,8 @@
 					[offsetX]="getDynamicOffsetX()"
 					[width]="370"
 					(update)="update.emit($event)">
-					<div class="flex">
-						<logo-app *ngIf="hasLogo" class="pointer" type="category" size="s"></logo-app>
+					<div class="flexVAlign">
+						<logo-app *ngIf="hasLogo" class="pointer" type="category" size="xs"></logo-app>
 						<div *ngIf="value?.length; else noArray"  class="category-wrap flex flexWrap">
 							<div class="ellipsis category-info dot-separator">
 								<span *ngFor="let category of value; trackBy: trackByFn" class="ellipsis"> {{ category?.name }}  </span>
@@ -141,8 +141,8 @@
 					[canCreate]="true"
 					[width]="370"
 					(update)="update.emit($event)">
-					<div class="flex">
-						<logo-app *ngIf="hasLogo" class="pointer" type="event" size="s"></logo-app>
+					<div class="flexVAlign">
+						<logo-app *ngIf="hasLogo" class="pointer" type="event" size="xs"></logo-app>
 						<span *ngIf="(value?.name || value?.description?.name); else empty" class="ellipsis flexVAlign">
 							{{ value?.name || value?.description?.name }}
 						</span>

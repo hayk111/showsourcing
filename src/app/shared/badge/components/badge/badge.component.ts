@@ -9,6 +9,7 @@ import { Colors } from '~utils';
 		'[class.small]': 'size === "s"',
 		'[class.medium-small]': 'size === "ms"',
 		'[class.medium]': 'size === "m"',
+		'[class.large]': 'size === "l"',
 		/** @deprecated */
 		'[class.primary]': 'color === "primary"',
 		'[class.secondary]': 'color === "secondary"',
@@ -24,7 +25,7 @@ import { Colors } from '~utils';
 })
 export class BadgeComponent {
 	@Input() color = 'secondary';
-	@Input() size: 's' | 'ms' | 'm' = 's';
+	@Input() size: 's' | 'ms' | 'm' | 'l' = 's';
 
 	/** @deprecated use color */
 	@Input() set type(color: Colors) {

@@ -54,6 +54,7 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	@Input() entity: any; // entity to which we can link images after an upload
 	@Input() objectFit: 'fill' | 'contain' | 'cover' | 'none' = 'contain';
 	@Input() showConfirmOnDelete = true;
+	@Input() hasZoomEffect = true;
 
 	@Output() uploaded = new EventEmitter<AppImage[]>();
 	@Output() deleted = new EventEmitter<AppImage>();
@@ -194,7 +195,7 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	}
 
 	zoomin(event: MouseEvent) {
-		if (!this.imgElem)
+		if (!this.imgElem || !this.hasZoomEffect)
 			return;
 
 		const elem = this.imgElem.nativeElement;
@@ -209,7 +210,7 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	}
 
 	zoomout() {
-		if (!this.imgElem)
+		if (!this.imgElem || !this.hasZoomEffect)
 			return;
 
 		const elem = this.imgElem.nativeElement;

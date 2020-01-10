@@ -9,22 +9,15 @@ import { EntityMetadata, ERM, AppImage, Supplier } from '~models';
 })
 export class PreviewHeaderComponent implements OnInit {
 
-	/** array of names for icons that are going to be displayed */
-	@Input() badges: EntityMetadata[];
 	/** entity metadata for the header */
 	@Input() entityMD: EntityMetadata;
 	/** entity for the workflow action */
 	@Input() entity: any;
-	/** logo Image */
-	@Input() logoImage: AppImage;
-	/** if it displays the entity name and status bar */
-	@Input() displayEntityInfo = true;
-	@Input() supplier: Supplier;
-	@Input() hasLogo = false;
+	/** property that we will read from the entity for the title */
+	@Input() titleProp = 'name';
 	/** emits the value that has changed */
 	@Output() update = new EventEmitter<any>();
 	@Output() statusUpdated = new EventEmitter<any>();
-	@Output() updateLogo = new EventEmitter<AppImage>();
 
 	erm = ERM;
 

@@ -6,32 +6,26 @@
 		<preview-top-bar-app
 			(closed)="close.emit()"
 			(opened)="openProduct()">
-			<div class="fs-l semi-bold ellipsis">
-				<span class="color-primary mg-right-xs">{{ product?.reference }}</span>
-				<span class="color-txt-primary">{{ product?.name }}</span>
+			<logo-app
+				class="mg-right-s"
+				size="l"
+				[logo]="product?.images[0] || null"
+				[type]="erm.PRODUCT.singular">
+			</logo-app>
+			<div class="flexColumn">
+				<span class="color-txt-primary semi-bold fs-l">{{ product?.name }}</span>
+				<div class="flexVAlign dot-separator-txt-secondary">
+					<div class="flexVAlign">
+						<logo-app
+							class="mg-right-xs"
+							size="xs"
+							[type]="erm.PRODUCT.singular">
+						</logo-app>
+						<span class="color-txt-secondary">{{ product?.reference }}</span>
+					</div>
+					<price-app [price]="product?.price"></price-app>
+				</div>
 			</div>
-			<div class="info dot-separator ellipsis flex">
-				<price-app [price]="product?.price"></price-app>
-				<span *ngIf="product?.category" class="ellipsis category">{{ product?.category?.name }}</span>
-				<rating-number-badge-app *ngIf="product?.votes?.length" class="rating-badge" [votes]="product?.votes" [background]="false"></rating-number-badge-app>
-			</div>
-
-			<!-- items 3 dots -->
-			<context-menu-item-app
-				(click)="update(true, 'favorite')"
-				translate="button.set-as-favourite">
-			</context-menu-item-app>
-
-			<divider-app></divider-app>
-
-			<context-menu-item-app
-				(click)="archive()"
-				translate="button.archive">
-			</context-menu-item-app>
-			<context-menu-item-warn-app
-				(click)="delete(product)"
-				translate="button.delete">
-			</context-menu-item-warn-app>
 		</preview-top-bar-app>
 
 		<!-- carousel -->
@@ -40,7 +34,7 @@
 			[entityMD]="erm.PRODUCT"
 			[images]="product?.images"
 			[hasPreview]="!isPreview"
-			objectFit="cover">
+			objectFit="contain">
 		</preview-carousel-app>
 	</preview-banner-app>
 
@@ -51,10 +45,49 @@
 		(update)="update($event, 'name')"
 		(statusUpdated)="statusUpdated.emit($event)">
 
+		<preview-header-buttons-app>
+			<button class="icon" (click)="openNewSample()" toolTip [toolTipMessage]="'tooltip.create-sample' | translate">
+				<icon-app class="color-txt-secondary" name="sample"></icon-app>
+			</button>
+			<button class="icon" (click)="openNewTask()" toolTip [toolTipMessage]="'tooltip.create-task' | translate">
+				<icon-app class="color-txt-secondary" name="check-circle"></icon-app>
+			</button>
+			<button class="icon" (click)="selectThirdTab()" toolTip [toolTipMessage]="'tooltip.create-comment' | translate">
+				<icon-app class="color-txt-secondary" name="comments"></icon-app>
+			</button>
+			<button class="icon" (click)="dialogCommonSrv.openSupplierRequest([product])" toolTip [toolTipMessage]="'tooltip.contact-supplier' | translate">
+				<icon-app class="color-vibrant" name="envelope"></icon-app>
+			</button>
+		</preview-header-buttons-app>
+
+		<!-- items 3 dots -->
+		<context-menu-item-app
+			(click)="update(true, 'favorite')"
+			translate="button.set-as-favourite">
+		</context-menu-item-app>
+
+		<divider-app></divider-app>
+
+		<context-menu-item-app
+			(click)="archive()"
+			translate="button.archive">
+		</context-menu-item-app>
+		<context-menu-item-warn-app
+			(click)="delete(product)"
+			translate="button.delete">
+		</context-menu-item-warn-app>
+
+		<preview-header-subtitle-app>
+			<rating-badge-app class="pointer"	[votes]="product?.votes" [hasNumber]="true" (click)="selectSecondTab('rating')"></rating-badge-app>
+			<div class="txt-btn" (click)="selectSecondTab('sample')">{{ product?.samplesLinked.count || 0 }} {{ product?.samplesLinked?.count === 1 ? 'Sample' : 'Samples' }}</div>
+			<div class="txt-btn" (click)="selectSecondTab('task')">{{ product?.tasksLinked.count || 0 }} {{ product?.samplesLinked?.count === 1 ? 'Task' : 'Tasks' }}</div>
+			<div class="txt-btn" (click)="selectThirdTab()">{{ product?.comments?.length || 0  }} {{ product?.comments?.length === 1 ? 'Comment' : 'Comments' }}</div>
+		</preview-header-subtitle-app>
+
+
 		<!-- Price -->
 		<price-with-quantity-app
 			*ngIf="product?.price?.value"
-			class="custom-padding pd-top-xs"
 			[product]="product"
 			(updateField)="update($event.newValue,  $event.field)">
 		</price-with-quantity-app>
@@ -83,27 +116,12 @@
 			(update)="update($event, 'event')">
 		</badge-selector-app>
 
-		<preview-section-app class="mg-none">
-
-			<!-- blame designer for inconsistency in the design -->
-			<divider-app class="mg-top-ms"></divider-app>
-
-			<preview-actions-app
-				class="pd-v-ms"
-				[actions]="actions"
-				(clickOnAction)="clickOnAction($event)">
-			</preview-actions-app>
-
-			<divider-app></divider-app>
-
-		</preview-section-app>
-
 	</preview-header-app>
 
 	<!-- Tabs -->
-	<preview-tab-app #tab1 (click)="previewSrv.onSelectedTab(1)">Product Info</preview-tab-app>
-	<preview-tab-app #tab2 (click)="previewSrv.onSelectedTab(2)">Activity</preview-tab-app>
-	<preview-tab-app #tab3 (click)="previewSrv.onSelectedTab(3)">Comments</preview-tab-app>
+	<preview-tab-app #tab1 (click)="selectFirstTab()"><span translate="title.product-info"></span></preview-tab-app>
+	<preview-tab-app #tab2 (click)="selectSecondTab()"><span translate="title.activity"></span></preview-tab-app>
+	<preview-tab-app #tab3 (click)="selectThirdTab()"><span translate="title.comments"></span></preview-tab-app>
 
 	<!-- Description -->
 	<preview-section-app #contentTab1 [title]="'title.description' | translate">
@@ -123,7 +141,7 @@
 	</preview-section-app>
 
 	<!-- Product details -->
-	<preview-section-app #contentTab1 [title]="'title.product-details'">
+	<preview-section-app #contentTab1 [title]="'title.product-details' | translate">
 		<dynamic-form-app
 			[fields]="productDescriptor1?.descriptor"
 			[value]="product"
@@ -152,8 +170,54 @@
 	</preview-section-app>
 
 	<!-- Activity -->
+	<!-- Owner -->
+	<preview-section-app #contentTab2 [title]="'title.product-owner' | translate">
+		<editable-container-app
+			[hasAction]="false"
+			[openOnClick]="false"
+			(click)="sel?.selector?.openMenu()">
+			<editable-display-app>
+				<selector-app
+					#sel
+					[type]="'USER' | erm: 'singular'"
+					[width]="320"
+					[offsetX]="4"
+					(update)="updateProduct({ assignee: $event })">
+					<div *ngIf="product?.assignee; else none" class="flex">
+						<user-picture-app	class="mg-right-ms" [user]="product?.assignee" size="24" fontSize="12" [hasName]="true"></user-picture-app>
+					</div>
+					<ng-template #none>None</ng-template>
+				</selector-app>
+				</editable-display-app>
+		</editable-container-app>
+	</preview-section-app>
+
+	<!-- Tasks -->
+	<preview-section-app #contentTab2 class="action-hover-container-0" [title]="'title.tasks' | translate">
+		<preview-section-action-app>
+			<div class="mg-left-ms action-hover-item-0 color-primary txt-btn" (click)="null" translate="button.add"></div>
+		</preview-section-action-app>
+		<task-catalog-app
+			[tasks]="product?.tasksLinked?.items"
+			(taskClicked)="null"
+			(showMore)="null">
+		</task-catalog-app>
+	</preview-section-app>
+
+	<!-- Samples -->
+	<preview-section-app #contentTab2 class="action-hover-container-0" [title]="'title.samples' | translate">
+		<preview-section-action-app>
+			<div class="mg-left-ms action-hover-item-0 color-primary txt-btn" (click)="null" translate="button.add"></div>
+		</preview-section-action-app>
+		<sample-catalog-app
+			[samples]="product?.samplesLinked?.items"
+			(sampleClicked)="null"
+			(showMore)="null">
+		</sample-catalog-app>
+	</preview-section-app>
+
 	<!-- Rating -->
-	<preview-section-app #contentTab2 [title]="'team rating'">
+	<preview-section-app #contentTab2 [title]="'title.team-rating' | translate">
 		<rating-dashboard-app
 			[votes]="product?.votes"
 			[type]="erm.PRODUCT.singular"
@@ -162,42 +226,36 @@
 		</rating-dashboard-app>
 	</preview-section-app>
 
-	<!-- Tasks -->
-	<preview-section-app #contentTab2 *ngIf="(tasks$ | async)?.length" [title]="'Tasks'">
-		<task-table-app
-			class="no-padding"
-			[rows]="tasks$ | async"
-			[hasMinHeight]="false"
-			[pending]="false"
-			tableConfigType="small"
-			[columns]="['done', 'name', 'dueDate']"
-			[hasMenu]="false"
-			[hasHeader]="false"
-			[hasSelection]="false"
-			[hasPagination]="false"
-			(update)="updateTask($event)">
-		</task-table-app>
+	<!-- Projects -->
+	<preview-section-app #contentTab2 class="action-hover-container-0" [title]="'title.projects' | translate">
+		<preview-section-action-app>
+			<selector-app
+				class="selector"
+				type="project"
+				[value]="product?.projects"
+				[canCreate]="true"
+				[multiple]="true"
+				[width]="330"
+				(update)="updateProduct($event)">
+				<span class="mg-left-ms fs-m action-hover-item-0 color-primary txt-btn" translate="button.add"></span>
+			</selector-app>
+		</preview-section-action-app>
+		<project-catalog-app
+			[projects]="product?.projects"
+			(openProject)="null"
+			(deleteProject)="null">
+		</project-catalog-app >
 	</preview-section-app>
 
-	<!-- Samples -->
-	<preview-section-app #contentTab2 *ngIf="(samples$ | async)?.length" [title]="'Samples'">
-		<samples-table-app
-			class="no-padding"
-			[rows]="samples$ | async"
-			[hasMinHeight]="false"
-			[columns]="['name', 'status']"
-			tableConfigType="small"
-			[pending]="false"
-			[hasMenu]="false"
-			[hasHeader]="false"
-			[hasSelection]="false"
-			[hasPagination]="false"
-			(update)="updateSample($event)">
-		</samples-table-app>
+	<!-- About -->
+	<preview-section-app #contentTab2 [title]="'title.about-product' | translate">
+		<small>Created by {{ product.createdBy | formatUserName }} on  {{ product.creationDate | date: 'dd MMMM yyyy' }}</small> <br>
+		<small>Last updated by {{ product.lastUpdatedBy | formatUserName }} on {{ product.lastUpdatedDate | date: 'dd MMMM yyyy' }}</small><br>
+		<small *ngIf="product?.event">Found at {{ product?.event?.description?.name }}</small>
 	</preview-section-app>
 
 	<!-- Comment -->
-	<preview-section-app  #contentTab3 *ngIf="product?.comments?.length" [title]="'title.comments' | translate">
+	<preview-section-app  #contentTab3 *ngIf="product?.comments?.length">
 		<comment-list-app [comments]="product?.comments"></comment-list-app>
 	</preview-section-app>
 
@@ -263,56 +321,41 @@
 
 	</preview-header-app>
 
-	<!-- buttons -->
-	<preview-section-app>
-
-		<divider-app></divider-app>
-
-		<preview-actions-app
-			class="pd-v-ms"
-			[actions]="actions"
-			(clickOnAction)="clickOnAction($event)">
-		</preview-actions-app>
-
-		<divider-app></divider-app>
-
+	<!-- Description -->
+	<preview-section-app #contentTab1 [title]="'title.description' | translate">
+		<input-description-app
+			[description]="product?.description"
+			(update)="update($event, 'description')">
+		</input-description-app>
 	</preview-section-app>
 
-		<!-- Description -->
-		<preview-section-app #contentTab1 [title]="'title.description' | translate">
-			<input-description-app
-				[description]="product?.description"
-				(update)="update($event, 'description')">
-			</input-description-app>
-		</preview-section-app>
+	<!-- Tags -->
+	<preview-section-app #contentTab1 [title]="'title.tags' | translate">
+		<input-badge-selector-app
+			[value]="product?.tags"
+			type="tag"
+			(change)="update($event, 'tags')">
+		</input-badge-selector-app>
+	</preview-section-app>
 
-		<!-- Tags -->
-		<preview-section-app #contentTab1 [title]="'title.tags' | translate">
-			<input-badge-selector-app
-				[value]="product?.tags"
-				type="tag"
-				(change)="update($event, 'tags')">
-			</input-badge-selector-app>
-		</preview-section-app>
+	<!-- Projects -->
+	<preview-section-app #contentTab1 [title]="'title.projects' | translate">
+		<input-badge-selector-app
+			[value]="product?.projects"
+			type="project"
+			(change)="update($event, 'projects')">
+		</input-badge-selector-app>
+	</preview-section-app>
 
-		<!-- Projects -->
-		<preview-section-app #contentTab1 [title]="'title.projects' | translate">
-			<input-badge-selector-app
-				[value]="product?.projects"
-				type="project"
-				(change)="update($event, 'projects')">
-			</input-badge-selector-app>
-		</preview-section-app>
-
-		<!-- Rating -->
-		<preview-section-app #contentTab2 [title]="'team rating'">
-			<rating-dashboard-app
-				[votes]="product?.votes"
-				[type]="erm.PRODUCT.singular"
-				(update)="update($event, 'votes')"
-				(viewRatings)="dialogCommonSrv.openVoteDetailsDialog($event)">
-			</rating-dashboard-app>
-		</preview-section-app>
+	<!-- Rating -->
+	<preview-section-app #contentTab2 [title]="'team rating'">
+		<rating-dashboard-app
+			[votes]="product?.votes"
+			[type]="erm.PRODUCT.singular"
+			(update)="update($event, 'votes')"
+			(viewRatings)="dialogCommonSrv.openVoteDetailsDialog($event)">
+		</rating-dashboard-app>
+	</preview-section-app>
 
 </preview-static-app>
 

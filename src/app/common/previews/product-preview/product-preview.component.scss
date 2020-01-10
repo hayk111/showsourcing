@@ -4,27 +4,11 @@ preview-static-app {
 	}
 }
 
-preview-panel-app {
-	preview-carousel-app {
-		height: 411px;
-	}
-}
-
 preview-carousel-app {
 	border-top-left-radius: var(--border-radius-l);
 	border-top-right-radius: var(--border-radius-l);
 }
 
-
-.info {
-	color: var(--color-txt-secondary);
-	.price {
-		max-width: 25%;
-	}
-	.category {
-		max-width: 50%;
-	}
-	.rating-badge {
-		max-width: 25%;
-	}
+product-header-app {
+	margin-bottom: -4px;
 }
