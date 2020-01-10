@@ -146,62 +146,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 			});
 	}
 
-
-	// actions
-	openProduct() {
-		this.router.navigate(['products', this.product.id]);
-	}
-
-	openSupplier() {
-		this.router.navigate(['suppliers', this.product.supplier.id]);
-	}
-
-	openAddToProject() {
-		this.dialogCommonSrv.openAddToProjectDialog([this.product]);
-	}
-
-	openNewTask() {
-		this.dialogCommonSrv.openCreationTaskDlg(this.product, this.product && this.product.supplier).subscribe();
-	}
-
-	openNewSample() {
-		this.dialogCommonSrv.openCreationSampleDialog(this.product, this.product && this.product.supplier).subscribe();
-	}
-
-	openExportModal() {
-		this.dialogCommonSrv.openExportDialog(EntityName.PRODUCT, [this.product]);
-	}
-
-	// tab selection
-	selectFirstTab() {
-		this.previewSrv.onSelectedTab(1);
-	}
-
-	selectSecondTab(scrollTo?: string) {
-		this.previewSrv.onSelectedTab(2);
-		switch (scrollTo) {
-			case 'sample':
-				this.sampleCatalog.nativeElement.scrollIntoView({ behavior: 'smooth' });
-				break;
-			case 'task':
-				this.sampleCatalog.nativeElement.scrollIntoView({ behavior: 'smooth' });
-				break;
-			case 'rating':
-				this.ratingDashboard.nativeElement.scrollIntoView({ behavior: 'smooth' });
-				break;
-		}
-	}
-
-	selectThirdTab() {
-		this.previewSrv.onSelectedTab(3);
-		this.previewComment.focus();
-	}
-
-	openFileBrowser() {
-		this.inpFile.nativeElement.click();
-	}
-
-	// update functions
+	// UPDATE FUNCTIONS
 	updateProduct(productConfig: any) {
 		const product = ({ ...productConfig, id: this.product.id });
 		this.productSrv.update(product)
@@ -290,6 +235,62 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 					this.close.emit();
 				}),
 			).subscribe();
+	}
+
+	// ACTIONS
+	redirect(subroute?: string) {
+		subroute ?
+			this.router.navigate(['products', this.product.id, subroute]) :
+			this.router.navigate(['products', this.product.id]);
+	}
+
+	openSupplier() {
+		this.router.navigate(['suppliers', this.product.supplier.id]);
+	}
+
+	openAddToProject() {
+		this.dialogCommonSrv.openAddToProjectDialog([this.product]);
+	}
+
+	openCreateTask() {
+		this.dialogCommonSrv.openCreationTaskDlg(this.product, this.product && this.product.supplier).subscribe();
+	}
+
+	openCreateSample() {
+		this.dialogCommonSrv.openCreationSampleDialog(this.product, this.product && this.product.supplier).subscribe();
+	}
+
+	openExportModal() {
+		this.dialogCommonSrv.openExportDialog(EntityName.PRODUCT, [this.product]);
+	}
+
+	// TAB SELECTION
+	selectFirstTab() {
+		this.previewSrv.onSelectedTab(1);
+	}
+
+	selectSecondTab(scrollTo?: string) {
+		this.previewSrv.onSelectedTab(2);
+		switch (scrollTo) {
+			case 'sample':
+				this.sampleCatalog.nativeElement.scrollIntoView({ behavior: 'smooth' });
+				break;
+			case 'task':
+				this.sampleCatalog.nativeElement.scrollIntoView({ behavior: 'smooth' });
+				break;
+			case 'rating':
+				this.ratingDashboard.nativeElement.scrollIntoView({ behavior: 'smooth' });
+				break;
+		}
+	}
+
+	selectThirdTab() {
+		this.previewSrv.onSelectedTab(3);
+		this.previewComment.focus();
+	}
+
+	openFileBrowser() {
+		this.inpFile.nativeElement.click();
 	}
 
 }
