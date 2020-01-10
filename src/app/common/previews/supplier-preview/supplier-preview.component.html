@@ -4,44 +4,44 @@
 	*ngIf="isPreview && (supplier$ | async)"
 	[align]="'right'">
 
-		<!-- Banner -->
-		<preview-banner-app>
-			<preview-top-bar-app
-				(closed)="close.emit()"
-				(opened)="redirect()">
-				<logo-app
-					class="mg-right-s"
-					size="l"
-					[logo]="supplier?.logoImage"
-					[type]="erm.SUPPLIER.singular">
-				</logo-app>
-				<div class="flexColumn ellipsis">
-					<span class="color-txt-primary semi-bold fs-l ellipsis">{{ supplier?.name }}</span>
-					<div class="flexVAlign dot-separator-txt-secondary">
-						<div class="flexVAlign">
-							<logo-app
-								class="mg-right-xs"
-								size="xs"
-								[type]="erm.SUPPLIER.singular">
-							</logo-app>
-							<span class="color-txt-secondary">{{ supplier?.reference }}</span>
-						</div>
+	<!-- Banner -->
+	<preview-banner-app>
+		<preview-top-bar-app
+			(closed)="close.emit()"
+			(opened)="redirect()">
+			<logo-app
+				class="mg-right-s"
+				size="l"
+				[logo]="supplier?.logoImage"
+				[type]="erm.SUPPLIER.singular">
+			</logo-app>
+			<div class="flexColumn ellipsis">
+				<span class="color-txt-primary semi-bold fs-l ellipsis">{{ supplier?.name }}</span>
+				<div class="flexVAlign dot-separator-txt-secondary">
+					<div class="flexVAlign">
+						<logo-app
+							class="mg-right-xs"
+							size="xs"
+							[type]="erm.SUPPLIER.singular">
+						</logo-app>
+						<span class="color-txt-secondary">{{ supplier?.reference }}</span>
 					</div>
 				</div>
-			</preview-top-bar-app>
-			<preview-carousel-app
-				[entity]="supplier"
-				[entityMD]="erm.SUPPLIER"
-				[images]="supplier?.images"
-				objectFit="contain">
-			</preview-carousel-app>
-		</preview-banner-app>
-
-		<!-- Header -->
-		<preview-header-app
+			</div>
+		</preview-top-bar-app>
+		<preview-carousel-app
 			[entity]="supplier"
 			[entityMD]="erm.SUPPLIER"
-			(update)="update($event, 'name')">
+			[images]="supplier?.images"
+			objectFit="contain">
+		</preview-carousel-app>
+	</preview-banner-app>
+
+	<!-- Header -->
+	<preview-header-app
+		[entity]="supplier"
+		[entityMD]="erm.SUPPLIER"
+		(update)="update($event, 'name')">
 
 		<preview-header-buttons-app>
 			<button class="icon" (click)="openCreateSample()" toolTip [toolTipMessage]="'tooltip.create-sample' | translate">
