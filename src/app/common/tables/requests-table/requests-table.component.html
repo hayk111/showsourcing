@@ -77,7 +77,7 @@
 				</ng-container>
 
 				<!-- sent to -->
-				<ng-container *ngSwitchCase="'sent to'">
+				<ng-container *ngSwitchCase="'sentTo'">
 					<div class="capitalize ellipsis">
 						{{ row?.recipient?.name }}
 					</div>
@@ -99,7 +99,7 @@
 				</ng-container>
 
 				<!-- sent on -->
-				<ng-container *ngSwitchCase="'sent on'">
+				<ng-container *ngSwitchCase="'sentOn'">
 					<div class="capitalize">
 						{{ row?.sentDate | date: 'dd MMM yyyy':'':translate.currentLang }}
 					</div>
