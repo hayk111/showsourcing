@@ -3,7 +3,7 @@ import { TaskDescriptor } from '~core/descriptors';
 import { TaskService, UserService } from '~core/entity-services';
 import { Product, Supplier, Task } from '~core/models';
 import { CloseEventType, DialogService } from '~shared/dialog';
-import { NotificationService, NotificationType } from '~shared/notifications';
+import { ToastService, ToastType } from '~shared/toast';
 import { translate, uuid } from '~utils';
 
 @Component({
@@ -26,7 +26,7 @@ export class CreationTaskDlgComponent implements OnInit {
 	constructor(
 		private dlgSrv: DialogService,
 		private taskSrv: TaskService,
-		private notifSrv: NotificationService,
+		private toastSrv: ToastService,
 		private userSrv: UserService
 	) {
 	}
@@ -90,15 +90,15 @@ export class CreationTaskDlgComponent implements OnInit {
 					this.taskSrv.onUpdateTaskList();
 					this.close();
 				}
-				this.notifSrv.add({
-					type: NotificationType.SUCCESS,
+				this.toastSrv.add({
+					type: ToastType.SUCCESS,
 					title: `Task created`,
 					message: 'Your task has been created with success'
 				});
 			},
 				err => {
-					this.notifSrv.add({
-						type: NotificationType.ERROR,
+					this.toastSrv.add({
+						type: ToastType.ERROR,
 						title: `Task created`,
 						message: 'Your task could not been created'
 					});

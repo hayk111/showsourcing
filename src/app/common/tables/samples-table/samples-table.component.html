@@ -57,13 +57,17 @@
 <!-- contextual menu -->
 <ng-template #contextualMenuTemplate let-row="row">
 	<context-menu-item-app
-		class="pointer flexCenter"
-		(click)="archive.emit(row)"
-		translate="button.archive">
+		(click)="archive.emit(row)">
+		<div class="icon-box square flexCenter mg-right-s">
+			<icon-app name="archive" size="s"></icon-app>
+		</div>
+		<span translate="button.archive"></span>
 	</context-menu-item-app>
 	<context-menu-item-warn-app
-		class="pointer flexCenter"
-		(click)="delete.emit(row)"
-		translate="button.delete">
+		(click)="delete.emit(row)">
+		<div class="icon-box square flexCenter mg-right-s">
+			<icon-app name="delete" size="s"></icon-app>
+		</div>
+		<span translate="button.delete"></span>
 	</context-menu-item-warn-app>
 </ng-template>

@@ -18,4 +18,8 @@ export class SelectorLabelNameRowComponent extends AbstractSelectorHighlightable
 		return label;
 	}
 
+	getItem() {
+		return this.item;
+	}
+
 }

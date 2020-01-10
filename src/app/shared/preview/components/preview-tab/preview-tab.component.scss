@@ -4,9 +4,10 @@
 	margin: 0 var(--spacing-ms);
 	color: var(--color-txt-secondary);
 	text-transform: capitalize;
+	transition: 0.3s;
 	cursor: pointer;
 
-	&.active {
+	&.active, &:hover {
 		color: var(--color-primary);
 		border-bottom: 2px solid var(--color-primary);
 	}

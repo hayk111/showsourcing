@@ -5,7 +5,7 @@ import { ListPageService } from '~core/list-page';
 import { SelectParamsConfig } from '~entity-services/_global/select-params';
 import { ERM, Supplier } from '~models';
 import { FilterType } from '~shared/filters';
-import { NotificationService } from '~shared/notifications';
+import { ToastService } from '~shared/toast';
 import { AutoUnsub } from '~utils';
 import { SuppliersTableComponent } from '~common/tables/suppliers-table/suppliers-table.component';
 

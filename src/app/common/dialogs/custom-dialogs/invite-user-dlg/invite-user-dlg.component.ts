@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SettingsMembersService } from '~features/settings/services/settings-members.service';
 import { DialogService } from '~shared/dialog/services';
-import { NotificationService, NotificationType } from '~shared/notifications';
+import { ToastService, ToastType } from '~shared/toast';
 import { AutoUnsub } from '~utils';
 import { CloseEventType } from '~shared/dialog';
 import { TranslateService } from '@ngx-translate/core';
@@ -20,7 +20,7 @@ export class InviteUserDlgComponent extends AutoUnsub {
 	constructor(private dlgSrv: DialogService,
 		private memberSrv: SettingsMembersService,
 		private fb: FormBuilder,
-		private notifSrv: NotificationService,
+		private toastSrv: ToastService,
 		private translate: TranslateService
 	) {
 		super();
@@ -41,8 +41,8 @@ export class InviteUserDlgComponent extends AutoUnsub {
 					this.pending = false;
 					const invtSent = this.translate.instant('message.your-invitation-was-sent-to');
 					this.dlgSrv.close({ type: CloseEventType.OK });
-					this.notifSrv.add({
-						type: NotificationType.SUCCESS,
+					this.toastSrv.add({
+						type: ToastType.SUCCESS,
 						title: this.translate.instant('title.invitation-sent'),
 						message: `${invtSent} ${email}`,
 						timeout: 3500

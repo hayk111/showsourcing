@@ -29,6 +29,10 @@ export class SelectorSupplierRowComponent extends AbstractSelectorHighlightableC
 		return this.supplier;
 	}
 
+	getItem() {
+		return this.supplier;
+	}
+
 	getType(status) {
 		// by default is secondary since is the color for NEW elements
 		let style = 'secondary';

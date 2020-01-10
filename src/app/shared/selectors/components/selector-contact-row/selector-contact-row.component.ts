@@ -18,6 +18,10 @@ export class SelectorContactRowComponent extends AbstractSelectorHighlightableCo
 		return this.contact;
 	}
 
+	getItem() {
+		return this.contact;
+	}
+
 	// if the contact does not have a name we will use the email name
 	getEmailName() {
 		let name = '';

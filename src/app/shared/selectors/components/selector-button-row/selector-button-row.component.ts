@@ -18,4 +18,8 @@ export class SelectorButtonRowComponent extends AbstractSelectorHighlightableCom
 		return 'create-button';
 	}
 
+	getItem() {
+		return 'create-button';
+	}
+
 }

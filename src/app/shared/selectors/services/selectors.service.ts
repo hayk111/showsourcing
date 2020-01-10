@@ -115,7 +115,7 @@ export class SelectorsService {
 
 	refetch(selectParams?: SelectParamsConfig) {
 		if (this.listResult)
-			this.listResult.refetch(selectParams || this.selectParams).pipe(take(1)).subscribe();
+			return this.listResult.refetch(selectParams || this.selectParams).pipe(take(1));
 	}
 
 	loadMore() {
@@ -123,6 +123,7 @@ export class SelectorsService {
 	}
 
 	search(type: EntityMetadata, searchTxt: string) {
+		searchTxt = searchTxt.toLowerCase();
 		if (searchTxt) {
 			switch (type) {
 				case ERM.USER:
@@ -177,7 +178,7 @@ export class SelectorsService {
 			this.currentSearchQuery = '(' + this.currentSearchQuery + ') AND ' + this.selectParams.query;
 		else if (this.selectParams.query)
 			this.currentSearchQuery = this.selectParams.query;
-		this.refetch({ ...this.selectParams, query: this.currentSearchQuery });
+		return this.refetch({ ...this.selectParams, query: this.currentSearchQuery });
 	}
 
 	getCountries(): any[] {

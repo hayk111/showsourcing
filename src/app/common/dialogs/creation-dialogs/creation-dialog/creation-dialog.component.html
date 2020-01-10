@@ -9,12 +9,13 @@
 			<form-field-app>
 				<label-app> {{ 'ERM.' + type.translationKey + '.singular' | translate }} <span class="capitalize" translate="label.name"></span> </label-app>
 				<input inputApp autoFocus type="text" (input)="checkExists()" formControlName="name" placeholder="{{ 'OBJ.new-OBJ' | translate: {field: 'ERM.' + type.translationKey + '.singular' | translate} }}" (keyup.enter)="onSubmit(canRedirect)"/>
+				<div *ngIf="exists$ | async" class="color-warn mg-top-xs">{{ 'OBJ.that-already-exists' | translate: {field: 'ERM.' + type.translationKey + '.singular' | translate} }}</div>
 			</form-field-app>
 			<label-app>{{ 'OBJ.provide-name-create' | translate: {field: 'ERM.' + type.translationKey + '.singular' | translate} }}</label-app>
 		</form>
 
-		<dialog-footer-app *ngIf="!pending ">
-			<div class="color-warn" *ngIf="exists$ | async">{{ 'OBJ.that-already-exists' | translate: {field: 'ERM.' + type.translationKey + '.singular' | translate} }}</div>
+
+		<dialog-footer-app *ngIf="!pending">
 			<input *ngIf="canRedirect" [disabled]="!group.valid || (exists$ | async)" type="submit" class="secondary" value="Create & Stay" (click)="onSubmit(false)"/>
 			<span *ngIf="canRedirect" class="spacer mg-s"></span>
 			<input *ngIf="canRedirect" [disabled]="!group.valid || (exists$ | async)" type="submit" value="Create & Go" (click)="onSubmit()"/>
@@ -25,4 +26,3 @@
 		<spinner-app *ngIf="pending"></spinner-app>
 
 </dialog-app>
-

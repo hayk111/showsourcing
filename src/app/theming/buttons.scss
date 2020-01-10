@@ -8,6 +8,10 @@ $colors: (
 	'accent',
 );
 
+// inputs by default have width 100%, width: auto is the default
+input[type="submit"] {
+	width: auto;
+}
 
 button, input[type="submit"], .button {
 	@extend .ripple;

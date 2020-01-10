@@ -9,7 +9,7 @@ import { ListPageService } from '~core/list-page';
 import { EntityTypeEnum, ERM, Product, Project } from '~models';
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
-import { NotificationService, NotificationType } from '~shared/notifications';
+import { ToastService, ToastType } from '~shared/toast';
 import { AutoUnsub, translate } from '~utils';
 
 @Component({
@@ -57,7 +57,7 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 		private dlgSrv: DialogService,
 		private userSrv: UserService,
 		private productDlgSrv: ProductDialogService,
-		private notifSrv: NotificationService,
+		private toastSrv: ToastService,
 		public listSrv: ListPageService<Product, ProductService>,
 	) {
 		super();
@@ -162,8 +162,8 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 					type: CloseEventType.OK,
 					data
 				});
-				this.notifSrv.add({
-					type: NotificationType.SUCCESS,
+				this.toastSrv.add({
+					type: ToastType.SUCCESS,
 					title: translate('Products added'),
 					message: translate('Your projects were added to the product with success'),
 					timeout: 3500

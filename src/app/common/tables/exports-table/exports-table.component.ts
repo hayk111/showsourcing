@@ -33,7 +33,6 @@ export class ExportTableComponent extends EntityTableComponent<ExportRequest> {
 		if (!row) {
 			return '';
 		}
-
 		const { type, format, creationDate } = row;
 
 		const firstUnderscoreIndex = type.indexOf('_');

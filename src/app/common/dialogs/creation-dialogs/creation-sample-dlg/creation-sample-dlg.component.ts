@@ -3,7 +3,7 @@ import { SampleDescriptor } from '~core/descriptors';
 import { SampleService, UserService } from '~core/entity-services';
 import { Product, Sample, Supplier } from '~core/models';
 import { CloseEventType, DialogService } from '~shared/dialog';
-import { NotificationService, NotificationType } from '~shared/notifications';
+import { ToastService, ToastType } from '~shared/toast';
 import { TranslateService } from '@ngx-translate/core';
 import { uuid } from '~utils';
 import { Observable } from 'rxjs';
@@ -28,7 +28,7 @@ export class CreationSampleDlgComponent implements OnInit {
 	constructor(
 		private dlgSrv: DialogService,
 		private sampleSrv: SampleService,
-		private notifSrv: NotificationService,
+		private toastSrv: ToastService,
 		private translate: TranslateService,
 		private userSrv: UserService
 	) {
@@ -93,16 +93,16 @@ export class CreationSampleDlgComponent implements OnInit {
 					} else {
 						this.close();
 					}
-					this.notifSrv.add({
-						type: NotificationType.SUCCESS,
+					this.toastSrv.add({
+						type: ToastType.SUCCESS,
 						title: this.translate.instant('title.sample-created'),
 						message: this.translate.instant('message.sample-created-with-success')
 					});
 					this.sampleSrv.onUpdateSampleList();
 				},
 				err => {
-					this.notifSrv.add({
-						type: NotificationType.ERROR,
+					this.toastSrv.add({
+						type: ToastType.ERROR,
 						title: this.translate.instant('title.sample-not-created'),
 						message: this.translate.instant('message.your-product-not-created')
 					});
