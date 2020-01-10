@@ -8,12 +8,12 @@
 	<!-- buttons -->
 	<div class="right flex">
 		<!-- Open -->
-		<button *ngIf="canOpen" class="icon" (click)="opened.emit()" toolTip toolTipMessage="Open" toolTipPosition="below-right">
+		<button *ngIf="canOpen" class="icon" (click)="opened.emit()" toolTip [toolTipMessage]="'tooltip.open' | translate" toolTipPosition="below-right">
 			<icon-app class="{{ iconColor }}" name="maximize"></icon-app>
 		</button>
 
 		<!-- Close -->
-		<button class="icon" (click)="closed.emit()">
+		<button class="icon" (click)="closed.emit()" toolTip [toolTipMessage]="'tooltip.close' | translate" toolTipPosition="below-right">
 			<icon-app class="{{ iconColor }}" name="close"></icon-app>
 		</button>
 	</div>

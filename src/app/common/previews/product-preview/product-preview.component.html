@@ -46,16 +46,16 @@
 		(statusUpdated)="statusUpdated.emit($event)">
 
 		<preview-header-buttons-app>
-			<button class="icon" (click)="openNewSample()">
+			<button class="icon" (click)="openNewSample()" toolTip [toolTipMessage]="'tooltip.create-sample' | translate">
 				<icon-app class="color-txt-secondary" name="sample"></icon-app>
 			</button>
-			<button class="icon" (click)="openNewTask()">
+			<button class="icon" (click)="openNewTask()" toolTip [toolTipMessage]="'tooltip.create-task' | translate">
 				<icon-app class="color-txt-secondary" name="check-circle"></icon-app>
 			</button>
-			<button class="icon" (click)="selectThirdTab()">
+			<button class="icon" (click)="selectThirdTab()" toolTip [toolTipMessage]="'tooltip.create-comment' | translate">
 				<icon-app class="color-txt-secondary" name="comments"></icon-app>
 			</button>
-			<button class="icon" (click)="dialogCommonSrv.openSupplierRequest([product])">
+			<button class="icon" (click)="dialogCommonSrv.openSupplierRequest([product])" toolTip [toolTipMessage]="'tooltip.contact-supplier' | translate">
 				<icon-app class="color-vibrant" name="envelope"></icon-app>
 			</button>
 		</preview-header-buttons-app>
@@ -119,9 +119,9 @@
 	</preview-header-app>
 
 	<!-- Tabs -->
-	<preview-tab-app #tab1 (click)="selectFirstTab()">Product Info</preview-tab-app>
-	<preview-tab-app #tab2 (click)="selectSecondTab()">Activity</preview-tab-app>
-	<preview-tab-app #tab3 (click)="selectThirdTab()">Comments</preview-tab-app>
+	<preview-tab-app #tab1 (click)="selectFirstTab()"><span translate="title.product-info"></span></preview-tab-app>
+	<preview-tab-app #tab2 (click)="selectSecondTab()"><span translate="title.activity"></span></preview-tab-app>
+	<preview-tab-app #tab3 (click)="selectThirdTab()"><span translate="title.comments"></span></preview-tab-app>
 
 	<!-- Description -->
 	<preview-section-app #contentTab1 [title]="'title.description' | translate">
@@ -141,7 +141,7 @@
 	</preview-section-app>
 
 	<!-- Product details -->
-	<preview-section-app #contentTab1 [title]="'title.product-details'">
+	<preview-section-app #contentTab1 [title]="'title.product-details' | translate">
 		<dynamic-form-app
 			[fields]="productDescriptor1?.descriptor"
 			[value]="product"
@@ -171,7 +171,7 @@
 
 	<!-- Activity -->
 	<!-- Owner -->
-	<preview-section-app #contentTab2 [title]="'product owner'">
+	<preview-section-app #contentTab2 [title]="'title.product-owner' | translate">
 		<editable-container-app
 			[hasAction]="false"
 			[openOnClick]="false"
@@ -193,7 +193,7 @@
 	</preview-section-app>
 
 	<!-- Tasks -->
-	<preview-section-app #contentTab2 class="action-hover-container-0" [title]="'tasks'">
+	<preview-section-app #contentTab2 class="action-hover-container-0" [title]="'title.tasks' | translate">
 		<preview-section-action-app>
 			<div class="mg-left-ms action-hover-item-0 color-primary txt-btn" (click)="null" translate="button.add"></div>
 		</preview-section-action-app>
@@ -205,7 +205,7 @@
 	</preview-section-app>
 
 	<!-- Samples -->
-	<preview-section-app #contentTab2 class="action-hover-container-0" [title]="'samples'">
+	<preview-section-app #contentTab2 class="action-hover-container-0" [title]="'title.samples' | translate">
 		<preview-section-action-app>
 			<div class="mg-left-ms action-hover-item-0 color-primary txt-btn" (click)="null" translate="button.add"></div>
 		</preview-section-action-app>
@@ -217,7 +217,7 @@
 	</preview-section-app>
 
 	<!-- Rating -->
-	<preview-section-app #contentTab2 [title]="'team rating'">
+	<preview-section-app #contentTab2 [title]="'title.team-rating' | translate">
 		<rating-dashboard-app
 			[votes]="product?.votes"
 			[type]="erm.PRODUCT.singular"
@@ -227,7 +227,7 @@
 	</preview-section-app>
 
 	<!-- Projects -->
-	<preview-section-app #contentTab2 class="action-hover-container-0" [title]="'projects'">
+	<preview-section-app #contentTab2 class="action-hover-container-0" [title]="'title.projects' | translate">
 		<preview-section-action-app>
 			<selector-app
 				class="selector"
@@ -248,7 +248,7 @@
 	</preview-section-app>
 
 	<!-- About -->
-	<preview-section-app #contentTab2 [title]="'about this product'">
+	<preview-section-app #contentTab2 [title]="'title.about-product' | translate">
 		<small>Created by {{ product.createdBy | formatUserName }} on  {{ product.creationDate | date: 'dd MMMM yyyy' }}</small> <br>
 		<small>Last updated by {{ product.lastUpdatedBy | formatUserName }} on {{ product.lastUpdatedDate | date: 'dd MMMM yyyy' }}</small><br>
 		<small *ngIf="product?.event">Found at {{ product?.event?.description?.name }}</small>
