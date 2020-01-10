@@ -206,11 +206,6 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 		return pendingImgs.map(p => p.id);
 	}
 
-	onStarVote(number: number) {
-		const votes = this.ratingSrv.starVote(this.product.votes, number, EntityName.PRODUCT);
-		this.update(votes, 'votes');
-	}
-
 	delete(product: Product) {
 		const text = `Are you sure you want to delete this product ?`;
 		this.dlgSrv.open(ConfirmDialogComponent, { text })
