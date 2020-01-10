@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CrudDialogService } from '~common/dialogs/services/crud-dialog.service';
 import { EntityMetadata, ERM } from '~models';
 import { DialogService } from '~shared/dialog/services';
-import { NotificationService, NotificationType } from '~shared/notifications';
+import { ToastService, ToastType } from '~shared/toast';
 import { AutoUnsub, translate } from '~utils';
 
 @Component({
@@ -22,7 +22,7 @@ export class MergeDialogComponent extends AutoUnsub {
 	constructor(
 		public dlgSrv: DialogService,
 		private crudDlgSrv: CrudDialogService,
-		private notifSrv: NotificationService) {
+		private toastSrv: ToastService) {
 		super();
 	}
 
@@ -37,8 +37,8 @@ export class MergeDialogComponent extends AutoUnsub {
 			this.pending = false;
 
 			if (data.status === 'error') {
-				this.notifSrv.add({
-					type: NotificationType.ERROR,
+				this.toastSrv.add({
+					type: ToastType.ERROR,
 					title: 'Error',
 					message: 'There is an error, please try again later',
 					timeout: 3500
@@ -46,8 +46,8 @@ export class MergeDialogComponent extends AutoUnsub {
 				return;
 			}
 
-			this.notifSrv.add({
-				type: NotificationType.SUCCESS,
+			this.toastSrv.add({
+				type: ToastType.SUCCESS,
 				title: translate(this.capitalize(this.type.plural) + ' merged'),
 				message: translate(`Selected ${this.type.plural} were merged into ${this.selected.name}`),
 				timeout: 3500

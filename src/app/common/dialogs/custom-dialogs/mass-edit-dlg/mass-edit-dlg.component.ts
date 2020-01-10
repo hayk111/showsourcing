@@ -8,7 +8,7 @@ import {
 import { EntityMetadata, ERM, ExtendedFieldDefinition, EntityName } from '~core/models';
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { DynamicField } from '~shared/dynamic-forms';
-import { NotificationService, NotificationType } from '~shared/notifications';
+import { ToastService, ToastType } from '~shared/toast';
 import { RatingService, TypeWithVotes } from '~shared/rating/services/rating.service';
 import { AutoUnsub, uuid } from '~utils';
 import { ProductDescriptor } from '~core/descriptors';
@@ -40,7 +40,7 @@ export class MassEditDlgComponent extends AutoUnsub implements OnInit {
 		private productSrv: ProductService,
 		private dlgSrv: DialogService,
 		private ratingSrv: RatingService,
-		private notificationSrv: NotificationService,
+		private notificationSrv: ToastService,
 		private translate: TranslateService
 	) { super(); }
 
@@ -125,7 +125,7 @@ export class MassEditDlgComponent extends AutoUnsub implements OnInit {
 			this.pending = true;
 			this.close();
 			this.notificationSrv.add({
-				type: NotificationType.SUCCESS,
+				type: ToastType.SUCCESS,
 				title: this.translate.instant('title.multiple-edition'),
 				message: this.translate.instant('message.your-items-updated'),
 				timeout: 3500

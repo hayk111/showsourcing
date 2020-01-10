@@ -3,8 +3,10 @@
 	[rows]="rows"
 	[type]="'PROJECT' | erm: 'singular'"
 	[pending]="pending"
+	[footerTemplate]="footerTemplate"
 	[selected]="selection"
 	[hasPagination]="hasPagination"
+	[hasShowItemsPerPage]="hasShowItemsPerPage"
 	[hasMenu]="hasMenu"
 	[hasBorder]="hasBorder"
 	[contextualMenu]="contextualMenuTemplate"
@@ -25,9 +27,11 @@
 	<!-- contextual menu -->
 	<ng-template #contextualMenuTemplate let-row="row">
 		<context-menu-item-warn-app
-			class="pointer flexCenter"
 			(click)="delete.emit(row)">
-			{{ 'button.delete' | translate }}
+			<div class="icon-box square flexCenter mg-right-s">
+				<icon-app name="delete" size="s"></icon-app>
+			</div>
+			<span translate="button.delete"></span>
 		</context-menu-item-warn-app>
 	</ng-template>
 

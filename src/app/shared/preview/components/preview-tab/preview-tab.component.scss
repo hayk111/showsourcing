@@ -3,9 +3,10 @@
 	font-weight: 600;
 	padding-bottom: var(--spacing-ms);
 	margin: 0 var(--spacing-ms);
+	transition: 0.3s;
 	cursor: pointer;
 
-	&.active {
+	&.active, &:hover {
 		color: var(--color-primary);
 		border-bottom: 2px solid var(--color-primary);
 	}

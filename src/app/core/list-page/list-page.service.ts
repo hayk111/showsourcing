@@ -18,7 +18,7 @@ import { showsourcing } from '~utils/debug-object.utils';
 import { ListPageDataConfig } from './list-page-config.interface';
 import { ListPageDataService } from './list-page-data.service';
 import { ListPageViewService } from './list-page-view.service';
-import { NotificationService, NotificationType } from '~shared/notifications';
+import { ToastService, ToastType } from '~shared/toast';
 import { SelectionService } from './selection.service';
 import { KanbanSelectionService } from '~shared/kanban/services/kanban-selection.service';
 
@@ -60,7 +60,7 @@ export class ListPageService
 		private dlgSrv: DialogService,
 		private zone: NgZone,
 		private userSrv: UserService,
-		private notifSrv: NotificationService,
+		private toastSrv: ToastService,
 	) {
 		if (!showsourcing.tables) {
 			showsourcing.tables = {};
@@ -205,11 +205,6 @@ export class ListPageService
 	update(value: T) {
 		this.dataSrv.update(value).pipe(
 		).subscribe();
-		// .pipe(
-		// 	// sometimes the optimistic ui fails for some odd reason when updating the supplier of a product
-		// 	// so we just refetch to cover the bug, fuck this.
-		// 	switchMap(_ => refetch ? this.refetch() : empty())
-		// ).subscribe();
 	}
 
 	updateMany(values: T[]) {
@@ -312,8 +307,8 @@ export class ListPageService
 		this.dataSrv.update({ id: entity.id, archived: true } as unknown as T)
 			.pipe(switchMap(_ => this.refetch()))
 			.subscribe(_ => {
-				this.notifSrv.add({
-					type: NotificationType.SUCCESS,
+				this.toastSrv.add({
+					type: ToastType.SUCCESS,
 					title: 'item archived',
 					message: 'item archived successfully'
 				});
@@ -324,13 +319,13 @@ export class ListPageService
 		this.dataSrv.updateMany(
 			entities.map(entity => ({ id: entity.id, archived: true } as unknown as T))
 		).pipe(switchMap(_ => this.refetch()))
-		.subscribe(_ => {
-			this.notifSrv.add({
-				type: NotificationType.SUCCESS,
-				title: 'items archived',
-				message: 'items archived successfully'
+			.subscribe(_ => {
+				this.toastSrv.add({
+					type: ToastType.SUCCESS,
+					title: 'items archived',
+					message: 'items archived successfully'
+				});
 			});
-		});
 	}
 
 

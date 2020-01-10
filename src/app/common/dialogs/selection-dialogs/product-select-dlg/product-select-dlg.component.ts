@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { switchMap } from 'rxjs/operators';
 import { ProductDialogService } from '~common/dialogs/services/product-dialog.service';
+import { ProductsTableComponent } from '~common/tables/products-table/products-table.component';
 import { ProductService, UserService } from '~core/entity-services';
 import { DEFAULT_TAKE_PAGINATION } from '~entity-services/_global/select-params';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
@@ -7,7 +9,7 @@ import { ListPageService } from '~core/list-page';
 import { EntityTypeEnum, ERM, Product, Project } from '~models';
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
-import { NotificationService, NotificationType } from '~shared/notifications';
+import { ToastService, ToastType } from '~shared/toast';
 import { AutoUnsub, translate } from '~utils';
 
 @Component({
@@ -15,14 +17,17 @@ import { AutoUnsub, translate } from '~utils';
 	templateUrl: './product-select-dlg.component.html',
 	styleUrls: ['./product-select-dlg.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [ListPageService]
+	providers: [ListPageService],
+	host: { class: 'table-dialog' }
 })
 export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
-	columns = ['reference', 'price', 'supplier', 'category', 'createdBy', 'activities', 'status'];
 
 	@Input() initialSelectedProducts: Product[];
 	@Input() project: Project;
 	@Input() submitProducts = true;
+
+	columns = ProductsTableComponent.DEFAULT_COLUMNS;
+	tableConfig = ProductsTableComponent.DEFAULT_TABLE_CONFIG;
 
 	selectItemsConfig: SelectParamsConfig;
 	filterType = FilterType;
@@ -30,15 +35,15 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 	entityTypeEnum = EntityTypeEnum;
 
 	filterTypes = [
+		FilterType.SUPPLIER,
 		FilterType.ARCHIVED,
 		FilterType.CATEGORY,
+		FilterType.PROJECTS,
 		FilterType.CREATED_BY,
 		FilterType.EVENT,
-		FilterType.FAVORITE,
+		FilterType.TAGS,
 		FilterType.PRODUCT_STATUS,
-		FilterType.PROJECTS,
-		FilterType.SUPPLIER,
-		FilterType.TAGS
+		FilterType.FAVORITE,
 	];
 
 	private unselectedProducts: { [key: string]: Product } = {};
@@ -47,14 +52,12 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 	selectedProductsCount = 0;
 	private selectedAllCount = DEFAULT_TAKE_PAGINATION;
 
-	filtersPanelOpened = false;
-
 	constructor(
 		private productSrv: ProductService,
 		private dlgSrv: DialogService,
 		private userSrv: UserService,
 		private productDlgSrv: ProductDialogService,
-		private notifSrv: NotificationService,
+		private toastSrv: ToastService,
 		public listSrv: ListPageService<Product, ProductService>,
 	) {
 		super();
@@ -109,16 +112,6 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 		return (Array.from(this.listSrv.selectionSrv.selection.values()).length > 0);
 	}
 
-	showFilters() {
-		this.filtersPanelOpened = true;
-		this.listSrv.openFilterPanel();
-	}
-
-	hideFilters() {
-		this.filtersPanelOpened = false;
-		this.listSrv.closeFilterPanel();
-	}
-
 	onItemSelected(entity: any) {
 		this.selectedProducts[entity.id] = entity;
 		delete this.unselectedProducts[entity.id];
@@ -169,8 +162,8 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 					type: CloseEventType.OK,
 					data
 				});
-				this.notifSrv.add({
-					type: NotificationType.SUCCESS,
+				this.toastSrv.add({
+					type: ToastType.SUCCESS,
 					title: translate('Products added'),
 					message: translate('Your projects were added to the product with success'),
 					timeout: 3500

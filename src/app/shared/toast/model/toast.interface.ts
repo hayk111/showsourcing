@@ -1,8 +1,8 @@
 import { Observable } from 'rxjs';
 
-export class Notification {
+export class Toast {
 	id?: number;
-	type?: NotificationType;
+	type?: ToastType;
 	timeout?: number;
 	title?: string;
 	message?: string;
@@ -10,7 +10,7 @@ export class Notification {
 	action?: Observable<any>;
 }
 
-export enum NotificationType {
+export enum ToastType {
 	ERROR = 'error',
 	SUCCESS = 'success',
 	WARNING = 'warning',

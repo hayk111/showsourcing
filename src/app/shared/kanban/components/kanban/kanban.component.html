@@ -4,10 +4,7 @@
   [col]="col"
   [cardTemplate]="cardTemplate"
   [connectedLists]="getOtherIds()"
-  [selection]="selection"
   [amountLoaded]="amountLoaded"
-  (selectAll)="selectionSrv.selectAll(col)"
-  (unselectAll)="selectionSrv.unselectAll()"
   (drop)="onDrop($event)"
   (loadMore)="loadMore.emit($event)">
 </kanban-col-app>

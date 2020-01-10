@@ -8,7 +8,7 @@ import { EntityTypeEnum, ERM, Product, Project } from '~models';
 import { CloseEventType } from '~shared/dialog';
 import { DialogService } from '~shared/dialog/services';
 import { FilterType } from '~shared/filters';
-import { NotificationService, NotificationType } from '~shared/notifications';
+import { ToastService, ToastType } from '~shared/toast';
 import { AutoUnsub } from '~utils';
 
 @Component({
@@ -35,7 +35,7 @@ export class ProductAddToProjectDlgComponent extends AutoUnsub implements OnInit
 	constructor(
 		private dlgSrv: DialogService,
 		private productDlgSrv: ProductDialogService,
-		private notifSrv: NotificationService,
+		private toastSrv: ToastService,
 		private translate: TranslateService,
 		private projectSrv: ProjectService,
 		public listSrv: ListPageService<Project, ProjectService>,
@@ -101,7 +101,7 @@ export class ProductAddToProjectDlgComponent extends AutoUnsub implements OnInit
 		setTimeout(() => {
 			this.listSrv.create(false, {
 				onProjectCreated: (project: Project) => {
-					this.selected[project.id] = {...project};
+					this.selected[project.id] = { ...project };
 					const selectedProjects = <Project[]>Object.values(this.selected);
 					this.productDlgSrv.addProjectsToProducts(selectedProjects, this.products).subscribe();
 				}
@@ -116,18 +116,21 @@ export class ProductAddToProjectDlgComponent extends AutoUnsub implements OnInit
 	submit() {
 		// we add each project one by one to the store
 		const selectedProjects = <Project[]>Object.values(this.selected);
-		this.dlgSrv.close({ type: CloseEventType.OK, data: { selectedProjects, products: this.products } });
 
-		const addedProjects = selectedProjects.filter(project => {
-			return !this.initialSelectedProjects.find(elem => elem.id === project.id);
-		});
+		let addedProjects = [...selectedProjects];
+
+		if (this.initialSelectedProjects) {
+			addedProjects = addedProjects.filter(project => {
+				return !this.initialSelectedProjects.find(elem => elem.id === project.id);
+			});
+		}
+		this.dlgSrv.close({ type: CloseEventType.OK, data: { selectedProjects, products: this.products } });
 
 		this.productDlgSrv.addProjectsToProducts(addedProjects, this.products)
 			.subscribe(projects => {
-				this.dlgSrv.close();
 				this.initialSelectedProjects = [...this.initialSelectedProjects, ...addedProjects];
-				this.notifSrv.add({
-					type: NotificationType.SUCCESS,
+				this.toastSrv.add({
+					type: ToastType.SUCCESS,
 					title: this.translate.instant('title.projects-added'),
 					message: this.translate.instant('message.your-projects-added-success'),
 					timeout: 3500

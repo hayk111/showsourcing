@@ -32,7 +32,6 @@ import { SortingMenusCommonModule } from '~common/sorting-menus/sorting-menus-co
 		DetailsPage.ProductsPageComponent,
 		DetailsPage.ProjectHeaderDetailsComponent,
 		DetailsPage.SettingsPageComponent,
-		DetailsPage.WorkflowPageComponent,
 		DetailsPage.ProjectNavComponent,
 		TablePage.ProjectsPageComponent
 	],

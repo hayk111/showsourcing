@@ -21,10 +21,13 @@
 	<ng-template
 		[columnApp]="''"
 		let-row="row"
-		[grows]="false"
-		width="24">
+		[grows]="false">
 		<div class="user-icon flexCenter">
-			<icon-app class="color-txt-third" name="category" size="s"></icon-app>
+			<logo-app 
+				type="category" 
+				size="s" 
+				color="txt-third" 
+				backgroundColor="bg-secondary"></logo-app>
 		</div>
 	</ng-template>
 
@@ -40,7 +43,7 @@
 			(closed)="updateNameEntity($event, row, txtName?.value)"
 			[hasAction]="true">
 			<editable-display-app class="task-name">
-				{{ row?.name }}
+				{{ row?.name || '-' }}
 			</editable-display-app>
 			<input inputApp #txtName [value]="row?.name || ''" (keyup.enter)="editable.close()" />
 		</editable-container-app>
@@ -58,7 +61,7 @@
 			<!-- remember that we take the name inside the even description entity -->
       <editable-container-app #editable (closed)="updateNameEntity($event, row, txtName?.value, 'description')" [hasAction]="true">
         <editable-display-app class="task-name">
-          {{ row?.description?.name }}
+          {{ row?.description?.name || '-' }}
         </editable-display-app>
         <input inputApp #txtName [value]="row?.description?.name || ''" (keyup.enter)="editable.close()" />
       </editable-container-app>

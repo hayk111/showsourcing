@@ -17,6 +17,10 @@
 		overflow: hidden;
 	}
 
+	.card-view {
+		overflow-y: auto;
+	}
+
 	.spacing-ms {
 		margin: var(--spacing-ms);
 	}
@@ -32,6 +36,7 @@
 	}
 
 	.entity-table {
+		height: calc(100% - 58px);
 		flex-grow: 1;
 		margin-top: var(--spacing-ms);
 		display: flex;

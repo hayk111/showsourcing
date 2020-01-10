@@ -56,7 +56,7 @@
 		</ng-container>
 		<!-- event -->
 		<ng-container *ngSwitchCase="erm.EVENT.singular">
-			{{ item?.descriptor?.name }}
+			{{ item?.description?.name || item?.name }}
 		</ng-container>
 		<!-- country -->
 		<ng-container *ngSwitchCase="erm.COUNTRY.singular">
