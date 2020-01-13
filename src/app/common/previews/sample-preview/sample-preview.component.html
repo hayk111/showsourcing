@@ -5,8 +5,26 @@
 		<!-- Top bar -->
 		<preview-top-bar-app
 			[canOpen]="false"
-			[hasOptions]="false"
 			(closed)="close.emit()">
+			<logo-app
+				class="mg-right-s"
+				size="l"
+				[logo]="sample?.images[0] || null"
+				[type]="erm.SAMPLE.singular">
+			</logo-app>
+			<div class="flexColumn ellipsis">
+				<span class="color-txt-primary semi-bold fs-l ellipsis">{{ sample?.name }}</span>
+				<div class="flexVAlign dot-separator-txt-secondary">
+					<div class="flexVAlign">
+						<logo-app
+							class="mg-right-xs"
+							size="xs"
+							[type]="erm.SAMPLE.singular">
+						</logo-app>
+						<span class="color-txt-secondary">{{ sample?.reference }}</span>
+					</div>
+				</div>
+			</div>
 		</preview-top-bar-app>
 
 		<!-- Carousel -->
@@ -14,7 +32,7 @@
 			[entity]="sample"
 			[entityMD]="erm.SAMPLE"
 			[images]="sample?.images"
-			objectFit="cover">
+			objectFit="contain">
 		</preview-carousel-app>
 	</preview-banner-app>
 
@@ -22,16 +40,23 @@
 	<preview-header-app
 		[entity]="sample"
 		[entityMD]="erm.SAMPLE"
+		titleProp="reference"
 		(update)="update($event, 'name')">
 
-		<!-- Product badge -->
-		<badge-selector-app
-			[hasOpenAction]="true"
-			[badge]="erm.PRODUCT"
-			[value]="sample?.product?.name"
-			(openActionClicked)="openProduct()"
-			(update)="update($event, 'product')">
-		</badge-selector-app>
+		<preview-header-buttons-app>
+			<button class="icon" (click)="null" toolTip [toolTipMessage]="'tooltip.share-sample' | translate">
+				<icon-app class="color-txt-secondary" name="share"></icon-app>
+			</button>
+			<button class="icon" (click)="selectSecondTab()" toolTip [toolTipMessage]="'tooltip.create-comment' | translate">
+				<icon-app class="color-txt-secondary" name="comments"></icon-app>
+			</button>
+		</preview-header-buttons-app>
+
+		<preview-header-subtitle-app>
+			<div *ngIf="sample?.name">{{ sample?.name }}</div>
+			<div class="txt-btn" (click)="selectSecondTab()">{{ sample?.comments?.length || 0  }} {{ sample?.comments?.length === 1 ? 'Comment' : 'Comments' }}</div>
+		</preview-header-subtitle-app>
+
 
 		<!-- Supplier badge -->
 		<badge-selector-app
@@ -41,10 +66,25 @@
 			(openActionClicked)="openSupplier()"
 			(update)="update($event, 'supplier')">
 		</badge-selector-app>
+
+		<!-- Product badge -->
+		<badge-selector-app
+			[hasOpenAction]="true"
+			[badge]="erm.PRODUCT"
+			[value]="getProductFormatedName(sample?.product)"
+			(openActionClicked)="openProduct()"
+			(update)="update($event, 'product')">
+		</badge-selector-app>
+
 	</preview-header-app>
 
+	<!-- Tabs -->
+	<preview-tab-app #tab1 (click)="selectFirstTab()"><span translate="title.sample-info"></span></preview-tab-app>
+	<preview-tab-app #tab2 (click)="selectSecondTab()"><span translate="title.comments"></span></preview-tab-app>
+
+
 	<!-- Description -->
-	<preview-section-app [title]="'title.description' | translate">
+	<preview-section-app #contentTab1 [title]="'title.description' | translate">
 		<input-description-app
 			[description]="sample?.description"
 			(update)="update($event, 'description')">
@@ -52,7 +92,7 @@
 	</preview-section-app>
 
 	<!-- Sample information -->
-	<preview-section-app [title]="'title.sample-information' | translate">
+	<preview-section-app #contentTab1 [title]="'title.sample-details' | translate">
 		<dynamic-form-app
 			[config]="formConfig"
 			[fields]="sampleDescriptor?.descriptor"
@@ -62,7 +102,7 @@
 	</preview-section-app>
 
 	<!-- Extended Fields -->
-	<preview-section-app *ngIf="(fieldDefinitions$ | async)?.length" [title]="'title.extended-fields' | translate">
+	<preview-section-app #contentTab1 *ngIf="(fieldDefinitions$ | async)?.length" [title]="'title.extended-fields' | translate">
 		<extended-form-app
 			[definitions]="fieldDefinitions$ | async"
 			[fields]="sample?.extendedFields"
@@ -71,11 +111,17 @@
 		</extended-form-app>
 	</preview-section-app>
 
+	<!-- About -->
+	<preview-section-app #contentTab1 [title]="'title.about-sample' | translate">
+		<small>Created by {{ sample?.createdBy | formatUserName }} on  {{ sample?.creationDate | date: 'dd MMMM yyyy' }}</small> <br>
+		<small>Last updated by {{ sample?.lastUpdatedBy | formatUserName }} on {{ sample?.lastUpdatedDate | date: 'dd MMMM yyyy' }}</small><br>
+	</preview-section-app>
+
 	<!-- Activity -->
-	<preview-section-app *ngIf="sample?.comments?.length" [title]="'title.comments' | translate">
+	<preview-section-app #contentTab2 *ngIf="sample?.comments?.length" [title]="'title.comments' | translate">
 		<comment-list-app [comments]="sample.comments"></comment-list-app>
 	</preview-section-app>
 
-	<preview-comment-app (added)="addComment($event)"></preview-comment-app>
+	<preview-comment-app #contentTab2 (added)="addComment($event)"></preview-comment-app>
 </preview-panel-app>
 

@@ -1,8 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { switchMap } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
+import { RequestsTableComponent } from '~common/tables/requests-table/requests-table.component';
 import { RequestReplyService, SupplierRequestService, TeamService } from '~core/entity-services';
 import { SelectParams } from '~core/entity-services/_global/select-params';
+import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 import { ListPageService } from '~core/list-page';
 import { EntityTypeEnum, ERM, ReplyStatus, SupplierRequest } from '~core/models';
 import { DialogService } from '~shared/dialog';
@@ -14,12 +16,23 @@ import { AutoUnsub } from '~utils';
 	selector: 'requests-page-app',
 	templateUrl: './requests-page.component.html',
 	styleUrls: ['./requests-page.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	providers: [
+		ListPageService
+	],
+	host: {
+		class: 'table-page'
+	}
 })
 export class RequestsPageComponent extends AutoUnsub implements OnInit {
 
 	erm = ERM;
 	entityTypeEnum = EntityTypeEnum;
+
+	columns = RequestsTableComponent.DEFAULT_COLUMNS;
+	tableConfig = RequestsTableComponent.DEFAULT_TABLE_CONFIG;
+
+	selectItemsConfig: SelectParamsConfig;
 
 	constructor(
 		private requestSrv: SupplierRequestService,
@@ -31,7 +44,6 @@ export class RequestsPageComponent extends AutoUnsub implements OnInit {
 	) { super(); }
 
 	ngOnInit() {
-		const selectParams = new SelectParams({ sortBy: 'sentDate' });
 		this.listSrv.setup({
 			entitySrv: this.requestSrv,
 			searchedFields: ['title', 'message', 'recipient.name', 'recipient.email', 'recipient.company', 'templateName', 'requestElements.name'],
@@ -39,11 +51,10 @@ export class RequestsPageComponent extends AutoUnsub implements OnInit {
 			initialFilters: [
 				{
 					type: FilterType.CUSTOM,
-					value: `senderTeamId == "${this.teamSrv.selectedTeamSync.id}"`
+					value: `senderTeamId == "${this.teamSrv.selectedTeamSync.id}"`,
 				}
 			],
 			originComponentDestroy$: this._destroy$,
-			selectParams
 		});
 	}
 
@@ -71,6 +82,11 @@ export class RequestsPageComponent extends AutoUnsub implements OnInit {
 			switchMap(_ => this.replySrv.updateMany(items)),
 			switchMap(_ => this.listSrv.refetch())
 		).subscribe(_ => this.listSrv.unselectAll());
+	}
+
+	showItemsPerPage(count: number) {
+		this.selectItemsConfig = { take: Number(count) };
+		this.listSrv.refetch(this.selectItemsConfig).subscribe();
 	}
 
 }

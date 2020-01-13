@@ -1,9 +1,8 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { first } from 'rxjs/operators';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { ERMService } from '~core/entity-services/_global/erm.service';
 import { AppImage, EntityMetadata, Product, Sample, Supplier } from '~core/models';
 import { UploaderService } from '~shared/file/services/uploader.service';
-import { DEFAULT_IMG, PendingImage, AutoUnsub } from '~utils';
+import { AutoUnsub, DEFAULT_IMG, PendingImage } from '~utils';
 
 @Component({
 	selector: 'preview-carousel-app',

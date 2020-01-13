@@ -6,10 +6,12 @@
 	(buttonClick)="dialogCommonSrv.openSupplierRequest([])">
 </header-list-app>
 
-<controller-table-app >
-	<controller-table-quick-filters-app></controller-table-quick-filters-app>
-	<controller-table-quick-actions-app></controller-table-quick-actions-app>
-	<controller-table-view-switcher-app></controller-table-view-switcher-app>
+<controller-table-app [hasFilters]="false">
+	<controller-table-quick-actions-app 
+		[hasExport]="false"
+		[columns]="columns" 
+		[tableConfig]="tableConfig">
+	</controller-table-quick-actions-app>
 </controller-table-app>
 
 <requests-table-app
@@ -18,10 +20,12 @@
 	[selection]="listSrv.selection$ | async"
 	[count]="listSrv.count$ | async"
 	[currentPage]="listSrv.currentPage"
+	[currentSort]="listSrv.currentSort"
 	(goToPage)="listSrv.loadPage($event)"
 	(cancelRequest)="cancelRequest($event)"
 	(select)="listSrv.selectOne($event)"
 	(selectAll)="listSrv.selectAll($event)"
+	(showItemsPerPage)="showItemsPerPage($event)"
 	(sort)="listSrv.sort($event)"
 	(unselect)="listSrv.unselectOne($event)"
 	(unselectAll)="listSrv.unselectAll()">
@@ -30,6 +34,7 @@
 <request-selection-bar-app
 	[isShown]="(listSrv.selection$ | async).size > 0"
 	[selection]="listSrv.selection$ | async"
+	[selectableItems]="listSrv.items$ | async"
 	(close)="listSrv.unselectAll()"
 	(cancelSelectedRequests)="cancelSelectedRequests()">
 </request-selection-bar-app>

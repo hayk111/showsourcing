@@ -51,7 +51,16 @@
 		font-weight: 600;
 	}
 	&.medium {
+		height: 24px;
 		padding: 6px 8px;
+		font-size: var(--font-size-s);
+		border-radius: var(--border-radius);
+		font-weight: 600;
+	}
+
+	&.large {
+		height: 32px;
+		padding: var(--spacing-s);
 		font-size: var(--font-size-s);
 		border-radius: var(--border-radius);
 		font-weight: 600;

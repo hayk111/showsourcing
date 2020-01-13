@@ -13,6 +13,8 @@ import {
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { filter, first, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { SampleCatalogComponent } from '~common/catalogs/sample-catalog/sample-catalog.component';
+import { TaskCatalogComponent } from '~common/catalogs/task-catalog/task-catalog.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { ProductDescriptor } from '~core/descriptors';
 import { CommentService } from '~core/entity-services/comment/comment.service';
@@ -20,25 +22,16 @@ import {
 	ExtendedFieldDefinitionService,
 } from '~core/entity-services/extended-field-definition/extended-field-definition.service';
 import { ProductService, SampleService, TaskService } from '~entity-services';
-import {
-	AppImage,
-	Comment,
-	EntityName,
-	ERM,
-	ExtendedFieldDefinition,
-	PreviewActionButton,
-	Product,
-	Sample,
-	Task,
-} from '~models';
+import { AppImage, Comment, EntityName, ERM, ExtendedFieldDefinition, Product, Sample, Task } from '~models';
 import { CloseEvent, CloseEventType } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { DialogService } from '~shared/dialog/services';
 import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { PreviewCommentComponent, PreviewService } from '~shared/preview';
+import { RatingDashboardComponent } from '~shared/rating';
 import { RatingService } from '~shared/rating/services/rating.service';
-import { AutoUnsub, PendingImage, translate } from '~utils';
+import { AutoUnsub, PendingImage } from '~utils';
 
 @Component({
 	selector: 'product-preview-app',
@@ -53,7 +46,6 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 	@Input()
 	set product(value: Product) {
 		this._product = value;
-		this.setActions();
 		if (value) {
 			this.images = this._product.images;
 		}
@@ -77,8 +69,11 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 	@Output() updated = new EventEmitter<Product>();
 	@Output() statusUpdated = new EventEmitter<Product>();
 	@Output() clickOutside = new EventEmitter<null>();
-	// component to scroll into view
+
 	@ViewChild(PreviewCommentComponent, { static: false }) previewComment: PreviewCommentComponent;
+	@ViewChild(SampleCatalogComponent, { read: ElementRef, static: false }) sampleCatalog: ElementRef;
+	@ViewChild(TaskCatalogComponent, { read: ElementRef, static: false }) taskCatalog: ElementRef;
+	@ViewChild(RatingDashboardComponent, { read: ElementRef, static: false }) ratingDashboard: ElementRef;
 	@ViewChild('inpFile', { static: false }) inpFile: ElementRef;
 
 	/** this is the fully loaded product */
@@ -90,31 +85,24 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 	formConfig = new DynamicFormConfig({ mode: 'editable-text' });
 	erm = ERM;
 
-	actions: PreviewActionButton[];
-
 	fieldDefinitions$: Observable<ExtendedFieldDefinition[]>;
 
 	private _pendingImages: PendingImage[] = [];
 
 	constructor(
+		public dialogCommonSrv: DialogCommonService,
 		private uploader: UploaderService,
 		private cd: ChangeDetectorRef,
 		private productSrv: ProductService,
-		private dialogCommonSrv: DialogCommonService,
 		private dlgSrv: DialogService,
 		private router: Router,
 		private commentSrv: CommentService,
 		private extendedFieldDefSrv: ExtendedFieldDefinitionService,
-		public previewSrv: PreviewService,
+		private previewSrv: PreviewService,
 		private ratingSrv: RatingService,
 		private taskSrv: TaskService,
 		private sampleSrv: SampleService
-	) {
-		super();
-
-		this.actions = [];
-
-	}
+	) { super(); }
 
 	ngOnInit() {
 		this.productDescriptor1 = new ProductDescriptor([
@@ -133,8 +121,6 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 		// TODO i18n
 		this.productDescriptor2.insert({ name: 'sample', type: 'title' }, 'sample');
 		this.productDescriptor2.insert({ name: 'shipping', type: 'title' }, 'incoTerm');
-
-		this.setActions();
 
 		// TODO Backend add field
 		// this.taskSrv.queryMany({ query: `product.id == "${this.product.id}" AND delete == false AND archived == false  ` });
@@ -157,10 +143,10 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 			.pipe(takeUntil(this._destroy$))
 			.subscribe(product => {
 				this.product = product;
-				this.setActions();
 			});
 	}
 
+	// UPDATE FUNCTIONS
 	updateProduct(productConfig: any) {
 		const product = ({ ...productConfig, id: this.product.id });
 		this.productSrv.update(product)
@@ -171,74 +157,12 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 		this.updateProduct({ [prop]: value });
 	}
 
-	clickOnAction(action: PreviewActionButton) {
-		if (action.action) {
-			action.action();
-		}
+	updateTask(task: Task) {
+		this.taskSrv.update(task).subscribe();
 	}
 
-	private setActions() {
-		this.actions = [
-			{
-				icon: 'sample',
-				fontSet: '',
-				text: translate('add sample'),
-				action: this.openNewSample.bind(this),
-				number: this.product && this.product.samplesLinked && this.product.samplesLinked.count
-			},
-			{
-				icon: 'check-circle',
-				fontSet: '',
-				text: translate('add task'),
-				action: this.openNewTask.bind(this),
-				number: this.product && this.product.tasksLinked && this.product.tasksLinked.count
-			},
-			{
-				icon: 'comments',
-				fontSet: '',
-				text: translate(ERM.COMMENT.singular, 'erm'),
-				action: this.scrollToCommentButton.bind(this),
-				number: this.product && this.product.comments && this.product.comments.length
-			},
-			{
-				icon: 'export',
-				text: translate('export'),
-				fontSet: '',
-				action: this.openExportModal.bind(this)
-			}
-		];
-	}
-
-	openProduct() {
-		this.router.navigate(['products', this.product.id]);
-	}
-
-	openSupplier() {
-		this.router.navigate(['suppliers', this.product.supplier.id]);
-	}
-
-	openAddToProject() {
-		this.dialogCommonSrv.openAddToProjectDialog([this.product]);
-	}
-
-	openNewTask() {
-		this.dialogCommonSrv.openCreationTaskDlg(this.product, this.product && this.product.supplier).subscribe();
-	}
-
-	openNewSample() {
-		this.dialogCommonSrv.openCreationSampleDialog(this.product, this.product && this.product.supplier).subscribe();
-	}
-
-	openExportModal() {
-		this.dialogCommonSrv.openExportDialog(EntityName.PRODUCT, [this.product]);
-	}
-
-	scrollToCommentButton() {
-		this.previewComment.focus();
-	}
-
-	openFileBrowser() {
-		this.inpFile.nativeElement.click();
+	updateSample(sample: Sample) {
+		this.sampleSrv.update(sample).subscribe();
 	}
 
 	addComment(comment: Comment) {
@@ -282,19 +206,6 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 		return pendingImgs.map(p => p.id);
 	}
 
-	onStarVote(number: number) {
-		const votes = this.ratingSrv.starVote(this.product.votes, number, EntityName.PRODUCT);
-		this.update(votes, 'votes');
-	}
-
-	updateTask(task: Task) {
-		this.taskSrv.update(task).subscribe();
-	}
-
-	updateSample(sample: Sample) {
-		this.sampleSrv.update(sample).subscribe();
-	}
-
 	delete(product: Product) {
 		const text = `Are you sure you want to delete this product ?`;
 		this.dlgSrv.open(ConfirmDialogComponent, { text })
@@ -319,6 +230,62 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 					this.close.emit();
 				}),
 			).subscribe();
+	}
+
+	// ACTIONS
+	redirect(subroute?: string) {
+		subroute ?
+			this.router.navigate(['products', this.product.id, subroute]) :
+			this.router.navigate(['products', this.product.id]);
+	}
+
+	openSupplier() {
+		this.router.navigate(['suppliers', this.product.supplier.id]);
+	}
+
+	openAddToProject() {
+		this.dialogCommonSrv.openAddToProjectDialog([this.product]);
+	}
+
+	openCreateTask() {
+		this.dialogCommonSrv.openCreationTaskDlg(this.product, this.product && this.product.supplier).subscribe();
+	}
+
+	openCreateSample() {
+		this.dialogCommonSrv.openCreationSampleDialog(this.product, this.product && this.product.supplier).subscribe();
+	}
+
+	openExportModal() {
+		this.dialogCommonSrv.openExportDialog(EntityName.PRODUCT, [this.product]);
+	}
+
+	// TAB SELECTION
+	selectFirstTab() {
+		this.previewSrv.onSelectedTab(1);
+	}
+
+	selectSecondTab(scrollTo?: string) {
+		this.previewSrv.onSelectedTab(2);
+		switch (scrollTo) {
+			case 'sample':
+				this.sampleCatalog.nativeElement.scrollIntoView({ behavior: 'smooth' });
+				break;
+			case 'task':
+				this.sampleCatalog.nativeElement.scrollIntoView({ behavior: 'smooth' });
+				break;
+			case 'rating':
+				this.ratingDashboard.nativeElement.scrollIntoView({ behavior: 'smooth' });
+				break;
+		}
+	}
+
+	selectThirdTab() {
+		this.previewSrv.onSelectedTab(3);
+		this.previewComment.focus();
+	}
+
+	openFileBrowser() {
+		this.inpFile.nativeElement.click();
 	}
 
 }

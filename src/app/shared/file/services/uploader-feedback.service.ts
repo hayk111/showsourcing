@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { first, tap, catchError, switchMap } from 'rxjs/operators';
+import { catchError, first, tap } from 'rxjs/operators';
 import { AttachmentService } from '~core/entity-services';
 import { ImageService } from '~core/entity-services/image/image.service';
 import { AppImage, Attachment } from '~core/models';

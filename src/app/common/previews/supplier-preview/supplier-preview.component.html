@@ -4,27 +4,75 @@
 	*ngIf="isPreview && (supplier$ | async)"
 	[align]="'right'">
 
-		<!-- Banner -->
-		<preview-banner-app>
-			<preview-top-bar-app
-				(closed)="close.emit()"
-				(opened)="openSupplier()">
-			</preview-top-bar-app>
-			<preview-carousel-app
-				[entity]="supplier"
-				[entityMD]="erm.SUPPLIER"
-				[images]="supplier?.images"
-				objectFit="cover">
-			</preview-carousel-app>
-		</preview-banner-app>
-
-		<!-- Header -->
-		<preview-header-app
+	<!-- Banner -->
+	<preview-banner-app>
+		<preview-top-bar-app
+			(closed)="close.emit()"
+			(opened)="redirect()">
+			<logo-app
+				class="mg-right-s"
+				size="l"
+				[logo]="supplier?.logoImage"
+				[type]="erm.SUPPLIER.singular">
+			</logo-app>
+			<div class="flexColumn ellipsis">
+				<span class="color-txt-primary semi-bold fs-l ellipsis">{{ supplier?.name }}</span>
+				<div class="flexVAlign dot-separator-txt-secondary">
+					<div class="flexVAlign">
+						<logo-app
+							class="mg-right-xs"
+							size="xs"
+							[type]="erm.SUPPLIER.singular">
+						</logo-app>
+						<span class="color-txt-secondary">{{ supplier?.reference }}</span>
+					</div>
+				</div>
+			</div>
+		</preview-top-bar-app>
+		<preview-carousel-app
 			[entity]="supplier"
 			[entityMD]="erm.SUPPLIER"
-			[supplier]="supplier"
-			[displayEntityInfo]="isPreview"
-			(update)="update($event, 'name')">
+			[images]="supplier?.images"
+			objectFit="contain">
+		</preview-carousel-app>
+	</preview-banner-app>
+
+	<!-- Header -->
+	<preview-header-app
+		[entity]="supplier"
+		[entityMD]="erm.SUPPLIER"
+		(update)="update($event, 'name')">
+
+		<preview-header-buttons-app>
+			<button class="icon" (click)="openCreateSample()" toolTip [toolTipMessage]="'tooltip.create-sample' | translate">
+				<icon-app class="color-txt-secondary" name="sample"></icon-app>
+			</button>
+			<button class="icon" (click)="openCreateTask()" toolTip [toolTipMessage]="'tooltip.create-task' | translate">
+				<icon-app class="color-txt-secondary" name="check-circle"></icon-app>
+			</button>
+			<button class="icon" (click)="selectThirdTab()" toolTip [toolTipMessage]="'tooltip.create-comment' | translate">
+				<icon-app class="color-txt-secondary" name="comments"></icon-app>
+			</button>
+			<button class="icon" (click)="dialogCommonSrv.openSupplierRequest(null, supplier)" toolTip [toolTipMessage]="'tooltip.contact-supplier' | translate">
+				<icon-app class="color-vibrant" name="envelope"></icon-app>
+			</button>
+		</preview-header-buttons-app>
+
+		<context-menu-item-app
+			(click)="archive()"
+			translate="button.archive">
+		</context-menu-item-app>
+		<context-menu-item-warn-app
+			(click)="delete(supplier)"
+			translate="button.delete">
+		</context-menu-item-warn-app>
+
+		<preview-header-subtitle-app>
+			<rating-badge-app class="pointer"	[votes]="supplier?.votes" [hasNumber]="true" (click)="selectSecondTab('rating')"></rating-badge-app>
+			<div class="txt-btn" (click)="selectSecondTab('sample')">{{ supplier?.samplesLinked.count || 0 }} {{ supplier?.samplesLinked?.count === 1 ? 'Sample' : 'Samples' }}</div>
+			<div class="txt-btn" (click)="selectSecondTab('task')">{{ supplier?.tasksLinked.count || 0 }} {{ supplier?.samplesLinked?.count === 1 ? 'Task' : 'Tasks' }}</div>
+			<div class="txt-btn" (click)="selectThirdTab()">{{ supplier?.comments?.length || 0  }} {{ supplier?.comments?.length === 1 ? 'Comment' : 'Comments' }}</div>
+		</preview-header-subtitle-app>
 
 		<!-- Supplier type badge -->
 		<badge-selector-app
@@ -49,8 +97,14 @@
 		</badge-selector-app>
 	</preview-header-app>
 
+	<!-- Tabs -->
+	<preview-tab-app #tab1 (click)="selectFirstTab()"><span translate="title.supplier-info"></span></preview-tab-app>
+	<preview-tab-app #tab2 (click)="selectSecondTab()"><span translate="title.activity"></span></preview-tab-app>
+	<preview-tab-app #tab3 (click)="selectThirdTab()"><span translate="title.comments"></span></preview-tab-app>
+
+
 	<!-- Description -->
-	<preview-section-app [title]="'title.description' | translate">
+	<preview-section-app #contentTab1 [title]="'title.description' | translate">
 		<input-description-app
 			[description]="supplier?.description"
 			(update)="update($event, 'description')">
@@ -58,7 +112,7 @@
 	</preview-section-app>
 
 	<!-- Tags -->
-	<preview-section-app [title]="'title.tags' | translate">
+	<preview-section-app #contentTab1 [title]="'title.tags' | translate">
 		<input-badge-selector-app
 			[value]="supplier?.tags"
 			type="tag"
@@ -67,7 +121,7 @@
 	</preview-section-app>
 
 	<!-- Supplier Details -->
-	<preview-section-app [title]="'title.supplier-details' | translate">
+	<preview-section-app #contentTab1 [title]="'title.supplier-details' | translate">
 		<dynamic-form-app
 			[fields]="supplierDescirptor?.descriptor"
 			[config]="formConfig"
@@ -78,7 +132,7 @@
 
 
 	<!-- Extended Fields -->
-	<preview-section-app *ngIf="(fieldDefinitions$ | async)?.length" [title]="'title.extended-fields' | translate">
+	<preview-section-app #contentTab1 *ngIf="(fieldDefinitions$ | async)?.length" [title]="'title.extended-fields' | translate">
 		<extended-form-app
 			[definitions]="fieldDefinitions$ | async"
 			[config]="formConfig"
@@ -88,11 +142,74 @@
 	</preview-section-app>
 
 	<!-- Activity -->
-	<preview-section-app *ngIf="supplier?.comments?.length" [title]="'title.comments' | translate">
-		<comment-list-app [comments]="supplier.comments"></comment-list-app>
+	<!-- Owner -->
+	<preview-section-app #contentTab2 [title]="'title.supplier-owner' | translate">
+		<editable-container-app
+			[hasAction]="false"
+			[openOnClick]="false"
+			(click)="sel?.selector?.openMenu()">
+			<editable-display-app>
+				<selector-app
+					#sel
+					[type]="'USER' | erm: 'singular'"
+					[width]="320"
+					[offsetX]="4"
+					(update)="updateSupplier({ assignee: $event })">
+					<div *ngIf="supplier?.assignee; else none" class="flex">
+						<user-picture-app	class="mg-right-ms" [user]="supplier?.assignee" size="24" fontSize="12" [hasName]="true"></user-picture-app>
+					</div>
+					<ng-template #none>None</ng-template>
+				</selector-app>
+				</editable-display-app>
+		</editable-container-app>
 	</preview-section-app>
 
-	<preview-comment-app (added)="addComment($event)"></preview-comment-app>
+	<!-- Tasks -->
+	<preview-section-app #contentTab2 class="action-hover-container-0" [title]="'title.tasks' | translate">
+		<preview-section-action-app>
+			<div class="mg-left-ms action-hover-item-0 color-primary txt-btn" (click)="openCreateTask()" translate="button.add"></div>
+		</preview-section-action-app>
+		<task-catalog-app
+			[tasks]="supplier?.tasksLinked?.items"
+			(taskClicked)="redirect('tasks')"
+			(showMore)="redirect('tasks')">
+		</task-catalog-app>
+	</preview-section-app>
+
+	<!-- Samples -->
+	<preview-section-app #contentTab2 class="action-hover-container-0" [title]="'title.samples' | translate">
+		<preview-section-action-app>
+			<div class="mg-left-ms action-hover-item-0 color-primary txt-btn" (click)="openCreateSample()" translate="button.add"></div>
+		</preview-section-action-app>
+		<sample-catalog-app
+			[samples]="supplier?.samplesLinked?.items"
+			(sampleClicked)="redirect('samples')"
+			(showMore)="redirect('samples')">
+		</sample-catalog-app>
+	</preview-section-app>
+
+	<!-- Rating -->
+	<preview-section-app #contentTab2 [title]="'title.team-rating' | translate">
+		<rating-dashboard-app
+			[votes]="supplier?.votes"
+			[type]="erm.SUPPLIER.singular"
+			(update)="update($event, 'votes')"
+			(viewRatings)="dialogCommonSrv.openVoteDetailsDialog($event)">
+		</rating-dashboard-app>
+	</preview-section-app>
+
+	<!-- About -->
+	<preview-section-app #contentTab2 [title]="'title.about-supplier' | translate">
+		<small>Created by {{ supplier?.createdBy | formatUserName }} on  {{ supplier?.creationDate | date: 'dd MMMM yyyy' }}</small> <br>
+		<small>Last updated by {{ supplier?.lastUpdatedBy | formatUserName }} on {{ supplier?.lastUpdatedDate | date: 'dd MMMM yyyy' }}</small><br>
+	</preview-section-app>
+
+	<!-- Comments -->
+	<preview-section-app #contentTab3 *ngIf="supplier?.comments?.length" [title]="'title.comments' | translate">
+		<comment-list-app [comments]="supplier?.comments"></comment-list-app>
+	</preview-section-app>
+
+	<preview-comment-app #contentTab3 (added)="addComment($event)"></preview-comment-app>
 
 </preview-panel-app>
 
@@ -117,10 +234,6 @@
 		<preview-header-app
 			[entity]="supplier"
 			[entityMD]="erm.SUPPLIER"
-			[supplier]="supplier"
-			[logoImage]="supplier?.logoImage"
-			[hasLogo]="true"
-			[displayEntityInfo]="false"
 			(update)="update($event, 'name')">
 
 		<!-- Supplier type badge -->

@@ -1,9 +1,16 @@
 :host {
+	display: block;
+	background: white;
+	width: 419px;
+	position: fixed;
+	top: 0;
+	right: 0;
+	z-index: var(--z-card-container);
+}
+
+.container {
 	height: 66px;
 	padding: var(--spacing-ms);
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
 	box-sizing: border-box;
 }
 

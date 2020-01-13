@@ -1,5 +1,5 @@
 $padding-horizontal: 8px;
-$padding-vertical: 6px;
+$padding-vertical: 4px;
 
 :host {
 	display: flex;
@@ -16,6 +16,7 @@ $padding-vertical: 6px;
 		border-radius: var(--border-radius);
 		margin-left: -$padding-horizontal;
 		padding: $padding-vertical $padding-horizontal;
+		transition-property: background; // this way we avoid weird animation when closing the editable container
 		&.open {
 			.openBlock {
 				border-bottom: 1px solid var(--color-primary);

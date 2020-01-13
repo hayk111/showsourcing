@@ -23,14 +23,16 @@ export class PreviewCommentComponent {
 		public element: ElementRef) { }
 
 	addComment() {
-		const comment = new Comment({ text: this.commentCtrl.value });
-		this.commentSrv.create(comment);
-		this.added.emit(comment);
-		this.commentCtrl.reset();
+		if (this.commentCtrl.value) {
+			const comment = new Comment({ text: this.commentCtrl.value });
+			this.commentSrv.create(comment);
+			this.added.emit(comment);
+			this.commentCtrl.reset();
+		}
 	}
 
 	focus() {
-		this.element.nativeElement.scrollIntoView();
+		this.element.nativeElement.scrollIntoView({ behavior: 'smooth' });
 		this.input.nativeElement.focus();
 	}
 

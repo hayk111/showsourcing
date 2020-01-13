@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
@@ -8,9 +8,10 @@ import { CommentService } from '~core/entity-services/comment/comment.service';
 import {
 	ExtendedFieldDefinitionService,
 } from '~core/entity-services/extended-field-definition/extended-field-definition.service';
-import { Comment, ERM, ExtendedFieldDefinition, Sample } from '~core/models';
+import { Comment, ERM, ExtendedFieldDefinition, Sample, Product } from '~core/models';
 import { AutoUnsub } from '~utils';
 import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
+import { PreviewService, PreviewCommentComponent } from '~shared/preview';
 
 @Component({
 	selector: 'sample-preview-app',
@@ -31,6 +32,8 @@ export class SamplePreviewComponent extends AutoUnsub implements OnInit, OnChang
 
 	@Output() close = new EventEmitter<null>();
 
+	@ViewChild(PreviewCommentComponent, { static: false }) previewComment: PreviewCommentComponent;
+
 	sample$: Observable<Sample>;
 	sampleDescriptor: SampleDescriptor;
 	selectedIndex = 0;
@@ -44,6 +47,7 @@ export class SamplePreviewComponent extends AutoUnsub implements OnInit, OnChang
 		private router: Router,
 		private userSrv: UserService,
 		private sampleSrv: SampleService,
+		private previewSrv: PreviewService,
 		private extendedFieldDefSrv: ExtendedFieldDefinitionService
 	) {
 		super();
@@ -67,11 +71,11 @@ export class SamplePreviewComponent extends AutoUnsub implements OnInit, OnChang
 			.subscribe(s => this._sample = s);
 	}
 
+	// UPDATES
 	update(value: any, prop: string) {
 		this.sampleSrv.update({ id: this._sample.id, [prop]: value }).subscribe();
 	}
 
-	// dyanmic form update
 	updateSample(sample: Sample) {
 		this.sampleSrv.update({ id: this._sample.id, ...sample }).subscribe();
 	}
@@ -86,6 +90,7 @@ export class SamplePreviewComponent extends AutoUnsub implements OnInit, OnChang
 		).subscribe();
 	}
 
+	// ACTIONS
 	openSupplier() {
 		this.router.navigate(['suppliers', this.sample.supplier.id]);
 	}
@@ -93,4 +98,26 @@ export class SamplePreviewComponent extends AutoUnsub implements OnInit, OnChang
 	openProduct() {
 		this.router.navigate(['products', this.sample.product.id]);
 	}
+
+	getProductFormatedName(product: Product) {
+		if (!product)
+			return;
+		else if (product.name && product.reference)
+			return product.reference + ' - ' + product.name;
+		else if (product.name)
+			return product.name;
+		else if (product.reference)
+			return product.reference;
+	}
+
+	// TAB SELECTION
+	selectFirstTab() {
+		this.previewSrv.onSelectedTab(1);
+	}
+
+	selectSecondTab() {
+		this.previewSrv.onSelectedTab(2);
+		this.previewComment.focus();
+	}
+
 }

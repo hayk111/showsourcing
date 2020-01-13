@@ -6,6 +6,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { BadgeModule } from '~shared/badge';
 import { CarouselModule } from '~shared/carousel';
 import { ContextMenuModule } from '~shared/context-menu/context-menu.module';
+import { DividerModule } from '~shared/divider/divider.module';
 import { EditableFieldModule } from '~shared/editable-field';
 import { FileModule } from '~shared/file';
 import { IconsModule } from '~shared/icons';
@@ -16,16 +17,19 @@ import { StatusSelectorModule } from '~shared/status-selector/status-selector.mo
 import { UtilsModule } from '~shared/utils';
 
 import {
+	PreviewActionsComponent,
 	PreviewBannerComponent,
 	PreviewCarouselComponent,
 	PreviewCommentComponent,
+	PreviewHeaderButtonsComponent,
 	PreviewHeaderComponent,
+	PreviewHeaderSubtitleComponent,
 	PreviewPanelComponent,
+	PreviewSectionActionComponent,
 	PreviewSectionComponent,
 	PreviewStaticComponent,
 	PreviewTabComponent,
 	PreviewTopBarComponent,
-	PreviewActionsComponent
 } from './components';
 
 
@@ -47,30 +51,37 @@ import {
 		StatusSelectorModule,
 		TranslateModule,
 		UtilsModule,
+		DividerModule
 	],
 	declarations: [
+		PreviewActionsComponent,
 		PreviewBannerComponent,
 		PreviewCarouselComponent,
 		PreviewCommentComponent,
+		PreviewHeaderButtonsComponent,
 		PreviewHeaderComponent,
+		PreviewHeaderSubtitleComponent,
 		PreviewPanelComponent,
+		PreviewSectionActionComponent,
 		PreviewSectionComponent,
 		PreviewStaticComponent,
 		PreviewTabComponent,
 		PreviewTopBarComponent,
-		PreviewActionsComponent
 	],
 	exports: [
+		PreviewActionsComponent,
 		PreviewBannerComponent,
 		PreviewCarouselComponent,
 		PreviewCommentComponent,
+		PreviewHeaderButtonsComponent,
 		PreviewHeaderComponent,
+		PreviewHeaderSubtitleComponent,
 		PreviewPanelComponent,
+		PreviewSectionActionComponent,
 		PreviewSectionComponent,
 		PreviewStaticComponent,
 		PreviewTabComponent,
 		PreviewTopBarComponent,
-		PreviewActionsComponent
 	]
 })
 export class PreviewModule { }

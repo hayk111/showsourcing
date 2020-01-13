@@ -5,7 +5,6 @@
 	<controller-table-app>
 		<controller-table-quick-filters-app></controller-table-quick-filters-app>
 		<controller-table-quick-actions-app></controller-table-quick-actions-app>
-		<controller-table-view-switcher-app></controller-table-view-switcher-app>
 	</controller-table-app>
 
 	<projects-table-app
@@ -14,6 +13,7 @@
 		[footerTemplate]="footer"
 		[navigation]="false"
 		[hasMenu]="false"
+		[width]="listSrv.filterPanelOpen ? 'calc(100% - 308px)' : '100%'"
 		[selection]="listSrv.selection$ | async"
 		[rows]="listSrv.items$ | async"
 		[pending]="listSrv.pending"
@@ -29,12 +29,16 @@
 		(delete)="listSrv.deleteOne($event)">
 	</projects-table-app>
 
-	<filters-app
-		*ngIf="listSrv.filterPanelOpen"
-		[filterList]="listSrv.filterList"
-		[filterTypes]="filterTypes"
-		(clickOutside)="listSrv.closeFilterPanel()">
-	</filters-app>
+	<div class="dlg-filters">
+		<filters-app
+			*ngIf="listSrv.filterPanelOpen"
+			[filterList]="listSrv.filterList"
+			[filterTypes]="filterTypes"
+			[sidePanel]="false"
+			(clickOutside)="listSrv.closeFilterPanel()"
+			(close)="listSrv.closeFilterPanel()">
+		</filters-app>
+	</div>
 
 	<ng-template #footer>
 		<div class="flexVAlign">

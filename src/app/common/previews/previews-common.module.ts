@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CardsCommonModule } from '~common/cards/cards-common.module';
+import { CatalogCommonModule } from '~common/catalogs/catalog-common.module';
 import { TablesCommonModule } from '~common/tables/tables-common.module';
 import { SharedModule } from '~shared/shared.module';
 
@@ -14,7 +15,8 @@ import { TaskPreviewComponent } from './task-preview/task-preview.component';
 	imports: [
 		SharedModule,
 		TablesCommonModule,
-		CardsCommonModule
+		CardsCommonModule,
+		CatalogCommonModule
 	],
 	declarations: [
 		ProductPreviewComponent,

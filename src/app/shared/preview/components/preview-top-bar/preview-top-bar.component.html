@@ -1,30 +1,22 @@
-<!-- Info -->
-<div class="left flexColumn">
-	<!-- default ng-content -->
-	<ng-content></ng-content>
+<div class="container flexBetween">
+	<!-- Info -->
+	<div class="left flex">
+		<!-- default ng-content -->
+		<ng-content></ng-content>
+	</div>
+
+	<!-- buttons -->
+	<div class="right flex">
+		<!-- Open -->
+		<button *ngIf="canOpen" class="icon" (click)="opened.emit()" toolTip [toolTipMessage]="'tooltip.open' | translate" toolTipPosition="below-right">
+			<icon-app class="{{ iconColor }}" name="maximize"></icon-app>
+		</button>
+
+		<!-- Close -->
+		<button class="icon" (click)="closed.emit()" toolTip [toolTipMessage]="'tooltip.close' | translate" toolTipPosition="below-right">
+			<icon-app class="{{ iconColor }}" name="close"></icon-app>
+		</button>
+	</div>
 </div>
 
-<!-- buttons -->
-<div class="right flex">
-	<!-- Open -->
-	<button *ngIf="canOpen" class="icon big" (click)="opened.emit()" toolTip toolTipMessage="Open" toolTipPosition="below-right">
-		<icon-app class="color-third" name="maximize"></icon-app>
-	</button>
-
-	<!-- 3 dots -->
-	<context-menu-app *ngIf="hasOptions">
-		<context-menu-trigger-app>
-			<button class="icon big">
-				<icon-app class="color-third" name="dots-vertical"></icon-app>
-			</button>
-		</context-menu-trigger-app>
-		<!-- context menu/divider-app ng-content -->
-		<ng-content select="context-menu-item-app, divider-app"></ng-content>
-		<ng-content select="context-menu-item-warn-app"></ng-content>
-	</context-menu-app>
-
-	<!-- Close -->
-	<button class="icon big" (click)="closed.emit()">
-		<icon-app class="color-third" name="close"></icon-app>
-	</button>
-</div>
+<divider-app></divider-app>

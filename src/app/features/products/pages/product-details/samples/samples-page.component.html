@@ -19,7 +19,9 @@
 				(click)="dialogCommonSrv.openCreationSampleDialog(product)"
 				translate="button.create-sample">
 			</button>
-			<divider-app *ngIf="(listSrv.selection$ | async).size > 0" [vertical]="true"></divider-app>
+			<div class="flexCenter">
+				<divider-app *ngIf="(listSrv.selection$ | async).size > 0" [vertical]="true" [height]="24"></divider-app>
+			</div>
 			<button
 				*ngIf="(listSrv.selection$ | async).size > 0"
 				class="warn-light capitalize"

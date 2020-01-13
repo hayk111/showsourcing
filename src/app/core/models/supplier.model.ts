@@ -13,6 +13,7 @@ import { User } from './user.model';
 
 
 export class Supplier extends EntityWithAudit<SupplierConfig> {
+	reference?: string;
 	name?: string;
 	fullName?: string;
 	description?: string;

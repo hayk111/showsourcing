@@ -2,7 +2,7 @@
 	display: flex;
 
 	&:hover .hover-buttons {
-		visibility: visible;
+		opacity: 1;
 	}
 }
 
@@ -32,7 +32,8 @@ user-picture-app {
 }
 
 .hover-buttons {
-	visibility: hidden;
+	transition: 0.3s;
+	opacity: 0;
 }
 
 .buttons {

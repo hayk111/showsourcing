@@ -1,48 +1,52 @@
-<!-- since the supplier is the only one with logo if we want the displayEntityInfo = false, we still have to display the logo -->
-<div *ngIf="displayEntityInfo || hasLogo" class="top-section flexBetween">
+<div class="flexBetween custom-padding pd-top-xs">
 	<div class="left flex">
-		<initials-logo-app
-			*ngIf="hasLogo"
-			[ngClass]="{ 'mg-bottom': (hasLogo && !displayEntityInfo ) }"
-			size="xl"
-			[image]="logoImage"
-			[name]="supplier?.name"
-			[type]="'supplier'"
-			[entity]="supplier"
-			(updateLogo)="updateLogo.emit($event)">
-		</initials-logo-app>
-	<ng-container *ngIf="displayEntityInfo">
-		<logo-app class="icon-logo" [type]="entityMD?.singular" size="xs"></logo-app>
-		<span>{{ entity?.reference }}</span>
-		</ng-container>
+		<ng-content select="preview-header-buttons-app"></ng-content>
+
+		<!-- 3 dots -->
+		<context-menu-app>
+			<context-menu-trigger-app>
+				<button class="icon">
+					<icon-app class="color-txt-secondary" name="dots-vertical"></icon-app>
+				</button>
+			</context-menu-trigger-app>
+			<!-- context menu/divider-app ng-content -->
+			<ng-content select="context-menu-item-app, divider-app"></ng-content>
+			<ng-content select="context-menu-item-warn-app"></ng-content>
+		</context-menu-app>
 	</div>
 	<div class="right">
 		<status-selector-app
-			*ngIf="entityMD && displayEntityInfo"
 			[entity]="entity"
 			[typeEntity]="entityMD"
+			selectSize="l"
 			[offsetX]="-15"
+			[displayStep]="true"
 			(statusUpdated)="statusUpdated.emit({ id: entity.id, status: $event})">
 		</status-selector-app>
 	</div>
 </div>
 
-<!-- Title name -->
-<editable-container-app
-	#edt
-	class="{{ displayEntityInfo ? '' : 'pd-top-none' }} custom-padding"
-	(closed)="updateEntity($event, inpName.value)"
-	(opened)="inpName.select()">
-	<editable-display-app class="ellipsis">
-		{{ entity?.name || '-' }}
-	</editable-display-app>
-	<input
-		inputApp
-		#inpName
-		type="text"
-		[value]="entity?.name"
-		(keyup.enter)="edt.close()"/>
-</editable-container-app>
+<!-- title name -->
+<div>
+	<editable-container-app
+		#edt
+		(opened)="inpName.select()"
+		(closed)="updateEntity(inpName.value, 'name')">
+		<editable-display-app class="ellipsis bold-s color-txt-primary fs-xxxxl">
+			{{ entity[titleProp] || '-' }}
+		</editable-display-app>
+		<input
+			inputApp
+			#inpName
+			type="text"
+			style="height: 23px"
+			[value]="entity[titleProp]"
+			(keyup.enter)="edt.close()"/>
+	</editable-container-app>
+
+	<!-- subtitle -->
+	<ng-content select="preview-header-subtitle-app"></ng-content>
+</div>
 
 <div class="custom-padding">
 	<ng-content select=".custom-padding"></ng-content>
