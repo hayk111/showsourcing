@@ -25,6 +25,7 @@ export class InputDescriptionComponent implements OnChanges, OnInit {
 	private _description = '';
 	@Input() set description(description: string) {
 		this._description = description;
+		console.log('adapting changes on input');
 		this.adaptSize();
 	}
 	get description() {
@@ -45,10 +46,12 @@ export class InputDescriptionComponent implements OnChanges, OnInit {
 		private cd: ChangeDetectorRef) { }
 
 	ngOnInit() {
+		console.log('adapting changes on init');
 		this.adaptSize();
 	}
 
 	ngOnChanges() {
+		console.log('adapting changes on changes');
 		this.adaptSize();
 	}
 

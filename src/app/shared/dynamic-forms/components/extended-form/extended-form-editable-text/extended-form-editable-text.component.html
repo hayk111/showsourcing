@@ -1,8 +1,17 @@
 <ng-container [ngSwitch]="definition.type">
 
 	<!-- text -->
-	<editable-field-app *ngSwitchCase="'text'" #editable [inlineLabel]="config.inlineLabel" (closed)="onClose($event)"
-		(opened)="inp.select();">
+	<editable-field-app
+		*ngSwitchCase="'text'"
+		#editable
+		[class.borderless]="config.borderless"
+		[class.no-hover]="disabled"
+		[inlineLabel]="config.inlineLabel"
+		[align]="config.alignValue"
+		[hasAction]="config.hasAction"
+		[hasLabel]="config.hasLabel"
+		(closed)="onClose($event)"
+		(opened)="inp.select()">
 
 		<label-app>{{ definition?.label }}</label-app>
 		<!-- hint: editable text is the clickable label that transforms into an input -->
@@ -12,15 +21,31 @@
 
 		<form-field-app class="editable">
 			<!-- hint: couldn't ngModel to accumulator -->
-			<input #inp [disabled]="disabled" inputApp type="text" [value]="accumulator || ''" (change)="accumulator = inp.value"
+			<input
+				#inp
+				inputApp
+				[disabled]="disabled"
+				type="text"
+				[value]="accumulator || ''"
+				(change)="accumulator = inp.value"
 				(keyup.enter)="$event.target.blur(); editable.close();" />
 		</form-field-app>
 
 	</editable-field-app>
 
 	<!-- string same code as text-->
-	<editable-field-app *ngSwitchCase="'string'" #editable [inlineLabel]="config.inlineLabel" (closed)="onClose($event)"
-		(opened)="inp.select();">
+	<editable-field-app
+		*ngSwitchCase="'string'"
+		#editable
+		[class.borderless]="config.borderless"
+		[class.no-hover]="disabled"
+		[inlineLabel]="config.inlineLabel"
+		[align]="config.alignValue"
+		[hasAction]="config.hasAction"
+		[hasLabel]="config.hasLabel"
+		[inlineLabel]="config.inlineLabel"
+		(closed)="onClose($event)"
+		(opened)="inp.select()">
 
 		<label-app>{{ definition?.label }}</label-app>
 		<!-- hint: editable text is the clickable label that transforms into an input -->
@@ -30,7 +55,13 @@
 
 		<form-field-app class="editable">
 			<!-- hint: couldn't ngModel to accumulator -->
-			<input #inp inputApp [disabled]="disabled" type="text" [value]="accumulator || ''" (change)="accumulator = inp.value"
+			<input
+				#inp
+				inputApp
+				[disabled]="disabled"
+				type="text"
+				[value]="accumulator || ''"
+				(change)="accumulator = inp.value"
 				(keyup.enter)="$event.target.blur(); editable.close();" />
 		</form-field-app>
 
@@ -57,8 +88,18 @@
 
 
 	<!-- int -->
-	<editable-field-app *ngSwitchCase="'int'" #editable [inlineLabel]="config.inlineLabel" (closed)="onClose($event)"
-		(opened)="inp.select();">
+	<editable-field-app
+		*ngSwitchCase="'int'"
+		#editable
+		[class.borderless]="config.borderless"
+		[class.no-hover]="disabled"
+		[inlineLabel]="config.inlineLabel"
+		[align]="config.alignValue"
+		[hasAction]="config.hasAction"
+		[hasLabel]="config.hasLabel"
+		[inlineLabel]="config.inlineLabel"
+		(closed)="onClose($event)"
+		(opened)="inp.select()">
 
 		<label-app>{{ definition?.label }}</label-app>
 		<!-- hint: editable text is the clickable label that transforms into an input -->
@@ -68,16 +109,33 @@
 
 		<form-field-app class="editable">
 			<!-- hint: couldn't ngModel to accumulator -->
-			<input #inp inputApp [disabled]="disabled" restrictInput="number" type="text" [value]="accumulator || ''"
-				(change)="accumulator = inp.value" (keyup.enter)="$event.target.blur(); editable.close();" />
+			<input
+				#inp
+				inputApp
+				[disabled]="disabled"
+				restrictInput="number"
+				type="text"
+				[value]="accumulator || ''"
+				(change)="accumulator = inp.value"
+				(keyup.enter)="$event.target.blur(); editable.close();" />
 		</form-field-app>
 
 	</editable-field-app>
 
 
 	<!-- decimal -->
-	<editable-field-app *ngSwitchCase="'decimal'" #editable [inlineLabel]="config.inlineLabel" (closed)="onClose($event)"
-		(opened)="inp.select();">
+	<editable-field-app
+		*ngSwitchCase="'decimal'"
+		#editable
+		[class.borderless]="config.borderless"
+		[class.no-hover]="disabled"
+		[inlineLabel]="config.inlineLabel"
+		[align]="config.alignValue"
+		[hasAction]="config.hasAction"
+		[hasLabel]="config.hasLabel"
+		[inlineLabel]="config.inlineLabel"
+		(closed)="onClose($event)"
+		(opened)="inp.select()">
 
 		<label-app>{{ definition?.label }}</label-app>
 		<!-- hint: editable text is the clickable label that transforms into an input -->
@@ -87,8 +145,16 @@
 
 		<form-field-app class="editable">
 			<!-- hint: couldn't ngModel to accumulator -->
-			<input #inp inputApp [disabled]="disabled" restrictInput="decimal" type="number" step="any" [value]="accumulator || ''"
-				(change)="accumulator = inp.value" (keyup.enter)="$event.target.blur(); editable.close();" />
+			<input
+				#inp
+				inputApp
+				[disabled]="disabled"
+				restrictInput="decimal"
+				type="number"
+				step="any"
+				[value]="accumulator || ''"
+				(change)="accumulator = inp.value"
+				(keyup.enter)="$event.target.blur(); editable.close();" />
 		</form-field-app>
 
 	</editable-field-app>
@@ -97,6 +163,12 @@
 	<editable-field-app
 		#editable
 		*ngSwitchCase="'boolean'"
+		[class.borderless]="config.borderless"
+		[class.no-hover]="disabled"
+		[inlineLabel]="config.inlineLabel"
+		[align]="config.alignValue"
+		[hasAction]="config.hasAction"
+		[hasLabel]="config.hasLabel"
 		[inlineLabel]="config.inlineLabel"
 		[openOnClick]="false"
 		(click)="booleanEditableField($event)">
@@ -112,7 +184,17 @@
 	</editable-field-app>
 
 	<!-- price -->
-	<editable-field-app *ngSwitchCase="'price'" #editable [inlineLabel]="config.inlineLabel" (closed)="onClose($event)"
+	<editable-field-app
+		*ngSwitchCase="'price'"
+		#editable
+		[class.borderless]="config.borderless"
+		[class.no-hover]="disabled"
+		[inlineLabel]="config.inlineLabel"
+		[align]="config.alignValue"
+		[hasAction]="config.hasAction"
+		[hasLabel]="config.hasLabel"
+		[inlineLabel]="config.inlineLabel"
+		(closed)="onClose($event)"
 		(opened)="inp.select()">
 
 		<label-app>{{ definition?.label }}</label-app>

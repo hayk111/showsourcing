@@ -12,8 +12,8 @@ import {
 	ViewChild,
 } from '@angular/core';
 import { PreviewService } from '~shared/preview/services';
-
 import { AutoUnsub } from '~utils';
+
 import { PreviewTabComponent } from '../preview-tab/preview-tab.component';
 
 @Component({
@@ -42,7 +42,11 @@ export class PreviewPanelComponent extends AutoUnsub implements OnInit, AfterVie
 	@ContentChildren('contentTab1', { read: ElementRef }) contentTab1: QueryList<ElementRef>;
 	@ContentChildren('contentTab2', { read: ElementRef }) contentTab2: QueryList<ElementRef>;
 	@ContentChildren('contentTab3', { read: ElementRef }) contentTab3: QueryList<ElementRef>;
-	constructor(private renderer: Renderer2, private previewSrv: PreviewService) { super(); }
+
+	constructor(
+		private renderer: Renderer2,
+		private previewSrv: PreviewService
+	) { super(); }
 
 	ngOnInit() {
 		this.previewSrv.selectedTab$.subscribe(number => this.updateTabContent(number));

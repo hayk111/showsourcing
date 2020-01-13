@@ -82,7 +82,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 	samples$: Observable<Sample[]>;
 	productDescriptor1: ProductDescriptor;
 	productDescriptor2: ProductDescriptor;
-	formConfig = new DynamicFormConfig({ mode: 'editable-text' });
+	formConfig = new DynamicFormConfig({ mode: 'editable-text', alignValue: 'right' });
 	erm = ERM;
 
 	fieldDefinitions$: Observable<ExtendedFieldDefinition[]>;
