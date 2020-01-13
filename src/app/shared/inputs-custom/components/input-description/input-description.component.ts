@@ -68,8 +68,8 @@ export class InputDescriptionComponent implements OnChanges, OnInit {
 		// we set the height the the limit
 		this.showAll();
 		// if the height is bigger than 85 and it has a description, we limit the height
-		if (this.container.nativeElement.clientHeight > 81 && (this.description && this.description.length)) {
-			this.render.setStyle(this.container.nativeElement, 'height', '81px');
+		if (this.container.nativeElement.clientHeight > 80 && (this.description && this.description.length)) {
+			this.render.setStyle(this.container.nativeElement, 'height', '80px');
 			this.showMore = true;
 		}
 		this.cd.detectChanges();
