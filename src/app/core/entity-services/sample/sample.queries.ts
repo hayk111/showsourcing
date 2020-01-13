@@ -25,7 +25,7 @@ export class SampleQueries extends GlobalQueries {
 	static readonly definition = (name: string) => `${name} { id, label, type, order, metadata }`;
 	static readonly extendedFields = `extendedFields {
 		id, value,
-		selectorValue { id, value, ${SampleQueries.definition('fieldDefinition')} },
+		selectorValues { id, value, ${SampleQueries.definition('fieldDefinition')} },
 		${SampleQueries.definition('definition')}
 	}`;
 

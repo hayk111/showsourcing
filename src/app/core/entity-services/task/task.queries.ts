@@ -15,7 +15,7 @@ export abstract class TaskQueries extends GlobalQueries {
 	static readonly definition = (name: string) => `${name} { id, label, type, order, metadata }`;
 	static readonly extendedFields = `extendedFields {
 		id, value,
-		selectorValue { id, value, ${TaskQueries.definition('fieldDefinition')} },
+		selectorValues { id, value, ${TaskQueries.definition('fieldDefinition')} },
 		${TaskQueries.definition('definition')}
 	}`;
 
