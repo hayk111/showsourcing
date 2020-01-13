@@ -11,6 +11,7 @@ import { AutoUnsub } from '~utils/auto-unsub.component';
 	selector: 'files-page-app',
 	templateUrl: './files-page.component.html',
 	styleUrls: ['./files-page.component.scss'],
+	providers: [ListPageService],
 	host: {
 		class: 'table-page'
 	}

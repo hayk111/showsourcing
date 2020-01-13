@@ -32,13 +32,13 @@ https://stackblitz.com/edit/angular-vtluff?file=src/app/app.component.ts -->
 			*ngIf="hasSelection"
 			class="col selectionCol no-grows"
 			[style.height]="rowHeight + 'px'">
-			<div 
-				*ngIf="hasHeader" 
+			<div
+				*ngIf="hasHeader"
 				class="header"
 				[style.height]="rowHeight + 'px'">
-				<select-checkbox-app 
-					[state]="getSelectionState()" 
-					(check)="onSelectAll(rows)" 
+				<select-checkbox-app
+					[state]="getSelectionState()"
+					(check)="onSelectAll(rows)"
 					(uncheck)="onUnselectAll()">
 				</select-checkbox-app>
 			</div>
@@ -155,9 +155,9 @@ https://stackblitz.com/edit/angular-vtluff?file=src/app/app.component.ts -->
 			size="xxl"
 			[type]="type">
 		</logo-app>
-		<div class="placeholder-title">No {{ type }} found</div>
-		<div class="placeholder-description">Create a new one!</div>
-		<button (click)="createClick.emit()">{{createEntityBtnName || 'create a ' + type }}</button>
+		<div class="placeholder-title" translate="OBJ.no-type-found" [translateParams]="{ type: type }"></div>
+		<div class="placeholder-description" translate="label.create-new-one"></div>
+		<button class="capitalize" (click)="createClick.emit()">{{ createEntityBtnName || ('OBJ.create' | translate: { field: (type) }) }}</button>
 	</div>
 
 </div>

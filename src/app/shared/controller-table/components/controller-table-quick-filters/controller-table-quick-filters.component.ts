@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { UserService } from '~core/entity-services';
 import { ListPageService } from '~core/list-page';
 import { FilterType } from '~shared/filters';

@@ -227,7 +227,7 @@
       "plural": "comments",
       "singular": "comment"
     },
-    "create-OBJ": "create {{ field }}",
+    "create": "create {{ field }}",
     "create-a-field-or-assign": "create a {{ field }} or assign yourself an existing one",
     "created-by-name": "created by {{ firstName }} {{ lastName }}",
     "created-by-on": "Created by {{ name }} on {{ date }}",
@@ -284,6 +284,7 @@
     "new-OBJ-name": "New {{ field }} name",
     "no-OBJ-assigned-to-you": "No {{ field }} assigned to you",
     "no-item-add-one": "There's no {{ field }} yet, add one!",
+    "no-type-found": "No {{ type }} found",
     "product-in-progress": {
       "plural": "products in progress",
       "singular": "product in progress"
@@ -656,6 +657,7 @@
     "component-library": "component library",
     "contact": "Contact",
     "country": "Country",
+    "create-new-one": "Create a new one!",
     "create-a-team": "Create a new team",
     "create-another": "Create another",
     "create-new-team": "Create a new team",
