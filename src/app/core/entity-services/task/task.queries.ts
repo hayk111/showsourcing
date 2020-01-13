@@ -19,9 +19,9 @@ export abstract class TaskQueries extends GlobalQueries {
 		${TaskQueries.definition('definition')}
 	}`;
 
-	// TODO BackEnd add extended fields
 	static one = `
 		${TaskQueries.type}
+		archived
 		name
 		reference
 		code
@@ -36,11 +36,13 @@ export abstract class TaskQueries extends GlobalQueries {
 		${TaskQueries.supplier}
 		${TaskQueries.assignee}
 		${TaskQueries.comments}
+		${TaskQueries.extendedFields}
 		description
 	`;
 
 	static many = `
 		${TaskQueries.type}
+		archived
 		name
 		reference
 		code
@@ -54,6 +56,7 @@ export abstract class TaskQueries extends GlobalQueries {
 		${TaskQueries.product}
 		${TaskQueries.supplier}
 		${TaskQueries.assignee}
+		${TaskQueries.extendedFields}
 		description
 		deleted
 	`;

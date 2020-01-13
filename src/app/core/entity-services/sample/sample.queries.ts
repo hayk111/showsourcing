@@ -29,14 +29,14 @@ export class SampleQueries extends GlobalQueries {
 		${SampleQueries.definition('definition')}
 	}`;
 
-	// TODO BackEnd add extended fields
-	// TODO BackEnd add archived
 	// TODO BackEnd add type
 	static readonly one = `
+		archived,
 		name,
 		reference,
 		description
 		creationDate,
+		lastUpdatedDate,
 		deleted,
 		${SampleQueries.product}
 		${SampleQueries.supplier}
@@ -46,13 +46,16 @@ export class SampleQueries extends GlobalQueries {
 		${SampleQueries.assignee}
 		${SampleQueries.status}
 		${SampleQueries.comments}
+		${SampleQueries.extendedFields}
 	`;
 
 	static readonly many = `
+		archived,
 		name,
 		reference,
 		description
 		creationDate,
+		lastUpdatedDate,
 		deleted,
 		${SampleQueries.product}
 		${SampleQueries.supplier}
@@ -62,6 +65,7 @@ export class SampleQueries extends GlobalQueries {
 		${SampleQueries.assignee}
 		${SampleQueries.status}
 		${SampleQueries.comments}
-	`;
+		${SampleQueries.extendedFields}
+		`;
 
 }
