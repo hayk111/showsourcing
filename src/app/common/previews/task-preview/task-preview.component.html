@@ -1,6 +1,6 @@
 <preview-panel-app cdk-scrollable *ngIf="task$ | async">
 	<!-- Banner -->
-	<preview-banner-app>
+	<preview-banner-app class="mg-bottom-s">
 		<!-- Top bar -->
 			<preview-top-bar-app
 			[ngStyle]="{ background: statusUtils?.getTaskStatusColorVar(task) }"
@@ -39,6 +39,15 @@
 				<icon-app class="color-txt-secondary" name="comments"></icon-app>
 			</button>
 		</preview-header-buttons-app>
+
+		<context-menu-item-app
+			(click)="archive()"
+			translate="button.archive">
+		</context-menu-item-app>
+		<context-menu-item-warn-app
+			(click)="delete(task)"
+			translate="button.delete">
+		</context-menu-item-warn-app>
 
 		<preview-header-subtitle-app>
 			<span class="color-txt-secondary">{{ task?.reference }}</span>
@@ -104,7 +113,7 @@
 	<preview-section-app [title]="'title.due-date' | translate">
 		<editable-container-app
 			[hasAction]="false"
-			(click)="selectMe(inpDueDate)">
+			(click)="inpDueDate.select()">
 			<editable-display-app>
 				<ng-container *ngIf="task?.dueDate; else selectDue">{{ (task?.dueDate | date:'dd-MM-yyyy':'':translate?.currentLang) }}</ng-container>
 				<ng-template #selectDue>
@@ -133,8 +142,11 @@
 
 	<!-- About -->
 	<preview-section-app #contentTab1 [title]="'title.about-task' | translate">
-		<small>{{ 'OBJ.created-by-on' | translate : { name: (task?.createdBy | formatUserName), date: (task?.creationDate | date: 'dd MMMM yyyy':'':translate?.currentLang) } }}</small> <br>
-		<small>{{ 'OBJ.last-updated-by-on' | translate: { name: (task?.lastUpdatedBy | formatUserName), date: (task?.lastUpdatedDate | date: 'dd MMMM yyyy':'':translate?.currentLang) } }}</small>
+		<div class="mg-top-xs">
+			{{ 'OBJ.created-by-on' | translate : { name: (task?.createdBy | formatUserName), date: (task?.creationDate | date: 'dd MMMM yyyy':'':translate?.currentLang) } }}
+			<br>
+			{{ 'OBJ.last-updated-by-on' | translate: { name: (task?.lastUpdatedBy | formatUserName), date: (task?.lastUpdatedDate | date: 'dd MMMM yyyy':'':translate?.currentLang) } }}
+		</div>
 	</preview-section-app>
 
 	<!-- divider -->

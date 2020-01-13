@@ -200,8 +200,11 @@
 
 	<!-- About -->
 	<preview-section-app #contentTab2 [title]="'title.about-supplier' | translate">
-		<small>{{ 'OBJ.created-by-on' | translate : { name: (supplier?.createdBy | formatUserName), date: (supplier?.creationDate | date: 'dd MMMM yyyy':'':translate?.currentLang) } }}</small> <br>
-		<small>{{ 'OBJ.last-updated-by-on' | translate: { name: (supplier?.lastUpdatedBy | formatUserName), date: (supplier?.lastUpdatedDate | date: 'dd MMMM yyyy':'':translate?.currentLang) } }}</small>
+		<div class="mg-top-xs">
+			{{ 'OBJ.created-by-on' | translate : { name: (supplier?.createdBy | formatUserName), date: (supplier?.creationDate | date: 'dd MMMM yyyy':'':translate?.currentLang) } }}
+			<br>
+			{{ 'OBJ.last-updated-by-on' | translate: { name: (supplier?.lastUpdatedBy | formatUserName), date: (supplier?.lastUpdatedDate | date: 'dd MMMM yyyy':'':translate?.currentLang) } }}
+		</div>
 	</preview-section-app>
 
 	<!-- Comments -->

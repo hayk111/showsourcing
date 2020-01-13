@@ -248,9 +248,13 @@
 
 	<!-- About -->
 	<preview-section-app #contentTab2 [title]="'title.about-product' | translate">
-		<small>{{ 'OBJ.created-by-on' | translate : { name: (product?.createdBy | formatUserName), date: (product?.creationDate | date: 'dd MMMM yyyy':'':translate?.currentLang) } }}</small> <br>
-		<small>{{ 'OBJ.last-updated-by-on' | translate: { name: (product?.lastUpdatedBy | formatUserName), date: (product?.lastUpdatedDate | date: 'dd MMMM yyyy':'':translate?.currentLang) } }}</small> <br>
-		<small *ngIf="product?.event">{{ 'OBJ.found-at' | translate: { name: (product?.event?.description?.name) } }}</small>
+		<div class="mg-top-xs">
+			{{ 'OBJ.created-by-on' | translate : { name: (product?.createdBy | formatUserName), date: (product?.creationDate | date: 'dd MMMM yyyy':'':translate?.currentLang) } }}
+			<br>
+			{{ 'OBJ.last-updated-by-on' | translate: { name: (product?.lastUpdatedBy | formatUserName), date: (product?.lastUpdatedDate | date: 'dd MMMM yyyy':'':translate?.currentLang) } }}
+			<br>
+			<span *ngIf="product?.event">{{ 'OBJ.found-at' | translate: { name: (product?.event?.description?.name) } }}</span>
+		</div>
 	</preview-section-app>
 
 	<!-- Comment -->

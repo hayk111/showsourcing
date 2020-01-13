@@ -52,6 +52,15 @@
 			</button>
 		</preview-header-buttons-app>
 
+		<context-menu-item-app
+			(click)="archive()"
+			translate="button.archive">
+		</context-menu-item-app>
+		<context-menu-item-warn-app
+			(click)="delete(sample)"
+			translate="button.delete">
+		</context-menu-item-warn-app>
+
 		<preview-header-subtitle-app>
 			<div *ngIf="sample?.name">{{ sample?.name }}</div>
 			<div class="txt-btn capitalize" (click)="selectSecondTab()">
@@ -115,8 +124,11 @@
 
 	<!-- About -->
 	<preview-section-app #contentTab1 [title]="'title.about-sample' | translate">
-		<small>{{ 'OBJ.created-by-on' | translate : { name: (sample?.createdBy | formatUserName), date: (sample?.creationDate | date: 'dd MMMM yyyy':'':translate?.currentLang) } }}</small> <br>
-		<small>{{ 'OBJ.last-updated-by-on' | translate: { name: (sample?.lastUpdatedBy | formatUserName), date: (sample?.lastUpdatedDate | date: 'dd MMMM yyyy':'':translate?.currentLang) } }}</small>
+		<div class="mg-top-xs">
+			{{ 'OBJ.created-by-on' | translate : { name: (sample?.createdBy | formatUserName), date: (sample?.creationDate | date: 'dd MMMM yyyy':'':translate?.currentLang) } }}
+			<br>
+			{{ 'OBJ.last-updated-by-on' | translate: { name: (sample?.lastUpdatedBy | formatUserName), date: (sample?.lastUpdatedDate | date: 'dd MMMM yyyy':'':translate?.currentLang) } }}
+		</div>
 	</preview-section-app>
 
 	<!-- Activity -->

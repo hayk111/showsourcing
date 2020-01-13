@@ -1,17 +1,28 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	EventEmitter,
+	Input,
+	OnChanges,
+	OnInit,
+	Output,
+	ViewChild,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { switchMap, takeUntil } from 'rxjs/operators';
+import { filter, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { SampleDescriptor } from '~core/descriptors';
 import { SampleService, UserService } from '~core/entity-services';
 import { CommentService } from '~core/entity-services/comment/comment.service';
 import {
 	ExtendedFieldDefinitionService,
 } from '~core/entity-services/extended-field-definition/extended-field-definition.service';
-import { Comment, ERM, ExtendedFieldDefinition, Sample, Product } from '~core/models';
-import { AutoUnsub } from '~utils';
+import { Comment, ERM, ExtendedFieldDefinition, Product, Sample } from '~core/models';
+import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
+import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
-import { PreviewService, PreviewCommentComponent } from '~shared/preview';
+import { PreviewCommentComponent, PreviewService } from '~shared/preview';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'sample-preview-app',
@@ -48,6 +59,7 @@ export class SamplePreviewComponent extends AutoUnsub implements OnInit, OnChang
 		private userSrv: UserService,
 		private sampleSrv: SampleService,
 		private previewSrv: PreviewService,
+		private dlgSrv: DialogService,
 		private extendedFieldDefSrv: ExtendedFieldDefinitionService
 	) {
 		super();
@@ -88,6 +100,31 @@ export class SamplePreviewComponent extends AutoUnsub implements OnInit, OnChang
 		this.commentSrv.create(comment).pipe(
 			switchMap(_ => this.sampleSrv.update({ id: this._sample.id, comments }))
 		).subscribe();
+	}
+
+	delete(sample: Sample) {
+		const text = `Are you sure you want to delete this sample ?`;
+		this.dlgSrv.open(ConfirmDialogComponent, { text })
+			.pipe(
+				filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
+				switchMap(_ => this.sampleSrv.delete(sample.id)),
+				tap(sample => {
+					this.close.emit();
+				})
+			).subscribe();
+	}
+
+	archive() {
+		const text = `Are you sure you want to archive this sample ?`;
+		const action = 'archive';
+		this.dlgSrv.open(ConfirmDialogComponent, { text, action })
+			.pipe(
+				filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
+				tap(_ => {
+					this.update(true, 'archived');
+					this.close.emit();
+				}),
+			).subscribe();
 	}
 
 	// ACTIONS
