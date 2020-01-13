@@ -52,9 +52,20 @@
 			</button>
 		</preview-header-buttons-app>
 
+		<context-menu-item-app
+			(click)="archive()"
+			translate="button.archive">
+		</context-menu-item-app>
+		<context-menu-item-warn-app
+			(click)="delete(sample)"
+			translate="button.delete">
+		</context-menu-item-warn-app>
+
 		<preview-header-subtitle-app>
 			<div *ngIf="sample?.name">{{ sample?.name }}</div>
-			<div class="txt-btn" (click)="selectSecondTab()">{{ sample?.comments?.length || 0  }} {{ sample?.comments?.length === 1 ? 'Comment' : 'Comments' }}</div>
+			<div class="txt-btn capitalize" (click)="selectSecondTab()">
+				{{ (sample?.comments?.length === 1 ? 'OBJ.n-comment.singular' : 'OBJ.n-comment.plural') | translate: { count: (sample?.comments?.length || 0) } }}
+			</div>
 		</preview-header-subtitle-app>
 
 
@@ -113,15 +124,17 @@
 
 	<!-- About -->
 	<preview-section-app #contentTab1 [title]="'title.about-sample' | translate">
-		<small>Created by {{ sample?.createdBy | formatUserName }} on  {{ sample?.creationDate | date: 'dd MMMM yyyy' }}</small> <br>
-		<small>Last updated by {{ sample?.lastUpdatedBy | formatUserName }} on {{ sample?.lastUpdatedDate | date: 'dd MMMM yyyy' }}</small><br>
+		<div class="mg-top-xs">
+			{{ 'OBJ.created-by-on' | translate : { name: (sample?.createdBy | formatUserName), date: (sample?.creationDate | date: 'dd MMMM yyyy':'':translate?.currentLang) } }}
+			<br>
+			{{ 'OBJ.last-updated-by-on' | translate: { name: (sample?.lastUpdatedBy | formatUserName), date: (sample?.lastUpdatedDate | date: 'dd MMMM yyyy':'':translate?.currentLang) } }}
+		</div>
 	</preview-section-app>
 
 	<!-- Activity -->
-	<preview-section-app #contentTab2 *ngIf="sample?.comments?.length" [title]="'title.comments' | translate">
+	<preview-section-app #contentTab2 *ngIf="sample?.comments?.length">
 		<comment-list-app [comments]="sample.comments"></comment-list-app>
 	</preview-section-app>
 
 	<preview-comment-app #contentTab2 (added)="addComment($event)"></preview-comment-app>
 </preview-panel-app>
-

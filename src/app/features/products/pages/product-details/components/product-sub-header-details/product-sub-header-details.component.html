@@ -26,9 +26,9 @@
 			<!-- info title -->
 			<div class="flex color-txt-secondary dot-separator-txt-secondary">
 				<rating-badge-app class="pointer"	[votes]="product?.votes" [hasNumber]="true" (click)="ratingClicked.emit()"></rating-badge-app>
-				<div class="txt-btn" (click)="redirect.emit('samples')">{{ product?.samplesLinked.count || 0 }} {{ product?.samplesLinked?.count === 1 ? 'Sample' : 'Samples' }}</div>
-				<div class="txt-btn" (click)="redirect.emit('tasks')">{{ product?.tasksLinked.count || 0 }} {{ product?.samplesLinked?.count === 1 ? 'Task' : 'Tasks' }}</div>
-				<div class="txt-btn" (click)="redirect.emit('activity')">{{ product?.comments?.length || 0  }} {{ product?.comments?.length === 1 ? 'Comment' : 'Comments' }}</div>
+				<div class="txt-btn capitalize" (click)="redirect.emit('samples')">{{ ((product?.samplesLinked?.count || 0) === 1 ? 'OBJ.n-sample.singular' : 'OBJ.n-sample.plural') | translate: {count: (product?.samplesLinked?.count || 0)} }}</div>
+				<div class="txt-btn capitalize" (click)="redirect.emit('tasks')">{{ ((product?.tasksLinked?.count || 0) === 1 ? 'OBJ.n-task.singular' : 'OBJ.n-task.plural') | translate: {count: (product?.tasksLinked?.count || 0)} }}</div>
+				<div class="txt-btn capitalize" (click)="redirect.emit('activity')">{{ ((product?.comments?.length || 0) === 1 ? 'OBJ.n-comment.singular' : 'OBJ.n-comment.plural') | translate: {count: (product?.comments?.length || 0)} }}</div>
 			</div>
 		</div>
 

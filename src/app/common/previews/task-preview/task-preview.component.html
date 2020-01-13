@@ -1,11 +1,27 @@
 <preview-panel-app cdk-scrollable *ngIf="task$ | async">
 	<!-- Banner -->
-	<preview-banner-app>
-		<banner-task-app
-			[task]="task"
-			(closed)="close.emit()"
-			(update)="update($event, 'done')">
-		</banner-task-app>
+	<preview-banner-app class="mg-bottom-s">
+		<!-- Top bar -->
+			<preview-top-bar-app
+			[ngStyle]="{ background: statusUtils?.getTaskStatusColorVar(task) }"
+			[iconColor]="fontColor()"
+			[canOpen]="false"
+			(closed)="close.emit()">
+			<div
+				style="width: 36px; height: 36px;"
+				class="mg-right-s flexCenter">
+				<icon-app class="color-txt-secondary {{ fontColor() }} fs-icon-l" name="check-circle"></icon-app>
+			</div>
+			<div class="flexColumn ellipsis">
+				<span class="color-txt-primary {{ fontColor() }} semi-bold fs-l ellipsis">{{ task?.name }}</span>
+				<div class="flexVAlign dot-separator {{ fontColor() }}">
+					<span class="color-txt-secondary {{ fontColor() }}">{{ task?.reference }}</span>
+					<span *ngIf="task?.dueDate" class="color-txt-secondary {{ fontColor() }} flex">
+						{{ 'OBJ.due-on-date' | translate : { date: (task?.dueDate | date: 'dd MMM yy':'':translate?.currentLang) } }}
+					</span>
+				</div>
+			</div>
+		</preview-top-bar-app>
 	</preview-banner-app>
 
 	<!-- Header -->
@@ -13,6 +29,44 @@
 		[entity]="task"
 		[entityMD]="erm.TASK"
 		(update)="update($event, 'name')">
+
+		<preview-header-buttons-app>
+			<button class="icon-with-text light" (click)="update(!task?.done, 'done')">
+				<icon-app class="color-txt-secondary" name="check-circle"></icon-app>
+				<span class="first-uppercase color-txt-secondary" [translate]="!task?.done ? 'button.mark-done' : 'button.mark-pending'"></span>
+			</button>
+			<button class="icon" (click)="previewComment.focus()" toolTip [toolTipMessage]="'tooltip.create-comment' | translate">
+				<icon-app class="color-txt-secondary" name="comments"></icon-app>
+			</button>
+		</preview-header-buttons-app>
+
+		<context-menu-item-app
+			(click)="archive()"
+			translate="button.archive">
+		</context-menu-item-app>
+		<context-menu-item-warn-app
+			(click)="delete(task)"
+			translate="button.delete">
+		</context-menu-item-warn-app>
+
+		<preview-header-subtitle-app>
+			<span class="color-txt-secondary">{{ task?.reference }}</span>
+			<span *ngIf="task?.dueDate" class="color-txt-secondary flex">
+				{{ 'OBJ.due-on-date' | translate : { date: (task?.dueDate | date: 'dd MMM yy':'':translate?.currentLang) } }}
+			</span>
+			<div class="txt-btn capitalize" (click)="previewComment?.focus()">
+				{{ ((task?.comments?.length || 0) === 1 ? 'OBJ.n-comment.singular' : 'OBJ.n-comment.plural') | translate: {count: (task?.comments?.length || 0)} }}
+			</div>
+		</preview-header-subtitle-app>
+
+		<!-- Supplier badge -->
+		<badge-selector-app
+			[hasOpenAction]="true"
+			[badge]="erm.SUPPLIER"
+			[value]="task?.supplier?.name"
+			(openActionClicked)="openSupplier()"
+			(update)="update($event, 'supplier')">
+		</badge-selector-app>
 
 		<!-- Product badge -->
 		<badge-selector-app
@@ -23,62 +77,7 @@
 			(update)="update($event, 'product')">
 		</badge-selector-app>
 
-		<!-- Supplier badge -->
-		<badge-selector-app
-			[hasOpenAction]="true"
-			[badge]="erm.SUPPLIER"
-			[value]="task?.supplier?.name"
-			(openActionClicked)="openSupplier()"
-			(update)="update($event, 'supplier')">
-		</badge-selector-app>
 	</preview-header-app>
-
-	<!-- Date & Assignee -->
-	<preview-section-app>
-		<div class="date-assignee-section flexAround mg-bottom-l">
-
-			<!-- Date -->
-			<div class="left">
-				<editable-field-app #editable [hasAction]="false" [inlineLabel]="false"
-					(opened)="inpDueDate.select()" [canGrow]="true">
-					<label-app translate="label.due-date"></label-app>
-					<editable-display-app>
-						<ng-container *ngIf="task?.dueDate; else selectDue">{{ (task?.dueDate | date:'dd-MM-yyyy':'':translate.currentLang) }}</ng-container>
-						<ng-template #selectDue>
-							{{'label.select-due-date' | translate}}
-						</ng-template>
-					</editable-display-app>
-					<form-field-app>
-						<input inputApp #inpDueDate autofocus="true" [value]="task?.dueDate ? (task?.dueDate | date:'yyyy-MM-dd':'':translate.currentLang) : ''" type="date"
-						(keyup.enter)="updateDueDate(false, inpDueDate.value)" (change)="updateDueDate(false, $event.target.value)"/>
-					</form-field-app>
-				</editable-field-app>
-			</div>
-
-			<!-- Assignee -->
-			<div class="right">
-				<selector-app
-					type="user"
-					[width]="210"
-					[offsetY]="-26"
-					(update)="update($event, 'assignee')">
-					<editable-field-app
-						#editable [hasAction]="false" [inlineLabel]="false" [canGrow]="true" [openOnClick]="false">
-						<label-app translate="label.assigned-to"></label-app>
-						<editable-display-app class="flex">
-							<user-picture-app
-								[user]="task?.assignee" [size]="16" [border]="true">
-							</user-picture-app>
-							{{ task?.assignee?.firstName }} {{ task?.assignee?.lastName ? task?.assignee?.lastName[0] : ''}}
-						</editable-display-app>
-					</editable-field-app>
-				</selector-app>
-			</div>
-		</div>
-
-		<divider-app></divider-app>
-
-	</preview-section-app>
 
 	<!-- Description -->
 	<preview-section-app [title]="'title.description' | translate">
@@ -88,14 +87,47 @@
 		</input-description-app>
 	</preview-section-app>
 
-	<!-- Task details form -->
-	<preview-section-app>
-		<dynamic-form-app
-			[fields]="taskDescriptor?.descriptor"
-			[value]="task"
-			[config]="formConfig"
-			(update)="updateTask($event)">
-		</dynamic-form-app>
+	<!-- Assignee -->
+	<preview-section-app [title]="'title.assignee' | translate">
+		<editable-container-app
+			[hasAction]="false"
+			[openOnClick]="false"
+			(click)="sel?.selector?.openMenu()">
+			<editable-display-app>
+				<selector-app
+					#sel
+					[type]="'USER' | erm: 'singular'"
+					[width]="320"
+					[offsetX]="4"
+					(update)="update($event, 'assignee')">
+					<div *ngIf="task?.assignee; else none" class="flex">
+						<user-picture-app	class="mg-right-ms" [user]="task?.assignee" size="24" fontSize="12" [hasName]="true"></user-picture-app>
+					</div>
+					<ng-template #none><span class="capitalize" translate="text.none"></span></ng-template>
+				</selector-app>
+				</editable-display-app>
+		</editable-container-app>
+	</preview-section-app>
+
+	<!-- Due date -->
+	<preview-section-app [title]="'title.due-date' | translate">
+		<editable-container-app
+			[hasAction]="false"
+			(click)="inpDueDate.select()">
+			<editable-display-app>
+				<ng-container *ngIf="task?.dueDate; else selectDue">{{ (task?.dueDate | date:'dd-MM-yyyy':'':translate?.currentLang) }}</ng-container>
+				<ng-template #selectDue>
+					{{'label.select-due-date' | translate}}
+				</ng-template>
+			</editable-display-app>
+			<input
+				inputApp #inpDueDate autofocus="true"
+				style="height: 18px;"
+				[value]="task?.dueDate ? (task?.dueDate | date:'yyyy-MM-dd':'':translate?.currentLang) : ''"
+				type="date"
+				(keyup.enter)="updateDueDate(false, inpDueDate.value)"
+				(change)="updateDueDate(false, $event.target.value)"/>
+		</editable-container-app>
 	</preview-section-app>
 
 	<!-- Extended Fields -->
@@ -108,10 +140,25 @@
 		</extended-form-app>
 	</preview-section-app>
 
-	<!-- Activity -->
-	<preview-section-app *ngIf="task?.comments?.length" [title]="'title.comments' | translate">
-		<comment-list-app [comments]="task.comments"></comment-list-app>
+	<!-- About -->
+	<preview-section-app #contentTab1 [title]="'title.about-task' | translate">
+		<div class="mg-top-xs">
+			{{ 'OBJ.created-by-on' | translate : { name: (task?.createdBy | formatUserName), date: (task?.creationDate | date: 'dd MMMM yyyy':'':translate?.currentLang) } }}
+			<br>
+			{{ 'OBJ.last-updated-by-on' | translate: { name: (task?.lastUpdatedBy | formatUserName), date: (task?.lastUpdatedDate | date: 'dd MMMM yyyy':'':translate?.currentLang) } }}
+		</div>
 	</preview-section-app>
 
+	<!-- divider -->
+	<preview-section-app>
+		<divider-app></divider-app>
+	</preview-section-app>
+
+	<!-- Comment List -->
+	<preview-section-app [title]="'title.comments' | translate">
+		<comment-list-app [comments]="task?.comments"></comment-list-app>
+	</preview-section-app>
+
+	<!-- Comment Input -->
 	<preview-comment-app (added)="addComment($event)"></preview-comment-app>
 </preview-panel-app>

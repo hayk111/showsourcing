@@ -7,7 +7,7 @@
 		[formControl]="commentCtrl"
 		(keyup.enter)="addComment()">
 	</textarea>
-	<button class="icon">
+	<button class="icon" (click)="addComment()">
 		<icon-app class="color-white" name="plane"></icon-app>
 	</button>
 </div>

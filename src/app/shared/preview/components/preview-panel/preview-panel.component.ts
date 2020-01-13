@@ -60,6 +60,10 @@ export class PreviewPanelComponent extends AutoUnsub implements OnInit, AfterVie
 			this.updateTabContent(1);
 	}
 
+	hasTabs() {
+		return this.tab1 || this.tab2 || this.tab3;
+	}
+
 	/** Updates the content of the tab and the tab style */
 	private updateTabContent(number: number) {
 		let contentTab: QueryList<ElementRef>;
