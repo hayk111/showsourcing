@@ -33,11 +33,11 @@ export class GlobalRequestClientsInitializer extends AbstractApolloClient {
 	init(realmUser: RealmUser): Observable<any> {
 		this.checkNotAlreadyInit();
 		const userId = realmUser.identity;
-		const path = `/${this.client}/__partial/${userId}/${this.suffix}`;
+		this.path = `/${this.client}/__partial/${userId}/${this.suffix}`;
 		this.setPending('initialization');
 		// when accessToken for each of those clients,
 		// will wait for user authentication..
-		return from(this.createClient(path, realmUser, this.client)).pipe(
+		return from(this.createClient(this.path, realmUser, this.client)).pipe(
 			takeUntil(this.destroyed$),
 			switchMap(_ => this.createMissingSubscription()),
 			tap(_ => this.apolloState.setClientReady(this.client)),

@@ -57,6 +57,7 @@
 		cdk-scrollable
 		*ngIf="listSrv.view === 'card'"
 		class="card-view will-change-scroll"
+		infiniScroll
 		[currentSort]="listSrv.currentSort"
 		[rows]="listSrv.items$ | async"
 		[selection]="listSrv.selection$ | async"
@@ -69,7 +70,8 @@
 		(select)="listSrv.selectOne($event, true)"
 		(unfavorited)="listSrv.onItemUnfavorited($event)"
 		(unselect)="listSrv.unselectOne($event, true)"
-		(update)="listSrv.update($event)">
+		(update)="listSrv.update($event)"
+		(bottomReached)="listSrv.loadMore()">
 	</products-grid-app>
 
 	<product-selection-bar-app

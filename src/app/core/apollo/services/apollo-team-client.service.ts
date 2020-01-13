@@ -21,8 +21,6 @@ import { ApolloStateService } from './apollo-state.service';
 @Injectable({ providedIn: 'root' })
 export class TeamClientInitializer extends AbstractApolloClient {
 
-	private uri: string;
-
 	constructor(
 		protected apollo: Apollo,
 		protected link: HttpLink,
@@ -39,9 +37,9 @@ export class TeamClientInitializer extends AbstractApolloClient {
 	init(realmUser: RealmUser, team: Team): Observable<any> {
 		const userId = realmUser.identity;
 		// here the user client is ready if a team is selected
-		this.uri = `${team.realmPath}/__partial/${userId}/${this.suffix}`;
+		this.path = `${team.realmPath}/__partial/${userId}/${this.suffix}`;
 		this.setPending('setting pending because creating');
-		return from(super.createClient(this.uri, realmUser, this.client)).pipe(
+		return from(super.createClient(this.path, realmUser, this.client)).pipe(
 			takeUntil(this.destroyed$),
 			switchMap(_ => this.createMissingSubscription()),
 			tap(_ => this.apolloState.setClientReady(this.client)),
