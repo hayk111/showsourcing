@@ -11,6 +11,7 @@ import { TaskStatus } from '~utils';
 export class TaskStatusBadgeComponent implements OnInit {
 
 	@Input() task: Task;
+	@Input() size: 's' | 'ms' | 'm' | 'l' = 'm';
 	@Output() update = new EventEmitter<boolean>();
 
 	constructor() { }

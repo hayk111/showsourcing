@@ -120,7 +120,7 @@
 	</preview-section-app>
 
 	<!-- Activity -->
-	<preview-section-app #contentTab2 *ngIf="sample?.comments?.length" [title]="'title.comments' | translate">
+	<preview-section-app #contentTab2 *ngIf="sample?.comments?.length">
 		<comment-list-app [comments]="sample.comments"></comment-list-app>
 	</preview-section-app>
 

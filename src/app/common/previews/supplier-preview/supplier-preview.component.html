@@ -205,7 +205,7 @@
 	</preview-section-app>
 
 	<!-- Comments -->
-	<preview-section-app #contentTab3 *ngIf="supplier?.comments?.length" [title]="'title.comments' | translate">
+	<preview-section-app #contentTab3 *ngIf="supplier?.comments?.length">
 		<comment-list-app [comments]="supplier?.comments"></comment-list-app>
 	</preview-section-app>
 

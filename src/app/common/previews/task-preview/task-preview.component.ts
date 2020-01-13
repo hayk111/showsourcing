@@ -1,5 +1,15 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	EventEmitter,
+	Input,
+	OnChanges,
+	OnInit,
+	Output,
+	ViewChild,
+} from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { TaskDescriptor } from '~core/descriptors';
@@ -9,9 +19,9 @@ import {
 } from '~core/entity-services/extended-field-definition/extended-field-definition.service';
 import { TaskService } from '~entity-services';
 import { Comment, ERM, ExtendedFieldDefinition, Task } from '~models';
-import { AutoUnsub } from '~utils';
-import { TranslateService } from '@ngx-translate/core';
 import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
+import { PreviewCommentComponent } from '~shared/preview';
+import { AutoUnsub, StatusUtils } from '~utils';
 
 @Component({
 	selector: 'task-preview-app',
@@ -31,9 +41,12 @@ export class TaskPreviewComponent extends AutoUnsub implements OnInit, OnChanges
 
 	@Output() close = new EventEmitter<null>();
 
+	@ViewChild(PreviewCommentComponent, { static: false }) previewComment: PreviewCommentComponent;
+
 	task$: Observable<Task>;
 	taskDescriptor: TaskDescriptor;
 	erm = ERM;
+	statusUtils = StatusUtils;
 
 	fieldDefinitions$: Observable<ExtendedFieldDefinition[]>;
 
@@ -93,4 +106,9 @@ export class TaskPreviewComponent extends AutoUnsub implements OnInit, OnChanges
 	openProduct() {
 		this.router.navigate(['products', this.task.product.id]);
 	}
+
+	fontColor() {
+		return this.task.done || this.statusUtils.isOverdue(this.task) ? 'color-white' : '';
+	}
+
 }
