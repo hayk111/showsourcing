@@ -43,6 +43,9 @@
 		box-sizing: border-box;
 		overflow: hidden;
 	}
+	filters-app {
+		margin: var(--spacing-ms);
+	}
 }
 
 .details-page {

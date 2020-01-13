@@ -50,12 +50,3 @@ dialog-app {
 .scrollable {
 	height: 350px;
 }
-
-.dlg-filters {
-	overflow-y: auto;
-	height: calc(100% - 96px);
-	width: 296px;
-	position: absolute;
-	top: var(--spacing-xxl);
-	right: 0;
-}
