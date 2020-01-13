@@ -69,9 +69,9 @@
 
 		<preview-header-subtitle-app>
 			<rating-badge-app class="pointer"	[votes]="supplier?.votes" [hasNumber]="true" (click)="selectSecondTab('rating')"></rating-badge-app>
-			<div class="txt-btn" (click)="selectSecondTab('sample')">{{ supplier?.samplesLinked.count || 0 }} {{ supplier?.samplesLinked?.count === 1 ? 'Sample' : 'Samples' }}</div>
-			<div class="txt-btn" (click)="selectSecondTab('task')">{{ supplier?.tasksLinked.count || 0 }} {{ supplier?.samplesLinked?.count === 1 ? 'Task' : 'Tasks' }}</div>
-			<div class="txt-btn" (click)="selectThirdTab()">{{ supplier?.comments?.length || 0  }} {{ supplier?.comments?.length === 1 ? 'Comment' : 'Comments' }}</div>
+			<div class="txt-btn capitalize" (click)="selectSecondTab('sample')">{{ ((supplier?.samplesLinked?.count || 0) === 1 ? 'OBJ.n-sample.singular' : 'OBJ.n-sample.plural') | translate: {count: (supplier?.samplesLinked?.count || 0)} }}</div>
+			<div class="txt-btn capitalize" (click)="selectSecondTab('task')">{{ ((supplier?.tasksLinked?.count || 0) === 1 ? 'OBJ.n-task.singular' : 'OBJ.n-task.plural') | translate: {count: (supplier?.tasksLinked?.count || 0)} }}</div>
+			<div class="txt-btn capitalize" (click)="selectThirdTab()">{{ ((supplier?.comments?.length || 0) === 1 ? 'OBJ.n-comment.singular' : 'OBJ.n-comment.plural') | translate: {count: (supplier?.comments?.length || 0)} }}</div>
 		</preview-header-subtitle-app>
 
 		<!-- Supplier type badge -->
@@ -200,8 +200,8 @@
 
 	<!-- About -->
 	<preview-section-app #contentTab2 [title]="'title.about-supplier' | translate">
-		<small>Created by {{ supplier?.createdBy | formatUserName }} on  {{ supplier?.creationDate | date: 'dd MMMM yyyy' }}</small> <br>
-		<small>Last updated by {{ supplier?.lastUpdatedBy | formatUserName }} on {{ supplier?.lastUpdatedDate | date: 'dd MMMM yyyy' }}</small><br>
+		<small>{{ 'OBJ.created-by-on' | translate : { name: (supplier?.createdBy | formatUserName), date: (supplier?.creationDate | date: 'dd MMMM yyyy':'':translate?.currentLang) } }}</small> <br>
+		<small>{{ 'OBJ.last-updated-by-on' | translate: { name: (supplier?.lastUpdatedBy | formatUserName), date: (supplier?.lastUpdatedDate | date: 'dd MMMM yyyy':'':translate?.currentLang) } }}</small>
 	</preview-section-app>
 
 	<!-- Comments -->

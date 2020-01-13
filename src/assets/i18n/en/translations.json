@@ -238,7 +238,8 @@
     "export-item": {
       "plural": "export {{count}} items",
       "singular": "export {{count}} item"
-    },
+		},
+		"found-at": "Found at {{ name }}",
     "item-selected": {
       "plural": "{{ count }} items selected",
       "singular": "{{ count }} item selected"
@@ -267,7 +268,10 @@
       "plural": "{{ count }} items",
       "singular": "{{ count }} item"
     },
-    "n-product": "{{ count }} products",
+    "n-product": {
+			"plural": "{{ count }} products",
+			"singular": "{{ count }} product"
+		},
     "n-product-selected": {
       "plural": "{{ count }} products selected",
       "singular": "{{ count }} product selected"
@@ -275,6 +279,14 @@
     "n-project": {
       "plural": "{{ count }} projects",
       "singular": "{{ count }} project"
+    },
+    "n-sample": {
+      "plural": "{{ count }} samples",
+      "singular": "{{ count }} sample"
+    },
+    "n-task": {
+      "plural": "{{ count }} tasks",
+      "singular": "{{ count }} task"
     },
     "n-vote": {
       "plural": "{{ count }} votes",
@@ -388,7 +400,8 @@
     "login": "Login",
     "logout": "logout",
     "manage-team": "manage team",
-    "mark-done": "mark done",
+    "mark-done": "mark as done",
+    "mark-pending": "mark as pending",
     "mass-edit": "Mass edit",
     "more": "More",
     "new": "New",
