@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ContentChild, EventEmitter, HostListener, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChild, EventEmitter, HostListener, Input, Output, HostBinding } from '@angular/core';
 import { DialogFooterComponent } from '~shared/dialog/components/dialog-footer/dialog-footer.component';
 import { DialogHeaderComponent } from '~shared/dialog/components/dialog-header/dialog-header.component';
 import { DialogService } from '~shared/dialog/services/dialog.service';
@@ -20,6 +20,7 @@ export class DialogComponent {
 	@Input() hasHeader = true;
 	@Input() hasFooter = true;
 	@Input() hasBorder = true;
+	@Input() contentOverflow: 'auto' | 'hidden' = 'auto';
 	@Output() close = new EventEmitter<any>();
 	@ContentChild(DialogFooterComponent, { static: false }) footer: DialogFooterComponent;
 	@ContentChild(DialogHeaderComponent, { static: false }) header: DialogHeaderComponent;
@@ -38,5 +39,4 @@ export class DialogComponent {
 		// stopping propagation so it does not close the modal
 		event.stopPropagation();
 	}
-
 }
