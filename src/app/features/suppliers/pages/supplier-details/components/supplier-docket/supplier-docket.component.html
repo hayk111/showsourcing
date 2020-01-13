@@ -17,7 +17,7 @@
 					<div *ngIf="supplier?.assignee; else none" class="flex">
 						<user-picture-app	class="mg-right-ms" [user]="supplier?.assignee" size="24" fontSize="12" [hasName]="true"></user-picture-app>
 					</div>
-					<ng-template #none>None</ng-template>
+					<ng-template #none><span class="capitalize" translate="text.none"></span></ng-template>
 				</selector-app>
 			</editable-display-app>
 		</editable-container-app>
