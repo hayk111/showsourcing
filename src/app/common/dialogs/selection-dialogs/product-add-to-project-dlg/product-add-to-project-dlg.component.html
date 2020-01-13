@@ -1,4 +1,4 @@
-<dialog-app [hasBorder]="false" [hasFooter]="false">
+<dialog-app contentOverflow="hidden" [hasBorder]="false" [hasFooter]="false">
 
 	<dialog-header-app translate="Select Projects"></dialog-header-app> <!-- TODO: translation to be added -->
 
@@ -7,37 +7,37 @@
 		<controller-table-quick-actions-app></controller-table-quick-actions-app>
 	</controller-table-app>
 
-	<projects-table-app
-		[hasPagination]="true"
-		[hasShowItemsPerPage]="false"
-		[footerTemplate]="footer"
-		[navigation]="false"
-		[hasMenu]="false"
-		[width]="listSrv.filterPanelOpen ? 'calc(100% - 308px)' : '100%'"
-		[selection]="listSrv.selection$ | async"
-		[rows]="listSrv.items$ | async"
-		[pending]="listSrv.pending"
-		[count]="listSrv.count$ | async"
-		[currentSort]="listSrv.currentSort"
-		[currentPage]="listSrv.currentPage"
-		(goToPage)="listSrv.loadPage($event)"
-    (select)="select($event)"
-    (unselect)="unselect($event)"
-    (selectAll)="selectAll($event)"
-    (unselectAll)="unselectAll()"
-		(sort)="listSrv.sort($event)"
-		(delete)="listSrv.deleteOne($event)">
-	</projects-table-app>
+	<div class="flex ctnr">
 
-	<div class="dlg-filters">
+		<projects-table-app
+			[hasPagination]="true"
+			[hasShowItemsPerPage]="false"
+			[footerTemplate]="footer"
+			[navigation]="false"
+			[hasMenu]="false"
+			[selection]="listSrv.selection$ | async"
+			[rows]="listSrv.items$ | async"
+			[pending]="listSrv.pending"
+			[count]="listSrv.count$ | async"
+			[currentSort]="listSrv.currentSort"
+			[currentPage]="listSrv.currentPage"
+			(goToPage)="listSrv.loadPage($event)"
+			(select)="select($event)"
+			(unselect)="unselect($event)"
+			(selectAll)="selectAll($event)"
+			(unselectAll)="unselectAll()"
+			(sort)="listSrv.sort($event)"
+			(delete)="listSrv.deleteOne($event)">
+		</projects-table-app>
+	
 		<filters-app
 			*ngIf="listSrv.filterPanelOpen"
 			[filterList]="listSrv.filterList"
 			[filterTypes]="filterTypes"
 			[sidePanel]="false"
-			(clickOutside)="listSrv.closeFilterPanel()"
 			(close)="listSrv.closeFilterPanel()">
 		</filters-app>
+		
 	</div>
 
 	<ng-template #footer>
