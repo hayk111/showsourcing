@@ -64,7 +64,7 @@
 		<preview-header-subtitle-app>
 			<div *ngIf="sample?.name">{{ sample?.name }}</div>
 			<div class="txt-btn capitalize" (click)="selectSecondTab()">
-				{{ (sample?.comments?.length === 1 ? 'OBJ.n-sample.singular' : 'OBJ.n-sample.plural') | translate: { count: (sample?.comments?.length || 0) } }}
+				{{ (sample?.comments?.length === 1 ? 'OBJ.n-comment.singular' : 'OBJ.n-comment.plural') | translate: { count: (sample?.comments?.length || 0) } }}
 			</div>
 		</preview-header-subtitle-app>
 
