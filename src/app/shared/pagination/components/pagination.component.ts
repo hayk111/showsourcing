@@ -9,7 +9,7 @@ import { TrackingComponent } from '~utils';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[class.side-padding-l]': 'hasSidePadding',
-		'[class.mg-top-ms]': 'range?.length > 1 && hasTopPadding' // adding margin top only if the element is being shown up
+		'[class.mg-top-ms]': 'range?.length > 1' // adding margin top only if the element is being shown up
 	}
 })
 export class PaginationComponent extends TrackingComponent implements OnChanges {
@@ -22,7 +22,6 @@ export class PaginationComponent extends TrackingComponent implements OnChanges 
 	@Input() hasPageItemsCount = true;
 	/** whether the element has left and right padding of 24px */
 	@Input() hasSidePadding = false;
-	@Input() hasTopPadding = true;
 	/** width of the pagination, ie if 5 we display [1, 2, 3, 4, 5]  or [16, 17, 18, 19, 20], if 3 we display [1, 2, 3 ] */
 	@Input() set width(value: number) {
 		if (value % 2 === 0)
