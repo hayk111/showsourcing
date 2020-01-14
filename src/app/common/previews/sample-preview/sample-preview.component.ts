@@ -1,4 +1,13 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	EventEmitter,
+	Input,
+	OnChanges,
+	OnInit,
+	Output,
+	ViewChild,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
@@ -8,10 +17,10 @@ import { CommentService } from '~core/entity-services/comment/comment.service';
 import {
 	ExtendedFieldDefinitionService,
 } from '~core/entity-services/extended-field-definition/extended-field-definition.service';
-import { Comment, ERM, ExtendedFieldDefinition, Sample, Product } from '~core/models';
-import { AutoUnsub } from '~utils';
+import { Comment, ERM, ExtendedFieldDefinition, Product, Sample } from '~core/models';
 import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
-import { PreviewService, PreviewCommentComponent } from '~shared/preview';
+import { PreviewCommentComponent, PreviewService } from '~shared/preview';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'sample-preview-app',
@@ -20,7 +29,6 @@ import { PreviewService, PreviewCommentComponent } from '~shared/preview';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SamplePreviewComponent extends AutoUnsub implements OnInit, OnChanges {
-	formConfig = new DynamicFormConfig({ mode: 'editable-text', alignValue: 'right' });
 
 	private _sample: Sample;
 	@Input() set sample(value: Sample) {
@@ -36,6 +44,7 @@ export class SamplePreviewComponent extends AutoUnsub implements OnInit, OnChang
 
 	sample$: Observable<Sample>;
 	sampleDescriptor: SampleDescriptor;
+	formConfig = new DynamicFormConfig({ mode: 'editable-text', alignValue: 'right' });
 	selectedIndex = 0;
 	modalOpen = false;
 	erm = ERM;
@@ -55,11 +64,11 @@ export class SamplePreviewComponent extends AutoUnsub implements OnInit, OnChang
 
 	ngOnInit() {
 		this.sampleDescriptor = new SampleDescriptor([
-			'name', 'supplier', 'product', 'price', 'paid', 'assignee', 'createdBy'
+			'reference', 'name', 'price', 'assignee', 'paid'
 		]);
 		this.sampleDescriptor.modify([
-			{ name: 'product', metadata: { hasBadge: false } },
-			{ name: 'supplier', metadata: { hasBadge: false } }
+			{ name: 'name', label: 'sample-name' },
+			{ name: 'price', label: 'sample-price' }
 		]);
 
 		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "sample.extendedFields"', sortBy: 'order' });

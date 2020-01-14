@@ -1,19 +1,19 @@
-import { AbstractDescriptorComponent } from '../abstract-descriptor.component';
-import { translate } from '~utils';
 import { ERM } from '~core/models';
 import { DynamicField } from '~shared/dynamic-forms';
+
+import { AbstractDescriptorComponent } from '../abstract-descriptor.component';
 
 export class SampleDescriptor extends AbstractDescriptorComponent {
 
 	protected _descriptor: DynamicField[] = [
-		{ name: 'name', type: 'text', required: true, label: translate('name') },
-		{ name: 'description', type: 'textarea', label: translate('Description'), metadata: { rows: 5 } },
-		{ name: 'price', type: 'price', label: translate(ERM.PRICE.singular, 'erm') },
-		{ name: 'paid', type: 'boolean', label: translate('paid') },
+		{ name: 'name', type: 'text', required: true, label: 'name' },
+		{ name: 'description', type: 'textarea', label: 'description', metadata: { rows: 5 } },
+		{ name: 'price', type: 'price', label: ERM.PRICE.singular },
+		{ name: 'paid', type: 'boolean', label: 'paid' },
 
 		{
 			name: 'assignee', type: 'selector',
-			label: translate('assigned to'),
+			label: 'assigned-to',
 			metadata: {
 				target: ERM.USER.singular,
 				canCreate: false,
@@ -23,7 +23,7 @@ export class SampleDescriptor extends AbstractDescriptorComponent {
 		},
 		{
 			name: 'product', type: 'selector',
-			label: translate(ERM.PRODUCT.singular, 'erm'),
+			label: ERM.PRODUCT.singular,
 			metadata: {
 				target: ERM.PRODUCT.singular,
 				canCreate: true,
@@ -33,7 +33,7 @@ export class SampleDescriptor extends AbstractDescriptorComponent {
 		},
 		{
 			name: 'supplier', type: 'selector',
-			label: translate(ERM.SUPPLIER.singular, 'erm'),
+			label: ERM.SUPPLIER.singular,
 			metadata: {
 				target: ERM.SUPPLIER.singular,
 				canCreate: true,
@@ -43,7 +43,7 @@ export class SampleDescriptor extends AbstractDescriptorComponent {
 		},
 		{
 			name: 'createdBy', type: 'selector',
-			label: translate('created by'),
+			label: 'created-by',
 			metadata: {
 				target: ERM.USER.singular,
 				disabled: true
