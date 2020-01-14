@@ -1,10 +1,12 @@
 
 
-<user-picture-app [user]="user" [image]="user?.avatar" [border]="true"></user-picture-app>
-<div class="flexColumn">
+<user-picture-app [user]="user" [image]="user?.avatar" [border]="true" [size]="44" [fontSize]="16"></user-picture-app>
+<div class="flexColumn activity">
 	<div>
 		<span class="author">{{ user?.firstName }} {{ user?.lastName }}</span>
-		<span class="actionTaken"> &nbsp;{{ action }}</span>
 	</div>
-	<span class="time">{{ time | timeAgo }}</span>
+	<div class="action-time dot-separator">
+		<span class="action">{{action}}</span>
+		<span class="time">{{ time | date: 'dd MMM yyyy' }}</span>
+	</div>
 </div>
