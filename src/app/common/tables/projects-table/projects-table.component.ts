@@ -20,6 +20,7 @@ export class ProjectsTableComponent extends EntityTableComponent<Project> {
 	@Input() columns = ProjectsTableComponent.DEFAULT_COLUMNS;
 	@Input() tableConfig = ProjectsTableComponent.DEFAULT_TABLE_CONFIG;
 	@Input() navigation = true;
+	@Input() width: number;
 
 	constructor(public translate: TranslateService) {
 		super();
