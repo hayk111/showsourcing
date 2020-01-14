@@ -1,5 +1,5 @@
 	<div
-		class="icon flexCenter bg-{{ boxColor }}"
+		class="icon flexCenter"
 		[ngClass]="{ 'mg-right': hasContent, 'pointer': !disabled }"
 		[ngStyle]="iconSize()"
 		(click)="onClick($event)">
@@ -7,7 +7,7 @@
 		<div tabFocusAction autoFocus [canFocus]="autoFocus" (keyEnter)="focusClick()">
 			<icon-app *ngIf="checked; else unchecked" class="check-icon" name="check"></icon-app>
 			<ng-template #unchecked>
-				<div class="unChecked" [ngStyle]="uncheckedStyle()"></div>
+				<div class="unChecked" [ngStyle]="iconSize()"></div>
 			</ng-template>
 		</div>
 	</div>

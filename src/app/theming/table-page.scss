@@ -31,15 +31,12 @@
 	flex-direction: column;
 	overflow: hidden;
 
-	controller-table-app {
-		margin-top: var(--spacing-ms);
-	}
-	.ctnr {
-		height: 100%;
+	.table-ctnr {
+		height: calc(100% - 46px);
 	}
 
 	.entity-table {
-		height: calc(100% - 46px);
+		height: 100%;
 		flex-grow: 1;
 		margin-top: var(--spacing-ms);
 		display: flex;
