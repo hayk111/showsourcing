@@ -5,8 +5,7 @@ https://stackblitz.com/edit/angular-vtluff?file=src/app/app.component.ts -->
 
 <div
 	class="ctnr will-change-scroll"
-	[ngStyle]="generateStyles()"
-	[ngClass]="{ 'with-border': hasBorder }"
+	[ngClass]="{ 'with-border': hasBorder, 'with-pagination': hasPagination }"
 	infiniScroll
 	cdk-scrollable
 	(bottomReached)="bottomReached.emit()">
@@ -166,7 +165,6 @@ https://stackblitz.com/edit/angular-vtluff?file=src/app/app.component.ts -->
 <pagination-app
 	*ngIf="hasPagination && !pending"
 	[count]="count"
-	[footerTemplate]="footerTemplate"
 	[currentPage]="currentPage"
 	[hasSidePadding]="hasPaddingPagination"
 	[hasPageItemsCount]="hasShowItemsPerPage"

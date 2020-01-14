@@ -33,26 +33,11 @@ dialog-app {
 			margin-right: var(--spacing-ms);
 		}
 	}
-	
-	products-table-app {
-		height: calc(100% - 50px);
-		margin: var(--spacing-ms) 0 0 0;
-		border-radius: var(--border-radius);
-	}
 
 	sub-panel-left-item-app {
 		margin-left: 0;
 		padding: var(--spacing-l) 0 var(--spacing-ms) 0;
 	}
-}
-
-.dlg-filters {
-	overflow-y: auto;
-	height: calc(100% - 96px);
-	width: 296px;
-	position: absolute;
-	top: var(--spacing-xxl);
-	right: 0;
 }
 
 .no-padding-border-bottom {
