@@ -20,7 +20,7 @@ import { PreviewService, PreviewCommentComponent } from '~shared/preview';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SamplePreviewComponent extends AutoUnsub implements OnInit, OnChanges {
-	formConfig = new DynamicFormConfig({ mode: 'editable-text' });
+	formConfig = new DynamicFormConfig({ mode: 'editable-text', alignValue: 'right' });
 
 	private _sample: Sample;
 	@Input() set sample(value: Sample) {

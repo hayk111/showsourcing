@@ -39,7 +39,7 @@ import { AutoUnsub, translate } from '~utils';
 	providers: [UploaderFeedbackService]
 })
 export class SupplierPreviewComponent extends AutoUnsub implements OnChanges, OnInit {
-	formConfig = new DynamicFormConfig({ mode: 'editable-text' });
+	formConfig = new DynamicFormConfig({ mode: 'editable-text', alignValue: 'right' });
 	@Input() supplier: Supplier;
 	@Input() canClose = true;
 	/** wether we display it as a preview or part of a component (supplier details) */

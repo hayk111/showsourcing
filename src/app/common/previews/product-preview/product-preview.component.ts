@@ -30,7 +30,6 @@ import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-con
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { PreviewCommentComponent, PreviewService } from '~shared/preview';
 import { RatingDashboardComponent } from '~shared/rating';
-import { RatingService } from '~shared/rating/services/rating.service';
 import { AutoUnsub, PendingImage } from '~utils';
 
 @Component({
@@ -99,7 +98,6 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 		private commentSrv: CommentService,
 		private extendedFieldDefSrv: ExtendedFieldDefinitionService,
 		private previewSrv: PreviewService,
-		private ratingSrv: RatingService,
 		private taskSrv: TaskService,
 		private sampleSrv: SampleService
 	) { super(); }
