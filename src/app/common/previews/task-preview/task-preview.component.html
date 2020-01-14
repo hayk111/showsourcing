@@ -15,7 +15,7 @@
 			<div class="flexColumn ellipsis">
 				<span class="color-txt-primary {{ fontColor() }} semi-bold fs-l ellipsis">{{ task?.name }}</span>
 				<div class="flexVAlign dot-separator {{ fontColor() }}">
-					<span class="color-txt-secondary {{ fontColor() }}">{{ task?.reference }}</span>
+					<span *ngIf="task?.reference" class="color-txt-secondary {{ fontColor() }}">{{ task?.reference }}</span>
 					<span *ngIf="task?.dueDate" class="color-txt-secondary {{ fontColor() }} flex">
 						{{ 'OBJ.due-on-date' | translate : { date: (task?.dueDate | date: 'dd MMM yy':'':translate?.currentLang) } }}
 					</span>
@@ -50,7 +50,7 @@
 		</context-menu-item-warn-app>
 
 		<preview-header-subtitle-app>
-			<span class="color-txt-secondary">{{ task?.reference }}</span>
+			<span *ngIf="task?.reference" class="color-txt-secondary">{{ task?.reference }}</span>
 			<span *ngIf="task?.dueDate" class="color-txt-secondary flex">
 				{{ 'OBJ.due-on-date' | translate : { date: (task?.dueDate | date: 'dd MMM yy':'':translate?.currentLang) } }}
 			</span>
