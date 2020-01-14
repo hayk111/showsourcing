@@ -9,7 +9,7 @@ import { Product, ERM } from '~core/models';
 })
 export class CompareColumnComponent implements OnInit {
 	@Input() product: Product;
-	@Output() statusUpdated = new EventEmitter<any>();
+	@Output() update = new EventEmitter<any>();
 	erm = ERM;
 
 	constructor() { }
@@ -20,6 +20,10 @@ export class CompareColumnComponent implements OnInit {
 	/** Trackby function for ngFor */
 	trackByFn(index, tag) {
 		return tag.name;
+	}
+
+	updateProp(value: any, prop: string) {
+		this.update.emit({ id: this.product.id, [prop]: value });
 	}
 
 }

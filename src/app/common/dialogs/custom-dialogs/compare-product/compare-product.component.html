@@ -4,7 +4,7 @@
 
 	<div class="flex ctnr">
 		<compare-labels-app></compare-labels-app>
-		<compare-column-app *ngFor="let product of products; trackBy: trackByFn" [product]="product" (statusUpdated)="updated($event)"></compare-column-app>
+		<compare-column-app *ngFor="let product of products; trackBy: trackByFn" [product]="product" (update)="updated($event)"></compare-column-app>
 	</div>
 
 </dialog-app>
