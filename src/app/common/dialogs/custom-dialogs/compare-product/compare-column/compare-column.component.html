@@ -1,61 +1,61 @@
 
 <div class="top flexColumn">
-  <img-app [image]="product.images"></img-app>
-  <div class="name ellipsis"> {{ product.name }} </div>
-  <div class="description"> {{ product.description }} </div>
+  <img-app class="no-shrink" [image]="product.images"></img-app>
+  <div class="name ellipsis no-shrink"> {{ product.name }} </div>
+  <div class="description" title="{{ product?.description }}"> {{ product.description }} </div>
 </div>
 
 <div class="bottom">
-  <div>
-    <span>{{ product?.supplier?.name }}</span>
+  <div class="pd-h-s">
+    <span class="ellipsis" title="{{ product?.supplier?.name }}">{{ product?.supplier?.name }}</span>
   </div>
 
-  <div>
+  <div class="pd-h-s">
     <price-app [price]="product?.price"></price-app>
   </div>
 
-  <div>
-    <span>{{ product.minimumOrderQuantity }}</span>
+  <div class="pd-h-s">
+    <span class="ellipsis">{{ product.minimumOrderQuantity }}</span>
   </div>
 
-  <div>
-    <span>{{ product.moqDescription }}</span>
+  <div class="pd-h-s">
+    <span class="ellipsis" title="{{ product?.moqDescription }}">{{ product.moqDescription }}</span>
   </div>
 
-  <div>
-    <span>{{ product?.category?.name }}</span>
+  <div class="pd-h-s">
+    <span class="ellipsis" title="{{ product?.category?.name }}">{{ product?.category?.name }}</span>
   </div>
 
-  <div>
-    <span *ngFor="let tag of product?.tags; trackBy: trackByFn">{{ tag?.name }}</span>
+  <div class="pd-h-s ellipsis" title="{{ getTagsName() }}">
+    <span *ngFor="let tag of product?.tags; last as last; trackBy: trackByFn">{{ !last ? tag?.name + ', &nbsp;' : tag?.name }}</span>
   </div>
 
 	<h3></h3>
 
-	<div>
-    <span>{{ product?.supplier?.incoTerm }}</span>
+	<div class="pd-h-s">
+    <span class="ellipsis">{{ product?.supplier?.incoTerm }}</span>
   </div>
 
-  <div>
-    <span>{{ product?.supplier?.harbour }}</span>
+  <div class="pd-h-s">
+    <span class="ellipsis">{{ product?.supplier?.harbour }}</span>
   </div>
 
   <h3></h3>
 
-  <div>
+  <div class="pd-h-s">
     <ng-container *ngIf="product.innerCarton as c">
       <packaging-app [packaging]="c"></packaging-app>
     </ng-container>
   </div>
 
-  <div>
+  <div class="pd-h-s">
     <ng-container *ngIf="product.masterCarton as c">
       <packaging-app [packaging]="c"></packaging-app>
     </ng-container>
   </div>
 
-  <div>
-    <span>{{ product?.masterCarton?.itemsQuantity}}</span>
+  <div class="pd-h-s">
+    <span class="ellipsis">{{ product?.masterCarton?.itemsQuantity }}</span>
 	</div>
 
 	<div class="flexCenter status-selector">
@@ -65,7 +65,6 @@
 			 type="button"
 		 	selectSize="m"
 		 	(statusUpdated)="updateProp($event, 'status')">
-		</status-selector-app
-		>
+		</status-selector-app>
 	</div>
 </div>

@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { PricePipe } from '~shared/price/price.pipe';
 import { SharedModule } from '~shared/shared.module';
 
 import { CrudDialogService } from '../services/crud-dialog.service';
@@ -8,6 +9,7 @@ import { ChangePswdDlgComponent } from './change-pswd-dlg/change-pswd-dlg.compon
 import { CompareColumnComponent } from './compare-product/compare-column/compare-column.component';
 import { CompareLabelsComponent } from './compare-product/compare-labels/compare-labels.component';
 import { CompareProductComponent } from './compare-product/compare-product.component';
+import { CompareSpacerComponent } from './compare-product/compare-spacer/compare-spacer.component';
 import { DescriptionDlgComponent } from './description-dlg/description-dlg.component';
 import { EditionDialogComponent } from './edition-dialog/edition-dialog.component';
 import { ExportDlgComponent } from './export-dlg/export-dlg.component';
@@ -23,11 +25,10 @@ import {
 import { RefuseReplyDlgComponent } from './refuse-reply-dlg/refuse-reply-dlg.component';
 import { ReplySentDlgComponent } from './reply-sent-dlg/reply-sent-dlg.component';
 import { RequestReplyDlgComponent } from './request-reply-dlg/request-reply-dlg.component';
+import { ReviewRequestReplyDlgComponent } from './review-request-reply-dlg/review-request-reply-dlg.component';
 import { ProductRequestListComponent } from './supplier-request-dialog/product-request-list/product-request-list.component';
 import { SupplierRequestDialogComponent } from './supplier-request-dialog/supplier-request-dialog.component';
 import { VoteDetailsDialogComponent } from './vote-details-dialog/vote-details-dialog.component';
-import { PricePipe } from '~shared/price/price.pipe';
-import { ReviewRequestReplyDlgComponent } from './review-request-reply-dlg/review-request-reply-dlg.component';
 
 const modals = [
 	ChangePswdDlgComponent,
@@ -59,7 +60,8 @@ const modals = [
 		ExportWaitingViewComponent,
 		ProductRequestListComponent,
 		CompareLabelsComponent,
-		CompareColumnComponent
+		CompareColumnComponent,
+		CompareSpacerComponent
 	],
 	entryComponents: modals,
 	providers: [
