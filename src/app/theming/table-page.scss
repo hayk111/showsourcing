@@ -34,14 +34,24 @@
 	controller-table-app {
 		margin-top: var(--spacing-ms);
 	}
+	.ctnr {
+		height: 100%;
+	}
 
 	.entity-table {
-		height: calc(100% - 58px);
+		height: calc(100% - 46px);
 		flex-grow: 1;
 		margin-top: var(--spacing-ms);
 		display: flex;
 		box-sizing: border-box;
 		overflow: hidden;
+	}
+
+	filters-app {
+		margin: var(--spacing-ms);
+		width: 300px;
+		flex-shrink: 0;
+		overflow: auto;
 	}
 }
 
