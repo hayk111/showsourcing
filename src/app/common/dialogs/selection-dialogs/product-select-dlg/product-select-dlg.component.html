@@ -11,7 +11,7 @@
 		</controller-table-quick-actions-app>
 	</controller-table-app>
 
-	<div class="flex ctnr">
+	<div class="flex table-ctnr">
 		
 		<products-table-app
 			class="list-view"
@@ -57,7 +57,7 @@
 			[currentPage]="listSrv.currentPage"
 			[hasPageItemsCount]="false"
 			[hasTopPadding]="false"
-			(goToPage)="loadPage($event)">
+			(goToPage)="listSrv.loadPage($event)">
 		</pagination-app>
 		<div class="flex flexVAlign">
 			<div class="product-action">

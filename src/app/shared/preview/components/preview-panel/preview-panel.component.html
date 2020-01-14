@@ -1,11 +1,10 @@
 <div #top>
 	<ng-content select="preview-banner-app"></ng-content>
 	<ng-content select="preview-header-app"></ng-content>
-	<!-- TODO change flexAround when adding preview tab component -->
-	<div class="flexStart tab-container">
+	<div *ngIf="hasTabs()" class="flexStart tab-container">
 		<ng-content select="preview-tab-app"></ng-content>
 	</div>
-	<divider-app></divider-app>
+	<divider-app *ngIf="hasTabs()"></divider-app>
 </div>
 <div class="scrollable">
 	<div *ngIf="hasLogo" class="logo-transparent"></div>

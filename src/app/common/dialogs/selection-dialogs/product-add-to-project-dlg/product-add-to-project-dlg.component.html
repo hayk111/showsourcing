@@ -1,4 +1,4 @@
-<dialog-app contentOverflow="hidden" [hasBorder]="false" [hasFooter]="false">
+<dialog-app contentOverflow="hidden" [hasBorder]="false">
 
 	<dialog-header-app translate="Select Projects"></dialog-header-app> <!-- TODO: translation to be added -->
 
@@ -7,14 +7,13 @@
 		<controller-table-quick-actions-app></controller-table-quick-actions-app>
 	</controller-table-app>
 
-	<div class="flex ctnr">
+	<div class="flex table-ctnr">
 
 		<projects-table-app
-			[hasPagination]="true"
 			[hasShowItemsPerPage]="false"
-			[footerTemplate]="footer"
-			[navigation]="false"
 			[hasMenu]="false"
+			[hasPagination]="false"
+			[navigation]="false"
 			[selection]="listSrv.selection$ | async"
 			[rows]="listSrv.items$ | async"
 			[pending]="listSrv.pending"
@@ -40,14 +39,27 @@
 		
 	</div>
 
-	<ng-template #footer>
-		<div class="flexVAlign">
+	<dialog-footer-app class="flexVAlign flexBetween pagination-footer">
+		<pagination-app
+			[count]="listSrv.count$ | async"
+			[currentPage]="listSrv.currentPage"
+			[hasPageItemsCount]="false"
+			[hasTopPadding]="false"
+			(goToPage)="listSrv.loadPage($event)">
+		</pagination-app>
+		<div class="flex flexVAlign">
 			<div class="product-action">
 				<span class="selected-product-count">{{ selectedProjectsCount }}</span>
 				<span class="selected-product">Project Selected</span> <!-- TODO: add translation -->
 			</div>
 			<button class="primary-light cancel secondary capitalize" (click)="cancel()" translate="button.cancel"></button>
 			<button class="add-to-project capitalize" (click)="submit()" translate="button.add-to-project"></button>
+		</div>
+	</dialog-footer-app>
+
+	<ng-template #footer>
+		<div class="flexVAlign">
+
 		</div>
 	</ng-template>
 

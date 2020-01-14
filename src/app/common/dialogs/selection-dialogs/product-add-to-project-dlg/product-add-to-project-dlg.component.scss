@@ -5,9 +5,7 @@ dialog-app {
 	border-radius: var(--border-radius);
 }
 
-.footer {
-	margin-top: var(--spacing-xl);
-
+dialog-footer-app {
 	.selected-product-count {
 		color: #45adff;
 		font-size: var(--font-size-l);

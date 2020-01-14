@@ -1,6 +1,8 @@
 import { Comment, Product, Supplier, User } from '~models';
 import { EntityWithAudit } from '~models/_entity.model';
 
+import { ExtendedField } from './extended-field.model';
+
 export class Task extends EntityWithAudit<TaskConfig> {
 	description?: string;
 	name?: string;
@@ -13,6 +15,7 @@ export class Task extends EntityWithAudit<TaskConfig> {
 	product?: Product;
 	supplier?: Supplier;
 	comments?: Comment[];
+	extendedFields?: ExtendedField[];
 	lastUpdatedBy: User;
 	reference?: string;
 	archived = false;
