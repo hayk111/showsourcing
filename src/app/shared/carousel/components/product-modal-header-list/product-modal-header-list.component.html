@@ -5,7 +5,7 @@
 		</div>
 		<div>
 			<p class="info-title">
-				{{ product?.name || ("label.unnamed-product" | translate) }}
+				{{ product?.name || ("text.unnamed-product" | translate) }}
 			</p>
 			<div subInfo class="flex flexVAlign info-container">
 				<div class="flex status-info">
@@ -16,7 +16,7 @@
 					{{
 						product?.status?.name
 							? ('text.' + product?.status?.name | translate)
-							: ("label.new-product" | translate)
+							: ("text.new-product" | translate)
 					}}
 				</div>
 				<div class="border-separator">
