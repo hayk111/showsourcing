@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PreloadAllModules, RouterModule } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule, MissingTranslationHandler } from '@ngx-translate/core';
 import { Angulartics2Module } from 'angulartics2';
 import { environment } from 'environments/environment';
 import { AppComponent } from '~app-root/components/app.component';
@@ -19,6 +19,7 @@ import { TokenInterceptor } from '~core/interceptors/token.interceptor';
 import { PortalModule } from '~core/portal';
 import { TemplateModule } from '~core/template';
 import { SharedModule } from '~shared/shared.module';
+import { AppMissingTranslationHandler } from '~core/i18n/missing-translation.service';
 
 // Can a kangaroo jump higher than a house ?
 // Of course, a house doesn’t jump at all.
@@ -57,7 +58,9 @@ import { SharedModule } from '~shared/shared.module';
 				provide: TranslateLoader,
 				useFactory: i18n.HttpLoaderFactory,
 				deps: [HttpClient]
-			}
+			},
+			// quick fix for having things nested
+			missingTranslationHandler: { provide: MissingTranslationHandler, useClass: AppMissingTranslationHandler },
 		})
 	],
 	exports: [RouterModule],
