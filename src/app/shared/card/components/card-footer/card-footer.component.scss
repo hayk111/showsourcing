@@ -1,6 +1,5 @@
 :host {
 	display: block;
-	border-top: 1px solid var(--color-divider);
 	margin: 0 var(--spacing-l);
 	padding: var(--spacing-ms) 0;
 
@@ -12,6 +11,9 @@
 	}
 	&.center {
 		text-align: center;
+	}
+	&.border {
+		border-top: 1px solid var(--color-divider);
 	}
 }
 

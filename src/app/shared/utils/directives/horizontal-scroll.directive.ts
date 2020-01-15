@@ -21,11 +21,6 @@ export class HorizontalScrollDirective implements OnInit {
 		}
 	}
 
-	@HostListener('document:scroll', [])
-	onScroll(): void {
-		console.log('I am scrolled');
-	}
-
 	@HostListener('mouseenter', ['$event']) onEnter( e: MouseEvent ) {
 		this.disableScroll();
 	}
