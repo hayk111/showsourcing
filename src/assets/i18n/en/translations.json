@@ -703,6 +703,7 @@
     "products": "Products",
     "products-selected": "Products selected",
     "profile-picture": "Profile Picture",
+    "property-update": "Property to update",
     "quantity": "Quantity",
     "received-from": "received from",
     "recipients": "Recipients",
@@ -736,9 +737,6 @@
     "weight": "Weight",
     "weight-unit": "Weight unit",
     "width": "Width"
-  },
-  "lable": {
-    "property-update": "Property to update"
   },
   "link": {
     "click-to-download": "Click here to download your file",
