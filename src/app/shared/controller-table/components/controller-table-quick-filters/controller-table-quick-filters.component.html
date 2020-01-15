@@ -7,7 +7,7 @@
 	[toolTipMessage]="'tooltip.also-show-archived' | translate"
 	(click)="toggleArchived()">
 	<checkbox-app class="mg-right-xs" [checked]="isArchivedChecked"></checkbox-app>
-	{{ 'label.show-archived' | translate }}
+	{{ 'text.show-archived' | translate }}
 </button>
 
 <!-- assignee -->
@@ -18,7 +18,7 @@
 	[toolTipMessage]="'tooltip.show-only-assigned-to-me' | translate"
 	(click)="toggleAssignedToMe()">
 	<checkbox-app class="mg-right-xs" [checked]="isAssignedToMeChecked"></checkbox-app>
-	{{ 'label.assigned-to-me' | translate }}
+	{{ 'text.assigned-to-me' | translate }}
 </button>
 
 <!-- completed -->
@@ -29,7 +29,7 @@
 	[toolTipMessage]="'tooltip.also-show-completed' | translate"
 	(click)="toggleCompleted()">
 	<checkbox-app class="mg-right-xs" [checked]="isCompletedChecked"></checkbox-app>
-	{{ 'label.show-completed' | translate }}
+	{{ 'text.show-completed' | translate }}
 </button>
 
 <!-- createdBy -->
@@ -40,5 +40,5 @@
 	[toolTipMessage]="'tooltip.only-created-by-me' | translate"
 	(click)="toggleCreatedByMe()">
 	<checkbox-app class="mg-right-xs" [checked]="isCreatedByMeChecked"></checkbox-app>
-	{{ 'label.show-created-by-me' | translate }}
+	{{ 'text.show-created-by-me' | translate }}
 </button>

@@ -12,11 +12,11 @@ export class ReplySentDlgComponent implements OnInit {
 
 	// can be px, vh, 1%...
 	@Input() height = '80vh';
-	@Input() actionName = this.translate.instant('label.reply');
+	@Input() actionName = this.translate.instant('text.reply');
 	constructor(
 		private dlgSrv: DialogService,
 		private translate: TranslateService
-		) { }
+	) { }
 
 	ngOnInit() {
 	}

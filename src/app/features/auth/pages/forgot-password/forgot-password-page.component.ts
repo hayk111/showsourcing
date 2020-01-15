@@ -39,7 +39,7 @@ export class ForgotPasswordPageComponent extends AutoUnsub implements OnInit {
 		this.queryParams = this.route.snapshot.queryParams || '/';
 
 		this.listForm = [{
-			label: this.translate.instant('label.email'),
+			label: this.translate.instant('text.email'),
 			type: 'email',
 			name: 'email',
 			isRequired: true,

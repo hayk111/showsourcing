@@ -14,7 +14,7 @@
 		<ng-container *ngFor="let subItem of subItems; trackBy: trackByFn">
 			<a class="first-uppercase" [routerLink]="subItem.link">
 				<icon-app [size]="'m'" [name]="subItem.icon"></icon-app>
-				{{ 'label.' + subItem.translationKey | translate }}
+				{{ 'text.' + subItem.translationKey | translate }}
 			</a>
 		</ng-container>
 	</div>

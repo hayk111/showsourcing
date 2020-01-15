@@ -10,7 +10,7 @@
 
 			<div class="title">
 				<h2>{{ element?.name }}</h2>
-				<span class="color-primary fs-m">{{ selectedIndex + 1 }} / {{ elements.length }} <ng-container translate="label.products"></ng-container></span>
+				<span class="color-primary fs-m">{{ selectedIndex + 1 }} / {{ elements.length }} <ng-container translate="text.products"></ng-container></span>
 			</div>
 		</div>
 	</dialog-header-app>
@@ -25,7 +25,7 @@
 		<ng-container *ngIf="element?.reply as reply">
 
 			<article>
-				<h3 class="ms" translate="label.product-details"></h3>
+				<h3 class="ms" translate="text.product-details"></h3>
 
 				<list-app>
 					<comparison-row-app class="title-row" label="" [values]="['Current Values', 'Supplier\'s Answer']" [hasCheckbox]="false">
@@ -59,12 +59,12 @@
 			</article>
 
 			<article *ngIf="reply?.message">
-				<h3 class="ms" translate="label.supplier-message"></h3>
+				<h3 class="ms" translate="text.supplier-message"></h3>
 				<div class="reply-message">{{ reply?.message }}</div>
 			</article>
 
 			<article *ngIf="reply?.images?.length > 0">
-				<h3 class="l" translate="label.additional-pictures"></h3>
+				<h3 class="l" translate="text.additional-pictures"></h3>
 
 				<image-reviewer-app
 					[images]="reply?.images"
@@ -81,7 +81,7 @@
 
 
 			<article *ngIf="reply?.attachments?.length > 0">
-				<h3 class="l" translate="label.additional-attachments"></h3>
+				<h3 class="l" translate="text.additional-attachments"></h3>
 
 				<file-reviewer-app
 					[files]="reply?.attachments"

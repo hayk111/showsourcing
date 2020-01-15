@@ -117,7 +117,7 @@
 			<editable-display-app>
 				<ng-container *ngIf="task?.dueDate; else selectDue">{{ (task?.dueDate | date:'dd-MM-yyyy':'':translate?.currentLang) }}</ng-container>
 				<ng-template #selectDue>
-					{{'label.select-due-date' | translate}}
+					{{'text.select-due-date' | translate}}
 				</ng-template>
 			</editable-display-app>
 			<input

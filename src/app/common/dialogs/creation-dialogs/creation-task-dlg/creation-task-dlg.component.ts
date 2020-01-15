@@ -22,14 +22,12 @@ export class CreationTaskDlgComponent implements OnInit {
 
 	taskDescriptor: TaskDescriptor;
 
-
 	constructor(
 		private dlgSrv: DialogService,
 		private taskSrv: TaskService,
 		private toastSrv: ToastService,
 		private userSrv: UserService
-	) {
-	}
+	) { }
 
 	ngOnInit() {
 		const user = this.userSrv.userSync;
@@ -44,21 +42,21 @@ export class CreationTaskDlgComponent implements OnInit {
 			'name', 'assignee', 'dueDate', 'description', 'product', 'supplier'
 		]);
 		this.taskDescriptor.modify([
-			{ name: 'name', metadata: { placeholder: translate('Task name') } },
-			{ name: 'assignee', metadata: { placeholder: translate('select assignee'), width: 495 } },
+			{ name: 'name', metadata: { placeholder: 'task-name' } },
+			{ name: 'assignee', metadata: { placeholder: 'select-assignee', width: 495 } },
 			{
 				name: 'product',
-				label: translate('Linked to Product'),
+				label: 'linked-to-product',
 				metadata: {
-					placeholder: translate('search for your product'),
+					placeholder: 'search-your-product',
 					width: 495
 				}
 			},
 			{
 				name: 'supplier',
-				label: translate('Linked to Supplier'),
+				label: 'linked-to-supplier',
 				metadata: {
-					placeholder: translate('search for your supplier'),
+					placeholder: 'search-your-supplier',
 					width: 495
 				}
 			}
