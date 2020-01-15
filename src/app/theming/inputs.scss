@@ -5,6 +5,17 @@ input {
 	height: 32px;
 }
 
+// input date, we hide arrows display, since it generates weird UI when resizing input height
+input[type=date]::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	display: none;
+}
+
+// date caret arrow size (normalized)
+input[type=date]::-webkit-calendar-picker-indicator {
+	font-size: 8px;
+}
+
 input, textarea {
 	&::placeholder {
 		color: var(--color-txt-third);

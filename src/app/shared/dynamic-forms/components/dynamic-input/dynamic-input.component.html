@@ -51,12 +51,14 @@
 	<!-- date -->
 	<form-field-app *ngSwitchCase="'date'"  class="modal">
 			<label-app>{{ 'text.' + (customField?.label || customField?.name) | translate }}</label-app>
+			<!-- we use this weird type formatting, so we can display a placeholder when there is no accumulator, cause type="date" does not support placeholders
+				also, we keep type="date" when there is an accumulator so the formating dd mm yyyy is the same as when you open the selector -->
 			<input
 				inputApp
 				#dateInput
-				type="text"
-				(focus)="(dateInput.type='date')"
-				(blur)="(dateInput.type='text')"
+				[type]="accumulator ? 'date' : 'text'"
+				(focus)="dateInput.type = 'date'"
+				(blur)="!accumulator ? dateInput.type = 'text' : null"
 				[placeholder]="
 					(customField?.metadata?.placeholder ? ('placeholder.' + customField?.metadata?.placeholder | translate) : null)
 					|| ('text.' + (customField?.label || customField?.name) | translate)"
