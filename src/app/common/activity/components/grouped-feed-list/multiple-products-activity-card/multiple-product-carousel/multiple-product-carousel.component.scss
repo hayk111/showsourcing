@@ -1,24 +1,32 @@
 .previewCtnr {
 	position: relative;
 	box-sizing: border-box;
-	// min-width: 676px;
-	min-height: 330px;
 	padding: var(--spacing-s);
 	border-radius: var(--border-radius-s);
-
-
+	min-height: 285px;
+	
 	product-grid-card-app {
 		margin-bottom: 0px;
-		margin-right: 0px;
-		&:first-child {
-			margin-left: 0;
-		}
 	}
 }
 
 .grid-section {
+	overflow: hidden;
+	width: 100%;
 	align-items: flex-start;
+	white-space: nowrap;
+
+	.card {
+		display: inline-block;
+	}
+
+	.card:not(:first-child) {
+		margin-left: var(--spacing-ms);
+	}
 }
+
+.grid-section::-webkit-scrollbar { width: 0 !important }
+.grid-section { -ms-overflow-style: none; }
 
 .action {
 	visibility: hidden;

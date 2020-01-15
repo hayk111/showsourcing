@@ -32,7 +32,7 @@ import { AutoUnsub, StatusUtils } from '~utils';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TaskPreviewComponent extends AutoUnsub implements OnInit, OnChanges {
-	formConfig = new DynamicFormConfig({ mode: 'editable-text' });
+
 	private _task: Task;
 	@Input() set task(value: Task) {
 		this._task = value;
@@ -47,6 +47,7 @@ export class TaskPreviewComponent extends AutoUnsub implements OnInit, OnChanges
 
 	task$: Observable<Task>;
 	taskDescriptor: TaskDescriptor;
+	formConfig = new DynamicFormConfig({ mode: 'editable-text' });
 	erm = ERM;
 	statusUtils = StatusUtils;
 

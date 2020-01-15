@@ -6,8 +6,8 @@
 			(tabSelected)="selectedTab = $event">
 		</todo-nav-app>
 	</card-nav-app>
-	<card-title-app> 
-		{{ ((todoCount[selectedTab] || 0) > 1 ? 'ERM.' + selectedTab.toUpperCase() + '.plural' : 'ERM.' + selectedTab.toUpperCase() + '.singular') | translate }} 
+	<card-title-app>
+		{{ ((todoCount[selectedTab] || 0) > 1 ? 'ERM.' + selectedTab.toUpperCase() + '.plural' : 'ERM.' + selectedTab.toUpperCase() + '.singular') | translate }}
 		{{ 'label.assigned-to-you' | translate }}
 	</card-title-app>
 	<card-title-badge-app>{{ todoCount[selectedTab] }}</card-title-badge-app>
@@ -83,7 +83,7 @@
 		<span class="secondary">{{ 'OBJ.create-a-field-or-assign' | translate: {field: 'ERM.' + selectedTab.toUpperCase() + '.singular' | translate} }}</span>
 
 		<div class="button-group">
-			<button (click)="openCreationModal()">{{ 'OBJ.create-OBJ' | translate: {field: 'ERM.' + selectedTab.toUpperCase() + '.singular' | translate} }}</button>
+			<button (click)="openCreationModal()">{{ 'OBJ.create' | translate: {field: 'ERM.' + selectedTab.toUpperCase() + '.singular' | translate} }}</button>
 			<button (click)="dashboardSrv.redirect(route)">{{ 'OBJ.view-OBJ' | translate: {field: 'ERM.' + selectedTab.toUpperCase() + '.plural' | translate} }}</button>
 		</div>
 	</div>

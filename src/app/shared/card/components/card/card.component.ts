@@ -19,4 +19,5 @@ export class CardComponent {
 	@ContentChild(CardActionComponent, { static: true }) action: CardActionComponent;
 	@ContentChild(CardNavComponent, { static: true }) nav: CardNavComponent;
 	@Input() padding = 'l';
+	@Input() marginTitle = 'l';
 }

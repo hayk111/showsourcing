@@ -13,7 +13,8 @@ import { AutoUnsub, ID } from '~utils';
 	templateUrl: './contacts-page.component.html',
 	styleUrls: ['./contacts-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	host: { class: 'table-page' }
+	host: { class: 'table-page' },
+	providers: [ListPageService]
 })
 export class ContactsPageComponent extends AutoUnsub implements OnInit {
 

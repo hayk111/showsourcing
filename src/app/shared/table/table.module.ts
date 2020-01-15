@@ -2,6 +2,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { ContextMenuModule } from '~shared/context-menu/context-menu.module';
 import { IconsModule } from '~shared/icons';
 import { ImageModule } from '~shared/image/image.module';
@@ -31,6 +32,7 @@ import { UtilsModule } from '~shared/utils';
 		StatusSelectorModule,
 		UtilsModule,
 		PaginationModule,
+		TranslateModule
 	],
 	declarations: [TableComponent, ColumnDirective],
 	exports: [TableComponent, ColumnDirective],
