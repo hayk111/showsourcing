@@ -2,43 +2,9 @@
 	display: flex;
 	max-width: 70%;
 	overflow: auto;
-
-	compare-column-app:first-of-type {
-		margin-right: 6px;
-	}
-	
-	compare-column-app:not(:first-of-type):not(:last-of-type) {
-		margin: 0 6px;
-	}
-
-	compare-column-app:last-of-type {
-		margin-left: 6px;
-	}
-
-	.status-selector:first-of-type {
-		margin-right: var(--spacing-ms);
-	}
-
-	.status-selector:not(:first-of-type):not(:last-of-type) {
-		margin: 0 var(--spacing-ms);
-	}
-
-	.status-selector:last-of-type {
-		margin-left: var(--spacing-ms);
-	}
-
 }
 
 dialog-app {
 	height: 85vh;
 	overflow: auto;
-}
-
-.status-selector {
-	display: inline-block;
-	width: 175px;
-}
-
-.product-status {
-	margin-left: 200px;
 }
