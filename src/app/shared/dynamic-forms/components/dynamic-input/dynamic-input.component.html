@@ -45,8 +45,12 @@
 	<!-- date -->
 	<form-field-app *ngSwitchCase="'date'"  class="modal">
 			<label-app>{{ customField?.label || customField?.name }}</label-app>
-			<input inputApp
-				type="date"
+			<input
+				inputApp
+				#dateInput
+				type="text"
+				(focus)="(dateInput.type='date')"
+				(blur)="(dateInput.type='text')"
 				[placeholder]="customField?.metadata?.placeholder || customField?.label || customField?.name"
 				[(ngModel)]="accumulator"
 				(input)="onChange()"/>
