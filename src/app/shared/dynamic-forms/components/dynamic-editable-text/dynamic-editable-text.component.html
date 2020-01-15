@@ -262,6 +262,7 @@
 				<radio-app
 					[disabled]="customField?.metadata?.disabled"
 					[checked]="accumulator"
+					[size]="16"
 					[items]="[{ name: 'Yes', value: true }, { name: 'No', value: false }]">
 				</radio-app>
 			</editable-display-app>
@@ -330,7 +331,7 @@
 
 		<!-- title -->
 		<h3 *ngSwitchCase="'title'" class="color-primary" [ngClass]="{ 'first': indexInCol === 0 }">
-			{{ 'text.' + customField.name | translate }}
+			{{ 'title.' + customField.name | translate }}
 		</h3>
 
 	</ng-container>

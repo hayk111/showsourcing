@@ -31,7 +31,6 @@ import { AutoUnsub } from '~utils';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SamplePreviewComponent extends AutoUnsub implements OnInit, OnChanges {
-	formConfig = new DynamicFormConfig({ mode: 'editable-text' });
 
 	private _sample: Sample;
 	@Input() set sample(value: Sample) {
@@ -47,6 +46,7 @@ export class SamplePreviewComponent extends AutoUnsub implements OnInit, OnChang
 
 	sample$: Observable<Sample>;
 	sampleDescriptor: SampleDescriptor;
+	formConfig = new DynamicFormConfig({ mode: 'editable-text', alignValue: 'right' });
 	selectedIndex = 0;
 	modalOpen = false;
 	erm = ERM;
@@ -67,11 +67,11 @@ export class SamplePreviewComponent extends AutoUnsub implements OnInit, OnChang
 
 	ngOnInit() {
 		this.sampleDescriptor = new SampleDescriptor([
-			'name', 'supplier', 'product', 'price', 'paid', 'assignee', 'createdBy'
+			'reference', 'name', 'price', 'assignee', 'paid'
 		]);
 		this.sampleDescriptor.modify([
-			{ name: 'product', metadata: { hasBadge: false } },
-			{ name: 'supplier', metadata: { hasBadge: false } }
+			{ name: 'name', label: 'sample-name' },
+			{ name: 'price', label: 'sample-price' }
 		]);
 
 		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "sample.extendedFields"', sortBy: 'order' });

@@ -40,11 +40,10 @@
 
     <ng-container [ngSwitch]="column.name">
 
-			
-			<default-columns-app 
+			<default-columns-app
 				*ngSwitchDefault
-				[row]="row" 
-				[column]="column" 
+				[row]="row"
+				[column]="column"
 				[hovered]="row.id === hovered"
 				[type]="'ATTACHMENT' | erm"
 				(update)="update.emit($event)"
@@ -57,7 +56,7 @@
 			<ng-container *ngSwitchCase="'actions'">
 				<button class="primary icon-with-text" (click)="download(row)">
 					<icon-app name="close-pane-bottom"></icon-app>
-					{{ 'text.download' | translate }}
+					{{ 'button.download' | translate }}
 				</button>
 			</ng-container>
 

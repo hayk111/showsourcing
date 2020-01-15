@@ -23,6 +23,7 @@ export class RadioComponent extends AbstractInput implements AfterViewInit {
 
 	@Input() isVeritical = false;
 	@Input() disabled = false;
+	@Input() size = 20;
 
 	/** list of possible values and labels */
 	@Input() items: { name: string, value: boolean }[];
@@ -98,6 +99,27 @@ export class RadioComponent extends AbstractInput implements AfterViewInit {
 		if (value === null || this.disabled)
 			return;
 		this.checked = value;
+	}
+
+	wrapperStyle() {
+		return {
+			height: this.size + 'px',
+			width: this.size + 'px'
+		};
+	}
+
+	dotContainerStyle() {
+		return {
+			height: (this.size - 2) + 'px',
+			width: (this.size - 2) + 'px'
+		};
+	}
+
+	dotOverlayStyle() {
+		return {
+			height: (this.size / 2) + 'px',
+			width: (this.size / 2) + 'px'
+		};
 	}
 
 }

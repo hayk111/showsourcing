@@ -17,7 +17,8 @@ import { ID } from '~utils/id.utils';
 	templateUrl: './products-page.component.html',
 	styleUrls: ['./products-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	host: { class: 'table-page' }
+	host: { class: 'table-page' },
+	providers: [ListPageService]
 })
 export class ProductsPageComponent extends AutoUnsub implements OnInit {
 

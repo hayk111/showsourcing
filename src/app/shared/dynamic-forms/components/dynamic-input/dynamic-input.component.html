@@ -159,7 +159,7 @@
 	<!-- title -->
 	<ng-container *ngSwitchCase="'title'">
 		<h3 *ngSwitchCase="'title'" class="ms">
-			{{ customField?.label || customField?.name }}
+			{{ 'title.' + (customField?.label || customField?.name) | translate }}
 		</h3>
 	</ng-container>
 
