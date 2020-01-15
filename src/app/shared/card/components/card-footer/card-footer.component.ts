@@ -8,12 +8,14 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 	host: {
 		'[class.right]': 'align == "right"',
 		'[class.left]': 'align == "left"',
-		'[class.center]': 'align == "center"'
+		'[class.center]': 'align == "center"',
+		'[class.border]': 'border'
 	}
 })
 export class CardFooterComponent {
 
 	@Input() align: 'left' | 'right' | 'center' = 'right';
+	@Input() border = true;
 
 	constructor() { }
 

@@ -231,6 +231,7 @@
     "create-a-field-or-assign": "create a {{ field }} or assign yourself an existing one",
     "created-by-name": "created by {{ firstName }} {{ lastName }}",
     "created-by-on": "Created by {{ name }} on {{ date }}",
+    "created-new-products": "Created {{ count }} new products",
     "date-at-time": "{{ date }} at {{ time }}",
     "delete": "delete {{ count }}",
     "due-on-date": "Due on {{ date }}",

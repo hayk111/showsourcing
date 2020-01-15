@@ -1,8 +1,11 @@
 .author {
-	font-size: 15px;
+	font-size: var(--font-size-l);
 	font-weight: 600;
 	color: var(--color-txt-primary);
-	letter-spacing: -0.4px;
+}
+
+.activity {
+	justify-content: center;
 }
 
 .actionTaken {
@@ -12,8 +15,8 @@
 	letter-spacing: -0.4px;
 }
 
-.time {
-	line-height: 1;
+.action-time {
+	color: var(--color-txt-secondary);
 }
 
 user-picture-app {
