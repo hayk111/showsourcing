@@ -1,6 +1,6 @@
 <dialog-app class="vertical-scroll-content">
 
-	<dialog-header-app translate="label.new-sample"></dialog-header-app>
+	<dialog-header-app translate="text.new-sample"></dialog-header-app>
 	<div class="container flex">
 			<div class="inner-container">
 				<dynamic-form-app
@@ -14,7 +14,7 @@
 		<checkbox-app
 			[checked]="createAnother"
 			(update)="createAnother = !createAnother">
-			{{'label.create-another' | translate}}
+			{{'text.create-another' | translate}}
 		</checkbox-app>
 		<button tabFocusAction class="secondary" (click)="cancel()" translate="button.cancel"></button>
 		<button tabFocusAction [disabled]="!(sample?.name)" (click)="save()" translate="button.create-sample"></button>

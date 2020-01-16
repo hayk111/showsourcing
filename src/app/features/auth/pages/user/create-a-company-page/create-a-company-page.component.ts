@@ -37,14 +37,14 @@ export class CreateACompanyPageComponent extends AutoUnsub implements OnInit {
 	) {
 		super();
 		this.listForm = [{
-			label: this.translate.instant('label.company-name'),
+			label: this.translate.instant('text.company-name'),
 			type: 'text',
 			name: 'companyName',
 			isRequired: true,
 			placeHolder: '',
 			validators: [Validators.required]
 		}, {
-			label: this.translate.instant('label.team-name'),
+			label: this.translate.instant('text.team-name'),
 			type: 'text',
 			name: 'teamName',
 			isRequired: true,
@@ -52,7 +52,7 @@ export class CreateACompanyPageComponent extends AutoUnsub implements OnInit {
 			validators: [Validators.required]
 		}];
 		this.buttons = [{
-			label: this.translate.instant('label.create-a-team'),
+			label: this.translate.instant('text.create-a-team'),
 			type: 'button'
 		}];
 	}

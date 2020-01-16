@@ -1,13 +1,13 @@
 <dialog-app (close)="close()" (clickOutside)="close()">
 
-	<dialog-header-app class="capitalize" translate="label.contact"></dialog-header-app>
+	<dialog-header-app class="capitalize" translate="text.contact"></dialog-header-app>
 
 	<ng-container *ngIf="contactCreated$ | async; else spinner">
 
 		<form class="container" [formGroup]="form" (ngSubmit)="createContact()">
 
 			<form-field-app>
-				<label-app class="capitalize" translate="label.name"></label-app>
+				<label-app class="capitalize" translate="text.name"></label-app>
 				<input inputApp
 					autoFocus
 					(blur)="updateContact()"
@@ -33,7 +33,7 @@
 			</form-field-app> -->
 
 			<form-field-app>
-				<label-app class="capitalize" translate="label.function"></label-app>
+				<label-app class="capitalize" translate="text.function"></label-app>
 				<input inputApp
 					(blur)="updateContact()"
 					formControlName="jobTitle"
@@ -43,7 +43,7 @@
 			</form-field-app>
 
 			<form-field-app>
-				<label-app class="capitalize" translate="label.email"></label-app>
+				<label-app class="capitalize" translate="text.email"></label-app>
 				<input inputApp
 					(blur)="updateContact()"
 					formControlName="email"
@@ -53,7 +53,7 @@
 			</form-field-app>
 
 			<form-field-app>
-				<label-app translate="label.phone-number"></label-app>
+				<label-app translate="text.phone-number"></label-app>
 				<input inputApp
 					(blur)="updateContact()"
 					formControlName="phoneNumber"
@@ -63,7 +63,7 @@
 					[placeholder]="'placeholder.contact-phone-number' | translate"/>
 			</form-field-app>
 
-			<label translate="label.business-card"></label>
+			<label translate="text.business-card"></label>
 			<carousel-app
 				*ngIf="contact$ | async as contact"
 				[imageProperty]="'businessCardImage'"

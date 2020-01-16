@@ -14,11 +14,11 @@
 
 		<form [formGroup]="form">
 			<form-field-app class="borderless-ms capitalize">
-				<label-app class="team-name capitalize" translate="label.team-name"></label-app>
+				<label-app class="team-name capitalize" translate="text.team-name"></label-app>
 				<input class="name-input" [value]="team.name" inputApp type="text" formControlName="teamName"/>
 			</form-field-app>
 		</form>
-		
+
 		<h2 class="title-about">About this team</h2> <!-- TODO: translation to be added -->
 		<h2 class="team-created-date">Created by {{team?.ownerUser | formatUserName: true}} on {{ team.creationDate | date: 'd MMM y' }}</h2>
 	</div>
