@@ -834,7 +834,8 @@
   "settings": "settings",
   "text": {
     "accepted": "accepted",
-    "active": "active",
+		"active": "active",
+		"activity": "Activity",
     "add-description": "Add description",
     "additional-attachments": "Additional attachments",
     "additional-pictures": "Additional pictures",
