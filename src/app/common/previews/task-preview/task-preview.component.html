@@ -156,7 +156,7 @@
 
 	<!-- Comment List -->
 	<preview-section-app [title]="'title.comments' | translate">
-		<comment-list-app [comments]="task?.comments"></comment-list-app>
+		<comment-list-app [comments]="task?.comments" (addComment)="previewComment?.focus()"></comment-list-app>
 	</preview-section-app>
 
 	<!-- Comment Input -->

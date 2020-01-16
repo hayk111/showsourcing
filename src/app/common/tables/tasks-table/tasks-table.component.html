@@ -36,11 +36,12 @@
 
 			<default-columns-app
 				*ngSwitchDefault
-				[row]="row" 
-				[column]="column" 
+				[row]="row"
+				[column]="column"
 				[hovered]="row.id === hovered"
 				[type]="'TASK' | erm"
 				[logoColor]="getColor(row)"
+				[redirectOnNameClick]="false"
 				(update)="update.emit($event)"
 				(nameClick)="previewClick.emit($event)"
 				(previewClick)="previewClick.emit($event)"
