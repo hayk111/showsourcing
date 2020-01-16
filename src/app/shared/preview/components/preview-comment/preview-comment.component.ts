@@ -20,7 +20,8 @@ export class PreviewCommentComponent {
 	// element is needed if we want to acces the position of the element to scroll (product preview)
 	constructor(
 		private commentSrv: CommentService,
-		public element: ElementRef) { }
+		public element: ElementRef
+	) { }
 
 	addComment() {
 		if (this.commentCtrl.value) {

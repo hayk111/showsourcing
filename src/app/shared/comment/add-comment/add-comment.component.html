@@ -3,6 +3,7 @@
 	<user-picture-app [user]="user" [size]="44" [fontSize]="16"></user-picture-app>
 	<textarea
 		inputApp
+		#inp
 		rows="4"
 		[formControl]="commentCtrl"
 		[placeholder]="'placeholder.write-comment-here' | translate">
