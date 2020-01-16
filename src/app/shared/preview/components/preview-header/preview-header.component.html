@@ -31,7 +31,7 @@
 	<editable-container-app
 		#edt
 		(opened)="inpName.select()"
-		(closed)="updateEntity(inpName.value, 'name')">
+		(closed)="updateEntity($event, inpName.value)">
 		<editable-display-app class="ellipsis bold-s color-txt-primary fs-xxxxl">
 			{{ entity[titleProp] || '-' }}
 		</editable-display-app>
