@@ -1,9 +1,9 @@
 <form [formGroup]="form" *ngIf="!pending; else spinner">
 	<dialog-app>
-		<dialog-header-app translate="label.invite-user"></dialog-header-app>
+		<dialog-header-app translate="text.invite-user"></dialog-header-app>
 
 		<form-field-app>
-			<label-app class="capitalize" translate="label.email"></label-app>
+			<label-app class="capitalize" translate="text.email"></label-app>
 			<input type="text" autofocus inputApp formControlName="email" (keyup.enter)="submit()"/>
 		</form-field-app>
 

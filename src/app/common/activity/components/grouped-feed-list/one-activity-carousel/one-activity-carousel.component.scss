@@ -7,18 +7,15 @@
 	position: relative;
 	display: flex;
 	align-items: center;
-	justify-content: center;
 	box-sizing: border-box;
 	min-width: 656px;
-	height: 490px;
+	height: 240px;
 	border-radius: var(--border-radius-l);
-	background: var(--color-secondary-light);
 
 	.empty {
 		width: 100%;
 		font-style: italic;
 		color: var(--color-txt-secondary);
-		background: var(--color-secondary-light);
 		font-size: var(--font-size-xxl);
 
 		img {
@@ -30,8 +27,12 @@
 		}
 	}
 
+	.carousel-img {
+		width: 240px;
+	}
+
 	.mg-left {
-		margin-left: var(--spacing-xs);
+		margin-left: var(--spacing-ms);
 	}
 
 	img-app {
@@ -53,17 +54,23 @@
 	.move-btn {
 		position: absolute;
 		background: rgba(236, 236, 236, 0.6);
-		width: 45px;
+		width: 30px;
 		height: 100%;
 		display: flex;
 		justify-content: center;
 		align-items: center;
+
+		icon-app {
+			color: var(--color-third-contrast);
+		}
 	}
+	
 	.next {
-		right: -2%;
+		right: 0;
 	}
+
 	.back {
-		left: -1.7%;
+		left: 0;
 	}
 
 	icon-app {

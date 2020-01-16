@@ -28,7 +28,7 @@ export class RegisterPageComponent extends AutoUnsub implements OnInit {
 		private router: Router,
 		private route: ActivatedRoute,
 		private translate: TranslateService
-		) {
+	) {
 		super();
 	}
 
@@ -37,7 +37,7 @@ export class RegisterPageComponent extends AutoUnsub implements OnInit {
 		const email = this.queryParams.email;
 
 		this.listForm = [{
-			label: this.translate.instant('label.first-name'),
+			label: this.translate.instant('text.first-name'),
 			type: 'text',
 			name: 'firstName',
 			isRequired: true,
@@ -45,7 +45,7 @@ export class RegisterPageComponent extends AutoUnsub implements OnInit {
 			placeHolder: this.translate.instant('placeholder.your-first-name'),
 			validators: [Validators.required]
 		}, {
-			label: this.translate.instant('label.last-name'),
+			label: this.translate.instant('text.last-name'),
 			type: 'text',
 			name: 'lastName',
 			isRequired: true,
@@ -53,7 +53,7 @@ export class RegisterPageComponent extends AutoUnsub implements OnInit {
 			placeHolder: this.translate.instant('placeholder.your-last-name'),
 			validators: [Validators.required]
 		}, {
-			label: this.translate.instant('label.email'),
+			label: this.translate.instant('text.email'),
 			value: email,
 			type: 'email',
 			name: 'email',
@@ -67,7 +67,7 @@ export class RegisterPageComponent extends AutoUnsub implements OnInit {
 				msg: this.translate.instant('error.pick-another-email')
 			}
 		}, {
-			label: this.translate.instant('label.password'),
+			label: this.translate.instant('text.password'),
 			type: 'password',
 			name: 'password',
 			isRequired: true,

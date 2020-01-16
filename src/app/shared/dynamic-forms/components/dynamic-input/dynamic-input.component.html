@@ -1,91 +1,111 @@
 <ng-container [ngSwitch]="customField?.type">
 
   <form-field-app *ngSwitchDefault class="modal">
-    <label-app inputApp>{{ customField?.label || customField?.name }}</label-app>
+    <label-app inputApp>{{ 'text.' + (customField?.label || customField?.name) | translate }}</label-app>
 	</form-field-app>
 
 	<!-- text -->
   <form-field-app *ngSwitchCase="'text'" class="modal">
-    <label-app>{{ customField?.label || customField?.name }}</label-app>
+    <label-app>{{ 'text.' + (customField?.label || customField?.name) | translate }}</label-app>
 		<input inputApp
 			autoFocus
 			[canFocus]="autofocus"
 			type="text"
 			[(ngModel)]="accumulator"
-			[placeholder]="customField?.metadata?.placeholder || customField?.label || customField?.name"
+			[placeholder]="
+				(customField?.metadata?.placeholder ? ('placeholder.' + customField?.metadata?.placeholder | translate) : null)
+				|| ('text.' + (customField?.label || customField?.name) | translate)"
       (input)="onChange()"/>
 	</form-field-app>
 
 	<!-- tel -->
   <form-field-app *ngSwitchCase="'tel'"  class="modal">
-    <label-app>{{ customField?.label || customField?.name }}</label-app>
+    <label-app>{{ 'text.' + (customField?.label || customField?.name) | translate }}</label-app>
     <input inputApp
 			autoFocus
 			[canFocus]="autofocus"
 			restrictInput="tel"
       type="tel"
-			[placeholder]="customField?.metadata?.placeholder || customField?.label || customField?.name"
+			[placeholder]="
+				(customField?.metadata?.placeholder ? ('placeholder.' + customField?.metadata?.placeholder | translate) : null)
+				|| ('text.' + (customField?.label || customField?.name) | translate)"
       [(ngModel)]="accumulator"
       (input)="onChange()"/>
   </form-field-app>
 
 	<!-- number -->
   <form-field-app *ngSwitchCase="'int'"  class="modal">
-    <label-app>{{ customField?.label || customField?.name }}</label-app>
+    <label-app>{{ 'text.' + (customField?.label || customField?.name) | translate }}</label-app>
     <input inputApp
 			autoFocus
 			[canFocus]="autofocus"
       restrictInput="number"
       type="number"
-			[placeholder]="customField?.metadata?.placeholder || customField?.label || customField?.name"
+			[placeholder]="
+				(customField?.metadata?.placeholder ? ('placeholder.' + customField?.metadata?.placeholder | translate) : null)
+				|| ('text.' + (customField?.label || customField?.name) | translate)"
       [(ngModel)]="accumulator"
       (input)="onChange()"/>
 	</form-field-app>
 
 	<!-- date -->
 	<form-field-app *ngSwitchCase="'date'"  class="modal">
-			<label-app>{{ customField?.label || customField?.name }}</label-app>
-			<input inputApp
-				type="date"
-				[placeholder]="customField?.metadata?.placeholder || customField?.label || customField?.name"
+			<label-app>{{ 'text.' + (customField?.label || customField?.name) | translate }}</label-app>
+			<!-- we use this weird type formatting, so we can display a placeholder when there is no accumulator, cause type="date" does not support placeholders
+				also, we keep type="date" when there is an accumulator so the formating dd mm yyyy is the same as when you open the selector -->
+			<input
+				inputApp
+				#dateInput
+				[type]="accumulator ? 'date' : 'text'"
+				(focus)="dateInput.type = 'date'"
+				(blur)="!accumulator ? dateInput.type = 'text' : null"
+				[placeholder]="
+					(customField?.metadata?.placeholder ? ('placeholder.' + customField?.metadata?.placeholder | translate) : null)
+					|| ('text.' + (customField?.label || customField?.name) | translate)"
 				[(ngModel)]="accumulator"
 				(input)="onChange()"/>
 		</form-field-app>
 
 	<!-- decimal -->
   <form-field-app *ngSwitchCase="'decimal'"  class="modal">
-    <label-app>{{ customField?.label || customField?.name }}</label-app>
+    <label-app>{{ 'text.' + (customField?.label || customField?.name) | translate }}</label-app>
 		<input inputApp
 			autoFocus
 			[canFocus]="autofocus"
       restrictInput="decimal"
 			type="number"
 			step="any"
-			[placeholder]="customField?.metadata?.placeholder || customField?.label || customField?.name"
+			[placeholder]="
+				(customField?.metadata?.placeholder ? ('placeholder.' + customField?.metadata?.placeholder | translate) : null)
+				|| ('text.' + (customField?.label || customField?.name) | translate)"
       [(ngModel)]="accumulator"
       (input)="onChange()"/>
   </form-field-app>
 
 	<!-- days -->
   <form-field-app *ngSwitchCase="'days'"  class="modal">
-    <label-app>{{ customField?.label || customField?.name }}</label-app>
+    <label-app>{{ 'text.' + (customField?.label || customField?.name) | translate }}</label-app>
     <input inputApp
 			autoFocus
 			[canFocus]="autofocus"
 			type="number"
-			[placeholder]="customField?.metadata?.placeholder || customField?.label || customField?.name"
+			[placeholder]="
+				(customField?.metadata?.placeholder ? ('placeholder.' + customField?.metadata?.placeholder | translate) : null)
+				|| ('text.' + (customField?.label || customField?.name) | translate)"
       [(ngModel)]="accumulator"
       (input)="onChange()"/>
   </form-field-app>
 
 	<!-- textarea -->
   <form-field-app *ngSwitchCase="'textarea'" class="modal">
-    <label-app>{{ customField?.label || customField?.name }}</label-app>
+    <label-app>{{ 'text.' + (customField?.label || customField?.name) | translate }}</label-app>
 		<textarea inputApp
 			autoFocus
 			[canFocus]="autofocus"
       type="text"
-			[placeholder]="customField?.metadata?.placeholder || customField?.label || customField?.name"
+			[placeholder]="
+				(customField?.metadata?.placeholder ? ('placeholder.' + customField?.metadata?.placeholder | translate) : null)
+				|| ('text.' + (customField?.label || customField?.name) | translate)"
 			[rows]="customField?.metadata?.rows"
       [(ngModel)]="accumulator"
       (input)="onChange()">
@@ -95,7 +115,7 @@
 	<!-- selector -->
   <ng-container *ngSwitchCase="'selector'">
 		<form-field-app  class="modal">
-			<label-app inputApp>{{ customField?.label || customField?.name }}</label-app>
+			<label-app inputApp>{{ 'text.' + (customField?.label || customField?.name) | translate }}</label-app>
 			<input-selector-app
 				[(ngModel)]="accumulator"
 				[multiple]="customField?.metadata?.multiple"
@@ -113,7 +133,7 @@
 	<!-- boolean -->
   <ng-container *ngSwitchCase="'boolean'">
     <form-field-app class="modal">
-      <label-app>{{ customField?.label || customField?.name }}</label-app>
+      <label-app>{{ 'text.' + (customField?.label || customField?.name) | translate }}</label-app>
 			<radio-app
 			 	autoFocus inputApp
 				[(ngModel)]="accumulator"
@@ -127,7 +147,7 @@
 
 	<!-- packaging -->
 	<ng-container *ngSwitchCase="'packaging'">
-		<h4 class="ms capitalize bold-s">{{ customField?.label || customField?.name }}</h4>
+		<h4 class="ms capitalize bold-s">{{ 'text.' + (customField?.label || customField?.name) | translate }}</h4>
 		<editable-packaging-app
 			[config]="config"
 			[autofocus]="autofocus"
@@ -139,7 +159,7 @@
 
 	<!-- price -->
   <form-field-app *ngSwitchCase="'price'" class="modal">
-		<label-app>{{ customField?.label || customField?.name }}</label-app>
+		<label-app>{{ 'text.' + (customField?.label || customField?.name) | translate }}</label-app>
     <input-price-app inputApp [(ngModel)]="accumulator" (input)="onChange()"></input-price-app>
 	</form-field-app>
 
