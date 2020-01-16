@@ -4,7 +4,8 @@
 	</div>
 	<div class="left">
 		<notif-box-app></notif-box-app>
-		<todo-box-app></todo-box-app>
+		<product-list-app [products]="yourProducts$"></product-list-app>
+		<latest-products-app [latestProducts]="latestProducts$"></latest-products-app>
 		<dashboard-activity-app [feedResult]="feedResult"></dashboard-activity-app>
 	</div>
 	<div class="right">

@@ -3,9 +3,12 @@
 
 		<!-- user -->
 		<activity-user-app
+			[hasPreview]="true"
+			[product]="product"
 			[user]="product?.createdBy"
 			[time]="product?.creationDate"
-			[action]="title">
+			[action]="title"
+			(previewClick)="previewClick.emit($event)">
 		</activity-user-app>
 
 		<!-- preview  -->

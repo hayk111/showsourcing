@@ -10,6 +10,7 @@
 				[groupFeed]="feed"
 				[title]="'title.new-comment' | translate"
 				(createComment)="createComment($event)"
+				(previewClick)="openProductPreview($event)"
 				(update)="updateProduct($event)"
 				(liked)="onThumbUp($event)"
 				(disliked)="onThumbDown($event)">
@@ -21,6 +22,7 @@
 				[groupFeed]="feed"
 				[title]="'title.created-new-product' | translate"
 				(createComment)="createComment($event)"
+				(previewClick)="openProductPreview($event)"
 				(update)="updateProduct($event)"
 				(liked)="onThumbUp($event)"
 				(disliked)="onThumbDown($event)">

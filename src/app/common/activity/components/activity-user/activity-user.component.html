@@ -1,7 +1,7 @@
 
 
 <user-picture-app [user]="user" [image]="user?.avatar" [border]="true" [size]="44" [fontSize]="16"></user-picture-app>
-<div class="flexColumn activity">
+<div class="flexColumn flexGrow activity">
 	<div>
 		<span class="author">{{ user | formatUserName: true}}</span>
 	</div>
@@ -9,4 +9,7 @@
 		<span class="action">{{action}}</span>
 		<span class="time">{{ time | date: 'dd MMM yyyy' }}</span>
 	</div>
+</div>
+<div *ngIf="hasPreview">
+	<button class="primary-light" (click)="previewClick.emit(product)">Preview</button>
 </div>

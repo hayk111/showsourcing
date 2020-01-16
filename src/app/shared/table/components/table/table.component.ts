@@ -55,6 +55,7 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	@Input() type: EntityName;
 	@Input() width: string;
 	@Input() rowHeight = 42;
+	@Input() listView = false;
 
 	/** the name of the property than uniquely identifies a row. This is used to know if a row is currently selectioned
 	so this is only useful when the table has selection enabled. */

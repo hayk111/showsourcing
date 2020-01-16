@@ -4,9 +4,10 @@ import { ProductService } from '~core/entity-services';
 import { TableConfig } from '~common/tables/entity-table.component';
 
 const tableConfig: TableConfig = {
-	about: { name: 'about', translationKey: 'about', width: 190, sortProperty: 'creationDate' },
-	reference: { name: 'reference', translationKey: 'reference', width: 320, sortProperty: 'reference' },
-	status: { name: 'status', translationKey: 'status', width: 165, sortProperty: 'status.step' },
+	reference: { name: 'reference', translationKey: 'reference', width: 50, sortProperty: 'reference' },
+	name: { name: 'name', translationKey: 'name', width: 300, sortProperty: 'name' },
+	status: { name: 'status', translationKey: 'status', width: 100, sortProperty: 'status' },
+	creationDate: { name: 'creationDate', translationKey: 'creationDate', width: 50, sortProperty: 'creationDate' },
 };
 
 @Component({

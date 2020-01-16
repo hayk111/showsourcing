@@ -1,16 +1,17 @@
-<card-app>
+<card-app marginTitle="ms">
 	<card-title-app translate="title.lastest-noti"></card-title-app>
+	
+	<card-action-app *ngIf="(notifications$ | async).results.length > 0">
+		<button class="primary-light" (click)="openPanel()">View All</button>
+	</card-action-app>
+
 	<ng-container *ngIf="notifications$ | async as notifications; else emptyNotif">
 		<notif-list-app
 			[isDashboardBox]="true"
 			[activities]="notifications?.results.slice(0, 4)"
 		>
 		</notif-list-app>
-		<card-footer-app class="flexCenter" *ngIf="notifications?.results.length > 0">
-			<span (click)="openPanel()" translate="button.view-all"></span>
-		</card-footer-app>
 	</ng-container>
-
 	<ng-template #emptyNotif>
 		<notif-empty-app
 			class="empty-notification">

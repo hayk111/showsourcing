@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, Subject, of } from 'rxjs';
 import { shareReplay } from 'rxjs/operators';
 import { TaskService, ProjectService } from '~core/entity-services';
 import { ERMService } from '~entity-services/_global/erm.service';
@@ -9,6 +9,9 @@ import { EntityMetadata, ERM, SampleStatus, SupplierStatus, ProductStatus } from
 	providedIn: 'root'
 })
 export class StatusSelectorService {
+
+	private _statusUpdate$ = new Subject<void>();
+	statusUpdate$ = this._statusUpdate$.asObservable();
 
 	// if we dont want to see all at once and use a scroll for this, instead of query all
 	// we need queryList, so we can refetch. And the workflow.html need infiniteScroll
@@ -46,6 +49,7 @@ export class StatusSelectorService {
 	}
 
 	updateStatus(entity, typeEntity: EntityMetadata) {
+		this._statusUpdate$.next();
 		return this.ermSrv.getGlobalService(typeEntity).update(entity);
 	}
 
