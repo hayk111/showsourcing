@@ -1,4 +1,59 @@
 {
+	"_user-defined": {
+    "status": {
+      "_Done": "Terminé",
+      "_GetQuotation": "Obtenir une cotation",
+      "_Inspiration": "Inspiration",
+      "_New": "Nouveau produit",
+      "_NewProductstatus": "Nouveau produit",
+      "_NewSamplestatus": "Nouvel échantillon",
+      "_NewSupplierstatus": "Nouveau fournisseur",
+      "_Onboarding": "À bord",
+      "_Ordered": "commandé",
+      "_Overdue": "En retard",
+      "_Pending": "En attente",
+      "_Received": "Reçu",
+      "_Refused": "Refusé",
+      "_TeamReview": "Examen d'équipe",
+      "_UnderAssessment": "En cours d'évaluation",
+      "_ValidateSample": "Valider l'échantillon",
+      "_Validated": "Validé",
+      "_getQuotation": "Obtenir une cotation",
+      "_toOrder": "commander",
+      "get-quotation": "obtenir un devis",
+      "onboarding": "embarquement",
+      "validated": "validé"
+    },
+    "statusCategory": {
+      "inProgress": "En cours",
+      "new": "Nouveau",
+      "refused": "Refusé",
+      "validated": "Validé"
+    },
+    "statusRequestSupplier": {
+      "canceled": "Annulé",
+      "pending": "Répondre",
+      "refused": "Refusé",
+      "replied": "A répondu",
+      "resent": "Renvoyé par l'acheteur",
+      "sent": "Répondre",
+      "validated": "A répondu"
+    },
+    "statusRequestTeam": {
+      "canceled": "Annulé",
+      "pending": "Envoyé au fournisseur",
+      "refused": "Refusé",
+      "replied": "Réviser",
+      "resent": "Renvoyé au fournisseur",
+      "sent": "Envoyé au fournisseur",
+      "validated": "Validé"
+    },
+    "supplierType": {
+      "_Manufacturer": "Fabricante",
+      "_Supplier": "Fournisseur",
+      "_Trader": "Commerçant"
+    }
+  },
   "ERM": {
     "ATTACHMENT": {
       "plural": "pièces jointes",
@@ -464,61 +519,6 @@
     "yes-join-team": "Oui - rejoindre l'équipe",
     "yes-log-me-in": "Oui, laissez-moi me connecter"
   },
-  "const": {
-    "status": {
-      "_Done": "Terminé",
-      "_GetQuotation": "Obtenir une cotation",
-      "_Inspiration": "Inspiration",
-      "_New": "Nouveau produit",
-      "_NewProductstatus": "Nouveau produit",
-      "_NewSamplestatus": "Nouvel échantillon",
-      "_NewSupplierstatus": "Nouveau fournisseur",
-      "_Onboarding": "À bord",
-      "_Ordered": "commandé",
-      "_Overdue": "En retard",
-      "_Pending": "En attente",
-      "_Received": "Reçu",
-      "_Refused": "Refusé",
-      "_TeamReview": "Examen d'équipe",
-      "_UnderAssessment": "En cours d'évaluation",
-      "_ValidateSample": "Valider l'échantillon",
-      "_Validated": "Validé",
-      "_getQuotation": "Obtenir une cotation",
-      "_toOrder": "commander",
-      "get-quotation": "obtenir un devis",
-      "onboarding": "embarquement",
-      "validated": "validé"
-    },
-    "statusCategory": {
-      "inProgress": "En cours",
-      "new": "Nouveau",
-      "refused": "Refusé",
-      "validated": "Validé"
-    },
-    "statusRequestSupplier": {
-      "canceled": "Annulé",
-      "pending": "Répondre",
-      "refused": "Refusé",
-      "replied": "A répondu",
-      "resent": "Renvoyé par l'acheteur",
-      "sent": "Répondre",
-      "validated": "A répondu"
-    },
-    "statusRequestTeam": {
-      "canceled": "Annulé",
-      "pending": "Envoyé au fournisseur",
-      "refused": "Refusé",
-      "replied": "Réviser",
-      "resent": "Renvoyé au fournisseur",
-      "sent": "Envoyé au fournisseur",
-      "validated": "Validé"
-    },
-    "supplierType": {
-      "_Manufacturer": "Fabricante",
-      "_Supplier": "Fournisseur",
-      "_Trader": "Commerçant"
-    }
-  },
   "error": {
     "account-already-existed-with-email": "Un compte existe déjà avec cette adresse email.",
     "action-cannot-undone": "Avertissement: Cette action ne peut pas être annulée.",
@@ -879,28 +879,6 @@
   "select-assignee": "Sélectionner un cessionnaire",
   "settings": "paramètres",
   "text": {
-    "_Done": "Terminé",
-    "_GetQuotation": "Obtenir une cotation",
-    "_Inspiration": "Inspiration",
-    "_Manufacturer": "Fabricant",
-    "_New": "Nouveau produit",
-    "_NewProductstatus": "Nouveau produit",
-    "_NewSamplestatus": "Nouvel échantillon",
-    "_NewSupplierstatus": "Nouveau fournisseur",
-    "_Onboarding": "À bord",
-    "_Ordered": "Commandé",
-    "_Overdue": "En retard",
-    "_Pending": "En attente",
-    "_Received": "Reçu",
-    "_Refused": "Refusé",
-    "_Supplier": "Fournisseur",
-    "_TeamReview": "Examen d'équipe",
-    "_Trader": "Commerçant",
-    "_UnderAssessment": "En cours d'évaluation",
-    "_ValidateSample": "Valider l'échantillon",
-    "_Validated": "Validé",
-    "_getQuotation": "Obtenir une cotation",
-    "_toOrder": "commander",
     "accepted": "accepté",
     "active": "actif",
     "add-description": "Ajouter une description",
