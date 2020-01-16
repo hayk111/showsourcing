@@ -1,4 +1,50 @@
 {
+	"_user-defined": {
+    "status": {
+			"Get Quotation": "get quotation",
+			"New Product": "new product",
+			"New Sample": "new sample",
+			"New Supplier": "new supplier",
+			"Onboarding": "onboarding",
+			"Ordered": "ordered",
+			"Received": "received",
+			"Refused": "refused",
+			"Team Review": "team review",
+			"To Order": "to order",
+			"Under Assessment": "under assessment",
+			"Validate Sample": "validate sample",
+      "Validated": "validated"
+    },
+    "statusCategory": {
+      "inProgress": "In Progress",
+      "new": "New",
+      "refused": "Refused",
+      "validated": "Validated"
+    },
+    "statusRequestSupplier": {
+      "canceled": "Canceled",
+      "pending": "To Reply",
+      "refused": "Refused",
+      "replied": "Replied",
+      "resent": "Sent Back from buyer",
+      "sent": "To Reply",
+      "validated": "Replied"
+    },
+    "statusRequestTeam": {
+      "canceled": "Canceled",
+      "pending": "Sent to supplier",
+      "refused": "Refused",
+      "replied": "To Review",
+      "resent": "Sent Back to supplier",
+      "sent": "Sent to supplier",
+      "validated": "Validated"
+    },
+    "supplierType": {
+      "manufacturer": "Manufacturer",
+      "supplier": "Supplier",
+      "trader": "Trader"
+    }
+  },
   "ERM": {
     "ATTACHMENT": {
       "plural": "attachments",
@@ -486,52 +532,6 @@
     "yes-join-team": "Yes - Join the team",
     "yes-log-me-in": "Yes - Let me log-in"
   },
-  "const": {
-    "status": {
-			"Get Quotation": "get quotation",
-			"New Product": "new product",
-			"New Sample": "new sample",
-			"New Supplier": "new supplier",
-			"Onboarding": "onboarding",
-			"Ordered": "ordered",
-			"Received": "received",
-			"Refused": "refused",
-			"Team Review": "team review",
-			"To Order": "to order",
-			"Under Assessment": "under assessment",
-			"Validate Sample": "validate sample",
-      "Validated": "validated"
-    },
-    "statusCategory": {
-      "inProgress": "In Progress",
-      "new": "New",
-      "refused": "Refused",
-      "validated": "Validated"
-    },
-    "statusRequestSupplier": {
-      "canceled": "Canceled",
-      "pending": "To Reply",
-      "refused": "Refused",
-      "replied": "Replied",
-      "resent": "Sent Back from buyer",
-      "sent": "To Reply",
-      "validated": "Replied"
-    },
-    "statusRequestTeam": {
-      "canceled": "Canceled",
-      "pending": "Sent to supplier",
-      "refused": "Refused",
-      "replied": "To Review",
-      "resent": "Sent Back to supplier",
-      "sent": "Sent to supplier",
-      "validated": "Validated"
-    },
-    "supplierType": {
-      "manufacturer": "Manufacturer",
-      "supplier": "Supplier",
-      "trader": "Trader"
-    }
-  },
   "error": {
     "account-already-existed-with-email": "An account already exist with this email address.",
     "action-cannot-undone": "Warning: This action cannot be undone.",
@@ -912,28 +912,6 @@
   "select-assignee": "Select assignee",
   "settings": "settings",
   "text": {
-    "_Done": "Done",
-    "_GetQuotation": "Get Quotation",
-    "_Inspiration": "Inspiration",
-    "_Manufacturer": "Manufacturer",
-    "_New": "New Product",
-    "_NewProductstatus": "New Product",
-    "_NewSamplestatus": "New Sample",
-    "_NewSupplierstatus": "New Supplier",
-    "_Onboarding": "Onboarding",
-    "_Ordered": "Ordered",
-    "_Overdue": "Overdue",
-    "_Pending": "Pending",
-    "_Received": "Received",
-    "_Refused": "Refused",
-    "_Supplier": "Supplier",
-    "_TeamReview": "Team Review",
-    "_Trader": "Trader",
-    "_UnderAssessment": "Under Assessment",
-    "_ValidateSample": "Validate Sample",
-    "_Validated": "Validated",
-    "_getQuotation": "Get Quotation",
-    "_toOrder": "to order",
     "accepted": "accepted",
     "active": "active",
     "add-description": "Add description",
