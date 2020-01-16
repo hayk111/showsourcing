@@ -41,7 +41,7 @@
 		[entity]="sample"
 		[entityMD]="erm.SAMPLE"
 		titleProp="reference"
-		(update)="update($event, 'name')">
+		(update)="update($event, 'reference')">
 
 		<preview-header-buttons-app>
 			<button class="icon" (click)="null" toolTip [toolTipMessage]="'tooltip.share-sample' | translate">
@@ -132,8 +132,8 @@
 	</preview-section-app>
 
 	<!-- Activity -->
-	<preview-section-app #contentTab2 *ngIf="sample?.comments?.length">
-		<comment-list-app [comments]="sample.comments"></comment-list-app>
+	<preview-section-app #contentTab2>
+		<comment-list-app [comments]="sample.comments" (addComment)="selectSecondTab()"></comment-list-app>
 	</preview-section-app>
 
 	<preview-comment-app #contentTab2 (added)="addComment($event)"></preview-comment-app>
