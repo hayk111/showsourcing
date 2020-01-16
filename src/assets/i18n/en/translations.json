@@ -1,19 +1,19 @@
 {
 	"_user-defined": {
-    "status": {
-			"Get Quotation": "get quotation",
-			"New Product": "new product",
-			"New Sample": "new sample",
-			"New Supplier": "new supplier",
-			"Onboarding": "onboarding",
-			"Ordered": "ordered",
-			"Received": "received",
-			"Refused": "refused",
-			"Team Review": "team review",
-			"To Order": "to order",
-			"Under Assessment": "under assessment",
-			"Validate Sample": "validate sample",
-      "Validated": "validated"
+		"status": {
+			"_GetQuotation": "get quotation",
+			"_NewProduct": "new product",
+			"_NewSample": "new sample",
+			"_NewSupplier": "new supplier",
+			"_Onboarding": "onboarding",
+			"_Ordered": "ordered",
+			"_Received": "received",
+			"_Refused": "refused",
+			"_TeamReview": "team review",
+			"_ToOrder": "to order",
+			"_UnderAssessment": "under assessment",
+			"_ValidateSample": "validate sample",
+			"_Validated": "validated"
     },
     "statusCategory": {
       "inProgress": "In Progress",
