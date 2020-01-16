@@ -45,17 +45,17 @@
 				<context-menu-app *ngIf="status.step !== 0; else zeroStep">
 					<context-menu-trigger-app>
 						<div class="flexBetween badge" [ngClass]="statusUtils.getStatusColor(status)">
-							<div class="flexCenter full-width">	{{ 'const.statusCategory.' + status?.category | translate }}	</div>
+							<div class="flexCenter full-width">	{{ '_user-defined.statusCategory.' + status?.category | translate }}	</div>
 							<div> <icon-app name="caret-down"></icon-app> </div>
 						</div>
 					</context-menu-trigger-app>
 					<context-menu-item-app *ngFor="let category of categories; trackBy: trackByCategoryFn" (click)="update.emit([{ id: status.id, category: category.name }])">
-						{{ 'const.statusCategory.' + category?.name | translate }}
+						{{ '_user-defined.statusCategory.' + category?.name | translate }}
 					</context-menu-item-app>
 				</context-menu-app>
 				<ng-template #zeroStep>
 					<div class="flexCenter badge" [ngClass]="statusUtils.getStatusColor(status)">
-						{{ 'const.statusCategory.' + status?.category | translate }}
+						{{ '_user-defined.statusCategory.' + status?.category | translate }}
 					</div>
 				</ng-template>
 			</div>
