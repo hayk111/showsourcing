@@ -11,7 +11,7 @@
 
 			<div class="title">
 				<h2>{{ selectedElement.name }}</h2>
-				<span class="color-primary fs-m flex">{{ selectedIndex + 1 }} / {{ request?.requestElements?.length }} <span translate="label.products"></span></span>
+				<span class="color-primary fs-m flex">{{ selectedIndex + 1 }} / {{ request?.requestElements?.length }} <span translate="text.products"></span></span>
 			</div>
 		</div>
 		<request-status-badge-app
@@ -39,7 +39,7 @@
 			<div class="info-banner flexCenter" translate="error.fill-form-below-reply"></div>
 
       <!-- details -->
-      <h3 class="ms" translate="label.product-details"></h3>
+      <h3 class="ms" translate="text.product-details"></h3>
 
       <extended-form-app
         [disabled]="isDisabled()"
@@ -51,7 +51,7 @@
       </extended-form-app>
 
 			<!-- reply message -->
-			<h3 class="ms" translate="label.request-message"></h3>
+			<h3 class="ms" translate="text.request-message"></h3>
 			<form-field-app class="modal">
 				<textarea
 					inputApp
@@ -64,7 +64,7 @@
 			</form-field-app>
 
       <!-- images -->
-      <h3 class="ms capitalize" translate="label.images"></h3>
+      <h3 class="ms capitalize" translate="text.images"></h3>
       <image-previewer-app
         [isDeletable]="true"
         [size]="120"
@@ -81,7 +81,7 @@
 			<input [disabled]="isDisabled()" #inpImg multiple="true" type="file" accept="image/*" (fileSelect)="addImage($event)"/>
 
       <!-- attachments -->
-      <h3 class="ms capitalize" translate="label.attachments"></h3>
+      <h3 class="ms capitalize" translate="text.attachments"></h3>
       <file-list-app
         [showConfirmOnDelete]="false"
         [hasPlaceholder]="false"

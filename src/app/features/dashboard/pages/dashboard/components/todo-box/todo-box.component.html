@@ -8,7 +8,7 @@
 	</card-nav-app>
 	<card-title-app>
 		{{ ((todoCount[selectedTab] || 0) > 1 ? 'ERM.' + selectedTab.toUpperCase() + '.plural' : 'ERM.' + selectedTab.toUpperCase() + '.singular') | translate }}
-		{{ 'label.assigned-to-you' | translate }}
+		{{ 'text.assigned-to-you' | translate }}
 	</card-title-app>
 	<card-title-badge-app>{{ todoCount[selectedTab] }}</card-title-badge-app>
 

@@ -85,7 +85,7 @@ export class ImagePipe implements PipeTransform {
 			// if it's a string we return the url made of with that string
 			return `${ImageUrls[size]}/${value}`;
 		} catch (e) {
-			console.log('catched errors');
+			console.error('catched errors on image pipe'); // do we need this?
 			return DEFAULT_IMG;
 		}
 	}

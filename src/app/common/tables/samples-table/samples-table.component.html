@@ -36,12 +36,13 @@
 
     <ng-container [ngSwitch]="column.name">
 
-			<default-columns-app 
+			<default-columns-app
 				*ngSwitchDefault
-				[row]="row" 
-				[column]="column" 
+				[row]="row"
+				[column]="column"
 				[hovered]="row.id === hovered"
 				[type]="'SAMPLE' | erm"
+				[redirectOnNameClick]="false"
 				(update)="update.emit($event)"
 				(nameClick)="open.emit($event)"
 				(previewClick)="previewClick.emit($event)"

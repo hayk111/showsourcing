@@ -108,7 +108,7 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 	openSelectProductDlg(supplier) {
 		this.dlgCommonSrv.openSelectProductDlg().pipe(
 			filter((event: CloseEvent) => event.type === CloseEventType.OK)
-		).subscribe(things => console.log(things));
+		).subscribe();
 	}
 
 	/** open preview */

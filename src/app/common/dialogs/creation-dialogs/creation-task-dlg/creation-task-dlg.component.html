@@ -14,10 +14,10 @@
 			<checkbox-app
 				[checked]="createAnother"
 				(update)="createAnother = !createAnother">
-				create another
+				<span translate="text.create-another"></span>
 			</checkbox-app>
-			<button tabFocusAction class="secondary" (click)="cancel()" translate="button.cancel"></button>
-			<button tabFocusAction [disabled]="!(task?.name)" (click)="save()" translate="button.create-task"></button>
+			<button tabFocusAction class="secondary capitalize" (click)="cancel()" translate="button.cancel"></button>
+			<button tabFocusAction class="capitalize" [disabled]="!(task?.name)" (click)="save()" translate="button.create-task"></button>
 		</dialog-footer-app>
 
 	</dialog-app>

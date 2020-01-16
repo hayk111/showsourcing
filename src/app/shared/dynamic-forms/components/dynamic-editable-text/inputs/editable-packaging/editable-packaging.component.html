@@ -8,7 +8,7 @@ A package with 0cm makes no sens -->
 		[align]="config.alignValue"
 		(closed)="onClose($event)"
 		(opened)="inp1.select();">
-		<label-app translate="label.length"></label-app>
+		<label-app translate="text.length"></label-app>
 		<editable-display-app>
 			{{ value?.length ? (value?.length + ' ' + value?.unit) : '-' }}
 		</editable-display-app>
@@ -31,7 +31,7 @@ A package with 0cm makes no sens -->
 		[align]="config.alignValue"
 		(closed)="onClose($event)"
 		(opened)="inp2.select();">
-		<label-app translate="label.width"></label-app>
+		<label-app translate="text.width"></label-app>
 		<editable-display-app>
 			{{ value?.width ? (value?.width + ' ' + value?.unit) : '-' }}
 		</editable-display-app>
@@ -54,7 +54,7 @@ A package with 0cm makes no sens -->
 		[align]="config.alignValue"
 		(closed)="onClose($event)"
 		(opened)="inp3.select();">
-		<label-app translate="label.height"></label-app>
+		<label-app translate="text.height"></label-app>
 			<editable-display-app>
 				{{ value?.height ? (value?.height + ' ' + value?.unit) : '-' }}
 			</editable-display-app>
@@ -84,7 +84,7 @@ A package with 0cm makes no sens -->
 			[align]="config.alignValue"
 			[inlineLabel]="true"
 			(closed)="onClose($event)">
-			<label-app translate="label.dimension-unit"></label-app>
+			<label-app translate="text.dimension-unit"></label-app>
 			<editable-display-app>
 				{{ value?.unit || '-' }}
 			</editable-display-app>
@@ -98,7 +98,7 @@ A package with 0cm makes no sens -->
 		[align]="config.alignValue"
 		(closed)="onClose($event)"
 		(opened)="inp5.select();">
-		<label-app translate="label.quantity"></label-app>
+		<label-app translate="text.quantity"></label-app>
 		<editable-display-app>
 			{{ value?.itemsQuantity ? value.itemsQuantity : '-' }}
 		</editable-display-app>
@@ -121,7 +121,7 @@ A package with 0cm makes no sens -->
 		[align]="config.alignValue"
 		(closed)="onClose($event)"
 		(opened)="inp6.select();">
-		<label-app translate="label.weight"></label-app>
+		<label-app translate="text.weight"></label-app>
 		<editable-display-app>
 			{{ value?.weight ? (value?.weight + ' ' + value?.weightUnit) : '-' }}
 		</editable-display-app>
@@ -151,7 +151,7 @@ A package with 0cm makes no sens -->
 			[align]="config.alignValue"
 			[hasAction]="false"
 			(closed)="onClose($event)">
-			<label-app translate="label.weight-unit"></label-app>
+			<label-app translate="text.weight-unit"></label-app>
 			<editable-display-app>
 				{{ value?.weightUnit || '-' }}
 			</editable-display-app>
@@ -163,25 +163,25 @@ A package with 0cm makes no sens -->
 <ng-template #other>
 	<div class="flex form-section">
 		<form-field-app class="modal col-25">
-			<label-app translate="label.length"></label-app>
+			<label-app translate="text.length"></label-app>
 			<input inputApp autoFocus [canFocus]="autofocus" #inp1 [disabled]="disabled" [value]="value.length" type="number"
 			[placeholder]="'placeholder.length' | translate" restrictInput="number" (input)="onChangePackaging('length', +inp1.value)"/>
 		</form-field-app>
 
 		<form-field-app class="modal col-25">
-			<label-app translate="label.width"></label-app>
+			<label-app translate="text.width"></label-app>
 			<input inputApp #inp2 [disabled]="disabled" [value]="value.width" type="number"
 			[placeholder]="'placeholder.width' | translate" restrictInput="number" (input)="onChangePackaging('width', +inp2.value)"/>
 		</form-field-app>
 
 		<form-field-app class="modal col-25">
-			<label-app translate="label.height"></label-app>
+			<label-app translate="text.height"></label-app>
 			<input inputApp #inp3 [disabled]="disabled" [value]="value.height" type="number"
 			[placeholder]="'placeholder.height' | translate" restrictInput="number" (input)="onChangePackaging('height', +inp3.value)"/>
 		</form-field-app>
 
 		<form-field-app class="modal col-25">
-			<label-app translate="label.units"></label-app>
+			<label-app translate="text.units"></label-app>
 			<selector-app
 			 	[disabled]="disabled"
 				[type]="'LENGTH_UNIT' | erm"
@@ -200,19 +200,19 @@ A package with 0cm makes no sens -->
 
 	<div class="flex form-section">
 		<form-field-app class="modal col-50">
-			<label-app translate="label.quantity"></label-app>
+			<label-app translate="text.quantity"></label-app>
 			<input inputApp #inp4 [disabled]="disabled" [value]="value.itemsQuantity" type="number"
 			[placeholder]="'placeholder.quantity' | translate" restrictInput="number" (input)="onChangePackaging('itemsQuantity', +inp4.value)"/>
 		</form-field-app>
 
 		<form-field-app class="modal col-25">
-			<label-app translate="label.weight"></label-app>
+			<label-app translate="text.weight"></label-app>
 			<input inputApp #inp5 [disabled]="disabled" [value]="value.weight"
 			[placeholder]="'placeholder.weight' | translate" type="number" restrictInput="number" (input)="onChangePackaging('weight', +inp5.value)"/>
 		</form-field-app>
 
 		<form-field-app class="modal col-25">
-			<label-app translate="label.unit"></label-app>
+			<label-app translate="text.unit"></label-app>
 			<selector-app
 				[disabled]="disabled"
 				[type]="'WEIGHT_UNIT' | erm"

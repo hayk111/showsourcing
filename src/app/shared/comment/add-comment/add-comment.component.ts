@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Output, ViewChild, ElementRef } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { UserService } from '~core/entity-services';
 import { User } from '~core/models';
@@ -15,7 +15,12 @@ export class AddCommentComponent {
 	user: User;
 	@Output() added = new EventEmitter<string>();
 
-	constructor(private userSrv: UserService) {
+	@ViewChild('inp', { static: true }) input: ElementRef<HTMLInputElement>;
+
+	constructor(
+		private userSrv: UserService,
+		public element: ElementRef
+	) {
 		this.user = this.userSrv.userSync;
 	}
 
@@ -24,5 +29,10 @@ export class AddCommentComponent {
 			this.added.emit(this.commentCtrl.value);
 			this.commentCtrl.reset();
 		}
+	}
+
+	focus() {
+		this.element.nativeElement.scrollIntoView({ behavior: 'smooth' });
+		this.input.nativeElement.focus();
 	}
 }

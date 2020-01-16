@@ -117,7 +117,7 @@
 			<editable-display-app>
 				<ng-container *ngIf="task?.dueDate; else selectDue">{{ (task?.dueDate | date:'dd-MM-yyyy':'':translate?.currentLang) }}</ng-container>
 				<ng-template #selectDue>
-					{{'label.select-due-date' | translate}}
+					{{'text.select-due-date' | translate}}
 				</ng-template>
 			</editable-display-app>
 			<input
@@ -156,7 +156,7 @@
 
 	<!-- Comment List -->
 	<preview-section-app [title]="'title.comments' | translate">
-		<comment-list-app [comments]="task?.comments"></comment-list-app>
+		<comment-list-app [comments]="task?.comments" (addComment)="previewComment?.focus()"></comment-list-app>
 	</preview-section-app>
 
 	<!-- Comment Input -->
