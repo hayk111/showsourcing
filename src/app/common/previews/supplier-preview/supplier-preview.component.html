@@ -208,8 +208,8 @@
 	</preview-section-app>
 
 	<!-- Comments -->
-	<preview-section-app #contentTab3 *ngIf="supplier?.comments?.length">
-		<comment-list-app [comments]="supplier?.comments"></comment-list-app>
+	<preview-section-app #contentTab3>
+		<comment-list-app [comments]="supplier?.comments" (addComment)="selectThirdTab()"></comment-list-app>
 	</preview-section-app>
 
 	<preview-comment-app #contentTab3 (added)="addComment($event)"></preview-comment-app>
