@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit, Input, Output, EventEmitter
 import { Product } from '~core/models';
 import { ProductService } from '~core/entity-services';
 import { TableConfig } from '~common/tables/entity-table.component';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 
 const tableConfig: TableConfig = {
 	reference: { name: 'reference', translationKey: 'reference', width: 50, sortProperty: 'reference' },
@@ -24,6 +25,7 @@ export class TodoBoxProductsPreviewComponent implements OnInit {
 
 	constructor(
 		private productSrv: ProductService,
+		public dialogCommonSrv: DialogCommonService,
 	) { }
 
 	ngOnInit() {

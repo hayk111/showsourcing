@@ -59,6 +59,11 @@ export class DashboardPageComponent extends AutoUnsub implements OnInit {
 		this.yourProducts$ = this.dashboardSrv.getFirstFewProducts();
 		queryLatest.items$.connect();
 
+		this.productSrv.productListUpdate$.pipe(
+		).subscribe(_ => {
+			this.yourProducts$ = this.dashboardSrv.getFirstFewProducts();
+		});
+
 		this.statusSrv.statusUpdate$
 			.pipe(takeUntil(this._destroy$))
 			.subscribe(_ => {
