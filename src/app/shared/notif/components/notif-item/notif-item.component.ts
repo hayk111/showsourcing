@@ -41,26 +41,26 @@ export class NotifItemComponent implements OnInit {
 				this.badgeType = 'comment';
 				this.activityMessage = this.actor_count > 1 ? 'OBJ.comment-on-target.plural' : 'OBJ.comment-on-target.singular';
 				this.targetId = firstActivity.target_id;
-				this.navigateRoute = `/${target}/${this.targetId}/activity`;
+				this.navigateRoute = `/${target}/${this.targetId}`;
 				break;
 			case 'create_task':
 				this.badgeType = 'task';
 				this.badgeColor = 'secondary';
 				this.activityMessage = 'message.assign-you-a-task';
 				this.targetId = firstActivity.object;
-				this.navigateRoute = `/workspace/my-tasks`;
+				this.navigateRoute = `/tasks`;
 				break;
 			case 'task_complete':
 				this.badgeType = 'task';
 				this.activityMessage = 'message.has-completed-your-task';
 				this.targetId = firstActivity.object;
-				this.navigateRoute = `/workspace/my-tasks`;
+				this.navigateRoute = `/tasks`;
 				break;
 			case 'create_vote':
 				this.badgeType = 'product';
 				this.activityMessage = 'message.rated-your-product';
 				this.targetId = firstActivity.target_id;
-				this.navigateRoute = `/product/${this.targetId}/activity`;
+				this.navigateRoute = `/products/${this.targetId}`;
 				break;
 			case 'new_assignee':
 				this.activityMessage = 'OBJ.assigned-target';
@@ -70,10 +70,10 @@ export class NotifItemComponent implements OnInit {
 					this.navigateRoute = '/workspace/my-samples/list';
 				} else if (target === 'product') {
 					this.badgeType = 'product';
-					this.navigateRoute = `/product/${this.targetId}/activity`;
+					this.navigateRoute = `/products/${this.targetId}`;
 				} else {
 					this.badgeType = 'supplier';
-					this.navigateRoute = `/supplier/${this.targetId}/activity`;
+					this.navigateRoute = `/supplier/${this.targetId}`;
 				}
 				break;
 			case 'new_task_assignee':
@@ -81,7 +81,7 @@ export class NotifItemComponent implements OnInit {
 				this.badgeType = 'task';
 				this.activityMessage = 'message.assign-you-a-task';
 				this.targetId = firstActivity.object;
-				this.navigateRoute = `/workspace/my-tasks`;
+				this.navigateRoute = `/tasks`;
 				break;
 		}
 	}
