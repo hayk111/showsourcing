@@ -1,10 +1,11 @@
-import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
+import { ProductService, SampleService, SupplierService, TaskService, UserService } from '~core/entity-services';
+import { SelectParams } from '~core/entity-services/_global/select-params';
+import { Sample, Task } from '~models';
 import { TrackingComponent } from '~utils/tracking-component';
-import { RPCActionTypes, RPCRequestStatus } from '~models';
-import { RpcService } from '~core/entity-services';
-import { ChartDataSets } from 'chart.js';
-import { Observable, of, TimeoutError } from 'rxjs';
-import { map, first, tap, catchError } from 'rxjs/operators';
 
 @Component({
 	selector: 'team-performance-app',
@@ -14,67 +15,44 @@ import { map, first, tap, catchError } from 'rxjs/operators';
 })
 export class TeamPerformanceComponent extends TrackingComponent implements OnInit {
 
-	teamStats$: Observable<any>;
-	lineChartData: Array<ChartDataSets> = [];
-	status = 'pending';
+	tasks$: Observable<Task[]>;
+	samples$: Observable<Sample[]>;
 
-	totalProducts = 0;
-	totalSuppliers = 0;
-	productsThisWeek = 0;
-	suppliersThisWeek = 0;
-
-	requestTimedOut = false;
-
-	@Output() inviteTeam = new EventEmitter<null>();
+	products$: Observable<number>;
+	suppliers$: Observable<number>;
+	productsAssignedToMe$: Observable<number>;
+	suppliersAssignedToMe$: Observable<number>;
 
 	constructor(
-		private rpcSrv: RpcService,
-		private cdr: ChangeDetectorRef
+		private route: Router,
+		private taskSrv: TaskService,
+		private sampleSrv: SampleService,
+		private supplierSrv: SupplierService,
+		private productSrv: ProductService,
+		private userSrv: UserService,
+		public dlgCommonSrv: DialogCommonService
 	) {
 		super();
 	}
 
 	ngOnInit() {
-		this.teamStats$ = this.rpcSrv.createRPC({
-			action: RPCActionTypes.GET_TEAM_STATS,
-		}).pipe(
-				catchError(err => {
-					if (err instanceof TimeoutError) {
-						this.requestTimedOut = true;
-						this.cdr.detectChanges();
-					}
+		const userId = this.userSrv.userId;
 
-					return of();
-				}),
-				first(),
-				map((data: any) => JSON.parse(JSON.parse(data.reply))),
-				tap((teamStats: any) => {
-					this.totalProducts = teamStats.products.total;
-					this.productsThisWeek = teamStats.products.week0;
-					this.totalSuppliers = teamStats.suppliers.total;
-					this.suppliersThisWeek = teamStats.suppliers.week0;
-				}),
-				map((data: any) => {
-				const items = [];
-				const teamStats = data;
+		let selectParams = new SelectParams({ query: `assignee.id == "${userId}" AND done == false` });
+		this.tasks$ = this.taskSrv.queryMany(selectParams);
 
-				for (const key of Object.keys(teamStats)) {
-					const item: any = {};
-					item.label = key;
-					item.data = [];
+		selectParams = { ...selectParams, query: `assignee.id == "${userId}"` };
+		this.samples$ = this.sampleSrv.queryMany(selectParams);
 
-					for (const dataKey of Object.keys(teamStats[key])) {
-						if (dataKey.startsWith('week')) {
-							item.data.push(teamStats[key][dataKey]);
-						}
-					}
+		this.products$ = this.productSrv.queryCount(`deleted == false AND archived == false`);
+		this.productsAssignedToMe$ = this.productSrv.queryCount(`deleted == false AND archived == false AND assignee.id == "${userId}"`);
 
-					item.data.reverse();
-					items.push(item);
-				}
+		this.suppliers$ = this.supplierSrv.queryCount(`deleted == false AND archived == false`);
+		this.suppliersAssignedToMe$ = this.supplierSrv.queryCount(`deleted == false AND archived == false AND assignee.id == "${userId}"`);
+	}
 
-				return items;
-			}));
+	redirect(path: string) {
+		this.route.navigate(['/', path]);
 	}
 
 }
