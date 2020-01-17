@@ -1,5 +1,5 @@
 card-app {
-	width: 420px;
+	width: 340px;
 }
 
 user-picture-app {
@@ -8,7 +8,6 @@ user-picture-app {
 
 .team-performance-title {
 	font-size: var(--font-size-xl);
-	color: var(--color-bg-dark);
 	font-weight: 600;
 }
 
@@ -32,6 +31,10 @@ user-picture-app {
 .team-stats {
 	margin-top: var(--spacing-l);
 	justify-content: space-between;
+
+	h2 {
+		margin-top: var(--spacing-xxs);
+	}
 }
 
 .name {
