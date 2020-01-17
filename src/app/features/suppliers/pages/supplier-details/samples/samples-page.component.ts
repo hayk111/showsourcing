@@ -17,9 +17,7 @@ import { FilterType } from '~shared/filters';
 	templateUrl: './samples-page.component.html',
 	styleUrls: ['./samples-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [
-		ListPageService
-	],
+	providers: [ListPageService],
 	host: { class: 'table-page' }
 })
 
@@ -62,7 +60,7 @@ export class SamplesPageComponent extends AbstractSampleCommonComponent implemen
 				type: FilterType.SUPPLIER,
 				value: this.supplierId
 			}
-		]);
+		], null, false);
 		super.ngOnInit();
 	}
 

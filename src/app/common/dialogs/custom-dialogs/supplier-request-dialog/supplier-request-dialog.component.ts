@@ -117,8 +117,8 @@ export class SupplierRequestDialogComponent extends AutoUnsub implements OnInit,
 
 	private setTitle() {
 		// TODO i18n and check for other langs
-		const prod = this.request.products.length === 1 ? this.translate.instant('label.product') : this.translate.instant('label.products');
-		const reqFor = this.translate.instant('label.request-for');
+		const prod = this.request.products.length === 1 ? this.translate.instant('text.product') : this.translate.instant('text.products');
+		const reqFor = this.translate.instant('text.request-for');
 		const title = `${reqFor} ${this.request.products.length} ${prod}`;
 		this._request = { ...this.request, title };
 		this.form.patchValue(this.request);

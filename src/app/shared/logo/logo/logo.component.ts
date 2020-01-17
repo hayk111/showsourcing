@@ -71,11 +71,9 @@ export class LogoComponent implements OnChanges {
 	@Input() backgroundSize: number;
 	/** to override the default icon given by type */
 	@Input() icon: string;
-
 	// getset to override the color if type is specified
 	/** displayed color */
 	@Input() color: Colors;
-
 	// override the background color if type is specified
 	@Input() backgroundColor: Colors;
 

@@ -26,7 +26,6 @@ import { AppImage, Comment, ERM, ExtendedFieldDefinition, Supplier } from '~core
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
-import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback.service';
 import { PreviewCommentComponent, PreviewService } from '~shared/preview';
 import { RatingDashboardComponent } from '~shared/rating';
 import { AutoUnsub, translate } from '~utils';
@@ -35,11 +34,9 @@ import { AutoUnsub, translate } from '~utils';
 	selector: 'supplier-preview-app',
 	templateUrl: './supplier-preview.component.html',
 	styleUrls: ['./supplier-preview.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [UploaderFeedbackService]
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SupplierPreviewComponent extends AutoUnsub implements OnChanges, OnInit {
-	formConfig = new DynamicFormConfig({ mode: 'editable-text' });
 	@Input() supplier: Supplier;
 	@Input() canClose = true;
 	/** wether we display it as a preview or part of a component (supplier details) */
@@ -55,6 +52,7 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnChanges, On
 
 	supplier$: Observable<Supplier>;
 	supplierDescirptor: SupplierDescriptor;
+	formConfig = new DynamicFormConfig({ mode: 'editable-text', alignValue: 'right' });
 	selectedIndex = 0;
 	modalOpen = false;
 	erm = ERM;
@@ -67,7 +65,6 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnChanges, On
 		private previewSrv: PreviewService,
 		private router: Router,
 		private dlgSrv: DialogService,
-		private uploaderFeedbackSrv: UploaderFeedbackService,
 		private extendedFieldDefSrv: ExtendedFieldDefinitionService,
 		public dialogCommonSrv: DialogCommonService,
 		public translateService: TranslateService) {

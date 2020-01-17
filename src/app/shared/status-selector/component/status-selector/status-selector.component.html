@@ -76,6 +76,7 @@
 <task-status-badge-app
 	*ngIf="typeEntity === erm.TASK && canUpdate"
 	[task]="entity"
+	[size]="selectSize"
 	(update)="updateTask($event)">
 </task-status-badge-app>
 

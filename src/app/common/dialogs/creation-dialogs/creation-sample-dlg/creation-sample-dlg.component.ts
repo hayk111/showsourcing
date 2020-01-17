@@ -49,7 +49,7 @@ export class CreationSampleDlgComponent implements OnInit {
 			{ name: 'assignee', metadata: { placeholder: this.translate.instant('select-assignee'), width: 495 } },
 			{
 				name: 'product',
-				label: this.translate.instant('label.linked-to-product'),
+				label: this.translate.instant('text.linked-to-product'),
 				metadata: {
 					placeholder: this.translate.instant('placeholder.search-your-product'),
 					width: 495
@@ -57,7 +57,7 @@ export class CreationSampleDlgComponent implements OnInit {
 			},
 			{
 				name: 'supplier',
-				label: this.translate.instant('label.linked-to-supplier'),
+				label: this.translate.instant('text.linked-to-supplier'),
 				metadata: {
 					placeholder: this.translate.instant('placeholder.search-your-supplier'),
 					width: 495

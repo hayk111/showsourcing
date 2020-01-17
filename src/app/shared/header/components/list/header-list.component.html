@@ -9,10 +9,11 @@
 
 <div class="right flexCenter">
 
-	<button *ngIf="hasAction"
-		class="big"
-		(click)="buttonClick.emit()" class="button auto">
-		<span class="spacing"> {{ buttonName }} </span>
+	<button
+		*ngIf="hasAction"
+		class="capitalize"
+		(click)="buttonClick.emit()">
+		<span>{{ buttonName }}</span>
 	</button>
 
 </div>

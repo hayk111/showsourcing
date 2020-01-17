@@ -50,7 +50,6 @@ export abstract class EntityTableComponent<T> extends TrackingComponent implemen
 	@Input() listView = false;
 	@Input() rowHeight = 47;
 	@Input() createEntityBtnName: string;
-	@Input() footerTemplate: TemplateRef<any>;
 
 	// column clicks
 	@Output() previewClick = new EventEmitter<T>();

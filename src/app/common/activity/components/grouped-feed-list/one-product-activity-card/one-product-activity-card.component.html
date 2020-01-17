@@ -61,7 +61,7 @@
 					[product]="product">
 				</stats-icons-app>
 				<span *ngIf="product?.comments?.length > 0">
-					{{ ((product?.comments?.length || 0) > 1 ? 'OBJ.n-comment.plural' : 'OBJ.n-comment.singular') | translate: {count: (product?.comments?.length || 0)} }}
+					{{ ((product?.comments?.length || 0) === 1 ? 'OBJ.n-comment.singular' : 'OBJ.n-comment.plural') | translate: {count: (product?.comments?.length || 0)} }}
 				</span>
 			</div>
 			<div class="badges flex flexWrap">

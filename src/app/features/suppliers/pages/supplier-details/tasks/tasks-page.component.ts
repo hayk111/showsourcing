@@ -13,9 +13,7 @@ import { FilterType } from '~shared/filters';
 	selector: 'tasks-page-app',
 	templateUrl: './tasks-page.component.html',
 	styleUrls: ['./tasks-page.component.scss'],
-	providers: [
-		ListPageService
-	],
+	providers: [ListPageService],
 	host: { class: 'table-page' }
 })
 export class TasksPageComponent extends AbstractTaskCommonComponent implements OnInit {
@@ -57,10 +55,12 @@ export class TasksPageComponent extends AbstractTaskCommonComponent implements O
 			switchMap(id => this.supplierSrv.selectOne(id)),
 			takeUntil(this._destroy$)
 		).subscribe(supplier => this.supplier = supplier);
+
 		super.setup([
 			{ type: FilterType.SUPPLIER, value: this.route.parent.snapshot.params.id },
 			{ type: FilterType.DONE, value: true }
 		]);
+
 		super.ngOnInit();
 	}
 

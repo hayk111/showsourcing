@@ -1,6 +1,6 @@
 <badge-app
 	class="pointer uppercase bold-s"
-	size="m"
+	[size]="size"
 	[type]="getType()"
 	(click)="update.emit(!task.done)">
 		<div>

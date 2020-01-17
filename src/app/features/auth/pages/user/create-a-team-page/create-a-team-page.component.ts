@@ -40,7 +40,7 @@ export class CreateATeamPageComponent extends AutoUnsub implements OnInit {
 	) {
 		super();
 		this.listForm = [{
-			label: this.translate.instant('label.team-name'),
+			label: this.translate.instant('text.team-name'),
 			type: 'text',
 			name: 'name',
 			isRequired: true,
@@ -48,7 +48,7 @@ export class CreateATeamPageComponent extends AutoUnsub implements OnInit {
 			validators: [Validators.required]
 		}];
 		this.buttons = [{
-			label: this.translate.instant('label.create-new-team'),
+			label: this.translate.instant('text.create-new-team'),
 			type: 'button'
 		}];
 	}
@@ -59,7 +59,7 @@ export class CreateATeamPageComponent extends AutoUnsub implements OnInit {
 		).subscribe(all => {
 			if (all.length > 0) {
 				this.buttons = [...this.buttons, {
-					label: this.translate.instant('label.select-a-team-instead'),
+					label: this.translate.instant('text.select-a-team-instead'),
 					type: 'link',
 					link: '../pick-a-team'
 				}];

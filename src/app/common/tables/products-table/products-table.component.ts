@@ -32,7 +32,6 @@ export class ProductsTableComponent extends EntityTableComponent<Product> implem
 	static DEFAULT_TABLE_CONFIG = config;
 	@Input() columns = ProductsTableComponent.DEFAULT_COLUMNS;
 	@Input() tableConfig = ProductsTableComponent.DEFAULT_TABLE_CONFIG;
-	@Input() width: number;
 	@Output() openAddToProjectDialog = new EventEmitter<Product>();
 	@Output() openAddTaskDialog = new EventEmitter<Product>();
 	@Output() openAddSampleDialog = new EventEmitter<Product>();

@@ -4,25 +4,25 @@
 			<logo-app
 				class="pointer"
 				color="primary"
-				[iconSize]="48" 
+				[iconSize]="48"
 				size="xxl"
-				icon="contact" 
+				icon="contact"
 				(click)="openFileBrowser()"></logo-app>
 		</div>
-		
+
 		<input #inpFile type="file" accept="image/*" (fileSelect)="addFile.emit($event)" class="hidden"/>
 	</div>
-	
+
 	<div class="right">
 		<h2 class="form-title">Your Profile</h2> <!-- TODO: translation to be added -->
-		
+
 		<form [formGroup]="form">
 			<form-field-app class="borderless-ms">
-				<label-app class="uppercase" translate="label.first-name"></label-app>
+				<label-app class="uppercase" translate="text.first-name"></label-app>
 				<input inputApp type="text" formControlName="firstName" autocomplete='given-name'/>
 			</form-field-app>
 			<form-field-app class="borderless-ms">
-				<label-app class="uppercase" translate="label.last-name"></label-app>
+				<label-app class="uppercase" translate="text.last-name"></label-app>
 				<input inputApp type="text"  formControlName="lastName"/>
 			</form-field-app>
 			<form-field-app class="borderless-ms">
@@ -30,7 +30,7 @@
 				<input inputApp type="text" formControlName="email"/>
 			</form-field-app>
 		</form>
-		
+
 		<h2 class="change-password">Change Password</h2> <!-- TODO: translation to be added -->
 		<button class="change" (click)="changePswd.emit()" translate="button.change-pwd"></button>
 	</div>

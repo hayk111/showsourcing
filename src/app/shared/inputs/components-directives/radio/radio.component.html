@@ -2,16 +2,28 @@
 <div class="container">
   <div class=" list " [ngClass]="isVeritical ? '' : 'items'">
 		<div *ngFor="let item of items; index as i; trackBy: trackByFn" class="item list__item flex">
-			<input #inp type="radio" class="radio-btn" [name]="_id" [id]="getId(i)" [disabled]="disabled"
-						 [checked]="item?.value === checked"
-						 [value]="item.value" [(ngModel)]="checked" (click)="onCheckedChange(item.value)"/>
+			<input
+				#inp
+				type="radio"
+				class="radio-btn"
+				[name]="_id"
+				[id]="getId(i)"
+				[disabled]="disabled"
+				[checked]="item?.value === checked"
+				[value]="item.value"
+				[(ngModel)]="checked"
+				(click)="onCheckedChange(item.value)"/>
       <label class="label flex" [ngClass]="{ 'pointer': !disabled }" [for]="getId(i)">
-				<div tabFocusAction class="focus-wrapper" (keyEnter)="inps?.toArray()[i]?.nativeElement?.click()">
-					<span class="dot flexCenter" [ngClass]="{ 'pointer': !disabled, 'selected-border': inps?.toArray()[i]?.nativeElement?.checked }">
-						<div *ngIf="inps?.toArray()[i]?.nativeElement?.checked" class="overlay"></div>
-					</span>
+				<div tabFocusAction class="focus-wrapper" [ngStyle]="wrapperStyle()" (keyEnter)="inps?.toArray()[i]?.nativeElement?.click()">
+					<span
+						class="dot-container flexCenter"
+						[ngClass]="{ 'pointer': !disabled, 'selected-border': inps?.toArray()[i]?.nativeElement?.checked }"
+						[ngStyle]="dotContainerStyle()">
+						<div *ngIf="inps?.toArray()[i]?.nativeElement?.checked" class="dot-overlay" [ngStyle]="dotOverlayStyle()"></div>
+					</span
+					>
 				</div>
-				{{item.name}}
+				{{ item.name }}
 			</label>
     </div>
   </div>

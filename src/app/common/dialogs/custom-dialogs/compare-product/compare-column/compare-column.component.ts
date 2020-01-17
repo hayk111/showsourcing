@@ -9,7 +9,7 @@ import { Product, ERM } from '~core/models';
 })
 export class CompareColumnComponent implements OnInit {
 	@Input() product: Product;
-	@Output() statusUpdated = new EventEmitter<any>();
+	@Output() update = new EventEmitter<any>();
 	erm = ERM;
 
 	constructor() { }
@@ -22,4 +22,14 @@ export class CompareColumnComponent implements OnInit {
 		return tag.name;
 	}
 
+	updateProp(value: any, prop: string) {
+		// we do this exclusively here, since its a dialog, and we don't query many
+		// these products are static and are not refetched or queried inside the dialog
+		this.product = { ...this.product, [prop]: value };
+		this.update.emit({ id: this.product.id, [prop]: value });
+	}
+
+	getTagsName() {
+		return (this.product.tags || []).map(tag => tag.name).join(', ');
+	}
 }

@@ -36,7 +36,7 @@ export class LoginPageComponent extends AutoUnsub implements OnInit {
 		this.queryParams = this.route.snapshot.queryParams || '/';
 		const email = this.queryParams.email;
 		this.listForm = [{
-			label: this.translate.instant('label.email'),
+			label: this.translate.instant('text.email'),
 			value: email,
 			type: 'email',
 			name: 'login',
@@ -45,7 +45,7 @@ export class LoginPageComponent extends AutoUnsub implements OnInit {
 			placeHolder: 'example@showsourcing.com',
 			validators: [Validators.required, Validators.email]
 		}, {
-			label: this.translate.instant('label.password'),
+			label: this.translate.instant('text.password'),
 			type: 'password',
 			name: 'password',
 			isRequired: true,

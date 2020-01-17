@@ -25,7 +25,7 @@ export class SelectCheckboxComponent {
 
 	onClick(event: MouseEvent) {
 		event.stopPropagation();
-		if (this.state === 'unchecked' || this.state === 'selectedPartial') {
+		if (this.state === 'unchecked') {
 			this.state = 'selectedAll';
 		} else {
 			this.state = 'unchecked';

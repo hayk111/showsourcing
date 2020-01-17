@@ -15,7 +15,6 @@ export class CheckboxComponent extends AbstractInput {
 	@Output() uncheck = new EventEmitter<null>();
 	@ViewChild('label', { static: true }) label: ElementRef;
 	@Input() size = 16;
-	@Input() boxColor = 'primary';
 	// if the checkbox should be autofocussed
 	@Input() autoFocus = false;
 	@Input() disabled = false;
@@ -95,16 +94,6 @@ export class CheckboxComponent extends AbstractInput {
 
 	hasContent() {
 		return this.label.nativeElement.children.length === 0;
-	}
-
-	uncheckedStyle() {
-		// it's -2 since the div of the unchecked grows by 2 for some reason
-		const unWidth = this.size - 1;
-		const unHeight = this.size - 1;
-		return {
-			width: `${unWidth}px`,
-			height: `${unHeight}px`
-		};
 	}
 
 	iconSize() {

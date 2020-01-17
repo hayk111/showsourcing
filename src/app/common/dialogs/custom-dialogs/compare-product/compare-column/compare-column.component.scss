@@ -1,17 +1,25 @@
 
 :host {
 	display: block;
-	width: 187px;
+	width: 190px;
 	flex-shrink: 0;
 	&:hover {
 		background: var(--color-secondary-light);
+		.status-selector {
+			background: white;
+		}
 	}
+}
+
+.no-shrink {
+	flex-shrink: 0;
 }
 
 
 .top {
-	height: 270px;
-	padding: 0 6px;
+	height: 290px;
+	padding: 0 var(--spacing-s);
+	padding-top: var(--spacing-s);
 	box-sizing: border-box;
 	img-app {
 		width: 175px;
@@ -21,8 +29,8 @@
 	}
 
 	.name {
-		margin-top: 12px;
-		margin-bottom: 4px;
+		margin-top: var(--spacing-ms);
+		margin-bottom: var(--spacing-xs);
 		height: 18px;
 		color: var(--color-txt-primary);
 		font-weight: 600;
@@ -30,19 +38,19 @@
 
 	.description {
 		font-size: var(--font-size-s);
-		height: 50px;
-		margin-bottom: 6px;
+		margin-bottom: var(--spacing-xxs);
 		overflow: hidden;
 		text-overflow: ellipsis;
 	}
 }
 
 .bottom {
+
 	h3 {
 		margin: 22px 0 6px 0;
 		height: 20px;
 	}
-	
+
 	div {
 		white-space: nowrap;
 		overflow: hidden;
@@ -54,12 +62,10 @@
 		color: var(--txt-strong);
 	}
 
-	div.status-selector {
-		margin-top: var(--spacing-l);
+	.status-selector {
+		padding-top: var(--spacing-ms);
+		// padding-bottom: var(--spacing-ms);
 		border-bottom: none;
 	}
 
-	span {
-		padding: 0 6px;
-	}
 }

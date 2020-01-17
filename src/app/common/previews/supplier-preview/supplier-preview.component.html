@@ -69,9 +69,9 @@
 
 		<preview-header-subtitle-app>
 			<rating-badge-app class="pointer"	[votes]="supplier?.votes" [hasNumber]="true" (click)="selectSecondTab('rating')"></rating-badge-app>
-			<div class="txt-btn" (click)="selectSecondTab('sample')">{{ supplier?.samplesLinked.count || 0 }} {{ supplier?.samplesLinked?.count === 1 ? 'Sample' : 'Samples' }}</div>
-			<div class="txt-btn" (click)="selectSecondTab('task')">{{ supplier?.tasksLinked.count || 0 }} {{ supplier?.samplesLinked?.count === 1 ? 'Task' : 'Tasks' }}</div>
-			<div class="txt-btn" (click)="selectThirdTab()">{{ supplier?.comments?.length || 0  }} {{ supplier?.comments?.length === 1 ? 'Comment' : 'Comments' }}</div>
+			<div class="txt-btn capitalize" (click)="selectSecondTab('sample')">{{ ((supplier?.samplesLinked?.count || 0) === 1 ? 'OBJ.n-sample.singular' : 'OBJ.n-sample.plural') | translate: {count: (supplier?.samplesLinked?.count || 0)} }}</div>
+			<div class="txt-btn capitalize" (click)="selectSecondTab('task')">{{ ((supplier?.tasksLinked?.count || 0) === 1 ? 'OBJ.n-task.singular' : 'OBJ.n-task.plural') | translate: {count: (supplier?.tasksLinked?.count || 0)} }}</div>
+			<div class="txt-btn capitalize" (click)="selectThirdTab()">{{ ((supplier?.comments?.length || 0) === 1 ? 'OBJ.n-comment.singular' : 'OBJ.n-comment.plural') | translate: {count: (supplier?.comments?.length || 0)} }}</div>
 		</preview-header-subtitle-app>
 
 		<!-- Supplier type badge -->
@@ -158,7 +158,7 @@
 					<div *ngIf="supplier?.assignee; else none" class="flex">
 						<user-picture-app	class="mg-right-ms" [user]="supplier?.assignee" size="24" fontSize="12" [hasName]="true"></user-picture-app>
 					</div>
-					<ng-template #none>None</ng-template>
+					<ng-template #none><span class="capitalize" translate="text.none"></span></ng-template>
 				</selector-app>
 				</editable-display-app>
 		</editable-container-app>
@@ -200,13 +200,16 @@
 
 	<!-- About -->
 	<preview-section-app #contentTab2 [title]="'title.about-supplier' | translate">
-		<small>Created by {{ supplier?.createdBy | formatUserName }} on  {{ supplier?.creationDate | date: 'dd MMMM yyyy' }}</small> <br>
-		<small>Last updated by {{ supplier?.lastUpdatedBy | formatUserName }} on {{ supplier?.lastUpdatedDate | date: 'dd MMMM yyyy' }}</small><br>
+		<div class="mg-top-xs">
+			{{ 'OBJ.created-by-on' | translate : { name: (supplier?.createdBy | formatUserName), date: (supplier?.creationDate | date: 'dd MMMM yyyy':'':translate?.currentLang) } }}
+			<br>
+			{{ 'OBJ.last-updated-by-on' | translate: { name: (supplier?.lastUpdatedBy | formatUserName), date: (supplier?.lastUpdatedDate | date: 'dd MMMM yyyy':'':translate?.currentLang) } }}
+		</div>
 	</preview-section-app>
 
 	<!-- Comments -->
-	<preview-section-app #contentTab3 *ngIf="supplier?.comments?.length" [title]="'title.comments' | translate">
-		<comment-list-app [comments]="supplier?.comments"></comment-list-app>
+	<preview-section-app #contentTab3>
+		<comment-list-app [comments]="supplier?.comments" (addComment)="selectThirdTab()"></comment-list-app>
 	</preview-section-app>
 
 	<preview-comment-app #contentTab3 (added)="addComment($event)"></preview-comment-app>

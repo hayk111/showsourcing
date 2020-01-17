@@ -62,7 +62,7 @@
 		<!-- items 3 dots -->
 		<context-menu-item-app
 			(click)="update(true, 'favorite')"
-			translate="button.set-as-favourite">
+			translate="button.set-as-favorite">
 		</context-menu-item-app>
 
 		<divider-app></divider-app>
@@ -78,9 +78,9 @@
 
 		<preview-header-subtitle-app>
 			<rating-badge-app class="pointer"	[votes]="product?.votes" [hasNumber]="true" (click)="selectSecondTab('rating')"></rating-badge-app>
-			<div class="txt-btn" (click)="selectSecondTab('sample')">{{ product?.samplesLinked.count || 0 }} {{ product?.samplesLinked?.count === 1 ? 'Sample' : 'Samples' }}</div>
-			<div class="txt-btn" (click)="selectSecondTab('task')">{{ product?.tasksLinked.count || 0 }} {{ product?.samplesLinked?.count === 1 ? 'Task' : 'Tasks' }}</div>
-			<div class="txt-btn" (click)="selectThirdTab()">{{ product?.comments?.length || 0  }} {{ product?.comments?.length === 1 ? 'Comment' : 'Comments' }}</div>
+			<div class="txt-btn capitalize" (click)="selectSecondTab('sample')">{{ ((product?.samplesLinked?.count || 0) === 1 ? 'OBJ.n-sample.singular' : 'OBJ.n-sample.plural') | translate: {count: (product?.samplesLinked?.count || 0)} }}</div>
+			<div class="txt-btn capitalize" (click)="selectSecondTab('task')">{{ ((product?.tasksLinked?.count || 0) === 1 ? 'OBJ.n-task.singular' : 'OBJ.n-task.plural') | translate: {count: (product?.tasksLinked?.count || 0)} }}</div>
+			<div class="txt-btn capitalize" (click)="selectThirdTab()">{{ ((product?.comments?.length || 0) === 1 ? 'OBJ.n-comment.singular' : 'OBJ.n-comment.plural') | translate: {count: (product?.comments?.length || 0)} }}</div>
 		</preview-header-subtitle-app>
 
 
@@ -185,10 +185,19 @@
 					<div *ngIf="product?.assignee; else none" class="flex">
 						<user-picture-app	class="mg-right-ms" [user]="product?.assignee" size="24" fontSize="12" [hasName]="true"></user-picture-app>
 					</div>
-					<ng-template #none>None</ng-template>
+					<ng-template #none><span class="capitalize" translate="text.none"></span></ng-template>
 				</selector-app>
 				</editable-display-app>
 		</editable-container-app>
+	</preview-section-app>
+
+	<!-- Status -->
+	<preview-section-app #contentTab2 [title]="'title.product-status' | translate">
+		<status-selector-app
+			[typeEntity]="'PRODUCT' | erm"
+			[entity]="product"
+			type="button">
+		</status-selector-app>
 	</preview-section-app>
 
 	<!-- Tasks -->
@@ -248,14 +257,18 @@
 
 	<!-- About -->
 	<preview-section-app #contentTab2 [title]="'title.about-product' | translate">
-		<small>Created by {{ product.createdBy | formatUserName }} on  {{ product.creationDate | date: 'dd MMMM yyyy' }}</small> <br>
-		<small>Last updated by {{ product.lastUpdatedBy | formatUserName }} on {{ product.lastUpdatedDate | date: 'dd MMMM yyyy' }}</small><br>
-		<small *ngIf="product?.event">Found at {{ product?.event?.description?.name }}</small>
+		<div class="mg-top-xs">
+			{{ 'OBJ.created-by-on' | translate : { name: (product?.createdBy | formatUserName), date: (product?.creationDate | date: 'dd MMMM yyyy':'':translate?.currentLang) } }}
+			<br>
+			{{ 'OBJ.last-updated-by-on' | translate: { name: (product?.lastUpdatedBy | formatUserName), date: (product?.lastUpdatedDate | date: 'dd MMMM yyyy':'':translate?.currentLang) } }}
+			<br>
+			<span *ngIf="product?.event">{{ 'OBJ.found-at' | translate: { name: (product?.event?.description?.name) } }}</span>
+		</div>
 	</preview-section-app>
 
 	<!-- Comment -->
-	<preview-section-app  #contentTab3 *ngIf="product?.comments?.length">
-		<comment-list-app [comments]="product?.comments"></comment-list-app>
+	<preview-section-app  #contentTab3>
+		<comment-list-app [comments]="product?.comments" (addComment)="selectThirdTab()"></comment-list-app>
 	</preview-section-app>
 
 	<preview-comment-app #contentTab3 (added)="addComment($event)"></preview-comment-app>

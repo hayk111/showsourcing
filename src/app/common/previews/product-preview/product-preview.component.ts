@@ -30,7 +30,6 @@ import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-con
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { PreviewCommentComponent, PreviewService } from '~shared/preview';
 import { RatingDashboardComponent } from '~shared/rating';
-import { RatingService } from '~shared/rating/services/rating.service';
 import { AutoUnsub, PendingImage } from '~utils';
 
 @Component({
@@ -78,11 +77,9 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 
 	/** this is the fully loaded product */
 	product$: Observable<Product>;
-	tasks$: Observable<Task[]>;
-	samples$: Observable<Sample[]>;
 	productDescriptor1: ProductDescriptor;
 	productDescriptor2: ProductDescriptor;
-	formConfig = new DynamicFormConfig({ mode: 'editable-text' });
+	formConfig = new DynamicFormConfig({ mode: 'editable-text', alignValue: 'right' });
 	erm = ERM;
 
 	fieldDefinitions$: Observable<ExtendedFieldDefinition[]>;
@@ -99,36 +96,27 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 		private commentSrv: CommentService,
 		private extendedFieldDefSrv: ExtendedFieldDefinitionService,
 		private previewSrv: PreviewService,
-		private ratingSrv: RatingService,
 		private taskSrv: TaskService,
 		private sampleSrv: SampleService
 	) { super(); }
 
 	ngOnInit() {
 		this.productDescriptor1 = new ProductDescriptor([
-			'supplier', 'category', 'name', 'price', 'event', 'minimumOrderQuantity', 'moqDescription',
-			'assignee', 'createdBy', 'creationDate', 'lastUpdatedBy', 'lastUpdatedDate'
+			'name', 'reference', 'supplier', 'supplier-reference', 'price', 'category', 'event', 'minimumOrderQuantity', 'moqDescription',
+			'assignee'
 		]);
 		this.productDescriptor1.modify([
+			{ name: 'reference', label: 'item-reference' },
 			{ name: 'supplier', metadata: { hasBadge: false } },
-			{ name: 'event', metadata: { hasBadge: false } },
+			{ name: 'event', label: 'trade-show', metadata: { hasBadge: false } },
 		]);
 
 		this.productDescriptor2 = new ProductDescriptor([
 			'innerCarton', 'masterCarton', 'priceMatrix', 'sample', 'samplePrice', 'incoTerm',
 			'harbour', 'masterCbm', 'quantityPer20ft', 'quantityPer40ft', 'quantityPer40ftHC'
 		]);
-		// TODO i18n
 		this.productDescriptor2.insert({ name: 'sample', type: 'title' }, 'sample');
 		this.productDescriptor2.insert({ name: 'shipping', type: 'title' }, 'incoTerm');
-
-		// TODO Backend add field
-		// this.taskSrv.queryMany({ query: `product.id == "${this.product.id}" AND delete == false AND archived == false  ` });
-		this.tasks$ = this.taskSrv.queryMany({ query: `product.id == "${this.product.id}" AND deleted == false` });
-
-		// TODO Backend add field
-		// this.taskSrv.queryMany({ query: `product.id == "${this.product.id}" AND delete == false AND archived == false  ` });
-		this.samples$ = this.sampleSrv.queryMany({ query: `product.id == "${this.product.id}" AND deleted == false` });
 
 		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryAll(undefined, {
 			query: 'target == "Product"',

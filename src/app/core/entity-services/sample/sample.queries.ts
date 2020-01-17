@@ -25,18 +25,18 @@ export class SampleQueries extends GlobalQueries {
 	static readonly definition = (name: string) => `${name} { id, label, type, order, metadata }`;
 	static readonly extendedFields = `extendedFields {
 		id, value,
-		selectorValue { id, value, ${SampleQueries.definition('fieldDefinition')} },
+		selectorValues { id, value, ${SampleQueries.definition('fieldDefinition')} },
 		${SampleQueries.definition('definition')}
 	}`;
 
-	// TODO BackEnd add extended fields
-	// TODO BackEnd add archived
 	// TODO BackEnd add type
 	static readonly one = `
+		archived,
 		name,
 		reference,
 		description
 		creationDate,
+		lastUpdatedDate,
 		deleted,
 		${SampleQueries.product}
 		${SampleQueries.supplier}
@@ -46,13 +46,16 @@ export class SampleQueries extends GlobalQueries {
 		${SampleQueries.assignee}
 		${SampleQueries.status}
 		${SampleQueries.comments}
+		${SampleQueries.extendedFields}
 	`;
 
 	static readonly many = `
+		archived,
 		name,
 		reference,
 		description
 		creationDate,
+		lastUpdatedDate,
 		deleted,
 		${SampleQueries.product}
 		${SampleQueries.supplier}
@@ -62,6 +65,7 @@ export class SampleQueries extends GlobalQueries {
 		${SampleQueries.assignee}
 		${SampleQueries.status}
 		${SampleQueries.comments}
-	`;
+		${SampleQueries.extendedFields}
+		`;
 
 }

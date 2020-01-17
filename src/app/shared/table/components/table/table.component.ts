@@ -51,9 +51,7 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	/** whether there is a border around the table */
 	@Input() hasBorder = true;
 
-	@Input() footerTemplate: TemplateRef<any>;
 	@Input() type: EntityName;
-	@Input() width: string;
 	@Input() rowHeight = 42;
 	@Input() listView = false;
 
@@ -132,14 +130,6 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 			return 'unchecked';
 		} else {
 			return 'selectedPartial';
-		}
-	}
-
-	generateStyles(): any {
-		if (this.hasPagination) {
-			return { width: this.width };
-		} else {
-			return { height: '100%', width: this.width};
 		}
 	}
 

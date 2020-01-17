@@ -46,11 +46,11 @@
 
 </header-details-app>
 
-<controller-table-app 
+<controller-table-app
 	class="spacing-ms"
 	[hasFilters]="false">
 	<controller-table-content-app>
-		<button class="capitalize" (click)="listSrv.create(false)">Create {{erm.singular | translate}}</button>
+		<button class="capitalize" (click)="listSrv.create(false)">{{ 'create-' + erm.singular | translate }}</button>
 	</controller-table-content-app>
 </controller-table-app>
 
