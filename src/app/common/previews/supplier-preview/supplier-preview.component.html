@@ -164,6 +164,15 @@
 		</editable-container-app>
 	</preview-section-app>
 
+	<!-- Status -->
+	<preview-section-app #contentTab2 [title]="'title.supplier-status' | translate">
+		<status-selector-app
+			[typeEntity]="'SUPPLIER' | erm"
+			[entity]="supplier"
+			type="button">
+		</status-selector-app>
+	</preview-section-app>
+
 	<!-- Tasks -->
 	<preview-section-app #contentTab2 class="action-hover-container-0" [title]="'title.tasks' | translate">
 		<preview-section-action-app>

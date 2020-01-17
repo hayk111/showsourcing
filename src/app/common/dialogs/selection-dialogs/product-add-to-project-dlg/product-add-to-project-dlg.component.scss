@@ -1,17 +1,17 @@
 
 dialog-app {
 	height: calc(100vh - 100px);
-	width: 1149px;
+	width: 1150px;
 	border-radius: var(--border-radius);
 }
 
 dialog-footer-app {
 	.selected-product-count {
-		color: #45adff;
+		color: var(--color-primary);
 		font-size: var(--font-size-l);
 		margin-right: var(--spacing-xs);
 	}
-	
+
 	.selected-product {
 		color: var(--color-bg-dark);
 		font-size: var(--font-size-l);
@@ -21,13 +21,11 @@ dialog-footer-app {
 		margin-right: var(--spacing-l);
 	}
 
-	.add-to-project, .footer-done {
+	.footer-done {
 		width: 128px;
-		height: var(--spacing-xl);
 	}
 
 	.cancel {
-		width: 88px;
 		background: transparent;
 		color: var(--color-txt-secondary);
 		font-weight: 600;

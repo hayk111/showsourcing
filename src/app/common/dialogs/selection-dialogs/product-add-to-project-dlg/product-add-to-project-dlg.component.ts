@@ -47,7 +47,7 @@ export class ProductAddToProjectDlgComponent extends AutoUnsub implements OnInit
 		this.listSrv.setup({
 			entitySrv: this.projectSrv,
 			searchedFields: ['name'],
-			selectParams: { sortBy: 'name', descending: true, take: this.projectCount, query: 'deleted == false' },
+			selectParams: { sortBy: 'name', descending: false, take: this.projectCount, query: 'deleted == false' },
 			initialFilters: [{ type: FilterType.DELETED, value: false }], // TODO: add archived filter when backend property is added
 			entityMetadata: ERM.PROJECT,
 			originComponentDestroy$: this._destroy$

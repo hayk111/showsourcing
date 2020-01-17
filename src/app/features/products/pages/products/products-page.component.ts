@@ -99,18 +99,17 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 	onProjectDlgOpen() {
 		let initialProjects = [];
 
-		this.listSrv.getSelectedValues().forEach((product: Product) => {
-			initialProjects = [...initialProjects, ...product.projects];
-		});
-
-		initialProjects = this.removeDuplicates(initialProjects, 'id');
+		const values = this.listSrv.getSelectedValues();
+		// if we have more than 1 selected, we don't want initial projects to be preselected
+		if (values.length === 1)
+			initialProjects = values[0].projects || [];
 
 		this.dialogCommonSrv.openAddToProjectDialog(this.listSrv.getSelectedValues(), initialProjects);
 	}
 
 	private removeDuplicates(originalArr, prop) {
 		return originalArr.filter((obj, pos, arr) => {
-				return arr.map(mapObj => mapObj[prop]).indexOf(obj[prop]) === pos;
+			return arr.map(mapObj => mapObj[prop]).indexOf(obj[prop]) === pos;
 		});
 	}
 

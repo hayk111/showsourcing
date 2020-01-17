@@ -34,15 +34,15 @@ export class DefaultColumnsComponent {
 	@Output() nameClick = new EventEmitter<any>();
 	erm = ERM;
 
-	constructor(public translate: TranslateService, private router: Router) {}
+	constructor(public translate: TranslateService, private router: Router) { }
 
 	onLogoClick(row: any) {
 		this.logoClick.emit(row);
 	}
 
-	onNameClick(row: any) {
+	routerPath(row) {
 		if (this.redirectOnNameClick)
-			this.router.navigate(['/', this.type.destUrl, this.row.id]);
+			return (['/', this.type.destUrl, row.id]);
 		else
 			this.nameClick.emit(row);
 	}
