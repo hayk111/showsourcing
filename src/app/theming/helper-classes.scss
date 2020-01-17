@@ -276,6 +276,7 @@ $levels: (
 		.action-hover-item-#{$level} {
 			opacity: 0;
 			transition: 0.3s;
+			transition-property: height;
 		}
 	// item visible when container hovered, we use .disable-action-hover when we want to prevent the hover effect
 		&:hover:not(.disable-action-hover-#{$level}) .action-hover-item-#{$level} {

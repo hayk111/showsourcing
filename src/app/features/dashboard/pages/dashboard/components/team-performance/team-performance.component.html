@@ -3,46 +3,54 @@
 	<div class="flex team-stats">
 		<div>
 			<div class="total-products-created">
-				<h3>{{'label.products' | translate}}</h3>
-				<h2 class="total-products-created-count">{{totalProducts}}</h2>
+				<h3 class="mg-bottom-xs" translate="title.products"></h3>
+				<h2 class="total-products-created-count">{{ products$ | async }}</h2>
 			</div>
 			<div class="products-this-week">
-				<h3>{{'label.assigned-to-you' | translate}}</h3>
-				<h2 class="products-this-week-count">{{productsThisWeek}}</h2>
+				<h3 class="mg-bottom-xs" translate="title.assigned-to-you"></h3>
+				<h2 class="products-this-week-count">{{ productsAssignedToMe$ | async }}</h2>
 			</div>
 		</div>
 		<div>
 			<div class="total-suppliers-created">
-				<h3>{{'label.supplier' | translate}}</h3>
-				<h2 class="total-suppliers-created-count">{{totalSuppliers}}</h2>
+				<h3 class="mg-bottom-xs" translate="title.supplier"></h3>
+				<h2 class="total-suppliers-created-count">{{ suppliers$ | async }}</h2>
 			</div>
 			<div class="suppliers-this-week">
-				<h3>{{'label.assigned-to-you' | translate}}</h3>
-				<h2 class="suppliers-this-week-count">{{suppliersThisWeek}}</h2>
+				<h3 class="mg-bottom-xs" translate="title.assigned-to-you"></h3>
+				<h2 class="suppliers-this-week-count">{{ suppliersAssignedToMe$ | async }}</h2>
 			</div>
 		</div>
 	</div>
-	<!-- <div class="chart flexCenter">
 
-		<div *ngIf="teamStats$ | async as teamStats; else spinner">
-			<line-chart-app
-				[chartData]="teamStats">
-			</line-chart-app>
+	<divider-app class="mg-v-l"></divider-app>
+
+	<div class="flexColumn">
+		<!-- tasks -->
+		<div class="mg-bottom-l action-hover-container-0">
+			<div class="flexVAlign mg-bottom-ms">
+				<h3 translate="title.my-tasks"></h3>
+				<div class="mg-left-ms action-hover-item-0 color-primary txt-btn" (click)="dlgCommonSrv.openCreationTaskDlg()" translate="button.add"></div>
+			</div>
+			<task-catalog-app
+				[tasks]="tasks$ | async"
+				(taskClicked)="redirect('tasks')"
+				(showMore)="redirect('tasks')">
+			</task-catalog-app>
 		</div>
 
-		<ng-template #spinner>
-			<ng-container *ngIf="!requestTimedOut; else empty">
-				<div class="flexColumn flexCenter">
-					<spinner-app></spinner-app>
-				</div>
-			</ng-container>
-		</ng-template>
-		
-		<ng-template #empty>
-			<line-chart-app
-				[chartData]="[{ data: [0, 0, 0, 0, 0] }]">
-			</line-chart-app>
-		</ng-template>
+		<!-- samples -->
+		<div class="action-hover-container-0">
+			<div class="flexVAlign mg-bottom-ms">
+				<h3 translate="title.my-samples"></h3>
+				<div class="mg-left-ms action-hover-item-0 color-primary txt-btn" (click)="dlgCommonSrv.openCreationSampleDialog()" translate="button.add"></div>
+			</div>
+			<sample-catalog-app
+				[samples]="samples$ | async"
+				(sampleClicked)="redirect('samples')"
+				(showMore)="redirect('samples')">
+			</sample-catalog-app>
+		</div>
 
 	</div> -->
 
