@@ -1,7 +1,7 @@
 <card-app marginTitle="ms">
 	<card-title-app translate="title.lastest-noti"></card-title-app>
 	
-	<card-action-app *ngIf="(notifications$ | async).results.length > 0">
+	<card-action-app>
 		<button class="primary-light" (click)="openPanel()">View All</button>
 	</card-action-app>
 
