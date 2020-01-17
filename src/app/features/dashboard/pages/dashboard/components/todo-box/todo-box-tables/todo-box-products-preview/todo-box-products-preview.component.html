@@ -1,9 +1,12 @@
 <products-table-app
 	class="list-view"
+	[listView]="true"
 	[rows]="rows"
 	[pending]="!rows"
-	[columns]="['reference', 'status']"
+	[columns]="['reference', 'name', 'status', 'creationDate']"
 	tableConfigType="medium"
+	[tableConfig]="tableConfig"
+	[hasBorder]="false"
 	[hasMenu]="false"
 	[hasHeader]="false"
 	[hasSelection]="false"

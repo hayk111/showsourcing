@@ -1,0 +1,21 @@
+<card-app>
+
+	<card-title-app>
+		<h2>Your Products</h2>
+	</card-title-app>
+
+	<card-action-app>
+		<button class="primary-light" (click)="navigateToProducts()">View All</button>
+	</card-action-app>
+
+	<ng-container *ngIf="products | async as products; else spinner">
+		<todo-box-products-preview-app
+			[rows]="products"
+			(updated)="updateProduct($event)">
+		</todo-box-products-preview-app>
+	</ng-container>
+
+	<ng-template #spinner>
+		<spinner-app></spinner-app>
+	</ng-template>
+</card-app>

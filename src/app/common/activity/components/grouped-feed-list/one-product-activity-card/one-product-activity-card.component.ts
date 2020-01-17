@@ -24,6 +24,7 @@ export class OneProductActivityCardComponent extends AutoUnsub implements OnInit
 	@Input() groupFeed: GetStreamGroup;
 	@Input() title: string;
 	@Output() createComment = new EventEmitter<{ comment: any, entity: any, erm: any }>();
+	@Output() previewClick = new EventEmitter<Product>();
 	@Output() update = new EventEmitter<Product>();
 	@Output() liked = new EventEmitter<Product>();
 	@Output() disliked = new EventEmitter<Product>();

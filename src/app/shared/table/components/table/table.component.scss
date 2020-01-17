@@ -84,6 +84,12 @@
 	.cell {
 		color: var(--color-txt-primary);
 	}
+
+	.primary-col {
+		.cell {
+			color: var(--color-primary);
+		}
+	}
 	
 	.header {
 		text-transform: capitalize;

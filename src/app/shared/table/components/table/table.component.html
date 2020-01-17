@@ -61,8 +61,9 @@ https://stackblitz.com/edit/angular-vtluff?file=src/app/app.component.ts -->
 
 
 		<!-- content columns -->
-		<div *ngFor="let column of columns; trackBy: columnTrackByFn"
+		<div *ngFor="let column of columns; let i = index; trackBy: columnTrackByFn"
 			class="col {{ column.grows ? 'grows' : '' }}"
+			[ngClass]="{'primary-col': listView && i == 0}"
 			[style.width]="column.width + 'px'">
 			<!-- header -->
 			<div *ngIf="hasHeader"

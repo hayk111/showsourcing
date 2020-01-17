@@ -50,6 +50,7 @@ import { StatsIconsComponent } from './components/grouped-feed-list/stats-icons/
 		OneProductActivityCardComponent,
 		OneSupplierActivityCardComponent,
 		MultipleProductsActivityCardComponent,
+		MultipleProductCarouselComponent,
 		GroupedFeedListComponent,
 		ActivityUserComponent,
 		ActivityListComponent,

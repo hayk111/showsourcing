@@ -1,5 +1,6 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, EventEmitter, Input, Output } from '@angular/core';
 import { User } from '~models/user.model';
+import { Product } from '~core/models';
 
 @Component({
 	selector: 'activity-user-app',
@@ -11,6 +12,9 @@ import { User } from '~models/user.model';
 	}
 })
 export class ActivityUserComponent implements OnInit {
+	@Output() previewClick = new EventEmitter<Product>();
+	@Input() hasPreview = false;
+	@Input() product: Product;
 	@Input() user: User;
 	@Input() action: string;
 	@Input() time: string;
