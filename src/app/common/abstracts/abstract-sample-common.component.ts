@@ -36,9 +36,9 @@ export abstract class AbstractSampleCommonComponent extends AutoUnsub implements
 
 	setup(addedFilters: Filter[] = [], selectParams?: SelectParams, hasAssigneFilter = true) {
 		const userId = this.userSrv.userSync.id;
-		const initialFilters: Filter[] = [];
+		const initialFilters: Filter[] = [{ type: FilterType.ARCHIVED, value: false }];
 		if (hasAssigneFilter) {
-			initialFilters.push({ type: FilterType.ASSIGNEE, value: userId });
+			initialFilters.push({ type: FilterType.ASSIGNEE, value: userId }, { type: FilterType.ARCHIVED, value: false });
 		}
 
 		this.listSrv.setup({
