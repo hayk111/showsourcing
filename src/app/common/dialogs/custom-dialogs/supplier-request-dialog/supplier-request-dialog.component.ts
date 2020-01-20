@@ -116,7 +116,6 @@ export class SupplierRequestDialogComponent extends AutoUnsub implements OnInit,
 	}
 
 	private setTitle() {
-		// TODO i18n and check for other langs
 		const prod = this.request.products.length === 1 ? this.translate.instant('text.product') : this.translate.instant('text.products');
 		const reqFor = this.translate.instant('text.request-for');
 		const title = `${reqFor} ${this.request.products.length} ${prod}`;
@@ -264,9 +263,9 @@ export class SupplierRequestDialogComponent extends AutoUnsub implements OnInit,
 			}, err => {
 				this.dlgSrv.close();
 				this.toastSrv.add({
-					title: 'Service error when creating request',
+					title: 'title.service-error-creating-request',
 					type: ToastType.ERROR,
-					message: 'We could not create the request due to a server issue'
+					message: 'message.we-couldnt-create-request'
 				});
 			});
 	}

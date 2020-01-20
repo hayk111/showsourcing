@@ -4,7 +4,7 @@ import { TaskService, UserService } from '~core/entity-services';
 import { Product, Supplier, Task } from '~core/models';
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { ToastService, ToastType } from '~shared/toast';
-import { translate, uuid } from '~utils';
+import { uuid } from '~utils';
 
 @Component({
 	selector: 'creation-task-dlg-app',
@@ -90,15 +90,15 @@ export class CreationTaskDlgComponent implements OnInit {
 				}
 				this.toastSrv.add({
 					type: ToastType.SUCCESS,
-					title: `Task created`,
-					message: 'Your task has been created with success'
+					title: `title.task-created`,
+					message: 'message.task-created-with-succes'
 				});
 			},
 				err => {
 					this.toastSrv.add({
 						type: ToastType.ERROR,
-						title: `Task created`,
-						message: 'Your task could not been created'
+						title: `title.task-created`,
+						message: 'message.your-task-not-created'
 					});
 				});
 		}

@@ -85,8 +85,8 @@ export class SupplierDetailsPageComponent extends AutoUnsub implements OnInit {
 				.subscribe(_ => {
 					this.toastSrv.add({
 						type: ToastType.SUCCESS,
-						title: this.translate.instant('title.suppliers-archived'),
-						message: this.translate.instant('message.suppliers-archived-successfully')
+						title: 'title.suppliers-archived',
+						message: 'message.suppliers-archived-successfully'
 					});
 				});
 		} else {
@@ -95,8 +95,8 @@ export class SupplierDetailsPageComponent extends AutoUnsub implements OnInit {
 				.subscribe(_ => {
 					this.toastSrv.add({
 						type: ToastType.SUCCESS,
-						title: this.translate.instant('title.supplier-archived'),
-						message: this.translate.instant('message.supplier-archived-successfully')
+						title: 'title.supplier-archived',
+						message: 'message.supplier-archived-successfully'
 					});
 				});
 		}
@@ -106,7 +106,7 @@ export class SupplierDetailsPageComponent extends AutoUnsub implements OnInit {
 		if (!supplier) {
 			this.toastSrv.add({
 				type: ToastType.ERROR,
-				title: this.translate.instant('title.supplier-not-exist'),
+				title: 'title.supplier-not-exist',
 				timeout: 3500
 			});
 			this.router.navigate(['suppliers']);
@@ -121,8 +121,8 @@ export class SupplierDetailsPageComponent extends AutoUnsub implements OnInit {
 		log.error(error);
 		this.toastSrv.add({
 			type: ToastType.ERROR,
-			title: this.translate.instant('title.error'),
-			message: this.translate.instant('message.there-is-an-error'),
+			title: 'title.error',
+			message: 'message.there-is-an-error',
 			timeout: 3500
 		});
 		this.router.navigate(['suppliers']);

@@ -5,7 +5,6 @@ import { AppImage, Attachment, ExtendedField, Packaging, Price, Product } from '
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { ToastService, ToastType } from '~shared/toast';
 import { uuid } from '~utils';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'creation-product-dlg-app',
@@ -23,7 +22,6 @@ export class CreationProductDlgComponent implements OnInit {
 		private dlgSrv: DialogService,
 		private productSrv: ProductService,
 		private toastSrv: ToastService,
-		private translate: TranslateService
 	) { }
 
 	ngOnInit() {
@@ -32,7 +30,7 @@ export class CreationProductDlgComponent implements OnInit {
 			'projects', 'sample', 'samplePrice', 'innerCarton', 'masterCarton', 'masterCbm', 'quantityPer20ft',
 			'quantityPer40ft', 'quantityPer40ftHC', 'incoTerm', 'harbour', 'extendedFields'
 		]);
-		this.productDescriptor.insert({ name: 'trading information', type: 'title' }, 'innerCarton');
+		this.productDescriptor.insert({ name: 'trading-information', type: 'title' }, 'innerCarton');
 		this.productDescriptor.modify([
 			{ name: 'supplier', metadata: { width: 495 } },
 			{ name: 'category', metadata: { width: 495 } },
@@ -97,15 +95,15 @@ export class CreationProductDlgComponent implements OnInit {
 				// success
 				this.toastSrv.add({
 					type: ToastType.SUCCESS,
-					title: this.translate.instant('title.product-created'),
-					message: this.translate.instant('message.product-created-with-success')
+					title: 'title.product-created',
+					message: 'message.product-created-with-success'
 				});
 			},
 				err => {
 					this.toastSrv.add({
 						type: ToastType.ERROR,
-						title: this.translate.instant('title.product-not-created'),
-						message: this.translate.instant('message.your-product-not-created')
+						title: 'title.product-not-created',
+						message: 'message.your-product-not-created'
 					});
 				});
 		}

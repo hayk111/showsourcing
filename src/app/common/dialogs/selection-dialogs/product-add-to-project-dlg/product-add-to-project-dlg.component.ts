@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
 import { ProductDialogService } from '~common/dialogs/services/product-dialog.service';
 import { ListPageService } from '~core/list-page';
 import { ProjectService } from '~entity-services';
@@ -36,7 +35,6 @@ export class ProductAddToProjectDlgComponent extends AutoUnsub implements OnInit
 		private dlgSrv: DialogService,
 		private productDlgSrv: ProductDialogService,
 		private toastSrv: ToastService,
-		private translate: TranslateService,
 		private projectSrv: ProjectService,
 		public listSrv: ListPageService<Project, ProjectService>,
 	) {
@@ -131,8 +129,8 @@ export class ProductAddToProjectDlgComponent extends AutoUnsub implements OnInit
 				this.initialSelectedProjects = [...this.initialSelectedProjects, ...addedProjects];
 				this.toastSrv.add({
 					type: ToastType.SUCCESS,
-					title: this.translate.instant('title.projects-added'),
-					message: this.translate.instant('message.your-projects-added-success'),
+					title: 'title.projects-added',
+					message: 'message.your-projects-added-success',
 					timeout: 3500
 				});
 			});

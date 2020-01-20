@@ -39,8 +39,8 @@ export class MergeDialogComponent extends AutoUnsub {
 			if (data.status === 'error') {
 				this.toastSrv.add({
 					type: ToastType.ERROR,
-					title: 'Error',
-					message: 'There is an error, please try again later',
+					title: 'title.error',
+					message: 'message.there-is-an-error',
 					timeout: 3500
 				});
 				return;
