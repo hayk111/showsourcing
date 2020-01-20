@@ -38,7 +38,12 @@
       "resent": "Sent Back to supplier",
       "sent": "Sent to supplier",
       "validated": "Validated"
-    },
+		},
+		"statusTask":{
+			"_Pending": "Pending",
+			"_Overdue": "Overdue",
+			"_Done": "Done"
+		},
     "supplierType": {
       "manufacturer": "Manufacturer",
       "supplier": "Supplier",
