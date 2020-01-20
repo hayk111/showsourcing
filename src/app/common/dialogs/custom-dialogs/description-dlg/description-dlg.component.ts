@@ -36,7 +36,7 @@ export class DescriptionDlgComponent {
 	}
 
 	save() {
-		this.description = this.txtAreaDesc ? this.txtAreaDesc.trim() : this._description;
+		this.description = this.txtAreaDesc.trim();
 		this.dlgSrv.close({ type: CloseEventType.OK, data: { description: this.description } });
 	}
 
