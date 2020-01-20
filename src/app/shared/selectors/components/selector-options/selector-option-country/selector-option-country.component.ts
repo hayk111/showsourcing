@@ -3,12 +3,12 @@ import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/
 import { Country } from '~core/models';
 
 @Component({
-	selector: 'selector-country-row-app',
-	templateUrl: './selector-country-row.component.html',
-	styleUrls: ['./selector-country-row.component.scss'],
+	selector: 'selector-option-country-app',
+	templateUrl: './selector-option-country.component.html',
+	styleUrls: ['./selector-option-country.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SelectorCountryRowComponent extends AbstractSelectorHighlightableComponent {
+export class SelectorOptionCountryComponent extends AbstractSelectorHighlightableComponent {
 
 	@Input() country: Country;
 

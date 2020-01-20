@@ -3,12 +3,12 @@ import { Product } from '~core/models';
 import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlight.ablecomponent';
 
 @Component({
-	selector: 'selector-product-row-app',
-	templateUrl: './selector-product-row.component.html',
-	styleUrls: ['./selector-product-row.component.scss'],
+	selector: 'selector-option-product-app',
+	templateUrl: './selector-option-product.component.html',
+	styleUrls: ['./selector-option-product.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SelectorProductRowComponent extends AbstractSelectorHighlightableComponent {
+export class SelectorOptionProductComponent extends AbstractSelectorHighlightableComponent {
 
 	@Input() product: Product;
 
