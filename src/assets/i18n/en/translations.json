@@ -261,7 +261,8 @@
     }
   },
   "OBJ": {
-    "OBJ-name": "{{ field }} name",
+		"OBJ-name": "{{ field }} name",
+		"OBJ-merged": "{{ field }} merged",
     "OBJ-to-merge-to": "{{ field }} to merge to",
     "add-OBJ": "Add {{ type }}",
     "added-n-products": "Added {{ noProducts }} products",
@@ -310,15 +311,15 @@
       "singular": "Mass edit of {{ count }} item"
     },
     "merge-OBJ": "Merge {{ field }}",
-    "min-pcs": "Min {{count}} pcs",
-    "n-OBJ": "{{count}} {{field}}",
+    "min-pcs": "Min {{ count }} pcs",
+    "n-OBJ": "{{ count }} {{ field }}",
     "n-comment": {
-      "plural": "{{count}} comments",
-      "singular": "{{count}} comment"
+      "plural": "{{ count }} comments",
+      "singular": "{{ count }} comment"
     },
     "n-element": {
-      "plural": "{{count}} elements",
-      "singular": "{{count}} element"
+      "plural": "{{ count }} elements",
+      "singular": "{{ count }} element"
     },
     "n-item-selected": {
       "plural": "{{ count }} items selected",
@@ -378,7 +379,8 @@
     "review-product": {
       "plural": "Review products",
       "singular": "Review product"
-    },
+		},
+		"selected-OBJ-merged-into-OBJ": "Selected {{ field }} were merged into {{ name }}",
     "set-category": {
       "plural": "Set categories",
       "singular": "Set category"

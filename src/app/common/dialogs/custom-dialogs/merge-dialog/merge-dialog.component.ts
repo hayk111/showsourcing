@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { CrudDialogService } from '~common/dialogs/services/crud-dialog.service';
 import { EntityMetadata, ERM } from '~models';
 import { DialogService } from '~shared/dialog/services';
 import { ToastService, ToastType } from '~shared/toast';
-import { AutoUnsub, translate } from '~utils';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'merge-dialog-app',
@@ -22,7 +23,9 @@ export class MergeDialogComponent extends AutoUnsub {
 	constructor(
 		public dlgSrv: DialogService,
 		private crudDlgSrv: CrudDialogService,
-		private toastSrv: ToastService) {
+		private toastSrv: ToastService,
+		private translate: TranslateService
+	) {
 		super();
 	}
 
@@ -48,8 +51,8 @@ export class MergeDialogComponent extends AutoUnsub {
 
 			this.toastSrv.add({
 				type: ToastType.SUCCESS,
-				title: translate(this.capitalize(this.type.plural) + ' merged'),
-				message: translate(`Selected ${this.type.plural} were merged into ${this.selected.name}`),
+				title: this.translate.instant('OBJ.OBJ-merged', { field: this.capitalize(this.type.plural) }),
+				message: this.translate.instant('OBJ.selected-OBJ-merged-into-OBJ', { field: this.type.plural, name: this.selected.name }),
 				timeout: 3500
 			});
 		});
