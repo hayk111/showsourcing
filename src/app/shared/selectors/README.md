@@ -1,4 +1,4 @@
 # Selectors
 
 Selector -> Selector Picker -> Selector Service
-Selector picker ->
+Selector picker -> input + selector options

@@ -44,7 +44,7 @@ const components = [
 	SelectorOptionEventComponent,
 	SelectorOptionLabelNameComponent,
 	SelectorOptionNameComponent,
-	SelectorOptionProductComponent
+	SelectorOptionProductComponent,
 	SelectorOptionRequestTemplateComponent,
 	SelectorOptionSupplierComponent,
 	SelectorOptionUserComponent,
