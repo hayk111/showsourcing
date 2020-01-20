@@ -43,8 +43,13 @@ export class DefaultColumnsComponent {
 	routerPath(row) {
 		if (this.redirectOnNameClick)
 			return (['/', this.type.destUrl, row.id]);
-		else
-			this.nameClick.emit(row);
+	}
+
+	nameClicked(row) {
+		if (this.redirectOnNameClick)
+			return;
+
+		this.nameClick.emit(row);
 	}
 
 }

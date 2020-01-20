@@ -4,6 +4,6 @@
 	[type]="getType()"
 	(click)="update.emit(!task.done)">
 		<div>
-			{{ 'text.' + getTaskStatus() | translate }}
+			{{ '_user-defined.statusTask.' + getTaskStatus() | translate }}
 		</div>
 </badge-app>
