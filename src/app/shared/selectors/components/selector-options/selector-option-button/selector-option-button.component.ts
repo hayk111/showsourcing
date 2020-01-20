@@ -2,12 +2,12 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlight.ablecomponent';
 
 @Component({
-	selector: 'selector-button-row-app',
-	templateUrl: './selector-button-row.component.html',
-	styleUrls: ['./selector-button-row.component.scss'],
+	selector: 'selector-option-button-app',
+	templateUrl: './selector-option-button.component.html',
+	styleUrls: ['./selector-option-button.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SelectorButtonRowComponent extends AbstractSelectorHighlightableComponent {
+export class SelectorOptionButtonComponent extends AbstractSelectorHighlightableComponent {
 
 	@Input() type: string;
 	@Input() searchTxt: string;

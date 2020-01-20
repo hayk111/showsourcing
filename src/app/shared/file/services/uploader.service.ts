@@ -40,6 +40,7 @@ export class UploaderService {
 				mergeMap((imgResized: File) => this.uploadFile(imgResized, 'image', linkedItem, client)),
 			)
 		);
+
 		return forkJoin(uploads$).pipe(
 			// link item (we need to do it after the file is ready else we will have 403)
 			mergeMap((files: AppImage[]) => this.linkItem(files, linkedItem, true, imageProperty, isPropertyArray)),
@@ -48,9 +49,13 @@ export class UploaderService {
 			// add notification
 			first(),
 			tap((files: AppImage[]) => {
+				const title = this.translate.instant(
+					'OBJ.n-images-uploaded-success.' + ((files || []).length === 1 ? 'singular' : 'plural'),
+					{ count: (files.length || 0) }
+				);
 				return this.toastSrv.add({
 					type: ToastType.SUCCESS,
-					title: `${files.length} image(s) Uploaded with success`,
+					title,
 					message: this.translate.instant('message.your-imgs-uploaded-with-success')
 				});
 			}),
@@ -58,6 +63,7 @@ export class UploaderService {
 	}
 
 	uploadFiles(files: File[], linkedItem?: any, client?: Client): Observable<any> {
+		const uploadedMsg = this.translate.instant('text.uploaded-with-success');
 		return forkJoin(files.map(file => this.uploadFile(file, 'file', linkedItem, client))).pipe(
 			first(),
 			// link item (we need to do it after the file is ready else we will have 403)
@@ -68,7 +74,7 @@ export class UploaderService {
 			tap((attachments: Attachment[]) => {
 				return this.toastSrv.add({
 					type: ToastType.SUCCESS,
-					title: `${files.length} Uploaded with success`,
+					title: `${files.length} ${uploadedMsg}`,
 					message: this.translate.instant('message.your-files-uploaded-with-success')
 				});
 			}),

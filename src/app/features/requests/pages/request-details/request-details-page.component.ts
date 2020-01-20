@@ -74,7 +74,7 @@ export class RequestDetailsPageComponent extends AutoUnsub implements OnInit {
 		if (!request) {
 			this.toastSrv.add({
 				type: ToastType.ERROR,
-				title: this.translate.instant('title.request-not-exist'),
+				title: 'title.request-not-exist',
 				timeout: 3500
 			});
 			this.router.navigate(['requests']);
@@ -87,8 +87,8 @@ export class RequestDetailsPageComponent extends AutoUnsub implements OnInit {
 	private onError(error) {
 		this.toastSrv.add({
 			type: ToastType.ERROR,
-			title: this.translate.instant('title.error'),
-			message: this.translate.instant('error.there-is-an-error'),
+			title: 'title.error',
+			message: 'message.there-is-an-error',
 			timeout: 3500
 		});
 		this.router.navigate(['requests']);
@@ -113,8 +113,8 @@ export class RequestDetailsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	cancelReply(replyId: ID) {
-		const text = this.translate.instant('message.confirm-cancel-request-item');
-		const action = this.translate.instant('button.cancel-item');
+		const text = 'message.confirm-cancel-request-item';
+		const action = 'buttoncancel-item';
 		this.dlgSrv.open(ConfirmDialogComponent, { text, action }).pipe(
 			switchMap(_ => this.requestReplySrv.update({ id: replyId, status: ReplyStatus.CANCELED })),
 			switchMap(_ => this.listSrv.refetch())
@@ -122,8 +122,8 @@ export class RequestDetailsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	cancelReplies() {
-		const text = this.translate.instant('message.confirm-cancel-request-items');
-		const action = this.translate.instant('button.cancel-items');
+		const text = 'message.confirm-cancel-request-items';
+		const action = 'button.cancel-items';
 		const items = this.listSrv.selectionSrv.getSelectionValues()
 			.map((element: any) => ({ id: element.reply.id, status: ReplyStatus.CANCELED }));
 		this.dlgSrv.open(ConfirmDialogComponent, { text, action }).pipe(

@@ -1,16 +1,15 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { switchMap } from 'rxjs/operators';
 import { ProductDialogService } from '~common/dialogs/services/product-dialog.service';
 import { ProductsTableComponent } from '~common/tables/products-table/products-table.component';
 import { ProductService, UserService } from '~core/entity-services';
-import { DEFAULT_TAKE_PAGINATION } from '~entity-services/_global/select-params';
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 import { ListPageService } from '~core/list-page';
+import { DEFAULT_TAKE_PAGINATION } from '~entity-services/_global/select-params';
 import { EntityTypeEnum, ERM, Product, Project } from '~models';
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
 import { ToastService, ToastType } from '~shared/toast';
-import { AutoUnsub, translate } from '~utils';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'product-select-dlg',
@@ -164,8 +163,8 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 				});
 				this.toastSrv.add({
 					type: ToastType.SUCCESS,
-					title: translate('Products added'),
-					message: translate('Your projects were added to the product with success'),
+					title: 'title.products-added',
+					message: 'message.your-projects-added-success',
 					timeout: 3500
 				});
 			});

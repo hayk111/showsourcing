@@ -136,8 +136,8 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 				.subscribe(_ => {
 					this.toastSrv.add({
 						type: ToastType.SUCCESS,
-						title: this.translate.instant('title.products-archived'),
-						message: this.translate.instant('message.products-archived-successfully')
+						title: 'title.products-archived',
+						message: 'message.products-archived-successfully'
 					});
 				});
 		} else {
@@ -147,8 +147,8 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 				.subscribe(_ => {
 					this.toastSrv.add({
 						type: ToastType.SUCCESS,
-						title: this.translate.instant('title.product-archived'),
-						message: this.translate.instant('message.product-archived-successfully')
+						title: 'title.product-archived',
+						message: 'message.product-archived-successfully'
 					});
 				});
 		}

@@ -4,6 +4,7 @@ import { ScrollDispatchModule, ScrollingModule } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 import { BadgeModule } from '~shared/badge';
 import { DividerModule } from '~shared/divider/divider.module';
 import { IconsModule } from '~shared/icons';
@@ -12,45 +13,44 @@ import { InputsModule } from '~shared/inputs';
 import { LoadersModule } from '~shared/loaders';
 import { UserPictureModule } from '~shared/user-picture';
 import { UtilsModule } from '~shared/utils';
-import { TranslateModule } from '@ngx-translate/core';
 
 import {
 	CdkOverlayComponent,
-	SelectorButtonRowComponent,
 	SelectorComponent,
-	SelectorContactRowComponent,
-	SelectorCountryRowComponent,
-	SelectorCurrencyRowComponent,
-	SelectorEventRowComponent,
-	SelectorLabelNameRowComponent,
-	SelectorNameRowComponent,
+	SelectorOptionButtonComponent,
+	SelectorOptionContactComponent,
+	SelectorOptionCountryComponent,
+	SelectorOptionCurrencyComponent,
+	SelectorOptionEventComponent,
+	SelectorOptionLabelNameComponent,
+	SelectorOptionNameComponent,
+	SelectorOptionProductComponent,
+	SelectorOptionRequestTemplateComponent,
+	SelectorOptionSupplierComponent,
+	SelectorOptionUserComponent,
+	SelectorOptionValueComponent,
 	SelectorPickerComponent,
 	SelectorPlaceholderComponent,
-	SelectorRequestTemplateRowComponent,
-	SelectorSupplierRowComponent,
-	SelectorUserRowComponent,
-	SelectorValueRowComponent,
-	SelectorProductRowComponent
 } from './components';
 
 
 const components = [
 	CdkOverlayComponent,
-	SelectorButtonRowComponent,
 	SelectorComponent,
-	SelectorContactRowComponent,
-	SelectorCountryRowComponent,
-	SelectorCurrencyRowComponent,
-	SelectorPlaceholderComponent,
-	SelectorEventRowComponent,
-	SelectorLabelNameRowComponent,
-	SelectorNameRowComponent,
+	SelectorOptionButtonComponent,
+	SelectorOptionContactComponent,
+	SelectorOptionCountryComponent,
+	SelectorOptionCurrencyComponent,
+	SelectorOptionEventComponent,
+	SelectorOptionLabelNameComponent,
+	SelectorOptionNameComponent,
+	SelectorOptionProductComponent,
+	SelectorOptionRequestTemplateComponent,
+	SelectorOptionSupplierComponent,
+	SelectorOptionUserComponent,
+	SelectorOptionValueComponent,
 	SelectorPickerComponent,
-	SelectorRequestTemplateRowComponent,
-	SelectorSupplierRowComponent,
-	SelectorUserRowComponent,
-	SelectorValueRowComponent,
-	SelectorProductRowComponent
+	SelectorPlaceholderComponent,
 ];
 
 @NgModule({

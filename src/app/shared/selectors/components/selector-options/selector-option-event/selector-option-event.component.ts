@@ -3,12 +3,12 @@ import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/
 import { Event } from '~core/models';
 
 @Component({
-	selector: 'selector-event-row-app',
-	templateUrl: './selector-event-row.component.html',
-	styleUrls: ['./selector-event-row.component.scss'],
+	selector: 'selector-option-event-app',
+	templateUrl: './selector-option-event.component.html',
+	styleUrls: ['./selector-option-event.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SelectorEventRowComponent extends AbstractSelectorHighlightableComponent {
+export class SelectorOptionEventComponent extends AbstractSelectorHighlightableComponent {
 
 	@Input() event: Event;
 

@@ -59,8 +59,8 @@ export class HandleInvitationComponent extends AutoUnsub implements OnInit {
 			this.router.navigateByUrl('/');
 			this.toastSrv.add({
 				type: ToastType.SUCCESS,
-				title: this.translate.instant('title.invitation-accepted'),
-				message: this.translate.instant('message.invitation-accepted'),
+				title: 'title.invitation-accepted',
+				message: 'message.invitation-accepted',
 				timeout: 3500
 			});
 		});
@@ -71,8 +71,8 @@ export class HandleInvitationComponent extends AutoUnsub implements OnInit {
 			this.router.navigateByUrl('/');
 			this.toastSrv.add({
 				type: ToastType.ERROR,
-				title: this.translate.instant('title.invitation-refused'),
-				message: this.translate.instant('message.invitation-refused'),
+				title: 'title.invitation-refused',
+				message: 'message.invitation-refused',
 				timeout: 3500
 			});
 		});

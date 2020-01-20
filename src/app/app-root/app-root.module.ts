@@ -16,7 +16,6 @@ import { AppApolloModule } from '~core/apollo/apollo.module';
 import * as i18n from '~core/i18n/i18n.service';
 import { ApiInterceptor } from '~core/interceptors/api.interceptor';
 import { TokenInterceptor } from '~core/interceptors/token.interceptor';
-import { PortalModule } from '~core/portal';
 import { TemplateModule } from '~core/template';
 import { SharedModule } from '~shared/shared.module';
 import { AppMissingTranslationHandler } from '~core/i18n/missing-translation.service';
@@ -52,7 +51,6 @@ import { AppMissingTranslationHandler } from '~core/i18n/missing-translation.ser
 				excludedRoutes: [new RegExp('(validate-email)[\/a-zA-Z0-9]+')]
 			}
 		}),
-		PortalModule,
 		TranslateModule.forRoot({
 			loader: {
 				provide: TranslateLoader,

@@ -3,12 +3,12 @@ import { Currency } from '~core/models';
 import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlight.ablecomponent';
 
 @Component({
-	selector: 'selector-currency-row-app',
-	templateUrl: './selector-currency-row.component.html',
-	styleUrls: ['./selector-currency-row.component.scss'],
+	selector: 'selector-option-currency-app',
+	templateUrl: './selector-option-currency.component.html',
+	styleUrls: ['./selector-option-currency.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SelectorCurrencyRowComponent extends AbstractSelectorHighlightableComponent {
+export class SelectorOptionCurrencyComponent extends AbstractSelectorHighlightableComponent {
 
 	@Input() currency: Currency;
 

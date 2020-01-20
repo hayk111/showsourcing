@@ -3,12 +3,12 @@ import { RequestTemplate } from '~core/models';
 import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlight.ablecomponent';
 
 @Component({
-	selector: 'selector-request-template-row-app',
-	templateUrl: './selector-request-template-row.component.html',
-	styleUrls: ['./selector-request-template-row.component.scss'],
+	selector: 'selector-option-request-template-app',
+	templateUrl: './selector-option-request-template.component.html',
+	styleUrls: ['./selector-option-request-template.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SelectorRequestTemplateRowComponent extends AbstractSelectorHighlightableComponent {
+export class SelectorOptionRequestTemplateComponent extends AbstractSelectorHighlightableComponent {
 
 	@Input() requestTemplate: RequestTemplate;
 
