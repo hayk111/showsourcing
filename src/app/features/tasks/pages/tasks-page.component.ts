@@ -56,7 +56,10 @@ export class TasksPageComponent extends AutoUnsub implements OnInit, AfterViewIn
 			entitySrv: this.taskSrv,
 			searchedFields: ['name', 'reference', 'assignee.firstName', 'createdBy.firstName', 'product.name', 'supplier.name'],
 			entityMetadata: ERM.TASK,
-			initialFilters: [{ type: FilterType.DONE, value: false }],
+			initialFilters: [
+				{ type: FilterType.DONE, value: false },
+				{ type: FilterType.ARCHIVED, value: false }
+			],
 			originComponentDestroy$: this._destroy$
 		});
 

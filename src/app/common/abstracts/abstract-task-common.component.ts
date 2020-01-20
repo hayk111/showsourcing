@@ -37,7 +37,7 @@ export abstract class AbstractTaskCommonComponent extends AutoUnsub implements O
 	setup(addedFilters: Filter[], selectParams?: SelectParams, hasDoneFilter = true) {
 		const userId = this.userSrv.userSync.id;
 		const routeId = this.route.parent.snapshot.params.id;
-		const initialFilters: Filter[] = [];
+		const initialFilters: Filter[] = [{ type: FilterType.ARCHIVED, value: false }];
 		if (hasDoneFilter) {
 			initialFilters.push({ type: FilterType.DONE, value: false });
 		}
