@@ -493,4 +493,8 @@ export class ListPageService
 	exportSelection() {
 		this.dlgSrv.open(ExportDlgComponent, { targets: this.getSelectedValues() });
 	}
+
+	exportAll() {
+		this.dlgSrv.open(ExportDlgComponent, { query: 'deleted == false AND archived == false', type: this.entityMetadata.entityName });
+	}
 }

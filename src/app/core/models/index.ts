@@ -1,5 +1,5 @@
 export * from './_entity.model';
-export * from './_erm.enum';
+export * from './utils/_erm.utils';
 export * from './app-image.model';
 export * from './attachment-upload-request.model';
 export * from './attachment.model';

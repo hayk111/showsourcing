@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 import { Product } from '~models/product.model';
-import { ERM } from '~models/_erm.enum';
+import { ERM } from '~core/models/utils/_erm.utils';
 import { User } from '~core/models';
 import { Router } from '@angular/router';
 

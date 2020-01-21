@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 import { User } from '~core/models';
 import { ProductFeatureService } from '~features/products/services';
 import { Product } from '~models/product.model';
-import { ERM } from '~models/_erm.enum';
+import { ERM } from '~core/models/utils/_erm.utils';
 
 @Component({
 	selector: 'product-header-details-app',
