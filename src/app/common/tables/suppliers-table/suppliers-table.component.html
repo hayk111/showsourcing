@@ -21,9 +21,8 @@
   (selectAll)="selectAll.emit($event)"
 	(unselectAll)="unselectAll.emit()"
 	(createClick)="createClick.emit()"
-	(showItemsPerPage)="showItemsPerPage.emit($event)">
-
-
+	(showItemsPerPage)="showItemsPerPage.emit($event)"
+	(hovered)="hovered = $event">
 
 	<!-- dynamic columns -->
 	<ng-template
@@ -33,8 +32,7 @@
 		[sortable]="column.sortable !== false"
 		[width]="column.width"
 		[sortBy]="column.sortProperty"
-		[grows]="!column.fixedWidth"
-		[showOnHover]="column.showOnHover">
+		[grows]="!column.fixedWidth">
 
 		<ng-container [ngSwitch]="column.name">
 
@@ -62,37 +60,57 @@
 				</logo-app>
 			</ng-container>
 
-			<!-- country -->
-			<ng-container *ngSwitchCase="'country'">
-				<selector-app
-					[type]="'COUNTRY' | erm: 'singular'"
-					[offsetX]="4"
-					[width]="320"
-					(update)="update.emit({ id: row?.id, country: $event })">
-					<span class="txt-btn">
-						{{ row?.country ? (row?.country | const: 'country') : '-' }}
-					</span>
-				</selector-app>
-			</ng-container>
-
 			<!-- categories -->
 			<ng-container *ngSwitchCase="'categories'">
-				<selector-app
-					class="ellipsis"
-					[type]="'CATEGORY' | erm: 'singular'"
-					[offsetX]="4"
-					[value]="row?.categories"
-					[multiple]="true"
-					[canCreate]="true"
-					[width]="320"
-					(update)="update.emit({ id: row?.id, categories: $event })">
-					<div class="txt-btn ellipsis">
-						<span *ngFor="let cat of row.categories; let last = last; trackBy: trackByFn">
-							{{ cat?.name }}{{ last ? '' : ',&nbsp;'}}
-						</span>
-						<span *ngIf="!row?.categories?.length" class="empty-field txt-btn">-</span>
-					</div>
-				</selector-app>
+
+				<editable-container-app
+					class="full-width"
+					[hasAction]="false"
+					[openOnClick]="false"
+					(click)="sel.openMenu()">
+					<editable-display-app>
+						<selector-app
+							#sel
+							[type]="'CATEGORY' | erm: 'singular'"
+							[offsetX]="4"
+							[value]="row?.categories"
+							[multiple]="true"
+							[canCreate]="true"
+							[width]="320"
+							(update)="update.emit({ id: row?.id, categories: $event })">
+							<div class="pointer" >
+								<span 
+									*ngFor="let cat of row.categories; let last = last; trackBy: trackByFn">
+									{{ cat?.name }}{{ last ? '' : ',&nbsp;'}}
+								</span>
+								<span *ngIf="!row?.categories?.length">-</span>
+							</div>
+						</selector-app>
+					</editable-display-app>
+				</editable-container-app>
+
+			</ng-container>
+
+			<!-- country -->
+			<ng-container *ngSwitchCase="'country'">
+				<editable-container-app
+					class="full-width"
+					[hasAction]="false"
+					[openOnClick]="false"
+					(click)="sel.openMenu()">
+					<editable-display-app>
+						<selector-app
+							#sel
+							[type]="'COUNTRY' | erm: 'singular'"
+							[offsetX]="4"
+							[width]="320"
+							(update)="update.emit({ id: row?.id, country: $event })">
+							<span>
+								{{ row?.country ? (row?.country | const: 'country') : '-' }}
+							</span>
+						</selector-app>
+					</editable-display-app>
+				</editable-container-app>
 			</ng-container>
 
 			<!-- type -->
