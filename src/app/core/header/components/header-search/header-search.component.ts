@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { SearchService } from '~core/header/services/search.service';
@@ -16,10 +16,12 @@ import { AutoUnsub } from '~utils';
 export class HeaderSearchComponent extends AutoUnsub implements OnInit {
 
 	@ViewChild('searchAutocomplete', { static: true }) searchAutocomplete: SearchAutocompleteComponent;
+	@ViewChild('myInput', {static: true}) myInput: ElementRef;
 
 	searchControl: FormControl;
 	searchResults$: Observable<any[]>;
 	searchBarExpanded = false;
+	focused = false;
 
 	constructor(private searchSrv: SearchService) {
 		super();

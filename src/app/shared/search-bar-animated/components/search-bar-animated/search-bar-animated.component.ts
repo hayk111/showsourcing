@@ -15,12 +15,14 @@ import { animation } from '~shared/search-bar-animated/components/search-bar-ani
 	animations: animation,
 	host: {
 		'[class.expanded]': 'searchState == "expanded"',
-		'[class.shrinked]': 'searchState == "shrinked"'
+		'[class.shrinked]': 'searchState == "shrinked"',
+		'[class.focused]': 'focused',
 	}
 })
 export class SearchBarAnimatedComponent implements OnInit {
 	@ContentChild(InputDirective, { static: true }) input: InputDirective;
 	@Input() animated = true;
+	@Input() focused = false;
 	@Input() hasBorder = true;
 	@Input() disableClickOutside = false;
 	@Output() searchStateChanged = new EventEmitter<string>();

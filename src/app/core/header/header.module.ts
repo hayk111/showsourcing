@@ -28,6 +28,6 @@ import {
 		SidebarComponent,
 		SidebarItemComponent
 	],
-	exports: [HeaderComponent, SidebarComponent],
+	exports: [HeaderComponent, SidebarComponent, HeaderSearchComponent],
 })
 export class HeaderModule { }

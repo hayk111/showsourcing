@@ -1,8 +1,26 @@
+<search-bar-animated-app
+	#searchBar
+	[focused]="focused"
+	[disableClickOutside]="true"
+	[animated]="false"
+	[hasBorder]="false"
+	(searchStateChanged)="onSearchBarStateChanged($event)">
+	<input 
+		class="searchInput"
+		inputApp 
+		restrictSpecial 
+		[restrictArrows]="true"
+		[placeholder]="'placeholder.sidebar-search' | translate"
+		type="text" 
+		[formControl]="searchControl" 
+		(input)="triggerSearch()"
+		(focus)="focused = true"
+		(focusout)="focused = false"/>
+</search-bar-animated-app>
 <search-autocomplete-app
 	#searchAutocomplete
 	[xPosition]="0"
-	[yPosition]="35"
-	[width]="400"
+	[yPosition]="12"
 	[closeOnDisplay]="true"
 	(close)="searchBar.shrinkSearch()">
 	<ng-container *ngIf="searchResults$ | async as searchResults; else spinner">
@@ -14,7 +32,7 @@
 					[selectable]="false"
 					[status]="result?.status?.status" [title]="result.name" [subtitle]="result.supplier?.name"
 					[image]="result.images[0]"
-					[link]="'/product/' + result.id">
+					[link]="'/products/' + result.id">
 				</search-autocomplete-item-content-app>
 				<search-autocomplete-item-content-app
 					*ngIf="result.type === 'supplier'"
@@ -22,7 +40,7 @@
 					[selectable]="false"
 					[status]="result?.status?.status" [title]="result.name" [subtitle]="supplierSubtitle(result)"
 					[image]="result.images[0]"
-					[link]="'/supplier/' + result.id ">
+					[link]="'/suppliers/' + result.id ">
 				</search-autocomplete-item-content-app>
 			</search-autocomplete-item-app>
 		</ng-container>
@@ -34,11 +52,3 @@
 		<dots-app class="flexCenter"></dots-app>
 	</ng-template>
 </search-autocomplete-app>
-<search-bar-animated-app
-	#searchBar
-	[disableClickOutside]="true"
-	[hasBorder]="false"
-	[ngClass]="{ expanded: searchBarExpanded }"
-	(searchStateChanged)="onSearchBarStateChanged($event)">
-	<input inputApp class="searchInput" restrictSpecial [restrictArrows]="true" type="text" (input)="triggerSearch()" [formControl]="searchControl" [placeholder]="'placeholder.sidebar-search' | translate"/>
-</search-bar-animated-app>
