@@ -3,6 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { CrudDialogService } from '~common/dialogs/services/crud-dialog.service';
 import { EntityMetadata, ERM } from '~models';
 import { DialogService } from '~shared/dialog/services';
+import { FilterList, FilterType } from '~shared/filters';
 import { ToastService, ToastType } from '~shared/toast';
 import { AutoUnsub } from '~utils';
 
@@ -14,11 +15,21 @@ import { AutoUnsub } from '~utils';
 })
 export class MergeDialogComponent extends AutoUnsub {
 
+	@Input() type: EntityMetadata;
+	private _entities: any[];
+	@Input() set entities(entities: any[]) {
+		this._entities = entities;
+		const auxList = entities.map(entity => ({ type: FilterType.CUSTOM, value: `id == "${entity.id}"` }));
+		this.filterList = new FilterList(auxList);
+	}
+	get entities() {
+		return this._entities;
+	}
+
 	selected: any;
 	erm: ERM;
 	pending = false;
-	@Input() type: EntityMetadata;
-	@Input() entities: Array<any>;
+	filterList: FilterList;
 
 	constructor(
 		public dlgSrv: DialogService,

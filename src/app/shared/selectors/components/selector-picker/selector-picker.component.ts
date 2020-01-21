@@ -43,7 +43,6 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	get type(): EntityMetadata {
 		return this._type;
 	}
-	@Input() choices: any[];
 	@Input() multiple = false;
 	@Input() canCreate = false;
 	@Input() dynamicFields: DynamicField[];
@@ -53,6 +52,8 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	 * we need to query
 	 */
 	@Input() definitionReference: ID;
+	// sometimes we want to start with something to search already
+	@Input() searchTxt = '';
 
 	@Output() update = new EventEmitter<any>();
 	@Output() close = new EventEmitter<null>();
@@ -91,8 +92,6 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	count = 0;
 
 	searched$: Subject<string> = new Subject();
-	// sometimes we want to start with something to search already
-	@Input() searchTxt = '';
 
 	/** whether the search has a exact match or not to display the create button */
 	nameExists$: Observable<boolean>;
@@ -127,9 +126,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		}
 
 		// init the list query
-		if (this.choices) {
-			this.choices$ = of(this.choices);
-		} else if (this.multiple) {
+		if (this.multiple) {
 			// if its multiple we want to filter the values that we have currently selected, so they don't appear on the options
 			this.choices$ = this.getChoices(this.type).pipe(map((items) => this.filterValues(items)));
 		} else {
