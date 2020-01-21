@@ -361,8 +361,7 @@ export class SelectorsService {
 				const isMatch = field.label ?
 					field.label.toLocaleLowerCase().includes(item) : field.name.toLocaleLowerCase().includes(item);
 				return isMatch;
-			}
-			)),
+			}))
 		);
 		return this.items$;
 	}

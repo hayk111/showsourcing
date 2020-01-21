@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit, Input } from '@angular/core';
-import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlight.ablecomponent';
+import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlightable.component';
 import { Country } from '~core/models';
 
 @Component({

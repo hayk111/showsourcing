@@ -27,7 +27,6 @@ import { ID } from '~utils';
 export class SelectorComponent extends AbstractInput implements OnInit {
 
 	@Input() value: any;
-	@Input() choices: Array<any>;
 
 	private _type: EntityMetadata;
 	// it can be both types, since selectors are used inside dynamic forms (customField.metadata.target)
@@ -43,6 +42,9 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 	@Input() hasPicker = true;
 	@Input() filterList = new FilterList([]);
 	@Input() width = 395;
+	@Input() offsetX = 0;
+	@Input() offsetY = 8;
+	@Input() disabled = false;
 	@Input() dynamicFields: DynamicField[];
 	// we use it only if we have to initialize the selector with a search
 	@Input() searchTxt = '';
@@ -54,6 +56,7 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 	 */
 	@Input() definitionReference: ID;
 
+	@Output() menuClosed = new EventEmitter<any>();
 	@Output() update = new EventEmitter<any>();
 
 	// some times we want to focus the focus directive on the content inside the selector
@@ -61,10 +64,6 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 
 	menuOpen = false;
 
-	@Input() offsetX = 0;
-	@Input() offsetY = 8;
-	@Input() disabled = false;
-	@Output() menuClosed = new EventEmitter<any>();
 
 	// we need this in order to calculate dynamically the offsetX on preview badges
 	constructor(public elem: ElementRef, private cdr: ChangeDetectorRef) { super(cdr); }
