@@ -7,20 +7,21 @@
 	}">
 	<!-- picture -->
 	<img-app
+		[ngClass]="{'small-img': size === 's'}"
 		[image]="product?.images"
 		objectFit="cover"
 		size="xl">
 	</img-app>
 
 	<!-- price floating -->
-	<div *ngIf="product?.price" class="product-price flexVAlign">
+	<div *ngIf="product?.price" [ngClass]="size === 'm' ? 'product-price' : 'product-price-s'" class="flexVAlign">
 		<div class="bold-s color-white">
 			<price-app [price]="product?.price"></price-app>
 		</div>
 	</div>
 
 	<!-- black backgorund on hover -->
-	<div class="black-container action-hover-item-0"></div>
+	<div [ngClass]="{'small-img': size === 's'}" class="black-container action-hover-item-0"></div>
 
 	<!-- top icons floating on hover -->
 	<checkbox-app
@@ -66,10 +67,10 @@
 	</div>
 
 	<!-- buttons floating on hover-->
-	<button class="preview action-hover-item-0 capitalize icon-with-text" (click)="preview.emit()">
+	<button [ngClass]="size === 'm' ? 'preview' : 'preview-s'" class="preview action-hover-item-0 capitalize icon-with-text" (click)="preview.emit()">
 		<icon-app class="eye-icon" name="eye"></icon-app> {{ 'button.preview-product' | translate }}
 	</button>
-	<button class="open secondary action-hover-item-0 capitalize icon-with-text" (click)="open.emit()">
+	<button [ngClass]="size === 'm' ? 'open' : 'open-s'" class="secondary action-hover-item-0 capitalize icon-with-text" (click)="open.emit()">
 		<icon-app class="export-icon" name="exit"></icon-app> {{ 'button.open-product' | translate }}
 	</button>
 
@@ -79,9 +80,9 @@
 		<!-- if we don't explicitly set the min-width, ellipsis wont work -->
 		<div style="min-width: 0;">
 			<div class="flexVAlign ellipsis">
-				<div class="bold-s color-txt-primary">{{ product?.name || ('message.unnamed-product' | translate) }}</div>
+				<div class="bold-s color-txt-primary" [ngClass]="{'title-s': size === 's'}">{{ product?.name || ('message.unnamed-product' | translate) }}</div>
 			</div>
-			<div class="color-txt-secondary fs-s mg-bottom-xs ellipsis dot-separator">
+			<div class="color-txt-secondary fs-s mg-bottom-xs ellipsis dot-separator" [ngClass]="{'sub-title-s': size === 's'}">
 				<span *ngIf="product?.category?.name">{{ product?.category?.name }}</span>
 				<span *ngIf="product?.supplier?.name">{{ product?.supplier?.name }}</span>
 			</div>

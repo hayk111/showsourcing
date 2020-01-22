@@ -52,4 +52,18 @@ export class HeaderSearchComponent extends AutoUnsub implements OnInit {
 			supplier.type;
 	}
 
+	onFocus() {
+		this.focused = true;
+	}
+
+	onUnfocus() {
+		const { value } = this.myInput.nativeElement;
+
+		if (value) {
+			return;
+		}
+
+		this.focused = false;
+	}
+
 }

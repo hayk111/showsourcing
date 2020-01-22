@@ -2,6 +2,7 @@
 	<div class="grid-section" horizontalScroll>
 		<div *ngFor="let item of products.slice(0, 10); let selectedIndex = index" class="card">
 			<product-grid-card-app
+				size="s"
 				[hasCheckbox]="false"
 				[product]="products[selectedIndex]"
 				(favorited)="updateProduct(products[selectedIndex], {favorite: true})"
