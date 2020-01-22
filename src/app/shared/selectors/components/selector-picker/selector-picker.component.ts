@@ -108,11 +108,10 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	) { super(cd); }
 
 	ngOnInit() {
-		if (this.multiple && !this.value)
-			this.value = [];
 		this.group = this.fb.group({
 			name: ['']
 		});
+
 		if (this.canCreate) {
 			this.nameExists$ = this.searched$.pipe(
 				switchMap(_ => this.choices$.pipe(
@@ -127,12 +126,15 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 
 		// init the list query
 		if (this.multiple) {
+			if (!this.value)
+				this.value = [];
 			// if its multiple we want to filter the values that we have currently selected, so they don't appear on the options
 			this.choices$ = this.getChoices(this.type).pipe(map((items) => this.filterValues(items)));
 		} else {
 			this.choices$ = this.getChoices(this.type);
 		}
 
+		// if there is any search text available when we start the component, we search for it
 		if (this.searchTxt)
 			this.search(this.searchTxt);
 	}
@@ -140,7 +142,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	ngAfterViewInit() {
 		this.keyManager = new ActiveDescendantKeyManager(this.virtualItems).withWrap().withTypeAhead();
 		this.inp.focus();
-		this.searched$.next(this.searchTxt);
+		this.search(this.searchTxt);
 	}
 
 	ngOnChanges() {
@@ -154,6 +156,11 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		this.selectorSrv.refetch();
 	}
 
+	/**
+	 * when the selector has multiple choice, we call this function to filter choices
+	 * so the elements inside the value (array), does not appear on the choices
+	 * @param items
+	 */
 	private filterValues(items: any[]) {
 		switch (this.type) {
 			case ERM.EMAIL:
@@ -166,6 +173,9 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		}
 	}
 
+	/**
+	 * resets input, focus input and reset search
+	 */
 	private resetInput() {
 		this.inp.control.reset();
 		this.inp.focus();
@@ -224,6 +234,9 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		}
 	}
 
+	/**
+	 * this is called when we want to update the value
+	 */
 	onChange() {
 		this.onChangeFn(this.value);
 		if (!this.multiple)
@@ -326,8 +339,8 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	}
 
 	/**
-	 * Upon selecting an item, we emit its new value and reset the input
-	 * @param item
+	 * Upon selecting an item, we read a property, depending on the type, and we emit its new value and reset the input, d
+	 * @param item selected item, which will be the new value
 	 */
 	onSelect(item) {
 		let itemToReturn = item;
@@ -352,7 +365,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 				break;
 		}
 
-		if (this.multiple && !this.isSelected(itemToReturn)) { // if its multiple and its not selected we add it
+		if (this.multiple && !this.isStored(itemToReturn)) { // if its multiple and its not already on our sotred values we add it
 			this.value.push(itemToReturn);
 			this.onChange();
 		} else if (!this.multiple) { // if not multiple we update and close
@@ -443,6 +456,10 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		}
 	}
 
+	/**
+	 * handles how we manage the selection of choices using keyboard events and keymanager
+	 * @param event keyboard event
+	 */
 	onKeydown(event: KeyboardEvent) {
 		if (event.keyCode === ENTER && this.keyManager && this.keyManager.activeItem) {
 			// we get the item label from each row selector
@@ -461,19 +478,29 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			}
 
 		} else if (event.keyCode === UP_ARROW || event.keyCode === DOWN_ARROW) {
+			// we use this number to know between how many rows navigated we have to scroll Into view
+			// we set it to 5 since its the number of elements we see on the selector.
+			const numberRows = 5;
 			this.movedArrow = true;
+			// active index
 			let aIndex = this.keyManager.activeItemIndex;
 			const items = this.elementRefItems.toArray();
-			// we call this before the event key sicne we are going back with the arrow key up
-			if (event.keyCode === UP_ARROW && aIndex % 5 === 0) items[aIndex - 5 > 0 ? aIndex - 5 : 0].nativeElement.scrollIntoView();
+			// we call this before the event key since we are going back with the arrow key up
+			// this case happens when you have pressed 5 times DOWN_ARROW and you get scrollIntoView
+			// then you press UP_ARROW, instead of scrolling into the active index, we have to scroll to the index 5 rows above
+			// this way we generate the ilusion that we went up on the row sections (try it on app for more clarification)
+			if (event.keyCode === UP_ARROW && aIndex % numberRows === 0)
+				items[aIndex - numberRows > 0 ? aIndex - numberRows : 0].nativeElement.scrollIntoView();
 			// register the move of the key
 			this.keyManager.onKeydown(event);
 			// get the new index
 			aIndex = this.keyManager.activeItemIndex;
 			// this case scenario is when you reach the last index of the item when going with up arrow key, we have to scroll to the last item
-			if (event.keyCode === UP_ARROW && aIndex === items.length - 1) items[aIndex].nativeElement.scrollIntoView();
-			// every 5 rows we scroll to the next item
-			if (event.keyCode === DOWN_ARROW && aIndex % 5 === 0) items[aIndex].nativeElement.scrollIntoView();
+			if (event.keyCode === UP_ARROW && aIndex === items.length - 1)
+				items[aIndex].nativeElement.scrollIntoView();
+			// every numberRows we scroll to the next item
+			if (event.keyCode === DOWN_ARROW && aIndex % numberRows === 0)
+				items[aIndex].nativeElement.scrollIntoView();
 		}
 	}
 
@@ -484,7 +511,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	 * @returns true if the current item is selected, flase otherwise
 	 */
 	// this method should only be used when multiple true, since we acces the value as an array
-	private isSelected(item: any) {
+	private isStored(item: any) {
 		let isSelected = false;
 		if (!this.multiple)
 			return isSelected;
@@ -539,18 +566,6 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 				break;
 		}
 		this.onChange();
-	}
-
-	/**
-	 * gets the active class when an item is selected
-	 * @param item item we want to check if is selected
-	 * @returns active class if the item is selected, otherwise empty class
-	 */
-	getActiveClass(item) {
-		// we only use it when its not multiple
-		if (!this.multiple)
-			return [];
-		return this.isSelected(item) ? ['active'] : [];
 	}
 
 }
