@@ -81,7 +81,7 @@ export class ProductDetailsPageComponent extends AutoUnsub implements OnInit {
 		if (!product) {
 			this.toastSrv.add({
 				type: ToastType.ERROR,
-				title: this.translate.instant('title.product-not-exist'),
+				title: 'title.product-not-exist',
 				timeout: 3500
 			});
 			this.router.navigate(['products']);
@@ -94,8 +94,8 @@ export class ProductDetailsPageComponent extends AutoUnsub implements OnInit {
 		log.error(error);
 		this.toastSrv.add({
 			type: ToastType.ERROR,
-			title: this.translate.instant('title.error'),
-			message: this.translate.instant('error.there-is-an-error'),
+			title: 'title.error',
+			message: 'message.there-is-an-error',
 			timeout: 3500
 		});
 		this.router.navigate(['products']);
@@ -107,8 +107,8 @@ export class ProductDetailsPageComponent extends AutoUnsub implements OnInit {
 				.subscribe(_ => {
 					this.toastSrv.add({
 						type: ToastType.SUCCESS,
-						title: this.translate.instant('title.products-archived'),
-						message: this.translate.instant('message.products-archived-successfully')
+						title: 'title.products-archived',
+						message: 'message.products-archived-successfully'
 					});
 				});
 		} else {
@@ -117,8 +117,8 @@ export class ProductDetailsPageComponent extends AutoUnsub implements OnInit {
 				.subscribe(_ => {
 					this.toastSrv.add({
 						type: ToastType.SUCCESS,
-						title: this.translate.instant('title.product-archived'),
-						message: this.translate.instant('message.product-archived-successfully')
+						title: 'title.product-archived',
+						message: 'message.product-archived-successfully'
 					});
 				});
 		}

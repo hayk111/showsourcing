@@ -309,8 +309,8 @@ export class ListPageService
 			.subscribe(_ => {
 				this.toastSrv.add({
 					type: ToastType.SUCCESS,
-					title: 'item archived',
-					message: 'item archived successfully'
+					title: 'title.item-archived',
+					message: 'message.item-archived-successfully'
 				});
 			});
 	}
@@ -322,8 +322,8 @@ export class ListPageService
 			.subscribe(_ => {
 				this.toastSrv.add({
 					type: ToastType.SUCCESS,
-					title: 'items archived',
-					message: 'items archived successfully'
+					title: 'title.items-archived',
+					message: 'message.items-archived-successfully'
 				});
 			});
 	}
@@ -492,5 +492,9 @@ export class ListPageService
 
 	exportSelection() {
 		this.dlgSrv.open(ExportDlgComponent, { targets: this.getSelectedValues() });
+	}
+
+	exportAll() {
+		this.dlgSrv.open(ExportDlgComponent, { query: 'deleted == false AND archived == false', type: this.entityMetadata.entityName });
 	}
 }

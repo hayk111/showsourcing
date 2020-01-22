@@ -23,17 +23,20 @@ import { Task } from '~models/task.model';
 import { Team } from '~models/team.model';
 import { User } from '~models/user.model';
 
-import { CreateRequest } from './create-request.model';
-import { ExtendedFieldDefinition } from './extended-field-definition.model';
-import { ExtendedField } from './extended-field.model';
-import { Price } from './price.model';
-import { RequestElement } from './request-element.model';
-import { RequestReply } from './request-reply.model';
-import { RequestTemplate } from './request-template.model';
-import { SelectorElement } from './selector-element.model';
-import { SupplierRequest } from './supplier-request.model';
-import { Company } from './company.model';
-import { RPCRequest } from './rpc-request.model';
+import { CreateRequest } from '../create-request.model';
+import { ExtendedFieldDefinition } from '../extended-field-definition.model';
+import { ExtendedField } from '../extended-field.model';
+import { Price } from '../price.model';
+import { RequestElement } from '../request-element.model';
+import { RequestReply } from '../request-reply.model';
+import { RequestTemplate } from '../request-template.model';
+import { SelectorElement } from '../selector-element.model';
+import { SupplierRequest } from '../supplier-request.model';
+import { Company } from '../company.model';
+import { RPCRequest } from '../rpc-request.model';
+import { EntityName } from './entity.utils';
+
+// TODO we need to clean this part of the application
 
 export const ERM_TOKEN = new InjectionToken<string>('ERM_TOKEN');
 
@@ -45,6 +48,7 @@ export class EntityMetadata {
 	readonly destUrl: string;
 	readonly image: string;
 	readonly translationKey: string;
+	readonly entityName: EntityName;
 
 	constructor(
 		singular: string,
@@ -61,6 +65,7 @@ export class EntityMetadata {
 		this.url = url || plural;
 		this.destUrl = destUrl || this.url;
 		this.constClass = constClass;
+		this.entityName = this.singular as EntityName;
 	}
 
 }
@@ -138,6 +143,6 @@ export class ERM {
 			if (name === ERM[item].singular || name === ERM[item].plural)
 				return ERM[item];
 		}
-		throw Error(`The string "${name}" does not exist on the _erm.enum.ts`);
+		throw Error(`The string "${name}" does not exist on the _erm.utils.ts`);
 	}
 }

@@ -54,7 +54,9 @@ export class SamplesPageComponent extends AutoUnsub implements OnInit {
 			entitySrv: this.sampleSrv,
 			searchedFields: ['name', 'supplier.name', 'product.name', 'assignee.firstName', 'assignee.lastName', 'type'],
 			entityMetadata: ERM.SAMPLE,
-			initialFilters: [],
+			initialFilters: [
+				{ type: FilterType.ARCHIVED, value: false }
+			],
 			originComponentDestroy$: this._destroy$,
 			selectParams
 		});

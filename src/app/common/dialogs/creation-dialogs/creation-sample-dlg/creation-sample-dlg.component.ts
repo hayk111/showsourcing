@@ -1,13 +1,11 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { SampleDescriptor } from '~core/descriptors';
 import { SampleService, UserService } from '~core/entity-services';
 import { Product, Sample, Supplier } from '~core/models';
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { ToastService, ToastType } from '~shared/toast';
-import { TranslateService } from '@ngx-translate/core';
 import { uuid } from '~utils';
-import { Observable } from 'rxjs';
-import { filter } from 'rxjs/operators';
 
 @Component({
 	selector: 'creation-sample-dlg-app',
@@ -29,7 +27,6 @@ export class CreationSampleDlgComponent implements OnInit {
 		private dlgSrv: DialogService,
 		private sampleSrv: SampleService,
 		private toastSrv: ToastService,
-		private translate: TranslateService,
 		private userSrv: UserService
 	) {
 	}
@@ -45,21 +42,21 @@ export class CreationSampleDlgComponent implements OnInit {
 			'name', 'assignee', 'description', 'product', 'supplier'
 		]);
 		this.sampleDescriptor.modify([
-			{ name: 'name', metadata: { placeholder: this.translate.instant('placeholder.sample-name') } },
-			{ name: 'assignee', metadata: { placeholder: this.translate.instant('select-assignee'), width: 495 } },
+			{ name: 'name', metadata: { placeholder: 'sample-name' } },
+			{ name: 'assignee', metadata: { placeholder: 'select-assignee', width: 495 } },
 			{
 				name: 'product',
-				label: this.translate.instant('text.linked-to-product'),
+				label: 'linked-to-product',
 				metadata: {
-					placeholder: this.translate.instant('placeholder.search-your-product'),
+					placeholder: 'search-your-product',
 					width: 495
 				}
 			},
 			{
 				name: 'supplier',
-				label: this.translate.instant('text.linked-to-supplier'),
+				label: 'linked-to-supplier',
 				metadata: {
-					placeholder: this.translate.instant('placeholder.search-your-supplier'),
+					placeholder: 'search-your-supplier',
 					width: 495
 				}
 			},
@@ -95,16 +92,16 @@ export class CreationSampleDlgComponent implements OnInit {
 					}
 					this.toastSrv.add({
 						type: ToastType.SUCCESS,
-						title: this.translate.instant('title.sample-created'),
-						message: this.translate.instant('message.sample-created-with-success')
+						title: 'title.sample-created',
+						message: 'message.sample-created-with-success'
 					});
 					this.sampleSrv.onUpdateSampleList();
 				},
 				err => {
 					this.toastSrv.add({
 						type: ToastType.ERROR,
-						title: this.translate.instant('title.sample-not-created'),
-						message: this.translate.instant('message.your-product-not-created')
+						title: 'title.sample-not-created',
+						message: 'message.your-sample-not-created'
 					});
 				}
 			);

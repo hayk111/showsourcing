@@ -24,7 +24,7 @@ export class ControllerTableQuickActionsComponent implements OnInit {
 	}
 
 	onExportClick() {
-		this.listSrv.exportSelection();
+		this.listSrv.exportAll();
 	}
 
 	onSortClick(column: ColumnConfig) {

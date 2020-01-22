@@ -1,4 +1,9 @@
-<button *ngIf="hasExport" class="icon mg-left-ms" (click)="onExportClick()" toolTip [toolTipMessage]="'tooltip.export' | translate">
+<button 
+	*ngIf="hasExport" 
+	class="icon mg-left-ms" 
+	toolTip 
+	[toolTipMessage]="'tooltip.export-all' | translate"
+	(click)="onExportClick()">
 	<icon-app class="color-third" name="export" size="m"></icon-app>
 </button>
 

@@ -29,10 +29,10 @@ export class ExportRequestService extends GlobalService<ExportRequest> {
 	async addNotif(type: ToastType, exportReq: ExportRequest) {
 		this.toastSrv.add({
 			type,
-			title: 'Exporting file',
+			title: 'title.exporting-file',
 			message: type === ToastType.SUCCESS ?
-				'Export successfully completed' : 'Failed exporting files',
-			actionMessage: 'Click here to download the file',
+				'message.export-successfully-completed' : 'message.failed-exporting-file',
+			actionMessage: 'message.click-download-file',
 			timeout: 6500,
 			action: this.retrieveFile(exportReq)
 		});

@@ -1,14 +1,14 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Contact } from '~core/models';
-import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlight.ablecomponent';
+import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlightable.component';
 
 @Component({
-	selector: 'selector-contact-row-app',
-	templateUrl: './selector-contact-row.component.html',
-	styleUrls: ['./selector-contact-row.component.scss'],
+	selector: 'selector-option-contact-app',
+	templateUrl: './selector-option-contact.component.html',
+	styleUrls: ['./selector-option-contact.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SelectorContactRowComponent extends AbstractSelectorHighlightableComponent {
+export class SelectorOptionContactComponent extends AbstractSelectorHighlightableComponent {
 
 	@Input() contact: Contact;
 

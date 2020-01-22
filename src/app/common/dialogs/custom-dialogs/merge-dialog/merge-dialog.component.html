@@ -6,14 +6,14 @@
 		</dialog-header-app>
 
 		<div [class.opacity]="pending">
-	
+
 			<h2 class="merge-into">MERGE INTO</h2> <!-- TODO: translation to be added -->
-	
+
 			<selector-app
 				[type]="type.singular"
 				[disabled]="pending"
 				[canCreate]="false"
-				[choices]="entities"
+				[filterList]="filterList"
 				[width]="370"
 				(update)="entitySelect($event)">
 				<div class="flexVAlign select-entity ellipsis pointer txt-btn type">
@@ -24,7 +24,7 @@
 			</selector-app>
 
 			<div class="merge-entities-title">The following {{type.plural}} will be merged</div>
-	
+
 			<div class="merge-entities">
 				<ul>
 					<li *ngFor="let entity of entities">
@@ -32,7 +32,7 @@
 					</li>
 				</ul>
 			</div>
-	
+
 			<h2 class="warning-undone">Warning: This action cannot be undone</h2>
 		</div>
 
@@ -41,8 +41,8 @@
 			<div *ngIf="pending" class="flexVAlign load-spinner">
 				<spinner-app size="m"></spinner-app>
 			</div>
-			<button 
-				class="capitalize" 
+			<button
+				class="capitalize"
 				[disabled]="pending || !selected"
 				(click)="onSubmit()">
 				{{'text.merge' | translate}}

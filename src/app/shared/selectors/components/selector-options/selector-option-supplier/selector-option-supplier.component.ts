@@ -1,15 +1,15 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Supplier } from '~core/models';
-import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlight.ablecomponent';
+import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlightable.component';
 import { StatusUtils } from '~utils';
 
 @Component({
-	selector: 'selector-supplier-row-app',
-	templateUrl: './selector-supplier-row.component.html',
-	styleUrls: ['./selector-supplier-row.component.scss'],
+	selector: 'selector-option-supplier-app',
+	templateUrl: './selector-option-supplier.component.html',
+	styleUrls: ['./selector-option-supplier.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SelectorSupplierRowComponent extends AbstractSelectorHighlightableComponent {
+export class SelectorOptionSupplierComponent extends AbstractSelectorHighlightableComponent {
 
 	private _supplier: Supplier;
 	@Input() set supplier(supplier: Supplier) {

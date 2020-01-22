@@ -2,5 +2,5 @@
 	[size]="size"
 	[color]="statusUtils.getStatusColor(status)">
 	<ng-container *ngIf="displayStep">{{ status?.step + 1 }}.</ng-container>
-	{{ status?.name | translate }}
+	{{ '_user-defined.status.' + status?.name | translate }}
 </badge-app>
