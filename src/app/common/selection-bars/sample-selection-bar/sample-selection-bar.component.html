@@ -7,8 +7,12 @@
 	(selectAll)="selectAll.emit($event)"
 	(unselectAll)="unselectAll.emit()">
 
-	<button class="icon light" (click)="deleteSelected.emit()">
-		<icon-app name="trash"></icon-app>
-	</button>
+	<div class="flex flexVAlign">
+
+		<button class="warn light" (click)="deleteSelected.emit()">
+			{{ 'button.delete' | translate }}
+		</button>
+		
+	</div>
 
 </selection-bar-app>

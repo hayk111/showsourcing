@@ -7,25 +7,11 @@
 	(selectAll)="selectAll.emit($event)"
 	(unselectAll)="unselectAll.emit()">
 
-	<div class="flex">
-		<status-selector-app
-			toolTip [toolTipMessage]="'message.change-status' | translate" toolTipPosition="above-right"
-			#workActionMenu
-			selectSize="m"
-			[typeEntity]="'SUPPLIER' | erm"
-			type="multiple-selection"
-			[internalUpdate]="false"
-			(statusUpdated)="statusUpdated.emit($event)">
-		</status-selector-app>
-		<action-bar-app
-			[favorite]="allSelectedFavorite"
-			[hasLikes]="false"
-			[multiple]="true"
-			(onFavorite)="onFavorite.emit()"
-			(onUnfavorite)="onUnfavorite.emit()"	>
-			<button class="icon light" (click)="deleteSelected.emit()">
-				<icon-app class="color-secondary-dark" name="trash" size="l"></icon-app>
-			</button>
-		</action-bar-app>
+	<div class="flex flexVAlign">
+
+		<button class="warn light" (click)="deleteSelected.emit()">
+			{{ 'button.delete' | translate }}
+		</button>
+		
 	</div>
 </selection-bar-app>
