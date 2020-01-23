@@ -4,6 +4,7 @@
 	[rows]="rows"
   [currentSort]="currentSort"
   [pending]="pending"
+	[isSeaching]="isSearching"
   [count]="count"
   [currentPage]="currentPage"
 	[selected]="selection"
@@ -79,7 +80,7 @@
 							[width]="320"
 							(update)="update.emit({ id: row?.id, categories: $event })">
 							<div class="pointer" >
-								<span 
+								<span
 									*ngFor="let cat of row.categories; let last = last; trackBy: trackByFn">
 									{{ cat?.name }}{{ last ? '' : ',&nbsp;'}}
 								</span>
