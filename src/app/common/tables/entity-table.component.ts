@@ -38,6 +38,7 @@ export abstract class EntityTableComponent<T> extends TrackingComponent implemen
 	@Input() currentPage: number;
 	@Input() currentSort: Sort;
 	@Input() canUpdate = true;
+	@Input() isSearching = false;
 	// VIEW
 	@Input() hasMenu = true;
 	@Input() hasHeader = true;

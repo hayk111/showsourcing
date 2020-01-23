@@ -152,6 +152,10 @@ export class ListPageService
 		};
 	}
 
+	get isSearching() {
+		return !!this.filterList.search;
+	}
+
 	get searchValue() {
 		return this.filterList.search;
 	}
