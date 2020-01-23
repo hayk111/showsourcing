@@ -3,19 +3,26 @@
 	[width]="354"
 	[cardTemplate]="card"
 	[amountLoaded]="amountLoaded"
-	(drop)="updateSampleStatus($event)"
-	(multipleDrop)="updateSamplesStatus($event)"
-	(selectColumn)="onColumnSelected($event)"
-	(unselectColumn)="onColumnUnselected($event)"
-	(loadMore)="loadMore($event)">
+  (drop)="onUpdateSampleStatus($event)"
+  (multipleDrop)="onUpdateSamplesStatus($event)"
+  (loadMore)="loadMore($event)">
 </kanban-app>
 
-<ng-template #card let-data="data">
+<ng-template #card
+	let-data="data"
+	let-column="column"
+	let-dragInProgress="dragInProgress"
+	let-checked="checked"
+	let-selectItem="selectItem"
+	let-unselectItem="unselectItem"
+	let-previewClick="previewClick">
 	<sample-card-app
 		[sample]="data"
-		[checked]="selection?.has(data.id)"
-		(select)="listSrv.selectOne($event)"
-		(unselect)="listSrv.unselectOne($event)"
-		(previewClick)="listSrv.openPreview($event)">
+		[enablePreviewLink]="true"
+		[highlightOnChecked]="true"
+    [checked]="kanbanSelectionSrv.selection.has(data.id)"
+    (clickImage)="preview.emit(data)"
+    (select)="onSelectedOne($event, column)"
+    (unselect)="onUnselectedOne($event)">
 	</sample-card-app>
 </ng-template>
