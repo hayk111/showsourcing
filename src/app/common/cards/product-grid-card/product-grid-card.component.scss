@@ -12,7 +12,7 @@ $image-height-s: 147px;
 
 	&.small-card {
 		width: 147px;
-		height: 214px;
+		height: 220px;
 	}
 }
 
@@ -143,13 +143,5 @@ img-app {
 		height: 8px;
 		min-width: 8px;
 		margin-top: 6px
-	}
-
-	.title-s {
-		font-size: var(--font-size-s);
-	}
-
-	.sub-title-s {
-		font-size: var(--font-size-xs);
 	}
 }

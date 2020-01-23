@@ -45,11 +45,15 @@
 			[multiple]="true"
 			[width]="330"
 			(update)="update.emit({ id: product?.id, projects: $event })">
-			<icon-app class="folder action-hover-item-0 pointer color-third" size="ms" name="folder-light"></icon-app>
+			<icon-app 
+				class="folder action-hover-item-0 pointer color-third" 
+				[size]="size ==='s' ? 's' : 'ms'" 
+				name="folder-light">
+			</icon-app>
 		</selector-app>
 		<thumb-buttons-app
 			class="thumb-up action-hover-item-0"
-			size="ms"
+			[size]="size ==='s' ? 's' : 'ms'"
 			[lineStyle]="true"
 			[votes]="product?.votes"
 			(liked)="thumbUp()"
@@ -59,7 +63,7 @@
 			class="heart action-hover-item-0"
 			[hasButton]="false"
 			[lightStyle]="true"
-			size="ms"
+			[size]="size ==='s' ? 's' : 'ms'"
 			[favorite]="product?.favorite"
 			(favorited)="update.emit({ id: product?.id, favorite: true })"
 			(unfavorited)="update.emit({ id: product?.id, favorite: false })">
@@ -79,8 +83,8 @@
 		<badge-app class="badge mg-h-s" [ngStyle]="{ 'background': 'var(--color-' + statusUtils?.getStatusColor(product?.status) + ')' }" [circle]="true"></badge-app>
 		<!-- if we don't explicitly set the min-width, ellipsis wont work -->
 		<div style="min-width: 0;">
-			<div class="flexVAlign ellipsis">
-				<div class="bold-s color-txt-primary" [ngClass]="{'title-s': size === 's'}">{{ product?.name || ('message.unnamed-product' | translate) }}</div>
+			<div class="flexVAlign">
+				<div class="bold-s color-txt-primary ellipsis" [ngClass]="{'title-s': size === 's'}">{{ product?.name || ('message.unnamed-product' | translate) }}</div>
 			</div>
 			<div class="color-txt-secondary fs-s mg-bottom-xs ellipsis dot-separator" [ngClass]="{'sub-title-s': size === 's'}">
 				<span *ngIf="product?.category?.name">{{ product?.category?.name }}</span>
@@ -88,7 +92,8 @@
 			</div>
 			<rating-number-badge-app
 				*ngIf="ratingSrv.computeScoreVotes(product?.votes) >= 3.5"
-				[votes]="product?.votes">
+				[votes]="product?.votes"
+				[size]="size === 's' ? 's' : 'ms'">
 			</rating-number-badge-app>
 		</div>
 	</div>

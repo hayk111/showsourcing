@@ -9,6 +9,8 @@ import { RatingService, Vote } from '~shared/rating/services/rating.service';
 })
 export class RatingNumberBadgeComponent {
 
+	@Input() size: 's' | 'ms' | 'm' | 'l' = 'ms';
+
 	private _votes: Vote[];
 	@Input() set votes(votes: Vote[]) {
 		this._votes = votes;

@@ -21,7 +21,7 @@ export class HeaderSearchComponent extends AutoUnsub implements OnInit {
 	searchControl: FormControl;
 	searchResults$: Observable<any[]>;
 	searchBarExpanded = false;
-	focused = false;
+	hasValueOrFocused = false;
 
 	constructor(private searchSrv: SearchService) {
 		super();
@@ -53,7 +53,7 @@ export class HeaderSearchComponent extends AutoUnsub implements OnInit {
 	}
 
 	onFocus() {
-		this.focused = true;
+		this.hasValueOrFocused = true;
 	}
 
 	onUnfocus() {
@@ -63,7 +63,7 @@ export class HeaderSearchComponent extends AutoUnsub implements OnInit {
 			return;
 		}
 
-		this.focused = false;
+		this.hasValueOrFocused = false;
 	}
 
 }
