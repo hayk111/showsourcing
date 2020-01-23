@@ -31,6 +31,7 @@ export class SamplesBoardComponent extends AutoUnsub implements OnInit {
 	erm = ERM;
 	amountLoaded = 15;
 
+	// reminder, remember that in order to use kanbanservice, listSrv, etc, you have to set the providers on the parent component
 	constructor(
 		private sampleSrv: SampleService,
 		private sampleStatusSrv: SampleStatusService,
@@ -67,6 +68,8 @@ export class SamplesBoardComponent extends AutoUnsub implements OnInit {
 				descending: false
 			}).pipe(
 				first(),
+				// status null
+				map(statuses => [{ id: StatusUtils.NEW_STATUS_ID, name: 'New Sample', category: StatusUtils.DEFAULT_STATUS_CATEGORY }, ...statuses]),
 				tap(statuses => this.kanbanSrv.setColumnsFromStatus(statuses)),
 			);
 
@@ -98,7 +101,9 @@ export class SamplesBoardComponent extends AutoUnsub implements OnInit {
 
 	// returns the query of the columns based on the parameters on the list srv
 	private getColQuery(colId: string, filterList?: FilterList) {
-		const constQuery = `status.id == "${colId}"`;
+		const constQuery = colId !== StatusUtils.NEW_STATUS_ID ?
+			`status.id == "${colId}"` : `status == null`
+			;
 		const predicate = filterList ? filterList.asPredicate() : this.listSrv.filterList.asPredicate();
 		return [
 			predicate,
@@ -121,22 +126,27 @@ export class SamplesBoardComponent extends AutoUnsub implements OnInit {
 			return;
 		}
 		// we update on the server
-		this.sampleSrv.update(
-			{
-				id: event.item.id,
-				status: new SampleStatus({ id: event.to.id })
-			}
+		const isNewStatus = event.to.id === StatusUtils.NEW_STATUS_ID;
+		this.sampleSrv.update({
+			id: event.item.id,
+			status: isNewStatus ? null : new SampleStatus({ id: event.to.id })
+		},
+			Client.TEAM,
+			isNewStatus ? 'status { id }' : ''
 		).subscribe();
 	}
 
 	/** multiple */
 	onUpdateSamplesStatus(event: KanbanDropEvent) {
+		const isNewStatus = event.to.id === StatusUtils.NEW_STATUS_ID;
 		const samples = event.items.map(id => ({
 			id,
-			status: new SampleStatus({ id: event.to.id })
+			status: isNewStatus ? null : new SampleStatus({ id: event.to.id })
 		}));
 		this.sampleSrv.updateMany(
-			samples
+			samples,
+			Client.TEAM,
+			isNewStatus ? 'status { id }' : ''
 		).subscribe();
 	}
 

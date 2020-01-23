@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { EntityMetadata } from '~core/models';
 import { Status } from '~core/models/status.model';
 import { Color, StatusUtils } from '~utils';
 
@@ -14,6 +15,8 @@ import { Color, StatusUtils } from '~utils';
 export class StatusSelectorItemComponent implements OnInit {
 
 	@Input() status: Status;
+	/** property used when there is not status, to display a new state */
+	@Input() type: EntityMetadata;
 	color: Color;
 
 	ngOnInit() {
