@@ -5,8 +5,8 @@
 		<div class="extra">
 			<button (click)="dialogCommonSrv.openSelectProductDlg([], project)">Add Product</button>
 		</div>
-		<controller-table-quick-actions-app 
-			[columns]="columns" 
+		<controller-table-quick-actions-app
+			[columns]="columns"
 			[tableConfig]="tableConfig">
 		</controller-table-quick-actions-app>
 		<controller-table-view-switcher-app [hasBoard]="false"></controller-table-view-switcher-app>
@@ -19,6 +19,7 @@
 			[selection]="listSrv.selection$ | async"
 			[rows]="listSrv.items$ | async"
 			[pending]="listSrv.pending"
+			[isSearching]="listSrv.isSearching"
 			[count]="listSrv.count$ | async"
 			[currentSort]="listSrv.currentSort"
 			[currentPage]="listSrv.currentPage"

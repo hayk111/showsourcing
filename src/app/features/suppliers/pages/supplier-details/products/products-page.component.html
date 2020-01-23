@@ -16,6 +16,7 @@
 		[rows]="products"
 		[count]="listSrv.count$ | async"
 		[currentPage]="listSrv.currentPage"
+		[isSearching]="listSrv.isSearching"
 		(update)="listSrv.update($event)"
 		(goToPage)="listSrv.loadPage($event)"
 		(delete)="deassociateOneProduct($event)"

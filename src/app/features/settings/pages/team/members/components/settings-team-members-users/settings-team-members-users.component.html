@@ -1,7 +1,7 @@
 <!-- TODO: translation to be added for TEAM_MEMBER-->
 
-<controller-table-app 
-	class="spacing-ms" 
+<controller-table-app
+	class="spacing-ms"
 	[hasFilters]="false">
 	<controller-table-content-app>
 		<div toolTip [toolTipMessage]="getTooltipMsg()" toolTipPosition="above-right">
@@ -40,6 +40,7 @@
 		[user]="user"
 		[selection]="listSrv.selection$ | async"
 		[pending]="listSrv.pending"
+		[isSearching]="listSrv.isSearching"
 		[count]="listSrv.count$ | async"
 		[currentSort]="listSrv.currentSort"
 		[currentPage]="listSrv.currentPage"
