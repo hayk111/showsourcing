@@ -87,11 +87,10 @@ export class CreationProductDlgComponent implements OnInit {
 				if (this.createAnother) {
 					product = this.resetIds(product);
 					this.dlgSrv.open(CreationProductDlgComponent, { product, createAnother: true });
-					this.productSrv.onUpdateProductList();
 				} else {
-					this.productSrv.onUpdateProductList();
 					this.close();
 				}
+				this.productSrv.onUpdateProductList();
 				// success
 				this.toastSrv.add({
 					type: ToastType.SUCCESS,
