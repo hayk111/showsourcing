@@ -20,6 +20,7 @@
 		[sample]="data"
 		[enablePreviewLink]="true"
 		[highlightOnChecked]="true"
+		[clickable]="true"
     [checked]="kanbanSelectionSrv.selection.has(data.id)"
     (clickImage)="preview.emit(data)"
     (select)="onSelectedOne($event, column)"
