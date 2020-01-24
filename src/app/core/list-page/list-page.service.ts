@@ -153,7 +153,8 @@ export class ListPageService
 	}
 
 	get isSearching() {
-		return !!this.filterList.search;
+		// when is searching or filtering by non initial filters
+		return !!this.filterList.search || (this.filterList.asFilters().length > this.filterList.initialFilters.length);
 	}
 
 	get searchValue() {
