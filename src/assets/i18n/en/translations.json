@@ -297,13 +297,9 @@
 			"singular": "{{ count }} image uploaded with success",
 			"plural": "{{ count }} images uploaded with success"
 		},
-    "item-selected": {
-      "plural": "{{ count }} items selected",
-      "singular": "{{ count }} item selected"
-    },
     "n-item-uploaded-success": {
-      "plural": "{{ count }} items selected",
-      "singular": "{{ count }} item selected"
+      "plural": "{{ count }} items uploaded with success",
+      "singular": "{{ count }} item uploaded with success"
     },
     "last-updated-by-on": "Last updated by {{ name }} on {{ date }}",
     "mass-edit": {
@@ -326,9 +322,10 @@
       "singular": "{{ count }} item selected"
     },
     "n-item": {
-      "plural": "{{ count }} items",
+			"plural": "{{ count }} items",
       "singular": "{{ count }} item"
     },
+		"n-OBJ-selected": "{{ count }} {{ entity }} selected",
     "n-product": {
 			"plural": "{{ count }} products",
 			"singular": "{{ count }} product"

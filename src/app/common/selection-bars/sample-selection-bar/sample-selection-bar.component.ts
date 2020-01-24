@@ -1,4 +1,6 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ERM } from '~core/models';
+
 import { EntitySelectionBarComponent } from '../entity-selection-bar.component';
 
 @Component({
@@ -8,6 +10,9 @@ import { EntitySelectionBarComponent } from '../entity-selection-bar.component';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SampleSelectionBarComponent extends EntitySelectionBarComponent {
+
+	erm = ERM;
+
 	constructor() {
 		super();
 	}

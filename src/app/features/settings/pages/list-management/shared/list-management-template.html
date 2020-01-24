@@ -75,7 +75,7 @@
 
 <selection-bar-app
 	*ngIf="(listSrv.selection$ | async) as selection"
-	[entityType]="erm.singular"
+	[entityMetadata]="listSrv.entityMetadata"
 	[isShown]="selection.size > 0"
 	[selection]="selection"
 	[selectableItems]="listSrv.items$ | async"

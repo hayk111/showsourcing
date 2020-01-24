@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ERM } from '~core/models';
 
 import { EntitySelectionBarComponent } from '../entity-selection-bar.component';
 
@@ -9,6 +10,8 @@ import { EntitySelectionBarComponent } from '../entity-selection-bar.component';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ContactSelectionBarComponent extends EntitySelectionBarComponent {
+
+	erm = ERM;
 
 	constructor() {
 		super();
