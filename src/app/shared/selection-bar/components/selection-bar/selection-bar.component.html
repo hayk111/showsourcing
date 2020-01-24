@@ -3,8 +3,8 @@
 
   <div class="flexCenter">
     <div class="selected">
-			<select-checkbox-app 
-				[state]="getSelectionState()" 
+			<select-checkbox-app
+				[state]="getSelectionState()"
 				[size]="24"
 				(check)="selectAll.emit(selectableItems)"
 				(uncheck)="unselectAll.emit()">
@@ -21,7 +21,9 @@
     </div>
   </div>
 
-  <ng-content></ng-content>
+	<div class="flexVAlign flex">
+		<ng-content></ng-content>
+	</div>
 
 	<!-- <icon-app class="icon-close" name="close" (click)="close.emit()"></icon-app> -->
 	<!-- if we don't have the close icon we need a spacer since it uses flexBetween -->

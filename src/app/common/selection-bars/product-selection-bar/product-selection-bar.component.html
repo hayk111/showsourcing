@@ -7,70 +7,68 @@
 	(selectAll)="selectAll.emit($event)"
 	(unselectAll)="unselectAll.emit()">
 
-	<div class="flex flexVAlign elements-container">
+	<!-- Request supplier -->
+	<button class="icon-with-text vibrant mg-right-ms" (click)="createRequest.emit()">
+		<icon-app name="envelope"></icon-app>
+		<span class="capitalize" translate="button.contact-supplier"></span>
+	</button>
 
-		<!-- Request supplier -->
-		<button class="icon-with-text vibrant" (click)="createRequest.emit()">
-			<icon-app name="envelope"></icon-app>
-			<span class="capitalize" translate="button.contact-supplier"></span>
-		</button>
+	<divider-app class="mg-right-ms" [vertical]="true" [height]="24"></divider-app>
 
-		<divider-app [vertical]="true" [height]="24"></divider-app>
+	<!-- Mass edit -->
+	<button class="icon-with-text light mg-right-ms" (click)="massEdit.emit()">
+		<icon-app name="note"></icon-app>
+		<span translate="button.edit"></span>
+	</button>
 
-		<!-- Mass edit -->
-		<button class="icon-with-text light" (click)="massEdit.emit()">
-			<icon-app name="note"></icon-app>
-			<span translate="button.edit"></span>
-		</button>
+	<!-- Project -->
+	<button class="icon-with-text light mg-right-ms" (click)="addProject.emit()">
+		<icon-app name="project"></icon-app>
+		<span translate="button.project"></span>
+	</button>
 
-		<!-- Project -->
-		<button class="icon-with-text light" (click)="addProject.emit()">
-			<icon-app name="project"></icon-app>
-			<span translate="button.project"></span>
-		</button>
+	<!-- Compare products -->
+	<button class="icon-with-text light mg-right-ms" (click)="compareProducts.emit()">
+		<icon-app name="compare"></icon-app>
+		<span translate="button.compare"></span>
+	</button>
 
-		<!-- Compare products -->
-		<button class="icon-with-text light" (click)="compareProducts.emit()">
-			<icon-app name="compare"></icon-app>
-			<span translate="button.compare"></span>
-		</button>
+	<!-- Export -->
+	<button class="icon-with-text light mg-right-ms" (click)="export.emit()">
+		<icon-app name="export"></icon-app>
+		<span translate="button.export"></span>
+	</button>
 
-		<!-- Export -->
-		<button class="icon-with-text light" (click)="export.emit()">
-			<icon-app name="export"></icon-app>
-			<span translate="button.export"></span>
-		</button>
+	<!-- 3 dots menu -->
+	<context-menu-app>
+		<!-- trigger -->
+		<context-menu-trigger-app>
+			<button class="icon light mg-right-ms">
+				<icon-app name="dots-vertical" size="m"></icon-app>
+			</button>
+		</context-menu-trigger-app>
 
-		<!-- 3 dots menu -->
-		<context-menu-app>
-			<!-- trigger -->
-			<context-menu-trigger-app>
-				<button class="icon light">
-					<icon-app name="dots-vertical" size="m"></icon-app>
-				</button>
-			</context-menu-trigger-app>
+		<!-- items -->
+		<context-menu-item-app (click)="requestTeamFeedback.emit()" translate="button.request-team-feedback">
+			<div class="icon-box square flexCenter mg-right-s">
+				<icon-app name="request-quotation" size="s"></icon-app>
+			</div>
+			<span translate="button.request-feedback"></span>
+		</context-menu-item-app>
 
-			<!-- items -->
-			<context-menu-item-app (click)="requestTeamFeedback.emit()" translate="button.request-team-feedback">
-				<div class="icon-box square flexCenter mg-right-s">
-					<icon-app name="request-quotation" size="s"></icon-app>
-				</div>
-				<span translate="button.request-feedback"></span>
-			</context-menu-item-app>
+		<context-menu-item-app (click)="archiveProducts.emit()" translate="button.archive-products">
+			<div class="icon-box square flexCenter mg-right-s">
+				<icon-app name="archive" size="s"></icon-app>
+			</div>
+			<span translate="button.archive"></span>
+		</context-menu-item-app>
 
-			<context-menu-item-app (click)="archiveProducts.emit()" translate="button.archive-products">
-				<div class="icon-box square flexCenter mg-right-s">
-					<icon-app name="archive" size="s"></icon-app>
-				</div>
-				<span translate="button.archive"></span>
-			</context-menu-item-app>
+		<context-menu-item-warn-app (click)="deleted.emit()" translate="button.delete">
+			<div class="icon-box square flexCenter mg-right-s">
+				<icon-app name="delete" size="s"></icon-app>
+			</div>
+			<span translate="button.delete"></span>
+		</context-menu-item-warn-app>
+	</context-menu-app>
 
-			<context-menu-item-warn-app (click)="deleted.emit()" translate="button.delete">
-				<div class="icon-box square flexCenter mg-right-s">
-					<icon-app name="delete" size="s"></icon-app>
-				</div>
-				<span translate="button.delete"></span>
-			</context-menu-item-warn-app>
-		</context-menu-app>
-	</div>
 </selection-bar-app>
