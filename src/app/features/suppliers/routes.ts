@@ -20,7 +20,7 @@ export const routes: Array<Route> = [
 			{ path: 'samples', component: DetailsPage.SamplesPageComponent },
 			{ path: 'tasks', component: DetailsPage.TasksPageComponent },
 			{ path: 'files', component: DetailsPage.FilesPageComponent },
-			{ path: 'requests', component: DetailsPage.RequestsPageComponent },
+			// { path: 'requests', component: DetailsPage.RequestsPageComponent },
 		]
 	}
 ];
