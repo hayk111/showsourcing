@@ -118,10 +118,10 @@ export class DialogCommonService {
 	}
 
 	openCreationProductDlg() {
-		this.dlgSrv.open(CreationProductDlgComponent).pipe(
+		return this.dlgSrv.open(CreationProductDlgComponent).pipe(
 			filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
 			map((evt: CloseEvent) => evt.data)
-		).subscribe();
+		);
 	}
 
 	openCreationSupplierDlg(products: Product[]) {

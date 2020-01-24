@@ -1,18 +1,7 @@
-import {
-	ChangeDetectionStrategy,
-	Component,
-	ContentChild,
-	ElementRef,
-	EventEmitter,
-	Input,
-	Output,
-	Renderer2,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChild, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService } from '~entity-services';
 import { Sample } from '~models';
 import { ContextMenuComponent } from '~shared/context-menu/components/context-menu/context-menu.component';
-import { RatingService } from '~shared/rating/services/rating.service';
 import { TrackingComponent } from '~utils/tracking-component';
 
 @Component({
@@ -20,11 +9,12 @@ import { TrackingComponent } from '~utils/tracking-component';
 	templateUrl: './sample-card.component.html',
 	styleUrls: ['./sample-card.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		'[class.pointer]': 'clickable || enabledHoverContent'
+	}
 })
 export class SampleCardComponent extends TrackingComponent {
 
-	/** The link to display the element */
-	link: string;
 	/** The associated sample */
 	private _checked: boolean;
 	@Input() set checked(checked: boolean) {
@@ -34,17 +24,7 @@ export class SampleCardComponent extends TrackingComponent {
 		return this._checked;
 	}
 	/** The associated sample */
-	@Input() set sample(sample: Sample) {
-		this._sample = sample;
-		this.link = '/sample/' + this._sample.id + '/general';
-	}
-
-	score: number;
-
-	get sample() {
-		return this._sample;
-	}
-
+	@Input() sample: Sample;
 	/** Highlight the card when checked */
 	@Input() highlightOnChecked: boolean;
 	/** Select when clicking on the whole card */
@@ -54,9 +34,7 @@ export class SampleCardComponent extends TrackingComponent {
 	/** Whether the sample preview is accessibe from the card */
 	@Input() enablePreviewLink: boolean;
 	@Input() dragInProgress: boolean;
-
 	@Input() showCheckbox = true;
-
 	@Input() clickable = false;
 
 	/** Trigger the event when the element is selected via the checkbox */
@@ -69,22 +47,17 @@ export class SampleCardComponent extends TrackingComponent {
 	@ContentChild(ContextMenuComponent, { static: false }) contextMenu: ContextMenuComponent;
 
 
+	score: number;
 	/** The contextual menu is opened */
 	contextualMenuOpened = false;
 	/** An interaction (check or uncheck) occured on the checkbox */
 	checkboxAction = false;
-	/** The user vote if any */
-	private _sample: Sample;
 	like = false;
 	dislike = false;
 	thumbsName = 'thumbs-up-white';
 
 	constructor(
-		private userSrv: UserService,
-		private elementRef: ElementRef,
-		private renderer: Renderer2,
-		private router: Router,
-		private ratingSrv: RatingService
+		private router: Router
 	) {
 		super();
 	}
@@ -132,11 +105,5 @@ export class SampleCardComponent extends TrackingComponent {
 		this.checked = false;
 		this.checkboxAction = true;
 		this.unselect.emit(this.sample);
-	}
-
-	openSample() {
-		if (this.clickable && this.link) {
-			this.router.navigate([this.link]);
-		}
 	}
 }

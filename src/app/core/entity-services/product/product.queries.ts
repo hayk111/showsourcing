@@ -56,6 +56,7 @@ export abstract class ProductQueries extends GlobalQueries {
 	static readonly images = `images { id, orientation, imageType, urls { id, url } }`;
 	static readonly attachments = `attachments { id, fileName, url, size }`;
 	static readonly supplier = `supplier {
+		reference
 		id, name, address, country, favorite, officeEmail,
 		logoImage { id, urls { url } }
 		categories { id, name }
