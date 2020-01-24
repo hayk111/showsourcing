@@ -22,7 +22,7 @@
 	[rows]="listSrv.items$ | async"
 	[currentSort]="listSrv.currentSort"
 	[pending]="listSrv.pending"
-	[isSearching]="listSrv.isSearching"
+	[isFiltering]="listSrv.isFiltering"
 	[count]="listSrv.count$ | async"
 	[currentPage]="listSrv.currentPage"
 	(goToPage)="listSrv.loadPage($event)"

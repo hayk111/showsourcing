@@ -16,7 +16,7 @@
 	[rows]="listSrv.items$ | async"
 	[selection]="listSrv.selection$ | async"
 	[pending]="listSrv.pending"
-	[isSearching]="listSrv.isSearching"
+	[isFiltering]="listSrv.isFiltering"
 	(goToPage)="listSrv.loadPage($event)"
 	(sort)="listSrv.sort($event)"
 	(select)="listSrv.selectOne($event, true)"
