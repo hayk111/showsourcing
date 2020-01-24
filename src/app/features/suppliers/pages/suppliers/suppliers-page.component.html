@@ -8,9 +8,10 @@
 
 <controller-table-app>
 	<controller-table-quick-filters-app></controller-table-quick-filters-app>
-	<controller-table-quick-actions-app 
-		[columns]="columns" 
-		[tableConfig]="tableConfig">
+	<controller-table-quick-actions-app
+		[columns]="columns"
+		[tableConfig]="tableConfig"
+		[currentSort]="listSrv.currentSort">
 	</controller-table-quick-actions-app>
 </controller-table-app>
 
@@ -21,6 +22,7 @@
 	[currentSort]="listSrv.currentSort"
 	[selection]="listSrv.selection$ | async"
 	[pending]="listSrv.pending"
+	[isFiltering]="listSrv.isFiltering"
 	[count]="listSrv.count$ | async"
 	[currentPage]="listSrv.currentPage"
 	(goToPage)="listSrv.loadPage($event)"

@@ -1,13 +1,12 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
+import { SuppliersTableComponent } from '~common/tables/suppliers-table/suppliers-table.component';
 import { SupplierService } from '~core/entity-services';
 import { ListPageService } from '~core/list-page';
 import { SelectParamsConfig } from '~entity-services/_global/select-params';
 import { ERM, Supplier } from '~models';
 import { FilterType } from '~shared/filters';
-import { ToastService } from '~shared/toast';
 import { AutoUnsub } from '~utils';
-import { SuppliersTableComponent } from '~common/tables/suppliers-table/suppliers-table.component';
 
 // A doctor accidentally prescribes his patient a laxative instead of a coughing syrup.
 // -
@@ -42,9 +41,7 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit, AfterVi
 	columns = SuppliersTableComponent.DEFAULT_COLUMNS;
 	tableConfig = SuppliersTableComponent.DEFAULT_TABLE_CONFIG;
 
-	// TODO BackEnd
-	// private selectItemsConfig: SelectParamsConfig = { query: 'deleted == false AND archived == false' };
-	private selectItemsConfig: SelectParamsConfig = { query: 'deleted == false' };
+	private selectItemsConfig: SelectParamsConfig = { query: 'deleted == false AND  archived == false' };
 
 	public tableWidth: string;
 	public addSupplierMargin: string;
@@ -61,7 +58,6 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit, AfterVi
 		this.listSrv.setup({
 			entitySrv: this.supplierSrv,
 			searchedFields: ['name', 'tags.name', 'categories.name', 'description'],
-			// initialFilters: [{ type: FilterType.ARCHIVED, value: false }, { type: FilterType.DELETED, value: false }],
 			initialFilters: [
 				{ type: FilterType.DELETED, value: false },
 				{ type: FilterType.ARCHIVED, value: false }

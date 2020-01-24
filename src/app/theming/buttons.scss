@@ -17,6 +17,7 @@ button, input[type="submit"], .button {
 	@extend .ripple;
 	display: inline-flex;
 	align-items: center;
+	justify-content: center;
 	padding: 0 var(--spacing-ms);
 	cursor: pointer;
 	font-weight: 600;

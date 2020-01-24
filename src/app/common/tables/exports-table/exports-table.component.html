@@ -1,4 +1,5 @@
 <table-app
+	type="export"
 	[placeholder]="'placeholder.no-exports' | translate"
 	[rows]="rows"
 	[hasMenu]="false"
@@ -7,6 +8,7 @@
 	[hasBorder]="hasBorder"
 	[currentSort]="currentSort"
 	[pending]="pending"
+	[isSeaching]="isFiltering"
 	[count]="count"
 	[currentPage]="currentPage"
 	(goToPage)="goToPage.emit($event)"
@@ -33,12 +35,12 @@
 						<logo-app type="export" size="s"></logo-app>
 					</div>
 				</ng-container>
-				
+
 				<!-- type attachment for logo -->
 				<default-columns-app
 					*ngSwitchDefault
-					[row]="row" 
-					[column]="column" 
+					[row]="row"
+					[column]="column"
 					[hovered]="row.id === hovered"
 					[type]="'ATTACHMENT' | erm"
 					(update)="update.emit($event)"
@@ -97,4 +99,3 @@
 		translate="button.download">
 	</context-menu-item-app>
 </ng-template>
-	

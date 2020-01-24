@@ -3,7 +3,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ActivityCommonModule } from '~common/activity/activity-common.module';
 import { BoardsCommonModule } from '~common/boards/boards-common.module';
+import { CardsCommonModule } from '~common/cards/cards-common.module';
+import { CatalogCommonModule } from '~common/catalogs/catalog-common.module';
 import { GridsCommonModule } from '~common/grids/grids-common.module';
+import { ListCommonModule } from '~common/list/list-common.module';
 import { PreviewsCommonModule } from '~common/previews/previews-common.module';
 import { SelectionBarsCommonModule } from '~common/selection-bars/selection-bars-common.module';
 import { SortingMenusCommonModule } from '~common/sorting-menus/sorting-menus-common.module';
@@ -14,10 +17,6 @@ import { SharedModule } from '~shared/shared.module';
 
 import * as DetailsPage from './pages/product-details';
 import * as TablePage from './pages/products';
-import { ProductFeatureService, QuoteFeatureService } from './services';
-import { CardsCommonModule } from '~common/cards/cards-common.module';
-import { CatalogCommonModule } from '~common/catalogs/catalog-common.module';
-import { ListCommonModule } from '~common/list/list-common.module';
 
 
 @NgModule({
@@ -53,10 +52,7 @@ import { ListCommonModule } from '~common/list/list-common.module';
 	],
 	entryComponents: [],
 	exports: [],
-	providers: [
-		ProductFeatureService,
-		QuoteFeatureService
-	]
+	providers: []
 })
 export class ProductsFeatureModule {
 

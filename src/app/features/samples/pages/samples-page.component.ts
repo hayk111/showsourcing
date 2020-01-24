@@ -9,6 +9,8 @@ import { ERM, Sample } from '~models';
 import { DialogService } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
+import { KanbanService } from '~shared/kanban/services/kanban.service';
+import { KanbanSelectionService } from '~shared/kanban/services/kanban-selection.service';
 
 @Component({
 	selector: 'samples-page-app',
@@ -16,7 +18,8 @@ import { AutoUnsub } from '~utils';
 	styleUrls: ['./samples-page.component.scss'],
 	providers: [
 		ListPageService,
-		DialogCommonService
+		KanbanService,
+		KanbanSelectionService
 	],
 	host: {
 		class: 'table-page'

@@ -31,7 +31,6 @@
 </div>
 
 <!-- dropdown items -->
-<!-- [ngClass]="getActiveClass(item)" in case we want set an active class -->
 <div class="container-items" infiniScroll (bottomReached)="selectorSrv.loadMore()">
 
 	<ng-container *ngIf="(choices$ | async); else spinner">

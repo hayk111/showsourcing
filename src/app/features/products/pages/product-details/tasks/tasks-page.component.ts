@@ -5,8 +5,7 @@ import { AbstractTaskCommonComponent } from '~common/abstracts/abstract-task-com
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { SelectParams } from '~core/entity-services/_global/select-params';
 import { ListPageService } from '~core/list-page';
-import { TaskService, UserService } from '~entity-services';
-import { ProductFeatureService } from '~features/products/services';
+import { TaskService, UserService, ProductService } from '~entity-services';
 import { Product, Task } from '~models';
 import { DialogService } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
@@ -30,7 +29,7 @@ export class TasksPageComponent extends AbstractTaskCommonComponent implements O
 		protected router: Router,
 		protected taskSrv: TaskService,
 		protected dlgSrv: DialogService,
-		protected featureSrv: ProductFeatureService,
+		protected productSrv: ProductService,
 		public dialogCommonSrv: DialogCommonService,
 		public listSrv: ListPageService<Task, TaskService>
 	) {
@@ -44,7 +43,7 @@ export class TasksPageComponent extends AbstractTaskCommonComponent implements O
 		);
 
 		id$.pipe(
-			switchMap(id => this.featureSrv.selectOne(id)),
+			switchMap(id => this.productSrv.selectOne(id)),
 			takeUntil(this._destroy$)
 		).subscribe(product => this.product = product);
 

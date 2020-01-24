@@ -36,6 +36,10 @@
 
 		</context-menu-trigger-app>
 
+		<!-- status null we add on top -->
+		<context-menu-item-app (click)="updateStatus(null)">
+			<status-selector-item-app [type]="typeEntity"></status-selector-item-app>
+		</context-menu-item-app>
 		<context-menu-item-app *ngFor="let stat of (status$ | async); last as last; trackBy: trackByFn" (click)="updateStatus(stat)">
 			<status-selector-item-app [status]="stat"></status-selector-item-app>
 		</context-menu-item-app>
