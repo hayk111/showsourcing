@@ -12,7 +12,7 @@ export const animation = [
 		state(
 			'expanded',
 			style({
-				width: '260px',
+				width: '100%',
 				opacity: 1,
 			})
 		),

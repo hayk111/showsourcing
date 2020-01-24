@@ -1,4 +1,4 @@
-<card-app padding="none">
+<card-app [hasShadow]="false" padding="none">
 
 	<ng-container *ngIf="products$ | async as products; else spinner">
 		<!-- user -->

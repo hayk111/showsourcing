@@ -2,6 +2,7 @@
 	*ngIf="score !== null"
 	class="container flexCenter"
 	[ngClass]="getClasses()">
-	<icon-app class="icon-star" name="star" size="ms"></icon-app>
-	<span class="score">{{ score | number: '1.1-2' }}</span>
+	<icon-app class="icon-star" name="star" [size]="size"></icon-app>
+	<span class="score" 
+		[ngStyle]="{'font-size': 'var(--font-size-' + size + ')'}">{{ score | number: '1.1-2' }}</span>
 </div>

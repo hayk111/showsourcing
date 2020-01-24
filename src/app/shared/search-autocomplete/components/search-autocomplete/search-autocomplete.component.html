@@ -4,7 +4,7 @@
 </div>
 
 <!-- the autocomplete card -->
-<div class="autocomplete z-4 flexColumn" *ngIf="autocompleteOpen" (clickOutside)="clickOutside()"
-	[ngStyle]="{ 'left': xPosition + 'px', 'top': + yPosition + 'px', 'width': width ? width + 'px' : null }">
+<div class="full-width autocomplete z-4 flexColumn" *ngIf="autocompleteOpen" (clickOutside)="clickOutside()"
+	[ngStyle]="{ 'left': xPosition + 'px', 'top': + yPosition + 'px' }">
 	<ng-content></ng-content>
 </div>

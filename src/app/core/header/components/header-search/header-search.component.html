@@ -1,8 +1,27 @@
+<search-bar-animated-app
+	#searchBar
+	[focused]="hasValueOrFocused"
+	[disableClickOutside]="true"
+	[animated]="false"
+	[hasBorder]="false"
+	(searchStateChanged)="onSearchBarStateChanged($event)">
+	<input
+		#myInput 
+		class="searchInput"
+		inputApp 
+		restrictSpecial 
+		[restrictArrows]="true"
+		[placeholder]="'placeholder.sidebar-search' | translate"
+		type="text" 
+		[formControl]="searchControl" 
+		(input)="triggerSearch()"
+		(focus)="onFocus()"
+		(focusout)="onUnfocus()"/>
+</search-bar-animated-app>
 <search-autocomplete-app
 	#searchAutocomplete
 	[xPosition]="0"
-	[yPosition]="35"
-	[width]="400"
+	[yPosition]="12"
 	[closeOnDisplay]="true"
 	(close)="searchBar.shrinkSearch()">
 	<ng-container *ngIf="searchResults$ | async as searchResults; else spinner">
@@ -12,17 +31,23 @@
 					*ngIf="result.type === 'product'"
 					[type]="result.type"
 					[selectable]="false"
-					[status]="result?.status?.status" [title]="result.name" [subtitle]="result.supplier?.name"
+					[status]="result?.status" [title]="result.name" [subtitle]="result.supplier?.name"
+					[price]="result?.price"
+					[votes]="result?.votes"
+					[category]="result?.category?.name"
+					[link]="'/products/' + result.id">
 					[image]="result.images[0]"
-					[link]="'/product/' + result.id">
 				</search-autocomplete-item-content-app>
 				<search-autocomplete-item-content-app
 					*ngIf="result.type === 'supplier'"
 					[type]="result.type"
 					[selectable]="false"
-					[status]="result?.status?.status" [title]="result.name" [subtitle]="supplierSubtitle(result)"
+					[status]="result?.status" [title]="result.name" [subtitle]="supplierSubtitle(result)"
+					[price]="result?.price"
+					[votes]="result?.votes"
+					[category]="result?.category?.name"
 					[image]="result.images[0]"
-					[link]="'/supplier/' + result.id ">
+					[link]="'/suppliers/' + result.id ">
 				</search-autocomplete-item-content-app>
 			</search-autocomplete-item-app>
 		</ng-container>
@@ -34,11 +59,3 @@
 		<dots-app class="flexCenter"></dots-app>
 	</ng-template>
 </search-autocomplete-app>
-<search-bar-animated-app
-	#searchBar
-	[disableClickOutside]="true"
-	[hasBorder]="false"
-	[ngClass]="{ expanded: searchBarExpanded }"
-	(searchStateChanged)="onSearchBarStateChanged($event)">
-	<input inputApp class="searchInput" restrictSpecial [restrictArrows]="true" type="text" (input)="triggerSearch()" [formControl]="searchControl" [placeholder]="'placeholder.sidebar-search' | translate"/>
-</search-bar-animated-app>
