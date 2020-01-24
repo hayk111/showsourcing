@@ -33,6 +33,7 @@
 	[isShown]="(listSrv.selection$ | async)?.size > 0"
 	[selection]="listSrv.selection$ | async"
 	[selectableItems]="listSrv.items$ | async"
+	(deleteSelected)="listSrv.deleteSelected(true)"
 	(close)="listSrv.unselectAll()"
 	(selectAll)="listSrv.selectAll($event)"
 	(unselectAll)="listSrv.unselectAll()">
