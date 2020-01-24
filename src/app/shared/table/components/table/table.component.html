@@ -156,10 +156,16 @@ https://stackblitz.com/edit/angular-vtluff?file=src/app/app.component.ts -->
 			size="xxl"
 			[type]="type">
 		</logo-app>
-		<div class="placeholder-title" translate="OBJ.no-type-found" [translateParams]="{ type: type }"></div>
-		<div class="placeholder-description" translate="text.create-new-one"></div>
-		<button class="capitalize" (click)="createClick.emit()">{{ createEntityBtnName || ('OBJ.create' | translate: { field: (type) }) }}</button>
+		<ng-container *ngIf="!isSeaching; else placeholderSearch">
+			<div class="placeholder-title" translate="OBJ.no-type-found" [translateParams]="{ type: type }"></div>
+			<div class="placeholder-description" translate="text.create-new-one"></div>
+			<button class="capitalize" (click)="createClick.emit()">{{ createEntityBtnName || ('OBJ.create' | translate: { field: (type) }) }}</button>
+		</ng-container>
+		<ng-template #placeholderSearch>
+			<div *ngIf="isSeaching" class="placeholder-title" translate="OBJ.no-OBJ-matches-criteria" [translateParams]="{ type: type }"></div>
+		</ng-template>
 	</div>
+
 
 </div>
 

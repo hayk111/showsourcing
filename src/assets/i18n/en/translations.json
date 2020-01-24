@@ -357,6 +357,7 @@
     "new-OBJ-name": "New {{ field }} name",
     "no-OBJ-assigned-to-you": "No {{ field }} assigned to you",
     "no-item-add-one": "There's no {{ field }} yet, add one!",
+    "no-OBJ-matches-criteria": "No {{ type }} matches your search criteria",
     "no-type-found": "No {{ type }} found",
     "product-in-progress": {
       "plural": "Products in progress",

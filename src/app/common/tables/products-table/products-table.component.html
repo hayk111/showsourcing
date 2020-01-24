@@ -5,6 +5,7 @@
 	[type]="'PRODUCT' | erm: 'singular'"
 	[currentSort]="currentSort"
   [pending]="pending"
+	[isSeaching]="isFiltering"
   [count]="count"
   [currentPage]="currentPage"
 	[createEntityBtnName]="createEntityBtnName"
@@ -39,10 +40,10 @@
 		[grows]="!column.fixedWidth">
     <ng-container [ngSwitch]="column.name">
 
-			<default-columns-app 
+			<default-columns-app
 				*ngSwitchDefault
-				[row]="row" 
-				[column]="column" 
+				[row]="row"
+				[column]="column"
 				[hovered]="row.id === hovered"
 				[type]="'PRODUCT' | erm"
 				(update)="update.emit($event)"
@@ -109,7 +110,7 @@
             </moq-app>
 						<div *ngIf="!row?.minimumOrderQuantity">-</div>
           </editable-display-app>
-					<input #inp inputApp type="number" 
+					<input #inp inputApp type="number"
 						[value]="row?.minimumOrderQuantity" (keyup.enter)="editable.close()"/>
         </editable-container-app>
       </ng-container>

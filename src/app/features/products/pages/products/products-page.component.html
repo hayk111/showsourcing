@@ -26,6 +26,7 @@
 		[selection]="listSrv.selection$ | async"
 		[count]="listSrv.count$ | async"
 		[currentPage]="listSrv.currentPage"
+		[isFiltering]="listSrv.isFiltering"
 		(goToPage)="listSrv.loadPage($event, selectItemsConfig)"
 		(delete)="listSrv.deleteOne($event)"
 		(open)="listSrv.goToDetails($event)"
