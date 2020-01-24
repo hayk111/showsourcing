@@ -49,41 +49,27 @@ BN -> Prerelease: build number increase
 In order to use this release versioning, we use `npm version`
 e.g. on it's behaviour: `version: 2.6.0`
 
+```
 |     Version    | Command ( npm version ) | Comment                                                                                                                              |
-
 |:--------------:|:-----------------------:|--------------------------------------------------------------------------------------------------------------------------------------|
-
 | 2.6.0          |                         |                                                                                                                                      |
-
 |                | minor                   | This is just a test so you can see what happens when we are already in minor                                                         |
-
 | 2.7.0          |                         |                                                                                                                                      |
-
 |                | preminor                | Everytime we are going to jump for the next version, we will use pre-minor. This way we can  increase the build number in the future |
-
 | 2.8.0-0        |                         |                                                                                                                                      |
-
 |                | preminor                | This is just a test so you can see what  happens when we are already in preminor                                                     |
-
 | 2.9.0-0        |                         |                                                                                                                                      |
-
 |                | prerelease              | we update only the build number here                                                                                                 |
-
 | 2.9.0-1        |                         |                                                                                                                                      |
-
 |    ·    ·    · | prerelease              | we use prerelease 7 times more                                                                                                       |
-
 | 2.9.0-8        |                         |                                                                                                                                      |
-
 |                | minor                   | We decide that this is the final version and we are going to deploy.                                                                 |
-
 | 2.9.0          |                         | we deploy and create a tag with this version                                                                                         |
-
 |                | preminor                | We start again the development for the new version                                                                                   |
-
 | 2.10.0-0       |                         |                                                                                                                                      |
-
 |                | prerelease              |                                                                                                                                      |
+```
+
 This same behaviour can be used for the other 2 commands `major` and `patch`
 
 ***
