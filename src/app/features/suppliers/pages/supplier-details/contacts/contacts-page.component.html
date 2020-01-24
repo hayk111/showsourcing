@@ -28,3 +28,12 @@
 	(createClick)="openNewContactDlg({id: supplierId})"
 	(unselectAll)="listSrv.unselectAll()">
 </contacts-table-app>
+
+<contact-selection-bar-app
+	[isShown]="(listSrv.selection$ | async)?.size > 0"
+	[selection]="listSrv.selection$ | async"
+	[selectableItems]="listSrv.items$ | async"
+	(close)="listSrv.unselectAll()"
+	(selectAll)="listSrv.selectAll($event)"
+	(unselectAll)="listSrv.unselectAll()">
+</contact-selection-bar-app>

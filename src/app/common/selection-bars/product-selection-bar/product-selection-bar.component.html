@@ -8,7 +8,7 @@
 	(unselectAll)="unselectAll.emit()">
 
 	<div class="flex flexVAlign elements-container">
-		
+
 		<!-- Request supplier -->
 		<button class="icon-with-text vibrant" (click)="createRequest.emit()">
 			<icon-app name="envelope"></icon-app>
@@ -20,19 +20,19 @@
 		<!-- Mass edit -->
 		<button class="icon-with-text light" (click)="massEdit.emit()">
 			<icon-app name="note"></icon-app>
-			{{ 'button.edit' | translate }}
+			<span translate="button.edit"></span>
 		</button>
 
 		<!-- Project -->
 		<button class="icon-with-text light" (click)="addProject.emit()">
 			<icon-app name="project"></icon-app>
-			<span>Project</span> <!-- Todo: add translation -->
+			<span translate="button.project"></span>
 		</button>
 
 		<!-- Compare products -->
 		<button class="icon-with-text light" (click)="compareProducts.emit()">
 			<icon-app name="compare"></icon-app>
-			<span>Compare</span> <!-- Todo: add translation --> 
+			<span translate="button.compare"></span>
 		</button>
 
 		<!-- Export -->
@@ -64,7 +64,7 @@
 				</div>
 				<span translate="button.archive"></span>
 			</context-menu-item-app>
-			
+
 			<context-menu-item-warn-app (click)="deleted.emit()" translate="button.delete">
 				<div class="icon-box square flexCenter mg-right-s">
 					<icon-app name="delete" size="s"></icon-app>

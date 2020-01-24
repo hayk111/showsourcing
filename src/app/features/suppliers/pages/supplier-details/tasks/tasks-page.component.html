@@ -2,8 +2,8 @@
 	<controller-table-quick-filters-app></controller-table-quick-filters-app>
 	<controller-table-quick-actions-app>
 	</controller-table-quick-actions-app>
-	<controller-table-view-switcher-app 
-		[hasCard]="false" 
+	<controller-table-view-switcher-app
+		[hasCard]="false"
 		[hasBoard]="false">
 	</controller-table-view-switcher-app>
 </controller-table-app>
@@ -43,16 +43,12 @@
 	</filters-app>
 </side-panel-app>
 
-<selection-bar-app
+<task-selection-bar-app
 	[isShown]="(listSrv.selection$ | async)?.size > 0"
 	[selection]="listSrv.selection$ | async"
 	[selectableItems]="listSrv.items$ | async"
 	(close)="listSrv.unselectAll()"
+	(deleteSelected)="listSrv.deleteSelected(true)"
 	(selectAll)="listSrv.selectAll($event)"
 	(unselectAll)="listSrv.unselectAll()">
-
-	<button class="icon light" (click)="listSrv.deleteSelected(true)">
-		<icon-app name="trash" size="m"></icon-app>
-	</button>
-
-</selection-bar-app>
+</task-selection-bar-app>
