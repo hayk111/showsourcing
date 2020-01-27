@@ -4,16 +4,17 @@ import { ERM } from '~core/models';
 import { EntitySelectionBarComponent } from '../entity-selection-bar.component';
 
 @Component({
-	selector: 'sample-selection-bar-app',
-	templateUrl: './sample-selection-bar.component.html',
-	styleUrls: ['./sample-selection-bar.component.scss'],
+	selector: 'contact-selection-bar-app',
+	templateUrl: './contact-selection-bar.component.html',
+	styleUrls: ['./contact-selection-bar.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SampleSelectionBarComponent extends EntitySelectionBarComponent {
+export class ContactSelectionBarComponent extends EntitySelectionBarComponent {
 
 	erm = ERM;
 
 	constructor() {
 		super();
 	}
+
 }

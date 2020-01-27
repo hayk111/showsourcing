@@ -123,6 +123,7 @@
 				[canCreate]="customField?.metadata?.canCreate"
 				[hasBadge]="customField?.metadata?.hasBadge"
 				[width]="customField?.metadata?.width || 390"
+				[parentLabel]="customField?.label || customField?.name"
 				[placeholder]="customField?.metadata?.placeholder"
 				[autofocus]="autofocus"
 				(update)="onChange()">
