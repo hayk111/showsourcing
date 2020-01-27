@@ -21,6 +21,9 @@ import {
 } from './components/search-autocomplete/search-autocomplete.component';
 import { UtilsModule } from '~shared/utils';
 import { ImageModule } from '~shared/image/image.module';
+import { PriceModule } from '~shared/price';
+import { RatingModule } from '~shared/rating';
+import { LogoModule } from '~shared/logo';
 
 @NgModule({
 	imports: [
@@ -29,7 +32,10 @@ import { ImageModule } from '~shared/image/image.module';
 		DividerModule,
 		InputsModule,
 		BadgeModule,
-		ImageModule
+		ImageModule,
+		PriceModule,
+		RatingModule,
+		LogoModule,
 	],
 	declarations: [
 		SearchAutocompleteComponent, SearchAutocompleteTriggerComponent,

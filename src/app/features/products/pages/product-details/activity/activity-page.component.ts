@@ -2,11 +2,10 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
+import { CommentService, ProductService } from '~core/entity-services';
 import { ListPageService } from '~core/list-page';
-import { ProductFeatureService } from '~features/products/services';
-import { Product, Comment } from '~models';
+import { Comment, Product } from '~models';
 import { AutoUnsub } from '~utils';
-import { CommentService } from '~core/entity-services';
 
 
 
@@ -25,7 +24,7 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 
 	constructor(
 		private route: ActivatedRoute,
-		private productSrv: ProductFeatureService,
+		private productSrv: ProductService,
 		private commentSrv: CommentService
 	) {
 		super();

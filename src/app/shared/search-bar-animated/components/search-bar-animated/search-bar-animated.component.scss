@@ -1,6 +1,13 @@
 :host {
 	display: block;
+	
+	&.focused {
+		background: white;
+		color: black;
+	}
 }
+
+
 .ctnr {
 	display: flex;
 	align-items: center;
@@ -11,9 +18,12 @@
 }
 
 icon-app {
-	height: 32px;
-	width: 32px;
 	flex-basis: unset;
+}
+
+.icon-content {
+	height: 44px;
+	margin-left: var(--spacing-m);
 }
 
 .input-wrapper {

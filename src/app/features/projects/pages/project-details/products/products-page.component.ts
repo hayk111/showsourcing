@@ -10,7 +10,6 @@ import { DialogCommonService } from '~common/dialogs/services/dialog-common.serv
 import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
 import { ListPageService } from '~core/list-page';
 import { ProductService } from '~entity-services';
-import { ProductFeatureService } from '~features/products/services';
 import { ProjectFeatureService } from '~features/projects/services';
 import { EntityTypeEnum, ERM, Product, Project } from '~models';
 import { DialogService } from '~shared/dialog/services';
@@ -25,7 +24,7 @@ import { ProductsTableComponent } from '~common/tables/products-table/products-t
 	templateUrl: './products-page.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
-		ListPageService, ProductFeatureService
+		ListPageService
 	],
 	host: {
 		class: 'table-page'
@@ -61,7 +60,6 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 
 	constructor(
 		private featureSrv: ProjectFeatureService,
-		private productFeatureSrv: ProductFeatureService,
 		private dlgSrv: DialogService,
 		private route: ActivatedRoute,
 		private productSrv: ProductService,
@@ -131,7 +129,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 
 	onArchive(product: Product | Product[]) {
 		if (Array.isArray(product)) {
-			this.productFeatureSrv.updateMany(product.map((p: Product) => ({ id: p.id, archived: true })))
+			this.productSrv.updateMany(product.map((p: Product) => ({ id: p.id, archived: true })))
 				.pipe(switchMap(_ => this.listSrv.refetch()))
 				.subscribe(_ => {
 					this.toastSrv.add({
@@ -142,7 +140,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 				});
 		} else {
 			const { id } = product;
-			this.productFeatureSrv.update({ id, archived: true })
+			this.productSrv.update({ id, archived: true })
 				.pipe(switchMap(_ => this.listSrv.refetch()))
 				.subscribe(_ => {
 					this.toastSrv.add({

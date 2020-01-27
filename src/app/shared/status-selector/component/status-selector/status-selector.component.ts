@@ -30,10 +30,9 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 		let status;
 		if (value) {
 			const typeEntityName = this.typeEntity.singular;
-			// with this name we use the same pipe for translation
-			const name = '_New' + typeEntityName.charAt(0).toUpperCase() + typeEntityName.slice(1) + 'status';
+			// status null with this name we use the same pipe for translation
+			const name = 'New-' + typeEntityName;
 			status = value.status || { id: StatusUtils.NEW_STATUS_ID, category: StatusUtils.DEFAULT_STATUS_CATEGORY, name, step: 0 };
-			status.name = status.name.toLowerCase().replace(' ', '-');
 			this._entity = { ...value, status };
 		}
 	}
@@ -84,6 +83,11 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 			},
 				this.typeEntity
 			).subscribe(_ => this.statusUpdated.emit(status));
+		} else { // status null
+			this.statusSlctSrv.updateStatus({
+				id: this.entity.id,
+				status: null
+			}, this.typeEntity).subscribe(_ => this.statusUpdated.emit(null));
 		}
 	}
 

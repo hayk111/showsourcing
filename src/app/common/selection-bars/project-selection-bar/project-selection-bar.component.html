@@ -1,18 +1,16 @@
 <selection-bar-app
-	entityType="project"
+	[entityMetadata]="erm.PROJECT"
 	[isShown]="isShown"
 	[selectableItems]="selectableItems"
 	[selection]="selection"
 	(close)="close.emit()"
 	(selectAll)="selectAll.emit($event)"
 	(unselectAll)="unselectAll.emit()">
-	
-	<div class="flex flexVAlign">
 
-		<button class="warn light" (click)="deleteSelected.emit()">
-			{{ 'button.delete' | translate }}
-		</button>
-		
-	</div>
+	<!-- delete -->
+	<button class="icon-with-text light" (click)="deleteSelected.emit()">
+		<icon-app name="trash"></icon-app>
+		<span translate="button.delete"></span>
+	</button>
 
 </selection-bar-app>

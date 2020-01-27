@@ -7,12 +7,12 @@ import {
 	SupplierRequestDialogComponent,
 } from '~common/dialogs/custom-dialogs/supplier-request-dialog/supplier-request-dialog.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { ProductFeatureService } from '~features/products/services';
-import { ERM, Product, Project, Sample, Task, Supplier, EntityName } from '~models';
+import { ProductService } from '~core/entity-services';
+import { EntityName, ERM, Product, Project, Sample, Supplier, Task } from '~models';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
-import { ToastService, ToastType } from '~shared/toast';
 import { RatingService } from '~shared/rating/services/rating.service';
+import { ToastService, ToastType } from '~shared/toast';
 import { AutoUnsub, log } from '~utils';
 
 /**
@@ -47,7 +47,7 @@ export class ProductDetailsPageComponent extends AutoUnsub implements OnInit {
 	constructor(
 		private route: ActivatedRoute,
 		private router: Router,
-		private featureSrv: ProductFeatureService,
+		private productSrv: ProductService,
 		private dlgSrv: DialogService,
 		private toastSrv: ToastService,
 		private ratingSrv: RatingService,
@@ -64,7 +64,7 @@ export class ProductDetailsPageComponent extends AutoUnsub implements OnInit {
 		);
 
 		this.product$ = id$.pipe(
-			switchMap(id => this.featureSrv.selectOne(id)),
+			switchMap(id => this.productSrv.selectOne(id)),
 			takeUntil(this._destroy$)
 		);
 
@@ -103,7 +103,7 @@ export class ProductDetailsPageComponent extends AutoUnsub implements OnInit {
 
 	onArchive(product: Product | Product[]) {
 		if (Array.isArray(product)) {
-			this.featureSrv.updateMany(product.map((p: Product) => ({ id: p.id, archived: true })))
+			this.productSrv.updateMany(product.map((p: Product) => ({ id: p.id, archived: true })))
 				.subscribe(_ => {
 					this.toastSrv.add({
 						type: ToastType.SUCCESS,
@@ -113,7 +113,7 @@ export class ProductDetailsPageComponent extends AutoUnsub implements OnInit {
 				});
 		} else {
 			const { id } = product;
-			this.featureSrv.update({ id, archived: true })
+			this.productSrv.update({ id, archived: true })
 				.subscribe(_ => {
 					this.toastSrv.add({
 						type: ToastType.SUCCESS,
@@ -126,21 +126,21 @@ export class ProductDetailsPageComponent extends AutoUnsub implements OnInit {
 
 	/** item status update */
 	updateStatus(statusId: string) {
-		this.featureSrv
+		this.productSrv
 			.update({ id: this.product.id, status: { id: statusId } })
 			.subscribe();
 	}
 
 	/** item has been favorited */
 	onFavorited() {
-		this.featureSrv
+		this.productSrv
 			.update({ id: this.product.id, favorite: true })
 			.subscribe();
 	}
 
 	/** item has been unfavorited */
 	onUnfavorited() {
-		this.featureSrv
+		this.productSrv
 			.update({ id: this.product.id, favorite: false })
 			.subscribe();
 	}
@@ -157,7 +157,7 @@ export class ProductDetailsPageComponent extends AutoUnsub implements OnInit {
 
 	/** update the product */
 	updateProduct(product: Product) {
-		this.featureSrv
+		this.productSrv
 			.update({ id: this.product.id, ...product })
 			.subscribe();
 	}
@@ -167,7 +167,7 @@ export class ProductDetailsPageComponent extends AutoUnsub implements OnInit {
 		const text = this.translate.instant('message.confirm-delete-product');
 		this.dlgSrv.open(ConfirmDialogComponent, { text }).pipe(
 			filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
-			switchMap(_ => this.featureSrv.delete(product.id))
+			switchMap(_ => this.productSrv.delete(product.id))
 		).subscribe(_ => this.router.navigate(['products']));
 	}
 

@@ -1,6 +1,8 @@
 <table-app
+	[type]="entityMetadata.singular"
 	[rows]="rows"
 	[pending]="pending"
+	[isSeaching]="isFiltering"
 	[selected]="selection"
 	[hasMenu]="false"
 	[count]="count"
@@ -23,10 +25,10 @@
 		let-row="row"
 		[grows]="false">
 		<div class="user-icon flexCenter">
-			<logo-app 
-				type="category" 
-				size="s" 
-				color="txt-third" 
+			<logo-app
+				type="category"
+				size="s"
+				color="txt-third"
 				backgroundColor="bg-secondary"></logo-app>
 		</div>
 	</ng-template>

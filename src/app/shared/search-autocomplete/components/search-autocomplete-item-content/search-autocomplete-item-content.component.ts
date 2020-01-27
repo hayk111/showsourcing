@@ -1,26 +1,36 @@
 import {
 	Component, Input, Output,
-	EventEmitter
+	EventEmitter,
+	OnInit
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProductStatus, SupplierStatus } from '~core/models';
+import { Price, ProductVote, SupplierVote } from '~models';
+import { ERM } from '~core/models';
+
+type Vote = ProductVote | SupplierVote;
 
 @Component({
 	selector: 'search-autocomplete-item-content-app',
 	templateUrl: './search-autocomplete-item-content.component.html',
 	styleUrls: ['./search-autocomplete-item-content.component.scss']
 })
-export class SearchAutocompleteItemContentComponent {
+export class SearchAutocompleteItemContentComponent implements OnInit {
 
 	/** The main title */
 	@Input() title: string;
 	/** The sub title */
 	@Input() subtitle: string;
+	/** The price */
+	@Input() price: Price;
+	/** The vote */
+	@Input() votes: Vote[];
 	/** The status displayed into a tiny label */
 	@Input() status: ProductStatus | SupplierStatus;
 	/** The image url */
 	@Input() image: string;
 	@Input() type: string;
+	@Input() category: string;
 	/** The icon name */
 	@Input() icon: string;
 	/** Displays the checkbox */
@@ -37,6 +47,10 @@ export class SearchAutocompleteItemContentComponent {
 	@Output() itemDisplayed = new EventEmitter<null>();
 
 	constructor(private router: Router) { }
+
+	erm = ERM;
+
+	ngOnInit() {}
 
 	displayItem() {
 		if (this.selectable) {

@@ -67,6 +67,10 @@ export class TasksPageComponent extends AutoUnsub implements OnInit, AfterViewIn
 			switchMap(_ => this.taskSrv.selectCount(this.listSrv.filterList.asPredicate()).pipe(takeUntil(this._destroy$)))
 		);
 
+		this.taskSrv.taskListUpdate$.pipe(
+			switchMap(_ => this.listSrv.refetch())
+		).subscribe();
+
 	}
 
 	ngAfterViewInit() {

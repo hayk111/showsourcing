@@ -1,7 +1,6 @@
 <div class="card-container flex"
-	[ngClass]="{ 'pointer' : clickable, 'hover-content-enabled': enabledHoverContent }"
-	(clickOutside)="onClickOutsideCard()"
-	(click)="clickable && openSample()">
+	[ngClass]="{ 'hover-content-enabled': enabledHoverContent }"
+	(clickOutside)="onClickOutsideCard()">
 
 	<!-- left side -->
 	<div class="left">
