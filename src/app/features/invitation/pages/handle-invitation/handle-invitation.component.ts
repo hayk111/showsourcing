@@ -20,7 +20,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class HandleInvitationComponent extends AutoUnsub implements OnInit {
 
-	authenticated$: Observable<boolean>;
+	authenticated$: Observable<string>;
 	invitation$: Observable<InvitationUser>;
 	client: Client;
 	returnUrl: string;
@@ -45,7 +45,7 @@ export class HandleInvitationComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		this.invitationId = this.route.snapshot.params.id;
-		this.authenticated$ = this.authSrv.isAuthenticated$;
+		this.authenticated$ = this.authSrv.signIn$;
 		this.invitation$ = this.authenticated$.pipe(
 			switchMap(_ => this.invitationSrv.getInvitation(this.invitationId))
 		);

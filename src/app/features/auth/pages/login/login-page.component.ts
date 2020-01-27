@@ -65,15 +65,10 @@ export class LoginPageComponent extends AutoUnsub implements OnInit {
 		}];
 	}
 
-	onSubmit(form: FormGroup) {
+	async onSubmit(form: FormGroup) {
 		if (form.valid) {
 			this.pending$.next(true);
-			this.srv.login(form.value).pipe(
-				takeUntil(this._destroy$)
-			).subscribe(
-				r => this.onSuccess(r),
-				e => this.onError(e)
-			);
+			const error = await this.srv.signIn(form.value);
 		}
 	}
 

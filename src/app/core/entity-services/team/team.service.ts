@@ -61,12 +61,12 @@ export class TeamService extends GlobalService<Team> {
 
 	init() {
 
-		this.authSrv.authenticated$.pipe(
+		this.authSrv.signIn$.pipe(
 			map(_ => this.getSelectedTeam())
 		).subscribe(this._teamSelectionEvent$);
 
 		// when logging out let's clear the current selected team
-		this.authSrv.notAuthenticated$.subscribe(_ => this.resetSelectedTeam());
+		this.authSrv.signOut$.subscribe(_ => this.resetSelectedTeam());
 
 		// putting a sync version of team
 		this.teamSelectionEvent$.subscribe(team => this.selectedTeamSync = team);

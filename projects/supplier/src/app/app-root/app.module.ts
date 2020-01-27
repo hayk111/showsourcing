@@ -14,6 +14,7 @@ import { SharedModule } from '~shared/shared.module';
 import { TemplateModule } from '../core/template';
 import { AppComponent } from './app.component';
 import { routes } from './routes';
+import { AmplifyAngularModule, AmplifyService } from 'aws-amplify-angular';
 
 
 @NgModule({
@@ -24,8 +25,8 @@ import { routes } from './routes';
 		BrowserModule,
 		BrowserAnimationsModule,
 		TemplateModule,
-		HttpClientModule,
 		SharedModule,
+		AmplifyAngularModule,
 		AppApolloModule,
 		CustomDialogsCommonModule,
 		RouterModule.forRoot(routes, {
@@ -48,6 +49,7 @@ import { routes } from './routes';
 		})
 	],
 	providers: [
+		AmplifyService,
 		{
 			provide: HTTP_INTERCEPTORS,
 			useClass: ApiInterceptor,

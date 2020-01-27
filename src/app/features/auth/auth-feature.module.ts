@@ -23,6 +23,7 @@ import * as SharedComponents from './shared';
 		Pages.PickATeamPageComponent,
 		Pages.CreateATeamPageComponent,
 		Pages.CreateACompanyPageComponent,
+		Pages.ConfirmEmailPageComponent,
 		SharedComponents.AuthFormHeaderComponent,
 		SharedComponents.AuthFormBaseComponent,
 		SharedComponents.AuthHeaderContentComponent,

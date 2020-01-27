@@ -1,0 +1,20 @@
+<auth-form-header-app>
+	<auth-header-content-app>
+		{{ 'text.please-copy-code' | translate}} <br>
+		{{ 'text.please-check-emails' | translate }}
+	</auth-header-content-app>
+</auth-form-header-app>
+
+
+<form-field-app>
+	<label-app>Your registration code: </label-app>
+	<input 
+		inputApp
+		type="text" 
+		[formControl]="codeCtrl" 
+		placeholder="478299" 
+		autofocus/>
+</form-field-app>
+
+<button class="light primary">Resend</button>
+

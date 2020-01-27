@@ -549,7 +549,10 @@
     "view-vote-details": "View vote details",
     "yes-join-team": "Yes - Join the team",
     "yes-log-me-in": "Yes - Let me log-in"
-  },
+	},
+	"http-response": {
+		"UsernameExistsException": "An user already exist with this email address"
+	},
   "error": {
     "account-already-existed-with-email": "An account already exist with this email address.",
     "action-cannot-undone": "Warning: This action cannot be undone.",
@@ -1010,10 +1013,13 @@
     "phone": "Phone",
     "phone-number": "Phone number",
     "pictures": "Pictures",
-    "playground": "Playground",
+		"playground": "Playground",
+		"please-check-emails": "Please check your emails",
+		"please-copy-code": "We have sent you an email with the verification code.",
+		"please-fill-in-this-form-to-register": "Please fill in this form to start your registration",
+		"please-login-to-your-account": "Please login to your account",
     "please-enter-pwd": "Please enter your new password",
     "please-hold-modif-internet": "Please hold as we modify the internet for you!",
-    "please-login-to-your-account": "Please login to your account",
     "port-loading": "Port of loading",
     "preview": "Preview",
     "price": "Price",

@@ -1,8 +1,6 @@
 import { Route } from '@angular/router';
-import { CentralClientReadyGuard, TeamClientReadyGuard } from '~core/apollo/guards/client-ready.guard.service';
 import { AuthenticatedGuard } from '~core/auth';
 import { GuestTemplateComponent, TemplateComponent } from '~core/template';
-import { HasTeamSelectedGuard } from '~features/auth/services/has-team-selected.guard';
 import { InvitationGuard } from '~features/invitation/services/invitation.guard';
 import { DevModeGuard } from '~utils/dev-mode.guard';
 
@@ -36,10 +34,10 @@ export const routes: Array<Route> = [
 		component: TemplateComponent,
 		canActivateChild: [
 			AuthenticatedGuard,
-			CentralClientReadyGuard,
-			HasTeamSelectedGuard,
-			TeamClientReadyGuard,
-			HasTeamSelectedGuard
+			// CentralClientReadyGuard,
+			// HasTeamSelectedGuard,
+			// TeamClientReadyGuard,
+			// HasTeamSelectedGuard
 		],
 		children: [
 			{ path: '', redirectTo: 'dashboard', pathMatch: 'full' },

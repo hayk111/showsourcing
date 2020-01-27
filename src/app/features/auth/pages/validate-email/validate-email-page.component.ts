@@ -18,7 +18,7 @@ export class ValidateEmailPageComponent implements OnInit {
 
 	ngOnInit() {
 		const token = this.route.snapshot.params.token;
-		this.authSrv.validateEmail(token).subscribe(_ => this.router.navigate(['']));
+		// this.authSrv.validateEmail(token).subscribe(_ => this.router.navigate(['']));
 	}
 
 }

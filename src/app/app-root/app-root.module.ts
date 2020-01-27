@@ -19,6 +19,7 @@ import { TokenInterceptor } from '~core/interceptors/token.interceptor';
 import { TemplateModule } from '~core/template';
 import { SharedModule } from '~shared/shared.module';
 import { AppMissingTranslationHandler } from '~core/i18n/missing-translation.service';
+import { AmplifyAngularModule, AmplifyService } from 'aws-amplify-angular';
 
 // Can a kangaroo jump higher than a house ?
 // Of course, a house doesn’t jump at all.
@@ -28,7 +29,7 @@ import { AppMissingTranslationHandler } from '~core/i18n/missing-translation.ser
 	imports: [
 		BrowserModule,
 		BrowserAnimationsModule,
-		HttpClientModule,
+		AmplifyAngularModule,
 		SharedModule,
 		AppApolloModule,
 		TemplateModule,
@@ -42,7 +43,7 @@ import { AppMissingTranslationHandler } from '~core/i18n/missing-translation.ser
 		RouterModule.forRoot(routes, {
 			scrollPositionRestoration: 'top',
 			preloadingStrategy: PreloadAllModules,
-			// enableTracing: true
+			enableTracing: true
 		}),
 		Angulartics2Module.forRoot({
 			pageTracking: {
@@ -64,6 +65,7 @@ import { AppMissingTranslationHandler } from '~core/i18n/missing-translation.ser
 	exports: [RouterModule],
 	bootstrap: [AppComponent],
 	providers: [
+		AmplifyService,
 		{
 			provide: HTTP_INTERCEPTORS,
 			useClass: ApiInterceptor,

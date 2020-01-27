@@ -27,8 +27,8 @@ export class RealmAuthenticationService {
 	}
 
 	init() {
-		this.authSrv.authenticated$.subscribe(jwt => this.getRealmUser(jwt));
-		this.authSrv.notAuthenticated$.subscribe(_ => this.clearUser());
+		this.authSrv.signIn$.subscribe(jwt => this.getRealmUser(jwt));
+		this.authSrv.signOut$.subscribe(_ => this.clearUser());
 		this.realmUser$.subscribe(realmUser => showsourcing.realm.realmUser = realmUser);
 	}
 

@@ -57,12 +57,14 @@ import { StageIndicatorModule } from './stage-indicator/stage-indicator.module';
 import { StatusSelectorModule } from './status-selector/status-selector.module';
 import { TableModule } from './table/table.module';
 import { ToastModule } from './toast';
+import { HttpClientModule } from '@angular/common/http';
 
 // those modules are used so commonly that we will just import the shared module
 const modules = [
 	// angular modules
 	CommonModule,
 	ReactiveFormsModule,
+	HttpClientModule,
 
 	// cdk modules
 	DragDropModule,

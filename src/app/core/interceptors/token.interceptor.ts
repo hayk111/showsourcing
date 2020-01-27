@@ -42,7 +42,7 @@ export class TokenInterceptor implements HttpInterceptor {
 			// We do another check to see if refresh token failed
 			// In this case we want to logout user and to redirect it to login page
 			if (request.url.includes(`${environment.apiUrl}/user/renew`)) {
-				this.authSrv.logout();
+				this.authSrv.signOut();
 			}
 			return throwError(error);
 		}
@@ -76,7 +76,7 @@ export class TokenInterceptor implements HttpInterceptor {
 				}),
 				catchError((err: any) => {
 					this.refreshTokenInProgress = false;
-					this.authSrv.logout();
+					this.authSrv.signOut();
 					return throwError(error);
 				})
 			);

@@ -26,6 +26,6 @@ export class GuestTemplateComponent implements OnInit {
 	}
 
 	logout() {
-		this.authSrv.logout();
+		this.authSrv.signOut();
 	}
 }

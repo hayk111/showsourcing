@@ -1,9 +1,8 @@
 import { Routes } from '@angular/router';
-
+import { AuthenticatedGuard } from '~core/auth';
 import * as Pages from './pages';
 import { HasCompanyGuard, HasTeamGuard } from './services';
-import { AuthenticatedGuard } from '~core/auth';
-import { CentralClientReadyGuard } from '~core/apollo/guards/client-ready.guard.service';
+
 
 export const routes: Routes = [
 	{ path: 'account-created', component: Pages.AccountCreatedPageComponent },
@@ -14,9 +13,10 @@ export const routes: Routes = [
 	{ path: 'reset-password/:token', component: Pages.ResetPasswordPageComponent },
 	{ path: 'unvalidated-email', component: Pages.UnvalidatedEmailPageComponent },
 	{ path: 'validate-email/:token', component: Pages.ValidateEmailPageComponent },
+	{ path: 'confirm-email', component: Pages.ConfirmEmailPageComponent },
 	{
 		path: 'user',
-		canActivateChild: [AuthenticatedGuard, CentralClientReadyGuard],
+		canActivateChild: [AuthenticatedGuard],
 		children: [
 		{
 			path: '',

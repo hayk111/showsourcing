@@ -1,5 +1,5 @@
 <form *ngIf="!pending && !hideForm; else spinner" [formGroup]="form" (ngSubmit)="onSubmit.emit(form)" autocomplete="on" class="flexColumn">
-	<error-app *ngIf="error">{{ error }}</error-app>
+	<error-app *ngIf="error">{{ 'http-response.' + error | translate }}</error-app>
 	<form-field-app *ngFor="let formElement of listForm; trackBy: trackByFn"
 		[ngClass]="{'field-focused': fieldFocused === formElement.name, 'field-error': (form.get(formElement.name).invalid && !form.get(formElement.name).pristine && !form.get(formElement.name).focussed) }">
 		<label-app class="first-uppercase">{{formElement.label}}</label-app>

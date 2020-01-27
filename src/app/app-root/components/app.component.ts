@@ -28,8 +28,6 @@ import { log } from '~utils/log';
 
 // Patient: “Then no.”
 
-
-
 @Component({
 	selector: 'app-root',
 	templateUrl: './app.component.html',
@@ -55,7 +53,9 @@ export class AppComponent implements OnInit {
 	) { }
 
 	ngOnInit(): void {
-		this.authSrv.init();
+		this.authSrv.authState$.subscribe(d =>  {
+			// debugger;
+		});
 		this.realmAuthSrv.init();
 		this.userSrv.init();
 		this.teamSrv.init();
@@ -80,7 +80,7 @@ export class AppComponent implements OnInit {
 		).subscribe(_ => log.info(`base client started, time: ${performance.now()}`));
 
 		// when logging off we destroy all clients
-		this.authSrv.notAuthenticated$.subscribe(_ => this.destroyAllClients());
+		this.authSrv.authState$.subscribe(_ => this.destroyAllClients());
 
 		// when a team is selected we start the team client
 		this.teamSrv.teamSelectionEvent$.pipe(
