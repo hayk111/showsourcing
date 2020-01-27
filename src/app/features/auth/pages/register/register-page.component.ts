@@ -41,17 +41,17 @@ export class RegisterPageComponent extends AutoUnsub implements OnInit {
 		this.queryParams = this.route.snapshot.queryParams || '/';
 	}
 
-	createAccount() {
+	async createAccount() {
 		if (this.form.valid) {
 			this.pending = true;
-			this.authSrv.signUp(this.form.value).then(_ => {
-
-				this.router.navigate(['/', 'auth', 'confirm-email']);
-			}).catch(e => {
-				this.pending = false;
+			try {
+				this.authSrv.signUp(this.form.value);
+				// this.router.navigate(['/', 'auth', 'confirm-email']);
+			} catch (e) {
 				this.error = e;
-
-			});
+			} finally {
+				// this.pending = false;
+			}
 		}
 	}
 
