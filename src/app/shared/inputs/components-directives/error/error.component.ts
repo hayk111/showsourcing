@@ -5,7 +5,8 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 	selector: 'error-app',
 	templateUrl: './error.component.html',
 	styleUrls: ['./error.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: { class: 'color-warn' }
 })
 export class ErrorComponent {
 

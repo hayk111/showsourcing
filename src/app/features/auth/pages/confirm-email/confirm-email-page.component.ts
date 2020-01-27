@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { AutoUnsub } from '~utils';
-import { BehaviorSubject } from 'rxjs';
 
 @Component({
 	selector: 'confirm-email-page-app',
@@ -14,27 +13,32 @@ import { BehaviorSubject } from 'rxjs';
 export class ConfirmEmailPageComponent extends AutoUnsub implements OnInit {
 	codeCtrl = new FormControl('', Validators.required);
 	pending$ = new BehaviorSubject(false);
-	private email: string;
+	email: string;
 
 	constructor(
 		private authSrv: AuthenticationService,
-		private route: ActivatedRoute
 	) {
 		super();
 	}
 
 	ngOnInit() {
-		this.email = this.route.snapshot.queryParams.email;
+		this.email = this.authSrv.getEmail();
 		this.codeCtrl.valueChanges.pipe(
 			takeUntil(this._destroy$),
 			filter(x => !!x)
 		).subscribe(value => this.checkCode(value));
 	}
 
-	async checkCode(value: string) {
-		this.pending$.next(true);
-		await this.authSrv.validateEmail(this.email, value);
-		this.pending$.next(false);
+	checkCode(value: string) {
+		if (value.length === 6) {
+			this.pending$.next(true);
+			this.authSrv.confirmSignUp(value)
+				.finally(() => this.pending$.next(false));
+		}
+	}
+
+	resend() {
+		this.authSrv.resendSignUp();
 	}
 }
 

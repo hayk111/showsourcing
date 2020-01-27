@@ -550,10 +550,8 @@
     "yes-join-team": "Yes - Join the team",
     "yes-log-me-in": "Yes - Let me log-in"
 	},
-	"http-response": {
-		"UsernameExistsException": "An user already exist with this email address"
-	},
   "error": {
+		"UsernameExistsException": "An user already exist with this email address",
     "account-already-existed-with-email": "An account already exist with this email address.",
     "action-cannot-undone": "Warning: This action cannot be undone.",
     "all-fields-must-filled": "All fields must be filled first",
@@ -1134,7 +1132,7 @@
     "width": "Width",
     "workflow": "Workflow",
     "you-r-invited": "You are invited to join ShowSourcing",
-    "your-collab-plat": "Your collaborative sourcing platform for\n<br>\nyour team and suppliers."
+    "your-collab-plat": "Your collaborative sourcing platform for your team and suppliers."
   },
   "time": {
     "day-ago": {

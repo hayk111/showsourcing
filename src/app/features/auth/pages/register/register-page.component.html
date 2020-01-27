@@ -1,13 +1,14 @@
-<auth-form-header-app [pending]="pending">
-	<auth-header-content-app translate="text.please-fill-in-this-form-to-register">
-	</auth-header-content-app>
-</auth-form-header-app>
+<auth-header-app></auth-header-app>
 
 <form 
-	*ngIf="!pending; else spinner"
+	*ngIf="!(pending$ | async); else spinner"
 	[formGroup]="form" 
 	(ngSubmit)="createAccount()" 
 	class="flexColumn">
+
+	<h3 class="mg-bottom-l" translate="text.please-fill-in-this-form-to-register"></h3>
+
+	<error-app *ngIf="error.code" [translate]="'error.' + error.code"></error-app>
 
 	<form-field-app>
 		<label-app translate="text.first-name"></label-app>
@@ -51,7 +52,7 @@
 	</form-field-app>
 
 	<button 
-		class="big primary mg-v-ms" 
+		class="big mg-v-ms" 
 		type="submit" 
 		[disabled]="!form.valid" 
 		(click)="createAccount()" 
@@ -61,5 +62,6 @@
 </form>
 
 <ng-template #spinner>
+	<h3 translate="text.please-hold-modif-internet"></h3>
 	<spinner-app></spinner-app>
 </ng-template>

@@ -1,20 +1,21 @@
-<div *ngIf="!pending" class="top">
-	<div class="logo">
-		<img src="/assets/img/logo.svg">
-	</div>
 
-	<h1 class="header" #titleRef><ng-content select="auth-header-title-app"></ng-content></h1>
-	<!-- default (check scss) -->
-	<h1 class="header-default" translate="header.welcome-to-showsourcing"></h1>
+<div class="logo">
+	<img src="/assets/img/logo.svg">
+</div>
 
-	<h3 class="subtitle flexCenter ms" #subtitleRef>
-		<ng-content select="auth-header-subtitle-app"></ng-content>
-	</h3>
-	<!-- default  (check scss)-->
-	<h3 class="subtitle-default flexCenter ms" [innerHtml]="'text.your-collab-plat' | translate"></h3>
+<h1 class="mg-bottom-ms" *ngIf="hasTitle" [translate]="title"></h1>
 
-	<h3 class="content-wrapper">
-		<ng-content select="auth-header-content-app"></ng-content>
-	</h3>
+<div class="text-ctnr">
+
+	<div class="mg-bottom-l" *ngIf="hasSubtitle" [translate]="subtitle"></div>
+	
+	<div class="mg-bottom-ms" *ngIf="hasInstruction && !pending" [translate]="instruction"></div>
+	
+	<div class="mg-bottom-ms" *ngIf="pending" [translate]="pendingInfo"></div>
+
+	<spinner-app *ngIf="pending"></spinner-app>
 
 </div>
+
+
+

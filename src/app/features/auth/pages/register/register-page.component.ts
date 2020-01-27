@@ -9,7 +9,7 @@ import { AuthFormButton, AuthFormElement } from '../../shared';
 @Component({
 	selector: 'register-page-app',
 	templateUrl: './register-page.component.html',
-	styleUrls: ['./register-page.component.scss', '../../shared/form-style.scss']
+	styleUrls: ['./register-page.component.scss']
 })
 export class RegisterPageComponent extends AutoUnsub implements OnInit {
 
@@ -41,17 +41,15 @@ export class RegisterPageComponent extends AutoUnsub implements OnInit {
 		this.queryParams = this.route.snapshot.queryParams || '/';
 	}
 
-	async createAccount() {
+	createAccount() {
 		if (this.form.valid) {
-			this.pending = true;
-			try {
-				this.authSrv.signUp(this.form.value);
-				// this.router.navigate(['/', 'auth', 'confirm-email']);
-			} catch (e) {
-				this.error = e;
-			} finally {
-				// this.pending = false;
-			}
+			this.pending$.next(true);
+			// async await doesn't work as expected on angular on version 8
+			// https://github.com/angular/angular/issues/31730
+			this.authSrv.signUp(this.form.value)
+			.then(_ => this.router.navigate(['/', 'auth', 'confirm-email']))
+			.catch(e => this.error = e)
+			.finally(() => this.pending$.next(false));
 		}
 	}
 

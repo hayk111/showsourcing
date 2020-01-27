@@ -37,6 +37,9 @@ export class AuthenticationService {
 	/** to be determined if needed */
 	authToken: string;
 
+	// we save the username (that is the email) as it is the username required on some amplify calls
+	private email: string;
+
 	constructor(
 		private amplifySrv: AmplifyService,
 		private router: Router
@@ -44,6 +47,7 @@ export class AuthenticationService {
 
 	async signIn(credentials: Credentials) {
 		const { email: username, password } = credentials;
+		this.email = username;
 		try {
 			const user = await this.awsAuth.signIn(username, password);
 			if (user.challengeName === 'NEW_PASSWORD_REQUIRED') {
@@ -64,14 +68,17 @@ export class AuthenticationService {
 				return 'incorrect credentials';
 			} else {
 				log.error(err);
-
 			}
 		}
 	}
 
+	signOut() {
+		this.awsAuth.signOut();
+	}
+
 	async signUp(credentials: RegistrationCredentials) {
 		const { email , password, firstName, lastName } = credentials;
-		const data = await this.awsAuth.signUp({
+		await this.awsAuth.signUp({
 			username: email,
 			password,
 			attributes: {
@@ -79,11 +86,18 @@ export class AuthenticationService {
 				'custom:lastName': lastName
 			}
 		});
+		this.email = email;
+		this.router.navigate(['/', 'auth', 'confirm-email']);
 	}
 
-	signOut() {
-		this.awsAuth.signOut();
+	async confirmSignUp(token: string) {
+		await this.awsAuth.confirmSignUp(this.email, token);
 	}
+
+	resendSignUp() {
+		this.awsAuth.resendSignUp(this.email);
+	}
+
 
 	changePassword(login: string, password: string, newPassword: string): Observable<boolean> {
 		throw Error('not implemented yet');
@@ -97,9 +111,6 @@ export class AuthenticationService {
 		throw Error('not implemented yet');
 	}
 
-	async validateEmail(email: string, token: string) {
-		await this.awsAuth.confirmSignUp(email, token);
-	}
 
 	getEmailFromUrl() {
 		return undefined;
@@ -110,6 +121,14 @@ export class AuthenticationService {
 	}
 	checkPassword(any: any): Observable<any> {
 		throw Error('not implemented yet');
+	}
+
+	setEmail(email: string) {
+		this.email = email;
+	}
+
+	getEmail () {
+		return this.email;
 	}
 
 }
