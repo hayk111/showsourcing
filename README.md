@@ -48,6 +48,8 @@ BN -> Prerelease: build number increase
 ## How to use versioning
 In order to use this release versioning, we use `npm version`
 e.g. on it's behaviour: `version: 2.6.0`
+
+```
 |     Version    | Command ( npm version ) | Comment                                                                                                                              |
 |:--------------:|:-----------------------:|--------------------------------------------------------------------------------------------------------------------------------------|
 | 2.6.0          |                         |                                                                                                                                      |
@@ -66,6 +68,8 @@ e.g. on it's behaviour: `version: 2.6.0`
 |                | preminor                | We start again the development for the new version                                                                                   |
 | 2.10.0-0       |                         |                                                                                                                                      |
 |                | prerelease              |                                                                                                                                      |
+```
+
 This same behaviour can be used for the other 2 commands `major` and `patch`
 
 ***
@@ -89,6 +93,7 @@ git checkout -b feature/number-issue-small-description
 git checkout -b ticket/number-issue-small-description
 # after every milestone on the feature, just create a merge request from ticket to feature
 # when the feature is done from feature to development
+
 ```
 For `bug` branches, we just use the normal system, checkout from `development` and merge request at the end of the fix
 
@@ -137,6 +142,7 @@ At the root of src/app we have
   - shared: folder containing modules shared. The SharedModule contains them all.
   - theming: contains the global styles
   - utils: contains some utils used throughout the app
+
  ```
 
 
@@ -153,6 +159,7 @@ In each module the division of the file structure is with those folders (each on
  - interfaces
  my-module.module.ts
  README.md
+
 ```
 
 ***
@@ -164,7 +171,7 @@ Folder containing modules organized by functionality, the purpose of this folder
 
 ## Feature
 
-There is two ways to organize a feature folder and that depends on wether or not a feature folder is a detail/list type or not. 
+There is two ways to organize a feature folder and that depends on wether or not a feature folder is a detail/list type or not.
 
 
 Case 1: Not a list / detail type
@@ -181,7 +188,7 @@ feature
               components
 							   login-button.component.ts
 							login-page.component.ts
-							
+
            user
               pick-a-team
                   pick-a-team-page.component.ts
@@ -189,8 +196,7 @@ feature
 
 Inside the module:
 
-````
-
+```
 import * as Pages from './pages';
 import { routes } from './routes';
 import * as SharedComponents from './shared';
@@ -426,7 +432,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 ```
 
-Back to the `AppRootModule`, in the `TranslateModule.forRoot()` we do some configurations: 
+Back to the `AppRootModule`, in the `TranslateModule.forRoot()` we do some configurations:
 ```
 TranslateModule.forRoot({
 	loader: {
@@ -460,7 +466,7 @@ export class TestAppComponent {
 }
 ```
 
-Now we have to define the translations, for example, in the `translation.json` for `en`, we will have this: 
+Now we have to define the translations, for example, in the `translation.json` for `en`, we will have this:
 ```
 {
     "HELLO": "hello {{ value }}"
@@ -490,7 +496,7 @@ Or we use the **directive**: `<div [translate]="'HELLO'" [translateParams]="{val
 
 Or use it like an HTML Element attribute: `<div translate [translateParams]="{value: 'world'}">HELLO</div>`
 
-**Notice: the key we put in the param must be the same as the one that we've defined in the translation.json files, in this example it is the `value`** 
+**Notice: the key we put in the param must be the same as the one that we've defined in the translation.json files, in this example it is the `value`**
 
 In other to edit the translations, we use the `i18n-editor`, we just have to go to [](https://github.com/jcbvm/i18n-editor) to download it and open our translation folder with it to edit
 

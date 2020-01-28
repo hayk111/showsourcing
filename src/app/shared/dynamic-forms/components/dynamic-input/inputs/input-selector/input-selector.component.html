@@ -13,7 +13,7 @@
 		[ngClass]="{ 'disabled': disabled }"
 		[canFocus]="autofocus"
 		[name]="value"
-		[placeholder]="placeholder ? ('placeholder.' + placeholder | translate) : ('text.' + type | translate)">
+		[placeholder]="placeholder ? ('placeholder.' + placeholder | translate) : ('text.' + (parentLabel || type) | translate)">
 		<div *ngIf="isEntity && value" #content class="flexWrap">
 			<ng-container *ngTemplateOutlet="getLabelTemplate()"></ng-container>
 		</div>

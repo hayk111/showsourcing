@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { Product, Project } from '~core/models';
+import { ERM, Product, Project } from '~core/models';
+
 import { EntitySelectionBarComponent } from '../entity-selection-bar.component';
 
 @Component({
@@ -19,6 +20,8 @@ export class ProductSelectionBarComponent extends EntitySelectionBarComponent {
 	@Output() deleted = new EventEmitter<null>();
 	@Output() addProject = new EventEmitter<Project[]>();
 	@Output() massEdit = new EventEmitter<null>();
+
+	erm = ERM;
 
 	constructor() {
 		super();

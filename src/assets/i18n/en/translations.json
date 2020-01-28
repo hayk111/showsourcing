@@ -297,13 +297,9 @@
 			"singular": "{{ count }} image uploaded with success",
 			"plural": "{{ count }} images uploaded with success"
 		},
-    "item-selected": {
-      "plural": "{{ count }} items selected",
-      "singular": "{{ count }} item selected"
-    },
     "n-item-uploaded-success": {
-      "plural": "{{ count }} items selected",
-      "singular": "{{ count }} item selected"
+      "plural": "{{ count }} items uploaded with success",
+      "singular": "{{ count }} item uploaded with success"
     },
     "last-updated-by-on": "Last updated by {{ name }} on {{ date }}",
     "mass-edit": {
@@ -326,9 +322,10 @@
       "singular": "{{ count }} item selected"
     },
     "n-item": {
-      "plural": "{{ count }} items",
+			"plural": "{{ count }} items",
       "singular": "{{ count }} item"
     },
+		"n-OBJ-selected": "{{ count }} {{ entity }} selected",
     "n-product": {
 			"plural": "{{ count }} products",
 			"singular": "{{ count }} product"
@@ -430,6 +427,7 @@
     "close": "Close",
     "close-request": "Close request",
     "company": "Company",
+    "compare": "Compare",
     "compare-products": "Compare products",
 		"contact-supplier": "Contact supplier",
 		"create-category": "Create category",
@@ -488,6 +486,7 @@
     "preview": "Preview",
     "preview-product": "Preview product",
     "profile": "Profile",
+    "project": "Project",
     "purchase-license": "Purchase license",
     "pwResetted_login": "Login",
     "received-on": "Received on",
@@ -826,7 +825,7 @@
     "type-to-search": "Type to search",
     "unit": "Unit",
     "weight": "Weight",
-    "width": "width",
+    "width": "Width",
     "write-comment-here": "Write your comment here",
     "your-email": "Your email",
     "your-first-name": "Your first name",

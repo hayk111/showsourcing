@@ -1,5 +1,5 @@
 <selection-bar-app
-	entityType="supplier"
+	[entityMetadata]="erm.SUPPLIER"
 	[isShown]="isShown"
 	[selection]="selection"
 	[selectableItems]="selectableItems"
@@ -7,11 +7,10 @@
 	(selectAll)="selectAll.emit($event)"
 	(unselectAll)="unselectAll.emit()">
 
-	<div class="flex flexVAlign">
+	<!-- delete -->
+	<button class="icon-with-text light" (click)="deleteSelected.emit()">
+		<icon-app name="trash"></icon-app>
+		<span translate="button.delete"></span>
+	</button>
 
-		<button class="warn light" (click)="deleteSelected.emit()">
-			{{ 'button.delete' | translate }}
-		</button>
-		
-	</div>
 </selection-bar-app>
