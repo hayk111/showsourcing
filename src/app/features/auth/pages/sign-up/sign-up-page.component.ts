@@ -7,38 +7,31 @@ import { AutoUnsub } from '~utils';
 import { AuthFormButton, AuthFormElement } from '../../shared';
 
 @Component({
-	selector: 'register-page-app',
-	templateUrl: './register-page.component.html',
-	styleUrls: ['./register-page.component.scss']
+	selector: 'sign-up-page-app',
+	templateUrl: './sign-up-page.component.html',
+	styleUrls: ['./sign-up-page.component.scss', '../../shared/form-style.scss']
 })
-export class RegisterPageComponent extends AutoUnsub implements OnInit {
-
+export class SignUpPageComponent extends AutoUnsub implements OnInit {
 	pending$ = new Subject<boolean>();
-	pending = false;
-	error: any = {};
-	queryParams: any;
+	error: string;
 	form: FormGroup = this.fb.group({
 		firstName: ['', Validators.required],
 		lastName: ['', Validators.required],
-		email: ['', [Validators.required, Validators.email]],
+		// the email is used as username
+		username: ['', [Validators.required, Validators.email]],
 		password: ['', [Validators.required, Validators.minLength(8)]]
 	}, { updateOn : 'change' });
-
-	listForm: AuthFormElement[];
-	buttons: AuthFormButton[];
 
 	constructor(
 		private authSrv: AuthenticationService,
 		private router: Router,
 		private route: ActivatedRoute,
-		private cdRef: ChangeDetectorRef,
 		private fb: FormBuilder
 	) {
 		super();
 	}
 
 	ngOnInit() {
-		this.queryParams = this.route.snapshot.queryParams || '/';
 	}
 
 	createAccount() {
@@ -47,10 +40,13 @@ export class RegisterPageComponent extends AutoUnsub implements OnInit {
 			// async await doesn't work as expected on angular on version 8
 			// https://github.com/angular/angular/issues/31730
 			this.authSrv.signUp(this.form.value)
-			.then(_ => this.router.navigate(['/', 'auth', 'confirm-email']))
-			.catch(e => this.error = e)
+			.catch(e => this.error = e.code)
 			.finally(() => this.pending$.next(false));
 		}
+	}
+
+	goToSignIn() {
+		this.authSrv.goToSignIn();
 	}
 
 	forgotPw() {

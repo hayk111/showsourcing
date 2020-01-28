@@ -1,0 +1,29 @@
+<auth-header-app
+	[pending]="pending$ | async"
+	instruction="text.please-copy-code">
+</auth-header-app>
+
+
+
+<div *ngIf="!(pending$ | async)" >
+
+	<error-app *ngIf="error" [translate]="'error.' + error"></error-app>
+	
+	<form-field-app *ngIf="!(pending$ | async)">
+	
+		<label-app>Your registration code: </label-app>
+		<input 
+			inputApp
+			restrictInput="number"
+			autofocus
+			type="text" 
+			maxlength="6"
+			placeholder="478299" 
+			[formControl]="codeCtrl" 
+			[disabled]="pending$ | async"/>
+	</form-field-app>
+
+</div>
+
+<button class="light primary">Resend</button>
+

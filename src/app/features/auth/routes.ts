@@ -5,15 +5,16 @@ import { HasCompanyGuard, HasTeamGuard } from './services';
 
 
 export const routes: Routes = [
+	{ path: 'sign-in', component: Pages.SignInPageComponent },
+	{ path: 'sign-up', component: Pages.SignUpPageComponent },
+	{ path: 'confirm-sign-up', component: Pages.ConfirmSignUpPageComponent },
+
 	{ path: 'account-created', component: Pages.AccountCreatedPageComponent },
 	{ path: 'forgot-password', component: Pages.ForgotPasswordPageComponent },
-	{ path: 'login', component: Pages.LoginPageComponent },
 	{ path: 'password-resetted', component: Pages.PasswordResettedPageComponent },
-	{ path: 'register', component: Pages.RegisterPageComponent },
 	{ path: 'reset-password/:token', component: Pages.ResetPasswordPageComponent },
 	{ path: 'unvalidated-email', component: Pages.UnvalidatedEmailPageComponent },
 	{ path: 'validate-email/:token', component: Pages.ValidateEmailPageComponent },
-	{ path: 'confirm-email', component: Pages.ConfirmEmailPageComponent },
 	{
 		path: 'user',
 		canActivateChild: [AuthenticatedGuard],

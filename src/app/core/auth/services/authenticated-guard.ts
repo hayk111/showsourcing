@@ -30,7 +30,7 @@ export class AuthenticatedGuard implements CanActivate, CanActivateChild {
 				const returnUrl = route.queryParams.returnUrl ? route.queryParams.returnUrl : state.url;
 				const email = this.authSrv.getEmailFromUrl();
 				const queryParams = { returnUrl, email };
-				this.router.navigate(['auth', 'login'], { queryParams });
+				this.router.navigate(['auth', 'sign-in'], { queryParams });
 				break;
 		}
 	}

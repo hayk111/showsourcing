@@ -1,61 +1,11 @@
-h1,
-h3 {
-	white-space: nowrap;
-}
 
-h1 {
-	margin-bottom: var(--spacing-m);
-}
-
-h3 {
-	margin-bottom: var(--spacing-l);
-	text-transform: none;
-	color: var(--color-txt-primary);
-}
-
-
-a {
-	font-size: var(--font-size-m);
-	font-weight: 600;
-	color: var(--color-txt-primary);
-	&.button {
-		text-transform: none;
-	}
-}
-
-form {
-	width: 376px;
-}
-
-.button {
-	height: 42px;
-	margin-top: var(--spacing-m);
-	width: 216px;
-	font-size: var(--font-size-m);
-	font-weight: 600;
-}
-
-spinner-app {
-	margin: auto;
-}
-
-.options {
-	margin-top: var(--spacing-s);
-	margin-bottom: var(--spacing-s);
-	display: flow-root;
-
-	font-size: var(--font-size-m);
-	font-weight: 600;
-
-	.checkbox-container {
-		float: left;
-		.label-rememberme {
-			font-size: var(--font-size-m);
-			font-weight: 600;
-		}
-	}
-	.forgot-password {
-		color: var(--color-txt-primary);
-		float: right;
+.btn-ctnr {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	button {
+		width: 216px;
+		height: 42px;
 	}
 }

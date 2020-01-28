@@ -11,7 +11,7 @@ export class PasswordResettedPageComponent {
 	constructor(private router: Router) { }
 
 	goLogin() {
-		this.router.navigate(['auth', 'login']);
+		this.router.navigate(['auth', 'sign-in']);
 	}
 
 }

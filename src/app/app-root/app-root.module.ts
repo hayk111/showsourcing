@@ -46,6 +46,7 @@ import { AmplifyAngularModule, AmplifyService } from 'aws-amplify-angular';
 			enableTracing: true
 		}),
 		Angulartics2Module.forRoot({
+			developerMode: !environment.production,
 			pageTracking: {
 				clearIds: true,
 				// this is for hubspot since the validate email has a token, it cannot be the same for all, we just avoid to check this route

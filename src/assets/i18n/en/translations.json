@@ -454,7 +454,7 @@
     "exports": "Exports",
     "filter-by": "Filter by",
     "finish": "Finish",
-    "forgotten-pswd": "Forgotten password ?",
+    "forgotten-password": "Forgotten password ?",
     "from": "From",
     "hide-filters": "Hide filters",
     "invite": "Invite",
@@ -513,8 +513,9 @@
     "settings": "Settings",
     "share": "Share",
     "show-filters": "Filters",
-    "show-previous-comments": "Show previous comments",
-    "sign-up": "Sign-up",
+		"show-previous-comments": "Show previous comments",
+		"sign-in": "Sign in",
+    "sign-up": "Sign up",
     "sort-by-category": "Sort by Category",
     "sort-by-company": "Sort by Company",
     "sort-by-created-on": "Sort by Created on",
@@ -552,7 +553,10 @@
 	},
   "error": {
 		"UsernameExistsException": "An user already exist with this email address",
-    "account-already-existed-with-email": "An account already exist with this email address.",
+		"CodeMismatchException": "Invalid verification code provided, please try again.",
+		"UserNotFoundException": "Invalid credentials",
+		"NotAuthorizedException": "Not authorized",
+		"account-already-existed-with-email": "An account already exist with this email address.",
     "action-cannot-undone": "Warning: This action cannot be undone.",
     "all-fields-must-filled": "All fields must be filled first",
     "create-company": "We had an error creating your company. Please try again.",
@@ -671,7 +675,7 @@
     "workflow": "Workflow"
   },
   "hint": {
-    "company-tip": "Tip: the app works better with a company email."
+    "company-tip": "Tip: the app works best with a company email."
   },
   "link": {
     "click-to-download": "Click here to download your file",
@@ -1012,8 +1016,7 @@
     "phone-number": "Phone number",
     "pictures": "Pictures",
 		"playground": "Playground",
-		"please-check-emails": "Please check your emails",
-		"please-copy-code": "We have sent you an email with the verification code.",
+		"please-copy-code": "Please copy the code your received in your inbox",
 		"please-fill-in-this-form-to-register": "Please fill in this form to start your registration",
 		"please-login-to-your-account": "Please login to your account",
     "please-enter-pwd": "Please enter your new password",

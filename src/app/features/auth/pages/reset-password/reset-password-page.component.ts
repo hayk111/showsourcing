@@ -61,7 +61,7 @@ export class ResetPasswordPageComponent extends AutoUnsub implements OnInit {
 				})
 			).subscribe(r => {
 				this.pending = false;
-				this.router.navigate(['auth', 'login']);
+				this.router.navigate(['auth', 'sign-in']);
 				this.notificationSrv.add({
 					type: ToastType.SUCCESS,
 					title: this.translate.instant('header.password-reset'),

@@ -56,25 +56,25 @@ export class ChangePswdDlgComponent extends AutoUnsub implements OnInit {
 
 	onSubmit() {
 		this.pending = true;
-		this.profileSrv.changePassword(this.group.value.currentPswd, this.group.value.confirmPswd).subscribe(response => {
-			this.pending = false;
-			if (response) {
-				this.notificationSrv.add({
-					type: ToastType.SUCCESS,
-					title: this.translate.instant('title.pwd-changed'),
-					message: this.translate.instant('message.pwd-changed'),
-					timeout: 3500
-				});
-			} else {
-				this.notificationSrv.add({
-					type: ToastType.ERROR,
-					title: this.translate.instant('title.pwd-unchanged'),
-					message: this.translate.instant('message.pwd-unchanged'),
-					timeout: 4500
-				});
-			}
-			this.dlgSrv.close();
-		});
+		// this.profileSrv.changePassword(this.group.value.currentPswd, this.group.value.confirmPswd).subscribe(response => {
+		// 	this.pending = false;
+		// 	if (response) {
+		// 		this.notificationSrv.add({
+		// 			type: ToastType.SUCCESS,
+		// 			title: this.translate.instant('title.pwd-changed'),
+		// 			message: this.translate.instant('message.pwd-changed'),
+		// 			timeout: 3500
+		// 		});
+		// 	} else {
+		// 		this.notificationSrv.add({
+		// 			type: ToastType.ERROR,
+		// 			title: this.translate.instant('title.pwd-unchanged'),
+		// 			message: this.translate.instant('message.pwd-unchanged'),
+		// 			timeout: 4500
+		// 		});
+		// 	}
+		// 	this.dlgSrv.close();
+		// })
 	}
 
 

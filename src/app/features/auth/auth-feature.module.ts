@@ -12,18 +12,19 @@ import * as SharedComponents from './shared';
 		RouterModule.forChild(routes)
 	],
 	declarations: [
+		Pages.SignInPageComponent,
+		Pages.SignUpPageComponent,
+		Pages.ConfirmSignUpPageComponent,
+
 		Pages.AccountCreatedPageComponent,
 		Pages.ForgotPasswordPageComponent,
-		Pages.LoginPageComponent,
 		Pages.PasswordResettedPageComponent,
-		Pages.RegisterPageComponent,
 		Pages.ResetPasswordPageComponent,
 		Pages.UnvalidatedEmailPageComponent,
 		Pages.ValidateEmailPageComponent,
 		Pages.PickATeamPageComponent,
 		Pages.CreateATeamPageComponent,
 		Pages.CreateACompanyPageComponent,
-		Pages.ConfirmEmailPageComponent,
 		SharedComponents.AuthFormHeaderComponent,
 		SharedComponents.AuthFormBaseComponent,
 		SharedComponents.AuthHeaderContentComponent,

@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { AmplifyService } from 'aws-amplify-angular';
-import { Credentials, RegistrationCredentials, AuthStatus } from '../interfaces';
-import { Observable } from 'rxjs';
-import { AuthState } from 'aws-amplify-angular/dist/src/providers';
-import { log } from '~utils';
-import { map, filter, mapTo, shareReplay } from 'rxjs/operators';
 import { Router } from '@angular/router';
-
+import { AmplifyService } from 'aws-amplify-angular';
+import { AuthState } from 'aws-amplify-angular/dist/src/providers';
+import { Observable } from 'rxjs';
+import { distinctUntilKeyChanged, filter, map, mapTo, shareReplay, tap } from 'rxjs/operators';
+import { log } from '~utils';
+import { AuthStatus, Credentials, RegistrationCredentials } from '../interfaces';
+import { showsourcing } from '~utils/debug-object.utils';
 
 @Injectable({
 	providedIn: 'root'
@@ -16,6 +16,8 @@ export class AuthenticationService {
 	private awsAuth = this.amplifySrv.auth();
 	authState$: Observable<AuthState> = this.amplifySrv.authStateChange$.pipe(
 		// to get the first state
+		distinctUntilKeyChanged('state'),
+		tap(state => showsourcing.auth.state = state),
 		shareReplay(1),
 	);
 	// !
@@ -37,70 +39,77 @@ export class AuthenticationService {
 	/** to be determined if needed */
 	authToken: string;
 
-	// we save the username (that is the email) as it is the username required on some amplify calls
-	private email: string;
-
 	constructor(
 		private amplifySrv: AmplifyService,
 		private router: Router
-	) {  }
+	) {
+		// for debugging purpose
+		showsourcing.auth = {};
+	}
 
-	async signIn(credentials: Credentials) {
-		const { email: username, password } = credentials;
-		this.email = username;
-		try {
-			const user = await this.awsAuth.signIn(username, password);
+	signIn(credentials: Credentials) {
+		const { username, password } = credentials;
+		return this.awsAuth.signIn(username, password)
+		.then(user => {
+			debugger;
 			if (user.challengeName === 'NEW_PASSWORD_REQUIRED') {
 				// go to new password
 			} else {
-				// go to dashboard
+				this.router.navigate([ '/' ]);
 			}
-		} catch (err) {
+		})
+		.catch(err => {
+			debugger;
 			if (err.code === 'UserNotConfirmedException') {
-				// go to confirm email page
-				log.error(err);
+				this.goToConfirmSignUp(username);
 			} else if (err.code === 'PasswordResetRequiredException') {
 				// go to password reset page
 				log.error(err);
 			} else if (err.code === 'NotAuthorizedException') {
-				return 'incorrect credentials';
+				// rethrowing for catch in view
+				throw err;
 			} else if (err.code === 'UserNotFoundException') {
-				return 'incorrect credentials';
+				throw err;
 			} else {
 				log.error(err);
 			}
-		}
+		});
 	}
 
 	signOut() {
 		this.awsAuth.signOut();
 	}
 
-	async signUp(credentials: RegistrationCredentials) {
-		const { email , password, firstName, lastName } = credentials;
-		await this.awsAuth.signUp({
-			username: email,
+	signUp(credentials: RegistrationCredentials) {
+		const { username , password, firstName, lastName } = credentials;
+		return this.awsAuth.signUp({
+			username,
 			password,
 			attributes: {
 				'custom:firstName': firstName,
 				'custom:lastName': lastName
 			}
-		});
-		this.email = email;
-		this.router.navigate(['/', 'auth', 'confirm-email']);
+		})
+		.then(_ => this.goToConfirmSignUp(username));
 	}
 
-	async confirmSignUp(token: string) {
-		await this.awsAuth.confirmSignUp(this.email, token);
+	confirmSignUp(username: string, token: string) {
+		return this.awsAuth.confirmSignUp(username, token)
+		.then(_ => this.goToSignIn(username));
 	}
 
-	resendSignUp() {
-		this.awsAuth.resendSignUp(this.email);
+	resendSignUp(username: string) {
+		return this.awsAuth.resendSignUp(username);
 	}
 
+	forgotPassword(username: string) {
+		return this.awsAuth.forgotPassword(username)
+		.then(data => this.goToForgotPasswordSubmit());
+	}
 
-	changePassword(login: string, password: string, newPassword: string): Observable<boolean> {
-		throw Error('not implemented yet');
+	forgotPasswordSubmit(username: string, code: string, newPassword: string) {
+		return this.awsAuth.forgotPasswordSubmit(username, code, newPassword)
+		.then(data => console.log(data));
 	}
 
 	resetPassword(cred: { email: string }): Observable<any> {
@@ -111,7 +120,6 @@ export class AuthenticationService {
 		throw Error('not implemented yet');
 	}
 
-
 	getEmailFromUrl() {
 		return undefined;
 	}
@@ -119,16 +127,33 @@ export class AuthenticationService {
 	refreshAuthToken(): Observable<any> {
 		throw Error('not implemented yet');
 	}
+
 	checkPassword(any: any): Observable<any> {
 		throw Error('not implemented yet');
 	}
 
-	setEmail(email: string) {
-		this.email = email;
+	//
+	// Easy routing
+	//
+
+	goToSignIn(username?: string) {
+		this.router.navigate(['auth', 'sign-in' ], { queryParams: { username }});
 	}
 
-	getEmail () {
-		return this.email;
+	goToSignUp() {
+		this.router.navigate([ 'auth', 'sign-up' ]);
+	}
+
+	goToConfirmSignUp(username: string) {
+		this.router.navigate([ 'auth', 'confirm-sign-up'], { queryParams: { username }});
+	}
+
+	goToForgotPassword() {
+		this.router.navigate([ 'auth', 'forgot-password']);
+	}
+
+	goToForgotPasswordSubmit() {
+		this.router.navigate([ 'auth', 'forgot-password-submit']);
 	}
 
 }
