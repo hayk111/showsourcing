@@ -10,7 +10,7 @@
 	<!-- images preview  -->
 	<ng-template #carousel>
 		<ng-container *ngIf="images?.length < 3; else multipleActivity">
-			<img-app [image]="images[0]" class="carousel-img" (click)="openModal(0)"></img-app>
+			<img-app class="carousel-img" [image]="images[0]" (click)="openModal(0)"></img-app>
 			<img-app *ngIf="images?.length > 1" class="mg-left carousel-img" [image]="images[selectedIndex + 1]" (click)="openModal(1)"></img-app>
 		</ng-container>
 
@@ -21,7 +21,7 @@
 					(mouseleave)="showArrows = false">
 					<div class="grid-section" horizontalScroll #cardSection>
 						<div *ngFor="let item of images.slice(0, 10); let selectedIndex = index;" class="card">
-							<img-app [image]="images[selectedIndex]" class="carousel-img" (click)="openModal(selectedIndex)"></img-app>
+							<img-app class="carousel-img" [image]="images[selectedIndex]" (click)="openModal(selectedIndex)"></img-app>
 						</div>
 					</div>
 

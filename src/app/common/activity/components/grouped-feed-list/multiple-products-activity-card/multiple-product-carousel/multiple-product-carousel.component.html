@@ -4,7 +4,7 @@
 	(mouseenter)="showArrows = true"
 	(mouseleave)="showArrows = false">
 	<div class="grid-section" horizontalScroll #cardSection>
-		<div *ngFor="let item of products.slice(0, 10); let selectedIndex = index" class="card">
+		<div *ngFor="let item of products.slice(0, 10); let selectedIndex = index;" class="card">
 			<product-grid-card-app
 				size="s"
 				[hasCheckbox]="false"
@@ -20,7 +20,7 @@
 		</div>
 	</div>
 
-	<div class="flex flexVAlign" *ngIf="showArrows && products.length > 3">
+	<div *ngIf="showArrows && products.length > 3" class="flex flexVAlign">
 		<div class="move-btn back flexCenter pointer"
 			(mousedown)="back($event)">
 			<icon-app name="angle-left" size="m"></icon-app>

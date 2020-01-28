@@ -37,7 +37,7 @@
 									{{ supplier?.city }}
 								</span>
 								<span *ngIf="supplier?.comments?.length > 0">
-									{{ supplier?.comments?.length }} comment{{ supplier?.comments?.length > 1 ? 's' : '' }}
+									{{'OBJ.n-comment.' + (supplier?.comments?.length === 1 ? 'singular' : 'plural') | translate: { count: (supplier?.comments?.length || 0) } }}
 								</span>
 							</div>
 						</header-details-info-app>
