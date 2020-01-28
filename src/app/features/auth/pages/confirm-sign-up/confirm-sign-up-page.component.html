@@ -9,9 +9,9 @@
 
 	<error-app *ngIf="error" [translate]="'error.' + error"></error-app>
 	
-	<form-field-app *ngIf="!(pending$ | async)">
+	<form-field-app>
 	
-		<label-app>Your registration code: </label-app>
+		<label-app translate="Your registration code"></label-app>
 		<input 
 			inputApp
 			restrictInput="number"
@@ -19,8 +19,7 @@
 			type="text" 
 			maxlength="6"
 			placeholder="478299" 
-			[formControl]="codeCtrl" 
-			[disabled]="pending$ | async"/>
+			[formControl]="codeCtrl"/>
 	</form-field-app>
 
 </div>

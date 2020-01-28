@@ -32,14 +32,16 @@
 
 	<div class="flexBetween mg-v-ms">
 		<span class="spacer"></span>
-		<span class="bold pointer" translate="button.forgotten-password"></span>
+		<span class="bold pointer" 
+			(click)="goToForgotPassword()" 
+			translate="button.forgotten-password">
+		</span>
 	</div>
 
 	<div class="btn-ctnr">
 		<button 
 			class="mg-v-ms" 
 			type="submit" 
-			(click)="signIn()" 
 			translate="button.sign-in">
 		</button>
 		

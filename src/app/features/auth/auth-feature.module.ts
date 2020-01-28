@@ -15,9 +15,10 @@ import * as SharedComponents from './shared';
 		Pages.SignInPageComponent,
 		Pages.SignUpPageComponent,
 		Pages.ConfirmSignUpPageComponent,
+		Pages.ForgotPasswordPageComponent,
+		Pages.ForgotPasswordSubmitPageComponent,
 
 		Pages.AccountCreatedPageComponent,
-		Pages.ForgotPasswordPageComponent,
 		Pages.PasswordResettedPageComponent,
 		Pages.ResetPasswordPageComponent,
 		Pages.UnvalidatedEmailPageComponent,

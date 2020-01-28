@@ -51,7 +51,7 @@ export class AuthenticationService {
 		const { username, password } = credentials;
 		return this.awsAuth.signIn(username, password)
 		.then(user => {
-			debugger;
+			// when user was created via the incognito console
 			if (user.challengeName === 'NEW_PASSWORD_REQUIRED') {
 				// go to new password
 			} else {
@@ -59,19 +59,13 @@ export class AuthenticationService {
 			}
 		})
 		.catch(err => {
-			debugger;
 			if (err.code === 'UserNotConfirmedException') {
 				this.goToConfirmSignUp(username);
 			} else if (err.code === 'PasswordResetRequiredException') {
-				// go to password reset page
-				log.error(err);
-			} else if (err.code === 'NotAuthorizedException') {
+				this.goToForgotPassword(username);
+			} else {
 				// rethrowing for catch in view
 				throw err;
-			} else if (err.code === 'UserNotFoundException') {
-				throw err;
-			} else {
-				log.error(err);
 			}
 		});
 	}
@@ -148,8 +142,8 @@ export class AuthenticationService {
 		this.router.navigate([ 'auth', 'confirm-sign-up'], { queryParams: { username }});
 	}
 
-	goToForgotPassword() {
-		this.router.navigate([ 'auth', 'forgot-password']);
+	goToForgotPassword(username?: string) {
+		this.router.navigate([ 'auth', 'forgot-password'], { queryParams: { username }});
 	}
 
 	goToForgotPasswordSubmit() {

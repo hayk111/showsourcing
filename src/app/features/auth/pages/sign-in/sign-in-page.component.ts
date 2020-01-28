@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Subject } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { AutoUnsub } from '~utils';
 
@@ -10,8 +10,8 @@ import { AutoUnsub } from '~utils';
 	templateUrl: './sign-in-page.component.html',
 	styleUrls: ['./sign-in-page.component.scss', '../../shared/form-style.scss']
 })
-export class SignInPageComponent extends AutoUnsub implements OnInit {
-	pending$ = new Subject<boolean>();
+export class SignInPageComponent implements OnInit {
+	pending$ = new BehaviorSubject(false);
 	error: string;
 	queryParams: any;
 	username: string;
@@ -25,14 +25,12 @@ export class SignInPageComponent extends AutoUnsub implements OnInit {
 		private authSrv: AuthenticationService,
 		private route: ActivatedRoute,
 		private fb: FormBuilder
-	) {
-		super();
-	}
+	) { }
 
 	ngOnInit() {
 		const username = this.route.snapshot.queryParamMap.get('username');
 		if (username) {
-			this.username = this.route.snapshot.queryParamMap.get('username');
+			this.username = username;
 			this.form.setValue({ username: this.username, password: '' });
 		}
 	}
@@ -48,6 +46,10 @@ export class SignInPageComponent extends AutoUnsub implements OnInit {
 
 	goToSignUp() {
 		this.authSrv.goToSignUp();
+	}
+
+	goToForgotPassword() {
+		this.authSrv.goToForgotPassword(this.form.value.username);
 	}
 
 }

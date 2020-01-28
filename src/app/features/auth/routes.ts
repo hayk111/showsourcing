@@ -8,9 +8,10 @@ export const routes: Routes = [
 	{ path: 'sign-in', component: Pages.SignInPageComponent },
 	{ path: 'sign-up', component: Pages.SignUpPageComponent },
 	{ path: 'confirm-sign-up', component: Pages.ConfirmSignUpPageComponent },
+	{ path: 'forgot-password', component: Pages.ForgotPasswordPageComponent },
+	{ path: 'forgot-password-submit', component: Pages.ForgotPasswordSubmitPageComponent },
 
 	{ path: 'account-created', component: Pages.AccountCreatedPageComponent },
-	{ path: 'forgot-password', component: Pages.ForgotPasswordPageComponent },
 	{ path: 'password-resetted', component: Pages.PasswordResettedPageComponent },
 	{ path: 'reset-password/:token', component: Pages.ResetPasswordPageComponent },
 	{ path: 'unvalidated-email', component: Pages.UnvalidatedEmailPageComponent },

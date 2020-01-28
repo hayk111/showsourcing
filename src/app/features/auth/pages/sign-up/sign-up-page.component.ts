@@ -1,18 +1,16 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
-import { AutoUnsub } from '~utils';
-import { AuthFormButton, AuthFormElement } from '../../shared';
 
 @Component({
 	selector: 'sign-up-page-app',
 	templateUrl: './sign-up-page.component.html',
 	styleUrls: ['./sign-up-page.component.scss', '../../shared/form-style.scss']
 })
-export class SignUpPageComponent extends AutoUnsub implements OnInit {
-	pending$ = new Subject<boolean>();
+export class SignUpPageComponent implements OnInit {
+	pending$ = new BehaviorSubject(false);
 	error: string;
 	form: FormGroup = this.fb.group({
 		firstName: ['', Validators.required],
@@ -27,9 +25,7 @@ export class SignUpPageComponent extends AutoUnsub implements OnInit {
 		private router: Router,
 		private route: ActivatedRoute,
 		private fb: FormBuilder
-	) {
-		super();
-	}
+	) { }
 
 	ngOnInit() {
 	}

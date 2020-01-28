@@ -12,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 	styleUrls: ['./confirm-sign-up-page.component.scss', '../../shared/form-style.scss']
 })
 export class ConfirmSignUpPageComponent extends AutoUnsub implements OnInit {
-	codeCtrl = new FormControl('', Validators.required);
+	codeCtrl = new FormControl('', [Validators.required, Validators.maxLength(6), Validators.minLength(6)]);
 	pending$ = new BehaviorSubject(false);
 	username: string;
 	error: string;
@@ -33,13 +33,10 @@ export class ConfirmSignUpPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	checkCode(value: string = '') {
-		if (value.length === 6) {
+		if (this.codeCtrl.valid) {
 			this.pending$.next(true);
 			this.authSrv.confirmSignUp(this.username, value)
-				.catch(e => {
-					debugger;
-					this.error = e.code;
-				})
+				.catch(e => this.error = e.code)
 				.finally(() => this.pending$.next(false));
 		}
 	}

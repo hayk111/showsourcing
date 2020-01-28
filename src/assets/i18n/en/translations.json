@@ -556,6 +556,7 @@
 		"CodeMismatchException": "Invalid verification code provided, please try again.",
 		"UserNotFoundException": "Invalid credentials",
 		"NotAuthorizedException": "Not authorized",
+		"PasswordConfirmationFailed": "Password and confirm password fields must be identical",
 		"account-already-existed-with-email": "An account already exist with this email address.",
     "action-cannot-undone": "Warning: This action cannot be undone.",
     "all-fields-must-filled": "All fields must be filled first",
@@ -887,7 +888,8 @@
     "category": "Category",
     "change-name": "Change name",
     "check-inbox-email-validate": "Please check your inbox to validate your email...",
-    "clear-all-filters": "Clear all filters",
+		"clear-all-filters": "Clear all filters",
+		"code": "code",
     "company-name": "Company name",
     "completed-tasks": "Completed tasks",
     "component-library": "Component library",
@@ -1135,7 +1137,8 @@
     "width": "Width",
     "workflow": "Workflow",
     "you-r-invited": "You are invited to join ShowSourcing",
-    "your-collab-plat": "Your collaborative sourcing platform for your team and suppliers."
+		"your-collab-plat": "Your collaborative sourcing platform for your team and suppliers.",
+		"your-registration-code": "Your registration code"
   },
   "time": {
     "day-ago": {
