@@ -28,7 +28,7 @@ export class NotificationActivityService {
 	) {
 		this.limit = this.getInitialLimit();
 		this.client = getstream.connect(environment.getStreamKey, null, environment.getStreamAppID);
-		this.enableRealTimeNotifications();
+		// this.enableRealTimeNotifications();
 	}
 	private getToken(url): Observable<string> {
 		return this.http.get<TokenResponse>(url).pipe(

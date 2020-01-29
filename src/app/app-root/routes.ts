@@ -34,10 +34,10 @@ export const routes: Array<Route> = [
 		component: TemplateComponent,
 		canActivateChild: [
 			AuthenticatedGuard,
+			// HasTeamSelectedGuard
 			// CentralClientReadyGuard,
 			// HasTeamSelectedGuard,
 			// TeamClientReadyGuard,
-			// HasTeamSelectedGuard
 		],
 		children: [
 			{ path: '', redirectTo: 'dashboard', pathMatch: 'full' },
