@@ -13,7 +13,8 @@
 		*ngIf="hasFilters"
 		class="icon"
 		(click)="listSrv.openFilterPanel()"
-		translate="button.show-filters">
+		toolTip
+		[toolTipMessage]="'tooltip.also-show-archived' | translate">
 		<icon-app class="{{ listSrv.filterPanelOpen ? 'color-primary' :  'color-third' }}" name="filter" size="m"></icon-app>
 	</button>
 

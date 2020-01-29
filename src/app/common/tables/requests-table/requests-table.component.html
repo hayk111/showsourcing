@@ -28,9 +28,11 @@
 	<!-- contextual menu -->
 	<ng-template #contextualMenuTemplate let-row="row">
 		<context-menu-item-warn-app
-			class="pointer flexCenter"
-			(click)="cancelRequest.emit(row)"
-			translate="button.cancel-request">
+			(click)="cancelRequest.emit(row)">
+			<div class="icon-box square flexCenter mg-right-s">
+				<icon-app name="close" size="s"></icon-app>
+			</div>
+			<span translate="button.cancel-request"></span>
 		</context-menu-item-warn-app>
 	</ng-template>
 
