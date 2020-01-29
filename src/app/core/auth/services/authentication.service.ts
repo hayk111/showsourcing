@@ -129,7 +129,7 @@ export class AuthenticationService {
 		.then(_ => this.goToSignIn(username));
 	}
 
-	confirmNewPassword(username, newPassword, attributes?: { firstName: string, lastName: string }) {
+	completeNewPassword(username, newPassword, attributes?: { firstName: string, lastName: string }) {
 		const { firstName, lastName } = attributes;
 		return this.awsAuth.completeNewPassword(
 			this.authState.user, // the Cognito User Object

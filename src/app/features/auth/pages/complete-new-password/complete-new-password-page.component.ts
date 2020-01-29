@@ -38,7 +38,7 @@ export class CompleteNewPasswordPageComponent extends AutoUnsub implements OnIni
 		if (this.form.valid ) {
 			this.pending$.next(true);
 			const { firstName, lastName, password} = this.form.value;
-			this.authSrv.completeNewPassword(this.username, code, password)
+			this.authSrv.completeNewPassword(this.username, password, { firstName, lastName })
 			.catch (e => this.error = e.code)
 			.finally(() => this.pending$.next(false));
 		}
