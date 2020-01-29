@@ -4,9 +4,30 @@ import { AmplifyService } from 'aws-amplify-angular';
 import { AuthState } from 'aws-amplify-angular/dist/src/providers';
 import { Observable } from 'rxjs';
 import { distinctUntilKeyChanged, filter, map, mapTo, shareReplay, tap } from 'rxjs/operators';
-import { log } from '~utils';
-import { AuthStatus, Credentials, RegistrationCredentials } from '../interfaces';
 import { showsourcing } from '~utils/debug-object.utils';
+import { AuthStatus, Credentials, RegistrationCredentials } from '../interfaces';
+
+
+
+/**
+ * Authentication service responsible for authentication.
+ *
+ * Few words on the design choices:
+ *
+ * 1. The design pattern is to return a promise. The meaningful errors are catched in the view
+ * to display an error message. Async / await is not used because at the time of writing this it's not
+ * working properly with change detection (Angular 8). https://github.com/angular/angular/issues/31730
+ *
+ * 2. A second design pattern is to do the routing here in this service, so we have an entry point for all
+ * the authentication related routing.
+ * The alternative would have been to have it in the components which would have split all the cases.
+ * Here it's centralized. We could have centralized it elsewhere but I chosed to do it here.
+ *
+ * 3. the username is used in a lot of calls, we could have saved it on the service itself but
+ * I chosed to pass it around in the url to make the service more pure / stateless.
+ * So if you go on a specific url while you are unauthenticated the result will be the same.
+ *
+ */
 
 @Injectable({
 	providedIn: 'root'
@@ -14,9 +35,11 @@ import { showsourcing } from '~utils/debug-object.utils';
 export class AuthenticationService {
 
 	private awsAuth = this.amplifySrv.auth();
+	private authState: AuthState;
 	authState$: Observable<AuthState> = this.amplifySrv.authStateChange$.pipe(
 		// to get the first state
 		distinctUntilKeyChanged('state'),
+		tap(state => this.authState = state),
 		tap(state => showsourcing.auth.state = state),
 		shareReplay(1),
 	);
@@ -71,7 +94,7 @@ export class AuthenticationService {
 	}
 
 	signOut() {
-		this.awsAuth.signOut();
+		this.awsAuth.signOut().then(_ => this.goToSignIn());
 	}
 
 	signUp(credentials: RegistrationCredentials) {
@@ -98,7 +121,7 @@ export class AuthenticationService {
 
 	forgotPassword(username: string) {
 		return this.awsAuth.forgotPassword(username)
-		.then(data => this.goToForgotPasswordSubmit(username));
+		.then(_ => this.goToForgotPasswordSubmit(username));
 	}
 
 	forgotPasswordSubmit(username: string, code: string, newPassword: string) {
@@ -106,28 +129,21 @@ export class AuthenticationService {
 		.then(_ => this.goToSignIn(username));
 	}
 
-	resetPassword(cred: { email: string }): Observable<any> {
-		throw Error('not implemented yet');
-	}
-
-	confirmResetPassword({ token, password }: { token: string; password: string; }): Observable<any> {
-		throw Error('not implemented yet');
-	}
-
-	getEmailFromUrl() {
-		return undefined;
-	}
-
-	refreshAuthToken(): Observable<any> {
-		throw Error('not implemented yet');
-	}
-
-	checkPassword(any: any): Observable<any> {
-		throw Error('not implemented yet');
+	confirmNewPassword(username, newPassword, attributes?: { firstName: string, lastName: string }) {
+		const { firstName, lastName } = attributes;
+		return this.awsAuth.completeNewPassword(
+			this.authState.user, // the Cognito User Object
+			newPassword, // the new password
+			// OPTIONAL, the required attributes
+			{
+				'custom:firstName': firstName,
+				'custom:lastName': lastName
+			}
+		).then(_ => this.goToSignIn(username));
 	}
 
 	//
-	// Easy routing
+	// Routing
 	//
 
 	goToSignIn(username?: string) {

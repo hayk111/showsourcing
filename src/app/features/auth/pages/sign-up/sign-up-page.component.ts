@@ -33,8 +33,6 @@ export class SignUpPageComponent implements OnInit {
 	createAccount() {
 		if (this.form.valid) {
 			this.pending$.next(true);
-			// async await doesn't work as expected on angular on version 8
-			// https://github.com/angular/angular/issues/31730
 			this.authSrv.signUp(this.form.value)
 			.catch(e => this.error = e.code)
 			.finally(() => this.pending$.next(false));

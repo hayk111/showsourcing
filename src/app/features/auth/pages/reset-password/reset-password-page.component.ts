@@ -41,38 +41,38 @@ export class ResetPasswordPageComponent extends AutoUnsub implements OnInit {
 	onSubmit() {
 		if (this.form.valid) {
 			this.pending = true;
-			this.authSrv.confirmResetPassword({
-				password: this.form.get('confirmPswd').value,
-				token: this.token
-			}).pipe(
-				catchError(error => {
-					if (error.error && error.error.errors && error.error.errors.length > 0) {
-						this.error = error.error.errors[0];
-					} else {
-						this.error = this.translate.instant('error.reset-pwd');
-					}
-					this.notificationSrv.add({
-						type: ToastType.ERROR,
-						title: this.translate.instant('header.password-reset'),
-						message: this.error,
-						timeout: 4500
-					});
-					return throwError(error);
-				})
-			).subscribe(r => {
-				this.pending = false;
-				this.router.navigate(['auth', 'sign-in']);
-				this.notificationSrv.add({
-					type: ToastType.SUCCESS,
-					title: this.translate.instant('header.password-reset'),
-					// message: translate('Password successfully restored'),
-					message: this.translate.instant('message.pwd-reset-successfully'),
-					timeout: 3500
-				});
-			}, err => {
-				this.pending = false;
-				this.cdr.detectChanges();
-			});
+			// this.authSrv.confirmResetPassword({
+			// 	password: this.form.get('confirmPswd').value,
+			// 	token: this.token
+			// }).pipe(
+			// 	catchError(error => {
+			// 		if (error.error && error.error.errors && error.error.errors.length > 0) {
+			// 			this.error = error.error.errors[0];
+			// 		} else {
+			// 			this.error = this.translate.instant('error.reset-pwd');
+			// 		}
+			// 		this.notificationSrv.add({
+			// 			type: ToastType.ERROR,
+			// 			title: this.translate.instant('header.password-reset'),
+			// 			message: this.error,
+			// 			timeout: 4500
+			// 		});
+			// 		return throwError(error);
+			// 	})
+			// ).subscribe(r => {
+			// 	this.pending = false;
+			// 	this.router.navigate(['auth', 'sign-in']);
+			// 	this.notificationSrv.add({
+			// 		type: ToastType.SUCCESS,
+			// 		title: this.translate.instant('header.password-reset'),
+			// 		// message: translate('Password successfully restored'),
+			// 		message: this.translate.instant('message.pwd-reset-successfully'),
+			// 		timeout: 3500
+			// 	});
+			// }, err => {
+			// 	this.pending = false;
+			// 	this.cdr.detectChanges();
+			// });
 		}
 	}
 }

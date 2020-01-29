@@ -28,8 +28,7 @@ export class AuthenticatedGuard implements CanActivate, CanActivateChild {
 		switch (status) {
 			case AuthStatus.NOT_AUTHENTICATED:
 				const returnUrl = route.queryParams.returnUrl ? route.queryParams.returnUrl : state.url;
-				const email = this.authSrv.getEmailFromUrl();
-				const queryParams = { returnUrl, email };
+				const queryParams = { returnUrl };
 				this.router.navigate(['auth', 'sign-in'], { queryParams });
 				break;
 		}

@@ -42,11 +42,11 @@ export class ChangePswdDlgComponent extends AutoUnsub implements OnInit {
 			confirmPswd: ['', Validators.required],
 		}, { validator: PasswordValidator });
 
-		this.isCurrentPswd$ = this.onBlur$
-			.pipe(
-				takeUntil(this._destroy$),
-				switchMap((str) => this.profileSrv.checkCurrentPassword(str))
-			);
+		// this.isCurrentPswd$ = this.onBlur$
+		// 	.pipe(
+		// 		takeUntil(this._destroy$),
+		// 		switchMap((str) => this.profileSrv.checkCurrentPassword(str))
+		// 	);
 	}
 
 	checkCurrentPassword() {
