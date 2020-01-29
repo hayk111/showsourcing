@@ -555,7 +555,7 @@
 		"UsernameExistsException": "An user already exist with this email address",
 		"CodeMismatchException": "Invalid verification code provided, please try again.",
 		"UserNotFoundException": "Invalid credentials",
-		"NotAuthorizedException": "Not authorized",
+		"NotAuthorizedException": "Incorrect username or password",
 		"PasswordConfirmationFailed": "Password and confirm password fields must be identical",
 		"ExpiredCodeException": "This code has expired",
 		"account-already-existed-with-email": "An account already exist with this email address.",
