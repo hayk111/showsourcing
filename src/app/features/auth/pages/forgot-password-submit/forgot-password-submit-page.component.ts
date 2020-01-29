@@ -35,11 +35,7 @@ export class ForgotPasswordSubmitPageComponent extends AutoUnsub implements OnIn
 
 	onSubmit() {
 		if (this.form.valid ) {
-			const { code, password, confirmPassword} = this.form.value;
-			if (password !== confirmPassword) {
-				this.error = 'PasswordConfirmationFailed';
-				return;
-			}
+			const { code, password} = this.form.value;
 			this.pending$.next(true);
 			this.authSrv.forgotPasswordSubmit(this.username, code, password)
 			.catch (e => this.error = e.code)

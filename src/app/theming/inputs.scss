@@ -41,8 +41,12 @@ input, textarea {
 	border: 1px solid var(--color-secondary);
 	border-radius: var(--border-radius);
 
+	// putting ng-invalid before focus because on focus we want it blue
+	&.ng-invalid:not(.ng-untouched) {
+		border-color: var(--color-warn);
+	}
 	&:focus {
-		border: 1px solid var(--color-primary);
+		border-color: var(--color-primary);
 	}
 	&.small {
 		padding: 3px;
