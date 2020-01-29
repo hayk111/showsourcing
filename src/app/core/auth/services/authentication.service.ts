@@ -98,12 +98,12 @@ export class AuthenticationService {
 
 	forgotPassword(username: string) {
 		return this.awsAuth.forgotPassword(username)
-		.then(data => this.goToForgotPasswordSubmit());
+		.then(data => this.goToForgotPasswordSubmit(username));
 	}
 
 	forgotPasswordSubmit(username: string, code: string, newPassword: string) {
 		return this.awsAuth.forgotPasswordSubmit(username, code, newPassword)
-		.then(data => console.log(data));
+		.then(_ => this.goToSignIn(username));
 	}
 
 	resetPassword(cred: { email: string }): Observable<any> {
@@ -146,8 +146,8 @@ export class AuthenticationService {
 		this.router.navigate([ 'auth', 'forgot-password'], { queryParams: { username }});
 	}
 
-	goToForgotPasswordSubmit() {
-		this.router.navigate([ 'auth', 'forgot-password-submit']);
+	goToForgotPasswordSubmit(username?: string) {
+		this.router.navigate([ 'auth', 'forgot-password-submit'], { queryParams: { username }});
 	}
 
 }
