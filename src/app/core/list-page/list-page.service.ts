@@ -274,7 +274,7 @@ export class ListPageService
 				tap(_ => this.selectionSrv.unselectOne(entity)),
 				filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
 				switchMap(_ => this.dataSrv.deleteOne(entity.id)),
-				tap(_ => callback()),
+				tap(_ => callback && callback()),
 				switchMap(_ => refetch ? this.refetch() : empty())
 			).subscribe();
 	}

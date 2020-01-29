@@ -58,9 +58,26 @@
 		let-row="row"
 		sortBy="status"
 		width="140">
-		<span class="status capitalize">
-			{{ row.accessType }}
-		</span>
+		<ng-container *ngIf="teamOwner; else notOwner">
+			<editable-container-app
+				[hasAction]="false"
+				[openOnClick]="false"
+				(click)="sel.openMenu()">
+				<editable-display-app>
+					<status-selector-app
+						#sel
+						selectSize="m"
+						[entity]="row.accessType"
+						[typeEntity]="'TEAM_USER' | erm">
+					</status-selector-app>
+				</editable-display-app>
+			</editable-container-app>
+		</ng-container>
+		<ng-template #notOwner>
+			<span class="status capitalize">
+				{{ row.accessType }}
+			</span>
+		</ng-template>
 	</ng-template>
 
 	<!-- action -->
