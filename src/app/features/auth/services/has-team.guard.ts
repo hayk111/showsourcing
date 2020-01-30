@@ -18,7 +18,7 @@ export class HasTeamGuard implements CanActivate, CanActivateChild {
 	}
 
 	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
-		return this.teamSrv.selectAll().pipe(
+		return this.teamSrv.queryAll().pipe(
 			tap(d => log.debug('%c hasTeamGuard', LogColor.GUARD, d)),
 			map(teams => teams.length > 0),
 			tap(hasTeam => this.redirect(hasTeam, route, state))

@@ -1,7 +1,7 @@
 import { ApolloBase, QueryRef } from 'apollo-angular';
 import { environment } from 'environments/environment';
 import { DocumentNode } from 'graphql';
-import { BehaviorSubject, ConnectableObservable, forkJoin, merge, Observable, of, throwError } from 'rxjs';
+import { BehaviorSubject, ConnectableObservable, forkJoin, merge, Observable, of, throwError, from } from 'rxjs';
 import {
 	catchError,
 	distinctUntilChanged,
@@ -56,17 +56,14 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	/** the underlying graphql client this service is gonna use by default
 	 * when none is specified
 	 */
-	protected defaultClient = environment.defaultClient;
 	protected queryBuilder: QueryBuilder;
 	protected typeName: string;
 
 	constructor(
-		protected apolloState: ApolloStateService,
 		protected fields: any,
 		protected sing: string,
 		protected plural: string,
-		protected analyticsSrv?: AnalyticsService,
-	) {
+		protected analyticsSrv?: AnalyticsService) {
 		this.queryBuilder = new QueryBuilder(sing, plural);
 		// capitalizing the typename
 		this.typeName = sing.substr(0, 1).toUpperCase() + sing.substr(1);

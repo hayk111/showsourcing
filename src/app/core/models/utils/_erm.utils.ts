@@ -71,7 +71,7 @@ export class EntityMetadata {
 }
 
 // Must be added ALPHABETICALLY
-// Laziness is your best friend.  Never do twice what you can automate once
+// Laziness is your best friend. Never do twice what you can automate once
 // - Ghandi
 export class ERM {
 

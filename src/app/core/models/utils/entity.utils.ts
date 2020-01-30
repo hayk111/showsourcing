@@ -25,7 +25,7 @@ export enum EntityName {
 	TASK = 'task',
 	TEAM = 'team',
 	TEMPALTE_FIELD = 'template field',
-	TEAM_MEMBER = 'team-member',
+	TEAM_MEMBER = 'team member',
 	USER = 'user',
 }
 

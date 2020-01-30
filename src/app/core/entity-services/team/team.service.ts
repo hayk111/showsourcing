@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, ReplaySubject } from 'rxjs';
-import { filter, first, map, shareReplay, switchMap } from 'rxjs/operators';
+import { Observable, ReplaySubject, from } from 'rxjs';
+import { filter, first, map, shareReplay, switchMap, tap } from 'rxjs/operators';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
@@ -10,6 +10,8 @@ import { TeamQueries } from '~entity-services/team/team.queries';
 import { Team } from '~models';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
+import { API, graphqlOperation } from 'aws-amplify';
+import { AmplifyService } from 'aws-amplify-angular';
 
 // name in local storage
 const SELECTED_TEAM = 'selected-team';
@@ -56,7 +58,8 @@ export class TeamService extends GlobalService<Team> {
 		protected apolloState: ApolloStateService,
 		protected storage: LocalStorageService,
 		protected authSrv: AuthenticationService,
-		private http: HttpClient
+		private http: HttpClient,
+		private amplifySrv: AmplifyService
 	) { super(apolloState, TeamQueries, 'team', 'teams'); }
 
 	init() {
@@ -107,6 +110,16 @@ export class TeamService extends GlobalService<Team> {
 
 	get idSync() {
 		return this.selectedTeamSync.id;
+	}
+
+	// TODO amplify remove this
+	queryAll() {
+		const gql = this.queryBuilder.queryAll('id, name');
+		return from(this.amplifySrv.api().graphql(
+			graphqlOperation(gql)
+			)).pipe(
+			tap(d => { debugger; })
+		) as Observable<any>;
 	}
 
 }

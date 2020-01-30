@@ -3,6 +3,7 @@ import { AuthenticatedGuard } from '~core/auth';
 import { GuestTemplateComponent, TemplateComponent } from '~core/template';
 import { InvitationGuard } from '~features/invitation/services/invitation.guard';
 import { DevModeGuard } from '~utils/dev-mode.guard';
+import { HasTeamSelectedGuard } from '~features/auth/services';
 
 export const routes: Array<Route> = [
 	{
@@ -34,7 +35,7 @@ export const routes: Array<Route> = [
 		component: TemplateComponent,
 		canActivateChild: [
 			AuthenticatedGuard,
-			// HasTeamSelectedGuard
+			HasTeamSelectedGuard
 			// CentralClientReadyGuard,
 			// HasTeamSelectedGuard,
 			// TeamClientReadyGuard,

@@ -26,6 +26,9 @@ import { AuthStatus, Credentials, RegistrationCredentials } from '../interfaces'
  * 3. the username is used in a lot of calls, we could have saved it on the service itself but
  * I chosed to pass it around in the url to make the service more pure / stateless.
  * So if you go on a specific url while you are unauthenticated the result will be the same.
+ * The advantage is that if an user does an F5 it keeps working.
+ * The disadvantage is that we cannot do the sign in right after code validation. Since Antoine
+ * wants that to be the case the password will be saved on the service here
  *
  */
 
@@ -41,7 +44,7 @@ export class AuthenticationService {
 		distinctUntilKeyChanged('state'),
 		tap(state => this.authState = state),
 		tap(state => showsourcing.auth.state = state),
-		shareReplay(1),
+		shareReplay(1)
 	);
 	// !
 	/** to rename  */
@@ -70,6 +73,7 @@ export class AuthenticationService {
 		showsourcing.auth = {};
 	}
 
+	// SIGN IN FLOWS
 	signIn(credentials: Credentials) {
 		const { username, password } = credentials;
 		return this.awsAuth.signIn(username, password)
@@ -93,9 +97,36 @@ export class AuthenticationService {
 		});
 	}
 
+	forgotPassword(username: string) {
+		return this.awsAuth.forgotPassword(username)
+		.then(_ => this.goToForgotPasswordSubmit(username));
+	}
+
+	forgotPasswordSubmit(username: string, code: string, newPassword: string) {
+		return this.awsAuth.forgotPasswordSubmit(username, code, newPassword)
+		.then(_ => this.signIn({ username, password: newPassword }));
+	}
+
+	completeNewPassword(username, newPassword, attributes?: { firstName: string, lastName: string }) {
+		const { firstName, lastName } = attributes;
+		return this.awsAuth.completeNewPassword(
+			this.authState.user, // the Cognito User Object
+			newPassword, // the new password
+			// OPTIONAL, the required attributes
+			{
+				'custom:firstName': firstName,
+				'custom:lastName': lastName
+			}
+		).then(_ => this.goToSignIn(username));
+	}
+
+	// SIGN OUT FLOWS
+
 	signOut() {
 		this.awsAuth.signOut().then(_ => this.goToSignIn());
 	}
+
+	// SIGN UP FLOWS
 
 	signUp(credentials: RegistrationCredentials) {
 		const { username , password, firstName, lastName } = credentials;
@@ -119,35 +150,12 @@ export class AuthenticationService {
 		return this.awsAuth.resendSignUp(username);
 	}
 
-	forgotPassword(username: string) {
-		return this.awsAuth.forgotPassword(username)
-		.then(_ => this.goToForgotPasswordSubmit(username));
-	}
-
-	forgotPasswordSubmit(username: string, code: string, newPassword: string) {
-		return this.awsAuth.forgotPasswordSubmit(username, code, newPassword)
-		.then(_ => this.goToSignIn(username));
-	}
-
-	completeNewPassword(username, newPassword, attributes?: { firstName: string, lastName: string }) {
-		const { firstName, lastName } = attributes;
-		return this.awsAuth.completeNewPassword(
-			this.authState.user, // the Cognito User Object
-			newPassword, // the new password
-			// OPTIONAL, the required attributes
-			{
-				'custom:firstName': firstName,
-				'custom:lastName': lastName
-			}
-		).then(_ => this.goToSignIn(username));
-	}
-
 	//
 	// Routing
 	//
 
 	goToSignIn(username?: string) {
-		this.router.navigate(['auth', 'sign-in' ], { queryParams: { username }});
+		this.router.navigate(['auth', 'sign-in' ], { queryParams: { username } });
 	}
 
 	goToSignUp() {

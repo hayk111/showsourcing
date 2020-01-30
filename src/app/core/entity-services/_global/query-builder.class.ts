@@ -94,17 +94,18 @@ export class QueryBuilder {
 		}`)
 
 	queryAll = (str: string) => gql(`
-		query ${this.plural}(
-			$query: String!,
-			$sortBy: String,
-			$descending: Boolean
+		query List${this.capPlural}(
+			$filter: ModelTeamFilterInput,
+			$limit: Int,
+			$nextToken: String
 			) {
-			${this.plural}(query: $query, sortBy: $sortBy, descending: $descending) {
+			list${this.capPlural}(filter: $filter, limit: $limit, nextToken: $nextToken) {
 				items {
 					id
+					__typename
 					${str}
-				},
-				count
+				}
+				nextToken
 			}
 		}`)
 
