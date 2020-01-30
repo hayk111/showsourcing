@@ -31,7 +31,7 @@
 					*ngIf="result.type === 'product'"
 					[type]="result.type"
 					[selectable]="false"
-					[status]="result?.status" [title]="result.name" [subtitle]="result.supplier?.name"
+					[status]="result?.status" [title]="result.name" [subtitle]="result?.reference"
 					[price]="result?.price"
 					[votes]="result?.votes"
 					[category]="result?.category?.name"
