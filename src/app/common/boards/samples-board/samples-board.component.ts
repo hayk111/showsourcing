@@ -131,7 +131,6 @@ export class SamplesBoardComponent extends AutoUnsub implements OnInit {
 			id: event.item.id,
 			status: isNewStatus ? null : new SampleStatus({ id: event.to.id })
 		},
-			Client.TEAM,
 			isNewStatus ? 'status { id }' : ''
 		).subscribe();
 	}
@@ -145,7 +144,6 @@ export class SamplesBoardComponent extends AutoUnsub implements OnInit {
 		}));
 		this.sampleSrv.updateMany(
 			samples,
-			Client.TEAM,
 			isNewStatus ? 'status { id }' : ''
 		).subscribe();
 	}

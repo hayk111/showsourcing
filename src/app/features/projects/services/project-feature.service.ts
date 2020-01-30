@@ -3,16 +3,14 @@ import { forkJoin, Observable, of } from 'rxjs';
 import { first, switchMap, tap } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { AnalyticsService } from '~core/analytics/analytics.service';
-import { ApolloStateService } from '~core/apollo';
-import { Product, ProductStatus, Project } from '~core/erm';
-import { ProductService, ProductStatusService, ProjectService, UserService } from '~core/erm';
+import { Product, ProductService, ProductStatus, ProductStatusService, Project, ProjectService, UserService } from '~core/erm';
 import { ToastService, ToastType } from '~shared/toast';
 
 @Injectable({ providedIn: 'root' })
 export class ProjectFeatureService extends ProjectService {
 	constructor(
 		protected analyticsSrv: AnalyticsService,
-		
+
 		protected productSrv: ProductService,
 		protected productStatusSrv: ProductStatusService,
 		protected userSrv: UserService,

@@ -343,14 +343,14 @@ export class SelectorsService {
 
 	getUsers(): Observable<User[]> {
 		this.selectParams = { ...this.selectParams, sortBy: 'lastName' };
-		this.listResult = this.userSrv.getListQuery(this.selectParams, '', Client.TEAM);
+		this.listResult = this.userSrv.getListQuery(this.selectParams, '');
 		this.setItems();
 		return this.items$;
 	}
 
 	getTeamUsers(): Observable<TeamUser[]> {
 		this.selectParams = { ...this.selectParams, sortBy: 'user.lastName' };
-		this.listResult = this.teamUserSrv.getListQuery(this.selectParams, '', Client.TEAM);
+		this.listResult = this.teamUserSrv.getListQuery(this.selectParams, '');
 		this.setItems();
 		return this.items$;
 	}

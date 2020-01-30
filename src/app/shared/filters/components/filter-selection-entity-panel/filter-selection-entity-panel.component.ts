@@ -66,8 +66,7 @@ export class FilterSelectionEntityPanelComponent extends AutoUnsub implements On
 		const srv = this.ermSrv.getGlobalService(ERM.USER);
 		// we get the items, but we just need the id and the name
 		this.listResult = srv.getListQuery(
-			{ take: 40, sortBy: 'firstName', descending: false }, 'id, firstName, lastName ',
-			Client.TEAM
+			{ take: 40, sortBy: 'firstName', descending: false }, 'id, firstName, lastName '
 		);
 		this.choices$ = this.listResult.items$.pipe(
 			tap(_ => this.pending$.next(false)),
@@ -80,8 +79,7 @@ export class FilterSelectionEntityPanelComponent extends AutoUnsub implements On
 		const srv = this.ermSrv.getGlobalService(ERM.EVENT);
 		// we get the items, but we just need the id and the name
 		this.listResult = srv.getListQuery(
-			{ take: 40, sortBy: 'description.name', descending: false }, 'id, name, description { id, name }',
-			Client.TEAM
+			{ take: 40, sortBy: 'description.name', descending: false }, 'id, name, description { id, name }'
 		);
 		this.choices$ = this.listResult.items$.pipe(
 			tap(_ => this.pending$.next(false))

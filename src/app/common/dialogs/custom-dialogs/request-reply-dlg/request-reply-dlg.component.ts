@@ -241,7 +241,7 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 
 	updateExtendedField(field: ExtendedField) {
 		if (field && field.id)
-			this.extendedFieldSrv.update(field, Client.GLOBAL_REQUEST).subscribe();
+			this.extendedFieldSrv.update(field).subscribe();
 	}
 
 }

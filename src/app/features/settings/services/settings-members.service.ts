@@ -1,11 +1,8 @@
-import { Injectable } from '@angular/core';
-import { zip, Subject, of } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { ApolloStateService } from '~core/apollo';
-import { TeamService, TeamUserService, UserService } from '~core/erm';
 import { HttpClient } from '@angular/common/http';
-import { TeamUser } from '~core/erm';
-import { Invitation } from '~core/erm';
+import { Injectable } from '@angular/core';
+import { of, Subject, zip } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Invitation, TeamService, TeamUser, TeamUserService, UserService } from '~core/erm';
 
 @Injectable({ providedIn: 'root' })
 export class SettingsMembersService extends TeamUserService {
@@ -13,7 +10,6 @@ export class SettingsMembersService extends TeamUserService {
 	invitationAdd$ = new Subject<any>();
 
 	constructor(
-		
 		protected teamSrv: TeamService,
 		protected userSrv: UserService,
 		protected http: HttpClient

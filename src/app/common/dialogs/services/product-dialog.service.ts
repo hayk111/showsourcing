@@ -1,24 +1,17 @@
 import { Injectable } from '@angular/core';
 import { forkJoin, Observable } from 'rxjs';
-import { ApolloStateService } from '~core/apollo';
-import {
-	ContactService,
-	ProductService,
-	ProjectService,
-	SupplierService,
-	TeamUserService,
-	UserService,
-} from '~core/erm';
-import { ProductVoteRequestService } from '~core/erm';
-import { Contact, Product, ProductVoteRequest, Project } from '~core/erm';
 import { AnalyticsService } from '~core/analytics/analytics.service';
+import {
+	Contact, ContactService, Product, ProductService,
+	ProductVoteRequest, ProductVoteRequestService, Project,
+	ProjectService, SupplierService, TeamUserService, UserService
+} from '~core/erm';
 
 @Injectable()
 export class ProductDialogService extends ProductService {
 
 	constructor(
 		protected analyticsSrv: AnalyticsService,
-		
 		protected voteSrv: ProductVoteRequestService,
 		protected projectSrv: ProjectService,
 		protected supplierSrv: SupplierService,

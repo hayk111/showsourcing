@@ -31,13 +31,13 @@ export class UploaderService {
 	) { }
 
 
-	uploadImages(imgs: File[], linkedItem?: any, imageProperty = 'images', isPropertyArray = true, client?: Client): Observable<AppImage[]> {
+	uploadImages(imgs: File[], linkedItem?: any, imageProperty = 'images', isPropertyArray = true): Observable<AppImage[]> {
 		const uploads$ = imgs.map(img =>
 			// MaxSize 1200px
 			resizeSizeToLimit(img, 1200).pipe(
 				first(),
 				tap(imgResized => log.debug(`about to upload image ${imgResized.name}, with size: ${imgResized.size} and type ${imgResized.type}`)),
-				mergeMap((imgResized: File) => this.uploadFile(imgResized, 'image', linkedItem, client)),
+				mergeMap((imgResized: File) => this.uploadFile(imgResized, 'image', linkedItem)),
 			)
 		);
 
@@ -62,9 +62,9 @@ export class UploaderService {
 		);
 	}
 
-	uploadFiles(files: File[], linkedItem?: any, client?: Client): Observable<any> {
+	uploadFiles(files: File[], linkedItem?: any): Observable<any> {
 		const uploadedMsg = this.translate.instant('text.uploaded-with-success');
-		return forkJoin(files.map(file => this.uploadFile(file, 'file', linkedItem, client))).pipe(
+		return forkJoin(files.map(file => this.uploadFile(file, 'file', linkedItem))).pipe(
 			first(),
 			// link item (we need to do it after the file is ready else we will have 403)
 			mergeMap((attachments: any[]) => this.linkItem(attachments, linkedItem, false)),
@@ -81,11 +81,11 @@ export class UploaderService {
 		);
 	}
 
-	uploadImage(file: File, linkedItem?: any, client?: Client) {
-		return this.uploadFile(file, 'image', linkedItem, client);
+	uploadImage(file: File, linkedItem?: any) {
+		return this.uploadFile(file, 'image', linkedItem);
 	}
 
-	uploadFile(file: File, type: 'file' | 'image' = 'file', linkedItem?: any, client?: Client): Observable<AppImage | Attachment> {
+	uploadFile(file: File, type: 'file' | 'image' = 'file', linkedItem?: any): Observable<AppImage | Attachment> {
 		const isImage = type === 'image';
 		const fileName = file.name;
 		const size = file.size;
@@ -101,10 +101,10 @@ export class UploaderService {
 			? (request as ImageUploadRequest).image
 			: (request as AttachmentUploadRequest).attachment;
 
-		return service.create(request, client).pipe(
+		return service.create(request).pipe(
 			// subscribing to that upload request so we can wait till it's ready
 			mergeMap(_ =>
-				service.waitForOne(`id == '${request.id}' AND status == 'upload-ready'`, undefined, client)
+				service.waitForOne(`id == '${request.id}' AND status == 'upload-ready'`, undefined)
 			),
 			// we use filter instead putting the status into the waitForOne predicate because some images are
 			// readonly (meaning we cannot give additional condition beside the id)
@@ -115,7 +115,7 @@ export class UploaderService {
 			// so we need to wait for it to be ready.
 			mergeMap(_ => this.emitWhenFileReady(request) as any),
 			// putting the request status to uploaded
-			mergeMap(_ => service.update({ id: request.id, status: 'uploaded' }, client)),
+			mergeMap(_ => service.update({ id: request.id, status: 'uploaded' })),
 			// sending the image back
 			map(_ => returned)
 		);

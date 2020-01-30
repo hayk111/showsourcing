@@ -3,8 +3,6 @@ import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { ApolloStateService, TeamClientInitializer } from '~core/apollo';
-
 import { TeamService } from '~core/erm';
 import { Team } from '~core/erm';
 import { TrackingComponent } from '~utils/tracking-component';
@@ -26,8 +24,6 @@ export class PickATeamPageComponent extends TrackingComponent implements OnInit 
 		private teamSrv: TeamService,
 		private router: Router,
 		private route: ActivatedRoute,
-		private apolloState: ApolloStateService,
-		private teamClient: TeamClientInitializer
 	) {
 		super();
 	}
@@ -40,16 +36,16 @@ export class PickATeamPageComponent extends TrackingComponent implements OnInit 
 	}
 
 	pickTeam(team: Team) {
-		this.pending$.next(true);
-		this.teamClient.setPending('switching team');
-		this.teamSrv.pickTeam(team).pipe(
-			// we need to wait for the team client to be ready
-			switchMap(_ =>
-				this.apolloState.getClientWhenReady(
-					Client.TEAM,
-					'selecting team waiting for client'
-				)
-			),
-		).subscribe(_ => this.router.navigateByUrl(this.returnUrl));
+		// this.pending$.next(true);
+		// this.teamClient.setPending('switching team');
+		// this.teamSrv.pickTeam(team).pipe(
+		// 	// we need to wait for the team client to be ready
+		// 	switchMap(_ =>
+		// 		this.apolloState.getClientWhenReady(
+		// 			Client.TEAM,
+		// 			'selecting team waiting for client'
+		// 		)
+		// 	),
+		// ).subscribe(_ => this.router.navigateByUrl(this.returnUrl));
 	}
 }

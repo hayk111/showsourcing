@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivateChild, RouterStateSnapshot } from '@angular/router';
-import { combineLatest, Observable } from 'rxjs';
-import { filter, tap } from 'rxjs/operators';
-import { ApolloStateService, ClientStatus } from '~core/apollo';
+import { Observable } from 'rxjs';
 
 
 @Injectable({
@@ -10,7 +8,7 @@ import { ApolloStateService, ClientStatus } from '~core/apollo';
 })
 export class InvitationGuard implements CanActivateChild {
 
-	constructor(private apolloState: ApolloStateService) { }
+	constructor() { }
 
 	canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
 		// const teamClientStatus$ = this.apolloState.getClientStatus(Client.TEAM);

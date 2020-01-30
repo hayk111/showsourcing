@@ -3,14 +3,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { TeamClientInitializer } from '~core/apollo';
-
 import { AuthenticationService } from '~core/auth/services/authentication.service';
-import { InvitationFeatureService } from '~features/invitation/services/invitation-feature.service';
 import { InvitationUser } from '~core/erm';
+import { InvitationFeatureService } from '~features/invitation/services/invitation-feature.service';
 import { ToastService, ToastType } from '~shared/toast';
 import { AutoUnsub } from '~utils';
-import { TranslateService } from '@ngx-translate/core';
+
 
 
 @Component({
@@ -22,7 +20,6 @@ export class HandleInvitationComponent extends AutoUnsub implements OnInit {
 
 	authenticated$: Observable<string>;
 	invitation$: Observable<InvitationUser>;
-	client: Client;
 	returnUrl: string;
 	invitationId: string;
 
@@ -37,8 +34,6 @@ export class HandleInvitationComponent extends AutoUnsub implements OnInit {
 		private authSrv: AuthenticationService,
 		private invitationSrv: InvitationFeatureService,
 		private toastSrv: ToastService,
-		private teamClient: TeamClientInitializer,
-		private translate: TranslateService
 	) {
 		super();
 	}
@@ -54,7 +49,6 @@ export class HandleInvitationComponent extends AutoUnsub implements OnInit {
 
 	accept() {
 		this.hasAccepted$.next(true);
-		this.teamClient.setPending('switching team');
 		this.invitationSrv.acceptInvitation(this.invitationId).subscribe(_ => {
 			this.router.navigateByUrl('/');
 			this.toastSrv.add({

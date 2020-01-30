@@ -16,6 +16,5 @@ export const environment = {
 	getStreamKey: 'kn8zj3tgdkf3',
 	getStreamAppID: '39385',
 	LOG_LEVEL: LogLevel.ERROR,
-	defaultClient: Client.TEAM
 };
 

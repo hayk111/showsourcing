@@ -1,15 +1,13 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { zip } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ApolloStateService } from '~core/apollo';
 import { CompanyService, UserService } from '~core/erm';
-import { HttpClient } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
 export class SettingsCompanyService {
 
 	constructor(
-		
 		protected companySrv: CompanyService,
 		protected userSrv: UserService,
 		protected http: HttpClient

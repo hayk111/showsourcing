@@ -1,20 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ApolloStateService } from '~core/apollo';
-import { InvitationUserService, TeamService, UserService } from '~core/erm';
-import { InvitationUser } from '~core/erm';
+import { InvitationUser, InvitationUserService, TeamService, UserService } from '~core/erm';
 
 @Injectable({ providedIn: 'root' })
 export class InvitationFeatureService extends InvitationUserService {
 
 	constructor(
-		
+
 		protected userSrv: UserService,
 		protected teamSrv: TeamService,
 		protected http: HttpClient
 	) {
-		super(apolloState);
+		super();
 	}
 
 	getInvitation(id: string): Observable<InvitationUser> {

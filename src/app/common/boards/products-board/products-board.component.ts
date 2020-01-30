@@ -124,7 +124,6 @@ export class ProductsBoardComponent extends AutoUnsub implements OnInit {
 			id: event.item.id,
 			status: isNewStatus ? null : new ProductStatus({ id: event.to.id })
 		},
-			Client.TEAM,
 			isNewStatus ? 'status { id }' : ''
 		).subscribe();
 	}
@@ -138,7 +137,6 @@ export class ProductsBoardComponent extends AutoUnsub implements OnInit {
 		}));
 		this.productSrv.updateMany(
 			products,
-			Client.TEAM,
 			isNewStatus ? 'status { id }' : ''
 		).subscribe();
 	}

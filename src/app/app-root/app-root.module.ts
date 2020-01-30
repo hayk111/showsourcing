@@ -13,7 +13,6 @@ import { routes } from '~app-root/routes';
 import { CreationDialogsCommonModule } from '~common/dialogs/creation-dialogs/creation-dialogs-common.module';
 import { CustomDialogsCommonModule } from '~common/dialogs/custom-dialogs/custom-dialogs-common.module';
 import { SelectionDialogsCommonModule } from '~common/dialogs/selection-dialogs/selection-dialogs-common.module';
-import { AppApolloModule } from '~core/apollo/apollo.module';
 import * as i18n from '~core/i18n/i18n.service';
 import { AppMissingTranslationHandler } from '~core/i18n/missing-translation.service';
 import { ApiInterceptor } from '~core/interceptors/api.interceptor';
@@ -30,7 +29,6 @@ import { SharedModule } from '~shared/shared.module';
 		BrowserAnimationsModule,
 		AmplifyAngularModule,
 		SharedModule,
-		AppApolloModule,
 		TemplateModule,
 		CreationDialogsCommonModule,
 		SelectionDialogsCommonModule,
