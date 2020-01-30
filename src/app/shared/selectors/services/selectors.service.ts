@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
-import { Client } from '~core/apollo/services/apollo-client-names.const';
+
 import { ListQuery } from '~core/erm';
 import { SelectParamsConfig } from '~core/erm';
 import { CountryService } from '~core/erm';

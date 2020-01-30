@@ -1,6 +1,6 @@
 import { GlobalService } from '../_global/global.service';
 import { RPCRequest, IRPCRequest } from '~core/erm/models/rpc-request.model';
-import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
+
 import { Injectable } from '@angular/core';
 import { RpcQueries } from './rpc.queries';
 import { switchMap, timeout } from 'rxjs/operators';
@@ -16,8 +16,8 @@ import { Observable } from 'rxjs';
  */
 
 export class RpcService extends GlobalService<RPCRequest> {
-	constructor(protected apolloState: ApolloStateService) {
-		super(apolloState, RpcQueries, 'request', 'requests');
+	constructor() {
+		super(RpcQueries, 'request', 'requests');
 	}
 	/**
 	 * creates request with default status "pending" and subscribes for status changes

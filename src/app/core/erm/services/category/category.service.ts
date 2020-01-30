@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
-import { GlobalWithAuditService } from '~core/erm/services/_global/global-with-audit.service';
+import { Category } from '~core/erm/models';
 import { CategoryQueries } from '~core/erm/services/category/category.queries';
 import { UserService } from '~core/erm/services/user/user.service';
-import { Category } from '~core/erm/models';
+import { GlobalWithAuditService } from '~core/erm/services/_global/global-with-audit.service';
 
 
 @Injectable({
@@ -11,8 +10,8 @@ import { Category } from '~core/erm/models';
 })
 export class CategoryService extends GlobalWithAuditService<Category> {
 
-	constructor(protected apolloState: ApolloStateService, protected userSrv: UserService) {
-		super(apolloState, CategoryQueries, 'category', 'categories', userSrv);
+	constructor(protected userSrv: UserService) {
+		super(CategoryQueries, 'category', 'categories', userSrv);
 	}
 
 }

@@ -3,7 +3,7 @@ import { ActivatedRouteSnapshot, CanActivateChild, RouterStateSnapshot } from '@
 import { combineLatest, Observable } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
 import { ApolloStateService, ClientStatus } from '~core/apollo';
-import { Client } from '~core/apollo/services/apollo-client-names.const';
+
 
 @Injectable({
 	providedIn: 'root'

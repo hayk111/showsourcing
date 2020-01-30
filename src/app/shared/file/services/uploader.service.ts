@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { forkJoin, Observable, of } from 'rxjs';
 import { delay, first, map, mapTo, mergeMap, retryWhen, switchMap, take, tap } from 'rxjs/operators';
-import { Client } from '~core/apollo/services/apollo-client-names.const';
+
 import { ERMService } from '~core/erm';
 import { ImageService } from '~core/erm';
 import { AttachmentService, ImageUploadRequestService } from '~core/erm';

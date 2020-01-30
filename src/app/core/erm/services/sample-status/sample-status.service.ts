@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
+
 import { SampleStatus } from '~core/erm/models';
 
 import { GlobalService } from '../_global/global.service';
@@ -10,7 +10,7 @@ import { SampleStatusQueries } from './sample-status.queries';
 })
 export class SampleStatusService extends GlobalService<SampleStatus> {
 
-	constructor(protected apolloState: ApolloStateService) {
-		super(apolloState, SampleStatusQueries, 'sampleStatus', 'sampleStatuses');
+	constructor() {
+		super(SampleStatusQueries, 'sampleStatus', 'sampleStatuses');
 	}
 }

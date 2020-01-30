@@ -3,11 +3,10 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, switchMap, take, tap } from 'rxjs/operators';
-import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
+import { ExportRequest } from '~core/erm/models';
+import { ExportRequestQueries } from '~core/erm/services/export-request/export-request.queries';
 import { UserService } from '~core/erm/services/user/user.service';
 import { GlobalService } from '~core/erm/services/_global/global.service';
-import { ExportRequestQueries } from '~core/erm/services/export-request/export-request.queries';
-import { ExportRequest } from '~core/erm/models';
 import { ToastService, ToastType } from '~shared/toast';
 
 
@@ -17,13 +16,12 @@ import { ToastService, ToastType } from '~shared/toast';
 export class ExportRequestService extends GlobalService<ExportRequest> {
 
 	constructor(
-		protected apolloState: ApolloStateService,
 		private userSrv: UserService,
 		private toastSrv: ToastService,
 		private http: HttpClient,
 		private datePipe: DatePipe
 	) {
-		super(apolloState, ExportRequestQueries, 'exportRequest', 'exportRequests');
+		super(ExportRequestQueries, 'exportRequest', 'exportRequests');
 	}
 
 	async addNotif(type: ToastType, exportReq: ExportRequest) {

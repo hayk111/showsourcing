@@ -12,14 +12,14 @@ import { ToastService, ToastType } from '~shared/toast';
 export class ProjectFeatureService extends ProjectService {
 	constructor(
 		protected analyticsSrv: AnalyticsService,
-		protected apolloState: ApolloStateService,
+		
 		protected productSrv: ProductService,
 		protected productStatusSrv: ProductStatusService,
 		protected userSrv: UserService,
 		protected notificationSrv: ToastService,
 		protected dialogCommonSrv: DialogCommonService
 	) {
-		super(analyticsSrv, apolloState, userSrv);
+		super(analyticsSrv, userSrv);
 	}
 
 	/** Returns the products associated with a specific project */

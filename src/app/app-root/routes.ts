@@ -36,9 +36,6 @@ export const routes: Array<Route> = [
 		canActivateChild: [
 			AuthenticatedGuard,
 			HasTeamSelectedGuard
-			// CentralClientReadyGuard,
-			// HasTeamSelectedGuard,
-			// TeamClientReadyGuard,
 		],
 		children: [
 			{ path: '', redirectTo: 'dashboard', pathMatch: 'full' },

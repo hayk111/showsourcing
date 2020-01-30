@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, ViewChil
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
-import { Client } from '~core/apollo/services/apollo-client-names.const';
+
 import { ExtendedFieldService, RequestReplyService, SupplierRequestService } from '~core/erm';
 import {
 	AppImage,

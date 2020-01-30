@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 export class SettingsCompanyService {
 
 	constructor(
-		protected apolloState: ApolloStateService,
+		
 		protected companySrv: CompanyService,
 		protected userSrv: UserService,
 		protected http: HttpClient

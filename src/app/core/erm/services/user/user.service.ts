@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { distinctUntilChanged, filter, shareReplay, switchMap, tap } from 'rxjs/operators';
 import { AnalyticsService } from '~core/analytics/analytics.service';
-import { Client } from '~core/apollo/services/apollo-client-names.const';
-import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
+
+
 import { UserQueries } from '~core/erm/services/user/user.queries';
 import { GlobalService } from '~core/erm/services/_global/global.service';
 import { User } from '~core/erm/models';
@@ -32,15 +32,13 @@ export class UserService extends GlobalService<User> {
 	userSync: User;
 	static userSync: User;
 	userId: string;
-	defaultClient = Client.CENTRAL;
 
 	constructor(
-		protected apolloState: ApolloStateService,
 		protected analyticsSrv: AnalyticsService,
 		protected http: HttpClient,
 		protected realmAuthSrv: RealmAuthenticationService
 	) {
-		super(apolloState, UserQueries, 'user', 'users');
+		super(UserQueries, 'user', 'users');
 	}
 
 	init() {

@@ -18,7 +18,7 @@ export class ProductDialogService extends ProductService {
 
 	constructor(
 		protected analyticsSrv: AnalyticsService,
-		protected apolloState: ApolloStateService,
+		
 		protected voteSrv: ProductVoteRequestService,
 		protected projectSrv: ProjectService,
 		protected supplierSrv: SupplierService,
@@ -26,7 +26,7 @@ export class ProductDialogService extends ProductService {
 		protected userSrv: UserService,
 		protected contactSrv: ContactService
 	) {
-		super(analyticsSrv, apolloState, userSrv);
+		super(analyticsSrv, userSrv);
 	}
 
 	getContacts(supplierId: string): Observable<Contact[]> {

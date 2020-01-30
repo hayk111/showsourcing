@@ -9,7 +9,7 @@ import { InvitationUser } from '~core/erm';
 export class InvitationFeatureService extends InvitationUserService {
 
 	constructor(
-		protected apolloState: ApolloStateService,
+		
 		protected userSrv: UserService,
 		protected teamSrv: TeamService,
 		protected http: HttpClient

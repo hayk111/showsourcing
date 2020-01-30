@@ -1,6 +1,6 @@
 import { LogLevel } from '~utils/logger/log-level';
 import { WEB_VERSION } from './global.const';
-import { Client } from '~core/apollo/services/apollo-client-names.const';
+
 
 // The file contents for the current environment will overwrite these during build.
 // The build system defaults to the dev environment which uses `environment.ts`, but if you do

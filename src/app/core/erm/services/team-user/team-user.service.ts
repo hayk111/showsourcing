@@ -1,13 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { forkJoin } from 'rxjs';
-import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
+
 import { TeamUserQueries } from '~core/erm/services/team-user/team-user.queries';
 import { GlobalService } from '~core/erm/services/_global/global.service';
 import { TeamUser } from '~core/erm/models';
 import { TeamService } from '../team/team.service';
 import { UserService } from '../user/user.service';
-import { Client } from '~core/apollo/services/apollo-client-names.const';
+
 
 
 @Injectable({
@@ -15,15 +15,12 @@ import { Client } from '~core/apollo/services/apollo-client-names.const';
 })
 export class TeamUserService extends GlobalService<TeamUser> {
 
-	defaultClient = Client.CENTRAL;
-
 	constructor(
-		protected apolloState: ApolloStateService,
 		protected http: HttpClient,
 		protected teamSrv: TeamService,
 		protected userSrv: UserService
 	) {
-		super(apolloState, TeamUserQueries, 'teamUser', 'teamUsers');
+		super(TeamUserQueries, 'teamUser', 'teamUsers');
 	}
 
 	update(teamUser: TeamUser) {

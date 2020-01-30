@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { ApolloStateService, TeamClientInitializer } from '~core/apollo';
-import { Client } from '~core/apollo/services/apollo-client-names.const';
+
 import { TeamService } from '~core/erm';
 import { Team } from '~core/erm';
 import { TrackingComponent } from '~utils/tracking-component';

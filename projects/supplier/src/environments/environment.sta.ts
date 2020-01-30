@@ -1,5 +1,5 @@
 import { WEB_VERSION } from 'environments/global.const';
-import { Client } from '~core/apollo/services/apollo-client-names.const';
+
 import { LogLevel } from '~utils';
 
 export const environment = {

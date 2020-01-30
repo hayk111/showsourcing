@@ -1,15 +1,12 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of, ReplaySubject } from 'rxjs';
 import { filter, map, switchMap } from 'rxjs/operators';
-import { Client } from '~core/apollo/services/apollo-client-names.const';
-import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
-import { LocalStorageService } from '~core/local-storage';
+import { Company } from '~core/erm/models';
 import { CompanyQueries } from '~core/erm/services/company/company.queries';
 import { GlobalService } from '~core/erm/services/_global/global.service';
-import { Company } from '~core/erm/models';
-import { HttpClient } from '@angular/common/http';
-import { environment } from 'environments/environment';
+import { LocalStorageService } from '~core/local-storage';
 import { UserService } from '../user/user.service';
 
 
@@ -19,8 +16,6 @@ const COMPANY = 'company';
 	providedIn: 'root'
 })
 export class CompanyService extends GlobalService<Company> {
-
-	defaultClient = Client.CENTRAL;
 
 	// an user has only 1 company
 	private _company$ = new ReplaySubject<Company>(1);
@@ -33,12 +28,11 @@ export class CompanyService extends GlobalService<Company> {
 	companySync: Company;
 
 	constructor(
-		protected apolloState: ApolloStateService,
 		protected storage: LocalStorageService,
 		protected authSrv: AuthenticationService,
 		private http: HttpClient
 	) {
-		super(apolloState, CompanyQueries, 'company', 'companies');
+		super(CompanyQueries, 'company', 'companies');
 	}
 
 	init() {

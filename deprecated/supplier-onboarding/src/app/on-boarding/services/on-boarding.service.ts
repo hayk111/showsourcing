@@ -4,7 +4,7 @@ import { tap, switchMap } from 'rxjs/operators';
 import { SupplierService } from '~entity-services';
 import { SupplierClaimService } from '~entity-services/supplier-claim/supplier-claim.service';
 import { Supplier, SupplierClaim, Attachment } from '~models';
-import { Client } from '~core/apollo/services/apollo-client-names.const';
+
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { TokenState } from '~core/auth/interfaces/token-state.interface';
 import { Credentials } from '~core/auth/interfaces/credentials.interface';

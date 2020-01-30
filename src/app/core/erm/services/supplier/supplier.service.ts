@@ -1,26 +1,24 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { first } from 'rxjs/operators';
 import { AnalyticsService } from '~core/analytics/analytics.service';
-import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
-import { GlobalWithAuditService } from '~core/erm/services/_global/global-with-audit.service';
+import { Product, Supplier } from '~core/erm/models';
 import { SupplierQueries } from '~core/erm/services/supplier/supplier.queries';
 import { UserService } from '~core/erm/services/user/user.service';
-import { Product, Supplier } from '~core/erm/models';
-
+import { GlobalWithAuditService } from '~core/erm/services/_global/global-with-audit.service';
 import { ContactService } from '../contact/contact.service';
 import { ProductService } from '../product/product.service';
+
+
 
 @Injectable({ providedIn: 'root' })
 export class SupplierService extends GlobalWithAuditService<Supplier> {
 
 	constructor(
 		protected analyticsSrv: AnalyticsService,
-		protected apolloState: ApolloStateService,
 		protected userSrv: UserService,
 		private productSrv: ProductService,
 		private contactSrv: ContactService) {
-		super(apolloState, SupplierQueries, 'supplier', 'suppliers', userSrv, analyticsSrv);
+		super(SupplierQueries, 'supplier', 'suppliers', userSrv, analyticsSrv);
 	}
 
 	/** gets the products of the supplier */

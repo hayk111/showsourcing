@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { TeamClientInitializer } from '~core/apollo';
-import { Client } from '~core/apollo/services/apollo-client-names.const';
+
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { InvitationFeatureService } from '~features/invitation/services/invitation-feature.service';
 import { InvitationUser } from '~core/erm';

@@ -2,7 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { combineLatest, Observable } from 'rxjs';
 import { filter, first, map, mergeMap, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { Client } from '~core/apollo/services/apollo-client-names.const';
+
 import { ProductStatusService } from '~core/erm';
 import { ListPageService } from '~core/list-page';
 import { ProductService } from '~core/erm';

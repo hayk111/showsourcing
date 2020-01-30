@@ -1,6 +1,6 @@
 import { LogLevel } from '~utils/logger/log-level';
 import { WEB_VERSION } from './global.const';
-import { Client } from '~core/apollo/services/apollo-client-names.const';
+
 
 
 

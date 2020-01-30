@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
 import { ExtendedFieldDefinition } from '~core/erm/models';
-
 import { GlobalService } from '../_global/global.service';
 import { ExtendedFieldDefinitionQueries } from './extended-field-definition.queries';
+
 
 
 @Injectable({
@@ -11,8 +10,8 @@ import { ExtendedFieldDefinitionQueries } from './extended-field-definition.quer
 })
 export class ExtendedFieldDefinitionService extends GlobalService<ExtendedFieldDefinition> {
 
-	constructor(protected apolloState: ApolloStateService) {
-		super(apolloState, ExtendedFieldDefinitionQueries, 'extendedFieldDefinition', 'extendedFieldDefinitions');
+	constructor() {
+		super(ExtendedFieldDefinitionQueries, 'extendedFieldDefinition', 'extendedFieldDefinitions');
 	}
 
 }

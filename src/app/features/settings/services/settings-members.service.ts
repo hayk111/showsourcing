@@ -13,12 +13,12 @@ export class SettingsMembersService extends TeamUserService {
 	invitationAdd$ = new Subject<any>();
 
 	constructor(
-		protected apolloState: ApolloStateService,
+		
 		protected teamSrv: TeamService,
 		protected userSrv: UserService,
 		protected http: HttpClient
 	) {
-		super(apolloState, http, teamSrv, userSrv);
+		super(http, teamSrv, userSrv);
 	}
 
 	selectTeamOwner() {

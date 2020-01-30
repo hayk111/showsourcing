@@ -1,17 +1,16 @@
-import { Injectable } from '@angular/core';
-import { Observable, ReplaySubject, from } from 'rxjs';
-import { filter, first, map, shareReplay, switchMap, tap } from 'rxjs/operators';
-import { Client } from '~core/apollo/services/apollo-client-names.const';
-import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
-import { AuthenticationService } from '~core/auth/services/authentication.service';
-import { LocalStorageService } from '~core/local-storage';
-import { GlobalService } from '~core/erm/services/_global/global.service';
-import { TeamQueries } from '~core/erm/services/team/team.queries';
-import { Team } from '~core/erm/models';
 import { HttpClient } from '@angular/common/http';
-import { environment } from 'environments/environment';
+import { Injectable } from '@angular/core';
 import { API, graphqlOperation } from 'aws-amplify';
 import { AmplifyService } from 'aws-amplify-angular';
+import { from, Observable, ReplaySubject } from 'rxjs';
+import { filter, first, map, shareReplay, switchMap, tap } from 'rxjs/operators';
+import { AuthenticationService } from '~core/auth/services/authentication.service';
+import { Team } from '~core/erm/models';
+import { TeamQueries } from '~core/erm/services/team/team.queries';
+import { GlobalService } from '~core/erm/services/_global/global.service';
+import { LocalStorageService } from '~core/local-storage';
+
+
 
 // name in local storage
 const SELECTED_TEAM = 'selected-team';
@@ -23,7 +22,6 @@ const SELECTED_TEAM = 'selected-team';
 @Injectable({ providedIn: 'root' })
 export class TeamService extends GlobalService<Team> {
 
-	defaultClient = Client.CENTRAL;
 
 	/** event the team selected at the moment of the selection */
 	private _teamSelectionEvent$ = new ReplaySubject<Team>(1);
@@ -55,12 +53,10 @@ export class TeamService extends GlobalService<Team> {
 	selectedTeamSync: Team;
 
 	constructor(
-		protected apolloState: ApolloStateService,
 		protected storage: LocalStorageService,
 		protected authSrv: AuthenticationService,
 		private http: HttpClient,
-		private amplifySrv: AmplifyService
-	) { super(apolloState, TeamQueries, 'team', 'teams'); }
+	) { super(TeamQueries, 'team', 'teams'); }
 
 	init() {
 
@@ -114,6 +110,7 @@ export class TeamService extends GlobalService<Team> {
 
 	// TODO amplify remove this
 	queryAll() {
+		throw Error('switch to global');
 		const gql = this.queryBuilder.queryAll('id, name');
 		return from(API.graphql(
 			graphqlOperation(gql)

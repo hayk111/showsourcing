@@ -1,17 +1,12 @@
-import { ApolloBase, QueryRef } from 'apollo-angular';
+import { ApolloBase } from 'apollo-angular';
 import { DocumentNode } from 'graphql';
-import { BehaviorSubject, ConnectableObservable, forkJoin, merge, Observable, of, throwError } from 'rxjs';
-import {
-	catchError, distinctUntilChanged, filter, first, map, publishReplay,
-	shareReplay, switchMap, tap, withLatestFrom
-} from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { AnalyticsService } from '~core/analytics/analytics.service';
-import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { Entity } from '~core/erm/models';
 import { ListQuery } from '~core/erm/services/_global/list-query.interface';
 import { QueryBuilder } from '~core/erm/services/_global/query-builder.class';
-import { SelectAllParams, SelectAllParamsConfig } from '~core/erm/services/_global/select-all-params';
-import { SelectParams, SelectParamsConfig } from '~core/erm/services/_global/select-params';
+import { SelectAllParamsConfig } from '~core/erm/services/_global/select-all-params';
+import { SelectParamsConfig } from '~core/erm/services/_global/select-params';
 import { log, LogColor } from '~utils';
 
 
@@ -53,7 +48,8 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		protected fields: any,
 		protected sing: string,
 		protected plural: string,
-		protected analyticsSrv?: AnalyticsService) {
+		protected analyticsSrv?: AnalyticsService
+	) {
 		this.queryBuilder = new QueryBuilder(sing, plural);
 		// capitalizing the typename
 		this.typeName = sing.substr(0, 1).toUpperCase() + sing.substr(1);
@@ -715,30 +711,6 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	}
 
 
-	/**
-	 * @deprecated
-	 */
-	openSubscription(clientName?: Client, query = '') {
-		throw Error('not implemented');
-
-		// const title = 'Opening subscription for ' + this.typeName;
-		// const gql = this.queryBuilder.openSubscription(query);
-		// const queryName = this.getQueryName(gql);
-
-		// // we need not to wait for the client to be ready
-		// return of(this.apolloState.getClient(clientName)).pipe(
-		// 	tap(_ => this.log(title, gql, queryName, clientName)),
-		// 	switchMap(client => {
-		// 		return client.mutate({ mutation: gql });
-		// 	}),
-		// 	first(),
-		// 	filter((r: any) => this.checkError(r, title)),
-		// 	map(({ data }) => data[queryName].count),
-		// 	tap(data => this.logResult(title, queryName, data)),
-		// 	catchError(errors => of(log.table(errors)))
-		// );
-	}
-
 	/////////////////////////////
 	//          UTILS          //
 	/////////////////////////////
@@ -763,7 +735,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	}
 
 	/** to use another named apollo client */
-	protected getClient(clientName: Client, context: string): Observable<ApolloBase> {
+	protected getClient(context: string): Observable<ApolloBase> {
 		throw Error('not implemented');
 		// return this.apolloState.getClientWhenReady(clientName, context);
 	}
@@ -798,10 +770,9 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	}
 
 	/** logs request that is about to being made to the 	 */
-	protected log(type: string, gql: DocumentNode, queryName: string, clientName: Client, variables?: any) {
+	protected log(type: string, gql: DocumentNode, queryName: string, variables?: any) {
 		// logging for each request
 		log.group(`%c 🍌 ${type}, queryName: ${queryName}`, LogColor.APOLLO_CLIENT_PRE);
-		log.debug(`%c client: ${clientName}`, LogColor.APOLLO_CLIENT_PRE);
 		log.group(`%c trace`, LogColor.APOLLO_CLIENT_PRE);
 		log.trace();
 		log.groupEnd();

@@ -9,7 +9,7 @@ import { BehaviorSubject, combineLatest, forkJoin, Observable, of } from 'rxjs';
 import { distinctUntilChanged, filter, switchMap, tap, first } from 'rxjs/operators';
 import { AnalyticsService } from '~core/analytics/analytics.service';
 import { ApolloStateService, ClientStatus, TeamClientInitializer, CentralClientInitializer } from '~core/apollo/services';
-import { Client } from '~core/apollo/services/apollo-client-names.const';
+
 import { GlobalDataClientsInitializer } from '~core/apollo/services/apollo-global-data-client.service';
 import { GlobalRequestClientsInitializer } from '~core/apollo/services/apollo-global-request-client.service';
 import { AuthenticationService } from '~core/auth/services/authentication.service';

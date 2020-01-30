@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from
 import { combineLatest } from 'rxjs';
 import { first, map, mergeMap, startWith, takeUntil, tap } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { Client } from '~core/apollo/services/apollo-client-names.const';
+
 import { SampleService, SampleStatusService, UserService } from '~core/erm';
 import { ListPageService } from '~core/list-page';
 import { ERM, Sample, SampleStatus } from '~core/erm';

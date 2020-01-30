@@ -6,10 +6,10 @@ import { ApolloStateService } from '~core/apollo';
 @Injectable()
 export class ExternalRequestFeatureService extends ExternalRequestService {
 	constructor(
-		protected apolloState: ApolloStateService,
+		
 		protected userSrv: UserService
 	) {
-		super(apolloState, userSrv);
+		super(userSrv);
 	}
 
 }
