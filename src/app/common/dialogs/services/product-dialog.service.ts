@@ -8,9 +8,9 @@ import {
 	SupplierService,
 	TeamUserService,
 	UserService,
-} from '~core/ORM/services';
-import { ProductVoteRequestService } from '~core/ORM/services/product-vote-request/product-vote-request.service';
-import { Contact, Product, ProductVoteRequest, Project } from '~core/ORM/models';
+} from '~core/orm/services';
+import { ProductVoteRequestService } from '~core/orm/services/product-vote-request/product-vote-request.service';
+import { Contact, Product, ProductVoteRequest, Project } from '~core/orm/models';
 import { AnalyticsService } from '~core/analytics/analytics.service';
 
 @Injectable()

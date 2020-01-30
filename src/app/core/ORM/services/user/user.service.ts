@@ -5,9 +5,9 @@ import { distinctUntilChanged, filter, shareReplay, switchMap, tap } from 'rxjs/
 import { AnalyticsService } from '~core/analytics/analytics.service';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
-import { UserQueries } from '~core/ORM/services/user/user.queries';
-import { GlobalService } from '~core/ORM/services/_global/global.service';
-import { User } from '~core/ORM/models';
+import { UserQueries } from '~core/orm/services/user/user.queries';
+import { GlobalService } from '~core/orm/services/_global/global.service';
+import { User } from '~core/orm/models';
 import { RealmAuthenticationService } from '~core/auth/services/realm-authentication.service';
 import { ProductQueries } from '../product/product.queries';
 import { SupplierQueries } from '../supplier/supplier.queries';

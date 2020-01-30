@@ -10,7 +10,7 @@ import {
 	Output,
 } from '@angular/core';
 import { debounceTime, tap } from 'rxjs/operators';
-import { EntityMetadata, ERM } from '~core/ORM/models';
+import { EntityMetadata, ERM } from '~core/orm/models';
 import { DynamicField } from '~shared/dynamic-forms';
 import { FilterList } from '~shared/filters/models/filter-list.class';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';

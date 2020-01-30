@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { SupplierVote } from '~core/ORM/models';
+import { SupplierVote } from '~core/orm/models';
 
-import { GlobalService } from '~core/ORM/services/_global/global.service';
-import { SupplierVoteQueries } from '~core/ORM/services/supplier-vote/supplier-vote.queries';
+import { GlobalService } from '~core/orm/services/_global/global.service';
+import { SupplierVoteQueries } from '~core/orm/services/supplier-vote/supplier-vote.queries';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
 
 

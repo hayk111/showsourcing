@@ -1,15 +1,15 @@
-import { Attachment, Project, User } from '~core/ORM/models';
-import { EntityWithAudit } from '~core/ORM/models/_entity.model';
-import { AppImage } from '~core/ORM/models/app-image.model';
-import { Category } from '~core/ORM/models/category.model';
-import { Comment } from '~core/ORM/models/comment.model';
-import { Packaging } from '~core/ORM/models/packaging.model';
-import { PriceMatrix } from '~core/ORM/models/price-matrix.model';
-import { Price } from '~core/ORM/models/price.model';
-import { ProductStatus } from '~core/ORM/models/product-status.model';
-import { ProductVote } from '~core/ORM/models/product-vote.model';
-import { Supplier } from '~core/ORM/models/supplier.model';
-import { Tag } from '~core/ORM/models/tag.model';
+import { Attachment, Project, User } from '~core/orm/models';
+import { EntityWithAudit } from '~core/orm/models/_entity.model';
+import { AppImage } from '~core/orm/models/app-image.model';
+import { Category } from '~core/orm/models/category.model';
+import { Comment } from '~core/orm/models/comment.model';
+import { Packaging } from '~core/orm/models/packaging.model';
+import { PriceMatrix } from '~core/orm/models/price-matrix.model';
+import { Price } from '~core/orm/models/price.model';
+import { ProductStatus } from '~core/orm/models/product-status.model';
+import { ProductVote } from '~core/orm/models/product-vote.model';
+import { Supplier } from '~core/orm/models/supplier.model';
+import { Tag } from '~core/orm/models/tag.model';
 
 import { Event } from './event.model';
 import { ExtendedField } from './extended-field.model';

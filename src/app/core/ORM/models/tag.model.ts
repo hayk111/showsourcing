@@ -1,4 +1,4 @@
-import { EntityWithAudit } from '~core/ORM/models/_entity.model';
+import { EntityWithAudit } from '~core/orm/models/_entity.model';
 
 export class Tag extends EntityWithAudit<TagConfig> {
 	name?: string;

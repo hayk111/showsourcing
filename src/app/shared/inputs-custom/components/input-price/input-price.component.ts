@@ -7,7 +7,7 @@ import {
 	Output,
 	ViewChild,
 } from '@angular/core';
-import { Price } from '~core/ORM/models/price.model';
+import { Price } from '~core/orm/models/price.model';
 import { AbstractInput, InputDirective, makeAccessorProvider } from '~shared/inputs';
 
 @Component({

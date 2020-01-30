@@ -1,4 +1,4 @@
-import { SelectParamsConfig } from '~core/ORM/services/_global/select-params';
+import { SelectParamsConfig } from '~core/orm/services/_global/select-params';
 import { Filter, FilterList } from '~shared/filters';
 
 

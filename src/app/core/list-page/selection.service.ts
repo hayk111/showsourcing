@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Entity } from '~core/ORM/models';
+import { Entity } from '~core/orm/models';
 
 
 export type SelectionMap = Map<string, Entity>;

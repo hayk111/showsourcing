@@ -1,4 +1,4 @@
-import { GlobalQueries } from '~core/ORM/services/_global/global-queries.class';
+import { GlobalQueries } from '~core/orm/services/_global/global-queries.class';
 
 export class CurrencyQueries extends GlobalQueries {
 

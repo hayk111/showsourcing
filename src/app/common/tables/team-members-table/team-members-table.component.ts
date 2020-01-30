@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { TeamService } from '~core/ORM/services';
+import { TeamService } from '~core/orm/services';
 import { EntityTableComponent } from '~common/tables/entity-table.component';
-import { TeamUser, User } from '~core/ORM/models';
+import { TeamUser, User } from '~core/orm/models';
 
 
 @Component({

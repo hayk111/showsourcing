@@ -4,15 +4,15 @@ import { TranslateService } from '@ngx-translate/core';
 import { forkJoin, Observable, of } from 'rxjs';
 import { delay, first, map, mapTo, mergeMap, retryWhen, switchMap, take, tap } from 'rxjs/operators';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
-import { ERMService } from '~core/ORM/erm.service';
-import { ImageService } from '~core/ORM/services/image/image.service';
-import { AttachmentService, ImageUploadRequestService } from '~core/ORM/services';
-import { GlobalService } from '~core/ORM/services/_global/global.service';
+import { ERMService } from '~core/orm/erm.service';
+import { ImageService } from '~core/orm/services/image/image.service';
+import { AttachmentService, ImageUploadRequestService } from '~core/orm/services';
+import { GlobalService } from '~core/orm/services/_global/global.service';
 import {
 	AttachmentUploadRequestService,
-} from '~core/ORM/services/attachment-upload-request/attachment-upload-request.service';
-import { AppImage, Attachment, ImageUploadRequest } from '~core/ORM/models';
-import { AttachmentUploadRequest } from '~core/ORM/models/attachment-upload-request.model';
+} from '~core/orm/services/attachment-upload-request/attachment-upload-request.service';
+import { AppImage, Attachment, ImageUploadRequest } from '~core/orm/models';
+import { AttachmentUploadRequest } from '~core/orm/models/attachment-upload-request.model';
 import { ToastService, ToastType } from '~shared/toast';
 import { ImageUrls, log, LogColor, resizeSizeToLimit } from '~utils';
 

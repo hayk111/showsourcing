@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
-import { ListQuery } from '~core/ORM/services/_global/list-query.interface';
-import { SelectParamsConfig } from '~core/ORM/services/_global/select-params';
-import { CountryService } from '~core/ORM/services/country/country.service';
-import { CurrencyService } from '~core/ORM/services/currency/currency.service';
-import { HarbourService } from '~core/ORM/services/harbour/harbour.service';
-import { IncoTermService } from '~core/ORM/services/inco-term/inco-term.service';
+import { ListQuery } from '~core/orm/services/_global/list-query.interface';
+import { SelectParamsConfig } from '~core/orm/services/_global/select-params';
+import { CountryService } from '~core/orm/services/country/country.service';
+import { CurrencyService } from '~core/orm/services/currency/currency.service';
+import { HarbourService } from '~core/orm/services/harbour/harbour.service';
+import { IncoTermService } from '~core/orm/services/inco-term/inco-term.service';
 import {
 	CategoryService,
 	ContactService,
@@ -22,8 +22,8 @@ import {
 	TeamUserService,
 	UserService,
 	WeightUnitService,
-} from '~core/ORM/services';
-import { SupplierTypeService } from '~core/ORM/services/supplier-type/supplier-type.service';
+} from '~core/orm/services';
+import { SupplierTypeService } from '~core/orm/services/supplier-type/supplier-type.service';
 import {
 	Category,
 	Contact,
@@ -43,8 +43,8 @@ import {
 	TeamUser,
 	User,
 	WeightUnit,
-} from '~core/ORM/models';
-import { Supplier } from '~core/ORM/models/supplier.model';
+} from '~core/orm/models';
+import { Supplier } from '~core/orm/models/supplier.model';
 import { DynamicField } from '~shared/dynamic-forms';
 import { FilterList } from '~shared/filters/models/filter-list.class';
 import { ID } from '~utils';

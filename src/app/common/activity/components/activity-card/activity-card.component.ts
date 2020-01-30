@@ -1,10 +1,10 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { GetStreamActivity } from '~common/activity/interfaces/get-stream-feed.interfaces';
-import { Product, Supplier, EntityMetadata, User, Comment } from '~core/ORM/models';
+import { Product, Supplier, EntityMetadata, User, Comment } from '~core/orm/models';
 import { InputDirective } from '~shared/inputs';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { UserService } from '~core/ORM/services';
+import { UserService } from '~core/orm/services';
 import { AutoUnsub } from '~utils';
 import { takeUntil } from 'rxjs/operators';
 

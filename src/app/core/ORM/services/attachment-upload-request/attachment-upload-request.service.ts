@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
-import { GlobalService } from '~core/ORM/services/_global/global.service';
+import { GlobalService } from '~core/orm/services/_global/global.service';
 import {
 	AttachmentUploadRequestQueries,
-} from '~core/ORM/services/attachment-upload-request/attachment-upload-request.queries';
-import { AttachmentUploadRequest } from '~core/ORM/models';
+} from '~core/orm/services/attachment-upload-request/attachment-upload-request.queries';
+import { AttachmentUploadRequest } from '~core/orm/models';
 
 
 @Injectable({ providedIn: 'root' })

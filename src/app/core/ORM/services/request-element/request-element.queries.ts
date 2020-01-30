@@ -1,4 +1,4 @@
-import { GlobalQueries } from '~core/ORM/services/_global/global-queries.class';
+import { GlobalQueries } from '~core/orm/services/_global/global-queries.class';
 import { RequestReplyQueries } from '../request-reply/request-reply.queries';
 
 export abstract class RequestElementQueries extends GlobalQueries {

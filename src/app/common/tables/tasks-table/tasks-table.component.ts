@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { User } from 'getstream';
-import { TaskService } from '~core/ORM/services';
-import { Task } from '~core/ORM/models';
+import { TaskService } from '~core/orm/services';
+import { Task } from '~core/orm/models';
 import { Color } from '~utils/colors.enum';
 import { ID } from '~utils/id.utils';
 import { defaultConfig } from '../default-columns/default-config';

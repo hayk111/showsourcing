@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ERM } from '~core/ORM/models';
+import { ERM } from '~core/orm/models';
 import { TodoCounts } from '~features/dashboard/services/dashboard.service';
 
 export const tabConfig = [

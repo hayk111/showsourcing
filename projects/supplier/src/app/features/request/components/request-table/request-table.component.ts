@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ERM, SupplierRequest } from '~core/ORM/models';
+import { ERM, SupplierRequest } from '~core/orm/models';
 import { EntityTableComponent } from '~core/list-page';
 import { TranslateService } from '@ngx-translate/core';
 

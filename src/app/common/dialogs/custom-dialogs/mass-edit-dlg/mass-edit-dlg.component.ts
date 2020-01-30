@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
 import { map, switchMap, takeUntil } from 'rxjs/operators';
-import { ProductService } from '~core/ORM/services';
+import { ProductService } from '~core/orm/services';
 import {
 	ExtendedFieldDefinitionService,
-} from '~core/ORM/services/extended-field-definition/extended-field-definition.service';
-import { EntityMetadata, ERM, ExtendedFieldDefinition, EntityName } from '~core/ORM/models';
+} from '~core/orm/services/extended-field-definition/extended-field-definition.service';
+import { EntityMetadata, ERM, ExtendedFieldDefinition, EntityName } from '~core/orm/models';
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { DynamicField } from '~shared/dynamic-forms';
 import { ToastService, ToastType } from '~shared/toast';

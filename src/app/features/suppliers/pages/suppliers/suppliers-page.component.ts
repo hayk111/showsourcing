@@ -1,10 +1,10 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { SuppliersTableComponent } from '~common/tables/suppliers-table/suppliers-table.component';
-import { SupplierService } from '~core/ORM/services';
+import { SupplierService } from '~core/orm/services';
 import { ListPageService } from '~core/list-page';
-import { SelectParamsConfig } from '~core/ORM/services/_global/select-params';
-import { ERM, Supplier } from '~core/ORM/models';
+import { SelectParamsConfig } from '~core/orm/services/_global/select-params';
+import { ERM, Supplier } from '~core/orm/models';
 import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
 

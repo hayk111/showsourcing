@@ -3,9 +3,9 @@ import { Router } from '@angular/router';
 import { saveAs } from 'file-saver';
 import { BehaviorSubject } from 'rxjs';
 import { switchMap, take } from 'rxjs/operators';
-import { ERMService } from '~core/ORM/erm.service';
-import { ExportRequestService } from '~core/ORM/services/export-request/export-request.service';
-import { EntityName, ERM, ExportRequest, Product, Sample, Supplier, Task } from '~core/ORM/models';
+import { ERMService } from '~core/orm/erm.service';
+import { ExportRequestService } from '~core/orm/services/export-request/export-request.service';
+import { EntityName, ERM, ExportRequest, Product, Sample, Supplier, Task } from '~core/orm/models';
 import { DialogService } from '~shared/dialog/services';
 
 export type ExportFormat = 'pdf' | 'xls' | 'pictures';

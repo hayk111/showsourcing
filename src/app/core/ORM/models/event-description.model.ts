@@ -1,6 +1,6 @@
 import { uuid } from '~utils';
-import { Venue } from '~core/ORM/models/venue.model';
-import { AppImage } from '~core/ORM/models/app-image.model';
+import { Venue } from '~core/orm/models/venue.model';
+import { AppImage } from '~core/orm/models/app-image.model';
 
 export class EventDescription {
 	id: string;

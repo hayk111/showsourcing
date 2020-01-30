@@ -17,11 +17,11 @@ import {
 import { AnalyticsService } from '~core/analytics/analytics.service';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
-import { ListQuery } from '~core/ORM/services/_global/list-query.interface';
-import { QueryBuilder } from '~core/ORM/services/_global/query-builder.class';
-import { SelectAllParams, SelectAllParamsConfig } from '~core/ORM/services/_global/select-all-params';
-import { SelectParams, SelectParamsConfig } from '~core/ORM/services/_global/select-params';
-import { Entity } from '~core/ORM/models';
+import { ListQuery } from '~core/orm/services/_global/list-query.interface';
+import { QueryBuilder } from '~core/orm/services/_global/query-builder.class';
+import { SelectAllParams, SelectAllParamsConfig } from '~core/orm/services/_global/select-all-params';
+import { SelectParams, SelectParamsConfig } from '~core/orm/services/_global/select-params';
+import { Entity } from '~core/orm/models';
 import { log, LogColor } from '~utils';
 
 

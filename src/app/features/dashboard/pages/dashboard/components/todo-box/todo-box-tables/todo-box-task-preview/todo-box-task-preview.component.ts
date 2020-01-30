@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Task } from '~core/ORM/models';
-import { TaskService } from '~core/ORM/services';
+import { Task } from '~core/orm/models';
+import { TaskService } from '~core/orm/services';
 import { TableConfig } from '~common/tables/entity-table.component';
 
 const tableConfig: TableConfig = {

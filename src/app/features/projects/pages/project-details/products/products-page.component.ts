@@ -7,11 +7,11 @@ import {
 	SupplierRequestDialogComponent,
 } from '~common/dialogs/custom-dialogs/supplier-request-dialog/supplier-request-dialog.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { SelectParamsConfig } from '~core/ORM/services/_global/select-params';
+import { SelectParamsConfig } from '~core/orm/services/_global/select-params';
 import { ListPageService } from '~core/list-page';
-import { ProductService } from '~core/ORM/services';
+import { ProductService } from '~core/orm/services';
 import { ProjectFeatureService } from '~features/projects/services';
-import { EntityTypeEnum, ERM, Product, Project } from '~core/ORM/models';
+import { EntityTypeEnum, ERM, Product, Project } from '~core/orm/models';
 import { DialogService } from '~shared/dialog/services';
 import { FilterType } from '~shared/filters';
 import { ToastService, ToastType } from '~shared/toast';

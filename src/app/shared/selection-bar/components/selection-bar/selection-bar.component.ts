@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { Entity, EntityMetadata } from '~core/ORM/models';
+import { Entity, EntityMetadata } from '~core/orm/models';
 import { SelectionState } from '~shared/inputs-custom/components/select-checkbox/select-checkbox.component';
 import { selectionBarAnimation } from '~shared/selection-bar/animation/selection-bar.animation';
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
-import { Harbour } from '~core/ORM/models';
+import { Harbour } from '~core/orm/models';
 
 import { GlobalService } from '../_global/global.service';
 import { HarbourQueries } from './harbour.queries';

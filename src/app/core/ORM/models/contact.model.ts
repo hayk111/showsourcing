@@ -1,6 +1,6 @@
-import { EntityWithAudit } from '~core/ORM/models/_entity.model';
-import { AppImage } from '~core/ORM/models/app-image.model';
-import { Supplier } from '~core/ORM/models/supplier.model';
+import { EntityWithAudit } from '~core/orm/models/_entity.model';
+import { AppImage } from '~core/orm/models/app-image.model';
+import { Supplier } from '~core/orm/models/supplier.model';
 
 export class Contact extends EntityWithAudit<ContactConfig> {
 	name: string;

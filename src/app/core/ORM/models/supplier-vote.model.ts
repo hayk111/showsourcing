@@ -1,4 +1,4 @@
-import { User } from '~core/ORM/models/user.model';
+import { User } from '~core/orm/models/user.model';
 import { uuid } from '~utils/uuid.utils';
 
 export class SupplierVote {

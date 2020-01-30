@@ -5,8 +5,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { ApolloStateService, TeamClientInitializer } from '~core/apollo';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
-import { TeamService } from '~core/ORM/services';
-import { Team } from '~core/ORM/models';
+import { TeamService } from '~core/orm/services';
+import { Team } from '~core/orm/models';
 import { TrackingComponent } from '~utils/tracking-component';
 
 

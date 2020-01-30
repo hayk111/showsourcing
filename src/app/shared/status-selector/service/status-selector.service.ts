@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject, of } from 'rxjs';
 import { shareReplay } from 'rxjs/operators';
-import { TaskService, ProjectService } from '~core/ORM/services';
-import { ERMService } from '~core/ORM/services/_global/erm.service';
-import { EntityMetadata, ERM, SampleStatus, SupplierStatus, ProductStatus } from '~core/ORM/models';
+import { TaskService, ProjectService } from '~core/orm/services';
+import { ERMService } from '~core/orm/erm.service';
+import { EntityMetadata, ERM, SampleStatus, SupplierStatus, ProductStatus } from '~core/orm/models';
 
 @Injectable({
 	providedIn: 'root'

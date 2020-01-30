@@ -1,5 +1,5 @@
 import { EventEmitter, Input, Output } from '@angular/core';
-import { Entity } from '~core/ORM/models';
+import { Entity } from '~core/orm/models';
 import { TrackingComponent } from '~utils/tracking-component';
 
 export abstract class EntitySelectionBarComponent extends TrackingComponent {

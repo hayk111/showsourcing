@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { ProductDialogService } from '~common/dialogs/services/product-dialog.service';
 import { ListPageService } from '~core/list-page';
-import { ProjectService } from '~core/ORM/services';
-import { DEFAULT_TAKE_PAGINATION } from '~core/ORM/services/_global/select-params';
-import { EntityTypeEnum, ERM, Product, Project } from '~core/ORM/models';
+import { ProjectService } from '~core/orm/services';
+import { DEFAULT_TAKE_PAGINATION } from '~core/orm/services/_global/select-params';
+import { EntityTypeEnum, ERM, Product, Project } from '~core/orm/models';
 import { CloseEventType } from '~shared/dialog';
 import { DialogService } from '~shared/dialog/services';
 import { FilterType } from '~shared/filters';

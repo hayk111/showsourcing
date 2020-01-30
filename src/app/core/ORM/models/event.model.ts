@@ -1,5 +1,5 @@
-import { EntityWithAudit } from '~core/ORM/models/_entity.model';
-import { EventDescription } from '~core/ORM/models/event-description.model';
+import { EntityWithAudit } from '~core/orm/models/_entity.model';
+import { EventDescription } from '~core/orm/models/event-description.model';
 
 export class Event extends EntityWithAudit<EventConfig> {
 	rating?: number;

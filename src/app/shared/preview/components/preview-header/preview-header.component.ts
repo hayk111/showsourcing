@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, EventEmitter, Output } from '@angular/core';
-import { EntityMetadata, ERM, AppImage, Supplier } from '~core/ORM/models';
+import { EntityMetadata, ERM, AppImage, Supplier } from '~core/orm/models';
 
 @Component({
 	selector: 'preview-header-app',

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { SupplierVoteService } from '~core/ORM/services';
-import { ProductVoteService } from '~core/ORM/services/product-vote/product-vote.service';
-import { UserService } from '~core/ORM/services/user/user.service';
-import { EntityName, Product, ProductVote, Supplier, SupplierVote } from '~core/ORM/models';
+import { SupplierVoteService } from '~core/orm/services';
+import { ProductVoteService } from '~core/orm/services/product-vote/product-vote.service';
+import { UserService } from '~core/orm/services/user/user.service';
+import { EntityName, Product, ProductVote, Supplier, SupplierVote } from '~core/orm/models';
 
 export type Vote = ProductVote | SupplierVote;
 export type EntityWithVotes = Product | Supplier;

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { Sample } from '~core/ORM/models';
+import { Sample } from '~core/orm/models';
 import { TrackingComponent } from '~utils/tracking-component';
 import { StatusUtils } from '~utils';
 

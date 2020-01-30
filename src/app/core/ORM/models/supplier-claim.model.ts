@@ -1,4 +1,4 @@
-import { Attachment } from '~core/ORM/models/attachment.model';
+import { Attachment } from '~core/orm/models/attachment.model';
 import { uuid } from '~utils';
 
 

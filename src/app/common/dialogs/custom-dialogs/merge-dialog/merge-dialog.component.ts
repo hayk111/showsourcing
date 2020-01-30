@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { CrudDialogService } from '~common/dialogs/services/crud-dialog.service';
-import { EntityMetadata, ERM } from '~core/ORM/models';
+import { EntityMetadata, ERM } from '~core/orm/models';
 import { DialogService } from '~shared/dialog/services';
 import { FilterList, FilterType } from '~shared/filters';
 import { ToastService, ToastType } from '~shared/toast';

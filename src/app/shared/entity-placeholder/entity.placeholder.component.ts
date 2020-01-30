@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
-import { EntityName } from '~core/ORM/models';
+import { EntityName } from '~core/orm/models';
 
 @Component({
 	selector: 'entity-placeholder-app',

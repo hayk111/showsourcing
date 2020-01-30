@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, ContentChild, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { Sample } from '~core/ORM/models';
+import { Sample } from '~core/orm/models';
 import { ContextMenuComponent } from '~shared/context-menu/components/context-menu/context-menu.component';
 import { TrackingComponent } from '~utils/tracking-component';
 

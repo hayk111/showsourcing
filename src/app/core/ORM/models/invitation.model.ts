@@ -1,5 +1,5 @@
-import { EntityWithAudit } from '~core/ORM/models/_entity.model';
-import { User } from '~core/ORM/models/user.model';
+import { EntityWithAudit } from '~core/orm/models/_entity.model';
+import { User } from '~core/orm/models/user.model';
 import { uuid } from '~utils';
 
 export class Invitation {

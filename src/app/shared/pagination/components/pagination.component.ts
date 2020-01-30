@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output, TemplateRef } from '@angular/core';
-import { DEFAULT_TAKE_PAGINATION } from '~core/ORM/services/_global/select-params';
+import { DEFAULT_TAKE_PAGINATION } from '~core/orm/services/_global/select-params';
 import { TrackingComponent } from '~utils';
 
 @Component({

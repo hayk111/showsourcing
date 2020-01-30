@@ -1,6 +1,6 @@
 
-import { User } from '~core/ORM/models/user.model';
-import { Team } from '~core/ORM/models/team.model';
+import { User } from '~core/orm/models/user.model';
+import { Team } from '~core/orm/models/team.model';
 
 export class TeamUser {
 	id: string;

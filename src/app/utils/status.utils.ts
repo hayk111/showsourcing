@@ -1,6 +1,6 @@
 import { Color } from '~utils/colors.enum';
-import { Status } from '~core/ORM/models/status.model';
-import { Task } from '~core/ORM/models';
+import { Status } from '~core/orm/models/status.model';
+import { Task } from '~core/orm/models';
 
 export enum StatusCategory {
 	NEW = 'new',

@@ -1,5 +1,5 @@
-import { GlobalQueries } from '~core/ORM/services/_global/global-queries.class';
-import { ProductQueries } from '~core/ORM/services/product/product.queries';
+import { GlobalQueries } from '~core/orm/services/_global/global-queries.class';
+import { ProductQueries } from '~core/orm/services/product/product.queries';
 
 export abstract class ExternalRequestQueries extends GlobalQueries {
 	static readonly one = `

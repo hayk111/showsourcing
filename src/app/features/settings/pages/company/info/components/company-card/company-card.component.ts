@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
-import { Company } from '~core/ORM/models';
+import { Company } from '~core/orm/models';
 import { AutoUnsub } from '~utils';
 
 @Component({

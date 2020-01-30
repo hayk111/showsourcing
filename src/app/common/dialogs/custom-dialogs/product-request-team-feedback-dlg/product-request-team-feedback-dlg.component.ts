@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
 import { Observable } from 'rxjs';
 import { first, map, switchMap } from 'rxjs/operators';
 import { ProductDialogService } from '~common/dialogs/services/product-dialog.service';
-import { Product, User } from '~core/ORM/models';
+import { Product, User } from '~core/orm/models';
 import { DialogService } from '~shared/dialog/services';
 import { ToastService, ToastType } from '~shared/toast';
 import { translate } from '~utils';

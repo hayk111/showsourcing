@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { AppImage } from '~core/ORM/models';
+import { AppImage } from '~core/orm/models';
 import { TrackingComponent } from '~utils/tracking-component';
 
 @Component({

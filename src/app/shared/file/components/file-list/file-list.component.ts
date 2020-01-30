@@ -9,8 +9,8 @@ import {
 	ViewChild,
 } from '@angular/core';
 import { filter, switchMap, takeUntil } from 'rxjs/operators';
-import { AttachmentService } from '~core/ORM/services';
-import { Attachment } from '~core/ORM/models';
+import { AttachmentService } from '~core/orm/services';
+import { Attachment } from '~core/orm/models';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback.service';

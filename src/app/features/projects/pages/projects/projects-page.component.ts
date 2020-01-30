@@ -1,9 +1,9 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { ProjectService } from '~core/ORM/services';
-import { SelectParams, SelectParamsConfig } from '~core/ORM/services/_global/select-params';
+import { ProjectService } from '~core/orm/services';
+import { SelectParams, SelectParamsConfig } from '~core/orm/services/_global/select-params';
 import { ListPageService } from '~core/list-page';
-import { EntityTypeEnum, ERM, Project } from '~core/ORM/models';
+import { EntityTypeEnum, ERM, Project } from '~core/orm/models';
 import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
 import { ProjectsTableComponent } from '~common/tables/projects-table/projects-table.component';

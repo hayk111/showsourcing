@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { SupplierService } from '~core/ORM/services';
+import { SupplierService } from '~core/orm/services';
 import { ListPageService } from '~core/list-page';
-import { ERM } from '~core/ORM/models';
+import { ERM } from '~core/orm/models';
 import { DashboardService, TodoCounts, TodoEntities } from '~features/dashboard/services/dashboard.service';
 
 @Component({

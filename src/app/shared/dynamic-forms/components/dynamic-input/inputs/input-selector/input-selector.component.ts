@@ -10,7 +10,7 @@ import {
 	TemplateRef,
 	ViewChild,
 } from '@angular/core';
-import { ERM } from '~core/ORM/models';
+import { ERM } from '~core/orm/models';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 import { TabFocusActionDirective } from '~shared/utils';
 import { ID } from '~utils';

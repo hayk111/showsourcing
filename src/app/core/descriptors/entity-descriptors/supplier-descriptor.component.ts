@@ -1,5 +1,5 @@
 import { AbstractDescriptorComponent } from '../abstract-descriptor.component';
-import { ERM } from '~core/ORM/models';
+import { ERM } from '~core/orm/models';
 import { DynamicField } from '~shared/dynamic-forms';
 
 export class SupplierDescriptor extends AbstractDescriptorComponent {

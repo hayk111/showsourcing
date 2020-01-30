@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { SupplierRequest } from '~core/ORM/models';
+import { SupplierRequest } from '~core/orm/models';
 
 @Component({
 	selector: 'request-header-details-app',

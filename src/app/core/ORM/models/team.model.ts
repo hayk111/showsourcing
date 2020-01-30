@@ -1,6 +1,6 @@
-import { Company } from '~core/ORM/models/company.model';
-import { TeamUser } from '~core/ORM/models/team-user.model';
-import { User } from '~core/ORM/models/user.model';
+import { Company } from '~core/orm/models/company.model';
+import { TeamUser } from '~core/orm/models/team-user.model';
+import { User } from '~core/orm/models/user.model';
 import { uuid } from '~utils';
 
 

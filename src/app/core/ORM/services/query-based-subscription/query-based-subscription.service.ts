@@ -4,8 +4,8 @@ import { Observable, of, throwError } from 'rxjs';
 import { catchError, map, shareReplay, switchMap, tap } from 'rxjs/operators';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
-import { QueryBasedSubscriptionQueries } from '~core/ORM/services/query-based-subscription/query-based-subscription.queries';
-import { QueryBasedSubscription } from '~core/ORM/models';
+import { QueryBasedSubscriptionQueries } from '~core/orm/services/query-based-subscription/query-based-subscription.queries';
+import { QueryBasedSubscription } from '~core/orm/models';
 import { log } from '~utils';
 
 import { GlobalService } from '../_global/global.service';

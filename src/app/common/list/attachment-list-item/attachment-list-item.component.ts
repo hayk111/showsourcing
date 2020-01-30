@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter } from '@angular/core';
-import { Attachment } from '~core/ORM/models';
+import { Attachment } from '~core/orm/models';
 
 import { AbstractListItemComponent } from '../abstract-list-item.component';
 import { TranslateService } from '@ngx-translate/core';

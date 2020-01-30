@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
-import { Team, User } from '~core/ORM/models';
-import { TeamService, UserService, TeamUserService } from '~core/ORM/services';
+import { Team, User } from '~core/orm/models';
+import { TeamService, UserService, TeamUserService } from '~core/orm/services';
 import { SettingsMembersService } from '~features/settings/services/settings-members.service';
-import { ERM } from '~core/ORM/models';
+import { ERM } from '~core/orm/models';
 import { AutoUnsub } from '~utils';
 
 @Component({

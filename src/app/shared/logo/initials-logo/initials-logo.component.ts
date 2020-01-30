@@ -8,7 +8,7 @@ import {
 	Renderer2,
 	ViewChild,
 } from '@angular/core';
-import { AppImage, EntityName } from '~core/ORM/models';
+import { AppImage, EntityName } from '~core/orm/models';
 import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback.service';
 import { IconUtils, Size } from '~utils';
 

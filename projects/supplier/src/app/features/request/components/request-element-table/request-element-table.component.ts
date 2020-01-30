@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { EntityTableComponent } from '~core/list-page';
-import { RequestElement, ERM } from '~core/ORM/models';
+import { RequestElement, ERM } from '~core/orm/models';
 import { ID } from '~utils';
 
 @Component({

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { Attachment } from '~core/ORM/models';
+import { Attachment } from '~core/orm/models';
 import { TrackingComponent } from '~utils';
 
 @Component({

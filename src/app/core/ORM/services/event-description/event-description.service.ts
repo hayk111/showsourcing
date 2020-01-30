@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { GlobalServiceInterface, GlobalService } from '~core/ORM/services/_global/global.service';
+import { GlobalServiceInterface, GlobalService } from '~core/orm/services/_global/global.service';
 import { Observable } from 'rxjs';
-import { EventDescriptionQueries } from '~core/ORM/services/event-description/event-description.queries';
-import { EventDescription } from '~core/ORM/models';
+import { EventDescriptionQueries } from '~core/orm/services/event-description/event-description.queries';
+import { EventDescription } from '~core/orm/models';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
 
 

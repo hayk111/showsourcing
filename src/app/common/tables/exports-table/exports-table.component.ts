@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, TemplateRef, ViewChild, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
-import { ERM, ExportRequest } from '~core/ORM/models';
+import { ERM, ExportRequest } from '~core/orm/models';
 import { config } from './config';
 import { EntityTableComponent } from '../entity-table.component';
 

@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { SampleDescriptor } from '~core/descriptors';
-import { SampleService, UserService } from '~core/ORM/services';
-import { Product, Sample, Supplier } from '~core/ORM/models';
+import { SampleService, UserService } from '~core/orm/services';
+import { Product, Sample, Supplier } from '~core/orm/models';
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { ToastService, ToastType } from '~shared/toast';
 import { uuid } from '~utils';

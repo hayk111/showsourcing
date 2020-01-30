@@ -2,9 +2,9 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { ProjectService } from '~core/ORM/services';
+import { ProjectService } from '~core/orm/services';
 import { ListPageService } from '~core/list-page';
-import { ERM, Project } from '~core/ORM/models';
+import { ERM, Project } from '~core/orm/models';
 import { ProjectFeatureService } from '~features/projects/services';
 import { AutoUnsub } from '~utils';
 

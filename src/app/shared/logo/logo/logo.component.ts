@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, ElementRef, Input, OnChanges, Renderer2 } from '@angular/core';
-import { AppImage, EntityName } from '~core/ORM/models';
+import { AppImage, EntityName } from '~core/orm/models';
 import { Colors, Color, IconUtils, log, Size } from '~utils';
 
 export const colorMap = {

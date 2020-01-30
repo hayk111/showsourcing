@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { AttachmentService } from '~core/ORM/services';
+import { AttachmentService } from '~core/orm/services';
 import { ListPageService } from '~core/list-page';
-import { Attachment, ERM, Supplier } from '~core/ORM/models';
+import { Attachment, ERM, Supplier } from '~core/orm/models';
 import { DialogService } from '~shared/dialog';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 

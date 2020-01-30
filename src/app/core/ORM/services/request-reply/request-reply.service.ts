@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
-import { GlobalService } from '~core/ORM/services/_global/global.service';
-import { RequestReply } from '~core/ORM/models';
+import { GlobalService } from '~core/orm/services/_global/global.service';
+import { RequestReply } from '~core/orm/models';
 
 import { RequestReplyQueries } from './request-reply.queries';
 import { Client } from '~core/apollo/services/apollo-client-names.const';

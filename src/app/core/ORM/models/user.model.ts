@@ -1,5 +1,5 @@
-import { Team } from '~core/ORM/models/team.model';
-import { AppImage } from '~core/ORM/models/app-image.model';
+import { Team } from '~core/orm/models/team.model';
+import { AppImage } from '~core/orm/models/app-image.model';
 
 export class User {
 	id: string;

@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { ProductService } from '~core/ORM/services';
-import { User } from '~core/ORM/models';
-import { ERM } from '~core/ORM/_erm.utils';
-import { Product } from '~core/ORM/models/product.model';
+import { ProductService } from '~core/orm/services';
+import { User } from '~core/orm/models';
+import { ERM } from '~core/orm/_erm.utils';
+import { Product } from '~core/orm/models/product.model';
 
 @Component({
 	selector: 'product-header-details-app',

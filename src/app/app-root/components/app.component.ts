@@ -15,8 +15,8 @@ import { GlobalRequestClientsInitializer } from '~core/apollo/services/apollo-gl
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { RealmAuthenticationService } from '~core/auth/services/realm-authentication.service';
 import { ListPageService } from '~core/list-page';
-import { CompanyService, TeamService, UserService } from '~core/ORM/services';
-import { Team } from '~core/ORM/models';
+import { CompanyService, TeamService, UserService } from '~core/orm/services';
+import { Team } from '~core/orm/models';
 import { log } from '~utils/log';
 
 

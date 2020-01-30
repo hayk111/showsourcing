@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { EntityName, imageMock } from '~core/ORM/models';
+import { EntityName, imageMock } from '~core/orm/models';
 import { IconsModule } from '~shared/icons/icons.module';
 import { Color, IconUtils, Size } from '~utils';
 

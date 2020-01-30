@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Project, ERM, Product } from '~core/ORM/models';
+import { Project, ERM, Product } from '~core/orm/models';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { AutoUnsub } from '~utils';
 import { TranslateService } from '@ngx-translate/core';
 import { ProjectFeatureService } from '~features/projects/services';
 import { ListPageService } from '~core/list-page';
-import { ProductService } from '~core/ORM/services';
+import { ProductService } from '~core/orm/services';
 import { switchMap } from 'rxjs/operators';
 
 @Component({

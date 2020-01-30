@@ -3,10 +3,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { AbstractTaskCommonComponent } from '~common/abstracts/abstract-task-common.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { SelectParams } from '~core/ORM/services/_global/select-params';
+import { SelectParams } from '~core/orm/services/_global/select-params';
 import { ListPageService } from '~core/list-page';
-import { TaskService, UserService, ProductService } from '~core/ORM/services';
-import { Product, Task } from '~core/ORM/models';
+import { TaskService, UserService, ProductService } from '~core/orm/services';
+import { Product, Task } from '~core/orm/models';
 import { DialogService } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
 

@@ -4,7 +4,7 @@ import { KanbanColumn } from '../interfaces';
 import { SelectionState } from '~shared/inputs-custom/components/select-checkbox/select-checkbox.component';
 import { SelectionMap } from '~core/list-page';
 import { KanbanService } from './kanban.service';
-import { Entity } from '~core/ORM/models';
+import { Entity } from '~core/orm/models';
 import { map, tap } from 'rxjs/operators';
 
 

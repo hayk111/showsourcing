@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { Project } from '~core/ORM/models';
+import { Project } from '~core/orm/models';
 
 @Component({
 	selector: 'project-list-card-app',

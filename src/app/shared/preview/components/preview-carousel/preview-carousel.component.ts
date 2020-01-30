@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, ViewChild } from '@angular/core';
-import { ERMService } from '~core/ORM/erm.service';
-import { AppImage, EntityMetadata, Product, Sample, Supplier } from '~core/ORM/models';
+import { ERMService } from '~core/orm/erm.service';
+import { AppImage, EntityMetadata, Product, Sample, Supplier } from '~core/orm/models';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { AutoUnsub, DEFAULT_IMG, PendingImage } from '~utils';
 

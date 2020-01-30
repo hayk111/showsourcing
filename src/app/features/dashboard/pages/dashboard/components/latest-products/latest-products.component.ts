@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ProductService } from '~core/ORM/services';
+import { ProductService } from '~core/orm/services';
 import { RatingService } from '~shared/rating/services/rating.service';
-import { Product, EntityName } from '~core/ORM/models';
+import { Product, EntityName } from '~core/orm/models';
 import { Router } from '@angular/router';
 
 @Component({

@@ -1,5 +1,5 @@
-import { Comment, Product, Supplier, User } from '~core/ORM/models';
-import { EntityWithAudit } from '~core/ORM/models/_entity.model';
+import { Comment, Product, Supplier, User } from '~core/orm/models';
+import { EntityWithAudit } from '~core/orm/models/_entity.model';
 
 import { ExtendedField } from './extended-field.model';
 

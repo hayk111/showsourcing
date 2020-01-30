@@ -1,6 +1,6 @@
-import { EntityWithAudit } from '~core/ORM/models/_entity.model';
-import { Product } from '~core/ORM/models/product.model';
-import { User } from '~core/ORM/models';
+import { EntityWithAudit } from '~core/orm/models/_entity.model';
+import { Product } from '~core/orm/models/product.model';
+import { User } from '~core/orm/models';
 
 export class ProductVoteRequest extends EntityWithAudit<ProductVoteRequestConfig> {
 	comment?: string;

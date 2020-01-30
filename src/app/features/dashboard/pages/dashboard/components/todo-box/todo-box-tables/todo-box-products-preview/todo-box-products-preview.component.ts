@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Product } from '~core/ORM/models';
-import { ProductService } from '~core/ORM/services';
+import { Product } from '~core/orm/models';
+import { ProductService } from '~core/orm/services';
 import { TableConfig } from '~common/tables/entity-table.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 

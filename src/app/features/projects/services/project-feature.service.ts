@@ -4,8 +4,8 @@ import { first, switchMap, tap } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { AnalyticsService } from '~core/analytics/analytics.service';
 import { ApolloStateService } from '~core/apollo';
-import { Product, ProductStatus, Project } from '~core/ORM/models';
-import { ProductService, ProductStatusService, ProjectService, UserService } from '~core/ORM/services';
+import { Product, ProductStatus, Project } from '~core/orm/models';
+import { ProductService, ProductStatusService, ProjectService, UserService } from '~core/orm/services';
 import { ToastService, ToastType } from '~shared/toast';
 
 @Injectable({ providedIn: 'root' })

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { SupplierRequest } from '~core/ORM/models';
+import { SupplierRequest } from '~core/orm/models';
 
 import { AbstractListItemComponent } from '../abstract-list-item.component';
 

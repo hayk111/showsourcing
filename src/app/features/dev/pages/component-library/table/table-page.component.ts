@@ -1,8 +1,8 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
-import { SupplierService } from '~core/ORM/services';
+import { SupplierService } from '~core/orm/services';
 import { ListPageService } from '~core/list-page';
-import { ERM, Supplier } from '~core/ORM/models';
+import { ERM, Supplier } from '~core/orm/models';
 import { Sort } from '~shared/table/components/sort.interface';
 import { EntityTableComponent } from '~common/tables/entity-table.component';
 

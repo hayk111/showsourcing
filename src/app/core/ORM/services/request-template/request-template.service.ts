@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
-import { GlobalService } from '~core/ORM/services/_global/global.service';
-import { RequestTemplate } from '~core/ORM/models';
+import { GlobalService } from '~core/orm/services/_global/global.service';
+import { RequestTemplate } from '~core/orm/models';
 
 import { RequestTemplateQueries } from './request-template.queries';
 

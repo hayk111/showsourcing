@@ -1,4 +1,4 @@
-import { Supplier } from '~core/ORM/models/supplier.model';
+import { Supplier } from '~core/orm/models/supplier.model';
 
 export class Booth {
 	id: string;

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
-import { ExtendedFieldDefinition } from '~core/ORM/models';
+import { ExtendedFieldDefinition } from '~core/orm/models';
 
 import { GlobalService } from '../_global/global.service';
 import { ExtendedFieldDefinitionQueries } from './extended-field-definition.queries';

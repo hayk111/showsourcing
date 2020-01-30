@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
-import { AttachmentQueries } from '~core/ORM/services/attachment/attachment.queries';
-import { Attachment } from '~core/ORM/models';
+import { AttachmentQueries } from '~core/orm/services/attachment/attachment.queries';
+import { Attachment } from '~core/orm/models';
 import { GlobalWithAuditService } from '../_global/global-with-audit.service';
 import { UserService } from '../user/user.service';
 

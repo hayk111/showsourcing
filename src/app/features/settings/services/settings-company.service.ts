@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { zip } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ApolloStateService } from '~core/apollo';
-import { CompanyService, UserService } from '~core/ORM/services';
+import { CompanyService, UserService } from '~core/orm/services';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
