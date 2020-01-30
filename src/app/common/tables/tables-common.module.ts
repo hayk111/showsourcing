@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '~shared/shared.module';
+import { StatusSelectorModule } from '~shared/status-selector/status-selector.module';
 
 import { AttachmentsTableComponent } from './attachments-table/attachments-table.component';
 import { ProductsTableComponent } from './products-table/products-table.component';
@@ -23,7 +24,8 @@ import { TemplateFieldsTableComponent } from './template-fields-table/template-f
 	imports: [
 		CommonModule,
 		SharedModule,
-		RouterModule
+		RouterModule,
+		StatusSelectorModule,
 	],
 	declarations: [
 		AttachmentsTableComponent,

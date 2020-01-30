@@ -31,18 +31,21 @@ search-bar-animated-app {
 	
 	&::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
 		font-size: var(--font-size-l);
+		font-style: normal;
 		color: var(--color-bg);
 		opacity: 0.5;
 	}
 	
 	&:-ms-input-placeholder { /* Internet Explorer 10-11 */
 		font-size: var(--font-size-l);
+		font-style: normal;
 		color: var(--color-bg);
 		opacity: 0.5;
 	}
 	
 	&::-ms-input-placeholder { /* Microsoft Edge */
 		font-size: var(--font-size-l);
+		font-style: normal;
 		color: var(--color-bg);
 		opacity: 0.5;
 	}

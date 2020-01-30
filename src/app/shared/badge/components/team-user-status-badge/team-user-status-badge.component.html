@@ -1,0 +1,9 @@
+<badge-app
+	class="pointer uppercase bold-s"
+	[size]="size"
+	[type]="getType()"
+	(click)="update.emit(!teamUser.accessType)">
+		<div>
+			{{ getTeamUserStatus() }}
+		</div>
+</badge-app>

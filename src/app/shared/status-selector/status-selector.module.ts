@@ -21,7 +21,7 @@ import { StatusSelectorItemComponent } from './component/status-selector-item/st
 		TranslateModule
 	],
 	declarations: [StatusSelectorComponent, StatusSelectorItemComponent],
-	exports: [StatusSelectorComponent],
+	exports: [StatusSelectorComponent, StatusSelectorItemComponent],
 	providers: [
 		StatusSelectorService
 	]
