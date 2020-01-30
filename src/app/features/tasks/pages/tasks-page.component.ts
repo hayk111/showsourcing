@@ -2,8 +2,8 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angula
 import { Observable } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { TaskService, UserService } from '~core/entity-services';
-import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
+import { TaskService, UserService } from '~core/ORM/services';
+import { SelectParamsConfig } from '~core/ORM/services/_global/select-params';
 import { ListPageService } from '~core/list-page';
 import { ERM, Task } from '~models';
 import { DialogService } from '~shared/dialog';

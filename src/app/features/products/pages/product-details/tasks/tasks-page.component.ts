@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { AbstractTaskCommonComponent } from '~common/abstracts/abstract-task-common.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { SelectParams } from '~core/entity-services/_global/select-params';
+import { SelectParams } from '~core/ORM/services/_global/select-params';
 import { ListPageService } from '~core/list-page';
 import { TaskService, UserService, ProductService } from '~entity-services';
 import { Product, Task } from '~models';

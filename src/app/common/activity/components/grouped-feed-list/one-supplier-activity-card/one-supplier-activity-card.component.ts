@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { GetStreamGroup } from '~common/activity/interfaces/get-stream-feed.interfaces';
-import { CommentService } from '~core/entity-services/comment/comment.service';
+import { CommentService } from '~core/ORM/services/comment/comment.service';
 import { SupplierService } from '~entity-services';
 import { Comment, ERM, Supplier } from '~models';
 import { DialogService } from '~shared/dialog/services';

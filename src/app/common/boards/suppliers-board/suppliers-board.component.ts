@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { combineLatest, Observable } from 'rxjs';
 import { filter, first, mergeMap, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { SupplierStatusService } from '~core/entity-services/supplier-status/supplier-status.service';
+import { SupplierStatusService } from '~core/ORM/services/supplier-status/supplier-status.service';
 import { ListPageService } from '~core/list-page';
 import { SupplierService } from '~entity-services';
 import { EntityName, ERM, Supplier, SupplierStatus } from '~models';

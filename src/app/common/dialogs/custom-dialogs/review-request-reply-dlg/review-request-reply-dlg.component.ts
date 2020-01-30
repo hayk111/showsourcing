@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { switchMap, takeUntil, tap } from 'rxjs/operators';
-import { ProductService, RequestElementService, RequestReplyService, SupplierRequestService } from '~core/entity-services';
+import { ProductService, RequestElementService, RequestReplyService, SupplierRequestService } from '~core/ORM/services';
 import { SelectionService } from '~core/list-page';
 import {
 	AppImage,
@@ -14,7 +14,7 @@ import {
 	ReplyStatus,
 	RequestElement,
 	SupplierRequest,
-} from '~core/models';
+} from '~core/ORM/models';
 import { DialogService } from '~shared/dialog';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 

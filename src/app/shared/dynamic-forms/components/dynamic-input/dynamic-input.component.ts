@@ -11,8 +11,8 @@ import {
 import { Observable } from 'rxjs';
 import {
 	ExtendedFieldDefinitionService,
-} from '~core/entity-services/extended-field-definition/extended-field-definition.service';
-import { ExtendedFieldDefinition } from '~core/models';
+} from '~core/ORM/services/extended-field-definition/extended-field-definition.service';
+import { ExtendedFieldDefinition } from '~core/ORM/models';
 import { DynamicField } from '~shared/dynamic-forms/models';
 import { DynamicUpdate } from '~shared/dynamic-forms/models/dynamic-update.interface';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';

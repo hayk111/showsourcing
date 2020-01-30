@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { Subject } from 'rxjs';
 import { debounceTime, takeUntil } from 'rxjs/operators';
-import { ExtendedField, ExtendedFieldDefinition } from '~core/models';
+import { ExtendedField, ExtendedFieldDefinition } from '~core/ORM/models';
 import { AutoUnsub } from '~utils';
 import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
 

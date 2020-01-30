@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { ChangePswdDlgComponent } from '~common/dialogs/custom-dialogs';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
-import { UserService } from '~core/entity-services';
+import { UserService } from '~core/ORM/services';
 import { User } from '~models';
 import { DialogService } from '~shared/dialog/services';
 import { UploaderService } from '~shared/file/services/uploader.service';

@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, ReplaySubject } from 'rxjs';
 import { debounceTime, switchMap, takeUntil } from 'rxjs/operators';
 import { CrudDialogService } from '~common/dialogs/services/crud-dialog.service';
-import { ERMService } from '~core/entity-services/_global/erm.service';
+import { ERMService } from '~core/ORM/erm.service';
 import { EntityMetadata } from '~models';
 import { CloseEventType } from '~shared/dialog';
 import { DialogService } from '~shared/dialog/services';

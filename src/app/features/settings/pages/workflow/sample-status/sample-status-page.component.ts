@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { SampleStatusService } from '~core/entity-services';
+import { SampleStatusService } from '~core/ORM/services';
 import { ListPageService } from '~core/list-page';
-import { ERM, SampleStatus } from '~core/models';
+import { ERM, SampleStatus } from '~core/ORM/models';
 import { AbstractStatusWorkflowComponent } from '../shared/abstract-status-workflow.component';
 
 @Component({

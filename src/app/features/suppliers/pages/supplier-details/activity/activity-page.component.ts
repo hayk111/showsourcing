@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { filter, map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { SupplierDescriptor } from '~core/descriptors';
-import { CommentService, SupplierService } from '~core/entity-services';
+import { CommentService, SupplierService } from '~core/ORM/services';
 import { Comment, ERM, Product, Sample, Supplier, Task } from '~models';
 import { Contact } from '~models/contact.model';
 import { CloseEvent, CloseEventType } from '~shared/dialog';

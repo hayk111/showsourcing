@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { mockProductVotes } from '~core/models';
+import { mockProductVotes } from '~core/ORM/models';
 
 @Component({
 	selector: 'rating-page-app',

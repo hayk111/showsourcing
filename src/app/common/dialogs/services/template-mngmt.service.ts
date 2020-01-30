@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { map, switchMap, first } from 'rxjs/operators';
-import { RequestTemplateService } from '~core/entity-services';
+import { RequestTemplateService } from '~core/ORM/services';
 import {
 	ExtendedFieldDefinitionService,
-} from '~core/entity-services/extended-field-definition/extended-field-definition.service';
-import { ExtendedFieldDefinition, RequestTemplate, TemplateField } from '~core/models';
-import { ListQuery } from '~core/entity-services/_global/list-query.interface';
+} from '~core/ORM/services/extended-field-definition/extended-field-definition.service';
+import { ExtendedFieldDefinition, RequestTemplate, TemplateField } from '~core/ORM/models';
+import { ListQuery } from '~core/ORM/services/_global/list-query.interface';
 import { Observable } from 'rxjs';
 
 

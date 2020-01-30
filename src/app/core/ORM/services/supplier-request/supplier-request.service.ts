@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
-import { SupplierRequest } from '~core/models';
+import { SupplierRequest } from '~core/ORM/models';
 import { GlobalService } from '~entity-services/_global/global.service';
 
 import { SupplierRequestQueries } from './supplier-request.queries';

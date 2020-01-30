@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Task } from '~core/models';
+import { Task } from '~core/ORM/models';
 import { TaskStatus } from '~utils';
 
 @Component({

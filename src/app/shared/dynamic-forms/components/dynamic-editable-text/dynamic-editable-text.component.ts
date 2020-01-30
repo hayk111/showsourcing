@@ -8,7 +8,7 @@ import {
 	ViewChild,
 } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { Packaging, Price } from '~core/models';
+import { Packaging, Price } from '~core/ORM/models';
 import { DynamicField } from '~shared/dynamic-forms/models';
 import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
 import { DynamicUpdate } from '~shared/dynamic-forms/models/dynamic-update.interface';

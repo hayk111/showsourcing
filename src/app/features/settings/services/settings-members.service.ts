@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 import { ApolloStateService } from '~core/apollo';
 import { TeamService, TeamUserService, UserService } from '~entity-services';
 import { HttpClient } from '@angular/common/http';
-import { TeamUser } from '~core/models';
+import { TeamUser } from '~core/ORM/models';
 import { Invitation } from '~models/invitation.model';
 
 @Injectable({ providedIn: 'root' })

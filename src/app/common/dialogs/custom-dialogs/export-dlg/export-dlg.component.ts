@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { saveAs } from 'file-saver';
 import { BehaviorSubject } from 'rxjs';
 import { switchMap, take } from 'rxjs/operators';
-import { ERMService } from '~core/entity-services/_global/erm.service';
+import { ERMService } from '~core/ORM/erm.service';
 import { ExportRequestService } from '~entity-services/export-request/export-request.service';
 import { EntityName, ERM, ExportRequest, Product, Sample, Supplier, Task } from '~models';
 import { DialogService } from '~shared/dialog/services';

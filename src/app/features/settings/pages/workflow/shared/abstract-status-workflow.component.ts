@@ -1,9 +1,9 @@
 import { OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { GlobalService } from '~core/entity-services/_global/global.service';
+import { GlobalService } from '~core/ORM/services/_global/global.service';
 import { ListPageService } from '~core/list-page';
-import { EntityMetadata } from '~core/models';
+import { EntityMetadata } from '~core/ORM/models';
 import { AutoUnsub, StatusCategory } from '~utils';
 
 export abstract class AbstractStatusWorkflowComponent<T, G extends GlobalService<T>> extends AutoUnsub implements OnInit {

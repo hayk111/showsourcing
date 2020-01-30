@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { DEFAULT_IMG, ImageUrls } from '~utils';
-import { imageMock } from '~core/models';
+import { imageMock } from '~core/ORM/models';
 
 /**
  * Pipes that adds the begining url for images,

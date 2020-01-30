@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { ProductService } from '~core/entity-services';
-import { User } from '~core/models';
-import { ERM } from '~core/models/utils/_erm.utils';
+import { ProductService } from '~core/ORM/services';
+import { User } from '~core/ORM/models';
+import { ERM } from '~core/ORM/_erm.utils';
 import { Product } from '~models/product.model';
 
 @Component({

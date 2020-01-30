@@ -17,10 +17,10 @@ import { SampleCatalogComponent } from '~common/catalogs/sample-catalog/sample-c
 import { TaskCatalogComponent } from '~common/catalogs/task-catalog/task-catalog.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { ProductDescriptor } from '~core/descriptors';
-import { CommentService } from '~core/entity-services/comment/comment.service';
+import { CommentService } from '~core/ORM/services/comment/comment.service';
 import {
 	ExtendedFieldDefinitionService,
-} from '~core/entity-services/extended-field-definition/extended-field-definition.service';
+} from '~core/ORM/services/extended-field-definition/extended-field-definition.service';
 import { ProductService, SampleService, TaskService } from '~entity-services';
 import { AppImage, Comment, EntityName, ERM, ExtendedFieldDefinition, Product, Sample, Task } from '~models';
 import { CloseEvent, CloseEventType } from '~shared/dialog';

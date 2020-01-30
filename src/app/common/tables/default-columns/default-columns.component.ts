@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { ColumnConfig } from '../entity-table.component';
-import { EntityMetadata, ERM } from '~core/models';
+import { EntityMetadata, ERM } from '~core/ORM/models';
 import { Color } from '~utils/colors.enum';
 import { Router } from '@angular/router';
 

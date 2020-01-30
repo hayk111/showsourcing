@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
-import { Product } from '~core/models';
+import { Product } from '~core/ORM/models';
 import { ID } from '~utils';
 
 @Component({

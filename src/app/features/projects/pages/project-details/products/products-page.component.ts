@@ -7,7 +7,7 @@ import {
 	SupplierRequestDialogComponent,
 } from '~common/dialogs/custom-dialogs/supplier-request-dialog/supplier-request-dialog.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
+import { SelectParamsConfig } from '~core/ORM/services/_global/select-params';
 import { ListPageService } from '~core/list-page';
 import { ProductService } from '~entity-services';
 import { ProjectFeatureService } from '~features/projects/services';

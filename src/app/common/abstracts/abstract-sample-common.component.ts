@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { filter, switchMap, takeUntil } from 'rxjs/operators';
 import { CreationSampleDlgComponent } from '~common/dialogs/creation-dialogs';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { SelectParams } from '~core/entity-services/_global/select-params';
+import { SelectParams } from '~core/ORM/services/_global/select-params';
 import { ListPageService } from '~core/list-page';
 import { SampleService, UserService } from '~entity-services';
 import { ERM, Product, Sample, Supplier } from '~models';

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Supplier } from '~models';
-import { SupplierService } from '~core/entity-services';
+import { SupplierService } from '~core/ORM/services';
 import { TableConfig } from '~common/tables/entity-table.component';
 
 const tableConfig: TableConfig = {

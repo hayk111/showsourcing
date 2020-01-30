@@ -29,21 +29,21 @@ import {
 } from '~entity-services';
 import { EntityMetadata, ERM } from '~models';
 
-import { CreateRequestService } from '../create-request/create-request.service';
-import { ExportRequestService } from '../export-request/export-request.service';
-import { ExtendedFieldDefinitionService } from '../extended-field-definition/extended-field-definition.service';
-import { ExtendedFieldService } from '../extended-field/extended-field.service';
-import { HarbourService } from '../harbour/harbour.service';
-import { ImageService } from '../image/image.service';
-import { IncoTermService } from '../inco-term/inco-term.service';
-import { RequestElementService } from '../request-element/request-element.service';
-import { RequestReplyService } from '../request-reply/request-reply.service';
-import { RequestTemplateService } from '../request-template/request-template.service';
-import { SupplierRequestService } from '../supplier-request/supplier-request.service';
-import { GlobalService } from './global.service';
-import { SelectorElementService } from '../selector-element/selector-element.service';
-import { TemplateFieldService } from '../template-field/template-field.service';
-import { CompanyService } from '../company/company.service';
+import { CreateRequestService } from './services/create-request/create-request.service';
+import { ExportRequestService } from './services/export-request/export-request.service';
+import { ExtendedFieldDefinitionService } from './services/extended-field-definition/extended-field-definition.service';
+import { ExtendedFieldService } from './services/extended-field/extended-field.service';
+import { HarbourService } from './services/harbour/harbour.service';
+import { ImageService } from './services/image/image.service';
+import { IncoTermService } from './services/inco-term/inco-term.service';
+import { RequestElementService } from './services/request-element/request-element.service';
+import { RequestReplyService } from './services/request-reply/request-reply.service';
+import { RequestTemplateService } from './services/request-template/request-template.service';
+import { SupplierRequestService } from './services/supplier-request/supplier-request.service';
+import { GlobalService } from './services/_global/global.service';
+import { SelectorElementService } from './services/selector-element/selector-element.service';
+import { TemplateFieldService } from './services/template-field/template-field.service';
+import { CompanyService } from './services/company/company.service';
 
 @Injectable(
 	{ providedIn: 'root' }

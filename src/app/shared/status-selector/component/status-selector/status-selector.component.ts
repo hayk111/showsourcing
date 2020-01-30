@@ -6,7 +6,7 @@ import { ContextMenuComponent } from '~shared/context-menu/components/context-me
 import { AutoUnsub, StatusUtils } from '~utils';
 
 import { StatusSelectorService } from '../../service/status-selector.service';
-import { Status } from '~core/models/status.model';
+import { Status } from '~core/ORM/models/status.model';
 
 @Component({
 	selector: 'status-selector-app',

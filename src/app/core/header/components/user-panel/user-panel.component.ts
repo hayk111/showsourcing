@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { TeamService } from '~core/entity-services';
+import { TeamService } from '~core/ORM/services';
 import { Team, User } from '~models';
 import { DEFAULT_USER_ICON } from '~utils';
 

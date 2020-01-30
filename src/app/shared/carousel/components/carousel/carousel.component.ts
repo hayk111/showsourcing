@@ -13,7 +13,7 @@ import {
 } from '@angular/core';
 import { saveAs } from 'file-saver';
 import { filter, switchMap, takeUntil } from 'rxjs/operators';
-import { ERMService } from '~core/entity-services/_global/erm.service';
+import { ERMService } from '~core/ORM/erm.service';
 import { ImageService } from '~entity-services/image/image.service';
 import { AppImage } from '~models';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';

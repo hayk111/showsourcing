@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { ProjectService } from '~core/entity-services';
-import { SelectParams, SelectParamsConfig } from '~core/entity-services/_global/select-params';
+import { ProjectService } from '~core/ORM/services';
+import { SelectParams, SelectParamsConfig } from '~core/ORM/services/_global/select-params';
 import { ListPageService } from '~core/list-page';
 import { EntityTypeEnum, ERM, Project } from '~models';
 import { FilterType } from '~shared/filters';

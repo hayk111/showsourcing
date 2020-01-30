@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, ChangeDetectionStrategy, Input, Output } from '@angular/core';
-import { AppImage } from '~core/models';
+import { AppImage } from '~core/ORM/models';
 import { TrackingComponent } from '~utils';
 
 @Component({

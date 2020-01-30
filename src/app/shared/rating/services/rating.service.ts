@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SupplierVoteService } from '~core/entity-services';
+import { SupplierVoteService } from '~core/ORM/services';
 import { ProductVoteService } from '~entity-services/product-vote/product-vote.service';
 import { UserService } from '~entity-services/user/user.service';
 import { EntityName, Product, ProductVote, Supplier, SupplierVote } from '~models';

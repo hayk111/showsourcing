@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { Packaging } from '~core/models';
+import { Packaging } from '~core/ORM/models';
 
 @Component({
 	selector: 'packaging-app',

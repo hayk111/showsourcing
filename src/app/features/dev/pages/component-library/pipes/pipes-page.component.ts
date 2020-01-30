@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { imageMock as imageMock, supplierMock as supplierMock } from '~core/models';
+import { imageMock as imageMock, supplierMock as supplierMock } from '~core/ORM/models';
 
 
 @Component({

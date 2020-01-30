@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { CommentService } from '~core/entity-services/comment/comment.service';
+import { CommentService } from '~core/ORM/services/comment/comment.service';
 import { Comment } from '~models';
 
 @Component({

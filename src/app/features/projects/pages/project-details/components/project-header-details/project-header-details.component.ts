@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Project, ERM, Product } from '~core/models';
+import { Project, ERM, Product } from '~core/ORM/models';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { AutoUnsub } from '~utils';
 import { TranslateService } from '@ngx-translate/core';

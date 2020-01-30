@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { AppImage } from '~core/models';
+import { AppImage } from '~core/ORM/models';
 import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback.service';
 import { AutoUnsub } from '~utils';
 

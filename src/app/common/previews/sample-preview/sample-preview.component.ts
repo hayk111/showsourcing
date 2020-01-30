@@ -12,12 +12,12 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { filter, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { SampleDescriptor } from '~core/descriptors';
-import { SampleService, UserService } from '~core/entity-services';
-import { CommentService } from '~core/entity-services/comment/comment.service';
+import { SampleService, UserService } from '~core/ORM/services';
+import { CommentService } from '~core/ORM/services/comment/comment.service';
 import {
 	ExtendedFieldDefinitionService,
-} from '~core/entity-services/extended-field-definition/extended-field-definition.service';
-import { Comment, ERM, ExtendedFieldDefinition, Product, Sample } from '~core/models';
+} from '~core/ORM/services/extended-field-definition/extended-field-definition.service';
+import { Comment, ERM, ExtendedFieldDefinition, Product, Sample } from '~core/ORM/models';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';

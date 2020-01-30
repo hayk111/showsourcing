@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
-import { ContactService, ProductService, SampleService, TaskService } from '~core/entity-services';
+import { ContactService, ProductService, SampleService, TaskService } from '~core/ORM/services';
 import { Supplier } from '~models';
 import { AutoUnsub } from '~utils';
 

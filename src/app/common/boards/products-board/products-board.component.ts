@@ -3,7 +3,7 @@ import { combineLatest, Observable } from 'rxjs';
 import { filter, first, map, mergeMap, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
-import { ProductStatusService } from '~core/entity-services/product-status/product-status.service';
+import { ProductStatusService } from '~core/ORM/services/product-status/product-status.service';
 import { ListPageService } from '~core/list-page';
 import { ProductService } from '~entity-services';
 import { ERM, Product, ProductStatus } from '~models';

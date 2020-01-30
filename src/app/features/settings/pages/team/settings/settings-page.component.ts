@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { Team, User } from '~models';
-import { TeamService, UserService, TeamUserService } from '~core/entity-services';
+import { TeamService, UserService, TeamUserService } from '~core/ORM/services';
 import { SettingsMembersService } from '~features/settings/services/settings-members.service';
 import { ERM } from '~models';
 import { AutoUnsub } from '~utils';

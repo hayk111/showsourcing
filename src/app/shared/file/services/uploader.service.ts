@@ -4,8 +4,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { forkJoin, Observable, of } from 'rxjs';
 import { delay, first, map, mapTo, mergeMap, retryWhen, switchMap, take, tap } from 'rxjs/operators';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
-import { ERMService } from '~core/entity-services/_global/erm.service';
-import { ImageService } from '~core/entity-services/image/image.service';
+import { ERMService } from '~core/ORM/erm.service';
+import { ImageService } from '~core/ORM/services/image/image.service';
 import { AttachmentService, ImageUploadRequestService } from '~entity-services';
 import { GlobalService } from '~entity-services/_global/global.service';
 import {

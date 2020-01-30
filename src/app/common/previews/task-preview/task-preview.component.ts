@@ -13,10 +13,10 @@ import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { filter, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { TaskDescriptor } from '~core/descriptors';
-import { CommentService } from '~core/entity-services/comment/comment.service';
+import { CommentService } from '~core/ORM/services/comment/comment.service';
 import {
 	ExtendedFieldDefinitionService,
-} from '~core/entity-services/extended-field-definition/extended-field-definition.service';
+} from '~core/ORM/services/extended-field-definition/extended-field-definition.service';
 import { TaskService } from '~entity-services';
 import { Comment, ERM, ExtendedFieldDefinition, Task } from '~models';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { ProductService } from '~core/entity-services';
-import { Product } from '~core/models';
+import { ProductService } from '~core/ORM/services';
+import { Product } from '~core/ORM/models';
 import { TrackingComponent } from '~utils';
 import { Router } from '@angular/router';
 

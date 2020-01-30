@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { EntityMetadata } from '~core/models';
-import { Status } from '~core/models/status.model';
+import { EntityMetadata } from '~core/ORM/models';
+import { Status } from '~core/ORM/models/status.model';
 import { Color, StatusUtils } from '~utils';
 
 

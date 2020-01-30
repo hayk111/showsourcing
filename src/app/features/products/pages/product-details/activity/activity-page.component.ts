@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
-import { CommentService, ProductService } from '~core/entity-services';
+import { CommentService, ProductService } from '~core/ORM/services';
 import { ListPageService } from '~core/list-page';
 import { Comment, Product } from '~models';
 import { AutoUnsub } from '~utils';

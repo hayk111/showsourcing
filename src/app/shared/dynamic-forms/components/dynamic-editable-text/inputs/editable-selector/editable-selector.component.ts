@@ -8,7 +8,7 @@ import {
 	TemplateRef,
 	ViewChild,
 } from '@angular/core';
-import { ERM } from '~core/models';
+import { ERM } from '~core/ORM/models';
 import { EditableContainerComponent } from '~shared/editable-field';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 import { ID } from '~utils';

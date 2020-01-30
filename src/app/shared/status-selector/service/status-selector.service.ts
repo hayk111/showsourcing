@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject, of } from 'rxjs';
 import { shareReplay } from 'rxjs/operators';
-import { TaskService, ProjectService } from '~core/entity-services';
+import { TaskService, ProjectService } from '~core/ORM/services';
 import { ERMService } from '~entity-services/_global/erm.service';
 import { EntityMetadata, ERM, SampleStatus, SupplierStatus, ProductStatus } from '~models';
 

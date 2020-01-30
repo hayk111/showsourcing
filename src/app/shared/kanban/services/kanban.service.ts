@@ -2,7 +2,7 @@ import { moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Status } from '~core/models/status.model';
+import { Status } from '~core/ORM/models/status.model';
 import { ConstPipe } from '~shared/utils/pipes/const.pipe';
 import { StatusUtils } from '~utils';
 

@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
-import { Country } from '~core/models';
+import { Harbour } from '~core/ORM/models';
 
 import { GlobalService } from '../_global/global.service';
-import { CountryQueries } from './country.queries';
+import { HarbourQueries } from './harbour.queries';
 
 @Injectable({
 	providedIn: 'root'
 })
-export class CountryService extends GlobalService<Country> {
+export class HarbourService extends GlobalService<Harbour> {
 
 	defaultClient = Client.GLOBAL_DATA;
 
 	constructor(protected apolloState: ApolloStateService) {
-		super(apolloState, CountryQueries, 'country', 'countries');
+		super(apolloState, HarbourQueries, 'harbour', 'harbours');
 	}
 
 }

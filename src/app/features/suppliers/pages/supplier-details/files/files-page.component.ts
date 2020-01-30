@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { AttachmentService } from '~core/entity-services';
+import { AttachmentService } from '~core/ORM/services';
 import { ListPageService } from '~core/list-page';
 import { Attachment, ERM, Supplier } from '~models';
 import { DialogService } from '~shared/dialog';
