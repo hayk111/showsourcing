@@ -32,7 +32,7 @@ export class CompanyService extends GlobalService<Company> {
 		protected authSrv: AuthenticationService,
 		private http: HttpClient
 	) {
-		super(CompanyQueries, 'company', 'companies');
+		super(CompanyQueries, 'company', 'companys');
 	}
 
 	init() {

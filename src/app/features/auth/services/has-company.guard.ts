@@ -18,7 +18,7 @@ export class HasCompanyGuard implements CanActivate, CanActivateChild {
 	}
 
 	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
-		return this.companySrv.selectAll().pipe(
+		return this.companySrv.queryAll().pipe(
 			tap(d => log.debug('%c hasCompanyGuard', LogColor.GUARD, d)),
 			map(companies => companies.length > 0),
 			tap(hasCompany => this.redirect(hasCompany, route, state))

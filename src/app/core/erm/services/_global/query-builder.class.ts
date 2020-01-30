@@ -95,7 +95,7 @@ export class QueryBuilder {
 
 	queryAll = (str: string) => gql(`
 		query List${this.capPlural}(
-			$filter: ModelTeamFilterInput,
+			$filter: Model${this.capSing}FilterInput,
 			$limit: Int,
 			$nextToken: String
 			) {

@@ -108,16 +108,5 @@ export class TeamService extends GlobalService<Team> {
 		return this.selectedTeamSync.id;
 	}
 
-	// TODO amplify remove this
-	queryAll() {
-		throw Error('switch to global');
-		const gql = this.queryBuilder.queryAll('id, name');
-		return from(API.graphql(
-			graphqlOperation(gql)
-			)).pipe(
-			tap(d => { debugger; })
-		) as Observable<any>;
-	}
-
 }
 

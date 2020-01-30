@@ -1,6 +1,6 @@
 import { ApolloBase } from 'apollo-angular';
 import { DocumentNode } from 'graphql';
-import { Observable } from 'rxjs';
+import { Observable, from, throwError, of } from 'rxjs';
 import { AnalyticsService } from '~core/analytics/analytics.service';
 import { Entity } from '~core/erm/models';
 import { ListQuery } from '~core/erm/services/_global/list-query.interface';
@@ -8,6 +8,8 @@ import { QueryBuilder } from '~core/erm/services/_global/query-builder.class';
 import { SelectAllParamsConfig } from '~core/erm/services/_global/select-all-params';
 import { SelectParamsConfig } from '~core/erm/services/_global/select-params';
 import { log, LogColor } from '~utils';
+import { API, graphqlOperation } from 'aws-amplify';
+import { tap, filter, map, catchError, shareReplay } from 'rxjs/operators';
 
 
 export interface GlobalServiceInterface<T> {
@@ -439,13 +441,27 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	*/
 	queryAll(fields?: string | string[], paramsConfig?: SelectAllParamsConfig): Observable<T[]> {
-		throw Error('not implemented');
-		// const title = 'Query All ' + this.typeName;
-		// fields = this.getFields(fields, this.fields.all);
-		// const gql = this.queryBuilder.queryAll(fields);
-		// const queryName = this.getQueryName(gql);
+		const title = 'Query All ' + this.typeName;
+		fields = this.getFields(fields, this.fields.all);
+		const gql = this.queryBuilder.queryAll(fields);
+		const queryName = this.getQueryName(gql);
 
 		// const variables = new SelectAllParams(paramsConfig);
+		this.log(title, gql, queryName);
+		return from(
+			API.graphql(graphqlOperation(gql))
+		).pipe(
+			// extracting the result
+			map((r) => r.data[queryName].items),
+			tap(data => this.logResult(title, queryName, data)),
+			catchError(data => {
+				data.errors.forEach(e => log.error(e));
+				of(log.table(data.errors));
+				return of(null);
+			}
+			),
+			shareReplay(1)
+		) as Observable<any>;
 
 		// return this.getClient(clientName, title).pipe(
 		// 	tap(_ => this.log(title, gql, queryName, clientName, variables)),
@@ -796,7 +812,8 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		log.groupEnd();
 	}
 
-	/** check if a graphql call has given any error */
+	/** @deprecated amplify makes the check i think
+	 *  check if a graphql call has given any error */
 	protected checkError(r: { data: any, errors: any[], loading: boolean }, title: string) {
 		if (r.errors) {
 			r.errors.forEach(e => log.error(e));
