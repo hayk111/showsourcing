@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { ConnectableObservable, Observable, combineLatest } from 'rxjs';
-import { first, map, skip, switchMap, takeUntil, tap, merge, combineAll } from 'rxjs/operators';
+import { ConnectableObservable, Observable } from 'rxjs';
+import { first, map, merge, skip, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { ListPageDataConfig } from '~core/list-page/list-page-config.interface';
 import { GlobalServiceInterface } from '~entity-services/_global/global.service';
 import { ListQuery } from '~entity-services/_global/list-query.interface';
-import { DEFAULT_TAKE_PAGINATION, SelectParamsConfig, SelectParams } from '~entity-services/_global/select-params';
+import { SelectParams, SelectParamsConfig } from '~entity-services/_global/select-params';
 import { Filter, FilterList, FilterType } from '~shared/filters';
 import { Sort } from '~shared/table/components/sort.interface';
 import { log } from '~utils/log';

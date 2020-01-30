@@ -1,4 +1,5 @@
 $image-height: 184px;
+$image-height-s: 147px;
 
 :host {
 	display: block;
@@ -8,6 +9,15 @@ $image-height: 184px;
 	background-color: var(--color-bg);
 	border-radius: var(--border-radius);
 	box-shadow: 0 0 12px 4px rgba(0, 0, 0, 0.02);
+
+	&.small-card {
+		width: 147px;
+		height: 220px;
+	}
+}
+
+.small-img {
+	height: $image-height-s !important;
 }
 
 .disable-pointers > * {
@@ -65,12 +75,27 @@ button.preview, button.open {
 	width: 146px;
 }
 
+button.preview-s, button.open-s {
+	font-size: var(--font-size-s);
+	position: absolute;
+	left: calc(50% - 64px);
+	width: 128px;
+}
+
 button.preview {
 	top: 54px;
 }
 
+button.preview-s {
+	top: 47px;
+}
+
 button.open {
 	top: 106px;
+}
+
+button.open-s {
+	top: 99px;
 }
 
 checkbox-app {
@@ -88,11 +113,25 @@ img-app {
 	margin-bottom: var(--spacing-xs);
 }
 
+
+
 .product-price {
 	position: absolute;
 	border-radius: var(--border-radius);
 	height: 21px;
 	top: 155px;
+	left: 8px;
+	padding: var(--spacing-xxs) var(--spacing-xs);
+	box-sizing: border-box;
+	background-color: rgba(0, 0, 0, 0.72);
+}
+
+.product-price-s {
+	font-size: var(--font-size-s);
+	position: absolute;
+	border-radius: var(--border-radius);
+	height: 21px;
+	top: 121px;
 	left: 8px;
 	padding: var(--spacing-xxs) var(--spacing-xs);
 	box-sizing: border-box;

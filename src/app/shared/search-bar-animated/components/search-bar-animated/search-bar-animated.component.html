@@ -1,9 +1,13 @@
 <div class="flexCenter field " (clickOutside)="clickOutside()">
-	<!-- grower will push content to the right -->
-	<div class="grower"></div>
 
-	<icon-app name="search" class="pointer class-txt-secondary" (click)="toggleSearch()"></icon-app>
-
+	<div class="icon-content flexVAlign">
+		<icon-app 
+			class="pointer" 
+			[ngStyle]="{'color': focused ? 'var(--color-txt-primary)' : 'var(--color-bg)'}" 
+			name="search" 
+			size="m" 
+			(click)="toggleSearch()"></icon-app>
+	</div>
 
 	<div class="input-wrapper flex" [@searchAnimation]="searchstate">
 		<ng-content select="[inputApp]"></ng-content>

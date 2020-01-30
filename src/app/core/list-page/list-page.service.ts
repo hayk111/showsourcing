@@ -152,6 +152,11 @@ export class ListPageService
 		};
 	}
 
+	get isFiltering() {
+		// when searching or filtering by non initial filters
+		return !!this.filterList.search || (this.filterList.asFilters().length > this.filterList.initialFilters.length);
+	}
+
 	get searchValue() {
 		return this.filterList.search;
 	}

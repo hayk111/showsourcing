@@ -11,6 +11,7 @@
 	[currentSort]="listSrv.currentSort"
 	[hasMenu]="false"
 	[pending]="listSrv.pending"
+	[isFiltering]="listSrv.isFiltering"
 	[rows]="listSrv.items$ | async"
 	[selection]="listSrv.selection$ | async"
 	[count]="listSrv.count$ | async"
@@ -28,3 +29,13 @@
 	(createClick)="openNewContactDlg({id: supplierId})"
 	(unselectAll)="listSrv.unselectAll()">
 </contacts-table-app>
+
+<contact-selection-bar-app
+	[isShown]="(listSrv.selection$ | async)?.size > 0"
+	[selection]="listSrv.selection$ | async"
+	[selectableItems]="listSrv.items$ | async"
+	(deleteSelected)="listSrv.deleteSelected(true)"
+	(close)="listSrv.unselectAll()"
+	(selectAll)="listSrv.selectAll($event)"
+	(unselectAll)="listSrv.unselectAll()">
+</contact-selection-bar-app>

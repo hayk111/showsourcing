@@ -32,6 +32,9 @@ export class InputSelectorComponent extends AbstractInput implements OnInit, Aft
 	@Input() width: number;
 	@Input() autofocus = false;
 	@Input() placeholder: string;
+	// if the parent component has a label in order to translate in case placeholder is missing, just for translate placeholder purposes
+	// some translations of type we find it in 'text' translations, this way we can choose what to display
+	@Input() translationKey: 'placeholder' | 'text' = 'placeholder';
 	// wether we display a info-badge-app or just plain tex
 	@Input() hasBadge = false;
 	@Input() disabled = false;

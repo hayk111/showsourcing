@@ -1,60 +1,111 @@
-.previewCtnr {
-	position: relative;
-	box-sizing: border-box;
-	border-radius: var(--border-radius-s);
-	min-height: 270px;
-	
-	product-grid-card-app {
-		margin-bottom: 0px;
-	}
+:host {
+	display: block;
 }
 
-.grid-section {
-	overflow: hidden;
-	width: 100%;
-	align-items: flex-start;
-	white-space: nowrap;
+.left-mg {
+	margin-left: 56px;
+}
 
-	.card {
-		display: inline-block;
+.previewCtnr {
+	overflow: hidden;
+	position: relative;
+	display: flex;
+	align-items: center;
+	box-sizing: border-box;
+	height: 240px;
+	border-radius: var(--border-radius-l);
+
+	.empty {
+		width: 100%;
+		font-style: italic;
+		color: var(--color-txt-secondary);
+		font-size: var(--font-size-xxl);
+
+		img {
+			width: 140px;
+			height: 140px;
+		}
+		span {
+			margin-top: var(--spacing-ms);
+		}
 	}
 
-	.card:not(:first-child) {
+	.carousel-img {
+		width: 240px;
+	}
+
+	.mg-left {
 		margin-left: var(--spacing-ms);
 	}
-}
 
-.grid-section::-webkit-scrollbar { width: 0 !important }
-.grid-section { -ms-overflow-style: none; }
+	img-app {
+		cursor: pointer;
+		border-radius: var(--border-radius-l);
+	}
 
-.action {
-	visibility: hidden;
-	transition: 0.2s;
-	opacity: 0.2;
-}
+	.action {
+		visibility: hidden;
+		transition: 0.2s;
+    opacity: 0.2;
+	}
 
-.previewCtnr:hover > .action {
-	visibility: visible;
-	opacity: 1;
-}
+	&:hover > .action {
+		visibility: visible;
+		opacity: 1;
+	}
 
-.move-btn {
-	position: absolute;
-	background: rgba(236, 236, 236, 0.6);
-	width: 40px;
-	height: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-.next {
-	right: -2%;
-}
-.back {
-	left: -1.7%;
-}
 
-icon-app {
-	font-size: 36px;
-	color: white;
+	.move-btn {
+		position: absolute;
+		border-radius: 50%;
+		background: rgba(255, 255, 255, 0.8);
+		width: 64px;
+		height: 64px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		opacity: 0.5;
+
+		&:hover {
+			opacity: 1;
+		}
+
+		icon-app {
+			color: var(--color-txt-secondary);
+		}
+	}
+
+	.next {
+		right: var(--spacing-ms);
+	}
+	
+	.back {
+		left: var(--spacing-ms);
+	}
+
+	icon-app {
+		font-size: 36px;
+		color: white;
+	}
+
+	.grid-section {
+		padding: 0 var(--spacing-ms);
+		overflow: hidden;
+		height: 100%;
+		width: 100%;
+		align-items: flex-start;
+		white-space: nowrap;
+	
+		.card {
+			display: inline-block;
+			height: 100%;
+		}
+	
+		.card:not(:first-child) {
+			margin-left: var(--spacing-ms);
+		}
+	}
+	
+	.grid-section::-webkit-scrollbar { width: 0 !important }
+	.grid-section { -ms-overflow-style: none; }
 }

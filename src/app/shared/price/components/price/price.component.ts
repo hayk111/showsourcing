@@ -13,6 +13,8 @@ export class PriceComponent {
 	@Input() moq: number;
 	@Input() moqDesc: string;
 
+	@Input() size: 's' | 'ms' | 'm' | 'l' = 'm';
+
 	get amount() {
 		return this.price ? this.price.value : undefined;
 	}

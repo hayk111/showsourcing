@@ -10,7 +10,8 @@ import { CardNavComponent } from '../card-nav/card-nav.component';
 	styleUrls: ['./card.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
-		class: 'flexColumn card-shadow'
+		class: 'flexColumn',
+		'[class.card-shadow]': 'hasShadow'
 	}
 })
 export class CardComponent {
@@ -18,6 +19,7 @@ export class CardComponent {
 	@ContentChild(CardTitleComponent, { static: true }) title: CardTitleComponent;
 	@ContentChild(CardActionComponent, { static: true }) action: CardActionComponent;
 	@ContentChild(CardNavComponent, { static: true }) nav: CardNavComponent;
+	@Input() hasShadow = true;
 	@Input() padding = 'l';
 	@Input() marginTitle = 'l';
 }

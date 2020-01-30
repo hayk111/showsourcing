@@ -12,7 +12,7 @@
 	</header-details-info-app>
 </header-details-app>
 
-<controller-table-app 
+<controller-table-app
 	class="spacing-ms"
 	[hasFilters]="false">
 </controller-table-app>
@@ -22,6 +22,7 @@
 	[rows]="listSrv.items$ | async"
 	[currentSort]="listSrv.currentSort"
 	[pending]="listSrv.pending"
+	[isFiltering]="listSrv.isFiltering"
 	[count]="listSrv.count$ | async"
 	[currentPage]="listSrv.currentPage"
 	(goToPage)="listSrv.loadPage($event)"

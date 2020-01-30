@@ -123,7 +123,8 @@
 				[canCreate]="customField?.metadata?.canCreate"
 				[hasBadge]="customField?.metadata?.hasBadge"
 				[width]="customField?.metadata?.width || 390"
-				[placeholder]="customField?.metadata?.placeholder"
+				[translationKey]="customField?.metadata?.placeholder ? 'placeholder' : 'text'"
+				[placeholder]="customField?.metadata?.placeholder || customField?.label || customField?.name"
 				[autofocus]="autofocus"
 				(update)="onChange()">
 			</input-selector-app>

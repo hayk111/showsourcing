@@ -1,4 +1,12 @@
 <div class="flex">
-	<span class="currency">{{ currency | const : 'currency' : 'symbol' : '1.0-2'}}</span>
-	<span class="amount ellipsis">{{ amount | appPrice }}</span>
+	<span 
+		class="currency" 
+		[ngStyle]="{'font-size': '--font-size-' + size}">
+		{{ currency | const : 'currency' : 'symbol' : '1.0-2'}}
+	</span>
+	<span 
+		class="amount ellipsis"
+		[ngStyle]="{'font-size': '--font-size-' + size}">
+		{{ amount | appPrice }}
+	</span>
 </div>

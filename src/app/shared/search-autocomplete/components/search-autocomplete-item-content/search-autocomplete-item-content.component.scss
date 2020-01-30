@@ -1,7 +1,5 @@
 .search {
 	&__item {
-		/* padding: 0 var(--spacing-m);
-    border-bottom: 1px solid var(--color-secondary); */
     height: 48px;
     display: flex;
 		align-items: center;
@@ -12,9 +10,9 @@
 
       .imgCtnr {
 				border-radius: var(--border-radius);
-    		width: 44px;
-				height: 44px;
-				margin-right: 10px;
+    		width: 36px;
+				height: 36px;
+				margin-right: var(--spacing-ms);
         overflow: hidden;
         display: flex;
         align-items: center;
@@ -42,25 +40,18 @@
 					align-items: center;
 
 					.title {
-						margin-bottom: 0;
-						font-family: var(--font-normal);
-						font-size: 14px;
 						font-weight: 600;
 						color: var(--color-txt-primary);
-						line-height: 0.9rem;
-						text-transform: capitalize;
 					}
 				}
 
 				status-button-app {
 					margin-left: var(--spacing-ms);
 				}
-
-				.subtitle {
-					font-family: var(--font-normal);
-					font-size: 14px;
-					color: var(--color-txt-primary);
-					line-height: 0.9rem;
+				
+				.sub-content {
+					color: var(--color-txt-secondary);
+					font-size: var(--font-size-l);
 				}
 			}
 		}

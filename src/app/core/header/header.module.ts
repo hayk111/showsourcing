@@ -6,7 +6,6 @@ import { SharedModule } from '~shared/shared.module';
 import { UserPictureModule } from '~shared/user-picture';
 
 import {
-	HeaderComponent,
 	HeaderSearchComponent,
 	UserPanelComponent,
 	SidebarComponent,
@@ -22,12 +21,11 @@ import {
 		SearchAutocompleteModule,
 	],
 	declarations: [
-		HeaderComponent,
 		UserPanelComponent,
 		HeaderSearchComponent,
 		SidebarComponent,
 		SidebarItemComponent
 	],
-	exports: [HeaderComponent, SidebarComponent],
+	exports: [SidebarComponent, HeaderSearchComponent],
 })
 export class HeaderModule { }

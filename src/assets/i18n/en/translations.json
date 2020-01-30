@@ -297,13 +297,9 @@
 			"singular": "{{ count }} image uploaded with success",
 			"plural": "{{ count }} images uploaded with success"
 		},
-    "item-selected": {
-      "plural": "{{ count }} items selected",
-      "singular": "{{ count }} item selected"
-    },
     "n-item-uploaded-success": {
-      "plural": "{{ count }} items selected",
-      "singular": "{{ count }} item selected"
+      "plural": "{{ count }} items uploaded with success",
+      "singular": "{{ count }} item uploaded with success"
     },
     "last-updated-by-on": "Last updated by {{ name }} on {{ date }}",
     "mass-edit": {
@@ -326,9 +322,10 @@
       "singular": "{{ count }} item selected"
     },
     "n-item": {
-      "plural": "{{ count }} items",
+			"plural": "{{ count }} items",
       "singular": "{{ count }} item"
     },
+		"n-OBJ-selected": "{{ count }} {{ entity }} selected",
     "n-product": {
 			"plural": "{{ count }} products",
 			"singular": "{{ count }} product"
@@ -357,6 +354,7 @@
     "new-OBJ-name": "New {{ field }} name",
     "no-OBJ-assigned-to-you": "No {{ field }} assigned to you",
     "no-item-add-one": "There's no {{ field }} yet, add one!",
+    "no-OBJ-matches-criteria": "No {{ type }} matches your search criteria",
     "no-type-found": "No {{ type }} found",
     "product-in-progress": {
       "plural": "Products in progress",
@@ -429,6 +427,7 @@
     "close": "Close",
     "close-request": "Close request",
     "company": "Company",
+    "compare": "Compare",
     "compare-products": "Compare products",
 		"contact-supplier": "Contact supplier",
 		"create-category": "Create category",
@@ -487,6 +486,7 @@
     "preview": "Preview",
     "preview-product": "Preview product",
     "profile": "Profile",
+    "project": "Project",
     "purchase-license": "Purchase license",
     "pwResetted_login": "Login",
     "received-on": "Received on",
@@ -826,14 +826,14 @@
     "select-assignee": "Select assignee",
     "select-supplier": "Select a supplier",
     "select-template": "Select a template",
-    "sidebar-search": "Search Products, Suppliers...",
+    "sidebar-search": "Search your product, suppliers, tasks, contacts…",
     "task-name": "Task name",
     "template-name": "Template name",
     "type-business-name": "Type your business name",
     "type-to-search": "Type to search",
     "unit": "Unit",
     "weight": "Weight",
-    "width": "width",
+    "width": "Width",
     "write-comment-here": "Write your comment here",
     "your-email": "Your email",
     "your-first-name": "Your first name",

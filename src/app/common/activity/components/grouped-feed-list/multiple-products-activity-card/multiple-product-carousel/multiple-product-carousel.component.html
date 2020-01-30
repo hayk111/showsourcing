@@ -1,7 +1,12 @@
-<div class="previewCtnr flexStart">
-	<div class="grid-section" horizontalScroll>
-		<div *ngFor="let item of products.slice(0, 10); let selectedIndex = index" class="card">
+<div 
+	class="previewCtnr flexStart"
+	[class.left-mg]="hasLeftMargin"
+	(mouseenter)="showArrows = true"
+	(mouseleave)="showArrows = false">
+	<div class="grid-section" horizontalScroll #cardSection>
+		<div *ngFor="let item of products.slice(0, 10); let selectedIndex = index;" class="card">
 			<product-grid-card-app
+				size="s"
 				[hasCheckbox]="false"
 				[product]="products[selectedIndex]"
 				(favorited)="updateProduct(products[selectedIndex], {favorite: true})"
@@ -12,6 +17,18 @@
 				(disliked)="disliked.emit( products[selectedIndex] )"
 				(update)="update.emit($event)">
 			</product-grid-card-app>
+		</div>
+	</div>
+
+	<div *ngIf="showArrows && products.length > 3" class="flex flexVAlign">
+		<div class="move-btn back flexCenter pointer"
+			(mousedown)="back($event)">
+			<icon-app name="angle-left" size="m"></icon-app>
+		</div>
+	
+		<div class="move-btn next flexCenter pointer"
+			(mousedown)="next($event)">
+			<icon-app name="angle-right" size="m"></icon-app>
 		</div>
 	</div>
 </div>

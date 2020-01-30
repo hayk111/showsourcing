@@ -7,10 +7,14 @@ import { StatusUtils } from '~utils';
 	selector: 'product-grid-card-app',
 	templateUrl: './product-grid-card.component.html',
 	styleUrls: ['./product-grid-card.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		'[class.small-card]': 'size === "s"',
+	}
 })
 export class ProductGridCardComponent {
 
+	@Input() size: 's' | 'm' = 'm';
 	@Input() product: Product;
 	@Input() selected: boolean;
 	@Input() hasCheckbox = true;

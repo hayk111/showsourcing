@@ -1,17 +1,17 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { combineLatest } from 'rxjs';
-import { filter, first, map, mergeMap, startWith, switchMap, takeUntil, tap } from 'rxjs/operators';
-import { CreationSampleDlgComponent } from '~common/dialogs/creation-dialogs';
+import { first, map, mergeMap, startWith, takeUntil, tap } from 'rxjs/operators';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
+import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { SampleService, SampleStatusService, UserService } from '~core/entity-services';
 import { ListPageService } from '~core/list-page';
 import { ERM, Sample, SampleStatus } from '~core/models';
-import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
-import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
+import { DialogService } from '~shared/dialog';
 import { FilterList, FilterType } from '~shared/filters';
 import { KanbanColumn, KanbanDropEvent } from '~shared/kanban/interfaces';
+import { KanbanSelectionService } from '~shared/kanban/services/kanban-selection.service';
 import { KanbanService } from '~shared/kanban/services/kanban.service';
-import { StatusUtils, translate } from '~utils';
+import { StatusUtils } from '~utils';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 
 
@@ -19,26 +19,27 @@ import { AutoUnsub } from '~utils/auto-unsub.component';
 	selector: 'samples-board-app',
 	templateUrl: './samples-board.component.html',
 	styleUrls: ['./samples-board.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [
-		KanbanService,
-		ListPageService
-	]
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SamplesBoardComponent extends AutoUnsub implements OnInit {
+
+	@Output() preview = new EventEmitter<undefined>();
+	@Output() selectOne = new EventEmitter<Sample>();
+	@Output() unselectOne = new EventEmitter<Sample>();
+
 	columns$ = this.kanbanSrv.columns$;
 	erm = ERM;
-	statuses: SampleStatus[];
 	amountLoaded = 15;
 
+	// reminder, remember that in order to use kanbanservice, listSrv, etc, you have to set the providers on the parent component
 	constructor(
-		private kanbanSrv: KanbanService,
-		public listSrv: ListPageService<any, any>,
 		private sampleSrv: SampleService,
 		private sampleStatusSrv: SampleStatusService,
-		private router: Router,
-		private route: ActivatedRoute,
-		private dlgSrv: DialogService,
+		private listSrv: ListPageService<Sample, SampleService>,
+		public dialogCommonSrv: DialogCommonService,
+		public kanbanSrv: KanbanService,
+		public kanbanSelectionSrv: KanbanSelectionService,
+		public dlgSrv: DialogService,
 		private userSrv: UserService
 	) { super(); }
 
@@ -62,13 +63,13 @@ export class SamplesBoardComponent extends AutoUnsub implements OnInit {
 
 		const statuses$ = this.sampleStatusSrv
 			.queryAll(undefined, {
-				query: 'category != "refused" AND category != "inspiration"',
+				query: 'category != "refused"',
 				sortBy: 'step',
 				descending: false
 			}).pipe(
 				first(),
+				// status null
 				map(statuses => [{ id: StatusUtils.NEW_STATUS_ID, name: 'New Sample', category: StatusUtils.DEFAULT_STATUS_CATEGORY }, ...statuses]),
-				tap(statuses => this.statuses = statuses),
 				tap(statuses => this.kanbanSrv.setColumnsFromStatus(statuses)),
 			);
 
@@ -80,115 +81,81 @@ export class SamplesBoardComponent extends AutoUnsub implements OnInit {
 		).subscribe(columns => this.kanbanSrv.setData(columns));
 	}
 
-	private getSampleColumns(statuses: SampleStatus[], filterList: FilterList) {
-		return statuses.map(status => {
-			// for sample with null status
-			const statusQuery = `status.id == "${status.id}"`;
-			const predicate = filterList.asPredicate();
-			const query = [
-				predicate,
-				statusQuery
-			].join(' && ');
-			const samples$ = this.sampleSrv.queryMany({ query, take: this.amountLoaded, sortBy: 'lastUpdatedDate' });
-			const total$ = this.sampleSrv.queryCount(query);
-			return combineLatest(samples$, total$, (samples, total) => ({ id: status.id, data: samples, total }));
-		});
-	}
-
 	loadMore(col: KanbanColumn) {
-		const statusQuery = `status.id == "${col.id}"`;
-		const predicate = this.listSrv.filterList.asPredicate();
-		const query = [
-			predicate,
-			statusQuery
-		].filter(x => x !== '').join(' && ');
-
+		const query = this.getColQuery(col.id);
 		this.sampleSrv.queryMany({
-			query: query,
+			query,
 			take: col.data.length + this.amountLoaded,
 			sortBy: 'lastUpdatedDate'
-		}).pipe(
-			first()
-		).subscribe(samples => this.kanbanSrv.setData([{ id: col.id, data: samples }]));
+		}).subscribe(samples => this.kanbanSrv.setData([{ data: samples, id: col.id }]));
 	}
 
-	onColumnSelected(samples: Sample[]) {
-		samples.forEach(sample => this.listSrv.selectOne(sample));
-	}
-
-	onColumnUnselected(samples: Sample[]) {
-		samples.forEach(sample => this.listSrv.unselectOne(sample));
-	}
-
-	toggleMySamples(show: boolean) {
-		const filterAssignee = { type: FilterType.ASSIGNEE, value: this.userSrv.userSync.id };
-		if (show)
-			this.listSrv.addFilter(filterAssignee);
-		else
-			this.listSrv.removeFilter(filterAssignee);
-	}
-
-	openCreateDlg() {
-		this.dlgSrv.open(CreationSampleDlgComponent).pipe(
-			filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
-			map((evt: CloseEvent) => evt.data)
-		).subscribe(({ sample }) => {
-			this.kanbanSrv.addItems([sample], StatusUtils.NEW_STATUS_ID);
+	private getSampleColumns(statuses: SampleStatus[], filterList: FilterList) {
+		return statuses.map(status => {
+			const query = this.getColQuery(status.id, filterList);
+			const samples$ = this.sampleSrv.queryMany({ query, take: this.amountLoaded, sortBy: 'lastUpdatedDate' });
+			const total$ = this.sampleSrv.queryCount(query).pipe(first());
+			return combineLatest(total$, samples$, (total, samples) => ({ id: status.id, data: samples, total }));
 		});
 	}
 
-	updateSampleStatus(event: KanbanDropEvent) {
+	// returns the query of the columns based on the parameters on the list srv
+	private getColQuery(colId: string, filterList?: FilterList) {
+		const constQuery = colId !== StatusUtils.NEW_STATUS_ID ?
+			`status.id == "${colId}"` : `status == null`
+			;
+		const predicate = filterList ? filterList.asPredicate() : this.listSrv.filterList.asPredicate();
+		return [
+			predicate,
+			constQuery
+		].filter(x => x !== '')
+			.join(' && ');
+	}
+
+	onUpdate(sample: Sample) {
+		this.kanbanSrv.updateData(sample);
+	}
+
+	previewStatusUpdate(sample: Sample) {
+		this.kanbanSrv.onExternalStatusChange([sample]);
+	}
+
+	onUpdateSampleStatus(event: KanbanDropEvent) {
 		// if dropped in the same column do nothing
 		if (event.to === event.from) {
 			return;
 		}
 		// we update on the server
-		this.sampleSrv.update(
-			{
-				id: event.item.id,
-				status: new SampleStatus({ id: event.to.id })
-			}
+		const isNewStatus = event.to.id === StatusUtils.NEW_STATUS_ID;
+		this.sampleSrv.update({
+			id: event.item.id,
+			status: isNewStatus ? null : new SampleStatus({ id: event.to.id })
+		},
+			Client.TEAM,
+			isNewStatus ? 'status { id }' : ''
 		).subscribe();
 	}
 
 	/** multiple */
-	updateSamplesStatus(event: KanbanDropEvent) {
+	onUpdateSamplesStatus(event: KanbanDropEvent) {
+		const isNewStatus = event.to.id === StatusUtils.NEW_STATUS_ID;
 		const samples = event.items.map(id => ({
 			id,
-			status: new SampleStatus({ id: event.to.id })
+			status: isNewStatus ? null : new SampleStatus({ id: event.to.id })
 		}));
 		this.sampleSrv.updateMany(
-			samples
+			samples,
+			Client.TEAM,
+			isNewStatus ? 'status { id }' : ''
 		).subscribe();
 	}
 
-	onMultipleStatusUpdated(status: SampleStatus) {
-		const values = this.listSrv.getSelectedIds().map(id => ({ id, status }));
-		this.kanbanSrv.onExternalStatusChange(values);
-		this.sampleSrv.updateMany(values).subscribe();
+	onSelectedOne(sample: Sample, column: KanbanColumn) {
+		this.kanbanSelectionSrv.selectOne(sample, column);
 	}
 
-	goToList() {
-		this.router.navigate(['../list'], { relativeTo: this.route });
+	onUnselectedOne(sample: Sample) {
+		this.kanbanSelectionSrv.unselectOne(sample);
 	}
 
-	get selection() {
-		return this.listSrv.selection;
-	}
-
-	deleteSelected() {
-		const itemIds = this.listSrv.getSelectedIds();
-		const del = translate('delete');
-		const smpl = itemIds.length <= 1 ? translate('sample') : translate('samples');
-		const text = `${del} ${itemIds.length} ${smpl}`;
-
-
-		this.dlgSrv.open(ConfirmDialogComponent, { text }).pipe(
-			filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
-			switchMap(_ => this.listSrv.dataSrv.deleteMany(itemIds)),
-		).subscribe(_ => {
-			this.listSrv.selectionSrv.unselectAll();
-			this.kanbanSrv.deleteItems(itemIds);
-		});
-	}
 }

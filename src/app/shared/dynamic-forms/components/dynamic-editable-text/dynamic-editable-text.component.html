@@ -320,13 +320,25 @@
 		</editable-selector-app>
 
 		<!-- nested -->
-		<dynamic-editable-container-app
-			*ngSwitchCase="'nested'"
-			[(ngModel)]="value[customField?.metadata?.nest?.name]"
-			[indexInCol]="indexInCol"
-			[customField]="customField?.metadata?.nest"
-			[config]="config">
-		</dynamic-editable-container-app>
+		<ng-container *ngSwitchCase="'nested'">
+			<!-- since the property that we send on the NgModel cannot be null, we need this condition -->
+			<dynamic-editable-container-app
+				*ngIf="value !== null; else emptyValue"
+				[(ngModel)]="value[customField?.metadata?.nest?.name]"
+				[indexInCol]="indexInCol"
+				[customField]="customField?.metadata?.nest"
+				[config]="config">
+			</dynamic-editable-container-app>
+			<!-- this is so we keep showing the row as empty, this can be removed but then we wont see this row until we have the parent value -->
+			<!-- e.g. supplier.reference, we cant access a reference if the product does not have a supplier -->
+			<ng-template #emptyValue>
+				<dynamic-editable-container-app
+					[indexInCol]="indexInCol"
+					[customField]="customField?.metadata?.nest"
+					[config]="config">
+				</dynamic-editable-container-app>
+			</ng-template>
+		</ng-container>
 
 		<!-- title -->
 		<h3 *ngSwitchCase="'title'" class="color-primary" [ngClass]="{ 'first': indexInCol === 0 }">
