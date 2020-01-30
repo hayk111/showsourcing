@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { take, takeUntil, switchMap } from 'rxjs/operators';
 import { CompanyService, UserService, TeamUserService } from '~core/ORM/services';
 import { SettingsCompanyService } from '~features/settings/services/settings-company.service';
-import { ERM, Company } from '~models';
+import { ERM, Company } from '~core/ORM/models';
 import { AutoUnsub } from '~utils';
 
 @Component({

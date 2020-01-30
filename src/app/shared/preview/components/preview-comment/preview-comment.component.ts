@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { CommentService } from '~core/ORM/services/comment/comment.service';
-import { Comment } from '~models';
+import { Comment } from '~core/ORM/models';
 
 @Component({
 	selector: 'preview-comment-app',

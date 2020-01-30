@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
-import { UserService } from '~entity-services';
-import { GlobalWithAuditService } from '~entity-services/_global/global-with-audit.service';
-import { ImageQueries } from '~entity-services/image/image.queries';
-import { AppImage } from '~models';
+import { UserService } from '~core/ORM/services';
+import { GlobalWithAuditService } from '~core/ORM/services/_global/global-with-audit.service';
+import { ImageQueries } from '~core/ORM/services/image/image.queries';
+import { AppImage } from '~core/ORM/models';
 import { ImageUrls } from '~utils';
 
 

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { AppImage, User } from '~models';
+import { AppImage, User } from '~core/ORM/models';
 
 /**
  * component that accepts either an user or initials and images

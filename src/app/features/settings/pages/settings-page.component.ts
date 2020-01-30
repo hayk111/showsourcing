@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { ERM } from '~models';
+import { ERM } from '~core/ORM/models';
 import { CompanyService, TeamService } from '~core/ORM/services';
 
 @Component({

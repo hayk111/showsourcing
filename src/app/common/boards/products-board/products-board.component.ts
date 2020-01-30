@@ -5,8 +5,8 @@ import { DialogCommonService } from '~common/dialogs/services/dialog-common.serv
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ProductStatusService } from '~core/ORM/services/product-status/product-status.service';
 import { ListPageService } from '~core/list-page';
-import { ProductService } from '~entity-services';
-import { ERM, Product, ProductStatus } from '~models';
+import { ProductService } from '~core/ORM/services';
+import { ERM, Product, ProductStatus } from '~core/ORM/models';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { FilterList } from '~shared/filters';

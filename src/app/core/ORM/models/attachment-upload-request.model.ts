@@ -1,5 +1,5 @@
 import { uuid } from '~utils';
-import { Attachment, AttachmentConfig } from '~models/attachment.model';
+import { Attachment, AttachmentConfig } from '~core/ORM/models/attachment.model';
 
 
 export class AttachmentUploadRequest {

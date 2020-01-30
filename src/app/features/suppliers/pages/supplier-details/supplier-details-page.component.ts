@@ -8,7 +8,7 @@ import {
 } from '~common/dialogs/custom-dialogs/supplier-request-dialog/supplier-request-dialog.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { SupplierService } from '~core/ORM/services';
-import { Supplier } from '~models/supplier.model';
+import { Supplier } from '~core/ORM/models/supplier.model';
 import { DialogService } from '~shared/dialog';
 import { ToastService, ToastType } from '~shared/toast';
 import { AutoUnsub, log } from '~utils';

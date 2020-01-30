@@ -1,7 +1,7 @@
-import { EntityWithAudit } from '~models/_entity.model';
-import { AppImage } from '~models/app-image.model';
-import { Product } from '~models/product.model';
-import { User } from '~models/user.model';
+import { EntityWithAudit } from '~core/ORM/models/_entity.model';
+import { AppImage } from '~core/ORM/models/app-image.model';
+import { Product } from '~core/ORM/models/product.model';
+import { User } from '~core/ORM/models/user.model';
 
 export class Project extends EntityWithAudit<ProjectConfig> {
 	name?: string;

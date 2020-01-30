@@ -4,10 +4,10 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, switchMap, take, tap } from 'rxjs/operators';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
-import { UserService } from '~entity-services';
-import { GlobalService } from '~entity-services/_global/global.service';
-import { ExportRequestQueries } from '~entity-services/export-request/export-request.queries';
-import { ExportRequest } from '~models';
+import { UserService } from '~core/ORM/services';
+import { GlobalService } from '~core/ORM/services/_global/global.service';
+import { ExportRequestQueries } from '~core/ORM/services/export-request/export-request.queries';
+import { ExportRequest } from '~core/ORM/models';
 import { ToastService, ToastType } from '~shared/toast';
 
 

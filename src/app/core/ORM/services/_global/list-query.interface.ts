@@ -1,5 +1,5 @@
 import { Observable, ConnectableObservable } from 'rxjs';
-import { SelectParamsConfig } from '~entity-services/_global/select-params';
+import { SelectParamsConfig } from '~core/ORM/services/_global/select-params';
 
 
 export interface ListQuery<T> {

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
-import { PriceMatrixRow } from '~models';
+import { PriceMatrixRow } from '~core/ORM/models';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 
 @Component({

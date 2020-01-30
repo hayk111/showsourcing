@@ -5,8 +5,8 @@ import { AbstractTaskCommonComponent } from '~common/abstracts/abstract-task-com
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { SelectParams } from '~core/ORM/services/_global/select-params';
 import { ListPageService } from '~core/list-page';
-import { TaskService, UserService, ProductService } from '~entity-services';
-import { Product, Task } from '~models';
+import { TaskService, UserService, ProductService } from '~core/ORM/services';
+import { Product, Task } from '~core/ORM/models';
 import { DialogService } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
 

@@ -9,9 +9,9 @@ import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ERMService } from '~core/ORM/erm.service';
 import { LocalStorageService } from '~core/local-storage';
 import { ERM } from '~core/ORM/models';
-import { RealmServerService } from '~entity-services/realm-server/realm-server.service';
-import { TeamService } from '~entity-services/team/team.service';
-import { Team } from '~models/team.model';
+import { RealmServerService } from '~core/ORM/services/realm-server/realm-server.service';
+import { TeamService } from '~core/ORM/services/team/team.service';
+import { Team } from '~core/ORM/models/team.model';
 
 import { ApolloStateService } from './apollo-state.service';
 

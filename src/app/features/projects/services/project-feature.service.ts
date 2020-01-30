@@ -5,7 +5,7 @@ import { DialogCommonService } from '~common/dialogs/services/dialog-common.serv
 import { AnalyticsService } from '~core/analytics/analytics.service';
 import { ApolloStateService } from '~core/apollo';
 import { Product, ProductStatus, Project } from '~core/ORM/models';
-import { ProductService, ProductStatusService, ProjectService, UserService } from '~entity-services';
+import { ProductService, ProductStatusService, ProjectService, UserService } from '~core/ORM/services';
 import { ToastService, ToastType } from '~shared/toast';
 
 @Injectable({ providedIn: 'root' })

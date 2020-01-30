@@ -17,8 +17,8 @@ import { CommentService } from '~core/ORM/services/comment/comment.service';
 import {
 	ExtendedFieldDefinitionService,
 } from '~core/ORM/services/extended-field-definition/extended-field-definition.service';
-import { TaskService } from '~entity-services';
-import { Comment, ERM, ExtendedFieldDefinition, Task } from '~models';
+import { TaskService } from '~core/ORM/services';
+import { Comment, ERM, ExtendedFieldDefinition, Task } from '~core/ORM/models';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';

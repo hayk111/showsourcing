@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { ProductService, SampleService, SupplierService, TaskService, UserService } from '~core/ORM/services';
 import { SelectParams } from '~core/ORM/services/_global/select-params';
-import { Sample, Task } from '~models';
+import { Sample, Task } from '~core/ORM/models';
 import { TrackingComponent } from '~utils/tracking-component';
 
 @Component({

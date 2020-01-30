@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { Comment, EntityMetadata, Product, Supplier } from '~models';
+import { Comment, EntityMetadata, Product, Supplier } from '~core/ORM/models';
 import { TrackingComponent } from '~utils/tracking-component';
 import { CommentService } from '~core/ORM/services/comment/comment.service';
 import { FormControl } from '@angular/forms';

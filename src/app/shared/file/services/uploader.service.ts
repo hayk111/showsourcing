@@ -6,13 +6,13 @@ import { delay, first, map, mapTo, mergeMap, retryWhen, switchMap, take, tap } f
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ERMService } from '~core/ORM/erm.service';
 import { ImageService } from '~core/ORM/services/image/image.service';
-import { AttachmentService, ImageUploadRequestService } from '~entity-services';
-import { GlobalService } from '~entity-services/_global/global.service';
+import { AttachmentService, ImageUploadRequestService } from '~core/ORM/services';
+import { GlobalService } from '~core/ORM/services/_global/global.service';
 import {
 	AttachmentUploadRequestService,
-} from '~entity-services/attachment-upload-request/attachment-upload-request.service';
-import { AppImage, Attachment, ImageUploadRequest } from '~models';
-import { AttachmentUploadRequest } from '~models/attachment-upload-request.model';
+} from '~core/ORM/services/attachment-upload-request/attachment-upload-request.service';
+import { AppImage, Attachment, ImageUploadRequest } from '~core/ORM/models';
+import { AttachmentUploadRequest } from '~core/ORM/models/attachment-upload-request.model';
 import { ToastService, ToastType } from '~shared/toast';
 import { ImageUrls, log, LogColor, resizeSizeToLimit } from '~utils';
 

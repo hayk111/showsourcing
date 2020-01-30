@@ -1,5 +1,5 @@
-import { EntityWithAudit } from '~models/_entity.model';
-import { User, Product, Supplier, SampleStatus } from '~models';
+import { EntityWithAudit } from '~core/ORM/models/_entity.model';
+import { User, Product, Supplier, SampleStatus } from '~core/ORM/models';
 import { AppImage } from './app-image.model';
 import { Price } from './price.model';
 import { ExtendedField } from './extended-field.model';

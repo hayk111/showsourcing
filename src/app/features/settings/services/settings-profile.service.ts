@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
-import { UserService } from '~entity-services';
-import { User } from '~models';
+import { UserService } from '~core/ORM/services';
+import { User } from '~core/ORM/models';
 import { UploaderService } from '~shared/file/services/uploader.service';
 
 @Injectable({

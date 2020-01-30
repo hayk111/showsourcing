@@ -5,7 +5,7 @@ import { DialogCommonService } from '~common/dialogs/services/dialog-common.serv
 import { SampleService, UserService } from '~core/ORM/services';
 import { SelectParams, SelectParamsConfig } from '~core/ORM/services/_global/select-params';
 import { ListPageService } from '~core/list-page';
-import { ERM, Sample } from '~models';
+import { ERM, Sample } from '~core/ORM/models';
 import { DialogService } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';

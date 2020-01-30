@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { EntityTableComponent, TableConfig } from '~common/tables/entity-table.component';
-import { Project } from '~models';
+import { Project } from '~core/ORM/models';
 import { defaultConfig } from '../default-columns/default-config';
 
 const tableConfig: TableConfig = {

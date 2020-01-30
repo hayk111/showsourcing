@@ -22,8 +22,8 @@ import {
 	TeamUserService,
 	UserService,
 	WeightUnitService,
-} from '~entity-services';
-import { SupplierTypeService } from '~entity-services/supplier-type/supplier-type.service';
+} from '~core/ORM/services';
+import { SupplierTypeService } from '~core/ORM/services/supplier-type/supplier-type.service';
 import {
 	Category,
 	Contact,
@@ -43,8 +43,8 @@ import {
 	TeamUser,
 	User,
 	WeightUnit,
-} from '~models';
-import { Supplier } from '~models/supplier.model';
+} from '~core/ORM/models';
+import { Supplier } from '~core/ORM/models/supplier.model';
 import { DynamicField } from '~shared/dynamic-forms';
 import { FilterList } from '~shared/filters/models/filter-list.class';
 import { ID } from '~utils';

@@ -10,8 +10,8 @@ import { TeamService } from '~core/ORM/services';
 import { ERMService } from '~core/ORM/erm.service';
 import { LocalStorageService } from '~core/local-storage';
 import { ERM } from '~core/ORM/models';
-import { RealmServerService } from '~entity-services/realm-server/realm-server.service';
-import { UserService } from '~entity-services/user/user.service';
+import { RealmServerService } from '~core/ORM/services/realm-server/realm-server.service';
+import { UserService } from '~core/ORM/services/user/user.service';
 import { ApolloStateService } from './apollo-state.service';
 
 

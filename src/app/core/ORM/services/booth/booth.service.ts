@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Booth } from '~models/booth.model';
+import { Booth } from '~core/ORM/models/booth.model';
 
-import { GlobalService } from '~entity-services/_global/global.service';
-import { BoothQueries } from '~entity-services/booth/booth.queries';
-import { QueryBuilder } from '~entity-services/_global/query-builder.class';
+import { GlobalService } from '~core/ORM/services/_global/global.service';
+import { BoothQueries } from '~core/ORM/services/booth/booth.queries';
+import { QueryBuilder } from '~core/ORM/services/_global/query-builder.class';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
 
 

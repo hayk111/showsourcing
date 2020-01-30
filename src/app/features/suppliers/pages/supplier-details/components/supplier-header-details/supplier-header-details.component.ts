@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
 import { ContactService, ProductService, SampleService, TaskService } from '~core/ORM/services';
-import { Supplier } from '~models';
+import { Supplier } from '~core/ORM/models';
 import { AutoUnsub } from '~utils';
 
 @Component({

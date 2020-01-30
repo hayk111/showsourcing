@@ -1,5 +1,5 @@
-import { GlobalQueries } from '~entity-services/_global/global-queries.class';
-import { ProductQueries } from '~entity-services/product/product.queries';
+import { GlobalQueries } from '~core/ORM/services/_global/global-queries.class';
+import { ProductQueries } from '~core/ORM/services/product/product.queries';
 
 export abstract class QuoteQueries extends GlobalQueries {
 	static readonly one = `

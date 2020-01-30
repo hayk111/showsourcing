@@ -4,9 +4,9 @@ import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { AbstractSampleCommonComponent } from '~common/abstracts/abstract-sample-common.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { ListPageService } from '~core/list-page';
-import { SupplierService, UserService } from '~entity-services';
-import { SampleService } from '~entity-services/sample/sample.service';
-import { ERM, Sample, Supplier } from '~models';
+import { SupplierService, UserService } from '~core/ORM/services';
+import { SampleService } from '~core/ORM/services/sample/sample.service';
+import { ERM, Sample, Supplier } from '~core/ORM/models';
 import { DialogService } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
 

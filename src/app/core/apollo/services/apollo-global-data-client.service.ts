@@ -9,7 +9,7 @@ import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { ERMService } from '~core/ORM/erm.service';
 import { EntityMetadata, ERM } from '~core/ORM/models';
-import { RealmServerService } from '~entity-services/realm-server/realm-server.service';
+import { RealmServerService } from '~core/ORM/services/realm-server/realm-server.service';
 
 import { ApolloStateService } from './apollo-state.service';
 import { LocalStorageService } from '~core/local-storage';

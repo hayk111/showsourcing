@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AbstractControl, AsyncValidator } from '@angular/forms';
 import { first, map } from 'rxjs/operators';
-import { ERMService } from '~entity-services/_global/erm.service';
-import { EntityMetadata } from '~models';
+import { ERMService } from '~core/ORM/services/_global/erm.service';
+import { EntityMetadata } from '~core/ORM/models';
 
 
 @Injectable({ providedIn: 'root' })

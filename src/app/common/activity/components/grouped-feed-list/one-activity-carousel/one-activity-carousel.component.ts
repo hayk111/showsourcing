@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, EventEmitter, Output, ViewChild, ElementRef } from '@angular/core';
 import { timer } from 'rxjs';
 import { map, take} from 'rxjs/operators';
-import { AppImage } from '~models';
+import { AppImage } from '~core/ORM/models';
 import { DEFAULT_IMG } from '~utils';
 
 @Component({

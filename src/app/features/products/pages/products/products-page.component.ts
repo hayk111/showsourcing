@@ -7,7 +7,7 @@ import { ProductsTableComponent } from '~common/tables/products-table/products-t
 import { ProductService, UserService } from '~core/ORM/services';
 import { SelectParamsConfig } from '~core/ORM/services/_global/select-params';
 import { ListPageService } from '~core/list-page';
-import { ERM, Product } from '~models';
+import { ERM, Product } from '~core/ORM/models';
 import { DialogService } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';

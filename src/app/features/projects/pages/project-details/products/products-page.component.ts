@@ -9,9 +9,9 @@ import {
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { SelectParamsConfig } from '~core/ORM/services/_global/select-params';
 import { ListPageService } from '~core/list-page';
-import { ProductService } from '~entity-services';
+import { ProductService } from '~core/ORM/services';
 import { ProjectFeatureService } from '~features/projects/services';
-import { EntityTypeEnum, ERM, Product, Project } from '~models';
+import { EntityTypeEnum, ERM, Product, Project } from '~core/ORM/models';
 import { DialogService } from '~shared/dialog/services';
 import { FilterType } from '~shared/filters';
 import { ToastService, ToastType } from '~shared/toast';

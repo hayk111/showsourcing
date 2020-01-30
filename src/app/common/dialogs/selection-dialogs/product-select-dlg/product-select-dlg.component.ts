@@ -4,8 +4,8 @@ import { ProductsTableComponent } from '~common/tables/products-table/products-t
 import { ProductService, UserService } from '~core/ORM/services';
 import { SelectParamsConfig } from '~core/ORM/services/_global/select-params';
 import { ListPageService } from '~core/list-page';
-import { DEFAULT_TAKE_PAGINATION } from '~entity-services/_global/select-params';
-import { EntityTypeEnum, ERM, Product, Project } from '~models';
+import { DEFAULT_TAKE_PAGINATION } from '~core/ORM/services/_global/select-params';
+import { EntityTypeEnum, ERM, Product, Project } from '~core/ORM/models';
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
 import { ToastService, ToastType } from '~shared/toast';

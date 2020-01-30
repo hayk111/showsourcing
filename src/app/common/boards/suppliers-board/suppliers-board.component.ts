@@ -4,8 +4,8 @@ import { filter, first, mergeMap, switchMap, takeUntil, tap } from 'rxjs/operato
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { SupplierStatusService } from '~core/ORM/services/supplier-status/supplier-status.service';
 import { ListPageService } from '~core/list-page';
-import { SupplierService } from '~entity-services';
-import { EntityName, ERM, Supplier, SupplierStatus } from '~models';
+import { SupplierService } from '~core/ORM/services';
+import { EntityName, ERM, Supplier, SupplierStatus } from '~core/ORM/models';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { FilterList, FilterType } from '~shared/filters';

@@ -1,5 +1,5 @@
 import { uuid } from '~utils';
-import { AppImage, AppImageConfig } from '~models/app-image.model';
+import { AppImage, AppImageConfig } from '~core/ORM/models/app-image.model';
 
 
 export class ImageUploadRequest {

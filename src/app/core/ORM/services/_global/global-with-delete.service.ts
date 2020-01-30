@@ -1,8 +1,8 @@
 import { forkJoin } from 'rxjs';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
-import { GlobalQueries } from '~entity-services/_global/global-queries.class';
-import { GlobalService, GlobalServiceInterface } from '~entity-services/_global/global.service';
+import { GlobalQueries } from '~core/ORM/services/_global/global-queries.class';
+import { GlobalService, GlobalServiceInterface } from '~core/ORM/services/_global/global.service';
 
 /**
  * Same as global service but adds deleted flag

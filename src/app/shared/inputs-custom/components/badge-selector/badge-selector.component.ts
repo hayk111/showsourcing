@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { EntityMetadata, ERM } from '~models';
+import { EntityMetadata, ERM } from '~core/ORM/models';
 import { SelectorComponent } from '~shared/selectors';
 import { TrackingComponent } from '~utils/tracking-component';
 

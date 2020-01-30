@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApolloStateService } from '~core/apollo';
-import { InvitationUserService, TeamService, UserService } from '~entity-services';
-import { InvitationUser } from '~models';
+import { InvitationUserService, TeamService, UserService } from '~core/ORM/services';
+import { InvitationUser } from '~core/ORM/models';
 
 @Injectable({ providedIn: 'root' })
 export class InvitationFeatureService extends InvitationUserService {

@@ -4,8 +4,8 @@ import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { AbstractTaskCommonComponent } from '~common/abstracts/abstract-task-common.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { ListPageService } from '~core/list-page';
-import { SupplierService, TaskService, UserService } from '~entity-services';
-import { ERM, Supplier, Task } from '~models';
+import { SupplierService, TaskService, UserService } from '~core/ORM/services';
+import { ERM, Supplier, Task } from '~core/ORM/models';
 import { DialogService } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
 

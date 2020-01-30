@@ -5,9 +5,9 @@ import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { LocalStorageService } from '~core/local-storage';
-import { GlobalService } from '~entity-services/_global/global.service';
-import { TeamQueries } from '~entity-services/team/team.queries';
-import { Team } from '~models';
+import { GlobalService } from '~core/ORM/services/_global/global.service';
+import { TeamQueries } from '~core/ORM/services/team/team.queries';
+import { Team } from '~core/ORM/models';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'environments/environment';
 

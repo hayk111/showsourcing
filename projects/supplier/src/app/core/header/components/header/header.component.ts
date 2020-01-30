@@ -4,9 +4,9 @@ import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { SearchService } from '~core/header/services/search.service';
-import { TeamService, UserService } from '~entity-services';
-import { Team } from '~models';
-import { User } from '~models/user.model';
+import { TeamService, UserService } from '~core/ORM/services';
+import { Team } from '~core/ORM/models';
+import { User } from '~core/ORM/models/user.model';
 import {
 	SearchAutocompleteComponent,
 } from '~shared/search-autocomplete/components/search-autocomplete/search-autocomplete.component';

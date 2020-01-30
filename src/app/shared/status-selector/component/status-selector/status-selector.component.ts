@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { EntityMetadata, ERM, ProductStatus, SampleStatus, SupplierStatus } from '~models';
+import { EntityMetadata, ERM, ProductStatus, SampleStatus, SupplierStatus } from '~core/ORM/models';
 import { ContextMenuComponent } from '~shared/context-menu/components/context-menu/context-menu.component';
 import { AutoUnsub, StatusUtils } from '~utils';
 

@@ -1,10 +1,10 @@
-import { AppImage, Attachment, Comment, ExtendedField } from '~models';
-import { EntityWithAudit } from '~models/_entity.model';
-import { imageMock } from '~models/app-image.model';
-import { Category } from '~models/category.model';
-import { SupplierStatus } from '~models/supplier-status.model';
-import { SupplierType } from '~models/supplier-type.model';
-import { Tag } from '~models/tag.model';
+import { AppImage, Attachment, Comment, ExtendedField } from '~core/ORM/models';
+import { EntityWithAudit } from '~core/ORM/models/_entity.model';
+import { imageMock } from '~core/ORM/models/app-image.model';
+import { Category } from '~core/ORM/models/category.model';
+import { SupplierStatus } from '~core/ORM/models/supplier-status.model';
+import { SupplierType } from '~core/ORM/models/supplier-type.model';
+import { Tag } from '~core/ORM/models/tag.model';
 
 import { ProductVote } from './product-vote.model';
 import { Sample } from './sample.model';

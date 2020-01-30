@@ -4,7 +4,7 @@ import { SupplierService, TeamService, CompanyService } from '~core/ORM/services
 import { SelectParamsConfig } from '~core/ORM/services/_global/select-params';
 import { ListPageService } from '~core/list-page';
 import { SelectionService } from '~core/list-page';
-import { ERM, Supplier } from '~models';
+import { ERM, Supplier } from '~core/ORM/models';
 import { AutoUnsub } from '~utils';
 
 @Component({

@@ -2,10 +2,10 @@ import { forkJoin } from 'rxjs';
 import { AnalyticsService } from '~core/analytics/analytics.service';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
-import { UserService } from '~entity-services/user/user.service';
-import { GlobalQueries } from '~entity-services/_global/global-queries.class';
-import { GlobalService, GlobalServiceInterface } from '~entity-services/_global/global.service';
-import { EntityWithAudit } from '~models';
+import { UserService } from '~core/ORM/services/user/user.service';
+import { GlobalQueries } from '~core/ORM/services/_global/global-queries.class';
+import { GlobalService, GlobalServiceInterface } from '~core/ORM/services/_global/global.service';
+import { EntityWithAudit } from '~core/ORM/models';
 
 /**
  * Same as global service but adds an audit (created by, last updated date etc)

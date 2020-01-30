@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { AttachmentService } from '~core/ORM/services';
 import { ListPageService } from '~core/list-page';
-import { Attachment, ERM, Supplier } from '~models';
+import { Attachment, ERM, Supplier } from '~core/ORM/models';
 import { DialogService } from '~shared/dialog';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 

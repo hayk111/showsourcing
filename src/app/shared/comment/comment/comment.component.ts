@@ -3,7 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { filter, switchMap } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { CommentService, UserService } from '~core/ORM/services';
-import { Comment, User } from '~models';
+import { Comment, User } from '~core/ORM/models';
 import { CloseEventType } from '~shared/dialog';
 
 @Component({

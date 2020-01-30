@@ -1,4 +1,4 @@
-import { User } from '~models/user.model';
+import { User } from '~core/ORM/models/user.model';
 import { uuid } from '~utils';
 
 export interface ExportRequestConfig {

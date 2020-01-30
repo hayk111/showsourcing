@@ -5,8 +5,8 @@ import { AbstractSampleCommonComponent } from '~common/abstracts/abstract-sample
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { SelectParams } from '~core/ORM/services/_global/select-params';
 import { ListPageService } from '~core/list-page';
-import { ProductService, SampleService, UserService } from '~entity-services';
-import { Product, Sample } from '~models';
+import { ProductService, SampleService, UserService } from '~core/ORM/services';
+import { Product, Sample } from '~core/ORM/models';
 import { DialogService } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
 

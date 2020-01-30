@@ -13,7 +13,7 @@ import { cleanTypenameLink } from '~core/apollo/services/clean.typename.link';
 import { ERMService } from '~core/ORM/erm.service';
 import { LocalStorageService } from '~core/local-storage';
 import { EntityMetadata } from '~core/ORM/models';
-import { RealmServerService } from '~entity-services/realm-server/realm-server.service';
+import { RealmServerService } from '~core/ORM/services/realm-server/realm-server.service';
 import { log, LogColor } from '~utils';
 import { showsourcing } from '~utils/debug-object.utils';
 

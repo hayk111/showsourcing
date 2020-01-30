@@ -5,7 +5,7 @@ import { AutoUnsub } from '~utils';
 import { TranslateService } from '@ngx-translate/core';
 import { ProjectFeatureService } from '~features/projects/services';
 import { ListPageService } from '~core/list-page';
-import { ProductService } from '~entity-services';
+import { ProductService } from '~core/ORM/services';
 import { switchMap } from 'rxjs/operators';
 
 @Component({

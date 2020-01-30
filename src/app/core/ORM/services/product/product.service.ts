@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { AnalyticsService } from '~core/analytics/analytics.service';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
-import { GlobalWithAuditService } from '~entity-services/_global/global-with-audit.service';
-import { ProductQueries } from '~entity-services/product/product.queries';
-import { UserService } from '~entity-services/user/user.service';
-import { Product } from '~models';
+import { GlobalWithAuditService } from '~core/ORM/services/_global/global-with-audit.service';
+import { ProductQueries } from '~core/ORM/services/product/product.queries';
+import { UserService } from '~core/ORM/services/user/user.service';
+import { Product } from '~core/ORM/models';
 
 @Injectable({
 	providedIn: 'root'

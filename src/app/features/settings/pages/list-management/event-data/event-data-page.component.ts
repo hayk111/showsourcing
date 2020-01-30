@@ -4,7 +4,7 @@ import { EventService, TeamService, CompanyService } from '~core/ORM/services';
 import { SelectParamsConfig } from '~core/ORM/services/_global/select-params';
 import { SelectionService } from '~core/list-page';
 import { ListPageService } from '~core/list-page';
-import { ERM, Event } from '~models';
+import { ERM, Event } from '~core/ORM/models';
 import { AutoUnsub } from '~utils';
 
 @Component({

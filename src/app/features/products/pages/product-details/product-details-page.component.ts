@@ -8,7 +8,7 @@ import {
 } from '~common/dialogs/custom-dialogs/supplier-request-dialog/supplier-request-dialog.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { ProductService } from '~core/ORM/services';
-import { EntityName, ERM, Product, Project, Sample, Supplier, Task } from '~models';
+import { EntityName, ERM, Product, Project, Sample, Supplier, Task } from '~core/ORM/models';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { RatingService } from '~shared/rating/services/rating.service';

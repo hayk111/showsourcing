@@ -4,7 +4,7 @@ import { first } from 'rxjs/operators';
 import { ChangePswdDlgComponent } from '~common/dialogs/custom-dialogs';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { UserService } from '~core/ORM/services';
-import { User } from '~models';
+import { User } from '~core/ORM/models';
 import { DialogService } from '~shared/dialog/services';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { AutoUnsub } from '~utils';

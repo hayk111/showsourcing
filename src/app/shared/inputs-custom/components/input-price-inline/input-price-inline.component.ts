@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
-import { Price } from '~models';
+import { Price } from '~core/ORM/models';
 
 @Component({
 	selector: 'input-price-inline-app',

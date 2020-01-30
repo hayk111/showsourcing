@@ -3,7 +3,7 @@ import { ProductService } from '~core/ORM/services';
 import { ListPageService } from '~core/list-page';
 import { EntityTableComponent } from '~common/tables/entity-table.component';
 import { TemplateService } from '~core/template/services/template.service';
-import { Product } from '~models';
+import { Product } from '~core/ORM/models';
 import { Sort } from '~shared/table/components/sort.interface';
 import { translate } from '~utils';
 

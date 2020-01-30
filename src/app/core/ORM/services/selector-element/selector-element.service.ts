@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AnalyticsService } from '~core/analytics/analytics.service';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
 import { SelectorElement } from '~core/ORM/models';
-import { GlobalService } from '~entity-services/_global/global.service';
+import { GlobalService } from '~core/ORM/services/_global/global.service';
 
 import { SelectorElementQueries } from './selector-element.queries';
 

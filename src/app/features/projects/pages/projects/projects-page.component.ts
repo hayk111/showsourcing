@@ -3,7 +3,7 @@ import { DialogCommonService } from '~common/dialogs/services/dialog-common.serv
 import { ProjectService } from '~core/ORM/services';
 import { SelectParams, SelectParamsConfig } from '~core/ORM/services/_global/select-params';
 import { ListPageService } from '~core/list-page';
-import { EntityTypeEnum, ERM, Project } from '~models';
+import { EntityTypeEnum, ERM, Project } from '~core/ORM/models';
 import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
 import { ProjectsTableComponent } from '~common/tables/projects-table/projects-table.component';

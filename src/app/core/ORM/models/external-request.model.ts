@@ -1,5 +1,5 @@
-import { Quote } from '~models/quote.model';
-import { Supplier } from '~models/supplier.model';
+import { Quote } from '~core/ORM/models/quote.model';
+import { Supplier } from '~core/ORM/models/supplier.model';
 import { RequestStatus } from '~utils';
 
 import { EntityWithAudit } from './_entity.model';

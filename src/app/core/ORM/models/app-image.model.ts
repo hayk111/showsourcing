@@ -1,4 +1,4 @@
-import { EntityWithAudit } from '~models/_entity.model';
+import { EntityWithAudit } from '~core/ORM/models/_entity.model';
 import { ID } from '~utils';
 
 import { ImageUrl } from './image-url.model';

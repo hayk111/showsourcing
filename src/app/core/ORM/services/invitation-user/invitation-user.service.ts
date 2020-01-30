@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { InvitationUser } from '~models';
+import { InvitationUser } from '~core/ORM/models';
 import { Apollo } from 'apollo-angular';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 
-import { GlobalService } from '~entity-services/_global/global.service';
-import { InvitationUserQueries } from '~entity-services/invitation-user/invitation-user.queries';
+import { GlobalService } from '~core/ORM/services/_global/global.service';
+import { InvitationUserQueries } from '~core/ORM/services/invitation-user/invitation-user.queries';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
 
 @Injectable({ providedIn: 'root' })

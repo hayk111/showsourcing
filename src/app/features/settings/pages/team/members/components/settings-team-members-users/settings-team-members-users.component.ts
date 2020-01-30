@@ -6,7 +6,7 @@ import { DialogCommonService } from '~common/dialogs/services/dialog-common.serv
 import { SelectParamsConfig } from '~core/ORM/services/_global/select-params';
 import { ListPageService } from '~core/list-page';
 import { SettingsMembersService } from '~features/settings/services/settings-members.service';
-import { EntityTypeEnum, ERM, TeamUser, User } from '~models';
+import { EntityTypeEnum, ERM, TeamUser, User } from '~core/ORM/models';
 import { AutoUnsub } from '~utils';
 
 @Component({

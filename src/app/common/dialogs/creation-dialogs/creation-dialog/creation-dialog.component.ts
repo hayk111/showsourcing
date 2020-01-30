@@ -4,7 +4,7 @@ import { Observable, ReplaySubject } from 'rxjs';
 import { debounceTime, switchMap, takeUntil } from 'rxjs/operators';
 import { CrudDialogService } from '~common/dialogs/services/crud-dialog.service';
 import { ERMService } from '~core/ORM/erm.service';
-import { EntityMetadata } from '~models';
+import { EntityMetadata } from '~core/ORM/models';
 import { CloseEventType } from '~shared/dialog';
 import { DialogService } from '~shared/dialog/services';
 import { InputDirective } from '~shared/inputs';

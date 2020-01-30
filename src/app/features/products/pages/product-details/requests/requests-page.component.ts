@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { ListPageService } from '~core/list-page';
-import { ProductService, SupplierRequestService } from '~entity-services';
-import { ERM, Product, SupplierRequest } from '~models';
+import { ProductService, SupplierRequestService } from '~core/ORM/services';
+import { ERM, Product, SupplierRequest } from '~core/ORM/models';
 import { AutoUnsub } from '~utils';
 
 @Component({

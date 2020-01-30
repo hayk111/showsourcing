@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
-import { Product } from '~models/product.model';
+import { Product } from '~core/ORM/models/product.model';
 import { ERM } from '~core/ORM/_erm.utils';
 
 @Component({

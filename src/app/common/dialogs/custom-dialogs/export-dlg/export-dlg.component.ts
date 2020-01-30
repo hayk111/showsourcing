@@ -4,8 +4,8 @@ import { saveAs } from 'file-saver';
 import { BehaviorSubject } from 'rxjs';
 import { switchMap, take } from 'rxjs/operators';
 import { ERMService } from '~core/ORM/erm.service';
-import { ExportRequestService } from '~entity-services/export-request/export-request.service';
-import { EntityName, ERM, ExportRequest, Product, Sample, Supplier, Task } from '~models';
+import { ExportRequestService } from '~core/ORM/services/export-request/export-request.service';
+import { EntityName, ERM, ExportRequest, Product, Sample, Supplier, Task } from '~core/ORM/models';
 import { DialogService } from '~shared/dialog/services';
 
 export type ExportFormat = 'pdf' | 'xls' | 'pictures';

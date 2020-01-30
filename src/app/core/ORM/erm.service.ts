@@ -26,8 +26,8 @@ import {
 	UserService,
 	WeightUnitService,
 	RpcService
-} from '~entity-services';
-import { EntityMetadata, ERM } from '~models';
+} from '~core/ORM/services';
+import { EntityMetadata, ERM } from '~core/ORM/models';
 
 import { CreateRequestService } from './services/create-request/create-request.service';
 import { ExportRequestService } from './services/export-request/export-request.service';

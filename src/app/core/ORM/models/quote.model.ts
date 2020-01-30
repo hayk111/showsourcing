@@ -1,8 +1,8 @@
-import { Packaging } from '~models/packaging.model';
-import { PriceMatrix } from '~models/price-matrix.model';
-import { Price } from '~models/price.model';
-import { Product } from '~models/product.model';
-import { Supplier } from '~models/supplier.model';
+import { Packaging } from '~core/ORM/models/packaging.model';
+import { PriceMatrix } from '~core/ORM/models/price-matrix.model';
+import { Price } from '~core/ORM/models/price.model';
+import { Product } from '~core/ORM/models/product.model';
+import { Supplier } from '~core/ORM/models/supplier.model';
 import { RequestStatus, uuid } from '~utils';
 
 export class Quote {

@@ -7,7 +7,7 @@ import { ProductSelectDlgComponent, TemplateMngmtDlgComponent } from '~common/di
 import { ContactService, CreateRequestService, RequestTemplateService, UserService } from '~core/ORM/services';
 import { ListPageService } from '~core/list-page';
 import { Contact, CreateRequest, Product, RequestTemplate, Supplier } from '~core/ORM/models';
-import { ProductService } from '~entity-services';
+import { ProductService } from '~core/ORM/services';
 import { DialogService } from '~shared/dialog';
 import { FilterList, FilterType } from '~shared/filters';
 import { ToastService, ToastType } from '~shared/toast';
