@@ -44,7 +44,7 @@ export class TeamService extends GlobalService<Team> {
 	// identify on settings/team, limits on the contributors and team members
 	teamSelectedTeamRealm$ = this.teamSelectionEvent$.pipe(
 		filter(team => !!team),
-		switchMap(team => this.selectOne(team.id, '', Client.TEAM)),
+		switchMap(team => this.selectOne(team.id, '')),
 		shareReplay(1)
 	);
 
@@ -115,7 +115,7 @@ export class TeamService extends GlobalService<Team> {
 	// TODO amplify remove this
 	queryAll() {
 		const gql = this.queryBuilder.queryAll('id, name');
-		return from(this.amplifySrv.api().graphql(
+		return from(API.graphql(
 			graphqlOperation(gql)
 			)).pipe(
 			tap(d => { debugger; })

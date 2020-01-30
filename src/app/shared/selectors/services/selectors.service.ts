@@ -368,7 +368,7 @@ export class SelectorsService {
 
 	getSelectorElements(definitionReference: ID) {
 		this.selectParams = { ...this.selectParams, sortBy: 'value', query: `fieldDefinition.id == "${definitionReference}"` };
-		this.listResult = this.selectorElementSrv.getListQuery(this.selectParams, '', Client.TEAM);
+		this.listResult = this.selectorElementSrv.getListQuery(this.selectParams, '');
 		this.setItems();
 		return this.items$;
 	}

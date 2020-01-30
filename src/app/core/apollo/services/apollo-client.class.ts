@@ -3,14 +3,11 @@ import { Apollo } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular-link-http';
 import { User as RealmUser } from 'realm-graphql-client';
 import { from, Observable } from 'rxjs';
-import { catchError, switchMap, take, takeUntil, tap } from 'rxjs/operators';
+import { catchError, take, takeUntil, tap } from 'rxjs/operators';
 import { AbstractApolloClient } from '~core/apollo/services/abstract-apollo-client.class';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
-import { ERMService } from '~core/entity-services/_global/erm.service';
+import { ERMService, RealmServerService, Team, TeamService } from '~core/ERM';
 import { LocalStorageService } from '~core/local-storage';
-import { RealmServerService } from '~entity-services/realm-server/realm-server.service';
-import { TeamService } from '~entity-services/team/team.service';
-import { Team } from '~models/team.model';
 import { ApolloStateService } from './apollo-state.service';
 
 
