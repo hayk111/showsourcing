@@ -7,7 +7,7 @@ import {
 	Output,
 	ViewChild,
 } from '@angular/core';
-import { Price } from '~core/orm/models';
+import { Price } from '~core/erm/models';
 import { DynamicField } from '~shared/dynamic-forms/models';
 import { EditableContainerComponent } from '~shared/editable-field';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';

@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { GetStreamGroup } from '~common/activity/interfaces/get-stream-feed.interfaces';
-import { ProductService } from '~core/orm/services';
-import { ERM, Product, Supplier } from '~core/orm/models';
+import { ProductService } from '~core/erm/services';
+import { ERM, Product, Supplier } from '~core/erm/models';
 import { AutoUnsub } from '~utils';
 
 @Component({

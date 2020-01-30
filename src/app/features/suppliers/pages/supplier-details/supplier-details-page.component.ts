@@ -7,12 +7,12 @@ import {
 	SupplierRequestDialogComponent,
 } from '~common/dialogs/custom-dialogs/supplier-request-dialog/supplier-request-dialog.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { SupplierService } from '~core/orm/services';
-import { Supplier } from '~core/orm/models/supplier.model';
+import { SupplierService } from '~core/erm/services';
+import { Supplier } from '~core/erm/models/supplier.model';
 import { DialogService } from '~shared/dialog';
 import { ToastService, ToastType } from '~shared/toast';
 import { AutoUnsub, log } from '~utils';
-import { EntityName } from '~core/orm/models';
+import { EntityName } from '~core/erm/models';
 
 
 // Guest to the waiter: “Can you bring me what the lady at the next table is having?”

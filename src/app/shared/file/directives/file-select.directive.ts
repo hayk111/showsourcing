@@ -1,5 +1,5 @@
 import { Directive, HostListener, Output, HostBinding, EventEmitter } from '@angular/core';
-import { Attachment } from '~core/orm/models';
+import { Attachment } from '~core/erm/models';
 
 
 

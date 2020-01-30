@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { Comment, EntityMetadata, Product, Supplier } from '~core/orm/models';
+import { Comment, EntityMetadata, Product, Supplier } from '~core/erm/models';
 import { TrackingComponent } from '~utils/tracking-component';
-import { CommentService } from '~core/orm/services/comment/comment.service';
+import { CommentService } from '~core/erm/services/comment/comment.service';
 import { FormControl } from '@angular/forms';
-import { ERMService } from '~core/orm/erm.service';
+import { ERMService } from '~core/erm/erm.service';
 import { switchMap } from 'rxjs/operators';
-import { UserService } from '~core/orm/services';
+import { UserService } from '~core/erm/services';
 
 @Component({
 	selector: 'activity-list-app',

@@ -1,8 +1,8 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
-import { RequestElementService } from '~core/orm/services';
+import { RequestElementService } from '~core/erm/services';
 import { RatingService } from '~shared/rating/services/rating.service';
 import { Observable } from 'rxjs';
-import { ReplyStatus, Task, EntityName } from '~core/orm/models';
+import { ReplyStatus, Task, EntityName } from '~core/erm/models';
 
 @Component({
 	selector: 'activities-bar-app',

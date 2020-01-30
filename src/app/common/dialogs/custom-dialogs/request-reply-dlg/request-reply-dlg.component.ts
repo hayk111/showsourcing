@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
-import { ExtendedFieldService, RequestReplyService, SupplierRequestService } from '~core/orm/services';
+import { ExtendedFieldService, RequestReplyService, SupplierRequestService } from '~core/erm/services';
 import {
 	AppImage,
 	ExtendedField,
@@ -12,7 +12,7 @@ import {
 	RequestElement,
 	RequestReply,
 	SupplierRequest,
-} from '~core/orm/models';
+} from '~core/erm/models';
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback.service';
 import { AutoUnsub } from '~utils/auto-unsub.component';

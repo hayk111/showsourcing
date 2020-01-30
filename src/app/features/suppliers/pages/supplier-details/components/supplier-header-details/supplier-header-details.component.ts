@@ -3,8 +3,8 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
-import { ContactService, ProductService, SampleService, TaskService } from '~core/orm/services';
-import { Supplier } from '~core/orm/models';
+import { ContactService, ProductService, SampleService, TaskService } from '~core/erm/services';
+import { Supplier } from '~core/erm/models';
 import { AutoUnsub } from '~utils';
 
 @Component({

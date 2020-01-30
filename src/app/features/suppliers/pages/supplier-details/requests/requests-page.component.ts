@@ -3,9 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { SupplierRequestService, SupplierService } from '~core/orm/services';
+import { SupplierRequestService, SupplierService } from '~core/erm/services';
 import { ListPageService } from '~core/list-page';
-import { ERM, Supplier, SupplierRequest } from '~core/orm/models';
+import { ERM, Supplier, SupplierRequest } from '~core/erm/models';
 import { AutoUnsub } from '~utils';
 
 @Component({

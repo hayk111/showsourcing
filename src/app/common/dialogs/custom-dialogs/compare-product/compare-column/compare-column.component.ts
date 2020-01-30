@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
-import { Product, ERM } from '~core/orm/models';
+import { Product, ERM } from '~core/erm/models';
 
 @Component({
 	selector: 'compare-column-app',

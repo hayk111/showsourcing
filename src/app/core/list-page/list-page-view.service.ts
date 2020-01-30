@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { EntityMetadata } from '~core/orm/models';
+import { EntityMetadata } from '~core/erm/models';
 import { View } from '~shared/controller-table/components';
 
 @Injectable({

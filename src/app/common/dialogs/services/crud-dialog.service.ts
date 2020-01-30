@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { first, take } from 'rxjs/operators';
-import { ERMService } from '~core/orm/erm.service';
-import { EntityMetadata, RPCActionTypes, RPCRequestStatus } from '~core/orm/models';
-import { RpcService } from '~core/orm/services';
+import { ERMService } from '~core/erm/erm.service';
+import { EntityMetadata, RPCActionTypes, RPCRequestStatus } from '~core/erm/models';
+import { RpcService } from '~core/erm/services';
 
 @Injectable({
 	providedIn: 'root'

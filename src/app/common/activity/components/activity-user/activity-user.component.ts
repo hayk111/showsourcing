@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, EventEmitter, Input, Output } from '@angular/core';
-import { User } from '~core/orm/models/user.model';
-import { Product } from '~core/orm/models';
+import { User } from '~core/erm/models/user.model';
+import { Product } from '~core/erm/models';
 
 @Component({
 	selector: 'activity-user-app',

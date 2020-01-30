@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { ProductDescriptor } from '~core/descriptors';
-import { ProductService } from '~core/orm/services';
-import { AppImage, Attachment, ExtendedField, Packaging, Price, Product } from '~core/orm/models';
+import { ProductService } from '~core/erm/services';
+import { AppImage, Attachment, ExtendedField, Packaging, Price, Product } from '~core/erm/models';
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { ToastService, ToastType } from '~shared/toast';
 import { uuid } from '~utils';

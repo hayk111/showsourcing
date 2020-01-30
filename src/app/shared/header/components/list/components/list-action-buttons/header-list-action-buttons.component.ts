@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import { User } from 'realm-graphql-client';
-import { Supplier, Product } from '~core/orm/models';
+import { Supplier, Product } from '~core/erm/models';
 
 @Component({
 	selector: 'header-list-action-buttons-app',

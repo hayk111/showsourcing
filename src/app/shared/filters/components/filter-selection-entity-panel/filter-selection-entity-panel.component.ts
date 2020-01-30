@@ -2,9 +2,9 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { debounceTime, switchMap, take, takeUntil, tap } from 'rxjs/operators';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
-import { ERMService } from '~core/orm/erm.service';
-import { ListQuery } from '~core/orm/services/_global/list-query.interface';
-import { ERM } from '~core/orm/models';
+import { ERMService } from '~core/erm/erm.service';
+import { ListQuery } from '~core/erm/services/_global/list-query.interface';
+import { ERM } from '~core/erm/models';
 import { Filter, FilterType } from '~shared/filters/models';
 import { AutoUnsub } from '~utils';
 

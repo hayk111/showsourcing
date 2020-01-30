@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, zip } from 'rxjs';
 import { first, map } from 'rxjs/operators';
-import { Product, Project } from '~core/orm/models';
+import { Product, Project } from '~core/erm/models';
 
-import { TagService, CategoryService, SupplierService, EventService } from '~core/orm/services';
-import { ERM, EntityMetadata } from '~core/orm/models';
+import { TagService, CategoryService, SupplierService, EventService } from '~core/erm/services';
+import { ERM, EntityMetadata } from '~core/erm/models';
 import { FilterList } from '~shared/filters';
-import { SelectParams } from '~core/orm/services/_global/select-params';
+import { SelectParams } from '~core/erm/services/_global/select-params';
 
 @Injectable({
 	providedIn: 'root'

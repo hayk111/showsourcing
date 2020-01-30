@@ -4,7 +4,7 @@ import { CanActivate, CanActivateChild, Router, ActivatedRouteSnapshot, RouterSt
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { log, LogColor } from '~utils';
-import { TeamService } from '~core/orm/services';
+import { TeamService } from '~core/erm/services';
 
 @Injectable({
 	providedIn: 'root'

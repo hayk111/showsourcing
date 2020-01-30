@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Product } from '~core/orm/models';
-import { ProductService } from '~core/orm/services';
+import { Product } from '~core/erm/models';
+import { ProductService } from '~core/erm/services';
 
 @Component({
 	selector: 'selector-page-app',

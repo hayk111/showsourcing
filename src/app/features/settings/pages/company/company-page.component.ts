@@ -1,7 +1,7 @@
 import { Component, NgModuleRef, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TeamService, CompanyService } from '~core/orm/services';
-import { Team, User } from '~core/orm/models';
+import { TeamService, CompanyService } from '~core/erm/services';
+import { Team, User } from '~core/erm/models';
 import { DialogService } from '~shared/dialog/services';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 

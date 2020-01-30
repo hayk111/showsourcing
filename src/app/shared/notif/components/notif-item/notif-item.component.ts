@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
-import { ProductService, SupplierService, TaskService, SampleService } from '~core/orm/services';
+import { ProductService, SupplierService, TaskService, SampleService } from '~core/erm/services';
 import { GetStreamGroup, GetStreamActivity } from '~common/activity/interfaces/get-stream-feed.interfaces';
 import { NotificationActivityService } from '~shared/notif/services/notification-activity.service';
 import { TranslateService } from '@ngx-translate/core';

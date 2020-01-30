@@ -6,12 +6,12 @@ import { forkJoin, from, Observable } from 'rxjs';
 import { catchError, switchMap, take, takeUntil, tap } from 'rxjs/operators';
 import { AbstractApolloClient } from '~core/apollo/services/abstract-apollo-client.class';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
-import { TeamService } from '~core/orm/services';
-import { ERMService } from '~core/orm/erm.service';
+import { TeamService } from '~core/erm/services';
+import { ERMService } from '~core/erm/erm.service';
 import { LocalStorageService } from '~core/local-storage';
-import { ERM } from '~core/orm/models';
-import { RealmServerService } from '~core/orm/services/realm-server/realm-server.service';
-import { UserService } from '~core/orm/services/user/user.service';
+import { ERM } from '~core/erm/models';
+import { RealmServerService } from '~core/erm/services/realm-server/realm-server.service';
+import { UserService } from '~core/erm/services/user/user.service';
 import { ApolloStateService } from './apollo-state.service';
 
 

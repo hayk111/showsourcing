@@ -2,9 +2,9 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { ContactService } from '~core/orm/services';
+import { ContactService } from '~core/erm/services';
 import { ListPageService } from '~core/list-page';
-import { Contact, ERM, Supplier } from '~core/orm/models';
+import { Contact, ERM, Supplier } from '~core/erm/models';
 import { FilterType } from '~shared/filters';
 import { AutoUnsub, ID } from '~utils';
 

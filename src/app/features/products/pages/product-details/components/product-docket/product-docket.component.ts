@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { Product, Project, Sample, Task } from '~core/orm/models';
+import { Product, Project, Sample, Task } from '~core/erm/models';
 
 @Component({
 	selector: 'product-docket-app',

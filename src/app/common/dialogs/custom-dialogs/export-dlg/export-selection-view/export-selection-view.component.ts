@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { ExportEntity, ExportFormat, ExportType } from '../export-dlg.component';
-import { EntityName } from '~core/orm/models';
+import { EntityName } from '~core/erm/models';
 
 
 @Component({

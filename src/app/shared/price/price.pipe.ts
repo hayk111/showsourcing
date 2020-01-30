@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform, LOCALE_ID, Inject } from '@angular/core';
-import { Price } from '~core/orm/models';
+import { Price } from '~core/erm/models';
 import { CurrencyPipe, DecimalPipe } from '@angular/common';
 
 @Pipe({

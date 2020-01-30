@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
-import { EntityName, Project, Tag } from '~core/orm/models';
+import { EntityName, Project, Tag } from '~core/erm/models';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs/components-directives';
 
 @Component({

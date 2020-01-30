@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { TaskDescriptor } from '~core/descriptors';
-import { TaskService, UserService } from '~core/orm/services';
-import { Product, Supplier, Task } from '~core/orm/models';
+import { TaskService, UserService } from '~core/erm/services';
+import { Product, Supplier, Task } from '~core/erm/models';
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { ToastService, ToastType } from '~shared/toast';
 import { uuid } from '~utils';

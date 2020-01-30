@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { DashboardCounters } from '~features/dashboard/services/dashboard.service';
-import { Task } from '~core/orm/models';
-import { User } from '~core/orm/models/user.model';
+import { Task } from '~core/erm/models';
+import { User } from '~core/erm/models/user.model';
 import { TrackingComponent } from '~utils/tracking-component';
 
 @Component({

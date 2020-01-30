@@ -1,12 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { EntityMetadata, ERM, ProductStatus, SampleStatus, SupplierStatus } from '~core/orm/models';
+import { EntityMetadata, ERM, ProductStatus, SampleStatus, SupplierStatus } from '~core/erm/models';
 import { ContextMenuComponent } from '~shared/context-menu/components/context-menu/context-menu.component';
 import { AutoUnsub, StatusUtils } from '~utils';
 
 import { StatusSelectorService } from '../../service/status-selector.service';
-import { Status } from '~core/orm/models/status.model';
+import { Status } from '~core/erm/models/status.model';
 
 @Component({
 	selector: 'status-selector-app',

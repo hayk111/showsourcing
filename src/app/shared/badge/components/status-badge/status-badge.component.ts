@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { Status } from '~core/orm/models/status.model';
-import { EntityMetadata } from '~core/orm/models';
+import { Status } from '~core/erm/models/status.model';
+import { EntityMetadata } from '~core/erm/models';
 import { StatusUtils } from '~utils';
 
 @Component({

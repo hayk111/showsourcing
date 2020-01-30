@@ -3,10 +3,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { AbstractSampleCommonComponent } from '~common/abstracts/abstract-sample-common.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { SelectParams } from '~core/orm/services/_global/select-params';
+import { SelectParams } from '~core/erm/services/_global/select-params';
 import { ListPageService } from '~core/list-page';
-import { ProductService, SampleService, UserService } from '~core/orm/services';
-import { Product, Sample } from '~core/orm/models';
+import { ProductService, SampleService, UserService } from '~core/erm/services';
+import { Product, Sample } from '~core/erm/models';
 import { DialogService } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
 

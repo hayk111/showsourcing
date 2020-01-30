@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlightable.component';
-import { Event } from '~core/orm/models';
+import { Event } from '~core/erm/models';
 
 @Component({
 	selector: 'selector-option-event-app',

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { take, takeUntil, switchMap } from 'rxjs/operators';
-import { CompanyService, UserService, TeamUserService } from '~core/orm/services';
+import { CompanyService, UserService, TeamUserService } from '~core/erm/services';
 import { SettingsCompanyService } from '~features/settings/services/settings-company.service';
-import { ERM, Company } from '~core/orm/models';
+import { ERM, Company } from '~core/erm/models';
 import { AutoUnsub } from '~utils';
 
 @Component({

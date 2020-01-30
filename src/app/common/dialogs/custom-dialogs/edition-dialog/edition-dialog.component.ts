@@ -4,7 +4,7 @@ import { Subject } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { Observable } from 'subscriptions-transport-ws';
 import { CrudDialogService } from '~common/dialogs/services/crud-dialog.service';
-import { EntityMetadata } from '~core/orm/models';
+import { EntityMetadata } from '~core/erm/models';
 import { DialogService } from '~shared/dialog/services';
 import { InputDirective } from '~shared/inputs';
 import { AutoUnsub } from '~utils';

@@ -7,9 +7,9 @@ import { catchError, switchMap, take, takeUntil, tap } from 'rxjs/operators';
 import { AbstractApolloClient } from '~core/apollo/services/abstract-apollo-client.class';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
-import { ERMService } from '~core/orm/erm.service';
-import { EntityMetadata, ERM } from '~core/orm/models';
-import { RealmServerService } from '~core/orm/services/realm-server/realm-server.service';
+import { ERMService } from '~core/erm/erm.service';
+import { EntityMetadata, ERM } from '~core/erm/models';
+import { RealmServerService } from '~core/erm/services/realm-server/realm-server.service';
 
 import { ApolloStateService } from './apollo-state.service';
 import { LocalStorageService } from '~core/local-storage';

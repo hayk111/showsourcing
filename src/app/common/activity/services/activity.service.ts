@@ -6,7 +6,7 @@ import { BehaviorSubject, from, Observable, of } from 'rxjs';
 import { first, map, mergeScan, scan, shareReplay, switchMap } from 'rxjs/operators';
 import { ActivityFeed, GroupedActivityFeed } from '~common/activity/interfaces/client-feed.interfaces';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
-import { TeamService } from '~core/orm/services';
+import { TeamService } from '~core/erm/services';
 import {
 	GetStreamActivity,
 	GetStreamGroup,

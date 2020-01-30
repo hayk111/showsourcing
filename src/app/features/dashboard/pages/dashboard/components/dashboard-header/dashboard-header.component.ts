@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
-import { TeamService, CompanyService } from '~core/orm/services';
+import { TeamService, CompanyService } from '~core/erm/services';
 import { environment } from 'environments/environment';
 
 @Component({

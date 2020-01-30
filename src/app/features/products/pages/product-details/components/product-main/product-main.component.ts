@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
-import { Product } from '~core/orm/models';
+import { Product } from '~core/erm/models';
 
 @Component({
 	selector: 'product-main-app',

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { SupplierRequest } from '~core/orm/models';
+import { SupplierRequest } from '~core/erm/models';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({

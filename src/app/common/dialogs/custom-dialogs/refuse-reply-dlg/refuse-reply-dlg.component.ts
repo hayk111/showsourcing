@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit, ViewChild } from '@angular/core';
-import { RequestReplyService } from '~core/orm/services';
-import { ReplyStatus } from '~core/orm/models';
+import { RequestReplyService } from '~core/erm/services';
+import { ReplyStatus } from '~core/erm/models';
 import { DialogService } from '~shared/dialog';
 import { InputDirective } from '~shared/inputs';
 import { ID } from '~utils';
