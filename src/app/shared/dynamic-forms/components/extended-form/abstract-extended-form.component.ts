@@ -7,7 +7,7 @@ import {
 	ExtendedFieldDefinitionMetadata,
 	Packaging,
 	Price,
-} from '~core/models';
+} from '~core/erm';
 import { FormFieldComponent } from '~shared/inputs';
 
 /**

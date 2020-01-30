@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, TemplateRef, ViewChild } from '@angular/core';
-import { SupplierRequest } from '~core/models';
+import { SupplierRequest } from '~core/erm';
 import { TranslateService } from '@ngx-translate/core';
 import { EntityTableComponent, TableConfig } from '../entity-table.component';
 

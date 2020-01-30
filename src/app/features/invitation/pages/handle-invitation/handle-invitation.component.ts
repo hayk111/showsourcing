@@ -7,7 +7,7 @@ import { TeamClientInitializer } from '~core/apollo';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { InvitationFeatureService } from '~features/invitation/services/invitation-feature.service';
-import { InvitationUser } from '~models';
+import { InvitationUser } from '~core/erm';
 import { ToastService, ToastType } from '~shared/toast';
 import { AutoUnsub } from '~utils';
 import { TranslateService } from '@ngx-translate/core';

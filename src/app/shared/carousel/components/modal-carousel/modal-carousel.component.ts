@@ -1,6 +1,6 @@
 import { ESCAPE, LEFT_ARROW, RIGHT_ARROW } from '@angular/cdk/keycodes';
 import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
-import { AppImage } from '~models';
+import { AppImage } from '~core/erm';
 import { slideAnimation } from '~shared/carousel/components/animations/slide.animations';
 
 @Component({

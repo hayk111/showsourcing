@@ -10,7 +10,7 @@ import {
 	Renderer2,
 	ViewChildren,
 } from '@angular/core';
-import { UserService } from '~core/entity-services';
+import { UserService } from '~core/erm';
 import { IconComponent } from '~shared/icons';
 import { Vote } from '~shared/rating/services/rating.service';
 

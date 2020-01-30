@@ -10,10 +10,10 @@ import { tap } from 'rxjs/operators';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
 import { cleanTypenameLink } from '~core/apollo/services/clean.typename.link';
-import { ERMService } from '~core/entity-services/_global/erm.service';
+import { ERMService } from '~core/erm';
 import { LocalStorageService } from '~core/local-storage';
-import { EntityMetadata } from '~core/models';
-import { RealmServerService } from '~entity-services/realm-server/realm-server.service';
+import { EntityMetadata } from '~core/erm';
+import { RealmServerService } from '~core/erm';
 import { log, LogColor } from '~utils';
 import { showsourcing } from '~utils/debug-object.utils';
 

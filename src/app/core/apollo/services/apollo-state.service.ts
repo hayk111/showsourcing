@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, ReplaySubject, of } from 'rxjs';
-import { filter, tap, map, distinctUntilChanged, shareReplay, first, mapTo, switchMap } from 'rxjs/operators';
-import { log, LogColor } from '~utils';
 import { Router } from '@angular/router';
-import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { Apollo, ApolloBase } from 'apollo-angular';
+import { Observable, ReplaySubject } from 'rxjs';
+import { distinctUntilChanged, filter, first, map, shareReplay, tap } from 'rxjs/operators';
+import { Client } from '~core/apollo/services/apollo-client-names.const';
+import { log } from '~utils';
 import { showsourcing } from '~utils/debug-object.utils';
 
 export interface AllClientState {

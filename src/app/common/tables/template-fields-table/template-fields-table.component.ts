@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ERM, TemplateField } from '~models';
+import { ERM, TemplateField } from '~core/erm';
 import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
 import { DynamicUpdate } from '~shared/dynamic-forms/models/dynamic-update.interface';
 import { EntityTableComponent, TableConfig } from '../entity-table.component';

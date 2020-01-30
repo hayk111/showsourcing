@@ -9,8 +9,8 @@ import {
 	Renderer2,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService } from '~entity-services';
-import { Supplier } from '~models';
+import { UserService } from '~core/erm';
+import { Supplier } from '~core/erm';
 import { ContextMenuComponent } from '~shared/context-menu/components/context-menu/context-menu.component';
 import { RatingService } from '~shared/rating/services/rating.service';
 import { TrackingComponent } from '~utils/tracking-component';

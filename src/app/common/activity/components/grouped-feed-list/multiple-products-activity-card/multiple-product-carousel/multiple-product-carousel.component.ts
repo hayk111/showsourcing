@@ -3,7 +3,7 @@ import {
 		Component, EventEmitter, Input, OnInit, Output, ViewChild, ElementRef, AfterContentChecked, AfterViewInit } from '@angular/core';
 import { timer } from 'rxjs';
 import { map, take} from 'rxjs/operators';
-import { Product } from '~models';
+import { Product } from '~core/erm';
 
 @Component({
 	selector: 'multiple-product-carousel-app',

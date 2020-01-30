@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { ERM, Product, Project } from '~core/models';
+import { ERM, Product, Project } from '~core/erm';
 
 import { EntitySelectionBarComponent } from '../entity-selection-bar.component';
 
