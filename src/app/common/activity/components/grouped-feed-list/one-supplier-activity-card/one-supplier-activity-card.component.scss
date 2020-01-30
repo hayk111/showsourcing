@@ -14,6 +14,14 @@ one-activity-carousel-app {
 	font-size: var(--font-size-xxl);
 }
 
+.conent {
+	margin-left: 56px;
+}
+
+.info-container {
+	margin-left: var(--spacing-xs);
+}
+
 .actions {
 	font-size: var(--font-size-xxl);
 	color: var(--color-txt-secondary);
@@ -23,7 +31,7 @@ one-activity-carousel-app {
 }
 
 .suppInfo {
-	margin-top: var(--spacing-s);
+	margin-top: var(--spacing-ms);
 
 	.name {
 		color: var(--color-txt-primary);
@@ -44,6 +52,10 @@ one-activity-carousel-app {
 			color: var(--color-primary);
 		}
 	}
+}
+
+.supp-info-content {
+	margin-left: var(--spacing-ms);
 }
 
 .badges {
