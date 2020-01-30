@@ -1,4 +1,4 @@
-import { EntityName } from '~core/erm/models/utils';
+import { EntityName } from '~core/erm/entity-name.enum';
 import { Color } from '~utils/colors.enum';
 
 export type Size = 'xs' | 's' | 'ms' | 'm' | 'l' | 'xl' | 'xxl';

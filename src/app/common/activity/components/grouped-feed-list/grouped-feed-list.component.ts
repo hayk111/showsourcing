@@ -2,10 +2,10 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
 import { GroupedActivityFeed } from '~common/activity/interfaces/client-feed.interfaces';
 import { GetStreamGroup } from '~common/activity/interfaces/get-stream-feed.interfaces';
 import { TemplateService } from '~core/template/services/template.service';
-import { SupplierService } from '~core/erm/services';
-import { ERMService } from '~core/erm/erm.service';
-import { ProductService } from '~core/erm/services/product/product.service';
-import { EntityName, ERM, Product, Supplier } from '~core/erm/models';
+import { SupplierService } from '~core/erm';
+import { ERMService } from '~core/erm';
+import { ProductService } from '~core/erm';
+import { EntityName, ERM, Product, Supplier } from '~core/erm';
 import { RatingService } from '~shared/rating/services/rating.service';
 import { AutoUnsub } from '~utils';
 

@@ -2,8 +2,8 @@ import { Component, NgModuleRef, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { TeamService, CompanyService } from '~core/erm/services';
-import { Team } from '~core/erm/models';
+import { TeamService, CompanyService } from '~core/erm';
+import { Team } from '~core/erm';
 import { DialogService } from '~shared/dialog/services';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 

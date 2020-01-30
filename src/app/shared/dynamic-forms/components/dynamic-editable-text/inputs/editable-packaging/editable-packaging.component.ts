@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
-import { ERM } from '~core/erm/models';
-import { Packaging } from '~core/erm/models/packaging.model';
+import { ERM } from '~core/erm';
+import { Packaging } from '~core/erm';
 import { DynamicField } from '~shared/dynamic-forms/models';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';

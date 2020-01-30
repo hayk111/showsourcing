@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, switchMap, take, tap } from 'rxjs/operators';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
-import { UserService } from '~core/erm/services';
+import { UserService } from '~core/erm/services/user/user.service';
 import { GlobalService } from '~core/erm/services/_global/global.service';
 import { ExportRequestQueries } from '~core/erm/services/export-request/export-request.queries';
 import { ExportRequest } from '~core/erm/models';

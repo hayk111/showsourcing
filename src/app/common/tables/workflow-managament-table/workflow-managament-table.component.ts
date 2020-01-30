@@ -1,7 +1,7 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { EntityMetadata } from '~core/erm/models';
-import { Status } from '~core/erm/models/status.model';
+import { EntityMetadata } from '~core/erm';
+import { Status } from '~core/erm';
 import { StatusCategory, StatusUtils } from '~utils';
 
 @Component({

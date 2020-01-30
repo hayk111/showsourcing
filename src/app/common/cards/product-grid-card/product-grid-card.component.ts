@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { EntityName, ERM, Product } from '~core/erm/models';
+import { EntityName, ERM, Product } from '~core/erm';
 import { RatingService } from '~shared/rating/services/rating.service';
 import { StatusUtils } from '~utils';
 

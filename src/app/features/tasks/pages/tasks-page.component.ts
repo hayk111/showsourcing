@@ -2,10 +2,10 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angula
 import { Observable } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { TaskService, UserService } from '~core/erm/services';
-import { SelectParamsConfig } from '~core/erm/services/_global/select-params';
+import { TaskService, UserService } from '~core/erm';
+import { SelectParamsConfig } from '~core/erm';
 import { ListPageService } from '~core/list-page';
-import { ERM, Task } from '~core/erm/models';
+import { ERM, Task } from '~core/erm';
 import { DialogService } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';

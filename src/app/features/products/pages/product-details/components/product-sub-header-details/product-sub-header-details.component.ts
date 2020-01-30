@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Product, Supplier } from '~core/erm/models';
+import { Product, Supplier } from '~core/erm';
 
 @Component({
 	selector: 'product-sub-header-details-app',

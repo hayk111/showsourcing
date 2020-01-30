@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { EntityTableComponent } from '~common/tables/entity-table.component';
-import { Product } from '~core/erm/models';
+import { Product } from '~core/erm';
 import { config } from './config';
 
 @Component({

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { Packaging } from '~core/erm/models';
+import { Packaging } from '~core/erm';
 
 @Component({
 	selector: 'packaging-app',

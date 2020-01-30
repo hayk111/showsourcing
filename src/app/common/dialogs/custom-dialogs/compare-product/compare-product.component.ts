@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { ProductService } from '~core/erm/services';
-import { ERM, Product } from '~core/erm/models';
+import { ProductService } from '~core/erm';
+import { ERM, Product } from '~core/erm';
 import { DialogService } from '~shared/dialog/services';
 import { AutoUnsub } from '~utils';
 

@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { SupplierRequestService, UserService } from '~core/erm/services';
-import { SelectParams } from '~core/erm/services/_global/select-params';
+import { SupplierRequestService, UserService } from '~core/erm';
+import { SelectParams } from '~core/erm';
 import { ListPageService } from '~core/list-page';
-import { ERM, SupplierRequest } from '~core/erm/models';
+import { ERM, SupplierRequest } from '~core/erm';
 import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
 

@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
-import { TeamService, TeamUserService } from '~core/erm/services';
-import { TeamUser, Team, User } from '~core/erm/models';
+import { TeamService, TeamUserService } from '~core/erm';
+import { TeamUser, Team, User } from '~core/erm';
 import { Observable } from 'rxjs';
 import { TrackingComponent } from '~utils/tracking-component';
 

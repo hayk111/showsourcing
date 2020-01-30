@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
-import { GlobalService } from '~core/erm/services/_global/global.service';
-import { RequestElement, ERM } from '~core/erm/models';
-
-import { RequestElementQueries } from './request-element.queries';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
+import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
+import { RequestElement } from '~core/erm';
+import { GlobalService } from '~core/erm/services/_global/global.service';
+import { RequestElementQueries } from './request-element.queries';
+
 
 
 @Injectable({ providedIn: 'root' })

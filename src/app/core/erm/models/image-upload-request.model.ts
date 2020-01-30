@@ -1,4 +1,4 @@
-import { uuid } from '~utils';
+import { uuid } from '~utils/uuid.utils';
 import { AppImage, AppImageConfig } from '~core/erm/models/app-image.model';
 
 

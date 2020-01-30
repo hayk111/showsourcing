@@ -13,12 +13,12 @@ import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { filter, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { TaskDescriptor } from '~core/descriptors';
-import { CommentService } from '~core/erm/services/comment/comment.service';
+import { CommentService } from '~core/erm';
 import {
 	ExtendedFieldDefinitionService,
-} from '~core/erm/services/extended-field-definition/extended-field-definition.service';
-import { TaskService } from '~core/erm/services';
-import { Comment, ERM, ExtendedFieldDefinition, Task } from '~core/erm/models';
+} from '~core/erm';
+import { TaskService } from '~core/erm';
+import { Comment, ERM, ExtendedFieldDefinition, Task } from '~core/erm';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';

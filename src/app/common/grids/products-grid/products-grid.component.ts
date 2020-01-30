@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ProductService } from '~core/erm/services';
+import { ProductService } from '~core/erm';
 import { ListPageService } from '~core/list-page';
 import { EntityTableComponent } from '~common/tables/entity-table.component';
 import { TemplateService } from '~core/template/services/template.service';
-import { Product } from '~core/erm/models';
+import { Product } from '~core/erm';
 import { Sort } from '~shared/table/components/sort.interface';
 import { translate } from '~utils';
 

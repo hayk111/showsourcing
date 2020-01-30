@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { ERM, EntityMetadata, EntityName } from '~core/erm/models';
+import { ERM, EntityMetadata, EntityName } from '~core/erm';
 
 @Pipe({
 	name: 'erm'

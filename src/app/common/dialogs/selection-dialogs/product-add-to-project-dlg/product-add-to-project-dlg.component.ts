@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { ProductDialogService } from '~common/dialogs/services/product-dialog.service';
 import { ListPageService } from '~core/list-page';
-import { ProjectService } from '~core/erm/services';
-import { DEFAULT_TAKE_PAGINATION } from '~core/erm/services/_global/select-params';
-import { EntityTypeEnum, ERM, Product, Project } from '~core/erm/models';
+import { ProjectService } from '~core/erm';
+import { DEFAULT_TAKE_PAGINATION } from '~core/erm';
+import { ERM, Product, Project } from '~core/erm';
 import { CloseEventType } from '~shared/dialog';
 import { DialogService } from '~shared/dialog/services';
 import { FilterType } from '~shared/filters';
@@ -26,7 +26,6 @@ export class ProductAddToProjectDlgComponent extends AutoUnsub implements OnInit
 	selected = {};
 	filterTypes = [FilterType.CREATED_BY];
 	erm = ERM;
-	entityTypeEnum = EntityTypeEnum;
 
 	private projectCount = DEFAULT_TAKE_PAGINATION;
 	selectedProjectsCount = 0;

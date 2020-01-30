@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
-import { Product, ProductVote } from '~core/erm/models';
-import { UserService } from '~core/erm/services/user/user.service';
+import { Product, ProductVote } from '~core/erm';
+import { UserService } from '~core/erm';
 import { RatingService } from '~shared/rating/services/rating.service';
 
 @Component({

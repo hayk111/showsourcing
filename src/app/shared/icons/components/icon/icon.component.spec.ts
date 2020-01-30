@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { EntityName } from '~core/erm/models';
+import { EntityName } from '~core/erm';
 import { IconsModule } from '~shared/icons/icons.module';
 import { IconComponent } from './icon.component';
 

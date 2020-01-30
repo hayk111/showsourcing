@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { Price } from '~core/erm/models';
+import { Price } from '~core/erm';
 
 @Component({
 	selector: 'price-app',

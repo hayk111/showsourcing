@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, OnChanges, AfterContentChecked } from '@angular/core';
-import { RequestElementService } from '~core/erm/services';
+import { RequestElementService } from '~core/erm';
 import { Observable } from 'rxjs';
-import { ReplyStatus, Task } from '~core/erm/models';
+import { ReplyStatus, Task } from '~core/erm';
 import { RatingService } from '~shared/rating/services/rating.service';
 
 @Component({

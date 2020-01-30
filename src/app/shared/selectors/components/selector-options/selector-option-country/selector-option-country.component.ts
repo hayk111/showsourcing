@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit, Input } from '@angular/core';
 import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlightable.component';
-import { Country } from '~core/erm/models';
+import { Country } from '~core/erm';
 
 @Component({
 	selector: 'selector-option-country-app',

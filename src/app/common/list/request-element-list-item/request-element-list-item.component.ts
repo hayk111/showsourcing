@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { RequestElement } from '~core/erm/models';
+import { RequestElement } from '~core/erm';
 import { AbstractListItemComponent } from '../abstract-list-item.component';
 import { TranslateService } from '@ngx-translate/core';
 

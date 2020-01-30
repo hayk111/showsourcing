@@ -4,9 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { AuthFormButton, AuthFormElement } from '../../../shared';
-import { CompanyService, TeamService, UserService } from '~core/erm/services';
-import { Team } from '~core/erm/models';
-import { Company } from '~core/erm/models/company.model';
+import { CompanyService, TeamService, UserService } from '~core/erm';
+import { Team } from '~core/erm';
+import { Company } from '~core/erm';
 import { AutoUnsub } from '~utils';
 import { TranslateService } from '@ngx-translate/core';
 

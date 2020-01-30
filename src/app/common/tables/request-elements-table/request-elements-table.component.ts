@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, TemplateRef, ViewChild } from '@angular/core';
-import { ExtendedField, RequestElement } from '~core/erm/models';
+import { ExtendedField, RequestElement } from '~core/erm';
 import { ID } from '~utils';
 import { TranslateService } from '@ngx-translate/core';
 import { TableConfig, EntityTableComponent } from '../entity-table.component';

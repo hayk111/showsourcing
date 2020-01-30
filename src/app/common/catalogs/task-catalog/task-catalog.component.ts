@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { Task } from '~core/erm/models';
+import { Task } from '~core/erm';
 import { StatusUtils } from '~utils';
 import { TrackingComponent } from '~utils/tracking-component';
 

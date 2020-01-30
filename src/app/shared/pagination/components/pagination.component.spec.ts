@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { IconComponent } from '~shared/icons';
 import { PaginationComponent } from './pagination.component';
 import { Component, ViewChild } from '@angular/core';
-import { DEFAULT_TAKE_PAGINATION } from '~core/erm/services/_global/select-params';
+import { DEFAULT_TAKE_PAGINATION } from '~core/erm';
 
 const ITEMS_PER_PAGE = DEFAULT_TAKE_PAGINATION;
 

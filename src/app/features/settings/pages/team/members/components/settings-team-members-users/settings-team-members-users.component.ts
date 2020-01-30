@@ -3,10 +3,10 @@ import { TranslateService } from '@ngx-translate/core';
 import { forkJoin } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { SelectParamsConfig } from '~core/erm/services/_global/select-params';
+import { SelectParamsConfig } from '~core/erm';
 import { ListPageService } from '~core/list-page';
 import { SettingsMembersService } from '~features/settings/services/settings-members.service';
-import { EntityTypeEnum, ERM, TeamUser, User } from '~core/erm/models';
+import { ERM, TeamUser, User } from '~core/erm';
 import { AutoUnsub } from '~utils';
 
 @Component({
@@ -23,7 +23,6 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub implements OnIn
 	hasSelected = false;
 	selectItemsConfig: SelectParamsConfig;
 	erm = ERM;
-	entityTypeEnum = EntityTypeEnum;
 
 	constructor(
 		private featureSrv: SettingsMembersService,

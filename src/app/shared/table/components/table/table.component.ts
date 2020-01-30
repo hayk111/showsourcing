@@ -10,7 +10,7 @@ import {
 	QueryList,
 	TemplateRef,
 } from '@angular/core';
-import { EntityName } from '~core/erm/models';
+import { EntityName } from '~core/erm';
 import { ColumnDirective } from '~shared/table/components/column.directive';
 import { Sort } from '~shared/table/components/sort.interface';
 import { TrackingComponent } from '~utils/tracking-component';

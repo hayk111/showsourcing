@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
-import { PriceMatrix, PriceMatrixRow } from '~core/erm/models';
+import { PriceMatrix, PriceMatrixRow } from '~core/erm';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 import { TrackingComponent } from '~utils/tracking-component';
 

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { UserService } from '~core/erm/services';
+import { UserService } from '~core/erm';
 import { Vote } from '~shared/rating/services/rating.service';
 
 @Component({

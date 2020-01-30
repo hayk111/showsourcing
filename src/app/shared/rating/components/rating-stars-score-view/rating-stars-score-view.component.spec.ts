@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { mockProductVotes } from '~core/erm/models';
+import { mockProductVotes } from '~core/erm';
 import { RatingModule } from '~shared/rating/rating.module';
 import { RatingService } from '~shared/rating/services/rating.service';
 

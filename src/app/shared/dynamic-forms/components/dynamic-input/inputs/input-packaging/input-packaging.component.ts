@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input } from '@angular/core';
-import { ERM } from '~core/erm/models';
-import { Packaging } from '~core/erm/models/packaging.model';
+import { ERM } from '~core/erm';
+import { Packaging } from '~core/erm';
 import { AbstractInput } from '~shared/inputs';
 
 @Component({

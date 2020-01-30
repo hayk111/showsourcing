@@ -1,4 +1,4 @@
-import { SelectParamsConfig } from '~core/erm/services/_global/select-params';
+import { SelectParamsConfig } from '~core/erm';
 import { Filter, FilterList } from '~shared/filters';
 
 

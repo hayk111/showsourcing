@@ -1,6 +1,6 @@
 import { CanActivate, CanActivateChild, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Location } from '@angular/common';
-import { CompanyService } from '~core/erm/services/company/company.service';
+import { CompanyService } from '~core/erm';
 import { Observable } from 'rxjs';
 import { LogColor, log } from '~utils';
 import { map, tap } from 'rxjs/operators';

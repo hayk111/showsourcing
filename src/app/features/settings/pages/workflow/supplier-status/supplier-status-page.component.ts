@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { SupplierStatusService } from '~core/erm/services';
+import { SupplierStatusService } from '~core/erm';
 import { ListPageService } from '~core/list-page';
-import { ERM, SupplierStatus } from '~core/erm/models';
+import { ERM, SupplierStatus } from '~core/erm';
 import { AbstractStatusWorkflowComponent } from '../shared/abstract-status-workflow.component';
 
 @Component({

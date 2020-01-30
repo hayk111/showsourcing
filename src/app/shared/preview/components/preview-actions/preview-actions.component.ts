@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewChild, TemplateRef } from '@angular/core';
 import { TrackingComponent } from '~utils/tracking-component';
-import { PreviewActionButton } from '~core/erm/models';
+import { PreviewActionButton } from '~core/erm';
 
 @Component({
 	selector: 'preview-actions-app',

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Comment } from '~core/erm/models';
+import { Comment } from '~core/erm';
 import { TrackingComponent } from '~utils/tracking-component';
 import { Size } from '~utils';
 

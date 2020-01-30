@@ -1,6 +1,6 @@
 import { ID, uuid } from '~utils';
 import { User } from '~core/erm/models/user.model';
-import { UserService } from '~core/erm/services';
+import { UserService } from '~core/erm/services/user/user.service';
 
 export interface Entity {
 	id?: ID;

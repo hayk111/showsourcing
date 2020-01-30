@@ -17,12 +17,12 @@ import { SampleCatalogComponent } from '~common/catalogs/sample-catalog/sample-c
 import { TaskCatalogComponent } from '~common/catalogs/task-catalog/task-catalog.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { ProductDescriptor } from '~core/descriptors';
-import { CommentService } from '~core/erm/services/comment/comment.service';
+import { CommentService } from '~core/erm';
 import {
 	ExtendedFieldDefinitionService,
-} from '~core/erm/services/extended-field-definition/extended-field-definition.service';
-import { ProductService, SampleService, TaskService } from '~core/erm/services';
-import { AppImage, Comment, EntityName, ERM, ExtendedFieldDefinition, Product, Sample, Task } from '~core/erm/models';
+} from '~core/erm';
+import { ProductService, SampleService, TaskService } from '~core/erm';
+import { AppImage, Comment, EntityName, ERM, ExtendedFieldDefinition, Product, Sample, Task } from '~core/erm';
 import { CloseEvent, CloseEventType } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { DialogService } from '~shared/dialog/services';

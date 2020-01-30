@@ -2,11 +2,8 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { switchMap } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { RequestsTableComponent } from '~common/tables/requests-table/requests-table.component';
-import { RequestReplyService, SupplierRequestService, TeamService } from '~core/erm/services';
-import { SelectParams } from '~core/erm/services/_global/select-params';
-import { SelectParamsConfig } from '~core/erm/services/_global/select-params';
+import { ERM, ReplyStatus, RequestReplyService, SelectParamsConfig, SupplierRequest, SupplierRequestService, TeamService } from '~core/erm';
 import { ListPageService } from '~core/list-page';
-import { EntityTypeEnum, ERM, ReplyStatus, SupplierRequest } from '~core/erm/models';
 import { DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { FilterType } from '~shared/filters';
@@ -27,8 +24,6 @@ import { AutoUnsub } from '~utils';
 export class RequestsPageComponent extends AutoUnsub implements OnInit {
 
 	erm = ERM;
-	entityTypeEnum = EntityTypeEnum;
-
 	columns = RequestsTableComponent.DEFAULT_COLUMNS;
 	tableConfig = RequestsTableComponent.DEFAULT_TABLE_CONFIG;
 

@@ -2,9 +2,9 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { ProductService, SampleService, SupplierService, TaskService, UserService } from '~core/erm/services';
-import { SelectParams } from '~core/erm/services/_global/select-params';
-import { Sample, Task } from '~core/erm/models';
+import { ProductService, SampleService, SupplierService, TaskService, UserService } from '~core/erm';
+import { SelectParams } from '~core/erm';
+import { Sample, Task } from '~core/erm';
 import { TrackingComponent } from '~utils/tracking-component';
 
 @Component({

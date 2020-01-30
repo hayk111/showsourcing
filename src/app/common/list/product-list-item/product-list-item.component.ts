@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { Product } from '~core/erm/models';
+import { Product } from '~core/erm';
 
 @Component({
 	selector: 'product-list-item-app',

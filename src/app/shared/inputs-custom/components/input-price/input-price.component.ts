@@ -7,7 +7,7 @@ import {
 	Output,
 	ViewChild,
 } from '@angular/core';
-import { Price } from '~core/erm/models/price.model';
+import { Price } from '~core/erm';
 import { AbstractInput, InputDirective, makeAccessorProvider } from '~shared/inputs';
 
 @Component({

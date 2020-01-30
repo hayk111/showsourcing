@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ProductStatus, SampleStatus, SupplierStatus } from '~core/erm/models';
+import { ProductStatus, SampleStatus, SupplierStatus } from '~core/erm';
 import { StatusUtils } from '~utils';
 
 @Component({

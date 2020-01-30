@@ -13,9 +13,9 @@ import {
 } from '@angular/core';
 import { saveAs } from 'file-saver';
 import { filter, switchMap, takeUntil } from 'rxjs/operators';
-import { ERMService } from '~core/erm/erm.service';
-import { ImageService } from '~core/erm/services/image/image.service';
-import { AppImage } from '~core/erm/models';
+import { ERMService } from '~core/erm';
+import { ImageService } from '~core/erm';
+import { AppImage } from '~core/erm';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback.service';

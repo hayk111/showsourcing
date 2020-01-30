@@ -7,7 +7,7 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { first, map, switchMap } from 'rxjs/operators';
 import { GetStreamNotification } from '~common/activity/interfaces/get-stream-feed.interfaces';
 import { TokenResponse } from '~common/activity/interfaces/token-response.interface';
-import { TeamService, UserService } from '~core/erm/services';
+import { TeamService, UserService } from '~core/erm';
 
 
 @Injectable({

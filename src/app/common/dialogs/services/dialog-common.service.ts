@@ -20,7 +20,7 @@ import {
 	VoteDetailsDialogComponent,
 } from '~common/dialogs/custom-dialogs';
 import { ProductAddToProjectDlgComponent, ProductSelectDlgComponent } from '~common/dialogs/selection-dialogs';
-import { EntityMetadata, EntityName, Product, Project, Supplier } from '~core/erm/models';
+import { EntityMetadata, EntityName, Product, Project, Supplier } from '~core/erm';
 import { CloseEvent, CloseEventType } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { DialogService } from '~shared/dialog/services';

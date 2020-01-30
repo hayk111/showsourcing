@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { EntityName } from '~core/erm/models';
+import { EntityName } from '~core/erm';
 import { IconUtils } from '~utils';
 
 @Component({

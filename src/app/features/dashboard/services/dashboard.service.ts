@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { forkJoin, Observable } from 'rxjs';
 import { first, map } from 'rxjs/operators';
-import { ProductService, SupplierService, TaskService, UserService, SampleService } from '~core/erm/services';
-import { Task, Product, Supplier, Sample } from '~core/erm/models';
+import { ProductService, SupplierService, TaskService, UserService, SampleService } from '~core/erm';
+import { Task, Product, Supplier, Sample } from '~core/erm';
 import { ID } from '~utils/id.utils';
 import { toRealmDateFormat } from '~utils/realm-date-format.util';
 import { Router } from '@angular/router';

@@ -1,9 +1,9 @@
 import { ChangeDetectorRef, Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { catchError, first, tap } from 'rxjs/operators';
-import { AttachmentService } from '~core/erm/services';
-import { ImageService } from '~core/erm/services/image/image.service';
-import { AppImage, Attachment } from '~core/erm/models';
+import { AttachmentService } from '~core/erm';
+import { ImageService } from '~core/erm';
+import { AppImage, Attachment } from '~core/erm';
 import { PendingFile } from '~utils/pending-file.class';
 import { PendingImage } from '~utils/pending-image.class';
 

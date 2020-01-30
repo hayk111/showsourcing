@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { UserService } from '~core/erm/services';
+import { UserService } from '~core/erm';
 import { ListPageService } from '~core/list-page';
 import { FilterType } from '~shared/filters';
 

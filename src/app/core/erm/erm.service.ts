@@ -27,7 +27,8 @@ import {
 	WeightUnitService,
 	RpcService
 } from '~core/erm/services';
-import { EntityMetadata, ERM } from '~core/erm/models';
+import { EntityMetadata } from './entity-metadata.class';
+import { ERM } from './entity-metadata.class';
 
 import { CreateRequestService } from './services/create-request/create-request.service';
 import { ExportRequestService } from './services/export-request/export-request.service';

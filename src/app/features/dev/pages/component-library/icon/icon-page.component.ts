@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { imageMock as mock } from '~core/erm/models';
+import { imageMock as mock } from '~core/erm';
 import { IconUtils } from '~utils';
 
 @Component({

@@ -1,12 +1,10 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, ViewChild, Output, EventEmitter } from '@angular/core';
-import { GetStreamActivity } from '~common/activity/interfaces/get-stream-feed.interfaces';
-import { Product, Supplier, EntityMetadata, User, Comment } from '~core/erm/models';
-import { InputDirective } from '~shared/inputs';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { UserService } from '~core/erm/services';
+import { Comment, EntityMetadata, Product, Supplier, User } from '~core/erm';
+import { UserService } from '~core/erm';
+import { InputDirective } from '~shared/inputs';
 import { AutoUnsub } from '~utils';
-import { takeUntil } from 'rxjs/operators';
 
 @Component({
 	selector: 'activity-card-app',

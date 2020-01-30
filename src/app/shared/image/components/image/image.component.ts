@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { AppImage } from '~core/erm/models';
+import { AppImage } from '~core/erm';
 
 @Component({
 	selector: 'img-app',

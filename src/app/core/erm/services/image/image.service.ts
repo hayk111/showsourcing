@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ApolloStateService } from '~core/apollo/services/apollo-state.service';
-import { UserService } from '~core/erm/services';
+import { UserService } from '~core/erm/services/user/user.service';
 import { GlobalWithAuditService } from '~core/erm/services/_global/global-with-audit.service';
 import { ImageQueries } from '~core/erm/services/image/image.queries';
 import { AppImage } from '~core/erm/models';

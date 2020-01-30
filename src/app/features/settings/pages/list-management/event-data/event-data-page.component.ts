@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { EventService, TeamService, CompanyService } from '~core/erm/services';
-import { SelectParamsConfig } from '~core/erm/services/_global/select-params';
+import { EventService, TeamService, CompanyService } from '~core/erm';
+import { SelectParamsConfig } from '~core/erm';
 import { SelectionService } from '~core/list-page';
 import { ListPageService } from '~core/list-page';
-import { ERM, Event } from '~core/erm/models';
+import { ERM, Event } from '~core/erm';
 import { AutoUnsub } from '~utils';
 
 @Component({
