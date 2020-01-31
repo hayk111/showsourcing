@@ -46,6 +46,7 @@ import { SupplierSelectorComponent } from './components/selectors/supplier-selec
 import { SupplierTypeSelectorComponent } from './components/selectors/supplier-type-selector/supplier-type-selector.component';
 import { TagSelectorComponent } from './components/selectors/tag-selector/tag-selector.component';
 import { CurrencySelectorComponent } from './components/selectors/currency-selector/currency-selector.component';
+import { UserSelectorComponent } from './components/selectors/user-selector/user-selector.component';
 
 
 @NgModule({
@@ -93,7 +94,8 @@ import { CurrencySelectorComponent } from './components/selectors/currency-selec
 		SupplierSelectorComponent,
 		SupplierTypeSelectorComponent,
 		TagSelectorComponent,
-		CurrencySelectorComponent
+		CurrencySelectorComponent,
+		UserSelectorComponent
 	],
 	exports: [
 		SelectorComponent,
