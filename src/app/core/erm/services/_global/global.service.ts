@@ -280,11 +280,13 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	*/
 	queryMany(paramsConfig: SelectParamsConfig, fields?: string | string[]): Observable<T[]> {
-		const title = 'Query Many ' + this.typeName;
-		fields = this.getFields(fields, this.fields.many);
-		const query = this.queryBuilder.queryMany(fields);
+		throw Error('not implemented');
+
+		// const title = 'Query Many ' + this.typeName;
+		// fields = this.getFields(fields, this.fields.many);
+		// const gql = this.queryBuilder.queryMany(fields);
 		// const variables = new SelectParams(paramsConfig);
-		const queryName = this.getQueryName(query);
+		// const queryName = this.getQueryName(gql);
 
 		// return this.getClient(clientName, title).pipe(
 		// 	tap(_ => this.log(title, gql, queryName, clientName, variables)),

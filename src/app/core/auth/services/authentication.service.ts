@@ -3,10 +3,9 @@ import { Router } from '@angular/router';
 import { AmplifyService } from 'aws-amplify-angular';
 import { AuthState } from 'aws-amplify-angular/dist/src/providers';
 import { Observable } from 'rxjs';
-import { distinctUntilKeyChanged, filter, map, mapTo, shareReplay, tap, distinctUntilChanged } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, mapTo, shareReplay, tap } from 'rxjs/operators';
 import { showsourcing } from '~utils/debug-object.utils';
 import { AuthStatus, Credentials, RegistrationCredentials } from '../interfaces';
-import { AccessRight } from '../interfaces/access-right.enum';
 
 
 
@@ -64,7 +63,10 @@ export class AuthenticationService {
 		filter(status => status === AuthStatus.NOT_AUTHENTICATED),
 		mapTo(null)
 	);
-	// !
+	// we have to keep the state for the password
+	// because as of now, amplify doesn't automatically sign in
+	// after a sign up
+	private signUpPassword: string;
 
 	constructor(
 		private amplifySrv: AmplifyService,
@@ -144,7 +146,14 @@ export class AuthenticationService {
 
 	confirmSignUp(username: string, token: string) {
 		return this.awsAuth.confirmSignUp(username, token)
-		.then(_ => this.goToSignIn(username));
+		.then(_ => {
+			if (this.signUpPassword) {
+				this.signIn({ username, password: this.signUpPassword });
+				this.signUpPassword = undefined;
+			} else {
+				this.goToSignIn(username);
+			}
+		});
 	}
 
 	resendSignUp(username: string) {
