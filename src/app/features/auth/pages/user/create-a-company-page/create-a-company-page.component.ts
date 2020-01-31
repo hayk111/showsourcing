@@ -1,12 +1,9 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { first, mergeMap } from 'rxjs/operators';
-import { AuthFormButton, AuthFormElement } from '../../../shared';
-import { CompanyService, TeamService, UserService } from '~core/erm';
-import { Company, Team } from '~core/erm';
+import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
+import { CompanyService } from '~core/erm';
 import { AutoUnsub } from '~utils/auto-unsub.component';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'create-a-company-page-app',
@@ -15,95 +12,32 @@ import { TranslateService } from '@ngx-translate/core';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CreateACompanyPageComponent extends AutoUnsub implements OnInit {
-
-	hideForm = false;
-	pending = false;
+	form = this.fb.group({
+		name: ['', Validators.required]
+	});
+	pending$ = new BehaviorSubject(false);
 	error: string;
-	returnUrl: string;
-
-	listForm: AuthFormElement[];
-	@Input() buttons: AuthFormButton[];
-	@Input() hasSpinner: boolean;
 
 	constructor(
 		private fb: FormBuilder,
-		private srv: CompanyService,
-		private teamService: TeamService,
-		private router: Router,
-		private userSrv: UserService,
-		private route: ActivatedRoute,
-		private cdr: ChangeDetectorRef,
-		private translate: TranslateService
+		private companySrv: CompanyService,
+		private router: Router
 	) {
 		super();
-		this.listForm = [{
-			label: this.translate.instant('text.company-name'),
-			type: 'text',
-			name: 'companyName',
-			isRequired: true,
-			placeHolder: '',
-			validators: [Validators.required]
-		}, {
-			label: this.translate.instant('text.team-name'),
-			type: 'text',
-			name: 'teamName',
-			isRequired: true,
-			placeHolder: '',
-			validators: [Validators.required]
-		}];
-		this.buttons = [{
-			label: this.translate.instant('text.create-a-team'),
-			type: 'button'
-		}];
 	}
 
 	ngOnInit() {
-		this.srv.selectAll().pipe(
-			first()
-		).subscribe(all => {
-			if (all.length > 0) {
-				this.buttons = [...this.buttons,
-					// 	{
-					// 	label: 'Select Company Instead',
-					// 	type: 'link',
-					// 	link: '../pick-a-company'
-					// }
-				];
-			}
-		});
-		this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
 	}
 
 	onSubmit(form: FormGroup) {
-		this.pending = true;
-		this.hideForm = true;
-		const formValue = form.value;
-		const company = new Company({ name: formValue.companyName });
-		this.srv.create(company)
-			.pipe(
-				first(),
-				mergeMap((_company: Company) => {
-					const team = new Team({
-						name: formValue.teamName,
-						company: _company,
-						ownerUser: { id: this.userSrv.userId, __typename: 'User' }
-					});
-					return this.teamService.create(team);
-				})
-			)
-			.subscribe(
-				_ => {
-					this.pending = false;
-					this.router.navigateByUrl(this.returnUrl);
-					this.cdr.detectChanges();
-				},
-				e => {
-					this.hideForm = false;
-					this.pending = false;
-					this.error = this.translate.instant('error.create-company');
-					this.cdr.detectChanges();
-				}
-			);
+		if (this.form.valid) {
+			this.pending$.next(true);
+			this.companySrv.create(this.form.value)
+				.subscribe(_ => {
+					this.pending$.next(false);
+					this.router.navigate(['auth', 'user', 'create-a-company' ]);
+				});
+		}
 	}
 
 }

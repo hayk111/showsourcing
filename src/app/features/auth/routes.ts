@@ -12,10 +12,6 @@ export const routes: Routes = [
 	{ path: 'forgot-password-submit', component: Pages.ForgotPasswordSubmitPageComponent },
 
 	{ path: 'account-created', component: Pages.AccountCreatedPageComponent },
-	{ path: 'password-resetted', component: Pages.PasswordResettedPageComponent },
-	{ path: 'reset-password/:token', component: Pages.ResetPasswordPageComponent },
-	{ path: 'unvalidated-email', component: Pages.UnvalidatedEmailPageComponent },
-	{ path: 'validate-email/:token', component: Pages.ValidateEmailPageComponent },
 	{
 		path: 'user',
 		canActivateChild: [AuthenticatedGuard],

@@ -19,18 +19,11 @@ import * as SharedComponents from './shared';
 		Pages.ForgotPasswordSubmitPageComponent,
 
 		Pages.AccountCreatedPageComponent,
-		Pages.PasswordResettedPageComponent,
-		Pages.ResetPasswordPageComponent,
-		Pages.UnvalidatedEmailPageComponent,
-		Pages.ValidateEmailPageComponent,
 		Pages.PickATeamPageComponent,
 		Pages.CreateATeamPageComponent,
 		Pages.CreateACompanyPageComponent,
 		SharedComponents.AuthFormHeaderComponent,
-		SharedComponents.AuthFormBaseComponent,
-		SharedComponents.AuthHeaderContentComponent,
-		SharedComponents.AuthHeaderSubtitleComponent,
-		SharedComponents.AuthHeaderTitleComponent
+		SharedComponents.AuthFormBaseComponent
 	],
 	exports: []
 })

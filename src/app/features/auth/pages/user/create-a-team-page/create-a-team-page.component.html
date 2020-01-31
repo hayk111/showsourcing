@@ -1,18 +1,33 @@
 <auth-header-app
-	[pending]="(pending || hideForm)">
-	<auth-header-title-app translate="header.create-team">
-	</auth-header-title-app>
-	<auth-header-subtitle-app translate="text.create-team-and-source">
-	</auth-header-subtitle-app>
+	[pending]="(pending$ | async)"
+	title="header.create-team"
+	instruction="text.create-team-and-source">
 </auth-header-app>
 
-<auth-form-app
-	[error]="error"
-	[defaultFocused]="'teamName'"
-	[spinnerMessage]="'message.we-are-creating-team' | translate"
-	[hideForm]="hideForm"
-	[pending]="pending"
-	[listForm]="listForm"
-	[buttons]="buttons"
-	(onSubmit)="onSubmit($event)">
-</auth-form-app>
+<form 
+	*ngIf="!(pending$ | async)"
+	[formGroup]="form" 
+	(ngSubmit)="onSubmit()" 
+	class="flexColumn">
+
+	<error-app *ngIf="error" [translate]="'error.' + error"></error-app>
+
+	<form-field-app>
+		<label-app translate="text.company-name"></label-app>
+		<input 
+			inputApp
+			autofocus
+			type="text" 
+			autocomplete="off"
+			formControlName="name"
+			placeholder="ShowSourcing"/>
+	</form-field-app>
+	
+	<div class="btn-ctnr">
+		<button 
+			class="mg-v-ms" 
+			type="submit" 
+			translate="button.create">
+		</button>
+	</div>
+</form>

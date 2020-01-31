@@ -1,10 +1,7 @@
 <ng-container *ngIf="!(pending$ | async)">
-	<auth-header-app>
-		<auth-header-title-app translate="header.join-team">
-		</auth-header-title-app>
-		<!-- TODO Check style is the same -->
-		<auth-header-subtitle-app translate="text.select-team-or-create">
-		</auth-header-subtitle-app>
+	<auth-header-app 
+		title="header.join-team"
+		subtitle="text.select-team-or-create">
 	</auth-header-app>
 	<ul>
 		<div
