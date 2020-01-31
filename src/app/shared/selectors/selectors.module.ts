@@ -42,6 +42,7 @@ import { SelectorContentComponent } from './components/selector-content/selector
 import { CategorySelectorComponent } from './components/selectors/category-selector/category-selector.component';
 import { EventSelectorComponent } from './components/selectors/event-selector/event-selector.component';
 import { ProjectSelectorComponent } from './components/selectors/project-selector/project-selector.component';
+import { SupplierSelectorComponent } from './components/selectors/supplier-selector/supplier-selector.component';
 
 
 @NgModule({
@@ -85,7 +86,8 @@ import { ProjectSelectorComponent } from './components/selectors/project-selecto
 		SelectorContentStoredComponent,
 		SelectorContentItemsComponent,
 		EventSelectorComponent,
-		ProjectSelectorComponent
+		ProjectSelectorComponent,
+		SupplierSelectorComponent
 	],
 	exports: [
 		SelectorComponent,
