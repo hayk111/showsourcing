@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { map, switchMap, take, tap } from 'rxjs/operators';
 import { ListQuery } from '~core/entity-services/_global/list-query.interface';
 import { SelectParams, SelectParamsConfig } from '~core/entity-services/_global/select-params';
-import { Currency, EntityName, EntityMetadata } from '~models';
+import { Currency, EntityName, EntityMetadata, ERM } from '~models';
 import { Filter } from '~shared/filters';
 import { FilterList } from '~shared/filters/models/filter-list.class';
 
@@ -34,15 +34,16 @@ export class SelectorsService {
 
 	listResult: ListQuery<any>;
 	items$: Observable<any[]>;
-	topCurrencies$: Observable<Currency[]>;
+
 
 	searched$: BehaviorSubject<string> = new BehaviorSubject('');
 	/** whether the search has a exact match or not to display the create button */
 	nameExists$: Observable<boolean>;
 
 	selectParams: SelectParamsConfig = new SelectParams({ descending: false, sortBy: 'name' });
-	entityService: any;
+	entitySrv: any;
 	entityName: EntityName;
+	entityMetadata: EntityMetadata;
 
 	// we use this to trigger the search when we use a map instead of the global data
 	search$: BehaviorSubject<string> = new BehaviorSubject('');
@@ -65,6 +66,10 @@ export class SelectorsService {
 	// this helps the condition of fast typing only apply when typing and pressing Enter (OnKeyDown function)
 	movedArrow = false;
 
+
+	// SPECIAL VARIABLES FOR CURRENCY
+	topCurrencies$: Observable<Currency[]>;
+
 	constructor() { }
 
 	setup(config: SelectorConfig) {
@@ -78,7 +83,7 @@ export class SelectorsService {
 		if (this.filterList)
 			this.selectParams = { ...this.selectParams, query: this.filterList.asPredicate() };
 
-		this.listResult = config.entitySrv.getListQuery(this.selectParams);
+		this.listResult = this.entitySrv.getListQuery(this.selectParams);
 		this.items$ = this.listResult.items$.pipe(
 			// remove deleted items from the list cuz they stay if they
 			// start at deleted false then are updated as deleted true
@@ -94,6 +99,12 @@ export class SelectorsService {
 				map(items => (!!items.length || !this.searchText || config.areStoredMatchesName(this.searchText)))
 			))
 		);
+
+		if (this.entityMetadata === ERM.CURRENCY) {
+			this.topCurrencies$ = this.entitySrv.queryMany(
+				{ ...this.selectParams, query: 'symbol == "EUR" OR symbol == "USD" OR symbol == "CNY"' }
+			);
+		}
 	}
 
 	search(text: string) {
@@ -108,6 +119,12 @@ export class SelectorsService {
 	querySearch(text: string) {
 		if (text) {
 			this.currentSearchQuery = this.searchQuery(text);
+			if (this.entityMetadata === ERM.CURRENCY) {
+				this.topCurrencies$ = this.entitySrv.queryMany({
+					query: `((symbol == "EUR" OR symbol == "USD" OR symbol == "CNY") AND symbol CONTAINS[c] "${text}")` +
+						` OR ((symbol == "EUR" OR symbol == "USD" OR symbol == "CNY") AND name CONTAINS[c] "${text}")`
+				});
+			}
 		} else {
 			this.currentSearchQuery = '';
 		}

@@ -90,6 +90,7 @@ export abstract class AbstractSelectorComponent extends AbstractInput implements
 	abstract searchQuery: (text: string) => string;
 	/** given an array of item and a name, return the items that matches the name  */
 	abstract itemsMatchesName: (items: any[], name: string) => any[];
+	abstract onSelectFn(item): any;
 
 	onChange() {
 		this.selectorSrv.value = this.value;
@@ -160,11 +161,13 @@ export abstract class AbstractSelectorComponent extends AbstractInput implements
 	}
 
 	onSelect(item) {
-		if (this.multiple && !this.isStored(item)) {
-			this.value.push(item);
+		const itemFormatted = this.onSelectFn(item);
+
+		if (this.multiple && !this.isStored(itemFormatted)) {
+			this.value.push(itemFormatted);
 			this.onChange();
 		} else if (!this.multiple) {
-			this.value = item;
+			this.value = itemFormatted;
 			this.onChange();
 		}
 

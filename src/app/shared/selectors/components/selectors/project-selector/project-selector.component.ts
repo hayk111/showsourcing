@@ -32,6 +32,9 @@ export class ProjectSelectorComponent extends AbstractSelectorComponent {
 	deleteStoredItemFn(item) {
 		return this.value.filter(val => val.id !== item.id);
 	}
+	onSelectFn(item) {
+		return item;
+	}
 
 	config: SelectorConfig;
 
@@ -44,7 +47,7 @@ export class ProjectSelectorComponent extends AbstractSelectorComponent {
 	setup() {
 		this.config = {
 			entitySrv: this.projectSrv,
-			entityMetadata: ERM.CATEGORY,
+			entityMetadata: ERM.PROJECT,
 			searchQuery: this.searchQuery,
 			itemsMatchesName: this.itemsMatchesName,
 			itemsNotStored: this.itemsNotStored,

@@ -32,6 +32,9 @@ export class CategorySelectorComponent extends AbstractSelectorComponent {
 	deleteStoredItemFn(item) {
 		return this.value.filter(val => val.id !== item.id);
 	}
+	onSelectFn(item) {
+		return item;
+	}
 
 	config: SelectorConfig;
 
