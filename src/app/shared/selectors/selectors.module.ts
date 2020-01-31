@@ -48,6 +48,7 @@ import { TagSelectorComponent } from './components/selectors/tag-selector/tag-se
 import { CurrencySelectorComponent } from './components/selectors/currency-selector/currency-selector.component';
 import { UserSelectorComponent } from './components/selectors/user-selector/user-selector.component';
 import { ContactSelectorComponent } from './components/selectors/contact-selector/contact-selector.component';
+import { EmailSelectorComponent } from './components/selectors/email-selector/email-selector.component';
 
 
 @NgModule({
@@ -97,7 +98,8 @@ import { ContactSelectorComponent } from './components/selectors/contact-selecto
 		TagSelectorComponent,
 		CurrencySelectorComponent,
 		UserSelectorComponent,
-		ContactSelectorComponent
+		ContactSelectorComponent,
+		EmailSelectorComponent
 	],
 	exports: [
 		SelectorComponent,

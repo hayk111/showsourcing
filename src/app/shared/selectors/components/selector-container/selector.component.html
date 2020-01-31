@@ -136,6 +136,19 @@
 				(close)="closeMenu(true)"
 				cdkTrapFocus>
 			</contact-selector-app>
+
+			<!-- email -->
+			<email-selector-app
+				*ngSwitchCase="erm.EMAIL"
+				[value]="value"
+				[filterList]="filterList"
+				[initialSeachTxt]="searchTxt"
+				[multiple]="multiple"
+				[canCreate]="canCreate"
+				(update)="onChange($event)"
+				(close)="closeMenu(true)"
+				cdkTrapFocus>
+			</email-selector-app>
 		</ng-container>
 	</div>
 
