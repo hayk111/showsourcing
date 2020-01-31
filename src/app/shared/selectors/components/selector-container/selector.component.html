@@ -123,6 +123,19 @@
 				(close)="closeMenu(true)"
 				cdkTrapFocus>
 			</user-selector-app>
+
+			<!-- contact -->
+			<contact-selector-app
+				*ngSwitchCase="erm.CONTACT"
+				[value]="value"
+				[filterList]="filterList"
+				[initialSeachTxt]="searchTxt"
+				[multiple]="multiple"
+				[canCreate]="canCreate"
+				(update)="onChange($event)"
+				(close)="closeMenu(true)"
+				cdkTrapFocus>
+			</contact-selector-app>
 		</ng-container>
 	</div>
 
