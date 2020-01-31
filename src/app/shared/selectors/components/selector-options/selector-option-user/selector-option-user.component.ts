@@ -5,7 +5,10 @@ import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/
 @Component({
 	selector: 'selector-option-user-app',
 	templateUrl: './selector-option-user.component.html',
-	styleUrls: ['./selector-option-user.component.scss'],
+	styleUrls: [
+		'./selector-option-user.component.scss',
+		'../selector-options-common.scss'
+	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SelectorOptionUserComponent extends AbstractSelectorHighlightableComponent {

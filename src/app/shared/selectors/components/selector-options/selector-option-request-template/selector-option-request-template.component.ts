@@ -5,7 +5,10 @@ import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/
 @Component({
 	selector: 'selector-option-request-template-app',
 	templateUrl: './selector-option-request-template.component.html',
-	styleUrls: ['./selector-option-request-template.component.scss'],
+	styleUrls: [
+		'./selector-option-request-template.component.scss',
+		'../selector-options-common.scss'
+	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SelectorOptionRequestTemplateComponent extends AbstractSelectorHighlightableComponent {
