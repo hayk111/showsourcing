@@ -19,13 +19,13 @@ export class ContactSelectorComponent extends AbstractSelectorComponent {
 		return `name CONTAINS[c] "${text}" OR email CONTAINS[c] "${text}"`;
 	}
 	itemsMatchesName = (items: any[], name: string) => {
-		return items.filter(item => item.name === name);
+		return items.filter(item => (item.name === name || item.email == name));
 	}
 	isStoredFn(item) {
 		return !!this.value.find(value => value.id === item.id);
 	}
 	areStoredMatchesNameFn(name) {
-		return !!this.value.find(val => val.name.toLowerCase() === name);
+		return !!this.value.find(val => (val.name.toLowerCase() === name || val.email.toLowerCase() === name));
 	}
 	itemNotStoredFn(item) {
 		return !((this.value || []).some(val => val.id === item.id));
