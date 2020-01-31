@@ -45,6 +45,19 @@
 				(close)="closeMenu(true)"
 				cdkTrapFocus>
 			</event-selector-app>
+
+			<!-- project -->
+			<project-selector-app
+				*ngSwitchCase="erm.PROJECT"
+				[value]="value"
+				[filterList]="filterList"
+				[initialSeachTxt]="searchTxt"
+				[multiple]="multiple"
+				[canCreate]="canCreate"
+				(update)="onChange($event)"
+				(close)="closeMenu(true)"
+				cdkTrapFocus>
+			</project-selector-app>
 		</ng-container>
 	</div>
 
