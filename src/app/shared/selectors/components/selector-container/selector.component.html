@@ -19,6 +19,8 @@
 
 	<div class="flexColumn" [ngStyle]="{ width: width + 'px'}">
 		<ng-container [ngSwitch]="type">
+
+			<!-- category -->
 			<category-selector-app
 				*ngSwitchCase="erm.CATEGORY"
 				[value]="value"
@@ -30,6 +32,19 @@
 				(close)="closeMenu(true)"
 				cdkTrapFocus>
 			</category-selector-app>
+
+			<!-- event -->
+			<event-selector-app
+				*ngSwitchCase="erm.EVENT"
+				[value]="value"
+				[filterList]="filterList"
+				[initialSeachTxt]="searchTxt"
+				[multiple]="multiple"
+				[canCreate]="canCreate"
+				(update)="onChange($event)"
+				(close)="closeMenu(true)"
+				cdkTrapFocus>
+			</event-selector-app>
 		</ng-container>
 	</div>
 

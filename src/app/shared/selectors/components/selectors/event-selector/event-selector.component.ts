@@ -1,30 +1,30 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CategoryService } from '~core/entity-services';
-import { Category, ERM } from '~core/models';
+import { EventService } from '~core/entity-services';
+import { ERM, Event } from '~core/models';
 import { SelectorConfig, SelectorsService } from '~shared/selectors/services/selectors.service';
 
 import { AbstractSelectorComponent } from '../../abstract-selector.components';
 
 @Component({
-	selector: 'category-selector-app',
-	templateUrl: './category-selector.component.html',
-	styleUrls: ['./category-selector.component.scss'],
+	selector: 'event-selector-app',
+	templateUrl: './event-selector.component.html',
+	styleUrls: ['./event-selector.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CategorySelectorComponent extends AbstractSelectorComponent {
+export class EventSelectorComponent extends AbstractSelectorComponent {
 
 	searchQuery = (text: string) => {
-		return `name CONTAINS[c] "${text}"`;
+		return `name CONTAINS[c] "${text}" OR description.name CONTAINS[c] "${text}"`;
 	}
 	itemsMatchesName = (items: any[], name: string) => {
-		return items.filter(item => item.name === name);
+		return items.filter(item => (item.description.name === name || item.name === name));
 	}
 	isStoredFn(item) {
 		return !!this.value.find(value => value.id === item.id);
 	}
 	areStoredMatchesNameFn(name) {
-		return !!this.value.find(val => val.name.toLowerCase() === name);
+		return !!this.value.find(val => (val.description.name.toLowerCase() === name || val.name.toLowerCase() === name));
 	}
 	itemNotStoredFn(item) {
 		return !((this.value || []).some(val => val.id === item.id));
@@ -36,21 +36,22 @@ export class CategorySelectorComponent extends AbstractSelectorComponent {
 	config: SelectorConfig;
 
 	constructor(
-		protected categorySrv: CategoryService,
+		protected eventSrv: EventService,
 		protected selectorSrv: SelectorsService,
 		protected cd: ChangeDetectorRef
 	) { super(selectorSrv, cd); }
 
 	setup() {
 		this.config = {
-			entitySrv: this.categorySrv,
-			entityMetadata: ERM.CATEGORY,
+			entitySrv: this.eventSrv,
+			entityMetadata: ERM.EVENT,
 			searchQuery: this.searchQuery,
 			itemsMatchesName: this.itemsMatchesName,
 			itemsNotStored: this.itemsNotStored,
 			areStoredMatchesName: this.areStoredMatchesName,
 			initialFilters: this.filterList.asFilters(),
-			initialSeachTxt: this.initialSeachTxt
+			initialSeachTxt: this.initialSeachTxt,
+			selectParams: { sortBy: 'description.name' }
 		};
 		this.selectorSrv.setup(this.config);
 	}
@@ -72,10 +73,10 @@ export class CategorySelectorComponent extends AbstractSelectorComponent {
 	createFn(): any {
 		const name = this.selectorSrv.searchText;
 		let item;
-		let createObs$: Observable<Category>;
+		let createObs$: Observable<Event>;
 		if (name) {
-			item = new Category({ name });
-			createObs$ = this.categorySrv.create(item);
+			item = new Event({ name });
+			createObs$ = this.eventSrv.create(item);
 		}
 
 		if (createObs$ === undefined)
