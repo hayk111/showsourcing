@@ -43,6 +43,7 @@ import { CategorySelectorComponent } from './components/selectors/category-selec
 import { EventSelectorComponent } from './components/selectors/event-selector/event-selector.component';
 import { ProjectSelectorComponent } from './components/selectors/project-selector/project-selector.component';
 import { SupplierSelectorComponent } from './components/selectors/supplier-selector/supplier-selector.component';
+import { SupplierTypeSelectorComponent } from './components/selectors/supplier-type-selector/supplier-type-selector.component';
 
 
 @NgModule({
@@ -87,7 +88,8 @@ import { SupplierSelectorComponent } from './components/selectors/supplier-selec
 		SelectorContentItemsComponent,
 		EventSelectorComponent,
 		ProjectSelectorComponent,
-		SupplierSelectorComponent
+		SupplierSelectorComponent,
+		SupplierTypeSelectorComponent
 	],
 	exports: [
 		SelectorComponent,

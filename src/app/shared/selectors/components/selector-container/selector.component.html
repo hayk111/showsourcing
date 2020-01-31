@@ -71,6 +71,19 @@
 				(close)="closeMenu(true)"
 				cdkTrapFocus>
 			</supplier-selector-app>
+
+			<!-- supplier type -->
+			<supplier-type-selector-app
+				*ngSwitchCase="erm.SUPPLIER_TYPE"
+				[value]="value"
+				[filterList]="filterList"
+				[initialSeachTxt]="searchTxt"
+				[multiple]="multiple"
+				[canCreate]="canCreate"
+				(update)="onChange($event)"
+				(close)="closeMenu(true)"
+				cdkTrapFocus>
+			</supplier-type-selector-app>
 		</ng-container>
 	</div>
 
