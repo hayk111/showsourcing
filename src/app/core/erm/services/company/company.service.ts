@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of, ReplaySubject } from 'rxjs';
 import { filter, map, switchMap } from 'rxjs/operators';
@@ -7,7 +6,6 @@ import { Company } from '~core/erm/models';
 import { CompanyQueries } from '~core/erm/services/company/company.queries';
 import { GlobalService } from '~core/erm/services/_global/global.service';
 import { LocalStorageService } from '~core/local-storage';
-import { UserService } from '../user/user.service';
 
 
 const COMPANY = 'company';
@@ -30,29 +28,18 @@ export class CompanyService extends GlobalService<Company> {
 	constructor(
 		protected storage: LocalStorageService,
 		protected authSrv: AuthenticationService,
-		private http: HttpClient
 	) {
 		super(CompanyQueries, 'company', 'companys');
 	}
 
 	init() {
 		// when logging out let's clear the current selected company
-		this.authSrv.signIn$.subscribe(_ => this.resetCompany());
-		this.authSrv.signOut$.pipe(
+		this.authSrv.signOut$.subscribe(_ => this.resetCompany());
+		this.authSrv.signIn$.pipe(
 			switchMap(_ => this.getCompany())
-		).subscribe(this._company$);
-		this.company$.subscribe(company => {
+		).subscribe(company => {
+			this._company$.next(company);
 			this.companySync = company;
-		});
-	}
-
-	/** creates and picks it */
-	create(company: Company): Observable<any> {
-		const currentUser = { id: UserService.userSync.id };
-		return this.http.post<Company>('/api/company', {
-			...company,
-			ownerUser: currentUser,
-			users: [currentUser]
 		});
 	}
 
@@ -65,7 +52,7 @@ export class CompanyService extends GlobalService<Company> {
 		);
 	}
 
-	/** restore from local storage   */
+	/** restore from local storage or get the first company in DB */
 	getCompany(): Observable<Company> {
 		const company: Company = this.storage.getItem(COMPANY);
 		if (company) {

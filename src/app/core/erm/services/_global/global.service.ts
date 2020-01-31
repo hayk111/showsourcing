@@ -280,13 +280,11 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	*/
 	queryMany(paramsConfig: SelectParamsConfig, fields?: string | string[]): Observable<T[]> {
-		throw Error('not implemented');
-
-		// const title = 'Query Many ' + this.typeName;
-		// fields = this.getFields(fields, this.fields.many);
-		// const gql = this.queryBuilder.queryMany(fields);
+		const title = 'Query Many ' + this.typeName;
+		fields = this.getFields(fields, this.fields.many);
+		const query = this.queryBuilder.queryMany(fields);
 		// const variables = new SelectParams(paramsConfig);
-		// const queryName = this.getQueryName(gql);
+		const queryName = this.getQueryName(query);
 
 		// return this.getClient(clientName, title).pipe(
 		// 	tap(_ => this.log(title, gql, queryName, clientName, variables)),
@@ -443,13 +441,13 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	queryAll(fields?: string | string[], paramsConfig?: SelectAllParamsConfig): Observable<T[]> {
 		const title = 'Query All ' + this.typeName;
 		fields = this.getFields(fields, this.fields.all);
-		const gql = this.queryBuilder.queryAll(fields);
-		const queryName = this.getQueryName(gql);
+		const query = this.queryBuilder.queryAll(fields);
+		const queryName = this.getQueryName(query);
 
 		// const variables = new SelectAllParams(paramsConfig);
-		this.log(title, gql, queryName);
+		this.log(title, query, queryName);
 		return from(
-			API.graphql(graphqlOperation(gql))
+			API.graphql({ query, variables: {} })
 		).pipe(
 			// extracting the result
 			map((r) => r.data[queryName].items),
@@ -458,8 +456,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 				data.errors.forEach(e => log.error(e));
 				of(log.table(data.errors));
 				return of(null);
-			}
-			),
+			}),
 			shareReplay(1)
 		) as Observable<any>;
 
@@ -625,13 +622,25 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	*/
 	create(entity: T): Observable<T> {
-		throw Error('not implemented');
+		const title = 'Create one ' + this.typeName;
+		const fields = this.patch(entity);
+		const query = this.queryBuilder.create(fields);
+		const variables = { input: entity };
+		const queryName = this.getQueryName(query);
 
-		// const title = 'Create one ' + this.typeName;
-		// const fields = this.patch(entity);
-		// const gql = this.queryBuilder.create(fields);
-		// const variables = { input: entity };
-		// const queryName = this.getQueryName(gql);
+		this.log(title, query, queryName, variables);
+		return from(
+			API.graphql({ query, variables })
+		).pipe(
+			// extracting the result
+			map((r) => r.data[queryName].items),
+			tap(data => this.logResult(title, queryName, data)),
+			catchError(data => {
+				data.errors.forEach(e => log.error(e));
+				of(log.table(data.errors));
+				return of(null);
+			}),
+		);
 
 		// return this.getClient(clientName, title).pipe(
 		// 	tap(_ => this.log(title, gql, queryName, clientName, variables)),

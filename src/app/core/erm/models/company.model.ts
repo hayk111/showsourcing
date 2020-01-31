@@ -6,6 +6,7 @@ export class Company {
 	name?: string;
 	owner?: User;
 	plan?: string;
+	ownerUserId?: string;
 	__typename ?= 'Company';
 
 	constructor(config: CompanyConfig) {

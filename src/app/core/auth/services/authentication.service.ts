@@ -3,9 +3,10 @@ import { Router } from '@angular/router';
 import { AmplifyService } from 'aws-amplify-angular';
 import { AuthState } from 'aws-amplify-angular/dist/src/providers';
 import { Observable } from 'rxjs';
-import { distinctUntilKeyChanged, filter, map, mapTo, shareReplay, tap } from 'rxjs/operators';
+import { distinctUntilKeyChanged, filter, map, mapTo, shareReplay, tap, distinctUntilChanged } from 'rxjs/operators';
 import { showsourcing } from '~utils/debug-object.utils';
 import { AuthStatus, Credentials, RegistrationCredentials } from '../interfaces';
+import { AccessRight } from '../interfaces/access-right.enum';
 
 
 
@@ -37,11 +38,11 @@ import { AuthStatus, Credentials, RegistrationCredentials } from '../interfaces'
 })
 export class AuthenticationService {
 
+	/** Amplify Auth for easy access */
 	private awsAuth = this.amplifySrv.auth();
+	/** State returned by amplifyAuth */
 	private authState: AuthState;
 	authState$: Observable<AuthState> = this.amplifySrv.authStateChange$.pipe(
-		// to get the first state
-		distinctUntilKeyChanged('state'),
 		tap(state => this.authState = state),
 		tap(state => showsourcing.auth.state = state),
 		shareReplay(1)
@@ -49,7 +50,9 @@ export class AuthenticationService {
 	// !
 	/** to rename  */
 	authStatus$: Observable<AuthStatus> = this.authState$.pipe(
-		map(authState => authState.state === 'signedIn' ? AuthStatus.AUTHENTICATED : AuthStatus.NOT_AUTHENTICATED)
+		map(authState => authState.state),
+		distinctUntilChanged(),
+		map(state => state === 'signedIn' ? AuthStatus.AUTHENTICATED : AuthStatus.NOT_AUTHENTICATED)
 	);
 	/** event that fires when we sign in */
 	signIn$ = this.authStatus$.pipe(
@@ -62,8 +65,6 @@ export class AuthenticationService {
 		mapTo(null)
 	);
 	// !
-	/** to be determined if needed */
-	authToken: string;
 
 	constructor(
 		private amplifySrv: AmplifyService,

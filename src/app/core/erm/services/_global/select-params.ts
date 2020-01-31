@@ -1,5 +1,7 @@
 export const DEFAULT_TAKE_PAGINATION = 25;
 
+
+
 /** utility class used to manage a selection of items */
 export class SelectParams {
 	/** used for pagination,

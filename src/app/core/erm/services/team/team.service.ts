@@ -2,13 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { API, graphqlOperation } from 'aws-amplify';
 import { AmplifyService } from 'aws-amplify-angular';
-import { from, Observable, ReplaySubject } from 'rxjs';
+import { from, Observable, ReplaySubject, zip, combineLatest } from 'rxjs';
 import { filter, first, map, shareReplay, switchMap, tap } from 'rxjs/operators';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { Team } from '~core/erm/models';
 import { TeamQueries } from '~core/erm/services/team/team.queries';
 import { GlobalService } from '~core/erm/services/_global/global.service';
 import { LocalStorageService } from '~core/local-storage';
+import { CompanyService } from '../company/company.service';
 
 
 
@@ -55,14 +56,13 @@ export class TeamService extends GlobalService<Team> {
 	constructor(
 		protected storage: LocalStorageService,
 		protected authSrv: AuthenticationService,
+		protected companySrv: CompanyService,
 		private http: HttpClient,
 	) { super(TeamQueries, 'team', 'teams'); }
 
 	init() {
-
-		this.authSrv.signIn$.pipe(
-			map(_ => this.getSelectedTeam())
-		).subscribe(this._teamSelectionEvent$);
+		this.companySrv.company$.pipe(filter(company => !!company))
+		.subscribe(_ => this.queryMany());
 
 		// when logging out let's clear the current selected team
 		this.authSrv.signOut$.subscribe(_ => this.resetSelectedTeam());
@@ -73,7 +73,7 @@ export class TeamService extends GlobalService<Team> {
 
 	/** creates a team and waits for it to be valid */
 	create(team: Team): Observable<any> {
-		return this.http.post('api/team', { name: team.name, companyId: team.company.id });
+		return super.create({ ...team, });
 	}
 
 	update(team: Team) {

@@ -35,7 +35,7 @@ export class CreateACompanyPageComponent extends AutoUnsub implements OnInit {
 			this.companySrv.create(this.form.value)
 				.subscribe(_ => {
 					this.pending$.next(false);
-					this.router.navigate(['auth', 'user', 'create-a-company' ]);
+					this.router.navigate(['auth', 'user', 'create-a-team']);
 				});
 		}
 	}

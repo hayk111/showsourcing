@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
-import { AuthenticatedGuard } from '~core/auth';
 import * as Pages from './pages';
 import { HasCompanyGuard, HasTeamGuard } from './services';
+import { AuthenticatedGuard } from '~core/auth/guards';
 
 
 export const routes: Routes = [
@@ -14,7 +14,9 @@ export const routes: Routes = [
 	{ path: 'account-created', component: Pages.AccountCreatedPageComponent },
 	{
 		path: 'user',
-		canActivateChild: [AuthenticatedGuard],
+		canActivateChild: [
+			AuthenticatedGuard,
+		],
 		children: [
 		{
 			path: '',
@@ -31,6 +33,9 @@ export const routes: Routes = [
 			component: Pages.PickATeamPageComponent,
 			canActivate: [HasTeamGuard],
 		},
-		{ path: 'create-a-company', component: Pages.CreateACompanyPageComponent }
+		{
+			path: 'create-a-company',
+			component: Pages.CreateACompanyPageComponent
+		}
 	]}
 ];

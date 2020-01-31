@@ -1,9 +1,9 @@
 import { Route } from '@angular/router';
-import { AuthenticatedGuard } from '~core/auth';
 import { GuestTemplateComponent, TemplateComponent } from '~core/template';
 import { InvitationGuard } from '~features/invitation/services/invitation.guard';
 import { DevModeGuard } from '~utils/dev-mode.guard';
 import { HasTeamSelectedGuard } from '~features/auth/services';
+import { AuthenticatedGuard } from '~core/auth/guards';
 
 export const routes: Array<Route> = [
 	{

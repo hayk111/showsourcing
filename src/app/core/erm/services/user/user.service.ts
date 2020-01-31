@@ -8,7 +8,6 @@ import { AnalyticsService } from '~core/analytics/analytics.service';
 import { UserQueries } from '~core/erm/services/user/user.queries';
 import { GlobalService } from '~core/erm/services/_global/global.service';
 import { User } from '~core/erm/models';
-import { RealmAuthenticationService } from '~core/auth/services/realm-authentication.service';
 import { ProductQueries } from '../product/product.queries';
 import { SupplierQueries } from '../supplier/supplier.queries';
 
@@ -36,7 +35,6 @@ export class UserService extends GlobalService<User> {
 	constructor(
 		protected analyticsSrv: AnalyticsService,
 		protected http: HttpClient,
-		protected realmAuthSrv: RealmAuthenticationService
 	) {
 		super(UserQueries, 'user', 'users');
 	}
@@ -48,9 +46,6 @@ export class UserService extends GlobalService<User> {
 			this.userId = user.id;
 			this.analyticsSrv.setupUser(user);
 		});
-		this.realmAuthSrv.realmUser$.pipe(
-			filter(realmUser => !!realmUser)
-		).subscribe(realmUser => this.userId$.next(realmUser.identity));
 	}
 
 	onUserIdChanged(userId: string) {

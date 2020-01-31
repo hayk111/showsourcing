@@ -5,13 +5,8 @@ import localeFr from '@angular/common/locales/fr';
 import localeZh from '@angular/common/locales/zh';
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { BehaviorSubject, combineLatest, forkJoin, Observable, of } from 'rxjs';
-import { distinctUntilChanged, filter, switchMap } from 'rxjs/operators';
 import { AnalyticsService } from '~core/analytics/analytics.service';
-import { AuthenticationService } from '~core/auth/services/authentication.service';
-import { RealmAuthenticationService } from '~core/auth/services/realm-authentication.service';
-import { CompanyService, Team, TeamService, UserService } from '~core/erm';
-import { log } from '~utils/log';
+import { CompanyService, TeamService, UserService } from '~core/erm';
 
 
 
