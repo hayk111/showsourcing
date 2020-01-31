@@ -84,6 +84,19 @@
 				(close)="closeMenu(true)"
 				cdkTrapFocus>
 			</supplier-type-selector-app>
+
+			<!-- tag -->
+			<tag-selector-app
+				*ngSwitchCase="erm.TAG"
+				[value]="value"
+				[filterList]="filterList"
+				[initialSeachTxt]="searchTxt"
+				[multiple]="multiple"
+				[canCreate]="canCreate"
+				(update)="onChange($event)"
+				(close)="closeMenu(true)"
+				cdkTrapFocus>
+			</tag-selector-app>
 		</ng-container>
 	</div>
 

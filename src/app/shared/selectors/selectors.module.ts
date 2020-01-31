@@ -44,6 +44,7 @@ import { EventSelectorComponent } from './components/selectors/event-selector/ev
 import { ProjectSelectorComponent } from './components/selectors/project-selector/project-selector.component';
 import { SupplierSelectorComponent } from './components/selectors/supplier-selector/supplier-selector.component';
 import { SupplierTypeSelectorComponent } from './components/selectors/supplier-type-selector/supplier-type-selector.component';
+import { TagSelectorComponent } from './components/selectors/tag-selector/tag-selector.component';
 
 
 @NgModule({
@@ -89,7 +90,8 @@ import { SupplierTypeSelectorComponent } from './components/selectors/supplier-t
 		EventSelectorComponent,
 		ProjectSelectorComponent,
 		SupplierSelectorComponent,
-		SupplierTypeSelectorComponent
+		SupplierTypeSelectorComponent,
+		TagSelectorComponent
 	],
 	exports: [
 		SelectorComponent,
