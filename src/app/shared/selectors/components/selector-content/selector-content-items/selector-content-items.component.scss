@@ -1,0 +1,14 @@
+$min-height-container: 80px;
+:host {
+	display: block;
+	min-height: $min-height-container;
+	max-height: 210px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+.spinner-container {
+	// min-height of container-items
+	height: $min-height-container;
+	width: 100%;
+}

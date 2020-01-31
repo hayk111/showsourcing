@@ -1,0 +1,10 @@
+<ng-container *ngIf="!pending; else spinner">
+	<ng-content></ng-content>
+</ng-container>
+
+<!-- spinner -->
+<ng-template #spinner>
+	<div class="spinner-container flexCenter">
+		<spinner-app></spinner-app>
+	</div>
+</ng-template>

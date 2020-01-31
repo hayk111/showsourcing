@@ -32,26 +32,15 @@ import {
 	SelectorPickerComponent,
 	SelectorPlaceholderComponent,
 } from './components';
+import {
+	SelectorContentItemsComponent,
+} from './components/selector-content/selector-content-items/selector-content-items.component';
+import {
+	SelectorContentStoredComponent,
+} from './components/selector-content/selector-content-stored/selector-content-stored.component';
+import { SelectorContentComponent } from './components/selector-content/selector-content.component';
+import { CategorySelectorComponent } from './components/selectors/category-selector/category-selector.component';
 
-
-const components = [
-	CdkOverlayComponent,
-	SelectorComponent,
-	SelectorOptionButtonComponent,
-	SelectorOptionContactComponent,
-	SelectorOptionCountryComponent,
-	SelectorOptionCurrencyComponent,
-	SelectorOptionEventComponent,
-	SelectorOptionLabelNameComponent,
-	SelectorOptionNameComponent,
-	SelectorOptionProductComponent,
-	SelectorOptionRequestTemplateComponent,
-	SelectorOptionSupplierComponent,
-	SelectorOptionUserComponent,
-	SelectorOptionValueComponent,
-	SelectorPickerComponent,
-	SelectorPlaceholderComponent,
-];
 
 @NgModule({
 	imports: [
@@ -72,7 +61,32 @@ const components = [
 		LoadersModule,
 		TranslateModule
 	],
-	declarations: components,
-	exports: components
+	declarations: [
+		CdkOverlayComponent,
+		SelectorComponent,
+		SelectorOptionButtonComponent,
+		SelectorOptionContactComponent,
+		SelectorOptionCountryComponent,
+		SelectorOptionCurrencyComponent,
+		SelectorOptionEventComponent,
+		SelectorOptionLabelNameComponent,
+		SelectorOptionNameComponent,
+		SelectorOptionProductComponent,
+		SelectorOptionRequestTemplateComponent,
+		SelectorOptionSupplierComponent,
+		SelectorOptionUserComponent,
+		SelectorOptionValueComponent,
+		SelectorPickerComponent,
+		SelectorPlaceholderComponent,
+		CategorySelectorComponent,
+		SelectorContentComponent,
+		SelectorContentStoredComponent,
+		SelectorContentItemsComponent
+	],
+	exports: [
+		SelectorComponent,
+		SelectorPlaceholderComponent,
+		CdkOverlayComponent
+	]
 })
 export class SelectorsModule { }
