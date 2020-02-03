@@ -7,6 +7,8 @@ import {
 	Input,
 	Output,
 	QueryList,
+	OnChanges,
+	SimpleChanges,
 } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -30,7 +32,7 @@ export type AutocompletePositionY = 'above' | 'below';
 		'aria-haspopup': 'true',
 	}
 })
-export class SearchAutocompleteComponent extends AutoUnsub implements AfterContentInit {
+export class SearchAutocompleteComponent extends AutoUnsub implements AfterContentInit, OnChanges {
 	/** Position of the autocomplete in the X axis.*/
 	@Input() xPosition = 16;
 	/** Position of the autocomplete in the Y axis. */
@@ -63,7 +65,7 @@ export class SearchAutocompleteComponent extends AutoUnsub implements AfterConte
 				if (values && values.length > 0) {
 					this.selectedItemIndex = -1;
 					this.refreshItems();
-					this.registerListenersForItems(values);
+					// this.registerListenersForItems(values);
 				} else {
 					this.selectedItemIndex = -1;
 				}
@@ -156,15 +158,15 @@ export class SearchAutocompleteComponent extends AutoUnsub implements AfterConte
 		});
 	}
 
-	registerListenersForItems(values) {
-		if (this.closeOnDisplay) {
-			values.forEach(value => {
-				value.itemDisplayed.pipe(
-					takeUntil(this._destroyItems$),
-				).subscribe(() => {
-					this.closeAutocomplete();
-				});
-			});
-		}
-	}
+	// registerListenersForItems(values) {
+	// 	if (this.closeOnDisplay) {
+	// 		values.forEach(value => {
+	// 			value.itemDisplayed.pipe(
+	// 				takeUntil(this._destroyItems$),
+	// 			).subscribe(() => {
+	// 				this.closeAutocomplete();
+	// 			});
+	// 		});
+	// 	}
+	// }
 }

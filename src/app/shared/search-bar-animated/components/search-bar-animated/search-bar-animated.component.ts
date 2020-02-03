@@ -24,7 +24,6 @@ export class SearchBarAnimatedComponent implements OnInit {
 	@Input() animated = true;
 	@Input() focused = false;
 	@Input() hasBorder = true;
-	@Input() disableClickOutside = false;
 	@Output() searchStateChanged = new EventEmitter<string>();
 	searchstate: 'expanded' | 'shrinked';
 
@@ -38,13 +37,6 @@ export class SearchBarAnimatedComponent implements OnInit {
 		}
 	}
 
-	toggleSearch() {
-		if (this.searchstate === 'expanded')
-			this.shrinkSearch();
-		else
-			this.expandSearch();
-	}
-
 	expandSearch() {
 		if (!this.animated)
 			return;
@@ -54,18 +46,4 @@ export class SearchBarAnimatedComponent implements OnInit {
 		}
 		this.searchStateChanged.emit(this.searchstate);
 	}
-
-	shrinkSearch() {
-		if (!this.animated)
-			return;
-		this.searchstate = 'shrinked';
-		this.searchStateChanged.emit(this.searchstate);
-	}
-
-	clickOutside() {
-		if (!this.disableClickOutside) {
-			this.shrinkSearch();
-		}
-	}
-
 }

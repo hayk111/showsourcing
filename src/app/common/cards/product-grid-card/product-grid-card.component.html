@@ -21,7 +21,7 @@
 	</div>
 
 	<!-- black backgorund on hover -->
-	<div [ngClass]="{'small-img': size === 's'}" class="black-container action-hover-item-0"></div>
+	<div *ngIf="size !== 's'" class="black-container action-hover-item-0"></div>
 
 	<!-- top icons floating on hover -->
 	<checkbox-app
@@ -34,7 +34,7 @@
 		(uncheck)="unselect.emit()">
 	</checkbox-app>
 
-	<div class="flex icons-container">
+	<div class="flex icons-container" *ngIf="size !== 's'">
 		<selector-app
 			class="selector"
 			type="project"
@@ -47,13 +47,13 @@
 			(update)="update.emit({ id: product?.id, projects: $event })">
 			<icon-app 
 				class="folder action-hover-item-0 pointer color-third" 
-				[size]="size ==='s' ? 's' : 'ms'" 
+				size="ms" 
 				name="folder-light">
 			</icon-app>
 		</selector-app>
 		<thumb-buttons-app
 			class="thumb-up action-hover-item-0"
-			[size]="size ==='s' ? 's' : 'ms'"
+			size="ms"
 			[lineStyle]="true"
 			[votes]="product?.votes"
 			(liked)="thumbUp()"
@@ -63,20 +63,22 @@
 			class="heart action-hover-item-0"
 			[hasButton]="false"
 			[lightStyle]="true"
-			[size]="size ==='s' ? 's' : 'ms'"
+			size="ms"
 			[favorite]="product?.favorite"
 			(favorited)="update.emit({ id: product?.id, favorite: true })"
 			(unfavorited)="update.emit({ id: product?.id, favorite: false })">
 		</rating-heart-app>
 	</div>
 
-	<!-- buttons floating on hover-->
-	<button [ngClass]="size === 'm' ? 'preview' : 'preview-s'" class="preview action-hover-item-0 capitalize icon-with-text" (click)="preview.emit()">
-		<icon-app class="eye-icon" name="eye"></icon-app> {{ 'button.preview-product' | translate }}
-	</button>
-	<button [ngClass]="size === 'm' ? 'open' : 'open-s'" class="secondary action-hover-item-0 capitalize icon-with-text" (click)="open.emit()">
-		<icon-app class="export-icon" name="exit"></icon-app> {{ 'button.open-product' | translate }}
-	</button>
+	<ng-container *ngIf="size !== 's'">
+		<!-- buttons floating on hover-->
+		<button [ngClass]="size === 'm' ? 'preview' : 'preview-s'" class="preview action-hover-item-0 capitalize icon-with-text" (click)="preview.emit()">
+			<icon-app class="eye-icon" name="eye"></icon-app> {{ 'button.preview-product' | translate }}
+		</button>
+		<button [ngClass]="size === 'm' ? 'open' : 'open-s'" class="secondary action-hover-item-0 capitalize icon-with-text" (click)="open.emit()">
+			<icon-app class="export-icon" name="exit"></icon-app> {{ 'button.open-product' | translate }}
+		</button>
+	</ng-container>
 
 	<!-- info content -->
 	<div class="info-container flex">

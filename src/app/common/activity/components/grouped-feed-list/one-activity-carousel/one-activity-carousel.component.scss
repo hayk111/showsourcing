@@ -8,7 +8,7 @@
 	display: flex;
 	align-items: center;
 	box-sizing: border-box;
-	height: 240px;
+	height: 246px;
 	border-radius: var(--border-radius-l);
 
 	.empty {
@@ -91,6 +91,7 @@
 		white-space: nowrap;
 	
 		.card {
+			padding-top: var(--spacing-ms);
 			display: inline-block;
 			height: 100%;
 		}

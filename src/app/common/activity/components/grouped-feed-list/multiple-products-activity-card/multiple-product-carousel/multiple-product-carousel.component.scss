@@ -3,7 +3,7 @@
 }
 
 .left-mg {
-	margin-left: 56px;
+	margin-left: 44px !important;
 }
 
 .previewCtnr {
@@ -12,7 +12,8 @@
 	display: flex;
 	align-items: center;
 	box-sizing: border-box;
-	height: 240px;
+	margin-left: -12px;
+	height: 246px;
 	border-radius: var(--border-radius-l);
 
 	.empty {
@@ -41,6 +42,18 @@
 	img-app {
 		cursor: pointer;
 		border-radius: var(--border-radius-l);
+	}
+
+	.arrows-container {
+		.next {
+			right: 24px;
+			top: 54px;
+		}
+		
+		.back {
+			left: 24px;
+			top: 54px;
+		}
 	}
 
 	.action {
@@ -75,14 +88,6 @@
 		}
 	}
 
-	.next {
-		right: var(--spacing-ms);
-	}
-	
-	.back {
-		left: var(--spacing-ms);
-	}
-
 	icon-app {
 		font-size: 36px;
 		color: white;
@@ -97,6 +102,7 @@
 		white-space: nowrap;
 	
 		.card {
+			padding-top: var(--spacing-ms);
 			display: inline-block;
 			height: 100%;
 		}
