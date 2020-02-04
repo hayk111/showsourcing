@@ -10,6 +10,7 @@ import { routes } from '~features/dashboard/routes';
 import { DialogModule } from '~shared/dialog';
 import { SharedModule } from '~shared/shared.module';
 import { HeaderModule } from '~core/header/header.module';
+import { ImageModule } from '~shared/image/image.module';
 
 import * as Components from './pages/dashboard/components';
 import * as Pages from './pages/dashboard/dashboard-page.component';
@@ -24,7 +25,8 @@ import * as Pages from './pages/dashboard/dashboard-page.component';
 		TablesCommonModule,
 		PreviewsCommonModule,
 		CatalogCommonModule,
-		HeaderModule
+		HeaderModule,
+		ImageModule,
 	],
 	declarations: [
 		Pages.DashboardPageComponent,
@@ -33,6 +35,7 @@ import * as Pages from './pages/dashboard/dashboard-page.component';
 		Components.SummaryComponent,
 		Components.TeamCardComponent,
 		Components.DashboardHeaderComponent,
+		Components.DashboardDownloadComponent,
 		Components.ProductListComponent,
 		Components.LineChartComponent,
 		Components.LatestProductsComponent,

@@ -17,8 +17,8 @@
 		font-size: var(--font-size-m);
 		color: var(--bg-dark);
 		text-align: center;
-		margin-top: var(--spacing-ms);
-		text-transform: none
+		margin: var(--spacing-ms) 0 var(--spacing-xs) 0;
+		text-transform: none;
 	}
 
 	h4 {

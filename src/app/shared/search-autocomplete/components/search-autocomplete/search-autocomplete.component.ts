@@ -63,7 +63,6 @@ export class SearchAutocompleteComponent extends AutoUnsub implements AfterConte
 				if (values && values.length > 0) {
 					this.selectedItemIndex = -1;
 					this.refreshItems();
-					// this.registerListenersForItems(values);
 				} else {
 					this.selectedItemIndex = -1;
 				}
