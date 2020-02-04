@@ -10,7 +10,7 @@
 				[groupFeed]="feed"
 				[title]="'title.new-comment' | translate"
 				(createComment)="createComment($event)"
-				(previewClick)="openProductPreview($event)"
+				(previewClick)="openPreview.emit($event)"
 				(update)="updateProduct($event)"
 				(liked)="onThumbUp($event)"
 				(disliked)="onThumbDown($event)">
@@ -22,7 +22,7 @@
 				[groupFeed]="feed"
 				[title]="'title.created-new-product' | translate"
 				(createComment)="createComment($event)"
-				(previewClick)="openProductPreview($event)"
+				(previewClick)="openPreview.emit($event)"
 				(update)="updateProduct($event)"
 				(liked)="onThumbUp($event)"
 				(disliked)="onThumbDown($event)">
@@ -33,7 +33,7 @@
 				[groupFeed]="feed"
 				(update)="updateProduct($event)"
 				(liked)="onThumbUp($event)"
-				(previewClick)="openProductPreview($event)"
+				(previewClick)="openPreview.emit($event)"
 				(disliked)="onThumbDown($event)">
 			</multiple-products-activity-card-app>
 
@@ -50,12 +50,6 @@
   </ng-container>
 
 </ng-container>
-
-<product-preview-app
-	*ngIf="previewOpen"
-	[product]="productPreview"
-	(close)="closeProductPreview()">
-</product-preview-app>
 
 <ng-template #spinner>
   <spinner-app></spinner-app>

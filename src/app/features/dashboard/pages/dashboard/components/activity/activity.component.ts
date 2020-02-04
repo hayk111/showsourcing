@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
 import { GroupedActivityFeed } from '~common/activity/interfaces/client-feed.interfaces';
 
@@ -9,6 +9,7 @@ import { GroupedActivityFeed } from '~common/activity/interfaces/client-feed.int
 })
 export class ActivityComponent implements OnInit {
 	@Input() feedResult: GroupedActivityFeed;
+	@Output() openPreview = new EventEmitter<any>();
 
 	constructor() { }
 

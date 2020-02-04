@@ -9,6 +9,7 @@
 				size="s"
 				[hasCheckbox]="false"
 				[product]="products[selectedIndex]"
+				(click)="openProduct(item.id)"
 				(favorited)="updateProduct(products[selectedIndex], {favorite: true})"
 				(unfavorited)="updateProduct(products[selectedIndex], {favorite: false})"
 				(open)="open.emit(products[selectedIndex])"

@@ -1,9 +1,9 @@
-<card-app [hasShadow]="false" padding="none">
+<card-app [hasShadow]="false" padding="none" (mouseenter)="showPreview = true" (mouseleave)="showPreview = false">
 	<ng-container *ngIf="product$ | async; else spinner">
 
 		<!-- user -->
 		<activity-user-app
-			[hasPreview]="true"
+			[hasPreview]="showPreview"
 			[product]="product"
 			[user]="product?.createdBy"
 			[time]="product?.creationDate"

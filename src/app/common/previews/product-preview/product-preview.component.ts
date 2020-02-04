@@ -63,6 +63,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 	}
 
 	@Input() isPreview = true;
+	@Input() dashboardPreview = false;
 
 	@Output() close = new EventEmitter<any>();
 	@Output() updated = new EventEmitter<Product>();

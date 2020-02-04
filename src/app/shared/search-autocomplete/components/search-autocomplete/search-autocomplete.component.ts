@@ -7,8 +7,6 @@ import {
 	Input,
 	Output,
 	QueryList,
-	OnChanges,
-	SimpleChanges,
 } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -32,7 +30,7 @@ export type AutocompletePositionY = 'above' | 'below';
 		'aria-haspopup': 'true',
 	}
 })
-export class SearchAutocompleteComponent extends AutoUnsub implements AfterContentInit, OnChanges {
+export class SearchAutocompleteComponent extends AutoUnsub implements AfterContentInit {
 	/** Position of the autocomplete in the X axis.*/
 	@Input() xPosition = 16;
 	/** Position of the autocomplete in the Y axis. */

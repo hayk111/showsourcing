@@ -16,6 +16,10 @@
 	height: 246px;
 	border-radius: var(--border-radius-l);
 
+	product-grid-card-app {
+		cursor: pointer;
+	}
+
 	.empty {
 		width: 100%;
 		font-style: italic;

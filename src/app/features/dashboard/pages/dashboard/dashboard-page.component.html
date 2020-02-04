@@ -6,9 +6,17 @@
 		<notif-box-app></notif-box-app>
 		<product-list-app [products]="yourProducts$"></product-list-app>
 		<latest-products-app [latestProducts]="latestProducts$"></latest-products-app>
-		<dashboard-activity-app [feedResult]="feedResult"></dashboard-activity-app>
+		<dashboard-activity-app [feedResult]="feedResult" (openPreview)="openPreview($event)"></dashboard-activity-app>
 	</div>
 	<div class="right">
 		<team-performance-app></team-performance-app>
+	</div>
+	<div class="preview">
+		<product-preview-app
+			*ngIf="previewOpen"
+			[product]="entityPreview"
+			[dashboardPreview]="true"
+			(close)="closePreview()">
+		</product-preview-app>
 	</div>
 </div>

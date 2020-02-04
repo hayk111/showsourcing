@@ -33,6 +33,7 @@ export class OneProductActivityCardComponent extends AutoUnsub implements OnInit
 	product: Product;
 	commentCtrl = new FormControl('');
 	typeEntity = ERM.PRODUCT;
+	showPreview = false;
 
 	constructor(
 		private router: Router,

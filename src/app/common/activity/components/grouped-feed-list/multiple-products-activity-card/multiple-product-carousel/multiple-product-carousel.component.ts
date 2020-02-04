@@ -1,9 +1,10 @@
 import {
 		ChangeDetectionStrategy,
 		Component, EventEmitter, Input, OnInit, Output, ViewChild, ElementRef, AfterContentChecked, AfterViewInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { timer } from 'rxjs';
 import { map, take} from 'rxjs/operators';
-import { Product } from '~models';
+import { Product, ERM } from '~models';
 
 @Component({
 	selector: 'multiple-product-carousel-app',
@@ -26,7 +27,7 @@ export class MultipleProductCarouselComponent implements OnInit {
 
 	showArrows = false;
 
-	constructor() { }
+	constructor(private router: Router) { }
 
 	ngOnInit() {
 	}
@@ -45,14 +46,18 @@ export class MultipleProductCarouselComponent implements OnInit {
 		this.animateScroll();
 	}
 
-	animateScroll(forth = true, timeInt = 0.01, stopValue = 163) {
+	openProduct(id: string) {
+		this.router.navigate(['products', id]);
+	}
+
+	animateScroll(forth = true, timeInt = 5, stopValue = 40) {
 		timer(timeInt, timeInt).pipe(
 			map(i => {
 				return stopValue - i;
 			}),
 			take(stopValue)
 		).subscribe(_ => {
-			this.cardSection.nativeElement.scrollLeft += forth ? 1 : -1;
+			this.cardSection.nativeElement.scrollLeft += forth ? 5 : -5;
 		});
 	}
 }

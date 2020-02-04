@@ -5,7 +5,7 @@ import { takeUntil } from 'rxjs/operators';
 import { DashboardCounters, DashboardService } from '~features/dashboard/services/dashboard.service';
 import { UserService, ProductService } from '~entity-services';
 import { StatusSelectorService } from '~shared/status-selector/service/status-selector.service';
-import { Task, User, Product } from '~models';
+import { Task, User, Product, Supplier } from '~models';
 import { GroupedActivityFeed } from '~common/activity/interfaces/client-feed.interfaces';
 import { ActivityService } from '~common/activity/services/activity.service';
 import { AutoUnsub } from '~utils';
@@ -30,6 +30,9 @@ export class DashboardPageComponent extends AutoUnsub implements OnInit {
 	tasks$: Observable<Task[]>;
 	latestProducts$: Observable<Product[]>;
 	yourProducts$: Observable<Product[]>;
+	previewOpen = false;
+
+	entityPreview: Product | Supplier;
 
 	constructor(
 		private router: Router,
@@ -69,6 +72,15 @@ export class DashboardPageComponent extends AutoUnsub implements OnInit {
 			.subscribe(_ => {
 			this.yourProducts$ = this.dashboardSrv.getFirstFewProducts();
 		});
+	}
+
+	openPreview(entity: Product | Supplier) {
+		this.previewOpen = true;
+		this.entityPreview = entity;
+	}
+
+	closePreview() {
+		this.previewOpen = false;
 	}
 
 	redirInviteTeam() {

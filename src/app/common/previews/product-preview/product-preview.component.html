@@ -1,5 +1,5 @@
 <!-- Panel preview -->
-<preview-panel-app *ngIf="isPreview && (product$ | async)" cdk-scrollable>
+<preview-panel-app *ngIf="isPreview && (product$ | async)" [class.fixed]="dashboardPreview" cdk-scrollable >
 	<!-- Banner -->
 	<preview-banner-app>
 		<!-- top bar -->

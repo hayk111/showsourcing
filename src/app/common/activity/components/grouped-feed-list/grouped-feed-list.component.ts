@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { GroupedActivityFeed } from '~common/activity/interfaces/client-feed.interfaces';
 import { GetStreamGroup } from '~common/activity/interfaces/get-stream-feed.interfaces';
 import { TemplateService } from '~core/template/services/template.service';
@@ -24,6 +24,7 @@ export class GroupedFeedListComponent extends AutoUnsub implements OnInit {
 	productPreview: Product;
 
 	@Input() feedResult: GroupedActivityFeed;
+	@Output() openPreview = new EventEmitter<any>();
 
 	constructor(
 		private ermSrv: ERMService,
