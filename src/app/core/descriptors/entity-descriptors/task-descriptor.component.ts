@@ -1,4 +1,4 @@
-import { ERM } from '~core/models';
+import { ERM } from '~core/erm';
 import { DynamicField } from '~shared/dynamic-forms';
 
 import { AbstractDescriptorComponent } from '../abstract-descriptor.component';

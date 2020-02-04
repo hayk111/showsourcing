@@ -1,11 +1,11 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { ExportRequestService } from '~core/entity-services/export-request/export-request.service';
-import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
+import { ExportRequestService } from '~core/erm';
+import { SelectParamsConfig } from '~core/erm';
 import { ListPageService } from '~core/list-page';
-import { ERM, ExportRequest } from '~core/models';
-import { UserService } from '~entity-services';
+import { ERM, ExportRequest } from '~core/erm';
+import { UserService } from '~core/erm';
 import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
 

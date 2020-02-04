@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
-import { Attachment } from '~models';
+import { Attachment } from '~core/erm';
 import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback.service';
 import { AutoUnsub, DEFAULT_FILE_ICON } from '~utils';
 import { PendingFile } from '~utils/pending-file.class';

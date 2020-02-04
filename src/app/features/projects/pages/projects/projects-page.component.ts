@@ -1,9 +1,9 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { ProjectService } from '~core/entity-services';
-import { SelectParams, SelectParamsConfig } from '~core/entity-services/_global/select-params';
+import { ProjectService } from '~core/erm';
+import { SelectParams, SelectParamsConfig } from '~core/erm';
 import { ListPageService } from '~core/list-page';
-import { EntityTypeEnum, ERM, Project } from '~models';
+import { ERM, Project } from '~core/erm';
 import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
 import { ProjectsTableComponent } from '~common/tables/projects-table/projects-table.component';
@@ -28,7 +28,6 @@ import { ProjectsTableComponent } from '~common/tables/projects-table/projects-t
 export class ProjectsPageComponent extends AutoUnsub implements OnInit, AfterViewInit {
 	filterTypes = [FilterType.CREATED_BY];
 	erm = ERM.PROJECT;
-	entityTypeEnum = EntityTypeEnum;
 
 	selectItemsConfig: SelectParamsConfig;
 	columns = ProjectsTableComponent.DEFAULT_COLUMNS;

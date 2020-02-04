@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { TrackingComponent } from '~utils/tracking-component';
-import { Supplier } from '~core/models';
+import { Supplier } from '~core/erm';
 
 @Component({
 	selector: 'supplier-list-item-app',

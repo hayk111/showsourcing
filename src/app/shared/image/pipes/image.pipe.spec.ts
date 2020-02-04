@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DomSanitizer } from '@angular/platform-browser';
-import { AppImage, Supplier } from '~core/models';
+import { AppImage, Supplier } from '~core/erm';
 import {
 	DEFAULT_CATEGORY_ICON,
 	DEFAULT_EVENT_ICON,

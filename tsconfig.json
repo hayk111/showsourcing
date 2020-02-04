@@ -43,23 +43,11 @@
       "~features/": [
         "app/features/index"
       ],
-      "~models/*": [
-        "app/core/models/*"
-      ],
-      "~models": [
-        "app/core/models/index"
-      ],
       "~shared/*": [
         "app/shared/*"
       ],
       "~shared": [
         "app/shared/index"
-      ],
-      "~entity-services/*": [
-        "app/core/entity-services/*"
-      ],
-      "~entity-services": [
-        "app/core/entity-services/index"
       ],
       "~utils/*": [
         "app/utils/*"

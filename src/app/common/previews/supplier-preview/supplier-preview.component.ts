@@ -17,12 +17,12 @@ import { SampleCatalogComponent } from '~common/catalogs/sample-catalog/sample-c
 import { TaskCatalogComponent } from '~common/catalogs/task-catalog/task-catalog.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { SupplierDescriptor } from '~core/descriptors';
-import { SupplierService } from '~core/entity-services';
-import { CommentService } from '~core/entity-services/comment/comment.service';
+import { SupplierService } from '~core/erm';
+import { CommentService } from '~core/erm';
 import {
 	ExtendedFieldDefinitionService,
-} from '~core/entity-services/extended-field-definition/extended-field-definition.service';
-import { AppImage, Comment, ERM, ExtendedFieldDefinition, Supplier } from '~core/models';
+} from '~core/erm';
+import { AppImage, Comment, ERM, ExtendedFieldDefinition, Supplier } from '~core/erm';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';

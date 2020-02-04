@@ -4,9 +4,9 @@ import {
 	OnInit
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { ProductStatus, SupplierStatus } from '~core/models';
-import { Price, ProductVote, SupplierVote } from '~models';
-import { ERM } from '~core/models';
+import { ProductStatus, SupplierStatus } from '~core/erm';
+import { Price, ProductVote, SupplierVote } from '~core/erm';
+import { ERM } from '~core/erm';
 
 type Vote = ProductVote | SupplierVote;
 

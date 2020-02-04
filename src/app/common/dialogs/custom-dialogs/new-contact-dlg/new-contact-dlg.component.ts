@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, ReplaySubject } from 'rxjs';
 import { mapTo, switchMap, takeUntil, tap } from 'rxjs/operators';
-import { ContactService } from '~entity-services';
-import { Contact, Supplier } from '~models';
+import { ContactService } from '~core/erm';
+import { Contact, Supplier } from '~core/erm';
 import { AutoUnsub, RegexpApp } from '~utils';
 import { DialogService, CloseEventType } from '~shared/dialog';
 
