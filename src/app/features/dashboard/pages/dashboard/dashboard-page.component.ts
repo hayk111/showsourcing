@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, pipe } from 'rxjs';
+import { Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { DashboardCounters, DashboardService } from '~features/dashboard/services/dashboard.service';
-import { UserService, ProductService } from '~core/erm';
-import { StatusSelectorService } from '~shared/status-selector/service/status-selector.service';
-import { Task, User, Product } from '~core/erm';
 import { GroupedActivityFeed } from '~common/activity/interfaces/client-feed.interfaces';
 import { ActivityService } from '~common/activity/services/activity.service';
+import { Product, ProductService, Task, User, UserService, Supplier } from '~core/erm';
+import { DashboardCounters, DashboardService } from '~features/dashboard/services/dashboard.service';
+import { StatusSelectorService } from '~shared/status-selector/service/status-selector.service';
 import { AutoUnsub } from '~utils';
 
 // Boy complains to his father: You told me to put a potato in my swimming trunks! You said it would

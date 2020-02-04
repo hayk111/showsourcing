@@ -1,11 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Observable, fromEvent, Subject, of } from 'rxjs';
-import { map, tap, debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+import { debounceTime, switchMap } from 'rxjs/operators';
 import { SearchService } from '~core/header/services/search.service';
-import {
-	SearchAutocompleteComponent,
-} from '~shared/search-autocomplete/components/search-autocomplete/search-autocomplete.component';
+import { SearchAutocompleteComponent } from '~shared/search-autocomplete/components/search-autocomplete/search-autocomplete.component';
 import { AutoUnsub } from '~utils';
 
 @Component({

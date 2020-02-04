@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { zip } from 'rxjs';
+import { zip, of } from 'rxjs';
 import { first, map } from 'rxjs/operators';
 import { ProductService } from '~core/erm';
 import { SupplierService } from '~core/erm';

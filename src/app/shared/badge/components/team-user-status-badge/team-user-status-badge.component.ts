@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { TeamUser } from '~core/models';
-import { TeamUserStatus } from '~utils';
+import { TeamUser } from '~core/erm/models';
+import { TeamUserStatus } from '~utils/status.utils';
 
 @Component({
 	selector: 'team-user-status-badge-app',
