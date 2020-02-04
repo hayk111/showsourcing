@@ -55,14 +55,15 @@ export class OneActivityCarouselComponent implements OnInit {
 		this.animateScroll();
 	}
 
-	animateScroll(forth = true, timeInt = 0.01, stopValue = 163) {
+	// adds horizontal scroll animation to the component's grid section
+	animateScroll(forth = true, timeInt = 5, stopValue = 40) {
 		timer(timeInt, timeInt).pipe(
 			map(i => {
 				return stopValue - i;
 			}),
 			take(stopValue)
 		).subscribe(_ => {
-			this.cardSection.nativeElement.scrollLeft += forth ? 1 : -1;
+			this.cardSection.nativeElement.scrollLeft += forth ? 5 : -5;
 		});
 	}
 

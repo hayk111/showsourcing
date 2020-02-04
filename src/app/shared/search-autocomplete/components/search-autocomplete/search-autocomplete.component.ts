@@ -63,7 +63,6 @@ export class SearchAutocompleteComponent extends AutoUnsub implements AfterConte
 				if (values && values.length > 0) {
 					this.selectedItemIndex = -1;
 					this.refreshItems();
-					this.registerListenersForItems(values);
 				} else {
 					this.selectedItemIndex = -1;
 				}
@@ -156,15 +155,15 @@ export class SearchAutocompleteComponent extends AutoUnsub implements AfterConte
 		});
 	}
 
-	registerListenersForItems(values) {
-		if (this.closeOnDisplay) {
-			values.forEach(value => {
-				value.itemDisplayed.pipe(
-					takeUntil(this._destroyItems$),
-				).subscribe(() => {
-					this.closeAutocomplete();
-				});
-			});
-		}
-	}
+	// registerListenersForItems(values) {
+	// 	if (this.closeOnDisplay) {
+	// 		values.forEach(value => {
+	// 			value.itemDisplayed.pipe(
+	// 				takeUntil(this._destroyItems$),
+	// 			).subscribe(() => {
+	// 				this.closeAutocomplete();
+	// 			});
+	// 		});
+	// 	}
+	// }
 }

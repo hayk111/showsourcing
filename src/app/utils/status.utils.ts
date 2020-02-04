@@ -10,6 +10,11 @@ export enum StatusCategory {
 	REFUSED = 'refused',
 }
 
+export enum TeamUserStatus {
+	CONTRIBUTOR  = 'Contributor',
+	TEAM_MEMBER = 'Team Member',
+}
+
 export enum TaskStatus {
 	DONE = '_Done',
 	PENDING = '_Pending',

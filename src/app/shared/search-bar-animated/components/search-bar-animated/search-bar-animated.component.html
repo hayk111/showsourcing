@@ -1,12 +1,11 @@
-<div class="flexCenter field " (clickOutside)="clickOutside()">
+<div class="flexCenter field ">
 
 	<div class="icon-content flexVAlign">
 		<icon-app 
 			class="pointer" 
 			[ngStyle]="{'color': focused ? 'var(--color-txt-primary)' : 'var(--color-bg)'}" 
 			name="search" 
-			size="m" 
-			(click)="toggleSearch()"></icon-app>
+			size="m"></icon-app>
 	</div>
 
 	<div class="input-wrapper flex" [@searchAnimation]="searchstate">

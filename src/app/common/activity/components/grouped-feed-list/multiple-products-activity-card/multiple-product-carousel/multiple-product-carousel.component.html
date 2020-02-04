@@ -9,6 +9,7 @@
 				size="s"
 				[hasCheckbox]="false"
 				[product]="products[selectedIndex]"
+				(click)="openProduct(item.id)"
 				(favorited)="updateProduct(products[selectedIndex], {favorite: true})"
 				(unfavorited)="updateProduct(products[selectedIndex], {favorite: false})"
 				(open)="open.emit(products[selectedIndex])"
@@ -20,7 +21,7 @@
 		</div>
 	</div>
 
-	<div *ngIf="showArrows && products.length > 3" class="flex flexVAlign">
+	<div *ngIf="showArrows && products.length > 3" class="arrows-container">
 		<div class="move-btn back flexCenter pointer"
 			(mousedown)="back($event)">
 			<icon-app name="angle-left" size="m"></icon-app>

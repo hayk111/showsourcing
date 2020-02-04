@@ -1,11 +1,11 @@
-<card-app>
+<card-app marginTitle="ms">
 
 	<card-title-app>
 		<h2>Lastest Products</h2>
 	</card-title-app>
 
 	<card-action-app>
-			<button class="primary-light" (click)="navigateToProducts()">View All</button>
+		<button class="primary-light pd-none" (click)="navigateToProducts()">View All</button>
 	</card-action-app>
 
 	<ng-container *ngIf="latestProducts | async as products; else spinner">
@@ -26,9 +26,3 @@
 		<spinner-app></spinner-app>
 	</ng-template>
 </card-app>
-
-<product-preview-app
-	*ngIf="previewOpen"
-	[product]="productPreview"
-	(close)="closeProductPreview()">
-</product-preview-app>

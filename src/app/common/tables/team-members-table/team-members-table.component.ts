@@ -18,6 +18,7 @@ export class TeamMembersTableComponent extends EntityTableComponent<TeamUser> im
 	@Input() user: User;
 	@Output() accessTypeUpdated = new EventEmitter<string>();
 	@Output() showItemsPerPage = new EventEmitter<number>();
+	contextualMenuOpen = false;
 	isSelectableFn: Function;
 	$teamOwner: Observable<User>;
 

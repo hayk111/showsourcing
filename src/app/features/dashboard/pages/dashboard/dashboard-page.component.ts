@@ -30,6 +30,9 @@ export class DashboardPageComponent extends AutoUnsub implements OnInit {
 	tasks$: Observable<Task[]>;
 	latestProducts$: Observable<Product[]>;
 	yourProducts$: Observable<Product[]>;
+	previewOpen = false;
+
+	entityPreview: Product | Supplier;
 
 	constructor(
 		private router: Router,
@@ -69,6 +72,15 @@ export class DashboardPageComponent extends AutoUnsub implements OnInit {
 			.subscribe(_ => {
 			this.yourProducts$ = this.dashboardSrv.getFirstFewProducts();
 		});
+	}
+
+	openPreview(entity: Product | Supplier) {
+		this.previewOpen = true;
+		this.entityPreview = entity;
+	}
+
+	closePreview() {
+		this.previewOpen = false;
 	}
 
 	redirInviteTeam() {

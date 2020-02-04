@@ -2,7 +2,7 @@
 	<card-title-app translate="title.lastest-noti"></card-title-app>
 	
 	<card-action-app>
-		<button class="primary-light" (click)="openPanel()">View All</button>
+		<button class="primary-light pd-none" (click)="openPanel()">View All</button>
 	</card-action-app>
 
 	<ng-container *ngIf="notifications$ | async as notifications; else emptyNotif">

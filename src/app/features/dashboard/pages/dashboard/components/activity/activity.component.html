@@ -4,7 +4,7 @@
 	</card-title-app>
 
 	<ng-container *ngIf="feedResult?.feed$ | async as feed; else emptyActivities">
-		<grouped-feed-list-app *ngIf="feed?.length > 0; else emptyActivities" [feedResult]="feedResult"></grouped-feed-list-app>
+		<grouped-feed-list-app *ngIf="feed?.length > 0; else emptyActivities" [feedResult]="feedResult" (openPreview)="openPreview.emit($event)"></grouped-feed-list-app>
 	</ng-container>
 	<ng-template #emptyActivities>
 		<activity-empty-app></activity-empty-app>

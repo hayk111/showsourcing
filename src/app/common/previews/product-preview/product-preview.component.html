@@ -1,5 +1,5 @@
 <!-- Panel preview -->
-<preview-panel-app *ngIf="isPreview && (product$ | async)" cdk-scrollable>
+<preview-panel-app *ngIf="isPreview && (product$ | async)" [class.fixed]="dashboardPreview" cdk-scrollable >
 	<!-- Banner -->
 	<preview-banner-app>
 		<!-- top bar -->
@@ -60,9 +60,13 @@
 		</preview-header-buttons-app>
 
 		<!-- items 3 dots -->
-		<context-menu-item-app
+		<context-menu-item-app 
 			(click)="update(true, 'favorite')"
 			translate="button.set-as-favorite">
+			<div class="icon-box square flexCenter mg-right-s">
+				<icon-app name="heart" size="s"></icon-app>
+			</div>
+			<span translate="button.set-as-favorite"></span>
 		</context-menu-item-app>
 
 		<divider-app></divider-app>
@@ -70,10 +74,18 @@
 		<context-menu-item-app
 			(click)="archive()"
 			translate="button.archive">
+			<div class="icon-box square flexCenter mg-right-s">
+				<icon-app name="archive" size="s"></icon-app>
+			</div>
+			<span translate="button.archive"></span>
 		</context-menu-item-app>
 		<context-menu-item-warn-app
 			(click)="delete(product)"
 			translate="button.delete">
+			<div class="icon-box square flexCenter mg-right-s">
+				<icon-app name="delete" size="s"></icon-app>
+			</div>
+			<span translate="button.delete"></span>
 		</context-menu-item-warn-app>
 
 		<preview-header-subtitle-app>
