@@ -50,21 +50,6 @@ mutation CreateTeam($input: CreateTeamInput) {
     lastUpdatedOn
   }
 }
-mutation UpdateUser(
-  $input: UpdateUserInput!
-  $condition: ModelUserConditionInput
-) {
-  updateUser(input: $input, condition: $condition) {
-    id
-    email
-    firstName
-    lastName
-    phoneNumber
-    preferredLanguage
-    avatar
-    creationDate
-  }
-}
 mutation CreateProduct(
   $input: CreateProductInput!
   $condition: ModelProductConditionInput
@@ -90,11 +75,31 @@ mutation CreateProduct(
       fullName
       tradingName
     }
-    price {
+    images {
       id
+      teamId
+      fileName
+      orientation
+      imageType
+      creationDate
+      deletionDate
+      lastUpdatedDate
+      deleted
+    }
+    price {
       currency
       value
       baseCurrencyValue
+    }
+    category {
+      id
+      teamId
+      name
+      creationDate
+      deletionDate
+      lastupdatedByUserId
+      lastUpdatedDate
+      deleted
     }
     description
     favorite
@@ -121,7 +126,6 @@ mutation CreateProduct(
     leadTimeUnit
     sample
     samplePrice {
-      id
       currency
       value
       baseCurrencyValue
@@ -190,11 +194,31 @@ mutation UpdateProduct(
       fullName
       tradingName
     }
-    price {
+    images {
       id
+      teamId
+      fileName
+      orientation
+      imageType
+      creationDate
+      deletionDate
+      lastUpdatedDate
+      deleted
+    }
+    price {
       currency
       value
       baseCurrencyValue
+    }
+    category {
+      id
+      teamId
+      name
+      creationDate
+      deletionDate
+      lastupdatedByUserId
+      lastUpdatedDate
+      deleted
     }
     description
     favorite
@@ -221,7 +245,6 @@ mutation UpdateProduct(
     leadTimeUnit
     sample
     samplePrice {
-      id
       currency
       value
       baseCurrencyValue
@@ -290,11 +313,31 @@ mutation DeleteProduct(
       fullName
       tradingName
     }
-    price {
+    images {
       id
+      teamId
+      fileName
+      orientation
+      imageType
+      creationDate
+      deletionDate
+      lastUpdatedDate
+      deleted
+    }
+    price {
       currency
       value
       baseCurrencyValue
+    }
+    category {
+      id
+      teamId
+      name
+      creationDate
+      deletionDate
+      lastupdatedByUserId
+      lastUpdatedDate
+      deleted
     }
     description
     favorite
@@ -321,7 +364,6 @@ mutation DeleteProduct(
     leadTimeUnit
     sample
     samplePrice {
-      id
       currency
       value
       baseCurrencyValue
@@ -429,6 +471,876 @@ mutation DeleteSupplier(
     name
     fullName
     tradingName
+  }
+}
+mutation CreateDescriptor(
+  $input: CreateDescriptorInput!
+  $condition: ModelDescriptorConditionInput
+) {
+  createDescriptor(input: $input, condition: $condition) {
+    id
+    teamId
+    sections {
+      name
+    }
+    target
+  }
+}
+mutation UpdateDescriptor(
+  $input: UpdateDescriptorInput!
+  $condition: ModelDescriptorConditionInput
+) {
+  updateDescriptor(input: $input, condition: $condition) {
+    id
+    teamId
+    sections {
+      name
+    }
+    target
+  }
+}
+mutation DeleteDescriptor(
+  $input: DeleteDescriptorInput!
+  $condition: ModelDescriptorConditionInput
+) {
+  deleteDescriptor(input: $input, condition: $condition) {
+    id
+    teamId
+    sections {
+      name
+    }
+    target
+  }
+}
+mutation CreateCategory(
+  $input: CreateCategoryInput!
+  $condition: ModelCategoryConditionInput
+) {
+  createCategory(input: $input, condition: $condition) {
+    id
+    teamId
+    name
+    creationDate
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletionDate
+    lastupdatedByUserId
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    lastUpdatedDate
+    deleted
+  }
+}
+mutation UpdateCategory(
+  $input: UpdateCategoryInput!
+  $condition: ModelCategoryConditionInput
+) {
+  updateCategory(input: $input, condition: $condition) {
+    id
+    teamId
+    name
+    creationDate
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletionDate
+    lastupdatedByUserId
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    lastUpdatedDate
+    deleted
+  }
+}
+mutation DeleteCategory(
+  $input: DeleteCategoryInput!
+  $condition: ModelCategoryConditionInput
+) {
+  deleteCategory(input: $input, condition: $condition) {
+    id
+    teamId
+    name
+    creationDate
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletionDate
+    lastupdatedByUserId
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    lastUpdatedDate
+    deleted
+  }
+}
+mutation CreateContact(
+  $input: CreateContactInput!
+  $condition: ModelContactConditionInput
+) {
+  createContact(input: $input, condition: $condition) {
+    id
+    teamId
+    companyId
+    name
+    phoneNumber
+    email
+    jobTitle
+    supplier {
+      id
+      teamId
+      name
+      fullName
+      tradingName
+    }
+    creationDate
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletionDate
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    lastUpdatedDate
+    deleted
+  }
+}
+mutation UpdateContact(
+  $input: UpdateContactInput!
+  $condition: ModelContactConditionInput
+) {
+  updateContact(input: $input, condition: $condition) {
+    id
+    teamId
+    companyId
+    name
+    phoneNumber
+    email
+    jobTitle
+    supplier {
+      id
+      teamId
+      name
+      fullName
+      tradingName
+    }
+    creationDate
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletionDate
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    lastUpdatedDate
+    deleted
+  }
+}
+mutation DeleteContact(
+  $input: DeleteContactInput!
+  $condition: ModelContactConditionInput
+) {
+  deleteContact(input: $input, condition: $condition) {
+    id
+    teamId
+    companyId
+    name
+    phoneNumber
+    email
+    jobTitle
+    supplier {
+      id
+      teamId
+      name
+      fullName
+      tradingName
+    }
+    creationDate
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletionDate
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    lastUpdatedDate
+    deleted
+  }
+}
+mutation CreateImage(
+  $input: CreateImageInput!
+  $condition: ModelImageConditionInput
+) {
+  createImage(input: $input, condition: $condition) {
+    id
+    teamId
+    fileName
+    orientation
+    imageType
+    urls {
+      id
+      maxWidth
+      maxHeight
+      url
+    }
+    creationDate
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletionDate
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    lastUpdatedDate
+    deleted
+  }
+}
+mutation UpdateImage(
+  $input: UpdateImageInput!
+  $condition: ModelImageConditionInput
+) {
+  updateImage(input: $input, condition: $condition) {
+    id
+    teamId
+    fileName
+    orientation
+    imageType
+    urls {
+      id
+      maxWidth
+      maxHeight
+      url
+    }
+    creationDate
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletionDate
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    lastUpdatedDate
+    deleted
+  }
+}
+mutation DeleteImage(
+  $input: DeleteImageInput!
+  $condition: ModelImageConditionInput
+) {
+  deleteImage(input: $input, condition: $condition) {
+    id
+    teamId
+    fileName
+    orientation
+    imageType
+    urls {
+      id
+      maxWidth
+      maxHeight
+      url
+    }
+    creationDate
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletionDate
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    lastUpdatedDate
+    deleted
+  }
+}
+mutation CreateTask(
+  $input: CreateTaskInput!
+  $condition: ModelTaskConditionInput
+) {
+  createTask(input: $input, condition: $condition) {
+    id
+    teamId
+    name
+    description
+    dueDate
+    completed
+    completionDate
+    assigneeUserId
+    assignee {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    product {
+      id
+      name
+      teamId
+      description
+      favorite
+      minimumOrderQuantity
+      moqDescription
+      score
+      incoTerm
+      harbour
+      masterCbm
+      quantityPer20ft
+      quantityPer40ft
+      quantityPer40ftHC
+      leadTimeValue
+      leadTimeUnit
+      sample
+      archived
+      reference
+      referenceKey
+      creationDate
+      deletionDate
+      lastUpdatedDate
+      deleted
+    }
+    supplier {
+      id
+      teamId
+      name
+      fullName
+      tradingName
+    }
+    reference
+    referenceKey
+    inProgress
+    creationDate
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletionDate
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    lastUpdatedDate
+    deleted
+  }
+}
+mutation UpdateTask(
+  $input: UpdateTaskInput!
+  $condition: ModelTaskConditionInput
+) {
+  updateTask(input: $input, condition: $condition) {
+    id
+    teamId
+    name
+    description
+    dueDate
+    completed
+    completionDate
+    assigneeUserId
+    assignee {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    product {
+      id
+      name
+      teamId
+      description
+      favorite
+      minimumOrderQuantity
+      moqDescription
+      score
+      incoTerm
+      harbour
+      masterCbm
+      quantityPer20ft
+      quantityPer40ft
+      quantityPer40ftHC
+      leadTimeValue
+      leadTimeUnit
+      sample
+      archived
+      reference
+      referenceKey
+      creationDate
+      deletionDate
+      lastUpdatedDate
+      deleted
+    }
+    supplier {
+      id
+      teamId
+      name
+      fullName
+      tradingName
+    }
+    reference
+    referenceKey
+    inProgress
+    creationDate
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletionDate
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    lastUpdatedDate
+    deleted
+  }
+}
+mutation DeleteTask(
+  $input: DeleteTaskInput!
+  $condition: ModelTaskConditionInput
+) {
+  deleteTask(input: $input, condition: $condition) {
+    id
+    teamId
+    name
+    description
+    dueDate
+    completed
+    completionDate
+    assigneeUserId
+    assignee {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    product {
+      id
+      name
+      teamId
+      description
+      favorite
+      minimumOrderQuantity
+      moqDescription
+      score
+      incoTerm
+      harbour
+      masterCbm
+      quantityPer20ft
+      quantityPer40ft
+      quantityPer40ftHC
+      leadTimeValue
+      leadTimeUnit
+      sample
+      archived
+      reference
+      referenceKey
+      creationDate
+      deletionDate
+      lastUpdatedDate
+      deleted
+    }
+    supplier {
+      id
+      teamId
+      name
+      fullName
+      tradingName
+    }
+    reference
+    referenceKey
+    inProgress
+    creationDate
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletionDate
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    lastUpdatedDate
+    deleted
+  }
+}
+mutation CreateTeamUser(
+  $input: CreateTeamUserInput!
+  $condition: ModelTeamUserConditionInput
+) {
+  createTeamUser(input: $input, condition: $condition) {
+    teamId
+    userId
+    team {
+      id
+      name
+      ownerUserId
+      companyId
+      createdByUserId
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedOn
+    }
+    user {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    role
+  }
+}
+mutation UpdateTeamUser(
+  $input: UpdateTeamUserInput!
+  $condition: ModelTeamUserConditionInput
+) {
+  updateTeamUser(input: $input, condition: $condition) {
+    teamId
+    userId
+    team {
+      id
+      name
+      ownerUserId
+      companyId
+      createdByUserId
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedOn
+    }
+    user {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    role
+  }
+}
+mutation DeleteTeamUser(
+  $input: DeleteTeamUserInput!
+  $condition: ModelTeamUserConditionInput
+) {
+  deleteTeamUser(input: $input, condition: $condition) {
+    teamId
+    userId
+    team {
+      id
+      name
+      ownerUserId
+      companyId
+      createdByUserId
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedOn
+    }
+    user {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    role
   }
 }
 mutation CreateCompany(
@@ -561,5 +1473,20 @@ mutation DeleteCompany(
       creationDate
     }
     lastUpdatedOn
+  }
+}
+mutation UpdateUser(
+  $input: UpdateUserInput!
+  $condition: ModelUserConditionInput
+) {
+  updateUser(input: $input, condition: $condition) {
+    id
+    email
+    firstName
+    lastName
+    phoneNumber
+    preferredLanguage
+    avatar
+    creationDate
   }
 }

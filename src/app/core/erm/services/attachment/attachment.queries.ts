@@ -18,5 +18,4 @@ export abstract class AttachmentQueries extends GlobalQueries {
 		createdBy { ${UserQueries.userWithAvatar} }
 		creationDate
 	`;
-
 }

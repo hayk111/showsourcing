@@ -38,7 +38,7 @@ export interface GlobalServiceInterface<T> {
  * Global service that other entity service can extend to do crud operations
  * and more over graphql
  */
-export abstract class GlobalService<T extends Entity> implements GlobalServiceInterface<T> {
+export abstract class GlobalService<T extends Entity, G> implements GlobalServiceInterface<T> {
 
 	/** the underlying graphql client this service is gonna use by default
 	 * when none is specified
