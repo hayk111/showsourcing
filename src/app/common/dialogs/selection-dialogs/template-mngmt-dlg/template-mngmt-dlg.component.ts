@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, V
 import { FormControl } from '@angular/forms';
 import { Observable, ReplaySubject } from 'rxjs';
 import { distinctUntilKeyChanged, switchMap, takeUntil, tap } from 'rxjs/operators';
-import { RequestTemplate, TemplateField } from '~core/models';
+import { RequestTemplate, TemplateField } from '~core/erm';
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { InputDirective } from '~shared/inputs';

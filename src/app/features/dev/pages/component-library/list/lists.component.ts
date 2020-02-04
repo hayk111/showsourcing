@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { productsJson } from './mock-data';
-import { Sample, Task, Project } from '~core/models';
+import { Sample, Task, Project } from '~core/erm';
 
 @Component({
 	selector: 'list-app',

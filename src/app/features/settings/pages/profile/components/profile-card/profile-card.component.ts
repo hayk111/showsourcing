@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
-import { User } from '~models';
+import { User } from '~core/erm';
 import { InputDirective } from '~shared/inputs';
 import { AutoUnsub } from '~utils';
 

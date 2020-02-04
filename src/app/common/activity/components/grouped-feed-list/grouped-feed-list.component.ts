@@ -2,10 +2,10 @@ import { ChangeDetectionStrategy, Component, Input, OnInit, Output, EventEmitter
 import { GroupedActivityFeed } from '~common/activity/interfaces/client-feed.interfaces';
 import { GetStreamGroup } from '~common/activity/interfaces/get-stream-feed.interfaces';
 import { TemplateService } from '~core/template/services/template.service';
-import { SupplierService } from '~entity-services';
-import { ERMService } from '~entity-services/_global/erm.service';
-import { ProductService } from '~entity-services/product/product.service';
-import { EntityName, ERM, Product, Supplier } from '~models';
+import { SupplierService } from '~core/erm';
+import { ERMService } from '~core/erm';
+import { ProductService } from '~core/erm';
+import { EntityName, ERM, Product, Supplier } from '~core/erm';
 import { RatingService } from '~shared/rating/services/rating.service';
 import { AutoUnsub } from '~utils';
 

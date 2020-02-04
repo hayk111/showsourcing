@@ -1,7 +1,7 @@
 import { combineLatest, Observable } from 'rxjs';
-import { ListQuery } from '~core/entity-services/_global/list-query.interface';
-import { Status } from '~core/models/status.model';
-import { ProductStatus } from '~models';
+import { ListQuery } from '~core/erm';
+import { Status } from '~core/erm';
+import { ProductStatus } from '~core/erm';
 import { KanbanColumn } from '~shared/kanban/interfaces/kanban-interface.class';
 import { ConstPipe } from '~shared/utils/pipes/const.pipe';
 

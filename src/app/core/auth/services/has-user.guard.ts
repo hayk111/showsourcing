@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Resolve, CanActivateChild } from '@angular/router';
 import { Observable } from 'rxjs';
-import { UserService } from '~entity-services';
+import { UserService } from '~core/erm';
 import { map, tap } from 'rxjs/operators';
 
 @Injectable({

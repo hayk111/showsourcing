@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { SampleService } from '~core/entity-services';
-import { ERM, Sample } from '~core/models';
+import { SampleService } from '~core/erm';
+import { ERM, Sample } from '~core/erm';
 import { ID } from '~utils/id.utils';
 import { defaultConfig } from '../default-columns/default-config';
 import { EntityTableComponent } from '../entity-table.component';

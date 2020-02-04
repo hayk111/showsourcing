@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
-import { ListQuery } from '~core/entity-services/_global/list-query.interface';
-import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
-import { CountryService } from '~core/entity-services/country/country.service';
-import { CurrencyService } from '~core/entity-services/currency/currency.service';
-import { HarbourService } from '~core/entity-services/harbour/harbour.service';
-import { IncoTermService } from '~core/entity-services/inco-term/inco-term.service';
+import { ListQuery } from '~core/erm';
+import { SelectParamsConfig } from '~core/erm';
+import { CountryService } from '~core/erm';
+import { CurrencyService } from '~core/erm';
+import { HarbourService } from '~core/erm';
+import { IncoTermService } from '~core/erm';
 import {
 	CategoryService,
 	ContactService,
@@ -22,8 +22,8 @@ import {
 	TeamUserService,
 	UserService,
 	WeightUnitService,
-} from '~entity-services';
-import { SupplierTypeService } from '~entity-services/supplier-type/supplier-type.service';
+} from '~core/erm';
+import { SupplierTypeService } from '~core/erm';
 import {
 	Category,
 	Contact,
@@ -43,8 +43,8 @@ import {
 	TeamUser,
 	User,
 	WeightUnit,
-} from '~models';
-import { Supplier } from '~models/supplier.model';
+} from '~core/erm';
+import { Supplier } from '~core/erm';
 import { DynamicField } from '~shared/dynamic-forms';
 import { FilterList } from '~shared/filters/models/filter-list.class';
 import { ID } from '~utils';

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Output, ViewChild, ElementRef } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { UserService } from '~core/entity-services';
-import { User } from '~core/models';
+import { UserService } from '~core/erm';
+import { User } from '~core/erm';
 
 
 @Component({

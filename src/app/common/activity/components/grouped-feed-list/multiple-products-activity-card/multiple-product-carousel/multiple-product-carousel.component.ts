@@ -4,7 +4,7 @@ import {
 import { Router } from '@angular/router';
 import { timer } from 'rxjs';
 import { map, take} from 'rxjs/operators';
-import { Product, ERM } from '~models';
+import { Product } from '~core/erm';
 
 @Component({
 	selector: 'multiple-product-carousel-app',
