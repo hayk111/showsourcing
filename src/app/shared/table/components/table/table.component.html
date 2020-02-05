@@ -63,6 +63,7 @@ https://stackblitz.com/edit/angular-vtluff?file=src/app/app.component.ts -->
 		<!-- content columns -->
 		<div *ngFor="let column of columns; let i = index; trackBy: columnTrackByFn"
 			class="col {{ column.grows ? 'grows' : '' }}"
+			[class.no-pad]="!hasFirstColsPadding"
 			[ngClass]="{'primary-col': listView && i == 0}"
 			[style.width]="column.width + 'px'">
 			<!-- header -->

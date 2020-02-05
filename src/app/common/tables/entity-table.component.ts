@@ -49,6 +49,7 @@ export abstract class EntityTableComponent<T> extends TrackingComponent implemen
 	@Input() hasShowItemsPerPage = true;
 	@Input() hasMinHeight = true;
 	@Input() hasDownloadApp = false;
+	@Input() hasFirstColsPadding = true;
 	@Input() listView = false;
 	@Input() rowHeight = 47;
 	@Input() createEntityBtnName: string;

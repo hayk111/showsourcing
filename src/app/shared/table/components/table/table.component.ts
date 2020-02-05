@@ -52,6 +52,8 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	@Input() hasBorder = true;
 	/** whether there is a download app popup in the component */
 	@Input() hasDownloadApp = false;
+	/** whether first two table columns have padding */
+	@Input() hasFirstColsPadding = true;
 
 	@Input() type: EntityName;
 	@Input() rowHeight = 42;
