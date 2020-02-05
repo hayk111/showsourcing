@@ -15,6 +15,7 @@
   [hasHeader]="hasHeader"
 	[hasPagination]="hasPagination"
 	[hasSelection]="hasSelection"
+	[hasDownloadApp]="hasDownloadApp"
 	[hasShowItemsPerPage]="hasShowItemsPerPage"
 	[hasBorder]="hasBorder"
   [contextualMenu]="contextualMenuTemplate"
@@ -26,6 +27,7 @@
   (selectAll)="selectAll.emit($event)"
 	(unselectAll)="unselectAll.emit()"
 	(createClick)="createClick.emit()"
+	(downloadClick)="downloadClick.emit()"
 	(showItemsPerPage)="showItemsPerPage.emit($event)"
 	(hovered)="hovered = $event">
 

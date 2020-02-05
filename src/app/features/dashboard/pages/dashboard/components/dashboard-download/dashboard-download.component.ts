@@ -1,4 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { DownloadDlgComponent } from '~common/dialogs/custom-dialogs';
+import { CloseEventType, DialogService } from '~shared/dialog';
 
 @Component({
 	selector: 'dashboard-download-app',
@@ -8,9 +10,15 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 })
 export class DashboardDownloadComponent implements OnInit {
 
-	constructor() { }
+	constructor(
+		private dlgSrv: DialogService,
+	) { }
 
 	ngOnInit() {
+	}
+
+	openModal() {
+		this.dlgSrv.open(DownloadDlgComponent).subscribe();
 	}
 
 }

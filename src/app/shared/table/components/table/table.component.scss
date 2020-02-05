@@ -146,3 +146,13 @@
 	flex-grow: 0;
 }
 
+.create-download {
+	button:first-child {
+		margin-right: 6px;
+	}
+
+	button:last-child {
+		margin-left: 6px;
+	}
+}
+

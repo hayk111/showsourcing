@@ -159,7 +159,15 @@ https://stackblitz.com/edit/angular-vtluff?file=src/app/app.component.ts -->
 		<ng-container *ngIf="!isSeaching; else placeholderSearch">
 			<div class="placeholder-title" translate="OBJ.no-type-found" [translateParams]="{ type: type }"></div>
 			<div class="placeholder-description" translate="text.create-new-one"></div>
-			<button class="capitalize" (click)="createClick.emit()">{{ createEntityBtnName || ('OBJ.create' | translate: { field: (type) }) }}</button>
+			<ng-container *ngIf="hasDownloadApp; else noDownloadApp">
+				<div class="create-download">
+					<button class="capitalize" (click)="createClick.emit()">{{ createEntityBtnName || ('OBJ.create' | translate: { field: (type) }) }}</button>
+					<button class="capitalize" (click)="downloadClick.emit()">Download App</button>
+				</div>
+			</ng-container>
+			<ng-template #noDownloadApp>
+				<button class="capitalize" (click)="createClick.emit()">{{ createEntityBtnName || ('OBJ.create' | translate: { field: (type) }) }}</button>
+			</ng-template>
 		</ng-container>
 		<ng-template #placeholderSearch>
 			<div *ngIf="isSeaching" class="placeholder-title" translate="OBJ.no-OBJ-matches-criteria" [translateParams]="{ type: type }"></div>

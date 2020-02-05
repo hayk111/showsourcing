@@ -48,6 +48,7 @@ export abstract class EntityTableComponent<T> extends TrackingComponent implemen
 	@Input() hasBorder = true;
 	@Input() hasShowItemsPerPage = true;
 	@Input() hasMinHeight = true;
+	@Input() hasDownloadApp = false;
 	@Input() listView = false;
 	@Input() rowHeight = 47;
 	@Input() createEntityBtnName: string;
@@ -65,6 +66,7 @@ export abstract class EntityTableComponent<T> extends TrackingComponent implemen
 	@Output() sort = new EventEmitter<Sort>();
 	/** emits when a click has been performed on the placeholder */
 	@Output() createClick = new EventEmitter<null>();
+	@Output() downloadClick = new EventEmitter<null>();
 	@Output() delete = new EventEmitter<T>();
 	@Output() archive = new EventEmitter<T>();
 	// pagination
