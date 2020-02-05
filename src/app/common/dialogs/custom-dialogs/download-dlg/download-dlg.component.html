@@ -1,0 +1,29 @@
+<dialog-app 
+	class="flex flexCenter container-section" 
+	[hasHeader]="false"
+	[hasFooter]="false"
+	[hasPadding]="false" 
+	[contentFullWidth]="true">
+	<icon-app name="close" class="close pointer color-third" size="m" (click)="close()"></icon-app>
+	<div class="left-container">
+		<span class="left-title">Your sourcing always with you!</span>
+		<span class="left-sub-title">Works offline and connects to all shows and fairs!</span>
+		<div class="img-block">
+			<img class="mobile-img" src="/assets/img/mobile.png"/>
+		</div>
+	</div>
+	<div class="right-container">
+		<span class="right-title">Scan the code below to download the app</span>
+		<div class="img-block">
+			<img class="qr-img" src="/assets/img/qr.png"/>
+		</div>
+		<span class="download-stores">Or download from the app stores</span>
+
+		<div class="download-btn-container">
+			<div>
+				<img class="download-img" src="/assets/img/available-ios.png"/>
+			</div>
+			<img class="download-img-last" src="/assets/img/available-android.png"/>
+		</div>
+	</div>
+</dialog-app>

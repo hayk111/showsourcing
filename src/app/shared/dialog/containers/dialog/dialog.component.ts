@@ -11,16 +11,19 @@ import { DialogService } from '~shared/dialog/services/dialog.service';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'z-2',
-		'attr.role': 'dialog'
+		'[class.no-padding]': '!hasPadding',
+		'attr.role': 'dialog',
 	}
 })
 export class DialogComponent {
 
 	@Input() closeIcon = true;
 	@Input() hasHeader = true;
+	@Input() hasPadding = true;
 	@Input() hasFooter = true;
 	@Input() hasBorder = true;
 	@Input() contentOverflow: 'auto' | 'hidden' = 'auto';
+	@Input() contentFullWidth: false;
 	@Output() close = new EventEmitter<any>();
 	@ContentChild(DialogFooterComponent, { static: false }) footer: DialogFooterComponent;
 	@ContentChild(DialogHeaderComponent, { static: false }) header: DialogHeaderComponent;

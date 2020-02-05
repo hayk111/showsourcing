@@ -50,6 +50,10 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	@Input() hasShowItemsPerPage = true;
 	/** whether there is a border around the table */
 	@Input() hasBorder = true;
+	/** whether there is a download app popup in the component */
+	@Input() hasDownloadApp = false;
+	/** whether first two table columns have padding */
+	@Input() hasFirstColsPadding = true;
 
 	@Input() type: EntityName;
 	@Input() rowHeight = 42;
@@ -74,6 +78,7 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	@Input() createEntityBtnName: string;
 	/** event when we click the create button on placeholder */
 	@Output() createClick = new EventEmitter<null>();
+	@Output() downloadClick = new EventEmitter<null>();
 
 	/** event when we select all rows */
 	@Output() selectAll = new EventEmitter<string[]>();
