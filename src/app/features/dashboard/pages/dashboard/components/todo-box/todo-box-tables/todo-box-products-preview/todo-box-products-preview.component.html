@@ -8,10 +8,13 @@
 	[tableConfig]="tableConfig"
 	[hasBorder]="false"
 	[hasMenu]="false"
+	[hasDownloadApp]="true"
+	[hasFirstColsPadding]="false"
 	[hasHeader]="false"
 	[hasSelection]="false"
 	[hasPagination]="false"
 	[hasPreview]="false"
 	(update)="update($event)"
-	(createClick)="dialogCommonSrv.openCreationProductDlg()">
+	(createClick)="dialogCommonSrv.openCreationProductDlg()"
+	(downloadClick)="dialogCommonSrv.openDownloadDialog()">
 </products-table-app>

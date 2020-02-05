@@ -11,6 +11,7 @@ import { CompareLabelsComponent } from './compare-product/compare-labels/compare
 import { CompareProductComponent } from './compare-product/compare-product.component';
 import { CompareSpacerComponent } from './compare-product/compare-spacer/compare-spacer.component';
 import { DescriptionDlgComponent } from './description-dlg/description-dlg.component';
+import { DownloadDlgComponent } from './download-dlg/download-dlg.component';
 import { EditionDialogComponent } from './edition-dialog/edition-dialog.component';
 import { ExportDlgComponent } from './export-dlg/export-dlg.component';
 import { ExportSelectionViewComponent } from './export-dlg/export-selection-view/export-selection-view.component';
@@ -34,6 +35,7 @@ const modals = [
 	ChangePswdDlgComponent,
 	CompareProductComponent,
 	DescriptionDlgComponent,
+	DownloadDlgComponent,
 	EditionDialogComponent,
 	ExportDlgComponent,
 	InviteUserDlgComponent,
