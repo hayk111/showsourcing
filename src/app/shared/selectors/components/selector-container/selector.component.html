@@ -188,6 +188,19 @@
 				(close)="closeMenu(true)"
 				cdkTrapFocus>
 			</length-unit-selector-app>
+
+			<!-- weight-unit -->
+			<weight-unit-selector-app
+				*ngSwitchCase="erm.WEIGHT_UNIT"
+				[value]="value"
+				[filterList]="filterList"
+				[initialSeachTxt]="searchTxt"
+				[multiple]="multiple"
+				[canCreate]="canCreate"
+				(update)="onChange($event)"
+				(close)="closeMenu(true)"
+				cdkTrapFocus>
+			</weight-unit-selector-app>
 		</ng-container>
 	</div>
 

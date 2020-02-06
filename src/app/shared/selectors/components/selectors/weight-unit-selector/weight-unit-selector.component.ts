@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { LengthUnitService } from '~core/entity-services/length-unit/length-unit.service';
+import { WeightUnitService } from '~core/entity-services/weight-unit/weight-unit.service';
 import { ERM } from '~core/models';
 import { SelectorConfig, SelectorsService } from '~shared/selectors/services/selectors.service';
 
@@ -7,12 +7,12 @@ import { AbstractSelectorComponent } from '../../abstract-selector.components';
 
 
 @Component({
-	selector: 'length-unit-selector-app',
-	templateUrl: './length-unit-selector.component.html',
-	styleUrls: ['./length-unit-selector.component.scss'],
+	selector: 'weight-unit-selector-app',
+	templateUrl: './weight-unit-selector.component.html',
+	styleUrls: ['./weight-unit-selector.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LengthUnitSelectorComponent extends AbstractSelectorComponent {
+export class WeightUnitSelectorComponent extends AbstractSelectorComponent {
 
 	searchQuery = (text: string) => {
 		return `name CONTAINS[c] "${text}"`;
@@ -39,14 +39,14 @@ export class LengthUnitSelectorComponent extends AbstractSelectorComponent {
 	config: SelectorConfig;
 
 	constructor(
-		protected lengthUnitSrv: LengthUnitService,
+		protected weightUnitSrv: WeightUnitService,
 		protected selectorSrv: SelectorsService,
 		protected cd: ChangeDetectorRef
 	) { super(selectorSrv, cd); }
 
 	setup() {
 		this.config = {
-			entitySrv: this.lengthUnitSrv,
+			entitySrv: this.weightUnitSrv,
 			entityMetadata: ERM.WEIGHT_UNIT,
 			searchQuery: this.searchQuery,
 			itemsMatchesName: this.itemsMatchesName,
@@ -71,7 +71,7 @@ export class LengthUnitSelectorComponent extends AbstractSelectorComponent {
 
 	createFn(): any {
 		// this entity should not be able to create
-		throw Error('length unit selector is not suposed to create new ones')
+		throw Error('weight unit selector is not suposed to create new ones')
 	}
 
 }
