@@ -6,7 +6,7 @@
 	(close)="close.emit()">
 	<selector-content-stored-app *ngIf="multiple">
 		<ng-container *ngIf="value?.length; else empty">
-			<info-badge-app *ngFor="let item of value; trackBy: trackById" class="mg-bottom-xs" [type]="erm.CURRENCY.singular" [hasDelete]="true" (delete)="deleteStoredItem(item)">{{ item.name }}</info-badge-app>
+			<info-badge-app *ngFor="let item of value; trackBy: trackById" class="mg-bottom-xs" [type]="erm.CURRENCY.singular" [hasDelete]="true" (delete)="deleteStoredItem(item)">{{ item }}</info-badge-app>
 		</ng-container>
 		<ng-template #empty>
 			<span class="italic color-txt-third">{{ 'OBJ.no-item-add-one' | translate: { field: 'ERM.' + erm.CURRENCY.translationKey + '.singular' | translate } }}</span>
