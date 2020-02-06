@@ -162,6 +162,19 @@
 				(close)="closeMenu(true)"
 				cdkTrapFocus>
 			</harbour-selector-app>
+			
+			<!-- inco-term -->
+			<inco-term-selector-app
+				*ngSwitchCase="erm.INCO_TERM"
+				[value]="value"
+				[filterList]="filterList"
+				[initialSeachTxt]="searchTxt"
+				[multiple]="multiple"
+				[canCreate]="canCreate"
+				(update)="onChange($event)"
+				(close)="closeMenu(true)"
+				cdkTrapFocus>
+			</inco-term-selector-app>
 		</ng-container>
 	</div>
 

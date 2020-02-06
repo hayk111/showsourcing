@@ -52,6 +52,7 @@ import {
 } from './components/selectors/supplier-type-selector/supplier-type-selector.component';
 import { TagSelectorComponent } from './components/selectors/tag-selector/tag-selector.component';
 import { UserSelectorComponent } from './components/selectors/user-selector/user-selector.component';
+import { IncoTermSelectorComponent } from './components/selectors/inco-term-selector/inco-term-selector.component';
 
 @NgModule({
 	imports: [
@@ -102,7 +103,8 @@ import { UserSelectorComponent } from './components/selectors/user-selector/user
 		UserSelectorComponent,
 		ContactSelectorComponent,
 		EmailSelectorComponent,
-		HarbourSelectorComponent
+		HarbourSelectorComponent,
+		IncoTermSelectorComponent
 	],
 	exports: [
 		SelectorComponent,

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { HarbourService } from '~core/entity-services/harbour/harbour.service';
+import { IncoTermService } from '~core/entity-services/inco-term/inco-term.service';
 import { ERM } from '~core/models';
 import { SelectorConfig, SelectorsService } from '~shared/selectors/services/selectors.service';
 
@@ -7,12 +7,12 @@ import { AbstractSelectorComponent } from '../../abstract-selector.components';
 
 
 @Component({
-	selector: 'harbour-selector-app',
-	templateUrl: './harbour-selector.component.html',
-	styleUrls: ['./harbour-selector.component.scss'],
+	selector: 'inco-term-selector-app',
+	templateUrl: './inco-term-selector.component.html',
+	styleUrls: ['./inco-term-selector.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HarbourSelectorComponent extends AbstractSelectorComponent {
+export class IncoTermSelectorComponent extends AbstractSelectorComponent {
 
 	searchQuery = (text: string) => {
 		return `name CONTAINS[c] "${text}"`;
@@ -39,15 +39,15 @@ export class HarbourSelectorComponent extends AbstractSelectorComponent {
 	config: SelectorConfig;
 
 	constructor(
-		protected harbourSrv: HarbourService,
+		protected incoTermSrv: IncoTermService,
 		protected selectorSrv: SelectorsService,
 		protected cd: ChangeDetectorRef
 	) { super(selectorSrv, cd); }
 
 	setup() {
 		this.config = {
-			entitySrv: this.harbourSrv,
-			entityMetadata: ERM.HARBOUR,
+			entitySrv: this.incoTermSrv,
+			entityMetadata: ERM.INCO_TERM,
 			searchQuery: this.searchQuery,
 			itemsMatchesName: this.itemsMatchesName,
 			itemsNotStored: this.itemsNotStored,
@@ -71,7 +71,7 @@ export class HarbourSelectorComponent extends AbstractSelectorComponent {
 
 	createFn(): any {
 		// this entity should not be able to create
-		throw Error('harbour selector is not suposed to create new ones')
+		throw Error('inco term selector is not suposed to create new ones')
 	}
 
 }
