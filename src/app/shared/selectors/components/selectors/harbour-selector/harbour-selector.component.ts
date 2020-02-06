@@ -70,7 +70,7 @@ export class HarbourSelectorComponent extends AbstractSelectorComponent {
 
 	createFn(): any {
 		// this entity should not be able to create
-		throw Error('harbour selector is not suposed to create new ones')
+		throw Error('harbour selector is not suposed to create new ones');
 	}
 
 }

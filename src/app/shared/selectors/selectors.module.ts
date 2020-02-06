@@ -58,6 +58,7 @@ import { WeightUnitSelectorComponent } from './components/selectors/weight-unit-
 import { CountrySelectorComponent } from './components/selectors/country-selector/country-selector.component';
 import { ProductSelectorComponent } from './components/selectors/product-selector/product-selector.component';
 import { RequestTemplateSelectorComponent } from './components/selectors/request-template-selector/request-template-selector.component';
+import { SelectorElementSelectorComponent } from './components/selectors/selector-element-selector/selector-element-selector.component';
 
 @NgModule({
 	imports: [
@@ -114,7 +115,8 @@ import { RequestTemplateSelectorComponent } from './components/selectors/request
 		WeightUnitSelectorComponent,
 		CountrySelectorComponent,
 		ProductSelectorComponent,
-		RequestTemplateSelectorComponent
+		RequestTemplateSelectorComponent,
+		SelectorElementSelectorComponent
 	],
 	exports: [
 		SelectorComponent,

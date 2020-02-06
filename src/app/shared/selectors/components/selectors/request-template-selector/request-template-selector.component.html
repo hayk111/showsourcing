@@ -14,7 +14,6 @@
 	</selector-content-stored-app>
 
 	<selector-content-items-app infiniScroll [pending]="!(selectorSrv.items$ | async)" (bottomReached)="selectorSrv.loadMore()">
-		<selector-option-name-app #abstract *ngFor="let item of selectorSrv.items$ | async; trackBy: trackById" [item]="item" (click)="onSelect(item)"></selector-option-name-app>
     <selector-option-request-template-app #abstract *ngFor="let item of selectorSrv.items$ | async; trackBy: trackById" [requestTemplate]="item" (click)="onSelect(item)"></selector-option-request-template-app>
     <!-- create button -->
 		<selector-option-button-app #abstract *ngIf="canCreate && !(selectorSrv.nameExists$ | async)" [type]="erm.REQUEST_TEMPLATE.singular" [searchTxt]="selectorSrv.searchText" (click)="create()"></selector-option-button-app>
