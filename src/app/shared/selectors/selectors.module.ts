@@ -29,7 +29,6 @@ import {
   SelectorOptionSupplierComponent,
   SelectorOptionUserComponent,
   SelectorOptionValueComponent,
-  SelectorPickerComponent,
   SelectorPlaceholderComponent,
 } from './components';
 import {
@@ -94,7 +93,6 @@ import { SelectorElementSelectorComponent } from './components/selectors/selecto
 		SelectorOptionSupplierComponent,
 		SelectorOptionUserComponent,
 		SelectorOptionValueComponent,
-		SelectorPickerComponent,
 		SelectorPlaceholderComponent,
 		CategorySelectorComponent,
 		SelectorContentComponent,
