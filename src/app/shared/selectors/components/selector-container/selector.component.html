@@ -175,6 +175,19 @@
 				(close)="closeMenu(true)"
 				cdkTrapFocus>
 			</inco-term-selector-app>
+
+			<!-- length-unit -->
+			<length-unit-selector-app
+				*ngSwitchCase="erm.LENGTH_UNIT"
+				[value]="value"
+				[filterList]="filterList"
+				[initialSeachTxt]="searchTxt"
+				[multiple]="multiple"
+				[canCreate]="canCreate"
+				(update)="onChange($event)"
+				(close)="closeMenu(true)"
+				cdkTrapFocus>
+			</length-unit-selector-app>
 		</ng-container>
 	</div>
 
