@@ -201,6 +201,20 @@
 				(close)="closeMenu(true)"
 				cdkTrapFocus>
 			</weight-unit-selector-app>
+
+			<!-- country -->
+			<country-selector-app
+				*ngSwitchCase="erm.COUNTRY"
+				[value]="value"
+				[filterList]="filterList"
+				[initialSeachTxt]="searchTxt"
+				[multiple]="multiple"
+				[canCreate]="canCreate"
+				(update)="onChange($event)"
+				(close)="closeMenu(true)"
+				cdkTrapFocus>
+			</country-selector-app>
+			
 		</ng-container>
 	</div>
 
