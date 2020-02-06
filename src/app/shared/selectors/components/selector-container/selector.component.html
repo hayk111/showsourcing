@@ -227,6 +227,19 @@
 				(close)="closeMenu(true)"
 				cdkTrapFocus>
 			</country-selector-app>
+
+			<!-- request-template -->
+			<request-template-selector-app
+				*ngSwitchCase="erm.REQUEST_TEMPLATE"
+				[value]="value"
+				[filterList]="filterList"
+				[initialSeachTxt]="searchTxt"
+				[multiple]="multiple"
+				[canCreate]="canCreate"
+				(update)="onChange($event)"
+				(close)="closeMenu(true)"
+				cdkTrapFocus>
+			</request-template-selector-app>
 			
 		</ng-container>
 	</div>
