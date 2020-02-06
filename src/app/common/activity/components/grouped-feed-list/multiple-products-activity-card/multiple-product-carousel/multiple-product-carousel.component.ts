@@ -51,14 +51,10 @@ export class MultipleProductCarouselComponent implements OnInit {
 	}
 
 	// adds horizontal scroll animation to the component's grid section
-	animateScroll(forth = true, timeInt = 5, stopValue = 40) {
-		timer(timeInt, timeInt).pipe(
-			map(i => {
-				return stopValue - i;
-			}),
-			take(stopValue)
-		).subscribe(_ => {
-			this.cardSection.nativeElement.scrollLeft += forth ? 5 : -5;
+	animateScroll(forth = true, size = 150) {
+		this.cardSection.nativeElement.scrollTo({
+			left: (this.cardSection.nativeElement.scrollLeft + (forth ? size : -size)),
+			behavior: 'smooth'
 		});
 	}
 }

@@ -30,7 +30,16 @@
 		bottom: 0;
 	}
 
+	.get-free-container {
+		justify-content: center;
+
+		.free {
+			width: 110px;
+		}
+	}
+
 	.download-btn-container {
+		text-align: center;
 		margin-top: var(--spacing-xl);
 
 		.download-img:last-child {

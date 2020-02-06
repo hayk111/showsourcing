@@ -30,11 +30,14 @@ user-picture-app {
 
 .team-stats {
 	margin-top: var(--spacing-l);
-	justify-content: space-between;
 
 	h2 {
 		margin-top: var(--spacing-xxs);
 	}
+
+	.supplier-stats {
+		margin-left: var(--spacing-xxxl);
+	} 
 }
 
 .name {
