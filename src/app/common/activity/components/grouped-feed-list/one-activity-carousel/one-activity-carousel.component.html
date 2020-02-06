@@ -1,9 +1,8 @@
 <div class="previewCtnr flex flexGrow">
 	<!-- no images available -->
 	<ng-container *ngIf="images?.length === 0; else carousel">
-		<div class="empty flexCenter flexColumn">
-			<img [src]="defaultImg"/>
-			<span translate="text.no-picture"></span>
+		<div class="empty flexColumn">
+			<img [src]="defaultImg" class="default-img"/>
 		</div>
 	</ng-container>
 

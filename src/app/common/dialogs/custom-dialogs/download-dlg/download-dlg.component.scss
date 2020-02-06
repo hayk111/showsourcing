@@ -14,14 +14,10 @@ dialog-app {
 	
 	.mobile-img {
 		position: absolute;
-		width: 255px;
+		width: 255px;		
+		height: 427px;
 		bottom: 0;
 		left: 104px;
-	}
-
-	.qr-img {
-		margin-top: var(--spacing-xl);
-		width: 200px;
 	}
 }
 
@@ -77,6 +73,17 @@ dialog-app {
 	.download-stores {
 		font-size: var(--font-size-l);
 		color: var(--color-txt-primary);
+	}
+}
+
+.qr-block {
+	background: #f2f5fb;
+	margin-top: var(--spacing-xxl);
+	width: 200px;
+	height: 200px;
+	img {
+		width: 164px;
+		height: 164px;
 	}
 }
 
