@@ -15,41 +15,43 @@ import { UserPictureModule } from '~shared/user-picture';
 import { UtilsModule } from '~shared/utils';
 
 import {
-	CdkOverlayComponent,
-	SelectorComponent,
-	SelectorOptionButtonComponent,
-	SelectorOptionContactComponent,
-	SelectorOptionCountryComponent,
-	SelectorOptionCurrencyComponent,
-	SelectorOptionEventComponent,
-	SelectorOptionLabelNameComponent,
-	SelectorOptionNameComponent,
-	SelectorOptionProductComponent,
-	SelectorOptionRequestTemplateComponent,
-	SelectorOptionSupplierComponent,
-	SelectorOptionUserComponent,
-	SelectorOptionValueComponent,
-	SelectorPickerComponent,
-	SelectorPlaceholderComponent,
+  CdkOverlayComponent,
+  SelectorComponent,
+  SelectorOptionButtonComponent,
+  SelectorOptionContactComponent,
+  SelectorOptionCountryComponent,
+  SelectorOptionCurrencyComponent,
+  SelectorOptionEventComponent,
+  SelectorOptionLabelNameComponent,
+  SelectorOptionNameComponent,
+  SelectorOptionProductComponent,
+  SelectorOptionRequestTemplateComponent,
+  SelectorOptionSupplierComponent,
+  SelectorOptionUserComponent,
+  SelectorOptionValueComponent,
+  SelectorPickerComponent,
+  SelectorPlaceholderComponent,
 } from './components';
 import {
-	SelectorContentItemsComponent,
+  SelectorContentItemsComponent,
 } from './components/selector-content/selector-content-items/selector-content-items.component';
 import {
-	SelectorContentStoredComponent,
+  SelectorContentStoredComponent,
 } from './components/selector-content/selector-content-stored/selector-content-stored.component';
 import { SelectorContentComponent } from './components/selector-content/selector-content.component';
 import { CategorySelectorComponent } from './components/selectors/category-selector/category-selector.component';
+import { ContactSelectorComponent } from './components/selectors/contact-selector/contact-selector.component';
+import { CurrencySelectorComponent } from './components/selectors/currency-selector/currency-selector.component';
+import { EmailSelectorComponent } from './components/selectors/email-selector/email-selector.component';
 import { EventSelectorComponent } from './components/selectors/event-selector/event-selector.component';
+import { HarbourSelectorComponent } from './components/selectors/harbour-selector/harbour-selector.component';
 import { ProjectSelectorComponent } from './components/selectors/project-selector/project-selector.component';
 import { SupplierSelectorComponent } from './components/selectors/supplier-selector/supplier-selector.component';
-import { SupplierTypeSelectorComponent } from './components/selectors/supplier-type-selector/supplier-type-selector.component';
+import {
+  SupplierTypeSelectorComponent,
+} from './components/selectors/supplier-type-selector/supplier-type-selector.component';
 import { TagSelectorComponent } from './components/selectors/tag-selector/tag-selector.component';
-import { CurrencySelectorComponent } from './components/selectors/currency-selector/currency-selector.component';
 import { UserSelectorComponent } from './components/selectors/user-selector/user-selector.component';
-import { ContactSelectorComponent } from './components/selectors/contact-selector/contact-selector.component';
-import { EmailSelectorComponent } from './components/selectors/email-selector/email-selector.component';
-
 
 @NgModule({
 	imports: [
@@ -99,7 +101,8 @@ import { EmailSelectorComponent } from './components/selectors/email-selector/em
 		CurrencySelectorComponent,
 		UserSelectorComponent,
 		ContactSelectorComponent,
-		EmailSelectorComponent
+		EmailSelectorComponent,
+		HarbourSelectorComponent
 	],
 	exports: [
 		SelectorComponent,

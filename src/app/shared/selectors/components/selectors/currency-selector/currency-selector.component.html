@@ -17,7 +17,5 @@
 		<selector-option-currency-app #abstract *ngFor="let item of selectorSrv.topCurrencies$ | async; trackBy: trackById" class="selector-row" [currency]="item" (click)="onSelect(item)"></selector-option-currency-app>
 		<divider-app class="top-3-divider" *ngIf="(this.selectorSrv.topCurrencies$ | async)?.length"></divider-app>
 		<selector-option-currency-app #abstract *ngFor="let item of selectorSrv.items$ | async; trackBy: trackById" [currency]="item" (click)="onSelect(item)"></selector-option-currency-app>
-		<!-- create button -->
-		<selector-option-button-app #abstract *ngIf="canCreate && !(selectorSrv.nameExists$ | async)" [type]="erm.CURRENCY.singular" [searchTxt]="selectorSrv.searchText" (click)="create()"></selector-option-button-app>
 	</selector-content-items-app>
 </selector-content-app>
