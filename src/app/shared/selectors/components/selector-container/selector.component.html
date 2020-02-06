@@ -33,6 +33,19 @@
 				cdkTrapFocus>
 			</category-selector-app>
 
+			<!-- product -->
+			<product-selector-app
+				*ngSwitchCase="erm.PRODUCT"
+				[value]="value"
+				[filterList]="filterList"
+				[initialSeachTxt]="searchTxt"
+				[multiple]="multiple"
+				[canCreate]="canCreate"
+				(update)="onChange($event)"
+				(close)="closeMenu(true)"
+				cdkTrapFocus>
+			</product-selector-app>
+
 			<!-- event -->
 			<event-selector-app
 				*ngSwitchCase="erm.EVENT"

@@ -53,8 +53,7 @@ export class WeightUnitSelectorComponent extends AbstractSelectorComponent {
 			itemsNotStored: this.itemsNotStored,
 			areStoredMatchesName: this.areStoredMatchesName,
 			initialFilters: this.filterList.asFilters(),
-			initialSeachTxt: this.initialSeachTxt,
-			selectParams: { sortBy: 'name' }
+			initialSeachTxt: this.initialSeachTxt
 		};
 		this.selectorSrv.setup(this.config);
 	}

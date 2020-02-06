@@ -56,6 +56,7 @@ import { IncoTermSelectorComponent } from './components/selectors/inco-term-sele
 import { LengthUnitSelectorComponent } from './components/selectors/length-unit-selector/length-unit-selector.component';
 import { WeightUnitSelectorComponent } from './components/selectors/weight-unit-selector/weight-unit-selector.component';
 import { CountrySelectorComponent } from './components/selectors/country-selector/country-selector.component';
+import { ProductSelectorComponent } from './components/selectors/product-selector/product-selector.component';
 
 @NgModule({
 	imports: [
@@ -110,7 +111,8 @@ import { CountrySelectorComponent } from './components/selectors/country-selecto
 		IncoTermSelectorComponent,
 		LengthUnitSelectorComponent,
 		WeightUnitSelectorComponent,
-		CountrySelectorComponent
+		CountrySelectorComponent,
+		ProductSelectorComponent
 	],
 	exports: [
 		SelectorComponent,
