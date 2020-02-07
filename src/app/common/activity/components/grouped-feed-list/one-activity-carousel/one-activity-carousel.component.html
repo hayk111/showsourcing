@@ -2,7 +2,7 @@
 	<!-- no images available -->
 	<ng-container *ngIf="images?.length === 0; else carousel">
 		<div class="empty flexColumn">
-			<img [src]="defaultImg" class="default-img"/>
+			<img class="pointer default-img"[src]="defaultImg"/>
 		</div>
 	</ng-container>
 

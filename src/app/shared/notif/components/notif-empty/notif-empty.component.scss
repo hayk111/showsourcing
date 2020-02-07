@@ -1,6 +1,5 @@
 .empty-container {
 	width: 100%;
-	height: 265px;
 	flex-direction: column;
 	.bell-wrapper {
 		width: 92px;
@@ -28,7 +27,7 @@
 	}
 	button {
 		margin-top: var(--spacing-ms);
-		margin-bottom: var(--spacing-m);
+		margin-bottom: var(--spacing-ms);
 		background-color: var(--color-accent)
 	}
 }
