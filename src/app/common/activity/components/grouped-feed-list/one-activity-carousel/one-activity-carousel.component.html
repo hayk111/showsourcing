@@ -14,11 +14,36 @@
 		</ng-container>
 
 		<ng-template #multipleActivity>
-			<div 
+			<ng-container *ngIf="images.length > 2; else noScroll">
+				<div 
+						class="previewCtnr flexStart"
+						(mouseenter)="showArrows = true"
+						(mouseleave)="showArrows = false">
+						<div class="grid-section" horizontalScroll #cardSection>
+							<div *ngFor="let item of images.slice(0, 10); let selectedIndex = index;" class="card">
+								<img-app class="carousel-img" [image]="images[selectedIndex]" (click)="openModal(selectedIndex)"></img-app>
+							</div>
+						</div>
+	
+						<div class="flex flexVAlign" *ngIf="showArrows">
+							<div class="move-btn back flexCenter pointer"
+								(mousedown)="back($event)">
+								<icon-app name="angle-left" size="m"></icon-app>
+							</div>
+						
+							<div class="move-btn next flexCenter pointer"
+								(mousedown)="next($event)">
+								<icon-app name="angle-right" size="m"></icon-app>
+							</div>
+						</div>
+					</div>
+			</ng-container>
+			<ng-template #noScroll>
+				<div 
 					class="previewCtnr flexStart"
 					(mouseenter)="showArrows = true"
 					(mouseleave)="showArrows = false">
-					<div class="grid-section" horizontalScroll #cardSection>
+					<div class="grid-section" #cardSection>
 						<div *ngFor="let item of images.slice(0, 10); let selectedIndex = index;" class="card">
 							<img-app class="carousel-img" [image]="images[selectedIndex]" (click)="openModal(selectedIndex)"></img-app>
 						</div>
@@ -36,6 +61,7 @@
 						</div>
 					</div>
 				</div>
+			</ng-template>
 		</ng-template>
 	</ng-template>
 

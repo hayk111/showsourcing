@@ -19,7 +19,6 @@ export class DownloadDlgComponent {
 	}
 
 	navigateToPlayMarket() {
-		console.log('navigating ara...');
 		this.document.location.href = 'https://play.google.com/store/apps/details?id=com.showsourcing.mobile&hl=en';
 	}
 

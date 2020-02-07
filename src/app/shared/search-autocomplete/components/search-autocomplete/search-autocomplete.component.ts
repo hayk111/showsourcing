@@ -118,26 +118,6 @@ export class SearchAutocompleteComponent extends AutoUnsub implements OnInit, Af
 		this.close.emit();
 	}
 
-	// @HostListener('document:keydown.arrowup', ['$event'])
-	// onKeyArrowUp(event) {
-	// 	console.log('TCL: SearchAutocompleteComponent -> onKeyArrowUp -> event', event);
-	// 	if (this.autocompleteOpen) {
-	// 		this.updateItemIndex('up');
-	// 		this.refreshItems();
-	// 		event.stopPropagation();
-	// 	}
-	// }
-
-	// @HostListener('document:keydown.arrowdown', ['$event'])
-	// onKeyArrowDown(event) {
-	// 	console.log('TCL: SearchAutocompleteComponent -> onKeyArrowDown -> event', event);
-	// if (this.autocompleteOpen) {
-	// 	this.updateItemIndex('down');
-	// 	this.refreshItems();
-	// 	event.stopPropagation();
-	// }
-	// }
-
 	@HostListener('document:keydown.enter', ['$event'])
 	onKeyEnter(event) {
 		if (this.autocompleteOpen) {
@@ -184,15 +164,4 @@ export class SearchAutocompleteComponent extends AutoUnsub implements OnInit, Af
 		});
 	}
 
-	// registerListenersForItems(values) {
-	// 	if (this.closeOnDisplay) {
-	// 		values.forEach(value => {
-	// 			value.itemDisplayed.pipe(
-	// 				takeUntil(this._destroyItems$),
-	// 			).subscribe(() => {
-	// 				this.closeAutocomplete();
-	// 			});
-	// 		});
-	// 	}
-	// }
 }

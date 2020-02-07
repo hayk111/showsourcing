@@ -61,4 +61,8 @@ export class HeaderSearchComponent extends AutoUnsub implements OnInit {
 
 		this.hasValueOrFocused = false;
 	}
+
+	onItemSelected(element) {
+		// TODO: implement search box up and down moving
+	}
 }

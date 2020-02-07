@@ -3,23 +3,46 @@
 	[class.left-mg]="hasLeftMargin"
 	(mouseenter)="showArrows = true"
 	(mouseleave)="showArrows = false">
-	<div class="grid-section" horizontalScroll #cardSection>
-		<div *ngFor="let item of products.slice(0, 10); let selectedIndex = index;" class="card">
-			<product-grid-card-app
-				size="s"
-				[hasCheckbox]="false"
-				[product]="products[selectedIndex]"
-				(click)="openProduct(item.id)"
-				(favorited)="updateProduct(products[selectedIndex], {favorite: true})"
-				(unfavorited)="updateProduct(products[selectedIndex], {favorite: false})"
-				(open)="open.emit(products[selectedIndex])"
-				(preview)="previewClick.emit(products[selectedIndex])"
-				(liked)="liked.emit( products[selectedIndex] )"
-				(disliked)="disliked.emit( products[selectedIndex] )"
-				(update)="update.emit($event)">
-			</product-grid-card-app>
+
+	<ng-container *ngIf="products.length > 3; else noScroll">
+		<div class="grid-section" horizontalScroll #cardSection>
+			<div *ngFor="let item of products.slice(0, 10); let selectedIndex = index;" class="card">
+				<product-grid-card-app
+					size="s"
+					[hasCheckbox]="false"
+					[product]="products[selectedIndex]"
+					(click)="openProduct(item.id)"
+					(favorited)="updateProduct(products[selectedIndex], {favorite: true})"
+					(unfavorited)="updateProduct(products[selectedIndex], {favorite: false})"
+					(open)="open.emit(products[selectedIndex])"
+					(preview)="previewClick.emit(products[selectedIndex])"
+					(liked)="liked.emit( products[selectedIndex] )"
+					(disliked)="disliked.emit( products[selectedIndex] )"
+					(update)="update.emit($event)">
+				</product-grid-card-app>
+			</div>
 		</div>
-	</div>
+	</ng-container>
+
+	<ng-template #noScroll>
+		<div class="grid-section" #cardSection>
+			<div *ngFor="let item of products.slice(0, 10); let selectedIndex = index;" class="card">
+				<product-grid-card-app
+					size="s"
+					[hasCheckbox]="false"
+					[product]="products[selectedIndex]"
+					(click)="openProduct(item.id)"
+					(favorited)="updateProduct(products[selectedIndex], {favorite: true})"
+					(unfavorited)="updateProduct(products[selectedIndex], {favorite: false})"
+					(open)="open.emit(products[selectedIndex])"
+					(preview)="previewClick.emit(products[selectedIndex])"
+					(liked)="liked.emit( products[selectedIndex] )"
+					(disliked)="disliked.emit( products[selectedIndex] )"
+					(update)="update.emit($event)">
+				</product-grid-card-app>
+			</div>
+		</div>
+	</ng-template>
 
 	<div *ngIf="showArrows && products.length > 3" class="arrows-container">
 		<div class="move-btn back flexCenter pointer"

@@ -28,6 +28,7 @@ export class SearchAutocompleteItemComponent extends AutoUnsub implements OnInit
 
 	/** The corresponding item was displayed. */
 	@Output() itemDisplayed = new EventEmitter<null>();
+	@Output() itemSelected = new EventEmitter<any>();
 
 	/** The item is selected. */
 	selected = false;
@@ -53,7 +54,7 @@ export class SearchAutocompleteItemComponent extends AutoUnsub implements OnInit
 	selectItem() {
 		this.selected = true;
 		this.renderer.addClass(this.element.nativeElement, 'selected');
-		this.element.nativeElement.scrollIntoView();
+		this.itemSelected.emit(this.element);
 	}
 
 	unselectItem() {
