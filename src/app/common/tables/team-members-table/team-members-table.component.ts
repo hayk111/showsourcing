@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { TeamService } from '~core/entity-services';
+import { TeamService } from '~core/erm';
 import { EntityTableComponent } from '~common/tables/entity-table.component';
-import { TeamUser, User } from '~models';
+import { TeamUser, User } from '~core/erm';
 
 
 @Component({
@@ -18,6 +18,7 @@ export class TeamMembersTableComponent extends EntityTableComponent<TeamUser> im
 	@Input() user: User;
 	@Output() accessTypeUpdated = new EventEmitter<string>();
 	@Output() showItemsPerPage = new EventEmitter<number>();
+	contextualMenuOpen = false;
 	isSelectableFn: Function;
 	$teamOwner: Observable<User>;
 

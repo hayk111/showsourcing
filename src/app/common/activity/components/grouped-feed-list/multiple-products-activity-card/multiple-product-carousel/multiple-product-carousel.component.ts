@@ -1,5 +1,10 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, HostListener } from '@angular/core';
-import { Product } from '~models';
+import {
+		ChangeDetectionStrategy,
+		Component, EventEmitter, Input, OnInit, Output, ViewChild, ElementRef, AfterContentChecked, AfterViewInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { timer } from 'rxjs';
+import { map, take} from 'rxjs/operators';
+import { Product } from '~core/erm';
 
 @Component({
 	selector: 'multiple-product-carousel-app',
@@ -11,13 +16,18 @@ export class MultipleProductCarouselComponent implements OnInit {
 
 	@Input() products: Product[];
 	@Input() selectedIndex = 0;
+	@Input() hasLeftMargin = false;
 	@Output() update = new EventEmitter<Product>();
 	@Output() previewClick = new EventEmitter<Product>();
 	@Output() open = new EventEmitter<Product>();
 	@Output() liked = new EventEmitter<Product>();
 	@Output() disliked = new EventEmitter<Product>();
 
-	constructor() { }
+	@ViewChild('cardSection', { static: false }) cardSection: ElementRef;
+
+	showArrows = false;
+
+	constructor(private router: Router) { }
 
 	ngOnInit() {
 	}
@@ -27,16 +37,24 @@ export class MultipleProductCarouselComponent implements OnInit {
 	}
 
 	back(event) {
-		if (this.selectedIndex > 0)
-			this.selectedIndex--;
 		event.stopPropagation();
-
+		this.animateScroll(false);
 	}
 
 	next(event) {
-		if (this.selectedIndex < this.products.length - 1)
-			this.selectedIndex++;
 		event.stopPropagation();
+		this.animateScroll();
 	}
 
+	openProduct(id: string) {
+		this.router.navigate(['products', id]);
+	}
+
+	// adds horizontal scroll animation to the component's grid section
+	animateScroll(forth = true, size = 150) {
+		this.cardSection.nativeElement.scrollTo({
+			left: (this.cardSection.nativeElement.scrollLeft + (forth ? size : -size)),
+			behavior: 'smooth'
+		});
+	}
 }

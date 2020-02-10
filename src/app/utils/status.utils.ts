@@ -1,6 +1,6 @@
 import { Color } from '~utils/colors.enum';
-import { Status } from '~core/models/status.model';
-import { Task } from '~core/models';
+import { Status } from '~core/erm';
+import { Task } from '~core/erm';
 
 export enum StatusCategory {
 	NEW = 'new',
@@ -8,6 +8,11 @@ export enum StatusCategory {
 	IN_PROGRESS = 'inProgress',
 	VALIDATED = 'validated',
 	REFUSED = 'refused',
+}
+
+export enum TeamUserStatus {
+	CONTRIBUTOR  = 'Contributor',
+	TEAM_MEMBER = 'Team Member',
 }
 
 export enum TaskStatus {

@@ -3,7 +3,7 @@
 }
 
 activity-user-app {
-	margin-bottom: var(--spacing-ms);
+	margin-bottom: var(--spacing-m);
 }
 
 one-activity-carousel-app {
@@ -12,6 +12,14 @@ one-activity-carousel-app {
 
 card-footer-app {
 	margin-top: var(--spacing-ms);
+}
+
+.info-container {
+	margin-left: var(--spacing-xs);
+}
+
+.conent {
+	margin-left: 56px;
 }
 
 .action-section {
@@ -27,7 +35,8 @@ card-footer-app {
 }
 
 .prodInfo {
-	margin-top: var(--spacing-s);
+	margin-top: var(--spacing-ms);
+	margin-bottom: var(--spacing-xl);
 
 	.name {
 		color: var(--color-txt-primary);
@@ -46,6 +55,10 @@ card-footer-app {
 			color: var(--color-primary);
 		}
 	}
+}
+
+.prod-info-content {
+	margin-left: var(--spacing-ms);
 }
 
 .badges {

@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
-import { Product } from '~models/product.model';
-import { ERM } from '~core/models/utils/_erm.utils';
+import { Product } from '~core/erm';
+import { ERM } from '~core/erm';
 
 @Component({
 	selector: 'product-modal-header-list',

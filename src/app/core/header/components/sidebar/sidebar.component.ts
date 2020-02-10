@@ -3,8 +3,8 @@ import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
 import { GetStreamNotification } from '~common/activity/interfaces/get-stream-feed.interfaces';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
-import { DEFAULT_REPLIED_STATUS, Team, User } from '~core/models';
-import { SupplierRequestService, TeamService, UserService } from '~entity-services';
+import { DEFAULT_REPLIED_STATUS, Team, User } from '~core/erm';
+import { SupplierRequestService, TeamService, UserService } from '~core/erm';
 import { NotificationActivityService } from '~shared/notif/services/notification-activity.service';
 
 import { sideNavItems } from './side-nav-items.const';

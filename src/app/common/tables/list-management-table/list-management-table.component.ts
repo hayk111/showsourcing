@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { EntityTableComponent, TableConfig } from '~common/tables/entity-table.component';
-import { EntityMetadata, ERM } from '~models';
+import { EntityMetadata, ERM } from '~core/erm';
 import { TranslateService } from '@ngx-translate/core';
 import { defaultConfig } from '../default-columns/default-config';
 

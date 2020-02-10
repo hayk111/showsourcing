@@ -1,5 +1,7 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, EventEmitter, Output } from '@angular/core';
-import { AppImage } from '~models';
+import { Component, OnInit, ChangeDetectionStrategy, Input, EventEmitter, Output, ViewChild, ElementRef } from '@angular/core';
+import { timer } from 'rxjs';
+import { map, take} from 'rxjs/operators';
+import { AppImage } from '~core/erm';
 import { DEFAULT_IMG } from '~utils';
 
 @Component({
@@ -20,26 +22,17 @@ export class OneActivityCarouselComponent implements OnInit {
 		return this._images;
 	}
 
+	@ViewChild('cardSection', { static: false }) cardSection: ElementRef;
+
 	private _images = [];
 	/** default image displayed when no image  */
 	defaultImg = DEFAULT_IMG;
 	indexModal = -1;
+	showArrows = false;
 
 	constructor() { }
 
 	ngOnInit() {
-	}
-
-	back(event) {
-		if (this.selectedIndex > 0)
-			this.selectedIndex--;
-		event.stopPropagation();
-	}
-
-	next(event) {
-		if (this.selectedIndex < this.images.length - 1)
-			this.selectedIndex++;
-		event.stopPropagation();
 	}
 
 	/** opens the modal carousel */
@@ -52,5 +45,26 @@ export class OneActivityCarouselComponent implements OnInit {
 		this.indexModal = -1;
 	}
 
+	back(event) {
+		event.stopPropagation();
+		this.animateScroll(false);
+	}
+
+	next(event) {
+		event.stopPropagation();
+		this.animateScroll();
+	}
+
+	// adds horizontal scroll animation to the component's grid section
+	animateScroll(forth = true, timeInt = 5, stopValue = 40) {
+		timer(timeInt, timeInt).pipe(
+			map(i => {
+				return stopValue - i;
+			}),
+			take(stopValue)
+		).subscribe(_ => {
+			this.cardSection.nativeElement.scrollLeft += forth ? 5 : -5;
+		});
+	}
 
 }

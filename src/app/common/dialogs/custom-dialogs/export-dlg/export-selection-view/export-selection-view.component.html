@@ -37,7 +37,7 @@
 
 	<dialog-footer-app class="full-width flexCenter flexBetween">
 		<span class="txt-secondary">
-			{{ ((length || 0) > 1 ? 'OBJ.item-selected.plural' : 'OBJ.item-selected.singular') | translate: {count: length || 0} }}
+			{{ 'OBJ.n-item-selected.' + (length === 1 ? 'singular' : 'plural') | translate: { count: length || 0 } }}
 		</span>
 		<button tabFocusAction class="capitalize" (click)="export.emit()" translate="button.export"></button>
 	</dialog-footer-app>

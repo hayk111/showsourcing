@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Sample } from '~core/models';
-import { SampleService } from '~core/entity-services';
+import { Sample } from '~core/erm';
+import { SampleService } from '~core/erm';
 import { TableConfig } from '~common/tables/entity-table.component';
 
 const tableConfig: TableConfig = {

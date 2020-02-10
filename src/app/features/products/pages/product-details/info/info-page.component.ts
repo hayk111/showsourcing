@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 import { switchMap, takeUntil, tap } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { ProductDescriptor } from '~core/descriptors';
-import { ProductService } from '~core/entity-services';
-import { Product } from '~core/models';
+import { ProductService } from '~core/erm';
+import { Product } from '~core/erm';
 import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
 import { AutoUnsub } from '~utils';
 

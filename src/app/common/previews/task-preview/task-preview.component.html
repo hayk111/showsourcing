@@ -43,10 +43,18 @@
 		<context-menu-item-app
 			(click)="archive()"
 			translate="button.archive">
+			<div class="icon-box square flexCenter mg-right-s">
+				<icon-app name="archive" size="s"></icon-app>
+			</div>
+			<span translate="button.archive"></span>
 		</context-menu-item-app>
 		<context-menu-item-warn-app
 			(click)="delete(task)"
 			translate="button.delete">
+			<div class="icon-box square flexCenter mg-right-s">
+				<icon-app name="delete" size="s"></icon-app>
+			</div>
+			<span translate="button.delete"></span>
 		</context-menu-item-warn-app>
 
 		<preview-header-subtitle-app>

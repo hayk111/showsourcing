@@ -4,10 +4,10 @@ import { empty, Observable, of } from 'rxjs';
 import { filter, map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { CreationDialogComponent } from '~common/dialogs/creation-dialogs';
 import { ExportDlgComponent } from '~common/dialogs/custom-dialogs';
-import { UserService } from '~core/entity-services';
-import { GlobalServiceInterface } from '~core/entity-services/_global/global.service';
-import { SelectParamsConfig } from '~core/entity-services/_global/select-params';
-import { EntityMetadata } from '~core/models';
+import { UserService } from '~core/erm';
+import { GlobalServiceInterface } from '~core/erm';
+import { SelectParamsConfig } from '~core/erm';
+import { EntityMetadata } from '~core/erm';
 import { View } from '~shared/controller-table/components';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
@@ -274,7 +274,7 @@ export class ListPageService
 				tap(_ => this.selectionSrv.unselectOne(entity)),
 				filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
 				switchMap(_ => this.dataSrv.deleteOne(entity.id)),
-				tap(_ => callback()),
+				tap(_ => callback && callback()),
 				switchMap(_ => refetch ? this.refetch() : empty())
 			).subscribe();
 	}

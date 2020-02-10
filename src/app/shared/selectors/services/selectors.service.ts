@@ -1,10 +1,8 @@
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { map, switchMap, take, tap } from 'rxjs/operators';
-import { ListQuery } from '~core/entity-services/_global/list-query.interface';
-import { SelectParams, SelectParamsConfig } from '~core/entity-services/_global/select-params';
-import { Currency, EntityName, EntityMetadata, ERM } from '~models';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map, switchMap, take } from 'rxjs/operators';
+import { Currency, EntityMetadata, EntityName, ERM, ListQuery, SelectParams, SelectParamsConfig } from '~core/erm';
 import { Filter } from '~shared/filters';
 import { FilterList } from '~shared/filters/models/filter-list.class';
 

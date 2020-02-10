@@ -1,4 +1,6 @@
-import { Component, EventEmitter, ChangeDetectionStrategy, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ERM } from '~core/erm';
+
 import { EntitySelectionBarComponent } from '../entity-selection-bar.component';
 
 @Component({
@@ -9,10 +11,7 @@ import { EntitySelectionBarComponent } from '../entity-selection-bar.component';
 })
 export class TaskSelectionBarComponent extends EntitySelectionBarComponent {
 
-	@Input() allSelectedFavorite: boolean;
-	@Output() onFavorite = new EventEmitter<null>();
-	@Output() onUnfavorite = new EventEmitter<null>();
-	@Output() statusUpdated = new EventEmitter<any>();
+	erm = ERM;
 
 	constructor() {
 		super();

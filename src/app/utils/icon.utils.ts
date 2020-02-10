@@ -1,4 +1,4 @@
-import { EntityName } from '~core/models/utils';
+import { EntityName } from '~core/erm/entity-name.enum';
 import { Color } from '~utils/colors.enum';
 
 export type Size = 'xs' | 's' | 'ms' | 'm' | 'l' | 'xl' | 'xxl';
@@ -53,7 +53,7 @@ export class IconUtils {
 		ms: { background: 28, icon: 12, font: 6 },
 		m: { background: 32, icon: 16, font: 8 },
 		l: { background: 36, icon: 24, font: 10 },
-		xl: { background: 54, icon: 24, font: 16 },
+		xl: { background: 64, icon: 32, font: 16 },
 		xxl: { background: 88, icon: 40, font: 32 }
 	};
 

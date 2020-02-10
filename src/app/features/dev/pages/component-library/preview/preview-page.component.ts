@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { ERM, Product, AppImage } from '~models';
-import { ProductService } from '~entity-services';
+import { ERM, Product, AppImage } from '~core/erm';
+import { ProductService } from '~core/erm';
 import { Observable } from 'rxjs';
 
 @Component({

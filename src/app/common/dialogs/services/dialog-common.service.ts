@@ -18,9 +18,10 @@ import {
 	ProductRequestTeamFeedbackDlgComponent,
 	RefuseReplyDlgComponent,
 	VoteDetailsDialogComponent,
+	DownloadDlgComponent,
 } from '~common/dialogs/custom-dialogs';
 import { ProductAddToProjectDlgComponent, ProductSelectDlgComponent } from '~common/dialogs/selection-dialogs';
-import { EntityMetadata, EntityName, Product, Project, Supplier } from '~models';
+import { EntityMetadata, EntityName, Product, Project, Supplier } from '~core/erm';
 import { CloseEvent, CloseEventType } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { DialogService } from '~shared/dialog/services';
@@ -65,6 +66,10 @@ export class DialogCommonService {
 	/** Opens a dialog that lets the user export a product either in PDF or EXCEL format */
 	openExportDialog(type: EntityName, targets?: ExportEntity[], query?: string) {
 		return this.dlgSrv.open(ExportDlgComponent, { type, targets, query });
+	}
+
+	openDownloadDialog() {
+		return this.dlgSrv.open(DownloadDlgComponent);
 	}
 
 	/** Opens a dialog that lets the user request members of his team for feedback regarding the products he selectioned */

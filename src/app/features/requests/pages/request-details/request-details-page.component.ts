@@ -7,9 +7,9 @@ import {
 	ReviewRequestReplyDlgComponent,
 } from '~common/dialogs/custom-dialogs/review-request-reply-dlg/review-request-reply-dlg.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { RequestElementService, RequestReplyService, SupplierRequestService } from '~core/entity-services';
+import { RequestElementService, RequestReplyService, SupplierRequestService } from '~core/erm';
 import { ListPageService } from '~core/list-page';
-import { ERM, ReplyStatus, RequestElement, SupplierRequest } from '~core/models';
+import { ERM, ReplyStatus, RequestElement, SupplierRequest } from '~core/erm';
 import { DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { ToastService, ToastType } from '~shared/toast';

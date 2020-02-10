@@ -289,6 +289,10 @@ $levels: (
 	transition: 0.3s;
 }
 
+.no-padding {
+	padding: 0 !important;
+}
+
 $padding-horizontal: 8px;
 /* Adds hover effect that grows outside of the content on the sides */
 .oversized-horizontal-hover:hover {

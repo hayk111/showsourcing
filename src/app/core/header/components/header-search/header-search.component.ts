@@ -1,10 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { debounceTime, switchMap } from 'rxjs/operators';
 import { SearchService } from '~core/header/services/search.service';
-import {
-	SearchAutocompleteComponent,
-} from '~shared/search-autocomplete/components/search-autocomplete/search-autocomplete.component';
+import { SearchAutocompleteComponent } from '~shared/search-autocomplete/components/search-autocomplete/search-autocomplete.component';
 import { AutoUnsub } from '~utils';
 
 @Component({
@@ -18,6 +17,7 @@ export class HeaderSearchComponent extends AutoUnsub implements OnInit {
 	@ViewChild('searchAutocomplete', { static: true }) searchAutocomplete: SearchAutocompleteComponent;
 	@ViewChild('myInput', {static: true}) myInput: ElementRef;
 
+	modelChange: Subject<string> = new Subject<string>();
 	searchControl: FormControl;
 	searchResults$: Observable<any[]>;
 	searchBarExpanded = false;
@@ -29,21 +29,17 @@ export class HeaderSearchComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
+		this.searchResults$ = this.modelChange
+			.pipe(
+				debounceTime(300),
+				switchMap(_ => this.searchSrv.search(this.myInput.nativeElement.value)),
+			);
 	}
 
 	triggerSearch() {
-		const search = this.searchControl.value;
-		this.searchResults$ = this.searchSrv.search(search);
 		this.searchAutocomplete.openAutocomplete();
-	}
-
-	onSearchBarStateChanged(state) {
-		if (state === 'shrinked') {
-			this.searchControl.setValue('');
-			this.searchBarExpanded = false;
-		} else {
-			this.searchBarExpanded = true;
-		}
+		const search = this.myInput.nativeElement.value;
+		this.modelChange.next(search);
 	}
 
 	supplierSubtitle(supplier) {
@@ -65,5 +61,4 @@ export class HeaderSearchComponent extends AutoUnsub implements OnInit {
 
 		this.hasValueOrFocused = false;
 	}
-
 }

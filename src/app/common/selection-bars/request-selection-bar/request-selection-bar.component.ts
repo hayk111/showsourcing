@@ -1,4 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
+import { ERM } from '~core/erm';
+
 import { EntitySelectionBarComponent } from '../entity-selection-bar.component';
 
 @Component({
@@ -8,7 +10,10 @@ import { EntitySelectionBarComponent } from '../entity-selection-bar.component';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RequestSelectionBarComponent extends EntitySelectionBarComponent {
+
 	@Output() cancelSelectedRequests = new EventEmitter<null>();
+
+	erm = ERM;
 
 	constructor() {
 		super();

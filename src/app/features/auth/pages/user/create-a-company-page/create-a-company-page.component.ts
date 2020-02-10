@@ -3,8 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first, mergeMap } from 'rxjs/operators';
 import { AuthFormButton, AuthFormElement } from '../../../shared';
-import { CompanyService, TeamService, UserService } from '~entity-services';
-import { Company, Team } from '~models';
+import { CompanyService, TeamService, UserService } from '~core/erm';
+import { Company, Team } from '~core/erm';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 import { TranslateService } from '@ngx-translate/core';
 

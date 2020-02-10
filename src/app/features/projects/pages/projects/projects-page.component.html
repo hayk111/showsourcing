@@ -42,7 +42,6 @@
 	</projects-table-app>
 
 	<project-selection-bar-app
-		entityType="project"
 		[isShown]="(listSrv.selection$ | async).size > 0"
 		[selection]="listSrv.selection$ | async"
 		[selectableItems]="listSrv.items$ | async"

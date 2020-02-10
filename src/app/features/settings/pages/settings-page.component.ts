@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
-import { ERM } from '~models';
-import { CompanyService, TeamService } from '~core/entity-services';
+import { ERM } from '~core/erm';
+import { CompanyService, TeamService } from '~core/erm';
 
 @Component({
 	selector: 'settings-page-app',
