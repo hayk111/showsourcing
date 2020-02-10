@@ -7,7 +7,11 @@ import {
 	Input,
 	Output,
 	QueryList,
+	Renderer2,
+	OnInit,
+	Inject,
 } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import {
@@ -30,7 +34,7 @@ export type AutocompletePositionY = 'above' | 'below';
 		'aria-haspopup': 'true',
 	}
 })
-export class SearchAutocompleteComponent extends AutoUnsub implements AfterContentInit {
+export class SearchAutocompleteComponent extends AutoUnsub implements OnInit, AfterContentInit {
 	/** Position of the autocomplete in the X axis.*/
 	@Input() xPosition = 16;
 	/** Position of the autocomplete in the Y axis. */
@@ -47,11 +51,34 @@ export class SearchAutocompleteComponent extends AutoUnsub implements AfterConte
 
 	autocompleteOpen = false;
 	selectedItemIndex = 0;
+	handler: any;
 
 	_destroyItems$ = new Subject<void>();
 
-	constructor() {
+	constructor(private renderer: Renderer2, @Inject(DOCUMENT) public document: Document) {
 		super();
+	}
+
+	ngOnInit() {
+		this.handler = this.renderer.listen(this.document, 'keydown', event => {
+			if (event.code === 'ArrowDown') {
+				if (this.autocompleteOpen) {
+					this.updateItemIndex('down');
+					this.refreshItems();
+					event.preventDefault();
+				}
+				return;
+			}
+
+			if (event.code === 'ArrowUp') {
+				if (this.autocompleteOpen) {
+					this.updateItemIndex('up');
+					this.refreshItems();
+					event.preventDefault();
+				}
+				return;
+			}
+		});
 	}
 
 	ngAfterContentInit() {
@@ -91,21 +118,9 @@ export class SearchAutocompleteComponent extends AutoUnsub implements AfterConte
 		this.close.emit();
 	}
 
-	@HostListener('document:keydown.arrowup', ['$event'])
-	onKeyArrowUp(event) {
+	@HostListener('document:keydown.escape', ['$event']) onKeyEsc(event: KeyboardEvent) {
 		if (this.autocompleteOpen) {
-			this.updateItemIndex('up');
-			this.refreshItems();
-			event.stopPropagation();
-		}
-	}
-
-	@HostListener('document:keydown.arrowdown', ['$event'])
-	onKeyArrowDown(event) {
-		if (this.autocompleteOpen) {
-			this.updateItemIndex('down');
-			this.refreshItems();
-			event.stopPropagation();
+			this.closeAutocomplete();
 		}
 	}
 
@@ -114,7 +129,7 @@ export class SearchAutocompleteComponent extends AutoUnsub implements AfterConte
 		if (this.autocompleteOpen) {
 			const selectedItem = this.items.find((item, index) => (index === this.selectedItemIndex));
 			if (selectedItem) {
-				selectedItem.displayItem();
+				selectedItem.displayItem(true);
 			}
 		}
 	}
@@ -155,15 +170,4 @@ export class SearchAutocompleteComponent extends AutoUnsub implements AfterConte
 		});
 	}
 
-	// registerListenersForItems(values) {
-	// 	if (this.closeOnDisplay) {
-	// 		values.forEach(value => {
-	// 			value.itemDisplayed.pipe(
-	// 				takeUntil(this._destroyItems$),
-	// 			).subscribe(() => {
-	// 				this.closeAutocomplete();
-	// 			});
-	// 		});
-	// 	}
-	// }
 }

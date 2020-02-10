@@ -11,23 +11,22 @@ card-title-app {
 	justify-content: center;
 }
 
-.content {
-	margin-top: var(--spacing-ms);
-	margin-bottom: var(--spacing-xxl);
-
-	h1 {
-		font-size: var(--font-size-m);
+// placeholder
+.placeholderCtnr {
+	height: 100%;
+	
+	.placeholder-logo {
+		margin-bottom: var(--spacing-ms);
+	}
+	
+	.placeholder-title {
+		color: var(--color-txt-primary);
 		font-weight: 600;
-		color: var(--color-bg-dark);
+		margin-bottom: var(--spacing-xs);
 	}
-
-	span {
-		font-size: var(--font-size-m);
+	
+	.placeholder-description {
 		color: var(--color-txt-secondary);
-	}
-
-	.secondary {
-		margin-top: var(--spacing-xs);
-		color: var(--color-txt-secondary);
+		margin-bottom: var(--spacing-ms);
 	}
 }

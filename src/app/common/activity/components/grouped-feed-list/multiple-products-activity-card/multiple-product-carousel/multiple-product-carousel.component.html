@@ -3,7 +3,8 @@
 	[class.left-mg]="hasLeftMargin"
 	(mouseenter)="showArrows = true"
 	(mouseleave)="showArrows = false">
-	<div class="grid-section" horizontalScroll #cardSection>
+
+	<div class="grid-section" #cardSection>
 		<div *ngFor="let item of products.slice(0, 10); let selectedIndex = index;" class="card">
 			<product-grid-card-app
 				size="s"

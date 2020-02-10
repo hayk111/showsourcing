@@ -12,3 +12,33 @@ card-title-app {
 		font-size: var(--font-size-xl);
 	}
 }
+
+.create-download {
+	button:first-child {
+		margin-right: 6px;
+	}
+
+	button:last-child {
+		margin-left: 6px;
+	}
+}
+
+// placeholder
+.placeholderCtnr {
+	height: 100%;
+	
+	.placeholder-logo {
+		margin-bottom: var(--spacing-ms);
+	}
+	
+	.placeholder-title {
+		color: var(--color-txt-primary);
+		font-weight: 600;
+		margin-bottom: var(--spacing-xs);
+	}
+	
+	.placeholder-description {
+		color: var(--color-txt-secondary);
+		margin-bottom: var(--spacing-ms);
+	}
+}

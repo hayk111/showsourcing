@@ -25,8 +25,8 @@ dialog-app {
 	cursor: pointer;
 	z-index: var(--z-base);
 	position: absolute;
-	top: var(--spacing-m);
-	right: var(--spacing-m);
+	top: var(--spacing-ms);
+	right: var(--spacing-ms);
 	color: var(--color-txt-secondary);
 }
 
@@ -77,10 +77,7 @@ dialog-app {
 }
 
 .qr-block {
-	background: #f2f5fb;
 	margin-top: var(--spacing-xxl);
-	width: 200px;
-	height: 200px;
 	img {
 		width: 164px;
 		height: 164px;

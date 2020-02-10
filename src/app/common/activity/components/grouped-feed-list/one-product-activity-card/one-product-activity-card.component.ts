@@ -59,7 +59,10 @@ export class OneProductActivityCardComponent extends AutoUnsub implements OnInit
 			takeUntil(this._destroy$)
 		).subscribe(product => {
 			this.product = product;
-			this.product.status.name = product.status.name.toLowerCase().replace(' ', '-');
+
+			if (this.product && this.product.status) {
+				this.product.status.name = product.status.name.toLowerCase().replace(' ', '-');
+			}
 		});
 	}
 

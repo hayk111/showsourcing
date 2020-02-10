@@ -1,6 +1,6 @@
 .container {
 	position: relative;
-	padding-top: 12px;
+	padding-top: var(--spacing-s);
 	cursor: pointer;
 }
 .unread {

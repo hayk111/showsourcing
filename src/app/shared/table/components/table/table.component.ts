@@ -42,6 +42,8 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	@Input() hasVerticalScroll = false;
 	/** the placeholder text if no element displayed in the table */
 	@Input() placeholder: string;
+	/** the placeholder description text if no element displayed in the table */
+	@Input() placeholderDesc: string;
 	/** whether rows are selectable and pagination is visible */
 	@Input() hasPagination = true;
 	/** whether the pagination component has left and right padding of 24px */

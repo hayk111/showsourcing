@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ProductService } from '~core/erm';
 import { RatingService } from '~shared/rating/services/rating.service';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { Product, EntityName } from '~core/erm';
-import { Router } from '@angular/router';
 
 @Component({
 	selector: 'latest-products-app',
@@ -20,7 +21,8 @@ export class LatestProductsComponent implements OnInit {
 	constructor(
 		private router: Router,
 		private productSrv: ProductService,
-		private ratingSrv: RatingService
+		private ratingSrv: RatingService,
+		public dlgCommonSrv: DialogCommonService,
 	) {}
 
 	ngOnInit() {}
