@@ -22,7 +22,7 @@
 	[yPosition]="12">
 	<ng-container *ngIf="searchResults$ | async as searchResults; else spinner">
 		<ng-container *ngIf="searchResults?.length; else placeholder">
-			<search-autocomplete-item-app *ngFor="let result of searchResults; trackBy: trackByFn">
+			<search-autocomplete-item-app *ngFor="let result of searchResults; trackBy: trackByFn" (itemSelected)="onItemSelected($event)">
 				<search-autocomplete-item-content-app
 					*ngIf="result.type === 'product'"
 					[type]="result.type"

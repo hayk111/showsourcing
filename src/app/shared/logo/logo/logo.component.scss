@@ -29,6 +29,10 @@
 		background: var(--color-secondary);
 		color: var(--color-secondary-contrast);
 	}
+	&.color-secondary-text {
+		background: var(--color-secondary);
+		color: var(--color-secondary);
+	}
 	&.color-bg-secondary {
 		background: var(--color-bg-secondary);
 		color: var(--color-txt-third);

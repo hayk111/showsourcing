@@ -2,7 +2,7 @@
 <ng-container *ngIf="canUpdate && (entity || type === 'multiple-selection') && typeEntity !== erm.TASK && typeEntity !== erm.PROJECT && typeEntity !== erm.TEAM_USER">
 	<context-menu-app
 		*ngIf="entity?.status || type === 'multiple-selection'"
-		class="menu-status {{selectSize}}"
+		class="menu-status {{ selectSize }}"
 		[closeOnScroll]="true"
 		[offsetX]="offsetX"
 		[offsetY]="offsetY">

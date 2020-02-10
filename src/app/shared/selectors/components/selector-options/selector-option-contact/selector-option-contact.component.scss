@@ -1,12 +1,5 @@
 :host {
-	display: flex;
-	min-height: 37px;
-	cursor: pointer;
-
 	&.active, &:hover {
-		background-color: var(--color-primary);
-		color: #fff;
-
 		.container > * {
 			color: white !important;
 		}
