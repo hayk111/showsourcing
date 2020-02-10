@@ -118,12 +118,18 @@ export class SearchAutocompleteComponent extends AutoUnsub implements OnInit, Af
 		this.close.emit();
 	}
 
+	@HostListener('document:keydown.escape', ['$event']) onKeyEsc(event: KeyboardEvent) {
+		if (this.autocompleteOpen) {
+			this.closeAutocomplete();
+		}
+	}
+
 	@HostListener('document:keydown.enter', ['$event'])
 	onKeyEnter(event) {
 		if (this.autocompleteOpen) {
 			const selectedItem = this.items.find((item, index) => (index === this.selectedItemIndex));
 			if (selectedItem) {
-				selectedItem.displayItem();
+				selectedItem.displayItem(true);
 			}
 		}
 	}

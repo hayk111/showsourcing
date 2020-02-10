@@ -1,4 +1,4 @@
-<card-app  marginTitle="ms">
+<card-app>
 
 	<card-title-app>
 		<h2>Lastest Products</h2>
@@ -10,15 +10,38 @@
 
 	<ng-container *ngIf="latestProducts | async as products; else spinner">
 
-		<!-- previews -->
-		<multiple-product-carousel-app
-			[products]="products"
-			(update)="updateProduct($event)"
-			(open)="viewProduct($event)"
-			(previewClick)="openProductPreview($event)"
-			(liked)="onThumbUp($event)"
-			(disliked)="onThumbDown($event)">
-		</multiple-product-carousel-app>
+		<ng-container *ngIf="products.length; else noProduct">
+			<!-- previews -->
+			<multiple-product-carousel-app
+				[products]="products"
+				(update)="updateProduct($event)"
+				(open)="viewProduct($event)"
+				(previewClick)="openProductPreview($event)"
+				(liked)="onThumbUp($event)"
+				(disliked)="onThumbDown($event)">
+			</multiple-product-carousel-app>
+		</ng-container>
+
+		<ng-template #noProduct>
+			<div class="flexCenter flexColumn placeholderCtnr">
+				<logo-app
+					class="placeholder-logo"
+					[circle]="true"
+					size="xl"
+					type="product">
+				</logo-app>
+				<div class="placeholder-title" [translate]="placeholder || 'OBJ.no-type-found'" [translateParams]="{ type: 'product' }"></div>
+				<div class="placeholder-description" [translate]="placeholderDesc || 'text.create-new-one'"></div>
+				<div class="create-download flex mg-bottom-ms">
+					<button class="capitalize" (click)="dlgCommonSrv.openCreationProductDlg()">{{ createEntityBtnName || ('OBJ.create' | translate: { field: ('product') }) }}</button>
+					<button class="icon-with-text capitalize" (click)="dlgCommonSrv.openDownloadDialog()">
+						<icon-app name="mobile"></icon-app>
+						<span>Download App</span>
+					</button>
+				</div>
+			</div>
+	
+		</ng-template>
 
 	</ng-container>
 

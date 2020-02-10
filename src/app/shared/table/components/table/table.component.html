@@ -161,9 +161,12 @@ https://stackblitz.com/edit/angular-vtluff?file=src/app/app.component.ts -->
 			<div class="placeholder-title" [translate]="placeholder || 'OBJ.no-type-found'" [translateParams]="{ type: type }"></div>
 			<div class="placeholder-description" [translate]="placeholderDesc || 'text.create-new-one'"></div>
 			<ng-container *ngIf="hasDownloadApp; else noDownloadApp">
-				<div class="create-download">
+				<div class="create-download flex mg-bottom-ms">
 					<button class="capitalize" (click)="createClick.emit()">{{ createEntityBtnName || ('OBJ.create' | translate: { field: (type) }) }}</button>
-					<button class="capitalize" (click)="downloadClick.emit()">Download App</button>
+					<button class="icon-with-text capitalize" (click)="downloadClick.emit()">
+						<icon-app name="mobile"></icon-app>
+						<span>Download App</span>
+					</button>
 				</div>
 			</ng-container>
 			<ng-template #noDownloadApp>
