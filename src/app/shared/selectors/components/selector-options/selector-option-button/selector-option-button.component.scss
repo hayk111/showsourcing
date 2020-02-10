@@ -1,11 +1,5 @@
 :host {
-	display: flex;
-	height: 37px;
-
-	cursor: pointer;
-
 	&.active, &:hover {
-		background-color: var(--color-primary);
 		button.create {
 			color: var(--color-txt-secondary);
 			background: white;

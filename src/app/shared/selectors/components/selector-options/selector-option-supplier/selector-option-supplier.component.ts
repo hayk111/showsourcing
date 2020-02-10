@@ -6,7 +6,10 @@ import { StatusUtils } from '~utils';
 @Component({
 	selector: 'selector-option-supplier-app',
 	templateUrl: './selector-option-supplier.component.html',
-	styleUrls: ['./selector-option-supplier.component.scss'],
+	styleUrls: [
+		'./selector-option-supplier.component.scss',
+		'../selector-options-common.scss'
+	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SelectorOptionSupplierComponent extends AbstractSelectorHighlightableComponent {

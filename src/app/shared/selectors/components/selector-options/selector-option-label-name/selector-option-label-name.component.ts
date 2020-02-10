@@ -4,7 +4,10 @@ import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/
 @Component({
 	selector: 'selector-option-label-name-app',
 	templateUrl: './selector-option-label-name.component.html',
-	styleUrls: ['./selector-option-label-name.component.scss'],
+	styleUrls: [
+		'./selector-option-label-name.component.scss',
+		'../selector-options-common.scss'
+	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SelectorOptionLabelNameComponent extends AbstractSelectorHighlightableComponent {

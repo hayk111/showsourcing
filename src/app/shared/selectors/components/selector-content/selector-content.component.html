@@ -1,0 +1,30 @@
+<form class="mg-ms" [formGroup]="group">
+	<form-field-app [ngClass]="{ 'field-focused': inp.focussed || !!inp.control.value }">
+			<input
+				inputApp
+				formControlName="name"
+				[value]="searchText"
+				type="text"
+				[placeholder]="'OBJ.enter-OBJ' | translate: { field: 'ERM.' + type.translationKey + '.singular' | translate }"
+				(keydown)="onKeydown.emit($event)"
+				(input)="onInput.emit(inp.control.value)">
+	</form-field-app>
+</form>
+
+<ng-content select="selector-content-stored-app"></ng-content>
+
+<div class="mg-top-ms">
+	<divider-app></divider-app>
+</div>
+<!-- switch case -->
+
+<ng-content select="selector-content-items-app"></ng-content>
+
+<div class="mg-bottom-ms">
+	<divider-app></divider-app>
+</div>
+
+<div class="flexEnd mg-ms">
+	<button tabFocusAction class="secondary capitalize" (click)="close.emit()" translate="button.done"></button>
+</div>
+

@@ -5,7 +5,10 @@ import { Country } from '~core/erm';
 @Component({
 	selector: 'selector-option-country-app',
 	templateUrl: './selector-option-country.component.html',
-	styleUrls: ['./selector-option-country.component.scss'],
+	styleUrls: [
+		'./selector-option-country.component.scss',
+		'../selector-options-common.scss'
+	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SelectorOptionCountryComponent extends AbstractSelectorHighlightableComponent {

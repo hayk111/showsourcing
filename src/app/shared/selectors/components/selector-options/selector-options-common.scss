@@ -1,0 +1,13 @@
+:host {
+	display: flex;
+	height: 37px;
+	padding: 0 var(--spacing-ms);
+	align-items: center;
+	cursor: pointer;
+
+
+	&.active, &:hover {
+		background-color: var(--color-primary);
+		color: #fff;
+	}
+}

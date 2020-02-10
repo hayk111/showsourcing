@@ -5,7 +5,10 @@ import { Event } from '~core/erm';
 @Component({
 	selector: 'selector-option-event-app',
 	templateUrl: './selector-option-event.component.html',
-	styleUrls: ['./selector-option-event.component.scss'],
+	styleUrls: [
+		'./selector-option-event.component.scss',
+		'../selector-options-common.scss'
+	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SelectorOptionEventComponent extends AbstractSelectorHighlightableComponent {

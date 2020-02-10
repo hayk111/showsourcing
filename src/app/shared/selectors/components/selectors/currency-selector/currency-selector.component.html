@@ -1,0 +1,21 @@
+<selector-content-app
+	[searchText]="selectorSrv.searchText"
+	[type]="erm.CURRENCY"
+	(onInput)="selectorSrv.search($event)"
+	(onKeydown)="onKeydown($event)"
+	(close)="close.emit()">
+	<selector-content-stored-app *ngIf="multiple">
+		<ng-container *ngIf="value?.length; else empty">
+			<info-badge-app *ngFor="let item of value; trackBy: trackById" class="mg-bottom-xs" [type]="erm.CURRENCY.singular" [hasDelete]="true" (delete)="deleteStoredItem(item)">{{ item }}</info-badge-app>
+		</ng-container>
+		<ng-template #empty>
+			<span class="italic color-txt-third">{{ 'OBJ.no-item-add-one' | translate: { field: 'ERM.' + erm.CURRENCY.translationKey + '.singular' | translate } }}</span>
+		</ng-template>
+	</selector-content-stored-app>
+
+	<selector-content-items-app infiniScroll [pending]="!(selectorSrv.items$ | async)" (bottomReached)="selectorSrv.loadMore()">
+		<selector-option-currency-app #abstract *ngFor="let item of selectorSrv.topCurrencies$ | async; trackBy: trackById" class="selector-row" [currency]="item" (click)="onSelect(item)"></selector-option-currency-app>
+		<divider-app class="top-3-divider" *ngIf="(this.selectorSrv.topCurrencies$ | async)?.length"></divider-app>
+		<selector-option-currency-app #abstract *ngFor="let item of selectorSrv.items$ | async; trackBy: trackById" [currency]="item" (click)="onSelect(item)"></selector-option-currency-app>
+	</selector-content-items-app>
+</selector-content-app>
