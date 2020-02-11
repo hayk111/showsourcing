@@ -5,7 +5,10 @@ import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/
 @Component({
 	selector: 'selector-option-contact-app',
 	templateUrl: './selector-option-contact.component.html',
-	styleUrls: ['./selector-option-contact.component.scss'],
+	styleUrls: [
+		'./selector-option-contact.component.scss',
+		'../selector-options-common.scss'
+	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SelectorOptionContactComponent extends AbstractSelectorHighlightableComponent {

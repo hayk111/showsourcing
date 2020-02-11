@@ -1,0 +1,21 @@
+<selector-content-app
+	[searchText]="selectorSrv.searchText"
+	[type]="erm.EMAIL"
+	(onInput)="selectorSrv.search($event)"
+	(onKeydown)="onKeydown($event)"
+	(close)="close.emit()">
+	<selector-content-stored-app *ngIf="multiple">
+			<ng-container *ngIf="value?.length; else empty">
+				<info-badge-app *ngFor="let item of value" class="mg-bottom-xs" [type]="erm.EMAIL.singular" [hasDelete]="true" (delete)="deleteStoredItem(item)">{{ item }}</info-badge-app>
+			</ng-container>
+			<ng-template #empty>
+			<span class="italic color-txt-third">{{ 'OBJ.no-item-add-one' | translate: { field: 'ERM.' + erm.EMAIL.translationKey + '.singular' | translate } }}</span>
+		</ng-template>
+	</selector-content-stored-app>
+
+	<selector-content-items-app infiniScroll [pending]="!(selectorSrv.items$ | async)" (bottomReached)="selectorSrv.loadMore()">
+		<selector-option-contact-app #abstract *ngFor="let item of selectorSrv.items$ | async; trackBy: trackById" [contact]="item" (click)="onSelect(item)"></selector-option-contact-app>
+		<!-- create button -->
+		<selector-option-button-app #abstract *ngIf="canCreate && !(selectorSrv.nameExists$ | async)" [type]="erm.EMAIL.singular" [searchTxt]="selectorSrv.searchText" (click)="create()"></selector-option-button-app>
+	</selector-content-items-app>
+</selector-content-app>

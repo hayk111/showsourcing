@@ -1,0 +1,261 @@
+<!-- the trigger -->
+<div
+	#trigger="cdkOverlayOrigin"
+	cdkOverlayOrigin
+	class="full-width ellipsis"
+	(click)="openMenu()">
+	<ng-content></ng-content>
+</div>
+
+<cdk-overlay-app
+	*ngIf="menuOpen && hasPicker"
+	[trigger]="trigger"
+	[isOpen]="menuOpen"
+	[offsetY]="offsetY"
+	[offsetX]="offsetX"
+	[leftSideOrientation]="leftSideOrientation"
+	[closeOnScroll]="true"
+	(clickOutside)="closeMenu(true)">
+
+	<div class="flexColumn" [ngStyle]="{ width: width + 'px'}">
+		<ng-container [ngSwitch]="type">
+
+			<!-- category -->
+			<category-selector-app
+				*ngSwitchCase="erm.CATEGORY"
+				[value]="value"
+				[filterList]="filterList"
+				[initialSeachTxt]="searchTxt"
+				[multiple]="multiple"
+				[canCreate]="canCreate"
+				(update)="onChange($event)"
+				(close)="closeMenu(true)"
+				cdkTrapFocus>
+			</category-selector-app>
+
+			<!-- product -->
+			<product-selector-app
+				*ngSwitchCase="erm.PRODUCT"
+				[value]="value"
+				[filterList]="filterList"
+				[initialSeachTxt]="searchTxt"
+				[multiple]="multiple"
+				[canCreate]="canCreate"
+				(update)="onChange($event)"
+				(close)="closeMenu(true)"
+				cdkTrapFocus>
+			</product-selector-app>
+
+			<!-- event -->
+			<event-selector-app
+				*ngSwitchCase="erm.EVENT"
+				[value]="value"
+				[filterList]="filterList"
+				[initialSeachTxt]="searchTxt"
+				[multiple]="multiple"
+				[canCreate]="canCreate"
+				(update)="onChange($event)"
+				(close)="closeMenu(true)"
+				cdkTrapFocus>
+			</event-selector-app>
+
+			<!-- project -->
+			<project-selector-app
+				*ngSwitchCase="erm.PROJECT"
+				[value]="value"
+				[filterList]="filterList"
+				[initialSeachTxt]="searchTxt"
+				[multiple]="multiple"
+				[canCreate]="canCreate"
+				(update)="onChange($event)"
+				(close)="closeMenu(true)"
+				cdkTrapFocus>
+			</project-selector-app>
+
+			<!-- supplier -->
+			<supplier-selector-app
+				*ngSwitchCase="erm.SUPPLIER"
+				[value]="value"
+				[filterList]="filterList"
+				[initialSeachTxt]="searchTxt"
+				[multiple]="multiple"
+				[canCreate]="canCreate"
+				(update)="onChange($event)"
+				(close)="closeMenu(true)"
+				cdkTrapFocus>
+			</supplier-selector-app>
+
+			<!-- supplier type -->
+			<supplier-type-selector-app
+				*ngSwitchCase="erm.SUPPLIER_TYPE"
+				[value]="value"
+				[filterList]="filterList"
+				[initialSeachTxt]="searchTxt"
+				[multiple]="multiple"
+				[canCreate]="canCreate"
+				(update)="onChange($event)"
+				(close)="closeMenu(true)"
+				cdkTrapFocus>
+			</supplier-type-selector-app>
+
+			<!-- tag -->
+			<tag-selector-app
+				*ngSwitchCase="erm.TAG"
+				[value]="value"
+				[filterList]="filterList"
+				[initialSeachTxt]="searchTxt"
+				[multiple]="multiple"
+				[canCreate]="canCreate"
+				(update)="onChange($event)"
+				(close)="closeMenu(true)"
+				cdkTrapFocus>
+			</tag-selector-app>
+
+			<!-- currency -->
+			<currency-selector-app
+				*ngSwitchCase="erm.CURRENCY"
+				[value]="value"
+				[filterList]="filterList"
+				[initialSeachTxt]="searchTxt"
+				[multiple]="multiple"
+				[canCreate]="canCreate"
+				(update)="onChange($event)"
+				(close)="closeMenu(true)"
+				cdkTrapFocus>
+			</currency-selector-app>
+
+			<!-- user -->
+			<user-selector-app
+				*ngSwitchCase="erm.USER"
+				[value]="value"
+				[filterList]="filterList"
+				[initialSeachTxt]="searchTxt"
+				[multiple]="multiple"
+				[canCreate]="canCreate"
+				(update)="onChange($event)"
+				(close)="closeMenu(true)"
+				cdkTrapFocus>
+			</user-selector-app>
+
+			<!-- contact -->
+			<contact-selector-app
+				*ngSwitchCase="erm.CONTACT"
+				[value]="value"
+				[filterList]="filterList"
+				[initialSeachTxt]="searchTxt"
+				[multiple]="multiple"
+				[canCreate]="canCreate"
+				(update)="onChange($event)"
+				(close)="closeMenu(true)"
+				cdkTrapFocus>
+			</contact-selector-app>
+
+			<!-- email -->
+			<email-selector-app
+				*ngSwitchCase="erm.EMAIL"
+				[value]="value"
+				[filterList]="filterList"
+				[initialSeachTxt]="searchTxt"
+				[multiple]="multiple"
+				[canCreate]="canCreate"
+				(update)="onChange($event)"
+				(close)="closeMenu(true)"
+				cdkTrapFocus>
+			</email-selector-app>
+			
+			<!-- harbour -->
+			<harbour-selector-app
+				*ngSwitchCase="erm.HARBOUR"
+				[value]="value"
+				[filterList]="filterList"
+				[initialSeachTxt]="searchTxt"
+				[multiple]="multiple"
+				[canCreate]="canCreate"
+				(update)="onChange($event)"
+				(close)="closeMenu(true)"
+				cdkTrapFocus>
+			</harbour-selector-app>
+			
+			<!-- inco-term -->
+			<inco-term-selector-app
+				*ngSwitchCase="erm.INCO_TERM"
+				[value]="value"
+				[filterList]="filterList"
+				[initialSeachTxt]="searchTxt"
+				[multiple]="multiple"
+				[canCreate]="canCreate"
+				(update)="onChange($event)"
+				(close)="closeMenu(true)"
+				cdkTrapFocus>
+			</inco-term-selector-app>
+
+			<!-- length-unit -->
+			<length-unit-selector-app
+				*ngSwitchCase="erm.LENGTH_UNIT"
+				[value]="value"
+				[filterList]="filterList"
+				[initialSeachTxt]="searchTxt"
+				[multiple]="multiple"
+				[canCreate]="canCreate"
+				(update)="onChange($event)"
+				(close)="closeMenu(true)"
+				cdkTrapFocus>
+			</length-unit-selector-app>
+
+			<!-- weight-unit -->
+			<weight-unit-selector-app
+				*ngSwitchCase="erm.WEIGHT_UNIT"
+				[value]="value"
+				[filterList]="filterList"
+				[initialSeachTxt]="searchTxt"
+				[multiple]="multiple"
+				[canCreate]="canCreate"
+				(update)="onChange($event)"
+				(close)="closeMenu(true)"
+				cdkTrapFocus>
+			</weight-unit-selector-app>
+
+			<!-- country -->
+			<country-selector-app
+				*ngSwitchCase="erm.COUNTRY"
+				[value]="value"
+				[filterList]="filterList"
+				[initialSeachTxt]="searchTxt"
+				[multiple]="multiple"
+				[canCreate]="canCreate"
+				(update)="onChange($event)"
+				(close)="closeMenu(true)"
+				cdkTrapFocus>
+			</country-selector-app>
+
+			<!-- request-template -->
+			<request-template-selector-app
+				*ngSwitchCase="erm.REQUEST_TEMPLATE"
+				[value]="value"
+				[filterList]="filterList"
+				[initialSeachTxt]="searchTxt"
+				[multiple]="multiple"
+				[canCreate]="canCreate"
+				(update)="onChange($event)"
+				(close)="closeMenu(true)"
+				cdkTrapFocus>
+			</request-template-selector-app>
+
+			<!-- selector-element -->
+			<selector-element-selector-app
+				*ngSwitchCase="erm.REQUEST_TEMPLATE"
+				[definitionReference]="definitionReference"
+				[value]="value"
+				[filterList]="filterList"
+				[initialSeachTxt]="searchTxt"
+				[multiple]="multiple"
+				[canCreate]="canCreate"
+				(update)="onChange($event)"
+				(close)="closeMenu(true)"
+				cdkTrapFocus>
+			</selector-element-selector-app>
+			
+		</ng-container>
+	</div>
+
+</cdk-overlay-app>

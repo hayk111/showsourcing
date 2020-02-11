@@ -1,13 +1,9 @@
 :host {
-	display: flex;
+	height: unset;
 	min-height: 37px;
 	max-height: 63px;
-	cursor: pointer;
 
 	&.active, &:hover {
-		background-color: var(--color-primary);
-		color: #fff;
-
 		.container > *:not(icon-app), .name-container .name {
 			color: white !important;
 		}

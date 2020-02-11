@@ -5,7 +5,10 @@ import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/
 @Component({
 	selector: 'selector-option-currency-app',
 	templateUrl: './selector-option-currency.component.html',
-	styleUrls: ['./selector-option-currency.component.scss'],
+	styleUrls: [
+		'./selector-option-currency.component.scss',
+		'../selector-options-common.scss'
+	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SelectorOptionCurrencyComponent extends AbstractSelectorHighlightableComponent {

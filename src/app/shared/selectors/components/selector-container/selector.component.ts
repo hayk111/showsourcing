@@ -27,7 +27,6 @@ import { ID } from '~utils';
 export class SelectorComponent extends AbstractInput implements OnInit {
 
 	@Input() value: any;
-
 	private _type: EntityMetadata;
 	// it can be both types, since selectors are used inside dynamic forms (customField.metadata.target)
 	@Input() set type(type: EntityMetadata | string) {
@@ -36,7 +35,6 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 	get type() {
 		return this._type;
 	}
-
 	@Input() multiple = false;
 	@Input() canCreate = false;
 	@Input() hasPicker = true;
@@ -63,10 +61,14 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 	@ContentChild(TabFocusActionDirective, { static: true }) tab: TabFocusActionDirective;
 
 	menuOpen = false;
+	erm = ERM;
 
 
 	// we need this in order to calculate dynamically the offsetX on preview badges
-	constructor(public elem: ElementRef, private cdr: ChangeDetectorRef) { super(cdr); }
+	constructor(
+		public elem: ElementRef,
+		private cdr: ChangeDetectorRef
+	) { super(cdr); }
 
 	ngOnInit() {
 		// everytime we focus the content and hit enter, we are opening the menu
