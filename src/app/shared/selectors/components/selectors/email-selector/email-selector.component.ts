@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { ContactService } from '~core/entity-services';
-import { ERM } from '~core/models';
+import { ContactService } from '~core/erm';
+import { ERM } from '~core/erm';
 import { SelectorConfig, SelectorsService } from '~shared/selectors/services/selectors.service';
 import { RegexpApp } from '~utils';
 

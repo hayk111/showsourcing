@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { SupplierTypeService } from '~core/entity-services';
-import { SupplierType, ERM } from '~core/models';
+import { SupplierTypeService } from '~core/erm';
+import { SupplierType, ERM } from '~core/erm';
 import { SelectorConfig, SelectorsService } from '~shared/selectors/services/selectors.service';
 
 import { AbstractSelectorComponent } from '../../abstract-selector.components';

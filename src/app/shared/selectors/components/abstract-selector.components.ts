@@ -14,7 +14,7 @@ import {
 	ViewChild,
 	ViewChildren,
 } from '@angular/core';
-import { ERM } from '~core/models';
+import { ERM } from '~core/erm';
 import { FilterList } from '~shared/filters';
 import { AbstractInput } from '~shared/inputs';
 

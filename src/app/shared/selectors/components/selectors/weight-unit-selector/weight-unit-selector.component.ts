@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { WeightUnitService } from '~core/entity-services/weight-unit/weight-unit.service';
-import { ERM } from '~core/models';
+import { WeightUnitService } from '~core/erm/services/weight-unit/weight-unit.service';
+import { ERM } from '~core/erm';
 import { SelectorConfig, SelectorsService } from '~shared/selectors/services/selectors.service';
 
 import { AbstractSelectorComponent } from '../../abstract-selector.components';
@@ -70,7 +70,7 @@ export class WeightUnitSelectorComponent extends AbstractSelectorComponent {
 
 	createFn(): any {
 		// this entity should not be able to create
-		throw Error('weight unit selector is not suposed to create new ones')
+		throw Error('weight unit selector is not suposed to create new ones');
 	}
 
 }

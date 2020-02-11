@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { CountryService } from '~core/entity-services/country/country.service';
-import { ERM } from '~core/models';
+import { CountryService } from '~core/erm/services/country/country.service';
+import { ERM } from '~core/erm';
 import { SelectorConfig, SelectorsService } from '~shared/selectors/services/selectors.service';
 
 import { AbstractSelectorComponent } from '../../abstract-selector.components';
@@ -71,7 +71,7 @@ export class CountrySelectorComponent extends AbstractSelectorComponent {
 
 	createFn(): any {
 		// this entity should not be able to create
-		throw Error('country selector is not suposed to create new ones')
+		throw Error('country selector is not suposed to create new ones');
 	}
 
 }

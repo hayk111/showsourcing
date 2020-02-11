@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { HarbourService } from '~core/entity-services/harbour/harbour.service';
-import { ERM } from '~core/models';
+import { HarbourService } from '~core/erm/services/harbour/harbour.service';
+import { ERM } from '~core/erm';
 import { SelectorConfig, SelectorsService } from '~shared/selectors/services/selectors.service';
 
 import { AbstractSelectorComponent } from '../../abstract-selector.components';

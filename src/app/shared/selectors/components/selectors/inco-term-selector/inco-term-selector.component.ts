@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { IncoTermService } from '~core/entity-services/inco-term/inco-term.service';
-import { ERM } from '~core/models';
+import { IncoTermService } from '~core/erm/services/inco-term/inco-term.service';
+import { ERM } from '~core/erm';
 import { SelectorConfig, SelectorsService } from '~shared/selectors/services/selectors.service';
 
 import { AbstractSelectorComponent } from '../../abstract-selector.components';
@@ -70,7 +70,7 @@ export class IncoTermSelectorComponent extends AbstractSelectorComponent {
 
 	createFn(): any {
 		// this entity should not be able to create
-		throw Error('inco term selector is not suposed to create new ones')
+		throw Error('inco term selector is not suposed to create new ones');
 	}
 
 }
