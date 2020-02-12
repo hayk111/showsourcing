@@ -54,6 +54,16 @@ a {
 	height: 64px;
 	width: 64px;
 
+	.badge {
+		position: absolute;
+		right: 14px;
+		top: var(--spacing-m);
+		background-color: var(--color-warn);
+		width: var(--spacing-ms);
+		height: var(--spacing-ms);
+		border-radius: 50%;
+	}
+
 	&:hover {
 		background: #071327;
 	}

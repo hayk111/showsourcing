@@ -36,5 +36,7 @@
 	[selection]="listSrv.selection$ | async"
 	[selectableItems]="listSrv.items$ | async"
 	(close)="listSrv.unselectAll()"
-	(cancelSelectedRequests)="cancelSelectedRequests()">
+	(cancelSelectedRequests)="cancelSelectedRequests()"
+	(selectAll)="listSrv.selectAll($event)"
+	(unselectAll)="listSrv.unselectAll()">
 </request-selection-bar-app>

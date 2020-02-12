@@ -19,17 +19,12 @@ icon-app {
 }
 
 .notif-badge {
-	background-color: var(--color-warn);
-	width: 20px;
-	height: 18px;
-  color: var(--color-primary-contrast);
-	padding-bottom: var(--spacing-xxs);
 	position: absolute;
-	right: -5px;
-	top: -1px;
-  font-size: var(--font-size-s);
-	text-align: center;
-	cursor: pointer;
+	top: 0;
+	right: -6px;
+	background-color: var(--color-warn);
+	width: var(--spacing-ms);
+	height: var(--spacing-ms);
 }
 
 notif-layout-app {
