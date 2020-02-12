@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CurrencyService } from '~core/entity-services';
-import { Currency, ERM } from '~core/models';
+import { CurrencyService } from '~core/erm';
+import { Currency, ERM } from '~core/erm';
 import { SelectorConfig, SelectorsService } from '~shared/selectors/services/selectors.service';
 
 import { AbstractSelectorComponent } from '../../abstract-selector.components';

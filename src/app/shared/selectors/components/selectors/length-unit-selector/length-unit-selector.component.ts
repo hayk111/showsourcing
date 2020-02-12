@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { LengthUnitService } from '~core/entity-services/length-unit/length-unit.service';
-import { ERM } from '~core/models';
+import { LengthUnitService } from '~core/erm/services/length-unit/length-unit.service';
+import { ERM } from '~core/erm';
 import { SelectorConfig, SelectorsService } from '~shared/selectors/services/selectors.service';
 
 import { AbstractSelectorComponent } from '../../abstract-selector.components';
@@ -70,7 +70,7 @@ export class LengthUnitSelectorComponent extends AbstractSelectorComponent {
 
 	createFn(): any {
 		// this entity should not be able to create
-		throw Error('length unit selector is not suposed to create new ones')
+		throw Error('length unit selector is not suposed to create new ones');
 	}
 
 }

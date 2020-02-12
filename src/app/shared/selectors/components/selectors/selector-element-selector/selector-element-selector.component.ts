@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input } from '@angular/core';
-import { SelectorElementService } from '~core/entity-services';
-import { ERM } from '~core/models';
+import { SelectorElementService } from '~core/erm';
+import { ERM } from '~core/erm';
 import { SelectorConfig, SelectorsService } from '~shared/selectors/services/selectors.service';
 import { ID } from '~utils';
 

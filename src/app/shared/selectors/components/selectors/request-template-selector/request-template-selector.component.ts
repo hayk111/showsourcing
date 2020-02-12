@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { Observable } from 'rxjs';
-import { RequestTemplateService } from '~core/entity-services';
-import { ERM, RequestTemplate } from '~core/models';
+import { RequestTemplateService } from '~core/erm';
+import { ERM, RequestTemplate } from '~core/erm';
 import { SelectorConfig, SelectorsService } from '~shared/selectors/services/selectors.service';
 
 import { AbstractSelectorComponent } from '../../abstract-selector.components';
