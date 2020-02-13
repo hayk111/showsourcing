@@ -16,9 +16,10 @@ import { TeamService, UserService } from '~core/erm';
 export class NotificationActivityService {
 	private limit: number;
 	private client: getstream.Client;
-	private shouldRefetch$ = new BehaviorSubject(true);
 	private shouldUpdateUnreadCount = new Subject<{ allMarkedAsRead: boolean, notificationId?: string }>();
+	shouldRefetch$: BehaviorSubject<Boolean> = new BehaviorSubject(true);
 	isPanelOpen = false;
+
 	constructor(
 		private http: HttpClient,
 		private teamSrv: TeamService,
@@ -96,6 +97,7 @@ export class NotificationActivityService {
 		this.getNotificationToken().toPromise().then(token => {
 			const feed: getstream.Feed = this.client.feed('notifications', this.getNotificationUserId(), token);
 			feed.get({ limit: 0, mark_read: true });
+			this.shouldRefetch$.next(true);
 		});
 	}
 

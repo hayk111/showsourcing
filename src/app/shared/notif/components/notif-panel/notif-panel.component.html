@@ -13,7 +13,8 @@
 		<p class="title" translate="title.notifications"></p>
 	</card-title-app>
 
-	<card-action-app class="mark-read-button" (click)="notifActivitySrv.markAllAsRead()" translate="text.mark-all-as-read">
+	<card-action-app class="flexVAlign mark-read-button" (click)="notifActivitySrv.markAllAsRead()">
+		{{'text.mark-all-as-read' | translate}}
 	</card-action-app>
 
 	<notif-list-app [activities]="results"></notif-list-app>

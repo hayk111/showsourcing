@@ -8,6 +8,7 @@
 
 	<div
 		*ngFor="let activity of activities; last as isLast"
+		class="notif-item"
 		[ngClass]="{ 'notif-feed': !isDashboardBox }">
 
 		<notif-item-app

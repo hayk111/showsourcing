@@ -2,6 +2,12 @@
 	padding: 0 var(--spacing-s) 0 var(--spacing-xxl);
 }
 
+.notif-item {
+	&:last-of-type {
+		margin-bottom: var(--spacing-s);
+	}
+}
+
 .list-container {
 	width: 100%;
 	height: calc(100vh - 80px);
