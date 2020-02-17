@@ -1,15 +1,27 @@
 import { ApolloBase } from 'apollo-angular';
-import { API } from 'aws-amplify';
+import { API, Auth } from 'aws-amplify';
+import { AUTH_TYPE, AWSAppSyncClient } from "aws-appsync";
 import { DocumentNode } from 'graphql';
 import { from, Observable, of } from 'rxjs';
-import { catchError, map, shareReplay, tap } from 'rxjs/operators';
+import { catchError, filter, map, shareReplay, tap } from 'rxjs/operators';
 import { AnalyticsService } from '~core/analytics/analytics.service';
 import { Entity } from '~core/erm/models';
 import { ListQuery } from '~core/erm/services/_global/list-query.interface';
-import { QueryBuilder } from '~core/erm/services/_global/query-builder.class';
+import { QueryBuilder } from '~core/erm/services/_global/query-builder-2.class';
 import { SelectAllParamsConfig } from '~core/erm/services/_global/select-all-params';
 import { SelectParamsConfig } from '~core/erm/services/_global/select-params';
 import { log, LogColor } from '~utils';
+import awsconfig from "../../aws-exports";
+
+const client = new AWSAppSyncClient({
+  url: awsconfig.aws_appsync_graphqlEndpoint,
+  region: awsconfig.aws_appsync_region,
+  auth: {
+    type: AUTH_TYPE[awsconfig.aws_appsync_authenticationType],
+    jwtToken: async () =>
+      (await Auth.currentSession()).getIdToken().getJwtToken()
+  }
+});
 
 
 export interface GlobalServiceInterface<T> {
@@ -49,10 +61,9 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	constructor(
 		protected fields: any,
 		protected sing: string,
-		protected plural: string,
 		protected analyticsSrv?: AnalyticsService
 	) {
-		this.queryBuilder = new QueryBuilder(sing, plural);
+		this.queryBuilder = new QueryBuilder(sing);
 		// capitalizing the typename
 		this.typeName = sing.substr(0, 1).toUpperCase() + sing.substr(1);
 	}
@@ -125,23 +136,21 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	 */
 	queryOne(id: string, fields?: string | string[]): Observable<T> {
-		throw Error('not implemented');
-		// const title = 'Query one ' + this.typeName;
-		// fields = this.getFields(fields, this.fields.one);
-		// const gql = this.queryBuilder.queryOne(fields);
-		// const queryName = this.getQueryName(gql);
-		// const variables = { id };
+		const title = 'Query one ' + this.typeName;
+		fields = this.getFields(fields, this.fields.one);
+		const query = this.queryBuilder.queryOne(fields);
+		const queryName = this.getQueryName(query);
+		const variables = { id };
 
-		// return this.getClient(clientName, title).pipe(
-		// 	tap(_ => this.log(title, gql, queryName, clientName, variables)),
-		// 	switchMap(client => client.watchQuery({ query: gql, variables }).valueChanges),
-		// 	filter((r: any) => this.checkError(r, title)),
-		// 	// extracting the result
-		// 	// since we are getting an array back we only need the first one
-		// 	map(({ data }) => data[queryName]),
-		// 	tap(data => this.logResult(title, queryName, data)),
-		// 	shareReplay(1)
-		// );
+		this.log(title, query, queryName, variables);
+		return from(client.watchQuery({ query, variables })).pipe(
+			filter((r: any) => this.checkError(r, title)),
+			// extracting the result
+			// since we are getting an array back we only need the first one
+			map(({ data }) => data[queryName]),
+			tap(data => this.logResult(title, queryName, data)),
+			shareReplay(1)
+		);
 	}
 
 	///////////////////////////////

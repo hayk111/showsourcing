@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import gql from "graphql-tag";
 
 /**
  * Helper to create GraphQL queries that are valid for the realm GraphQL service
@@ -13,16 +13,15 @@ import gql from 'graphql-tag';
  *
  */
 export class QueryBuilder {
-
 	capSing: string;
 	capPlural: string;
 
-	constructor(public sing: string, public plural: string) {
-		if (!sing || !plural) {
-			throw Error('you must define the singular and plural form of the typename');
+	constructor(public sing: string) {
+		if (!sing) {
+			throw Error("you must define the singular form of the typename");
 		}
 		this.capSing = this.capitalize(sing);
-		this.capPlural = this.capitalize(plural);
+		this.capPlural = this.capSing + "s";
 	}
 
 	// select one actually select many entities that respond to a query.
@@ -31,8 +30,8 @@ export class QueryBuilder {
 	// via id
 
 	// selectOne = (str: string) => gql(`
-	// 	subscription ${this.sing}($query: String!) {
-	// 		${ this.plural}(query: $query) {
+	// 	subscription ${this.capSing}($query: String!) {
+	// 		${ this.capPlural}(query: $query) {
 	// 			items {
 	// 				id
 	// 				${str}
@@ -42,23 +41,24 @@ export class QueryBuilder {
 	// 	}`)
 
 	// get
-	queryOne = (str: string) => gql(`
-		query get${this.capSing}($teamId: String, $id: String!) {
-			${this.sing}(id: $id) {
+	queryOne = (str: string) =>
+		gql(`
+		query Get${this.capSing}($teamId: String, $id: String!) {
+			get${this.capSing}(teamId: $teamId, id: $id) {
 				id
 				${str}
 			}
-		}`)
+		}`);
 
 	// selectMany = (str: string) => gql(`
-	// 	subscription ${this.plural}(`
+	// 	subscription ${this.capPlural}(`
 	// 	+ true ? `$take: Int,` : ``
 	// 	+ `$skip: Int,
 	// 		$query: String!,
 	// 		$sortBy: String,
 	// 		$descending: Boolean
 	// 		) {
-	// 		${this.plural}(query: $query, take: $take, skip: $skip, sortBy: $sortBy, descending: $descending) {
+	// 		${this.capPlural}(query: $query, take: $take, skip: $skip, sortBy: $sortBy, descending: $descending) {
 	// 			items {
 	// 				id,
 	// 				${str}
@@ -68,26 +68,27 @@ export class QueryBuilder {
 	// 	}`)
 
 	// search
-	queryMany = (str: string) => gql(`
-		query ${this.plural}(
+	queryMany = (str: string) =>
+		gql(`
+		query ${this.capPlural}(
 			$take: Int,
 			$skip: Int,
 			$query: String!,
 			$sortBy: String,
 			$descending: Boolean
 			) {
-			${this.plural}(query: $query, take: $take, skip: $skip, sortBy: $sortBy, descending: $descending) {
+			${this.capPlural}(query: $query, take: $take, skip: $skip, sortBy: $sortBy, descending: $descending) {
 				items {
 					id,
 					${str}
 				},
 				count
 			}
-		}`)
+		}`);
 
 	// selectAll = (str: string) => gql(`
-	// 	subscription ${this.plural} {
-	// 		${this.plural} {
+	// 	subscription ${this.capPlural} {
+	// 		${this.capPlural} {
 	// 			items {
 	// 				id
 	// 				${str}
@@ -97,7 +98,8 @@ export class QueryBuilder {
 	// 	}`)
 
 	// list
-	queryAll = (str: string) => gql(`
+	queryAll = (str: string) =>
+		gql(`
 		query List${this.capPlural}(
 			$filter: Model${this.capSing}FilterInput,
 			$limit: Int,
@@ -111,24 +113,25 @@ export class QueryBuilder {
 				}
 				nextToken
 			}
-		}`)
+		}`);
 
-		// ? find equivalent
+	// ? find equivalent
 	// queryCount = () => gql(`
-	// 	query ${this.plural}Count($query: String) {
-	// 		${this.plural}(query: $query) {
+	// 	query ${this.capPlural}Count($query: String) {
+	// 		${this.capPlural}(query: $query) {
 	// 			count
 	// 		}
 	// 	}`)
 
 	// selectCount = () => gql(`
-	// 	subscription ${this.plural}Count($query: String) {
-	// 		${this.plural}(query: $query) {
+	// 	subscription ${this.capPlural}Count($query: String) {
+	// 		${this.capPlural}(query: $query) {
 	// 			count
 	// 		}
 	// 	}`)
 
-	create = (str: string) => gql(`
+	create = (str: string) =>
+		gql(`
 		mutation Create${this.capSing}(
 			$input: Create${this.capSing}Input!,
 			$condition: Model${this.capSing}ConditionInput
@@ -137,14 +140,15 @@ export class QueryBuilder {
 				id,
 				${str}
 			}
-		}`)
+		}`);
 
-	update = (str: string) => gql(`
+	update = (str: string) =>
+		gql(`
 		mutation update${this.capSing}($input: ${this.capSing}Input!) {
 			update${this.capSing}(input: $input) {
 				${str}
 			}
-		}`)
+		}`);
 
 	// updateMany = (str: string) => gql(`
 	// mutation updateMany${this.capPlural}($input: [${this.capSing}Input!]){
@@ -166,7 +170,7 @@ export class QueryBuilder {
 
 	// openSubscription = (query: string) => gql(`
 	// 	mutation create${this.capSing}Subscription {
-	// 		create${this.capSing}Subscription(name: "${this.sing}-subscription", query: "${query}") {
+	// 		create${this.capSing}Subscription(name: "${this.capSing}-subscription", query: "${query}") {
 	// 			items {
 	// 				id@skip(if: true)
 	// 			}

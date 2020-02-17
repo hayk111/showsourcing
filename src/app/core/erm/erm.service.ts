@@ -103,7 +103,7 @@ export class ERMService {
 			case 'AttachmentUploadRequest':
 				return this.attachmentUploadRequestSrv;
 			case 'Category':
-				return this.categoryService;
+				return this.categoryService as any;
 			case 'Comment':
 				return this.commentSrv;
 			case 'Company':
@@ -182,7 +182,7 @@ export class ERMService {
 			case ERM.ATTACHMENT_UPLOAD_REQUEST:
 				return this.attachmentUploadRequestSrv;
 			case ERM.CATEGORY:
-				return this.categoryService;
+				return this.categoryService as any;
 			case ERM.COMMENT:
 				return this.commentSrv;
 			case ERM.COMPANY:

@@ -40,7 +40,8 @@ import { SharedModule } from '~shared/shared.module';
 		RouterModule.forRoot(routes, {
 			scrollPositionRestoration: 'top',
 			preloadingStrategy: PreloadAllModules,
-			enableTracing: true
+			// enableTracing: true
+			enableTracing: false
 		}),
 		Angulartics2Module.forRoot({
 			developerMode: !environment.production,
