@@ -35,7 +35,7 @@ export class NotifItemComponent implements OnInit {
 		const [firstActivity] = this.activity.activities;
 		this.firstActivity = firstActivity;
 		const { target } = firstActivity;
-
+		this.targetName = target;
 		switch (verb) {
 			case 'create_comment':
 				this.badgeType = 'comment';

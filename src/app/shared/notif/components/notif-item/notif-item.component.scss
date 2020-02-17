@@ -9,27 +9,32 @@
 .notif-card {
 	justify-content: space-between;
 	align-items: center;
+	
 	.logo {
-		margin: 0 10px;
+		margin-right: var(--spacing-ms);
 	}
+
 	.notif-info {
 		justify-content: center;
 		font-size: var(--font-size-m);
 	}
+	
 	.notif-datetime {
 		height: 15px;
 		padding-bottom: 12px;
 		font-size: 12px;
 		color: var(--color-txt-third);
 	}
+	
 	.notif-message {
 		font-size: 14px;
 		max-width: 420px;
-		color: var(--color-secondary-contrast);
+		color: var(--color-txt-secondary);
 		.bold-message {
-			color: var(--color-bg-dark);
+			color: var(--color-txt-primary);
 		}
 	}
+	
 	.mark-read {
 		display: none;
 		width: 10px;
@@ -39,9 +44,11 @@
 		right: 11px;
 		border-radius: 50%;
 	}
+
 	.primary-dot {
 		background: var(--color-primary);
 	}
+	
 	&:hover {
 		background: var(--color-secondary);
 		.mark-read {
@@ -51,4 +58,9 @@
 			visibility: hidden;
 		}
 	}
+}
+
+.divider-mg-l {
+	margin-left: 44px;
+	width: calc(100% - 44px);
 }

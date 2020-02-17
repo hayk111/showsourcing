@@ -34,7 +34,7 @@
 		</form>
 
 		<dialog-footer-app *ngIf="!pending">
-			<input tabFocusAction [disabled]="!group.valid" type="submit" value="change" (click)="onSubmit()"/>
+			<input tabFocusAction [disabled]="!group.valid" type="submit" value="Change" (click)="onSubmit()"/>
 		</dialog-footer-app>
 
 		<spinner-app *ngIf="pending"></spinner-app>

@@ -42,7 +42,7 @@
 			(update)="createAnother = !createAnother">
 			{{'text.create-another' | translate}}
 		</checkbox-app>
-		<button tabFocusAction class="secondary" (click)="cancel()" translate="button.cancel"></button>
+		<button class="secondary" tabFocusAction (click)="cancel()" translate="button.cancel"></button>
 		<button tabFocusAction [disabled]="!(product?.name)" (click)="save()" translate="button.save-product"></button>
 	</dialog-footer-app>
 

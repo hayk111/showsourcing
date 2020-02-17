@@ -23,7 +23,7 @@
 							: ''
 						| translate: {count: actor_count || 0} 
 				}}
-				{{ activityMessage | translate: {target: target ? ('header.' + target.toLowerCase() | translate) : '' } }}
+				{{ activityMessage | translate: {target: targetName || '' } }}
 				<span class="bold-message">
 					<ng-container *ngIf="firstActivity.target_data">
 						{{ firstActivity.target_data?.target }}
@@ -48,4 +48,4 @@
 		[offsetY]="-15"
 	></div>
 </div>
-<divider-app></divider-app>
+<divider-app class="divider-mg-l"></divider-app>

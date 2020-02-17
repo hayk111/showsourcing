@@ -270,10 +270,10 @@
       "plural": "And {{ count }} others",
       "singular": "And {{ count }} other"
     },
-    "assigned-target": "Assigned you a {{ target }}",
+    "assigned-target": "assigned you a {{ target }}",
     "comment-on-target": {
-      "plural": "Have commented on the {{ target }}",
-      "singular": "Has commented on the {{ target }}"
+      "plural": "have commented on the {{ target }}",
+      "singular": "has commented on the {{ target }}"
     },
     "comment": {
       "plural": "Comments",
@@ -418,7 +418,7 @@
     "cancel-item": "Cancel item",
     "cancel-items": "Cancel items",
     "cancel-request": "Cancel request",
-    "cancel-requests": "Cancel requests",
+    "cancel-requests": "Cancel Requests",
     "change-pwd": "Change password",
     "change-team": "Change team",
     "clear": "Clear",
@@ -503,7 +503,7 @@
     "rotate": "Rotate",
     "save": "Save",
     "save-changes": "Save changes",
-    "save-product": "Save product",
+    "save-product": "Save Product",
     "select-img": "Select image",
     "send": "Send",
     "send-back": "Send back",
@@ -628,7 +628,8 @@
     "new-task": "New task",
     "no-recent-activity": "There is no recent activity",
     "password-reset": "Password reset",
-    "price": "Price",
+		"price": "Price",
+		"product": "Product",
     "product-attachments": "Product attachments",
     "product-images": "Product images",
     "product-info": "Product information",
@@ -1286,7 +1287,6 @@
   },
   "tooltip": {
     "also-show-archived": "also show archived",
-    "also-show-completed": "also show completed",
     "board-view": "board view",
     "card-view": "card view",
     "close": "close",
@@ -1296,6 +1296,7 @@
     "create-task": "create task",
 		"export": "export",
 		"export-all": "export all",
+		"filters": "filters",
     "only-created-by-me": "only show created by me",
     "open": "open",
     "share-sample": "share a sample",

@@ -15,7 +15,7 @@ import { AutoUnsub } from '~utils';
 	styleUrls: ['./requests-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
-		ListPageService
+		ListPageService,
 	],
 	host: {
 		class: 'table-page'
@@ -35,7 +35,7 @@ export class RequestsPageComponent extends AutoUnsub implements OnInit {
 		public listSrv: ListPageService<SupplierRequest, SupplierRequestService>,
 		public dialogCommonSrv: DialogCommonService,
 		private dlgSrv: DialogService,
-		private teamSrv: TeamService
+		private teamSrv: TeamService,
 	) { super(); }
 
 	ngOnInit() {
