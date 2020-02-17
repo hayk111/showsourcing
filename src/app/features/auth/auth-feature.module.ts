@@ -17,13 +17,10 @@ import * as SharedComponents from './shared';
 		Pages.ConfirmSignUpPageComponent,
 		Pages.ForgotPasswordPageComponent,
 		Pages.ForgotPasswordSubmitPageComponent,
-
-		Pages.AccountCreatedPageComponent,
 		Pages.PickATeamPageComponent,
 		Pages.CreateATeamPageComponent,
 		Pages.CreateACompanyPageComponent,
 		SharedComponents.AuthFormHeaderComponent,
-		SharedComponents.AuthFormBaseComponent
 	],
 	exports: []
 })

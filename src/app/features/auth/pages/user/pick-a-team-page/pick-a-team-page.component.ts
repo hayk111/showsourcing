@@ -2,9 +2,8 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { switchMap, tap } from 'rxjs/operators';
-import { TeamService } from '~core/erm';
-import { Team } from '~core/erm';
+import { tap } from 'rxjs/operators';
+import { Team, TeamService } from '~core/erm';
 import { TrackingComponent } from '~utils/tracking-component';
 
 
