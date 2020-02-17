@@ -1,5 +1,14 @@
 import gql from "graphql-tag";
 
+interface CustomQueries {
+	queryOne?: string;
+	queryMany?: string;
+	queryAll?: string;
+	create?: string;
+	update?: string;
+	deleteOne?: string;
+}
+
 /**
  * Helper to create GraphQL queries that are valid for the realm GraphQL service
  * it will create queries given fields.
@@ -15,13 +24,23 @@ import gql from "graphql-tag";
 export class QueryBuilder {
 	capSing: string;
 	capPlural: string;
+	customQueries?: CustomQueries = null;
 
-	constructor(public sing: string) {
+	audit: string = `
+		_creationDate
+    _deletionDate
+    _lastUpdatedDate
+		_deleted
+		_version
+	`;
+
+	constructor(public sing: string, customQueries: CustomQueries) {
 		if (!sing) {
 			throw Error("you must define the singular form of the typename");
 		}
 		this.capSing = this.capitalize(sing);
 		this.capPlural = this.capSing + "s";
+		this.customQueries = customQueries;
 	}
 
 	// select one actually select many entities that respond to a query.
@@ -41,14 +60,21 @@ export class QueryBuilder {
 	// 	}`)
 
 	// get
-	queryOne = (str: string) =>
-		gql(`
-		query Get${this.capSing}($teamId: String, $id: String!) {
-			get${this.capSing}(teamId: $teamId, id: $id) {
-				id
-				${str}
-			}
-		}`);
+	queryOne = (str: string) => {
+		let query = `
+query Get${this.capSing}($teamId: ID!, $id: ID!) {
+  get${this.capSing}(teamId: $teamId, id: $id) {
+    id
+		teamId
+		${str}
+		${this.audit}
+  }
+}`;
+		if (this.customQueries?.queryOne) {
+			query = this.customQueries.queryOne;
+		}
+		gql(query);
+	};
 
 	// selectMany = (str: string) => gql(`
 	// 	subscription ${this.capPlural}(`
@@ -68,23 +94,35 @@ export class QueryBuilder {
 	// 	}`)
 
 	// search
-	queryMany = (str: string) =>
-		gql(`
-		query ${this.capPlural}(
-			$take: Int,
-			$skip: Int,
-			$query: String!,
-			$sortBy: String,
-			$descending: Boolean
-			) {
-			${this.capPlural}(query: $query, take: $take, skip: $skip, sortBy: $sortBy, descending: $descending) {
-				items {
-					id,
-					${str}
-				},
-				count
-			}
-		}`);
+	queryMany = (str: string) => {
+		let query = `
+		query Search${this.capPlural}(
+  $filter: Searchable${this.capSing}FilterInput
+  $sort: Searchable${this.capSing}SortInput
+  $limit: Int
+  $nextToken: String
+) {
+  search${this.capPlural}(
+    filter: $filter
+    sort: $sort
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+			${str}
+			${this.audit}
+    }
+    nextToken
+    total
+  }
+}
+`;
+		if (this.customQueries?.queryMany) {
+			query = this.customQueries.queryMany;
+		}
+		gql(query);
+	};
 
 	// selectAll = (str: string) => gql(`
 	// 	subscription ${this.capPlural} {
@@ -98,22 +136,38 @@ export class QueryBuilder {
 	// 	}`)
 
 	// list
-	queryAll = (str: string) =>
-		gql(`
-		query List${this.capPlural}(
-			$filter: Model${this.capSing}FilterInput,
-			$limit: Int,
-			$nextToken: String
-			) {
-			list${this.capPlural}(filter: $filter, limit: $limit, nextToken: $nextToken) {
-				items {
-					id
-					__typename
-					${str}
-				}
-				nextToken
-			}
-		}`);
+	queryAll = (str: string) => {
+		let query = `
+	query List${this.capSing}(
+  $teamId: ID
+  $id: ModelIDKeyConditionInput
+  $filter: ModelContactFilterInput
+  $limit: Int
+  $nextToken: String
+  $sortDirection: ModelSortDirection
+) {
+  list${this.capSing}(
+    teamId: $teamId
+    id: $id
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    sortDirection: $sortDirection
+  ) {
+    items {
+      id
+      teamId
+			${str}
+			${this.audit}
+    }
+    nextToken
+  }
+}`;
+		if (this.customQueries?.queryAll) {
+			query = this.customQueries.queryAll;
+		}
+		gql(query);
+	};
 
 	// ? find equivalent
 	// queryCount = () => gql(`
@@ -130,25 +184,43 @@ export class QueryBuilder {
 	// 		}
 	// 	}`)
 
-	create = (str: string) =>
-		gql(`
+	create = (str: string) => {
+		let mutation = `
 		mutation Create${this.capSing}(
-			$input: Create${this.capSing}Input!,
-			$condition: Model${this.capSing}ConditionInput
-		) {
-			create${this.capSing}(input: $input, condition: $condition) {
-				id,
-				${str}
-			}
-		}`);
+  $input: Create${this.capSing}Input!
+  $condition: Model${this.capSing}ConditionInput
+) {
+  create${this.capSing}(input: $input, condition: $condition) {
+    id
+		teamId
+		${str}
+		${this.audit}
+  }
+}}`;
+		if (this.customQueries?.create) {
+			mutation = this.customQueries.create;
+		}
+		gql(mutation);
+	};
 
-	update = (str: string) =>
-		gql(`
-		mutation update${this.capSing}($input: ${this.capSing}Input!) {
-			update${this.capSing}(input: $input) {
-				${str}
-			}
-		}`);
+	update = (str: string) => {
+		let mutation = `
+		mutation Update${this.capSing}(
+  $input: Update${this.capSing}Input!
+  $condition: Model${this.capSing}ConditionInput
+) {
+  update${this.capSing}(input: $input, condition: $condition) {
+    id
+    teamId
+		${str}
+		${this.audit}
+  }
+}`;
+		if (this.customQueries?.update) {
+			mutation = this.customQueries.update;
+		}
+		gql(mutation);
+	};
 
 	// updateMany = (str: string) => gql(`
 	// mutation updateMany${this.capPlural}($input: [${this.capSing}Input!]){
@@ -158,10 +230,24 @@ export class QueryBuilder {
 	// }
 	// `)
 
-	// deleteOne = () => gql(`
-	// 	mutation delete${this.capSing}($id: String!) {
-	// 		delete${this.capSing}(id: $id)
-	// 	}`)
+	deleteOne = (str = "") => {
+		let mutation = `
+		mutation Delete${this.capSing}(
+  $input: Delete${this.capSing}Input!
+  $condition: Model${this.capSing}ConditionInput
+) {
+  delete${this.capSing}(input: $input, condition: $condition) {
+    id
+    teamId
+    ${str}
+		${this.audit}
+  }
+}`;
+		if (this.customQueries?.deleteOne) {
+			mutation = this.customQueries.deleteOne;
+		}
+		gql(mutation);
+	};
 
 	// deleteMany = () => gql(`
 	// 	mutation delete${this.capPlural}($query: String!) {
