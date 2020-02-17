@@ -22,24 +22,25 @@ interface CustomQueries {
  *
  */
 export class QueryBuilder {
-	capSing: string;
-	capPlural: string;
 	customQueries?: CustomQueries = null;
 
+	// TODO adapt the audits for all cases
 	audit: string = `
-		_creationDate
-    _deletionDate
-    _lastUpdatedDate
+		creationDate
+		lastUpdatedDate
+		createdBy
+		deletionDate
+		archived
+		_lastChangedAt
 		_deleted
 		_version
 	`;
 
-	constructor(public sing: string, customQueries: CustomQueries) {
-		if (!sing) {
+	constructor(public entityName: string, customQueries?: CustomQueries) {
+		if (!entityName) {
 			throw Error("you must define the singular form of the typename");
 		}
-		this.capSing = this.capitalize(sing);
-		this.capPlural = this.capSing + "s";
+		this.entityName = this.capitalize(entityName);
 		this.customQueries = customQueries;
 	}
 
@@ -48,9 +49,10 @@ export class QueryBuilder {
 	// at the time of writting this there is no way of subscribing to one
 	// via id
 
+	// TODO selectOne is no longer used (need to be removed)
 	// selectOne = (str: string) => gql(`
-	// 	subscription ${this.capSing}($query: String!) {
-	// 		${ this.capPlural}(query: $query) {
+	// 	subscription ${this.entityName}($query: String!) {
+	// 		${ this.entityName}s(query: $query) {
 	// 			items {
 	// 				id
 	// 				${str}
@@ -62,8 +64,8 @@ export class QueryBuilder {
 	// get
 	queryOne = (str: string) => {
 		let query = `
-query Get${this.capSing}($teamId: ID!, $id: ID!) {
-  get${this.capSing}(teamId: $teamId, id: $id) {
+query Get${this.entityName}($teamId: ID!, $id: ID!) {
+  get${this.entityName}(teamId: $teamId, id: $id) {
     id
 		teamId
 		${str}
@@ -76,15 +78,16 @@ query Get${this.capSing}($teamId: ID!, $id: ID!) {
 		gql(query);
 	};
 
+	// TODO selectMany is no longer used (need to be removed)
 	// selectMany = (str: string) => gql(`
-	// 	subscription ${this.capPlural}(`
+	// 	subscription ${this.entityName}s(`
 	// 	+ true ? `$take: Int,` : ``
 	// 	+ `$skip: Int,
 	// 		$query: String!,
 	// 		$sortBy: String,
 	// 		$descending: Boolean
 	// 		) {
-	// 		${this.capPlural}(query: $query, take: $take, skip: $skip, sortBy: $sortBy, descending: $descending) {
+	// 		${this.entityName}s(query: $query, take: $take, skip: $skip, sortBy: $sortBy, descending: $descending) {
 	// 			items {
 	// 				id,
 	// 				${str}
@@ -93,23 +96,27 @@ query Get${this.capSing}($teamId: ID!, $id: ID!) {
 	// 		}
 	// 	}`)
 
+	// TODO verify with a real search query (this one is suposed)
 	// search
 	queryMany = (str: string) => {
 		let query = `
-		query Search${this.capPlural}(
-  $filter: Searchable${this.capSing}FilterInput
-  $sort: Searchable${this.capSing}SortInput
+		query Search${this.entityName}s(
+	$filter: Searchable${this.entityName}FilterInput
+	$teamId: ID
+  $id: ModelIDKeyConditionInput
+  $sort: Searchable${this.entityName}SortInput
   $limit: Int
   $nextToken: String
 ) {
-  search${this.capPlural}(
+  search${this.entityName}s(
     filter: $filter
     sort: $sort
     limit: $limit
     nextToken: $nextToken
   ) {
     items {
-      id
+			id
+			teamId
 			${str}
 			${this.audit}
     }
@@ -124,9 +131,10 @@ query Get${this.capSing}($teamId: ID!, $id: ID!) {
 		gql(query);
 	};
 
+	// TODO selectAll is no longer used (need to be removed)
 	// selectAll = (str: string) => gql(`
-	// 	subscription ${this.capPlural} {
-	// 		${this.capPlural} {
+	// 	subscription ${this.entityName}s {
+	// 		${this.entityName}s {
 	// 			items {
 	// 				id
 	// 				${str}
@@ -138,7 +146,7 @@ query Get${this.capSing}($teamId: ID!, $id: ID!) {
 	// list
 	queryAll = (str: string) => {
 		let query = `
-	query List${this.capSing}(
+	query List${this.entityName}(
   $teamId: ID
   $id: ModelIDKeyConditionInput
   $filter: ModelContactFilterInput
@@ -146,7 +154,7 @@ query Get${this.capSing}($teamId: ID!, $id: ID!) {
   $nextToken: String
   $sortDirection: ModelSortDirection
 ) {
-  list${this.capSing}(
+  list${this.entityName}(
     teamId: $teamId
     id: $id
     filter: $filter
@@ -169,28 +177,29 @@ query Get${this.capSing}($teamId: ID!, $id: ID!) {
 		gql(query);
 	};
 
-	// ? find equivalent
+	// TODO use Search to do it
 	// queryCount = () => gql(`
-	// 	query ${this.capPlural}Count($query: String) {
-	// 		${this.capPlural}(query: $query) {
+	// 	query ${this.entityName}sCount($query: String) {
+	// 		${this.entityName}s(query: $query) {
 	// 			count
 	// 		}
 	// 	}`)
 
+	// TODO selectCount is no longer used (need to be removed)
 	// selectCount = () => gql(`
-	// 	subscription ${this.capPlural}Count($query: String) {
-	// 		${this.capPlural}(query: $query) {
+	// 	subscription ${this.entityName}sCount($query: String) {
+	// 		${this.entityName}s(query: $query) {
 	// 			count
 	// 		}
 	// 	}`)
 
 	create = (str: string) => {
 		let mutation = `
-		mutation Create${this.capSing}(
-  $input: Create${this.capSing}Input!
-  $condition: Model${this.capSing}ConditionInput
+		mutation Create${this.entityName}(
+  $input: Create${this.entityName}Input!
+  $condition: Model${this.entityName}ConditionInput
 ) {
-  create${this.capSing}(input: $input, condition: $condition) {
+  create${this.entityName}(input: $input, condition: $condition) {
     id
 		teamId
 		${str}
@@ -205,11 +214,11 @@ query Get${this.capSing}($teamId: ID!, $id: ID!) {
 
 	update = (str: string) => {
 		let mutation = `
-		mutation Update${this.capSing}(
-  $input: Update${this.capSing}Input!
-  $condition: Model${this.capSing}ConditionInput
+		mutation Update${this.entityName}(
+  $input: Update${this.entityName}Input!
+  $condition: Model${this.entityName}ConditionInput
 ) {
-  update${this.capSing}(input: $input, condition: $condition) {
+  update${this.entityName}(input: $input, condition: $condition) {
     id
     teamId
 		${str}
@@ -222,21 +231,23 @@ query Get${this.capSing}($teamId: ID!, $id: ID!) {
 		gql(mutation);
 	};
 
+	// TODO updateMany is no longer used (need to be managed in global service)
 	// updateMany = (str: string) => gql(`
-	// mutation updateMany${this.capPlural}($input: [${this.capSing}Input!]){
-	// 	create${this.capPlural}(input: $input, updatePolicy: MODIFIED) {
+	// mutation updateMany${this.entityName}s($input: [${this.entityName}Input!]){
+	// 	create${this.entityName}s(input: $input, updatePolicy: MODIFIED) {
 	// 		${str}
 	// 	}
 	// }
 	// `)
 
+	// TODO change to delete for keep coherence
 	deleteOne = (str = "") => {
 		let mutation = `
-		mutation Delete${this.capSing}(
-  $input: Delete${this.capSing}Input!
-  $condition: Model${this.capSing}ConditionInput
+		mutation Delete${this.entityName}(
+  $input: Delete${this.entityName}Input!
+  $condition: Model${this.entityName}ConditionInput
 ) {
-  delete${this.capSing}(input: $input, condition: $condition) {
+  delete${this.entityName}(input: $input, condition: $condition) {
     id
     teamId
     ${str}
@@ -249,14 +260,17 @@ query Get${this.capSing}($teamId: ID!, $id: ID!) {
 		gql(mutation);
 	};
 
+
+	// TODO deleteMany is no longer used (need to be managed in global service)
 	// deleteMany = () => gql(`
-	// 	mutation delete${this.capPlural}($query: String!) {
-	// 		delete${this.capPlural}(query: $query)
+	// 	mutation delete${this.entityName}s($query: String!) {
+	// 		delete${this.entityName}s(query: $query)
 	// 	}`)
 
+	// TODO openSubscription is no longer used (need to be removed)
 	// openSubscription = (query: string) => gql(`
-	// 	mutation create${this.capSing}Subscription {
-	// 		create${this.capSing}Subscription(name: "${this.capSing}-subscription", query: "${query}") {
+	// 	mutation create${this.entityName}Subscription {
+	// 		create${this.entityName}Subscription(name: "${this.entityName}-subscription", query: "${query}") {
 	// 			items {
 	// 				id@skip(if: true)
 	// 			}
