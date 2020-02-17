@@ -161,7 +161,7 @@ export class ERMService {
 			case 'Tag':
 				return this.tagService;
 			case 'Team':
-				return this.teamService;
+				return this.teamService as any;
 			case 'TeamUser':
 				return this.teamUserSrv;
 			case 'TemplateField':
@@ -249,7 +249,7 @@ export class ERMService {
 			case ERM.TASK:
 				return this.taskSrv;
 			case ERM.TEAM:
-				return this.teamService;
+				return this.teamService as any;
 			case ERM.TEAM_USER:
 				return this.teamUserSrv;
 			case ERM.TEMPLATE_FIELD:

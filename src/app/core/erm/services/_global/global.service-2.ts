@@ -1,6 +1,5 @@
 import { ApolloBase } from 'apollo-angular';
 import { API, Auth } from 'aws-amplify';
-import { AUTH_TYPE, AWSAppSyncClient } from "aws-appsync";
 import { DocumentNode } from 'graphql';
 import { from, Observable, of } from 'rxjs';
 import { catchError, filter, map, shareReplay, tap } from 'rxjs/operators';
@@ -11,17 +10,7 @@ import { QueryBuilder } from '~core/erm/services/_global/query-builder-2.class';
 import { SelectAllParamsConfig } from '~core/erm/services/_global/select-all-params';
 import { SelectParamsConfig } from '~core/erm/services/_global/select-params';
 import { log, LogColor } from '~utils';
-import awsconfig from "../../aws-exports";
-
-const client = new AWSAppSyncClient({
-  url: awsconfig.aws_appsync_graphqlEndpoint,
-  region: awsconfig.aws_appsync_region,
-  auth: {
-    type: AUTH_TYPE[awsconfig.aws_appsync_authenticationType],
-    jwtToken: async () =>
-      (await Auth.currentSession()).getIdToken().getJwtToken()
-  }
-});
+import { client } from './client';
 
 
 export interface GlobalServiceInterface<T> {
@@ -454,12 +443,11 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		fields = this.getFields(fields, this.fields.all);
 		const query = this.queryBuilder.queryAll(fields);
 		const queryName = this.getQueryName(query);
+		const variables = {};
 
 		// const variables = new SelectAllParams(paramsConfig);
 		this.log(title, query, queryName);
-		return from(
-			API.graphql({ query, variables: {} })
-		).pipe(
+		return from(client.watchQuery({ query, variables })).pipe(
 			// extracting the result
 			map((r) => r.data[queryName].items),
 			tap(data => this.logResult(title, queryName, data)),
@@ -635,16 +623,15 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	create(entity: T): Observable<T> {
 		const title = 'Create one ' + this.typeName;
 		const fields = this.patch(entity);
-		const query = this.queryBuilder.create(fields);
+		const mutation = this.queryBuilder.create(fields);
 		const variables = { input: entity };
-		const queryName = this.getQueryName(query);
+		const queryName = this.getQueryName(mutation);
 
-		this.log(title, query, queryName, variables);
-		return from(
-			API.graphql({ query, variables })
-		).pipe(
+		this.log(title, mutation, queryName, variables);
+		return from(client.mutate({ mutation, variables }))
+		.pipe(
 			// extracting the result
-			map((r) => r.data[queryName].items),
+			map((r) => r.data[queryName]),
 			tap(data => this.logResult(title, queryName, data)),
 			catchError(data => {
 				data.errors.forEach(e => log.error(e));

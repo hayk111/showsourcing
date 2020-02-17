@@ -1,4 +1,4 @@
-import gql from "graphql-tag";
+import gql from 'graphql-tag';
 
 /**
  * Helper to create GraphQL queries that are valid for the realm GraphQL service
@@ -18,10 +18,10 @@ export class QueryBuilder {
 
 	constructor(public sing: string) {
 		if (!sing) {
-			throw Error("you must define the singular form of the typename");
+			throw Error('you must define the singular form of the typename');
 		}
 		this.capSing = this.capitalize(sing);
-		this.capPlural = this.capSing + "s";
+		this.capPlural = this.capSing + 's';
 	}
 
 	// select one actually select many entities that respond to a query.
@@ -48,7 +48,7 @@ export class QueryBuilder {
 				id
 				${str}
 			}
-		}`);
+		}`)
 
 	// selectMany = (str: string) => gql(`
 	// 	subscription ${this.capPlural}(`
@@ -84,7 +84,7 @@ export class QueryBuilder {
 				},
 				count
 			}
-		}`);
+		}`)
 
 	// selectAll = (str: string) => gql(`
 	// 	subscription ${this.capPlural} {
@@ -113,7 +113,7 @@ export class QueryBuilder {
 				}
 				nextToken
 			}
-		}`);
+		}`)
 
 	// ? find equivalent
 	// queryCount = () => gql(`
@@ -132,15 +132,12 @@ export class QueryBuilder {
 
 	create = (str: string) =>
 		gql(`
-		mutation Create${this.capSing}(
-			$input: Create${this.capSing}Input!,
-			$condition: Model${this.capSing}ConditionInput
-		) {
-			create${this.capSing}(input: $input, condition: $condition) {
+		mutation Create${this.capSing}($input: Create${this.capSing}Input!) {
+			create${this.capSing}(input: $input) {
 				id,
 				${str}
 			}
-		}`);
+		}`)
 
 	update = (str: string) =>
 		gql(`
@@ -148,7 +145,7 @@ export class QueryBuilder {
 			update${this.capSing}(input: $input) {
 				${str}
 			}
-		}`);
+		}`)
 
 	// updateMany = (str: string) => gql(`
 	// mutation updateMany${this.capPlural}($input: [${this.capSing}Input!]){

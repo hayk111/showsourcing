@@ -1,14 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { API, graphqlOperation } from 'aws-amplify';
-import { AmplifyService } from 'aws-amplify-angular';
-import { from, Observable, ReplaySubject, zip, combineLatest } from 'rxjs';
-import { filter, first, map, shareReplay, switchMap, tap } from 'rxjs/operators';
+import { Observable, ReplaySubject } from 'rxjs';
+import { filter, first, map, shareReplay, switchMap } from 'rxjs/operators';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { Team } from '~core/erm/models';
 import { TeamQueries } from '~core/erm/services/team/team.queries';
-import { GlobalService } from '~core/erm/services/_global/global.service';
+import { GlobalService } from '~core/erm/services/_global/global.service-2';
 import { LocalStorageService } from '~core/local-storage';
+import { uuid } from '~utils';
 import { CompanyService } from '../company/company.service';
 
 
@@ -58,22 +57,21 @@ export class TeamService extends GlobalService<Team> {
 		protected authSrv: AuthenticationService,
 		protected companySrv: CompanyService,
 		private http: HttpClient,
-	) { super(TeamQueries, 'team', 'teams'); }
+	) { super(TeamQueries, 'team'); }
 
 	init() {
-		this.companySrv.company$.pipe(filter(company => !!company))
-		.subscribe(_ => this.queryMany());
-
+		// putting a sync version of team
+		this.teamSelectionEvent$
+			.subscribe(team => this.selectedTeamSync = team);
+		// restoring the previously selected team
+		this.restoreSelectedTeam();
 		// when logging out let's clear the current selected team
 		this.authSrv.signOut$.subscribe(_ => this.resetSelectedTeam());
-
-		// putting a sync version of team
-		this.teamSelectionEvent$.subscribe(team => this.selectedTeamSync = team);
 	}
 
 	/** creates a team and waits for it to be valid */
 	create(team: Team): Observable<any> {
-		return super.create({ ...team, });
+		return super.create({ companyId: this.companySrv.companySync.id, ...team, });
 	}
 
 	update(team: Team) {
@@ -82,7 +80,6 @@ export class TeamService extends GlobalService<Team> {
 
 	/** picks a team, puts the selection in local storage */
 	pickTeam(team: Team): Observable<Team> {
-		this.resetSelectedTeam();
 		this.storage.setItem(SELECTED_TEAM, team);
 		this._teamSelectionEvent$.next(team);
 		return this.teamSelectionEvent$.pipe(
@@ -95,8 +92,10 @@ export class TeamService extends GlobalService<Team> {
 		return this.teamSelected$;
 	}
 
-	private getSelectedTeam() {
-		return this.storage.getItem(SELECTED_TEAM);
+
+	restoreSelectedTeam() {
+		const selectedTeam: Team = this.storage.getItem(SELECTED_TEAM);
+		this._teamSelectionEvent$.next(selectedTeam);
 	}
 
 	resetSelectedTeam() {
