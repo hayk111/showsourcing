@@ -1,6 +1,6 @@
-import { EntityWithAudit } from './_entity.model';
+import { Entity } from './_entity.model';
 
-export class Attachment extends EntityWithAudit<AttachmentConfig> {
+export class Attachment extends Entity<AttachmentConfig> {
 	fileName: string;
 	url: string;
 	size?: number;
