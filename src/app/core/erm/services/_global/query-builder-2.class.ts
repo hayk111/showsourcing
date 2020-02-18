@@ -44,22 +44,7 @@ export class QueryBuilder {
 		this.customQueries = customQueries;
 	}
 
-	// select one actually select many entities that respond to a query.
-	// but we will take the first one in the global service
-	// at the time of writting this there is no way of subscribing to one
-	// via id
-
-	// TODO selectOne is no longer used (need to be removed)
-	// selectOne = (str: string) => gql(`
-	// 	subscription ${this.entityName}($query: String!) {
-	// 		${ this.entityName}s(query: $query) {
-	// 			items {
-	// 				id
-	// 				${str}
-	// 			},
-	// 			count
-	// 		}
-	// 	}`)
+	// TODO selectOne is no longer used (need to be removed in the application)
 
 	// get
 	queryOne = (str: string) => {
@@ -78,23 +63,8 @@ query Get${this.entityName}($teamId: ID!, $id: ID!) {
 		gql(query);
 	};
 
-	// TODO selectMany is no longer used (need to be removed)
-	// selectMany = (str: string) => gql(`
-	// 	subscription ${this.entityName}s(`
-	// 	+ true ? `$take: Int,` : ``
-	// 	+ `$skip: Int,
-	// 		$query: String!,
-	// 		$sortBy: String,
-	// 		$descending: Boolean
-	// 		) {
-	// 		${this.entityName}s(query: $query, take: $take, skip: $skip, sortBy: $sortBy, descending: $descending) {
-	// 			items {
-	// 				id,
-	// 				${str}
-	// 			},
-	// 			count
-	// 		}
-	// 	}`)
+	// TODO selectMany is no longer used (need to be removed in the app)
+)
 
 	// TODO verify with a real search query (this one is suposed)
 	// search
