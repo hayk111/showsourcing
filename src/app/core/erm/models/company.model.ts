@@ -1,6 +1,6 @@
 import { User } from '~core/erm/models/user.model';
 import { Entity } from './_entity.model';
-import { CreateCompanyInput } from "../../../API.service";
+import { CreateCompanyInput } from '../../../API.service';
 
 export class Company extends Entity<CreateCompanyInput> {
 	__typename: string = 'Company';
@@ -12,6 +12,6 @@ export class Company extends Entity<CreateCompanyInput> {
 	lastUpdatedOn?: Date;
 
 	constructor(config: CreateCompanyInput) {
-		super(config)
+		super(config);
 	}
 }

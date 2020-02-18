@@ -3,8 +3,7 @@ import { User } from '~core/erm/models/user.model';
 import { CreateTeamInput } from 'app/API.service';
 import { Entity } from './_entity.model';
 
-
-export class Team extends Entity<CreateTeamInput>{
+export class Team extends Entity<CreateTeamInput> {
 	__typename: string = 'Team';
 	name: string;
 	owner: User;
@@ -15,6 +14,6 @@ export class Team extends Entity<CreateTeamInput>{
 	lastUpdateOn?: Date;
 
 	constructor(config: CreateTeamInput) {
-		super(config)
+		super(config);
 	}
 }

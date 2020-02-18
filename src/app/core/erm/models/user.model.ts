@@ -1,7 +1,7 @@
-import { Entity } from "./_entity.model";
+import { Entity } from './_entity.model';
 
-export class User extends Entity<UserConfig>{
-	__typename: string = "User"
+export class User extends Entity<UserConfig> {
+	__typename: string = 'User';
 	email: string;
 	firstName: string;
 	lastName: string;
@@ -11,7 +11,7 @@ export class User extends Entity<UserConfig>{
 	creationDate?: Date;
 
 	constructor(config: UserConfig) {
-		super(config)
+		super(config);
 	}
 }
 

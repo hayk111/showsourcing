@@ -3,7 +3,6 @@ import { CreateProductInput } from 'app/API.service';
 import { Supplier } from './supplier.model';
 import { User } from './user.model';
 
-
 export class Product extends Entity<CreateProductInput> {
 	__typename: string = 'Product';
 	name: string;
