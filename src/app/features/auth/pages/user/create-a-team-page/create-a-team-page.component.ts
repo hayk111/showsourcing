@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { TeamService } from '~core/erm';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
 	selector: 'create-a-team-page-app',
@@ -26,8 +27,9 @@ export class CreateATeamPageComponent {
 
 	onSubmit() {
 		if (this.form.valid) {
-			this.teamSrv.create(this.form.value)
-				.subscribe(_ => this.router.navigate(['']));
+			this.teamSrv.create(this.form.value).pipe(
+				switchMap(team => this.teamSrv.pickTeam(team))
+			).subscribe(_ => this.router.navigate(['']));
 		}
 	}
 

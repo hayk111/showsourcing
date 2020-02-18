@@ -1,17 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Category } from '~core/erm/models';
 import { CategoryQueries } from '~core/erm/services/category/category.queries';
-import { UserService } from '~core/erm/services/user/user.service';
-import { GlobalWithAuditService } from '~core/erm/services/_global/global-with-audit.service';
+import { GlobalService } from '../_global/global.service-2';
 
 
 @Injectable({
 	providedIn: 'root'
 })
-export class CategoryService extends GlobalWithAuditService<Category> {
+export class CategoryService extends GlobalService<Category> {
 
-	constructor(protected userSrv: UserService) {
-		super(CategoryQueries, 'category', 'categories', userSrv);
+	constructor() {
+		super(CategoryQueries, 'category');
 	}
 
 }
