@@ -129,15 +129,12 @@ export class QueryBuilder {
 	// 	}`)
 
 	create = (str: string) => gql(`
-		mutation Create${this.capSing}(
-			$input: Create${this.capSing}Input!,
-			$condition: Model${this.capSing}ConditionInput
-		) {
-			create${this.capSing}(input: $input, condition: $condition) {
-				id,
-				${str}
-			}
-		}`)
+	mutation Create${this.capSing}($input: Create${this.capSing}Input!) {
+		create${this.capSing}(input: $input) {
+			id,
+			${str}
+		}
+	}`)
 
 	update = (str: string) => gql(`
 		mutation update${this.capSing}($input: ${this.capSing}Input!) {
