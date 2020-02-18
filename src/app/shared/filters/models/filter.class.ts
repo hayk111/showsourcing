@@ -1,4 +1,3 @@
-import { ERM } from '~core/erm';
 
 /** Filters contain a type, a value and an optional entity
  * They represent the different filters that can be added from the

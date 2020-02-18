@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
-import { Filter, FilterType } from '~shared/filters/models/filter.class';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FilterByType } from '~shared/filters';
+import { Filter, FilterType } from '~shared/filters/models/filter.class';
 
 /**
  * displays a label with its active filters under it. If no active filters it displays a btn, ence the name

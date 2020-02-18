@@ -9,12 +9,20 @@ import { ID } from '~utils/id.utils';
  * For example we can answer the question: Does this product has a filter on supplier
  * with id = 10 ?
  *
- * byType.get(ERM.SUPPLIER).has(id-10)
+ * byType.get(FilterType.SUPPLIER).has(id-10)
  */
 export type FilterByType = Map<FilterType, Map<ID | boolean, Filter>>;
 
 
 export class FilterList {
+
+	constructor(startFilters: Filter[] = [], searchedFields = ['name'], constPredicate?: string) {
+		// adding the start filters
+		this.setFilters(startFilters);
+		this.initialFilters = startFilters;
+		this.searchedFields = searchedFields;
+		this.constPredicate = constPredicate;
+	}
 
 	/** to know when filters are changing */
 	private _valueChanges$ = new ReplaySubject<FilterList>(1);
@@ -41,15 +49,6 @@ export class FilterList {
 		this._valueChanges$.next(this);
 	}
 
-	private getSearchRealmStr() {
-		if (!this.search) {
-			return '';
-		} else {
-			return this.searchedFields
-				.map(field => `${field} CONTAINS[c] "${this.search}"`)
-				.join(' OR ');
-		}
-	}
 	search: string;
 
 	/** current filters sync */
@@ -73,18 +72,13 @@ export class FilterList {
 	/**
 	 * Returns the filters as a query usable by apollo client
 	 */
-	private _query: string;
-	asPredicate(): string {
-		return this.predicateFn(this.constPredicate, this.getSearchRealmStr(), this._query);
+	private _query: any;
+	asPredicate(): any {
+		return  {
+			and: [...this.constPredicate, ...this._query]
+		};
 	}
 
-	constructor(startFilters: Filter[] = [], searchedFields = ['name'], constPredicate?: string) {
-		// adding the start filters
-		this.setFilters(startFilters);
-		this.initialFilters = startFilters;
-		this.searchedFields = searchedFields;
-		this.constPredicate = constPredicate;
-	}
 
 	/** adds filter at the end of the array */
 	addFilter(added: Filter) {
@@ -135,7 +129,7 @@ export class FilterList {
 	}
 
 
-	private filtersToPredicate(byType: FilterByType): string {
+	private filtersToPredicate(byType: FilterByType): { and: any[]} {
 		return FilterList.filtersToPredicate(byType);
 	}
 
@@ -147,42 +141,45 @@ export class FilterList {
 	 * predicate will be : (supplier.id == x OR supplier.id == y AND category.id == z)
 	*/
 	static filtersToPredicate(byType: FilterByType) {
-		const queryByType = [];
+		const and = [];
 		byType.forEach((valMap, type) => {
 			if (valMap.size === 0)
 				return;
-			const valuesForType = Array.from(valMap.keys());
-			const queryForType = valuesForType.map(value => {
-				return FilterList.getFieldCondition(type, value);
-			}).join(' or ');
-			queryByType.push(`(${queryForType})`);
+			const filtersForType = Array.from(valMap.values());
+			const or = filtersForType.map(filter => FilterList.getFieldCondition(filter));
+			and.push({ or });
 		});
-		return queryByType.join(' AND ');
+		return { and };
 	}
 
 	/** the way a Filter is translated into graphql changes with
 	 * its type. This method return the translated predicate
 	 */
-	private static getFieldCondition(type, value) {
+	private static getFieldCondition({ type, value }: Filter) {
 		switch (type) {
 			case FilterType.DELETED:
 			case FilterType.DONE:
 			case FilterType.FAVORITE:
 			case FilterType.ARCHIVED:
-				return `${type} == ${value}`;
+				return { type: { eq: value }};
 			case FilterType.CREATED_BY:
-				return `createdBy.id == "${value}"`;
+				return { createdBy: { id: { eq: value }}};
 			case FilterType.DUE_DATE:
-				return `dueDate >= ${value} OR dueDate == null`;
+				return {
+					or: [
+						{ dueDate: { gt: value } },
+						{ dueDate: { eq: null } }
+					]
+				};
 			case FilterType.PRODUCT_STATUS:
 			case FilterType.SUPPLIER_STATUS:
 			case FilterType.SAMPLE_STATUS:
-				return `status.id == "${value}"`;
+				return { status: { id: { eq: value }}};
 			case FilterType.CUSTOM:
 				return value;
 			// most of the filters from the panel filter by id
 			default:
-				return `${type}.id == "${value}"`;
+				return { [type]: { id: { eq: value }}};
 		}
 	}
 

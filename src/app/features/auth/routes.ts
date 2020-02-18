@@ -10,8 +10,7 @@ export const routes: Routes = [
 	{ path: 'confirm-sign-up', component: Pages.ConfirmSignUpPageComponent },
 	{ path: 'forgot-password', component: Pages.ForgotPasswordPageComponent },
 	{ path: 'forgot-password-submit', component: Pages.ForgotPasswordSubmitPageComponent },
-
-	{ path: 'account-created', component: Pages.AccountCreatedPageComponent },
+	// { path: 'account-created', component: Pages.AccountCreatedPageComponent },
 	{
 		path: 'user',
 		canActivateChild: [
