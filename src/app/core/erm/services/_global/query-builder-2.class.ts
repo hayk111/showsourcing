@@ -1,5 +1,14 @@
 import gql from 'graphql-tag';
 
+interface CustomQueries {
+	queryOne?: string;
+	queryMany?: string;
+	queryAll?: string;
+	create?: string;
+	update?: string;
+	deleteOne?: string;
+}
+
 /**
  * Helper to create GraphQL queries that are valid for the realm GraphQL service
  * it will create queries given fields.
@@ -13,167 +22,191 @@ import gql from 'graphql-tag';
  *
  */
 export class QueryBuilder {
-	capSing: string;
-	capPlural: string;
+	customQueries?: CustomQueries = null;
 
-	constructor(public sing: string) {
-		if (!sing) {
-			throw Error('you must define the singular form of the typename');
+	// TODO adapt the audits for all cases
+	audit: string = `
+		creationDate
+		lastUpdatedDate
+		createdBy
+		deletionDate
+		archived
+		_lastChangedAt
+		_deleted
+		_version
+	`;
+
+	constructor(public entityName: string, customQueries?: CustomQueries) {
+		if (!entityName) {
+			throw Error("you must define the singular form of the typename");
 		}
-		this.capSing = this.capitalize(sing);
-		this.capPlural = this.capSing + 's';
+		this.entityName = this.capitalize(entityName);
+		this.customQueries = customQueries;
 	}
 
-	// select one actually select many entities that respond to a query.
-	// but we will take the first one in the global service
-	// at the time of writting this there is no way of subscribing to one
-	// via id
-
-	// selectOne = (str: string) => gql(`
-	// 	subscription ${this.capSing}($query: String!) {
-	// 		${ this.capPlural}(query: $query) {
-	// 			items {
-	// 				id
-	// 				${str}
-	// 			},
-	// 			count
-	// 		}
-	// 	}`)
+	// TODO selectOne is no longer used (need to be removed from the app)
 
 	// get
-	queryOne = (str: string) =>
-		gql(`
-		query Get${this.capSing}($teamId: String, $id: String!) {
-			get${this.capSing}(teamId: $teamId, id: $id) {
-				id
-				${str}
-			}
-		}`)
-
-	// selectMany = (str: string) => gql(`
-	// 	subscription ${this.capPlural}(`
-	// 	+ true ? `$take: Int,` : ``
-	// 	+ `$skip: Int,
-	// 		$query: String!,
-	// 		$sortBy: String,
-	// 		$descending: Boolean
-	// 		) {
-	// 		${this.capPlural}(query: $query, take: $take, skip: $skip, sortBy: $sortBy, descending: $descending) {
-	// 			items {
-	// 				id,
-	// 				${str}
-	// 			},
-	// 			count
-	// 		}
-	// 	}`)
-
-	// search
-	queryMany = (str: string) =>
-		gql(`
-		query ${this.capPlural}(
-			$take: Int,
-			$skip: Int,
-			$query: String!,
-			$sortBy: String,
-			$descending: Boolean
-			) {
-			${this.capPlural}(query: $query, take: $take, skip: $skip, sortBy: $sortBy, descending: $descending) {
-				items {
-					id,
-					${str}
-				},
-				count
-			}
-		}`)
-
-	// selectAll = (str: string) => gql(`
-	// 	subscription ${this.capPlural} {
-	// 		${this.capPlural} {
-	// 			items {
-	// 				id
-	// 				${str}
-	// 			},
-	// 			count
-	// 		}
-	// 	}`)
-
-	// list
-	queryAll = (str: string) =>
-		gql(`
-		query List${this.capPlural}(
-			$filter: Model${this.capSing}FilterInput,
-			$limit: Int,
-			$nextToken: String
-			) {
-			list${this.capPlural}(filter: $filter, limit: $limit, nextToken: $nextToken) {
-				items {
+	queryOne = (str: string) => {
+		let query = `
+			query Get${this.entityName}($teamId: ID!, $id: ID!) {
+				get${this.entityName}(teamId: $teamId, id: $id) {
 					id
-					__typename
+					teamId
 					${str}
+					${this.audit}
 				}
-				nextToken
-			}
-		}`)
+			}`;
+		if (this.customQueries?.queryOne) {
+			query = this.customQueries.queryOne;
+		}
+		gql(query);
+	};
 
-	// ? find equivalent
-	// queryCount = () => gql(`
-	// 	query ${this.capPlural}Count($query: String) {
-	// 		${this.capPlural}(query: $query) {
-	// 			count
-	// 		}
-	// 	}`)
+	// TODO selectMany is no longer used (need to be removed from the app)
 
-	// selectCount = () => gql(`
-	// 	subscription ${this.capPlural}Count($query: String) {
-	// 		${this.capPlural}(query: $query) {
-	// 			count
-	// 		}
-	// 	}`)
 
-	create = (str: string) =>
-		gql(`
-		mutation Create${this.capSing}($input: Create${this.capSing}Input!) {
-			create${this.capSing}(input: $input) {
-				id,
-				${str}
-			}
-		}`)
+	// TODO replace the query with a real search query (this one doesn't exist on the queries.graphql but should look's like this)
+	// search
+	queryMany = (str: string) => {
+		let query = `
+			query Search${this.entityName}s(
+				$filter: Searchable${this.entityName}FilterInput
+				$teamId: ID
+				$id: ModelIDKeyConditionInput
+				$sort: Searchable${this.entityName}SortInput
+				$limit: Int
+				$nextToken: String
+			) {
+				search${this.entityName}s(
+					filter: $filter
+					sort: $sort
+					limit: $limit
+					nextToken: $nextToken
+				) {
+					items {
+						id
+						teamId
+						${str}
+						${this.audit}
+					}
+					nextToken
+					total
+				}
+			}`;
+		if (this.customQueries?.queryMany) {
+			query = this.customQueries.queryMany;
+		}
+		gql(query);
+	};
 
-	update = (str: string) =>
-		gql(`
-		mutation update${this.capSing}($input: ${this.capSing}Input!) {
-			update${this.capSing}(input: $input) {
-				${str}
-			}
-		}`)
+	// TODO selectAll is no longer used (need to be removed from the app)
+	// list
+	queryAll = (str: string) => {
+		let query = `
+			query List${this.entityName}(
+				$teamId: ID
+				$id: ModelIDKeyConditionInput
+				$filter: ModelContactFilterInput
+				$limit: Int
+				$nextToken: String
+				$sortDirection: ModelSortDirection
+			) {
+				list${this.entityName}(
+					teamId: $teamId
+					id: $id
+					filter: $filter
+					limit: $limit
+					nextToken: $nextToken
+					sortDirection: $sortDirection
+				) {
+					items {
+						id
+						teamId
+						${str}
+						${this.audit}
+					}
+					nextToken
+				}
+			}`;
+		if (this.customQueries?.queryAll) {
+			query = this.customQueries.queryAll;
+		}
+		gql(query);
+	};
 
-	// updateMany = (str: string) => gql(`
-	// mutation updateMany${this.capPlural}($input: [${this.capSing}Input!]){
-	// 	create${this.capPlural}(input: $input, updatePolicy: MODIFIED) {
-	// 		${str}
-	// 	}
-	// }
-	// `)
+	// TODO use Search to replace queryCount
 
-	// deleteOne = () => gql(`
-	// 	mutation delete${this.capSing}($id: String!) {
-	// 		delete${this.capSing}(id: $id)
-	// 	}`)
 
-	// deleteMany = () => gql(`
-	// 	mutation delete${this.capPlural}($query: String!) {
-	// 		delete${this.capPlural}(query: $query)
-	// 	}`)
+	// TODO selectCount is no longer used (need to be removed from the app)
 
-	// openSubscription = (query: string) => gql(`
-	// 	mutation create${this.capSing}Subscription {
-	// 		create${this.capSing}Subscription(name: "${this.capSing}-subscription", query: "${query}") {
-	// 			items {
-	// 				id@skip(if: true)
-	// 			}
-	// 		}
-	// 	}
-	// `)
+
+	create = (str: string) => {
+		let mutation = `
+			mutation Create${this.entityName}(
+				$input: Create${this.entityName}Input!
+				$condition: Model${this.entityName}ConditionInput
+			) {
+				create${this.entityName}(input: $input, condition: $condition) {
+					id
+					teamId
+					${str}
+					${this.audit}
+				}
+			}`;
+		if (this.customQueries?.create) {
+			mutation = this.customQueries.create;
+		}
+		gql(mutation);
+	};
+
+	update = (str: string) => {
+		let mutation = `
+			mutation Update${this.entityName}(
+				$input: Update${this.entityName}Input!
+				$condition: Model${this.entityName}ConditionInput
+			) {
+				update${this.entityName}(input: $input, condition: $condition) {
+					id
+					teamId
+					${str}
+					${this.audit}
+				}
+			}`;
+		if (this.customQueries?.update) {
+			mutation = this.customQueries.update;
+		}
+		gql(mutation);
+	};
+
+	// TODO updateMany is no longer used (need to be managed in global service)
+
+
+	deleteOne = (str = "") => {
+		let mutation = `
+			mutation Delete${this.entityName}(
+				$input: Delete${this.entityName}Input!
+				$condition: Model${this.entityName}ConditionInput
+			) {
+				delete${this.entityName}(input: $input, condition: $condition) {
+					id
+					teamId
+					${str}
+					${this.audit}
+				}
+			}`;
+		if (this.customQueries?.deleteOne) {
+			mutation = this.customQueries.deleteOne;
+		}
+		gql(mutation);
+	};
+
+
+	// TODO deleteMany is no longer used (need to be managed in global service)
+
+
+	// TODO openSubscription is no longer used (need to be removed from the app)
+
 
 	private capitalize(str: string): string {
 		return str.charAt(0).toUpperCase() + str.slice(1);
