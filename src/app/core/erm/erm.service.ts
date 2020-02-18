@@ -103,7 +103,7 @@ export class ERMService {
 			case 'AttachmentUploadRequest':
 				return this.attachmentUploadRequestSrv;
 			case 'Category':
-				return this.categoryService;
+				return this.categoryService as any;
 			case 'Comment':
 				return this.commentSrv;
 			case 'Company':
@@ -161,7 +161,7 @@ export class ERMService {
 			case 'Tag':
 				return this.tagService;
 			case 'Team':
-				return this.teamService;
+				return this.teamService as any;
 			case 'TeamUser':
 				return this.teamUserSrv;
 			case 'TemplateField':
@@ -182,7 +182,7 @@ export class ERMService {
 			case ERM.ATTACHMENT_UPLOAD_REQUEST:
 				return this.attachmentUploadRequestSrv;
 			case ERM.CATEGORY:
-				return this.categoryService;
+				return this.categoryService as any;
 			case ERM.COMMENT:
 				return this.commentSrv;
 			case ERM.COMPANY:
@@ -249,7 +249,7 @@ export class ERMService {
 			case ERM.TASK:
 				return this.taskSrv;
 			case ERM.TEAM:
-				return this.teamService;
+				return this.teamService as any;
 			case ERM.TEAM_USER:
 				return this.teamUserSrv;
 			case ERM.TEMPLATE_FIELD:
