@@ -5,7 +5,7 @@ import { User } from './user.model';
 
 
 export class Product extends Entity<CreateProductInput> {
-	__typename= 'Product';
+	__typename: string = 'Product';
 	name: string;
 	team: string;
 	supplier?: Supplier;
@@ -32,7 +32,6 @@ export class Product extends Entity<CreateProductInput> {
 	deletedBy?: User;
 	deletionDate?: Date;
 	lastUpdatedDate: Date;
-	deleted: boolean;
 
 	constructor(config: CreateProductInput) {
 		super(config);

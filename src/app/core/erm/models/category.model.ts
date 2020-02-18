@@ -2,17 +2,12 @@ import { Entity } from '~core/erm/models/_entity.model';
 import { CreateCategoryInput } from "../../../API.service";
 import { User } from "./user.model";
 
-export class Category extends Entity<CreateCategoryInput> implements CreateCategoryInput {
-	  __typename: "Category";
-  id: string;
+export class Category extends Entity<CreateCategoryInput> {
+	__typename: string = "Category";
   teamId: string;
   name: string;
   creationDate: number;
-  createdBy: User;
-  deletedBy: User | null;
-  deletionDate: number | null;
-  lastupdatedByUserId: string;
-  lastUpdatedBy: User | null;
+  deletionDate?: number;
+  lastUpdatedBy?: User;
   lastUpdatedDate: number;
-	deleted: boolean;
 }

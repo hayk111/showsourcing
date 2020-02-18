@@ -3,7 +3,7 @@ import { Entity } from './_entity.model';
 import { CreateCompanyInput } from "../../../API.service";
 
 export class Company extends Entity<CreateCompanyInput> {
-	__typename = 'Company';
+	__typename: string = 'Company';
 	name: string;
 	owner: User;
 	createdBy: User;
