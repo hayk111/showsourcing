@@ -15,6 +15,7 @@ export class Team {
 	realmServerName = 'default';
 	realmPath: string;
 	status = 'pending';
+	companyId: string;
 	company: Company;
 	__typename ?= 'Team';
 

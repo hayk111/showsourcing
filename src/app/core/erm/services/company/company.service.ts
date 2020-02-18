@@ -58,7 +58,7 @@ export class CompanyService extends GlobalService<Company> {
 		if (company) {
 			return of(company);
 		} else {
-			return this.selectAll().pipe(
+			return this.queryAll().pipe(
 				map(all => all[0])
 			);
 		}
