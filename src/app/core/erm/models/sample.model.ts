@@ -6,23 +6,23 @@ import { ExtendedField } from './extended-field.model';
 
 export class Sample extends EntityWithAudit<SampleConfig> {
 	name?: string;
-	reference?= '';
-	description?= '';
+	reference ?= '';
+	description ?= '';
 	assignee?: User;
 	product?: Product;
 	supplier?: Supplier;
 	status?: SampleStatus;
-	archived?= false;
+	archived ?= false;
 	comments?: Comment[];
 	images?: AppImage[];
 	trackingNumber?: string;
 	shippingCompany?: string;
 	lastUpdatedBy?: User;
 	price?: Price;
-	paid?= false;
-	type?= '';
+	paid ?= false;
+	type ?= '';
 	extendedFields?: ExtendedField[];
-	__typename?= 'Sample';
+	__typename ?= 'Sample';
 
 	constructor(config: SampleConfig) {
 		super(config);

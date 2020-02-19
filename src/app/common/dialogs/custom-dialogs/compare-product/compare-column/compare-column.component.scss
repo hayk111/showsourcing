@@ -37,10 +37,12 @@
 	}
 
 	.description {
-		font-size: var(--font-size-s);
-		margin-bottom: var(--spacing-xxs);
-		overflow: hidden;
-		text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+		// font-size: var(--font-size-s);
+		// margin-bottom: var(--spacing-xxs);
 	}
 }
 

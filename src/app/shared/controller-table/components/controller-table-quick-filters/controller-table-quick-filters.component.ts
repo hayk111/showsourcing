@@ -16,6 +16,7 @@ export type QuickFilter = 'archived' | 'assignee' | 'createdBy' | 'completed';
 })
 export class ControllerTableQuickFiltersComponent {
 	@Input() quickFilters: QuickFilter[] = ['archived', 'assignee'];
+	@Input() archiveChecked = false;
 
 	constructor(private listSrv: ListPageService<any, any>) { }
 
@@ -25,13 +26,6 @@ export class ControllerTableQuickFiltersComponent {
 
 	get isCreatedByMeChecked() {
 		return this.listSrv.filterList.asByType().get(FilterType.CREATED_BY).has(UserService.userSync.id);
-	}
-
-	get isArchivedChecked() {
-		// if there is an archive filter it's not checked (yeah I know what you are thinking)
-		// If you read this you should buy a boat and leave. And if you don't have the money
-		// leave without a boat
-		return !this.listSrv.filterList.asByType().get(FilterType.ARCHIVED).has(false);
 	}
 
 	get isCompletedChecked() {
@@ -44,9 +38,9 @@ export class ControllerTableQuickFiltersComponent {
 	}
 
 	toggleArchived() {
-		const isChecked = this.isArchivedChecked;
+		this.archiveChecked = !this.archiveChecked;
 		// it's the opposite here we want to remove the filter when it's checked, just buy that boat dude
-		this.listSrv.filterByArchived(isChecked);
+		this.listSrv.filterByArchived(this.archiveChecked);
 	}
 
 	toggleCompleted() {
