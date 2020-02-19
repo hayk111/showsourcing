@@ -1,8 +1,5 @@
-import { FilterByType, FilterList } from './filter-list.class';
-import { Filter } from '../models';
-import { FilterType } from '../models';
-import { FiltersModule } from '../filters.module';
-import { FiltersComponent } from '../components/filters/filters.component';
+import { Filter, FilterType } from '../models';
+import { FilterList } from './filter-list.class';
 
 describe('FilterList', () => {
 	let filterList: FilterList;
