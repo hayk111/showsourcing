@@ -1,7 +1,5 @@
-describe('App', () => {
-
-	it('test', () => {
+xdescribe("App", () => {
+	it("test", () => {
 		expect(true).toBe(true);
 	});
-
 });

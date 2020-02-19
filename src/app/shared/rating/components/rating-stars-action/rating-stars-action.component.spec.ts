@@ -1,21 +1,10 @@
-
 // TODO Service not working
-describe('Rating stars action', () => {
-	it('should display the correct star when the value is none, 20, 40, 60, 80, 100', () => {
+xdescribe("Rating stars action", () => {
+	it("should display the correct star when the value is none, 20, 40, 60, 80, 100", () => {});
 
-	});
+	it("should fill with color a star and its previous siblings, when hovering over it", () => {});
 
-	it('should fill with color a star and its previous siblings, when hovering over it', () => {
+	it("stars should have the the same color after hovering", () => {});
 
-	});
-
-	it('stars should have the the same color after hovering', () => {
-
-	});
-
-	it('stars values should be 20, 40, 60, 80, 100', () => {
-
-	});
-
-
+	it("stars values should be 20, 40, 60, 80, 100", () => {});
 });
