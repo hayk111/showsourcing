@@ -1,9 +1,7 @@
-import { ID, uuid } from '~utils';
-import { User } from '~core/erm/models/user.model';
-import { UserService } from '~core/erm/services/user/user.service';
+import { uuid } from '~utils';
 
 
-export class Entity<G> {
+export class Entity<G = any> {
 	id: string = uuid();
 
 	_deleted?: boolean = null;

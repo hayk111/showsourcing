@@ -1,8 +1,8 @@
-import { EntityWithAudit } from '~core/erm/models/_entity.model';
+import { Entity } from '~core/erm/models/_entity.model';
 import { AppImage } from '~core/erm/models/app-image.model';
 import { Supplier } from '~core/erm/models/supplier.model';
 
-export class Contact extends EntityWithAudit<ContactConfig> {
+export class Contact extends Entity<ContactConfig> {
 	name: string;
 	phoneNumber?: string;
 	email?: string;

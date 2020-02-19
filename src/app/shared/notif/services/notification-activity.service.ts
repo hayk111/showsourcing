@@ -40,14 +40,14 @@ export class NotificationActivityService {
 	/* Notifications */
 
 	private getNotificationToken(): Observable<string> {
-		const { userId } = this.userSrv;
+		const { userIdSync: userId } = this.userSrv;
 		const { id: teamId } = this.teamSrv.selectedTeamSync;
 		const tokenUrl = `${environment.apiUrl}/feed/token/user/${teamId}/${userId}`;
 		return this.getToken(tokenUrl);
 	}
 
 	private getNotificationUserId(): string {
-		const { userId } = this.userSrv;
+		const { userIdSync: userId } = this.userSrv;
 		const { id: teamId } = this.teamSrv.selectedTeamSync;
 		return `${teamId}-${userId}`;
 	}

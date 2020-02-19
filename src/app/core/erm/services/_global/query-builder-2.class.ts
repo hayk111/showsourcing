@@ -1,6 +1,7 @@
 import gql from 'graphql-tag';
+import { DocumentNode } from 'graphql';
 
-interface CustomQueries {
+export interface CustomQueries {
 	queryOne?: string;
 	queryMany?: string;
 	queryAll?: string;
@@ -25,7 +26,7 @@ export class QueryBuilder {
 	customQueries?: CustomQueries = null;
 
 	// TODO adapt the audits for all cases
-	audit: string = `
+	audit = `
 		creationDate
 		lastUpdatedDate
 		createdBy
@@ -38,17 +39,15 @@ export class QueryBuilder {
 
 	constructor(public entityName: string, customQueries?: CustomQueries) {
 		if (!entityName) {
-			throw Error("you must define the singular form of the typename");
+			throw Error('you must define the singular form of the typename');
 		}
 		this.entityName = this.capitalize(entityName);
 		this.customQueries = customQueries;
 	}
 
-	// TODO selectOne is no longer used (need to be removed from the app)
-
 	// get
 	queryOne = (str: string) => {
-		let query = `
+		const query = this.customQueries.queryOne || `
 			query Get${this.entityName}($teamId: ID!, $id: ID!) {
 				get${this.entityName}(teamId: $teamId, id: $id) {
 					id
@@ -57,19 +56,12 @@ export class QueryBuilder {
 					${this.audit}
 				}
 			}`;
-		if (this.customQueries?.queryOne) {
-			query = this.customQueries.queryOne;
-		}
-		gql(query);
-	};
+		return gql(query);
+	}
 
-	// TODO selectMany is no longer used (need to be removed from the app)
-
-
-	// TODO replace the query with a real search query (this one doesn't exist on the queries.graphql but should look's like this)
 	// search
 	queryMany = (str: string) => {
-		let query = `
+		const query = this.customQueries.queryMany || `
 			query Search${this.entityName}s(
 				$filter: Searchable${this.entityName}FilterInput
 				$teamId: ID
@@ -94,16 +86,12 @@ export class QueryBuilder {
 					total
 				}
 			}`;
-		if (this.customQueries?.queryMany) {
-			query = this.customQueries.queryMany;
-		}
-		gql(query);
-	};
+		return gql(query);
+	}
 
-	// TODO selectAll is no longer used (need to be removed from the app)
 	// list
 	queryAll = (str: string) => {
-		let query = `
+		const query = this.customQueries.queryAll || `
 			query List${this.entityName}(
 				$teamId: ID
 				$id: ModelIDKeyConditionInput
@@ -129,20 +117,11 @@ export class QueryBuilder {
 					nextToken
 				}
 			}`;
-		if (this.customQueries?.queryAll) {
-			query = this.customQueries.queryAll;
-		}
-		gql(query);
-	};
-
-	// TODO use Search to replace queryCount
-
-
-	// TODO selectCount is no longer used (need to be removed from the app)
-
+		return gql(query);
+	}
 
 	create = (str: string) => {
-		let mutation = `
+		const mutation = this.customQueries.create || `
 			mutation Create${this.entityName}(
 				$input: Create${this.entityName}Input!
 				$condition: Model${this.entityName}ConditionInput
@@ -154,14 +133,11 @@ export class QueryBuilder {
 					${this.audit}
 				}
 			}`;
-		if (this.customQueries?.create) {
-			mutation = this.customQueries.create;
-		}
-		gql(mutation);
-	};
+		return gql(mutation);
+	}
 
 	update = (str: string) => {
-		let mutation = `
+		const mutation = this.customQueries.update || `
 			mutation Update${this.entityName}(
 				$input: Update${this.entityName}Input!
 				$condition: Model${this.entityName}ConditionInput
@@ -173,17 +149,11 @@ export class QueryBuilder {
 					${this.audit}
 				}
 			}`;
-		if (this.customQueries?.update) {
-			mutation = this.customQueries.update;
-		}
-		gql(mutation);
-	};
+		return gql(mutation);
+	}
 
-	// TODO updateMany is no longer used (need to be managed in global service)
-
-
-	deleteOne = (str = "") => {
-		let mutation = `
+	deleteOne = (str = '') => {
+		const mutation = this.customQueries.deleteOne || `
 			mutation Delete${this.entityName}(
 				$input: Delete${this.entityName}Input!
 				$condition: Model${this.entityName}ConditionInput
@@ -195,18 +165,22 @@ export class QueryBuilder {
 					${this.audit}
 				}
 			}`;
-		if (this.customQueries?.deleteOne) {
-			mutation = this.customQueries.deleteOne;
+		return gql(mutation);
+	}
+
+	/** gets the query name from a gql statement */
+	getQueryName(query: DocumentNode): string {
+		try {
+			return (query.definitions[0] as any).selectionSet.selections[0].name.value;
+		} catch (e) {
+			throw Error('query name not found in apollo client');
 		}
-		gql(mutation);
-	};
+	}
 
-
-	// TODO deleteMany is no longer used (need to be managed in global service)
-
-
-	// TODO openSubscription is no longer used (need to be removed from the app)
-
+	/** gets the content of a graphql query */
+	getQueryBody(query: DocumentNode): string {
+		return query.loc.source.body;
+	}
 
 	private capitalize(str: string): string {
 		return str.charAt(0).toUpperCase() + str.slice(1);

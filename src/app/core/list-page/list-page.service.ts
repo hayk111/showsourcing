@@ -4,7 +4,7 @@ import { empty, Observable } from 'rxjs';
 import { filter, map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { CreationDialogComponent } from '~common/dialogs/creation-dialogs';
 import { ExportDlgComponent } from '~common/dialogs/custom-dialogs';
-import { EntityMetadata, GlobalServiceInterface, SelectParamsConfig, UserService } from '~core/erm';
+import { EntityMetadata, GlobalServiceInterface, SelectParamsConfig, UserService, Entity } from '~core/erm';
 import { View } from '~shared/controller-table/components';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
@@ -44,7 +44,7 @@ export interface ListPageConfig extends ListPageDataConfig {
 	providedIn: 'root'
 })
 export class ListPageService
-	<T extends { id?: string }, G extends GlobalServiceInterface<T>> {
+	<T extends Entity, G extends GlobalServiceInterface<T>> {
 
 	selectionSrv: SelectionService;
 	dataSrv: ListPageDataService<T, G>;
@@ -456,7 +456,7 @@ export class ListPageService
 	}
 
 	filterByAssignedToMe(shouldAdd: boolean) {
-		const filterParam = { type: FilterType.ASSIGNEE, value: this.userSrv.userId };
+		const filterParam = { type: FilterType.ASSIGNEE, value: this.userSrv.userIdSync };
 
 		if (shouldAdd) {
 			this.addFilter(filterParam);
@@ -481,7 +481,7 @@ export class ListPageService
 	}
 
 	filterByCreatedByMe(shouldAdd: boolean) {
-		const filterParam = { type: FilterType.CREATED_BY, value: this.userSrv.userId };
+		const filterParam = { type: FilterType.CREATED_BY, value: this.userSrv.userIdSync };
 
 		if (shouldAdd) {
 			this.addFilter(filterParam);

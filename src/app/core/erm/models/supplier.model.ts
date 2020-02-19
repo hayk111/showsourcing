@@ -4,7 +4,7 @@ import { Team } from './team.model';
 import { CreateSupplierInput } from 'app/API.service';
 
 export class Supplier extends Entity<CreateSupplierInput> {
-	__typename: string = 'Supplier';
+	__typename = 'Supplier';
 	team: Team;
 	name: string;
 	fullName?: string;
