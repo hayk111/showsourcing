@@ -6,6 +6,7 @@
 export class Filter {
 	type: FilterType;
 	value: any;
+	equality ?= 'eq';
 	entity?: any;
 	constructor() { }
 }

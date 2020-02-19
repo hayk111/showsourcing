@@ -2,7 +2,7 @@
 
 # Filters:
 
-FilterList class is useful but the filter class with filter types can potentially be removed to use the Filters from appsync directly
+Filter list generates equality objects with predefined equality operators it could be more dynamic
 
 # Global service
 

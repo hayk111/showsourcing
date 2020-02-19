@@ -66,7 +66,6 @@ export class ListPageDataService
 		this.filterList = new FilterList(
 			config.initialFilters,
 			config.searchedFields,
-			this.selectParams.query
 		);
 		this.isSetup = true;
 	}

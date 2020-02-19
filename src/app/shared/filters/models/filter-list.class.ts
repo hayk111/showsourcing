@@ -1,4 +1,4 @@
-import { Subject, ReplaySubject } from 'rxjs';
+import { ReplaySubject } from 'rxjs';
 import { Filter, FilterType } from '~shared/filters/models/filter.class';
 import { ID } from '~utils/id.utils';
 
@@ -16,12 +16,11 @@ export type FilterByType = Map<FilterType, Map<ID | boolean, Filter>>;
 
 export class FilterList {
 
-	constructor(startFilters: Filter[] = [], searchedFields = ['name'], constPredicate?: string) {
+	constructor(startFilters: Filter[] = [], searchedFields = ['name']) {
 		// adding the start filters
 		this.setFilters(startFilters);
 		this.initialFilters = startFilters;
 		this.searchedFields = searchedFields;
-		this.constPredicate = constPredicate;
 	}
 
 	/** to know when filters are changing */
@@ -34,11 +33,6 @@ export class FilterList {
 	initialFilters: Filter[];
 
 	/** function used to join the initial predicate, the search and the query as predicate */
-	predicateFn = (initial, search, query) => [
-		`(${initial || ''})`,
-		`(${search || ''})`,
-		`(${query || ''})`
-	].filter(p => p !== '()').join(' AND ')
 
 	/** the fields that will be searched */
 	searchedFields: string[] = ['name'];
@@ -56,12 +50,11 @@ export class FilterList {
 	private setFilters(filters: Filter[]) {
 		this._filters = filters;
 		this._byType = this.filtersToByType(filters);
-		this._query = this.filtersToPredicate(this._byType);
+		this._filterObject = this.filtersToPredicate(this._byType);
 		this._valueChanges$.next(this);
 	}
 	/** returns the array of filters */
 	asFilters() { return this._filters; }
-
 
 	private _byType: FilterByType;
 	/** returns filters by type. Data structure of Map<filterType, Map<FilterValue, Filter>>
@@ -72,13 +65,10 @@ export class FilterList {
 	/**
 	 * Returns the filters as a query usable by apollo client
 	 */
-	private _query: any;
+	private _filterObject: any;
 	asPredicate(): any {
-		return  {
-			and: [...this.constPredicate, ...this._query]
-		};
+		return this._filterObject;
 	}
-
 
 	/** adds filter at the end of the array */
 	addFilter(added: Filter) {
@@ -155,31 +145,26 @@ export class FilterList {
 	/** the way a Filter is translated into graphql changes with
 	 * its type. This method return the translated predicate
 	 */
-	private static getFieldCondition({ type, value }: Filter) {
+	private static getFieldCondition({ type, value, equality }: Filter) {
+		const eq = equality || 'eq';
 		switch (type) {
 			case FilterType.DELETED:
 			case FilterType.DONE:
 			case FilterType.FAVORITE:
 			case FilterType.ARCHIVED:
-				return { type: { eq: value }};
+				return { type: { [eq]: value }};
 			case FilterType.CREATED_BY:
-				return { createdBy: { id: { eq: value }}};
-			case FilterType.DUE_DATE:
-				return {
-					or: [
-						{ dueDate: { gt: value } },
-						{ dueDate: { eq: null } }
-					]
-				};
+				return { createdBy: { id: { [eq]: value }}};
 			case FilterType.PRODUCT_STATUS:
 			case FilterType.SUPPLIER_STATUS:
 			case FilterType.SAMPLE_STATUS:
-				return { status: { id: { eq: value }}};
+				return { status: { id: { [eq]: value }}};
 			case FilterType.CUSTOM:
 				return value;
 			// most of the filters from the panel filter by id
-			default:
-				return { [type]: { id: { eq: value }}};
+			default: {
+				return { [type]: { id: { [eq]: value }}};
+			}
 		}
 	}
 

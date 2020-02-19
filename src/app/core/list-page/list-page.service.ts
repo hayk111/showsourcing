@@ -1,26 +1,22 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
-import { empty, Observable, of } from 'rxjs';
+import { empty, Observable } from 'rxjs';
 import { filter, map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { CreationDialogComponent } from '~common/dialogs/creation-dialogs';
 import { ExportDlgComponent } from '~common/dialogs/custom-dialogs';
-import { UserService } from '~core/erm';
-import { GlobalServiceInterface } from '~core/erm';
-import { SelectParamsConfig } from '~core/erm';
-import { EntityMetadata } from '~core/erm';
+import { EntityMetadata, GlobalServiceInterface, SelectParamsConfig, UserService } from '~core/erm';
 import { View } from '~shared/controller-table/components';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { Filter, FilterType } from '~shared/filters';
 import { RatingService, TypeWithVotes } from '~shared/rating/services/rating.service';
 import { Sort } from '~shared/table/components/sort.interface';
+import { ToastService, ToastType } from '~shared/toast';
 import { showsourcing } from '~utils/debug-object.utils';
 import { ListPageDataConfig } from './list-page-config.interface';
 import { ListPageDataService } from './list-page-data.service';
 import { ListPageViewService } from './list-page-view.service';
-import { ToastService, ToastType } from '~shared/toast';
 import { SelectionService } from './selection.service';
-import { KanbanSelectionService } from '~shared/kanban/services/kanban-selection.service';
 
 
 // It has four legs and it can fly, what is it?
