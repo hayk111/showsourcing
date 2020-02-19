@@ -14,7 +14,7 @@ console.log(`%c 🎱 App version: ${environment.version}`, 'color: salmon');
 
 /** AWS CONFIGURATION START */
 import Amplify from 'aws-amplify';
-import awsconfig from './aws-exports';
+import awsconfig from '~core/aws-exports';
 Amplify.configure(awsconfig);
 /** END */
 

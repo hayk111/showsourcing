@@ -3,13 +3,11 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { distinctUntilChanged, filter, shareReplay, switchMap, tap } from 'rxjs/operators';
 import { AnalyticsService } from '~core/analytics/analytics.service';
-
-
+import { User } from '~core/erm/models';
 import { UserQueries } from '~core/erm/services/user/user.queries';
 import { GlobalService } from '~core/erm/services/_global/global.service';
-import { User } from '~core/erm/models';
-import { ProductQueries } from '../product/product.queries';
-import { SupplierQueries } from '../supplier/supplier.queries';
+
+
 
 @Injectable({
 	providedIn: 'root',
@@ -20,10 +18,6 @@ export class UserService extends GlobalService<User> {
 	private user$ = this.userId$.pipe(
 		distinctUntilChanged(),
 		tap(id => this.userId = id),
-		tap(id => {
-			ProductQueries.buildQueries(id);
-			SupplierQueries.buildQueries(id);
-		}),
 		switchMap(id => this.selectOne(id)),
 		filter(user => !!user),
 		shareReplay(1)
