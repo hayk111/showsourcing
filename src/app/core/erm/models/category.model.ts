@@ -1,11 +1,13 @@
-import { EntityWithAudit } from '~core/erm/models/_entity.model';
+import { Entity } from '~core/erm/models/_entity.model';
+import { CreateCategoryInput } from '../../../API.service';
+import { User } from './user.model';
 
-export interface CategoryConfig {
-	id?: string;
-	name?: string;
-}
-
-export class Category extends EntityWithAudit<CategoryConfig> implements CategoryConfig {
+export class Category extends Entity<CreateCategoryInput> {
+	__typename: string = 'Category';
+	teamId: string;
 	name: string;
-	__typename ?= 'Category';
+	creationDate: number;
+	deletionDate?: number;
+	lastUpdatedBy?: User;
+	lastUpdatedDate: number;
 }

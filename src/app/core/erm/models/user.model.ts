@@ -1,37 +1,27 @@
-import { Team } from '~core/erm/models/team.model';
-import { AppImage } from '~core/erm/models/app-image.model';
+import { Entity } from './_entity.model';
 
-export class User {
-	id: string;
-	firstName?: string;
-	lastName?: string;
-	name?: string; // NOT IN REALM ANYMORE
+export class User extends Entity<UserConfig> {
+	__typename: string = 'User';
+	email: string;
+	firstName: string;
+	lastName: string;
 	phoneNumber?: string;
-	companyName?: string;
-	email?: string;
-	currentTeam?: Team;
 	preferredLanguage?: string;
-	realmServerName?: string;
-	realmPath?: string;
-	avatar?: AppImage;
-	__typename ?= 'User';
+	avatar?: string;
+	creationDate?: Date;
 
 	constructor(config: UserConfig) {
-		Object.assign(this, config);
+		super(config);
 	}
 }
 
+// ? There is no CreateUserInput in the API file
 export interface UserConfig {
 	id?: string;
-	firstName?: string;
-	lastName?: string;
-	name?: string; // NOT IN REALM ANYMORE
-	phoneNumber?: string;
-	companyName?: string;
 	email?: string;
-	currentTeam?: Team;
+	fistName?: string;
+	lastName?: string;
+	phoneNumber?: string;
 	preferredLanguage?: string;
-	realmServerName?: string;
-	realmPath?: string;
-	avatar?: AppImage;
+	avatar?: string;
 }
