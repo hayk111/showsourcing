@@ -3,7 +3,7 @@
 	<dialog-header-app translate="Select Projects"></dialog-header-app> <!-- TODO: translation to be added -->
 
 	<controller-table-app>
-		<controller-table-quick-filters-app></controller-table-quick-filters-app>
+		<controller-table-quick-filters-app [quickFilters]="['archived', 'assignee']"></controller-table-quick-filters-app>
 		<controller-table-quick-actions-app></controller-table-quick-actions-app>
 	</controller-table-app>
 

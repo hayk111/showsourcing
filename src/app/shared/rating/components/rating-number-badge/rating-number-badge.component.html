@@ -4,5 +4,5 @@
 	[ngClass]="getClasses()">
 	<icon-app class="icon-star" name="star" [size]="size"></icon-app>
 	<span class="score" 
-		[ngStyle]="{'font-size': 'var(--font-size-' + size + ')'}">{{ score | number: '1.1-2' }}</span>
+		[ngStyle]="{'font-size': 'var(--font-size-' + (size === 'ms' ? 'm' : size)  + ')'}">{{ score | number: '1.1-2' }}</span>
 </div>
