@@ -12,7 +12,7 @@ export type SelectionMap = Map<string, Entity>;
 export class SelectionService {
 	selection: SelectionMap = new Map();
 	private _selection$ = new BehaviorSubject<SelectionMap>(this.selection);
-	selection$ = this._selection$.asObservable();
+	selection$ = this._selection$.asObservable().pipe();
 
 	selectOne(item: Entity) {
 		// we do this so change detection, detects the change
