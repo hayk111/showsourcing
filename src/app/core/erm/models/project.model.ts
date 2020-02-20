@@ -1,9 +1,9 @@
-import { EntityWithAudit } from '~core/erm/models/_entity.model';
 import { AppImage } from '~core/erm/models/app-image.model';
 import { Product } from '~core/erm/models/product.model';
 import { User } from '~core/erm/models/user.model';
+import { Entity } from './_entity.model';
 
-export class Project extends EntityWithAudit<ProjectConfig> {
+export class Project extends Entity<Project> {
 	name?: string;
 	logoImage?: AppImage;
 	description?: string;
@@ -12,10 +12,4 @@ export class Project extends EntityWithAudit<ProjectConfig> {
 	// done ?= false;
 	dueDate?: Date;
 	__typename ?= 'Project';
-}
-
-export interface ProjectConfig {
-	name: string;
-	logoImage?: AppImage;
-	description?: string;
 }

@@ -197,7 +197,7 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 			extendedFields: this.product.extendedFields,
 			attachments: this.product.attachments
 		};
-		this.selectionSrv.selection.forEach(item => {
+		Array.from(this.selectionSrv.selection.values()).forEach(item => {
 			switch (item.__typename) {
 				case 'Attachment':
 					const newAttachment = new Attachment({ ...item });

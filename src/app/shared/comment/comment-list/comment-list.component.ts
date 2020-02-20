@@ -16,7 +16,7 @@ export class CommentListComponent extends TrackingComponent implements OnInit {
 	private _comments: Comment[] = [];
 	@Input()
 	set comments(comments: Comment[]) {
-		this._comments = (comments || []).filter(comment => comment.deleted === false);
+		// this._comments = (comments || []).filter(comment => comment.deleted === false);
 	}
 	get comments() {
 		return this._comments;

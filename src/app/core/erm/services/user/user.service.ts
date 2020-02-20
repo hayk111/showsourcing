@@ -27,7 +27,7 @@ const customQueries = {
 })
 export class UserService extends GlobalService<User> {
 
-	private _user$ = new Subject<string>();
+	private _user$ = new Subject<User>();
 	user$ = this._user$.asObservable();
 
 	userSync: User;

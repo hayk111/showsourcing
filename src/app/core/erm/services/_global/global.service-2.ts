@@ -31,7 +31,7 @@ export abstract class GlobalService<T extends Entity> {
 	constructor(
 		protected fields: any,
 		protected sing: string,
-		protected customQueries: CustomQueries,
+		protected customQueries?: CustomQueries,
 		protected analyticsSrv?: AnalyticsService
 	) {
 		this.queryBuilder = new QueryBuilder(sing, customQueries);

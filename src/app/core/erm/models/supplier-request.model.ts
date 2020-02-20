@@ -1,12 +1,13 @@
-import { ID, uuid, RequestStatus } from '~utils';
-import { Contact } from './contact.model';
+import { ID, RequestStatus } from '~utils';
 import { AppImage } from './app-image.model';
 import { Attachment } from './attachment.model';
+import { Contact } from './contact.model';
 import { RequestElement } from './request-element.model';
+import { Entity } from './_entity.model';
 
 
 
-export class SupplierRequest {
+export class SupplierRequest extends Entity<SupplierRequest> {
 	id: ID;
 	requestElements: RequestElement[];
 	sender: Contact;
@@ -21,21 +22,5 @@ export class SupplierRequest {
 	creationDate: string;
 	lastUpdatedDate: string;
 	sentDate: string;
-	__typename?= 'Request';
-
-	constructor(config: SupplierRequestConfig) {
-		this.creationDate = '' + new Date();
-		this.lastUpdatedDate = '' + new Date();
-		Object.assign(this, config);
-		if (!config.id) this.id = uuid();
-	}
-}
-
-export interface SupplierRequestConfig {
-	id?: ID;
-	message?: string;
-	requestElements?: RequestElement[];
-	senderTeamId?: string;
-	title?: string;
-	status?: RequestStatus;
+	__typename ?= 'Request';
 }

@@ -1,4 +1,3 @@
-import { EntityWithAudit } from '~core/erm/models/_entity.model';
 import { User } from '~core/erm/models/user.model';
 import { uuid } from '~utils';
 

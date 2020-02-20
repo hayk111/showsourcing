@@ -1,17 +1,7 @@
-import { EntityWithAudit } from '~core/erm/models/_entity.model';
+import { Entity } from './_entity.model';
 
-export class Comment extends EntityWithAudit<CommentConfig> {
-	id: string;
-	text: string;
-	__typename ?= 'Comment';
-
-
-	constructor(config: CommentConfig) {
-		super(config);
-	}
-}
-
-export interface CommentConfig {
-	id?: string;
+export class Comment extends Entity<Comment> {
 	text?: string;
+	__typename ?= 'Comment';
 }
+

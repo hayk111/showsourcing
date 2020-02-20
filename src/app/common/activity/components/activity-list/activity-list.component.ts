@@ -5,7 +5,6 @@ import { CommentService } from '~core/erm';
 import { FormControl } from '@angular/forms';
 import { ERMService } from '~core/erm';
 import { switchMap } from 'rxjs/operators';
-import { UserService } from '~core/erm';
 
 @Component({
 	selector: 'activity-list-app',
@@ -23,7 +22,6 @@ export class ActivityListComponent extends TrackingComponent implements OnInit {
 	constructor(
 		private commentSrv: CommentService,
 		private ermSrv: ERMService,
-		private userSrv: UserService
 	) {
 		super();
 	}
@@ -32,7 +30,7 @@ export class ActivityListComponent extends TrackingComponent implements OnInit {
 	}
 
 	send() {
-		const comment = new Comment({ text: this.commentCtrl.value });
+		const comment: Comment = new Comment({ text: this.commentCtrl.value });
 		const commentUser = { ...comment };
 		const comments = [...(this.entity.comments || [])];
 		comments.push(commentUser);

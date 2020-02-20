@@ -1,17 +1,11 @@
 import { User } from '~core/erm/models/user.model';
-import { uuid } from '~utils/uuid.utils';
+import { Entity } from './_entity.model';
 
-export class ProductVote {
-	id: string;
-	user: User;
-	value: number;
-	creationDate: string;
-	__typename?= 'ProductVote';
-
-	constructor(config: ProductVoteConfig) {
-		Object.assign(this, config);
-		this.id = uuid();
-	}
+export class ProductVote extends Entity<ProductVote> {
+	user?: User;
+	value?: number;
+	creationDate?: string;
+	__typename ?= 'ProductVote';
 }
 
 export interface ProductVoteConfig {

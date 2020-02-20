@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { AnalyticsService } from '~core/analytics/analytics.service';
-import { EntityWithAudit } from '~core/erm/models';
+import { Entity } from '~core/erm/models';
 import { UserService } from '~core/erm/services/user/user.service';
 import { GlobalQueries } from '~core/erm/services/_global/global-queries.class';
 import { GlobalService, GlobalServiceInterface } from '~core/erm/services/_global/global.service';
@@ -8,7 +8,7 @@ import { GlobalService, GlobalServiceInterface } from '~core/erm/services/_globa
 /**
  * Same as global service but adds an audit (created by, last updated date etc)
  */
-export class GlobalWithAuditService<T extends EntityWithAudit<any>> extends GlobalService<T> implements GlobalServiceInterface<T> {
+export class GlobalWithAuditService<T extends Entity<any>> extends GlobalService<T> implements GlobalServiceInterface<T> {
 
 	constructor(
 		protected fields: GlobalQueries,
