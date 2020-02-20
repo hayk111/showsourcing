@@ -88,11 +88,6 @@ export class SamplesPageComponent extends AutoUnsub implements OnInit {
 		return filters.length;
 	}
 
-
-	onFavourite(sample: Sample) {
-		this.listSrv.onItemFavorited(sample.id);
-	}
-
 	showItemsPerPage(count: number) {
 		this.selectItemsConfig = { take: Number(count) };
 		this.listSrv.refetch(this.selectItemsConfig).subscribe();
