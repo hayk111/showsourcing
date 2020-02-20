@@ -12,6 +12,7 @@ export class PriceComponent {
 	@Input() price: Price;
 	@Input() moq: number;
 	@Input() moqDesc: string;
+	@Input() type: 'default' | 'primary' = 'default';
 
 	@Input() size: 's' | 'ms' | 'm' | 'l' = 'm';
 

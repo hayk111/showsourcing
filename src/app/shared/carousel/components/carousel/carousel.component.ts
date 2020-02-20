@@ -35,7 +35,7 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	/** Whether images can be uploaded */
 	@Input() static = false;
 	/** size in px of the main display */
-	@Input() size = 411;
+	@Input() size = 392;
 	@Input() hasPreview = false;
 	// when the uploader service links an image to an item
 	// we need to know to which property we need to link it and if the property is an array

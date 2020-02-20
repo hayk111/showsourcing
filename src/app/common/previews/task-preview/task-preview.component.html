@@ -31,12 +31,12 @@
 		(update)="update($event, 'name')">
 
 		<preview-header-buttons-app>
-			<button class="icon-with-text light" (click)="update(!task?.done, 'done')">
-				<icon-app class="color-txt-secondary" name="check-circle"></icon-app>
+			<button class="icon-with-text big light" (click)="update(!task?.done, 'done')">
+				<icon-app class="color-txt-secondary" name="check-circle" size="m"></icon-app>
 				<span class="first-uppercase color-txt-secondary" [translate]="!task?.done ? 'button.mark-done' : 'button.mark-pending'"></span>
 			</button>
-			<button class="icon" (click)="previewComment.focus()" toolTip [toolTipMessage]="'tooltip.create-comment' | translate">
-				<icon-app class="color-txt-secondary" name="comments"></icon-app>
+			<button class="icon big" (click)="previewComment.focus()" toolTip [toolTipMessage]="'tooltip.create-comment' | translate">
+				<icon-app class="color-txt-secondary" name="comments" size="m"></icon-app>
 			</button>
 		</preview-header-buttons-app>
 

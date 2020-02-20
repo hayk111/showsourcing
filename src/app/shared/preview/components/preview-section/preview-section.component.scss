@@ -4,7 +4,7 @@
 	margin: var(--spacing-l) var(--spacing-ms);
 
 	.deep-class:not(:empty):not(.no-padding) {
-		padding-top: var(--spacing-s);
+		padding-top: var(--spacing-ms);
 	}
 
 	&.mg-bottom-none {

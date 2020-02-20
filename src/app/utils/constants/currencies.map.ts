@@ -490,7 +490,7 @@ export const currencyMap = {
 			en: {
 				id: 'GBP',
 				name: 'British Pound Sterling',
-				symbol: 'GBP'
+				symbol: '\u00A3',
 			}
 		}
 	},
@@ -931,7 +931,7 @@ export const currencyMap = {
 			en: {
 				id: 'EUR',
 				name: 'Euro',
-				symbol: 'EUR'
+				symbol: '\u20ac'
 			}
 		}
 	},

@@ -33,6 +33,8 @@ export class InputDescriptionComponent implements OnChanges, OnInit {
 	@Input() hasLabel = false;
 	// wether we display a modal or not
 	@Input() asModal = true;
+	@Input() descriptionTextLines: number;
+
 	@Output() update = new EventEmitter<string>();
 
 	@ViewChild('container', { static: true }) container: ElementRef<HTMLElement>;
@@ -69,7 +71,7 @@ export class InputDescriptionComponent implements OnChanges, OnInit {
 		this.showAll();
 		// if the height is bigger than 85 and it has a description, we limit the height
 		if (this.container.nativeElement.clientHeight > 80 && (this.description && this.description.length)) {
-			this.render.setStyle(this.container.nativeElement, 'height', '77px');
+			this.render.setStyle(this.container.nativeElement, 'height', this.descriptionTextLines === 5 ? '96px' : '77px');
 			this.showMore = true;
 		}
 		this.cd.detectChanges();

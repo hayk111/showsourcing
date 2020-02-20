@@ -15,5 +15,5 @@ export class EditableDisplayComponent {
 
 	@Input() vAlign = true;
 	@Input() disabled = false;
-
+	@Input() textLines: number;
 }
