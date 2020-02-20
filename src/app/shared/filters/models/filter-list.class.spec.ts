@@ -45,7 +45,7 @@ fdescribe('FilterList', () => {
 	});
 
 	// select 2 suppliers and 2 categories
-	fit("doesn't work with many filters selected from many types", () => {
+	it("doesn't work with many filters selected from many types", () => {
 		filterList.addFilter({ type: FilterType.SUPPLIER, value: 'id-supplier-1' });
 		filterList.addFilter({ type: FilterType.SUPPLIER, value: 'id-supplier-2' });
 		filterList.addFilter({ type: FilterType.CATEGORY, value: 'id-category-1' });
@@ -54,40 +54,38 @@ fdescribe('FilterList', () => {
 			and: [
 				{
 					or: [
-						{ [FilterType.SUPPLIER]: { id: { eq: 'id-supplier-1' } } },
-						{ [FilterType.SUPPLIER]: { id: { eq: 'id-supplier-2' } } }
+						{ [FilterType.CATEGORY]: { id: { eq: 'id-category-1' } } },
+						{ [FilterType.CATEGORY]: { id: { eq: 'id-category-2' } } }
 					]
 				},
 				{
 					or: [
-						{ [FilterType.CATEGORY]: { id: { eq: 'id-category-1' } } },
-						{ [FilterType.CATEGORY]: { id: { eq: 'id-category-2' } } }
+						{ [FilterType.SUPPLIER]: { id: { eq: 'id-supplier-1' } } },
+						{ [FilterType.SUPPLIER]: { id: { eq: 'id-supplier-2' } } }
 					]
 				}
 			]
 		});
 	});
+	"Object({ and: [ Object({ or: [ Object({ name: Object({ match: 'name or supplier contains this' }) }), Object({ supplierName: Object({ match: 'name or supplier contains this' }) }) ] }) ] })";
 
 	// test simple search string
 	it("doesn't work with a simple search string", () => {
-		filterList.search = 'name or supplier contains this';
 		filterList.searchedFields = ['name', 'supplierName'];
-
-		expect(filterList.asPredicate()).toEqual([
-			{
-				and: [
-					{
-						or: [
-							{
-								name: { match: 'name or supplier contains this' }
-							},
-							{
-								supplierName: { match: 'name or supplier contains this' }
-							}
-						]
-					}
-				]
-			}
-		]);
+		filterList.setSearch('name or supplier contains this');
+		expect(filterList.asPredicate()).toEqual({
+			and: [
+				{
+					or: [
+						{
+							name: { match: 'name or supplier contains this' }
+						},
+						{
+							supplierName: { match: 'name or supplier contains this' }
+						}
+					]
+				}
+			]
+		});
 	});
 });

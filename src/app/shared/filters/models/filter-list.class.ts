@@ -34,9 +34,10 @@ export class FilterList {
 	/** the fields that will be searched */
 	searchedFields: string[] = ['name'];
 
-	/** adds a search to the predicate */
+	/** adds a search to the predicate and restart setFilters */
 	setSearch(value: string) {
 		this.search = value;
+		this.setFilters([...this._filters]);
 		this._valueChanges$.next(this);
 	}
 
@@ -48,7 +49,7 @@ export class FilterList {
 		this._filters = filters;
 		this._byType = this.filtersToByType(filters);
 		this._filterObject = this.filtersToPredicate(this._byType);
-		// TODO add search in _filterObject
+		this._filterObject = this.searchToPredicate(this._filterObject);
 		this._valueChanges$.next(this);
 	}
 	/** returns the array of filters */
@@ -119,10 +120,6 @@ export class FilterList {
 		return copy;
 	}
 
-	private filtersToPredicate(byType: FilterByType): { and: any[] } {
-		return FilterList.filtersToPredicate(byType);
-	}
-
 	/** transform filter into a predicate understandable by graphql
 	 * we want every filter of the same type to be joined with OR
 	 * while when the type differ it's a AND.
@@ -130,18 +127,13 @@ export class FilterList {
 	 * So if we have two supplier filter and one category filter the
 	 * predicate will be : {
 	 * 	and: [{
-	 * 		or: [
-	 * 			{supplier: {id: {eq: x}}},
-	 * 			{supplier: {id: {eq: y}}}
-	 * 		]
+	 * 		or: [{supplier: {id: {eq: x}}}, {supplier: {id: {eq: y}}}]
 	 * 	},{
-	 * 		or: [
-	 * 			{category: {id: {eq: z}}}
-	 * 			]
+	 * 		or: [{category: {id: {eq: z}}}]
 	 * 	}]
 	 * }
 	 */
-	static filtersToPredicate(byType: FilterByType) {
+	private filtersToPredicate(byType: FilterByType) {
 		const and = [];
 		byType.forEach((valMap, type) => {
 			if (valMap.size === 0) return;
@@ -151,8 +143,22 @@ export class FilterList {
 			);
 			and.push({ or });
 		});
-		if (and.length === 0) and.push({ or: [] });
+		// if (and.length === 0) and.push({ or: [] });
 		return { and };
+	}
+
+	/** add the search string to the filter predicate to get the complete search query params */
+	private searchToPredicate(filterPredicate) {
+		const searchPredicate = [];
+		if (this.search) {
+			this.searchedFields.forEach(searchedField => {
+				searchPredicate.push({ [searchedField]: { match: this.search } });
+			});
+			filterPredicate.and.push({ or: searchPredicate });
+		} else if (!filterPredicate.and.length) {
+			filterPredicate.and.push({ or: searchPredicate });
+		}
+		return filterPredicate;
 	}
 
 	/** the way a Filter is translated into graphql changes with
