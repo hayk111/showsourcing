@@ -11,8 +11,8 @@ import { GlobalService } from '~core/erm/services/_global/global.service-2';
 
 const customQueries = {
 	queryOne: `
-		query GetUser(id: $ID) {
-			user(id: $id) {
+		query GetUser($ID: ID!) {
+			user(id: $ID) {
 				id
 				firstName
 				lastName
