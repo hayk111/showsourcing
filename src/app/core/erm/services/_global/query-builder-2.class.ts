@@ -57,6 +57,8 @@ export class QueryBuilder {
 		return gql(query);
 	}
 
+	queryManyDefault: string;
+
 	// search
 	queryMany = (str: string) => {
 		const query = this.customQueries.queryMany || `

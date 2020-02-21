@@ -4,6 +4,7 @@ import { GlobalQueries } from '~core/erm/services/_global/global-queries.class';
 
 export class UserQueries extends GlobalQueries {
 
+
 	static readonly userWithAvatar = `
 		id,
 		firstName,

@@ -6,7 +6,7 @@ import { DialogCommonService } from '~common/dialogs/services/dialog-common.serv
 import { ProductsTableComponent } from '~common/tables/products-table/products-table.component';
 import { ProductService, UserService } from '~core/erm';
 import { SelectParamsConfig } from '~core/erm';
-import { ListPageService } from '~core/list-page';
+import { ListPageService, ListPageViewService, SelectionService } from '~core/list-page';
 import { ERM, Product } from '~core/erm';
 import { DialogService } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
@@ -25,6 +25,8 @@ import { TemplateService } from '~core/template/services/template.service';
 	styleUrls: ['./products-page.component.scss'],
 	providers: [
 		ListPageService,
+		ListPageViewService,
+		SelectionService,
 		KanbanService,
 		KanbanSelectionService
 	],
@@ -56,6 +58,8 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 
 	constructor(
 		private productSrv: ProductService,
+		public viewSrv: ListPageViewService<Product>,
+		public selectionSrv: SelectionService,
 		public dialogCommonSrv: DialogCommonService,
 		public listSrv: ListPageService<Product, ProductService>,
 		public elem: ElementRef,
