@@ -20,7 +20,7 @@ import { AutoUnsub } from '~utils';
 	selector: 'tasks-page-app',
 	templateUrl: './tasks-page.component.html',
 	styleUrls: ['./tasks-page.component.scss'],
-	providers: [ListPageService, DialogCommonService],
+	providers: [ListPageService, DialogCommonService, FilterService],
 	host: {
 		class: 'table-page'
 	}

@@ -27,7 +27,7 @@ import { AutoUnsub } from '~utils';
 	selector: 'products-page-app',
 	templateUrl: './products-page.component.html',
 	styleUrls: ['./products-page.component.scss'],
-	providers: [ListPageService, KanbanService, KanbanSelectionService, ListPageViewService],
+	providers: [ListPageService, KanbanService, KanbanSelectionService, ListPageViewService, FilterService],
 	host: {
 		class: 'table-page'
 	}

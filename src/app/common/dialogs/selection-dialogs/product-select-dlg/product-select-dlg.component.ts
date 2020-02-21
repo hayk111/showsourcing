@@ -27,7 +27,7 @@ import { AutoUnsub } from '~utils';
 	templateUrl: './product-select-dlg.component.html',
 	styleUrls: ['./product-select-dlg.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [ListPageService],
+	providers: [ListPageService, FilterService],
 	host: { class: 'table-dialog' }
 })
 export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {

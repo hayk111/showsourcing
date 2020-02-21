@@ -21,7 +21,7 @@ import { FilterService } from '~shared/filters/services/filter.service';
 	templateUrl: './tasks-page.component.html',
 	styleUrls: ['./tasks-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [ListPageService]
+	providers: [ListPageService, FilterService]
 })
 export class TasksPageComponent extends AbstractTaskCommonComponent
 	implements OnInit {

@@ -22,7 +22,7 @@ import { AutoUnsub } from '~utils';
 	selector: 'samples-page-app',
 	templateUrl: './samples-page.component.html',
 	styleUrls: ['./samples-page.component.scss'],
-	providers: [ListPageService, KanbanService, KanbanSelectionService],
+	providers: [ListPageService, KanbanService, KanbanSelectionService, FilterService],
 	host: {
 		class: 'table-page'
 	}

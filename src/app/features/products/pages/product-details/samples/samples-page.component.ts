@@ -21,7 +21,7 @@ import { FilterService } from '~shared/filters/services/filter.service';
 	templateUrl: './samples-page.component.html',
 	styleUrls: ['./samples-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [ListPageService]
+	providers: [ListPageService, FilterService]
 })
 export class SamplesPageComponent extends AbstractSampleCommonComponent
 	implements OnInit {

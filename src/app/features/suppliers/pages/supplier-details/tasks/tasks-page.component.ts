@@ -20,7 +20,7 @@ import { FilterService } from '~shared/filters/services/filter.service';
 	selector: 'tasks-page-app',
 	templateUrl: './tasks-page.component.html',
 	styleUrls: ['./tasks-page.component.scss'],
-	providers: [ListPageService],
+	providers: [ListPageService, FilterService],
 	host: { class: 'table-page' }
 })
 export class TasksPageComponent extends AbstractTaskCommonComponent
