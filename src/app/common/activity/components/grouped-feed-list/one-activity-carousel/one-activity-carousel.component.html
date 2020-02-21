@@ -2,7 +2,13 @@
 	<!-- no images available -->
 	<ng-container *ngIf="images?.length === 0; else carousel">
 		<div class="empty flexColumn">
-			<img class="pointer default-img"[src]="defaultImg"/>
+			<logo-app
+				class="pointer no-img"
+				icon="camera"
+				size="xxxxl"
+				color="third"
+				backgroundColor="bg-secondary">
+			</logo-app>
 		</div>
 	</ng-container>
 

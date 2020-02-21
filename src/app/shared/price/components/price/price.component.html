@@ -1,8 +1,8 @@
 <div 
 	class="flex"
 	[ngStyle]="{
-		'color': type === 'default' ? 'var(--color-txt-primary)' : 'var(--color-primary)',
-		'font-size': type === 'primary' ? 'var(--font-size-l)' : 'var(--font-size-' + size + ')',
+		'color': computeColor(),
+		'font-size': computeFontSize(),
 		'font-weight': type === 'primary' ? '600' : 'normal'}">
 	<span 
 		class="currency" 
