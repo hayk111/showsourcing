@@ -6,23 +6,24 @@ import { CommonModalService } from '~common/modals/services/common-modal.service
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import { ProductStatusService } from '~core/entity-services/product-status/product-status.service';
 import { ListPageService } from '~core/list-page';
+import { SelectionService } from '~core/list-page/selection.service.ts';
 import { NEW_STATUS_ID } from '~core/models/status.model';
 import { ProductService } from '~entity-services';
 import { ERM, Product, ProductStatus } from '~models';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { FilterList, FilterType } from '~shared/filters';
+import { FilterService } from '~shared/filters/services/filter.service';
 import { KanbanDropEvent } from '~shared/kanban/interfaces';
 import { KanbanColumn } from '~shared/kanban/interfaces/kanban-column.class';
 import { KanbanService } from '~shared/kanban/services/kanban.service';
 import { AutoUnsub } from '~utils/auto-unsub.component';
-import { FilterService } from '~shared/filters/services/filter.service';
 
 @Component({
 	selector: 'workspace-my-workflow-page-app',
 	templateUrl: './my-workflow-page.component.html',
 	styleUrls: ['./my-workflow-page.component.scss'],
-	providers: [ListPageService, KanbanService, FilterService]
+	providers: [ListPageService, KanbanService, FilterService, SelectionService]
 })
 export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 	columns$ = this.kanbanSrv.columns$;
@@ -41,7 +42,7 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 		FilterType.PRODUCT_STATUS,
 		FilterType.PROJECTS,
 		FilterType.SUPPLIER,
-		FilterType.TAGS,
+		FilterType.TAGS
 	];
 
 	constructor(
@@ -52,7 +53,8 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 		public kanbanSrv: KanbanService,
 		public dlgSrv: DialogService,
 		private translate: TranslateService,
-		private filterSrv: FilterService
+		private filterSrv: FilterService,
+		private selectionSrv: SelectionService
 	) {
 		super();
 	}
@@ -91,7 +93,7 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 		combineLatest(filters$, statuses$, (filterList, statuses) =>
 			this.getProducts(statuses, filterList)
 		).subscribe();
-		this.selected$ = this.listSrv.selection$;
+		this.selected$ = this.selectionSrv.selection$;
 	}
 
 	loadMore(col: KanbanColumn) {
@@ -180,16 +182,16 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	onColumnSelected(products: Product[]) {
-		products.forEach(prod => this.listSrv.selectOne(prod, true));
+		products.forEach(prod => this.selectionSrv.selectOne(prod, true));
 	}
 
 	onColumnUnselected(products: Product[]) {
-		products.forEach(prod => this.listSrv.unselectOne(prod, true));
+		products.forEach(prod => this.selectionSrv.unselectOne(prod, true));
 	}
 
 	onFavoriteAllSelected() {
 		this.listSrv.onFavoriteAllSelected();
-		const updated = this.listSrv
+		const updated = this.selectionSrv
 			.getSelectedIds()
 			.map(id => ({ id, favorite: true }));
 		this.kanbanSrv.updateMany(updated);
@@ -197,7 +199,7 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 
 	onUnfavoriteAllSelected() {
 		this.listSrv.onUnfavoriteAllSelected();
-		const updated = this.listSrv
+		const updated = this.selectionSrv
 			.getSelectedIds()
 			.map(id => ({ id, favorite: false }));
 		this.kanbanSrv.updateMany(updated);
@@ -214,7 +216,7 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	deleteSelected() {
-		const itemIds = this.listSrv.getSelectedIds();
+		const itemIds = this.selectionSrv.getSelectedIds();
 		const del = this.translate.instant('button.delete');
 		const prod =
 			itemIds.length <= 1
@@ -229,13 +231,15 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 				switchMap(_ => this.listSrv.dataSrv.deleteMany(itemIds))
 			)
 			.subscribe(_ => {
-				this.listSrv.selectionSrv.unselectAll();
+				this.selectionSrv.unselectAll();
 				this.kanbanSrv.deleteItems(itemIds);
 			});
 	}
 
 	onMultipleStatusChange(status: ProductStatus) {
-		const updated = this.listSrv.getSelectedIds().map(id => ({ id, status }));
+		const updated = this.selectionSrv
+			.getSelectedIds()
+			.map(id => ({ id, status }));
 		this.kanbanSrv.onExternalStatusChange(updated);
 		this.productSrv.updateMany(updated).subscribe();
 	}

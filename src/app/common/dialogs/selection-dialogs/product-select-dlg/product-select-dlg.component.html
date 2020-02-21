@@ -21,7 +21,7 @@
 			[hasMenu]="false"
 			[currentSort]="listSrv.currentSort"
 			[pending]="listSrv.pending"
-			[selection]="listSrv.selection$ | async"
+			[selection]="selectionSrv.selection$ | async"
 			[count]="listSrv.count$ | async"
 			[currentPage]="listSrv.currentPage"
 			(goToPage)="loadPage($event)"

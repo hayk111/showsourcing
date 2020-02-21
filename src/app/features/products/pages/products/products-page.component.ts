@@ -10,7 +10,7 @@ import {
 	SelectParamsConfig,
 	UserService
 } from '~core/erm';
-import { ListPageService } from '~core/list-page';
+import { ListPageService, SelectionService } from '~core/list-page';
 import { ListPageViewService } from '~core/list-page/list-page-view.service';
 import { DialogService } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
@@ -27,7 +27,14 @@ import { AutoUnsub } from '~utils';
 	selector: 'products-page-app',
 	templateUrl: './products-page.component.html',
 	styleUrls: ['./products-page.component.scss'],
-	providers: [ListPageService, KanbanService, KanbanSelectionService, ListPageViewService, FilterService],
+	providers: [
+		ListPageService,
+		KanbanService,
+		KanbanSelectionService,
+		ListPageViewService,
+		FilterService,
+		SelectionService
+	],
 	host: {
 		class: 'table-page'
 	}
@@ -64,7 +71,8 @@ export class ProductsPageComponent extends AutoUnsub
 		protected dlgSrv: DialogService,
 		protected kanbanSelectionSrv: KanbanSelectionService,
 		private filterSrv: FilterService,
-		private viewSrv: ListPageViewService<Product>
+		private viewSrv: ListPageViewService<Product>,
+		private selectionSrv: SelectionService
 	) {
 		super();
 	}
@@ -116,12 +124,12 @@ export class ProductsPageComponent extends AutoUnsub
 	onProjectDlgOpen() {
 		let initialProjects = [];
 
-		const values = this.listSrv.getSelectedValues();
+		const values = this.selectionSrv.getSelectedValues();
 		// if we have more than 1 selected, we don't want initial projects to be preselected
 		if (values.length === 1) initialProjects = values[0].projects || [];
 
 		this.dialogCommonSrv.openAddToProjectDialog(
-			this.listSrv.getSelectedValues(),
+			this.selectionSrv.getSelectedValues(),
 			initialProjects
 		);
 	}
@@ -138,7 +146,7 @@ export class ProductsPageComponent extends AutoUnsub
 
 	getSelection$() {
 		if (this.viewSrv.view !== 'board') {
-			return this.listSrv.selection$;
+			return this.selectionSrv.selection$;
 		} else {
 			return this.kanbanSelectionSrv.selection$;
 		}
@@ -154,7 +162,7 @@ export class ProductsPageComponent extends AutoUnsub
 
 	selectAll(entities: any[]) {
 		if (this.viewSrv.view !== 'board') {
-			return this.listSrv.selectAll(entities);
+			return this.selectionSrv.selectAll(entities);
 		} else {
 			return this.kanbanSelectionSrv.selectAllFromColumn();
 		}
@@ -162,7 +170,7 @@ export class ProductsPageComponent extends AutoUnsub
 
 	unselectAll() {
 		if (this.viewSrv.view !== 'board') {
-			return this.listSrv.unselectAll();
+			return this.selectionSrv.unselectAll();
 		} else {
 			return this.kanbanSelectionSrv.unselectAllFromColumn();
 		}

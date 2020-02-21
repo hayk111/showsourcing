@@ -11,7 +11,7 @@
 <kanban-app
   [cols]="columns$ | async"
   [cardTemplate]="card"
-  [selection]="listSrv.selection$ | async"
+  [selection]="selectionSrv.selection$ | async"
   [amountLoaded]="amountLoaded"
   (drop)="onUpdateProductStatus($event)"
   (multipleDrop)="updateProductsStatus($event)"
@@ -32,10 +32,10 @@
     [product]="data"
 		[enablePreviewLink]="true"
 		[highlightOnChecked]="true"
-    [checked]="(listSrv.selection$ | async).has(data.id)"
+    [checked]="(selectionSrv.selection$ | async).has(data.id)"
     (clickImage)="viewSrv.openPreview(data)"
-    (select)="listSrv.selectOne($event, true)"
-    (unselect)="listSrv.unselectOne($event, true)">
+    (select)="selectionSrv.selectOne($event, true)"
+    (unselect)="selectionSrv.unselectOne($event, true)">
   </product-card-app>
 </ng-template>
 
@@ -63,22 +63,22 @@
 </ng-template>
 
 <product-selection-bar-app
-	[isShown]="(listSrv.selection$ | async).size > 0"
-	[selection]="listSrv.selection$ | async"
+	[isShown]="(selectionSrv.selection$ | async).size > 0"
+	[selection]="selectionSrv.selection$ | async"
 	[favorite]="listSrv.allSelectedFavorite"
 	(disliked)="onMultipleThumbDown($event)"
 	(liked)="onMultipleThumbUp($event)"
 	(favorited)="onFavoriteAllSelected()"
 	(unfavorited)="onUnfavoriteAllSelected()"
-	(addProject)="commonModalSrv.openAddToProjectDialog(listSrv.getSelectedValues())"
-	(export)="commonModalSrv.openExportDialog(listSrv.getSelectedValues())"
-	(createRequest)="commonModalSrv.openSupplierRequest(listSrv.getSelectedValues())"
-	(requestTeamFeedback)="commonModalSrv.openRequestFeedbackDialog(listSrv.getSelectedValues())"
-	(compareProducts)="commonModalSrv.openCompareProductDialog(listSrv.getSelectedValues())"
+	(addProject)="commonModalSrv.openAddToProjectDialog(selectionSrv.getSelectedValues())"
+	(export)="commonModalSrv.openExportDialog(selectionSrv.getSelectedValues())"
+	(createRequest)="commonModalSrv.openSupplierRequest(selectionSrv.getSelectedValues())"
+	(requestTeamFeedback)="commonModalSrv.openRequestFeedbackDialog(selectionSrv.getSelectedValues())"
+	(compareProducts)="commonModalSrv.openCompareProductDialog(selectionSrv.getSelectedValues())"
 	(statusUpdated)="onMultipleStatusChange($event)"
-	(massEdit)="commonModalSrv.openMassEditDialog(listSrv.getSelectedValues(), erm.PRODUCT)"
+	(massEdit)="commonModalSrv.openMassEditDialog(selectionSrv.getSelectedValues(), erm.PRODUCT)"
 	(deleted)="deleteSelected()"
-	(close)="listSrv.unselectAll()">
+	(close)="selectionSrv.unselectAll()">
 </product-selection-bar-app>
 
 <filters-app

@@ -14,15 +14,15 @@
 						[ngClass]="{'no-left-margin': i % 3 == 0, 'margin-bottom-card': (i !== maxItemsDisplay - 1) && (i % 3 == 2)}"
 						[hasCheckbox]="false"
 						[product]="product"
-						[selected]="(listSrv.selection$ | async)?.has(product?.id)"
+						[selected]="(selectionSrv.selection$ | async)?.has(product?.id)"
 						(favorited)="listSrv.onItemFavorited(product?.id)"
 						(unfavorited)="listSrv.onItemUnfavorited(product?.id)"
 						(liked)="listSrv.onThumbUp(product)"
 						(disliked)="listSrv.onThumbDown(product)"
 						(open)="viewSrv.goToDetails(product.id)"
 						(preview)="viewSrv.openPreview(product)"
-						(select)="listSrv.selectOne(product, true)"
-						(unselect)="listSrv.unselectOne(product, true)"
+						(select)="selectionSrv.selectOne(product, true)"
+						(unselect)="selectionSrv.unselectOne(product, true)"
 						(update)="listSrv.update($event)">
 					</product-grid-card-app>
 				</ng-container>

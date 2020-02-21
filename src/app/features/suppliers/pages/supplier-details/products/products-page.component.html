@@ -12,7 +12,7 @@
 	<products-table-app
 		*ngIf="viewSrv.view === 'table'"
 		[pending]="false"
-		[selection]="listSrv.selection"
+		[selection]="selectionSrv.selection"
 		[rows]="products"
 		[count]="listSrv.count$ | async"
 		[currentPage]="listSrv.currentPage"
@@ -25,11 +25,11 @@
 		(openExportDialog)="dialogCommonSrv.openExportDialog(erm.PRODUCT.singular, [$event])"
 		(openRequestFeedbackDialog)="dialogCommonSrv.openRequestFeedbackDialog([$event])"
 		(previewClick)="viewSrv.openPreview($event)"
-		(select)="listSrv.selectOne($event, true)"
-		(selectAll)="listSrv.selectAll($event, true)"
+		(select)="selectionSrv.selectOne($event, true)"
+		(selectAll)="selectionSrv.selectAll($event, true)"
 		(sort)="listSrv.sort($event)"
-		(unselect)="listSrv.unselectOne($event, true)"
-		(unselectAll)="listSrv.unselectAll()"
+		(unselect)="selectionSrv.unselectOne($event, true)"
+		(unselectAll)="selectionSrv.unselectAll()"
 		(createClick)="openCreationProductDlg()">
 	</products-table-app>
 
@@ -42,18 +42,18 @@
 </product-preview-app>
 
 <product-selection-bar-app
-	[isShown]="(listSrv.selection$ | async).size > 0"
-	[selection]="listSrv.selection$ | async"
+	[isShown]="(selectionSrv.selection$ | async).size > 0"
+	[selection]="selectionSrv.selection$ | async"
 	[selectableItems]="listSrv.items$ | async"
-	(addProject)="dialogCommonSrv.openAddToProjectDialog(listSrv.getSelectedValues())"
-	(export)="dialogCommonSrv.openExportDialog(erm.PRODUCT.singular, listSrv.getSelectedValues())"
-	(requestTeamFeedback)="dialogCommonSrv.openRequestFeedbackDialog(listSrv.getSelectedValues())"
-	(compareProducts)="dialogCommonSrv.openCompareProductDialog(listSrv.getSelectedValues())"
+	(addProject)="dialogCommonSrv.openAddToProjectDialog(selectionSrv.getSelectedValues())"
+	(export)="dialogCommonSrv.openExportDialog(erm.PRODUCT.singular, selectionSrv.getSelectedValues())"
+	(requestTeamFeedback)="dialogCommonSrv.openRequestFeedbackDialog(selectionSrv.getSelectedValues())"
+	(compareProducts)="dialogCommonSrv.openCompareProductDialog(selectionSrv.getSelectedValues())"
 	(statusUpdated)="listSrv.updateSelected({status: $event})"
 	(deleted)="deassociateSelectedProducts()"
-	(close)="listSrv.unselectAll()"
-	(selectAll)="listSrv.selectAll($event)"
-	(unselectAll)="listSrv.unselectAll()">
+	(close)="selectionSrv.unselectAll()"
+	(selectAll)="selectionSrv.selectAll($event)"
+	(unselectAll)="selectionSrv.unselectAll()">
 </product-selection-bar-app>
 
 <side-panel-app *ngIf="viewSrv.filterPanelOpen">

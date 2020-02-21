@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { combineLatest } from 'rxjs';
 import {
 	filter,
@@ -10,10 +11,7 @@ import {
 	takeUntil,
 	tap
 } from 'rxjs/operators';
-import {
-	CreationDialogComponent,
-	CreationSampleDlgComponent
-} from '~common/modals';
+import { CreationSampleDlgComponent } from '~common/modals';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
 import {
 	SampleService,
@@ -21,23 +19,23 @@ import {
 	UserService
 } from '~core/entity-services';
 import { ListPageService } from '~core/list-page';
+import { SelectionService } from '~core/list-page/selection.service.ts';
 import { ERM, Sample, SampleStatus } from '~core/models';
 import { NEW_STATUS_ID } from '~core/models/status.model';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { FilterList, FilterType } from '~shared/filters';
+import { FilterService } from '~shared/filters/services/filter.service';
 import { KanbanColumn, KanbanDropEvent } from '~shared/kanban/interfaces';
 import { KanbanService } from '~shared/kanban/services/kanban.service';
 import { AutoUnsub } from '~utils/auto-unsub.component';
-import { TranslateService } from '@ngx-translate/core';
-import { FilterService } from '~shared/filters/services/filter.service';
 
 @Component({
 	selector: 'my-sample-board-page-app',
 	templateUrl: './my-sample-board-page.component.html',
 	styleUrls: ['./my-sample-board-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [KanbanService, ListPageService, FilterService]
+	providers: [KanbanService, ListPageService, FilterService, SelectionService]
 })
 export class MySampleBoardPageComponent extends AutoUnsub implements OnInit {
 	columns$ = this.kanbanSrv.columns$;
@@ -57,7 +55,8 @@ export class MySampleBoardPageComponent extends AutoUnsub implements OnInit {
 		private dlgSrv: DialogService,
 		private userSrv: UserService,
 		private translate: TranslateService,
-		private filterSrv: FilterService
+		private filterSrv: FilterService,
+		private selectionSrv: SelectionService
 	) {
 		super();
 	}
@@ -144,11 +143,11 @@ export class MySampleBoardPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	onColumnSelected(samples: Sample[]) {
-		samples.forEach(sample => this.listSrv.selectOne(sample));
+		samples.forEach(sample => this.selectionSrv.selectOne(sample));
 	}
 
 	onColumnUnselected(samples: Sample[]) {
-		samples.forEach(sample => this.listSrv.unselectOne(sample));
+		samples.forEach(sample => this.selectionSrv.unselectOne(sample));
 	}
 
 	toggleMySamples(show: boolean) {
@@ -204,7 +203,9 @@ export class MySampleBoardPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	onMultipleStatusUpdated(status: SampleStatus) {
-		const values = this.listSrv.getSelectedIds().map(id => ({ id, status }));
+		const values = this.selectionSrv
+			.getSelectedIds()
+			.map(id => ({ id, status }));
 		this.kanbanSrv.onExternalStatusChange(values);
 		this.sampleSrv.updateMany(values).subscribe();
 	}
@@ -214,11 +215,11 @@ export class MySampleBoardPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	get selection() {
-		return this.listSrv.selection;
+		return this.selectionSrv.selection;
 	}
 
 	deleteSelected() {
-		const itemIds = this.listSrv.getSelectedIds();
+		const itemIds = this.selectionSrv.getSelectedIds();
 		const del = this.translate.instant('button.delete');
 		const smpl =
 			itemIds.length <= 1
@@ -233,7 +234,7 @@ export class MySampleBoardPageComponent extends AutoUnsub implements OnInit {
 				switchMap(_ => this.listSrv.dataSrv.deleteMany(itemIds))
 			)
 			.subscribe(_ => {
-				this.listSrv.selectionSrv.unselectAll();
+				this.selectionSrv.unselectAll();
 				this.kanbanSrv.deleteItems(itemIds);
 			});
 	}

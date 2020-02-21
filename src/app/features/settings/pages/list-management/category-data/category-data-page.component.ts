@@ -60,7 +60,7 @@ export class CategoryDataPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	mergeSelected() {
-		const categories = this.listSrv.getSelectedValues();
+		const categories = this.selectionSrv.getSelectedValues();
 		this.dialogCommonSrv.openMergeDialog({
 			type: this.viewSrv.entityMetadata,
 			entities: categories

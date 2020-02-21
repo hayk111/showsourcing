@@ -15,7 +15,7 @@ import {
 	SelectParamsConfig,
 	UserService
 } from '~core/erm';
-import { ListPageService } from '~core/list-page';
+import { ListPageService, SelectionService } from '~core/list-page';
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
 import { FilterService } from '~shared/filters/services/filter.service';
@@ -27,7 +27,7 @@ import { AutoUnsub } from '~utils';
 	templateUrl: './product-select-dlg.component.html',
 	styleUrls: ['./product-select-dlg.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [ListPageService, FilterService],
+	providers: [ListPageService, FilterService, SelectionService],
 	host: { class: 'table-dialog' }
 })
 export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
@@ -67,7 +67,8 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 		private productDlgSrv: ProductDialogService,
 		private toastSrv: ToastService,
 		public listSrv: ListPageService<Product, ProductService>,
-		private filterSrv: FilterService
+		private filterSrv: FilterService,
+		private selectionSrv: SelectionService
 	) {
 		super();
 	}
@@ -120,7 +121,7 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 		) {
 			this.selectedProductsCount = this.initialSelectedProducts.length;
 
-			this.listSrv.selectAll(
+			this.selectionSrv.selectAll(
 				this.initialSelectedProducts.map(product => {
 					this.selectedProducts[product.id] = product;
 
@@ -131,25 +132,25 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 	}
 
 	hasSelectedProducts() {
-		return Array.from(this.listSrv.selectionSrv.selection.values()).length > 0;
+		return Array.from(this.selectionSrv.selection.values()).length > 0;
 	}
 
 	onItemSelected(entity: any) {
 		this.selectedProducts[entity.id] = entity;
 		delete this.unselectedProducts[entity.id];
-		this.listSrv.selectionSrv.selectOne(entity);
+		this.selectionSrv.selectOne(entity);
 		this.selectedProductsCount++;
 	}
 
 	onItemUnselected(entity: any) {
 		this.unselectedProducts[entity.id] = entity;
 		delete this.selectedProducts[entity.id];
-		this.listSrv.selectionSrv.unselectOne(entity);
+		this.selectionSrv.unselectOne(entity);
 		this.selectedProductsCount--;
 	}
 
 	onSelectAll(entities: any[]) {
-		this.listSrv.selectAll(entities);
+		this.selectionSrv.selectAll(entities);
 
 		entities.forEach(entity => {
 			this.selectedProducts[entity.id] = entity;
@@ -161,7 +162,7 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 	}
 
 	onUnselectAll() {
-		this.listSrv.unselectAll();
+		this.selectionSrv.unselectAll();
 
 		this.unselectedProducts = Object.assign({}, this.selectedProducts);
 		this.selectedProducts = {};

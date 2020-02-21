@@ -60,7 +60,7 @@ export class TagDataPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	mergeSelected() {
-		const tags = this.listSrv.getSelectedValues();
+		const tags = this.selectionSrv.getSelectedValues();
 		this.dialogCommonSrv.openMergeDialog({
 			type: this.viewSrv.entityMetadata,
 			entities: tags

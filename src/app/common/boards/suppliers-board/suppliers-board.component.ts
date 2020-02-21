@@ -16,7 +16,7 @@ import {
 	SupplierStatus,
 	SupplierStatusService
 } from '~core/erm';
-import { ListPageService } from '~core/list-page';
+import { ListPageService, SelectionService } from '~core/list-page';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { FilterList, FilterType } from '~shared/filters';
@@ -65,7 +65,8 @@ export class SuppliersBoardComponent extends AutoUnsub implements OnInit {
 		public dialogCommonSrv: DialogCommonService,
 		public kanbanSrv: KanbanService,
 		public dlgSrv: DialogService,
-		private filterSrv: FilterService
+		private filterSrv: FilterService,
+		private selectionSrv: SelectionService
 	) {
 		super();
 	}
@@ -169,29 +170,29 @@ export class SuppliersBoardComponent extends AutoUnsub implements OnInit {
 	}
 
 	onColumnSelected(suppliers: Supplier[]) {
-		suppliers.forEach(supplier => this.listSrv.selectOne(supplier));
+		suppliers.forEach(supplier => this.selectionSrv.selectOne(supplier));
 	}
 
 	onColumnUnselected(suppliers: Supplier[]) {
-		suppliers.forEach(supplier => this.listSrv.unselectOne(supplier));
+		suppliers.forEach(supplier => this.selectionSrv.unselectOne(supplier));
 	}
 
 	onFavoriteAllSelected() {
-		const updated = this.listSrv
+		const updated = this.selectionSrv
 			.getSelectedIds()
 			.map(id => ({ id, favorite: true }));
 		this.kanbanSrv.updateMany(updated);
 	}
 
 	onUnfavoriteAllSelected() {
-		const updated = this.listSrv
+		const updated = this.selectionSrv
 			.getSelectedIds()
 			.map(id => ({ id, favorite: false }));
 		this.kanbanSrv.updateMany(updated);
 	}
 
 	deleteSelected() {
-		const itemIds = this.listSrv.getSelectedIds();
+		const itemIds = this.selectionSrv.getSelectedIds();
 		const del = translate('delete');
 		const supplier =
 			itemIds.length <= 1 ? translate('supplier') : translate('suppliers');
@@ -204,13 +205,15 @@ export class SuppliersBoardComponent extends AutoUnsub implements OnInit {
 				switchMap(_ => this.listSrv.dataSrv.deleteMany(itemIds))
 			)
 			.subscribe(_ => {
-				this.listSrv.selectionSrv.unselectAll();
+				this.selectionSrv.unselectAll();
 				this.kanbanSrv.deleteItems(itemIds);
 			});
 	}
 
 	onMultipleStatusChange(status: SupplierStatus) {
-		const updated = this.listSrv.getSelectedIds().map(id => ({ id, status }));
+		const updated = this.selectionSrv
+			.getSelectedIds()
+			.map(id => ({ id, status }));
 		this.kanbanSrv.onExternalStatusChange(updated);
 		this.supplierSrv.updateMany(updated).subscribe();
 	}

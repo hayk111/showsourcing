@@ -19,17 +19,17 @@
 <samples-table-app
 	*ngIf="viewSrv.view === 'table'"
 	[rows]="listSrv.items$ | async"
-	[selection]="listSrv.selection$ | async"
+	[selection]="selectionSrv.selection$ | async"
 	[pending]="listSrv.pending"
 	[count]="listSrv.count$ | async"
 	[currentSort]="listSrv.currentSort"
 	[currentPage]="listSrv.currentPage"
 	(goToPage)="listSrv.loadPage($event)"
 	(sort)="listSrv.sort($event)"
-	(select)="listSrv.selectOne($event, true)"
-	(unselect)="listSrv.unselectOne($event, true)"
-	(selectAll)="listSrv.selectAll($event, true)"
-	(unselectAll)="listSrv.unselectAll()"
+	(select)="selectionSrv.selectOne($event, true)"
+	(unselect)="selectionSrv.unselectOne($event, true)"
+	(selectAll)="selectionSrv.selectAll($event, true)"
+	(unselectAll)="selectionSrv.unselectAll()"
 	(open)="viewSrv.goToDetails($event)"
 	(previewClick)="viewSrv.openPreview($event)"
 	(showItemsPerPage)="showItemsPerPage($event)"
@@ -39,10 +39,10 @@
 </samples-table-app>
 
 <selection-bar-app
-	[isShown]="(listSrv.selection$ | async).size > 0"
-	[selection]="listSrv.selection$ | async"
+	[isShown]="(selectionSrv.selection$ | async).size > 0"
+	[selection]="selectionSrv.selection$ | async"
 	[selectableItems]="listSrv.items$ | async"
-	(close)="listSrv.unselectAll()">
+	(close)="selectionSrv.unselectAll()">
 
 	<div class="flex">
 		<status-selector-app
@@ -67,8 +67,8 @@
 
 <samples-board-app
 	*ngIf="viewSrv.view === 'board'"
-	(selectOne)="listSrv.selectOne($event, true)"
-	(unselectOne)="listSrv.unselectOne($event, true)"
+	(selectOne)="selectionSrv.selectOne($event, true)"
+	(unselectOne)="selectionSrv.unselectOne($event, true)"
 	(preview) = "viewSrv.openPreview($event)">
 </samples-board-app>
 

@@ -60,7 +60,7 @@ export class EventDataPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	mergeSelected() {
-		const events = this.listSrv.getSelectedValues();
+		const events = this.selectionSrv.getSelectedValues();
 		this.dialogCommonSrv.openMergeDialog({
 			type: this.viewSrv.entityMetadata,
 			entities: events

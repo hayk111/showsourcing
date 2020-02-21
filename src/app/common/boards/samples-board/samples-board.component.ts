@@ -23,7 +23,7 @@ import {
 	SampleStatusService,
 	UserService
 } from '~core/erm';
-import { ListPageService } from '~core/list-page';
+import { ListPageService, SelectionService } from '~core/list-page';
 import { DialogService } from '~shared/dialog';
 import { FilterList, FilterType } from '~shared/filters';
 import { FilterService } from '~shared/filters/services/filter.service';
@@ -58,7 +58,8 @@ export class SamplesBoardComponent extends AutoUnsub implements OnInit {
 		public kanbanSelectionSrv: KanbanSelectionService,
 		public dlgSrv: DialogService,
 		private userSrv: UserService,
-		private filterSrv: FilterService
+		private filterSrv: FilterService,
+		private selectionSrv: SelectionService
 	) {
 		super();
 	}

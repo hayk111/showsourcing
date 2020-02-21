@@ -20,7 +20,7 @@
 	[pending]="listSrv.pending"
 	[isFiltering]="filterSrv.isFiltering"
 	[rows]="listSrv.items$ | async"
-	[selection]="listSrv.selection$ | async"
+	[selection]="selectionSrv.selection$ | async"
 	[count]="listSrv.count$ | async"
 	[currentPage]="listSrv.currentPage"
 	[linkedEntity]="supplier"
@@ -33,21 +33,21 @@
 	(openRequestFeedbackDialog)="dialogCommonSrv.openRequestFeedbackDialog([$event])"
 	(openCreateRequestDlg)="dialogCommonSrv.openSupplierRequest([$event])"
 	(previewClick)="viewSrv.openPreview($event)"
-	(select)="listSrv.selectOne($event, true)"
-	(selectAll)="listSrv.selectAll($event, true)"
+	(select)="selectionSrv.selectOne($event, true)"
+	(selectAll)="selectionSrv.selectAll($event, true)"
 	(sort)="listSrv.sort($event)"
-	(unselect)="listSrv.unselectOne($event, true)"
+	(unselect)="selectionSrv.unselectOne($event, true)"
 	(update)="listSrv.update($event)"
 	(createClick)="dialogCommonSrv.openCreationProductDlg()"
-	(unselectAll)="listSrv.unselectAll()"
+	(unselectAll)="selectionSrv.unselectAll()"
 	(upload)="listSrv.refetch().subscribe()">
 </attachments-table-app>
 
 
 <selection-bar-app
-	[isShown]="(listSrv.selection$ | async).size > 0"
-	[selection]="listSrv.selection$ | async"
-	(close)="listSrv.unselectAll()">
+	[isShown]="(selectionSrv.selection$ | async).size > 0"
+	[selection]="selectionSrv.selection$ | async"
+	(close)="selectionSrv.unselectAll()">
 
 	<button class="icon light" (click)="listSrv.deleteSelected()">
 		<icon-app name="trash"></icon-app>

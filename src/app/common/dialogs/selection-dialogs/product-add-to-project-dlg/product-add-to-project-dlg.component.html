@@ -14,7 +14,7 @@
 			[hasMenu]="false"
 			[hasPagination]="false"
 			[navigation]="false"
-			[selection]="listSrv.selection$ | async"
+			[selection]="selectionSrv.selection$ | async"
 			[rows]="listSrv.items$ | async"
 			[pending]="listSrv.pending"
 			[count]="listSrv.count$ | async"

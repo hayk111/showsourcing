@@ -1,37 +1,44 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+	AfterViewInit,
+	ChangeDetectionStrategy,
+	Component,
+	EventEmitter,
+	OnInit,
+	Output
+} from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import {
-	SupplierRequestDialogComponent,
-} from '~common/dialogs/custom-dialogs/supplier-request-dialog/supplier-request-dialog.component';
+import { SupplierRequestDialogComponent } from '~common/dialogs/custom-dialogs/supplier-request-dialog/supplier-request-dialog.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { SelectParamsConfig } from '~core/erm';
-import { ListPageService } from '~core/list-page';
-import { ProductService } from '~core/erm';
+import { ProductsTableComponent } from '~common/tables/products-table/products-table.component';
+import {
+	ERM,
+	Product,
+	ProductService,
+	Project,
+	SelectParamsConfig
+} from '~core/erm';
+import { ListPageService, SelectionService } from '~core/list-page';
 import { ProjectFeatureService } from '~features/projects/services';
-import { ERM, Product, Project } from '~core/erm';
 import { DialogService } from '~shared/dialog/services';
 import { FilterType } from '~shared/filters';
 import { ToastService, ToastType } from '~shared/toast';
 import { AutoUnsub } from '~utils';
-import { ProductsTableComponent } from '~common/tables/products-table/products-table.component';
 
 @Component({
 	selector: 'products-page-app',
 	styleUrls: ['products-page.component.scss'],
 	templateUrl: './products-page.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [
-		ListPageService
-	],
+	providers: [ListPageService, SelectionService],
 	host: {
 		class: 'table-page'
 	}
 })
-export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterViewInit {
-
+export class ProductsPageComponent extends AutoUnsub
+	implements OnInit, AfterViewInit {
 	@Output() delete = new EventEmitter<Project>();
 	@Output() archive = new EventEmitter<Project>();
 
@@ -66,6 +73,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		public dialogCommonSrv: DialogCommonService,
 		private toastSrv: ToastService,
 		private translate: TranslateService,
+		private selectionSrv: SelectionService
 	) {
 		super();
 	}
@@ -74,7 +82,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		const id = this.route.parent.snapshot.params.id;
 		this.project$ = this.featureSrv.queryOne(id);
 
-		this.project$.subscribe(proj => this.project = proj);
+		this.project$.subscribe(proj => (this.project = proj));
 
 		// we need to wait to have the id to call super.ngOnInit, because we want to specify the initialQuery
 		// whne the id is there
@@ -86,9 +94,12 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 				sortBy: 'category.name',
 				descending: true
 			},
-			initialFilters: [{ type: FilterType.ARCHIVED, value: false }, { type: FilterType.DELETED, value: false }],
+			initialFilters: [
+				{ type: FilterType.ARCHIVED, value: false },
+				{ type: FilterType.DELETED, value: false }
+			],
 			originComponentDestroy$: this._destroy$,
-			entityMetadata: ERM.PRODUCT,
+			entityMetadata: ERM.PRODUCT
 		});
 	}
 
@@ -101,34 +112,42 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 	 */
 	deassociateProductById(id: string) {
 		const unselectedProducts = [{ id }];
-		this.featureSrv.manageProjectsToProductsAssociations([this.project], { unselectedProducts })
-			.pipe(
-				switchMap(_ => this.listSrv.refetch())
-			).subscribe();
+		this.featureSrv
+			.manageProjectsToProductsAssociations([this.project], {
+				unselectedProducts
+			})
+			.pipe(switchMap(_ => this.listSrv.refetch()))
+			.subscribe();
 	}
 
 	/**
 	 * Deassociate the selected products from the current project
 	 */
 	deassociateSelectedProducts() {
-		const unselectedProducts = this.listSrv.getSelectedIds().map(id => ({ id }));
-		this.featureSrv.manageProjectsToProductsAssociations([this.project], { unselectedProducts })
-			.pipe(
-				switchMap(_ => this.listSrv.refetch())
-			).subscribe();
-		this.listSrv.unselectAll();
+		const unselectedProducts = this.selectionSrv
+			.getSelectedIds()
+			.map(id => ({ id }));
+		this.featureSrv
+			.manageProjectsToProductsAssociations([this.project], {
+				unselectedProducts
+			})
+			.pipe(switchMap(_ => this.listSrv.refetch()))
+			.subscribe();
+		this.selectionSrv.unselectAll();
 	}
 
 	/** Open the find products dialog and passing selected products to it */
 	openFindProductDlg() {
-		this.featureSrv.openFindProductDlg(this.project).pipe(
-			switchMap(_ => this.listSrv.refetch())
-		).subscribe();
+		this.featureSrv
+			.openFindProductDlg(this.project)
+			.pipe(switchMap(_ => this.listSrv.refetch()))
+			.subscribe();
 	}
 
 	onArchive(product: Product | Product[]) {
 		if (Array.isArray(product)) {
-			this.productSrv.updateMany(product.map((p: Product) => ({ id: p.id, archived: true })))
+			this.productSrv
+				.updateMany(product.map((p: Product) => ({ id: p.id, archived: true })))
 				.pipe(switchMap(_ => this.listSrv.refetch()))
 				.subscribe(_ => {
 					this.toastSrv.add({
@@ -139,7 +158,8 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 				});
 		} else {
 			const { id } = product;
-			this.productSrv.update({ id, archived: true })
+			this.productSrv
+				.update({ id, archived: true })
 				.pipe(switchMap(_ => this.listSrv.refetch()))
 				.subscribe(_ => {
 					this.toastSrv.add({

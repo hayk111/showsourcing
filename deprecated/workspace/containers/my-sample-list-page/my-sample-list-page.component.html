@@ -25,17 +25,17 @@
 </controller-list-app>
 
 <samples-table-app
-	[selection]="listSrv.selection$ | async"
+	[selection]="selectionSrv.selection$ | async"
 	[rows]="listSrv.items$ | async"
 	[pending]="listSrv.pending"
 	[count]="listSrv.count$ | async"
 	[currentPage]="listSrv.currentPage"
 	(goToPage)="listSrv.loadPage($event)"
 	(previewClick)="viewSrv.openPreview($event)"
-	(select)="listSrv.selectOne($event)"
-	(unselect)="listSrv.unselectOne($event)"
-	(selectAll)="listSrv.selectAll($event)"
-	(unselectAll)="listSrv.unselectAll()"
+	(select)="selectionSrv.selectOne($event)"
+	(unselect)="selectionSrv.unselectOne($event)"
+	(selectAll)="selectionSrv.selectAll($event)"
+	(unselectAll)="selectionSrv.unselectAll()"
 	(sort)="listSrv.sort($event)"
 	(delete)="listSrv.deleteOne($event)"
 	(openProduct)="openProduct($event)"
@@ -43,9 +43,9 @@
 </samples-table-app>
 
 <selection-bar-app
-	[isShown]="(listSrv.selection$ | async)?.size > 0"
-	[selection]="listSrv.selection$ | async"
-	(close)="listSrv.unselectAll()">
+	[isShown]="(selectionSrv.selection$ | async)?.size > 0"
+	[selection]="selectionSrv.selection$ | async"
+	(close)="selectionSrv.unselectAll()">
 	<div class="flex">
 		<status-selector-app
 			toolTip [toolTipMessage]="'message.change-status' | translate" toolTipPosition="above-right"

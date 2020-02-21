@@ -8,11 +8,11 @@
 			*ngFor="let task of tasks; first as first; trackBy:trackById"
 			[ngStyle]="first ? { 'padding-top' : 0 } : ''"
 			[task]="task"
-			[selection]="listSrv.selection$ | async"
+			[selection]="selectionSrv.selection$ | async"
 			(nameClick)="viewSrv.openPreview($event)"
 			(iconClick)="toggleUpdateDone($event)"
-			(select)="listSrv.selectOne($event, true)"
-			(unselect)="listSrv.unselectOne($event, true)">
+			(select)="selectionSrv.selectOne($event, true)"
+			(unselect)="selectionSrv.unselectOne($event, true)">
 		</task-list-item-app>
 		<!-- buttons -->
 		<div class="flex buttons-container">

@@ -17,7 +17,7 @@ import {
 	ProductStatus,
 	ProductStatusService
 } from '~core/erm';
-import { ListPageService } from '~core/list-page';
+import { ListPageService, SelectionService } from '~core/list-page';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { FilterList } from '~shared/filters';
@@ -52,7 +52,8 @@ export class ProductsBoardComponent extends AutoUnsub implements OnInit {
 		public kanbanSrv: KanbanService,
 		public kanbanSelectionSrv: KanbanSelectionService,
 		public dlgSrv: DialogService,
-		private filterSrv: FilterService
+		private filterSrv: FilterService,
+		private selectionSrv: SelectionService
 	) {
 		super();
 	}
@@ -187,7 +188,7 @@ export class ProductsBoardComponent extends AutoUnsub implements OnInit {
 	}
 
 	deleteSelected() {
-		const itemIds = this.listSrv.getSelectedIds();
+		const itemIds = this.selectionSrv.getSelectedIds();
 		const del = translate('delete');
 		const prod =
 			itemIds.length <= 1 ? translate('product') : translate('products');
@@ -200,13 +201,15 @@ export class ProductsBoardComponent extends AutoUnsub implements OnInit {
 				switchMap(_ => this.listSrv.dataSrv.deleteMany(itemIds))
 			)
 			.subscribe(_ => {
-				this.listSrv.selectionSrv.unselectAll();
+				this.selectionSrv.unselectAll();
 				this.kanbanSrv.deleteItems(itemIds);
 			});
 	}
 
 	onMultipleStatusChange(status: ProductStatus) {
-		const updated = this.listSrv.getSelectedIds().map(id => ({ id, status }));
+		const updated = this.selectionSrv
+			.getSelectedIds()
+			.map(id => ({ id, status }));
 		this.kanbanSrv.onExternalStatusChange(updated);
 		this.productSrv.updateMany(updated).subscribe();
 	}

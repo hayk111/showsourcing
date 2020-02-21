@@ -22,7 +22,7 @@
 
     <products-card-view-dialog-app
 			class="list-view"
-      [selection]="listSrv.selection$ | async"
+      [selection]="selectionSrv.selection$ | async"
       [rows]="products"
       [pending]="listSrv.pending"
       (previewClick)="viewSrv.openPreview($event)"
@@ -38,8 +38,8 @@
 
 	<dialog-footer-app class="flexBetween">
 		<div class="left flexCenter">
-			<ng-container	*ngIf="(listSrv.selection$ | async) as selected">
-        <div *ngIf="(listSrv.selection$ | async).size > 0" style="align-items: center" class="capitalize alignCenter">
+			<ng-container	*ngIf="(selectionSrv.selection$ | async) as selected">
+        <div *ngIf="(selectionSrv.selection$ | async).size > 0" style="align-items: center" class="capitalize alignCenter">
           {{ ((selected?.size || 0) > 1 ? 'OBJ.n-product.selected.plural' : 'OBJ.n-product.selected.singular') | translate: {count: (selected?.size || 0)} }}
 				</div>
 			</ng-container>

@@ -13,7 +13,7 @@ import {
 	SelectParamsConfig,
 	UserService
 } from '~core/erm';
-import { ListPageService } from '~core/list-page';
+import { ListPageService, SelectionService } from '~core/list-page';
 import { FilterType } from '~shared/filters';
 import { FilterService } from '~shared/filters/services/filter.service';
 import { AutoUnsub } from '~utils';
@@ -37,7 +37,8 @@ export class ExportsPageComponent extends AutoUnsub
 		private exportSrv: ExportRequestService,
 		public listSrv: ListPageService<ExportRequest, ExportRequestService>,
 		public dialogCommonSrv: DialogCommonService,
-		private filterSrv: FilterService
+		private filterSrv: FilterService,
+		private selectionSrv: SelectionService
 	) {
 		super();
 	}
@@ -76,7 +77,7 @@ export class ExportsPageComponent extends AutoUnsub
 	}
 
 	downloadSelected() {
-		this.listSrv.selectionSrv.selection.forEach((exportReq: any) => {
+		this.selectionSrv.selection.forEach((exportReq: any) => {
 			this.downloadOne(exportReq);
 		});
 	}

@@ -59,7 +59,7 @@ export class SupplierDataPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	mergeSelected() {
-		const suppliers = this.listSrv.getSelectedValues();
+		const suppliers = this.selectionSrv.getSelectedValues();
 		this.dialogCommonSrv.openMergeDialog({
 			type: this.viewSrv.entityMetadata,
 			entities: suppliers

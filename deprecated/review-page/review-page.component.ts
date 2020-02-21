@@ -1,28 +1,21 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { CommonModalService } from '~common/modals/services/common-modal.service';
 import { ListPageKey, ListPageService } from '~core/list-page';
+import { SelectionService } from '~core/list-page/selection.service.ts';
 import { TemplateService } from '~core/template/services/template.service';
 import { WorkspaceFeatureService } from '~features/workspace/services/workspace-feature.service';
 import { ERM, Product, ProductVote } from '~models';
-import { NotificationService } from '~shared/notifications';
-import { RatingService } from '~shared/rating/services/rating.service';
 import { AutoUnsub } from '~utils/auto-unsub.component';
-
 
 @Component({
 	selector: 'workspace-review-page-app',
 	templateUrl: './review-page.component.html',
 	styleUrls: ['./review-page.component.scss'],
-	providers: [
-		ListPageService
-	]
+	providers: [ListPageService, SelectionService]
 })
-
 export class ReviewPageComponent extends AutoUnsub implements OnInit {
-
 	products$ = new Subject<Product[]>();
 	/** keeps tracks of the current selection */
 	selected$: Observable<Map<string, boolean>>;
@@ -33,7 +26,8 @@ export class ReviewPageComponent extends AutoUnsub implements OnInit {
 		private templateSrv: TemplateService,
 		private featureSrv: WorkspaceFeatureService,
 		public commonModalSrv: CommonModalService,
-		public listSrv: ListPageService<Product, WorkspaceFeatureService>
+		public listSrv: ListPageService<Product, WorkspaceFeatureService>,
+		private selectionSrv: SelectionService
 	) {
 		super();
 	}
@@ -50,27 +44,29 @@ export class ReviewPageComponent extends AutoUnsub implements OnInit {
 			},
 			entityMetadata: ERM.PRODUCT
 		});
-		this.listSrv.unselectAll();
+		this.selectionSrv.unselectAll();
 
-		this.selected$ = this.listSrv.selection$;
+		this.selected$ = this.selectionSrv.selection$;
 
-		this.templateSrv.bottomReached$.pipe(
-			takeUntil(this._destroy$)
-		).subscribe(_ => {
-			this.listSrv.loadMore();
-		});
-
+		this.templateSrv.bottomReached$
+			.pipe(takeUntil(this._destroy$))
+			.subscribe(_ => {
+				this.listSrv.loadMore();
+			});
 	}
 
 	/** Returns the selected products */
 	getSelectedProducts() {
-		return Array.from(this.listSrv.selectionSrv.selection.values());
+		return Array.from(this.selectionSrv.selection.values());
 	}
 
 	/** Update the sort from the menu */
 	sortFromMenu(fieldName) {
 		if (this.currentSort && this.currentSort.sortBy === fieldName) {
-			this.currentSort = { ...this.currentSort, descending: !this.currentSort.descending };
+			this.currentSort = {
+				...this.currentSort,
+				descending: !this.currentSort.descending
+			};
 		} else {
 			this.currentSort = { ...this.currentSort, sortBy: fieldName };
 		}
@@ -80,7 +76,7 @@ export class ReviewPageComponent extends AutoUnsub implements OnInit {
 	/** Add a product to workflow */
 	onSentToWorkflow(product: Product) {
 		this.featureSrv.sendProductToWorkflow(product).subscribe();
-		this.listSrv.unselectOne(product, true);
+		this.selectionSrv.unselectOne(product);
 	}
 
 	/** Triggers archive product */
@@ -113,5 +109,4 @@ export class ReviewPageComponent extends AutoUnsub implements OnInit {
 	openRequestFeedbackDialog() {
 		this.commonModalSrv.openRequestFeedbackDialog(this.getSelectedProducts());
 	}
-
 }

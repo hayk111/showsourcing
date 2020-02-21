@@ -14,11 +14,11 @@
   [rows]="listSrv.items$ | async"
   [pending]="listSrv.pending"
   [currentSort]="listSrv.currentSort"
-  [selection]="listSrv.selection$ | async"
+  [selection]="selectionSrv.selection$ | async"
   (previewClick)="viewSrv.openPreview($event)"
   (update)="listSrv.update($event)"
-  (select)="listSrv.selectOne($event, true)"
-  (unselect)="listSrv.unselectOne($event, true)"
+  (select)="selectionSrv.selectOne($event, true)"
+  (unselect)="selectionSrv.unselectOne($event, true)"
   (favorited)="listSrv.onItemFavorited($event)"
   (unfavorited)="listSrv.onItemUnfavorited($event)"
   (sendToWorkflow)="onSentToWorkflow($event)"
@@ -29,9 +29,9 @@
 </products-review-grid-view-app>
 
 <selection-bar-app
-  [isShown]="(listSrv.selection$ | async).size > 0"
-  [selection]="listSrv.selection$ | async"
-  (close)="listSrv.unselectAll()">
+  [isShown]="(selectionSrv.selection$ | async).size > 0"
+  [selection]="selectionSrv.selection$ | async"
+  (close)="selectionSrv.unselectAll()">
 
   <action-bar-app
     [favorite]="listSrv.allSelectedFavorite"

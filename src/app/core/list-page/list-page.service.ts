@@ -11,10 +11,8 @@ import {
 	SelectParamsConfig,
 	UserService
 } from '~core/erm';
-import { View } from '~shared/controller-table/components';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
-import { FilterType, Filter } from '~shared/filters';
 import { FilterService } from '~shared/filters/services/filter.service';
 import {
 	RatingService,
@@ -58,6 +56,7 @@ export class ListPageService<
 	selectionSrv: SelectionService;
 	dataSrv: ListPageDataService<T, G>;
 	viewSrv: ListPageViewService<T>;
+	filterSrv: FilterService;
 
 	constructor(
 		private router: Router,
@@ -65,8 +64,7 @@ export class ListPageService<
 		private dlgSrv: DialogService,
 		private zone: NgZone,
 		private userSrv: UserService,
-		private toastSrv: ToastService,
-		private filterSrv: FilterService
+		private toastSrv: ToastService
 	) {
 		if (!showsourcing.tables) {
 			showsourcing.tables = {};
@@ -108,6 +106,7 @@ export class ListPageService<
 		this.selectionSrv = new SelectionService();
 		this.viewSrv = new ListPageViewService<T>(this.router);
 		this.dataSrv = new ListPageDataService<T, G>();
+		this.filterSrv = new FilterService(this.userSrv);
 	}
 
 	/** Here we are gonna bridge the functions from the other services */
@@ -200,7 +199,9 @@ export class ListPageService<
 	}
 
 	updateSelected(value: any) {
-		const items = this.getSelectedIds().map(id => ({ id, ...value }));
+		const items = this.selectionSrv
+			.getSelectedIds()
+			.map(id => ({ id, ...value }));
 		this.dataSrv.updateMany(items).subscribe();
 	}
 
@@ -252,7 +253,7 @@ export class ListPageService<
 
 	// read comment on deleteOne function
 	deleteSelected(refetch = false) {
-		const itemIds = this.getSelectedIds();
+		const itemIds = this.selectionSrv.getSelectedIds();
 		// TODO i18n + erm pipe
 		const text =
 			`Delete ${itemIds.length} ` +
@@ -327,40 +328,11 @@ export class ListPageService<
 			this.router.navigate([this.viewSrv.entityMetadata.destUrl, id]);
 		else throw Error(`no destination url`);
 	}
-	get selection$() {
-		return this.selectionSrv.selection$;
-	}
-
-	get selection() {
-		return this.selectionSrv.selection;
-	}
-
-	selectOne(entity: any) {
-		this.selectionSrv.selectOne(entity);
-	}
-
-	unselectOne(entity: any) {
-		this.selectionSrv.unselectOne(entity);
-	}
-
-	selectAll(entities: any[]) {
-		this.selectionSrv.selectAll(entities);
-	}
-
-	unselectAll() {
-		this.selectionSrv.unselectAll();
-	}
-
-	getSelectedIds() {
-		return this.selectionSrv.getSelectionIds();
-	}
-
-	getSelectedValues() {
-		return this.selectionSrv.getSelectionValues();
-	}
 
 	exportSelection() {
-		this.dlgSrv.open(ExportDlgComponent, { targets: this.getSelectedValues() });
+		this.dlgSrv.open(ExportDlgComponent, {
+			targets: this.selectionSrv.getSelectedValues()
+		});
 	}
 
 	exportAll() {

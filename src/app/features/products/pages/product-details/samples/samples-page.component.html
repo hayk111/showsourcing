@@ -7,10 +7,10 @@
 			*ngFor="let sample of samples; first as first; trackBy:trackById"
 			[ngStyle]="first ? { 'padding-top' : 0 } : ''"
 			[sample]="sample"
-			[selection]="listSrv.selection$ | async"
+			[selection]="selectionSrv.selection$ | async"
 			(nameClick)="viewSrv.openPreview($event)"
-			(select)="listSrv.selectOne($event, true)"
-			(unselect)="listSrv.unselectOne($event, true)">
+			(select)="selectionSrv.selectOne($event, true)"
+			(unselect)="selectionSrv.unselectOne($event, true)">
 		</sample-list-item-app>
 		<!-- buttons -->
 		<div class="flex buttons-container">
@@ -20,10 +20,10 @@
 				translate="button.create-sample">
 			</button>
 			<div class="flexCenter">
-				<divider-app *ngIf="(listSrv.selection$ | async).size > 0" [vertical]="true" [height]="24"></divider-app>
+				<divider-app *ngIf="(selectionSrv.selection$ | async).size > 0" [vertical]="true" [height]="24"></divider-app>
 			</div>
 			<button
-				*ngIf="(listSrv.selection$ | async).size > 0"
+				*ngIf="(selectionSrv.selection$ | async).size > 0"
 				class="warn-light capitalize"
 				(click)="listSrv.deleteSelected(true)"
 				translate="button.delete">

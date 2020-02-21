@@ -41,17 +41,17 @@
 		<sample-card-app
 			[sample]="data"
 			[checked]="selection?.has(data.id)"
-			(select)="listSrv.selectOne($event)"
-			(unselect)="listSrv.unselectOne($event)"
+			(select)="selectionSrv.selectOne($event)"
+			(unselect)="selectionSrv.unselectOne($event)"
 			(previewClick)="viewSrv.openPreview($event)">
 		</sample-card-app>
 	</ng-template>
 
 
 	<selection-bar-app
-		[isShown]="(listSrv.selection$ | async)?.size > 0"
-		[selection]="listSrv.selection$ | async"
-		(close)="listSrv.unselectAll()">
+		[isShown]="(selectionSrv.selection$ | async)?.size > 0"
+		[selection]="selectionSrv.selection$ | async"
+		(close)="selectionSrv.unselectAll()">
 		<div class="flex">
 			<status-selector-app
 				toolTip [toolTipMessage]="'message.change-status' | translate" toolTipPosition="above-right"

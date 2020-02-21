@@ -20,7 +20,7 @@
 	*ngIf="viewSrv.view === 'table'"
 	[rows]="listSrv.items$ | async"
 	[currentSort]="listSrv.currentSort"
-	[selection]="listSrv.selection$ | async"
+	[selection]="selectionSrv.selection$ | async"
 	[pending]="listSrv.pending"
 	[isFiltering]="filterSrv.isFiltering"
 	[count]="listSrv.count$ | async"
@@ -28,10 +28,10 @@
 	(goToPage)="listSrv.loadPage($event)"
 	(archive)="listSrv.archiveOne($event)"
 	(sort)="listSrv.sort($event)"
-	(select)="listSrv.selectOne($event, true)"
-	(unselect)="listSrv.unselectOne($event, true)"
-	(selectAll)="listSrv.selectAll($event, true)"
-	(unselectAll)="listSrv.unselectAll()"
+	(select)="selectionSrv.selectOne($event, true)"
+	(unselect)="selectionSrv.unselectOne($event, true)"
+	(selectAll)="selectionSrv.selectAll($event, true)"
+	(unselectAll)="selectionSrv.unselectAll()"
 	(open)="viewSrv.goToDetails($event)"
 	(previewClick)="viewSrv.openPreview($event)"
 	(showItemsPerPage)="showItemsPerPage($event)"
@@ -42,22 +42,22 @@
 
 <suppliers-board-app
 	*ngIf="viewSrv.view === 'board'"
-	[selection]="listSrv.selection$"
-	(selectOne)="listSrv.selectOne($event, true)"
-	(unselectOne)="listSrv.unselectOne($event, true)"
+	[selection]="selectionSrv.selection$"
+	(selectOne)="selectionSrv.selectOne($event, true)"
+	(unselectOne)="selectionSrv.unselectOne($event, true)"
 	(preview) = "viewSrv.openPreview($event)">
 </suppliers-board-app>
 
 <supplier-selection-bar-app
 	entityType="supplier"
-	[isShown]="(listSrv.selection$ | async).size > 0"
-	[selection]="listSrv.selection$ | async"
+	[isShown]="(selectionSrv.selection$ | async).size > 0"
+	[selection]="selectionSrv.selection$ | async"
 	[selectableItems]="listSrv.items$ | async"
 	(statusUpdated)="this.listSrv.updateSelected({status: $event})"
 	(deleteSelected)="listSrv.deleteSelected()"
-	(close)="listSrv.unselectAll()"
-	(selectAll)="listSrv.selectAll($event)"
-	(unselectAll)="listSrv.unselectAll()">
+	(close)="selectionSrv.unselectAll()"
+	(selectAll)="selectionSrv.selectAll($event)"
+	(unselectAll)="selectionSrv.unselectAll()">
 </supplier-selection-bar-app>
 
 <supplier-preview-app

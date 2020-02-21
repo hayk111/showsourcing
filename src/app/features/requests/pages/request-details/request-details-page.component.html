@@ -31,7 +31,7 @@
 					class="no-padding"
 					[rows]="listSrv.items$ | async"
 					[pending]="listSrv.pending"
-					[selection]="listSrv.selection$ | async"
+					[selection]="selectionSrv.selection$ | async"
 					[count]="listSrv.count$ | async"
 					[currentPage]="listSrv.currentPage"
 					(goToPage)="listSrv.loadPage($event)"
@@ -39,19 +39,19 @@
 					(openRefuseReplyDlg)="openRefuseReplyDlg($event)"
 					(cancelReply)="cancelReply($event)"
 					(bottomReached)="listSrv.loadMore()"
-					(select)="listSrv.selectOne($event)"
-					(selectAll)="listSrv.selectAll($event)"
+					(select)="selectionSrv.selectOne($event)"
+					(selectAll)="selectionSrv.selectAll($event)"
 					(sort)="listSrv.sort($event)"
-					(unselect)="listSrv.unselectOne($event)"
-					(unselectAll)="listSrv.unselectAll()">
+					(unselect)="selectionSrv.unselectOne($event)"
+					(unselectAll)="selectionSrv.unselectAll()">
 				</request-elements-table-app>
 		</card-app>
 	</div>
 </div>
 
 <selection-bar-app
-	[isShown]="(listSrv.selection$ | async).size > 0"
-	[selection]="listSrv.selection$ | async"
-	(close)="listSrv.unselectAll()">
+	[isShown]="(selectionSrv.selection$ | async).size > 0"
+	[selection]="selectionSrv.selection$ | async"
+	(close)="selectionSrv.unselectAll()">
 	<button class="warn" (click)="cancelReplies()" translate="button.cancel-items"></button>
 </selection-bar-app>

@@ -13,29 +13,29 @@
 	[pending]="listSrv.pending"
 	[isFiltering]="filterSrv.isFiltering"
 	[rows]="listSrv.items$ | async"
-	[selection]="listSrv.selection$ | async"
+	[selection]="selectionSrv.selection$ | async"
 	[count]="listSrv.count$ | async"
 	[currentPage]="listSrv.currentPage"
 	(goToPage)="listSrv.loadPage($event)"
 	(delete)="listSrv.deleteOne($event)"
 	(open)="viewSrv.goToDetails($event)"
 	(openCreateRequestDlg)="dialogCommonSrv.openSupplierRequest([$event])"
-	(select)="listSrv.selectOne($event, true)"
-	(selectAll)="listSrv.selectAll($event, true)"
+	(select)="selectionSrv.selectOne($event, true)"
+	(selectAll)="selectionSrv.selectAll($event, true)"
 	(sort)="listSrv.sort($event)"
 	(unfavorited)="listSrv.onItemUnfavorited($event)"
-	(unselect)="listSrv.unselectOne($event, true)"
+	(unselect)="selectionSrv.unselectOne($event, true)"
 	(update)="listSrv.update($event)"
 	(createClick)="openNewContactDlg({id: supplierId})"
-	(unselectAll)="listSrv.unselectAll()">
+	(unselectAll)="selectionSrv.unselectAll()">
 </contacts-table-app>
 
 <contact-selection-bar-app
-	[isShown]="(listSrv.selection$ | async)?.size > 0"
-	[selection]="listSrv.selection$ | async"
+	[isShown]="(selectionSrv.selection$ | async)?.size > 0"
+	[selection]="selectionSrv.selection$ | async"
 	[selectableItems]="listSrv.items$ | async"
 	(deleteSelected)="listSrv.deleteSelected(true)"
-	(close)="listSrv.unselectAll()"
-	(selectAll)="listSrv.selectAll($event)"
-	(unselectAll)="listSrv.unselectAll()">
+	(close)="selectionSrv.unselectAll()"
+	(selectAll)="selectionSrv.selectAll($event)"
+	(unselectAll)="selectionSrv.unselectAll()">
 </contact-selection-bar-app>
