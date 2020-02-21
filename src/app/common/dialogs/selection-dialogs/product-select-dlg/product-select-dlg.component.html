@@ -26,7 +26,6 @@
 			[currentPage]="listSrv.currentPage"
 			(goToPage)="loadPage($event)"
 			(delete)="listSrv.deleteOne($event)"
-			(favorited)="listSrv.onItemFavorited($event)"
 			(update)="listSrv.update($event)"
 			(open)="listSrv.goToDetails($event)"
 			(showItemsPerPage)="showItemsPerPage($event)"
@@ -35,9 +34,6 @@
 			(previewClick)="listSrv.openPreview($event)"
 			(selectAll)="onSelectAll($event, true)"
 			(sort)="listSrv.sort($event)"
-			(unfavorited)="listSrv.onItemUnfavorited($event)"
-			(setFavourite)="listSrv.onItemFavorited($event?.id)"
-			(favorited)="listSrv.onItemFavorited($event)"
 			(unselect)="onItemUnselected($event)"
 			(unselectAll)="onUnselectAll()">
 		</products-table-app>

@@ -2,7 +2,6 @@ import { ReplaySubject } from 'rxjs';
 import { Filter, FilterType } from '~shared/filters/models/filter.class';
 import { ID } from '~utils/id.utils';
 
-
 /** Weird data structure of Map<filterType, Map<FilterValue, Filter>>
  * Allows us to check in constant time if a filter type has a filter of value x.
  *
@@ -13,9 +12,7 @@ import { ID } from '~utils/id.utils';
  */
 export type FilterByType = Map<FilterType, Map<ID | boolean, Filter>>;
 
-
 export class FilterList {
-
 	constructor(startFilters: Filter[] = [], searchedFields = ['name']) {
 		// adding the start filters
 		this.setFilters(startFilters);
@@ -37,9 +34,10 @@ export class FilterList {
 	/** the fields that will be searched */
 	searchedFields: string[] = ['name'];
 
-	/** adds a search to the predicate */
+	/** adds a search to the predicate and restart setFilters */
 	setSearch(value: string) {
 		this.search = value;
+		this.setFilters([...this._filters]);
 		this._valueChanges$.next(this);
 	}
 
@@ -51,16 +49,21 @@ export class FilterList {
 		this._filters = filters;
 		this._byType = this.filtersToByType(filters);
 		this._filterObject = this.filtersToPredicate(this._byType);
+		this._filterObject = this.searchToPredicate(this._filterObject);
 		this._valueChanges$.next(this);
 	}
 	/** returns the array of filters */
-	asFilters() { return this._filters; }
+	asFilters() {
+		return this._filters;
+	}
 
 	private _byType: FilterByType;
 	/** returns filters by type. Data structure of Map<filterType, Map<FilterValue, Filter>>
 	 * Allows us to check if a filter type has a filter of value x.
 	 */
-	asByType() { return this._byType; }
+	asByType() {
+		return this._byType;
+	}
 
 	/**
 	 * Returns the filters as a query usable by apollo client
@@ -84,7 +87,7 @@ export class FilterList {
 		// removing to array of filters
 		this.setFilters(
 			this._filters.filter(
-				fltr => (fltr.type !== removed.type || fltr.value !== removed.value)
+				fltr => fltr.type !== removed.type || fltr.value !== removed.value
 			)
 		);
 	}
@@ -106,8 +109,7 @@ export class FilterList {
 	/** return a new map of <type, new Map()> */
 	private getInitialMap(): FilterByType {
 		const byTypeMap = new Map();
-		Object.values(FilterType)
-			.forEach(type => byTypeMap.set(type, new Map()));
+		Object.values(FilterType).forEach(type => byTypeMap.set(type, new Map()));
 		return byTypeMap;
 	}
 
@@ -118,28 +120,45 @@ export class FilterList {
 		return copy;
 	}
 
-
-	private filtersToPredicate(byType: FilterByType): { and: any[]} {
-		return FilterList.filtersToPredicate(byType);
-	}
-
 	/** transform filter into a predicate understandable by graphql
 	 * we want every filter of the same type to be joined with OR
 	 * while when the type differ it's a AND.
 	 *
 	 * So if we have two supplier filter and one category filter the
-	 * predicate will be : (supplier.id == x OR supplier.id == y AND category.id == z)
-	*/
-	static filtersToPredicate(byType: FilterByType) {
+	 * predicate will be : {
+	 * 	and: [{
+	 * 		or: [{supplier: {id: {eq: x}}}, {supplier: {id: {eq: y}}}]
+	 * 	},{
+	 * 		or: [{category: {id: {eq: z}}}]
+	 * 	}]
+	 * }
+	 */
+	private filtersToPredicate(byType: FilterByType) {
 		const and = [];
 		byType.forEach((valMap, type) => {
-			if (valMap.size === 0)
-				return;
+			if (valMap.size === 0) return;
 			const filtersForType = Array.from(valMap.values());
-			const or = filtersForType.map(filter => FilterList.getFieldCondition(filter));
+			const or = filtersForType.map(filter =>
+				FilterList.getFieldCondition(filter)
+			);
 			and.push({ or });
 		});
+		// if (and.length === 0) and.push({ or: [] });
 		return { and };
+	}
+
+	/** add the search string to the filter predicate to get the complete search query params */
+	private searchToPredicate(filterPredicate) {
+		const searchPredicate = [];
+		if (this.search) {
+			this.searchedFields.forEach(searchedField => {
+				searchPredicate.push({ [searchedField]: { match: this.search } });
+			});
+			filterPredicate.and.push({ or: searchPredicate });
+		} else if (!filterPredicate.and.length) {
+			filterPredicate.and.push({ or: searchPredicate });
+		}
+		return filterPredicate;
 	}
 
 	/** the way a Filter is translated into graphql changes with
@@ -147,25 +166,6 @@ export class FilterList {
 	 */
 	private static getFieldCondition({ type, value, equality }: Filter) {
 		const eq = equality || 'eq';
-		switch (type) {
-			case FilterType.DELETED:
-			case FilterType.DONE:
-			case FilterType.FAVORITE:
-			case FilterType.ARCHIVED:
-				return { type: { [eq]: value }};
-			case FilterType.CREATED_BY:
-				return { createdBy: { id: { [eq]: value }}};
-			case FilterType.PRODUCT_STATUS:
-			case FilterType.SUPPLIER_STATUS:
-			case FilterType.SAMPLE_STATUS:
-				return { status: { id: { [eq]: value }}};
-			case FilterType.CUSTOM:
-				return value;
-			// most of the filters from the panel filter by id
-			default: {
-				return { [type]: { id: { [eq]: value }}};
-			}
-		}
+		return { [type]: { id: { [eq]: value } } };
 	}
-
 }
