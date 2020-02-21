@@ -223,15 +223,6 @@ export class ListPageService<
 		this.dataSrv.update({ id, favorite: false } as any).subscribe();
 	}
 
-	onThumbUp(item: T, type: TypeWithVotes) {
-		const votes = this.ratingSrv.thumbUp(item, type);
-		return this.dataSrv.update({ id: item.id, votes } as any).subscribe();
-	}
-
-	onThumbDown(item: T, type: TypeWithVotes) {
-		const votes = this.ratingSrv.thumbDown(item, type);
-		return this.dataSrv.update({ id: item.id, votes } as any).subscribe();
-	}
 
 	// entities with audit have the flag deleted, so when they are deleted they are actually updated
 	// then the query list gets "refetched" automatically since a value inside got updated

@@ -17,7 +17,7 @@
 						[selected]="(selectionSrv.selection$ | async)?.has(product?.id)"
 						(favorited)="listSrv.onItemFavorited(product?.id)"
 						(unfavorited)="listSrv.onItemUnfavorited(product?.id)"
-						(liked)="listSrv.onThumbUp(product)"
+						(liked)="ratingSrv.onThumbUp(product)"
 						(disliked)="listSrv.onThumbDown(product)"
 						(open)="viewSrv.goToDetails(product.id)"
 						(preview)="viewSrv.openPreview(product)"

@@ -40,7 +40,7 @@
 		[selection]="selectionSrv.selection$ | async"
 		(addToProject)="onProjectDlgOpen()"
 		(disliked)="listSrv.onThumbDown($event, erm.PRODUCT.singular)"
-		(liked)="listSrv.onThumbUp($event, erm.PRODUCT.singular)"
+		(liked)="ratingSrv.onThumbUp($event)"
 		(open)="viewSrv.goToDetails($event)"
 		(previewClick)="viewSrv.openPreview($event)"
 		(select)="selectionSrv.selectOne($event, true)"
