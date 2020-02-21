@@ -32,8 +32,6 @@
 	(selectAll)="listSrv.selectAll($event, true)"
 	(unselectAll)="listSrv.unselectAll()"
 	(open)="listSrv.goToDetails($event)"
-	(favorited)="listSrv.onItemFavorited($event)"
-	(unfavorited)="listSrv.onItemUnfavorited($event)"
 	(previewClick)="listSrv.openPreview($event)"
 	(showItemsPerPage)="showItemsPerPage($event)"
 	(delete)="listSrv.deleteOne($event, true)"

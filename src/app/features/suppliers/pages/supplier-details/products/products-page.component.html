@@ -20,7 +20,6 @@
 		(update)="listSrv.update($event)"
 		(goToPage)="listSrv.loadPage($event)"
 		(delete)="deassociateOneProduct($event)"
-		(favorited)="listSrv.onItemFavorited($event)"
 		(open)="listSrv.goToDetails($event)"
 		(openAddToProjectDialog)="dialogCommonSrv.openAddToProjectDialog([$event])"
 		(openExportDialog)="dialogCommonSrv.openExportDialog(erm.PRODUCT.singular, [$event])"
@@ -29,7 +28,6 @@
 		(select)="listSrv.selectOne($event, true)"
 		(selectAll)="listSrv.selectAll($event, true)"
 		(sort)="listSrv.sort($event)"
-		(unfavorited)="listSrv.onItemUnfavorited($event)"
 		(unselect)="listSrv.unselectOne($event, true)"
 		(unselectAll)="listSrv.unselectAll()"
 		(createClick)="openCreationProductDlg()">
