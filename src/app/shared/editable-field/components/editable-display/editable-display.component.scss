@@ -4,10 +4,9 @@
 
 .ctnr:not(:empty) {
 	width: 100%;
-
 	+ .default {
 		display: none;
-		width: 0%;
+		width: 0%; 
 	}
 }
 
@@ -18,4 +17,13 @@
 	+ .display {
 		width: 100%;
 	}
+}
+
+.five-lines {
+	overflow: hidden;
+	display: -webkit-box;
+	/* autoprefixer: ignore next */
+	-webkit-line-clamp: 5;
+	/* autoprefixer: ignore next */
+	-webkit-box-orient: vertical;
 }

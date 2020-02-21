@@ -1,4 +1,6 @@
-<span class="ctnr">
+<span 
+	class="ctnr"
+	[ngClass]="{'five-lines': textLines === 5}">
 	<ng-content></ng-content>
 	<!-- <icon-app name="eye"></icon-app> -->
 </span>

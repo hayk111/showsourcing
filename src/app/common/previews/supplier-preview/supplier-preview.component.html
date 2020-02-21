@@ -44,17 +44,17 @@
 		(update)="update($event, 'name')">
 
 		<preview-header-buttons-app>
-			<button class="icon" (click)="openCreateSample()" toolTip [toolTipMessage]="'tooltip.create-sample' | translate">
-				<icon-app class="color-txt-secondary" name="sample"></icon-app>
+			<button class="icon big" (click)="openCreateSample()" toolTip [toolTipMessage]="'tooltip.create-sample' | translate">
+				<icon-app class="color-txt-secondary" name="sample" size="m"></icon-app>
 			</button>
-			<button class="icon" (click)="openCreateTask()" toolTip [toolTipMessage]="'tooltip.create-task' | translate">
-				<icon-app class="color-txt-secondary" name="check-circle"></icon-app>
+			<button class="icon big" (click)="openCreateTask()" toolTip [toolTipMessage]="'tooltip.create-task' | translate">
+				<icon-app class="color-txt-secondary" name="check-circle" size="m"></icon-app>
 			</button>
-			<button class="icon" (click)="selectThirdTab()" toolTip [toolTipMessage]="'tooltip.create-comment' | translate">
-				<icon-app class="color-txt-secondary" name="comments"></icon-app>
+			<button class="icon big" (click)="selectThirdTab()" toolTip [toolTipMessage]="'tooltip.create-comment' | translate">
+				<icon-app class="color-txt-secondary" name="comments" size="m"></icon-app>
 			</button>
-			<button class="icon" (click)="dialogCommonSrv.openSupplierRequest(null, supplier)" toolTip [toolTipMessage]="'tooltip.contact-supplier' | translate">
-				<icon-app class="color-vibrant" name="envelope"></icon-app>
+			<button class="icon big" (click)="dialogCommonSrv.openSupplierRequest(null, supplier)" toolTip [toolTipMessage]="'tooltip.contact-supplier' | translate">
+				<icon-app class="color-vibrant" name="envelope" size="m"></icon-app>
 			</button>
 		</preview-header-buttons-app>
 

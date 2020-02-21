@@ -15,6 +15,7 @@ import {
 export class PriceWithQuantityComponent extends TrackingComponent {
 
 	@Input() product: Product;
+	@Input() priceType: 'default' | 'primary' = 'default';
 
 	@Output() closed = new EventEmitter();
 	@Output() updateField = new EventEmitter<{

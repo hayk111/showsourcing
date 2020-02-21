@@ -8,6 +8,7 @@
 		<label-app class="capitalize" translate="text.description"></label-app>
 		<editable-display-app
 			[disabled]="true"
+			[textLines]="showMore && descriptionTextLines"
 			class="fs-m">
 			<!-- we need an ng-container, so editable-display knows when its empty to place the default placeholder -->
 			<div *ngIf="description?.length" class="description">{{ description }}</div>
