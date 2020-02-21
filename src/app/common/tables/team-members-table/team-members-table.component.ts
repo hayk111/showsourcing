@@ -27,7 +27,7 @@ export class TeamMembersTableComponent extends EntityTableComponent<TeamUser> im
 	}
 
 	ngOnInit() {
-		this.$teamOwner = this.teamSrv.teamSelectedTeamRealm$.pipe(
+		this.$teamOwner = this.teamSrv.teamSelected$.pipe(
 			map(team => team.ownerUser)
 		);
 	}

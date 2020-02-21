@@ -1,23 +1,10 @@
-import { ID, uuid } from '~utils';
+import { Entity } from './_entity.model';
 
-export class Status {
-	id?: ID;
+export class Status extends Entity<Status> {
 	name?: string;
 	category?: string;
 	step?: number;
 	inWorkflow ?= true;
 	final ?= false;
 	deleted ?= false;
-
-	constructor(config: StatusConfig) {
-		Object.assign(this, config);
-		if (!config.id) this.id = uuid();
-	}
-}
-
-export interface StatusConfig {
-	id?: string;
-	name?: string;
-	step?: number;
-	category?: string;
 }

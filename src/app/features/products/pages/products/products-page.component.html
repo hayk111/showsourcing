@@ -1,55 +1,30 @@
 <!-- top panel -->
-<header-list-app
+<!-- <header-list-app
 	[title]="'title.my-products' | translate"
 	logoName="product"
 	info="The product database"
 	[buttonName]="'button.create-product' | translate"
 	(buttonClick)="dialogCommonSrv.openCreationProductDlg()">
-</header-list-app>
+</header-list-app> -->
 
-<controller-table-app>
+<!-- <controller-table-app> -->
 	<!-- filters -->
-	<controller-table-quick-filters-app></controller-table-quick-filters-app>
+	<!-- <controller-table-quick-filters-app></controller-table-quick-filters-app> -->
 	<!-- actions -->
-	<controller-table-quick-actions-app
+	<!-- <controller-table-quick-actions-app
 		[columns]="columns"
 		[tableConfig]="tableConfig">
-	</controller-table-quick-actions-app>
+	</controller-table-quick-actions-app> -->
 	<!-- switcher -->
-	<controller-table-view-switcher-app></controller-table-view-switcher-app>
-</controller-table-app>
+	<!-- <controller-table-view-switcher-app></controller-table-view-switcher-app>
+</controller-table-app> -->
 
 <!-- views: either one will be displayed when the correct view is selected -->
-<ng-container *ngIf="listSrv.isListening">
+<!-- <ng-container *ngIf="listSrv.isListening"> -->
 	<products-table-app
-		*ngIf="listSrv.view === 'table'"
-		[currentSort]="listSrv.currentSort"
-		[pending]="listSrv.pending"
-		[rows]="listSrv.items$ | async"
-		[selection]="listSrv.selection$ | async"
-		[count]="listSrv.count$ | async"
-		[currentPage]="listSrv.currentPage"
-		[isFiltering]="listSrv.isFiltering"
-		(goToPage)="listSrv.loadPage($event, selectItemsConfig)"
-		(delete)="listSrv.deleteOne($event)"
-		(open)="listSrv.goToDetails($event)"
-		(openAddToProjectDialog)="onProjectDlgOpen()"
-		(openAddSampleDialog)="dialogCommonSrv.openCreationSampleDialog($event)"
-		(openAddTaskDialog)="dialogCommonSrv.openCreationTaskDlg($event)"
-		(archive)="listSrv.archiveOne($event)"
-		(openRequestFeedbackDialog)="dialogCommonSrv.openRequestFeedbackDialog([$event])"
-		(openCreateRequestDlg)="dialogCommonSrv.openSupplierRequest([$event])"
-		(previewClick)="listSrv.openPreview($event)"
-		(select)="listSrv.selectOne($event, true)"
-		(selectAll)="listSrv.selectAll($event, true)"
-		(sort)="listSrv.sort($event)"
-		(showItemsPerPage)="showItemsPerPage($event)"
-		(unselect)="listSrv.unselectOne($event, true)"
-		(update)="listSrv.update($event)"
-		(createClick)="dialogCommonSrv.openCreationProductDlg()"
-		(unselectAll)="listSrv.unselectAll()">
+		[rows]="items$ | async">
 	</products-table-app>
-
+<!-- 
 	<products-board-app
 		*ngIf="listSrv.view === 'board'"
 		(preview) = "listSrv.openPreview($event)">
@@ -96,13 +71,13 @@
 		[product]="listSrv.previewed"
 		(close)="listSrv.closePreview()">
 	</product-preview-app>
-</ng-container>
+</ng-container> -->
 
-<side-panel-app *ngIf="listSrv.filterPanelOpen">
+<!-- <side-panel-app *ngIf="listSrv.filterPanelOpen">
 	<filters-app
 		[filterList]="listSrv.filterList"
 		[filterTypes]="filterTypes"
 		(clickOutside)="listSrv.closeFilterPanel()"
 		(close)="listSrv.closeFilterPanel()">
 	</filters-app>
-</side-panel-app>
+</side-panel-app> -->

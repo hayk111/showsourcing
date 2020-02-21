@@ -1,13 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
-import { filter, first, map, shareReplay, switchMap } from 'rxjs/operators';
+import { filter, first, map, shareReplay, switchMap, tap } from 'rxjs/operators';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { Team } from '~core/erm/models';
 import { TeamQueries } from '~core/erm/services/team/team.queries';
 import { GlobalService } from '~core/erm/services/_global/global.service-2';
 import { LocalStorageService } from '~core/local-storage';
-import { uuid } from '~utils';
 import { CompanyService } from '../company/company.service';
 
 
@@ -28,41 +27,41 @@ export class TeamService extends GlobalService<Team> {
 	teamSelectionEvent$ = this._teamSelectionEvent$.asObservable().pipe(
 		shareReplay(1),
 	);
-	// the team selection event is not a subscription to the team selected.
-	// here we want a subscription so we can display changes in the view
+	// the team selection event might just be the team from the local storage
+	// we do a query one after just to have it from the apollo cache to see changes
 	teamSelected$ = this.teamSelectionEvent$.pipe(
 		// since
 		filter(team => !!team),
+		tap(team => GlobalService.teamId = team.id),
 		// yes we already have the team but we need a subscription :)
-		switchMap(team => this.selectOne(team.id)),
+		switchMap(team => this.queryOne(team.id)),
 		shareReplay(1)
 	);
 
-	// since the owwnerUser field is empty on the User realm, we need this observable in order to
-	// identify on settings/team, limits on the contributors and team members
-	teamSelectedTeamRealm$ = this.teamSelectionEvent$.pipe(
-		filter(team => !!team),
-		switchMap(team => this.selectOne(team.id, '')),
-		shareReplay(1)
-	);
-
-	hasTeamSelected$ = this._teamSelectionEvent$.asObservable().pipe(
+	hasTeamSelected$ = this.teamSelectionEvent$.pipe(
 		map(team => !!team)
 	);
 	// synchronous version for easy access
 	selectedTeamSync: Team;
+	static selectedTeamSync: Team;
 
 	constructor(
 		protected storage: LocalStorageService,
 		protected authSrv: AuthenticationService,
 		protected companySrv: CompanyService,
 		private http: HttpClient,
-	) { super(TeamQueries, 'team'); }
+	) {
+		super(TeamQueries, 'team');
+		super.useTeamId = false;
+	}
 
 	init() {
 		// putting a sync version of team
 		this.teamSelectionEvent$
-			.subscribe(team => this.selectedTeamSync = team);
+			.subscribe(team => {
+				this.selectedTeamSync = team;
+				TeamService.selectedTeamSync = team;
+			});
 		// restoring the previously selected team
 		this.restoreSelectedTeam();
 		// when logging out let's clear the current selected team

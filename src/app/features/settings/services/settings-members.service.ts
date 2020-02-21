@@ -20,7 +20,7 @@ export class SettingsMembersService extends TeamUserService {
 	selectTeamOwner() {
 		return zip(
 			this.userSrv.selectUser(),
-			this.teamSrv.teamSelectedTeamRealm$
+			this.teamSrv.teamSelected$
 		).pipe(
 			map(([user, team]) => {
 				return {
