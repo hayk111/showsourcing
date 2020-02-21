@@ -3,14 +3,18 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { AbstractSampleCommonComponent } from '~common/abstracts/abstract-sample-common.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
+import {
+	ERM,
+	Sample,
+	SampleService,
+	Supplier,
+	SupplierService,
+	UserService
+} from '~core/erm';
 import { ListPageService } from '~core/list-page';
-import { SupplierService, UserService } from '~core/erm';
-import { SampleService } from '~core/erm';
-import { ERM, Sample, Supplier } from '~core/erm';
 import { DialogService } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
-
-
+import { FilterService } from '~shared/filters/services/filter.service';
 
 @Component({
 	selector: 'samples-page-app',
@@ -20,16 +24,13 @@ import { FilterType } from '~shared/filters';
 	providers: [ListPageService],
 	host: { class: 'table-page' }
 })
-
-export class SamplesPageComponent extends AbstractSampleCommonComponent implements OnInit {
+export class SamplesPageComponent extends AbstractSampleCommonComponent
+	implements OnInit {
 	private supplierId: string;
 	supplier: Supplier;
 	erm = ERM;
 
-	filterTypes = [
-		FilterType.PRODUCT,
-		FilterType.SAMPLE_STATUS,
-	];
+	filterTypes = [FilterType.PRODUCT, FilterType.SAMPLE_STATUS];
 
 	constructor(
 		protected route: ActivatedRoute,
@@ -39,9 +40,19 @@ export class SamplesPageComponent extends AbstractSampleCommonComponent implemen
 		protected dlgSrv: DialogService,
 		protected supplierSrv: SupplierService,
 		public listSrv: ListPageService<Sample, SampleService>,
-		public dialogCommonSrv: DialogCommonService
+		public dialogCommonSrv: DialogCommonService,
+		protected filterSrv: FilterService
 	) {
-		super(router, route, userSrv, sampleSrv, dlgSrv, listSrv, dialogCommonSrv);
+		super(
+			router,
+			route,
+			userSrv,
+			sampleSrv,
+			dlgSrv,
+			listSrv,
+			dialogCommonSrv,
+			filterSrv
+		);
 	}
 
 	ngOnInit() {
@@ -50,18 +61,23 @@ export class SamplesPageComponent extends AbstractSampleCommonComponent implemen
 			takeUntil(this._destroy$)
 		);
 
-		id$.pipe(
-			switchMap(id => this.supplierSrv.selectOne(id)),
-			takeUntil(this._destroy$)
-		).subscribe(supplier => this.supplier = supplier);
+		id$
+			.pipe(
+				switchMap(id => this.supplierSrv.selectOne(id)),
+				takeUntil(this._destroy$)
+			)
+			.subscribe(supplier => (this.supplier = supplier));
 		this.supplierId = this.route.parent.snapshot.params.id;
-		super.setup([
-			{
-				type: FilterType.SUPPLIER,
-				value: this.supplierId
-			}
-		], null, false);
+		super.setup(
+			[
+				{
+					type: FilterType.SUPPLIER,
+					value: this.supplierId
+				}
+			],
+			null,
+			false
+		);
 		super.ngOnInit();
 	}
-
 }

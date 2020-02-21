@@ -3,7 +3,7 @@
 		[hasSwitch]="true"
 		[switchContent]="['list', 'kanban']"
 		[hasFilter]="true"
-		[filtersAmount]="listSrv.getFilterAmount([{ type: filterType.ASSIGNEE }, { type: filterType.DELETED, value: false }])"
+		[filtersAmount]="filterSrv.getFilterAmount([{ type: filterType.ASSIGNEE }, { type: filterType.DELETED, value: false }])"
 		[view]="'card'"
 		(showFilters)="listSrv.openFilterPanel()"
 		(search)="listSrv.search($event, false)"
@@ -11,7 +11,7 @@
 		<controller-list-left-item-app>
 			<div class="flex show-my-samples">
 				<checkbox-app
-					[checked]="listSrv.filterList.hasFilterType(filterType.ASSIGNEE)"
+					[checked]="filterSrv.filterList.hasFilterType(filterType.ASSIGNEE)"
 					(check)="toggleMySamples(true)"
 					(uncheck)="toggleMySamples(false)">
 				</checkbox-app>
@@ -71,7 +71,7 @@
 
 	<filters-app
 		*ngIf="listSrv.filterPanelOpen"
-		[filterList]="listSrv.filterList"
+		[filterList]="filterSrv.filterList"
 		[filterTypes]="filterTypes"
 		(clickOutside)="listSrv.closeFilterPanel()">
 	</filters-app>

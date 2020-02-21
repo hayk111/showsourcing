@@ -1,15 +1,27 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { combineLatest, Observable } from 'rxjs';
-import { filter, first, map, mergeMap, switchMap, takeUntil, tap } from 'rxjs/operators';
+import {
+	filter,
+	first,
+	map,
+	mergeMap,
+	switchMap,
+	takeUntil,
+	tap
+} from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-
-import { ProductStatusService } from '~core/erm';
+import {
+	ERM,
+	Product,
+	ProductService,
+	ProductStatus,
+	ProductStatusService
+} from '~core/erm';
 import { ListPageService } from '~core/list-page';
-import { ProductService } from '~core/erm';
-import { ERM, Product, ProductStatus } from '~core/erm';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { FilterList } from '~shared/filters';
+import { FilterService } from '~shared/filters/services/filter.service';
 import { KanbanDropEvent } from '~shared/kanban/interfaces';
 import { KanbanColumn } from '~shared/kanban/interfaces/kanban-interface.class';
 import { KanbanSelectionService } from '~shared/kanban/services/kanban-selection.service';
@@ -23,7 +35,6 @@ import { AutoUnsub } from '~utils/auto-unsub.component';
 	styleUrls: ['./products-board.component.scss']
 })
 export class ProductsBoardComponent extends AutoUnsub implements OnInit {
-
 	@Output() preview = new EventEmitter<undefined>();
 	@Output() selectOne = new EventEmitter<Product>();
 	@Output() unselectOne = new EventEmitter<Product>();
@@ -40,13 +51,14 @@ export class ProductsBoardComponent extends AutoUnsub implements OnInit {
 		public dialogCommonSrv: DialogCommonService,
 		public kanbanSrv: KanbanService,
 		public kanbanSelectionSrv: KanbanSelectionService,
-		public dlgSrv: DialogService
+		public dlgSrv: DialogService,
+		private filterSrv: FilterService
 	) {
 		super();
 	}
 
 	ngOnInit() {
-		const filters$ = this.listSrv.filterList.valueChanges$.pipe(
+		const filters$ = this.filterSrv.filterList.valueChanges$.pipe(
 			takeUntil(this._destroy$)
 		);
 
@@ -55,54 +67,77 @@ export class ProductsBoardComponent extends AutoUnsub implements OnInit {
 				query: 'category != "refused"',
 				sortBy: 'step',
 				descending: false
-			}).pipe(
+			})
+			.pipe(
 				first(),
 				// status null
-				map(statuses => [{ id: StatusUtils.NEW_STATUS_ID, name: 'New Product', category: StatusUtils.DEFAULT_STATUS_CATEGORY }, ...statuses]),
-				tap(statuses => this.kanbanSrv.setColumnsFromStatus(statuses)),
+				map(statuses => [
+					{
+						id: StatusUtils.NEW_STATUS_ID,
+						name: 'New Product',
+						category: StatusUtils.DEFAULT_STATUS_CATEGORY
+					},
+					...statuses
+				]),
+				tap(statuses => this.kanbanSrv.setColumnsFromStatus(statuses))
 			);
 
-		combineLatest(
-			filters$,
-			statuses$
-		).pipe(
-			mergeMap(([filterList, statuses]) => combineLatest(...this.getProductColumns(statuses, filterList))
-				// at this point we work with the local data
-				.pipe(first())),
-		).subscribe(columns => {
-			this.kanbanSrv.setData(columns);
-		});
+		combineLatest(filters$, statuses$)
+			.pipe(
+				mergeMap(([filterList, statuses]) =>
+					combineLatest(...this.getProductColumns(statuses, filterList))
+						// at this point we work with the local data
+						.pipe(first())
+				)
+			)
+			.subscribe(columns => {
+				this.kanbanSrv.setData(columns);
+			});
 	}
 
 	loadMore(col: KanbanColumn) {
 		const query = this.getColQuery(col.id);
-		this.productSrv.queryMany({
-			query,
-			take: col.data.length + this.amountLoaded,
-			sortBy: 'lastUpdatedDate'
-		}).subscribe(products => this.kanbanSrv.setData([{ data: products, id: col.id }]));
+		this.productSrv
+			.queryMany({
+				query,
+				take: col.data.length + this.amountLoaded,
+				sortBy: 'lastUpdatedDate'
+			})
+			.subscribe(products =>
+				this.kanbanSrv.setData([{ data: products, id: col.id }])
+			);
 	}
 
-	private getProductColumns(statuses: ProductStatus[], filterList: FilterList): Observable<any>[] {
+	private getProductColumns(
+		statuses: ProductStatus[],
+		filterList: FilterList
+	): Observable<any>[] {
 		return statuses.map(status => {
 			const query = this.getColQuery(status.id, filterList);
-			const products$ = this.productSrv.queryMany({ query, take: this.amountLoaded, sortBy: 'lastUpdatedDate' });
+			const products$ = this.productSrv.queryMany({
+				query,
+				take: this.amountLoaded,
+				sortBy: 'lastUpdatedDate'
+			});
 			const total$ = this.productSrv.queryCount(query).pipe(first());
-			return combineLatest(total$, products$, (total, products) => ({ id: status.id, data: products, total }));
+			return combineLatest(total$, products$, (total, products) => ({
+				id: status.id,
+				data: products,
+				total
+			}));
 		});
 	}
 
 	// returns the query of the columns based on the parameters on the list srv
 	private getColQuery(colId: string, filterList?: FilterList) {
-		const constQuery = colId !== StatusUtils.NEW_STATUS_ID ?
-			`status.id == "${colId}"` : `status == null`
-			;
-		const predicate = filterList ? filterList.asPredicate() : this.listSrv.filterList.asPredicate();
-		return [
-			predicate,
-			constQuery
-		].filter(x => x !== '')
-			.join(' && ');
+		const constQuery =
+			colId !== StatusUtils.NEW_STATUS_ID
+				? `status.id == "${colId}"`
+				: `status == null`;
+		const predicate = filterList
+			? filterList.asPredicate()
+			: this.filterSrv.filterList.asPredicate();
+		return [predicate, constQuery].filter(x => x !== '').join(' && ');
 	}
 
 	onUpdate(product: Product) {
@@ -120,12 +155,15 @@ export class ProductsBoardComponent extends AutoUnsub implements OnInit {
 		}
 		// we update on the server
 		const isNewStatus = event.to.id === StatusUtils.NEW_STATUS_ID;
-		this.productSrv.update({
-			id: event.item.id,
-			status: isNewStatus ? null : new ProductStatus({ id: event.to.id })
-		},
-			isNewStatus ? 'status { id }' : ''
-		).subscribe();
+		this.productSrv
+			.update(
+				{
+					id: event.item.id,
+					status: isNewStatus ? null : new ProductStatus({ id: event.to.id })
+				},
+				isNewStatus ? 'status { id }' : ''
+			)
+			.subscribe();
 	}
 
 	/** multiple */
@@ -135,10 +173,9 @@ export class ProductsBoardComponent extends AutoUnsub implements OnInit {
 			id,
 			status: isNewStatus ? null : new ProductStatus({ id: event.to.id })
 		}));
-		this.productSrv.updateMany(
-			products,
-			isNewStatus ? 'status { id }' : ''
-		).subscribe();
+		this.productSrv
+			.updateMany(products, isNewStatus ? 'status { id }' : '')
+			.subscribe();
 	}
 
 	onSelectedOne(product: Product, column: KanbanColumn) {
@@ -152,21 +189,24 @@ export class ProductsBoardComponent extends AutoUnsub implements OnInit {
 	deleteSelected() {
 		const itemIds = this.listSrv.getSelectedIds();
 		const del = translate('delete');
-		const prod = itemIds.length <= 1 ? translate('product') : translate('products');
+		const prod =
+			itemIds.length <= 1 ? translate('product') : translate('products');
 		const text = `${del} ${itemIds.length} ${prod}`;
 
-		this.dlgSrv.open(ConfirmDialogComponent, { text }).pipe(
-			filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
-			switchMap(_ => this.listSrv.dataSrv.deleteMany(itemIds)),
-		).subscribe(_ => {
-			this.listSrv.selectionSrv.unselectAll();
-			this.kanbanSrv.deleteItems(itemIds);
-		});
+		this.dlgSrv
+			.open(ConfirmDialogComponent, { text })
+			.pipe(
+				filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
+				switchMap(_ => this.listSrv.dataSrv.deleteMany(itemIds))
+			)
+			.subscribe(_ => {
+				this.listSrv.selectionSrv.unselectAll();
+				this.kanbanSrv.deleteItems(itemIds);
+			});
 	}
 
 	onMultipleStatusChange(status: ProductStatus) {
-		const updated = this.listSrv.getSelectedIds()
-			.map(id => ({ id, status }));
+		const updated = this.listSrv.getSelectedIds().map(id => ({ id, status }));
 		this.kanbanSrv.onExternalStatusChange(updated);
 		this.productSrv.updateMany(updated).subscribe();
 	}

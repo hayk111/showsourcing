@@ -3,11 +3,18 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { AbstractTaskCommonComponent } from '~common/abstracts/abstract-task-common.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
+import {
+	ERM,
+	Supplier,
+	SupplierService,
+	Task,
+	TaskService,
+	UserService
+} from '~core/erm';
 import { ListPageService } from '~core/list-page';
-import { SupplierService, TaskService, UserService } from '~core/erm';
-import { ERM, Supplier, Task } from '~core/erm';
 import { DialogService } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
+import { FilterService } from '~shared/filters/services/filter.service';
 
 @Component({
 	selector: 'tasks-page-app',
@@ -16,13 +23,11 @@ import { FilterType } from '~shared/filters';
 	providers: [ListPageService],
 	host: { class: 'table-page' }
 })
-export class TasksPageComponent extends AbstractTaskCommonComponent implements OnInit {
-
+export class TasksPageComponent extends AbstractTaskCommonComponent
+	implements OnInit {
 	supplier: Supplier;
 	erm = ERM;
-	filterTypes = [
-		FilterType.DONE
-	];
+	filterTypes = [FilterType.DONE];
 
 	constructor(
 		protected route: ActivatedRoute,
@@ -32,7 +37,8 @@ export class TasksPageComponent extends AbstractTaskCommonComponent implements O
 		protected dlgSrv: DialogService,
 		protected supplierSrv: SupplierService,
 		public dialogCommonSrv: DialogCommonService,
-		public listSrv: ListPageService<Task, TaskService>
+		public listSrv: ListPageService<Task, TaskService>,
+		protected filterSrv: FilterService
 	) {
 		super(
 			router,
@@ -41,7 +47,8 @@ export class TasksPageComponent extends AbstractTaskCommonComponent implements O
 			taskSrv,
 			dlgSrv,
 			dialogCommonSrv,
-			listSrv
+			listSrv,
+			filterSrv
 		);
 	}
 
@@ -51,18 +58,21 @@ export class TasksPageComponent extends AbstractTaskCommonComponent implements O
 			takeUntil(this._destroy$)
 		);
 
-		id$.pipe(
-			switchMap(id => this.supplierSrv.selectOne(id)),
-			takeUntil(this._destroy$)
-		).subscribe(supplier => this.supplier = supplier);
+		id$
+			.pipe(
+				switchMap(id => this.supplierSrv.selectOne(id)),
+				takeUntil(this._destroy$)
+			)
+			.subscribe(supplier => (this.supplier = supplier));
 
 		super.setup([
-			{ type: FilterType.SUPPLIER, value: this.route.parent.snapshot.params.id },
+			{
+				type: FilterType.SUPPLIER,
+				value: this.route.parent.snapshot.params.id
+			},
 			{ type: FilterType.DONE, value: true }
 		]);
 
 		super.ngOnInit();
 	}
-
 }
-

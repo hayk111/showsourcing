@@ -2,9 +2,9 @@
   [hasSwitch]="false"
   [hasFilter]="true"
   [entityType]="'PRODUCT'"
-  [filtersAmount]="listSrv.filterList.asFilters().length"
+  [filtersAmount]="filterSrv.filterList.asFilters().length"
   (showFilters)="listSrv.openFilterPanel()"
-  [searchValue]="listSrv.searchValue"
+  [searchValue]="filterSrv.searchValue"
   (search)="listSrv.search($event)">
 </controller-list-app>
 
@@ -83,7 +83,7 @@
 
 <filters-app
 	*ngIf="listSrv.filterPanelOpen"
-  [filterList]="listSrv.filterList"
+  [filterList]="filterSrv.filterList"
   [filterTypes]="filterTypes"
   (clickOutside)="listSrv.closeFilterPanel()">
 </filters-app>

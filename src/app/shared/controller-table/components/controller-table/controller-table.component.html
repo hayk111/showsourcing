@@ -18,10 +18,10 @@
 	</button>
 
 	<button
-		*ngIf="listSrv.getFilterAmount() > 0"
+		*ngIf="filterSrv.getFilterAmount() > 0"
 		class="light"
-		(click)="listSrv.resetFilters()">
-		Clear filters ({{ listSrv.getFilterAmount() }})
+		(click)="filterSrv.resetFilters()">
+		Clear filters ({{ filterSrv.getFilterAmount() }})
 	</button>
 
 	<divider-app [vertical]="true"></divider-app>

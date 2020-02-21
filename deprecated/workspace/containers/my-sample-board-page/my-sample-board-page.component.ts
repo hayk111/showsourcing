@@ -64,7 +64,7 @@ export class MySampleBoardPageComponent extends AutoUnsub implements OnInit {
 			selectParams: { query: 'deleted == false' }
 		}, false);
 
-		const filters$ = this.listSrv.filterList.valueChanges$.pipe(
+		const filters$ = this.filterSrv.filterList.valueChanges$.pipe(
 			takeUntil(this._destroy$),
 			startWith(new FilterList([{ type: FilterType.DELETED, value: false }]))
 		);
@@ -107,7 +107,7 @@ export class MySampleBoardPageComponent extends AutoUnsub implements OnInit {
 
 	loadMore(col: KanbanColumn) {
 		const statusQuery = col.id !== NEW_STATUS_ID ? `status.id == "${col.id}"` : `status == null`;
-		const predicate = this.listSrv.filterList.asPredicate();
+		const predicate = this.filterSrv.filterList.asPredicate();
 		const query = [
 			predicate,
 			statusQuery
@@ -133,9 +133,9 @@ export class MySampleBoardPageComponent extends AutoUnsub implements OnInit {
 	toggleMySamples(show: boolean) {
 		const filterAssignee = { type: FilterType.ASSIGNEE, value: this.userSrv.userSync.id };
 		if (show)
-			this.listSrv.addFilter(filterAssignee);
+			this.filterSrv.addFilter(filterAssignee);
 		else
-			this.listSrv.removeFilter(filterAssignee);
+			this.filterSrv.removeFilter(filterAssignee);
 	}
 
 	openCreateDlg() {

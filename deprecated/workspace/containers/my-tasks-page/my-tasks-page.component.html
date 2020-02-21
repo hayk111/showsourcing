@@ -1,13 +1,13 @@
 <controller-list-app
 	[hasFilter]="false"
 	[hasSwitch]="false"
-	[searchValue]="listSrv.searchValue"
+	[searchValue]="filterSrv.searchValue"
 	(search)="listSrv.search($event)">
 	<controller-list-right-item-app>
 
 		<div class="flexCenter show-my-tasks">
 			<checkbox-app
-				[checked]="listSrv.filterList.hasFilterType(assigneeFilterType)"
+				[checked]="filterSrv.filterList.hasFilterType(assigneeFilterType)"
 				(check)="toggleMyTasks(true)"
 				(uncheck)="toggleMyTasks(false)">
 			</checkbox-app>

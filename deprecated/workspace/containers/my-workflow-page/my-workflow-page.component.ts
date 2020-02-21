@@ -66,7 +66,7 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 			// if we delete this query, we will have to add it to the func getColQuery()
 			selectParams: { query: 'deleted == false' }
 		}, false);
-		const filters$ = this.listSrv.filterList.valueChanges$.pipe(
+		const filters$ = this.filterSrv.filterList.valueChanges$.pipe(
 			takeUntil(this._destroy$)
 		);
 
@@ -119,7 +119,7 @@ export class MyWorkflowPageComponent extends AutoUnsub implements OnInit {
 	private getColQuery(colId: string, filterList?: FilterList) {
 		const constQuery = colId !== NEW_STATUS_ID ?
 			`status.id == "${colId}"` : `status == null`;
-		const predicate = filterList ? filterList.asPredicate() : this.listSrv.filterList.asPredicate();
+		const predicate = filterList ? filterList.asPredicate() : this.filterSrv.filterList.asPredicate();
 		return [
 			predicate,
 			constQuery

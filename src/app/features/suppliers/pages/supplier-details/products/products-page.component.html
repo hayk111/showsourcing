@@ -16,7 +16,7 @@
 		[rows]="products"
 		[count]="listSrv.count$ | async"
 		[currentPage]="listSrv.currentPage"
-		[isFiltering]="listSrv.isFiltering"
+		[isFiltering]="filterSrv.isFiltering"
 		(update)="listSrv.update($event)"
 		(goToPage)="listSrv.loadPage($event)"
 		(delete)="deassociateOneProduct($event)"
@@ -58,7 +58,7 @@
 
 <side-panel-app *ngIf="listSrv.filterPanelOpen">
 	<filters-app
-		[filterList]="listSrv.filterList"
+		[filterList]="filterSrv.filterList"
 		[filterTypes]="filterTypes"
 		(clickOutside)="listSrv.closeFilterPanel()"
 		(close)="listSrv.closeFilterPanel()">

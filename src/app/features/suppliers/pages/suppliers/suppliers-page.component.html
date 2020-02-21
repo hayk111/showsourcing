@@ -22,7 +22,7 @@
 	[currentSort]="listSrv.currentSort"
 	[selection]="listSrv.selection$ | async"
 	[pending]="listSrv.pending"
-	[isFiltering]="listSrv.isFiltering"
+	[isFiltering]="filterSrv.isFiltering"
 	[count]="listSrv.count$ | async"
 	[currentPage]="listSrv.currentPage"
 	(goToPage)="listSrv.loadPage($event)"
@@ -68,7 +68,7 @@
 
 <side-panel-app *ngIf="listSrv.filterPanelOpen">
 	<filters-app
-		[filterList]="listSrv.filterList"
+		[filterList]="filterSrv.filterList"
 		[filterTypes]="filterTypes"
 		(clickOutside)="listSrv.closeFilterPanel()"
 		(close)="listSrv.closeFilterPanel()">

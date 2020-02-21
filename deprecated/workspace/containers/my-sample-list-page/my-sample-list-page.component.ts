@@ -50,9 +50,9 @@ export class MySampleListPageComponent extends AbstractSampleCommonComponent imp
 	toggleMySamples(show: boolean) {
 		const filterAssignee = { type: FilterType.ASSIGNEE, value: this.userSrv.userSync.id };
 		if (show)
-			this.listSrv.addFilter(filterAssignee);
+			this.filterSrv.addFilter(filterAssignee);
 		else
-			this.listSrv.removeFilter(filterAssignee);
+			this.filterSrv.removeFilter(filterAssignee);
 	}
 
 	openCreateDlg() {

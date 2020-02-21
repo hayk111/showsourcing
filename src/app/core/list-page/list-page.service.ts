@@ -146,26 +146,11 @@ export class ListPageService<
 		return this.dataSrv.isListening;
 	}
 
-	get filterList() {
-		// TODO remove filterList and adapt all dependant files with filterSrv
-		return this.filterSrv.filterList;
-	}
-
 	get currentSort() {
 		return {
 			sortBy: this.dataSrv.selectParams.sortBy,
 			descending: this.dataSrv.selectParams.descending
 		};
-	}
-
-	get isFiltering() {
-		// TODO replace all dependant files with filterSrv
-		return this.filterSrv.isFiltering();
-	}
-
-	get searchValue() {
-		// TODO replace all dependant files with filterSrv
-		return this.filterSrv.searchValue;
 	}
 
 	refetch(config?: SelectParamsConfig) {
@@ -343,27 +328,7 @@ export class ListPageService<
 		else throw Error(`no destination url`);
 	}
 
-	addFilter(_filter: Filter) {
-		// TODO replace all dependant files with filterSrv
-		this.filterSrv.addFilter(_filter);
-	}
-
-	removeFilter(_filter: Filter) {
-		// TODO replace all dependant files with filterSrv
-		this.filterSrv.removeFilter(_filter);
-	}
-
-	removeFilterType(filterType: FilterType) {
-		// TODO replace all dependant files with filterSrv
-		this.filterSrv.removeFilterType(filterType);
-	}
-
-	resetFilters() {
-		// TODO replace all dependant files with filterSrv
-		this.filterSrv.filterList.reset();
-	}
-
-	/** bridge for view service */
+	/** bridge for view service */ // TODO change view service bridges
 
 	get view() {
 		return this.viewSrv.view;
@@ -443,37 +408,6 @@ export class ListPageService<
 
 	getSelectedValues() {
 		return this.selectionSrv.getSelectionValues();
-	}
-
-	getFilterAmount(): number {
-		// TODO replace all dependant files with filterSrv
-		return this.filterSrv.getFilterAmount;
-	}
-
-	/** filter by archived, attention, weird logic:
-	 * if shouldAdd is true we the products archived
-	 * if shouldAdd is false we only see the not archived + not archived */
-	filterByArchived(shouldAdd: boolean) {
-		// TODO replace all dependant files with filterSrv
-		this.filterSrv.filterByArchived(shouldAdd);
-	}
-
-	filterByAssignedToMe(shouldAdd: boolean) {
-		// TODO replace all dependant files with filterSrv
-		this.filterSrv.filterByAssignedToMe(shouldAdd);
-	}
-
-	/** filter by done, attention, weird logic:
-	 * if shouldAdd is true we the products done
-	 * if shouldAdd is false we only see the not done + not done */
-	filterByDone(shouldAdd: boolean) {
-		// TODO replace all dependant files with filterSrv
-		this.filterSrv.filterByDone(shouldAdd);
-	}
-
-	filterByCreatedByMe(shouldAdd: boolean) {
-		// TODO replace all dependant files with filterSrv
-		this.filterSrv.filterByCreatedByMe(shouldAdd);
 	}
 
 	exportSelection() {
