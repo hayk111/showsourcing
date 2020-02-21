@@ -4,8 +4,9 @@ import { filter, map, switchMap } from 'rxjs/operators';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { Company } from '~core/erm/models';
 import { CompanyQueries } from '~core/erm/services/company/company.queries';
-import { GlobalService } from '~core/erm/services/_global/global.service';
+import { GlobalService } from '~core/erm2/global.service-2';
 import { LocalStorageService } from '~core/local-storage';
+import { customQueries } from './company.custom-queries';
 
 
 const COMPANY = 'company';
@@ -29,7 +30,7 @@ export class CompanyService extends GlobalService<Company> {
 		protected storage: LocalStorageService,
 		protected authSrv: AuthenticationService,
 	) {
-		super(CompanyQueries, 'company', 'companys');
+		super(CompanyQueries, 'company', customQueries);
 	}
 
 	init() {
@@ -44,7 +45,7 @@ export class CompanyService extends GlobalService<Company> {
 	}
 
 	create(company: Company) {
-		return super.create(company).pipe(
+		return super.create((company)).pipe(
 			switchMap(companyResp => this.saveCompany(companyResp))
 		);
 	}

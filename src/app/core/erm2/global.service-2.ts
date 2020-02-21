@@ -1,17 +1,14 @@
-import { ApolloBase } from 'apollo-angular';
-import { API, Auth } from 'aws-amplify';
 import { DocumentNode } from 'graphql';
-import { from, Observable, of, forkJoin, ConnectableObservable } from 'rxjs';
-import { catchError, filter, map, shareReplay, tap, switchMap, first, publishReplay } from 'rxjs/operators';
+import { ConnectableObservable, forkJoin, from, Observable, of } from 'rxjs';
+import { catchError, filter, first, map, publishReplay, shareReplay, tap } from 'rxjs/operators';
 import { AnalyticsService } from '~core/analytics/analytics.service';
 import { Entity } from '~core/erm/models';
 import { ListQuery } from '~core/erm/services/_global/list-query.interface';
-import { QueryBuilder, CustomQueries } from '~core/erm/services/_global/query-builder-2.class';
+import { CustomQueries, QueryBuilder } from '~core/erm/services/_global/query-builder-2.class';
 import { SelectAllParamsConfig } from '~core/erm/services/_global/select-all-params';
-import { SelectParamsConfig } from '~core/erm/services/_global/select-params';
+import { SelectParamsConfig, SelectParams } from '~core/erm/services/_global/select-params-2.class';
 import { log, LogColor } from '~utils';
 import { client } from './client';
-import { SelectParams } from './select-params-2.class';
 
 
 
@@ -509,6 +506,7 @@ export abstract class GlobalService<T extends Entity> {
 	create(entity: T): Observable<T> {
 		const title = 'Create one ' + this.typeName;
 		const fields = this.patch(entity);
+		debugger;
 		const mutation = this.queryBuilder.create(fields);
 		const variables = { input: entity };
 		const queryName = this.queryBuilder.getQueryName(mutation);

@@ -6,7 +6,7 @@ import { AnalyticsService } from '~core/analytics/analytics.service';
 import { AuthenticationService } from '~core/auth';
 import { User } from '~core/erm/models';
 import { UserQueries } from '~core/erm/services/user/user.queries';
-import { GlobalService } from '~core/erm/services/_global/global.service-2';
+import { GlobalService } from '~core/erm2/global.service-2';
 
 
 const customQueries = {

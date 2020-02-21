@@ -92,27 +92,15 @@ export class QueryBuilder {
 	// list
 	queryAll = (str: string) => {
 		const query = this.customQueries.queryAll || `
-			query List${this.entityName}(
+			query List${this.entityName}s(
 				$teamId: ID
-				$id: ModelIDKeyConditionInput
-				$filter: ModelContactFilterInput
-				$limit: Int
-				$nextToken: String
-				$sortDirection: ModelSortDirection
 			) {
-				list${this.entityName}(
+				list${this.entityName}s(
 					teamId: $teamId
-					id: $id
-					filter: $filter
-					limit: $limit
-					nextToken: $nextToken
-					sortDirection: $sortDirection
 				) {
 					items {
 						id
-						teamId
 						${str}
-						${this.audit}
 					}
 					nextToken
 				}

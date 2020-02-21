@@ -5,9 +5,10 @@ import { filter, first, map, shareReplay, switchMap, tap } from 'rxjs/operators'
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { Team } from '~core/erm/models';
 import { TeamQueries } from '~core/erm/services/team/team.queries';
-import { GlobalService } from '~core/erm/services/_global/global.service-2';
+import { GlobalService } from '~core/erm2/global.service-2';
 import { LocalStorageService } from '~core/local-storage';
 import { CompanyService } from '../company/company.service';
+import { customQueries } from './team.custom-queries';
 
 
 
@@ -32,7 +33,6 @@ export class TeamService extends GlobalService<Team> {
 	teamSelected$ = this.teamSelectionEvent$.pipe(
 		// since
 		filter(team => !!team),
-		tap(team => GlobalService.teamId = team.id),
 		// yes we already have the team but we need a subscription :)
 		switchMap(team => this.queryOne(team.id)),
 		shareReplay(1)
@@ -51,7 +51,7 @@ export class TeamService extends GlobalService<Team> {
 		protected companySrv: CompanyService,
 		private http: HttpClient,
 	) {
-		super(TeamQueries, 'team');
+		super(TeamQueries, 'team', customQueries);
 		super.useTeamId = false;
 	}
 
@@ -61,6 +61,7 @@ export class TeamService extends GlobalService<Team> {
 			.subscribe(team => {
 				this.selectedTeamSync = team;
 				TeamService.selectedTeamSync = team;
+				GlobalService.teamId = team.id;
 			});
 		// restoring the previously selected team
 		this.restoreSelectedTeam();
