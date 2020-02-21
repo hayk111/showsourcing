@@ -91,7 +91,7 @@ export class ListPageService<
 		if (!destroy$) {
 			throw Error('Please provide a originComponentDestroyed$ observable');
 		}
-		this.closePreview();
+		this.viewSrv.closePreview();
 		this.dataSrv.loadData(destroy$);
 		// we need to reset selection when filter changes
 		this.filterSrv.filterList.valueChanges$
@@ -237,7 +237,7 @@ export class ListPageService<
 	// but for entities who do NOT have audith we need to refresh it manually since we are deleting it
 	// and not updating it
 	deleteOne(entity: T, refetch = false, callback?: () => void) {
-		const text = `Are you sure you want to delete this ${this.entityMetadata.singular} ?`;
+		const text = `Are you sure you want to delete this ${this.viewSrv.entityMetadata.singular} ?`;
 		this.dlgSrv
 			.open(ConfirmDialogComponent, { text })
 			.pipe(
@@ -257,8 +257,8 @@ export class ListPageService<
 		const text =
 			`Delete ${itemIds.length} ` +
 			(itemIds.length <= 1
-				? this.entityMetadata.singular
-				: this.entityMetadata.plural) +
+				? this.viewSrv.entityMetadata.singular
+				: this.viewSrv.entityMetadata.plural) +
 			'?';
 		this.dlgSrv
 			.open(ConfirmDialogComponent, { text })
@@ -276,7 +276,7 @@ export class ListPageService<
 	create(canRedirect = false, extra?: any) {
 		this.dlgSrv
 			.open(CreationDialogComponent, {
-				type: this.entityMetadata,
+				type: this.viewSrv.entityMetadata,
 				extra,
 				canRedirect
 			})
@@ -323,61 +323,10 @@ export class ListPageService<
 	}
 
 	private redirectToCreated(id: string) {
-		if (this.entityMetadata.destUrl)
-			this.router.navigate([this.entityMetadata.destUrl, id]);
+		if (this.viewSrv.entityMetadata.destUrl)
+			this.router.navigate([this.viewSrv.entityMetadata.destUrl, id]);
 		else throw Error(`no destination url`);
 	}
-
-	/** bridge for view service */ // TODO change view service bridges
-
-	get view() {
-		return this.viewSrv.view;
-	}
-
-	get filterPanelOpen() {
-		return this.viewSrv.filterPanelOpen;
-	}
-
-	get previewOpen() {
-		return this.viewSrv.previewOpen;
-	}
-
-	get previewed() {
-		return this.viewSrv.previewed;
-	}
-
-	get entityMetadata() {
-		return this.viewSrv.entityMetadata;
-	}
-
-	openPreview(item: T) {
-		this.viewSrv.openPreview(item);
-	}
-
-	closePreview() {
-		this.viewSrv.closePreview();
-	}
-
-	goToDetails(id: string) {
-		this.viewSrv.goToDetails(id);
-	}
-
-	openFilterPanel() {
-		this.viewSrv.openFilterPanel();
-	}
-
-	closeFilterPanel() {
-		this.viewSrv.closeFilterPanel();
-	}
-
-	changeView(view: View) {
-		this.viewSrv.changeView(view);
-	}
-
-	/**
-	 * Bridge for selectionSrv
-	 */
-
 	get selection$() {
 		return this.selectionSrv.selection$;
 	}
@@ -417,7 +366,7 @@ export class ListPageService<
 	exportAll() {
 		this.dlgSrv.open(ExportDlgComponent, {
 			query: 'deleted == false AND archived == false',
-			type: this.entityMetadata.entityName
+			type: this.viewSrv.entityMetadata.entityName
 		});
 	}
 }

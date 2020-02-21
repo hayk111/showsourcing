@@ -39,15 +39,15 @@
 	(unselect)="listSrv.unselectOne($event, true)"
 	(selectAll)="listSrv.selectAll($event, true)"
 	(unselectAll)="listSrv.unselectAll()"
-	(open)="listSrv.goToDetails($event)"
+	(open)="viewSrv.goToDetails($event)"
 	(favorited)="listSrv.onItemFavorited($event)"
 	(unfavorited)="listSrv.onItemUnfavorited($event)"
-	(previewClick)="listSrv.openPreview($event)"
+	(previewClick)="viewSrv.openPreview($event)"
 	(delete)="listSrv.deleteOne($event)">
 </task-table-app>
 
 <task-preview-app
-	*ngIf="listSrv.previewOpen"
-	[task]="listSrv.previewed"
-	(close)="listSrv.closePreview()">
+	*ngIf="viewSrv.previewOpen"
+	[task]="viewSrv.previewed"
+	(close)="viewSrv.closePreview()">
 </task-preview-app>

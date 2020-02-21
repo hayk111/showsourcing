@@ -3,7 +3,7 @@
   [hasFilter]="true"
   [entityType]="'PRODUCT'"
   [filtersAmount]="filterSrv.filterList.asFilters().length"
-  (showFilters)="listSrv.openFilterPanel()"
+  (showFilters)="viewSrv.openFilterPanel()"
   [searchValue]="filterSrv.searchValue"
   (search)="listSrv.search($event)">
 </controller-list-app>
@@ -33,7 +33,7 @@
 		[enablePreviewLink]="true"
 		[highlightOnChecked]="true"
     [checked]="(listSrv.selection$ | async).has(data.id)"
-    (clickImage)="listSrv.openPreview(data)"
+    (clickImage)="viewSrv.openPreview(data)"
     (select)="listSrv.selectOne($event, true)"
     (unselect)="listSrv.unselectOne($event, true)">
   </product-card-app>
@@ -82,16 +82,16 @@
 </product-selection-bar-app>
 
 <filters-app
-	*ngIf="listSrv.filterPanelOpen"
+	*ngIf="viewSrv.filterPanelOpen"
   [filterList]="filterSrv.filterList"
   [filterTypes]="filterTypes"
-  (clickOutside)="listSrv.closeFilterPanel()">
+  (clickOutside)="viewSrv.closeFilterPanel()">
 </filters-app>
 
 <product-preview-app
-  *ngIf="listSrv.previewOpen"
-  [product]="listSrv.previewed"
-  (close)="listSrv.closePreview()"
+  *ngIf="viewSrv.previewOpen"
+  [product]="viewSrv.previewed"
+  (close)="viewSrv.closePreview()"
   (updated)="onUpdate($event)"
   (statusUpdated)="previewStatusUpdate($event)">
 </product-preview-app>

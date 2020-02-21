@@ -5,7 +5,7 @@
 		[hasFilter]="true"
 		[filtersAmount]="filterSrv.getFilterAmount([{ type: filterType.ASSIGNEE }, { type: filterType.DELETED, value: false }])"
 		[view]="'card'"
-		(showFilters)="listSrv.openFilterPanel()"
+		(showFilters)="viewSrv.openFilterPanel()"
 		(search)="listSrv.search($event, false)"
 		(viewChange)="goToList()">
 		<controller-list-left-item-app>
@@ -43,7 +43,7 @@
 			[checked]="selection?.has(data.id)"
 			(select)="listSrv.selectOne($event)"
 			(unselect)="listSrv.unselectOne($event)"
-			(previewClick)="listSrv.openPreview($event)">
+			(previewClick)="viewSrv.openPreview($event)">
 		</sample-card-app>
 	</ng-template>
 
@@ -70,16 +70,16 @@
 	</selection-bar-app>
 
 	<filters-app
-		*ngIf="listSrv.filterPanelOpen"
+		*ngIf="viewSrv.filterPanelOpen"
 		[filterList]="filterSrv.filterList"
 		[filterTypes]="filterTypes"
-		(clickOutside)="listSrv.closeFilterPanel()">
+		(clickOutside)="viewSrv.closeFilterPanel()">
 	</filters-app>
 
 	<sample-preview-app
-		*ngIf="listSrv.previewOpen"
-		[sample]="listSrv.previewed"
-		(close)="listSrv.closePreview()">
+		*ngIf="viewSrv.previewOpen"
+		[sample]="viewSrv.previewed"
+		(close)="viewSrv.closePreview()">
 	</sample-preview-app>
 </ng-container>
 

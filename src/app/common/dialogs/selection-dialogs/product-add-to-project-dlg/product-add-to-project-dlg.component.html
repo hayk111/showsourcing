@@ -30,11 +30,11 @@
 		</projects-table-app>
 	
 		<filters-app
-			*ngIf="listSrv.filterPanelOpen"
+			*ngIf="viewSrv.filterPanelOpen"
 			[filterList]="filterSrv.filterList"
 			[filterTypes]="filterTypes"
 			[sidePanel]="false"
-			(close)="listSrv.closeFilterPanel()">
+			(close)="viewSrv.closeFilterPanel()">
 		</filters-app>
 		
 	</div>

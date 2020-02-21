@@ -31,8 +31,8 @@
 	(unselect)="listSrv.unselectOne($event, true)"
 	(selectAll)="listSrv.selectAll($event, true)"
 	(unselectAll)="listSrv.unselectAll()"
-	(open)="listSrv.goToDetails($event)"
-	(previewClick)="listSrv.openPreview($event)"
+	(open)="viewSrv.goToDetails($event)"
+	(previewClick)="viewSrv.openPreview($event)"
 	(showItemsPerPage)="showItemsPerPage($event)"
 	(delete)="listSrv.deleteOne($event, true)"
 	(createClick)="dialogCommonSrv.openCreationTaskDlg()">
@@ -49,17 +49,17 @@
 	(unselectAll)="listSrv.unselectAll()">
 </task-selection-bar-app>
 
-<side-panel-app *ngIf="listSrv.filterPanelOpen">
+<side-panel-app *ngIf="viewSrv.filterPanelOpen">
 	<filters-app
 		[filterList]="filterSrv.filterList"
 		[filterTypes]="filterTypes"
-		(clickOutside)="listSrv.closeFilterPanel()"
-		(close)="listSrv.closeFilterPanel()">
+		(clickOutside)="viewSrv.closeFilterPanel()"
+		(close)="viewSrv.closeFilterPanel()">
 	</filters-app>
 </side-panel-app>
 
 <task-preview-app
-	*ngIf="listSrv.previewOpen"
-	[task]="listSrv.previewed"
-	(close)="listSrv.closePreview()">
+	*ngIf="viewSrv.previewOpen"
+	[task]="viewSrv.previewed"
+	(close)="viewSrv.closePreview()">
 </task-preview-app>

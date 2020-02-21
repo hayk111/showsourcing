@@ -9,7 +9,7 @@
 			[ngStyle]="first ? { 'padding-top' : 0 } : ''"
 			[task]="task"
 			[selection]="listSrv.selection$ | async"
-			(nameClick)="listSrv.openPreview($event)"
+			(nameClick)="viewSrv.openPreview($event)"
 			(iconClick)="toggleUpdateDone($event)"
 			(select)="listSrv.selectOne($event, true)"
 			(unselect)="listSrv.unselectOne($event, true)">
@@ -40,7 +40,7 @@
 
 <!-- preview -->
 <task-preview-app
-	*ngIf="listSrv.previewOpen"
-	[task]="listSrv.previewed"
-	(close)="listSrv.closePreview()">
+	*ngIf="viewSrv.previewOpen"
+	[task]="viewSrv.previewed"
+	(close)="viewSrv.closePreview()">
 </task-preview-app>

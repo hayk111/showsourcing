@@ -17,7 +17,7 @@
 
 <suppliers-table-app
 	#supplierList
-	*ngIf="listSrv.view === 'table'"
+	*ngIf="viewSrv.view === 'table'"
 	[rows]="listSrv.items$ | async"
 	[currentSort]="listSrv.currentSort"
 	[selection]="listSrv.selection$ | async"
@@ -32,8 +32,8 @@
 	(unselect)="listSrv.unselectOne($event, true)"
 	(selectAll)="listSrv.selectAll($event, true)"
 	(unselectAll)="listSrv.unselectAll()"
-	(open)="listSrv.goToDetails($event)"
-	(previewClick)="listSrv.openPreview($event)"
+	(open)="viewSrv.goToDetails($event)"
+	(previewClick)="viewSrv.openPreview($event)"
 	(showItemsPerPage)="showItemsPerPage($event)"
 	(createClick)="listSrv.create()"
 	(update)="listSrv.update($event)"
@@ -41,11 +41,11 @@
 </suppliers-table-app>
 
 <suppliers-board-app
-	*ngIf="listSrv.view === 'board'"
+	*ngIf="viewSrv.view === 'board'"
 	[selection]="listSrv.selection$"
 	(selectOne)="listSrv.selectOne($event, true)"
 	(unselectOne)="listSrv.unselectOne($event, true)"
-	(preview) = "listSrv.openPreview($event)">
+	(preview) = "viewSrv.openPreview($event)">
 </suppliers-board-app>
 
 <supplier-selection-bar-app
@@ -61,17 +61,17 @@
 </supplier-selection-bar-app>
 
 <supplier-preview-app
-	*ngIf="listSrv.previewOpen"
-	[supplier]="listSrv.previewed"
-	(close)="listSrv.closePreview()">
+	*ngIf="viewSrv.previewOpen"
+	[supplier]="viewSrv.previewed"
+	(close)="viewSrv.closePreview()">
 </supplier-preview-app>
 
-<side-panel-app *ngIf="listSrv.filterPanelOpen">
+<side-panel-app *ngIf="viewSrv.filterPanelOpen">
 	<filters-app
 		[filterList]="filterSrv.filterList"
 		[filterTypes]="filterTypes"
-		(clickOutside)="listSrv.closeFilterPanel()"
-		(close)="listSrv.closeFilterPanel()">
+		(clickOutside)="viewSrv.closeFilterPanel()"
+		(close)="viewSrv.closeFilterPanel()">
 	</filters-app>
 </side-panel-app>
 

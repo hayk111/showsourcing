@@ -12,9 +12,9 @@
 	<button
 		*ngIf="hasFilters"
 		class="icon"
-		(click)="listSrv.openFilterPanel()"
+		(click)="viewSrv.openFilterPanel()"
 		translate="button.show-filters">
-		<icon-app class="{{ listSrv.filterPanelOpen ? 'color-primary' :  'color-third' }}" name="filter" size="m"></icon-app>
+		<icon-app class="{{ viewSrv.filterPanelOpen ? 'color-primary' :  'color-third' }}" name="filter" size="m"></icon-app>
 	</button>
 
 	<button
@@ -29,7 +29,7 @@
 	<span class="capitalize entities-count">
 		{{ listSrv.count$ | async }}
 		{{ (listSrv.count$ | async) < 2 ?
-			 (listSrv.entityMetadata.singular | translate) : (listSrv.entityMetadata.plural | translate) }}
+			 (viewSrv.entityMetadata.singular | translate) : (viewSrv.entityMetadata.plural | translate) }}
 	</span>
 
 </div>

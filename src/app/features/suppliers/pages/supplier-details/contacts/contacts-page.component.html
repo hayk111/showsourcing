@@ -18,7 +18,7 @@
 	[currentPage]="listSrv.currentPage"
 	(goToPage)="listSrv.loadPage($event)"
 	(delete)="listSrv.deleteOne($event)"
-	(open)="listSrv.goToDetails($event)"
+	(open)="viewSrv.goToDetails($event)"
 	(openCreateRequestDlg)="dialogCommonSrv.openSupplierRequest([$event])"
 	(select)="listSrv.selectOne($event, true)"
 	(selectAll)="listSrv.selectAll($event, true)"

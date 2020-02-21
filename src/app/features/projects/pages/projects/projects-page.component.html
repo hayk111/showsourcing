@@ -51,12 +51,12 @@
 		(unselectAll)="listSrv.unselectAll()">
 	</project-selection-bar-app>
 
-	<side-panel-app *ngIf="listSrv.filterPanelOpen">
+	<side-panel-app *ngIf="viewSrv.filterPanelOpen">
 		<filters-app
-			*ngIf="listSrv.filterPanelOpen"
+			*ngIf="viewSrv.filterPanelOpen"
 			[filterList]="filterSrv.filterList"
 			[filterTypes]="filterTypes"
-			(clickOutside)="listSrv.closeFilterPanel()">
+			(clickOutside)="viewSrv.closeFilterPanel()">
 		</filters-app>
 	</side-panel-app>
 

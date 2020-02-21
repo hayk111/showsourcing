@@ -19,8 +19,8 @@
 						(unfavorited)="listSrv.onItemUnfavorited(product?.id)"
 						(liked)="listSrv.onThumbUp(product)"
 						(disliked)="listSrv.onThumbDown(product)"
-						(open)="listSrv.goToDetails(product.id)"
-						(preview)="listSrv.openPreview(product)"
+						(open)="viewSrv.goToDetails(product.id)"
+						(preview)="viewSrv.openPreview(product)"
 						(select)="listSrv.selectOne(product, true)"
 						(unselect)="listSrv.unselectOne(product, true)"
 						(update)="listSrv.update($event)">
@@ -48,8 +48,8 @@
 </card-app>
 
 <product-preview-app
-	*ngIf="listSrv.previewOpen"
-	[product]="listSrv.previewed"
+	*ngIf="viewSrv.previewOpen"
+	[product]="viewSrv.previewed"
 	(updated)="previewUpdated()"
-	(close)="listSrv.closePreview()">
+	(close)="viewSrv.closePreview()">
 </product-preview-app>

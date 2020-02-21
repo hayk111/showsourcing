@@ -23,8 +23,8 @@
 	(unselect)="listSrv.unselectOne($event, true)"
 	(selectAll)="listSrv.selectAll($event, true)"
 	(unselectAll)="listSrv.unselectAll()"
-	(open)="listSrv.goToDetails($event)"
-	(previewClick)="listSrv.openPreview($event)"
+	(open)="viewSrv.goToDetails($event)"
+	(previewClick)="viewSrv.openPreview($event)"
 	(createClick)="openSupplierRequest()"
 	(delete)="listSrv.deleteOne($event, true)">
 </requests-table-app> -->

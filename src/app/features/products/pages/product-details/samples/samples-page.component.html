@@ -8,7 +8,7 @@
 			[ngStyle]="first ? { 'padding-top' : 0 } : ''"
 			[sample]="sample"
 			[selection]="listSrv.selection$ | async"
-			(nameClick)="listSrv.openPreview($event)"
+			(nameClick)="viewSrv.openPreview($event)"
 			(select)="listSrv.selectOne($event, true)"
 			(unselect)="listSrv.unselectOne($event, true)">
 		</sample-list-item-app>
@@ -47,8 +47,8 @@
 
 <!-- preview -->
 <sample-preview-app
-	*ngIf="listSrv.previewOpen"
-	[sample]="listSrv.previewed"
-	(close)="listSrv.closePreview()"
-	(clickOutside)="listSrv.closePreview()">
+	*ngIf="viewSrv.previewOpen"
+	[sample]="viewSrv.previewed"
+	(close)="viewSrv.closePreview()"
+	(clickOutside)="viewSrv.closePreview()">
 </sample-preview-app>

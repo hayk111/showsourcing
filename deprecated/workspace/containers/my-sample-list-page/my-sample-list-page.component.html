@@ -4,7 +4,7 @@
 	[hasFilter]="true"
 	[filtersAmount]="getFilterAmount()"
 	[searchValue]="filterSrv.searchValue"
-	(showFilters)="listSrv.openFilterPanel()"
+	(showFilters)="viewSrv.openFilterPanel()"
 	(search)="listSrv.search($event)"
 	(viewChange)="goToKanban()">
 	<controller-list-left-item-app>
@@ -31,7 +31,7 @@
 	[count]="listSrv.count$ | async"
 	[currentPage]="listSrv.currentPage"
 	(goToPage)="listSrv.loadPage($event)"
-	(previewClick)="listSrv.openPreview($event)"
+	(previewClick)="viewSrv.openPreview($event)"
 	(select)="listSrv.selectOne($event)"
 	(unselect)="listSrv.unselectOne($event)"
 	(selectAll)="listSrv.selectAll($event)"
@@ -64,14 +64,14 @@
 </selection-bar-app>
 
 <filters-app
-	*ngIf="listSrv.filterPanelOpen"
+	*ngIf="viewSrv.filterPanelOpen"
 	[filterList]="filterSrv.filterList"
 	[filterTypes]="filterTypes"
-	(clickOutside)="listSrv.closeFilterPanel()">
+	(clickOutside)="viewSrv.closeFilterPanel()">
 </filters-app>
 
 <sample-preview-app
-	*ngIf="listSrv.previewOpen"
-	[sample]="listSrv.previewed"
-	(close)="listSrv.closePreview()">
+	*ngIf="viewSrv.previewOpen"
+	[sample]="viewSrv.previewed"
+	(close)="viewSrv.closePreview()">
 </sample-preview-app>

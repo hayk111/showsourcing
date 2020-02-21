@@ -22,27 +22,27 @@
 	(unselect)="listSrv.unselectOne($event, true)"
 	(selectAll)="listSrv.selectAll($event, true)"
 	(unselectAll)="listSrv.unselectAll()"
-	(open)="listSrv.goToDetails($event)"
-	(previewClick)="listSrv.openPreview($event)"
+	(open)="viewSrv.goToDetails($event)"
+	(previewClick)="viewSrv.openPreview($event)"
 	(createClick)="dialogCommonSrv.openCreationSampleDialog(undefined, supplier)"
 	(delete)="listSrv.deleteOne($event)">
 </samples-table-app>
 
 
 <sample-preview-app
-	*ngIf="listSrv.previewOpen"
-	[sample]="listSrv.previewed"
-	(close)="listSrv.closePreview()"
-	(clickOutside)="listSrv.closePreview()">
+	*ngIf="viewSrv.previewOpen"
+	[sample]="viewSrv.previewed"
+	(close)="viewSrv.closePreview()"
+	(clickOutside)="viewSrv.closePreview()">
 </sample-preview-app>
 
 
-<side-panel-app *ngIf="listSrv.filterPanelOpen">
+<side-panel-app *ngIf="viewSrv.filterPanelOpen">
 	<filters-app
 		[filterList]="filterSrv.filterList"
 		[filterTypes]="filterTypes"
-		(clickOutside)="listSrv.closeFilterPanel()"
-		(close)="listSrv.closeFilterPanel()">
+		(clickOutside)="viewSrv.closeFilterPanel()"
+		(close)="viewSrv.closeFilterPanel()">
 	</filters-app>
 </side-panel-app>
 

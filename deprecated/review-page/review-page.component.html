@@ -15,7 +15,7 @@
   [pending]="listSrv.pending"
   [currentSort]="listSrv.currentSort"
   [selection]="listSrv.selection$ | async"
-  (previewClick)="listSrv.openPreview($event)"
+  (previewClick)="viewSrv.openPreview($event)"
   (update)="listSrv.update($event)"
   (select)="listSrv.selectOne($event, true)"
   (unselect)="listSrv.unselectOne($event, true)"
@@ -25,7 +25,7 @@
   (delete)="listSrv.deleteOne($event)"
   (archive)="onArchive($event)"
   (statusUpdated)="onStatusUpdated($event)"
-	(open)="listSrv.goToDetails($event)">
+	(open)="viewSrv.goToDetails($event)">
 </products-review-grid-view-app>
 
 <selection-bar-app
@@ -65,8 +65,8 @@
 </selection-bar-app>
 
 <product-preview-app
-  *ngIf="listSrv.previewOpen"
-  [product]="listSrv.previewed"
-  (close)="listSrv.closePreview()">
+  *ngIf="viewSrv.previewOpen"
+  [product]="viewSrv.previewed"
+  (close)="viewSrv.closePreview()">
 </product-preview-app>
 

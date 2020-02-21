@@ -14,7 +14,7 @@
 
 	<ng-container>
 		<products-table-app
-			*ngIf="listSrv.view === 'table'"
+			*ngIf="viewSrv.view === 'table'"
 			[columns]="columns"
 			[selection]="listSrv.selection$ | async"
 			[rows]="listSrv.items$ | async"
@@ -25,13 +25,13 @@
 			[currentPage]="listSrv.currentPage"
 			createEntityBtnName="Add Product"
 			(goToPage)="listSrv.loadPage($event)"
-			(previewClick)="listSrv.openPreview($event)"
+			(previewClick)="viewSrv.openPreview($event)"
 			(select)="listSrv.selectOne($event, true)"
 			(unselect)="listSrv.unselectOne($event, true)"
 			(selectAll)="listSrv.selectAll($event, true)"
 			(unselectAll)="listSrv.unselectAll()"
 			(archive)="listSrv.archiveOne($event)"
-			(open)="listSrv.goToDetails($event)"
+			(open)="viewSrv.goToDetails($event)"
 			(createClick)="dialogCommonSrv.openSelectProductDlg([], project)"
 			(openAddSampleDialog)="dialogCommonSrv.openCreationSampleDialog($event)"
 			(update)="listSrv.update($event)"
@@ -44,7 +44,7 @@
 		<products-grid-app
 			infiniScroll
 			cdk-scrollable
-			*ngIf="listSrv.view === 'card'"
+			*ngIf="viewSrv.view === 'card'"
 			[currentSort]="listSrv.currentSort"
 			[rows]="listSrv.items$ | async"
 			[selection]="listSrv.selection$ | async"
@@ -52,8 +52,8 @@
 			(bottomReached)="listSrv.loadMore()"
 			(disliked)="listSrv.onThumbDown($event, erm.PRODUCT.singular)"
 			(liked)="listSrv.onThumbUp($event, erm.PRODUCT.singular)"
-			(open)="listSrv.goToDetails($event)"
-			(previewClick)="listSrv.openPreview($event)"
+			(open)="viewSrv.goToDetails($event)"
+			(previewClick)="viewSrv.openPreview($event)"
 			(select)="listSrv.selectOne($event, true)"
 			(unfavorited)="listSrv.onItemUnfavorited($event)"
 			(unselect)="listSrv.unselectOne($event, true)"
@@ -61,10 +61,10 @@
 		</products-grid-app>
 
 		<products-board-app
-			*ngIf="listSrv.view === 'board'"
+			*ngIf="viewSrv.view === 'board'"
 			(selectOne)="listSrv.selectOne($event, true)"
 			(unselectOne)="listSrv.unselectOne($event, true)"
-			(preview) = "listSrv.openPreview($event)">
+			(preview) = "viewSrv.openPreview($event)">
 		</products-board-app>
 
 		<product-selection-bar-app
@@ -85,20 +85,20 @@
 			(unselectAll)="listSrv.unselectAll()">
 		</product-selection-bar-app>
 
-		<side-panel-app *ngIf="listSrv.filterPanelOpen">
+		<side-panel-app *ngIf="viewSrv.filterPanelOpen">
 			<filters-app
 				[filterList]="filterSrv.filterList"
 				[filterTypes]="filterTypes"
-				(clickOutside)="listSrv.closeFilterPanel()"
-				(close)="listSrv.closeFilterPanel()">
+				(clickOutside)="viewSrv.closeFilterPanel()"
+				(close)="viewSrv.closeFilterPanel()">
 			</filters-app>
 		</side-panel-app>
 
 		<product-preview-app
-			*ngIf="listSrv.previewOpen"
-			[product]="listSrv.previewed"
+			*ngIf="viewSrv.previewOpen"
+			[product]="viewSrv.previewed"
 			[isPreview]="false"
-			(close)="listSrv.closePreview()">
+			(close)="viewSrv.closePreview()">
 		</product-preview-app>
 	</ng-container>
 

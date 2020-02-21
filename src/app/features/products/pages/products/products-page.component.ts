@@ -11,6 +11,7 @@ import {
 	UserService
 } from '~core/erm';
 import { ListPageService } from '~core/list-page';
+import { ListPageViewService } from '~core/list-page/list-page-view.service';
 import { DialogService } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
 import { FilterService } from '~shared/filters/services/filter.service';
@@ -26,7 +27,7 @@ import { AutoUnsub } from '~utils';
 	selector: 'products-page-app',
 	templateUrl: './products-page.component.html',
 	styleUrls: ['./products-page.component.scss'],
-	providers: [ListPageService, KanbanService, KanbanSelectionService],
+	providers: [ListPageService, KanbanService, KanbanSelectionService, ListPageViewService],
 	host: {
 		class: 'table-page'
 	}
@@ -62,7 +63,8 @@ export class ProductsPageComponent extends AutoUnsub
 		private userSrv: UserService,
 		protected dlgSrv: DialogService,
 		protected kanbanSelectionSrv: KanbanSelectionService,
-		private filterSrv: FilterService
+		private filterSrv: FilterService,
+		private viewSrv: ListPageViewService<Product>
 	) {
 		super();
 	}
@@ -135,7 +137,7 @@ export class ProductsPageComponent extends AutoUnsub
 	}
 
 	getSelection$() {
-		if (this.listSrv.view !== 'board') {
+		if (this.viewSrv.view !== 'board') {
 			return this.listSrv.selection$;
 		} else {
 			return this.kanbanSelectionSrv.selection$;
@@ -143,7 +145,7 @@ export class ProductsPageComponent extends AutoUnsub
 	}
 
 	getSelectableItems$() {
-		if (this.listSrv.view !== 'board') {
+		if (this.viewSrv.view !== 'board') {
 			return this.listSrv.items$;
 		} else {
 			return this.kanbanSelectionSrv.selectableItems$;
@@ -151,7 +153,7 @@ export class ProductsPageComponent extends AutoUnsub
 	}
 
 	selectAll(entities: any[]) {
-		if (this.listSrv.view !== 'board') {
+		if (this.viewSrv.view !== 'board') {
 			return this.listSrv.selectAll(entities);
 		} else {
 			return this.kanbanSelectionSrv.selectAllFromColumn();
@@ -159,7 +161,7 @@ export class ProductsPageComponent extends AutoUnsub
 	}
 
 	unselectAll() {
-		if (this.listSrv.view !== 'board') {
+		if (this.viewSrv.view !== 'board') {
 			return this.listSrv.unselectAll();
 		} else {
 			return this.kanbanSelectionSrv.unselectAllFromColumn();
