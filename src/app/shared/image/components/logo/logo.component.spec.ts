@@ -1,5 +1,3 @@
-
-
-describe('Logo component', () => {
-	it('should', () => {});
+xdescribe("Logo component", () => {
+	it("should", () => {});
 });

@@ -213,10 +213,6 @@ export class ListPageService
 		).subscribe();
 	}
 
-	onItemFavorited(id: string) {
-		this.dataSrv.update({ id, favorite: true } as any).subscribe();
-	}
-
 	onItemUnfavorited(id: string) {
 		this.dataSrv.update({ id, favorite: false } as any).subscribe();
 	}
@@ -229,34 +225,6 @@ export class ListPageService
 	onThumbDown(item: T, type: TypeWithVotes) {
 		const votes = this.ratingSrv.thumbDown(item, type);
 		return this.dataSrv.update({ id: item.id, votes } as any).subscribe();
-	}
-
-	/**
-	 * update the vote of a given selection of items (products) when given thumb up
-	 * @param isCreated if true the vote is created, if false, removed
-	 */
-	onMultipleThumbUp(isCreated: boolean, type: TypeWithVotes) {
-		const updated = [];
-		this.getSelectedValues().forEach(item => {
-			const votes = this.ratingSrv.thumbUpFromMulti(item, isCreated, type);
-			updated.push({ id: item.id, votes });
-		});
-		this.dataSrv.updateMany(updated).subscribe();
-		return updated;
-	}
-
-	/**
- * update the vote of a given selection of items (products) when given thumb down
- * @param isCreated if true the vote is created, if false, removed
- */
-	onMultipleThumbDown(isCreated: boolean, type: TypeWithVotes) {
-		const updated = [];
-		this.getSelectedValues().forEach(item => {
-			const votes = this.ratingSrv.thumbDownFromMulti(item, isCreated, type);
-			updated.push({ id: item.id, votes });
-		});
-		this.dataSrv.updateMany(updated).subscribe();
-		return updated;
 	}
 
 	// entities with audit have the flag deleted, so when they are deleted they are actually updated

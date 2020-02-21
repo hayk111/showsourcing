@@ -165,16 +165,6 @@ export class SuppliersBoardComponent extends AutoUnsub implements OnInit {
 		this.kanbanSrv.updateMany(updated);
 	}
 
-	onMultipleThumbUp(isCreated) {
-		const updated = this.listSrv.onMultipleThumbUp(isCreated, EntityName.SUPPLIER);
-		this.kanbanSrv.updateMany(updated);
-	}
-
-	onMultipleThumbDown(isCreated) {
-		const updated = this.listSrv.onMultipleThumbDown(isCreated, EntityName.SUPPLIER);
-		this.kanbanSrv.updateMany(updated);
-	}
-
 	deleteSelected() {
 		const itemIds = this.listSrv.getSelectedIds();
 		const del = translate('delete');

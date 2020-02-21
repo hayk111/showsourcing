@@ -40,12 +40,10 @@
 		[selection]="listSrv.selection$ | async"
 		(addToProject)="onProjectDlgOpen()"
 		(disliked)="listSrv.onThumbDown($event, erm.PRODUCT.singular)"
-		(favorited)="listSrv.onItemFavorited($event)"
 		(liked)="listSrv.onThumbUp($event, erm.PRODUCT.singular)"
 		(open)="listSrv.goToDetails($event)"
 		(previewClick)="listSrv.openPreview($event)"
 		(select)="listSrv.selectOne($event, true)"
-		(unfavorited)="listSrv.onItemUnfavorited($event)"
 		(unselect)="listSrv.unselectOne($event, true)"
 		(update)="listSrv.update($event)"
 		(bottomReached)="listSrv.loadMore()">
