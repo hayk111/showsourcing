@@ -4,12 +4,22 @@ import { empty, Observable } from 'rxjs';
 import { filter, map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { CreationDialogComponent } from '~common/dialogs/creation-dialogs';
 import { ExportDlgComponent } from '~common/dialogs/custom-dialogs';
-import { EntityMetadata, GlobalServiceInterface, SelectParamsConfig, UserService, Entity } from '~core/erm';
+import {
+	Entity,
+	EntityMetadata,
+	GlobalServiceInterface,
+	SelectParamsConfig,
+	UserService
+} from '~core/erm';
 import { View } from '~shared/controller-table/components';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
-import { Filter, FilterType } from '~shared/filters';
-import { RatingService, TypeWithVotes } from '~shared/rating/services/rating.service';
+import { FilterType, Filter } from '~shared/filters';
+import { FilterService } from '~shared/filters/services/filter.service';
+import {
+	RatingService,
+	TypeWithVotes
+} from '~shared/rating/services/rating.service';
 import { Sort } from '~shared/table/components/sort.interface';
 import { ToastService, ToastType } from '~shared/toast';
 import { showsourcing } from '~utils/debug-object.utils';
@@ -18,13 +28,11 @@ import { ListPageDataService } from './list-page-data.service';
 import { ListPageViewService } from './list-page-view.service';
 import { SelectionService } from './selection.service';
 
-
 // It has four legs and it can fly, what is it?
 // -
 // Two birds.
 
 // TODO: refacotr needed to make it more modulable. For example see product-activity.ts
-
 
 export interface ListPageConfig extends ListPageDataConfig {
 	entityMetadata: EntityMetadata;
@@ -43,9 +51,10 @@ export interface ListPageConfig extends ListPageDataConfig {
 @Injectable({
 	providedIn: 'root'
 })
-export class ListPageService
-	<T extends Entity, G extends GlobalServiceInterface<T>> {
-
+export class ListPageService<
+	T extends Entity,
+	G extends GlobalServiceInterface<T>
+> {
 	selectionSrv: SelectionService;
 	dataSrv: ListPageDataService<T, G>;
 	viewSrv: ListPageViewService<T>;
@@ -57,6 +66,7 @@ export class ListPageService
 		private zone: NgZone,
 		private userSrv: UserService,
 		private toastSrv: ToastService,
+		private filterSrv: FilterService
 	) {
 		if (!showsourcing.tables) {
 			showsourcing.tables = {};
@@ -77,7 +87,6 @@ export class ListPageService
 		}
 	}
 
-
 	loadData(destroy$: Observable<void>) {
 		if (!destroy$) {
 			throw Error('Please provide a originComponentDestroyed$ observable');
@@ -85,9 +94,9 @@ export class ListPageService
 		this.closePreview();
 		this.dataSrv.loadData(destroy$);
 		// we need to reset selection when filter changes
-		this.dataSrv.filterList.valueChanges$.pipe(
-			takeUntil(destroy$)
-		).subscribe(_ => this.selectionSrv.unselectAll());
+		this.filterSrv.filterList.valueChanges$
+			.pipe(takeUntil(destroy$))
+			.subscribe(_ => this.selectionSrv.unselectAll());
 	}
 
 	/**
@@ -138,7 +147,8 @@ export class ListPageService
 	}
 
 	get filterList() {
-		return this.dataSrv.filterList;
+		// TODO remove filterList and adapt all dependant files with filterSrv
+		return this.filterSrv.filterList;
 	}
 
 	get currentSort() {
@@ -149,12 +159,13 @@ export class ListPageService
 	}
 
 	get isFiltering() {
-		// when searching or filtering by non initial filters
-		return !!this.filterList.search || (this.filterList.asFilters().length > this.filterList.initialFilters.length);
+		// TODO replace all dependant files with filterSrv
+		return this.filterSrv.isFiltering();
 	}
 
 	get searchValue() {
-		return this.filterList.search;
+		// TODO replace all dependant files with filterSrv
+		return this.filterSrv.searchValue;
 	}
 
 	refetch(config?: SelectParamsConfig) {
@@ -166,7 +177,9 @@ export class ListPageService
 	}
 
 	loadPage(page: number, config?: SelectParamsConfig) {
-		this.dataSrv.loadPage(page, config).subscribe(_ => this.selectionSrv.unselectAll());
+		this.dataSrv
+			.loadPage(page, config)
+			.subscribe(_ => this.selectionSrv.unselectAll());
 	}
 
 	loadNextPage() {
@@ -174,11 +187,15 @@ export class ListPageService
 	}
 
 	loadPreviousPage() {
-		this.dataSrv.loadPreviousPage().subscribe(_ => this.selectionSrv.unselectAll());
+		this.dataSrv
+			.loadPreviousPage()
+			.subscribe(_ => this.selectionSrv.unselectAll());
 	}
 
 	loadFirstPage() {
-		this.dataSrv.loadFirstPage().subscribe(_ => this.selectionSrv.unselectAll());
+		this.dataSrv
+			.loadFirstPage()
+			.subscribe(_ => this.selectionSrv.unselectAll());
 	}
 
 	loadLastPage() {
@@ -198,19 +215,22 @@ export class ListPageService
 	}
 
 	updateSelected(value: any) {
-		const items = this.getSelectedIds()
-			.map(id => ({ id, ...value }));
+		const items = this.getSelectedIds().map(id => ({ id, ...value }));
 		this.dataSrv.updateMany(items).subscribe();
 	}
 
 	update(value: T) {
-		this.dataSrv.update(value).pipe(
-		).subscribe();
+		this.dataSrv
+			.update(value)
+			.pipe()
+			.subscribe();
 	}
 
 	updateMany(values: T[]) {
-		this.dataSrv.updateMany(values).pipe(
-		).subscribe();
+		this.dataSrv
+			.updateMany(values)
+			.pipe()
+			.subscribe();
 	}
 
 	onItemUnfavorited(id: string) {
@@ -233,47 +253,63 @@ export class ListPageService
 	// and not updating it
 	deleteOne(entity: T, refetch = false, callback?: () => void) {
 		const text = `Are you sure you want to delete this ${this.entityMetadata.singular} ?`;
-		this.dlgSrv.open(ConfirmDialogComponent, { text })
+		this.dlgSrv
+			.open(ConfirmDialogComponent, { text })
 			.pipe(
 				tap(_ => this.selectionSrv.unselectOne(entity)),
 				filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
 				switchMap(_ => this.dataSrv.deleteOne(entity.id)),
 				tap(_ => callback()),
-				switchMap(_ => refetch ? this.refetch() : empty())
-			).subscribe();
+				switchMap(_ => (refetch ? this.refetch() : empty()))
+			)
+			.subscribe();
 	}
 
 	// read comment on deleteOne function
 	deleteSelected(refetch = false) {
 		const itemIds = this.getSelectedIds();
 		// TODO i18n + erm pipe
-		const text = `Delete ${itemIds.length} `
-			+ (itemIds.length <= 1 ? this.entityMetadata.singular : this.entityMetadata.plural) + '?';
-		this.dlgSrv.open(ConfirmDialogComponent, { text }).pipe(
-			filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
-			switchMap(_ => this.dataSrv.deleteMany(itemIds)),
-			// unselect must go before refetch, otherwise it won't update
-			tap(_ => this.selectionSrv.unselectAll()),
-			switchMap(_ => refetch ? this.refetch() : empty())
-		).subscribe();
+		const text =
+			`Delete ${itemIds.length} ` +
+			(itemIds.length <= 1
+				? this.entityMetadata.singular
+				: this.entityMetadata.plural) +
+			'?';
+		this.dlgSrv
+			.open(ConfirmDialogComponent, { text })
+			.pipe(
+				filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
+				switchMap(_ => this.dataSrv.deleteMany(itemIds)),
+				// unselect must go before refetch, otherwise it won't update
+				tap(_ => this.selectionSrv.unselectAll()),
+				switchMap(_ => (refetch ? this.refetch() : empty()))
+			)
+			.subscribe();
 	}
 
 	/** creates a new entity, can also create with defaul values with extra?: any */
 	create(canRedirect = false, extra?: any) {
-		this.dlgSrv.open(CreationDialogComponent, { type: this.entityMetadata, extra, canRedirect }).pipe(
-			filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
-			map((evt: CloseEvent) => evt.data)
-		).subscribe(({ item, redirect }) => {
-			// we don't want to put this in a switchmap because we don't want to wait
-			// for the refect before redirecting
-			this.refetch().subscribe();
-			if (redirect)
-				this.redirectToCreated(item.id);
-		});
+		this.dlgSrv
+			.open(CreationDialogComponent, {
+				type: this.entityMetadata,
+				extra,
+				canRedirect
+			})
+			.pipe(
+				filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
+				map((evt: CloseEvent) => evt.data)
+			)
+			.subscribe(({ item, redirect }) => {
+				// we don't want to put this in a switchmap because we don't want to wait
+				// for the refect before redirecting
+				this.refetch().subscribe();
+				if (redirect) this.redirectToCreated(item.id);
+			});
 	}
 
 	archiveOne(entity: T) {
-		this.dataSrv.update({ id: entity.id, archived: true } as unknown as T)
+		this.dataSrv
+			.update(({ id: entity.id, archived: true } as unknown) as T)
 			.pipe(switchMap(_ => this.refetch()))
 			.subscribe(_ => {
 				this.toastSrv.add({
@@ -285,9 +321,13 @@ export class ListPageService
 	}
 
 	archiveMany(entities: T[]) {
-		this.dataSrv.updateMany(
-			entities.map(entity => ({ id: entity.id, archived: true } as unknown as T))
-		).pipe(switchMap(_ => this.refetch()))
+		this.dataSrv
+			.updateMany(
+				entities.map(
+					entity => (({ id: entity.id, archived: true } as unknown) as T)
+				)
+			)
+			.pipe(switchMap(_ => this.refetch()))
 			.subscribe(_ => {
 				this.toastSrv.add({
 					type: ToastType.SUCCESS,
@@ -297,28 +337,30 @@ export class ListPageService
 			});
 	}
 
-
 	private redirectToCreated(id: string) {
 		if (this.entityMetadata.destUrl)
 			this.router.navigate([this.entityMetadata.destUrl, id]);
-		else
-			throw Error(`no destination url`);
+		else throw Error(`no destination url`);
 	}
 
 	addFilter(_filter: Filter) {
-		this.dataSrv.addFilter(_filter);
+		// TODO replace all dependant files with filterSrv
+		this.filterSrv.addFilter(_filter);
 	}
 
 	removeFilter(_filter: Filter) {
-		this.dataSrv.removeFilter(_filter);
+		// TODO replace all dependant files with filterSrv
+		this.filterSrv.removeFilter(_filter);
 	}
 
 	removeFilterType(filterType: FilterType) {
-		this.dataSrv.removeFilterType(filterType);
+		// TODO replace all dependant files with filterSrv
+		this.filterSrv.removeFilterType(filterType);
 	}
 
 	resetFilters() {
-		this.dataSrv.filterList.reset();
+		// TODO replace all dependant files with filterSrv
+		this.filterSrv.filterList.reset();
 	}
 
 	/** bridge for view service */
@@ -404,59 +446,34 @@ export class ListPageService
 	}
 
 	getFilterAmount(): number {
-		const filters = this.filterList.asFilters()
-			.filter(fil => !this.filterList.initialFilters.some(elem => elem.type === fil.type && elem.value === fil.value));
-		return filters.length;
+		// TODO replace all dependant files with filterSrv
+		return this.filterSrv.getFilterAmount;
 	}
 
 	/** filter by archived, attention, weird logic:
 	 * if shouldAdd is true we the products archived
 	 * if shouldAdd is false we only see the not archived + not archived */
 	filterByArchived(shouldAdd: boolean) {
-		const filterParam = { type: FilterType.ARCHIVED, value: false };
-
-		if (shouldAdd) {
-			this.addFilter(filterParam);
-			return;
-		}
-
-		this.removeFilter(filterParam);
+		// TODO replace all dependant files with filterSrv
+		this.filterSrv.filterByArchived(shouldAdd);
 	}
 
 	filterByAssignedToMe(shouldAdd: boolean) {
-		const filterParam = { type: FilterType.ASSIGNEE, value: this.userSrv.userIdSync };
-
-		if (shouldAdd) {
-			this.addFilter(filterParam);
-			return;
-		}
-
-		this.removeFilter(filterParam);
+		// TODO replace all dependant files with filterSrv
+		this.filterSrv.filterByAssignedToMe(shouldAdd);
 	}
 
 	/** filter by done, attention, weird logic:
 	 * if shouldAdd is true we the products done
 	 * if shouldAdd is false we only see the not done + not done */
 	filterByDone(shouldAdd: boolean) {
-		const filterParam = { type: FilterType.DONE, value: false };
-
-		if (shouldAdd) {
-			this.addFilter(filterParam);
-			return;
-		}
-
-		this.removeFilter(filterParam);
+		// TODO replace all dependant files with filterSrv
+		this.filterSrv.filterByDone(shouldAdd);
 	}
 
 	filterByCreatedByMe(shouldAdd: boolean) {
-		const filterParam = { type: FilterType.CREATED_BY, value: this.userSrv.userIdSync };
-
-		if (shouldAdd) {
-			this.addFilter(filterParam);
-			return;
-		}
-
-		this.removeFilter(filterParam);
+		// TODO replace all dependant files with filterSrv
+		this.filterSrv.filterByCreatedByMe(shouldAdd);
 	}
 
 	exportSelection() {
@@ -464,6 +481,9 @@ export class ListPageService
 	}
 
 	exportAll() {
-		this.dlgSrv.open(ExportDlgComponent, { query: 'deleted == false AND archived == false', type: this.entityMetadata.entityName });
+		this.dlgSrv.open(ExportDlgComponent, {
+			query: 'deleted == false AND archived == false',
+			type: this.entityMetadata.entityName
+		});
 	}
 }
