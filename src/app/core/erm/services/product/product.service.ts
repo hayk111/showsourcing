@@ -4,17 +4,17 @@ import { AnalyticsService } from '~core/analytics/analytics.service';
 import { Product } from '~core/erm/models';
 import { ProductQueries } from '~core/erm/services/product/product.queries';
 import { UserService } from '~core/erm/services/user/user.service';
-import { GlobalWithAuditService } from '~core/erm/services/_global/global-with-audit.service';
+import { GlobalService } from '../_global/global.service-2';
 
 @Injectable({
 	providedIn: 'root'
 })
-export class ProductService extends GlobalWithAuditService<Product> {
+export class ProductService extends GlobalService<Product> {
 
 	constructor(
 		protected analytics: AnalyticsService,
 		protected userSrv: UserService) {
-		super(ProductQueries, 'product', 'products', userSrv, analytics);
+		super(ProductQueries, 'product', undefined, analytics);
 	}
 
 	private _selectedProds$ = new Subject<Product[]>();

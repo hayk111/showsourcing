@@ -37,7 +37,7 @@ export class QueryBuilder {
 		_version
 	`;
 
-	constructor(public entityName: string, customQueries?: CustomQueries) {
+	constructor(public entityName: string, customQueries: CustomQueries =  {}) {
 		if (!entityName) {
 			throw Error('you must define the singular form of the typename');
 		}
@@ -48,12 +48,10 @@ export class QueryBuilder {
 	// get
 	queryOne = (str: string) => {
 		const query = this.customQueries.queryOne || `
-			query Get${this.entityName}($teamId: ID!, $id: ID!) {
-				get${this.entityName}(teamId: $teamId, id: $id) {
+			query Get${this.entityName}($id: ID!) {
+				get${this.entityName}(id: $id) {
 					id
-					teamId
 					${str}
-					${this.audit}
 				}
 			}`;
 		return gql(query);

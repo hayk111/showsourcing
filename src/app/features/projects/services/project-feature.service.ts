@@ -34,7 +34,7 @@ export class ProjectFeatureService extends ProjectService {
 	 */
 	updateProductStatus(product: Product, status: ProductStatus) {
 		// we check if the product has a status
-		return this.productSrv.update({ id: product.id, status: status.id });
+		return this.productSrv.update({ id: product.id, status: { id: status.id} });
 	}
 
 

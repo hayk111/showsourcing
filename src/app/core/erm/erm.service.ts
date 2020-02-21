@@ -133,7 +133,7 @@ export class ERMService {
 			case 'LengthUnit':
 				return this.lenghtUnitSrv;
 			case 'Product':
-				return this.productService;
+				return this.productService as any;
 			case 'ProductStatus':
 				return this.productStatusSrv;
 			case 'Project':
@@ -215,7 +215,7 @@ export class ERMService {
 			case ERM.LENGTH_UNIT:
 				return this.lenghtUnitSrv;
 			case ERM.PRODUCT:
-				return this.productService;
+				return this.productService as any;
 			case ERM.PRODUCT_STATUS:
 				return this.productStatusSrv;
 			case ERM.PROJECT:

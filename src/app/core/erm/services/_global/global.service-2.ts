@@ -27,6 +27,8 @@ export abstract class GlobalService<T extends Entity> {
 	protected queryBuilder: QueryBuilder;
 	protected typeName: string;
 	protected listQuery: any;
+	protected static teamId: string;
+	protected useTeamId = true;
 
 	constructor(
 		protected fields: any,
@@ -367,7 +369,10 @@ export abstract class GlobalService<T extends Entity> {
 		fields = this.getFields(fields, this.fields.all);
 		const query = this.queryBuilder.queryAll(fields);
 		const queryName = this.queryBuilder.getQueryName(query);
-		const variables = {};
+		const variables: any = { };
+		if (this.useTeamId) {
+			variables.teamId = GlobalService.teamId;
+		}
 
 		// const variables = new SelectAllParams(paramsConfig);
 		this.log(title, query, queryName);

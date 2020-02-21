@@ -35,6 +35,7 @@ import { TemplateService } from '~core/template/services/template.service';
 export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterViewInit {
 	erm = ERM;
 	filterTypeEnum = FilterType;
+	items$: Observable<Product[]>;
 	// filter displayed as button in the filter panel
 	filterTypes = [
 		FilterType.SUPPLIER,
@@ -73,6 +74,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 			this.listSrv.removeFilter(filterAssignee);
 	}
 	ngOnInit() {
+		this.items$ = this.productSrv.queryAll();
 		this.listSrv.setup({
 			entitySrv: this.productSrv,
 			searchedFields: ['name', 'supplier.name', 'category.name', 'description'],
@@ -82,13 +84,13 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 			originComponentDestroy$: this._destroy$
 		}, false);
 
-		this.productSrv.productListUpdate$.pipe(
-			switchMap(_ => this.listSrv.refetch())
-		).subscribe();
+		// this.productSrv.productListUpdate$.pipe(
+		// 	switchMap(_ => this.listSrv.refetch())
+		// ).subscribe();
 	}
 
 	ngAfterViewInit() {
-		this.listSrv.loadData(this._destroy$);
+		// this.listSrv.loadData(this._destroy$);
 	}
 
 	showItemsPerPage(count: number) {
