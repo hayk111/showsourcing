@@ -8,6 +8,7 @@ import { ListPageService } from '~core/list-page';
 import { SettingsMembersService } from '~features/settings/services/settings-members.service';
 import { ERM, TeamUser, User } from '~core/erm';
 import { AutoUnsub } from '~utils';
+import { PaginationService } from '~shared/pagination/services/pagination.service';
 
 @Component({
 	selector: 'settings-team-members-users-app',
@@ -26,6 +27,7 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub implements OnIn
 
 	constructor(
 		private featureSrv: SettingsMembersService,
+		private paginationSrv: PaginationService,
 		public listSrv: ListPageService<TeamUser, SettingsMembersService>,
 		public dialogCommonSrv: DialogCommonService,
 		private translate: TranslateService
@@ -84,6 +86,7 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub implements OnIn
 	}
 
 	showItemsPerPage(count: number) {
+		this.paginationSrv.setPerPageItems(count);
 		this.selectItemsConfig = { take: Number(count) };
 		this.listSrv.refetch(this.selectItemsConfig).subscribe();
 	}

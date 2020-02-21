@@ -10,6 +10,7 @@ import { DialogService } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
 import { TasksTableComponent } from '~common/tables/tasks-table/tasks-table.component';
+import { PaginationService } from '~shared/pagination/services/pagination.service';
 
 @Component({
 	selector: 'tasks-page-app',
@@ -44,6 +45,7 @@ export class TasksPageComponent extends AutoUnsub implements OnInit, AfterViewIn
 		public dialogCommonSrv: DialogCommonService,
 		public listSrv: ListPageService<Task, TaskService>,
 		private taskSrv: TaskService,
+		private paginationSrv: PaginationService,
 		public elem: ElementRef,
 		protected dlgSrv: DialogService,
 		private userSrv: UserService,
@@ -104,6 +106,7 @@ export class TasksPageComponent extends AutoUnsub implements OnInit, AfterViewIn
 	}
 
 	showItemsPerPage(count: number) {
+		this.paginationSrv.setPerPageItems(count);
 		this.selectItemsConfig = { take: Number(count) };
 		this.listSrv.refetch(this.selectItemsConfig).subscribe();
 	}

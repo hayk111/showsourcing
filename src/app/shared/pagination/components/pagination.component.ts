@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output, TemplateRef, OnInit } from '@angular/core';
 import { DEFAULT_TAKE_PAGINATION } from '~core/erm';
 import { TrackingComponent } from '~utils';
+import { PaginationService } from '../services/pagination.service';
 
 @Component({
 	selector: 'pagination-app',
@@ -12,10 +13,8 @@ import { TrackingComponent } from '~utils';
 		'[class.mg-top-ms]': 'range?.length > 1 && hasTopPadding' // adding margin top only if the element is being shown up
 	}
 })
-export class PaginationComponent extends TrackingComponent implements OnChanges {
+export class PaginationComponent extends TrackingComponent implements OnChanges, OnInit {
 
-	/** items that we will see per page */
-	@Input() itemsPerPage = DEFAULT_TAKE_PAGINATION;
 	/** total number of items */
 	@Input() count = 0;
 	/** whether we should show per page items count */
@@ -38,24 +37,38 @@ export class PaginationComponent extends TrackingComponent implements OnChanges 
 	@Output() goToPage = new EventEmitter<number>();
 	@Output() showItemsPerPage = new EventEmitter<number>();
 
+	/** items that we will see per page */
+	itemsPerPage = DEFAULT_TAKE_PAGINATION;
 	/** how many pages our pagination has */
 	totalPages;
 	/** the pages displayed */
 	range: Array<number> = [];
 	pageItemsCount = [25, 50, 100, 200];
 
-	ngOnChanges() {
+	constructor(public paginationSrv: PaginationService) {
+		super();
+	}
+
+	ngOnInit() {
+		this.paginationSrv.perPageItemsCount$.subscribe(count => {
+			this.itemsPerPage = count;
+		});
+	}
+
+	ngOnChanges(changes: any) {
 		this.totalPages = this.getTotalPages(this.count, this.itemsPerPage);
 		this.buildPaginatorRange();
 	}
 
 	onChangePerPageCount(count) {
-		this.goToIndexPage(0);
+		this.goToIndexPage(0, count);
 		this.showItemsPerPage.emit(count);
-		this.itemsPerPage = count;
-
-		this.totalPages = this.getTotalPages(this.count, this.itemsPerPage);
+		this.totalPages = this.getTotalPages(this.count, count);
 		this.buildPaginatorRange();
+	}
+
+	isSelected(item) {
+		return item === this.itemsPerPage;
 	}
 
 	goToIndexPage(page, disabled?: boolean) {

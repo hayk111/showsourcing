@@ -13,7 +13,7 @@ import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
 import { KanbanSelectionService } from '~shared/kanban/services/kanban-selection.service';
 import { KanbanService } from '~shared/kanban/services/kanban.service';
-import { TemplateService } from '~core/template/services/template.service';
+import { PaginationService } from '~shared/pagination/services/pagination.service';
 
 // dailah lama goes into pizza store
 // servant asks : what pizza do you want sir ?
@@ -59,6 +59,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		public listSrv: ListPageService<Product, ProductService>,
 		public elem: ElementRef,
 		private userSrv: UserService,
+		private paginationSrv: PaginationService,
 		protected dlgSrv: DialogService,
 		protected kanbanSelectionSrv: KanbanSelectionService,
 	) {
@@ -92,6 +93,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 	}
 
 	showItemsPerPage(count: number) {
+		this.paginationSrv.setPerPageItems(count);
 		this.selectItemsConfig = { take: Number(count) };
 		this.listSrv.refetch(this.selectItemsConfig).subscribe();
 	}

@@ -6,6 +6,7 @@ import { SelectionService } from '~core/list-page';
 import { ListPageService } from '~core/list-page';
 import { ERM, Event } from '~core/erm';
 import { AutoUnsub } from '~utils';
+import { PaginationService } from '~shared/pagination/services/pagination.service';
 
 @Component({
 	selector: 'event-data-page-app',
@@ -30,6 +31,7 @@ export class EventDataPageComponent extends AutoUnsub implements OnInit {
 
 	constructor(
 		private eventSrv: EventService,
+		private paginationSrv: PaginationService,
 		public listSrv: ListPageService<Event, EventService>,
 		public teamSrv: TeamService,
 		public companySrv: CompanyService,
@@ -57,6 +59,7 @@ export class EventDataPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	showItemsPerPage(count: number) {
+		this.paginationSrv.setPerPageItems(count);
 		this.selectItemsConfig = { take: Number(count) };
 		this.listSrv.refetch(this.selectItemsConfig).subscribe();
 	}

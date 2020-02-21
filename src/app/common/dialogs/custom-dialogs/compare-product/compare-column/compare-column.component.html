@@ -1,8 +1,12 @@
 
 <div class="top flexColumn">
   <img-app class="no-shrink" [image]="product.images"></img-app>
-  <div class="name ellipsis no-shrink"> {{ product.name }} </div>
-	<p class="description" title="{{ product?.description }}">{{ product.description }}</p>
+	<div class="name ellipsis no-shrink"> {{ product.name }} </div>
+	<div class="description-container">
+		<span class="description" title="{{ product?.description }}">
+			{{ product.description }}
+		</span>
+	</div>
 </div>
 
 <div class="bottom">

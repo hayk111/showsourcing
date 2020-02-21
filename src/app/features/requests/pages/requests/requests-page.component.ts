@@ -8,6 +8,7 @@ import { DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
+import { PaginationService } from '~shared/pagination/services/pagination.service';
 
 @Component({
 	selector: 'requests-page-app',
@@ -32,6 +33,7 @@ export class RequestsPageComponent extends AutoUnsub implements OnInit {
 	constructor(
 		private requestSrv: SupplierRequestService,
 		private replySrv: RequestReplyService,
+		private paginationSrv: PaginationService,
 		public listSrv: ListPageService<SupplierRequest, SupplierRequestService>,
 		public dialogCommonSrv: DialogCommonService,
 		private dlgSrv: DialogService,
@@ -80,6 +82,7 @@ export class RequestsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	showItemsPerPage(count: number) {
+		this.paginationSrv.setPerPageItems(count);
 		this.selectItemsConfig = { take: Number(count) };
 		this.listSrv.refetch(this.selectItemsConfig).subscribe();
 	}

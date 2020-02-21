@@ -8,6 +8,7 @@ import { ERM, ExportRequest } from '~core/erm';
 import { UserService } from '~core/erm';
 import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
+import { PaginationService } from '~shared/pagination/services/pagination.service';
 
 @Component({
 	selector: 'exports-page-app',
@@ -26,6 +27,7 @@ export class ExportsPageComponent extends AutoUnsub implements OnInit, AfterView
 	constructor(
 		private userSrv: UserService,
 		private exportSrv: ExportRequestService,
+		private paginationSrv: PaginationService,
 		public listSrv: ListPageService<ExportRequest, ExportRequestService>,
 		public dialogCommonSrv: DialogCommonService
 	) { super(); }
@@ -63,6 +65,7 @@ export class ExportsPageComponent extends AutoUnsub implements OnInit, AfterView
 	}
 
 	showItemsPerPage(count: number) {
+		this.paginationSrv.setPerPageItems(count);
 		this.selectItemsConfig = { take: Number(count) };
 		this.listSrv.refetch(this.selectItemsConfig).subscribe();
 	}

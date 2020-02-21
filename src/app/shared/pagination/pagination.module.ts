@@ -14,7 +14,7 @@ import { UtilsModule } from '~shared/utils';
 import { SelectorsModule } from '~shared/selectors/selectors.module';
 import { SelectionBarModule } from '~shared/selection-bar/selection-bar.module';
 import { TranslateModule } from '@ngx-translate/core';
-
+import { PaginationService } from './services/pagination.service';
 
 
 @NgModule({
@@ -34,6 +34,7 @@ import { TranslateModule } from '@ngx-translate/core';
 		SelectionBarModule,
 		TranslateModule
 	],
+	providers: [PaginationService],
 	declarations: [PaginationComponent],
 	exports: [PaginationComponent],
 })

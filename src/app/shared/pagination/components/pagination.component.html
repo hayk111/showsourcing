@@ -44,7 +44,7 @@ index: {{ currentPage }}
 	</button>
 
 	<div *ngIf="hasPageItemsCount" class="right">
-		<select class="custom-select" (change)="onChangePerPageCount($event.target.value)">
+		<select class="custom-select" (change)="onChangePerPageCount($event.target.value)" [value]="itemsPerPage">
 			<option *ngFor="let i of pageItemsCount">{{i}}</option>
 		</select>
 		<span class="items-page-count">
