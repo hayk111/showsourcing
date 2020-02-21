@@ -43,8 +43,14 @@ export class CompanyService extends GlobalService<Company> {
 		});
 	}
 
+	create(company: Company) {
+		return super.create(company).pipe(
+			switchMap(companyResp => this.saveCompany(companyResp))
+		);
+	}
+
 	/** picks a company, puts the selection in local storage */
-	saveCompany(company: Company): Observable<Company> {
+	private saveCompany(company: Company): Observable<Company> {
 		this.storage.setItem(COMPANY, company);
 		this._company$.next(company);
 		return this.company$.pipe(

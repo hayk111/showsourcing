@@ -57,7 +57,7 @@
       ],
       "~utils": [
         "app/utils/index"
-      ]
+			]
     }
   }
 }
