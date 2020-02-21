@@ -1,19 +1,21 @@
 import { Company } from '~core/erm/models/company.model';
 import { User } from '~core/erm/models/user.model';
-import { CreateTeamInput } from 'app/API.service';
 import { Entity } from './_entity.model';
+import { TeamUser } from './team-user.model';
 
-export class Team extends Entity<CreateTeamInput> {
-	__typename: string = 'Team';
+export class Team extends Entity<Team> {
+	id: string;
+	creationDate?: string;
+	createdBy?: User;
+	ownerUser: User;
 	name: string;
-	owner: User;
+	defaultCurrency: string;
+	users: [TeamUser];
+	realmServerName = 'default';
+	realmPath: string;
+	status = 'pending';
+	companyId: string;
 	company: Company;
-	createdBy: User;
-	createdOn: Date;
-	lastUpdatedBy?: User;
-	lastUpdateOn?: Date;
+	__typename ?= 'Team';
 
-	constructor(config: CreateTeamInput) {
-		super(config);
-	}
 }

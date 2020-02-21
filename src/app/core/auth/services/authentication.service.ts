@@ -56,7 +56,7 @@ export class AuthenticationService {
 	/** event that fires when we sign in */
 	signIn$ = this.authStatus$.pipe(
 		filter(status => status === AuthStatus.AUTHENTICATED),
-		mapTo('true')
+		map(_ => this.authState.user.id)
 	);
 	/** event that fires when we sign out */
 	signOut$ = this.authStatus$.pipe(

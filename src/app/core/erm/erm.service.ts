@@ -167,7 +167,7 @@ export class ERMService {
 			case 'TemplateField':
 				return this.templateFieldSrv;
 			case 'User':
-				return this.userSrv;
+				return this.userSrv as any;
 			case 'WeightUnit':
 				return this.weightUnitSrv;
 			default:
@@ -255,7 +255,7 @@ export class ERMService {
 			case ERM.TEMPLATE_FIELD:
 				return this.templateFieldSrv;
 			case ERM.USER:
-				return this.userSrv;
+				return this.userSrv as any;
 			case ERM.WEIGHT_UNIT:
 				return this.weightUnitSrv;
 			default:

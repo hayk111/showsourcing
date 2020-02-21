@@ -1,5 +1,5 @@
 import { uuid } from '~utils/uuid.utils';
-import { AppImage, AppImageConfig } from '~core/erm/models/app-image.model';
+import { AppImage } from '~core/erm/models/app-image.model';
 
 
 export class ImageUploadRequest {
@@ -8,7 +8,7 @@ export class ImageUploadRequest {
 	image?: any;
 	__typename ?= 'ImageUploadRequest';
 
-	constructor(config: AppImageConfig) {
+	constructor(config: AppImage) {
 		this.image = new AppImage(config);
 		delete this.image.pending;
 	}

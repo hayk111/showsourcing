@@ -1,23 +1,11 @@
 import { User } from '~core/erm/models/user.model';
-import { uuid } from '~utils/uuid.utils';
+import { Entity } from './_entity.model';
 
-export class SupplierVote {
-	id: string;
-	user: User;
-	value: number;
-	creationDate: string;
-	__typename?= 'SupplierVote';
-
-	constructor(config: SupplierVoteConfig) {
-		Object.assign(this, config);
-		this.id = uuid();
-	}
-}
-
-export interface SupplierVoteConfig {
-	value: number;
-	user: User;
-	creationDate: string;
+export class SupplierVote extends Entity<SupplierVote> {
+	user?: User;
+	value?: number;
+	creationDate?: string;
+	__typename ?= 'SupplierVote';
 }
 
 export const mockSupplierVotes = [

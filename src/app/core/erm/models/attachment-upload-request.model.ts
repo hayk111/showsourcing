@@ -1,5 +1,5 @@
 import { uuid } from '~utils';
-import { Attachment, AttachmentConfig } from '~core/erm/models/attachment.model';
+import { Attachment } from '~core/erm/models/attachment.model';
 
 
 export class AttachmentUploadRequest {
@@ -8,7 +8,7 @@ export class AttachmentUploadRequest {
 	attachment?: Attachment;
 	__typename ?= 'AttachmentUploadRequest';
 
-	constructor(config: AttachmentConfig) {
+	constructor(config: Attachment) {
 		this.attachment = new Attachment(config);
 	}
 

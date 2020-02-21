@@ -36,7 +36,7 @@ export class TeamPerformanceComponent extends TrackingComponent implements OnIni
 	}
 
 	ngOnInit() {
-		const userId = this.userSrv.userId;
+		const userId = this.userSrv.userIdSync;
 
 		let selectParams = new SelectParams({ query: `assignee.id == "${userId}" AND done == false` });
 		this.tasks$ = this.taskSrv.queryMany(selectParams);
