@@ -1,12 +1,21 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+	AfterViewInit,
+	ChangeDetectionStrategy,
+	Component,
+	OnInit
+} from '@angular/core';
 import { first } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { ExportRequestService } from '~core/erm';
-import { SelectParamsConfig } from '~core/erm';
-import { ListPageService } from '~core/list-page';
-import { ERM, ExportRequest } from '~core/erm';
-import { UserService } from '~core/erm';
+import {
+	ERM,
+	ExportRequest,
+	ExportRequestService,
+	SelectParamsConfig,
+	UserService
+} from '~core/erm';
+import { ListPageService, SelectionService } from '~core/list-page';
 import { FilterType } from '~shared/filters';
+import { FilterService } from '~shared/filters/services/filter.service';
 import { AutoUnsub } from '~utils';
 
 @Component({
@@ -16,10 +25,10 @@ import { AutoUnsub } from '~utils';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'table-page'
-	},
+	}
 })
-export class ExportsPageComponent extends AutoUnsub implements OnInit, AfterViewInit {
-
+export class ExportsPageComponent extends AutoUnsub
+	implements OnInit, AfterViewInit {
 	erm = ERM;
 	selectItemsConfig: SelectParamsConfig;
 
@@ -27,14 +36,22 @@ export class ExportsPageComponent extends AutoUnsub implements OnInit, AfterView
 		private userSrv: UserService,
 		private exportSrv: ExportRequestService,
 		public listSrv: ListPageService<ExportRequest, ExportRequestService>,
-		public dialogCommonSrv: DialogCommonService
-	) { super(); }
-
+		public dialogCommonSrv: DialogCommonService,
+		private filterSrv: FilterService,
+		private selectionSrv: SelectionService
+	) {
+		super();
+	}
 
 	ngOnInit() {
 		this.listSrv.setup({
 			entitySrv: this.exportSrv,
-			searchedFields: ['format', 'status', 'createdBy.firstName', 'createdBy.lastName'],
+			searchedFields: [
+				'format',
+				'status',
+				'createdBy.firstName',
+				'createdBy.lastName'
+			],
 			// by default we have deleted == false
 			selectParams: { query: '' },
 			entityMetadata: ERM.EXPORT_REQUEST,
@@ -46,7 +63,10 @@ export class ExportsPageComponent extends AutoUnsub implements OnInit, AfterView
 	ngAfterViewInit() {
 		// we need this refetch on after view init, otherwise if we come from the redirection of the
 		// export-dlg.component we won't see the new request created
-		this.listSrv.refetch().pipe(first()).subscribe();
+		this.listSrv
+			.refetch()
+			.pipe(first())
+			.subscribe();
 	}
 
 	downloadOne(exportReq: ExportRequest) {
@@ -57,7 +77,7 @@ export class ExportsPageComponent extends AutoUnsub implements OnInit, AfterView
 	}
 
 	downloadSelected() {
-		this.listSrv.selectionSrv.selection.forEach((exportReq: any) => {
+		this.selectionSrv.selection.forEach((exportReq: any) => {
 			this.downloadOne(exportReq);
 		});
 	}
@@ -76,10 +96,10 @@ export class ExportsPageComponent extends AutoUnsub implements OnInit, AfterView
 		};
 
 		if (show) {
-			this.listSrv.addFilter(filterMyExports);
+			this.filterSrv.addFilter(filterMyExports);
 			return;
 		}
 
-		this.listSrv.removeFilter(filterMyExports);
+		this.filterSrv.removeFilter(filterMyExports);
 	}
 }

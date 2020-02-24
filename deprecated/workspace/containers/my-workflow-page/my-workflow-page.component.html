@@ -2,16 +2,16 @@
   [hasSwitch]="false"
   [hasFilter]="true"
   [entityType]="'PRODUCT'"
-  [filtersAmount]="listSrv.filterList.asFilters().length"
-  (showFilters)="listSrv.openFilterPanel()"
-  [searchValue]="listSrv.searchValue"
+  [filtersAmount]="filterSrv.filterList.asFilters().length"
+  (showFilters)="viewSrv.openFilterPanel()"
+  [searchValue]="filterSrv.searchValue"
   (search)="listSrv.search($event)">
 </controller-list-app>
 
 <kanban-app
   [cols]="columns$ | async"
   [cardTemplate]="card"
-  [selection]="listSrv.selection$ | async"
+  [selection]="selectionSrv.selection$ | async"
   [amountLoaded]="amountLoaded"
   (drop)="onUpdateProductStatus($event)"
   (multipleDrop)="updateProductsStatus($event)"
@@ -32,10 +32,10 @@
     [product]="data"
 		[enablePreviewLink]="true"
 		[highlightOnChecked]="true"
-    [checked]="(listSrv.selection$ | async).has(data.id)"
-    (clickImage)="listSrv.openPreview(data)"
-    (select)="listSrv.selectOne($event, true)"
-    (unselect)="listSrv.unselectOne($event, true)">
+    [checked]="(selectionSrv.selection$ | async).has(data.id)"
+    (clickImage)="viewSrv.openPreview(data)"
+    (select)="selectionSrv.selectOne($event, true)"
+    (unselect)="selectionSrv.unselectOne($event, true)">
   </product-card-app>
 </ng-template>
 
@@ -63,35 +63,35 @@
 </ng-template>
 
 <product-selection-bar-app
-	[isShown]="(listSrv.selection$ | async).size > 0"
-	[selection]="listSrv.selection$ | async"
+	[isShown]="(selectionSrv.selection$ | async).size > 0"
+	[selection]="selectionSrv.selection$ | async"
 	[favorite]="listSrv.allSelectedFavorite"
 	(disliked)="onMultipleThumbDown($event)"
 	(liked)="onMultipleThumbUp($event)"
 	(favorited)="onFavoriteAllSelected()"
 	(unfavorited)="onUnfavoriteAllSelected()"
-	(addProject)="commonModalSrv.openAddToProjectDialog(listSrv.getSelectedValues())"
-	(export)="commonModalSrv.openExportDialog(listSrv.getSelectedValues())"
-	(createRequest)="commonModalSrv.openSupplierRequest(listSrv.getSelectedValues())"
-	(requestTeamFeedback)="commonModalSrv.openRequestFeedbackDialog(listSrv.getSelectedValues())"
-	(compareProducts)="commonModalSrv.openCompareProductDialog(listSrv.getSelectedValues())"
+	(addProject)="commonModalSrv.openAddToProjectDialog(selectionSrv.getSelectedValues())"
+	(export)="commonModalSrv.openExportDialog(selectionSrv.getSelectedValues())"
+	(createRequest)="commonModalSrv.openSupplierRequest(selectionSrv.getSelectedValues())"
+	(requestTeamFeedback)="commonModalSrv.openRequestFeedbackDialog(selectionSrv.getSelectedValues())"
+	(compareProducts)="commonModalSrv.openCompareProductDialog(selectionSrv.getSelectedValues())"
 	(statusUpdated)="onMultipleStatusChange($event)"
-	(massEdit)="commonModalSrv.openMassEditDialog(listSrv.getSelectedValues(), erm.PRODUCT)"
+	(massEdit)="commonModalSrv.openMassEditDialog(selectionSrv.getSelectedValues(), erm.PRODUCT)"
 	(deleted)="deleteSelected()"
-	(close)="listSrv.unselectAll()">
+	(close)="selectionSrv.unselectAll()">
 </product-selection-bar-app>
 
 <filters-app
-	*ngIf="listSrv.filterPanelOpen"
-  [filterList]="listSrv.filterList"
+	*ngIf="viewSrv.filterPanelOpen"
+  [filterList]="filterSrv.filterList"
   [filterTypes]="filterTypes"
-  (clickOutside)="listSrv.closeFilterPanel()">
+  (clickOutside)="viewSrv.closeFilterPanel()">
 </filters-app>
 
 <product-preview-app
-  *ngIf="listSrv.previewOpen"
-  [product]="listSrv.previewed"
-  (close)="listSrv.closePreview()"
+  *ngIf="viewSrv.previewOpen"
+  [product]="viewSrv.previewed"
+  (close)="viewSrv.closePreview()"
   (updated)="onUpdate($event)"
   (statusUpdated)="previewStatusUpdate($event)">
 </product-preview-app>

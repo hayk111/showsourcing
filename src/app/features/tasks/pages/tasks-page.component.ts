@@ -1,29 +1,32 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { TaskService, UserService } from '~core/erm';
-import { SelectParamsConfig } from '~core/erm';
+import { TasksTableComponent } from '~common/tables/tasks-table/tasks-table.component';
+import {
+	ERM,
+	SelectParamsConfig,
+	Task,
+	TaskService,
+	UserService
+} from '~core/erm';
 import { ListPageService } from '~core/list-page';
-import { ERM, Task } from '~core/erm';
 import { DialogService } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
+import { FilterService } from '~shared/filters/services/filter.service';
 import { AutoUnsub } from '~utils';
-import { TasksTableComponent } from '~common/tables/tasks-table/tasks-table.component';
 
 @Component({
 	selector: 'tasks-page-app',
 	templateUrl: './tasks-page.component.html',
 	styleUrls: ['./tasks-page.component.scss'],
-	providers: [
-		ListPageService,
-		DialogCommonService
-	],
+	providers: [ListPageService, DialogCommonService, FilterService],
 	host: {
 		class: 'table-page'
 	}
 })
-export class TasksPageComponent extends AutoUnsub implements OnInit, AfterViewInit {
+export class TasksPageComponent extends AutoUnsub
+	implements OnInit, AfterViewInit {
 	public tableWidth: string;
 
 	erm = ERM;
@@ -32,7 +35,7 @@ export class TasksPageComponent extends AutoUnsub implements OnInit, AfterViewIn
 	filterTypes = [
 		FilterType.CREATED_BY,
 		FilterType.PROJECTS,
-		FilterType.SUPPLIER,
+		FilterType.SUPPLIER
 	];
 	columns = TasksTableComponent.DEFAULT_COLUMNS;
 	tableConfig = TasksTableComponent.DEFAULT_TABLE_CONFIG;
@@ -47,6 +50,7 @@ export class TasksPageComponent extends AutoUnsub implements OnInit, AfterViewIn
 		public elem: ElementRef,
 		protected dlgSrv: DialogService,
 		private userSrv: UserService,
+		private filterSrv: FilterService
 	) {
 		super();
 	}
@@ -54,7 +58,14 @@ export class TasksPageComponent extends AutoUnsub implements OnInit, AfterViewIn
 	ngOnInit() {
 		this.listSrv.setup({
 			entitySrv: this.taskSrv,
-			searchedFields: ['name', 'reference', 'assignee.firstName', 'createdBy.firstName', 'product.name', 'supplier.name'],
+			searchedFields: [
+				'name',
+				'reference',
+				'assignee.firstName',
+				'createdBy.firstName',
+				'product.name',
+				'supplier.name'
+			],
 			entityMetadata: ERM.TASK,
 			initialFilters: [
 				{ type: FilterType.DONE, value: false },
@@ -63,14 +74,17 @@ export class TasksPageComponent extends AutoUnsub implements OnInit, AfterViewIn
 			originComponentDestroy$: this._destroy$
 		});
 
-		this.tasksCount$ = this.listSrv.filterList.valueChanges$.pipe(
-			switchMap(_ => this.taskSrv.selectCount(this.listSrv.filterList.asPredicate()).pipe(takeUntil(this._destroy$)))
+		this.tasksCount$ = this.filterSrv.filterList.valueChanges$.pipe(
+			switchMap(_ =>
+				this.taskSrv
+					.selectCount(this.filterSrv.filterList.asPredicate())
+					.pipe(takeUntil(this._destroy$))
+			)
 		);
 
-		this.taskSrv.taskListUpdate$.pipe(
-			switchMap(_ => this.listSrv.refetch())
-		).subscribe();
-
+		this.taskSrv.taskListUpdate$
+			.pipe(switchMap(_ => this.listSrv.refetch()))
+			.subscribe();
 	}
 
 	ngAfterViewInit() {
@@ -79,12 +93,16 @@ export class TasksPageComponent extends AutoUnsub implements OnInit, AfterViewIn
 	}
 
 	showTasksCreatedByMeOnly() {
-		const predicate = this.listSrv.filterList.asPredicate();
-		const query = `${predicate && predicate + ' AND '} (createdBy.id == "${this.userSrv.userSync.id}")`;
+		const predicate = this.filterSrv.filterList.asPredicate();
+		const query = `${predicate && predicate + ' AND '} (createdBy.id == "${
+			this.userSrv.userSync.id
+		}")`;
 
-		this.listSrv.refetch({
-			query
-		}).subscribe();
+		this.listSrv
+			.refetch({
+				query
+			})
+			.subscribe();
 	}
 
 	hideTasksCreatedByMeOnly() {
@@ -92,16 +110,16 @@ export class TasksPageComponent extends AutoUnsub implements OnInit, AfterViewIn
 	}
 
 	toggleMyProducts(show: boolean) {
-		const filterAssignee = { type: FilterType.ASSIGNEE, value: this.userSrv.userSync.id };
-		if (show)
-			this.listSrv.addFilter(filterAssignee);
-		else
-			this.listSrv.removeFilter(filterAssignee);
+		const filterAssignee = {
+			type: FilterType.ASSIGNEE,
+			value: this.userSrv.userSync.id
+		};
+		if (show) this.filterSrv.addFilter(filterAssignee);
+		else this.filterSrv.removeFilter(filterAssignee);
 	}
 
 	showItemsPerPage(count: number) {
 		this.selectItemsConfig = { take: Number(count) };
 		this.listSrv.refetch(this.selectItemsConfig).subscribe();
 	}
-
 }

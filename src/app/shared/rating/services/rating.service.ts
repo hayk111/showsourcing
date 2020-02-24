@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SupplierVoteService } from '~core/erm';
+import { SupplierVoteService, Entity } from '~core/erm';
 import { ProductVoteService } from '~core/erm';
 import { UserService } from '~core/erm';
 import { EntityName, Product, ProductVote, Supplier, SupplierVote } from '~core/erm';
@@ -221,6 +221,16 @@ export class RatingService {
 				throw Error(`Incorrect/No type to create vote type=${type}`);
 		}
 		votes.push(vote);
+	}
+
+	onThumbUp(item: Entity) {
+		// const votes = this.ratingSrv.thumbUp(item, type);
+		// return this.dataSrv.update({ id: item.id, votes } as any).subscribe();
+	}
+
+	onThumbDown(item: Entity) {
+		// const votes = this.ratingSrv.thumbDown(item, type);
+		// return this.dataSrv.update({ id: item.id, votes } as any).subscribe();
 	}
 
 }
