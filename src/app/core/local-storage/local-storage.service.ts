@@ -2,6 +2,8 @@ import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { log, LogColor } from '~utils';
 
+const APP_KEY = '_APP_';
+
 @Injectable({
 	providedIn: 'root'
 })
@@ -16,13 +18,13 @@ export class LocalStorageService {
 	setItem(key: string, val: any): void {
 		log.debug(`%c 💾 LocalStorage: Saving ${key}... `, LogColor.LOCAL_STORAGE);
 		if (this.isBrowser)
-			localStorage.setItem(key, JSON.stringify(val));
+			localStorage.setItem(APP_KEY + key, JSON.stringify(val));
 	}
 
 	getItem<T>(key: string): T | null {
 		log.debug(`%c 💾 LocalStorage: Loading ${key}... `, LogColor.LOCAL_STORAGE);
 		if (this.isBrowser)
-			return JSON.parse(localStorage.getItem(key));
+			return JSON.parse(localStorage.getItem(APP_KEY + key));
 		return null;
 	}
 
@@ -31,20 +33,20 @@ export class LocalStorageService {
 			throw Error(`LocalStorage: You tried to save ${key} which is undefined`);
 		log.debug(`%c 💾 LocalStorage: Saving ${key}...`, LogColor.LOCAL_STORAGE);
 		if (this.isBrowser)
-			localStorage.setItem(key, val);
+			localStorage.setItem(APP_KEY + key, val);
 	}
 
 	getString(key: string): string | null {
 		log.debug(`%c 💾 LocalStorage: Loading ${key}... `, LogColor.LOCAL_STORAGE);
 		if (this.isBrowser)
-			return localStorage.getItem(key);
+			return localStorage.getItem(APP_KEY + key);
 		return null;
 	}
 
 	remove(key: string): void {
 		log.debug(`%c 💾 LocalStorage: removing ${key}...`, LogColor.LOCAL_STORAGE);
 		if (this.isBrowser)
-			return localStorage.removeItem(key);
+			return localStorage.removeItem(APP_KEY + key);
 	}
 
 	clear() {

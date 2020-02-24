@@ -107,7 +107,7 @@ export class ERMService {
 			case 'Comment':
 				return this.commentSrv;
 			case 'Company':
-				return this.companySrv;
+				return this.companySrv as any;
 			case 'Contact':
 				return this.contactService;
 			case 'Country':
@@ -186,7 +186,7 @@ export class ERMService {
 			case ERM.COMMENT:
 				return this.commentSrv;
 			case ERM.COMPANY:
-				return this.companySrv;
+				return this.companySrv as any;
 			case ERM.EMAIL:
 			case ERM.CONTACT:
 				return this.contactService;

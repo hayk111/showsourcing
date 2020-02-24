@@ -19,7 +19,7 @@ export class HasTeamSelectedGuard implements CanActivate, CanActivateChild {
 
 	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
 		return this.teamSrv.hasTeamSelected$.pipe(
-			tap(d => log.debug('%c hasTeamGuard selected', LogColor.GUARD, d)),
+			tap(d => log.debug('%c hasTeamSelectedGuard', LogColor.GUARD, d)),
 			tap(hasTeam => this.redirect(hasTeam, route, state))
 		);
 	}
