@@ -54,7 +54,7 @@ export class IconUtils {
 		m: { background: 32, icon: 16, font: 8 },
 		l: { background: 36, icon: 24, font: 10 },
 		xl: { background: 64, icon: 32, font: 16 },
-		xxl: { background: 88, icon: 40, font: 32 }
+		xxl: { background: 88, icon: 40, font: 32 },
 	};
 
 	static DEFAULT_ICON_COLOR = Color.SECONDARY;

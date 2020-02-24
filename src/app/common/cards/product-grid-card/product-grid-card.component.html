@@ -5,22 +5,48 @@
 		'card-hover-style': hasHoverEffect,
 		'selected-card': selected
 	}">
+
 	<!-- picture -->
-	<img-app
-		[ngClass]="{'small-img': size === 's'}"
-		[image]="product?.images"
-		objectFit="cover"
-		size="xl">
-	</img-app>
+	<ng-container *ngIf="product?.images && product?.images.length > 0; else noImg">
+		<img-app
+			[ngClass]="{'small-img': size === 's'}"
+			[image]="product?.images"
+			objectFit="cover"
+			size="xl">
+		</img-app>
+	</ng-container>
+
+	<ng-template #noImg>
+		<ng-container *ngIf="size === 's'; else imgM">
+			<div class="flexVAlign mg-bottom-xs">
+				<logo-app
+					class="pointer no-img"
+					icon="camera"
+					[iconSize]="32"
+					[backgroundSize]="147"
+					color="third"
+					backgroundColor="bg-secondary">
+				</logo-app>
+			</div>
+		</ng-container>
+		<ng-template #imgM>
+			<img-app
+				[ngClass]="{'small-img': size === 's'}"
+				[image]="product?.images"
+				objectFit="cover"
+				size="xl">
+			</img-app>
+		</ng-template>
+	</ng-template>
 
 	<!-- price floating -->
 	<div *ngIf="product?.price" [ngClass]="size === 'm' ? 'product-price' : 'product-price-s'" class="flexVAlign">
 		<div class="bold-s color-white">
-			<price-app [price]="product?.price"></price-app>
+			<!-- black backgorund on hover -->
+			<price-app [price]="product?.price" color="bg" size="s" type="primary"></price-app>
 		</div>
 	</div>
 
-	<!-- black backgorund on hover -->
 	<div *ngIf="size !== 's'" class="black-container action-hover-item-0"></div>
 
 	<!-- top icons floating on hover -->

@@ -6,6 +6,7 @@ import { SelectParamsConfig } from '~core/erm';
 import { ListPageService } from '~core/list-page';
 import { Category, ERM } from '~core/erm';
 import { AutoUnsub } from '~utils';
+import { PaginationService } from '~shared/pagination/services/pagination.service';
 
 @Component({
 	selector: 'category-data-page-app',
@@ -31,6 +32,7 @@ export class CategoryDataPageComponent extends AutoUnsub implements OnInit {
 
 	constructor(
 		private categorySrv: CategoryService,
+		private paginationSrv: PaginationService,
 		public listSrv: ListPageService<Category, CategoryService>,
 		public teamSrv: TeamService,
 		public companySrv: CompanyService,
@@ -57,6 +59,7 @@ export class CategoryDataPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	showItemsPerPage(count: number) {
+		this.paginationSrv.setPerPageItems(count);
 		this.selectItemsConfig = { take: Number(count) };
 		this.listSrv.refetch(this.selectItemsConfig).subscribe();
 	}

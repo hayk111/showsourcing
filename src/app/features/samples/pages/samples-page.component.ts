@@ -11,6 +11,7 @@ import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
 import { KanbanService } from '~shared/kanban/services/kanban.service';
 import { KanbanSelectionService } from '~shared/kanban/services/kanban-selection.service';
+import { PaginationService } from '~shared/pagination/services/pagination.service';
 
 @Component({
 	selector: 'samples-page-app',
@@ -44,6 +45,7 @@ export class SamplesPageComponent extends AutoUnsub implements OnInit {
 		public dialogCommonSrv: DialogCommonService,
 		public listSrv: ListPageService<Sample, SampleService>,
 		private sampleSrv: SampleService,
+		private paginationSrv: PaginationService,
 		public elem: ElementRef,
 		protected dlgSrv: DialogService,
 		private userSrv: UserService,
@@ -94,6 +96,7 @@ export class SamplesPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	showItemsPerPage(count: number) {
+		this.paginationSrv.setPerPageItems(count);
 		this.selectItemsConfig = { take: Number(count) };
 		this.listSrv.refetch(this.selectItemsConfig).subscribe();
 	}

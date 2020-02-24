@@ -201,8 +201,8 @@ export class ListPageDataService
 	}
 
 	/** when we want to search through the list we only search the name */
-	search(str: string): void {
-		this.filterList.setSearch(str);
+	search(str: string, fields?: Array<string>): void {
+		this.filterList.setSearch(str, fields);
 	}
 
 	// UPDATES

@@ -113,7 +113,10 @@ img-app {
 	margin-bottom: var(--spacing-xs);
 }
 
-
+.no-img {
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+}
 
 .product-price {
 	position: absolute;

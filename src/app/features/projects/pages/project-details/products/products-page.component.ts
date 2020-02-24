@@ -17,6 +17,7 @@ import { FilterType } from '~shared/filters';
 import { ToastService, ToastType } from '~shared/toast';
 import { AutoUnsub } from '~utils';
 import { ProductsTableComponent } from '~common/tables/products-table/products-table.component';
+import { PaginationService } from '~shared/pagination/services/pagination.service';
 
 @Component({
 	selector: 'products-page-app',
@@ -62,6 +63,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		private dlgSrv: DialogService,
 		private route: ActivatedRoute,
 		private productSrv: ProductService,
+		private paginationSrv: PaginationService,
 		public listSrv: ListPageService<Product, ProductService>,
 		public dialogCommonSrv: DialogCommonService,
 		private toastSrv: ToastService,
@@ -152,6 +154,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 	}
 
 	showItemsPerPage(count: number) {
+		this.paginationSrv.setPerPageItems(count);
 		this.selectItemsConfig = { take: Number(count) };
 		this.listSrv.refetch(this.selectItemsConfig).subscribe();
 	}

@@ -7,6 +7,7 @@ import { SelectParamsConfig } from '~core/erm';
 import { ERM, Supplier } from '~core/erm';
 import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
+import { PaginationService } from '~shared/pagination/services/pagination.service';
 
 // A doctor accidentally prescribes his patient a laxative instead of a coughing syrup.
 // -
@@ -48,6 +49,7 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit, AfterVi
 
 	constructor(
 		private supplierSrv: SupplierService,
+		private paginationSrv: PaginationService,
 		public listSrv: ListPageService<Supplier, SupplierService>,
 		public dialogCommonSrv: DialogCommonService,
 	) {
@@ -71,6 +73,7 @@ export class SuppliersPageComponent extends AutoUnsub implements OnInit, AfterVi
 	}
 
 	showItemsPerPage(count: number) {
+		this.paginationSrv.setPerPageItems(count);
 		this.selectItemsConfig = { take: Number(count) };
 		this.listSrv.refetch(this.selectItemsConfig).subscribe();
 	}

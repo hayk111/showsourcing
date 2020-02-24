@@ -6,7 +6,7 @@
 		[formControl]="searchControl"
 		[inputFocus]="inputFocus"
 		[placeHolder]="'placeholder.search' | translate"
-		(search)="listSrv.search($event)">
+		(search)="listSrv.search($event, ['name', 'reference'])">
 	</search-bar-app>
 
 	<button

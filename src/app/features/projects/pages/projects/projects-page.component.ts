@@ -7,6 +7,7 @@ import { ERM, Project } from '~core/erm';
 import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
 import { ProjectsTableComponent } from '~common/tables/projects-table/projects-table.component';
+import { PaginationService } from '~shared/pagination/services/pagination.service';
 
 // Doctor: You're obese.
 // -
@@ -35,6 +36,7 @@ export class ProjectsPageComponent extends AutoUnsub implements OnInit, AfterVie
 
 	constructor(
 		private projectSrv: ProjectService,
+		private paginationSrv: PaginationService,
 		public listSrv: ListPageService<Project, ProjectService>,
 		public dialogCommonSrv: DialogCommonService,
 	) {
@@ -52,6 +54,7 @@ export class ProjectsPageComponent extends AutoUnsub implements OnInit, AfterVie
 	}
 
 	showItemsPerPage(count: number) {
+		this.paginationSrv.setPerPageItems(count);
 		this.selectItemsConfig = { take: Number(count) };
 		this.listSrv.refetch(this.selectItemsConfig).subscribe();
 	}

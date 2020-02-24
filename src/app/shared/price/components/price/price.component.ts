@@ -11,10 +11,27 @@ export class PriceComponent {
 
 	@Input() price: Price;
 	@Input() moq: number;
+	@Input() color: string;
 	@Input() moqDesc: string;
 	@Input() type: 'default' | 'primary' = 'default';
 
-	@Input() size: 's' | 'ms' | 'm' | 'l' = 'm';
+	@Input() size: 's' | 'ms' | 'm' | 'l';
+
+	computeColor() {
+		if (this.color) {
+			return 'var(--color-' + this.color + ')';
+		}
+
+		return this.type === 'default' ? 'var(--color-txt-primary)' : 'var(--color-primary)';
+	}
+
+	computeFontSize() {
+		if (this.size) {
+			return 'var(--font-size-' + this.size + ')';
+		}
+
+		return this.type === 'primary' ? 'var(--font-size-l)' : 'var(--font-size-m)';
+	}
 
 	get amount() {
 		return this.price ? this.price.value : undefined;

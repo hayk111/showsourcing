@@ -24,8 +24,11 @@
 	</div>
 	<!-- we use this to place a border, otherwise the image would resize or the content itself creating a wonky display -->
 	<div *ngIf=" (i === selectedIndex) || (selectedIndex > 4 && i > 3)" class="selected"></div>
+
 	<img-app
+		class="preview-img"
 		[ngClass]="{ 'pending': img.image.pending }"
+		[ngStyle]="{'transform': getRotation(img)}"
 		[image]="img.image"
 		size="xl">
 	</img-app>

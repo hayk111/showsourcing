@@ -10,6 +10,7 @@ import { CloseEventType, DialogService } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
 import { ToastService, ToastType } from '~shared/toast';
 import { AutoUnsub } from '~utils';
+import { PaginationService } from '~shared/pagination/services/pagination.service';
 
 @Component({
 	selector: 'product-select-dlg',
@@ -52,6 +53,7 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 
 	constructor(
 		private productSrv: ProductService,
+		private paginationSrv: PaginationService,
 		private dlgSrv: DialogService,
 		private userSrv: UserService,
 		private productDlgSrv: ProductDialogService,
@@ -190,6 +192,7 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 	}
 
 	showItemsPerPage(count: number) {
+		this.paginationSrv.setPerPageItems(count);
 		this.selectItemsConfig = { take: Number(count) };
 		this.listSrv.refetch(this.selectItemsConfig).subscribe();
 	}

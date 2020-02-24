@@ -16,7 +16,12 @@
 				<ng-container *ngIf="!value?.length; else hasItems"><span class="capitalize" translate="text.none"></span></ng-container>
 				<ng-template #hasItems>
 					<div class="flexWrap info-badges-container">
-						<info-badge-app *ngFor="let item of value; trackBy: trackById" class="" [type]="type">{{ item.name }}</info-badge-app>
+						<span *ngFor="let item of value; let i = index; trackBy: trackById">
+							<info-badge-app
+								[hasRightMargin]="i !== value.length - 1"
+								[type]="type">{{ item.name }}
+							</info-badge-app>
+						</span>
 					</div>
 				</ng-template>
 		</selector-app>
