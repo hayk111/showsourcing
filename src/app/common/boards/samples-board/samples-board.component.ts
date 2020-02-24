@@ -1,19 +1,37 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	EventEmitter,
+	OnInit,
+	Output
+} from '@angular/core';
 import { combineLatest } from 'rxjs';
-import { first, map, mergeMap, startWith, takeUntil, tap } from 'rxjs/operators';
+import {
+	first,
+	map,
+	mergeMap,
+	startWith,
+	takeUntil,
+	tap
+} from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-
-import { SampleService, SampleStatusService, UserService } from '~core/erm';
-import { ListPageService } from '~core/list-page';
-import { ERM, Sample, SampleStatus } from '~core/erm';
+import {
+	ERM,
+	Sample,
+	SampleService,
+	SampleStatus,
+	SampleStatusService,
+	UserService
+} from '~core/erm';
+import { ListPageService, SelectionService } from '~core/list-page';
 import { DialogService } from '~shared/dialog';
 import { FilterList, FilterType } from '~shared/filters';
+import { FilterService } from '~shared/filters/services/filter.service';
 import { KanbanColumn, KanbanDropEvent } from '~shared/kanban/interfaces';
 import { KanbanSelectionService } from '~shared/kanban/services/kanban-selection.service';
 import { KanbanService } from '~shared/kanban/services/kanban.service';
 import { StatusUtils } from '~utils';
 import { AutoUnsub } from '~utils/auto-unsub.component';
-
 
 @Component({
 	selector: 'samples-board-app',
@@ -22,7 +40,6 @@ import { AutoUnsub } from '~utils/auto-unsub.component';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SamplesBoardComponent extends AutoUnsub implements OnInit {
-
 	@Output() preview = new EventEmitter<undefined>();
 	@Output() selectOne = new EventEmitter<Sample>();
 	@Output() unselectOne = new EventEmitter<Sample>();
@@ -40,23 +57,29 @@ export class SamplesBoardComponent extends AutoUnsub implements OnInit {
 		public kanbanSrv: KanbanService,
 		public kanbanSelectionSrv: KanbanSelectionService,
 		public dlgSrv: DialogService,
-		private userSrv: UserService
-	) { super(); }
+		private userSrv: UserService,
+		private filterSrv: FilterService,
+		private selectionSrv: SelectionService
+	) {
+		super();
+	}
 
 	ngOnInit() {
+		this.listSrv.setup(
+			{
+				entityMetadata: ERM.SAMPLE,
+				entitySrv: this.sampleSrv,
+				searchedFields: ['name', 'reference'],
+				initialFilters: [
+					{ type: FilterType.ASSIGNEE, value: this.userSrv.userSync.id },
+					{ type: FilterType.DELETED, value: false }
+				],
+				selectParams: { query: 'deleted == false' }
+			},
+			false
+		);
 
-		this.listSrv.setup({
-			entityMetadata: ERM.SAMPLE,
-			entitySrv: this.sampleSrv,
-			searchedFields: ['name', 'reference'],
-			initialFilters: [
-				{ type: FilterType.ASSIGNEE, value: this.userSrv.userSync.id },
-				{ type: FilterType.DELETED, value: false }
-			],
-			selectParams: { query: 'deleted == false' }
-		}, false);
-
-		const filters$ = this.listSrv.filterList.valueChanges$.pipe(
+		const filters$ = this.filterSrv.filterList.valueChanges$.pipe(
 			takeUntil(this._destroy$),
 			startWith(new FilterList([{ type: FilterType.DELETED, value: false }]))
 		);
@@ -66,50 +89,70 @@ export class SamplesBoardComponent extends AutoUnsub implements OnInit {
 				query: 'category != "refused"',
 				sortBy: 'step',
 				descending: false
-			}).pipe(
+			})
+			.pipe(
 				first(),
 				// status null
-				map(statuses => [{ id: StatusUtils.NEW_STATUS_ID, name: 'New Sample', category: StatusUtils.DEFAULT_STATUS_CATEGORY }, ...statuses]),
-				tap(statuses => this.kanbanSrv.setColumnsFromStatus(statuses)),
+				map(statuses => [
+					{
+						id: StatusUtils.NEW_STATUS_ID,
+						name: 'New Sample',
+						category: StatusUtils.DEFAULT_STATUS_CATEGORY
+					},
+					...statuses
+				]),
+				tap(statuses => this.kanbanSrv.setColumnsFromStatus(statuses))
 			);
 
-		combineLatest(
-			filters$,
-			statuses$,
-		).pipe(
-			mergeMap(([filterList, statuses]) => combineLatest(...this.getSampleColumns(statuses, filterList))),
-		).subscribe(columns => this.kanbanSrv.setData(columns));
+		combineLatest(filters$, statuses$)
+			.pipe(
+				mergeMap(([filterList, statuses]) =>
+					combineLatest(...this.getSampleColumns(statuses, filterList))
+				)
+			)
+			.subscribe(columns => this.kanbanSrv.setData(columns));
 	}
 
 	loadMore(col: KanbanColumn) {
 		const query = this.getColQuery(col.id);
-		this.sampleSrv.queryMany({
-			query,
-			take: col.data.length + this.amountLoaded,
-			sortBy: 'lastUpdatedDate'
-		}).subscribe(samples => this.kanbanSrv.setData([{ data: samples, id: col.id }]));
+		this.sampleSrv
+			.queryMany({
+				query,
+				take: col.data.length + this.amountLoaded,
+				sortBy: 'lastUpdatedDate'
+			})
+			.subscribe(samples =>
+				this.kanbanSrv.setData([{ data: samples, id: col.id }])
+			);
 	}
 
 	private getSampleColumns(statuses: SampleStatus[], filterList: FilterList) {
 		return statuses.map(status => {
 			const query = this.getColQuery(status.id, filterList);
-			const samples$ = this.sampleSrv.queryMany({ query, take: this.amountLoaded, sortBy: 'lastUpdatedDate' });
+			const samples$ = this.sampleSrv.queryMany({
+				query,
+				take: this.amountLoaded,
+				sortBy: 'lastUpdatedDate'
+			});
 			const total$ = this.sampleSrv.queryCount(query).pipe(first());
-			return combineLatest(total$, samples$, (total, samples) => ({ id: status.id, data: samples, total }));
+			return combineLatest(total$, samples$, (total, samples) => ({
+				id: status.id,
+				data: samples,
+				total
+			}));
 		});
 	}
 
 	// returns the query of the columns based on the parameters on the list srv
 	private getColQuery(colId: string, filterList?: FilterList) {
-		const constQuery = colId !== StatusUtils.NEW_STATUS_ID ?
-			`status.id == "${colId}"` : `status == null`
-			;
-		const predicate = filterList ? filterList.asPredicate() : this.listSrv.filterList.asPredicate();
-		return [
-			predicate,
-			constQuery
-		].filter(x => x !== '')
-			.join(' && ');
+		const constQuery =
+			colId !== StatusUtils.NEW_STATUS_ID
+				? `status.id == "${colId}"`
+				: `status == null`;
+		const predicate = filterList
+			? filterList.asPredicate()
+			: this.filterSrv.filterList.asPredicate();
+		return [predicate, constQuery].filter(x => x !== '').join(' && ');
 	}
 
 	onUpdate(sample: Sample) {
@@ -127,12 +170,15 @@ export class SamplesBoardComponent extends AutoUnsub implements OnInit {
 		}
 		// we update on the server
 		const isNewStatus = event.to.id === StatusUtils.NEW_STATUS_ID;
-		this.sampleSrv.update({
-			id: event.item.id,
-			status: isNewStatus ? null : new SampleStatus({ id: event.to.id })
-		},
-			isNewStatus ? 'status { id }' : ''
-		).subscribe();
+		this.sampleSrv
+			.update(
+				{
+					id: event.item.id,
+					status: isNewStatus ? null : new SampleStatus({ id: event.to.id })
+				},
+				isNewStatus ? 'status { id }' : ''
+			)
+			.subscribe();
 	}
 
 	/** multiple */
@@ -142,10 +188,9 @@ export class SamplesBoardComponent extends AutoUnsub implements OnInit {
 			id,
 			status: isNewStatus ? null : new SampleStatus({ id: event.to.id })
 		}));
-		this.sampleSrv.updateMany(
-			samples,
-			isNewStatus ? 'status { id }' : ''
-		).subscribe();
+		this.sampleSrv
+			.updateMany(samples, isNewStatus ? 'status { id }' : '')
+			.subscribe();
 	}
 
 	onSelectedOne(sample: Sample, column: KanbanColumn) {
@@ -155,5 +200,4 @@ export class SamplesBoardComponent extends AutoUnsub implements OnInit {
 	onUnselectedOne(sample: Sample) {
 		this.kanbanSelectionSrv.unselectOne(sample);
 	}
-
 }

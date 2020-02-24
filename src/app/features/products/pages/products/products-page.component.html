@@ -26,25 +26,25 @@
 	</products-table-app>
 <!-- 
 	<products-board-app
-		*ngIf="listSrv.view === 'board'"
-		(preview) = "listSrv.openPreview($event)">
+		*ngIf="viewSrv.view === 'board'"
+		(preview) = "viewSrv.openPreview($event)">
 	</products-board-app>
 
 	<products-grid-app
 		cdk-scrollable
-		*ngIf="listSrv.view === 'card'"
+		*ngIf="viewSrv.view === 'card'"
 		class="card-view will-change-scroll"
 		infiniScroll
 		[currentSort]="listSrv.currentSort"
 		[rows]="listSrv.items$ | async"
-		[selection]="listSrv.selection$ | async"
+		[selection]="selectionSrv.selection$ | async"
 		(addToProject)="onProjectDlgOpen()"
 		(disliked)="listSrv.onThumbDown($event, erm.PRODUCT.singular)"
-		(liked)="listSrv.onThumbUp($event, erm.PRODUCT.singular)"
-		(open)="listSrv.goToDetails($event)"
-		(previewClick)="listSrv.openPreview($event)"
-		(select)="listSrv.selectOne($event, true)"
-		(unselect)="listSrv.unselectOne($event, true)"
+		(liked)="ratingSrv.onThumbUp($event)"
+		(open)="viewSrv.goToDetails($event)"
+		(previewClick)="viewSrv.openPreview($event)"
+		(select)="selectionSrv.selectOne($event, true)"
+		(unselect)="selectionSrv.unselectOne($event, true)"
 		(update)="listSrv.update($event)"
 		(bottomReached)="listSrv.loadMore()">
 	</products-grid-app>
@@ -54,30 +54,30 @@
 		[selection]="getSelection$() | async"
 		[selectableItems]="getSelectableItems$() | async"
 		(addProject)="onProjectDlgOpen()"
-		(export)="dialogCommonSrv.openExportDialog(erm.PRODUCT.singular, listSrv.getSelectedValues())"
-		(createRequest)="dialogCommonSrv.openSupplierRequest(listSrv.getSelectedValues())"
-		(requestTeamFeedback)="dialogCommonSrv.openRequestFeedbackDialog(listSrv.getSelectedValues())"
-		(archiveProducts)="listSrv.archiveMany(listSrv.getSelectedValues())"
-		(compareProducts)="dialogCommonSrv.openCompareProductDialog(listSrv.getSelectedValues())"
+		(export)="dialogCommonSrv.openExportDialog(erm.PRODUCT.singular, selectionSrv.getSelectedValues())"
+		(createRequest)="dialogCommonSrv.openSupplierRequest(selectionSrv.getSelectedValues())"
+		(requestTeamFeedback)="dialogCommonSrv.openRequestFeedbackDialog(selectionSrv.getSelectedValues())"
+		(archiveProducts)="listSrv.archiveMany(selectionSrv.getSelectedValues())"
+		(compareProducts)="dialogCommonSrv.openCompareProductDialog(selectionSrv.getSelectedValues())"
 		(statusUpdated)="listSrv.updateSelected({status: $event})"
-		(massEdit)="dialogCommonSrv.openMassEditDialog(listSrv.getSelectedValues(), erm.PRODUCT)"
+		(massEdit)="dialogCommonSrv.openMassEditDialog(selectionSrv.getSelectedValues(), erm.PRODUCT)"
 		(deleted)="listSrv.deleteSelected()"
 		(selectAll)="selectAll($event)"
 		(unselectAll)="unselectAll()">
 	</product-selection-bar-app>
 
 	<product-preview-app
-		*ngIf="listSrv.previewOpen"
-		[product]="listSrv.previewed"
-		(close)="listSrv.closePreview()">
+		*ngIf="viewSrv.previewOpen"
+		[product]="viewSrv.previewed"
+		(close)="viewSrv.closePreview()">
 	</product-preview-app>
 </ng-container> -->
 
-<!-- <side-panel-app *ngIf="listSrv.filterPanelOpen">
+<!-- <side-panel-app *ngIf="viewSrv.filterPanelOpen">
 	<filters-app
-		[filterList]="listSrv.filterList"
+		[filterList]="filterSrv.filterList"
 		[filterTypes]="filterTypes"
-		(clickOutside)="listSrv.closeFilterPanel()"
-		(close)="listSrv.closeFilterPanel()">
+		(clickOutside)="viewSrv.closeFilterPanel()"
+		(close)="viewSrv.closeFilterPanel()">
 	</filters-app>
 </side-panel-app> -->

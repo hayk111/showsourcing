@@ -1,9 +1,18 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	Input,
+	OnInit
+} from '@angular/core';
 import { ProductDialogService } from '~common/dialogs/services/product-dialog.service';
-import { ListPageService } from '~core/list-page';
-import { ProjectService } from '~core/erm';
-import { DEFAULT_TAKE_PAGINATION } from '~core/erm';
-import { ERM, Product, Project } from '~core/erm';
+import {
+	DEFAULT_TAKE_PAGINATION,
+	ERM,
+	Product,
+	Project,
+	ProjectService
+} from '~core/erm';
+import { ListPageService, SelectionService } from '~core/list-page';
 import { CloseEventType } from '~shared/dialog';
 import { DialogService } from '~shared/dialog/services';
 import { FilterType } from '~shared/filters';
@@ -15,11 +24,11 @@ import { AutoUnsub } from '~utils';
 	templateUrl: './product-add-to-project-dlg.component.html',
 	styleUrls: ['./product-add-to-project-dlg.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [ListPageService],
+	providers: [ListPageService, SelectionService],
 	host: { class: 'table-dialog' }
 })
-export class ProductAddToProjectDlgComponent extends AutoUnsub implements OnInit {
-
+export class ProductAddToProjectDlgComponent extends AutoUnsub
+	implements OnInit {
 	@Input() initialSelectedProjects: Project[];
 	@Input() products: Product[];
 
@@ -36,6 +45,7 @@ export class ProductAddToProjectDlgComponent extends AutoUnsub implements OnInit
 		private toastSrv: ToastService,
 		private projectSrv: ProjectService,
 		public listSrv: ListPageService<Project, ProjectService>,
+		private selectionSrv: SelectionService
 	) {
 		super();
 	}
@@ -44,7 +54,12 @@ export class ProductAddToProjectDlgComponent extends AutoUnsub implements OnInit
 		this.listSrv.setup({
 			entitySrv: this.projectSrv,
 			searchedFields: ['name'],
-			selectParams: { sortBy: 'name', descending: false, take: this.projectCount, query: 'deleted == false' },
+			selectParams: {
+				sortBy: 'name',
+				descending: false,
+				take: this.projectCount,
+				query: 'deleted == false'
+			},
 			initialFilters: [{ type: FilterType.DELETED, value: false }], // TODO: add archived filter when backend property is added
 			entityMetadata: ERM.PROJECT,
 			originComponentDestroy$: this._destroy$
@@ -55,30 +70,35 @@ export class ProductAddToProjectDlgComponent extends AutoUnsub implements OnInit
 
 	select(project: Project) {
 		this.selected[project.id] = project;
-		this.listSrv.selectOne(project);
+		this.selectionSrv.selectOne(project);
 		++this.selectedProjectsCount;
 	}
 
 	unselect(project: Project) {
 		delete this.selected[project.id];
-		this.listSrv.unselectOne(project);
+		this.selectionSrv.unselectOne(project);
 		--this.selectedProjectsCount;
 	}
 
 	private initialSelection() {
-		if (this.initialSelectedProjects && this.initialSelectedProjects.length > 0) {
+		if (
+			this.initialSelectedProjects &&
+			this.initialSelectedProjects.length > 0
+		) {
 			this.selectedProjectsCount = this.initialSelectedProjects.length;
 
-			this.listSrv.selectAll(this.initialSelectedProjects.map(project => {
-				this.selected[project.id] = project;
+			this.selectionSrv.selectAll(
+				this.initialSelectedProjects.map(project => {
+					this.selected[project.id] = project;
 
-				return ({ id: project.id });
-			}));
+					return { id: project.id };
+				})
+			);
 		}
 	}
 
 	selectAll(projects: Project[]) {
-		this.listSrv.selectAll(projects);
+		this.selectionSrv.selectAll(projects);
 
 		projects.forEach(project => {
 			this.selected[project.id] = project;
@@ -89,7 +109,7 @@ export class ProductAddToProjectDlgComponent extends AutoUnsub implements OnInit
 	}
 
 	unselectAll() {
-		this.listSrv.unselectAll();
+		this.selectionSrv.unselectAll();
 		this.selected = {};
 		this.selectedProjectsCount = 0;
 	}
@@ -100,7 +120,9 @@ export class ProductAddToProjectDlgComponent extends AutoUnsub implements OnInit
 				onProjectCreated: (project: Project) => {
 					this.selected[project.id] = { ...project };
 					const selectedProjects = <Project[]>Object.values(this.selected);
-					this.productDlgSrv.addProjectsToProducts(selectedProjects, this.products).subscribe();
+					this.productDlgSrv
+						.addProjectsToProducts(selectedProjects, this.products)
+						.subscribe();
 				}
 			});
 		});
@@ -118,14 +140,23 @@ export class ProductAddToProjectDlgComponent extends AutoUnsub implements OnInit
 
 		if (this.initialSelectedProjects) {
 			addedProjects = addedProjects.filter(project => {
-				return !this.initialSelectedProjects.find(elem => elem.id === project.id);
+				return !this.initialSelectedProjects.find(
+					elem => elem.id === project.id
+				);
 			});
 		}
-		this.dlgSrv.close({ type: CloseEventType.OK, data: { selectedProjects, products: this.products } });
+		this.dlgSrv.close({
+			type: CloseEventType.OK,
+			data: { selectedProjects, products: this.products }
+		});
 
-		this.productDlgSrv.addProjectsToProducts(addedProjects, this.products)
+		this.productDlgSrv
+			.addProjectsToProducts(addedProjects, this.products)
 			.subscribe(projects => {
-				this.initialSelectedProjects = [...this.initialSelectedProjects, ...addedProjects];
+				this.initialSelectedProjects = [
+					...this.initialSelectedProjects,
+					...addedProjects
+				];
 				this.toastSrv.add({
 					type: ToastType.SUCCESS,
 					title: 'title.projects-added',
@@ -134,5 +165,4 @@ export class ProductAddToProjectDlgComponent extends AutoUnsub implements OnInit
 				});
 			});
 	}
-
 }

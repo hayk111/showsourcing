@@ -1,24 +1,29 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { TagService, TeamService, CompanyService } from '~core/erm';
-import { SelectParamsConfig } from '~core/erm';
-import { ListPageService } from '~core/list-page';
-import { SelectionService } from '~core/list-page';
-import { ERM, Tag } from '~core/erm';
+import {
+	CompanyService,
+	ERM,
+	SelectParamsConfig,
+	Tag,
+	TagService,
+	TeamService
+} from '~core/erm';
+import { ListPageService, SelectionService } from '~core/list-page';
+import { ListPageViewService } from '~core/list-page/list-page-view.service';
 import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'tag-data-page-app',
 	templateUrl: '../shared/list-management-template.html',
-	styleUrls: ['./tag-data-page.component.scss', '../shared/list-management-styles.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [
-		ListPageService,
-		SelectionService
+	styleUrls: [
+		'./tag-data-page.component.scss',
+		'../shared/list-management-styles.scss'
 	],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	providers: [ListPageService, SelectionService, ListPageViewService],
 	host: {
 		class: 'table-page'
-	},
+	}
 })
 export class TagDataPageComponent extends AutoUnsub implements OnInit {
 	erm = ERM.TAG;
@@ -35,7 +40,8 @@ export class TagDataPageComponent extends AutoUnsub implements OnInit {
 		public companySrv: CompanyService,
 		public dialogCommonSrv: DialogCommonService,
 		public selectionSrv: SelectionService,
-		) {
+		private viewSrv: ListPageViewService<Tag>
+	) {
 		super();
 	}
 
@@ -43,16 +49,20 @@ export class TagDataPageComponent extends AutoUnsub implements OnInit {
 		this.listSrv.setup({
 			entitySrv: this.tagSrv,
 			searchedFields: ['name'],
-			selectParams: { sortBy: 'name', descending: false, query: 'deleted == false' },
+			selectParams: {
+				sortBy: 'name',
+				descending: false,
+				query: 'deleted == false'
+			},
 			entityMetadata: this.erm,
 			originComponentDestroy$: this._destroy$
 		});
 	}
 
 	mergeSelected() {
-		const tags = this.listSrv.getSelectedValues();
+		const tags = this.selectionSrv.getSelectedValues();
 		this.dialogCommonSrv.openMergeDialog({
-			type: this.listSrv.entityMetadata,
+			type: this.viewSrv.entityMetadata,
 			entities: tags
 		});
 	}

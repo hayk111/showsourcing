@@ -3,16 +3,24 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { filter, switchMap, takeUntil } from 'rxjs/operators';
 import { CreationTaskDlgComponent } from '~common/dialogs/creation-dialogs';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { SelectParams } from '~core/erm';
+import {
+	ERM,
+	Product,
+	SelectParams,
+	Supplier,
+	Task,
+	TaskService,
+	UserService
+} from '~core/erm';
 import { ListPageService } from '~core/list-page';
-import { TaskService, UserService } from '~core/erm';
-import { ERM, Product, Supplier, Task } from '~core/erm';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { Filter, FilterType } from '~shared/filters';
+import { FilterService } from '~shared/filters/services/filter.service';
 import { AutoUnsub } from '~utils';
 
 /** since we use the task component on different pages, this page will keep the methods clean */
-export abstract class AbstractTaskCommonComponent extends AutoUnsub implements OnInit {
+export abstract class AbstractTaskCommonComponent extends AutoUnsub
+	implements OnInit {
 	assigneeFilterType = FilterType.ASSIGNEE;
 
 	constructor(
@@ -23,32 +31,41 @@ export abstract class AbstractTaskCommonComponent extends AutoUnsub implements O
 		protected dlgSrv: DialogService,
 		public dialogCommonSrv: DialogCommonService,
 		public listSrv: ListPageService<Task, TaskService>,
+		protected filterSrv: FilterService
 	) {
 		super();
 	}
 
 	ngOnInit() {
-		this.taskSrv.taskListUpdate$.pipe(
-			switchMap(_ => this.listSrv.refetch()),
-			takeUntil(this._destroy$)
-		).subscribe();
+		this.taskSrv.taskListUpdate$
+			.pipe(
+				switchMap(_ => this.listSrv.refetch()),
+				takeUntil(this._destroy$)
+			)
+			.subscribe();
 	}
 
-	setup(addedFilters: Filter[], selectParams?: SelectParams, hasDoneFilter = true) {
+	setup(
+		addedFilters: Filter[],
+		selectParams?: SelectParams,
+		hasDoneFilter = true
+	) {
 		const userId = this.userSrv.userSync.id;
 		const routeId = this.route.parent.snapshot.params.id;
-		const initialFilters: Filter[] = [{ type: FilterType.ARCHIVED, value: false }];
+		const initialFilters: Filter[] = [
+			{ type: FilterType.ARCHIVED, value: false }
+		];
 		if (hasDoneFilter) {
 			initialFilters.push({ type: FilterType.DONE, value: false });
 		}
 		this.listSrv.setup({
 			entitySrv: this.taskSrv,
 			searchedFields: ['name', 'supplier.name', 'product.name', 'reference'],
-			selectParams: { ...selectParams, query: 'deleted == false AND archived == false' },
-			initialFilters: [
-				...initialFilters,
-				...addedFilters
-			],
+			selectParams: {
+				...selectParams,
+				query: 'deleted == false AND archived == false'
+			},
+			initialFilters: [...initialFilters, ...addedFilters],
 			entityMetadata: ERM.TASK,
 			originComponentDestroy$: this._destroy$
 		});
@@ -61,17 +78,15 @@ export abstract class AbstractTaskCommonComponent extends AutoUnsub implements O
 			type: FilterType.ASSIGNEE,
 			value: userId
 		};
-		if (show)
-			this.listSrv.addFilter(filterAssignee);
-		else
-			this.listSrv.removeFilter(filterAssignee);
+		if (show) this.filterSrv.addFilter(filterAssignee);
+		else this.filterSrv.removeFilter(filterAssignee);
 	}
 
 	toggleDoneTasks(show: boolean) {
 		if (show) {
-			this.listSrv.removeFilterType(FilterType.DONE);
+			this.filterSrv.removeFilterType(FilterType.DONE);
 		} else {
-			this.listSrv.addFilter({ type: FilterType.DONE, value: false });
+			this.filterSrv.addFilter({ type: FilterType.DONE, value: false });
 		}
 	}
 
@@ -84,11 +99,13 @@ export abstract class AbstractTaskCommonComponent extends AutoUnsub implements O
 	}
 
 	openCreationTaskDlg(product?: Product, supplier?: Supplier) {
-		this.dlgSrv.open(CreationTaskDlgComponent, { product, supplier }).pipe(
-			filter((event: CloseEvent) => event.type === CloseEventType.OK),
-			switchMap(_ => this.listSrv.refetch())
-		).subscribe();
-
+		this.dlgSrv
+			.open(CreationTaskDlgComponent, { product, supplier })
+			.pipe(
+				filter((event: CloseEvent) => event.type === CloseEventType.OK),
+				switchMap(_ => this.listSrv.refetch())
+			)
+			.subscribe();
 	}
 
 	openProduct(id: string) {
