@@ -14,22 +14,22 @@ fdescribe('FilterList', () => {
 
 	// test predicate without filters
 	it('is not instantiated correctely (without params)', () => {
-		expect(filterList.filterObject).toEqual({ and: [{ or: [] }] });
+		expect(filterList.asPredicate()).toEqual({ and: [{ or: [] }] });
 	});
 
 	// test instance with default filters
 	it('is not instantiated correctely (with param filter)', () => {
-		let newFilterList = new FilterList(
+		const newFilterList = new FilterList(
 			[{ type: FilterType.SUPPLIER, value: 'my-supplier' }],
 			[]
 		);
-		expect(newFilterList.filterObject).toEqual({
+		expect(newFilterList.asPredicate()).toEqual({
 			and: [{ or: [{ [FilterType.SUPPLIER]: { id: { eq: 'my-supplier' } } }] }]
 		});
 	});
 
 	// test addFilter function
-	it("addFilter method doesn't work as expected", () => {
+	it('addFilter method doesn\'t work as expected', () => {
 		filterList.addFilter({ type: FilterType.CATEGORY, value: 'id-cat' });
 		expect(filterList.asFilters()).toEqual([
 			{ type: FilterType.CATEGORY, value: 'id-cat' }
@@ -37,20 +37,20 @@ fdescribe('FilterList', () => {
 	});
 
 	// test simple category selected
-	it("doesn't work with one category selected", () => {
+	it('doesn\'t work with one category selected', () => {
 		filterList.addFilter({ type: FilterType.CATEGORY, value: 'id-cat' });
-		expect(filterList.filterObject).toEqual({
+		expect(filterList.asPredicate()).toEqual({
 			and: [{ or: [{ [FilterType.CATEGORY]: { id: { eq: 'id-cat' } } }] }]
 		});
 	});
 
 	// select 2 suppliers and 2 categories
-	it("doesn't work with many filters selected from many types", () => {
+	it('doesn\'t work with many filters selected from many types', () => {
 		filterList.addFilter({ type: FilterType.SUPPLIER, value: 'id-supplier-1' });
 		filterList.addFilter({ type: FilterType.SUPPLIER, value: 'id-supplier-2' });
 		filterList.addFilter({ type: FilterType.CATEGORY, value: 'id-category-1' });
 		filterList.addFilter({ type: FilterType.CATEGORY, value: 'id-category-2' });
-		expect(filterList.filterObject).toEqual({
+		expect(filterList.asPredicate()).toEqual({
 			and: [
 				{
 					or: [
@@ -67,13 +67,12 @@ fdescribe('FilterList', () => {
 			]
 		});
 	});
-	"Object({ and: [ Object({ or: [ Object({ name: Object({ match: 'name or supplier contains this' }) }), Object({ supplierName: Object({ match: 'name or supplier contains this' }) }) ] }) ] })";
 
 	// test simple search string
-	it("doesn't work with a simple search string", () => {
+	it('doesn\'t work with a simple search string', () => {
 		filterList.searchedFields = ['name', 'supplierName'];
 		filterList.setSearch('name or supplier contains this');
-		expect(filterList.filterObject).toEqual({
+		expect(filterList.asPredicate()).toEqual({
 			and: [
 				{
 					or: [
