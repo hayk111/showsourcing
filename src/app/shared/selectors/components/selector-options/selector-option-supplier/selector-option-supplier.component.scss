@@ -1,7 +1,6 @@
 :host {
 	height: unset;
 	min-height: 37px;
-	max-height: 63px;
 
 	&.active, &:hover {
 		.container > *:not(icon-app), .name-container .name {

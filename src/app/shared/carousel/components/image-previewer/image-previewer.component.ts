@@ -62,6 +62,21 @@ export class ImagePreviewerComponent extends TrackingComponent {
 		};
 	}
 
+	getRotation(img: any) {
+
+		if (!img) {
+			return 'none';
+		}
+
+		const { orientation } = img.image;
+
+		if (!orientation) {
+			return 'none';
+		} else {
+			return 'rotate(' + (orientation * 90) % 360 + 'deg)';
+		}
+	}
+
 	doDelete(event: MouseEvent, img: AppImage) {
 		event.stopPropagation();
 		this.delete.emit(img);

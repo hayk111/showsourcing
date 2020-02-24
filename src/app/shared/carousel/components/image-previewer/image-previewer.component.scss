@@ -29,6 +29,7 @@
 }
 
 .selected{
+	z-index: var(--z-preview);
 	position: absolute;
 	height: 100%;
 	width: 100%;
