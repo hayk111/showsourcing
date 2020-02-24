@@ -14,7 +14,7 @@ fdescribe('FilterList', () => {
 
 	// test predicate without filters
 	it('is not instantiated correctely (without params)', () => {
-		expect(filterList.asPredicate()).toEqual({ and: [{ or: [] }] });
+		expect(filterList.filterObject).toEqual({ and: [{ or: [] }] });
 	});
 
 	// test instance with default filters
@@ -23,7 +23,7 @@ fdescribe('FilterList', () => {
 			[{ type: FilterType.SUPPLIER, value: 'my-supplier' }],
 			[]
 		);
-		expect(newFilterList.asPredicate()).toEqual({
+		expect(newFilterList.filterObject).toEqual({
 			and: [{ or: [{ [FilterType.SUPPLIER]: { id: { eq: 'my-supplier' } } }] }]
 		});
 	});
@@ -39,7 +39,7 @@ fdescribe('FilterList', () => {
 	// test simple category selected
 	it("doesn't work with one category selected", () => {
 		filterList.addFilter({ type: FilterType.CATEGORY, value: 'id-cat' });
-		expect(filterList.asPredicate()).toEqual({
+		expect(filterList.filterObject).toEqual({
 			and: [{ or: [{ [FilterType.CATEGORY]: { id: { eq: 'id-cat' } } }] }]
 		});
 	});
@@ -50,7 +50,7 @@ fdescribe('FilterList', () => {
 		filterList.addFilter({ type: FilterType.SUPPLIER, value: 'id-supplier-2' });
 		filterList.addFilter({ type: FilterType.CATEGORY, value: 'id-category-1' });
 		filterList.addFilter({ type: FilterType.CATEGORY, value: 'id-category-2' });
-		expect(filterList.asPredicate()).toEqual({
+		expect(filterList.filterObject).toEqual({
 			and: [
 				{
 					or: [
@@ -73,7 +73,7 @@ fdescribe('FilterList', () => {
 	it("doesn't work with a simple search string", () => {
 		filterList.searchedFields = ['name', 'supplierName'];
 		filterList.setSearch('name or supplier contains this');
-		expect(filterList.asPredicate()).toEqual({
+		expect(filterList.filterObject).toEqual({
 			and: [
 				{
 					or: [
@@ -87,5 +87,12 @@ fdescribe('FilterList', () => {
 				}
 			]
 		});
+	});
+
+	// test to get the filter from the type map
+	fit('desn\'t get the byType filter', () => {
+		filterList.addFilter({type: FilterType.ASSIGNEE, value: 'test-id'});
+		const hasFilterByType = filterList.asByType().get(FilterType.ASSIGNEE).has('test-id');
+		expect(hasFilterByType).toBe(true);
 	});
 });
