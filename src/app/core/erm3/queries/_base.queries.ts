@@ -1,6 +1,6 @@
 import { DocumentNode } from 'graphql';
 import { QueryBuilder } from './_query-builder.class';
-import { QueryType } from '../services/global.service-2';
+import { QueryType } from './_query-type.enum';
 
 
 export class BaseQueries {
