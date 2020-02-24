@@ -1,7 +1,7 @@
 import { BaseQueries } from './_base.queries';
 import { EntityName } from '~core/erm/entity-name.enum';
-import { ProductQueries } from './product.queries';
-import { SupplierQueries } from './supplier.queries';
+import { ProductQueries } from './custom/product.queries';
+import { SupplierQueries } from './custom/supplier.queries';
 
 
 export const queryMap = {

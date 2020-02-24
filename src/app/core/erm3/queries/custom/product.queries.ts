@@ -1,4 +1,4 @@
-import { BaseQueries } from './_base.queries';
+import { BaseQueries } from '../_base.queries';
 
 export class ProductQueries extends BaseQueries {
 	constructor() {

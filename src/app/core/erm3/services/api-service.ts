@@ -1,27 +1,29 @@
 import { ObservableQuery as ApolloObservableQuery, WatchQueryOptions } from 'aws-appsync/node_modules/apollo-client';
 import { DocumentNode } from 'graphql';
-import { from, Observable } from 'rxjs';
-import { filter, map, shareReplay, tap } from 'rxjs/operators';
+import { from, Observable, of } from 'rxjs';
+import { filter, map, shareReplay, tap, catchError } from 'rxjs/operators';
 import { EntityName } from '~core/erm/models';
 import { log } from '~utils/log';
 import { LogColor } from '~utils/log-colors.enum';
-import { queryMap } from '../queries/_queries.map';
+import { queryMap } from '../queries/queries.map';
 import { client } from './client';
-import { QueryType } from '../queries/_query-type.enum';
+import { QueryType } from '../queries/query-type.enum';
 
 export interface ObservableQuery<T = any> extends ApolloObservableQuery<T> {
 	data$: Observable<T>;
 }
 
 export interface ApiServiceInterface {
-	queryOne<T>(entityName: EntityName | string, id: string, options: WatchQueryOptions | {}): ObservableQuery<T>;
-	queryAll<T>(entityName: EntityName | string, options: WatchQueryOptions | {}): ObservableQuery<T[]>;
+	queryOne<T>(entityName: EntityName | string, id: string, options?: WatchQueryOptions | {}): ObservableQuery<T>;
+	queryAll<T>(entityName: EntityName | string, options?: WatchQueryOptions | {}): ObservableQuery<T[]>;
+	create<T>(entityName: EntityName | string, entity: T, options?: WatchQueryOptions | {}): Promise<T>;
+	update<T>(entityName: EntityName | string, entity: T, options?: WatchQueryOptions | {}): Promise<T>;
 }
 
 /**
  * service to do crud operations on entities
  */
-export abstract class ApiService {
+export abstract class ApiService implements ApiServiceInterface {
 
 	protected teamId: string;
 
@@ -33,6 +35,7 @@ export abstract class ApiService {
 	 * Query one item by id, (query, optimistic UI)
 	 * @param entityName: name of the entity you are querying
 	 * @param id: the id of the entity
+	 * @param options: Apollo options if we don't want the default
 	 */
 	queryOne<T>(entityName: EntityName | string, id: string, options: WatchQueryOptions | {} = {}): ObservableQuery<T> {
 		// title for displaying in logs
@@ -48,7 +51,6 @@ export abstract class ApiService {
 			// extracting the result
 			map(({ data }) => data[queryName]),
 			tap(data => this.logResult(title, queryName, data)),
-			shareReplay(1)
 		);
 		queryRef.data$ = data$;
 		return queryRef;
@@ -63,6 +65,7 @@ export abstract class ApiService {
 	 * (Query, optimistic UI)
 	 * @param fields: the fields you want to query, if none is specified the default ones are used
 	 * @param client: name of the client you want to use, if none is specified the default one is used
+	 * @param options: Apollo options if we don't want the default
 	*/
 	queryAll<T>(entityName: EntityName | string, options: WatchQueryOptions | {} = {}): ObservableQuery<T[]> {
 		const title = 'Query All ' + entityName;
@@ -75,11 +78,76 @@ export abstract class ApiService {
 			filter((r: any) => this.checkError(r, title)),
 			map(({ data }) => data[queryName]),
 			tap(data => this.logResult(title, queryName, data)),
-			shareReplay(1)
 		);
 
 		queryRef.data$ = data$;
 		return queryRef;
+	}
+
+	/////////////////////////////
+	//         CREATE          //
+	/////////////////////////////
+
+	/** create one entity
+	 * @param entityName: name of the entity we want to create
+	 * @param entity : entity we want to create
+	 * @param options: Apollo options if we don't want the default
+	*/
+	create<T>(entityName: EntityName | string, entity: T, options: WatchQueryOptions | {}): Promise<T> {
+		const title = 'Create ' + entityName;
+		const { query, queryName, body } = queryMap[entityName].getQueryInfo(QueryType.CREATE);
+		const variables = { input: entity };
+		this.log(title, query, queryName, body, variables);
+		return client.mutate({ mutation: query, variables, ...options })
+			.then(r => {
+				const data = r.data[queryName];
+				this.logResult(title, queryName, data);
+				return data;
+			});
+	}
+
+	/////////////////////////////
+	//          UPDATE         //
+	/////////////////////////////
+
+	/** Update one entity
+	 * @param entityName: name of the entity we want to create
+	 * @param entity : entity we want to create
+	 * @param options: Apollo options if we don't want the default
+	*/
+	update<T>(entityName: EntityName | string, entity: T, options: WatchQueryOptions | {}): Promise<T> {
+		const title = 'Update ' + entityName;
+		const { query, queryName, body } = queryMap[entityName].getQueryInfo(QueryType.UPDATE);
+		const variables = { input: entity };
+		options = { mutation: query, variables, ...options };
+
+		this.addOptimisticResponse(options, queryName, entity);
+		this.log(title, query, queryName, body, variables);
+
+		return client.mutate({ mutation: query, variables, ...options })
+			.then(r => {
+				const data = r.data[queryName];
+				this.logResult(title, queryName, data);
+				return data;
+			});
+	}
+
+
+	/** creates an optimistic response the way apollo expects it */
+	protected addOptimisticResponse(options: any, queryName: string, input: any) {
+		if (input.__typename) {
+			options.optimisticResponse = {
+				__typename: 'Mutation',
+				[queryName]: {
+					...input
+				},
+			};
+		} else {
+			log.warn(`
+				Doing a mutation without optimistic ui: ${queryName},
+				when doing an update use "new Entity()" or specify the "__typename"
+			`);
+		}
 	}
 
 	/** check if a graphql call has given any error */
