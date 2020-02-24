@@ -1,7 +1,7 @@
 import { EntityName } from '~core/erm/entity-name.enum';
 import { Color } from '~utils/colors.enum';
 
-export type Size = 'xs' | 's' | 'ms' | 'm' | 'l' | 'xl' | 'xxl' | 'xxxl' | 'xxxxl';
+export type Size = 'xs' | 's' | 'ms' | 'm' | 'l' | 'xl' | 'xxl';
 
 export class IconUtils {
 
@@ -55,8 +55,6 @@ export class IconUtils {
 		l: { background: 36, icon: 24, font: 10 },
 		xl: { background: 64, icon: 32, font: 16 },
 		xxl: { background: 88, icon: 40, font: 32 },
-		xxxl: { background: 147, icon: 32, font: 16 },
-		xxxxl: { background: 240, icon: 48, font: 36 },
 	};
 
 	static DEFAULT_ICON_COLOR = Color.SECONDARY;
