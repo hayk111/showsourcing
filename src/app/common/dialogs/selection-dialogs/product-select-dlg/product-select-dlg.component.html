@@ -21,17 +21,17 @@
 			[hasMenu]="false"
 			[currentSort]="listSrv.currentSort"
 			[pending]="listSrv.pending"
-			[selection]="listSrv.selection$ | async"
+			[selection]="selectionSrv.selection$ | async"
 			[count]="listSrv.count$ | async"
 			[currentPage]="listSrv.currentPage"
 			(goToPage)="loadPage($event)"
 			(delete)="listSrv.deleteOne($event)"
 			(update)="listSrv.update($event)"
-			(open)="listSrv.goToDetails($event)"
+			(open)="viewSrv.goToDetails($event)"
 			(showItemsPerPage)="showItemsPerPage($event)"
 			(bottomReached)="listSrv.loadMore()"
 			(select)="onItemSelected($event, true)"
-			(previewClick)="listSrv.openPreview($event)"
+			(previewClick)="viewSrv.openPreview($event)"
 			(selectAll)="onSelectAll($event, true)"
 			(sort)="listSrv.sort($event)"
 			(unselect)="onItemUnselected($event)"
@@ -39,11 +39,11 @@
 		</products-table-app>
 
 		<filters-app
-			*ngIf="listSrv.filterPanelOpen"
-			[filterList]="listSrv.filterList"
+			*ngIf="viewSrv.filterPanelOpen"
+			[filterList]="filterSrv.filterList"
 			[filterTypes]="filterTypes"
 			[sidePanel]="false"
-			(close)="listSrv.closeFilterPanel()">
+			(close)="viewSrv.closeFilterPanel()">
 		</filters-app>
 	</div>
 

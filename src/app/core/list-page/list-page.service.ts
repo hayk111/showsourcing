@@ -4,12 +4,20 @@ import { empty, Observable } from 'rxjs';
 import { filter, map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { CreationDialogComponent } from '~common/dialogs/creation-dialogs';
 import { ExportDlgComponent } from '~common/dialogs/custom-dialogs';
-import { EntityMetadata, GlobalServiceInterface, SelectParamsConfig, UserService, Entity } from '~core/erm';
-import { View } from '~shared/controller-table/components';
+import {
+	Entity,
+	EntityMetadata,
+	GlobalServiceInterface,
+	SelectParamsConfig,
+	UserService
+} from '~core/erm';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
-import { Filter, FilterType } from '~shared/filters';
-import { RatingService, TypeWithVotes } from '~shared/rating/services/rating.service';
+import { FilterService } from '~shared/filters/services/filter.service';
+import {
+	RatingService,
+	TypeWithVotes
+} from '~shared/rating/services/rating.service';
 import { Sort } from '~shared/table/components/sort.interface';
 import { ToastService, ToastType } from '~shared/toast';
 import { showsourcing } from '~utils/debug-object.utils';
@@ -18,13 +26,11 @@ import { ListPageDataService } from './list-page-data.service';
 import { ListPageViewService } from './list-page-view.service';
 import { SelectionService } from './selection.service';
 
-
 // It has four legs and it can fly, what is it?
 // -
 // Two birds.
 
 // TODO: refacotr needed to make it more modulable. For example see product-activity.ts
-
 
 export interface ListPageConfig extends ListPageDataConfig {
 	entityMetadata: EntityMetadata;
@@ -43,12 +49,14 @@ export interface ListPageConfig extends ListPageDataConfig {
 @Injectable({
 	providedIn: 'root'
 })
-export class ListPageService
-	<T extends Entity, G extends GlobalServiceInterface<T>> {
-
+export class ListPageService<
+	T extends Entity,
+	G extends GlobalServiceInterface<T>
+> {
 	selectionSrv: SelectionService;
 	dataSrv: ListPageDataService<T, G>;
 	viewSrv: ListPageViewService<T>;
+	filterSrv: FilterService;
 
 	constructor(
 		private router: Router,
@@ -56,7 +64,7 @@ export class ListPageService
 		private dlgSrv: DialogService,
 		private zone: NgZone,
 		private userSrv: UserService,
-		private toastSrv: ToastService,
+		private toastSrv: ToastService
 	) {
 		if (!showsourcing.tables) {
 			showsourcing.tables = {};
@@ -77,17 +85,16 @@ export class ListPageService
 		}
 	}
 
-
 	loadData(destroy$: Observable<void>) {
 		if (!destroy$) {
 			throw Error('Please provide a originComponentDestroyed$ observable');
 		}
-		this.closePreview();
+		this.viewSrv.closePreview();
 		this.dataSrv.loadData(destroy$);
 		// we need to reset selection when filter changes
-		this.dataSrv.filterList.valueChanges$.pipe(
-			takeUntil(destroy$)
-		).subscribe(_ => this.selectionSrv.unselectAll());
+		this.filterSrv.filterList.valueChanges$
+			.pipe(takeUntil(destroy$))
+			.subscribe(_ => this.selectionSrv.unselectAll());
 	}
 
 	/**
@@ -99,6 +106,7 @@ export class ListPageService
 		this.selectionSrv = new SelectionService();
 		this.viewSrv = new ListPageViewService<T>(this.router);
 		this.dataSrv = new ListPageDataService<T, G>();
+		this.filterSrv = new FilterService(this.userSrv);
 	}
 
 	/** Here we are gonna bridge the functions from the other services */
@@ -137,24 +145,11 @@ export class ListPageService
 		return this.dataSrv.isListening;
 	}
 
-	get filterList() {
-		return this.dataSrv.filterList;
-	}
-
 	get currentSort() {
 		return {
 			sortBy: this.dataSrv.selectParams.sortBy,
 			descending: this.dataSrv.selectParams.descending
 		};
-	}
-
-	get isFiltering() {
-		// when searching or filtering by non initial filters
-		return !!this.filterList.search || (this.filterList.asFilters().length > this.filterList.initialFilters.length);
-	}
-
-	get searchValue() {
-		return this.filterList.search;
 	}
 
 	refetch(config?: SelectParamsConfig) {
@@ -166,7 +161,9 @@ export class ListPageService
 	}
 
 	loadPage(page: number, config?: SelectParamsConfig) {
-		this.dataSrv.loadPage(page, config).subscribe(_ => this.selectionSrv.unselectAll());
+		this.dataSrv
+			.loadPage(page, config)
+			.subscribe(_ => this.selectionSrv.unselectAll());
 	}
 
 	loadNextPage() {
@@ -174,11 +171,15 @@ export class ListPageService
 	}
 
 	loadPreviousPage() {
-		this.dataSrv.loadPreviousPage().subscribe(_ => this.selectionSrv.unselectAll());
+		this.dataSrv
+			.loadPreviousPage()
+			.subscribe(_ => this.selectionSrv.unselectAll());
 	}
 
 	loadFirstPage() {
-		this.dataSrv.loadFirstPage().subscribe(_ => this.selectionSrv.unselectAll());
+		this.dataSrv
+			.loadFirstPage()
+			.subscribe(_ => this.selectionSrv.unselectAll());
 	}
 
 	loadLastPage() {
@@ -198,82 +199,94 @@ export class ListPageService
 	}
 
 	updateSelected(value: any) {
-		const items = this.getSelectedIds()
+		const items = this.selectionSrv
+			.getSelectedIds()
 			.map(id => ({ id, ...value }));
 		this.dataSrv.updateMany(items).subscribe();
 	}
 
 	update(value: T) {
-		this.dataSrv.update(value).pipe(
-		).subscribe();
+		this.dataSrv
+			.update(value)
+			.pipe()
+			.subscribe();
 	}
 
 	updateMany(values: T[]) {
-		this.dataSrv.updateMany(values).pipe(
-		).subscribe();
+		this.dataSrv
+			.updateMany(values)
+			.pipe()
+			.subscribe();
 	}
 
 	onItemUnfavorited(id: string) {
 		this.dataSrv.update({ id, favorite: false } as any).subscribe();
 	}
 
-	onThumbUp(item: T, type: TypeWithVotes) {
-		const votes = this.ratingSrv.thumbUp(item, type);
-		return this.dataSrv.update({ id: item.id, votes } as any).subscribe();
-	}
-
-	onThumbDown(item: T, type: TypeWithVotes) {
-		const votes = this.ratingSrv.thumbDown(item, type);
-		return this.dataSrv.update({ id: item.id, votes } as any).subscribe();
-	}
 
 	// entities with audit have the flag deleted, so when they are deleted they are actually updated
 	// then the query list gets "refetched" automatically since a value inside got updated
 	// but for entities who do NOT have audith we need to refresh it manually since we are deleting it
 	// and not updating it
 	deleteOne(entity: T, refetch = false, callback?: () => void) {
-		const text = `Are you sure you want to delete this ${this.entityMetadata.singular} ?`;
-		this.dlgSrv.open(ConfirmDialogComponent, { text })
+		const text = `Are you sure you want to delete this ${this.viewSrv.entityMetadata.singular} ?`;
+		this.dlgSrv
+			.open(ConfirmDialogComponent, { text })
 			.pipe(
 				tap(_ => this.selectionSrv.unselectOne(entity)),
 				filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
 				switchMap(_ => this.dataSrv.deleteOne(entity.id)),
 				tap(_ => callback()),
-				switchMap(_ => refetch ? this.refetch() : empty())
-			).subscribe();
+				switchMap(_ => (refetch ? this.refetch() : empty()))
+			)
+			.subscribe();
 	}
 
 	// read comment on deleteOne function
 	deleteSelected(refetch = false) {
-		const itemIds = this.getSelectedIds();
+		const itemIds = this.selectionSrv.getSelectedIds();
 		// TODO i18n + erm pipe
-		const text = `Delete ${itemIds.length} `
-			+ (itemIds.length <= 1 ? this.entityMetadata.singular : this.entityMetadata.plural) + '?';
-		this.dlgSrv.open(ConfirmDialogComponent, { text }).pipe(
-			filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
-			switchMap(_ => this.dataSrv.deleteMany(itemIds)),
-			// unselect must go before refetch, otherwise it won't update
-			tap(_ => this.selectionSrv.unselectAll()),
-			switchMap(_ => refetch ? this.refetch() : empty())
-		).subscribe();
+		const text =
+			`Delete ${itemIds.length} ` +
+			(itemIds.length <= 1
+				? this.viewSrv.entityMetadata.singular
+				: this.viewSrv.entityMetadata.plural) +
+			'?';
+		this.dlgSrv
+			.open(ConfirmDialogComponent, { text })
+			.pipe(
+				filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
+				switchMap(_ => this.dataSrv.deleteMany(itemIds)),
+				// unselect must go before refetch, otherwise it won't update
+				tap(_ => this.selectionSrv.unselectAll()),
+				switchMap(_ => (refetch ? this.refetch() : empty()))
+			)
+			.subscribe();
 	}
 
 	/** creates a new entity, can also create with defaul values with extra?: any */
 	create(canRedirect = false, extra?: any) {
-		this.dlgSrv.open(CreationDialogComponent, { type: this.entityMetadata, extra, canRedirect }).pipe(
-			filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
-			map((evt: CloseEvent) => evt.data)
-		).subscribe(({ item, redirect }) => {
-			// we don't want to put this in a switchmap because we don't want to wait
-			// for the refect before redirecting
-			this.refetch().subscribe();
-			if (redirect)
-				this.redirectToCreated(item.id);
-		});
+		this.dlgSrv
+			.open(CreationDialogComponent, {
+				type: this.viewSrv.entityMetadata,
+				extra,
+				canRedirect
+			})
+			.pipe(
+				filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
+				map((evt: CloseEvent) => evt.data)
+			)
+			.subscribe(({ item, redirect }) => {
+				// we don't want to put this in a switchmap because we don't want to wait
+				// for the refect before redirecting
+				this.refetch().subscribe();
+				if (redirect) this.redirectToCreated(item.id);
+			});
 	}
 
 	archiveOne(entity: T) {
-		this.dataSrv.update({ id: entity.id, archived: true } as unknown as T)
+		this.dataSrv
+			.update(({ id: entity.id, archived: true } as unknown) as T)
 			.pipe(switchMap(_ => this.refetch()))
 			.subscribe(_ => {
 				this.toastSrv.add({
@@ -285,9 +298,13 @@ export class ListPageService
 	}
 
 	archiveMany(entities: T[]) {
-		this.dataSrv.updateMany(
-			entities.map(entity => ({ id: entity.id, archived: true } as unknown as T))
-		).pipe(switchMap(_ => this.refetch()))
+		this.dataSrv
+			.updateMany(
+				entities.map(
+					entity => (({ id: entity.id, archived: true } as unknown) as T)
+				)
+			)
+			.pipe(switchMap(_ => this.refetch()))
 			.subscribe(_ => {
 				this.toastSrv.add({
 					type: ToastType.SUCCESS,
@@ -297,173 +314,22 @@ export class ListPageService
 			});
 	}
 
-
 	private redirectToCreated(id: string) {
-		if (this.entityMetadata.destUrl)
-			this.router.navigate([this.entityMetadata.destUrl, id]);
-		else
-			throw Error(`no destination url`);
-	}
-
-	addFilter(_filter: Filter) {
-		this.dataSrv.addFilter(_filter);
-	}
-
-	removeFilter(_filter: Filter) {
-		this.dataSrv.removeFilter(_filter);
-	}
-
-	removeFilterType(filterType: FilterType) {
-		this.dataSrv.removeFilterType(filterType);
-	}
-
-	resetFilters() {
-		this.dataSrv.filterList.reset();
-	}
-
-	/** bridge for view service */
-
-	get view() {
-		return this.viewSrv.view;
-	}
-
-	get filterPanelOpen() {
-		return this.viewSrv.filterPanelOpen;
-	}
-
-	get previewOpen() {
-		return this.viewSrv.previewOpen;
-	}
-
-	get previewed() {
-		return this.viewSrv.previewed;
-	}
-
-	get entityMetadata() {
-		return this.viewSrv.entityMetadata;
-	}
-
-	openPreview(item: T) {
-		this.viewSrv.openPreview(item);
-	}
-
-	closePreview() {
-		this.viewSrv.closePreview();
-	}
-
-	goToDetails(id: string) {
-		this.viewSrv.goToDetails(id);
-	}
-
-	openFilterPanel() {
-		this.viewSrv.openFilterPanel();
-	}
-
-	closeFilterPanel() {
-		this.viewSrv.closeFilterPanel();
-	}
-
-	changeView(view: View) {
-		this.viewSrv.changeView(view);
-	}
-
-	/**
-	 * Bridge for selectionSrv
-	 */
-
-	get selection$() {
-		return this.selectionSrv.selection$;
-	}
-
-	get selection() {
-		return this.selectionSrv.selection;
-	}
-
-	selectOne(entity: any) {
-		this.selectionSrv.selectOne(entity);
-	}
-
-	unselectOne(entity: any) {
-		this.selectionSrv.unselectOne(entity);
-	}
-
-	selectAll(entities: any[]) {
-		this.selectionSrv.selectAll(entities);
-	}
-
-	unselectAll() {
-		this.selectionSrv.unselectAll();
-	}
-
-	getSelectedIds() {
-		return this.selectionSrv.getSelectionIds();
-	}
-
-	getSelectedValues() {
-		return this.selectionSrv.getSelectionValues();
-	}
-
-	getFilterAmount(): number {
-		const filters = this.filterList.asFilters()
-			.filter(fil => !this.filterList.initialFilters.some(elem => elem.type === fil.type && elem.value === fil.value));
-		return filters.length;
-	}
-
-	/** filter by archived, attention, weird logic:
-	 * if shouldAdd is true we the products archived
-	 * if shouldAdd is false we only see the not archived + not archived */
-	filterByArchived(shouldAdd: boolean) {
-		const filterParam = { type: FilterType.ARCHIVED, value: false };
-
-		if (shouldAdd) {
-			this.addFilter(filterParam);
-			return;
-		}
-
-		this.removeFilter(filterParam);
-	}
-
-	filterByAssignedToMe(shouldAdd: boolean) {
-		const filterParam = { type: FilterType.ASSIGNEE, value: this.userSrv.userIdSync };
-
-		if (shouldAdd) {
-			this.addFilter(filterParam);
-			return;
-		}
-
-		this.removeFilter(filterParam);
-	}
-
-	/** filter by done, attention, weird logic:
-	 * if shouldAdd is true we the products done
-	 * if shouldAdd is false we only see the not done + not done */
-	filterByDone(shouldAdd: boolean) {
-		const filterParam = { type: FilterType.DONE, value: false };
-
-		if (shouldAdd) {
-			this.addFilter(filterParam);
-			return;
-		}
-
-		this.removeFilter(filterParam);
-	}
-
-	filterByCreatedByMe(shouldAdd: boolean) {
-		const filterParam = { type: FilterType.CREATED_BY, value: this.userSrv.userIdSync };
-
-		if (shouldAdd) {
-			this.addFilter(filterParam);
-			return;
-		}
-
-		this.removeFilter(filterParam);
+		if (this.viewSrv.entityMetadata.destUrl)
+			this.router.navigate([this.viewSrv.entityMetadata.destUrl, id]);
+		else throw Error(`no destination url`);
 	}
 
 	exportSelection() {
-		this.dlgSrv.open(ExportDlgComponent, { targets: this.getSelectedValues() });
+		this.dlgSrv.open(ExportDlgComponent, {
+			targets: this.selectionSrv.getSelectedValues()
+		});
 	}
 
 	exportAll() {
-		this.dlgSrv.open(ExportDlgComponent, { query: 'deleted == false AND archived == false', type: this.entityMetadata.entityName });
+		this.dlgSrv.open(ExportDlgComponent, {
+			query: 'deleted == false AND archived == false',
+			type: this.viewSrv.entityMetadata.entityName
+		});
 	}
 }

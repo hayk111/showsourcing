@@ -3,16 +3,24 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { filter, switchMap, takeUntil } from 'rxjs/operators';
 import { CreationSampleDlgComponent } from '~common/dialogs/creation-dialogs';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { SelectParams } from '~core/erm';
+import {
+	ERM,
+	Product,
+	Sample,
+	SampleService,
+	SelectParams,
+	Supplier,
+	UserService
+} from '~core/erm';
 import { ListPageService } from '~core/list-page';
-import { SampleService, UserService } from '~core/erm';
-import { ERM, Product, Sample, Supplier } from '~core/erm';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { Filter, FilterType } from '~shared/filters';
+import { FilterService } from '~shared/filters/services/filter.service';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 
 /** since we use the sample component on different pages, this page will keep the methods clean */
-export abstract class AbstractSampleCommonComponent extends AutoUnsub implements OnInit {
+export abstract class AbstractSampleCommonComponent extends AutoUnsub
+	implements OnInit {
 	public trackById = (index, item) => item.id;
 
 	constructor(
@@ -22,34 +30,53 @@ export abstract class AbstractSampleCommonComponent extends AutoUnsub implements
 		protected sampleSrv: SampleService,
 		protected dlgSrv: DialogService,
 		public listSrv: ListPageService<Sample, SampleService>,
-		public dialogCommonSrv: DialogCommonService
+		public dialogCommonSrv: DialogCommonService,
+		protected filterSrv: FilterService
 	) {
 		super();
 	}
 
 	ngOnInit() {
-		this.sampleSrv.sampleListUpdate$.pipe(
-			switchMap(_ => this.listSrv.refetch({})),
-			takeUntil(this._destroy$)
-		).subscribe();
+		this.sampleSrv.sampleListUpdate$
+			.pipe(
+				switchMap(_ => this.listSrv.refetch({})),
+				takeUntil(this._destroy$)
+			)
+			.subscribe();
 	}
 
-	setup(addedFilters: Filter[] = [], selectParams?: SelectParams, hasAssigneFilter = true) {
+	setup(
+		addedFilters: Filter[] = [],
+		selectParams?: SelectParams,
+		hasAssigneFilter = true
+	) {
 		const userId = this.userSrv.userSync.id;
-		const initialFilters: Filter[] = [{ type: FilterType.ARCHIVED, value: false }];
+		const initialFilters: Filter[] = [
+			{ type: FilterType.ARCHIVED, value: false }
+		];
 		if (hasAssigneFilter) {
-			initialFilters.push({ type: FilterType.ASSIGNEE, value: userId }, { type: FilterType.ARCHIVED, value: false });
+			initialFilters.push(
+				{ type: FilterType.ASSIGNEE, value: userId },
+				{ type: FilterType.ARCHIVED, value: false }
+			);
 		}
 
 		this.listSrv.setup({
 			entitySrv: this.sampleSrv,
-			searchedFields: ['name', 'supplier.name', 'product.name', 'assignee.firstName', 'assignee.lastName', 'reference'],
-			selectParams: { ...selectParams, query: 'deleted == false AND archived == false' },
-			entityMetadata: ERM.SAMPLE,
-			initialFilters: [
-				...initialFilters,
-				...addedFilters
+			searchedFields: [
+				'name',
+				'supplier.name',
+				'product.name',
+				'assignee.firstName',
+				'assignee.lastName',
+				'reference'
 			],
+			selectParams: {
+				...selectParams,
+				query: 'deleted == false AND archived == false'
+			},
+			entityMetadata: ERM.SAMPLE,
+			initialFilters: [...initialFilters, ...addedFilters],
 			originComponentDestroy$: this._destroy$
 		});
 	}
@@ -69,17 +96,17 @@ export abstract class AbstractSampleCommonComponent extends AutoUnsub implements
 			type: FilterType.ASSIGNEE,
 			value: userId
 		};
-		if (show)
-			this.listSrv.addFilter(filterAssignee);
-		else
-			this.listSrv.removeFilter(filterAssignee);
+		if (show) this.filterSrv.addFilter(filterAssignee);
+		else this.filterSrv.removeFilter(filterAssignee);
 	}
 
 	openCreationSampleDlg(product?: Product, supplier?: Supplier) {
-		this.dlgSrv.open(CreationSampleDlgComponent, { product, supplier }).pipe(
-			filter((event: CloseEvent) => event.type === CloseEventType.OK),
-			switchMap(_ => this.listSrv.refetch({}))
-		).subscribe();
-
+		this.dlgSrv
+			.open(CreationSampleDlgComponent, { product, supplier })
+			.pipe(
+				filter((event: CloseEvent) => event.type === CloseEventType.OK),
+				switchMap(_ => this.listSrv.refetch({}))
+			)
+			.subscribe();
 	}
 }

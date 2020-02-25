@@ -8,6 +8,7 @@ import { ERM, Sample } from '~core/models';
 import { DialogService } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
 import { KanbanService } from '~shared/kanban/services/kanban.service';
+import { FilterService } from '~shared/filters/services/filter.service';
 
 @Component({
 	selector: 'my-sample-list-page-app',
@@ -16,7 +17,7 @@ import { KanbanService } from '~shared/kanban/services/kanban.service';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
 		ListPageService,
-		KanbanService
+		KanbanService, FilterService
 	]
 })
 export class MySampleListPageComponent extends AbstractSampleCommonComponent implements OnInit {
@@ -36,9 +37,10 @@ export class MySampleListPageComponent extends AbstractSampleCommonComponent imp
 		protected dlgSrv: DialogService,
 		public listSrv: ListPageService<Sample, SampleService>,
 		public commonModalSrv: CommonModalService,
-		public kanbanSrv: KanbanService
+		public kanbanSrv: KanbanService,
+		protected filterSrv: FilterService
 	) {
-		super(router, route, userSrv, sampleSrv, dlgSrv, listSrv, commonModalSrv);
+		super(router, route, userSrv, sampleSrv, dlgSrv, listSrv, commonModalSrv, filterSrv);
 	}
 
 	ngOnInit() {
@@ -50,9 +52,9 @@ export class MySampleListPageComponent extends AbstractSampleCommonComponent imp
 	toggleMySamples(show: boolean) {
 		const filterAssignee = { type: FilterType.ASSIGNEE, value: this.userSrv.userSync.id };
 		if (show)
-			this.listSrv.addFilter(filterAssignee);
+			this.filterSrv.addFilter(filterAssignee);
 		else
-			this.listSrv.removeFilter(filterAssignee);
+			this.filterSrv.removeFilter(filterAssignee);
 	}
 
 	openCreateDlg() {

@@ -14,17 +14,17 @@
 
 <requests-table-app
 	[rows]="listSrv.items$ | async"
-	[selection]="listSrv.selection$ | async"
+	[selection]="selectionSrv.selection$ | async"
 	[pending]="listSrv.pending"
-	[isFiltering]="listSrv.isFiltering"
+	[isFiltering]="filterSrv.isFiltering"
 	(goToPage)="listSrv.loadPage($event)"
 	(sort)="listSrv.sort($event)"
-	(select)="listSrv.selectOne($event, true)"
-	(unselect)="listSrv.unselectOne($event, true)"
-	(selectAll)="listSrv.selectAll($event, true)"
-	(unselectAll)="listSrv.unselectAll()"
-	(open)="listSrv.goToDetails($event)"
-	(previewClick)="listSrv.openPreview($event)"
+	(select)="selectionSrv.selectOne($event, true)"
+	(unselect)="selectionSrv.unselectOne($event, true)"
+	(selectAll)="selectionSrv.selectAll($event, true)"
+	(unselectAll)="selectionSrv.unselectAll()"
+	(open)="viewSrv.goToDetails($event)"
+	(previewClick)="viewSrv.openPreview($event)"
 	(createClick)="openSupplierRequest()"
 	(delete)="listSrv.deleteOne($event, true)">
 </requests-table-app> -->
