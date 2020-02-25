@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
-import { TeamService } from '~core/erm';
+import { TeamService } from '~core/auth';
 import { switchMap } from 'rxjs/operators';
 
 @Component({

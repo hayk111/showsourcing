@@ -1,24 +1,24 @@
 import { Injectable } from '@angular/core';
-import { Location } from '@angular/common';
-import { CanActivate, CanActivateChild, Router, Route, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map, tap, first } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { log, LogColor } from '~utils';
-import { TeamService } from '~core/erm';
+import { ApiService } from '~core/erm3/services/api.service';
+import { EntityName } from '~core/erm';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class HasTeamGuard implements CanActivate, CanActivateChild {
 
-	constructor(private teamSrv: TeamService, private location: Location, private router: Router) { }
+	constructor(private apiSrv: ApiService, private router: Router) { }
 
 	canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
 		return this.canActivate(route, state);
 	}
 
 	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
-		return this.teamSrv.queryAll().pipe(
+		return this.apiSrv.queryAll(EntityName.TEAM).data$.pipe(
 			tap(d => log.debug('%c hasTeamGuard', LogColor.GUARD, d)),
 			map(teams => teams.length > 0),
 			tap(hasTeam => this.redirect(hasTeam, route, state))

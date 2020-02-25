@@ -33,7 +33,6 @@ import { AutoUnsub } from '~utils';
 		SelectionService,
 		KanbanService,
 		KanbanSelectionService,
-		ListPageViewService,
 		FilterService,
 		SelectionService
 	],
@@ -74,9 +73,7 @@ export class ProductsPageComponent extends AutoUnsub
 		private userSrv: UserService,
 		protected dlgSrv: DialogService,
 		protected kanbanSelectionSrv: KanbanSelectionService,
-		private filterSrv: FilterService,
-		private viewSrv: ListPageViewService<Product>,
-		private selectionSrv: SelectionService
+		private filterSrv: FilterService
 	) {
 		super();
 	}

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, ReplaySubject } from 'rxjs';
-import { filter, map, switchMap } from 'rxjs/operators';
+import { filter, map, switchMap, tap } from 'rxjs/operators';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { Company } from '~core/erm/models';
 import { CompanyQueries } from '~core/erm/services/company/company.queries';

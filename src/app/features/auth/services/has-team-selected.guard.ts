@@ -1,17 +1,16 @@
 import { Injectable } from '@angular/core';
-import { Location } from '@angular/common';
-import { CanActivate, CanActivateChild, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { TeamService } from '~core/auth/services/team.service';
 import { log, LogColor } from '~utils';
-import { TeamService } from '~core/erm';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class HasTeamSelectedGuard implements CanActivate, CanActivateChild {
 
-	constructor(private teamSrv: TeamService, private location: Location, private router: Router) { }
+	constructor(private teamSrv: TeamService, private router: Router) { }
 
 	canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
 		return this.canActivate(route, state);
