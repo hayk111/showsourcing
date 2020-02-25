@@ -1,7 +1,7 @@
 import { Filter, FilterType } from '../models';
 import { FilterList } from './filter-list.class';
 
-fdescribe('FilterList', () => {
+describe('FilterList', () => {
 	let filterList: FilterList;
 	let startFilters: Filter[];
 	let searchedFields: string[];
@@ -13,13 +13,13 @@ fdescribe('FilterList', () => {
 	});
 
 	// test predicate without filters
-	it('is not instantiated correctely (without params)', () => {
+	it('should be instantiated correctely (without params)', () => {
 		expect(filterList.asPredicate()).toEqual({ and: [{ or: [] }] });
 	});
 
 	// test instance with default filters
-	it('is not instantiated correctely (with param filter)', () => {
-		let newFilterList = new FilterList(
+	it('should be instantiated correctely (with param filter)', () => {
+		const newFilterList = new FilterList(
 			[{ type: FilterType.SUPPLIER, value: 'my-supplier' }],
 			[]
 		);
@@ -29,7 +29,7 @@ fdescribe('FilterList', () => {
 	});
 
 	// test addFilter function
-	it("addFilter method doesn't work as expected", () => {
+	it('should be able to add a filter', () => {
 		filterList.addFilter({ type: FilterType.CATEGORY, value: 'id-cat' });
 		expect(filterList.asFilters()).toEqual([
 			{ type: FilterType.CATEGORY, value: 'id-cat' }
@@ -37,7 +37,7 @@ fdescribe('FilterList', () => {
 	});
 
 	// test simple category selected
-	it("doesn't work with one category selected", () => {
+	it('should work with one category selected', () => {
 		filterList.addFilter({ type: FilterType.CATEGORY, value: 'id-cat' });
 		expect(filterList.asPredicate()).toEqual({
 			and: [{ or: [{ [FilterType.CATEGORY]: { id: { eq: 'id-cat' } } }] }]
@@ -45,7 +45,7 @@ fdescribe('FilterList', () => {
 	});
 
 	// select 2 suppliers and 2 categories
-	it("doesn't work with many filters selected from many types", () => {
+	it('should work with many filters selected from many types', () => {
 		filterList.addFilter({ type: FilterType.SUPPLIER, value: 'id-supplier-1' });
 		filterList.addFilter({ type: FilterType.SUPPLIER, value: 'id-supplier-2' });
 		filterList.addFilter({ type: FilterType.CATEGORY, value: 'id-category-1' });
@@ -67,10 +67,9 @@ fdescribe('FilterList', () => {
 			]
 		});
 	});
-	"Object({ and: [ Object({ or: [ Object({ name: Object({ match: 'name or supplier contains this' }) }), Object({ supplierName: Object({ match: 'name or supplier contains this' }) }) ] }) ] })";
 
 	// test simple search string
-	it("doesn't work with a simple search string", () => {
+	it('should work with a simple search string', () => {
 		filterList.searchedFields = ['name', 'supplierName'];
 		filterList.setSearch('name or supplier contains this');
 		expect(filterList.asPredicate()).toEqual({
@@ -87,5 +86,12 @@ fdescribe('FilterList', () => {
 				}
 			]
 		});
+	});
+
+	// test to get the filter from the type map
+	it('should get the filter byType', () => {
+		filterList.addFilter({type: FilterType.ASSIGNEE, value: 'test-id'});
+		const hasFilterByType = filterList.asByType().get(FilterType.ASSIGNEE).has('test-id');
+		expect(hasFilterByType).toBe(true);
 	});
 });
