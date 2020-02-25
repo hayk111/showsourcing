@@ -17,7 +17,7 @@ export enum Lang {
 }
 
 export type CreateProductInput = {
-  id: string;
+  id?: string | null;
   name: string;
   teamId: string;
   price?: PriceInput | null;
@@ -43,6 +43,7 @@ export type CreateProductInput = {
   deletionDate?: number | null;
   lastUpdatedDate: number;
   deleted: boolean;
+  _version?: number | null;
   productSupplierId?: string | null;
   productAssigneeId?: string | null;
   productCreatedById: string;
@@ -57,6 +58,7 @@ export type PriceInput = {
 
 export type ModelProductConditionInput = {
   name?: ModelStringInput | null;
+  teamId?: ModelIDInput | null;
   description?: ModelStringInput | null;
   favorite?: ModelBooleanInput | null;
   minimumOrderQuantity?: ModelIntInput | null;
@@ -122,6 +124,22 @@ export type ModelSizeInput = {
   between?: Array<number | null> | null;
 };
 
+export type ModelIDInput = {
+  ne?: string | null;
+  eq?: string | null;
+  le?: string | null;
+  lt?: string | null;
+  ge?: string | null;
+  gt?: string | null;
+  contains?: string | null;
+  notContains?: string | null;
+  between?: Array<string | null> | null;
+  beginsWith?: string | null;
+  attributeExists?: boolean | null;
+  attributeType?: ModelAttributeTypes | null;
+  size?: ModelSizeInput | null;
+};
+
 export type ModelBooleanInput = {
   ne?: boolean | null;
   eq?: boolean | null;
@@ -156,7 +174,7 @@ export type ModelFloatInput = {
 export type UpdateProductInput = {
   id: string;
   name?: string | null;
-  teamId: string;
+  teamId?: string | null;
   price?: PriceInput | null;
   description?: string | null;
   favorite?: boolean | null;
@@ -180,6 +198,7 @@ export type UpdateProductInput = {
   deletionDate?: number | null;
   lastUpdatedDate?: number | null;
   deleted?: boolean | null;
+  _version?: number | null;
   productSupplierId?: string | null;
   productAssigneeId?: string | null;
   productCreatedById?: string | null;
@@ -187,19 +206,21 @@ export type UpdateProductInput = {
 };
 
 export type DeleteProductInput = {
-  teamId: string;
-  id: string;
+  id?: string | null;
+  _version?: number | null;
 };
 
 export type CreateSupplierInput = {
-  id: string;
+  id?: string | null;
   teamId: string;
   name: string;
   fullName?: string | null;
   tradingName?: string | null;
+  _version?: number | null;
 };
 
 export type ModelSupplierConditionInput = {
+  teamId?: ModelIDInput | null;
   name?: ModelStringInput | null;
   fullName?: ModelStringInput | null;
   tradingName?: ModelStringInput | null;
@@ -210,22 +231,24 @@ export type ModelSupplierConditionInput = {
 
 export type UpdateSupplierInput = {
   id: string;
-  teamId: string;
+  teamId?: string | null;
   name?: string | null;
   fullName?: string | null;
   tradingName?: string | null;
+  _version?: number | null;
 };
 
 export type DeleteSupplierInput = {
-  teamId: string;
-  id: string;
+  id?: string | null;
+  _version?: number | null;
 };
 
 export type CreateDescriptorInput = {
-  id: string;
+  id?: string | null;
   teamId: string;
   sections?: Array<SectionDescriptorInput | null> | null;
   target?: string | null;
+  _version?: number | null;
 };
 
 export type SectionDescriptorInput = {
@@ -243,6 +266,7 @@ export type FieldDescriptorInput = {
 };
 
 export type ModelDescriptorConditionInput = {
+  teamId?: ModelIDInput | null;
   target?: ModelStringInput | null;
   and?: Array<ModelDescriptorConditionInput | null> | null;
   or?: Array<ModelDescriptorConditionInput | null> | null;
@@ -251,18 +275,19 @@ export type ModelDescriptorConditionInput = {
 
 export type UpdateDescriptorInput = {
   id: string;
-  teamId: string;
+  teamId?: string | null;
   sections?: Array<SectionDescriptorInput | null> | null;
   target?: string | null;
+  _version?: number | null;
 };
 
 export type DeleteDescriptorInput = {
-  teamId: string;
-  id: string;
+  id?: string | null;
+  _version?: number | null;
 };
 
 export type CreateCategoryInput = {
-  id: string;
+  id?: string | null;
   teamId: string;
   name: string;
   creationDate: number;
@@ -270,9 +295,11 @@ export type CreateCategoryInput = {
   lastupdatedByUserId: string;
   lastUpdatedDate: number;
   deleted: boolean;
+  _version?: number | null;
 };
 
 export type ModelCategoryConditionInput = {
+  teamId?: ModelIDInput | null;
   name?: ModelStringInput | null;
   creationDate?: ModelIntInput | null;
   deletionDate?: ModelIntInput | null;
@@ -284,54 +311,53 @@ export type ModelCategoryConditionInput = {
   not?: ModelCategoryConditionInput | null;
 };
 
-export type ModelIDInput = {
-  ne?: string | null;
-  eq?: string | null;
-  le?: string | null;
-  lt?: string | null;
-  ge?: string | null;
-  gt?: string | null;
-  contains?: string | null;
-  notContains?: string | null;
-  between?: Array<string | null> | null;
-  beginsWith?: string | null;
-  attributeExists?: boolean | null;
-  attributeType?: ModelAttributeTypes | null;
-  size?: ModelSizeInput | null;
-};
-
 export type UpdateCategoryInput = {
   id: string;
-  teamId: string;
+  teamId?: string | null;
   name?: string | null;
   creationDate?: number | null;
   deletionDate?: number | null;
   lastupdatedByUserId?: string | null;
   lastUpdatedDate?: number | null;
   deleted?: boolean | null;
+  _version?: number | null;
 };
 
 export type DeleteCategoryInput = {
-  teamId: string;
-  id: string;
+  id?: string | null;
+  _version?: number | null;
 };
 
 export type CreateContactInput = {
-  id: string;
+  id?: string | null;
   teamId: string;
   companyId?: string | null;
   name?: string | null;
   phoneNumber?: string | null;
   email?: string | null;
   jobTitle?: string | null;
+  supplier?: SupplierInput | null;
   creationDate: number;
   deletionDate?: number | null;
   lastUpdatedDate: number;
   deleted: boolean;
+  _version?: number | null;
   contactSupplierId?: string | null;
 };
 
+export type SupplierInput = {
+  id: string;
+  teamId: string;
+  name: string;
+  fullName?: string | null;
+  tradingName?: string | null;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
+};
+
 export type ModelContactConditionInput = {
+  teamId?: ModelIDInput | null;
   companyId?: ModelIDInput | null;
   name?: ModelStringInput | null;
   phoneNumber?: ModelStringInput | null;
@@ -348,26 +374,28 @@ export type ModelContactConditionInput = {
 
 export type UpdateContactInput = {
   id: string;
-  teamId: string;
+  teamId?: string | null;
   companyId?: string | null;
   name?: string | null;
   phoneNumber?: string | null;
   email?: string | null;
   jobTitle?: string | null;
+  supplier?: SupplierInput | null;
   creationDate?: number | null;
   deletionDate?: number | null;
   lastUpdatedDate?: number | null;
   deleted?: boolean | null;
+  _version?: number | null;
   contactSupplierId?: string | null;
 };
 
 export type DeleteContactInput = {
-  teamId: string;
-  id: string;
+  id?: string | null;
+  _version?: number | null;
 };
 
 export type CreateImageInput = {
-  id: string;
+  id?: string | null;
   teamId: string;
   fileName: string;
   orientation: number;
@@ -377,6 +405,7 @@ export type CreateImageInput = {
   deletionDate?: number | null;
   lastUpdatedDate: number;
   deleted: boolean;
+  _version?: number | null;
 };
 
 export type ImageUrlInput = {
@@ -387,6 +416,7 @@ export type ImageUrlInput = {
 };
 
 export type ModelImageConditionInput = {
+  teamId?: ModelIDInput | null;
   fileName?: ModelStringInput | null;
   orientation?: ModelIntInput | null;
   imageType?: ModelStringInput | null;
@@ -401,7 +431,7 @@ export type ModelImageConditionInput = {
 
 export type UpdateImageInput = {
   id: string;
-  teamId: string;
+  teamId?: string | null;
   fileName?: string | null;
   orientation?: number | null;
   imageType?: string | null;
@@ -410,15 +440,16 @@ export type UpdateImageInput = {
   deletionDate?: number | null;
   lastUpdatedDate?: number | null;
   deleted?: boolean | null;
+  _version?: number | null;
 };
 
 export type DeleteImageInput = {
-  teamId: string;
-  id: string;
+  id?: string | null;
+  _version?: number | null;
 };
 
 export type CreateTaskInput = {
-  id: string;
+  id?: string | null;
   teamId: string;
   name?: string | null;
   description?: string | null;
@@ -426,6 +457,8 @@ export type CreateTaskInput = {
   completed?: boolean | null;
   completionDate?: number | null;
   assigneeUserId: string;
+  product?: ProductInput | null;
+  supplier?: SupplierInput | null;
   reference?: string | null;
   referenceKey?: number | null;
   inProgress?: boolean | null;
@@ -433,11 +466,78 @@ export type CreateTaskInput = {
   deletionDate?: number | null;
   lastUpdatedDate: number;
   deleted: boolean;
+  _version?: number | null;
   taskProductId?: string | null;
   taskSupplierId?: string | null;
 };
 
+export type ProductInput = {
+  id: string;
+  name: string;
+  teamId: string;
+  supplier?: SupplierInput | null;
+  images?: Array<ImageInput | null> | null;
+  price?: PriceInput | null;
+  category?: CategoryInput | null;
+  description?: string | null;
+  favorite?: boolean | null;
+  minimumOrderQuantity?: number | null;
+  moqDescription?: string | null;
+  score?: number | null;
+  incoTerm?: string | null;
+  harbour?: string | null;
+  masterCbm?: number | null;
+  quantityPer20ft?: number | null;
+  quantityPer40ft?: number | null;
+  quantityPer40ftHC?: number | null;
+  leadTimeValue?: number | null;
+  leadTimeUnit?: string | null;
+  sample?: boolean | null;
+  samplePrice?: PriceInput | null;
+  archived: boolean;
+  reference?: string | null;
+  referenceKey?: number | null;
+  creationDate: number;
+  deletionDate?: number | null;
+  lastUpdatedDate: number;
+  deleted: boolean;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
+};
+
+export type ImageInput = {
+  id: string;
+  teamId: string;
+  fileName: string;
+  orientation: number;
+  imageType: string;
+  urls?: Array<ImageUrlInput | null> | null;
+  creationDate: number;
+  deletionDate?: number | null;
+  lastUpdatedDate: number;
+  deleted: boolean;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
+};
+
+export type CategoryInput = {
+  id: string;
+  teamId: string;
+  name: string;
+  creationDate: number;
+  deletionDate?: number | null;
+  lastupdatedByUserId: string;
+  lastUpdatedDate: number;
+  deleted: boolean;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
+};
+
 export type ModelTaskConditionInput = {
+  teamId?: ModelIDInput | null;
   name?: ModelStringInput | null;
   description?: ModelStringInput | null;
   dueDate?: ModelIntInput | null;
@@ -458,13 +558,15 @@ export type ModelTaskConditionInput = {
 
 export type UpdateTaskInput = {
   id: string;
-  teamId: string;
+  teamId?: string | null;
   name?: string | null;
   description?: string | null;
   dueDate?: number | null;
   completed?: boolean | null;
   completionDate?: number | null;
   assigneeUserId?: string | null;
+  product?: ProductInput | null;
+  supplier?: SupplierInput | null;
   reference?: string | null;
   referenceKey?: number | null;
   inProgress?: boolean | null;
@@ -472,19 +574,36 @@ export type UpdateTaskInput = {
   deletionDate?: number | null;
   lastUpdatedDate?: number | null;
   deleted?: boolean | null;
+  _version?: number | null;
   taskProductId?: string | null;
   taskSupplierId?: string | null;
 };
 
 export type DeleteTaskInput = {
-  teamId: string;
-  id: string;
+  id?: string | null;
+  _version?: number | null;
 };
 
 export type CreateTeamUserInput = {
   teamId: string;
   userId: string;
+  team?: TeamInput | null;
   role: TeamRole;
+  _version?: number | null;
+};
+
+export type TeamInput = {
+  id: string;
+  name: string;
+  ownerUserId: string;
+  companyId: string;
+  createdByUserId: string;
+  createdOn: number;
+  lastUpdatedByUserId: string;
+  lastUpdatedOn?: number | null;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
 };
 
 export enum TeamRole {
@@ -508,12 +627,15 @@ export type ModelTeamRoleInput = {
 export type UpdateTeamUserInput = {
   teamId: string;
   userId: string;
+  team?: TeamInput | null;
   role?: TeamRole | null;
+  _version?: number | null;
 };
 
 export type DeleteTeamUserInput = {
   teamId: string;
   userId: string;
+  _version?: number | null;
 };
 
 export type CreateCompanyInput = {
@@ -540,10 +662,12 @@ export type UpdateCompanyInput = {
   createdOn?: number | null;
   lastUpdatedByUserId?: string | null;
   lastUpdatedOn?: number | null;
+  _version?: number | null;
 };
 
 export type DeleteCompanyInput = {
   id?: string | null;
+  _version?: number | null;
 };
 
 export type UpdateUserInput = {
@@ -571,16 +695,6 @@ export type ModelUserConditionInput = {
 export type ModelLangInput = {
   eq?: Lang | null;
   ne?: Lang | null;
-};
-
-export type ModelIDKeyConditionInput = {
-  eq?: string | null;
-  le?: string | null;
-  lt?: string | null;
-  ge?: string | null;
-  gt?: string | null;
-  between?: Array<string | null> | null;
-  beginsWith?: string | null;
 };
 
 export type ModelProductFilterInput = {
@@ -612,11 +726,6 @@ export type ModelProductFilterInput = {
   or?: Array<ModelProductFilterInput | null> | null;
   not?: ModelProductFilterInput | null;
 };
-
-export enum ModelSortDirection {
-  ASC = "ASC",
-  DESC = "DESC"
-}
 
 export type ModelSupplierFilterInput = {
   id?: ModelIDInput | null;
@@ -728,6 +837,21 @@ export type ModelTeamUserFilterInput = {
   not?: ModelTeamUserFilterInput | null;
 };
 
+export type ModelIDKeyConditionInput = {
+  eq?: string | null;
+  le?: string | null;
+  lt?: string | null;
+  ge?: string | null;
+  gt?: string | null;
+  between?: Array<string | null> | null;
+  beginsWith?: string | null;
+};
+
+export enum ModelSortDirection {
+  ASC = "ASC",
+  DESC = "DESC"
+}
+
 export type ModelCompanyFilterInput = {
   id?: ModelIDInput | null;
   name?: ModelStringInput | null;
@@ -739,6 +863,32 @@ export type ModelCompanyFilterInput = {
   and?: Array<ModelCompanyFilterInput | null> | null;
   or?: Array<ModelCompanyFilterInput | null> | null;
   not?: ModelCompanyFilterInput | null;
+};
+
+export type ModelUserFilterInput = {
+  id?: ModelIDInput | null;
+  email?: ModelStringInput | null;
+  firstName?: ModelStringInput | null;
+  lastName?: ModelStringInput | null;
+  phoneNumber?: ModelStringInput | null;
+  preferredLanguage?: ModelLangInput | null;
+  avatar?: ModelStringInput | null;
+  creationDate?: ModelIntInput | null;
+  and?: Array<ModelUserFilterInput | null> | null;
+  or?: Array<ModelUserFilterInput | null> | null;
+  not?: ModelUserFilterInput | null;
+};
+
+export type ModelLegacyUserFilterInput = {
+  id?: ModelIDInput | null;
+  hash?: ModelStringInput | null;
+  emailValidated?: ModelBooleanInput | null;
+  activationDate?: ModelIntInput | null;
+  activated?: ModelBooleanInput | null;
+  deactivationDate?: ModelIntInput | null;
+  and?: Array<ModelLegacyUserFilterInput | null> | null;
+  or?: Array<ModelLegacyUserFilterInput | null> | null;
+  not?: ModelLegacyUserFilterInput | null;
 };
 
 export type CreateTeamMutation = {
@@ -756,6 +906,9 @@ export type CreateTeamMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   };
   companyId: string;
   company: {
@@ -763,10 +916,55 @@ export type CreateTeamMutation = {
     id: string;
     name: string;
     ownerUserId: string;
+    owner: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     createdByUserId: string;
+    createdBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     createdOn: number;
     lastUpdatedByUserId: string;
+    lastUpdatedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     lastUpdatedOn: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   };
   createdByUserId: string;
   createdBy: {
@@ -779,6 +977,9 @@ export type CreateTeamMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   };
   createdOn: number;
   lastUpdatedByUserId: string;
@@ -792,8 +993,14 @@ export type CreateTeamMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   lastUpdatedOn: number | null;
+  _version: number;
+  _deleted: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type CreateProductMutation = {
@@ -806,19 +1013,94 @@ export type CreateProductMutation = {
     id: string;
     name: string;
     ownerUserId: string;
+    owner: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     companyId: string;
+    company: {
+      __typename: "Company";
+      id: string;
+      name: string;
+      ownerUserId: string;
+      createdByUserId: string;
+      createdOn: number;
+      lastUpdatedByUserId: string;
+      lastUpdatedOn: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     createdByUserId: string;
+    createdBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     createdOn: number;
     lastUpdatedByUserId: string;
+    lastUpdatedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     lastUpdatedOn: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   };
   supplier: {
     __typename: "Supplier";
     id: string;
     teamId: string;
+    team: {
+      __typename: "Team";
+      id: string;
+      name: string;
+      ownerUserId: string;
+      companyId: string;
+      createdByUserId: string;
+      createdOn: number;
+      lastUpdatedByUserId: string;
+      lastUpdatedOn: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     name: string;
     fullName: string | null;
     tradingName: string | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   images: Array<{
     __typename: "Image";
@@ -827,10 +1109,62 @@ export type CreateProductMutation = {
     fileName: string;
     orientation: number;
     imageType: string;
+    urls: Array<{
+      __typename: "ImageUrl";
+      id: string;
+      maxWidth: number;
+      maxHeight: number;
+      url: string;
+    } | null> | null;
     creationDate: number;
+    createdBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
+    deletedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     deletionDate: number | null;
+    lastUpdatedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     lastUpdatedDate: number;
     deleted: boolean;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null> | null;
   price: {
     __typename: "Price";
@@ -844,10 +1178,55 @@ export type CreateProductMutation = {
     teamId: string;
     name: string;
     creationDate: number;
+    createdBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
+    deletedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     deletionDate: number | null;
     lastupdatedByUserId: string;
+    lastUpdatedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     lastUpdatedDate: number;
     deleted: boolean;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   description: string | null;
   favorite: boolean | null;
@@ -861,6 +1240,9 @@ export type CreateProductMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   minimumOrderQuantity: number | null;
   moqDescription: string | null;
@@ -894,6 +1276,9 @@ export type CreateProductMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   };
   deletedBy: {
     __typename: "User";
@@ -905,6 +1290,9 @@ export type CreateProductMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   deletionDate: number | null;
   lastUpdatedBy: {
@@ -917,9 +1305,15 @@ export type CreateProductMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   lastUpdatedDate: number;
   deleted: boolean;
+  _version: number;
+  _deleted: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type UpdateProductMutation = {
@@ -932,19 +1326,94 @@ export type UpdateProductMutation = {
     id: string;
     name: string;
     ownerUserId: string;
+    owner: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     companyId: string;
+    company: {
+      __typename: "Company";
+      id: string;
+      name: string;
+      ownerUserId: string;
+      createdByUserId: string;
+      createdOn: number;
+      lastUpdatedByUserId: string;
+      lastUpdatedOn: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     createdByUserId: string;
+    createdBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     createdOn: number;
     lastUpdatedByUserId: string;
+    lastUpdatedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     lastUpdatedOn: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   };
   supplier: {
     __typename: "Supplier";
     id: string;
     teamId: string;
+    team: {
+      __typename: "Team";
+      id: string;
+      name: string;
+      ownerUserId: string;
+      companyId: string;
+      createdByUserId: string;
+      createdOn: number;
+      lastUpdatedByUserId: string;
+      lastUpdatedOn: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     name: string;
     fullName: string | null;
     tradingName: string | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   images: Array<{
     __typename: "Image";
@@ -953,10 +1422,62 @@ export type UpdateProductMutation = {
     fileName: string;
     orientation: number;
     imageType: string;
+    urls: Array<{
+      __typename: "ImageUrl";
+      id: string;
+      maxWidth: number;
+      maxHeight: number;
+      url: string;
+    } | null> | null;
     creationDate: number;
+    createdBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
+    deletedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     deletionDate: number | null;
+    lastUpdatedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     lastUpdatedDate: number;
     deleted: boolean;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null> | null;
   price: {
     __typename: "Price";
@@ -970,10 +1491,55 @@ export type UpdateProductMutation = {
     teamId: string;
     name: string;
     creationDate: number;
+    createdBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
+    deletedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     deletionDate: number | null;
     lastupdatedByUserId: string;
+    lastUpdatedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     lastUpdatedDate: number;
     deleted: boolean;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   description: string | null;
   favorite: boolean | null;
@@ -987,6 +1553,9 @@ export type UpdateProductMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   minimumOrderQuantity: number | null;
   moqDescription: string | null;
@@ -1020,6 +1589,9 @@ export type UpdateProductMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   };
   deletedBy: {
     __typename: "User";
@@ -1031,6 +1603,9 @@ export type UpdateProductMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   deletionDate: number | null;
   lastUpdatedBy: {
@@ -1043,9 +1618,15 @@ export type UpdateProductMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   lastUpdatedDate: number;
   deleted: boolean;
+  _version: number;
+  _deleted: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type DeleteProductMutation = {
@@ -1058,19 +1639,94 @@ export type DeleteProductMutation = {
     id: string;
     name: string;
     ownerUserId: string;
+    owner: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     companyId: string;
+    company: {
+      __typename: "Company";
+      id: string;
+      name: string;
+      ownerUserId: string;
+      createdByUserId: string;
+      createdOn: number;
+      lastUpdatedByUserId: string;
+      lastUpdatedOn: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     createdByUserId: string;
+    createdBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     createdOn: number;
     lastUpdatedByUserId: string;
+    lastUpdatedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     lastUpdatedOn: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   };
   supplier: {
     __typename: "Supplier";
     id: string;
     teamId: string;
+    team: {
+      __typename: "Team";
+      id: string;
+      name: string;
+      ownerUserId: string;
+      companyId: string;
+      createdByUserId: string;
+      createdOn: number;
+      lastUpdatedByUserId: string;
+      lastUpdatedOn: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     name: string;
     fullName: string | null;
     tradingName: string | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   images: Array<{
     __typename: "Image";
@@ -1079,10 +1735,62 @@ export type DeleteProductMutation = {
     fileName: string;
     orientation: number;
     imageType: string;
+    urls: Array<{
+      __typename: "ImageUrl";
+      id: string;
+      maxWidth: number;
+      maxHeight: number;
+      url: string;
+    } | null> | null;
     creationDate: number;
+    createdBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
+    deletedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     deletionDate: number | null;
+    lastUpdatedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     lastUpdatedDate: number;
     deleted: boolean;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null> | null;
   price: {
     __typename: "Price";
@@ -1096,10 +1804,55 @@ export type DeleteProductMutation = {
     teamId: string;
     name: string;
     creationDate: number;
+    createdBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
+    deletedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     deletionDate: number | null;
     lastupdatedByUserId: string;
+    lastUpdatedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     lastUpdatedDate: number;
     deleted: boolean;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   description: string | null;
   favorite: boolean | null;
@@ -1113,6 +1866,9 @@ export type DeleteProductMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   minimumOrderQuantity: number | null;
   moqDescription: string | null;
@@ -1146,6 +1902,9 @@ export type DeleteProductMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   };
   deletedBy: {
     __typename: "User";
@@ -1157,6 +1916,9 @@ export type DeleteProductMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   deletionDate: number | null;
   lastUpdatedBy: {
@@ -1169,9 +1931,15 @@ export type DeleteProductMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   lastUpdatedDate: number;
   deleted: boolean;
+  _version: number;
+  _deleted: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type CreateSupplierMutation = {
@@ -1183,15 +1951,76 @@ export type CreateSupplierMutation = {
     id: string;
     name: string;
     ownerUserId: string;
+    owner: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     companyId: string;
+    company: {
+      __typename: "Company";
+      id: string;
+      name: string;
+      ownerUserId: string;
+      createdByUserId: string;
+      createdOn: number;
+      lastUpdatedByUserId: string;
+      lastUpdatedOn: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     createdByUserId: string;
+    createdBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     createdOn: number;
     lastUpdatedByUserId: string;
+    lastUpdatedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     lastUpdatedOn: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   };
   name: string;
   fullName: string | null;
   tradingName: string | null;
+  _version: number;
+  _deleted: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type UpdateSupplierMutation = {
@@ -1203,15 +2032,76 @@ export type UpdateSupplierMutation = {
     id: string;
     name: string;
     ownerUserId: string;
+    owner: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     companyId: string;
+    company: {
+      __typename: "Company";
+      id: string;
+      name: string;
+      ownerUserId: string;
+      createdByUserId: string;
+      createdOn: number;
+      lastUpdatedByUserId: string;
+      lastUpdatedOn: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     createdByUserId: string;
+    createdBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     createdOn: number;
     lastUpdatedByUserId: string;
+    lastUpdatedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     lastUpdatedOn: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   };
   name: string;
   fullName: string | null;
   tradingName: string | null;
+  _version: number;
+  _deleted: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type DeleteSupplierMutation = {
@@ -1223,15 +2113,76 @@ export type DeleteSupplierMutation = {
     id: string;
     name: string;
     ownerUserId: string;
+    owner: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     companyId: string;
+    company: {
+      __typename: "Company";
+      id: string;
+      name: string;
+      ownerUserId: string;
+      createdByUserId: string;
+      createdOn: number;
+      lastUpdatedByUserId: string;
+      lastUpdatedOn: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     createdByUserId: string;
+    createdBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     createdOn: number;
     lastUpdatedByUserId: string;
+    lastUpdatedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     lastUpdatedOn: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   };
   name: string;
   fullName: string | null;
   tradingName: string | null;
+  _version: number;
+  _deleted: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type CreateDescriptorMutation = {
@@ -1241,8 +2192,20 @@ export type CreateDescriptorMutation = {
   sections: Array<{
     __typename: "SectionDescriptor";
     name: string;
+    fields: Array<{
+      __typename: "FieldDescriptor";
+      name: string;
+      label: string;
+      type: string;
+      defaultValue: string | null;
+      fixedValue: boolean | null;
+      metadata: string | null;
+    } | null> | null;
   } | null> | null;
   target: string | null;
+  _version: number;
+  _deleted: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type UpdateDescriptorMutation = {
@@ -1252,8 +2215,20 @@ export type UpdateDescriptorMutation = {
   sections: Array<{
     __typename: "SectionDescriptor";
     name: string;
+    fields: Array<{
+      __typename: "FieldDescriptor";
+      name: string;
+      label: string;
+      type: string;
+      defaultValue: string | null;
+      fixedValue: boolean | null;
+      metadata: string | null;
+    } | null> | null;
   } | null> | null;
   target: string | null;
+  _version: number;
+  _deleted: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type DeleteDescriptorMutation = {
@@ -1263,8 +2238,20 @@ export type DeleteDescriptorMutation = {
   sections: Array<{
     __typename: "SectionDescriptor";
     name: string;
+    fields: Array<{
+      __typename: "FieldDescriptor";
+      name: string;
+      label: string;
+      type: string;
+      defaultValue: string | null;
+      fixedValue: boolean | null;
+      metadata: string | null;
+    } | null> | null;
   } | null> | null;
   target: string | null;
+  _version: number;
+  _deleted: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type CreateCategoryMutation = {
@@ -1283,6 +2270,9 @@ export type CreateCategoryMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   };
   deletedBy: {
     __typename: "User";
@@ -1294,6 +2284,9 @@ export type CreateCategoryMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   deletionDate: number | null;
   lastupdatedByUserId: string;
@@ -1307,9 +2300,15 @@ export type CreateCategoryMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   lastUpdatedDate: number;
   deleted: boolean;
+  _version: number;
+  _deleted: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type UpdateCategoryMutation = {
@@ -1328,6 +2327,9 @@ export type UpdateCategoryMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   };
   deletedBy: {
     __typename: "User";
@@ -1339,6 +2341,9 @@ export type UpdateCategoryMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   deletionDate: number | null;
   lastupdatedByUserId: string;
@@ -1352,9 +2357,15 @@ export type UpdateCategoryMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   lastUpdatedDate: number;
   deleted: boolean;
+  _version: number;
+  _deleted: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type DeleteCategoryMutation = {
@@ -1373,6 +2384,9 @@ export type DeleteCategoryMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   };
   deletedBy: {
     __typename: "User";
@@ -1384,6 +2398,9 @@ export type DeleteCategoryMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   deletionDate: number | null;
   lastupdatedByUserId: string;
@@ -1397,9 +2414,15 @@ export type DeleteCategoryMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   lastUpdatedDate: number;
   deleted: boolean;
+  _version: number;
+  _deleted: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type CreateContactMutation = {
@@ -1415,9 +2438,26 @@ export type CreateContactMutation = {
     __typename: "Supplier";
     id: string;
     teamId: string;
+    team: {
+      __typename: "Team";
+      id: string;
+      name: string;
+      ownerUserId: string;
+      companyId: string;
+      createdByUserId: string;
+      createdOn: number;
+      lastUpdatedByUserId: string;
+      lastUpdatedOn: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     name: string;
     fullName: string | null;
     tradingName: string | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   creationDate: number;
   createdBy: {
@@ -1430,6 +2470,9 @@ export type CreateContactMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   };
   deletedBy: {
     __typename: "User";
@@ -1441,6 +2484,9 @@ export type CreateContactMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   deletionDate: number | null;
   lastUpdatedBy: {
@@ -1453,9 +2499,15 @@ export type CreateContactMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   lastUpdatedDate: number;
   deleted: boolean;
+  _version: number;
+  _deleted: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type UpdateContactMutation = {
@@ -1471,9 +2523,26 @@ export type UpdateContactMutation = {
     __typename: "Supplier";
     id: string;
     teamId: string;
+    team: {
+      __typename: "Team";
+      id: string;
+      name: string;
+      ownerUserId: string;
+      companyId: string;
+      createdByUserId: string;
+      createdOn: number;
+      lastUpdatedByUserId: string;
+      lastUpdatedOn: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     name: string;
     fullName: string | null;
     tradingName: string | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   creationDate: number;
   createdBy: {
@@ -1486,6 +2555,9 @@ export type UpdateContactMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   };
   deletedBy: {
     __typename: "User";
@@ -1497,6 +2569,9 @@ export type UpdateContactMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   deletionDate: number | null;
   lastUpdatedBy: {
@@ -1509,9 +2584,15 @@ export type UpdateContactMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   lastUpdatedDate: number;
   deleted: boolean;
+  _version: number;
+  _deleted: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type DeleteContactMutation = {
@@ -1527,9 +2608,26 @@ export type DeleteContactMutation = {
     __typename: "Supplier";
     id: string;
     teamId: string;
+    team: {
+      __typename: "Team";
+      id: string;
+      name: string;
+      ownerUserId: string;
+      companyId: string;
+      createdByUserId: string;
+      createdOn: number;
+      lastUpdatedByUserId: string;
+      lastUpdatedOn: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     name: string;
     fullName: string | null;
     tradingName: string | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   creationDate: number;
   createdBy: {
@@ -1542,6 +2640,9 @@ export type DeleteContactMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   };
   deletedBy: {
     __typename: "User";
@@ -1553,6 +2654,9 @@ export type DeleteContactMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   deletionDate: number | null;
   lastUpdatedBy: {
@@ -1565,9 +2669,15 @@ export type DeleteContactMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   lastUpdatedDate: number;
   deleted: boolean;
+  _version: number;
+  _deleted: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type CreateImageMutation = {
@@ -1595,6 +2705,9 @@ export type CreateImageMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   };
   deletedBy: {
     __typename: "User";
@@ -1606,6 +2719,9 @@ export type CreateImageMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   deletionDate: number | null;
   lastUpdatedBy: {
@@ -1618,9 +2734,15 @@ export type CreateImageMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   lastUpdatedDate: number;
   deleted: boolean;
+  _version: number;
+  _deleted: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type UpdateImageMutation = {
@@ -1648,6 +2770,9 @@ export type UpdateImageMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   };
   deletedBy: {
     __typename: "User";
@@ -1659,6 +2784,9 @@ export type UpdateImageMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   deletionDate: number | null;
   lastUpdatedBy: {
@@ -1671,9 +2799,15 @@ export type UpdateImageMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   lastUpdatedDate: number;
   deleted: boolean;
+  _version: number;
+  _deleted: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type DeleteImageMutation = {
@@ -1701,6 +2835,9 @@ export type DeleteImageMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   };
   deletedBy: {
     __typename: "User";
@@ -1712,6 +2849,9 @@ export type DeleteImageMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   deletionDate: number | null;
   lastUpdatedBy: {
@@ -1724,9 +2864,15 @@ export type DeleteImageMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   lastUpdatedDate: number;
   deleted: boolean;
+  _version: number;
+  _deleted: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type CreateTaskMutation = {
@@ -1749,14 +2895,91 @@ export type CreateTaskMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   product: {
     __typename: "Product";
     id: string;
     name: string;
     teamId: string;
+    team: {
+      __typename: "Team";
+      id: string;
+      name: string;
+      ownerUserId: string;
+      companyId: string;
+      createdByUserId: string;
+      createdOn: number;
+      lastUpdatedByUserId: string;
+      lastUpdatedOn: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
+    supplier: {
+      __typename: "Supplier";
+      id: string;
+      teamId: string;
+      name: string;
+      fullName: string | null;
+      tradingName: string | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
+    images: Array<{
+      __typename: "Image";
+      id: string;
+      teamId: string;
+      fileName: string;
+      orientation: number;
+      imageType: string;
+      creationDate: number;
+      deletionDate: number | null;
+      lastUpdatedDate: number;
+      deleted: boolean;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null> | null;
+    price: {
+      __typename: "Price";
+      currency: string | null;
+      value: number | null;
+      baseCurrencyValue: number | null;
+    } | null;
+    category: {
+      __typename: "Category";
+      id: string;
+      teamId: string;
+      name: string;
+      creationDate: number;
+      deletionDate: number | null;
+      lastupdatedByUserId: string;
+      lastUpdatedDate: number;
+      deleted: boolean;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     description: string | null;
     favorite: boolean | null;
+    assignee: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     minimumOrderQuantity: number | null;
     moqDescription: string | null;
     score: number | null;
@@ -1769,21 +2992,89 @@ export type CreateTaskMutation = {
     leadTimeValue: number | null;
     leadTimeUnit: string | null;
     sample: boolean | null;
+    samplePrice: {
+      __typename: "Price";
+      currency: string | null;
+      value: number | null;
+      baseCurrencyValue: number | null;
+    } | null;
     archived: boolean;
     reference: string | null;
     referenceKey: number | null;
     creationDate: number;
+    createdBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
+    deletedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     deletionDate: number | null;
+    lastUpdatedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     lastUpdatedDate: number;
     deleted: boolean;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   supplier: {
     __typename: "Supplier";
     id: string;
     teamId: string;
+    team: {
+      __typename: "Team";
+      id: string;
+      name: string;
+      ownerUserId: string;
+      companyId: string;
+      createdByUserId: string;
+      createdOn: number;
+      lastUpdatedByUserId: string;
+      lastUpdatedOn: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     name: string;
     fullName: string | null;
     tradingName: string | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   reference: string | null;
   referenceKey: number | null;
@@ -1799,6 +3090,9 @@ export type CreateTaskMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   };
   deletedBy: {
     __typename: "User";
@@ -1810,6 +3104,9 @@ export type CreateTaskMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   deletionDate: number | null;
   lastUpdatedBy: {
@@ -1822,9 +3119,15 @@ export type CreateTaskMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   lastUpdatedDate: number;
   deleted: boolean;
+  _version: number;
+  _deleted: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type UpdateTaskMutation = {
@@ -1847,14 +3150,91 @@ export type UpdateTaskMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   product: {
     __typename: "Product";
     id: string;
     name: string;
     teamId: string;
+    team: {
+      __typename: "Team";
+      id: string;
+      name: string;
+      ownerUserId: string;
+      companyId: string;
+      createdByUserId: string;
+      createdOn: number;
+      lastUpdatedByUserId: string;
+      lastUpdatedOn: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
+    supplier: {
+      __typename: "Supplier";
+      id: string;
+      teamId: string;
+      name: string;
+      fullName: string | null;
+      tradingName: string | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
+    images: Array<{
+      __typename: "Image";
+      id: string;
+      teamId: string;
+      fileName: string;
+      orientation: number;
+      imageType: string;
+      creationDate: number;
+      deletionDate: number | null;
+      lastUpdatedDate: number;
+      deleted: boolean;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null> | null;
+    price: {
+      __typename: "Price";
+      currency: string | null;
+      value: number | null;
+      baseCurrencyValue: number | null;
+    } | null;
+    category: {
+      __typename: "Category";
+      id: string;
+      teamId: string;
+      name: string;
+      creationDate: number;
+      deletionDate: number | null;
+      lastupdatedByUserId: string;
+      lastUpdatedDate: number;
+      deleted: boolean;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     description: string | null;
     favorite: boolean | null;
+    assignee: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     minimumOrderQuantity: number | null;
     moqDescription: string | null;
     score: number | null;
@@ -1867,21 +3247,89 @@ export type UpdateTaskMutation = {
     leadTimeValue: number | null;
     leadTimeUnit: string | null;
     sample: boolean | null;
+    samplePrice: {
+      __typename: "Price";
+      currency: string | null;
+      value: number | null;
+      baseCurrencyValue: number | null;
+    } | null;
     archived: boolean;
     reference: string | null;
     referenceKey: number | null;
     creationDate: number;
+    createdBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
+    deletedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     deletionDate: number | null;
+    lastUpdatedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     lastUpdatedDate: number;
     deleted: boolean;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   supplier: {
     __typename: "Supplier";
     id: string;
     teamId: string;
+    team: {
+      __typename: "Team";
+      id: string;
+      name: string;
+      ownerUserId: string;
+      companyId: string;
+      createdByUserId: string;
+      createdOn: number;
+      lastUpdatedByUserId: string;
+      lastUpdatedOn: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     name: string;
     fullName: string | null;
     tradingName: string | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   reference: string | null;
   referenceKey: number | null;
@@ -1897,6 +3345,9 @@ export type UpdateTaskMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   };
   deletedBy: {
     __typename: "User";
@@ -1908,6 +3359,9 @@ export type UpdateTaskMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   deletionDate: number | null;
   lastUpdatedBy: {
@@ -1920,9 +3374,15 @@ export type UpdateTaskMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   lastUpdatedDate: number;
   deleted: boolean;
+  _version: number;
+  _deleted: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type DeleteTaskMutation = {
@@ -1945,14 +3405,91 @@ export type DeleteTaskMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   product: {
     __typename: "Product";
     id: string;
     name: string;
     teamId: string;
+    team: {
+      __typename: "Team";
+      id: string;
+      name: string;
+      ownerUserId: string;
+      companyId: string;
+      createdByUserId: string;
+      createdOn: number;
+      lastUpdatedByUserId: string;
+      lastUpdatedOn: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
+    supplier: {
+      __typename: "Supplier";
+      id: string;
+      teamId: string;
+      name: string;
+      fullName: string | null;
+      tradingName: string | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
+    images: Array<{
+      __typename: "Image";
+      id: string;
+      teamId: string;
+      fileName: string;
+      orientation: number;
+      imageType: string;
+      creationDate: number;
+      deletionDate: number | null;
+      lastUpdatedDate: number;
+      deleted: boolean;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null> | null;
+    price: {
+      __typename: "Price";
+      currency: string | null;
+      value: number | null;
+      baseCurrencyValue: number | null;
+    } | null;
+    category: {
+      __typename: "Category";
+      id: string;
+      teamId: string;
+      name: string;
+      creationDate: number;
+      deletionDate: number | null;
+      lastupdatedByUserId: string;
+      lastUpdatedDate: number;
+      deleted: boolean;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     description: string | null;
     favorite: boolean | null;
+    assignee: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     minimumOrderQuantity: number | null;
     moqDescription: string | null;
     score: number | null;
@@ -1965,21 +3502,89 @@ export type DeleteTaskMutation = {
     leadTimeValue: number | null;
     leadTimeUnit: string | null;
     sample: boolean | null;
+    samplePrice: {
+      __typename: "Price";
+      currency: string | null;
+      value: number | null;
+      baseCurrencyValue: number | null;
+    } | null;
     archived: boolean;
     reference: string | null;
     referenceKey: number | null;
     creationDate: number;
+    createdBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
+    deletedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     deletionDate: number | null;
+    lastUpdatedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     lastUpdatedDate: number;
     deleted: boolean;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   supplier: {
     __typename: "Supplier";
     id: string;
     teamId: string;
+    team: {
+      __typename: "Team";
+      id: string;
+      name: string;
+      ownerUserId: string;
+      companyId: string;
+      createdByUserId: string;
+      createdOn: number;
+      lastUpdatedByUserId: string;
+      lastUpdatedOn: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     name: string;
     fullName: string | null;
     tradingName: string | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   reference: string | null;
   referenceKey: number | null;
@@ -1995,6 +3600,9 @@ export type DeleteTaskMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   };
   deletedBy: {
     __typename: "User";
@@ -2006,6 +3614,9 @@ export type DeleteTaskMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   deletionDate: number | null;
   lastUpdatedBy: {
@@ -2018,9 +3629,15 @@ export type DeleteTaskMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   lastUpdatedDate: number;
   deleted: boolean;
+  _version: number;
+  _deleted: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type CreateTeamUserMutation = {
@@ -2032,11 +3649,69 @@ export type CreateTeamUserMutation = {
     id: string;
     name: string;
     ownerUserId: string;
+    owner: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     companyId: string;
+    company: {
+      __typename: "Company";
+      id: string;
+      name: string;
+      ownerUserId: string;
+      createdByUserId: string;
+      createdOn: number;
+      lastUpdatedByUserId: string;
+      lastUpdatedOn: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     createdByUserId: string;
+    createdBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     createdOn: number;
     lastUpdatedByUserId: string;
+    lastUpdatedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     lastUpdatedOn: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   user: {
     __typename: "User";
@@ -2048,8 +3723,14 @@ export type CreateTeamUserMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   role: TeamRole;
+  _version: number;
+  _deleted: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type UpdateTeamUserMutation = {
@@ -2061,11 +3742,69 @@ export type UpdateTeamUserMutation = {
     id: string;
     name: string;
     ownerUserId: string;
+    owner: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     companyId: string;
+    company: {
+      __typename: "Company";
+      id: string;
+      name: string;
+      ownerUserId: string;
+      createdByUserId: string;
+      createdOn: number;
+      lastUpdatedByUserId: string;
+      lastUpdatedOn: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     createdByUserId: string;
+    createdBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     createdOn: number;
     lastUpdatedByUserId: string;
+    lastUpdatedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     lastUpdatedOn: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   user: {
     __typename: "User";
@@ -2077,8 +3816,14 @@ export type UpdateTeamUserMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   role: TeamRole;
+  _version: number;
+  _deleted: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type DeleteTeamUserMutation = {
@@ -2090,11 +3835,69 @@ export type DeleteTeamUserMutation = {
     id: string;
     name: string;
     ownerUserId: string;
+    owner: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     companyId: string;
+    company: {
+      __typename: "Company";
+      id: string;
+      name: string;
+      ownerUserId: string;
+      createdByUserId: string;
+      createdOn: number;
+      lastUpdatedByUserId: string;
+      lastUpdatedOn: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     createdByUserId: string;
+    createdBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     createdOn: number;
     lastUpdatedByUserId: string;
+    lastUpdatedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     lastUpdatedOn: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   user: {
     __typename: "User";
@@ -2106,8 +3909,14 @@ export type DeleteTeamUserMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   role: TeamRole;
+  _version: number;
+  _deleted: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type CreateCompanyMutation = {
@@ -2125,6 +3934,9 @@ export type CreateCompanyMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   };
   createdByUserId: string;
   createdBy: {
@@ -2137,6 +3949,9 @@ export type CreateCompanyMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   };
   createdOn: number;
   lastUpdatedByUserId: string;
@@ -2150,8 +3965,14 @@ export type CreateCompanyMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   lastUpdatedOn: number | null;
+  _version: number;
+  _deleted: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type UpdateCompanyMutation = {
@@ -2169,6 +3990,9 @@ export type UpdateCompanyMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   };
   createdByUserId: string;
   createdBy: {
@@ -2181,6 +4005,9 @@ export type UpdateCompanyMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   };
   createdOn: number;
   lastUpdatedByUserId: string;
@@ -2194,8 +4021,14 @@ export type UpdateCompanyMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   lastUpdatedOn: number | null;
+  _version: number;
+  _deleted: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type DeleteCompanyMutation = {
@@ -2213,6 +4046,9 @@ export type DeleteCompanyMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   };
   createdByUserId: string;
   createdBy: {
@@ -2225,6 +4061,9 @@ export type DeleteCompanyMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   };
   createdOn: number;
   lastUpdatedByUserId: string;
@@ -2238,8 +4077,14 @@ export type DeleteCompanyMutation = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   lastUpdatedOn: number | null;
+  _version: number;
+  _deleted: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type UpdateUserMutation = {
@@ -2252,6 +4097,9 @@ export type UpdateUserMutation = {
   preferredLanguage: Lang | null;
   avatar: string | null;
   creationDate: number | null;
+  _version: number;
+  _deleted: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type GetStreamTokenQuery = {
@@ -2268,6 +4116,164 @@ export type GetStreamNotificationTokenQuery = {
   feedId: string;
 };
 
+export type SyncProductsQuery = {
+  __typename: "ModelProductConnection";
+  items: Array<{
+    __typename: "Product";
+    id: string;
+    name: string;
+    teamId: string;
+    team: {
+      __typename: "Team";
+      id: string;
+      name: string;
+      ownerUserId: string;
+      companyId: string;
+      createdByUserId: string;
+      createdOn: number;
+      lastUpdatedByUserId: string;
+      lastUpdatedOn: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
+    supplier: {
+      __typename: "Supplier";
+      id: string;
+      teamId: string;
+      name: string;
+      fullName: string | null;
+      tradingName: string | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
+    images: Array<{
+      __typename: "Image";
+      id: string;
+      teamId: string;
+      fileName: string;
+      orientation: number;
+      imageType: string;
+      creationDate: number;
+      deletionDate: number | null;
+      lastUpdatedDate: number;
+      deleted: boolean;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null> | null;
+    price: {
+      __typename: "Price";
+      currency: string | null;
+      value: number | null;
+      baseCurrencyValue: number | null;
+    } | null;
+    category: {
+      __typename: "Category";
+      id: string;
+      teamId: string;
+      name: string;
+      creationDate: number;
+      deletionDate: number | null;
+      lastupdatedByUserId: string;
+      lastUpdatedDate: number;
+      deleted: boolean;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
+    description: string | null;
+    favorite: boolean | null;
+    assignee: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
+    minimumOrderQuantity: number | null;
+    moqDescription: string | null;
+    score: number | null;
+    incoTerm: string | null;
+    harbour: string | null;
+    masterCbm: number | null;
+    quantityPer20ft: number | null;
+    quantityPer40ft: number | null;
+    quantityPer40ftHC: number | null;
+    leadTimeValue: number | null;
+    leadTimeUnit: string | null;
+    sample: boolean | null;
+    samplePrice: {
+      __typename: "Price";
+      currency: string | null;
+      value: number | null;
+      baseCurrencyValue: number | null;
+    } | null;
+    archived: boolean;
+    reference: string | null;
+    referenceKey: number | null;
+    creationDate: number;
+    createdBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
+    deletedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
+    deletionDate: number | null;
+    lastUpdatedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
+    lastUpdatedDate: number;
+    deleted: boolean;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
+  } | null> | null;
+  nextToken: string | null;
+  startedAt: number | null;
+};
+
 export type GetProductQuery = {
   __typename: "Product";
   id: string;
@@ -2278,19 +4284,94 @@ export type GetProductQuery = {
     id: string;
     name: string;
     ownerUserId: string;
+    owner: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     companyId: string;
+    company: {
+      __typename: "Company";
+      id: string;
+      name: string;
+      ownerUserId: string;
+      createdByUserId: string;
+      createdOn: number;
+      lastUpdatedByUserId: string;
+      lastUpdatedOn: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     createdByUserId: string;
+    createdBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     createdOn: number;
     lastUpdatedByUserId: string;
+    lastUpdatedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     lastUpdatedOn: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   };
   supplier: {
     __typename: "Supplier";
     id: string;
     teamId: string;
+    team: {
+      __typename: "Team";
+      id: string;
+      name: string;
+      ownerUserId: string;
+      companyId: string;
+      createdByUserId: string;
+      createdOn: number;
+      lastUpdatedByUserId: string;
+      lastUpdatedOn: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     name: string;
     fullName: string | null;
     tradingName: string | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   images: Array<{
     __typename: "Image";
@@ -2299,10 +4380,62 @@ export type GetProductQuery = {
     fileName: string;
     orientation: number;
     imageType: string;
+    urls: Array<{
+      __typename: "ImageUrl";
+      id: string;
+      maxWidth: number;
+      maxHeight: number;
+      url: string;
+    } | null> | null;
     creationDate: number;
+    createdBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
+    deletedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     deletionDate: number | null;
+    lastUpdatedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     lastUpdatedDate: number;
     deleted: boolean;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null> | null;
   price: {
     __typename: "Price";
@@ -2316,10 +4449,55 @@ export type GetProductQuery = {
     teamId: string;
     name: string;
     creationDate: number;
+    createdBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
+    deletedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     deletionDate: number | null;
     lastupdatedByUserId: string;
+    lastUpdatedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     lastUpdatedDate: number;
     deleted: boolean;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   description: string | null;
   favorite: boolean | null;
@@ -2333,6 +4511,9 @@ export type GetProductQuery = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   minimumOrderQuantity: number | null;
   moqDescription: string | null;
@@ -2366,6 +4547,9 @@ export type GetProductQuery = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   };
   deletedBy: {
     __typename: "User";
@@ -2377,6 +4561,9 @@ export type GetProductQuery = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   deletionDate: number | null;
   lastUpdatedBy: {
@@ -2389,9 +4576,15 @@ export type GetProductQuery = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   lastUpdatedDate: number;
   deleted: boolean;
+  _version: number;
+  _deleted: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type ListProductsQuery = {
@@ -2401,8 +4594,82 @@ export type ListProductsQuery = {
     id: string;
     name: string;
     teamId: string;
+    team: {
+      __typename: "Team";
+      id: string;
+      name: string;
+      ownerUserId: string;
+      companyId: string;
+      createdByUserId: string;
+      createdOn: number;
+      lastUpdatedByUserId: string;
+      lastUpdatedOn: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
+    supplier: {
+      __typename: "Supplier";
+      id: string;
+      teamId: string;
+      name: string;
+      fullName: string | null;
+      tradingName: string | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
+    images: Array<{
+      __typename: "Image";
+      id: string;
+      teamId: string;
+      fileName: string;
+      orientation: number;
+      imageType: string;
+      creationDate: number;
+      deletionDate: number | null;
+      lastUpdatedDate: number;
+      deleted: boolean;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null> | null;
+    price: {
+      __typename: "Price";
+      currency: string | null;
+      value: number | null;
+      baseCurrencyValue: number | null;
+    } | null;
+    category: {
+      __typename: "Category";
+      id: string;
+      teamId: string;
+      name: string;
+      creationDate: number;
+      deletionDate: number | null;
+      lastupdatedByUserId: string;
+      lastUpdatedDate: number;
+      deleted: boolean;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     description: string | null;
     favorite: boolean | null;
+    assignee: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     minimumOrderQuantity: number | null;
     moqDescription: string | null;
     score: number | null;
@@ -2415,15 +4682,98 @@ export type ListProductsQuery = {
     leadTimeValue: number | null;
     leadTimeUnit: string | null;
     sample: boolean | null;
+    samplePrice: {
+      __typename: "Price";
+      currency: string | null;
+      value: number | null;
+      baseCurrencyValue: number | null;
+    } | null;
     archived: boolean;
     reference: string | null;
     referenceKey: number | null;
     creationDate: number;
+    createdBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
+    deletedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     deletionDate: number | null;
+    lastUpdatedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     lastUpdatedDate: number;
     deleted: boolean;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null> | null;
   nextToken: string | null;
+  startedAt: number | null;
+};
+
+export type SyncSuppliersQuery = {
+  __typename: "ModelSupplierConnection";
+  items: Array<{
+    __typename: "Supplier";
+    id: string;
+    teamId: string;
+    team: {
+      __typename: "Team";
+      id: string;
+      name: string;
+      ownerUserId: string;
+      companyId: string;
+      createdByUserId: string;
+      createdOn: number;
+      lastUpdatedByUserId: string;
+      lastUpdatedOn: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
+    name: string;
+    fullName: string | null;
+    tradingName: string | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
+  } | null> | null;
+  nextToken: string | null;
+  startedAt: number | null;
 };
 
 export type GetSupplierQuery = {
@@ -2435,15 +4785,76 @@ export type GetSupplierQuery = {
     id: string;
     name: string;
     ownerUserId: string;
+    owner: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     companyId: string;
+    company: {
+      __typename: "Company";
+      id: string;
+      name: string;
+      ownerUserId: string;
+      createdByUserId: string;
+      createdOn: number;
+      lastUpdatedByUserId: string;
+      lastUpdatedOn: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     createdByUserId: string;
+    createdBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     createdOn: number;
     lastUpdatedByUserId: string;
+    lastUpdatedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     lastUpdatedOn: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   };
   name: string;
   fullName: string | null;
   tradingName: string | null;
+  _version: number;
+  _deleted: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type ListSuppliersQuery = {
@@ -2452,11 +4863,48 @@ export type ListSuppliersQuery = {
     __typename: "Supplier";
     id: string;
     teamId: string;
+    team: {
+      __typename: "Team";
+      id: string;
+      name: string;
+      ownerUserId: string;
+      companyId: string;
+      createdByUserId: string;
+      createdOn: number;
+      lastUpdatedByUserId: string;
+      lastUpdatedOn: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     name: string;
     fullName: string | null;
     tradingName: string | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null> | null;
   nextToken: string | null;
+  startedAt: number | null;
+};
+
+export type SyncDescriptorsQuery = {
+  __typename: "ModelDescriptorConnection";
+  items: Array<{
+    __typename: "Descriptor";
+    id: string;
+    teamId: string;
+    sections: Array<{
+      __typename: "SectionDescriptor";
+      name: string;
+    } | null> | null;
+    target: string | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
+  } | null> | null;
+  nextToken: string | null;
+  startedAt: number | null;
 };
 
 export type GetDescriptorQuery = {
@@ -2466,8 +4914,20 @@ export type GetDescriptorQuery = {
   sections: Array<{
     __typename: "SectionDescriptor";
     name: string;
+    fields: Array<{
+      __typename: "FieldDescriptor";
+      name: string;
+      label: string;
+      type: string;
+      defaultValue: string | null;
+      fixedValue: boolean | null;
+      metadata: string | null;
+    } | null> | null;
   } | null> | null;
   target: string | null;
+  _version: number;
+  _deleted: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type ListDescriptorsQuery = {
@@ -2476,9 +4936,79 @@ export type ListDescriptorsQuery = {
     __typename: "Descriptor";
     id: string;
     teamId: string;
+    sections: Array<{
+      __typename: "SectionDescriptor";
+      name: string;
+    } | null> | null;
     target: string | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null> | null;
   nextToken: string | null;
+  startedAt: number | null;
+};
+
+export type SyncCategoriesQuery = {
+  __typename: "ModelCategoryConnection";
+  items: Array<{
+    __typename: "Category";
+    id: string;
+    teamId: string;
+    name: string;
+    creationDate: number;
+    createdBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
+    deletedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
+    deletionDate: number | null;
+    lastupdatedByUserId: string;
+    lastUpdatedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
+    lastUpdatedDate: number;
+    deleted: boolean;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
+  } | null> | null;
+  nextToken: string | null;
+  startedAt: number | null;
 };
 
 export type GetCategoryQuery = {
@@ -2497,6 +5027,9 @@ export type GetCategoryQuery = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   };
   deletedBy: {
     __typename: "User";
@@ -2508,6 +5041,9 @@ export type GetCategoryQuery = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   deletionDate: number | null;
   lastupdatedByUserId: string;
@@ -2521,9 +5057,15 @@ export type GetCategoryQuery = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   lastUpdatedDate: number;
   deleted: boolean;
+  _version: number;
+  _deleted: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type ListCategorysQuery = {
@@ -2534,12 +5076,134 @@ export type ListCategorysQuery = {
     teamId: string;
     name: string;
     creationDate: number;
+    createdBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
+    deletedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     deletionDate: number | null;
     lastupdatedByUserId: string;
+    lastUpdatedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     lastUpdatedDate: number;
     deleted: boolean;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null> | null;
   nextToken: string | null;
+  startedAt: number | null;
+};
+
+export type SyncContactsQuery = {
+  __typename: "ModelContactConnection";
+  items: Array<{
+    __typename: "Contact";
+    id: string;
+    teamId: string;
+    companyId: string | null;
+    name: string | null;
+    phoneNumber: string | null;
+    email: string | null;
+    jobTitle: string | null;
+    supplier: {
+      __typename: "Supplier";
+      id: string;
+      teamId: string;
+      name: string;
+      fullName: string | null;
+      tradingName: string | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
+    creationDate: number;
+    createdBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
+    deletedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
+    deletionDate: number | null;
+    lastUpdatedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
+    lastUpdatedDate: number;
+    deleted: boolean;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
+  } | null> | null;
+  nextToken: string | null;
+  startedAt: number | null;
 };
 
 export type GetContactQuery = {
@@ -2555,9 +5219,26 @@ export type GetContactQuery = {
     __typename: "Supplier";
     id: string;
     teamId: string;
+    team: {
+      __typename: "Team";
+      id: string;
+      name: string;
+      ownerUserId: string;
+      companyId: string;
+      createdByUserId: string;
+      createdOn: number;
+      lastUpdatedByUserId: string;
+      lastUpdatedOn: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     name: string;
     fullName: string | null;
     tradingName: string | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   creationDate: number;
   createdBy: {
@@ -2570,6 +5251,9 @@ export type GetContactQuery = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   };
   deletedBy: {
     __typename: "User";
@@ -2581,6 +5265,9 @@ export type GetContactQuery = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   deletionDate: number | null;
   lastUpdatedBy: {
@@ -2593,9 +5280,15 @@ export type GetContactQuery = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   lastUpdatedDate: number;
   deleted: boolean;
+  _version: number;
+  _deleted: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type ListContactsQuery = {
@@ -2609,12 +5302,139 @@ export type ListContactsQuery = {
     phoneNumber: string | null;
     email: string | null;
     jobTitle: string | null;
+    supplier: {
+      __typename: "Supplier";
+      id: string;
+      teamId: string;
+      name: string;
+      fullName: string | null;
+      tradingName: string | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     creationDate: number;
+    createdBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
+    deletedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     deletionDate: number | null;
+    lastUpdatedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     lastUpdatedDate: number;
     deleted: boolean;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null> | null;
   nextToken: string | null;
+  startedAt: number | null;
+};
+
+export type SyncImagesQuery = {
+  __typename: "ModelImageConnection";
+  items: Array<{
+    __typename: "Image";
+    id: string;
+    teamId: string;
+    fileName: string;
+    orientation: number;
+    imageType: string;
+    urls: Array<{
+      __typename: "ImageUrl";
+      id: string;
+      maxWidth: number;
+      maxHeight: number;
+      url: string;
+    } | null> | null;
+    creationDate: number;
+    createdBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
+    deletedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
+    deletionDate: number | null;
+    lastUpdatedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
+    lastUpdatedDate: number;
+    deleted: boolean;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
+  } | null> | null;
+  nextToken: string | null;
+  startedAt: number | null;
 };
 
 export type GetImageQuery = {
@@ -2642,6 +5462,9 @@ export type GetImageQuery = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   };
   deletedBy: {
     __typename: "User";
@@ -2653,6 +5476,9 @@ export type GetImageQuery = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   deletionDate: number | null;
   lastUpdatedBy: {
@@ -2665,9 +5491,15 @@ export type GetImageQuery = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   lastUpdatedDate: number;
   deleted: boolean;
+  _version: number;
+  _deleted: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type ListImagesQuery = {
@@ -2679,12 +5511,189 @@ export type ListImagesQuery = {
     fileName: string;
     orientation: number;
     imageType: string;
+    urls: Array<{
+      __typename: "ImageUrl";
+      id: string;
+      maxWidth: number;
+      maxHeight: number;
+      url: string;
+    } | null> | null;
     creationDate: number;
+    createdBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
+    deletedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     deletionDate: number | null;
+    lastUpdatedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     lastUpdatedDate: number;
     deleted: boolean;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null> | null;
   nextToken: string | null;
+  startedAt: number | null;
+};
+
+export type SyncTasksQuery = {
+  __typename: "ModelTaskConnection";
+  items: Array<{
+    __typename: "Task";
+    id: string;
+    teamId: string;
+    name: string | null;
+    description: string | null;
+    dueDate: number | null;
+    completed: boolean | null;
+    completionDate: number | null;
+    assigneeUserId: string;
+    assignee: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
+    product: {
+      __typename: "Product";
+      id: string;
+      name: string;
+      teamId: string;
+      description: string | null;
+      favorite: boolean | null;
+      minimumOrderQuantity: number | null;
+      moqDescription: string | null;
+      score: number | null;
+      incoTerm: string | null;
+      harbour: string | null;
+      masterCbm: number | null;
+      quantityPer20ft: number | null;
+      quantityPer40ft: number | null;
+      quantityPer40ftHC: number | null;
+      leadTimeValue: number | null;
+      leadTimeUnit: string | null;
+      sample: boolean | null;
+      archived: boolean;
+      reference: string | null;
+      referenceKey: number | null;
+      creationDate: number;
+      deletionDate: number | null;
+      lastUpdatedDate: number;
+      deleted: boolean;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
+    supplier: {
+      __typename: "Supplier";
+      id: string;
+      teamId: string;
+      name: string;
+      fullName: string | null;
+      tradingName: string | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
+    reference: string | null;
+    referenceKey: number | null;
+    inProgress: boolean | null;
+    creationDate: number;
+    createdBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
+    deletedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
+    deletionDate: number | null;
+    lastUpdatedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
+    lastUpdatedDate: number;
+    deleted: boolean;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
+  } | null> | null;
+  nextToken: string | null;
+  startedAt: number | null;
 };
 
 export type GetTaskQuery = {
@@ -2707,14 +5716,91 @@ export type GetTaskQuery = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   product: {
     __typename: "Product";
     id: string;
     name: string;
     teamId: string;
+    team: {
+      __typename: "Team";
+      id: string;
+      name: string;
+      ownerUserId: string;
+      companyId: string;
+      createdByUserId: string;
+      createdOn: number;
+      lastUpdatedByUserId: string;
+      lastUpdatedOn: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
+    supplier: {
+      __typename: "Supplier";
+      id: string;
+      teamId: string;
+      name: string;
+      fullName: string | null;
+      tradingName: string | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
+    images: Array<{
+      __typename: "Image";
+      id: string;
+      teamId: string;
+      fileName: string;
+      orientation: number;
+      imageType: string;
+      creationDate: number;
+      deletionDate: number | null;
+      lastUpdatedDate: number;
+      deleted: boolean;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null> | null;
+    price: {
+      __typename: "Price";
+      currency: string | null;
+      value: number | null;
+      baseCurrencyValue: number | null;
+    } | null;
+    category: {
+      __typename: "Category";
+      id: string;
+      teamId: string;
+      name: string;
+      creationDate: number;
+      deletionDate: number | null;
+      lastupdatedByUserId: string;
+      lastUpdatedDate: number;
+      deleted: boolean;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     description: string | null;
     favorite: boolean | null;
+    assignee: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     minimumOrderQuantity: number | null;
     moqDescription: string | null;
     score: number | null;
@@ -2727,21 +5813,89 @@ export type GetTaskQuery = {
     leadTimeValue: number | null;
     leadTimeUnit: string | null;
     sample: boolean | null;
+    samplePrice: {
+      __typename: "Price";
+      currency: string | null;
+      value: number | null;
+      baseCurrencyValue: number | null;
+    } | null;
     archived: boolean;
     reference: string | null;
     referenceKey: number | null;
     creationDate: number;
+    createdBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
+    deletedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     deletionDate: number | null;
+    lastUpdatedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     lastUpdatedDate: number;
     deleted: boolean;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   supplier: {
     __typename: "Supplier";
     id: string;
     teamId: string;
+    team: {
+      __typename: "Team";
+      id: string;
+      name: string;
+      ownerUserId: string;
+      companyId: string;
+      createdByUserId: string;
+      createdOn: number;
+      lastUpdatedByUserId: string;
+      lastUpdatedOn: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     name: string;
     fullName: string | null;
     tradingName: string | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   reference: string | null;
   referenceKey: number | null;
@@ -2757,6 +5911,9 @@ export type GetTaskQuery = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   };
   deletedBy: {
     __typename: "User";
@@ -2768,6 +5925,9 @@ export type GetTaskQuery = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   deletionDate: number | null;
   lastUpdatedBy: {
@@ -2780,9 +5940,15 @@ export type GetTaskQuery = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   lastUpdatedDate: number;
   deleted: boolean;
+  _version: number;
+  _deleted: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type ListTasksQuery = {
@@ -2797,15 +5963,191 @@ export type ListTasksQuery = {
     completed: boolean | null;
     completionDate: number | null;
     assigneeUserId: string;
+    assignee: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
+    product: {
+      __typename: "Product";
+      id: string;
+      name: string;
+      teamId: string;
+      description: string | null;
+      favorite: boolean | null;
+      minimumOrderQuantity: number | null;
+      moqDescription: string | null;
+      score: number | null;
+      incoTerm: string | null;
+      harbour: string | null;
+      masterCbm: number | null;
+      quantityPer20ft: number | null;
+      quantityPer40ft: number | null;
+      quantityPer40ftHC: number | null;
+      leadTimeValue: number | null;
+      leadTimeUnit: string | null;
+      sample: boolean | null;
+      archived: boolean;
+      reference: string | null;
+      referenceKey: number | null;
+      creationDate: number;
+      deletionDate: number | null;
+      lastUpdatedDate: number;
+      deleted: boolean;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
+    supplier: {
+      __typename: "Supplier";
+      id: string;
+      teamId: string;
+      name: string;
+      fullName: string | null;
+      tradingName: string | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     reference: string | null;
     referenceKey: number | null;
     inProgress: boolean | null;
     creationDate: number;
+    createdBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
+    deletedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     deletionDate: number | null;
+    lastUpdatedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     lastUpdatedDate: number;
     deleted: boolean;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null> | null;
   nextToken: string | null;
+  startedAt: number | null;
+};
+
+export type SyncTeamsQuery = {
+  __typename: "ModelTeamConnection";
+  items: Array<{
+    __typename: "Team";
+    id: string;
+    name: string;
+    ownerUserId: string;
+    owner: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
+    companyId: string;
+    company: {
+      __typename: "Company";
+      id: string;
+      name: string;
+      ownerUserId: string;
+      createdByUserId: string;
+      createdOn: number;
+      lastUpdatedByUserId: string;
+      lastUpdatedOn: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
+    createdByUserId: string;
+    createdBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
+    createdOn: number;
+    lastUpdatedByUserId: string;
+    lastUpdatedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
+    lastUpdatedOn: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
+  } | null> | null;
+  nextToken: string | null;
+  startedAt: number | null;
 };
 
 export type GetTeamQuery = {
@@ -2823,6 +6165,9 @@ export type GetTeamQuery = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   };
   companyId: string;
   company: {
@@ -2830,10 +6175,55 @@ export type GetTeamQuery = {
     id: string;
     name: string;
     ownerUserId: string;
+    owner: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     createdByUserId: string;
+    createdBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     createdOn: number;
     lastUpdatedByUserId: string;
+    lastUpdatedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     lastUpdatedOn: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   };
   createdByUserId: string;
   createdBy: {
@@ -2846,6 +6236,9 @@ export type GetTeamQuery = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   };
   createdOn: number;
   lastUpdatedByUserId: string;
@@ -2859,8 +6252,14 @@ export type GetTeamQuery = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   lastUpdatedOn: number | null;
+  _version: number;
+  _deleted: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type ListTeamsQuery = {
@@ -2870,13 +6269,115 @@ export type ListTeamsQuery = {
     id: string;
     name: string;
     ownerUserId: string;
+    owner: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     companyId: string;
+    company: {
+      __typename: "Company";
+      id: string;
+      name: string;
+      ownerUserId: string;
+      createdByUserId: string;
+      createdOn: number;
+      lastUpdatedByUserId: string;
+      lastUpdatedOn: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     createdByUserId: string;
+    createdBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     createdOn: number;
     lastUpdatedByUserId: string;
+    lastUpdatedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     lastUpdatedOn: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null> | null;
   nextToken: string | null;
+  startedAt: number | null;
+};
+
+export type SyncTeamUsersQuery = {
+  __typename: "ModelTeamUserConnection";
+  items: Array<{
+    __typename: "TeamUser";
+    teamId: string;
+    userId: string;
+    team: {
+      __typename: "Team";
+      id: string;
+      name: string;
+      ownerUserId: string;
+      companyId: string;
+      createdByUserId: string;
+      createdOn: number;
+      lastUpdatedByUserId: string;
+      lastUpdatedOn: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
+    user: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
+    role: TeamRole;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
+  } | null> | null;
+  nextToken: string | null;
+  startedAt: number | null;
 };
 
 export type GetTeamUserQuery = {
@@ -2888,11 +6389,69 @@ export type GetTeamUserQuery = {
     id: string;
     name: string;
     ownerUserId: string;
+    owner: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     companyId: string;
+    company: {
+      __typename: "Company";
+      id: string;
+      name: string;
+      ownerUserId: string;
+      createdByUserId: string;
+      createdOn: number;
+      lastUpdatedByUserId: string;
+      lastUpdatedOn: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     createdByUserId: string;
+    createdBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     createdOn: number;
     lastUpdatedByUserId: string;
+    lastUpdatedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     lastUpdatedOn: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   user: {
     __typename: "User";
@@ -2904,8 +6463,14 @@ export type GetTeamUserQuery = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   role: TeamRole;
+  _version: number;
+  _deleted: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type ListTeamUsersQuery = {
@@ -2914,9 +6479,102 @@ export type ListTeamUsersQuery = {
     __typename: "TeamUser";
     teamId: string;
     userId: string;
+    team: {
+      __typename: "Team";
+      id: string;
+      name: string;
+      ownerUserId: string;
+      companyId: string;
+      createdByUserId: string;
+      createdOn: number;
+      lastUpdatedByUserId: string;
+      lastUpdatedOn: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
+    user: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     role: TeamRole;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null> | null;
   nextToken: string | null;
+  startedAt: number | null;
+};
+
+export type SyncCompaniesQuery = {
+  __typename: "ModelCompanyConnection";
+  items: Array<{
+    __typename: "Company";
+    id: string;
+    name: string;
+    ownerUserId: string;
+    owner: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
+    createdByUserId: string;
+    createdBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
+    createdOn: number;
+    lastUpdatedByUserId: string;
+    lastUpdatedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
+    lastUpdatedOn: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
+  } | null> | null;
+  nextToken: string | null;
+  startedAt: number | null;
 };
 
 export type GetCompanyQuery = {
@@ -2934,6 +6592,9 @@ export type GetCompanyQuery = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   };
   createdByUserId: string;
   createdBy: {
@@ -2946,6 +6607,9 @@ export type GetCompanyQuery = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   };
   createdOn: number;
   lastUpdatedByUserId: string;
@@ -2959,8 +6623,14 @@ export type GetCompanyQuery = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   lastUpdatedOn: number | null;
+  _version: number;
+  _deleted: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type ListCompanysQuery = {
@@ -2970,12 +6640,78 @@ export type ListCompanysQuery = {
     id: string;
     name: string;
     ownerUserId: string;
+    owner: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     createdByUserId: string;
+    createdBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     createdOn: number;
     lastUpdatedByUserId: string;
+    lastUpdatedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     lastUpdatedOn: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null> | null;
   nextToken: string | null;
+  startedAt: number | null;
+};
+
+export type SyncUsersQuery = {
+  __typename: "ModelUserConnection";
+  items: Array<{
+    __typename: "User";
+    id: string;
+    email: string;
+    firstName: string;
+    lastName: string;
+    phoneNumber: string | null;
+    preferredLanguage: Lang | null;
+    avatar: string | null;
+    creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
+  } | null> | null;
+  nextToken: string | null;
+  startedAt: number | null;
 };
 
 export type UserQuery = {
@@ -2988,6 +6724,27 @@ export type UserQuery = {
   preferredLanguage: Lang | null;
   avatar: string | null;
   creationDate: number | null;
+  _version: number;
+  _deleted: boolean | null;
+  _lastChangedAt: number;
+};
+
+export type SyncLegacyUsersQuery = {
+  __typename: "ModelLegacyUserConnection";
+  items: Array<{
+    __typename: "LegacyUser";
+    id: string;
+    hash: string;
+    emailValidated: boolean;
+    activationDate: number | null;
+    activated: boolean | null;
+    deactivationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
+  } | null> | null;
+  nextToken: string | null;
+  startedAt: number | null;
 };
 
 export type ListTeamUserByUserQuery = {
@@ -2996,9 +6753,41 @@ export type ListTeamUserByUserQuery = {
     __typename: "TeamUser";
     teamId: string;
     userId: string;
+    team: {
+      __typename: "Team";
+      id: string;
+      name: string;
+      ownerUserId: string;
+      companyId: string;
+      createdByUserId: string;
+      createdOn: number;
+      lastUpdatedByUserId: string;
+      lastUpdatedOn: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
+    user: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     role: TeamRole;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null> | null;
   nextToken: string | null;
+  startedAt: number | null;
 };
 
 export type OnCreateDescriptorSubscription = {
@@ -3008,8 +6797,20 @@ export type OnCreateDescriptorSubscription = {
   sections: Array<{
     __typename: "SectionDescriptor";
     name: string;
+    fields: Array<{
+      __typename: "FieldDescriptor";
+      name: string;
+      label: string;
+      type: string;
+      defaultValue: string | null;
+      fixedValue: boolean | null;
+      metadata: string | null;
+    } | null> | null;
   } | null> | null;
   target: string | null;
+  _version: number;
+  _deleted: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type OnUpdateDescriptorSubscription = {
@@ -3019,8 +6820,20 @@ export type OnUpdateDescriptorSubscription = {
   sections: Array<{
     __typename: "SectionDescriptor";
     name: string;
+    fields: Array<{
+      __typename: "FieldDescriptor";
+      name: string;
+      label: string;
+      type: string;
+      defaultValue: string | null;
+      fixedValue: boolean | null;
+      metadata: string | null;
+    } | null> | null;
   } | null> | null;
   target: string | null;
+  _version: number;
+  _deleted: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type OnDeleteDescriptorSubscription = {
@@ -3030,8 +6843,20 @@ export type OnDeleteDescriptorSubscription = {
   sections: Array<{
     __typename: "SectionDescriptor";
     name: string;
+    fields: Array<{
+      __typename: "FieldDescriptor";
+      name: string;
+      label: string;
+      type: string;
+      defaultValue: string | null;
+      fixedValue: boolean | null;
+      metadata: string | null;
+    } | null> | null;
   } | null> | null;
   target: string | null;
+  _version: number;
+  _deleted: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type OnCreateCategorySubscription = {
@@ -3050,6 +6875,9 @@ export type OnCreateCategorySubscription = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   };
   deletedBy: {
     __typename: "User";
@@ -3061,6 +6889,9 @@ export type OnCreateCategorySubscription = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   deletionDate: number | null;
   lastupdatedByUserId: string;
@@ -3074,9 +6905,15 @@ export type OnCreateCategorySubscription = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   lastUpdatedDate: number;
   deleted: boolean;
+  _version: number;
+  _deleted: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type OnUpdateCategorySubscription = {
@@ -3095,6 +6932,9 @@ export type OnUpdateCategorySubscription = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   };
   deletedBy: {
     __typename: "User";
@@ -3106,6 +6946,9 @@ export type OnUpdateCategorySubscription = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   deletionDate: number | null;
   lastupdatedByUserId: string;
@@ -3119,9 +6962,15 @@ export type OnUpdateCategorySubscription = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   lastUpdatedDate: number;
   deleted: boolean;
+  _version: number;
+  _deleted: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type OnDeleteCategorySubscription = {
@@ -3140,6 +6989,9 @@ export type OnDeleteCategorySubscription = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   };
   deletedBy: {
     __typename: "User";
@@ -3151,6 +7003,9 @@ export type OnDeleteCategorySubscription = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   deletionDate: number | null;
   lastupdatedByUserId: string;
@@ -3164,9 +7019,15 @@ export type OnDeleteCategorySubscription = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   lastUpdatedDate: number;
   deleted: boolean;
+  _version: number;
+  _deleted: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type OnCreateContactSubscription = {
@@ -3182,9 +7043,26 @@ export type OnCreateContactSubscription = {
     __typename: "Supplier";
     id: string;
     teamId: string;
+    team: {
+      __typename: "Team";
+      id: string;
+      name: string;
+      ownerUserId: string;
+      companyId: string;
+      createdByUserId: string;
+      createdOn: number;
+      lastUpdatedByUserId: string;
+      lastUpdatedOn: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     name: string;
     fullName: string | null;
     tradingName: string | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   creationDate: number;
   createdBy: {
@@ -3197,6 +7075,9 @@ export type OnCreateContactSubscription = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   };
   deletedBy: {
     __typename: "User";
@@ -3208,6 +7089,9 @@ export type OnCreateContactSubscription = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   deletionDate: number | null;
   lastUpdatedBy: {
@@ -3220,9 +7104,15 @@ export type OnCreateContactSubscription = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   lastUpdatedDate: number;
   deleted: boolean;
+  _version: number;
+  _deleted: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type OnUpdateContactSubscription = {
@@ -3238,9 +7128,26 @@ export type OnUpdateContactSubscription = {
     __typename: "Supplier";
     id: string;
     teamId: string;
+    team: {
+      __typename: "Team";
+      id: string;
+      name: string;
+      ownerUserId: string;
+      companyId: string;
+      createdByUserId: string;
+      createdOn: number;
+      lastUpdatedByUserId: string;
+      lastUpdatedOn: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     name: string;
     fullName: string | null;
     tradingName: string | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   creationDate: number;
   createdBy: {
@@ -3253,6 +7160,9 @@ export type OnUpdateContactSubscription = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   };
   deletedBy: {
     __typename: "User";
@@ -3264,6 +7174,9 @@ export type OnUpdateContactSubscription = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   deletionDate: number | null;
   lastUpdatedBy: {
@@ -3276,9 +7189,15 @@ export type OnUpdateContactSubscription = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   lastUpdatedDate: number;
   deleted: boolean;
+  _version: number;
+  _deleted: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type OnDeleteContactSubscription = {
@@ -3294,9 +7213,26 @@ export type OnDeleteContactSubscription = {
     __typename: "Supplier";
     id: string;
     teamId: string;
+    team: {
+      __typename: "Team";
+      id: string;
+      name: string;
+      ownerUserId: string;
+      companyId: string;
+      createdByUserId: string;
+      createdOn: number;
+      lastUpdatedByUserId: string;
+      lastUpdatedOn: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     name: string;
     fullName: string | null;
     tradingName: string | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   creationDate: number;
   createdBy: {
@@ -3309,6 +7245,9 @@ export type OnDeleteContactSubscription = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   };
   deletedBy: {
     __typename: "User";
@@ -3320,6 +7259,9 @@ export type OnDeleteContactSubscription = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   deletionDate: number | null;
   lastUpdatedBy: {
@@ -3332,9 +7274,15 @@ export type OnDeleteContactSubscription = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   lastUpdatedDate: number;
   deleted: boolean;
+  _version: number;
+  _deleted: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type OnCreateImageSubscription = {
@@ -3362,6 +7310,9 @@ export type OnCreateImageSubscription = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   };
   deletedBy: {
     __typename: "User";
@@ -3373,6 +7324,9 @@ export type OnCreateImageSubscription = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   deletionDate: number | null;
   lastUpdatedBy: {
@@ -3385,9 +7339,15 @@ export type OnCreateImageSubscription = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   lastUpdatedDate: number;
   deleted: boolean;
+  _version: number;
+  _deleted: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type OnUpdateImageSubscription = {
@@ -3415,6 +7375,9 @@ export type OnUpdateImageSubscription = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   };
   deletedBy: {
     __typename: "User";
@@ -3426,6 +7389,9 @@ export type OnUpdateImageSubscription = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   deletionDate: number | null;
   lastUpdatedBy: {
@@ -3438,9 +7404,15 @@ export type OnUpdateImageSubscription = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   lastUpdatedDate: number;
   deleted: boolean;
+  _version: number;
+  _deleted: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type OnDeleteImageSubscription = {
@@ -3468,6 +7440,9 @@ export type OnDeleteImageSubscription = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   };
   deletedBy: {
     __typename: "User";
@@ -3479,6 +7454,9 @@ export type OnDeleteImageSubscription = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   deletionDate: number | null;
   lastUpdatedBy: {
@@ -3491,9 +7469,15 @@ export type OnDeleteImageSubscription = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   lastUpdatedDate: number;
   deleted: boolean;
+  _version: number;
+  _deleted: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type OnCreateTaskSubscription = {
@@ -3516,14 +7500,91 @@ export type OnCreateTaskSubscription = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   product: {
     __typename: "Product";
     id: string;
     name: string;
     teamId: string;
+    team: {
+      __typename: "Team";
+      id: string;
+      name: string;
+      ownerUserId: string;
+      companyId: string;
+      createdByUserId: string;
+      createdOn: number;
+      lastUpdatedByUserId: string;
+      lastUpdatedOn: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
+    supplier: {
+      __typename: "Supplier";
+      id: string;
+      teamId: string;
+      name: string;
+      fullName: string | null;
+      tradingName: string | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
+    images: Array<{
+      __typename: "Image";
+      id: string;
+      teamId: string;
+      fileName: string;
+      orientation: number;
+      imageType: string;
+      creationDate: number;
+      deletionDate: number | null;
+      lastUpdatedDate: number;
+      deleted: boolean;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null> | null;
+    price: {
+      __typename: "Price";
+      currency: string | null;
+      value: number | null;
+      baseCurrencyValue: number | null;
+    } | null;
+    category: {
+      __typename: "Category";
+      id: string;
+      teamId: string;
+      name: string;
+      creationDate: number;
+      deletionDate: number | null;
+      lastupdatedByUserId: string;
+      lastUpdatedDate: number;
+      deleted: boolean;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     description: string | null;
     favorite: boolean | null;
+    assignee: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     minimumOrderQuantity: number | null;
     moqDescription: string | null;
     score: number | null;
@@ -3536,21 +7597,89 @@ export type OnCreateTaskSubscription = {
     leadTimeValue: number | null;
     leadTimeUnit: string | null;
     sample: boolean | null;
+    samplePrice: {
+      __typename: "Price";
+      currency: string | null;
+      value: number | null;
+      baseCurrencyValue: number | null;
+    } | null;
     archived: boolean;
     reference: string | null;
     referenceKey: number | null;
     creationDate: number;
+    createdBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
+    deletedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     deletionDate: number | null;
+    lastUpdatedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     lastUpdatedDate: number;
     deleted: boolean;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   supplier: {
     __typename: "Supplier";
     id: string;
     teamId: string;
+    team: {
+      __typename: "Team";
+      id: string;
+      name: string;
+      ownerUserId: string;
+      companyId: string;
+      createdByUserId: string;
+      createdOn: number;
+      lastUpdatedByUserId: string;
+      lastUpdatedOn: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     name: string;
     fullName: string | null;
     tradingName: string | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   reference: string | null;
   referenceKey: number | null;
@@ -3566,6 +7695,9 @@ export type OnCreateTaskSubscription = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   };
   deletedBy: {
     __typename: "User";
@@ -3577,6 +7709,9 @@ export type OnCreateTaskSubscription = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   deletionDate: number | null;
   lastUpdatedBy: {
@@ -3589,9 +7724,15 @@ export type OnCreateTaskSubscription = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   lastUpdatedDate: number;
   deleted: boolean;
+  _version: number;
+  _deleted: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type OnUpdateTaskSubscription = {
@@ -3614,14 +7755,91 @@ export type OnUpdateTaskSubscription = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   product: {
     __typename: "Product";
     id: string;
     name: string;
     teamId: string;
+    team: {
+      __typename: "Team";
+      id: string;
+      name: string;
+      ownerUserId: string;
+      companyId: string;
+      createdByUserId: string;
+      createdOn: number;
+      lastUpdatedByUserId: string;
+      lastUpdatedOn: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
+    supplier: {
+      __typename: "Supplier";
+      id: string;
+      teamId: string;
+      name: string;
+      fullName: string | null;
+      tradingName: string | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
+    images: Array<{
+      __typename: "Image";
+      id: string;
+      teamId: string;
+      fileName: string;
+      orientation: number;
+      imageType: string;
+      creationDate: number;
+      deletionDate: number | null;
+      lastUpdatedDate: number;
+      deleted: boolean;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null> | null;
+    price: {
+      __typename: "Price";
+      currency: string | null;
+      value: number | null;
+      baseCurrencyValue: number | null;
+    } | null;
+    category: {
+      __typename: "Category";
+      id: string;
+      teamId: string;
+      name: string;
+      creationDate: number;
+      deletionDate: number | null;
+      lastupdatedByUserId: string;
+      lastUpdatedDate: number;
+      deleted: boolean;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     description: string | null;
     favorite: boolean | null;
+    assignee: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     minimumOrderQuantity: number | null;
     moqDescription: string | null;
     score: number | null;
@@ -3634,21 +7852,89 @@ export type OnUpdateTaskSubscription = {
     leadTimeValue: number | null;
     leadTimeUnit: string | null;
     sample: boolean | null;
+    samplePrice: {
+      __typename: "Price";
+      currency: string | null;
+      value: number | null;
+      baseCurrencyValue: number | null;
+    } | null;
     archived: boolean;
     reference: string | null;
     referenceKey: number | null;
     creationDate: number;
+    createdBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
+    deletedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     deletionDate: number | null;
+    lastUpdatedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     lastUpdatedDate: number;
     deleted: boolean;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   supplier: {
     __typename: "Supplier";
     id: string;
     teamId: string;
+    team: {
+      __typename: "Team";
+      id: string;
+      name: string;
+      ownerUserId: string;
+      companyId: string;
+      createdByUserId: string;
+      createdOn: number;
+      lastUpdatedByUserId: string;
+      lastUpdatedOn: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     name: string;
     fullName: string | null;
     tradingName: string | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   reference: string | null;
   referenceKey: number | null;
@@ -3664,6 +7950,9 @@ export type OnUpdateTaskSubscription = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   };
   deletedBy: {
     __typename: "User";
@@ -3675,6 +7964,9 @@ export type OnUpdateTaskSubscription = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   deletionDate: number | null;
   lastUpdatedBy: {
@@ -3687,9 +7979,15 @@ export type OnUpdateTaskSubscription = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   lastUpdatedDate: number;
   deleted: boolean;
+  _version: number;
+  _deleted: boolean | null;
+  _lastChangedAt: number;
 };
 
 export type OnDeleteTaskSubscription = {
@@ -3712,14 +8010,91 @@ export type OnDeleteTaskSubscription = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   product: {
     __typename: "Product";
     id: string;
     name: string;
     teamId: string;
+    team: {
+      __typename: "Team";
+      id: string;
+      name: string;
+      ownerUserId: string;
+      companyId: string;
+      createdByUserId: string;
+      createdOn: number;
+      lastUpdatedByUserId: string;
+      lastUpdatedOn: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
+    supplier: {
+      __typename: "Supplier";
+      id: string;
+      teamId: string;
+      name: string;
+      fullName: string | null;
+      tradingName: string | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
+    images: Array<{
+      __typename: "Image";
+      id: string;
+      teamId: string;
+      fileName: string;
+      orientation: number;
+      imageType: string;
+      creationDate: number;
+      deletionDate: number | null;
+      lastUpdatedDate: number;
+      deleted: boolean;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null> | null;
+    price: {
+      __typename: "Price";
+      currency: string | null;
+      value: number | null;
+      baseCurrencyValue: number | null;
+    } | null;
+    category: {
+      __typename: "Category";
+      id: string;
+      teamId: string;
+      name: string;
+      creationDate: number;
+      deletionDate: number | null;
+      lastupdatedByUserId: string;
+      lastUpdatedDate: number;
+      deleted: boolean;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     description: string | null;
     favorite: boolean | null;
+    assignee: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     minimumOrderQuantity: number | null;
     moqDescription: string | null;
     score: number | null;
@@ -3732,21 +8107,89 @@ export type OnDeleteTaskSubscription = {
     leadTimeValue: number | null;
     leadTimeUnit: string | null;
     sample: boolean | null;
+    samplePrice: {
+      __typename: "Price";
+      currency: string | null;
+      value: number | null;
+      baseCurrencyValue: number | null;
+    } | null;
     archived: boolean;
     reference: string | null;
     referenceKey: number | null;
     creationDate: number;
+    createdBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
+    deletedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     deletionDate: number | null;
+    lastUpdatedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
     lastUpdatedDate: number;
     deleted: boolean;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   supplier: {
     __typename: "Supplier";
     id: string;
     teamId: string;
+    team: {
+      __typename: "Team";
+      id: string;
+      name: string;
+      ownerUserId: string;
+      companyId: string;
+      createdByUserId: string;
+      createdOn: number;
+      lastUpdatedByUserId: string;
+      lastUpdatedOn: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
     name: string;
     fullName: string | null;
     tradingName: string | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   reference: string | null;
   referenceKey: number | null;
@@ -3762,6 +8205,9 @@ export type OnDeleteTaskSubscription = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   };
   deletedBy: {
     __typename: "User";
@@ -3773,6 +8219,9 @@ export type OnDeleteTaskSubscription = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   deletionDate: number | null;
   lastUpdatedBy: {
@@ -3785,9 +8234,15 @@ export type OnDeleteTaskSubscription = {
     preferredLanguage: Lang | null;
     avatar: string | null;
     creationDate: number | null;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
   } | null;
   lastUpdatedDate: number;
   deleted: boolean;
+  _version: number;
+  _deleted: boolean | null;
+  _lastChangedAt: number;
 };
 
 @Injectable({
@@ -3811,6 +8266,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           companyId
           company {
@@ -3818,10 +8276,55 @@ export class APIService {
             id
             name
             ownerUserId
+            owner {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             createdByUserId
+            createdBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             createdOn
             lastUpdatedByUserId
+            lastUpdatedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             lastUpdatedOn
+            _version
+            _deleted
+            _lastChangedAt
           }
           createdByUserId
           createdBy {
@@ -3834,6 +8337,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           createdOn
           lastUpdatedByUserId
@@ -3847,8 +8353,14 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           lastUpdatedOn
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {};
@@ -3875,19 +8387,94 @@ export class APIService {
             id
             name
             ownerUserId
+            owner {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             companyId
+            company {
+              __typename
+              id
+              name
+              ownerUserId
+              createdByUserId
+              createdOn
+              lastUpdatedByUserId
+              lastUpdatedOn
+              _version
+              _deleted
+              _lastChangedAt
+            }
             createdByUserId
+            createdBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             createdOn
             lastUpdatedByUserId
+            lastUpdatedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             lastUpdatedOn
+            _version
+            _deleted
+            _lastChangedAt
           }
           supplier {
             __typename
             id
             teamId
+            team {
+              __typename
+              id
+              name
+              ownerUserId
+              companyId
+              createdByUserId
+              createdOn
+              lastUpdatedByUserId
+              lastUpdatedOn
+              _version
+              _deleted
+              _lastChangedAt
+            }
             name
             fullName
             tradingName
+            _version
+            _deleted
+            _lastChangedAt
           }
           images {
             __typename
@@ -3896,10 +8483,62 @@ export class APIService {
             fileName
             orientation
             imageType
+            urls {
+              __typename
+              id
+              maxWidth
+              maxHeight
+              url
+            }
             creationDate
+            createdBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            deletedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             deletionDate
+            lastUpdatedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             lastUpdatedDate
             deleted
+            _version
+            _deleted
+            _lastChangedAt
           }
           price {
             __typename
@@ -3913,10 +8552,55 @@ export class APIService {
             teamId
             name
             creationDate
+            createdBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            deletedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             deletionDate
             lastupdatedByUserId
+            lastUpdatedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             lastUpdatedDate
             deleted
+            _version
+            _deleted
+            _lastChangedAt
           }
           description
           favorite
@@ -3930,6 +8614,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           minimumOrderQuantity
           moqDescription
@@ -3963,6 +8650,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletedBy {
             __typename
@@ -3974,6 +8664,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletionDate
           lastUpdatedBy {
@@ -3986,9 +8679,15 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           lastUpdatedDate
           deleted
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -4017,19 +8716,94 @@ export class APIService {
             id
             name
             ownerUserId
+            owner {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             companyId
+            company {
+              __typename
+              id
+              name
+              ownerUserId
+              createdByUserId
+              createdOn
+              lastUpdatedByUserId
+              lastUpdatedOn
+              _version
+              _deleted
+              _lastChangedAt
+            }
             createdByUserId
+            createdBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             createdOn
             lastUpdatedByUserId
+            lastUpdatedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             lastUpdatedOn
+            _version
+            _deleted
+            _lastChangedAt
           }
           supplier {
             __typename
             id
             teamId
+            team {
+              __typename
+              id
+              name
+              ownerUserId
+              companyId
+              createdByUserId
+              createdOn
+              lastUpdatedByUserId
+              lastUpdatedOn
+              _version
+              _deleted
+              _lastChangedAt
+            }
             name
             fullName
             tradingName
+            _version
+            _deleted
+            _lastChangedAt
           }
           images {
             __typename
@@ -4038,10 +8812,62 @@ export class APIService {
             fileName
             orientation
             imageType
+            urls {
+              __typename
+              id
+              maxWidth
+              maxHeight
+              url
+            }
             creationDate
+            createdBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            deletedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             deletionDate
+            lastUpdatedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             lastUpdatedDate
             deleted
+            _version
+            _deleted
+            _lastChangedAt
           }
           price {
             __typename
@@ -4055,10 +8881,55 @@ export class APIService {
             teamId
             name
             creationDate
+            createdBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            deletedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             deletionDate
             lastupdatedByUserId
+            lastUpdatedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             lastUpdatedDate
             deleted
+            _version
+            _deleted
+            _lastChangedAt
           }
           description
           favorite
@@ -4072,6 +8943,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           minimumOrderQuantity
           moqDescription
@@ -4105,6 +8979,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletedBy {
             __typename
@@ -4116,6 +8993,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletionDate
           lastUpdatedBy {
@@ -4128,9 +9008,15 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           lastUpdatedDate
           deleted
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -4159,19 +9045,94 @@ export class APIService {
             id
             name
             ownerUserId
+            owner {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             companyId
+            company {
+              __typename
+              id
+              name
+              ownerUserId
+              createdByUserId
+              createdOn
+              lastUpdatedByUserId
+              lastUpdatedOn
+              _version
+              _deleted
+              _lastChangedAt
+            }
             createdByUserId
+            createdBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             createdOn
             lastUpdatedByUserId
+            lastUpdatedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             lastUpdatedOn
+            _version
+            _deleted
+            _lastChangedAt
           }
           supplier {
             __typename
             id
             teamId
+            team {
+              __typename
+              id
+              name
+              ownerUserId
+              companyId
+              createdByUserId
+              createdOn
+              lastUpdatedByUserId
+              lastUpdatedOn
+              _version
+              _deleted
+              _lastChangedAt
+            }
             name
             fullName
             tradingName
+            _version
+            _deleted
+            _lastChangedAt
           }
           images {
             __typename
@@ -4180,10 +9141,62 @@ export class APIService {
             fileName
             orientation
             imageType
+            urls {
+              __typename
+              id
+              maxWidth
+              maxHeight
+              url
+            }
             creationDate
+            createdBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            deletedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             deletionDate
+            lastUpdatedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             lastUpdatedDate
             deleted
+            _version
+            _deleted
+            _lastChangedAt
           }
           price {
             __typename
@@ -4197,10 +9210,55 @@ export class APIService {
             teamId
             name
             creationDate
+            createdBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            deletedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             deletionDate
             lastupdatedByUserId
+            lastUpdatedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             lastUpdatedDate
             deleted
+            _version
+            _deleted
+            _lastChangedAt
           }
           description
           favorite
@@ -4214,6 +9272,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           minimumOrderQuantity
           moqDescription
@@ -4247,6 +9308,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletedBy {
             __typename
@@ -4258,6 +9322,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletionDate
           lastUpdatedBy {
@@ -4270,9 +9337,15 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           lastUpdatedDate
           deleted
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -4300,15 +9373,76 @@ export class APIService {
             id
             name
             ownerUserId
+            owner {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             companyId
+            company {
+              __typename
+              id
+              name
+              ownerUserId
+              createdByUserId
+              createdOn
+              lastUpdatedByUserId
+              lastUpdatedOn
+              _version
+              _deleted
+              _lastChangedAt
+            }
             createdByUserId
+            createdBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             createdOn
             lastUpdatedByUserId
+            lastUpdatedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             lastUpdatedOn
+            _version
+            _deleted
+            _lastChangedAt
           }
           name
           fullName
           tradingName
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -4336,15 +9470,76 @@ export class APIService {
             id
             name
             ownerUserId
+            owner {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             companyId
+            company {
+              __typename
+              id
+              name
+              ownerUserId
+              createdByUserId
+              createdOn
+              lastUpdatedByUserId
+              lastUpdatedOn
+              _version
+              _deleted
+              _lastChangedAt
+            }
             createdByUserId
+            createdBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             createdOn
             lastUpdatedByUserId
+            lastUpdatedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             lastUpdatedOn
+            _version
+            _deleted
+            _lastChangedAt
           }
           name
           fullName
           tradingName
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -4372,15 +9567,76 @@ export class APIService {
             id
             name
             ownerUserId
+            owner {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             companyId
+            company {
+              __typename
+              id
+              name
+              ownerUserId
+              createdByUserId
+              createdOn
+              lastUpdatedByUserId
+              lastUpdatedOn
+              _version
+              _deleted
+              _lastChangedAt
+            }
             createdByUserId
+            createdBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             createdOn
             lastUpdatedByUserId
+            lastUpdatedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             lastUpdatedOn
+            _version
+            _deleted
+            _lastChangedAt
           }
           name
           fullName
           tradingName
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -4406,8 +9662,20 @@ export class APIService {
           sections {
             __typename
             name
+            fields {
+              __typename
+              name
+              label
+              type
+              defaultValue
+              fixedValue
+              metadata
+            }
           }
           target
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -4433,8 +9701,20 @@ export class APIService {
           sections {
             __typename
             name
+            fields {
+              __typename
+              name
+              label
+              type
+              defaultValue
+              fixedValue
+              metadata
+            }
           }
           target
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -4460,8 +9740,20 @@ export class APIService {
           sections {
             __typename
             name
+            fields {
+              __typename
+              name
+              label
+              type
+              defaultValue
+              fixedValue
+              metadata
+            }
           }
           target
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -4496,6 +9788,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletedBy {
             __typename
@@ -4507,6 +9802,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletionDate
           lastupdatedByUserId
@@ -4520,9 +9818,15 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           lastUpdatedDate
           deleted
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -4557,6 +9861,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletedBy {
             __typename
@@ -4568,6 +9875,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletionDate
           lastupdatedByUserId
@@ -4581,9 +9891,15 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           lastUpdatedDate
           deleted
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -4618,6 +9934,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletedBy {
             __typename
@@ -4629,6 +9948,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletionDate
           lastupdatedByUserId
@@ -4642,9 +9964,15 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           lastUpdatedDate
           deleted
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -4676,9 +10004,26 @@ export class APIService {
             __typename
             id
             teamId
+            team {
+              __typename
+              id
+              name
+              ownerUserId
+              companyId
+              createdByUserId
+              createdOn
+              lastUpdatedByUserId
+              lastUpdatedOn
+              _version
+              _deleted
+              _lastChangedAt
+            }
             name
             fullName
             tradingName
+            _version
+            _deleted
+            _lastChangedAt
           }
           creationDate
           createdBy {
@@ -4691,6 +10036,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletedBy {
             __typename
@@ -4702,6 +10050,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletionDate
           lastUpdatedBy {
@@ -4714,9 +10065,15 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           lastUpdatedDate
           deleted
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -4748,9 +10105,26 @@ export class APIService {
             __typename
             id
             teamId
+            team {
+              __typename
+              id
+              name
+              ownerUserId
+              companyId
+              createdByUserId
+              createdOn
+              lastUpdatedByUserId
+              lastUpdatedOn
+              _version
+              _deleted
+              _lastChangedAt
+            }
             name
             fullName
             tradingName
+            _version
+            _deleted
+            _lastChangedAt
           }
           creationDate
           createdBy {
@@ -4763,6 +10137,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletedBy {
             __typename
@@ -4774,6 +10151,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletionDate
           lastUpdatedBy {
@@ -4786,9 +10166,15 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           lastUpdatedDate
           deleted
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -4820,9 +10206,26 @@ export class APIService {
             __typename
             id
             teamId
+            team {
+              __typename
+              id
+              name
+              ownerUserId
+              companyId
+              createdByUserId
+              createdOn
+              lastUpdatedByUserId
+              lastUpdatedOn
+              _version
+              _deleted
+              _lastChangedAt
+            }
             name
             fullName
             tradingName
+            _version
+            _deleted
+            _lastChangedAt
           }
           creationDate
           createdBy {
@@ -4835,6 +10238,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletedBy {
             __typename
@@ -4846,6 +10252,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletionDate
           lastUpdatedBy {
@@ -4858,9 +10267,15 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           lastUpdatedDate
           deleted
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -4904,6 +10319,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletedBy {
             __typename
@@ -4915,6 +10333,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletionDate
           lastUpdatedBy {
@@ -4927,9 +10348,15 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           lastUpdatedDate
           deleted
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -4973,6 +10400,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletedBy {
             __typename
@@ -4984,6 +10414,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletionDate
           lastUpdatedBy {
@@ -4996,9 +10429,15 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           lastUpdatedDate
           deleted
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -5042,6 +10481,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletedBy {
             __typename
@@ -5053,6 +10495,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletionDate
           lastUpdatedBy {
@@ -5065,9 +10510,15 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           lastUpdatedDate
           deleted
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -5106,14 +10557,91 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           product {
             __typename
             id
             name
             teamId
+            team {
+              __typename
+              id
+              name
+              ownerUserId
+              companyId
+              createdByUserId
+              createdOn
+              lastUpdatedByUserId
+              lastUpdatedOn
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            supplier {
+              __typename
+              id
+              teamId
+              name
+              fullName
+              tradingName
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            images {
+              __typename
+              id
+              teamId
+              fileName
+              orientation
+              imageType
+              creationDate
+              deletionDate
+              lastUpdatedDate
+              deleted
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            price {
+              __typename
+              currency
+              value
+              baseCurrencyValue
+            }
+            category {
+              __typename
+              id
+              teamId
+              name
+              creationDate
+              deletionDate
+              lastupdatedByUserId
+              lastUpdatedDate
+              deleted
+              _version
+              _deleted
+              _lastChangedAt
+            }
             description
             favorite
+            assignee {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             minimumOrderQuantity
             moqDescription
             score
@@ -5126,21 +10654,89 @@ export class APIService {
             leadTimeValue
             leadTimeUnit
             sample
+            samplePrice {
+              __typename
+              currency
+              value
+              baseCurrencyValue
+            }
             archived
             reference
             referenceKey
             creationDate
+            createdBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            deletedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             deletionDate
+            lastUpdatedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             lastUpdatedDate
             deleted
+            _version
+            _deleted
+            _lastChangedAt
           }
           supplier {
             __typename
             id
             teamId
+            team {
+              __typename
+              id
+              name
+              ownerUserId
+              companyId
+              createdByUserId
+              createdOn
+              lastUpdatedByUserId
+              lastUpdatedOn
+              _version
+              _deleted
+              _lastChangedAt
+            }
             name
             fullName
             tradingName
+            _version
+            _deleted
+            _lastChangedAt
           }
           reference
           referenceKey
@@ -5156,6 +10752,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletedBy {
             __typename
@@ -5167,6 +10766,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletionDate
           lastUpdatedBy {
@@ -5179,9 +10781,15 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           lastUpdatedDate
           deleted
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -5220,14 +10828,91 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           product {
             __typename
             id
             name
             teamId
+            team {
+              __typename
+              id
+              name
+              ownerUserId
+              companyId
+              createdByUserId
+              createdOn
+              lastUpdatedByUserId
+              lastUpdatedOn
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            supplier {
+              __typename
+              id
+              teamId
+              name
+              fullName
+              tradingName
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            images {
+              __typename
+              id
+              teamId
+              fileName
+              orientation
+              imageType
+              creationDate
+              deletionDate
+              lastUpdatedDate
+              deleted
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            price {
+              __typename
+              currency
+              value
+              baseCurrencyValue
+            }
+            category {
+              __typename
+              id
+              teamId
+              name
+              creationDate
+              deletionDate
+              lastupdatedByUserId
+              lastUpdatedDate
+              deleted
+              _version
+              _deleted
+              _lastChangedAt
+            }
             description
             favorite
+            assignee {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             minimumOrderQuantity
             moqDescription
             score
@@ -5240,21 +10925,89 @@ export class APIService {
             leadTimeValue
             leadTimeUnit
             sample
+            samplePrice {
+              __typename
+              currency
+              value
+              baseCurrencyValue
+            }
             archived
             reference
             referenceKey
             creationDate
+            createdBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            deletedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             deletionDate
+            lastUpdatedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             lastUpdatedDate
             deleted
+            _version
+            _deleted
+            _lastChangedAt
           }
           supplier {
             __typename
             id
             teamId
+            team {
+              __typename
+              id
+              name
+              ownerUserId
+              companyId
+              createdByUserId
+              createdOn
+              lastUpdatedByUserId
+              lastUpdatedOn
+              _version
+              _deleted
+              _lastChangedAt
+            }
             name
             fullName
             tradingName
+            _version
+            _deleted
+            _lastChangedAt
           }
           reference
           referenceKey
@@ -5270,6 +11023,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletedBy {
             __typename
@@ -5281,6 +11037,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletionDate
           lastUpdatedBy {
@@ -5293,9 +11052,15 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           lastUpdatedDate
           deleted
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -5334,14 +11099,91 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           product {
             __typename
             id
             name
             teamId
+            team {
+              __typename
+              id
+              name
+              ownerUserId
+              companyId
+              createdByUserId
+              createdOn
+              lastUpdatedByUserId
+              lastUpdatedOn
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            supplier {
+              __typename
+              id
+              teamId
+              name
+              fullName
+              tradingName
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            images {
+              __typename
+              id
+              teamId
+              fileName
+              orientation
+              imageType
+              creationDate
+              deletionDate
+              lastUpdatedDate
+              deleted
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            price {
+              __typename
+              currency
+              value
+              baseCurrencyValue
+            }
+            category {
+              __typename
+              id
+              teamId
+              name
+              creationDate
+              deletionDate
+              lastupdatedByUserId
+              lastUpdatedDate
+              deleted
+              _version
+              _deleted
+              _lastChangedAt
+            }
             description
             favorite
+            assignee {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             minimumOrderQuantity
             moqDescription
             score
@@ -5354,21 +11196,89 @@ export class APIService {
             leadTimeValue
             leadTimeUnit
             sample
+            samplePrice {
+              __typename
+              currency
+              value
+              baseCurrencyValue
+            }
             archived
             reference
             referenceKey
             creationDate
+            createdBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            deletedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             deletionDate
+            lastUpdatedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             lastUpdatedDate
             deleted
+            _version
+            _deleted
+            _lastChangedAt
           }
           supplier {
             __typename
             id
             teamId
+            team {
+              __typename
+              id
+              name
+              ownerUserId
+              companyId
+              createdByUserId
+              createdOn
+              lastUpdatedByUserId
+              lastUpdatedOn
+              _version
+              _deleted
+              _lastChangedAt
+            }
             name
             fullName
             tradingName
+            _version
+            _deleted
+            _lastChangedAt
           }
           reference
           referenceKey
@@ -5384,6 +11294,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletedBy {
             __typename
@@ -5395,6 +11308,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletionDate
           lastUpdatedBy {
@@ -5407,9 +11323,15 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           lastUpdatedDate
           deleted
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -5437,11 +11359,69 @@ export class APIService {
             id
             name
             ownerUserId
+            owner {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             companyId
+            company {
+              __typename
+              id
+              name
+              ownerUserId
+              createdByUserId
+              createdOn
+              lastUpdatedByUserId
+              lastUpdatedOn
+              _version
+              _deleted
+              _lastChangedAt
+            }
             createdByUserId
+            createdBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             createdOn
             lastUpdatedByUserId
+            lastUpdatedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             lastUpdatedOn
+            _version
+            _deleted
+            _lastChangedAt
           }
           user {
             __typename
@@ -5453,8 +11433,14 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           role
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -5482,11 +11468,69 @@ export class APIService {
             id
             name
             ownerUserId
+            owner {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             companyId
+            company {
+              __typename
+              id
+              name
+              ownerUserId
+              createdByUserId
+              createdOn
+              lastUpdatedByUserId
+              lastUpdatedOn
+              _version
+              _deleted
+              _lastChangedAt
+            }
             createdByUserId
+            createdBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             createdOn
             lastUpdatedByUserId
+            lastUpdatedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             lastUpdatedOn
+            _version
+            _deleted
+            _lastChangedAt
           }
           user {
             __typename
@@ -5498,8 +11542,14 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           role
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -5527,11 +11577,69 @@ export class APIService {
             id
             name
             ownerUserId
+            owner {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             companyId
+            company {
+              __typename
+              id
+              name
+              ownerUserId
+              createdByUserId
+              createdOn
+              lastUpdatedByUserId
+              lastUpdatedOn
+              _version
+              _deleted
+              _lastChangedAt
+            }
             createdByUserId
+            createdBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             createdOn
             lastUpdatedByUserId
+            lastUpdatedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             lastUpdatedOn
+            _version
+            _deleted
+            _lastChangedAt
           }
           user {
             __typename
@@ -5543,8 +11651,14 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           role
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -5578,6 +11692,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           createdByUserId
           createdBy {
@@ -5590,6 +11707,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           createdOn
           lastUpdatedByUserId
@@ -5603,8 +11723,14 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           lastUpdatedOn
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -5638,6 +11764,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           createdByUserId
           createdBy {
@@ -5650,6 +11779,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           createdOn
           lastUpdatedByUserId
@@ -5663,8 +11795,14 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           lastUpdatedOn
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -5698,6 +11836,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           createdByUserId
           createdBy {
@@ -5710,6 +11851,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           createdOn
           lastUpdatedByUserId
@@ -5723,8 +11867,14 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           lastUpdatedOn
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -5753,6 +11903,9 @@ export class APIService {
           preferredLanguage
           avatar
           creationDate
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -5819,9 +11972,192 @@ export class APIService {
       response.data.getStreamNotificationToken
     );
   }
-  async GetProduct(teamId: string, id: string): Promise<GetProductQuery> {
-    const statement = `query GetProduct($teamId: ID!, $id: ID!) {
-        getProduct(teamId: $teamId, id: $id) {
+  async SyncProducts(
+    filter?: ModelProductFilterInput,
+    limit?: number,
+    nextToken?: string,
+    lastSync?: number
+  ): Promise<SyncProductsQuery> {
+    const statement = `query SyncProducts($filter: ModelProductFilterInput, $limit: Int, $nextToken: String, $lastSync: AWSTimestamp) {
+        syncProducts(filter: $filter, limit: $limit, nextToken: $nextToken, lastSync: $lastSync) {
+          __typename
+          items {
+            __typename
+            id
+            name
+            teamId
+            team {
+              __typename
+              id
+              name
+              ownerUserId
+              companyId
+              createdByUserId
+              createdOn
+              lastUpdatedByUserId
+              lastUpdatedOn
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            supplier {
+              __typename
+              id
+              teamId
+              name
+              fullName
+              tradingName
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            images {
+              __typename
+              id
+              teamId
+              fileName
+              orientation
+              imageType
+              creationDate
+              deletionDate
+              lastUpdatedDate
+              deleted
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            price {
+              __typename
+              currency
+              value
+              baseCurrencyValue
+            }
+            category {
+              __typename
+              id
+              teamId
+              name
+              creationDate
+              deletionDate
+              lastupdatedByUserId
+              lastUpdatedDate
+              deleted
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            description
+            favorite
+            assignee {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            minimumOrderQuantity
+            moqDescription
+            score
+            incoTerm
+            harbour
+            masterCbm
+            quantityPer20ft
+            quantityPer40ft
+            quantityPer40ftHC
+            leadTimeValue
+            leadTimeUnit
+            sample
+            samplePrice {
+              __typename
+              currency
+              value
+              baseCurrencyValue
+            }
+            archived
+            reference
+            referenceKey
+            creationDate
+            createdBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            deletedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            deletionDate
+            lastUpdatedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            lastUpdatedDate
+            deleted
+            _version
+            _deleted
+            _lastChangedAt
+          }
+          nextToken
+          startedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    if (lastSync) {
+      gqlAPIServiceArguments.lastSync = lastSync;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <SyncProductsQuery>response.data.syncProducts;
+  }
+  async GetProduct(id: string): Promise<GetProductQuery> {
+    const statement = `query GetProduct($id: ID!) {
+        getProduct(id: $id) {
           __typename
           id
           name
@@ -5831,19 +12167,94 @@ export class APIService {
             id
             name
             ownerUserId
+            owner {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             companyId
+            company {
+              __typename
+              id
+              name
+              ownerUserId
+              createdByUserId
+              createdOn
+              lastUpdatedByUserId
+              lastUpdatedOn
+              _version
+              _deleted
+              _lastChangedAt
+            }
             createdByUserId
+            createdBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             createdOn
             lastUpdatedByUserId
+            lastUpdatedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             lastUpdatedOn
+            _version
+            _deleted
+            _lastChangedAt
           }
           supplier {
             __typename
             id
             teamId
+            team {
+              __typename
+              id
+              name
+              ownerUserId
+              companyId
+              createdByUserId
+              createdOn
+              lastUpdatedByUserId
+              lastUpdatedOn
+              _version
+              _deleted
+              _lastChangedAt
+            }
             name
             fullName
             tradingName
+            _version
+            _deleted
+            _lastChangedAt
           }
           images {
             __typename
@@ -5852,10 +12263,62 @@ export class APIService {
             fileName
             orientation
             imageType
+            urls {
+              __typename
+              id
+              maxWidth
+              maxHeight
+              url
+            }
             creationDate
+            createdBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            deletedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             deletionDate
+            lastUpdatedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             lastUpdatedDate
             deleted
+            _version
+            _deleted
+            _lastChangedAt
           }
           price {
             __typename
@@ -5869,10 +12332,55 @@ export class APIService {
             teamId
             name
             creationDate
+            createdBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            deletedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             deletionDate
             lastupdatedByUserId
+            lastUpdatedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             lastUpdatedDate
             deleted
+            _version
+            _deleted
+            _lastChangedAt
           }
           description
           favorite
@@ -5886,6 +12394,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           minimumOrderQuantity
           moqDescription
@@ -5919,6 +12430,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletedBy {
             __typename
@@ -5930,6 +12444,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletionDate
           lastUpdatedBy {
@@ -5942,13 +12459,18 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           lastUpdatedDate
           deleted
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      teamId,
       id
     };
     const response = (await API.graphql(
@@ -5957,23 +12479,94 @@ export class APIService {
     return <GetProductQuery>response.data.getProduct;
   }
   async ListProducts(
-    teamId?: string,
-    id?: ModelIDKeyConditionInput,
     filter?: ModelProductFilterInput,
     limit?: number,
-    nextToken?: string,
-    sortDirection?: ModelSortDirection
+    nextToken?: string
   ): Promise<ListProductsQuery> {
-    const statement = `query ListProducts($teamId: ID, $id: ModelIDKeyConditionInput, $filter: ModelProductFilterInput, $limit: Int, $nextToken: String, $sortDirection: ModelSortDirection) {
-        listProducts(teamId: $teamId, id: $id, filter: $filter, limit: $limit, nextToken: $nextToken, sortDirection: $sortDirection) {
+    const statement = `query ListProducts($filter: ModelProductFilterInput, $limit: Int, $nextToken: String) {
+        listProducts(filter: $filter, limit: $limit, nextToken: $nextToken) {
           __typename
           items {
             __typename
             id
             name
             teamId
+            team {
+              __typename
+              id
+              name
+              ownerUserId
+              companyId
+              createdByUserId
+              createdOn
+              lastUpdatedByUserId
+              lastUpdatedOn
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            supplier {
+              __typename
+              id
+              teamId
+              name
+              fullName
+              tradingName
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            images {
+              __typename
+              id
+              teamId
+              fileName
+              orientation
+              imageType
+              creationDate
+              deletionDate
+              lastUpdatedDate
+              deleted
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            price {
+              __typename
+              currency
+              value
+              baseCurrencyValue
+            }
+            category {
+              __typename
+              id
+              teamId
+              name
+              creationDate
+              deletionDate
+              lastupdatedByUserId
+              lastUpdatedDate
+              deleted
+              _version
+              _deleted
+              _lastChangedAt
+            }
             description
             favorite
+            assignee {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             minimumOrderQuantity
             moqDescription
             score
@@ -5986,24 +12579,70 @@ export class APIService {
             leadTimeValue
             leadTimeUnit
             sample
+            samplePrice {
+              __typename
+              currency
+              value
+              baseCurrencyValue
+            }
             archived
             reference
             referenceKey
             creationDate
+            createdBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            deletedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             deletionDate
+            lastUpdatedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             lastUpdatedDate
             deleted
+            _version
+            _deleted
+            _lastChangedAt
           }
           nextToken
+          startedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {};
-    if (teamId) {
-      gqlAPIServiceArguments.teamId = teamId;
-    }
-    if (id) {
-      gqlAPIServiceArguments.id = id;
-    }
     if (filter) {
       gqlAPIServiceArguments.filter = filter;
     }
@@ -6013,17 +12652,70 @@ export class APIService {
     if (nextToken) {
       gqlAPIServiceArguments.nextToken = nextToken;
     }
-    if (sortDirection) {
-      gqlAPIServiceArguments.sortDirection = sortDirection;
-    }
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
     return <ListProductsQuery>response.data.listProducts;
   }
-  async GetSupplier(teamId: string, id: string): Promise<GetSupplierQuery> {
-    const statement = `query GetSupplier($teamId: ID!, $id: ID!) {
-        getSupplier(teamId: $teamId, id: $id) {
+  async SyncSuppliers(
+    filter?: ModelSupplierFilterInput,
+    limit?: number,
+    nextToken?: string,
+    lastSync?: number
+  ): Promise<SyncSuppliersQuery> {
+    const statement = `query SyncSuppliers($filter: ModelSupplierFilterInput, $limit: Int, $nextToken: String, $lastSync: AWSTimestamp) {
+        syncSuppliers(filter: $filter, limit: $limit, nextToken: $nextToken, lastSync: $lastSync) {
+          __typename
+          items {
+            __typename
+            id
+            teamId
+            team {
+              __typename
+              id
+              name
+              ownerUserId
+              companyId
+              createdByUserId
+              createdOn
+              lastUpdatedByUserId
+              lastUpdatedOn
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            name
+            fullName
+            tradingName
+            _version
+            _deleted
+            _lastChangedAt
+          }
+          nextToken
+          startedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    if (lastSync) {
+      gqlAPIServiceArguments.lastSync = lastSync;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <SyncSuppliersQuery>response.data.syncSuppliers;
+  }
+  async GetSupplier(id: string): Promise<GetSupplierQuery> {
+    const statement = `query GetSupplier($id: ID!) {
+        getSupplier(id: $id) {
           __typename
           id
           teamId
@@ -6032,19 +12724,79 @@ export class APIService {
             id
             name
             ownerUserId
+            owner {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             companyId
+            company {
+              __typename
+              id
+              name
+              ownerUserId
+              createdByUserId
+              createdOn
+              lastUpdatedByUserId
+              lastUpdatedOn
+              _version
+              _deleted
+              _lastChangedAt
+            }
             createdByUserId
+            createdBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             createdOn
             lastUpdatedByUserId
+            lastUpdatedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             lastUpdatedOn
+            _version
+            _deleted
+            _lastChangedAt
           }
           name
           fullName
           tradingName
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      teamId,
       id
     };
     const response = (await API.graphql(
@@ -6053,34 +12805,43 @@ export class APIService {
     return <GetSupplierQuery>response.data.getSupplier;
   }
   async ListSuppliers(
-    teamId?: string,
-    id?: ModelIDKeyConditionInput,
     filter?: ModelSupplierFilterInput,
     limit?: number,
-    nextToken?: string,
-    sortDirection?: ModelSortDirection
+    nextToken?: string
   ): Promise<ListSuppliersQuery> {
-    const statement = `query ListSuppliers($teamId: ID, $id: ModelIDKeyConditionInput, $filter: ModelSupplierFilterInput, $limit: Int, $nextToken: String, $sortDirection: ModelSortDirection) {
-        listSuppliers(teamId: $teamId, id: $id, filter: $filter, limit: $limit, nextToken: $nextToken, sortDirection: $sortDirection) {
+    const statement = `query ListSuppliers($filter: ModelSupplierFilterInput, $limit: Int, $nextToken: String) {
+        listSuppliers(filter: $filter, limit: $limit, nextToken: $nextToken) {
           __typename
           items {
             __typename
             id
             teamId
+            team {
+              __typename
+              id
+              name
+              ownerUserId
+              companyId
+              createdByUserId
+              createdOn
+              lastUpdatedByUserId
+              lastUpdatedOn
+              _version
+              _deleted
+              _lastChangedAt
+            }
             name
             fullName
             tradingName
+            _version
+            _deleted
+            _lastChangedAt
           }
           nextToken
+          startedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {};
-    if (teamId) {
-      gqlAPIServiceArguments.teamId = teamId;
-    }
-    if (id) {
-      gqlAPIServiceArguments.id = id;
-    }
     if (filter) {
       gqlAPIServiceArguments.filter = filter;
     }
@@ -6090,29 +12851,81 @@ export class APIService {
     if (nextToken) {
       gqlAPIServiceArguments.nextToken = nextToken;
     }
-    if (sortDirection) {
-      gqlAPIServiceArguments.sortDirection = sortDirection;
-    }
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
     return <ListSuppliersQuery>response.data.listSuppliers;
   }
-  async GetDescriptor(teamId: string, id: string): Promise<GetDescriptorQuery> {
-    const statement = `query GetDescriptor($teamId: ID!, $id: ID!) {
-        getDescriptor(teamId: $teamId, id: $id) {
+  async SyncDescriptors(
+    filter?: ModelDescriptorFilterInput,
+    limit?: number,
+    nextToken?: string,
+    lastSync?: number
+  ): Promise<SyncDescriptorsQuery> {
+    const statement = `query SyncDescriptors($filter: ModelDescriptorFilterInput, $limit: Int, $nextToken: String, $lastSync: AWSTimestamp) {
+        syncDescriptors(filter: $filter, limit: $limit, nextToken: $nextToken, lastSync: $lastSync) {
+          __typename
+          items {
+            __typename
+            id
+            teamId
+            sections {
+              __typename
+              name
+            }
+            target
+            _version
+            _deleted
+            _lastChangedAt
+          }
+          nextToken
+          startedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    if (lastSync) {
+      gqlAPIServiceArguments.lastSync = lastSync;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <SyncDescriptorsQuery>response.data.syncDescriptors;
+  }
+  async GetDescriptor(id: string): Promise<GetDescriptorQuery> {
+    const statement = `query GetDescriptor($id: ID!) {
+        getDescriptor(id: $id) {
           __typename
           id
           teamId
           sections {
             __typename
             name
+            fields {
+              __typename
+              name
+              label
+              type
+              defaultValue
+              fixedValue
+              metadata
+            }
           }
           target
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      teamId,
       id
     };
     const response = (await API.graphql(
@@ -6121,32 +12934,31 @@ export class APIService {
     return <GetDescriptorQuery>response.data.getDescriptor;
   }
   async ListDescriptors(
-    teamId?: string,
-    id?: ModelIDKeyConditionInput,
     filter?: ModelDescriptorFilterInput,
     limit?: number,
-    nextToken?: string,
-    sortDirection?: ModelSortDirection
+    nextToken?: string
   ): Promise<ListDescriptorsQuery> {
-    const statement = `query ListDescriptors($teamId: ID, $id: ModelIDKeyConditionInput, $filter: ModelDescriptorFilterInput, $limit: Int, $nextToken: String, $sortDirection: ModelSortDirection) {
-        listDescriptors(teamId: $teamId, id: $id, filter: $filter, limit: $limit, nextToken: $nextToken, sortDirection: $sortDirection) {
+    const statement = `query ListDescriptors($filter: ModelDescriptorFilterInput, $limit: Int, $nextToken: String) {
+        listDescriptors(filter: $filter, limit: $limit, nextToken: $nextToken) {
           __typename
           items {
             __typename
             id
             teamId
+            sections {
+              __typename
+              name
+            }
             target
+            _version
+            _deleted
+            _lastChangedAt
           }
           nextToken
+          startedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {};
-    if (teamId) {
-      gqlAPIServiceArguments.teamId = teamId;
-    }
-    if (id) {
-      gqlAPIServiceArguments.id = id;
-    }
     if (filter) {
       gqlAPIServiceArguments.filter = filter;
     }
@@ -6156,17 +12968,101 @@ export class APIService {
     if (nextToken) {
       gqlAPIServiceArguments.nextToken = nextToken;
     }
-    if (sortDirection) {
-      gqlAPIServiceArguments.sortDirection = sortDirection;
-    }
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
     return <ListDescriptorsQuery>response.data.listDescriptors;
   }
-  async GetCategory(teamId: string, id: string): Promise<GetCategoryQuery> {
-    const statement = `query GetCategory($teamId: ID!, $id: ID!) {
-        getCategory(teamId: $teamId, id: $id) {
+  async SyncCategories(
+    filter?: ModelCategoryFilterInput,
+    limit?: number,
+    nextToken?: string,
+    lastSync?: number
+  ): Promise<SyncCategoriesQuery> {
+    const statement = `query SyncCategories($filter: ModelCategoryFilterInput, $limit: Int, $nextToken: String, $lastSync: AWSTimestamp) {
+        syncCategories(filter: $filter, limit: $limit, nextToken: $nextToken, lastSync: $lastSync) {
+          __typename
+          items {
+            __typename
+            id
+            teamId
+            name
+            creationDate
+            createdBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            deletedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            deletionDate
+            lastupdatedByUserId
+            lastUpdatedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            lastUpdatedDate
+            deleted
+            _version
+            _deleted
+            _lastChangedAt
+          }
+          nextToken
+          startedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    if (lastSync) {
+      gqlAPIServiceArguments.lastSync = lastSync;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <SyncCategoriesQuery>response.data.syncCategories;
+  }
+  async GetCategory(id: string): Promise<GetCategoryQuery> {
+    const statement = `query GetCategory($id: ID!) {
+        getCategory(id: $id) {
           __typename
           id
           teamId
@@ -6182,6 +13078,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletedBy {
             __typename
@@ -6193,6 +13092,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletionDate
           lastupdatedByUserId
@@ -6206,13 +13108,18 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           lastUpdatedDate
           deleted
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      teamId,
       id
     };
     const response = (await API.graphql(
@@ -6221,15 +13128,12 @@ export class APIService {
     return <GetCategoryQuery>response.data.getCategory;
   }
   async ListCategorys(
-    teamId?: string,
-    id?: ModelIDKeyConditionInput,
     filter?: ModelCategoryFilterInput,
     limit?: number,
-    nextToken?: string,
-    sortDirection?: ModelSortDirection
+    nextToken?: string
   ): Promise<ListCategorysQuery> {
-    const statement = `query ListCategorys($teamId: ID, $id: ModelIDKeyConditionInput, $filter: ModelCategoryFilterInput, $limit: Int, $nextToken: String, $sortDirection: ModelSortDirection) {
-        listCategorys(teamId: $teamId, id: $id, filter: $filter, limit: $limit, nextToken: $nextToken, sortDirection: $sortDirection) {
+    const statement = `query ListCategorys($filter: ModelCategoryFilterInput, $limit: Int, $nextToken: String) {
+        listCategorys(filter: $filter, limit: $limit, nextToken: $nextToken) {
           __typename
           items {
             __typename
@@ -6237,21 +13141,61 @@ export class APIService {
             teamId
             name
             creationDate
+            createdBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            deletedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             deletionDate
             lastupdatedByUserId
+            lastUpdatedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             lastUpdatedDate
             deleted
+            _version
+            _deleted
+            _lastChangedAt
           }
           nextToken
+          startedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {};
-    if (teamId) {
-      gqlAPIServiceArguments.teamId = teamId;
-    }
-    if (id) {
-      gqlAPIServiceArguments.id = id;
-    }
     if (filter) {
       gqlAPIServiceArguments.filter = filter;
     }
@@ -6261,17 +13205,115 @@ export class APIService {
     if (nextToken) {
       gqlAPIServiceArguments.nextToken = nextToken;
     }
-    if (sortDirection) {
-      gqlAPIServiceArguments.sortDirection = sortDirection;
-    }
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
     return <ListCategorysQuery>response.data.listCategorys;
   }
-  async GetContact(teamId: string, id: string): Promise<GetContactQuery> {
-    const statement = `query GetContact($teamId: ID!, $id: ID!) {
-        getContact(teamId: $teamId, id: $id) {
+  async SyncContacts(
+    filter?: ModelContactFilterInput,
+    limit?: number,
+    nextToken?: string,
+    lastSync?: number
+  ): Promise<SyncContactsQuery> {
+    const statement = `query SyncContacts($filter: ModelContactFilterInput, $limit: Int, $nextToken: String, $lastSync: AWSTimestamp) {
+        syncContacts(filter: $filter, limit: $limit, nextToken: $nextToken, lastSync: $lastSync) {
+          __typename
+          items {
+            __typename
+            id
+            teamId
+            companyId
+            name
+            phoneNumber
+            email
+            jobTitle
+            supplier {
+              __typename
+              id
+              teamId
+              name
+              fullName
+              tradingName
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            creationDate
+            createdBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            deletedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            deletionDate
+            lastUpdatedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            lastUpdatedDate
+            deleted
+            _version
+            _deleted
+            _lastChangedAt
+          }
+          nextToken
+          startedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    if (lastSync) {
+      gqlAPIServiceArguments.lastSync = lastSync;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <SyncContactsQuery>response.data.syncContacts;
+  }
+  async GetContact(id: string): Promise<GetContactQuery> {
+    const statement = `query GetContact($id: ID!) {
+        getContact(id: $id) {
           __typename
           id
           teamId
@@ -6284,9 +13326,26 @@ export class APIService {
             __typename
             id
             teamId
+            team {
+              __typename
+              id
+              name
+              ownerUserId
+              companyId
+              createdByUserId
+              createdOn
+              lastUpdatedByUserId
+              lastUpdatedOn
+              _version
+              _deleted
+              _lastChangedAt
+            }
             name
             fullName
             tradingName
+            _version
+            _deleted
+            _lastChangedAt
           }
           creationDate
           createdBy {
@@ -6299,6 +13358,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletedBy {
             __typename
@@ -6310,6 +13372,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletionDate
           lastUpdatedBy {
@@ -6322,13 +13387,18 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           lastUpdatedDate
           deleted
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      teamId,
       id
     };
     const response = (await API.graphql(
@@ -6337,15 +13407,12 @@ export class APIService {
     return <GetContactQuery>response.data.getContact;
   }
   async ListContacts(
-    teamId?: string,
-    id?: ModelIDKeyConditionInput,
     filter?: ModelContactFilterInput,
     limit?: number,
-    nextToken?: string,
-    sortDirection?: ModelSortDirection
+    nextToken?: string
   ): Promise<ListContactsQuery> {
-    const statement = `query ListContacts($teamId: ID, $id: ModelIDKeyConditionInput, $filter: ModelContactFilterInput, $limit: Int, $nextToken: String, $sortDirection: ModelSortDirection) {
-        listContacts(teamId: $teamId, id: $id, filter: $filter, limit: $limit, nextToken: $nextToken, sortDirection: $sortDirection) {
+    const statement = `query ListContacts($filter: ModelContactFilterInput, $limit: Int, $nextToken: String) {
+        listContacts(filter: $filter, limit: $limit, nextToken: $nextToken) {
           __typename
           items {
             __typename
@@ -6356,21 +13423,72 @@ export class APIService {
             phoneNumber
             email
             jobTitle
+            supplier {
+              __typename
+              id
+              teamId
+              name
+              fullName
+              tradingName
+              _version
+              _deleted
+              _lastChangedAt
+            }
             creationDate
+            createdBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            deletedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             deletionDate
+            lastUpdatedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             lastUpdatedDate
             deleted
+            _version
+            _deleted
+            _lastChangedAt
           }
           nextToken
+          startedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {};
-    if (teamId) {
-      gqlAPIServiceArguments.teamId = teamId;
-    }
-    if (id) {
-      gqlAPIServiceArguments.id = id;
-    }
     if (filter) {
       gqlAPIServiceArguments.filter = filter;
     }
@@ -6380,17 +13498,109 @@ export class APIService {
     if (nextToken) {
       gqlAPIServiceArguments.nextToken = nextToken;
     }
-    if (sortDirection) {
-      gqlAPIServiceArguments.sortDirection = sortDirection;
-    }
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
     return <ListContactsQuery>response.data.listContacts;
   }
-  async GetImage(teamId: string, id: string): Promise<GetImageQuery> {
-    const statement = `query GetImage($teamId: ID!, $id: ID!) {
-        getImage(teamId: $teamId, id: $id) {
+  async SyncImages(
+    filter?: ModelImageFilterInput,
+    limit?: number,
+    nextToken?: string,
+    lastSync?: number
+  ): Promise<SyncImagesQuery> {
+    const statement = `query SyncImages($filter: ModelImageFilterInput, $limit: Int, $nextToken: String, $lastSync: AWSTimestamp) {
+        syncImages(filter: $filter, limit: $limit, nextToken: $nextToken, lastSync: $lastSync) {
+          __typename
+          items {
+            __typename
+            id
+            teamId
+            fileName
+            orientation
+            imageType
+            urls {
+              __typename
+              id
+              maxWidth
+              maxHeight
+              url
+            }
+            creationDate
+            createdBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            deletedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            deletionDate
+            lastUpdatedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            lastUpdatedDate
+            deleted
+            _version
+            _deleted
+            _lastChangedAt
+          }
+          nextToken
+          startedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    if (lastSync) {
+      gqlAPIServiceArguments.lastSync = lastSync;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <SyncImagesQuery>response.data.syncImages;
+  }
+  async GetImage(id: string): Promise<GetImageQuery> {
+    const statement = `query GetImage($id: ID!) {
+        getImage(id: $id) {
           __typename
           id
           teamId
@@ -6415,6 +13625,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletedBy {
             __typename
@@ -6426,6 +13639,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletionDate
           lastUpdatedBy {
@@ -6438,13 +13654,18 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           lastUpdatedDate
           deleted
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      teamId,
       id
     };
     const response = (await API.graphql(
@@ -6453,15 +13674,12 @@ export class APIService {
     return <GetImageQuery>response.data.getImage;
   }
   async ListImages(
-    teamId?: string,
-    id?: ModelIDKeyConditionInput,
     filter?: ModelImageFilterInput,
     limit?: number,
-    nextToken?: string,
-    sortDirection?: ModelSortDirection
+    nextToken?: string
   ): Promise<ListImagesQuery> {
-    const statement = `query ListImages($teamId: ID, $id: ModelIDKeyConditionInput, $filter: ModelImageFilterInput, $limit: Int, $nextToken: String, $sortDirection: ModelSortDirection) {
-        listImages(teamId: $teamId, id: $id, filter: $filter, limit: $limit, nextToken: $nextToken, sortDirection: $sortDirection) {
+    const statement = `query ListImages($filter: ModelImageFilterInput, $limit: Int, $nextToken: String) {
+        listImages(filter: $filter, limit: $limit, nextToken: $nextToken) {
           __typename
           items {
             __typename
@@ -6470,21 +13688,68 @@ export class APIService {
             fileName
             orientation
             imageType
+            urls {
+              __typename
+              id
+              maxWidth
+              maxHeight
+              url
+            }
             creationDate
+            createdBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            deletedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             deletionDate
+            lastUpdatedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             lastUpdatedDate
             deleted
+            _version
+            _deleted
+            _lastChangedAt
           }
           nextToken
+          startedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {};
-    if (teamId) {
-      gqlAPIServiceArguments.teamId = teamId;
-    }
-    if (id) {
-      gqlAPIServiceArguments.id = id;
-    }
     if (filter) {
       gqlAPIServiceArguments.filter = filter;
     }
@@ -6494,17 +13759,163 @@ export class APIService {
     if (nextToken) {
       gqlAPIServiceArguments.nextToken = nextToken;
     }
-    if (sortDirection) {
-      gqlAPIServiceArguments.sortDirection = sortDirection;
-    }
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
     return <ListImagesQuery>response.data.listImages;
   }
-  async GetTask(teamId: string, id: string): Promise<GetTaskQuery> {
-    const statement = `query GetTask($teamId: ID!, $id: ID!) {
-        getTask(teamId: $teamId, id: $id) {
+  async SyncTasks(
+    filter?: ModelTaskFilterInput,
+    limit?: number,
+    nextToken?: string,
+    lastSync?: number
+  ): Promise<SyncTasksQuery> {
+    const statement = `query SyncTasks($filter: ModelTaskFilterInput, $limit: Int, $nextToken: String, $lastSync: AWSTimestamp) {
+        syncTasks(filter: $filter, limit: $limit, nextToken: $nextToken, lastSync: $lastSync) {
+          __typename
+          items {
+            __typename
+            id
+            teamId
+            name
+            description
+            dueDate
+            completed
+            completionDate
+            assigneeUserId
+            assignee {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            product {
+              __typename
+              id
+              name
+              teamId
+              description
+              favorite
+              minimumOrderQuantity
+              moqDescription
+              score
+              incoTerm
+              harbour
+              masterCbm
+              quantityPer20ft
+              quantityPer40ft
+              quantityPer40ftHC
+              leadTimeValue
+              leadTimeUnit
+              sample
+              archived
+              reference
+              referenceKey
+              creationDate
+              deletionDate
+              lastUpdatedDate
+              deleted
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            supplier {
+              __typename
+              id
+              teamId
+              name
+              fullName
+              tradingName
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            reference
+            referenceKey
+            inProgress
+            creationDate
+            createdBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            deletedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            deletionDate
+            lastUpdatedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            lastUpdatedDate
+            deleted
+            _version
+            _deleted
+            _lastChangedAt
+          }
+          nextToken
+          startedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    if (lastSync) {
+      gqlAPIServiceArguments.lastSync = lastSync;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <SyncTasksQuery>response.data.syncTasks;
+  }
+  async GetTask(id: string): Promise<GetTaskQuery> {
+    const statement = `query GetTask($id: ID!) {
+        getTask(id: $id) {
           __typename
           id
           teamId
@@ -6524,14 +13935,91 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           product {
             __typename
             id
             name
             teamId
+            team {
+              __typename
+              id
+              name
+              ownerUserId
+              companyId
+              createdByUserId
+              createdOn
+              lastUpdatedByUserId
+              lastUpdatedOn
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            supplier {
+              __typename
+              id
+              teamId
+              name
+              fullName
+              tradingName
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            images {
+              __typename
+              id
+              teamId
+              fileName
+              orientation
+              imageType
+              creationDate
+              deletionDate
+              lastUpdatedDate
+              deleted
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            price {
+              __typename
+              currency
+              value
+              baseCurrencyValue
+            }
+            category {
+              __typename
+              id
+              teamId
+              name
+              creationDate
+              deletionDate
+              lastupdatedByUserId
+              lastUpdatedDate
+              deleted
+              _version
+              _deleted
+              _lastChangedAt
+            }
             description
             favorite
+            assignee {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             minimumOrderQuantity
             moqDescription
             score
@@ -6544,21 +14032,89 @@ export class APIService {
             leadTimeValue
             leadTimeUnit
             sample
+            samplePrice {
+              __typename
+              currency
+              value
+              baseCurrencyValue
+            }
             archived
             reference
             referenceKey
             creationDate
+            createdBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            deletedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             deletionDate
+            lastUpdatedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             lastUpdatedDate
             deleted
+            _version
+            _deleted
+            _lastChangedAt
           }
           supplier {
             __typename
             id
             teamId
+            team {
+              __typename
+              id
+              name
+              ownerUserId
+              companyId
+              createdByUserId
+              createdOn
+              lastUpdatedByUserId
+              lastUpdatedOn
+              _version
+              _deleted
+              _lastChangedAt
+            }
             name
             fullName
             tradingName
+            _version
+            _deleted
+            _lastChangedAt
           }
           reference
           referenceKey
@@ -6574,6 +14130,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletedBy {
             __typename
@@ -6585,6 +14144,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletionDate
           lastUpdatedBy {
@@ -6597,13 +14159,18 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           lastUpdatedDate
           deleted
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
-      teamId,
       id
     };
     const response = (await API.graphql(
@@ -6612,15 +14179,12 @@ export class APIService {
     return <GetTaskQuery>response.data.getTask;
   }
   async ListTasks(
-    teamId?: string,
-    id?: ModelIDKeyConditionInput,
     filter?: ModelTaskFilterInput,
     limit?: number,
-    nextToken?: string,
-    sortDirection?: ModelSortDirection
+    nextToken?: string
   ): Promise<ListTasksQuery> {
-    const statement = `query ListTasks($teamId: ID, $id: ModelIDKeyConditionInput, $filter: ModelTaskFilterInput, $limit: Int, $nextToken: String, $sortDirection: ModelSortDirection) {
-        listTasks(teamId: $teamId, id: $id, filter: $filter, limit: $limit, nextToken: $nextToken, sortDirection: $sortDirection) {
+    const statement = `query ListTasks($filter: ModelTaskFilterInput, $limit: Int, $nextToken: String) {
+        listTasks(filter: $filter, limit: $limit, nextToken: $nextToken) {
           __typename
           items {
             __typename
@@ -6632,24 +14196,119 @@ export class APIService {
             completed
             completionDate
             assigneeUserId
+            assignee {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            product {
+              __typename
+              id
+              name
+              teamId
+              description
+              favorite
+              minimumOrderQuantity
+              moqDescription
+              score
+              incoTerm
+              harbour
+              masterCbm
+              quantityPer20ft
+              quantityPer40ft
+              quantityPer40ftHC
+              leadTimeValue
+              leadTimeUnit
+              sample
+              archived
+              reference
+              referenceKey
+              creationDate
+              deletionDate
+              lastUpdatedDate
+              deleted
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            supplier {
+              __typename
+              id
+              teamId
+              name
+              fullName
+              tradingName
+              _version
+              _deleted
+              _lastChangedAt
+            }
             reference
             referenceKey
             inProgress
             creationDate
+            createdBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            deletedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             deletionDate
+            lastUpdatedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             lastUpdatedDate
             deleted
+            _version
+            _deleted
+            _lastChangedAt
           }
           nextToken
+          startedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {};
-    if (teamId) {
-      gqlAPIServiceArguments.teamId = teamId;
-    }
-    if (id) {
-      gqlAPIServiceArguments.id = id;
-    }
     if (filter) {
       gqlAPIServiceArguments.filter = filter;
     }
@@ -6659,13 +14318,110 @@ export class APIService {
     if (nextToken) {
       gqlAPIServiceArguments.nextToken = nextToken;
     }
-    if (sortDirection) {
-      gqlAPIServiceArguments.sortDirection = sortDirection;
-    }
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
     return <ListTasksQuery>response.data.listTasks;
+  }
+  async SyncTeams(
+    filter?: ModelTeamFilterInput,
+    limit?: number,
+    nextToken?: string,
+    lastSync?: number
+  ): Promise<SyncTeamsQuery> {
+    const statement = `query SyncTeams($filter: ModelTeamFilterInput, $limit: Int, $nextToken: String, $lastSync: AWSTimestamp) {
+        syncTeams(filter: $filter, limit: $limit, nextToken: $nextToken, lastSync: $lastSync) {
+          __typename
+          items {
+            __typename
+            id
+            name
+            ownerUserId
+            owner {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            companyId
+            company {
+              __typename
+              id
+              name
+              ownerUserId
+              createdByUserId
+              createdOn
+              lastUpdatedByUserId
+              lastUpdatedOn
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            createdByUserId
+            createdBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            createdOn
+            lastUpdatedByUserId
+            lastUpdatedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            lastUpdatedOn
+            _version
+            _deleted
+            _lastChangedAt
+          }
+          nextToken
+          startedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    if (lastSync) {
+      gqlAPIServiceArguments.lastSync = lastSync;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <SyncTeamsQuery>response.data.syncTeams;
   }
   async GetTeam(id: string): Promise<GetTeamQuery> {
     const statement = `query GetTeam($id: ID!) {
@@ -6684,6 +14440,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           companyId
           company {
@@ -6691,10 +14450,55 @@ export class APIService {
             id
             name
             ownerUserId
+            owner {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             createdByUserId
+            createdBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             createdOn
             lastUpdatedByUserId
+            lastUpdatedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             lastUpdatedOn
+            _version
+            _deleted
+            _lastChangedAt
           }
           createdByUserId
           createdBy {
@@ -6707,6 +14511,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           createdOn
           lastUpdatedByUserId
@@ -6720,8 +14527,14 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           lastUpdatedOn
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -6745,13 +14558,72 @@ export class APIService {
             id
             name
             ownerUserId
+            owner {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             companyId
+            company {
+              __typename
+              id
+              name
+              ownerUserId
+              createdByUserId
+              createdOn
+              lastUpdatedByUserId
+              lastUpdatedOn
+              _version
+              _deleted
+              _lastChangedAt
+            }
             createdByUserId
+            createdBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             createdOn
             lastUpdatedByUserId
+            lastUpdatedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             lastUpdatedOn
+            _version
+            _deleted
+            _lastChangedAt
           }
           nextToken
+          startedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {};
@@ -6769,6 +14641,74 @@ export class APIService {
     )) as any;
     return <ListTeamsQuery>response.data.listTeams;
   }
+  async SyncTeamUsers(
+    filter?: ModelTeamUserFilterInput,
+    limit?: number,
+    nextToken?: string,
+    lastSync?: number
+  ): Promise<SyncTeamUsersQuery> {
+    const statement = `query SyncTeamUsers($filter: ModelTeamUserFilterInput, $limit: Int, $nextToken: String, $lastSync: AWSTimestamp) {
+        syncTeamUsers(filter: $filter, limit: $limit, nextToken: $nextToken, lastSync: $lastSync) {
+          __typename
+          items {
+            __typename
+            teamId
+            userId
+            team {
+              __typename
+              id
+              name
+              ownerUserId
+              companyId
+              createdByUserId
+              createdOn
+              lastUpdatedByUserId
+              lastUpdatedOn
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            user {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            role
+            _version
+            _deleted
+            _lastChangedAt
+          }
+          nextToken
+          startedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    if (lastSync) {
+      gqlAPIServiceArguments.lastSync = lastSync;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <SyncTeamUsersQuery>response.data.syncTeamUsers;
+  }
   async GetTeamUser(teamId: string, userId: string): Promise<GetTeamUserQuery> {
     const statement = `query GetTeamUser($teamId: ID!, $userId: ID!) {
         getTeamUser(teamId: $teamId, userId: $userId) {
@@ -6780,11 +14720,69 @@ export class APIService {
             id
             name
             ownerUserId
+            owner {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             companyId
+            company {
+              __typename
+              id
+              name
+              ownerUserId
+              createdByUserId
+              createdOn
+              lastUpdatedByUserId
+              lastUpdatedOn
+              _version
+              _deleted
+              _lastChangedAt
+            }
             createdByUserId
+            createdBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             createdOn
             lastUpdatedByUserId
+            lastUpdatedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             lastUpdatedOn
+            _version
+            _deleted
+            _lastChangedAt
           }
           user {
             __typename
@@ -6796,8 +14794,14 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           role
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -6824,9 +14828,41 @@ export class APIService {
             __typename
             teamId
             userId
+            team {
+              __typename
+              id
+              name
+              ownerUserId
+              companyId
+              createdByUserId
+              createdOn
+              lastUpdatedByUserId
+              lastUpdatedOn
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            user {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             role
+            _version
+            _deleted
+            _lastChangedAt
           }
           nextToken
+          startedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {};
@@ -6853,6 +14889,92 @@ export class APIService {
     )) as any;
     return <ListTeamUsersQuery>response.data.listTeamUsers;
   }
+  async SyncCompanies(
+    filter?: ModelCompanyFilterInput,
+    limit?: number,
+    nextToken?: string,
+    lastSync?: number
+  ): Promise<SyncCompaniesQuery> {
+    const statement = `query SyncCompanies($filter: ModelCompanyFilterInput, $limit: Int, $nextToken: String, $lastSync: AWSTimestamp) {
+        syncCompanies(filter: $filter, limit: $limit, nextToken: $nextToken, lastSync: $lastSync) {
+          __typename
+          items {
+            __typename
+            id
+            name
+            ownerUserId
+            owner {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            createdByUserId
+            createdBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            createdOn
+            lastUpdatedByUserId
+            lastUpdatedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            lastUpdatedOn
+            _version
+            _deleted
+            _lastChangedAt
+          }
+          nextToken
+          startedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    if (lastSync) {
+      gqlAPIServiceArguments.lastSync = lastSync;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <SyncCompaniesQuery>response.data.syncCompanies;
+  }
   async GetCompany(id: string): Promise<GetCompanyQuery> {
     const statement = `query GetCompany($id: ID!) {
         getCompany(id: $id) {
@@ -6870,6 +14992,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           createdByUserId
           createdBy {
@@ -6882,6 +15007,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           createdOn
           lastUpdatedByUserId
@@ -6895,8 +15023,14 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           lastUpdatedOn
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -6920,12 +15054,58 @@ export class APIService {
             id
             name
             ownerUserId
+            owner {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             createdByUserId
+            createdBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             createdOn
             lastUpdatedByUserId
+            lastUpdatedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             lastUpdatedOn
+            _version
+            _deleted
+            _lastChangedAt
           }
           nextToken
+          startedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {};
@@ -6943,6 +15123,51 @@ export class APIService {
     )) as any;
     return <ListCompanysQuery>response.data.listCompanys;
   }
+  async SyncUsers(
+    filter?: ModelUserFilterInput,
+    limit?: number,
+    nextToken?: string,
+    lastSync?: number
+  ): Promise<SyncUsersQuery> {
+    const statement = `query SyncUsers($filter: ModelUserFilterInput, $limit: Int, $nextToken: String, $lastSync: AWSTimestamp) {
+        syncUsers(filter: $filter, limit: $limit, nextToken: $nextToken, lastSync: $lastSync) {
+          __typename
+          items {
+            __typename
+            id
+            email
+            firstName
+            lastName
+            phoneNumber
+            preferredLanguage
+            avatar
+            creationDate
+            _version
+            _deleted
+            _lastChangedAt
+          }
+          nextToken
+          startedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    if (lastSync) {
+      gqlAPIServiceArguments.lastSync = lastSync;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <SyncUsersQuery>response.data.syncUsers;
+  }
   async User(id: string): Promise<UserQuery> {
     const statement = `query User($id: ID!) {
         user(id: $id) {
@@ -6955,6 +15180,9 @@ export class APIService {
           preferredLanguage
           avatar
           creationDate
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -6964,6 +15192,49 @@ export class APIService {
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
     return <UserQuery>response.data.user;
+  }
+  async SyncLegacyUsers(
+    filter?: ModelLegacyUserFilterInput,
+    limit?: number,
+    nextToken?: string,
+    lastSync?: number
+  ): Promise<SyncLegacyUsersQuery> {
+    const statement = `query SyncLegacyUsers($filter: ModelLegacyUserFilterInput, $limit: Int, $nextToken: String, $lastSync: AWSTimestamp) {
+        syncLegacyUsers(filter: $filter, limit: $limit, nextToken: $nextToken, lastSync: $lastSync) {
+          __typename
+          items {
+            __typename
+            id
+            hash
+            emailValidated
+            activationDate
+            activated
+            deactivationDate
+            _version
+            _deleted
+            _lastChangedAt
+          }
+          nextToken
+          startedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    if (lastSync) {
+      gqlAPIServiceArguments.lastSync = lastSync;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <SyncLegacyUsersQuery>response.data.syncLegacyUsers;
   }
   async ListTeamUserByUser(
     userId?: string,
@@ -6979,9 +15250,41 @@ export class APIService {
             __typename
             teamId
             userId
+            team {
+              __typename
+              id
+              name
+              ownerUserId
+              companyId
+              createdByUserId
+              createdOn
+              lastUpdatedByUserId
+              lastUpdatedOn
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            user {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             role
+            _version
+            _deleted
+            _lastChangedAt
           }
           nextToken
+          startedAt
         }
       }`;
     const gqlAPIServiceArguments: any = {};
@@ -7017,8 +15320,20 @@ export class APIService {
           sections {
             __typename
             name
+            fields {
+              __typename
+              name
+              label
+              type
+              defaultValue
+              fixedValue
+              metadata
+            }
           }
           target
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`
     )
@@ -7036,8 +15351,20 @@ export class APIService {
           sections {
             __typename
             name
+            fields {
+              __typename
+              name
+              label
+              type
+              defaultValue
+              fixedValue
+              metadata
+            }
           }
           target
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`
     )
@@ -7055,8 +15382,20 @@ export class APIService {
           sections {
             __typename
             name
+            fields {
+              __typename
+              name
+              label
+              type
+              defaultValue
+              fixedValue
+              metadata
+            }
           }
           target
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`
     )
@@ -7083,6 +15422,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletedBy {
             __typename
@@ -7094,6 +15436,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletionDate
           lastupdatedByUserId
@@ -7107,9 +15452,15 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           lastUpdatedDate
           deleted
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`
     )
@@ -7136,6 +15487,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletedBy {
             __typename
@@ -7147,6 +15501,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletionDate
           lastupdatedByUserId
@@ -7160,9 +15517,15 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           lastUpdatedDate
           deleted
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`
     )
@@ -7189,6 +15552,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletedBy {
             __typename
@@ -7200,6 +15566,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletionDate
           lastupdatedByUserId
@@ -7213,9 +15582,15 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           lastUpdatedDate
           deleted
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`
     )
@@ -7239,9 +15614,26 @@ export class APIService {
             __typename
             id
             teamId
+            team {
+              __typename
+              id
+              name
+              ownerUserId
+              companyId
+              createdByUserId
+              createdOn
+              lastUpdatedByUserId
+              lastUpdatedOn
+              _version
+              _deleted
+              _lastChangedAt
+            }
             name
             fullName
             tradingName
+            _version
+            _deleted
+            _lastChangedAt
           }
           creationDate
           createdBy {
@@ -7254,6 +15646,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletedBy {
             __typename
@@ -7265,6 +15660,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletionDate
           lastUpdatedBy {
@@ -7277,9 +15675,15 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           lastUpdatedDate
           deleted
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`
     )
@@ -7303,9 +15707,26 @@ export class APIService {
             __typename
             id
             teamId
+            team {
+              __typename
+              id
+              name
+              ownerUserId
+              companyId
+              createdByUserId
+              createdOn
+              lastUpdatedByUserId
+              lastUpdatedOn
+              _version
+              _deleted
+              _lastChangedAt
+            }
             name
             fullName
             tradingName
+            _version
+            _deleted
+            _lastChangedAt
           }
           creationDate
           createdBy {
@@ -7318,6 +15739,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletedBy {
             __typename
@@ -7329,6 +15753,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletionDate
           lastUpdatedBy {
@@ -7341,9 +15768,15 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           lastUpdatedDate
           deleted
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`
     )
@@ -7367,9 +15800,26 @@ export class APIService {
             __typename
             id
             teamId
+            team {
+              __typename
+              id
+              name
+              ownerUserId
+              companyId
+              createdByUserId
+              createdOn
+              lastUpdatedByUserId
+              lastUpdatedOn
+              _version
+              _deleted
+              _lastChangedAt
+            }
             name
             fullName
             tradingName
+            _version
+            _deleted
+            _lastChangedAt
           }
           creationDate
           createdBy {
@@ -7382,6 +15832,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletedBy {
             __typename
@@ -7393,6 +15846,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletionDate
           lastUpdatedBy {
@@ -7405,9 +15861,15 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           lastUpdatedDate
           deleted
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`
     )
@@ -7441,6 +15903,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletedBy {
             __typename
@@ -7452,6 +15917,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletionDate
           lastUpdatedBy {
@@ -7464,9 +15932,15 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           lastUpdatedDate
           deleted
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`
     )
@@ -7500,6 +15974,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletedBy {
             __typename
@@ -7511,6 +15988,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletionDate
           lastUpdatedBy {
@@ -7523,9 +16003,15 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           lastUpdatedDate
           deleted
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`
     )
@@ -7559,6 +16045,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletedBy {
             __typename
@@ -7570,6 +16059,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletionDate
           lastUpdatedBy {
@@ -7582,9 +16074,15 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           lastUpdatedDate
           deleted
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`
     )
@@ -7613,14 +16111,91 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           product {
             __typename
             id
             name
             teamId
+            team {
+              __typename
+              id
+              name
+              ownerUserId
+              companyId
+              createdByUserId
+              createdOn
+              lastUpdatedByUserId
+              lastUpdatedOn
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            supplier {
+              __typename
+              id
+              teamId
+              name
+              fullName
+              tradingName
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            images {
+              __typename
+              id
+              teamId
+              fileName
+              orientation
+              imageType
+              creationDate
+              deletionDate
+              lastUpdatedDate
+              deleted
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            price {
+              __typename
+              currency
+              value
+              baseCurrencyValue
+            }
+            category {
+              __typename
+              id
+              teamId
+              name
+              creationDate
+              deletionDate
+              lastupdatedByUserId
+              lastUpdatedDate
+              deleted
+              _version
+              _deleted
+              _lastChangedAt
+            }
             description
             favorite
+            assignee {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             minimumOrderQuantity
             moqDescription
             score
@@ -7633,21 +16208,89 @@ export class APIService {
             leadTimeValue
             leadTimeUnit
             sample
+            samplePrice {
+              __typename
+              currency
+              value
+              baseCurrencyValue
+            }
             archived
             reference
             referenceKey
             creationDate
+            createdBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            deletedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             deletionDate
+            lastUpdatedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             lastUpdatedDate
             deleted
+            _version
+            _deleted
+            _lastChangedAt
           }
           supplier {
             __typename
             id
             teamId
+            team {
+              __typename
+              id
+              name
+              ownerUserId
+              companyId
+              createdByUserId
+              createdOn
+              lastUpdatedByUserId
+              lastUpdatedOn
+              _version
+              _deleted
+              _lastChangedAt
+            }
             name
             fullName
             tradingName
+            _version
+            _deleted
+            _lastChangedAt
           }
           reference
           referenceKey
@@ -7663,6 +16306,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletedBy {
             __typename
@@ -7674,6 +16320,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletionDate
           lastUpdatedBy {
@@ -7686,9 +16335,15 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           lastUpdatedDate
           deleted
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`
     )
@@ -7717,14 +16372,91 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           product {
             __typename
             id
             name
             teamId
+            team {
+              __typename
+              id
+              name
+              ownerUserId
+              companyId
+              createdByUserId
+              createdOn
+              lastUpdatedByUserId
+              lastUpdatedOn
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            supplier {
+              __typename
+              id
+              teamId
+              name
+              fullName
+              tradingName
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            images {
+              __typename
+              id
+              teamId
+              fileName
+              orientation
+              imageType
+              creationDate
+              deletionDate
+              lastUpdatedDate
+              deleted
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            price {
+              __typename
+              currency
+              value
+              baseCurrencyValue
+            }
+            category {
+              __typename
+              id
+              teamId
+              name
+              creationDate
+              deletionDate
+              lastupdatedByUserId
+              lastUpdatedDate
+              deleted
+              _version
+              _deleted
+              _lastChangedAt
+            }
             description
             favorite
+            assignee {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             minimumOrderQuantity
             moqDescription
             score
@@ -7737,21 +16469,89 @@ export class APIService {
             leadTimeValue
             leadTimeUnit
             sample
+            samplePrice {
+              __typename
+              currency
+              value
+              baseCurrencyValue
+            }
             archived
             reference
             referenceKey
             creationDate
+            createdBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            deletedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             deletionDate
+            lastUpdatedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             lastUpdatedDate
             deleted
+            _version
+            _deleted
+            _lastChangedAt
           }
           supplier {
             __typename
             id
             teamId
+            team {
+              __typename
+              id
+              name
+              ownerUserId
+              companyId
+              createdByUserId
+              createdOn
+              lastUpdatedByUserId
+              lastUpdatedOn
+              _version
+              _deleted
+              _lastChangedAt
+            }
             name
             fullName
             tradingName
+            _version
+            _deleted
+            _lastChangedAt
           }
           reference
           referenceKey
@@ -7767,6 +16567,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletedBy {
             __typename
@@ -7778,6 +16581,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletionDate
           lastUpdatedBy {
@@ -7790,9 +16596,15 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           lastUpdatedDate
           deleted
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`
     )
@@ -7821,14 +16633,91 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           product {
             __typename
             id
             name
             teamId
+            team {
+              __typename
+              id
+              name
+              ownerUserId
+              companyId
+              createdByUserId
+              createdOn
+              lastUpdatedByUserId
+              lastUpdatedOn
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            supplier {
+              __typename
+              id
+              teamId
+              name
+              fullName
+              tradingName
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            images {
+              __typename
+              id
+              teamId
+              fileName
+              orientation
+              imageType
+              creationDate
+              deletionDate
+              lastUpdatedDate
+              deleted
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            price {
+              __typename
+              currency
+              value
+              baseCurrencyValue
+            }
+            category {
+              __typename
+              id
+              teamId
+              name
+              creationDate
+              deletionDate
+              lastupdatedByUserId
+              lastUpdatedDate
+              deleted
+              _version
+              _deleted
+              _lastChangedAt
+            }
             description
             favorite
+            assignee {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             minimumOrderQuantity
             moqDescription
             score
@@ -7841,21 +16730,89 @@ export class APIService {
             leadTimeValue
             leadTimeUnit
             sample
+            samplePrice {
+              __typename
+              currency
+              value
+              baseCurrencyValue
+            }
             archived
             reference
             referenceKey
             creationDate
+            createdBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            deletedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             deletionDate
+            lastUpdatedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
             lastUpdatedDate
             deleted
+            _version
+            _deleted
+            _lastChangedAt
           }
           supplier {
             __typename
             id
             teamId
+            team {
+              __typename
+              id
+              name
+              ownerUserId
+              companyId
+              createdByUserId
+              createdOn
+              lastUpdatedByUserId
+              lastUpdatedOn
+              _version
+              _deleted
+              _lastChangedAt
+            }
             name
             fullName
             tradingName
+            _version
+            _deleted
+            _lastChangedAt
           }
           reference
           referenceKey
@@ -7871,6 +16828,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletedBy {
             __typename
@@ -7882,6 +16842,9 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           deletionDate
           lastUpdatedBy {
@@ -7894,9 +16857,15 @@ export class APIService {
             preferredLanguage
             avatar
             creationDate
+            _version
+            _deleted
+            _lastChangedAt
           }
           lastUpdatedDate
           deleted
+          _version
+          _deleted
+          _lastChangedAt
         }
       }`
     )
