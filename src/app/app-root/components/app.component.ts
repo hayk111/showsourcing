@@ -6,7 +6,7 @@ import localeZh from '@angular/common/locales/zh';
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { AnalyticsService } from '~core/analytics/analytics.service';
-import { CompanyService, TeamService, UserService } from '~core/erm';
+import { CompanyService, TeamService, UserService } from '~core/auth/services';
 
 
 
@@ -39,8 +39,6 @@ export class AppComponent implements OnInit {
 		this.companySrv.init();
 		this.analytics.init();
 
-
-		// TODO: move this somewhere else translate
 		registerLocaleData(localeEn, 'en');
 		registerLocaleData(localeFr, 'fr');
 		registerLocaleData(localeEs, 'es');
