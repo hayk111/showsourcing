@@ -1,7 +1,7 @@
 import { Filter, FilterType } from '../models';
 import { FilterList } from './filter-list.class';
 
-fdescribe('FilterList', () => {
+describe('FilterList', () => {
 	let filterList: FilterList;
 	let startFilters: Filter[];
 	let searchedFields: string[];
