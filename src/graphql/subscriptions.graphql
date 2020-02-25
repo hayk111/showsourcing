@@ -5,8 +5,19 @@ subscription OnCreateDescriptor {
     teamId
     sections {
       name
+      fields {
+        name
+        label
+        type
+        defaultValue
+        fixedValue
+        metadata
+      }
     }
     target
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 subscription OnUpdateDescriptor {
@@ -15,8 +26,19 @@ subscription OnUpdateDescriptor {
     teamId
     sections {
       name
+      fields {
+        name
+        label
+        type
+        defaultValue
+        fixedValue
+        metadata
+      }
     }
     target
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 subscription OnDeleteDescriptor {
@@ -25,8 +47,19 @@ subscription OnDeleteDescriptor {
     teamId
     sections {
       name
+      fields {
+        name
+        label
+        type
+        defaultValue
+        fixedValue
+        metadata
+      }
     }
     target
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 subscription OnCreateCategory {
@@ -44,6 +77,9 @@ subscription OnCreateCategory {
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     deletedBy {
       id
@@ -54,6 +90,9 @@ subscription OnCreateCategory {
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     deletionDate
     lastupdatedByUserId
@@ -66,9 +105,15 @@ subscription OnCreateCategory {
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     lastUpdatedDate
     deleted
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 subscription OnUpdateCategory {
@@ -86,6 +131,9 @@ subscription OnUpdateCategory {
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     deletedBy {
       id
@@ -96,6 +144,9 @@ subscription OnUpdateCategory {
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     deletionDate
     lastupdatedByUserId
@@ -108,9 +159,15 @@ subscription OnUpdateCategory {
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     lastUpdatedDate
     deleted
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 subscription OnDeleteCategory {
@@ -128,6 +185,9 @@ subscription OnDeleteCategory {
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     deletedBy {
       id
@@ -138,6 +198,9 @@ subscription OnDeleteCategory {
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     deletionDate
     lastupdatedByUserId
@@ -150,9 +213,15 @@ subscription OnDeleteCategory {
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     lastUpdatedDate
     deleted
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 subscription OnCreateContact {
@@ -167,9 +236,25 @@ subscription OnCreateContact {
     supplier {
       id
       teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
       name
       fullName
       tradingName
+      _version
+      _deleted
+      _lastChangedAt
     }
     creationDate
     createdBy {
@@ -181,6 +266,9 @@ subscription OnCreateContact {
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     deletedBy {
       id
@@ -191,6 +279,9 @@ subscription OnCreateContact {
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     deletionDate
     lastUpdatedBy {
@@ -202,9 +293,15 @@ subscription OnCreateContact {
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     lastUpdatedDate
     deleted
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 subscription OnUpdateContact {
@@ -219,9 +316,25 @@ subscription OnUpdateContact {
     supplier {
       id
       teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
       name
       fullName
       tradingName
+      _version
+      _deleted
+      _lastChangedAt
     }
     creationDate
     createdBy {
@@ -233,6 +346,9 @@ subscription OnUpdateContact {
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     deletedBy {
       id
@@ -243,6 +359,9 @@ subscription OnUpdateContact {
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     deletionDate
     lastUpdatedBy {
@@ -254,9 +373,15 @@ subscription OnUpdateContact {
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     lastUpdatedDate
     deleted
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 subscription OnDeleteContact {
@@ -271,9 +396,25 @@ subscription OnDeleteContact {
     supplier {
       id
       teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
       name
       fullName
       tradingName
+      _version
+      _deleted
+      _lastChangedAt
     }
     creationDate
     createdBy {
@@ -285,6 +426,9 @@ subscription OnDeleteContact {
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     deletedBy {
       id
@@ -295,6 +439,9 @@ subscription OnDeleteContact {
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     deletionDate
     lastUpdatedBy {
@@ -306,9 +453,15 @@ subscription OnDeleteContact {
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     lastUpdatedDate
     deleted
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 subscription OnCreateImage {
@@ -334,6 +487,9 @@ subscription OnCreateImage {
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     deletedBy {
       id
@@ -344,6 +500,9 @@ subscription OnCreateImage {
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     deletionDate
     lastUpdatedBy {
@@ -355,9 +514,15 @@ subscription OnCreateImage {
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     lastUpdatedDate
     deleted
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 subscription OnUpdateImage {
@@ -383,6 +548,9 @@ subscription OnUpdateImage {
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     deletedBy {
       id
@@ -393,6 +561,9 @@ subscription OnUpdateImage {
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     deletionDate
     lastUpdatedBy {
@@ -404,9 +575,15 @@ subscription OnUpdateImage {
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     lastUpdatedDate
     deleted
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 subscription OnDeleteImage {
@@ -432,6 +609,9 @@ subscription OnDeleteImage {
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     deletedBy {
       id
@@ -442,6 +622,9 @@ subscription OnDeleteImage {
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     deletionDate
     lastUpdatedBy {
@@ -453,9 +636,15 @@ subscription OnDeleteImage {
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     lastUpdatedDate
     deleted
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 subscription OnCreateTask {
@@ -477,13 +666,84 @@ subscription OnCreateTask {
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     product {
       id
       name
       teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      supplier {
+        id
+        teamId
+        name
+        fullName
+        tradingName
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      images {
+        id
+        teamId
+        fileName
+        orientation
+        imageType
+        creationDate
+        deletionDate
+        lastUpdatedDate
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      price {
+        currency
+        value
+        baseCurrencyValue
+      }
+      category {
+        id
+        teamId
+        name
+        creationDate
+        deletionDate
+        lastupdatedByUserId
+        lastUpdatedDate
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
       description
       favorite
+      assignee {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       minimumOrderQuantity
       moqDescription
       score
@@ -496,20 +756,83 @@ subscription OnCreateTask {
       leadTimeValue
       leadTimeUnit
       sample
+      samplePrice {
+        currency
+        value
+        baseCurrencyValue
+      }
       archived
       reference
       referenceKey
       creationDate
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       deletionDate
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       lastUpdatedDate
       deleted
+      _version
+      _deleted
+      _lastChangedAt
     }
     supplier {
       id
       teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
       name
       fullName
       tradingName
+      _version
+      _deleted
+      _lastChangedAt
     }
     reference
     referenceKey
@@ -524,6 +847,9 @@ subscription OnCreateTask {
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     deletedBy {
       id
@@ -534,6 +860,9 @@ subscription OnCreateTask {
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     deletionDate
     lastUpdatedBy {
@@ -545,9 +874,15 @@ subscription OnCreateTask {
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     lastUpdatedDate
     deleted
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 subscription OnUpdateTask {
@@ -569,13 +904,84 @@ subscription OnUpdateTask {
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     product {
       id
       name
       teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      supplier {
+        id
+        teamId
+        name
+        fullName
+        tradingName
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      images {
+        id
+        teamId
+        fileName
+        orientation
+        imageType
+        creationDate
+        deletionDate
+        lastUpdatedDate
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      price {
+        currency
+        value
+        baseCurrencyValue
+      }
+      category {
+        id
+        teamId
+        name
+        creationDate
+        deletionDate
+        lastupdatedByUserId
+        lastUpdatedDate
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
       description
       favorite
+      assignee {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       minimumOrderQuantity
       moqDescription
       score
@@ -588,20 +994,83 @@ subscription OnUpdateTask {
       leadTimeValue
       leadTimeUnit
       sample
+      samplePrice {
+        currency
+        value
+        baseCurrencyValue
+      }
       archived
       reference
       referenceKey
       creationDate
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       deletionDate
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       lastUpdatedDate
       deleted
+      _version
+      _deleted
+      _lastChangedAt
     }
     supplier {
       id
       teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
       name
       fullName
       tradingName
+      _version
+      _deleted
+      _lastChangedAt
     }
     reference
     referenceKey
@@ -616,6 +1085,9 @@ subscription OnUpdateTask {
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     deletedBy {
       id
@@ -626,6 +1098,9 @@ subscription OnUpdateTask {
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     deletionDate
     lastUpdatedBy {
@@ -637,9 +1112,15 @@ subscription OnUpdateTask {
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     lastUpdatedDate
     deleted
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 subscription OnDeleteTask {
@@ -661,13 +1142,84 @@ subscription OnDeleteTask {
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     product {
       id
       name
       teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      supplier {
+        id
+        teamId
+        name
+        fullName
+        tradingName
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      images {
+        id
+        teamId
+        fileName
+        orientation
+        imageType
+        creationDate
+        deletionDate
+        lastUpdatedDate
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      price {
+        currency
+        value
+        baseCurrencyValue
+      }
+      category {
+        id
+        teamId
+        name
+        creationDate
+        deletionDate
+        lastupdatedByUserId
+        lastUpdatedDate
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
       description
       favorite
+      assignee {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       minimumOrderQuantity
       moqDescription
       score
@@ -680,20 +1232,83 @@ subscription OnDeleteTask {
       leadTimeValue
       leadTimeUnit
       sample
+      samplePrice {
+        currency
+        value
+        baseCurrencyValue
+      }
       archived
       reference
       referenceKey
       creationDate
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       deletionDate
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       lastUpdatedDate
       deleted
+      _version
+      _deleted
+      _lastChangedAt
     }
     supplier {
       id
       teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
       name
       fullName
       tradingName
+      _version
+      _deleted
+      _lastChangedAt
     }
     reference
     referenceKey
@@ -708,6 +1323,9 @@ subscription OnDeleteTask {
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     deletedBy {
       id
@@ -718,6 +1336,9 @@ subscription OnDeleteTask {
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     deletionDate
     lastUpdatedBy {
@@ -729,8 +1350,14 @@ subscription OnDeleteTask {
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     lastUpdatedDate
     deleted
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
