@@ -22,7 +22,7 @@
 	[rows]="listSrv.items$ | async"
 	[currentSort]="listSrv.currentSort"
 	[pending]="listSrv.pending"
-	[isFiltering]="listSrv.isFiltering"
+	[isFiltering]="filterSrv.isFiltering"
 	[count]="listSrv.count$ | async"
 	[currentPage]="listSrv.currentPage"
 	(goToPage)="listSrv.loadPage($event)"
@@ -33,12 +33,12 @@
 
 <!-- in case selection comes back -->
 <!-- <selection-bar-app
-	[isShown]="(listSrv.selection$ | async)?.size > 0"
-	[selection]="listSrv.selection$ | async"
+	[isShown]="(selectionSrv.selection$ | async)?.size > 0"
+	[selection]="selectionSrv.selection$ | async"
 	[selectableItems]="selectableItems"
-	(close)="listSrv.unselectAll()"
-	(selectAll)="listSrv.selectAll($event)"
-	(unselectAll)="listSrv.unselectAll()">
+	(close)="selectionSrv.unselectAll()"
+	(selectAll)="selectionSrv.selectAll($event)"
+	(unselectAll)="selectionSrv.unselectAll()">
 
 	<div class="flex">
 		<button class="icon light download" (click)="downloadSelected()">

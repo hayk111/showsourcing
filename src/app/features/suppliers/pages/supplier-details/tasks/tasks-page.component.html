@@ -10,44 +10,44 @@
 
 <task-table-app
 	[rows]="listSrv.items$ | async"
-	[selection]="listSrv.selection$ | async"
+	[selection]="selectionSrv.selection$ | async"
 	[pending]="listSrv.pending"
-	[isFiltering]="listSrv.isFiltering"
+	[isFiltering]="filterSrv.isFiltering"
 	[count]="listSrv.count$ | async"
 	[currentPage]="listSrv.currentPage"
 	(goToPage)="listSrv.loadPage($event)"
 	(sort)="listSrv.sort($event)"
-	(select)="listSrv.selectOne($event, true)"
-	(unselect)="listSrv.unselectOne($event, true)"
-	(selectAll)="listSrv.selectAll($event, true)"
-	(unselectAll)="listSrv.unselectAll()"
-	(open)="listSrv.goToDetails($event)"
-	(previewClick)="listSrv.openPreview($event)"
+	(select)="selectionSrv.selectOne($event, true)"
+	(unselect)="selectionSrv.unselectOne($event, true)"
+	(selectAll)="selectionSrv.selectAll($event, true)"
+	(unselectAll)="selectionSrv.unselectAll()"
+	(open)="viewSrv.goToDetails($event)"
+	(previewClick)="viewSrv.openPreview($event)"
 	(createClick)="openCreationTaskDlg(undefined, supplier)"
 	(delete)="listSrv.deleteOne($event, true)">
 </task-table-app>
 
 <task-preview-app
-	*ngIf="listSrv.previewOpen"
-	[task]="listSrv.previewed"
-	(close)="listSrv.closePreview()">
+	*ngIf="viewSrv.previewOpen"
+	[task]="viewSrv.previewed"
+	(close)="viewSrv.closePreview()">
 </task-preview-app>
 
-<side-panel-app *ngIf="listSrv.filterPanelOpen">
+<side-panel-app *ngIf="viewSrv.filterPanelOpen">
 	<filters-app
-		[filterList]="listSrv.filterList"
+		[filterList]="filterSrv.filterList"
 		[filterTypes]="filterTypes"
-		(clickOutside)="listSrv.closeFilterPanel()"
-		(close)="listSrv.closeFilterPanel()">
+		(clickOutside)="viewSrv.closeFilterPanel()"
+		(close)="viewSrv.closeFilterPanel()">
 	</filters-app>
 </side-panel-app>
 
 <task-selection-bar-app
-	[isShown]="(listSrv.selection$ | async)?.size > 0"
-	[selection]="listSrv.selection$ | async"
+	[isShown]="(selectionSrv.selection$ | async)?.size > 0"
+	[selection]="selectionSrv.selection$ | async"
 	[selectableItems]="listSrv.items$ | async"
-	(close)="listSrv.unselectAll()"
+	(close)="selectionSrv.unselectAll()"
 	(deleteSelected)="listSrv.deleteSelected(true)"
-	(selectAll)="listSrv.selectAll($event)"
-	(unselectAll)="listSrv.unselectAll()">
+	(selectAll)="selectionSrv.selectAll($event)"
+	(unselectAll)="selectionSrv.unselectAll()">
 </task-selection-bar-app>

@@ -6,9 +6,9 @@
 
 <workflow-managament-table-app
 	[statuses]="listSrv.items$ | async"
-	[typeEntity]="listSrv.entityMetadata"
+	[typeEntity]="viewSrv.entityMetadata"
 	(update)="listSrv.updateMany($event)"
 	(delete)="listSrv.deleteOne($event, true)">
 </workflow-managament-table-app>
 
-<div *ngIf="listSrv.entityMetadata.singular === 'product status'" class="status-tip" translate="message.products-sent-new-idea"></div>
+<div *ngIf="viewSrv.entityMetadata.singular === 'product status'" class="status-tip" translate="message.products-sent-new-idea"></div>

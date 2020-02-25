@@ -17,21 +17,21 @@
 
 
 <samples-table-app
-	*ngIf="listSrv.view === 'table'"
+	*ngIf="viewSrv.view === 'table'"
 	[rows]="listSrv.items$ | async"
-	[selection]="listSrv.selection$ | async"
+	[selection]="selectionSrv.selection$ | async"
 	[pending]="listSrv.pending"
 	[count]="listSrv.count$ | async"
 	[currentSort]="listSrv.currentSort"
 	[currentPage]="listSrv.currentPage"
 	(goToPage)="listSrv.loadPage($event)"
 	(sort)="listSrv.sort($event)"
-	(select)="listSrv.selectOne($event, true)"
-	(unselect)="listSrv.unselectOne($event, true)"
-	(selectAll)="listSrv.selectAll($event, true)"
-	(unselectAll)="listSrv.unselectAll()"
-	(open)="listSrv.goToDetails($event)"
-	(previewClick)="listSrv.openPreview($event)"
+	(select)="selectionSrv.selectOne($event, true)"
+	(unselect)="selectionSrv.unselectOne($event, true)"
+	(selectAll)="selectionSrv.selectAll($event, true)"
+	(unselectAll)="selectionSrv.unselectAll()"
+	(open)="viewSrv.goToDetails($event)"
+	(previewClick)="viewSrv.openPreview($event)"
 	(showItemsPerPage)="showItemsPerPage($event)"
 	(update)="listSrv.update($event)"
 	(createClick)="dialogCommonSrv.openCreationSampleDialog()"
@@ -39,10 +39,10 @@
 </samples-table-app>
 
 <selection-bar-app
-	[isShown]="(listSrv.selection$ | async).size > 0"
-	[selection]="listSrv.selection$ | async"
+	[isShown]="(selectionSrv.selection$ | async).size > 0"
+	[selection]="selectionSrv.selection$ | async"
 	[selectableItems]="listSrv.items$ | async"
-	(close)="listSrv.unselectAll()">
+	(close)="selectionSrv.unselectAll()">
 
 	<div class="flex">
 		<status-selector-app
@@ -66,25 +66,25 @@
 </selection-bar-app>
 
 <samples-board-app
-	*ngIf="listSrv.view === 'board'"
-	(selectOne)="listSrv.selectOne($event, true)"
-	(unselectOne)="listSrv.unselectOne($event, true)"
-	(preview) = "listSrv.openPreview($event)">
+	*ngIf="viewSrv.view === 'board'"
+	(selectOne)="selectionSrv.selectOne($event, true)"
+	(unselectOne)="selectionSrv.unselectOne($event, true)"
+	(preview) = "viewSrv.openPreview($event)">
 </samples-board-app>
 
-<side-panel-app *ngIf="listSrv.filterPanelOpen">
+<side-panel-app *ngIf="viewSrv.filterPanelOpen">
 	<filters-app
-		[filterList]="listSrv.filterList"
+		[filterList]="filterSrv.filterList"
 		[filterTypes]="filterTypes"
-		(clickOutside)="listSrv.closeFilterPanel()"
-		(close)="listSrv.closeFilterPanel()">
+		(clickOutside)="viewSrv.closeFilterPanel()"
+		(close)="viewSrv.closeFilterPanel()">
 	</filters-app>
 </side-panel-app>
 
 <sample-preview-app
-	*ngIf="listSrv.previewOpen"
-	[sample]="listSrv.previewed"
-	(close)="listSrv.closePreview()">
+	*ngIf="viewSrv.previewOpen"
+	[sample]="viewSrv.previewed"
+	(close)="viewSrv.closePreview()">
 </sample-preview-app>
 
 

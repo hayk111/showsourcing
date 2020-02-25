@@ -17,24 +17,24 @@
 <requests-table-app
 	[rows]="listSrv.items$ | async"
 	[pending]="listSrv.pending"
-	[selection]="listSrv.selection$ | async"
+	[selection]="selectionSrv.selection$ | async"
 	[count]="listSrv.count$ | async"
 	[currentPage]="listSrv.currentPage"
 	[currentSort]="listSrv.currentSort"
 	(goToPage)="listSrv.loadPage($event)"
 	(cancelRequest)="cancelRequest($event)"
-	(select)="listSrv.selectOne($event)"
-	(selectAll)="listSrv.selectAll($event)"
+	(select)="selectionSrv.selectOne($event)"
+	(selectAll)="selectionSrv.selectAll($event)"
 	(showItemsPerPage)="showItemsPerPage($event)"
 	(sort)="listSrv.sort($event)"
-	(unselect)="listSrv.unselectOne($event)"
-	(unselectAll)="listSrv.unselectAll()">
+	(unselect)="selectionSrv.unselectOne($event)"
+	(unselectAll)="selectionSrv.unselectAll()">
 </requests-table-app>
 
 <request-selection-bar-app
-	[isShown]="(listSrv.selection$ | async).size > 0"
-	[selection]="listSrv.selection$ | async"
+	[isShown]="(selectionSrv.selection$ | async).size > 0"
+	[selection]="selectionSrv.selection$ | async"
 	[selectableItems]="listSrv.items$ | async"
-	(close)="listSrv.unselectAll()"
+	(close)="selectionSrv.unselectAll()"
 	(cancelSelectedRequests)="cancelSelectedRequests()">
 </request-selection-bar-app>

@@ -1,19 +1,23 @@
 import { AfterViewInit, Component, ElementRef, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { switchMap, map, takeUntil, filter, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { SupplierRequestDialogComponent } from '~common/dialogs/custom-dialogs/supplier-request-dialog/supplier-request-dialog.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { ProductsTableComponent } from '~common/tables/products-table/products-table.component';
-import { ProductService, UserService } from '~core/erm';
-import { SelectParamsConfig } from '~core/erm';
-import { ListPageService, ListPageViewService, SelectionService } from '~core/list-page';
-import { ERM, Product } from '~core/erm';
+import {
+	ERM,
+	Product,
+	ProductService,
+	SelectParamsConfig,
+	UserService
+} from '~core/erm';
+import { ListPageService, SelectionService } from '~core/list-page';
+import { ListPageViewService } from '~core/list-page/list-page-view.service';
 import { DialogService } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
-import { AutoUnsub } from '~utils';
+import { FilterService } from '~shared/filters/services/filter.service';
 import { KanbanSelectionService } from '~shared/kanban/services/kanban-selection.service';
 import { KanbanService } from '~shared/kanban/services/kanban.service';
-import { TemplateService } from '~core/template/services/template.service';
+import { AutoUnsub } from '~utils';
 
 // dailah lama goes into pizza store
 // servant asks : what pizza do you want sir ?
@@ -28,13 +32,16 @@ import { TemplateService } from '~core/template/services/template.service';
 		ListPageViewService,
 		SelectionService,
 		KanbanService,
-		KanbanSelectionService
+		KanbanSelectionService,
+		FilterService,
+		SelectionService
 	],
 	host: {
 		class: 'table-page'
 	}
 })
-export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterViewInit {
+export class ProductsPageComponent extends AutoUnsub
+	implements OnInit, AfterViewInit {
 	erm = ERM;
 	filterTypeEnum = FilterType;
 	items$: Observable<Product[]>;
@@ -48,7 +55,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		FilterType.PRODUCT_STATUS,
 		FilterType.TAGS,
 		FilterType.ARCHIVED,
-		FilterType.FAVORITE,
+		FilterType.FAVORITE
 	];
 	columns = ProductsTableComponent.DEFAULT_COLUMNS;
 	tableConfig = ProductsTableComponent.DEFAULT_TABLE_CONFIG;
@@ -66,27 +73,40 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 		private userSrv: UserService,
 		protected dlgSrv: DialogService,
 		protected kanbanSelectionSrv: KanbanSelectionService,
+		private filterSrv: FilterService
 	) {
 		super();
 	}
 
 	toggleMyProducts(show: boolean) {
-		const filterAssignee = { type: FilterType.ASSIGNEE, value: this.userSrv.userSync.id };
-		if (show)
-			this.listSrv.addFilter(filterAssignee);
-		else
-			this.listSrv.removeFilter(filterAssignee);
+		const filterAssignee = {
+			type: FilterType.ASSIGNEE,
+			value: this.userSrv.userSync.id
+		};
+		if (show) this.filterSrv.addFilter(filterAssignee);
+		else this.filterSrv.removeFilter(filterAssignee);
 	}
 	ngOnInit() {
 		this.items$ = this.productSrv.queryAll();
-		this.listSrv.setup({
-			entitySrv: this.productSrv,
-			searchedFields: ['name', 'supplier.name', 'category.name', 'description'],
-			// we use the deleted filter there so we can send the query to export all to the export dlg
-			initialFilters: [{ type: FilterType.ARCHIVED, value: false }, { type: FilterType.DELETED, value: false }],
-			entityMetadata: ERM.PRODUCT,
-			originComponentDestroy$: this._destroy$
-		}, false);
+		this.listSrv.setup(
+			{
+				entitySrv: this.productSrv,
+				searchedFields: [
+					'name',
+					'supplier.name',
+					'category.name',
+					'description'
+				],
+				// we use the deleted filter there so we can send the query to export all to the export dlg
+				initialFilters: [
+					{ type: FilterType.ARCHIVED, value: false },
+					{ type: FilterType.DELETED, value: false }
+				],
+				entityMetadata: ERM.PRODUCT,
+				originComponentDestroy$: this._destroy$
+			},
+			false
+		);
 
 		// this.productSrv.productListUpdate$.pipe(
 		// 	switchMap(_ => this.listSrv.refetch())
@@ -105,12 +125,14 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 	onProjectDlgOpen() {
 		let initialProjects = [];
 
-		const values = this.listSrv.getSelectedValues();
+		const values = this.selectionSrv.getSelectedValues();
 		// if we have more than 1 selected, we don't want initial projects to be preselected
-		if (values.length === 1)
-			initialProjects = values[0].projects || [];
+		if (values.length === 1) initialProjects = values[0].projects || [];
 
-		this.dialogCommonSrv.openAddToProjectDialog(this.listSrv.getSelectedValues(), initialProjects);
+		this.dialogCommonSrv.openAddToProjectDialog(
+			this.selectionSrv.getSelectedValues(),
+			initialProjects
+		);
 	}
 
 	private removeDuplicates(originalArr, prop) {
@@ -124,15 +146,15 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 	}
 
 	getSelection$() {
-		if (this.listSrv.view !== 'board') {
-			return this.listSrv.selection$;
+		if (this.viewSrv.view !== 'board') {
+			return this.selectionSrv.selection$;
 		} else {
 			return this.kanbanSelectionSrv.selection$;
 		}
 	}
 
 	getSelectableItems$() {
-		if (this.listSrv.view !== 'board') {
+		if (this.viewSrv.view !== 'board') {
 			return this.listSrv.items$;
 		} else {
 			return this.kanbanSelectionSrv.selectableItems$;
@@ -140,19 +162,18 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit, AfterVie
 	}
 
 	selectAll(entities: any[]) {
-		if (this.listSrv.view !== 'board') {
-			return this.listSrv.selectAll(entities);
+		if (this.viewSrv.view !== 'board') {
+			return this.selectionSrv.selectAll(entities);
 		} else {
 			return this.kanbanSelectionSrv.selectAllFromColumn();
 		}
 	}
 
 	unselectAll() {
-		if (this.listSrv.view !== 'board') {
-			return this.listSrv.unselectAll();
+		if (this.viewSrv.view !== 'board') {
+			return this.selectionSrv.unselectAll();
 		} else {
 			return this.kanbanSelectionSrv.unselectAllFromColumn();
 		}
 	}
-
 }

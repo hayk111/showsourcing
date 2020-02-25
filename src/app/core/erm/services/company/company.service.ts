@@ -37,7 +37,6 @@ export class CompanyService extends GlobalService<Company> {
 		// when logging out let's clear the current selected company
 		this.authSrv.signOut$.subscribe(_ => this.resetCompany());
 		this.authSrv.signIn$.pipe(
-			tap(d => { debugger; }),
 			switchMap(_ => this.getCompany())
 		).subscribe(company => {
 			this._company$.next(company);

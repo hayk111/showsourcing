@@ -3,10 +3,15 @@ import { ActivatedRoute } from '@angular/router';
 import { filter, map, switchMap, takeUntil } from 'rxjs/operators';
 import { CreationProductDlgComponent } from '~common/dialogs/creation-dialogs';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { ProductService, SupplierService } from '~core/erm';
-import { SelectParams } from '~core/erm';
-import { ListPageService } from '~core/list-page';
-import { ERM, Product, Supplier } from '~core/erm';
+import {
+	ERM,
+	Product,
+	ProductService,
+	SelectParams,
+	Supplier,
+	SupplierService
+} from '~core/erm';
+import { ListPageService, SelectionService } from '~core/list-page';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
@@ -21,7 +26,6 @@ import { ID } from '~utils/id.utils';
 	providers: [ListPageService]
 })
 export class ProductsPageComponent extends AutoUnsub implements OnInit {
-
 	supplierId: ID;
 	private supplier: Supplier;
 	erm = ERM;
@@ -45,20 +49,29 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		public listSrv: ListPageService<Product, ProductService>,
 		public dialogCommonSrv: DialogCommonService,
 		public dlgSrv: DialogService,
-	) { super(); }
+		private selectionSrv: SelectionService
+	) {
+		super();
+	}
 
 	ngOnInit() {
 		this.supplierId = this.route.parent.snapshot.params.id;
 
-		this.supplierSrv.queryOne(this.supplierId).pipe(
-			takeUntil(this._destroy$)
-		).subscribe(sup => this.supplier = sup);
+		this.supplierSrv
+			.queryOne(this.supplierId)
+			.pipe(takeUntil(this._destroy$))
+			.subscribe(sup => (this.supplier = sup));
 
 		this.listSrv.setup({
 			entitySrv: this.productSrv,
 			searchedFields: ['name', 'description'],
-			initialFilters: [{ type: FilterType.ARCHIVED, value: false }, { type: FilterType.DELETED, value: false }],
-			selectParams: new SelectParams({ query: `supplier.id == "${this.supplierId}"` }),
+			initialFilters: [
+				{ type: FilterType.ARCHIVED, value: false },
+				{ type: FilterType.DELETED, value: false }
+			],
+			selectParams: new SelectParams({
+				query: `supplier.id == "${this.supplierId}"`
+			}),
 			entityMetadata: ERM.PRODUCT,
 			originComponentDestroy$: this._destroy$
 		});
@@ -66,11 +79,14 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 
 	openCreationProductDlg() {
 		const supplier = { id: this.supplier.id, name: this.supplier.name };
-		this.dlgSrv.open(CreationProductDlgComponent, { product: new Product({ supplier }) }).pipe(
-			filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
-			map((evt: CloseEvent) => evt.data),
-			switchMap(_ => this.listSrv.refetch())
-		).subscribe();
+		this.dlgSrv
+			.open(CreationProductDlgComponent, { product: new Product({ supplier }) })
+			.pipe(
+				filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
+				map((evt: CloseEvent) => evt.data),
+				switchMap(_ => this.listSrv.refetch())
+			)
+			.subscribe();
 	}
 
 	/** instead of deleting the product, we deassociate the supplier from it */
@@ -80,16 +96,18 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 
 	/** instead of deleting the selected products, we deassociate the supplier from them */
 	deassociateSelectedProducts(product?: Product) {
-		const products = product ? [product] : this.listSrv.selectionSrv.getSelectionValues();
+		const products = product
+			? [product]
+			: this.selectionSrv.getSelectionValues();
 		this.deassociateProducts(products);
-		this.listSrv.selectionSrv.unselectAll();
+		this.selectionSrv.unselectAll();
 	}
 
 	/** function that deassociate products from supplier */
 	private deassociateProducts(products: Product[]) {
-		this.supplierSrv.deassociateProducts(products).pipe(
-			switchMap(_ => this.listSrv.refetch())
-		).subscribe();
+		this.supplierSrv
+			.deassociateProducts(products)
+			.pipe(switchMap(_ => this.listSrv.refetch()))
+			.subscribe();
 	}
-
 }
