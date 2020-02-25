@@ -13,7 +13,6 @@ const AUDIT = `
 	_version
 `;
 
-
 /**
  * Helper to create GraphQL queries that are valid for the realm GraphQL service
  * it will create queries given fields.
@@ -27,7 +26,6 @@ const AUDIT = `
  *
  */
 export class QueryBuilder {
-
 	constructor(private entityName: string) {
 		if (!entityName) {
 			throw Error('you must define the singular form of the typename');
@@ -39,10 +37,10 @@ export class QueryBuilder {
 	queryOne = (str: string) => {
 		return gql`
 			query Get${this.entityName}(
-				$id: ID!
+				$teamId: ID!, $id: ID!
 			) {
 				get${this.entityName}(
-					id: $id
+					teamId: $teamId, id: $id
 				) {
 					id
 					${str}
@@ -53,7 +51,7 @@ export class QueryBuilder {
 
 	queryManyDefault: string;
 
-	// search
+	// search // TODO update to fit the new environment when we have search queries
 	queryMany = (str: string) => {
 		return gql`
 			query Search${this.entityName}s(
@@ -86,9 +84,19 @@ export class QueryBuilder {
 		return gql`
 			query List${this.entityName}s(
 				$teamId: ID
+				$id: ModelIDKeyConditionInput
+				$filter: Model${this.entityName}FilterInput
+				$limit: Int
+				$nextToken: String
+				$sortDirection: ModelSortDirection
 			) {
 				list${this.entityName}s(
 					teamId: $teamId
+					id: $id
+					filter: $filter
+					limit: $limit
+					nextToken: $nextToken
+					sortDirection: $sortDirectio
 				) {
 					items {
 						id
@@ -147,6 +155,4 @@ export class QueryBuilder {
 	private capitalize(str: string): string {
 		return str.charAt(0).toUpperCase() + str.slice(1);
 	}
-
-
 }
