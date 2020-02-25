@@ -37,10 +37,10 @@ export class QueryBuilder {
 	queryOne = (str: string) => {
 		return gql`
 			query Get${this.entityName}(
-				$teamId: ID!, $id: ID!
+				$id: ID!
 			) {
 				get${this.entityName}(
-					teamId: $teamId, id: $id
+					id: $id
 				) {
 					id
 					${str}
@@ -83,20 +83,14 @@ export class QueryBuilder {
 	queryAll = (str: string) => {
 		return gql`
 			query List${this.entityName}s(
-				$teamId: ID
-				$id: ModelIDKeyConditionInput
 				$filter: Model${this.entityName}FilterInput
 				$limit: Int
 				$nextToken: String
-				$sortDirection: ModelSortDirection
 			) {
 				list${this.entityName}s(
-					teamId: $teamId
-					id: $id
-					filter: $filter
-					limit: $limit
+					filter: $filter,
+					limit: $limit,
 					nextToken: $nextToken
-					sortDirection: $sortDirectio
 				) {
 					items {
 						id
