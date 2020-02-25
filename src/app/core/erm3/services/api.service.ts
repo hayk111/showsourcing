@@ -10,6 +10,7 @@ import { LogColor } from '~utils/log-colors.enum';
 import { QueryPool } from '../queries/query-pool.class';
 import { QueryType } from '../queries/query-type.enum';
 import { client } from './client';
+import { AuthenticationService } from '~core/auth/services/authentication.service';
 
 export interface ObservableQuery<T = any> extends ApolloObservableQuery<T> {
 	data$: Observable<T>;
@@ -29,6 +30,10 @@ export interface ApiServiceInterface {
 export class ApiService implements ApiServiceInterface {
 
 	teamId: string;
+
+	constructor(private authSrv: AuthenticationService) {
+		this.authSrv.signOut$.subscribe(_ => client.resetStore());
+	}
 
 	///////////////////////////////
 	//        QUERY ONE          //
@@ -79,7 +84,7 @@ export class ApiService implements ApiServiceInterface {
 		const queryRef = client.watchQuery({ query, variables, ...options }) as ObservableQuery<any>;
 		const data$ = from(queryRef).pipe(
 			filter((r: any) => this.checkError(r, title)),
-			map(({ data }) => data[queryName]),
+			map(({ data }) => data[queryName].items),
 			tap(data => this.logResult(title, queryName, data)),
 		);
 
@@ -102,7 +107,7 @@ export class ApiService implements ApiServiceInterface {
 		const variables = { input: entity };
 		this.log(title, query, queryName, body, variables);
 		return from(client.mutate({ mutation: query, variables, ...options })).pipe(
-			map(r => r.data[queryName]),
+			map(r => r.data[queryName].items),
 			tap(data => this.logResult(title, queryName, data))
 		);
 	}
@@ -126,11 +131,10 @@ export class ApiService implements ApiServiceInterface {
 		this.log(title, query, queryName, body, variables);
 
 		return from(client.mutate({ mutation: query, variables, ...options })).pipe(
-			map(r => r.data[queryName]),
+			map(r => r.data[queryName].items),
 			tap(data => this.logResult(title, queryName, data))
 		);
 	}
-
 
 	/** creates an optimistic response the way apollo expects it */
 	protected addOptimisticResponse(options: any, queryName: string, input: any) {

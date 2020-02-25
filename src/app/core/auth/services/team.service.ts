@@ -19,6 +19,8 @@ const SELECTED_TEAM = 'selected-team';
 @Injectable({ providedIn: 'root' })
 export class TeamService {
 
+	private queryAll = this.apiSrv.queryAll(EntityName.TEAM);
+	hasTeam$ = this.queryAll.data$.pipe(map(teams => teams.length > 0));
 	/** event the team selected at the moment of the selection */
 	private _teamSelectionEvent$ = new ReplaySubject<Team>(1);
 	teamSelectionEvent$ = this._teamSelectionEvent$.asObservable().pipe(
@@ -65,11 +67,12 @@ export class TeamService {
 
 	/** creates a team and waits for it to be valid */
 	create(team: Team): Observable<any> {
-		return this.apiSrv.create(EntityName.TEAM, { companyId: this.companySrv.companySync.id, ...team, });
+		return this.apiSrv.create(EntityName.TEAM, { companyId: this.companySrv.companySync.id, ...team })
+			.pipe(switchMap(_ => this.queryAll.refetch()));
 	}
 
 	update(team: Team) {
-		return this.apiSrv.update(EntityName.TEAM, { companyId: this.companySrv.companySync.id, ...team, });
+		return this.apiSrv.update(EntityName.TEAM, { companyId: this.companySrv.companySync.id, ...team });
 	}
 
 	/** picks a team, puts the selection in local storage */
