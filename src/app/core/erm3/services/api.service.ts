@@ -107,7 +107,7 @@ export class ApiService implements ApiServiceInterface {
 		const variables = { input: entity };
 		this.log(title, query, queryName, body, variables);
 		return from(client.mutate({ mutation: query, variables, ...options })).pipe(
-			map(r => r.data[queryName].items),
+			map(r => r[queryName].items),
 			tap(data => this.logResult(title, queryName, data))
 		);
 	}
@@ -131,7 +131,7 @@ export class ApiService implements ApiServiceInterface {
 		this.log(title, query, queryName, body, variables);
 
 		return from(client.mutate({ mutation: query, variables, ...options })).pipe(
-			map(r => r.data[queryName].items),
+			map(r => r[queryName].items),
 			tap(data => this.logResult(title, queryName, data))
 		);
 	}
