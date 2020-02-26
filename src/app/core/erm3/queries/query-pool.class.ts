@@ -1,10 +1,5 @@
 import { BaseQueries } from './_base.queries';
 import { EntityName, EntityNameType } from '~core/erm/entity-name.enum';
-import { ProductQueries } from './custom/product.queries';
-import { SupplierQueries } from './custom/supplier.queries';
-import { TeamQueries } from './custom/team.queries';
-import { UserQueries } from './custom/user.queries';
-import { CompanyQueries } from './custom/company.queries';
 import { QueryType } from './query-type.enum';
 import { DocumentNode } from 'graphql';
 
@@ -13,11 +8,11 @@ export class QueryPool {
 		/** FOR Cedric development */
 		// [EntityName.TAG]: new BaseQueries('tag'), // not provided by the api
 		// [EntityName.CATEGORY]: new BaseQueries('category'),
-		// [EntityName.PRODUCT]: new ProductQueries(),
+		[EntityName.PRODUCT]: new BaseQueries(EntityName.PRODUCT, 'name'),
 		// [EntityName.SUPPLIER]: new SupplierQueries(),
-		// [EntityName.COMPANY]: new CompanyQueries(),
-		// [EntityName.TEAM]: new TeamQueries(),
-		// [EntityName.USER]: new UserQueries(), // not provided by the api
+		[EntityName.COMPANY]: new BaseQueries(EntityName.COMPANY),
+		[EntityName.TEAM]: new BaseQueries(EntityName.TEAM),
+		[EntityName.USER]: new BaseQueries(EntityName.USER, 'firstName lastName'), // not provided by the api
 
 		/** not implemented in the api */
 		// [EntityName.ATTACHMENT]: new BaseQueries(EntityName.ATTACHMENT),
