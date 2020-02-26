@@ -47,6 +47,10 @@ export class FilterService {
 		return this.filterList.search;
 	}
 
+	get valueChanges$() {
+		return this.filterList.valueChanges$;
+	}
+
 	get getFilterAmount() {
 		const filters = this.filterList
 			.asFilters()
