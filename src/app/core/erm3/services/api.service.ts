@@ -4,7 +4,7 @@ import { ObservableQuery as ApolloObservableQuery, WatchQueryOptions } from 'aws
 import { DocumentNode } from 'graphql';
 import { from, Observable } from 'rxjs';
 import { filter, map, tap } from 'rxjs/operators';
-import { EntityName } from '~core/erm/models';
+import { EntityName, EntityNameType } from '~core/erm/models';
 import { log } from '~utils/log';
 import { LogColor } from '~utils/log-colors.enum';
 import { QueryPool } from '../queries/query-pool.class';
@@ -75,7 +75,7 @@ export class ApiService implements ApiServiceInterface {
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	 * @param options: Apollo options if we don't want the default
 	*/
-	queryAll<T>(entityName: EntityName, options: WatchQueryOptions | {} = {}): ObservableQuery<T[]> {
+	queryAll<T>(entityName: EntityName | EntityNameType, options: WatchQueryOptions | {} = {}): ObservableQuery<T[]> {
 		const title = 'Query All ' + entityName;
 		const { query, queryName, body } = QueryPool.getQueryInfo(entityName, QueryType.QUERY_ALL);
 		const variables: any = { teamId: this.teamId };
