@@ -1,10 +1,11 @@
 
 
-# Filters:
+# ERM
+	 - clean erm to have only erm3 remaining
+	 - rename erm3 to erm
 
-Filter list generates equality objects with predefined equality operators it could be more dynamic
+# List
+	 - clean lists to have only ListHelper remaining
 
-# Global service
-
-  - need to not return the data anymore but the query
-	- need to be cleaned	
+# GraphQL, api files
+	 - remove unused or place in a separate folder where we can find them. If not used just delete files.
