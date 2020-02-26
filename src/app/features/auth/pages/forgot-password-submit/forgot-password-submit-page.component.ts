@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { AutoUnsub } from '~utils/auto-unsub.component';
+import { passwordValidator } from '~shared/inputs/validators/password.validator';
 
 @Component({
 	selector: 'forgot-password-submit-page-app',
@@ -15,8 +16,8 @@ export class ForgotPasswordSubmitPageComponent extends AutoUnsub implements OnIn
 	pending$ = new BehaviorSubject(false);
 	form = this.fb.group({
 		code: ['', [Validators.required, Validators.maxLength(6), Validators.minLength(6)]],
-		password: ['', [Validators.required]],
-		confirmPassword: ['', [Validators.required]]
+		password: ['', [passwordValidator]],
+		confirmPassword: ['', [passwordValidator]]
 	});
 	username: string;
 	error: string;
