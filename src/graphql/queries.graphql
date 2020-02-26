@@ -1,7 +1,4 @@
 # this is an auto generated file. This will be overwritten
-query Echo($msg: String) {
-  echo(msg: $msg)
-}
 query GetStreamToken($teamId: String) {
   getStreamToken(teamId: $teamId) {
     token
@@ -14,6 +11,742 @@ query GetStreamNotificationToken($teamId: String) {
     token
     feedName
     feedId
+  }
+}
+query SyncAProduct($teamId: String) {
+  syncAProduct(teamId: $teamId) {
+    id
+    name
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    supplier {
+      id
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      name
+      fullName
+      tradingName
+      description
+      website
+      phoneNumber
+      country
+      city
+      address
+      officeEmail
+      officePhone
+      incoTerm
+      harbour
+      generalMOQ
+      generalLeadTime
+      favorite
+      globalDatabaseId
+      reference
+      referenceKey
+      creationDate
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletionDate
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedDate
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    images {
+      id
+      teamId
+      fileName
+      orientation
+      imageType
+      urls {
+        id
+        maxWidth
+        maxHeight
+        url
+      }
+      creationDate
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletionDate
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedDate
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    price {
+      currency
+      value
+      baseCurrencyValue
+    }
+    category {
+      id
+      teamId
+      name
+      creationDate
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletionDate
+      lastupdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedDate
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    description
+    favorite
+    assignee {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    minimumOrderQuantity
+    moqDescription
+    score
+    incoTerm
+    harbour
+    masterCbm
+    quantityPer20ft
+    quantityPer40ft
+    quantityPer40ftHC
+    leadTimeValue
+    leadTimeUnit
+    sample
+    samplePrice {
+      currency
+      value
+      baseCurrencyValue
+    }
+    archived
+    reference
+    referenceKey
+    creationDate
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletionDate
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    lastUpdatedDate
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+query SyncTeams(
+  $filter: ModelTeamFilterInput
+  $limit: Int
+  $nextToken: String
+  $lastSync: AWSTimestamp
+) {
+  syncTeams(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    lastSync: $lastSync
+  ) {
+    items {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    nextToken
+    startedAt
+  }
+}
+query SyncTeamUsers(
+  $filter: ModelTeamUserFilterInput
+  $limit: Int
+  $nextToken: String
+  $lastSync: AWSTimestamp
+) {
+  syncTeamUsers(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    lastSync: $lastSync
+  ) {
+    items {
+      teamId
+      userId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      user {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      role
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    nextToken
+    startedAt
+  }
+}
+query SyncCompanies(
+  $filter: ModelCompanyFilterInput
+  $limit: Int
+  $nextToken: String
+  $lastSync: AWSTimestamp
+) {
+  syncCompanies(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    lastSync: $lastSync
+  ) {
+    items {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    nextToken
+    startedAt
+  }
+}
+query GetCompany($id: ID!) {
+  getCompany(id: $id) {
+    id
+    name
+    ownerUserId
+    owner {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    createdByUserId
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    createdOn
+    lastUpdatedByUserId
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    lastUpdatedOn
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+query ListCompanys(
+  $id: ID
+  $filter: ModelCompanyFilterInput
+  $limit: Int
+  $nextToken: String
+  $sortDirection: ModelSortDirection
+) {
+  listCompanys(
+    id: $id
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    sortDirection: $sortDirection
+  ) {
+    items {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    nextToken
+    startedAt
+  }
+}
+query SyncUsers(
+  $filter: ModelUserFilterInput
+  $limit: Int
+  $nextToken: String
+  $lastSync: AWSTimestamp
+) {
+  syncUsers(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    lastSync: $lastSync
+  ) {
+    items {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    nextToken
+    startedAt
+  }
+}
+query GetUser($id: ID!) {
+  getUser(id: $id) {
+    id
+    email
+    firstName
+    lastName
+    phoneNumber
+    preferredLanguage
+    avatar
+    creationDate
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+query ListUsers(
+  $filter: ModelUserFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    nextToken
+    startedAt
   }
 }
 query SyncProducts(
@@ -51,6 +784,26 @@ query SyncProducts(
         name
         fullName
         tradingName
+        description
+        website
+        phoneNumber
+        country
+        city
+        address
+        officeEmail
+        officePhone
+        incoTerm
+        harbour
+        generalMOQ
+        generalLeadTime
+        favorite
+        globalDatabaseId
+        reference
+        referenceKey
+        creationDate
+        deletionDate
+        lastUpdatedDate
+        deleted
         _version
         _deleted
         _lastChangedAt
@@ -261,6 +1014,65 @@ query GetProduct($id: ID!) {
       name
       fullName
       tradingName
+      description
+      website
+      phoneNumber
+      country
+      city
+      address
+      officeEmail
+      officePhone
+      incoTerm
+      harbour
+      generalMOQ
+      generalLeadTime
+      favorite
+      globalDatabaseId
+      reference
+      referenceKey
+      creationDate
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletionDate
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedDate
+      deleted
       _version
       _deleted
       _lastChangedAt
@@ -493,6 +1305,26 @@ query ListProducts(
         name
         fullName
         tradingName
+        description
+        website
+        phoneNumber
+        country
+        city
+        address
+        officeEmail
+        officePhone
+        incoTerm
+        harbour
+        generalMOQ
+        generalLeadTime
+        favorite
+        globalDatabaseId
+        reference
+        referenceKey
+        creationDate
+        deletionDate
+        lastUpdatedDate
+        deleted
         _version
         _deleted
         _lastChangedAt
@@ -646,6 +1478,65 @@ query SyncSuppliers(
       name
       fullName
       tradingName
+      description
+      website
+      phoneNumber
+      country
+      city
+      address
+      officeEmail
+      officePhone
+      incoTerm
+      harbour
+      generalMOQ
+      generalLeadTime
+      favorite
+      globalDatabaseId
+      reference
+      referenceKey
+      creationDate
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletionDate
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedDate
+      deleted
       _version
       _deleted
       _lastChangedAt
@@ -725,6 +1616,65 @@ query GetSupplier($id: ID!) {
     name
     fullName
     tradingName
+    description
+    website
+    phoneNumber
+    country
+    city
+    address
+    officeEmail
+    officePhone
+    incoTerm
+    harbour
+    generalMOQ
+    generalLeadTime
+    favorite
+    globalDatabaseId
+    reference
+    referenceKey
+    creationDate
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletionDate
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    lastUpdatedDate
+    deleted
     _version
     _deleted
     _lastChangedAt
@@ -755,6 +1705,65 @@ query ListSuppliers(
       name
       fullName
       tradingName
+      description
+      website
+      phoneNumber
+      country
+      city
+      address
+      officeEmail
+      officePhone
+      incoTerm
+      harbour
+      generalMOQ
+      generalLeadTime
+      favorite
+      globalDatabaseId
+      reference
+      referenceKey
+      creationDate
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletionDate
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedDate
+      deleted
       _version
       _deleted
       _lastChangedAt
@@ -1042,6 +2051,26 @@ query SyncContacts(
         name
         fullName
         tradingName
+        description
+        website
+        phoneNumber
+        country
+        city
+        address
+        officeEmail
+        officePhone
+        incoTerm
+        harbour
+        generalMOQ
+        generalLeadTime
+        favorite
+        globalDatabaseId
+        reference
+        referenceKey
+        creationDate
+        deletionDate
+        lastUpdatedDate
+        deleted
         _version
         _deleted
         _lastChangedAt
@@ -1125,6 +2154,65 @@ query GetContact($id: ID!) {
       name
       fullName
       tradingName
+      description
+      website
+      phoneNumber
+      country
+      city
+      address
+      officeEmail
+      officePhone
+      incoTerm
+      harbour
+      generalMOQ
+      generalLeadTime
+      favorite
+      globalDatabaseId
+      reference
+      referenceKey
+      creationDate
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletionDate
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedDate
+      deleted
       _version
       _deleted
       _lastChangedAt
@@ -1197,6 +2285,26 @@ query ListContacts(
         name
         fullName
         tradingName
+        description
+        website
+        phoneNumber
+        country
+        city
+        address
+        officeEmail
+        officePhone
+        incoTerm
+        harbour
+        generalMOQ
+        generalLeadTime
+        favorite
+        globalDatabaseId
+        reference
+        referenceKey
+        creationDate
+        deletionDate
+        lastUpdatedDate
+        deleted
         _version
         _deleted
         _lastChangedAt
@@ -1526,6 +2634,26 @@ query SyncTasks(
         name
         fullName
         tradingName
+        description
+        website
+        phoneNumber
+        country
+        city
+        address
+        officeEmail
+        officePhone
+        incoTerm
+        harbour
+        generalMOQ
+        generalLeadTime
+        favorite
+        globalDatabaseId
+        reference
+        referenceKey
+        creationDate
+        deletionDate
+        lastUpdatedDate
+        deleted
         _version
         _deleted
         _lastChangedAt
@@ -1630,6 +2758,26 @@ query GetTask($id: ID!) {
         name
         fullName
         tradingName
+        description
+        website
+        phoneNumber
+        country
+        city
+        address
+        officeEmail
+        officePhone
+        incoTerm
+        harbour
+        generalMOQ
+        generalLeadTime
+        favorite
+        globalDatabaseId
+        reference
+        referenceKey
+        creationDate
+        deletionDate
+        lastUpdatedDate
+        deleted
         _version
         _deleted
         _lastChangedAt
@@ -1767,6 +2915,65 @@ query GetTask($id: ID!) {
       name
       fullName
       tradingName
+      description
+      website
+      phoneNumber
+      country
+      city
+      address
+      officeEmail
+      officePhone
+      incoTerm
+      harbour
+      generalMOQ
+      generalLeadTime
+      favorite
+      globalDatabaseId
+      reference
+      referenceKey
+      creationDate
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletionDate
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedDate
+      deleted
       _version
       _deleted
       _lastChangedAt
@@ -1885,6 +3092,26 @@ query ListTasks(
         name
         fullName
         tradingName
+        description
+        website
+        phoneNumber
+        country
+        city
+        address
+        officeEmail
+        officePhone
+        incoTerm
+        harbour
+        generalMOQ
+        generalLeadTime
+        favorite
+        globalDatabaseId
+        reference
+        referenceKey
+        creationDate
+        deletionDate
+        lastUpdatedDate
+        deleted
         _version
         _deleted
         _lastChangedAt
@@ -1943,716 +3170,14 @@ query ListTasks(
     startedAt
   }
 }
-query SyncTeams(
-  $filter: ModelTeamFilterInput
-  $limit: Int
-  $nextToken: String
-  $lastSync: AWSTimestamp
-) {
-  syncTeams(
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-    lastSync: $lastSync
-  ) {
-    items {
-      id
-      name
-      ownerUserId
-      owner {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      companyId
-      company {
-        id
-        name
-        ownerUserId
-        createdByUserId
-        createdOn
-        lastUpdatedByUserId
-        lastUpdatedOn
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      createdByUserId
-      createdBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      createdOn
-      lastUpdatedByUserId
-      lastUpdatedBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      lastUpdatedOn
-      _version
-      _deleted
-      _lastChangedAt
-    }
-    nextToken
-    startedAt
-  }
-}
-query GetTeam($id: ID!) {
-  getTeam(id: $id) {
-    id
-    name
-    ownerUserId
-    owner {
-      id
-      email
-      firstName
-      lastName
-      phoneNumber
-      preferredLanguage
-      avatar
-      creationDate
-      _version
-      _deleted
-      _lastChangedAt
-    }
-    companyId
-    company {
-      id
-      name
-      ownerUserId
-      owner {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      createdByUserId
-      createdBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      createdOn
-      lastUpdatedByUserId
-      lastUpdatedBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      lastUpdatedOn
-      _version
-      _deleted
-      _lastChangedAt
-    }
-    createdByUserId
-    createdBy {
-      id
-      email
-      firstName
-      lastName
-      phoneNumber
-      preferredLanguage
-      avatar
-      creationDate
-      _version
-      _deleted
-      _lastChangedAt
-    }
-    createdOn
-    lastUpdatedByUserId
-    lastUpdatedBy {
-      id
-      email
-      firstName
-      lastName
-      phoneNumber
-      preferredLanguage
-      avatar
-      creationDate
-      _version
-      _deleted
-      _lastChangedAt
-    }
-    lastUpdatedOn
-    _version
-    _deleted
-    _lastChangedAt
-  }
-}
-query ListTeams(
-  $filter: ModelTeamFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listTeams(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-      id
-      name
-      ownerUserId
-      owner {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      companyId
-      company {
-        id
-        name
-        ownerUserId
-        createdByUserId
-        createdOn
-        lastUpdatedByUserId
-        lastUpdatedOn
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      createdByUserId
-      createdBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      createdOn
-      lastUpdatedByUserId
-      lastUpdatedBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      lastUpdatedOn
-      _version
-      _deleted
-      _lastChangedAt
-    }
-    nextToken
-    startedAt
-  }
-}
-query SyncTeamUsers(
-  $filter: ModelTeamUserFilterInput
-  $limit: Int
-  $nextToken: String
-  $lastSync: AWSTimestamp
-) {
-  syncTeamUsers(
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-    lastSync: $lastSync
-  ) {
-    items {
-      teamId
-      userId
-      team {
-        id
-        name
-        ownerUserId
-        companyId
-        createdByUserId
-        createdOn
-        lastUpdatedByUserId
-        lastUpdatedOn
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      user {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      role
-      _version
-      _deleted
-      _lastChangedAt
-    }
-    nextToken
-    startedAt
-  }
-}
-query GetTeamUser($teamId: ID!, $userId: ID!) {
-  getTeamUser(teamId: $teamId, userId: $userId) {
-    teamId
-    userId
-    team {
-      id
-      name
-      ownerUserId
-      owner {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      companyId
-      company {
-        id
-        name
-        ownerUserId
-        createdByUserId
-        createdOn
-        lastUpdatedByUserId
-        lastUpdatedOn
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      createdByUserId
-      createdBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      createdOn
-      lastUpdatedByUserId
-      lastUpdatedBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      lastUpdatedOn
-      _version
-      _deleted
-      _lastChangedAt
-    }
-    user {
-      id
-      email
-      firstName
-      lastName
-      phoneNumber
-      preferredLanguage
-      avatar
-      creationDate
-      _version
-      _deleted
-      _lastChangedAt
-    }
-    role
-    _version
-    _deleted
-    _lastChangedAt
-  }
-}
-query ListTeamUsers(
-  $teamId: ID
-  $userId: ModelIDKeyConditionInput
-  $filter: ModelTeamUserFilterInput
-  $limit: Int
-  $nextToken: String
-  $sortDirection: ModelSortDirection
-) {
-  listTeamUsers(
-    teamId: $teamId
-    userId: $userId
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-    sortDirection: $sortDirection
-  ) {
-    items {
-      teamId
-      userId
-      team {
-        id
-        name
-        ownerUserId
-        companyId
-        createdByUserId
-        createdOn
-        lastUpdatedByUserId
-        lastUpdatedOn
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      user {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      role
-      _version
-      _deleted
-      _lastChangedAt
-    }
-    nextToken
-    startedAt
-  }
-}
-query SyncCompanies(
-  $filter: ModelCompanyFilterInput
-  $limit: Int
-  $nextToken: String
-  $lastSync: AWSTimestamp
-) {
-  syncCompanies(
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-    lastSync: $lastSync
-  ) {
-    items {
-      id
-      name
-      ownerUserId
-      owner {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      createdByUserId
-      createdBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      createdOn
-      lastUpdatedByUserId
-      lastUpdatedBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      lastUpdatedOn
-      _version
-      _deleted
-      _lastChangedAt
-    }
-    nextToken
-    startedAt
-  }
-}
-query GetCompany($id: ID!) {
-  getCompany(id: $id) {
-    id
-    name
-    ownerUserId
-    owner {
-      id
-      email
-      firstName
-      lastName
-      phoneNumber
-      preferredLanguage
-      avatar
-      creationDate
-      _version
-      _deleted
-      _lastChangedAt
-    }
-    createdByUserId
-    createdBy {
-      id
-      email
-      firstName
-      lastName
-      phoneNumber
-      preferredLanguage
-      avatar
-      creationDate
-      _version
-      _deleted
-      _lastChangedAt
-    }
-    createdOn
-    lastUpdatedByUserId
-    lastUpdatedBy {
-      id
-      email
-      firstName
-      lastName
-      phoneNumber
-      preferredLanguage
-      avatar
-      creationDate
-      _version
-      _deleted
-      _lastChangedAt
-    }
-    lastUpdatedOn
-    _version
-    _deleted
-    _lastChangedAt
-  }
-}
-query ListCompanys(
-  $filter: ModelCompanyFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listCompanys(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-      id
-      name
-      ownerUserId
-      owner {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      createdByUserId
-      createdBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      createdOn
-      lastUpdatedByUserId
-      lastUpdatedBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      lastUpdatedOn
-      _version
-      _deleted
-      _lastChangedAt
-    }
-    nextToken
-    startedAt
-  }
-}
-query SyncUsers(
-  $filter: ModelUserFilterInput
-  $limit: Int
-  $nextToken: String
-  $lastSync: AWSTimestamp
-) {
-  syncUsers(
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-    lastSync: $lastSync
-  ) {
-    items {
-      id
-      email
-      firstName
-      lastName
-      phoneNumber
-      preferredLanguage
-      avatar
-      creationDate
-      _version
-      _deleted
-      _lastChangedAt
-    }
-    nextToken
-    startedAt
-  }
-}
-query User($id: ID!) {
-  user(id: $id) {
-    id
-    email
-    firstName
-    lastName
-    phoneNumber
-    preferredLanguage
-    avatar
-    creationDate
-    _version
-    _deleted
-    _lastChangedAt
-  }
-}
-query SyncLegacyUsers(
-  $filter: ModelLegacyUserFilterInput
-  $limit: Int
-  $nextToken: String
-  $lastSync: AWSTimestamp
-) {
-  syncLegacyUsers(
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-    lastSync: $lastSync
-  ) {
-    items {
-      id
-      hash
-      emailValidated
-      activationDate
-      activated
-      deactivationDate
-      _version
-      _deleted
-      _lastChangedAt
-    }
-    nextToken
-    startedAt
-  }
-}
-query ListTeamUserByUser(
+query ListTeamByUser(
   $userId: ID
   $sortDirection: ModelSortDirection
   $filter: ModelTeamUserFilterInput
   $limit: Int
   $nextToken: String
 ) {
-  listTeamUserByUser(
+  listTeamByUser(
     userId: $userId
     sortDirection: $sortDirection
     filter: $filter
@@ -2689,6 +3214,75 @@ query ListTeamUserByUser(
         _lastChangedAt
       }
       role
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    nextToken
+    startedAt
+  }
+}
+query ListCompanyByOwner(
+  $ownerUserId: ID
+  $sortDirection: ModelSortDirection
+  $filter: ModelCompanyFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listCompanyByOwner(
+    ownerUserId: $ownerUserId
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
       _version
       _deleted
       _lastChangedAt

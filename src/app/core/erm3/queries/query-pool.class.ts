@@ -34,19 +34,24 @@ export class QueryPool {
 		// [EntityName.REQUEST_ELEMENT]: new BaseQueries(EntityName.REQUEST_ELEMENT), // ? space in typename
 		// [EntityName.SAMPLE]: new BaseQueries(EntityName.SAMPLE),
 		// [EntityName.TAG]: new BaseQueries(EntityName.TAG),
-		// [EntityName.USER]: new BaseQueries(EntityName.USER)
+		// [EntityName.INVITATION]: new BaseQueries(EntityName.INVITATION),
+		// [EntityName.TEAM_USER]: new BaseQueries(EntityName.TEAM_USER),
 
 		[EntityName.CATEGORY]: new BaseQueries(EntityName.CATEGORY), // provided by the api
 		[EntityName.COMPANY]: new BaseQueries(EntityName.COMPANY), // provided by the api
 		[EntityName.CONTACT]: new BaseQueries(EntityName.CONTACT), // provided by the api
-		[EntityName.DESCRIPTOR]: new BaseQueries(EntityName.DESCRIPTOR, 'sections {id}'), // provided by the api
-		// [EntityName.IMAGE]: new BaseQueries(EntityName.IMAGE), // provided by the api
-		// [EntityName.INVITATION]: new BaseQueries(EntityName.INVITATION),
+		[EntityName.DESCRIPTOR]: new BaseQueries(EntityName.DESCRIPTOR, 'target'), // provided by the api
+		[EntityName.IMAGE]: new BaseQueries(EntityName.IMAGE, `urls {
+        id
+        maxWidth
+        maxHeight
+        url
+      }`), // provided by the api
 		[EntityName.PRODUCT]: new BaseQueries(EntityName.PRODUCT), // provided by the api
 		[EntityName.SUPPLIER]: new BaseQueries(EntityName.SUPPLIER), // provided by the api
 		[EntityName.TASK]: new BaseQueries(EntityName.TASK), // provided by the api
-		// [EntityName.TEAM]: new BaseQueries(EntityName.TEAM), // provided by the api // ! there is no update/delete TEAM
-		// [EntityName.TEAM_USER]: new BaseQueries(EntityName.TEAM_USER), // provided by the api
+		// [EntityName.TEAM]: new BaseQueries(EntityName.TEAM), // provided by the api // ! there is no list/update/delete TEAM
+		[EntityName.USER]: new BaseQueries(EntityName.USER, `firstName`)
 	};
 
 	/** returns the query, queryName and body of a specified query*/
