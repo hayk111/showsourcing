@@ -7,6 +7,8 @@
 		<comment-app
 			*ngIf="i >= amountShown"
 			[class.mg-bottom-s]="!last"
+			[@hoveredState]="hoveredState && (commentId === comment.id.slice(0, getSecondAppearance(comment.id, '-')))"
+			[id]="comment.id.slice(0, getSecondAppearance(comment.id, '-'))"
 			[comment]="comment"
 			[user]="comment.createdBy">
 		</comment-app>

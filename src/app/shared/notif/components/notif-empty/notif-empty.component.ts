@@ -2,6 +2,7 @@ import {
 	Component,
 	OnInit,
 } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { NotificationActivityService } from '~shared/notif/services/notification-activity.service';
 
@@ -12,12 +13,15 @@ import { NotificationActivityService } from '~shared/notif/services/notification
 	styleUrls: ['./notif-empty.component.scss'],
 })
 export class NotifEmptyComponent implements OnInit {
-	constructor(private notifActivitySrv: NotificationActivityService) { }
+	constructor(
+		private notifActivitySrv: NotificationActivityService,
+		private router: Router,
+	) { }
 
 	ngOnInit() { }
 
 	redirect() {
 		this.notifActivitySrv.closeNotificationPanel();
-		this.notifActivitySrv.redirect('/settings/team/members');
+		this.router.navigate(['/settings/team/members']);
 	}
 }
