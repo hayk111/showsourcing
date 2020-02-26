@@ -1,27 +1,31 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { CategoryService, TeamService, CompanyService } from '~core/erm';
-import { SelectionService } from '~core/list-page';
-import { SelectParamsConfig } from '~core/erm';
-import { ListPageService } from '~core/list-page';
-import { Category, ERM } from '~core/erm';
+import {
+	Category,
+	CategoryService,
+	CompanyService,
+	ERM,
+	SelectParamsConfig,
+	TeamService
+} from '~core/erm';
+import { ListPageService, SelectionService } from '~core/list-page';
+import { ListPageViewService } from '~core/list-page/list-page-view.service';
 import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'category-data-page-app',
 	templateUrl: '../shared/list-management-template.html',
-	styleUrls: ['./category-data-page.component.scss', '../shared/list-management-styles.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [
-		ListPageService,
-		SelectionService
+	styleUrls: [
+		'./category-data-page.component.scss',
+		'../shared/list-management-styles.scss'
 	],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	providers: [ListPageService, SelectionService, ListPageViewService],
 	host: {
 		class: 'table-page'
-	},
+	}
 })
 export class CategoryDataPageComponent extends AutoUnsub implements OnInit {
-
 	erm = ERM.CATEGORY;
 
 	addButtonWidth = '111px';
@@ -35,23 +39,30 @@ export class CategoryDataPageComponent extends AutoUnsub implements OnInit {
 		public teamSrv: TeamService,
 		public companySrv: CompanyService,
 		public dialogCommonSrv: DialogCommonService,
-		public selectionSrv: SelectionService
-	) { super(); }
+		public selectionSrv: SelectionService,
+		private viewSrv: ListPageViewService<Category>
+	) {
+		super();
+	}
 
 	ngOnInit() {
 		this.listSrv.setup({
 			entitySrv: this.categorySrv,
 			searchedFields: ['name'],
-			selectParams: { sortBy: 'name', descending: false, query: 'deleted == false' },
+			selectParams: {
+				sortBy: 'name',
+				descending: false,
+				query: 'deleted == false'
+			},
 			entityMetadata: ERM.CATEGORY,
 			originComponentDestroy$: this._destroy$
 		});
 	}
 
 	mergeSelected() {
-		const categories = this.listSrv.getSelectedValues();
+		const categories = this.selectionSrv.getSelectedValues();
 		this.dialogCommonSrv.openMergeDialog({
-			type: this.listSrv.entityMetadata,
+			type: this.viewSrv.entityMetadata,
 			entities: categories
 		});
 	}
@@ -60,5 +71,4 @@ export class CategoryDataPageComponent extends AutoUnsub implements OnInit {
 		this.selectItemsConfig = { take: Number(count) };
 		this.listSrv.refetch(this.selectItemsConfig).subscribe();
 	}
-
 }

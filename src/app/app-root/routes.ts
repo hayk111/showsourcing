@@ -30,15 +30,15 @@ export const routes: Array<Route> = [
 	// 	canActivateChild: [DevModeGuard],
 	// 	loadChildren: 'app/features/dev/dev-feature.module#DevFeatureModule'
 	// },
-	// {
-	// 	path: '',
-	// 	component: TemplateComponent,
-	// 	canActivateChild: [
-	// 		AuthenticatedGuard,
-	// 		HasTeamSelectedGuard
-	// 	],
-	// 	children: [
-	// 		{ path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+	{
+		path: '',
+		component: TemplateComponent,
+		canActivateChild: [
+			AuthenticatedGuard,
+			HasTeamSelectedGuard
+		],
+		children: [
+			{ path: '', redirectTo: 'products', pathMatch: 'full' },
 	// 		{
 	// 			path: 'dashboard',
 	// 			loadChildren: 'app/features/dashboard/dashboard-feature.module#DashboardFeatureModule'
@@ -47,10 +47,10 @@ export const routes: Array<Route> = [
 			// 	path: 'projects',
 			// 	loadChildren: 'app/features/projects/projects-feature.module#ProjectsFeatureModule'
 			// },
-			// {
-			// 	path: 'products',
-			// 	loadChildren: 'app/features/products/products-feature.module#ProductsFeatureModule'
-			// },
+			{
+				path: 'products',
+				loadChildren: 'app/features/products/products-feature.module#ProductsFeatureModule'
+			},
 			// {
 			// 	path: 'requests',
 			// 	loadChildren: 'app/features/requests/requests-feature.module#RequestsFeatureModule'
@@ -71,8 +71,8 @@ export const routes: Array<Route> = [
 			// 	path: 'tasks',
 			// 	loadChildren: 'app/features/tasks/tasks-feature.module#TasksFeatureModule'
 			// }
-	// 	]
-	// },
-	{ path: '**', redirectTo: 'auth' }
+		]
+	},
+	{ path: '**', redirectTo: '' }
 ];
 

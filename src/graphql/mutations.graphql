@@ -13,16 +13,61 @@ mutation CreateTeam($input: CreateTeamInput) {
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     companyId
     company {
       id
       name
       ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       createdOn
       lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
     }
     createdByUserId
     createdBy {
@@ -34,6 +79,9 @@ mutation CreateTeam($input: CreateTeamInput) {
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     createdOn
     lastUpdatedByUserId
@@ -46,8 +94,14 @@ mutation CreateTeam($input: CreateTeamInput) {
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     lastUpdatedOn
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 mutation CreateProduct(
@@ -62,18 +116,88 @@ mutation CreateProduct(
       id
       name
       ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
       createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       createdOn
       lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
     }
     supplier {
       id
       teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
       name
       fullName
       tradingName
+      _version
+      _deleted
+      _lastChangedAt
     }
     images {
       id
@@ -81,10 +205,58 @@ mutation CreateProduct(
       fileName
       orientation
       imageType
+      urls {
+        id
+        maxWidth
+        maxHeight
+        url
+      }
       creationDate
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       deletionDate
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       lastUpdatedDate
       deleted
+      _version
+      _deleted
+      _lastChangedAt
     }
     price {
       currency
@@ -96,10 +268,52 @@ mutation CreateProduct(
       teamId
       name
       creationDate
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       deletionDate
       lastupdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       lastUpdatedDate
       deleted
+      _version
+      _deleted
+      _lastChangedAt
     }
     description
     favorite
@@ -112,6 +326,9 @@ mutation CreateProduct(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     minimumOrderQuantity
     moqDescription
@@ -143,6 +360,9 @@ mutation CreateProduct(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     deletedBy {
       id
@@ -153,6 +373,9 @@ mutation CreateProduct(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     deletionDate
     lastUpdatedBy {
@@ -164,9 +387,15 @@ mutation CreateProduct(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     lastUpdatedDate
     deleted
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 mutation UpdateProduct(
@@ -181,18 +410,88 @@ mutation UpdateProduct(
       id
       name
       ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
       createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       createdOn
       lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
     }
     supplier {
       id
       teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
       name
       fullName
       tradingName
+      _version
+      _deleted
+      _lastChangedAt
     }
     images {
       id
@@ -200,10 +499,58 @@ mutation UpdateProduct(
       fileName
       orientation
       imageType
+      urls {
+        id
+        maxWidth
+        maxHeight
+        url
+      }
       creationDate
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       deletionDate
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       lastUpdatedDate
       deleted
+      _version
+      _deleted
+      _lastChangedAt
     }
     price {
       currency
@@ -215,10 +562,52 @@ mutation UpdateProduct(
       teamId
       name
       creationDate
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       deletionDate
       lastupdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       lastUpdatedDate
       deleted
+      _version
+      _deleted
+      _lastChangedAt
     }
     description
     favorite
@@ -231,6 +620,9 @@ mutation UpdateProduct(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     minimumOrderQuantity
     moqDescription
@@ -262,6 +654,9 @@ mutation UpdateProduct(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     deletedBy {
       id
@@ -272,6 +667,9 @@ mutation UpdateProduct(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     deletionDate
     lastUpdatedBy {
@@ -283,9 +681,15 @@ mutation UpdateProduct(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     lastUpdatedDate
     deleted
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 mutation DeleteProduct(
@@ -300,18 +704,88 @@ mutation DeleteProduct(
       id
       name
       ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
       createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       createdOn
       lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
     }
     supplier {
       id
       teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
       name
       fullName
       tradingName
+      _version
+      _deleted
+      _lastChangedAt
     }
     images {
       id
@@ -319,10 +793,58 @@ mutation DeleteProduct(
       fileName
       orientation
       imageType
+      urls {
+        id
+        maxWidth
+        maxHeight
+        url
+      }
       creationDate
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       deletionDate
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       lastUpdatedDate
       deleted
+      _version
+      _deleted
+      _lastChangedAt
     }
     price {
       currency
@@ -334,10 +856,52 @@ mutation DeleteProduct(
       teamId
       name
       creationDate
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       deletionDate
       lastupdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       lastUpdatedDate
       deleted
+      _version
+      _deleted
+      _lastChangedAt
     }
     description
     favorite
@@ -350,6 +914,9 @@ mutation DeleteProduct(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     minimumOrderQuantity
     moqDescription
@@ -381,6 +948,9 @@ mutation DeleteProduct(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     deletedBy {
       id
@@ -391,6 +961,9 @@ mutation DeleteProduct(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     deletionDate
     lastUpdatedBy {
@@ -402,9 +975,15 @@ mutation DeleteProduct(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     lastUpdatedDate
     deleted
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 mutation CreateSupplier(
@@ -418,15 +997,72 @@ mutation CreateSupplier(
       id
       name
       ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
       createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       createdOn
       lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
     }
     name
     fullName
     tradingName
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 mutation UpdateSupplier(
@@ -440,15 +1076,72 @@ mutation UpdateSupplier(
       id
       name
       ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
       createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       createdOn
       lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
     }
     name
     fullName
     tradingName
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 mutation DeleteSupplier(
@@ -462,15 +1155,72 @@ mutation DeleteSupplier(
       id
       name
       ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
       createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       createdOn
       lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
     }
     name
     fullName
     tradingName
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 mutation CreateDescriptor(
@@ -482,8 +1232,19 @@ mutation CreateDescriptor(
     teamId
     sections {
       name
+      fields {
+        name
+        label
+        type
+        defaultValue
+        fixedValue
+        metadata
+      }
     }
     target
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 mutation UpdateDescriptor(
@@ -495,8 +1256,19 @@ mutation UpdateDescriptor(
     teamId
     sections {
       name
+      fields {
+        name
+        label
+        type
+        defaultValue
+        fixedValue
+        metadata
+      }
     }
     target
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 mutation DeleteDescriptor(
@@ -508,8 +1280,19 @@ mutation DeleteDescriptor(
     teamId
     sections {
       name
+      fields {
+        name
+        label
+        type
+        defaultValue
+        fixedValue
+        metadata
+      }
     }
     target
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 mutation CreateCategory(
@@ -530,6 +1313,9 @@ mutation CreateCategory(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     deletedBy {
       id
@@ -540,6 +1326,9 @@ mutation CreateCategory(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     deletionDate
     lastupdatedByUserId
@@ -552,9 +1341,15 @@ mutation CreateCategory(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     lastUpdatedDate
     deleted
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 mutation UpdateCategory(
@@ -575,6 +1370,9 @@ mutation UpdateCategory(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     deletedBy {
       id
@@ -585,6 +1383,9 @@ mutation UpdateCategory(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     deletionDate
     lastupdatedByUserId
@@ -597,9 +1398,15 @@ mutation UpdateCategory(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     lastUpdatedDate
     deleted
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 mutation DeleteCategory(
@@ -620,6 +1427,9 @@ mutation DeleteCategory(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     deletedBy {
       id
@@ -630,6 +1440,9 @@ mutation DeleteCategory(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     deletionDate
     lastupdatedByUserId
@@ -642,9 +1455,15 @@ mutation DeleteCategory(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     lastUpdatedDate
     deleted
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 mutation CreateContact(
@@ -662,9 +1481,25 @@ mutation CreateContact(
     supplier {
       id
       teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
       name
       fullName
       tradingName
+      _version
+      _deleted
+      _lastChangedAt
     }
     creationDate
     createdBy {
@@ -676,6 +1511,9 @@ mutation CreateContact(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     deletedBy {
       id
@@ -686,6 +1524,9 @@ mutation CreateContact(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     deletionDate
     lastUpdatedBy {
@@ -697,9 +1538,15 @@ mutation CreateContact(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     lastUpdatedDate
     deleted
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 mutation UpdateContact(
@@ -717,9 +1564,25 @@ mutation UpdateContact(
     supplier {
       id
       teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
       name
       fullName
       tradingName
+      _version
+      _deleted
+      _lastChangedAt
     }
     creationDate
     createdBy {
@@ -731,6 +1594,9 @@ mutation UpdateContact(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     deletedBy {
       id
@@ -741,6 +1607,9 @@ mutation UpdateContact(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     deletionDate
     lastUpdatedBy {
@@ -752,9 +1621,15 @@ mutation UpdateContact(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     lastUpdatedDate
     deleted
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 mutation DeleteContact(
@@ -772,9 +1647,25 @@ mutation DeleteContact(
     supplier {
       id
       teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
       name
       fullName
       tradingName
+      _version
+      _deleted
+      _lastChangedAt
     }
     creationDate
     createdBy {
@@ -786,6 +1677,9 @@ mutation DeleteContact(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     deletedBy {
       id
@@ -796,6 +1690,9 @@ mutation DeleteContact(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     deletionDate
     lastUpdatedBy {
@@ -807,9 +1704,15 @@ mutation DeleteContact(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     lastUpdatedDate
     deleted
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 mutation CreateImage(
@@ -838,6 +1741,9 @@ mutation CreateImage(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     deletedBy {
       id
@@ -848,6 +1754,9 @@ mutation CreateImage(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     deletionDate
     lastUpdatedBy {
@@ -859,9 +1768,15 @@ mutation CreateImage(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     lastUpdatedDate
     deleted
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 mutation UpdateImage(
@@ -890,6 +1805,9 @@ mutation UpdateImage(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     deletedBy {
       id
@@ -900,6 +1818,9 @@ mutation UpdateImage(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     deletionDate
     lastUpdatedBy {
@@ -911,9 +1832,15 @@ mutation UpdateImage(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     lastUpdatedDate
     deleted
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 mutation DeleteImage(
@@ -942,6 +1869,9 @@ mutation DeleteImage(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     deletedBy {
       id
@@ -952,6 +1882,9 @@ mutation DeleteImage(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     deletionDate
     lastUpdatedBy {
@@ -963,9 +1896,15 @@ mutation DeleteImage(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     lastUpdatedDate
     deleted
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 mutation CreateTask(
@@ -990,13 +1929,84 @@ mutation CreateTask(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     product {
       id
       name
       teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      supplier {
+        id
+        teamId
+        name
+        fullName
+        tradingName
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      images {
+        id
+        teamId
+        fileName
+        orientation
+        imageType
+        creationDate
+        deletionDate
+        lastUpdatedDate
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      price {
+        currency
+        value
+        baseCurrencyValue
+      }
+      category {
+        id
+        teamId
+        name
+        creationDate
+        deletionDate
+        lastupdatedByUserId
+        lastUpdatedDate
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
       description
       favorite
+      assignee {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       minimumOrderQuantity
       moqDescription
       score
@@ -1009,20 +2019,83 @@ mutation CreateTask(
       leadTimeValue
       leadTimeUnit
       sample
+      samplePrice {
+        currency
+        value
+        baseCurrencyValue
+      }
       archived
       reference
       referenceKey
       creationDate
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       deletionDate
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       lastUpdatedDate
       deleted
+      _version
+      _deleted
+      _lastChangedAt
     }
     supplier {
       id
       teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
       name
       fullName
       tradingName
+      _version
+      _deleted
+      _lastChangedAt
     }
     reference
     referenceKey
@@ -1037,6 +2110,9 @@ mutation CreateTask(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     deletedBy {
       id
@@ -1047,6 +2123,9 @@ mutation CreateTask(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     deletionDate
     lastUpdatedBy {
@@ -1058,9 +2137,15 @@ mutation CreateTask(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     lastUpdatedDate
     deleted
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 mutation UpdateTask(
@@ -1085,13 +2170,84 @@ mutation UpdateTask(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     product {
       id
       name
       teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      supplier {
+        id
+        teamId
+        name
+        fullName
+        tradingName
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      images {
+        id
+        teamId
+        fileName
+        orientation
+        imageType
+        creationDate
+        deletionDate
+        lastUpdatedDate
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      price {
+        currency
+        value
+        baseCurrencyValue
+      }
+      category {
+        id
+        teamId
+        name
+        creationDate
+        deletionDate
+        lastupdatedByUserId
+        lastUpdatedDate
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
       description
       favorite
+      assignee {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       minimumOrderQuantity
       moqDescription
       score
@@ -1104,20 +2260,83 @@ mutation UpdateTask(
       leadTimeValue
       leadTimeUnit
       sample
+      samplePrice {
+        currency
+        value
+        baseCurrencyValue
+      }
       archived
       reference
       referenceKey
       creationDate
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       deletionDate
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       lastUpdatedDate
       deleted
+      _version
+      _deleted
+      _lastChangedAt
     }
     supplier {
       id
       teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
       name
       fullName
       tradingName
+      _version
+      _deleted
+      _lastChangedAt
     }
     reference
     referenceKey
@@ -1132,6 +2351,9 @@ mutation UpdateTask(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     deletedBy {
       id
@@ -1142,6 +2364,9 @@ mutation UpdateTask(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     deletionDate
     lastUpdatedBy {
@@ -1153,9 +2378,15 @@ mutation UpdateTask(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     lastUpdatedDate
     deleted
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 mutation DeleteTask(
@@ -1180,13 +2411,84 @@ mutation DeleteTask(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     product {
       id
       name
       teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      supplier {
+        id
+        teamId
+        name
+        fullName
+        tradingName
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      images {
+        id
+        teamId
+        fileName
+        orientation
+        imageType
+        creationDate
+        deletionDate
+        lastUpdatedDate
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      price {
+        currency
+        value
+        baseCurrencyValue
+      }
+      category {
+        id
+        teamId
+        name
+        creationDate
+        deletionDate
+        lastupdatedByUserId
+        lastUpdatedDate
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
       description
       favorite
+      assignee {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       minimumOrderQuantity
       moqDescription
       score
@@ -1199,20 +2501,83 @@ mutation DeleteTask(
       leadTimeValue
       leadTimeUnit
       sample
+      samplePrice {
+        currency
+        value
+        baseCurrencyValue
+      }
       archived
       reference
       referenceKey
       creationDate
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       deletionDate
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       lastUpdatedDate
       deleted
+      _version
+      _deleted
+      _lastChangedAt
     }
     supplier {
       id
       teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
       name
       fullName
       tradingName
+      _version
+      _deleted
+      _lastChangedAt
     }
     reference
     referenceKey
@@ -1227,6 +2592,9 @@ mutation DeleteTask(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     deletedBy {
       id
@@ -1237,6 +2605,9 @@ mutation DeleteTask(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     deletionDate
     lastUpdatedBy {
@@ -1248,9 +2619,15 @@ mutation DeleteTask(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     lastUpdatedDate
     deleted
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 mutation CreateTeamUser(
@@ -1264,11 +2641,65 @@ mutation CreateTeamUser(
       id
       name
       ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
       createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       createdOn
       lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
     }
     user {
       id
@@ -1279,8 +2710,14 @@ mutation CreateTeamUser(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     role
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 mutation UpdateTeamUser(
@@ -1294,11 +2731,65 @@ mutation UpdateTeamUser(
       id
       name
       ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
       createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       createdOn
       lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
     }
     user {
       id
@@ -1309,8 +2800,14 @@ mutation UpdateTeamUser(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     role
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 mutation DeleteTeamUser(
@@ -1324,11 +2821,65 @@ mutation DeleteTeamUser(
       id
       name
       ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
       createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       createdOn
       lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
       lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
     }
     user {
       id
@@ -1339,8 +2890,14 @@ mutation DeleteTeamUser(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     role
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 mutation CreateCompany(
@@ -1360,6 +2917,9 @@ mutation CreateCompany(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     createdByUserId
     createdBy {
@@ -1371,6 +2931,9 @@ mutation CreateCompany(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     createdOn
     lastUpdatedByUserId
@@ -1383,8 +2946,14 @@ mutation CreateCompany(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     lastUpdatedOn
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 mutation UpdateCompany(
@@ -1404,6 +2973,9 @@ mutation UpdateCompany(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     createdByUserId
     createdBy {
@@ -1415,6 +2987,9 @@ mutation UpdateCompany(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     createdOn
     lastUpdatedByUserId
@@ -1427,8 +3002,14 @@ mutation UpdateCompany(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     lastUpdatedOn
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 mutation DeleteCompany(
@@ -1448,6 +3029,9 @@ mutation DeleteCompany(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     createdByUserId
     createdBy {
@@ -1459,6 +3043,9 @@ mutation DeleteCompany(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     createdOn
     lastUpdatedByUserId
@@ -1471,8 +3058,14 @@ mutation DeleteCompany(
       preferredLanguage
       avatar
       creationDate
+      _version
+      _deleted
+      _lastChangedAt
     }
     lastUpdatedOn
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 mutation UpdateUser(
@@ -1488,5 +3081,8 @@ mutation UpdateUser(
     preferredLanguage
     avatar
     creationDate
+    _version
+    _deleted
+    _lastChangedAt
   }
 }

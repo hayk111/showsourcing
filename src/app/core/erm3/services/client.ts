@@ -6,7 +6,7 @@ export const client = new AWSAppSyncClient({
 	url: awsconfig.aws_appsync_graphqlEndpoint,
 	region: awsconfig.aws_appsync_region,
 	auth: {
-		type: AUTH_TYPE[awsconfig.aws_appsync_authenticationType],
+		type: AUTH_TYPE[awsconfig.aws_appsync_authenticationType] as any,
 		jwtToken: async () => (await Auth.currentSession()).getIdToken().getJwtToken()
 	}
 });

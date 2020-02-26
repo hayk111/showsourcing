@@ -18,36 +18,36 @@
 	[hasPagination]="false"
 	[currentSort]="listSrv.currentSort"
 	[pending]="listSrv.pending"
-	[isFiltering]="listSrv.isFiltering"
+	[isFiltering]="filterSrv.isFiltering"
 	[rows]="listSrv.items$ | async"
-	[selection]="listSrv.selection$ | async"
+	[selection]="selectionSrv.selection$ | async"
 	[count]="listSrv.count$ | async"
 	[currentPage]="listSrv.currentPage"
 	[linkedEntity]="supplier"
 	(delete)="listSrv.deleteOne($event, true)"
 	(update)="listSrv.update($event)"
-	(open)="listSrv.goToDetails($event)"
+	(open)="viewSrv.goToDetails($event)"
 	(openAddToProjectDialog)="dialogCommonSrv.openAddToProjectDialog([$event])"
 	(openAddSampleDialog)="dialogCommonSrv.openCreationSampleDialog($event)"
 	(openAddTaskDialog)="dialogCommonSrv.openCreationTaskDlg($event)"
 	(openRequestFeedbackDialog)="dialogCommonSrv.openRequestFeedbackDialog([$event])"
 	(openCreateRequestDlg)="dialogCommonSrv.openSupplierRequest([$event])"
-	(previewClick)="listSrv.openPreview($event)"
-	(select)="listSrv.selectOne($event, true)"
-	(selectAll)="listSrv.selectAll($event, true)"
+	(previewClick)="viewSrv.openPreview($event)"
+	(select)="selectionSrv.selectOne($event, true)"
+	(selectAll)="selectionSrv.selectAll($event, true)"
 	(sort)="listSrv.sort($event)"
-	(unselect)="listSrv.unselectOne($event, true)"
+	(unselect)="selectionSrv.unselectOne($event, true)"
 	(update)="listSrv.update($event)"
 	(createClick)="dialogCommonSrv.openCreationProductDlg()"
-	(unselectAll)="listSrv.unselectAll()"
+	(unselectAll)="selectionSrv.unselectAll()"
 	(upload)="listSrv.refetch().subscribe()">
 </attachments-table-app>
 
 
 <selection-bar-app
-	[isShown]="(listSrv.selection$ | async).size > 0"
-	[selection]="listSrv.selection$ | async"
-	(close)="listSrv.unselectAll()">
+	[isShown]="(selectionSrv.selection$ | async).size > 0"
+	[selection]="selectionSrv.selection$ | async"
+	(close)="selectionSrv.unselectAll()">
 
 	<button class="icon light" (click)="listSrv.deleteSelected()">
 		<icon-app name="trash"></icon-app>
