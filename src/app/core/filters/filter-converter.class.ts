@@ -8,6 +8,8 @@ import { ValuesByType, FiltersByType } from './filter-list.class';
  */
 export class FilterConverter {
 
+	constructor(private searchedFields = []) {}
+
 	/** returns a new map of <type, <filter.value, filter>> */
 	valuesByType(filters: Filter[]): ValuesByType {
 		const copy = this.getInitialMap(Set);
@@ -41,7 +43,7 @@ export class FilterConverter {
 	 * 	}]
 	 * }
 	 */
-	filtersToArg(byType: FiltersByType, searchedFields: string[]) {
+	filtersToQueryArg(byType: FiltersByType) {
 		const and = [];
 		byType.forEach((filters, type) => {
 			// for each filter type we check if there is a filter present, if not we pass
@@ -58,14 +60,14 @@ export class FilterConverter {
 	/** the way a Filter is translated into graphql changes with
 	 * its type. This method return the translated predicate
 	 */
-	private getFieldCondition({ type, value, equality }: Filter, searchedFields: string[]) {
+	private getFieldCondition({ type, value, equality }: Filter) {
 		const eq = equality || 'eq';
 		switch (type) {
 			case FilterType.ARCHIVED:
 			case FilterType.FAVORITE:
 					return { [type]: value };
 			case FilterType.SEARCH:
-					
+
 			default:
 				return { [type]: { id: { [eq]: value } } };
 		}

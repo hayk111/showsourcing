@@ -11,7 +11,7 @@ export type FiltersByType = Map<FilterType, Filter[]>;
 
 export class FilterList {
 	/** helper */
-	private converter = new FilterConverter();
+	private converter: FilterConverter;
 	/** to know when filters are changing, using replay subject here because in the constructor we set the starting ones */
 	private _valueChanges$ = new ReplaySubject<FilterList>(1);
 	valueChanges$ = this._valueChanges$.asObservable();
@@ -27,11 +27,11 @@ export class FilterList {
 	queryArg: any;
 
 	constructor(
-		private startFilters: Filter[] = [],
-		private searchedFields = ['name']
+		private startFilters: Filter[] = []
 	) {
 		// adding the start filters
 		this.setFilters(startFilters);
+		this.converter = new FilterConverter(searchedfields);
 	}
 
 	/** function that sets the filter of the filter list, also construct the different util object (by type, filter param) */
@@ -39,7 +39,7 @@ export class FilterList {
 		this.filters = filters;
 		this.valuesByType = this.converter.valuesByType(filters);
 		this.filtersByType = this.converter.filtersByType(filters);
-		this.queryArg = this.converter.filtersToArg(this.byType);
+		this.queryArg = this.converter.filtersToQueryArg(this.byType);
 		this.emit();
 	}
 
