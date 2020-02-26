@@ -1,5 +1,5 @@
 import { BaseQueries } from './_base.queries';
-import { EntityName } from '~core/erm/entity-name.enum';
+import { EntityName, EntityNameType } from '~core/erm/entity-name.enum';
 import { ProductQueries } from './custom/product.queries';
 import { SupplierQueries } from './custom/supplier.queries';
 import { TeamQueries } from './custom/team.queries';
@@ -10,17 +10,47 @@ import { DocumentNode } from 'graphql';
 
 export class QueryPool {
 	static map = {
-		[EntityName.TAG]: new BaseQueries('tag'),
-		[EntityName.CATEGORY]: new BaseQueries('category'),
-		[EntityName.PRODUCT]: new ProductQueries(),
-		[EntityName.SUPPLIER]: new SupplierQueries(),
-		[EntityName.COMPANY]: new CompanyQueries(),
-		[EntityName.TEAM]: new TeamQueries(),
-		[EntityName.USER]: new UserQueries()
+		/** FOR Cedric development */
+		// [EntityName.TAG]: new BaseQueries('tag'), // not provided by the api
+		// [EntityName.CATEGORY]: new BaseQueries('category'),
+		// [EntityName.PRODUCT]: new ProductQueries(),
+		// [EntityName.SUPPLIER]: new SupplierQueries(),
+		// [EntityName.COMPANY]: new CompanyQueries(),
+		// [EntityName.TEAM]: new TeamQueries(),
+		// [EntityName.USER]: new UserQueries(), // not provided by the api
+
+		/** not implemented in the api */
+		// [EntityName.ATTACHMENT]: new BaseQueries(EntityName.ATTACHMENT),
+		// [EntityName.ACTIVITY]: new BaseQueries(EntityName.ACTIVITY),
+		// [EntityName.COMMENT]: new BaseQueries(EntityName.COMMENT),
+		// [EntityName.COUNTRY]: new BaseQueries(EntityName.COUNTRY),
+		// [EntityName.CURRENCY]: new BaseQueries(EntityName.CURRENCY),
+		// [EntityName.EVENT]: new BaseQueries(EntityName.EVENT),
+		// [EntityName.EXPORT]: new BaseQueries(EntityName.EXPORT),
+		// [EntityName.HARBOUR]: new BaseQueries(EntityName.HARBOUR),
+		// [EntityName.LOCATION]: new BaseQueries(EntityName.LOCATION),
+		// [EntityName.PROJECT]: new BaseQueries(EntityName.PROJECT),
+		// [EntityName.REQUEST]: new BaseQueries(EntityName.REQUEST),
+		// [EntityName.REQUEST_ELEMENT]: new BaseQueries(EntityName.REQUEST_ELEMENT), // ? space in typename
+		// [EntityName.SAMPLE]: new BaseQueries(EntityName.SAMPLE),
+		// [EntityName.TAG]: new BaseQueries(EntityName.TAG),
+		// [EntityName.USER]: new BaseQueries(EntityName.USER)
+
+		[EntityName.CATEGORY]: new BaseQueries(EntityName.CATEGORY), // provided by the api
+		[EntityName.COMPANY]: new BaseQueries(EntityName.COMPANY), // provided by the api
+		[EntityName.CONTACT]: new BaseQueries(EntityName.CONTACT), // provided by the api
+		[EntityName.DESCRIPTOR]: new BaseQueries(EntityName.DESCRIPTOR, 'sections {id}'), // provided by the api
+		// [EntityName.IMAGE]: new BaseQueries(EntityName.IMAGE), // provided by the api
+		// [EntityName.INVITATION]: new BaseQueries(EntityName.INVITATION),
+		[EntityName.PRODUCT]: new BaseQueries(EntityName.PRODUCT), // provided by the api
+		[EntityName.SUPPLIER]: new BaseQueries(EntityName.SUPPLIER), // provided by the api
+		[EntityName.TASK]: new BaseQueries(EntityName.TASK), // provided by the api
+		// [EntityName.TEAM]: new BaseQueries(EntityName.TEAM), // provided by the api // ! there is no update/delete TEAM
+		// [EntityName.TEAM_USER]: new BaseQueries(EntityName.TEAM_USER), // provided by the api
 	};
 
 	/** returns the query, queryName and body of a specified query*/
-	static getQueryInfo(entityName: EntityName, queryType: QueryType) {
+	static getQueryInfo(entityName: EntityName | EntityNameType, queryType: QueryType) {
 		const queries = QueryPool.map[entityName];
 		if (!queries) {
 			throw Error(`The query pool doesn't contain such a member ${queryType}`);
@@ -39,7 +69,6 @@ export class QueryPool {
 			throw Error('query name not found in apollo client');
 		}
 	}
-
 
 	/** gets the content of a graphql query */
 	static getQueryBody(gql: DocumentNode): string {
