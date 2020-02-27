@@ -3,11 +3,6 @@ import { DocumentNode } from 'graphql';
 
 /** Audit found on every entity */
 const AUDIT = `
-	creationDate
-	lastUpdatedDate
-	createdBy
-	deletionDate
-	archived
 	_lastChangedAt
 	_deleted
 	_version
@@ -69,7 +64,6 @@ export class QueryBuilder {
 				) {
 					items {
 						id
-						teamId
 						${str}
 						${AUDIT}
 					}
@@ -105,11 +99,9 @@ export class QueryBuilder {
 		return gql`
 			mutation Create${this.entityName}(
 				$input: Create${this.entityName}Input!
-				$condition: Model${this.entityName}ConditionInput
 			) {
-				create${this.entityName}(input: $input, condition: $condition) {
+				create${this.entityName}(input: $input) {
 					id
-					teamId
 					${str}
 					${AUDIT}
 				}
@@ -120,11 +112,9 @@ export class QueryBuilder {
 		return gql`
 			mutation Update${this.entityName}(
 				$input: Update${this.entityName}Input!
-				$condition: Model${this.entityName}ConditionInput
 			) {
-				update${this.entityName}(input: $input, condition: $condition) {
+				update${this.entityName}(input: $input) {
 					id
-					teamId
 					${str}
 					${AUDIT}
 				}
@@ -135,11 +125,9 @@ export class QueryBuilder {
 		return gql`
 			mutation Delete${this.entityName}(
 				$input: Delete${this.entityName}Input!
-				$condition: Model${this.entityName}ConditionInput
 			) {
-				delete${this.entityName}(input: $input, condition: $condition) {
+				delete${this.entityName}(input: $input) {
 					id
-					teamId
 					${str}
 					${AUDIT}
 				}
