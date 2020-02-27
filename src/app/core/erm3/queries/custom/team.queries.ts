@@ -1,23 +1,62 @@
 import gql from 'graphql-tag';
+import { BaseQueries } from '../base.queries';
 
-
-export class TeamQueries {
-
-	create = gql`
-	mutation CreateTeam($input: CreateTeamInput!) {
-		createTeam(input: $input) {
-			id name
-		}
+export class TeamQueries extends BaseQueries {
+	constructor(name: string, defaultFields?: string) {
+		super(name, defaultFields);
 	}
-	`;
-
-	queryAll = gql`
-		query ListTeams {
-			listTeams {
+	queryAll = null;
+	queryAllByUser = gql`
+		query ListTeamByUser(
+			$userId: ID
+			$sortDirection: ModelSortDirection
+			$filter: ModelTeamUserFilterInput
+			$limit: Int
+			$nextToken: String
+		) {
+			listTeamByUser(
+				userId: $userId
+				sortDirection: $sortDirection
+				filter: $filter
+				limit: $limit
+				nextToken: $nextToken
+			) {
 				items {
-					id
-					name
+					teamId
+					userId
+					team {
+						id
+						name
+						ownerUserId
+						companyId
+						createdByUserId
+						createdOn
+						lastUpdatedByUserId
+						lastUpdatedOn
+						_version
+						_deleted
+						_lastChangedAt
+					}
+					user {
+						id
+						email
+						firstName
+						lastName
+						phoneNumber
+						preferredLanguage
+						avatar
+						creationDate
+						_version
+						_deleted
+						_lastChangedAt
+					}
+					role
+					_version
+					_deleted
+					_lastChangedAt
 				}
+				nextToken
+				startedAt
 			}
 		}
 	`;

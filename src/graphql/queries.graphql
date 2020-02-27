@@ -3291,3 +3291,180 @@ query ListCompanyByOwner(
     startedAt
   }
 }
+query SearchProducts(
+  $filter: SearchableProductFilterInput
+  $sort: SearchableProductSortInput
+  $limit: Int
+  $nextToken: String
+) {
+  searchProducts(
+    filter: $filter
+    sort: $sort
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      name
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      supplier {
+        id
+        teamId
+        name
+        fullName
+        tradingName
+        description
+        website
+        phoneNumber
+        country
+        city
+        address
+        officeEmail
+        officePhone
+        incoTerm
+        harbour
+        generalMOQ
+        generalLeadTime
+        favorite
+        globalDatabaseId
+        reference
+        referenceKey
+        creationDate
+        deletionDate
+        lastUpdatedDate
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      images {
+        id
+        teamId
+        fileName
+        orientation
+        imageType
+        creationDate
+        deletionDate
+        lastUpdatedDate
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      price {
+        currency
+        value
+        baseCurrencyValue
+      }
+      category {
+        id
+        teamId
+        name
+        creationDate
+        deletionDate
+        lastupdatedByUserId
+        lastUpdatedDate
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      description
+      favorite
+      assignee {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      minimumOrderQuantity
+      moqDescription
+      score
+      incoTerm
+      harbour
+      masterCbm
+      quantityPer20ft
+      quantityPer40ft
+      quantityPer40ftHC
+      leadTimeValue
+      leadTimeUnit
+      sample
+      samplePrice {
+        currency
+        value
+        baseCurrencyValue
+      }
+      archived
+      reference
+      referenceKey
+      creationDate
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletionDate
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedDate
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    nextToken
+    total
+  }
+}

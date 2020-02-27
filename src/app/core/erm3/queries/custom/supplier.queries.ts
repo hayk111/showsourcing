@@ -1,4 +1,4 @@
-import { BaseQueries } from '../_base.queries';
+import { BaseQueries } from '../base.queries';
 
 
 export class SupplierQueries extends BaseQueries {

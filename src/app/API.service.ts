@@ -1020,6 +1020,130 @@ export type ModelTaskFilterInput = {
   not?: ModelTaskFilterInput | null;
 };
 
+export type SearchableProductFilterInput = {
+  id?: SearchableIDFilterInput | null;
+  name?: SearchableStringFilterInput | null;
+  teamId?: SearchableIDFilterInput | null;
+  description?: SearchableStringFilterInput | null;
+  favorite?: SearchableBooleanFilterInput | null;
+  minimumOrderQuantity?: SearchableIntFilterInput | null;
+  moqDescription?: SearchableStringFilterInput | null;
+  score?: SearchableIntFilterInput | null;
+  incoTerm?: SearchableStringFilterInput | null;
+  harbour?: SearchableStringFilterInput | null;
+  masterCbm?: SearchableFloatFilterInput | null;
+  quantityPer20ft?: SearchableIntFilterInput | null;
+  quantityPer40ft?: SearchableIntFilterInput | null;
+  quantityPer40ftHC?: SearchableIntFilterInput | null;
+  leadTimeValue?: SearchableIntFilterInput | null;
+  leadTimeUnit?: SearchableStringFilterInput | null;
+  sample?: SearchableBooleanFilterInput | null;
+  archived?: SearchableBooleanFilterInput | null;
+  reference?: SearchableStringFilterInput | null;
+  referenceKey?: SearchableIntFilterInput | null;
+  creationDate?: SearchableIntFilterInput | null;
+  deletionDate?: SearchableIntFilterInput | null;
+  lastUpdatedDate?: SearchableIntFilterInput | null;
+  deleted?: SearchableBooleanFilterInput | null;
+  and?: Array<SearchableProductFilterInput | null> | null;
+  or?: Array<SearchableProductFilterInput | null> | null;
+  not?: SearchableProductFilterInput | null;
+};
+
+export type SearchableIDFilterInput = {
+  ne?: string | null;
+  gt?: string | null;
+  lt?: string | null;
+  gte?: string | null;
+  lte?: string | null;
+  eq?: string | null;
+  match?: string | null;
+  matchPhrase?: string | null;
+  matchPhrasePrefix?: string | null;
+  multiMatch?: string | null;
+  exists?: boolean | null;
+  wildcard?: string | null;
+  regexp?: string | null;
+};
+
+export type SearchableStringFilterInput = {
+  ne?: string | null;
+  gt?: string | null;
+  lt?: string | null;
+  gte?: string | null;
+  lte?: string | null;
+  eq?: string | null;
+  match?: string | null;
+  matchPhrase?: string | null;
+  matchPhrasePrefix?: string | null;
+  multiMatch?: string | null;
+  exists?: boolean | null;
+  wildcard?: string | null;
+  regexp?: string | null;
+};
+
+export type SearchableBooleanFilterInput = {
+  eq?: boolean | null;
+  ne?: boolean | null;
+};
+
+export type SearchableIntFilterInput = {
+  ne?: number | null;
+  gt?: number | null;
+  lt?: number | null;
+  gte?: number | null;
+  lte?: number | null;
+  eq?: number | null;
+  range?: Array<number | null> | null;
+};
+
+export type SearchableFloatFilterInput = {
+  ne?: number | null;
+  gt?: number | null;
+  lt?: number | null;
+  gte?: number | null;
+  lte?: number | null;
+  eq?: number | null;
+  range?: Array<number | null> | null;
+};
+
+export type SearchableProductSortInput = {
+  field?: SearchableProductSortableFields | null;
+  direction?: SearchableSortDirection | null;
+};
+
+export enum SearchableProductSortableFields {
+  id = "id",
+  name = "name",
+  teamId = "teamId",
+  description = "description",
+  favorite = "favorite",
+  minimumOrderQuantity = "minimumOrderQuantity",
+  moqDescription = "moqDescription",
+  score = "score",
+  incoTerm = "incoTerm",
+  harbour = "harbour",
+  masterCbm = "masterCbm",
+  quantityPer20ft = "quantityPer20ft",
+  quantityPer40ft = "quantityPer40ft",
+  quantityPer40ftHC = "quantityPer40ftHC",
+  leadTimeValue = "leadTimeValue",
+  leadTimeUnit = "leadTimeUnit",
+  sample = "sample",
+  archived = "archived",
+  reference = "reference",
+  referenceKey = "referenceKey",
+  creationDate = "creationDate",
+  deletionDate = "deletionDate",
+  lastUpdatedDate = "lastUpdatedDate",
+  deleted = "deleted"
+}
+
+export enum SearchableSortDirection {
+  asc = "asc",
+  desc = "desc"
+}
+
 export type CreateTeamMutation = {
   __typename: "Team";
   id: string;
@@ -8333,6 +8457,184 @@ export type ListCompanyByOwnerQuery = {
   } | null> | null;
   nextToken: string | null;
   startedAt: number | null;
+};
+
+export type SearchProductsQuery = {
+  __typename: "SearchableProductConnection";
+  items: Array<{
+    __typename: "Product";
+    id: string;
+    name: string;
+    teamId: string;
+    team: {
+      __typename: "Team";
+      id: string;
+      name: string;
+      ownerUserId: string;
+      companyId: string;
+      createdByUserId: string;
+      createdOn: number;
+      lastUpdatedByUserId: string;
+      lastUpdatedOn: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
+    supplier: {
+      __typename: "Supplier";
+      id: string;
+      teamId: string;
+      name: string;
+      fullName: string | null;
+      tradingName: string | null;
+      description: string | null;
+      website: string | null;
+      phoneNumber: string | null;
+      country: string | null;
+      city: string | null;
+      address: string | null;
+      officeEmail: string | null;
+      officePhone: string | null;
+      incoTerm: string | null;
+      harbour: string | null;
+      generalMOQ: number | null;
+      generalLeadTime: number | null;
+      favorite: boolean;
+      globalDatabaseId: string | null;
+      reference: string | null;
+      referenceKey: number | null;
+      creationDate: number;
+      deletionDate: number | null;
+      lastUpdatedDate: number;
+      deleted: boolean;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
+    images: Array<{
+      __typename: "Image";
+      id: string;
+      teamId: string;
+      fileName: string;
+      orientation: number;
+      imageType: string;
+      creationDate: number;
+      deletionDate: number | null;
+      lastUpdatedDate: number;
+      deleted: boolean;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null> | null;
+    price: {
+      __typename: "Price";
+      currency: string | null;
+      value: number | null;
+      baseCurrencyValue: number | null;
+    } | null;
+    category: {
+      __typename: "Category";
+      id: string;
+      teamId: string;
+      name: string;
+      creationDate: number;
+      deletionDate: number | null;
+      lastupdatedByUserId: string;
+      lastUpdatedDate: number;
+      deleted: boolean;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
+    description: string | null;
+    favorite: boolean | null;
+    assignee: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
+    minimumOrderQuantity: number | null;
+    moqDescription: string | null;
+    score: number | null;
+    incoTerm: string | null;
+    harbour: string | null;
+    masterCbm: number | null;
+    quantityPer20ft: number | null;
+    quantityPer40ft: number | null;
+    quantityPer40ftHC: number | null;
+    leadTimeValue: number | null;
+    leadTimeUnit: string | null;
+    sample: boolean | null;
+    samplePrice: {
+      __typename: "Price";
+      currency: string | null;
+      value: number | null;
+      baseCurrencyValue: number | null;
+    } | null;
+    archived: boolean;
+    reference: string | null;
+    referenceKey: number | null;
+    creationDate: number;
+    createdBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    };
+    deletedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
+    deletionDate: number | null;
+    lastUpdatedBy: {
+      __typename: "User";
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      phoneNumber: string | null;
+      preferredLanguage: Lang | null;
+      avatar: string | null;
+      creationDate: number | null;
+      _version: number;
+      _deleted: boolean | null;
+      _lastChangedAt: number;
+    } | null;
+    lastUpdatedDate: number;
+    deleted: boolean;
+    _version: number;
+    _deleted: boolean | null;
+    _lastChangedAt: number;
+  } | null> | null;
+  nextToken: string | null;
+  total: number | null;
 };
 
 export type OnCreateDescriptorSubscription = {
@@ -18640,6 +18942,209 @@ export class APIService {
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
     return <ListCompanyByOwnerQuery>response.data.listCompanyByOwner;
+  }
+  async SearchProducts(
+    filter?: SearchableProductFilterInput,
+    sort?: SearchableProductSortInput,
+    limit?: number,
+    nextToken?: string
+  ): Promise<SearchProductsQuery> {
+    const statement = `query SearchProducts($filter: SearchableProductFilterInput, $sort: SearchableProductSortInput, $limit: Int, $nextToken: String) {
+        searchProducts(filter: $filter, sort: $sort, limit: $limit, nextToken: $nextToken) {
+          __typename
+          items {
+            __typename
+            id
+            name
+            teamId
+            team {
+              __typename
+              id
+              name
+              ownerUserId
+              companyId
+              createdByUserId
+              createdOn
+              lastUpdatedByUserId
+              lastUpdatedOn
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            supplier {
+              __typename
+              id
+              teamId
+              name
+              fullName
+              tradingName
+              description
+              website
+              phoneNumber
+              country
+              city
+              address
+              officeEmail
+              officePhone
+              incoTerm
+              harbour
+              generalMOQ
+              generalLeadTime
+              favorite
+              globalDatabaseId
+              reference
+              referenceKey
+              creationDate
+              deletionDate
+              lastUpdatedDate
+              deleted
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            images {
+              __typename
+              id
+              teamId
+              fileName
+              orientation
+              imageType
+              creationDate
+              deletionDate
+              lastUpdatedDate
+              deleted
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            price {
+              __typename
+              currency
+              value
+              baseCurrencyValue
+            }
+            category {
+              __typename
+              id
+              teamId
+              name
+              creationDate
+              deletionDate
+              lastupdatedByUserId
+              lastUpdatedDate
+              deleted
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            description
+            favorite
+            assignee {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            minimumOrderQuantity
+            moqDescription
+            score
+            incoTerm
+            harbour
+            masterCbm
+            quantityPer20ft
+            quantityPer40ft
+            quantityPer40ftHC
+            leadTimeValue
+            leadTimeUnit
+            sample
+            samplePrice {
+              __typename
+              currency
+              value
+              baseCurrencyValue
+            }
+            archived
+            reference
+            referenceKey
+            creationDate
+            createdBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            deletedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            deletionDate
+            lastUpdatedBy {
+              __typename
+              id
+              email
+              firstName
+              lastName
+              phoneNumber
+              preferredLanguage
+              avatar
+              creationDate
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            lastUpdatedDate
+            deleted
+            _version
+            _deleted
+            _lastChangedAt
+          }
+          nextToken
+          total
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (sort) {
+      gqlAPIServiceArguments.sort = sort;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <SearchProductsQuery>response.data.searchProducts;
   }
   OnCreateDescriptorListener: Observable<
     OnCreateDescriptorSubscription
