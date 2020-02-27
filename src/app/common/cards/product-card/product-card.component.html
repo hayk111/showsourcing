@@ -32,7 +32,7 @@
 			<!-- price - moq -->
 			<span class="price-container ellipsis">
 				<ng-container *ngIf="product?.price">
-					<price-app [price]="product?.price"></price-app>
+					<price-app [price]="product?.price" type="primary" size="s"></price-app>
 				</ng-container>
 			</span>
 			<span *ngIf="product?.minimumOrderQuantity !== null"> 

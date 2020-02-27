@@ -13,7 +13,7 @@ export class PriceComponent {
 	@Input() moq: number;
 	@Input() color: string;
 	@Input() moqDesc: string;
-	@Input() type: 'default' | 'primary' = 'default';
+	@Input() type: 'default' | 'primary' | 'primary-bold' = 'default';
 
 	@Input() size: 's' | 'ms' | 'm' | 'l';
 
@@ -30,7 +30,7 @@ export class PriceComponent {
 			return 'var(--font-size-' + this.size + ')';
 		}
 
-		return this.type === 'primary' ? 'var(--font-size-l)' : 'var(--font-size-m)';
+		return this.type === 'primary-bold' ? 'var(--font-size-l)' : 'var(--font-size-m)';
 	}
 
 	get amount() {
