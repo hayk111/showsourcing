@@ -19,6 +19,8 @@ export class FilterService {
 	/** to know when filters are changing, using replay subject here because in the constructor we set the starting ones */
 	private _valueChanges$ = new ReplaySubject<FilterService>(1);
 	valueChanges$ = this._valueChanges$.asObservable();
+	/** default state */
+	startFilters: Filter[] = [];
 	/** the filters currently in the filter-list */
 	filters: Filter[] = [];
 	/** so we can check if a filter type has a specific value, filterList.valuesByType.has(id-10) */
@@ -26,15 +28,13 @@ export class FilterService {
 	/** so we can display the filters for a given type */
 	filtersByType: FiltersByType = new Map();
 	/** filter as a param form that can be used in a query */
-	queryArg: QueryArg;
+	queryArg: any;
 
-	constructor(
-		private startFilters: Filter[] = [],
-		searchedFields: string[]
-	) {
+	setup(startFilters: Filter[] = [], searchedFields?: string[]) {
 		// adding the start filters
-		this.setFilters(startFilters);
+		this.startFilters = startFilters;
 		this.converter = new FilterConverter(searchedFields);
+		this.setFilters(startFilters);
 	}
 
 	/** function that sets the filter of the filter list, also construct the different util object (by type, filter param) */
@@ -42,7 +42,7 @@ export class FilterService {
 		this.filters = filters;
 		this.valuesByType = this.converter.valuesByType(filters);
 		this.filtersByType = this.converter.filtersByType(filters);
-		this.queryArg = this.converter.filtersToQueryArg(this.filtersByType);
+		this.queryArg = this.converter.filtersToQueryArg(this.filtersByType, this.filters);
 		this._valueChanges$.next(this);
 	}
 

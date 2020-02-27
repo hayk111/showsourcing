@@ -11,6 +11,7 @@ export interface OrFilters {
 }
 export interface QueryArg {
 	and?: OrFilters[];
+	[x: string]: any;
 }
 
 /**
@@ -22,21 +23,16 @@ export class FilterConverter {
 
 	/** returns a new map of <type, <filter.value, filter>> */
 	valuesByType(filters: Filter[]): ValuesByType {
-		const copy = this.getInitialMap(Set);
-		filters.forEach(fltr => copy.get(fltr.type).add(fltr.value));
-		return copy;
+		const byTypeMap = new Map();
+		Object.values(FilterType).forEach(type => byTypeMap.set(type, new Set()));
+		filters.forEach(fltr => byTypeMap.get(fltr.type).add(fltr.value));
+		return byTypeMap;
 	}
 
 	filtersByType(filters: Filter[]): FiltersByType {
-		const copy = this.getInitialMap(Array);
-		filters.forEach(fltr => copy.get(fltr.type).add(fltr));
-		return copy;
-	}
-
-	/** return a new map of <type, new Map()> , so we have a map for each type*/
-	private getInitialMap(initalObject): Map<FilterType, any> {
 		const byTypeMap = new Map();
-		Object.values(FilterType).forEach(type => byTypeMap.set(type, new initalObject()));
+		Object.values(FilterType).forEach(type => byTypeMap.set(type, []));
+		filters.forEach(fltr => byTypeMap.get(fltr.type).push(fltr));
 		return byTypeMap;
 	}
 
@@ -53,19 +49,29 @@ export class FilterConverter {
 	 * 	}]
 	 * }
 	 */
-	filtersToQueryArg(byType: FiltersByType): QueryArg {
+	filtersToQueryArg(byType: FiltersByType, filters: Filter[]): any {
+
+		if (filters.length === 0)
+			return {};
+		if (filters.length === 1)
+			return this.getFieldCondition(filters[0]);
+
 		const and = [];
-		byType.forEach((filters, type) => {
+		byType.forEach((fForType, type) => {
 			// for each filter type we check if there is a filter present, if not we pass
-			if (filters.length === 0) return;
-			const or = filters.map(filter =>
+			if (fForType.length === 0)
+				return;
+			if (fForType.length === 1)
+				return this.getFieldCondition(fForType[0]);
+
+			const or = fForType.map(filter =>
 				this.getFieldCondition(filter)
 				// filter falsy
 			).filter(x => !!x);
 			and.push({ or });
 		});
 		// if there is no filter we can return an empty filter query arg
-		return and.length > 0 ? { and } : { };
+		return { and };
 	}
 
 	/** the way a Filter is translated into graphql changes with
