@@ -42,7 +42,7 @@ export class FilterService {
 		this.filters = filters;
 		this.valuesByType = this.converter.valuesByType(filters);
 		this.filtersByType = this.converter.filtersByType(filters);
-		this.queryArg = this.converter.filtersToQueryArg(this.filtersByType, this.filters);
+		this.queryArg = this.converter.filtersToQueryArg(filters);
 		this._valueChanges$.next(this);
 	}
 
@@ -83,6 +83,10 @@ export class FilterService {
 	/** check if we have any filter for a given FilterType */
 	hasFilterType(type: FilterType) {
 		return this.valuesByType.get(type).size > 0;
+	}
+
+	hasFilterValue(type: FilterType, value: any) {
+		return (this.valuesByType.get(type) || new Set()).has(value);
 	}
 
 	/** returns the number of added filter above the start filters */

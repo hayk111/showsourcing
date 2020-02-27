@@ -24,15 +24,21 @@ export class FilterConverter {
 	/** returns a new map of <type, <filter.value, filter>> */
 	valuesByType(filters: Filter[]): ValuesByType {
 		const byTypeMap = new Map();
-		Object.values(FilterType).forEach(type => byTypeMap.set(type, new Set()));
-		filters.forEach(fltr => byTypeMap.get(fltr.type).add(fltr.value));
+		filters.forEach(fltr => {
+			const map = byTypeMap.get(fltr.type) || new Set();
+			map.add(fltr.value);
+			byTypeMap.set(fltr.type, map);
+		});
 		return byTypeMap;
 	}
 
 	filtersByType(filters: Filter[]): FiltersByType {
 		const byTypeMap = new Map();
-		Object.values(FilterType).forEach(type => byTypeMap.set(type, []));
-		filters.forEach(fltr => byTypeMap.get(fltr.type).push(fltr));
+		filters.forEach(fltr => {
+			const array = byTypeMap.get(fltr.type) || [];
+			array.push(fltr);
+			byTypeMap.set(fltr.type, array);
+		});
 		return byTypeMap;
 	}
 
@@ -48,8 +54,10 @@ export class FilterConverter {
 	 * 		or: [{category: {id: {eq: z}}}]
 	 * 	}]
 	 * }
+	 *
+	 * Attention: the filters in an array are ordened with the order that is in FilterType
 	 */
-	filtersToQueryArg(byType: FiltersByType, filters: Filter[]): any {
+	filtersToQueryArg(filters: Filter[]): any {
 
 		if (filters.length === 0)
 			return {};
@@ -57,21 +65,18 @@ export class FilterConverter {
 			return this.getFieldCondition(filters[0]);
 
 		const and = [];
-		byType.forEach((fForType, type) => {
-			// for each filter type we check if there is a filter present, if not we pass
-			if (fForType.length === 0)
-				return;
-			if (fForType.length === 1)
-				return this.getFieldCondition(fForType[0]);
+		const byType = this.filtersByType(filters);
+		byType.forEach((filtersForType) => {
+			if (filtersForType.length === 1)
+				return and.push(this.getFieldCondition(filtersForType[0]));
 
-			const or = fForType.map(filter =>
-				this.getFieldCondition(filter)
+			const or = filtersForType.map(filter => this.getFieldCondition(filter))
 				// filter falsy
-			).filter(x => !!x);
+				.filter(x => !!x);
 			and.push({ or });
 		});
 		// if there is no filter we can return an empty filter query arg
-		return { and };
+		return and.length > 1 ? { and } : and[0];
 	}
 
 	/** the way a Filter is translated into graphql changes with
@@ -93,6 +98,9 @@ export class FilterConverter {
 	/** add the search string to the filter predicate to get the complete search query params */
 	private getSearchArg(value: string) {
 		const searchArg = { or: []};
+		if (this.searchedFields.length === 1) {
+			return { [this.searchedFields[0]]: { match: value } };
+		}
 		this.searchedFields.forEach(searchedField => {
 			searchArg.or.push({ [searchedField]: { match: value } });
 		});
