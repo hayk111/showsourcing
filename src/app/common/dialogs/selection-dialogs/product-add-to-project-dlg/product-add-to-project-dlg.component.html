@@ -14,7 +14,7 @@
 			[hasMenu]="false"
 			[hasPagination]="false"
 			[navigation]="false"
-			[selection]="listSrv.selection$ | async"
+			[selection]="selectionSrv.selection$ | async"
 			[rows]="listSrv.items$ | async"
 			[pending]="listSrv.pending"
 			[count]="listSrv.count$ | async"
@@ -30,11 +30,11 @@
 		</projects-table-app>
 	
 		<filters-app
-			*ngIf="listSrv.filterPanelOpen"
-			[filterList]="listSrv.filterList"
+			*ngIf="viewSrv.filterPanelOpen"
+			[filterList]="filterSrv.filterList"
 			[filterTypes]="filterTypes"
 			[sidePanel]="false"
-			(close)="listSrv.closeFilterPanel()">
+			(close)="viewSrv.closeFilterPanel()">
 		</filters-app>
 		
 	</div>

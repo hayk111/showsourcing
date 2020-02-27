@@ -57,32 +57,32 @@
 <list-management-table-app
 	class="spacing-ms"
 	[rows]="listSrv.items$ | async"
-	[selection]="listSrv.selection$ | async"
+	[selection]="selectionSrv.selection$ | async"
 	[pending]="listSrv.pending"
-	[isFiltering]="listSrv.isFiltering"
-	[entityMetadata]="listSrv.entityMetadata"
+	[isFiltering]="filterSrv.isFiltering"
+	[entityMetadata]="viewSrv.entityMetadata"
 	[count]="listSrv.count$ | async"
 	[currentPage]="listSrv.currentPage"
 	(goToPage)="listSrv.loadPage($event)"
 	(sort)="listSrv.sort($event)"
 	(delete)="listSrv.deleteOne($event, true)"
-	(select)="listSrv.selectOne($event, false)"
-	(unselect)="listSrv.unselectOne($event, false)"
-	(selectAll)="listSrv.selectAll($event, false)"
+	(select)="selectionSrv.selectOne($event, false)"
+	(unselect)="selectionSrv.unselectOne($event, false)"
+	(selectAll)="selectionSrv.selectAll($event, false)"
 	(showItemsPerPage)="showItemsPerPage($event)"
-	(unselectAll)="listSrv.unselectAll()"
+	(unselectAll)="selectionSrv.unselectAll()"
 	(renameEntity)="listSrv.update($event)">
 </list-management-table-app>
 
 <selection-bar-app
-	*ngIf="(listSrv.selection$ | async) as selection"
-	[entityMetadata]="listSrv.entityMetadata"
+	*ngIf="(selectionSrv.selection$ | async) as selection"
+	[entityMetadata]="viewSrv.entityMetadata"
 	[isShown]="selection.size > 0"
 	[selection]="selection"
 	[selectableItems]="listSrv.items$ | async"
-	(close)="listSrv.unselectAll()"
-	(selectAll)="listSrv.selectAll($event)"
-	(unselectAll)="listSrv.unselectAll()">
+	(close)="selectionSrv.unselectAll()"
+	(selectAll)="selectionSrv.selectAll($event)"
+	(unselectAll)="selectionSrv.unselectAll()">
 
 	<div class="flex elements-container">
 		<!-- Merge -->

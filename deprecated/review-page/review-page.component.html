@@ -14,24 +14,24 @@
   [rows]="listSrv.items$ | async"
   [pending]="listSrv.pending"
   [currentSort]="listSrv.currentSort"
-  [selection]="listSrv.selection$ | async"
-  (previewClick)="listSrv.openPreview($event)"
+  [selection]="selectionSrv.selection$ | async"
+  (previewClick)="viewSrv.openPreview($event)"
   (update)="listSrv.update($event)"
-  (select)="listSrv.selectOne($event, true)"
-  (unselect)="listSrv.unselectOne($event, true)"
+  (select)="selectionSrv.selectOne($event, true)"
+  (unselect)="selectionSrv.unselectOne($event, true)"
   (favorited)="listSrv.onItemFavorited($event)"
   (unfavorited)="listSrv.onItemUnfavorited($event)"
   (sendToWorkflow)="onSentToWorkflow($event)"
   (delete)="listSrv.deleteOne($event)"
   (archive)="onArchive($event)"
   (statusUpdated)="onStatusUpdated($event)"
-	(open)="listSrv.goToDetails($event)">
+	(open)="viewSrv.goToDetails($event)">
 </products-review-grid-view-app>
 
 <selection-bar-app
-  [isShown]="(listSrv.selection$ | async).size > 0"
-  [selection]="listSrv.selection$ | async"
-  (close)="listSrv.unselectAll()">
+  [isShown]="(selectionSrv.selection$ | async).size > 0"
+  [selection]="selectionSrv.selection$ | async"
+  (close)="selectionSrv.unselectAll()">
 
   <action-bar-app
     [favorite]="listSrv.allSelectedFavorite"
@@ -65,8 +65,8 @@
 </selection-bar-app>
 
 <product-preview-app
-  *ngIf="listSrv.previewOpen"
-  [product]="listSrv.previewed"
-  (close)="listSrv.closePreview()">
+  *ngIf="viewSrv.previewOpen"
+  [product]="viewSrv.previewed"
+  (close)="viewSrv.closePreview()">
 </product-preview-app>
 

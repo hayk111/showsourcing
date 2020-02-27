@@ -3,14 +3,14 @@
 	[switchContent]="['list', 'kanban']"
 	[hasFilter]="true"
 	[filtersAmount]="getFilterAmount()"
-	[searchValue]="listSrv.searchValue"
-	(showFilters)="listSrv.openFilterPanel()"
+	[searchValue]="filterSrv.searchValue"
+	(showFilters)="viewSrv.openFilterPanel()"
 	(search)="listSrv.search($event)"
 	(viewChange)="goToKanban()">
 	<controller-list-left-item-app>
 		<div class="flex show-my-samples">
 			<checkbox-app
-				[checked]="listSrv.filterList.hasFilterType(filterType.ASSIGNEE)"
+				[checked]="filterSrv.filterList.hasFilterType(filterType.ASSIGNEE)"
 				(check)="toggleMySamples(true)"
 				(uncheck)="toggleMySamples(false)">
 			</checkbox-app>
@@ -25,17 +25,17 @@
 </controller-list-app>
 
 <samples-table-app
-	[selection]="listSrv.selection$ | async"
+	[selection]="selectionSrv.selection$ | async"
 	[rows]="listSrv.items$ | async"
 	[pending]="listSrv.pending"
 	[count]="listSrv.count$ | async"
 	[currentPage]="listSrv.currentPage"
 	(goToPage)="listSrv.loadPage($event)"
-	(previewClick)="listSrv.openPreview($event)"
-	(select)="listSrv.selectOne($event)"
-	(unselect)="listSrv.unselectOne($event)"
-	(selectAll)="listSrv.selectAll($event)"
-	(unselectAll)="listSrv.unselectAll()"
+	(previewClick)="viewSrv.openPreview($event)"
+	(select)="selectionSrv.selectOne($event)"
+	(unselect)="selectionSrv.unselectOne($event)"
+	(selectAll)="selectionSrv.selectAll($event)"
+	(unselectAll)="selectionSrv.unselectAll()"
 	(sort)="listSrv.sort($event)"
 	(delete)="listSrv.deleteOne($event)"
 	(openProduct)="openProduct($event)"
@@ -43,9 +43,9 @@
 </samples-table-app>
 
 <selection-bar-app
-	[isShown]="(listSrv.selection$ | async)?.size > 0"
-	[selection]="listSrv.selection$ | async"
-	(close)="listSrv.unselectAll()">
+	[isShown]="(selectionSrv.selection$ | async)?.size > 0"
+	[selection]="selectionSrv.selection$ | async"
+	(close)="selectionSrv.unselectAll()">
 	<div class="flex">
 		<status-selector-app
 			toolTip [toolTipMessage]="'message.change-status' | translate" toolTipPosition="above-right"
@@ -64,14 +64,14 @@
 </selection-bar-app>
 
 <filters-app
-	*ngIf="listSrv.filterPanelOpen"
-	[filterList]="listSrv.filterList"
+	*ngIf="viewSrv.filterPanelOpen"
+	[filterList]="filterSrv.filterList"
 	[filterTypes]="filterTypes"
-	(clickOutside)="listSrv.closeFilterPanel()">
+	(clickOutside)="viewSrv.closeFilterPanel()">
 </filters-app>
 
 <sample-preview-app
-	*ngIf="listSrv.previewOpen"
-	[sample]="listSrv.previewed"
-	(close)="listSrv.closePreview()">
+	*ngIf="viewSrv.previewOpen"
+	[sample]="viewSrv.previewed"
+	(close)="viewSrv.closePreview()">
 </sample-preview-app>

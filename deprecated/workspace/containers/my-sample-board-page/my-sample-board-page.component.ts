@@ -1,40 +1,46 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { combineLatest } from 'rxjs';
-import { filter, first, map, startWith, switchMap, takeUntil, tap } from 'rxjs/operators';
-import { CreationDialogComponent, CreationSampleDlgComponent } from '~common/modals';
+import {
+	filter,
+	first,
+	map,
+	startWith,
+	switchMap,
+	takeUntil,
+	tap
+} from 'rxjs/operators';
+import { CreationSampleDlgComponent } from '~common/modals';
 import { Client } from '~core/apollo/services/apollo-client-names.const';
-import { SampleService, SampleStatusService, UserService } from '~core/entity-services';
+import {
+	SampleService,
+	SampleStatusService,
+	UserService
+} from '~core/entity-services';
 import { ListPageService } from '~core/list-page';
+import { SelectionService } from '~core/list-page/selection.service.ts';
 import { ERM, Sample, SampleStatus } from '~core/models';
 import { NEW_STATUS_ID } from '~core/models/status.model';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { FilterList, FilterType } from '~shared/filters';
+import { FilterService } from '~shared/filters/services/filter.service';
 import { KanbanColumn, KanbanDropEvent } from '~shared/kanban/interfaces';
 import { KanbanService } from '~shared/kanban/services/kanban.service';
 import { AutoUnsub } from '~utils/auto-unsub.component';
-import { TranslateService } from '@ngx-translate/core';
-
 
 @Component({
 	selector: 'my-sample-board-page-app',
 	templateUrl: './my-sample-board-page.component.html',
 	styleUrls: ['./my-sample-board-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [
-		KanbanService,
-		ListPageService
-	]
+	providers: [KanbanService, ListPageService, FilterService, SelectionService]
 })
 export class MySampleBoardPageComponent extends AutoUnsub implements OnInit {
 	columns$ = this.kanbanSrv.columns$;
 	filterType = FilterType;
-	filterTypes = [
-		FilterType.SUPPLIER,
-		FilterType.PRODUCT,
-		FilterType.ASSIGNEE
-	];
+	filterTypes = [FilterType.SUPPLIER, FilterType.PRODUCT, FilterType.ASSIGNEE];
 	erm = ERM;
 	statuses: SampleStatus[];
 	amountLoaded = 15;
@@ -48,23 +54,29 @@ export class MySampleBoardPageComponent extends AutoUnsub implements OnInit {
 		private route: ActivatedRoute,
 		private dlgSrv: DialogService,
 		private userSrv: UserService,
-		private translate: TranslateService
-	) { super(); }
+		private translate: TranslateService,
+		private filterSrv: FilterService,
+		private selectionSrv: SelectionService
+	) {
+		super();
+	}
 
 	ngOnInit() {
+		this.listSrv.setup(
+			{
+				entityMetadata: ERM.SAMPLE,
+				entitySrv: this.sampleSrv,
+				searchedFields: ['name', 'reference'],
+				initialFilters: [
+					{ type: FilterType.ASSIGNEE, value: this.userSrv.userSync.id },
+					{ type: FilterType.DELETED, value: false }
+				],
+				selectParams: { query: 'deleted == false' }
+			},
+			false
+		);
 
-		this.listSrv.setup({
-			entityMetadata: ERM.SAMPLE,
-			entitySrv: this.sampleSrv,
-			searchedFields: ['name', 'reference'],
-			initialFilters: [
-				{ type: FilterType.ASSIGNEE, value: this.userSrv.userSync.id },
-				{ type: FilterType.DELETED, value: false }
-			],
-			selectParams: { query: 'deleted == false' }
-		}, false);
-
-		const filters$ = this.listSrv.filterList.valueChanges$.pipe(
+		const filters$ = this.filterSrv.filterList.valueChanges$.pipe(
 			takeUntil(this._destroy$),
 			startWith(new FilterList([{ type: FilterType.DELETED, value: false }]))
 		);
@@ -74,77 +86,89 @@ export class MySampleBoardPageComponent extends AutoUnsub implements OnInit {
 				query: 'category != "refused" AND category != "inspiration"',
 				sortBy: 'step',
 				descending: false
-			}).pipe(
+			})
+			.pipe(
 				first(),
-				map(statuses => [{ id: NEW_STATUS_ID, name: 'New Sample', category: 'new' }, ...statuses]),
-				tap(statuses => this.statuses = statuses),
-				tap(statuses => this.kanbanSrv.setColumnsFromStatus(statuses)),
+				map(statuses => [
+					{ id: NEW_STATUS_ID, name: 'New Sample', category: 'new' },
+					...statuses
+				]),
+				tap(statuses => (this.statuses = statuses)),
+				tap(statuses => this.kanbanSrv.setColumnsFromStatus(statuses))
 			);
 
-		combineLatest(
-			filters$,
-			statuses$,
-			(filters, statuses) => this.getSamples(statuses, filters))
-			.subscribe();
+		combineLatest(filters$, statuses$, (filters, statuses) =>
+			this.getSamples(statuses, filters)
+		).subscribe();
 	}
 
 	private getSamples(statuses: SampleStatus[], filterList: FilterList) {
 		const predicate = filterList.asPredicate();
 		statuses.forEach(status => {
 			// for sample with null status
-			const statusQuery = status.id !== NEW_STATUS_ID ? `status.id == "${status.id}"` : `status == null`;
-			const query = [
-				predicate,
-				statusQuery
-			].join(' && ');
-			this.sampleSrv.queryMany({ query, take: this.amountLoaded, sortBy: 'lastUpdatedDate' })
+			const statusQuery =
+				status.id !== NEW_STATUS_ID
+					? `status.id == "${status.id}"`
+					: `status == null`;
+			const query = [predicate, statusQuery].join(' && ');
+			this.sampleSrv
+				.queryMany({
+					query,
+					take: this.amountLoaded,
+					sortBy: 'lastUpdatedDate'
+				})
 				.pipe(first())
 				.subscribe(samples => this.kanbanSrv.setData(samples, status.id));
-			this.sampleSrv.queryCount(query).pipe(first())
+			this.sampleSrv
+				.queryCount(query)
+				.pipe(first())
 				.subscribe(total => this.kanbanSrv.setTotal(total, status.id));
 		});
 	}
 
 	loadMore(col: KanbanColumn) {
-		const statusQuery = col.id !== NEW_STATUS_ID ? `status.id == "${col.id}"` : `status == null`;
-		const predicate = this.listSrv.filterList.asPredicate();
-		const query = [
-			predicate,
-			statusQuery
-		].filter(x => x !== '').join(' && ');
+		const statusQuery =
+			col.id !== NEW_STATUS_ID ? `status.id == "${col.id}"` : `status == null`;
+		const predicate = this.filterSrv.filterList.asPredicate();
+		const query = [predicate, statusQuery].filter(x => x !== '').join(' && ');
 
-		this.sampleSrv.queryMany({
-			query: query,
-			take: col.data.length + this.amountLoaded,
-			sortBy: 'lastUpdatedDate'
-		}).pipe(
-			first()
-		).subscribe(samples => this.kanbanSrv.setData(samples, col.id));
+		this.sampleSrv
+			.queryMany({
+				query: query,
+				take: col.data.length + this.amountLoaded,
+				sortBy: 'lastUpdatedDate'
+			})
+			.pipe(first())
+			.subscribe(samples => this.kanbanSrv.setData(samples, col.id));
 	}
 
 	onColumnSelected(samples: Sample[]) {
-		samples.forEach(sample => this.listSrv.selectOne(sample));
+		samples.forEach(sample => this.selectionSrv.selectOne(sample));
 	}
 
 	onColumnUnselected(samples: Sample[]) {
-		samples.forEach(sample => this.listSrv.unselectOne(sample));
+		samples.forEach(sample => this.selectionSrv.unselectOne(sample));
 	}
 
 	toggleMySamples(show: boolean) {
-		const filterAssignee = { type: FilterType.ASSIGNEE, value: this.userSrv.userSync.id };
-		if (show)
-			this.listSrv.addFilter(filterAssignee);
-		else
-			this.listSrv.removeFilter(filterAssignee);
+		const filterAssignee = {
+			type: FilterType.ASSIGNEE,
+			value: this.userSrv.userSync.id
+		};
+		if (show) this.filterSrv.addFilter(filterAssignee);
+		else this.filterSrv.removeFilter(filterAssignee);
 	}
 
 	openCreateDlg() {
-		this.dlgSrv.open(CreationSampleDlgComponent).pipe(
-			filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
-			map((evt: CloseEvent) => evt.data)
-		).subscribe(({ sample }) => {
-			this.kanbanSrv.addItems([sample], NEW_STATUS_ID);
-		});
+		this.dlgSrv
+			.open(CreationSampleDlgComponent)
+			.pipe(
+				filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
+				map((evt: CloseEvent) => evt.data)
+			)
+			.subscribe(({ sample }) => {
+				this.kanbanSrv.addItems([sample], NEW_STATUS_ID);
+			});
 	}
 
 	updateSampleStatus(event: KanbanDropEvent) {
@@ -154,14 +178,16 @@ export class MySampleBoardPageComponent extends AutoUnsub implements OnInit {
 		}
 		// we update on the server
 		const isNewStatus = event.to.id === NEW_STATUS_ID;
-		this.sampleSrv.update(
-			{
-				id: event.item.id,
-				status: isNewStatus ? null : new SampleStatus({ id: event.to.id })
-			},
-			Client.TEAM,
-			isNewStatus ? 'status { id }' : ''
-		).subscribe();
+		this.sampleSrv
+			.update(
+				{
+					id: event.item.id,
+					status: isNewStatus ? null : new SampleStatus({ id: event.to.id })
+				},
+				Client.TEAM,
+				isNewStatus ? 'status { id }' : ''
+			)
+			.subscribe();
 	}
 
 	/** multiple */
@@ -171,15 +197,15 @@ export class MySampleBoardPageComponent extends AutoUnsub implements OnInit {
 			id,
 			status: isNewStatus ? null : new SampleStatus({ id: event.to.id })
 		}));
-		this.sampleSrv.updateMany(
-			samples,
-			Client.TEAM,
-			isNewStatus ? 'status { id }' : ''
-		).subscribe();
+		this.sampleSrv
+			.updateMany(samples, Client.TEAM, isNewStatus ? 'status { id }' : '')
+			.subscribe();
 	}
 
 	onMultipleStatusUpdated(status: SampleStatus) {
-		const values = this.listSrv.getSelectedIds().map(id => ({ id, status }));
+		const values = this.selectionSrv
+			.getSelectedIds()
+			.map(id => ({ id, status }));
 		this.kanbanSrv.onExternalStatusChange(values);
 		this.sampleSrv.updateMany(values).subscribe();
 	}
@@ -189,22 +215,27 @@ export class MySampleBoardPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	get selection() {
-		return this.listSrv.selection;
+		return this.selectionSrv.selection;
 	}
 
 	deleteSelected() {
-		const itemIds = this.listSrv.getSelectedIds();
+		const itemIds = this.selectionSrv.getSelectedIds();
 		const del = this.translate.instant('button.delete');
-		const smpl = itemIds.length <= 1 ? this.translate.instant('label.sample') : this.translate.instant('label.samples');
+		const smpl =
+			itemIds.length <= 1
+				? this.translate.instant('label.sample')
+				: this.translate.instant('label.samples');
 		const text = `${del} ${itemIds.length} ${smpl}`;
 
-
-		this.dlgSrv.open(ConfirmDialogComponent, { text }).pipe(
-			filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
-			switchMap(_ => this.listSrv.dataSrv.deleteMany(itemIds)),
-		).subscribe(_ => {
-			this.listSrv.selectionSrv.unselectAll();
-			this.kanbanSrv.deleteItems(itemIds);
-		});
+		this.dlgSrv
+			.open(ConfirmDialogComponent, { text })
+			.pipe(
+				filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
+				switchMap(_ => this.listSrv.dataSrv.deleteMany(itemIds))
+			)
+			.subscribe(_ => {
+				this.selectionSrv.unselectAll();
+				this.kanbanSrv.deleteItems(itemIds);
+			});
 	}
 }

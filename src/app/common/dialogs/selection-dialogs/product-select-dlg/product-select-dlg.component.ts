@@ -1,13 +1,24 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	Input,
+	OnInit
+} from '@angular/core';
 import { ProductDialogService } from '~common/dialogs/services/product-dialog.service';
 import { ProductsTableComponent } from '~common/tables/products-table/products-table.component';
-import { ProductService, UserService } from '~core/erm';
-import { SelectParamsConfig } from '~core/erm';
-import { ListPageService } from '~core/list-page';
-import { DEFAULT_TAKE_PAGINATION } from '~core/erm';
-import { ERM, Product, Project } from '~core/erm';
+import {
+	DEFAULT_TAKE_PAGINATION,
+	ERM,
+	Product,
+	ProductService,
+	Project,
+	SelectParamsConfig,
+	UserService
+} from '~core/erm';
+import { ListPageService, SelectionService } from '~core/list-page';
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
+import { FilterService } from '~shared/filters/services/filter.service';
 import { ToastService, ToastType } from '~shared/toast';
 import { AutoUnsub } from '~utils';
 
@@ -16,11 +27,10 @@ import { AutoUnsub } from '~utils';
 	templateUrl: './product-select-dlg.component.html',
 	styleUrls: ['./product-select-dlg.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [ListPageService],
+	providers: [ListPageService, FilterService, SelectionService],
 	host: { class: 'table-dialog' }
 })
 export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
-
 	@Input() initialSelectedProducts: Product[];
 	@Input() project: Project;
 	@Input() submitProducts = true;
@@ -41,7 +51,7 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 		FilterType.EVENT,
 		FilterType.TAGS,
 		FilterType.PRODUCT_STATUS,
-		FilterType.FAVORITE,
+		FilterType.FAVORITE
 	];
 
 	private unselectedProducts: { [key: string]: Product } = {};
@@ -57,6 +67,8 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 		private productDlgSrv: ProductDialogService,
 		private toastSrv: ToastService,
 		public listSrv: ListPageService<Product, ProductService>,
+		private filterSrv: FilterService,
+		private selectionSrv: SelectionService
 	) {
 		super();
 	}
@@ -65,8 +77,16 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 		this.listSrv.setup({
 			entitySrv: this.productSrv,
 			searchedFields: ['name', 'supplier.name', 'category.name'],
-			selectParams: { sortBy: 'category.name', descending: true, take: this.selectedAllCount, query: 'deleted == false' },
-			initialFilters: [{ type: FilterType.ARCHIVED, value: false }, { type: FilterType.DELETED, value: false }],
+			selectParams: {
+				sortBy: 'category.name',
+				descending: true,
+				take: this.selectedAllCount,
+				query: 'deleted == false'
+			},
+			initialFilters: [
+				{ type: FilterType.ARCHIVED, value: false },
+				{ type: FilterType.DELETED, value: false }
+			],
 			entityMetadata: ERM.PRODUCT,
 			originComponentDestroy$: this._destroy$
 		});
@@ -95,37 +115,42 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 	}
 
 	private initialSelection() {
-		if (this.initialSelectedProducts && this.initialSelectedProducts.length > 0) {
+		if (
+			this.initialSelectedProducts &&
+			this.initialSelectedProducts.length > 0
+		) {
 			this.selectedProductsCount = this.initialSelectedProducts.length;
 
-			this.listSrv.selectAll(this.initialSelectedProducts.map(product => {
-				this.selectedProducts[product.id] = product;
+			this.selectionSrv.selectAll(
+				this.initialSelectedProducts.map(product => {
+					this.selectedProducts[product.id] = product;
 
-				return ({ id: product.id });
-			}));
+					return { id: product.id };
+				})
+			);
 		}
 	}
 
 	hasSelectedProducts() {
-		return (Array.from(this.listSrv.selectionSrv.selection.values()).length > 0);
+		return Array.from(this.selectionSrv.selection.values()).length > 0;
 	}
 
 	onItemSelected(entity: any) {
 		this.selectedProducts[entity.id] = entity;
 		delete this.unselectedProducts[entity.id];
-		this.listSrv.selectionSrv.selectOne(entity);
+		this.selectionSrv.selectOne(entity);
 		this.selectedProductsCount++;
 	}
 
 	onItemUnselected(entity: any) {
 		this.unselectedProducts[entity.id] = entity;
 		delete this.selectedProducts[entity.id];
-		this.listSrv.selectionSrv.unselectOne(entity);
+		this.selectionSrv.unselectOne(entity);
 		this.selectedProductsCount--;
 	}
 
 	onSelectAll(entities: any[]) {
-		this.listSrv.selectAll(entities);
+		this.selectionSrv.selectAll(entities);
 
 		entities.forEach(entity => {
 			this.selectedProducts[entity.id] = entity;
@@ -137,7 +162,7 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 	}
 
 	onUnselectAll() {
-		this.listSrv.unselectAll();
+		this.selectionSrv.unselectAll();
 
 		this.unselectedProducts = Object.assign({}, this.selectedProducts);
 		this.selectedProducts = {};
@@ -154,7 +179,8 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 		const unselectedProducts = Object.values(this.unselectedProducts);
 		const data = { selectedProducts, unselectedProducts };
 
-		this.productDlgSrv.addProductsToProject(this.project, selectedProducts)
+		this.productDlgSrv
+			.addProductsToProject(this.project, selectedProducts)
 			.subscribe(_ => {
 				this.dlgSrv.close({
 					type: CloseEventType.OK,
@@ -174,24 +200,25 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 	}
 
 	toggleMySamples(show: boolean) {
-		const filterAssignee = { type: FilterType.ASSIGNEE, value: this.userSrv.userSync.id };
-		if (show)
-			this.listSrv.addFilter(filterAssignee);
-		else
-			this.listSrv.removeFilter(filterAssignee);
+		const filterAssignee = {
+			type: FilterType.ASSIGNEE,
+			value: this.userSrv.userSync.id
+		};
+		if (show) this.filterSrv.addFilter(filterAssignee);
+		else this.filterSrv.removeFilter(filterAssignee);
 	}
 
 	toggleMyProducts(show: boolean) {
-		const filterProduct = { type: FilterType.CREATED_BY, value: this.userSrv.userSync.id };
-		if (show)
-			this.listSrv.addFilter(filterProduct);
-		else
-			this.listSrv.removeFilter(filterProduct);
+		const filterProduct = {
+			type: FilterType.CREATED_BY,
+			value: this.userSrv.userSync.id
+		};
+		if (show) this.filterSrv.addFilter(filterProduct);
+		else this.filterSrv.removeFilter(filterProduct);
 	}
 
 	showItemsPerPage(count: number) {
 		this.selectItemsConfig = { take: Number(count) };
 		this.listSrv.refetch(this.selectItemsConfig).subscribe();
 	}
-
 }

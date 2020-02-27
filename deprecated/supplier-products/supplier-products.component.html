@@ -14,15 +14,15 @@
 						[ngClass]="{'no-left-margin': i % 3 == 0, 'margin-bottom-card': (i !== maxItemsDisplay - 1) && (i % 3 == 2)}"
 						[hasCheckbox]="false"
 						[product]="product"
-						[selected]="(listSrv.selection$ | async)?.has(product?.id)"
+						[selected]="(selectionSrv.selection$ | async)?.has(product?.id)"
 						(favorited)="listSrv.onItemFavorited(product?.id)"
 						(unfavorited)="listSrv.onItemUnfavorited(product?.id)"
-						(liked)="listSrv.onThumbUp(product)"
+						(liked)="ratingSrv.onThumbUp(product)"
 						(disliked)="listSrv.onThumbDown(product)"
-						(open)="listSrv.goToDetails(product.id)"
-						(preview)="listSrv.openPreview(product)"
-						(select)="listSrv.selectOne(product, true)"
-						(unselect)="listSrv.unselectOne(product, true)"
+						(open)="viewSrv.goToDetails(product.id)"
+						(preview)="viewSrv.openPreview(product)"
+						(select)="selectionSrv.selectOne(product, true)"
+						(unselect)="selectionSrv.unselectOne(product, true)"
 						(update)="listSrv.update($event)">
 					</product-grid-card-app>
 				</ng-container>
@@ -48,8 +48,8 @@
 </card-app>
 
 <product-preview-app
-	*ngIf="listSrv.previewOpen"
-	[product]="listSrv.previewed"
+	*ngIf="viewSrv.previewOpen"
+	[product]="viewSrv.previewed"
 	(updated)="previewUpdated()"
-	(close)="listSrv.closePreview()">
+	(close)="viewSrv.closePreview()">
 </product-preview-app>

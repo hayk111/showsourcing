@@ -1,24 +1,29 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { EventService, TeamService, CompanyService } from '~core/erm';
-import { SelectParamsConfig } from '~core/erm';
-import { SelectionService } from '~core/list-page';
-import { ListPageService } from '~core/list-page';
-import { ERM, Event } from '~core/erm';
+import {
+	CompanyService,
+	ERM,
+	Event,
+	EventService,
+	SelectParamsConfig,
+	TeamService
+} from '~core/erm';
+import { ListPageService, SelectionService } from '~core/list-page';
+import { ListPageViewService } from '~core/list-page/list-page-view.service';
 import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'event-data-page-app',
 	templateUrl: '../shared/list-management-template.html',
-	styleUrls: ['./event-data-page.component.scss', '../shared/list-management-styles.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [
-		ListPageService,
-		SelectionService
+	styleUrls: [
+		'./event-data-page.component.scss',
+		'../shared/list-management-styles.scss'
 	],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	providers: [ListPageService, SelectionService, ListPageViewService],
 	host: {
 		class: 'table-page'
-	},
+	}
 })
 export class EventDataPageComponent extends AutoUnsub implements OnInit {
 	erm = ERM.EVENT;
@@ -34,7 +39,9 @@ export class EventDataPageComponent extends AutoUnsub implements OnInit {
 		public teamSrv: TeamService,
 		public companySrv: CompanyService,
 		public dialogCommonSrv: DialogCommonService,
-		public selectionSrv: SelectionService) {
+		public selectionSrv: SelectionService,
+		private viewSrv: ListPageViewService<Event>
+	) {
 		super();
 	}
 
@@ -42,16 +49,20 @@ export class EventDataPageComponent extends AutoUnsub implements OnInit {
 		this.listSrv.setup({
 			entitySrv: this.eventSrv,
 			searchedFields: ['description.name'],
-			selectParams: { sortBy: 'description.name', descending: false, query: 'deleted == false' },
+			selectParams: {
+				sortBy: 'description.name',
+				descending: false,
+				query: 'deleted == false'
+			},
 			entityMetadata: ERM.EVENT,
 			originComponentDestroy$: this._destroy$
 		});
 	}
 
 	mergeSelected() {
-		const events = this.listSrv.getSelectedValues();
+		const events = this.selectionSrv.getSelectedValues();
 		this.dialogCommonSrv.openMergeDialog({
-			type: this.listSrv.entityMetadata,
+			type: this.viewSrv.entityMetadata,
 			entities: events
 		});
 	}
@@ -60,5 +71,4 @@ export class EventDataPageComponent extends AutoUnsub implements OnInit {
 		this.selectItemsConfig = { take: Number(count) };
 		this.listSrv.refetch(this.selectItemsConfig).subscribe();
 	}
-
 }
