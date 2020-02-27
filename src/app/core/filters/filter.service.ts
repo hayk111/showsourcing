@@ -85,4 +85,14 @@ export class FilterService {
 		return this.valuesByType.get(type).size > 0;
 	}
 
+	/** returns the number of added filter above the start filters */
+	getFilterAmount() {
+		return this.filters
+			.filter(
+				fil => !this.startFilters.some(
+						startFil => startFil.type === fil.type && startFil.value === fil.value
+					)
+			).length;
+	}
+
 }
