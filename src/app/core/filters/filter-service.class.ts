@@ -1,19 +1,23 @@
 import { ReplaySubject } from 'rxjs';
-import { FilterConverter } from './filter-converter.class';
+import { FilterConverter, ValuesByType, FiltersByType, QueryArg } from './filter-converter.class';
 import { FilterType } from './filter-type.enum';
 import { Filter } from './filter.class';
-
-/** so we can check if a filter type has a specific value, filterList.valuesByType.get(FilterType.SUPPLIER).has(id-10) */
-export type ValuesByType = Map<FilterType, Set<any>>;
-/** so we can display the filters for a given type */
-export type FiltersByType = Map<FilterType, Filter[]>;
+import { Injectable } from '@angular/core';
 
 
-export class FilterList {
+/**
+ * This class basically contains a Array<Filter> and then the same array of filters under different data structure.
+ * filter by type, filterValue by type, and the queryArg which is the filter version that can be used by an api.
+ *
+ * The function set filter builds all those data types everytime it's called with an array of filters.
+ * A converter helper class has the conversion mechanism.
+ */
+@Injectable({ providedIn: 'root'})
+export class FilterService {
 	/** helper */
 	private converter: FilterConverter;
 	/** to know when filters are changing, using replay subject here because in the constructor we set the starting ones */
-	private _valueChanges$ = new ReplaySubject<FilterList>(1);
+	private _valueChanges$ = new ReplaySubject<FilterService>(1);
 	valueChanges$ = this._valueChanges$.asObservable();
 	/** the filters currently in the filter-list */
 	filters: Filter[] = [];
@@ -21,17 +25,16 @@ export class FilterList {
 	valuesByType: ValuesByType = new Map();
 	/** so we can display the filters for a given type */
 	filtersByType: FiltersByType = new Map();
-	/** the search string currently in the filter list */
-	search: string;
 	/** filter as a param form that can be used in a query */
-	queryArg: any;
+	queryArg: QueryArg;
 
 	constructor(
-		private startFilters: Filter[] = []
+		private startFilters: Filter[] = [],
+		searchedFields: string[]
 	) {
 		// adding the start filters
 		this.setFilters(startFilters);
-		this.converter = new FilterConverter(searchedfields);
+		this.converter = new FilterConverter(searchedFields);
 	}
 
 	/** function that sets the filter of the filter list, also construct the different util object (by type, filter param) */
@@ -39,12 +42,7 @@ export class FilterList {
 		this.filters = filters;
 		this.valuesByType = this.converter.valuesByType(filters);
 		this.filtersByType = this.converter.filtersByType(filters);
-		this.queryArg = this.converter.filtersToQueryArg(this.byType);
-		this.emit();
-	}
-
-	/** emits a new value */
-	private emit() {
+		this.queryArg = this.converter.filtersToQueryArg(this.filtersByType);
 		this._valueChanges$.next(this);
 	}
 

@@ -1,14 +1,24 @@
 import { Filter } from './filter.class';
 import { FilterType } from './filter-type.enum';
-import { ValuesByType, FiltersByType } from './filter-list.class';
 
+/** so we can check if a filter type has a specific value, filterList.valuesByType.get(FilterType.SUPPLIER).has(id-10) */
+export type ValuesByType = Map<FilterType, Set<any>>;
+/** so we can display the filters for a given type */
+export type FiltersByType = Map<FilterType, Filter[]>;
+
+export interface OrFilters {
+	or: any[];
+}
+export interface QueryArg {
+	and?: OrFilters[];
+}
 
 /**
  * Helper class to help with filter convertion
  */
 export class FilterConverter {
 
-	constructor(private searchedFields = []) {}
+	constructor(private searchedFields = ['name']) {}
 
 	/** returns a new map of <type, <filter.value, filter>> */
 	valuesByType(filters: Filter[]): ValuesByType {
@@ -43,18 +53,19 @@ export class FilterConverter {
 	 * 	}]
 	 * }
 	 */
-	filtersToQueryArg(byType: FiltersByType) {
+	filtersToQueryArg(byType: FiltersByType): QueryArg {
 		const and = [];
 		byType.forEach((filters, type) => {
 			// for each filter type we check if there is a filter present, if not we pass
 			if (filters.length === 0) return;
 			const or = filters.map(filter =>
 				this.getFieldCondition(filter)
-			);
+				// filter falsy
+			).filter(x => !!x);
 			and.push({ or });
 		});
-		// if (and.length === 0) and.push({ or: [] });
-		return { and };
+		// if there is no filter we can return an empty filter query arg
+		return and.length > 0 ? { and } : { };
 	}
 
 	/** the way a Filter is translated into graphql changes with
@@ -65,30 +76,22 @@ export class FilterConverter {
 		switch (type) {
 			case FilterType.ARCHIVED:
 			case FilterType.FAVORITE:
-					return { [type]: value };
+				return { [type]: value };
 			case FilterType.SEARCH:
-
+				return this.getSearchArg(value);
 			default:
 				return { [type]: { id: { [eq]: value } } };
 		}
 	}
 
 	/** add the search string to the filter predicate to get the complete search query params */
-	private searchToPredicate(filterPredicate) {
-		const searchPredicate = [];
-		if (this.search) {
-			this.searchedFields.forEach(searchedField => {
-				searchPredicate.push({ [searchedField]: { match: this.search } });
-			});
-			filterPredicate.and.push({ or: searchPredicate });
-		} else if (!filterPredicate.and.length) {
-			filterPredicate.and.push({ or: searchPredicate });
-		}
-		return filterPredicate;
+	private getSearchArg(value: string) {
+		const searchArg = { or: []};
+		this.searchedFields.forEach(searchedField => {
+			searchArg.or.push({ [searchedField]: { match: value } });
+		});
+		return searchArg;
 	}
-
-
-
 
 }
 
