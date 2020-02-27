@@ -856,6 +856,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 			// transforming fields of entity into gql update obj
 			.map(key => this.patchProp(key, a));
 		return patchedParts.join(' ');
+
 	}
 
 	patchProp(key, obj) {

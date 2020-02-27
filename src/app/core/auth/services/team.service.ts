@@ -1,14 +1,11 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
-import { filter, first, map, shareReplay, switchMap, tap } from 'rxjs/operators';
-import { AuthenticationService } from '~core/auth/services/authentication.service';
-import { Team } from '~core/erm/models';
-import { TeamQueries } from '~core/erm/services/team/team.queries';
-import { GlobalService } from '~core/erm2/global.service-2';
+import { filter, first, map, shareReplay, switchMap } from 'rxjs/operators';
+import { AuthenticationService } from './authentication.service';
+import { EntityName, Team } from '~core/erm/models';
+import { ApiService } from '~core/erm3/services/api.service';
 import { LocalStorageService } from '~core/local-storage';
-import { CompanyService } from '../company/company.service';
-import { customQueries } from './team.custom-queries';
+import { CompanyService } from './company.service';
 
 
 
@@ -20,9 +17,10 @@ const SELECTED_TEAM = 'selected-team';
  * retrieving the current selected team.
  */
 @Injectable({ providedIn: 'root' })
-export class TeamService extends GlobalService<Team> {
+export class TeamService {
 
-
+	private queryAll = this.apiSrv.queryAll(EntityName.TEAM);
+	hasTeam$ = this.queryAll.data$.pipe(map(teams => teams.length > 0));
 	/** event the team selected at the moment of the selection */
 	private _teamSelectionEvent$ = new ReplaySubject<Team>(1);
 	teamSelectionEvent$ = this._teamSelectionEvent$.asObservable().pipe(
@@ -34,7 +32,7 @@ export class TeamService extends GlobalService<Team> {
 		// since
 		filter(team => !!team),
 		// yes we already have the team but we need a subscription :)
-		switchMap(team => this.queryOne(team.id)),
+		switchMap(team => this.apiSrv.queryOne(EntityName.TEAM, team.id)),
 		shareReplay(1)
 	);
 
@@ -49,11 +47,8 @@ export class TeamService extends GlobalService<Team> {
 		protected storage: LocalStorageService,
 		protected authSrv: AuthenticationService,
 		protected companySrv: CompanyService,
-		private http: HttpClient,
-	) {
-		super(TeamQueries, 'team', customQueries);
-		super.useTeamId = false;
-	}
+		protected apiSrv: ApiService
+	) {	}
 
 	init() {
 		// putting a sync version of team
@@ -61,7 +56,8 @@ export class TeamService extends GlobalService<Team> {
 			.subscribe(team => {
 				this.selectedTeamSync = team;
 				TeamService.selectedTeamSync = team;
-				// GlobalService.teamId = team.id;
+				if (team)
+					this.apiSrv.teamId = team.id;
 			});
 		// restoring the previously selected team
 		this.restoreSelectedTeam();
@@ -71,11 +67,12 @@ export class TeamService extends GlobalService<Team> {
 
 	/** creates a team and waits for it to be valid */
 	create(team: Team): Observable<any> {
-		return super.create({ companyId: this.companySrv.companySync.id, ...team, });
+		return this.apiSrv.create(EntityName.TEAM, { companyId: this.companySrv.companySync.id, ...team })
+			.pipe(switchMap(_ => this.queryAll.refetch()));
 	}
 
 	update(team: Team) {
-		return this.http.patch<Team>(`api/team/${team.id}`, team);
+		return this.apiSrv.update(EntityName.TEAM, { companyId: this.companySrv.companySync.id, ...team });
 	}
 
 	/** picks a team, puts the selection in local storage */
@@ -91,7 +88,6 @@ export class TeamService extends GlobalService<Team> {
 	selectTeam() {
 		return this.teamSelected$;
 	}
-
 
 	restoreSelectedTeam() {
 		const selectedTeam: Team = this.storage.getItem(SELECTED_TEAM);

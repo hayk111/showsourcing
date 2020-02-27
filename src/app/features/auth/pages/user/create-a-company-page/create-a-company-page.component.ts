@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
-import { CompanyService } from '~core/erm';
+import { CompanyService } from '~core/auth';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 
 @Component({

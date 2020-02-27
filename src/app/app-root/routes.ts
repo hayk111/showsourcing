@@ -11,25 +11,25 @@ export const routes: Array<Route> = [
 		component: GuestTemplateComponent,
 		loadChildren: 'app/features/auth/auth-feature.module#AuthFeatureModule'
 	},
-	{
-		path: 'error',
-		component: GuestTemplateComponent,
-		loadChildren: 'app/features/error/error-feature.module#ErrorFeatureModule'
-	},
-	{
-		path: 'invitation',
-		component: GuestTemplateComponent,
-		canActivateChild: [InvitationGuard],
-		loadChildren: 'app/features/invitation/invitation-feature.module#InvitationFeatureModule',
-	},
-	{
-		path: 'dev',
-		component: TemplateComponent,
-		canLoad: [DevModeGuard],
-		canActivate: [DevModeGuard],
-		canActivateChild: [DevModeGuard],
-		loadChildren: 'app/features/dev/dev-feature.module#DevFeatureModule'
-	},
+	// {
+	// 	path: 'error',
+	// 	component: GuestTemplateComponent,
+	// 	loadChildren: 'app/features/error/error-feature.module#ErrorFeatureModule'
+	// },
+	// {
+	// 	path: 'invitation',
+	// 	component: GuestTemplateComponent,
+	// 	canActivateChild: [InvitationGuard],
+	// 	loadChildren: 'app/features/invitation/invitation-feature.module#InvitationFeatureModule',
+	// },
+	// {
+	// 	path: 'dev',
+	// 	component: TemplateComponent,
+	// 	canLoad: [DevModeGuard],
+	// 	canActivate: [DevModeGuard],
+	// 	canActivateChild: [DevModeGuard],
+	// 	loadChildren: 'app/features/dev/dev-feature.module#DevFeatureModule'
+	// },
 	{
 		path: '',
 		component: TemplateComponent,
@@ -38,11 +38,11 @@ export const routes: Array<Route> = [
 			HasTeamSelectedGuard
 		],
 		children: [
-			{ path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-			{
-				path: 'dashboard',
-				loadChildren: 'app/features/dashboard/dashboard-feature.module#DashboardFeatureModule'
-			},
+			{ path: '', redirectTo: 'products', pathMatch: 'full' },
+	// 		{
+	// 			path: 'dashboard',
+	// 			loadChildren: 'app/features/dashboard/dashboard-feature.module#DashboardFeatureModule'
+	// 		},
 			// {
 			// 	path: 'projects',
 			// 	loadChildren: 'app/features/projects/projects-feature.module#ProjectsFeatureModule'

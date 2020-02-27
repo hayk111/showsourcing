@@ -1,17 +1,16 @@
-import { CanActivate, CanActivateChild, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { Location } from '@angular/common';
-import { Observable } from 'rxjs';
-import { CompanyService } from '~core/erm';
-import { LogColor, log } from '~utils';
-import { tap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot } from '@angular/router';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { CompanyService } from '~core/auth/services/company.service';
+import { log, LogColor } from '~utils';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class HasCompanySelectGuard implements CanActivate, CanActivateChild {
 
-	constructor(private companySrv: CompanyService, private location: Location, private router: Router) { }
+	constructor(private companySrv: CompanyService, private router: Router) { }
 
 	canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
 		return this.canActivate(route, state);

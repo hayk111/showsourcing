@@ -8,8 +8,8 @@ import { CustomQueries, QueryBuilder } from '~core/erm/services/_global/query-bu
 import { SelectAllParamsConfig } from '~core/erm/services/_global/select-all-params';
 import { SelectParamsConfig, SelectParams } from '~core/erm/services/_global/select-params-2.class';
 import { log, LogColor } from '~utils';
-import { client } from './client';
 
+declare const client: any;
 
 
 /**
@@ -264,7 +264,7 @@ export abstract class GlobalService<T extends Entity> {
 		const queryName = this.queryBuilder.getQueryName(query);
 		const variables = new SelectParams(paramsConfig);
 
-		const queryRef = client.watchQuery<T>({ query, variables});
+		const queryRef = client.watchQuery({ query, variables});
 		let nextToken: string;
 
 
@@ -375,7 +375,7 @@ export abstract class GlobalService<T extends Entity> {
 		this.log(title, query, queryName);
 		return from(client.watchQuery({ query, variables })).pipe(
 			// extracting the result
-			map((r) => r.data[queryName].items),
+			map((r: any) => r.data[queryName].items),
 			tap(data => this.logResult(title, queryName, data)),
 			catchError(data => {
 				data.errors.forEach(e => log.error(e));
@@ -506,7 +506,6 @@ export abstract class GlobalService<T extends Entity> {
 	create(entity: T): Observable<T> {
 		const title = 'Create one ' + this.typeName;
 		const fields = this.patch(entity);
-		debugger;
 		const mutation = this.queryBuilder.create(fields);
 		const variables = { input: entity };
 		const queryName = this.queryBuilder.getQueryName(mutation);
@@ -516,7 +515,7 @@ export abstract class GlobalService<T extends Entity> {
 		return from(client.mutate({ mutation, variables }))
 		.pipe(
 			// extracting the result
-			map((r) => r.data[queryName]),
+			map((r: any) => r.data[queryName]),
 			tap(data => this.logResult(title, queryName, data)),
 			catchError(data => {
 				data.errors.forEach(e => log.error(e));
