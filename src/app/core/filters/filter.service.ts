@@ -30,10 +30,11 @@ export class FilterService {
 	startFilters: Filter[] = [];
 	/** the filters currently in the filter-list */
 	filters: Filter[] = [];
+	/** @TODO make those fields private */
 	/** so we can check if a filter type has a specific value, filterList.valuesByType.has(id-10) */
-	valuesByType: ValuesByType = new Map();
+	private valuesByType: ValuesByType = new Map();
 	/** so we can display the filters for a given type */
-	filtersByType: FiltersByType = new Map();
+	private filtersByType: FiltersByType = new Map();
 	/** filter as a param form that can be used in a query */
 	queryArg: any;
 
@@ -89,6 +90,10 @@ export class FilterService {
 
 	hasFilterValue(type: FilterType, value: any) {
 		return (this.valuesByType.get(type) || new Set()).has(value);
+	}
+
+	getFiltersForType(type: FilterType): Filter[] {
+		return this.filtersByType.get(type);
 	}
 
 	/** returns the number of added filter above the start filters */

@@ -1,13 +1,10 @@
-import { FilterService } from './filter.service';
 import { TestBed } from '@angular/core/testing';
-import { FilterType } from './filter-type.enum';
-import { FilterConverter } from './filter-converter.class';
 import { skip } from 'rxjs/operators';
-import { Scheduler } from 'rxjs';
+import { FilterType } from './filter-type.enum';
+import { FilterService } from './filter.service';
 
 describe('Filter Service', () => {
 	let filterSrv: FilterService;
-	const converter = new FilterConverter;
 	const startFilters = [
 		{ type: FilterType.SUPPLIER, value: 'id-supplier-1' },
 		{ type: FilterType.CATEGORY, value: 'id-category-1' },
@@ -31,13 +28,24 @@ describe('Filter Service', () => {
 		expect(filterSrv).toBeTruthy();
 	});
 
-	it('should set data structures when calling setFilters', () => {
+	it('should set the filters', () => {
 		filterSrv.setFilters(testFilters);
 		expect(filterSrv.filters).toEqual(testFilters);
-		expect(filterSrv.queryArg).toEqual(converter.filtersToQueryArg(testFilters));
-		expect(filterSrv.filtersByType).toEqual(converter.filtersByType(testFilters));
-		expect(filterSrv.valuesByType).toEqual(converter.valuesByType(testFilters));
 	});
+
+	it('should return whether the service has a specific filter value for a given type', () => {
+		filterSrv.setFilters(startFilters);
+		expect(filterSrv.hasFilterValue(startFilters[0].type, startFilters[0].value)).toEqual(true);
+		expect(filterSrv.hasFilterValue(FilterType.SUPPLIER, 'id-not-in-filters')).toEqual(false);
+		expect(filterSrv.hasFilterValue(FilterType.TAG, 'id-tag-0')).toEqual(false);
+	});
+
+	it('should get the filters for a specific type', () => {
+		filterSrv.setup(startFilters);
+		expect(filterSrv.getFiltersForType(FilterType.SUPPLIER))
+			.toEqual(startFilters.filter(fltr => fltr.type === FilterType.SUPPLIER));
+	});
+
 
 	it('should be able to add a filter', () => {
 		filterSrv.addFilter(testFilters[0]);
@@ -88,13 +96,5 @@ describe('Filter Service', () => {
 		expect(filterSrv.hasFilterType(FilterType.SUPPLIER)).toEqual(true);
 		expect(filterSrv.hasFilterType(FilterType.TAG)).toEqual(false);
 	});
-
-	it('should return whether the service has a specific filter value for a given type', () => {
-		expect(filterSrv.hasFilterValue(startFilters[0].type, startFilters[0].value)).toEqual(true);
-		expect(filterSrv.hasFilterValue(FilterType.SUPPLIER, 'id-not-in-filters')).toEqual(false);
-		expect(filterSrv.hasFilterValue(FilterType.TAG, 'id-tag-0')).toEqual(false);
-	});
-
-
 
 });
