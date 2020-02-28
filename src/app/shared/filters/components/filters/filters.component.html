@@ -13,7 +13,7 @@
 	</div>
   <filter-btn-list-app
     [filterTypes]="filterTypes"
-    [filterMap]="filterList.asByType()"
+    [filterMap]="filterSrv.valuesByType"
     (filterAdded)="addFilter($event)"
     (filterRemoved)="removeFilter($event)"
     (editClicked)="openEditPanel($event)"
@@ -35,7 +35,7 @@
 	<filter-selection-entity-panel-app
 		*ngIf="view === 'SELECTION'"
     [type]="typeSelected"
-    [selected]="filterList.asByType().get(typeSelected)"
+    [selected]="filterSrv.valuesByType.get(typeSelected)"
     (filterAdded)="addFilter($event)"
     (filterRemoved)="removeFilter($event)">
   </filter-selection-entity-panel-app>
@@ -52,7 +52,7 @@
 	</div>
 	<filter-btn-list-app
 		[filterTypes]="filterTypes"
-		[filterMap]="filterList.asByType()"
+		[filterMap]="filterSrv.valuesByType"
 		(filterAdded)="addFilter($event)"
 		(filterRemoved)="removeFilter($event)"
 		(editClicked)="openEditPanel($event)"
@@ -74,7 +74,7 @@
 	<filter-selection-entity-panel-app
 		*ngIf="view === 'SELECTION'"
 		[type]="typeSelected"
-		[selected]="filterList.asByType().get(typeSelected)"
+		[selected]="filterSrv.valuesByType.get(typeSelected)"
 		(filterAdded)="addFilter($event)"
 		(filterRemoved)="removeFilter($event)">
 	</filter-selection-entity-panel-app>

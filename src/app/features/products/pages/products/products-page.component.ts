@@ -13,8 +13,7 @@ import {
 import { ListPageService, SelectionService } from '~core/list-page';
 import { ListPageViewService } from '~core/list-page/list-page-view.service';
 import { DialogService } from '~shared/dialog';
-import { FilterType } from '~shared/filters';
-import { FilterService } from '~shared/filters/services/filter.service';
+import { FilterService, FilterType } from '~core/filters';
 import { KanbanSelectionService } from '~shared/kanban/services/kanban-selection.service';
 import { KanbanService } from '~shared/kanban/services/kanban.service';
 import { AutoUnsub } from '~utils';
@@ -88,25 +87,21 @@ export class ProductsPageComponent extends AutoUnsub
 	}
 	ngOnInit() {
 		this.items$ = this.productSrv.queryAll();
-		this.listSrv.setup(
-			{
-				entitySrv: this.productSrv,
-				searchedFields: [
-					'name',
-					'supplier.name',
-					'category.name',
-					'description'
-				],
-				// we use the deleted filter there so we can send the query to export all to the export dlg
-				initialFilters: [
-					{ type: FilterType.ARCHIVED, value: false },
-					{ type: FilterType.DELETED, value: false }
-				],
-				entityMetadata: ERM.PRODUCT,
-				originComponentDestroy$: this._destroy$
-			},
-			false
-		);
+		this.filterSrv.setup([
+			{ type: FilterType.ARCHIVED, value: false },
+			{ type: FilterType.DELETED, value: false }
+		], [
+			'name',
+			'supplier.name',
+			'category.name',
+			'description'
+		]);
+
+		this.listSrv.setup({
+			entitySrv: this.productSrv,
+			entityMetadata: ERM.PRODUCT,
+			originComponentDestroy$: this._destroy$
+		}, false);
 
 		// this.productSrv.productListUpdate$.pipe(
 		// 	switchMap(_ => this.listSrv.refetch())

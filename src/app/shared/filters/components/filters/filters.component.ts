@@ -1,5 +1,5 @@
 import { Component,  HostBinding, Input, EventEmitter, Output } from '@angular/core';
-import { Filter, FilterType, FilterList } from '~shared/filters/models';
+import { FilterService, Filter, FilterType } from '~core/filters';
 
 @Component({
 	selector: 'filters-app',
@@ -8,10 +8,11 @@ import { Filter, FilterType, FilterList } from '~shared/filters/models';
 })
 export class FiltersComponent {
 	view: 'BTNS' | 'SELECTION' = 'BTNS';
-	@Input() filterList: FilterList;
 	@Input() filterTypes = [];
 	@Input() sidePanel = true;
 	typeSelected: FilterType;
+
+	constructor(public filterSrv: FilterService) {}
 
 	@Output() close = new EventEmitter<undefined>();
 
@@ -25,18 +26,18 @@ export class FiltersComponent {
 	}
 
 	addFilter(filter: Filter) {
-		this.filterList.addFilter(filter);
+		this.filterSrv.addFilter(filter);
 	}
 
 	removeFilter(filter: Filter) {
-		this.filterList.removeFilter(filter);
+		this.filterSrv.removeFilter(filter);
 	}
 
 	resetAll() {
-		this.filterList.reset();
+		this.filterSrv.reset();
 	}
 
 	resetType(type: FilterType) {
-		this.filterList.removeFilterType(type);
+		this.filterSrv.removeFilterType(type);
 	}
 }

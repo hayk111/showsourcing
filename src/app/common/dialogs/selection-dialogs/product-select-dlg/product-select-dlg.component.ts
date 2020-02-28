@@ -16,9 +16,8 @@ import {
 	UserService
 } from '~core/erm';
 import { ListPageService, SelectionService } from '~core/list-page';
+import { FilterService, FilterType } from '~core/filters';
 import { CloseEventType, DialogService } from '~shared/dialog';
-import { FilterType } from '~shared/filters';
-import { FilterService } from '~shared/filters/services/filter.service';
 import { ToastService, ToastType } from '~shared/toast';
 import { AutoUnsub } from '~utils';
 
@@ -74,19 +73,19 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
+		this.filterSrv.setup([
+			{ type: FilterType.ARCHIVED, value: false },
+			{ type: FilterType.DELETED, value: false }
+		], ['name', 'supplier.name', 'category.name']);
+
 		this.listSrv.setup({
 			entitySrv: this.productSrv,
-			searchedFields: ['name', 'supplier.name', 'category.name'],
 			selectParams: {
 				sortBy: 'category.name',
 				descending: true,
 				take: this.selectedAllCount,
 				query: 'deleted == false'
 			},
-			initialFilters: [
-				{ type: FilterType.ARCHIVED, value: false },
-				{ type: FilterType.DELETED, value: false }
-			],
 			entityMetadata: ERM.PRODUCT,
 			originComponentDestroy$: this._destroy$
 		});
