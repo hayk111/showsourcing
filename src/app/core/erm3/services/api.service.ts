@@ -211,7 +211,6 @@ export class ApiService implements ApiServiceInterface {
 		);
 		const variables = { input: entity };
 
-		this.addOptimisticResponse(options, queryName, entity);
 		this.log(title, query, queryName, body, variables);
 
 		return from(client.mutate({ mutation: query, variables, ...options })).pipe(
