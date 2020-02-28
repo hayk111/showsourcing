@@ -11,6 +11,13 @@ import { Injectable } from '@angular/core';
  *
  * The function set filter builds all those data types everytime it's called with an array of filters.
  * A converter helper class has the conversion mechanism.
+ *
+ * 4 main data strctures:
+ * - filters: an array of filters to display all filters
+ * - valuesByType  Map<FilterType, Set<any>>; where any is the filter values,
+ *   to know easily if a filter value has already been added (for example when displaying check boxes next to all filter options
+ * - filtersByType = Map<FilterType, Filter[]>; to display all filters under a specific filterType (in the main filter panel)
+ * - queryArg: any which gives you the filter query arg that can be used with the API
  */
 @Injectable({ providedIn: 'root'})
 export class FilterService {
