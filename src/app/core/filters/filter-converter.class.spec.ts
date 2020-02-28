@@ -61,7 +61,7 @@ describe('Filter Converter', () => {
 		});
 	});
 
-	it('should return and or when multiple of the same type', () => {
+	it('should return or when multiple of the same type', () => {
 		const filters = [
 			{ type: FilterType.CATEGORY, value: 'id-category-0' },
 			{ type: FilterType.CATEGORY, value: 'id-category-1' },
