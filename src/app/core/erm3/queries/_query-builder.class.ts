@@ -3,10 +3,11 @@ import { DocumentNode } from 'graphql';
 
 /** Audit found on every entity */
 const AUDIT = `
-	_lastChangedAt
-	_deleted
-	_version
 `;
+	// _lastChangedAt
+	// _deleted
+	// _version
+
 /**
  * Helper to create GraphQL queries that are valid for the realm GraphQL service
  * it will create queries given fields.

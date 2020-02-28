@@ -9,17 +9,19 @@ import { TestBed, fakeAsync } from '@angular/core/testing';
 import { EntityName, EntityNameType } from '~core/erm/entity-name.enum';
 import { RouterModule } from '@angular/router';
 import { AmplifyService } from 'aws-amplify-angular';
-import { AuthenticationService } from '~core/auth';
+import { AuthenticationService, TeamService } from '~core/auth';
 import { QueryPool } from '../queries/query-pool.class';
 import { APP_BASE_HREF } from '@angular/common';
 import { Category } from '~core/erm/models';
-import { take, first } from 'rxjs/operators';
+import { take, first, publishReplay } from 'rxjs/operators';
 import * as mocks from '~core/erm3/queries/mocks';
 import { MajorTickOptions } from 'chart.js';
 
 fdescribe('ApiService', () => {
 	let apiSrv: ApiService;
 	let authSrv: AuthenticationService;
+
+	let userId: any;
 
 	beforeAll(async () => {
 		TestBed.configureTestingModule({
@@ -33,14 +35,17 @@ fdescribe('ApiService', () => {
 		});
 		apiSrv = TestBed.get(ApiService);
 		authSrv = TestBed.get(AuthenticationService);
-		await authSrv.signIn({
+		authSrv.signIn$.subscribe(username => {
+			userId = username;
+		});
+		authSrv.signIn({
 			username: 'cedric@showsourcing.com',
 			password: 'Test1234'
 		});
 	});
 
 	/** ======== */
-	/** QueryAll */
+	/** queryAll */
 	/** ======== */
 
 	const expectQuerySomething = done => ({
@@ -68,7 +73,7 @@ fdescribe('ApiService', () => {
 	];
 	// test queryAll (not custom) for all entities in the QueryPool.map
 	notCustomEntities.forEach(entity => {
-		xit(`should query something with queryAll for "${entity}"`, done => {
+		it(`should query something with queryAll for "${entity}"`, done => {
 			apiSrv
 				.queryAll(entity as EntityNameType)
 				.data$.pipe(first())
@@ -88,57 +93,90 @@ fdescribe('ApiService', () => {
 	/** CREATE ENTITIES */
 	/** =============== */
 
-	// run dependant tests
-
-	// create company
 	const createCompany = () => {
 		return apiSrv.create('company', mocks.companyMock).toPromise();
 	};
 
-	// create team
-	const createTeam = companyId => {
+	const createTeam = async (companyId?: string) => {
+		if (!companyId) {
+			companyId = (await createCompany()).id;
+		}
 		const team = { ...mocks.teamMock, companyId };
 		return apiSrv.create('team', team).toPromise();
 	};
 
-	// create product
+	const createCategory = async (teamId?: string) => {
+		if (!teamId) {
+			teamId = (await createTeam()).id;
+		}
+		const category = {
+			...mocks.categoryMock,
+			teamId,
+			createdByUserId: userId,
+			lastUpdatedByUserId: userId,
+		};
+		return apiSrv.create('category', category).toPromise();
+	};
+
+	const createContact = teamId => {
+		const contact = { ...mocks.contactMock, teamId };
+		return apiSrv.create('contact', contact).toPromise();
+	};
+
+	const createDescriptor = async (teamId?: string) => {
+		if (!teamId) {
+			teamId = (await createTeam()).id;
+		}
+		const descriptor = { ...mocks.descriptorMock, teamId };
+		return apiSrv.create('descriptor', descriptor).toPromise();
+	};
+
+	const createImage = teamId => {
+		const image = { ...mocks.imageMock, teamId };
+		return apiSrv.create('image', image).toPromise();
+	};
+
 	const createProduct = teamId => {
 		const product = { ...mocks.productMock, teamId };
 		return apiSrv.create('product', product).toPromise();
 	};
 
-	// create category
-	const createCategory = teamId => {
-		const product = { ...mocks.productMock, teamId };
-		return apiSrv.create('product', product).toPromise();
-	};
-		// create team
-	const createContact = teamId => {
-		const contact = { ...mocks.contactMock, teamId };
-		return apiSrv.create('team', contact).toPromise();
-	};
-		// create team
-	const createDescriptor = teamId => {
-		const descriptor = { ...mocks.descriptorMock, teamId };
-		return apiSrv.create('team', descriptor).toPromise();
-	};
-		// create team
-	const createImage = teamId => {
-		const image = { ...mocks.imageMock, teamId };
-		return apiSrv.create('team', image).toPromise();
-	};
-		// create team
 	const createSupplier = teamId => {
 		const supplier = { ...mocks.supplierMock, teamId };
-		return apiSrv.create('team', supplier).toPromise();
+		return apiSrv.create('supplier', supplier).toPromise();
 	};
-			// create team
+
 	const createTask = teamId => {
 		const task = { ...mocks.taskMock, teamId };
-		return apiSrv.create('team', task).toPromise();
+		return apiSrv.create('task', task).toPromise();
 	};
 
+	it('should create a company', async () => {
+		const company = await createCompany();
+		expect(company.id).toBeTruthy();
+	});
 
+	it('should create a category', async done => {
+		const category = await createCategory();
+		expect(category.id).toBeTruthy();
+		done();
+	});
+	it('should create a contact');
+	it('should create a descriptor', async done => {
+		const descriptor = await createDescriptor();
+		expect(descriptor.id).toBeTruthy();
+		done();
+	});
+	it('should create an image');
+	it('should create a product');
+	it('should create a supplier');
+	it('should create a task');
+	it('should create a team', async done => {
+		const team: any = await createTeam();
+		expect(team.id).toBeTruthy();
+		done();
+	});
+	it('should create a user');
 
 	/** =============== */
 	/** DELETE ENTITIES */
@@ -162,42 +200,32 @@ fdescribe('ApiService', () => {
 		// return apiSrv.delete('company', company)
 	};
 
-	it('should create a company', done => {
-		createCompany()
-			.then(d => {
-				expect(d.id).toBeTruthy();
-				done();
-				// deleteCompany(d.id);
-			})
-			.catch(err => {
-				fail(err);
-				done();
-			});
-	});
+	/** ============= */
+	/** queryOne ENTITY */
+	/** ============= */
 
-	fit('should create a team', async done => {
+	it('should query one company', async done => {
 		const company = await createCompany();
-		try {
-			const team = await createTeam(company.id);
-			expect(team.id).toBeTruthy();
-		} catch (err) {
-			fail(err);
-		}
-		done();
+		apiSrv.queryOne<any>('company', company.id).data$.subscribe(d => {
+			expect(company.name).toBe(d.name);
+			done();
+		});
 	});
 
-	// test Category
-	xit('should create a category and get it', done => {
-		const category = new Category({ name: 'test category' }); // the model have to change
-		apiSrv.create(EntityName.CATEGORY, category).subscribe(
-			d => {
-				expect(d).toBeTruthy();
-				done();
-			},
-			err => {
-				fail(err);
-				done();
-			}
-		);
-	});
+	// it('should query one category', async done => {
+	// 	const category = await createCategory();
+	// 	apiSrv.queryOne<any>('category', category.id).data$.subscribe(d => {
+	// 		expect(category.name).toBe(d.name);
+	// 		done();
+	// 	});
+	// });
+
+	// ? not in API
+	// it('should query one team', async done => {
+	// 	const team = await createTeam();
+	// 	apiSrv.queryOne<any>('team', team.id).data$.subscribe(d => {
+	// 		expect(team.name).toBe(d.name);
+	// 		done();
+	// 	});
+	// });
 });

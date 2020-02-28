@@ -467,7 +467,12 @@ export type DeleteDescriptorInput = {
 export type CreateCategoryInput = {
   id?: string | null;
   teamId: string;
+  // createdByUserId: 
   name: string;
+  // creationDate
+  // lastupdatedbyuserid
+  // lastUpdatedDate
+  // deleted
   creationDate: number;
   createdBy: UserInput;
   deletedBy?: UserInput | null;
