@@ -81,6 +81,8 @@ describe('Filter Service', () => {
 
 	it('should return whether the service has a specific filter value for a given type', () => {
 		expect(filterSrv.hasFilterValue(startFilters[0].type, startFilters[0].value)).toEqual(true);
+		expect(filterSrv.hasFilterValue(FilterType.SUPPLIER, 'id-not-in-filters')).toEqual(false);
+		expect(filterSrv.hasFilterValue(FilterType.TAG, 'id-tag-0')).toEqual(false);
 	});
 
 });
