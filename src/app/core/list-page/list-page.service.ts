@@ -197,8 +197,8 @@ export class ListPageService
 		this.dataSrv.sortFromMenu(fieldName).subscribe();
 	}
 
-	search(str: string) {
-		this.dataSrv.search(str);
+	search(str: string, fields?: Array<string>) {
+		this.dataSrv.search(str, fields);
 	}
 
 	updateSelected(value: any) {

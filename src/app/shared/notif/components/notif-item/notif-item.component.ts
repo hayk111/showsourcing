@@ -3,6 +3,7 @@ import { ProductService, SupplierService, TaskService, SampleService } from '~co
 import { GetStreamGroup, GetStreamActivity } from '~common/activity/interfaces/get-stream-feed.interfaces';
 import { NotificationActivityService } from '~shared/notif/services/notification-activity.service';
 import { TranslateService } from '@ngx-translate/core';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'notif-item-app',
@@ -14,6 +15,7 @@ export class NotifItemComponent implements OnInit {
 
 	@Input() activity: GetStreamGroup = null;
 	@Input() isRead: boolean;
+
 	firstActivity: GetStreamActivity;
 	activityMessage: string;
 	navigateRoute: string;
@@ -21,9 +23,12 @@ export class NotifItemComponent implements OnInit {
 	badgeColor: string;
 	targetId: string;
 	targetName: string;
+	commentId: string;
+
 	constructor(
 		private notifActivitySrv: NotificationActivityService,
-		public translate: TranslateService
+		public translate: TranslateService,
+		private router: Router,
 	) { }
 
 	ngOnInit() {
@@ -31,7 +36,7 @@ export class NotifItemComponent implements OnInit {
 	}
 
 	initialSetup() {
-		const { verb } = this.activity;
+		const { verb, group } = this.activity;
 		const [firstActivity] = this.activity.activities;
 		this.firstActivity = firstActivity;
 		const { target } = firstActivity;
@@ -39,9 +44,10 @@ export class NotifItemComponent implements OnInit {
 		switch (verb) {
 			case 'create_comment':
 				this.badgeType = 'comment';
+				this.commentId = this.getCommentIdShort(group);
 				this.activityMessage = this.actor_count > 1 ? 'OBJ.comment-on-target.plural' : 'OBJ.comment-on-target.singular';
 				this.targetId = firstActivity.target_id;
-				this.navigateRoute = `/${target}/${this.targetId}`;
+				this.navigateRoute = `/${target}s/${this.targetId}/activity`;
 				break;
 			case 'create_task':
 				this.badgeType = 'task';
@@ -99,7 +105,7 @@ export class NotifItemComponent implements OnInit {
 		event.stopPropagation();
 		this.notifActivitySrv.markAsRead(this.activity.id);
 		this.notifActivitySrv.closeNotificationPanel();
-		this.notifActivitySrv.redirect(this.navigateRoute);
+		this.router.navigate([this.navigateRoute, this.commentId && { comment: this.commentId }]);
 	}
 
 	get actorName() {
@@ -108,6 +114,14 @@ export class NotifItemComponent implements OnInit {
 
 	get actor_count(): number {
 		return this.activity.actor_count;
+	}
+
+	getCommentIdShort(group) {
+		const secondLineAppearance = group.indexOf('-', group.indexOf('-') + 1);
+		const secondUnderscoreAppearance = group.indexOf('-', group.indexOf('-') + 1);
+		const longId = group.substr(secondLineAppearance + 1, secondUnderscoreAppearance);
+
+		return longId.substr(0, longId.indexOf('-', longId.indexOf('-') + 1));
 	}
 
 }

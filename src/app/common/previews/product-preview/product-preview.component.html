@@ -100,7 +100,7 @@
 		<price-with-quantity-app
 			*ngIf="product?.price?.value"
 			[product]="product"
-			priceType="primary"
+			priceType="primary-bold"
 			(updateField)="update($event.newValue,  $event.field)">
 		</price-with-quantity-app>
 

@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { environment } from 'environments/environment';
 import * as getstream from 'getstream';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
@@ -24,8 +23,6 @@ export class NotificationActivityService {
 		private http: HttpClient,
 		private teamSrv: TeamService,
 		private userSrv: UserService,
-		private router: Router,
-
 	) {
 		this.limit = this.getInitialLimit();
 		this.client = getstream.connect(environment.getStreamKey, null, environment.getStreamAppID);
@@ -103,10 +100,6 @@ export class NotificationActivityService {
 
 	public getMarkAsReadNotifications(): Observable<{ allMarkedAsRead: boolean, notificationId?: string }> {
 		return this.shouldUpdateUnreadCount.asObservable();
-	}
-
-	redirect(route: string) {
-		this.router.navigate([route]);
 	}
 
 	public openNotificationPanel() {

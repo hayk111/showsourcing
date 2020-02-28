@@ -29,7 +29,7 @@ export class ControllerTableQuickActionsComponent implements OnInit {
 
 	onSortClick(column: ColumnConfig) {
 		const isCurrentSort = this.currentSort.sortBy === column.sortProperty;
-		const descending = isCurrentSort ? !this.currentSort.descending : true;
+		const descending = isCurrentSort ? !this.currentSort.descending : false;
 		this.listSrv.sort({ sortBy: column.sortProperty, descending });
 	}
 
