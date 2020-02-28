@@ -56,11 +56,6 @@ export class FilterService {
 		this.setFilters([...this.filters, added]);
 	}
 
-	/** adds multiple filters */
-	addFilters(added: Filter[]) {
-		this.setFilters([...this.filters, ...added]);
-	}
-
 	/** removes one filter */
 	removeFilter(removed: Filter) {
 		this.setFilters(

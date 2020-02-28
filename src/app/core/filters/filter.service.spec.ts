@@ -2,6 +2,8 @@ import { FilterService } from './filter.service';
 import { TestBed } from '@angular/core/testing';
 import { FilterType } from './filter-type.enum';
 import { FilterConverter } from './filter-converter.class';
+import { skip } from 'rxjs/operators';
+import { Scheduler } from 'rxjs';
 
 describe('Filter Service', () => {
 	let filterSrv: FilterService;
@@ -14,7 +16,6 @@ describe('Filter Service', () => {
 		{ type: FilterType.SUPPLIER, value: 'id-supplier-2' },
 		{ type: FilterType.CATEGORY, value: 'id-category-2' }
 	];
-	const concat = [...startFilters, ...testFilters ];
 
 	beforeEach(() => {
 		TestBed.configureTestingModule({
@@ -24,6 +25,7 @@ describe('Filter Service', () => {
 		filterSrv.setup(startFilters);
 		spyOn(filterSrv, 'setFilters').and.callThrough();
 	});
+
 
 	it('should be instanciated', () => {
 		expect(filterSrv).toBeTruthy();
@@ -42,12 +44,6 @@ describe('Filter Service', () => {
 		expect(filterSrv.setFilters).toHaveBeenCalledWith([...startFilters, testFilters[0] ]);
 	});
 
-
-	it('should add many filter ', () => {
-		filterSrv.addFilters(testFilters);
-		expect(filterSrv.setFilters).toHaveBeenCalledWith([...startFilters, ...testFilters]);
-	});
-
 	it('should remove filter', () => {
 		filterSrv.removeFilter(startFilters[0]);
 		expect(filterSrv.setFilters).toHaveBeenCalledWith([ ...startFilters.slice(1)]);
@@ -61,16 +57,30 @@ describe('Filter Service', () => {
 	});
 
 	it('should reset filters', () => {
-
-		filterSrv.addFilters(testFilters);
-		expect(filterSrv.setFilters).toHaveBeenCalledWith([...startFilters, ...testFilters]);
+		filterSrv.setFilters([...startFilters, ...testFilters]);
 		filterSrv.reset();
 		expect(filterSrv.setFilters).toHaveBeenCalledWith(startFilters);
+	});
 
+	it('should add search', () => {
+		const searchStr = 'test';
+		filterSrv.setSearch(searchStr);
+		expect(filterSrv.filters).toContain({ type: FilterType.SEARCH, value: searchStr });
+	});
+
+	it('should tell us when the value changes', (done) => {
+		filterSrv.valueChanges$.pipe(
+			// skip the replay
+			skip(1)
+		).subscribe(({ filters }) => {
+			expect(filters).toEqual([...startFilters, testFilters[0]]);
+			done();
+		});
+		filterSrv.addFilter(testFilters[0]);
 	});
 
 	it('should give the filter amount added after the start filters', () => {
-		filterSrv.addFilters(testFilters);
+		filterSrv.setFilters([...startFilters, ...testFilters]);
 		expect(filterSrv.getFilterAmount()).toEqual(testFilters.length);
 	});
 
@@ -84,5 +94,7 @@ describe('Filter Service', () => {
 		expect(filterSrv.hasFilterValue(FilterType.SUPPLIER, 'id-not-in-filters')).toEqual(false);
 		expect(filterSrv.hasFilterValue(FilterType.TAG, 'id-tag-0')).toEqual(false);
 	});
+
+
 
 });
