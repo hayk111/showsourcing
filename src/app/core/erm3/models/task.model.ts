@@ -1,8 +1,8 @@
-export const taskMock = {
-	id: undefined,
-	name: 'test apiService Task',
-	teamId: null
-};
+export class Task {
+	id: undefined;
+	name: 'test apiService Task';
+	teamId: null;
+}
 
 // export type CreateTaskInput = {
 // 	id?: string | null;
@@ -25,7 +25,7 @@ export const taskMock = {
 // 	_version?: number | null;
 // 	taskProductId?: string | null;
 // 	taskSupplierId?: string | null;
-	// TODO should change in the backend
+// TODO should change in the backend
 // 	creationDate: number;
 // 	createdBy: UserInput;
 // 	lastUpdatedDate: number;

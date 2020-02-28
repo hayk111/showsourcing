@@ -1,8 +1,8 @@
-export const imageMock = {
-	id: undefined,
-	name: 'test apiService Image',
-	teamId: null
-};
+export class Image {
+	id: undefined;
+	name: 'test apiService Image';
+	teamId: null;
+}
 
 // export type CreateImageInput = {
 //   id?: string | null;

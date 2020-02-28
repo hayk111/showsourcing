@@ -1,8 +1,8 @@
-export const supplierMock = {
-	id: undefined,
-	name: 'test apiService Supplier',
-	teamId: null
-};
+export class Supplier {
+	id: undefined;
+	name: 'test apiService Supplier';
+	teamId: null;
+}
 
 // export type CreateSupplierInput = {
 //   id?: string | null;

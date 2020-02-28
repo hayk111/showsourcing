@@ -1,8 +1,8 @@
-export const contactMock = {
-	id: undefined,
-	name: 'test apiService Contact',
-	teamId: null
-};
+export class Contact {
+	id: string;
+	name: 'test apiService Contact';
+	teamId: string;
+}
 
 // export type CreateContactInput = {
 //   id?: string | null;

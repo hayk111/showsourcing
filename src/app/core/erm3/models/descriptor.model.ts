@@ -1,9 +1,8 @@
-export const descriptorMock = {
-	id: undefined,
-	teamId: null,
-	target: 'test apiService Descriptor',
-};
-
+export class Descriptor {
+	id: string;
+	teamId: string;
+	target: 'test apiService Descriptor';
+}
 
 // export type CreateDescriptorInput = {
 //   id?: string | null;
