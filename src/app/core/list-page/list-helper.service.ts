@@ -4,23 +4,8 @@ import { ApiService, ObservableQuery } from '~core/erm3/services/api.service';
 import { FilterService } from '~core/filters/filter.service';
 import { switchMap, tap, map } from 'rxjs/operators';
 import { EntityName, Entity } from '~core/erm';
+import { forkJoin } from 'rxjs';
 
-
-
-interface ListHelper {
-	pending: any;
-	update: any;
-	updateSelected: any;
-	create: any;
-	delete: any;
-	deleteSelected: any;
-	loadPage: any;
-	loadNextPage: any;
-	loadPreviousPage: any;
-	loadFirstPage: any;
-	loadLastPage: any;
-	sort: any;
-}
 
 @Injectable({ providedIn: 'root' })
 export class ListHelperService<G = any> {
@@ -69,7 +54,17 @@ export class ListHelperService<G = any> {
 	}
 
 	delete(entity: Entity) {
-		this.apiSrv;
+		this.apiSrv.delete(this.entityName, entity).pipe(
+			switchMap(_ => this.refetch())
+		).subscribe();
+	}
+
+	deleteSelected() {
+		const selected = this.selectionSrv.getSelectedValues();
+		const all = selected.map(entity => this.apiSrv.delete(this.entityName, entity));
+		forkJoin(all).pipe(
+			switchMap(_ => this.refetch())
+		).subscribe();
 	}
 
 	loadPage() {
