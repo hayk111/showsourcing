@@ -8,7 +8,8 @@ import {
 	Product,
 	ProductService,
 	SelectParamsConfig,
-	UserService
+	UserService,
+	EntityName
 } from '~core/erm';
 import { ListPageService, SelectionService } from '~core/list-page';
 import { ListPageViewService } from '~core/list-page/list-page-view.service';
@@ -18,6 +19,7 @@ import { FilterService } from '~shared/filters/services/filter.service';
 import { KanbanSelectionService } from '~shared/kanban/services/kanban-selection.service';
 import { KanbanService } from '~shared/kanban/services/kanban.service';
 import { AutoUnsub } from '~utils';
+import { ListHelperService } from '~core/list-page/list-helper.service';
 
 // dailah lama goes into pizza store
 // servant asks : what pizza do you want sir ?
@@ -28,6 +30,7 @@ import { AutoUnsub } from '~utils';
 	templateUrl: './products-page.component.html',
 	styleUrls: ['./products-page.component.scss'],
 	providers: [
+		ListHelperService,
 		ListPageService,
 		ListPageViewService,
 		SelectionService,
@@ -43,6 +46,7 @@ import { AutoUnsub } from '~utils';
 export class ProductsPageComponent extends AutoUnsub
 	implements OnInit, AfterViewInit {
 	erm = ERM;
+	entityName: EntityName.PRODUCT;
 	filterTypeEnum = FilterType;
 	items$: Observable<Product[]>;
 	// filter displayed as button in the filter panel
@@ -64,11 +68,10 @@ export class ProductsPageComponent extends AutoUnsub
 	requestCount$: Observable<number>;
 
 	constructor(
-		private productSrv: ProductService,
+		public listHelper: ListHelperService<Product>,
 		public viewSrv: ListPageViewService<Product>,
 		public selectionSrv: SelectionService,
 		public dialogCommonSrv: DialogCommonService,
-		public listSrv: ListPageService<Product, ProductService>,
 		public elem: ElementRef,
 		private userSrv: UserService,
 		protected dlgSrv: DialogService,
@@ -78,102 +81,71 @@ export class ProductsPageComponent extends AutoUnsub
 		super();
 	}
 
-	toggleMyProducts(show: boolean) {
-		const filterAssignee = {
-			type: FilterType.ASSIGNEE,
-			value: this.userSrv.userSync.id
-		};
-		if (show) this.filterSrv.addFilter(filterAssignee);
-		else this.filterSrv.removeFilter(filterAssignee);
-	}
 	ngOnInit() {
-		this.items$ = this.productSrv.queryAll();
-		this.listSrv.setup(
-			{
-				entitySrv: this.productSrv,
-				searchedFields: [
-					'name',
-					'supplier.name',
-					'category.name',
-					'description'
-				],
-				// we use the deleted filter there so we can send the query to export all to the export dlg
-				initialFilters: [
-					{ type: FilterType.ARCHIVED, value: false },
-					{ type: FilterType.DELETED, value: false }
-				],
-				entityMetadata: ERM.PRODUCT,
-				originComponentDestroy$: this._destroy$
-			},
-			false
-		);
-
-		// this.productSrv.productListUpdate$.pipe(
-		// 	switchMap(_ => this.listSrv.refetch())
-		// ).subscribe();
+		this.listHelper.setup(this.entityName);
+		this.items$ = this.listHelper.getFilteredItems$();
 	}
 
-	ngAfterViewInit() {
-		// this.listSrv.loadData(this._destroy$);
-	}
+	// toggleMyProducts(show: boolean) {
+	// 	const filterAssignee = {
+	// 		type: FilterType.ASSIGNEE,
+	// 		value: this.userSrv.userSync.id
+	// 	};
+	// 	if (show) this.filterSrv.addFilter(filterAssignee);
+	// 	else this.filterSrv.removeFilter(filterAssignee);
+	// }
 
-	showItemsPerPage(count: number) {
-		this.selectItemsConfig = { take: Number(count) };
-		this.listSrv.refetch(this.selectItemsConfig).subscribe();
-	}
+	// showItemsPerPage(count: number) {
+	// 	this.selectItemsConfig = { take: Number(count) };
+	// 	this.listSrv.refetch(this.selectItemsConfig).subscribe();
+	// }
 
-	onProjectDlgOpen() {
-		let initialProjects = [];
+	// onProjectDlgOpen() {
+	// 	let initialProjects = [];
 
-		const values = this.selectionSrv.getSelectedValues();
-		// if we have more than 1 selected, we don't want initial projects to be preselected
-		if (values.length === 1) initialProjects = values[0].projects || [];
+	// 	const values = this.selectionSrv.getSelectedValues();
+	// 	// if we have more than 1 selected, we don't want initial projects to be preselected
+	// 	if (values.length === 1) initialProjects = values[0].projects || [];
 
-		this.dialogCommonSrv.openAddToProjectDialog(
-			this.selectionSrv.getSelectedValues(),
-			initialProjects
-		);
-	}
+	// 	this.dialogCommonSrv.openAddToProjectDialog(
+	// 		this.selectionSrv.getSelectedValues(),
+	// 		initialProjects
+	// 	);
+	// }
 
-	private removeDuplicates(originalArr, prop) {
-		return originalArr.filter((obj, pos, arr) => {
-			return arr.map(mapObj => mapObj[prop]).indexOf(obj[prop]) === pos;
-		});
-	}
+	// onOpenCreateRequestDlg(products: Product[]) {
+	// 	return this.dlgSrv.open(SupplierRequestDialogComponent, { products });
+	// }
 
-	onOpenCreateRequestDlg(products: Product[]) {
-		return this.dlgSrv.open(SupplierRequestDialogComponent, { products });
-	}
+	// getSelection$() {
+	// 	if (this.viewSrv.view !== 'board') {
+	// 		return this.selectionSrv.selection$;
+	// 	} else {
+	// 		return this.kanbanSelectionSrv.selection$;
+	// 	}
+	// }
 
-	getSelection$() {
-		if (this.viewSrv.view !== 'board') {
-			return this.selectionSrv.selection$;
-		} else {
-			return this.kanbanSelectionSrv.selection$;
-		}
-	}
+	// getSelectableItems$() {
+	// 	if (this.viewSrv.view !== 'board') {
+	// 		return this.listSrv.items$;
+	// 	} else {
+	// 		return this.kanbanSelectionSrv.selectableItems$;
+	// 	}
+	// }
 
-	getSelectableItems$() {
-		if (this.viewSrv.view !== 'board') {
-			return this.listSrv.items$;
-		} else {
-			return this.kanbanSelectionSrv.selectableItems$;
-		}
-	}
+	// selectAll(entities: any[]) {
+	// 	if (this.viewSrv.view !== 'board') {
+	// 		return this.selectionSrv.selectAll(entities);
+	// 	} else {
+	// 		return this.kanbanSelectionSrv.selectAllFromColumn();
+	// 	}
+	// }
 
-	selectAll(entities: any[]) {
-		if (this.viewSrv.view !== 'board') {
-			return this.selectionSrv.selectAll(entities);
-		} else {
-			return this.kanbanSelectionSrv.selectAllFromColumn();
-		}
-	}
-
-	unselectAll() {
-		if (this.viewSrv.view !== 'board') {
-			return this.selectionSrv.unselectAll();
-		} else {
-			return this.kanbanSelectionSrv.unselectAllFromColumn();
-		}
-	}
+	// unselectAll() {
+	// 	if (this.viewSrv.view !== 'board') {
+	// 		return this.selectionSrv.unselectAll();
+	// 	} else {
+	// 		return this.kanbanSelectionSrv.unselectAllFromColumn();
+	// 	}
+	// }
 }

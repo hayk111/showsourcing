@@ -67,7 +67,7 @@ export class ApiService implements ApiServiceInterface {
 	/////////////////////////////
 	//        QUERY MANY        //
 	/////////////////////////////
-	queryMany<T>(entityName: EntityNameType): ObservableQuery<T[]> {
+	queryMany<T>(entityName: EntityNameType, TBD: any, options: WatchQueryOptions | {} = {}): ObservableQuery<T[]> {
 		throw Error('Not implemented yet');
 	}
 
