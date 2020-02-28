@@ -71,7 +71,7 @@ describe('Filter Service', () => {
 
 	it('should give the filter amount added after the start filters', () => {
 		filterSrv.addFilters(testFilters);
-		expect(filterSrv.getFilterAmount()).toEqual(2);
+		expect(filterSrv.getFilterAmount()).toEqual(testFilters.length);
 	});
 
 	it('should return whether the service has a specific filter type', () => {
