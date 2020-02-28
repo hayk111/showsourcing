@@ -82,7 +82,7 @@ export class FilterService {
 
 	/** check if we have any filter for a given FilterType */
 	hasFilterType(type: FilterType) {
-		return this.valuesByType.get(type).size > 0;
+		return (this.valuesByType.get(type) || new Set()).size > 0;
 	}
 
 	hasFilterValue(type: FilterType, value: any) {
