@@ -68,10 +68,7 @@ export class ApiService implements ApiServiceInterface {
 	): ObservableQuery<T> {
 		// title for displaying in logs
 		const title = 'Query one ' + entityName;
-		const { query, queryName, body } = QueryPool.getQueryInfo(
-			entityName,
-			QueryType.QUERY_ONE
-		);
+		const { query, queryName, body } = QueryPool.getQueryInfo(entityName, QueryType.QUERY_ONE);
 		const variables = { id, teamId: this.teamId };
 
 		this.log(title, query, queryName, body, variables);
@@ -107,10 +104,7 @@ export class ApiService implements ApiServiceInterface {
 		options: WatchQueryOptions | {} = {}
 	): ObservableQuery<T[]> {
 		const title = 'Query All ' + entityName;
-		const { query, queryName, body } = QueryPool.getQueryInfo(
-			entityName,
-			QueryType.QUERY_ALL
-		);
+		const { query, queryName, body } = QueryPool.getQueryInfo(entityName, QueryType.QUERY_ALL);
 		const variables: any = { teamId: this.teamId };
 		this.log(title, query, queryName, body);
 
@@ -144,10 +138,7 @@ export class ApiService implements ApiServiceInterface {
 		options: WatchQueryOptions | {} = {}
 	): Observable<T> {
 		const title = 'Create ' + entityName;
-		const { query, queryName, body } = QueryPool.getQueryInfo(
-			entityName,
-			QueryType.CREATE
-		);
+		const { query, queryName, body } = QueryPool.getQueryInfo(entityName, QueryType.CREATE);
 		const variables = { input: entity };
 		this.log(title, query, queryName, body, variables);
 		return from(client.mutate({ mutation: query, variables, ...options })).pipe(
@@ -171,10 +162,7 @@ export class ApiService implements ApiServiceInterface {
 		options: WatchQueryOptions | {} = {}
 	): Observable<T> {
 		const title = 'Update ' + entityName;
-		const { query, queryName, body } = QueryPool.getQueryInfo(
-			entityName,
-			QueryType.UPDATE
-		);
+		const { query, queryName, body } = QueryPool.getQueryInfo(entityName, QueryType.UPDATE);
 		const variables = { input: entity };
 		options = { mutation: query, variables, ...options };
 
@@ -205,10 +193,7 @@ export class ApiService implements ApiServiceInterface {
 	}
 
 	/** check if a graphql call has given any error */
-	protected checkError(
-		r: { data: any; errors: any[]; loading: boolean },
-		title: string
-	) {
+	protected checkError(r: { data: any; errors: any[]; loading: boolean }, title: string) {
 		if (r.errors) {
 			r.errors.forEach(e => log.error(e));
 			return false;
@@ -221,18 +206,9 @@ export class ApiService implements ApiServiceInterface {
 	}
 
 	/** logs request that is about to being made to the 	 */
-	private log(
-		type: string,
-		gql: DocumentNode,
-		queryName: string,
-		body: string,
-		variables?: any
-	) {
+	private log(type: string, gql: DocumentNode, queryName: string, body: string, variables?: any) {
 		// logging for each request
-		log.group(
-			`%c 🍌 ${type}, queryName: ${queryName}`,
-			LogColor.APOLLO_CLIENT_PRE
-		);
+		log.group(`%c 🍌 ${type}, queryName: ${queryName}`, LogColor.APOLLO_CLIENT_PRE);
 		log.group(`%c trace`, LogColor.APOLLO_CLIENT_PRE);
 		log.trace();
 		log.groupEnd();
@@ -242,10 +218,7 @@ export class ApiService implements ApiServiceInterface {
 		log.debug(gql);
 		log.groupEnd();
 		if (variables) {
-			log.group(
-				`%c variables`,
-				'color: lime; background: #555555; padding: 4px'
-			);
+			log.group(`%c variables`, 'color: lime; background: #555555; padding: 4px');
 			log.table(variables);
 			log.groupEnd();
 		}
