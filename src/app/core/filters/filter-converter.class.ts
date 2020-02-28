@@ -6,13 +6,6 @@ export type ValuesByType = Map<FilterType, Set<any>>;
 /** so we can display the filters for a given type */
 export type FiltersByType = Map<FilterType, Filter[]>;
 
-export interface OrFilters {
-	or: any[];
-}
-export interface QueryArg {
-	and?: OrFilters[];
-	[x: string]: any;
-}
 
 /**
  * Helper class to help with filter convertion

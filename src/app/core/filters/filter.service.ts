@@ -1,5 +1,5 @@
 import { ReplaySubject } from 'rxjs';
-import { FilterConverter, ValuesByType, FiltersByType, QueryArg } from './filter-converter.class';
+import { FilterConverter, ValuesByType, FiltersByType } from './filter-converter.class';
 import { FilterType } from './filter-type.enum';
 import { Filter } from './filter.class';
 import { Injectable } from '@angular/core';
