@@ -44,7 +44,7 @@ import { ListHelperService } from '~core/list-page/list-helper.service';
 	}
 })
 export class ProductsPageComponent extends AutoUnsub
-	implements OnInit, AfterViewInit {
+	implements OnInit {
 	erm = ERM;
 	entityName: EntityName.PRODUCT;
 	filterTypeEnum = FilterType;
