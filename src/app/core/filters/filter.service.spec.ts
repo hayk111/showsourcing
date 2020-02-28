@@ -43,17 +43,17 @@ describe('Filter Service', () => {
 	});
 
 
-	it('should add many filter and have the other data structure generated', () => {
+	it('should add many filter ', () => {
 		filterSrv.addFilters(testFilters);
-		expect(filterSrv.setFilters).toHaveBeenCalledWith(concat);
+		expect(filterSrv.setFilters).toHaveBeenCalledWith([...startFilters, ...testFilters]);
 	});
 
-	it('should remove filter and generate data structures', () => {
+	it('should remove filter', () => {
 		filterSrv.removeFilter(startFilters[0]);
 		expect(filterSrv.setFilters).toHaveBeenCalledWith([ ...startFilters.slice(1)]);
 	});
 
-	it('should remove filter for types and generate data structures', () => {
+	it('should remove filter for types', () => {
 		filterSrv.removeFilterType(FilterType.SUPPLIER);
 		expect(filterSrv.setFilters).toHaveBeenCalledWith(
 			startFilters.filter(f => f.type !== FilterType.SUPPLIER)
@@ -63,7 +63,7 @@ describe('Filter Service', () => {
 	it('should reset filters', () => {
 
 		filterSrv.addFilters(testFilters);
-		expect(filterSrv.setFilters).toHaveBeenCalledWith(concat);
+		expect(filterSrv.setFilters).toHaveBeenCalledWith([...startFilters, ...testFilters]);
 		filterSrv.reset();
 		expect(filterSrv.setFilters).toHaveBeenCalledWith(startFilters);
 
