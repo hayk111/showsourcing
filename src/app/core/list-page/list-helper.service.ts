@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { SelectionService } from './selection.service';
 import { ApiService } from '~core/erm3/services/api.service';
-import { FilterService } from '~shared/filters/services/filter.service';
+import { FilterService } from '~core/filters/filter.service';
 import { switchMap } from 'rxjs/operators';
 import { EntityName } from '~core/erm';
 
@@ -18,7 +18,7 @@ export class ListHelperService {
 
 	getFilteredItems$(entityName: EntityName) {
 		return this.filterSrv.valueChanges$.pipe(
-			switchMap(filters => this.apiSrv.queryMany(entityName))
+			switchMap(({filt}) => this.apiSrv.queryMany(entityName))
 		);
 	}
 }
