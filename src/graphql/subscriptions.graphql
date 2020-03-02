@@ -252,6 +252,65 @@ subscription OnCreateContact {
       name
       fullName
       tradingName
+      description
+      website
+      phoneNumber
+      country
+      city
+      address
+      officeEmail
+      officePhone
+      incoTerm
+      harbour
+      generalMOQ
+      generalLeadTime
+      favorite
+      globalDatabaseId
+      reference
+      referenceKey
+      creationDate
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletionDate
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedDate
+      deleted
       _version
       _deleted
       _lastChangedAt
@@ -332,6 +391,65 @@ subscription OnUpdateContact {
       name
       fullName
       tradingName
+      description
+      website
+      phoneNumber
+      country
+      city
+      address
+      officeEmail
+      officePhone
+      incoTerm
+      harbour
+      generalMOQ
+      generalLeadTime
+      favorite
+      globalDatabaseId
+      reference
+      referenceKey
+      creationDate
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletionDate
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedDate
+      deleted
       _version
       _deleted
       _lastChangedAt
@@ -412,6 +530,65 @@ subscription OnDeleteContact {
       name
       fullName
       tradingName
+      description
+      website
+      phoneNumber
+      country
+      city
+      address
+      officeEmail
+      officePhone
+      incoTerm
+      harbour
+      generalMOQ
+      generalLeadTime
+      favorite
+      globalDatabaseId
+      reference
+      referenceKey
+      creationDate
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletionDate
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedDate
+      deleted
       _version
       _deleted
       _lastChangedAt
@@ -693,6 +870,26 @@ subscription OnCreateTask {
         name
         fullName
         tradingName
+        description
+        website
+        phoneNumber
+        country
+        city
+        address
+        officeEmail
+        officePhone
+        incoTerm
+        harbour
+        generalMOQ
+        generalLeadTime
+        favorite
+        globalDatabaseId
+        reference
+        referenceKey
+        creationDate
+        deletionDate
+        lastUpdatedDate
+        deleted
         _version
         _deleted
         _lastChangedAt
@@ -830,6 +1027,65 @@ subscription OnCreateTask {
       name
       fullName
       tradingName
+      description
+      website
+      phoneNumber
+      country
+      city
+      address
+      officeEmail
+      officePhone
+      incoTerm
+      harbour
+      generalMOQ
+      generalLeadTime
+      favorite
+      globalDatabaseId
+      reference
+      referenceKey
+      creationDate
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletionDate
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedDate
+      deleted
       _version
       _deleted
       _lastChangedAt
@@ -931,6 +1187,26 @@ subscription OnUpdateTask {
         name
         fullName
         tradingName
+        description
+        website
+        phoneNumber
+        country
+        city
+        address
+        officeEmail
+        officePhone
+        incoTerm
+        harbour
+        generalMOQ
+        generalLeadTime
+        favorite
+        globalDatabaseId
+        reference
+        referenceKey
+        creationDate
+        deletionDate
+        lastUpdatedDate
+        deleted
         _version
         _deleted
         _lastChangedAt
@@ -1068,6 +1344,65 @@ subscription OnUpdateTask {
       name
       fullName
       tradingName
+      description
+      website
+      phoneNumber
+      country
+      city
+      address
+      officeEmail
+      officePhone
+      incoTerm
+      harbour
+      generalMOQ
+      generalLeadTime
+      favorite
+      globalDatabaseId
+      reference
+      referenceKey
+      creationDate
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletionDate
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedDate
+      deleted
       _version
       _deleted
       _lastChangedAt
@@ -1169,6 +1504,26 @@ subscription OnDeleteTask {
         name
         fullName
         tradingName
+        description
+        website
+        phoneNumber
+        country
+        city
+        address
+        officeEmail
+        officePhone
+        incoTerm
+        harbour
+        generalMOQ
+        generalLeadTime
+        favorite
+        globalDatabaseId
+        reference
+        referenceKey
+        creationDate
+        deletionDate
+        lastUpdatedDate
+        deleted
         _version
         _deleted
         _lastChangedAt
@@ -1306,6 +1661,65 @@ subscription OnDeleteTask {
       name
       fullName
       tradingName
+      description
+      website
+      phoneNumber
+      country
+      city
+      address
+      officeEmail
+      officePhone
+      incoTerm
+      harbour
+      generalMOQ
+      generalLeadTime
+      favorite
+      globalDatabaseId
+      reference
+      referenceKey
+      creationDate
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletionDate
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedDate
+      deleted
       _version
       _deleted
       _lastChangedAt

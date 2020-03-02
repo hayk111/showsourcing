@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
+import { passwordValidator } from '~shared/inputs/validators/password.validator';
 
 @Component({
 	selector: 'sign-up-page-app',
@@ -17,7 +18,7 @@ export class SignUpPageComponent implements OnInit {
 		lastName: ['', Validators.required],
 		// the email is used as username
 		username: ['', [Validators.required, Validators.email]],
-		password: ['', [Validators.required, Validators.minLength(8)]]
+		password: ['', [Validators.minLength(8), passwordValidator]]
 	}, { updateOn : 'change' });
 
 	constructor(
