@@ -65,7 +65,7 @@ export class ApiService implements ApiServiceInterface {
 	queryOne<T>(
 		entityName: EntityName | EntityNameType,
 		id: string,
-		options: WatchQueryOptions | {} = {}
+		options: WatchQueryOptions | any = {}
 	): ObservableQuery<T> {
 		// title for displaying in logs
 		const title = 'Query one ' + entityName;
@@ -73,19 +73,54 @@ export class ApiService implements ApiServiceInterface {
 			entityName,
 			QueryType.QUERY_ONE
 		);
-		const variables = { id, teamId: this.teamId };
+		const variables: any = { id, teamId: this.teamId, ...options.variables };
 
 		this.log(title, query, queryName, body, variables);
 		const queryRef = client.watchQuery({
 			query,
-			variables,
-			...options
+			...options,
+			variables
 		}) as ObservableQuery<any>;
 		// attaching the data observable directly to the object
 		const data$ = from(queryRef).pipe(
 			filter((r: any) => this.checkError(r, title)),
 			// extracting the result
 			map(({ data }) => data[queryName]),
+			tap(data => this.logResult(title, queryName, data))
+		);
+		queryRef.data$ = data$;
+		return queryRef;
+	}
+
+	/////////////////////////////
+	//        QUERY ALL        //
+	/////////////////////////////
+
+	/**
+	 * Query many entities
+	 * (Query, optimistic UI)
+	 * @param fields: the fields you want to query, if none is specified the default ones are used
+	 * @param client: name of the client you want to use, if none is specified the default one is used
+	 * @param options: Apollo options if we don't want the default
+	 */
+	queryMany<T>(
+		entityName: EntityNameType,
+		options: WatchQueryOptions | any = {},
+		queryType = QueryType.QUERY_MANY
+	): ObservableQuery<T[]> {
+		const title = 'Query Many ' + entityName + 's';
+		const { query, queryName, body } = QueryPool.getQueryInfo(entityName, queryType);
+		const variables: any = { teamId: this.teamId, ...options.variables };
+		this.log(title, query, queryName, body);
+
+		const queryRef = client.watchQuery({
+			query,
+			...options,
+			variables
+		}) as ObservableQuery<any>;
+		const data$ = from(queryRef).pipe(
+			filter((r: any) => this.checkError(r, title)),
+			map(({ data }) => data[queryName].items),
 			tap(data => this.logResult(title, queryName, data))
 		);
 		queryRef.data$ = data$;
@@ -105,18 +140,18 @@ export class ApiService implements ApiServiceInterface {
 	 */
 	queryAll<T>(
 		entityName: EntityName | EntityNameType,
-		options: WatchQueryOptions | {} = {},
+		options: WatchQueryOptions | any = {},
 		queryType = QueryType.QUERY_ALL
 	): ObservableQuery<T[]> {
-		const title = 'Query All ' + entityName;
+		const title = 'Query All ' + entityName + 's';
 		const { query, queryName, body } = QueryPool.getQueryInfo(entityName, queryType);
-		const variables: any = { teamId: this.teamId };
+		const variables: any = { teamId: this.teamId, ...options.variables };
 		this.log(title, query, queryName, body);
 
 		const queryRef = client.watchQuery({
 			query,
-			variables,
-			...options
+			...options,
+			variables
 		}) as ObservableQuery<any>;
 		const data$ = from(queryRef).pipe(
 			filter((r: any) => this.checkError(r, title)),
