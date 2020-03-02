@@ -3,16 +3,10 @@ import { DocumentNode } from 'graphql';
 
 /** Audit found on every entity */
 const AUDIT = `
-	creationDate
-	lastUpdatedDate
-	createdBy
-	deletionDate
-	archived
-	_lastChangedAt
-	_deleted
-	_version
 `;
-
+	// _lastChangedAt
+	// _deleted
+	// _version
 
 /**
  * Helper to create GraphQL queries that are valid for the realm GraphQL service
@@ -27,7 +21,6 @@ const AUDIT = `
  *
  */
 export class QueryBuilder {
-
 	constructor(private entityName: string) {
 		if (!entityName) {
 			throw Error('you must define the singular form of the typename');
@@ -53,7 +46,7 @@ export class QueryBuilder {
 
 	queryManyDefault: string;
 
-	// search
+	// search // TODO update to fit the new environment when we have search queries
 	queryMany = (str: string) => {
 		return gql`
 			query Search${this.entityName}s(
@@ -71,7 +64,6 @@ export class QueryBuilder {
 				) {
 					items {
 						id
-						teamId
 						${str}
 						${AUDIT}
 					}
@@ -85,10 +77,14 @@ export class QueryBuilder {
 	queryAll = (str: string) => {
 		return gql`
 			query List${this.entityName}s(
-				$teamId: ID
+				$filter: Model${this.entityName}FilterInput
+				$limit: Int
+				$nextToken: String
 			) {
 				list${this.entityName}s(
-					teamId: $teamId
+					filter: $filter,
+					limit: $limit,
+					nextToken: $nextToken
 				) {
 					items {
 						id
@@ -103,11 +99,9 @@ export class QueryBuilder {
 		return gql`
 			mutation Create${this.entityName}(
 				$input: Create${this.entityName}Input!
-				$condition: Model${this.entityName}ConditionInput
 			) {
-				create${this.entityName}(input: $input, condition: $condition) {
+				create${this.entityName}(input: $input) {
 					id
-					teamId
 					${str}
 					${AUDIT}
 				}
@@ -118,11 +112,9 @@ export class QueryBuilder {
 		return gql`
 			mutation Update${this.entityName}(
 				$input: Update${this.entityName}Input!
-				$condition: Model${this.entityName}ConditionInput
 			) {
-				update${this.entityName}(input: $input, condition: $condition) {
+				update${this.entityName}(input: $input) {
 					id
-					teamId
 					${str}
 					${AUDIT}
 				}
@@ -133,11 +125,9 @@ export class QueryBuilder {
 		return gql`
 			mutation Delete${this.entityName}(
 				$input: Delete${this.entityName}Input!
-				$condition: Model${this.entityName}ConditionInput
 			) {
-				delete${this.entityName}(input: $input, condition: $condition) {
+				delete${this.entityName}(input: $input) {
 					id
-					teamId
 					${str}
 					${AUDIT}
 				}
@@ -147,6 +137,4 @@ export class QueryBuilder {
 	private capitalize(str: string): string {
 		return str.charAt(0).toUpperCase() + str.slice(1);
 	}
-
-
 }

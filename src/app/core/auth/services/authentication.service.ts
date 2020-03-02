@@ -116,11 +116,6 @@ export class AuthenticationService {
 		return this.awsAuth.completeNewPassword(
 			this.authState.user, // the Cognito User Object
 			newPassword, // the new password
-			// OPTIONAL, the required attributes
-			{
-				'custom:firstName': firstName,
-				'custom:lastName': lastName
-			}
 		).then(_ => this.goToSignIn(username));
 	}
 
@@ -138,8 +133,8 @@ export class AuthenticationService {
 			username,
 			password,
 			attributes: {
-				'custom:firstName': firstName,
-				'custom:lastName': lastName
+				'given_name': firstName,
+				'family_name': lastName
 			}
 		})
 		.then(_ => this.goToConfirmSignUp(username));
