@@ -21,26 +21,21 @@ export interface ObservableQuery<T = any> extends ApolloObservableQuery<T> {
 
 export interface ApiServiceInterface {
 	queryOne<T>(
-		entityName: EntityName | string,
+		entityName: EntityName | EntityNameType,
 		id: string,
 		options?: WatchQueryOptions | {}
 	): ObservableQuery<T>;
 	queryAll<T>(
-		entityName: EntityName | string,
+		entityName: EntityName | EntityNameType,
 		options?: WatchQueryOptions | {}
 	): ObservableQuery<T[]>;
 	create<T>(
-		entityName: EntityName | string,
+		entityName: EntityName | EntityNameType,
 		entity: T,
 		options?: WatchQueryOptions | {}
 	): Observable<T>;
 	update<T>(
-		entityName: EntityName | string,
-		entity: T,
-		options?: WatchQueryOptions | {}
-	): Observable<T>;
-	delete<T>(
-		entityName: EntityName | string,
+		entityName: EntityName | EntityNameType,
 		entity: T,
 		options?: WatchQueryOptions | {}
 	): Observable<T>;
@@ -68,7 +63,7 @@ export class ApiService implements ApiServiceInterface {
 	 * @param options: Apollo options if we don't want the default
 	 */
 	queryOne<T>(
-		entityName: EntityName,
+		entityName: EntityName | EntityNameType,
 		id: string,
 		options: WatchQueryOptions | {} = {}
 	): ObservableQuery<T> {
@@ -109,14 +104,12 @@ export class ApiService implements ApiServiceInterface {
 	 * @param options: Apollo options if we don't want the default
 	 */
 	queryAll<T>(
-		entityName: EntityName,
-		options: WatchQueryOptions | {} = {}
+		entityName: EntityName | EntityNameType,
+		options: WatchQueryOptions | {} = {},
+		queryType = QueryType.QUERY_ALL
 	): ObservableQuery<T[]> {
 		const title = 'Query All ' + entityName;
-		const { query, queryName, body } = QueryPool.getQueryInfo(
-			entityName,
-			QueryType.QUERY_ALL
-		);
+		const { query, queryName, body } = QueryPool.getQueryInfo(entityName, queryType);
 		const variables: any = { teamId: this.teamId };
 		this.log(title, query, queryName, body);
 
@@ -145,9 +138,9 @@ export class ApiService implements ApiServiceInterface {
 	 * @param options: Apollo options if we don't want the default
 	 */
 	create<T>(
-		entityName: EntityName,
+		entityName: EntityName | EntityNameType,
 		entity: T,
-		options: MutationOptions | {} = {}
+		options: WatchQueryOptions | {} = {}
 	): Observable<T> {
 		const title = 'Create ' + entityName;
 		const { query, queryName, body } = QueryPool.getQueryInfo(
@@ -159,8 +152,8 @@ export class ApiService implements ApiServiceInterface {
 		options = { mutation: query, variables, ...options };
 		this.addOptimisticResponse(options, queryName, entity);
 		this.log(title, query, queryName, body, variables);
-		return from(client.mutate(options as MutationOptions)).pipe(
-			map(r => r[queryName].items),
+		return from(client.mutate({ mutation: query, variables, ...options })).pipe(
+			map(({ data }) => data[queryName]),
 			tap(data => this.logResult(title, queryName, data))
 		);
 	}
@@ -175,9 +168,9 @@ export class ApiService implements ApiServiceInterface {
 	 * @param options: Apollo options if we don't want the default
 	 */
 	update<T>(
-		entityName: EntityName,
+		entityName: EntityName | EntityNameType,
 		entity: T,
-		options: MutationOptions | {} = {}
+		options: WatchQueryOptions | {} = {}
 	): Observable<T> {
 		const title = 'Update ' + entityName;
 		const { query, queryName, body } = QueryPool.getQueryInfo(
@@ -237,10 +230,7 @@ export class ApiService implements ApiServiceInterface {
 	}
 
 	/** check if a graphql call has given any error */
-	protected checkError(
-		r: { data: any; errors: any[]; loading: boolean },
-		title: string
-	) {
+	protected checkError(r: { data: any; errors: any[]; loading: boolean }, title: string) {
 		if (r.errors) {
 			r.errors.forEach(e => log.error(e));
 			return false;
