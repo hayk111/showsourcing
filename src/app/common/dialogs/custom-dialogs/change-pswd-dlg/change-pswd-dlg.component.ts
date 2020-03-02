@@ -1,14 +1,14 @@
 import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 import { Observable, Subject } from 'rxjs';
-import { switchMap, takeUntil } from 'rxjs/operators';
 import { SettingsProfileService } from '~features/settings/services/settings-profile.service';
 import { DialogService } from '~shared/dialog/services';
 import { InputDirective } from '~shared/inputs';
-import { PasswordValidator } from '~shared/inputs/validators/pswd.validator';
-import { ToastService, ToastType } from '~shared/toast';
+import { PasswordMatchValidator } from '~shared/inputs/validators/password-match.validator';
+import { ToastService } from '~shared/toast';
 import { AutoUnsub } from '~utils';
-import { TranslateService } from '@ngx-translate/core';
+import { passwordValidator } from '~shared/inputs/validators/password.validator';
 
 @Component({
 	selector: 'change-pswd-dlg-app',
@@ -38,9 +38,9 @@ export class ChangePswdDlgComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		this.group = this.fb.group({
 			currentPswd: ['', Validators.required],
-			newPswd: ['', Validators.required],
-			confirmPswd: ['', Validators.required],
-		}, { validator: PasswordValidator });
+			newPswd: ['', passwordValidator],
+			confirmPswd: ['', passwordValidator],
+		}, { validator: PasswordMatchValidator });
 
 		// this.isCurrentPswd$ = this.onBlur$
 		// 	.pipe(

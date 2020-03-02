@@ -7,103 +7,56 @@ import { UserService } from '~core/erm';
 	providedIn: 'root'
 })
 export class FilterService {
-	/** filters coming from the filter panel if any. */
 	filterList = new FilterList([
 		// initial filters
 	]);
 	constructor(private userSrv: UserService) {}
 
 	resetFilters() {
-		this.filterList.reset();
+		throw Error('this service should not be used, use the one from core instead');
 	}
 
-	/** when we want to search through the list we only search the name */
 	search(str: string): void {
-		this.filterList.setSearch(str);
+		throw Error('this service should not be used, use the one from core instead');
 	}
 
-	/** adds a filters to the list of filters */
 	addFilter(filter: Filter) {
-		this.filterList.addFilter(filter);
+		throw Error('this service should not be used, use the one from core instead');
 	}
 
 	removeFilter(filter: Filter) {
-		this.filterList.removeFilter(filter);
+		throw Error('this service should not be used, use the one from core instead');
 	}
 
 	removeFilterType(filterType: FilterType) {
-		this.filterList.removeFilterType(filterType);
+		throw Error('this service should not be used, use the one from core instead');
 	}
 
 	isFiltering() {
-		// when searching or filtering by non initial filters
-		return (
-			!!this.filterList.search ||
-			this.filterList.asFilters().length > this.filterList.initialFilters.length
-		);
+		throw Error('this service should not be used, use the one from core instead');
 	}
 
 	get searchValue() {
-		return this.filterList.search;
+		throw Error('this service should not be used, use the one from core instead');
 	}
 
 	get getFilterAmount() {
-		const filters = this.filterList
-			.asFilters()
-			.filter(
-				fil =>
-					!this.filterList.initialFilters.some(
-						elem => elem.type === fil.type && elem.value === fil.value
-					)
-			);
-		return filters.length;
+		throw Error('this service should not be used, use the one from core instead');
 	}
 
-	/** filter by archived, attention, weird logic:
-	 * if shouldAdd is true we the products archived
-	 * if shouldAdd is false we only see the not archived + not archived */
 	filterByArchived(shouldAdd: boolean) {
-		const filterParam = { type: FilterType.ARCHIVED, value: false };
-		if (shouldAdd) {
-			this.addFilter(filterParam);
-			return;
-		}
-		this.removeFilter(filterParam);
+		throw Error('this service should not be used, use the one from core instead');
 	}
 
 	filterByAssignedToMe(shouldAdd: boolean) {
-		const filterParam = {
-			type: FilterType.ASSIGNEE,
-			value: this.userSrv.userIdSync
-		};
-		if (shouldAdd) {
-			this.addFilter(filterParam);
-			return;
-		}
-		this.removeFilter(filterParam);
+		throw Error('this service should not be used, use the one from core instead');
 	}
 
-	/** filter by done, attention, weird logic:
-	 * if shouldAdd is true we the products done
-	 * if shouldAdd is false we only see the not done + not done */
 	filterByDone(shouldAdd: boolean) {
-		const filterParam = { type: FilterType.DONE, value: false };
-		if (shouldAdd) {
-			this.addFilter(filterParam);
-			return;
-		}
-		this.removeFilter(filterParam);
+		throw Error('this service should not be used, use the one from core instead');
 	}
 
 	filterByCreatedByMe(shouldAdd: boolean) {
-		const filterParam = {
-			type: FilterType.CREATED_BY,
-			value: this.userSrv.userIdSync
-		};
-		if (shouldAdd) {
-			this.addFilter(filterParam);
-			return;
-		}
-		this.removeFilter(filterParam);
+		throw Error('this service should not be used, use the one from core instead');
 	}
 }

@@ -38,7 +38,7 @@ export class FilterList {
 	setSearch(value: string) {
 		this.search = value;
 		this.setFilters([...this._filters]);
-		this._valueChanges$.next(this);
+		this._valueChanges$.next(this._filterObject);
 	}
 
 	search: string;
@@ -50,7 +50,7 @@ export class FilterList {
 		this._byType = this.filtersToByType(filters);
 		this._filterObject = this.filtersToPredicate(this._byType);
 		this._filterObject = this.searchToPredicate(this._filterObject);
-		this._valueChanges$.next(this);
+		this._valueChanges$.next(this._filterObject);
 	}
 	/** returns the array of filters */
 	asFilters() {

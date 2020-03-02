@@ -1,13 +1,7 @@
-import { BaseQueries } from './base.queries';
-import { EntityName, EntityNameType } from '~core/erm/entity-name.enum';
-import { ProductQueries } from './custom/product.queries';
-import { SupplierQueries } from './custom/supplier.queries';
-import { TeamCedricQueries } from './custom/team-cedric.queries';
-import { UserQueries } from './custom/user.queries';
-import { CompanyQueries } from './custom/company.queries';
-import { QueryType } from './query-type.enum';
 import { DocumentNode } from 'graphql';
-import { TeamQueries } from './custom/team.queries';
+import { EntityName, EntityNameType } from '~core/erm/entity-name.enum';
+import { BaseQueries } from './base.queries';
+import { QueryType } from './query-type.enum';
 
 export class QueryPool {
 	static map = {
@@ -52,7 +46,7 @@ export class QueryPool {
 		[EntityName.SUPPLIER]: new BaseQueries(EntityName.SUPPLIER), // provided by the api
 		[EntityName.TASK]: new BaseQueries(EntityName.TASK), // provided by the api
 		[EntityName.USER]: new BaseQueries(EntityName.USER, `firstName`),
-		[EntityName.TEAM]: new TeamQueries(EntityName.TEAM), // provided by the api // ! there is no list/update/delete TEAM
+		// [EntityName.TEAM]: new TeamQueries(EntityName.TEAM), // provided by the api // ! there is no list/update/delete TEAM
 	};
 
 	/** returns the query, queryName and body of a specified query*/
