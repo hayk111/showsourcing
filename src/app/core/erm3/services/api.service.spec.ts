@@ -6,7 +6,7 @@ Amplify.configure(awsconfig);
 import { ApiService } from './api.service';
 import { ApolloTestingController } from 'apollo-angular/testing';
 import { TestBed, fakeAsync } from '@angular/core/testing';
-import { EntityName, EntityNameType } from '~core/erm/entity-name.enum';
+import { EntityNameType } from '~core/erm/entity-name.enum';
 import { RouterModule } from '@angular/router';
 import { AmplifyService } from 'aws-amplify-angular';
 import { AuthenticationService } from '~core/auth';

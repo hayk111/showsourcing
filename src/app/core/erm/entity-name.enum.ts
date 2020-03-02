@@ -58,5 +58,5 @@ export type EntityNameType =  'attachment'|
  'task'|
  'team'|
  'user'|
- 'teamByUser';
+ 'teamUser';
 

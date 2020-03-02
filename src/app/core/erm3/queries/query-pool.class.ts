@@ -1,13 +1,9 @@
-import { BaseQueries } from './base.queries';
-import { EntityName, EntityNameType } from '~core/erm/entity-name.enum';
-import { ProductQueries } from './custom/product.queries';
-import { SupplierQueries } from './custom/supplier.queries';
-import { TeamCedricQueries } from './custom/team-cedric.queries';
-import { UserQueries } from './custom/user.queries';
-import { CompanyQueries } from './custom/company.queries';
-import { QueryType } from './query-type.enum';
 import { DocumentNode } from 'graphql';
+import { EntityName, EntityNameType } from '~core/erm/entity-name.enum';
+import { BaseQueries } from './base.queries';
+import { CompanyQueries } from './custom/company.queries';
 import { TeamQueries } from './custom/team.queries';
+import { QueryType } from './query-type.enum';
 
 export class QueryPool {
 	static map = {
@@ -38,21 +34,21 @@ export class QueryPool {
 		// [EntityName.INVITATION]: new BaseQueries(EntityName.INVITATION),
 		// [EntityName.TEAM_USER]: new BaseQueries(EntityName.TEAM_USER),
 
-		[EntityName.CATEGORY]: new BaseQueries(EntityName.CATEGORY), // provided by the api
-		[EntityName.COMPANY]: new CompanyQueries(EntityName.COMPANY), // provided by the api
-		[EntityName.CONTACT]: new BaseQueries(EntityName.CONTACT), // provided by the api
-		[EntityName.DESCRIPTOR]: new BaseQueries(EntityName.DESCRIPTOR, 'target'), // provided by the api
-		[EntityName.IMAGE]: new BaseQueries(EntityName.IMAGE, `fileName`), // provided by the api
-		[EntityName.PRODUCT]: new BaseQueries(EntityName.PRODUCT), // provided by the api
-		[EntityName.SUPPLIER]: new BaseQueries(EntityName.SUPPLIER), // provided by the api
-		[EntityName.TASK]: new BaseQueries(EntityName.TASK), // provided by the api
-		[EntityName.USER]: new BaseQueries(EntityName.USER, `firstName`),
-		[EntityName.TEAM]: new TeamQueries(EntityName.TEAM), // provided by the api // ! there is no list/update/delete TEAM
-		[EntityName.TEAM_BY_USER]: new BaseQueries(EntityName.TEAM_BY_USER), // provided by the api // ! there is no list/update/delete TEAM
+		category: new BaseQueries(EntityName.CATEGORY), // provided by the api
+		company: new CompanyQueries(EntityName.COMPANY), // provided by the api
+		contact: new BaseQueries(EntityName.CONTACT), // provided by the api
+		descriptor: new BaseQueries(EntityName.DESCRIPTOR, 'target'), // provided by the api
+		image: new BaseQueries(EntityName.IMAGE, `fileName`), // provided by the api
+		product: new BaseQueries(EntityName.PRODUCT), // provided by the api
+		supplier: new BaseQueries(EntityName.SUPPLIER), // provided by the api
+		task: new BaseQueries(EntityName.TASK), // provided by the api
+		user: new BaseQueries(EntityName.USER, `firstName`),
+		team: new TeamQueries(EntityName.TEAM), // provided by the api
+		teamUser: new BaseQueries(EntityName.TEAM_BY_USER), // provided by the api
 	};
 
 	/** returns the query, queryName and body of a specified query*/
-	static getQueryInfo(entityName: EntityName | EntityNameType, queryType: QueryType) {
+	static getQueryInfo(entityName: EntityNameType, queryType: QueryType) {
 		const queries = QueryPool.map[entityName];
 		if (!queries) {
 			throw Error(`The query pool doesn't contain such a member ${queryType}`);

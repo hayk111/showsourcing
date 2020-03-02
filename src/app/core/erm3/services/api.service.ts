@@ -6,7 +6,7 @@ import {
 import { DocumentNode } from 'graphql';
 import { from, Observable } from 'rxjs';
 import { filter, map, tap } from 'rxjs/operators';
-import { EntityName, EntityNameType } from '~core/erm/models';
+import { EntityNameType } from '~core/erm/models';
 import { log } from '~utils/log';
 import { LogColor } from '~utils/log-colors.enum';
 import { QueryPool } from '../queries/query-pool.class';
@@ -20,21 +20,21 @@ export interface ObservableQuery<T = any> extends ApolloObservableQuery<T> {
 
 export interface ApiServiceInterface {
 	queryOne<T>(
-		entityName: EntityName | EntityNameType,
+		entityName: EntityNameType,
 		id: string,
 		options?: WatchQueryOptions | {}
 	): ObservableQuery<T>;
 	queryAll<T>(
-		entityName: EntityName | EntityNameType,
+		entityName: EntityNameType,
 		options?: WatchQueryOptions | {}
 	): ObservableQuery<T[]>;
 	create<T>(
-		entityName: EntityName | EntityNameType,
+		entityName: EntityNameType,
 		entity: T,
 		options?: WatchQueryOptions | {}
 	): Observable<T>;
 	update<T>(
-		entityName: EntityName | EntityNameType,
+		entityName: EntityNameType,
 		entity: T,
 		options?: WatchQueryOptions | {}
 	): Observable<T>;
@@ -62,7 +62,7 @@ export class ApiService implements ApiServiceInterface {
 	 * @param options: Apollo options if we don't want the default
 	 */
 	queryOne<T>(
-		entityName: EntityName | EntityNameType,
+		entityName: EntityNameType,
 		id: string,
 		options: WatchQueryOptions | {} = {}
 	): ObservableQuery<T> {
@@ -100,7 +100,7 @@ export class ApiService implements ApiServiceInterface {
 	 * @param options: Apollo options if we don't want the default
 	 */
 	queryAll<T>(
-		entityName: EntityName | EntityNameType,
+		entityName: EntityNameType,
 		options: WatchQueryOptions | {} = {},
 		queryType: any = QueryType.QUERY_ALL
 	): ObservableQuery<T[]> {
@@ -134,7 +134,7 @@ export class ApiService implements ApiServiceInterface {
 	 * @param options: Apollo options if we don't want the default
 	 */
 	create<T>(
-		entityName: EntityName | EntityNameType,
+		entityName: EntityNameType,
 		entity: T,
 		options: WatchQueryOptions | {} = {}
 	): Observable<T> {
@@ -158,7 +158,7 @@ export class ApiService implements ApiServiceInterface {
 	 * @param options: Apollo options if we don't want the default
 	 */
 	update<T>(
-		entityName: EntityName | EntityNameType,
+		entityName: EntityNameType,
 		entity: T,
 		options: WatchQueryOptions | {} = {}
 	): Observable<T> {
