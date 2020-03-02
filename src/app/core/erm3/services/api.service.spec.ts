@@ -38,7 +38,7 @@ fdescribe('ApiService', () => {
 		authSrv.signIn$.subscribe(username => {
 			userId = username;
 		});
-		authSrv.signIn({
+		await authSrv.signIn({
 			username: 'cedric@showsourcing.com',
 			password: 'Test1234'
 		});

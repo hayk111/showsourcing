@@ -42,12 +42,7 @@ export class QueryPool {
 		[EntityName.COMPANY]: new BaseQueries(EntityName.COMPANY), // provided by the api
 		[EntityName.CONTACT]: new BaseQueries(EntityName.CONTACT), // provided by the api
 		[EntityName.DESCRIPTOR]: new BaseQueries(EntityName.DESCRIPTOR, 'target'), // provided by the api
-		[EntityName.IMAGE]: new BaseQueries(EntityName.IMAGE, `urls {
-        id
-        maxWidth
-        maxHeight
-        url
-      }`), // provided by the api
+		[EntityName.IMAGE]: new BaseQueries(EntityName.IMAGE, `fileName`), // provided by the api
 		[EntityName.PRODUCT]: new BaseQueries(EntityName.PRODUCT), // provided by the api
 		[EntityName.SUPPLIER]: new BaseQueries(EntityName.SUPPLIER), // provided by the api
 		[EntityName.TASK]: new BaseQueries(EntityName.TASK), // provided by the api
