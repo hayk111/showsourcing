@@ -1,4 +1,4 @@
-import { FilterConverter } from './filter-converter.class';
+import { FilterConverter } from './_filter-converter.class';
 import { FilterType } from './filter-type.enum';
 import { Filter } from './filter.class';
 
