@@ -1,30 +1,60 @@
+
 export enum EntityName {
 	ATTACHMENT = 'attachment',
 	ACTIVITY = 'activity',
-	CATEGORY = 'category',
+	CATEGORY = 'category', // provided by the api
 	COMMENT = 'comment',
-	COMPANY = 'company',
-	CONTACT = 'contact',
+	COMPANY = 'company', // provided by the api
+	CONTACT = 'contact', // provided by the api
 	COUNTRY = 'country',
 	CURRENCY = 'currency',
-	EMAIL = 'email',
+	DESCRIPTOR = 'descriptor', // provided by the api
+	EMAIL = 'email', // ? not used // delete
 	EVENT = 'event',
 	EXPORT = 'export',
-	FILE = 'file',
+	FILE = 'file', // ? not used // to delete
 	HARBOUR = 'harbour',
-	IMAGE = 'image',
+	IMAGE = 'image', // provided by the api
 	INVITATION = 'invitation',
 	LOCATION = 'location',
-	PRODUCT = 'product',
+	PRODUCT = 'product', // provided by the api
 	PROJECT = 'project',
 	REQUEST = 'request',
 	REQUEST_ELEMENT = 'request element',
 	SAMPLE = 'sample',
-	SUPPLIER = 'supplier',
+	SUPPLIER = 'supplier', // provided by the api
 	TAG = 'tag',
-	TASK = 'task',
-	TEAM = 'team',
-	TEMPALTE_FIELD = 'template field',
-	TEAM_MEMBER = 'team member',
+	TASK = 'task', // provided by the api
+	TEAM = 'team', // provided by the api // ! there is no update/delete TEAM
+	TEAM_USER = 'teamUser', // provided by the api
+	TEMPALTE_FIELD = 'template field', // ? not used // to delete
+	TEAM_MEMBER = 'team member', // ? not used to delete
 	USER = 'user',
 }
+
+export type EntityNameType =  'attachment'|
+ 'activity'|
+ 'category'|
+ 'comment'|
+ 'company'|
+ 'contact'|
+ 'country'|
+ 'currency'|
+ 'descriptor'|
+ 'event'|
+ 'export'|
+ 'harbour'|
+ 'image'|
+ 'invitation'|
+ 'location'|
+ 'product'|
+ 'project'|
+ 'request'|
+ 'request element'|
+ 'sample'|
+ 'supplier'|
+ 'tag'|
+ 'task'|
+ 'team'|
+ 'user';
+
