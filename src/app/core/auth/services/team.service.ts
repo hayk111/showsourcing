@@ -2,12 +2,14 @@ import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
 import { filter, first, map, shareReplay, switchMap } from 'rxjs/operators';
 import { AuthenticationService } from './authentication.service';
-import { EntityName, Team } from '~core/erm/models';
 import { ApiService } from '~core/erm3/services/api.service';
 import { LocalStorageService } from '~core/local-storage';
 import { CompanyService } from './company.service';
+import { TeamUser, Team } from '~core/erm3/models';
 
-
+interface Test {
+	[key: string]: any;
+}
 
 // name in local storage
 const SELECTED_TEAM = 'selected-team';
@@ -19,8 +21,14 @@ const SELECTED_TEAM = 'selected-team';
 @Injectable({ providedIn: 'root' })
 export class TeamService {
 
-	private queryAll = this.apiSrv.queryAll(EntityName.TEAM);
-	hasTeam$ = this.queryAll.data$.pipe(map(teams => teams.length > 0));
+	// we query all teamByUser to extract the team
+	private queryAllTeamUsers = this.apiSrv.queryAll<TeamUser>('teamUser');
+	teamsOfUser$: Observable<Team[]> = this.queryAllTeamUsers.data$.pipe(
+		map((teamUsers: TeamUser[]) => teamUsers.map(tu => tu.team))
+	);
+	hasTeam$ = this.teamsOfUser$.pipe(
+		map(teams => teams.length > 0)
+	);
 	/** event the team selected at the moment of the selection */
 	private _teamSelectionEvent$ = new ReplaySubject<Team>(1);
 	teamSelectionEvent$ = this._teamSelectionEvent$.asObservable().pipe(
@@ -32,7 +40,7 @@ export class TeamService {
 		// since
 		filter(team => !!team),
 		// yes we already have the team but we need a subscription :)
-		switchMap(team => this.apiSrv.queryOne(EntityName.TEAM, team.id)),
+		switchMap(team => this.apiSrv.queryOne('team', team.id)),
 		shareReplay(1)
 	);
 
@@ -67,12 +75,12 @@ export class TeamService {
 
 	/** creates a team and waits for it to be valid */
 	create(team: Team): Observable<any> {
-		return this.apiSrv.create(EntityName.TEAM, { companyId: this.companySrv.companySync.id, ...team })
-			.pipe(switchMap(_ => this.queryAll.refetch()));
+		return this.apiSrv.create('team', { companyId: this.companySrv.companySync.id, ...team })
+			.pipe(switchMap(_ => this.queryAllTeamUsers.refetch()));
 	}
 
 	update(team: Team) {
-		return this.apiSrv.update(EntityName.TEAM, { companyId: this.companySrv.companySync.id, ...team });
+		return this.apiSrv.update('team', { companyId: this.companySrv.companySync.id, ...team });
 	}
 
 	/** picks a team, puts the selection in local storage */

@@ -76,21 +76,12 @@ export class QueryBuilder {
 	// list
 	queryAll = (str: string) => {
 		return gql`
-			query List${this.entityName}s(
-				$filter: Model${this.entityName}FilterInput
-				$limit: Int
-				$nextToken: String
-			) {
-				list${this.entityName}s(
-					filter: $filter,
-					limit: $limit,
-					nextToken: $nextToken
-				) {
+			query List${this.entityName}s {
+				list${this.entityName}s {
 					items {
 						id
 						${str}
 					}
-					nextToken
 				}
 			}`;
 	}

@@ -3,10 +3,9 @@ import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { Team, EntityName } from '~core/erm';
-import { TrackingComponent } from '~utils/tracking-component';
 import { TeamService } from '~core/auth';
-import { ApiService } from '~core/erm3/services/api.service';
+import { Team } from '~core/erm3/models';
+import { TrackingComponent } from '~utils/tracking-component';
 
 
 @Component({
@@ -23,7 +22,6 @@ export class PickATeamPageComponent extends TrackingComponent implements OnInit 
 
 	constructor(
 		private teamSrv: TeamService,
-		private apiSrv: ApiService,
 		private router: Router,
 		private route: ActivatedRoute,
 	) {
@@ -32,7 +30,7 @@ export class PickATeamPageComponent extends TrackingComponent implements OnInit 
 
 	ngOnInit() {
 		this.teamSrv.resetSelectedTeam();
-		this.teams$ = this.apiSrv.queryAll<Team>(EntityName.TEAM).data$;
+		this.teams$ = this.teamSrv.teamsOfUser$;
 		// get return url from route parameters or default to '/'
 		this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
 	}

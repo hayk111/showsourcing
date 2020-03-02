@@ -23,4 +23,5 @@ export { Supplier } from './supplier.model';
 export { Tag } from './tag.model';
 export { Task } from './task.model';
 export { User } from './user.model';
+export { TeamUser } from './team-user.model';
 
