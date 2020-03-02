@@ -3110,7 +3110,7 @@ query ListTasks(
   }
 }
 query ListTeamByUser(
-  $userId: ID
+  $userId: ID!
   $sortDirection: ModelSortDirection
   $filter: ModelTeamUserFilterInput
   $limit: Int

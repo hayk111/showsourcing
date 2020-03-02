@@ -1,4 +1,4 @@
-import {uuid} from '~utils';
+import { uuid } from '~utils';
 
 export class Entity<G = any> {
 	id?: string = uuid();
@@ -12,5 +12,3 @@ export class Entity<G = any> {
 		Object.assign(this, config);
 	}
 }
-
-

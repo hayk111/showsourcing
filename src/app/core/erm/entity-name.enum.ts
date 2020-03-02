@@ -30,6 +30,7 @@ export enum EntityName {
 	TEMPALTE_FIELD = 'template field', // ? not used // to delete
 	TEAM_MEMBER = 'team member', // ? not used to delete
 	USER = 'user',
+	TEAM_BY_USER = 'teamByUser'
 }
 
 export type EntityNameType =  'attachment'|
@@ -56,5 +57,6 @@ export type EntityNameType =  'attachment'|
  'tag'|
  'task'|
  'team'|
- 'user';
+ 'user'|
+ 'teamByUser';
 

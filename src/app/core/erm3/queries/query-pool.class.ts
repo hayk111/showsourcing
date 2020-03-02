@@ -48,6 +48,7 @@ export class QueryPool {
 		[EntityName.TASK]: new BaseQueries(EntityName.TASK), // provided by the api
 		[EntityName.USER]: new BaseQueries(EntityName.USER, `firstName`),
 		[EntityName.TEAM]: new TeamQueries(EntityName.TEAM), // provided by the api // ! there is no list/update/delete TEAM
+		[EntityName.TEAM_BY_USER]: new BaseQueries(EntityName.TEAM_BY_USER), // provided by the api // ! there is no list/update/delete TEAM
 	};
 
 	/** returns the query, queryName and body of a specified query*/
