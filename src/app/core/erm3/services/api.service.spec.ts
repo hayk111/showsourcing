@@ -17,16 +17,12 @@ import { take, first, publishReplay } from 'rxjs/operators';
 import * as models from '~core/erm3/models';
 import { MajorTickOptions } from 'chart.js';
 
-
-
-
 fdescribe('ApiService', () => {
 	let apiSrv: ApiService;
 	let authSrv: AuthenticationService;
 
 	let userId: any;
 	let teamId: any;
-
 
 	// /** ======================= */
 	// /** CREATE ENTITIES helpers */
@@ -41,14 +37,14 @@ fdescribe('ApiService', () => {
 			companyId = (await createCompany()).id;
 		}
 		const team = new models.Team({ name: 'test apiService team' });
-		return await apiSrv.create('team', {...team, companyId}).toPromise();
+		return await apiSrv.create('team', { ...team, companyId }).toPromise();
 	};
 	const createCategory = () => {
 		const category = new models.Category({
 			name: 'test apiService Category',
 			teamId,
 			createdByUserId: userId,
-			lastUpdatedByUserId: userId,
+			lastUpdatedByUserId: userId
 		});
 		return apiSrv.create('category', category).toPromise();
 	};
@@ -74,8 +70,8 @@ fdescribe('ApiService', () => {
 		const product = new models.Product({
 			name: 'test apiService Product',
 			teamId,
-	createdByUserId: userId,
-	lastUpdatedByUserId: userId
+			createdByUserId: userId,
+			lastUpdatedByUserId: userId
 		});
 		return apiSrv.create('product', product).toPromise();
 	};
@@ -138,7 +134,7 @@ fdescribe('ApiService', () => {
 		'product',
 		'supplier',
 		'task',
-		'user',
+		'user'
 		// 'teamByUser'
 	];
 	// test queryAll (not custom) for all entities in the QueryPool.map
@@ -151,6 +147,13 @@ fdescribe('ApiService', () => {
 		});
 	});
 
+	fit('should query something with ListCompanyByOwner', done => {
+		const variables = { ownerUserId: userId, createdByUserId: userId };
+		apiSrv
+			.queryAll('company', { variables }, 'queryAllByOwner')
+			.data$.pipe(first())
+			.subscribe(expectQuerySomething(done));
+	});
 	// // test custom queryAll for ListTeamByUser() // TODO change the title in the queryBuilder by queryName
 	// it('should query something with ListTeamByUser', done => {
 	// 	apiSrv
@@ -158,9 +161,6 @@ fdescribe('ApiService', () => {
 	// 		.data$.pipe(first())
 	// 		.subscribe(expectQuerySomething(done));
 	// });
-
-
-
 
 	it('should create a company', async () => {
 		const company = await createCompany();
@@ -223,7 +223,7 @@ fdescribe('ApiService', () => {
 		});
 	});
 
-	fit('should query one user', done => {
+	it('should query one user', done => {
 		apiSrv.queryOne<any>('user', userId).data$.subscribe(d => {
 			expect(userId).toBe(d.id);
 			done();
@@ -238,12 +238,4 @@ fdescribe('ApiService', () => {
 	// // 	});
 	// // });
 
-	// // ? not in API
-	// // it('should query one team', async done => {
-	// // 	const team = await createTeam();
-	// // 	apiSrv.queryOne<any>('team', team.id).data$.subscribe(d => {
-	// // 		expect(team.name).toBe(d.name);
-	// // 		done();
-	// // 	});
-	// // });
 });

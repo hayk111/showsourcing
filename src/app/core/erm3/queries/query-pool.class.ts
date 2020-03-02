@@ -39,7 +39,7 @@ export class QueryPool {
 		// [EntityName.TEAM_USER]: new BaseQueries(EntityName.TEAM_USER),
 
 		[EntityName.CATEGORY]: new BaseQueries(EntityName.CATEGORY), // provided by the api
-		[EntityName.COMPANY]: new BaseQueries(EntityName.COMPANY), // provided by the api
+		[EntityName.COMPANY]: new CompanyQueries(EntityName.COMPANY), // provided by the api
 		[EntityName.CONTACT]: new BaseQueries(EntityName.CONTACT), // provided by the api
 		[EntityName.DESCRIPTOR]: new BaseQueries(EntityName.DESCRIPTOR, 'target'), // provided by the api
 		[EntityName.IMAGE]: new BaseQueries(EntityName.IMAGE, `fileName`), // provided by the api

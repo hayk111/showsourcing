@@ -102,7 +102,7 @@ export class ApiService implements ApiServiceInterface {
 	queryAll<T>(
 		entityName: EntityName | EntityNameType,
 		options: WatchQueryOptions | {} = {},
-		queryType = QueryType.QUERY_ALL
+		queryType: any = QueryType.QUERY_ALL
 	): ObservableQuery<T[]> {
 		const title = 'Query All ' + entityName;
 		const { query, queryName, body } = QueryPool.getQueryInfo(entityName, queryType);
