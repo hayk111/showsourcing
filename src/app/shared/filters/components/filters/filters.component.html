@@ -13,7 +13,7 @@
 	</div>
   <filter-btn-list-app
     [filterTypes]="filterTypes"
-    [filterMap]="filterSrv.valuesByType"
+    [filterMap]="filterSrv.filtersByType"
     (filterAdded)="addFilter($event)"
     (filterRemoved)="removeFilter($event)"
     (editClicked)="openEditPanel($event)"
@@ -52,7 +52,7 @@
 	</div>
 	<filter-btn-list-app
 		[filterTypes]="filterTypes"
-		[filterMap]="filterSrv.valuesByType"
+		[filterMap]="filterSrv.filtersByType"
 		(filterAdded)="addFilter($event)"
 		(filterRemoved)="removeFilter($event)"
 		(editClicked)="openEditPanel($event)"
