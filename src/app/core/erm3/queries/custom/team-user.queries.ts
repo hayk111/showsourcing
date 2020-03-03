@@ -9,8 +9,8 @@ export class TeamUserQueries extends BaseQueries {
 	}
 
 	queryAll = gql`
-		query ListTeamByUser {
-			listTeamByUser($userId: 'test') {
+		query ListTeamUserByUser {
+			listTeamUserByUser {
 				items {
 					team {
 						id

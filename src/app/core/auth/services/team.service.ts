@@ -1,15 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
-import { filter, first, map, shareReplay, switchMap } from 'rxjs/operators';
+import { filter, first, map, shareReplay, switchMap, tap } from 'rxjs/operators';
 import { AuthenticationService } from './authentication.service';
 import { ApiService } from '~core/erm3/services/api.service';
 import { LocalStorageService } from '~core/local-storage';
 import { CompanyService } from './company.service';
 import { TeamUser, Team } from '~core/erm3/models';
-
-interface Test {
-	[key: string]: any;
-}
 
 // name in local storage
 const SELECTED_TEAM = 'selected-team';
@@ -30,21 +26,14 @@ export class TeamService {
 		map(teams => teams.length > 0)
 	);
 	/** event the team selected at the moment of the selection */
-	private _teamSelectionEvent$ = new ReplaySubject<Team>(1);
-	teamSelectionEvent$ = this._teamSelectionEvent$.asObservable().pipe(
-		shareReplay(1),
-	);
+	private _teamSelected$ = new ReplaySubject<Team>(1);
 	// the team selection event might just be the team from the local storage
 	// we do a query one after just to have it from the apollo cache to see changes
-	teamSelected$ = this.teamSelectionEvent$.pipe(
-		// since
-		filter(team => !!team),
-		// yes we already have the team but we need a subscription :)
-		switchMap(team => this.apiSrv.queryOne('team', team.id)),
+	teamSelected$ = this._teamSelected$.pipe(
 		shareReplay(1)
 	);
 
-	hasTeamSelected$ = this.teamSelectionEvent$.pipe(
+	hasTeamSelected$ = this._teamSelected$.pipe(
 		map(team => !!team)
 	);
 	// synchronous version for easy access
@@ -60,12 +49,14 @@ export class TeamService {
 
 	init() {
 		// putting a sync version of team
-		this.teamSelectionEvent$
+		this._teamSelected$
 			.subscribe(team => {
 				this.selectedTeamSync = team;
 				TeamService.selectedTeamSync = team;
 				if (team)
 					this.apiSrv.teamId = team.id;
+				else
+					this.apiSrv.teamId = undefined;
 			});
 		// restoring the previously selected team
 		this.restoreSelectedTeam();
@@ -86,8 +77,8 @@ export class TeamService {
 	/** picks a team, puts the selection in local storage */
 	pickTeam(team: Team): Observable<Team> {
 		this.storage.setItem(SELECTED_TEAM, team);
-		this._teamSelectionEvent$.next(team);
-		return this.teamSelectionEvent$.pipe(
+		this._teamSelected$.next(team);
+		return this.teamSelected$.pipe(
 			filter(x => !!x),
 			first()
 		);
@@ -99,12 +90,12 @@ export class TeamService {
 
 	restoreSelectedTeam() {
 		const selectedTeam: Team = this.storage.getItem(SELECTED_TEAM);
-		this._teamSelectionEvent$.next(selectedTeam);
+		this._teamSelected$.next(selectedTeam);
 	}
 
 	resetSelectedTeam() {
 		this.storage.remove(SELECTED_TEAM);
-		this._teamSelectionEvent$.next(undefined);
+		this._teamSelected$.next(undefined);
 	}
 
 	get idSync() {
