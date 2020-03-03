@@ -9,7 +9,7 @@ import { TestBed, fakeAsync } from '@angular/core/testing';
 import { EntityNameType } from '~core/erm/entity-name.enum';
 import { RouterModule } from '@angular/router';
 import { AmplifyService } from 'aws-amplify-angular';
-import { AuthenticationService } from '~core/auth';
+import { AuthenticationService, TeamService } from '~core/auth';
 import { QueryPool } from '../queries/query-pool.class';
 import { APP_BASE_HREF } from '@angular/common';
 import { Category } from '~core/erm/models';
@@ -22,7 +22,6 @@ fdescribe('ApiService', () => {
 	let authSrv: AuthenticationService;
 
 	let userId: any;
-	let teamId: any;
 
 	// /** ======================= */
 	// /** CREATE ENTITIES helpers */
@@ -42,7 +41,6 @@ fdescribe('ApiService', () => {
 	const createCategory = () => {
 		const category = new models.Category({
 			name: 'test apiService Category',
-			teamId,
 			createdByUserId: userId,
 			lastUpdatedByUserId: userId
 		});
@@ -56,7 +54,6 @@ fdescribe('ApiService', () => {
 
 	const createDescriptor = () => {
 		const descriptor = new models.Descriptor({
-			teamId
 		});
 		return apiSrv.create('descriptor', descriptor).toPromise();
 	};
@@ -69,23 +66,27 @@ fdescribe('ApiService', () => {
 	const createProduct = () => {
 		const product = new models.Product({
 			name: 'test apiService Product',
-			teamId,
 			createdByUserId: userId,
 			lastUpdatedByUserId: userId
 		});
 		return apiSrv.create('product', product).toPromise();
 	};
 
-	// const createSupplier = teamId => {
-	// 	const supplier = { ...models.Supplier, teamId };
-	// 	return apiSrv.create('supplier', supplier).toPromise();
-	// };
+	const createSupplier = () => {
+		const supplier = new models.Supplier({
+			name: 'test apiService Supplier',
+			createdByUserId: userId,
+			lastUpdatedByUserId: userId
+		});
+		return apiSrv.create('supplier', supplier).toPromise();
+	};
 
-	// const createTask = teamId => {
-	// 	const task = { ...models.Task, teamId };
-	// 	return apiSrv.create('task', task).toPromise();
-	// };
+	const createTask = () => {
+		const task = new models.Task({ createdByUserId: userId, lastUpdatedByUserId: userId });
+		return apiSrv.create('task', task).toPromise();
+	};
 
+	// connect user for test and provide services
 	beforeAll(async () => {
 		TestBed.configureTestingModule({
 			imports: [RouterModule.forRoot([])],
@@ -93,20 +94,21 @@ fdescribe('ApiService', () => {
 				AmplifyService,
 				AuthenticationService,
 				ApiService,
-				{ provide: APP_BASE_HREF, useValue: '/' }
+				{ provide: APP_BASE_HREF, useValue: '/' },
+				TeamService
 			]
 		});
 		apiSrv = TestBed.get(ApiService);
 		authSrv = TestBed.get(AuthenticationService);
-		authSrv.signIn$.subscribe(username => {
+		authSrv.signIn$.subscribe(async username => {
 			userId = username;
+			const team = await createTeam();
+			TeamService.teamId = team.id;
 		});
 		await authSrv.signIn({
 			username: 'cedric@showsourcing.com',
 			password: 'Test1234'
 		});
-		const team = await createTeam();
-		teamId = team.id;
 	});
 
 	/** ======== */
@@ -147,7 +149,7 @@ fdescribe('ApiService', () => {
 		});
 	});
 
-	fit('should query something with ListCompanyByOwner', done => {
+	it('should query something with ListCompanyByOwner', done => {
 		const variables = { ownerUserId: userId, createdByUserId: userId };
 		apiSrv
 			.queryAll('company', { variables }, 'queryAllByOwner')
@@ -161,6 +163,11 @@ fdescribe('ApiService', () => {
 	// 		.data$.pipe(first())
 	// 		.subscribe(expectQuerySomething(done));
 	// });
+
+
+	/** ======== */
+	/** create   */
+	/** ======== */
 
 	it('should create a company', async () => {
 		const company = await createCompany();
@@ -181,8 +188,14 @@ fdescribe('ApiService', () => {
 		const product = await createProduct();
 		expect(product.id).toBeTruthy();
 	});
-	// it('should create a supplier');
-	// it('should create a task');
+	it('should create a supplier', async () => {
+		const supplier = await createSupplier();
+		expect(supplier.id).toBeTruthy();
+	});
+	fit('should create a task', async () => {
+		const task = await createTask();
+		expect(task.id).toBeTruthy();
+	});
 	it('should create a team', async () => {
 		const team: any = await createTeam();
 		expect(team.id).toBeTruthy();
@@ -237,5 +250,4 @@ fdescribe('ApiService', () => {
 	// // 		done();
 	// // 	});
 	// // });
-
 });

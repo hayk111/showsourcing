@@ -2,12 +2,9 @@ import { Entity } from './_entity.model';
 import { Lang, ImageType } from '../../../API.service';
 
 export class Product extends Entity<Product> {
-	creationDate ?= Date.now();
-	lastUpdatedDate?= Date.now();
+	createdAt ?= Date.now();
+	lastUpdatedAt?= Date.now();
 	deleted? = false;
-	constructor(config?: Product) {
-		super(config);
-	}
 	__typename?: 'Product';
 	id?: string;
 	teamId?: string;

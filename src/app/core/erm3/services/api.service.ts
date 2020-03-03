@@ -24,20 +24,9 @@ export interface ApiServiceInterface {
 		id: string,
 		options?: WatchQueryOptions | {}
 	): ObservableQuery<T>;
-	queryAll<T>(
-		entityName: EntityNameType,
-		options?: WatchQueryOptions | {}
-	): ObservableQuery<T[]>;
-	create<T>(
-		entityName: EntityNameType,
-		entity: T,
-		options?: WatchQueryOptions | {}
-	): Observable<T>;
-	update<T>(
-		entityName: EntityNameType,
-		entity: T,
-		options?: WatchQueryOptions | {}
-	): Observable<T>;
+	queryAll<T>(entityName: EntityNameType, options?: WatchQueryOptions | {}): ObservableQuery<T[]>;
+	create<T>(entityName: EntityNameType, entity: T, options?: WatchQueryOptions | {}): Observable<T>;
+	update<T>(entityName: EntityNameType, entity: T, options?: WatchQueryOptions | {}): Observable<T>;
 }
 
 /**
@@ -64,12 +53,12 @@ export class ApiService implements ApiServiceInterface {
 	queryOne<T>(
 		entityName: EntityNameType,
 		id: string,
-		options: WatchQueryOptions | {} = {}
+		options: WatchQueryOptions | any = {}
 	): ObservableQuery<T> {
 		// title for displaying in logs
 		const title = 'Query one ' + entityName;
 		const { query, queryName, body } = QueryPool.getQueryInfo(entityName, QueryType.QUERY_ONE);
-		const variables = { id, teamId: this.teamId };
+		const variables = { id, ...options.variables };
 
 		this.log(title, query, queryName, body, variables);
 		const queryRef = client.watchQuery({
@@ -101,12 +90,12 @@ export class ApiService implements ApiServiceInterface {
 	 */
 	queryAll<T>(
 		entityName: EntityNameType,
-		options: WatchQueryOptions | {} = {},
+		options: WatchQueryOptions | any = {},
 		queryType: any = QueryType.QUERY_ALL
 	): ObservableQuery<T[]> {
 		const title = 'Query All ' + entityName;
 		const { query, queryName, body } = QueryPool.getQueryInfo(entityName, queryType);
-		const variables: any = { teamId: this.teamId };
+		const variables: any = options.variables;
 		this.log(title, query, queryName, body);
 
 		const queryRef = client.watchQuery({
