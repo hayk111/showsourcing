@@ -31,10 +31,9 @@ fdescribe('ApiService', () => {
 		if (!companyId) {
 			companyId = (await createCompany()).id;
 		}
-		const team = new models.Team({ name: 'test apiService team' });
+		const team = new models.Team({ name: 'test apiService Team' });
 		return await apiSrv.create('team', { ...team, companyId }).toPromise();
 	};
-
 
 	// connect user for test and provide services
 	beforeAll(async () => {
@@ -94,7 +93,7 @@ fdescribe('ApiService', () => {
 	notCustomQueryAll.forEach(entity => {
 		it(`should query something with queryAll for "${entity}"`, done => {
 			apiSrv
-				.queryAll(entity)
+				.queryAll(entity as EntityName)
 				.data$.pipe(first())
 				.subscribe(expectQuerySomething(done));
 		});
@@ -151,7 +150,6 @@ fdescribe('ApiService', () => {
 		return apiSrv.create('task', task).toPromise();
 	};
 
-
 	const notCustomQueryOne = new Map<EntityName, any>([
 		['category', createCategory],
 		['company', createCompany],
@@ -167,12 +165,22 @@ fdescribe('ApiService', () => {
 	]);
 
 	notCustomQueryOne.forEach((create, entity) => {
-		fit(`should create a ${entity}`, async () => {
+		it(`should create a ${entity}`, async () => {
 			const createdEntity = await create();
 			expect(createdEntity.id).toBeTruthy();
 		});
 	});
 
+	// it('test', () => {
+	// 	for (let i = 0; i < 100; i++) {
+	// 		const product = new models.Product({
+	// 			name: 'CEDRIC Product' + i,
+	// 			createdByUserId: userId,
+	// 			lastUpdatedByUserId: userId
+	// 		});
+	// 		apiSrv.create('product', product).toPromise();
+	// 	}
+	// });
 
 	// /** =============== */
 	// /** DELETE ENTITIES */
