@@ -6,19 +6,19 @@ export enum EntityName {
 	COMMENT = 'comment',
 	COMPANY = 'company', // provided by the api
 	CONTACT = 'contact', // provided by the api
-	COUNTRY = 'country', // ? not used
+	COUNTRY = 'country',
 	CURRENCY = 'currency',
 	DESCRIPTOR = 'descriptor', // provided by the api
 	EMAIL = 'email', // ? not used // delete
 	EVENT = 'event',
 	EXPORT = 'export',
 	FILE = 'file', // ? not used // to delete
-	HARBOUR = 'harbour', // ? not used
+	HARBOUR = 'harbour',
 	IMAGE = 'image', // provided by the api
-	INVITATION = 'invitation', // ? not used
+	INVITATION = 'invitation',
 	LOCATION = 'location',
 	PRODUCT = 'product', // provided by the api
-	PROJECT = 'project', // ? not used
+	PROJECT = 'project',
 	REQUEST = 'request',
 	REQUEST_ELEMENT = 'request element',
 	SAMPLE = 'sample',
@@ -27,7 +27,6 @@ export enum EntityName {
 	TASK = 'task', // provided by the api
 	TEAM = 'team', // provided by the api // ! there is no update/delete TEAM
 	TEAM_USER = 'teamUser', // provided by the api
-	// TEAM_USER_BY_USER = 'teamUserByUser', // provided by the api // ! ListTeamUserByUser is not plurial and doesn't have update/delete/create
 	TEMPALTE_FIELD = 'template field', // ? not used // to delete
 	TEAM_MEMBER = 'team member', // ? not used to delete
 	USER = 'user',
@@ -42,10 +41,8 @@ export type EntityNameType =  'attachment'|
  'country'|
  'currency'|
  'descriptor'|
- 'email'|
  'event'|
  'export'|
- 'file'|
  'harbour'|
  'image'|
  'invitation'|
@@ -60,8 +57,5 @@ export type EntityNameType =  'attachment'|
  'task'|
  'team'|
  'teamUser'|
- 'teamUserByUser'|
- 'template field'|
- 'team member'|
  'user';
 

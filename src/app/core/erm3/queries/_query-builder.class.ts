@@ -3,15 +3,10 @@ import { DocumentNode } from 'graphql';
 
 /** Audit found on every entity */
 const AUDIT = `
-	creationDate
-	lastUpdatedDate
-	createdBy
-	deletionDate
-	archived
-	_lastChangedAt
-	_deleted
-	_version
 `;
+	// _lastChangedAt
+	// _deleted
+	// _version
 
 /**
  * Helper to create GraphQL queries that are valid for the realm GraphQL service
@@ -69,7 +64,6 @@ export class QueryBuilder {
 				) {
 					items {
 						id
-						teamId
 						${str}
 						${AUDIT}
 					}
@@ -82,21 +76,12 @@ export class QueryBuilder {
 	// list
 	queryAll = (str: string) => {
 		return gql`
-			query List${this.entityName}s(
-				$filter: Model${this.entityName}FilterInput
-				$limit: Int
-				$nextToken: String
-			) {
-				list${this.entityName}s(
-					filter: $filter,
-					limit: $limit,
-					nextToken: $nextToken
-				) {
+			query List${this.entityName}s {
+				list${this.entityName}s {
 					items {
 						id
 						${str}
 					}
-					nextToken
 				}
 			}`;
 	}
@@ -105,11 +90,9 @@ export class QueryBuilder {
 		return gql`
 			mutation Create${this.entityName}(
 				$input: Create${this.entityName}Input!
-				$condition: Model${this.entityName}ConditionInput
 			) {
-				create${this.entityName}(input: $input, condition: $condition) {
+				create${this.entityName}(input: $input) {
 					id
-					teamId
 					${str}
 					${AUDIT}
 				}
@@ -120,11 +103,9 @@ export class QueryBuilder {
 		return gql`
 			mutation Update${this.entityName}(
 				$input: Update${this.entityName}Input!
-				$condition: Model${this.entityName}ConditionInput
 			) {
-				update${this.entityName}(input: $input, condition: $condition) {
+				update${this.entityName}(input: $input) {
 					id
-					teamId
 					${str}
 					${AUDIT}
 				}
@@ -135,11 +116,9 @@ export class QueryBuilder {
 		return gql`
 			mutation Delete${this.entityName}(
 				$input: Delete${this.entityName}Input!
-				$condition: Model${this.entityName}ConditionInput
 			) {
-				delete${this.entityName}(input: $input, condition: $condition) {
+				delete${this.entityName}(input: $input) {
 					id
-					teamId
 					${str}
 					${AUDIT}
 				}

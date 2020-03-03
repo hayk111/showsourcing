@@ -14,7 +14,7 @@ const COMPANY = 'company';
 })
 export class CompanyService {
 
-	private queryAll = this.apiSrv.queryAll(EntityName.COMPANY);
+	private queryAll = this.apiSrv.queryAll('company');
 	// an user has only 1 company
 	private _company$ = new ReplaySubject<Company>(1);
 	company$ = this._company$.asObservable();
@@ -43,7 +43,7 @@ export class CompanyService {
 	}
 
 	create(company: Company) {
-		return this.apiSrv.create(EntityName.COMPANY, company)
+		return this.apiSrv.create('company', company)
 			.pipe(
 				tap(_ => this._company$.next(company)),
 				switchMap(_ => this.queryAll.refetch())
