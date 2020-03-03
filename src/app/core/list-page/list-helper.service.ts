@@ -3,7 +3,6 @@ import { SelectionService } from './selection.service';
 import { ApiService, ObservableQuery } from '~core/erm3/services/api.service';
 import { FilterService } from '~core/filters/filter.service';
 import { switchMap, tap, map } from 'rxjs/operators';
-import { EntityName, Entity } from '~core/erm';
 import { forkJoin } from 'rxjs';
 
 
@@ -11,7 +10,7 @@ import { forkJoin } from 'rxjs';
 export class ListHelperService<G = any> {
 
 	private queryRef: ObservableQuery<G[]>;
-	private entityName: EntityName;
+	private entityName: any;
 	pending = true;
 
 	constructor(
@@ -20,14 +19,14 @@ export class ListHelperService<G = any> {
 		private filterSrv: FilterService
 	) {}
 
-	setup(entityName: EntityName) {
+	setup(entityName: any) {
 		this.entityName = entityName;
 	}
 
 	getFilteredItems$() {
 		return this.filterSrv.valueChanges$.pipe(
 			// gets the query
-			map(({ queryArg }) => this.apiSrv.queryMany<G>(this.entityName, queryArg)),
+			map(({ queryArg }) => this.apiSrv.queryMany<G>(this.entityName, { filter: queryArg})),
 			// save it
 			tap(query => this.queryRef = query),
 			// return the result
@@ -43,17 +42,17 @@ export class ListHelperService<G = any> {
 		.then(_ => this.pending = false);
 	}
 
-	create(entity: Entity) {
+	create(entity: any) {
 		this.apiSrv.create(this.entityName, entity).pipe(
 			switchMap(_ => this.refetch())
 		).subscribe();
 	}
 
-	update(entity: Entity) {
+	update(entity: any) {
 		this.apiSrv.update(this.entityName, entity);
 	}
 
-	delete(entity: Entity) {
+	delete(entity: any) {
 		this.apiSrv.delete(this.entityName, entity).pipe(
 			switchMap(_ => this.refetch())
 		).subscribe();

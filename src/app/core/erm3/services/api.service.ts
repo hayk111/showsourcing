@@ -95,13 +95,6 @@ export class ApiService implements ApiServiceInterface {
 	}
 
 	/////////////////////////////
-	//        QUERY MANY        //
-	/////////////////////////////
-	queryMany<T>(entityName: EntityNameType, TBD: any, options: WatchQueryOptions | {} = {}): ObservableQuery<T[]> {
-		throw Error('Not implemented yet');
-	}
-
-	/////////////////////////////
 	//        QUERY ALL        //
 	/////////////////////////////
 
@@ -114,12 +107,17 @@ export class ApiService implements ApiServiceInterface {
 	 */
 	queryMany<T>(
 		entityName: EntityNameType,
+		variables: {
+			filter?: any,
+			sort?: any,
+			limit?: number,
+			nextToken?: string
+		},
 		options: WatchQueryOptions | any = {},
 		queryType = QueryType.QUERY_MANY
 	): ObservableQuery<T[]> {
 		const title = 'Query Many ' + entityName + 's';
 		const { query, queryName, body } = QueryPool.getQueryInfo(entityName, queryType);
-		const variables: any = { teamId: this.teamId, ...options.variables };
 		this.log(title, query, queryName, body);
 
 		const queryRef = client.watchQuery({

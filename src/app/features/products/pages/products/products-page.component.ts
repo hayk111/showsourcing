@@ -46,7 +46,6 @@ import { ListHelperService } from '~core/list-page/list-helper.service';
 export class ProductsPageComponent extends AutoUnsub
 	implements OnInit {
 	erm = ERM;
-	entityName: EntityName.PRODUCT;
 	filterTypeEnum = FilterType;
 	items$: Observable<Product[]>;
 	// filter displayed as button in the filter panel
@@ -82,7 +81,7 @@ export class ProductsPageComponent extends AutoUnsub
 	}
 
 	ngOnInit() {
-		this.listHelper.setup(this.entityName);
+		this.listHelper.setup('product');
 		this.items$ = this.listHelper.getFilteredItems$();
 	}
 
