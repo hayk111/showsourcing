@@ -26,7 +26,7 @@ export class ListHelperService<G = any> {
 	getFilteredItems$() {
 		return this.filterSrv.valueChanges$.pipe(
 			// gets the query
-			map(({ queryArg }) => this.apiSrv.queryMany<G>(this.entityName, { filter: queryArg})),
+			map(({ queryArg }) => this.apiSrv.queryMany<G>(this.entityName, { filter: queryArg })),
 			// save it
 			tap(query => this.queryRef = query),
 			// return the result

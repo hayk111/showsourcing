@@ -37,8 +37,7 @@ export class TeamService {
 		map(team => !!team)
 	);
 	// synchronous version for easy access
-	selectedTeamSync: Team;
-	static selectedTeamSync: Team;
+	static teamSelected: Team;
 
 	constructor(
 		protected storage: LocalStorageService,
@@ -50,14 +49,7 @@ export class TeamService {
 	init() {
 		// putting a sync version of team
 		this._teamSelected$
-			.subscribe(team => {
-				this.selectedTeamSync = team;
-				TeamService.selectedTeamSync = team;
-				if (team)
-					this.apiSrv.teamId = team.id;
-				else
-					this.apiSrv.teamId = undefined;
-			});
+			.subscribe(team => TeamService.teamSelected = team);
 		// restoring the previously selected team
 		this.restoreSelectedTeam();
 		// when logging out let's clear the current selected team
@@ -98,8 +90,8 @@ export class TeamService {
 		this._teamSelected$.next(undefined);
 	}
 
-	get idSync() {
-		return this.selectedTeamSync.id;
+	get teamId() {
+		return TeamService.teamSelected?.id;
 	}
 
 }
