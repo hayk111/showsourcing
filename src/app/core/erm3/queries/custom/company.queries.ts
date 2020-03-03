@@ -4,7 +4,7 @@ import { BaseQueries } from '../base.queries';
 export class CompanyQueries extends BaseQueries {
 
 	queryAllByOwner = gql`
-		query queryAllByOwner(
+		query queryAll(
 			$ownerUserId: ID
 			$sortDirection: ModelSortDirection
 			$filter: ModelCompanyFilterInput
