@@ -39,6 +39,7 @@ export class TeamService {
 	// synchronous version for easy access
 	selectedTeamSync: Team;
 	static selectedTeamSync: Team;
+	static teamId: string;
 
 	constructor(
 		protected storage: LocalStorageService,
@@ -54,9 +55,7 @@ export class TeamService {
 				this.selectedTeamSync = team;
 				TeamService.selectedTeamSync = team;
 				if (team)
-					this.apiSrv.teamId = team.id;
-				else
-					this.apiSrv.teamId = undefined;
+					TeamService.teamId = team.id;
 			});
 		// restoring the previously selected team
 		this.restoreSelectedTeam();

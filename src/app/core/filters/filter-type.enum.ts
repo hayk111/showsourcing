@@ -27,5 +27,6 @@ export enum FilterType {
 	SUPPLIER = 'supplier',
 	SUPPLIERS = 'suppliers',
 	TAG = 'tag',
-	TAGS = 'tags'
+	TAGS = 'tags',
+	TEAM = 'team'
 }
