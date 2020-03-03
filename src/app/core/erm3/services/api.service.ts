@@ -84,7 +84,7 @@ export class ApiService implements ApiServiceInterface {
 		// attaching the data observable directly to the object
 		const data$ = from(queryRef).pipe(
 			// filter cache response when there is no cache
-			filter(r => r.stale),
+			filter(r => !r.stale),
 			filter((r: any) => this.checkError(r, title)),
 			// extracting the result
 			map(({ data }) => data[queryName]),
@@ -122,7 +122,7 @@ export class ApiService implements ApiServiceInterface {
 		}) as ObservableQuery<any>;
 		const data$ = from(queryRef).pipe(
 			// filter cache response when there is no cache
-			filter(r => r.stale),
+			filter(r => !r.stale),
 			filter((r: any) => this.checkError(r, title)),
 			map(({ data }) => data[queryName].items),
 			tap(data => this.logResult(title, queryName, data))
@@ -159,7 +159,7 @@ export class ApiService implements ApiServiceInterface {
 		}) as ObservableQuery<any>;
 		const data$ = from(queryRef).pipe(
 			// filter cache response when there is no cache
-			filter(r => r.stale),
+			filter(r => !r.stale),
 			filter((r: any) => this.checkError(r, title)),
 			map(({ data }) => data[queryName].items),
 			tap(data => this.logResult(title, queryName, data))
