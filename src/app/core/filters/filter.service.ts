@@ -3,6 +3,7 @@ import { FilterConverter, ValuesByType, FiltersByType } from './_filter-converte
 import { FilterType } from './filter-type.enum';
 import { Filter } from './filter.class';
 import { Injectable } from '@angular/core';
+import { TeamService } from '~core/auth';
 
 
 /**
@@ -27,7 +28,7 @@ export class FilterService {
 	private _valueChanges$ = new ReplaySubject<FilterService>(1);
 	valueChanges$ = this._valueChanges$.asObservable();
 	/** default state */
-	startFilters: Filter[] = [];
+	startFilters: Filter[] = [ { type: FilterType.TEAM, value: TeamService.teamId } ];
 	/** the filters currently in the filter-list */
 	filters: Filter[] = [];
 	/** @TODO make those fields private */

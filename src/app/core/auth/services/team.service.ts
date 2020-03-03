@@ -36,7 +36,7 @@ export class TeamService {
 	hasTeamSelected$ = this._teamSelected$.pipe(
 		map(team => !!team)
 	);
-	// synchronous version for easy access
+	// putting it static so we can access it easily without injection
 	static teamSelected: Team;
 
 	constructor(
