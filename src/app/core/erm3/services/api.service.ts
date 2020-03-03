@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { MutationOptions } from 'apollo-client';
 import {
 	ObservableQuery as ApolloObservableQuery,
 	WatchQueryOptions
@@ -128,8 +129,14 @@ export class ApiService implements ApiServiceInterface {
 		options: WatchQueryOptions | {} = {}
 	): Observable<T> {
 		const title = 'Create ' + entityName;
-		const { query, queryName, body } = QueryPool.getQueryInfo(entityName, QueryType.CREATE);
+		const { query, queryName, body } = QueryPool.getQueryInfo(
+			entityName,
+			QueryType.CREATE
+		);
 		const variables = { input: entity };
+
+		options = { mutation: query, variables, ...options };
+		this.addOptimisticResponse(options, queryName, entity);
 		this.log(title, query, queryName, body, variables);
 		return from(client.mutate({ mutation: query, variables, ...options })).pipe(
 			map(({ data }) => data[queryName]),
@@ -152,15 +159,41 @@ export class ApiService implements ApiServiceInterface {
 		options: WatchQueryOptions | {} = {}
 	): Observable<T> {
 		const title = 'Update ' + entityName;
-		const { query, queryName, body } = QueryPool.getQueryInfo(entityName, QueryType.UPDATE);
+		const { query, queryName, body } = QueryPool.getQueryInfo(
+			entityName,
+			QueryType.UPDATE
+		);
 		const variables = { input: entity };
 		options = { mutation: query, variables, ...options };
-
 		this.addOptimisticResponse(options, queryName, entity);
 		this.log(title, query, queryName, body, variables);
 
-		return from(client.mutate({ mutation: query, variables, ...options })).pipe(
+		return from(client.mutate(options as MutationOptions)).pipe(
 			map(r => r[queryName].items),
+			tap(data => this.logResult(title, queryName, data))
+		);
+	}
+
+	/////////////////////////////
+	//          DELETE         //
+	/////////////////////////////
+
+	delete<T>(
+		entityName: EntityName,
+		entity: T,
+		options: MutationOptions | {} = {}
+	): Observable<T> {
+		const title = 'Delete' + entityName;
+		const { query, queryName, body } = QueryPool.getQueryInfo(
+			entityName,
+			QueryType.DELETE
+		);
+		const variables = { input: entity };
+
+		this.log(title, query, queryName, body, variables);
+
+		return from(client.mutate({ mutation: query, variables, ...options })).pipe(
+			map(r => r.data[queryName]),
 			tap(data => this.logResult(title, queryName, data))
 		);
 	}
@@ -196,9 +229,18 @@ export class ApiService implements ApiServiceInterface {
 	}
 
 	/** logs request that is about to being made to the 	 */
-	private log(type: string, gql: DocumentNode, queryName: string, body: string, variables?: any) {
+	private log(
+		type: string,
+		gql: DocumentNode,
+		queryName: string,
+		body: string,
+		variables?: any
+	) {
 		// logging for each request
-		log.group(`%c 🍌 ${type}, queryName: ${queryName}`, LogColor.APOLLO_CLIENT_PRE);
+		log.group(
+			`%c 🍌 ${type}, queryName: ${queryName}`,
+			LogColor.APOLLO_CLIENT_PRE
+		);
 		log.group(`%c trace`, LogColor.APOLLO_CLIENT_PRE);
 		log.trace();
 		log.groupEnd();
@@ -208,7 +250,10 @@ export class ApiService implements ApiServiceInterface {
 		log.debug(gql);
 		log.groupEnd();
 		if (variables) {
-			log.group(`%c variables`, 'color: lime; background: #555555; padding: 4px');
+			log.group(
+				`%c variables`,
+				'color: lime; background: #555555; padding: 4px'
+			);
 			log.table(variables);
 			log.groupEnd();
 		}
