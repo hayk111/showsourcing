@@ -32,31 +32,3 @@ export enum EntityName {
 	USER = 'user',
 	TEAM_BY_USER = 'teamByUser'
 }
-
-export type EntityNameType =  'attachment'|
- 'activity'|
- 'category'|
- 'comment'|
- 'company'|
- 'contact'|
- 'country'|
- 'currency'|
- 'descriptor'|
- 'event'|
- 'export'|
- 'harbour'|
- 'image'|
- 'invitation'|
- 'location'|
- 'product'|
- 'project'|
- 'request'|
- 'request element'|
- 'sample'|
- 'supplier'|
- 'tag'|
- 'task'|
- 'team'|
- 'user'|
- 'teamUser';
-

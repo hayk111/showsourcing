@@ -2,9 +2,7 @@ import gql from 'graphql-tag';
 import { BaseQueries } from '../base.queries';
 
 export class TeamQueries extends BaseQueries {
-	constructor(name: string, defaultFields?: string) {
-		super(name, defaultFields);
-	}
+
 	queryAll = null;
 	queryAllByUser = gql`
 		query ListTeamByUser(

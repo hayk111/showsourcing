@@ -7,7 +7,7 @@ import { AmplifyService } from 'aws-amplify-angular';
 import { first } from 'rxjs/operators';
 import { AuthenticationService, TeamService } from '~core/auth';
 import awsconfig from '~core/aws-exports';
-import { EntityNameType } from '~core/erm/entity-name.enum';
+import { EntityName } from '../entity-name.type';
 import * as models from '~core/erm3/models';
 /** END */
 import { ApiService } from './api.service';
@@ -94,7 +94,7 @@ fdescribe('ApiService', () => {
 	notCustomQueryAll.forEach(entity => {
 		it(`should query something with queryAll for "${entity}"`, done => {
 			apiSrv
-				.queryAll(entity as EntityNameType)
+				.queryAll(entity)
 				.data$.pipe(first())
 				.subscribe(expectQuerySomething(done));
 		});
@@ -152,7 +152,7 @@ fdescribe('ApiService', () => {
 	};
 
 
-	const notCustomQueryOne = new Map<EntityNameType, any>([
+	const notCustomQueryOne = new Map<EntityName, any>([
 		['category', createCategory],
 		['company', createCompany],
 		// ['contact', createContact],
