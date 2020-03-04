@@ -2,9 +2,7 @@ import { Entity } from './_entity.model';
 import { TeamInput, UserInput, ProductInput, SupplierInput } from '../../../API.service';
 
 export class Task extends Entity<Task> {
-	lastUpdatedAt? = Date.now();
-	createdAt? = Date.now();
-	deleted? = false;
+	__typename ?= 'Task';
 
 	createdByUserId?: string | null;
 	lastUpdatedByUserId?: string | null;

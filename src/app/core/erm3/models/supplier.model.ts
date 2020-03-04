@@ -1,12 +1,10 @@
 import { TeamInput } from '../../../API.service';
 import { Entity } from './_entity.model';
 
-export class Supplier extends Entity<Supplier>{
-		createdAt ?= Date.now();
-	lastUpdatedAt?= Date.now();
-	deleted? = false;
+export class Supplier extends Entity<Supplier> {
+	__typename ?= 'Supplier';
 	favorite? = false;
-	archived?= false;
+	archived? = false;
 
 	lastUpdatedByUserId?: string | null;
 	createdByUserId?: string | null;
@@ -36,4 +34,3 @@ export class Supplier extends Entity<Supplier>{
 	deletedByUSerId?: string | null;
 	_version?: number | null;
 }
-

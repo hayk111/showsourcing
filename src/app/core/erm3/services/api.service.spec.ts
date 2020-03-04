@@ -11,6 +11,7 @@ import { EntityName } from '../entity-name.type';
 import * as models from '~core/erm3/models';
 /** END */
 import { ApiService } from './api.service';
+import { ImageType } from 'app/API.service';
 Amplify.configure(awsconfig);
 
 fdescribe('ApiService', () => {
@@ -25,7 +26,7 @@ fdescribe('ApiService', () => {
 
 	const createCompany = () => {
 		const company = new models.Company({ name: 'test apiService Company' });
-		return apiSrv.create('company', company).toPromise();
+		return apiSrv.create('company', company, {fetchPolicy: 'no-cache'}).toPromise();
 	};
 	const createTeam = async (companyId?: string) => {
 		if (!companyId) {
@@ -86,7 +87,6 @@ fdescribe('ApiService', () => {
 		'supplier',
 		'task',
 		'user',
-		'company'
 		// 'teamByUser'
 	];
 	// test queryAll (not custom) for all entities in the QueryPool.map
@@ -122,16 +122,17 @@ fdescribe('ApiService', () => {
 	};
 
 	const createDescriptor = () => {
-		const descriptor = new models.Descriptor({}); // ? The audits are missing for createDescriptor.
+		const descriptor = new models.Descriptor({ target: 'test apiService Descriptor' }); // ? The audits are missing for createDescriptor.
 		return apiSrv.create('descriptor', descriptor).toPromise();
 	};
 
-	const createImage = () => { // ? The ImageType is required
+	const createImage = () => {
 		const image = new models.Image({
 			createdByUserId: userId,
 			lastUpdatedByUserId: userId,
 			fileName: 'File Name',
 			orientation: 0,
+			imageType: ImageType.JPG
 		});
 		return apiSrv.create('image', image).toPromise();
 	};
@@ -155,7 +156,11 @@ fdescribe('ApiService', () => {
 	};
 
 	const createTask = () => {
-		const task = new models.Task({ createdByUserId: userId, lastUpdatedByUserId: userId });
+		const task = new models.Task({
+			createdByUserId: userId,
+			lastUpdatedByUserId: userId,
+			name: 'test apiService Task'
+		});
 		return apiSrv.create('task', task).toPromise();
 	};
 
@@ -172,11 +177,10 @@ fdescribe('ApiService', () => {
 	]);
 
 	notCustomCreate.forEach((create, entity) => {
-		if (entity === 'image')
-			it(`should create a ${entity}`, async () => {
-				const createdEntity = await create();
-				expect(createdEntity.id).toBeTruthy();
-			});
+		it(`should create a ${entity}`, async () => {
+			const createdEntity = await create();
+			expect(createdEntity.id).toBeTruthy();
+		});
 	});
 
 	// it('test', () => {

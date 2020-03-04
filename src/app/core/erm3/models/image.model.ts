@@ -3,7 +3,7 @@ import { Entity } from './_entity.model';
 
 
 export class Image extends Entity<Image> {
-	__typename?: 'Image';
+	__typename ?= 'Image';
 	id?: string;
 	teamId?: string | null;
 	team?: TeamInput | null;

@@ -1,8 +1,8 @@
 import { TeamInput, SupplierInput, UserInput } from '../../../API.service';
 import { Entity } from './_entity.model';
 
-export class Contact extends Entity<Contact>{
-	__typename?: 'Contact';
+export class Contact extends Entity<Contact> {
+	__typename ?= 'Contact';
 	id?: string;
 	teamId?: string | null;
 	team?: TeamInput | null;

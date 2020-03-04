@@ -1,19 +1,130 @@
 import { Entity } from './_entity.model';
+import { Lang } from '../../../API.service';
 
 export class Category extends Entity<Category> {
-	lastUpdatedAt ?= Date.now();
-	createdAt ?= Date.now();
-	deleted ?= false;
-
-	name?: string;
-	teamId?: string;
-
-	createdByUserId?: null;
-	lastUpdatedByUserId?: string;
+	__typename? = 'Category';
 	id?: string;
-	deletedBy?: undefined;
-	deletionDate?: undefined;
-	lastupdatedByUserId?: undefined;
-	lastUpdatedBy?: undefined;
-	_version?: undefined;
+	teamId?: string;
+	team?: {
+		__typename?: 'Team';
+		id?: string;
+		name?: string;
+		ownerUserId?: string;
+		owner?: {
+			__typename?: 'User';
+			id?: string;
+			email?: string;
+			firstName?: string;
+			lastName?: string;
+			phoneNumber?: string | null;
+			preferredLanguage?: Lang | null;
+			avatar?: string | null;
+			createdAt?: number | null;
+			_version?: number;
+			_deleted?: boolean | null;
+			_lastChangedAt?: number;
+		};
+		companyId?: string;
+		company?: {
+			__typename?: 'Company';
+			id?: string;
+			name?: string;
+			ownerUserId?: string;
+			createdByUserId?: string;
+			createdOn?: number;
+			lastUpdatedByUserId?: string;
+			lastUpdatedAt?: number | null;
+			_version?: number;
+			_deleted?: boolean | null;
+			_lastChangedAt?: number;
+		};
+		createdByUserId?: string;
+		createdBy?: {
+			__typename?: 'User';
+			id?: string;
+			email?: string;
+			firstName?: string;
+			lastName?: string;
+			phoneNumber?: string | null;
+			preferredLanguage?: Lang | null;
+			avatar?: string | null;
+			createdAt?: number | null;
+			_version?: number;
+			_deleted?: boolean | null;
+			_lastChangedAt?: number;
+		};
+		createdOn?: number;
+		lastUpdatedByUserId?: string;
+		lastUpdatedBy?: {
+			__typename?: 'User';
+			id?: string;
+			email?: string;
+			firstName?: string;
+			lastName?: string;
+			phoneNumber?: string | null;
+			preferredLanguage?: Lang | null;
+			avatar?: string | null;
+			createdAt?: number | null;
+			_version?: number;
+			_deleted?: boolean | null;
+			_lastChangedAt?: number;
+		} | null;
+		lastUpdatedAt?: number | null;
+		_version?: number;
+		_deleted?: boolean | null;
+		_lastChangedAt?: number;
+	} | null;
+	name?: string;
+	createdAt?: number;
+	createdByUserId?: string;
+	createdBy?: {
+		__typename?: 'User';
+		id?: string;
+		email?: string;
+		firstName?: string;
+		lastName?: string;
+		phoneNumber?: string | null;
+		preferredLanguage?: Lang | null;
+		avatar?: string | null;
+		createdAt?: number | null;
+		_version?: number;
+		_deleted?: boolean | null;
+		_lastChangedAt?: number;
+	} | null;
+	deletedByUserId?: string;
+	deletedBy?: {
+		__typename?: 'User';
+		id?: string;
+		email?: string;
+		firstName?: string;
+		lastName?: string;
+		phoneNumber?: string | null;
+		preferredLanguage?: Lang | null;
+		avatar?: string | null;
+		createdAt?: number | null;
+		_version?: number;
+		_deleted?: boolean | null;
+		_lastChangedAt?: number;
+	} | null;
+	deletionDate?: number | null;
+	lastUpdatedByUserId?: string;
+	lastUpdatedBy?: {
+		__typename?: 'User';
+		id?: string;
+		email?: string;
+		firstName?: string;
+		lastName?: string;
+		phoneNumber?: string | null;
+		preferredLanguage?: Lang | null;
+		avatar?: string | null;
+		createdAt?: number | null;
+		_version?: number;
+		_deleted?: boolean | null;
+		_lastChangedAt?: number;
+	} | null;
+	lastUpdatedAt?: number;
+	deleted?: boolean;
+	_version?: number;
+	_deleted?: boolean | null;
+	_lastChangedAt?: number;
 }

@@ -2,7 +2,7 @@ import { Entity } from './_entity.model';
 import { Lang, ImageType } from '../../../API.service';
 
 export class Product extends Entity<Product> {
-	__typename?: 'Product';
+	__typename ?= 'Product';
 	id?: string;
 	teamId?: string;
 	team?: {
