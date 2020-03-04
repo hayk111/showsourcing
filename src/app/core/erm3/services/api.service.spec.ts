@@ -26,7 +26,7 @@ fdescribe('ApiService', () => {
 
 	const createCompany = () => {
 		const company = new models.Company({ name: 'test apiService Company' });
-		return apiSrv.create('company', company, {fetchPolicy: 'no-cache'}).toPromise();
+		return apiSrv.create('company', company, { fetchPolicy: 'no-cache' }).toPromise();
 	};
 	const createTeam = async (companyId?: string) => {
 		if (!companyId) {
@@ -50,15 +50,20 @@ fdescribe('ApiService', () => {
 		});
 		apiSrv = TestBed.get(ApiService);
 		authSrv = TestBed.get(AuthenticationService);
-		authSrv.signIn$.subscribe(async username => {
-			userId = username;
-			const team = await createTeam();
-			TeamService.teamId = team.id;
+
+		const initVars = new Promise((res, rej) => {
+			authSrv.signIn({
+				username: 'cedric@showsourcing.com',
+				password: 'Test1234'
+			});
+			authSrv.signIn$.subscribe(async username => {
+				userId = username;
+				const team = await createTeam();
+				TeamService.teamId = team.id;
+				res();
+			});
 		});
-		await authSrv.signIn({
-			username: 'cedric@showsourcing.com',
-			password: 'Test1234'
-		});
+		await initVars;
 	});
 
 	/** ======== */
@@ -86,7 +91,7 @@ fdescribe('ApiService', () => {
 		'product',
 		'supplier',
 		'task',
-		'user',
+		'user'
 		// 'teamByUser'
 	];
 	// test queryAll (not custom) for all entities in the QueryPool.map
