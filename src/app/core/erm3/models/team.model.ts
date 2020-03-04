@@ -1,11 +1,8 @@
-import { uuid } from '~utils';
-
 export class Team {
-	__typename ?= 'Team';
 	constructor(config?: Team) {
 		Object.assign(this, config);
 	}
-	id ?: string;
+	id?: string;
 	name?: string;
 	ownerUserId?: string;
 	companyId?: string;

@@ -106,7 +106,7 @@ export class Category extends Entity<Category> {
 		_deleted?: boolean | null;
 		_lastChangedAt?: number;
 	} | null;
-	deletionDate?: number | null;
+	deletedAt?: number | null;
 	lastUpdatedByUserId?: string;
 	lastUpdatedBy?: {
 		__typename?: 'User';

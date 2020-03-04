@@ -116,7 +116,7 @@ export class Product extends Entity<Product> {
 		creationDate?: number;
 		createdByUserId?: string;
 		deletedByUSerId?: string | null;
-		deletionDate?: number | null;
+		deletedAt?: number | null;
 		lastUpdatedByUserId?: string;
 		lastUpdatedDate?: number;
 		deleted?: boolean;
@@ -176,7 +176,7 @@ export class Product extends Entity<Product> {
 			_deleted?: boolean | null;
 			_lastChangedAt?: number;
 		} | null;
-		deletionDate?: number | null;
+		deletedAt?: number | null;
 		lastupdatedByUserId?: string;
 		lastUpdatedBy?: {
 			__typename?: 'User';
@@ -254,7 +254,7 @@ export class Product extends Entity<Product> {
 			_deleted?: boolean | null;
 			_lastChangedAt?: number;
 		} | null;
-		deletionDate?: number | null;
+		deletedAt?: number | null;
 		lastupdatedByUserId?: string;
 		lastUpdatedBy?: {
 			__typename?: 'User';
@@ -316,7 +316,7 @@ export class Product extends Entity<Product> {
 	referenceKey?: number | null;
 	createdByUserId?: string;
 	deletedByUSerId?: string | null;
-	deletionDate?: number | null;
+	deletedAt?: number | null;
 	lastUpdatedByUserId?: string;
 	_version?: number;
 	_deleted?: boolean | null;
