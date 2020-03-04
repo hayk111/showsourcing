@@ -14,7 +14,10 @@ const COMPANY = 'company';
 })
 export class CompanyService {
 
-	private queryAll = this.apiSrv.queryAll('company');
+	private queryAll = this.apiSrv.queryAll(
+		'company',
+		{ variables: { ownerUserId: ''}},
+	);
 	// an user has only 1 company
 	private _company$ = new ReplaySubject<Company>(1);
 	company$ = this._company$.asObservable();
@@ -34,6 +37,12 @@ export class CompanyService {
 	init() {
 		// when signing in we want to load the current company of the user
 		this.authSrv.signIn$.pipe(
+			tap(id => {
+				this.queryAll = this.apiSrv.queryAll(
+					'company',
+					{ variables: { ownerUserId: id }},
+				);
+			}),
 			switchMap(_ => this.queryAll.data$),
 			map(all => all[0])
 		).subscribe(company => {

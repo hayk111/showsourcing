@@ -91,7 +91,7 @@ export class TeamService {
 	}
 
 	get teamId() {
-		return TeamService.teamSelected?.id;
+		return TeamService.teamSelected.id;
 	}
 
 }
