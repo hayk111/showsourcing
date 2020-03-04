@@ -19,6 +19,13 @@ export interface ObservableQuery<T = any> extends ApolloObservableQuery<T> {
 	data$: Observable<T>;
 }
 
+export interface FilterParams {
+	filter?: any;
+	sort?: any;
+	limit?: number;
+	nextToken?: string;
+}
+
 export interface ApiServiceInterface {
 	queryOne<T>(
 		entityName: EntityName | EntityNameType,
@@ -83,6 +90,8 @@ export class ApiService implements ApiServiceInterface {
 		}) as ObservableQuery<any>;
 		// attaching the data observable directly to the object
 		const data$ = from(queryRef).pipe(
+			// filter cache response when there is no cache
+			filter(r => !r.stale),
 			filter((r: any) => this.checkError(r, title)),
 			// extracting the result
 			map(({ data }) => data[queryName]),
@@ -93,32 +102,36 @@ export class ApiService implements ApiServiceInterface {
 	}
 
 	/////////////////////////////
-	//        QUERY ALL        //
+	//        QUERY MANY        //
 	/////////////////////////////
+
 
 	/**
 	 * Query many entities
 	 * (Query, optimistic UI)
 	 * @param fields: the fields you want to query, if none is specified the default ones are used
+	 * @param variables: variables for filtering, sorting, and paginate
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	 * @param options: Apollo options if we don't want the default
 	 */
 	queryMany<T>(
 		entityName: EntityNameType,
+		variables: FilterParams,
 		options: WatchQueryOptions | any = {},
 		queryType = QueryType.QUERY_MANY
 	): ObservableQuery<T[]> {
 		const title = 'Query Many ' + entityName + 's';
 		const { query, queryName, body } = QueryPool.getQueryInfo(entityName, queryType);
-		const variables: any = { teamId: this.teamId, ...options.variables };
-		this.log(title, query, queryName, body);
+		this.log(title, query, queryName, body, variables);
 
 		const queryRef = client.watchQuery({
 			query,
-			...options,
-			variables
+			variables,
+			...options
 		}) as ObservableQuery<any>;
 		const data$ = from(queryRef).pipe(
+			// filter cache response when there is no cache
+			filter(r => !r.stale),
 			filter((r: any) => this.checkError(r, title)),
 			map(({ data }) => data[queryName].items),
 			tap(data => this.logResult(title, queryName, data))
@@ -126,6 +139,7 @@ export class ApiService implements ApiServiceInterface {
 		queryRef.data$ = data$;
 		return queryRef;
 	}
+
 
 	/////////////////////////////
 	//        QUERY ALL        //
@@ -154,6 +168,8 @@ export class ApiService implements ApiServiceInterface {
 			variables
 		}) as ObservableQuery<any>;
 		const data$ = from(queryRef).pipe(
+			// filter cache response when there is no cache
+			filter(r => !r.stale),
 			filter((r: any) => this.checkError(r, title)),
 			map(({ data }) => data[queryName].items),
 			tap(data => this.logResult(title, queryName, data))
