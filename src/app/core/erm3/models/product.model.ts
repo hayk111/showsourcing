@@ -2,9 +2,6 @@ import { Entity } from './_entity.model';
 import { Lang, ImageType } from '../../../API.service';
 
 export class Product extends Entity<Product> {
-	createdAt ?= Date.now();
-	lastUpdatedAt?= Date.now();
-	deleted? = false;
 	__typename?: 'Product';
 	id?: string;
 	teamId?: string;

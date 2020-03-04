@@ -1,24 +1,24 @@
-export class Image {
-	id: undefined;
-	name: 'test apiService Image';
-	teamId: null;
+import { TeamInput, ImageType, UserInput } from '../../../API.service';
+import { Entity } from './_entity.model';
+
+
+export class Image extends Entity<Image> {
+	__typename?: 'Image';
+	id?: string;
+	teamId?: string | null;
+	team?: TeamInput | null;
+	fileName?: string | null;
+	orientation?: number | null;
+	imageType?: ImageType | null;
+	createdAt?: number | null;
+	createdByUserId?: string | null;
+	createdBy?: UserInput | null;
+	deletedByUserId?: string | null;
+	deletedBy?: UserInput | null;
+	deletedAt?: number | null;
+	lastUpdatedByUserId?: string | null;
+	lastUpdatedBy?: UserInput | null;
+	lastUpdatedAt?: number | null;
+	deleted?: boolean | null;
+	_version?: number | null;
 }
-
-// export type CreateImageInput = {
-//   id?: string | null;
-//   teamId: string;
-//   fileName: string;
-//   orientation: number;
-//   imageType: string;
-//   urls?: Array<ImageUrlInput | null> | null;
-//   deletedBy?: UserInput | null;
-//   deletionDate?: number | null;
-//   lastUpdatedBy?: UserInput | null;
-//   _version?: number | null;
-
-// TODO should be changed in the backend
-//   creationDate: number;
-//   createdBy: UserInput;
-//   lastUpdatedDate: number;
-//   deleted: boolean;
-// };

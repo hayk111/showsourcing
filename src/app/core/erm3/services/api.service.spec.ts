@@ -112,20 +112,29 @@ fdescribe('ApiService', () => {
 		return apiSrv.create('category', category).toPromise();
 	};
 
-	// const createContact = teamId => {
-	// 	const contact = { ...models.Contact, teamId };
-	// 	return apiSrv.create('contact', contact).toPromise();
-	// };
+	const createContact = () => {
+		const contact = new models.Contact({
+			name: 'test apiService Contact',
+			createdByUserId: userId,
+			lastUpdatedByUserId: userId
+		});
+		return apiSrv.create('contact', contact).toPromise();
+	};
 
 	const createDescriptor = () => {
-		const descriptor = new models.Descriptor({});
+		const descriptor = new models.Descriptor({}); // ? The audits are missing for createDescriptor.
 		return apiSrv.create('descriptor', descriptor).toPromise();
 	};
 
-	// const createImage = teamId => {
-	// 	const image = { ...models.Image, teamId };
-	// 	return apiSrv.create('image', image).toPromise();
-	// };
+	const createImage = () => { // ? The ImageType is required
+		const image = new models.Image({
+			createdByUserId: userId,
+			lastUpdatedByUserId: userId,
+			fileName: 'File Name',
+			orientation: 0,
+		});
+		return apiSrv.create('image', image).toPromise();
+	};
 
 	const createProduct = () => {
 		const product = new models.Product({
@@ -150,25 +159,24 @@ fdescribe('ApiService', () => {
 		return apiSrv.create('task', task).toPromise();
 	};
 
-	const notCustomQueryOne = new Map<EntityName, any>([
+	const notCustomCreate = new Map<EntityName, any>([
 		['category', createCategory],
 		['company', createCompany],
-		// ['contact', createContact],
+		['contact', createContact],
 		['descriptor', createDescriptor],
-		// ['image', createImage],
+		['image', createImage],
 		['product', createProduct],
 		['supplier', createSupplier],
 		['task', createTask],
-		// ['company' createCompany]
-		['company', createCompany],
 		['team', createTeam]
 	]);
 
-	notCustomQueryOne.forEach((create, entity) => {
-		it(`should create a ${entity}`, async () => {
-			const createdEntity = await create();
-			expect(createdEntity.id).toBeTruthy();
-		});
+	notCustomCreate.forEach((create, entity) => {
+		if (entity === 'image')
+			it(`should create a ${entity}`, async () => {
+				const createdEntity = await create();
+				expect(createdEntity.id).toBeTruthy();
+			});
 	});
 
 	// it('test', () => {
