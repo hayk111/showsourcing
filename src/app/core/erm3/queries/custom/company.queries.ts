@@ -4,7 +4,7 @@ import { BaseQueries } from '../base.queries';
 export class CompanyQueries extends BaseQueries {
 
 	queryAll = gql`
-		query queryAll(
+		query listCompanyByOnwer(
 			$ownerUserId: ID
 		) {
 			listCompanyByOwner(
@@ -16,8 +16,6 @@ export class CompanyQueries extends BaseQueries {
 					id
 					name
 				}
-				nextToken
-				startedAt
 			}
 		}
 	`;

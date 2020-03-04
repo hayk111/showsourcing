@@ -52,7 +52,6 @@ export class TeamService extends GlobalService<Team> {
 		private http: HttpClient,
 	) {
 		super(TeamQueries, 'team', customQueries);
-		super.useTeamId = false;
 	}
 
 	init() {

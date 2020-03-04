@@ -14,10 +14,7 @@ const COMPANY = 'company';
 })
 export class CompanyService {
 
-	private queryAll = this.apiSrv.queryAll(
-		'company',
-		{ variables: { ownerUserId: ''}},
-	);
+	private queryAll;
 	// an user has only 1 company
 	private _company$ = new ReplaySubject<Company>(1);
 	company$ = this._company$.asObservable();

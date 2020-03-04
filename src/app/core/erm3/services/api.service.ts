@@ -159,14 +159,13 @@ export class ApiService implements ApiServiceInterface {
 	): ObservableQuery<T[]> {
 		const title = 'Query All ' + entityName + 's';
 		const { query, queryName, body } = QueryPool.getQueryInfo(entityName, queryType);
-		const variables: any = { teamId: this.teamId, ...options.variables };
-		this.log(title, query, queryName, body);
+		this.log(title, query, queryName, body, options.variables);
 
 		const queryRef = client.watchQuery({
 			query,
-			...options,
-			variables
+			...options
 		}) as ObservableQuery<any>;
+
 		const data$ = from(queryRef).pipe(
 			// filter cache response when there is no cache
 			filter(r => !r.stale),

@@ -4,6 +4,7 @@ import { BaseQueries } from './base.queries';
 import { QueryType } from './query-type.enum';
 import { TeamUser } from '~core/erm/models';
 import { TeamUserQueries } from './custom/team-user.queries';
+import { CompanyQueries } from './custom/company.queries';
 
 export class QueryPool {
 	static map = {
