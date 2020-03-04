@@ -12,6 +12,7 @@ import * as models from '~core/erm3/models';
 /** END */
 import { ApiService } from './api.service';
 import { ImageType } from 'app/API.service';
+import { Entity } from '../models/_entity.model';
 Amplify.configure(awsconfig);
 
 fdescribe('ApiService', () => {
@@ -33,8 +34,19 @@ fdescribe('ApiService', () => {
 			companyId = (await createCompany()).id;
 		}
 		const team = new models.Team({ name: 'test apiService Team' });
-		return await apiSrv.create('team', { ...team, companyId }).toPromise();
+		return apiSrv.create('team', { ...team, companyId }).toPromise();
 	};
+
+	const signIn = () =>
+		new Promise((res, rej) => {
+			authSrv.signIn({
+				username: 'cedric@showsourcing.com',
+				password: 'Test1234'
+			});
+			authSrv.signIn$.subscribe(async username => {
+				res(username);
+			});
+		});
 
 	// connect user for test and provide services
 	beforeAll(async () => {
@@ -51,19 +63,8 @@ fdescribe('ApiService', () => {
 		apiSrv = TestBed.get(ApiService);
 		authSrv = TestBed.get(AuthenticationService);
 
-		const initVars = new Promise((res, rej) => {
-			authSrv.signIn({
-				username: 'cedric@showsourcing.com',
-				password: 'Test1234'
-			});
-			authSrv.signIn$.subscribe(async username => {
-				userId = username;
-				const team = await createTeam();
-				TeamService.teamId = team.id;
-				res();
-			});
-		});
-		await initVars;
+		userId = await signIn();
+		TeamService.teamId = (await createTeam()).id;
 	});
 
 	/** ======== */
@@ -104,9 +105,9 @@ fdescribe('ApiService', () => {
 		});
 	});
 
-	/** ======== */
-	/** create   */
-	/** ======== */
+	/** ================= */
+	/** create functions  */
+	/** ================= */
 
 	const createCategory = () => {
 		const category = new models.Category({
@@ -169,26 +170,41 @@ fdescribe('ApiService', () => {
 		return apiSrv.create('task', task).toPromise();
 	};
 
+	/** ================ */
+	/** delete functions */
+	/** ================ */
+
+	const deleteCategory = (entity: Entity, entityName: EntityName) => {
+		return apiSrv.delete(entityName, entity);
+	};
+
 	const notCustomCreate = new Map<EntityName, any>([
-		['category', createCategory],
-		['company', createCompany],
-		['contact', createContact],
-		['descriptor', createDescriptor],
-		['image', createImage],
-		['product', createProduct],
-		['supplier', createSupplier],
-		['task', createTask],
-		['team', createTeam]
+		['category', [createCategory, undefined, deleteCategory]],
+		['company', [createCompany]],
+		['contact', [createContact]],
+		['descriptor', [createDescriptor]],
+		['image', [createImage]],
+		['product', [createProduct]],
+		['supplier', [createSupplier]],
+		['task', [createTask]],
+		['team', [createTeam]]
 	]);
 
-	notCustomCreate.forEach((create, entity) => {
-		it(`should create a ${entity}`, async () => {
-			const createdEntity = await create();
-			expect(createdEntity.id).toBeTruthy();
-		});
+	notCustomCreate.forEach(([create, update, del], entityName) => {
+			let createdEntity;
+			it(`should create a ${entityName}`, async () => {
+				createdEntity = await create();
+				expect(createdEntity.id).toBeTruthy();
+			});
+		// fit(`should delete the ${entityName}`, async () => {
+		// 	const response = await del(createdEntity, entityName);
+		// 	expect(response._deleted).toBe(true);
+		// 	debugger;
+		// });
 	});
 
-	// it('test', () => {
+
+	// it('should generate 100 products', () => {
 	// 	for (let i = 0; i < 100; i++) {
 	// 		const product = new models.Product({
 	// 			name: 'CEDRIC Product' + i,

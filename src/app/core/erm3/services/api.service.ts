@@ -14,6 +14,7 @@ import { QueryPool } from '../queries/query-pool.class';
 import { QueryType } from '../queries/query-type.enum';
 import { client } from './client';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
+import { Entity } from '../models/_entity.model';
 
 export interface ObservableQuery<T = any> extends ApolloObservableQuery<T> {
 	data$: Observable<T>;
@@ -125,17 +126,19 @@ export class ApiService implements ApiServiceInterface {
 	 */
 	create<T>(
 		entityName: EntityName,
-		entity: T,
+		entity: T & Entity,
 		options: WatchQueryOptions | {} = {}
 	): Observable<T> {
 		const title = 'Create ' + entityName;
-		const { query, queryName, body } = QueryPool.getQueryInfo(
-			entityName,
-			QueryType.CREATE
-		);
-		const variables = { input: {...entity} };
+		const { query, queryName, body } = QueryPool.getQueryInfo(entityName, QueryType.CREATE);
+		// TODO remove this condition when the audits are all similars
+		if (entityName !== 'company' && entityName !== 'team') {
+			entity.createdAt = Date.now();
+			entity.lastUpdatedAt = Date.now();
+			entity.deleted = false;
+		}
+		const variables = { input: { ...entity } };
 		delete (variables.input as any).__typename;
-
 		options = { mutation: query, variables, ...options };
 		this.log(title, query, queryName, body, variables);
 		return from(client.mutate({ mutation: query, variables, ...options })).pipe(
@@ -159,10 +162,7 @@ export class ApiService implements ApiServiceInterface {
 		options: WatchQueryOptions | {} = {}
 	): Observable<T> {
 		const title = 'Update ' + entityName;
-		const { query, queryName, body } = QueryPool.getQueryInfo(
-			entityName,
-			QueryType.UPDATE
-		);
+		const { query, queryName, body } = QueryPool.getQueryInfo(entityName, QueryType.UPDATE);
 		const variables = { input: entity };
 		options = { mutation: query, variables, ...options };
 		this.addOptimisticResponse(options, queryName, entity);
@@ -178,16 +178,9 @@ export class ApiService implements ApiServiceInterface {
 	//          DELETE         //
 	/////////////////////////////
 
-	delete<T>(
-		entityName: EntityName,
-		entity: T,
-		options: MutationOptions | {} = {}
-	): Observable<T> {
+	delete<T>(entityName: EntityName, entity: T, options: MutationOptions | {} = {}): Observable<T> {
 		const title = 'Delete' + entityName;
-		const { query, queryName, body } = QueryPool.getQueryInfo(
-			entityName,
-			QueryType.DELETE
-		);
+		const { query, queryName, body } = QueryPool.getQueryInfo(entityName, QueryType.DELETE);
 		const variables = { input: entity };
 
 		this.log(title, query, queryName, body, variables);
@@ -229,18 +222,9 @@ export class ApiService implements ApiServiceInterface {
 	}
 
 	/** logs request that is about to being made to the 	 */
-	private log(
-		type: string,
-		gql: DocumentNode,
-		queryName: string,
-		body: string,
-		variables?: any
-	) {
+	private log(type: string, gql: DocumentNode, queryName: string, body: string, variables?: any) {
 		// logging for each request
-		log.group(
-			`%c 🍌 ${type}, queryName: ${queryName}`,
-			LogColor.APOLLO_CLIENT_PRE
-		);
+		log.group(`%c 🍌 ${type}, queryName: ${queryName}`, LogColor.APOLLO_CLIENT_PRE);
 		log.group(`%c trace`, LogColor.APOLLO_CLIENT_PRE);
 		log.trace();
 		log.groupEnd();
@@ -250,10 +234,7 @@ export class ApiService implements ApiServiceInterface {
 		log.debug(gql);
 		log.groupEnd();
 		if (variables) {
-			log.group(
-				`%c variables`,
-				'color: lime; background: #555555; padding: 4px'
-			);
+			log.group(`%c variables`, 'color: lime; background: #555555; padding: 4px');
 			log.table(variables);
 			log.groupEnd();
 		}
@@ -270,3 +251,7 @@ export class ApiService implements ApiServiceInterface {
 		log.groupEnd();
 	}
 }
+
+// TODO add the audits for create/update/delete
+
+// TODO remove audits from the models => that way we can use new for update
