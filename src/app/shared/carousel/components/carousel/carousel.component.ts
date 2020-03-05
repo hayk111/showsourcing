@@ -170,13 +170,6 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 		return this.images ? this.images[this.selectedIndex].id : null;
 	}
 
-	getRotation(img) {
-		if (!img || !img.orientation)
-			return 'none';
-		else
-			return 'rotate(' + (img.orientation * 90) % 360 + 'deg)';
-	}
-
 	/** opens the file browser window so the user can select a file he wants to upload */
 	openFileBrowser() {
 		if (!this.static)

@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { InfiniScrollDirective, TooltipComponent, TooltipDirective, HorizontalScrollDirective } from '~shared/utils/directives';
+import { InfiniScrollDirective, TooltipComponent, TooltipDirective,
+	HorizontalScrollDirective, RotateDirective } from '~shared/utils/directives';
 import { AutoFocusDirective } from '~shared/utils/directives/auto-focus.directive';
 import { ClickOutsideDirective } from '~shared/utils/directives/click-outside.directive';
 import { ConstPipe } from '~shared/utils/pipes/const.pipe';
@@ -21,6 +22,7 @@ import { CountryCityPipe } from './pipes/country-city.pipe';
 		UserNamePipe,
 		GroupByPipe,
 		InfiniScrollDirective,
+		RotateDirective,
 		ConstPipe,
 		AutoFocusDirective,
 		TooltipDirective,
@@ -37,6 +39,7 @@ import { CountryCityPipe } from './pipes/country-city.pipe';
 		ConstPipe,
 		GroupByPipe,
 		AutoFocusDirective,
+		RotateDirective,
 		TooltipDirective,
 		TabFocusActionDirective,
 		CountryCityPipe,

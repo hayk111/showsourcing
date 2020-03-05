@@ -4,7 +4,9 @@
 	<div
 		#imgCtnr
 		class="img-ctnr flexCenter"
-		[ngStyle]="{'transform': getRotation(getImg()), 'height': size + 'px'}"
+		[ngStyle]="{'height': size + 'px'}"
+		rotate
+		[rotationImg]="getImg()"
 		(mouseover)="zoomin($event)"
 		(mousemove)="zoomin($event)"
 		(mouseleave)="zoomout()">
