@@ -1,27 +1,27 @@
 export type EntityName = 'attachment'|
- 'activity'|
- 'category'|
- 'comment'|
- 'company'|
- 'contact'|
- 'country'|
+ 'Activity'|
+ 'Category'|
+ 'Comment'|
+ 'Company'|
+ 'Contact'|
+ 'Country'|
  'currency'|
- 'descriptor'|
- 'event'|
- 'export'|
- 'harbour'|
- 'image'|
- 'invitation'|
- 'location'|
- 'product'|
- 'project'|
- 'request'|
- 'request element'|
- 'sample'|
- 'supplier'|
- 'tag'|
- 'task'|
- 'team'|
- 'user'|
- 'teamUser';
+ 'Descriptor'|
+ 'Event'|
+ 'Export'|
+ 'Harbour'|
+ 'Image'|
+ 'Invitation'|
+ 'Location'|
+ 'Product'|
+ 'Project'|
+ 'Request'|
+ 'Request element'|
+ 'Sample'|
+ 'Supplier'|
+ 'Tag'|
+ 'Task'|
+ 'Team'|
+ 'User'|
+ 'TeamUser';
 
