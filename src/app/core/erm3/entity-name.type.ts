@@ -5,7 +5,7 @@ export type EntityName = 'attachment'|
  'Company'|
  'Contact'|
  'Country'|
- 'currency'|
+ 'Currency'|
  'Descriptor'|
  'Event'|
  'Export'|
