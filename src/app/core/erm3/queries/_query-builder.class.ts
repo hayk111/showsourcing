@@ -1,12 +1,13 @@
 import gql from 'graphql-tag';
 import { DocumentNode } from 'graphql';
+import { EntityName } from '../entity-name.type';
 
 /** Audit found on every entity */
 const AUDIT = `
 `;
-	// _lastChangedAt
-	// _deleted
-	// _version
+// _lastChangedAt
+// _deleted
+// _version
 
 /**
  * Helper to create GraphQL queries that are valid for the realm GraphQL service
@@ -21,11 +22,18 @@ const AUDIT = `
  *
  */
 export class QueryBuilder {
+<<<<<<< HEAD
 	constructor(private typename: string) {
 		if (!typename) {
 			throw Error('you must define the singular form of the typename');
 		}
 		this.typename = this.capitalize(typename);
+=======
+	constructor(private entityName: EntityName) {
+		if (!entityName) {
+			throw Error('you must define the singular form of the typename');
+		}
+>>>>>>> queryBy in progress
 	}
 
 	// get
@@ -42,7 +50,7 @@ export class QueryBuilder {
 					${AUDIT}
 				}
 			}`;
-	}
+	};
 
 	queryManyDefault: string;
 
@@ -71,7 +79,7 @@ export class QueryBuilder {
 					total
 				}
 			}`;
-	}
+	};
 
 	// list
 	queryAll = (str: string) => {
@@ -84,7 +92,68 @@ export class QueryBuilder {
 					}
 				}
 			}`;
-	}
+	};
+
+	queryBy = (str: string) => {
+		return gql`
+			query ListTeamByUser(
+				$userId: ID
+				$sortDirection: ModelSortDirection
+				$filter: ModelTeamUserFilterInput
+				$limit: Int
+				$nextToken: String
+			) {
+				listTeamByUser(
+					userId: $userId
+					sortDirection: $sortDirection
+					filter: $filter
+					limit: $limit
+					nextToken: $nextToken
+				) {
+					__typename
+					items {
+						__typename
+						teamId
+						userId
+						team {
+							__typename
+							id
+							name
+							ownerUserId
+							companyId
+							createdByUserId
+							createdOn
+							lastUpdatedByUserId
+							lastUpdatedOn
+							_version
+							_deleted
+							_lastChangedAt
+						}
+						user {
+							__typename
+							id
+							email
+							firstName
+							lastName
+							phoneNumber
+							preferredLanguage
+							avatar
+							creationDate
+							_version
+							_deleted
+							_lastChangedAt
+						}
+						role
+						_version
+						_deleted
+						_lastChangedAt
+					}
+					nextToken
+					startedAt
+				}
+			}
+		`;
+	};
 
 	create = (str: string) => {
 		return gql`
@@ -97,7 +166,7 @@ export class QueryBuilder {
 					${AUDIT}
 				}
 			}`;
-	}
+	};
 
 	update = (str: string) => {
 		return gql`
@@ -110,7 +179,7 @@ export class QueryBuilder {
 					${AUDIT}
 				}
 			}`;
-	}
+	};
 
 	delete = (str = '') => {
 		return gql`
@@ -123,9 +192,6 @@ export class QueryBuilder {
 					${AUDIT}
 				}
 			}`;
-	}
+	};
 
-	private capitalize(str: string): string {
-		return str.charAt(0).toUpperCase() + str.slice(1);
-	}
 }

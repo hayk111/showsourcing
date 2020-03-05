@@ -6,6 +6,7 @@ export enum QueryType {
 	QUERY_ALL = 'queryAll',
 	CREATE = 'create',
 	UPDATE = 'update',
-	DELETE = 'delete'
+	DELETE = 'delete',
+	QUERY_BY = 'queryBy',
 }
 
