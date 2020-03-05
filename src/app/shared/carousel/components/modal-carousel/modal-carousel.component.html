@@ -15,7 +15,7 @@
 			</product-modal-header-list>
 		</ng-container>
 		<div class="carousel-body" (mousedown)="close()">
-			<div class="img-ctnr" [ngStyle]="{ transform: getRotation(getImg()) }">
+			<div class="img-ctnr" rotate [rotationImg]="getImg()">
 				<img-app
 					class="loading"
 					objectFit="contain"

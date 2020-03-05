@@ -9,6 +9,8 @@
 			<logo-app
 				class="mg-right-s"
 				size="l"
+				rotate
+				[rotationImg]="product?.images[0] || null"
 				[logo]="product?.images[0] || null"
 				[type]="erm.PRODUCT.singular">
 			</logo-app>

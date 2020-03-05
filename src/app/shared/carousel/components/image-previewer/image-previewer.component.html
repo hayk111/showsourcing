@@ -28,7 +28,8 @@
 	<img-app
 		class="preview-img"
 		[ngClass]="{ 'pending': img.image.pending }"
-		[ngStyle]="{'transform': getRotation(img)}"
+		rotate
+		[rotationImg]="img.image"
 		[image]="img.image"
 		size="xl">
 	</img-app>
