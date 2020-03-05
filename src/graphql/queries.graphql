@@ -16,7 +16,6 @@ query GetStreamNotificationToken($teamId: String) {
 query SyncAProduct($teamId: String) {
   syncAProduct(teamId: $teamId) {
     id
-    name
     teamId
     team {
       id
@@ -82,6 +81,7 @@ query SyncAProduct($teamId: String) {
       _deleted
       _lastChangedAt
     }
+    name
     supplier {
       id
       teamId
@@ -115,49 +115,14 @@ query SyncAProduct($teamId: String) {
       generalLeadTime
       favorite
       globalDatabaseId
+      archived
       reference
       referenceKey
       creationDate
-      createdBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      deletedBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
+      createdByUserId
+      deletedByUSerId
       deletionDate
-      lastUpdatedBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
+      lastUpdatedByUserId
       lastUpdatedDate
       deleted
       _version
@@ -167,16 +132,24 @@ query SyncAProduct($teamId: String) {
     images {
       id
       teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
       fileName
       orientation
       imageType
-      urls {
-        id
-        maxWidth
-        maxHeight
-        url
-      }
       creationDate
+      createdByUserId
       createdBy {
         id
         email
@@ -190,6 +163,7 @@ query SyncAProduct($teamId: String) {
         _deleted
         _lastChangedAt
       }
+      deletedByUserId
       deletedBy {
         id
         email
@@ -204,6 +178,7 @@ query SyncAProduct($teamId: String) {
         _lastChangedAt
       }
       deletionDate
+      lastupdatedByUserId
       lastUpdatedBy {
         id
         email
@@ -231,8 +206,22 @@ query SyncAProduct($teamId: String) {
     category {
       id
       teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
       name
       creationDate
+      createdByUserId
       createdBy {
         id
         email
@@ -246,6 +235,7 @@ query SyncAProduct($teamId: String) {
         _deleted
         _lastChangedAt
       }
+      deletedByUserId
       deletedBy {
         id
         email
@@ -282,6 +272,7 @@ query SyncAProduct($teamId: String) {
     }
     description
     favorite
+    assigneeId
     assignee {
       id
       email
@@ -316,46 +307,10 @@ query SyncAProduct($teamId: String) {
     reference
     referenceKey
     creationDate
-    createdBy {
-      id
-      email
-      firstName
-      lastName
-      phoneNumber
-      preferredLanguage
-      avatar
-      creationDate
-      _version
-      _deleted
-      _lastChangedAt
-    }
-    deletedBy {
-      id
-      email
-      firstName
-      lastName
-      phoneNumber
-      preferredLanguage
-      avatar
-      creationDate
-      _version
-      _deleted
-      _lastChangedAt
-    }
+    createdByUserId
+    deletedByUSerId
     deletionDate
-    lastUpdatedBy {
-      id
-      email
-      firstName
-      lastName
-      phoneNumber
-      preferredLanguage
-      avatar
-      creationDate
-      _version
-      _deleted
-      _lastChangedAt
-    }
+    lastUpdatedByUserId
     lastUpdatedDate
     deleted
     _version
@@ -763,7 +718,6 @@ query SyncProducts(
   ) {
     items {
       id
-      name
       teamId
       team {
         id
@@ -778,6 +732,7 @@ query SyncProducts(
         _deleted
         _lastChangedAt
       }
+      name
       supplier {
         id
         teamId
@@ -798,10 +753,14 @@ query SyncProducts(
         generalLeadTime
         favorite
         globalDatabaseId
+        archived
         reference
         referenceKey
         creationDate
+        createdByUserId
+        deletedByUSerId
         deletionDate
+        lastUpdatedByUserId
         lastUpdatedDate
         deleted
         _version
@@ -815,7 +774,10 @@ query SyncProducts(
         orientation
         imageType
         creationDate
+        createdByUserId
+        deletedByUserId
         deletionDate
+        lastupdatedByUserId
         lastUpdatedDate
         deleted
         _version
@@ -832,6 +794,8 @@ query SyncProducts(
         teamId
         name
         creationDate
+        createdByUserId
+        deletedByUserId
         deletionDate
         lastupdatedByUserId
         lastUpdatedDate
@@ -842,6 +806,7 @@ query SyncProducts(
       }
       description
       favorite
+      assigneeId
       assignee {
         id
         email
@@ -876,46 +841,10 @@ query SyncProducts(
       reference
       referenceKey
       creationDate
-      createdBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      deletedBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
+      createdByUserId
+      deletedByUSerId
       deletionDate
-      lastUpdatedBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
+      lastUpdatedByUserId
       lastUpdatedDate
       deleted
       _version
@@ -929,7 +858,6 @@ query SyncProducts(
 query GetProduct($id: ID!) {
   getProduct(id: $id) {
     id
-    name
     teamId
     team {
       id
@@ -995,6 +923,7 @@ query GetProduct($id: ID!) {
       _deleted
       _lastChangedAt
     }
+    name
     supplier {
       id
       teamId
@@ -1028,49 +957,14 @@ query GetProduct($id: ID!) {
       generalLeadTime
       favorite
       globalDatabaseId
+      archived
       reference
       referenceKey
       creationDate
-      createdBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      deletedBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
+      createdByUserId
+      deletedByUSerId
       deletionDate
-      lastUpdatedBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
+      lastUpdatedByUserId
       lastUpdatedDate
       deleted
       _version
@@ -1080,16 +974,24 @@ query GetProduct($id: ID!) {
     images {
       id
       teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
       fileName
       orientation
       imageType
-      urls {
-        id
-        maxWidth
-        maxHeight
-        url
-      }
       creationDate
+      createdByUserId
       createdBy {
         id
         email
@@ -1103,6 +1005,7 @@ query GetProduct($id: ID!) {
         _deleted
         _lastChangedAt
       }
+      deletedByUserId
       deletedBy {
         id
         email
@@ -1117,6 +1020,7 @@ query GetProduct($id: ID!) {
         _lastChangedAt
       }
       deletionDate
+      lastupdatedByUserId
       lastUpdatedBy {
         id
         email
@@ -1144,8 +1048,22 @@ query GetProduct($id: ID!) {
     category {
       id
       teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
       name
       creationDate
+      createdByUserId
       createdBy {
         id
         email
@@ -1159,6 +1077,7 @@ query GetProduct($id: ID!) {
         _deleted
         _lastChangedAt
       }
+      deletedByUserId
       deletedBy {
         id
         email
@@ -1195,6 +1114,7 @@ query GetProduct($id: ID!) {
     }
     description
     favorite
+    assigneeId
     assignee {
       id
       email
@@ -1229,46 +1149,10 @@ query GetProduct($id: ID!) {
     reference
     referenceKey
     creationDate
-    createdBy {
-      id
-      email
-      firstName
-      lastName
-      phoneNumber
-      preferredLanguage
-      avatar
-      creationDate
-      _version
-      _deleted
-      _lastChangedAt
-    }
-    deletedBy {
-      id
-      email
-      firstName
-      lastName
-      phoneNumber
-      preferredLanguage
-      avatar
-      creationDate
-      _version
-      _deleted
-      _lastChangedAt
-    }
+    createdByUserId
+    deletedByUSerId
     deletionDate
-    lastUpdatedBy {
-      id
-      email
-      firstName
-      lastName
-      phoneNumber
-      preferredLanguage
-      avatar
-      creationDate
-      _version
-      _deleted
-      _lastChangedAt
-    }
+    lastUpdatedByUserId
     lastUpdatedDate
     deleted
     _version
@@ -1284,7 +1168,6 @@ query ListProducts(
   listProducts(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
-      name
       teamId
       team {
         id
@@ -1299,6 +1182,7 @@ query ListProducts(
         _deleted
         _lastChangedAt
       }
+      name
       supplier {
         id
         teamId
@@ -1319,10 +1203,14 @@ query ListProducts(
         generalLeadTime
         favorite
         globalDatabaseId
+        archived
         reference
         referenceKey
         creationDate
+        createdByUserId
+        deletedByUSerId
         deletionDate
+        lastUpdatedByUserId
         lastUpdatedDate
         deleted
         _version
@@ -1336,7 +1224,10 @@ query ListProducts(
         orientation
         imageType
         creationDate
+        createdByUserId
+        deletedByUserId
         deletionDate
+        lastupdatedByUserId
         lastUpdatedDate
         deleted
         _version
@@ -1353,6 +1244,8 @@ query ListProducts(
         teamId
         name
         creationDate
+        createdByUserId
+        deletedByUserId
         deletionDate
         lastupdatedByUserId
         lastUpdatedDate
@@ -1363,6 +1256,7 @@ query ListProducts(
       }
       description
       favorite
+      assigneeId
       assignee {
         id
         email
@@ -1397,46 +1291,10 @@ query ListProducts(
       reference
       referenceKey
       creationDate
-      createdBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      deletedBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
+      createdByUserId
+      deletedByUSerId
       deletionDate
-      lastUpdatedBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
+      lastUpdatedByUserId
       lastUpdatedDate
       deleted
       _version
@@ -1492,49 +1350,14 @@ query SyncSuppliers(
       generalLeadTime
       favorite
       globalDatabaseId
+      archived
       reference
       referenceKey
       creationDate
-      createdBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      deletedBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
+      createdByUserId
+      deletedByUSerId
       deletionDate
-      lastUpdatedBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
+      lastUpdatedByUserId
       lastUpdatedDate
       deleted
       _version
@@ -1630,49 +1453,14 @@ query GetSupplier($id: ID!) {
     generalLeadTime
     favorite
     globalDatabaseId
+    archived
     reference
     referenceKey
     creationDate
-    createdBy {
-      id
-      email
-      firstName
-      lastName
-      phoneNumber
-      preferredLanguage
-      avatar
-      creationDate
-      _version
-      _deleted
-      _lastChangedAt
-    }
-    deletedBy {
-      id
-      email
-      firstName
-      lastName
-      phoneNumber
-      preferredLanguage
-      avatar
-      creationDate
-      _version
-      _deleted
-      _lastChangedAt
-    }
+    createdByUserId
+    deletedByUSerId
     deletionDate
-    lastUpdatedBy {
-      id
-      email
-      firstName
-      lastName
-      phoneNumber
-      preferredLanguage
-      avatar
-      creationDate
-      _version
-      _deleted
-      _lastChangedAt
-    }
+    lastUpdatedByUserId
     lastUpdatedDate
     deleted
     _version
@@ -1719,49 +1507,14 @@ query ListSuppliers(
       generalLeadTime
       favorite
       globalDatabaseId
+      archived
       reference
       referenceKey
       creationDate
-      createdBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      deletedBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
+      createdByUserId
+      deletedByUSerId
       deletionDate
-      lastUpdatedBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
+      lastUpdatedByUserId
       lastUpdatedDate
       deleted
       _version
@@ -1856,8 +1609,22 @@ query SyncCategories(
     items {
       id
       teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
       name
       creationDate
+      createdByUserId
       createdBy {
         id
         email
@@ -1871,6 +1638,7 @@ query SyncCategories(
         _deleted
         _lastChangedAt
       }
+      deletedByUserId
       deletedBy {
         id
         email
@@ -1913,8 +1681,73 @@ query GetCategory($id: ID!) {
   getCategory(id: $id) {
     id
     teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
     name
     creationDate
+    createdByUserId
     createdBy {
       id
       email
@@ -1928,6 +1761,7 @@ query GetCategory($id: ID!) {
       _deleted
       _lastChangedAt
     }
+    deletedByUserId
     deletedBy {
       id
       email
@@ -1972,8 +1806,22 @@ query ListCategorys(
     items {
       id
       teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
       name
       creationDate
+      createdByUserId
       createdBy {
         id
         email
@@ -1987,6 +1835,7 @@ query ListCategorys(
         _deleted
         _lastChangedAt
       }
+      deletedByUserId
       deletedBy {
         id
         email
@@ -2040,11 +1889,24 @@ query SyncContacts(
     items {
       id
       teamId
-      companyId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
       name
       phoneNumber
       email
       jobTitle
+      supplierId
       supplier {
         id
         teamId
@@ -2065,10 +1927,14 @@ query SyncContacts(
         generalLeadTime
         favorite
         globalDatabaseId
+        archived
         reference
         referenceKey
         creationDate
+        createdByUserId
+        deletedByUSerId
         deletionDate
+        lastUpdatedByUserId
         lastUpdatedDate
         deleted
         _version
@@ -2076,6 +1942,7 @@ query SyncContacts(
         _lastChangedAt
       }
       creationDate
+      createdByUserId
       createdBy {
         id
         email
@@ -2089,6 +1956,7 @@ query SyncContacts(
         _deleted
         _lastChangedAt
       }
+      deletedByUserId
       deletedBy {
         id
         email
@@ -2103,6 +1971,7 @@ query SyncContacts(
         _lastChangedAt
       }
       deletionDate
+      lastupdatedByUserId
       lastUpdatedBy {
         id
         email
@@ -2130,11 +1999,75 @@ query GetContact($id: ID!) {
   getContact(id: $id) {
     id
     teamId
-    companyId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
     name
     phoneNumber
     email
     jobTitle
+    supplierId
     supplier {
       id
       teamId
@@ -2168,49 +2101,14 @@ query GetContact($id: ID!) {
       generalLeadTime
       favorite
       globalDatabaseId
+      archived
       reference
       referenceKey
       creationDate
-      createdBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      deletedBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
+      createdByUserId
+      deletedByUSerId
       deletionDate
-      lastUpdatedBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
+      lastUpdatedByUserId
       lastUpdatedDate
       deleted
       _version
@@ -2218,6 +2116,7 @@ query GetContact($id: ID!) {
       _lastChangedAt
     }
     creationDate
+    createdByUserId
     createdBy {
       id
       email
@@ -2231,6 +2130,7 @@ query GetContact($id: ID!) {
       _deleted
       _lastChangedAt
     }
+    deletedByUserId
     deletedBy {
       id
       email
@@ -2245,6 +2145,7 @@ query GetContact($id: ID!) {
       _lastChangedAt
     }
     deletionDate
+    lastupdatedByUserId
     lastUpdatedBy {
       id
       email
@@ -2274,11 +2175,24 @@ query ListContacts(
     items {
       id
       teamId
-      companyId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
       name
       phoneNumber
       email
       jobTitle
+      supplierId
       supplier {
         id
         teamId
@@ -2299,10 +2213,14 @@ query ListContacts(
         generalLeadTime
         favorite
         globalDatabaseId
+        archived
         reference
         referenceKey
         creationDate
+        createdByUserId
+        deletedByUSerId
         deletionDate
+        lastUpdatedByUserId
         lastUpdatedDate
         deleted
         _version
@@ -2310,6 +2228,7 @@ query ListContacts(
         _lastChangedAt
       }
       creationDate
+      createdByUserId
       createdBy {
         id
         email
@@ -2323,6 +2242,7 @@ query ListContacts(
         _deleted
         _lastChangedAt
       }
+      deletedByUserId
       deletedBy {
         id
         email
@@ -2337,6 +2257,7 @@ query ListContacts(
         _lastChangedAt
       }
       deletionDate
+      lastupdatedByUserId
       lastUpdatedBy {
         id
         email
@@ -2375,16 +2296,24 @@ query SyncImages(
     items {
       id
       teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
       fileName
       orientation
       imageType
-      urls {
-        id
-        maxWidth
-        maxHeight
-        url
-      }
       creationDate
+      createdByUserId
       createdBy {
         id
         email
@@ -2398,6 +2327,7 @@ query SyncImages(
         _deleted
         _lastChangedAt
       }
+      deletedByUserId
       deletedBy {
         id
         email
@@ -2412,6 +2342,7 @@ query SyncImages(
         _lastChangedAt
       }
       deletionDate
+      lastupdatedByUserId
       lastUpdatedBy {
         id
         email
@@ -2439,16 +2370,75 @@ query GetImage($id: ID!) {
   getImage(id: $id) {
     id
     teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
     fileName
     orientation
     imageType
-    urls {
-      id
-      maxWidth
-      maxHeight
-      url
-    }
     creationDate
+    createdByUserId
     createdBy {
       id
       email
@@ -2462,6 +2452,7 @@ query GetImage($id: ID!) {
       _deleted
       _lastChangedAt
     }
+    deletedByUserId
     deletedBy {
       id
       email
@@ -2476,6 +2467,7 @@ query GetImage($id: ID!) {
       _lastChangedAt
     }
     deletionDate
+    lastupdatedByUserId
     lastUpdatedBy {
       id
       email
@@ -2505,16 +2497,24 @@ query ListImages(
     items {
       id
       teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
       fileName
       orientation
       imageType
-      urls {
-        id
-        maxWidth
-        maxHeight
-        url
-      }
       creationDate
+      createdByUserId
       createdBy {
         id
         email
@@ -2528,6 +2528,7 @@ query ListImages(
         _deleted
         _lastChangedAt
       }
+      deletedByUserId
       deletedBy {
         id
         email
@@ -2542,6 +2543,7 @@ query ListImages(
         _lastChangedAt
       }
       deletionDate
+      lastupdatedByUserId
       lastUpdatedBy {
         id
         email
@@ -2580,6 +2582,19 @@ query SyncTasks(
     items {
       id
       teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
       name
       description
       dueDate
@@ -2601,10 +2616,11 @@ query SyncTasks(
       }
       product {
         id
-        name
         teamId
+        name
         description
         favorite
+        assigneeId
         minimumOrderQuantity
         moqDescription
         score
@@ -2621,7 +2637,10 @@ query SyncTasks(
         reference
         referenceKey
         creationDate
+        createdByUserId
+        deletedByUSerId
         deletionDate
+        lastUpdatedByUserId
         lastUpdatedDate
         deleted
         _version
@@ -2648,10 +2667,14 @@ query SyncTasks(
         generalLeadTime
         favorite
         globalDatabaseId
+        archived
         reference
         referenceKey
         creationDate
+        createdByUserId
+        deletedByUSerId
         deletionDate
+        lastUpdatedByUserId
         lastUpdatedDate
         deleted
         _version
@@ -2662,46 +2685,10 @@ query SyncTasks(
       referenceKey
       inProgress
       creationDate
-      createdBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      deletedBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
+      createdByUserId
+      deletedByUSerId
       deletionDate
-      lastUpdatedBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
+      lastUpdatedByUserId
       lastUpdatedDate
       deleted
       _version
@@ -2716,6 +2703,70 @@ query GetTask($id: ID!) {
   getTask(id: $id) {
     id
     teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
     name
     description
     dueDate
@@ -2737,7 +2788,6 @@ query GetTask($id: ID!) {
     }
     product {
       id
-      name
       teamId
       team {
         id
@@ -2752,6 +2802,7 @@ query GetTask($id: ID!) {
         _deleted
         _lastChangedAt
       }
+      name
       supplier {
         id
         teamId
@@ -2772,10 +2823,14 @@ query GetTask($id: ID!) {
         generalLeadTime
         favorite
         globalDatabaseId
+        archived
         reference
         referenceKey
         creationDate
+        createdByUserId
+        deletedByUSerId
         deletionDate
+        lastUpdatedByUserId
         lastUpdatedDate
         deleted
         _version
@@ -2789,7 +2844,10 @@ query GetTask($id: ID!) {
         orientation
         imageType
         creationDate
+        createdByUserId
+        deletedByUserId
         deletionDate
+        lastupdatedByUserId
         lastUpdatedDate
         deleted
         _version
@@ -2806,6 +2864,8 @@ query GetTask($id: ID!) {
         teamId
         name
         creationDate
+        createdByUserId
+        deletedByUserId
         deletionDate
         lastupdatedByUserId
         lastUpdatedDate
@@ -2816,6 +2876,7 @@ query GetTask($id: ID!) {
       }
       description
       favorite
+      assigneeId
       assignee {
         id
         email
@@ -2850,46 +2911,10 @@ query GetTask($id: ID!) {
       reference
       referenceKey
       creationDate
-      createdBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      deletedBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
+      createdByUserId
+      deletedByUSerId
       deletionDate
-      lastUpdatedBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
+      lastUpdatedByUserId
       lastUpdatedDate
       deleted
       _version
@@ -2929,49 +2954,14 @@ query GetTask($id: ID!) {
       generalLeadTime
       favorite
       globalDatabaseId
+      archived
       reference
       referenceKey
       creationDate
-      createdBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      deletedBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
+      createdByUserId
+      deletedByUSerId
       deletionDate
-      lastUpdatedBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
+      lastUpdatedByUserId
       lastUpdatedDate
       deleted
       _version
@@ -2982,46 +2972,10 @@ query GetTask($id: ID!) {
     referenceKey
     inProgress
     creationDate
-    createdBy {
-      id
-      email
-      firstName
-      lastName
-      phoneNumber
-      preferredLanguage
-      avatar
-      creationDate
-      _version
-      _deleted
-      _lastChangedAt
-    }
-    deletedBy {
-      id
-      email
-      firstName
-      lastName
-      phoneNumber
-      preferredLanguage
-      avatar
-      creationDate
-      _version
-      _deleted
-      _lastChangedAt
-    }
+    createdByUserId
+    deletedByUSerId
     deletionDate
-    lastUpdatedBy {
-      id
-      email
-      firstName
-      lastName
-      phoneNumber
-      preferredLanguage
-      avatar
-      creationDate
-      _version
-      _deleted
-      _lastChangedAt
-    }
+    lastUpdatedByUserId
     lastUpdatedDate
     deleted
     _version
@@ -3038,6 +2992,19 @@ query ListTasks(
     items {
       id
       teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
       name
       description
       dueDate
@@ -3059,10 +3026,11 @@ query ListTasks(
       }
       product {
         id
-        name
         teamId
+        name
         description
         favorite
+        assigneeId
         minimumOrderQuantity
         moqDescription
         score
@@ -3079,7 +3047,10 @@ query ListTasks(
         reference
         referenceKey
         creationDate
+        createdByUserId
+        deletedByUSerId
         deletionDate
+        lastUpdatedByUserId
         lastUpdatedDate
         deleted
         _version
@@ -3106,10 +3077,14 @@ query ListTasks(
         generalLeadTime
         favorite
         globalDatabaseId
+        archived
         reference
         referenceKey
         creationDate
+        createdByUserId
+        deletedByUSerId
         deletionDate
+        lastUpdatedByUserId
         lastUpdatedDate
         deleted
         _version
@@ -3120,46 +3095,10 @@ query ListTasks(
       referenceKey
       inProgress
       creationDate
-      createdBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      deletedBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
+      createdByUserId
+      deletedByUSerId
       deletionDate
-      lastUpdatedBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
+      lastUpdatedByUserId
       lastUpdatedDate
       deleted
       _version
@@ -3305,7 +3244,6 @@ query SearchProducts(
   ) {
     items {
       id
-      name
       teamId
       team {
         id
@@ -3320,6 +3258,7 @@ query SearchProducts(
         _deleted
         _lastChangedAt
       }
+      name
       supplier {
         id
         teamId
@@ -3340,10 +3279,14 @@ query SearchProducts(
         generalLeadTime
         favorite
         globalDatabaseId
+        archived
         reference
         referenceKey
         creationDate
+        createdByUserId
+        deletedByUSerId
         deletionDate
+        lastUpdatedByUserId
         lastUpdatedDate
         deleted
         _version
@@ -3357,7 +3300,10 @@ query SearchProducts(
         orientation
         imageType
         creationDate
+        createdByUserId
+        deletedByUserId
         deletionDate
+        lastupdatedByUserId
         lastUpdatedDate
         deleted
         _version
@@ -3374,6 +3320,8 @@ query SearchProducts(
         teamId
         name
         creationDate
+        createdByUserId
+        deletedByUserId
         deletionDate
         lastupdatedByUserId
         lastUpdatedDate
@@ -3384,6 +3332,7 @@ query SearchProducts(
       }
       description
       favorite
+      assigneeId
       assignee {
         id
         email
@@ -3418,46 +3367,10 @@ query SearchProducts(
       reference
       referenceKey
       creationDate
-      createdBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      deletedBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
+      createdByUserId
+      deletedByUSerId
       deletionDate
-      lastUpdatedBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
+      lastUpdatedByUserId
       lastUpdatedDate
       deleted
       _version

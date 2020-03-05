@@ -1,21 +1,19 @@
 /** AWS CONFIGURATION START */
+import { APP_BASE_HREF } from '@angular/common';
+import { TestBed } from '@angular/core/testing';
+import { RouterModule } from '@angular/router';
 import Amplify from 'aws-amplify';
+import { AmplifyService } from 'aws-amplify-angular';
+import { first } from 'rxjs/operators';
+import { AuthenticationService, TeamService } from '~core/auth';
 import awsconfig from '~core/aws-exports';
-Amplify.configure(awsconfig);
+import { EntityName } from '../entity-name.type';
+import * as models from '~core/erm3/models';
 /** END */
 import { ApiService } from './api.service';
-import { ApolloTestingController } from 'apollo-angular/testing';
-import { TestBed, fakeAsync } from '@angular/core/testing';
-import { EntityName, EntityNameType } from '~core/erm/entity-name.enum';
-import { RouterModule } from '@angular/router';
-import { AmplifyService } from 'aws-amplify-angular';
-import { AuthenticationService, TeamService } from '~core/auth';
-import { QueryPool } from '../queries/query-pool.class';
-import { APP_BASE_HREF } from '@angular/common';
-import { Category } from '~core/erm/models';
-import { take, first, publishReplay } from 'rxjs/operators';
-import * as models from '~core/erm3/models';
-import { MajorTickOptions } from 'chart.js';
+import { ImageType } from 'app/API.service';
+import { Entity } from '../models/_entity.model';
+Amplify.configure(awsconfig);
 
 fdescribe('ApiService', () => {
 	let apiSrv: ApiService;
@@ -23,6 +21,34 @@ fdescribe('ApiService', () => {
 
 	let userId: any;
 
+	// /** ======================= */
+	// /** Create Team and company */
+	// /** ======================= */
+
+	const createCompany = () => {
+		const company = new models.Company({ name: 'test apiService Company' });
+		return apiSrv.create('company', company, { fetchPolicy: 'no-cache' }).toPromise();
+	};
+	const createTeam = async (companyId?: string) => {
+		if (!companyId) {
+			companyId = (await createCompany()).id;
+		}
+		const team = new models.Team({ name: 'test apiService Team' });
+		return apiSrv.create('team', { ...team, companyId }).toPromise();
+	};
+
+	const signIn = () =>
+		new Promise((res, rej) => {
+			authSrv.signIn({
+				username: 'cedric@showsourcing.com',
+				password: 'Test1234'
+			});
+			authSrv.signIn$.subscribe(async username => {
+				res(username);
+			});
+		});
+
+	// connect user for test and provide services
 	beforeAll(async () => {
 		TestBed.configureTestingModule({
 			imports: [RouterModule.forRoot([])],
@@ -30,18 +56,15 @@ fdescribe('ApiService', () => {
 				AmplifyService,
 				AuthenticationService,
 				ApiService,
-				{ provide: APP_BASE_HREF, useValue: '/' }
+				{ provide: APP_BASE_HREF, useValue: '/' },
+				TeamService
 			]
 		});
 		apiSrv = TestBed.get(ApiService);
 		authSrv = TestBed.get(AuthenticationService);
-		authSrv.signIn$.subscribe(username => {
-			userId = username;
-		});
-		authSrv.signIn({
-			username: 'cedric@showsourcing.com',
-			password: 'Test1234'
-		});
+
+		userId = await signIn();
+		TeamService.teamId = (await createTeam()).id;
 	});
 
 	/** ======== */
@@ -60,7 +83,7 @@ fdescribe('ApiService', () => {
 	});
 
 	// entities not custom implemented :
-	const notCustomEntities = [
+	const notCustomQueryAll = [
 		'category',
 		'company',
 		'contact',
@@ -70,114 +93,127 @@ fdescribe('ApiService', () => {
 		'supplier',
 		'task',
 		'user'
+		// 'teamByUser'
 	];
 	// test queryAll (not custom) for all entities in the QueryPool.map
-	notCustomEntities.forEach(entity => {
+	notCustomQueryAll.forEach(entity => {
 		it(`should query something with queryAll for "${entity}"`, done => {
 			apiSrv
-				.queryAll(entity as EntityNameType)
+				.queryAll(entity as EntityName)
 				.data$.pipe(first())
 				.subscribe(expectQuerySomething(done));
 		});
 	});
 
-	// // test custom queryAll for ListTeamByUser() // TODO change the title in the queryBuilder by queryName
-	// it('should query something with ListTeamByUser', done => {
-	// 	apiSrv
-	// 		.queryAll('team', undefined, 'queryAllByUser' as any)
-	// 		.data$.pipe(first())
-	// 		.subscribe(expectQuerySomething(done));
-	// });
+	/** ================= */
+	/** create functions  */
+	/** ================= */
 
-	// /** =============== */
-	// /** CREATE ENTITIES */
-	// /** =============== */
-
-	const createCompany = () => {
-		const company = new models.Company({ name: 'test apiService Company' });
-		return apiSrv.create('company', company).toPromise();
+	const createCategory = () => {
+		const category = new models.Category({
+			name: 'test apiService Category',
+			createdByUserId: userId,
+			lastUpdatedByUserId: userId
+		});
+		return apiSrv.create('category', category).toPromise();
 	};
 
-	const createTeam = async (companyId?: string) => {
-		if (!companyId) {
-			companyId = (await createCompany()).id;
-		}
-		const team = new models.Team({ name: 'test apiService team' });
-		return apiSrv.create('team', {...team, companyId}).toPromise();
+	const createContact = () => {
+		const contact = new models.Contact({
+			name: 'test apiService Contact',
+			createdByUserId: userId,
+			lastUpdatedByUserId: userId
+		});
+		return apiSrv.create('contact', contact).toPromise();
 	};
 
-	// const createCategory = async (teamId?: string) => {
-	// 	if (!teamId) {
-	// 		teamId = (await createTeam()).id;
-	// 	}
-	// 	const category = {
-	// 		...models.Category,
-	// 		teamId,
-	// 		createdByUserId: userId,
-	// 		lastUpdatedByUserId: userId,
-	// 	};
-	// 	return apiSrv.create('category', category).toPromise();
-	// };
+	const createDescriptor = () => {
+		const descriptor = new models.Descriptor({ target: 'test apiService Descriptor' }); // ? The audits are missing for createDescriptor.
+		return apiSrv.create('descriptor', descriptor).toPromise();
+	};
 
-	// const createContact = teamId => {
-	// 	const contact = { ...models.Contact, teamId };
-	// 	return apiSrv.create('contact', contact).toPromise();
-	// };
+	const createImage = () => {
+		const image = new models.Image({
+			createdByUserId: userId,
+			lastUpdatedByUserId: userId,
+			fileName: 'File Name',
+			orientation: 0,
+			imageType: ImageType.JPG
+		});
+		return apiSrv.create('image', image).toPromise();
+	};
 
-	// const createDescriptor = async (teamId?: string) => {
-	// 	if (!teamId) {
-	// 		teamId = (await createTeam()).id;
-	// 	}
-	// 	const descriptor = { ...models.Descriptor, teamId };
-	// 	return apiSrv.create('descriptor', descriptor).toPromise();
-	// };
+	const createProduct = () => {
+		const product = new models.Product({
+			name: 'test apiService Product',
+			createdByUserId: userId,
+			lastUpdatedByUserId: userId
+		});
+		return apiSrv.create('product', product).toPromise();
+	};
 
-	// const createImage = teamId => {
-	// 	const image = { ...models.Image, teamId };
-	// 	return apiSrv.create('image', image).toPromise();
-	// };
+	const createSupplier = () => {
+		const supplier = new models.Supplier({
+			name: 'test apiService Supplier',
+			createdByUserId: userId,
+			lastUpdatedByUserId: userId
+		});
+		return apiSrv.create('supplier', supplier).toPromise();
+	};
 
-	// const createProduct = teamId => {
-	// 	const product = { ...models.Product, teamId };
-	// 	return apiSrv.create('product', product).toPromise();
-	// };
+	const createTask = () => {
+		const task = new models.Task({
+			createdByUserId: userId,
+			lastUpdatedByUserId: userId,
+			name: 'test apiService Task'
+		});
+		return apiSrv.create('task', task).toPromise();
+	};
 
-	// const createSupplier = teamId => {
-	// 	const supplier = { ...models.Supplier, teamId };
-	// 	return apiSrv.create('supplier', supplier).toPromise();
-	// };
+	/** ================ */
+	/** delete functions */
+	/** ================ */
 
-	// const createTask = teamId => {
-	// 	const task = { ...models.Task, teamId };
-	// 	return apiSrv.create('task', task).toPromise();
-	// };
+	const deleteCategory = (entity: Entity, entityName: EntityName) => {
+		return apiSrv.delete(entityName, entity);
+	};
 
-	it('should create a company', async () => {
-		const company = await createCompany();
-		expect(company.id).toBeTruthy();
+	const notCustomCreate = new Map<EntityName, any>([
+		['category', [createCategory, undefined, deleteCategory]],
+		['company', [createCompany]],
+		['contact', [createContact]],
+		['descriptor', [createDescriptor]],
+		['image', [createImage]],
+		['product', [createProduct]],
+		['supplier', [createSupplier]],
+		['task', [createTask]],
+		['team', [createTeam]]
+	]);
+
+	notCustomCreate.forEach(([create, update, del], entityName) => {
+			let createdEntity;
+			it(`should create a ${entityName}`, async () => {
+				createdEntity = await create();
+				expect(createdEntity.id).toBeTruthy();
+			});
+		// fit(`should delete the ${entityName}`, async () => {
+		// 	const response = await del(createdEntity, entityName);
+		// 	expect(response._deleted).toBe(true);
+		// 	debugger;
+		// });
 	});
 
-	// it('should create a category', async done => {
-	// 	const category = await createCategory();
-	// 	expect(category.id).toBeTruthy();
-	// 	done();
+
+	// it('should generate 100 products', () => {
+	// 	for (let i = 0; i < 100; i++) {
+	// 		const product = new models.Product({
+	// 			name: 'CEDRIC Product' + i,
+	// 			createdByUserId: userId,
+	// 			lastUpdatedByUserId: userId
+	// 		});
+	// 		apiSrv.create('product', product).toPromise();
+	// 	}
 	// });
-	// it('should create a contact');
-	// it('should create a descriptor', async done => {
-	// 	const descriptor = await createDescriptor();
-	// 	expect(descriptor.id).toBeTruthy();
-	// 	done();
-	// });
-	// it('should create an image');
-	// it('should create a product');
-	// it('should create a supplier');
-	// it('should create a task');
-	fit('should create a team', async done => {
-		const team: any = await createTeam();
-		expect(team.id).toBeTruthy();
-		done();
-	});
-	// it('should create a user');
 
 	// /** =============== */
 	// /** DELETE ENTITIES */
@@ -205,27 +241,25 @@ fdescribe('ApiService', () => {
 	// /** queryOne ENTITY */
 	// /** ============= */
 
-	// it('should query one company', async done => {
-	// 	const company = await createCompany();
-	// 	apiSrv.queryOne<any>('company', company.id).data$.subscribe(d => {
-	// 		expect(company.name).toBe(d.name);
-	// 		done();
-	// 	});
-	// });
+	it('should query one company', async done => {
+		const company = await createCompany();
+		apiSrv.queryOne<any>('company', company.id).data$.subscribe(d => {
+			expect(company.name).toBe(d.name);
+			done();
+		});
+	});
+
+	it('should query one user', done => {
+		apiSrv.queryOne<any>('user', userId).data$.subscribe(d => {
+			expect(userId).toBe(d.id);
+			done();
+		});
+	});
 
 	// // it('should query one category', async done => {
 	// // 	const category = await createCategory();
 	// // 	apiSrv.queryOne<any>('category', category.id).data$.subscribe(d => {
 	// // 		expect(category.name).toBe(d.name);
-	// // 		done();
-	// // 	});
-	// // });
-
-	// // ? not in API
-	// // it('should query one team', async done => {
-	// // 	const team = await createTeam();
-	// // 	apiSrv.queryOne<any>('team', team.id).data$.subscribe(d => {
-	// // 		expect(team.name).toBe(d.name);
 	// // 		done();
 	// // 	});
 	// // });

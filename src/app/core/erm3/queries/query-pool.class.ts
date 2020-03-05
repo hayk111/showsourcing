@@ -1,9 +1,9 @@
 import { DocumentNode } from 'graphql';
-import { EntityName, EntityNameType } from '~core/erm/entity-name.enum';
+import { EntityName } from '../entity-name.type';
 import { BaseQueries } from './base.queries';
+import { CompanyQueries } from './custom/company.queries';
+import { TeamQueries } from './custom/team.queries';
 import { QueryType } from './query-type.enum';
-import { TeamUser } from '~core/erm/models';
-import { TeamUserQueries } from './custom/team-user.queries';
 
 export class QueryPool {
 	static map = {
@@ -34,26 +34,21 @@ export class QueryPool {
 		// [EntityName.INVITATION]: new BaseQueries(EntityName.INVITATION),
 		// [EntityName.TEAM_USER]: new BaseQueries(EntityName.TEAM_USER),
 
-		[EntityName.CATEGORY]: new BaseQueries(EntityName.CATEGORY), // provided by the api
-		[EntityName.COMPANY]: new BaseQueries(EntityName.COMPANY), // provided by the api
-		[EntityName.CONTACT]: new BaseQueries(EntityName.CONTACT), // provided by the api
-		[EntityName.DESCRIPTOR]: new BaseQueries(EntityName.DESCRIPTOR, 'target'), // provided by the api
-		[EntityName.IMAGE]: new BaseQueries(EntityName.IMAGE, `urls {
-        id
-        maxWidth
-        maxHeight
-        url
-      }`), // provided by the api
-		[EntityName.PRODUCT]: new BaseQueries(EntityName.PRODUCT), // provided by the api
-		[EntityName.SUPPLIER]: new BaseQueries(EntityName.SUPPLIER), // provided by the api
-		[EntityName.TASK]: new BaseQueries(EntityName.TASK), // provided by the api
-		[EntityName.USER]: new BaseQueries(EntityName.USER, `firstName`),
-		[EntityName.TEAM]: new BaseQueries(EntityName.TEAM), // provided by the api // ! there is no list/update/delete TEAM
-		[EntityName.TEAM_USER]: new TeamUserQueries()
+		category: new BaseQueries('category'), // provided by the api
+		company: new CompanyQueries('company'), // provided by the api
+		contact: new BaseQueries('contact'), // provided by the api
+		descriptor: new BaseQueries('descriptor', 'target'), // provided by the api
+		image: new BaseQueries('image', `fileName`), // provided by the api
+		product: new BaseQueries('product'), // provided by the api
+		supplier: new BaseQueries('supplier'), // provided by the api
+		task: new BaseQueries('task'), // provided by the api
+		user: new BaseQueries('user', `firstName`),
+		team: new TeamQueries('team'), // provided by the api
+		teamUser: new BaseQueries('teamUser'), // provided by the api
 	};
 
 	/** returns the query, queryName and body of a specified query*/
-	static getQueryInfo(entityName: EntityName | EntityNameType, queryType: QueryType) {
+	static getQueryInfo(entityName: EntityName, queryType: QueryType) {
 		const queries = QueryPool.map[entityName];
 		if (!queries) {
 			throw Error(`The query pool doesn't contain such a member ${queryType}`);

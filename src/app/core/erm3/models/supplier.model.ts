@@ -1,39 +1,108 @@
-export class Supplier {
-	id: undefined;
-	name: 'test apiService Supplier';
-	teamId: null;
-}
+import { Lang } from '../../../API.service';
+import { Entity } from './_entity.model';
 
-// export type CreateSupplierInput = {
-//   id?: string | null;
-//   teamId: string;
-//   name: string;
-//   fullName?: string | null;
-//   tradingName?: string | null;
-//   description?: string | null;
-//   website?: string | null;
-//   phoneNumber?: string | null;
-//   country?: string | null;
-//   city?: string | null;
-//   address?: string | null;
-//   officeEmail?: string | null;
-//   officePhone?: string | null;
-//   incoTerm?: string | null;
-//   harbour?: string | null;
-//   generalMOQ?: number | null;
-//   generalLeadTime?: number | null;
-//   favorite: boolean;
-//   globalDatabaseId?: string | null;
-//   reference?: string | null;
-//   referenceKey?: number | null;
-//   deletedBy?: UserInput | null;
-//   deletionDate?: number | null;
-//   lastUpdatedBy?: UserInput | null;
-//   _version?: number | null;
-// TODO should change in the backend
-// team: TeamInput;
-// creationDate: number;
-// createdBy: UserInput;
-// lastUpdatedDate: number;
-// deleted: boolean;
-// };
+export class Supplier extends Entity<Supplier> {
+	__typename? = 'Supplier';
+	favorite? = false;
+	archived? = false;
+
+	id?: string;
+	teamId?: string;
+	team?: {
+		__typename?: 'Team';
+		id?: string;
+		name?: string;
+		ownerUserId?: string;
+		owner?: {
+			__typename?: 'User';
+			id?: string;
+			email?: string;
+			firstName?: string;
+			lastName?: string;
+			phoneNumber?: string | null;
+			preferredLanguage?: Lang | null;
+			avatar?: string | null;
+			createdAt?: number | null;
+			_version?: number;
+			_deleted?: boolean | null;
+			_lastChangedAt?: number;
+		};
+		companyId?: string;
+		company?: {
+			__typename?: 'Company';
+			id?: string;
+			name?: string;
+			ownerUserId?: string;
+			createdByUserId?: string;
+			createdOn?: number;
+			lastUpdatedByUserId?: string;
+			lastUpdatedAt?: number | null;
+			_version?: number;
+			_deleted?: boolean | null;
+			_lastChangedAt?: number;
+		};
+		createdByUserId?: string;
+		createdBy?: {
+			__typename?: 'User';
+			id?: string;
+			email?: string;
+			firstName?: string;
+			lastName?: string;
+			phoneNumber?: string | null;
+			preferredLanguage?: Lang | null;
+			avatar?: string | null;
+			createdAt?: number | null;
+			_version?: number;
+			_deleted?: boolean | null;
+			_lastChangedAt?: number;
+		};
+		createdOn?: number;
+		lastUpdatedByUserId?: string;
+		lastUpdatedBy?: {
+			__typename?: 'User';
+			id?: string;
+			email?: string;
+			firstName?: string;
+			lastName?: string;
+			phoneNumber?: string | null;
+			preferredLanguage?: Lang | null;
+			avatar?: string | null;
+			createdAt?: number | null;
+			_version?: number;
+			_deleted?: boolean | null;
+			_lastChangedAt?: number;
+		} | null;
+		lastUpdatedAt?: number | null;
+		_version?: number;
+		_deleted?: boolean | null;
+		_lastChangedAt?: number;
+	} | null;
+	name?: string;
+	fullName?: string | null;
+	tradingName?: string | null;
+	description?: string | null;
+	website?: string | null;
+	phoneNumber?: string | null;
+	country?: string | null;
+	city?: string | null;
+	address?: string | null;
+	officeEmail?: string | null;
+	officePhone?: string | null;
+	incoTerm?: string | null;
+	harbour?: string | null;
+	generalMOQ?: number | null;
+	generalLeadTime?: number | null;
+	globalDatabaseId?: string | null;
+	reference?: string | null;
+	referenceKey?: number | null;
+	createdAt?: number;
+	createdByUserId?: string;
+	deletedByUSerId?: string | null;
+	deletedAt?: number | null;
+	lastUpdatedByUserId?: string;
+	lastUpdatedAt?: number;
+	deleted?: boolean;
+	_version?: number;
+	_deleted?: boolean | null;
+	_lastChangedAt?: number;
+}
