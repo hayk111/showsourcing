@@ -203,9 +203,6 @@ fdescribe('ApiService', () => {
 		// });
 	});
 
-	/** ======== */
-	/** queryAll */
-	/** ======== */
 
 	// it('should generate 100 products', () => {
 	// 	for (let i = 0; i < 100; i++) {

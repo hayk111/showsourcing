@@ -2,6 +2,7 @@ export { Category } from './category.model';
 export { Company } from './company.model';
 export { Product } from './product.model';
 export { Team } from './team.model';
+export { TeamUser } from './team-user.model';
 export { Activity } from './activity.model';
 export { Attachment } from './attachment.model';
 export { Comment } from './comment.model';

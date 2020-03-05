@@ -19,12 +19,26 @@ query SyncAProduct($teamId: String) {
     teamId
     team {
       id
-      teamId
-      team {
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
         id
         name
         ownerUserId
-        companyId
         createdByUserId
         createdOn
         lastUpdatedByUserId
@@ -33,26 +47,7 @@ query SyncAProduct($teamId: String) {
         _deleted
         _lastChangedAt
       }
-      name
-      fullName
-      tradingName
-      description
-      website
-      phoneNumber
-      country
-      city
-      address
-      officeEmail
-      officePhone
-      incoTerm
-      harbour
-      generalMOQ
-      generalLeadTime
-      favorite
-      globalDatabaseId
-      reference
-      referenceKey
-      creationDate
+      createdByUserId
       createdBy {
         id
         email
@@ -66,7 +61,9 @@ query SyncAProduct($teamId: String) {
         _deleted
         _lastChangedAt
       }
-      deletedBy {
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
         id
         email
         firstName
@@ -90,13 +87,13 @@ query SyncAProduct($teamId: String) {
       teamId
       team {
         id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
         _version
         _deleted
         _lastChangedAt
@@ -405,13 +402,13 @@ query SyncTeamUsers(
   $filter: ModelTeamUserFilterInput
   $limit: Int
   $nextToken: String
-  $sortDirection: ModelSortDirection
+  $lastSync: AWSTimestamp
 ) {
   syncTeamUsers(
     filter: $filter
     limit: $limit
     nextToken: $nextToken
-    sortDirection: $sortDirection
+    lastSync: $lastSync
   ) {
     items {
       teamId
@@ -868,43 +865,13 @@ query GetProduct($id: ID!) {
       ownerUserId
       owner {
         id
-        name
-        ownerUserId
-        companyId
-        createdByUserId
-        createdOn
-        lastUpdatedByUserId
-        lastUpdatedOn
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      supplier {
-        id
-        teamId
-        name
-        fullName
-        tradingName
-        description
-        website
+        email
+        firstName
+        lastName
         phoneNumber
-        country
-        city
-        address
-        officeEmail
-        officePhone
-        incoTerm
-        harbour
-        generalMOQ
-        generalLeadTime
-        favorite
-        globalDatabaseId
-        reference
-        referenceKey
+        preferredLanguage
+        avatar
         creationDate
-        deletionDate
-        lastUpdatedDate
-        deleted
         _version
         _deleted
         _lastChangedAt
@@ -925,32 +892,13 @@ query GetProduct($id: ID!) {
       createdByUserId
       createdBy {
         id
-        teamId
-        fileName
-        orientation
-        imageType
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
         creationDate
-        deletionDate
-        lastUpdatedDate
-        deleted
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      price {
-        currency
-        value
-        baseCurrencyValue
-      }
-      category {
-        id
-        teamId
-        name
-        creationDate
-        deletionDate
-        lastupdatedByUserId
-        lastUpdatedDate
-        deleted
         _version
         _deleted
         _lastChangedAt
@@ -1072,6 +1020,7 @@ query GetProduct($id: ID!) {
         _lastChangedAt
       }
       deletionDate
+      lastupdatedByUserId
       lastUpdatedBy {
         id
         email
@@ -1157,7 +1106,8 @@ query GetProduct($id: ID!) {
         _deleted
         _lastChangedAt
       }
-      lastUpdatedOn
+      lastUpdatedDate
+      deleted
       _version
       _deleted
       _lastChangedAt
@@ -2437,20 +2387,11 @@ query GetImage($id: ID!) {
         _deleted
         _lastChangedAt
       }
-      lastUpdatedDate
-      deleted
-      _version
-      _deleted
-      _lastChangedAt
-    }
-    supplier {
-      id
-      teamId
-      team {
+      companyId
+      company {
         id
         name
         ownerUserId
-        companyId
         createdByUserId
         createdOn
         lastUpdatedByUserId
@@ -2459,26 +2400,7 @@ query GetImage($id: ID!) {
         _deleted
         _lastChangedAt
       }
-      name
-      fullName
-      tradingName
-      description
-      website
-      phoneNumber
-      country
-      city
-      address
-      officeEmail
-      officePhone
-      incoTerm
-      harbour
-      generalMOQ
-      generalLeadTime
-      favorite
-      globalDatabaseId
-      reference
-      referenceKey
-      creationDate
+      createdByUserId
       createdBy {
         id
         email
@@ -2492,20 +2414,8 @@ query GetImage($id: ID!) {
         _deleted
         _lastChangedAt
       }
-      deletedBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      deletionDate
+      createdOn
+      lastUpdatedByUserId
       lastUpdatedBy {
         id
         email
@@ -2519,38 +2429,7 @@ query GetImage($id: ID!) {
         _deleted
         _lastChangedAt
       }
-      lastUpdatedDate
-      deleted
-      _version
-      _deleted
-      _lastChangedAt
-    }
-    reference
-    referenceKey
-    inProgress
-    creationDate
-    createdBy {
-      id
-      email
-      firstName
-      lastName
-      phoneNumber
-      preferredLanguage
-      avatar
-      creationDate
-      _version
-      _deleted
-      _lastChangedAt
-    }
-    deletedBy {
-      id
-      email
-      firstName
-      lastName
-      phoneNumber
-      preferredLanguage
-      avatar
-      creationDate
+      lastUpdatedOn
       _version
       _deleted
       _lastChangedAt
@@ -2621,28 +2500,12 @@ query ListImages(
       team {
         id
         name
-        teamId
-        description
-        favorite
-        minimumOrderQuantity
-        moqDescription
-        score
-        incoTerm
-        harbour
-        masterCbm
-        quantityPer20ft
-        quantityPer40ft
-        quantityPer40ftHC
-        leadTimeValue
-        leadTimeUnit
-        sample
-        archived
-        reference
-        referenceKey
-        creationDate
-        deletionDate
-        lastUpdatedDate
-        deleted
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
         _version
         _deleted
         _lastChangedAt
@@ -3247,7 +3110,7 @@ query ListTasks(
   }
 }
 query ListTeamByUser(
-  $userId: ID!
+  $userId: ID
   $sortDirection: ModelSortDirection
   $filter: ModelTeamUserFilterInput
   $limit: Int

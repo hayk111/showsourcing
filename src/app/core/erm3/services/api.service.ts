@@ -60,7 +60,7 @@ export class ApiService implements ApiServiceInterface {
 	 * @param options: Apollo options if we don't want the default
 	 */
 	queryOne<T>(
-		entityName: EntityName | EntityNameType,
+		entityName: EntityName,
 		id: string,
 		options: WatchQueryOptions | any = {}
 	): ObservableQuery<T> {
@@ -102,7 +102,7 @@ export class ApiService implements ApiServiceInterface {
 	 * @param options: Apollo options if we don't want the default
 	 */
 	queryMany<T>(
-		entityName: EntityNameType,
+		entityName: EntityName,
 		variables: FilterParams,
 		options: WatchQueryOptions | any = {},
 		queryType = QueryType.QUERY_MANY
@@ -208,7 +208,7 @@ export class ApiService implements ApiServiceInterface {
 	 * @param options: Apollo options if we don't want the default
 	 */
 	update<T>(
-		entityName: EntityName | EntityNameType,
+		entityName: EntityName,
 		entity: T,
 		options: WatchQueryOptions | {} = {}
 	): Observable<T> {
