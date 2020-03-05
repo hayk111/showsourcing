@@ -92,7 +92,6 @@ export class ApiService implements ApiServiceInterface {
 	//        QUERY MANY        //
 	/////////////////////////////
 
-
 	/**
 	 * Query many entities
 	 * (Query, optimistic UI)
@@ -127,7 +126,6 @@ export class ApiService implements ApiServiceInterface {
 		return queryRef;
 	}
 
-
 	/////////////////////////////
 	//        QUERY ALL        //
 	/////////////////////////////
@@ -147,6 +145,45 @@ export class ApiService implements ApiServiceInterface {
 		const title = 'Query All ' + entityName;
 		const { query, queryName, body } = QueryPool.getQueryInfo(entityName, queryType);
 		const variables: any = options.variables;
+		this.log(title, query, queryName, body);
+
+		const queryRef = client.watchQuery({
+			query,
+			...options,
+			variables
+		}) as ObservableQuery<any>;
+		const data$ = from(queryRef).pipe(
+			// filter cache response when there is no cache
+			filter(r => !r.stale),
+			filter((r: any) => this.checkError(r, title)),
+			map(({ data }) => data[queryName].items),
+			tap(data => this.logResult(title, queryName, data))
+		);
+
+		queryRef.data$ = data$;
+		return queryRef;
+	}
+
+	/////////////////////////////
+	//        QUERY BY         //
+	/////////////////////////////
+	/**
+	 * Query all entities
+	 * (Query, optimistic UI)
+	 * @param
+	 * @param
+	 * @param
+	 */
+	queryBy<T>(
+		entityName: EntityName,
+		byEntityName: EntityName | 'Owner',
+		options: WatchQueryOptions | any = {}
+	): ObservableQuery<T[]> {
+		let queryType;
+		queryType = `list${entityName}By${byEntityName}`;
+		const { query, queryName, body } = QueryPool.getQueryInfo(entityName, queryType);
+		const variables: any = options.variables;
+		const title = `Query All ${entityName} by ${byEntityName}`;
 		this.log(title, query, queryName, body);
 
 		const queryRef = client.watchQuery({
