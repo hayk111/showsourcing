@@ -1,10 +1,11 @@
-import { Lang, ImageType } from '../../../API.service';
-import { Entity } from './_entity.model';
-import { User } from './user.model';
+import { ImageType } from '../../../API.service';
+import { EntityName } from '../entity-name.type';
 import { Team } from './team.model';
+import { User } from './user.model';
+import { Entity } from './_entity.model';
 
 export class Image extends Entity<Image> {
-	__typename ?= 'Image';
+	__typename?: EntityName = 'Image';
 	id?: string;
 	teamId?: string;
 	team?: Team;

@@ -7,14 +7,13 @@ import { LocalStorageService } from '~core/local-storage';
 import { AuthenticationService } from './authentication.service';
 
 
-const COMPANY = 'company';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class CompanyService {
 
-	private queryAll = this.apiSrv.queryAll('company');
+	private queryAll = this.apiSrv.queryAll('Company');
 	// an user has only 1 company
 	private _company$ = new ReplaySubject<Company>(1);
 	company$ = this._company$.asObservable();
@@ -43,7 +42,7 @@ export class CompanyService {
 	}
 
 	create(company: Company) {
-		return this.apiSrv.create('company', company)
+		return this.apiSrv.create('Company', company)
 			.pipe(
 				tap(_ => this._company$.next(company)),
 				switchMap(_ => this.queryAll.refetch())

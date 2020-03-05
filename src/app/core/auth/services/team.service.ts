@@ -18,7 +18,7 @@ const SELECTED_TEAM = 'selected-team';
 export class TeamService {
 
 	// we query all teamByUser to extract the team
-	private queryAllTeamUsers = this.apiSrv.queryAll<TeamUser>('teamUser');
+	private queryAllTeamUsers = this.apiSrv.queryAll<TeamUser>('TeamUser');
 	teamsOfUser$: Observable<Team[]> = this.queryAllTeamUsers.data$.pipe(
 		map((teamUsers: TeamUser[]) => teamUsers.map(tu => tu.team))
 	);
@@ -65,12 +65,12 @@ export class TeamService {
 
 	/** creates a team and waits for it to be valid */
 	create(team: Team): Observable<any> {
-		return this.apiSrv.create('team', { companyId: this.companySrv.companySync.id, ...team })
+		return this.apiSrv.create('Team', { companyId: this.companySrv.companySync.id, ...team })
 			.pipe(switchMap(_ => this.queryAllTeamUsers.refetch()));
 	}
 
 	update(team: Team) {
-		return this.apiSrv.update('team', { companyId: this.companySrv.companySync.id, ...team });
+		return this.apiSrv.update('Team', { companyId: this.companySrv.companySync.id, ...team });
 	}
 
 	/** picks a team, puts the selection in local storage */

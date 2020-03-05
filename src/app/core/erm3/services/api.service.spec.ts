@@ -1,18 +1,17 @@
-/** AWS CONFIGURATION START */
 import { APP_BASE_HREF } from '@angular/common';
 import { TestBed } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
+import { ImageType } from 'app/API.service';
 import Amplify from 'aws-amplify';
 import { AmplifyService } from 'aws-amplify-angular';
 import { first } from 'rxjs/operators';
 import { AuthenticationService, TeamService } from '~core/auth';
 import awsconfig from '~core/aws-exports';
-import { EntityName } from '../entity-name.type';
 import * as models from '~core/erm3/models';
-/** END */
-import { ApiService } from './api.service';
-import { ImageType } from 'app/API.service';
+import { EntityName } from '../entity-name.type';
 import { Entity } from '../models/_entity.model';
+import { ApiService } from './api.service';
+
 Amplify.configure(awsconfig);
 
 fdescribe('ApiService', () => {
@@ -27,14 +26,14 @@ fdescribe('ApiService', () => {
 
 	const createCompany = () => {
 		const company = new models.Company({ name: 'test apiService Company' });
-		return apiSrv.create('company', company, { fetchPolicy: 'no-cache' }).toPromise();
+		return apiSrv.create('Company', company, { fetchPolicy: 'no-cache' }).toPromise();
 	};
 	const createTeam = async (companyId?: string) => {
 		if (!companyId) {
 			companyId = (await createCompany()).id;
 		}
 		const team = new models.Team({ name: 'test apiService Team' });
-		return apiSrv.create('team', { ...team, companyId }).toPromise();
+		return apiSrv.create('Team', { ...team, companyId }).toPromise();
 	};
 
 	const signIn = () =>
@@ -84,15 +83,15 @@ fdescribe('ApiService', () => {
 
 	// entities not custom implemented :
 	const notCustomQueryAll = [
-		'category',
-		'company',
-		'contact',
-		'descriptor',
-		'image',
-		'product',
-		'supplier',
-		'task',
-		'user'
+		'Category',
+		'Company',
+		'Contact',
+		'Descriptor',
+		'Image',
+		'Product',
+		'Supplier',
+		'Task',
+		'User'
 		// 'teamByUser'
 	];
 	// test queryAll (not custom) for all entities in the QueryPool.map
@@ -115,7 +114,7 @@ fdescribe('ApiService', () => {
 			createdByUserId: userId,
 			lastUpdatedByUserId: userId
 		});
-		return apiSrv.create('category', category).toPromise();
+		return apiSrv.create('Category', category).toPromise();
 	};
 
 	const createContact = () => {
@@ -124,12 +123,12 @@ fdescribe('ApiService', () => {
 			createdByUserId: userId,
 			lastUpdatedByUserId: userId
 		});
-		return apiSrv.create('contact', contact).toPromise();
+		return apiSrv.create('Contact', contact).toPromise();
 	};
 
 	const createDescriptor = () => {
 		const descriptor = new models.Descriptor({ target: 'test apiService Descriptor' }); // ? The audits are missing for createDescriptor.
-		return apiSrv.create('descriptor', descriptor).toPromise();
+		return apiSrv.create('Descriptor', descriptor).toPromise();
 	};
 
 	const createImage = () => {
@@ -140,7 +139,7 @@ fdescribe('ApiService', () => {
 			orientation: 0,
 			imageType: ImageType.JPG
 		});
-		return apiSrv.create('image', image).toPromise();
+		return apiSrv.create('Image', image).toPromise();
 	};
 
 	const createProduct = () => {
@@ -149,7 +148,7 @@ fdescribe('ApiService', () => {
 			createdByUserId: userId,
 			lastUpdatedByUserId: userId
 		});
-		return apiSrv.create('product', product).toPromise();
+		return apiSrv.create('Product', product).toPromise();
 	};
 
 	const createSupplier = () => {
@@ -158,7 +157,7 @@ fdescribe('ApiService', () => {
 			createdByUserId: userId,
 			lastUpdatedByUserId: userId
 		});
-		return apiSrv.create('supplier', supplier).toPromise();
+		return apiSrv.create('Supplier', supplier).toPromise();
 	};
 
 	const createTask = () => {
@@ -167,7 +166,7 @@ fdescribe('ApiService', () => {
 			lastUpdatedByUserId: userId,
 			name: 'test apiService Task'
 		});
-		return apiSrv.create('task', task).toPromise();
+		return apiSrv.create('Task', task).toPromise();
 	};
 
 	/** ================ */
@@ -179,30 +178,29 @@ fdescribe('ApiService', () => {
 	};
 
 	const notCustomCreate = new Map<EntityName, any>([
-		['category', [createCategory, undefined, deleteCategory]],
-		['company', [createCompany]],
-		['contact', [createContact]],
-		['descriptor', [createDescriptor]],
-		['image', [createImage]],
-		['product', [createProduct]],
-		['supplier', [createSupplier]],
-		['task', [createTask]],
-		['team', [createTeam]]
+		['Category', [createCategory, undefined, deleteCategory]],
+		['Company', [createCompany]],
+		['Contact', [createContact]],
+		['Descriptor', [createDescriptor]],
+		['Image', [createImage]],
+		['Product', [createProduct]],
+		['Supplier', [createSupplier]],
+		['Task', [createTask]],
+		['Team', [createTeam]]
 	]);
 
 	notCustomCreate.forEach(([create, update, del], entityName) => {
-			let createdEntity;
-			it(`should create a ${entityName}`, async () => {
-				createdEntity = await create();
-				expect(createdEntity.id).toBeTruthy();
-			});
+		let createdEntity;
+		it(`should create a ${entityName}`, async () => {
+			createdEntity = await create();
+			expect(createdEntity.id).toBeTruthy();
+		});
 		// fit(`should delete the ${entityName}`, async () => {
 		// 	const response = await del(createdEntity, entityName);
 		// 	expect(response._deleted).toBe(true);
 		// 	debugger;
 		// });
 	});
-
 
 	// it('should generate 100 products', () => {
 	// 	for (let i = 0; i < 100; i++) {
@@ -221,20 +219,20 @@ fdescribe('ApiService', () => {
 
 	// const deleteCompany = (companyId, version = 1) => {
 	// 	const company = { ...models.Company, _deleted: true, _version: version };
-	// 	// return apiSrv.delete('company', company)
+	// 	// return apiSrv.delete('Company', company)
 	// };
 	// const deleteTeam = (teamId, version = 1) => {
 	// 	const team = { ...models.Team, _deleted: true, _version: version };
-	// 	// return apiSrv.delete('company', company)
+	// 	// return apiSrv.delete('Company', company)
 	// };
 	// const deleteProduct = (teamId, version = 1) => {
 	// 	const product = { ...models.Product, _deleted: true, _version: version };
-	// 	// return apiSrv.delete('company', company)
+	// 	// return apiSrv.delete('Company', company)
 	// };
 
 	// const deleteCategory = (teamId, version = 1) => {
 	// 	const product = { ...models.Product, _deleted: true, _version: version };
-	// 	// return apiSrv.delete('company', company)
+	// 	// return apiSrv.delete('Company', company)
 	// };
 
 	// /** ============= */
@@ -243,14 +241,14 @@ fdescribe('ApiService', () => {
 
 	it('should query one company', async done => {
 		const company = await createCompany();
-		apiSrv.queryOne<any>('company', company.id).data$.subscribe(d => {
+		apiSrv.queryOne<any>('Company', company.id).data$.subscribe(d => {
 			expect(company.name).toBe(d.name);
 			done();
 		});
 	});
 
 	it('should query one user', done => {
-		apiSrv.queryOne<any>('user', userId).data$.subscribe(d => {
+		apiSrv.queryOne<any>('User', userId).data$.subscribe(d => {
 			expect(userId).toBe(d.id);
 			done();
 		});

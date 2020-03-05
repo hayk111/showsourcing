@@ -177,16 +177,16 @@ export class ApiService implements ApiServiceInterface {
 	 */
 	create<T>(
 		entityName: EntityName,
-		entity: T & Entity,
+		entity: T,
 		options: WatchQueryOptions | {} = {}
 	): Observable<T> {
 		const title = 'Create ' + entityName;
 		const { query, queryName, body } = QueryPool.getQueryInfo(entityName, QueryType.CREATE);
 		// TODO remove this condition when the audits are all similars
-		if (entityName !== 'company' && entityName !== 'team') {
-			entity.createdAt = Date.now();
-			entity.lastUpdatedAt = Date.now();
-			entity.deleted = false;
+		if (entityName !== 'Company' && entityName !== 'Team') {
+			(entity as any).createdAt = Date.now();
+			(entity as any).lastUpdatedAt = Date.now();
+			(entity as any).deleted = false;
 		}
 		const variables = { input: { ...entity } };
 		delete (variables.input as any).__typename;

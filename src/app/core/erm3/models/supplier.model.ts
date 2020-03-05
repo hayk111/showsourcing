@@ -1,82 +1,15 @@
-import { Lang } from '../../../API.service';
+import { EntityName } from '../entity-name.type';
+import { Team } from './team.model';
 import { Entity } from './_entity.model';
 
 export class Supplier extends Entity<Supplier> {
-	__typename? = 'Supplier';
-	favorite? = false;
-	archived? = false;
+	__typename?: EntityName = 'Supplier';
+	favorite ?= false;
+	archived ?= false;
 
 	id?: string;
 	teamId?: string;
-	team?: {
-		__typename?: 'Team';
-		id?: string;
-		name?: string;
-		ownerUserId?: string;
-		owner?: {
-			__typename?: 'User';
-			id?: string;
-			email?: string;
-			firstName?: string;
-			lastName?: string;
-			phoneNumber?: string | null;
-			preferredLanguage?: Lang | null;
-			avatar?: string | null;
-			createdAt?: number | null;
-			_version?: number;
-			_deleted?: boolean | null;
-			_lastChangedAt?: number;
-		};
-		companyId?: string;
-		company?: {
-			__typename?: 'Company';
-			id?: string;
-			name?: string;
-			ownerUserId?: string;
-			createdByUserId?: string;
-			createdOn?: number;
-			lastUpdatedByUserId?: string;
-			lastUpdatedAt?: number | null;
-			_version?: number;
-			_deleted?: boolean | null;
-			_lastChangedAt?: number;
-		};
-		createdByUserId?: string;
-		createdBy?: {
-			__typename?: 'User';
-			id?: string;
-			email?: string;
-			firstName?: string;
-			lastName?: string;
-			phoneNumber?: string | null;
-			preferredLanguage?: Lang | null;
-			avatar?: string | null;
-			createdAt?: number | null;
-			_version?: number;
-			_deleted?: boolean | null;
-			_lastChangedAt?: number;
-		};
-		createdOn?: number;
-		lastUpdatedByUserId?: string;
-		lastUpdatedBy?: {
-			__typename?: 'User';
-			id?: string;
-			email?: string;
-			firstName?: string;
-			lastName?: string;
-			phoneNumber?: string | null;
-			preferredLanguage?: Lang | null;
-			avatar?: string | null;
-			createdAt?: number | null;
-			_version?: number;
-			_deleted?: boolean | null;
-			_lastChangedAt?: number;
-		} | null;
-		lastUpdatedAt?: number | null;
-		_version?: number;
-		_deleted?: boolean | null;
-		_lastChangedAt?: number;
-	} | null;
+	team?: Team;
 	name?: string;
 	fullName?: string | null;
 	tradingName?: string | null;
