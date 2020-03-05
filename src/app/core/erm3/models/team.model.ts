@@ -1,7 +1,8 @@
-export class Team {
-	constructor(config?: Team) {
-		Object.assign(this, config);
-	}
+import { EntityName } from '../entity-name.type';
+import { Entity } from './_entity.model';
+
+export class Team extends Entity<Team> {
+	__typename?: EntityName = 'Team';
 	id?: string;
 	name?: string;
 	ownerUserId?: string;

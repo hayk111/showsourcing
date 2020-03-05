@@ -34,17 +34,17 @@ export class QueryPool {
 		// [EntityName.INVITATION]: new BaseQueries(EntityName.INVITATION),
 		// [EntityName.TEAM_USER]: new BaseQueries(EntityName.TEAM_USER),
 
-		category: new BaseQueries('Category'), // provided by the api
-		company: new CompanyQueries('Company'), // provided by the api
-		contact: new BaseQueries('Contact'), // provided by the api
-		descriptor: new BaseQueries('Descriptor', 'target'), // provided by the api
-		image: new BaseQueries('Image', `fileName`), // provided by the api
-		product: new BaseQueries('Product'), // provided by the api
-		supplier: new BaseQueries('Supplier'), // provided by the api
-		task: new BaseQueries('Task'), // provided by the api
-		user: new BaseQueries('User', `firstName`),
-		team: new TeamQueries('Team'), // provided by the api
-		teamUser: new BaseQueries('TeamUser'), // provided by the api
+		Category: new BaseQueries('Category'), // provided by the api
+		Company: new CompanyQueries('Company'), // provided by the api
+		Contact: new BaseQueries('Contact'), // provided by the api
+		Descriptor: new BaseQueries('Descriptor', 'target'), // provided by the api
+		Image: new BaseQueries('Image', `fileName`), // provided by the api
+		Product: new BaseQueries('Product'), // provided by the api
+		Supplier: new BaseQueries('Supplier'), // provided by the api
+		Task: new BaseQueries('Task'), // provided by the api
+		User: new BaseQueries('User', `firstName`),
+		Team: new TeamQueries('Team'), // provided by the api
+		TeamUser: new BaseQueries('TeamUser'), // provided by the api
 	};
 
 	/** returns the query, queryName and body of a specified query*/

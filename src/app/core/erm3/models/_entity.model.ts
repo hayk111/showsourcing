@@ -3,7 +3,7 @@ import { EntityName } from '../entity-name.type';
 
 export class Entity<G = any> {
 	__typename?: EntityName;
-	teamId? = TeamService.teamId;
+	teamId ?= TeamService.teamId;
 	createdAt?: number;
 	lastUpdatedAt?: number;
 	deleted?: boolean;
