@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'environments/environment';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { GetStreamNotification } from '~common/activity/interfaces/get-stream-feed.interfaces';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { DEFAULT_REPLIED_STATUS, Team, User } from '~core/erm';
@@ -15,32 +15,22 @@ import { sideNavItems } from './side-nav-items.const';
 	styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent implements OnInit {
-	user$: Observable<User>;
-	team$: Observable<Team>;
-	requestCount$: Observable<number>;
-	notifications$: Observable<GetStreamNotification>;
+	user$: Observable<User> = of(null);
+	team$: Observable<Team> = of(null);
+	requestCount$: Observable<number> = of(null);
+	notifications$: Observable<GetStreamNotification> = of(null);
 	isProd = environment.production;
 	isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
 	sideNavItems = sideNavItems;
 
-	constructor(
-		private authSrv: AuthenticationService,
-		private userSrv: UserService,
-		private requestSrv: SupplierRequestService,
-		private teamSrv: TeamService,
-		private notifActivitySrv: NotificationActivityService) { }
+	constructor(private authSrv: AuthenticationService) { }
 
 	ngOnInit() {
-		this.user$ = this.userSrv.selectUser();
-		this.team$ = this.teamSrv.teamSelected$;
-		this.requestCount$ = this.requestSrv.selectCount(
-			`status == "${DEFAULT_REPLIED_STATUS}" AND senderTeamId == "${this.teamSrv.selectedTeamSync.id}"`
-		);
-		this.notifications$ = this.notifActivitySrv.getNotifications();
+
 	}
 
 	openNotifPanel() {
-		this.notifActivitySrv.openNotificationPanel();
+		// this.notifActivitySrv.openNotificationPanel();
 	}
 
 	logout() {
