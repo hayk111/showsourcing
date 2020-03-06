@@ -88,6 +88,7 @@ export class AuthenticationService {
 			} else {
 				this.router.navigate([ '/' ]);
 			}
+			return user;
 		})
 		.catch(err => {
 			if (err.code === 'UserNotConfirmedException') {

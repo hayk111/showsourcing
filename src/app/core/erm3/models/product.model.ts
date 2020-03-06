@@ -1,45 +1,56 @@
-export class Product {
-	id: undefined;
-	name: 'test apiService Product';
-	teamId: null;
-}
+import { Entity } from './_entity.model';
+import { Typename } from '../entity-name.type';
+import { Team } from './team.model';
+import { Supplier } from './supplier.model';
+import { Image } from './image.model';
+import { Category } from './category.model';
+import { User } from './user.model';
 
-// export type CreateProductInput = {
-//   id?: string | null;
-//   name: string;
-//   teamId: string;
-//   price?: PriceInput | null;
-//   description?: string | null;
-//   favorite?: boolean | null;
-//   assignee?: UserInput | null;
-//   minimumOrderQuantity?: number | null;
-//   moqDescription?: string | null;
-//   score?: number | null;
-//   incoTerm?: string | null;
-//   harbour?: string | null;
-//   masterCbm?: number | null;
-//   quantityPer20ft?: number | null;
-//   quantityPer40ft?: number | null;
-//   quantityPer40ftHC?: number | null;
-//   leadTimeValue?: number | null;
-//   leadTimeUnit?: string | null;
-//   sample?: boolean | null;
-//   samplePrice?: PriceInput | null;
-//   reference?: string | null;
-//   referenceKey?: number | null;
-//   deletedBy?: UserInput | null;
-//   deletionDate?: number | null;
-//   lastUpdatedBy?: UserInput | null;
-//   _version?: number | null;
-//   productSupplierId?: string | null;
-//   productAssigneeId?: string | null;
-//   productDeletedById?: string | null;
-// TODO the backend should change
-// team: TeamInput;
-// archived: boolean;
-// creationDate: number;
-// createdBy: UserInput;
-// lastUpdatedDate: number;
-// deleted: boolean;
-// productCreatedById: string;
-// };
+export class Product extends Entity<Product> {
+	__typename?: Typename = 'Product';
+	id?: string;
+	teamId?: string;
+	team?: Team;
+	name?: string;
+	supplier?: Supplier;
+	images?: Array<Image> | null;
+	price?: {
+		__typename?: 'Price';
+		currency?: string | null;
+		value?: number | null;
+		baseCurrencyValue?: number | null;
+	} | null;
+	category?: Category;
+	description?: string | null;
+	favorite?: boolean | null;
+	assigneeId?: string;
+	assignee?: User;
+	minimumOrderQuantity?: number | null;
+	moqDescription?: string | null;
+	score?: number | null;
+	incoTerm?: string | null;
+	harbour?: string | null;
+	masterCbm?: number | null;
+	quantityPer20ft?: number | null;
+	quantityPer40ft?: number | null;
+	quantityPer40ftHC?: number | null;
+	leadTimeValue?: number | null;
+	leadTimeUnit?: string | null;
+	sample?: boolean | null;
+	samplePrice?: {
+		__typename?: 'Price';
+		currency?: string | null;
+		value?: number | null;
+		baseCurrencyValue?: number | null;
+	} | null;
+	archived?: boolean;
+	reference?: string | null;
+	referenceKey?: number | null;
+	createdByUserId?: string;
+	deletedByUSerId?: string | null;
+	deletedAt?: number | null;
+	lastUpdatedByUserId?: string;
+	_version?: number;
+	_deleted?: boolean | null;
+	_lastChangedAt?: number;
+}
