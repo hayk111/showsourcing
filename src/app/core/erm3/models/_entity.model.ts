@@ -1,12 +1,13 @@
-import { TeamService } from '~core/auth/services/team.service';
-import { EntityName } from '../entity-name.type';
+import { Typename } from '../entity-name.type';
 
 export class Entity<G = any> {
-	__typename?: EntityName;
-	teamId ?= TeamService.teamId;
+	__typename?: Typename;
 	createdAt?: number;
 	lastUpdatedAt?: number;
 	deleted?: boolean;
+	createdByUserId?: string;
+	lastUpdatedByUserId?: string;
+	teamId?: string;
 
 	constructor(config?: G) {
 		Object.assign(this, config);

@@ -1,7 +1,7 @@
-import { Lang } from '../../../API.service';
+import { Lang } from '../API.service';
 
 export class User {
-	__typename? = 'User';
+	__typename ? = 'User';
 	id?: string;
 	email?: string;
 	firstName?: string;

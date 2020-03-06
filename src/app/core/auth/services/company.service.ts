@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
-import { Company, EntityName } from '~core/erm/models';
+import { Company } from '~core/erm3/models';
 import { ApiService } from '~core/erm3/services/api.service';
 import { LocalStorageService } from '~core/local-storage';
 import { AuthenticationService } from './authentication.service';
@@ -13,7 +13,10 @@ import { AuthenticationService } from './authentication.service';
 })
 export class CompanyService {
 
-	private queryAll = this.apiSrv.queryAll('Company');
+	private queryAll = this.apiSrv.queryAll(
+		'Company',
+		{ variables: { ownerUserId: ''}},
+	);
 	// an user has only 1 company
 	private _company$ = new ReplaySubject<Company>(1);
 	company$ = this._company$.asObservable();
@@ -33,6 +36,12 @@ export class CompanyService {
 	init() {
 		// when signing in we want to load the current company of the user
 		this.authSrv.signIn$.pipe(
+			tap(id => {
+				this.queryAll = this.apiSrv.queryAll(
+					'Company',
+					{ variables: { ownerUserId: id }},
+				);
+			}),
 			switchMap(_ => this.queryAll.data$),
 			map(all => all[0])
 		).subscribe(company => {

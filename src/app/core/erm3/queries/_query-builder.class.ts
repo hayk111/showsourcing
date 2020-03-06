@@ -21,20 +21,20 @@ const AUDIT = `
  *
  */
 export class QueryBuilder {
-	constructor(private entityName: string) {
-		if (!entityName) {
+	constructor(private typename: string) {
+		if (!typename) {
 			throw Error('you must define the singular form of the typename');
 		}
-		this.entityName = this.capitalize(entityName);
+		this.typename = this.capitalize(typename);
 	}
 
 	// get
 	queryOne = (str: string) => {
 		return gql`
-			query Get${this.entityName}(
+			query Get${this.typename}(
 				$id: ID!
 			) {
-				get${this.entityName}(
+				get${this.typename}(
 					id: $id
 				) {
 					id
@@ -49,14 +49,14 @@ export class QueryBuilder {
 	// search // TODO update to fit the new environment when we have search queries
 	queryMany = (str: string) => {
 		return gql`
-			query Search${this.entityName}s(
-				$filter: Searchable${this.entityName}FilterInput
+			query Search${this.typename}s(
+				$filter: Searchable${this.typename}FilterInput
 				$id: ModelIDKeyConditionInput
-				$sort: Searchable${this.entityName}SortInput
+				$sort: Searchable${this.typename}SortInput
 				$limit: Int
 				$nextToken: String
 			) {
-				search${this.entityName}s(
+				search${this.typename}s(
 					filter: $filter
 					sort: $sort
 					limit: $limit
@@ -76,8 +76,8 @@ export class QueryBuilder {
 	// list
 	queryAll = (str: string) => {
 		return gql`
-			query List${this.entityName}s {
-				list${this.entityName}s {
+			query List${this.typename}s {
+				list${this.typename}s {
 					items {
 						id
 						${str}
@@ -88,10 +88,10 @@ export class QueryBuilder {
 
 	create = (str: string) => {
 		return gql`
-			mutation Create${this.entityName}(
-				$input: Create${this.entityName}Input!
+			mutation Create${this.typename}(
+				$input: Create${this.typename}Input!
 			) {
-				create${this.entityName}(input: $input) {
+				create${this.typename}(input: $input) {
 					id
 					${str}
 					${AUDIT}
@@ -101,10 +101,10 @@ export class QueryBuilder {
 
 	update = (str: string) => {
 		return gql`
-			mutation Update${this.entityName}(
-				$input: Update${this.entityName}Input!
+			mutation Update${this.typename}(
+				$input: Update${this.typename}Input!
 			) {
-				update${this.entityName}(input: $input) {
+				update${this.typename}(input: $input) {
 					id
 					${str}
 					${AUDIT}
@@ -114,10 +114,10 @@ export class QueryBuilder {
 
 	delete = (str = '') => {
 		return gql`
-			mutation Delete${this.entityName}(
-				$input: Delete${this.entityName}Input!
+			mutation Delete${this.typename}(
+				$input: Delete${this.typename}Input!
 			) {
-				delete${this.entityName}(input: $input) {
+				delete${this.typename}(input: $input) {
 					id
 					${str}
 					${AUDIT}
