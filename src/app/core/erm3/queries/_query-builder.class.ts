@@ -23,6 +23,7 @@ const AUDIT = `
  */
 export class QueryBuilder {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	constructor(private typename: string) {
 		if (!typename) {
 			throw Error('you must define the singular form of the typename');
@@ -30,6 +31,12 @@ export class QueryBuilder {
 		this.typename = this.capitalize(typename);
 =======
 	constructor(private entityName: EntityName) {
+=======
+	constructor(
+		private entityName: EntityName,
+		private byEntityNames: Array<EntityName | 'Owner'> = []
+	) {
+>>>>>>> queryBy, must test the owner
 		if (!entityName) {
 			throw Error('you must define the singular form of the typename');
 		}
@@ -37,7 +44,7 @@ export class QueryBuilder {
 	}
 
 	// get
-	queryOne = (str: string) => {
+	queryOne = function(str: string) {
 		return gql`
 			query Get${this.typename}(
 				$id: ID!
@@ -50,7 +57,7 @@ export class QueryBuilder {
 					${AUDIT}
 				}
 			}`;
-	};
+	}.bind(this);
 
 	queryManyDefault: string;
 
@@ -94,65 +101,38 @@ export class QueryBuilder {
 			}`;
 	};
 
-	queryBy = (str: string) => {
-		return gql`
-			query ListTeamByUser(
-				$userId: ID
+	queryBy = (str: string): Record<string, any> => {
+		const queryByObject = {};
+		this.byEntityNames.forEach(byEntity => {
+			const ownerVerbose = byEntity === 'Owner' ? 'User' : ''; // the param for Owner is $ownerUser
+			const paramEntityName = byEntity.charAt(0).toLowerCase() + byEntity.slice(1) + ownerVerbose;
+			const byId = paramEntityName + 'Id';
+			const queryBy = gql`
+			query List${this.entityName}By${byEntity}(
+				$byId: ID
 				$sortDirection: ModelSortDirection
-				$filter: ModelTeamUserFilterInput
+				$filter: Model${this.entityName}FilterInput
 				$limit: Int
 				$nextToken: String
 			) {
-				listTeamByUser(
-					userId: $userId
+				list${this.entityName}By${byEntity}(
+					${byId}: $byId
 					sortDirection: $sortDirection
 					filter: $filter
 					limit: $limit
 					nextToken: $nextToken
 				) {
-					__typename
 					items {
-						__typename
-						teamId
-						userId
-						team {
-							__typename
-							id
-							name
-							ownerUserId
-							companyId
-							createdByUserId
-							createdOn
-							lastUpdatedByUserId
-							lastUpdatedOn
-							_version
-							_deleted
-							_lastChangedAt
-						}
-						user {
-							__typename
-							id
-							email
-							firstName
-							lastName
-							phoneNumber
-							preferredLanguage
-							avatar
-							creationDate
-							_version
-							_deleted
-							_lastChangedAt
-						}
-						role
-						_version
-						_deleted
-						_lastChangedAt
+						# ${byId} ? do we need this ?
+						${str}
 					}
 					nextToken
 					startedAt
 				}
-			}
-		`;
+			}`;
+			queryByObject[byEntity] = queryBy;
+		});
+		return queryByObject;
 	};
 
 	create = (str: string) => {
@@ -193,5 +173,4 @@ export class QueryBuilder {
 				}
 			}`;
 	};
-
 }

@@ -180,6 +180,7 @@ fdescribe('ApiService', () => {
 	// // 	});
 	// // });
 
+<<<<<<< HEAD
 	// // it('should query one user', done => {
 	// // 	apiSrv.queryOne<any>('user', userId).data$.subscribe(d => {
 	// // 		expect(userId).toBe(d.id);
@@ -194,4 +195,19 @@ fdescribe('ApiService', () => {
 	// // // 		done();
 	// // // 	});
 	// // // });
+=======
+	/** ======== */
+	/** QUERY BY */
+	/** ======== */
+	it('should query all teams by user', async done => {
+		apiSrv.queryBy<models.TeamUser>('TeamUser', 'User').data$.subscribe(expectQuerySomething(done));
+	});
+	fit('should query all companies by owner', async done => {
+		apiSrv
+			.queryBy<models.Company>('Company', 'Owner', { variables: { ownerUserId: userId } })
+			.data$.subscribe(d => {
+				debugger;
+			});
+	});
+>>>>>>> queryBy, must test the owner
 });

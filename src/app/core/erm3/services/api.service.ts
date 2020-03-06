@@ -53,7 +53,7 @@ export class ApiService {
 	queryOne<T>(
 		typename: Typename,
 		id: string,
-		options: WatchQueryOptions | any = {}
+		options: Partial<WatchQueryOptions> = {}
 	): ObservableQuery<T> {
 		// title for displaying in logs
 		const title = 'Query one ' + typename;
@@ -94,11 +94,15 @@ export class ApiService {
 	queryMany<T>(
 		typename: Typename,
 		variables: FilterParams,
-		options: WatchQueryOptions | any = {},
-		queryType = QueryType.QUERY_MANY
+		options: Partial<WatchQueryOptions> = {},
 	): ObservableQuery<T[]> {
+<<<<<<< HEAD
 		const title = 'Query Many ' + typename + 's';
 		const { query, queryName, body } = QueryPool.getQueryInfo(typename, queryType);
+=======
+		const title = 'Query Many ' + entityName + 's';
+		const { query, queryName, body } = QueryPool.getQueryInfo(entityName, QueryType.QUERY_MANY);
+>>>>>>> queryBy, must test the owner
 		this.log(title, query, queryName, body, variables);
 
 		const queryRef = client.watchQuery({
@@ -129,6 +133,7 @@ export class ApiService {
 	 * @param options: Apollo options if we don't want the default
 	 */
 	queryAll<T>(
+<<<<<<< HEAD
 		typename: Typename,
 		options: WatchQueryOptions | any = {},
 		queryType: any = QueryType.QUERY_ALL
@@ -136,6 +141,14 @@ export class ApiService {
 		const title = 'Query All ' + typename;
 		const { query, queryName, body } = QueryPool.getQueryInfo(typename, queryType);
 		const variables: any = options.variables;
+=======
+		entityName: EntityName,
+		options: Partial<WatchQueryOptions> = {},
+	): ObservableQuery<T[]> {
+		const title = 'Query All ' + entityName;
+		const { query, queryName, body } = QueryPool.getQueryInfo(entityName, QueryType.QUERY_ALL);
+		const variables = options.variables;
+>>>>>>> queryBy, must test the owner
 		this.log(title, query, queryName, body);
 
 		const queryRef = client.watchQuery({
@@ -159,21 +172,19 @@ export class ApiService {
 	//        QUERY BY         //
 	/////////////////////////////
 	/**
-	 * Query all entities
+	 * Query all entities by a referenced Entity (e.g: all teams that belongs to an user)
 	 * (Query, optimistic UI)
-	 * @param
-	 * @param
-	 * @param
+	 * @param entityName: the name of the Entity we want to query
+	 * @param byEntityName: the entity for wich the entityName will belongs to
+	 * @param options: to override defaults variables, cache policies, ...
 	 */
 	queryBy<T>(
 		entityName: EntityName,
-		byEntityName: EntityName | 'Owner',
-		options: WatchQueryOptions | any = {}
+		byEntityName: EntityName | 'Owner' = 'Team',
+		options: Partial<WatchQueryOptions> = {}
 	): ObservableQuery<T[]> {
-		let queryType;
-		queryType = `list${entityName}By${byEntityName}`;
-		const { query, queryName, body } = QueryPool.getQueryInfo(entityName, queryType);
-		const variables: any = options.variables;
+		const { query, queryName, body } = QueryPool.getQueryInfo(entityName, QueryType.QUERY_BY, byEntityName);
+		const variables = options.variables;
 		const title = `Query All ${entityName} by ${byEntityName}`;
 		this.log(title, query, queryName, body);
 
@@ -206,7 +217,7 @@ export class ApiService {
 	create<T extends Entity>(
 		typename: Typename,
 		entity: T,
-		options: WatchQueryOptions | {} = {}
+		options: Partial<MutationOptions> = {}
 	): Observable<T> {
 		const title = 'Create ' + typename;
 		const { query, queryName, body } = QueryPool.getQueryInfo(typename, QueryType.CREATE);
@@ -241,7 +252,7 @@ export class ApiService {
 	update<T>(
 		typename: Typename,
 		entity: T,
-		options: WatchQueryOptions | {} = {}
+		options: Partial<MutationOptions> = {}
 	): Observable<T> {
 		const title = 'Update ' + typename;
 		const { query, queryName, body } = QueryPool.getQueryInfo(typename, QueryType.UPDATE);
@@ -260,9 +271,15 @@ export class ApiService {
 	//          DELETE         //
 	/////////////////////////////
 
+<<<<<<< HEAD
 	delete<T>(typename: Typename, entity: T, options: MutationOptions | {} = {}): Observable<T> {
 		const title = 'Delete' + typename;
 		const { query, queryName, body } = QueryPool.getQueryInfo(typename, QueryType.DELETE);
+=======
+	delete<T>(entityName: EntityName, entity: T, options: Partial<MutationOptions> = {}): Observable<T> {
+		const title = 'Delete' + entityName;
+		const { query, queryName, body } = QueryPool.getQueryInfo(entityName, QueryType.DELETE);
+>>>>>>> queryBy, must test the owner
 		const variables = { input: entity };
 
 		this.log(title, query, queryName, body, variables);
