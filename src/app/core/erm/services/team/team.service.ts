@@ -60,7 +60,6 @@ export class TeamService extends GlobalService<Team> {
 			.subscribe(team => {
 				this.selectedTeamSync = team;
 				TeamService.selectedTeamSync = team;
-				// GlobalService.teamId = team.id;
 			});
 		// restoring the previously selected team
 		this.restoreSelectedTeam();

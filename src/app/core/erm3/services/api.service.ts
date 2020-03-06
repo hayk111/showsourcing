@@ -1,21 +1,17 @@
 import { Injectable } from '@angular/core';
 import { MutationOptions } from 'apollo-client';
-import {
-	ObservableQuery as ApolloObservableQuery,
-	WatchQueryOptions
-} from 'aws-appsync/node_modules/apollo-client';
+import { ObservableQuery as ApolloObservableQuery, WatchQueryOptions } from 'aws-appsync/node_modules/apollo-client';
 import { DocumentNode } from 'graphql';
 import { from, Observable } from 'rxjs';
 import { filter, map, tap } from 'rxjs/operators';
-import { Typename } from '../typename.type';
+import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { log } from '~utils/log';
 import { LogColor } from '~utils/log-colors.enum';
+import { Entity } from '../models/_entity.model';
 import { QueryPool } from '../queries/query-pool.class';
 import { QueryType } from '../queries/query-type.enum';
+import { Typename } from '../typename.type';
 import { client } from './client';
-import { AuthenticationService } from '~core/auth/services/authentication.service';
-import { Entity } from '../models/_entity.model';
-import { TeamService } from '~core/auth/services/team.service';
 
 export interface ObservableQuery<T = any> extends ApolloObservableQuery<T> {
 	data$: Observable<T>;
@@ -33,11 +29,15 @@ export interface FilterParams {
  */
 @Injectable({ providedIn: 'root' })
 export class ApiService {
-	private userId: string;
+	// set by UserService so we don't have circular dep
+	private _userId: string;
+	setUserId(id: string) { this._userId = id; }
+	// set by TeamService so we don't have circular dep
+	private _teamId: string;
+	setTeamId(id: string) { this._teamId = id; }
 
 	constructor(private authSrv: AuthenticationService) {
 		this.authSrv.signOut$.subscribe(_ => client.resetStore());
-		this.authSrv.signIn$.subscribe(id => this.userId = id);
 	}
 
 	///////////////////////////////
@@ -177,9 +177,9 @@ export class ApiService {
 			entity.createdAt = Date.now();
 			entity.lastUpdatedAt = Date.now();
 			entity.deleted = false;
-			entity.createdByUserId = this.userId;
-			entity.lastUpdatedByUserId = this.userId;
-			entity.teamId = TeamService.teamSelected.id;
+			entity.createdByUserId = this._userId;
+			entity.lastUpdatedByUserId = this._userId;
+			entity.teamId = this._teamId;
 		}
 		const variables = { input: { ...entity } };
 		delete (variables.input as any).__typename;
