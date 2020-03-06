@@ -1,8 +1,8 @@
 import { Entity } from './_entity.model';
-import { EntityName } from '../entity-name.type';
+import { Typename } from '../entity-name.type';
 
 export class Descriptor extends Entity<Descriptor> {
-	__typename?: EntityName = 'Descriptor';
+	__typename?: Typename = 'Descriptor';
 	id?: string;
 	teamId?: string;
 	sections?: Array<{

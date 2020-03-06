@@ -1,4 +1,4 @@
-export type EntityName = 'attachment'|
+export type Typename = 'attachment'|
  'Activity'|
  'Category'|
  'Comment'|

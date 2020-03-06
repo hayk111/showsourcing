@@ -1,5 +1,5 @@
 import { DocumentNode } from 'graphql';
-import { EntityName } from '../entity-name.type';
+import { Typename } from '../entity-name.type';
 import { BaseQueries } from './base.queries';
 import { CompanyQueries } from './custom/company.queries';
 import { TeamQueries } from './custom/team.queries';
@@ -48,7 +48,7 @@ export class QueryPool {
 	};
 
 	/** returns the query, queryName and body of a specified query*/
-	static getQueryInfo(entityName: EntityName, queryType: QueryType) {
+	static getQueryInfo(entityName: Typename, queryType: QueryType) {
 		const queries = QueryPool.map[entityName];
 		if (!queries) {
 			throw Error(`The query pool doesn't contain such a member ${queryType}`);

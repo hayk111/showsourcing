@@ -1,9 +1,9 @@
-import { EntityName } from '../entity-name.type';
+import { Typename } from '../entity-name.type';
 import { Team } from './team.model';
 import { Entity } from './_entity.model';
 
 export class Supplier extends Entity<Supplier> {
-	__typename?: EntityName = 'Supplier';
+	__typename?: Typename = 'Supplier';
 	favorite ?= false;
 	archived ?= false;
 

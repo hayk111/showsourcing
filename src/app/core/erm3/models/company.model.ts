@@ -1,9 +1,9 @@
-import { EntityName } from '../entity-name.type';
+import { Typename } from '../entity-name.type';
 import { User } from './user.model';
 import { Entity } from './_entity.model';
 
 export class Company extends Entity<Company> {
-	__typename?: EntityName = 'Company';
+	__typename?: Typename = 'Company';
 	id?: string;
 	name?: string;
 	ownerUserId?: string;

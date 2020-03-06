@@ -1,8 +1,8 @@
 import { TeamService } from '~core/auth/services/team.service';
-import { EntityName } from '../entity-name.type';
+import { Typename } from '../entity-name.type';
 
 export class Entity<G = any> {
-	__typename?: EntityName;
+	__typename?: Typename;
 	teamId ?= TeamService.teamId;
 	createdAt?: number;
 	lastUpdatedAt?: number;

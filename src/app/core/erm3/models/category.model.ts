@@ -1,10 +1,10 @@
-import { EntityName } from '../entity-name.type';
+import { Typename } from '../entity-name.type';
 import { Team } from './team.model';
 import { User } from './user.model';
 import { Entity } from './_entity.model';
 
 export class Category extends Entity<Category> {
-	__typename?: EntityName = 'Category';
+	__typename?: Typename = 'Category';
 	id?: string;
 	teamId?: string;
 	team?: Team;

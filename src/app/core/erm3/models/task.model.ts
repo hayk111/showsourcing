@@ -1,4 +1,4 @@
-import { EntityName } from '../entity-name.type';
+import { Typename } from '../entity-name.type';
 import { Product } from './product.model';
 import { Supplier } from './supplier.model';
 import { Team } from './team.model';
@@ -6,7 +6,7 @@ import { User } from './user.model';
 import { Entity } from './_entity.model';
 
 export class Task extends Entity<Task> {
-	__typename?: EntityName = 'Task';
+	__typename?: Typename = 'Task';
 	id?: string;
 	teamId?: string;
 	team?: Team;

@@ -1,11 +1,11 @@
-import { EntityName } from '../entity-name.type';
+import { Typename } from '../entity-name.type';
 import { Supplier } from './supplier.model';
 import { Team } from './team.model';
 import { User } from './user.model';
 import { Entity } from './_entity.model';
 
 export class Contact extends Entity<Contact> {
-	__typename?: EntityName = 'Contact';
+	__typename?: Typename = 'Contact';
 	id?: string;
 	teamId?: string;
 	team?: Team;

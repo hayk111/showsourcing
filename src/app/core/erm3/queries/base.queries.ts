@@ -1,5 +1,5 @@
 import { QueryBuilder } from './_query-builder.class';
-import { EntityName } from '../entity-name.type';
+import { Typename } from '../entity-name.type';
 
 
 export class BaseQueries {
@@ -12,6 +12,6 @@ export class BaseQueries {
 	update = this.qb.update(this.defaultFields);
 	delete = this.qb.delete(this.defaultFields);
 
-	constructor(protected name: EntityName, protected defaultFields: string = 'name') {}
+	constructor(protected name: Typename, protected defaultFields: string = 'name') {}
 
 }

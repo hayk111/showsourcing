@@ -1,6 +1,6 @@
 import { Entity } from './_entity.model';
 import { Lang, ImageType } from '../../../API.service';
-import { EntityName } from '../entity-name.type';
+import { Typename } from '../entity-name.type';
 import { Team } from './team.model';
 import { Supplier } from './supplier.model';
 import { Image } from './image.model';
@@ -8,7 +8,7 @@ import { Category } from './category.model';
 import { User } from './user.model';
 
 export class Product extends Entity<Product> {
-	__typename?: EntityName = 'Product';
+	__typename?: Typename = 'Product';
 	id?: string;
 	teamId?: string;
 	team?: Team;
