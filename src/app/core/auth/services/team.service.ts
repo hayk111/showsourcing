@@ -37,7 +37,7 @@ export class TeamService {
 		map(team => !!team)
 	);
 	// synchronous version for easy access
-	private static _teamSelected: Team;
+	static _teamSelected: Team;
 
 	constructor(
 		protected storage: LocalStorageService,
@@ -76,10 +76,6 @@ export class TeamService {
 		);
 	}
 
-	selectTeam() {
-		return this.teamSelected$;
-	}
-
 	restoreSelectedTeam() {
 		const selectedTeam: Team = this.storage.getItem(SELECTED_TEAM);
 		this._teamSelected$.next(selectedTeam);
@@ -88,10 +84,6 @@ export class TeamService {
 	resetSelectedTeam() {
 		this.storage.remove(SELECTED_TEAM);
 		this._teamSelected$.next(undefined);
-	}
-
-	static getTeamSelected() {
-		return TeamService._teamSelected;
 	}
 
 }
