@@ -7,37 +7,28 @@ import { QueryType } from './query-type.enum';
 
 export class QueryPool {
 	static map = {
-		Category: new BaseQueries('Category'), // provided by the api
-		// Company: new CompanyQueries('Company'), // provided by the api
-		Company: new BaseQueries('Company'), // provided by the api
-		Contact: new BaseQueries('Contact'), // provided by the api
-		Descriptor: new BaseQueries('Descriptor', 'target'), // provided by the api
-		Image: new BaseQueries('Image', `fileName`), // provided by the api
-		Product: new BaseQueries('Product'), // provided by the api
-		Supplier: new BaseQueries('Supplier'), // provided by the api
-		Task: new BaseQueries('Task'), // provided by the api
+		Category: new BaseQueries('Category'),
+		// Company: new CompanyQueries('Company'),
+		Company: new BaseQueries('Company'),
+		Contact: new BaseQueries('Contact'),
+		Descriptor: new BaseQueries('Descriptor', 'target'),
+		Image: new BaseQueries('Image', `fileName`),
+		Product: new BaseQueries('Product'),
+		Supplier: new BaseQueries('Supplier'),
+		Task: new BaseQueries('Task'),
 		User: new BaseQueries('User', `firstName`),
-		// Team: new TeamQueries('Team'), // provided by the api
-		Team: new BaseQueries('Team'), // provided by the api
-		TeamUser: new BaseQueries('TeamUser', 'teamId', ['User']) // provided by the api
+		// Team: new TeamQueries('Team'),
+		Team: new BaseQueries('Team'),
+		TeamUser: new BaseQueries('TeamUser', 'teamId', ['User'])
 	};
 
 	/** returns the query, queryName and body of a specified query*/
-<<<<<<< HEAD
-<<<<<<< HEAD
-	static getQueryInfo(typename: Typename, queryType: QueryType) {
-		const queries = QueryPool.map[typename];
-=======
-	static getQueryInfo(entityName: EntityName, queryType: QueryType | string) {
-=======
 	static getQueryInfo(
-		entityName: EntityName,
+		typename: Typename,
 		queryType: QueryType,
-		byEntityName: EntityName | 'Owner' = null
+		byEntityName: Typename | 'Owner' = null
 	) {
->>>>>>> queryBy, must test the owner
-		const queries = QueryPool.map[entityName];
->>>>>>> queryBy in progress
+		const queries = QueryPool.map[typename];
 		if (!queries) {
 			throw Error(`The query pool doesn't contain such a member ${queryType}`);
 		}

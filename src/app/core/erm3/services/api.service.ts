@@ -96,13 +96,8 @@ export class ApiService {
 		variables: FilterParams,
 		options: Partial<WatchQueryOptions> = {},
 	): ObservableQuery<T[]> {
-<<<<<<< HEAD
 		const title = 'Query Many ' + typename + 's';
-		const { query, queryName, body } = QueryPool.getQueryInfo(typename, queryType);
-=======
-		const title = 'Query Many ' + entityName + 's';
-		const { query, queryName, body } = QueryPool.getQueryInfo(entityName, QueryType.QUERY_MANY);
->>>>>>> queryBy, must test the owner
+		const { query, queryName, body } = QueryPool.getQueryInfo(typename, QueryType.QUERY_MANY);
 		this.log(title, query, queryName, body, variables);
 
 		const queryRef = client.watchQuery({
@@ -133,22 +128,12 @@ export class ApiService {
 	 * @param options: Apollo options if we don't want the default
 	 */
 	queryAll<T>(
-<<<<<<< HEAD
 		typename: Typename,
-		options: WatchQueryOptions | any = {},
-		queryType: any = QueryType.QUERY_ALL
-	): ObservableQuery<T[]> {
-		const title = 'Query All ' + typename;
-		const { query, queryName, body } = QueryPool.getQueryInfo(typename, queryType);
-		const variables: any = options.variables;
-=======
-		entityName: EntityName,
 		options: Partial<WatchQueryOptions> = {},
 	): ObservableQuery<T[]> {
-		const title = 'Query All ' + entityName;
-		const { query, queryName, body } = QueryPool.getQueryInfo(entityName, QueryType.QUERY_ALL);
+		const title = 'Query All ' + typename;
+		const { query, queryName, body } = QueryPool.getQueryInfo(typename, QueryType.QUERY_ALL);
 		const variables = options.variables;
->>>>>>> queryBy, must test the owner
 		this.log(title, query, queryName, body);
 
 		const queryRef = client.watchQuery({
@@ -179,13 +164,13 @@ export class ApiService {
 	 * @param options: to override defaults variables, cache policies, ...
 	 */
 	queryBy<T>(
-		entityName: EntityName,
-		byEntityName: EntityName | 'Owner' = 'Team',
+		typename: Typename,
+		byTypename: Typename | 'Owner' = 'Team',
 		options: Partial<WatchQueryOptions> = {}
 	): ObservableQuery<T[]> {
-		const { query, queryName, body } = QueryPool.getQueryInfo(entityName, QueryType.QUERY_BY, byEntityName);
+		const { query, queryName, body } = QueryPool.getQueryInfo(typename, QueryType.QUERY_BY, byTypename);
 		const variables = options.variables;
-		const title = `Query All ${entityName} by ${byEntityName}`;
+		const title = `Query All ${typename} by ${byTypename}`;
 		this.log(title, query, queryName, body);
 
 		const queryRef = client.watchQuery({
@@ -271,15 +256,9 @@ export class ApiService {
 	//          DELETE         //
 	/////////////////////////////
 
-<<<<<<< HEAD
-	delete<T>(typename: Typename, entity: T, options: MutationOptions | {} = {}): Observable<T> {
+	delete<T>(typename: Typename, entity: T, options: Partial<MutationOptions> = {}): Observable<T> {
 		const title = 'Delete' + typename;
 		const { query, queryName, body } = QueryPool.getQueryInfo(typename, QueryType.DELETE);
-=======
-	delete<T>(entityName: EntityName, entity: T, options: Partial<MutationOptions> = {}): Observable<T> {
-		const title = 'Delete' + entityName;
-		const { query, queryName, body } = QueryPool.getQueryInfo(entityName, QueryType.DELETE);
->>>>>>> queryBy, must test the owner
 		const variables = { input: entity };
 
 		this.log(title, query, queryName, body, variables);

@@ -180,27 +180,11 @@ fdescribe('ApiService', () => {
 	// // 	});
 	// // });
 
-<<<<<<< HEAD
-	// // it('should query one user', done => {
-	// // 	apiSrv.queryOne<any>('user', userId).data$.subscribe(d => {
-	// // 		expect(userId).toBe(d.id);
-	// // 		done();
-	// // 	});
-	// // });
-
-	// // // it('should query one category', async done => {
-	// // // 	const category = await createCategory();
-	// // // 	apiSrv.queryOne<any>('category', category.id).data$.subscribe(d => {
-	// // // 		expect(category.name).toBe(d.name);
-	// // // 		done();
-	// // // 	});
-	// // // });
-=======
 	/** ======== */
 	/** QUERY BY */
 	/** ======== */
 	it('should query all teams by user', async done => {
-		apiSrv.queryBy<models.TeamUser>('TeamUser', 'User').data$.subscribe(expectQuerySomething(done));
+		apiSrv.queryBy<models.TeamUser>('TeamUser', 'User').data$.subscribe(d => {debugger});
 	});
 	fit('should query all companies by owner', async done => {
 		apiSrv
@@ -209,5 +193,4 @@ fdescribe('ApiService', () => {
 				debugger;
 			});
 	});
->>>>>>> queryBy, must test the owner
 });

@@ -1,6 +1,5 @@
 import gql from 'graphql-tag';
-import { DocumentNode } from 'graphql';
-import { EntityName } from '../entity-name.type';
+import { Typename } from '../typename.type';
 
 /** Audit found on every entity */
 const AUDIT = `
@@ -22,29 +21,14 @@ const AUDIT = `
  *
  */
 export class QueryBuilder {
-<<<<<<< HEAD
-<<<<<<< HEAD
-	constructor(private typename: string) {
+	constructor(private typename: Typename, private byTypenames: Array<Typename | 'Owner'> = ['Team']) {
 		if (!typename) {
 			throw Error('you must define the singular form of the typename');
 		}
-		this.typename = this.capitalize(typename);
-=======
-	constructor(private entityName: EntityName) {
-=======
-	constructor(
-		private entityName: EntityName,
-		private byEntityNames: Array<EntityName | 'Owner'> = []
-	) {
->>>>>>> queryBy, must test the owner
-		if (!entityName) {
-			throw Error('you must define the singular form of the typename');
-		}
->>>>>>> queryBy in progress
 	}
 
 	// get
-	queryOne = function(str: string) {
+	queryOne = (str: string) => {
 		return gql`
 			query Get${this.typename}(
 				$id: ID!
@@ -57,7 +41,7 @@ export class QueryBuilder {
 					${AUDIT}
 				}
 			}`;
-	}.bind(this);
+	}
 
 	queryManyDefault: string;
 
@@ -86,7 +70,7 @@ export class QueryBuilder {
 					total
 				}
 			}`;
-	};
+	}
 
 	// list
 	queryAll = (str: string) => {
@@ -99,23 +83,23 @@ export class QueryBuilder {
 					}
 				}
 			}`;
-	};
+	}
 
 	queryBy = (str: string): Record<string, any> => {
 		const queryByObject = {};
-		this.byEntityNames.forEach(byEntity => {
+		this.byTypenames.forEach(byEntity => {
 			const ownerVerbose = byEntity === 'Owner' ? 'User' : ''; // the param for Owner is $ownerUser
 			const paramEntityName = byEntity.charAt(0).toLowerCase() + byEntity.slice(1) + ownerVerbose;
 			const byId = paramEntityName + 'Id';
 			const queryBy = gql`
-			query List${this.entityName}By${byEntity}(
+			query List${this.typename}By${byEntity}(
 				$byId: ID
 				$sortDirection: ModelSortDirection
-				$filter: Model${this.entityName}FilterInput
+				$filter: Model${this.typename}FilterInput
 				$limit: Int
 				$nextToken: String
 			) {
-				list${this.entityName}By${byEntity}(
+				list${this.typename}By${byEntity}(
 					${byId}: $byId
 					sortDirection: $sortDirection
 					filter: $filter
@@ -133,7 +117,7 @@ export class QueryBuilder {
 			queryByObject[byEntity] = queryBy;
 		});
 		return queryByObject;
-	};
+	}
 
 	create = (str: string) => {
 		return gql`
@@ -146,7 +130,7 @@ export class QueryBuilder {
 					${AUDIT}
 				}
 			}`;
-	};
+	}
 
 	update = (str: string) => {
 		return gql`
@@ -159,7 +143,7 @@ export class QueryBuilder {
 					${AUDIT}
 				}
 			}`;
-	};
+	}
 
 	delete = (str = '') => {
 		return gql`
@@ -172,5 +156,5 @@ export class QueryBuilder {
 					${AUDIT}
 				}
 			}`;
-	};
+	}
 }
