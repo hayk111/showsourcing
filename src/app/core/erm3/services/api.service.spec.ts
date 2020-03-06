@@ -12,6 +12,7 @@ import * as models from '~core/erm3/models';
 import { ApiService } from './api.service';
 import { ImageType } from '../API.service';
 import { switchMap } from 'rxjs/operators';
+import { QueryPool } from '../queries/query-pool.class';
 
 Amplify.configure(awsconfig);
 
@@ -137,12 +138,44 @@ fdescribe('ApiService', () => {
 	// 	});
 	// });
 
-
-
 	/** ======== */
 	/** QUERY BY */
 	/** ======== */
 
+	const VAR_BY_TYPENAME: Partial<Record<Typename | 'Owner', string>> = {
+		Team: 'teamId',
+		Owner: 'ownerUserId',
+		User: 'userId'
+	};
+
+	fit('should query all by entity', async () => {
+		// get all queries by from query-pool => [ [typename1, byTypename1], ...]
+		const collectQueryBy = [];
+		Object.entries(QueryPool.map).forEach(([typename, baseQuery]: any) => {
+			if (!baseQuery.queryBy) return;
+			Object.keys(baseQuery.queryBy).forEach(byTypename => {
+				collectQueryBy.push([typename, byTypename]);
+			});
+		});
+
+		// run queries into promises
+		const promises = Object.entries(collectQueryBy).map(([typename, byTypename]) => {
+			apiSrv
+				.queryBy(typename as Typename, byTypename, {
+					variables: {
+						// [VAR_BY_TYPENAME[typename]]: 'qdsmlfkjqsmdlfj'
+					}
+				})
+				.data$.toPromise()
+				.catch(e => fail(`entity ${typename} failed query by ${byTypename}: ${e}`));
+		});
+
+		// test results
+		const results = await Promise.all(promises);
+		results.forEach(result => {
+			expect(result).toBeTruthy();
+		});
+	});
 
 	// fit('should query all teams by user', async done => {
 	// 	apiSrv.queryBy<models.TeamUser>('TeamUser', 'User').data$.subscribe(d => {debugger});
