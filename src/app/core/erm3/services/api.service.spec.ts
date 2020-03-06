@@ -14,6 +14,16 @@ import { ApiService } from './api.service';
 
 Amplify.configure(awsconfig);
 
+const mocks = {
+	category:  () => new models.Category({ name: 'test apiService Category' }),
+	contact: () => new models.Contact({ name: 'test apiService Contact' }),
+	// descriptor: () => new models.Descriptor({ target: 'test apiService Descriptor' }),
+	image: () => new models.Image({ fileName: 'File Name', orientation: 0, imageType: ImageType }),
+	product: () => new models.Product({ name: 'test apiService Product' }),
+	supplier: () => new models.Supplier({ name: 'test apiService Supplier' }),
+	task: () => new models.Task({ name: 'test apiService Task' })
+};
+
 fdescribe('ApiService', () => {
 	let apiSrv: ApiService;
 	let authSrv: AuthenticationService;
@@ -101,6 +111,13 @@ fdescribe('ApiService', () => {
 				.queryAll(entity as EntityName)
 				.data$.pipe(first())
 				.subscribe(expectQuerySomething(done));
+	it('should create the rest of entities', async () => {
+		const promises = Object.entries(mocks).map(([name, getMock]) => {
+			return apiSrv.create(name as EntityName, getMock()).toPromise();
+		});
+		const results = await Promise.all(promises);
+		results.forEach(result => {
+			expect(result).toBeTruthy();
 		});
 	});
 

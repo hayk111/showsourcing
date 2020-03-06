@@ -183,10 +183,12 @@ export class ApiService implements ApiServiceInterface {
 		const title = 'Create ' + entityName;
 		const { query, queryName, body } = QueryPool.getQueryInfo(entityName, QueryType.CREATE);
 		// TODO remove this condition when the audits are all similars
-		if (entityName !== 'Company' && entityName !== 'Team') {
-			(entity as any).createdAt = Date.now();
-			(entity as any).lastUpdatedAt = Date.now();
-			(entity as any).deleted = false;
+		if (entityName !== 'company' && entityName !== 'team') {
+			entity.createdAt = Date.now();
+			entity.lastUpdatedAt = Date.now();
+			entity.deleted = false;
+			entity.createdByUserId = this.userId;
+			entity.lastUpdatedByUserId = this.userId;
 		}
 		const variables = { input: { ...entity } };
 		delete (variables.input as any).__typename;

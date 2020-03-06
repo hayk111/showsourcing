@@ -7,6 +7,8 @@ export class Entity<G = any> {
 	createdAt?: number;
 	lastUpdatedAt?: number;
 	deleted?: boolean;
+	createdByUserId?: string;
+	lastUpdatedByUserId?: string;
 
 	constructor(config?: G) {
 		Object.assign(this, config);
