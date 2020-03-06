@@ -100,55 +100,34 @@ fdescribe('ApiService', () => {
 		});
 	});
 
-	// /** ======== */
-	// /** queryAll */
-	// /** ======== */
+	/** ========= */
+	/** QUERY ONe */
+	/** ========= */
 
-	// const expectQuerySomething = done => ({
-	// 	next: d => {
-	// 		expect(d).toBeTruthy();
-	// 		done();
-	// 	},
-	// 	error: err => {
-	// 		fail(err);
-	// 		done();
-	// 	}
-	// });
-
-	// // entities not custom implemented :
-	// const notCustomQueryAll = [
-	// 	'category',
-	// 	'company',
-	// 	'contact',
-	// 	'descriptor',
-	// 	'image',
-	// 	'product',
-	// 	'supplier',
-	// 	'task',
-	// 	'user'
-	// 	// 'teamByUser'
-	// ];
-	// // test queryAll (not custom) for all entities in the QueryPool.map
-	// notCustomQueryAll.forEach(entity => {
-	// 	it(`should query something with queryAll for "${entity}"`, done => {
-	// 		apiSrv
-	// 			.queryAll(entity as EntityName)
-	// 			.data$.pipe(first())
-	// 			.subscribe(expectQuerySomething(done));
-	// 	});
-	// });
+	fit('should query each entity', async () => {
+		const promises = Object.entries(mocks).map(([name, getMock]) => {
+			return apiSrv
+				.create(name as Typename, getMock())
+				.pipe(switchMap(createdEntity => apiSrv.queryOne(name as Typename, createdEntity.id).data$))
+				.toPromise()
+				.catch(e => fail(`entity ${name} failed queryOne: ${e}`));
+		});
+		const results = await Promise.all(promises);
+		results.forEach(result => {
+			expect(result).toBeTruthy();
+		});
+	});
 
 	/** ======== */
 	/** QUERY BY */
 	/** ======== */
 
-	const VAR_BY_TYPENAME: Partial<Record<Typename | 'Owner', string>> = {
-		Team: 'teamId',
-		Owner: 'ownerUserId',
-		User: 'userId'
-	};
-
-	fit('should query all by entity', async () => {
+	it('should query all by entity', async () => {
+		const VAR_BY_TYPENAME: Partial<Record<Typename | 'Owner', string>> = {
+			Team: 'teamId',
+			Owner: 'ownerUserId',
+			User: 'userId'
+		};
 		// get all queries by from query-pool => [ [typename1, byTypename1], ...]
 		const collectQueryBy = [];
 		Object.entries(QueryPool.map).forEach(([typename, baseQuery]: any) => {
@@ -163,7 +142,7 @@ fdescribe('ApiService', () => {
 			apiSrv
 				.queryBy(typename as Typename, byTypename, {
 					variables: {
-						// [VAR_BY_TYPENAME[typename]]: 'qdsmlfkjqsmdlfj'
+						[VAR_BY_TYPENAME[typename]]: 'fakeId'
 					}
 				})
 				.data$.toPromise()
