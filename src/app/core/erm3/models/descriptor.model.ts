@@ -1,5 +1,5 @@
 import { Entity } from './_entity.model';
-import { Typename } from '../entity-name.type';
+import { Typename } from '../typename.type';
 
 export class Descriptor extends Entity<Descriptor> {
 	__typename?: Typename = 'Descriptor';

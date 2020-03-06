@@ -1,4 +1,4 @@
-import { Typename } from '../entity-name.type';
+import { Typename } from '../typename.type';
 import { Entity } from './_entity.model';
 
 export class Team extends Entity<Team> {
