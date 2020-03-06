@@ -7,7 +7,6 @@ import { LocalStorageService } from '~core/local-storage';
 import { AuthenticationService } from './authentication.service';
 
 
-const COMPANY = 'company';
 
 @Injectable({
 	providedIn: 'root'
@@ -15,7 +14,7 @@ const COMPANY = 'company';
 export class CompanyService {
 
 	private queryAll = this.apiSrv.queryAll(
-		'company',
+		'Company',
 		{ variables: { ownerUserId: ''}},
 	);
 	// an user has only 1 company
@@ -52,7 +51,7 @@ export class CompanyService {
 	}
 
 	create(company: Company) {
-		return this.apiSrv.create('company', company)
+		return this.apiSrv.create('Company', company)
 			.pipe(
 				tap(_ => this._company$.next(company)),
 				switchMap(_ => this.queryAll.refetch())

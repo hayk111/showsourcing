@@ -1,33 +1,35 @@
-export class Task {
-	id: undefined;
-	name: 'test apiService Task';
-	teamId: null;
-}
+import { EntityName } from '../entity-name.type';
+import { Product } from './product.model';
+import { Supplier } from './supplier.model';
+import { Team } from './team.model';
+import { User } from './user.model';
+import { Entity } from './_entity.model';
 
-// export type CreateTaskInput = {
-// 	id?: string | null;
-// 	teamId: string;
-// 	name?: string | null;
-// 	description?: string | null;
-// 	dueDate?: number | null;
-// 	completed?: boolean | null;
-// 	completionDate?: number | null;
-// 	assigneeUserId: string;
-// 	assignee?: UserInput | null;
-// 	product?: ProductInput | null;
-// 	supplier?: SupplierInput | null;
-// 	reference?: string | null;
-// 	referenceKey?: number | null;
-// 	inProgress?: boolean | null;
-// 	deletedBy?: UserInput | null;
-// 	deletionDate?: number | null;
-// 	lastUpdatedBy?: UserInput | null;
-// 	_version?: number | null;
-// 	taskProductId?: string | null;
-// 	taskSupplierId?: string | null;
-// TODO should change in the backend
-// 	creationDate: number;
-// 	createdBy: UserInput;
-// 	lastUpdatedDate: number;
-// 	deleted: boolean;
-// };
+export class Task extends Entity<Task> {
+	__typename?: EntityName = 'Task';
+	id?: string;
+	teamId?: string;
+	team?: Team;
+	name?: string | null;
+	description?: string | null;
+	dueDate?: number | null;
+	completed?: boolean | null;
+	completionDate?: number | null;
+	assigneeUserId?: string;
+	assignee?: User;
+	product?: Product;
+	supplier?: Supplier;
+	reference?: string | null;
+	referenceKey?: number | null;
+	inProgress?: boolean | null;
+	createdAt?: number;
+	createdByUserId?: string;
+	deletedByUSerId?: string | null;
+	deletedAt?: number | null;
+	lastUpdatedByUserId?: string;
+	lastUpdatedAt?: number;
+	deleted?: boolean;
+	_version?: number;
+	_deleted?: boolean | null;
+	_lastChangedAt?: number;
+}

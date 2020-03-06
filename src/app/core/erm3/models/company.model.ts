@@ -1,14 +1,20 @@
+import { EntityName } from '../entity-name.type';
+import { User } from './user.model';
+import { Entity } from './_entity.model';
 
-export class Company {
-	constructor(config?: Company) {
-		Object.assign(this, config);
-	}
+export class Company extends Entity<Company> {
+	__typename?: EntityName = 'Company';
 	id?: string;
-	name?: string | null;
-	ownerUserId?: string | null;
-	createdByUserId?: string | null;
-	createdOn?: number | null;
-	lastUpdatedByUserId?: string | null;
-	lastUpdatedOn?: number | null;
-	_version?: number | null;
+	name?: string;
+	ownerUserId?: string;
+	owner?: User;
+	createdByUserId?: string;
+	createdBy?: User;
+	createdAt?: number;
+	lastUpdatedByUserId?: string;
+	lastUpdatedBy?: User;
+	lastUpdatedAt?: number | null;
+	_version?: number;
+	_deleted?: boolean | null;
+	_lastChangedAt?: number;
 }

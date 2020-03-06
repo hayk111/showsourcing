@@ -66,8 +66,73 @@ subscription OnCreateCategory {
   onCreateCategory {
     id
     teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
     name
     creationDate
+    createdByUserId
     createdBy {
       id
       email
@@ -81,6 +146,7 @@ subscription OnCreateCategory {
       _deleted
       _lastChangedAt
     }
+    deletedByUserId
     deletedBy {
       id
       email
@@ -120,8 +186,73 @@ subscription OnUpdateCategory {
   onUpdateCategory {
     id
     teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
     name
     creationDate
+    createdByUserId
     createdBy {
       id
       email
@@ -135,6 +266,7 @@ subscription OnUpdateCategory {
       _deleted
       _lastChangedAt
     }
+    deletedByUserId
     deletedBy {
       id
       email
@@ -174,8 +306,73 @@ subscription OnDeleteCategory {
   onDeleteCategory {
     id
     teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
     name
     creationDate
+    createdByUserId
     createdBy {
       id
       email
@@ -189,6 +386,7 @@ subscription OnDeleteCategory {
       _deleted
       _lastChangedAt
     }
+    deletedByUserId
     deletedBy {
       id
       email
@@ -228,11 +426,75 @@ subscription OnCreateContact {
   onCreateContact {
     id
     teamId
-    companyId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
     name
     phoneNumber
     email
     jobTitle
+    supplierId
     supplier {
       id
       teamId
@@ -266,49 +528,14 @@ subscription OnCreateContact {
       generalLeadTime
       favorite
       globalDatabaseId
+      archived
       reference
       referenceKey
       creationDate
-      createdBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      deletedBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
+      createdByUserId
+      deletedByUSerId
       deletionDate
-      lastUpdatedBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
+      lastUpdatedByUserId
       lastUpdatedDate
       deleted
       _version
@@ -316,6 +543,7 @@ subscription OnCreateContact {
       _lastChangedAt
     }
     creationDate
+    createdByUserId
     createdBy {
       id
       email
@@ -329,6 +557,7 @@ subscription OnCreateContact {
       _deleted
       _lastChangedAt
     }
+    deletedByUserId
     deletedBy {
       id
       email
@@ -343,6 +572,7 @@ subscription OnCreateContact {
       _lastChangedAt
     }
     deletionDate
+    lastupdatedByUserId
     lastUpdatedBy {
       id
       email
@@ -367,11 +597,75 @@ subscription OnUpdateContact {
   onUpdateContact {
     id
     teamId
-    companyId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
     name
     phoneNumber
     email
     jobTitle
+    supplierId
     supplier {
       id
       teamId
@@ -405,49 +699,14 @@ subscription OnUpdateContact {
       generalLeadTime
       favorite
       globalDatabaseId
+      archived
       reference
       referenceKey
       creationDate
-      createdBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      deletedBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
+      createdByUserId
+      deletedByUSerId
       deletionDate
-      lastUpdatedBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
+      lastUpdatedByUserId
       lastUpdatedDate
       deleted
       _version
@@ -455,6 +714,7 @@ subscription OnUpdateContact {
       _lastChangedAt
     }
     creationDate
+    createdByUserId
     createdBy {
       id
       email
@@ -468,6 +728,7 @@ subscription OnUpdateContact {
       _deleted
       _lastChangedAt
     }
+    deletedByUserId
     deletedBy {
       id
       email
@@ -482,6 +743,7 @@ subscription OnUpdateContact {
       _lastChangedAt
     }
     deletionDate
+    lastupdatedByUserId
     lastUpdatedBy {
       id
       email
@@ -506,11 +768,75 @@ subscription OnDeleteContact {
   onDeleteContact {
     id
     teamId
-    companyId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
     name
     phoneNumber
     email
     jobTitle
+    supplierId
     supplier {
       id
       teamId
@@ -544,49 +870,14 @@ subscription OnDeleteContact {
       generalLeadTime
       favorite
       globalDatabaseId
+      archived
       reference
       referenceKey
       creationDate
-      createdBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      deletedBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
+      createdByUserId
+      deletedByUSerId
       deletionDate
-      lastUpdatedBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
+      lastUpdatedByUserId
       lastUpdatedDate
       deleted
       _version
@@ -594,6 +885,7 @@ subscription OnDeleteContact {
       _lastChangedAt
     }
     creationDate
+    createdByUserId
     createdBy {
       id
       email
@@ -607,6 +899,7 @@ subscription OnDeleteContact {
       _deleted
       _lastChangedAt
     }
+    deletedByUserId
     deletedBy {
       id
       email
@@ -621,6 +914,7 @@ subscription OnDeleteContact {
       _lastChangedAt
     }
     deletionDate
+    lastupdatedByUserId
     lastUpdatedBy {
       id
       email
@@ -645,16 +939,75 @@ subscription OnCreateImage {
   onCreateImage {
     id
     teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
     fileName
     orientation
     imageType
-    urls {
-      id
-      maxWidth
-      maxHeight
-      url
-    }
     creationDate
+    createdByUserId
     createdBy {
       id
       email
@@ -668,6 +1021,7 @@ subscription OnCreateImage {
       _deleted
       _lastChangedAt
     }
+    deletedByUserId
     deletedBy {
       id
       email
@@ -682,6 +1036,7 @@ subscription OnCreateImage {
       _lastChangedAt
     }
     deletionDate
+    lastupdatedByUserId
     lastUpdatedBy {
       id
       email
@@ -706,16 +1061,75 @@ subscription OnUpdateImage {
   onUpdateImage {
     id
     teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
     fileName
     orientation
     imageType
-    urls {
-      id
-      maxWidth
-      maxHeight
-      url
-    }
     creationDate
+    createdByUserId
     createdBy {
       id
       email
@@ -729,6 +1143,7 @@ subscription OnUpdateImage {
       _deleted
       _lastChangedAt
     }
+    deletedByUserId
     deletedBy {
       id
       email
@@ -743,6 +1158,7 @@ subscription OnUpdateImage {
       _lastChangedAt
     }
     deletionDate
+    lastupdatedByUserId
     lastUpdatedBy {
       id
       email
@@ -767,16 +1183,75 @@ subscription OnDeleteImage {
   onDeleteImage {
     id
     teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
     fileName
     orientation
     imageType
-    urls {
-      id
-      maxWidth
-      maxHeight
-      url
-    }
     creationDate
+    createdByUserId
     createdBy {
       id
       email
@@ -790,6 +1265,7 @@ subscription OnDeleteImage {
       _deleted
       _lastChangedAt
     }
+    deletedByUserId
     deletedBy {
       id
       email
@@ -804,6 +1280,7 @@ subscription OnDeleteImage {
       _lastChangedAt
     }
     deletionDate
+    lastupdatedByUserId
     lastUpdatedBy {
       id
       email
@@ -828,6 +1305,70 @@ subscription OnCreateTask {
   onCreateTask {
     id
     teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
     name
     description
     dueDate
@@ -849,7 +1390,6 @@ subscription OnCreateTask {
     }
     product {
       id
-      name
       teamId
       team {
         id
@@ -864,6 +1404,7 @@ subscription OnCreateTask {
         _deleted
         _lastChangedAt
       }
+      name
       supplier {
         id
         teamId
@@ -884,10 +1425,14 @@ subscription OnCreateTask {
         generalLeadTime
         favorite
         globalDatabaseId
+        archived
         reference
         referenceKey
         creationDate
+        createdByUserId
+        deletedByUSerId
         deletionDate
+        lastUpdatedByUserId
         lastUpdatedDate
         deleted
         _version
@@ -901,7 +1446,10 @@ subscription OnCreateTask {
         orientation
         imageType
         creationDate
+        createdByUserId
+        deletedByUserId
         deletionDate
+        lastupdatedByUserId
         lastUpdatedDate
         deleted
         _version
@@ -918,6 +1466,8 @@ subscription OnCreateTask {
         teamId
         name
         creationDate
+        createdByUserId
+        deletedByUserId
         deletionDate
         lastupdatedByUserId
         lastUpdatedDate
@@ -928,6 +1478,7 @@ subscription OnCreateTask {
       }
       description
       favorite
+      assigneeId
       assignee {
         id
         email
@@ -962,46 +1513,10 @@ subscription OnCreateTask {
       reference
       referenceKey
       creationDate
-      createdBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      deletedBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
+      createdByUserId
+      deletedByUSerId
       deletionDate
-      lastUpdatedBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
+      lastUpdatedByUserId
       lastUpdatedDate
       deleted
       _version
@@ -1041,49 +1556,14 @@ subscription OnCreateTask {
       generalLeadTime
       favorite
       globalDatabaseId
+      archived
       reference
       referenceKey
       creationDate
-      createdBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      deletedBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
+      createdByUserId
+      deletedByUSerId
       deletionDate
-      lastUpdatedBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
+      lastUpdatedByUserId
       lastUpdatedDate
       deleted
       _version
@@ -1094,46 +1574,10 @@ subscription OnCreateTask {
     referenceKey
     inProgress
     creationDate
-    createdBy {
-      id
-      email
-      firstName
-      lastName
-      phoneNumber
-      preferredLanguage
-      avatar
-      creationDate
-      _version
-      _deleted
-      _lastChangedAt
-    }
-    deletedBy {
-      id
-      email
-      firstName
-      lastName
-      phoneNumber
-      preferredLanguage
-      avatar
-      creationDate
-      _version
-      _deleted
-      _lastChangedAt
-    }
+    createdByUserId
+    deletedByUSerId
     deletionDate
-    lastUpdatedBy {
-      id
-      email
-      firstName
-      lastName
-      phoneNumber
-      preferredLanguage
-      avatar
-      creationDate
-      _version
-      _deleted
-      _lastChangedAt
-    }
+    lastUpdatedByUserId
     lastUpdatedDate
     deleted
     _version
@@ -1145,6 +1589,70 @@ subscription OnUpdateTask {
   onUpdateTask {
     id
     teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
     name
     description
     dueDate
@@ -1166,7 +1674,6 @@ subscription OnUpdateTask {
     }
     product {
       id
-      name
       teamId
       team {
         id
@@ -1181,6 +1688,7 @@ subscription OnUpdateTask {
         _deleted
         _lastChangedAt
       }
+      name
       supplier {
         id
         teamId
@@ -1201,10 +1709,14 @@ subscription OnUpdateTask {
         generalLeadTime
         favorite
         globalDatabaseId
+        archived
         reference
         referenceKey
         creationDate
+        createdByUserId
+        deletedByUSerId
         deletionDate
+        lastUpdatedByUserId
         lastUpdatedDate
         deleted
         _version
@@ -1218,7 +1730,10 @@ subscription OnUpdateTask {
         orientation
         imageType
         creationDate
+        createdByUserId
+        deletedByUserId
         deletionDate
+        lastupdatedByUserId
         lastUpdatedDate
         deleted
         _version
@@ -1235,6 +1750,8 @@ subscription OnUpdateTask {
         teamId
         name
         creationDate
+        createdByUserId
+        deletedByUserId
         deletionDate
         lastupdatedByUserId
         lastUpdatedDate
@@ -1245,6 +1762,7 @@ subscription OnUpdateTask {
       }
       description
       favorite
+      assigneeId
       assignee {
         id
         email
@@ -1279,46 +1797,10 @@ subscription OnUpdateTask {
       reference
       referenceKey
       creationDate
-      createdBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      deletedBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
+      createdByUserId
+      deletedByUSerId
       deletionDate
-      lastUpdatedBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
+      lastUpdatedByUserId
       lastUpdatedDate
       deleted
       _version
@@ -1358,49 +1840,14 @@ subscription OnUpdateTask {
       generalLeadTime
       favorite
       globalDatabaseId
+      archived
       reference
       referenceKey
       creationDate
-      createdBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      deletedBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
+      createdByUserId
+      deletedByUSerId
       deletionDate
-      lastUpdatedBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
+      lastUpdatedByUserId
       lastUpdatedDate
       deleted
       _version
@@ -1411,46 +1858,10 @@ subscription OnUpdateTask {
     referenceKey
     inProgress
     creationDate
-    createdBy {
-      id
-      email
-      firstName
-      lastName
-      phoneNumber
-      preferredLanguage
-      avatar
-      creationDate
-      _version
-      _deleted
-      _lastChangedAt
-    }
-    deletedBy {
-      id
-      email
-      firstName
-      lastName
-      phoneNumber
-      preferredLanguage
-      avatar
-      creationDate
-      _version
-      _deleted
-      _lastChangedAt
-    }
+    createdByUserId
+    deletedByUSerId
     deletionDate
-    lastUpdatedBy {
-      id
-      email
-      firstName
-      lastName
-      phoneNumber
-      preferredLanguage
-      avatar
-      creationDate
-      _version
-      _deleted
-      _lastChangedAt
-    }
+    lastUpdatedByUserId
     lastUpdatedDate
     deleted
     _version
@@ -1462,6 +1873,70 @@ subscription OnDeleteTask {
   onDeleteTask {
     id
     teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
     name
     description
     dueDate
@@ -1483,7 +1958,6 @@ subscription OnDeleteTask {
     }
     product {
       id
-      name
       teamId
       team {
         id
@@ -1498,6 +1972,7 @@ subscription OnDeleteTask {
         _deleted
         _lastChangedAt
       }
+      name
       supplier {
         id
         teamId
@@ -1518,10 +1993,14 @@ subscription OnDeleteTask {
         generalLeadTime
         favorite
         globalDatabaseId
+        archived
         reference
         referenceKey
         creationDate
+        createdByUserId
+        deletedByUSerId
         deletionDate
+        lastUpdatedByUserId
         lastUpdatedDate
         deleted
         _version
@@ -1535,7 +2014,10 @@ subscription OnDeleteTask {
         orientation
         imageType
         creationDate
+        createdByUserId
+        deletedByUserId
         deletionDate
+        lastupdatedByUserId
         lastUpdatedDate
         deleted
         _version
@@ -1552,6 +2034,8 @@ subscription OnDeleteTask {
         teamId
         name
         creationDate
+        createdByUserId
+        deletedByUserId
         deletionDate
         lastupdatedByUserId
         lastUpdatedDate
@@ -1562,6 +2046,7 @@ subscription OnDeleteTask {
       }
       description
       favorite
+      assigneeId
       assignee {
         id
         email
@@ -1596,46 +2081,10 @@ subscription OnDeleteTask {
       reference
       referenceKey
       creationDate
-      createdBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      deletedBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
+      createdByUserId
+      deletedByUSerId
       deletionDate
-      lastUpdatedBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
+      lastUpdatedByUserId
       lastUpdatedDate
       deleted
       _version
@@ -1675,49 +2124,14 @@ subscription OnDeleteTask {
       generalLeadTime
       favorite
       globalDatabaseId
+      archived
       reference
       referenceKey
       creationDate
-      createdBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      deletedBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
+      createdByUserId
+      deletedByUSerId
       deletionDate
-      lastUpdatedBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-        _version
-        _deleted
-        _lastChangedAt
-      }
+      lastUpdatedByUserId
       lastUpdatedDate
       deleted
       _version
@@ -1728,46 +2142,10 @@ subscription OnDeleteTask {
     referenceKey
     inProgress
     creationDate
-    createdBy {
-      id
-      email
-      firstName
-      lastName
-      phoneNumber
-      preferredLanguage
-      avatar
-      creationDate
-      _version
-      _deleted
-      _lastChangedAt
-    }
-    deletedBy {
-      id
-      email
-      firstName
-      lastName
-      phoneNumber
-      preferredLanguage
-      avatar
-      creationDate
-      _version
-      _deleted
-      _lastChangedAt
-    }
+    createdByUserId
+    deletedByUSerId
     deletionDate
-    lastUpdatedBy {
-      id
-      email
-      firstName
-      lastName
-      phoneNumber
-      preferredLanguage
-      avatar
-      creationDate
-      _version
-      _deleted
-      _lastChangedAt
-    }
+    lastUpdatedByUserId
     lastUpdatedDate
     deleted
     _version

@@ -7,13 +7,14 @@ import {
 import { DocumentNode } from 'graphql';
 import { from, Observable } from 'rxjs';
 import { filter, map, tap } from 'rxjs/operators';
-import { EntityName, EntityNameType } from '~core/erm/models';
+import { EntityName } from '../entity-name.type';
 import { log } from '~utils/log';
 import { LogColor } from '~utils/log-colors.enum';
 import { QueryPool } from '../queries/query-pool.class';
 import { QueryType } from '../queries/query-type.enum';
 import { client } from './client';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
+import { Entity } from '../models/_entity.model';
 
 export interface ObservableQuery<T = any> extends ApolloObservableQuery<T> {
 	data$: Observable<T>;
@@ -28,24 +29,13 @@ export interface FilterParams {
 
 export interface ApiServiceInterface {
 	queryOne<T>(
-		entityName: EntityName | EntityNameType,
+		entityName: EntityName,
 		id: string,
 		options?: WatchQueryOptions | {}
 	): ObservableQuery<T>;
-	queryAll<T>(
-		entityName: EntityName | EntityNameType,
-		options?: WatchQueryOptions | {}
-	): ObservableQuery<T[]>;
-	create<T>(
-		entityName: EntityName | EntityNameType,
-		entity: T,
-		options?: WatchQueryOptions | {}
-	): Observable<T>;
-	update<T>(
-		entityName: EntityName | EntityNameType,
-		entity: T,
-		options?: WatchQueryOptions | {}
-	): Observable<T>;
+	queryAll<T>(entityName: EntityName, options?: WatchQueryOptions | {}): ObservableQuery<T[]>;
+	create<T>(entityName: EntityName, entity: T, options?: WatchQueryOptions | {}): Observable<T>;
+	update<T>(entityName: EntityName, entity: T, options?: WatchQueryOptions | {}): Observable<T>;
 }
 
 /**
@@ -70,17 +60,14 @@ export class ApiService implements ApiServiceInterface {
 	 * @param options: Apollo options if we don't want the default
 	 */
 	queryOne<T>(
-		entityName: EntityName | EntityNameType,
+		entityName: EntityName,
 		id: string,
 		options: WatchQueryOptions | any = {}
 	): ObservableQuery<T> {
 		// title for displaying in logs
 		const title = 'Query one ' + entityName;
-		const { query, queryName, body } = QueryPool.getQueryInfo(
-			entityName,
-			QueryType.QUERY_ONE
-		);
-		const variables: any = { id, teamId: this.teamId, ...options.variables };
+		const { query, queryName, body } = QueryPool.getQueryInfo(entityName, QueryType.QUERY_ONE);
+		const variables = { id, ...options.variables };
 
 		this.log(title, query, queryName, body, variables);
 		const queryRef = client.watchQuery({
@@ -115,7 +102,7 @@ export class ApiService implements ApiServiceInterface {
 	 * @param options: Apollo options if we don't want the default
 	 */
 	queryMany<T>(
-		entityName: EntityNameType,
+		entityName: EntityName,
 		variables: FilterParams,
 		options: WatchQueryOptions | any = {},
 		queryType = QueryType.QUERY_MANY
@@ -153,13 +140,13 @@ export class ApiService implements ApiServiceInterface {
 	 * @param options: Apollo options if we don't want the default
 	 */
 	queryAll<T>(
-		entityName: EntityName | EntityNameType,
+		entityName: EntityName,
 		options: WatchQueryOptions | any = {},
-		queryType = QueryType.QUERY_ALL
+		queryType: any = QueryType.QUERY_ALL
 	): ObservableQuery<T[]> {
-		const title = 'Query All ' + entityName + 's';
+		const title = 'Query All ' + entityName;
 		const { query, queryName, body } = QueryPool.getQueryInfo(entityName, queryType);
-		const variables: any = { teamId: this.teamId, ...options.variables };
+		const variables: any = options.variables;
 		this.log(title, query, queryName, body);
 
 		const queryRef = client.watchQuery({
@@ -189,19 +176,21 @@ export class ApiService implements ApiServiceInterface {
 	 * @param options: Apollo options if we don't want the default
 	 */
 	create<T>(
-		entityName: EntityName | EntityNameType,
+		entityName: EntityName,
 		entity: T,
 		options: WatchQueryOptions | {} = {}
 	): Observable<T> {
 		const title = 'Create ' + entityName;
-		const { query, queryName, body } = QueryPool.getQueryInfo(
-			entityName,
-			QueryType.CREATE
-		);
-		const variables = { input: entity };
-
+		const { query, queryName, body } = QueryPool.getQueryInfo(entityName, QueryType.CREATE);
+		// TODO remove this condition when the audits are all similars
+		if (entityName !== 'Company' && entityName !== 'Team') {
+			(entity as any).createdAt = Date.now();
+			(entity as any).lastUpdatedAt = Date.now();
+			(entity as any).deleted = false;
+		}
+		const variables = { input: { ...entity } };
+		delete (variables.input as any).__typename;
 		options = { mutation: query, variables, ...options };
-		this.addOptimisticResponse(options, queryName, entity);
 		this.log(title, query, queryName, body, variables);
 		return from(client.mutate({ mutation: query, variables, ...options })).pipe(
 			map(({ data }) => data[queryName]),
@@ -219,15 +208,12 @@ export class ApiService implements ApiServiceInterface {
 	 * @param options: Apollo options if we don't want the default
 	 */
 	update<T>(
-		entityName: EntityName | EntityNameType,
+		entityName: EntityName,
 		entity: T,
 		options: WatchQueryOptions | {} = {}
 	): Observable<T> {
 		const title = 'Update ' + entityName;
-		const { query, queryName, body } = QueryPool.getQueryInfo(
-			entityName,
-			QueryType.UPDATE
-		);
+		const { query, queryName, body } = QueryPool.getQueryInfo(entityName, QueryType.UPDATE);
 		const variables = { input: entity };
 		options = { mutation: query, variables, ...options };
 		this.addOptimisticResponse(options, queryName, entity);
@@ -243,16 +229,9 @@ export class ApiService implements ApiServiceInterface {
 	//          DELETE         //
 	/////////////////////////////
 
-	delete<T>(
-		entityName: EntityName,
-		entity: T,
-		options: MutationOptions | {} = {}
-	): Observable<T> {
+	delete<T>(entityName: EntityName, entity: T, options: MutationOptions | {} = {}): Observable<T> {
 		const title = 'Delete' + entityName;
-		const { query, queryName, body } = QueryPool.getQueryInfo(
-			entityName,
-			QueryType.DELETE
-		);
+		const { query, queryName, body } = QueryPool.getQueryInfo(entityName, QueryType.DELETE);
 		const variables = { input: entity };
 
 		this.log(title, query, queryName, body, variables);
@@ -294,18 +273,9 @@ export class ApiService implements ApiServiceInterface {
 	}
 
 	/** logs request that is about to being made to the 	 */
-	private log(
-		type: string,
-		gql: DocumentNode,
-		queryName: string,
-		body: string,
-		variables?: any
-	) {
+	private log(type: string, gql: DocumentNode, queryName: string, body: string, variables?: any) {
 		// logging for each request
-		log.group(
-			`%c 🍌 ${type}, queryName: ${queryName}`,
-			LogColor.APOLLO_CLIENT_PRE
-		);
+		log.group(`%c 🍌 ${type}, queryName: ${queryName}`, LogColor.APOLLO_CLIENT_PRE);
 		log.group(`%c trace`, LogColor.APOLLO_CLIENT_PRE);
 		log.trace();
 		log.groupEnd();
@@ -315,10 +285,7 @@ export class ApiService implements ApiServiceInterface {
 		log.debug(gql);
 		log.groupEnd();
 		if (variables) {
-			log.group(
-				`%c variables`,
-				'color: lime; background: #555555; padding: 4px'
-			);
+			log.group(`%c variables`, 'color: lime; background: #555555; padding: 4px');
 			log.table(variables);
 			log.groupEnd();
 		}
@@ -335,3 +302,7 @@ export class ApiService implements ApiServiceInterface {
 		log.groupEnd();
 	}
 }
+
+// TODO add the audits for create/update/delete
+
+// TODO remove audits from the models => that way we can use new for update

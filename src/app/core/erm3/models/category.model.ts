@@ -1,22 +1,25 @@
-export class Category {
-	constructor(name: string, ) {
-		this.lastUpdatedDate = Date.now();
-		this.creationDate = Date.now();
-		this.deleted = false;
-	}
+import { EntityName } from '../entity-name.type';
+import { Team } from './team.model';
+import { User } from './user.model';
+import { Entity } from './_entity.model';
 
-	name: string;
-	lastUpdatedDate: number;
-	creationDate: number;
-	teamId: string;
-	deleted: boolean;
-
-	createdByUserId: null;
-	lastUpdatedByUserId: string;
+export class Category extends Entity<Category> {
+	__typename?: EntityName = 'Category';
 	id?: string;
-	deletedBy?: undefined;
-	deletionDate?: undefined;
-	lastupdatedByUserId?: undefined;
-	lastUpdatedBy?: undefined;
-	_version?: undefined;
+	teamId?: string;
+	team?: Team;
+	name?: string;
+	createdAt?: number;
+	createdByUserId?: string;
+	createdBy?: User;
+	deletedByUserId?: string;
+	deletedBy?: User;
+	deletedAt?: number | null;
+	lastUpdatedByUserId?: string;
+	lastUpdatedBy?: User;
+	lastUpdatedAt?: number;
+	deleted?: boolean;
+	_version?: number;
+	_deleted?: boolean | null;
+	_lastChangedAt?: number;
 }

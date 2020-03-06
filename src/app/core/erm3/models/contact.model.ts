@@ -1,27 +1,31 @@
-export class Contact {
-	id: string;
-	name: 'test apiService Contact';
-	teamId: string;
+import { EntityName } from '../entity-name.type';
+import { Supplier } from './supplier.model';
+import { Team } from './team.model';
+import { User } from './user.model';
+import { Entity } from './_entity.model';
+
+export class Contact extends Entity<Contact> {
+	__typename?: EntityName = 'Contact';
+	id?: string;
+	teamId?: string;
+	team?: Team;
+	name?: string | null;
+	phoneNumber?: string | null;
+	email?: string | null;
+	jobTitle?: string | null;
+	supplierId?: string;
+	supplier?: Supplier;
+	createdAt?: number;
+	createdByUserId?: string;
+	createdBy?: User;
+	deletedByUserId?: string;
+	deletedBy?: User;
+	deletedAt?: number | null;
+	lastUpdatedByUserId?: string;
+	lastUpdatedBy?: User;
+	lastUpdatedAt?: number;
+	deleted?: boolean;
+	_version?: number;
+	_deleted?: boolean | null;
+	_lastChangedAt?: number;
 }
-
-// export type CreateContactInput = {
-//   id?: string | null;
-//   teamId: string;
-//   companyId?: string | null;
-//   name?: string | null;
-//   phoneNumber?: string | null;
-//   email?: string | null;
-//   jobTitle?: string | null;
-//   supplier?: SupplierInput | null;
-//   deletedBy?: UserInput | null;
-//   deletionDate?: number | null;
-//   lastUpdatedBy?: UserInput | null;
-//   _version?: number | null;
-//   contactSupplierId?: string | null;
-
-// TODO update the backend
-//   deleted: boolean;
-//   lastUpdatedDate: number;
-//   createdBy: UserInput;
-//   creationDate: number;
-// };
