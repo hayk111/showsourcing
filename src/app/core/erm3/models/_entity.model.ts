@@ -1,4 +1,4 @@
-import { Typename } from '../entity-name.type';
+import { Typename } from '../typename.type';
 
 export class Entity<G = any> {
 	__typename?: Typename;
