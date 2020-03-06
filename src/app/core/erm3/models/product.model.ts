@@ -1,5 +1,5 @@
 import { Entity } from './_entity.model';
-import { Typename } from '../entity-name.type';
+import { Typename } from '../typename.type';
 import { Team } from './team.model';
 import { Supplier } from './supplier.model';
 import { Image } from './image.model';

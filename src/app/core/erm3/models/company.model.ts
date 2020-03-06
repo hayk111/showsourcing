@@ -1,4 +1,4 @@
-import { Typename } from '../entity-name.type';
+import { Typename } from '../typename.type';
 import { User } from './user.model';
 import { Entity } from './_entity.model';
 
