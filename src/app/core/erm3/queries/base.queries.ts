@@ -22,7 +22,7 @@ export class BaseQueries {
 	) {
 
 		queries.forEach((queryType) => {
-			[queryType] = this.qb[queryType](this.defaultFields);
+			this[queryType] = this.qb[queryType](this.defaultFields);
 		});
 	}
 }

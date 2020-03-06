@@ -1,5 +1,8 @@
 import gql from 'graphql-tag';
 
+const AUDIT = `
+_version
+`;
 /**
  * Helper to create GraphQL queries that are valid for the realm GraphQL service
  * it will create queries given fields.
@@ -132,7 +135,8 @@ export class QueryBuilder {
 	mutation Create${this.capSing}($input: Create${this.capSing}Input!) {
 		create${this.capSing}(input: $input) {
 			id,
-			${str}
+			${str},
+			${AUDIT}
 		}
 	}`)
 
