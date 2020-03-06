@@ -6,7 +6,7 @@ import Amplify from 'aws-amplify';
 import { AmplifyService } from 'aws-amplify-angular';
 import { AuthenticationService, TeamService } from '~core/auth';
 import awsconfig from '~core/aws-exports';
-import { Typename } from '../entity-name.type';
+import { Typename } from '../typename.type';
 
 import * as models from '~core/erm3/models';
 import { ApiService } from './api.service';

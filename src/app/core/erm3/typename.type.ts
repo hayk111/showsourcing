@@ -1,4 +1,4 @@
-export type Typename = 'attachment'|
+export type Typename = 'Attachment'|
  'Activity'|
  'Category'|
  'Comment'|

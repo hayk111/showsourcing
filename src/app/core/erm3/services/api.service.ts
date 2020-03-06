@@ -7,7 +7,7 @@ import {
 import { DocumentNode } from 'graphql';
 import { from, Observable } from 'rxjs';
 import { filter, map, tap } from 'rxjs/operators';
-import { Typename } from '../entity-name.type';
+import { Typename } from '../typename.type';
 import { log } from '~utils/log';
 import { LogColor } from '~utils/log-colors.enum';
 import { QueryPool } from '../queries/query-pool.class';
