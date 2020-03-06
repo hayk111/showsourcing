@@ -1,9 +1,9 @@
 
-import { TeamRole } from '../../../API.service';
 import { Typename } from '../entity-name.type';
 import { Team } from './team.model';
 import { User } from './user.model';
 import { Entity } from './_entity.model';
+import { TeamRole } from '../API.service';
 
 export class TeamUser extends Entity<TeamUser> {
 	__typename?: Typename = 'TeamUser';

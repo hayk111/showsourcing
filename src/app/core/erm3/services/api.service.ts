@@ -15,6 +15,7 @@ import { QueryType } from '../queries/query-type.enum';
 import { client } from './client';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { Entity } from '../models/_entity.model';
+import { TeamService } from '~core/auth/services/team.service';
 
 export interface ObservableQuery<T = any> extends ApolloObservableQuery<T> {
 	data$: Observable<T>;
@@ -179,6 +180,7 @@ export class ApiService {
 			entity.deleted = false;
 			entity.createdByUserId = this.userId;
 			entity.lastUpdatedByUserId = this.userId;
+			entity.teamId = TeamService.teamSelected.id;
 		}
 		const variables = { input: { ...entity } };
 		delete (variables.input as any).__typename;

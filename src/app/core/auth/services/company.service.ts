@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
-import { Company, EntityName } from '~core/erm/models';
+import { Company } from '~core/erm3/models';
 import { ApiService } from '~core/erm3/services/api.service';
 import { LocalStorageService } from '~core/local-storage';
 import { AuthenticationService } from './authentication.service';
@@ -38,7 +38,7 @@ export class CompanyService {
 		this.authSrv.signIn$.pipe(
 			tap(id => {
 				this.queryAll = this.apiSrv.queryAll(
-					'company',
+					'Company',
 					{ variables: { ownerUserId: id }},
 				);
 			}),

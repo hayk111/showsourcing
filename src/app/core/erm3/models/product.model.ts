@@ -1,5 +1,4 @@
 import { Entity } from './_entity.model';
-import { Lang, ImageType } from '../../../API.service';
 import { Typename } from '../entity-name.type';
 import { Team } from './team.model';
 import { Supplier } from './supplier.model';

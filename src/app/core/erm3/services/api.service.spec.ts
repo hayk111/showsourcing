@@ -4,26 +4,25 @@ import { TestBed } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
 import Amplify from 'aws-amplify';
 import { AmplifyService } from 'aws-amplify-angular';
-import { first } from 'rxjs/operators';
 import { AuthenticationService, TeamService } from '~core/auth';
 import awsconfig from '~core/aws-exports';
 import { Typename } from '../entity-name.type';
 
 import * as models from '~core/erm3/models';
-
 import { ApiService } from './api.service';
-import { Entity } from '../models/_entity.model';
+
 Amplify.configure(awsconfig);
 
 const mocks = {
-	category:  () => new models.Category({ name: 'test apiService Category' }),
-	contact: () => new models.Contact({ name: 'test apiService Contact' }),
-	// descriptor: () => new models.Descriptor({ target: 'test apiService Descriptor' }),
-	image: () => new models.Image({ fileName: 'File Name', orientation: 0, imageType: ImageType }),
-	product: () => new models.Product({ name: 'test apiService Product' }),
-	supplier: () => new models.Supplier({ name: 'test apiService Supplier' }),
-	task: () => new models.Task({ name: 'test apiService Task' })
+	Category:  () => new models.Category({ name: 'test apiService Category' }),
+	Contact: () => new models.Contact({ name: 'test apiService Contact' }),
+	// Descriptor: () => new models.Descriptor({ target: 'test apiService Descriptor' }),
+	// Image: () => new models.Image({ fileName: 'File Name', orientation: 0 }),
+	// Product: () => new models.Product({ name: 'test apiService Product' }),
+	// Supplier: () => new models.Supplier({ name: 'test apiService Supplier' }),
+	// Task: () => new models.Task({ name: 'test apiService Task' })
 };
+
 
 fdescribe('ApiService', () => {
 	let apiSrv: ApiService;
@@ -42,21 +41,23 @@ fdescribe('ApiService', () => {
 				TeamService
 			]
 		});
+
 		apiSrv = TestBed.get(ApiService);
 		authSrv = TestBed.get(AuthenticationService);
 		const user = await authSrv.signIn({ username: 'cedric@showsourcing.com', password: 'Test1234' });
 		userId = user.username;
 
+		// TODO maybe use an hard coded team & company here instead
 		const companyInput =  new models.Company({ name: 'test apiService Company' });
 		const company = await apiSrv.create('Company', companyInput).toPromise();
 		const teamInput = new models.Team({ name: 'test apiService Team', companyId: company.id });
 		const team = await apiSrv.create<any>('Team', teamInput).toPromise();
-		TeamService.teamId = team.id;
+		TeamService.teamSelected = team;
 	});
 
 
 
-	it('should create the rest of entities', async () => {
+	it('should create entities', async () => {
 		const promises = Object.entries(mocks).map(([name, getMock]) => {
 			return apiSrv.create(name as Typename, getMock()).toPromise();
 		});
@@ -64,6 +65,22 @@ fdescribe('ApiService', () => {
 		results.forEach(result => {
 			expect(result).toBeTruthy();
 		});
+	});
+
+	it('should queryOne entities', async () => {
+
+	});
+
+	it('should queryMany entities', async () => {
+
+	});
+
+	it('should delete entities', async () => {
+
+	});
+
+	it('should update entities', async() => {
+
 	});
 
 	// /** ======== */
