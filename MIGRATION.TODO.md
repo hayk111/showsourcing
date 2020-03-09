@@ -5,4 +5,3 @@
 ## api service
   - queryBy
 	- cache update
-

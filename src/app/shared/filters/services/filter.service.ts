@@ -40,6 +40,10 @@ export class FilterService {
 		throw Error('this service should not be used, use the one from core instead');
 	}
 
+	get valueChanges$() {
+		return this.filterList.valueChanges$;
+	}
+
 	get getFilterAmount() {
 		throw Error('this service should not be used, use the one from core instead');
 	}
