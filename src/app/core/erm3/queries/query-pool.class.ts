@@ -4,6 +4,7 @@ import { BaseQueries } from './base.queries';
 import { CompanyQueries } from './custom/company.queries';
 import { TeamQueries } from './custom/team.queries';
 import { QueryType } from './query-type.enum';
+import { TeamUserQueries } from './custom/team-user.queries';
 
 export class QueryPool {
 	static map = {
@@ -44,7 +45,7 @@ export class QueryPool {
 		Task: new BaseQueries('Task'), // provided by the api
 		User: new BaseQueries('User', `firstName`),
 		Team: new TeamQueries('Team'), // provided by the api
-		TeamUser: new BaseQueries('TeamUser'), // provided by the api
+		TeamUser: new TeamUserQueries(), // provided by the api
 	};
 
 	/** returns the query, queryName and body of a specified query*/

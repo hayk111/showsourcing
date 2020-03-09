@@ -13,10 +13,7 @@ import { AuthenticationService } from './authentication.service';
 })
 export class CompanyService {
 
-	private queryAll = this.apiSrv.queryAll(
-		'Company',
-		{ variables: { ownerUserId: ''}},
-	);
+	private queryAll;
 	// an user has only 1 company
 	private _company$ = new ReplaySubject<Company>(1);
 	company$ = this._company$.asObservable();

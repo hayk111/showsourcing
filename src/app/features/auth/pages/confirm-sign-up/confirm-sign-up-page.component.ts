@@ -36,8 +36,10 @@ export class ConfirmSignUpPageComponent extends AutoUnsub implements OnInit {
 		if (this.codeCtrl.valid) {
 			this.pending$.next(true);
 			this.authSrv.confirmSignUp(this.username, value)
-				.catch(e => this.error = e.code)
-				.finally(() => this.pending$.next(false));
+			.catch(e => {
+				this.error = e.code;
+				this.pending$.next(false);
+			});
 		}
 	}
 
