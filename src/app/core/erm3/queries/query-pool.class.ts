@@ -2,6 +2,7 @@ import { DocumentNode } from 'graphql';
 import { Typename } from '../typename.type';
 import { BaseQueries } from './base.queries';
 import { QueryType } from './query-type.enum';
+import { TeamUserQueries } from './custom/team-user.queries';
 
 export class QueryPool {
 	static map = {

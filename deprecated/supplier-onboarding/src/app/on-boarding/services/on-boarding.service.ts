@@ -7,7 +7,7 @@ import { Supplier, SupplierClaim, Attachment } from '~models';
 
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { TokenState } from '~core/auth/interfaces/token-state.interface';
-import { Credentials } from '~core/auth/interfaces/credentials.interface';
+import { Credentials } from '~core/auth/services/credentials.interface';
 import { TokenService } from '~core/auth/services/token.service';
 import { SupplierOnboardingClient } from '~deprecated/apollo-supplier-unboarding-client.class';
 import { GlobalDataClientsInitializer } from '~core/apollo';

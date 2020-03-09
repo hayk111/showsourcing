@@ -34,8 +34,10 @@ export class ForgotPasswordPageComponent implements OnInit {
 		if (this.form.valid) {
 			this.pending$.next(true);
 			this.authSrv.forgotPassword(this.form.value.username)
-			.catch(e => this.error = e.code)
-			.finally(() => this.pending$.next(false));
+			.catch(e => {
+				this.error = e.code;
+				this.pending$.next(false);
+			});
 		}
 	}
 }

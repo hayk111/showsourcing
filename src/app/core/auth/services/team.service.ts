@@ -49,7 +49,11 @@ export class TeamService {
 	init() {
 		// putting a sync version of team
 		this._teamSelected$
-			.subscribe(team => TeamService.teamSelected = team);
+			.subscribe(team => {
+				TeamService.teamSelected = team;
+				if (team)
+					this.apiSrv.setTeamId(team.id);
+			});
 		// restoring the previously selected team
 		this.restoreSelectedTeam();
 		// when logging out let's clear the current selected team
@@ -76,10 +80,6 @@ export class TeamService {
 		);
 	}
 
-	selectTeam() {
-		return this.teamSelected$;
-	}
-
 	restoreSelectedTeam() {
 		const selectedTeam: Team = this.storage.getItem(SELECTED_TEAM);
 		this._teamSelected$.next(selectedTeam);
@@ -88,10 +88,6 @@ export class TeamService {
 	resetSelectedTeam() {
 		this.storage.remove(SELECTED_TEAM);
 		this._teamSelected$.next(undefined);
-	}
-
-	get teamId() {
-		return TeamService.teamSelected.id;
 	}
 
 }
