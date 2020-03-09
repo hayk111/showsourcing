@@ -9,7 +9,7 @@
     "serve:supp": "ng serve supplier --port 4300",
     "serve:fr": "ng serve --configuration=fr",
     "serve:local": "ng serve --configuration=local",
-    "build": "node --max_old_space_size=8000 ./node_modules/@angular/cli/bin/ng",
+    "build": "node --max_old_space_size=8000 ./node_modules/@angular/cli/bin/ng build",
     "build:dev": "ng build",
     "build:sta": "ng build --configuration=sta",
     "build:prod": "npm run build",
