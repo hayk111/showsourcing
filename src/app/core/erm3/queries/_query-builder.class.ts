@@ -1,5 +1,10 @@
 import gql from 'graphql-tag';
+<<<<<<< HEAD
 import { Typename } from '../typename.type';
+=======
+import { DocumentNode } from 'graphql';
+import { EntityName } from '../entity-name.type';
+>>>>>>> 0848fcee65754a93b03addcb320fb1f82d50316a
 
 /** Audit found on every entity */
 const AUDIT = `
@@ -21,10 +26,15 @@ const AUDIT = `
  *
  */
 export class QueryBuilder {
+<<<<<<< HEAD
 
 	byTypenames:  Array<Typename | 'Owner'> = ['Team'];
 	constructor(private typename: Typename) {
 		if (!typename) {
+=======
+	constructor(private entityName: EntityName) {
+		if (!entityName) {
+>>>>>>> 0848fcee65754a93b03addcb320fb1f82d50316a
 			throw Error('you must define the singular form of the typename');
 		}
 	}
@@ -43,7 +53,7 @@ export class QueryBuilder {
 					${AUDIT}
 				}
 			}`;
-	}
+	};
 
 	queryManyDefault: string;
 
@@ -72,7 +82,7 @@ export class QueryBuilder {
 					total
 				}
 			}`;
-	}
+	};
 
 	// list
 	queryAll = (str: string) => {
@@ -85,7 +95,68 @@ export class QueryBuilder {
 					}
 				}
 			}`;
-	}
+	};
+
+	queryBy = (str: string) => {
+		return gql`
+			query ListTeamByUser(
+				$userId: ID
+				$sortDirection: ModelSortDirection
+				$filter: ModelTeamUserFilterInput
+				$limit: Int
+				$nextToken: String
+			) {
+				listTeamByUser(
+					userId: $userId
+					sortDirection: $sortDirection
+					filter: $filter
+					limit: $limit
+					nextToken: $nextToken
+				) {
+					__typename
+					items {
+						__typename
+						teamId
+						userId
+						team {
+							__typename
+							id
+							name
+							ownerUserId
+							companyId
+							createdByUserId
+							createdOn
+							lastUpdatedByUserId
+							lastUpdatedOn
+							_version
+							_deleted
+							_lastChangedAt
+						}
+						user {
+							__typename
+							id
+							email
+							firstName
+							lastName
+							phoneNumber
+							preferredLanguage
+							avatar
+							creationDate
+							_version
+							_deleted
+							_lastChangedAt
+						}
+						role
+						_version
+						_deleted
+						_lastChangedAt
+					}
+					nextToken
+					startedAt
+				}
+			}
+		`;
+	};
 
 	queryBy = (str: string): Record<string, any> => {
 		const queryByObject = {};
@@ -132,7 +203,7 @@ export class QueryBuilder {
 					${AUDIT}
 				}
 			}`;
-	}
+	};
 
 	update = (str: string) => {
 		return gql`
@@ -145,7 +216,7 @@ export class QueryBuilder {
 					${AUDIT}
 				}
 			}`;
-	}
+	};
 
 	delete = (str = '') => {
 		return gql`
@@ -158,5 +229,10 @@ export class QueryBuilder {
 					${AUDIT}
 				}
 			}`;
+<<<<<<< HEAD
 	}
+=======
+	};
+
+>>>>>>> 0848fcee65754a93b03addcb320fb1f82d50316a
 }
