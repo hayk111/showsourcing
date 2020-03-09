@@ -10,19 +10,22 @@ import { Typename } from '../typename.type';
 
 import * as models from '~core/erm3/models';
 import { ApiService } from './api.service';
+import { ImageType } from '../API.service';
+import { switchMap, first } from 'rxjs/operators';
+import { QueryPool } from '../queries/query-pool.class';
 
 Amplify.configure(awsconfig);
 
 const mocks = {
-	Category:  () => new models.Category({ name: 'test apiService Category' }),
+	Category: () => new models.Category({ name: 'test apiService Category' }),
 	Contact: () => new models.Contact({ name: 'test apiService Contact' }),
 	// Descriptor: () => new models.Descriptor({ target: 'test apiService Descriptor' }),
-	// Image: () => new models.Image({ fileName: 'File Name', orientation: 0 }),
-	// Product: () => new models.Product({ name: 'test apiService Product' }),
-	// Supplier: () => new models.Supplier({ name: 'test apiService Supplier' }),
-	// Task: () => new models.Task({ name: 'test apiService Task' })
+	Image: () =>
+		new models.Image({ fileName: 'File Name', orientation: 0, imageType: ImageType.PNG }),
+	Product: () => new models.Product({ name: 'test apiService Product' }),
+	Supplier: () => new models.Supplier({ name: 'test apiService Supplier' }),
+	Task: () => new models.Task({ name: 'test apiService Task' })
 };
-
 
 fdescribe('ApiService', () => {
 	let apiSrv: ApiService;
@@ -44,22 +47,20 @@ fdescribe('ApiService', () => {
 
 		apiSrv = TestBed.get(ApiService);
 		authSrv = TestBed.get(AuthenticationService);
-		const user = await authSrv.signIn({ username: 'cedric@showsourcing.com', password: 'Test1234' });
+		TeamService.teamSelected = new models.Team({ id: '1e86fa2c-9daa-429c-9e3a-43a85a32297c' });
+		const user = await authSrv.signIn({
+			username: 'cedric@showsourcing.com',
+			password: 'Test1234'
+		});
 		userId = user.username;
-
-		// TODO maybe use an hard coded team & company here instead
-		const companyInput =  new models.Company({ name: 'test apiService Company' });
-		const company = await apiSrv.create('Company', companyInput).toPromise();
-		const teamInput = new models.Team({ name: 'test apiService Team', companyId: company.id });
-		const team = await apiSrv.create<any>('Team', teamInput).toPromise();
-		TeamService.teamSelected = team;
 	});
-
-
 
 	it('should create entities', async () => {
 		const promises = Object.entries(mocks).map(([name, getMock]) => {
-			return apiSrv.create(name as Typename, getMock()).toPromise();
+			return apiSrv
+				.create(name as Typename, getMock())
+				.toPromise()
+				.catch(e => fail(`entity ${name} failed creation: ${e}`));
 		});
 		const results = await Promise.all(promises);
 		results.forEach(result => {
@@ -67,131 +68,88 @@ fdescribe('ApiService', () => {
 		});
 	});
 
-	it('should queryOne entities', async () => {
+	it('should queryOne entities', async () => {});
 
-	});
+	it('should queryMany entities', async () => {});
 
-	it('should queryMany entities', async () => {
-
+	it('should update entities', async () => {
+		const promises = Object.entries(mocks).map(([name, getMock]) => {
+			return apiSrv
+				.create(name as Typename, getMock())
+				.pipe(switchMap(createdEntity => apiSrv.update(name as Typename, { ...createdEntity })))
+				.toPromise()
+				.catch(e => fail(`entity ${name} failed udpate: ${e}`));
+		});
+		const results = await Promise.all(promises);
+		results.forEach(result => {
+			expect(result).toBeTruthy();
+		});
 	});
 
 	it('should delete entities', async () => {
-
+		const promises = Object.entries(mocks).map(([name, getMock]) => {
+			return apiSrv
+				.create(name as Typename, getMock())
+				.pipe(switchMap(createdEntity => apiSrv.delete(name as Typename, createdEntity)))
+				.toPromise()
+				.catch(e => fail(`entity ${name} failed delete: ${e}`));
+		});
+		const results = await Promise.all(promises);
+		results.forEach(result => {
+			expect(result).toBeTruthy();
+		});
 	});
 
-	it('should update entities', async() => {
+	/** ========= */
+	/** QUERY ONe */
+	/** ========= */
 
+	it('should query each entity', async () => {
+		const promises = Object.entries(mocks).map(([name, getMock]) => {
+			return apiSrv
+				.create(name as Typename, getMock())
+				.pipe(switchMap(createdEntity => apiSrv.queryOne(name as Typename, createdEntity.id).data$))
+				.toPromise()
+				.catch(e => fail(`entity ${name} failed queryOne: ${e}`));
+		});
+		const results = await Promise.all(promises);
+		results.forEach(result => {
+			expect(result).toBeTruthy();
+		});
 	});
 
-	// /** ======== */
-	// /** queryAll */
-	// /** ======== */
+	/** ======== */
+	/** QUERY BY */
+	/** ======== */
 
-	// const expectQuerySomething = done => ({
-	// 	next: d => {
-	// 		expect(d).toBeTruthy();
-	// 		done();
-	// 	},
-	// 	error: err => {
-	// 		fail(err);
-	// 		done();
-	// 	}
-	// });
+	fit('should query all by entity', async () => {
+		// get all queries by from query-pool => [ [typename1, byTypename1], ...]
+		const collectQueryBy = [];
+		Object.entries(QueryPool.map).forEach(([typename, baseQuery]: any) => {
+			if (!baseQuery.queryBy) return;
+			Object.keys(baseQuery.queryBy).forEach(byTypename => {
+				collectQueryBy.push([typename, byTypename]);
+			});
+		});
 
-	// // entities not custom implemented :
-	// const notCustomQueryAll = [
-	// 	'category',
-	// 	'company',
-	// 	'contact',
-	// 	'descriptor',
-	// 	'image',
-	// 	'product',
-	// 	'supplier',
-	// 	'task',
-	// 	'user'
-	// 	// 'teamByUser'
-	// ];
-	// // test queryAll (not custom) for all entities in the QueryPool.map
-	// notCustomQueryAll.forEach(entity => {
-	// 	it(`should query something with queryAll for "${entity}"`, done => {
-	// 		apiSrv
-	// 			.queryAll(entity as EntityName)
-	// 			.data$.pipe(first())
-	// 			.subscribe(expectQuerySomething(done));
-	// 	});
-	// });
+		// run queries into promises
+		const promises = collectQueryBy.map(([typename, byTypename]) => {
+			return apiSrv
+				.queryBy(typename as Typename, byTypename, {
+					variables: {
+						byId: 'fakeId'
+					}
+				})
+				.data$.pipe(first()).toPromise()
+				.catch(e => fail(`entity ${typename} failed query by ${byTypename}: ${e}`));
+		});
 
+		// test results
+		if (!promises.length) fail('there is no call "queryBy"');
+		const results = await Promise.all(promises);
+		results.forEach(result => {
+			expect(result).toBeTruthy();
+		});
+	});
 
-
-
-	// /** ================ */
-	// /** delete functions */
-	// /** ================ */
-
-	// const deleteCategory = (entity: Entity, entityName: EntityName) => {
-	// 	return apiSrv.delete(entityName, entity);
-	// };
-
-
-
-
-	// // it('should generate 100 products', () => {
-	// // 	for (let i = 0; i < 100; i++) {
-	// // 		const product = new models.Product({
-	// // 			name: 'CEDRIC Product' + i,
-	// // 			createdByUserId: userId,
-	// // 			lastUpdatedByUserId: userId
-	// // 		});
-	// // 		apiSrv.create('product', product).toPromise();
-	// // 	}
-	// // });
-
-	// // /** =============== */
-	// // /** DELETE ENTITIES */
-	// // /** =============== */
-
-	// // const deleteCompany = (companyId, version = 1) => {
-	// // 	const company = { ...models.Company, _deleted: true, _version: version };
-	// // 	// return apiSrv.delete('company', company)
-	// // };
-	// // const deleteTeam = (teamId, version = 1) => {
-	// // 	const team = { ...models.Team, _deleted: true, _version: version };
-	// // 	// return apiSrv.delete('company', company)
-	// // };
-	// // const deleteProduct = (teamId, version = 1) => {
-	// // 	const product = { ...models.Product, _deleted: true, _version: version };
-	// // 	// return apiSrv.delete('company', company)
-	// // };
-
-	// // const deleteCategory = (teamId, version = 1) => {
-	// // 	const product = { ...models.Product, _deleted: true, _version: version };
-	// // 	// return apiSrv.delete('company', company)
-	// // };
-
-	// // /** ============= */
-	// // /** queryOne ENTITY */
-	// // /** ============= */
-
-	// // it('should query one company', async done => {
-	// // 	const company = await createCompany();
-	// // 	apiSrv.queryOne<any>('company', company.id).data$.subscribe(d => {
-	// // 		expect(company.name).toBe(d.name);
-	// // 		done();
-	// // 	});
-	// // });
-
-	// // it('should query one user', done => {
-	// // 	apiSrv.queryOne<any>('user', userId).data$.subscribe(d => {
-	// // 		expect(userId).toBe(d.id);
-	// // 		done();
-	// // 	});
-	// // });
-
-	// // // it('should query one category', async done => {
-	// // // 	const category = await createCategory();
-	// // // 	apiSrv.queryOne<any>('category', category.id).data$.subscribe(d => {
-	// // // 		expect(category.name).toBe(d.name);
-	// // // 		done();
-	// // // 	});
-	// // // });
 });

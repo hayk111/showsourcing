@@ -1,17 +1,29 @@
 import { QueryBuilder } from './_query-builder.class';
 import { Typename } from '../typename.type';
+import { QueryType } from './query-type.enum';
 
 
 export class BaseQueries {
 
-	protected qb = new QueryBuilder(this.typename as string);
-	queryOne = this.qb.queryOne(this.defaultFields);
-	queryMany = this.qb.queryMany(this.defaultFields);
-	queryAll = this.qb.queryAll(this.defaultFields);
-	create = this.qb.create(this.defaultFields);
-	update = this.qb.update(this.defaultFields);
-	delete = this.qb.delete(this.defaultFields);
+	protected qb = new QueryBuilder(this.typename);
 
-	constructor(protected typename: Typename, protected defaultFields: string = 'name') {}
+	constructor(
+		protected typename: Typename,
+		protected defaultFields: string = 'name',
+		protected byTypenames: Array<Typename | 'Owner'> = ['Team'],
+		protected queries: QueryType[] = [
+			QueryType.QUERY_ONE,
+			QueryType.QUERY_MANY,
+			QueryType.QUERY_BY,
+			QueryType.CREATE,
+			QueryType.UPDATE,
+			QueryType.DELETE
+		]
+	) {
 
+		queries.forEach((queryType) => {
+			this.qb.byTypenames = byTypenames;
+			this[queryType] = this.qb[queryType](this.defaultFields);
+		});
+	}
 }

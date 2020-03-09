@@ -1,12 +1,12 @@
 import gql from 'graphql-tag';
-import { DocumentNode } from 'graphql';
+import { Typename } from '../typename.type';
 
 /** Audit found on every entity */
 const AUDIT = `
 `;
-	// _lastChangedAt
-	// _deleted
-	// _version
+// _lastChangedAt
+// _deleted
+// _version
 
 /**
  * Helper to create GraphQL queries that are valid for the realm GraphQL service
@@ -21,11 +21,12 @@ const AUDIT = `
  *
  */
 export class QueryBuilder {
-	constructor(private typename: string) {
+
+	byTypenames:  Array<Typename | 'Owner'> = ['Team'];
+	constructor(private typename: Typename) {
 		if (!typename) {
 			throw Error('you must define the singular form of the typename');
 		}
-		this.typename = this.capitalize(typename);
 	}
 
 	// get
@@ -42,7 +43,7 @@ export class QueryBuilder {
 					${AUDIT}
 				}
 			}`;
-	}
+	};
 
 	queryManyDefault: string;
 
@@ -71,7 +72,7 @@ export class QueryBuilder {
 					total
 				}
 			}`;
-	}
+	};
 
 	// list
 	queryAll = (str: string) => {
@@ -84,6 +85,40 @@ export class QueryBuilder {
 					}
 				}
 			}`;
+	};
+
+	queryBy = (str: string): Record<string, any> => {
+		const queryByObject = {};
+		this.byTypenames.forEach(byEntity => {
+			const ownerVerbose = byEntity === 'Owner' ? 'User' : ''; // the param for Owner is $ownerUser
+			const paramEntityName = byEntity.charAt(0).toLowerCase() + byEntity.slice(1) + ownerVerbose;
+			const byId = paramEntityName + 'Id';
+			const queryBy = gql`
+			query List${this.typename}By${byEntity}(
+				$byId: ID
+				$sortDirection: ModelSortDirection
+				$filter: Model${this.typename}FilterInput
+				$limit: Int
+				$nextToken: String
+			) {
+				list${this.typename}By${byEntity}(
+					${byId}: $byId
+					sortDirection: $sortDirection
+					filter: $filter
+					limit: $limit
+					nextToken: $nextToken
+				) {
+					items {
+						# ${byId} // ? do we need this ?
+						${str}
+					}
+					nextToken
+					startedAt
+				}
+			}`;
+			queryByObject[byEntity] = queryBy;
+		});
+		return queryByObject;
 	}
 
 	create = (str: string) => {
@@ -97,7 +132,7 @@ export class QueryBuilder {
 					${AUDIT}
 				}
 			}`;
-	}
+	};
 
 	update = (str: string) => {
 		return gql`
@@ -110,7 +145,7 @@ export class QueryBuilder {
 					${AUDIT}
 				}
 			}`;
-	}
+	};
 
 	delete = (str = '') => {
 		return gql`
@@ -123,9 +158,5 @@ export class QueryBuilder {
 					${AUDIT}
 				}
 			}`;
-	}
-
-	private capitalize(str: string): string {
-		return str.charAt(0).toUpperCase() + str.slice(1);
 	}
 }
