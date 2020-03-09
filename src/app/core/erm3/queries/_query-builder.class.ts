@@ -21,7 +21,9 @@ const AUDIT = `
  *
  */
 export class QueryBuilder {
-	constructor(private typename: Typename, private byTypenames: Array<Typename | 'Owner'> = ['Team']) {
+
+	byTypenames:  Array<Typename | 'Owner'> = ['Team'];
+	constructor(private typename: Typename) {
 		if (!typename) {
 			throw Error('you must define the singular form of the typename');
 		}

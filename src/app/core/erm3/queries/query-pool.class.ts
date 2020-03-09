@@ -7,18 +7,18 @@ import { QueryType } from './query-type.enum';
 
 export class QueryPool {
 	static map = {
-		Category: new BaseQueries('Category'),
+		Category: new BaseQueries('Category', undefined, []),
 		// Company: new CompanyQueries('Company'),
-		Company: new BaseQueries('Company'),
-		Contact: new BaseQueries('Contact'),
-		Descriptor: new BaseQueries('Descriptor', 'target'),
-		Image: new BaseQueries('Image', `fileName`),
-		Product: new BaseQueries('Product'),
-		Supplier: new BaseQueries('Supplier'),
-		Task: new BaseQueries('Task'),
-		User: new BaseQueries('User', `firstName`),
+		Company: new BaseQueries('Company', undefined, []),
+		Contact: new BaseQueries('Contact', undefined, []),
+		Descriptor: new BaseQueries('Descriptor', 'target', []),
+		Image: new BaseQueries('Image', `fileName`, []),
+		Product: new BaseQueries('Product', undefined, []),
+		Supplier: new BaseQueries('Supplier', undefined, []),
+		Task: new BaseQueries('Task', undefined, []),
+		User: new BaseQueries('User', `firstName`, []),
 		// Team: new TeamQueries('Team'),
-		Team: new BaseQueries('Team'),
+		Team: new BaseQueries('Team', undefined, []),
 		TeamUser: new BaseQueries('TeamUser', 'teamId', ['User'])
 	};
 

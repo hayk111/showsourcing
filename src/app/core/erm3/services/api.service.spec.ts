@@ -104,7 +104,7 @@ fdescribe('ApiService', () => {
 	/** QUERY ONe */
 	/** ========= */
 
-	fit('should query each entity', async () => {
+	it('should query each entity', async () => {
 		const promises = Object.entries(mocks).map(([name, getMock]) => {
 			return apiSrv
 				.create(name as Typename, getMock())
@@ -122,7 +122,7 @@ fdescribe('ApiService', () => {
 	/** QUERY BY */
 	/** ======== */
 
-	it('should query all by entity', async () => {
+	fit('should query all by entity', async () => {
 		const VAR_BY_TYPENAME: Partial<Record<Typename | 'Owner', string>> = {
 			Team: 'teamId',
 			Owner: 'ownerUserId',
@@ -138,8 +138,8 @@ fdescribe('ApiService', () => {
 		});
 
 		// run queries into promises
-		const promises = Object.entries(collectQueryBy).map(([typename, byTypename]) => {
-			apiSrv
+		const promises = collectQueryBy.map(([typename, byTypename]) => {
+			return apiSrv
 				.queryBy(typename as Typename, byTypename, {
 					variables: {
 						[VAR_BY_TYPENAME[typename]]: 'fakeId'
@@ -150,20 +150,11 @@ fdescribe('ApiService', () => {
 		});
 
 		// test results
+		if (!promises.length) fail('there is no call "queryBy"');
 		const results = await Promise.all(promises);
 		results.forEach(result => {
 			expect(result).toBeTruthy();
 		});
 	});
 
-	// fit('should query all teams by user', async done => {
-	// 	apiSrv.queryBy<models.TeamUser>('TeamUser', 'User').data$.subscribe(d => {debugger});
-	// });
-	// it('should query all companies by owner', async done => {
-	// 	apiSrv
-	// 		.queryBy<models.Company>('Company', 'Owner', { variables: { ownerUserId: userId } })
-	// 		.data$.subscribe(d => {
-	// 			debugger;
-	// 		});
-	// });
 });
