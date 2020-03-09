@@ -109,7 +109,7 @@ export class QueryBuilder {
 					nextToken: $nextToken
 				) {
 					items {
-						# ${byId} ? do we need this ?
+						# ${byId} // ? do we need this ?
 						${str}
 					}
 					nextToken

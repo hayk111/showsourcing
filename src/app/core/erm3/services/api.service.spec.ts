@@ -11,7 +11,7 @@ import { Typename } from '../typename.type';
 import * as models from '~core/erm3/models';
 import { ApiService } from './api.service';
 import { ImageType } from '../API.service';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, first } from 'rxjs/operators';
 import { QueryPool } from '../queries/query-pool.class';
 
 Amplify.configure(awsconfig);
@@ -123,11 +123,6 @@ fdescribe('ApiService', () => {
 	/** ======== */
 
 	fit('should query all by entity', async () => {
-		const VAR_BY_TYPENAME: Partial<Record<Typename | 'Owner', string>> = {
-			Team: 'teamId',
-			Owner: 'ownerUserId',
-			User: 'userId'
-		};
 		// get all queries by from query-pool => [ [typename1, byTypename1], ...]
 		const collectQueryBy = [];
 		Object.entries(QueryPool.map).forEach(([typename, baseQuery]: any) => {
@@ -142,10 +137,10 @@ fdescribe('ApiService', () => {
 			return apiSrv
 				.queryBy(typename as Typename, byTypename, {
 					variables: {
-						[VAR_BY_TYPENAME[typename]]: 'fakeId'
+						byId: 'fakeId'
 					}
 				})
-				.data$.toPromise()
+				.data$.pipe(first()).toPromise()
 				.catch(e => fail(`entity ${typename} failed query by ${byTypename}: ${e}`));
 		});
 

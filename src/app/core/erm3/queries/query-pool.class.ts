@@ -1,15 +1,13 @@
 import { DocumentNode } from 'graphql';
 import { Typename } from '../typename.type';
 import { BaseQueries } from './base.queries';
-import { CompanyQueries } from './custom/company.queries';
-import { TeamQueries } from './custom/team.queries';
 import { QueryType } from './query-type.enum';
 
 export class QueryPool {
 	static map = {
 		Category: new BaseQueries('Category', undefined, []),
 		// Company: new CompanyQueries('Company'),
-		Company: new BaseQueries('Company', undefined, []),
+		Company: new BaseQueries('Company', undefined, ['Owner']),
 		Contact: new BaseQueries('Contact', undefined, []),
 		Descriptor: new BaseQueries('Descriptor', 'target', []),
 		Image: new BaseQueries('Image', `fileName`, []),

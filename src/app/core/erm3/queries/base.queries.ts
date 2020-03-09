@@ -10,7 +10,7 @@ export class BaseQueries {
 	constructor(
 		protected typename: Typename,
 		protected defaultFields: string = 'name',
-		protected byTypenames: Typename[] = ['Team'],
+		protected byTypenames: Array<Typename | 'Owner'> = ['Team'],
 		protected queries: QueryType[] = [
 			QueryType.QUERY_ONE,
 			QueryType.QUERY_MANY,
