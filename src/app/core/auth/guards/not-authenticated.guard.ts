@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { filter, map, tap } from 'rxjs/operators';
-import { AuthStatus } from '~core/auth';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { log, LogColor } from '~utils';
+import { AuthStatus } from '../services/auth-state.interface';
 
 /** check if the user is authenticated and if so redirect to dashboard. Protects pages like login etc. */
 @Injectable({

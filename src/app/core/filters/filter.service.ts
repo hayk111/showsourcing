@@ -28,7 +28,7 @@ export class FilterService {
 	private _valueChanges$ = new ReplaySubject<FilterService>(1);
 	valueChanges$ = this._valueChanges$.asObservable();
 	/** default state */
-	startFilters: Filter[] = [ { type: FilterType.TEAM, value: TeamService.teamId } ];
+	startFilters: Filter[] = [ { type: FilterType.TEAM, value: TeamService.teamSelected.id } ];
 	/** the filters currently in the filter-list */
 	filters: Filter[] = [];
 	/** @TODO make those fields private */

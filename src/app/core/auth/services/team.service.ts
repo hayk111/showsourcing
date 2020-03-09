@@ -18,7 +18,7 @@ const SELECTED_TEAM = 'selected-team';
 export class TeamService {
 
 	// we query all teamByUser to extract the team
-	private queryAllTeamUsers = this.apiSrv.queryAll<TeamUser>('teamUser');
+	private queryAllTeamUsers = this.apiSrv.queryAll<TeamUser>('TeamUser');
 	teamsOfUser$: Observable<Team[]> = this.queryAllTeamUsers.data$.pipe(
 		map((teamUsers: TeamUser[]) => teamUsers.map(tu => tu.team))
 	);
@@ -36,7 +36,7 @@ export class TeamService {
 	hasTeamSelected$ = this._teamSelected$.pipe(
 		map(team => !!team)
 	);
-	// putting it static so we can access it easily without injection
+	// synchronous version for easy access
 	static teamSelected: Team;
 
 	constructor(
@@ -49,7 +49,11 @@ export class TeamService {
 	init() {
 		// putting a sync version of team
 		this._teamSelected$
-			.subscribe(team => TeamService.teamSelected = team);
+			.subscribe(team => {
+				TeamService.teamSelected = team;
+				if (team)
+					this.apiSrv.setTeamId(team.id);
+			});
 		// restoring the previously selected team
 		this.restoreSelectedTeam();
 		// when logging out let's clear the current selected team
@@ -58,12 +62,12 @@ export class TeamService {
 
 	/** creates a team and waits for it to be valid */
 	create(team: Team): Observable<any> {
-		return this.apiSrv.create('team', { companyId: this.companySrv.companySync.id, ...team })
+		return this.apiSrv.create('Team', { companyId: this.companySrv.companySync.id, ...team })
 			.pipe(switchMap(_ => this.queryAllTeamUsers.refetch()));
 	}
 
 	update(team: Team) {
-		return this.apiSrv.update('team', { companyId: this.companySrv.companySync.id, ...team });
+		return this.apiSrv.update('Team', { companyId: this.companySrv.companySync.id, ...team });
 	}
 
 	/** picks a team, puts the selection in local storage */
@@ -76,10 +80,6 @@ export class TeamService {
 		);
 	}
 
-	selectTeam() {
-		return this.teamSelected$;
-	}
-
 	restoreSelectedTeam() {
 		const selectedTeam: Team = this.storage.getItem(SELECTED_TEAM);
 		this._teamSelected$.next(selectedTeam);
@@ -88,10 +88,6 @@ export class TeamService {
 	resetSelectedTeam() {
 		this.storage.remove(SELECTED_TEAM);
 		this._teamSelected$.next(undefined);
-	}
-
-	get teamId() {
-		return TeamService.teamSelected?.id;
 	}
 
 }

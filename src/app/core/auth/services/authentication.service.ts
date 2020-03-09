@@ -5,7 +5,8 @@ import { AuthState } from 'aws-amplify-angular/dist/src/providers';
 import { Observable } from 'rxjs';
 import { distinctUntilChanged, filter, map, mapTo, shareReplay, tap } from 'rxjs/operators';
 import { showsourcing } from '~utils/debug-object.utils';
-import { AuthStatus, Credentials, RegistrationCredentials } from '../interfaces';
+import { AuthStatus } from './auth-state.interface';
+import { Credentials, RegistrationCredentials } from './credentials.interface';
 
 
 
@@ -15,13 +16,13 @@ import { AuthStatus, Credentials, RegistrationCredentials } from '../interfaces'
  * Few words on the design choices:
  *
  * 1. The design pattern is to return a promise. The meaningful errors are catched in the view
- * to display an error message. Async / await is not used because at the time of writing this it's not
+ * to display an error message. At this time, Async / await is not used because at the time of writing this it's not
  * working properly with change detection (Angular 8). https://github.com/angular/angular/issues/31730
  *
  * 2. A second design pattern is to do the routing here in this service, so we have an entry point for all
  * the authentication related routing.
  * The alternative would have been to have it in the components which would have split all the cases.
- * Here it's centralized. We could have centralized it elsewhere but I chosed to do it here.
+ * Here it's centralized. We could have centralized it elsewhere though
  *
  * 3. the username is used in a lot of calls, we could have saved it on the service itself but
  * I chosed to pass it around in the url to make the service more pure / stateless.
@@ -88,6 +89,7 @@ export class AuthenticationService {
 			} else {
 				this.router.navigate([ '/' ]);
 			}
+			return user;
 		})
 		.catch(err => {
 			if (err.code === 'UserNotConfirmedException') {

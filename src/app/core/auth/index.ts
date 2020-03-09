@@ -1,2 +1,2 @@
-export * from '~core/auth/interfaces';
-export * from '~core/auth/services';
+export * from './services';
+export * from './guards';

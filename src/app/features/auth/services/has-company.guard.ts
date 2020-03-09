@@ -5,22 +5,22 @@ import { map, tap, skip } from 'rxjs/operators';
 import { log, LogColor } from '~utils';
 import { ApiService } from '~core/erm3/services/api.service';
 import { EntityName } from '~core/erm';
+import { CompanyService } from '~core/auth';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class HasCompanyGuard implements CanActivate, CanActivateChild {
 
-	constructor(private apiSrv: ApiService, private router: Router) { }
+	constructor(private companySrv: CompanyService, private router: Router) { }
 
 	canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
 		return this.canActivate(route, state);
 	}
 
 	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
-		return this.apiSrv.queryAll(EntityName.COMPANY).data$.pipe(
+		return this.companySrv.hasCompany$.pipe(
 			tap(d => log.debug('%c hasCompanyGuard', LogColor.GUARD, d)),
-			map(companies => companies.length > 0),
 			tap(hasCompany => this.redirect(hasCompany, route, state))
 		);
 	}
