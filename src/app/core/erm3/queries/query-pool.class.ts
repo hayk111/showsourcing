@@ -23,17 +23,12 @@ export class QueryPool {
 	};
 
 	/** returns the query, queryName and body of a specified query*/
-<<<<<<< HEAD
 	static getQueryInfo(
 		typename: Typename,
 		queryType: QueryType,
 		byEntityName: Typename | 'Owner' = null
 	) {
 		const queries = QueryPool.map[typename];
-=======
-	static getQueryInfo(entityName: EntityName, queryType: QueryType | string) {
-		const queries = QueryPool.map[entityName];
->>>>>>> 0848fcee65754a93b03addcb320fb1f82d50316a
 		if (!queries) {
 			throw Error(`The query pool doesn't contain such a member ${queryType}`);
 		}
