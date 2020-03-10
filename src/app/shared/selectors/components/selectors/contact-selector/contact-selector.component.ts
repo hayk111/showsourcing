@@ -19,7 +19,7 @@ export class ContactSelectorComponent extends AbstractSelectorComponent {
 		return `name CONTAINS[c] "${text}" OR email CONTAINS[c] "${text}"`;
 	}
 	itemsMatchesName = (items: any[], name: string) => {
-		return items.filter(item => (item.name === name || item.email == name));
+		return items.filter(item => (item.name === name || item.email === name));
 	}
 	isStoredFn(item) {
 		return !!this.value.find(value => value.id === item.id);
@@ -55,7 +55,7 @@ export class ContactSelectorComponent extends AbstractSelectorComponent {
 			areStoredMatchesName: this.areStoredMatchesName,
 			initialFilters: this.filterList.asFilters(),
 			initialSeachTxt: this.initialSeachTxt,
-			selectParams: { query: 'email contains "@"' }
+			selectParams: { query: 'email contains "@"', sortBy: 'name' }
 		};
 		this.selectorSrv.setup(this.config);
 	}

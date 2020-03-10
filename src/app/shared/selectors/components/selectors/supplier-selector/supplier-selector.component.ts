@@ -53,7 +53,8 @@ export class SupplierSelectorComponent extends AbstractSelectorComponent {
 			itemsNotStored: this.itemsNotStored,
 			areStoredMatchesName: this.areStoredMatchesName,
 			initialFilters: this.filterList.asFilters(),
-			initialSeachTxt: this.initialSeachTxt
+			initialSeachTxt: this.initialSeachTxt,
+			selectParams: {sortBy: 'name'},
 		};
 		this.selectorSrv.setup(this.config);
 	}
