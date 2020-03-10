@@ -11,7 +11,7 @@ import { Typename } from '../typename.type';
 import * as models from '~core/erm3/models';
 import { ApiService } from './api.service';
 import { ImageType } from '../API.service';
-import { switchMap, first } from 'rxjs/operators';
+import { switchMap, first, take } from 'rxjs/operators';
 import { QueryPool } from '../queries/query-pool.class';
 
 Amplify.configure(awsconfig);
@@ -47,12 +47,21 @@ fdescribe('ApiService', () => {
 
 		apiSrv = TestBed.get(ApiService);
 		authSrv = TestBed.get(AuthenticationService);
-		TeamService.teamSelected = new models.Team({ id: '1e86fa2c-9daa-429c-9e3a-43a85a32297c' });
 		const user = await authSrv.signIn({
 			username: 'cedric@showsourcing.com',
 			password: 'Test1234'
 		});
 		userId = user.username;
+		apiSrv.setTeamId('1e86fa2c-9daa-429c-9e3a-43a85a32297c');
+		apiSrv.setUserId(userId);
+	});
+
+	fit('should add to cached list', async() => {
+		const queryAll = apiSrv.queryAll('Product');
+		const products = await queryAll.data$.pipe(take(1)).toPromise();
+		apiSrv.addToList(queryAll, mocks.Product());
+		const productsAfter = await queryAll.data$.pipe(take(1)).toPromise();
+		expect(products.length).toEqual(productsAfter.length - 1);
 	});
 
 	it('should create entities', async () => {
@@ -122,7 +131,7 @@ fdescribe('ApiService', () => {
 	/** QUERY BY */
 	/** ======== */
 
-	fit('should query all by entity', async () => {
+	it('should query all by entity', async () => {
 		// get all queries by from query-pool => [ [typename1, byTypename1], ...]
 		const collectQueryBy = [];
 		Object.entries(QueryPool.map).forEach(([typename, baseQuery]: any) => {

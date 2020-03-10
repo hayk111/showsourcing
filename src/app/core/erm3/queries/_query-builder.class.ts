@@ -43,7 +43,7 @@ export class QueryBuilder {
 					${AUDIT}
 				}
 			}`;
-	};
+	}
 
 	queryManyDefault: string;
 
@@ -72,7 +72,7 @@ export class QueryBuilder {
 					total
 				}
 			}`;
-	};
+	}
 
 	// list
 	queryAll = (str: string) => {
@@ -85,7 +85,7 @@ export class QueryBuilder {
 					}
 				}
 			}`;
-	};
+	}
 
 	queryBy = (str: string): Record<string, any> => {
 		const queryByObject = {};
@@ -109,7 +109,6 @@ export class QueryBuilder {
 					nextToken: $nextToken
 				) {
 					items {
-						# ${byId} // ? do we need this ?
 						${str}
 					}
 					nextToken
@@ -132,7 +131,7 @@ export class QueryBuilder {
 					${AUDIT}
 				}
 			}`;
-	};
+	}
 
 	update = (str: string) => {
 		return gql`
@@ -145,7 +144,7 @@ export class QueryBuilder {
 					${AUDIT}
 				}
 			}`;
-	};
+	}
 
 	delete = (str = '') => {
 		return gql`

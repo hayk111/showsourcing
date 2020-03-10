@@ -18,7 +18,7 @@ export class QueryPool {
 		User: new BaseQueries('User', `firstName`, []),
 		// Team: new TeamQueries('Team'),
 		Team: new BaseQueries('Team', undefined, []),
-		TeamUser: new BaseQueries('TeamUser', 'teamId', ['User'])
+		TeamUser: new BaseQueries('TeamUser', 'team { id name } role', ['User'])
 	};
 
 	/** returns the query, queryName and body of a specified query*/
@@ -34,6 +34,9 @@ export class QueryPool {
 		const query = queryType === QueryType.QUERY_BY
 				? queries[queryType][byEntityName]
 				: queries[queryType];
+		if (!query) {
+			throw Error(`Query ${queryType} not found for ${typename}`);
+		}
 		const queryName = this.getQueryName(query);
 		const body = this.getQueryBody(query);
 		return { query, queryName, body };

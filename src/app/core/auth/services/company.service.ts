@@ -34,9 +34,10 @@ export class CompanyService {
 		// when signing in we want to load the current company of the user
 		this.authSrv.signIn$.pipe(
 			tap(id => {
-				this.queryAll = this.apiSrv.queryAll(
+				this.queryAll = this.apiSrv.queryBy(
 					'Company',
-					{ variables: { ownerUserId: id }},
+					'Owner',
+					{ variables: { byId: id } },
 				);
 			}),
 			switchMap(_ => this.queryAll.data$),

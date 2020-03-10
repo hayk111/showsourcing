@@ -15,6 +15,7 @@ import { client } from './client';
 
 export interface ObservableQuery<T = any> extends ApolloObservableQuery<T> {
 	data$: Observable<T>;
+	queryName: string;
 }
 
 export interface FilterParams {
@@ -76,6 +77,7 @@ export class ApiService {
 			tap(data => this.logResult(title, queryName, data))
 		);
 		queryRef.data$ = data$;
+		queryRef.queryName = queryName;
 		return queryRef;
 	}
 
@@ -113,6 +115,7 @@ export class ApiService {
 			tap(data => this.logResult(title, queryName, data))
 		);
 		queryRef.data$ = data$;
+		queryRef.queryName = queryName;
 		return queryRef;
 	}
 
@@ -150,6 +153,7 @@ export class ApiService {
 		);
 
 		queryRef.data$ = data$;
+		queryRef.queryName = queryName;
 		return queryRef;
 	}
 
@@ -187,6 +191,7 @@ export class ApiService {
 		);
 
 		queryRef.data$ = data$;
+		queryRef.queryName = queryName;
 		return queryRef;
 	}
 
@@ -217,7 +222,11 @@ export class ApiService {
 		}
 		const variables = { input: { ...entity } };
 		delete (variables.input as any).__typename;
-		options = { mutation: query, variables, ...options };
+		options = {
+			mutation: query,
+			variables,
+			...options
+		};
 		this.log(title, query, queryName, body, variables);
 		return from(client.mutate({ mutation: query, variables, ...options })).pipe(
 			map(({ data }) => data[queryName]),
@@ -269,6 +278,29 @@ export class ApiService {
 		);
 	}
 
+
+	/////////////////////////////
+	//      CACHE UPDATES      //
+	/////////////////////////////
+
+
+	addToList(query: ObservableQuery, elem: any) {
+		const r: any = client.readQuery(query.options);
+		const items = r[query.queryName].items;
+		r[query.queryName].items = [
+			elem,
+			...items.filter(item => item.id !== elem.id)
+		];
+		client.writeQuery({ ...query.options, data: r });
+	}
+
+	deleteFromList(query: ObservableQuery, id: string) {
+		const r: any = client.readQuery(query.options);
+		const items = r[query.queryName].items;
+		r[query.queryName].items = items.filter(item => item.id !== id);
+		client.writeQuery({ ...query.options, data: r });
+	}
+
 	/** creates an optimistic response the way apollo expects it */
 	protected addOptimisticResponse(options: any, queryName: string, input: any) {
 		if (input.__typename) {
@@ -297,6 +329,37 @@ export class ApiService {
 			return false;
 		}
 		return true;
+	}
+
+	private getMutatedFields(object: any) {
+		const keys = Object.keys(object);
+		// removing the typename property
+		const patchedParts = keys.filter(key => key !== '__typename')
+			// transforming fields of entity into gql update obj
+			.map(key => this.getGraphqlField(key, object));
+		return patchedParts.join(' ');
+	}
+
+	private getGraphqlField(key, obj) {
+		const val = obj[key];
+		if (Array.isArray(val)) {
+			if (val.length > 0) {
+				if (val[0] instanceof Object) {
+					// take fields of last elements (so when we add new stuff)
+					return `${key} { ${this.getMutatedFields(val[val.length - 1])} }`;
+				} else {
+					return key;
+				}
+			} else {
+				return '';
+			}
+		} else if (val instanceof Object) {
+			return `${key} { ${this.getMutatedFields(val)} }`;
+		} else if (!val) {
+			return '';
+		} else {
+			return key;
+		}
 	}
 
 	/** logs request that is about to being made to the 	 */
