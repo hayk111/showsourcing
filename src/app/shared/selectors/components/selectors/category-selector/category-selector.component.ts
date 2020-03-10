@@ -46,6 +46,7 @@ export class CategorySelectorComponent extends AbstractSelectorComponent {
 
 	setup() {
 		this.config = {
+			selectParams: {sortBy: 'name'},
 			entitySrv: this.categorySrv,
 			entityMetadata: ERM.CATEGORY,
 			searchQuery: this.searchQuery,
