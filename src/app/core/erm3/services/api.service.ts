@@ -127,31 +127,30 @@ export class ApiService {
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	 * @param options: Apollo options if we don't want the default
 	 */
-	queryAll<T>(
-		typename: Typename,
-		options: Partial<WatchQueryOptions> = {},
-	): ObservableQuery<T[]> {
-		const title = 'Query All ' + typename;
-		const { query, queryName, body } = QueryPool.getQueryInfo(typename, QueryType.QUERY_ALL);
-		const variables = options.variables;
-		this.log(title, query, queryName, body);
+	// queryAll<T>(
+	// 	typename: Typename,
+	// 	options: Partial<WatchQueryOptions> = {},
+	// ): ObservableQuery<T[]> {
+	// 	const title = 'Query All ' + typename;
+	// 	const { query, queryName, body } = QueryPool.getQueryInfo(typename, QueryType.QUERY_ALL);
+	// 	const variables = options.variables;
+	// 	this.log(title, query, queryName, body, variables);
 
-		const queryRef = client.watchQuery({
-			query,
-			...options,
-			variables
-		}) as ObservableQuery<any>;
-		const data$ = from(queryRef).pipe(
-			// filter cache response when there is no cache
-			filter(r => !r.stale),
-			filter((r: any) => this.checkError(r, title)),
-			map(({ data }) => data[queryName].items),
-			tap(data => this.logResult(title, queryName, data))
-		);
+	// 	const queryRef = client.watchQuery({
+	// 		query,
+	// 		...options,
+	// 	}) as ObservableQuery<any>;
+	// 	const data$ = from(queryRef).pipe(
+	// 		// filter cache response when there is no cache
+	// 		filter(r => !r.stale),
+	// 		filter((r: any) => this.checkError(r, title)),
+	// 		map(({ data }) => data[queryName].items),
+	// 		tap(data => this.logResult(title, queryName, data))
+	// 	);
 
-		queryRef.data$ = data$;
-		return queryRef;
-	}
+	// 	queryRef.data$ = data$;
+	// 	return queryRef;
+	// }
 
 	/////////////////////////////
 	//        QUERY BY         //
@@ -161,20 +160,23 @@ export class ApiService {
 	 * (Query, optimistic UI)
 	 * @param entityName: the name of the Entity we want to query
 	 * @param byEntityName: the entity for wich the entityName will belongs to
+	 * @param byId: the ID of the referenced entity
 	 * @param options: to override defaults variables, cache policies, ...
 	 */
 	queryBy<T>(
 		typename: Typename,
 		byTypename: Typename | 'Owner' = 'Team',
+		byId?: string,
 		options: Partial<WatchQueryOptions> = {}
 	): ObservableQuery<T[]> {
 		const { query, queryName, body } = QueryPool.getQueryInfo(typename, QueryType.QUERY_BY, byTypename);
-		const variables = options.variables;
+		const variables = { byId, ...options.variables };
 		const title = `Query All ${typename} by ${byTypename}`;
-		this.log(title, query, queryName, body);
+		this.log(title, query, queryName, body, variables);
 
 		const queryRef = client.watchQuery({
 			query,
+			variables,
 			...options
 		}) as ObservableQuery<any>;
 
