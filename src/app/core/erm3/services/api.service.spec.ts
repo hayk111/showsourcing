@@ -135,11 +135,7 @@ fdescribe('ApiService', () => {
 		// run queries into promises
 		const promises = collectQueryBy.map(([typename, byTypename]) => {
 			return apiSrv
-				.queryBy(typename as Typename, byTypename, {
-					variables: {
-						byId: 'fakeId'
-					}
-				})
+				.queryBy(typename as Typename, byTypename, 'fakeId')
 				.data$.pipe(first()).toPromise()
 				.catch(e => fail(`entity ${typename} failed query by ${byTypename}: ${e}`));
 		});
