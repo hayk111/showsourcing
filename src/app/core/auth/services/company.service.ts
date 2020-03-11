@@ -30,7 +30,7 @@ export class CompanyService {
 		this.authSrv.signIn$
 			.pipe(
 				tap(id => {
-					this.queryAll = this.apiSrv.listBy('Company', 'Owner');
+					this.queryAll = this.apiSrv.listBy('Company', 'Owner', id);
 				}),
 				switchMap(_ => this.queryAll.data$),
 				map(all => all[0])

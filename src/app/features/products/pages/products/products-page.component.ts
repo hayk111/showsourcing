@@ -14,7 +14,7 @@ import {
 import { ListPageService, SelectionService } from '~core/list-page';
 import { ListPageViewService } from '~core/list-page/list-page-view.service';
 import { DialogService } from '~shared/dialog';
-import { FilterType } from '~shared/filters';
+import { FilterType } from '~core/filters';
 import { FilterService } from '~shared/filters/services/filter.service';
 import { KanbanSelectionService } from '~shared/kanban/services/kanban-selection.service';
 import { KanbanService } from '~shared/kanban/services/kanban.service';
@@ -55,7 +55,7 @@ export class ProductsPageComponent extends AutoUnsub
 		FilterType.CREATED_BY,
 		FilterType.EVENT,
 		FilterType.CATEGORY,
-		FilterType.PRODUCT_STATUS,
+		FilterType.STATUS,
 		FilterType.TAGS,
 		FilterType.ARCHIVED,
 		FilterType.FAVORITE
@@ -81,7 +81,8 @@ export class ProductsPageComponent extends AutoUnsub
 	}
 
 	ngOnInit() {
-		this.listHelper.setup('product');
+		this.listHelper.setup('Product');
+		this.listHelper.setup('Product');
 		this.items$ = this.listHelper.getFilteredItems$();
 	}
 
