@@ -66,7 +66,7 @@ export class ApiService {
 		const variables = { id, ...options.variables };
 		options.variables = variables;
 		const title = `Query Get${typename}`;
-		return this.queryHelper(typename, QueryType.GET, title, options);
+		return this.queryHelper(typename, QueryType.GET, title, options, false);
 	}
 
 	/////////////////////////////
@@ -89,7 +89,7 @@ export class ApiService {
 		// title for displaying in logs
 		const title = `Query Search${typename}s`;
 		options.variables = variables;
-		return this.queryHelper(typename, QueryType.SEARCH, title, options);
+		return this.queryHelper(typename, QueryType.SEARCH, title, options, true);
 	}
 
 	/////////////////////////////
@@ -113,7 +113,7 @@ export class ApiService {
 		const title = `Query List${typename}By${byTypename}`;
 		const variables = { byId, ...options.variables };
 		options.variables = variables;
-		return this.queryHelper(typename, QueryType.LIST_BY, title, options, byTypename);
+		return this.queryHelper(typename, QueryType.LIST_BY, title, options, true, byTypename);
 	}
 
 	/////////////////////////////
@@ -257,6 +257,7 @@ export class ApiService {
 		queryType: QueryType,
 		title: string,
 		options: Partial<WatchQueryOptions>,
+		hasItems: boolean,
 		byTypename?: Typename | 'Owner'
 	) {
 		const { query, queryName, body } = QueryPool.getQueryInfo(typename, queryType, byTypename);
@@ -270,8 +271,7 @@ export class ApiService {
 			// filter cache response when there is no cache
 			filter(r => !r.stale),
 			filter((r: any) => this.checkError(r, title)),
-			// if list/search, return items. else if get, return entity
-			map(({ data }) => data[queryName].items || data[queryName]),
+			map(({ data }) => hasItems ? data[queryName].items : data[queryName]),
 			tap(data => this.logResult(title, queryName, data))
 		);
 		queryRef.data$ = data$;
