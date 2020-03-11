@@ -1,4 +1,4 @@
-import { ReplaySubject } from 'rxjs';
+import { ReplaySubject, BehaviorSubject } from 'rxjs';
 import { FilterConverter, ValuesByType, FiltersByType } from './_filter-converter.class';
 import { FilterType } from './filter-type.enum';
 import { Filter } from './filter.class';
@@ -25,7 +25,7 @@ export class FilterService {
 	/** helper */
 	private converter: FilterConverter;
 	/** to know when filters are changing, using replay subject here because in the constructor we set the starting ones */
-	private _valueChanges$ = new ReplaySubject<FilterService>(1);
+	private _valueChanges$ = new BehaviorSubject<FilterService>(this);
 	valueChanges$ = this._valueChanges$.asObservable();
 	/** default state */
 	startFilters: Filter[] = [ { type: FilterType.TEAM, value: TeamService.teamSelected.id } ];
@@ -37,7 +37,7 @@ export class FilterService {
 	/** so we can display the filters for a given type */
 	private filtersByType: FiltersByType = new Map();
 	/** filter as a param form that can be used in a query */
-	queryArg: any;
+	queryArg: any = {};
 
 	setup(startFilters: Filter[] = [], searchedFields?: string[]) {
 		// adding the start filters
