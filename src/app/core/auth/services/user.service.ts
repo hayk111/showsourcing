@@ -32,7 +32,7 @@ export class UserService {
 			// preemptively putting the "user" so we don't need to wait to make calls with user id
 			tap(id => this.setupUser({ id } as User)),
 			tap(id => this.apiSrv.setUserId(id)),
-			switchMap(id => this.apiSrv.queryOne('User', id).data$),
+			switchMap(id => this.apiSrv.get('User', id).data$),
 			distinctUntilChanged(),
 		).subscribe(user => {
 			this.setupUser(user);

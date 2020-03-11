@@ -2,7 +2,6 @@ import { DocumentNode } from 'graphql';
 import { Typename } from '../typename.type';
 import { BaseQueries } from './base.queries';
 import { QueryType } from './query-type.enum';
-import { TeamUserQueries } from './custom/team-user.queries';
 
 export class QueryPool {
 	static map = {
@@ -31,8 +30,8 @@ export class QueryPool {
 		if (!queries) {
 			throw Error(`The query pool doesn't contain such a member ${queryType}`);
 		}
-		const query = queryType === QueryType.QUERY_BY
-				? queries[queryType][byEntityName]
+		const query = queryType === QueryType.LIST_BY
+				? queries[queryType][byEntityName] // listBy return an object {byEntity: gql}
 				: queries[queryType];
 		const queryName = this.getQueryName(query);
 		const body = this.getQueryBody(query);
