@@ -20,7 +20,7 @@
 	<button
 		*ngIf="filterSrv.getFilterAmount() > 0"
 		class="light"
-		(click)="filterSrv.resetFilters()">
+		(click)="filterSrv.reset()">
 		Clear filters ({{ filterSrv.getFilterAmount() }})
 	</button>
 

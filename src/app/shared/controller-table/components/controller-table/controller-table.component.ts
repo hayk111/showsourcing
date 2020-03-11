@@ -1,9 +1,10 @@
 import { Component, Input, ContentChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { ListPageService } from '~core/list-page';
+import { ListPageService, ListPageViewService } from '~core/list-page';
 import { ControllerTableViewSwitcherComponent } from '../controller-table-view-switcher/controller-table-view-switcher.component';
 import { ControllerTableContentComponent } from '../controller-table-content/controller-table-content.component';
 import { ControllerTableQuickFiltersComponent } from '../controller-table-quick-filters/controller-table-quick-filters.component';
+import { FilterService } from '~core/filters';
 
 export type Panel = 'search' | 'filters' | 'actions' | 'quick-filters' | 'view-switcher';
 
@@ -29,6 +30,9 @@ export class ControllerTableComponent {
 	searchControl: FormControl = new FormControl('');
 	inputFocus = false;
 
-	constructor(public listSrv: ListPageService<any, any>) {}
-
+	constructor(
+		public listSrv: ListPageService<any, any>,
+		public viewSrv: ListPageViewService<any>,
+		public filterSrv: FilterService
+	) {}
 }
