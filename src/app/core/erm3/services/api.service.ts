@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { MutationOptions } from 'apollo-client';
-import { ObservableQuery as ApolloObservableQuery, WatchQueryOptions } from 'aws-appsync/node_modules/apollo-client';
+import {
+	ObservableQuery as ApolloObservableQuery,
+	WatchQueryOptions
+} from 'aws-appsync/node_modules/apollo-client';
 import { DocumentNode } from 'graphql';
 import { from, Observable } from 'rxjs';
 import { filter, map, tap } from 'rxjs/operators';
@@ -31,10 +34,14 @@ export interface FilterParams {
 export class ApiService {
 	// set by UserService so we don't have circular dep
 	private _userId: string;
-	setUserId(id: string) { this._userId = id; }
+	setUserId(id: string) {
+		this._userId = id;
+	}
 	// set by TeamService so we don't have circular dep
 	private _teamId: string;
-	setTeamId(id: string) { this._teamId = id; }
+	setTeamId(id: string) {
+		this._teamId = id;
+	}
 
 	constructor(private authSrv: AuthenticationService) {
 		this.authSrv.signOut$.subscribe(_ => client.resetStore());
@@ -50,33 +57,16 @@ export class ApiService {
 	 * @param id: the id of the entity
 	 * @param options: Apollo options if we don't want the default
 	 */
-	queryOne<T>(
+	get<T>(
 		typename: Typename,
 		id: string,
 		options: Partial<WatchQueryOptions> = {}
 	): ObservableQuery<T> {
 		// title for displaying in logs
-		const title = 'Query one ' + typename;
-		const { query, queryName, body } = QueryPool.getQueryInfo(typename, QueryType.QUERY_ONE);
 		const variables = { id, ...options.variables };
-
-		this.log(title, query, queryName, body, variables);
-		const queryRef = client.watchQuery({
-			query,
-			...options,
-			variables
-		}) as ObservableQuery<any>;
-		// attaching the data observable directly to the object
-		const data$ = from(queryRef).pipe(
-			// filter cache response when there is no cache
-			filter(r => !r.stale),
-			filter((r: any) => this.checkError(r, title)),
-			// extracting the result
-			map(({ data }) => data[queryName]),
-			tap(data => this.logResult(title, queryName, data))
-		);
-		queryRef.data$ = data$;
-		return queryRef;
+		options.variables = variables;
+		const title = `Query Get${typename}`;
+		return this.queryHelper(typename, QueryType.GET, title, options);
 	}
 
 	/////////////////////////////
@@ -91,66 +81,16 @@ export class ApiService {
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	 * @param options: Apollo options if we don't want the default
 	 */
-	queryMany<T>(
+	search<T>(
 		typename: Typename,
 		variables: FilterParams,
-		options: Partial<WatchQueryOptions> = {},
+		options: Partial<WatchQueryOptions> = {}
 	): ObservableQuery<T[]> {
-		const title = 'Query Many ' + typename + 's';
-		const { query, queryName, body } = QueryPool.getQueryInfo(typename, QueryType.QUERY_MANY);
-		this.log(title, query, queryName, body, variables);
-
-		const queryRef = client.watchQuery({
-			query,
-			variables,
-			...options
-		}) as ObservableQuery<any>;
-		const data$ = from(queryRef).pipe(
-			// filter cache response when there is no cache
-			filter(r => !r.stale),
-			filter((r: any) => this.checkError(r, title)),
-			map(({ data }) => data[queryName].items),
-			tap(data => this.logResult(title, queryName, data))
-		);
-		queryRef.data$ = data$;
-		return queryRef;
+		// title for displaying in logs
+		const title = `Query Search${typename}s`;
+		options.variables = variables;
+		return this.queryHelper(typename, QueryType.SEARCH, title, options);
 	}
-
-	/////////////////////////////
-	//        QUERY ALL        //
-	/////////////////////////////
-
-	/**
-	 * Query all entities
-	 * (Query, optimistic UI)
-	 * @param fields: the fields you want to query, if none is specified the default ones are used
-	 * @param client: name of the client you want to use, if none is specified the default one is used
-	 * @param options: Apollo options if we don't want the default
-	 */
-	// queryAll<T>(
-	// 	typename: Typename,
-	// 	options: Partial<WatchQueryOptions> = {},
-	// ): ObservableQuery<T[]> {
-	// 	const title = 'Query All ' + typename;
-	// 	const { query, queryName, body } = QueryPool.getQueryInfo(typename, QueryType.QUERY_ALL);
-	// 	const variables = options.variables;
-	// 	this.log(title, query, queryName, body, variables);
-
-	// 	const queryRef = client.watchQuery({
-	// 		query,
-	// 		...options,
-	// 	}) as ObservableQuery<any>;
-	// 	const data$ = from(queryRef).pipe(
-	// 		// filter cache response when there is no cache
-	// 		filter(r => !r.stale),
-	// 		filter((r: any) => this.checkError(r, title)),
-	// 		map(({ data }) => data[queryName].items),
-	// 		tap(data => this.logResult(title, queryName, data))
-	// 	);
-
-	// 	queryRef.data$ = data$;
-	// 	return queryRef;
-	// }
 
 	/////////////////////////////
 	//        QUERY BY         //
@@ -163,33 +103,17 @@ export class ApiService {
 	 * @param byId: the ID of the referenced entity
 	 * @param options: to override defaults variables, cache policies, ...
 	 */
-	queryBy<T>(
+	listBy<T>(
 		typename: Typename,
 		byTypename: Typename | 'Owner' = 'Team',
 		byId?: string,
 		options: Partial<WatchQueryOptions> = {}
 	): ObservableQuery<T[]> {
-		const { query, queryName, body } = QueryPool.getQueryInfo(typename, QueryType.QUERY_BY, byTypename);
+		// title for displaying in logs
+		const title = `Query List${typename}By${byTypename}`;
 		const variables = { byId, ...options.variables };
-		const title = `Query All ${typename} by ${byTypename}`;
-		this.log(title, query, queryName, body, variables);
-
-		const queryRef = client.watchQuery({
-			query,
-			variables,
-			...options
-		}) as ObservableQuery<any>;
-
-		const data$ = from(queryRef).pipe(
-			// filter cache response when there is no cache
-			filter(r => !r.stale),
-			filter((r: any) => this.checkError(r, title)),
-			map(({ data }) => data[queryName].items),
-			tap(data => this.logResult(title, queryName, data))
-		);
-
-		queryRef.data$ = data$;
-		return queryRef;
+		options.variables = variables;
+		return this.queryHelper(typename, QueryType.LIST_BY, title, options, byTypename);
 	}
 
 	/////////////////////////////
@@ -236,11 +160,7 @@ export class ApiService {
 	 * @param entity : entity we want to create
 	 * @param options: Apollo options if we don't want the default
 	 */
-	update<T>(
-		typename: Typename,
-		entity: T,
-		options: Partial<MutationOptions> = {}
-	): Observable<T> {
+	update<T>(typename: Typename, entity: T, options: Partial<MutationOptions> = {}): Observable<T> {
 		const title = 'Update ' + typename;
 		const { query, queryName, body } = QueryPool.getQueryInfo(typename, QueryType.UPDATE);
 		const variables = { input: entity };
@@ -330,8 +250,35 @@ export class ApiService {
 		log.table(result);
 		log.groupEnd();
 	}
+
+	/** log to debug, query and return correct datas */
+	private queryHelper(
+		typename: Typename,
+		queryType: QueryType,
+		title: string,
+		options: Partial<WatchQueryOptions>,
+		byTypename?: Typename | 'Owner'
+	) {
+		const { query, queryName, body } = QueryPool.getQueryInfo(typename, queryType, byTypename);
+		this.log(title, query, queryName, body, options.variables);
+
+		const queryRef = client.watchQuery({
+			query,
+			...options
+		}) as ObservableQuery<any>;
+		const data$ = from(queryRef).pipe(
+			// filter cache response when there is no cache
+			filter(r => !r.stale),
+			filter((r: any) => this.checkError(r, title)),
+			// if list/search, return items. else if get, return entity
+			map(({ data }) => data[queryName].items || data[queryName]),
+			tap(data => this.logResult(title, queryName, data))
+		);
+		queryRef.data$ = data$;
+		return queryRef;
+	}
+
+
 }
 
-// TODO add the audits for create/update/delete
-
-// TODO remove audits from the models => that way we can use new for update
+// TODO add the audits for update/delete

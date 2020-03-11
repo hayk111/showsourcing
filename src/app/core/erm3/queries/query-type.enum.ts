@@ -1,12 +1,11 @@
 
 
 export enum QueryType {
-	QUERY_ONE = 'queryOne',
-	QUERY_MANY = 'queryMany',
-	QUERY_ALL = 'queryAll',
+	GET = 'queryOne',
+	SEARCH = 'queryMany',
 	CREATE = 'create',
 	UPDATE = 'update',
 	DELETE = 'delete',
-	QUERY_BY = 'queryBy',
+	LIST_BY = 'queryBy',
 }
 
