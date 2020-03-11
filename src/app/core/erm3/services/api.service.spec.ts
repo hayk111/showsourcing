@@ -117,7 +117,7 @@ fdescribe('ApiService', () => {
 		const promises = Object.entries(mocks).map(([name, getMock]) => {
 			return apiSrv
 				.create(name as Typename, getMock())
-				.pipe(switchMap(createdEntity => apiSrv.queryOne(name as Typename, createdEntity.id).data$))
+				.pipe(switchMap(createdEntity => apiSrv.get(name as Typename, createdEntity.id).data$))
 				.toPromise()
 				.catch(e => fail(`entity ${name} failed queryOne: ${e}`));
 		});
@@ -144,11 +144,7 @@ fdescribe('ApiService', () => {
 		// run queries into promises
 		const promises = collectQueryBy.map(([typename, byTypename]) => {
 			return apiSrv
-				.queryBy(typename as Typename, byTypename, {
-					variables: {
-						byId: 'fakeId'
-					}
-				})
+				.listBy(typename as Typename, byTypename, 'fakeId')
 				.data$.pipe(first()).toPromise()
 				.catch(e => fail(`entity ${typename} failed query by ${byTypename}: ${e}`));
 		});

@@ -1,5 +1,6 @@
 import gql from 'graphql-tag';
 import { Typename } from '../typename.type';
+import { QueryType } from './query-type.enum';
 
 /** Audit found on every entity */
 const AUDIT = `
@@ -30,7 +31,7 @@ export class QueryBuilder {
 	}
 
 	// get
-	queryOne = (str: string) => {
+	[QueryType.GET] = (str: string) => {
 		return gql`
 			query Get${this.typename}(
 				$id: ID!
@@ -45,10 +46,8 @@ export class QueryBuilder {
 			}`;
 	}
 
-	queryManyDefault: string;
-
 	// search // TODO update to fit the new environment when we have search queries
-	queryMany = (str: string) => {
+	[QueryType.SEARCH] = (str: string) => {
 		return gql`
 			query Search${this.typename}s(
 				$filter: Searchable${this.typename}FilterInput
@@ -74,20 +73,7 @@ export class QueryBuilder {
 			}`;
 	}
 
-	// list
-	queryAll = (str: string) => {
-		return gql`
-			query List${this.typename}s {
-				list${this.typename}s {
-					items {
-						id
-						${str}
-					}
-				}
-			}`;
-	}
-
-	queryBy = (str: string): Record<string, any> => {
+	[QueryType.LIST_BY] = (str: string): Record<string, any> => {
 		const queryByObject = {};
 		this.byTypenames.forEach(byEntity => {
 			const ownerVerbose = byEntity === 'Owner' ? 'User' : ''; // the param for Owner is $ownerUser
@@ -120,7 +106,7 @@ export class QueryBuilder {
 		return queryByObject;
 	}
 
-	create = (str: string) => {
+	[QueryType.CREATE] = (str: string) => {
 		return gql`
 			mutation Create${this.typename}(
 				$input: Create${this.typename}Input!
@@ -133,7 +119,7 @@ export class QueryBuilder {
 			}`;
 	}
 
-	update = (str: string) => {
+	[QueryType.UPDATE] = (str: string) => {
 		return gql`
 			mutation Update${this.typename}(
 				$input: Update${this.typename}Input!
@@ -146,7 +132,7 @@ export class QueryBuilder {
 			}`;
 	}
 
-	delete = (str = '') => {
+	[QueryType.DELETE] = (str = '') => {
 		return gql`
 			mutation Delete${this.typename}(
 				$input: Delete${this.typename}Input!

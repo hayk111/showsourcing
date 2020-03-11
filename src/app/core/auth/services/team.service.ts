@@ -18,13 +18,7 @@ const SELECTED_TEAM = 'selected-team';
 export class TeamService {
 
 	// we query all teamByUser to extract the team
-	private queryAllTeamUsers = this.apiSrv.queryBy<TeamUser>(
-		'TeamUser',
-		'User',
-		{
-			fetchPolicy: 'cache-and-network'
-		}
-	);
+	private queryAllTeamUsers = this.apiSrv.listBy<TeamUser>('TeamUser', 'User');
 	teamsOfUser$: Observable<Team[]> = this.queryAllTeamUsers.data$.pipe(
 		map((teamUsers: TeamUser[]) => teamUsers.map(tu => tu.team))
 	);

@@ -12,9 +12,9 @@ export class BaseQueries {
 		protected defaultFields: string = 'id name',
 		protected byTypenames: Array<Typename | 'Owner'> = ['Team'],
 		protected queries: QueryType[] = [
-			QueryType.QUERY_ONE,
-			QueryType.QUERY_MANY,
-			QueryType.QUERY_BY,
+			QueryType.GET,
+			QueryType.SEARCH,
+			QueryType.LIST_BY,
 			QueryType.CREATE,
 			QueryType.UPDATE,
 			QueryType.DELETE
