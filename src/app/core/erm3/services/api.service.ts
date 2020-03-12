@@ -14,7 +14,7 @@ import { ApiLogger } from './_api-logger.class';
 import { GqlHelper } from './_gql-helper.class';
 
 export interface ObservableQuery<T = any> extends ApolloObservableQuery<T> {
-	data$: Observable<T | { items: T[] }>;
+	data$: Observable<T>;
 	items$: Observable<T[]>;
 	count$?: Observable<number>;
 	queryName: string;
