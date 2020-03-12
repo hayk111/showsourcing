@@ -14,8 +14,7 @@ import {
 import { ListPageService, SelectionService } from '~core/list-page';
 import { ListPageViewService } from '~core/list-page/list-page-view.service';
 import { DialogService } from '~shared/dialog';
-import { FilterType } from '~core/filters';
-import { FilterService } from '~shared/filters/services/filter.service';
+import { FilterType, FilterService } from '~core/filters';
 import { KanbanSelectionService } from '~shared/kanban/services/kanban-selection.service';
 import { KanbanService } from '~shared/kanban/services/kanban.service';
 import { AutoUnsub } from '~utils';
@@ -79,7 +78,6 @@ export class ProductsPageComponent extends AutoUnsub
 	}
 
 	ngOnInit() {
-		this.listHelper.setup('Product');
 		this.listHelper.setup('Product');
 		this.items$ = this.listHelper.getFilteredItems$();
 	}

@@ -23,7 +23,7 @@ import { TeamService } from '~core/auth';
 @Injectable({ providedIn: 'root'})
 export class FilterService {
 	/** helper */
-	private converter: FilterConverter;
+	private converter: FilterConverter = new FilterConverter();
 	/** to know when filters are changing, using replay subject here because in the constructor we set the starting ones */
 	private _valueChanges$ = new BehaviorSubject<FilterService>(this);
 	valueChanges$ = this._valueChanges$.asObservable();
@@ -39,6 +39,11 @@ export class FilterService {
 	/** filter as a param form that can be used in a query */
 	queryArg: any = {};
 
+	constructor() {
+		this.setFilters(this.startFilters);
+	}
+
+	/** if we want something else than the defaults */
 	setup(startFilters: Filter[] = [], searchedFields?: string[]) {
 		// adding the start filters
 		this.startFilters = startFilters;

@@ -23,8 +23,9 @@
 <!-- <ng-container *ngIf="listSrv.isListening"> -->
 	<products-table-app
 		*ngIf="viewSrv.view === 'table'"
-		[selection]="selectionSrv.selection$ | async"
 		[rows]="items$ | async"
+		[pending]="listHelper.pending"
+		[selection]="selectionSrv.selection$ | async"
 		(open)="viewSrv.goToDetails($event)"
 		(previewClick)="viewSrv.openPreview($event)"
 		(select)="selectionSrv.selectOne($event)"
