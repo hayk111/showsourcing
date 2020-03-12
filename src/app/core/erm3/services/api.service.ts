@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { MutationOptions } from 'apollo-client';
 import {
-	ObservableQuery as ApolloObservableQuery,
 	WatchQueryOptions
 } from 'aws-appsync/node_modules/apollo-client';
 import { DocumentNode } from 'graphql';
 import { from, Observable } from 'rxjs';
 import { filter, map, tap } from 'rxjs/operators';
+import { ObservableQuery } from './_global/observable-query.interface';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { log } from '~utils/log';
 import { LogColor } from '~utils/log-colors.enum';
@@ -15,11 +15,6 @@ import { QueryPool } from '../queries/query-pool.class';
 import { QueryType } from '../queries/query-type.enum';
 import { Typename } from '../typename.type';
 import { client } from './client';
-
-export interface ObservableQuery<T = any> extends ApolloObservableQuery<T> {
-	data$: Observable<T>;
-	queryName: string;
-}
 
 export interface FilterParams {
 	filter?: any;

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { SelectionService } from './selection.service';
-import { ApiService, ObservableQuery } from '~core/erm3/services/api.service';
+import { ApiService } from '~core/erm3/services/api.service';
+import { ObservableQuery } from '~core/erm3';
 import { FilterService } from '~core/filters/filter.service';
 import { switchMap, tap, map } from 'rxjs/operators';
 import { forkJoin } from 'rxjs';

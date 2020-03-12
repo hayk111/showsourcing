@@ -12,16 +12,21 @@ export type Typename = 'Attachment'|
  'Harbour'|
  'Image'|
  'Invitation'|
+ 'IncoTerm'|
+ 'Length'|
  'Location'|
  'Product'|
  'Project'|
  'Request'|
  'Request element'|
  'Sample'|
+ 'Selector element'|
  'Supplier'|
+ 'SupplierType'|
  'Tag'|
  'Task'|
  'Team'|
  'User'|
- 'TeamUser';
+ 'TeamUser'|
+ 'Weight';
 

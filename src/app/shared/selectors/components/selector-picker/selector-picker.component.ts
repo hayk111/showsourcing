@@ -189,14 +189,14 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	search(text, setFirstItemActive = true) {
 		this.searchTxt = text.trim();
 		this.movedArrow = false;
-		this.selectorSrv.search(this.type, this.searchTxt)
-			.subscribe(_ => {
-				if (setFirstItemActive)
-					this.keyManager.setFirstItemActive();
-				else // we use this to hide the first active item, since the focus is on the input now
-					this.keyManager.updateActiveItem(-1);
-				this.cd.markForCheck(); // otherwise sometimes it won't set the first item active until cd is triggered
-			});
+		// this.selectorSrv.search(this.type, this.searchTxt)
+		// 	.subscribe(_ => {
+		// 		if (setFirstItemActive)
+		// 			this.keyManager.setFirstItemActive();
+		// 		else // we use this to hide the first active item, since the focus is on the input now
+		// 			this.keyManager.updateActiveItem(-1);
+		// 		this.cd.markForCheck(); // otherwise sometimes it won't set the first item active until cd is triggered
+		// 	});
 		this.searched$.next(this.searchTxt);
 	}
 
