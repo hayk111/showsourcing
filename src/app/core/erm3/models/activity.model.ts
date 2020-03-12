@@ -1,3 +1,4 @@
+
 export class Activity {
 	__typename ?= 'Activity';
 	id: undefined;
