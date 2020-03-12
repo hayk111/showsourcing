@@ -14,7 +14,9 @@ import { ApiLogger } from './_api-logger.class';
 import { GqlHelper } from './_gql-helper.class';
 
 export interface ObservableQuery<T = any> extends ApolloObservableQuery<T> {
-	data$: Observable<T>;
+	data$: Observable<T | { items: T[] }>;
+	items$: Observable<T[]>;
+	count$?: Observable<number>;
 	queryName: string;
 }
 
@@ -58,7 +60,7 @@ export class ApiService {
 	 * @param options options provided to apollo
 	 * @param hasItems whether we should extract items {} from the response
 	 */
-	query(options: WatchQueryOptions, hasItems: boolean = true) {
+	query(options: WatchQueryOptions) {
 		const queryName = GqlHelper.getQueryName(options.query);
 		ApiLogger.logRequest(options);
 
@@ -67,15 +69,16 @@ export class ApiService {
 			// filter cache response when there is no cache
 			filter(r => !r.stale),
 			filter((r: any) => this.checkError(r, queryName)),
-			map(({ data }) => hasItems ? data[queryName].items : data[queryName]),
+			map(({ data }) => data[queryName]),
 			tap(data => ApiLogger.logResponse(options, data))
 		);
 		queryRef.data$ = data$;
+		queryRef.items$ = data$.pipe(map(d => d.items));
 		return queryRef;
 	}
 
 	///////////////////////////////
-	//         MUTATION          //
+	//          MUTATE           //
 	///////////////////////////////
 
 	/** performs an apollo mutation
@@ -92,7 +95,7 @@ export class ApiService {
 	}
 
 	///////////////////////////////
-	//           Get             //
+	//           GET             //
 	///////////////////////////////
 
 	/**
@@ -110,11 +113,11 @@ export class ApiService {
 		const options = apiOptions as WatchQueryOptions;
 		options.variables = { id };
 		options.query = QueryPool.getQuery(typename, QueryType.GET);
-		return this.query(options, false);
+		return this.query(options);
 	}
 
 	/////////////////////////////
-	//        QUERY MANY        //
+	//         SEARCH          //
 	/////////////////////////////
 
 	/**
@@ -133,11 +136,13 @@ export class ApiService {
 		const options = apiOptions as WatchQueryOptions;
 		options.variables = variables;
 		options.query = QueryPool.getQuery(typename, QueryType.SEARCH);
-		return this.query(options);
+		const query = this.query(options);
+		query.count$ = query.data$.pipe(map(d => d.total));
+		return query;
 	}
 
 	/////////////////////////////
-	//        QUERY BY         //
+	//        LIST BY          //
 	/////////////////////////////
 	/**
 	 * Query all entities by a referenced Entity (e.g: all teams that belongs to an user)
