@@ -3,10 +3,10 @@ import { log } from '~utils/log';
 import { GqlHelper } from './_gql-helper.class';
 
 /** colors */
-const COLOR_QUERY = 'color: gold; background: #aaaaaa; padding: 2px';
-const COLOR_MUTATION = 'color: purple; background #aaaaaa; padding: 4px';
-const COLOR_QUERY_RESPONSE = 'color: gold; background: #555555; padding: 2px';
-const COLOR_MUTATION_RESPONSE = 'color: purple; background #555555; padding: 4px';
+const COLOR_QUERY = 'color: gold; background: #555555; padding: 4px';
+const COLOR_MUTATION = 'color: gold; background: #999999; padding: 4px';
+const COLOR_QUERY_RESPONSE = 'color: pink; background: #555555; padding: 4px';
+const COLOR_MUTATION_RESPONSE = 'color: pink; background: #999999; padding: 4px';
 
 /**
  * Helps with the logging of api query / response

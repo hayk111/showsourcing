@@ -89,3 +89,4 @@
 [0306/095932.569:WARNING:pe_image_reader.cc(340)] could not read dos header from C:\WINDOWS\system32\uxtheme.dll
 [0306/095932.569:ERROR:process_memory_win.cc(73)] ReadMemory at 0x7fffdd680000 of 64 bytes failed: Only part of a ReadProcessMemory or WriteProcessMemory request was completed. (0x12B)
 [0306/095932.569:WARNING:pe_image_reader.cc(340)] could not read dos header from C:\WINDOWS\System32\MSCTF.dll
+[0312/121225.881:ERROR:process_info.cc(359)] UncheckedAllocate

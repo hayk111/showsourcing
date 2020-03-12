@@ -66,7 +66,7 @@ fdescribe('ApiService', () => {
 	it('should create entities', async () => {
 		const promises = Object.entries(mocks).map(([name, getMock]) => {
 			return apiSrv
-				.create(name as Typename, getMock())
+				.create(getMock())
 				.toPromise()
 				.catch(e => fail(`entity ${name} failed creation: ${e}`));
 		});
@@ -79,8 +79,8 @@ fdescribe('ApiService', () => {
 	xit('should update entities', async () => {
 		const promises = Object.entries(mocks).map(([name, getMock]) => {
 			return apiSrv
-				.create(name as Typename, getMock())
-				.pipe(switchMap(createdEntity => apiSrv.update(name as Typename, { ...createdEntity })))
+				.create(getMock())
+				.pipe(switchMap(createdEntity => apiSrv.update({ ...createdEntity })))
 				.toPromise()
 				.catch(e => fail(`entity ${name} failed udpate: ${e}`));
 		});
@@ -93,8 +93,8 @@ fdescribe('ApiService', () => {
 	it('should delete entities', async () => {
 		const promises = Object.entries(mocks).map(([name, getMock]) => {
 			return apiSrv
-				.create(name as Typename, getMock())
-				.pipe(switchMap(createdEntity => apiSrv.delete(name as Typename, createdEntity)))
+				.create(getMock())
+				.pipe(switchMap(createdEntity => apiSrv.delete(createdEntity)))
 				.toPromise()
 				.catch(e => fail(`entity ${name} failed delete: ${e}`));
 		});
@@ -108,7 +108,7 @@ fdescribe('ApiService', () => {
 	it('should get each entity', async () => {
 		const promises = Object.entries(mocks).map(([name, getMock]) => {
 			return apiSrv
-				.create(name as Typename, getMock())
+				.create(getMock())
 				.pipe(switchMap(createdEntity => apiSrv.get(name as Typename, createdEntity.id).data$))
 				.toPromise()
 				.catch(e => fail(`entity ${name} failed queryOne: ${e}`));
@@ -134,7 +134,7 @@ fdescribe('ApiService', () => {
 		// run queries into promises
 		const promises = collectQueryBy.map(([typename, byTypename]) => {
 			return apiSrv
-				.listBy(typename as Typename, byTypename, 'fakeId')
+				.listBy(name as Typename, byTypename, 'fakeId')
 				.data$.pipe(first()).toPromise()
 				.catch(e => fail(`entity ${typename} failed query by ${byTypename}: ${e}`));
 		});
