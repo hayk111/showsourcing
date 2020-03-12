@@ -14,8 +14,8 @@ import { ApiLogger } from './_api-logger.class';
 import { GqlHelper } from './_gql-helper.class';
 
 export interface ObservableQuery<T = any> extends ApolloObservableQuery<T> {
+	response$: Observable<any>;
 	data$: Observable<T>;
-	items$: Observable<T[]>;
 	count$?: Observable<number>;
 	queryName: string;
 }
@@ -60,20 +60,20 @@ export class ApiService {
 	 * @param options options provided to apollo
 	 * @param hasItems whether we should extract items {} from the response
 	 */
-	query(options: WatchQueryOptions) {
+	query<T>(options: WatchQueryOptions, hasItems = true): ObservableQuery<T> {
 		const queryName = GqlHelper.getQueryName(options.query);
 		ApiLogger.logRequest(options);
 
 		const queryRef = client.watchQuery(options) as ObservableQuery<any>;
-		const data$ = from(queryRef).pipe(
+		const response$ = from(queryRef).pipe(
 			// filter cache response when there is no cache
 			filter(r => !r.stale),
 			filter((r: any) => this.checkError(r, queryName)),
 			map(({ data }) => data[queryName]),
 			tap(data => ApiLogger.logResponse(options, data))
 		);
-		queryRef.data$ = data$;
-		queryRef.items$ = data$.pipe(map(d => d.items));
+		queryRef.response$ = response$;
+		queryRef.data$ = response$.pipe(map(r => hasItems ? r.items : r));
 		return queryRef;
 	}
 
@@ -89,7 +89,7 @@ export class ApiService {
 		ApiLogger.logRequest(options);
 
 		return from(client.mutate(options)).pipe(
-			map(r => r[queryName]),
+			map(({ data }) => data[queryName]),
 			tap(data => ApiLogger.logResponse(options, data))
 		);
 	}
@@ -113,7 +113,7 @@ export class ApiService {
 		const options = apiOptions as WatchQueryOptions;
 		options.variables = { id };
 		options.query = QueryPool.getQuery(typename, QueryType.GET);
-		return this.query(options);
+		return this.query(options, false);
 	}
 
 	/////////////////////////////
@@ -136,8 +136,8 @@ export class ApiService {
 		const options = apiOptions as WatchQueryOptions;
 		options.variables = variables;
 		options.query = QueryPool.getQuery(typename, QueryType.SEARCH);
-		const query = this.query(options);
-		query.count$ = query.data$.pipe(map(d => d.total));
+		const query = this.query<T[]>(options);
+		query.count$ = query.response$.pipe(map(r => r.total));
 		return query;
 	}
 
@@ -189,8 +189,8 @@ export class ApiService {
 			entity.lastUpdatedByUserId = this._userId;
 			entity.teamId = this._teamId;
 		}
-		const variables = { input: { ...entity } };
-		delete (variables.input as any).__typename;
+		options.variables = { input: { ...entity } };
+		delete (options.variables.input as any).__typename;
 		return this.mutate(options);
 	}
 
