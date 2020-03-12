@@ -4,13 +4,14 @@ import { ApiService, ObservableQuery } from '~core/erm3/services/api.service';
 import { FilterService } from '~core/filters/filter.service';
 import { switchMap, tap, map } from 'rxjs/operators';
 import { forkJoin } from 'rxjs';
-
+import { Typename } from '~core/erm3/typename.type';
+import * as models from '~core/erm3/models';
 
 @Injectable({ providedIn: 'root' })
 export class ListHelperService<G = any> {
 
 	private queryRef: ObservableQuery<G[]>;
-	private entityName: any;
+	private typename: Typename;
 	pending = true;
 
 	constructor(
@@ -19,14 +20,14 @@ export class ListHelperService<G = any> {
 		private filterSrv: FilterService
 	) {}
 
-	setup(entityName: any) {
-		this.entityName = entityName;
+	setup(typename: Typename) {
+		this.typename = typename;
 	}
 
 	getFilteredItems$() {
 		return this.filterSrv.valueChanges$.pipe(
 			// gets the query
-			map(({ queryArg }) => this.apiSrv.search<G>(this.entityName, { filter: queryArg })),
+			map(({ queryArg: filter }) => this.apiSrv.search<G>(this.typename, { filter })),
 			// save it
 			tap(query => this.queryRef = query),
 			// return the result
@@ -43,24 +44,24 @@ export class ListHelperService<G = any> {
 	}
 
 	create(entity: any) {
-		this.apiSrv.create(this.entityName, entity).pipe(
+		this.apiSrv.create(this.typename, entity).pipe(
 			switchMap(_ => this.refetch())
 		).subscribe();
 	}
 
 	update(entity: any) {
-		this.apiSrv.update(this.entityName, entity);
+		this.apiSrv.update(this.typename, entity);
 	}
 
 	delete(entity: any) {
-		this.apiSrv.delete(this.entityName, entity).pipe(
+		this.apiSrv.delete(this.typename, entity).pipe(
 			switchMap(_ => this.refetch())
 		).subscribe();
 	}
 
 	deleteSelected() {
 		const selected = this.selectionSrv.getSelectedValues();
-		const all = selected.map(entity => this.apiSrv.delete(this.entityName, entity));
+		const all = selected.map(entity => this.apiSrv.delete(this.typename, entity));
 		forkJoin(all).pipe(
 			switchMap(_ => this.refetch())
 		).subscribe();

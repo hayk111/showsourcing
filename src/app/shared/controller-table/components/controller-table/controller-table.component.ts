@@ -29,6 +29,6 @@ export class ControllerTableComponent {
 	searchControl: FormControl = new FormControl('');
 	inputFocus = false;
 
-	constructor(public listSrv: ListPageService<any, any>) {}
+	constructor() {}
 
 }

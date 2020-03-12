@@ -52,17 +52,16 @@ fdescribe('ApiService', () => {
 			password: 'Test1234'
 		});
 		userId = user.username;
-		apiSrv.setTeamId('1e86fa2c-9daa-429c-9e3a-43a85a32297c');
+		apiSrv.setTeamId('353c0206-fa91-489b-bfb7-e896aeb7e25a');
 		apiSrv.setUserId(userId);
 	});
 
-	fit('should add to cached list', async() => {
-		const queryAll = apiSrv.queryAll('Product');
-		const products = await queryAll.data$.pipe(take(1)).toPromise();
-		apiSrv.addToList(queryAll, mocks.Product());
-		const productsAfter = await queryAll.data$.pipe(take(1)).toPromise();
-		expect(products.length).toEqual(productsAfter.length - 1);
-	});
+	// fit('should add to cached list', async() => {
+	// 	const products = await queryAll.data$.pipe(take(1)).toPromise();
+	// 	apiSrv.addToList(queryAll, mocks.Product());
+	// 	const productsAfter = await queryAll.data$.pipe(take(1)).toPromise();
+	// 	expect(products.length).toEqual(productsAfter.length - 1);
+	// });
 
 	it('should create entities', async () => {
 		const promises = Object.entries(mocks).map(([name, getMock]) => {
@@ -77,11 +76,7 @@ fdescribe('ApiService', () => {
 		});
 	});
 
-	it('should queryOne entities', async () => {});
-
-	it('should queryMany entities', async () => {});
-
-	it('should update entities', async () => {
+	xit('should update entities', async () => {
 		const promises = Object.entries(mocks).map(([name, getMock]) => {
 			return apiSrv
 				.create(name as Typename, getMock())
@@ -109,11 +104,8 @@ fdescribe('ApiService', () => {
 		});
 	});
 
-	/** ========= */
-	/** QUERY ONe */
-	/** ========= */
 
-	it('should query each entity', async () => {
+	it('should get each entity', async () => {
 		const promises = Object.entries(mocks).map(([name, getMock]) => {
 			return apiSrv
 				.create(name as Typename, getMock())
@@ -127,9 +119,7 @@ fdescribe('ApiService', () => {
 		});
 	});
 
-	/** ======== */
-	/** QUERY BY */
-	/** ======== */
+
 
 	it('should query all by entity', async () => {
 		// get all queries by from query-pool => [ [typename1, byTypename1], ...]
@@ -144,7 +134,7 @@ fdescribe('ApiService', () => {
 		// run queries into promises
 		const promises = collectQueryBy.map(([typename, byTypename]) => {
 			return apiSrv
-				.listBy(typename as Typename, byTypename, 'fakeId')
+				.listBy(typename, byTypename, 'fakeId')
 				.data$.pipe(first()).toPromise()
 				.catch(e => fail(`entity ${typename} failed query by ${byTypename}: ${e}`));
 		});
