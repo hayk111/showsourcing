@@ -51,7 +51,6 @@ export class QueryBuilder {
 		return gql`
 			query Search${this.typename}s(
 				$filter: Searchable${this.typename}FilterInput
-				$id: ModelIDKeyConditionInput
 				$sort: Searchable${this.typename}SortInput
 				$limit: Int
 				$nextToken: String

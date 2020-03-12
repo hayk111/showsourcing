@@ -5,7 +5,7 @@ import { FilterService } from '~core/filters/filter.service';
 import { switchMap, tap, map } from 'rxjs/operators';
 import { forkJoin } from 'rxjs';
 import { Typename } from '~core/erm3/typename.type';
-
+import * as models from '~core/erm3/models';
 
 @Injectable({ providedIn: 'root' })
 export class ListHelperService<G = any> {
