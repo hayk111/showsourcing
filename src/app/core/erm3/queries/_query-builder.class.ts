@@ -72,15 +72,6 @@ export class QueryBuilder {
 			}`;
 	}
 
-	[QueryType.COUNT] = (str: string) => {
-		return gql`
-			query Search${this.typename}s() {
-				search${this.typename}s() {
-					total
-				}
-			}`;
-	}
-
 	[QueryType.LIST_BY] = (str: string): Record<string, any> => {
 		const queryByObject = {};
 		this.byTypenames.forEach(byEntity => {
