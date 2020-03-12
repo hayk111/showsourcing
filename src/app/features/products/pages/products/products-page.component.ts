@@ -71,8 +71,6 @@ export class ProductsPageComponent extends AutoUnsub
 		public viewSrv: ListPageViewService<Product>,
 		public selectionSrv: SelectionService,
 		public dialogCommonSrv: DialogCommonService,
-		public elem: ElementRef,
-		private userSrv: UserService,
 		protected dlgSrv: DialogService,
 		protected kanbanSelectionSrv: KanbanSelectionService,
 		private filterSrv: FilterService
