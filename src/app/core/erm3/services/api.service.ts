@@ -25,6 +25,9 @@ export interface FilterParams {
 	nextToken?: string;
 }
 
+export type ApiQueryOption = Partial<Omit<WatchQueryOptions, 'variables' | 'queries'>>;
+export type ApiMutationOption = Partial<Omit<MutationOptions, 'variables' | 'mutation'>>;
+
 /**
  * service to do crud operations on entities
  */
@@ -101,12 +104,13 @@ export class ApiService {
 	get<T>(
 		typename: Typename,
 		id: string,
-		options: Partial<WatchQueryOptions> = {}
+		apiOptions: ApiQueryOption = {}
 	): ObservableQuery<T> {
 		// title for displaying in logs
+		const options = apiOptions as WatchQueryOptions;
 		options.variables = { id };
 		options.query = QueryPool.getQuery(typename, QueryType.GET);
-		return this.query(options as WatchQueryOptions, false);
+		return this.query(options, false);
 	}
 
 	/////////////////////////////
@@ -119,17 +123,17 @@ export class ApiService {
 	 * @param fields: the fields you want to query, if none is specified the default ones are used
 	 * @param variables: variables for filtering, sorting, and paginate
 	 * @param client: name of the client you want to use, if none is specified the default one is used
-		 * @param options: apollo options, variable and query will be overrided
+	 * @param options: apollo options, variable and query will be overrided
 	 */
 	search<T>(
 		typename: Typename,
 		variables: FilterParams,
-		options: Partial<WatchQueryOptions> = {}
+		apiOptions: ApiQueryOption = {}
 	): ObservableQuery<T[]> {
-		// title for displaying in logs
+		const options = apiOptions as WatchQueryOptions;
 		options.variables = variables;
 		options.query = QueryPool.getQuery(typename, QueryType.SEARCH);
-		return this.query(options as WatchQueryOptions);
+		return this.query(options);
 	}
 
 	/////////////////////////////
@@ -147,12 +151,12 @@ export class ApiService {
 		typename: Typename,
 		byTypename: Typename | 'Owner' = 'Team',
 		byId?: string,
-		options: Partial<WatchQueryOptions> = {}
+		apiOptions: ApiQueryOption = {}
 	): ObservableQuery<T[]> {
-		// title for displaying in logs
+		const options = apiOptions as WatchQueryOptions;
 		options.variables = { byId };
 		options.query = QueryPool.getQuery(typename, QueryType.LIST_BY, byTypename);
-		return this.query(options as WatchQueryOptions);
+		return this.query(options);
 	}
 
 	/////////////////////////////
@@ -167,8 +171,9 @@ export class ApiService {
 	create<T extends Entity>(
 		typename: Typename,
 		entity: T,
-		options: Partial<MutationOptions> = {}
+		apiOptions: ApiMutationOption = {}
 	): Observable<T> {
+		const options = apiOptions as MutationOptions;
 		options.mutation = QueryPool.getQuery(typename, QueryType.CREATE);
 		// TODO remove this condition when the audits are all similars
 		if (typename !== 'Company' && typename !== 'Team') {
@@ -181,7 +186,7 @@ export class ApiService {
 		}
 		const variables = { input: { ...entity } };
 		delete (variables.input as any).__typename;
-		return this.mutate(options as MutationOptions);
+		return this.mutate(options);
 	}
 
 	/////////////////////////////
@@ -193,22 +198,24 @@ export class ApiService {
 	 * @param entity : entity we want to create
 	 * @param options: apollo options, variable and query will be overrided
 	 */
-	update<T>(typename: Typename, entity: T, options: Partial<MutationOptions> = {}): Observable<T> {
+	update<T>(typename: Typename, entity: T, apiOptions: ApiMutationOption = {}): Observable<T> {
+		const options = apiOptions as MutationOptions;
 		const queryName = GqlHelper.getQueryName(options.mutation);
 		options.variables = { input: entity };
 		options.mutation = QueryPool.getQuery(typename, QueryType.UPDATE);
 		options.optimisticResponse = this.getOptimisticResponse(options, queryName, entity);
-		return this.mutate(options as MutationOptions);
+		return this.mutate(options);
 	}
 
 	/////////////////////////////
 	//          DELETE         //
 	/////////////////////////////
 
-	delete<T>(typename: Typename, entity: T, options: Partial<MutationOptions> = {}): Observable<T> {
+	delete<T>(typename: Typename, entity: T, apiOptions: ApiMutationOption = {}): Observable<T> {
+		const options = apiOptions as MutationOptions;
 		options.variables = { input: entity };
 		options.mutation = QueryPool.getQuery(typename, QueryType.DELETE);
-		return this.mutate(options as MutationOptions);
+		return this.mutate(options);
 	}
 
 
