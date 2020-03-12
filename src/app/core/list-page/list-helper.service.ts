@@ -44,24 +44,24 @@ export class ListHelperService<G = any> {
 	}
 
 	create(entity: any) {
-		this.apiSrv.create(new models[this.typename](entity)).pipe(
+		this.apiSrv.create(this.typename, entity).pipe(
 			switchMap(_ => this.refetch())
 		).subscribe();
 	}
 
 	update(entity: any) {
-		this.apiSrv.update(entity);
+		this.apiSrv.update(this.typename, entity);
 	}
 
 	delete(entity: any) {
-		this.apiSrv.delete(entity).pipe(
+		this.apiSrv.delete(this.typename, entity).pipe(
 			switchMap(_ => this.refetch())
 		).subscribe();
 	}
 
 	deleteSelected() {
 		const selected = this.selectionSrv.getSelectedValues();
-		const all = selected.map(entity => this.apiSrv.delete(entity));
+		const all = selected.map(entity => this.apiSrv.delete(this.typename, entity));
 		forkJoin(all).pipe(
 			switchMap(_ => this.refetch())
 		).subscribe();

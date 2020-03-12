@@ -32,7 +32,7 @@ export class CreateACompanyPageComponent extends AutoUnsub implements OnInit {
 
 	onSubmit(form: FormGroup) {
 		if (this.form.valid) {
-			const company = new Company(this.form.value);
+			const company = this.form.value;
 			this.pending$.next(true);
 			this.companySrv.create(company)
 				.subscribe(_ => {

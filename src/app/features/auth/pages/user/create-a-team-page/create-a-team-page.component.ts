@@ -28,7 +28,7 @@ export class CreateATeamPageComponent {
 
 	onSubmit() {
 		if (this.form.valid) {
-			const team = new Team(this.form.value); 
+			const team = this.form.value;
 			this.teamSrv.create(team).pipe(
 				switchMap(_team => this.teamSrv.pickTeam(_team))
 			).subscribe(_ => this.router.navigate(['']));

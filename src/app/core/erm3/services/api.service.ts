@@ -173,11 +173,11 @@ export class ApiService {
 	 * @param options: apollo options, variable and query will be overrided
 	 */
 	create<T extends Entity>(
+		typename: Typename,
 		entity: T,
 		apiOptions: ApiMutationOption = {}
 	): Observable<T> {
 		const options = apiOptions as MutationOptions;
-		const typename = entity.__typename;
 		options.mutation = QueryPool.getQuery(typename, QueryType.CREATE);
 		// TODO remove this condition when the audits are all similars
 		if (typename !== 'Company' && typename !== 'Team') {
@@ -202,11 +202,15 @@ export class ApiService {
 	 * @param entity : entity we want to create
 	 * @param options: apollo options, variable and query will be overrided
 	 */
-	update<T extends Entity>(entity: T, apiOptions: ApiMutationOption = {}): Observable<T> {
+	update<T extends Entity>(
+		typename: Typename,
+		entity: T,
+		apiOptions: ApiMutationOption = {}
+		): Observable<T> {
 		const options = apiOptions as MutationOptions;
 		const queryName = GqlHelper.getQueryName(options.mutation);
 		options.variables = { input: entity };
-		options.mutation = QueryPool.getQuery(entity.__typename, QueryType.UPDATE);
+		options.mutation = QueryPool.getQuery(typename, QueryType.UPDATE);
 		options.optimisticResponse = this.getOptimisticResponse(options, queryName, entity);
 		return this.mutate(options);
 	}
@@ -215,10 +219,14 @@ export class ApiService {
 	//          DELETE         //
 	/////////////////////////////
 
-	delete<T extends Entity>(entity: T, apiOptions: ApiMutationOption = {}): Observable<T> {
+	delete<T extends Entity>(
+		typename: Typename,
+		entity: T,
+		apiOptions: ApiMutationOption = {}
+		): Observable<T> {
 		const options = apiOptions as MutationOptions;
 		options.variables = { input: entity };
-		options.mutation = QueryPool.getQuery(entity.__typename, QueryType.DELETE);
+		options.mutation = QueryPool.getQuery(typename, QueryType.DELETE);
 		return this.mutate(options);
 	}
 

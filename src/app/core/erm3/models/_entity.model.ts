@@ -8,4 +8,7 @@ export class Entity<G = any> {
 	createdByUserId?: string;
 	lastUpdatedByUserId?: string;
 	teamId?: string;
+	constructor(config?: G) {
+		Object.assign(this, config);
+	}
 }
