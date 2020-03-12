@@ -3,10 +3,10 @@ import { log } from '~utils/log';
 import { GqlHelper } from './_gql-helper.class';
 
 /** colors */
-const COLOR_QUERY = 'color: gold; background: #555555; padding: 4px';
-const COLOR_MUTATION = 'color: gold; background: #999999; padding: 4px';
-const COLOR_QUERY_RESPONSE = 'color: pink; background: #555555; padding: 4px';
-const COLOR_MUTATION_RESPONSE = 'color: pink; background: #999999; padding: 4px';
+const COLOR_QUERY = 'color: gold; background: #3b2d44; padding: 4px';
+const COLOR_MUTATION = 'color: gold; background: #3b2d44; padding: 4px';
+const COLOR_QUERY_RESPONSE = 'color: pink; background: #3b2d44; padding: 4px';
+const COLOR_MUTATION_RESPONSE = 'color: pink; background: #3b2d44; padding: 4px';
 
 /**
  * Helps with the logging of api query / response
@@ -19,10 +19,10 @@ export class ApiLogger {
 		const { queryName, variables, body, isMutation } = GqlHelper.getQueryInfo(options);
 		const color = isMutation ? COLOR_MUTATION : COLOR_QUERY;
 		log.group(`%c 🍌 ${queryName}`, color);
-		log.group(`%c trace`, color);
+		log.group(`%c trace`, 'color: orange');
 		log.trace();
 		log.groupEnd();
-		log.debug(`%c queryName: ${queryName}`, color);
+		log.debug(`%c queryName: ${queryName}`);
 		log.group(`%c gql`, 'color: fuchsia;');
 		log.debug(`%c ${body}`, 'color: #555555');
 		log.groupEnd();
