@@ -104,6 +104,183 @@ mutation CreateTeam($input: CreateTeamInput) {
     _lastChangedAt
   }
 }
+mutation AcceptInvitation($id: ID!, $secret: String!) {
+  acceptInvitation(id: $id, secret: $secret) {
+    id
+    name
+    ownerUserId
+    owner {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    companyId
+    company {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    createdByUserId
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    createdOn
+    lastUpdatedByUserId
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    lastUpdatedOn
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation CreateInvitation(
+  $input: CreateInvitationInput!
+  $condition: ModelInvitationConditionInput
+) {
+  createInvitation(input: $input, condition: $condition) {
+    id
+    teamId
+    email
+    firstName
+    lastName
+    status
+    secret
+    createdAt
+    createdByUserId
+    deletedByUSerId
+    deletedAt
+    lastUpdatedByUserId
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation UpdateInvitation(
+  $input: UpdateInvitationInput!
+  $condition: ModelInvitationConditionInput
+) {
+  updateInvitation(input: $input, condition: $condition) {
+    id
+    teamId
+    email
+    firstName
+    lastName
+    status
+    secret
+    createdAt
+    createdByUserId
+    deletedByUSerId
+    deletedAt
+    lastUpdatedByUserId
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation DeleteInvitation(
+  $input: DeleteInvitationInput!
+  $condition: ModelInvitationConditionInput
+) {
+  deleteInvitation(input: $input, condition: $condition) {
+    id
+    teamId
+    email
+    firstName
+    lastName
+    status
+    secret
+    createdAt
+    createdByUserId
+    deletedByUSerId
+    deletedAt
+    lastUpdatedByUserId
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
 mutation CreateTeamUser(
   $input: CreateTeamUserInput!
   $condition: ModelTeamUserConditionInput
@@ -650,12 +827,12 @@ mutation CreateProduct(
       archived
       reference
       referenceKey
-      creationDate
+      createdAt
       createdByUserId
       deletedByUSerId
-      deletionDate
+      deletedAt
       lastUpdatedByUserId
-      lastUpdatedDate
+      lastUpdatedAt
       deleted
       _version
       _deleted
@@ -680,7 +857,7 @@ mutation CreateProduct(
       fileName
       orientation
       imageType
-      creationDate
+      createdAt
       createdByUserId
       createdBy {
         id
@@ -709,7 +886,7 @@ mutation CreateProduct(
         _deleted
         _lastChangedAt
       }
-      deletionDate
+      deletedAt
       lastupdatedByUserId
       lastUpdatedBy {
         id
@@ -724,7 +901,7 @@ mutation CreateProduct(
         _deleted
         _lastChangedAt
       }
-      lastUpdatedDate
+      lastUpdatedAt
       deleted
       _version
       _deleted
@@ -734,6 +911,8 @@ mutation CreateProduct(
       currency
       value
       baseCurrencyValue
+      label
+      moq
     }
     category {
       id
@@ -752,7 +931,7 @@ mutation CreateProduct(
         _lastChangedAt
       }
       name
-      creationDate
+      createdAt
       createdByUserId
       createdBy {
         id
@@ -781,7 +960,7 @@ mutation CreateProduct(
         _deleted
         _lastChangedAt
       }
-      deletionDate
+      deletedAt
       lastupdatedByUserId
       lastUpdatedBy {
         id
@@ -796,7 +975,7 @@ mutation CreateProduct(
         _deleted
         _lastChangedAt
       }
-      lastUpdatedDate
+      lastUpdatedAt
       deleted
       _version
       _deleted
@@ -818,32 +997,128 @@ mutation CreateProduct(
       _deleted
       _lastChangedAt
     }
-    minimumOrderQuantity
-    moqDescription
+    tags {
+      items {
+        id
+        teamId
+        name
+        createdAt
+        createdByUserId
+        deletedByUSerId
+        deletedAt
+        lastUpdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
     score
+    attachments {
+      items {
+        id
+        teamId
+        fileName
+        url
+        size
+        createdAt
+        createdByUserId
+        deletedByUSerId
+        deletedAt
+        lastUpdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+    extendedFields {
+      name
+      value
+    }
     incoTerm
     harbour
     masterCbm
     quantityPer20ft
     quantityPer40ft
     quantityPer40ftHC
-    leadTimeValue
-    leadTimeUnit
+    itemDimension {
+      height
+      width
+      length
+      unit
+      itemsQuantity
+      weight
+      weightUnit
+      type
+    }
+    innerCarton {
+      height
+      width
+      length
+      unit
+      itemsQuantity
+      weight
+      weightUnit
+      type
+    }
+    masterCarton {
+      height
+      width
+      length
+      unit
+      itemsQuantity
+      weight
+      weightUnit
+      type
+    }
+    priceMatrix {
+      currency
+      value
+      baseCurrencyValue
+      label
+      moq
+    }
+    leadTime {
+      value
+      unit
+    }
     sample
     samplePrice {
       currency
       value
       baseCurrencyValue
+      label
+      moq
+    }
+    projects {
+      items {
+        id
+        teamId
+        projectId
+        productId
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
     }
     archived
     reference
     referenceKey
-    creationDate
+    createdAt
     createdByUserId
     deletedByUSerId
-    deletionDate
+    deletedAt
     lastUpdatedByUserId
-    lastUpdatedDate
+    lastUpdatedAt
     deleted
     _version
     _deleted
@@ -958,12 +1233,12 @@ mutation UpdateProduct(
       archived
       reference
       referenceKey
-      creationDate
+      createdAt
       createdByUserId
       deletedByUSerId
-      deletionDate
+      deletedAt
       lastUpdatedByUserId
-      lastUpdatedDate
+      lastUpdatedAt
       deleted
       _version
       _deleted
@@ -988,7 +1263,7 @@ mutation UpdateProduct(
       fileName
       orientation
       imageType
-      creationDate
+      createdAt
       createdByUserId
       createdBy {
         id
@@ -1017,7 +1292,7 @@ mutation UpdateProduct(
         _deleted
         _lastChangedAt
       }
-      deletionDate
+      deletedAt
       lastupdatedByUserId
       lastUpdatedBy {
         id
@@ -1032,7 +1307,7 @@ mutation UpdateProduct(
         _deleted
         _lastChangedAt
       }
-      lastUpdatedDate
+      lastUpdatedAt
       deleted
       _version
       _deleted
@@ -1042,6 +1317,8 @@ mutation UpdateProduct(
       currency
       value
       baseCurrencyValue
+      label
+      moq
     }
     category {
       id
@@ -1060,7 +1337,7 @@ mutation UpdateProduct(
         _lastChangedAt
       }
       name
-      creationDate
+      createdAt
       createdByUserId
       createdBy {
         id
@@ -1089,7 +1366,7 @@ mutation UpdateProduct(
         _deleted
         _lastChangedAt
       }
-      deletionDate
+      deletedAt
       lastupdatedByUserId
       lastUpdatedBy {
         id
@@ -1104,7 +1381,7 @@ mutation UpdateProduct(
         _deleted
         _lastChangedAt
       }
-      lastUpdatedDate
+      lastUpdatedAt
       deleted
       _version
       _deleted
@@ -1126,32 +1403,128 @@ mutation UpdateProduct(
       _deleted
       _lastChangedAt
     }
-    minimumOrderQuantity
-    moqDescription
+    tags {
+      items {
+        id
+        teamId
+        name
+        createdAt
+        createdByUserId
+        deletedByUSerId
+        deletedAt
+        lastUpdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
     score
+    attachments {
+      items {
+        id
+        teamId
+        fileName
+        url
+        size
+        createdAt
+        createdByUserId
+        deletedByUSerId
+        deletedAt
+        lastUpdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+    extendedFields {
+      name
+      value
+    }
     incoTerm
     harbour
     masterCbm
     quantityPer20ft
     quantityPer40ft
     quantityPer40ftHC
-    leadTimeValue
-    leadTimeUnit
+    itemDimension {
+      height
+      width
+      length
+      unit
+      itemsQuantity
+      weight
+      weightUnit
+      type
+    }
+    innerCarton {
+      height
+      width
+      length
+      unit
+      itemsQuantity
+      weight
+      weightUnit
+      type
+    }
+    masterCarton {
+      height
+      width
+      length
+      unit
+      itemsQuantity
+      weight
+      weightUnit
+      type
+    }
+    priceMatrix {
+      currency
+      value
+      baseCurrencyValue
+      label
+      moq
+    }
+    leadTime {
+      value
+      unit
+    }
     sample
     samplePrice {
       currency
       value
       baseCurrencyValue
+      label
+      moq
+    }
+    projects {
+      items {
+        id
+        teamId
+        projectId
+        productId
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
     }
     archived
     reference
     referenceKey
-    creationDate
+    createdAt
     createdByUserId
     deletedByUSerId
-    deletionDate
+    deletedAt
     lastUpdatedByUserId
-    lastUpdatedDate
+    lastUpdatedAt
     deleted
     _version
     _deleted
@@ -1266,12 +1639,12 @@ mutation DeleteProduct(
       archived
       reference
       referenceKey
-      creationDate
+      createdAt
       createdByUserId
       deletedByUSerId
-      deletionDate
+      deletedAt
       lastUpdatedByUserId
-      lastUpdatedDate
+      lastUpdatedAt
       deleted
       _version
       _deleted
@@ -1296,7 +1669,7 @@ mutation DeleteProduct(
       fileName
       orientation
       imageType
-      creationDate
+      createdAt
       createdByUserId
       createdBy {
         id
@@ -1325,7 +1698,7 @@ mutation DeleteProduct(
         _deleted
         _lastChangedAt
       }
-      deletionDate
+      deletedAt
       lastupdatedByUserId
       lastUpdatedBy {
         id
@@ -1340,7 +1713,7 @@ mutation DeleteProduct(
         _deleted
         _lastChangedAt
       }
-      lastUpdatedDate
+      lastUpdatedAt
       deleted
       _version
       _deleted
@@ -1350,6 +1723,8 @@ mutation DeleteProduct(
       currency
       value
       baseCurrencyValue
+      label
+      moq
     }
     category {
       id
@@ -1368,7 +1743,7 @@ mutation DeleteProduct(
         _lastChangedAt
       }
       name
-      creationDate
+      createdAt
       createdByUserId
       createdBy {
         id
@@ -1397,7 +1772,7 @@ mutation DeleteProduct(
         _deleted
         _lastChangedAt
       }
-      deletionDate
+      deletedAt
       lastupdatedByUserId
       lastUpdatedBy {
         id
@@ -1412,7 +1787,7 @@ mutation DeleteProduct(
         _deleted
         _lastChangedAt
       }
-      lastUpdatedDate
+      lastUpdatedAt
       deleted
       _version
       _deleted
@@ -1434,32 +1809,386 @@ mutation DeleteProduct(
       _deleted
       _lastChangedAt
     }
-    minimumOrderQuantity
-    moqDescription
+    tags {
+      items {
+        id
+        teamId
+        name
+        createdAt
+        createdByUserId
+        deletedByUSerId
+        deletedAt
+        lastUpdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
     score
+    attachments {
+      items {
+        id
+        teamId
+        fileName
+        url
+        size
+        createdAt
+        createdByUserId
+        deletedByUSerId
+        deletedAt
+        lastUpdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+    extendedFields {
+      name
+      value
+    }
     incoTerm
     harbour
     masterCbm
     quantityPer20ft
     quantityPer40ft
     quantityPer40ftHC
-    leadTimeValue
-    leadTimeUnit
+    itemDimension {
+      height
+      width
+      length
+      unit
+      itemsQuantity
+      weight
+      weightUnit
+      type
+    }
+    innerCarton {
+      height
+      width
+      length
+      unit
+      itemsQuantity
+      weight
+      weightUnit
+      type
+    }
+    masterCarton {
+      height
+      width
+      length
+      unit
+      itemsQuantity
+      weight
+      weightUnit
+      type
+    }
+    priceMatrix {
+      currency
+      value
+      baseCurrencyValue
+      label
+      moq
+    }
+    leadTime {
+      value
+      unit
+    }
     sample
     samplePrice {
       currency
       value
       baseCurrencyValue
+      label
+      moq
+    }
+    projects {
+      items {
+        id
+        teamId
+        projectId
+        productId
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
     }
     archived
     reference
     referenceKey
-    creationDate
+    createdAt
     createdByUserId
     deletedByUSerId
-    deletionDate
+    deletedAt
     lastUpdatedByUserId
-    lastUpdatedDate
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation CreateAttachment(
+  $input: CreateAttachmentInput!
+  $condition: ModelAttachmentConditionInput
+) {
+  createAttachment(input: $input, condition: $condition) {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    fileName
+    url
+    size
+    createdAt
+    createdByUserId
+    deletedByUSerId
+    deletedAt
+    lastUpdatedByUserId
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation UpdateAttachment(
+  $input: UpdateAttachmentInput!
+  $condition: ModelAttachmentConditionInput
+) {
+  updateAttachment(input: $input, condition: $condition) {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    fileName
+    url
+    size
+    createdAt
+    createdByUserId
+    deletedByUSerId
+    deletedAt
+    lastUpdatedByUserId
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation DeleteAttachment(
+  $input: DeleteAttachmentInput!
+  $condition: ModelAttachmentConditionInput
+) {
+  deleteAttachment(input: $input, condition: $condition) {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    fileName
+    url
+    size
+    createdAt
+    createdByUserId
+    deletedByUSerId
+    deletedAt
+    lastUpdatedByUserId
+    lastUpdatedAt
     deleted
     _version
     _deleted
@@ -1557,12 +2286,12 @@ mutation CreateSupplier(
     archived
     reference
     referenceKey
-    creationDate
+    createdAt
     createdByUserId
     deletedByUSerId
-    deletionDate
+    deletedAt
     lastUpdatedByUserId
-    lastUpdatedDate
+    lastUpdatedAt
     deleted
     _version
     _deleted
@@ -1660,12 +2389,12 @@ mutation UpdateSupplier(
     archived
     reference
     referenceKey
-    creationDate
+    createdAt
     createdByUserId
     deletedByUSerId
-    deletionDate
+    deletedAt
     lastUpdatedByUserId
-    lastUpdatedDate
+    lastUpdatedAt
     deleted
     _version
     _deleted
@@ -1763,12 +2492,12 @@ mutation DeleteSupplier(
     archived
     reference
     referenceKey
-    creationDate
+    createdAt
     createdByUserId
     deletedByUSerId
-    deletionDate
+    deletedAt
     lastUpdatedByUserId
-    lastUpdatedDate
+    lastUpdatedAt
     deleted
     _version
     _deleted
@@ -1785,15 +2514,61 @@ mutation CreateDescriptor(
     sections {
       name
       fields {
-        name
-        label
-        type
+        fieldId
         defaultValue
         fixedValue
+        required
         metadata
       }
     }
     target
+    name
+    createdAt
+    createdByUserId
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedByUserId
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedAt
+    lastupdatedByUserId
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    lastUpdatedAt
+    deleted
     _version
     _deleted
     _lastChangedAt
@@ -1809,15 +2584,61 @@ mutation UpdateDescriptor(
     sections {
       name
       fields {
-        name
-        label
-        type
+        fieldId
         defaultValue
         fixedValue
+        required
         metadata
       }
     }
     target
+    name
+    createdAt
+    createdByUserId
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedByUserId
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedAt
+    lastupdatedByUserId
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    lastUpdatedAt
+    deleted
     _version
     _deleted
     _lastChangedAt
@@ -1833,15 +2654,3112 @@ mutation DeleteDescriptor(
     sections {
       name
       fields {
-        name
-        label
-        type
+        fieldId
         defaultValue
         fixedValue
+        required
         metadata
       }
     }
     target
+    name
+    createdAt
+    createdByUserId
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedByUserId
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedAt
+    lastupdatedByUserId
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation CreateProject(
+  $input: CreateProjectInput!
+  $condition: ModelProjectConditionInput
+) {
+  createProject(input: $input, condition: $condition) {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    name
+    logoImage {
+      id
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      fileName
+      orientation
+      imageType
+      createdAt
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedByUserId
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedAt
+      lastupdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    description
+    products {
+      items {
+        id
+        teamId
+        projectId
+        productId
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+    createdAt
+    createdByUserId
+    deletedByUSerId
+    deletedAt
+    lastUpdatedByUserId
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation UpdateProject(
+  $input: UpdateProjectInput!
+  $condition: ModelProjectConditionInput
+) {
+  updateProject(input: $input, condition: $condition) {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    name
+    logoImage {
+      id
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      fileName
+      orientation
+      imageType
+      createdAt
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedByUserId
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedAt
+      lastupdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    description
+    products {
+      items {
+        id
+        teamId
+        projectId
+        productId
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+    createdAt
+    createdByUserId
+    deletedByUSerId
+    deletedAt
+    lastUpdatedByUserId
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation DeleteProject(
+  $input: DeleteProjectInput!
+  $condition: ModelProjectConditionInput
+) {
+  deleteProject(input: $input, condition: $condition) {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    name
+    logoImage {
+      id
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      fileName
+      orientation
+      imageType
+      createdAt
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedByUserId
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedAt
+      lastupdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    description
+    products {
+      items {
+        id
+        teamId
+        projectId
+        productId
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+    createdAt
+    createdByUserId
+    deletedByUSerId
+    deletedAt
+    lastUpdatedByUserId
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation CreateProjectProduct(
+  $input: CreateProjectProductInput!
+  $condition: ModelProjectProductConditionInput
+) {
+  createProjectProduct(input: $input, condition: $condition) {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    projectId
+    productId
+    product {
+      id
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      name
+      supplier {
+        id
+        teamId
+        name
+        fullName
+        tradingName
+        description
+        website
+        phoneNumber
+        country
+        city
+        address
+        officeEmail
+        officePhone
+        incoTerm
+        harbour
+        generalMOQ
+        generalLeadTime
+        favorite
+        globalDatabaseId
+        archived
+        reference
+        referenceKey
+        createdAt
+        createdByUserId
+        deletedByUSerId
+        deletedAt
+        lastUpdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      images {
+        id
+        teamId
+        fileName
+        orientation
+        imageType
+        createdAt
+        createdByUserId
+        deletedByUserId
+        deletedAt
+        lastupdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      price {
+        currency
+        value
+        baseCurrencyValue
+        label
+        moq
+      }
+      category {
+        id
+        teamId
+        name
+        createdAt
+        createdByUserId
+        deletedByUserId
+        deletedAt
+        lastupdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      description
+      favorite
+      assigneeId
+      assignee {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      tags {
+        nextToken
+        startedAt
+      }
+      score
+      attachments {
+        nextToken
+        startedAt
+      }
+      extendedFields {
+        name
+        value
+      }
+      incoTerm
+      harbour
+      masterCbm
+      quantityPer20ft
+      quantityPer40ft
+      quantityPer40ftHC
+      itemDimension {
+        height
+        width
+        length
+        unit
+        itemsQuantity
+        weight
+        weightUnit
+        type
+      }
+      innerCarton {
+        height
+        width
+        length
+        unit
+        itemsQuantity
+        weight
+        weightUnit
+        type
+      }
+      masterCarton {
+        height
+        width
+        length
+        unit
+        itemsQuantity
+        weight
+        weightUnit
+        type
+      }
+      priceMatrix {
+        currency
+        value
+        baseCurrencyValue
+        label
+        moq
+      }
+      leadTime {
+        value
+        unit
+      }
+      sample
+      samplePrice {
+        currency
+        value
+        baseCurrencyValue
+        label
+        moq
+      }
+      projects {
+        nextToken
+        startedAt
+      }
+      archived
+      reference
+      referenceKey
+      createdAt
+      createdByUserId
+      deletedByUSerId
+      deletedAt
+      lastUpdatedByUserId
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    project {
+      id
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      name
+      logoImage {
+        id
+        teamId
+        fileName
+        orientation
+        imageType
+        createdAt
+        createdByUserId
+        deletedByUserId
+        deletedAt
+        lastupdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      description
+      products {
+        nextToken
+        startedAt
+      }
+      createdAt
+      createdByUserId
+      deletedByUSerId
+      deletedAt
+      lastUpdatedByUserId
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation UpdateProjectProduct(
+  $input: UpdateProjectProductInput!
+  $condition: ModelProjectProductConditionInput
+) {
+  updateProjectProduct(input: $input, condition: $condition) {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    projectId
+    productId
+    product {
+      id
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      name
+      supplier {
+        id
+        teamId
+        name
+        fullName
+        tradingName
+        description
+        website
+        phoneNumber
+        country
+        city
+        address
+        officeEmail
+        officePhone
+        incoTerm
+        harbour
+        generalMOQ
+        generalLeadTime
+        favorite
+        globalDatabaseId
+        archived
+        reference
+        referenceKey
+        createdAt
+        createdByUserId
+        deletedByUSerId
+        deletedAt
+        lastUpdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      images {
+        id
+        teamId
+        fileName
+        orientation
+        imageType
+        createdAt
+        createdByUserId
+        deletedByUserId
+        deletedAt
+        lastupdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      price {
+        currency
+        value
+        baseCurrencyValue
+        label
+        moq
+      }
+      category {
+        id
+        teamId
+        name
+        createdAt
+        createdByUserId
+        deletedByUserId
+        deletedAt
+        lastupdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      description
+      favorite
+      assigneeId
+      assignee {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      tags {
+        nextToken
+        startedAt
+      }
+      score
+      attachments {
+        nextToken
+        startedAt
+      }
+      extendedFields {
+        name
+        value
+      }
+      incoTerm
+      harbour
+      masterCbm
+      quantityPer20ft
+      quantityPer40ft
+      quantityPer40ftHC
+      itemDimension {
+        height
+        width
+        length
+        unit
+        itemsQuantity
+        weight
+        weightUnit
+        type
+      }
+      innerCarton {
+        height
+        width
+        length
+        unit
+        itemsQuantity
+        weight
+        weightUnit
+        type
+      }
+      masterCarton {
+        height
+        width
+        length
+        unit
+        itemsQuantity
+        weight
+        weightUnit
+        type
+      }
+      priceMatrix {
+        currency
+        value
+        baseCurrencyValue
+        label
+        moq
+      }
+      leadTime {
+        value
+        unit
+      }
+      sample
+      samplePrice {
+        currency
+        value
+        baseCurrencyValue
+        label
+        moq
+      }
+      projects {
+        nextToken
+        startedAt
+      }
+      archived
+      reference
+      referenceKey
+      createdAt
+      createdByUserId
+      deletedByUSerId
+      deletedAt
+      lastUpdatedByUserId
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    project {
+      id
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      name
+      logoImage {
+        id
+        teamId
+        fileName
+        orientation
+        imageType
+        createdAt
+        createdByUserId
+        deletedByUserId
+        deletedAt
+        lastupdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      description
+      products {
+        nextToken
+        startedAt
+      }
+      createdAt
+      createdByUserId
+      deletedByUSerId
+      deletedAt
+      lastUpdatedByUserId
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation DeleteProjectProduct(
+  $input: DeleteProjectProductInput!
+  $condition: ModelProjectProductConditionInput
+) {
+  deleteProjectProduct(input: $input, condition: $condition) {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    projectId
+    productId
+    product {
+      id
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      name
+      supplier {
+        id
+        teamId
+        name
+        fullName
+        tradingName
+        description
+        website
+        phoneNumber
+        country
+        city
+        address
+        officeEmail
+        officePhone
+        incoTerm
+        harbour
+        generalMOQ
+        generalLeadTime
+        favorite
+        globalDatabaseId
+        archived
+        reference
+        referenceKey
+        createdAt
+        createdByUserId
+        deletedByUSerId
+        deletedAt
+        lastUpdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      images {
+        id
+        teamId
+        fileName
+        orientation
+        imageType
+        createdAt
+        createdByUserId
+        deletedByUserId
+        deletedAt
+        lastupdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      price {
+        currency
+        value
+        baseCurrencyValue
+        label
+        moq
+      }
+      category {
+        id
+        teamId
+        name
+        createdAt
+        createdByUserId
+        deletedByUserId
+        deletedAt
+        lastupdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      description
+      favorite
+      assigneeId
+      assignee {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      tags {
+        nextToken
+        startedAt
+      }
+      score
+      attachments {
+        nextToken
+        startedAt
+      }
+      extendedFields {
+        name
+        value
+      }
+      incoTerm
+      harbour
+      masterCbm
+      quantityPer20ft
+      quantityPer40ft
+      quantityPer40ftHC
+      itemDimension {
+        height
+        width
+        length
+        unit
+        itemsQuantity
+        weight
+        weightUnit
+        type
+      }
+      innerCarton {
+        height
+        width
+        length
+        unit
+        itemsQuantity
+        weight
+        weightUnit
+        type
+      }
+      masterCarton {
+        height
+        width
+        length
+        unit
+        itemsQuantity
+        weight
+        weightUnit
+        type
+      }
+      priceMatrix {
+        currency
+        value
+        baseCurrencyValue
+        label
+        moq
+      }
+      leadTime {
+        value
+        unit
+      }
+      sample
+      samplePrice {
+        currency
+        value
+        baseCurrencyValue
+        label
+        moq
+      }
+      projects {
+        nextToken
+        startedAt
+      }
+      archived
+      reference
+      referenceKey
+      createdAt
+      createdByUserId
+      deletedByUSerId
+      deletedAt
+      lastUpdatedByUserId
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    project {
+      id
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      name
+      logoImage {
+        id
+        teamId
+        fileName
+        orientation
+        imageType
+        createdAt
+        createdByUserId
+        deletedByUserId
+        deletedAt
+        lastupdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      description
+      products {
+        nextToken
+        startedAt
+      }
+      createdAt
+      createdByUserId
+      deletedByUSerId
+      deletedAt
+      lastUpdatedByUserId
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation CreateSample(
+  $input: CreateSampleInput!
+  $condition: ModelSampleConditionInput
+) {
+  createSample(input: $input, condition: $condition) {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    name
+    status {
+      id
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      name
+      inWorkflow
+      category
+      step
+      final
+      createdAt
+      createdByUserId
+      deletedByUSerId
+      deletedAt
+      lastUpdatedByUserId
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    assignee {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    description
+    linkedProductId
+    linkedProduct {
+      id
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      name
+      supplier {
+        id
+        teamId
+        name
+        fullName
+        tradingName
+        description
+        website
+        phoneNumber
+        country
+        city
+        address
+        officeEmail
+        officePhone
+        incoTerm
+        harbour
+        generalMOQ
+        generalLeadTime
+        favorite
+        globalDatabaseId
+        archived
+        reference
+        referenceKey
+        createdAt
+        createdByUserId
+        deletedByUSerId
+        deletedAt
+        lastUpdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      images {
+        id
+        teamId
+        fileName
+        orientation
+        imageType
+        createdAt
+        createdByUserId
+        deletedByUserId
+        deletedAt
+        lastupdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      price {
+        currency
+        value
+        baseCurrencyValue
+        label
+        moq
+      }
+      category {
+        id
+        teamId
+        name
+        createdAt
+        createdByUserId
+        deletedByUserId
+        deletedAt
+        lastupdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      description
+      favorite
+      assigneeId
+      assignee {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      tags {
+        nextToken
+        startedAt
+      }
+      score
+      attachments {
+        nextToken
+        startedAt
+      }
+      extendedFields {
+        name
+        value
+      }
+      incoTerm
+      harbour
+      masterCbm
+      quantityPer20ft
+      quantityPer40ft
+      quantityPer40ftHC
+      itemDimension {
+        height
+        width
+        length
+        unit
+        itemsQuantity
+        weight
+        weightUnit
+        type
+      }
+      innerCarton {
+        height
+        width
+        length
+        unit
+        itemsQuantity
+        weight
+        weightUnit
+        type
+      }
+      masterCarton {
+        height
+        width
+        length
+        unit
+        itemsQuantity
+        weight
+        weightUnit
+        type
+      }
+      priceMatrix {
+        currency
+        value
+        baseCurrencyValue
+        label
+        moq
+      }
+      leadTime {
+        value
+        unit
+      }
+      sample
+      samplePrice {
+        currency
+        value
+        baseCurrencyValue
+        label
+        moq
+      }
+      projects {
+        nextToken
+        startedAt
+      }
+      archived
+      reference
+      referenceKey
+      createdAt
+      createdByUserId
+      deletedByUSerId
+      deletedAt
+      lastUpdatedByUserId
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    linkedSupplierId
+    linkedSupplier {
+      id
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      name
+      fullName
+      tradingName
+      description
+      website
+      phoneNumber
+      country
+      city
+      address
+      officeEmail
+      officePhone
+      incoTerm
+      harbour
+      generalMOQ
+      generalLeadTime
+      favorite
+      globalDatabaseId
+      archived
+      reference
+      referenceKey
+      createdAt
+      createdByUserId
+      deletedByUSerId
+      deletedAt
+      lastUpdatedByUserId
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    images {
+      items {
+        id
+        teamId
+        fileName
+        orientation
+        imageType
+        createdAt
+        createdByUserId
+        deletedByUserId
+        deletedAt
+        lastupdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+    price {
+      currency
+      value
+      baseCurrencyValue
+      label
+      moq
+    }
+    paid
+    archived
+    reference
+    referenceKey
+    createdAt
+    createdByUserId
+    deletedByUSerId
+    deletedAt
+    lastUpdatedByUserId
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation UpdateSample(
+  $input: UpdateSampleInput!
+  $condition: ModelSampleConditionInput
+) {
+  updateSample(input: $input, condition: $condition) {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    name
+    status {
+      id
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      name
+      inWorkflow
+      category
+      step
+      final
+      createdAt
+      createdByUserId
+      deletedByUSerId
+      deletedAt
+      lastUpdatedByUserId
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    assignee {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    description
+    linkedProductId
+    linkedProduct {
+      id
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      name
+      supplier {
+        id
+        teamId
+        name
+        fullName
+        tradingName
+        description
+        website
+        phoneNumber
+        country
+        city
+        address
+        officeEmail
+        officePhone
+        incoTerm
+        harbour
+        generalMOQ
+        generalLeadTime
+        favorite
+        globalDatabaseId
+        archived
+        reference
+        referenceKey
+        createdAt
+        createdByUserId
+        deletedByUSerId
+        deletedAt
+        lastUpdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      images {
+        id
+        teamId
+        fileName
+        orientation
+        imageType
+        createdAt
+        createdByUserId
+        deletedByUserId
+        deletedAt
+        lastupdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      price {
+        currency
+        value
+        baseCurrencyValue
+        label
+        moq
+      }
+      category {
+        id
+        teamId
+        name
+        createdAt
+        createdByUserId
+        deletedByUserId
+        deletedAt
+        lastupdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      description
+      favorite
+      assigneeId
+      assignee {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      tags {
+        nextToken
+        startedAt
+      }
+      score
+      attachments {
+        nextToken
+        startedAt
+      }
+      extendedFields {
+        name
+        value
+      }
+      incoTerm
+      harbour
+      masterCbm
+      quantityPer20ft
+      quantityPer40ft
+      quantityPer40ftHC
+      itemDimension {
+        height
+        width
+        length
+        unit
+        itemsQuantity
+        weight
+        weightUnit
+        type
+      }
+      innerCarton {
+        height
+        width
+        length
+        unit
+        itemsQuantity
+        weight
+        weightUnit
+        type
+      }
+      masterCarton {
+        height
+        width
+        length
+        unit
+        itemsQuantity
+        weight
+        weightUnit
+        type
+      }
+      priceMatrix {
+        currency
+        value
+        baseCurrencyValue
+        label
+        moq
+      }
+      leadTime {
+        value
+        unit
+      }
+      sample
+      samplePrice {
+        currency
+        value
+        baseCurrencyValue
+        label
+        moq
+      }
+      projects {
+        nextToken
+        startedAt
+      }
+      archived
+      reference
+      referenceKey
+      createdAt
+      createdByUserId
+      deletedByUSerId
+      deletedAt
+      lastUpdatedByUserId
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    linkedSupplierId
+    linkedSupplier {
+      id
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      name
+      fullName
+      tradingName
+      description
+      website
+      phoneNumber
+      country
+      city
+      address
+      officeEmail
+      officePhone
+      incoTerm
+      harbour
+      generalMOQ
+      generalLeadTime
+      favorite
+      globalDatabaseId
+      archived
+      reference
+      referenceKey
+      createdAt
+      createdByUserId
+      deletedByUSerId
+      deletedAt
+      lastUpdatedByUserId
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    images {
+      items {
+        id
+        teamId
+        fileName
+        orientation
+        imageType
+        createdAt
+        createdByUserId
+        deletedByUserId
+        deletedAt
+        lastupdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+    price {
+      currency
+      value
+      baseCurrencyValue
+      label
+      moq
+    }
+    paid
+    archived
+    reference
+    referenceKey
+    createdAt
+    createdByUserId
+    deletedByUSerId
+    deletedAt
+    lastUpdatedByUserId
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation DeleteSample(
+  $input: DeleteSampleInput!
+  $condition: ModelSampleConditionInput
+) {
+  deleteSample(input: $input, condition: $condition) {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    name
+    status {
+      id
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      name
+      inWorkflow
+      category
+      step
+      final
+      createdAt
+      createdByUserId
+      deletedByUSerId
+      deletedAt
+      lastUpdatedByUserId
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    assignee {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    description
+    linkedProductId
+    linkedProduct {
+      id
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      name
+      supplier {
+        id
+        teamId
+        name
+        fullName
+        tradingName
+        description
+        website
+        phoneNumber
+        country
+        city
+        address
+        officeEmail
+        officePhone
+        incoTerm
+        harbour
+        generalMOQ
+        generalLeadTime
+        favorite
+        globalDatabaseId
+        archived
+        reference
+        referenceKey
+        createdAt
+        createdByUserId
+        deletedByUSerId
+        deletedAt
+        lastUpdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      images {
+        id
+        teamId
+        fileName
+        orientation
+        imageType
+        createdAt
+        createdByUserId
+        deletedByUserId
+        deletedAt
+        lastupdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      price {
+        currency
+        value
+        baseCurrencyValue
+        label
+        moq
+      }
+      category {
+        id
+        teamId
+        name
+        createdAt
+        createdByUserId
+        deletedByUserId
+        deletedAt
+        lastupdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      description
+      favorite
+      assigneeId
+      assignee {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      tags {
+        nextToken
+        startedAt
+      }
+      score
+      attachments {
+        nextToken
+        startedAt
+      }
+      extendedFields {
+        name
+        value
+      }
+      incoTerm
+      harbour
+      masterCbm
+      quantityPer20ft
+      quantityPer40ft
+      quantityPer40ftHC
+      itemDimension {
+        height
+        width
+        length
+        unit
+        itemsQuantity
+        weight
+        weightUnit
+        type
+      }
+      innerCarton {
+        height
+        width
+        length
+        unit
+        itemsQuantity
+        weight
+        weightUnit
+        type
+      }
+      masterCarton {
+        height
+        width
+        length
+        unit
+        itemsQuantity
+        weight
+        weightUnit
+        type
+      }
+      priceMatrix {
+        currency
+        value
+        baseCurrencyValue
+        label
+        moq
+      }
+      leadTime {
+        value
+        unit
+      }
+      sample
+      samplePrice {
+        currency
+        value
+        baseCurrencyValue
+        label
+        moq
+      }
+      projects {
+        nextToken
+        startedAt
+      }
+      archived
+      reference
+      referenceKey
+      createdAt
+      createdByUserId
+      deletedByUSerId
+      deletedAt
+      lastUpdatedByUserId
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    linkedSupplierId
+    linkedSupplier {
+      id
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      name
+      fullName
+      tradingName
+      description
+      website
+      phoneNumber
+      country
+      city
+      address
+      officeEmail
+      officePhone
+      incoTerm
+      harbour
+      generalMOQ
+      generalLeadTime
+      favorite
+      globalDatabaseId
+      archived
+      reference
+      referenceKey
+      createdAt
+      createdByUserId
+      deletedByUSerId
+      deletedAt
+      lastUpdatedByUserId
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    images {
+      items {
+        id
+        teamId
+        fileName
+        orientation
+        imageType
+        createdAt
+        createdByUserId
+        deletedByUserId
+        deletedAt
+        lastupdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+    price {
+      currency
+      value
+      baseCurrencyValue
+      label
+      moq
+    }
+    paid
+    archived
+    reference
+    referenceKey
+    createdAt
+    createdByUserId
+    deletedByUSerId
+    deletedAt
+    lastUpdatedByUserId
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation CreateFieldDefinition(
+  $input: CreateFieldDefinitionInput!
+  $condition: ModelFieldDefinitionConditionInput
+) {
+  createFieldDefinition(input: $input, condition: $condition) {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    label
+    type
+    name
+    default
+    metaData
+    createdAt
+    createdByUserId
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedByUserId
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedAt
+    lastupdatedByUserId
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation UpdateFieldDefinition(
+  $input: UpdateFieldDefinitionInput!
+  $condition: ModelFieldDefinitionConditionInput
+) {
+  updateFieldDefinition(input: $input, condition: $condition) {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    label
+    type
+    name
+    default
+    metaData
+    createdAt
+    createdByUserId
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedByUserId
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedAt
+    lastupdatedByUserId
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation DeleteFieldDefinition(
+  $input: DeleteFieldDefinitionInput!
+  $condition: ModelFieldDefinitionConditionInput
+) {
+  deleteFieldDefinition(input: $input, condition: $condition) {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    label
+    type
+    name
+    default
+    metaData
+    createdAt
+    createdByUserId
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedByUserId
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedAt
+    lastupdatedByUserId
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    lastUpdatedAt
+    deleted
     _version
     _deleted
     _lastChangedAt
@@ -1919,7 +5837,7 @@ mutation CreateCategory(
       _lastChangedAt
     }
     name
-    creationDate
+    createdAt
     createdByUserId
     createdBy {
       id
@@ -1948,7 +5866,7 @@ mutation CreateCategory(
       _deleted
       _lastChangedAt
     }
-    deletionDate
+    deletedAt
     lastupdatedByUserId
     lastUpdatedBy {
       id
@@ -1963,7 +5881,7 @@ mutation CreateCategory(
       _deleted
       _lastChangedAt
     }
-    lastUpdatedDate
+    lastUpdatedAt
     deleted
     _version
     _deleted
@@ -2042,7 +5960,7 @@ mutation UpdateCategory(
       _lastChangedAt
     }
     name
-    creationDate
+    createdAt
     createdByUserId
     createdBy {
       id
@@ -2071,7 +5989,7 @@ mutation UpdateCategory(
       _deleted
       _lastChangedAt
     }
-    deletionDate
+    deletedAt
     lastupdatedByUserId
     lastUpdatedBy {
       id
@@ -2086,7 +6004,7 @@ mutation UpdateCategory(
       _deleted
       _lastChangedAt
     }
-    lastUpdatedDate
+    lastUpdatedAt
     deleted
     _version
     _deleted
@@ -2165,7 +6083,7 @@ mutation DeleteCategory(
       _lastChangedAt
     }
     name
-    creationDate
+    createdAt
     createdByUserId
     createdBy {
       id
@@ -2194,7 +6112,7 @@ mutation DeleteCategory(
       _deleted
       _lastChangedAt
     }
-    deletionDate
+    deletedAt
     lastupdatedByUserId
     lastUpdatedBy {
       id
@@ -2209,7 +6127,421 @@ mutation DeleteCategory(
       _deleted
       _lastChangedAt
     }
-    lastUpdatedDate
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation CreateHelperList(
+  $input: CreateHelperListInput!
+  $condition: ModelhelperListConditionInput
+) {
+  createHelperList(input: $input, condition: $condition) {
+    id
+    helperType
+    code
+    label
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation UpdateHelperList(
+  $input: UpdateHelperListInput!
+  $condition: ModelhelperListConditionInput
+) {
+  updateHelperList(input: $input, condition: $condition) {
+    id
+    helperType
+    code
+    label
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation DeleteHelperList(
+  $input: DeleteHelperListInput!
+  $condition: ModelhelperListConditionInput
+) {
+  deleteHelperList(input: $input, condition: $condition) {
+    id
+    helperType
+    code
+    label
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation CreateComment(
+  $input: CreateCommentInput!
+  $condition: ModelCommentConditionInput
+) {
+  createComment(input: $input, condition: $condition) {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    message
+    nodeId
+    createdAt
+    createdByUserId
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedByUserId
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedAt
+    lastupdatedByUserId
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation UpdateComment(
+  $input: UpdateCommentInput!
+  $condition: ModelCommentConditionInput
+) {
+  updateComment(input: $input, condition: $condition) {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    message
+    nodeId
+    createdAt
+    createdByUserId
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedByUserId
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedAt
+    lastupdatedByUserId
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation DeleteComment(
+  $input: DeleteCommentInput!
+  $condition: ModelCommentConditionInput
+) {
+  deleteComment(input: $input, condition: $condition) {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    message
+    nodeId
+    createdAt
+    createdByUserId
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedByUserId
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedAt
+    lastupdatedByUserId
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    lastUpdatedAt
     deleted
     _version
     _deleted
@@ -2328,18 +6660,18 @@ mutation CreateContact(
       archived
       reference
       referenceKey
-      creationDate
+      createdAt
       createdByUserId
       deletedByUSerId
-      deletionDate
+      deletedAt
       lastUpdatedByUserId
-      lastUpdatedDate
+      lastUpdatedAt
       deleted
       _version
       _deleted
       _lastChangedAt
     }
-    creationDate
+    createdAt
     createdByUserId
     createdBy {
       id
@@ -2368,7 +6700,7 @@ mutation CreateContact(
       _deleted
       _lastChangedAt
     }
-    deletionDate
+    deletedAt
     lastupdatedByUserId
     lastUpdatedBy {
       id
@@ -2383,7 +6715,7 @@ mutation CreateContact(
       _deleted
       _lastChangedAt
     }
-    lastUpdatedDate
+    lastUpdatedAt
     deleted
     _version
     _deleted
@@ -2502,18 +6834,18 @@ mutation UpdateContact(
       archived
       reference
       referenceKey
-      creationDate
+      createdAt
       createdByUserId
       deletedByUSerId
-      deletionDate
+      deletedAt
       lastUpdatedByUserId
-      lastUpdatedDate
+      lastUpdatedAt
       deleted
       _version
       _deleted
       _lastChangedAt
     }
-    creationDate
+    createdAt
     createdByUserId
     createdBy {
       id
@@ -2542,7 +6874,7 @@ mutation UpdateContact(
       _deleted
       _lastChangedAt
     }
-    deletionDate
+    deletedAt
     lastupdatedByUserId
     lastUpdatedBy {
       id
@@ -2557,7 +6889,7 @@ mutation UpdateContact(
       _deleted
       _lastChangedAt
     }
-    lastUpdatedDate
+    lastUpdatedAt
     deleted
     _version
     _deleted
@@ -2676,18 +7008,18 @@ mutation DeleteContact(
       archived
       reference
       referenceKey
-      creationDate
+      createdAt
       createdByUserId
       deletedByUSerId
-      deletionDate
+      deletedAt
       lastUpdatedByUserId
-      lastUpdatedDate
+      lastUpdatedAt
       deleted
       _version
       _deleted
       _lastChangedAt
     }
-    creationDate
+    createdAt
     createdByUserId
     createdBy {
       id
@@ -2716,7 +7048,7 @@ mutation DeleteContact(
       _deleted
       _lastChangedAt
     }
-    deletionDate
+    deletedAt
     lastupdatedByUserId
     lastUpdatedBy {
       id
@@ -2731,7 +7063,202 @@ mutation DeleteContact(
       _deleted
       _lastChangedAt
     }
-    lastUpdatedDate
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation CreateExport(
+  $input: CreateExportInput!
+  $condition: ModelExportConditionInput
+) {
+  createExport(input: $input, condition: $condition) {
+    id
+    teamId
+    format
+    target
+    options
+    query
+    status
+    documentUrl
+    errors
+    createdAt
+    createdByUserId
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedByUserId
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedAt
+    lastupdatedByUserId
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation UpdateExport(
+  $input: UpdateExportInput!
+  $condition: ModelExportConditionInput
+) {
+  updateExport(input: $input, condition: $condition) {
+    id
+    teamId
+    format
+    target
+    options
+    query
+    status
+    documentUrl
+    errors
+    createdAt
+    createdByUserId
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedByUserId
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedAt
+    lastupdatedByUserId
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation DeleteExport(
+  $input: DeleteExportInput!
+  $condition: ModelExportConditionInput
+) {
+  deleteExport(input: $input, condition: $condition) {
+    id
+    teamId
+    format
+    target
+    options
+    query
+    status
+    documentUrl
+    errors
+    createdAt
+    createdByUserId
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedByUserId
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedAt
+    lastupdatedByUserId
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    lastUpdatedAt
     deleted
     _version
     _deleted
@@ -2812,7 +7339,7 @@ mutation CreateImage(
     fileName
     orientation
     imageType
-    creationDate
+    createdAt
     createdByUserId
     createdBy {
       id
@@ -2841,7 +7368,7 @@ mutation CreateImage(
       _deleted
       _lastChangedAt
     }
-    deletionDate
+    deletedAt
     lastupdatedByUserId
     lastUpdatedBy {
       id
@@ -2856,7 +7383,7 @@ mutation CreateImage(
       _deleted
       _lastChangedAt
     }
-    lastUpdatedDate
+    lastUpdatedAt
     deleted
     _version
     _deleted
@@ -2937,7 +7464,7 @@ mutation UpdateImage(
     fileName
     orientation
     imageType
-    creationDate
+    createdAt
     createdByUserId
     createdBy {
       id
@@ -2966,7 +7493,7 @@ mutation UpdateImage(
       _deleted
       _lastChangedAt
     }
-    deletionDate
+    deletedAt
     lastupdatedByUserId
     lastUpdatedBy {
       id
@@ -2981,7 +7508,7 @@ mutation UpdateImage(
       _deleted
       _lastChangedAt
     }
-    lastUpdatedDate
+    lastUpdatedAt
     deleted
     _version
     _deleted
@@ -3062,7 +7589,7 @@ mutation DeleteImage(
     fileName
     orientation
     imageType
-    creationDate
+    createdAt
     createdByUserId
     createdBy {
       id
@@ -3091,7 +7618,7 @@ mutation DeleteImage(
       _deleted
       _lastChangedAt
     }
-    deletionDate
+    deletedAt
     lastupdatedByUserId
     lastUpdatedBy {
       id
@@ -3106,8 +7633,2000 @@ mutation DeleteImage(
       _deleted
       _lastChangedAt
     }
-    lastUpdatedDate
+    lastUpdatedAt
     deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation CreateEvent(
+  $input: CreateEventInput!
+  $condition: ModelEventConditionInput
+) {
+  createEvent(input: $input, condition: $condition) {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    global
+    name
+    description {
+      id
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      name
+      description
+      website
+      startDate
+      endDate
+      countryCode
+      venue {
+        id
+        teamId
+        city
+        name
+        latitude
+        country
+        longitude
+        addressFull
+        createdAt
+        createdByUserId
+        deletedByUserId
+        deletedAt
+        lastupdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      logoImage {
+        id
+        teamId
+        fileName
+        orientation
+        imageType
+        createdAt
+        createdByUserId
+        deletedByUserId
+        deletedAt
+        lastupdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      global
+      supplierCount
+      industry {
+        id
+        name
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      primaryColor
+      secondaryColor
+      createdAt
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedByUserId
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedAt
+      lastupdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    createdAt
+    createdByUserId
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedByUserId
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedAt
+    lastupdatedByUserId
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation UpdateEvent(
+  $input: UpdateEventInput!
+  $condition: ModelEventConditionInput
+) {
+  updateEvent(input: $input, condition: $condition) {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    global
+    name
+    description {
+      id
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      name
+      description
+      website
+      startDate
+      endDate
+      countryCode
+      venue {
+        id
+        teamId
+        city
+        name
+        latitude
+        country
+        longitude
+        addressFull
+        createdAt
+        createdByUserId
+        deletedByUserId
+        deletedAt
+        lastupdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      logoImage {
+        id
+        teamId
+        fileName
+        orientation
+        imageType
+        createdAt
+        createdByUserId
+        deletedByUserId
+        deletedAt
+        lastupdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      global
+      supplierCount
+      industry {
+        id
+        name
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      primaryColor
+      secondaryColor
+      createdAt
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedByUserId
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedAt
+      lastupdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    createdAt
+    createdByUserId
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedByUserId
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedAt
+    lastupdatedByUserId
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation DeleteEvent(
+  $input: DeleteEventInput!
+  $condition: ModelEventConditionInput
+) {
+  deleteEvent(input: $input, condition: $condition) {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    global
+    name
+    description {
+      id
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      name
+      description
+      website
+      startDate
+      endDate
+      countryCode
+      venue {
+        id
+        teamId
+        city
+        name
+        latitude
+        country
+        longitude
+        addressFull
+        createdAt
+        createdByUserId
+        deletedByUserId
+        deletedAt
+        lastupdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      logoImage {
+        id
+        teamId
+        fileName
+        orientation
+        imageType
+        createdAt
+        createdByUserId
+        deletedByUserId
+        deletedAt
+        lastupdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      global
+      supplierCount
+      industry {
+        id
+        name
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      primaryColor
+      secondaryColor
+      createdAt
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedByUserId
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedAt
+      lastupdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    createdAt
+    createdByUserId
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedByUserId
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedAt
+    lastupdatedByUserId
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation CreateEventDescription(
+  $input: CreateEventDescriptionInput!
+  $condition: ModelEventDescriptionConditionInput
+) {
+  createEventDescription(input: $input, condition: $condition) {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    name
+    description
+    website
+    startDate
+    endDate
+    countryCode
+    venue {
+      id
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      city
+      name
+      latitude
+      country
+      longitude
+      addressFull
+      createdAt
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedByUserId
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedAt
+      lastupdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    logoImage {
+      id
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      fileName
+      orientation
+      imageType
+      createdAt
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedByUserId
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedAt
+      lastupdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    global
+    supplierCount
+    industry {
+      id
+      name
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    primaryColor
+    secondaryColor
+    createdAt
+    createdByUserId
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedByUserId
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedAt
+    lastupdatedByUserId
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation UpdateEventDescription(
+  $input: UpdateEventDescriptionInput!
+  $condition: ModelEventDescriptionConditionInput
+) {
+  updateEventDescription(input: $input, condition: $condition) {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    name
+    description
+    website
+    startDate
+    endDate
+    countryCode
+    venue {
+      id
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      city
+      name
+      latitude
+      country
+      longitude
+      addressFull
+      createdAt
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedByUserId
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedAt
+      lastupdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    logoImage {
+      id
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      fileName
+      orientation
+      imageType
+      createdAt
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedByUserId
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedAt
+      lastupdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    global
+    supplierCount
+    industry {
+      id
+      name
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    primaryColor
+    secondaryColor
+    createdAt
+    createdByUserId
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedByUserId
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedAt
+    lastupdatedByUserId
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation DeleteEventDescription(
+  $input: DeleteEventDescriptionInput!
+  $condition: ModelEventDescriptionConditionInput
+) {
+  deleteEventDescription(input: $input, condition: $condition) {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    name
+    description
+    website
+    startDate
+    endDate
+    countryCode
+    venue {
+      id
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      city
+      name
+      latitude
+      country
+      longitude
+      addressFull
+      createdAt
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedByUserId
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedAt
+      lastupdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    logoImage {
+      id
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      fileName
+      orientation
+      imageType
+      createdAt
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedByUserId
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedAt
+      lastupdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    global
+    supplierCount
+    industry {
+      id
+      name
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    primaryColor
+    secondaryColor
+    createdAt
+    createdByUserId
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedByUserId
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedAt
+    lastupdatedByUserId
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation CreateVenue(
+  $input: CreateVenueInput!
+  $condition: ModelVenueConditionInput
+) {
+  createVenue(input: $input, condition: $condition) {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    city
+    name
+    latitude
+    country
+    longitude
+    addressFull
+    createdAt
+    createdByUserId
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedByUserId
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedAt
+    lastupdatedByUserId
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation UpdateVenue(
+  $input: UpdateVenueInput!
+  $condition: ModelVenueConditionInput
+) {
+  updateVenue(input: $input, condition: $condition) {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    city
+    name
+    latitude
+    country
+    longitude
+    addressFull
+    createdAt
+    createdByUserId
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedByUserId
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedAt
+    lastupdatedByUserId
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation DeleteVenue(
+  $input: DeleteVenueInput!
+  $condition: ModelVenueConditionInput
+) {
+  deleteVenue(input: $input, condition: $condition) {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    city
+    name
+    latitude
+    country
+    longitude
+    addressFull
+    createdAt
+    createdByUserId
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedByUserId
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedAt
+    lastupdatedByUserId
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation CreateIndustry(
+  $input: CreateIndustryInput!
+  $condition: ModelIndustryConditionInput
+) {
+  createIndustry(input: $input, condition: $condition) {
+    id
+    name
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation UpdateIndustry(
+  $input: UpdateIndustryInput!
+  $condition: ModelIndustryConditionInput
+) {
+  updateIndustry(input: $input, condition: $condition) {
+    id
+    name
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation DeleteIndustry(
+  $input: DeleteIndustryInput!
+  $condition: ModelIndustryConditionInput
+) {
+  deleteIndustry(input: $input, condition: $condition) {
+    id
+    name
     _version
     _deleted
     _lastChangedAt
@@ -3243,12 +9762,12 @@ mutation CreateTask(
         archived
         reference
         referenceKey
-        creationDate
+        createdAt
         createdByUserId
         deletedByUSerId
-        deletionDate
+        deletedAt
         lastUpdatedByUserId
-        lastUpdatedDate
+        lastUpdatedAt
         deleted
         _version
         _deleted
@@ -3260,12 +9779,12 @@ mutation CreateTask(
         fileName
         orientation
         imageType
-        creationDate
+        createdAt
         createdByUserId
         deletedByUserId
-        deletionDate
+        deletedAt
         lastupdatedByUserId
-        lastUpdatedDate
+        lastUpdatedAt
         deleted
         _version
         _deleted
@@ -3275,17 +9794,19 @@ mutation CreateTask(
         currency
         value
         baseCurrencyValue
+        label
+        moq
       }
       category {
         id
         teamId
         name
-        creationDate
+        createdAt
         createdByUserId
         deletedByUserId
-        deletionDate
+        deletedAt
         lastupdatedByUserId
-        lastUpdatedDate
+        lastUpdatedAt
         deleted
         _version
         _deleted
@@ -3307,32 +9828,87 @@ mutation CreateTask(
         _deleted
         _lastChangedAt
       }
-      minimumOrderQuantity
-      moqDescription
+      tags {
+        nextToken
+        startedAt
+      }
       score
+      attachments {
+        nextToken
+        startedAt
+      }
+      extendedFields {
+        name
+        value
+      }
       incoTerm
       harbour
       masterCbm
       quantityPer20ft
       quantityPer40ft
       quantityPer40ftHC
-      leadTimeValue
-      leadTimeUnit
+      itemDimension {
+        height
+        width
+        length
+        unit
+        itemsQuantity
+        weight
+        weightUnit
+        type
+      }
+      innerCarton {
+        height
+        width
+        length
+        unit
+        itemsQuantity
+        weight
+        weightUnit
+        type
+      }
+      masterCarton {
+        height
+        width
+        length
+        unit
+        itemsQuantity
+        weight
+        weightUnit
+        type
+      }
+      priceMatrix {
+        currency
+        value
+        baseCurrencyValue
+        label
+        moq
+      }
+      leadTime {
+        value
+        unit
+      }
       sample
       samplePrice {
         currency
         value
         baseCurrencyValue
+        label
+        moq
+      }
+      projects {
+        nextToken
+        startedAt
       }
       archived
       reference
       referenceKey
-      creationDate
+      createdAt
       createdByUserId
       deletedByUSerId
-      deletionDate
+      deletedAt
       lastUpdatedByUserId
-      lastUpdatedDate
+      lastUpdatedAt
       deleted
       _version
       _deleted
@@ -3374,12 +9950,12 @@ mutation CreateTask(
       archived
       reference
       referenceKey
-      creationDate
+      createdAt
       createdByUserId
       deletedByUSerId
-      deletionDate
+      deletedAt
       lastUpdatedByUserId
-      lastUpdatedDate
+      lastUpdatedAt
       deleted
       _version
       _deleted
@@ -3388,12 +9964,12 @@ mutation CreateTask(
     reference
     referenceKey
     inProgress
-    creationDate
+    createdAt
     createdByUserId
     deletedByUSerId
-    deletionDate
+    deletedAt
     lastUpdatedByUserId
-    lastUpdatedDate
+    lastUpdatedAt
     deleted
     _version
     _deleted
@@ -3530,12 +10106,12 @@ mutation UpdateTask(
         archived
         reference
         referenceKey
-        creationDate
+        createdAt
         createdByUserId
         deletedByUSerId
-        deletionDate
+        deletedAt
         lastUpdatedByUserId
-        lastUpdatedDate
+        lastUpdatedAt
         deleted
         _version
         _deleted
@@ -3547,12 +10123,12 @@ mutation UpdateTask(
         fileName
         orientation
         imageType
-        creationDate
+        createdAt
         createdByUserId
         deletedByUserId
-        deletionDate
+        deletedAt
         lastupdatedByUserId
-        lastUpdatedDate
+        lastUpdatedAt
         deleted
         _version
         _deleted
@@ -3562,17 +10138,19 @@ mutation UpdateTask(
         currency
         value
         baseCurrencyValue
+        label
+        moq
       }
       category {
         id
         teamId
         name
-        creationDate
+        createdAt
         createdByUserId
         deletedByUserId
-        deletionDate
+        deletedAt
         lastupdatedByUserId
-        lastUpdatedDate
+        lastUpdatedAt
         deleted
         _version
         _deleted
@@ -3594,32 +10172,87 @@ mutation UpdateTask(
         _deleted
         _lastChangedAt
       }
-      minimumOrderQuantity
-      moqDescription
+      tags {
+        nextToken
+        startedAt
+      }
       score
+      attachments {
+        nextToken
+        startedAt
+      }
+      extendedFields {
+        name
+        value
+      }
       incoTerm
       harbour
       masterCbm
       quantityPer20ft
       quantityPer40ft
       quantityPer40ftHC
-      leadTimeValue
-      leadTimeUnit
+      itemDimension {
+        height
+        width
+        length
+        unit
+        itemsQuantity
+        weight
+        weightUnit
+        type
+      }
+      innerCarton {
+        height
+        width
+        length
+        unit
+        itemsQuantity
+        weight
+        weightUnit
+        type
+      }
+      masterCarton {
+        height
+        width
+        length
+        unit
+        itemsQuantity
+        weight
+        weightUnit
+        type
+      }
+      priceMatrix {
+        currency
+        value
+        baseCurrencyValue
+        label
+        moq
+      }
+      leadTime {
+        value
+        unit
+      }
       sample
       samplePrice {
         currency
         value
         baseCurrencyValue
+        label
+        moq
+      }
+      projects {
+        nextToken
+        startedAt
       }
       archived
       reference
       referenceKey
-      creationDate
+      createdAt
       createdByUserId
       deletedByUSerId
-      deletionDate
+      deletedAt
       lastUpdatedByUserId
-      lastUpdatedDate
+      lastUpdatedAt
       deleted
       _version
       _deleted
@@ -3661,12 +10294,12 @@ mutation UpdateTask(
       archived
       reference
       referenceKey
-      creationDate
+      createdAt
       createdByUserId
       deletedByUSerId
-      deletionDate
+      deletedAt
       lastUpdatedByUserId
-      lastUpdatedDate
+      lastUpdatedAt
       deleted
       _version
       _deleted
@@ -3675,12 +10308,12 @@ mutation UpdateTask(
     reference
     referenceKey
     inProgress
-    creationDate
+    createdAt
     createdByUserId
     deletedByUSerId
-    deletionDate
+    deletedAt
     lastUpdatedByUserId
-    lastUpdatedDate
+    lastUpdatedAt
     deleted
     _version
     _deleted
@@ -3817,12 +10450,12 @@ mutation DeleteTask(
         archived
         reference
         referenceKey
-        creationDate
+        createdAt
         createdByUserId
         deletedByUSerId
-        deletionDate
+        deletedAt
         lastUpdatedByUserId
-        lastUpdatedDate
+        lastUpdatedAt
         deleted
         _version
         _deleted
@@ -3834,12 +10467,12 @@ mutation DeleteTask(
         fileName
         orientation
         imageType
-        creationDate
+        createdAt
         createdByUserId
         deletedByUserId
-        deletionDate
+        deletedAt
         lastupdatedByUserId
-        lastUpdatedDate
+        lastUpdatedAt
         deleted
         _version
         _deleted
@@ -3849,17 +10482,19 @@ mutation DeleteTask(
         currency
         value
         baseCurrencyValue
+        label
+        moq
       }
       category {
         id
         teamId
         name
-        creationDate
+        createdAt
         createdByUserId
         deletedByUserId
-        deletionDate
+        deletedAt
         lastupdatedByUserId
-        lastUpdatedDate
+        lastUpdatedAt
         deleted
         _version
         _deleted
@@ -3881,32 +10516,87 @@ mutation DeleteTask(
         _deleted
         _lastChangedAt
       }
-      minimumOrderQuantity
-      moqDescription
+      tags {
+        nextToken
+        startedAt
+      }
       score
+      attachments {
+        nextToken
+        startedAt
+      }
+      extendedFields {
+        name
+        value
+      }
       incoTerm
       harbour
       masterCbm
       quantityPer20ft
       quantityPer40ft
       quantityPer40ftHC
-      leadTimeValue
-      leadTimeUnit
+      itemDimension {
+        height
+        width
+        length
+        unit
+        itemsQuantity
+        weight
+        weightUnit
+        type
+      }
+      innerCarton {
+        height
+        width
+        length
+        unit
+        itemsQuantity
+        weight
+        weightUnit
+        type
+      }
+      masterCarton {
+        height
+        width
+        length
+        unit
+        itemsQuantity
+        weight
+        weightUnit
+        type
+      }
+      priceMatrix {
+        currency
+        value
+        baseCurrencyValue
+        label
+        moq
+      }
+      leadTime {
+        value
+        unit
+      }
       sample
       samplePrice {
         currency
         value
         baseCurrencyValue
+        label
+        moq
+      }
+      projects {
+        nextToken
+        startedAt
       }
       archived
       reference
       referenceKey
-      creationDate
+      createdAt
       createdByUserId
       deletedByUSerId
-      deletionDate
+      deletedAt
       lastUpdatedByUserId
-      lastUpdatedDate
+      lastUpdatedAt
       deleted
       _version
       _deleted
@@ -3948,12 +10638,12 @@ mutation DeleteTask(
       archived
       reference
       referenceKey
-      creationDate
+      createdAt
       createdByUserId
       deletedByUSerId
-      deletionDate
+      deletedAt
       lastUpdatedByUserId
-      lastUpdatedDate
+      lastUpdatedAt
       deleted
       _version
       _deleted
@@ -3962,12 +10652,1056 @@ mutation DeleteTask(
     reference
     referenceKey
     inProgress
-    creationDate
+    createdAt
     createdByUserId
     deletedByUSerId
-    deletionDate
+    deletedAt
     lastUpdatedByUserId
-    lastUpdatedDate
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation CreateTag(
+  $input: CreateTagInput!
+  $condition: ModelTagConditionInput
+) {
+  createTag(input: $input, condition: $condition) {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    name
+    createdAt
+    createdByUserId
+    deletedByUSerId
+    deletedAt
+    lastUpdatedByUserId
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation UpdateTag(
+  $input: UpdateTagInput!
+  $condition: ModelTagConditionInput
+) {
+  updateTag(input: $input, condition: $condition) {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    name
+    createdAt
+    createdByUserId
+    deletedByUSerId
+    deletedAt
+    lastUpdatedByUserId
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation DeleteTag(
+  $input: DeleteTagInput!
+  $condition: ModelTagConditionInput
+) {
+  deleteTag(input: $input, condition: $condition) {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    name
+    createdAt
+    createdByUserId
+    deletedByUSerId
+    deletedAt
+    lastUpdatedByUserId
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation CreateSampleStatus(
+  $input: CreateSampleStatusInput!
+  $condition: ModelSampleStatusConditionInput
+) {
+  createSampleStatus(input: $input, condition: $condition) {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    name
+    inWorkflow
+    category
+    step
+    final
+    createdAt
+    createdByUserId
+    deletedByUSerId
+    deletedAt
+    lastUpdatedByUserId
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation UpdateSampleStatus(
+  $input: UpdateSampleStatusInput!
+  $condition: ModelSampleStatusConditionInput
+) {
+  updateSampleStatus(input: $input, condition: $condition) {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    name
+    inWorkflow
+    category
+    step
+    final
+    createdAt
+    createdByUserId
+    deletedByUSerId
+    deletedAt
+    lastUpdatedByUserId
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation DeleteSampleStatus(
+  $input: DeleteSampleStatusInput!
+  $condition: ModelSampleStatusConditionInput
+) {
+  deleteSampleStatus(input: $input, condition: $condition) {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    name
+    inWorkflow
+    category
+    step
+    final
+    createdAt
+    createdByUserId
+    deletedByUSerId
+    deletedAt
+    lastUpdatedByUserId
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation CreateProductStatus(
+  $input: CreateProductStatusInput!
+  $condition: ModelProductStatusConditionInput
+) {
+  createProductStatus(input: $input, condition: $condition) {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    name
+    inWorkflow
+    category
+    step
+    final
+    createdAt
+    createdByUserId
+    deletedByUSerId
+    deletedAt
+    lastUpdatedByUserId
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation UpdateProductStatus(
+  $input: UpdateProductStatusInput!
+  $condition: ModelProductStatusConditionInput
+) {
+  updateProductStatus(input: $input, condition: $condition) {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    name
+    inWorkflow
+    category
+    step
+    final
+    createdAt
+    createdByUserId
+    deletedByUSerId
+    deletedAt
+    lastUpdatedByUserId
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation DeleteProductStatus(
+  $input: DeleteProductStatusInput!
+  $condition: ModelProductStatusConditionInput
+) {
+  deleteProductStatus(input: $input, condition: $condition) {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    name
+    inWorkflow
+    category
+    step
+    final
+    createdAt
+    createdByUserId
+    deletedByUSerId
+    deletedAt
+    lastUpdatedByUserId
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation CreateSupplierStatus(
+  $input: CreateSupplierStatusInput!
+  $condition: ModelSupplierStatusConditionInput
+) {
+  createSupplierStatus(input: $input, condition: $condition) {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    name
+    inWorkflow
+    category
+    step
+    final
+    createdAt
+    createdByUserId
+    deletedByUSerId
+    deletedAt
+    lastUpdatedByUserId
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation UpdateSupplierStatus(
+  $input: UpdateSupplierStatusInput!
+  $condition: ModelSupplierStatusConditionInput
+) {
+  updateSupplierStatus(input: $input, condition: $condition) {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    name
+    inWorkflow
+    category
+    step
+    final
+    createdAt
+    createdByUserId
+    deletedByUSerId
+    deletedAt
+    lastUpdatedByUserId
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation DeleteSupplierStatus(
+  $input: DeleteSupplierStatusInput!
+  $condition: ModelSupplierStatusConditionInput
+) {
+  deleteSupplierStatus(input: $input, condition: $condition) {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    name
+    inWorkflow
+    category
+    step
+    final
+    createdAt
+    createdByUserId
+    deletedByUSerId
+    deletedAt
+    lastUpdatedByUserId
+    lastUpdatedAt
     deleted
     _version
     _deleted

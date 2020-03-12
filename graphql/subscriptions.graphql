@@ -1,4 +1,316 @@
 # this is an auto generated file. This will be overwritten
+subscription OnCreateInvitation {
+  onCreateInvitation {
+    id
+    teamId
+    email
+    firstName
+    lastName
+    status
+    secret
+    createdAt
+    createdByUserId
+    deletedByUSerId
+    deletedAt
+    lastUpdatedByUserId
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnUpdateInvitation {
+  onUpdateInvitation {
+    id
+    teamId
+    email
+    firstName
+    lastName
+    status
+    secret
+    createdAt
+    createdByUserId
+    deletedByUSerId
+    deletedAt
+    lastUpdatedByUserId
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnDeleteInvitation {
+  onDeleteInvitation {
+    id
+    teamId
+    email
+    firstName
+    lastName
+    status
+    secret
+    createdAt
+    createdByUserId
+    deletedByUSerId
+    deletedAt
+    lastUpdatedByUserId
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnCreateAttachment {
+  onCreateAttachment {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    fileName
+    url
+    size
+    createdAt
+    createdByUserId
+    deletedByUSerId
+    deletedAt
+    lastUpdatedByUserId
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnUpdateAttachment {
+  onUpdateAttachment {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    fileName
+    url
+    size
+    createdAt
+    createdByUserId
+    deletedByUSerId
+    deletedAt
+    lastUpdatedByUserId
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnDeleteAttachment {
+  onDeleteAttachment {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    fileName
+    url
+    size
+    createdAt
+    createdByUserId
+    deletedByUSerId
+    deletedAt
+    lastUpdatedByUserId
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
 subscription OnCreateDescriptor {
   onCreateDescriptor {
     id
@@ -6,15 +318,61 @@ subscription OnCreateDescriptor {
     sections {
       name
       fields {
-        name
-        label
-        type
+        fieldId
         defaultValue
         fixedValue
+        required
         metadata
       }
     }
     target
+    name
+    createdAt
+    createdByUserId
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedByUserId
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedAt
+    lastupdatedByUserId
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    lastUpdatedAt
+    deleted
     _version
     _deleted
     _lastChangedAt
@@ -27,15 +385,61 @@ subscription OnUpdateDescriptor {
     sections {
       name
       fields {
-        name
-        label
-        type
+        fieldId
         defaultValue
         fixedValue
+        required
         metadata
       }
     }
     target
+    name
+    createdAt
+    createdByUserId
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedByUserId
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedAt
+    lastupdatedByUserId
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    lastUpdatedAt
+    deleted
     _version
     _deleted
     _lastChangedAt
@@ -48,15 +452,3076 @@ subscription OnDeleteDescriptor {
     sections {
       name
       fields {
-        name
-        label
-        type
+        fieldId
         defaultValue
         fixedValue
+        required
         metadata
       }
     }
     target
+    name
+    createdAt
+    createdByUserId
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedByUserId
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedAt
+    lastupdatedByUserId
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnCreateProject {
+  onCreateProject {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    name
+    logoImage {
+      id
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      fileName
+      orientation
+      imageType
+      createdAt
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedByUserId
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedAt
+      lastupdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    description
+    products {
+      items {
+        id
+        teamId
+        projectId
+        productId
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+    createdAt
+    createdByUserId
+    deletedByUSerId
+    deletedAt
+    lastUpdatedByUserId
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnUpdateProject {
+  onUpdateProject {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    name
+    logoImage {
+      id
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      fileName
+      orientation
+      imageType
+      createdAt
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedByUserId
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedAt
+      lastupdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    description
+    products {
+      items {
+        id
+        teamId
+        projectId
+        productId
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+    createdAt
+    createdByUserId
+    deletedByUSerId
+    deletedAt
+    lastUpdatedByUserId
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnDeleteProject {
+  onDeleteProject {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    name
+    logoImage {
+      id
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      fileName
+      orientation
+      imageType
+      createdAt
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedByUserId
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedAt
+      lastupdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    description
+    products {
+      items {
+        id
+        teamId
+        projectId
+        productId
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+    createdAt
+    createdByUserId
+    deletedByUSerId
+    deletedAt
+    lastUpdatedByUserId
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnCreateProjectProduct {
+  onCreateProjectProduct {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    projectId
+    productId
+    product {
+      id
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      name
+      supplier {
+        id
+        teamId
+        name
+        fullName
+        tradingName
+        description
+        website
+        phoneNumber
+        country
+        city
+        address
+        officeEmail
+        officePhone
+        incoTerm
+        harbour
+        generalMOQ
+        generalLeadTime
+        favorite
+        globalDatabaseId
+        archived
+        reference
+        referenceKey
+        createdAt
+        createdByUserId
+        deletedByUSerId
+        deletedAt
+        lastUpdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      images {
+        id
+        teamId
+        fileName
+        orientation
+        imageType
+        createdAt
+        createdByUserId
+        deletedByUserId
+        deletedAt
+        lastupdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      price {
+        currency
+        value
+        baseCurrencyValue
+        label
+        moq
+      }
+      category {
+        id
+        teamId
+        name
+        createdAt
+        createdByUserId
+        deletedByUserId
+        deletedAt
+        lastupdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      description
+      favorite
+      assigneeId
+      assignee {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      tags {
+        nextToken
+        startedAt
+      }
+      score
+      attachments {
+        nextToken
+        startedAt
+      }
+      extendedFields {
+        name
+        value
+      }
+      incoTerm
+      harbour
+      masterCbm
+      quantityPer20ft
+      quantityPer40ft
+      quantityPer40ftHC
+      itemDimension {
+        height
+        width
+        length
+        unit
+        itemsQuantity
+        weight
+        weightUnit
+        type
+      }
+      innerCarton {
+        height
+        width
+        length
+        unit
+        itemsQuantity
+        weight
+        weightUnit
+        type
+      }
+      masterCarton {
+        height
+        width
+        length
+        unit
+        itemsQuantity
+        weight
+        weightUnit
+        type
+      }
+      priceMatrix {
+        currency
+        value
+        baseCurrencyValue
+        label
+        moq
+      }
+      leadTime {
+        value
+        unit
+      }
+      sample
+      samplePrice {
+        currency
+        value
+        baseCurrencyValue
+        label
+        moq
+      }
+      projects {
+        nextToken
+        startedAt
+      }
+      archived
+      reference
+      referenceKey
+      createdAt
+      createdByUserId
+      deletedByUSerId
+      deletedAt
+      lastUpdatedByUserId
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    project {
+      id
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      name
+      logoImage {
+        id
+        teamId
+        fileName
+        orientation
+        imageType
+        createdAt
+        createdByUserId
+        deletedByUserId
+        deletedAt
+        lastupdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      description
+      products {
+        nextToken
+        startedAt
+      }
+      createdAt
+      createdByUserId
+      deletedByUSerId
+      deletedAt
+      lastUpdatedByUserId
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnUpdateProjectProduct {
+  onUpdateProjectProduct {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    projectId
+    productId
+    product {
+      id
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      name
+      supplier {
+        id
+        teamId
+        name
+        fullName
+        tradingName
+        description
+        website
+        phoneNumber
+        country
+        city
+        address
+        officeEmail
+        officePhone
+        incoTerm
+        harbour
+        generalMOQ
+        generalLeadTime
+        favorite
+        globalDatabaseId
+        archived
+        reference
+        referenceKey
+        createdAt
+        createdByUserId
+        deletedByUSerId
+        deletedAt
+        lastUpdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      images {
+        id
+        teamId
+        fileName
+        orientation
+        imageType
+        createdAt
+        createdByUserId
+        deletedByUserId
+        deletedAt
+        lastupdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      price {
+        currency
+        value
+        baseCurrencyValue
+        label
+        moq
+      }
+      category {
+        id
+        teamId
+        name
+        createdAt
+        createdByUserId
+        deletedByUserId
+        deletedAt
+        lastupdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      description
+      favorite
+      assigneeId
+      assignee {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      tags {
+        nextToken
+        startedAt
+      }
+      score
+      attachments {
+        nextToken
+        startedAt
+      }
+      extendedFields {
+        name
+        value
+      }
+      incoTerm
+      harbour
+      masterCbm
+      quantityPer20ft
+      quantityPer40ft
+      quantityPer40ftHC
+      itemDimension {
+        height
+        width
+        length
+        unit
+        itemsQuantity
+        weight
+        weightUnit
+        type
+      }
+      innerCarton {
+        height
+        width
+        length
+        unit
+        itemsQuantity
+        weight
+        weightUnit
+        type
+      }
+      masterCarton {
+        height
+        width
+        length
+        unit
+        itemsQuantity
+        weight
+        weightUnit
+        type
+      }
+      priceMatrix {
+        currency
+        value
+        baseCurrencyValue
+        label
+        moq
+      }
+      leadTime {
+        value
+        unit
+      }
+      sample
+      samplePrice {
+        currency
+        value
+        baseCurrencyValue
+        label
+        moq
+      }
+      projects {
+        nextToken
+        startedAt
+      }
+      archived
+      reference
+      referenceKey
+      createdAt
+      createdByUserId
+      deletedByUSerId
+      deletedAt
+      lastUpdatedByUserId
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    project {
+      id
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      name
+      logoImage {
+        id
+        teamId
+        fileName
+        orientation
+        imageType
+        createdAt
+        createdByUserId
+        deletedByUserId
+        deletedAt
+        lastupdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      description
+      products {
+        nextToken
+        startedAt
+      }
+      createdAt
+      createdByUserId
+      deletedByUSerId
+      deletedAt
+      lastUpdatedByUserId
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnDeleteProjectProduct {
+  onDeleteProjectProduct {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    projectId
+    productId
+    product {
+      id
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      name
+      supplier {
+        id
+        teamId
+        name
+        fullName
+        tradingName
+        description
+        website
+        phoneNumber
+        country
+        city
+        address
+        officeEmail
+        officePhone
+        incoTerm
+        harbour
+        generalMOQ
+        generalLeadTime
+        favorite
+        globalDatabaseId
+        archived
+        reference
+        referenceKey
+        createdAt
+        createdByUserId
+        deletedByUSerId
+        deletedAt
+        lastUpdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      images {
+        id
+        teamId
+        fileName
+        orientation
+        imageType
+        createdAt
+        createdByUserId
+        deletedByUserId
+        deletedAt
+        lastupdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      price {
+        currency
+        value
+        baseCurrencyValue
+        label
+        moq
+      }
+      category {
+        id
+        teamId
+        name
+        createdAt
+        createdByUserId
+        deletedByUserId
+        deletedAt
+        lastupdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      description
+      favorite
+      assigneeId
+      assignee {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      tags {
+        nextToken
+        startedAt
+      }
+      score
+      attachments {
+        nextToken
+        startedAt
+      }
+      extendedFields {
+        name
+        value
+      }
+      incoTerm
+      harbour
+      masterCbm
+      quantityPer20ft
+      quantityPer40ft
+      quantityPer40ftHC
+      itemDimension {
+        height
+        width
+        length
+        unit
+        itemsQuantity
+        weight
+        weightUnit
+        type
+      }
+      innerCarton {
+        height
+        width
+        length
+        unit
+        itemsQuantity
+        weight
+        weightUnit
+        type
+      }
+      masterCarton {
+        height
+        width
+        length
+        unit
+        itemsQuantity
+        weight
+        weightUnit
+        type
+      }
+      priceMatrix {
+        currency
+        value
+        baseCurrencyValue
+        label
+        moq
+      }
+      leadTime {
+        value
+        unit
+      }
+      sample
+      samplePrice {
+        currency
+        value
+        baseCurrencyValue
+        label
+        moq
+      }
+      projects {
+        nextToken
+        startedAt
+      }
+      archived
+      reference
+      referenceKey
+      createdAt
+      createdByUserId
+      deletedByUSerId
+      deletedAt
+      lastUpdatedByUserId
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    project {
+      id
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      name
+      logoImage {
+        id
+        teamId
+        fileName
+        orientation
+        imageType
+        createdAt
+        createdByUserId
+        deletedByUserId
+        deletedAt
+        lastupdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      description
+      products {
+        nextToken
+        startedAt
+      }
+      createdAt
+      createdByUserId
+      deletedByUSerId
+      deletedAt
+      lastUpdatedByUserId
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnCreateSample {
+  onCreateSample {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    name
+    status {
+      id
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      name
+      inWorkflow
+      category
+      step
+      final
+      createdAt
+      createdByUserId
+      deletedByUSerId
+      deletedAt
+      lastUpdatedByUserId
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    assignee {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    description
+    linkedProductId
+    linkedProduct {
+      id
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      name
+      supplier {
+        id
+        teamId
+        name
+        fullName
+        tradingName
+        description
+        website
+        phoneNumber
+        country
+        city
+        address
+        officeEmail
+        officePhone
+        incoTerm
+        harbour
+        generalMOQ
+        generalLeadTime
+        favorite
+        globalDatabaseId
+        archived
+        reference
+        referenceKey
+        createdAt
+        createdByUserId
+        deletedByUSerId
+        deletedAt
+        lastUpdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      images {
+        id
+        teamId
+        fileName
+        orientation
+        imageType
+        createdAt
+        createdByUserId
+        deletedByUserId
+        deletedAt
+        lastupdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      price {
+        currency
+        value
+        baseCurrencyValue
+        label
+        moq
+      }
+      category {
+        id
+        teamId
+        name
+        createdAt
+        createdByUserId
+        deletedByUserId
+        deletedAt
+        lastupdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      description
+      favorite
+      assigneeId
+      assignee {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      tags {
+        nextToken
+        startedAt
+      }
+      score
+      attachments {
+        nextToken
+        startedAt
+      }
+      extendedFields {
+        name
+        value
+      }
+      incoTerm
+      harbour
+      masterCbm
+      quantityPer20ft
+      quantityPer40ft
+      quantityPer40ftHC
+      itemDimension {
+        height
+        width
+        length
+        unit
+        itemsQuantity
+        weight
+        weightUnit
+        type
+      }
+      innerCarton {
+        height
+        width
+        length
+        unit
+        itemsQuantity
+        weight
+        weightUnit
+        type
+      }
+      masterCarton {
+        height
+        width
+        length
+        unit
+        itemsQuantity
+        weight
+        weightUnit
+        type
+      }
+      priceMatrix {
+        currency
+        value
+        baseCurrencyValue
+        label
+        moq
+      }
+      leadTime {
+        value
+        unit
+      }
+      sample
+      samplePrice {
+        currency
+        value
+        baseCurrencyValue
+        label
+        moq
+      }
+      projects {
+        nextToken
+        startedAt
+      }
+      archived
+      reference
+      referenceKey
+      createdAt
+      createdByUserId
+      deletedByUSerId
+      deletedAt
+      lastUpdatedByUserId
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    linkedSupplierId
+    linkedSupplier {
+      id
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      name
+      fullName
+      tradingName
+      description
+      website
+      phoneNumber
+      country
+      city
+      address
+      officeEmail
+      officePhone
+      incoTerm
+      harbour
+      generalMOQ
+      generalLeadTime
+      favorite
+      globalDatabaseId
+      archived
+      reference
+      referenceKey
+      createdAt
+      createdByUserId
+      deletedByUSerId
+      deletedAt
+      lastUpdatedByUserId
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    images {
+      items {
+        id
+        teamId
+        fileName
+        orientation
+        imageType
+        createdAt
+        createdByUserId
+        deletedByUserId
+        deletedAt
+        lastupdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+    price {
+      currency
+      value
+      baseCurrencyValue
+      label
+      moq
+    }
+    paid
+    archived
+    reference
+    referenceKey
+    createdAt
+    createdByUserId
+    deletedByUSerId
+    deletedAt
+    lastUpdatedByUserId
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnUpdateSample {
+  onUpdateSample {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    name
+    status {
+      id
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      name
+      inWorkflow
+      category
+      step
+      final
+      createdAt
+      createdByUserId
+      deletedByUSerId
+      deletedAt
+      lastUpdatedByUserId
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    assignee {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    description
+    linkedProductId
+    linkedProduct {
+      id
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      name
+      supplier {
+        id
+        teamId
+        name
+        fullName
+        tradingName
+        description
+        website
+        phoneNumber
+        country
+        city
+        address
+        officeEmail
+        officePhone
+        incoTerm
+        harbour
+        generalMOQ
+        generalLeadTime
+        favorite
+        globalDatabaseId
+        archived
+        reference
+        referenceKey
+        createdAt
+        createdByUserId
+        deletedByUSerId
+        deletedAt
+        lastUpdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      images {
+        id
+        teamId
+        fileName
+        orientation
+        imageType
+        createdAt
+        createdByUserId
+        deletedByUserId
+        deletedAt
+        lastupdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      price {
+        currency
+        value
+        baseCurrencyValue
+        label
+        moq
+      }
+      category {
+        id
+        teamId
+        name
+        createdAt
+        createdByUserId
+        deletedByUserId
+        deletedAt
+        lastupdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      description
+      favorite
+      assigneeId
+      assignee {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      tags {
+        nextToken
+        startedAt
+      }
+      score
+      attachments {
+        nextToken
+        startedAt
+      }
+      extendedFields {
+        name
+        value
+      }
+      incoTerm
+      harbour
+      masterCbm
+      quantityPer20ft
+      quantityPer40ft
+      quantityPer40ftHC
+      itemDimension {
+        height
+        width
+        length
+        unit
+        itemsQuantity
+        weight
+        weightUnit
+        type
+      }
+      innerCarton {
+        height
+        width
+        length
+        unit
+        itemsQuantity
+        weight
+        weightUnit
+        type
+      }
+      masterCarton {
+        height
+        width
+        length
+        unit
+        itemsQuantity
+        weight
+        weightUnit
+        type
+      }
+      priceMatrix {
+        currency
+        value
+        baseCurrencyValue
+        label
+        moq
+      }
+      leadTime {
+        value
+        unit
+      }
+      sample
+      samplePrice {
+        currency
+        value
+        baseCurrencyValue
+        label
+        moq
+      }
+      projects {
+        nextToken
+        startedAt
+      }
+      archived
+      reference
+      referenceKey
+      createdAt
+      createdByUserId
+      deletedByUSerId
+      deletedAt
+      lastUpdatedByUserId
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    linkedSupplierId
+    linkedSupplier {
+      id
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      name
+      fullName
+      tradingName
+      description
+      website
+      phoneNumber
+      country
+      city
+      address
+      officeEmail
+      officePhone
+      incoTerm
+      harbour
+      generalMOQ
+      generalLeadTime
+      favorite
+      globalDatabaseId
+      archived
+      reference
+      referenceKey
+      createdAt
+      createdByUserId
+      deletedByUSerId
+      deletedAt
+      lastUpdatedByUserId
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    images {
+      items {
+        id
+        teamId
+        fileName
+        orientation
+        imageType
+        createdAt
+        createdByUserId
+        deletedByUserId
+        deletedAt
+        lastupdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+    price {
+      currency
+      value
+      baseCurrencyValue
+      label
+      moq
+    }
+    paid
+    archived
+    reference
+    referenceKey
+    createdAt
+    createdByUserId
+    deletedByUSerId
+    deletedAt
+    lastUpdatedByUserId
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnDeleteSample {
+  onDeleteSample {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    name
+    status {
+      id
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      name
+      inWorkflow
+      category
+      step
+      final
+      createdAt
+      createdByUserId
+      deletedByUSerId
+      deletedAt
+      lastUpdatedByUserId
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    assignee {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    description
+    linkedProductId
+    linkedProduct {
+      id
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      name
+      supplier {
+        id
+        teamId
+        name
+        fullName
+        tradingName
+        description
+        website
+        phoneNumber
+        country
+        city
+        address
+        officeEmail
+        officePhone
+        incoTerm
+        harbour
+        generalMOQ
+        generalLeadTime
+        favorite
+        globalDatabaseId
+        archived
+        reference
+        referenceKey
+        createdAt
+        createdByUserId
+        deletedByUSerId
+        deletedAt
+        lastUpdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      images {
+        id
+        teamId
+        fileName
+        orientation
+        imageType
+        createdAt
+        createdByUserId
+        deletedByUserId
+        deletedAt
+        lastupdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      price {
+        currency
+        value
+        baseCurrencyValue
+        label
+        moq
+      }
+      category {
+        id
+        teamId
+        name
+        createdAt
+        createdByUserId
+        deletedByUserId
+        deletedAt
+        lastupdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      description
+      favorite
+      assigneeId
+      assignee {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      tags {
+        nextToken
+        startedAt
+      }
+      score
+      attachments {
+        nextToken
+        startedAt
+      }
+      extendedFields {
+        name
+        value
+      }
+      incoTerm
+      harbour
+      masterCbm
+      quantityPer20ft
+      quantityPer40ft
+      quantityPer40ftHC
+      itemDimension {
+        height
+        width
+        length
+        unit
+        itemsQuantity
+        weight
+        weightUnit
+        type
+      }
+      innerCarton {
+        height
+        width
+        length
+        unit
+        itemsQuantity
+        weight
+        weightUnit
+        type
+      }
+      masterCarton {
+        height
+        width
+        length
+        unit
+        itemsQuantity
+        weight
+        weightUnit
+        type
+      }
+      priceMatrix {
+        currency
+        value
+        baseCurrencyValue
+        label
+        moq
+      }
+      leadTime {
+        value
+        unit
+      }
+      sample
+      samplePrice {
+        currency
+        value
+        baseCurrencyValue
+        label
+        moq
+      }
+      projects {
+        nextToken
+        startedAt
+      }
+      archived
+      reference
+      referenceKey
+      createdAt
+      createdByUserId
+      deletedByUSerId
+      deletedAt
+      lastUpdatedByUserId
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    linkedSupplierId
+    linkedSupplier {
+      id
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      name
+      fullName
+      tradingName
+      description
+      website
+      phoneNumber
+      country
+      city
+      address
+      officeEmail
+      officePhone
+      incoTerm
+      harbour
+      generalMOQ
+      generalLeadTime
+      favorite
+      globalDatabaseId
+      archived
+      reference
+      referenceKey
+      createdAt
+      createdByUserId
+      deletedByUSerId
+      deletedAt
+      lastUpdatedByUserId
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    images {
+      items {
+        id
+        teamId
+        fileName
+        orientation
+        imageType
+        createdAt
+        createdByUserId
+        deletedByUserId
+        deletedAt
+        lastupdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+    price {
+      currency
+      value
+      baseCurrencyValue
+      label
+      moq
+    }
+    paid
+    archived
+    reference
+    referenceKey
+    createdAt
+    createdByUserId
+    deletedByUSerId
+    deletedAt
+    lastUpdatedByUserId
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnCreateFieldDefinition {
+  onCreateFieldDefinition {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    label
+    type
+    name
+    default
+    metaData
+    createdAt
+    createdByUserId
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedByUserId
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedAt
+    lastupdatedByUserId
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnUpdateFieldDefinition {
+  onUpdateFieldDefinition {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    label
+    type
+    name
+    default
+    metaData
+    createdAt
+    createdByUserId
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedByUserId
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedAt
+    lastupdatedByUserId
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnDeleteFieldDefinition {
+  onDeleteFieldDefinition {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    label
+    type
+    name
+    default
+    metaData
+    createdAt
+    createdByUserId
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedByUserId
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedAt
+    lastupdatedByUserId
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    lastUpdatedAt
+    deleted
     _version
     _deleted
     _lastChangedAt
@@ -131,7 +3596,7 @@ subscription OnCreateCategory {
       _lastChangedAt
     }
     name
-    creationDate
+    createdAt
     createdByUserId
     createdBy {
       id
@@ -160,7 +3625,7 @@ subscription OnCreateCategory {
       _deleted
       _lastChangedAt
     }
-    deletionDate
+    deletedAt
     lastupdatedByUserId
     lastUpdatedBy {
       id
@@ -175,7 +3640,7 @@ subscription OnCreateCategory {
       _deleted
       _lastChangedAt
     }
-    lastUpdatedDate
+    lastUpdatedAt
     deleted
     _version
     _deleted
@@ -251,7 +3716,7 @@ subscription OnUpdateCategory {
       _lastChangedAt
     }
     name
-    creationDate
+    createdAt
     createdByUserId
     createdBy {
       id
@@ -280,7 +3745,7 @@ subscription OnUpdateCategory {
       _deleted
       _lastChangedAt
     }
-    deletionDate
+    deletedAt
     lastupdatedByUserId
     lastUpdatedBy {
       id
@@ -295,7 +3760,7 @@ subscription OnUpdateCategory {
       _deleted
       _lastChangedAt
     }
-    lastUpdatedDate
+    lastUpdatedAt
     deleted
     _version
     _deleted
@@ -371,7 +3836,7 @@ subscription OnDeleteCategory {
       _lastChangedAt
     }
     name
-    creationDate
+    createdAt
     createdByUserId
     createdBy {
       id
@@ -400,7 +3865,7 @@ subscription OnDeleteCategory {
       _deleted
       _lastChangedAt
     }
-    deletionDate
+    deletedAt
     lastupdatedByUserId
     lastUpdatedBy {
       id
@@ -415,7 +3880,403 @@ subscription OnDeleteCategory {
       _deleted
       _lastChangedAt
     }
-    lastUpdatedDate
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnCreateHelperList {
+  onCreateHelperList {
+    id
+    helperType
+    code
+    label
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnUpdateHelperList {
+  onUpdateHelperList {
+    id
+    helperType
+    code
+    label
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnDeleteHelperList {
+  onDeleteHelperList {
+    id
+    helperType
+    code
+    label
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnCreateComment {
+  onCreateComment {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    message
+    nodeId
+    createdAt
+    createdByUserId
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedByUserId
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedAt
+    lastupdatedByUserId
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnUpdateComment {
+  onUpdateComment {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    message
+    nodeId
+    createdAt
+    createdByUserId
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedByUserId
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedAt
+    lastupdatedByUserId
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnDeleteComment {
+  onDeleteComment {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    message
+    nodeId
+    createdAt
+    createdByUserId
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedByUserId
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedAt
+    lastupdatedByUserId
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    lastUpdatedAt
     deleted
     _version
     _deleted
@@ -531,18 +4392,18 @@ subscription OnCreateContact {
       archived
       reference
       referenceKey
-      creationDate
+      createdAt
       createdByUserId
       deletedByUSerId
-      deletionDate
+      deletedAt
       lastUpdatedByUserId
-      lastUpdatedDate
+      lastUpdatedAt
       deleted
       _version
       _deleted
       _lastChangedAt
     }
-    creationDate
+    createdAt
     createdByUserId
     createdBy {
       id
@@ -571,7 +4432,7 @@ subscription OnCreateContact {
       _deleted
       _lastChangedAt
     }
-    deletionDate
+    deletedAt
     lastupdatedByUserId
     lastUpdatedBy {
       id
@@ -586,7 +4447,7 @@ subscription OnCreateContact {
       _deleted
       _lastChangedAt
     }
-    lastUpdatedDate
+    lastUpdatedAt
     deleted
     _version
     _deleted
@@ -702,18 +4563,18 @@ subscription OnUpdateContact {
       archived
       reference
       referenceKey
-      creationDate
+      createdAt
       createdByUserId
       deletedByUSerId
-      deletionDate
+      deletedAt
       lastUpdatedByUserId
-      lastUpdatedDate
+      lastUpdatedAt
       deleted
       _version
       _deleted
       _lastChangedAt
     }
-    creationDate
+    createdAt
     createdByUserId
     createdBy {
       id
@@ -742,7 +4603,7 @@ subscription OnUpdateContact {
       _deleted
       _lastChangedAt
     }
-    deletionDate
+    deletedAt
     lastupdatedByUserId
     lastUpdatedBy {
       id
@@ -757,7 +4618,7 @@ subscription OnUpdateContact {
       _deleted
       _lastChangedAt
     }
-    lastUpdatedDate
+    lastUpdatedAt
     deleted
     _version
     _deleted
@@ -873,18 +4734,18 @@ subscription OnDeleteContact {
       archived
       reference
       referenceKey
-      creationDate
+      createdAt
       createdByUserId
       deletedByUSerId
-      deletionDate
+      deletedAt
       lastUpdatedByUserId
-      lastUpdatedDate
+      lastUpdatedAt
       deleted
       _version
       _deleted
       _lastChangedAt
     }
-    creationDate
+    createdAt
     createdByUserId
     createdBy {
       id
@@ -913,7 +4774,7 @@ subscription OnDeleteContact {
       _deleted
       _lastChangedAt
     }
-    deletionDate
+    deletedAt
     lastupdatedByUserId
     lastUpdatedBy {
       id
@@ -928,7 +4789,193 @@ subscription OnDeleteContact {
       _deleted
       _lastChangedAt
     }
-    lastUpdatedDate
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnCreateExport {
+  onCreateExport {
+    id
+    teamId
+    format
+    target
+    options
+    query
+    status
+    documentUrl
+    errors
+    createdAt
+    createdByUserId
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedByUserId
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedAt
+    lastupdatedByUserId
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnUpdateExport {
+  onUpdateExport {
+    id
+    teamId
+    format
+    target
+    options
+    query
+    status
+    documentUrl
+    errors
+    createdAt
+    createdByUserId
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedByUserId
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedAt
+    lastupdatedByUserId
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnDeleteExport {
+  onDeleteExport {
+    id
+    teamId
+    format
+    target
+    options
+    query
+    status
+    documentUrl
+    errors
+    createdAt
+    createdByUserId
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedByUserId
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedAt
+    lastupdatedByUserId
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    lastUpdatedAt
     deleted
     _version
     _deleted
@@ -1006,7 +5053,7 @@ subscription OnCreateImage {
     fileName
     orientation
     imageType
-    creationDate
+    createdAt
     createdByUserId
     createdBy {
       id
@@ -1035,7 +5082,7 @@ subscription OnCreateImage {
       _deleted
       _lastChangedAt
     }
-    deletionDate
+    deletedAt
     lastupdatedByUserId
     lastUpdatedBy {
       id
@@ -1050,7 +5097,7 @@ subscription OnCreateImage {
       _deleted
       _lastChangedAt
     }
-    lastUpdatedDate
+    lastUpdatedAt
     deleted
     _version
     _deleted
@@ -1128,7 +5175,7 @@ subscription OnUpdateImage {
     fileName
     orientation
     imageType
-    creationDate
+    createdAt
     createdByUserId
     createdBy {
       id
@@ -1157,7 +5204,7 @@ subscription OnUpdateImage {
       _deleted
       _lastChangedAt
     }
-    deletionDate
+    deletedAt
     lastupdatedByUserId
     lastUpdatedBy {
       id
@@ -1172,7 +5219,7 @@ subscription OnUpdateImage {
       _deleted
       _lastChangedAt
     }
-    lastUpdatedDate
+    lastUpdatedAt
     deleted
     _version
     _deleted
@@ -1250,7 +5297,7 @@ subscription OnDeleteImage {
     fileName
     orientation
     imageType
-    creationDate
+    createdAt
     createdByUserId
     createdBy {
       id
@@ -1279,7 +5326,7 @@ subscription OnDeleteImage {
       _deleted
       _lastChangedAt
     }
-    deletionDate
+    deletedAt
     lastupdatedByUserId
     lastUpdatedBy {
       id
@@ -1294,8 +5341,1964 @@ subscription OnDeleteImage {
       _deleted
       _lastChangedAt
     }
-    lastUpdatedDate
+    lastUpdatedAt
     deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnCreateEvent {
+  onCreateEvent {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    global
+    name
+    description {
+      id
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      name
+      description
+      website
+      startDate
+      endDate
+      countryCode
+      venue {
+        id
+        teamId
+        city
+        name
+        latitude
+        country
+        longitude
+        addressFull
+        createdAt
+        createdByUserId
+        deletedByUserId
+        deletedAt
+        lastupdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      logoImage {
+        id
+        teamId
+        fileName
+        orientation
+        imageType
+        createdAt
+        createdByUserId
+        deletedByUserId
+        deletedAt
+        lastupdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      global
+      supplierCount
+      industry {
+        id
+        name
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      primaryColor
+      secondaryColor
+      createdAt
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedByUserId
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedAt
+      lastupdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    createdAt
+    createdByUserId
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedByUserId
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedAt
+    lastupdatedByUserId
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnUpdateEvent {
+  onUpdateEvent {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    global
+    name
+    description {
+      id
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      name
+      description
+      website
+      startDate
+      endDate
+      countryCode
+      venue {
+        id
+        teamId
+        city
+        name
+        latitude
+        country
+        longitude
+        addressFull
+        createdAt
+        createdByUserId
+        deletedByUserId
+        deletedAt
+        lastupdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      logoImage {
+        id
+        teamId
+        fileName
+        orientation
+        imageType
+        createdAt
+        createdByUserId
+        deletedByUserId
+        deletedAt
+        lastupdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      global
+      supplierCount
+      industry {
+        id
+        name
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      primaryColor
+      secondaryColor
+      createdAt
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedByUserId
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedAt
+      lastupdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    createdAt
+    createdByUserId
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedByUserId
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedAt
+    lastupdatedByUserId
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnDeleteEvent {
+  onDeleteEvent {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    global
+    name
+    description {
+      id
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      name
+      description
+      website
+      startDate
+      endDate
+      countryCode
+      venue {
+        id
+        teamId
+        city
+        name
+        latitude
+        country
+        longitude
+        addressFull
+        createdAt
+        createdByUserId
+        deletedByUserId
+        deletedAt
+        lastupdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      logoImage {
+        id
+        teamId
+        fileName
+        orientation
+        imageType
+        createdAt
+        createdByUserId
+        deletedByUserId
+        deletedAt
+        lastupdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      global
+      supplierCount
+      industry {
+        id
+        name
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      primaryColor
+      secondaryColor
+      createdAt
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedByUserId
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedAt
+      lastupdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    createdAt
+    createdByUserId
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedByUserId
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedAt
+    lastupdatedByUserId
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnCreateEventDescription {
+  onCreateEventDescription {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    name
+    description
+    website
+    startDate
+    endDate
+    countryCode
+    venue {
+      id
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      city
+      name
+      latitude
+      country
+      longitude
+      addressFull
+      createdAt
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedByUserId
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedAt
+      lastupdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    logoImage {
+      id
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      fileName
+      orientation
+      imageType
+      createdAt
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedByUserId
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedAt
+      lastupdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    global
+    supplierCount
+    industry {
+      id
+      name
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    primaryColor
+    secondaryColor
+    createdAt
+    createdByUserId
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedByUserId
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedAt
+    lastupdatedByUserId
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnUpdateEventDescription {
+  onUpdateEventDescription {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    name
+    description
+    website
+    startDate
+    endDate
+    countryCode
+    venue {
+      id
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      city
+      name
+      latitude
+      country
+      longitude
+      addressFull
+      createdAt
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedByUserId
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedAt
+      lastupdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    logoImage {
+      id
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      fileName
+      orientation
+      imageType
+      createdAt
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedByUserId
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedAt
+      lastupdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    global
+    supplierCount
+    industry {
+      id
+      name
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    primaryColor
+    secondaryColor
+    createdAt
+    createdByUserId
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedByUserId
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedAt
+    lastupdatedByUserId
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnDeleteEventDescription {
+  onDeleteEventDescription {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    name
+    description
+    website
+    startDate
+    endDate
+    countryCode
+    venue {
+      id
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      city
+      name
+      latitude
+      country
+      longitude
+      addressFull
+      createdAt
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedByUserId
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedAt
+      lastupdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    logoImage {
+      id
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      fileName
+      orientation
+      imageType
+      createdAt
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedByUserId
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      deletedAt
+      lastupdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    global
+    supplierCount
+    industry {
+      id
+      name
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    primaryColor
+    secondaryColor
+    createdAt
+    createdByUserId
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedByUserId
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedAt
+    lastupdatedByUserId
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnCreateVenue {
+  onCreateVenue {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    city
+    name
+    latitude
+    country
+    longitude
+    addressFull
+    createdAt
+    createdByUserId
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedByUserId
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedAt
+    lastupdatedByUserId
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnUpdateVenue {
+  onUpdateVenue {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    city
+    name
+    latitude
+    country
+    longitude
+    addressFull
+    createdAt
+    createdByUserId
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedByUserId
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedAt
+    lastupdatedByUserId
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnDeleteVenue {
+  onDeleteVenue {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    city
+    name
+    latitude
+    country
+    longitude
+    addressFull
+    createdAt
+    createdByUserId
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedByUserId
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    deletedAt
+    lastupdatedByUserId
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnCreateIndustry {
+  onCreateIndustry {
+    id
+    name
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnUpdateIndustry {
+  onUpdateIndustry {
+    id
+    name
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnDeleteIndustry {
+  onDeleteIndustry {
+    id
+    name
     _version
     _deleted
     _lastChangedAt
@@ -1428,12 +7431,12 @@ subscription OnCreateTask {
         archived
         reference
         referenceKey
-        creationDate
+        createdAt
         createdByUserId
         deletedByUSerId
-        deletionDate
+        deletedAt
         lastUpdatedByUserId
-        lastUpdatedDate
+        lastUpdatedAt
         deleted
         _version
         _deleted
@@ -1445,12 +7448,12 @@ subscription OnCreateTask {
         fileName
         orientation
         imageType
-        creationDate
+        createdAt
         createdByUserId
         deletedByUserId
-        deletionDate
+        deletedAt
         lastupdatedByUserId
-        lastUpdatedDate
+        lastUpdatedAt
         deleted
         _version
         _deleted
@@ -1460,17 +7463,19 @@ subscription OnCreateTask {
         currency
         value
         baseCurrencyValue
+        label
+        moq
       }
       category {
         id
         teamId
         name
-        creationDate
+        createdAt
         createdByUserId
         deletedByUserId
-        deletionDate
+        deletedAt
         lastupdatedByUserId
-        lastUpdatedDate
+        lastUpdatedAt
         deleted
         _version
         _deleted
@@ -1492,32 +7497,87 @@ subscription OnCreateTask {
         _deleted
         _lastChangedAt
       }
-      minimumOrderQuantity
-      moqDescription
+      tags {
+        nextToken
+        startedAt
+      }
       score
+      attachments {
+        nextToken
+        startedAt
+      }
+      extendedFields {
+        name
+        value
+      }
       incoTerm
       harbour
       masterCbm
       quantityPer20ft
       quantityPer40ft
       quantityPer40ftHC
-      leadTimeValue
-      leadTimeUnit
+      itemDimension {
+        height
+        width
+        length
+        unit
+        itemsQuantity
+        weight
+        weightUnit
+        type
+      }
+      innerCarton {
+        height
+        width
+        length
+        unit
+        itemsQuantity
+        weight
+        weightUnit
+        type
+      }
+      masterCarton {
+        height
+        width
+        length
+        unit
+        itemsQuantity
+        weight
+        weightUnit
+        type
+      }
+      priceMatrix {
+        currency
+        value
+        baseCurrencyValue
+        label
+        moq
+      }
+      leadTime {
+        value
+        unit
+      }
       sample
       samplePrice {
         currency
         value
         baseCurrencyValue
+        label
+        moq
+      }
+      projects {
+        nextToken
+        startedAt
       }
       archived
       reference
       referenceKey
-      creationDate
+      createdAt
       createdByUserId
       deletedByUSerId
-      deletionDate
+      deletedAt
       lastUpdatedByUserId
-      lastUpdatedDate
+      lastUpdatedAt
       deleted
       _version
       _deleted
@@ -1559,12 +7619,12 @@ subscription OnCreateTask {
       archived
       reference
       referenceKey
-      creationDate
+      createdAt
       createdByUserId
       deletedByUSerId
-      deletionDate
+      deletedAt
       lastUpdatedByUserId
-      lastUpdatedDate
+      lastUpdatedAt
       deleted
       _version
       _deleted
@@ -1573,12 +7633,12 @@ subscription OnCreateTask {
     reference
     referenceKey
     inProgress
-    creationDate
+    createdAt
     createdByUserId
     deletedByUSerId
-    deletionDate
+    deletedAt
     lastUpdatedByUserId
-    lastUpdatedDate
+    lastUpdatedAt
     deleted
     _version
     _deleted
@@ -1712,12 +7772,12 @@ subscription OnUpdateTask {
         archived
         reference
         referenceKey
-        creationDate
+        createdAt
         createdByUserId
         deletedByUSerId
-        deletionDate
+        deletedAt
         lastUpdatedByUserId
-        lastUpdatedDate
+        lastUpdatedAt
         deleted
         _version
         _deleted
@@ -1729,12 +7789,12 @@ subscription OnUpdateTask {
         fileName
         orientation
         imageType
-        creationDate
+        createdAt
         createdByUserId
         deletedByUserId
-        deletionDate
+        deletedAt
         lastupdatedByUserId
-        lastUpdatedDate
+        lastUpdatedAt
         deleted
         _version
         _deleted
@@ -1744,17 +7804,19 @@ subscription OnUpdateTask {
         currency
         value
         baseCurrencyValue
+        label
+        moq
       }
       category {
         id
         teamId
         name
-        creationDate
+        createdAt
         createdByUserId
         deletedByUserId
-        deletionDate
+        deletedAt
         lastupdatedByUserId
-        lastUpdatedDate
+        lastUpdatedAt
         deleted
         _version
         _deleted
@@ -1776,32 +7838,87 @@ subscription OnUpdateTask {
         _deleted
         _lastChangedAt
       }
-      minimumOrderQuantity
-      moqDescription
+      tags {
+        nextToken
+        startedAt
+      }
       score
+      attachments {
+        nextToken
+        startedAt
+      }
+      extendedFields {
+        name
+        value
+      }
       incoTerm
       harbour
       masterCbm
       quantityPer20ft
       quantityPer40ft
       quantityPer40ftHC
-      leadTimeValue
-      leadTimeUnit
+      itemDimension {
+        height
+        width
+        length
+        unit
+        itemsQuantity
+        weight
+        weightUnit
+        type
+      }
+      innerCarton {
+        height
+        width
+        length
+        unit
+        itemsQuantity
+        weight
+        weightUnit
+        type
+      }
+      masterCarton {
+        height
+        width
+        length
+        unit
+        itemsQuantity
+        weight
+        weightUnit
+        type
+      }
+      priceMatrix {
+        currency
+        value
+        baseCurrencyValue
+        label
+        moq
+      }
+      leadTime {
+        value
+        unit
+      }
       sample
       samplePrice {
         currency
         value
         baseCurrencyValue
+        label
+        moq
+      }
+      projects {
+        nextToken
+        startedAt
       }
       archived
       reference
       referenceKey
-      creationDate
+      createdAt
       createdByUserId
       deletedByUSerId
-      deletionDate
+      deletedAt
       lastUpdatedByUserId
-      lastUpdatedDate
+      lastUpdatedAt
       deleted
       _version
       _deleted
@@ -1843,12 +7960,12 @@ subscription OnUpdateTask {
       archived
       reference
       referenceKey
-      creationDate
+      createdAt
       createdByUserId
       deletedByUSerId
-      deletionDate
+      deletedAt
       lastUpdatedByUserId
-      lastUpdatedDate
+      lastUpdatedAt
       deleted
       _version
       _deleted
@@ -1857,12 +7974,12 @@ subscription OnUpdateTask {
     reference
     referenceKey
     inProgress
-    creationDate
+    createdAt
     createdByUserId
     deletedByUSerId
-    deletionDate
+    deletedAt
     lastUpdatedByUserId
-    lastUpdatedDate
+    lastUpdatedAt
     deleted
     _version
     _deleted
@@ -1996,12 +8113,12 @@ subscription OnDeleteTask {
         archived
         reference
         referenceKey
-        creationDate
+        createdAt
         createdByUserId
         deletedByUSerId
-        deletionDate
+        deletedAt
         lastUpdatedByUserId
-        lastUpdatedDate
+        lastUpdatedAt
         deleted
         _version
         _deleted
@@ -2013,12 +8130,12 @@ subscription OnDeleteTask {
         fileName
         orientation
         imageType
-        creationDate
+        createdAt
         createdByUserId
         deletedByUserId
-        deletionDate
+        deletedAt
         lastupdatedByUserId
-        lastUpdatedDate
+        lastUpdatedAt
         deleted
         _version
         _deleted
@@ -2028,17 +8145,19 @@ subscription OnDeleteTask {
         currency
         value
         baseCurrencyValue
+        label
+        moq
       }
       category {
         id
         teamId
         name
-        creationDate
+        createdAt
         createdByUserId
         deletedByUserId
-        deletionDate
+        deletedAt
         lastupdatedByUserId
-        lastUpdatedDate
+        lastUpdatedAt
         deleted
         _version
         _deleted
@@ -2060,32 +8179,87 @@ subscription OnDeleteTask {
         _deleted
         _lastChangedAt
       }
-      minimumOrderQuantity
-      moqDescription
+      tags {
+        nextToken
+        startedAt
+      }
       score
+      attachments {
+        nextToken
+        startedAt
+      }
+      extendedFields {
+        name
+        value
+      }
       incoTerm
       harbour
       masterCbm
       quantityPer20ft
       quantityPer40ft
       quantityPer40ftHC
-      leadTimeValue
-      leadTimeUnit
+      itemDimension {
+        height
+        width
+        length
+        unit
+        itemsQuantity
+        weight
+        weightUnit
+        type
+      }
+      innerCarton {
+        height
+        width
+        length
+        unit
+        itemsQuantity
+        weight
+        weightUnit
+        type
+      }
+      masterCarton {
+        height
+        width
+        length
+        unit
+        itemsQuantity
+        weight
+        weightUnit
+        type
+      }
+      priceMatrix {
+        currency
+        value
+        baseCurrencyValue
+        label
+        moq
+      }
+      leadTime {
+        value
+        unit
+      }
       sample
       samplePrice {
         currency
         value
         baseCurrencyValue
+        label
+        moq
+      }
+      projects {
+        nextToken
+        startedAt
       }
       archived
       reference
       referenceKey
-      creationDate
+      createdAt
       createdByUserId
       deletedByUSerId
-      deletionDate
+      deletedAt
       lastUpdatedByUserId
-      lastUpdatedDate
+      lastUpdatedAt
       deleted
       _version
       _deleted
@@ -2127,12 +8301,12 @@ subscription OnDeleteTask {
       archived
       reference
       referenceKey
-      creationDate
+      createdAt
       createdByUserId
       deletedByUSerId
-      deletionDate
+      deletedAt
       lastUpdatedByUserId
-      lastUpdatedDate
+      lastUpdatedAt
       deleted
       _version
       _deleted
@@ -2141,12 +8315,1020 @@ subscription OnDeleteTask {
     reference
     referenceKey
     inProgress
-    creationDate
+    createdAt
     createdByUserId
     deletedByUSerId
-    deletionDate
+    deletedAt
     lastUpdatedByUserId
-    lastUpdatedDate
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnCreateTag {
+  onCreateTag {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    name
+    createdAt
+    createdByUserId
+    deletedByUSerId
+    deletedAt
+    lastUpdatedByUserId
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnUpdateTag {
+  onUpdateTag {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    name
+    createdAt
+    createdByUserId
+    deletedByUSerId
+    deletedAt
+    lastUpdatedByUserId
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnDeleteTag {
+  onDeleteTag {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    name
+    createdAt
+    createdByUserId
+    deletedByUSerId
+    deletedAt
+    lastUpdatedByUserId
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnCreateSampleStatus {
+  onCreateSampleStatus {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    name
+    inWorkflow
+    category
+    step
+    final
+    createdAt
+    createdByUserId
+    deletedByUSerId
+    deletedAt
+    lastUpdatedByUserId
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnUpdateSampleStatus {
+  onUpdateSampleStatus {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    name
+    inWorkflow
+    category
+    step
+    final
+    createdAt
+    createdByUserId
+    deletedByUSerId
+    deletedAt
+    lastUpdatedByUserId
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnDeleteSampleStatus {
+  onDeleteSampleStatus {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    name
+    inWorkflow
+    category
+    step
+    final
+    createdAt
+    createdByUserId
+    deletedByUSerId
+    deletedAt
+    lastUpdatedByUserId
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnCreateProductStatus {
+  onCreateProductStatus {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    name
+    inWorkflow
+    category
+    step
+    final
+    createdAt
+    createdByUserId
+    deletedByUSerId
+    deletedAt
+    lastUpdatedByUserId
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnUpdateProductStatus {
+  onUpdateProductStatus {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    name
+    inWorkflow
+    category
+    step
+    final
+    createdAt
+    createdByUserId
+    deletedByUSerId
+    deletedAt
+    lastUpdatedByUserId
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnDeleteProductStatus {
+  onDeleteProductStatus {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    name
+    inWorkflow
+    category
+    step
+    final
+    createdAt
+    createdByUserId
+    deletedByUSerId
+    deletedAt
+    lastUpdatedByUserId
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnCreateSupplierStatus {
+  onCreateSupplierStatus {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    name
+    inWorkflow
+    category
+    step
+    final
+    createdAt
+    createdByUserId
+    deletedByUSerId
+    deletedAt
+    lastUpdatedByUserId
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnUpdateSupplierStatus {
+  onUpdateSupplierStatus {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    name
+    inWorkflow
+    category
+    step
+    final
+    createdAt
+    createdByUserId
+    deletedByUSerId
+    deletedAt
+    lastUpdatedByUserId
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnDeleteSupplierStatus {
+  onDeleteSupplierStatus {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      lastUpdatedOn
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    name
+    inWorkflow
+    category
+    step
+    final
+    createdAt
+    createdByUserId
+    deletedByUSerId
+    deletedAt
+    lastUpdatedByUserId
+    lastUpdatedAt
     deleted
     _version
     _deleted

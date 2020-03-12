@@ -13,6 +13,7 @@ import { ApiService } from './api.service';
 import { ImageType } from '../API.service';
 import { switchMap, first, take } from 'rxjs/operators';
 import { QueryPool } from '../queries/query-pool.class';
+import { QueryType } from '../queries/query-type.enum';
 
 Amplify.configure(awsconfig);
 
@@ -31,6 +32,7 @@ fdescribe('ApiService', () => {
 	let apiSrv: ApiService;
 	let authSrv: AuthenticationService;
 	let userId: any;
+	let originalTimeout: number;
 
 	// connect user for test and provide services
 	beforeAll(async () => {
@@ -54,6 +56,12 @@ fdescribe('ApiService', () => {
 		userId = user.username;
 		apiSrv.setTeamId('353c0206-fa91-489b-bfb7-e896aeb7e25a');
 		apiSrv.setUserId(userId);
+		originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
+		jasmine.DEFAULT_TIMEOUT_INTERVAL = 15000;
+	});
+
+	afterAll(() => {
+		jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
 	});
 
 	// fit('should add to cached list', async() => {
@@ -65,6 +73,7 @@ fdescribe('ApiService', () => {
 
 	it('should create entities', async () => {
 		const promises = Object.entries(mocks).map(([name, getMock]) => {
+			console.log('create');
 			return apiSrv
 				.create(name as Typename, getMock())
 				.toPromise()
@@ -94,7 +103,11 @@ fdescribe('ApiService', () => {
 		const promises = Object.entries(mocks).map(([name, getMock]) => {
 			return apiSrv
 				.create(name as Typename, getMock())
-				.pipe(switchMap(createdEntity => apiSrv.delete(name as Typename, createdEntity)))
+				.pipe(
+					switchMap(createdEntity =>
+						apiSrv.delete(name as Typename, { id: createdEntity.id, _version: 1 })
+					)
+				)
 				.toPromise()
 				.catch(e => fail(`entity ${name} failed delete: ${e}`));
 		});
@@ -104,8 +117,7 @@ fdescribe('ApiService', () => {
 		});
 	});
 
-
-	it('should get each entity', async () => {
+	fit('should get each entity', async () => {
 		const promises = Object.entries(mocks).map(([name, getMock]) => {
 			return apiSrv
 				.create(name as Typename, getMock())
@@ -119,14 +131,12 @@ fdescribe('ApiService', () => {
 		});
 	});
 
-
-
 	it('should query all by entity', async () => {
 		// get all queries by from query-pool => [ [typename1, byTypename1], ...]
 		const collectQueryBy = [];
 		Object.entries(QueryPool.map).forEach(([typename, baseQuery]: any) => {
-			if (!baseQuery.queryBy) return;
-			Object.keys(baseQuery.queryBy).forEach(byTypename => {
+			if (!baseQuery[QueryType.LIST_BY]) return;
+			Object.keys(baseQuery[QueryType.LIST_BY]).forEach(byTypename => {
 				collectQueryBy.push([typename, byTypename]);
 			});
 		});
@@ -135,16 +145,16 @@ fdescribe('ApiService', () => {
 		const promises = collectQueryBy.map(([typename, byTypename]) => {
 			return apiSrv
 				.listBy(typename as Typename, byTypename, 'fakeId')
-				.data$.pipe(first()).toPromise()
+				.data$.pipe(first())
+				.toPromise()
 				.catch(e => fail(`entity ${typename} failed query by ${byTypename}: ${e}`));
 		});
 
 		// test results
-		if (!promises.length) fail('there is no call "queryBy"');
+		if (!promises.length) fail('there is no call "listBy"');
 		const results = await Promise.all(promises);
 		results.forEach(result => {
 			expect(result).toBeTruthy();
 		});
 	});
-
 });
