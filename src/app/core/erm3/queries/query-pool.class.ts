@@ -20,8 +20,7 @@ export class QueryPool {
 		TeamUser: new BaseQueries('TeamUser', 'team { id name } role', ['User'])
 	};
 
-	/** returns the query, queryName and body of a specified query*/
-	static getQueryInfo(
+	static getQuery(
 		typename: Typename,
 		queryType: QueryType,
 		byEntityName: Typename | 'Owner' = null
@@ -31,27 +30,12 @@ export class QueryPool {
 			throw Error(`The query pool doesn't contain such a member ${queryType}`);
 		}
 		const query = queryType === QueryType.LIST_BY
-				? queries[queryType][byEntityName] // listBy return an object {byEntity: gql}
-				: queries[queryType];
+		? queries[queryType][byEntityName] // listBy return an object {byEntity: gql}
+		: queries[queryType];
 		if (!query) {
 			throw Error(`Query ${queryType} not found for ${typename}`);
 		}
-		const queryName = this.getQueryName(query);
-		const body = this.getQueryBody(query);
-		return { query, queryName, body };
+		return query;
 	}
 
-	/** gets the query name from a gql statement */
-	static getQueryName(gql: DocumentNode): string {
-		try {
-			return (gql.definitions[0] as any).selectionSet.selections[0].name.value;
-		} catch (e) {
-			throw Error('query name not found in apollo client');
-		}
-	}
-
-	/** gets the content of a graphql query */
-	static getQueryBody(gql: DocumentNode): string {
-		return gql.loc.source.body;
-	}
 }
