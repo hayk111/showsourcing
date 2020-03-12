@@ -18,39 +18,39 @@ export const routes: Routes = [
 		path: '',
 		component: SettingsPageComponent,
 		children: [
-			{ path: '', redirectTo: 'profile', pathMatch: 'full' },
-			{ path: 'profile', component: ProfilePages.ProfilePageComponent },
-			{
-				path: 'company', component: CompanyPages.CompanyPageComponent, children: [
-					{ path: '', redirectTo: 'settings', pathMatch: 'full' },
-					{ path: 'settings', component: CompanyPages.InfoPageComponent },
-				]
-			},
-			{
-				path: 'team', component: TeamPages.TeamPageComponent, children: [
-					{ path: '', redirectTo: 'members', pathMatch: 'full' },
-					{ path: 'members', component:  TeamPages.MembersPageComponent },
-					{ path: 'settings', component:  TeamPages.SettingsPageComponent }
-				]
-			},
-			{
-				path: 'workflow', component: WorkflowPages.WorkflowPageComponent, children: [
-					{ path: '', redirectTo: 'product', pathMatch: 'full' },
-					{ path: 'product-status', component: WorkflowPages.ProductStatusPageComponent },
-					{ path: 'supplier-status', component: WorkflowPages.SupplierStatusPageComponent },
-					{ path: 'sample-status', component: WorkflowPages.SampleStatusPageComponent }
-				]
-			},
+			// { path: '', redirectTo: 'profile', pathMatch: 'full' },
+			// { path: 'profile', component: ProfilePages.ProfilePageComponent },
+			// {
+			// 	path: 'company', component: CompanyPages.CompanyPageComponent, children: [
+			// 		{ path: '', redirectTo: 'settings', pathMatch: 'full' },
+			// 		{ path: 'settings', component: CompanyPages.InfoPageComponent },
+			// 	]
+			// },
+			// {
+			// 	path: 'team', component: TeamPages.TeamPageComponent, children: [
+			// 		{ path: '', redirectTo: 'members', pathMatch: 'full' },
+			// 		{ path: 'members', component:  TeamPages.MembersPageComponent },
+			// 		{ path: 'settings', component:  TeamPages.SettingsPageComponent }
+			// 	]
+			// },
+			// {
+			// 	path: 'workflow', component: WorkflowPages.WorkflowPageComponent, children: [
+			// 		{ path: '', redirectTo: 'product', pathMatch: 'full' },
+			// 		{ path: 'product-status', component: WorkflowPages.ProductStatusPageComponent },
+			// 		{ path: 'supplier-status', component: WorkflowPages.SupplierStatusPageComponent },
+			// 		{ path: 'sample-status', component: WorkflowPages.SampleStatusPageComponent }
+			// 	]
+			// },
 			{
 				path: 'list-management', component: DataPages.ListManagementPageComponent, children: [
-					{ path: '', redirectTo: 'category', pathMatch: 'full' },
+					{ path: '', redirectTo: 'category-data', pathMatch: 'full' },
 					{ path: 'category-data', component: DataPages.CategoryDataPageComponent },
 					{ path: 'tag-data', component: DataPages.TagDataPageComponent },
 					{ path: 'supplier-data', component: DataPages.SupplierDataPageComponent },
 					{ path: 'event-data', component: DataPages.EventDataPageComponent }
 				]
 			},
-			{ path: 'exports', component: ExportsPages.ExportsPageComponent }
+			// { path: 'exports', component: ExportsPages.ExportsPageComponent }
 		]
 	}
 ];
