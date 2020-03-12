@@ -5,7 +5,7 @@ import { FilterService } from '~core/filters/filter.service';
 import { switchMap, tap, map } from 'rxjs/operators';
 import { forkJoin } from 'rxjs';
 import { Typename } from '~core/erm3/typename.type';
-
+import * as models from '~core/erm3/models';
 
 @Injectable({ providedIn: 'root' })
 export class ListHelperService<G = any> {
@@ -44,24 +44,24 @@ export class ListHelperService<G = any> {
 	}
 
 	create(entity: any) {
-		this.apiSrv.create(this.typename, entity).pipe(
+		this.apiSrv.create(new models[this.typename](entity)).pipe(
 			switchMap(_ => this.refetch())
 		).subscribe();
 	}
 
 	update(entity: any) {
-		this.apiSrv.update(this.typename, entity);
+		this.apiSrv.update(entity);
 	}
 
 	delete(entity: any) {
-		this.apiSrv.delete(this.typename, entity).pipe(
+		this.apiSrv.delete(entity).pipe(
 			switchMap(_ => this.refetch())
 		).subscribe();
 	}
 
 	deleteSelected() {
 		const selected = this.selectionSrv.getSelectedValues();
-		const all = selected.map(entity => this.apiSrv.delete(this.typename, entity));
+		const all = selected.map(entity => this.apiSrv.delete(entity));
 		forkJoin(all).pipe(
 			switchMap(_ => this.refetch())
 		).subscribe();

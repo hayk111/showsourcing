@@ -646,11 +646,11 @@ export abstract class GlobalService<T extends Entity> {
 	/** logs request that is about to being made to the 	 */
 	protected log(type: string, gql: DocumentNode, queryName: string, variables?: any) {
 		// logging for each request
-		log.group(`%c 🍌 ${type}, queryName: ${queryName}`, LogColor.APOLLO_CLIENT_PRE);
-		log.group(`%c trace`, LogColor.APOLLO_CLIENT_PRE);
+		log.group(`%c 🍌 ${type}, queryName: ${queryName}`, LogColor.SERVICES);
+		log.group(`%c trace`, LogColor.SERVICES);
 		log.trace();
 		log.groupEnd();
-		log.debug(`%c queryName: ${queryName}`, LogColor.APOLLO_CLIENT_PRE);
+		log.debug(`%c queryName: ${queryName}`, LogColor.SERVICES);
 		log.group(`%c gql`, 'color: fuchsia; background: #555555; padding: 4px');
 		log.debug(`%c ${this.queryBuilder.getQueryBody(gql)}`, 'color: #555555');
 		log.debug(gql);
