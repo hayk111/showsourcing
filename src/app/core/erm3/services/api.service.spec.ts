@@ -14,6 +14,7 @@ import { ImageType } from '../API.service';
 import { switchMap, first, take } from 'rxjs/operators';
 import { QueryPool } from '../queries/query-pool.class';
 import { QueryType } from '../queries/query-type.enum';
+import { Entity } from '../models/_entity.model';
 
 Amplify.configure(awsconfig);
 
@@ -73,7 +74,6 @@ fdescribe('ApiService', () => {
 
 	it('should create entities', async () => {
 		const promises = Object.entries(mocks).map(([name, getMock]) => {
-			console.log('create');
 			return apiSrv
 				.create(name as Typename, getMock())
 				.toPromise()
@@ -85,7 +85,7 @@ fdescribe('ApiService', () => {
 		});
 	});
 
-	xit('should update entities', async () => {
+	fit('should update entities', async () => {
 		const promises = Object.entries(mocks).map(([name, getMock]) => {
 			return apiSrv
 				.create(name as Typename, getMock())
@@ -105,7 +105,7 @@ fdescribe('ApiService', () => {
 				.create(name as Typename, getMock())
 				.pipe(
 					switchMap(createdEntity =>
-						apiSrv.delete(name as Typename, { id: createdEntity.id, _version: 1 })
+						apiSrv.delete(name as Typename, { id: createdEntity.id, _version: 1 } as Entity)
 					)
 				)
 				.toPromise()
@@ -117,11 +117,11 @@ fdescribe('ApiService', () => {
 		});
 	});
 
-	fit('should get each entity', async () => {
+	it('should get each entity', async () => {
 		const promises = Object.entries(mocks).map(([name, getMock]) => {
 			return apiSrv
 				.create(name as Typename, getMock())
-				.pipe(switchMap(createdEntity => apiSrv.get(name as Typename, createdEntity.id).data$))
+				.pipe(switchMap(createdEntity => apiSrv.get(name as Typename, createdEntity.id).data$), first())
 				.toPromise()
 				.catch(e => fail(`entity ${name} failed queryOne: ${e}`));
 		});
@@ -144,9 +144,8 @@ fdescribe('ApiService', () => {
 		// run queries into promises
 		const promises = collectQueryBy.map(([typename, byTypename]) => {
 			return apiSrv
-				.listBy(typename as Typename, byTypename, 'fakeId')
-				.data$.pipe(first())
-				.toPromise()
+				.listBy(typename, byTypename, 'fakeId')
+				.data$.pipe(first()).toPromise()
 				.catch(e => fail(`entity ${typename} failed query by ${byTypename}: ${e}`));
 		});
 
