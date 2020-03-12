@@ -63,10 +63,10 @@ export const routes: Array<Route> = [
 			// 	path: 'suppliers',
 			// 	loadChildren: 'app/features/suppliers/suppliers-feature.module#SuppliersFeatureModule'
 			// },
-			// {
-			// 	path: 'settings',
-			// 	loadChildren: 'app/features/settings/settings-feature.module#SettingsFeatureModule'
-			// },
+			{
+				path: 'settings',
+				loadChildren: 'app/features/settings/settings-feature.module#SettingsFeatureModule'
+			},
 			// {
 			// 	path: 'tasks',
 			// 	loadChildren: 'app/features/tasks/tasks-feature.module#TasksFeatureModule'

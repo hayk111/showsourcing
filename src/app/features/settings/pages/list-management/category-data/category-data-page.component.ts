@@ -11,6 +11,7 @@ import {
 import { ListPageService, SelectionService } from '~core/list-page';
 import { ListPageViewService } from '~core/list-page/list-page-view.service';
 import { AutoUnsub } from '~utils';
+import { FilterService } from '~core/filters/filter.service';
 
 @Component({
 	selector: 'category-data-page-app',
@@ -40,7 +41,8 @@ export class CategoryDataPageComponent extends AutoUnsub implements OnInit {
 		public companySrv: CompanyService,
 		public dialogCommonSrv: DialogCommonService,
 		public selectionSrv: SelectionService,
-		private viewSrv: ListPageViewService<Category>
+		public viewSrv: ListPageViewService<Category>,
+		public filterSrv: FilterService
 	) {
 		super();
 	}
