@@ -48,7 +48,8 @@ import * as TablePage from './pages/products';
 		DetailsPage.ProductSubHeaderDetailsComponent,
 		DetailsPage.ProductDocketComponent,
 		DetailsPage.ProductMainComponent,
-		TablePage.ProductsPageComponent,
+		TablePage.TablePageComponent,
+		TablePage.CardPageComponent
 	],
 	entryComponents: [],
 	exports: [],

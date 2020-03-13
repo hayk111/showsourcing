@@ -29,7 +29,8 @@
 	<span class="capitalize entities-count">
 		{{ total }}
 		{{ total < 2 ?
-			 (viewSrv.typename | translate) : (viewSrv.typename + 's' | translate) }}
+			 (viewSrv.typename | translate) : 
+			 (viewSrv.typename + 's' | translate) }}
 	</span>
 
 </div>

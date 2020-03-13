@@ -29,14 +29,11 @@ export class ControllerTableQuickFiltersComponent {
 	}
 
 	get isArchivedChecked() {
-		// if there is an archive filter it's not checked (yeah I know what you are thinking)
-		// If you read this you should buy a boat and leave. And if you don't have the money
-		// leave without a boat
-		return !this.filterSrv.hasFilterValue(FilterType.ARCHIVED, false);
+		return this.filterSrv.hasFilterValue(FilterType.ARCHIVED, true);
 	}
 
 	get isCompletedChecked() {
-		return !this.filterSrv.hasFilterValue(FilterType.DUE_DATE, false);
+		return this.filterSrv.hasFilterValue(FilterType.DUE_DATE, false);
 	}
 
 	toggleAssignedToMe() {

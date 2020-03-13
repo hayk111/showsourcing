@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { EntityMetadata } from '~core/erm';
-import { View } from '~shared/controller-table/components';
 import { Typename } from '~core/erm3/typename.type';
+import { View } from '~shared/controller-table/components';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class ListPageViewService<T> {
 	/** current view */
-	view: View = 'table';
+	view = 'table';
 	/** whether the filter panel is visible */
 	filterPanelOpen: boolean;
 
@@ -28,9 +27,10 @@ export class ListPageViewService<T> {
 		private router: Router
 	) { }
 
-	setup({ typename, destUrl }: { typename: Typename, destUrl: string }) {
+	setup({ typename, destUrl, view }: { typename: Typename, destUrl: string, view: View }) {
 		this.typename = typename;
 		this.destUrl = destUrl;
+		this.view = view;
 	}
 
 	/** opens the preview panel for an item */
@@ -64,5 +64,6 @@ export class ListPageViewService<T> {
 	*/
 	changeView(view: View) {
 		this.view = view;
+		this.router.navigate([this.destUrl, view]);
 	}
 }

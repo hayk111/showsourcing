@@ -15,9 +15,9 @@ import { AutoUnsub } from '~utils';
 // dailah lama: Make me one with everything.
 
 @Component({
-	selector: 'products-page-app',
-	templateUrl: './products-page.component.html',
-	styleUrls: ['./products-page.component.scss'],
+	selector: 'table-page-app',
+	templateUrl: './table-page.component.html',
+	styleUrls: ['./table-page.component.scss'],
 	providers: [
 		ListHelperService,
 		ListPageViewService,
@@ -31,10 +31,7 @@ import { AutoUnsub } from '~utils';
 		class: 'table-page'
 	}
 })
-export class ProductsPageComponent extends AutoUnsub
-	implements OnInit {
-	erm = ERM;
-	filterTypeEnum = FilterType;
+export class TablePageComponent implements OnInit {
 	items$: Observable<Product[]>;
 	// filter displayed as button in the filter panel
 	filterTypes = [
@@ -51,9 +48,6 @@ export class ProductsPageComponent extends AutoUnsub
 	columns = ProductsTableComponent.DEFAULT_COLUMNS;
 	tableConfig = ProductsTableComponent.DEFAULT_TABLE_CONFIG;
 
-	selectItemsConfig: SelectParamsConfig;
-	requestCount$: Observable<number>;
-
 	constructor(
 		public listHelper: ListHelperService<Product>,
 		public viewSrv: ListPageViewService<Product>,
@@ -62,12 +56,11 @@ export class ProductsPageComponent extends AutoUnsub
 		protected dlgSrv: DialogService,
 		protected kanbanSelectionSrv: KanbanSelectionService,
 		private filterSrv: FilterService
-	) {
-		super();
-	}
+	) { }
 
 	ngOnInit() {
 		this.listHelper.setup('Product');
+		this.viewSrv.setup({ typename: 'Product', destUrl: 'products', view: 'table' });
 		this.items$ = this.listHelper.getFilteredItems$();
 	}
 

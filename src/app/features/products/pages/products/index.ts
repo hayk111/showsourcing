@@ -1,1 +1,2 @@
-export * from './products-page.component';
+export * from './table';
+export * from './card';

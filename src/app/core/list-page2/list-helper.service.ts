@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { SelectionService } from './selection.service';
 import { ApiService, ObservableQuery } from '~core/erm3/services/api.service';
 import { FilterService } from '~core/filters/filter.service';
-import { switchMap, tap, map } from 'rxjs/operators';
-import { forkJoin } from 'rxjs';
+import { switchMap, tap, map, shareReplay } from 'rxjs/operators';
+import { forkJoin, Observable } from 'rxjs';
 import { Typename } from '~core/erm3/typename.type';
 import * as models from '~core/erm3/models';
 
@@ -13,6 +13,7 @@ export class ListHelperService<G = any> {
 	private queryRef: ObservableQuery<G[]>;
 	private typename: Typename;
 	pending = true;
+	total$: Observable<number>;
 
 	constructor(
 		private selectionSrv: SelectionService,
@@ -30,10 +31,12 @@ export class ListHelperService<G = any> {
 			map(({ queryArg: filter }) => this.apiSrv.search<G>(this.typename, { filter })),
 			// save it
 			tap(query => this.queryRef = query),
+			tap(query => this.total$ = query.total$),
 			// return the result
 			switchMap(_ => this.queryRef.data$),
 			// setting pending to false because we received data
 			tap(_ => this.pending = false),
+			shareReplay(1)
 		);
 	}
 
@@ -65,6 +68,10 @@ export class ListHelperService<G = any> {
 		forkJoin(all).pipe(
 			switchMap(_ => this.refetch())
 		).subscribe();
+	}
+
+	loadMore() {
+		throw Error('not implemented yet');
 	}
 
 	loadPage() {

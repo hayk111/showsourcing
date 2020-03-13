@@ -16,7 +16,7 @@ import { GqlHelper } from './_gql-helper.class';
 export interface ObservableQuery<T = any> extends ApolloObservableQuery<T> {
 	response$: Observable<any>;
 	data$: Observable<T>;
-	count$?: Observable<number>;
+	total$?: Observable<number>;
 	queryName: string;
 }
 
@@ -136,7 +136,7 @@ export class ApiService {
 		options.variables = variables;
 		options.query = QueryPool.getQuery(typename, QueryType.SEARCH);
 		const query = this.query<T[]>(options);
-		query.count$ = query.response$.pipe(map(r => r.total));
+		query.total$ = query.response$.pipe(map(r => r.total));
 		return query;
 	}
 

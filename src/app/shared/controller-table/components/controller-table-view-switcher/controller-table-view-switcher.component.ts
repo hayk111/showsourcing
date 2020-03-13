@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ListPageViewService } from '~core/list-page/list-page-view.service';
+import { ListPageViewService } from '~core/list-page2/list-page-view.service';
 
 export type View = 'table' | 'card' | 'board';
 
