@@ -1,27 +1,33 @@
-export type Typename = 'Attachment'|
- 'Activity'|
- 'Category'|
- 'Comment'|
- 'Company'|
- 'Contact'|
- 'Country'|
- 'Currency'|
- 'Descriptor'|
- 'Event'|
- 'Export'|
- 'Harbour'|
- 'Image'|
- 'Invitation'|
- 'Location'|
- 'Product'|
- 'Project'|
- 'Request'|
- 'Request element'|
- 'Sample'|
- 'Supplier'|
- 'Tag'|
- 'Task'|
- 'Team'|
- 'User'|
- 'TeamUser';
-
+export type Typename =
+	| 'Attachment'
+	| 'Activity'
+	| 'Attachment'
+	| 'Category'
+	| 'Comment'
+	| 'Company'
+	| 'Contact'
+	| 'Descriptor'
+	| 'Event'
+	| 'EventDescription'
+	| 'Export'
+	|	'FieldDescriptor'
+	|	'helperList'
+	| 'Image'
+	| 'Industry'
+	| 'Invitation'
+	| 'Location'
+	| 'Product'
+	| 'Project'
+	| 'ProjectProduct'
+	| 'Request'
+	| 'Request element'
+	| 'Sample'
+	| 'SampleStatus'
+	|	'SectionDescriptor'
+	| 'Supplier'
+	| 'Tag'
+	| 'Task'
+	| 'Team'
+	| 'User'
+	| 'TeamUser'
+	| 'Venue';

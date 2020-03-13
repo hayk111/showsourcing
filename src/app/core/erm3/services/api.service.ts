@@ -208,9 +208,11 @@ export class ApiService {
 		apiOptions: ApiMutationOption = {}
 		): Observable<T> {
 		const options = apiOptions as MutationOptions;
-		const queryName = GqlHelper.getQueryName(options.mutation);
 		options.variables = { input: entity };
 		options.mutation = QueryPool.getQuery(typename, QueryType.UPDATE);
+		const queryName = GqlHelper.getQueryName(options.mutation);
+		delete entity.__typename;
+		entity.teamId = this._teamId;
 		options.optimisticResponse = this.getOptimisticResponse(options, queryName, entity);
 		return this.mutate(options);
 	}

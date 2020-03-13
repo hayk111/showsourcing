@@ -26,7 +26,23 @@ const mocks = {
 		new models.Image({ fileName: 'File Name', orientation: 0, imageType: ImageType.PNG }),
 	Product: () => new models.Product({ name: 'test apiService Product' }),
 	Supplier: () => new models.Supplier({ name: 'test apiService Supplier' }),
-	Task: () => new models.Task({ name: 'test apiService Task' })
+	Task: () => new models.Task({ name: 'test apiService Task' }),
+
+	// Attachment: () => new models.Attachment(),
+	// Comment: () => new models.Comment(),
+
+	// HelperList: () => new models.HelperList(), // Country | Harbour | Currency
+
+	// Event: () => new models.Event(),
+	// EventDescription: () => new models.EventDescription(),
+	// Venue: () => new models.Venue(),
+	// Industry: () => new models.Industry()
+	// Export: () => new models.Export(),
+	// Invitation: () => new models.Invitation(),
+	// Project: () => new models.Project(),
+	// Sample: () => new models.Sample(),
+	// Tag: () => new models.Tag(),
+
 };
 
 fdescribe('ApiService', () => {
