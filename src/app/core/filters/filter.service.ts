@@ -1,9 +1,10 @@
-import { ReplaySubject, BehaviorSubject } from 'rxjs';
-import { FilterConverter, ValuesByType, FiltersByType } from './_filter-converter.class';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { TeamService } from '~core/auth';
 import { FilterType } from './filter-type.enum';
 import { Filter } from './filter.class';
-import { Injectable } from '@angular/core';
-import { TeamService } from '~core/auth';
+import { FilterConverter } from './_filter-converter.class';
+import { ValuesByType, FiltersByType } from './filter-by.type';
 
 
 /**

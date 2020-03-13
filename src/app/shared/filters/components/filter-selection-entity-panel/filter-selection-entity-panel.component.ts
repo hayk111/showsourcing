@@ -1,12 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { debounceTime, switchMap, take, takeUntil, tap } from 'rxjs/operators';
-
-import { ERMService } from '~core/erm';
-import { ListQuery } from '~core/erm';
-import { ERM } from '~core/erm';
+import { ERM, ERMService, ListQuery } from '~core/erm';
 import { Filter, FilterType } from '~shared/filters/models';
 import { AutoUnsub } from '~utils';
+
 
 // this is the entity panel that appears once a filter button has been clicked
 // a list of choices is displayed and the user can pick through those choices

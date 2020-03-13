@@ -1,5 +1,5 @@
-import { Component,  HostBinding, Input, EventEmitter, Output } from '@angular/core';
-import { FilterService, Filter, FilterType } from '~core/filters';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Filter, FilterService, FilterType } from '~core/filters';
 
 @Component({
 	selector: 'filters-app',

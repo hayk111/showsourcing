@@ -13,11 +13,7 @@
 	</div>
   <filter-btn-list-app
     [filterTypes]="filterTypes"
-    [filterMap]="filterSrv.filtersByType"
-    (filterAdded)="addFilter($event)"
-    (filterRemoved)="removeFilter($event)"
-    (editClicked)="openEditPanel($event)"
-    (resetClicked)="resetType($event)">
+    (editClicked)="openEditPanel($event)">
   </filter-btn-list-app>
 </ng-container>
 
