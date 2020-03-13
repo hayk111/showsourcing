@@ -56,22 +56,20 @@
 		(bottomReached)="listSrv.loadMore()">
 	</products-grid-app>
 -->
-	<!-- <product-selection-bar-app
-		[isShown]="(getSelection$() | async).size"
-		[selection]="getSelection$() | async"
-		[selectableItems]="getSelectableItems$() | async"
-		(addProject)="onProjectDlgOpen()"
-		(export)="dialogCommonSrv.openExportDialog(erm.PRODUCT.singular, selectionSrv.getSelectedValues())"
+	<product-selection-bar-app
+		[isShown]="(selectionSrv.selection$ | async).size"
+		[selection]="selectionSrv.selection$ | async"
+		[selectableItems]="items$ | async"
+		(addProject)="dialogCommonSrv.openAddToProjectDialog(selectionSrv.getSelectedValues())"
+		(export)="dialogCommonSrv.openExportDialog('Product', selectionSrv.getSelectedValues())"
 		(createRequest)="dialogCommonSrv.openSupplierRequest(selectionSrv.getSelectedValues())"
 		(requestTeamFeedback)="dialogCommonSrv.openRequestFeedbackDialog(selectionSrv.getSelectedValues())"
-		(archiveProducts)="listSrv.archiveMany(selectionSrv.getSelectedValues())"
 		(compareProducts)="dialogCommonSrv.openCompareProductDialog(selectionSrv.getSelectedValues())"
-		(statusUpdated)="listSrv.updateSelected({status: $event})"
-		(massEdit)="dialogCommonSrv.openMassEditDialog(selectionSrv.getSelectedValues(), erm.PRODUCT)"
-		(deleted)="listSrv.deleteSelected()"
-		(selectAll)="selectAll($event)"
-		(unselectAll)="unselectAll()">
-	</product-selection-bar-app> -->
+		(massEdit)="dialogCommonSrv.openMassEditDialog(selectionSrv.getSelectedValues())"
+		(deleted)="listHelper.deleteSelected()"
+		(selectAll)="selectionSrv.selectAll()"
+		(unselectAll)="selectionSrv.unselectAll()">
+	</product-selection-bar-app>
 
 	<!-- <product-preview-app
 		*ngIf="viewSrv.previewOpen"
