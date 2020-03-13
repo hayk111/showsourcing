@@ -16,7 +16,7 @@ import { NavBarModule } from '~shared/navbar';
 import { SharedModule } from '~shared/shared.module';
 
 import * as DetailsPage from './pages/product-details';
-import * as TablePage from './pages/products';
+import * as Pages from './pages';
 
 
 @NgModule({
@@ -37,7 +37,9 @@ import * as TablePage from './pages/products';
 		ListCommonModule
 	],
 	declarations: [
-		DetailsPage.ProductDetailsPageComponent,
+		Pages.TablePageComponent,
+		Pages.CardPageComponent,
+		Pages.ProductDetailsPageComponent,
 		DetailsPage.ActivityPageComponent,
 		DetailsPage.SamplesPageComponent,
 		DetailsPage.InfoPageComponent,
@@ -48,8 +50,6 @@ import * as TablePage from './pages/products';
 		DetailsPage.ProductSubHeaderDetailsComponent,
 		DetailsPage.ProductDocketComponent,
 		DetailsPage.ProductMainComponent,
-		TablePage.TablePageComponent,
-		TablePage.CardPageComponent
 	],
 	entryComponents: [],
 	exports: [],

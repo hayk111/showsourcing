@@ -1,5 +1,5 @@
 import { Route } from '@angular/router';
-import * as ListPages from './pages/products';
+import * as Pages from './pages';
 
 
 
@@ -8,8 +8,8 @@ export const routes: Array<Route> = [
 		path: '',
 		redirectTo: 'table'
 	},
-	{ path: 'table', component: ListPages.TablePageComponent },
-	{ path: 'card', component: ListPages.CardPageComponent }
+	{ path: 'table', component: Pages.TablePageComponent },
+	{ path: 'card', component: Pages.CardPageComponent }
 	// {
 	// 	path: ':id',
 	// 	component: DetailsPage.ProductDetailsPageComponent,
