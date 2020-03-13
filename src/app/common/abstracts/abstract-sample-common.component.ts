@@ -14,8 +14,7 @@ import {
 } from '~core/erm';
 import { ListPageService } from '~core/list-page';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
-import { Filter, FilterType } from '~shared/filters';
-import { FilterService } from '~shared/filters/services/filter.service';
+import { Filter, FilterService, FilterType } from '~core/filters';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 
 /** since we use the sample component on different pages, this page will keep the methods clean */
@@ -61,22 +60,22 @@ export abstract class AbstractSampleCommonComponent extends AutoUnsub
 			);
 		}
 
+		this.filterSrv.setup([...initialFilters, ...addedFilters], [
+			'name',
+			'supplier.name',
+			'product.name',
+			'assignee.firstName',
+			'assignee.lastName',
+			'reference'
+		]);
+
 		this.listSrv.setup({
 			entitySrv: this.sampleSrv,
-			searchedFields: [
-				'name',
-				'supplier.name',
-				'product.name',
-				'assignee.firstName',
-				'assignee.lastName',
-				'reference'
-			],
 			selectParams: {
 				...selectParams,
 				query: 'deleted == false AND archived == false'
 			},
 			entityMetadata: ERM.SAMPLE,
-			initialFilters: [...initialFilters, ...addedFilters],
 			originComponentDestroy$: this._destroy$
 		});
 	}

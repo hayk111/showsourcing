@@ -14,8 +14,7 @@ import {
 	UserService
 } from '~core/erm';
 import { ListPageService, SelectionService } from '~core/list-page';
-import { FilterType } from '~shared/filters';
-import { FilterService } from '~shared/filters/services/filter.service';
+import { FilterService, FilterType } from '~core/filters';
 import { AutoUnsub } from '~utils';
 
 @Component({
@@ -44,18 +43,18 @@ export class ExportsPageComponent extends AutoUnsub
 	}
 
 	ngOnInit() {
+		this.filterSrv.setup([], [
+			'format',
+			'status',
+			'createdBy.firstName',
+			'createdBy.lastName'
+		]);
+
 		this.listSrv.setup({
 			entitySrv: this.exportSrv,
-			searchedFields: [
-				'format',
-				'status',
-				'createdBy.firstName',
-				'createdBy.lastName'
-			],
 			// by default we have deleted == false
 			selectParams: { query: '' },
 			entityMetadata: ERM.EXPORT_REQUEST,
-			initialFilters: [],
 			originComponentDestroy$: this._destroy$
 		});
 	}

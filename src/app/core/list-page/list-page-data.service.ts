@@ -128,7 +128,7 @@ export class ListPageDataService<
 		) as unknown) as ConnectableObservable<T[]>;
 	}
 
-	//? Why do we observe a trigger and not use filters as observable then return a new observable with the query refetched ?
+	// ? Why do we observe a trigger and not use filters as observable then return a new observable with the query refetched ?
 	/** when the filter change we want to refetch the items with a new predicate */
 	listenFilterChanges(destroy$: Observable<void>) {
 		this.filterList.valueChanges$

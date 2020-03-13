@@ -14,8 +14,7 @@ import {
 } from '~core/erm';
 import { ListPageService } from '~core/list-page';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
-import { Filter, FilterType } from '~shared/filters';
-import { FilterService } from '~shared/filters/services/filter.service';
+import { Filter, FilterType, FilterService } from '~core/filters';
 import { AutoUnsub } from '~utils';
 
 /** since we use the task component on different pages, this page will keep the methods clean */
@@ -58,14 +57,14 @@ export abstract class AbstractTaskCommonComponent extends AutoUnsub
 		if (hasDoneFilter) {
 			initialFilters.push({ type: FilterType.DONE, value: false });
 		}
+
+		this.filterSrv.setup([...initialFilters, ...addedFilters], ['name', 'supplier.name', 'product.name', 'reference']);
 		this.listSrv.setup({
 			entitySrv: this.taskSrv,
-			searchedFields: ['name', 'supplier.name', 'product.name', 'reference'],
 			selectParams: {
 				...selectParams,
 				query: 'deleted == false AND archived == false'
 			},
-			initialFilters: [...initialFilters, ...addedFilters],
 			entityMetadata: ERM.TASK,
 			originComponentDestroy$: this._destroy$
 		});

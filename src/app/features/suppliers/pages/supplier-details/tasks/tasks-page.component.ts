@@ -12,9 +12,8 @@ import {
 	UserService
 } from '~core/erm';
 import { ListPageService } from '~core/list-page';
+import { FilterService, FilterType } from '~core/filters';
 import { DialogService } from '~shared/dialog';
-import { FilterType } from '~shared/filters';
-import { FilterService } from '~shared/filters/services/filter.service';
 
 @Component({
 	selector: 'tasks-page-app',

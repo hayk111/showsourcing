@@ -31,7 +31,6 @@
 	
 		<filters-app
 			*ngIf="viewSrv.filterPanelOpen"
-			[filterList]="filterSrv.filterList"
 			[filterTypes]="filterTypes"
 			[sidePanel]="false"
 			(close)="viewSrv.closeFilterPanel()">
