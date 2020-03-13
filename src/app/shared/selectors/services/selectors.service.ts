@@ -1,29 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map, take } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
-import { ListQuery } from '~core/erm';
 import { SelectParamsConfig } from '~core/erm';
-import { CountryService } from '~core/erm';
 import { CurrencyService } from '~core/erm';
-import { HarbourService } from '~core/erm';
-import { IncoTermService } from '~core/erm';
-import {
-	CategoryService,
-	ContactService,
-	EventService,
-	LengthUnitService,
-	ProductService,
-	ProjectService,
-	RequestTemplateService,
-	SelectorElementService,
-	SupplierService,
-	TagService,
-	TeamUserService,
-	UserService,
-	WeightUnitService,
-} from '~core/erm';
-import { SupplierTypeService } from '~core/erm';
 import {
 	Category,
 	Contact,
@@ -60,7 +40,7 @@ import { categories } from '~utils/constants/categories.const';
 export class SelectorsService {
 
 	bindLabel = 'name';
-	listResult: ObservableQuery<any>;
+	queryListRef: ObservableQuery<any>;
 	items$: Observable<any[]>;
 	topCurrencies$: Observable<Currency[]>;
 
@@ -78,28 +58,11 @@ export class SelectorsService {
 
 	constructor(
 		private apiSrv: ApiService,
-		private categorySrv: CategoryService,
-		private contactSrv: ContactService,
-		private currencySrv: CurrencyService,
-		private eventSrv: EventService,
-		private productSrv: ProductService,
-		private projectSrv: ProjectService,
-		private requestTemplateSrv: RequestTemplateService,
-		private selectorElementSrv: SelectorElementService,
-		private supplierSrv: SupplierService,
-		private supplierTypeSrv: SupplierTypeService,
-		private tagSrv: TagService,
-		private userSrv: UserService,
-		private harbourSrv: HarbourService,
-		private incoTermSrv: IncoTermService,
-		private countrySrv: CountryService,
-		private teamUserSrv: TeamUserService,
-		private weightUnitsrv: WeightUnitService,
-		private lengthUnitSrv: LengthUnitService,
+		private currencySrv: CurrencyService, // the service should be removed in the future when search query will work
 	) { }
 
 	setItems() {
-		this.items$ = this.listResult.data$.pipe(
+		this.items$ = this.queryListRef.data$.pipe(
 			// remove deleted items from the list cuz they stay if they
 			// start at deleted false then are updated as deleted true
 			// and we can't use refetch or we lose the pagination
@@ -115,12 +78,12 @@ export class SelectorsService {
 	}
 
 	refetch(selectParams?: SelectParamsConfig) {
-		if (this.listResult)
-			return this.listResult.refetch(selectParams || this.selectParams);
+		if (this.queryListRef)
+			return this.queryListRef.refetch(selectParams || this.selectParams);
 	}
 
 	loadMore() {
-		// return this.listResult.fetchMore().subscribe();
+		// return this.queryListRef.fetchMore().subscribe();
 	}
 
 	search(type: EntityMetadata, searchTxt: string) {
@@ -188,7 +151,7 @@ export class SelectorsService {
 
 	getCountriesGlobal(): Observable<Country[]> {
 		this.selectParams = { ...this.selectParams, sortBy: 'fullName' };
-		this.listResult = this.apiSrv.listBy('Country');
+		this.queryListRef = this.apiSrv.listBy('Country');
 		this.setItems();
 		return this.items$;
 	}
@@ -200,7 +163,7 @@ export class SelectorsService {
 	getIncoTermsGlobal(): Observable<IncoTerm[]> {
 		// we have to specify that the sort is empty, since when calling another selector can have a different sort
 		this.selectParams = { ...this.selectParams, sortBy: '' };
-		this.listResult = this.apiSrv.listBy('IncoTerm');
+		this.queryListRef = this.apiSrv.listBy('IncoTerm');
 		this.setItems();
 		return this.items$;
 	}
@@ -211,7 +174,7 @@ export class SelectorsService {
 
 	getHarboursGlobal(): Observable<Harbour[]> {
 		this.selectParams = { ...this.selectParams, sortBy: 'name' };
-		this.listResult = this.apiSrv.listBy('Harbour');
+		this.queryListRef = this.apiSrv.listBy('Harbour');
 		this.setItems();
 		return this.items$;
 	}
@@ -222,7 +185,7 @@ export class SelectorsService {
 
 	getCurrenciesGlobal(): Observable<Currency[]> {
 		this.selectParams = { ...this.selectParams, sortBy: '' };
-		this.listResult = this.apiSrv.listBy('Currency');
+		this.queryListRef = this.apiSrv.listBy('Currency');
 		this.setItems();
 		this.getTopCurrencies();
 		return this.items$;
@@ -237,14 +200,14 @@ export class SelectorsService {
 
 	getLengthUnits(): Observable<LengthUnit[]> {
 		this.selectParams = { ...this.selectParams, sortBy: 'name' };
-		this.listResult = this.apiSrv.listBy('Length');
+		this.queryListRef = this.apiSrv.listBy('Length');
 		this.setItems();
 		return this.items$;
 	}
 
 	getWeigthUnits(): Observable<WeightUnit[]> {
 		this.selectParams = { ...this.selectParams, sortBy: 'name' };
-		this.listResult = this.apiSrv.listBy('Weight');
+		this.queryListRef = this.apiSrv.listBy('Weight');
 		this.setItems();
 		return this.items$;
 	}
@@ -278,35 +241,35 @@ export class SelectorsService {
 			skip: 0,
 			sortBy: 'name'
 		};
-		this.listResult = this.apiSrv.listBy('Supplier');
+		this.queryListRef = this.apiSrv.listBy('Supplier');
 		this.setItems();
 		return this.items$;
 	}
 
 	getProducts(): Observable<Product[]> {
 		this.selectParams = { ...this.selectParams, sortBy: 'name' };
-		this.listResult = this.apiSrv.listBy('Product');
+		this.queryListRef = this.apiSrv.listBy('Product');
 		this.setItems();
 		return this.items$;
 	}
 
 	getEvents(): Observable<Event[]> {
 		this.selectParams = { ...this.selectParams, sortBy: 'description.name' };
-		this.listResult = this.apiSrv.listBy('Event');
+		this.queryListRef = this.apiSrv.listBy('Event');
 		this.setItems();
 		return this.items$;
 	}
 
 	getProjects(): Observable<Project[]> {
 		this.selectParams = { ...this.selectParams, sortBy: 'name' };
-		this.listResult = this.apiSrv.listBy('Project');
+		this.queryListRef = this.apiSrv.listBy('Project');
 		this.setItems();
 		return this.items$;
 	}
 
 	getCategories(): Observable<Category[]> {
 		this.selectParams = { ...this.selectParams, sortBy: 'name' };
-		this.listResult = this.apiSrv.listBy('Category');
+		this.queryListRef = this.apiSrv.listBy('Category');
 		this.setItems();
 		return this.items$;
 	}
@@ -316,42 +279,42 @@ export class SelectorsService {
 			this.selectParams.query + ' AND email contains "@"' :
 			'email contains "@"';
 		this.selectParams = { ...this.selectParams, sortBy: 'name', query };
-		this.listResult = this.apiSrv.listBy('Contact');
+		this.queryListRef = this.apiSrv.listBy('Contact');
 		this.setItems();
 		return this.items$;
 	}
 
 	getRequestTemplates(): Observable<RequestTemplate[]> {
 		this.selectParams = { ...this.selectParams, sortBy: 'name' };
-		this.listResult = this.apiSrv.listBy('Request');
+		this.queryListRef = this.apiSrv.listBy('Request');
 		this.setItems();
 		return this.items$;
 	}
 
 	getTags(): Observable<Tag[]> {
 		this.selectParams = { ...this.selectParams, sortBy: 'name' };
-		this.listResult = this.apiSrv.listBy('Tag');
+		this.queryListRef = this.apiSrv.listBy('Tag');
 		this.setItems();
 		return this.items$;
 	}
 
 	getSupplierTypes(): Observable<SupplierType[]> {
 		this.selectParams = { ...this.selectParams, sortBy: 'name' };
-		this.listResult = this.apiSrv.listBy('SupplierType');
+		this.queryListRef = this.apiSrv.listBy('SupplierType');
 		this.setItems();
 		return this.items$;
 	}
 
 	getUsers(): Observable<User[]> {
 		this.selectParams = { ...this.selectParams, sortBy: 'lastName' };
-		this.listResult = this.apiSrv.listBy('User');
+		this.queryListRef = this.apiSrv.listBy('User');
 		this.setItems();
 		return this.items$;
 	}
 
 	getTeamUsers(): Observable<TeamUser[]> {
 		this.selectParams = { ...this.selectParams, sortBy: 'user.lastName' };
-		this.listResult = this.apiSrv.listBy('TeamUser');
+		this.queryListRef = this.apiSrv.listBy('TeamUser');
 		this.setItems();
 		return this.items$;
 	}
@@ -369,40 +332,40 @@ export class SelectorsService {
 
 	getSelectorElements(definitionReference: ID) {
 		this.selectParams = { ...this.selectParams, sortBy: 'value', query: `fieldDefinition.id == "${definitionReference}"` };
-		this.listResult = this.apiSrv.listBy('Selector element');
+		this.queryListRef = this.apiSrv.listBy('Selector element');
 		this.setItems();
 		return this.items$;
 	}
 
 	createSupplier(supplier: Supplier): Observable<any> {
-		return this.supplierSrv.create(supplier);
+		return this.apiSrv.create<any>('Supplier', supplier);
 	}
 
 	createProject(project: Project): Observable<any> {
-		return this.projectSrv.create(project);
+		return this.apiSrv.create<any>('Project', project);
 	}
 
 	createProduct(product: Product): Observable<any> {
-		return this.productSrv.create(product);
+		return this.apiSrv.create<any>('Product', product);
 	}
 
 	createCategory(category: Category): Observable<any> {
-		return this.categorySrv.create(category);
+		return this.apiSrv.create<any>('Category', category);
 	}
 
 	createContact(contact: Contact): Observable<any> {
-		return this.contactSrv.create(contact);
+		return this.apiSrv.create<any>('Contact', contact);
 	}
 
 	createEvent(event: Event): Observable<any> {
-		return this.eventSrv.create(event);
+		return this.apiSrv.create<any>('Event', event);
 	}
 
 	createTag(tag: Tag): Observable<any> {
-		return this.tagSrv.create(tag);
+		return this.apiSrv.create<any>('Tag', tag);
 	}
 
 	createSupplierType(supplierType: SupplierType): Observable<any> {
-		return this.supplierTypeSrv.create(supplierType);
+		return this.apiSrv.create<any>('SupplierType', supplierType);
 	}
 }
