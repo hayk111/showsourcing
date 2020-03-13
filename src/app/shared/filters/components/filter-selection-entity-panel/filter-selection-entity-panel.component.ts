@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { debounceTime, switchMap, take, takeUntil, tap } from 'rxjs/operators';
 import { ERM, ERMService, ListQuery } from '~core/erm';
-import { Filter, FilterType } from '~shared/filters/models';
+import { Filter, FilterType } from '~core/filters';
 import { AutoUnsub } from '~utils';
 
 
@@ -43,8 +43,6 @@ export class FilterSelectionEntityPanelComponent extends AutoUnsub implements On
 			this.loadEventChoices();
 		else
 			this.loadChoices();
-
-
 	}
 
 	loadChoices() {

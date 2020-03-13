@@ -6,8 +6,8 @@
 			<ng-container *ngSwitchCase="allFilterTypes.ARCHIVED">
 				<checkbox-app
 					[checked]="isArchived()"
-					(check)="onArchivedChange()"
-					(uncheck)="onArchivedChange()">
+					(check)="filterCommonSrv.filterByArchived(true)"
+					(uncheck)="filterCommonSrv.filterByArchived(false)">
 					<icon-app class="mg-h-s" name="archive"></icon-app>
 					<span translate="text.show-archived-products"></span>
 				</checkbox-app>
@@ -26,8 +26,8 @@
 			<ng-container *ngSwitchCase="allFilterTypes.DONE">
 				<checkbox-app
 					[checked]="isDone()"
-					(check)="onDoneChange()"
-					(uncheck)="onDoneChange()">
+					(check)="filterCommonSrv.filterByDone(true)"
+					(uncheck)="filterCommonSrv.filterByDone(false)">
 					<span translate="text.show-completed-tasks"></span>
 				</checkbox-app>
 			</ng-container>

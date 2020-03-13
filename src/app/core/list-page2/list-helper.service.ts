@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
-import { SelectionService } from './selection.service';
-import { ApiService, ObservableQuery } from '~core/erm3/services/api.service';
-import { FilterService } from '~core/filters/filter.service';
-import { switchMap, tap, map, shareReplay } from 'rxjs/operators';
 import { forkJoin, Observable } from 'rxjs';
+import { map, shareReplay, switchMap, tap } from 'rxjs/operators';
+import { ApiService, ObservableQuery } from '~core/erm3/services/api.service';
 import { Typename } from '~core/erm3/typename.type';
-import * as models from '~core/erm3/models';
+import { FilterService } from '~core/filters/filter.service';
+import { SelectionService } from './selection.service';
 
 @Injectable({ providedIn: 'root' })
 export class ListHelperService<G = any> {

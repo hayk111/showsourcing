@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { Filter, FilterType, FilterService } from '~core/filters';
+import { Filter, FilterType, FilterService, FilterCommonService } from '~core/filters';
 import { TrackingComponent } from '~utils/tracking-component';
 
 /**
@@ -18,7 +18,10 @@ export class FilterBtnListComponent extends TrackingComponent {
 	/** when the filter button is clicked */
 	@Output() editClicked = new EventEmitter<string>();
 
-	constructor(public filterSrv: FilterService) {
+	constructor(
+		public filterSrv: FilterService,
+		public filterCommonSrv: FilterCommonService
+	) {
 		super();
 	}
 
@@ -34,34 +37,16 @@ export class FilterBtnListComponent extends TrackingComponent {
 		return this.filterSrv.hasFilterValue(FilterType.DONE, true);
 	}
 
-	onArchivedChange() {
-		const current = this.filterMap.get(FilterType.ARCHIVED).get(this.isArchived());
-		const next = { type: FilterType.ARCHIVED, value: !this.isArchived() };
-		this.removeFilter(current);
-		this.addFilter(next);
-	}
-
-	onDoneChange() {
-		// simple copy of what's for ARCHIVED. The whole filter thing needs to be
-		// refactored because it's hard to get into.
-		const current = this.filterMap.get(FilterType.DONE).get(this.isDone());
-		const next = { type: FilterType.DONE, value: !this.isArchived() };
-		this.removeFilter(current);
-		this.addFilter(next);
-	}
-
-
-
 	getDisplayName(filter: Filter, type: FilterType) {
-		// switch (type) {
-		// 	case FilterType.ASSIGNEE:
-		// 	case FilterType.CREATED_BY:
-		// 		return filter.entity.firstName + ' ' + filter.entity.lastName;
-		// 	case FilterType.EVENT:
-		// 		return filter.entity.description.name;
-		// 	default:
-		// 		return filter.entity.name;
-		// }
+		switch (type) {
+			case FilterType.ASSIGNEE:
+			case FilterType.CREATED_BY:
+				return filter.entity.firstName + ' ' + filter.entity.lastName;
+			case FilterType.EVENT:
+				return filter.entity.description.name;
+			default:
+				return filter.entity.name;
+		}
 	}
 
 }
