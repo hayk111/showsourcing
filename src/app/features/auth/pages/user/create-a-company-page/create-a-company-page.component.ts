@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { CompanyService } from '~core/auth';
 import { AutoUnsub } from '~utils/auto-unsub.component';
+import { Company } from '~core/erm3/models';
 
 @Component({
 	selector: 'create-a-company-page-app',
@@ -31,8 +32,9 @@ export class CreateACompanyPageComponent extends AutoUnsub implements OnInit {
 
 	onSubmit(form: FormGroup) {
 		if (this.form.valid) {
+			const company = this.form.value;
 			this.pending$.next(true);
-			this.companySrv.create(this.form.value)
+			this.companySrv.create(company)
 				.subscribe(_ => {
 					this.pending$.next(false);
 					this.router.navigate(['auth', 'user', 'create-a-team']);
