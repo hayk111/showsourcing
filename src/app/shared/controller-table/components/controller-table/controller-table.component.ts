@@ -19,6 +19,7 @@ export class ControllerTableComponent {
 	/** describes the layout of the controller-table */
 	@Input() hasFilters = true;
 	@Input() hasExtra = false;
+	@Input() hasItems = false;
 	@ContentChild(ControllerTableViewSwitcherComponent, { static: true })
 	switcher: ControllerTableViewSwitcherComponent;
 	@ContentChild(ControllerTableContentComponent, { static: true })
@@ -31,4 +32,9 @@ export class ControllerTableComponent {
 
 	constructor(public listSrv: ListPageService<any, any>) {}
 
+	search(event) {
+		if (this.hasItems) {
+			this.listSrv.search(event, ['name', 'reference']);
+		}
+	}
 }

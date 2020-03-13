@@ -6,7 +6,7 @@
 	(buttonClick)="dialogCommonSrv.openSupplierRequest([])">
 </header-list-app>
 
-<controller-table-app [hasFilters]="false">
+<controller-table-app [hasFilters]="false" [hasItems]="listSrv.entityCount > 0">
 	<controller-table-quick-actions-app 
 		[hasExport]="false"
 		[columns]="columns" 

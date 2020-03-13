@@ -8,7 +8,7 @@
 	(buttonClick)="listSrv.create()">
 </header-list-app>
 
-<controller-table-app>
+<controller-table-app [hasItems]="listSrv.entityCount > 0">
 	<controller-table-quick-filters-app
 		[quickFilters]="['assignee']">
 	</controller-table-quick-filters-app>

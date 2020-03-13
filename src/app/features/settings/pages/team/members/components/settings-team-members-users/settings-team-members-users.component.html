@@ -2,7 +2,8 @@
 
 <controller-table-app
 	class="spacing-ms"
-	[hasFilters]="false">
+	[hasFilters]="false"
+	[hasItems]="listSrv.entityCount > 0">
 	<controller-table-content-app>
 		<div toolTip [toolTipMessage]="getTooltipMsg()" toolTipPosition="above-right">
 			<button [disabled]="!teamOwner" (click)="openInviteDialog()" i18n="@@invite-team-member">Invite Team Member</button>

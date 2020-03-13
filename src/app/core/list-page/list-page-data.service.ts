@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ConnectableObservable, Observable } from 'rxjs';
-import { first, map, merge, skip, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { first, map, merge, skip, switchMap, takeUntil, tap, take } from 'rxjs/operators';
 import { ListPageDataConfig } from '~core/list-page/list-page-config.interface';
 import { GlobalServiceInterface } from '~core/erm';
 import { ListQuery } from '~core/erm';
@@ -24,8 +24,10 @@ export class ListPageDataService
 	items$: ConnectableObservable<Array<T>>;
 	/** for debugging */
 	protected itemsSync: Array<T>;
-	/** number of total items */
+	/** number of total rendered items */
 	count$: Observable<number>;
+	/** number of total items */
+	entityCount = 0;
 	/** current page we are at */
 	currentPage = 0;
 
@@ -108,7 +110,7 @@ export class ListPageDataService
 			tap(items => this.itemsSync = items),
 		) as ConnectableObservable<T[]>;
 		this.count$ = this.listResult.count$;
-
+		this.count$.pipe(take(1)).subscribe(count => this.entityCount = count);
 	}
 
 	combineItems(items: Observable<T[]>) {
@@ -122,6 +124,7 @@ export class ListPageDataService
 			.pipe(
 				skip(1),
 				tap(_ => this.currentPage = 0),
+				tap(_ => this.selectParams.skip = 0),
 				tap(filterList => this.selectParams.query = filterList.asPredicate()),
 				switchMap(_ => this.refetch()),
 				takeUntil(destroy$)

@@ -1,4 +1,4 @@
-<controller-table-app >
+<controller-table-app [hasItems]="listSrv.entityCount > 0">
 	<controller-table-quick-filters-app></controller-table-quick-filters-app>
 	<controller-table-quick-actions-app></controller-table-quick-actions-app>
 	<controller-table-view-switcher-app></controller-table-view-switcher-app>

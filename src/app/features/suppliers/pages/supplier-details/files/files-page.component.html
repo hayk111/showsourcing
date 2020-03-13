@@ -1,7 +1,7 @@
 
 
 
-<controller-table-app>
+<controller-table-app [hasItems]="listSrv.entityCount > 0">
 	<controller-table-quick-filters-app
 		[quickFilters]="[]">
 	</controller-table-quick-filters-app>
