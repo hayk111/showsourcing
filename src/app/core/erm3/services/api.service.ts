@@ -208,11 +208,18 @@ export class ApiService {
 		apiOptions: ApiMutationOption = {}
 		): Observable<T> {
 		const options = apiOptions as MutationOptions;
+		if (typename !== 'Company' && typename !== 'Team') {
+			entity.createdAt = Date.now();
+			entity.lastUpdatedAt = Date.now();
+			entity.deleted = false;
+			entity.createdByUserId = this._userId;
+			entity.lastUpdatedByUserId = this._userId;
+			entity.teamId = this._teamId;
+		}
 		options.variables = { input: entity };
 		options.mutation = QueryPool.getQuery(typename, QueryType.UPDATE);
 		const queryName = GqlHelper.getQueryName(options.mutation);
 		delete entity.__typename;
-		entity.teamId = this._teamId;
 		options.optimisticResponse = this.getOptimisticResponse(options, queryName, entity);
 		return this.mutate(options);
 	}

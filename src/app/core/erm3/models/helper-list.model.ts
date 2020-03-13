@@ -3,7 +3,7 @@ import { Entity } from './_entity.model';
 import { HelperType } from '../API.service';
 
 export class HelperList extends Entity<HelperList> {
-	__typename?: Typename = 'helperList';
+	__typename?: Typename = 'HelperList';
 	id?: string;
 	helperType?: HelperType | null;
 	code?: string;

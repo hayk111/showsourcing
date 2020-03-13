@@ -11,7 +11,7 @@ export type Typename =
 	| 'EventDescription'
 	| 'Export'
 	|	'FieldDescriptor'
-	|	'helperList'
+	|	'HelperList'
 	| 'Image'
 	| 'Industry'
 	| 'Invitation'

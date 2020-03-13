@@ -10,7 +10,7 @@ import { Typename } from '../typename.type';
 
 import * as models from '~core/erm3/models';
 import { ApiService } from './api.service';
-import { ImageType } from '../API.service';
+import { ImageType, HelperType, ExportFormat } from '../API.service';
 import { switchMap, first, take } from 'rxjs/operators';
 import { QueryPool } from '../queries/query-pool.class';
 import { QueryType } from '../queries/query-type.enum';
@@ -19,30 +19,41 @@ import { Entity } from '../models/_entity.model';
 Amplify.configure(awsconfig);
 
 const mocks = {
+	Company: () => new models.Company({ name: 'test apiService Company' }),
+	Team: () =>
+		new models.Team({
+			companyId: '075af725-0c26-4f64-a07d-0f7203ae45c5',
+			name: 'test apiService Team'
+		}),
+
 	Category: () => new models.Category({ name: 'test apiService Category' }),
 	Contact: () => new models.Contact({ name: 'test apiService Contact' }),
-	// Descriptor: () => new models.Descriptor({ target: 'test apiService Descriptor' }),
+	Descriptor: () => new models.Descriptor({ target: 'test apiService Descriptor' }), // ! lastupdatedByUserId should be lastUpdatedByUserId
 	Image: () =>
 		new models.Image({ fileName: 'File Name', orientation: 0, imageType: ImageType.PNG }),
 	Product: () => new models.Product({ name: 'test apiService Product' }),
 	Supplier: () => new models.Supplier({ name: 'test apiService Supplier' }),
 	Task: () => new models.Task({ name: 'test apiService Task' }),
-
-	// Attachment: () => new models.Attachment(),
-	// Comment: () => new models.Comment(),
-
-	// HelperList: () => new models.HelperList(), // Country | Harbour | Currency
-
-	// Event: () => new models.Event(),
-	// EventDescription: () => new models.EventDescription(),
-	// Venue: () => new models.Venue(),
-	// Industry: () => new models.Industry()
-	// Export: () => new models.Export(),
-	// Invitation: () => new models.Invitation(),
-	// Project: () => new models.Project(),
-	// Sample: () => new models.Sample(),
-	// Tag: () => new models.Tag(),
-
+	Comment: () => new models.Comment({ nodeId: 'fakeId' }),
+	HelperList: () =>
+		new models.HelperList({ helperType: HelperType.COUNTRY, code: 'ISO2 (BE)', label: 'Belgium' }), // Country | Harbour | Currency
+	Event: () => new models.Event({ name: 'test apiService Event' }),
+	EventDescription: () => new models.EventDescription({ name: 'test apiService EventDescription' }),
+	Venue: () => new models.Venue({ name: 'test apiService Venue' }),
+	Industry: () => new models.Industry({ name: 'test apiService Industry' }),
+	Export: () => new models.Export({ format: ExportFormat.IMAGE }),
+	Invitation: () => new models.Invitation({ email: 'test apiService Invitation' }),
+	Project: () => new models.Project({ name: 'test apiService Project' }),
+	// Sample: () =>
+	// 	new models.Sample({
+	// 		name: 'test apiService Sample',
+	// 		description: 'desc',
+	// 		linkedProductId,
+	// 		linkedSupplierId,
+	// 		price,
+	// 		paid
+	// 	}),
+	Tag: () => new models.Tag({ name: 'test apiService Tag' })
 };
 
 fdescribe('ApiService', () => {
@@ -101,7 +112,7 @@ fdescribe('ApiService', () => {
 		});
 	});
 
-	fit('should update entities', async () => {
+	it('should update entities', async () => {
 		const promises = Object.entries(mocks).map(([name, getMock]) => {
 			return apiSrv
 				.create(name as Typename, getMock())
@@ -137,7 +148,10 @@ fdescribe('ApiService', () => {
 		const promises = Object.entries(mocks).map(([name, getMock]) => {
 			return apiSrv
 				.create(name as Typename, getMock())
-				.pipe(switchMap(createdEntity => apiSrv.get(name as Typename, createdEntity.id).data$), first())
+				.pipe(
+					switchMap(createdEntity => apiSrv.get(name as Typename, createdEntity.id).data$),
+					first()
+				)
 				.toPromise()
 				.catch(e => fail(`entity ${name} failed queryOne: ${e}`));
 		});
@@ -147,7 +161,7 @@ fdescribe('ApiService', () => {
 		});
 	});
 
-	it('should query all by entity', async () => {
+	xit('should query all by entity', async () => {
 		// get all queries by from query-pool => [ [typename1, byTypename1], ...]
 		const collectQueryBy = [];
 		Object.entries(QueryPool.map).forEach(([typename, baseQuery]: any) => {
@@ -161,7 +175,8 @@ fdescribe('ApiService', () => {
 		const promises = collectQueryBy.map(([typename, byTypename]) => {
 			return apiSrv
 				.listBy(typename, byTypename, 'fakeId')
-				.data$.pipe(first()).toPromise()
+				.data$.pipe(first())
+				.toPromise()
 				.catch(e => fail(`entity ${typename} failed query by ${byTypename}: ${e}`));
 		});
 
