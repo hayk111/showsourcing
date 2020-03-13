@@ -61,7 +61,7 @@ export class FilterService {
 	}
 
 	/** adds a search to the predicate and restart setFilters */
-	setSearch(value: string) {
+	search(value: string) {
 		this.addFilter({ type: FilterType.SEARCH, value });
 	}
 

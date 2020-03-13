@@ -22,7 +22,7 @@ export interface ObservableQuery<T = any> extends ApolloObservableQuery<T> {
 
 export interface FilterParams {
 	filter?: any;
-	sort?: any;
+	sort?: { field: string, direction: 'ASC' | 'DESC' };
 	limit?: number;
 	nextToken?: string;
 }

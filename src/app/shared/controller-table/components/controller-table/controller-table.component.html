@@ -6,7 +6,7 @@
 		[formControl]="searchControl"
 		[inputFocus]="inputFocus"
 		[placeHolder]="'placeholder.search' | translate"
-		(search)="listSrv.search($event)">
+		(search)="filterSrv.search($event)">
 	</search-bar-app>
 
 	<button
@@ -27,9 +27,9 @@
 	<divider-app [vertical]="true"></divider-app>
 
 	<span class="capitalize entities-count">
-		{{ listSrv.count$ | async }}
-		{{ (listSrv.count$ | async) < 2 ?
-			 (viewSrv.entityMetadata.singular | translate) : (viewSrv.entityMetadata.plural | translate) }}
+		{{ total }}
+		{{ total < 2 ?
+			 (viewSrv.typename | translate) : (viewSrv.typename + 's' | translate) }}
 	</span>
 
 </div>

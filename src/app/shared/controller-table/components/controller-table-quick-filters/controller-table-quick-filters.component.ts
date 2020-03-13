@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { UserService } from '~core/erm';
+import { UserService } from '~core/auth';
 import { FilterCommonService, FilterService, FilterType } from '~core/filters';
 
 export type QuickFilter = 'archived' | 'assignee' | 'createdBy' | 'completed';

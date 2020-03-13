@@ -1,24 +1,14 @@
-import { AfterViewInit, Component, ElementRef, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { SupplierRequestDialogComponent } from '~common/dialogs/custom-dialogs/supplier-request-dialog/supplier-request-dialog.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { ProductsTableComponent } from '~common/tables/products-table/products-table.component';
-import {
-	ERM,
-	Product,
-	ProductService,
-	SelectParamsConfig,
-	UserService,
-	EntityName
-} from '~core/erm';
-import { ListPageService, SelectionService } from '~core/list-page';
-import { ListPageViewService } from '~core/list-page/list-page-view.service';
+import { ERM, Product, SelectParamsConfig } from '~core/erm';
+import { FilterService, FilterType } from '~core/filters';
+import { ListHelperService, ListPageViewService, SelectionService } from '~core/list-page2';
 import { DialogService } from '~shared/dialog';
-import { FilterType, FilterService } from '~core/filters';
 import { KanbanSelectionService } from '~shared/kanban/services/kanban-selection.service';
 import { KanbanService } from '~shared/kanban/services/kanban.service';
 import { AutoUnsub } from '~utils';
-import { ListHelperService } from '~core/list-page/list-helper.service';
 
 // dailah lama goes into pizza store
 // servant asks : what pizza do you want sir ?
@@ -30,7 +20,6 @@ import { ListHelperService } from '~core/list-page/list-helper.service';
 	styleUrls: ['./products-page.component.scss'],
 	providers: [
 		ListHelperService,
-		ListPageService,
 		ListPageViewService,
 		SelectionService,
 		KanbanService,
