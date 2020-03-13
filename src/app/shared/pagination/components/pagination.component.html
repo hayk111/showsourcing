@@ -11,14 +11,14 @@ index: {{ currentPage }}
 
 	<button
 		class="arrow-btn icon primary-light"
-		(click)="goToFirstPage(currentPage === 0)"
+		(click)="goToFirstPage()"
 		[ngClass]="{ 'secondary-light': currentPage === 0 }">
 		<icon-app name="double-fat-angle-left" size="xs"></icon-app>
 	</button>
 
 	<button
 		class="arrow-btn icon primary-light"
-		(click)="goToPreviousPage(currentPage === 0)"
+		(click)="goToPreviousPage()"
 		[ngClass]="{ 'secondary-light': currentPage === 0 }">
 		<icon-app name="fat-angle-left" size="xs"></icon-app>
 	</button>
@@ -27,19 +27,19 @@ index: {{ currentPage }}
 		*ngFor="let page of range; trackBy: trackByFn"
 		class="icon"
 		[ngClass]="{ primary: page === currentPage }"
-		(click)="goToIndexPage(page, page === currentPage)">
+		(click)="goToIndexPage(page)">
 		{{ page + 1 }}
 	</button>
 
 	<button
 		class="arrow-btn icon primary-light"
-		(click)="goToNextPage(currentPage === totalPages - 1)">
+		(click)="goToNextPage()">
 		<icon-app name="fat-angle-right" size="xs" [ngClass]="{ disabled: currentPage === totalPages - 1 }"></icon-app>
 	</button>
 
 	<button
 		class="arrow-btn icon primary-light"
-		(click)="goToLastPage(currentPage === totalPages - 1)">
+		(click)="goToLastPage()">
 		<icon-app name="double-fat-angle-right" size="xs" [ngClass]="{ disabled: currentPage === totalPages - 1 }"></icon-app>
 	</button>
 

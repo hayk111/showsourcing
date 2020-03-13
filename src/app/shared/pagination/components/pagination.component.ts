@@ -34,7 +34,9 @@ export class PaginationComponent extends TrackingComponent implements OnChanges 
 	private _width = 5;
 
 	/** current index of the pagination (starts at 1) */
-	@Input() currentPage = 0;
+	private _currentPage: number;
+	@Input() set currentPage(value: number) { this._currentPage = value || 0; }
+	get currentPage() { return this._currentPage; }
 	@Output() goToPage = new EventEmitter<number>();
 	@Output() showItemsPerPage = new EventEmitter<number>();
 
@@ -58,38 +60,32 @@ export class PaginationComponent extends TrackingComponent implements OnChanges 
 		this.buildPaginatorRange();
 	}
 
-	goToIndexPage(page, disabled?: boolean) {
-		if (!disabled) {
+	goToIndexPage(page: number) {
+		if (page !== this.currentPage) {
 			this.currentPage = page;
 			this.buildPaginatorRange();
 			this.goToPage.emit(page);
 		}
 	}
 
-	goToPreviousPage(disabled = false) {
-		if (disabled)
-			return;
+	goToPreviousPage() {
 		if (this.currentPage > 0)
 			this.goToIndexPage(this.currentPage - 1);
 	}
 
-	goToNextPage(disabled = false) {
-		if (disabled)
-			return;
+	goToNextPage() {
 		if (this.currentPage < this.totalPages - 1)
 			this.goToIndexPage(this.currentPage + 1);
 	}
 
-	goToFirstPage(disabled = false) {
-		if (disabled)
-			return;
-		this.goToIndexPage(0);
+	goToFirstPage() {
+		if (this.currentPage > 0)
+			this.goToIndexPage(0);
 	}
 
-	goToLastPage(disabled = false) {
-		if (disabled)
-			return;
-		this.goToIndexPage(this.totalPages - 1);
+	goToLastPage() {
+		if (this.currentPage !== this.totalPages - 1)
+			this.goToIndexPage(this.totalPages - 1);
 	}
 
 	getTotalPages(count: number, itemsPerPage: number) {
@@ -131,7 +127,6 @@ export class PaginationComponent extends TrackingComponent implements OnChanges 
 		let start = currentIndex - Math.floor(width / 2);
 		start = Math.max(start, min);
 		start = Math.min(start, min + total - width);
-
 		return Array.from({ length: width }, (el, i) => start + i);
 	}
 
