@@ -92,10 +92,10 @@ export class FilterConverter {
 	private getSearchArg(value: string) {
 		const searchArg = { or: []};
 		if (this.searchedFields.length === 1) {
-			return { [this.searchedFields[0]]: { match: value } };
+			return { [this.searchedFields[0]]: { wildcard: `*${value.toLowerCase()}*` } };
 		}
 		this.searchedFields.forEach(searchedField => {
-			searchArg.or.push({ [searchedField]: { match: value } });
+			searchArg.or.push({ [searchedField]: { wildcard: `*${value.toLowerCase()}*` } });
 		});
 		return searchArg;
 	}

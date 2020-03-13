@@ -17,7 +17,7 @@ export class PaginationComponent extends TrackingComponent implements OnChanges 
 	/** items that we will see per page */
 	@Input() itemsPerPage = DEFAULT_TAKE_PAGINATION;
 	/** total number of items */
-	@Input() count = 0;
+	@Input() total = 0;
 	/** whether we should show per page items count */
 	@Input() hasPageItemsCount = true;
 	/** whether the element has left and right padding of 24px */
@@ -45,7 +45,7 @@ export class PaginationComponent extends TrackingComponent implements OnChanges 
 	pageItemsCount = [25, 50, 100, 200];
 
 	ngOnChanges() {
-		this.totalPages = this.getTotalPages(this.count, this.itemsPerPage);
+		this.totalPages = this.getTotalPages(this.total, this.itemsPerPage);
 		this.buildPaginatorRange();
 	}
 
@@ -54,7 +54,7 @@ export class PaginationComponent extends TrackingComponent implements OnChanges 
 		this.showItemsPerPage.emit(count);
 		this.itemsPerPage = count;
 
-		this.totalPages = this.getTotalPages(this.count, this.itemsPerPage);
+		this.totalPages = this.getTotalPages(this.total, this.itemsPerPage);
 		this.buildPaginatorRange();
 	}
 
@@ -99,11 +99,11 @@ export class PaginationComponent extends TrackingComponent implements OnChanges 
 	getPerPageItemsCount() {
 		const perPageItems = Number(this.itemsPerPage);
 		const fromNumber = this.currentPage * perPageItems;
-		const toNumber = fromNumber + perPageItems < this.count
+		const toNumber = fromNumber + perPageItems < this.total
 			? fromNumber + perPageItems
-			: this.count;
+			: this.total;
 
-		return { fromNumber: fromNumber || 0, toNumber: toNumber || 0, count: this.count || 0 };
+		return { fromNumber: fromNumber || 0, toNumber: toNumber || 0, count: this.total || 0 };
 	}
 
 	private buildPaginatorRange() {

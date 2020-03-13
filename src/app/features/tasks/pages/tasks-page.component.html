@@ -21,7 +21,7 @@
 	[rows]="listSrv.items$ | async"
 	[selection]="selectionSrv.selection$ | async"
 	[pending]="listSrv.pending"
-	[count]="listSrv.count$ | async"
+	[total]="listSrv.count$ | async"
 	[currentSort]="listSrv.currentSort"
 	[currentPage]="listSrv.currentPage"
 	(update)="listSrv.update($event)"

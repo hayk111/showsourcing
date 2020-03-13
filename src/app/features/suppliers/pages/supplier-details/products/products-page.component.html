@@ -14,7 +14,7 @@
 		[pending]="false"
 		[selection]="selectionSrv.selection"
 		[rows]="products"
-		[count]="listSrv.count$ | async"
+		[total]="listSrv.count$ | async"
 		[currentPage]="listSrv.currentPage"
 		[isFiltering]="filterSrv.isFiltering"
 		(update)="listSrv.update($event)"

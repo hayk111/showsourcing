@@ -62,7 +62,16 @@ export class FilterService {
 
 	/** adds a search to the predicate and restart setFilters */
 	search(value: string) {
-		this.addFilter({ type: FilterType.SEARCH, value });
+		if (!value) {
+			return this.removeFilterType(FilterType.SEARCH);
+		}
+		const lastFilter = this.getFiltersForType(FilterType.SEARCH)[0];
+		if (!lastFilter) {
+			this.addFilter({ type: FilterType.SEARCH, value });
+		} else {
+			lastFilter.value = value;
+			this.setFilters(this.filters);
+		}
 	}
 
 	/** adds one filter */
@@ -99,7 +108,7 @@ export class FilterService {
 	}
 
 	getFiltersForType(type: FilterType): Filter[] {
-		return this.filtersByType.get(type);
+		return this.filtersByType.get(type) || [];
 	}
 
 	/** returns the number of added filter above the start filters */

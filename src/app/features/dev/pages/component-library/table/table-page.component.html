@@ -34,7 +34,7 @@
 			[pending]="listSrv.pending"<br>
 			[selected]="selectionSrv.selection$ | async"<br>
 			[contextualMenu]="contextualMenuTemplate"<br>
-			[count]="listSrv.count$ | async"<br>
+			[total]="listSrv.count$ | async"<br>
 			[currentPage]="listSrv.currentPage"<br>
 			placeholder="this is placeholder"<br>
 			(goToPage)="listSrv.loadPage($event)"<br>
@@ -74,7 +74,7 @@
 		[pending]="listSrv.pending"
 		[selected]="selectionSrv.selection$ | async"
 		[contextualMenu]="contextualMenuTemplate"
-		[count]="listSrv.count$ | async"
+		[total]="listSrv.count$ | async"
 		[currentPage]="listSrv.currentPage"
 		placeholder="'No suppliers'"
 		(goToPage)="listSrv.loadPage($event)"

@@ -21,7 +21,7 @@
 	[isFiltering]="filterSrv.isFiltering"
 	[rows]="listSrv.items$ | async"
 	[selection]="selectionSrv.selection$ | async"
-	[count]="listSrv.count$ | async"
+	[total]="listSrv.count$ | async"
 	[currentPage]="listSrv.currentPage"
 	[linkedEntity]="supplier"
 	(delete)="listSrv.deleteOne($event, true)"
