@@ -11,7 +11,7 @@ export class QueryPool {
 		Contact: new BaseQueries('Contact', undefined, []),
 		Descriptor: new BaseQueries('Descriptor', 'target', []),
 		Image: new BaseQueries('Image', `fileName`, []),
-		Product: new BaseQueries('Product', undefined, []),
+		Product: new BaseQueries('Product', 'id name', []),
 		Supplier: new BaseQueries('Supplier', undefined, []),
 		Task: new BaseQueries('Task', undefined, []),
 		User: new BaseQueries('User', `firstName`, []),

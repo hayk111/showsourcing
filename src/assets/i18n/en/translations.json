@@ -1,4 +1,6 @@
 {
+	"Product": "product",
+	"Products": "products",
 	"_user-defined": {
 		"status": {
 			"_GetQuotation": "get quotation",

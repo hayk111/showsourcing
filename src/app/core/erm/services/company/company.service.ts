@@ -4,7 +4,7 @@ import { filter, map, switchMap, tap } from 'rxjs/operators';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { Company } from '~core/erm/models';
 import { CompanyQueries } from '~core/erm/services/company/company.queries';
-import { GlobalService } from '~core/erm2/global.service-2';
+import { GlobalService } from '~core/erm/services/_global/global.service';
 import { LocalStorageService } from '~core/local-storage';
 import { customQueries } from './company.custom-queries';
 
@@ -30,7 +30,7 @@ export class CompanyService extends GlobalService<Company> {
 		protected storage: LocalStorageService,
 		protected authSrv: AuthenticationService,
 	) {
-		super(CompanyQueries, 'company', customQueries);
+		super(CompanyQueries, 'company', 'companies');
 	}
 
 	init() {

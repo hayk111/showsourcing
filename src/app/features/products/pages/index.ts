@@ -1,3 +1,4 @@
 export * from './product-details';
-export * from './products';
-
+export * from './table';
+export * from './card';
+export * from './board';

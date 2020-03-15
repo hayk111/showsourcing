@@ -4,7 +4,7 @@ import { AnalyticsService } from '~core/analytics/analytics.service';
 import { Product } from '~core/erm/models';
 import { ProductQueries } from '~core/erm/services/product/product.queries';
 import { UserService } from '~core/erm/services/user/user.service';
-import { GlobalService } from '../../../erm2/global.service-2';
+import { GlobalService } from '~core/erm/services/_global';
 
 @Injectable({
 	providedIn: 'root'
