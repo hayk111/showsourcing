@@ -6,13 +6,16 @@ import { QueryType } from './query-type.enum';
 export class QueryPool {
 	static map = {
 		Category: new BaseQueries('Category', undefined, []),
+		Currency: new BaseQueries('Currency', undefined, []),
 		// Company: new CompanyQueries('Company'),
 		Company: new BaseQueries('Company', undefined, ['Owner']),
 		Contact: new BaseQueries('Contact', undefined, []),
 		Descriptor: new BaseQueries('Descriptor', 'target', []),
 		Image: new BaseQueries('Image', `fileName`, []),
+		Project: new BaseQueries('Project', 'id name', []),
 		Product: new BaseQueries('Product', 'id name', []),
 		Supplier: new BaseQueries('Supplier', undefined, []),
+		SupplierType: new BaseQueries('SupplierType', undefined, []),
 		Task: new BaseQueries('Task', undefined, []),
 		User: new BaseQueries('User', `firstName`, []),
 		// Team: new TeamQueries('Team'),
