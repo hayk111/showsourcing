@@ -22,7 +22,6 @@ export class ApiLogger {
 		log.group(`%c trace`, 'color: orange');
 		log.trace();
 		log.groupEnd();
-		log.debug(`%c queryName: ${queryName}`);
 		log.group(`%c gql`, 'color: fuchsia;');
 		log.debug(`%c ${body}`, 'color: #555555');
 		log.groupEnd();

@@ -90,7 +90,6 @@ export class CreationProductDlgComponent implements OnInit {
 				} else {
 					this.close();
 				}
-				this.productSrv.onUpdateProductList();
 				// success
 				this.toastSrv.add({
 					type: ToastType.SUCCESS,

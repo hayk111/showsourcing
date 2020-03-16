@@ -4,6 +4,6 @@ import { Observable } from 'rxjs';
 export interface ObservableQuery<T = any> extends ApolloObservableQuery<T> {
 	response$: Observable<any>;
 	data$: Observable<T>;
-	count$?: Observable<number>;
+	total$?: Observable<number>;
 	queryName: string;
 }

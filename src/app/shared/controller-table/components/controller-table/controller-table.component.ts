@@ -1,6 +1,6 @@
 import { Component, Input, ContentChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { ListPageService, ListPageViewService } from '~core/list-page';
+import { ListPageViewService } from '~core/list-page2';
 import { ControllerTableViewSwitcherComponent } from '../controller-table-view-switcher/controller-table-view-switcher.component';
 import { ControllerTableContentComponent } from '../controller-table-content/controller-table-content.component';
 import { ControllerTableQuickFiltersComponent } from '../controller-table-quick-filters/controller-table-quick-filters.component';
@@ -20,6 +20,7 @@ export class ControllerTableComponent {
 	/** describes the layout of the controller-table */
 	@Input() hasFilters = true;
 	@Input() hasExtra = false;
+	@Input() total: number;
 	@ContentChild(ControllerTableViewSwitcherComponent, { static: true })
 	switcher: ControllerTableViewSwitcherComponent;
 	@ContentChild(ControllerTableContentComponent, { static: true })
@@ -30,6 +31,9 @@ export class ControllerTableComponent {
 	searchControl: FormControl = new FormControl('');
 	inputFocus = false;
 
-	constructor() {}
+	constructor(
+		public filterSrv: FilterService,
+		public viewSrv: ListPageViewService<any>,
+	) {}
 
 }

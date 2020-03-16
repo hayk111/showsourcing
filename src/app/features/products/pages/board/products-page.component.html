@@ -1,30 +1,31 @@
 <!-- top panel -->
-<!-- <header-list-app
+<header-list-app
 	[title]="'title.my-products' | translate"
 	logoName="product"
 	info="The product database"
 	[buttonName]="'button.create-product' | translate"
 	(buttonClick)="dialogCommonSrv.openCreationProductDlg()">
-</header-list-app> -->
+</header-list-app>
 
-<!-- <controller-table-app> -->
+<controller-table-app [total]="listHelper.total$ | async">
 	<!-- filters -->
-	<!-- <controller-table-quick-filters-app></controller-table-quick-filters-app> -->
+	<controller-table-quick-filters-app></controller-table-quick-filters-app>
 	<!-- actions -->
-	<!-- <controller-table-quick-actions-app
+	<controller-table-quick-actions-app
 		[columns]="columns"
 		[tableConfig]="tableConfig">
-	</controller-table-quick-actions-app> -->
+	</controller-table-quick-actions-app>
 	<!-- switcher -->
-	<!-- <controller-table-view-switcher-app></controller-table-view-switcher-app>
-</controller-table-app> -->
+	<controller-table-view-switcher-app></controller-table-view-switcher-app>
+</controller-table-app>
 
 <!-- views: either one will be displayed when the correct view is selected -->
 <!-- <ng-container *ngIf="listSrv.isListening"> -->
 	<products-table-app
 		*ngIf="viewSrv.view === 'table'"
-		[selection]="selectionSrv.selection$ | async"
 		[rows]="items$ | async"
+		[pending]="listHelper.pending"
+		[selection]="selectionSrv.selection$ | async"
 		(open)="viewSrv.goToDetails($event)"
 		(previewClick)="viewSrv.openPreview($event)"
 		(select)="selectionSrv.selectOne($event)"
@@ -55,8 +56,8 @@
 		(update)="listSrv.update($event)"
 		(bottomReached)="listSrv.loadMore()">
 	</products-grid-app>
-
-	<product-selection-bar-app
+-->
+	<!-- <product-selection-bar-app
 		[isShown]="(getSelection$() | async).size"
 		[selection]="getSelection$() | async"
 		[selectableItems]="getSelectableItems$() | async"
@@ -71,14 +72,14 @@
 		(deleted)="listSrv.deleteSelected()"
 		(selectAll)="selectAll($event)"
 		(unselectAll)="unselectAll()">
-	</product-selection-bar-app>
+	</product-selection-bar-app> -->
 
-	<product-preview-app
+	<!-- <product-preview-app
 		*ngIf="viewSrv.previewOpen"
 		[product]="viewSrv.previewed"
 		(close)="viewSrv.closePreview()">
-	</product-preview-app>
-</ng-container> -->
+	</product-preview-app> -->
+<!-- </ng-container>  -->
 
 <!-- <side-panel-app *ngIf="viewSrv.filterPanelOpen">
 	<filters-app

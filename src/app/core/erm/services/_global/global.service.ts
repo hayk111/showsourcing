@@ -252,21 +252,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	*/
 	selectMany(paramsConfig: SelectParamsConfig, fields?: string | string[]): Observable<T[]> {
 		throw Error('not implemented');
-		// const title = 'Selecting Many ' + this.typeName;
-		// fields = this.getFields(fields, this.fields.many);
-		// const gql = this.queryBuilder.selectMany(fields);
-		// const variables = new SelectParams(paramsConfig);
-		// const queryName = this.getQueryName(gql);
 
-		// return this.getClient(clientName, title).pipe(
-		// 	tap(_ => this.log(title, gql, queryName, clientName, variables)),
-		// 	switchMap(client => client.subscribe({ query: gql, variables })),
-		// 	filter((r: any) => this.checkError(r, title)),
-		// 	// extracting the result
-		// 	map((r) => r.data[queryName].items),
-		// 	tap(data => this.logResult(title, queryName, data)),
-		// 	catchError(errors => of(log.table(errors)))
-		// );
 	}
 
 	/////////////////////////////
@@ -281,22 +267,6 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	*/
 	queryMany(paramsConfig: SelectParamsConfig, fields?: string | string[]): Observable<T[]> {
 		throw Error('not implemented');
-
-		// const title = 'Query Many ' + this.typeName;
-		// fields = this.getFields(fields, this.fields.many);
-		// const gql = this.queryBuilder.queryMany(fields);
-		// const variables = new SelectParams(paramsConfig);
-		// const queryName = this.getQueryName(gql);
-
-		// return this.getClient(clientName, title).pipe(
-		// 	tap(_ => this.log(title, gql, queryName, clientName, variables)),
-		// 	switchMap(client => client.watchQuery({ query: gql, variables }).valueChanges),
-		// 	filter((r: any) => this.checkError(r, title)),
-		// 	// extracting the result
-		// 	map((r) => r.data[queryName].items),
-		// 	tap(data => this.logResult(title, queryName, data)),
-		// 	catchError(errors => of(log.table(errors)))
-		// );
 	}
 
 	/////////////////////////////
@@ -315,85 +285,6 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 		: ListQuery<T> {
 		throw Error('not implemented');
 
-		// const title = 'Query List';
-		// fields = this.getFields(fields, this.fields.many);
-		// const gql = this.queryBuilder.queryMany(fields);
-		// const queryName = this.getQueryName(gql);
-		// const variables = new SelectParams(paramsConfig);
-
-
-		// // get query ref
-		// const queryRef$: Observable<QueryRef<any>> = this.getClient(clientName, title).pipe(
-		// 	map(client => client.watchQuery<any>({
-		// 		query: gql,
-		// 		variables
-		// 	})),
-		// 	shareReplay(1)
-		// );
-
-		// let itemsAmount = 0;
-
-		// const data$ = queryRef$.pipe(
-		// 	tap(_ => this.log(title, gql, queryName, clientName, variables)),
-		// 	switchMap(queryRef => queryRef.valueChanges),
-		// 	distinctUntilChanged(),
-		// 	filter((r: any) => this.checkError(r, title)),
-		// 	map(r => r.data[queryName])
-		// );
-
-		// const count$ = data$.pipe(
-		// 	map(data => data.count)
-		// );
-
-		// // add items$ wich are the actual items requested
-		// const items$: ConnectableObservable<T[]> = data$.pipe(
-		// 	map(data => data.items),
-		// 	tap(data => this.logResult(title, queryName, data)),
-		// 	tap(data => itemsAmount = data.length),
-		// 	catchError((errors) => of(log.table(errors))),
-		// 	publishReplay(1)
-		// ) as ConnectableObservable<T[]>;
-
-		// // add fetchMore so we can tell apollo to fetch more items ( infiniScroll )
-		// // (will be reflected in items$)
-		// const fetchMore = (): Observable<any> => {
-		// 	const fetchMoreTitle = 'Selecting List Fetch More ' + this.typeName;
-		// 	return queryRef$.pipe(
-		// 		tap(_ => this.log(fetchMoreTitle, gql, queryName, clientName, { skip: itemsAmount })),
-		// 		map(queryRef => queryRef.fetchMore({
-		// 			variables: { skip: itemsAmount },
-		// 			updateQuery: (prev, { fetchMoreResult }) => {
-		// 				if (!fetchMoreResult[queryName]) {
-		// 					return prev;
-		// 				}
-		// 				this.logResult(fetchMoreTitle, queryName, fetchMoreResult[queryName].items);
-		// 				// extracting data from response
-		// 				return {
-		// 					[queryName]: {
-		// 						items: [
-		// 							...prev[queryName].items,
-		// 							...fetchMoreResult[queryName].items
-		// 						],
-		// 						count: fetchMoreResult[queryName].count,
-		// 						__typename: prev[queryName].__typename
-		// 					},
-		// 				};
-		// 			}
-		// 		})));
-		// };
-
-		// // add refetch query so we can tell apollo to that the variables have changed
-		// // (will be reflected in items$)
-		// const refetch = (config: SelectParamsConfig): Observable<any> => {
-		// 	const refetchTitle = 'Selecting List Refetch' + this.typeName;
-		// 	return queryRef$.pipe(
-		// 		tap(_ => this.log(refetchTitle, gql, queryName, clientName, config)),
-		// 		tap(queryRef => queryRef.setOptions({ fetchPolicy: 'network-only' })),
-		// 		switchMap(queryRef => queryRef.refetch({ ...config }))
-		// 	);
-		// };
-
-		// return { queryName, items$, count$, fetchMore, refetch };
 	}
 
 	/////////////////////////////
@@ -408,25 +299,6 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	*/
 	selectAll(fields?: string | string[], paramsConfig?: SelectAllParamsConfig): Observable<T[]> {
 		throw Error('not implemented');
-		// const title = 'Select All ' + this.typeName;
-		// fields = this.getFields(fields, this.fields.all);
-		// const gql = this.queryBuilder.selectAll(fields);
-		// const queryName = this.getQueryName(gql);
-		// const variables = new SelectAllParams(paramsConfig);
-
-		// return this.getClient(clientName, title).pipe(
-		// 	tap(_ => this.log(title, gql, queryName, clientName)),
-		// 	switchMap(client => client.subscribe({ query: gql, variables })),
-		// 	// extracting the result
-		// 	map((r: any) => {
-		// 		if (!r.data)
-		// 			throwError(r.errors);
-		// 		return r.data[queryName].items;
-		// 	}),
-		// 	catchError(errors => of(log.table(errors))),
-		// 	tap(data => this.logResult(title, queryName, data)),
-		// 	shareReplay(1)
-		// );
 	}
 
 
@@ -441,41 +313,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	*/
 	queryAll(fields?: string | string[], paramsConfig?: SelectAllParamsConfig): Observable<T[]> {
-		const title = 'Query All ' + this.typeName;
-		fields = this.getFields(fields, this.fields.all);
-		const query = this.queryBuilder.queryAll(fields);
-		const queryName = this.getQueryName(query);
-
-		// const variables = new SelectAllParams(paramsConfig);
-		this.log(title, query, queryName);
-		return from(
-			API.graphql({ query, variables: {} })
-		).pipe(
-			// extracting the result
-			map((r) => r.data[queryName].items),
-			tap(data => this.logResult(title, queryName, data)),
-			catchError(data => {
-				data.errors.forEach(e => log.error(e));
-				of(log.table(data.errors));
-				return of(null);
-			}),
-			shareReplay(1)
-		) as Observable<any>;
-
-		// return this.getClient(clientName, title).pipe(
-		// 	tap(_ => this.log(title, gql, queryName, clientName, variables)),
-		// 	switchMap(client => client.watchQuery({ query: gql, variables }).valueChanges),
-		// 	filter((r: any) => this.checkError(r, title)),
-		// 	// extracting the result
-		// 	map((r) => {
-		// 		if (!r.data)
-		// 			throwError(r.errors);
-		// 		return r.data[queryName].items;
-		// 	}),
-		// 	catchError(errors => of(log.table(errors))),
-		// 	tap(data => this.logResult(title, queryName, data)),
-		// 	shareReplay(1)
-		// );
+		throw Error('not implemented');
 	}
 
 	/////////////////////////////
@@ -488,25 +326,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	*/
 	queryCount(predicate: string): Observable<number> {
 		throw Error('not implemented');
-		// const title = 'Query Count ' + this.typeName;
-		// const gql = this.queryBuilder.queryCount();
-		// const queryName = this.getQueryName(gql);
-		// const variables = { query: predicate };
 
-		// return this.getClient(clientName, title).pipe(
-		// 	tap(_ => this.log(title, gql, queryName, clientName, variables)),
-		// 	switchMap(client => client.watchQuery({ query: gql, variables }).valueChanges),
-		// 	filter((r: any) => this.checkError(r, title)),
-		// 	// extracting the result
-		// 	map((r) => {
-		// 		if (!r.data)
-		// 			throwError(r.errors);
-		// 		return r.data[queryName].count;
-		// 	}),
-		// 	catchError(errors => of(log.table(errors))),
-		// 	tap(data => this.logResult(title, queryName, data)),
-		// 	shareReplay(1)
-		// );
 	}
 
 
@@ -520,24 +340,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	*/
 	selectCount(predicate: string): Observable<number> {
 		throw Error('not implemented');
-		// const title = 'Select Count ' + this.typeName;
-		// const gql = this.queryBuilder.selectCount();
-		// const queryName = this.getQueryName(gql);
-		// const variables = { query: predicate };
 
-		// return this.getClient(clientName, title).pipe(
-		// 	tap(_ => this.log(title, gql, queryName, clientName, variables)),
-		// 	switchMap(client => client.subscribe({ query: gql, variables })),
-		// 	// extracting the result
-		// 	map((r) => {
-		// 		if (!r.data)
-		// 			throwError(r.errors);
-		// 		return r.data[queryName].count;
-		// 	}),
-		// 	catchError(errors => of(log.table(errors))),
-		// 	tap(data => this.logResult(title, queryName, data)),
-		// 	shareReplay(1)
-		// );
 	}
 
 	/////////////////////////////
@@ -551,32 +354,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	*/
 	update(entity: T, fields?: string, isOptimistic: boolean = true): Observable<T> {
 		throw Error('not implemented');
-		// const title = 'Update ' + this.typeName;
-		// fields = fields ? fields : this.patch(entity);
-		// const gql = this.queryBuilder.update(fields);
-		// const variables = { input: entity };
-		// const queryName = this.getQueryName(gql);
-		// const options = { mutation: gql, variables };
-		// const cacheKey = `${entity.id}-${clientName}`;
 
-		// if (isOptimistic) {
-		// 	this.addOptimisticResponse(options, gql, entity, this.typeName);
-		// }
-		// // updating select one cache so changes are reflected when using selectOne(id)
-		// if (this.selectOneCache.has(cacheKey) && isOptimistic) {
-		// 	this.selectOneCache.get(cacheKey).clientChanges.next(entity);
-		// }
-
-		// return this.getClient(clientName, title).pipe(
-		// 	tap(_ => this.log(title, gql, queryName, clientName, variables)),
-		// 	switchMap(client => client.mutate(options)),
-		// 	filter((r: any) => this.checkError(r, title)),
-		// 	map(({ data }) => data[queryName]),
-		// 	tap(data => this.logResult(title, queryName, data)),
-		// 	tap(data => this.sendTrack('Update', data, 'update', fields)),
-		// 	first(),
-		// 	catchError(errors => of(log.table(errors)))
-		// );
 	}
 
 	/////////////////////////////
@@ -591,27 +369,6 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	updateMany(entities: T[], fields?: string): Observable<T[]> {
 		throw Error('not implemented');
 
-		// const title = 'Update many' + this.typeName;
-		// fields = fields ? fields : this.patch(entities[0]);
-		// const gql = this.queryBuilder.updateMany(fields);
-		// const variables = { input: entities };
-		// const queryName = this.getQueryName(gql);
-		// const options = { mutation: gql, variables };
-
-		// // if (isOptimistic) {
-		// // 	this.addOptimisticResponse(options, gql, entity, this.typeName);
-		// // }
-
-		// return this.getClient(clientName, title).pipe(
-		// 	tap(_ => this.log(title, gql, queryName, clientName, variables)),
-		// 	switchMap(client => client.mutate(options)),
-		// 	first(),
-		// 	filter((r: any) => this.checkError(r, title)),
-		// 	map(({ data }) => data[queryName]),
-		// 	tap(data => this.logResult(title, queryName, data)),
-		// 	tap(data => this.sendTrack('Update many', data, 'update', fields)),
-		// 	catchError(errors => of(log.table(errors)))
-		// );
 	}
 
 
@@ -624,36 +381,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	*/
 	create(entity: T): Observable<T> {
-		const title = 'Create one ' + this.typeName;
-		const fields = this.patch(entity);
-		const query = this.queryBuilder.create(fields);
-		const variables = { input: entity };
-		const queryName = this.getQueryName(query);
-
-		this.log(title, query, queryName, variables);
-		return from(
-			API.graphql({ query, variables })
-		).pipe(
-			// extracting the result
-			map((r) => r.data[queryName].items),
-			tap(data => this.logResult(title, queryName, data)),
-			catchError(data => {
-				data.errors.forEach(e => log.error(e));
-				of(log.table(data.errors));
-				return of(null);
-			}),
-		);
-
-		// return this.getClient(clientName, title).pipe(
-		// 	tap(_ => this.log(title, gql, queryName, clientName, variables)),
-		// 	switchMap(client => client.mutate({ mutation: gql, variables })),
-		// 	first(),
-		// 	filter((r: any) => this.checkError(r, title)),
-		// 	map(({ data }) => data[queryName]),
-		// 	tap(data => this.logResult(title, queryName, data)),
-		// 	tap(data => this.sendTrack('Create', data, 'creation')),
-		// 	catchError(errors => of(log.table(errors)))
-		// );
+		throw Error('not implemented');
 	}
 
 
@@ -666,8 +394,6 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	*/
 	createMany(entities: T[]): Observable<T[]> {
 		throw Error('not implemented');
-
-		// return forkJoin(entities.map(entity => this.create(entity, clientName)));
 	}
 
 	/////////////////////////////
@@ -681,22 +407,6 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	delete(id: string): Observable<any> {
 		throw Error('not implemented');
 
-		// const title = 'Delete one ' + this.typeName;
-		// const gql = this.queryBuilder.deleteOne();
-		// const options = {
-		// 	mutation: gql,
-		// 	variables: { id }
-		// };
-		// const queryName = this.getQueryName(gql);
-
-		// return this.getClient(clientName, title).pipe(
-		// 	tap(_ => this.log(title, gql, queryName, clientName, options.variables)),
-		// 	switchMap(client => client.mutate(options)),
-		// 	first(),
-		// 	filter((r: any) => this.checkError(r, title)),
-		// 	map(({ data }) => data[queryName]),
-		// 	catchError(errors => of(log.table(errors)))
-		// );
 	}
 
 
@@ -710,31 +420,6 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	*/
 	deleteMany(ids: string[]): Observable<any> {
 		throw Error('not implemented');
-
-		// // // checking we received ids, because if no query is specified
-		// // // apollo will delete everything
-		// if (ids.length === 0) {
-		// 	log.warn('trying to delete many items with an empty array of ids, aborting');
-		// 	return of(undefined);
-		// }
-
-		// const title = 'Delete many ' + this.typeName;
-		// const gql = this.queryBuilder.deleteMany();
-		// const query = ids.map(id => `id == "${id}"`).join(' OR ');
-		// const options = {
-		// 	mutation: gql,
-		// 	variables: { query }
-		// };
-		// const queryName = this.getQueryName(gql);
-
-		// return this.getClient(clientName, title).pipe(
-		// 	tap(_ => this.log(title, gql, queryName, clientName, options.variables)),
-		// 	switchMap(client => client.mutate(options)),
-		// 	first(),
-		// 	filter((r: any) => this.checkError(r, title)),
-		// 	map(({ data }) => data[queryName]),
-		// 	catchError(errors => of(log.table(errors)))
-		// );
 	}
 
 

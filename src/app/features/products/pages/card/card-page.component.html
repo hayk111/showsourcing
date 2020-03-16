@@ -1,0 +1,67 @@
+<!-- top panel -->
+<header-list-app
+	[title]="'title.my-products' | translate"
+	logoName="product"
+	info="The product database"
+	[buttonName]="'button.create-product' | translate"
+	(buttonClick)="dialogCommonSrv.openCreationProductDlg()">
+</header-list-app>
+
+<controller-table-app [total]="listHelper.total$ | async">
+	<!-- filters -->
+	<controller-table-quick-filters-app></controller-table-quick-filters-app>
+	<!-- actions -->
+	<controller-table-quick-actions-app></controller-table-quick-actions-app>
+	<!-- switcher -->
+	<controller-table-view-switcher-app></controller-table-view-switcher-app>
+</controller-table-app>
+
+<products-grid-app
+	cdk-scrollable
+	class="card-view will-change-scroll"
+	infiniScroll
+	[rows]="items$ | async"
+	[selection]="selectionSrv.selection$ | async"
+	(addToProject)="dialogCommonSrv.openAddToProjectDialog($event)"
+	(disliked)="ratingSrv.onThumbDown($event)"
+	(liked)="ratingSrv.onThumbUp($event)"
+	(open)="viewSrv.goToDetails($event)"
+	(previewClick)="viewSrv.openPreview($event)"
+	(select)="selectionSrv.selectOne($event, true)"
+	(unselect)="selectionSrv.unselectOne($event, true)"
+	(update)="listHelper.update($event)"
+	(bottomReached)="listHelper.loadMore()">
+</products-grid-app>
+
+	<!-- <product-selection-bar-app
+		[isShown]="(getSelection$() | async).size"
+		[selection]="getSelection$() | async"
+		[selectableItems]="getSelectableItems$() | async"
+		(addProject)="onProjectDlgOpen()"
+		(export)="dialogCommonSrv.openExportDialog(erm.PRODUCT.singular, selectionSrv.getSelectedValues())"
+		(createRequest)="dialogCommonSrv.openSupplierRequest(selectionSrv.getSelectedValues())"
+		(requestTeamFeedback)="dialogCommonSrv.openRequestFeedbackDialog(selectionSrv.getSelectedValues())"
+		(archiveProducts)="listSrv.archiveMany(selectionSrv.getSelectedValues())"
+		(compareProducts)="dialogCommonSrv.openCompareProductDialog(selectionSrv.getSelectedValues())"
+		(statusUpdated)="listSrv.updateSelected({status: $event})"
+		(massEdit)="dialogCommonSrv.openMassEditDialog(selectionSrv.getSelectedValues(), erm.PRODUCT)"
+		(deleted)="listSrv.deleteSelected()"
+		(selectAll)="selectAll($event)"
+		(unselectAll)="unselectAll()">
+	</product-selection-bar-app> -->
+
+	<!-- <product-preview-app
+		*ngIf="viewSrv.previewOpen"
+		[product]="viewSrv.previewed"
+		(close)="viewSrv.closePreview()">
+	</product-preview-app> -->
+<!-- </ng-container>  -->
+
+<!-- <side-panel-app *ngIf="viewSrv.filterPanelOpen">
+	<filters-app
+		[filterList]="filterSrv.filterList"
+		[filterTypes]="filterTypes"
+		(clickOutside)="viewSrv.closeFilterPanel()"
+		(close)="viewSrv.closeFilterPanel()">
+	</filters-app>
+</side-panel-app> -->

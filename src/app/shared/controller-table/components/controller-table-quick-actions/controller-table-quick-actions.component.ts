@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ListPageService } from '~core/list-page';
 import { ColumnConfig } from '~common/tables/entity-table.component';
 
 @Component({
@@ -12,25 +11,25 @@ export class ControllerTableQuickActionsComponent implements OnInit {
 	@Input() hasExport = true;
 	@Input() tableConfig: ColumnConfig[] = [];
 	@Input() columns: string[];
-	@Input() currentSort: { sortBy: string, descending: boolean };
+	@Input() currentSort: { sortBy: string, descending: boolean } = { sortBy: 'creationDate', descending: true };
 	sortableColumns = [];
 
 
-	constructor(public listSrv: ListPageService<any, any>) {}
+	constructor() {}
 
 	ngOnInit() {
 		this.sortableColumns = this.getSortableColumns();
-		this.currentSort = this.listSrv.currentSort;
+		// this.currentSort = this.listSrv.currentSort;
 	}
 
 	onExportClick() {
-		this.listSrv.exportAll();
+		// this.listSrv.exportAll();
 	}
 
 	onSortClick(column: ColumnConfig) {
 		const isCurrentSort = this.currentSort.sortBy === column.sortProperty;
 		const descending = isCurrentSort ? !this.currentSort.descending : true;
-		this.listSrv.sort({ sortBy: column.sortProperty, descending });
+		// this.listSrv.sort({ sortBy: column.sortProperty, descending });
 	}
 
 	getSortableColumns() {

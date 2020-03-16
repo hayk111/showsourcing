@@ -170,7 +170,7 @@ https://stackblitz.com/edit/angular-vtluff?file=src/app/app.component.ts -->
 </div>
 
 <pagination-app
-	*ngIf="hasPagination && !pending"
+	*ngIf="hasPagination && !pending && count"
 	[count]="count"
 	[currentPage]="currentPage"
 	[hasSidePadding]="hasPaddingPagination"
