@@ -3,8 +3,8 @@ import { SelectionService } from './selection.service';
 import { ApiService, ObservableQuery } from '~core/erm3/services/api.service';
 import { FilterService } from '~core/filters/filter.service';
 import * as Fuse from 'fuse.js';
-import { switchMap, tap, map, shareReplay } from 'rxjs/operators';
-import { forkJoin, Observable, from } from 'rxjs';
+import { switchMap, tap, map, shareReplay, filter } from 'rxjs/operators';
+import { forkJoin, Observable, from, of} from 'rxjs';
 import { Typename } from '~core/erm3/typename.type';
 import * as models from '~core/erm3/models';
 import gql from 'graphql-tag';
@@ -21,12 +21,13 @@ export class ListFuseHelperService<G = any> {
 	total$: Observable<number>;
 
 	fuseOptions = {
+		keys: ['name'],
 		shouldSort: true,
-		threshold: 0.6,
+		includeScore: true,
+		threshold: 0.9,
 		location: 0,
 		distance: 100,
-		minMatchCharLength: 1,
-		keys: ['name']
+		minMatchCharLength: 1
 	};
 
 	constructor(
@@ -36,13 +37,10 @@ export class ListFuseHelperService<G = any> {
 	) {}
 
 	setup(typename: Typename, query: DocumentNode, variables?, searchedFields?: string[]) {
-		/** this query is custom to test how is working the helper. It should be listBy
-		 *  cache-and-network for the first query to get the up to date datas
-		 */
 		this.typename = typename;
-		this.queryRef = this.apiSrv.query<G[]>({ variables, query, fetchPolicy: 'cache-and-network' });
+		this.queryRef = this.apiSrv.query<G[]>({ variables, query, fetchPolicy: 'cache-first' });
 		this.fuseOptions.keys = searchedFields || this.fuseOptions.keys; // ? could be take from filterSrv ?
-		// when we refetch and get new datas it will reasign fuse
+		// when we get new datas it will reasign fuse
 		this.queryRef.data$.subscribe(datas => {
 			this.fuse = new Fuse(datas, this.fuseOptions);
 		});
@@ -51,7 +49,14 @@ export class ListFuseHelperService<G = any> {
 	getFilteredItems$(): Observable<G[]> {
 		return this.filterSrv.valueChanges$.pipe(
 			// the value changed should concern the FilterType search
-			map(() => this.fuse.search(this.filterSrv.getFiltersForType(FilterType.SEARCH))),
+			filter(() => !!this.fuse),
+			switchMap(() => {
+				const searchValue = this.filterSrv.getFiltersForType(FilterType.SEARCH)[0];
+				if (searchValue)
+					return of(this.fuse.search(searchValue.value).map(data => data.item));
+				else
+					return this.queryRef.data$;
+			}),
 			shareReplay(1)
 		);
 		// result.sort(); // ? should take sort property from filterSrv, not implemented yet
@@ -59,9 +64,9 @@ export class ListFuseHelperService<G = any> {
 		// ? update pagination
 	}
 
-	private refetch(fetchPolicy: FetchPolicy = 'network-only') {
+	private refetch() {
 		this.pending = true;
-		return this.queryRef.refetch({ fetchPolicy }).then(_ => (this.pending = false));
+		return this.queryRef.refetch({ fetchPolicy: 'cache-first' }).then(_ => (this.pending = false));
 	}
 
 	create(entity: any) {
@@ -72,10 +77,7 @@ export class ListFuseHelperService<G = any> {
 	}
 
 	update(entity: any) {
-		this.apiSrv
-			.update(this.typename, entity)
-			.pipe(switchMap(_ => this.refetch('cache-first')))
-			.subscribe();
+		this.apiSrv.update(this.typename, entity);
 	}
 
 	delete(entity: any) {

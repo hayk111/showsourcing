@@ -3,6 +3,7 @@ import { ListFuseHelperService } from '~core/list-page2/list-fuse-helper.service
 import gql from 'graphql-tag';
 import { FilterService } from '~core/filters';
 import { Category } from '~core/erm3/models';
+import * as Fuse from 'fuse.js';
 
 @Component({
 	selector: 'playground-page-app',
@@ -12,6 +13,8 @@ import { Category } from '~core/erm3/models';
 })
 export class PlaygroundPageComponent implements OnInit {
 	constructor(private listFuseHelper: ListFuseHelperService<Category>, private filterSrv: FilterService) {}
+
+	categories: Category[] = [];
 
 	ngOnInit() {
 		this.listFuseHelper.setup(
@@ -52,12 +55,14 @@ export class PlaygroundPageComponent implements OnInit {
 			{ teamId: '353c0206-fa91-489b-bfb7-e896aeb7e25a', limit: 1000}
 		);
 
-		this.listFuseHelper.getFilteredItems$
+		this.listFuseHelper.getFilteredItems$().subscribe(d => {
+			console.log(d);
+			this.categories = d;
+		});
 	}
 
 	handleInput(e) {
 		const value = e.target.value;
-		console.log('search ' + value);
 		this.filterSrv.search(value);
 	}
 

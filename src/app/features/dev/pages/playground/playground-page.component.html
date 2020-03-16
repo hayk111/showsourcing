@@ -6,3 +6,9 @@
 	<p>search on categories</p>
 	<input (input)="handleInput($event)"/>
 </div>
+
+<div style="margin: 5rem">
+	<ul>
+		<li *ngFor="let category of categories">{{category.name}}</li>
+	</ul>
+	</div>
