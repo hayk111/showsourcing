@@ -32,7 +32,6 @@ export class FilterService {
 	startFilters: Filter[] = [ { type: FilterType.TEAM, value: TeamService.teamSelected.id } ];
 	/** the filters currently in the filter-list */
 	filters: Filter[] = [];
-	/** @TODO make those fields private */
 	/** so we can check if a filter type has a specific value, filterList.valuesByType.has(id-10) */
 	private valuesByType: ValuesByType = new Map();
 	/** so we can display the filters for a given type */
