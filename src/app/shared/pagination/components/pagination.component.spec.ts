@@ -1,8 +1,8 @@
-import { ComponentFixture, TestBed } from "@angular/core/testing";
-import { IconComponent } from "~shared/icons";
-import { PaginationComponent } from "./pagination.component";
-import { Component, ViewChild } from "@angular/core";
-import { DEFAULT_TAKE_PAGINATION } from "~core/erm";
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { IconComponent } from '~shared/icons';
+import { PaginationComponent } from './pagination.component';
+import { Component, ViewChild } from '@angular/core';
+import { DEFAULT_TAKE_PAGINATION } from '~core/erm';
 
 const ITEMS_PER_PAGE = DEFAULT_TAKE_PAGINATION;
 
@@ -15,7 +15,7 @@ const ITEMS_PER_PAGE = DEFAULT_TAKE_PAGINATION;
 	template: `
 		<pagination-app
 			[width]="width"
-			[count]="count"
+			[total]="total"
 			[hasPageItemsCount]="hasPageItemsCount"
 			[currentPage]="currentPage"
 			><pagination-app></pagination-app
@@ -31,7 +31,7 @@ export class TestHostComponent {
 	hasPageItemsCount = true;
 }
 
-xdescribe("Component: PaginationComponent", () => {
+xdescribe('Component: PaginationComponent', () => {
 	let testComp: TestHostComponent;
 	let paginationComp: PaginationComponent;
 	let fixture: ComponentFixture<TestHostComponent>;
@@ -57,28 +57,28 @@ xdescribe("Component: PaginationComponent", () => {
 		nextBtn = fixture.nativeElement.querySelector(
 			'icon-app[name="angle-right"]'
 		);
-		currentPageElem = fixture.nativeElement.querySelector(".selected");
+		currentPageElem = fixture.nativeElement.querySelector('.selected');
 	});
 
-	it("should display current page + 1 as the selected page", () => {
+	it('should display current page + 1 as the selected page', () => {
 		fixture.detectChanges();
-		expect(currentPageElem.textContent).toContain("1");
+		expect(currentPageElem.textContent).toContain('1');
 	});
 
-	it("previous button should be disabled when on page 0", () => {
+	it('previous button should be disabled when on page 0', () => {
 		expect(paginationComp.currentPage).toEqual(0);
-		expect(previousBtn.className).toContain("disabled");
+		expect(previousBtn.className).toContain('disabled');
 	});
 
-	it("next button should be disabled when on last page", () => {
+	it('next button should be disabled when on last page', () => {
 		testComp.count = ITEMS_PER_PAGE * 20;
 		testComp.currentPage = 19;
 		fixture.detectChanges();
-		expect(nextBtn.className).toContain("disabled");
+		expect(nextBtn.className).toContain('disabled');
 	});
 
-	it("clicking on next icon should go to next page", () => {
-		spyOn(paginationComp.goToPage, "emit");
+	it('clicking on next icon should go to next page', () => {
+		spyOn(paginationComp.goToPage, 'emit');
 		const currPage = paginationComp.currentPage;
 		nextBtn.click();
 		expect(paginationComp.currentPage).toEqual(currPage + 1);
@@ -87,8 +87,8 @@ xdescribe("Component: PaginationComponent", () => {
 		);
 	});
 
-	it("clicking on previous icon should go to previous page", () => {
-		spyOn(paginationComp.goToPage, "emit");
+	it('clicking on previous icon should go to previous page', () => {
+		spyOn(paginationComp.goToPage, 'emit');
 		// starting on page 1 so button isn't disabled
 		testComp.currentPage = 1;
 		fixture.detectChanges();
@@ -100,10 +100,10 @@ xdescribe("Component: PaginationComponent", () => {
 		);
 	});
 
-	it("clicking on a index page button should go to index page", () => {
-		spyOn(paginationComp.goToPage, "emit");
+	it('clicking on a index page button should go to index page', () => {
+		spyOn(paginationComp.goToPage, 'emit');
 		const indexBtns = fixture.nativeElement.querySelectorAll(
-			".pagination-item"
+			'.pagination-item'
 		);
 		const fourthPage = indexBtns[4];
 		testComp.currentPage = 1;
@@ -115,7 +115,7 @@ xdescribe("Component: PaginationComponent", () => {
 		);
 	});
 
-	it("should have the correct number of total pages", () => {
+	it('should have the correct number of total pages', () => {
 		// 0 items
 		testComp.count = 0;
 		fixture.detectChanges();
@@ -134,7 +134,7 @@ xdescribe("Component: PaginationComponent", () => {
 		expect(paginationComp.totalPages).toEqual(21);
 	});
 
-	it("should display the correct range", () => {
+	it('should display the correct range', () => {
 		testComp.count = ITEMS_PER_PAGE * 7;
 		fixture.detectChanges();
 		expect(paginationComp.range).toEqual([0, 1, 2, 3, 4]);
@@ -152,7 +152,7 @@ xdescribe("Component: PaginationComponent", () => {
 		expect(paginationComp.range).toEqual([2, 3, 4, 5, 6]);
 	});
 
-	it("should display the range [0] when no items", () => {
+	it('should display the range [0] when no items', () => {
 		// when no items
 		testComp.count = 0;
 		testComp.currentPage = 0;
@@ -160,7 +160,7 @@ xdescribe("Component: PaginationComponent", () => {
 		expect(paginationComp.range).toEqual([0]);
 	});
 
-	it("should display the correct range when we have less pages than fits the width", () => {
+	it('should display the correct range when we have less pages than fits the width', () => {
 		// when only two pages
 		testComp.count = ITEMS_PER_PAGE * 2;
 		testComp.currentPage = 0;
@@ -168,15 +168,15 @@ xdescribe("Component: PaginationComponent", () => {
 		expect(paginationComp.range).toEqual([0, 1]);
 	});
 
-	it("should display per page items count in the right corner when `hasPageItemsCount` is true and not otherwise", () => {
+	it('should display per page items count in the right corner when `hasPageItemsCount` is true and not otherwise', () => {
 		let itemsPageCount = fixture.nativeElement.querySelector(
-			".items-page-count"
+			'.items-page-count'
 		);
 		expect(itemsPageCount).toBeTruthy();
 
 		testComp.hasPageItemsCount = false;
 		fixture.detectChanges();
-		itemsPageCount = fixture.nativeElement.querySelector(".items-page-count");
+		itemsPageCount = fixture.nativeElement.querySelector('.items-page-count');
 		expect(itemsPageCount).toBeFalsy();
 	});
 });

@@ -23,7 +23,7 @@
 	[selection]="selectionSrv.selection$ | async"
 	[pending]="listSrv.pending"
 	[isFiltering]="filterSrv.isFiltering"
-	[count]="listSrv.count$ | async"
+	[total]="listSrv.count$ | async"
 	[currentPage]="listSrv.currentPage"
 	(goToPage)="listSrv.loadPage($event)"
 	(archive)="listSrv.archiveOne($event)"

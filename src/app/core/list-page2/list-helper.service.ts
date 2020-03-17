@@ -13,6 +13,8 @@ export class ListHelperService<G = any> {
 	private typename: Typename;
 	pending = true;
 	total$: Observable<number>;
+	/** number of items taken at once */
+	private limit$ = new BehaviorSubject(25);
 
 	constructor(
 		private selectionSrv: SelectionService,
@@ -25,9 +27,13 @@ export class ListHelperService<G = any> {
 	}
 
 	getFilteredItems$() {
-		return this.filterSrv.valueChanges$.pipe(
+		return combineLatest(
+			this.filterSrv.valueChanges$,
+			this.limit$).pipe(
 			// gets the query
-			map(({ queryArg: filter }) => this.apiSrv.search<G>(this.typename, { filter })),
+			map(([{ queryArg: filter }, limit]) => this.apiSrv.search<G>(
+				this.typename, { filter, limit })
+			),
 			// save it
 			tap(query => this.queryRef = query),
 			tap(query => this.total$ = query.total$),
@@ -39,9 +45,9 @@ export class ListHelperService<G = any> {
 		);
 	}
 
-	private refetch() {
+	private refetch(options?: WatchQueryOptions) {
 		this.pending = true;
-		return this.queryRef.refetch({ fetchPolicy: 'network-only' })
+		return this.queryRef.refetch({ ...options, fetchPolicy: 'network-only' })
 		.then(_ => this.pending = false);
 	}
 
@@ -67,6 +73,10 @@ export class ListHelperService<G = any> {
 		forkJoin(all).pipe(
 			switchMap(_ => this.refetch())
 		).subscribe();
+	}
+
+	setItemsPerPage(value: number) {
+		this.limit$.next(value);
 	}
 
 	loadMore() {

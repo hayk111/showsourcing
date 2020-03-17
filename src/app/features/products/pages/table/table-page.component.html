@@ -23,11 +23,13 @@
 	[rows]="items$ | async"
 	[pending]="listHelper.pending"
 	[selection]="selectionSrv.selection$ | async"
+	[total]="listHelper.total$ | async"
 	(open)="viewSrv.goToDetails($event)"
 	(previewClick)="viewSrv.openPreview($event)"
 	(select)="selectionSrv.selectOne($event)"
 	(selectAll)="selectionSrv.selectAll($event)"
-	(unselect)="selectionSrv.unselectOne($event)">
+	(unselect)="selectionSrv.unselectOne($event)"
+	(showItemsPerPage)="listHelper.setItemsPerPage($event)">
 </products-table-app>
 
 <product-selection-bar-app

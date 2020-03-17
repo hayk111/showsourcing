@@ -17,7 +17,7 @@
 			[selection]="selectionSrv.selection$ | async"
 			[rows]="listSrv.items$ | async"
 			[pending]="listSrv.pending"
-			[count]="listSrv.count$ | async"
+			[total]="listSrv.count$ | async"
 			[currentSort]="listSrv.currentSort"
 			[currentPage]="listSrv.currentPage"
 			(goToPage)="listSrv.loadPage($event)"
@@ -40,7 +40,7 @@
 
 	<dialog-footer-app class="flexVAlign flexBetween pagination-footer">
 		<pagination-app
-			[count]="listSrv.count$ | async"
+			[total]="listSrv.count$ | async"
 			[currentPage]="listSrv.currentPage"
 			[hasPageItemsCount]="false"
 			[hasTopPadding]="false"
