@@ -1,3 +1,14 @@
 <!-- don't remove me start -->
-<h2> You can do anything here, it's just to test stuff</h2>
+<h2>You can do anything here, it's just to test stuff</h2>
 <!-- don't remove me end -->
+
+<div style="margin: 5rem">
+	<p>search on categories</p>
+	<input (input)="handleInput($event)" />
+</div>
+
+<div style="margin: 5rem">
+	<ul>
+		<li *ngFor="let teamUser of teamUsers">{{ teamUser.team.name }}</li>
+	</ul>
+</div>

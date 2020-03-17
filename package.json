@@ -65,6 +65,7 @@
     "chartjs-plugin-annotation": "^0.5.7",
     "core-js": "^2.5.4",
     "file-saver": "^2.0.0",
+    "fuse.js": "^5.0.2-beta",
     "getstream": "^4.1.0",
     "graphql": "^14.2.1",
     "graphql-tag": "^2.10.1",

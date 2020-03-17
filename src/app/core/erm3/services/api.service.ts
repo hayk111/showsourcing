@@ -112,7 +112,7 @@ export class ApiService {
 		const options = apiOptions as WatchQueryOptions;
 		options.variables = { id };
 		options.query = QueryPool.getQuery(typename, QueryType.GET);
-		return this.query(options, false);
+		return this.query<T>(options, false);
 	}
 
 	/////////////////////////////
@@ -160,7 +160,9 @@ export class ApiService {
 		const options = apiOptions as WatchQueryOptions;
 		options.variables = { byId };
 		options.query = QueryPool.getQuery(typename, QueryType.LIST_BY, byTypename);
-		return this.query(options);
+		const query = this.query<T[]>(options);
+		query.total$ = query.response$.pipe(map(r => r.data.length));
+		return query;
 	}
 
 	/////////////////////////////
