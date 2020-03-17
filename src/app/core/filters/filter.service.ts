@@ -111,6 +111,10 @@ export class FilterService {
 		return this.filtersByType.get(type) || [];
 	}
 
+	getValuesForType(type: FilterType): Set<any> {
+		return this.valuesByType.get(type) || new Set();
+	}
+
 	/** returns the number of added filter above the start filters */
 	getFilterAmount() {
 		return this.filters.filter(

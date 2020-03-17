@@ -67,7 +67,7 @@
 							*ngFor="let filter of filterSrv.getFiltersForType(type); trackBy: trackByFn"
 							[checked]="true"
 							(uncheck)="filterSrv.removeFilter(filter)">
-							<span class="mg-left-s">{{ getDisplayName(filter, type) }}</span>
+							<span class="mg-left-s">{{ filter.displayValue }}</span>
 						</checkbox-app>
 					</div>
 	

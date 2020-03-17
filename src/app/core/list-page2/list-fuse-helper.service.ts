@@ -35,8 +35,8 @@ export class ListFuseHelperService<G = any> {
 
 	setup(
 		typename: Typename,
-		byTypename: Typename | 'Owner',
-		byId: string,
+		byTypename: Typename | 'Owner' = 'Team',
+		byId?: string,
 		queryOptions: ApiQueryOption = {}
 	) {
 		this.typename = typename;

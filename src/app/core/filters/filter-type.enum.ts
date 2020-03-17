@@ -1,3 +1,4 @@
+import { Typename } from '~core/erm3/typename.type';
 
 
 /** when a filter type is plural you can select many of them
@@ -32,3 +33,4 @@ export enum FilterType {
 	TAGS = 'tags',
 	TEAM = 'team'
 }
+

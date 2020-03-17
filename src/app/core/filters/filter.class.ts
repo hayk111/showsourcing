@@ -9,6 +9,7 @@ export class Filter {
 	type: FilterType;
 	value: any;
 	equality ? = 'eq';
+	displayValue ?: string;
 	constructor() {}
 }
 

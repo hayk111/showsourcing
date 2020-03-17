@@ -3,7 +3,7 @@
 		class="mg-bottom-l" 
 		type="text" 
 		placeholder="{{'title.search' | translate}} {{ type }}" 
-		(input)="search($event.target.value)"/>
+		(input)="filterSrv.search($event.target.value)"/>
 
 	<ng-container *ngIf="pending$ | async">
 		<spinner-app></spinner-app>
