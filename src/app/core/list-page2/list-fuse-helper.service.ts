@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
-import { WatchQueryOptions } from 'apollo-client';
 import * as Fuse from 'fuse.js';
 import { forkJoin, Observable, of } from 'rxjs';
 import { filter, shareReplay, switchMap } from 'rxjs/operators';
-import { ApiService, ObservableQuery, ApiQueryOption } from '~core/erm3/services/api.service';
+import { ApiQueryOption, ApiService, ObservableQuery } from '~core/erm3/services/api.service';
 import { Typename } from '~core/erm3/typename.type';
-import { FilterType } from '~core/filters';
-import { FilterService } from '~core/filters';
+import { FilterService, FilterType } from '~core/filters';
 import { SelectionService } from './selection.service';
 
 @Injectable({ providedIn: 'root' })
