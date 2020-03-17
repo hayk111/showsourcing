@@ -14,6 +14,7 @@ import { EntityMetadata, ERM } from '~core/erm';
 import { DynamicField } from '~shared/dynamic-forms';
 import { FilterList } from '~shared/filters/models/filter-list.class';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
+import { SelectorsService } from '~shared/selectors/services/selectors.service';
 import { TabFocusActionDirective } from '~shared/utils';
 import { ID } from '~utils';
 
@@ -63,10 +64,12 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 	menuOpen = false;
 	erm = ERM;
 
+	dynamicSearchVal: string;
 
 	// we need this in order to calculate dynamically the offsetX on preview badges
 	constructor(
 		public elem: ElementRef,
+		public selectorSrv: SelectorsService,
 		private cdr: ChangeDetectorRef
 	) { super(cdr); }
 
@@ -93,6 +96,7 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 
 	/** Opens the menu. */
 	openMenu(searchTxt?: string): void {
+		console.log('SelectorComponent -> openMenu -> this.disabled', this.disabled);
 		if (!this.disabled) {
 			if (searchTxt)
 				this.searchTxt = searchTxt;
@@ -111,6 +115,11 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 			if (this.tab)
 				this.tab.focus();
 		}
+	}
+
+	onUpdateDynamic(value) {
+		this.onChange(value);
+		this.closeMenu();
 	}
 
 	onChange(value: any) {

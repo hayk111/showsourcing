@@ -256,6 +256,18 @@
 			</selector-element-selector-app>
 			
 		</ng-container>
+
+		<ng-container *ngIf="dynamicFields.length > 0">
+			<selector-content-app
+				[hasSearch]="false"
+				[type]="erm.PICKER_FIELD">
+				<selector-content-items-app  [pending]="!dynamicFields">
+					<selector-option-name-app #abstract *ngFor="let item of dynamicFields; trackBy: trackById" [item]="item" 
+					(click)="onUpdateDynamic(item.name)"></selector-option-name-app>
+					<!-- create button -->
+				</selector-content-items-app>
+			</selector-content-app>
+		</ng-container>
 	</div>
 
 </cdk-overlay-app>
