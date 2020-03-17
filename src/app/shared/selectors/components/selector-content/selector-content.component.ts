@@ -12,6 +12,7 @@ import { SelectorsService } from '~shared/selectors/services/selectors.service';
 })
 export class SelectorContentComponent implements OnInit {
 
+	@Input() hasSearch = true;
 	@Input() searchText = '';
 	@Input() type: EntityMetadata;
 	@Output() onInput = new EventEmitter<string>();
@@ -33,9 +34,11 @@ export class SelectorContentComponent implements OnInit {
 	}
 
 	onResetInput() {
-		this.inp.control.reset();
-		this.inp.focus();
-		this.selectorSrv.search('');
+		if (this.hasSearch) {
+			this.inp.control.reset();
+			this.inp.focus();
+			this.selectorSrv.search('');
+		}
 	}
 
 }
