@@ -37,6 +37,8 @@ export class FilterService {
 	private filtersByType: FiltersByType = new Map();
 	/** filter as a param form that can be used in a query */
 	queryArg: any = {};
+	/** keep accessible for helpers */
+	searchedFields: string[] = [];
 
 	constructor() {
 		this.setFilters(this.startFilters);
@@ -48,6 +50,7 @@ export class FilterService {
 		this.startFilters = startFilters;
 		this.converter = new FilterConverter(searchedFields);
 		this.setFilters(startFilters);
+		this.searchedFields = searchedFields;
 	}
 
 	/** function that sets the filter of the filter list, also construct the different util object (by type, filter param) */

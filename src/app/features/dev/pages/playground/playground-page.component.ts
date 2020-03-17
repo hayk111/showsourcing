@@ -12,52 +12,20 @@ import * as Fuse from 'fuse.js';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PlaygroundPageComponent implements OnInit {
-	constructor(private listFuseHelper: ListFuseHelperService<Category>, private filterSrv: FilterService) {}
+	constructor(
+		private listFuseHelper: ListFuseHelperService<Category>,
+		private filterSrv: FilterService
+	) {}
 
-	categories: Category[] = [];
+	teamUsers: Category[] = [];
 
 	ngOnInit() {
-		this.listFuseHelper.setup(
-			'Category',
-			gql`
-				query ListCategorys($filter: ModelCategoryFilterInput, $limit: Int, $nextToken: String) {
-					listCategorys(filter: $filter, limit: $limit, nextToken: $nextToken) {
-						__typename
-						items {
-							__typename
-							id
-							teamId
-							team {
-								__typename
-								id
-								name
-								ownerUserId
-								companyId
-								createdByUserId
-								createdOn
-								lastUpdatedByUserId
-								lastUpdatedOn
-								_version
-								_deleted
-								_lastChangedAt
-							}
-							name
-							deleted
-							_version
-							_deleted
-							_lastChangedAt
-						}
-						nextToken
-						startedAt
-					}
-				}
-			`,
-			{ teamId: '353c0206-fa91-489b-bfb7-e896aeb7e25a', limit: 1000}
-		);
+		this.filterSrv.setup([], ['team.name']);
+		this.listFuseHelper.setup('TeamUser', 'User', 'fa44071b-c21e-4763-82b8-1f59715ea86e');
 
 		this.listFuseHelper.getFilteredItems$().subscribe(d => {
 			console.log(d);
-			this.categories = d;
+			this.teamUsers = d;
 		});
 	}
 
@@ -65,7 +33,6 @@ export class PlaygroundPageComponent implements OnInit {
 		const value = e.target.value;
 		this.filterSrv.search(value);
 	}
-
 
 	test() {
 		// Test function

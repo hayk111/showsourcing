@@ -1,16 +1,13 @@
 import { Injectable } from '@angular/core';
-import { SelectionService } from './selection.service';
-import { ApiService, ObservableQuery } from '~core/erm3/services/api.service';
-import { FilterService } from '~core/filters/filter.service';
+import { WatchQueryOptions } from 'apollo-client';
 import * as Fuse from 'fuse.js';
-import { switchMap, tap, map, shareReplay, filter } from 'rxjs/operators';
-import { forkJoin, Observable, from, of} from 'rxjs';
+import { forkJoin, Observable, of } from 'rxjs';
+import { filter, shareReplay, switchMap } from 'rxjs/operators';
+import { ApiService, ObservableQuery, ApiQueryOption } from '~core/erm3/services/api.service';
 import { Typename } from '~core/erm3/typename.type';
-import * as models from '~core/erm3/models';
-import gql from 'graphql-tag';
 import { FilterType } from '~core/filters';
-import { FetchPolicy } from 'apollo-client';
-import { DocumentNode } from 'graphql';
+import { FilterService } from '~core/filters';
+import { SelectionService } from './selection.service';
 
 @Injectable({ providedIn: 'root' })
 export class ListFuseHelperService<G = any> {
@@ -36,11 +33,17 @@ export class ListFuseHelperService<G = any> {
 		private filterSrv: FilterService
 	) {}
 
-	setup(typename: Typename, query: DocumentNode, variables?, searchedFields?: string[]) {
+	setup(
+		typename: Typename,
+		byTypename: Typename | 'Owner',
+		byId: string,
+		queryOptions: ApiQueryOption = {}
+	) {
 		this.typename = typename;
-		this.queryRef = this.apiSrv.query<G[]>({ variables, query, fetchPolicy: 'cache-first' });
-		this.fuseOptions.keys = searchedFields || this.fuseOptions.keys; // ? could be take from filterSrv ?
-		// when we get new datas it will reasign fuse
+		queryOptions.fetchPolicy = queryOptions.fetchPolicy || 'cache-first';
+		this.queryRef = this.apiSrv.listBy<G>(typename, byTypename, byId, queryOptions);
+		this.fuseOptions.keys = this.filterSrv.searchedFields || this.fuseOptions.keys;
+		// when we update datas it will reasign fuse
 		this.queryRef.data$.subscribe(datas => {
 			this.fuse = new Fuse(datas, this.fuseOptions);
 		});
@@ -52,16 +55,14 @@ export class ListFuseHelperService<G = any> {
 			filter(() => !!this.fuse),
 			switchMap(() => {
 				const searchValue = this.filterSrv.getFiltersForType(FilterType.SEARCH)[0];
-				if (searchValue)
-					return of(this.fuse.search(searchValue.value).map(data => data.item));
-				else
-					return this.queryRef.data$;
+				if (searchValue) return of(this.fuse.search(searchValue.value).map(data => data.item));
+				else return this.queryRef.data$;
 			}),
 			shareReplay(1)
 		);
-		// result.sort(); // ? should take sort property from filterSrv, not implemented yet
-		// ? should trigger getFilteredItems$() when sort is updated
-		// ? update pagination
+		// result.sort(); // TODO should take sort property from filterSrv, not implemented yet
+		// TODO should trigger getFilteredItems$() when sort is updated
+		// TODO update pagination
 	}
 
 	private refetch() {
