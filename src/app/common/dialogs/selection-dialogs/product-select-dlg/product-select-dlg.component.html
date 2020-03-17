@@ -2,7 +2,7 @@
 
 	<dialog-header-app translate="header.select-products"></dialog-header-app>
 
-	<controller-table-app>
+	<controller-table-app [hasItems]="listSrv.entityCount > 0">
 		<controller-table-quick-filters-app [quickFilters]="['assignee']"></controller-table-quick-filters-app>
 		<controller-table-quick-actions-app 
 			[hasExport]="false"

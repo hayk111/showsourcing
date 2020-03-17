@@ -6,7 +6,7 @@
 	(buttonClick)="dialogCommonSrv.openCreationSampleDialog()">
 </header-list-app>
 
-<controller-table-app>
+<controller-table-app [hasItems]="listSrv.entityCount > 0">
 	<!-- filters -->
 	<controller-table-quick-filters-app></controller-table-quick-filters-app>
 	<!-- actions -->

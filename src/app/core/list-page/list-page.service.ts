@@ -133,6 +133,10 @@ export class ListPageService
 		return this.dataSrv.count$;
 	}
 
+	get entityCount() {
+		return this.dataSrv.entityCount;
+	}
+
 	get skipped() {
 		return this.dataSrv.selectParams.skip;
 	}

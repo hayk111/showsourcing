@@ -1,6 +1,6 @@
 <ng-container *ngIf="project$ | async as project; else spinner">
 
-	<controller-table-app [hasExtra]="true">
+	<controller-table-app [hasExtra]="true" [hasItems]="listSrv.entityCount > 0">
 		<controller-table-quick-filters-app [quickFilters]="['assignee']"></controller-table-quick-filters-app>
 		<div class="extra">
 			<button (click)="dialogCommonSrv.openSelectProductDlg([], project)">Add Product</button>

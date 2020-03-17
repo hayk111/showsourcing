@@ -9,7 +9,7 @@
 	(buttonClick)="dialogCommonSrv.openCreationTaskDlg()">
 </header-list-app>
 
-<controller-table-app>
+<controller-table-app [hasItems]="listSrv.entityCount > 0">
 	<controller-table-quick-filters-app></controller-table-quick-filters-app>
 	<controller-table-quick-actions-app
 		[columns]="columns"

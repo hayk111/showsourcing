@@ -1,6 +1,6 @@
 <div class="color-primary">TODO when we have the new field 'supplierId' on the backend</div>
 
-<controller-table-app>
+<controller-table-app [hasItems]="listSrv.entityCount > 0">
 	<controller-table-quick-filters-app
 		[quickFilters]="[]">
 	</controller-table-quick-filters-app>
