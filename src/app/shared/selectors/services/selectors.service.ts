@@ -63,13 +63,7 @@ export class SelectorsService {
 	) { }
 
 	setItems() {
-		console.log('setting items...');
-		this.items$ = this.queryListRef.data$.pipe(
-			// remove deleted items from the list cuz they stay if they
-			// start at deleted false then are updated as deleted true
-			// and we can't use refetch or we lose the pagination
-			map(items => (items || []).filter(itm => !itm.deleted)),
-		);
+		this.items$ = this.queryListRef.data$;
 	}
 
 	setFilters(filters: FilterList) {
@@ -182,14 +176,12 @@ export class SelectorsService {
 	}
 
 	getCurrencies(): any[] {
-		console.log('currency');
 		return currencies;
 	}
 
 	getCurrenciesGlobal(): Observable<Currency[]> {
 		this.selectParams = { ...this.selectParams, sortBy: '' };
 		this.queryListRef = this.apiSrv.search('Currency', {});
-		console.log('global currency');
 		this.setItems();
 		// this.getTopCurrencies();
 		return this.items$;
