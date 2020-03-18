@@ -38,7 +38,7 @@ export const routes: Array<Route> = [
 			HasTeamSelectedGuard
 		],
 		children: [
-			{ path: '', redirectTo: 'products', pathMatch: 'full' },
+			{ path: '', redirectTo: 'suppliers', pathMatch: 'full' },
 	// 		{
 	// 			path: 'dashboard',
 	// 			loadChildren: 'app/features/dashboard/dashboard-feature.module#DashboardFeatureModule'

@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { forkJoin, Observable, BehaviorSubject } from 'rxjs';
+import { forkJoin, Observable, BehaviorSubject, combineLatest } from 'rxjs';
 import { map, shareReplay, switchMap, tap } from 'rxjs/operators';
 import { ApiService, ObservableQuery } from '~core/erm3/services/api.service';
 import { Typename } from '~core/erm3/typename.type';
 import { FilterService } from '~core/filters/filter.service';
 import { SelectionService } from './selection.service';
+import { WatchQueryOptions } from 'apollo-client';
 
 @Injectable({ providedIn: 'root' })
 export class ListHelperService<G = any> {
@@ -59,6 +60,14 @@ export class ListHelperService<G = any> {
 
 	update(entity: any) {
 		this.apiSrv.update(this.typename, entity);
+	}
+
+	updateSelected(entity) {
+		const selected = this.selectionSrv.getSelectedValues();
+		const all = selected.map(ent => this.apiSrv.update(this.typename, { id: ent.id, ...entity}));
+		forkJoin(all).pipe(
+			switchMap(_ => this.refetch())
+		).subscribe();
 	}
 
 	delete(entity: any) {

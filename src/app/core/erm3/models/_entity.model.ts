@@ -1,6 +1,7 @@
 import { Typename } from '../typename.type';
 
 export class Entity<G = any> {
+	id?: string;
 	__typename?: Typename;
 	createdAt?: number;
 	lastUpdatedAt?: number;

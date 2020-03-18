@@ -2,11 +2,14 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { SuppliersTableComponent } from '~common/tables/suppliers-table/suppliers-table.component';
 import { SupplierService } from '~core/erm';
-import { ListPageService } from '~core/list-page';
+import { ListPageService, ListPageViewService, SelectionService } from '~core/list-page';
 import { SelectParamsConfig } from '~core/erm';
 import { ERM, Supplier } from '~core/erm';
 import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
+import { ListHelperService } from '~core/list-page2';
+import { KanbanSelectionService } from '~shared/kanban/services/kanban-selection.service';
+import { FilterService } from '~core/filters';
 
 // A doctor accidentally prescribes his patient a laxative instead of a coughing syrup.
 // -
@@ -19,16 +22,16 @@ import { AutoUnsub } from '~utils';
 	templateUrl: './board-page.component.html',
 	styleUrls: ['./board-page.component.scss'],
 	providers: [
-		ListPageService
+		ListHelperService,
+		ListPageViewService,
+		FilterService,
+		KanbanSelectionService
 	],
 	host: {
 		class: 'table-page'
 	}
 })
-export class BoardPageComponent extends AutoUnsub implements OnInit, AfterViewInit {
-
-	erm = ERM;
-	filterType = FilterType;
+export class BoardPageComponent implements OnInit {
 
 	filterTypes = [
 		FilterType.CATEGORIES,
@@ -38,41 +41,19 @@ export class BoardPageComponent extends AutoUnsub implements OnInit, AfterViewIn
 		FilterType.TAGS
 	];
 
-	columns = SuppliersTableComponent.DEFAULT_COLUMNS;
-	tableConfig = SuppliersTableComponent.DEFAULT_TABLE_CONFIG;
-
-	private selectItemsConfig: SelectParamsConfig = { query: 'deleted == false AND  archived == false' };
-
-	public tableWidth: string;
-	public addSupplierMargin: string;
 
 	constructor(
-		private supplierSrv: SupplierService,
-		public listSrv: ListPageService<Supplier, SupplierService>,
+		public listHelper: ListHelperService,
 		public dialogCommonSrv: DialogCommonService,
+		public viewSrv: ListPageViewService<any>,
+		public kanbanSelectionSrv: KanbanSelectionService
 	) {
-		super();
 	}
 
 	ngOnInit() {
-		this.listSrv.setup({
-			entitySrv: this.supplierSrv,
-			searchedFields: ['name', 'tags.name', 'categories.name', 'description'],
-			initialFilters: [
-				{ type: FilterType.DELETED, value: false },
-				{ type: FilterType.ARCHIVED, value: false }
-			],
-			entityMetadata: ERM.SUPPLIER,
-		}, false);
+		// TODO
 	}
 
-	ngAfterViewInit() {
-		this.listSrv.loadData(this._destroy$);
-	}
 
-	showItemsPerPage(count: number) {
-		this.selectItemsConfig = { take: Number(count) };
-		this.listSrv.refetch(this.selectItemsConfig).subscribe();
-	}
 
 }

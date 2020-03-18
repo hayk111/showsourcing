@@ -8,44 +8,29 @@
 
 <controller-table-app [total]="listHelper.total$ | async">
 	<controller-table-quick-filters-app></controller-table-quick-filters-app>
-	<controller-table-quick-actions-app
-		[columns]="columns"
-		[tableConfig]="tableConfig">
+	<controller-table-quick-actions-app>
 	</controller-table-quick-actions-app>
 </controller-table-app>
 
-<suppliers-table-app
-	[rows]="items$ | async"
-	[pending]="listHelper.pending"
-	[selection]="selectionSrv.selection$ | async"
-	[total]="listHelper.total$ | async"
-	(open)="viewSrv.goToDetails($event)"
-	(previewClick)="viewSrv.openPreview($event)"
-	(select)="selectionSrv.selectOne($event)"
-	(selectAll)="selectionSrv.selectAll($event)"
-	(unselect)="selectionSrv.unselectOne($event)"
-	(showItemsPerPage)="listHelper.setItemsPerPage($event)">
-</suppliers-table-app>
 
-<suppliers-board-app
-	*ngIf="viewSrv.view === 'board'"
-	[selection]="selectionSrv.selection$"
-	(selectOne)="selectionSrv.selectOne($event, true)"
+<!-- <suppliers-board-app
+	[selection]="kanbanSelectionSrv.selection$"
+	(selectOne)="kanbanSelectionSrv.selectOne($event, true)"
 	(unselectOne)="selectionSrv.unselectOne($event, true)"
 	(preview) = "viewSrv.openPreview($event)">
-</suppliers-board-app>
-
+</suppliers-board-app> -->
+<!-- 
 <supplier-selection-bar-app
 	entityType="supplier"
-	[isShown]="(selectionSrv.selection$ | async).size > 0"
-	[selection]="selectionSrv.selection$ | async"
-	[selectableItems]="listSrv.items$ | async"
-	(statusUpdated)="this.listSrv.updateSelected({status: $event})"
-	(deleteSelected)="listSrv.deleteSelected()"
-	(close)="selectionSrv.unselectAll()"
-	(selectAll)="selectionSrv.selectAll($event)"
-	(unselectAll)="selectionSrv.unselectAll()">
-</supplier-selection-bar-app>
+	[isShown]="(kanbanSelectionSrv.selection$ | async).size > 0"
+	[selection]="kanbanSelectionSrv.selection$ | async"
+	[selectableItems]="items$ | async"
+	(statusUpdated)="listHelper.updateSelected({status: $event})"
+	(deleteSelected)="listHelper.deleteSelected()"
+	(close)="kanbanSelectionSrv.unselectAllFromColumn()"
+	(selectAll)="kanbanSelectionSrv.selectAll($event)"
+	(unselectAll)="kanbanSelectionSrv.unselectAll()">
+</supplier-selection-bar-app> -->
 
 <supplier-preview-app
 	*ngIf="viewSrv.previewOpen"
@@ -55,7 +40,6 @@
 
 <side-panel-app *ngIf="viewSrv.filterPanelOpen">
 	<filters-app
-		[filterList]="filterSrv.filterList"
 		[filterTypes]="filterTypes"
 		(clickOutside)="viewSrv.closeFilterPanel()"
 		(close)="viewSrv.closeFilterPanel()">

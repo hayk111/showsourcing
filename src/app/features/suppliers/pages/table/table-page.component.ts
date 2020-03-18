@@ -33,7 +33,7 @@ import { Observable } from 'rxjs';
 })
 export class TablePageComponent implements OnInit {
 
-	items$: Observable<Supplier>;
+	items$: Observable<Supplier[]>;
 
 	filterTypes = [
 		FilterType.CATEGORIES,
@@ -47,8 +47,10 @@ export class TablePageComponent implements OnInit {
 	tableConfig = SuppliersTableComponent.DEFAULT_TABLE_CONFIG;
 
 	constructor(
-		private listHelper: ListHelperService,
+		public listHelper: ListHelperService,
 		public dialogCommonSrv: DialogCommonService,
+		public viewSrv: ListPageViewService<any>,
+		public selectionSrv: SelectionService
 	) { }
 
 	ngOnInit() {

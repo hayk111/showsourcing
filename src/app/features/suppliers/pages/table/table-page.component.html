@@ -31,7 +31,7 @@
 	entityType="supplier"
 	[isShown]="(selectionSrv.selection$ | async).size > 0"
 	[selection]="selectionSrv.selection$ | async"
-	[selectableItems]="listHelper.items$ | async"
+	[selectableItems]="items$ | async"
 	(statusUpdated)="listHelper.updateSelected({status: $event})"
 	(deleteSelected)="listHelper.deleteSelected()"
 	(close)="selectionSrv.unselectAll()"
@@ -47,7 +47,6 @@
 
 <side-panel-app *ngIf="viewSrv.filterPanelOpen">
 	<filters-app
-		[filterList]="filterSrv.filterList"
 		[filterTypes]="filterTypes"
 		(clickOutside)="viewSrv.closeFilterPanel()"
 		(close)="viewSrv.closeFilterPanel()">
