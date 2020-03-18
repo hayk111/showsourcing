@@ -105,7 +105,13 @@ export class NotifItemComponent implements OnInit {
 		event.stopPropagation();
 		this.notifActivitySrv.markAsRead(this.activity.id);
 		this.notifActivitySrv.closeNotificationPanel();
-		this.router.navigate([this.navigateRoute, this.commentId && { comment: this.commentId }]);
+
+		if (this.commentId) {
+			this.router.navigate([this.navigateRoute, { comment: this.commentId }]);
+			return;
+		}
+
+		this.router.navigate([this.navigateRoute]);
 	}
 
 	get actorName() {
