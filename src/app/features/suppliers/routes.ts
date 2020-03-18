@@ -1,13 +1,21 @@
 import { Route } from '@angular/router';
 
-import * as DetailsPage from './pages/supplier-details';
-import * as TablePage from './pages/suppliers';
+import * as DetailsPage from './pages/details';
+import * as Pages from './pages';
 
 
 export const routes: Array<Route> = [
 	{
 		path: '',
-		component: TablePage.SuppliersPageComponent
+		redirectTo: 'table'
+	},
+	{
+		path: 'table',
+		component: Pages.TablePageComponent
+	},
+	{
+		path: 'board',
+		component: Pages.BoardPageComponent
 	},
 	{
 		path: ':id',

@@ -15,9 +15,9 @@ import { AutoUnsub } from '~utils';
 // The patient replies: “No. I’m afraid to.”
 
 @Component({
-	selector: 'supplier-page-app',
-	templateUrl: './suppliers-page.component.html',
-	styleUrls: ['./suppliers-page.component.scss'],
+	selector: 'board-page-app',
+	templateUrl: './board-page.component.html',
+	styleUrls: ['./board-page.component.scss'],
 	providers: [
 		ListPageService
 	],
@@ -25,7 +25,7 @@ import { AutoUnsub } from '~utils';
 		class: 'table-page'
 	}
 })
-export class SuppliersPageComponent extends AutoUnsub implements OnInit, AfterViewInit {
+export class BoardPageComponent extends AutoUnsub implements OnInit, AfterViewInit {
 
 	erm = ERM;
 	filterType = FilterType;

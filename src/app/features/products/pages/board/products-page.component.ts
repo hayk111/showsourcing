@@ -21,11 +21,8 @@ import { AutoUnsub } from '~utils';
 	providers: [
 		ListHelperService,
 		ListPageViewService,
-		SelectionService,
-		KanbanService,
-		KanbanSelectionService,
 		FilterService,
-		SelectionService
+		KanbanSelectionService
 	],
 	host: {
 		class: 'table-page'

@@ -1,5 +1,5 @@
 export * from './components';
-export * from './product-details-page.component';
+export * from './details-page.component';
 export * from './activity';
 export * from './files';
 export * from './info';

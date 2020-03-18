@@ -15,7 +15,7 @@ import { routes } from '~features/products/routes';
 import { NavBarModule } from '~shared/navbar';
 import { SharedModule } from '~shared/shared.module';
 
-import * as DetailsPage from './pages/product-details';
+import * as DetailsPage from './pages/details';
 import * as Pages from './pages';
 
 
@@ -39,7 +39,7 @@ import * as Pages from './pages';
 	declarations: [
 		Pages.TablePageComponent,
 		Pages.CardPageComponent,
-		Pages.ProductDetailsPageComponent,
+		Pages.DetailsPageComponent,
 		DetailsPage.ActivityPageComponent,
 		DetailsPage.SamplesPageComponent,
 		DetailsPage.InfoPageComponent,

@@ -24,12 +24,12 @@ import { AutoUnsub, log } from '~utils';
  */
 
 @Component({
-	selector: 'product-details-page-app',
-	templateUrl: './product-details-page.component.html',
-	styleUrls: ['./product-details-page.component.scss'],
+	selector: 'details-page-app',
+	templateUrl: './details-page.component.html',
+	styleUrls: ['./details-page.component.scss'],
 	host: { class: 'details-page' }
 })
-export class ProductDetailsPageComponent extends AutoUnsub implements OnInit {
+export class DetailsPageComponent extends AutoUnsub implements OnInit {
 	@Input() requestCount: number;
 	@ViewChild('main', { read: ElementRef, static: false }) main: ElementRef;
 	@ViewChild('rating', { read: ElementRef, static: false }) rating: ElementRef;

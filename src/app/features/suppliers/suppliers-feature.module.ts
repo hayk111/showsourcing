@@ -10,8 +10,8 @@ import { TablesCommonModule } from '~common/tables/tables-common.module';
 import { NavBarModule } from '~shared/navbar';
 import { RatingModule } from '~shared/rating';
 import { SharedModule } from '~shared/shared.module';
-import * as DetailsPage from './pages/supplier-details';
-import * as TablePage from './pages/suppliers';
+import * as DetailsPage from './pages/details';
+import * as Pages from './pages';
 import { routes } from './routes';
 
 
@@ -30,6 +30,8 @@ import { routes } from './routes';
 		CatalogCommonModule,
 	],
 	declarations: [
+		Pages.TablePageComponent,
+		Pages.BoardPageComponent,
 		DetailsPage.ActivityPageComponent,
 		DetailsPage.ContactsPageComponent,
 		DetailsPage.FilesPageComponent,
@@ -42,7 +44,6 @@ import { routes } from './routes';
 		DetailsPage.SupplierHeaderDetailsComponent,
 		DetailsPage.SupplierResumeComponent,
 		DetailsPage.TasksPageComponent,
-		TablePage.SuppliersPageComponent,
 	],
 	entryComponents: [],
 	exports: [],
