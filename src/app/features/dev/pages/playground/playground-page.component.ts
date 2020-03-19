@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 @Component({
 	selector: 'playground-page-app',
@@ -6,10 +6,14 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 	styleUrls: ['./playground-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PlaygroundPageComponent {
+export class PlaygroundPageComponent implements OnInit {
+	constructor() {}
+
+
+	ngOnInit() {
+	}
 
 	test() {
 		// Test function
 	}
-
 }

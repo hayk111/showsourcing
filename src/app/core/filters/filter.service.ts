@@ -5,7 +5,6 @@ import { Filter } from './filter.class';
 import { Injectable } from '@angular/core';
 import { TeamService } from '~core/auth';
 
-
 /**
  * This class basically contains a Array<Filter> and then the same array of filters under different data structure.
  * filter by type, filterValue by type, and the queryArg which is the filter version that can be used by an api.
@@ -20,7 +19,7 @@ import { TeamService } from '~core/auth';
  * - filtersByType = Map<FilterType, Filter[]>; to display all filters under a specific filterType (in the main filter panel)
  * - queryArg: any which gives you the filter query arg that can be used with the API
  */
-@Injectable({ providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class FilterService {
 	/** helper */
 	private converter: FilterConverter = new FilterConverter();
@@ -28,7 +27,7 @@ export class FilterService {
 	private _valueChanges$ = new BehaviorSubject<FilterService>(this);
 	valueChanges$ = this._valueChanges$.asObservable();
 	/** default state */
-	startFilters: Filter[] = [ { type: FilterType.TEAM, value: TeamService.teamSelected.id } ];
+	startFilters: Filter[] = [{ type: FilterType.TEAM, value: TeamService.teamSelected.id }];
 	/** the filters currently in the filter-list */
 	filters: Filter[] = [];
 	/** @TODO make those fields private */
@@ -38,6 +37,8 @@ export class FilterService {
 	private filtersByType: FiltersByType = new Map();
 	/** filter as a param form that can be used in a query */
 	queryArg: any = {};
+	/** keep accessible for helpers */
+	searchedFields: string[] = [];
 
 	constructor() {
 		this.setFilters(this.startFilters);
@@ -49,6 +50,7 @@ export class FilterService {
 		this.startFilters = startFilters;
 		this.converter = new FilterConverter(searchedFields);
 		this.setFilters(startFilters);
+		this.searchedFields = searchedFields;
 	}
 
 	/** function that sets the filter of the filter list, also construct the different util object (by type, filter param) */
@@ -62,7 +64,16 @@ export class FilterService {
 
 	/** adds a search to the predicate and restart setFilters */
 	search(value: string) {
-		this.addFilter({ type: FilterType.SEARCH, value });
+		if (!value) {
+			return this.removeFilterType(FilterType.SEARCH);
+		}
+		const lastFilter = this.getFiltersForType(FilterType.SEARCH)[0];
+		if (!lastFilter) {
+			this.addFilter({ type: FilterType.SEARCH, value });
+		} else {
+			lastFilter.value = value;
+			this.setFilters(this.filters);
+		}
 	}
 
 	/** adds one filter */
@@ -73,9 +84,7 @@ export class FilterService {
 	/** removes one filter */
 	removeFilter(removed: Filter) {
 		this.setFilters(
-			this.filters.filter(
-				fltr => fltr.type !== removed.type || fltr.value !== removed.value
-			)
+			this.filters.filter(fltr => fltr.type !== removed.type || fltr.value !== removed.value)
 		);
 	}
 
@@ -99,17 +108,16 @@ export class FilterService {
 	}
 
 	getFiltersForType(type: FilterType): Filter[] {
-		return this.filtersByType.get(type);
+		return this.filtersByType.get(type) || [];
 	}
 
 	/** returns the number of added filter above the start filters */
 	getFilterAmount() {
-		return this.filters
-			.filter(
-				fil => !this.startFilters.some(
-						startFil => startFil.type === fil.type && startFil.value === fil.value
-					)
-			).length;
+		return this.filters.filter(
+			fil =>
+				!this.startFilters.some(
+					startFil => startFil.type === fil.type && startFil.value === fil.value
+				)
+		).length;
 	}
-
 }

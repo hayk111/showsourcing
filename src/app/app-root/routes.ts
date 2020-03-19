@@ -22,14 +22,14 @@ export const routes: Array<Route> = [
 	// 	canActivateChild: [InvitationGuard],
 	// 	loadChildren: 'app/features/invitation/invitation-feature.module#InvitationFeatureModule',
 	// },
-	// {
-	// 	path: 'dev',
-	// 	component: TemplateComponent,
-	// 	canLoad: [DevModeGuard],
-	// 	canActivate: [DevModeGuard],
-	// 	canActivateChild: [DevModeGuard],
-	// 	loadChildren: 'app/features/dev/dev-feature.module#DevFeatureModule'
-	// },
+	{
+		path: 'dev',
+		component: TemplateComponent,
+		canLoad: [DevModeGuard],
+		canActivate: [DevModeGuard],
+		canActivateChild: [DevModeGuard],
+		loadChildren: 'app/features/dev/dev-feature.module#DevFeatureModule'
+	},
 	{
 		path: '',
 		component: TemplateComponent,
