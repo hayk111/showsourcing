@@ -2,7 +2,6 @@ import { Typename } from '../typename.type';
 import { Team } from './team.model';
 import { User } from './user.model';
 import { Entity } from './_entity.model';
-import { ImageType } from '../API.service';
 
 export class Image extends Entity<Image> {
 	__typename?: Typename = 'Image';
@@ -11,7 +10,7 @@ export class Image extends Entity<Image> {
 	team?: Team;
 	fileName?: string;
 	orientation?: number;
-	imageType?: ImageType;
+	imageType?: 'JPG' | 'PNG' | 'GIF';
 	createdAt?: number;
 	createdByUserId?: string;
 	createdBy?: User;

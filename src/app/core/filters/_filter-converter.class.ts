@@ -84,7 +84,7 @@ export class FilterConverter {
 			case FilterType.SEARCH:
 				return this.getSearchArg(value);
 			default:
-				return { [type]: { id: { [eq]: value } } };
+				return { [`${type}Id`]:  { [eq]: value } };
 		}
 	}
 

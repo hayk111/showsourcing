@@ -11,6 +11,7 @@ import {
 import { ListPageService, SelectionService } from '~core/list-page';
 import { ListPageViewService } from '~core/list-page/list-page-view.service';
 import { AutoUnsub } from '~utils';
+import { FilterService } from '~shared/filters/services/filter.service';
 
 @Component({
 	selector: 'tag-data-page-app',
@@ -40,7 +41,8 @@ export class TagDataPageComponent extends AutoUnsub implements OnInit {
 		public companySrv: CompanyService,
 		public dialogCommonSrv: DialogCommonService,
 		public selectionSrv: SelectionService,
-		private viewSrv: ListPageViewService<Tag>
+		public viewSrv: ListPageViewService<Tag>,
+		public filterSrv: FilterService
 	) {
 		super();
 	}

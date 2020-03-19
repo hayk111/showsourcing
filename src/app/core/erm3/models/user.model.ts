@@ -1,4 +1,3 @@
-import { Lang } from '../API.service';
 
 export class User {
 	__typename ? = 'User';
@@ -7,7 +6,7 @@ export class User {
 	firstName?: string;
 	lastName?: string;
 	phoneNumber?: string | null;
-	preferredLanguage?: Lang | null;
+	preferredLanguage?: 'EN' | 'FR' | 'CN';
 	avatar?: string | null;
 	createdAt?: number | null;
 	_version?: number;

@@ -72,7 +72,7 @@ describe('Filter Service', () => {
 
 	it('should add search', () => {
 		const searchStr = 'test';
-		filterSrv.setSearch(searchStr);
+		filterSrv.search(searchStr);
 		expect(filterSrv.filters).toContain({ type: FilterType.SEARCH, value: searchStr });
 	});
 
