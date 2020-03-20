@@ -15,7 +15,7 @@ export class DialogService {
 
 
 	/** opens a dialog, returns an observable of data that emits when it closes (not when it cancels) */
-	open(component: new (...args: any[]) => any, props?: Object, closeOnOutsideClick = true): Observable<any> {
+	open(component: new (...args: any[]) => any, props?: Object, closeOnOutsideClick = true) {
 		this._toOpen$.next({ component, props, closeOnOutsideClick });
 		this.openedComponent = component;
 		return this.toClose$.pipe(

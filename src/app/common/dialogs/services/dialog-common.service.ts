@@ -31,6 +31,7 @@ import {
 	ReviewRequestReplyDlgComponent,
 } from '../custom-dialogs/review-request-reply-dlg/review-request-reply-dlg.component';
 import { SupplierRequestDialogComponent } from '../custom-dialogs/supplier-request-dialog/supplier-request-dialog.component';
+import { Typename } from '~core/erm3/typename.type';
 
 /**
  * Service used to open dialogs, the goal of this service is to bring easy typing
@@ -48,8 +49,8 @@ export class DialogCommonService {
 	 * @param shouldRedirect whether we redirect after creation to entityMetadata.createUrl
 	 * if its truem otherwise it will stay on the same page
 	 */
-	openCreateDlg(entityMetadata: EntityMetadata, shouldRedirect: boolean = false) {
-		return this.dlgSrv.open(CreationDialogComponent, { shouldRedirect, type: entityMetadata });
+	openCreateDlg(typename: Typename, shouldRedirect: boolean = false) {
+		return this.dlgSrv.open(CreationDialogComponent, { shouldRedirect, typename });
 	}
 
 	/** opens the edit dialog, to change the name of an entity, if the enitty does not have a name attribute check Event model for example*/
@@ -125,8 +126,8 @@ export class DialogCommonService {
 		);
 	}
 
-	openCreationSupplierDlg(products: Product[]) {
-		return this.dlgSrv.open(SupplierRequestDialogComponent, { products });
+	openCreationDlg(typename: Typename) {
+		return this.dlgSrv.open(CreationDialogComponent, { typename });
 	}
 
 	openSupplierRequest(products: Product[], supplier?: Supplier) {

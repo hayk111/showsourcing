@@ -1,6 +1,6 @@
 <h2 class="l flexStart">Samples</h2>
 
-<ng-container *ngIf="(listSrv.items$ | async) as samples; else spinner">
+<ng-container *ngIf="(listHelper.getFilteredItems$ | async) as samples; else spinner">
 	<ng-container *ngIf="samples?.length; else placeholder">
 		<!-- list -->
 		<sample-list-item-app
@@ -25,7 +25,7 @@
 			<button
 				*ngIf="(selectionSrv.selection$ | async).size > 0"
 				class="warn-light capitalize"
-				(click)="listSrv.deleteSelected(true)"
+				(click)="listHelper.deleteSelected(true)"
 				translate="button.delete">
 			</button>
 		</div>

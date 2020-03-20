@@ -12,6 +12,7 @@ import { Typename } from '../typename.type';
 import { client } from './client';
 import { ApiLogger } from './_api-logger.class';
 import { GqlHelper } from './_gql-helper.class';
+import { uuid } from '~utils/';
 
 export interface ObservableQuery<T = any> extends ApolloObservableQuery<T> {
 	response$: Observable<any>;
@@ -176,13 +177,14 @@ export class ApiService {
 	 */
 	create<T extends Entity>(
 		typename: Typename,
-		entity: T,
+		entity: T & Entity,
 		apiOptions: ApiMutationOption = {}
 	): Observable<T> {
 		const options = apiOptions as MutationOptions;
 		options.mutation = QueryPool.getQuery(typename, QueryType.CREATE);
 		// TODO remove this condition when the audits are all similars
 		if (typename !== 'Company' && typename !== 'Team') {
+			entity.id = uuid();
 			entity.createdAt = Date.now();
 			entity.lastUpdatedAt = Date.now();
 			entity.deleted = false;

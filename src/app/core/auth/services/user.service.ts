@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
-import { AuthenticationService } from './authentication.service';
-import { EntityName, User } from '~core/erm/models';
-import { ApiService } from '~core/erm3/services/api.service';
 import { AnalyticsService } from '~core/analytics/analytics.service';
+import { User } from '~core/erm/models';
+import { ApiService } from '~core/erm3/services/api.service';
+import { AuthenticationService } from './authentication.service';
 
 
 @Injectable({
@@ -15,10 +15,10 @@ export class UserService {
 	private _user$ = new Subject<User>();
 	user$ = this._user$.asObservable();
 
-	userSync: User;
-	static userSync: User;
-	userIdSync: string;
-	static userIdSync: string;
+	user: User;
+	static user: User;
+	userId: string;
+	static userId: string;
 
 	constructor(
 		protected apiSrv: ApiService,
@@ -45,10 +45,10 @@ export class UserService {
 	}
 
 	private setupUser(user: User) {
-		this.userSync = user;
-		this.userIdSync = user.id;
-		UserService.userSync = user;
-		UserService.userIdSync = user.id;
+		this.user = user;
+		this.userId = user.id;
+		UserService.user = user;
+		UserService.userId = user.id;
 	}
 
 }

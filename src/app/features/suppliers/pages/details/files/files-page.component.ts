@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { AttachmentService } from '~core/erm';
-import { ListPageService } from '~core/list-page';
-import { Attachment, ERM, Supplier } from '~core/erm';
+import { SelectionService } from '~core/list-page2';
+import { ListFuseHelperService } from '~core/list-page2/list-fuse-helper.service';
 import { DialogService } from '~shared/dialog';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 
@@ -11,40 +10,26 @@ import { AutoUnsub } from '~utils/auto-unsub.component';
 	selector: 'files-page-app',
 	templateUrl: './files-page.component.html',
 	styleUrls: ['./files-page.component.scss'],
-	providers: [ListPageService],
+	providers: [
+		ListFuseHelperService,
+		SelectionService
+	],
 	host: {
 		class: 'table-page'
 	}
 })
-export class FilesPageComponent extends AutoUnsub implements OnInit {
-
-	supplier: Supplier;
-	erm = ERM;
-
+export class FilesPageComponent implements OnInit {
 
 	constructor(
 		protected route: ActivatedRoute,
-		protected dlgSrv: DialogService,
-		protected attachmentSrv: AttachmentService,
+		protected listHelper: ListFuseHelperService,
 		public dialogCommonSrv: DialogCommonService,
-		public listSrv: ListPageService<Attachment, AttachmentService>
 	) {
-		super();
 	}
 
 	ngOnInit() {
-		const id = this.route.snapshot.parent.params.id;
-		this.supplier = { id, __typename: 'Supplier' };
-		this.listSrv.setup({
-			entitySrv: this.attachmentSrv,
-			searchedFields: ['name'],
-			selectParams: {
-				query: `@links.Supplier.attachments.id == "${id}"`,
-				sortBy: 'fileName'
-			},
-			entityMetadata: ERM.ATTACHMENT,
-			originComponentDestroy$: this._destroy$
-		});
+		const supplierId = this.route.parent.snapshot.params.id;
+		this.listHelper.setup('Attachment', 'Supplier', supplierId);
 	}
 
 }

@@ -70,7 +70,7 @@ export class FilterSelectionEntityPanelComponent extends AutoUnsub implements On
 		this.isLocalList = isLocalList(this.typename);
 		if (isLocalList) {
 			this.fuseHelper.setup(this.typename);
-			this.choices$ = this.fuseHelper.filteredItems$;
+			this.choices$ = this.fuseHelper.getFilteredItems$;
 		} else {
 			this.listHelper.setup(this.typename);
 			this.choices$ = this.listHelper.filteredItems$;

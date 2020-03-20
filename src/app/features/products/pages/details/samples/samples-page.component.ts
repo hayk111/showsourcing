@@ -1,78 +1,40 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, switchMap, takeUntil } from 'rxjs/operators';
-import { AbstractSampleCommonComponent } from '~common/abstracts/abstract-sample-common.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import {
-	Product,
-	ProductService,
-	Sample,
-	SampleService,
-	SelectParams,
-	UserService
-} from '~core/erm';
-import { ListPageService } from '~core/list-page';
-import { FilterService, FilterType } from '~core/filters';
-import { DialogService } from '~shared/dialog';
+import { Product } from '~core/erm';
+import { FilterService } from '~core/filters';
+import { ListPageViewService, SelectionService } from '~core/list-page2';
+import { ListFuseHelperService } from '~core/list-page2/list-fuse-helper.service';
+import { TrackingComponent } from '~utils/tracking-component';
 
 @Component({
 	selector: 'samples-page-app',
 	templateUrl: './samples-page.component.html',
 	styleUrls: ['./samples-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [ListPageService, FilterService]
+	providers: [
+		ListFuseHelperService,
+		SelectionService,
+		FilterService
+	]
 })
-export class SamplesPageComponent extends AbstractSampleCommonComponent
-	implements OnInit {
+export class SamplesPageComponent extends TrackingComponent implements OnInit {
 	private productId: string;
 	product: Product;
 
 	constructor(
 		protected route: ActivatedRoute,
 		protected router: Router,
-		protected userSrv: UserService,
-		protected sampleSrv: SampleService,
-		protected dlgSrv: DialogService,
-		protected productSrv: ProductService,
-		public listSrv: ListPageService<Sample, SampleService>,
+		public listHelper: ListFuseHelperService,
+		public viewSrv: ListPageViewService<any>,
 		public dialogCommonSrv: DialogCommonService,
+		public selectionSrv: SelectionService,
 		protected filterSrv: FilterService
 	) {
-		super(
-			router,
-			route,
-			userSrv,
-			sampleSrv,
-			dlgSrv,
-			listSrv,
-			dialogCommonSrv,
-			filterSrv
-		);
+		super();
 	}
-
 	ngOnInit() {
-		const id$ = this.route.parent.params.pipe(
-			map(params => params.id),
-			takeUntil(this._destroy$)
-		);
-
-		id$
-			.pipe(
-				switchMap(id => this.productSrv.queryOne(id)),
-				takeUntil(this._destroy$)
-			)
-			.subscribe(product => (this.product = product));
 		this.productId = this.route.parent.snapshot.params.id;
-
-		const selectParams = new SelectParams({
-			sortBy: 'status.step',
-			descending: false
-		});
-		super.setup(
-			[{ type: FilterType.PRODUCT, value: this.productId }],
-			selectParams,
-			false
-		);
-		super.ngOnInit();
+		this.listHelper.setup('Sample', 'Product', this.productId);
 	}
 }

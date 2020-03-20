@@ -24,7 +24,8 @@
 	(select)="selectionSrv.selectOne($event)"
 	(selectAll)="selectionSrv.selectAll($event)"
 	(unselect)="selectionSrv.unselectOne($event)"
-	(showItemsPerPage)="listHelper.setItemsPerPage($event)">
+	(showItemsPerPage)="listHelper.setItemsPerPage($event)"
+	(createClick)="createSupplier()">
 </suppliers-table-app>
 
 <supplier-selection-bar-app

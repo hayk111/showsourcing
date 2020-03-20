@@ -6,6 +6,7 @@ import { ApiQueryOption, ApiService, ObservableQuery } from '~core/erm3/services
 import { Typename } from '~core/erm3/typename.type';
 import { FilterService, FilterType } from '~core/filters';
 import { SelectionService } from './selection.service';
+import { TeamService } from '~core/auth';
 
 @Injectable({ providedIn: 'root' })
 export class ListFuseHelperService<G = any> {
@@ -35,10 +36,11 @@ export class ListFuseHelperService<G = any> {
 
 	setup(
 		typename: Typename,
-		byTypename: Typename | 'Owner',
-		byId: string,
+		byTypename: Typename | 'Owner' = 'Team',
+		byId?: string,
 		queryOptions: ApiQueryOption = {}
 	) {
+		byId = byId || TeamService.teamSelected.id;
 		this.typename = typename;
 		queryOptions.fetchPolicy = queryOptions.fetchPolicy || 'cache-first';
 		this.queryRef = this.apiSrv.listBy<G>(typename, byTypename, byId, queryOptions);

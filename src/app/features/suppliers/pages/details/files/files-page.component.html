@@ -16,13 +16,10 @@
 <attachments-table-app
 	#table
 	[hasPagination]="false"
-	[currentSort]="listSrv.currentSort"
-	[pending]="listSrv.pending"
-	[isFiltering]="filterSrv.isFiltering"
-	[rows]="listSrv.items$ | async"
+	[pending]="listHelper.pending"
+	[rows]="listHelper.filteredItems$ | async"
 	[selection]="selectionSrv.selection$ | async"
-	[total]="listSrv.count$ | async"
-	[currentPage]="listSrv.currentPage"
+	[total]="listHelper.total$ | async"
 	[linkedEntity]="supplier"
 	(delete)="listSrv.deleteOne($event, true)"
 	(update)="listSrv.update($event)"

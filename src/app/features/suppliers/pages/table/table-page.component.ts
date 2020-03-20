@@ -10,6 +10,8 @@ import { AutoUnsub } from '~utils';
 import { ListHelperService, ListPageViewService, SelectionService } from '~core/list-page2';
 import { FilterService } from '~core/filters';
 import { Observable } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
+import { CloseEventType } from '~shared/dialog';
 
 // A doctor accidentally prescribes his patient a laxative instead of a coughing syrup.
 // -
@@ -56,6 +58,13 @@ export class TablePageComponent implements OnInit {
 	ngOnInit() {
 		this.listHelper.setup('Supplier');
 		this.items$ = this.listHelper.filteredItems$;
+	}
+
+	createSupplier() {
+		this.dialogCommonSrv.openCreateDlg('Supplier').pipe(
+			filter(event => event.type === CloseEventType.OK),
+			map(event => event.data)
+		).subscribe();
 	}
 
 }

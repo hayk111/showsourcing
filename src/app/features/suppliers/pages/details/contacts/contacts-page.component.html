@@ -8,24 +8,22 @@
 </controller-table-app>
 
 <contacts-table-app
-	[currentSort]="listSrv.currentSort"
 	[hasMenu]="false"
-	[pending]="listSrv.pending"
 	[isFiltering]="filterSrv.isFiltering"
-	[rows]="listSrv.items$ | async"
+	[rows]="listHelper.getFilteredItems$ | async"
 	[selection]="selectionSrv.selection$ | async"
-	[total]="listSrv.count$ | async"
-	[currentPage]="listSrv.currentPage"
-	(goToPage)="listSrv.loadPage($event)"
-	(delete)="listSrv.deleteOne($event)"
+	[total]="listHelper.total$ | async"
+	[currentPage]="listHelper.currentPage"
+	(goToPage)="listHelper.loadPage($event)"
+	(delete)="listHelper.deleteOne($event)"
 	(open)="viewSrv.goToDetails($event)"
 	(openCreateRequestDlg)="dialogCommonSrv.openSupplierRequest([$event])"
 	(select)="selectionSrv.selectOne($event, true)"
 	(selectAll)="selectionSrv.selectAll($event, true)"
-	(sort)="listSrv.sort($event)"
-	(unfavorited)="listSrv.onItemUnfavorited($event)"
+	(sort)="listHelper.sort($event)"
+	(unfavorited)="listHelper.onItemUnfavorited($event)"
 	(unselect)="selectionSrv.unselectOne($event, true)"
-	(update)="listSrv.update($event)"
+	(update)="listHelper.update($event)"
 	(createClick)="openNewContactDlg({id: supplierId})"
 	(unselectAll)="selectionSrv.unselectAll()">
 </contacts-table-app>
@@ -33,8 +31,8 @@
 <contact-selection-bar-app
 	[isShown]="(selectionSrv.selection$ | async)?.size > 0"
 	[selection]="selectionSrv.selection$ | async"
-	[selectableItems]="listSrv.items$ | async"
-	(deleteSelected)="listSrv.deleteSelected(true)"
+	[selectableItems]="listHelper.items$ | async"
+	(deleteSelected)="listHelper.deleteSelected(true)"
 	(close)="selectionSrv.unselectAll()"
 	(selectAll)="selectionSrv.selectAll($event)"
 	(unselectAll)="selectionSrv.unselectAll()">

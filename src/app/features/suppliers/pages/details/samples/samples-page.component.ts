@@ -1,82 +1,37 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { map, switchMap, takeUntil } from 'rxjs/operators';
-import { AbstractSampleCommonComponent } from '~common/abstracts/abstract-sample-common.component';
+import { ActivatedRoute } from '@angular/router';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import {
-	ERM,
-	Sample,
-	SampleService,
-	Supplier,
-	SupplierService,
-	UserService
-} from '~core/erm';
-import { ListPageService } from '~core/list-page';
+import { Supplier } from '~core/erm';
 import { FilterService, FilterType } from '~core/filters';
-import { DialogService } from '~shared/dialog';
+import { ListHelperService, ListPageViewService, SelectionService } from '~core/list-page2';
 
 @Component({
 	selector: 'samples-page-app',
 	templateUrl: './samples-page.component.html',
 	styleUrls: ['./samples-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [ListPageService, FilterService],
+	providers: [
+		ListHelperService,
+		SelectionService,
+		FilterService
+	],
 	host: { class: 'table-page' }
 })
-export class SamplesPageComponent extends AbstractSampleCommonComponent
-	implements OnInit {
-	private supplierId: string;
-	supplier: Supplier;
-	erm = ERM;
-
+export class SamplesPageComponent implements OnInit {
 	filterTypes = [FilterType.PRODUCT, FilterType.SAMPLE_STATUS];
-
+	supplier: Supplier;
 	constructor(
-		protected route: ActivatedRoute,
-		protected router: Router,
-		protected userSrv: UserService,
-		protected sampleSrv: SampleService,
-		protected dlgSrv: DialogService,
-		protected supplierSrv: SupplierService,
-		public listSrv: ListPageService<Sample, SampleService>,
+		private route: ActivatedRoute,
+		public listHelper: ListHelperService,
+		public viewSrv: ListPageViewService<any>,
 		public dialogCommonSrv: DialogCommonService,
-		protected filterSrv: FilterService
-	) {
-		super(
-			router,
-			route,
-			userSrv,
-			sampleSrv,
-			dlgSrv,
-			listSrv,
-			dialogCommonSrv,
-			filterSrv
-		);
-	}
+		public filterSrv: FilterService
+	) { }
 
 	ngOnInit() {
-		const id$ = this.route.parent.params.pipe(
-			map(params => params.id),
-			takeUntil(this._destroy$)
-		);
-
-		id$
-			.pipe(
-				switchMap(id => this.supplierSrv.selectOne(id)),
-				takeUntil(this._destroy$)
-			)
-			.subscribe(supplier => (this.supplier = supplier));
-		this.supplierId = this.route.parent.snapshot.params.id;
-		super.setup(
-			[
-				{
-					type: FilterType.SUPPLIER,
-					value: this.supplierId
-				}
-			],
-			null,
-			false
-		);
-		super.ngOnInit();
+		const supplierId = this.route.parent.snapshot.params.id;
+		this.supplier = { id: supplierId };
+		this.filterSrv.setup([{ type: FilterType.SUPPLIER, value: supplierId }]);
+		this.listHelper.setup('Supplier');
 	}
 }
