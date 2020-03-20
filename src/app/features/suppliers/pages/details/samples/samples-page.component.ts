@@ -19,7 +19,7 @@ import { ListHelperService, ListPageViewService, SelectionService } from '~core/
 	host: { class: 'table-page' }
 })
 export class SamplesPageComponent implements OnInit {
-	filterTypes = [FilterType.PRODUCT, FilterType.SAMPLE_STATUS];
+	filterTypes = [FilterType.PRODUCT, FilterType.STATUS];
 	supplier: Supplier;
 
 	constructor(

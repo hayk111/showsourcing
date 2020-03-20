@@ -37,7 +37,7 @@ export class BoardPageComponent implements OnInit {
 		FilterType.CATEGORIES,
 		FilterType.CREATED_BY,
 		FilterType.FAVORITE,
-		FilterType.SUPPLIER_STATUS,
+		FilterType.STATUS,
 		FilterType.TAGS
 	];
 

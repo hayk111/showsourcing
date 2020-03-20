@@ -52,7 +52,7 @@ export class SuppliersBoardComponent extends AutoUnsub implements OnInit {
 		FilterType.CREATED_BY,
 		FilterType.EVENT,
 		FilterType.FAVORITE,
-		FilterType.SUPPLIER_STATUS,
+		FilterType.STATUS,
 		FilterType.PROJECTS,
 		FilterType.SUPPLIER,
 		FilterType.TAGS

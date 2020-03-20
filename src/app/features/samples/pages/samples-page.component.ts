@@ -35,7 +35,7 @@ export class SamplesPageComponent extends AutoUnsub implements OnInit {
 		FilterType.PRODUCT,
 		FilterType.SUPPLIER,
 		FilterType.CREATED_BY,
-		FilterType.SAMPLE_STATUS,
+		FilterType.STATUS,
 		FilterType.ASSIGNEE
 	];
 

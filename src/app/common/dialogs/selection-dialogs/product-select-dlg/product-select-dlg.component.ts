@@ -49,7 +49,7 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 		FilterType.CREATED_BY,
 		FilterType.EVENT,
 		FilterType.TAGS,
-		FilterType.PRODUCT_STATUS,
+		FilterType.STATUS,
 		FilterType.FAVORITE
 	];
 
