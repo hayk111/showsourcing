@@ -55,7 +55,7 @@ export class TablePageComponent implements OnInit {
 
 	ngOnInit() {
 		this.listHelper.setup('Supplier');
-		this.items$ = this.listHelper.getFilteredItems$();
+		this.items$ = this.listHelper.filteredItems$;
 	}
 
 }

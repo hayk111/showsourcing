@@ -47,7 +47,7 @@ export class ListFuseHelperService<G = any> {
 		});
 	}
 
-	getFilteredItems$(): Observable<G[]> {
+	filteredItems$: Observable<G[]> {
 		return this.filterSrv.valueChanges$.pipe(
 			// the value changed should concern the FilterType search
 			filter(() => !!this.fuse),
@@ -59,7 +59,7 @@ export class ListFuseHelperService<G = any> {
 			shareReplay(1)
 		);
 		// result.sort(); // TODO should take sort property from filterSrv, not implemented yet
-		// TODO should trigger getFilteredItems$() when sort is updated
+		// TODO should trigger filteredItems$ when sort is updated
 		// TODO update pagination
 	}
 

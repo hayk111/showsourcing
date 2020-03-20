@@ -5,5 +5,5 @@ export * from './files';
 export * from './products';
 export * from './requests';
 export * from './samples';
-export * from './supplier-details-page.component';
+export * from './details-page.component';
 export * from './tasks';

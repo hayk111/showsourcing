@@ -1,23 +1,26 @@
-<controller-table-app>
-	<controller-table-quick-filters-app>
-	</controller-table-quick-filters-app>
-	<controller-table-quick-actions-app>
+<controller-table-app [total]="listHelper.total$ | async">
+	<!-- filters -->
+	<controller-table-quick-filters-app></controller-table-quick-filters-app>
+	<!-- actions -->
+	<controller-table-quick-actions-app
+		[columns]="columns"
+		[tableConfig]="tableConfig">
 	</controller-table-quick-actions-app>
+	<!-- switcher -->
 	<controller-table-view-switcher-app
-		[hasCard]="false"
-		[hasBoard]="false">
-	</controller-table-view-switcher-app>
+	 [hasBoard]="false"
+	 [hasCard]="false"></controller-table-view-switcher-app>
 </controller-table-app>
 
 <samples-table-app
-	[rows]="listSrv.items$ | async"
+	[rows]="listHelper.filteredItems$ | async"
 	[selection]="selectionSrv.selection$ | async"
-	[pending]="listSrv.pending"
+	[pending]="listHelper.pending"
 	[isFiltering]="filterSrv.isFiltering"
-	[total]="listSrv.count$ | async"
-	[currentPage]="listSrv.currentPage"
-	(goToPage)="listSrv.loadPage($event)"
-	(sort)="listSrv.sort($event)"
+	[total]="listHelper.total$ | async"
+	[currentPage]="listHelper.currentPage"
+	(goToPage)="listHelper.loadPage($event)"
+	(sort)="listHelper.sort($event)"
 	(select)="selectionSrv.selectOne($event, true)"
 	(unselect)="selectionSrv.unselectOne($event, true)"
 	(selectAll)="selectionSrv.selectAll($event, true)"
@@ -25,7 +28,7 @@
 	(open)="viewSrv.goToDetails($event)"
 	(previewClick)="viewSrv.openPreview($event)"
 	(createClick)="dialogCommonSrv.openCreationSampleDialog(undefined, supplier)"
-	(delete)="listSrv.deleteOne($event)">
+	(delete)="listHelper.deleteOne($event)">
 </samples-table-app>
 
 
@@ -49,9 +52,9 @@
 <sample-selection-bar-app
 	[isShown]="(selectionSrv.selection$ | async).size > 0"
 	[selection]="selectionSrv.selection$ | async"
-	[selectableItems]="listSrv.items$ | async"
+	[selectableItems]="listHelper.items$ | async"
 	(close)="selectionSrv.unselectAll()"
-	(deleteSelected)="listSrv.deleteSelected()"
+	(deleteSelected)="listHelper.deleteSelected()"
 	(selectAll)="selectionSrv.selectAll($event)"
 	(unselectAll)="selectionSrv.unselectAll()">
 </sample-selection-bar-app>

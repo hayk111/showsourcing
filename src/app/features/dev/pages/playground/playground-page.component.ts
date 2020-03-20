@@ -23,7 +23,7 @@ export class PlaygroundPageComponent implements OnInit {
 		this.filterSrv.setup([], ['team.name']);
 		this.listFuseHelper.setup('TeamUser', 'User', 'fa44071b-c21e-4763-82b8-1f59715ea86e');
 
-		this.listFuseHelper.getFilteredItems$().subscribe(d => {
+		this.listFuseHelper.filteredItems$.subscribe(d => {
 			console.log(d);
 			this.teamUsers = d;
 		});

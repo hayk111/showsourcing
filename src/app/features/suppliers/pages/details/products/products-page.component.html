@@ -1,68 +1,57 @@
-<controller-table-app>
+
+<controller-table-app [total]="listHelper.total$ | async">
+	<!-- filters -->
 	<controller-table-quick-filters-app></controller-table-quick-filters-app>
-	<controller-table-quick-actions-app>
+	<!-- actions -->
+	<controller-table-quick-actions-app
+		[columns]="columns"
+		[tableConfig]="tableConfig">
 	</controller-table-quick-actions-app>
+	<!-- switcher -->
 	<controller-table-view-switcher-app
-		[hasCard]="false"
-		[hasBoard]="false">
-	</controller-table-view-switcher-app>
+	 [hasBoard]="false"
+	 [hasCard]="false"></controller-table-view-switcher-app>
 </controller-table-app>
 
-<ng-container *ngIf="(listSrv.items$ | async) as products; else spinner">
-	<products-table-app
-		*ngIf="viewSrv.view === 'table'"
-		[pending]="false"
-		[selection]="selectionSrv.selection"
-		[rows]="products"
-		[total]="listSrv.count$ | async"
-		[currentPage]="listSrv.currentPage"
-		[isFiltering]="filterSrv.isFiltering"
-		(update)="listSrv.update($event)"
-		(goToPage)="listSrv.loadPage($event)"
-		(delete)="deassociateOneProduct($event)"
-		(open)="viewSrv.goToDetails($event)"
-		(openAddToProjectDialog)="dialogCommonSrv.openAddToProjectDialog([$event])"
-		(openExportDialog)="dialogCommonSrv.openExportDialog(erm.PRODUCT.singular, [$event])"
-		(openRequestFeedbackDialog)="dialogCommonSrv.openRequestFeedbackDialog([$event])"
-		(previewClick)="viewSrv.openPreview($event)"
-		(select)="selectionSrv.selectOne($event, true)"
-		(selectAll)="selectionSrv.selectAll($event, true)"
-		(sort)="listSrv.sort($event)"
-		(unselect)="selectionSrv.unselectOne($event, true)"
-		(unselectAll)="selectionSrv.unselectAll()"
-		(createClick)="openCreationProductDlg()">
-	</products-table-app>
-
-</ng-container>
-
-<product-preview-app
-	*ngIf="viewSrv.previewOpen"
-	[product]="viewSrv.previewed"
-	(close)="viewSrv.closePreview()">
-</product-preview-app>
+<products-table-app
+	[rows]="items$ | async"
+	[pending]="listHelper.pending"
+	[selection]="selectionSrv.selection$ | async"
+	[total]="listHelper.total$ | async"
+	(open)="viewSrv.goToDetails($event)"
+	(previewClick)="viewSrv.openPreview($event)"
+	(select)="selectionSrv.selectOne($event)"
+	(selectAll)="selectionSrv.selectAll($event)"
+	(unselect)="selectionSrv.unselectOne($event)"
+	(showItemsPerPage)="listHelper.setItemsPerPage($event)">
+</products-table-app>
 
 <product-selection-bar-app
-	[isShown]="(selectionSrv.selection$ | async).size > 0"
+	[isShown]="(selectionSrv.selection$ | async).size"
 	[selection]="selectionSrv.selection$ | async"
-	[selectableItems]="listSrv.items$ | async"
+	[selectableItems]="items$ | async"
 	(addProject)="dialogCommonSrv.openAddToProjectDialog(selectionSrv.getSelectedValues())"
-	(export)="dialogCommonSrv.openExportDialog(erm.PRODUCT.singular, selectionSrv.getSelectedValues())"
+	(export)="dialogCommonSrv.openExportDialog('Product', selectionSrv.getSelectedValues())"
+	(createRequest)="dialogCommonSrv.openSupplierRequest(selectionSrv.getSelectedValues())"
 	(requestTeamFeedback)="dialogCommonSrv.openRequestFeedbackDialog(selectionSrv.getSelectedValues())"
 	(compareProducts)="dialogCommonSrv.openCompareProductDialog(selectionSrv.getSelectedValues())"
-	(statusUpdated)="listSrv.updateSelected({status: $event})"
-	(deleted)="deassociateSelectedProducts()"
-	(close)="selectionSrv.unselectAll()"
-	(selectAll)="selectionSrv.selectAll($event)"
+	(massEdit)="dialogCommonSrv.openMassEditDialog(selectionSrv.getSelectedValues())"
+	(deleted)="listHelper.deleteSelected()"
+	(selectAll)="selectionSrv.selectAll()"
 	(unselectAll)="selectionSrv.unselectAll()">
 </product-selection-bar-app>
 
+	<!-- <product-preview-app
+		*ngIf="viewSrv.previewOpen"
+		[product]="viewSrv.previewed"
+		(close)="viewSrv.closePreview()">
+	</product-preview-app> -->
+<!-- </ng-container>  -->
+
 <side-panel-app *ngIf="viewSrv.filterPanelOpen">
 	<filters-app
-		[filterList]="filterSrv.filterList"
 		[filterTypes]="filterTypes"
 		(clickOutside)="viewSrv.closeFilterPanel()"
 		(close)="viewSrv.closeFilterPanel()">
 	</filters-app>
 </side-panel-app>
-
-<ng-template #spinner> <spinner-app></spinner-app> </ng-template>

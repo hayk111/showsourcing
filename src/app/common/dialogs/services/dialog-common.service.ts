@@ -63,8 +63,9 @@ export class DialogCommonService {
 	}
 
 	/** Opens a dialog that lets the user export a product either in PDF or EXCEL format */
-	openExportDialog(type: EntityName, targets?: ExportEntity[], query?: string) {
-		return this.dlgSrv.open(ExportDlgComponent, { type, targets, query });
+	// TODO type this function when migrating it
+	openExportDialog(typename: any, targets?: any[], query?: string) {
+		return this.dlgSrv.open(ExportDlgComponent, { typename, targets, query });
 	}
 
 	/** Opens a dialog that lets the user request members of his team for feedback regarding the products he selectioned */

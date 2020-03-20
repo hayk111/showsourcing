@@ -16,6 +16,23 @@ export class ListHelperService<G = any> {
 	total$: Observable<number>;
 	/** number of items taken at once */
 	private limit$ = new BehaviorSubject(25);
+	filteredItems$ = combineLatest(
+		this.filterSrv.valueChanges$,
+		this.limit$
+	).pipe(
+		// gets the query
+		map(([{ queryArg: filter }, limit]) => this.apiSrv.search<G>(
+			this.typename, { filter, limit })
+		),
+		// save it
+		tap(query => this.queryRef = query),
+		tap(query => this.total$ = query.total$),
+		// return the result
+		switchMap(_ => this.queryRef.data$),
+		// setting pending to false because we received data
+		tap(_ => this.pending = false),
+		shareReplay(1)
+	);
 
 	constructor(
 		private selectionSrv: SelectionService,
@@ -27,26 +44,7 @@ export class ListHelperService<G = any> {
 		this.typename = typename;
 	}
 
-	getFilteredItems$() {
-		return combineLatest(
-			this.filterSrv.valueChanges$,
-			this.limit$).pipe(
-			// gets the query
-			map(([{ queryArg: filter }, limit]) => this.apiSrv.search<G>(
-				this.typename, { filter, limit })
-			),
-			// save it
-			tap(query => this.queryRef = query),
-			tap(query => this.total$ = query.total$),
-			// return the result
-			switchMap(_ => this.queryRef.data$),
-			// setting pending to false because we received data
-			tap(_ => this.pending = false),
-			shareReplay(1)
-		);
-	}
-
-	private refetch(options?: WatchQueryOptions) {
+	refetch(options?: WatchQueryOptions) {
 		this.pending = true;
 		return this.queryRef.refetch({ ...options, fetchPolicy: 'network-only' })
 		.then(_ => this.pending = false);
