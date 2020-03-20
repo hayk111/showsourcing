@@ -9,14 +9,13 @@
 </controller-table-app>
 
 <task-table-app
-	[rows]="listSrv.items$ | async"
+	[rows]="listHelper.getFilteredItems$ | async"
 	[selection]="selectionSrv.selection$ | async"
-	[pending]="listSrv.pending"
+	[pending]="listHelper.pending"
 	[isFiltering]="filterSrv.isFiltering"
-	[total]="listSrv.count$ | async"
-	[currentPage]="listSrv.currentPage"
-	(goToPage)="listSrv.loadPage($event)"
-	(sort)="listSrv.sort($event)"
+	[total]="listHelper.total$ | async"
+	(goToPage)="listHelper.loadPage($event)"
+	(sort)="listHelper.sort($event)"
 	(select)="selectionSrv.selectOne($event, true)"
 	(unselect)="selectionSrv.unselectOne($event, true)"
 	(selectAll)="selectionSrv.selectAll($event, true)"
@@ -24,7 +23,7 @@
 	(open)="viewSrv.goToDetails($event)"
 	(previewClick)="viewSrv.openPreview($event)"
 	(createClick)="openCreationTaskDlg(undefined, supplier)"
-	(delete)="listSrv.deleteOne($event, true)">
+	(delete)="listHelper.deleteOne($event, true)">
 </task-table-app>
 
 <task-preview-app
@@ -45,9 +44,9 @@
 <task-selection-bar-app
 	[isShown]="(selectionSrv.selection$ | async)?.size > 0"
 	[selection]="selectionSrv.selection$ | async"
-	[selectableItems]="listSrv.items$ | async"
+	[selectableItems]="listHelper.items$ | async"
 	(close)="selectionSrv.unselectAll()"
-	(deleteSelected)="listSrv.deleteSelected(true)"
+	(deleteSelected)="listHelper.deleteSelected(true)"
 	(selectAll)="selectionSrv.selectAll($event)"
 	(unselectAll)="selectionSrv.unselectAll()">
 </task-selection-bar-app>

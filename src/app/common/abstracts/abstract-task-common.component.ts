@@ -17,6 +17,7 @@ import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { Filter, FilterType, FilterService } from '~core/filters';
 import { AutoUnsub } from '~utils';
 
+/** @deprecated */
 /** since we use the task component on different pages, this page will keep the methods clean */
 export abstract class AbstractTaskCommonComponent extends AutoUnsub
 	implements OnInit {

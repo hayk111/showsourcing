@@ -13,13 +13,15 @@ import { ListHelperService, ListPageViewService, SelectionService } from '~core/
 	providers: [
 		ListHelperService,
 		SelectionService,
-		FilterService
+		FilterService,
+		ListPageViewService
 	],
 	host: { class: 'table-page' }
 })
 export class SamplesPageComponent implements OnInit {
 	filterTypes = [FilterType.PRODUCT, FilterType.SAMPLE_STATUS];
 	supplier: Supplier;
+
 	constructor(
 		private route: ActivatedRoute,
 		public listHelper: ListHelperService,
