@@ -57,6 +57,9 @@
       ],
       "~utils": [
         "app/utils/index"
+			],
+			"~generated": [
+				"generated/*"
 			]
     }
   }

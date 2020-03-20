@@ -27,7 +27,7 @@ export interface FilterParams {
 	nextToken?: string;
 }
 
-export type ApiQueryOption = Partial<Omit<WatchQueryOptions, 'variables' | 'queries'>>;
+export type ApiQueryOption = Partial<Omit<WatchQueryOptions, 'variables' | 'query'>>;
 export type ApiMutationOption = Partial<Omit<MutationOptions, 'variables' | 'mutation'>>;
 
 /**
@@ -158,7 +158,7 @@ export class ApiService {
 		apiOptions: ApiQueryOption = {}
 	): ObservableQuery<T[]> {
 		const options = apiOptions as WatchQueryOptions;
-		options.variables = { byId };
+		options.variables = {byId, limit: 10000};
 		options.query = QueryPool.getQuery(typename, QueryType.LIST_BY, byTypename);
 		const query = this.query<T[]>(options);
 		query.total$ = query.response$.pipe(map(r => r.data.length));

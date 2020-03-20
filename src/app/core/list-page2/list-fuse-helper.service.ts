@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as Fuse from 'fuse.js';
-import { forkJoin, Observable, of } from 'rxjs';
-import { filter, shareReplay, switchMap } from 'rxjs/operators';
+import { combineLatest, forkJoin, Observable, of, Subject, timer } from 'rxjs';
+import { debounce, switchMap, tap } from 'rxjs/operators';
 import { ApiQueryOption, ApiService, ObservableQuery } from '~core/erm3/services/api.service';
 import { Typename } from '~core/erm3/typename.type';
 import { FilterService, FilterType } from '~core/filters';
@@ -11,15 +11,17 @@ import { SelectionService } from './selection.service';
 export class ListFuseHelperService<G = any> {
 	private queryRef: ObservableQuery<G[]>;
 	private typename: Typename;
-	private fuse: any;
+	private _fuse$ = new Subject();
 	pending = true;
-	total$: Observable<number>;
+
+	private _total$ = new Subject<number>();
+	total$ = this._total$.asObservable();
 
 	fuseOptions = {
-		keys: ['name'],
+		keys: [],
 		shouldSort: true,
 		includeScore: true,
-		threshold: 0.9,
+		threshold: 0.5, // 0 = full match
 		location: 0,
 		distance: 100,
 		minMatchCharLength: 1
@@ -33,8 +35,8 @@ export class ListFuseHelperService<G = any> {
 
 	setup(
 		typename: Typename,
-		byTypename: Typename | 'Owner' = 'Team',
-		byId?: string,
+		byTypename: Typename | 'Owner',
+		byId: string,
 		queryOptions: ApiQueryOption = {}
 	) {
 		this.typename = typename;
@@ -43,25 +45,26 @@ export class ListFuseHelperService<G = any> {
 		this.fuseOptions.keys = this.filterSrv.searchedFields || this.fuseOptions.keys;
 		// when we update datas it will reasign fuse
 		this.queryRef.data$.subscribe(datas => {
-			this.fuse = new Fuse(datas, this.fuseOptions);
+			this._fuse$.next(new Fuse(datas, this.fuseOptions));
 		});
 	}
 
-	filteredItems$: Observable<G[]> {
-		return this.filterSrv.valueChanges$.pipe(
+	getFilteredItems$: Observable<G[]> = combineLatest(this._fuse$, this.filterSrv.valueChanges$).pipe(
+		debounce(() => timer(300)),
+		switchMap(([fuse]: any) => {
 			// the value changed should concern the FilterType search
-			filter(() => !!this.fuse),
-			switchMap(() => {
-				const searchValue = this.filterSrv.getFiltersForType(FilterType.SEARCH)[0];
-				if (searchValue) return of(this.fuse.search(searchValue.value).map(data => data.item));
-				else return this.queryRef.data$;
-			}),
-			shareReplay(1)
-		);
-		// result.sort(); // TODO should take sort property from filterSrv, not implemented yet
-		// TODO should trigger filteredItems$ when sort is updated
-		// TODO update pagination
-	}
+			const searchValue = this.filterSrv.getFiltersForType(FilterType.SEARCH)[0];
+			if (searchValue) return of(fuse.search(searchValue.value).map(data => data.item));
+			else return this.queryRef.data$;
+		}),
+		tap(searchedDatas => {
+			console.log('total should change:  ', searchedDatas.length);
+			this._total$.next(searchedDatas.length);
+		}),
+	);
+	// result.sort(); // TODO should take sort property from filterSrv, not implemented yet
+	// TODO should trigger getFilteredItems$() when sort is updated
+	// TODO update pagination
 
 	private refetch() {
 		this.pending = true;

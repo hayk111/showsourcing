@@ -1,6 +1,6 @@
 import { Auth } from 'aws-amplify';
 import { AUTH_TYPE, AWSAppSyncClient } from 'aws-appsync';
-import awsconfig from '~core/aws-exports';
+import awsconfig from '~app/../../generated/aws-exports';
 
 export const client = new AWSAppSyncClient({
 	url: awsconfig.aws_appsync_graphqlEndpoint,

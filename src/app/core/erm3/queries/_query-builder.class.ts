@@ -78,15 +78,16 @@ export class QueryBuilder {
 			const ownerVerbose = byEntity === 'Owner' ? 'User' : ''; // the param for Owner is $ownerUser
 			const paramEntityName = byEntity.charAt(0).toLowerCase() + byEntity.slice(1) + ownerVerbose;
 			const byId = paramEntityName + 'Id';
+			const byEntityString = byEntity === 'Team' ? '' : 'by' + byEntity; // listEntity is "by Team" in default
 			const queryBy = gql`
-			query List${this.typename}By${byEntity}(
+			query List${this.typename}${byEntityString}(
 				$byId: ID
 				$sortDirection: ModelSortDirection
 				$filter: Model${this.typename}FilterInput
 				$limit: Int
 				$nextToken: String
 			) {
-				list${this.typename}By${byEntity}(
+				list${this.typename}${byEntityString}(
 					${byId}: $byId
 					sortDirection: $sortDirection
 					filter: $filter
