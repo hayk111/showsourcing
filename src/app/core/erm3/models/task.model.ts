@@ -22,14 +22,4 @@ export class Task extends Entity<Task> {
 	reference?: string | null;
 	referenceKey?: number | null;
 	inProgress?: boolean | null;
-	createdAt?: number;
-	createdByUserId?: string;
-	deletedByUSerId?: string | null;
-	deletedAt?: number | null;
-	lastUpdatedByUserId?: string;
-	lastUpdatedAt?: number;
-	deleted?: boolean;
-	_version?: number;
-	_deleted?: boolean | null;
-	_lastChangedAt?: number;
 }

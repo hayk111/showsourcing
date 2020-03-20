@@ -5,12 +5,12 @@ import { RouterModule } from '@angular/router';
 import Amplify from 'aws-amplify';
 import { AmplifyService } from 'aws-amplify-angular';
 import { AuthenticationService, TeamService } from '~core/auth';
-import awsconfig from '~core/aws-exports';
+import awsconfig from '../../../../../generated/aws-exports.js';
 import { Typename } from '../typename.type';
 
 import * as models from '~core/erm3/models';
 import { ApiService } from './api.service';
-import { ImageType, HelperType, ExportFormat } from '../API.service';
+import { ImageType, HelperType, ExportFormat } from '../../../../../generated/API.service';
 import { switchMap, first, take } from 'rxjs/operators';
 import { QueryPool } from '../queries/query-pool.class';
 import { QueryType } from '../queries/query-type.enum';
@@ -19,12 +19,12 @@ import { Entity } from '../models/_entity.model';
 Amplify.configure(awsconfig);
 
 const mocks = {
-	Company: () => new models.Company({ name: 'test apiService Company' }),
-	Team: () =>
-		new models.Team({
-			companyId: '075af725-0c26-4f64-a07d-0f7203ae45c5',
-			name: 'test apiService Team'
-		}),
+	// Company: () => new models.Company({ name: 'test apiService Company' }),
+	// Team: () =>
+	// 	new models.Team({
+	// 		companyId: '81a13441-6193-45a0-b9b8-8f7135f82609',
+	// 		name: 'test apiService Team'
+	// 	}),
 
 	Category: () => new models.Category({ name: 'test apiService Category' }),
 	Contact: () => new models.Contact({ name: 'test apiService Contact' }),
@@ -35,8 +35,8 @@ const mocks = {
 	Supplier: () => new models.Supplier({ name: 'test apiService Supplier' }),
 	Task: () => new models.Task({ name: 'test apiService Task' }),
 	Comment: () => new models.Comment({ nodeId: 'fakeId' }),
-	HelperList: () =>
-		new models.HelperList({ helperType: HelperType.COUNTRY, code: 'ISO2 (BE)', label: 'Belgium' }), // Country | Harbour | Currency
+	Constant: () =>
+		new models.Constant({ helperType: HelperType.COUNTRY, code: 'ISO2 (BE)', label: 'Belgium' }), // Country | Harbour | Currency
 	Event: () => new models.Event({ name: 'test apiService Event' }),
 	EventDescription: () => new models.EventDescription({ name: 'test apiService EventDescription' }),
 	Venue: () => new models.Venue({ name: 'test apiService Venue' }),
@@ -82,7 +82,7 @@ fdescribe('ApiService', () => {
 			password: 'Test1234'
 		});
 		userId = user.username;
-		apiSrv.setTeamId('353c0206-fa91-489b-bfb7-e896aeb7e25a');
+		apiSrv.setTeamId('605d300b-f108-4254-bea2-d30cba188af2');
 		apiSrv.setUserId(userId);
 		originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
 		jasmine.DEFAULT_TIMEOUT_INTERVAL = 15000;
@@ -99,7 +99,7 @@ fdescribe('ApiService', () => {
 	// 	expect(products.length).toEqual(productsAfter.length - 1);
 	// });
 
-	it('should create entities', async () => {
+	fit('should create entities', async () => {
 		const promises = Object.entries(mocks).map(([name, getMock]) => {
 			return apiSrv
 				.create(name as Typename, getMock())
@@ -161,7 +161,7 @@ fdescribe('ApiService', () => {
 		});
 	});
 
-	xit('should query all by entity', async () => {
+	it('should query all by entity', async () => {
 		// get all queries by from query-pool => [ [typename1, byTypename1], ...]
 		const collectQueryBy = [];
 		Object.entries(QueryPool.map).forEach(([typename, baseQuery]: any) => {

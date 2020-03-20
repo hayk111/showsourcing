@@ -5,19 +5,20 @@ export class Entity<G = any> {
 	__typename?: Typename;
 	teamId?: string;
 
-	createdAt?: number;
+	id?: string;
+	createdAt?: string;
 	createdByUserId?: string;
-	createdBy?: User | null;
+	createdBy?: User;
 	deletedByUserId?: string;
-	deletedBy?: User | null;
-	deletedAt?: number | null;
+	deletedBy?: User;
+	deletedAt?: string;
 	lastUpdatedByUserId?: string;
-	lastUpdatedBy?: User | null;
-	lastUpdatedAt?: number;
+	lastUpdatedBy?: User;
+	lastUpdatedAt?: string;
 	deleted?: boolean;
 
 	_version?: number;
-	_deleted?: boolean | null;
+	_deleted?: boolean;
 	_lastChangedAt?: number;
 
 	constructor(config?: G) {

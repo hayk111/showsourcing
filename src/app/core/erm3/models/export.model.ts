@@ -1,4 +1,4 @@
-import { ExportFormat, ExportStatus, ExportTarget } from '../API.service';
+import { ExportFormat, ExportStatus, ExportTarget } from '../../../../../generated/API.service';
 import { Typename } from '../typename.type';
 import { Entity } from './_entity.model';
 

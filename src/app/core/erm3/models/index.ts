@@ -4,7 +4,7 @@ export { Category } from './category.model';
 export { Comment } from './comment.model';
 export { Company } from './company.model';
 export { Contact } from './contact.model';
-export { HelperList } from './helper-list.model';
+export { Constant } from './constant';
 export { Descriptor } from './descriptor.model';
 export { EventDescription } from './event-description.model';
 export { Event } from './event.model';

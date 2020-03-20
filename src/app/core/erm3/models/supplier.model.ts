@@ -28,14 +28,4 @@ export class Supplier extends Entity<Supplier> {
 	globalDatabaseId?: string | null;
 	reference?: string | null;
 	referenceKey?: number | null;
-	createdAt?: number;
-	createdByUserId?: string;
-	deletedByUSerId?: string | null;
-	deletedAt?: number | null;
-	lastUpdatedByUserId?: string;
-	lastUpdatedAt?: number;
-	deleted?: boolean;
-	_version?: number;
-	_deleted?: boolean | null;
-	_lastChangedAt?: number;
 }
