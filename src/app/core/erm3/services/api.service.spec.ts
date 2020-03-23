@@ -4,6 +4,7 @@ import { TestBed } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
 import Amplify from 'aws-amplify';
 import { AmplifyService } from 'aws-amplify-angular';
+import { first, switchMap, tap } from 'rxjs/operators';
 import { AuthenticationService, TeamService } from '~core/auth';
 import awsconfig from '../../../../../generated/aws-exports.js';
 import { Typename } from '../typename.type';
@@ -11,7 +12,6 @@ import { Typename } from '../typename.type';
 import * as models from '~core/erm3/models';
 import { ApiService } from './api.service';
 import { ImageType, HelperType, ExportFormat } from '../../../../../generated/API.service';
-import { switchMap, first, take } from 'rxjs/operators';
 import { QueryPool } from '../queries/query-pool.class';
 import { QueryType } from '../queries/query-type.enum';
 import { Entity } from '../models/_entity.model';
@@ -32,7 +32,7 @@ const mocks = {
 	// Descriptor: () => new models.Descriptor({ target: 'test apiService Descriptor' }), // ! lastupdatedByUserId should be lastUpdatedByUserId
 	// Image: () =>
 	// 	new models.Image({ fileName: 'File Name', orientation: 0, imageType: ImageType.PNG }),
-	Product: () => new models.Product({ name: 'test apiService Product' }),
+	Product: () => new models.Product({ name: 'test apiService Product' })
 	// Supplier: () => new models.Supplier({ name: 'test apiService Supplier' }),
 	// Task: () => new models.Task({ name: 'test apiService Task' }),
 	// Comment: () => new models.Comment({ nodeId: 'fakeId' }),
@@ -100,7 +100,7 @@ fdescribe('ApiService', () => {
 	// 	expect(products.length).toEqual(productsAfter.length - 1);
 	// });
 
-	fit('should create entities', async () => {
+	it('should create entities', async () => {
 		const promises = Object.entries(mocks).map(([name, getMock]) => {
 			return apiSrv
 				.create(name as Typename, getMock())
@@ -127,7 +127,7 @@ fdescribe('ApiService', () => {
 		});
 	});
 
-	it('should delete entities', async () => {
+	fit('should delete entities', async () => {
 		const promises = Object.entries(mocks).map(([name, getMock]) => {
 			return apiSrv
 				.create(name as Typename, getMock())
@@ -164,28 +164,41 @@ fdescribe('ApiService', () => {
 
 	it('should query all by entity', async () => {
 		// get all queries by from query-pool => [ [typename1, byTypename1], ...]
-		const collectQueryBy = [];
-		Object.entries(QueryPool.map).forEach(([typename, baseQuery]: any) => {
-			if (!baseQuery[QueryType.LIST_BY]) return;
-			Object.keys(baseQuery[QueryType.LIST_BY]).forEach(byTypename => {
-				collectQueryBy.push([typename, byTypename]);
-			});
-		});
+		const queryByToTest = {
+			// Category: ['Team'],
+			// Company: ['Owner'],
+			// TeamUser: ['User'],
+			// Attachment: ['Product'],
+			Comment: ['Node'],
+			// Contact: ['Supplier'],
+			//// Constant,
+			// WorkflowStatus: ['Team'],
+			// Sample: ['Product', 'Supplier'],
+			// Tag: ['Team'],
+			// Task: ['Product'],
+			Vote: ['Node']
+		};
 
 		// run queries into promises
-		const promises = collectQueryBy.map(([typename, byTypename]) => {
-			return apiSrv
-				.listBy(typename, byTypename, 'fakeId')
-				.data$.pipe(first())
-				.toPromise()
-				.catch(e => fail(`entity ${typename} failed query by ${byTypename}: ${e}`));
+		const promises = [];
+		Object.entries(queryByToTest).forEach(([typename, byProperties]) => {
+			byProperties.forEach(byProperty => {
+				promises.push(
+					apiSrv
+						.listBy(typename as Typename, byProperty, 'PRODUCT:34c50a55-ef0e-4cca-932a-ca79adac9a99')
+						.data$.pipe(first())
+						.toPromise()
+						.catch(e => fail(`entity ${typename} failed query by ${byProperty}: ${e}`))
+				);
+			});
 		});
 
 		// test results
 		if (!promises.length) fail('there is no call "listBy"');
 		const results = await Promise.all(promises);
-		results.forEach(result => {
-			expect(result).toBeTruthy();
+		console.log('results after Promises.all() : ', results);
+		results.forEach(response => {
+			expect(response).toBeTruthy();
 		});
 	});
 });
