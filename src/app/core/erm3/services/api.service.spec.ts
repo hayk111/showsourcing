@@ -19,41 +19,42 @@ import { Entity } from '../models/_entity.model';
 Amplify.configure(awsconfig);
 
 const mocks = {
-	// Company: () => new models.Company({ name: 'test apiService Company' }),
-	// Team: () =>
-	// 	new models.Team({
-	// 		companyId: '81a13441-6193-45a0-b9b8-8f7135f82609',
-	// 		name: 'test apiService Team'
-	// 	}),
+	// Attachment: () => new models.Attachment({fileName: 'test apiService Attachment'})
+	// // Company: () => new models.Company({ name: 'test apiService Company' }),
+	// // Team: () =>
+	// // 	new models.Team({
+	// // 		companyId: '81a13441-6193-45a0-b9b8-8f7135f82609',
+	// // 		name: 'test apiService Team'
+	// // 	}),
 
-	Category: () => new models.Category({ name: 'test apiService Category' }),
-	Contact: () => new models.Contact({ name: 'test apiService Contact' }),
-	Descriptor: () => new models.Descriptor({ target: 'test apiService Descriptor' }), // ! lastupdatedByUserId should be lastUpdatedByUserId
-	Image: () =>
-		new models.Image({ fileName: 'File Name', orientation: 0, imageType: ImageType.PNG }),
+	// Category: () => new models.Category({ name: 'test apiService Category' }),
+	// Contact: () => new models.Contact({ name: 'test apiService Contact' }),
+	// Descriptor: () => new models.Descriptor({ target: 'test apiService Descriptor' }), // ! lastupdatedByUserId should be lastUpdatedByUserId
+	// Image: () =>
+	// 	new models.Image({ fileName: 'File Name', orientation: 0, imageType: ImageType.PNG }),
 	Product: () => new models.Product({ name: 'test apiService Product' }),
-	Supplier: () => new models.Supplier({ name: 'test apiService Supplier' }),
-	Task: () => new models.Task({ name: 'test apiService Task' }),
-	Comment: () => new models.Comment({ nodeId: 'fakeId' }),
-	Constant: () =>
-		new models.Constant({ helperType: HelperType.COUNTRY, code: 'ISO2 (BE)', label: 'Belgium' }), // Country | Harbour | Currency
-	Event: () => new models.Event({ name: 'test apiService Event' }),
-	EventDescription: () => new models.EventDescription({ name: 'test apiService EventDescription' }),
-	Venue: () => new models.Venue({ name: 'test apiService Venue' }),
-	Industry: () => new models.Industry({ name: 'test apiService Industry' }),
-	Export: () => new models.Export({ format: ExportFormat.IMAGE }),
-	Invitation: () => new models.Invitation({ email: 'test apiService Invitation' }),
-	Project: () => new models.Project({ name: 'test apiService Project' }),
-	// Sample: () =>
-	// 	new models.Sample({
-	// 		name: 'test apiService Sample',
-	// 		description: 'desc',
-	// 		linkedProductId,
-	// 		linkedSupplierId,
-	// 		price,
-	// 		paid
-	// 	}),
-	Tag: () => new models.Tag({ name: 'test apiService Tag' })
+	// Supplier: () => new models.Supplier({ name: 'test apiService Supplier' }),
+	// Task: () => new models.Task({ name: 'test apiService Task' }),
+	// Comment: () => new models.Comment({ nodeId: 'fakeId' }),
+	// Constant: () =>
+	// 	new models.Constant({ helperType: HelperType.COUNTRY, code: 'ISO2 (BE)', label: 'Belgium' }), // Country | Harbour | Currency
+	// Event: () => new models.Event({ name: 'test apiService Event' }),
+	// EventDescription: () => new models.EventDescription({ name: 'test apiService EventDescription' }),
+	// Venue: () => new models.Venue({ name: 'test apiService Venue' }),
+	// Industry: () => new models.Industry({ name: 'test apiService Industry' }),
+	// Export: () => new models.Export({ format: ExportFormat.IMAGE }),
+	// Invitation: () => new models.Invitation({ email: 'test apiService Invitation' }),
+	// Project: () => new models.Project({ name: 'test apiService Project' }),
+	// // Sample: () =>
+	// // 	new models.Sample({
+	// // 		name: 'test apiService Sample',
+	// // 		description: 'desc',
+	// // 		linkedProductId,
+	// // 		linkedSupplierId,
+	// // 		price,
+	// // 		paid
+	// // 	}),
+	// Tag: () => new models.Tag({ name: 'test apiService Tag' })
 };
 
 fdescribe('ApiService', () => {

@@ -19,7 +19,7 @@ export class QueryPool {
 		Attachment: new BaseQueries('Attachment', 'fileName', []),
 		Comment: new BaseQueries('Comment', 'message', []),
 		Constant: new BaseQueries('Constant', 'code label helperType', []),
-		Event: new BaseQueries('Event', undefined, []),
+		Event: new BaseQueries('Event', 'id', []),
 		EventDescription: new BaseQueries('EventDescription', undefined, []),
 		Venue: new BaseQueries('Venue', undefined, []),
 		Industry: new BaseQueries('Industry', undefined, []),
