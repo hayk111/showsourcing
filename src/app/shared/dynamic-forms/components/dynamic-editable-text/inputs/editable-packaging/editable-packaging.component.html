@@ -15,7 +15,7 @@ A package with 0cm makes no sens -->
 		<form-field-app class="editable edit">
 			<input inputApp
 				#inp1
-				restrictInput="number"
+				restrictInput="decimal"
 				autofocus="true"
 				[value]="value?.length"
 				[type]="'number'"
@@ -38,7 +38,7 @@ A package with 0cm makes no sens -->
 		<form-field-app class="editable edit">
 			<input inputApp
 				#inp2
-				restrictInput="number"
+				restrictInput="decimal"
 				autofocus="true"
 				[value]="value?.width"
 				(input)="onChangePackaging('width', +inp2.value)"
@@ -61,7 +61,7 @@ A package with 0cm makes no sens -->
 			<form-field-app class="editable edit">
 				<input inputApp
 					#inp3
-					restrictInput="number"
+					restrictInput="decimal"
 					autofocus="true"
 					[value]="value?.height"
 					(input)="onChangePackaging('height', +inp3.value)"
@@ -128,7 +128,7 @@ A package with 0cm makes no sens -->
 		<form-field-app class="editable edit">
 			<input inputApp
 				#inp6
-				restrictInput="number"
+				restrictInput="decimal"
 				autofocus="true"
 				[value]="value?.weight"
 				(input)="onChangePackaging('weight', +inp6.value)"
@@ -165,19 +165,19 @@ A package with 0cm makes no sens -->
 		<form-field-app class="modal col-25">
 			<label-app translate="text.length"></label-app>
 			<input inputApp autoFocus [canFocus]="autofocus" #inp1 [disabled]="disabled" [value]="value.length" type="number"
-			[placeholder]="'placeholder.length' | translate" restrictInput="number" (input)="onChangePackaging('length', +inp1.value)"/>
+			[placeholder]="'placeholder.length' | translate" restrictInput="decimal" (input)="onChangePackaging('length', +inp1.value)"/>
 		</form-field-app>
 
 		<form-field-app class="modal col-25">
 			<label-app translate="text.width"></label-app>
 			<input inputApp #inp2 [disabled]="disabled" [value]="value.width" type="number"
-			[placeholder]="'placeholder.width' | translate" restrictInput="number" (input)="onChangePackaging('width', +inp2.value)"/>
+			[placeholder]="'placeholder.width' | translate" restrictInput="decimal" (input)="onChangePackaging('width', +inp2.value)"/>
 		</form-field-app>
 
 		<form-field-app class="modal col-25">
 			<label-app translate="text.height"></label-app>
 			<input inputApp #inp3 [disabled]="disabled" [value]="value.height" type="number"
-			[placeholder]="'placeholder.height' | translate" restrictInput="number" (input)="onChangePackaging('height', +inp3.value)"/>
+			[placeholder]="'placeholder.height' | translate" restrictInput="decimal" (input)="onChangePackaging('height', +inp3.value)"/>
 		</form-field-app>
 
 		<form-field-app class="modal col-25">
@@ -208,7 +208,7 @@ A package with 0cm makes no sens -->
 		<form-field-app class="modal col-25">
 			<label-app translate="text.weight"></label-app>
 			<input inputApp #inp5 [disabled]="disabled" [value]="value.weight"
-			[placeholder]="'placeholder.weight' | translate" type="number" restrictInput="number" (input)="onChangePackaging('weight', +inp5.value)"/>
+			[placeholder]="'placeholder.weight' | translate" type="number" restrictInput="decimal" (input)="onChangePackaging('weight', +inp5.value)"/>
 		</form-field-app>
 
 		<form-field-app class="modal col-25">
