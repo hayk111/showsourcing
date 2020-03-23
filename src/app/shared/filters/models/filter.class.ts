@@ -28,13 +28,11 @@ export enum FilterType {
 	EVENTS = 'events',
 	FAVORITE = 'favorite',
 	PRODUCT = 'product',
-	PRODUCT_STATUS = 'status',
 	PROJECT = 'project',
 	PROJECTS = 'projects',
-	SAMPLE_STATUS = 'status',
+	STATUS = 'status',
 	SUPPLIER = 'supplier',
 	SUPPLIERS = 'suppliers',
-	SUPPLIER_STATUS = 'status',
 	TAG = 'tag',
 	TAGS = 'tags'
 }
