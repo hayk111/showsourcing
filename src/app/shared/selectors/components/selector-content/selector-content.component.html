@@ -1,4 +1,4 @@
-<ng-container *ngIf="hasSearch">
+<div class="search-input" [hidden]="!hasSearch">
 	<form class="mg-ms" [formGroup]="group">
 		<form-field-app [ngClass]="{ 'field-focused': inp.focussed || !!inp.control.value }">
 				<input
@@ -16,12 +16,12 @@
 	<div class="mg-top-ms">
 		<divider-app></divider-app>
 	</div>
-</ng-container>
+</div>
 <!-- switch case -->
 
 <ng-content select="selector-content-items-app"></ng-content>
 
-<ng-container *ngIf="hasSearch">
+<div class="selector- footer" [hidden]="!hasSearch">
 	<div class="mg-bottom-ms">
 		<divider-app></divider-app>
 	</div>
@@ -29,5 +29,5 @@
 	<div class="flexEnd mg-ms">
 		<button tabFocusAction class="secondary capitalize" (click)="close.emit()" translate="button.done"></button>
 	</div>
-</ng-container>
+</div>
 

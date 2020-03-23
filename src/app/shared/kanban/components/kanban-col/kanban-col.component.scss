@@ -36,6 +36,9 @@
     overflow-y: auto;
 	}
 
+	::-webkit-scrollbar { width: 0 !important }
+	main { -ms-overflow-style: none; }
+
 	kanban-item-app {
 		height: 104px;
 		width: 313px;

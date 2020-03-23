@@ -257,7 +257,7 @@
 			
 		</ng-container>
 
-		<ng-container *ngIf="dynamicFields.length > 0">
+		<ng-container *ngIf="dynamicFields && dynamicFields.length > 0">
 			<selector-content-app
 				[hasSearch]="false"
 				[type]="erm.PICKER_FIELD">
