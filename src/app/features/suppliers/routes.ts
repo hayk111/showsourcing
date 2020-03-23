@@ -21,13 +21,13 @@ export const routes: Array<Route> = [
 		path: ':id',
 		component: Pages.DetailsPageComponent,
 		children: [
-			{ path: '', redirectTo: 'activity', pathMatch: 'full' },
+			{ path: '', redirectTo: 'products', pathMatch: 'full' },
 			// { path: 'activity', component: DetailsPage.ActivityPageComponent },
 			{ path: 'products', component: DetailsPage.ProductsPageComponent },
-			// { path: 'contacts', component: DetailsPage.ContactsPageComponent },
-			// { path: 'samples', component: DetailsPage.SamplesPageComponent },
+			{ path: 'contacts', component: DetailsPage.ContactsPageComponent },
+			{ path: 'samples', component: DetailsPage.SamplesPageComponent },
 			// { path: 'tasks', component: DetailsPage.TasksPageComponent },
-			// { path: 'files', component: DetailsPage.FilesPageComponent },
+			{ path: 'files', component: DetailsPage.FilesPageComponent },
 			// { path: 'requests', component: DetailsPage.RequestsPageComponent },
 		]
 	}

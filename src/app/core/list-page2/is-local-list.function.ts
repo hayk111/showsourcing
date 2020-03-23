@@ -7,8 +7,8 @@ export function isLocalList(typename: Typename) {
 		case 'Supplier':
 		case 'Project':
 		case 'Sample':
-			return true;
-		default:
 			return false;
+		default:
+			return true;
 	}
 }

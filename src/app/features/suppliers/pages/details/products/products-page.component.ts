@@ -5,7 +5,7 @@ import { CreationProductDlgComponent } from '~common/dialogs/creation-dialogs';
 import { Product, Supplier } from '~core/erm';
 import { FilterService } from '~core/filters';
 import { SelectionService } from '~core/list-page';
-import { ListHelperService } from '~core/list-page2';
+import { ListHelperService, ListPageViewService } from '~core/list-page2';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { FilterType } from '~core/filters';
 import { AutoUnsub } from '~utils';
@@ -43,7 +43,8 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		public listHelper: ListHelperService,
 		public dlgSrv: DialogService,
 		public selectionSrv: SelectionService,
-		public filterSrv: FilterService
+		public filterSrv: FilterService,
+		public viewSrv: ListPageViewService<any>
 	) {
 		super();
 	}

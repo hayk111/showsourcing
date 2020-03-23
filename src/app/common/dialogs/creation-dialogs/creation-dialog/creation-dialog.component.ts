@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '~core/erm3/services/api.service';
 import { Typename } from '~core/erm3/typename.type';
 import { InputDirective } from '~shared/inputs';
+import { DialogService, CloseEventType } from '~shared/dialog';
 
 @Component({
 	selector: 'creation-dialog-app',
@@ -24,6 +25,7 @@ export class CreationDialogComponent implements AfterViewInit {
 
 	constructor(
 		private fb: FormBuilder,
+		private dialogSrv: DialogService,
 		private apiSrv: ApiService
 	) {  }
 
@@ -37,7 +39,11 @@ export class CreationDialogComponent implements AfterViewInit {
 			return;
 		const name = this.group.value.name.trim();
 		this.pending = true;
-		this.apiSrv.create<any>(this.typename, { name });
+		this.apiSrv.create<any>(this.typename, { name })
+		.subscribe(created => this.dialogSrv.close({
+			type: CloseEventType.OK,
+			data: created
+		}));
 	}
 
 }
