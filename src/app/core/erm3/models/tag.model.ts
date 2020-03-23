@@ -1,6 +1,11 @@
-export class Tag {
-	__typename ?= 'Tag';
-	id: undefined;
-	name: 'test apiService Tag';
-	teamId: null;
+import { Typename } from '../typename.type';
+import { Team } from './team.model';
+import { Entity } from './_entity.model';
+
+export class Tag extends Entity<Tag> {
+	__typename?: Typename = 'Tag';
+	id?: string;
+	teamId?: string;
+	team?: Team | null;
+	name?: string | null;
 }

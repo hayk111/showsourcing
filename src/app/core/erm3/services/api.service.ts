@@ -12,7 +12,7 @@ import { Typename } from '../typename.type';
 import { client } from './client';
 import { ApiLogger } from './_api-logger.class';
 import { GqlHelper } from './_gql-helper.class';
-import { uuid } from '~utils/uuid.utils';
+import { uuid } from '~utils';
 
 export interface ObservableQuery<T = any> extends ApolloObservableQuery<T> {
 	response$: Observable<any>;
@@ -185,8 +185,8 @@ export class ApiService {
 		// TODO remove this condition when the audits are all similars
 		if (typename !== 'Company' && typename !== 'Team') {
 			entity.id = uuid();
-			entity.createdAt = Date.now();
-			entity.lastUpdatedAt = Date.now();
+			entity.createdAt = new Date().toISOString();
+			entity.lastUpdatedAt = new Date().toISOString();
 			entity.deleted = false;
 			entity.createdByUserId = this._userId;
 			entity.lastUpdatedByUserId = this._userId;
@@ -212,9 +212,18 @@ export class ApiService {
 		apiOptions: ApiMutationOption = {}
 		): Observable<T> {
 		const options = apiOptions as MutationOptions;
-		const queryName = GqlHelper.getQueryName(options.mutation);
+		if (typename !== 'Company' && typename !== 'Team') {
+			entity.createdAt = new Date().toISOString();
+			entity.lastUpdatedAt = new Date().toISOString();
+			entity.deleted = false;
+			entity.createdByUserId = this._userId;
+			entity.lastUpdatedByUserId = this._userId;
+			entity.teamId = this._teamId;
+		}
 		options.variables = { input: entity };
 		options.mutation = QueryPool.getQuery(typename, QueryType.UPDATE);
+		const queryName = GqlHelper.getQueryName(options.mutation);
+		delete entity.__typename;
 		options.optimisticResponse = this.getOptimisticResponse(options, queryName, entity);
 		return this.mutate(options);
 	}
