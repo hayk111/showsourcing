@@ -22,8 +22,6 @@ const AUDIT = `
  *
  */
 export class QueryBuilder {
-
-	byTypenames:  Array<Typename | 'Owner'> = ['Team'];
 	constructor(private typename: Typename) {
 		if (!typename) {
 			throw Error('you must define the singular form of the typename');
@@ -44,7 +42,7 @@ export class QueryBuilder {
 					${AUDIT}
 				}
 			}`;
-	}
+	};
 
 	// search // TODO update to fit the new environment when we have search queries
 	[QueryType.SEARCH] = (str: string) => {
@@ -70,24 +68,22 @@ export class QueryBuilder {
 					total
 				}
 			}`;
-	}
+	};
 
-	[QueryType.LIST_BY] = (str: string): Record<string, any> => {
-		const queryByObject = {};
-		this.byTypenames.forEach(byEntity => {
-			const ownerVerbose = byEntity === 'Owner' ? 'User' : ''; // the param for Owner is $ownerUser
-			const paramEntityName = byEntity.charAt(0).toLowerCase() + byEntity.slice(1) + ownerVerbose;
-			const byId = paramEntityName + 'Id';
-			const byEntityString = byEntity === 'Team' ? '' : 'By' + byEntity; // listEntity is "by Team" in default
-			const queryBy = gql`
-			query List${this.typename}${byEntityString}(
+	[QueryType.LIST_BY] = (str: string): Record<string, any> => (byProperty: string) => {
+		const ownerVerbose = byProperty === 'Owner' ? 'User' : ''; // the param for Owner is $ownerUser
+		const paramEntityName = byProperty.charAt(0).toLowerCase() + byProperty.slice(1) + ownerVerbose;
+		const byId = paramEntityName + 'Id';
+		const byPropertyString = byProperty === 'Team' ? '' : 'By' + byProperty; // listEntity is "by Team" in default
+		return gql`
+			query List${this.typename}${byPropertyString}(
 				$byId: ID
 				$sortDirection: ModelSortDirection
 				$filter: Model${this.typename}FilterInput
 				$limit: Int
 				$nextToken: String
 			) {
-				list${this.typename}${byEntityString}(
+				list${this.typename}${byPropertyString}(
 					${byId}: $byId
 					sortDirection: $sortDirection
 					filter: $filter
@@ -101,10 +97,7 @@ export class QueryBuilder {
 					startedAt
 				}
 			}`;
-			queryByObject[byEntity] = queryBy;
-		});
-		return queryByObject;
-	}
+	};
 
 	[QueryType.CREATE] = (str: string) => {
 		return gql`
@@ -117,7 +110,7 @@ export class QueryBuilder {
 					${AUDIT}
 				}
 			}`;
-	}
+	};
 
 	[QueryType.UPDATE] = (str: string) => {
 		return gql`
@@ -130,7 +123,7 @@ export class QueryBuilder {
 					${AUDIT}
 				}
 			}`;
-	}
+	};
 
 	[QueryType.DELETE] = (str = '') => {
 		return gql`
@@ -143,5 +136,5 @@ export class QueryBuilder {
 					${AUDIT}
 				}
 			}`;
-	}
+	};
 }

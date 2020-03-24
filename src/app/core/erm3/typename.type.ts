@@ -30,4 +30,6 @@ export type Typename =
 	| 'Team'
 	| 'User'
 	| 'TeamUser'
-	| 'Venue';
+	| 'Venue'
+	|	'Vote'
+	|	'WorkflowStatus';
