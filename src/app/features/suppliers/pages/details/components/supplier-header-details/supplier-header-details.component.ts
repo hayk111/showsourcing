@@ -27,29 +27,16 @@ export class SupplierHeaderDetailsComponent extends AutoUnsub implements OnInit 
 
 	constructor(
 		private route: ActivatedRoute,
-		private location: Location,
-		private sampleSrv: SampleService,
-		private productSrv: ProductService,
-		private taskSrv: TaskService,
-		private contactSrv: ContactService
+		private location: Location
 	) {
 		super();
 	}
 
 	ngOnInit() {
-		this.route.params.pipe(
+		const id$ = this.route.params.pipe(
 			map(params => params.id),
 			takeUntil(this._destroy$)
-		).subscribe(id => {
-			this.tasksCount$ = this.taskSrv.selectCount(`supplier.id == "${id}" AND deleted == false AND archived == false`)
-				.pipe(takeUntil(this._destroy$));
-			this.samplesCount$ = this.sampleSrv.selectCount(`supplier.id == "${id}" AND deleted == false AND archived == false`)
-				.pipe(takeUntil(this._destroy$));
-			this.productsCount$ = this.productSrv.selectCount(`supplier.id == "${id}" AND deleted == false AND archived == false`)
-				.pipe(takeUntil(this._destroy$));
-			this.contactsCount$ = this.contactSrv.selectCount(`supplier.id == "${id}" AND deleted == false`)
-				.pipe(takeUntil(this._destroy$));
-		});
+		);
 	}
 
 	goBack() {

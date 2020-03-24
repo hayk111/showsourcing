@@ -42,7 +42,7 @@ export class CategoryDataPageComponent extends AutoUnsub implements OnInit {
 		this.teamSrv.teamSelected$.subscribe(team => (teamId = team.id));
 		this.viewSrv.setup({typename: 'Category', destUrl: 'settings/list-management/category-data', view: 'table'});
 		this.listFuseHelper.setup('Category', 'Team', teamId); // search initialized in controller-table
-		this.items$ = this.listFuseHelper.getFilteredItems$;
+		this.items$ = this.listFuseHelper.filteredItems$;
 	}
 
 	mergeSelected() {
