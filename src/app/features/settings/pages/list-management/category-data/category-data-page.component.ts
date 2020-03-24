@@ -15,7 +15,7 @@ import { FilterType } from '~core/filters';
 	templateUrl: '../shared/list-management-template.html',
 	styleUrls: ['./category-data-page.component.scss', '../shared/list-management-styles.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [ListPageViewService, SelectionService ],
+	providers: [ListPageViewService, SelectionService, ListFuseHelperService, FilterService],
 	host: {
 		class: 'table-page'
 	}
@@ -40,9 +40,10 @@ export class CategoryDataPageComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		let teamId: string;
 		this.teamSrv.teamSelected$.subscribe(team => (teamId = team.id));
+		this.filterSrv.setup([], ['name']);
 		this.viewSrv.setup({typename: 'Category', destUrl: 'settings/list-management/category-data', view: 'table'});
 		this.listFuseHelper.setup('Category', 'Team', teamId); // search initialized in controller-table
-		this.items$ = this.listFuseHelper.getFilteredItems$;
+		this.items$ = this.listFuseHelper.filteredItems$;
 	}
 
 	mergeSelected() {
