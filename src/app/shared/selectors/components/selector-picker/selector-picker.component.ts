@@ -198,7 +198,6 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	 * @param text
 	 */
 	search(text, setFirstItemActive = true) {
-		console.log('SelectorPickerComponent -> search -> text', text);
 		this.searchTxt = text.trim();
 		this.movedArrow = false;
 
