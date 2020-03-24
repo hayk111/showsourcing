@@ -51,8 +51,6 @@ export class TablePageComponent implements OnInit {
 		public selectionSrv: SelectionService,
 		public dialogCommonSrv: DialogCommonService,
 		protected dlgSrv: DialogService,
-		protected kanbanSelectionSrv: KanbanSelectionService,
-		private filterSrv: FilterService
 	) { }
 
 	ngOnInit() {

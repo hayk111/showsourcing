@@ -47,10 +47,10 @@ export const routes: Array<Route> = [
 			// 	path: 'projects',
 			// 	loadChildren: 'app/features/projects/projects-feature.module#ProjectsFeatureModule'
 			// },
-			// {
-			// 	path: 'products',
-			// 	loadChildren: 'app/features/products/products-feature.module#ProductsFeatureModule'
-			// },
+			{
+				path: 'products',
+				loadChildren: 'app/features/products/products-feature.module#ProductsFeatureModule'
+			},
 			// {
 			// 	path: 'requests',
 			// 	loadChildren: 'app/features/requests/requests-feature.module#RequestsFeatureModule'
