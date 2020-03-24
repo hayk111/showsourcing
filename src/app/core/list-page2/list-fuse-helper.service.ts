@@ -2,11 +2,13 @@ import { Injectable } from '@angular/core';
 import * as Fuse from 'fuse.js';
 import { combineLatest, forkJoin, Observable, of, Subject, timer } from 'rxjs';
 import { debounce, switchMap, tap } from 'rxjs/operators';
+import { TeamService } from '~core/auth';
 import { ApiQueryOption, ApiService, ObservableQuery } from '~core/erm3/services/api.service';
 import { Typename } from '~core/erm3/typename.type';
 import { FilterService, FilterType } from '~core/filters';
 import { SelectionService } from './selection.service';
 import { TeamService } from '~core/auth';
+
 
 @Injectable({ providedIn: 'root' })
 export class ListFuseHelperService<G = any> {
@@ -36,18 +38,19 @@ export class ListFuseHelperService<G = any> {
 
 	setup(
 		typename: Typename,
-		byTypename: Typename | 'Owner' = 'Team',
-		byId?: string,
+		byProperty: string = 'Team',
+		byId: string = TeamService.teamSelected.teamId,
 		queryOptions: ApiQueryOption = {}
 	) {
 		byId = byId || TeamService.teamSelected.id;
 		this.typename = typename;
 		queryOptions.fetchPolicy = queryOptions.fetchPolicy || 'cache-first';
-		this.queryRef = this.apiSrv.listBy<G>(typename, byTypename, byId, queryOptions);
+		this.queryRef = this.apiSrv.listBy<G>(typename, byProperty, byId, queryOptions);
 		this.fuseOptions.keys = this.filterSrv.searchedFields || this.fuseOptions.keys;
 		// when we update datas it will reasign fuse
 		this.queryRef.data$.subscribe(datas => {
 			this._fuse$.next(new Fuse(datas, this.fuseOptions));
+			this.pending = false;
 		});
 	}
 

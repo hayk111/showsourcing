@@ -20,7 +20,7 @@ export type Typename =
 	| 'Project'
 	| 'ProjectProduct'
 	| 'Request'
-	| 'Request element'
+	| 'RequestElement'
 	| 'Sample'
 	| 'SampleStatus'
 	|	'SectionDescriptor'
@@ -30,4 +30,6 @@ export type Typename =
 	| 'Team'
 	| 'User'
 	| 'TeamUser'
-	| 'Venue';
+	| 'Venue'
+	|	'Vote'
+	|	'WorkflowStatus';

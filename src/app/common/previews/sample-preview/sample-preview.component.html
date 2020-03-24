@@ -10,7 +10,7 @@
 				class="mg-right-s"
 				size="l"
 				[logo]="sample?.images[0] || null"
-				[type]="erm.SAMPLE.singular">
+				typename="Sample">
 			</logo-app>
 			<div class="flexColumn ellipsis">
 				<span class="color-txt-primary semi-bold fs-l ellipsis">{{ sample?.name }}</span>
@@ -19,7 +19,7 @@
 						<logo-app
 							class="mg-right-xs"
 							size="xs"
-							[type]="erm.SAMPLE.singular">
+							typename="Sample">
 						</logo-app>
 						<span class="color-txt-secondary">{{ sample?.reference }}</span>
 					</div>

@@ -2,7 +2,7 @@
 	<div class="settings">
 		<div class="left">
 			<div class="project-logo flexCenter">
-				<logo-app [logo]="project?.logoImage" color="primary" [iconSize]="32" size="xxl" type="project" (click)="fileInp.click()"></logo-app>
+				<logo-app [logo]="project?.logoImage" color="primary" [iconSize]="32" size="xxl" typename="Project" (click)="fileInp.click()"></logo-app>
 				<input #fileInp type="file" (fileSelect)="onNewFiles($event)"/>
 			</div>
 		</div>

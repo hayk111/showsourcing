@@ -15,6 +15,7 @@ import { ColumnDirective } from '~shared/table/components/column.directive';
 import { Sort } from '~shared/table/components/sort.interface';
 import { TrackingComponent } from '~utils/tracking-component';
 import { SelectionState } from '~shared/inputs-custom/components/select-checkbox/select-checkbox.component';
+import { Typename } from '~core/erm3/typename.type';
 
 // Here is a stackblitz with a smaller version of the tables to understand it more easily
 
@@ -51,7 +52,7 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	/** whether there is a border around the table */
 	@Input() hasBorder = true;
 
-	@Input() type: EntityName;
+	@Input() typename: Typename;
 	@Input() rowHeight = 42;
 	@Input() listView = false;
 	@Input() isSeaching = false;

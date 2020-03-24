@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ElementRef, QueryList, ContentChildren } from '@angular/core';
+import { Typename } from '~core/erm3/typename.type';
 
 @Component({
 	selector: 'header-list-app',
@@ -23,7 +24,7 @@ export class HeaderListComponent {
 	// Can update title or not
 	@Input() isModifiable = false;
 	@Input() info: string;
-	@Input() logoName: string;
+	@Input() logoTypename: Typename;
 	@Input() logoColor: string;
 	@Output() update = new EventEmitter<string>();
 }

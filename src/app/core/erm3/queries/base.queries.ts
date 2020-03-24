@@ -10,7 +10,6 @@ export class BaseQueries {
 	constructor(
 		protected typename: Typename,
 		protected defaultFields: string = 'id name',
-		protected byTypenames: Array<Typename | 'Owner'> = ['Team'],
 		protected queries: QueryType[] = [
 			QueryType.GET,
 			QueryType.SEARCH,
@@ -21,7 +20,6 @@ export class BaseQueries {
 		]
 	) {
 		queries.forEach((queryType) => {
-			this.qb.byTypenames = byTypenames;
 			this[queryType] = this.qb[queryType](this.defaultFields);
 		});
 	}
