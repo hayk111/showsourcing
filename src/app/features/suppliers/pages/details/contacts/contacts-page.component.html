@@ -10,7 +10,7 @@
 <contacts-table-app
 	[hasMenu]="false"
 	[isFiltering]="filterSrv.isFiltering"
-	[rows]="listHelper.getFilteredItems$ | async"
+	[rows]="listHelper.filteredItems$ | async"
 	[selection]="selectionSrv.selection$ | async"
 	[total]="listHelper.total$ | async"
 	[currentPage]="listHelper.currentPage"
