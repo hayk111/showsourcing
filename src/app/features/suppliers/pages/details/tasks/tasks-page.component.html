@@ -9,7 +9,7 @@
 </controller-table-app>
 
 <task-table-app
-	[rows]="listHelper.getFilteredItems$ | async"
+	[rows]="listHelper.filteredItems$ | async"
 	[selection]="selectionSrv.selection$ | async"
 	[pending]="listHelper.pending"
 	[isFiltering]="filterSrv.isFiltering"

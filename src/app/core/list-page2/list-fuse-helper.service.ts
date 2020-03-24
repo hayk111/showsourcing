@@ -6,7 +6,6 @@ import { ApiQueryOption, ApiService, ObservableQuery } from '~core/erm3/services
 import { Typename } from '~core/erm3/typename.type';
 import { FilterService, FilterType } from '~core/filters';
 import { SelectionService } from './selection.service';
-import { TeamService } from '~core/auth';
 
 
 @Injectable({ providedIn: 'root' })
@@ -30,7 +29,7 @@ export class ListFuseHelperService<G = any> {
 	};
 
 	filteredItems$: Observable<G[]> = combineLatest(this._fuse$, this.filterSrv.valueChanges$).pipe(
-		debounce(() => timer(300)),
+		debounce(() => timer(400)),
 		switchMap(([fuse]: any) => {
 			// the value changed should concern the FilterType search
 			const searchValue = this.filterSrv.getFiltersForType(FilterType.SEARCH)[0];
@@ -38,12 +37,11 @@ export class ListFuseHelperService<G = any> {
 			else return this.queryRef.data$;
 		}),
 		tap(searchedDatas => {
-			console.log('total should change:  ', searchedDatas.length);
 			this._total$.next(searchedDatas.length);
 		}),
 	);
 	// result.sort(); // TODO should take sort property from filterSrv, not implemented yet
-	// TODO should trigger getFilteredItems$() when sort is updated
+	// TODO should trigger filteredItems$ when sort is updated
 	// TODO update pagination
 
 	constructor(
@@ -69,7 +67,6 @@ export class ListFuseHelperService<G = any> {
 			this.pending = false;
 		});
 	}
-
 
 	private refetch() {
 		this.pending = true;
