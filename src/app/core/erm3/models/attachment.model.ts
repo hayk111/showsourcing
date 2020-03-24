@@ -1,6 +1,14 @@
-export class Attachment {
-	__typename ?= 'Attachment';
-	id: undefined;
-	name: 'test apiService Attachment';
-	teamId: null;
+import { Typename } from '../typename.type';
+import { Team } from './team.model';
+import { Entity } from './_entity.model';
+
+export class Attachment extends Entity<Attachment> {
+	__typename?: Typename = 'Attachment';
+	id?: string;
+	teamId?: string;
+	team?: Team | null;
+	fileName?: string;
+	url?: string | null;
+	size?: number | null;
+	deleted?: boolean;
 }

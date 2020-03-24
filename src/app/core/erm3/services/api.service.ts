@@ -16,6 +16,8 @@ import { Typename } from '../typename.type';
 import { client } from './client';
 import { ApiLogger } from './_api-logger.class';
 import { GqlHelper } from './_gql-helper.class';
+import { uuid } from '~utils';
+import { TeamService } from '~core/auth';
 
 export interface FilterParams {
 	filter?: any;
@@ -150,13 +152,14 @@ export class ApiService {
 	 */
 	listBy<T>(
 		typename: Typename,
-		byTypename: Typename | 'Owner' = 'Team',
-		byId?: string,
+		byProperty: string = 'Team',
+		byId: string = this._teamId,
 		apiOptions: ApiQueryOption = {}
 	): ObservableQuery<T[]> {
 		const options = apiOptions as WatchQueryOptions;
 		options.variables = {byId, limit: 10000};
-		options.query = QueryPool.getQuery(typename, QueryType.LIST_BY, byTypename);
+		const queryBuilder = QueryPool.getQuery(typename, QueryType.LIST_BY); // the listBy get a method to build the query
+		options.query = queryBuilder(byProperty);
 		return this.query<T[]>(options);
 	}
 
@@ -178,8 +181,9 @@ export class ApiService {
 		options.mutation = QueryPool.getQuery(typename, QueryType.CREATE);
 		// TODO remove this condition when the audits are all similars
 		if (typename !== 'Company' && typename !== 'Team') {
-			entity.createdAt = Date.now();
-			entity.lastUpdatedAt = Date.now();
+			entity.id = uuid();
+			entity.createdAt = new Date().toISOString();
+			entity.lastUpdatedAt = new Date().toISOString();
 			entity.deleted = false;
 			entity.createdByUserId = this._userId;
 			entity.lastUpdatedByUserId = this._userId;
@@ -205,9 +209,18 @@ export class ApiService {
 		apiOptions: ApiMutationOption = {}
 		): Observable<T> {
 		const options = apiOptions as MutationOptions;
-		const queryName = GqlHelper.getQueryName(options.mutation);
+		if (typename !== 'Company' && typename !== 'Team') {
+			entity.createdAt = new Date().toISOString();
+			entity.lastUpdatedAt = new Date().toISOString();
+			entity.deleted = false;
+			entity.createdByUserId = this._userId;
+			entity.lastUpdatedByUserId = this._userId;
+			entity.teamId = this._teamId;
+		}
 		options.variables = { input: entity };
 		options.mutation = QueryPool.getQuery(typename, QueryType.UPDATE);
+		const queryName = GqlHelper.getQueryName(options.mutation);
+		delete entity.__typename;
 		options.optimisticResponse = this.getOptimisticResponse(options, queryName, entity);
 		return this.mutate(options);
 	}
@@ -222,7 +235,7 @@ export class ApiService {
 		apiOptions: ApiMutationOption = {}
 		): Observable<T> {
 		const options = apiOptions as MutationOptions;
-		options.variables = { input: entity };
+		options.variables = { input: {id: entity.id, _version: entity._version} };
 		options.mutation = QueryPool.getQuery(typename, QueryType.DELETE);
 		return this.mutate(options);
 	}

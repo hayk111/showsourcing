@@ -15,17 +15,4 @@ export class Contact extends Entity<Contact> {
 	jobTitle?: string | null;
 	supplierId?: string;
 	supplier?: Supplier;
-	createdAt?: number;
-	createdByUserId?: string;
-	createdBy?: User;
-	deletedByUserId?: string;
-	deletedBy?: User;
-	deletedAt?: number | null;
-	lastUpdatedByUserId?: string;
-	lastUpdatedBy?: User;
-	lastUpdatedAt?: number;
-	deleted?: boolean;
-	_version?: number;
-	_deleted?: boolean | null;
-	_lastChangedAt?: number;
 }
