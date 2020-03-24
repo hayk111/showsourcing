@@ -10,7 +10,7 @@
 				class="mg-right-s"
 				size="l"
 				[logo]="product?.images[0] || null"
-				[type]="erm.PRODUCT.singular">
+				typename="Product">
 			</logo-app>
 			<div class="flexColumn ellipsis">
 				<span class="color-txt-primary semi-bold fs-l ellipsis">{{ product?.name }}</span>
@@ -19,7 +19,7 @@
 						<logo-app
 							class="mg-right-xs"
 							size="xs"
-							[type]="erm.PRODUCT.singular">
+							typename="Product">
 						</logo-app>
 						<span class="color-txt-secondary">{{ product?.reference }}</span>
 					</div>

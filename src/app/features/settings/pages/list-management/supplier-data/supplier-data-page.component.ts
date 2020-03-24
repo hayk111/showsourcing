@@ -1,17 +1,13 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import {
-	CompanyService,
-	ERM,
-	SelectParamsConfig,
-	Supplier,
-	SupplierService,
-	TeamService
-} from '~core/erm';
 import { ListPageService, SelectionService } from '~core/list-page';
-import { ListPageViewService } from '~core/list-page/list-page-view.service';
 import { AutoUnsub } from '~utils';
 import { FilterService } from '~shared/filters/services/filter.service';
+import { ListHelperService, ListPageViewService } from '~core/list-page2';
+import { Observable } from 'rxjs';
+import { Supplier } from '~core/erm3/models';
+import { TeamService, CompanyService } from '~core/auth';
+import { Typename } from '~core/erm3/typename.type';
 
 @Component({
 	selector: 'supplier-data-page-app',
@@ -27,49 +23,32 @@ import { FilterService } from '~shared/filters/services/filter.service';
 	}
 })
 export class SupplierDataPageComponent extends AutoUnsub implements OnInit {
-	erm = ERM.SUPPLIER;
-	addButtonWidth = '111px';
-	addButtonHeight = '32px';
+	typename: Typename = 'Supplier';
 
-	selectItemsConfig: SelectParamsConfig;
+	items$: Observable<Supplier[]>;
 
 	constructor(
-		private supplierSrv: SupplierService,
-		public listSrv: ListPageService<Supplier, SupplierService>,
 		public teamSrv: TeamService,
 		public companySrv: CompanyService,
 		public dialogCommonSrv: DialogCommonService,
 		public selectionSrv: SelectionService,
-		public viewSrv: ListPageViewService<Supplier>,
-		public filterSrv: FilterService
+		public filterSrv: FilterService,
+		public listFuseHelper: ListHelperService
 	) {
 		super();
 	}
 
 	ngOnInit() {
-		this.listSrv.setup({
-			entitySrv: this.supplierSrv,
-			searchedFields: ['name'],
-			selectParams: {
-				sortBy: 'name',
-				descending: false,
-				query: 'deleted == false'
-			},
-			entityMetadata: ERM.SUPPLIER,
-			originComponentDestroy$: this._destroy$
-		});
 	}
 
 	mergeSelected() {
 		const suppliers = this.selectionSrv.getSelectedValues();
 		this.dialogCommonSrv.openMergeDialog({
-			type: this.viewSrv.entityMetadata,
+			type: this.typename,
 			entities: suppliers
 		});
 	}
 
 	showItemsPerPage(count: number) {
-		this.selectItemsConfig = { take: Number(count) };
-		this.listSrv.refetch(this.selectItemsConfig).subscribe();
 	}
 }

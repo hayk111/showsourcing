@@ -1,50 +1,7 @@
 import { ChangeDetectionStrategy, Component, ElementRef, Input, OnChanges, Renderer2 } from '@angular/core';
 import { AppImage, EntityName } from '~core/erm';
 import { Colors, Color, IconUtils, log, Size } from '~utils';
-
-export const colorMap = {
-	[EntityName.ATTACHMENT]: Color.SECONDARY,
-	[EntityName.ACTIVITY]: Color.PRIMARY,
-	[EntityName.CATEGORY]: Color.ACCENT,
-	[EntityName.COMMENT]: Color.PRIMARY,
-	[EntityName.CONTACT]: Color.SECONDARY_BG,
-	[EntityName.EVENT]: Color.SECONDARY,
-	[EntityName.EXPORT]: Color.SECONDARY_BG,
-	[EntityName.IMAGE]: Color.SECONDARY,
-	[EntityName.PRODUCT]: Color.PRIMARY,
-	[EntityName.PROJECT]: Color.SECONDARY,
-	[EntityName.SAMPLE]: Color.ACCENT,
-	[EntityName.TAG]: Color.ACCENT,
-	[EntityName.TASK]: Color.SUCCESS,
-	[EntityName.TEAM]: Color.PRIMARY,
-	[EntityName.SUPPLIER]: Color.VIBRANT,
-	[EntityName.USER]: Color.PRIMARY,
-	[EntityName.LOCATION]: Color.SECONDARY,
-	[EntityName.REQUEST]: Color.SECONDARY,
-	[EntityName.REQUEST_ELEMENT]: Color.SECONDARY
-};
-
-export const iconMap = {
-	[EntityName.ATTACHMENT]: 'file',
-	[EntityName.ACTIVITY]: 'activity',
-	[EntityName.CATEGORY]: 'category',
-	[EntityName.COMMENT]: 'comments',
-	[EntityName.CONTACT]: 'contact',
-	[EntityName.EVENT]: 'event',
-	[EntityName.EXPORT]: 'invoice',
-	[EntityName.IMAGE]: 'camera',
-	[EntityName.PRODUCT]: 'product',
-	[EntityName.PROJECT]: 'project',
-	[EntityName.SAMPLE]: 'sample',
-	[EntityName.TAG]: 'tag',
-	[EntityName.TEAM]: 'team',
-	[EntityName.TASK]: 'check-circle',
-	[EntityName.SUPPLIER]: 'supplier',
-	[EntityName.LOCATION]: 'location',
-	[EntityName.REQUEST]: 'envelope',
-	[EntityName.REQUEST_ELEMENT]: 'envelope',
-	[EntityName.USER]: 'user',
-};
+import { Typename } from '~core/erm3/typename.type';
 
 @Component({
 	selector: 'logo-app',
@@ -59,8 +16,8 @@ export const iconMap = {
 export class LogoComponent implements OnChanges {
 	/** we can supply an image to override the icon */
 	@Input() logo: AppImage;
-	/** type of entity so we can display its icon */
-	@Input() type: EntityName;
+	/** typename of entity so we can display its icon */
+	@Input() typename: Typename;
 	/** whether the background is a circle */
 	@Input() circle: boolean;
 	/** size of the logo (background included) */
@@ -69,12 +26,12 @@ export class LogoComponent implements OnChanges {
 	@Input() iconSize: number;
 	/** size of background that can be overriden */
 	@Input() backgroundSize: number;
-	/** to override the default icon given by type */
+	/** to override the default icon given by typename */
 	@Input() icon: string;
-	// getset to override the color if type is specified
+	// getset to override the color if typename is specified
 	/** displayed color */
 	@Input() color: Colors;
-	// override the background color if type is specified
+	// override the background color if typename is specified
 	@Input() backgroundColor: Colors;
 
 	constructor(
@@ -85,13 +42,13 @@ export class LogoComponent implements OnChanges {
 	ngOnChanges() {
 		this.renderContainerSize();
 		this.renderColor();
-		if (!this.type) {
-			log.error('No type specified in logo');
+		if (!this.typename) {
+			log.error('No typename specified in logo');
 		}
 	}
 
 	get computedIcon() {
-		return this.icon || IconUtils.iconsMap[this.type];
+		return this.icon || IconUtils.iconsMap[this.typename];
 	}
 
 	private renderColor() {
@@ -108,9 +65,9 @@ export class LogoComponent implements OnChanges {
 	private getComputedColor() {
 		if (this.color)
 			return this.color;
-		if (IconUtils.iconsColorMap[this.type])
-			return IconUtils.iconsColorMap[this.type];
-		throw Error('no color or type specified in logo');
+		if (IconUtils.iconsColorMap[this.typename])
+			return IconUtils.iconsColorMap[this.typename];
+		throw Error('no color or typename specified in logo');
 	}
 
 	private renderContainerSize() {

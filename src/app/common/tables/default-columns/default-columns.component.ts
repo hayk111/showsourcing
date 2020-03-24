@@ -24,7 +24,7 @@ export interface EditableEntity {
 export class DefaultColumnsComponent {
 	@Input() row: any;
 	@Input() column: ColumnConfig;
-	@Input() type: EntityMetadata;
+	@Input() type: EntityMetadata; // TODO change type by typename
 	@Input() hovered: boolean;
 	@Input() logoColor: Color;
 	@Input() redirectOnNameClick = true;
