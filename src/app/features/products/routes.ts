@@ -12,7 +12,7 @@ export const routes: Array<Route> = [
 	{ path: 'card', component: Pages.CardPageComponent }
 	// {
 	// 	path: ':id',
-	// 	component: DetailsPage.ProductDetailsPageComponent,
+	// 	component: Pages.DetailsPageComponent,
 	// 	children: [
 	// 		{ path: '', redirectTo: 'info', pathMatch: 'full' },
 	// 		{ path: 'activity', component: DetailsPage.ActivityPageComponent },

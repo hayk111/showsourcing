@@ -47,7 +47,7 @@ export class CardPageComponent implements OnInit {
 	ngOnInit() {
 		this.listHelper.setup('Product');
 		this.viewSrv.setup({ typename: 'Product', destUrl: 'products', view: 'card' });
-		this.items$ = this.listHelper.getFilteredItems$();
+		this.items$ = this.listHelper.filteredItems$;
 	}
 
 }

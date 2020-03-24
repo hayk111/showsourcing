@@ -1,0 +1,52 @@
+<controller-table-app>
+	<controller-table-quick-filters-app></controller-table-quick-filters-app>
+	<controller-table-quick-actions-app>
+	</controller-table-quick-actions-app>
+	<controller-table-view-switcher-app
+		[hasCard]="false"
+		[hasBoard]="false">
+	</controller-table-view-switcher-app>
+</controller-table-app>
+
+<task-table-app
+	[rows]="listHelper.getFilteredItems$ | async"
+	[selection]="selectionSrv.selection$ | async"
+	[pending]="listHelper.pending"
+	[isFiltering]="filterSrv.isFiltering"
+	[total]="listHelper.total$ | async"
+	(goToPage)="listHelper.loadPage($event)"
+	(sort)="listHelper.sort($event)"
+	(select)="selectionSrv.selectOne($event, true)"
+	(unselect)="selectionSrv.unselectOne($event, true)"
+	(selectAll)="selectionSrv.selectAll($event, true)"
+	(unselectAll)="selectionSrv.unselectAll()"
+	(open)="viewSrv.goToDetails($event)"
+	(previewClick)="viewSrv.openPreview($event)"
+	(createClick)="openCreationTaskDlg(undefined, supplier)"
+	(delete)="listHelper.deleteOne($event, true)">
+</task-table-app>
+
+<task-preview-app
+	*ngIf="viewSrv.previewOpen"
+	[task]="viewSrv.previewed"
+	(close)="viewSrv.closePreview()">
+</task-preview-app>
+
+<side-panel-app *ngIf="viewSrv.filterPanelOpen">
+	<filters-app
+		[filterList]="filterSrv.filterList"
+		[filterTypes]="filterTypes"
+		(clickOutside)="viewSrv.closeFilterPanel()"
+		(close)="viewSrv.closeFilterPanel()">
+	</filters-app>
+</side-panel-app>
+
+<task-selection-bar-app
+	[isShown]="(selectionSrv.selection$ | async)?.size > 0"
+	[selection]="selectionSrv.selection$ | async"
+	[selectableItems]="listHelper.items$ | async"
+	(close)="selectionSrv.unselectAll()"
+	(deleteSelected)="listHelper.deleteSelected(true)"
+	(selectAll)="selectionSrv.selectAll($event)"
+	(unselectAll)="selectionSrv.unselectAll()">
+</task-selection-bar-app>

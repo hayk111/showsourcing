@@ -66,7 +66,7 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	/** current sort */
 	@Input() currentSort: Sort = { sortBy: 'creationDate', descending: true };
 	/** total number of items for pagination */
-	@Input() count = 0;
+	@Input() total = 0;
 
 	@Input() currentPage: number;
 	@Output() showItemsPerPage = new EventEmitter<number>();

@@ -1,0 +1,101 @@
+<header-details-app [headerType]="'details'">
+
+	<header-details-title-app>{{ supplier?.name }}</header-details-title-app>
+
+	<initials-logo-app
+	 	[entity]="supplier"
+		[image]="supplier?.logoImage"
+		[name]="supplier?.name"
+		size="l"
+		[type]="'SUPPLIER' | erm: 'singular'">
+	</initials-logo-app>
+
+	<header-details-info-app>
+		<div class="flex dot-separator">
+			<rating-badge-app [votes]="supplier?.votes" activeColor="primary"></rating-badge-app>
+			<status-badge-app class="flexVAlign" [status]="supplier?.status" size="s" [typeEntity]="'SUPPLIER' | erm"></status-badge-app>
+			<div *ngIf="supplier?.country">{{ supplier?.country | const: 'country' }}</div>
+		</div>
+	</header-details-info-app>
+
+	<header-nav-app>
+		<header-nav-item-app
+			link="./activity"
+			icon="activity"
+			[name]="'nav.activity' | translate">
+		</header-nav-item-app>
+
+		<header-nav-item-app
+			link="./products"
+			icon="product"
+			[badgeContent]="productsCount$ | async"
+			[name]="'nav.products' | translate">
+		</header-nav-item-app>
+
+		<header-nav-item-app
+			link="./contacts"
+			icon="contact"
+			[badgeContent]="contactsCount$ | async"
+			[name]="'nav.contacts' | translate">
+		</header-nav-item-app>
+
+		<header-nav-item-app
+			link="./samples"
+			icon="sample"
+			[badgeContent]="samplesCount$ | async"
+			[name]="'nav.samples' | translate">
+		</header-nav-item-app>
+
+		<header-nav-item-app
+			link="./files"
+			icon="files"
+			[badgeContent]="supplier?.attachments?.length"
+			[name]="'nav.files' | translate">
+		</header-nav-item-app>
+
+		<header-nav-item-app
+			link="./tasks"
+			icon="check-circle"
+			[badgeContent]="tasksCount$ | async"
+			[name]="'nav.tasks' | translate">
+		</header-nav-item-app>
+	<!--
+		<header-nav-item-app
+			link="./requests"
+			icon="envelope"
+			[name]="'nav.quotes' | translate">
+		</header-nav-item-app>
+	-->
+	</header-nav-app>
+
+	<header-details-actions-app>
+		<button class="icon big txt-secondary" (click)="export.emit(supplier)">
+			<icon-app name="export" size="m"></icon-app>
+		</button>
+
+		<button class="light big icon-with-text flexVAlign flexAround">
+			<icon-app name="share" size="m"></icon-app><div class="capitalize" translate="button.share"></div>
+		</button>
+
+		<button class="vibrant big icon-with-text flexVAlign" (click)="contact.emit(supplier)">
+			<icon-app name="envelope"></icon-app><div class="capitalize" translate="button.contact-supplier"></div>
+		</button>
+
+		<!-- <status-selector-app [typeEntity]="'SUPPLIER' | erm" [entity]="supplier" selectSize="l" type="button">
+		</status-selector-app> -->
+
+		<context-menu-app>
+			<context-menu-trigger-app>
+				<button class="icon light dots">
+					<icon-app [size]="20" name="dots-vertical"></icon-app>
+				</button>
+			</context-menu-trigger-app>
+			<context-menu-item-app (click)="export.emit(supplier)" translate="button.export"></context-menu-item-app>
+			<divider-app></divider-app>
+			<context-menu-item-app (click)="archive.emit(supplier)" translate="button.archive"></context-menu-item-app>
+			<context-menu-item-warn-app (click)="delete.emit(supplier)" translate="button.delete"></context-menu-item-warn-app>
+		</context-menu-app>
+
+	</header-details-actions-app>
+
+</header-details-app>

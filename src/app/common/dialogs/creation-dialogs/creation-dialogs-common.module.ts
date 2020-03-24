@@ -22,6 +22,6 @@ const modals = [
 	],
 	declarations: modals,
 	entryComponents: modals,
-	providers: [CrudDialogService]
+	providers: []
 })
 export class CreationDialogsCommonModule { }

@@ -14,16 +14,13 @@ export class FilterCommonService {
 	) {}
 
 
-	/** filter by archived, attention, weird logic:
-	 * if shouldAdd is true we the products archived
-	 * if shouldAdd is false we only see the not archived + not archived */
-	filterByArchived(shouldAdd: boolean) {
-		const filterParam = { type: FilterType.ARCHIVED, value: false };
-		if (shouldAdd) {
+	filterByArchived(value: boolean) {
+		if (value) {
+			const filterParam = { type: FilterType.ARCHIVED, value };
 			this.filterSrv.addFilter(filterParam);
-			return;
+		} else {
+			this.filterSrv.removeFilterType(FilterType.ARCHIVED);
 		}
-		this.filterSrv.removeFilter(filterParam);
 	}
 
 	filterByAssignedToMe(shouldAdd: boolean) {
@@ -33,21 +30,18 @@ export class FilterCommonService {
 		};
 		if (shouldAdd) {
 			this.filterSrv.addFilter(filterParam);
-			return;
+		} else {
+			this.filterSrv.removeFilter(filterParam);
 		}
-		this.filterSrv.removeFilter(filterParam);
 	}
 
-	/** filter by done, attention, weird logic:
-	 * if shouldAdd is true we the products done
-	 * if shouldAdd is false we only see the not done + not done */
-	filterByDone(shouldAdd: boolean) {
-		const filterParam = { type: FilterType.DONE, value: false };
-		if (shouldAdd) {
+	filterByDone(value: boolean) {
+		if (value) {
+			const filterParam = { type: FilterType.DONE, value };
 			this.filterSrv.addFilter(filterParam);
-			return;
+		} else {
+			this.filterSrv.removeFilterType(FilterType.DONE);
 		}
-		this.filterSrv.removeFilter(filterParam);
 	}
 
 	filterByCreatedByMe(shouldAdd: boolean) {

@@ -1,2 +1,3 @@
-export * from './supplier-details';
-export * from './suppliers';
+export * from './details';
+export * from './board';
+export * from './table';

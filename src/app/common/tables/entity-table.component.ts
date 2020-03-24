@@ -33,7 +33,7 @@ export abstract class EntityTableComponent<T> extends TrackingComponent implemen
 	@Input() selection: Map<string, boolean>;
 	@Input() rows: Array<T>;
 	@Input() pending = true;
-	@Input() count: number;
+	@Input() total: number;
 	@Input() skipped: number;
 	@Input() currentPage: number;
 	@Input() currentSort: Sort;

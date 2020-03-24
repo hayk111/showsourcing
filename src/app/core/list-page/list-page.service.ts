@@ -13,7 +13,7 @@ import {
 } from '~core/erm';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
-import { FilterService } from '~shared/filters/services/filter.service';
+import { FilterService } from '~core/filters';
 import {
 	RatingService,
 	TypeWithVotes
@@ -92,7 +92,7 @@ export class ListPageService<
 		this.viewSrv.closePreview();
 		this.dataSrv.loadData(destroy$);
 		// we need to reset selection when filter changes
-		this.filterSrv.filterList.valueChanges$
+		this.filterSrv.valueChanges$
 			.pipe(takeUntil(destroy$))
 			.subscribe(_ => this.selectionSrv.unselectAll());
 	}
@@ -106,7 +106,7 @@ export class ListPageService<
 		this.selectionSrv = new SelectionService();
 		this.viewSrv = new ListPageViewService<T>(this.router);
 		this.dataSrv = new ListPageDataService<T, G>();
-		this.filterSrv = new FilterService(this.userSrv);
+		this.filterSrv.setup();
 	}
 
 	/** Here we are gonna bridge the functions from the other services */

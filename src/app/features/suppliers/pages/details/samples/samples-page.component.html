@@ -1,0 +1,59 @@
+<controller-table-app [total]="listHelper.total$ | async">
+	<!-- filters -->
+	<controller-table-quick-filters-app></controller-table-quick-filters-app>
+	<!-- actions -->
+	<controller-table-quick-actions-app
+		[columns]="columns"
+		[tableConfig]="tableConfig">
+	</controller-table-quick-actions-app>
+	<!-- switcher -->
+	<controller-table-view-switcher-app
+	 [hasBoard]="false"
+	 [hasCard]="false"></controller-table-view-switcher-app>
+</controller-table-app>
+
+<samples-table-app
+	[rows]="listHelper.filteredItems$ | async"
+	[selection]="selectionSrv.selection$ | async"
+	[pending]="listHelper.pending"
+	[isFiltering]="filterSrv.isFiltering"
+	[total]="listHelper.total$ | async"
+	[currentPage]="listHelper.currentPage"
+	(goToPage)="listHelper.loadPage($event)"
+	(sort)="listHelper.sort($event)"
+	(select)="selectionSrv.selectOne($event, true)"
+	(unselect)="selectionSrv.unselectOne($event, true)"
+	(selectAll)="selectionSrv.selectAll($event, true)"
+	(unselectAll)="selectionSrv.unselectAll()"
+	(open)="viewSrv.goToDetails($event)"
+	(previewClick)="viewSrv.openPreview($event)"
+	(createClick)="dialogCommonSrv.openCreationSampleDialog(undefined, supplier)"
+	(delete)="listHelper.deleteOne($event)">
+</samples-table-app>
+
+
+<sample-preview-app
+	*ngIf="viewSrv.previewOpen"
+	[sample]="viewSrv.previewed"
+	(close)="viewSrv.closePreview()"
+	(clickOutside)="viewSrv.closePreview()">
+</sample-preview-app>
+
+
+<side-panel-app *ngIf="viewSrv.filterPanelOpen">
+	<filters-app
+		[filterTypes]="filterTypes"
+		(clickOutside)="viewSrv.closeFilterPanel()"
+		(close)="viewSrv.closeFilterPanel()">
+	</filters-app>
+</side-panel-app>
+
+<sample-selection-bar-app
+	[isShown]="(selectionSrv.selection$ | async).size > 0"
+	[selection]="selectionSrv.selection$ | async"
+	[selectableItems]="listHelper.items$ | async"
+	(close)="selectionSrv.unselectAll()"
+	(deleteSelected)="listHelper.deleteSelected()"
+	(selectAll)="selectionSrv.selectAll($event)"
+	(unselectAll)="selectionSrv.unselectAll()">
+</sample-selection-bar-app>

@@ -1,10 +1,8 @@
 import { Filter } from './filter.class';
 import { FilterType } from './filter-type.enum';
+import { ValuesByType, FiltersByType } from './filter-by.type';
 
-/** so we can check if a filter type has a specific value, filterList.valuesByType.get(FilterType.SUPPLIER).has(id-10) */
-export type ValuesByType = Map<FilterType, Set<any>>;
-/** so we can display the filters for a given type */
-export type FiltersByType = Map<FilterType, Filter[]>;
+
 
 
 /**
@@ -92,10 +90,10 @@ export class FilterConverter {
 	private getSearchArg(value: string) {
 		const searchArg = { or: []};
 		if (this.searchedFields.length === 1) {
-			return { [this.searchedFields[0]]: { match: value } };
+			return { [this.searchedFields[0]]: { wildcard: `*${value.toLowerCase()}*` } };
 		}
 		this.searchedFields.forEach(searchedField => {
-			searchArg.or.push({ [searchedField]: { match: value } });
+			searchArg.or.push({ [searchedField]: { wildcard: `*${value.toLowerCase()}*` } });
 		});
 		return searchArg;
 	}

@@ -21,11 +21,11 @@ export class ControllerTableQuickFiltersComponent {
 	) {}
 
 	get isAssignedToMeChecked() {
-		return this.filterSrv.hasFilterValue(FilterType.ASSIGNEE, UserService.userSync.id);
+		return this.filterSrv.hasFilterValue(FilterType.ASSIGNEE, UserService.user.id);
 	}
 
 	get isCreatedByMeChecked() {
-		return this.filterSrv.hasFilterValue(FilterType.CREATED_BY, UserService.userSync.id);
+		return this.filterSrv.hasFilterValue(FilterType.CREATED_BY, UserService.user.id);
 	}
 
 	get isArchivedChecked() {

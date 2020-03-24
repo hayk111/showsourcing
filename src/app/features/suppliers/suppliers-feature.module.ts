@@ -10,8 +10,8 @@ import { TablesCommonModule } from '~common/tables/tables-common.module';
 import { NavBarModule } from '~shared/navbar';
 import { RatingModule } from '~shared/rating';
 import { SharedModule } from '~shared/shared.module';
-import * as DetailsPage from './pages/supplier-details';
-import * as TablePage from './pages/suppliers';
+import * as DetailsPage from './pages/details';
+import * as Pages from './pages';
 import { routes } from './routes';
 
 
@@ -30,19 +30,20 @@ import { routes } from './routes';
 		CatalogCommonModule,
 	],
 	declarations: [
-		DetailsPage.ActivityPageComponent,
+		Pages.TablePageComponent,
+		Pages.BoardPageComponent,
+		Pages.DetailsPageComponent,
+		DetailsPage.ProductsPageComponent,
+		// DetailsPage.ActivityPageComponent,
 		DetailsPage.ContactsPageComponent,
 		DetailsPage.FilesPageComponent,
-		DetailsPage.ProductsCardComponent,
-		DetailsPage.ProductsPageComponent,
-		DetailsPage.RequestsPageComponent,
+		// DetailsPage.ProductsCardComponent,
+		// DetailsPage.RequestsPageComponent,
 		DetailsPage.SamplesPageComponent,
-		DetailsPage.SupplierDetailsPageComponent,
-		DetailsPage.SupplierDocketComponent,
+		// DetailsPage.SupplierDocketComponent,
 		DetailsPage.SupplierHeaderDetailsComponent,
-		DetailsPage.SupplierResumeComponent,
-		DetailsPage.TasksPageComponent,
-		TablePage.SuppliersPageComponent,
+		// DetailsPage.SupplierResumeComponent,
+		// DetailsPage.TasksPageComponent,
 	],
 	entryComponents: [],
 	exports: [],

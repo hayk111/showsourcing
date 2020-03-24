@@ -55,7 +55,7 @@ export class ProductsPageComponent extends AutoUnsub
 		FilterType.CREATED_BY,
 		FilterType.EVENT,
 		FilterType.FAVORITE,
-		FilterType.PRODUCT_STATUS,
+		FilterType.STATUS,
 		FilterType.PROJECTS,
 		FilterType.SUPPLIER,
 		FilterType.TAGS

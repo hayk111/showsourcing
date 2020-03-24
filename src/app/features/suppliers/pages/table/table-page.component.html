@@ -1,0 +1,56 @@
+<header-list-app
+	[title]="'title.my-suppliers' | translate"
+	logoName="supplier"
+	info="The supplier database"
+	[buttonName]="'button.create-supplier' | translate"
+	(buttonClick)="dialogCommonSrv.openCreateDlg()">
+</header-list-app>
+
+<controller-table-app [total]="listHelper.total$ | async">
+	<controller-table-quick-filters-app></controller-table-quick-filters-app>
+	<controller-table-quick-actions-app
+		[columns]="columns"
+		[tableConfig]="tableConfig">
+	</controller-table-quick-actions-app>
+</controller-table-app>
+
+<suppliers-table-app
+	[rows]="items$ | async"
+	[pending]="listHelper.pending"
+	[selection]="selectionSrv.selection$ | async"
+	[total]="listHelper.total$ | async"
+	(open)="viewSrv.goToDetails($event)"
+	(previewClick)="viewSrv.openPreview($event)"
+	(select)="selectionSrv.selectOne($event)"
+	(selectAll)="selectionSrv.selectAll($event)"
+	(unselect)="selectionSrv.unselectOne($event)"
+	(showItemsPerPage)="listHelper.setItemsPerPage($event)"
+	(createClick)="createSupplier()">
+</suppliers-table-app>
+
+<supplier-selection-bar-app
+	entityType="supplier"
+	[isShown]="(selectionSrv.selection$ | async).size > 0"
+	[selection]="selectionSrv.selection$ | async"
+	[selectableItems]="items$ | async"
+	(statusUpdated)="listHelper.updateSelected({status: $event})"
+	(deleteSelected)="listHelper.deleteSelected()"
+	(close)="selectionSrv.unselectAll()"
+	(selectAll)="selectionSrv.selectAll($event)"
+	(unselectAll)="selectionSrv.unselectAll()">
+</supplier-selection-bar-app>
+
+<supplier-preview-app
+	*ngIf="viewSrv.previewOpen"
+	[supplier]="viewSrv.previewed"
+	(close)="viewSrv.closePreview()">
+</supplier-preview-app>
+
+<side-panel-app *ngIf="viewSrv.filterPanelOpen">
+	<filters-app
+		[filterTypes]="filterTypes"
+		(clickOutside)="viewSrv.closeFilterPanel()"
+		(close)="viewSrv.closeFilterPanel()">
+	</filters-app>
+</side-panel-app>
+

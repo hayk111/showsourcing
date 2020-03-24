@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { SelectionService } from './selection.service';
+import { forkJoin, Observable, BehaviorSubject, combineLatest } from 'rxjs';
+import { map, shareReplay, switchMap, tap } from 'rxjs/operators';
 import { ApiService, ObservableQuery } from '~core/erm3/services/api.service';
-import { FilterService } from '~core/filters/filter.service';
-import { switchMap, tap, map, shareReplay } from 'rxjs/operators';
-import { forkJoin, Observable } from 'rxjs';
 import { Typename } from '~core/erm3/typename.type';
-import * as models from '~core/erm3/models';
+import { FilterService } from '~core/filters/filter.service';
+import { SelectionService } from './selection.service';
+import { WatchQueryOptions } from 'apollo-client';
 
 @Injectable({ providedIn: 'root' })
 export class ListHelperService<G = any> {
@@ -14,6 +14,25 @@ export class ListHelperService<G = any> {
 	private typename: Typename;
 	pending = true;
 	total$: Observable<number>;
+	/** number of items taken at once */
+	private limit$ = new BehaviorSubject(25);
+	filteredItems$ = combineLatest(
+		this.filterSrv.valueChanges$,
+		this.limit$
+	).pipe(
+		// gets the query
+		map(([{ queryArg: filter }, limit]) => this.apiSrv.search<G>(
+			this.typename, { filter, limit })
+		),
+		// save it
+		tap(query => this.queryRef = query),
+		tap(query => this.total$ = query.total$),
+		// return the result
+		switchMap(_ => this.queryRef.data$),
+		// setting pending to false because we received data
+		tap(_ => this.pending = false),
+		shareReplay(1)
+	);
 
 	constructor(
 		private selectionSrv: SelectionService,
@@ -25,24 +44,9 @@ export class ListHelperService<G = any> {
 		this.typename = typename;
 	}
 
-	getFilteredItems$() {
-		return this.filterSrv.valueChanges$.pipe(
-			// gets the query
-			map(({ queryArg: filter }) => this.apiSrv.search<G>(this.typename, { filter })),
-			// save it
-			tap(query => this.queryRef = query),
-			tap(query => this.total$ = query.total$),
-			// return the result
-			switchMap(_ => this.queryRef.data$),
-			// setting pending to false because we received data
-			tap(_ => this.pending = false),
-			shareReplay(1)
-		);
-	}
-
-	private refetch() {
+	refetch(options?: WatchQueryOptions) {
 		this.pending = true;
-		return this.queryRef.refetch({ fetchPolicy: 'network-only' })
+		return this.queryRef.refetch({ ...options, fetchPolicy: 'network-only' })
 		.then(_ => this.pending = false);
 	}
 
@@ -54,6 +58,14 @@ export class ListHelperService<G = any> {
 
 	update(entity: any) {
 		this.apiSrv.update(this.typename, entity);
+	}
+
+	updateSelected(entity) {
+		const selected = this.selectionSrv.getSelectedValues();
+		const all = selected.map(ent => this.apiSrv.update(this.typename, { id: ent.id, ...entity}));
+		forkJoin(all).pipe(
+			switchMap(_ => this.refetch())
+		).subscribe();
 	}
 
 	delete(entity: any) {
@@ -68,6 +80,10 @@ export class ListHelperService<G = any> {
 		forkJoin(all).pipe(
 			switchMap(_ => this.refetch())
 		).subscribe();
+	}
+
+	setItemsPerPage(value: number) {
+		this.limit$.next(value);
 	}
 
 	loadMore() {
