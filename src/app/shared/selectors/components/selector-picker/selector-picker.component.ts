@@ -26,6 +26,9 @@ import { FilterList } from '~shared/filters/models/filter-list.class';
 import { AbstractInput, InputDirective } from '~shared/inputs';
 import { SelectorsService } from '~shared/selectors/services/selectors.service';
 import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlightable.component';
+import { ListFuseHelperService } from '~core/list-page2/list-fuse-helper.service';
+import { FilterService } from '~core/filters';
+import { Typename } from '~core/erm3/typename.type';
 import { ID, RegexpApp } from '~utils';
 
 @Component({
@@ -103,6 +106,8 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 
 	constructor(
 		public selectorSrv: SelectorsService,
+		private listFuseHelperSrv: ListFuseHelperService,
+		private filterSrv: FilterService,
 		protected cd: ChangeDetectorRef,
 		private fb: FormBuilder
 	) { super(cd); }
@@ -111,6 +116,9 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		this.group = this.fb.group({
 			name: ['']
 		});
+
+		this.listFuseHelperSrv.setup(this.capitalizeFirstLetter(this.type.singular) as Typename);
+		this.filterSrv.setup([], ['name']);
 
 		if (this.canCreate) {
 			this.nameExists$ = this.searched$.pipe(
@@ -123,6 +131,12 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 				))
 			);
 		}
+
+		this.listFuseHelperSrv.getFilteredItems$
+			.subscribe(data => {
+				this.choices$ = of(data);
+				this.cd.markForCheck();
+			});
 
 		// init the list query
 		if (this.multiple) {
@@ -151,9 +165,6 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			// if its multiple we want to filter the values that we have currently selected, so they don't appear on the options
 			this.choices$.pipe(map((items) => this.filterValues(items)));
 		}
-		// we use this refetch, cause sometimes selector wasn't loading the latest data added
-		// the observable was already initialized and didn't trigger the latest changes until you used the search
-		this.selectorSrv.refetch();
 	}
 
 	/**
@@ -187,10 +198,15 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	 * @param text
 	 */
 	search(text, setFirstItemActive = true) {
+		console.log('SelectorPickerComponent -> search -> text', text);
 		this.searchTxt = text.trim();
 		this.movedArrow = false;
+
+		this.filterSrv.search(this.searchTxt);
+
 		// this.selectorSrv.search(this.type, this.searchTxt)
-		// 	.subscribe(_ => {
+		// 	.then(data => {
+		// 		console.log('SelectorPickerComponent -> search -> data', data);
 		// 		if (setFirstItemActive)
 		// 			this.keyManager.setFirstItemActive();
 		// 		else // we use this to hide the first active item, since the focus is on the input now
@@ -279,7 +295,6 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 				break;
 		}
 		this.update.emit(trimValues);
-		this.selectorSrv.refetch();
 	}
 
 	/**
@@ -381,6 +396,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	 * @returns list of items that match the current searchTxt
 	 */
 	private checkExist(items: any[]) {
+		console.log('SelectorPickerComponent -> checkExist -> items', items);
 		switch (this.type) {
 			case ERM.EMAIL:
 				return items.filter(it => it.name === this.searchTxt || it.email === this.searchTxt);
@@ -451,7 +467,6 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			createObs$.subscribe();
 			// we changed the value directly so we have to notify the formControl
 			this.onChange();
-			this.selectorSrv.refetch();
 			this.resetInput();
 		}
 	}
@@ -526,6 +541,10 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			}
 		}
 		return isSelected;
+	}
+
+	capitalizeFirstLetter(str) {
+		return str.charAt(0).toUpperCase() + str.slice(1);
 	}
 
 	/**

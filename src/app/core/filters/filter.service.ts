@@ -71,6 +71,7 @@ export class FilterService {
 		if (!lastFilter) {
 			this.addFilter({ type: FilterType.SEARCH, value });
 		} else {
+			console.log('FilterService -> search -> this.filters', this.filters);
 			lastFilter.value = value;
 			this.setFilters(this.filters);
 		}

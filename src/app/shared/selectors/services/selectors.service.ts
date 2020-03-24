@@ -33,7 +33,6 @@ import { ID } from '~utils';
 import { countries, currencies, harbours, incoTerms } from '~utils/constants';
 import { businessTypes } from '~utils/constants/business-types.const';
 import { categories } from '~utils/constants/categories.const';
-import { QueryPool } from '~core/erm3/queries/query-pool.class';
 
 @Injectable({
 	providedIn: 'root',
@@ -73,72 +72,8 @@ export class SelectorsService {
 		}
 	}
 
-	refetch(selectParams?: SelectParamsConfig) {
-		if (this.queryListRef)
-			return this.queryListRef.refetch(selectParams || this.selectParams);
-	}
-
 	loadMore() {
 		// return this.queryListRef.fetchMore().subscribe();
-	}
-
-	search(type: EntityMetadata, searchTxt: string) {
-		searchTxt = searchTxt.toLowerCase();
-		if (searchTxt) {
-			switch (type) {
-				case ERM.USER:
-					this.currentSearchQuery = `firstName CONTAINS[c] "${searchTxt}" OR lastName CONTAINS[c] "${searchTxt}"`;
-					break;
-				// Constants
-				case ERM.CURRENCY:
-					// this.currencySrv.queryMany({ query: `symbol == "EUR" OR symbol == "USD" OR symbol == "CNY"` });
-					this.topCurrencies$ = this.currencySrv.queryMany({
-						query: `((symbol == "EUR" OR symbol == "USD" OR symbol == "CNY") AND symbol CONTAINS[c] "${searchTxt}")` +
-							` OR ((symbol == "EUR" OR symbol == "USD" OR symbol == "CNY") AND name CONTAINS[c] "${searchTxt}")`
-					});
-					this.currentSearchQuery = `symbol CONTAINS[c] "${searchTxt}" OR name CONTAINS[c] "${searchTxt}"`;
-					break;
-				case ERM.COUNTRY:
-					this.currentSearchQuery = `fullName CONTAINS[c] "${searchTxt}" OR countryCode CONTAINS[c] "${searchTxt}"`;
-					break;
-				case ERM.EVENT:
-					this.currentSearchQuery = `name CONTAINS[c] "${searchTxt}" OR description.name CONTAINS[c] "${searchTxt}"`;
-					break;
-				case ERM.EMAIL:
-				case ERM.CONTACT:
-					this.currentSearchQuery = `name CONTAINS[c] "${searchTxt}" OR email CONTAINS[c] "${searchTxt}"`;
-					break;
-				case ERM.CATEGORY:
-				case ERM.HARBOUR:
-				case ERM.INCO_TERM:
-				case ERM.LENGTH_UNIT:
-				case ERM.PRODUCT:
-				case ERM.PROJECT:
-				case ERM.REQUEST_TEMPLATE:
-				case ERM.SUPPLIER:
-				case ERM.SUPPLIER_TYPE:
-				case ERM.TAG:
-				case ERM.WEIGHT_UNIT:
-					this.currentSearchQuery = `name CONTAINS[c] "${searchTxt}"`;
-					break;
-				case ERM.PICKER_FIELD:
-					this.search$.next(searchTxt);
-					break;
-				case ERM.SELECTOR_ELEMENT:
-					this.currentSearchQuery = `value CONTAINS[c] "${searchTxt}"`;
-					break;
-				default: throw Error(`Unsupported type for search ${type}`);
-			}
-		} else {
-			this.currentSearchQuery = '';
-			this.search$.next('');
-		}
-		// so we can keep the current search and the filter
-		if (this.currentSearchQuery && this.selectParams.query)
-			this.currentSearchQuery = '(' + this.currentSearchQuery + ') AND ' + this.selectParams.query;
-		else if (this.selectParams.query)
-			this.currentSearchQuery = this.selectParams.query;
-		return this.refetch({ ...this.selectParams, query: this.currentSearchQuery });
 	}
 
 	getCountries(): any[] {
@@ -147,7 +82,7 @@ export class SelectorsService {
 
 	getCountriesGlobal(): Observable<Country[]> {
 		this.selectParams = { ...this.selectParams, sortBy: 'fullName' };
-		this.queryListRef = this.apiSrv.search('Country', {});
+		this.queryListRef = this.apiSrv.listBy('Country');
 		this.setItems();
 		return this.items$;
 	}
@@ -159,7 +94,7 @@ export class SelectorsService {
 	getIncoTermsGlobal(): Observable<IncoTerm[]> {
 		// we have to specify that the sort is empty, since when calling another selector can have a different sort
 		this.selectParams = { ...this.selectParams, sortBy: '' };
-		this.queryListRef = this.apiSrv.search('IncoTerm', {});
+		this.queryListRef = this.apiSrv.listBy('IncoTerm');
 		this.setItems();
 		return this.items$;
 	}
@@ -170,7 +105,7 @@ export class SelectorsService {
 
 	getHarboursGlobal(): Observable<Harbour[]> {
 		this.selectParams = { ...this.selectParams, sortBy: 'name' };
-		this.queryListRef = this.apiSrv.search('Harbour', {});
+		this.queryListRef = this.apiSrv.listBy('Harbour');
 		this.setItems();
 		return this.items$;
 	}
@@ -181,7 +116,7 @@ export class SelectorsService {
 
 	getCurrenciesGlobal(): Observable<Currency[]> {
 		this.selectParams = { ...this.selectParams, sortBy: '' };
-		this.queryListRef = this.apiSrv.search('Currency', {});
+		this.queryListRef = this.apiSrv.listBy('Currency');
 		this.setItems();
 		// this.getTopCurrencies();
 		return this.items$;
@@ -196,14 +131,14 @@ export class SelectorsService {
 
 	getLengthUnits(): Observable<LengthUnit[]> {
 		this.selectParams = { ...this.selectParams, sortBy: 'name' };
-		this.queryListRef = this.apiSrv.search('Length', {});
+		this.queryListRef = this.apiSrv.listBy('Length');
 		this.setItems();
 		return this.items$;
 	}
 
 	getWeigthUnits(): Observable<WeightUnit[]> {
 		this.selectParams = { ...this.selectParams, sortBy: 'name' };
-		this.queryListRef = this.apiSrv.search('Weight', {});
+		this.queryListRef = this.apiSrv.listBy('Weight');
 		this.setItems();
 		return this.items$;
 	}
@@ -232,35 +167,35 @@ export class SelectorsService {
 
 	getSuppliers(): Observable<Supplier[]> {
 		this.selectParams = { ...this.selectParams, sortBy: 'name' };
-		this.queryListRef = this.apiSrv.search('Supplier', {});
+		this.queryListRef = this.apiSrv.listBy('Supplier');
 		this.setItems();
 		return this.items$;
 	}
 
 	getProducts(): Observable<Product[]> {
 		this.selectParams = { ...this.selectParams, sortBy: 'name' };
-		this.queryListRef = this.apiSrv.search('Product', {});
+		this.queryListRef = this.apiSrv.listBy('Product');
 		this.setItems();
 		return this.items$;
 	}
 
 	getEvents(): Observable<Event[]> {
 		this.selectParams = { ...this.selectParams, sortBy: 'description.name' };
-		this.queryListRef = this.apiSrv.search('Event', {});
+		this.queryListRef = this.apiSrv.listBy('Event');
 		this.setItems();
 		return this.items$;
 	}
 
 	getProjects(): Observable<Project[]> {
 		this.selectParams = { ...this.selectParams, sortBy: 'name' };
-		this.queryListRef = this.apiSrv.search('Project', {});
+		this.queryListRef = this.apiSrv.listBy('Project', 'Owner');
 		this.setItems();
 		return this.items$;
 	}
 
 	getCategories(): Observable<Category[]> {
 		this.selectParams = { ...this.selectParams, sortBy: 'name' };
-		this.queryListRef = this.apiSrv.search('Category', {});
+		this.queryListRef = this.apiSrv.listBy('Category');
 		this.setItems();
 		return this.items$;
 	}
@@ -270,42 +205,42 @@ export class SelectorsService {
 			this.selectParams.query + ' AND email contains "@"' :
 			'email contains "@"';
 		this.selectParams = { ...this.selectParams, sortBy: 'name', query };
-		this.queryListRef = this.apiSrv.search('Contact', {});
+		this.queryListRef = this.apiSrv.listBy('Contact');
 		this.setItems();
 		return this.items$;
 	}
 
 	getRequestTemplates(): Observable<RequestTemplate[]> {
 		this.selectParams = { ...this.selectParams, sortBy: 'name' };
-		this.queryListRef = this.apiSrv.search('Request', {});
+		this.queryListRef = this.apiSrv.listBy('Request');
 		this.setItems();
 		return this.items$;
 	}
 
 	getTags(): Observable<Tag[]> {
 		this.selectParams = { ...this.selectParams, sortBy: 'name' };
-		this.queryListRef = this.apiSrv.search('Tag', {});
+		this.queryListRef = this.apiSrv.listBy('Tag');
 		this.setItems();
 		return this.items$;
 	}
 
 	getSupplierTypes(): Observable<SupplierType[]> {
 		this.selectParams = { ...this.selectParams, sortBy: 'name' };
-		this.queryListRef = this.apiSrv.search('SupplierType', {});
+		this.queryListRef = this.apiSrv.listBy('SupplierType');
 		this.setItems();
 		return this.items$;
 	}
 
 	getUsers(): Observable<User[]> {
 		this.selectParams = { ...this.selectParams, sortBy: 'lastName' };
-		this.queryListRef = this.apiSrv.search('User', {});
+		this.queryListRef = this.apiSrv.listBy('User');
 		this.setItems();
 		return this.items$;
 	}
 
 	getTeamUsers(): Observable<TeamUser[]> {
 		this.selectParams = { ...this.selectParams, sortBy: 'user.lastName' };
-		this.queryListRef = this.apiSrv.search('TeamUser', {});
+		this.queryListRef = this.apiSrv.listBy('TeamUser');
 		this.setItems();
 		return this.items$;
 	}
@@ -323,7 +258,7 @@ export class SelectorsService {
 
 	getSelectorElements(definitionReference: ID) {
 		this.selectParams = { ...this.selectParams, sortBy: 'value', query: `fieldDefinition.id == "${definitionReference}"` };
-		this.queryListRef = this.apiSrv.search('Selector element', {});
+		this.queryListRef = this.apiSrv.listBy('Selector element');
 		this.setItems();
 		return this.items$;
 	}
@@ -341,7 +276,11 @@ export class SelectorsService {
 	}
 
 	createCategory(category: Category): Observable<any> {
-		return this.apiSrv.create<any>('Category', category);
+		const categoryClone = Object.assign({}, category);
+		delete categoryClone._deleted;
+		delete categoryClone._lastChangedAt;
+
+		return this.apiSrv.create<any>('Category', categoryClone);
 	}
 
 	createContact(contact: Contact): Observable<any> {

@@ -7,6 +7,15 @@
 	<div>OffsetX, OffsetY: Default</div>
 	<button class="mg-ms">Projects selector</button>
 </selector-app>
+
+<selector-app
+	[type]="'CATEGORY' | erm"
+	[canCreate]="true"
+	(update)="update($event, 'category')">
+	<div>OffsetX, OffsetY: Default</div>
+	<button class="mg-ms">Category selector</button>
+</selector-app>
+
 <!--  if this is uncommented and since we are not using virtual scroll, on selector2 -> searchTxt = 'light'
 			so we just load part of it -->
 <selector-app
