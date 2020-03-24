@@ -395,7 +395,6 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	 * @returns list of items that match the current searchTxt
 	 */
 	private checkExist(items: any[]) {
-		console.log('SelectorPickerComponent -> checkExist -> items', items);
 		switch (this.type) {
 			case ERM.EMAIL:
 				return items.filter(it => it.name === this.searchTxt || it.email === this.searchTxt);
