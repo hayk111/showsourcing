@@ -27,6 +27,7 @@ export class ListManagementTableComponent extends EntityTableComponent<any> {
 	static DEFAULT_TABLE_CONFIG = tableConfig;
 	@Input() columns = ListManagementTableComponent.DEFAULT_COLUMNS;
 	@Input() tableConfig = ListManagementTableComponent.DEFAULT_TABLE_CONFIG;
+	// TODO CHANGE EntityMetadata by Typename
 	@Input() entityMetadata: EntityMetadata;
 	@Output() renameEntity = new EventEmitter<any>();
 	@Output() showItemsPerPage = new EventEmitter<number>();

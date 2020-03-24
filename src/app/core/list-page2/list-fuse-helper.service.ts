@@ -50,6 +50,7 @@ export class ListFuseHelperService<G = any> {
 		// when we update datas it will reasign fuse
 		this.queryRef.data$.subscribe(datas => {
 			this._fuse$.next(new Fuse(datas, this.fuseOptions));
+			this.pending = false;
 		});
 	}
 

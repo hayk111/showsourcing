@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import { ERM } from '~core/erm';
-import { CompanyService, TeamService } from '~core/erm';
+import { CompanyService, TeamService } from '~core/auth/services';
 
 @Component({
 	selector: 'settings-page-app',
@@ -9,16 +9,15 @@ import { CompanyService, TeamService } from '~core/erm';
 	styleUrls: ['./settings-page.component.scss']
 })
 export class SettingsPageComponent {
-
 	erm = ERM;
 	teamName: string;
 	companyName: string;
-	constructor(
-		public companySrv: CompanyService,
-		public teamSrv: TeamService,
-	) {
-		this.teamName = this.teamSrv.selectedTeamSync.name;
-		const company = this.companySrv.companySync;
-		this.companyName =  company ? company.name : '';
+	constructor(public companySrv: CompanyService, public teamSrv: TeamService) {
+		this.teamSrv.teamSelected$.subscribe(team => {
+			this.teamName = team.name;
+		});
+		this.companySrv.company$.subscribe(company => {
+			this.companyName = company.name;
+		});
 	}
 }

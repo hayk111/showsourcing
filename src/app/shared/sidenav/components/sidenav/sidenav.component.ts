@@ -3,8 +3,6 @@ import {
 	Input
 } from '@angular/core';
 
-import { SidenavItemComponent } from '~shared/sidenav/components/sidenav-item/sidenav-item.component';
-
 
 /**
  * Component made by Thierry

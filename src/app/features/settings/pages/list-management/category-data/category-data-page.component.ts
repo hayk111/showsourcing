@@ -1,76 +1,57 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import {
-	Category,
-	CategoryService,
-	CompanyService,
-	ERM,
-	SelectParamsConfig,
-	TeamService
-} from '~core/erm';
-import { ListPageService, SelectionService } from '~core/list-page';
-import { ListPageViewService } from '~core/list-page/list-page-view.service';
-import { AutoUnsub } from '~utils';
+import { CompanyService, TeamService } from '~core/auth/services';
+import { Category } from '~core/erm3/models';
 import { FilterService } from '~core/filters/filter.service';
+import { ListFuseHelperService } from '~core/list-page2/list-fuse-helper.service';
+import { AutoUnsub } from '~utils';
+import { SelectionService, ListPageViewService } from '~core/list-page2';
+import { Typename } from '~core/erm3/typename.type';
+import { FilterType } from '~core/filters';
 
 @Component({
 	selector: 'category-data-page-app',
 	templateUrl: '../shared/list-management-template.html',
-	styleUrls: [
-		'./category-data-page.component.scss',
-		'../shared/list-management-styles.scss'
-	],
+	styleUrls: ['./category-data-page.component.scss', '../shared/list-management-styles.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [ListPageService, SelectionService, ListPageViewService],
+	providers: [ListPageViewService, SelectionService ],
 	host: {
 		class: 'table-page'
 	}
 })
 export class CategoryDataPageComponent extends AutoUnsub implements OnInit {
-	erm = ERM.CATEGORY;
+	typename: Typename = 'Category';
 
-	addButtonWidth = '111px';
-	addButtonHeight = '32px';
-
-	selectItemsConfig: SelectParamsConfig;
+	items$: Observable<Category[]>;
 
 	constructor(
-		private categorySrv: CategoryService,
-		public listSrv: ListPageService<Category, CategoryService>,
 		public teamSrv: TeamService,
 		public companySrv: CompanyService,
 		public dialogCommonSrv: DialogCommonService,
 		public selectionSrv: SelectionService,
 		public viewSrv: ListPageViewService<Category>,
-		public filterSrv: FilterService
+		public filterSrv: FilterService,
+		public listFuseHelper: ListFuseHelperService
 	) {
 		super();
 	}
 
 	ngOnInit() {
-		this.listSrv.setup({
-			entitySrv: this.categorySrv,
-			searchedFields: ['name'],
-			selectParams: {
-				sortBy: 'name',
-				descending: false,
-				query: 'deleted == false'
-			},
-			entityMetadata: ERM.CATEGORY,
-			originComponentDestroy$: this._destroy$
-		});
+		let teamId: string;
+		this.teamSrv.teamSelected$.subscribe(team => (teamId = team.id));
+		this.viewSrv.setup({typename: 'Category', destUrl: 'settings/list-management/category-data', view: 'table'});
+		this.listFuseHelper.setup('Category', 'Team', teamId); // search initialized in controller-table
+		this.items$ = this.listFuseHelper.getFilteredItems$;
 	}
 
 	mergeSelected() {
 		const categories = this.selectionSrv.getSelectedValues();
 		this.dialogCommonSrv.openMergeDialog({
-			type: this.viewSrv.entityMetadata,
+			type: this.viewSrv.typename,
 			entities: categories
 		});
 	}
 
-	showItemsPerPage(count: number) {
-		this.selectItemsConfig = { take: Number(count) };
-		this.listSrv.refetch(this.selectItemsConfig).subscribe();
-	}
+	showItemsPerPage(count: number) {}
 }

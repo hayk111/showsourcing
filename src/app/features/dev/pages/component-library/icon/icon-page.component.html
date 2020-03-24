@@ -41,7 +41,7 @@
 	</p>
 
 	<div class="flex">
-		<logo-app *ngFor="let type of types" [type]="type"></logo-app>
+		<logo-app *ngFor="let type of types" [typename]="type"></logo-app>
 	</div>
 
 	<p>
@@ -50,9 +50,9 @@
 		<small>type="product" color="primary" || color="secondary" || color="vibrant" </small>
 	</p>
 	<div class="flex">
-		<logo-app type="product" color="primary"></logo-app>
-		<logo-app type="product" color="secondary"></logo-app>
-		<logo-app type="product" color="vibrant"></logo-app>
+		<logo-app typename="Product" color="primary"></logo-app>
+		<logo-app typename="Product" color="secondary"></logo-app>
+		<logo-app typename="Product" color="vibrant"></logo-app>
 	</div>
 
 	<br><br>
@@ -60,7 +60,7 @@
 	<p>
 		<small>type="product" [circle]="true" color="accent"</small>
 	</p>
-	<logo-app type="product" [circle]="true" color="accent"></logo-app>
+	<logo-app typename="Product" [circle]="true" color="accent"></logo-app>
 
 	<br><br>
 	<b>Circle</b> <br>
@@ -71,9 +71,9 @@
 		<small>type="product" | "comment" | "task" [circle]="true" </small>
 	</p>
 	<div class="flex">
-		<logo-app type="product" [circle]="true"></logo-app>
-		<logo-app type="comment" [circle]="true"></logo-app>
-		<logo-app type="task" [circle]="true"></logo-app>
+		<logo-app typename="Product" [circle]="true"></logo-app>
+		<logo-app typename="Comment" [circle]="true"></logo-app>
+		<logo-app typename="Task" [circle]="true"></logo-app>
 	</div>
 
 	<br><br>
@@ -83,9 +83,9 @@
 		<small>type="product" size="s" | size="m" | size="l"</small>
 	</p>
 	<div class="flex">
-		<logo-app type="product" size="s"></logo-app>
-		<logo-app type="product" size="m"></logo-app>
-		<logo-app type="product" size="l"></logo-app>
+		<logo-app typename="Product" size="s"></logo-app>
+		<logo-app typename="Product" size="m"></logo-app>
+		<logo-app typename="Product" size="l"></logo-app>
 	</div>
 
 	<p>
@@ -93,7 +93,7 @@
 		<small>type="product" [backgroundSize]="60" [iconSize]="35"</small>
 	</p>
 	<div class="flex">
-		<logo-app type="product" [backgroundSize]="60" [iconSize]="35"></logo-app>
+		<logo-app typename="Product" [backgroundSize]="60" [iconSize]="35"></logo-app>
 	</div>
 
 	<br><br>
@@ -104,7 +104,7 @@
 		<small>type="product" [logo]="imageMock"</small>
 	</p>
 
-	<logo-app type="product" [logo]="imageMock"></logo-app>
+	<logo-app typename="Product" [logo]="imageMock"></logo-app>
 
 	<br><br>
 	<b>Icon</b> <br>

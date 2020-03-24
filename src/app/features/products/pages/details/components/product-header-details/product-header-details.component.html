@@ -11,11 +11,11 @@
 	</header-details-title-app>
 
 
-	<logo-app [logo]="product?.images[0]" size="l" type="product"></logo-app>
+	<logo-app [logo]="product?.images[0]" size="l" typename="Product"></logo-app>
 
 	<header-details-info-app>
 		<div class="flex flexVAlign color-txt-secondary">
-			<logo-app type="product" name="product" size="xs"></logo-app>
+			<logo-app typename="Product" name="product" size="xs"></logo-app>
 			<div class="flex flexVAlign info-container dot-separator">
 				<span *ngIf="product?.reference" class="reference">
 					{{ product?.reference }}
