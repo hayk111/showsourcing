@@ -18,12 +18,12 @@
 			<!-- information of the supplier -->
 			<div class="flexColumn suppInfo">
 				<div class="flexVAlign">
-					<logo-app [logo]="supplier?.images[0]" size="l" type="supplier"></logo-app>
+					<logo-app [logo]="supplier?.images[0]" size="l" typename="Supplier"></logo-app>
 					<div class="supp-info-content">
 						<span class="name">{{ supplier?.name }}</span>
 						<header-details-info-app>
 							<div class="flex flexVAlign color-txt-secondary">
-								<logo-app type="supplier" name="supplier" size="xs"></logo-app>
+								<logo-app typename="Supplier" name="supplier" size="xs"></logo-app>
 								<span *ngIf="supplier?.description">
 									{{ supplier?.description }}
 								</span>

@@ -154,15 +154,15 @@ https://stackblitz.com/edit/angular-vtluff?file=src/app/app.component.ts -->
 			class="placeholder-logo"
 			[circle]="true"
 			size="xxl"
-			[type]="type">
+			[typename]="typename">
 		</logo-app>
 		<ng-container *ngIf="!isSeaching; else placeholderSearch">
-			<div class="placeholder-title" translate="OBJ.no-type-found" [translateParams]="{ type: type }"></div>
+			<div class="placeholder-title" translate="OBJ.no-type-found" [translateParams]="{ type: typename }"></div>
 			<div class="placeholder-description" translate="text.create-new-one"></div>
-			<button class="capitalize" (click)="createClick.emit()">{{ createEntityBtnName || ('OBJ.create' | translate: { field: (type) }) }}</button>
+			<button class="capitalize" (click)="createClick.emit()">{{ createEntityBtnName || ('OBJ.create' | translate: { field: (typename) }) }}</button>
 		</ng-container>
 		<ng-template #placeholderSearch>
-			<div *ngIf="isSeaching" class="placeholder-title" translate="OBJ.no-OBJ-matches-criteria" [translateParams]="{ type: type }"></div>
+			<div *ngIf="isSeaching" class="placeholder-title" translate="OBJ.no-OBJ-matches-criteria" [translateParams]="{ type: typename }"></div>
 		</ng-template>
 	</div>
 
@@ -170,8 +170,8 @@ https://stackblitz.com/edit/angular-vtluff?file=src/app/app.component.ts -->
 </div>
 
 <pagination-app
-	*ngIf="hasPagination && !pending && count"
-	[count]="count"
+	*ngIf="hasPagination && !pending && total"
+	[total]="total"
 	[currentPage]="currentPage"
 	[hasSidePadding]="hasPaddingPagination"
 	[hasPageItemsCount]="hasShowItemsPerPage"

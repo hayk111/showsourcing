@@ -1,7 +1,7 @@
 <table-app
 	[class.no-min-height]="!hasMinHeight"
 	[rows]="rows"
-	[type]="'CONTACT' | erm: 'singular'"
+	typename="Contact"
 	[pending]="pending"
 	[isSeaching]="isFiltering"
 	[selected]="selection"
@@ -9,7 +9,7 @@
 	[hasMenu]="hasMenu"
 	[hasBorder]="hasBorder"
 	[currentSort]="currentSort"
-	[count]="count"
+	[total]="total"
 	[currentPage]="currentPage"
 	[placeholder]="'placeholder.no-contact' | translate"
 	(goToPage)="goToPage.emit($event)"

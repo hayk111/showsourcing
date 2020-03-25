@@ -1,5 +1,5 @@
 <header-list-app
-	logoName="sample"
+	logoTypename="Sample"
 	info="The sample database"
 	[title]="'title.my-samples' | translate"
 	[buttonName]="'button.create-sample' | translate"
@@ -21,7 +21,7 @@
 	[rows]="listSrv.items$ | async"
 	[selection]="selectionSrv.selection$ | async"
 	[pending]="listSrv.pending"
-	[count]="listSrv.count$ | async"
+	[total]="listSrv.count$ | async"
 	[currentSort]="listSrv.currentSort"
 	[currentPage]="listSrv.currentPage"
 	(goToPage)="listSrv.loadPage($event)"

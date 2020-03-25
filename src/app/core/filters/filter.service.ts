@@ -1,9 +1,10 @@
-import { ReplaySubject, BehaviorSubject } from 'rxjs';
-import { FilterConverter, ValuesByType, FiltersByType } from './_filter-converter.class';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { TeamService } from '~core/auth';
 import { FilterType } from './filter-type.enum';
 import { Filter } from './filter.class';
-import { Injectable } from '@angular/core';
-import { TeamService } from '~core/auth';
+import { FilterConverter } from './_filter-converter.class';
+import { ValuesByType, FiltersByType } from './filter-by.type';
 
 /**
  * This class basically contains a Array<Filter> and then the same array of filters under different data structure.
@@ -30,7 +31,6 @@ export class FilterService {
 	startFilters: Filter[] = [{ type: FilterType.TEAM, value: TeamService.teamSelected.id }];
 	/** the filters currently in the filter-list */
 	filters: Filter[] = [];
-	/** @TODO make those fields private */
 	/** so we can check if a filter type has a specific value, filterList.valuesByType.has(id-10) */
 	private valuesByType: ValuesByType = new Map();
 	/** so we can display the filters for a given type */
@@ -109,6 +109,10 @@ export class FilterService {
 
 	getFiltersForType(type: FilterType): Filter[] {
 		return this.filtersByType.get(type) || [];
+	}
+
+	getValuesForType(type: FilterType): Set<any> {
+		return this.valuesByType.get(type) || new Set();
 	}
 
 	/** returns the number of added filter above the start filters */

@@ -21,12 +21,12 @@
 			<!-- information of the product -->
 			<div class="flexColumn prodInfo">
 				<div class="flexVAlign">
-					<logo-app [logo]="product?.images[0]" size="l" type="product"></logo-app>
+					<logo-app [logo]="product?.images[0]" size="l" typename="Product"></logo-app>
 					<div class="prod-info-content">
 						<span class="name ellipsis">{{ product?.name }}</span>
 						<header-details-info-app>
 							<div class="flex flexVAlign color-txt-secondary">
-								<logo-app type="product" name="product" size="xs"></logo-app>
+								<logo-app typename="Product" name="product" size="xs"></logo-app>
 								<div class="flex flexVAlign info-container dot-separator">
 									<span *ngIf="product?.reference" class="reference">
 										{{ product?.reference }}

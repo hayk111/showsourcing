@@ -13,7 +13,7 @@
 				class="mg-right-s"
 				size="l"
 				[logo]="supplier?.logoImage"
-				[type]="erm.SUPPLIER.singular">
+				typename="Supplier">
 			</logo-app>
 			<div class="flexColumn ellipsis">
 				<span class="color-txt-primary semi-bold fs-l ellipsis">{{ supplier?.name }}</span>
@@ -22,7 +22,7 @@
 						<logo-app
 							class="mg-right-xs"
 							size="xs"
-							[type]="erm.SUPPLIER.singular">
+							typename="Supplier">
 						</logo-app>
 						<span class="color-txt-secondary">{{ supplier?.reference }}</span>
 					</div>

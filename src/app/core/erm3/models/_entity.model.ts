@@ -2,10 +2,9 @@ import { Typename } from '../typename.type';
 import { User } from './user.model';
 
 export class Entity<G = any> {
+	id?: string;
 	__typename?: Typename;
 	teamId?: string;
-
-	id?: string;
 	createdAt?: string;
 	createdByUserId?: string;
 	createdBy?: User;

@@ -1,11 +1,11 @@
 <table-app
-	type="supplier"
+	typename="Supplier"
 	[placeholder]="'placeholder.no-supplier' | translate"
 	[rows]="rows"
   [currentSort]="currentSort"
   [pending]="pending"
 	[isSeaching]="isFiltering"
-  [count]="count"
+  [total]="total"
   [currentPage]="currentPage"
 	[selected]="selection"
 	[hasMenu]="hasMenu"
@@ -56,7 +56,7 @@
 					class="pointer"
 					size="s"
 					[logo]="row?.logoImage"
-					[type]="'SUPPLIER' | erm: 'singular'"
+					typename="Supplier"
 					(click)="previewClick.emit(row)">
 				</logo-app>
 			</ng-container>

@@ -1,5 +1,5 @@
 <header-list-app
-	logoName="request"
+	logoTypename="Request"
 	info="Request management"
 	[title]="'title.requests' | translate"
 	[buttonName]="'button.new-request' | translate"
@@ -18,7 +18,7 @@
 	[rows]="listSrv.items$ | async"
 	[pending]="listSrv.pending"
 	[selection]="selectionSrv.selection$ | async"
-	[count]="listSrv.count$ | async"
+	[total]="listSrv.count$ | async"
 	[currentPage]="listSrv.currentPage"
 	[currentSort]="listSrv.currentSort"
 	(goToPage)="listSrv.loadPage($event)"

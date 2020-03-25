@@ -42,6 +42,7 @@ export class ListFuseHelperService<G = any> {
 		byId: string = TeamService.teamSelected.teamId,
 		queryOptions: ApiQueryOption = {}
 	) {
+		byId = byId || TeamService.teamSelected.id;
 		this.typename = typename;
 		queryOptions.fetchPolicy = queryOptions.fetchPolicy || 'cache-first';
 		this.queryRef = this.apiSrv.listBy<G>(typename, byProperty, byId, queryOptions);
@@ -49,11 +50,12 @@ export class ListFuseHelperService<G = any> {
 		// when we update datas it will reasign fuse
 		this.queryRef.data$.subscribe(datas => {
 			this._fuse$.next(new Fuse(datas, this.fuseOptions));
+			this.pending = false;
 		});
 	}
 
-	getFilteredItems$: Observable<G[]> = combineLatest(this._fuse$, this.filterSrv.valueChanges$).pipe(
-		debounce(() => timer(300)),
+	filteredItems$: Observable<G[]> = combineLatest(this._fuse$, this.filterSrv.valueChanges$).pipe(
+		debounce(() => timer(400)),
 		switchMap(([fuse]: any) => {
 			// the value changed should concern the FilterType search
 			const searchValue = this.filterSrv.getFiltersForType(FilterType.SEARCH)[0];
@@ -61,12 +63,11 @@ export class ListFuseHelperService<G = any> {
 			else return this.queryRef.data$;
 		}),
 		tap(searchedDatas => {
-			console.log('total should change:  ', searchedDatas.length);
 			this._total$.next(searchedDatas.length);
 		}),
 	);
 	// result.sort(); // TODO should take sort property from filterSrv, not implemented yet
-	// TODO should trigger getFilteredItems$() when sort is updated
+	// TODO should trigger filteredItems$ when sort is updated
 	// TODO update pagination
 
 	private refetch() {

@@ -1,11 +1,11 @@
 <table-app
-	type="user"
+	typename="User"
 	[rows]="rows"
 	[pending]="pending"
 	[isSeaching]="isFiltering"
 	[hasMenu]="false"
 	[hasSelection]="false"
-	[count]="count"
+	[total]="total"
 	[currentPage]="currentPage"
   [currentSort]="currentSort"
 	[placeholder]="'placeholder.no-team-member' | translate"
@@ -21,7 +21,7 @@
 		[grows]="false"
 		width="24">
 		<div class="user-icon">
-			<logo-app type="contact" size="s"></logo-app>
+			<logo-app typename="Contact" size="s"></logo-app>
 		</div>
 	</ng-template>
 

@@ -21,11 +21,8 @@ import { AutoUnsub } from '~utils';
 	providers: [
 		ListHelperService,
 		ListPageViewService,
-		SelectionService,
-		KanbanService,
-		KanbanSelectionService,
 		FilterService,
-		SelectionService
+		KanbanSelectionService
 	],
 	host: {
 		class: 'table-page'
@@ -69,7 +66,7 @@ export class ProductsPageComponent extends AutoUnsub
 	ngOnInit() {
 		this.listHelper.setup('Product');
 		this.viewSrv.setup({ typename: 'Product', destUrl: 'products', view: 'board' });
-		this.items$ = this.listHelper.getFilteredItems$();
+		this.items$ = this.listHelper.filteredItems$;
 	}
 
 	// toggleMyProducts(show: boolean) {

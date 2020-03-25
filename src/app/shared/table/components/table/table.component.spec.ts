@@ -34,7 +34,7 @@ class Item {
 			[selected]="selection"
 			[contextualMenu]="contextualMenuTemplate"
 			[hasPagination]="hasPagination"
-			[count]="count"
+			[total]="total"
 			placeholder="'No items'"
 			(next)="next.emit()"
 			(previous)="previous.emit()"

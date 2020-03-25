@@ -25,7 +25,7 @@ export type Typename =
 	| 'Project'
 	| 'ProjectProduct'
 	| 'Request'
-	| 'Request element'
+	| 'RequestElement'
 	| 'Sample'
 	| 'SampleStatus'
 	|	'SectionDescriptor'

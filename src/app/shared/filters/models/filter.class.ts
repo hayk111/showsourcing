@@ -5,7 +5,7 @@
 export class Filter {
 	type: FilterType;
 	value: any;
-	equality? = "eq";
+	equality ? = 'eq';
 	entity?: any;
 	constructor() {}
 }
@@ -15,26 +15,24 @@ export class Filter {
  * on filter-list.class.ts
  */
 export enum FilterType {
-	ARCHIVED = "archived",
-	ASSIGNEE = "assignee",
-	CATEGORIES = "categories",
-	CATEGORY = "category",
-	CREATED_BY = "createdBy",
-	CUSTOM = "custom",
-	DELETED = "deleted",
-	DONE = "done",
-	DUE_DATE = "dueDate",
-	EVENT = "event",
-	EVENTS = "events",
-	FAVORITE = "favorite",
-	PRODUCT = "product",
-	PRODUCT_STATUS = "status",
-	PROJECT = "project",
-	PROJECTS = "projects",
-	SAMPLE_STATUS = "status",
-	SUPPLIER = "supplier",
-	SUPPLIERS = "suppliers",
-	SUPPLIER_STATUS = "status",
-	TAG = "tag",
-	TAGS = "tags"
+	ARCHIVED = 'archived',
+	ASSIGNEE = 'assignee',
+	CATEGORIES = 'categories',
+	CATEGORY = 'category',
+	CREATED_BY = 'createdBy',
+	CUSTOM = 'custom',
+	DELETED = 'deleted',
+	DONE = 'done',
+	DUE_DATE = 'dueDate',
+	EVENT = 'event',
+	EVENTS = 'events',
+	FAVORITE = 'favorite',
+	PRODUCT = 'product',
+	PROJECT = 'project',
+	PROJECTS = 'projects',
+	STATUS = 'status',
+	SUPPLIER = 'supplier',
+	SUPPLIERS = 'suppliers',
+	TAG = 'tag',
+	TAGS = 'tags'
 }

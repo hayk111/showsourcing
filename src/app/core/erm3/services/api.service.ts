@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MutationOptions } from 'apollo-client';
-import {
-	WatchQueryOptions
-} from 'aws-appsync/node_modules/apollo-client';
-import { DocumentNode } from 'graphql';
-import { from, Observable } from 'rxjs';
+import { ObservableQuery as ApolloObservableQuery, WatchQueryOptions } from 'aws-appsync/node_modules/apollo-client';
+import { from, Observable, forkJoin } from 'rxjs';
 import { filter, map, tap } from 'rxjs/operators';
 import { ObservableQuery } from './_global/observable-query.interface';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
@@ -174,7 +171,7 @@ export class ApiService {
 	 */
 	create<T extends Entity>(
 		typename: Typename,
-		entity: T,
+		entity: T & Entity,
 		apiOptions: ApiMutationOption = {}
 	): Observable<T> {
 		const options = apiOptions as MutationOptions;
@@ -226,6 +223,23 @@ export class ApiService {
 	}
 
 	/////////////////////////////
+
+	/** Update one entity
+	 * @param typename: name of the entity we want to create
+	 * @param entities : entities we want to create
+	 * @param options: apollo options, variable and query will be overrided
+	 */
+	updateMany<T extends Entity>(
+		typename: Typename,
+		entities: T[],
+		apiOptions: ApiMutationOption = {}
+		): Observable<T[]> {
+		return forkJoin(
+			entities.map(entity => this.update(typename, entity, apiOptions))
+		);
+	}
+
+	/////////////////////////////
 	//          DELETE         //
 	/////////////////////////////
 
@@ -238,6 +252,16 @@ export class ApiService {
 		options.variables = { input: {id: entity.id, _version: entity._version} };
 		options.mutation = QueryPool.getQuery(typename, QueryType.DELETE);
 		return this.mutate(options);
+	}
+
+	deleteMany<T extends Entity>(
+		typename: Typename,
+		entities: T[],
+		apiOptions: ApiMutationOption = {}
+		): Observable<T[]> {
+		return forkJoin(
+			entities.map(entity => this.update(typename, entity, apiOptions))
+		);
 	}
 
 

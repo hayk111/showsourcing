@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Entity } from '~core/erm';
+import { Entity } from '~core/erm3/models/_entity.model';
 
 export type SelectionMap = Map<string, Entity>;
 
@@ -42,18 +42,13 @@ export class SelectionService {
 		this.emit();
 	}
 
-	getSelectionValues(): any[] {
+	getSelectedValues(): Entity[] {
 		return Array.from(this.selection.values());
 	}
-	getSelectedValues() { // TODO combine with getSelectionValues
-		return this.getSelectionValues();
-	}
 
-	getSelectionIds(): string[] {
+
+	getSelectedIds(): string[] {
 		return Array.from(this.selection.keys());
-	}
-	getSelectedIds() { // TODO combine with getSelectionIds
-		return this.getSelectionIds();
 	}
 
 	private emit() {

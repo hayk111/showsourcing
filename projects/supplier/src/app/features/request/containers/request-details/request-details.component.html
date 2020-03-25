@@ -31,7 +31,7 @@
 				[creationDate]="(request$ | async)?.creationDate"
 				[pending]="listSrv.pending"
 				[selection]="selectionSrv.selection$ | async"
-				[count]="listSrv.count$ | async"
+				[total]="listSrv.count$ | async"
 				[currentPage]="listSrv.currentPage"
 				(goToPage)="listSrv.loadPage($event)"
 				(open)="open($event)"

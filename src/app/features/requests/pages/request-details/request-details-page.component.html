@@ -32,7 +32,7 @@
 					[rows]="listSrv.items$ | async"
 					[pending]="listSrv.pending"
 					[selection]="selectionSrv.selection$ | async"
-					[count]="listSrv.count$ | async"
+					[total]="listSrv.count$ | async"
 					[currentPage]="listSrv.currentPage"
 					(goToPage)="listSrv.loadPage($event)"
 					(openReviewRequestReply)="openReviewRequestReply($event)"

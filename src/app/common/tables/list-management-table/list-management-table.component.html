@@ -1,11 +1,11 @@
 <table-app
-	[type]="entityMetadata.singular"
+	typename="Category"
 	[rows]="rows"
 	[pending]="pending"
 	[isSeaching]="isFiltering"
 	[selected]="selection"
 	[hasMenu]="false"
-	[count]="count"
+	[total]="total"
 	[currentPage]="currentPage"
 	[placeholder]="'placeholder.no-data' | translate"
 	(goToPage)="goToPage.emit($event)"
@@ -26,7 +26,7 @@
 		[grows]="false">
 		<div class="user-icon flexCenter">
 			<logo-app
-				type="category"
+				typename="Category"
 				size="s"
 				color="txt-third"
 				backgroundColor="bg-secondary"></logo-app>
@@ -79,7 +79,7 @@
 		width="140">
 		<span class="flexVAlign created-by-container">
 			<span class="created-by">
-				{{ row?.createdBy | formatUserName: true }}
+				{{ row?.createdBy?.name | formatUserName: true }}
 			</span>
 		</span>
 	</ng-template>

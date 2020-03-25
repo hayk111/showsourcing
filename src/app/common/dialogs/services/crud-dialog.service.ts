@@ -6,6 +6,8 @@ import { ERMService } from '~core/erm';
 import { EntityMetadata, RPCActionTypes, RPCRequestStatus } from '~core/erm';
 import { RpcService } from '~core/erm';
 
+
+/** @deprecated */
 @Injectable({
 	providedIn: 'root'
 })

@@ -1,0 +1,57 @@
+
+<controller-table-app [total]="listHelper.total$ | async">
+	<!-- filters -->
+	<controller-table-quick-filters-app></controller-table-quick-filters-app>
+	<!-- actions -->
+	<controller-table-quick-actions-app
+		[columns]="columns"
+		[tableConfig]="tableConfig">
+	</controller-table-quick-actions-app>
+	<!-- switcher -->
+	<controller-table-view-switcher-app
+	 [hasBoard]="false"
+	 [hasCard]="false"></controller-table-view-switcher-app>
+</controller-table-app>
+
+<products-table-app
+	[rows]="items$ | async"
+	[pending]="listHelper.pending"
+	[selection]="selectionSrv.selection$ | async"
+	[total]="listHelper.total$ | async"
+	(open)="viewSrv.goToDetails($event)"
+	(previewClick)="viewSrv.openPreview($event)"
+	(select)="selectionSrv.selectOne($event)"
+	(selectAll)="selectionSrv.selectAll($event)"
+	(unselect)="selectionSrv.unselectOne($event)"
+	(showItemsPerPage)="listHelper.setItemsPerPage($event)">
+</products-table-app>
+
+<product-selection-bar-app
+	[isShown]="(selectionSrv.selection$ | async).size"
+	[selection]="selectionSrv.selection$ | async"
+	[selectableItems]="items$ | async"
+	(addProject)="dialogCommonSrv.openAddToProjectDialog(selectionSrv.getSelectedValues())"
+	(export)="dialogCommonSrv.openExportDialog('Product', selectionSrv.getSelectedValues())"
+	(createRequest)="dialogCommonSrv.openSupplierRequest(selectionSrv.getSelectedValues())"
+	(requestTeamFeedback)="dialogCommonSrv.openRequestFeedbackDialog(selectionSrv.getSelectedValues())"
+	(compareProducts)="dialogCommonSrv.openCompareProductDialog(selectionSrv.getSelectedValues())"
+	(massEdit)="dialogCommonSrv.openMassEditDialog(selectionSrv.getSelectedValues())"
+	(deleted)="listHelper.deleteSelected()"
+	(selectAll)="selectionSrv.selectAll()"
+	(unselectAll)="selectionSrv.unselectAll()">
+</product-selection-bar-app>
+
+	<!-- <product-preview-app
+		*ngIf="viewSrv.previewOpen"
+		[product]="viewSrv.previewed"
+		(close)="viewSrv.closePreview()">
+	</product-preview-app> -->
+<!-- </ng-container>  -->
+
+<side-panel-app *ngIf="viewSrv.filterPanelOpen">
+	<filters-app
+		[filterTypes]="filterTypes"
+		(clickOutside)="viewSrv.closeFilterPanel()"
+		(close)="viewSrv.closeFilterPanel()">
+	</filters-app>
+</side-panel-app>

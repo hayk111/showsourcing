@@ -1,17 +1,13 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import {
-	CompanyService,
-	ERM,
-	Event,
-	EventService,
-	SelectParamsConfig,
-	TeamService
-} from '~core/erm';
 import { ListPageService, SelectionService } from '~core/list-page';
-import { ListPageViewService } from '~core/list-page/list-page-view.service';
 import { AutoUnsub } from '~utils';
 import { FilterService } from '~shared/filters/services/filter.service';
+import { ListHelperService, ListPageViewService } from '~core/list-page2';
+import { Event } from '~core/erm3/models';
+import { Observable } from 'rxjs';
+import { TeamService, CompanyService } from '~core/auth';
+import { Typename } from '~core/erm3/typename.type';
 
 @Component({
 	selector: 'event-data-page-app',
@@ -27,50 +23,34 @@ import { FilterService } from '~shared/filters/services/filter.service';
 	}
 })
 export class EventDataPageComponent extends AutoUnsub implements OnInit {
-	erm = ERM.EVENT;
+	typename: Typename = 'Event';
 
-	addButtonWidth = '111px';
-	addButtonHeight = '32px';
-
-	selectItemsConfig: SelectParamsConfig;
+	items$: Observable<Event[]>;
 
 	constructor(
-		private eventSrv: EventService,
-		public listSrv: ListPageService<Event, EventService>,
+		// public listSrv: ListPageService<Event, EventService>,
 		public teamSrv: TeamService,
 		public companySrv: CompanyService,
 		public dialogCommonSrv: DialogCommonService,
 		public selectionSrv: SelectionService,
 		public viewSrv: ListPageViewService<Event>,
-		public filterSrv: FilterService
+		public filterSrv: FilterService,
+		public listFuseHelper: ListHelperService
 	) {
 		super();
 	}
 
 	ngOnInit() {
-		this.listSrv.setup({
-			entitySrv: this.eventSrv,
-			searchedFields: ['description.name'],
-			selectParams: {
-				sortBy: 'description.name',
-				descending: false,
-				query: 'deleted == false'
-			},
-			entityMetadata: ERM.EVENT,
-			originComponentDestroy$: this._destroy$
-		});
 	}
 
 	mergeSelected() {
 		const events = this.selectionSrv.getSelectedValues();
 		this.dialogCommonSrv.openMergeDialog({
-			type: this.viewSrv.entityMetadata,
+			type: this.viewSrv.typename,
 			entities: events
 		});
 	}
 
 	showItemsPerPage(count: number) {
-		this.selectItemsConfig = { take: Number(count) };
-		this.listSrv.refetch(this.selectItemsConfig).subscribe();
 	}
 }

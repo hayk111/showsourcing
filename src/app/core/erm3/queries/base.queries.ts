@@ -19,7 +19,6 @@ export class BaseQueries {
 			QueryType.DELETE
 		]
 	) {
-
 		queries.forEach((queryType) => {
 			this[queryType] = this.qb[queryType](this.defaultFields);
 		});

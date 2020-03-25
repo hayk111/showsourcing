@@ -1,0 +1,50 @@
+<card-app class="action-hover-container-1">
+	<card-title-app size="l" translate="title.products"></card-title-app>
+
+	<card-action-app *ngIf="products?.length" class="action-hover-item-1" (click)="addProducts.emit()"><div translate="button.add-products"></div></card-action-app>
+
+	<ng-container *ngIf="products?.length; else empty">
+		<div class="flex">
+			<div *ngFor="let product of products; index as i; trackBy: trackById">
+				<product-grid-card-app
+					*ngIf="i < 4"
+					[class.mg-right-ms]="i%4 !== 3"
+					[product]="product"
+					[hasCheckbox]="false"
+					(open)="openProduct(product)"
+					(preview)="openPreview(product)"
+					(update)="update($event)">
+				</product-grid-card-app>
+			</div>
+		</div>
+	</ng-container>
+
+	<card-footer-app *ngIf="products?.length" align="center">
+		<button
+			class="primary-light full-width flexCenter"
+			(click)="viewAll.emit()"
+			translate="button.view-all-products">
+		</button>
+	</card-footer-app>
+
+</card-app>
+
+<ng-template #empty>
+	<div class="flexColumn flexCenter full-width pd-bottom-l">
+		<logo-app
+			class="mg-bottom-ms"
+			[circle]="true"
+			size="xxl"
+			typename="Product">
+		</logo-app>
+		<div class="color-txt-primary bold-s mg-bottom-xs">No products linked</div>
+		<div class="color-txt-secondary mg-bottom-ms">Link a new one!</div>
+		<button (click)="addProducts.emit()">add products</button>
+	</div>
+</ng-template>
+
+<product-preview-app
+	*ngIf="previewOpen"
+	[product]="previewProduct"
+	(close)="closePreview()">
+</product-preview-app>

@@ -31,6 +31,7 @@ import {
 	ReviewRequestReplyDlgComponent,
 } from '../custom-dialogs/review-request-reply-dlg/review-request-reply-dlg.component';
 import { SupplierRequestDialogComponent } from '../custom-dialogs/supplier-request-dialog/supplier-request-dialog.component';
+import { Typename } from '~core/erm3/typename.type';
 
 /**
  * Service used to open dialogs, the goal of this service is to bring easy typing
@@ -48,8 +49,8 @@ export class DialogCommonService {
 	 * @param shouldRedirect whether we redirect after creation to entityMetadata.createUrl
 	 * if its truem otherwise it will stay on the same page
 	 */
-	openCreateDlg(entityMetadata: EntityMetadata, shouldRedirect: boolean = false) {
-		return this.dlgSrv.open(CreationDialogComponent, { shouldRedirect, type: entityMetadata });
+	openCreateDlg(typename: Typename, shouldRedirect: boolean = false) {
+		return this.dlgSrv.open(CreationDialogComponent, { shouldRedirect, typename });
 	}
 
 	/** opens the edit dialog, to change the name of an entity, if the enitty does not have a name attribute check Event model for example*/
@@ -63,8 +64,9 @@ export class DialogCommonService {
 	}
 
 	/** Opens a dialog that lets the user export a product either in PDF or EXCEL format */
-	openExportDialog(type: EntityName, targets?: ExportEntity[], query?: string) {
-		return this.dlgSrv.open(ExportDlgComponent, { type, targets, query });
+	// TODO type this function when migrating it
+	openExportDialog(typename: any, targets?: any[], query?: string) {
+		return this.dlgSrv.open(ExportDlgComponent, { typename, targets, query });
 	}
 
 	/** Opens a dialog that lets the user request members of his team for feedback regarding the products he selectioned */
@@ -124,8 +126,8 @@ export class DialogCommonService {
 		);
 	}
 
-	openCreationSupplierDlg(products: Product[]) {
-		return this.dlgSrv.open(SupplierRequestDialogComponent, { products });
+	openCreationDlg(typename: Typename) {
+		return this.dlgSrv.open(CreationDialogComponent, { typename });
 	}
 
 	openSupplierRequest(products: Product[], supplier?: Supplier) {

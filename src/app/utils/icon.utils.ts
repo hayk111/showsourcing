@@ -1,48 +1,49 @@
 import { EntityName } from '~core/erm/entity-name.enum';
 import { Color } from '~utils/colors.enum';
+import { Typename } from '~core/erm3/typename.type';
 
 export type Size = 'xs' | 's' | 'ms' | 'm' | 'l' | 'xl' | 'xxl';
 
 export class IconUtils {
 
-	static iconsMap = {
-		[EntityName.ACTIVITY]: 'activity',
-		[EntityName.ATTACHMENT]: 'file',
-		[EntityName.EXPORT]: 'invoice',
-		[EntityName.CATEGORY]: 'category',
-		[EntityName.COMMENT]: 'comments',
-		[EntityName.CONTACT]: 'contact',
-		[EntityName.EVENT]: 'event',
-		[EntityName.LOCATION]: 'location',
-		[EntityName.PROJECT]: 'project',
-		[EntityName.REQUEST]: 'envelope',
-		[EntityName.REQUEST_ELEMENT]: 'envelope',
-		[EntityName.SAMPLE]: 'sample',
-		[EntityName.SUPPLIER]: 'supplier',
-		[EntityName.TAG]: 'tag',
-		[EntityName.TASK]: 'check-circle',
-		[EntityName.IMAGE]: 'camera',
-		[EntityName.PRODUCT]: 'product',
+	static iconsMap: Partial<Record<Typename, string>> = {
+		Activity: 'activity',
+		Attachment: 'file',
+		Export: 'invoice',
+		Category: 'category',
+		Comment: 'comments',
+		Contact: 'contact',
+		Event: 'event',
+		Location: 'location',
+		Project: 'project',
+		Request: 'envelope',
+		RequestElement: 'envelope',
+		Sample: 'sample',
+		Supplier: 'supplier',
+		Tag: 'tag',
+		Task: 'check-circle',
+		Image: 'camera',
+		Product: 'product',
 	};
 
-	static iconsColorMap = {
-		[EntityName.ACTIVITY]: Color.PRIMARY,
-		[EntityName.ATTACHMENT]: Color.SECONDARY,
-		[EntityName.CATEGORY]: Color.ACCENT,
-		[EntityName.COMMENT]: Color.PRIMARY,
-		[EntityName.CONTACT]: Color.SECONDARY_BG,
-		[EntityName.EVENT]: Color.SECONDARY,
-		[EntityName.EXPORT]: Color.SECONDARY_BG,
-		[EntityName.IMAGE]: Color.SECONDARY,
-		[EntityName.LOCATION]: Color.SECONDARY,
-		[EntityName.PRODUCT]: Color.PRIMARY,
-		[EntityName.PROJECT]: Color.SECONDARY,
-		[EntityName.REQUEST]: Color.SECONDARY,
-		[EntityName.REQUEST_ELEMENT]: Color.SECONDARY,
-		[EntityName.SAMPLE]: Color.ACCENT,
-		[EntityName.SUPPLIER]: Color.VIBRANT,
-		[EntityName.TAG]: Color.ACCENT,
-		[EntityName.TASK]: Color.SUCCESS,
+	static iconsColorMap: Partial<Record<Typename, Color>> = {
+		Activity: Color.PRIMARY,
+		Attachment: Color.SECONDARY,
+		Category: Color.ACCENT,
+		Comment: Color.PRIMARY,
+		Contact: Color.SECONDARY_BG,
+		Event: Color.SECONDARY,
+		Export: Color.SECONDARY_BG,
+		Image: Color.SECONDARY,
+		Location: Color.SECONDARY,
+		Product: Color.PRIMARY,
+		Project: Color.SECONDARY,
+		Request: Color.SECONDARY,
+		RequestElement: Color.SECONDARY,
+		Sample: Color.ACCENT,
+		Supplier: Color.VIBRANT,
+		Tag: Color.ACCENT,
+		Task: Color.SUCCESS,
 	};
 
 	// @all, please don't add anymore sizes to this map. If your size isn't in this map it's probably something specific.

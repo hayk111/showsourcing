@@ -1,17 +1,13 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import {
-	CompanyService,
-	ERM,
-	SelectParamsConfig,
-	Tag,
-	TagService,
-	TeamService
-} from '~core/erm';
 import { ListPageService, SelectionService } from '~core/list-page';
-import { ListPageViewService } from '~core/list-page/list-page-view.service';
 import { AutoUnsub } from '~utils';
+import { ListHelperService, ListPageViewService } from '~core/list-page2';
+import { Observable } from 'rxjs';
+import { Tag } from '~core/erm3/models';
+import { TeamService, CompanyService } from '~core/auth';
 import { FilterService } from '~shared/filters/services/filter.service';
+import { Typename } from '~core/erm3/typename.type';
 
 @Component({
 	selector: 'tag-data-page-app',
@@ -27,50 +23,36 @@ import { FilterService } from '~shared/filters/services/filter.service';
 	}
 })
 export class TagDataPageComponent extends AutoUnsub implements OnInit {
-	erm = ERM.TAG;
+	typename: Typename = 'Tag';
 
-	addButtonWidth = '111px';
-	addButtonHeight = '32px';
-
-	selectItemsConfig: SelectParamsConfig;
+	items$: Observable<Tag[]>;
 
 	constructor(
-		private tagSrv: TagService,
-		public listSrv: ListPageService<Tag, TagService>,
 		public teamSrv: TeamService,
 		public companySrv: CompanyService,
 		public dialogCommonSrv: DialogCommonService,
 		public selectionSrv: SelectionService,
 		public viewSrv: ListPageViewService<Tag>,
-		public filterSrv: FilterService
+		public filterSrv: FilterService,
+		public listFuseHelper: ListHelperService
 	) {
 		super();
 	}
 
 	ngOnInit() {
-		this.listSrv.setup({
-			entitySrv: this.tagSrv,
-			searchedFields: ['name'],
-			selectParams: {
-				sortBy: 'name',
-				descending: false,
-				query: 'deleted == false'
-			},
-			entityMetadata: this.erm,
-			originComponentDestroy$: this._destroy$
-		});
+
+		this.listFuseHelper.setup('Product');
+		this.items$ = this.listFuseHelper.filteredItems$;
 	}
 
 	mergeSelected() {
 		const tags = this.selectionSrv.getSelectedValues();
 		this.dialogCommonSrv.openMergeDialog({
-			type: this.viewSrv.entityMetadata,
+			type: this.viewSrv.typename,
 			entities: tags
 		});
 	}
 
 	showItemsPerPage(count: number) {
-		this.selectItemsConfig = { take: Number(count) };
-		this.listSrv.refetch(this.selectItemsConfig).subscribe();
 	}
 }

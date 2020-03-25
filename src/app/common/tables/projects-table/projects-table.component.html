@@ -1,7 +1,7 @@
 <table-app
 	[class.no-min-height]="!hasMinHeight"
 	[rows]="rows"
-	[type]="'PROJECT' | erm: 'singular'"
+	typename="Project"
 	[pending]="pending"
 	[isSeaching]="isFiltering"
 	[selected]="selection"
@@ -11,7 +11,7 @@
 	[hasBorder]="hasBorder"
 	[contextualMenu]="contextualMenuTemplate"
 	[currentSort]="currentSort"
-	[count]="count"
+	[total]="total"
 	[currentPage]="currentPage"
 	[placeholder]="'placeholder.no-project' | translate"
 	(goToPage)="goToPage.emit($event)"
