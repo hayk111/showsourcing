@@ -1,18 +1,21 @@
 import { Injectable } from '@angular/core';
-import { forkJoin, Observable, BehaviorSubject, combineLatest } from 'rxjs';
-import { map, shareReplay, switchMap, tap } from 'rxjs/operators';
+import { WatchQueryOptions } from 'apollo-client';
+import { BehaviorSubject, combineLatest, forkJoin, Observable } from 'rxjs';
+import { filter, map, shareReplay, switchMap, tap } from 'rxjs/operators';
+import { CreationDialogComponent } from '~common/dialogs/creation-dialogs';
 import { ApiService, ObservableQuery } from '~core/erm3/services/api.service';
 import { Typename } from '~core/erm3/typename.type';
 import { FilterService } from '~core/filters/filter.service';
+import { CloseEventType, DialogService } from '~shared/dialog';
 import { SelectionService } from './selection.service';
-import { WatchQueryOptions } from 'apollo-client';
 
 @Injectable({ providedIn: 'root' })
 export class ListHelperService<G = any> {
-
+	/** saving the queryRef for future referencing (refetch, add to cache) */
 	private queryRef: ObservableQuery<G[]>;
 	private typename: Typename;
 	pending = true;
+	/** total number of items */
 	total$: Observable<number>;
 	/** number of items taken at once */
 	private limit$ = new BehaviorSubject(25);
@@ -21,8 +24,8 @@ export class ListHelperService<G = any> {
 		this.limit$
 	).pipe(
 		// gets the query
-		map(([{ queryArg: filter }, limit]) => this.apiSrv.search<G>(
-			this.typename, { filter, limit })
+		map(([{ queryArg }, limit]) => this.apiSrv.search<G>(
+			this.typename, { filter: queryArg, limit })
 		),
 		// save it
 		tap(query => this.queryRef = query),
@@ -37,7 +40,8 @@ export class ListHelperService<G = any> {
 	constructor(
 		private selectionSrv: SelectionService,
 		private apiSrv: ApiService,
-		private filterSrv: FilterService
+		private filterSrv: FilterService,
+		private dlgSrv: DialogService
 	) {}
 
 	setup(typename: Typename) {
@@ -50,10 +54,13 @@ export class ListHelperService<G = any> {
 		.then(_ => this.pending = false);
 	}
 
-	create(entity: any) {
-		this.apiSrv.create(this.typename, entity).pipe(
-			switchMap(_ => this.refetch())
-		).subscribe();
+	create() {
+		this.dlgSrv.open(CreationDialogComponent ,this.typename).pipe(
+			filter(closeEvent => closeEvent.type === CloseEventType.OK),
+			map(closeEvent => closeEvent.data),
+			switchMap(entity => this.apiSrv.create(this.typename, entity)),
+			tap(created => this.apiSrv.addToList(this.queryRef, created))
+		);
 	}
 
 	update(entity: any) {

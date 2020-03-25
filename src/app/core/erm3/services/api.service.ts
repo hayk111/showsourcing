@@ -283,6 +283,7 @@ export class ApiService {
 			elem,
 			...items.filter(item => item.id !== elem.id)
 		];
+		debugger;
 		client.writeQuery({ ...query.options, data: r });
 	}
 

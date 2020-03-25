@@ -1,13 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { debounceTime, switchMap, take, takeUntil, tap } from 'rxjs/operators';
-import { ERM, ERMService, ListQuery } from '~core/erm';
-import { Filter, FilterType, FilterService } from '~core/filters';
-import { AutoUnsub } from '~utils';
-import { ListHelperService } from '~core/list-page2';
-import { ListFuseHelperService } from '~core/list-page2/list-fuse-helper.service';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { ListQuery } from '~core/erm';
 import { Typename } from '~core/erm3/typename.type';
+import { Filter, FilterService, FilterType } from '~core/filters';
+import { ListHelperService } from '~core/list-page2';
 import { isLocalList } from '~core/list-page2/is-local-list.function';
+import { ListFuseHelperService } from '~core/list-page2/list-fuse-helper.service';
+import { AutoUnsub } from '~utils';
 
 
 export function filterTypeToTypename(type: FilterType): Typename {
