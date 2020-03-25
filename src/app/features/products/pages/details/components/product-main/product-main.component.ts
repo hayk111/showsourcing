@@ -14,19 +14,19 @@ export class ProductMainComponent {
 		if (!this.product)
 			return;
 
-		switch (type) {
-			case 'tasks':
-				return this.product.tasksLinked.count;
-			case 'files':
-				return this.product.attachments.length;
-			case 'samples':
-				return this.product.samplesLinked.count;
-			case 'requests':
-				return 0; // TODO find a solution for this
-			case 'comments':
-				return this.product.comments.length;
-			default:
-				return 'INVALID';
-		}
+		// switch (type) {
+		// 	case 'tasks':
+		// 		return this.product.tasksLinked.count;
+		// 	case 'files':
+		// 		return this.product.attachments.length;
+		// 	case 'samples':
+		// 		return this.product.samplesLinked.count;
+		// 	case 'requests':
+		// 		return 0; // TODO find a solution for this
+		// 	case 'comments':
+		// 		return this.product.comments.length;
+		// 	default:
+		// 		return 'INVALID';
+		// }
 	}
 }

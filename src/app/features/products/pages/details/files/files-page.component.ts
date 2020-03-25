@@ -39,7 +39,7 @@ export class FilesPageComponent extends AutoUnsub implements OnInit {
 		protected dlgSrv: DialogService,
 		private uploadFeedback: UploaderFeedbackService,
 		public dialogCommonSrv: DialogCommonService,
-		public listHelper: ListFuseHelperServiceq,
+		public listHelper: ListFuseHelperService,
 		public apiSrv: ApiService,
 		public selectionSrv: SelectionService,
 		public translate: TranslateService

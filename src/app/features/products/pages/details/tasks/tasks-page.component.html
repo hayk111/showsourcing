@@ -1,7 +1,7 @@
 <h2 class="l flexStart">Tasks</h2>
 
 <!-- list -->
-<ng-container *ngIf="(listSrv.items$ | async) as tasks; else spinner">
+<ng-container *ngIf="(listHelper.filteredItems$ | async) as tasks; else spinner">
 	<ng-container *ngIf="tasks?.length; else placeholder">
 		<!-- list -->
 		<task-list-item-app
@@ -10,7 +10,6 @@
 			[task]="task"
 			[selection]="selectionSrv.selection$ | async"
 			(nameClick)="viewSrv.openPreview($event)"
-			(iconClick)="toggleUpdateDone($event)"
 			(select)="selectionSrv.selectOne($event, true)"
 			(unselect)="selectionSrv.unselectOne($event, true)">
 		</task-list-item-app>
