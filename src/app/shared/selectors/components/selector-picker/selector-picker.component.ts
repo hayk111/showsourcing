@@ -219,31 +219,31 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	// ARRAYS START AT 1 NOT 0!!!! now that I have your attention ADVICE: when adding a new choice, check the update single method
 	private getChoices(type: EntityMetadata): Observable<any[]> {
 		switch (type) {
-			case ERM.CATEGORY: return this.selectorSrv.getCategories();
+			case ERM.CATEGORY: return this.selectorSrv.getChoices('Category');
 			case ERM.EMAIL:
-			case ERM.CONTACT: return this.selectorSrv.getContacts();
-			case ERM.COUNTRY: return this.selectorSrv.getCountriesGlobal();
-			case ERM.CURRENCY: return this.selectorSrv.getCurrenciesGlobal();
-			case ERM.EVENT: return this.selectorSrv.getEvents();
-			case ERM.HARBOUR: return this.selectorSrv.getHarboursGlobal();
-			case ERM.INCO_TERM: return this.selectorSrv.getIncoTermsGlobal();
-			case ERM.LENGTH_UNIT: return this.selectorSrv.getLengthUnits();
-			case ERM.PICKER_FIELD: return this.selectorSrv.getDynamicFields(this.dynamicFields);
-			case ERM.PRODUCT: return this.selectorSrv.getProducts();
-			case ERM.PROJECT: return this.selectorSrv.getProjects();
-			case ERM.REQUEST_TEMPLATE: return this.selectorSrv.getRequestTemplates();
-			case ERM.SELECTOR_ELEMENT:
-				if (!this.definitionReference)
-					throw Error('The selector `SelectorElement` needs a definitionReference to target');
-				return this.selectorSrv.getSelectorElements(this.definitionReference);
-			case ERM.SUPPLIER: return this.selectorSrv.getSuppliers();
-			case ERM.SUPPLIER_TYPE: return this.selectorSrv.getSupplierTypes();
-			case ERM.TAG: return this.selectorSrv.getTags();
-			case ERM.USER: return this.selectorSrv.getUsers();
-			case ERM.TEAM_USER: return this.selectorSrv.getTeamUsers().pipe(
+			case ERM.CONTACT: return this.selectorSrv.getChoices('Contact');
+			case ERM.COUNTRY: return this.selectorSrv.getChoices('Country', 'Team', 'fullName');
+			case ERM.CURRENCY: return this.selectorSrv.getChoices('Currency', 'Team', '');
+			case ERM.EVENT: return this.selectorSrv.getChoices('Event', 'Team', 'description.name');
+			case ERM.HARBOUR: return this.selectorSrv.getChoices('Harbour');
+			case ERM.INCO_TERM: return this.selectorSrv.getChoices('IncoTerm');
+			case ERM.LENGTH_UNIT: return this.selectorSrv.getChoices('Length');
+			// case ERM.PICKER_FIELD: return this.selectorSrv.getDynamicFields(this.dynamicFields);
+			case ERM.PRODUCT: return this.selectorSrv.getChoices('Product');
+			case ERM.PROJECT: return this.selectorSrv.getChoices('Project', 'Owner');
+			case ERM.REQUEST_TEMPLATE: return this.selectorSrv.getChoices('Request');
+			// case ERM.SELECTOR_ELEMENT:
+			// 	if (!this.definitionReference)
+			// 		throw Error('The selector `SelectorElement` needs a definitionReference to target');
+			// 	return this.selectorSrv.getSelectorElements(this.definitionReference);
+			case ERM.SUPPLIER: return this.selectorSrv.getChoices('Supplier');
+			case ERM.SUPPLIER_TYPE: return this.selectorSrv.getChoices('SupplierType');
+			case ERM.TAG: return this.selectorSrv.getChoices('Tag');
+			case ERM.USER: return this.selectorSrv.getChoices('User', 'Team', 'lastName');
+			case ERM.TEAM_USER: return this.selectorSrv.getChoices('TeamUser', 'Team', 'user.lastName').pipe(
 				map(teamUsers => teamUsers.map(tu => tu.user))
 			);
-			case ERM.WEIGHT_UNIT: return this.selectorSrv.getWeigthUnits();
+			case ERM.WEIGHT_UNIT: return this.selectorSrv.getChoices('Weight');
 
 			default: throw Error(`Unsupported type${this.type} for selector`);
 		}
@@ -414,36 +414,36 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			switch (this.type) {
 				case ERM.CATEGORY:
 					added = new Category({ name });
-					createObs$ = this.selectorSrv.createCategory(added);
+					createObs$ = this.selectorSrv.create('Category', added);
 					break;
 				case ERM.EVENT:
 					added = new Event({ name });
-					createObs$ = this.selectorSrv.createEvent(added);
+					createObs$ = this.selectorSrv.create('Event', added);
 					break;
 				case ERM.PRODUCT:
 					added = new Product({ name });
-					createObs$ = this.selectorSrv.createProduct(added);
+					createObs$ = this.selectorSrv.create('Product', added);
 					break;
 				case ERM.PROJECT:
 					added = new Project({ name });
-					createObs$ = this.selectorSrv.createProject(added);
+					createObs$ = this.selectorSrv.create('Project', added);
 					break;
 				case ERM.SUPPLIER:
 					added = new Supplier({ name });
-					createObs$ = this.selectorSrv.createSupplier(added);
+					createObs$ = this.selectorSrv.create('Supplier', added);
 					break;
 				case ERM.SUPPLIER_TYPE:
 					added = new SupplierType({ name });
-					createObs$ = this.selectorSrv.createSupplierType(added);
+					createObs$ = this.selectorSrv.create('SupplierType', added);
 					break;
 				case ERM.TAG:
 					added = new Tag({ name });
-					createObs$ = this.selectorSrv.createTag(added);
+					createObs$ = this.selectorSrv.create('Tag', added);
 					break;
 				case ERM.CONTACT:
 					if (RegExp(RegexpApp.EMAIL).test(name)) {
 						added = new Contact({ email: name });
-						createObs$ = this.selectorSrv.createContact(added);
+						createObs$ = this.selectorSrv.create('Contact', added);
 					}
 					break;
 				case ERM.EMAIL:
