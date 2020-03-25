@@ -47,7 +47,7 @@
 <sample-selection-bar-app
 	[isShown]="(selectionSrv.selection$ | async).size > 0"
 	[selection]="selectionSrv.selection$ | async"
-	[selectableItems]="listHelper.items$ | async"
+	[selectableItems]="listHelper.filteredItems$ | async"
 	(close)="selectionSrv.unselectAll()"
 	(deleteSelected)="listHelper.deleteSelected()"
 	(selectAll)="selectionSrv.selectAll($event)"

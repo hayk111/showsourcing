@@ -9,7 +9,7 @@
 
 <contacts-table-app
 	[hasMenu]="false"
-	[rows]="listHelper.getFilteredItems$ | async"
+	[rows]="listHelper.filteredItems$ | async"
 	[selection]="selectionSrv.selection$ | async"
 	[total]="listHelper.total$ | async"
 	(goToPage)="listHelper.loadPage($event)"
