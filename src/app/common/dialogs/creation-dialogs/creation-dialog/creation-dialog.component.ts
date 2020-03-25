@@ -41,7 +41,7 @@ export class CreationDialogComponent implements AfterViewInit {
 		this.pending = true;
 		this.dialogSrv.close({
 			type: CloseEventType.OK,
-			data: { name }
+			data: { name, ...this.extra }
 		});
 	}
 

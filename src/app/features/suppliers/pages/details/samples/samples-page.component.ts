@@ -35,6 +35,6 @@ export class SamplesPageComponent implements OnInit {
 		const supplierId = this.route.parent.snapshot.params.id;
 		this.supplier = { id: supplierId };
 		this.filterSrv.setup([{ type: FilterType.SUPPLIER, value: supplierId }]);
-		this.listHelper.setup('Supplier');
+		this.listHelper.setup('Sample');
 	}
 }

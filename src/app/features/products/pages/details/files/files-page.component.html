@@ -2,7 +2,7 @@
 
 <h2 class="l flexStart">Files</h2>
 
-<ng-container *ngIf="(listHelper.items$ | async) as files; else spinner">
+<ng-container *ngIf="(listHelper.filteredItems$ | async) as files; else spinner">
 	<ng-container *ngIf="files?.length; else placeholder">
 		<!-- list -->
 		<attachment-list-item-app

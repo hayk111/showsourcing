@@ -4,7 +4,7 @@
 	logoTypename="Product"
 	info="The product database"
 	[buttonName]="'button.create-product' | translate"
-	(buttonClick)="dialogCommonSrv.openCreateDlg('Product')">
+	(buttonClick)="listHelper.create('Product')">
 </header-list-app>
 
 <controller-table-app [total]="listHelper.total$ | async">
@@ -25,6 +25,8 @@
 	[selection]="selectionSrv.selection$ | async"
 	[total]="listHelper.total$ | async"
 	(open)="viewSrv.goToDetails($event)"
+	(createClick)="listHelper.create()"
+	(update)="listHelper.update($event)"
 	(previewClick)="viewSrv.openPreview($event)"
 	(select)="selectionSrv.selectOne($event)"
 	(selectAll)="selectionSrv.selectAll($event)"

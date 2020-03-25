@@ -54,13 +54,15 @@ export class ListHelperService<G = any> {
 		.then(_ => this.pending = false);
 	}
 
-	create() {
-		this.dlgSrv.open(CreationDialogComponent ,this.typename).pipe(
+	create(addedProperties: any) {
+		this.dlgSrv.open(CreationDialogComponent , {
+			typename: this.typename,
+			extra: addedProperties
+		}).pipe(
 			filter(closeEvent => closeEvent.type === CloseEventType.OK),
 			map(closeEvent => closeEvent.data),
 			switchMap(entity => this.apiSrv.create(this.typename, entity)),
-			tap(created => this.apiSrv.addToList(this.queryRef, created))
-		);
+		).subscribe(created => this.apiSrv.addToList(this.queryRef, created));
 	}
 
 	update(entity: any) {
