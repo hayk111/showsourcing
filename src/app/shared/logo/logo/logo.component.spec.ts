@@ -4,19 +4,20 @@ import { IconsModule } from "~shared/icons/icons.module";
 import { Color, IconUtils, Size } from "~utils";
 
 import { LogoComponent } from "./logo.component";
+import { Typename } from "~core/erm3/typename.type";
 
 const colors = Object.values(Color);
-const types = [
-	EntityName.CATEGORY,
-	EntityName.COMMENT,
-	EntityName.CONTACT,
-	EntityName.EVENT,
-	EntityName.PRODUCT,
-	EntityName.PROJECT,
-	EntityName.SAMPLE,
-	EntityName.TAG,
-	EntityName.TASK,
-	EntityName.SUPPLIER
+const types: Typename[] = [
+	'Category',
+	'Comment',
+	'Contact',
+	'Event',
+	'Product',
+	'Project',
+	'Sample',
+	'Tag',
+	'Task',
+	'Supplier'
 ];
 
 xdescribe("Logo component", () => {
@@ -30,7 +31,7 @@ xdescribe("Logo component", () => {
 		component = fixture.componentInstance;
 		el = fixture.nativeElement;
 
-		component.type = EntityName.PRODUCT;
+		component.typename = 'Product';
 		component.size = "m";
 	});
 
@@ -53,7 +54,7 @@ xdescribe("Logo component", () => {
 
 	it("should display the color depending on the entity if no [color] specified", () => {
 		Object.entries(IconUtils.iconsColorMap).forEach(([name, color]) => {
-			component.type = name as EntityName;
+			component.typename = name as Typename;
 			fixture.detectChanges();
 			expect(el.className).toContain(color);
 		});
@@ -99,7 +100,7 @@ xdescribe("Logo component", () => {
 			const newComponent = newFixture.componentInstance;
 			const newEl = newFixture.nativeElement;
 			newComponent.icon = "files";
-			newComponent.type = type;
+			newComponent.typename = type;
 			newFixture.detectChanges();
 			const i = newEl.querySelector("i");
 			expect(i.className).toContain("files");
@@ -111,7 +112,7 @@ xdescribe("Logo component", () => {
 			const newFixture = TestBed.createComponent(LogoComponent);
 			const newComponent = newFixture.componentInstance;
 			const newEl = newFixture.nativeElement;
-			newComponent.type = type;
+			newComponent.typename = type;
 			newFixture.detectChanges();
 			const i = newEl.querySelector("i");
 			expect(i.className).toContain(IconUtils.iconsMap[type]);

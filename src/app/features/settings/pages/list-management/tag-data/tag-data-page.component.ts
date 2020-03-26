@@ -2,11 +2,11 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { ListPageService, SelectionService } from '~core/list-page';
 import { AutoUnsub } from '~utils';
-import { ListHelperService, ListPageViewService } from '~core/list-page2';
+import { ListHelperService, ListPageViewService, ListFuseHelperService } from '~core/list-page2';
 import { Observable } from 'rxjs';
 import { Tag } from '~core/erm3/models';
 import { TeamService, CompanyService } from '~core/auth';
-import { FilterService } from '~shared/filters/services/filter.service';
+import { FilterService } from '~core/filters/filter.service';
 import { Typename } from '~core/erm3/typename.type';
 
 @Component({
@@ -17,7 +17,7 @@ import { Typename } from '~core/erm3/typename.type';
 		'../shared/list-management-styles.scss'
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [ListPageService, SelectionService, ListPageViewService],
+	providers: [ListPageService, SelectionService, ListPageViewService, ListFuseHelperService],
 	host: {
 		class: 'table-page'
 	}
@@ -34,15 +34,18 @@ export class TagDataPageComponent extends AutoUnsub implements OnInit {
 		public selectionSrv: SelectionService,
 		public viewSrv: ListPageViewService<Tag>,
 		public filterSrv: FilterService,
-		public listFuseHelper: ListHelperService
+		public listHelper: ListFuseHelperService
 	) {
 		super();
 	}
 
 	ngOnInit() {
-
-		this.listFuseHelper.setup('Product');
-		this.items$ = this.listFuseHelper.filteredItems$;
+				let teamId: string;
+		this.teamSrv.teamSelected$.subscribe(team => (teamId = team.id));
+		this.filterSrv.setup([], ['name']);
+		this.viewSrv.setup({typename: 'Tag', destUrl: 'settings/list-management/category-data', view: 'table'});
+		this.listHelper.setup('Tag', 'Team', teamId); // search initialized in controller-table
+		this.items$ = this.listHelper.filteredItems$;
 	}
 
 	mergeSelected() {
