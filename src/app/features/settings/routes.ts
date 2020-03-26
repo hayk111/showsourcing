@@ -46,8 +46,6 @@ export const routes: Routes = [
 					{ path: '', redirectTo: 'category-data', pathMatch: 'full' },
 					{ path: 'category-data', component: DataPages.CategoryDataPageComponent },
 					{ path: 'tag-data', component: DataPages.TagDataPageComponent },
-					{ path: 'supplier-data', component: DataPages.SupplierDataPageComponent },
-					{ path: 'event-data', component: DataPages.EventDataPageComponent }
 				]
 			},
 			// { path: 'exports', component: ExportsPages.ExportsPageComponent }
