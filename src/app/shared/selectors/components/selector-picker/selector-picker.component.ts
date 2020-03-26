@@ -42,14 +42,6 @@ import { isLocalList } from '~core/list-page2/is-local-list.function';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SelectorPickerComponent extends AbstractInput implements OnInit, AfterViewInit, OnChanges, OnDestroy {
-
-	private _type: EntityMetadata;
-	@Input() set type(type: EntityMetadata) {
-		this._type = type;
-	}
-	get type(): EntityMetadata {
-		return this._type;
-	}
 	@Input() typename: Typename;
 	@Input() multiple = false;
 	@Input() canCreate = false;
@@ -236,10 +228,10 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		switch (type) {
 			case 'Category': return this.selectorSrv.getChoices('Category');
 			case 'Contact': return this.selectorSrv.getChoices('Contact');
-			case 'Typename Constant': return this.selectorSrv.getChoices('Typename Constant', 'Team', 'fullName');
-			case 'Typename Constant': return this.selectorSrv.getChoices('Typename Constant', 'Team', '');
+			case 'Constant': return this.selectorSrv.getChoices('Constant', 'Team', 'fullName');
+			case 'Constant': return this.selectorSrv.getChoices('Constant', 'Team', '');
 			case 'Event': return this.selectorSrv.getChoices('Event', 'Team', 'description.name');
-			case 'Typename Constant': return this.selectorSrv.getChoices('Typename Constant');
+			case 'Constant': return this.selectorSrv.getChoices('Constant');
 			// case ERM.PICKER_FIELD: return this.selectorSrv.getDynamicFields(this.dynamicFields);
 			case 'Product': return this.selectorSrv.getChoices('Product');
 			case 'Project': return this.selectorSrv.getChoices('Project', 'Owner');
@@ -255,7 +247,6 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			case 'TeamUser': return this.selectorSrv.getChoices('TeamUser', 'Team', 'user.lastName').pipe(
 				map(teamUsers => teamUsers.map(tu => tu.user))
 			);
-			case 'Weight': return this.selectorSrv.getChoices('Weight');
 
 			default: throw Error(`Unsupported type${this.typename} for selector`);
 		}
@@ -322,8 +313,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 				break;
 			// if its a const we don't need to emit an object {id, typename} (its not an entity update),
 			// we only need a string (e.g. supplier -> country -> string)
-			case 'Typename Constant':
-			case 'Weight':
+			case 'Constant':
 				item = this.value;
 				break;
 			// this is the default if we are updating an entity with name field
@@ -347,7 +337,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	onSelect(item) {
 		let itemToReturn = item;
 		switch (this.typename) {
-			case 'Typename Constant':
+			case 'Constant':
 				itemToReturn = item.name;
 				break;
 			default:
@@ -381,45 +371,19 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		let createObs$: Observable<any>;
 		let added;
 		const name = this.searchTxt;
-		if (name) {
-			switch (this.typename) {
-				case 'Category':
-					added = new Category({ name });
-					createObs$ = this.selectorSrv.create('Category', added);
-					break;
-				case 'Event':
-					added = new Event({ name });
-					createObs$ = this.selectorSrv.create('Event', added);
-					break;
-				case 'Product':
-					added = new Product({ name });
-					createObs$ = this.selectorSrv.create('Product', added);
-					break;
-				case 'Project':
-					added = new Project({ name });
-					createObs$ = this.selectorSrv.create('Project', added);
-					break;
-				case 'Supplier':
-					added = new Supplier({ name });
-					createObs$ = this.selectorSrv.create('Supplier', added);
-					break;
-				case 'SupplierType':
-					added = new SupplierType({ name });
-					createObs$ = this.selectorSrv.create('SupplierType', added);
-					break;
-				case 'Tag':
-					added = new Tag({ name });
-					createObs$ = this.selectorSrv.create('Tag', added);
-					break;
-				case 'Contact':
-					if (RegExp(RegexpApp.EMAIL).test(name)) {
-						added = new Contact({ email: name });
-						createObs$ = this.selectorSrv.create('Contact', added);
-					}
-					break;
-				default:
-					throw Error(`Unsupported type ${this.typename}`);
+		if (name && this.typename) {
+			if (this.typename !== 'Contact') {
+				added = new Category({ name });
+				createObs$ = this.selectorSrv.create(this.typename, added);
+			} else if (this.typename === 'Contact') {
+				if (RegExp(RegexpApp.EMAIL).test(name)) {
+					added = new Contact({ email: name });
+					createObs$ = this.selectorSrv.create('Contact', added);
+				}
+			} else {
+				throw Error(`Unsupported type ${this.typename}`);
 			}
+
 			// we add it directly to the value
 			if (this.multiple && added) {
 				this.value.push(added);

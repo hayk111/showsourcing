@@ -15,9 +15,8 @@ export class SelectorPageComponent implements OnInit {
 	entityNames = ['Product', 'Project', 'Category', 'Currency', 'Supplier', 'User', 'Country'];
 
 	product$: Observable<Product>;
-	teamId = '642c327f-ac96-43cd-897b-8f04fe2dbbed';
 
-	constructor(private teamSrv: TeamService) { }
+	constructor() { }
 
 	ngOnInit() {}
 
