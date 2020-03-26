@@ -26,9 +26,10 @@
 				<!-- request templates -->
 				<form-field-app class="modal pdng-btm-l">
 					<label-app class="flex"><div translate="header.request-templates"></div>&nbsp;*</label-app>
+					<!-- TODO change request template with a valid Typename -->
 					<selector-app
 						#selectorReqTemplate
-						type="request template"
+						typename="request template" 
 						formControlName="requestTemplate"
 						(update)="selectTemplate($event)">
 							<selector-placeholder-app
@@ -79,7 +80,7 @@
 						class="modal">
 						<label-app class="flex"><div translate="text.send-to-supplier"></div>&nbsp;*</label-app>
 						<selector-app
-							type="supplier"
+							typename="Supplier"
 							[canCreate]="true"
 							(update)="updateSupplier($event)">
 							<selector-placeholder-app
@@ -96,7 +97,7 @@
 					<label-app class="flex"><div translate="text.select-contact"></div>&nbsp;*</label-app>
 					<selector-app
 						#contactSelector
-						type="contact"
+						typename="Contact"
 						[disabled]="!supplier"
 						[canCreate]="true"
 						[filterList]="filterList"
@@ -113,11 +114,12 @@
 					<input [hidden]="true" inputApp type="text"/>
 				</form-field-app>
 
+				<!-- TODO replace Email with a valid Typename -->
 				<!-- <form-field-app class="modal">
 					<label-app>Send Copy to</label-app>
 					<selector-app
 						#copySelector
-						type="email"
+						typename="Email"
 						[value]="copySelector.value"
 						[canCreate]="true"
 						[multiple]="true"

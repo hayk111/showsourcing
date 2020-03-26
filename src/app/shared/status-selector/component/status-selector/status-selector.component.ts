@@ -1,12 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { EntityMetadata, ERM, ProductStatus, SampleStatus, SupplierStatus } from '~core/erm';
+import { ERM, ProductStatus, SampleStatus, SupplierStatus } from '~core/erm';
 import { ContextMenuComponent } from '~shared/context-menu/components/context-menu/context-menu.component';
 import { AutoUnsub, StatusUtils } from '~utils';
 
 import { StatusSelectorService } from '../../service/status-selector.service';
 import { Status } from '~core/erm';
+import { Typename } from '~core/erm3/typename.type';
 
 @Component({
 	selector: 'status-selector-app',
@@ -18,7 +19,7 @@ import { Status } from '~core/erm';
 })
 export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 
-	@Input() typeEntity: EntityMetadata;
+	@Input() typename: Typename;
 	@Input() displayStep = false;
 	/** In this case its alwaysgoing to be a product, sample, supplier or task */
 	private _entity: any;
@@ -29,9 +30,8 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 	public set entity(value: any) {
 		let status;
 		if (value) {
-			const typeEntityName = this.typeEntity.singular;
 			// status null with this name we use the same pipe for translation
-			const name = 'New-' + typeEntityName;
+			const name = 'New-' + this.typename;
 			status = value.status || { id: StatusUtils.NEW_STATUS_ID, category: StatusUtils.DEFAULT_STATUS_CATEGORY, name, step: 0 };
 			this._entity = { ...value, status };
 		}
@@ -60,7 +60,7 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.status$ = this.statusSlctSrv.getTableStatus(this.typeEntity);
+		this.status$ = this.statusSlctSrv.getTableStatus(this.typename);
 		this.status$.pipe(takeUntil(this._destroy$))
 			.subscribe(statuses => {
 				this.statuses = statuses.map((status) => {
@@ -81,13 +81,13 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 				// since it will recieve 2 updated (1 with only the id and 1 with the full entity from the cache)
 				status
 			},
-				this.typeEntity
+				this.typename
 			).subscribe(_ => this.statusUpdated.emit(status));
 		} else { // status null
 			this.statusSlctSrv.updateStatus({
 				id: this.entity.id,
 				status: null
-			}, this.typeEntity).subscribe(_ => this.statusUpdated.emit(null));
+			}, this.typename).subscribe(_ => this.statusUpdated.emit(null));
 		}
 	}
 
@@ -96,7 +96,7 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 			this.statusSlctSrv.updateStatus({
 				id: this.entity.id,
 				status: { id: status.id, __typename: status.__typename }
-			}, this.typeEntity
+			}, this.typename
 			).subscribe();
 		}
 		this.statusUpdated.emit(status);

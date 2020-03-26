@@ -10,7 +10,7 @@
 			<editable-display-app>
 				<selector-app
 					#sel
-					[type]="'USER' | erm: 'singular'"
+					typename="User"
 					[width]="320"
 					[offsetX]="4"
 					(update)="update.emit({ assignee: $event })">
@@ -28,7 +28,7 @@
 		<h3 class="section-title">Supplier Status</h3>
 		<span>
 			<status-selector-app
-				[typeEntity]="'SUPPLIER' | erm"
+				typename="Supplier"
 				[entity]="supplier"
 				selectSize="m"
 				type="button">

@@ -10,12 +10,12 @@ import {
 	Output,
 } from '@angular/core';
 import { debounceTime, tap } from 'rxjs/operators';
-import { EntityMetadata, ERM } from '~core/erm';
 import { DynamicField } from '~shared/dynamic-forms';
 import { FilterList } from '~shared/filters/models/filter-list.class';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 import { TabFocusActionDirective } from '~shared/utils';
 import { ID } from '~utils';
+import { Typename } from '~core/erm3/typename.type';
 
 @Component({
 	selector: 'selector-app',
@@ -28,14 +28,8 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 
 	@Input() value: any;
 
-	private _type: EntityMetadata;
-	// it can be both types, since selectors are used inside dynamic forms (customField.metadata.target)
-	@Input() set type(type: EntityMetadata | string) {
-		this._type = typeof (type) === 'string' ? ERM.getEntityMetadata(type) : type;
-	}
-	get type() {
-		return this._type;
-	}
+	// it could be String type, since selectors are used inside dynamic forms (customField.metadata.target)
+	@Input() typename: Typename;
 
 	@Input() multiple = false;
 	@Input() canCreate = false;
