@@ -34,9 +34,8 @@ export class SelectorsService {
 		// return this.queryListRef.fetchMore().subscribe();
 	}
 
-	getChoices(entityType: Typename, listBy: 'Team' | 'Owner' = 'Team', sortBy = 'name'): Observable<any[]> {
+	getChoices(entityType: Typename, listBy: 'Team' | 'Owner' = 'Team', sortBy = 'name'): Observable<any[]> { // sortBy shall be added to query
 		this.queryListRef = this.apiSrv.listBy(entityType, listBy);
-
 		return this.queryListRef.data$;
 	}
 

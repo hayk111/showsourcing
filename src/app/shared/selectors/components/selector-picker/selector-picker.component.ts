@@ -16,10 +16,11 @@ import {
 	QueryList,
 	ViewChild,
 	ViewChildren,
+	OnDestroy,
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Observable, of, Subject } from 'rxjs';
-import { map, switchMap, take } from 'rxjs/operators';
+import { Observable, of, Subject, Subscription } from 'rxjs';
+import { map, switchMap, take, tap } from 'rxjs/operators';
 import { Category, Contact, EntityMetadata, ERM, Event, Product, Project, Supplier, SupplierType, Tag } from '~core/erm';
 import { DynamicField } from '~shared/dynamic-forms';
 import { FilterList } from '~shared/filters/models/filter-list.class';
@@ -27,9 +28,12 @@ import { AbstractInput, InputDirective } from '~shared/inputs';
 import { SelectorsService } from '~shared/selectors/services/selectors.service';
 import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlightable.component';
 import { ListFuseHelperService } from '~core/list-page2/list-fuse-helper.service';
+import { ListHelperService } from '~core/list-page2/list-helper.service';
 import { FilterService } from '~core/filters';
 import { Typename } from '~core/erm3/typename.type';
 import { ID, RegexpApp } from '~utils';
+import { filterTypeToTypename } from '~shared/filters/components';
+import { isLocalList } from '~core/list-page2/is-local-list.function';
 
 @Component({
 	selector: 'selector-picker-app',
@@ -37,7 +41,7 @@ import { ID, RegexpApp } from '~utils';
 	styleUrls: ['./selector-picker.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SelectorPickerComponent extends AbstractInput implements OnInit, AfterViewInit, OnChanges {
+export class SelectorPickerComponent extends AbstractInput implements OnInit, AfterViewInit, OnChanges, OnDestroy {
 
 	private _type: EntityMetadata;
 	@Input() set type(type: EntityMetadata) {
@@ -73,6 +77,9 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	/** local choices to iterate, these choices are not in our DB */
 	choicesLocal = [];
 
+	typeName: Typename;
+	choicesSubscription: Subscription;
+
 	/**
 	 * items inside the virtual scroll that are needed for the cdk a11y selection with arrow keys
 	 * each row on the virtual scroll has to implement the AbstractSelectorHighlightableComponent,
@@ -106,7 +113,8 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 
 	constructor(
 		public selectorSrv: SelectorsService,
-		private listFuseHelperSrv: ListFuseHelperService,
+		private fuseHelperSrv: ListFuseHelperService,
+		private listHelperSrv: ListHelperService,
 		private filterSrv: FilterService,
 		protected cd: ChangeDetectorRef,
 		private fb: FormBuilder
@@ -117,7 +125,32 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			name: ['']
 		});
 
-		this.listFuseHelperSrv.setup(this.capitalizeFirstLetter(this.type.singular) as Typename);
+		this.typeName = this.capitalizeFirstLetter(this.type.singular) as Typename;
+
+		if (isLocalList(this.typeName)) {
+			this.fuseHelperSrv.setup(this.typeName);
+			this.choicesSubscription = this.fuseHelperSrv.filteredItems$.pipe(tap((choices) => {
+				if (this.searchTxt) {
+					this.choices$ = of(choices);
+					this.cd.markForCheck();
+				} else {
+					this.initializeChoices();
+				}
+			})).subscribe();
+		} else {
+			this.listHelperSrv.setup(this.typeName);
+
+			this.choicesSubscription = this.listHelperSrv.filteredItems$.pipe(tap((choices) => {
+				if (this.searchTxt) {
+					this.choices$ = of(choices);
+					this.cd.markForCheck();
+				} else {
+					this.initializeChoices();
+				}
+			})).subscribe();
+		}
+
+		// this.listFuseHelperSrv.setup();
 		this.filterSrv.setup([], ['name']);
 
 		if (this.canCreate) {
@@ -132,21 +165,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			);
 		}
 
-		this.listFuseHelperSrv.getFilteredItems$
-			.subscribe(data => {
-				this.choices$ = of(data);
-				this.cd.markForCheck();
-			});
-
-		// init the list query
-		if (this.multiple) {
-			if (!this.value)
-				this.value = [];
-			// if its multiple we want to filter the values that we have currently selected, so they don't appear on the options
-			this.choices$ = this.getChoices(this.type).pipe(map((items) => this.filterValues(items)));
-		} else {
-			this.choices$ = this.getChoices(this.type);
-		}
+		this.initializeChoices();
 
 		// if there is any search text available when we start the component, we search for it
 		if (this.searchTxt)
@@ -164,6 +183,22 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		if (this.choices$ && this.multiple) {
 			// if its multiple we want to filter the values that we have currently selected, so they don't appear on the options
 			this.choices$.pipe(map((items) => this.filterValues(items)));
+		}
+	}
+
+	ngOnDestroy() {
+		this.choicesSubscription.unsubscribe();
+	}
+
+	initializeChoices() {
+		// init the list query
+		if (this.multiple) {
+			if (!this.value)
+				this.value = [];
+			// if its multiple we want to filter the values that we have currently selected, so they don't appear on the options
+			this.choices$ = this.getChoices(this.type).pipe(map((items) => this.filterValues(items)));
+		} else {
+			this.choices$ = this.getChoices(this.type);
 		}
 	}
 
@@ -190,7 +225,6 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	private resetInput() {
 		this.inp.control.reset();
 		this.inp.focus();
-		this.search('', false);
 	}
 
 	/**
@@ -202,16 +236,6 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		this.movedArrow = false;
 
 		this.filterSrv.search(this.searchTxt);
-
-		// this.selectorSrv.search(this.type, this.searchTxt)
-		// 	.then(data => {
-		// 		console.log('SelectorPickerComponent -> search -> data', data);
-		// 		if (setFirstItemActive)
-		// 			this.keyManager.setFirstItemActive();
-		// 		else // we use this to hide the first active item, since the focus is on the input now
-		// 			this.keyManager.updateActiveItem(-1);
-		// 		this.cd.markForCheck(); // otherwise sometimes it won't set the first item active until cd is triggered
-		// 	});
 		this.searched$.next(this.searchTxt);
 	}
 
@@ -222,12 +246,10 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			case ERM.CATEGORY: return this.selectorSrv.getChoices('Category');
 			case ERM.EMAIL:
 			case ERM.CONTACT: return this.selectorSrv.getChoices('Contact');
-			case ERM.COUNTRY: return this.selectorSrv.getChoices('Country', 'Team', 'fullName');
-			case ERM.CURRENCY: return this.selectorSrv.getChoices('Currency', 'Team', '');
+			case ERM.COUNTRY: return this.selectorSrv.getChoices('Typename Constant', 'Team', 'fullName');
+			case ERM.CURRENCY: return this.selectorSrv.getChoices('Typename Constant', 'Team', '');
 			case ERM.EVENT: return this.selectorSrv.getChoices('Event', 'Team', 'description.name');
-			case ERM.HARBOUR: return this.selectorSrv.getChoices('Harbour');
-			case ERM.INCO_TERM: return this.selectorSrv.getChoices('IncoTerm');
-			case ERM.LENGTH_UNIT: return this.selectorSrv.getChoices('Length');
+			case ERM.HARBOUR: return this.selectorSrv.getChoices('Typename Constant');
 			// case ERM.PICKER_FIELD: return this.selectorSrv.getDynamicFields(this.dynamicFields);
 			case ERM.PRODUCT: return this.selectorSrv.getChoices('Product');
 			case ERM.PROJECT: return this.selectorSrv.getChoices('Project', 'Owner');

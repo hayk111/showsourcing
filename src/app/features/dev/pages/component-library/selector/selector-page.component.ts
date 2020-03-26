@@ -12,6 +12,8 @@ import { TeamService } from '~core/erm';
 })
 export class SelectorPageComponent implements OnInit {
 
+	entityNames = ['product', 'project', 'category', 'currency', 'supplier', 'user', 'country'];
+
 	product$: Observable<Product>;
 	teamId = '642c327f-ac96-43cd-897b-8f04fe2dbbed';
 
