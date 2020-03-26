@@ -9,7 +9,7 @@
 			<div *ngSwitchCase="erm.PRODUCT" class="flexStart icon-container" (click)="selector?.openMenu()">
 				<selector-app
 					#selector
-					type="product"
+					typename="Product"
 					[offsetY]="offsetY"
 					[offsetX]="getDynamicOffsetX()"
 					[canCreate]="true"
@@ -36,7 +36,7 @@
 			<div *ngSwitchCase="erm.SUPPLIER" class="flexStart icon-container" (click)="selector?.openMenu()">
 				<selector-app
 					#selector
-					type="supplier"
+					typename="Supplier"
 					[offsetY]="offsetY"
 					[offsetX]="getDynamicOffsetX()"
 					[canCreate]="true"
@@ -63,7 +63,7 @@
 			<div *ngSwitchCase="erm.SUPPLIER_TYPE" class="flexStart icon-container" (click)="selector?.openMenu()">
 				<selector-app
 					#selector
-					[type]="'SUPPLIER_TYPE' | erm"
+					typename="SupplierType"
 					[offsetY]="offsetY"
 					[offsetX]="getDynamicOffsetX()"
 					[canCreate]="true"
@@ -83,7 +83,7 @@
 			<div *ngSwitchCase="erm.LOCATION" class="flexStart icon-container" (click)="selector?.openMenu()">
 				<selector-app
 					#selector
-					type="country"
+					typename="Country"
 					[offsetY]="offsetY"
 					[offsetX]="getDynamicOffsetX()"
 					[width]="370"
@@ -102,7 +102,7 @@
 			<div *ngSwitchCase="erm.CATEGORY" class="flexStart icon-container" (click)="selector?.openMenu()">
 				<selector-app
 					#selector
-					type="category"
+					typename="Category"
 					[value]="value"
 					[canCreate]="true"
 					[multiple]="multiple"
@@ -133,7 +133,7 @@
 			<div *ngSwitchCase="erm.EVENT" class="flexStart icon-container" (click)="selector?.openMenu()">
 				<selector-app
 					#selector
-					type="event"
+					typename="Event"
 					[value]="value"
 					[canCreate]="true"
 					[offsetY]="offsetY"

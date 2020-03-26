@@ -40,7 +40,7 @@
 				[row]="row"
 				[column]="column"
 				[hovered]="row.id === hovered"
-				[type]="'CONTACT' | erm"
+				typename="Contact"
 				(update)="update.emit($event)"
 				(previewClick)="previewClick.emit($event)"
 				(nameClick)="open.emit($event)"

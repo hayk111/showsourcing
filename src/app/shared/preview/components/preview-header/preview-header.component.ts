@@ -1,5 +1,6 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, EventEmitter, Output } from '@angular/core';
-import { EntityMetadata, ERM, AppImage, Supplier } from '~core/erm';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ERM } from '~core/erm';
+import { Typename } from '~core/erm3/typename.type';
 
 @Component({
 	selector: 'preview-header-app',
@@ -10,7 +11,7 @@ import { EntityMetadata, ERM, AppImage, Supplier } from '~core/erm';
 export class PreviewHeaderComponent implements OnInit {
 
 	/** entity metadata for the header */
-	@Input() entityMD: EntityMetadata;
+	@Input() typename: Typename;
 	/** entity for the workflow action */
 	@Input() entity: any;
 	/** property that we will read from the entity for the title */

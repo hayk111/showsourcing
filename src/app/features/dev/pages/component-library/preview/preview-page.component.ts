@@ -14,7 +14,6 @@ export class PreviewPageComponent implements OnInit {
 	toggle = false;
 	selectedIndex = 0;
 	erm = ERM;
-	entityMD = ERM.PRODUCT;
 	product$: Observable<Product>;
 	product: Product;
 

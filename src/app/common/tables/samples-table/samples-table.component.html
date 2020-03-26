@@ -42,7 +42,7 @@
 				[row]="row"
 				[column]="column"
 				[hovered]="row.id === hovered"
-				[type]="'SAMPLE' | erm"
+				typename="Sample"
 				[redirectOnNameClick]="false"
 				(update)="update.emit($event)"
 				(nameClick)="previewClick.emit($event)"

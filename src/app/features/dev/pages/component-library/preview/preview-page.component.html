@@ -15,7 +15,7 @@
 
 			<!-- Header -->
 			<preview-header-app
-				[entityMD]="entityMD"
+				typename="Product"
 				[entity]="(product$ | async)"
 				(update)="update($event, 'name')">
 				<!-- Badge -->
