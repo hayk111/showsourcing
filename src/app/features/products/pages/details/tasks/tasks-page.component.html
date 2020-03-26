@@ -17,7 +17,7 @@
 		<div class="flex buttons-container">
 			<button
 				class="flexVAlign capitalize"
-				(click)="listHelper.create('Task', { product })"
+				(click)="listHelper.create({ product: product })"
 				translate="button.create-task">
 			</button>
 		</div>
@@ -26,10 +26,13 @@
 
 <ng-template #placeholder>
 	<entity-placeholder-app
-		[type]="'TASK' | erm: 'singular'"
+		[type]="'SAMPLE' | erm"
 		[title]="'No tasks on this product'"
 		[subtitle]="'Create & Track your tasks'">
-		<button class="capitalize" (click)="listHelper.create('Task', { product })" translate="button.create-task"></button>
+		<button class="capitalize" 
+			translate="button.create-task"
+			(click)="listHelper.create({ product: product })">
+		</button>
 	</entity-placeholder-app>
 </ng-template>
 

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, switchMap, takeUntil } from 'rxjs/operators';
+import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { AbstractTaskCommonComponent } from '~common/abstracts/abstract-task-common.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import {
@@ -29,7 +29,8 @@ import { AutoUnsub } from '~utils/auto-unsub.component';
 		ListPageViewService
 	]
 })
-export class TasksPageComponent extends AutoUnsub implements OnInit {q;
+export class TasksPageComponent extends AutoUnsub implements OnInit {
+	product;
 	constructor(
 		protected route: ActivatedRoute,
 		protected router: Router,
@@ -45,6 +46,7 @@ export class TasksPageComponent extends AutoUnsub implements OnInit {q;
 	ngOnInit() {
 		this.route.parent.params.pipe(
 			map(params => params.id),
+			tap(id => this.product = { id }),
 			takeUntil(this._destroy$)
 		).subscribe(id => this.listHelper.setup('Task', 'Supplier', id ));
 	}
