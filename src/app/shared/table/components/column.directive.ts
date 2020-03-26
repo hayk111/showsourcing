@@ -1,4 +1,5 @@
 import { Directive, Input, OnInit, TemplateRef } from '@angular/core';
+import { SortService } from '../services/sort.service';
 
 @Directive({
 	selector: '[columnApp]',
@@ -19,7 +20,10 @@ export class ColumnDirective implements OnInit {
 	@Input() sortOrder: 'NONE' | 'ASC' | 'DESC' = 'NONE';
 	@Input() showOnHover = false;
 
-	constructor(public template: TemplateRef<any>) { }
+	constructor(
+		public template: TemplateRef<any>,
+		private sortSrv: SortService
+	) { }
 
 	ngOnInit() {
 		// we default the sorting property to the title lower cased
@@ -28,12 +32,8 @@ export class ColumnDirective implements OnInit {
 
 	toggleSort() {
 		if (this.sortable) {
-			this.sortOrder = this.sortOrder === 'ASC' ? 'DESC' : 'ASC';
+			this.sortSrv.toggleSort(this.sortBy);
 		}
-	}
-
-	resetSort() {
-		this.sortOrder = 'NONE';
 	}
 
 }

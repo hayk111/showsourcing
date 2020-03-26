@@ -68,14 +68,14 @@ https://stackblitz.com/edit/angular-vtluff?file=src/app/app.component.ts -->
 			<!-- header -->
 			<div *ngIf="hasHeader"
 				class="header {{ column.sortable ? 'pointer' : 'defaultCursor'}} capitalize"
-				[class.sorted]="currentSort?.sortBy === column?.sortBy"
+				[class.sorted]="sortSrv.isSorted(column.sortBy)"
 				[style.height]="rowHeight + 'px'"
-				(click)="onSort(column)">
+				(click)="column.toggleSort()">
 				{{ column.title }}
-				<ng-container *ngIf="column.sortOrder !== 'NONE'">
+				<ng-container *ngIf="sortSrv.isSorted(column.sortBy)">
 					<icon-app
 						class="sortIcon fs-xs"
-						[name]="column.sortOrder === 'DESC' ? 'angle-down' : 'angle-up'"
+						[name]="(sortSrv.sort$ | async) === 'DESC' ? 'angle-down' : 'angle-up'"
 						name="angle-down">
 					</icon-app>
 				</ng-container>
@@ -130,7 +130,7 @@ https://stackblitz.com/edit/angular-vtluff?file=src/app/app.component.ts -->
 							</icon-app>
 						</context-menu-trigger-app>
 						<ng-container
-							*ngTemplateOutlet="contextualMenu; context: { column: column, row: row }">
+							*ngTemplateOutlet="contextualMenu; context: { row: row }">
 						</ng-container>
 					</context-menu-app>
 				</div>

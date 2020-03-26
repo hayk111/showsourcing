@@ -13,7 +13,7 @@
 
 <products-table-app
 	[rows]="listHelper.filteredItems$ | async"
-	[pending]="listHelper.pending"
+	[pending]="listHelper.pending$ | async"
 	[selection]="selectionSrv.selection$ | async"
 	[total]="listHelper.total$ | async"
 	(createClick)="listHelper.create({ supplier: supplier })"

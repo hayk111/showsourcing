@@ -24,7 +24,7 @@
 	<products-table-app
 		*ngIf="viewSrv.view === 'table'"
 		[rows]="items$ | async"
-		[pending]="listHelper.pending"
+		[pending]="listHelper.pending$ | async"
 		[selection]="selectionSrv.selection$ | async"
 		(open)="viewSrv.goToDetails($event)"
 		(previewClick)="viewSrv.openPreview($event)"
@@ -43,7 +43,6 @@
 		*ngIf="viewSrv.view === 'card'"
 		class="card-view will-change-scroll"
 		infiniScroll
-		[currentSort]="listSrv.currentSort"
 		[rows]="listSrv.items$ | async"
 		[selection]="selectionSrv.selection$ | async"
 		(addToProject)="onProjectDlgOpen()"

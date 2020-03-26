@@ -16,7 +16,7 @@
 
 <suppliers-table-app
 	[rows]="items$ | async"
-	[pending]="listHelper.pending"
+	[pending]="listHelper.pending$ | async"
 	[selection]="selectionSrv.selection$ | async"
 	[total]="listHelper.total$ | async"
 	(open)="viewSrv.goToDetails($event)"

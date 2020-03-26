@@ -29,7 +29,6 @@ import { AutoUnsub } from '~utils';
 	}
 })
 export class TablePageComponent implements OnInit {
-	items$: Observable<Product[]>;
 	// filter displayed as button in the filter panel
 	filterTypes = [
 		FilterType.SUPPLIER,
@@ -56,7 +55,6 @@ export class TablePageComponent implements OnInit {
 	ngOnInit() {
 		this.listHelper.setup('Product');
 		this.viewSrv.setup({ typename: 'Product', destUrl: 'products', view: 'table' });
-		this.items$ = this.listHelper.filteredItems$;
 	}
 
 }

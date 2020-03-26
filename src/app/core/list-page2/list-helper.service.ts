@@ -3,7 +3,7 @@ import { WatchQueryOptions } from 'apollo-client';
 import { BehaviorSubject, combineLatest, forkJoin, Observable } from 'rxjs';
 import { filter, map, shareReplay, switchMap, tap } from 'rxjs/operators';
 import { CreationDialogComponent } from '~common/dialogs/creation-dialogs';
-import { ApiService, ObservableQuery } from '~core/erm3/services/api.service';
+import { ApiService, ObservableQuery, Sort } from '~core/erm3/services/api.service';
 import { Typename } from '~core/erm3/typename.type';
 import { FilterService } from '~core/filters/filter.service';
 import { CloseEventType, DialogService } from '~shared/dialog';
@@ -14,26 +14,48 @@ export class ListHelperService<G = any> {
 	/** saving the queryRef for future referencing (refetch, add to cache) */
 	private queryRef: ObservableQuery<G[]>;
 	private typename: Typename;
-	pending = true;
-	/** total number of items */
-	total$: Observable<number>;
+	private _pending$ = new BehaviorSubject<boolean>(true);
+	pending$ = this._pending$.asObservable();
 	/** number of items taken at once */
-	private limit$ = new BehaviorSubject(25);
+	private currentLimit = 25;
+	private _limit$ = new BehaviorSubject<number>(this.currentLimit);
+	limit$ = this._limit$.asObservable();
+	/** from which page */
+	private currentPage = 0;
+	private _page$ = new BehaviorSubject<number>(this.currentPage);
+	page$ = this._page$.asObservable();
+	/** sorting */
+	private currentSort: Sort; // sync version
+	private _sort$ = new BehaviorSubject<Sort>(this.currentSort);
+	sort$ = this._sort$.asObservable();
+	/** total number of items */
+	private total: number;
+	total$: Observable<number>;
+	/** the filtered items */
 	filteredItems$ = combineLatest(
 		this.filterSrv.valueChanges$,
-		this.limit$
+		this._page$,
+		this._limit$,
+		this._sort$
 	).pipe(
 		// gets the query
-		map(([{ queryArg }, limit]) => this.apiSrv.search<G>(
-			this.typename, { filter: queryArg, limit })
+		map(([{ queryArg }, from, limit, sort]) => this.apiSrv.search<G>(
+			this.typename, { filter: queryArg, limit, from, sort })
 		),
 		// save it
 		tap(query => this.queryRef = query),
-		tap(query => this.total$ = query.total$),
+		// add observable version of total for the view,
+		// and synchronous one for easy access in this class
+		tap(query => this.total$ = query.total$.pipe(
+			tap(total => this.total = total)
+			)
+		),
+		// add the next token for infiniscroll
+		// TODO
 		// return the result
 		switchMap(_ => this.queryRef.data$),
 		// setting pending to false because we received data
-		tap(_ => this.pending = false),
+		tap(_ => this._pending$.next(false)),
 		shareReplay(1)
 	);
 
@@ -49,9 +71,9 @@ export class ListHelperService<G = any> {
 	}
 
 	refetch(options?: WatchQueryOptions) {
-		this.pending = true;
+		this._pending$.next(true);
 		return this.queryRef.refetch({ ...options, fetchPolicy: 'network-only' })
-		.then(_ => this.pending = false);
+		.then(_ => this._pending$.next(false));
 	}
 
 	create(addedProperties: any) {
@@ -78,7 +100,6 @@ export class ListHelperService<G = any> {
 	}
 
 	delete(entity: any) {
-		debugger;
 		this.apiSrv.delete(this.typename, entity).pipe(
 			switchMap(_ => this.refetch())
 		).subscribe();
@@ -93,36 +114,37 @@ export class ListHelperService<G = any> {
 	}
 
 	setItemsPerPage(value: number) {
-		this.limit$.next(value);
+		this._limit$.next(value);
 	}
 
 	loadMore() {
 		throw Error('not implemented yet');
 	}
 
-	loadPage() {
-		throw Error('not implemented yet');
+	loadPage(page: number) {
+		this._page$.next(page);
 	}
 
 	loadNextPage() {
-		throw Error('not implemented yet');
+		this._page$.next(this.currentPage + 1);
 	}
 
 	loadPreviousPage() {
-		throw Error('not implemented yet');
+		this._page$.next(this.currentPage - 1);
 	}
 
 	loadFirstPage() {
-		throw Error('not implemented yet');
+		this._page$.next(0);
 	}
 
 	loadLastPage() {
-		throw Error('not implemented yet');
+		const lastPage = Math.ceil(this.total / this.currentLimit) - 1;
+		this._page$.next(lastPage);
 	}
 
 	/** Sorts items based on sort.sortBy */
-	sort() {
-		throw Error('not implemented');
+	sort(sort: Sort) {
+		this._sort$.next(sort);
 	}
 
 }

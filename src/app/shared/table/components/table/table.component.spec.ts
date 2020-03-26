@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import {
 	TemplateRef,
 	Component,
@@ -7,14 +7,14 @@ import {
 	QueryList,
 	ContentChildren,
 	DebugElement
-} from "@angular/core";
-import { TableComponent } from "./table.component";
-import { TableModule } from "../../table.module";
-import { By } from "@angular/platform-browser";
-import { ColumnDirective } from "~shared/table/components/column.directive";
-import { EntityTableComponent } from "~common/tables/entity-table.component";
-import { Sort } from "~shared/table/components/sort.interface";
-import { Subscription } from "rxjs";
+} from '@angular/core';
+import { TableComponent } from './table.component';
+import { TableModule } from '../../table.module';
+import { By } from '@angular/platform-browser';
+import { ColumnDirective } from '~shared/table/components/column.directive';
+import { EntityTableComponent } from '~common/tables/entity-table.component';
+import { Sort } from '~shared/table/components/sort.interface';
+import { Subscription } from 'rxjs';
 
 class Item {
 	name?: string;
@@ -44,9 +44,7 @@ class Item {
 			(selectAll)="selectAll.emit($event)"
 			(unselectAll)="unselectAll.emit($event)"
 			(bottomReached)="bottomReached.emit()"
-			(sort)="sort.emit($event)"
-			[currentSort]="currentSort"
-		>
+			(sort)="sort.emit($event)">
 			<!-- name -->
 			<ng-template
 				[columnApp]="'Item name'"
@@ -70,18 +68,18 @@ class Item {
 	`
 })
 class TestComponent extends EntityTableComponent<Item> {
-	@ViewChild("contextualMenu", { static: false })
+	@ViewChild('contextualMenu', { static: false })
 	contextualMenuTemplate: TemplateRef<any>;
-	@ViewChild("container", { static: false, read: ViewContainerRef })
+	@ViewChild('container', { static: false, read: ViewContainerRef })
 	container: ViewContainerRef;
-	@ViewChild("table", { static: false }) table;
+	@ViewChild('table', { static: false }) table;
 
 	hasSelection: boolean;
 	hasPagination: boolean;
 	currentSort: Sort;
 }
 
-xdescribe("TableComponent", () => {
+xdescribe('TableComponent', () => {
 	// let tableComponent: TableComponent;
 	// let testComponent: TestComponent;
 	// let fixtureTestComponent: ComponentFixture<TestComponent>;

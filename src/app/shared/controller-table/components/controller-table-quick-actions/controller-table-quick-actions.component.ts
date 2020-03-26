@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ColumnConfig } from '~common/tables/entity-table.component';
+import { SortService } from '~shared/table/services/sort.service';
 
 @Component({
 	selector: 'controller-table-quick-actions-app',
@@ -11,11 +12,10 @@ export class ControllerTableQuickActionsComponent implements OnInit {
 	@Input() hasExport = true;
 	@Input() tableConfig: ColumnConfig[] = [];
 	@Input() columns: string[];
-	@Input() currentSort: { sortBy: string, descending: boolean } = { sortBy: 'creationDate', descending: true };
 	sortableColumns = [];
 
 
-	constructor() {}
+	constructor(public sortSrv: SortService) {}
 
 	ngOnInit() {
 		// this.sortableColumns = this.getSortableColumns();
@@ -27,9 +27,7 @@ export class ControllerTableQuickActionsComponent implements OnInit {
 	}
 
 	onSortClick(column: ColumnConfig) {
-		const isCurrentSort = this.currentSort.sortBy === column.sortProperty;
-		const descending = isCurrentSort ? !this.currentSort.descending : true;
-		// this.listSrv.sort({ sortBy: column.sortProperty, descending });
+		this.sortSrv.toggleSort(column.sortProperty);
 	}
 
 	getSortableColumns() {

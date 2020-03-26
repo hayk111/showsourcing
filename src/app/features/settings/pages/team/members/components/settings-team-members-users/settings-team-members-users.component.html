@@ -42,7 +42,6 @@
 		[pending]="listSrv.pending"
 		[isFiltering]="filterSrv.isFiltering"
 		[total]="listSrv.count$ | async"
-		[currentSort]="listSrv.currentSort"
 		[currentPage]="listSrv.currentPage"
 		(bottomReached)="listSrv.loadMore()"
 		(sort)="listSrv.sort($event)"

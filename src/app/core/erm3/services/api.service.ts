@@ -22,10 +22,16 @@ export interface ObservableQuery<T = any> extends ApolloObservableQuery<T> {
 	queryName: string;
 }
 
+export interface Sort {
+	field: string;
+	direction: 'ASC' | 'DESC';
+}
+
 export interface FilterParams {
 	filter?: any;
-	sort?: { field: string, direction: 'ASC' | 'DESC' };
+	sort?: Sort;
 	limit?: number;
+	from?: number;
 	nextToken?: string;
 }
 

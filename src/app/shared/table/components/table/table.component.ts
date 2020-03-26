@@ -16,6 +16,7 @@ import { Sort } from '~shared/table/components/sort.interface';
 import { TrackingComponent } from '~utils/tracking-component';
 import { SelectionState } from '~shared/inputs-custom/components/select-checkbox/select-checkbox.component';
 import { Typename } from '~core/erm3/typename.type';
+import { SortService } from '~shared/table/services/sort.service';
 
 // Here is a stackblitz with a smaller version of the tables to understand it more easily
 
@@ -30,7 +31,7 @@ import { Typename } from '~core/erm3/typename.type';
 		'[class.pending]': 'pending'
 	}
 })
-export class TableComponent extends TrackingComponent implements OnChanges {
+export class TableComponent extends TrackingComponent {
 	/** whether the table is currently loading */
 	@Input() pending = false;
 	/** whether rows are selectable */
@@ -64,8 +65,6 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	@Input() selected: Map<string, boolean> = new Map();
 	// TODO this should be transcluded instead
 	@Input() contextualMenu: TemplateRef<any>;
-	/** current sort */
-	@Input() currentSort: Sort = { sortBy: 'creationDate', descending: true };
 	/** total number of items for pagination */
 	@Input() total = 0;
 
@@ -105,21 +104,8 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 	/** function used by the ng for, using an arrow to not lose this context */
 	columnTrackByFn = (index: any) => index;
 
-	constructor() {
+	constructor(public sortSrv: SortService) {
 		super();
-	}
-
-	ngOnChanges(changes) {
-		if (changes.currentSort && changes.currentSort.currentValue) {
-			const currentSort = changes.currentSort.currentValue;
-			if (this.columns) {
-				this.columns.forEach(c => c.resetSort());
-				const column = this.columns.find(c => c.sortBy === currentSort.sortBy);
-				if (column) {
-					column.sortOrder = currentSort.descending ? 'DESC' : 'ASC';
-				}
-			}
-		}
 	}
 
 	getSelectionState(): SelectionState {
@@ -149,21 +135,6 @@ export class TableComponent extends TrackingComponent implements OnChanges {
 
 	onUnselectAll() {
 		this.unselectAll.emit();
-	}
-
-	onSort(column: ColumnDirective) {
-		if (!column.sortable)
-			return;
-		// remove sorting on all column and add the current sort to the correct one
-		const filtered = this.columns.filter(c => c !== column);
-		filtered.forEach(c => c.resetSort());
-		column.toggleSort();
-		// current sort can only be ASC or DESC at that point but the type of current sort is 'ASC' | 'DESC' | 'NONE'
-		this.sort.emit({
-			sortBy: column.sortBy,
-			descending: column.sortOrder === 'DESC'
-		});
-		this.currentSort.sortBy = column.sortBy;
 	}
 
 	isAllSelected(): boolean {

@@ -21,7 +21,6 @@
 			[pending]="listSrv.pending"
 			[isFiltering]="filterSrv.isFiltering"
 			[total]="listSrv.count$ | async"
-			[currentSort]="listSrv.currentSort"
 			[currentPage]="listSrv.currentPage"
 			createEntityBtnName="Add Product"
 			(goToPage)="listSrv.loadPage($event)"
@@ -45,7 +44,6 @@
 			infiniScroll
 			cdk-scrollable
 			*ngIf="viewSrv.view === 'card'"
-			[currentSort]="listSrv.currentSort"
 			[rows]="listSrv.items$ | async"
 			[selection]="selectionSrv.selection$ | async"
 			(addToProject)="dialogCommonSrv.openAddToProjectDialog([$event])"

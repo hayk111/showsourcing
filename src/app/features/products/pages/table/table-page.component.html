@@ -20,8 +20,8 @@
 </controller-table-app>
 
 <products-table-app
-	[rows]="items$ | async"
-	[pending]="listHelper.pending"
+	[rows]="listHelper.filteredItems$ | async"
+	[pending]="listHelper.pending$ | async"
 	[selection]="selectionSrv.selection$ | async"
 	[total]="listHelper.total$ | async"
 	(open)="viewSrv.goToDetails($event)"
@@ -31,13 +31,15 @@
 	(select)="selectionSrv.selectOne($event)"
 	(selectAll)="selectionSrv.selectAll($event)"
 	(unselect)="selectionSrv.unselectOne($event)"
-	(showItemsPerPage)="listHelper.setItemsPerPage($event)">
+	(showItemsPerPage)="listHelper.setItemsPerPage($event)"
+	(goToPage)="listHelper.loadPage($event)"
+	(sort)="listHelper.sort($event)">
 </products-table-app>
 
 <product-selection-bar-app
 	[isShown]="(selectionSrv.selection$ | async).size"
 	[selection]="selectionSrv.selection$ | async"
-	[selectableItems]="items$ | async"
+	[selectableItems]="listHelper.filteredItems$ | async"
 	(addProject)="dialogCommonSrv.openAddToProjectDialog(selectionSrv.getSelectedValues())"
 	(export)="dialogCommonSrv.openExportDialog('Product', selectionSrv.getSelectedValues())"
 	(createRequest)="dialogCommonSrv.openSupplierRequest(selectionSrv.getSelectedValues())"

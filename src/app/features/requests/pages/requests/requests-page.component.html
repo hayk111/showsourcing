@@ -20,7 +20,6 @@
 	[selection]="selectionSrv.selection$ | async"
 	[total]="listSrv.count$ | async"
 	[currentPage]="listSrv.currentPage"
-	[currentSort]="listSrv.currentSort"
 	(goToPage)="listSrv.loadPage($event)"
 	(cancelRequest)="cancelRequest($event)"
 	(select)="selectionSrv.selectOne($event)"

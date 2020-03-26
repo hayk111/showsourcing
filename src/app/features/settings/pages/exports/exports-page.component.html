@@ -20,7 +20,6 @@
 <exports-table-app
 	class="spacing-ms"
 	[rows]="listSrv.items$ | async"
-	[currentSort]="listSrv.currentSort"
 	[pending]="listSrv.pending"
 	[isFiltering]="filterSrv.isFiltering"
 	[total]="listSrv.count$ | async"
