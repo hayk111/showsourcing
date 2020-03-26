@@ -71,8 +71,9 @@ A package with 0cm makes no sens -->
 	</editable-field-app>
 
 	<!-- height units -->
+	<!-- TODO Check how to manage Length Unit selector with Constant typename -->
 	<selector-app
-		[type]="'LENGTH_UNIT' | erm"
+		typename="Constant"
 		[width]="180"
 		[offsetY]="-34"
 		[value]="value.unit"
@@ -138,8 +139,9 @@ A package with 0cm makes no sens -->
 	</editable-field-app>
 
 	<!-- weigth units -->
+	<!-- TODO Check how to manage Weight Unit selector with Constant typename -->
 	<selector-app
-		[type]="'WEIGHT_UNIT' | erm"
+		typename="Constant"
 		[value]="value.weightUnit"
 		[width]="180"
 		[offsetY]="-34"
@@ -182,9 +184,10 @@ A package with 0cm makes no sens -->
 
 		<form-field-app class="modal col-25">
 			<label-app translate="text.units"></label-app>
+			<!-- TODO Check how to manage Length Unit selector with Constant typename -->
 			<selector-app
 			 	[disabled]="disabled"
-				[type]="'LENGTH_UNIT' | erm"
+				typename="Constant"
 				[value]="value.unit"
 				(update)="onChangePackaging('unit', $event)">
 				<selector-placeholder-app
@@ -213,9 +216,10 @@ A package with 0cm makes no sens -->
 
 		<form-field-app class="modal col-25">
 			<label-app translate="text.unit"></label-app>
+			<!-- TODO Check how to manage Weight Unit selector with Constant typename -->
 			<selector-app
 				[disabled]="disabled"
-				[type]="'WEIGHT_UNIT' | erm"
+				typename="Constant"
 				[value]="value.weightUnit"
 				(update)="onChangePackaging('weightUnit', $event)">
 				<selector-placeholder-app

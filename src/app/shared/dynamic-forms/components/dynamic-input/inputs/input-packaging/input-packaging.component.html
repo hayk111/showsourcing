@@ -19,8 +19,9 @@
 	<div class="spacer mg-xs"></div>
 
 	<form-field-app>
+		<!-- TODO Check how to manage Length Unit selector with Constant typename -->
 		<selector-app
-			[type]="'LENGTH_UNIT' | erm"
+			typename="Constant"
 			[value]="value.unit"
 			(update)="update($event, 'unit')">
 			<label-app translate="text.unit"></label-app>
@@ -42,8 +43,9 @@
 	</form-field-app>
 	<div class="spacer mg-xs"></div>
 	<form-field-app>
+		<!-- TODO Check how to manage Weight Unit selector with Constant typename -->
 		<selector-app
-			[type]="'WEIGHT_UNIT' | erm"
+			typename="Constant"
 			[value]="value.weightUnit"
 			(update)="update($event, 'weightUnit')">
 			<label-app translate="text.unit"></label-app>

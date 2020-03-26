@@ -42,7 +42,7 @@
 				[row]="row"
 				[column]="column"
 				[hovered]="row.id === hovered"
-				[type]="'SUPPLIER' | erm"
+				typename="Supplier"
 				(update)="update.emit($event)"
 				(previewClick)="previewClick.emit($event)"
 				(nameClick)="open.emit($event)"
@@ -72,7 +72,7 @@
 					<editable-display-app>
 						<selector-app
 							#sel
-							[type]="'CATEGORY' | erm: 'singular'"
+							typename="Category"
 							[offsetX]="4"
 							[value]="row?.categories"
 							[multiple]="true"
@@ -100,9 +100,10 @@
 					[openOnClick]="false"
 					(click)="sel.openMenu()">
 					<editable-display-app>
+						<!-- TODO check how to manage Country from Constant selector -->
 						<selector-app
 							#sel
-							[type]="'COUNTRY' | erm: 'singular'"
+							typename="Constant"
 							[offsetX]="4"
 							[width]="320"
 							(update)="update.emit({ id: row?.id, country: $event })">
@@ -117,7 +118,7 @@
 			<!-- type -->
 			<ng-container *ngSwitchCase="'type'">
 				<selector-app
-					[type]="'SUPPLIER_TYPE' | erm: 'singular'"
+					typename="SupplierType"
 					[width]="320"
 					[offsetX]="4"
 					(update)="update.emit({ id: row?.id, supplierType: $event })">

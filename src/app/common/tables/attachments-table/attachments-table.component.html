@@ -46,7 +46,7 @@
 				[row]="row"
 				[column]="column"
 				[hovered]="row.id === hovered"
-				[type]="'ATTACHMENT' | erm"
+				typename="Attachment"
 				(update)="update.emit($event)"
 				(previewClick)="previewClick.emit($event)"
 				(nameClick)="download(row)"

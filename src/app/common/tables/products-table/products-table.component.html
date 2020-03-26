@@ -45,7 +45,7 @@
 				[row]="row"
 				[column]="column"
 				[hovered]="row.id === hovered"
-				[type]="'PRODUCT' | erm"
+				typename="Product"
 				(update)="update.emit($event)"
 				(previewClick)="previewClick.emit($event)"
 				(nameClick)="open.emit($event)"
@@ -62,7 +62,7 @@
 					<editable-display-app>
 						<selector-app
 							#sel
-							[type]="'CATEGORY' | erm: 'singular'"
+							typename="Category"
 							[hasPicker]="canUpdate"
 							[canCreate]="true"
 							[width]="370"

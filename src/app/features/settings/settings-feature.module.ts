@@ -39,8 +39,6 @@ import { TablesCommonModule } from '~common/tables/tables-common.module';
 		// data
 		DataPages.ListManagementPageComponent,
 		DataPages.CategoryDataPageComponent,
-		DataPages.EventDataPageComponent,
-		DataPages.SupplierDataPageComponent,
 		DataPages.TagDataPageComponent,
 		// workflow
 		WorkflowPages.WorkflowPageComponent,
