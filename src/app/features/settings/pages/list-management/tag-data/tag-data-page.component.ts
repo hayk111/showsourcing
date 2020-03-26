@@ -40,8 +40,8 @@ export class TagDataPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.listFuseHelper.setup('Product');
-		this.items$ = this.listFuseHelper.filteredItems$;
+		this.listHelper.setup('Product');
+		this.items$ = this.listHelper.filteredItems$;
 	}
 
 	mergeSelected() {
