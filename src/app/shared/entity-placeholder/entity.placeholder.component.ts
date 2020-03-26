@@ -1,5 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
-import { EntityName } from '~core/erm';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Typename } from '~core/erm3/typename.type';
 
 @Component({
 	selector: 'entity-placeholder-app',
@@ -9,7 +9,7 @@ import { EntityName } from '~core/erm';
 })
 export class EntityPlaceholderComponent {
 
-	@Input() type: EntityName;
+	@Input() typename: Typename;
 	@Input() title: string;
 	@Input() subtitle: string;
 
