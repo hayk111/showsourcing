@@ -40,7 +40,7 @@
 	<!-- Header -->
 	<preview-header-app
 		[entity]="supplier"
-		[entityMD]="erm.SUPPLIER"
+		typename="Supplier"
 		(update)="update($event, 'name')">
 
 		<preview-header-buttons-app>
@@ -115,7 +115,7 @@
 	<preview-section-app #contentTab1 [title]="'title.tags' | translate">
 		<input-badge-selector-app
 			[value]="supplier?.tags"
-			type="tag"
+			typename="Tag"
 			(change)="update($event, 'tags')">
 		</input-badge-selector-app>
 	</preview-section-app>
@@ -151,7 +151,7 @@
 			<editable-display-app>
 				<selector-app
 					#sel
-					[type]="'USER' | erm: 'singular'"
+					typename="User"
 					[width]="320"
 					[offsetX]="4"
 					(update)="updateSupplier({ assignee: $event })">
@@ -167,7 +167,7 @@
 	<!-- Status -->
 	<preview-section-app #contentTab2 [title]="'title.supplier-status' | translate">
 		<status-selector-app
-			[typeEntity]="'SUPPLIER' | erm"
+			typename="Supplier"
 			[entity]="supplier"
 			type="button">
 		</status-selector-app>
@@ -245,7 +245,7 @@
 		<!-- Header -->
 		<preview-header-app
 			[entity]="supplier"
-			[entityMD]="erm.SUPPLIER"
+			typename="Supplier"
 			(update)="update($event, 'name')">
 
 		<!-- Supplier type badge -->
@@ -284,7 +284,7 @@
 	<preview-section-app [title]="'title.tags' | translate">
 		<input-badge-selector-app
 			[value]="supplier?.tags"
-			type="tag"
+			typename="Tag"
 			(change)="update($event, 'tags')">
 		</input-badge-selector-app>
 	</preview-section-app>

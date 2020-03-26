@@ -39,7 +39,7 @@
 
 	<!-- Header -->
 	<preview-header-app
-		[entityMD]="erm.PRODUCT"
+		typename="Product"
 		[entity]="product"
 		(update)="update($event, 'name')"
 		(statusUpdated)="statusUpdated.emit($event)">
@@ -134,7 +134,7 @@
 	<preview-section-app #contentTab1 [title]="'title.tags' | translate">
 		<input-badge-selector-app
 			[value]="product?.tags"
-			type="tag"
+			typename="Tag"
 			(change)="update($event, 'tags')">
 		</input-badge-selector-app>
 	</preview-section-app>
@@ -178,7 +178,7 @@
 			<editable-display-app>
 				<selector-app
 					#sel
-					[type]="'USER' | erm: 'singular'"
+					typename="User"
 					[width]="320"
 					[offsetX]="4"
 					(update)="updateProduct({ assignee: $event })">
@@ -194,7 +194,7 @@
 	<!-- Status -->
 	<preview-section-app #contentTab2 [title]="'title.product-status' | translate">
 		<status-selector-app
-			[typeEntity]="'PRODUCT' | erm"
+			typename="Product"
 			[entity]="product"
 			type="button">
 		</status-selector-app>
@@ -239,7 +239,7 @@
 		<preview-section-action-app>
 			<selector-app
 				class="selector"
-				type="project"
+				typename="Project"
 				[value]="product?.projects"
 				[canCreate]="true"
 				[multiple]="true"
@@ -295,7 +295,7 @@
 
 		<!-- Header -->
 		<preview-header-app
-			[entityMD]="erm.PRODUCT"
+			typename="Product"
 			[entity]="product"
 			(update)="update($event, 'name')"
 			(statusUpdated)="statusUpdated.emit($event)">
@@ -345,7 +345,7 @@
 	<preview-section-app #contentTab1 [title]="'title.tags' | translate">
 		<input-badge-selector-app
 			[value]="product?.tags"
-			type="tag"
+			typename="Tag"
 			(change)="update($event, 'tags')">
 		</input-badge-selector-app>
 	</preview-section-app>
@@ -354,7 +354,7 @@
 	<preview-section-app #contentTab1 [title]="'title.projects' | translate">
 		<input-badge-selector-app
 			[value]="product?.projects"
-			type="project"
+			typename="Project"
 			(change)="update($event, 'projects')">
 		</input-badge-selector-app>
 	</preview-section-app>

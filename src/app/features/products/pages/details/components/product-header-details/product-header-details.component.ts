@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { ProductService } from '~core/erm';
 import { User } from '~core/erm';
-import { ERM } from '~core/erm';
 import { Product } from '~core/erm';
 
 @Component({
@@ -17,7 +16,6 @@ export class ProductHeaderDetailsComponent {
 	@Output() update = new EventEmitter<Product>();
 	@Output() archive = new EventEmitter<Product>();
 	@Output() supplierRequest = new EventEmitter<Product>();
-	productEntity = ERM.PRODUCT;
 
 	constructor(private productSrv: ProductService) { }
 

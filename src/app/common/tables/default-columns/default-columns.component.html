@@ -7,7 +7,7 @@
 			size="s"
 			[logo]="row.images && row.images[0]"
 			[color]="logoColor"
-			[typename]="type.singular"
+			[typename]="typename"
 			(click)="onLogoClick(row)">
 		</logo-app>
 	</ng-container>
@@ -61,9 +61,9 @@
 				<status-selector-app
 					#sel
 					selectSize="m"
-					[displayStep]="type === erm.PRODUCT"
+					[displayStep]="typename === 'Product'"
 					[entity]="row"
-					[typeEntity]="type">
+					[typename]="typename">
 				</status-selector-app>
 			</editable-display-app>
 		</editable-container-app>
@@ -79,7 +79,7 @@
 			<editable-display-app>
 				<selector-app
 					#sel
-					[type]="'USER' | erm"
+					typename="User"
 					[width]="320"
 					[offsetX]="4"
 					(update)="update.emit({ id: row?.id, assignee: $event })">
@@ -147,7 +147,7 @@
 			<editable-display-app>
 				<selector-app
 					#sel
-					type="product"
+					typename="Product"
 					[offsetX]="4"
 					[width]="350"
 					(update)="update.emit({ id: row?.id, product: $event })">
@@ -168,7 +168,7 @@
 				<editable-display-app class="full-width">
 					<selector-app
 						#sel
-						type="supplier"
+						typename="Supplier"
 						class="full-width"
 						[width]="350"
 						[offsetX]="4"

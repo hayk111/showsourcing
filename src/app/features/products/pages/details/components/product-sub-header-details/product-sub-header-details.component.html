@@ -52,7 +52,7 @@
 					<!-- Put this inside a component has a unique style tho -->
 					<selector-app
 						#supplierSelector
-						type="supplier"
+						typename="Supplier"
 						[canCreate]="true"
 						[width]="370"
 						(update)="update($event, 'supplier')">
@@ -110,7 +110,7 @@
 		<h3 class="section-title">tags</h3>
 		<input-badge-selector-app
 			[value]="product?.tags"
-			type="tag"
+			typename="Tag"
 			(change)="update($event, 'tags')">
 		</input-badge-selector-app>
 	</section>
