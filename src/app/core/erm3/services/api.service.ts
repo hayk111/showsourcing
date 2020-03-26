@@ -3,6 +3,7 @@ import { MutationOptions } from 'apollo-client';
 import { ObservableQuery as ApolloObservableQuery, WatchQueryOptions } from 'aws-appsync/node_modules/apollo-client';
 import { from, Observable, forkJoin } from 'rxjs';
 import { filter, map, tap } from 'rxjs/operators';
+import { ObservableQuery } from './_global/observable-query.interface';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { log } from '~utils/log';
 import { Entity } from '../models/_entity.model';
@@ -14,13 +15,6 @@ import { ApiLogger } from './_api-logger.class';
 import { GqlHelper } from './_gql-helper.class';
 import { uuid } from '~utils';
 import { TeamService } from '~core/auth';
-
-export interface ObservableQuery<T = any> extends ApolloObservableQuery<T> {
-	response$: Observable<any>;
-	data$: Observable<T>;
-	total$?: Observable<number>;
-	queryName: string;
-}
 
 export interface FilterParams {
 	filter?: any;
