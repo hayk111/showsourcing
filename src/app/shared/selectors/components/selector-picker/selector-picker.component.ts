@@ -278,8 +278,8 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 						supplier: v.supplier ? v.supplier : null,
 						__typename: v.__typename
 					}
-				));
-				break;
+					));
+					break;
 			default:
 				trimValues = this.value.map(v => ({ id: v.id, name: v.name, __typename: v.__typename }));
 				break;
@@ -372,17 +372,8 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		let added;
 		const name = this.searchTxt;
 		if (name && this.typename) {
-			if (this.typename !== 'Contact') {
-				added = new Category({ name });
-				createObs$ = this.selectorSrv.create(this.typename, added);
-			} else if (this.typename === 'Contact') {
-				if (RegExp(RegexpApp.EMAIL).test(name)) {
-					added = new Contact({ email: name });
-					createObs$ = this.selectorSrv.create('Contact', added);
-				}
-			} else {
-				throw Error(`Unsupported type ${this.typename}`);
-			}
+			added = { name };
+			createObs$ = this.selectorSrv.create(this.typename, added);
 
 			// we add it directly to the value
 			if (this.multiple && added) {
