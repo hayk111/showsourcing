@@ -60,11 +60,4 @@ export class TablePageComponent implements OnInit {
 		this.items$ = this.listHelper.filteredItems$;
 	}
 
-	createSupplier() {
-		this.dialogCommonSrv.openCreateDlg('Supplier').pipe(
-			filter(event => event.type === CloseEventType.OK),
-			map(event => event.data)
-		).subscribe();
-	}
-
 }

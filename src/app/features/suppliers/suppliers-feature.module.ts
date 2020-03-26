@@ -43,7 +43,7 @@ import { routes } from './routes';
 		// DetailsPage.SupplierDocketComponent,
 		DetailsPage.SupplierHeaderDetailsComponent,
 		// DetailsPage.SupplierResumeComponent,
-		// DetailsPage.TasksPageComponent,
+		DetailsPage.TasksPageComponent,
 	],
 	entryComponents: [],
 	exports: [],

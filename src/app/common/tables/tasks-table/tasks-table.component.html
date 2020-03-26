@@ -40,7 +40,7 @@
 				[row]="row"
 				[column]="column"
 				[hovered]="row.id === hovered"
-				[type]="'TASK' | erm"
+				typename="Task"
 				[logoColor]="getColor(row)"
 				[redirectOnNameClick]="false"
 				(update)="update.emit($event)"

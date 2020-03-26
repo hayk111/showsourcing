@@ -27,7 +27,7 @@
 	<!-- Header -->
 	<preview-header-app
 		[entity]="task"
-		[entityMD]="erm.TASK"
+		typename="Task"
 		(update)="update($event, 'name')">
 
 		<preview-header-buttons-app>
@@ -96,7 +96,7 @@
 			<editable-display-app>
 				<selector-app
 					#sel
-					[type]="'USER' | erm: 'singular'"
+					typename="User"
 					[width]="320"
 					[offsetX]="4"
 					(update)="update($event, 'assignee')">

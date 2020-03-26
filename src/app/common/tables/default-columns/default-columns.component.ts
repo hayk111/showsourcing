@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { ColumnConfig } from '../entity-table.component';
-import { EntityMetadata, ERM } from '~core/erm';
 import { Color } from '~utils/colors.enum';
 import { Router } from '@angular/router';
+import { Typename } from '~core/erm3/typename.type';
 
 
 export interface EditableEntity {
@@ -24,7 +24,7 @@ export interface EditableEntity {
 export class DefaultColumnsComponent {
 	@Input() row: any;
 	@Input() column: ColumnConfig;
-	@Input() type: EntityMetadata; // TODO change type by typename
+	@Input() typename: Typename;
 	@Input() hovered: boolean;
 	@Input() logoColor: Color;
 	@Input() redirectOnNameClick = true;
@@ -32,9 +32,11 @@ export class DefaultColumnsComponent {
 	@Output() previewClick = new EventEmitter<any>();
 	@Output() logoClick = new EventEmitter<any>();
 	@Output() nameClick = new EventEmitter<any>();
-	erm = ERM;
 
-	constructor(public translate: TranslateService, private router: Router) { }
+	constructor(
+		public translate: TranslateService,
+		private router: Router
+	) { }
 
 	onLogoClick(row: any) {
 		this.logoClick.emit(row);
@@ -42,7 +44,14 @@ export class DefaultColumnsComponent {
 
 	routerPath(row) {
 		if (this.redirectOnNameClick)
-			return (['/', this.type.destUrl, row.id]);
+			return (['/', this._getTypenameUrl(this.typename), row.id]);
+	}
+
+	_getTypenameUrl(typename) {
+		switch (typename) {
+			default:
+				return typename.toLowerCase() + 's';
+		}
 	}
 
 	nameClicked(row) {

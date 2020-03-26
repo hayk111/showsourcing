@@ -61,7 +61,7 @@
 	<div class="status-selector">
 		<status-selector-app
 			[entity]="product"
-			 [typeEntity]="'PRODUCT' | erm"
+			 typename="Product"
 			 type="button"
 		 	selectSize="m"
 		 	(statusUpdated)="updateProp($event, 'status')">

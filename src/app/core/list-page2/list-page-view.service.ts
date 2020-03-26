@@ -46,7 +46,7 @@ export class ListPageViewService<T> {
 
 	/** Open details page of a product */
 	goToDetails(itemId: string) {
-		this.router.navigate([this.destUrl, itemId]);
+		this.router.navigate(['../', this.destUrl, itemId]);
 	}
 
 	/** when filter button is clicked at the top we open the panel */

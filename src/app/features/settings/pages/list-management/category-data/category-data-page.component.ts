@@ -32,7 +32,7 @@ export class CategoryDataPageComponent extends AutoUnsub implements OnInit {
 		public selectionSrv: SelectionService,
 		public viewSrv: ListPageViewService<Category>,
 		public filterSrv: FilterService,
-		public listFuseHelper: ListFuseHelperService
+		public listHelper: ListFuseHelperService
 	) {
 		super();
 	}
@@ -42,8 +42,8 @@ export class CategoryDataPageComponent extends AutoUnsub implements OnInit {
 		this.teamSrv.teamSelected$.subscribe(team => (teamId = team.id));
 		this.filterSrv.setup([], ['name']);
 		this.viewSrv.setup({typename: 'Category', destUrl: 'settings/list-management/category-data', view: 'table'});
-		this.listFuseHelper.setup('Category', 'Team', teamId); // search initialized in controller-table
-		this.items$ = this.listFuseHelper.filteredItems$;
+		this.listHelper.setup('Category', 'Team', teamId); // search initialized in controller-table
+		this.items$ = this.listHelper.filteredItems$;
 	}
 
 	mergeSelected() {

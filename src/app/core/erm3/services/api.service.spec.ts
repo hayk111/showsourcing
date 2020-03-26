@@ -4,7 +4,7 @@ import { TestBed } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
 import Amplify from 'aws-amplify';
 import { AmplifyService } from 'aws-amplify-angular';
-import { first, switchMap, tap } from 'rxjs/operators';
+import { first, switchMap, tap, take } from 'rxjs/operators';
 import { AuthenticationService, TeamService } from '~core/auth';
 import awsconfig from '../../../../../generated/aws-exports.js';
 import { Typename } from '../typename.type';
@@ -93,12 +93,18 @@ fdescribe('ApiService', () => {
 		jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
 	});
 
-	// fit('should add to cached list', async() => {
-	// 	const products = await queryAll.data$.pipe(take(1)).toPromise();
-	// 	apiSrv.addToList(queryAll, mocks.Product());
-	// 	const productsAfter = await queryAll.data$.pipe(take(1)).toPromise();
-	// 	expect(products.length).toEqual(productsAfter.length - 1);
-	// });
+	fit('should add to cached list', async() => {
+		const filter = { teamId: TeamService.teamSelected.id };
+		const productsRef = apiSrv.search('Product', { filter });
+		const products = await productsRef.data$
+			.pipe(take(1)).toPromise();
+		const lengthBefore = products.length;
+		apiSrv.addToList(productsRef, mocks.Product());
+		const productsAfter =	await productsRef.data$
+		.pipe(take(1)).toPromise();
+		const lengthAfter = productsAfter.length;
+		expect(lengthAfter).toEqual(lengthBefore + 1);
+	});
 
 	it('should create entities', async () => {
 		const promises = Object.entries(mocks).map(([name, getMock]) => {

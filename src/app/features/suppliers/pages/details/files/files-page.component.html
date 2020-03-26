@@ -20,9 +20,8 @@
 	[rows]="listHelper.filteredItems$ | async"
 	[selection]="selectionSrv.selection$ | async"
 	[total]="listHelper.total$ | async"
-	[linkedEntity]="supplier"
-	(delete)="listSrv.deleteOne($event, true)"
-	(update)="listSrv.update($event)"
+	(delete)="listHelper.delete($event)"
+	(update)="listHelper.update($event)"
 	(open)="viewSrv.goToDetails($event)"
 	(openAddToProjectDialog)="dialogCommonSrv.openAddToProjectDialog([$event])"
 	(openAddSampleDialog)="dialogCommonSrv.openCreationSampleDialog($event)"
@@ -32,12 +31,11 @@
 	(previewClick)="viewSrv.openPreview($event)"
 	(select)="selectionSrv.selectOne($event, true)"
 	(selectAll)="selectionSrv.selectAll($event, true)"
-	(sort)="listSrv.sort($event)"
+	(sort)="listHelper.sort($event)"
 	(unselect)="selectionSrv.unselectOne($event, true)"
-	(update)="listSrv.update($event)"
+	(update)="listHelper.update($event)"
 	(createClick)="dialogCommonSrv.openCreationProductDlg()"
-	(unselectAll)="selectionSrv.unselectAll()"
-	(upload)="listSrv.refetch().subscribe()">
+	(unselectAll)="selectionSrv.unselectAll()">
 </attachments-table-app>
 
 
@@ -46,7 +44,7 @@
 	[selection]="selectionSrv.selection$ | async"
 	(close)="selectionSrv.unselectAll()">
 
-	<button class="icon light" (click)="listSrv.deleteSelected()">
+	<button class="icon light" (click)="listHelper.deleteSelected()">
 		<icon-app name="trash"></icon-app>
 	</button>
 

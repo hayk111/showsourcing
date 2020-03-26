@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
 import { EntityName, Project, Tag } from '~core/erm';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs/components-directives';
+import { Typename } from '~core/erm3/typename.type';
 
 @Component({
 	selector: 'input-badge-selector-app',
@@ -18,7 +19,7 @@ export class InputBadgeSelectorComponent extends AbstractInput {
 	get value() {
 		return this._value;
 	}
-	@Input() type: EntityName.TAG | EntityName.PROJECT;
+	@Input() typename: Typename; // should be only 'Tag' | 'Project';
 	// position of the selector in case we need a special one
 	@Input() offsetX = 0;
 	@Input() offsetY = -28;

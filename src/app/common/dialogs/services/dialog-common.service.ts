@@ -119,6 +119,7 @@ export class DialogCommonService {
 		return this.dlgSrv.open(RefuseReplyDlgComponent, data);
 	}
 
+	/** @deprecated: use openCreationDlg instead */
 	openCreationProductDlg() {
 		return this.dlgSrv.open(CreationProductDlgComponent).pipe(
 			filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
@@ -127,19 +128,25 @@ export class DialogCommonService {
 	}
 
 	openCreationDlg(typename: Typename) {
-		return this.dlgSrv.open(CreationDialogComponent, { typename });
+		switch (typename) {
+			// Add other cases after
+			default:
+				return this.dlgSrv.open(CreationDialogComponent, { typename });
+		}
 	}
 
 	openSupplierRequest(products: Product[], supplier?: Supplier) {
 		return this.dlgSrv.open(SupplierRequestDialogComponent, { products, supplier });
 	}
 
+	/** @deprecated: use openCreationDlg instead */
 	openCreationTaskDlg(product?: Product, supplier?: Supplier) {
 		return this.dlgSrv.open(CreationTaskDlgComponent, { product, supplier }).pipe(
 			filter((event: CloseEvent) => event.type === CloseEventType.OK),
 		);
 	}
 
+	/** @deprecated: use openCreationDlg instead */
 	openCreationSampleDialog(product?: Product, supplier?: Supplier) {
 		return this.dlgSrv.open(CreationSampleDlgComponent, { product, supplier }).pipe(
 			filter((event: CloseEvent) => event.type === CloseEventType.OK),

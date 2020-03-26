@@ -12,18 +12,16 @@
 	[rows]="listHelper.filteredItems$ | async"
 	[selection]="selectionSrv.selection$ | async"
 	[pending]="listHelper.pending"
-	[isFiltering]="filterSrv.isFiltering"
 	[total]="listHelper.total$ | async"
 	(goToPage)="listHelper.loadPage($event)"
-	(sort)="listHelper.sort($event)"
 	(select)="selectionSrv.selectOne($event, true)"
 	(unselect)="selectionSrv.unselectOne($event, true)"
 	(selectAll)="selectionSrv.selectAll($event, true)"
 	(unselectAll)="selectionSrv.unselectAll()"
 	(open)="viewSrv.goToDetails($event)"
 	(previewClick)="viewSrv.openPreview($event)"
-	(createClick)="openCreationTaskDlg(undefined, supplier)"
-	(delete)="listHelper.deleteOne($event, true)">
+	(createClick)="dialogCommonSrv.openCreationTaskDlg(undefined, supplier)"
+	(delete)="listHelper.delete($event, true)">
 </task-table-app>
 
 <task-preview-app
@@ -34,7 +32,6 @@
 
 <side-panel-app *ngIf="viewSrv.filterPanelOpen">
 	<filters-app
-		[filterList]="filterSrv.filterList"
 		[filterTypes]="filterTypes"
 		(clickOutside)="viewSrv.closeFilterPanel()"
 		(close)="viewSrv.closeFilterPanel()">

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, switchMap, takeUntil } from 'rxjs/operators';
+import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { AbstractTaskCommonComponent } from '~common/abstracts/abstract-task-common.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import {
@@ -14,68 +14,40 @@ import {
 import { ListPageService } from '~core/list-page';
 import { FilterService, FilterType } from '~core/filters';
 import { DialogService } from '~shared/dialog';
+import { ListFuseHelperService, ListPageViewService, SelectionService } from '~core/list-page2';
+import { AutoUnsub } from '~utils/auto-unsub.component';
 
 @Component({
 	selector: 'tasks-page-app',
 	templateUrl: './tasks-page.component.html',
 	styleUrls: ['./tasks-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [ListPageService, FilterService]
+	providers: [
+		ListFuseHelperService,
+		SelectionService,
+		FilterService,
+		ListPageViewService
+	]
 })
-export class TasksPageComponent extends AbstractTaskCommonComponent
-	implements OnInit {
-	product: Product;
-
+export class TasksPageComponent extends AutoUnsub implements OnInit {
+	product;
 	constructor(
 		protected route: ActivatedRoute,
-		protected userSrv: UserService,
 		protected router: Router,
-		protected taskSrv: TaskService,
-		protected dlgSrv: DialogService,
-		protected productSrv: ProductService,
 		public dialogCommonSrv: DialogCommonService,
-		public listSrv: ListPageService<Task, TaskService>,
-		protected filterSrv: FilterService
+		public listHelper: ListFuseHelperService,
+		public selectionSrv: SelectionService,
+		public filterSrv: FilterService,
+		public viewSrv: ListPageViewService<any>
 	) {
-		super(
-			router,
-			route,
-			userSrv,
-			taskSrv,
-			dlgSrv,
-			dialogCommonSrv,
-			listSrv,
-			filterSrv
-		);
+		super();
 	}
 
 	ngOnInit() {
-		const id$ = this.route.parent.params.pipe(
+		this.route.parent.params.pipe(
 			map(params => params.id),
+			tap(id => this.product = { id }),
 			takeUntil(this._destroy$)
-		);
-
-		id$
-			.pipe(
-				switchMap(id => this.productSrv.selectOne(id)),
-				takeUntil(this._destroy$)
-			)
-			.subscribe(product => (this.product = product));
-
-		const selectParams = new SelectParams({
-			sortBy: 'done',
-			descending: false
-		});
-		super.setup(
-			[
-				{
-					type: FilterType.PRODUCT,
-					value: this.route.parent.snapshot.params.id
-				}
-			],
-			selectParams,
-			false
-		);
-		super.ngOnInit();
+		).subscribe(id => this.listHelper.setup('Task', 'Supplier', id ));
 	}
 }

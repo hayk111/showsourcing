@@ -50,6 +50,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	get type(): EntityMetadata {
 		return this._type;
 	}
+	@Input() typename: Typename;
 	@Input() multiple = false;
 	@Input() canCreate = false;
 	@Input() dynamicFields: DynamicField[];
@@ -77,7 +78,6 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	/** local choices to iterate, these choices are not in our DB */
 	choicesLocal = [];
 
-	typeName: Typename;
 	choicesSubscription: Subscription;
 
 	/**
@@ -125,10 +125,8 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			name: ['']
 		});
 
-		this.typeName = this.capitalizeFirstLetter(this.type.singular) as Typename;
-
-		if (isLocalList(this.typeName)) {
-			this.fuseHelperSrv.setup(this.typeName);
+		if (isLocalList(this.typename)) {
+			this.fuseHelperSrv.setup(this.typename);
 			this.choicesSubscription = this.fuseHelperSrv.filteredItems$.pipe(tap((choices) => {
 				if (this.searchTxt) {
 					this.choices$ = of(choices);
@@ -138,8 +136,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 				}
 			})).subscribe();
 		} else {
-			this.listHelperSrv.setup(this.typeName);
-
+			this.listHelperSrv.setup(this.typename);
 			this.choicesSubscription = this.listHelperSrv.filteredItems$.pipe(tap((choices) => {
 				if (this.searchTxt) {
 					this.choices$ = of(choices);
@@ -196,9 +193,9 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			if (!this.value)
 				this.value = [];
 			// if its multiple we want to filter the values that we have currently selected, so they don't appear on the options
-			this.choices$ = this.getChoices(this.type).pipe(map((items) => this.filterValues(items)));
+			this.choices$ = this.getChoices(this.typename).pipe(map((items) => this.filterValues(items)));
 		} else {
-			this.choices$ = this.getChoices(this.type);
+			this.choices$ = this.getChoices(this.typename);
 		}
 	}
 
@@ -208,15 +205,9 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	 * @param items
 	 */
 	private filterValues(items: any[]) {
-		switch (this.type) {
-			case ERM.EMAIL:
-				return items.filter(i => (this.value) ? !((this.value || []).some(val => val === i.email)) : true);
-			default:
-				// only items that are not on the value array so they don't appear in the options
-				return items.filter(i =>
-					// if the array exists we check that the item does not exist on the value array
-					(this.value) ? !((this.value).some(val => val.id === i.id)) : true);
-		}
+		return items.filter(i =>
+			// if the array exists we check that the item does not exist on the value array
+			(this.value) ? !((this.value).some(val => val.id === i.id)) : true);
 	}
 
 	/**
@@ -241,33 +232,32 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 
 	/** choices of the given type, remember to add a new selector row component if you add a new type or use an existign one */
 	// ARRAYS START AT 1 NOT 0!!!! now that I have your attention ADVICE: when adding a new choice, check the update single method
-	private getChoices(type: EntityMetadata): Observable<any[]> {
+	private getChoices(type: Typename): Observable<any[]> {
 		switch (type) {
-			case ERM.CATEGORY: return this.selectorSrv.getChoices('Category');
-			case ERM.EMAIL:
-			case ERM.CONTACT: return this.selectorSrv.getChoices('Contact');
-			case ERM.COUNTRY: return this.selectorSrv.getChoices('Typename Constant', 'Team', 'fullName');
-			case ERM.CURRENCY: return this.selectorSrv.getChoices('Typename Constant', 'Team', '');
-			case ERM.EVENT: return this.selectorSrv.getChoices('Event', 'Team', 'description.name');
-			case ERM.HARBOUR: return this.selectorSrv.getChoices('Typename Constant');
+			case 'Category': return this.selectorSrv.getChoices('Category');
+			case 'Contact': return this.selectorSrv.getChoices('Contact');
+			case 'Typename Constant': return this.selectorSrv.getChoices('Typename Constant', 'Team', 'fullName');
+			case 'Typename Constant': return this.selectorSrv.getChoices('Typename Constant', 'Team', '');
+			case 'Event': return this.selectorSrv.getChoices('Event', 'Team', 'description.name');
+			case 'Typename Constant': return this.selectorSrv.getChoices('Typename Constant');
 			// case ERM.PICKER_FIELD: return this.selectorSrv.getDynamicFields(this.dynamicFields);
-			case ERM.PRODUCT: return this.selectorSrv.getChoices('Product');
-			case ERM.PROJECT: return this.selectorSrv.getChoices('Project', 'Owner');
-			case ERM.REQUEST_TEMPLATE: return this.selectorSrv.getChoices('Request');
+			case 'Product': return this.selectorSrv.getChoices('Product');
+			case 'Project': return this.selectorSrv.getChoices('Project', 'Owner');
+			case 'Request': return this.selectorSrv.getChoices('Request');
 			// case ERM.SELECTOR_ELEMENT:
 			// 	if (!this.definitionReference)
 			// 		throw Error('The selector `SelectorElement` needs a definitionReference to target');
 			// 	return this.selectorSrv.getSelectorElements(this.definitionReference);
-			case ERM.SUPPLIER: return this.selectorSrv.getChoices('Supplier');
-			case ERM.SUPPLIER_TYPE: return this.selectorSrv.getChoices('SupplierType');
-			case ERM.TAG: return this.selectorSrv.getChoices('Tag');
-			case ERM.USER: return this.selectorSrv.getChoices('User', 'Team', 'lastName');
-			case ERM.TEAM_USER: return this.selectorSrv.getChoices('TeamUser', 'Team', 'user.lastName').pipe(
+			case 'Supplier': return this.selectorSrv.getChoices('Supplier');
+			case 'SupplierType': return this.selectorSrv.getChoices('SupplierType');
+			case 'Tag': return this.selectorSrv.getChoices('Tag');
+			case 'User': return this.selectorSrv.getChoices('User', 'Team', 'lastName');
+			case 'TeamUser': return this.selectorSrv.getChoices('TeamUser', 'Team', 'user.lastName').pipe(
 				map(teamUsers => teamUsers.map(tu => tu.user))
 			);
-			case ERM.WEIGHT_UNIT: return this.selectorSrv.getChoices('Weight');
+			case 'Weight': return this.selectorSrv.getChoices('Weight');
 
-			default: throw Error(`Unsupported type${this.type} for selector`);
+			default: throw Error(`Unsupported type${this.typename} for selector`);
 		}
 	}
 
@@ -287,26 +277,14 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	 */
 	private updateMultiple() {
 		let trimValues;
-		switch (this.type) {
-			case ERM.EMAIL:
-				trimValues = this.value.map(v => v.email || v);
-				break;
-			case ERM.PRODUCT:
+		switch (this.typename) {
+			case 'Product':
 				trimValues = this.value.map(v => (
 					{
 						id: v.id,
 						name: v.name,
 						images: v.images ? v.images : null,
 						supplier: v.supplier ? v.supplier : null,
-						__typename: v.__typename
-					}
-				));
-				break;
-			case ERM.SELECTOR_ELEMENT:
-				trimValues = this.value.map(v => (
-					{
-						id: v.id,
-						value: v.value,
 						__typename: v.__typename
 					}
 				));
@@ -324,9 +302,9 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	private updateSingle() {
 		let item;
 		// depending on the entity the way we update it can be different (we only care to update the value that we display)
-		switch (this.type) {
-			case ERM.TEAM_USER:
-			case ERM.USER:
+		switch (this.typename) {
+			case 'TeamUser':
+			case 'User':
 				item = {
 					id: this.value.id,
 					firstName: this.value.firstName ? this.value.firstName : '',
@@ -334,7 +312,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 					__typename: this.value.__typename
 				};
 				break;
-			case ERM.CONTACT:
+			case 'Contact':
 				item = {
 					id: this.value.id,
 					email: this.value.email,
@@ -342,22 +320,10 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 					__typename: this.value.__typename
 				};
 				break;
-			case ERM.SELECTOR_ELEMENT:
-				item = {
-					id: this.value.id,
-					value: this.value.value,
-					__typename: this.value.__typename
-				};
-				break;
 			// if its a const we don't need to emit an object {id, typename} (its not an entity update),
 			// we only need a string (e.g. supplier -> country -> string)
-			case ERM.COUNTRY:
-			case ERM.CURRENCY:
-			case ERM.HARBOUR:
-			case ERM.INCO_TERM:
-			case ERM.LENGTH_UNIT:
-			case ERM.PICKER_FIELD:
-			case ERM.WEIGHT_UNIT:
+			case 'Typename Constant':
+			case 'Weight':
 				item = this.value;
 				break;
 			// this is the default if we are updating an entity with name field
@@ -380,20 +346,8 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	 */
 	onSelect(item) {
 		let itemToReturn = item;
-		switch (this.type) {
-			case ERM.COUNTRY:
-				itemToReturn = item.countryCode;
-				break;
-			case ERM.CURRENCY:
-				itemToReturn = item.symbol;
-				break;
-			case ERM.PICKER_FIELD:
-				itemToReturn = item.label || item.name;
-				break;
-			case ERM.HARBOUR:
-			case ERM.INCO_TERM:
-			case ERM.LENGTH_UNIT:
-			case ERM.WEIGHT_UNIT:
+		switch (this.typename) {
+			case 'Typename Constant':
 				itemToReturn = item.name;
 				break;
 			default:
@@ -417,12 +371,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	 * @returns list of items that match the current searchTxt
 	 */
 	private checkExist(items: any[]) {
-		switch (this.type) {
-			case ERM.EMAIL:
-				return items.filter(it => it.name === this.searchTxt || it.email === this.searchTxt);
-			default:
-				return items.filter(it => it.name === this.searchTxt);
-		}
+		return items.filter(it => it.name === this.searchTxt);
 	}
 
 	/**
@@ -433,47 +382,43 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		let added;
 		const name = this.searchTxt;
 		if (name) {
-			switch (this.type) {
-				case ERM.CATEGORY:
+			switch (this.typename) {
+				case 'Category':
 					added = new Category({ name });
 					createObs$ = this.selectorSrv.create('Category', added);
 					break;
-				case ERM.EVENT:
+				case 'Event':
 					added = new Event({ name });
 					createObs$ = this.selectorSrv.create('Event', added);
 					break;
-				case ERM.PRODUCT:
+				case 'Product':
 					added = new Product({ name });
 					createObs$ = this.selectorSrv.create('Product', added);
 					break;
-				case ERM.PROJECT:
+				case 'Project':
 					added = new Project({ name });
 					createObs$ = this.selectorSrv.create('Project', added);
 					break;
-				case ERM.SUPPLIER:
+				case 'Supplier':
 					added = new Supplier({ name });
 					createObs$ = this.selectorSrv.create('Supplier', added);
 					break;
-				case ERM.SUPPLIER_TYPE:
+				case 'SupplierType':
 					added = new SupplierType({ name });
 					createObs$ = this.selectorSrv.create('SupplierType', added);
 					break;
-				case ERM.TAG:
+				case 'Tag':
 					added = new Tag({ name });
 					createObs$ = this.selectorSrv.create('Tag', added);
 					break;
-				case ERM.CONTACT:
+				case 'Contact':
 					if (RegExp(RegexpApp.EMAIL).test(name)) {
 						added = new Contact({ email: name });
 						createObs$ = this.selectorSrv.create('Contact', added);
 					}
 					break;
-				case ERM.EMAIL:
-					if (RegExp(RegexpApp.EMAIL).test(name))
-						added = name;
-					break;
 				default:
-					throw Error(`Unsupported type ${this.type}`);
+					throw Error(`Unsupported type ${this.typename}`);
 			}
 			// we add it directly to the value
 			if (this.multiple && added) {
@@ -551,14 +496,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		if (!this.multiple)
 			return isSelected;
 		if (this.value && this.value.length) {
-			switch (this.type) {
-				case ERM.EMAIL:
-					isSelected = !!this.value.find(value => value === item.email);
-					break;
-				default:
-					isSelected = !!this.value.find(value => value.id === item.id);
-					break;
-			}
+			isSelected = !!this.value.find(value => value.id === item.id);
 		}
 		return isSelected;
 	}
@@ -577,14 +515,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		if (!this.multiple)
 			return hasName;
 		if (this.value && this.value.length) {
-			switch (this.type) {
-				case ERM.EMAIL:
-					hasName = !!this.value.find(value => value.toLowerCase() === name);
-					break;
-				default:
-					hasName = !!this.value.find(value => value.name.toLowerCase() === name);
-					break;
-			}
+			hasName = !!this.value.find(value => value.name.toLowerCase() === name);
 		}
 		return hasName;
 	}
@@ -596,14 +527,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	 * @param item item
 	 */
 	delete(item) {
-		switch (this.type) {
-			case ERM.EMAIL:
-				this.value = this.value.filter(value => value !== item);
-				break;
-			default:
-				this.value = this.value.filter(value => value.id !== item.id);
-				break;
-		}
+		this.value = this.value.filter(value => value.id !== item.id);
 		this.onChange();
 	}
 

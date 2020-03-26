@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { SelectionService } from '~core/list-page2';
+import { SelectionService, ListPageViewService } from '~core/list-page2';
 import { ListFuseHelperService } from '~core/list-page2/list-fuse-helper.service';
 import { DialogService } from '~shared/dialog';
 import { AutoUnsub } from '~utils/auto-unsub.component';
@@ -24,6 +24,8 @@ export class FilesPageComponent implements OnInit {
 		protected route: ActivatedRoute,
 		protected listHelper: ListFuseHelperService,
 		public dialogCommonSrv: DialogCommonService,
+		public selectionSrv: SelectionService,
+		public viewSrv: ListPageViewService<any>
 	) {
 	}
 

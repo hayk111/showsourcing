@@ -14,7 +14,7 @@ export class ProductService extends GlobalService<Product> {
 	constructor(
 		protected analytics: AnalyticsService,
 		protected userSrv: UserService) {
-		super(ProductQueries, 'product', undefined, analytics);
+		super(ProductQueries, 'product', 'products', analytics);
 	}
 
 	private _selectedProds$ = new Subject<Product[]>();

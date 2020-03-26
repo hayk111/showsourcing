@@ -4,6 +4,7 @@ import { shareReplay } from 'rxjs/operators';
 import { TaskService, ProjectService } from '~core/erm';
 import { ERMService } from '~core/erm';
 import { EntityMetadata, ERM, SampleStatus, SupplierStatus, ProductStatus } from '~core/erm';
+import { Typename } from '~core/erm3/typename.type';
 
 @Injectable({
 	providedIn: 'root'
@@ -36,21 +37,24 @@ export class StatusSelectorService {
 
 	}
 
-	getTableStatus(typeEntity: EntityMetadata): Observable<SupplierStatus[] | ProductStatus[] | SampleStatus[]> {
-		switch (typeEntity) {
-			case ERM.PRODUCT_STATUS:
-			case ERM.PRODUCT: return this.productStatuses$;
-			case ERM.SUPPLIER_STATUS:
-			case ERM.SUPPLIER: return this.supplierStatuses$;
-			case ERM.SAMPLE_STATUS:
-			case ERM.SAMPLE: return this.sampleStatus$;
+	getTableStatus(typename: Typename): Observable<SupplierStatus[] | ProductStatus[] | SampleStatus[]> {
+		switch (typename) {
+			// TODO Use Typenames and manage differents status with WorkflowStatus
+			// case ERM.PRODUCT_STATUS:
+			// case ERM.PRODUCT: return this.productStatuses$;
+			// case ERM.SUPPLIER_STATUS:
+			// case ERM.SUPPLIER: return this.supplierStatuses$;
+			// case ERM.SAMPLE_STATUS:
+			// case ERM.SAMPLE: return this.sampleStatus$;
 			default: return of();
 		}
 	}
 
-	updateStatus(entity, typeEntity: EntityMetadata) {
+	updateStatus(entity, typename: Typename) {
 		this._statusUpdate$.next();
-		return this.ermSrv.getGlobalService(typeEntity).update(entity);
+		// return this.ermSrv.getGlobalService(typeEntity).update(entity);
+		return of();
+		// TODO update with api-service
 	}
 
 	updateTask(entity) {

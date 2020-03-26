@@ -1,19 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { map, switchMap, takeUntil } from 'rxjs/operators';
-import { AbstractTaskCommonComponent } from '~common/abstracts/abstract-task-common.component';
+import { ActivatedRoute } from '@angular/router';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import {
-	ERM,
-	Supplier,
-	SupplierService,
-	Task,
-	TaskService,
-	UserService
-} from '~core/erm';
-import { ListPageService, SelectionService } from '~core/list-page';
+import { Supplier } from '~core/erm';
 import { FilterService, FilterType } from '~core/filters';
-import { DialogService } from '~shared/dialog';
+import { SelectionService } from '~core/list-page';
 import { ListHelperService, ListPageViewService } from '~core/list-page2';
 
 @Component({
@@ -37,7 +27,8 @@ export class TasksPageComponent implements OnInit {
 		public listHelper: ListHelperService,
 		public viewSrv: ListPageViewService<any>,
 		public dialogCommonSrv: DialogCommonService,
-		public filterSrv: FilterService
+		public filterSrv: FilterService,
+		public selectionSrv: SelectionService
 	) {
 	}
 

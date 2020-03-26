@@ -9,19 +9,15 @@
 
 <contacts-table-app
 	[hasMenu]="false"
-	[isFiltering]="filterSrv.isFiltering"
 	[rows]="listHelper.filteredItems$ | async"
 	[selection]="selectionSrv.selection$ | async"
 	[total]="listHelper.total$ | async"
-	[currentPage]="listHelper.currentPage"
 	(goToPage)="listHelper.loadPage($event)"
-	(delete)="listHelper.deleteOne($event)"
 	(open)="viewSrv.goToDetails($event)"
 	(openCreateRequestDlg)="dialogCommonSrv.openSupplierRequest([$event])"
 	(select)="selectionSrv.selectOne($event, true)"
 	(selectAll)="selectionSrv.selectAll($event, true)"
 	(sort)="listHelper.sort($event)"
-	(unfavorited)="listHelper.onItemUnfavorited($event)"
 	(unselect)="selectionSrv.unselectOne($event, true)"
 	(update)="listHelper.update($event)"
 	(createClick)="openNewContactDlg({id: supplierId})"
@@ -31,7 +27,7 @@
 <contact-selection-bar-app
 	[isShown]="(selectionSrv.selection$ | async)?.size > 0"
 	[selection]="selectionSrv.selection$ | async"
-	[selectableItems]="listHelper.items$ | async"
+	[selectableItems]="listHelper.filteredItems$ | async"
 	(deleteSelected)="listHelper.deleteSelected(true)"
 	(close)="selectionSrv.unselectAll()"
 	(selectAll)="selectionSrv.selectAll($event)"

@@ -1,6 +1,6 @@
 
 <ng-container *ngIf="product$ | async as product; else spinner">
-	<product-header-details-app
+	<!-- <product-header-details-app
 		[product]="product"
 		(update)="updateProduct($event)"
 		(export)="dlgCommonSrv.openExportDialog(erm.PRODUCT.singular, [$event])"
@@ -15,12 +15,12 @@
 		(redirect)="goToTable($event)"
 		(ratingClicked)="scrollToRating()"
 		(openSupplier)="goToSupplier($event)">
-	</product-sub-header-details-app>
+	</product-sub-header-details-app> -->
 
 	<div class="flex ctnr">
 		<div class="left">
 			<!-- docket card -->
-			<product-docket-app
+			<!-- <product-docket-app
 				[product]="product"
 				(update)="updateProduct($event)"
 				(addTask)="dlgCommonSrv.openCreationTaskDlg(product)"
@@ -29,10 +29,10 @@
 				(previewTask)="openTaskPreview($event)"
 				(goToSamples)="goToTable('samples')"
 				(goToTasks)="goToTable('tasks')">
-			</product-docket-app>
+			</product-docket-app> -->
 
 			<!-- rating card -->
-			<card-app #rating class="mg-top-l">
+			<!-- <card-app #rating class="mg-top-l">
 				<card-title-app size="s">Team Rating</card-title-app>
 				<rating-dashboard-app
 					[votes]="product?.votes"
@@ -40,15 +40,15 @@
 					(viewRatings)="dlgCommonSrv.openVoteDetailsDialog($event)"
 					(update)="updateProduct({ id: product?.id, votes: $event })">
 				</rating-dashboard-app>
-			</card-app>
+			</card-app> -->
 
 			<!-- Project card -->
-			<project-list-card-app
+			<!-- <project-list-card-app
 				[projects]="product?.projects"
 				(update)="updateProduct({ id: product?.id, projects: $event })"
 				(openProject)="openProjectDetails($event)"
 				(deleteProject)="dissociateProject(product?.projects, $event)">
-			</project-list-card-app>
+			</project-list-card-app> -->
 
 		</div>
 		<product-main-app #main class="right" [product]="product"></product-main-app>
@@ -62,14 +62,14 @@
 </ng-template>
 
 <!-- previews -->
-<sample-preview-app
+<!-- <sample-preview-app
 	*ngIf="previewOpened && sample"
 	[sample]="sample"
 	(close)="closePreview()">
-</sample-preview-app>
+</sample-preview-app> -->
 
-<task-preview-app
+<!-- <task-preview-app
 	*ngIf="previewOpened && task"
 	[task]="task"
 	(close)="closePreview()">
-</task-preview-app>
+</task-preview-app> -->

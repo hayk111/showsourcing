@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import * as Fuse from 'fuse.js';
 import { combineLatest, forkJoin, Observable, of, Subject, timer } from 'rxjs';
 import { debounce, switchMap, tap } from 'rxjs/operators';
-import { TeamService } from '~core/auth';
 import { ApiQueryOption, ApiService } from '~core/erm3/services/api.service';
 import { ObservableQuery } from '~core/erm3/services/_global/observable-query.interface';
 import { Typename } from '~core/erm3/typename.type';
 import { FilterService, FilterType } from '~core/filters';
 import { SelectionService } from './selection.service';
+import { TeamService } from '~core/auth';
 
 
 @Injectable({ providedIn: 'root' })
@@ -29,6 +29,22 @@ export class ListFuseHelperService<G = any> {
 		distance: 100,
 		minMatchCharLength: 1
 	};
+
+	filteredItems$: Observable<G[]> = combineLatest(this._fuse$, this.filterSrv.valueChanges$).pipe(
+		debounce(() => timer(400)),
+		switchMap(([fuse]: any) => {
+			// the value changed should concern the FilterType search
+			const searchValue = this.filterSrv.getFiltersForType(FilterType.SEARCH)[0];
+			if (searchValue) return of(fuse.search(searchValue.value).map(data => data.item));
+			else return this.queryRef.data$;
+		}),
+		tap(searchedDatas => {
+			this._total$.next(searchedDatas.length);
+		}),
+	);
+	// result.sort(); // TODO should take sort property from filterSrv, not implemented yet
+	// TODO should trigger filteredItems$ when sort is updated
+	// TODO update pagination
 
 	constructor(
 		private selectionSrv: SelectionService,
@@ -53,22 +69,6 @@ export class ListFuseHelperService<G = any> {
 			this.pending = false;
 		});
 	}
-
-	filteredItems$: Observable<G[]> = combineLatest(this._fuse$, this.filterSrv.valueChanges$).pipe(
-		debounce(() => timer(400)),
-		switchMap(([fuse]: any) => {
-			// the value changed should concern the FilterType search
-			const searchValue = this.filterSrv.getFiltersForType(FilterType.SEARCH)[0];
-			if (searchValue) return of(fuse.search(searchValue.value).map(data => data.item));
-			else return this.queryRef.data$;
-		}),
-		tap(searchedDatas => {
-			this._total$.next(searchedDatas.length);
-		}),
-	);
-	// result.sort(); // TODO should take sort property from filterSrv, not implemented yet
-	// TODO should trigger filteredItems$ when sort is updated
-	// TODO update pagination
 
 	private refetch() {
 		this.pending = true;

@@ -49,7 +49,7 @@
 			toolTip [toolTipMessage]="'message.change-status' | translate" toolTipPosition="above-right"
 			#workActionMenu
 			selectSize="m"
-			[typeEntity]="'SUPPLIER' | erm"
+			typename="Supplier"
 			type="multiple-selection"
 			[internalUpdate]="false"
 			(statusUpdated)="this.listSrv.updateSelected({status: $event})">

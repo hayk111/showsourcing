@@ -10,6 +10,7 @@ import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { FilterType } from '~core/filters';
 import { AutoUnsub } from '~utils';
 import { ID } from '~utils/id.utils';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 
 @Component({
 	selector: 'products-page-app',
@@ -25,7 +26,7 @@ import { ID } from '~utils/id.utils';
 })
 export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	supplierId: ID;
-	private supplier: Supplier;
+	supplier: Supplier;
 	// filter displayed as button in the filter panel
 	filterTypes = [
 		FilterType.ARCHIVED,
@@ -41,7 +42,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	constructor(
 		private route: ActivatedRoute,
 		public listHelper: ListHelperService,
-		public dlgSrv: DialogService,
+		public dialogCommonSrv: DialogCommonService,
 		public selectionSrv: SelectionService,
 		public filterSrv: FilterService,
 		public viewSrv: ListPageViewService<any>
@@ -51,20 +52,9 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		this.supplierId = this.route.parent.snapshot.params.id;
+		this.supplier = { id: this.supplierId };
 		this.listHelper.setup('Product');
 		this.filterSrv.setup([ { type: FilterType.SUPPLIER, value: this.supplierId }]);
-	}
-
-	openCreationProductDlg() {
-		const supplier = { id: this.supplier.id, name: this.supplier.name };
-		this.dlgSrv
-			.open(CreationProductDlgComponent, { product: new Product({ supplier }) })
-			.pipe(
-				filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
-				map((evt: CloseEvent) => evt.data),
-				switchMap(_ => this.listHelper.refetch())
-			)
-			.subscribe();
 	}
 
 	/** instead of deleting the product, we deassociate the supplier from it */

@@ -30,7 +30,7 @@ import { environment } from 'environments/environment';
 		CustomDialogsCommonModule,
 		RouterModule.forRoot(routes, {
 			preloadingStrategy: PreloadAllModules,
-			// enableTracing: !environment.production
+			enableTracing: false
 		}),
 		Angulartics2Module.forRoot({
 			pageTracking: {

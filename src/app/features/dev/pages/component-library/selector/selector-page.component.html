@@ -1,7 +1,7 @@
 <ng-container *ngFor="let entity of entityNames">
 
 	<selector-app
-		[type]="entity.toUpperCase() | erm"
+		[typename]="entity"
 		[canCreate]="true"
 		(update)="update($event, entity)">
 		<div>OffsetX, OffsetY: Default</div>

@@ -68,6 +68,7 @@ export class ApiService {
 			map(({ data }) => data[queryName]),
 			tap(data => ApiLogger.logResponse(options, data))
 		);
+		queryRef.queryName = queryName;
 		queryRef.response$ = response$;
 		queryRef.data$ = response$.pipe(map(r => hasItems ? r.items : r));
 		return queryRef;
@@ -83,7 +84,8 @@ export class ApiService {
 	mutate(options: MutationOptions) {
 		const queryName = GqlHelper.getQueryName(options.mutation);
 		ApiLogger.logRequest(options);
-
+		// removing the typename from the input
+		delete options.variables.input.__typename;
 		return from(client.mutate(options)).pipe(
 			map(({ data }) => data[queryName]),
 			tap(data => ApiLogger.logResponse(options, data))
@@ -187,7 +189,6 @@ export class ApiService {
 			entity.teamId = this._teamId;
 		}
 		options.variables = { input: { ...entity } };
-		delete (options.variables.input as any).__typename;
 		return this.mutate(options);
 	}
 
@@ -206,6 +207,7 @@ export class ApiService {
 		apiOptions: ApiMutationOption = {}
 		): Observable<T> {
 		const options = apiOptions as MutationOptions;
+		entity.__typename = typename;
 		if (typename !== 'Company' && typename !== 'Team') {
 			entity.createdAt = new Date().toISOString();
 			entity.lastUpdatedAt = new Date().toISOString();
@@ -216,9 +218,7 @@ export class ApiService {
 		}
 		options.variables = { input: entity };
 		options.mutation = QueryPool.getQuery(typename, QueryType.UPDATE);
-		const queryName = GqlHelper.getQueryName(options.mutation);
-		delete entity.__typename;
-		options.optimisticResponse = this.getOptimisticResponse(options, queryName, entity);
+		options.optimisticResponse = this.getOptimisticResponse(options);
 		return this.mutate(options);
 	}
 
@@ -249,7 +249,7 @@ export class ApiService {
 		apiOptions: ApiMutationOption = {}
 		): Observable<T> {
 		const options = apiOptions as MutationOptions;
-		options.variables = { input: {id: entity.id, _version: entity._version} };
+		options.variables = { input: { id: entity.id, _version: entity._version } };
 		options.mutation = QueryPool.getQuery(typename, QueryType.DELETE);
 		return this.mutate(options);
 	}
@@ -288,7 +288,9 @@ export class ApiService {
 	}
 
 	/** creates an optimistic response the way apollo expects it */
-	protected getOptimisticResponse(options: any, queryName: string, input: any) {
+	protected getOptimisticResponse(options: MutationOptions) {
+		const queryName = GqlHelper.getQueryName(options.mutation);
+		const input = options.variables.input;
 		if (input.__typename) {
 			return {
 				__typename: 'Mutation',
