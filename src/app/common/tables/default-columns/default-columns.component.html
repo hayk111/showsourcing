@@ -2,14 +2,14 @@
 
 	<!-- logo -->
 	<ng-container *ngSwitchCase="'logo'">
-		<logo-app
+		<!-- <logo-app
 			class="pointer"
 			size="s"
 			[logo]="row.images && row.images[0]"
 			[color]="logoColor"
 			[typename]="typename"
 			(click)="onLogoClick(row)">
-		</logo-app>
+		</logo-app> -->
 	</ng-container>
 
 	<!-- name -->
@@ -51,7 +51,7 @@
 	</ng-container>
 
 	<!-- status -->
-	<ng-container *ngSwitchCase="'status'">
+	<!-- <ng-container *ngSwitchCase="'status'">
 		<editable-container-app
 			class="full-width"
 			[hasAction]="false"
@@ -67,10 +67,10 @@
 				</status-selector-app>
 			</editable-display-app>
 		</editable-container-app>
-	</ng-container>
+	</ng-container> -->
 
 	<!-- assignee -->
-	<ng-container *ngSwitchCase="'assignee'">
+	<!-- <ng-container *ngSwitchCase="'assignee'">
 		<editable-container-app
 			class="full-width"
 			[hasAction]="false"
@@ -97,7 +97,7 @@
 				</editable-display-app>
 		</editable-container-app>
 
-	</ng-container>
+	</ng-container> -->
 
 	<!-- creation date -->
 	<ng-container *ngSwitchCase="'creationDate'">
@@ -112,34 +112,34 @@
 
 	<!-- due date -->
 	<ng-container *ngSwitchCase="'dueDate'">
-		<editable-container-app #edt
+		<!-- <editable-container-app #edt
 			class="full-width"
 			(closed)="update.emit({ id: row.id, dueDate: inp.value })">
 			<editable-display-app class="ellipsis">
 				{{ row?.dueDate ? (row?.dueDate | date: 'dd MMM y':'':translate.currentLang) : '-' }}
 			</editable-display-app>
 			<input #inp inputApp type="date" (keyup.enter)="edt.close()">
-		</editable-container-app>
+		</editable-container-app> -->
 	</ng-container>
 
 	<!-- product count -->
 	<ng-container *ngSwitchCase="'productCount'">
-		{{ row.productsLinked.count }}
+		{{ row?.productsLinked?.count }}
 	</ng-container>
 
 	<!-- task count -->
 	<ng-container *ngSwitchCase="'taskCount'">
-		{{ row.tasksLinked.count }}
+		{{ row?.tasksLinked?.count }}
 	</ng-container>
 
 	<!-- sample count -->
 	<ng-container *ngSwitchCase="'sampleCount'">
-		{{ row.samplesLinked.count }}
+		{{ row?.samplesLinked?.count }}
 	</ng-container>
 
 	<!-- product -->
 	<ng-container *ngSwitchCase="'product'">
-		<editable-container-app
+		<!-- <editable-container-app
 			class="full-width"
 			[hasAction]="false"
 			[openOnClick]="false"
@@ -154,12 +154,12 @@
 					<span>{{ row?.product?.name || '-'}}</span>
 				</selector-app>
 			</editable-display-app>
-		</editable-container-app>
+		</editable-container-app> -->
 	</ng-container>
 
 	<!-- supplier -->
 	<ng-container *ngSwitchCase="'supplier'">
-		<div class="flex action-hover-container-0">
+		<!-- <div class="flex action-hover-container-0">
 			<editable-container-app
 				class="edit-with-icon"
 				[hasAction]="false"
@@ -183,7 +183,7 @@
 				name="eye"
 				[routerLink]="['/suppliers', row.supplier.id]">
 			</icon-app>
-		</div>
-	</ng-container>
+		</div> -->
+	</ng-container> 
 
 </ng-container>

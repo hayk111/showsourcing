@@ -1,7 +1,7 @@
 <h2 class="l flexStart">Tasks</h2>
 
 <!-- list -->
-<ng-container *ngIf="(listSrv.items$ | async) as tasks; else spinner">
+<ng-container *ngIf="(listHelper.filteredItems$ | async) as tasks; else spinner">
 	<ng-container *ngIf="tasks?.length; else placeholder">
 		<!-- list -->
 		<task-list-item-app
@@ -10,7 +10,6 @@
 			[task]="task"
 			[selection]="selectionSrv.selection$ | async"
 			(nameClick)="viewSrv.openPreview($event)"
-			(iconClick)="toggleUpdateDone($event)"
 			(select)="selectionSrv.selectOne($event, true)"
 			(unselect)="selectionSrv.unselectOne($event, true)">
 		</task-list-item-app>
@@ -18,7 +17,7 @@
 		<div class="flex buttons-container">
 			<button
 				class="flexVAlign capitalize"
-				(click)="openCreationTaskDlg(product)"
+				(click)="listHelper.create('Task', { product })"
 				translate="button.create-task">
 			</button>
 		</div>
@@ -30,7 +29,7 @@
 		[type]="'TASK' | erm: 'singular'"
 		[title]="'No tasks on this product'"
 		[subtitle]="'Create & Track your tasks'">
-		<button class="capitalize" (click)="openCreationTaskDlg(product)" translate="button.create-task"></button>
+		<button class="capitalize" (click)="listHelper.create('Task', { product })" translate="button.create-task"></button>
 	</entity-placeholder-app>
 </ng-template>
 

@@ -40,12 +40,8 @@ export class TagDataPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-				let teamId: string;
-		this.teamSrv.teamSelected$.subscribe(team => (teamId = team.id));
-		this.filterSrv.setup([], ['name']);
-		this.viewSrv.setup({typename: 'Tag', destUrl: 'settings/list-management/category-data', view: 'table'});
-		this.listHelper.setup('Tag', 'Team', teamId); // search initialized in controller-table
-		this.items$ = this.listHelper.filteredItems$;
+		this.listFuseHelper.setup('Product');
+		this.items$ = this.listFuseHelper.filteredItems$;
 	}
 
 	mergeSelected() {

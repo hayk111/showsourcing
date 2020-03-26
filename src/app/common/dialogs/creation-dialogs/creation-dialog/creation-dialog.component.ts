@@ -39,11 +39,10 @@ export class CreationDialogComponent implements AfterViewInit {
 			return;
 		const name = this.group.value.name.trim();
 		this.pending = true;
-		this.apiSrv.create<any>(this.typename, { name })
-		.subscribe(created => this.dialogSrv.close({
+		this.dialogSrv.close({
 			type: CloseEventType.OK,
-			data: created
-		}));
+			data: { name, ...this.extra }
+		});
 	}
 
 }

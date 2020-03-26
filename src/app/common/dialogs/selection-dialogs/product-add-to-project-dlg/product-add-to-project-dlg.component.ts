@@ -12,10 +12,8 @@ import {
 	Project,
 	ProjectService
 } from '~core/erm';
-import { ListPageService, SelectionService } from '~core/list-page';
 import { CloseEventType } from '~shared/dialog';
 import { DialogService } from '~shared/dialog/services';
-import { FilterType } from '~shared/filters';
 import { ToastService, ToastType } from '~shared/toast';
 import { AutoUnsub } from '~utils';
 
@@ -24,7 +22,9 @@ import { AutoUnsub } from '~utils';
 	templateUrl: './product-add-to-project-dlg.component.html',
 	styleUrls: ['./product-add-to-project-dlg.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [ListPageService, SelectionService],
+	providers: [
+		// ListPageService, SelectionService
+	],
 	host: { class: 'table-dialog' }
 })
 export class ProductAddToProjectDlgComponent extends AutoUnsub
@@ -33,7 +33,9 @@ export class ProductAddToProjectDlgComponent extends AutoUnsub
 	@Input() products: Product[];
 
 	selected = {};
-	filterTypes = [FilterType.CREATED_BY];
+	filterTypes = [
+		// FilterType.CREATED_BY
+	];
 	erm = ERM;
 
 	private projectCount = DEFAULT_TAKE_PAGINATION;
@@ -44,88 +46,75 @@ export class ProductAddToProjectDlgComponent extends AutoUnsub
 		private productDlgSrv: ProductDialogService,
 		private toastSrv: ToastService,
 		private projectSrv: ProjectService,
-		public listSrv: ListPageService<Project, ProjectService>,
-		private selectionSrv: SelectionService
+		// public listSrv: ListPageService<Project, ProjectService>,
+		// private selectionSrv: SelectionService
 	) {
 		super();
 	}
 
 	ngOnInit() {
-		this.listSrv.setup({
-			entitySrv: this.projectSrv,
-			searchedFields: ['name'],
-			selectParams: {
-				sortBy: 'name',
-				descending: false,
-				take: this.projectCount,
-				query: 'deleted == false'
-			},
-			initialFilters: [{ type: FilterType.DELETED, value: false }], // TODO: add archived filter when backend property is added
-			entityMetadata: ERM.PROJECT,
-			originComponentDestroy$: this._destroy$
-		});
 
 		this.initialSelection();
 	}
 
 	select(project: Project) {
-		this.selected[project.id] = project;
-		this.selectionSrv.selectOne(project);
-		++this.selectedProjectsCount;
+		// this.selected[project.id] = project;
+		// this.selectionSrv.selectOne(project);
+		// ++this.selectedProjectsCount;
 	}
 
 	unselect(project: Project) {
-		delete this.selected[project.id];
-		this.selectionSrv.unselectOne(project);
-		--this.selectedProjectsCount;
+		// delete this.selected[project.id];
+		// this.selectionSrv.unselectOne(project);
+		// --this.selectedProjectsCount;
 	}
 
 	private initialSelection() {
-		if (
-			this.initialSelectedProjects &&
-			this.initialSelectedProjects.length > 0
-		) {
-			this.selectedProjectsCount = this.initialSelectedProjects.length;
+		// if (
+		// 	this.initialSelectedProjects &&
+		// 	this.initialSelectedProjects.length > 0
+		// ) {
+		// 	this.selectedProjectsCount = this.initialSelectedProjects.length;
 
-			this.selectionSrv.selectAll(
-				this.initialSelectedProjects.map(project => {
-					this.selected[project.id] = project;
+		// 	this.selectionSrv.selectAll(
+		// 		this.initialSelectedProjects.map(project => {
+		// 			this.selected[project.id] = project;
 
-					return { id: project.id };
-				})
-			);
-		}
+		// 			return { id: project.id };
+		// 		})
+		// 	);
+		// }
 	}
 
 	selectAll(projects: Project[]) {
-		this.selectionSrv.selectAll(projects);
+		// this.selectionSrv.selectAll(projects);
 
-		projects.forEach(project => {
-			this.selected[project.id] = project;
-			delete this.unselect[project.id];
-		});
+		// projects.forEach(project => {
+		// 	this.selected[project.id] = project;
+		// 	delete this.unselect[project.id];
+		// });
 
-		this.selectedProjectsCount = projects.length;
+		// this.selectedProjectsCount = projects.length;
 	}
 
 	unselectAll() {
-		this.selectionSrv.unselectAll();
-		this.selected = {};
-		this.selectedProjectsCount = 0;
+		// this.selectionSrv.unselectAll();
+		// this.selected = {};
+		// this.selectedProjectsCount = 0;
 	}
 
 	create() {
-		setTimeout(() => {
-			this.listSrv.create(false, {
-				onProjectCreated: (project: Project) => {
-					this.selected[project.id] = { ...project };
-					const selectedProjects = <Project[]>Object.values(this.selected);
-					this.productDlgSrv
-						.addProjectsToProducts(selectedProjects, this.products)
-						.subscribe();
-				}
-			});
-		});
+		// setTimeout(() => {
+		// 	this.listSrv.create(false, {
+		// 		onProjectCreated: (project: Project) => {
+		// 			this.selected[project.id] = { ...project };
+		// 			const selectedProjects = <Project[]>Object.values(this.selected);
+		// 			this.productDlgSrv
+		// 				.addProjectsToProducts(selectedProjects, this.products)
+		// 				.subscribe();
+		// 		}
+		// 	});
+		// });
 	}
 
 	cancel() {

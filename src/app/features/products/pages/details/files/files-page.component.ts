@@ -10,6 +10,8 @@ import { Attachment, ERM } from '~core/erm';
 import { DialogService } from '~shared/dialog';
 import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback.service';
 import { AutoUnsub } from '~utils';
+import { ListFuseHelperService, SelectionService, ListHelperService } from '~core/list-page2';
+import { ApiService } from '~core/erm3/services/api.service';
 
 @Component({
 	selector: 'files-page-app',
@@ -17,7 +19,8 @@ import { AutoUnsub } from '~utils';
 	styleUrls: ['./files-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
-		ListPageService,
+		ListFuseHelperService,
+		SelectionService,
 		UploaderFeedbackService
 	]
 })
@@ -34,37 +37,25 @@ export class FilesPageComponent extends AutoUnsub implements OnInit {
 		protected userSrv: UserService,
 		protected router: Router,
 		protected dlgSrv: DialogService,
-		protected attachmentSrv: AttachmentService,
 		private uploadFeedback: UploaderFeedbackService,
 		public dialogCommonSrv: DialogCommonService,
-		public listSrv: ListPageService<Attachment, AttachmentService>,
+		public listHelper: ListFuseHelperService,
+		public apiSrv: ApiService,
+		public selectionSrv: SelectionService,
 		public translate: TranslateService
 	) {
 		super();
 	}
 
 	ngOnInit() {
-		const id = this.route.snapshot.parent.params.id;
-		this.linkedEntity = { id, __typename: 'Product' };
-		this.uploadFeedback.init({ linkedEntity: this.linkedEntity });
-		this.listSrv.setup({
-			entitySrv: this.attachmentSrv,
-			searchedFields: ['name'],
-			selectParams: new SelectParams({
-				query: `@links.Product.attachments.id == "${id}" && deleted == false`,
-				sortBy: 'fileName'
-			}),
-			entityMetadata: ERM.ATTACHMENT,
-			originComponentDestroy$: this._destroy$
-		});
-
-		this.listSrv.items$.pipe(first()).subscribe(files => this.uploadFeedback.setFiles(files));
+		const productId = this.route.parent.snapshot.params.id;
+		this.listHelper.setup('Attachment', 'Product', productId);
 	}
 
 	addFile(files: Array<File>) {
-		this.uploadFeedback.addFiles(files)
-			.pipe(switchMap(_ => this.listSrv.refetch()))
-			.subscribe();
+		// this.uploadFeedback.addFiles(files)
+		// 	.pipe(switchMap(_ => this.listSrv.refetch()))
+		// 	.subscribe();
 	}
 
 	download(attachment: Attachment) {

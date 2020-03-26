@@ -33,7 +33,10 @@ export class DefaultColumnsComponent {
 	@Output() logoClick = new EventEmitter<any>();
 	@Output() nameClick = new EventEmitter<any>();
 
-	constructor(public translate: TranslateService, private router: Router) { }
+	constructor(
+		public translate: TranslateService,
+		private router: Router
+	) { }
 
 	onLogoClick(row: any) {
 		this.logoClick.emit(row);

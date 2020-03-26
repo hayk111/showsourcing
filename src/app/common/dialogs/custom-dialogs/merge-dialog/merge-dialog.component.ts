@@ -3,9 +3,10 @@ import { TranslateService } from '@ngx-translate/core';
 import { CrudDialogService } from '~common/dialogs/services/crud-dialog.service';
 import { EntityMetadata, ERM } from '~core/erm';
 import { DialogService } from '~shared/dialog/services';
-import { FilterList, FilterType } from '~shared/filters';
 import { ToastService, ToastType } from '~shared/toast';
 import { AutoUnsub } from '~utils';
+import { FilterList } from '~shared/filters/models/filter-list.class';
+import { FilterType } from '~shared/filters/models/filter.class';
 
 @Component({
 	selector: 'merge-dialog-app',

@@ -2,9 +2,7 @@
 	<!-- filters -->
 	<controller-table-quick-filters-app></controller-table-quick-filters-app>
 	<!-- actions -->
-	<controller-table-quick-actions-app
-		[columns]="columns"
-		[tableConfig]="tableConfig">
+	<controller-table-quick-actions-app>
 	</controller-table-quick-actions-app>
 	<!-- switcher -->
 	<controller-table-view-switcher-app
@@ -16,9 +14,7 @@
 	[rows]="listHelper.filteredItems$ | async"
 	[selection]="selectionSrv.selection$ | async"
 	[pending]="listHelper.pending"
-	[isFiltering]="filterSrv.isFiltering"
 	[total]="listHelper.total$ | async"
-	[currentPage]="listHelper.currentPage"
 	(goToPage)="listHelper.loadPage($event)"
 	(sort)="listHelper.sort($event)"
 	(select)="selectionSrv.selectOne($event, true)"
@@ -28,7 +24,7 @@
 	(open)="viewSrv.goToDetails($event)"
 	(previewClick)="viewSrv.openPreview($event)"
 	(createClick)="dialogCommonSrv.openCreationSampleDialog(undefined, supplier)"
-	(delete)="listHelper.deleteOne($event)">
+	(delete)="listHelper.delete($event)">
 </samples-table-app>
 
 
@@ -51,7 +47,7 @@
 <sample-selection-bar-app
 	[isShown]="(selectionSrv.selection$ | async).size > 0"
 	[selection]="selectionSrv.selection$ | async"
-	[selectableItems]="listHelper.items$ | async"
+	[selectableItems]="listHelper.filteredItems$ | async"
 	(close)="selectionSrv.unselectAll()"
 	(deleteSelected)="listHelper.deleteSelected()"
 	(selectAll)="selectionSrv.selectAll($event)"

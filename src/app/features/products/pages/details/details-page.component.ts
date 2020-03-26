@@ -3,17 +3,19 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { filter, map, switchMap, takeUntil } from 'rxjs/operators';
-import {
-	SupplierRequestDialogComponent,
-} from '~common/dialogs/custom-dialogs/supplier-request-dialog/supplier-request-dialog.component';
+import { SupplierRequestDialogComponent } from '~common/dialogs/custom-dialogs/supplier-request-dialog/supplier-request-dialog.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { ProductService } from '~core/erm';
-import { EntityName, ERM, Product, Project, Sample, Supplier, Task } from '~core/erm';
+import { ApiService } from '~core/erm3/services/api.service';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { RatingService } from '~shared/rating/services/rating.service';
 import { ToastService, ToastType } from '~shared/toast';
 import { AutoUnsub, log } from '~utils';
+import { Product } from '~core/erm3/models/product.model';
+import { Sample } from '~core/erm3/models/sample.model';
+import { Task } from '~core/erm3/models/task.model';
+import { Project } from '~core/erm3/models/project.model';
+import { Supplier } from '~core/erm3/models/supplier.model';
 
 /**
  *
@@ -37,8 +39,6 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 	product: Product;
 	product$: Observable<Product>;
 
-	erm = ERM;
-
 	// sample & task used for the preview
 	sample: Sample;
 	task: Task;
@@ -47,7 +47,7 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 	constructor(
 		private route: ActivatedRoute,
 		private router: Router,
-		private productSrv: ProductService,
+		private apiSrv: ApiService,
 		private dlgSrv: DialogService,
 		private toastSrv: ToastService,
 		private ratingSrv: RatingService,
@@ -64,7 +64,7 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 		);
 
 		this.product$ = id$.pipe(
-			switchMap(id => this.productSrv.selectOne(id)),
+			switchMap(id => this.apiSrv.get('Product', id).data$),
 			takeUntil(this._destroy$)
 		);
 
@@ -102,73 +102,75 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	onArchive(product: Product | Product[]) {
-		if (Array.isArray(product)) {
-			this.productSrv.updateMany(product.map((p: Product) => ({ id: p.id, archived: true })))
-				.subscribe(_ => {
-					this.toastSrv.add({
-						type: ToastType.SUCCESS,
-						title: 'title.products-archived',
-						message: 'message.products-archived-successfully'
-					});
-				});
-		} else {
-			const { id } = product;
-			this.productSrv.update({ id, archived: true })
-				.subscribe(_ => {
-					this.toastSrv.add({
-						type: ToastType.SUCCESS,
-						title: 'title.product-archived',
-						message: 'message.product-archived-successfully'
-					});
-				});
-		}
+		// TODO add this in a shared Archive service
+
+		// if (Array.isArray(product)) {
+		// 	this.productSrv.updateMany(product.map((p: Product) => ({ id: p.id, archived: true })))
+		// 		.subscribe(_ => {
+		// 			this.toastSrv.add({
+		// 				type: ToastType.SUCCESS,
+		// 				title: 'title.products-archived',
+		// 				message: 'message.products-archived-successfully'
+		// 			});
+		// 		});
+		// } else {
+		// 	const { id } = product;
+		// 	this.productSrv.update({ id, archived: true })
+		// 		.subscribe(_ => {
+		// 			this.toastSrv.add({
+		// 				type: ToastType.SUCCESS,
+		// 				title: 'title.product-archived',
+		// 				message: 'message.product-archived-successfully'
+		// 			});
+		// 		});
+		// }
 	}
 
 	/** item status update */
 	updateStatus(statusId: string) {
-		this.productSrv
-			.update({ id: this.product.id, status: { id: statusId } })
+		this.apiSrv
+			.update('Product', { id: this.product.id, status: { id: statusId } })
 			.subscribe();
 	}
 
 	/** item has been favorited */
 	onFavorited() {
-		this.productSrv
-			.update({ id: this.product.id, favorite: true })
+		this.apiSrv
+			.update('Product', { id: this.product.id, favorite: true })
 			.subscribe();
 	}
 
 	/** item has been unfavorited */
 	onUnfavorited() {
-		this.productSrv
-			.update({ id: this.product.id, favorite: false })
+		this.apiSrv
+			.update('Product', { id: this.product.id, favorite: false })
 			.subscribe();
 	}
 
 	onThumbUp() {
-		const votes = this.ratingSrv.thumbUp(this.product, EntityName.PRODUCT);
-		this.updateProduct({ votes });
+		// const votes = this.ratingSrv.thumbUp(this.product, EntityName.PRODUCT);
+		// this.updateProduct({ votes });
 	}
 
 	onThumbDown() {
-		const votes = this.ratingSrv.thumbDown(this.product, EntityName.PRODUCT);
-		this.updateProduct({ votes });
+		// const votes = this.ratingSrv.thumbDown(this.product, EntityName.PRODUCT);
+		// this.updateProduct({ votes });
 	}
 
 	/** update the product */
 	updateProduct(product: Product) {
-		this.productSrv
-			.update({ id: this.product.id, ...product })
+		this.apiSrv
+			.update('Product', { id: this.product.id, ...product })
 			.subscribe();
 	}
 
 	/** when deleting this product */
 	deleteProduct(product: Product) {
-		const text = this.translate.instant('message.confirm-delete-product');
-		this.dlgSrv.open(ConfirmDialogComponent, { text }).pipe(
-			filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
-			switchMap(_ => this.productSrv.delete(product.id))
-		).subscribe(_ => this.router.navigate(['products']));
+		// const text = this.translate.instant('message.confirm-delete-product');
+		// this.dlgSrv.open(ConfirmDialogComponent, { text }).pipe(
+		// 	filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
+		// 	switchMap(_ => this.productSrv.delete(product.id))
+		// ).subscribe(_ => this.router.navigate(['products']));
 	}
 
 	openSupplierRequest(product: Product) {
@@ -179,11 +181,11 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 		if (!this.product)
 			return;
 
-		switch (type) {
-			case 'tasks': return this.product.tasksLinkedAssignedToMe.count > 0;
-			case 'samples': return this.product.samplesLinkedAssignedToMe.count > 0;
-			case 'requests': return this.requestCount > 0;
-		}
+		// switch (type) {
+		// 	case 'tasks': return this.product.tasksLinkedAssignedToMe.count > 0;
+		// 	case 'samples': return this.product.samplesLinkedAssignedToMe.count > 0;
+		// 	case 'requests': return this.requestCount > 0;
+		// }
 	}
 
 	/** navigate to project details */
@@ -239,8 +241,8 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	dissociateProject(productProjects: Project[], projectToDelete: Project) {
-		const projects = (productProjects || []).filter(project => project.id !== projectToDelete.id);
-		this.updateProduct({ projects });
+		// const projects = (productProjects || []).filter(project => project.id !== projectToDelete.id);
+		// this.updateProduct({ projects });
 	}
 
 }

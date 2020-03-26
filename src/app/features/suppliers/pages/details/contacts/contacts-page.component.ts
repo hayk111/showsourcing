@@ -1,13 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { ContactService } from '~core/erm';
-import { ListPageService } from '~core/list-page';
-import { Contact, ERM, Supplier } from '~core/erm';
+import { Supplier } from '~core/erm';
+import { ListFuseHelperService, ListPageViewService, SelectionService } from '~core/list-page2';
 import { FilterType } from '~shared/filters';
-import { AutoUnsub, ID } from '~utils';
-import { ListFuseHelperService, SelectionService } from '~core/list-page2';
+import { ID } from '~utils';
 
 @Component({
 	selector: 'contacts-page-app',
@@ -17,7 +14,8 @@ import { ListFuseHelperService, SelectionService } from '~core/list-page2';
 	host: { class: 'table-page' },
 	providers: [
 		ListFuseHelperService,
-		SelectionService
+		SelectionService,
+		ListPageViewService
 	]
 })
 export class ContactsPageComponent implements OnInit {
@@ -29,6 +27,8 @@ export class ContactsPageComponent implements OnInit {
 		protected route: ActivatedRoute,
 		protected listHelper: ListFuseHelperService,
 		public dialogCommonSrv: DialogCommonService,
+		public selectionSrv: SelectionService,
+		public viewSrv: ListPageViewService<any>
 	) {  }
 
 	ngOnInit() {
