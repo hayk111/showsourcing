@@ -3,8 +3,7 @@ import { WatchQueryOptions } from 'apollo-client';
 import { BehaviorSubject, combineLatest, forkJoin, Observable } from 'rxjs';
 import { filter, map, shareReplay, switchMap, tap } from 'rxjs/operators';
 import { CreationDialogComponent } from '~common/dialogs/creation-dialogs';
-import { ObservableQuery } from '~core/erm3/services';
-import { ApiService } from '~core/erm3/services/api.service';
+import { ApiService, ObservableQuery } from '~core/erm3/services/api.service';
 import { Typename } from '~core/erm3/typename.type';
 import { FilterService } from '~core/filters/filter.service';
 import { CloseEventType, DialogService } from '~shared/dialog';
@@ -79,7 +78,7 @@ export class ListHelperService<G = any> {
 	}
 
 	delete(entity: any) {
-		// debugger;
+		debugger;
 		this.apiSrv.delete(this.typename, entity).pipe(
 			switchMap(_ => this.refetch())
 		).subscribe();
