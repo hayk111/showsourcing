@@ -5,7 +5,7 @@ export class Category extends Entity<Category> {
 	__typename ?= 'Category';
 	teamId?: string;
 	name?: string;
-	creationDate?: number;
+	createdAt?: string;
 	deletionDate?: number;
 	lastUpdatedBy?: User;
 	lastUpdatedDate?: number;

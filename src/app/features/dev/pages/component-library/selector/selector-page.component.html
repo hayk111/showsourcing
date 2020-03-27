@@ -1,49 +1,11 @@
-<selector-app
-	typename="Project"
-	[canCreate]="true"
-	[value]="(product$ | async)?.projects"
-	[multiple]="true"
-	(update)="update($event, 'projects')">
-	<div>OffsetX, OffsetY: Default</div>
-	<button class="mg-ms">Projects selector</button>
-</selector-app>
-<!--  if this is uncommented and since we are not using virtual scroll, on selector2 -> searchTxt = 'light'
-			so we just load part of it -->
-<selector-app
-	typename="Supplier"
-	[canCreate]="true"
-	(update)="update($event, 'supplier')">
-	<div>OffsetX = 300, OffsetY: Default</div>
-	<button class="mg-ms"> Supplier selector </button>
-</selector-app>
-<!-- TODO Check how to manage currency selector with Constant typename -->
-<selector-app
-	typename="Constant"
-	[offsetY]="300">
-	<div>OffsetX = 300, OffsetY: 300</div>
-	<button class="mg-ms"> Currency selector </button>
-</selector-app>
-<selector-app
-	typename="User"
-	[offsetY]="300">
-	<div>OffsetX: Default, OffsetY: 300</div>
-	<button class="mg-ms"> User Selector </button>
-</selector-app>
-<!-- TODO Check how to manage Country selector with Constant typename -->
-<selector-app
-	typename="Constant"
-	[offsetY]="-300">
-	<div>OffsetX: Default, OffsetY: - 300</div>
-	<button class="mg-ms"> Country selector </button>
-</selector-app>
-<selector-app
-	typename="SupplierType">
-	<div>OffsetX, OffsetY: Default</div>
-	<button class="mg-ms"> SupplierType selector </button>
-</selector-app>
-<!-- TODO Check how to manage Weight Unit selector with Constant typename -->
-<selector-app
-	typename="Constant">
-	<div>OffsetX, OffsetY: Default</div>
-	<button class="mg-ms"> Weight Unit selector </button>
-</selector-app>
+<ng-container *ngFor="let entity of entityNames">
+
+	<selector-app
+		[typename]="entity"
+		[canCreate]="true"
+		(update)="update($event, entity)">
+		<div>OffsetX, OffsetY: Default</div>
+		<button class="mg-ms">{{entity}} selector</button>
+	</selector-app>
+
+</ng-container>
