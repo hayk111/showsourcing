@@ -3,11 +3,12 @@ import { WatchQueryOptions } from 'apollo-client';
 import { BehaviorSubject, combineLatest, forkJoin, Observable } from 'rxjs';
 import { filter, map, shareReplay, switchMap, tap } from 'rxjs/operators';
 import { CreationDialogComponent } from '~common/dialogs/creation-dialogs';
-import { ApiService, ObservableQuery, Sort } from '~core/erm3/services/api.service';
+import { ApiService, ObservableQuery } from '~core/erm3/services/api.service';
 import { Typename } from '~core/erm3/typename.type';
 import { FilterService } from '~core/filters/filter.service';
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { SelectionService } from './selection.service';
+import { Sort } from '~shared/table/components/sort.interface';
 
 @Injectable({ providedIn: 'root' })
 export class ListHelperService<G = any> {
