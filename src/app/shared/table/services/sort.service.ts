@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { Sort } from '../models/sort.interface';
-import { Subject, BehaviorSubject } from 'rxjs';
 
 
 @Injectable({ providedIn: 'root' })
@@ -10,7 +10,6 @@ export class SortService {
 	sort$ = this._sort$.asObservable();
 
 	toggleSort(field: string) {
-		debugger;
 		if (!this.currentSort) {
 			this.currentSort = { field, direction: 'DESC' };
 		} else {

@@ -7,8 +7,9 @@ import { ApiService, ObservableQuery } from '~core/erm3/services/api.service';
 import { Typename } from '~core/erm3/typename.type';
 import { FilterService } from '~core/filters/filter.service';
 import { CloseEventType, DialogService } from '~shared/dialog';
+import { SortService } from '~shared/table/services/sort.service';
 import { SelectionService } from './selection.service';
-import { Sort } from '~shared/table/models/sort.interface';
+import { PaginationService } from '~shared/table/services/pagination.service';
 
 @Injectable({ providedIn: 'root' })
 export class ListHelperService<G = any> {
@@ -17,27 +18,16 @@ export class ListHelperService<G = any> {
 	private typename: Typename;
 	private _pending$ = new BehaviorSubject<boolean>(true);
 	pending$ = this._pending$.asObservable();
-	/** number of items taken at once */
-	private currentLimit = 25;
-	private _limit$ = new BehaviorSubject<number>(this.currentLimit);
-	limit$ = this._limit$.asObservable();
-	/** from which page */
-	private currentPage = 0;
-	private _page$ = new BehaviorSubject<number>(this.currentPage);
-	page$ = this._page$.asObservable();
-	/** sorting */
-	private currentSort: Sort; // sync version
-	private _sort$ = new BehaviorSubject<Sort>(this.currentSort);
-	sort$ = this._sort$.asObservable();
+
 	/** total number of items */
 	private total = 0;
 	total$: Observable<number>;
 	/** the filtered items */
 	filteredItems$ = combineLatest(
 		this.filterSrv.valueChanges$,
-		this._page$,
-		this._limit$,
-		this._sort$
+		this.paginationSrv.page$,
+		this.paginationSrv.limit$,
+		this.sortSrv.sort$
 	).pipe(
 		// gets the query
 		map(([{ queryArg }, from, limit, sort]) => this.apiSrv.search<G>(
@@ -62,9 +52,11 @@ export class ListHelperService<G = any> {
 
 	constructor(
 		private selectionSrv: SelectionService,
+		private sortSrv: SortService,
+		private paginationSrv: PaginationService,
 		private apiSrv: ApiService,
 		private filterSrv: FilterService,
-		private dlgSrv: DialogService
+		private dlgSrv: DialogService,
 	) {}
 
 	setup(typename: Typename) {
@@ -114,38 +106,8 @@ export class ListHelperService<G = any> {
 		).subscribe();
 	}
 
-	setItemsPerPage(value: number) {
-		this._limit$.next(value);
-	}
-
 	loadMore() {
 		throw Error('not implemented yet');
-	}
-
-	loadPage(page: number) {
-		this._page$.next(page);
-	}
-
-	loadNextPage() {
-		this._page$.next(this.currentPage + 1);
-	}
-
-	loadPreviousPage() {
-		this._page$.next(this.currentPage - 1);
-	}
-
-	loadFirstPage() {
-		this._page$.next(0);
-	}
-
-	loadLastPage() {
-		const lastPage = Math.ceil(this.total / this.currentLimit) - 1;
-		this._page$.next(lastPage);
-	}
-
-	/** Sorts items based on sort.sortBy */
-	sort(sort: Sort) {
-		this._sort$.next(sort);
 	}
 
 }
