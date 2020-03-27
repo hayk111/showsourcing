@@ -1,5 +1,4 @@
 import { EventEmitter, HostBinding, Input, OnInit, Output, TemplateRef } from '@angular/core';
-import { Sort } from '~shared/table/components/sort.interface';
 import { TrackingComponent } from '~utils/tracking-component';
 
 
@@ -35,8 +34,6 @@ export abstract class EntityTableComponent<T> extends TrackingComponent implemen
 	@Input() pending = true;
 	@Input() total: number;
 	@Input() skipped: number;
-	@Input() currentPage: number;
-	@Input() currentSort: Sort;
 	@Input() canUpdate = true;
 	@Input() isFiltering = false;
 	// VIEW
@@ -67,24 +64,12 @@ export abstract class EntityTableComponent<T> extends TrackingComponent implemen
 	@Output() delete = new EventEmitter<T>();
 	@Output() archive = new EventEmitter<T>();
 	// pagination
-	@Output() previous = new EventEmitter<undefined>();
-	@Output() next = new EventEmitter<undefined>();
-	@Output() goToPage = new EventEmitter<number>();
-	@Output() showItemsPerPage = new EventEmitter<number>();
 	@HostBinding('class.entity-table') entityTableClass = true;
 	/** id of the row being hovered */
 	hovered: string;
 
 	constructor() {
 		super();
-	}
-
-	previousPage() {
-		this.previous.emit();
-	}
-
-	nextPage() {
-		this.next.emit();
 	}
 
 	ngOnInit() {

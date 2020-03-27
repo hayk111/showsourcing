@@ -4,7 +4,7 @@
 	logoTypename="Product"
 	info="The product database"
 	[buttonName]="'button.create-product' | translate"
-	(buttonClick)="listHelper.create('Product')">
+	(buttonClick)="listHelper.create()">
 </header-list-app>
 
 <controller-table-app [total]="listHelper.total$ | async">

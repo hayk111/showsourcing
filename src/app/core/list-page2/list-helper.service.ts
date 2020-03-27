@@ -8,7 +8,7 @@ import { Typename } from '~core/erm3/typename.type';
 import { FilterService } from '~core/filters/filter.service';
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { SelectionService } from './selection.service';
-import { Sort } from '~shared/table/components/sort.interface';
+import { Sort } from '~shared/table/models/sort.interface';
 
 @Injectable({ providedIn: 'root' })
 export class ListHelperService<G = any> {
@@ -30,7 +30,7 @@ export class ListHelperService<G = any> {
 	private _sort$ = new BehaviorSubject<Sort>(this.currentSort);
 	sort$ = this._sort$.asObservable();
 	/** total number of items */
-	private total: number;
+	private total = 0;
 	total$: Observable<number>;
 	/** the filtered items */
 	filteredItems$ = combineLatest(
@@ -48,7 +48,7 @@ export class ListHelperService<G = any> {
 		// add observable version of total for the view,
 		// and synchronous one for easy access in this class
 		tap(query => this.total$ = query.total$.pipe(
-			tap(total => this.total = total)
+			tap((total: number) => this.total = total)
 			)
 		),
 		// add the next token for infiniscroll

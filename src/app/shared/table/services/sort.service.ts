@@ -10,6 +10,7 @@ export class SortService {
 	sort$ = this._sort$.asObservable();
 
 	toggleSort(field: string) {
+		debugger;
 		if (!this.currentSort) {
 			this.currentSort = { field, direction: 'DESC' };
 		} else {

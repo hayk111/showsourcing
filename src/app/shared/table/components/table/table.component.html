@@ -70,12 +70,12 @@ https://stackblitz.com/edit/angular-vtluff?file=src/app/app.component.ts -->
 				class="header {{ column.sortable ? 'pointer' : 'defaultCursor'}} capitalize"
 				[class.sorted]="sortSrv.isSorted(column.sortBy)"
 				[style.height]="rowHeight + 'px'"
-				(click)="column.toggleSort()">
+				(click)="sortSrv.toggleSort(column.sortBy)">
 				{{ column.title }}
 				<ng-container *ngIf="sortSrv.isSorted(column.sortBy)">
 					<icon-app
 						class="sortIcon fs-xs"
-						[name]="(sortSrv.sort$ | async) === 'DESC' ? 'angle-down' : 'angle-up'"
+						[name]="(sortSrv.sort$ | async).direction === 'DESC' ? 'angle-down' : 'angle-up'"
 						name="angle-down">
 					</icon-app>
 				</ng-container>

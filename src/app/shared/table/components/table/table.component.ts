@@ -1,22 +1,10 @@
-import {
-	ChangeDetectionStrategy,
-	Component,
-	ContentChildren,
-	EventEmitter,
-	HostListener,
-	Input,
-	OnChanges,
-	Output,
-	QueryList,
-	TemplateRef,
-} from '@angular/core';
-import { EntityName } from '~core/erm';
-import { ColumnDirective } from '~shared/table/components/column.directive';
-import { Sort } from '~shared/table/components/sort.interface';
-import { TrackingComponent } from '~utils/tracking-component';
-import { SelectionState } from '~shared/inputs-custom/components/select-checkbox/select-checkbox.component';
+import { ChangeDetectionStrategy, Component, ContentChildren, EventEmitter, Input, Output, QueryList, TemplateRef } from '@angular/core';
 import { Typename } from '~core/erm3/typename.type';
+import { SelectionState } from '~shared/inputs-custom/components/select-checkbox/select-checkbox.component';
+import { ColumnDirective } from '~shared/table/components/column.directive';
 import { SortService } from '~shared/table/services/sort.service';
+import { TrackingComponent } from '~utils/tracking-component';
+import { Sort } from '~shared/table/models/sort.interface';
 
 // Here is a stackblitz with a smaller version of the tables to understand it more easily
 
@@ -161,7 +149,7 @@ export class TableComponent extends TrackingComponent {
 		if (this.selected)
 			return this.selected.has(row.id);
 
-		throw Error(`Selection Input is undefnied`);
+		throw Error(`Selection Input is undefined`);
 	}
 
 	goToIndexPage(page) {
