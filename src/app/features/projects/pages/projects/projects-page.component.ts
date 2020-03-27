@@ -1,12 +1,11 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { ProjectService } from '~core/erm';
-import { SelectParams, SelectParamsConfig } from '~core/erm';
-import { ListPageService } from '~core/list-page';
 import { ERM, Project } from '~core/erm';
 import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
-import { ProjectsTableComponent } from '~common/tables/projects-table/projects-table.component';
+import { ListHelperService, ListPageViewService, SelectionService } from '~core/list-page2';
+import { UserService } from '~core/erm';
 
 // Doctor: You're obese.
 // -
@@ -19,44 +18,35 @@ import { ProjectsTableComponent } from '~common/tables/projects-table/projects-t
 	templateUrl: './projects-page.component.html',
 	styleUrls: ['./projects-page.component.scss'],
 	providers: [
-		ListPageService
 	],
 	host: {
 		class: 'table-page'
 	}
 })
-export class ProjectsPageComponent extends AutoUnsub implements OnInit, AfterViewInit {
-	filterTypes = [FilterType.CREATED_BY];
-	erm = ERM.PROJECT;
+export class ProjectsPageComponent extends AutoUnsub implements OnInit {
+	items$: Observable<Project[]>;
 
-	selectItemsConfig: SelectParamsConfig;
-	columns = ProjectsTableComponent.DEFAULT_COLUMNS;
-	tableConfig = ProjectsTableComponent.DEFAULT_TABLE_CONFIG;
+	filterTypes = [FilterType.CREATED_BY];
 
 	constructor(
-		private projectSrv: ProjectService,
-		public listSrv: ListPageService<Project, ProjectService>,
+		public listHelper: ListHelperService,
+		public viewSrv: ListPageViewService<any>,
+		public selectionSrv: SelectionService,
 		public dialogCommonSrv: DialogCommonService,
+		private userSrv: UserService
 	) {
 		super();
 	}
 
 	ngOnInit() {
-		const selectParams = new SelectParams({ query: 'deleted == false' });
-		this.listSrv.setup({
-			entitySrv: this.projectSrv,
-			searchedFields: ['name', 'createdBy.firstName', 'createdBy.lastName'],
-			selectParams,
-			entityMetadata: ERM.PROJECT,
-		}, false);
+		this.listHelper.setup('Project');
+		this.items$ = this.listHelper.filteredItems$;
 	}
 
-	showItemsPerPage(count: number) {
-		this.selectItemsConfig = { take: Number(count) };
-		this.listSrv.refetch(this.selectItemsConfig).subscribe();
+	create() {
+		this.listHelper.create({
+			assigneeId: '17affbd2-864c-4644-b471-063802e2d804' // TODO: change to use dynamic id from user service, currently service doen't work
+		});
 	}
 
-	ngAfterViewInit() {
-		this.listSrv.loadData(this._destroy$);
-	}
 }

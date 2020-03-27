@@ -20,25 +20,24 @@ import {
 	Project,
 	SelectParamsConfig
 } from '~core/erm';
-import { ListPageService, SelectionService } from '~core/list-page';
 import { ProjectFeatureService } from '~features/projects/services';
 import { DialogService } from '~shared/dialog/services';
 import { FilterType } from '~shared/filters';
 import { ToastService, ToastType } from '~shared/toast';
 import { AutoUnsub } from '~utils';
+import { ListHelperService, ListPageViewService, SelectionService } from '~core/list-page2';
 
 @Component({
 	selector: 'products-page-app',
 	styleUrls: ['products-page.component.scss'],
 	templateUrl: './products-page.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [ListPageService, SelectionService],
+	providers: [],
 	host: {
 		class: 'table-page'
 	}
 })
-export class ProductsPageComponent extends AutoUnsub
-	implements OnInit, AfterViewInit {
+export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	@Output() delete = new EventEmitter<Project>();
 	@Output() archive = new EventEmitter<Project>();
 
@@ -65,115 +64,67 @@ export class ProductsPageComponent extends AutoUnsub
 	tableConfig = ProductsTableComponent.DEFAULT_TABLE_CONFIG;
 
 	constructor(
+		public listHelper: ListHelperService,
+		public viewSrv: ListPageViewService<any>,
 		private featureSrv: ProjectFeatureService,
 		private dlgSrv: DialogService,
 		private route: ActivatedRoute,
 		private productSrv: ProductService,
-		public listSrv: ListPageService<Product, ProductService>,
 		public dialogCommonSrv: DialogCommonService,
 		private toastSrv: ToastService,
 		private translate: TranslateService,
-		private selectionSrv: SelectionService
+		public selectionSrv: SelectionService
 	) {
 		super();
 	}
 
 	ngOnInit() {
+		this.listHelper.setup('Product');
 		const id = this.route.parent.snapshot.params.id;
 		this.project$ = this.featureSrv.queryOne(id);
 
 		this.project$.subscribe(proj => (this.project = proj));
-
-		// we need to wait to have the id to call super.ngOnInit, because we want to specify the initialQuery
-		// whne the id is there
-		this.listSrv.setup({
-			entitySrv: this.productSrv,
-			searchedFields: ['name'],
-			selectParams: {
-				query: `projects.id == "${id}" AND deleted == false`,
-				sortBy: 'category.name',
-				descending: true
-			},
-			initialFilters: [
-				{ type: FilterType.ARCHIVED, value: false },
-				{ type: FilterType.DELETED, value: false }
-			],
-			originComponentDestroy$: this._destroy$,
-			entityMetadata: ERM.PRODUCT
-		});
-	}
-
-	ngAfterViewInit() {
-		this.listSrv.loadData(this._destroy$);
 	}
 
 	/**
 	 * Deassociate the product from the current project
 	 */
 	deassociateProductById(id: string) {
-		const unselectedProducts = [{ id }];
-		this.featureSrv
-			.manageProjectsToProductsAssociations([this.project], {
-				unselectedProducts
-			})
-			.pipe(switchMap(_ => this.listSrv.refetch()))
-			.subscribe();
+		// const unselectedProducts = [{ id }];
+		// this.featureSrv
+		// 	.manageProjectsToProductsAssociations([this.project], {
+		// 		unselectedProducts
+		// 	})
+		// 	.pipe(switchMap(_ => this.listSrv.refetch()))
+		// 	.subscribe();
 	}
 
 	/**
 	 * Deassociate the selected products from the current project
 	 */
 	deassociateSelectedProducts() {
-		const unselectedProducts = this.selectionSrv
-			.getSelectedIds()
-			.map(id => ({ id }));
-		this.featureSrv
-			.manageProjectsToProductsAssociations([this.project], {
-				unselectedProducts
-			})
-			.pipe(switchMap(_ => this.listSrv.refetch()))
-			.subscribe();
-		this.selectionSrv.unselectAll();
+		// const unselectedProducts = this.selectionSrv
+		// 	.getSelectedIds()
+		// 	.map(id => ({ id }));
+		// this.featureSrv
+		// 	.manageProjectsToProductsAssociations([this.project], {
+		// 		unselectedProducts
+		// 	})
+		// 	.pipe(switchMap(_ => this.listSrv.refetch()))
+		// 	.subscribe();
+		// this.selectionSrv.unselectAll();
 	}
 
 	/** Open the find products dialog and passing selected products to it */
 	openFindProductDlg() {
-		this.featureSrv
-			.openFindProductDlg(this.project)
-			.pipe(switchMap(_ => this.listSrv.refetch()))
-			.subscribe();
+		// this.featureSrv
+		// 	.openFindProductDlg(this.project)
+		// 	.pipe(switchMap(_ => this.listSrv.refetch()))
+		// 	.subscribe();
 	}
 
 	onArchive(product: Product | Product[]) {
-		if (Array.isArray(product)) {
-			this.productSrv
-				.updateMany(product.map((p: Product) => ({ id: p.id, archived: true })))
-				.pipe(switchMap(_ => this.listSrv.refetch()))
-				.subscribe(_ => {
-					this.toastSrv.add({
-						type: ToastType.SUCCESS,
-						title: 'title.products-archived',
-						message: 'message.products-archived-successfully'
-					});
-				});
-		} else {
-			const { id } = product;
-			this.productSrv
-				.update({ id, archived: true })
-				.pipe(switchMap(_ => this.listSrv.refetch()))
-				.subscribe(_ => {
-					this.toastSrv.add({
-						type: ToastType.SUCCESS,
-						title: 'title.product-archived',
-						message: 'message.product-archived-successfully'
-					});
-				});
-		}
-	}
-
-	showItemsPerPage(count: number) {
-		this.selectItemsConfig = { take: Number(count) };
-		this.listSrv.refetch(this.selectItemsConfig).subscribe();
+		// TODO: to be implement
 	}
 
 	onOpenCreateRequestDlg(products: Product[]) {

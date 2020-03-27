@@ -17,31 +17,28 @@
 			*ngIf="viewSrv.view === 'table'"
 			[columns]="columns"
 			[selection]="selectionSrv.selection$ | async"
-			[rows]="listSrv.items$ | async"
-			[pending]="listSrv.pending"
+			[rows]="listHelper.items$ | async"
+			[pending]="listHelper.pending"
 			[isFiltering]="filterSrv.isFiltering"
-			[total]="listSrv.count$ | async"
-			[currentSort]="listSrv.currentSort"
-			[currentPage]="listSrv.currentPage"
+			[total]="listHelper.total$ | async"
 			createEntityBtnName="Add Product"
-			(goToPage)="listSrv.loadPage($event)"
+			(goToPage)="listHelper.loadPage($event)"
 			(previewClick)="viewSrv.openPreview($event)"
 			(select)="selectionSrv.selectOne($event, true)"
 			(unselect)="selectionSrv.unselectOne($event, true)"
 			(selectAll)="selectionSrv.selectAll($event, true)"
 			(unselectAll)="selectionSrv.unselectAll()"
-			(archive)="listSrv.archiveOne($event)"
 			(open)="viewSrv.goToDetails($event)"
 			(createClick)="dialogCommonSrv.openSelectProductDlg([], project)"
 			(openAddSampleDialog)="dialogCommonSrv.openCreationSampleDialog($event)"
-			(update)="listSrv.update($event)"
+			(update)="listHelper.update($event)"
 			(openAddTaskDialog)="dialogCommonSrv.openCreationTaskDlg($event)"
-			(sort)="listSrv.sort($event)"
+			(sort)="listHelper.sort($event)"
 			(showItemsPerPage)="showItemsPerPage($event)"
 			(delete)="deassociateProductById(($event)?.id)">
 		</products-table-app>
 
-		<products-grid-app
+		<!-- <products-grid-app
 			infiniScroll
 			cdk-scrollable
 			*ngIf="viewSrv.view === 'card'"
@@ -83,16 +80,16 @@
 			(close)="selectionSrv.unselectAll()"
 			(selectAll)="selectionSrv.selectAll($event)"
 			(unselectAll)="selectionSrv.unselectAll()">
-		</product-selection-bar-app>
+		</product-selection-bar-app> -->
 
-		<side-panel-app *ngIf="viewSrv.filterPanelOpen">
+		<!-- <side-panel-app *ngIf="viewSrv.filterPanelOpen">
 			<filters-app
 				[filterList]="filterSrv.filterList"
 				[filterTypes]="filterTypes"
 				(clickOutside)="viewSrv.closeFilterPanel()"
 				(close)="viewSrv.closeFilterPanel()">
 			</filters-app>
-		</side-panel-app>
+		</side-panel-app> -->
 
 		<product-preview-app
 			*ngIf="viewSrv.previewOpen"
