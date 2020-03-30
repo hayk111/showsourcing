@@ -1,5 +1,5 @@
 <selector-app
-	[type]="'PROJECT' | erm"
+	typename="Project"
 	[canCreate]="true"
 	[value]="(product$ | async)?.projects"
 	[multiple]="true"
@@ -10,37 +10,40 @@
 <!--  if this is uncommented and since we are not using virtual scroll, on selector2 -> searchTxt = 'light'
 			so we just load part of it -->
 <selector-app
-	[type]="'SUPPLIER' | erm"
+	typename="Supplier"
 	[canCreate]="true"
 	(update)="update($event, 'supplier')">
 	<div>OffsetX = 300, OffsetY: Default</div>
 	<button class="mg-ms"> Supplier selector </button>
 </selector-app>
+<!-- TODO Check how to manage currency selector with Constant typename -->
 <selector-app
-	[type]="'CURRENCY' | erm"
+	typename="Constant"
 	[offsetY]="300">
 	<div>OffsetX = 300, OffsetY: 300</div>
 	<button class="mg-ms"> Currency selector </button>
 </selector-app>
 <selector-app
-	[type]="'USER' | erm"
+	typename="User"
 	[offsetY]="300">
 	<div>OffsetX: Default, OffsetY: 300</div>
 	<button class="mg-ms"> User Selector </button>
 </selector-app>
+<!-- TODO Check how to manage Country selector with Constant typename -->
 <selector-app
-	[type]="'COUNTRY' | erm"
+	typename="Constant"
 	[offsetY]="-300">
 	<div>OffsetX: Default, OffsetY: - 300</div>
 	<button class="mg-ms"> Country selector </button>
 </selector-app>
 <selector-app
-	[type]="'SUPPLIER_TYPE' | erm">
+	typename="SupplierType">
 	<div>OffsetX, OffsetY: Default</div>
 	<button class="mg-ms"> SupplierType selector </button>
 </selector-app>
+<!-- TODO Check how to manage Weight Unit selector with Constant typename -->
 <selector-app
-	[type]="'WEIGHT_UNIT' | erm">
+	typename="Constant">
 	<div>OffsetX, OffsetY: Default</div>
 	<button class="mg-ms"> Weight Unit selector </button>
 </selector-app>

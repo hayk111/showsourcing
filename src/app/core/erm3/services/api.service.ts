@@ -255,7 +255,7 @@ export class ApiService {
 		apiOptions: ApiMutationOption = {}
 		): Observable<T> {
 		const options = apiOptions as MutationOptions;
-		options.variables = { input: { id: entity.id, _version: entity._version, __typename: typename } };
+		options.variables = { input: { id: entity.id, _version: entity._version } };
 		options.mutation = QueryPool.getQuery(typename, QueryType.DELETE);
 		return this.mutate(options);
 	}
