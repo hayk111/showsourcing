@@ -78,7 +78,6 @@ export class ListHelperService<G = any> {
 	}
 
 	delete(entity: any) {
-		debugger;
 		this.apiSrv.delete(this.typename, entity).pipe(
 			switchMap(_ => this.refetch())
 		).subscribe();

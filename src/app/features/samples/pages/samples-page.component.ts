@@ -84,9 +84,38 @@ export class SamplesPageComponent extends AutoUnsub implements OnInit {
 	// 	return filters.length;
 	// }
 
+	generateUuid() {
+		return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+			const r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+			return v.toString(16);
+		});
+	}
+
 	create() {
+		console.log('create');
+
 		this.listHelper.create({
-			assigneeId: '17affbd2-864c-4644-b471-063802e2d804' // TODO: change to use dynamic id from user service, currently service doen't work
+			'id': this.generateUuid(),
+			'statusId': this.generateUuid(),
+			'assignee': {
+				'id': this.generateUuid(),
+				'firstName': 'Hayk',
+				'lastName': 'Atoyan',
+				'email': 'hayk@simplytechnologies.net',
+				'_version': 1,
+				'_lastChangedAt': new Date().getTime()
+			},
+			'description': 'dsdsads',
+			'createdAt': '2020-03-27T07:10:20.246Z',
+			'lastUpdatedAt': '2020-03-27T07:10:20.246Z',
+			'deleted': false,
+			'createdByUserId': this.generateUuid(),
+			'lastUpdatedByUserId': this.generateUuid(),
+			'teamId': '2207fc94-c0cd-4164-8c78-a8885c22d084',
+			'price': {value: 121},
+			'paid': true,
+			'linkedProductId': this.generateUuid(),
+			'linkedSupplierId': this.generateUuid()
 		});
 	}
 

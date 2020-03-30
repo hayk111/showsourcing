@@ -48,7 +48,14 @@ export class ProjectsPageComponent extends AutoUnsub implements OnInit {
 
 	create() {
 		this.listHelper.create({
-			assigneeId: '17affbd2-864c-4644-b471-063802e2d804' // TODO: change to use dynamic id from user service, currently service doen't work
+			assigneeId: this.generateUuid() // TODO: change to use dynamic id from user service, currently service doen't work
+		});
+	}
+
+	generateUuid() {
+		return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+			const r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+			return v.toString(16);
 		});
 	}
 
