@@ -5,9 +5,9 @@ import { QueryType } from './query-type.enum';
 /** Audit found on every entity */
 const AUDIT = `
 `;
+// _version
 // _lastChangedAt
 // _deleted
-// _version
 
 /**
  * Helper to create GraphQL queries that are valid for the realm GraphQL service
@@ -37,7 +37,6 @@ export class QueryBuilder {
 				get${this.typename}(
 					id: $id
 				) {
-					id
 					${str}
 					${AUDIT}
 				}
@@ -60,7 +59,6 @@ export class QueryBuilder {
 					nextToken: $nextToken
 				) {
 					items {
-						id
 						${str}
 						${AUDIT}
 					}
@@ -92,6 +90,7 @@ export class QueryBuilder {
 				) {
 					items {
 						${str}
+						${AUDIT}
 					}
 					nextToken
 					startedAt
@@ -105,7 +104,6 @@ export class QueryBuilder {
 				$input: Create${this.typename}Input!
 			) {
 				create${this.typename}(input: $input) {
-					id
 					${str}
 					${AUDIT}
 				}
@@ -118,7 +116,6 @@ export class QueryBuilder {
 				$input: Update${this.typename}Input!
 			) {
 				update${this.typename}(input: $input) {
-					id
 					${str}
 					${AUDIT}
 				}
@@ -131,7 +128,6 @@ export class QueryBuilder {
 				$input: Delete${this.typename}Input!
 			) {
 				delete${this.typename}(input: $input) {
-					id
 					${str}
 					${AUDIT}
 				}
