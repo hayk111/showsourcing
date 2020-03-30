@@ -119,7 +119,7 @@ fdescribe('ApiService', () => {
 		});
 	});
 
-	it('should update entities', async () => {
+	fit('should update entities', async () => {
 		const promises = Object.entries(mocks).map(([name, getMock]) => {
 			return apiSrv
 				.create(name as Typename, getMock())
@@ -133,7 +133,7 @@ fdescribe('ApiService', () => {
 		});
 	});
 
-	fit('should delete entities', async () => {
+	it('should delete entities', async () => {
 		const promises = Object.entries(mocks).map(([name, getMock]) => {
 			return apiSrv
 				.create(name as Typename, getMock())
