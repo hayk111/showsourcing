@@ -18,9 +18,6 @@ export class ListHelperService<G = any> {
 	private typename: Typename;
 	private _pending$ = new BehaviorSubject<boolean>(true);
 	pending$ = this._pending$.asObservable();
-
-	/** total number of items */
-	total$: Observable<number>;
 	/** the filtered items */
 	filteredItems$ = combineLatest(
 		this.filterSrv.valueChanges$,
@@ -29,13 +26,18 @@ export class ListHelperService<G = any> {
 		this.sortSrv.sort$
 	).pipe(
 		// gets the query
-		map(([{ queryArg }, from, limit, sort]) => this.apiSrv.search<G>(
-			this.typename, { filter: queryArg, limit, from, sort })
+		map(([{ queryArg }, page, limit, sort]) => this.apiSrv.search<G>(
+			this.typename, {
+				filter: queryArg,
+				limit,
+				from: page * limit,
+				sort
+			})
 		),
 		// save it
 		tap(query => this.queryRef = query),
 		// add total to the paginationSrv
-		tap(query => this.total$ = query.total$),
+		tap(query => this.paginationSrv.init(query.total$)),
 		// add the next token for infiniscroll
 		// TODO
 		// return the result
