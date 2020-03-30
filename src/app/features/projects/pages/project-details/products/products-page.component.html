@@ -17,9 +17,8 @@
 			*ngIf="viewSrv.view === 'table'"
 			[columns]="columns"
 			[selection]="selectionSrv.selection$ | async"
-			[rows]="listHelper.items$ | async"
+			[rows]="listHelper.filteredItems$ | async"
 			[pending]="listHelper.pending"
-			[isFiltering]="filterSrv.isFiltering"
 			[total]="listHelper.total$ | async"
 			createEntityBtnName="Add Product"
 			(goToPage)="listHelper.loadPage($event)"
@@ -34,7 +33,6 @@
 			(update)="listHelper.update($event)"
 			(openAddTaskDialog)="dialogCommonSrv.openCreationTaskDlg($event)"
 			(sort)="listHelper.sort($event)"
-			(showItemsPerPage)="showItemsPerPage($event)"
 			(delete)="deassociateProductById(($event)?.id)">
 		</products-table-app>
 

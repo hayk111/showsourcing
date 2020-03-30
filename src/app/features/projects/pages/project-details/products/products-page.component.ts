@@ -20,10 +20,8 @@ import {
 	Project,
 	SelectParamsConfig
 } from '~core/erm';
-import { ProjectFeatureService } from '~features/projects/services';
 import { DialogService } from '~shared/dialog/services';
 import { FilterType } from '~shared/filters';
-import { ToastService, ToastType } from '~shared/toast';
 import { AutoUnsub } from '~utils';
 import { ListHelperService, ListPageViewService, SelectionService } from '~core/list-page2';
 
@@ -32,7 +30,11 @@ import { ListHelperService, ListPageViewService, SelectionService } from '~core/
 	styleUrls: ['products-page.component.scss'],
 	templateUrl: './products-page.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [],
+	providers: [
+		ListHelperService,
+		ListPageViewService,
+		SelectionService
+	],
 	host: {
 		class: 'table-page'
 	}
@@ -47,32 +49,15 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	erm = ERM;
 
 	selectItemsConfig: SelectParamsConfig;
-
-	filterTypes = [
-		FilterType.ARCHIVED,
-		FilterType.CATEGORY,
-		FilterType.CREATED_BY,
-		FilterType.EVENT,
-		FilterType.FAVORITE,
-		FilterType.STATUS,
-		FilterType.PROJECTS,
-		FilterType.SUPPLIER,
-		FilterType.TAGS
-	];
-
 	columns = ProductsTableComponent.DEFAULT_COLUMNS;
 	tableConfig = ProductsTableComponent.DEFAULT_TABLE_CONFIG;
 
 	constructor(
 		public listHelper: ListHelperService,
 		public viewSrv: ListPageViewService<any>,
-		private featureSrv: ProjectFeatureService,
 		private dlgSrv: DialogService,
 		private route: ActivatedRoute,
-		private productSrv: ProductService,
 		public dialogCommonSrv: DialogCommonService,
-		private toastSrv: ToastService,
-		private translate: TranslateService,
 		public selectionSrv: SelectionService
 	) {
 		super();
@@ -80,10 +65,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		this.listHelper.setup('Product');
-		const id = this.route.parent.snapshot.params.id;
-		this.project$ = this.featureSrv.queryOne(id);
-
-		this.project$.subscribe(proj => (this.project = proj));
+		// const id = this.route.parent.snapshot.params.id;
 	}
 
 	/**

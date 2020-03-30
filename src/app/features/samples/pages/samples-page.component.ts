@@ -10,13 +10,8 @@ import {
 	SelectParamsConfig,
 	UserService
 } from '~core/erm';
-import { ListPageService } from '~core/list-page';
-import { DialogService } from '~shared/dialog';
 import { FilterType } from '~shared/filters';
 import { FilterService } from '~shared/filters/services/filter.service';
-import { KanbanSelectionService } from '~shared/kanban/services/kanban-selection.service';
-import { ApiService } from '~core/erm3/services/api.service';
-import { KanbanService } from '~shared/kanban/services/kanban.service';
 import { ListHelperService, ListPageViewService, SelectionService } from '~core/list-page2';
 import { AutoUnsub } from '~utils';
 
@@ -58,10 +53,7 @@ export class SamplesPageComponent extends AutoUnsub implements OnInit {
 		public listHelper: ListHelperService,
 		public viewSrv: ListPageViewService<any>,
 		public elem: ElementRef,
-		protected dlgSrv: DialogService,
 		private userSrv: UserService,
-		private filterSrv: FilterService,
-		private apiSrv: ApiService,
 	) {
 		super();
 	}
@@ -71,26 +63,26 @@ export class SamplesPageComponent extends AutoUnsub implements OnInit {
 		this.items$ = this.listHelper.filteredItems$;
 	}
 
-	toggleMyProducts(show: boolean) {
-		const filterAssignee = {
-			type: FilterType.ASSIGNEE,
-			value: this.userSrv.userSync.id
-		};
-		if (show) this.filterSrv.addFilter(filterAssignee);
-		else this.filterSrv.removeFilter(filterAssignee);
-	}
+	// toggleMyProducts(show: boolean) {
+	// 	const filterAssignee = {
+	// 		type: FilterType.ASSIGNEE,
+	// 		value: this.userSrv.userSync.id
+	// 	};
+	// 	if (show) this.filterSrv.addFilter(filterAssignee);
+	// 	else this.filterSrv.removeFilter(filterAssignee);
+	// }
 
-	getFilterAmount() {
-		// we filter so we don't count archieved or deleted when it's false, so the user doesn't get confused since its the default filter
-		const filters = this.filterSrv.filterList
-			.asFilters()
-			.filter(
-				fil =>
-					!(fil.type === FilterType.ARCHIVED && fil.value === false) &&
-					!(fil.type === FilterType.DELETED && fil.value === false)
-			);
-		return filters.length;
-	}
+	// getFilterAmount() {
+	// 	// we filter so we don't count archieved or deleted when it's false, so the user doesn't get confused since its the default filter
+	// 	const filters = this.filterSrv.filterList
+	// 		.asFilters()
+	// 		.filter(
+	// 			fil =>
+	// 				!(fil.type === FilterType.ARCHIVED && fil.value === false) &&
+	// 				!(fil.type === FilterType.DELETED && fil.value === false)
+	// 		);
+	// 	return filters.length;
+	// }
 
 	create() {
 		this.listHelper.create({

@@ -18,6 +18,9 @@ import { UserService } from '~core/erm';
 	templateUrl: './projects-page.component.html',
 	styleUrls: ['./projects-page.component.scss'],
 	providers: [
+		ListHelperService,
+		ListPageViewService,
+		SelectionService,
 	],
 	host: {
 		class: 'table-page'
