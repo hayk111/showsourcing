@@ -4,8 +4,8 @@ import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { AutoUnsub } from '~utils';
 import { TranslateService } from '@ngx-translate/core';
 import { ProjectFeatureService } from '~features/projects/services';
-import { ListPageService } from '~core/list-page';
 import { ProductService } from '~core/erm';
+import { ListHelperService } from '~core/list-page2';
 import { switchMap } from 'rxjs/operators';
 
 @Component({
@@ -27,7 +27,7 @@ export class ProjectHeaderDetailsComponent extends AutoUnsub implements OnInit {
 		public router: Router,
 		private translate: TranslateService,
 		private featureSrv: ProjectFeatureService,
-		public listSrv: ListPageService<Product, ProductService>,
+		public listHelper: ListHelperService,
 	) {
 		super();
 	}
@@ -40,9 +40,9 @@ export class ProjectHeaderDetailsComponent extends AutoUnsub implements OnInit {
 	}
 
 	openFindProductDlg() {
-		this.featureSrv.openFindProductDlg(this.project).pipe(
-			switchMap(_ => this.listSrv.refetch())
-		).subscribe();
+		// this.featureSrv.openFindProductDlg(this.project).pipe(
+		// 	switchMap(_ => this.listSrv.refetch())
+		// ).subscribe();
 	}
 
 }

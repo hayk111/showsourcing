@@ -5,42 +5,29 @@
 	info="The projects database"
 	[title]="'title.projects' | translate"
   [buttonName]="'button.create-project' | translate"
-	(buttonClick)="listSrv.create()">
+	(buttonClick)="create()">
 </header-list-app>
 
 <controller-table-app>
-	<controller-table-quick-filters-app
-		[quickFilters]="['assignee']">
-	</controller-table-quick-filters-app>
-	<controller-table-quick-actions-app
-		[hasExport]="true"
-		[columns]="columns"
-		[tableConfig]="tableConfig">
-	</controller-table-quick-actions-app>
+	<controller-table-quick-filters-app [quickFilters]="['assignee']"></controller-table-quick-filters-app>
+	<controller-table-quick-actions-app></controller-table-quick-actions-app>
 </controller-table-app>
 
-<ng-container *ngIf="listSrv.isListening">
+<projects-table-app
+	[rows]="items$ | async"
+	[selection]="selectionSrv.selection$ | async"
+	[pending]="listHelper.pending$ | async"
+	[total]="listHelper.total$ | async"
+	(select)="selectionSrv.selectOne($event, true)"
+	(unselect)="selectionSrv.unselectOne($event, true)"
+	(selectAll)="selectionSrv.selectAll($event, true)"
+	(unselectAll)="selectionSrv.unselectAll()"
+	(createClick)="create()"
+	(update)="listHelper.update($event)"
+	(delete)="listHelper.delete($event)">
+</projects-table-app>
 
-  <projects-table-app
-		[selection]="selectionSrv.selection$ | async"
-		[rows]="listSrv.items$ | async"
-		[pending]="listSrv.pending"
-		[isFiltering]="filterSrv.isFiltering"
-		[total]="listSrv.count$ | async"
-		[currentPage]="listSrv.currentPage"
-		(goToPage)="listSrv.loadPage($event)"
-    (select)="selectionSrv.selectOne($event, true)"
-    (unselect)="selectionSrv.unselectOne($event, true)"
-    (selectAll)="selectionSrv.selectAll($event, true)"
-    (unselectAll)="selectionSrv.unselectAll()"
-		(sort)="listSrv.sort($event)"
-		(createClick)="listSrv.create()"
-		(showItemsPerPage)="showItemsPerPage($event)"
-		(delete)="listSrv.deleteOne($event)"
-		(update)="listSrv.update($event)">
-	</projects-table-app>
-
-	<project-selection-bar-app
+	<!-- <project-selection-bar-app
 		[isShown]="(selectionSrv.selection$ | async).size > 0"
 		[selection]="selectionSrv.selection$ | async"
 		[selectableItems]="listSrv.items$ | async"
@@ -57,6 +44,4 @@
 			[filterTypes]="filterTypes"
 			(clickOutside)="viewSrv.closeFilterPanel()">
 		</filters-app>
-	</side-panel-app>
-
-</ng-container>
+	</side-panel-app> -->
