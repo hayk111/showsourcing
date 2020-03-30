@@ -3,7 +3,7 @@
 	info="The sample database"
 	[title]="'title.my-samples' | translate"
 	[buttonName]="'button.create-sample' | translate"
-	(buttonClick)="dialogCommonSrv.openCreationSampleDialog()">
+	(buttonClick)="create()">
 </header-list-app>
 
 <controller-table-app>
@@ -17,26 +17,20 @@
 
 
 <samples-table-app
-	*ngIf="viewSrv.view === 'table'"
-	[rows]="listSrv.items$ | async"
+	[rows]="items$ | async"
 	[selection]="selectionSrv.selection$ | async"
-	[pending]="listSrv.pending"
-	[total]="listSrv.count$ | async"
-	[currentSort]="listSrv.currentSort"
-	[currentPage]="listSrv.currentPage"
-	(goToPage)="listSrv.loadPage($event)"
-	(sort)="listSrv.sort($event)"
+	[pending]="listHelper.pending"
+	[total]="listHelper.total$ | async"
 	(select)="selectionSrv.selectOne($event, true)"
 	(unselect)="selectionSrv.unselectOne($event, true)"
 	(selectAll)="selectionSrv.selectAll($event, true)"
 	(unselectAll)="selectionSrv.unselectAll()"
 	(open)="viewSrv.goToDetails($event)"
 	(previewClick)="viewSrv.openPreview($event)"
-	(showItemsPerPage)="showItemsPerPage($event)"
-	(update)="listSrv.update($event)"
-	(createClick)="dialogCommonSrv.openCreationSampleDialog()"
-	(delete)="listSrv.deleteOne($event)">
+	(createClick)="dialogCommonSrv.openCreationSampleDialog()">
 </samples-table-app>
+
+<!-- 
 
 <selection-bar-app
 	[isShown]="(selectionSrv.selection$ | async).size > 0"
@@ -88,4 +82,4 @@
 </sample-preview-app>
 
 
-
+ -->
