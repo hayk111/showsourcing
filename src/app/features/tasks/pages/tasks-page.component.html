@@ -21,11 +21,7 @@
 	[rows]="listSrv.items$ | async"
 	[selection]="selectionSrv.selection$ | async"
 	[pending]="listSrv.pending"
-	[total]="listSrv.count$ | async"
-	[currentPage]="listSrv.currentPage"
 	(update)="listSrv.update($event)"
-	(goToPage)="listSrv.loadPage($event)"
-	(sort)="listSrv.sort($event)"
 	(select)="selectionSrv.selectOne($event, true)"
 	(unselect)="selectionSrv.unselectOne($event, true)"
 	(selectAll)="selectionSrv.selectAll($event, true)"
@@ -50,7 +46,6 @@
 
 <side-panel-app *ngIf="viewSrv.filterPanelOpen">
 	<filters-app
-		[filterList]="filterSrv.filterList"
 		[filterTypes]="filterTypes"
 		(clickOutside)="viewSrv.closeFilterPanel()"
 		(close)="viewSrv.closeFilterPanel()">

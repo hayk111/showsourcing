@@ -8,17 +8,12 @@
 	[hasPagination]="hasPagination"
 	[hasMenu]="hasMenu"
 	[hasBorder]="hasBorder"
-	[total]="total"
-	[currentPage]="currentPage"
 	[placeholder]="'placeholder.no-contact' | translate"
-	(goToPage)="goToPage.emit($event)"
 	(selectOne)="select.emit($event)"
 	(unselectOne)="unselect.emit($event)"
 	(selectAll)="selectAll.emit($event)"
 	(unselectAll)="unselectAll.emit($event)"
 	(bottomReached)="bottomReached.emit()"
-	(sort)="sort.emit($event)"
-	(showItemsPerPage)="showItemsPerPage.emit($event)"
 	(createClick)="createClick.emit()">
 
   <!-- dynamic columns -->

@@ -21,12 +21,6 @@
 	class="spacing-ms"
 	[rows]="listSrv.items$ | async"
 	[pending]="listSrv.pending"
-	[isFiltering]="filterSrv.isFiltering"
-	[total]="listSrv.count$ | async"
-	[currentPage]="listSrv.currentPage"
-	(goToPage)="listSrv.loadPage($event)"
-	(sort)="listSrv.sort($event)"
-	(showItemsPerPage)="showItemsPerPage($event)"
 	(download)="downloadOne($event)">
 </exports-table-app>
 

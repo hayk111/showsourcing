@@ -9,7 +9,7 @@ import { FilterService } from '~core/filters/filter.service';
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { SortService } from '~shared/table/services/sort.service';
 import { SelectionService } from './selection.service';
-import { PaginationService } from '~shared/table/services/pagination.service';
+import { PaginationService } from '~shared/pagination/services/pagination.service';
 
 @Injectable({ providedIn: 'root' })
 export class ListHelperService<G = any> {
@@ -20,7 +20,6 @@ export class ListHelperService<G = any> {
 	pending$ = this._pending$.asObservable();
 
 	/** total number of items */
-	private total = 0;
 	total$: Observable<number>;
 	/** the filtered items */
 	filteredItems$ = combineLatest(
@@ -35,12 +34,8 @@ export class ListHelperService<G = any> {
 		),
 		// save it
 		tap(query => this.queryRef = query),
-		// add observable version of total for the view,
-		// and synchronous one for easy access in this class
-		tap(query => this.total$ = query.total$.pipe(
-			tap((total: number) => this.total = total)
-			)
-		),
+		// add total to the paginationSrv
+		tap(query => this.total$ = query.total$),
 		// add the next token for infiniscroll
 		// TODO
 		// return the result

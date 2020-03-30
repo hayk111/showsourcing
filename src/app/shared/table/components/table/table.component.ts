@@ -5,6 +5,7 @@ import { ColumnDirective } from '~shared/table/components/column.directive';
 import { SortService } from '~shared/table/services/sort.service';
 import { TrackingComponent } from '~utils/tracking-component';
 import { Sort } from '~shared/table/models/sort.interface';
+import { PaginationService } from '~shared/pagination/services/pagination.service';
 
 // Here is a stackblitz with a smaller version of the tables to understand it more easily
 
@@ -53,16 +54,10 @@ export class TableComponent extends TrackingComponent {
 	@Input() selected: Map<string, boolean> = new Map();
 	// TODO this should be transcluded instead
 	@Input() contextualMenu: TemplateRef<any>;
-	/** total number of items for pagination */
-	@Input() total = 0;
-
-	@Input() currentPage: number;
 	@Output() showItemsPerPage = new EventEmitter<number>();
-
 	@Input() createEntityBtnName: string;
 	/** event when we click the create button on placeholder */
 	@Output() createClick = new EventEmitter<null>();
-
 	/** event when we select all rows */
 	@Output() selectAll = new EventEmitter<string[]>();
 	@Output() unselectAll = new EventEmitter<null>();
@@ -74,8 +69,6 @@ export class TableComponent extends TrackingComponent {
 	@Output() sort = new EventEmitter<Sort>();
 	/** when we hover and we want to get the id of the object */
 	@Output() hovered = new EventEmitter<string>();
-	/** pagination events */
-	@Output() goToPage = new EventEmitter<number>();
 	/** all the columns */
 	@ContentChildren(ColumnDirective) columns: QueryList<ColumnDirective>;
 
@@ -92,7 +85,10 @@ export class TableComponent extends TrackingComponent {
 	/** function used by the ng for, using an arrow to not lose this context */
 	columnTrackByFn = (index: any) => index;
 
-	constructor(public sortSrv: SortService) {
+	constructor(
+		public sortSrv: SortService,
+		public paginationSrv: PaginationService
+	) {
 		super();
 	}
 
@@ -152,7 +148,4 @@ export class TableComponent extends TrackingComponent {
 		throw Error(`Selection Input is undefined`);
 	}
 
-	goToIndexPage(page) {
-		this.goToPage.emit(page);
-	}
 }

@@ -4,8 +4,6 @@
 	[rows]="rows"
   [pending]="pending"
 	[isSeaching]="isFiltering"
-  [total]="total"
-  [currentPage]="currentPage"
 	[selected]="selection"
 	[hasMenu]="hasMenu"
   [hasHeader]="hasHeader"
@@ -13,15 +11,12 @@
 	[hasSelection]="hasSelection"
 	[hasBorder]="hasBorder"
   [contextualMenu]="contextualMenuTemplate"
-  (goToPage)="goToPage.emit($event)"
   (bottomReached)="bottomReached.emit()"
-  (sort)="sort.emit($event)"
   (selectOne)="select.emit($event)"
   (unselectOne)="unselect.emit($event)"
   (selectAll)="selectAll.emit($event)"
 	(unselectAll)="unselectAll.emit()"
 	(createClick)="createClick.emit()"
-	(showItemsPerPage)="showItemsPerPage.emit($event)"
 	(hovered)="hovered = $event">
 
 	<!-- dynamic columns -->
