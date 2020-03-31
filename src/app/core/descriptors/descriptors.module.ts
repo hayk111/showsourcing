@@ -5,9 +5,9 @@ import { ProductDescriptor, SampleDescriptor, SupplierDescriptor } from './entit
 
 
 const common = [
-	ProductDescriptor,
-	SampleDescriptor,
-	SupplierDescriptor,
+	// ProductDescriptor,
+	// SampleDescriptor,
+	// SupplierDescriptor,
 ];
 
 @NgModule({
