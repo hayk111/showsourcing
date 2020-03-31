@@ -38,7 +38,7 @@ export class ApiLogger {
 		const { queryName, isMutation } = GqlHelper.getQueryInfo(options);
 		const color = isMutation ? COLOR_MUTATION_RESPONSE : COLOR_QUERY_RESPONSE;
 		log.group(`%c 🍇 ${queryName} -- Result`, color);
-		log.table(result || result.items);
+		log.table(result && result.items);
 		log.groupEnd();
 	}
 }
