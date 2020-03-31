@@ -6,18 +6,13 @@ import {
 } from '@angular/core';
 import { ProductDialogService } from '~common/dialogs/services/product-dialog.service';
 import { ProductsTableComponent } from '~common/tables/products-table/products-table.component';
-import {
-	DEFAULT_TAKE_PAGINATION,
-	ERM,
-	Product,
-	ProductService,
-	Project,
-	SelectParamsConfig,
-	UserService
-} from '~core/erm';
-import { CloseEventType, DialogService } from '~shared/dialog';
-import { ToastService, ToastType } from '~shared/toast';
+import { DialogService } from '~shared/dialog';
+import { ToastService } from '~shared/toast';
 import { AutoUnsub } from '~utils';
+import { Product, Project } from '~core/erm3/models';
+import { UserService } from '~core/auth';
+import { ListHelperService, SelectionService, ListPageViewService } from '~core/list-page2';
+import { FilterType } from '~core/filters';
 
 @Component({
 	selector: 'product-select-dlg',
@@ -25,9 +20,9 @@ import { AutoUnsub } from '~utils';
 	styleUrls: ['./product-select-dlg.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
-		// ListPageService,
-		// FilterService,
-		// SelectionService
+		ListPageViewService,
+		SelectionService,
+		ListHelperService
 	],
 	host: { class: 'table-dialog' }
 })
@@ -39,34 +34,35 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 	columns = ProductsTableComponent.DEFAULT_COLUMNS;
 	tableConfig = ProductsTableComponent.DEFAULT_TABLE_CONFIG;
 
-	selectItemsConfig: SelectParamsConfig;
+	// selectItemsConfig: SelectParamsConfig;
 	// filterType = FilterType;
-	erm = ERM;
 
 	filterTypes = [
-		// FilterType.SUPPLIER,
-		// FilterType.ARCHIVED,
-		// FilterType.CATEGORY,
-		// FilterType.PROJECTS,
-		// FilterType.CREATED_BY,
-		// FilterType.EVENT,
-		// FilterType.TAGS,
-		// FilterType.STATUS,
-		// FilterType.FAVORITE
+		FilterType.SUPPLIER,
+		FilterType.ARCHIVED,
+		FilterType.CATEGORY,
+		FilterType.PROJECTS,
+		FilterType.CREATED_BY,
+		FilterType.EVENT,
+		FilterType.TAGS,
+		FilterType.STATUS,
+		FilterType.FAVORITE
 	];
 
-	private unselectedProducts: { [key: string]: Product } = {};
+	// private unselectedProducts: { [key: string]: Product } = {};
 	selectedProducts: { [key: string]: Product } = {};
 
 	selectedProductsCount = 0;
-	private selectedAllCount = DEFAULT_TAKE_PAGINATION;
+	// private selectedAllCount = DEFAULT_TAKE_PAGINATION;
 
 	constructor(
-		private productSrv: ProductService,
 		private dlgSrv: DialogService,
 		private userSrv: UserService,
 		private productDlgSrv: ProductDialogService,
 		private toastSrv: ToastService,
+		public listHelper: ListHelperService,
+		public selectionSrv: SelectionService,
+		public viewSrv: ListPageViewService<Product>
 		// public listSrv: ListPageService<Product, ProductService>,
 		// private selectionSrv: SelectionService
 	) {
@@ -74,7 +70,8 @@ export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.initialSelection();
+		// this.initialSelection();
+		this.listHelper.setup('Product');
 	}
 
 	searchProduct(value) {
