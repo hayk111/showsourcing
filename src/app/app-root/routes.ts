@@ -67,10 +67,10 @@ export const routes: Array<Route> = [
 				path: 'settings',
 				loadChildren: 'app/features/settings/settings-feature.module#SettingsFeatureModule'
 			},
-			// {
-			// 	path: 'tasks',
-			// 	loadChildren: 'app/features/tasks/tasks-feature.module#TasksFeatureModule'
-			// }
+			{
+				path: 'tasks',
+				loadChildren: 'app/features/tasks/tasks-feature.module#TasksFeatureModule'
+			}
 		]
 	},
 	{ path: '**', redirectTo: '' }

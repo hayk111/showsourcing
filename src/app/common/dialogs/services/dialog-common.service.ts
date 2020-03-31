@@ -1,37 +1,18 @@
 import { Injectable } from '@angular/core';
 import { filter, map } from 'rxjs/operators';
-import {
-	CreationDialogComponent,
-	CreationProductDlgComponent,
-	CreationSampleDlgComponent,
-	CreationTaskDlgComponent,
-} from '~common/dialogs/creation-dialogs';
-import {
-	CompareProductComponent,
-	EditionDialogComponent,
-	ExportDlgComponent,
-	ExportEntity,
-	InviteUserDlgComponent,
-	MassEditDlgComponent,
-	MergeDialogComponent,
-	NewContactDlgComponent,
-	ProductRequestTeamFeedbackDlgComponent,
-	RefuseReplyDlgComponent,
-	VoteDetailsDialogComponent,
-} from '~common/dialogs/custom-dialogs';
+import { CreationDialogComponent, CreationProductDlgComponent, CreationSampleDlgComponent, CreationTaskDlgComponent } from '~common/dialogs/creation-dialogs';
+import { CompareProductComponent, EditionDialogComponent, ExportDlgComponent, InviteUserDlgComponent, MassEditDlgComponent, MergeDialogComponent, NewContactDlgComponent, ProductRequestTeamFeedbackDlgComponent, RefuseReplyDlgComponent, VoteDetailsDialogComponent } from '~common/dialogs/custom-dialogs';
 import { ProductAddToProjectDlgComponent, ProductSelectDlgComponent } from '~common/dialogs/selection-dialogs';
-import { EntityMetadata, EntityName, Product, Project, Supplier } from '~core/erm';
+import { EntityMetadata, Product, Project, Supplier } from '~core/erm';
+import { Typename } from '~core/erm3/typename.type';
 import { CloseEvent, CloseEventType } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { DialogService } from '~shared/dialog/services';
 import { Vote } from '~shared/rating/services/rating.service';
 import { ID } from '~utils';
-
-import {
-	ReviewRequestReplyDlgComponent,
-} from '../custom-dialogs/review-request-reply-dlg/review-request-reply-dlg.component';
+import { ReviewRequestReplyDlgComponent } from '../custom-dialogs/review-request-reply-dlg/review-request-reply-dlg.component';
 import { SupplierRequestDialogComponent } from '../custom-dialogs/supplier-request-dialog/supplier-request-dialog.component';
-import { Typename } from '~core/erm3/typename.type';
+
 
 /**
  * Service used to open dialogs, the goal of this service is to bring easy typing
