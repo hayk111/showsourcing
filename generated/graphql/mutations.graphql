@@ -719,6 +719,367 @@ mutation DeleteCompany(
     _lastChangedAt
   }
 }
+mutation CreateRole(
+  $input: CreateRoleInput!
+  $condition: ModelRoleConditionInput
+) {
+  createRole(input: $input, condition: $condition) {
+    id
+    teamId
+    name
+    permissions {
+      comment {
+        canCreate
+        canUpdate
+        canDelete
+        canList
+        canRead
+      }
+      contact {
+        canCreate
+        canUpdate
+        canDelete
+        canList
+        canRead
+      }
+      event {
+        canCreate
+        canUpdate
+        canDelete
+        canList
+        canRead
+      }
+      export {
+        canCreate
+        canUpdate
+        canDelete
+        canList
+        canRead
+      }
+      image {
+        canCreate
+        canUpdate
+        canDelete
+        canList
+        canRead
+      }
+      industry {
+        canCreate
+        canUpdate
+        canDelete
+        canList
+        canRead
+      }
+      product {
+        canCreate
+        canUpdate
+        canDelete
+        canList
+        canRead
+      }
+      project {
+        canCreate
+        canUpdate
+        canDelete
+        canList
+        canRead
+      }
+      sample {
+        canCreate
+        canUpdate
+        canDelete
+        canList
+        canRead
+      }
+      supplier {
+        canCreate
+        canUpdate
+        canDelete
+        canList
+        canRead
+      }
+      tag {
+        canCreate
+        canUpdate
+        canDelete
+        canList
+        canRead
+      }
+      task {
+        canCreate
+        canUpdate
+        canDelete
+        canList
+        canRead
+      }
+      vote {
+        canCreate
+        canUpdate
+        canDelete
+        canList
+        canRead
+      }
+      team {
+        canCreate
+        canUpdate
+        canDelete
+        canList
+        canRead
+      }
+    }
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation UpdateRole(
+  $input: UpdateRoleInput!
+  $condition: ModelRoleConditionInput
+) {
+  updateRole(input: $input, condition: $condition) {
+    id
+    teamId
+    name
+    permissions {
+      comment {
+        canCreate
+        canUpdate
+        canDelete
+        canList
+        canRead
+      }
+      contact {
+        canCreate
+        canUpdate
+        canDelete
+        canList
+        canRead
+      }
+      event {
+        canCreate
+        canUpdate
+        canDelete
+        canList
+        canRead
+      }
+      export {
+        canCreate
+        canUpdate
+        canDelete
+        canList
+        canRead
+      }
+      image {
+        canCreate
+        canUpdate
+        canDelete
+        canList
+        canRead
+      }
+      industry {
+        canCreate
+        canUpdate
+        canDelete
+        canList
+        canRead
+      }
+      product {
+        canCreate
+        canUpdate
+        canDelete
+        canList
+        canRead
+      }
+      project {
+        canCreate
+        canUpdate
+        canDelete
+        canList
+        canRead
+      }
+      sample {
+        canCreate
+        canUpdate
+        canDelete
+        canList
+        canRead
+      }
+      supplier {
+        canCreate
+        canUpdate
+        canDelete
+        canList
+        canRead
+      }
+      tag {
+        canCreate
+        canUpdate
+        canDelete
+        canList
+        canRead
+      }
+      task {
+        canCreate
+        canUpdate
+        canDelete
+        canList
+        canRead
+      }
+      vote {
+        canCreate
+        canUpdate
+        canDelete
+        canList
+        canRead
+      }
+      team {
+        canCreate
+        canUpdate
+        canDelete
+        canList
+        canRead
+      }
+    }
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation DeleteRole(
+  $input: DeleteRoleInput!
+  $condition: ModelRoleConditionInput
+) {
+  deleteRole(input: $input, condition: $condition) {
+    id
+    teamId
+    name
+    permissions {
+      comment {
+        canCreate
+        canUpdate
+        canDelete
+        canList
+        canRead
+      }
+      contact {
+        canCreate
+        canUpdate
+        canDelete
+        canList
+        canRead
+      }
+      event {
+        canCreate
+        canUpdate
+        canDelete
+        canList
+        canRead
+      }
+      export {
+        canCreate
+        canUpdate
+        canDelete
+        canList
+        canRead
+      }
+      image {
+        canCreate
+        canUpdate
+        canDelete
+        canList
+        canRead
+      }
+      industry {
+        canCreate
+        canUpdate
+        canDelete
+        canList
+        canRead
+      }
+      product {
+        canCreate
+        canUpdate
+        canDelete
+        canList
+        canRead
+      }
+      project {
+        canCreate
+        canUpdate
+        canDelete
+        canList
+        canRead
+      }
+      sample {
+        canCreate
+        canUpdate
+        canDelete
+        canList
+        canRead
+      }
+      supplier {
+        canCreate
+        canUpdate
+        canDelete
+        canList
+        canRead
+      }
+      tag {
+        canCreate
+        canUpdate
+        canDelete
+        canList
+        canRead
+      }
+      task {
+        canCreate
+        canUpdate
+        canDelete
+        canList
+        canRead
+      }
+      vote {
+        canCreate
+        canUpdate
+        canDelete
+        canList
+        canRead
+      }
+      team {
+        canCreate
+        canUpdate
+        canDelete
+        canList
+        canRead
+      }
+    }
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation CreateAttachment(
+  $input: CreateAttachmentInput!
+  $condition: ModelAttachmentConditionInput
+) {
+  createAttachment(input: $input, condition: $condition) {
+    id
+    teamId
+    fileName
+    url
+    size
+    createdAt
+    createdByUserId
+    deletedByUSerId
+    deletedAt
+    lastUpdatedByUserId
+    lastUpdatedAt
+    deleted
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
 mutation CreateCategory(
   $input: CreateCategoryInput!
   $condition: ModelCategoryConditionInput
@@ -1475,6 +1836,7 @@ mutation CreateContact(
     supplier {
       id
       teamId
+      statusId
       status {
         id
         teamId
@@ -1538,6 +1900,7 @@ mutation CreateContact(
       globalSupplier {
         id
         teamId
+        statusId
         name
         fullName
         tradingName
@@ -1656,6 +2019,7 @@ mutation UpdateContact(
     supplier {
       id
       teamId
+      statusId
       status {
         id
         teamId
@@ -1719,6 +2083,7 @@ mutation UpdateContact(
       globalSupplier {
         id
         teamId
+        statusId
         name
         fullName
         tradingName
@@ -1837,6 +2202,7 @@ mutation DeleteContact(
     supplier {
       id
       teamId
+      statusId
       status {
         id
         teamId
@@ -1900,6 +2266,7 @@ mutation DeleteContact(
       globalSupplier {
         id
         teamId
+        statusId
         name
         fullName
         tradingName
@@ -3468,6 +3835,7 @@ mutation CreateProduct(
   createProduct(input: $input, condition: $condition) {
     id
     teamId
+    statusId
     status {
       id
       teamId
@@ -3492,6 +3860,7 @@ mutation CreateProduct(
     supplier {
       id
       teamId
+      statusId
       status {
         id
         teamId
@@ -3555,6 +3924,7 @@ mutation CreateProduct(
       globalSupplier {
         id
         teamId
+        statusId
         name
         fullName
         tradingName
@@ -3950,6 +4320,7 @@ mutation UpdateProduct(
   updateProduct(input: $input, condition: $condition) {
     id
     teamId
+    statusId
     status {
       id
       teamId
@@ -3974,6 +4345,7 @@ mutation UpdateProduct(
     supplier {
       id
       teamId
+      statusId
       status {
         id
         teamId
@@ -4037,6 +4409,7 @@ mutation UpdateProduct(
       globalSupplier {
         id
         teamId
+        statusId
         name
         fullName
         tradingName
@@ -4432,6 +4805,7 @@ mutation DeleteProduct(
   deleteProduct(input: $input, condition: $condition) {
     id
     teamId
+    statusId
     status {
       id
       teamId
@@ -4456,6 +4830,7 @@ mutation DeleteProduct(
     supplier {
       id
       teamId
+      statusId
       status {
         id
         teamId
@@ -4519,6 +4894,7 @@ mutation DeleteProduct(
       globalSupplier {
         id
         teamId
+        statusId
         name
         fullName
         tradingName
@@ -4985,6 +5361,42 @@ mutation CreateProject(
       nextToken
       startedAt
     }
+    assigneeId
+    assignee {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    dueDate
+    status {
+      id
+      teamId
+      name
+      inWorkflow
+      category
+      step
+      final
+      type
+      createdAt
+      createdByUserId
+      deletedByUSerId
+      deletedAt
+      lastUpdatedByUserId
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    archived
     createdAt
     createdByUserId
     deletedByUSerId
@@ -5075,6 +5487,42 @@ mutation UpdateProject(
       nextToken
       startedAt
     }
+    assigneeId
+    assignee {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    dueDate
+    status {
+      id
+      teamId
+      name
+      inWorkflow
+      category
+      step
+      final
+      type
+      createdAt
+      createdByUserId
+      deletedByUSerId
+      deletedAt
+      lastUpdatedByUserId
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    archived
     createdAt
     createdByUserId
     deletedByUSerId
@@ -5165,6 +5613,42 @@ mutation DeleteProject(
       nextToken
       startedAt
     }
+    assigneeId
+    assignee {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    dueDate
+    status {
+      id
+      teamId
+      name
+      inWorkflow
+      category
+      step
+      final
+      type
+      createdAt
+      createdByUserId
+      deletedByUSerId
+      deletedAt
+      lastUpdatedByUserId
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    archived
     createdAt
     createdByUserId
     deletedByUSerId
@@ -5189,6 +5673,7 @@ mutation CreateProjectProduct(
     product {
       id
       teamId
+      statusId
       status {
         id
         teamId
@@ -5213,6 +5698,7 @@ mutation CreateProjectProduct(
       supplier {
         id
         teamId
+        statusId
         name
         fullName
         tradingName
@@ -5421,6 +5907,42 @@ mutation CreateProjectProduct(
         nextToken
         startedAt
       }
+      assigneeId
+      assignee {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      dueDate
+      status {
+        id
+        teamId
+        name
+        inWorkflow
+        category
+        step
+        final
+        type
+        createdAt
+        createdByUserId
+        deletedByUSerId
+        deletedAt
+        lastUpdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      archived
       createdAt
       createdByUserId
       deletedByUSerId
@@ -5449,6 +5971,7 @@ mutation UpdateProjectProduct(
     product {
       id
       teamId
+      statusId
       status {
         id
         teamId
@@ -5473,6 +5996,7 @@ mutation UpdateProjectProduct(
       supplier {
         id
         teamId
+        statusId
         name
         fullName
         tradingName
@@ -5681,6 +6205,42 @@ mutation UpdateProjectProduct(
         nextToken
         startedAt
       }
+      assigneeId
+      assignee {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      dueDate
+      status {
+        id
+        teamId
+        name
+        inWorkflow
+        category
+        step
+        final
+        type
+        createdAt
+        createdByUserId
+        deletedByUSerId
+        deletedAt
+        lastUpdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      archived
       createdAt
       createdByUserId
       deletedByUSerId
@@ -5709,6 +6269,7 @@ mutation DeleteProjectProduct(
     product {
       id
       teamId
+      statusId
       status {
         id
         teamId
@@ -5733,6 +6294,7 @@ mutation DeleteProjectProduct(
       supplier {
         id
         teamId
+        statusId
         name
         fullName
         tradingName
@@ -5941,6 +6503,42 @@ mutation DeleteProjectProduct(
         nextToken
         startedAt
       }
+      assigneeId
+      assignee {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      dueDate
+      status {
+        id
+        teamId
+        name
+        inWorkflow
+        category
+        step
+        final
+        type
+        createdAt
+        createdByUserId
+        deletedByUSerId
+        deletedAt
+        lastUpdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      archived
       createdAt
       createdByUserId
       deletedByUSerId
@@ -6068,6 +6666,7 @@ mutation CreateSample(
     linkedProduct {
       id
       teamId
+      statusId
       status {
         id
         teamId
@@ -6092,6 +6691,7 @@ mutation CreateSample(
       supplier {
         id
         teamId
+        statusId
         name
         fullName
         tradingName
@@ -6278,6 +6878,7 @@ mutation CreateSample(
     linkedSupplier {
       id
       teamId
+      statusId
       status {
         id
         teamId
@@ -6341,6 +6942,7 @@ mutation CreateSample(
       globalSupplier {
         id
         teamId
+        statusId
         name
         fullName
         tradingName
@@ -6527,6 +7129,7 @@ mutation UpdateSample(
     linkedProduct {
       id
       teamId
+      statusId
       status {
         id
         teamId
@@ -6551,6 +7154,7 @@ mutation UpdateSample(
       supplier {
         id
         teamId
+        statusId
         name
         fullName
         tradingName
@@ -6737,6 +7341,7 @@ mutation UpdateSample(
     linkedSupplier {
       id
       teamId
+      statusId
       status {
         id
         teamId
@@ -6800,6 +7405,7 @@ mutation UpdateSample(
       globalSupplier {
         id
         teamId
+        statusId
         name
         fullName
         tradingName
@@ -6986,6 +7592,7 @@ mutation DeleteSample(
     linkedProduct {
       id
       teamId
+      statusId
       status {
         id
         teamId
@@ -7010,6 +7617,7 @@ mutation DeleteSample(
       supplier {
         id
         teamId
+        statusId
         name
         fullName
         tradingName
@@ -7196,6 +7804,7 @@ mutation DeleteSample(
     linkedSupplier {
       id
       teamId
+      statusId
       status {
         id
         teamId
@@ -7259,6 +7868,7 @@ mutation DeleteSample(
       globalSupplier {
         id
         teamId
+        statusId
         name
         fullName
         tradingName
@@ -7476,6 +8086,7 @@ mutation CreateSupplier(
   createSupplier(input: $input, condition: $condition) {
     id
     teamId
+    statusId
     status {
       id
       teamId
@@ -7595,6 +8206,7 @@ mutation CreateSupplier(
     globalSupplier {
       id
       teamId
+      statusId
       status {
         id
         teamId
@@ -7658,6 +8270,7 @@ mutation CreateSupplier(
       globalSupplier {
         id
         teamId
+        statusId
         name
         fullName
         tradingName
@@ -7737,6 +8350,7 @@ mutation UpdateSupplier(
   updateSupplier(input: $input, condition: $condition) {
     id
     teamId
+    statusId
     status {
       id
       teamId
@@ -7856,6 +8470,7 @@ mutation UpdateSupplier(
     globalSupplier {
       id
       teamId
+      statusId
       status {
         id
         teamId
@@ -7919,6 +8534,7 @@ mutation UpdateSupplier(
       globalSupplier {
         id
         teamId
+        statusId
         name
         fullName
         tradingName
@@ -7998,6 +8614,7 @@ mutation DeleteSupplier(
   deleteSupplier(input: $input, condition: $condition) {
     id
     teamId
+    statusId
     status {
       id
       teamId
@@ -8117,6 +8734,7 @@ mutation DeleteSupplier(
     globalSupplier {
       id
       teamId
+      statusId
       status {
         id
         teamId
@@ -8180,6 +8798,7 @@ mutation DeleteSupplier(
       globalSupplier {
         id
         teamId
+        statusId
         name
         fullName
         tradingName
@@ -8598,6 +9217,7 @@ mutation CreateTask(
     product {
       id
       teamId
+      statusId
       status {
         id
         teamId
@@ -8622,6 +9242,7 @@ mutation CreateTask(
       supplier {
         id
         teamId
+        statusId
         name
         fullName
         tradingName
@@ -8808,6 +9429,7 @@ mutation CreateTask(
     supplier {
       id
       teamId
+      statusId
       status {
         id
         teamId
@@ -8871,6 +9493,7 @@ mutation CreateTask(
       globalSupplier {
         id
         teamId
+        statusId
         name
         fullName
         tradingName
@@ -9032,6 +9655,7 @@ mutation UpdateTask(
     product {
       id
       teamId
+      statusId
       status {
         id
         teamId
@@ -9056,6 +9680,7 @@ mutation UpdateTask(
       supplier {
         id
         teamId
+        statusId
         name
         fullName
         tradingName
@@ -9242,6 +9867,7 @@ mutation UpdateTask(
     supplier {
       id
       teamId
+      statusId
       status {
         id
         teamId
@@ -9305,6 +9931,7 @@ mutation UpdateTask(
       globalSupplier {
         id
         teamId
+        statusId
         name
         fullName
         tradingName
@@ -9466,6 +10093,7 @@ mutation DeleteTask(
     product {
       id
       teamId
+      statusId
       status {
         id
         teamId
@@ -9490,6 +10118,7 @@ mutation DeleteTask(
       supplier {
         id
         teamId
+        statusId
         name
         fullName
         tradingName
@@ -9676,6 +10305,7 @@ mutation DeleteTask(
     supplier {
       id
       teamId
+      statusId
       status {
         id
         teamId
@@ -9739,6 +10369,7 @@ mutation DeleteTask(
       globalSupplier {
         id
         teamId
+        statusId
         name
         fullName
         tradingName

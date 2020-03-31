@@ -1,19 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
-import { AbstractTaskCommonComponent } from '~common/abstracts/abstract-task-common.component';
+import { map, takeUntil, tap } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import {
-	Product,
-	ProductService,
-	SelectParams,
-	Task,
-	TaskService,
-	UserService
-} from '~core/erm';
-import { ListPageService } from '~core/list-page';
-import { FilterService, FilterType } from '~core/filters';
-import { DialogService } from '~shared/dialog';
+import { FilterService } from '~core/filters';
 import { ListFuseHelperService, ListPageViewService, SelectionService } from '~core/list-page2';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 

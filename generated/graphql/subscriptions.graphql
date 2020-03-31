@@ -797,6 +797,7 @@ subscription OnCreateContact {
     supplier {
       id
       teamId
+      statusId
       status {
         id
         teamId
@@ -860,6 +861,7 @@ subscription OnCreateContact {
       globalSupplier {
         id
         teamId
+        statusId
         name
         fullName
         tradingName
@@ -975,6 +977,7 @@ subscription OnUpdateContact {
     supplier {
       id
       teamId
+      statusId
       status {
         id
         teamId
@@ -1038,6 +1041,7 @@ subscription OnUpdateContact {
       globalSupplier {
         id
         teamId
+        statusId
         name
         fullName
         tradingName
@@ -1153,6 +1157,7 @@ subscription OnDeleteContact {
     supplier {
       id
       teamId
+      statusId
       status {
         id
         teamId
@@ -1216,6 +1221,7 @@ subscription OnDeleteContact {
       globalSupplier {
         id
         teamId
+        statusId
         name
         fullName
         tradingName
@@ -2754,6 +2760,7 @@ subscription OnCreateProduct {
   onCreateProduct {
     id
     teamId
+    statusId
     status {
       id
       teamId
@@ -2778,6 +2785,7 @@ subscription OnCreateProduct {
     supplier {
       id
       teamId
+      statusId
       status {
         id
         teamId
@@ -2841,6 +2849,7 @@ subscription OnCreateProduct {
       globalSupplier {
         id
         teamId
+        statusId
         name
         fullName
         tradingName
@@ -3233,6 +3242,7 @@ subscription OnUpdateProduct {
   onUpdateProduct {
     id
     teamId
+    statusId
     status {
       id
       teamId
@@ -3257,6 +3267,7 @@ subscription OnUpdateProduct {
     supplier {
       id
       teamId
+      statusId
       status {
         id
         teamId
@@ -3320,6 +3331,7 @@ subscription OnUpdateProduct {
       globalSupplier {
         id
         teamId
+        statusId
         name
         fullName
         tradingName
@@ -3712,6 +3724,7 @@ subscription OnDeleteProduct {
   onDeleteProduct {
     id
     teamId
+    statusId
     status {
       id
       teamId
@@ -3736,6 +3749,7 @@ subscription OnDeleteProduct {
     supplier {
       id
       teamId
+      statusId
       status {
         id
         teamId
@@ -3799,6 +3813,7 @@ subscription OnDeleteProduct {
       globalSupplier {
         id
         teamId
+        statusId
         name
         fullName
         tradingName
@@ -4262,6 +4277,42 @@ subscription OnCreateProject {
       nextToken
       startedAt
     }
+    assigneeId
+    assignee {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    dueDate
+    status {
+      id
+      teamId
+      name
+      inWorkflow
+      category
+      step
+      final
+      type
+      createdAt
+      createdByUserId
+      deletedByUSerId
+      deletedAt
+      lastUpdatedByUserId
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    archived
     createdAt
     createdByUserId
     deletedByUSerId
@@ -4349,6 +4400,42 @@ subscription OnUpdateProject {
       nextToken
       startedAt
     }
+    assigneeId
+    assignee {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    dueDate
+    status {
+      id
+      teamId
+      name
+      inWorkflow
+      category
+      step
+      final
+      type
+      createdAt
+      createdByUserId
+      deletedByUSerId
+      deletedAt
+      lastUpdatedByUserId
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    archived
     createdAt
     createdByUserId
     deletedByUSerId
@@ -4436,6 +4523,42 @@ subscription OnDeleteProject {
       nextToken
       startedAt
     }
+    assigneeId
+    assignee {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    dueDate
+    status {
+      id
+      teamId
+      name
+      inWorkflow
+      category
+      step
+      final
+      type
+      createdAt
+      createdByUserId
+      deletedByUSerId
+      deletedAt
+      lastUpdatedByUserId
+      lastUpdatedAt
+      deleted
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    archived
     createdAt
     createdByUserId
     deletedByUSerId
@@ -4457,6 +4580,7 @@ subscription OnCreateProjectProduct {
     product {
       id
       teamId
+      statusId
       status {
         id
         teamId
@@ -4481,6 +4605,7 @@ subscription OnCreateProjectProduct {
       supplier {
         id
         teamId
+        statusId
         name
         fullName
         tradingName
@@ -4689,6 +4814,42 @@ subscription OnCreateProjectProduct {
         nextToken
         startedAt
       }
+      assigneeId
+      assignee {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      dueDate
+      status {
+        id
+        teamId
+        name
+        inWorkflow
+        category
+        step
+        final
+        type
+        createdAt
+        createdByUserId
+        deletedByUSerId
+        deletedAt
+        lastUpdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      archived
       createdAt
       createdByUserId
       deletedByUSerId
@@ -4714,6 +4875,7 @@ subscription OnUpdateProjectProduct {
     product {
       id
       teamId
+      statusId
       status {
         id
         teamId
@@ -4738,6 +4900,7 @@ subscription OnUpdateProjectProduct {
       supplier {
         id
         teamId
+        statusId
         name
         fullName
         tradingName
@@ -4946,6 +5109,42 @@ subscription OnUpdateProjectProduct {
         nextToken
         startedAt
       }
+      assigneeId
+      assignee {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      dueDate
+      status {
+        id
+        teamId
+        name
+        inWorkflow
+        category
+        step
+        final
+        type
+        createdAt
+        createdByUserId
+        deletedByUSerId
+        deletedAt
+        lastUpdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      archived
       createdAt
       createdByUserId
       deletedByUSerId
@@ -4971,6 +5170,7 @@ subscription OnDeleteProjectProduct {
     product {
       id
       teamId
+      statusId
       status {
         id
         teamId
@@ -4995,6 +5195,7 @@ subscription OnDeleteProjectProduct {
       supplier {
         id
         teamId
+        statusId
         name
         fullName
         tradingName
@@ -5203,6 +5404,42 @@ subscription OnDeleteProjectProduct {
         nextToken
         startedAt
       }
+      assigneeId
+      assignee {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      dueDate
+      status {
+        id
+        teamId
+        name
+        inWorkflow
+        category
+        step
+        final
+        type
+        createdAt
+        createdByUserId
+        deletedByUSerId
+        deletedAt
+        lastUpdatedByUserId
+        lastUpdatedAt
+        deleted
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      archived
       createdAt
       createdByUserId
       deletedByUSerId
@@ -5327,6 +5564,7 @@ subscription OnCreateSample {
     linkedProduct {
       id
       teamId
+      statusId
       status {
         id
         teamId
@@ -5351,6 +5589,7 @@ subscription OnCreateSample {
       supplier {
         id
         teamId
+        statusId
         name
         fullName
         tradingName
@@ -5537,6 +5776,7 @@ subscription OnCreateSample {
     linkedSupplier {
       id
       teamId
+      statusId
       status {
         id
         teamId
@@ -5600,6 +5840,7 @@ subscription OnCreateSample {
       globalSupplier {
         id
         teamId
+        statusId
         name
         fullName
         tradingName
@@ -5783,6 +6024,7 @@ subscription OnUpdateSample {
     linkedProduct {
       id
       teamId
+      statusId
       status {
         id
         teamId
@@ -5807,6 +6049,7 @@ subscription OnUpdateSample {
       supplier {
         id
         teamId
+        statusId
         name
         fullName
         tradingName
@@ -5993,6 +6236,7 @@ subscription OnUpdateSample {
     linkedSupplier {
       id
       teamId
+      statusId
       status {
         id
         teamId
@@ -6056,6 +6300,7 @@ subscription OnUpdateSample {
       globalSupplier {
         id
         teamId
+        statusId
         name
         fullName
         tradingName
@@ -6239,6 +6484,7 @@ subscription OnDeleteSample {
     linkedProduct {
       id
       teamId
+      statusId
       status {
         id
         teamId
@@ -6263,6 +6509,7 @@ subscription OnDeleteSample {
       supplier {
         id
         teamId
+        statusId
         name
         fullName
         tradingName
@@ -6449,6 +6696,7 @@ subscription OnDeleteSample {
     linkedSupplier {
       id
       teamId
+      statusId
       status {
         id
         teamId
@@ -6512,6 +6760,7 @@ subscription OnDeleteSample {
       globalSupplier {
         id
         teamId
+        statusId
         name
         fullName
         tradingName
@@ -6708,6 +6957,7 @@ subscription OnCreateSupplier {
   onCreateSupplier {
     id
     teamId
+    statusId
     status {
       id
       teamId
@@ -6827,6 +7077,7 @@ subscription OnCreateSupplier {
     globalSupplier {
       id
       teamId
+      statusId
       status {
         id
         teamId
@@ -6890,6 +7141,7 @@ subscription OnCreateSupplier {
       globalSupplier {
         id
         teamId
+        statusId
         name
         fullName
         tradingName
@@ -6966,6 +7218,7 @@ subscription OnUpdateSupplier {
   onUpdateSupplier {
     id
     teamId
+    statusId
     status {
       id
       teamId
@@ -7085,6 +7338,7 @@ subscription OnUpdateSupplier {
     globalSupplier {
       id
       teamId
+      statusId
       status {
         id
         teamId
@@ -7148,6 +7402,7 @@ subscription OnUpdateSupplier {
       globalSupplier {
         id
         teamId
+        statusId
         name
         fullName
         tradingName
@@ -7224,6 +7479,7 @@ subscription OnDeleteSupplier {
   onDeleteSupplier {
     id
     teamId
+    statusId
     status {
       id
       teamId
@@ -7343,6 +7599,7 @@ subscription OnDeleteSupplier {
     globalSupplier {
       id
       teamId
+      statusId
       status {
         id
         teamId
@@ -7406,6 +7663,7 @@ subscription OnDeleteSupplier {
       globalSupplier {
         id
         teamId
+        statusId
         name
         fullName
         tradingName
@@ -7812,6 +8070,7 @@ subscription OnCreateTask {
     product {
       id
       teamId
+      statusId
       status {
         id
         teamId
@@ -7836,6 +8095,7 @@ subscription OnCreateTask {
       supplier {
         id
         teamId
+        statusId
         name
         fullName
         tradingName
@@ -8022,6 +8282,7 @@ subscription OnCreateTask {
     supplier {
       id
       teamId
+      statusId
       status {
         id
         teamId
@@ -8085,6 +8346,7 @@ subscription OnCreateTask {
       globalSupplier {
         id
         teamId
+        statusId
         name
         fullName
         tradingName
@@ -8243,6 +8505,7 @@ subscription OnUpdateTask {
     product {
       id
       teamId
+      statusId
       status {
         id
         teamId
@@ -8267,6 +8530,7 @@ subscription OnUpdateTask {
       supplier {
         id
         teamId
+        statusId
         name
         fullName
         tradingName
@@ -8453,6 +8717,7 @@ subscription OnUpdateTask {
     supplier {
       id
       teamId
+      statusId
       status {
         id
         teamId
@@ -8516,6 +8781,7 @@ subscription OnUpdateTask {
       globalSupplier {
         id
         teamId
+        statusId
         name
         fullName
         tradingName
@@ -8674,6 +8940,7 @@ subscription OnDeleteTask {
     product {
       id
       teamId
+      statusId
       status {
         id
         teamId
@@ -8698,6 +8965,7 @@ subscription OnDeleteTask {
       supplier {
         id
         teamId
+        statusId
         name
         fullName
         tradingName
@@ -8884,6 +9152,7 @@ subscription OnDeleteTask {
     supplier {
       id
       teamId
+      statusId
       status {
         id
         teamId
@@ -8947,6 +9216,7 @@ subscription OnDeleteTask {
       globalSupplier {
         id
         teamId
+        statusId
         name
         fullName
         tradingName

@@ -8,7 +8,7 @@ import { User } from './user.model';
 import { Entity } from './_entity.model';
 import { Attachment } from './attachment.model';
 import { ProjectProduct } from './project-product.model';
-import { LeadTimeUnit } from '../../../../../generated/API.service';
+// import { LeadTimeUnit } from '../../../../../generated/API.service';
 
 export class Product extends Entity<Product> {
 	__typename?: Typename = 'Product';
@@ -99,7 +99,7 @@ export class Product extends Entity<Product> {
 	leadTime?: {
 		__typename?: 'LeadTime';
 		value?: number | null;
-		unit?: LeadTimeUnit | null;
+		// unit?: LeadTimeUnit | null;
 	} | null;
 	sample?: boolean | null;
 	samplePrice?: {
