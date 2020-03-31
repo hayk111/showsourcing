@@ -18,7 +18,6 @@
 			[columns]="columns"
 			[selection]="selectionSrv.selection$ | async"
 			[rows]="listHelper.filteredItems$ | async"
-			[total]="listHelper.total$ | async"
 			createEntityBtnName="Add Product"
 			(previewClick)="viewSrv.openPreview($event)"
 			(select)="selectionSrv.selectOne($event, true)"

@@ -12,7 +12,6 @@
 	[rows]="listHelper.filteredItems$ | async"
 	[selection]="selectionSrv.selection$ | async"
 	[pending]="listHelper.pending$ | async"
-	[total]="listHelper.total$ | async"
 	(goToPage)="listHelper.loadPage($event)"
 	(select)="selectionSrv.selectOne($event, true)"
 	(unselect)="selectionSrv.unselectOne($event, true)"

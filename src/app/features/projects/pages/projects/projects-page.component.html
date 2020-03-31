@@ -17,7 +17,6 @@
 	[rows]="items$ | async"
 	[selection]="selectionSrv.selection$ | async"
 	[pending]="listHelper.pending$ | async"
-	[total]="listHelper.total$ | async"
 	(select)="selectionSrv.selectOne($event, true)"
 	(unselect)="selectionSrv.unselectOne($event, true)"
 	(selectAll)="selectionSrv.selectAll($event, true)"

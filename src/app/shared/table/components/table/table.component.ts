@@ -54,7 +54,6 @@ export class TableComponent extends TrackingComponent {
 	@Input() selected: Map<string, boolean> = new Map();
 	// TODO this should be transcluded instead
 	@Input() contextualMenu: TemplateRef<any>;
-	@Output() showItemsPerPage = new EventEmitter<number>();
 	@Input() createEntityBtnName: string;
 	/** event when we click the create button on placeholder */
 	@Output() createClick = new EventEmitter<null>();

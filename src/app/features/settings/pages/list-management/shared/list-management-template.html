@@ -36,7 +36,6 @@
 </header-details-app>
 
 <controller-table-app
-	[total]="listHelper.total$ | async"
 	class="spacing-ms"
 	[hasFilters]="false">
 	<controller-table-content-app>
@@ -58,7 +57,6 @@
 	(selectAll)="selectionSrv.selectAll($event, false)"
 	(showItemsPerPage)="showItemsPerPage($event)"
 	(unselectAll)="selectionSrv.unselectAll()"
-	[total]="listHelper.total$ | async"
 	>
 	<!-- 
 		TODO implement this

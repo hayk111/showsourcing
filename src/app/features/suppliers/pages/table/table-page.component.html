@@ -6,7 +6,7 @@
 	(buttonClick)="listHelper.create()">
 </header-list-app>
 
-<controller-table-app [total]="listHelper.total$ | async">
+<controller-table-app>
 	<controller-table-quick-filters-app></controller-table-quick-filters-app>
 	<controller-table-quick-actions-app
 		[columns]="columns"
@@ -18,13 +18,11 @@
 	[rows]="items$ | async"
 	[pending]="listHelper.pending$ | async"
 	[selection]="selectionSrv.selection$ | async"
-	[total]="listHelper.total$ | async"
 	(open)="viewSrv.goToDetails($event)"
 	(previewClick)="viewSrv.openPreview($event)"
 	(select)="selectionSrv.selectOne($event)"
 	(selectAll)="selectionSrv.selectAll($event)"
 	(unselect)="selectionSrv.unselectOne($event)"
-	(showItemsPerPage)="listHelper.setItemsPerPage($event)"
 	(createClick)="listHelper.create()">
 </suppliers-table-app>
 

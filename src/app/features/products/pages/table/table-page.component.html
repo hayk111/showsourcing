@@ -23,7 +23,6 @@
 	[rows]="listHelper.filteredItems$ | async"
 	[pending]="listHelper.pending$ | async"
 	[selection]="selectionSrv.selection$ | async"
-	[total]="listHelper.total$ | async"
 	(open)="viewSrv.goToDetails($event)"
 	(createClick)="listHelper.create()"
 	(update)="listHelper.update($event)"

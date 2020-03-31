@@ -75,8 +75,7 @@ https://stackblitz.com/edit/angular-vtluff?file=src/app/app.component.ts -->
 				<ng-container *ngIf="sortSrv.isSorted(column.sortBy)">
 					<icon-app
 						class="sortIcon fs-xs"
-						[name]="(sortSrv.sort$ | async).direction === 'DESC' ? 'angle-down' : 'angle-up'"
-						name="angle-down">
+						[name]="(sortSrv.sort$ | async).direction === 'DESC' ? 'angle-down' : 'angle-up'">
 					</icon-app>
 				</ng-container>
 			</div>
