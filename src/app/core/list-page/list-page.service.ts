@@ -4,21 +4,12 @@ import { empty, Observable } from 'rxjs';
 import { filter, map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { CreationDialogComponent } from '~common/dialogs/creation-dialogs';
 import { ExportDlgComponent } from '~common/dialogs/custom-dialogs';
-import {
-	Entity,
-	EntityMetadata,
-	GlobalServiceInterface,
-	SelectParamsConfig,
-	UserService
-} from '~core/erm';
+import { Entity, EntityMetadata, GlobalServiceInterface, SelectParamsConfig, UserService } from '~core/erm';
+import { FilterService } from '~core/filters';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
-import { FilterService } from '~core/filters';
-import {
-	RatingService,
-	TypeWithVotes
-} from '~shared/rating/services/rating.service';
-import { Sort } from '~shared/table/components/sort.interface';
+import { RatingService } from '~shared/rating/services/rating.service';
+import { Sort } from '~shared/table/models/sort.interface';
 import { ToastService, ToastType } from '~shared/toast';
 import { showsourcing } from '~utils/debug-object.utils';
 import { ListPageDataConfig } from './list-page-config.interface';

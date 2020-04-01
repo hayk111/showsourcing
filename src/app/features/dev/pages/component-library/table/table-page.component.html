@@ -1,4 +1,4 @@
-<card-app>
+<!-- <card-app>
 	<card-title-app>Config ts file</card-title-app>
 
 	<p>
@@ -34,8 +34,6 @@
 			[pending]="listSrv.pending"<br>
 			[selected]="selectionSrv.selection$ | async"<br>
 			[contextualMenu]="contextualMenuTemplate"<br>
-			[total]="listSrv.count$ | async"<br>
-			[currentPage]="listSrv.currentPage"<br>
 			placeholder="this is placeholder"<br>
 			(goToPage)="listSrv.loadPage($event)"<br>
 			(selectOne)="selectionSrv.selectOne($event, true)"<br>
@@ -74,15 +72,11 @@
 		[pending]="listSrv.pending"
 		[selected]="selectionSrv.selection$ | async"
 		[contextualMenu]="contextualMenuTemplate"
-		[total]="listSrv.count$ | async"
-		[currentPage]="listSrv.currentPage"
 		placeholder="'No suppliers'"
-		(goToPage)="listSrv.loadPage($event)"
 		(selectOne)="selectionSrv.selectOne($event, true)"
 		(unselectOne)="selectionSrv.unselectOne($event, true)"
 		(selectAll)="selectionSrv.selectAll($event, true)"
 		(unselectAll)="selectionSrv.unselectAll()"
-		(sort)="listSrv.sort($event)"
 		(bottomReached)="bottomReached.emit()">
 
 		<ng-template #contextualMenuTemplate let-row="row">
@@ -95,4 +89,4 @@
 			{{ row?.name }}
 		</ng-template>
 	</table-app>
-</card-app>
+</card-app> -->

@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { EntityTableComponent } from '~common/tables/entity-table.component';
 import { Product } from '~core/erm';
-import { Sort } from '~shared/table/components/sort.interface';
 import { translate } from '~utils';
+import { Sort } from '~shared/table/models/sort.interface';
 
 @Component({
 	selector: 'products-grid-app',
@@ -25,7 +25,7 @@ export class ProductsGridComponent extends EntityTableComponent<Product> impleme
 	}
 
 	getGroupedProducts(sort: Sort) {
-		const fieldSortyBy = sort.sortBy;
+		const fieldSortyBy = sort.field;
 		const fieldSortByTokens = fieldSortyBy.split('.');
 		const field = fieldSortByTokens[0];
 
@@ -35,7 +35,7 @@ export class ProductsGridComponent extends EntityTableComponent<Product> impleme
 
 		let groupedObj = {};
 
-		switch (sort.sortBy) {
+		switch (sort.field) {
 			case 'category.name':
 			case 'supplier.name':
 			case 'favorite':
@@ -51,14 +51,14 @@ export class ProductsGridComponent extends EntityTableComponent<Product> impleme
 				break;
 			default:
 				groupedObj = {};
-				groupedObj[sort.sortBy] = this.rows;
+				groupedObj[sort.field] = this.rows;
 				break;
 		}
 		return Object.keys(groupedObj).map(key => ({ key, value: groupedObj[key] }));
 	}
 
 	getGroupedValue(group, sort: Sort) {
-		const fieldSortyBy = sort.sortBy;
+		const fieldSortyBy = sort.field;
 		const fieldSortByTokens = fieldSortyBy.split('.');
 		const field = fieldSortByTokens[0];
 		let value = null;

@@ -6,15 +6,9 @@
 	[hasSelection]="false"
 	[hasPaddingPagination]="true"
 	[hasBorder]="hasBorder"
-	[currentSort]="currentSort"
 	[pending]="pending"
 	[isSeaching]="isFiltering"
-	[total]="total"
-	[currentPage]="currentPage"
-	(goToPage)="goToPage.emit($event)"
-	(sort)="sort.emit($event)"
-	(bottomReached)="bottomReached.emit()"
-	(showItemsPerPage)="showItemsPerPage.emit($event)">
+	(bottomReached)="bottomReached.emit()">
 
 		<!-- dynamic columns -->
 		<!-- TODO: translation to be added for download-->

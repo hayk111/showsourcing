@@ -5,14 +5,9 @@
 	[selected]="selection"
 	[hasMenu]="false"
 	[hasPagination]="false"
-	[currentSort]="currentSort"
 	[hasSelection]="false"
 	[contextualMenu]="contextualMenuTemplate"
-	[total]="total"
-	[currentPage]="currentPage"
 	(bottomReached)="bottomReached.emit()"
-	(sort)="sort.emit($event)"
-	(showItemsPerPage)="showItemsPerPage.emit($event)"
 	(createClick)="createClick.emit()"
 	placeholder="no project">
 

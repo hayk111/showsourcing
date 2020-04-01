@@ -26,12 +26,10 @@ import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog
 import { DialogService } from '~shared/dialog/services';
 import { Vote } from '~shared/rating/services/rating.service';
 import { ID } from '~utils';
-
-import {
-	ReviewRequestReplyDlgComponent,
-} from '../custom-dialogs/review-request-reply-dlg/review-request-reply-dlg.component';
+import { ReviewRequestReplyDlgComponent } from '../custom-dialogs/review-request-reply-dlg/review-request-reply-dlg.component';
 import { SupplierRequestDialogComponent } from '../custom-dialogs/supplier-request-dialog/supplier-request-dialog.component';
 import { Typename } from '~core/erm3/typename.type';
+
 
 /**
  * Service used to open dialogs, the goal of this service is to bring easy typing

@@ -1,4 +1,3 @@
-import { Sort } from '~shared/table/components/sort.interface';
 
 /** utility class used to manage queryall selections
  */

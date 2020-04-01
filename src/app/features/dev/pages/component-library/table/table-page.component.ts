@@ -3,7 +3,7 @@ import { Subject } from 'rxjs';
 import { SupplierService } from '~core/erm';
 import { ListPageService } from '~core/list-page';
 import { ERM, Supplier } from '~core/erm';
-import { Sort } from '~shared/table/components/sort.interface';
+import { Sort } from '~shared/table/models/sort.interface';
 import { EntityTableComponent } from '~common/tables/entity-table.component';
 
 @Component({
@@ -17,10 +17,7 @@ import { EntityTableComponent } from '~common/tables/entity-table.component';
 })
 export class TablePageComponent extends EntityTableComponent<Supplier> implements OnInit, OnDestroy, AfterViewInit {
 	@ViewChild('contextualMenu', { static: false }) contextualMenuTemplate: TemplateRef<any>;
-	currentSort: Sort = {
-		sortBy: 'name',
-		descending: false
-	};
+	currentSort: Sort;
 	_destroy$ = new Subject<void>();
 
 	constructor(

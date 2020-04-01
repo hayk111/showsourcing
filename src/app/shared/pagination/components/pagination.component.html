@@ -6,55 +6,52 @@ total pages: {{ totalPages }} <br>
 index: {{ currentPage }}
  -->
 
-
-<div *ngIf="range?.length > 1" class="pagination-ctrl">
-
-	<button
-		class="arrow-btn icon primary-light"
-		(click)="goToFirstPage()"
-		[ngClass]="{ 'secondary-light': currentPage === 0 }">
-		<icon-app name="double-fat-angle-left" size="xs"></icon-app>
-	</button>
-
-	<button
-		class="arrow-btn icon primary-light"
-		(click)="goToPreviousPage()"
-		[ngClass]="{ 'secondary-light': currentPage === 0 }">
-		<icon-app name="fat-angle-left" size="xs"></icon-app>
-	</button>
-
-	<button
-		*ngFor="let page of range; trackBy: trackByFn"
-		class="icon"
-		[ngClass]="{ primary: page === currentPage }"
-		(click)="goToIndexPage(page)">
-		{{ page + 1 }}
-	</button>
-
-	<button
-		class="arrow-btn icon primary-light"
-		(click)="goToNextPage()">
-		<icon-app name="fat-angle-right" size="xs" [ngClass]="{ disabled: currentPage === totalPages - 1 }"></icon-app>
-	</button>
-
-	<button
-		class="arrow-btn icon primary-light"
-		(click)="goToLastPage()">
-		<icon-app name="double-fat-angle-right" size="xs" [ngClass]="{ disabled: currentPage === totalPages - 1 }"></icon-app>
-	</button>
-
-	<div *ngIf="hasPageItemsCount" class="right">
-		<select class="custom-select" (change)="onChangePerPageCount($event.target.value)">
-			<option *ngFor="let i of pageItemsCount">{{i}}</option>
-		</select>
-		<span class="items-page-count">
-			{{'OBJ.show-pagination' | translate: getPerPageItemsCount() }}
-		</span>
+<ng-container *ngIf="currentPage > 0">
+	<div *ngIf="range.length > 1"
+			class="pagination-ctrl">
+			<button
+			class="arrow-btn icon primary-light"
+			(click)="paginationSrv.goToFirstPage()"
+			[ngClass]="{ 'secondary-light': currentPage === 0 }">
+			<icon-app name="double-fat-angle-left" size="xs"></icon-app>
+		</button>
+	
+		<button
+			class="arrow-btn icon primary-light"
+			(click)="paginationSrv.goToPreviousPage()"
+			[ngClass]="{ 'secondary-light': currentPage === 0 }">
+			<icon-app name="fat-angle-left" size="xs"></icon-app>
+		</button>
+	
+		<button
+			*ngFor="let page of range; trackBy: trackByFn"
+			class="icon"
+			[ngClass]="{ primary: page === currentPage }"
+			(click)="paginationSrv.goToPage(page)">
+			{{ page + 1 }}
+		</button>
+	
+		<button
+			class="arrow-btn icon primary-light"
+			(click)="paginationSrv.goToNextPage()">
+			<icon-app name="fat-angle-right" size="xs" [ngClass]="{ disabled: currentPage === totalPages - 1 }"></icon-app>
+		</button>
+	
+		<button
+			class="arrow-btn icon primary-light"
+			(click)="paginationSrv.goToLastPage()">
+			<icon-app name="double-fat-angle-right" size="xs" [ngClass]="{ disabled: currentPage === totalPages - 1 }"></icon-app>
+		</button>
+	
+		<div *ngIf="hasPageItemsCount" class="right">
+			<select class="custom-select" 
+				(change)="paginationSrv.setLimit($event.target.value)">
+				<option *ngFor="let i of paginationSrv.limit$ | async">{{i}}</option>
+			</select>
+			<span class="items-page-count">
+				{{ paginationSrv.limit$ | async }}
+			</span>
+		</div>
+	
 	</div>
-
-	<div class="right">
-		<ng-container [ngTemplateOutlet]="footerTemplate"></ng-container>
-	</div>
-
-
-</div>
+</ng-container>

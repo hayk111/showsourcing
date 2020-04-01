@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { MutationOptions } from 'apollo-client';
 import { ObservableQuery as ApolloObservableQuery, WatchQueryOptions } from 'aws-appsync/node_modules/apollo-client';
-import { from, Observable, forkJoin } from 'rxjs';
+import { forkJoin, from, Observable } from 'rxjs';
 import { filter, map, tap } from 'rxjs/operators';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
+import { uuid } from '~utils';
 import { log } from '~utils/log';
 import { Entity } from '../models/_entity.model';
 import { QueryPool } from '../queries/query-pool.class';
@@ -12,8 +13,18 @@ import { Typename } from '../typename.type';
 import { client } from './client';
 import { ApiLogger } from './_api-logger.class';
 import { GqlHelper } from './_gql-helper.class';
-import { uuid } from '~utils';
-import { TeamService } from '~core/auth';
+
+export interface ObservableQuery<T = any> extends ApolloObservableQuery<T> {
+	response$: Observable<any>;
+	data$: Observable<T>;
+	total$?: Observable<number>;
+	queryName: string;
+}
+
+export interface Sort {
+	field: string;
+	direction: 'ASC' | 'DESC';
+}
 
 export interface ObservableQuery<T = any> extends ApolloObservableQuery<T> {
 	response$: Observable<any>;
@@ -24,8 +35,9 @@ export interface ObservableQuery<T = any> extends ApolloObservableQuery<T> {
 
 export interface FilterParams {
 	filter?: any;
-	sort?: { field: string, direction: 'ASC' | 'DESC' };
+	sort?: Sort;
 	limit?: number;
+	from?: number;
 	nextToken?: string;
 }
 

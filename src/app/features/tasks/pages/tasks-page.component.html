@@ -9,7 +9,7 @@
 	(buttonClick)="dialogCommonSrv.openCreationTaskDlg()">
 </header-list-app>
 
-<controller-table-app>
+<controller-table-app [total]="listHelper.total$ | async">
 	<controller-table-quick-filters-app></controller-table-quick-filters-app>
 	<controller-table-quick-actions-app
 		[columns]="columns"
@@ -18,15 +18,10 @@
 </controller-table-app>
 
 <task-table-app
-	[rows]="listSrv.items$ | async"
+	[rows]="listHelper.filteredItems$ | async"
 	[selection]="selectionSrv.selection$ | async"
 	[pending]="listSrv.pending"
-	[total]="listSrv.count$ | async"
-	[currentSort]="listSrv.currentSort"
-	[currentPage]="listSrv.currentPage"
 	(update)="listSrv.update($event)"
-	(goToPage)="listSrv.loadPage($event)"
-	(sort)="listSrv.sort($event)"
 	(select)="selectionSrv.selectOne($event, true)"
 	(unselect)="selectionSrv.unselectOne($event, true)"
 	(selectAll)="selectionSrv.selectAll($event, true)"
@@ -34,32 +29,30 @@
 	(open)="viewSrv.goToDetails($event)"
 	(previewClick)="viewSrv.openPreview($event)"
 	(showItemsPerPage)="showItemsPerPage($event)"
-	(delete)="listSrv.deleteOne($event, true)"
-	(createClick)="dialogCommonSrv.openCreationTaskDlg()">
+	(delete)="listHelper.delete($event)"
+	(createClick)="dialogCommonSrv.openCreationDlg('Task')">
 </task-table-app>
 
 <task-selection-bar-app
 	[isShown]="(selectionSrv.selection$ | async)?.size > 0"
 	[selection]="selectionSrv.selection$ | async"
-	[selectableItems]="listSrv.items$ | async"
+	[selectableItems]="listHelper.filteredItems$ | async"
 	(close)="selectionSrv.unselectAll()"
-	(deleteSelected)="listSrv.deleteSelected(true)"
-	(statusUpdated)="this.listSrv.updateSelected({status: $event})"
+	(deleteSelected)="listHelper.deleteSelected(true)"
 	(selectAll)="selectionSrv.selectAll($event)"
 	(unselectAll)="selectionSrv.unselectAll()">
 </task-selection-bar-app>
 
 <side-panel-app *ngIf="viewSrv.filterPanelOpen">
 	<filters-app
-		[filterList]="filterSrv.filterList"
 		[filterTypes]="filterTypes"
 		(clickOutside)="viewSrv.closeFilterPanel()"
 		(close)="viewSrv.closeFilterPanel()">
 	</filters-app>
 </side-panel-app>
 
-<task-preview-app
+<!-- <task-preview-app
 	*ngIf="viewSrv.previewOpen"
 	[task]="viewSrv.previewed"
 	(close)="viewSrv.closePreview()">
-</task-preview-app>
+</task-preview-app> -->

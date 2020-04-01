@@ -16,7 +16,7 @@
 			[navigation]="false"
 			[selection]="selectionSrv.selection$ | async"
 			[rows]="listHelper.filteredItems$ | async"
-			[pending]="listHelper.pending"
+			[pending]="listHelper.pending$ | async"
 			(select)="select($event)"
 			(unselect)="unselect($event)"
 			(selectAll)="selectAll($event)"
@@ -42,7 +42,6 @@
 	<dialog-footer-app class="flexVAlign flexBetween pagination-footer">
 		<!-- <pagination-app
 			[total]="listSrv.count$ | async"
-			[currentPage]="listSrv.currentPage"
 			[hasPageItemsCount]="false"
 			[hasTopPadding]="false"
 			(goToPage)="listSrv.loadPage($event)">

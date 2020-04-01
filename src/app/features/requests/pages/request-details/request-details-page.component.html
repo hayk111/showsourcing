@@ -32,16 +32,12 @@
 					[rows]="listSrv.items$ | async"
 					[pending]="listSrv.pending"
 					[selection]="selectionSrv.selection$ | async"
-					[total]="listSrv.count$ | async"
-					[currentPage]="listSrv.currentPage"
-					(goToPage)="listSrv.loadPage($event)"
 					(openReviewRequestReply)="openReviewRequestReply($event)"
 					(openRefuseReplyDlg)="openRefuseReplyDlg($event)"
 					(cancelReply)="cancelReply($event)"
 					(bottomReached)="listSrv.loadMore()"
 					(select)="selectionSrv.selectOne($event)"
 					(selectAll)="selectionSrv.selectAll($event)"
-					(sort)="listSrv.sort($event)"
 					(unselect)="selectionSrv.unselectOne($event)"
 					(unselectAll)="selectionSrv.unselectAll()">
 				</request-elements-table-app>

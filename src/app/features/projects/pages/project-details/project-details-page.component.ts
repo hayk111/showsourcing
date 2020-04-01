@@ -3,10 +3,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { ProjectService } from '~core/erm';
-import { ListPageService } from '~core/list-page';
 import { ERM, Project } from '~core/erm';
 import { ProjectFeatureService } from '~features/projects/services';
 import { AutoUnsub } from '~utils';
+import { ListHelperService } from '~core/list-page2';
 
 @Component({
 	selector: 'project-details-page-app',
@@ -25,18 +25,13 @@ export class ProjectDetailsPageComponent extends AutoUnsub implements OnInit {
 		private route: ActivatedRoute,
 		public router: Router,
 		private featureSrv: ProjectFeatureService,
-		private projectSrv: ProjectService,
-		private listSrv: ListPageService<Project, ProjectService>,
+		private listHelper: ListHelperService,
 	) {
 		super();
 	}
 
 	ngOnInit() {
-		this.listSrv.setup({
-			entitySrv: this.projectSrv,
-			entityMetadata: ERM.PROJECT,
-			originComponentDestroy$: this._destroy$
-		});
+		this.listHelper.setup('Project');
 
 		const id = this.route.snapshot.params.id;
 		this.project$ = this.featureSrv.queryOne(id);
@@ -49,6 +44,7 @@ export class ProjectDetailsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	removeProject(project: Project) {
-		this.listSrv.deleteOne(project, false, () => this.router.navigate(['projects']));
+		this.listHelper.delete(project);
+		this.router.navigate(['projects']);
 	}
 }

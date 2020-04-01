@@ -38,15 +38,15 @@ export const routes: Array<Route> = [
 			HasTeamSelectedGuard
 		],
 		children: [
-			{ path: '', redirectTo: 'suppliers', pathMatch: 'full' },
+			{ path: '', redirectTo: 'samples', pathMatch: 'full' },
 	// 		{
 	// 			path: 'dashboard',
 	// 			loadChildren: 'app/features/dashboard/dashboard-feature.module#DashboardFeatureModule'
 	// 		},
-			// {
-			// 	path: 'projects',
-			// 	loadChildren: 'app/features/projects/projects-feature.module#ProjectsFeatureModule'
-			// },
+			{
+				path: 'projects',
+				loadChildren: 'app/features/projects/projects-feature.module#ProjectsFeatureModule'
+			},
 			{
 				path: 'products',
 				loadChildren: 'app/features/products/products-feature.module#ProductsFeatureModule'
@@ -55,10 +55,10 @@ export const routes: Array<Route> = [
 			// 	path: 'requests',
 			// 	loadChildren: 'app/features/requests/requests-feature.module#RequestsFeatureModule'
 			// },
-			// {
-			// 	path: 'samples',
-			// 	loadChildren: 'app/features/samples/samples-feature.module#SamplesFeatureModule'
-			// },
+			{
+				path: 'samples',
+				loadChildren: 'app/features/samples/samples-feature.module#SamplesFeatureModule'
+			},
 			{
 				path: 'suppliers',
 				loadChildren: 'app/features/suppliers/suppliers-feature.module#SuppliersFeatureModule'
@@ -67,10 +67,10 @@ export const routes: Array<Route> = [
 				path: 'settings',
 				loadChildren: 'app/features/settings/settings-feature.module#SettingsFeatureModule'
 			},
-			// {
-			// 	path: 'tasks',
-			// 	loadChildren: 'app/features/tasks/tasks-feature.module#TasksFeatureModule'
-			// }
+			{
+				path: 'tasks',
+				loadChildren: 'app/features/tasks/tasks-feature.module#TasksFeatureModule'
+			}
 		]
 	},
 	{ path: '**', redirectTo: '' }
