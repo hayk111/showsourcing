@@ -5,17 +5,12 @@ import {
 	OnInit
 } from '@angular/core';
 import { ProductDialogService } from '~common/dialogs/services/product-dialog.service';
-import {
-	DEFAULT_TAKE_PAGINATION,
-	ERM,
-	Product,
-	Project,
-	ProjectService
-} from '~core/erm';
 import { CloseEventType } from '~shared/dialog';
 import { DialogService } from '~shared/dialog/services';
 import { ToastService, ToastType } from '~shared/toast';
 import { AutoUnsub } from '~utils';
+import { SelectionService, ListHelperService, ListPageViewService } from '~core/list-page2';
+import { Project, Product } from '~core/erm3/models';
 
 @Component({
 	selector: 'product-add-to-project-dlg-app',
@@ -23,7 +18,7 @@ import { AutoUnsub } from '~utils';
 	styleUrls: ['./product-add-to-project-dlg.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
-		// ListPageService, SelectionService
+		SelectionService, ListHelperService
 	],
 	host: { class: 'table-dialog' }
 })
@@ -36,24 +31,24 @@ export class ProductAddToProjectDlgComponent extends AutoUnsub
 	filterTypes = [
 		// FilterType.CREATED_BY
 	];
-	erm = ERM;
+	// erm = ERM;
 
-	private projectCount = DEFAULT_TAKE_PAGINATION;
+	// private projectCount = DEFAULT_TAKE_PAGINATION;
 	selectedProjectsCount = 0;
 
 	constructor(
 		private dlgSrv: DialogService,
 		private productDlgSrv: ProductDialogService,
 		private toastSrv: ToastService,
-		private projectSrv: ProjectService,
-		// public listSrv: ListPageService<Project, ProjectService>,
-		// private selectionSrv: SelectionService
+		public listHelper: ListHelperService,
+		public selectionSrv: SelectionService,
+		public viewSrv: ListPageViewService<Product>
 	) {
 		super();
 	}
 
 	ngOnInit() {
-
+		this.listHelper.setup('Project');
 		this.initialSelection();
 	}
 
@@ -139,19 +134,19 @@ export class ProductAddToProjectDlgComponent extends AutoUnsub
 			data: { selectedProjects, products: this.products }
 		});
 
-		this.productDlgSrv
-			.addProjectsToProducts(addedProjects, this.products)
-			.subscribe(projects => {
-				this.initialSelectedProjects = [
-					...this.initialSelectedProjects,
-					...addedProjects
-				];
-				this.toastSrv.add({
-					type: ToastType.SUCCESS,
-					title: 'title.projects-added',
-					message: 'message.your-projects-added-success',
-					timeout: 3500
-				});
-			});
+		// this.productDlgSrv
+		// 	.addProjectsToProducts(addedProjects, this.products)
+		// 	.subscribe(projects => {
+		// 		this.initialSelectedProjects = [
+		// 			...this.initialSelectedProjects,
+		// 			...addedProjects
+		// 		];
+		// 		this.toastSrv.add({
+		// 			type: ToastType.SUCCESS,
+		// 			title: 'title.projects-added',
+		// 			message: 'message.your-projects-added-success',
+		// 			timeout: 3500
+		// 		});
+		// 	});
 	}
 }

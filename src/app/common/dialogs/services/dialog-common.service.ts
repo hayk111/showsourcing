@@ -135,6 +135,10 @@ export class DialogCommonService {
 		}
 	}
 
+	openEditionDlg() {}
+
+	openSelectionDlg(typename: Typename) {}
+
 	openSupplierRequest(products: Product[], supplier?: Supplier) {
 		return this.dlgSrv.open(SupplierRequestDialogComponent, { products, supplier });
 	}
