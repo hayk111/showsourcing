@@ -8,8 +8,8 @@ import {
 	SampleService,
 	SelectParams,
 	SelectParamsConfig,
-	UserService
 } from '~core/erm';
+import { UserService } from '~core/auth/services';
 import { FilterType } from '~shared/filters';
 import { FilterService } from '~shared/filters/services/filter.service';
 import { ListHelperService, ListPageViewService, SelectionService } from '~core/list-page2';
@@ -92,26 +92,19 @@ export class SamplesPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	create() {
-		console.log('create');
-
 		this.listHelper.create({
-			'id': this.generateUuid(),
+			'id': this.userSrv.userId,
 			'statusId': this.generateUuid(),
 			'assignee': {
-				'id': this.generateUuid(),
-				'firstName': 'Hayk',
+				'id': this.userSrv.userId,
+				'firstName': this.userSrv.user.firstName,
 				'lastName': 'Atoyan',
 				'email': 'hayk@simplytechnologies.net',
 				'_version': 1,
 				'_lastChangedAt': new Date().getTime()
 			},
 			'description': 'dsdsads',
-			'createdAt': '2020-03-27T07:10:20.246Z',
-			'lastUpdatedAt': '2020-03-27T07:10:20.246Z',
 			'deleted': false,
-			'createdByUserId': this.generateUuid(),
-			'lastUpdatedByUserId': this.generateUuid(),
-			'teamId': '2207fc94-c0cd-4164-8c78-a8885c22d084',
 			'price': {value: 121},
 			'paid': true,
 			'linkedProductId': this.generateUuid(),
