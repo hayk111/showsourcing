@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import * as Fuse from 'fuse.js';
 import { combineLatest, forkJoin, Observable, of, Subject, timer } from 'rxjs';
-import { debounce, switchMap, tap } from 'rxjs/operators';
+import { debounce, switchMap, tap, filter, map } from 'rxjs/operators';
 import { ApiQueryOption, ApiService, ObservableQuery } from '~core/erm3/services/api.service';
 import { Typename } from '~core/erm3/typename.type';
 import { FilterService, FilterType } from '~core/filters';
 import { SelectionService } from './selection.service';
+import { CloseEventType, DialogService } from '~shared/dialog';
+import { CreationDialogComponent } from '~common/dialogs/creation-dialogs';
 import { TeamService } from '~core/auth';
 
 
@@ -48,7 +50,8 @@ export class ListFuseHelperService<G = any> {
 	constructor(
 		private selectionSrv: SelectionService,
 		private apiSrv: ApiService,
-		private filterSrv: FilterService
+		private filterSrv: FilterService,
+		private dlgSrv: DialogService
 	) {}
 
 	setup(
@@ -74,11 +77,15 @@ export class ListFuseHelperService<G = any> {
 		return this.queryRef.refetch({ fetchPolicy: 'cache-first' }).then(_ => (this.pending = false));
 	}
 
-	create(entity: any) {
-		this.apiSrv
-			.create(this.typename, entity)
-			.pipe(switchMap(_ => this.refetch()))
-			.subscribe();
+	create(addedProperties: any) {
+		this.dlgSrv.open(CreationDialogComponent , {
+			typename: this.typename,
+			extra: addedProperties
+		}).pipe(
+			filter(closeEvent => closeEvent.type === CloseEventType.OK),
+			map(closeEvent => closeEvent.data),
+			switchMap(entity => this.apiSrv.create(this.typename, entity)),
+		).subscribe(created => this.apiSrv.addToList(this.queryRef, created));
 	}
 
 	update(entity: any) {

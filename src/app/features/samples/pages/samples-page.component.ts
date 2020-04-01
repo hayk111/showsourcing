@@ -8,8 +8,8 @@ import {
 	SampleService,
 	SelectParams,
 	SelectParamsConfig,
-	UserService
 } from '~core/erm';
+import { UserService } from '~core/auth/services';
 import { FilterType } from '~shared/filters';
 import { FilterService } from '~shared/filters/services/filter.service';
 import { ListHelperService, ListPageViewService, SelectionService } from '~core/list-page2';
@@ -84,9 +84,31 @@ export class SamplesPageComponent extends AutoUnsub implements OnInit {
 	// 	return filters.length;
 	// }
 
+	generateUuid() {
+		return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+			const r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+			return v.toString(16);
+		});
+	}
+
 	create() {
 		this.listHelper.create({
-			assigneeId: '17affbd2-864c-4644-b471-063802e2d804' // TODO: change to use dynamic id from user service, currently service doen't work
+			'id': this.userSrv.userId,
+			'statusId': this.generateUuid(),
+			'assignee': {
+				'id': this.userSrv.userId,
+				'firstName': this.userSrv.user.firstName,
+				'lastName': 'Atoyan',
+				'email': 'hayk@simplytechnologies.net',
+				'_version': 1,
+				'_lastChangedAt': new Date().getTime()
+			},
+			'description': 'dsdsads',
+			'deleted': false,
+			'price': {value: 121},
+			'paid': true,
+			'linkedProductId': this.generateUuid(),
+			'linkedSupplierId': this.generateUuid()
 		});
 	}
 

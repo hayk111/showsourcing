@@ -1,7 +1,7 @@
 <!-- input -->
 <form [formGroup]="group">
 	<form-field-app class="search-input" [ngClass]="{ 'field-focused': inp.focussed || !!inp.control.value }">
-			<input inputApp formControlName="name" [value]="searchTxt" type="text" [placeholder]="'OBJ.enter-OBJ' | translate: { field: 'ERM.' + type.translationKey + '.singular' | translate }" (keyup)="onKeydown($event)" (input)="search(inp.control.value)">
+			<input inputApp formControlName="name" [value]="searchTxt" type="text" [placeholder]="'OBJ.enter-OBJ' | translate: { field: 'ERM.' + typename | translate }" (keyup)="onKeydown($event)" (input)="search(inp.control.value)">
 	</form-field-app>
 </form>
 
@@ -9,20 +9,20 @@
 <div *ngIf="multiple" class="flexWrap current-values-container">
 	<ng-container *ngIf="value?.length; else empty">
 
-		<ng-container [ngSwitch]="type">
+		<ng-container [ngSwitch]="typename">
 
 			<ng-container *ngSwitchCase="erm.EMAIL">
-				<info-badge-app *ngFor="let item of value" [type]="type.singular" [hasDelete]="true" (delete)="delete(item)">{{ item }}</info-badge-app>
+				<info-badge-app *ngFor="let item of value" [type]="typename" [hasDelete]="true" (delete)="delete(item)">{{ item }}</info-badge-app>
 			</ng-container>
 
 			<ng-container *ngSwitchDefault>
-				<info-badge-app *ngFor="let item of value; trackBy: trackById" [type]="type.singular" [hasDelete]="true" (delete)="delete(item)">{{ item.name }}</info-badge-app>
+				<info-badge-app *ngFor="let item of value; trackBy: trackById" [type]="typename" [hasDelete]="true" (delete)="delete(item)">{{ item.name }}</info-badge-app>
 			</ng-container>
 
 		</ng-container>
 	</ng-container>
 	<ng-template #empty>
-		<span class="empty-message">{{ 'OBJ.no-item-add-one' | translate: { field: 'ERM.' + type.translationKey + '.singular' | translate } }}</span>
+		<span class="empty-message">{{ 'OBJ.no-item-add-one' | translate: { field: 'ERM.' + typename | translate } }}</span>
 	</ng-template>
 </div>
 
@@ -36,7 +36,7 @@
 	<ng-container *ngIf="(choices$ | async); else spinner">
 
 		<!-- TIP: Ordered alphabetically -->
-		<ng-container [ngSwitch]="type">
+		<ng-container [ngSwitch]="typename">
 
 			<ng-container *ngSwitchCase="erm.CONTACT">
 				<selector-option-contact-app #abstract *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [contact]="item" (click)="onSelect(item)"></selector-option-contact-app>
@@ -96,7 +96,7 @@
 		</ng-container>
 
 		<!-- create button -->
-		<selector-option-button-app #abstract *ngIf="canCreate && !(nameExists$ | async) && searchTxt" class="selector-row" [type]="type.singular" [searchTxt]="searchTxt" (click)="create()"></selector-option-button-app>
+		<selector-option-button-app #abstract *ngIf="canCreate && !(nameExists$ | async) && searchTxt" class="selector-row" [type]="typename.singular" [searchTxt]="searchTxt" (click)="create()"></selector-option-button-app>
 
 	</ng-container>
 

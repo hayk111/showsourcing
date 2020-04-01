@@ -49,7 +49,6 @@ export class TasksPageComponent implements OnInit {
 	selectItemsConfig: SelectParamsConfig;
 
 	constructor(
-		public dialogCommonSrv: DialogCommonService,
 		public filterSrv: FilterService,
 		public selectionSrv: SelectionService,
 		public listHelper: ListFuseHelperService,

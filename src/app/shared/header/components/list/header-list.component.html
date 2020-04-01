@@ -9,12 +9,13 @@
 
 <div class="right flexCenter">
 
-	<button
-		*ngIf="hasAction"
-		class="capitalize"
-		(click)="buttonClick.emit()">
-		<span>{{ buttonName }}</span>
-	</button>
+	<ng-container *ngIf="hasAction">
+		<button
+			class="capitalize"
+			(click)="buttonClick.emit()">
+			<span>{{ buttonName }}</span>
+		</button>
+	</ng-container>
 
 </div>
 
