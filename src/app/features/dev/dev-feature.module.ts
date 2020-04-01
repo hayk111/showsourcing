@@ -11,6 +11,7 @@ import { SharedModule } from '~shared/shared.module';
 
 import * as Pages from './pages';
 import { routes } from './routes';
+import { DescriptorPageComponent } from './pages/component-library/descriptor-page/descriptor-page.component';
 
 
 
@@ -51,7 +52,8 @@ import { routes } from './routes';
 		Pages.ColorsPageComponent,
 		Pages.SpacingPageComponent,
 		Pages.TypographyPageComponent,
-		Pages.ControllerTablePageComponent
+		Pages.ControllerTablePageComponent,
+		DescriptorPageComponent
 	],
 	exports: [],
 	providers: []
