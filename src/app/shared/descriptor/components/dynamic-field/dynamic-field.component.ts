@@ -9,7 +9,7 @@ import { FieldDescriptor } from '~core/erm3/models';
 })
 export class DynamicFieldComponent implements OnInit {
 	@Input() field: FieldDescriptor;
-	@Input() fieldValue: any;
+	@Input() value: any;
 
 	constructor() { }
 

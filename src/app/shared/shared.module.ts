@@ -58,6 +58,7 @@ import { StatusSelectorModule } from './status-selector/status-selector.module';
 import { TableModule } from './table/table.module';
 import { ToastModule } from './toast';
 import { HttpClientModule } from '@angular/common/http';
+import { DescriptorModule } from './descriptor/descriptor.module';
 
 // those modules are used so commonly that we will just import the shared module
 const modules = [
@@ -84,6 +85,7 @@ const modules = [
 	CommentModule,
 	ComparisonRowModule,
 	ContextMenuModule,
+	DescriptorModule,
 	DialogModule,
 	DividerModule,
 	DynamicFormsModule,

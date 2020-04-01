@@ -7,7 +7,8 @@ import { RegexpApp } from '~utils';
 export class RestrictInputDirective {
 	regex: RegExp;
 
-	constructor() { }
+	constructor() {
+	 }
 
 	@Input('restrictInput')
 	set inputType(type: string) {

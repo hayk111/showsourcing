@@ -1,18 +1,24 @@
 
 <ng-container *ngIf="style === 'form'; else editable">
-	<fieldset
-		*ngFor="let section of sections" 
-		[name]="section.name">
 
-		<div *ngFor="let column of section.columns">
+	<ng-container
+		*ngFor="let section of sections">
 
-			<dynamic-field-app
-				*ngFor="let field of column" 
-				[field]="field">
-			</dynamic-field-app>
-
+		<h3 class="mg-v-m">{{ section.name }}</h3>
+		<div class="flex">
+			<div *ngFor="let column of section.columns">
+	
+				<dynamic-field-app
+					*ngFor="let field of column" 
+					class="mg-bottom-s"
+					[field]="field"
+					[value]="propertyMap.get(field.definition.name)">
+				</dynamic-field-app>
+	
+			</div>
 		</div>
-	</fieldset>
+
+	</ng-container>
 </ng-container>
 
 <ng-template #editable>

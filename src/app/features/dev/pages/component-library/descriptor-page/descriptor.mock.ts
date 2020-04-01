@@ -2,9 +2,9 @@
 const fields1 = [
 	{
 		definition: {
-			label: 'description',
+			label: 'STRING',
 			type: 'STRING',
-			name: 'description',
+			name: 'string',
 		},
 		defaultValue: 'string default value',
 		fixedValue: false,
@@ -19,7 +19,37 @@ const fields1 = [
 		defaultValue: 40,
 		fixedValue: false,
 		required: true,
-	}
+	},
+	{
+		definition: {
+			label: 'email',
+			type: 'EMAIL',
+			name: 'email',
+		},
+		defaultValue: 'default@gmail.com',
+		fixedValue: false,
+		required: true
+	},
+	{
+		definition: {
+			label: 'tel',
+			type: 'TEL',
+			name: 'tel',
+		},
+		defaultValue: '+32',
+		fixedValue: false,
+		required: true
+	},
+	{
+		definition: {
+			label: 'float',
+			type: 'FLOAT',
+			name: 'float',
+		},
+		defaultValue: 0,
+		fixedValue: false,
+		required: true
+	},
 ];
 
 const fields2 = [
