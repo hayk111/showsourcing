@@ -1,6 +1,10 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { DialogService } from '~shared/dialog';
-import { ProductSelectDlgComponent, ProductAddToProjectDlgComponent } from '~common/dialogs/selection-dialogs';
+import {
+	ProductSelectionDialogComponent,
+	ProjectSelectionDialogComponent,
+	TemplateMngmtDlgComponent
+} from '~common/dialogs/selection-dialogs';
 
 @Component({
 	selector: 'app-dialog-page',
@@ -14,9 +18,15 @@ export class DialogPageComponent implements OnInit {
 	ngOnInit() {}
 
 	openProductSelectorDlg() {
-		this.dlgSrv.open(ProductSelectDlgComponent, { initialSelectedProducts: [], submitProducts: false });
+		this.dlgSrv.open(ProductSelectionDialogComponent, {
+			initialSelectedProducts: [],
+			submitProducts: false
+		});
 	}
 	openAddToProjectDlg() {
-		this.dlgSrv.open(ProductAddToProjectDlgComponent, { product: [], initialSelectedProjects: [] });
+		this.dlgSrv.open(ProjectSelectionDialogComponent, { product: [], initialSelectedProjects: [] });
+	}
+	openTemplateManagementDlg() {
+		this.dlgSrv.open(TemplateMngmtDlgComponent);
 	}
 }

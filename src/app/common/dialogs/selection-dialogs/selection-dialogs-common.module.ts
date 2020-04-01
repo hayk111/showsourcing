@@ -4,13 +4,13 @@ import { TablesCommonModule } from '~common/tables/tables-common.module';
 import { SharedModule } from '~shared/shared.module';
 
 import { CrudDialogService } from '../services/crud-dialog.service';
-import { ProductAddToProjectDlgComponent } from './product-add-to-project-dlg/product-add-to-project-dlg.component';
-import { ProductSelectDlgComponent } from './product-select-dlg/product-select-dlg.component';
+import { ProjectSelectionDialogComponent } from './project-selection-dialog/project-selection-dialog.component'
+import { ProductSelectionDialogComponent } from './product-selection-dialog/product-selection-dialog.component';
 import { TemplateMngmtDlgComponent } from './template-mngmt-dlg/template-mngmt-dlg.component';
 
 const modals = [
-	ProductAddToProjectDlgComponent,
-	ProductSelectDlgComponent,
+	ProjectSelectionDialogComponent,
+	ProductSelectionDialogComponent,
 	TemplateMngmtDlgComponent
 
 ];

@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { of, ReplaySubject } from 'rxjs';
 import { switchMap, take, takeUntil, tap } from 'rxjs/operators';
-import { ProductSelectDlgComponent, TemplateMngmtDlgComponent } from '~common/dialogs/selection-dialogs';
+import { ProductSelectionDialogComponent, TemplateMngmtDlgComponent } from '~common/dialogs/selection-dialogs';
 import { ContactService, CreateRequestService, RequestTemplateService, UserService } from '~core/erm';
 import { ListPageService } from '~core/list-page';
 import { Contact, CreateRequest, Product, RequestTemplate, Supplier } from '~core/erm';
@@ -225,7 +225,7 @@ export class SupplierRequestDialogComponent extends AutoUnsub implements OnInit,
 		});
 
 		setTimeout(_ => {
-			this.dlgSrv.open(ProductSelectDlgComponent, { initialSelectedProducts: [], submitProducts: false })
+			this.dlgSrv.open(ProductSelectionDialogComponent, { initialSelectedProducts: [], submitProducts: false })
 				.pipe(
 					switchMap(_ => this.listSrv.refetch())
 				).subscribe();

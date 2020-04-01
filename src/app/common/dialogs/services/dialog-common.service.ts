@@ -19,7 +19,7 @@ import {
 	RefuseReplyDlgComponent,
 	VoteDetailsDialogComponent,
 } from '~common/dialogs/custom-dialogs';
-import { ProductAddToProjectDlgComponent, ProductSelectDlgComponent } from '~common/dialogs/selection-dialogs';
+import { ProjectSelectionDialogComponent, ProductSelectionDialogComponent } from '~common/dialogs/selection-dialogs';
 import { EntityMetadata, EntityName, Product, Project, Supplier } from '~core/erm';
 import { CloseEvent, CloseEventType } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
@@ -60,7 +60,7 @@ export class DialogCommonService {
 
 	/** Opens a dialog that lets the user add different products to different projects (many to many) */
 	openAddToProjectDialog(products?: Product[], initialSelectedProjects?: Project[]) {
-		return this.dlgSrv.open(ProductAddToProjectDlgComponent, { products, initialSelectedProjects });
+		return this.dlgSrv.open(ProjectSelectionDialogComponent, { products, initialSelectedProjects });
 	}
 
 	/** Opens a dialog that lets the user export a product either in PDF or EXCEL format */
@@ -75,7 +75,7 @@ export class DialogCommonService {
 	}
 
 	openSelectProductDlg(initialSelectedProducts?: Product[], project?: Project, submitProducts = true) {
-		return this.dlgSrv.open(ProductSelectDlgComponent, {
+		return this.dlgSrv.open(ProductSelectionDialogComponent, {
 			project,
 			initialSelectedProducts,
 			submitProducts
@@ -137,7 +137,8 @@ export class DialogCommonService {
 
 	openEditionDlg() {}
 
-	openSelectionDlg(typename: Typename) {}
+	openSelectionDlg(typename: Typename) { // should be Product | Project
+	}
 
 	openSupplierRequest(products: Product[], supplier?: Supplier) {
 		return this.dlgSrv.open(SupplierRequestDialogComponent, { products, supplier });

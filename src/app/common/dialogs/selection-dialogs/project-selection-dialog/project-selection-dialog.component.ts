@@ -14,15 +14,15 @@ import { Project, Product } from '~core/erm3/models';
 
 @Component({
 	selector: 'product-add-to-project-dlg-app',
-	templateUrl: './product-add-to-project-dlg.component.html',
-	styleUrls: ['./product-add-to-project-dlg.component.scss'],
+	templateUrl: './project-selection-dialog.component.html',
+	styleUrls: ['./project-selection-dialog.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
 		SelectionService, ListHelperService
 	],
 	host: { class: 'table-dialog' }
 })
-export class ProductAddToProjectDlgComponent extends AutoUnsub
+export class ProjectSelectionDialogComponent extends AutoUnsub
 	implements OnInit {
 	@Input() initialSelectedProjects: Project[];
 	@Input() products: Product[];

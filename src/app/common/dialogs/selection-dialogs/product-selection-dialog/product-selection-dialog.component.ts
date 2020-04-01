@@ -16,8 +16,8 @@ import { FilterType } from '~core/filters';
 
 @Component({
 	selector: 'product-select-dlg',
-	templateUrl: './product-select-dlg.component.html',
-	styleUrls: ['./product-select-dlg.component.scss'],
+	templateUrl: './product-selection-dialog.component.html',
+	styleUrls: ['./product-selection-dialog.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [
 		ListPageViewService,
@@ -26,7 +26,7 @@ import { FilterType } from '~core/filters';
 	],
 	host: { class: 'table-dialog' }
 })
-export class ProductSelectDlgComponent extends AutoUnsub implements OnInit {
+export class ProductSelectionDialogComponent extends AutoUnsub implements OnInit {
 	@Input() initialSelectedProducts: Product[];
 	@Input() project: Project;
 	@Input() submitProducts = true;
