@@ -10,19 +10,12 @@ import { Typename } from '~core/erm3/typename.type';
 })
 export class SelectorsService {
 	queryListRef: ObservableQuery<any>;
-	filterList = new FilterList([]);
 
 	currentSearchQuery = '';
 
 	constructor (
 		private apiSrv: ApiService,
 	) { }
-
-	setFilters(filters: FilterList) {
-		if (filters) {
-			this.filterList = filters;
-		}
-	}
 
 	loadMore() {
 		// return this.queryListRef.fetchMore().subscribe();
@@ -34,10 +27,6 @@ export class SelectorsService {
 	}
 
 	create(entityType: Typename, entity: any) {
-		const entityClone = Object.assign({}, entity);
-		delete entityClone._deleted;
-		delete entityClone._lastChangedAt;
-
-		return this.apiSrv.create<any>(entityType, entityClone);
+		return this.apiSrv.create<any>(entityType, entity);
 	}
 }

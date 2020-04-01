@@ -27,7 +27,7 @@
 	(unselectAll)="selectionSrv.unselectAll()"
 	(open)="viewSrv.goToDetails($event)"
 	(previewClick)="viewSrv.openPreview($event)"
-	(createClick)="dialogCommonSrv.openCreationSampleDialog()"
+	(createClick)="create()"
 	(update)="listHelper.update($event)"
 	(delete)="listHelper.delete($event)">
 </samples-table-app>
@@ -35,16 +35,16 @@
 <selection-bar-app
 	[isShown]="(selectionSrv.selection$ | async).size > 0"
 	[selection]="selectionSrv.selection$ | async"
-	[selectableItems]="listHelper.items$ | async"
+	[selectableItems]="items$ | async"
 	(close)="selectionSrv.unselectAll()">
 
 	<div class="flex">
-		<selector-app
+		<!-- <selector-app
 			typename="SampleStatus"
 			[canCreate]="true"
 			(update)="update($event, entity)">
 			<button class="mg-ms">{{entity}} selector</button>
-		</selector-app>
+		</selector-app> -->
 		<!-- <status-selector-app
 			toolTip [toolTipMessage]="'message.change-status' | translate" toolTipPosition="above-right"
 			#workActionMenu

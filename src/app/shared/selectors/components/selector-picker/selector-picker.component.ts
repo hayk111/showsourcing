@@ -168,7 +168,6 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	}
 
 	ngOnChanges() {
-		this.selectorSrv.setFilters(this.filterList);
 		if (this.choices$ && this.multiple) {
 			// if its multiple we want to filter the values that we have currently selected, so they don't appear on the options
 			this.choices$.pipe(map((items) => this.filterValues(items)));
