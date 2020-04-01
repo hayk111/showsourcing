@@ -4,5 +4,5 @@ import { FieldDescriptor } from './field-descriptor.model';
 
 export class Section extends Entity<Section> {
 	name?: string;
-	fields: FieldDescriptor;
+	fields: FieldDescriptor[];
 }

@@ -1,0 +1,22 @@
+<ng-container [ngSwitch]="field.definition.type">
+
+	<!-- STRING -->
+	<ng-container *ngSwitchCase="'STRING'">
+		<!-- just for example -->
+		<input 
+			#inp 
+			type="text"
+			[(ngModel)]="fieldValue.value"/>
+	</ng-container>
+
+	<!-- INT -->
+	<ng-container *ngSwitchCase="'INT'">
+		
+	</ng-container>
+
+	
+	<!-- PACKAGING -->
+	<!-- <ng-container *ngSwitchCase="'INT'">
+		<input-packaging-app [(ngModel)]="fieldValue.value"></input-packaging-app>
+	</ng-container> -->
+</ng-container>
