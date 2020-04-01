@@ -16,14 +16,11 @@
 <projects-table-app
 	[rows]="items$ | async"
 	[selection]="selectionSrv.selection$ | async"
-	[pending]="listHelper.pending"
-	[total]="listHelper.total$ | async"
-	(goToPage)="listHelper.loadPage($event)"
+	[pending]="listHelper.pending$ | async"
 	(select)="selectionSrv.selectOne($event, true)"
 	(unselect)="selectionSrv.unselectOne($event, true)"
 	(selectAll)="selectionSrv.selectAll($event, true)"
 	(unselectAll)="selectionSrv.unselectAll()"
-	(sort)="listHelper.sort($event)"
 	(createClick)="create()"
 	(update)="listHelper.update($event)"
 	(delete)="listHelper.delete($event)">

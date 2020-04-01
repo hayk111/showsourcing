@@ -36,7 +36,6 @@
 </header-details-app>
 
 <controller-table-app
-	[total]="listHelper.total$ | async"
 	class="spacing-ms"
 	[hasFilters]="false">
 	<controller-table-content-app>
@@ -50,15 +49,14 @@
 	(renameEntity)="listHelper.update($event)"
 	(delete)="listHelper.delete($event)" 
 	[selection]="selectionSrv.selection$ | async"
-	[pending]="listHelper.pending"
-	[isFiltering]="listHelper.pending"
+	[pending]="listHelper.pending$ | async"
+	[isFiltering]="listHelper.pending$ | async"
 	[entityMetadata]="typename"
 	(select)="selectionSrv.selectOne($event, false)"
 	(unselect)="selectionSrv.unselectOne($event, false)"
 	(selectAll)="selectionSrv.selectAll($event, false)"
 	(showItemsPerPage)="showItemsPerPage($event)"
 	(unselectAll)="selectionSrv.unselectAll()"
-	[total]="listHelper.total$ | async"
 	>
 	<!-- 
 		TODO implement this

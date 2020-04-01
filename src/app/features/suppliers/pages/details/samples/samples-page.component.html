@@ -1,4 +1,4 @@
-<controller-table-app [total]="listHelper.total$ | async">
+<controller-table-app>
 	<!-- filters -->
 	<controller-table-quick-filters-app></controller-table-quick-filters-app>
 	<!-- actions -->
@@ -13,8 +13,7 @@
 <samples-table-app
 	[rows]="listHelper.filteredItems$ | async"
 	[selection]="selectionSrv.selection$ | async"
-	[pending]="listHelper.pending"
-	[total]="listHelper.total$ | async"
+	[pending]="listHelper.pending$ | async"
 	(goToPage)="listHelper.loadPage($event)"
 	(sort)="listHelper.sort($event)"
 	(select)="selectionSrv.selectOne($event, true)"

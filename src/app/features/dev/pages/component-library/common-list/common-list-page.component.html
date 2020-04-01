@@ -13,8 +13,6 @@
 	[pending]="pending"
 	[rows]="products"
 	[selection]="productSelectionSrv.selection"
-	[currentPage]="0"
-	[total]="1556"
 	(selectAll)="productSelectionSrv.selectAll(products)"
 	(unselectAll)="productSelectionSrv.unselectAll()"></products-table-app>
 </card-app>
@@ -28,8 +26,6 @@
 		[rows]="products"
 		[selection]="productSelectionSrv.selection"
 		[columns]="[ 'reference', 'supplier']"
-		[currentPage]="0"
-		[total]="1556"
 		(selectAll)="productSelectionSrv.selectAll(products)"
 		(unselectAll)="productSelectionSrv.unselectAll()"></products-table-app>
 </card-app>
@@ -41,8 +37,6 @@
 		[pending]="pending"
 		[rows]="suppliers"
 		[selection]="supplierSelectionSrv.selection"
-		[currentPage]="0"
-		[total]="155"
 		(selectAll)="supplierSelectionSrv.selectAll(suppliers)"
 		(unselectAll)="supplierSelectionSrv.unselectAll()"></suppliers-table-app>
 </card-app>

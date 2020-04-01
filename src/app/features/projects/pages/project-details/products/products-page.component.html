@@ -18,10 +18,7 @@
 			[columns]="columns"
 			[selection]="selectionSrv.selection$ | async"
 			[rows]="listHelper.filteredItems$ | async"
-			[pending]="listHelper.pending"
-			[total]="listHelper.total$ | async"
 			createEntityBtnName="Add Product"
-			(goToPage)="listHelper.loadPage($event)"
 			(previewClick)="viewSrv.openPreview($event)"
 			(select)="selectionSrv.selectOne($event, true)"
 			(unselect)="selectionSrv.unselectOne($event, true)"
@@ -32,7 +29,6 @@
 			(openAddSampleDialog)="dialogCommonSrv.openCreationSampleDialog($event)"
 			(update)="listHelper.update($event)"
 			(openAddTaskDialog)="dialogCommonSrv.openCreationTaskDlg($event)"
-			(sort)="listHelper.sort($event)"
 			(delete)="deassociateProductById(($event)?.id)">
 		</products-table-app>
 
@@ -40,7 +36,6 @@
 			infiniScroll
 			cdk-scrollable
 			*ngIf="viewSrv.view === 'card'"
-			[currentSort]="listSrv.currentSort"
 			[rows]="listSrv.items$ | async"
 			[selection]="selectionSrv.selection$ | async"
 			(addToProject)="dialogCommonSrv.openAddToProjectDialog([$event])"

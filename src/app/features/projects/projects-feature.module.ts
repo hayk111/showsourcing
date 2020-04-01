@@ -12,7 +12,6 @@ import { SharedModule } from '~shared/shared.module';
 
 import * as DetailsPage from './pages/project-details';
 import * as TablePage from './pages/projects';
-import { SortingMenusCommonModule } from '~common/sorting-menus/sorting-menus-common.module';
 
 @NgModule({
 	imports: [
@@ -25,7 +24,6 @@ import { SortingMenusCommonModule } from '~common/sorting-menus/sorting-menus-co
 		PreviewsCommonModule,
 		GridsCommonModule,
 		CardsCommonModule,
-		SortingMenusCommonModule
 	],
 	declarations: [
 		DetailsPage.ProjectDetailsPageComponent,

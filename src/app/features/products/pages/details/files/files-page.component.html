@@ -33,7 +33,7 @@
 
 <ng-template #placeholder>
 	<entity-placeholder-app
-		[type]="'ATTACHMENT' | erm: 'singular'"
+		typename="Attachment"
 		[title]="'No files on this product'"
 		[subtitle]="'Add your files'">
 		<button class="capitalize" (click)="inpFile.click()" translate="button.add-file"></button>

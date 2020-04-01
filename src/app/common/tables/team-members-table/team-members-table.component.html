@@ -5,14 +5,8 @@
 	[isSeaching]="isFiltering"
 	[hasMenu]="false"
 	[hasSelection]="false"
-	[total]="total"
-	[currentPage]="currentPage"
-  [currentSort]="currentSort"
 	[placeholder]="'placeholder.no-team-member' | translate"
-	(goToPage)="goToPage.emit($event)"
-	(bottomReached)="bottomReached.emit()"
-	(showItemsPerPage)="showItemsPerPage.emit($event)"
-	(sort)="sort.emit($event)">
+	(bottomReached)="bottomReached.emit()">
 
 	<!-- icon -->
 	<ng-template

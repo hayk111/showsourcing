@@ -41,17 +41,12 @@
 		[selection]="selectionSrv.selection$ | async"
 		[pending]="listSrv.pending"
 		[isFiltering]="filterSrv.isFiltering"
-		[total]="listSrv.count$ | async"
-		[currentSort]="listSrv.currentSort"
-		[currentPage]="listSrv.currentPage"
 		(bottomReached)="listSrv.loadMore()"
-		(sort)="listSrv.sort($event)"
 		(select)="selectionSrv.selectOne($event, false)"
 		(unselect)="selectionSrv.unselectOne($event, false)"
 		(selectAll)="selectionSrv.selectAll($event, false)"
     (unselectAll)="selectionSrv.unselectAll()"
 		(accessTypeUpdated)="updateAccessType($event)"
-		(showItemsPerPage)="showItemsPerPage($event)"
 		(delete)="listSrv.deleteOne($event, true)">
 	</team-members-table-app>
 

@@ -19,8 +19,7 @@
 <samples-table-app
 	[rows]="items$ | async"
 	[selection]="selectionSrv.selection$ | async"
-	[pending]="listHelper.pending"
-	[total]="listHelper.total$ | async"
+	[pending]="listHelper.pending$ | async"
 	(select)="selectionSrv.selectOne($event, true)"
 	(unselect)="selectionSrv.unselectOne($event, true)"
 	(selectAll)="selectionSrv.selectAll($event, true)"

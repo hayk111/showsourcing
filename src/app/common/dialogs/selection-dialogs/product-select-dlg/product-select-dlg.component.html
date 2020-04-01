@@ -19,11 +19,9 @@
 			[hasShowItemsPerPage]="false"
 			[hasPagination]="false"
 			[hasMenu]="false"
-			[currentSort]="listSrv.currentSort"
 			[pending]="listSrv.pending"
 			[selection]="selectionSrv.selection$ | async"
 			[total]="listSrv.count$ | async"
-			[currentPage]="listSrv.currentPage"
 			(goToPage)="loadPage($event)"
 			(delete)="listSrv.deleteOne($event)"
 			(update)="listSrv.update($event)"
@@ -48,8 +46,6 @@
 
 	<dialog-footer-app class="flexVAlign flexBetween pagination-footer">
 		<pagination-app
-			[total]="listSrv.count$ | async"
-			[currentPage]="listSrv.currentPage"
 			[hasPageItemsCount]="false"
 			[hasTopPadding]="false"
 			(goToPage)="listSrv.loadPage($event)">
