@@ -5,7 +5,7 @@ import { ERM, Project } from '~core/erm';
 import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
 import { ListHelperService, ListPageViewService, SelectionService } from '~core/list-page2';
-import { UserService } from '~core/erm';
+import { UserService } from '~core/auth/services';
 
 // Doctor: You're obese.
 // -
@@ -48,8 +48,7 @@ export class ProjectsPageComponent extends AutoUnsub implements OnInit {
 
 	create() {
 		this.listHelper.create({
-			assigneeId: '17affbd2-864c-4644-b471-063802e2d804' // TODO: change to use dynamic id from user service, currently service doen't work
+			assigneeId: this.userSrv.userId
 		});
 	}
-
 }

@@ -6,6 +6,8 @@ import { ApiQueryOption, ApiService, ObservableQuery } from '~core/erm3/services
 import { Typename } from '~core/erm3/typename.type';
 import { FilterService, FilterType } from '~core/filters';
 import { SelectionService } from './selection.service';
+import { CloseEventType, DialogService } from '~shared/dialog';
+import { CreationDialogComponent } from '~common/dialogs/creation-dialogs';
 import { TeamService } from '~core/auth';
 import { DialogService, CloseEventType } from '~shared/dialog';
 import { CreationDialogComponent } from '~common/dialogs/creation-dialogs';

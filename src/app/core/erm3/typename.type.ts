@@ -25,6 +25,7 @@ export type Typename =
 	| 'SampleStatus'
 	|	'SectionDescriptor'
 	| 'Supplier'
+	|	'SupplierType'
 	| 'Tag'
 	| 'Task'
 	| 'Team'
