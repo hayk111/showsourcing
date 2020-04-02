@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { routerAnimation } from '~core/template/components/animation';
-import { TemplateService } from '~core/template/services/template.service';
+import { routerAnimation } from '~shared/template/components/animation';
+import { TemplateService } from '~shared/template/services/template.service';
 import { DialogService } from '~shared/dialog';
 import { OnBoardingDlgComponent } from '~shared/on-boarding/components';
 import { OnBoardingService } from '~shared/on-boarding/services/on-boarding.service';

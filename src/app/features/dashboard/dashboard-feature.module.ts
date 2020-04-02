@@ -9,7 +9,6 @@ import { TablesCommonModule } from '~common/tables/tables-common.module';
 import { routes } from '~features/dashboard/routes';
 import { DialogModule } from '~shared/dialog';
 import { SharedModule } from '~shared/shared.module';
-import { HeaderModule } from '~core/header/header.module';
 
 import * as Components from './pages/dashboard/components';
 import * as Pages from './pages/dashboard/dashboard-page.component';
@@ -24,7 +23,6 @@ import * as Pages from './pages/dashboard/dashboard-page.component';
 		TablesCommonModule,
 		PreviewsCommonModule,
 		CatalogCommonModule,
-		HeaderModule
 	],
 	declarations: [
 		Pages.DashboardPageComponent,
