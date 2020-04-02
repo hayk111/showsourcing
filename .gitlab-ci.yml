@@ -23,6 +23,7 @@ app-install:
       - package-lock.json
   only:
     - development
+    - migration-amplify
 
 # tests
 app-test:karma:
@@ -98,6 +99,8 @@ app-build-dev:
       - node_modules/
     policy: pull
   script:
+    - git config --global user.email "cedric+1@showsourcing.com"
+    - git config --global user.name "CI/CD showsourcing"
     - npm run version:build && npm run build:dev
   artifacts:
     paths:
