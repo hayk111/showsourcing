@@ -5,6 +5,7 @@ import { AutoUnsub } from '~utils';
 import { SelectionService, ListHelperService, ListPageViewService } from '~core/list-page2';
 import { Project, Product } from '~core/erm3/models';
 import { FilterType } from '~core/filters';
+import { ProjectsTableComponent } from '~common/tables/projects-table/projects-table.component';
 
 @Component({
 	selector: 'product-add-to-project-dlg-app',
@@ -17,7 +18,9 @@ import { FilterType } from '~core/filters';
 export class ProjectSelectionDialogComponent extends AutoUnsub implements OnInit {
 	@Input() initialSelecteds: Project[];
 
-	selected = {};
+	columns = ProjectsTableComponent.DEFAULT_COLUMNS;
+	tableConfig = ProjectsTableComponent.DEFAULT_TABLE_CONFIG;
+
 	filterTypes = [FilterType.CREATED_BY];
 
 	constructor(

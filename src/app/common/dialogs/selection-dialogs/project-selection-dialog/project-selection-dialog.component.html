@@ -3,7 +3,10 @@
 
 <controller-table-app [total]="listHelper.total$ | async">
 		<controller-table-quick-filters-app></controller-table-quick-filters-app>
-		<controller-table-quick-actions-app></controller-table-quick-actions-app>
+		<controller-table-quick-actions-app
+			[tableConfig]="tableConfig"
+			[columns]="columns"
+		></controller-table-quick-actions-app>
 	</controller-table-app>
 
 

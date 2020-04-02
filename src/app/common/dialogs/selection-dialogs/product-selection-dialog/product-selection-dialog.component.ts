@@ -1,13 +1,10 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { ProductDialogService } from '~common/dialogs/services/product-dialog.service';
 import { ProductsTableComponent } from '~common/tables/products-table/products-table.component';
-import { DialogService, CloseEventType } from '~shared/dialog';
-import { ToastService } from '~shared/toast';
-import { AutoUnsub } from '~utils';
-import { Product, Project } from '~core/erm3/models';
-import { UserService } from '~core/auth';
-import { ListHelperService, SelectionService, ListPageViewService } from '~core/list-page2';
+import { Product } from '~core/erm3/models';
 import { FilterType } from '~core/filters';
+import { ListHelperService, ListPageViewService, SelectionService } from '~core/list-page2';
+import { CloseEventType, DialogService } from '~shared/dialog';
+import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'product-select-dlg',
