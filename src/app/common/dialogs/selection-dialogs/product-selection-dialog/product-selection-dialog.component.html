@@ -30,28 +30,22 @@
 			(previewClick)="viewSrv.openPreview($event)"
 		>
 		</products-table-app>
-		<!-- [currentSort]="listSrv.currentSort" -->
-		<!-- (bottomReached)="listSrv.loadMore()" -->
-		<!-- (sort)="listSrv.sort($event)" -->
 
 		<filters-app
 			*ngIf="viewSrv.filterPanelOpen"
 			[filterTypes]="filterTypes"
-			[sidePanel]="false"
+			[sidePanel]="true"
 			(close)="viewSrv.closeFilterPanel()"
 		>
 		</filters-app>
 	</div>
 
 	<dialog-footer-app class="flexVAlign flexBetween pagination-footer">
-	<!-- <pagination-app
-			[total]="listSrv.count$ | async"
-			[currentPage]="listSrv.currentPage"
+	<pagination-app
 			[hasPageItemsCount]="false"
 			[hasTopPadding]="false"
-			(goToPage)="listSrv.loadPage($event)"
-		>
-		</pagination-app> -->
+			>
+		</pagination-app>
 	<div class="flex flexVAlign">
 			<div class="product-action">
 				<span class="selected-product capitalize">

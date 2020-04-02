@@ -1,7 +1,7 @@
-<button 
-	*ngIf="hasExport" 
-	class="icon mg-left-ms" 
-	toolTip 
+<button
+	*ngIf="hasExport"
+	class="icon mg-left-ms"
+	toolTip
 	[toolTipMessage]="'tooltip.export-all' | translate"
 	(click)="onExportClick()">
 	<icon-app class="color-third" name="export" size="m"></icon-app>
@@ -15,13 +15,13 @@
 	</context-menu-trigger-app>
 	<context-menu-item-app
 		*ngFor="let column of sortableColumns"
-		[ngClass]="{ 'color-primary': currentSort.sortBy === column.sortProperty }"
+		[ngClass]="{ 'color-primary': (sortSrv.sort$|async)?.field === column.sortProperty }"
 		(click)="onSortClick(column)">
 		{{ 'title.' + column.translationKey | translate }}
-		<ng-container *ngIf="currentSort.sortBy === column.sortProperty">
+		<ng-container *ngIf="(sortSrv.sort$|async)?.field === column.sortProperty">
 			<icon-app
 				class="mg-left-s"
-				[name]="currentSort.descending ? 'angle-down' : 'angle-up'"
+				[name]="(sortSrv.sort$|async).direction === 'ASC' ? 'angle-up' : 'angle-down'"
 				size="xs">
 			</icon-app>
 		</ng-container>
