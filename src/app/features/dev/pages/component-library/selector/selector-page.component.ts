@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Product } from '~core/erm';
 import { ProductService } from '~core/erm';
+import { TeamService } from '~core/erm';
 
 @Component({
 	selector: 'selector-page-app',
@@ -11,17 +12,15 @@ import { ProductService } from '~core/erm';
 })
 export class SelectorPageComponent implements OnInit {
 
+	entityNames = ['Product', 'Project', 'Category', 'Currency', 'Supplier', 'User', 'Country'];
+
 	product$: Observable<Product>;
-	id = 'a097fe3d-6f84-4918-89e2-7a090728207c';
 
-	constructor(private produdctSrv: ProductService) { }
+	constructor() { }
 
-	ngOnInit() {
-		this.product$ = this.produdctSrv.selectOne(this.id);
-	}
+	ngOnInit() {}
 
 	update(item, prop) {
-		this.produdctSrv.update({ id: this.id, [prop]: item }).subscribe();
 	}
 
 }

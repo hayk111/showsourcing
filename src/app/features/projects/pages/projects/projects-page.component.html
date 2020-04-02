@@ -26,15 +26,17 @@
 	(delete)="listHelper.delete($event)">
 </projects-table-app>
 
-	<!-- <project-selection-bar-app
-		[isShown]="(selectionSrv.selection$ | async).size > 0"
-		[selection]="selectionSrv.selection$ | async"
-		[selectableItems]="listSrv.items$ | async"
-		(close)="selectionSrv.unselectAll()"
-		(deleteSelected)="listSrv.deleteSelected()"
-		(selectAll)="selectionSrv.selectAll($event)"
-		(unselectAll)="selectionSrv.unselectAll()">
-	</project-selection-bar-app>
+<project-selection-bar-app
+	[isShown]="(selectionSrv.selection$ | async).size > 0"
+	[selection]="selectionSrv.selection$ | async"
+	[selectableItems]="listHelper.items$ | async"
+	(close)="selectionSrv.unselectAll()"
+	(deleteSelected)="listHelper.deleteSelected()"
+	(selectAll)="selectionSrv.selectAll($event)"
+	(unselectAll)="selectionSrv.unselectAll()">
+</project-selection-bar-app>
+
+<!-- 
 
 	<side-panel-app *ngIf="viewSrv.filterPanelOpen">
 		<filters-app
