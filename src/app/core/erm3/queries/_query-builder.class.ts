@@ -73,13 +73,13 @@ export class QueryBuilder {
 	[QueryType.SEARCH_BY_TYPE] = (str: string) => (byTypeName: Typename) => (byIds: string[]) => {
 		return gql`
 			query Search${this.typename}sBy${byTypeName}s(
-				$teamIds: [String!]!
+				$${byTypeName.toLowerCase()}Ids: [String!]!
 				$filter: Searchable${this.typename}FilterInput
 				$sort: Searchable${this.typename}SortInput
 				$take: Int
 			) {
 				search${this.typename}sBy${byTypeName}s(
-					teamIds: $teamIds
+					${byTypeName.toLowerCase()}Ids: $${byTypeName.toLowerCase()}Ids
 					filter: $filter
 					sort: $sort
 					take: $take
