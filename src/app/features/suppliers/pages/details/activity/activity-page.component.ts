@@ -105,12 +105,6 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 		this.router.navigate(['suppliers', this.supplier.id, 'products']);
 	}
 
-	openSelectProductDlg(supplier) {
-		// this.dlgCommonSrv.openSelectProductDlg().pipe(
-		// 	filter((event: CloseEvent) => event.type === CloseEventType.OK)
-		// ).subscribe();
-	}
-
 	/** open preview */
 	openPreview() {
 		this.previewOpened = true;
@@ -140,6 +134,11 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 		this.task = null;
 		this.sample = null;
 		this.previewOpened = false;
+	}
+
+	addProducts() {
+		this.dlgCommonSrv.openSelectionDlg('Product');
+		// TODO add products to this.supplier
 	}
 
 }

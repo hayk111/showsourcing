@@ -112,4 +112,9 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	onOpenCreateRequestDlg(products: Product[]) {
 		return this.dlgSrv.open(SupplierRequestDialogComponent, { products });
 	}
+
+	addProducts() {
+		this.dialogCommonSrv.openSelectionDlg('Product');
+		// TODO add products to this.project
+	}
 }

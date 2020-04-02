@@ -15,9 +15,9 @@
 
 	<div class="flex table-ctnr">
 		<products-table-app
-			class="list-view"
 			[rows]="listHelper.filteredItems$ | async"
 			[hasMenu]="false"
+			[hasPagination]="false"
 			[pending]="listHelper.pending$ | async"
 			[selection]="selectionSrv.selection$ | async"
 			(delete)="listHelper.delete($event)"
@@ -26,7 +26,6 @@
 			(selectAll)="selectionSrv.selectAll($event)"
 			(unselect)="selectionSrv.unselectOne($event)"
 			(unselectAll)="selectionSrv.unselectAll()"
-			(open)="viewSrv.goToDetails($event)"
 			(previewClick)="viewSrv.openPreview($event)"
 		>
 		</products-table-app>

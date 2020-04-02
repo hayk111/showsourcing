@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { filter, map } from 'rxjs/operators';
+import { error } from 'util';
 import {
 	CreationDialogComponent,
 	CreationProductDlgComponent,
@@ -10,7 +11,6 @@ import {
 	CompareProductComponent,
 	EditionDialogComponent,
 	ExportDlgComponent,
-	ExportEntity,
 	InviteUserDlgComponent,
 	MassEditDlgComponent,
 	MergeDialogComponent,
@@ -20,7 +20,9 @@ import {
 	VoteDetailsDialogComponent
 } from '~common/dialogs/custom-dialogs';
 import * as selectionDialogs from '~common/dialogs/selection-dialogs';
-import { EntityMetadata, EntityName, Product, Project, Supplier } from '~core/erm';
+import { EntityMetadata, Product, Supplier } from '~core/erm';
+import { Entity } from '~core/erm3/models/_entity.model';
+import { Typename } from '~core/erm3/typename.type';
 import { CloseEvent, CloseEventType } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { DialogService } from '~shared/dialog/services';
@@ -28,9 +30,6 @@ import { Vote } from '~shared/rating/services/rating.service';
 import { ID } from '~utils';
 import { ReviewRequestReplyDlgComponent } from '../custom-dialogs/review-request-reply-dlg/review-request-reply-dlg.component';
 import { SupplierRequestDialogComponent } from '../custom-dialogs/supplier-request-dialog/supplier-request-dialog.component';
-import { Typename } from '~core/erm3/typename.type';
-import { error } from 'util';
-import { Entity } from '~core/erm3/models/_entity.model';
 
 /**
  * Service used to open dialogs, the goal of this service is to bring easy typing
@@ -57,7 +56,11 @@ export class DialogCommonService {
 		}
 	}
 
-	/** open a commun selection dialog. The typename should be Product | Project */
+	/**
+	 * open a commun selection dialog.
+	 * @param typename: should be Product | Project
+	 * @returns an observable who stream CloseEvent, with selecteds if close is OK
+	 */
 	openSelectionDlg<T extends Entity>(typename: Typename, initialSelecteds?: T[]) {
 		const dlgComponent = selectionDialogs[`${typename}SelectionDialogComponent`];
 		if (!dlgComponent) throw error(`There is no Selection Dialog for the typename: ${typename}`);

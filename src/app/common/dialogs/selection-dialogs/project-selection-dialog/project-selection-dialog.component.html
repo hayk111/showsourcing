@@ -1,7 +1,7 @@
 <dialog-app contentOverflow="hidden" [hasBorder]="false">
 	<dialog-header-app translate="Select Projects"></dialog-header-app>
 
-<controller-table-app>
+<controller-table-app [total]="listHelper.total$ | async">
 		<controller-table-quick-filters-app></controller-table-quick-filters-app>
 		<controller-table-quick-actions-app></controller-table-quick-actions-app>
 	</controller-table-app>
@@ -10,29 +10,24 @@
 	<div class="flex table-ctnr">
 
 		<projects-table-app
-			[hasShowItemsPerPage]="false"
 			[hasMenu]="false"
 			[hasPagination]="false"
 			[navigation]="false"
 			[selection]="selectionSrv.selection$ | async"
 			[rows]="listHelper.filteredItems$ | async"
 			[pending]="listHelper.pending$ | async"
-			(select)="select($event)"
-			(unselect)="unselect($event)"
-			(selectAll)="selectAll($event)"
-			(unselectAll)="unselectAll()"
+			(selectAll)="selectionSrv.selectAll($event)"
+			(unselect)="selectionSrv.unselectOne($event)"
+			(unselectAll)="selectionSrv.unselectAll()"
+			(select)="selectionSrv.selectOne($event)"
+			(update)="listHelper.update($event)"
 			(delete)="listHelper.delete($event)">
 		</projects-table-app>
-			<!-- [total]="listSrv.count$ | async" -->
-			<!-- [currentSort]="listSrv.currentSort" -->
-			<!-- [currentPage]="listSrv.currentPage" -->
-			<!-- (goToPage)="listSrv.loadPage($event)" -->
-			<!-- (sort)="listSrv.sort($event)" -->
 
 		<filters-app
 			*ngIf="viewSrv.filterPanelOpen"
 			[filterTypes]="filterTypes"
-			[sidePanel]="false"
+			[sidePanel]="true"
 			(close)="viewSrv.closeFilterPanel()">
 		</filters-app>
 
@@ -40,27 +35,26 @@
 
 
 	<dialog-footer-app class="flexVAlign flexBetween pagination-footer">
-		<!-- <pagination-app
-			[total]="listSrv.count$ | async"
+		<pagination-app
 			[hasPageItemsCount]="false"
 			[hasTopPadding]="false"
-			(goToPage)="listSrv.loadPage($event)">
-		</pagination-app> -->
+		>
+		</pagination-app>
+
 		<div class="flex flexVAlign">
 			<div class="product-action">
-				<span class="selected-product-count">{{ selectedProjectsCount }}</span>
-				<span class="selected-product">Project Selected</span>
+				<span class="selected-product-count">{{ (selectionSrv.selection$ | async).size }}</span>
+				<!-- TODO Translate -->
+				<span class="selected-product">Project Selected </span>
 			</div>
-			<button class="primary-light cancel secondary capitalize" (click)="cancel()" translate="button.cancel"></button>
-			<button class="add-to-project capitalize" (click)="submit()" translate="button.add-to-project"></button>
+						<divider-app [vertical]="true"></divider-app>
+			<button
+				class="capitalize primary"
+				(click)="done()"
+				translate="button.done"
+			></button>
 		</div>
 	</dialog-footer-app>
-
-	<ng-template #footer>
-		<div class="flexVAlign">
-
-		</div>
-	</ng-template>
 
 	<ng-template #spinner>
 		<spinner-app></spinner-app>

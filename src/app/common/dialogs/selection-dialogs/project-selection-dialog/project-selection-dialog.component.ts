@@ -1,45 +1,27 @@
-import {
-	ChangeDetectionStrategy,
-	Component,
-	Input,
-	OnInit
-} from '@angular/core';
-import { ProductDialogService } from '~common/dialogs/services/product-dialog.service';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { CloseEventType } from '~shared/dialog';
 import { DialogService } from '~shared/dialog/services';
-import { ToastService, ToastType } from '~shared/toast';
 import { AutoUnsub } from '~utils';
 import { SelectionService, ListHelperService, ListPageViewService } from '~core/list-page2';
 import { Project, Product } from '~core/erm3/models';
+import { FilterType } from '~core/filters';
 
 @Component({
 	selector: 'product-add-to-project-dlg-app',
 	templateUrl: './project-selection-dialog.component.html',
 	styleUrls: ['./project-selection-dialog.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [
-		SelectionService, ListHelperService
-	],
+	providers: [SelectionService, ListHelperService],
 	host: { class: 'table-dialog' }
 })
-export class ProjectSelectionDialogComponent extends AutoUnsub
-	implements OnInit {
-	@Input() initialSelectedProjects: Project[];
-	@Input() products: Product[];
+export class ProjectSelectionDialogComponent extends AutoUnsub implements OnInit {
+	@Input() initialSelecteds: Project[];
 
 	selected = {};
-	filterTypes = [
-		// FilterType.CREATED_BY
-	];
-	// erm = ERM;
-
-	// private projectCount = DEFAULT_TAKE_PAGINATION;
-	selectedProjectsCount = 0;
+	filterTypes = [FilterType.CREATED_BY];
 
 	constructor(
 		private dlgSrv: DialogService,
-		private productDlgSrv: ProductDialogService,
-		private toastSrv: ToastService,
 		public listHelper: ListHelperService,
 		public selectionSrv: SelectionService,
 		public viewSrv: ListPageViewService<Product>
@@ -49,91 +31,14 @@ export class ProjectSelectionDialogComponent extends AutoUnsub
 
 	ngOnInit() {
 		this.listHelper.setup('Project');
-		this.initialSelection();
+		this.selectionSrv.selectAll(this.initialSelecteds);
 	}
 
-	select(project: Project) {
-		// this.selected[project.id] = project;
-		// this.selectionSrv.selectOne(project);
-		// ++this.selectedProjectsCount;
-	}
-
-	unselect(project: Project) {
-		// delete this.selected[project.id];
-		// this.selectionSrv.unselectOne(project);
-		// --this.selectedProjectsCount;
-	}
-
-	private initialSelection() {
-		// if (
-		// 	this.initialSelectedProjects &&
-		// 	this.initialSelectedProjects.length > 0
-		// ) {
-		// 	this.selectedProjectsCount = this.initialSelectedProjects.length;
-
-		// 	this.selectionSrv.selectAll(
-		// 		this.initialSelectedProjects.map(project => {
-		// 			this.selected[project.id] = project;
-
-		// 			return { id: project.id };
-		// 		})
-		// 	);
-		// }
-	}
-
-	selectAll(projects: Project[]) {
-		// this.selectionSrv.selectAll(projects);
-
-		// projects.forEach(project => {
-		// 	this.selected[project.id] = project;
-		// 	delete this.unselect[project.id];
-		// });
-
-		// this.selectedProjectsCount = projects.length;
-	}
-
-	unselectAll() {
-		// this.selectionSrv.unselectAll();
-		// this.selected = {};
-		// this.selectedProjectsCount = 0;
-	}
-
-	create() {
-		// setTimeout(() => {
-		// 	this.listSrv.create(false, {
-		// 		onProjectCreated: (project: Project) => {
-		// 			this.selected[project.id] = { ...project };
-		// 			const selectedProjects = <Project[]>Object.values(this.selected);
-		// 			this.productDlgSrv
-		// 				.addProjectsToProducts(selectedProjects, this.products)
-		// 				.subscribe();
-		// 		}
-		// 	});
-		// });
-	}
-
-	cancel() {
-		this.dlgSrv.close({ type: CloseEventType.OK });
+	done() {
+		this.dlgSrv.close({ type: CloseEventType.OK, data: this.selectionSrv.getSelectedValues() });
 	}
 
 	submit() {
-		// we add each project one by one to the store
-		const selectedProjects = <Project[]>Object.values(this.selected);
-
-		let addedProjects = [...selectedProjects];
-
-		if (this.initialSelectedProjects) {
-			addedProjects = addedProjects.filter(project => {
-				return !this.initialSelectedProjects.find(
-					elem => elem.id === project.id
-				);
-			});
-		}
-		this.dlgSrv.close({
-			type: CloseEventType.OK,
-			data: { selectedProjects, products: this.products }
-		});
-
 		// this.productDlgSrv
 		// 	.addProjectsToProducts(addedProjects, this.products)
 		// 	.subscribe(projects => {
