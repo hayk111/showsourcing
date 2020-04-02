@@ -104,6 +104,7 @@ app-build-dev:
       - dist
   only:
     - development
+    - migration-amplify
 
 app-build-sta:
   stage: build
@@ -122,6 +123,16 @@ app-build-sta:
     - master
 
 # deployment
+app-deploy-migration:
+  image: cedvdb/ss-gitlab-pipeline-docker
+  stage: deploy
+  allow_failure: false
+  script:
+    - cd dist/showsourcing
+    - aws s3 sync . s3://app2.showsourcing.com --delete
+  only:
+    - migration-amplify
+
 app-deploy-dev:
   image: cedvdb/ss-gitlab-pipeline-docker
   stage: deploy
@@ -137,6 +148,7 @@ app-deploy-dev:
 app-deploy-sta:
   stage: deploy
   allow_failure: false
+  when: manual
   script:
     - cd dist/showsourcing
     - aws s3 sync . s3://app-sta.showsourcing.com --delete
