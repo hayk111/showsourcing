@@ -1,10 +1,14 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { DialogService } from '~shared/dialog';
+import { DialogService, CloseEventType } from '~shared/dialog';
 import {
 	ProductSelectionDialogComponent,
-	ProjectSelectionDialogComponent,
-	TemplateMngmtDlgComponent
+	ProjectSelectionDialogComponent
 } from '~common/dialogs/selection-dialogs';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
+import { Typename } from '~core/erm3/typename.type';
+import { Product, Project } from '~core/erm3/models';
+import { tap, filter } from 'rxjs/operators';
+import { TemplateMngmtDlgComponent } from '~common/dialogs/custom-dialogs';
 
 @Component({
 	selector: 'app-dialog-page',
@@ -12,21 +16,35 @@ import {
 	styleUrls: ['./dialog-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DialogPageComponent implements OnInit {
-	constructor(public dlgSrv: DialogService) {}
+export class DialogPageComponent {
+	constructor(public dlgSrv: DialogService, private dlgCommonSrv: DialogCommonService) {}
 
-	ngOnInit() {}
+	testSelectProducts: Product[] = [];
+	testSelectProjects: Project[] = [];
 
-	openProductSelectorDlg() {
-		this.dlgSrv.open(ProductSelectionDialogComponent, {
-			initialSelectedProducts: [],
-			submitProducts: false
-		});
+	selectProducts() {
+		const selectedProducts$ = this.dlgCommonSrv.openSelectionDlg(
+			'Product',
+			this.testSelectProducts
+		);
+		selectedProducts$
+			.pipe(
+				filter(({ type }) => CloseEventType.OK === type),
+				tap(({ data }) => console.log(data))
+			)
+			.subscribe(({ data }) => (this.testSelectProducts = data || []));
 	}
-	openAddToProjectDlg() {
-		this.dlgSrv.open(ProjectSelectionDialogComponent, { product: [], initialSelectedProjects: [] });
-	}
-	openTemplateManagementDlg() {
-		this.dlgSrv.open(TemplateMngmtDlgComponent);
+
+	selectProjects() {
+		const selectedProjects$ = this.dlgCommonSrv.openSelectionDlg(
+			'Project',
+			this.testSelectProjects
+		);
+		selectedProjects$
+			.pipe(
+				filter(({ type }) => CloseEventType.OK === type),
+				tap(({ data }) => console.log(data))
+			)
+			.subscribe(({ data }) => (this.testSelectProjects = data || []));
 	}
 }

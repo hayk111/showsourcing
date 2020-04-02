@@ -49,24 +49,11 @@
 	<div class="flex flexVAlign">
 			<div class="product-action">
 				<span class="selected-product capitalize">
-					{{ 'OBJ.n-product-selected.singular' | translate: { count: selectedProductsCount || 0 } }}
+					{{ 'OBJ.n-product-selected.singular' | translate: { count: (selectionSrv.selection$|async).size || 0 } }}
 				</span>
 			</div>
 			<divider-app [vertical]="true"></divider-app>
 			<button
-				*ngIf="submitProducts"
-				class="cancel capitalize light"
-				(click)="cancel()"
-				translate="button.cancel"
-			></button>
-			<button
-				*ngIf="submitProducts"
-				class="add-to-project capitalize primary"
-				(click)="submit()"
-				translate="button.add-to-project"
-			></button>
-			<button
-				*ngIf="!submitProducts"
 				class="capitalize primary"
 				(click)="done()"
 				translate="button.done"

@@ -40,13 +40,13 @@ export class ProjectFeatureService extends ProjectService {
 
 	/** Open the find products dialog and passing selected products to it */
 	openFindProductDlg(project: Project) {
-		if (project) {
-			return this.getProjectProducts(project).pipe(
-				first(),
-				switchMap((products: Product[]) => this.dialogCommonSrv.openSelectProductDlg(products, project)),
-				switchMap((data: any) => this.manageProjectsToProductsAssociations([project], data.data))
-			);
-		} return of();
+		// if (project) {
+		// 	return this.getProjectProducts(project).pipe(
+		// 		first(),
+		// 		switchMap((products: Product[]) => this.dialogCommonSrv.openSelectProductDlg(products, project)),
+		// 		switchMap((data: any) => this.manageProjectsToProductsAssociations([project], data.data))
+		// 	);
+		// } return of();
 	}
 
 	/**

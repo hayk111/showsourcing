@@ -29,6 +29,7 @@ import { ReviewRequestReplyDlgComponent } from './review-request-reply-dlg/revie
 import { ProductRequestListComponent } from './supplier-request-dialog/product-request-list/product-request-list.component';
 import { SupplierRequestDialogComponent } from './supplier-request-dialog/supplier-request-dialog.component';
 import { VoteDetailsDialogComponent } from './vote-details-dialog/vote-details-dialog.component';
+import { TemplateMngmtDlgComponent } from './template-mngmt-dlg/template-mngmt-dlg.component';
 
 const modals = [
 	ChangePswdDlgComponent,
@@ -46,7 +47,8 @@ const modals = [
 	RequestReplyDlgComponent,
 	ReviewRequestReplyDlgComponent,
 	SupplierRequestDialogComponent,
-	VoteDetailsDialogComponent
+	VoteDetailsDialogComponent,
+	TemplateMngmtDlgComponent
 ];
 
 @NgModule({
