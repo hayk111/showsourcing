@@ -72,6 +72,7 @@ export class DialogCommonService {
 		return this.dlgSrv.open(ProductRequestTeamFeedbackDlgComponent, { products });
 	}
 
+	// AddProductToProject
 	openSelectProductDlg(initialSelectedProducts?: Product[], project?: Project, submitProducts = true) {
 		return this.dlgSrv.open(ProductSelectionDialogComponent, {
 			project,
@@ -134,9 +135,6 @@ export class DialogCommonService {
 	}
 
 	openEditionDlg() {}
-
-	openSelectionDlg(typename: Typename) { // should be Product | Project
-	}
 
 	openSupplierRequest(products: Product[], supplier?: Supplier) {
 		return this.dlgSrv.open(SupplierRequestDialogComponent, { products, supplier });

@@ -1,8 +1,7 @@
 <dialog-app [hasBorder]="false" contentOverflow="hidden">
 	<dialog-header-app translate="header.select-products"></dialog-header-app>
 
-	<controller-table-app  >
-<!-- [total]="listHelper.total$ | async" -->
+	<controller-table-app [total]="listHelper.total$ | async">
 		<controller-table-quick-filters-app
 			[quickFilters]="['assignee']"
 		></controller-table-quick-filters-app>
@@ -18,15 +17,11 @@
 		<products-table-app
 			class="list-view"
 			[rows]="listHelper.filteredItems$ | async"
-			[hasShowItemsPerPage]="false"
-			[hasPagination]="false"
 			[hasMenu]="false"
 			[pending]="listHelper.pending$ | async"
 			[selection]="selectionSrv.selection$ | async"
-			(goToPage)="loadPage($event)"
 			(delete)="listHelper.delete($event)"
 			(update)="listHelper.update($event)"
-			(showItemsPerPage)="showItemsPerPage($event)"
 			(select)="selectionSrv.selectOne($event)"
 			(selectAll)="selectionSrv.selectAll($event)"
 			(unselect)="selectionSrv.unselectOne($event)"
@@ -35,7 +30,6 @@
 			(previewClick)="viewSrv.openPreview($event)"
 		>
 		</products-table-app>
-		<!-- [total]="listSrv.count$ | async" -->
 		<!-- [currentSort]="listSrv.currentSort" -->
 		<!-- (bottomReached)="listSrv.loadMore()" -->
 		<!-- (sort)="listSrv.sort($event)" -->
@@ -50,7 +44,7 @@
 	</div>
 
 	<dialog-footer-app class="flexVAlign flexBetween pagination-footer">
-		<!-- <pagination-app
+	<!-- <pagination-app
 			[total]="listSrv.count$ | async"
 			[currentPage]="listSrv.currentPage"
 			[hasPageItemsCount]="false"
@@ -58,7 +52,7 @@
 			(goToPage)="listSrv.loadPage($event)"
 		>
 		</pagination-app> -->
-		<div class="flex flexVAlign">
+	<div class="flex flexVAlign">
 			<div class="product-action">
 				<span class="selected-product capitalize">
 					{{ 'OBJ.n-product-selected.singular' | translate: { count: selectedProductsCount || 0 } }}

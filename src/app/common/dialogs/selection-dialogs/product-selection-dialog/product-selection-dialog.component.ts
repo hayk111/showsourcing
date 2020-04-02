@@ -56,10 +56,6 @@ export class ProductSelectionDialogComponent extends AutoUnsub implements OnInit
 	// private selectedAllCount = DEFAULT_TAKE_PAGINATION;
 
 	constructor(
-		private dlgSrv: DialogService,
-		private userSrv: UserService,
-		private productDlgSrv: ProductDialogService,
-		private toastSrv: ToastService,
 		public listHelper: ListHelperService,
 		public selectionSrv: SelectionService,
 		public viewSrv: ListPageViewService<Product>
@@ -71,7 +67,7 @@ export class ProductSelectionDialogComponent extends AutoUnsub implements OnInit
 
 	ngOnInit() {
 		// this.initialSelection();
-		this.listHelper.setup('Product');
+		this.listHelper.setup('Project');
 	}
 
 	searchProduct(value) {

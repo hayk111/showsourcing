@@ -18,6 +18,8 @@ export class ListHelperService<G = any> {
 	private typename: Typename;
 	private _pending$ = new BehaviorSubject<boolean>(true);
 	pending$ = this._pending$.asObservable();
+	private _total$ = new BehaviorSubject(0);
+	total$ = this._total$.asObservable();
 	/** the filtered items */
 	filteredItems$ = combineLatest(
 		this.filterSrv.valueChanges$,
@@ -36,6 +38,7 @@ export class ListHelperService<G = any> {
 		),
 		// save it
 		tap(query => this.queryRef = query),
+		tap(query => query.total$.subscribe(total => this._total$.next(total))),
 		// add total to the paginationSrv
 		tap(query => this.paginationSrv.init(query.total$)),
 		// add the next token for infiniscroll
