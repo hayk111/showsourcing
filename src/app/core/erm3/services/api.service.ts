@@ -146,11 +146,20 @@ export class ApiService {
 	search<T>(
 		typename: Typename,
 		variables: FilterParams,
-		apiOptions: ApiQueryOption = {}
+		apiOptions: ApiQueryOption = {},
+		byTypeName?: Typename,
+		byIds?: string[]
 	): ObservableQuery<T[]> {
 		const options = apiOptions as WatchQueryOptions;
 		options.variables = variables;
-		options.query = QueryPool.getQuery(typename, QueryType.SEARCH);
+
+		if (byTypeName) {
+			const queryBuilder = QueryPool.getQuery(typename, QueryType.SEARCH_BY_TYPE);
+			options.query = queryBuilder(byTypeName)(byIds);
+		} else {
+			options.query = QueryPool.getQuery(typename, QueryType.SEARCH);
+		}
+
 		const query = this.query<T[]>(options);
 		query.total$ = query.response$.pipe(map(r => r.total));
 		return query;

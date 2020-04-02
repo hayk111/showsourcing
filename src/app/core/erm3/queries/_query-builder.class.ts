@@ -42,7 +42,7 @@ export class QueryBuilder {
 					${AUDIT}
 				}
 			}`;
-	};
+	}
 
 	// search // TODO update to fit the new environment when we have search queries
 	[QueryType.SEARCH] = (str: string) => {
@@ -68,7 +68,32 @@ export class QueryBuilder {
 					total
 				}
 			}`;
-	};
+	}
+
+	[QueryType.SEARCH_BY_TYPE] = (str: string) => (byTypeName: Typename) => (byIds: string[]) => {
+		return gql`
+			query Search${this.typename}sBy${byTypeName}s(
+				$teamIds: [String!]!
+				$filter: Searchable${this.typename}FilterInput
+				$sort: Searchable${this.typename}SortInput
+				$take: Int
+			) {
+				search${this.typename}sBy${byTypeName}s(
+					teamIds: $teamIds
+					filter: $filter
+					sort: $sort
+					take: $take
+				) {
+					${byTypeName.toLowerCase()}Ids: ${byIds}
+					items {
+						id
+						${str}
+						${AUDIT}
+					}
+					total
+				}
+			}`;
+	}
 
 	[QueryType.LIST_BY] = (str: string): Record<string, any> => (byProperty: string) => {
 		const ownerVerbose = byProperty === 'Owner' ? 'User' : ''; // the param for Owner is $ownerUser
@@ -97,7 +122,7 @@ export class QueryBuilder {
 					startedAt
 				}
 			}`;
-	};
+	}
 
 	[QueryType.CREATE] = (str: string) => {
 		return gql`
@@ -110,7 +135,7 @@ export class QueryBuilder {
 					${AUDIT}
 				}
 			}`;
-	};
+	}
 
 	[QueryType.UPDATE] = (str: string) => {
 		return gql`
@@ -123,7 +148,7 @@ export class QueryBuilder {
 					${AUDIT}
 				}
 			}`;
-	};
+	}
 
 	[QueryType.DELETE] = (str = '') => {
 		return gql`
@@ -136,5 +161,5 @@ export class QueryBuilder {
 					${AUDIT}
 				}
 			}`;
-	};
+	}
 }

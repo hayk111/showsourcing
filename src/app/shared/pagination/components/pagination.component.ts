@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output, TemplateRef, ChangeDetectorRef, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges,
+	Output, TemplateRef, ChangeDetectorRef, OnInit } from '@angular/core';
 import { DEFAULT_TAKE_PAGINATION } from '~core/erm';
 import { TrackingComponent } from '~utils';
 import { PaginationService } from '~shared/pagination/services/pagination.service';

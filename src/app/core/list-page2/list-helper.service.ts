@@ -9,6 +9,7 @@ import { FilterService } from '~core/filters/filter.service';
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { SortService } from '~shared/table/services/sort.service';
 import { SelectionService } from './selection.service';
+import { TeamService } from '~core/auth';
 import { PaginationService } from '~shared/pagination/services/pagination.service';
 
 @Injectable({ providedIn: 'root' })
@@ -32,7 +33,7 @@ export class ListHelperService<G = any> {
 				limit,
 				from: page * limit,
 				sort
-			})
+			}, {}, ...this.getSearchByForEntity(this.typename))
 		),
 		// save it
 		tap(query => this.queryRef = query),
@@ -101,6 +102,15 @@ export class ListHelperService<G = any> {
 		forkJoin(all).pipe(
 			switchMap(_ => this.refetch())
 		).subscribe();
+	}
+
+	getSearchByForEntity(typename: Typename): Array<any> {
+		switch (typename) {
+			case 'Product':
+				return ['Team', [TeamService.teamSelected.id]];
+			default:
+				return [];
+		}
 	}
 
 	loadMore() {
