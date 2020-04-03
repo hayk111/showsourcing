@@ -1,6 +1,6 @@
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { OverlayModule } from '@angular/cdk/overlay';
-import { ScrollDispatchModule, ScrollingModule } from '@angular/cdk/scrolling';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CommonModule, DatePipe } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -71,7 +71,6 @@ const modules = [
 	// cdk modules
 	DragDropModule,
 	OverlayModule,
-	ScrollDispatchModule,
 	ScrollingModule,
 
 	// shared modules
