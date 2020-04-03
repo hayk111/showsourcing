@@ -3,7 +3,7 @@
 	<controller-table-app [hasExtra]="true">
 		<controller-table-quick-filters-app [quickFilters]="['assignee']"></controller-table-quick-filters-app>
 		<div class="extra">
-			<button (click)="dialogCommonSrv.openSelectProductDlg([], project)">Add Product</button>
+			<button (click)="listHelper.create()">Add Product</button>
 		</div>
 		<controller-table-quick-actions-app
 			[columns]="columns"

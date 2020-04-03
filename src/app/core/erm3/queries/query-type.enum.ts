@@ -3,7 +3,7 @@
 export enum QueryType {
 	GET = 'get',
 	SEARCH = 'search',
-	SEARCH_BY_TYPE = 'searchByType',
+	SEARCH_BY = 'searchBy',
 	CREATE = 'create',
 	UPDATE = 'update',
 	DELETE = 'delete',

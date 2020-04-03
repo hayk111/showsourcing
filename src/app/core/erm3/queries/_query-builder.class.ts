@@ -70,27 +70,22 @@ export class QueryBuilder {
 			}`;
 	}
 
-	[QueryType.SEARCH_BY_TYPE] = (str: string) => (byTypeName: Typename) => (byIds: string[]) => {
+	[QueryType.SEARCH_BY] = (str: string) => (byTypeName: Typename, byIds: string[]) => {
 		return gql`
 			query Search${this.typename}sBy${byTypeName}s(
 				$${byTypeName.toLowerCase()}Ids: [String!]!
-				$filter: Searchable${this.typename}FilterInput
-				$sort: Searchable${this.typename}SortInput
 				$take: Int
 			) {
 				search${this.typename}sBy${byTypeName}s(
 					${byTypeName.toLowerCase()}Ids: $${byTypeName.toLowerCase()}Ids
-					filter: $filter
-					sort: $sort
+					sort: {property: "price.value", direction: ASC}
 					take: $take
 				) {
-					${byTypeName.toLowerCase()}Ids: ${byIds}
 					items {
 						id
 						${str}
 						${AUDIT}
 					}
-					total
 				}
 			}`;
 	}

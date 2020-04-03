@@ -13,7 +13,7 @@ export class BaseQueries {
 		protected queries: QueryType[] = [
 			QueryType.GET,
 			QueryType.SEARCH,
-			QueryType.SEARCH_BY_TYPE,
+			QueryType.SEARCH_BY,
 			QueryType.LIST_BY,
 			QueryType.CREATE,
 			QueryType.UPDATE,

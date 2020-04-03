@@ -154,8 +154,12 @@ export class ApiService {
 		options.variables = variables;
 
 		if (byTypeName) {
-			const queryBuilder = QueryPool.getQuery(typename, QueryType.SEARCH_BY_TYPE);
-			options.query = queryBuilder(byTypeName)(byIds);
+			const queryBuilder = QueryPool.getQuery(typename, QueryType.SEARCH_BY);
+			options.query = queryBuilder(byTypeName, byIds);
+			options.variables = {
+				[byTypeName.toLowerCase() + 'Ids']: byIds,
+				take: 2
+			};
 		} else {
 			options.query = QueryPool.getQuery(typename, QueryType.SEARCH);
 		}
@@ -210,7 +214,7 @@ export class ApiService {
 			entity.id = uuid();
 			entity.createdAt = new Date().toISOString();
 			entity.lastUpdatedAt = new Date().toISOString();
-			entity.deleted = false;
+			// entity.deleted = false;
 			entity.createdByUserId = this._userId;
 			entity.lastUpdatedByUserId = this._userId;
 			entity.teamId = this._teamId;
