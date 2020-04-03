@@ -17,10 +17,7 @@ export class DefaultCreationDialogComponent implements AfterViewInit {
 	});
 	pending = false;
 	@Input() typename: Typename;
-	// extra properties to put on the object
-	@Input() extra: any;
-	/** whether we display buttons create & stay + create & go */
-	@Input() canRedirect = false;
+
 	@ViewChild(InputDirective, { static: false }) input: InputDirective;
 
 	constructor(
@@ -40,7 +37,7 @@ export class DefaultCreationDialogComponent implements AfterViewInit {
 		this.pending = true;
 		this.dialogSrv.close({
 			type: CloseEventType.OK,
-			data: { name, ...this.extra }
+			data: { name }
 		});
 	}
 

@@ -1,14 +1,8 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { DialogService, CloseEventType } from '~shared/dialog';
-import {
-	ProductSelectionDialogComponent,
-	ProjectSelectionDialogComponent
-} from '~common/dialogs/selection-dialogs';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { tap } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { Typename } from '~core/erm3/typename.type';
 import { Product, Project } from '~core/erm3/models';
-import { tap, filter } from 'rxjs/operators';
-import { TemplateMngmtDlgComponent } from '~common/dialogs/custom-dialogs';
+import { DialogService } from '~shared/dialog';
 
 @Component({
 	selector: 'app-dialog-page',
@@ -19,32 +13,20 @@ import { TemplateMngmtDlgComponent } from '~common/dialogs/custom-dialogs';
 export class DialogPageComponent {
 	constructor(public dlgSrv: DialogService, private dlgCommonSrv: DialogCommonService) {}
 
-	testSelectProducts: Product[] = [];
-	testSelectProjects: Project[] = [];
+	selectedProducts: Product[] = [];
+	selectedProjects: Project[] = [];
 
 	selectProducts() {
-		const selectedProducts$ = this.dlgCommonSrv.openSelectionDlg(
-			'Product',
-			this.testSelectProducts
-		);
+		const selectedProducts$ = this.dlgCommonSrv.openSelectionDlg('Product', this.selectedProducts);
 		selectedProducts$
-			.pipe(
-				filter(({ type }) => CloseEventType.OK === type),
-				tap(({ data }) => console.log(data))
-			)
-			.subscribe(({ data }) => (this.testSelectProducts = data || []));
+			.pipe(tap(({ data }) => console.log(data)))
+			.subscribe(({ data }) => (this.selectedProducts = data || []));
 	}
 
 	selectProjects() {
-		const selectedProjects$ = this.dlgCommonSrv.openSelectionDlg(
-			'Project',
-			this.testSelectProjects
-		);
+		const selectedProjects$ = this.dlgCommonSrv.openSelectionDlg('Project', this.selectedProjects);
 		selectedProjects$
-			.pipe(
-				filter(({ type }) => CloseEventType.OK === type),
-				tap(({ data }) => console.log(data))
-			)
-			.subscribe(({ data }) => (this.testSelectProjects = data || []));
+			.pipe(tap(({ data }) => console.log(data)))
+			.subscribe(({ data }) => (this.selectedProjects = data || []));
 	}
 }
