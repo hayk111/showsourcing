@@ -46,11 +46,7 @@ export class ProductSelectionDialogComponent extends AutoUnsub implements OnInit
 		this.selectionSrv.selectAll(this.initialSelecteds);
 	}
 
-	cancel() {
-		this.dlgSrv.close({ type: CloseEventType.CANCEL });
-	}
-
-	submit() {
+	// submit() {
 		// const selectedProducts = Object.values(this.selectedProducts);
 		// const unselectedProducts = Object.values(this.unselectedProducts);
 		// const data = { selectedProducts, unselectedProducts };
@@ -68,8 +64,9 @@ export class ProductSelectionDialogComponent extends AutoUnsub implements OnInit
 		// 			timeout: 3500
 		// 		});
 		// 	});
-	}
+	// }
 
+	/** close the dialog, send type "OK" and data (entities selecteds) to the observable returned by commonDlg.openSelectionDlg()  */
 	done() {
 		this.dlgSrv.close({ type: CloseEventType.OK, data: this.selectionSrv.getSelectedValues() });
 	}

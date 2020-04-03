@@ -48,7 +48,7 @@ export class DialogCommonService {
 	// 	return this.dlgSrv.open(CreationDialogComponent, { shouldRedirect, typename });
 	// }
 
-	openCreationDlg(typename: Typename) {
+	openCreationDlg(typename?: Typename) {
 		switch (typename) {
 			// Add other cases after
 			default:
@@ -57,7 +57,7 @@ export class DialogCommonService {
 	}
 
 	/**
-	 * open a commun selection dialog.
+	 * Open a dialog for select some entities through a table
 	 * @param typename: should be Product | Project
 	 * @returns an observable who stream CloseEvent, with selecteds if close is OK
 	 */
@@ -66,24 +66,6 @@ export class DialogCommonService {
 		if (!dlgComponent) throw error(`There is no Selection Dialog for the typename: ${typename}`);
 		return this.dlgSrv.open(dlgComponent, { initialSelecteds });
 	}
-
-	// /** Opens a dialog that lets the user add different products to different projects (many to many) */
-	// openAddToProjectDialog(products?: Product[], initialSelectedProjects?: Project[]) {
-	// 	return this.dlgSrv.open(ProjectSelectionDialogComponent, { products, initialSelectedProjects });
-	// }
-
-	// // AddProductToProject
-	// openSelectProductDlg(
-	// 	initialSelectedProducts?: Product[],
-	// 	project?: Project,
-	// 	submitProducts = true
-	// ) {
-	// 	return this.dlgSrv.open(ProductSelectionDialogComponent, {
-	// 		project,
-	// 		initialSelectedProducts,
-	// 		submitProducts
-	// 	});
-	// }
 
 	/** opens the edit dialog, to change the name of an entity, if the enitty does not have a name attribute check Event model for example*/
 	openEditDlg(entity: any, entityMetadata: EntityMetadata) {

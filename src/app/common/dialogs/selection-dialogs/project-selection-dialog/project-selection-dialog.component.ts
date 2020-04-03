@@ -37,11 +37,12 @@ export class ProjectSelectionDialogComponent extends AutoUnsub implements OnInit
 		this.selectionSrv.selectAll(this.initialSelecteds);
 	}
 
+	/** close the dialog, send type "OK" and data (entities selecteds) to the observable returned by commonDlg.openSelectionDlg()  */
 	done() {
 		this.dlgSrv.close({ type: CloseEventType.OK, data: this.selectionSrv.getSelectedValues() });
 	}
 
-	submit() {
+	// submit() {
 		// this.productDlgSrv
 		// 	.addProjectsToProducts(addedProjects, this.products)
 		// 	.subscribe(projects => {
@@ -56,5 +57,5 @@ export class ProjectSelectionDialogComponent extends AutoUnsub implements OnInit
 		// 			timeout: 3500
 		// 		});
 		// 	});
-	}
+	// }
 }
