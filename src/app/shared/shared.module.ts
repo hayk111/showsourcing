@@ -59,6 +59,8 @@ import { TableModule } from './table/table.module';
 import { ToastModule } from './toast';
 import { HttpClientModule } from '@angular/common/http';
 import { DescriptorModule } from './descriptor/descriptor.module';
+import { TemplateModule } from './template';
+import { SideBarModule } from './side-bar';
 
 // those modules are used so commonly that we will just import the shared module
 const modules = [
@@ -117,9 +119,11 @@ const modules = [
 	SelectorsModule,
 	SideMenuModule, // TODO: not used but the alternative sidenav isn't great
 	SidenavModule,
+	SideBarModule,
 	StageIndicatorModule,
 	StatusSelectorModule,
 	TableModule,
+	TemplateModule,
 	ToastModule,
 	PaginationModule,
 	HeaderListModule,

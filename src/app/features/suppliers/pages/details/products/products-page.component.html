@@ -1,5 +1,5 @@
 
-<controller-table-app [total]="listHelper.total$ | async">
+<controller-table-app>
 	<!-- filters -->
 	<controller-table-quick-filters-app></controller-table-quick-filters-app>
 	<!-- actions -->
@@ -13,9 +13,8 @@
 
 <products-table-app
 	[rows]="listHelper.filteredItems$ | async"
-	[pending]="listHelper.pending"
+	[pending]="listHelper.pending$ | async"
 	[selection]="selectionSrv.selection$ | async"
-	[total]="listHelper.total$ | async"
 	(createClick)="listHelper.create({ supplier: supplier })"
 	(open)="viewSrv.goToDetails($event)"
 	(previewClick)="viewSrv.openPreview($event)"

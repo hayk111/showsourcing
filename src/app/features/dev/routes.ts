@@ -30,11 +30,11 @@ export const routes: Array<Route> = [
 			{ path: 'colors', component: Pages.ColorsPageComponent },
 			{ path: 'spacing', component: Pages.SpacingPageComponent },
 			{ path: 'typography', component: Pages.TypographyPageComponent },
+			{ path: 'selector', component: Pages.SelectorPageComponent },
 			{ path: 'controller-table', component: Pages.ControllerTablePageComponent }
 			// { path: 'sample-card', component: Pages.SampleCardTestComponent },
 			// { path: 'preview', component: Pages.PreviewPageComponent },
 			// { path: 'product-card', component: Pages.ProductCardLibraryPageComponent },
-			// { path: 'selector', component: Pages.SelectorLibraryComponent },
 			// { path: 'kanban', component: Pages.KanbanLibraryPageComponent },
 			// { path: 'workflow-table', component: Pages.WorkflowMngmntTableLibComponent },
 		]

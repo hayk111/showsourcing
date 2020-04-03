@@ -26,7 +26,6 @@ export class CreationDialogComponent implements AfterViewInit {
 	constructor(
 		private fb: FormBuilder,
 		private dialogSrv: DialogService,
-		private apiSrv: ApiService
 	) {  }
 
 	ngAfterViewInit() {

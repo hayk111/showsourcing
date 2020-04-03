@@ -5,18 +5,13 @@
 	[isSeaching]="isFiltering"
 	[selected]="selection"
 	[hasMenu]="false"
-	[total]="total"
-	[currentPage]="currentPage"
 	[placeholder]="'placeholder.no-data' | translate"
-	(goToPage)="goToPage.emit($event)"
 	(selectOne)="select.emit($event)"
 	(unselectOne)="unselect.emit($event)"
 	(selectAll)="selectAll.emit($event)"
 	(unselectAll)="unselectAll.emit()"
 	(bottomReached)="bottomReached.emit()"
-	(sort)="sort.emit($event)"
 	(hovered)="onHover($event)"
-	(showItemsPerPage)="showItemsPerPage.emit($event)"
 	i18n-placeholder="@@no-data">
 
 	<!-- icon -->

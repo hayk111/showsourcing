@@ -4,10 +4,10 @@
 	logoTypename="Product"
 	info="The product database"
 	[buttonName]="'button.create-product' | translate"
-	(buttonClick)="listHelper.create('Product')">
+	(buttonClick)="listHelper.create()">
 </header-list-app>
 
-<controller-table-app [total]="listHelper.total$ | async">
+<controller-table-app>
 	<!-- filters -->
 	<controller-table-quick-filters-app></controller-table-quick-filters-app>
 	<!-- actions -->
@@ -20,24 +20,22 @@
 </controller-table-app>
 
 <products-table-app
-	[rows]="items$ | async"
-	[pending]="listHelper.pending"
+	[rows]="listHelper.filteredItems$ | async"
+	[pending]="listHelper.pending$ | async"
 	[selection]="selectionSrv.selection$ | async"
-	[total]="listHelper.total$ | async"
 	(open)="viewSrv.goToDetails($event)"
 	(createClick)="listHelper.create()"
 	(update)="listHelper.update($event)"
 	(previewClick)="viewSrv.openPreview($event)"
 	(select)="selectionSrv.selectOne($event)"
 	(selectAll)="selectionSrv.selectAll($event)"
-	(unselect)="selectionSrv.unselectOne($event)"
-	(showItemsPerPage)="listHelper.setItemsPerPage($event)">
+	(unselect)="selectionSrv.unselectOne($event)">
 </products-table-app>
 
 <product-selection-bar-app
 	[isShown]="(selectionSrv.selection$ | async).size"
 	[selection]="selectionSrv.selection$ | async"
-	[selectableItems]="items$ | async"
+	[selectableItems]="listHelper.filteredItems$ | async"
 	(addProject)="dialogCommonSrv.openAddToProjectDialog(selectionSrv.getSelectedValues())"
 	(export)="dialogCommonSrv.openExportDialog('Product', selectionSrv.getSelectedValues())"
 	(createRequest)="dialogCommonSrv.openSupplierRequest(selectionSrv.getSelectedValues())"

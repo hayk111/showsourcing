@@ -1,5 +1,4 @@
 import { EventEmitter, HostBinding, Input, OnInit, Output, TemplateRef } from '@angular/core';
-import { Sort } from '~shared/table/components/sort.interface';
 import { TrackingComponent } from '~utils/tracking-component';
 
 
@@ -33,10 +32,7 @@ export abstract class EntityTableComponent<T> extends TrackingComponent implemen
 	@Input() selection: Map<string, boolean>;
 	@Input() rows: Array<T>;
 	@Input() pending = true;
-	@Input() total: number;
 	@Input() skipped: number;
-	@Input() currentPage: number;
-	@Input() currentSort: Sort;
 	@Input() canUpdate = true;
 	@Input() isFiltering = false;
 	// VIEW
@@ -62,30 +58,17 @@ export abstract class EntityTableComponent<T> extends TrackingComponent implemen
 	@Output() unselectAll = new EventEmitter<Map<string, boolean>>();
 	@Output() update = new EventEmitter<T>();
 	@Output() bottomReached = new EventEmitter<string>();
-	@Output() sort = new EventEmitter<Sort>();
 	/** emits when a click has been performed on the placeholder */
 	@Output() createClick = new EventEmitter<null>();
 	@Output() delete = new EventEmitter<T>();
 	@Output() archive = new EventEmitter<T>();
 	// pagination
-	@Output() previous = new EventEmitter<undefined>();
-	@Output() next = new EventEmitter<undefined>();
-	@Output() goToPage = new EventEmitter<number>();
-	@Output() showItemsPerPage = new EventEmitter<number>();
 	@HostBinding('class.entity-table') entityTableClass = true;
 	/** id of the row being hovered */
 	hovered: string;
 
 	constructor() {
 		super();
-	}
-
-	previousPage() {
-		this.previous.emit();
-	}
-
-	nextPage() {
-		this.next.emit();
 	}
 
 	ngOnInit() {

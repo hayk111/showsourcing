@@ -14,7 +14,6 @@ import { GlobalServiceInterface } from '~core/erm';
 import { ListQuery } from '~core/erm';
 import { SelectParams, SelectParamsConfig } from '~core/erm';
 import { Filter, FilterList, FilterType } from '~shared/filters';
-import { Sort } from '~shared/table/components/sort.interface';
 import { log } from '~utils/log';
 
 /**
@@ -202,7 +201,7 @@ export class ListPageDataService<
 	}
 
 	/** Sorts items based on sort.sortBy */
-	sort(sort: Sort) {
+	sort(sort: any) {
 		this.selectParams = { ...this.selectParams, ...sort };
 		return this.refetch(this.selectParams);
 	}

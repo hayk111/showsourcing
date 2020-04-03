@@ -7,41 +7,53 @@ import { ApiService, ObservableQuery } from '~core/erm3/services/api.service';
 import { Typename } from '~core/erm3/typename.type';
 import { FilterService } from '~core/filters/filter.service';
 import { CloseEventType, DialogService } from '~shared/dialog';
+import { SortService } from '~shared/table/services/sort.service';
 import { SelectionService } from './selection.service';
+import { PaginationService } from '~shared/pagination/services/pagination.service';
 
 @Injectable({ providedIn: 'root' })
 export class ListHelperService<G = any> {
 	/** saving the queryRef for future referencing (refetch, add to cache) */
 	private queryRef: ObservableQuery<G[]>;
 	private typename: Typename;
-	pending = true;
-	/** total number of items */
-	total$: Observable<number>;
-	/** number of items taken at once */
-	private limit$ = new BehaviorSubject(25);
+	private _pending$ = new BehaviorSubject<boolean>(true);
+	pending$ = this._pending$.asObservable();
+	/** the filtered items */
 	filteredItems$ = combineLatest(
 		this.filterSrv.valueChanges$,
-		this.limit$
+		this.paginationSrv.page$,
+		this.paginationSrv.limit$,
+		this.sortSrv.sort$
 	).pipe(
 		// gets the query
-		map(([{ queryArg }, limit]) => this.apiSrv.search<G>(
-			this.typename, { filter: queryArg, limit })
+		map(([{ queryArg }, page, limit, sort]) => this.apiSrv.search<G>(
+			this.typename, {
+				filter: queryArg,
+				limit,
+				from: page * limit,
+				sort
+			})
 		),
 		// save it
 		tap(query => this.queryRef = query),
-		tap(query => this.total$ = query.total$),
+		// add total to the paginationSrv
+		tap(query => this.paginationSrv.init(query.total$)),
+		// add the next token for infiniscroll
+		// TODO
 		// return the result
 		switchMap(_ => this.queryRef.data$),
 		// setting pending to false because we received data
-		tap(_ => this.pending = false),
+		tap(_ => this._pending$.next(false)),
 		shareReplay(1)
 	);
 
 	constructor(
 		private selectionSrv: SelectionService,
+		private sortSrv: SortService,
+		private paginationSrv: PaginationService,
 		private apiSrv: ApiService,
 		private filterSrv: FilterService,
-		private dlgSrv: DialogService
+		private dlgSrv: DialogService,
 	) {}
 
 	setup(typename: Typename) {
@@ -49,9 +61,9 @@ export class ListHelperService<G = any> {
 	}
 
 	refetch(options?: WatchQueryOptions) {
-		this.pending = true;
+		this._pending$.next(true);
 		return this.queryRef.refetch({ ...options, fetchPolicy: 'network-only' })
-		.then(_ => this.pending = false);
+		.then(_ => this._pending$.next(false));
 	}
 
 	create(addedProperties: any) {
@@ -78,7 +90,6 @@ export class ListHelperService<G = any> {
 	}
 
 	delete(entity: any) {
-		debugger;
 		this.apiSrv.delete(this.typename, entity).pipe(
 			switchMap(_ => this.refetch())
 		).subscribe();
@@ -92,37 +103,8 @@ export class ListHelperService<G = any> {
 		).subscribe();
 	}
 
-	setItemsPerPage(value: number) {
-		this.limit$.next(value);
-	}
-
 	loadMore() {
 		throw Error('not implemented yet');
-	}
-
-	loadPage() {
-		throw Error('not implemented yet');
-	}
-
-	loadNextPage() {
-		throw Error('not implemented yet');
-	}
-
-	loadPreviousPage() {
-		throw Error('not implemented yet');
-	}
-
-	loadFirstPage() {
-		throw Error('not implemented yet');
-	}
-
-	loadLastPage() {
-		throw Error('not implemented yet');
-	}
-
-	/** Sorts items based on sort.sortBy */
-	sort() {
-		throw Error('not implemented');
 	}
 
 }

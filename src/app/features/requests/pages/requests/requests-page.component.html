@@ -18,15 +18,9 @@
 	[rows]="listSrv.items$ | async"
 	[pending]="listSrv.pending"
 	[selection]="selectionSrv.selection$ | async"
-	[total]="listSrv.count$ | async"
-	[currentPage]="listSrv.currentPage"
-	[currentSort]="listSrv.currentSort"
-	(goToPage)="listSrv.loadPage($event)"
 	(cancelRequest)="cancelRequest($event)"
 	(select)="selectionSrv.selectOne($event)"
 	(selectAll)="selectionSrv.selectAll($event)"
-	(showItemsPerPage)="showItemsPerPage($event)"
-	(sort)="listSrv.sort($event)"
 	(unselect)="selectionSrv.unselectOne($event)"
 	(unselectAll)="selectionSrv.unselectAll()">
 </requests-table-app>

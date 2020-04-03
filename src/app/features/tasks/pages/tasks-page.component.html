@@ -6,7 +6,7 @@
 	info="Task management"
 	[title]="'title.my-tasks' | translate"
 	[buttonName]="'button.create-task' | translate"
-	(buttonClick)="dialogCommonSrv.openCreationTaskDlg()">
+	(buttonClick)="listHelper.create()">
 </header-list-app>
 
 <controller-table-app [total]="listHelper.total$ | async">
@@ -20,18 +20,17 @@
 <task-table-app
 	[rows]="listHelper.filteredItems$ | async"
 	[selection]="selectionSrv.selection$ | async"
-	[pending]="listHelper.pending"
-	[total]="listHelper.total$ | async"
-	(update)="listHelper.update($event)"
-	(select)="selectionSrv.selectOne($event)"
-	(unselect)="selectionSrv.unselectOne($event)"
-	(selectAll)="selectionSrv.selectAll($event)"
+	[pending]="listSrv.pending"
+	(update)="listSrv.update($event)"
+	(select)="selectionSrv.selectOne($event, true)"
+	(unselect)="selectionSrv.unselectOne($event, true)"
+	(selectAll)="selectionSrv.selectAll($event, true)"
 	(unselectAll)="selectionSrv.unselectAll()"
 	(open)="viewSrv.goToDetails($event)"
 	(previewClick)="viewSrv.openPreview($event)"
 	(showItemsPerPage)="showItemsPerPage($event)"
 	(delete)="listHelper.delete($event)"
-	(createClick)="dialogCommonSrv.openCreationDlg('Task')">
+	(createClick)="listHelper.create()">
 </task-table-app>
 
 <task-selection-bar-app

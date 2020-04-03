@@ -1,4 +1,4 @@
-# run comment
+# run comment !
 image: cedvdb/ss-gitlab-pipeline-docker
 stages:
   - install
@@ -23,6 +23,7 @@ app-install:
       - package-lock.json
   only:
     - development
+    - migration-amplify
 
 # tests
 app-test:karma:
@@ -98,12 +99,15 @@ app-build-dev:
       - node_modules/
     policy: pull
   script:
+    - git config --global user.email "cedric+1@showsourcing.com"
+    - git config --global user.name "CI/CD showsourcing"
     - npm run version:build && npm run build:dev
   artifacts:
     paths:
       - dist
   only:
     - development
+    - migration-amplify
 
 app-build-sta:
   stage: build
@@ -122,6 +126,16 @@ app-build-sta:
     - master
 
 # deployment
+app-deploy-migration:
+  image: cedvdb/ss-gitlab-pipeline-docker
+  stage: deploy
+  allow_failure: false
+  script:
+    - cd dist/showsourcing
+    - aws s3 sync . s3://app2.showsourcing.com --delete
+  only:
+    - migration-amplify
+
 app-deploy-dev:
   image: cedvdb/ss-gitlab-pipeline-docker
   stage: deploy
@@ -137,6 +151,7 @@ app-deploy-dev:
 app-deploy-sta:
   stage: deploy
   allow_failure: false
+  when: manual
   script:
     - cd dist/showsourcing
     - aws s3 sync . s3://app-sta.showsourcing.com --delete
