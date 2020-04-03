@@ -12,7 +12,9 @@
 					*ngFor="let field of column" 
 					class="mg-bottom-s"
 					[field]="field"
-					[value]="propertyMap.get(field.definition.name)">
+					[value]="propertyMap.get(field.definition.name)?.value"
+					(inputEvent)="onInput(field, $event)"
+					(blurEvent)="onBlur(field, $event)">
 				</dynamic-field-app>
 	
 			</div>

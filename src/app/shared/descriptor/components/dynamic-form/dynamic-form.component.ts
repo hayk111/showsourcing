@@ -20,19 +20,9 @@ export class DynamicFormComponent implements OnInit, OnChanges {
 	@Input() descriptor: Descriptor;
 	@Input() style: 'form' | 'editable' = 'form';
 	@Input() columnAmount = 1;
-	// not needed if FormValueAccessor is used
 	@Input() updateOn: 'blur' | 'input' = 'blur';
-	@Input()
-	set properties(properties: Property[]) {
-		this.propertyMap = properties
-			.reduce((a, b) => a.set(b.name, b), new Map());
-		this._properties = properties;
-	}
-	get properties() {
-		return this._properties;
-	}
-	private _properties: Property[];
-	@Output() update = new EventEmitter<any>();
+	@Input() properties: Property[];
+	@Output() update = new EventEmitter<Property[]>();
 	sections: SectionWithColumns[];
 	propertyMap = new Map<string, Property>();
 
@@ -44,12 +34,39 @@ export class DynamicFormComponent implements OnInit, OnChanges {
 
 	ngOnChanges(changes: SimpleChanges ) {
 		const colChanges = changes.columnAmount;
-		if (colChanges.previousValue !== colChanges.currentValue) {
+		if (colChanges && colChanges.previousValue !== colChanges.currentValue) {
 			this.sections = this.descriptor.sections
 				.map(section => this.makeColumns(section));
 		}
+		const propChanges = changes.properties;
+		if (propChanges && propChanges.previousValue !== propChanges.currentValue) {
+			this.propertyMap = this.properties
+				.reduce((a, b) => a.set(b.name, b), new Map());
+		}
 	}
 
+
+	onInput(field: FieldDescriptor, value: any) {
+		if (this.updateOn === 'input')
+			this.doUpdate(field, value);
+	}
+
+	onBlur(field: FieldDescriptor, value: any) {
+		if (this.updateOn === 'blur')
+			this.doUpdate(field, value);
+	}
+
+	private doUpdate(field: FieldDescriptor, value: any) {
+		const name = field.definition.name;
+		const previousIndex = this.properties.findIndex(prop => prop.name === name);
+		const properties = [...this.properties];
+		if (previousIndex >= 0)
+			properties[previousIndex] = { name, value };
+		else
+			properties.push({ name, value });
+		console.log(properties);
+		this.update.emit(properties);
+	}
 
 	/** put the custom fields into columns
 	 * If we have only one column then we will have one column with all the fields

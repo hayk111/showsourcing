@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import { FieldDescriptor } from '~core/erm3/models';
 
 @Component({
@@ -10,18 +10,14 @@ import { FieldDescriptor } from '~core/erm3/models';
 export class DynamicFieldComponent implements OnInit {
 	@Input() field: FieldDescriptor;
 	@Input() value: any;
+	// This will change when using control value accessor but I've to
+	// refactor the input module first
+	@Output() blurEvent = new EventEmitter<any>();
+	@Output() inputEvent = new EventEmitter<any>();
 
 	constructor() { }
 
 	ngOnInit() {
-	}
-
-	onInput(value: any) {
-
-	}
-
-	onBlur(value: any) {
-
 	}
 
 }

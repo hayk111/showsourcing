@@ -12,10 +12,16 @@ export class DescriptorPageComponent implements OnInit {
 	style = 'form';
 	columnAmount = 1;
 	updateOn = 'blur';
-	properties = [];
+	properties = [
+		{ name: 'color', value: 'test' }
+	];
+	update = {};
+
 	constructor() { }
 
 	ngOnInit() {
 	}
+
+
 
 }

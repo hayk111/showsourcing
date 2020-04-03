@@ -7,7 +7,9 @@
 		<input 
 			#inp 
 			[value]="value || field.defaultValue || ''"
-			type="text"/>
+			type="text"
+			(blur)="blurEvent.emit(inp.value)"
+			(input)="inputEvent.emit(inp.value)"/>
 	</ng-container>
 
 	<!-- INT -->
