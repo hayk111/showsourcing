@@ -8,11 +8,11 @@ import { uuid } from '~utils';
 
 @Component({
 	selector: 'creation-product-dlg-app',
-	templateUrl: './creation-product-dlg.component.html',
-	styleUrls: ['./creation-product-dlg.component.scss'],
+	templateUrl: './product-creation-dialog.component.html',
+	styleUrls: ['./product-creation-dialog.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CreationProductDlgComponent implements OnInit {
+export class ProductCreationDialogComponent implements OnInit {
 	@Input() product: Product;
 	@Input() createAnother = false;
 
@@ -86,7 +86,7 @@ export class CreationProductDlgComponent implements OnInit {
 				// if we create a new product we create a new id
 				if (this.createAnother) {
 					product = this.resetIds(product);
-					this.dlgSrv.open(CreationProductDlgComponent, { product, createAnother: true });
+					this.dlgSrv.open(ProductCreationDialogComponent, { product, createAnother: true });
 				} else {
 					this.close();
 				}

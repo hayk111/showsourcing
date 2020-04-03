@@ -7,10 +7,10 @@ import { DialogService, CloseEventType } from '~shared/dialog';
 
 @Component({
 	selector: 'creation-dialog-app',
-	templateUrl: './creation-dialog.component.html',
-	styleUrls: ['./creation-dialog.component.scss']
+	templateUrl: './default-creation-dialog.component.html',
+	styleUrls: ['./default-creation-dialog.component.scss']
 })
-export class CreationDialogComponent implements AfterViewInit {
+export class DefaultCreationDialogComponent implements AfterViewInit {
 
 	group: FormGroup = this.fb.group({
 		name: ['', Validators.required]

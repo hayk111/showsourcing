@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
 import { filter, map } from 'rxjs/operators';
 import { error } from 'util';
-import {
-	CreationDialogComponent,
-	CreationProductDlgComponent,
-	CreationSampleDlgComponent,
-	CreationTaskDlgComponent
-} from '~common/dialogs/creation-dialogs';
+
+import * as creationDialogs from '~common/dialogs/creation-dialogs';
+import * as selectionDialogs from '~common/dialogs/selection-dialogs';
+
 import {
 	CompareProductComponent,
 	EditionDialogComponent,
@@ -19,7 +17,6 @@ import {
 	RefuseReplyDlgComponent,
 	VoteDetailsDialogComponent
 } from '~common/dialogs/custom-dialogs';
-import * as selectionDialogs from '~common/dialogs/selection-dialogs';
 import { EntityMetadata, Product, Supplier } from '~core/erm';
 import { Entity } from '~core/erm3/models/_entity.model';
 import { Typename } from '~core/erm3/typename.type';
@@ -48,13 +45,30 @@ export class DialogCommonService {
 	// 	return this.dlgSrv.open(CreationDialogComponent, { shouldRedirect, typename });
 	// }
 
-	openCreationDlg(typename?: Typename) {
-		switch (typename) {
-			// Add other cases after
-			default:
-				return this.dlgSrv.open(CreationDialogComponent, { typename });
-		}
+	openCreationDlg(typename?: Typename, linkedEntities?: Object) {
+		// find the correct TypenameSelectionDialogComponent from the imports. if undefined, use the default
+		let dlgComponent = creationDialogs[`${typename}CreationDialogComponent`];
+		if (!dlgComponent) dlgComponent = creationDialogs.DefaultCreationDialogComponent;
+		return this.dlgSrv.open(dlgComponent, {typename, ...linkedEntities});
 	}
+	// /** old creation : */
+	// /** @deprecated: use openCreationDlg instead */
+	// openCreationProductDlg() {}
+	// /** @deprecated: use openCreationDlg instead */
+	// openCreationSampleDialog(product?: Product, supplier?: Supplier) {
+	// 	return this.dlgSrv
+	// 		.open(CreationSampleDlgComponent, { product, supplier })
+	// 		.pipe(filter((event: CloseEvent) => event.type === CloseEventType.OK));
+	// }
+	// /** @deprecated: use openCreationDlg instead */
+	// openCreationTaskDlg(product?: Product, supplier?: Supplier) {
+	// 	return this.dlgSrv
+	// 		.open(CreationTaskDlgComponent, { product, supplier })
+	// 		.pipe(filter((event: CloseEvent) => event.type === CloseEventType.OK));
+	// }
+	// // TAG : default creationDlg
+	// // CATEGORY : default creationDlg
+	// // SUPPLIER : default creationDlg
 
 	/**
 	 * Open a dialog for select some entities through a table
@@ -62,6 +76,7 @@ export class DialogCommonService {
 	 * @returns an observable who stream CloseEvent, with selecteds if close is OK
 	 */
 	openSelectionDlg<T extends Entity>(typename: Typename, initialSelecteds?: T[]) {
+		// find the correct TypenameSelectionDialogComponent from the imports
 		const dlgComponent = selectionDialogs[`${typename}SelectionDialogComponent`];
 		if (!dlgComponent) throw error(`There is no Selection Dialog for the typename: ${typename}`);
 		return this.dlgSrv.open(dlgComponent, { initialSelecteds });
@@ -120,32 +135,10 @@ export class DialogCommonService {
 		return this.dlgSrv.open(RefuseReplyDlgComponent, data);
 	}
 
-	/** @deprecated: use openCreationDlg instead */
-	openCreationProductDlg() {
-		return this.dlgSrv.open(CreationProductDlgComponent).pipe(
-			filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
-			map((evt: CloseEvent) => evt.data)
-		);
-	}
-
 	openEditionDlg() {}
 
 	openSupplierRequest(products: Product[], supplier?: Supplier) {
 		return this.dlgSrv.open(SupplierRequestDialogComponent, { products, supplier });
-	}
-
-	/** @deprecated: use openCreationDlg instead */
-	openCreationTaskDlg(product?: Product, supplier?: Supplier) {
-		return this.dlgSrv
-			.open(CreationTaskDlgComponent, { product, supplier })
-			.pipe(filter((event: CloseEvent) => event.type === CloseEventType.OK));
-	}
-
-	/** @deprecated: use openCreationDlg instead */
-	openCreationSampleDialog(product?: Product, supplier?: Supplier) {
-		return this.dlgSrv
-			.open(CreationSampleDlgComponent, { product, supplier })
-			.pipe(filter((event: CloseEvent) => event.type === CloseEventType.OK));
 	}
 
 	close() {

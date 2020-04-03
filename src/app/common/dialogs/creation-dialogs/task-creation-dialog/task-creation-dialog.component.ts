@@ -7,13 +7,13 @@ import { ToastService, ToastType } from '~shared/toast';
 import { uuid } from '~utils';
 
 @Component({
-	selector: 'creation-task-dlg-app',
-	templateUrl: './creation-task-dlg.component.html',
-	styleUrls: ['./creation-task-dlg.component.scss'],
+	selector: 'creation-task-dialog-app',
+	templateUrl: './task-creation-dialog.component.html',
+	styleUrls: ['./task-creation-dialog.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: []
 })
-export class CreationTaskDlgComponent implements OnInit {
+export class TaskCreationDialogComponent implements OnInit {
 
 	@Input() task: Task;
 	@Input() product: Product;
@@ -82,7 +82,7 @@ export class CreationTaskDlgComponent implements OnInit {
 			this.taskSrv.create(this.task).subscribe(task => {
 				if (this.createAnother) {
 					task = this.resetIds(task);
-					this.dlgSrv.open(CreationTaskDlgComponent, { task, createAnother: true });
+					this.dlgSrv.open(TaskCreationDialogComponent, { task, createAnother: true });
 				} else {
 					this.close();
 				}

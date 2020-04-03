@@ -8,12 +8,12 @@ import { ToastService, ToastType } from '~shared/toast';
 import { uuid } from '~utils';
 
 @Component({
-	selector: 'creation-sample-dlg-app',
-	templateUrl: './creation-sample-dlg.component.html',
-	styleUrls: ['./creation-sample-dlg.component.scss'],
+	selector: 'creation-sample-dialog-app',
+	templateUrl: './sample-creation-dialog.component.html',
+	styleUrls: ['./sample-creation-dialog.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CreationSampleDlgComponent implements OnInit {
+export class SampleCreationDialogComponent implements OnInit {
 
 	@Input() sample: Sample;
 	@Input() product: Product;
@@ -32,12 +32,6 @@ export class CreationSampleDlgComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		const user = this.userSrv.userSync;
-		const assignee = {
-			id: user.id,
-			lastName: user.lastName,
-			firstName: user.firstName
-		};
 		this.sampleDescriptor = new SampleDescriptor([
 			'name', 'assignee', 'description', 'product', 'supplier'
 		]);
@@ -86,7 +80,7 @@ export class CreationSampleDlgComponent implements OnInit {
 				sample => {
 					if (this.createAnother) {
 						sample = this.resetIds(sample);
-						this.dlgSrv.open(CreationSampleDlgComponent, { sample, createAnother: true });
+						this.dlgSrv.open(SampleCreationDialogComponent, { sample, createAnother: true });
 					} else {
 						this.close();
 					}
