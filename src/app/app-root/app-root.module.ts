@@ -16,7 +16,6 @@ import { SelectionDialogsCommonModule } from '~common/dialogs/selection-dialogs/
 import * as i18n from '~core/i18n/i18n.service';
 import { AppMissingTranslationHandler } from '~core/i18n/missing-translation.service';
 import { ApiInterceptor } from '~core/interceptors/api.interceptor';
-import { TemplateModule } from '~core/template';
 import { SharedModule } from '~shared/shared.module';
 
 // Can a kangaroo jump higher than a house ?
@@ -29,7 +28,6 @@ import { SharedModule } from '~shared/shared.module';
 		BrowserAnimationsModule,
 		AmplifyAngularModule,
 		SharedModule,
-		TemplateModule,
 		CreationDialogsCommonModule,
 		SelectionDialogsCommonModule,
 		CustomDialogsCommonModule,
