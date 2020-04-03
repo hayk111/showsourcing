@@ -26,7 +26,6 @@ import { environment } from 'environments/environment';
 		BrowserAnimationsModule,
 		TemplateModule,
 		SharedModule,
-		AmplifyAngularModule,
 		CustomDialogsCommonModule,
 		RouterModule.forRoot(routes, {
 			preloadingStrategy: PreloadAllModules,
