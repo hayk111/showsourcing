@@ -197,27 +197,29 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 	delete(product: Product) {
 		const text = `Are you sure you want to delete this product ?`;
 		this.dlgSrv.open(ConfirmDialogComponent, { text })
-			.pipe(
-				filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
-				switchMap(_ => this.productSrv.delete(product.id)),
-				tap(prod => {
-					this.updated.emit(prod);
-					this.close.emit();
-				})
-			).subscribe();
+			// .pipe(
+			// 	filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
+			// 	switchMap(_ => this.productSrv.delete(product.id)),
+			// 	tap(prod => {
+			// 		this.updated.emit(prod);
+			// 		this.close.emit();
+			// 	})
+			// ).subscribe();
+			// TODO implement new dialog
 	}
 
 	archive() {
 		const text = `Are you sure you want to archive this product ?`;
 		const action = 'archive';
-		this.dlgSrv.open(ConfirmDialogComponent, { text, action })
-			.pipe(
-				filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
-				tap(_ => {
-					this.update(true, 'archived');
-					this.close.emit();
-				}),
-			).subscribe();
+		// this.dlgSrv.open(ConfirmDialogComponent, { text, action })
+		// 	.pipe(
+		// 		filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
+		// 		tap(_ => {
+		// 			this.update(true, 'archived');
+		// 			this.close.emit();
+		// 		}),
+		// 	).subscribe();
+			// TODO implement new dialog
 	}
 
 	// ACTIONS
@@ -236,11 +238,13 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 	}
 
 	openCreateTask() {
-		this.dialogCommonSrv.openCreationTaskDlg(this.product, this.product && this.product.supplier).subscribe();
+		// this.dialogCommonSrv.openCreationTaskDlg(this.product, this.product && this.product.supplier).subscribe();
+			// TODO implement new dialog
 	}
 
 	openCreateSample() {
-		this.dialogCommonSrv.openCreationSampleDialog(this.product, this.product && this.product.supplier).subscribe();
+		// this.dialogCommonSrv.openCreationSampleDialog(this.product, this.product && this.product.supplier).subscribe();
+			// TODO implement new dialog
 	}
 
 	openExportModal() {

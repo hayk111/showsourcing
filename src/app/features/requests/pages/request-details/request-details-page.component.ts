@@ -140,16 +140,17 @@ export class RequestDetailsPageComponent extends AutoUnsub implements OnInit {
 		const action = 'buttoncancel-item';
 		this.dlgSrv
 			.open(ConfirmDialogComponent, { text, action })
-			.pipe(
-				switchMap(_ =>
-					this.requestReplySrv.update({
-						id: replyId,
-						status: ReplyStatus.CANCELED
-					})
-				),
-				switchMap(_ => this.listSrv.refetch())
-			)
-			.subscribe();
+		// TODO implement new dialog
+			// .pipe(
+			// 	switchMap(_ =>
+			// 		this.requestReplySrv.update({
+			// 			id: replyId,
+			// 			status: ReplyStatus.CANCELED
+			// 		})
+			// 	),
+			// 	switchMap(_ => this.listSrv.refetch())
+			// )
+			// .subscribe();
 	}
 
 	cancelReplies() {
@@ -162,11 +163,12 @@ export class RequestDetailsPageComponent extends AutoUnsub implements OnInit {
 				status: ReplyStatus.CANCELED
 			}));
 		this.dlgSrv
-			.open(ConfirmDialogComponent, { text, action })
-			.pipe(
-				switchMap(_ => this.requestReplySrv.updateMany(items)),
-				switchMap(_ => this.listSrv.refetch())
-			)
-			.subscribe(_ => this.selectionSrv.unselectAll());
+		.open(ConfirmDialogComponent, { text, action })
+		// TODO implement new dialog
+			// .pipe(
+			// 	switchMap(_ => this.requestReplySrv.updateMany(items)),
+			// 	switchMap(_ => this.listSrv.refetch())
+			// )
+			// .subscribe(_ => this.selectionSrv.unselectAll());
 	}
 }

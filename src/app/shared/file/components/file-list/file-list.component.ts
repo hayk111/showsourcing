@@ -66,11 +66,13 @@ export class FileListComponent extends AutoUnsub implements OnInit {
 		if (this.showConfirmOnDelete) {
 			this.dlgSrv.open(ConfirmDialogComponent, {
 				text: this.translate.instant('message.remove-1-file')
-			}).pipe(
-				filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
-				switchMap(_ => this.removeFile(file)),
-				takeUntil(this._destroy$),
-			).subscribe(_ => this.deleted.emit(file));
+			})
+			// TODO implement new dialog
+			// .pipe(
+			// 	filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
+			// 	switchMap(_ => this.removeFile(file)),
+			// 	takeUntil(this._destroy$),
+			// ).subscribe(_ => this.deleted.emit(file));
 		} else {
 			this.removeFile(file).subscribe();
 			this.deleted.emit(file);

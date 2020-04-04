@@ -78,9 +78,10 @@ export class InputDescriptionComponent implements OnChanges, OnInit {
 	openDescModal() {
 		if (this.asModal)
 			this.dlgSrv.open(DescriptionDlgComponent, { description: this.description })
-				.subscribe(({ type, data }) => {
-					if (type === CloseEventType.OK)
-						this.update.emit(data.description);
-				});
+			// TODO implement new dialog
+				// .subscribe(({ type, data }) => {
+				// 	if (type === CloseEventType.OK)
+				// 		this.update.emit(data.description);
+				// });
 	}
 }

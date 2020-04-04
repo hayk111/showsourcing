@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { WatchQueryOptions } from 'apollo-client';
 import { BehaviorSubject, combineLatest, forkJoin, Observable } from 'rxjs';
 import { filter, map, shareReplay, switchMap, tap } from 'rxjs/operators';
-import { CreationDialogComponent } from '~common/dialogs/creation-dialogs';
+import { DefaultCreationDialogComponent } from '~common/dialogs/creation-dialogs';
 import { ApiService, ObservableQuery } from '~core/erm3/services/api.service';
 import { Typename } from '~core/erm3/typename.type';
 import { FilterService } from '~core/filters/filter.service';
@@ -70,14 +70,16 @@ export class ListHelperService<G = any> {
 	}
 
 	create(addedProperties: any) {
-		this.dlgSrv.open(CreationDialogComponent , {
+		this.dlgSrv.open(DefaultCreationDialogComponent , {
 			typename: this.typename,
 			extra: addedProperties
-		}).pipe(
-			filter(closeEvent => closeEvent.type === CloseEventType.OK),
-			map(closeEvent => closeEvent.data),
-			switchMap(entity => this.apiSrv.create(this.typename, entity)),
-		).subscribe(created => this.apiSrv.addToList(this.queryRef, created));
+		})
+		// TODO implement new dialog
+		// .pipe(
+		// 	filter(closeEvent => closeEvent.type === CloseEventType.OK),
+		// 	map(closeEvent => closeEvent.data),
+		// 	switchMap(entity => this.apiSrv.create(this.typename, entity)),
+		// ).subscribe(created => this.apiSrv.addToList(this.queryRef, created));
 	}
 
 	update(entity: any) {

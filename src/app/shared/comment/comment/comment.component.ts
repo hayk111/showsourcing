@@ -65,10 +65,12 @@ export class CommentComponent implements OnInit {
 	onDelete() {
 		// TODO i18n
 		const text = `Are you sure you want to delete this comment ?`;
-		this.dialogCommonSrv.openConfirmDialog({ text }).pipe(
-			filter(data => data.type === CloseEventType.OK),
-			switchMap(_ => this.commentSrv.delete(this.comment.id))
-		).subscribe();
+		this.dialogCommonSrv.openConfirmDialog({ text })
+			// TODO implement new dialog
+		// .pipe(
+		// 	filter(data => data.type === CloseEventType.OK),
+		// 	switchMap(_ => this.commentSrv.delete(this.comment.id))
+		// ).subscribe();
 	}
 
 }

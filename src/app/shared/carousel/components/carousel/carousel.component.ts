@@ -136,11 +136,13 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 		if (this.showConfirmOnDelete) {
 			this.dlgSrv.open(ConfirmDialogComponent, {
 				text: 'Are you sure you want to remove this image ?',
-			}).pipe(
-				filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
-				switchMap(_ => this.onDeleteAccepted(img)),
-				takeUntil(this._destroy$),
-			).subscribe(_ => this.deleted.emit(img));
+			})
+			// TODO implement new dialog
+			// .pipe(
+			// 	filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
+			// 	switchMap(_ => this.onDeleteAccepted(img)),
+			// 	takeUntil(this._destroy$),
+			// ).subscribe(_ => this.deleted.emit(img));
 		} else {
 			this.deleted.emit(img);
 		}

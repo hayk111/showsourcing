@@ -2,7 +2,7 @@ import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { empty, Observable } from 'rxjs';
 import { filter, map, switchMap, takeUntil, tap } from 'rxjs/operators';
-import { CreationDialogComponent } from '~common/dialogs/creation-dialogs';
+import { DefaultCreationDialogComponent } from '~common/dialogs/creation-dialogs';
 import { ExportDlgComponent } from '~common/dialogs/custom-dialogs';
 import { Entity, EntityMetadata, GlobalServiceInterface, SelectParamsConfig, UserService } from '~core/erm';
 import { FilterService } from '~core/filters';
@@ -223,14 +223,15 @@ export class ListPageService<
 		const text = `Are you sure you want to delete this ${this.viewSrv.entityMetadata.singular} ?`;
 		this.dlgSrv
 			.open(ConfirmDialogComponent, { text })
-			.pipe(
-				tap(_ => this.selectionSrv.unselectOne(entity)),
-				filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
-				switchMap(_ => this.dataSrv.deleteOne(entity.id)),
-				tap(_ => callback()),
-				switchMap(_ => (refetch ? this.refetch() : empty()))
-			)
-			.subscribe();
+			// TODO implement new dialog
+			// .pipe(
+			// 	tap(_ => this.selectionSrv.unselectOne(entity)),
+			// 	filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
+			// 	switchMap(_ => this.dataSrv.deleteOne(entity.id)),
+			// 	tap(_ => callback()),
+			// 	switchMap(_ => (refetch ? this.refetch() : empty()))
+			// )
+			// .subscribe();
 	}
 
 	// read comment on deleteOne function
@@ -245,34 +246,36 @@ export class ListPageService<
 			'?';
 		this.dlgSrv
 			.open(ConfirmDialogComponent, { text })
-			.pipe(
-				filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
-				switchMap(_ => this.dataSrv.deleteMany(itemIds)),
-				// unselect must go before refetch, otherwise it won't update
-				tap(_ => this.selectionSrv.unselectAll()),
-				switchMap(_ => (refetch ? this.refetch() : empty()))
-			)
-			.subscribe();
+			// TODO implement new dialog
+			// .pipe(
+			// 	filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
+			// 	switchMap(_ => this.dataSrv.deleteMany(itemIds)),
+			// 	// unselect must go before refetch, otherwise it won't update
+			// 	tap(_ => this.selectionSrv.unselectAll()),
+			// 	switchMap(_ => (refetch ? this.refetch() : empty()))
+			// )
+			// .subscribe();
 	}
 
 	/** creates a new entity, can also create with defaul values with extra?: any */
 	create(canRedirect = false, extra?: any) {
 		this.dlgSrv
-			.open(CreationDialogComponent, {
+			.open(DefaultCreationDialogComponent, {
 				type: this.viewSrv.entityMetadata,
 				extra,
 				canRedirect
 			})
-			.pipe(
-				filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
-				map((evt: CloseEvent) => evt.data)
-			)
-			.subscribe(({ item, redirect }) => {
-				// we don't want to put this in a switchmap because we don't want to wait
-				// for the refect before redirecting
-				this.refetch().subscribe();
-				if (redirect) this.redirectToCreated(item.id);
-			});
+			// TODO implement new dialog
+			// .pipe(
+			// 	filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
+			// 	map((evt: CloseEvent) => evt.data)
+			// )
+			// .subscribe(({ item, redirect }) => {
+			// 	// we don't want to put this in a switchmap because we don't want to wait
+			// 	// for the refect before redirecting
+			// 	this.refetch().subscribe();
+			// 	if (redirect) this.redirectToCreated(item.id);
+			// });
 	}
 
 	archiveOne(entity: T) {

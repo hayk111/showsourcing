@@ -35,10 +35,7 @@ export class DefaultCreationDialogComponent implements AfterViewInit {
 			return;
 		const name = this.group.value.name.trim();
 		this.pending = true;
-		this.dialogSrv.close({
-			type: CloseEventType.OK,
-			data: { name }
-		});
+		this.dialogSrv.data({entity: {name}});
 	}
 
 }

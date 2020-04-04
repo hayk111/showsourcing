@@ -198,7 +198,8 @@ export class MassEditDlgComponent extends AutoUnsub implements OnInit {
 	}
 
 	close() {
-		this.dlgSrv.close({ type: CloseEventType.CANCEL });
+		// this.dlgSrv.close({ type: CloseEventType.CANCEL });
+		// TODO implement new dialog
 	}
 
 }

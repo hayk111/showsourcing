@@ -107,26 +107,28 @@ export class TaskPreviewComponent extends AutoUnsub implements OnInit, OnChanges
 	delete(task: Task) {
 		const text = `Are you sure you want to delete this task ?`;
 		this.dlgSrv.open(ConfirmDialogComponent, { text })
-			.pipe(
-				filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
-				switchMap(_ => this.taskSrv.delete(task.id)),
-				tap(task => {
-					this.close.emit();
-				})
-			).subscribe();
+			// TODO implement new dialog
+			// .pipe(
+			// 	filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
+			// 	switchMap(_ => this.taskSrv.delete(task.id)),
+			// 	tap(task => {
+			// 		this.close.emit();
+			// 	})
+			// ).subscribe();
 	}
 
 	archive() {
 		const text = `Are you sure you want to archive this task ?`;
 		const action = 'archive';
 		this.dlgSrv.open(ConfirmDialogComponent, { text, action })
-			.pipe(
-				filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
-				tap(_ => {
-					this.update(true, 'archived');
-					this.close.emit();
-				}),
-			).subscribe();
+			// TODO implement new dialog
+			// .pipe(
+			// 	filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
+			// 	tap(_ => {
+			// 		this.update(true, 'archived');
+			// 		this.close.emit();
+			// 	}),
+			// ).subscribe();
 	}
 
 	// ACTIONS

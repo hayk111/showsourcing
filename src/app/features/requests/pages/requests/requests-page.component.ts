@@ -79,11 +79,12 @@ export class RequestsPageComponent extends AutoUnsub implements OnInit {
 		}));
 		this.dlgSrv
 			.open(ConfirmDialogComponent, { text, action })
-			.pipe(
-				switchMap(_ => this.replySrv.updateMany(items)),
-				switchMap(_ => this.listSrv.refetch())
-			)
-			.subscribe();
+		// TODO implement new dialog
+			// .pipe(
+			// 	switchMap(_ => this.replySrv.updateMany(items)),
+			// 	switchMap(_ => this.listSrv.refetch())
+			// )
+			// .subscribe();
 	}
 
 	cancelSelectedRequests() {
@@ -96,11 +97,12 @@ export class RequestsPageComponent extends AutoUnsub implements OnInit {
 			.map(element => ({ id: element.reply.id, status: ReplyStatus.CANCELED }));
 		this.dlgSrv
 			.open(ConfirmDialogComponent, { text, action })
-			.pipe(
-				switchMap(_ => this.replySrv.updateMany(items)),
-				switchMap(_ => this.listSrv.refetch())
-			)
-			.subscribe(_ => this.selectionSrv.unselectAll());
+		// TODO implement new dialog
+			// .pipe(
+			// 	switchMap(_ => this.replySrv.updateMany(items)),
+			// 	switchMap(_ => this.listSrv.refetch())
+			// )
+			// .subscribe(_ => this.selectionSrv.unselectAll());
 	}
 
 	showItemsPerPage(count: number) {

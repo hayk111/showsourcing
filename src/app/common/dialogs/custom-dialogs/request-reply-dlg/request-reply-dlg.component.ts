@@ -154,7 +154,8 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 
 	saveAndClose() {
 		this.save();
-		this.dlgSrv.close({ type: CloseEventType.OK });
+		// this.dlgSrv.close({ type: CloseEventType.OK });
+		// TODO implement new dialog
 	}
 
 	saveAndNext() {

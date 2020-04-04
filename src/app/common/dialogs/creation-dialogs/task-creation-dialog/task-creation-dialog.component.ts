@@ -103,11 +103,13 @@ export class TaskCreationDialogComponent implements OnInit {
 		}
 	}
 	cancel() {
-		this.dlgSrv.close({ type: CloseEventType.CANCEL });
+		// this.dlgSrv.close({ type: CloseEventType.CANCEL });
+		// TODO implement new dialog
 	}
 
 	close() {
-		this.dlgSrv.close({ type: CloseEventType.OK, data: { task: this.task } });
+		// this.dlgSrv.close({ type: CloseEventType.OK, data: { task: this.task } });
+		// TODO implement new dialog
 	}
 
 	private resetIds(task) {

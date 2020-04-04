@@ -40,7 +40,8 @@ export class InviteUserDlgComponent extends AutoUnsub {
 				.subscribe(() => {
 					this.pending = false;
 					const invtSent = this.translate.instant('message.your-invitation-was-sent-to');
-					this.dlgSrv.close({ type: CloseEventType.OK });
+					// this.dlgSrv.close({ type: CloseEventType.OK });
+		// TODO implement new dialog
 					this.toastSrv.add({
 						type: ToastType.SUCCESS,
 						title: 'title.invitation-sent',

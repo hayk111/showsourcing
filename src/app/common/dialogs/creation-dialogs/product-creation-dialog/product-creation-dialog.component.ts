@@ -73,37 +73,46 @@ export class ProductCreationDialogComponent implements OnInit {
 	}
 
 	cancel() {
-		this.dlgSrv.close({ type: CloseEventType.CANCEL });
+		// TODO implement new dialog
+		// this.dlgSrv.close({ type: CloseEventType.CANCEL });
 	}
 
 	close() {
-		this.dlgSrv.close({ type: CloseEventType.OK, data: { product: this.product } });
+		// TODO implement new dialog
+		// this.dlgSrv.close({ type: CloseEventType.OK, data: { product: this.product } });
 	}
 
 	save() {
 		if (this.product && this.product.name) {
-			this.productSrv.create(this.product).subscribe(product => {
-				// if we create a new product we create a new id
-				if (this.createAnother) {
-					product = this.resetIds(product);
-					this.dlgSrv.open(ProductCreationDialogComponent, { product, createAnother: true });
-				} else {
-					this.close();
-				}
-				// success
-				this.toastSrv.add({
-					type: ToastType.SUCCESS,
-					title: 'title.product-created',
-					message: 'message.product-created-with-success'
-				});
-			},
-				err => {
-					this.toastSrv.add({
-						type: ToastType.ERROR,
-						title: 'title.product-not-created',
-						message: 'message.your-product-not-created'
-					});
-				});
+			const product = {...this.product};
+			delete product._deleted;
+			delete product._lastChangedAt;
+			delete product._version;
+			delete product.images;
+			delete product.attachments;
+			this.dlgSrv.data({entity: product, createAnother: this.createAnother});
+		// 	this.productSrv.create(this.product).subscribe(product => {
+		// 		// if we create a new product we create a new id
+		// 		if (this.createAnother) {
+		// 			product = this.resetIds(product);
+		// 			this.dlgSrv.open(ProductCreationDialogComponent, { product, createAnother: true });
+		// 		} else {
+		// 			this.close();
+		// 		}
+		// 		// success
+		// 		this.toastSrv.add({
+		// 			type: ToastType.SUCCESS,
+		// 			title: 'title.product-created',
+		// 			message: 'message.product-created-with-success'
+		// 		});
+		// 	},
+		// 		err => {
+		// 			this.toastSrv.add({
+		// 				type: ToastType.ERROR,
+		// 				title: 'title.product-not-created',
+		// 				message: 'message.your-product-not-created'
+		// 			});
+		// 		});
 		}
 	}
 

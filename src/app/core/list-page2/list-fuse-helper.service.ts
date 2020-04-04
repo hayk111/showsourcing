@@ -6,11 +6,9 @@ import { ApiQueryOption, ApiService, ObservableQuery } from '~core/erm3/services
 import { Typename } from '~core/erm3/typename.type';
 import { FilterService, FilterType } from '~core/filters';
 import { SelectionService } from './selection.service';
-import { CloseEventType, DialogService } from '~shared/dialog';
-import { CreationDialogComponent } from '~common/dialogs/creation-dialogs';
 import { TeamService } from '~core/auth';
-import { DialogService, CloseEventType } from '~shared/dialog';
-import { CreationDialogComponent } from '~common/dialogs/creation-dialogs';
+import { DialogService } from '~shared/dialog';
+import { DefaultCreationDialogComponent } from '~common/dialogs/creation-dialogs';
 
 
 @Injectable({ providedIn: 'root' })
@@ -80,14 +78,16 @@ export class ListFuseHelperService<G = any> {
 	}
 
 	create(addedProperties: any) {
-		this.dlgSrv.open(CreationDialogComponent , {
+		this.dlgSrv.open(DefaultCreationDialogComponent , {
 			typename: this.typename,
 			extra: addedProperties
-		}).pipe(
-			filter(closeEvent => closeEvent.type === CloseEventType.OK),
-			map(closeEvent => closeEvent.data),
-			switchMap(entity => this.apiSrv.create(this.typename, entity)),
-		).subscribe(created => this.apiSrv.addToList(this.queryRef, created));
+		})
+		// TODO implement new dialog
+		// .pipe(
+		// 	filter(closeEvent => closeEvent.type === CloseEventType.OK),
+		// 	map(closeEvent => closeEvent.data),
+		// 	switchMap(entity => this.apiSrv.create(this.typename, entity)),
+		// ).subscribe(created => this.apiSrv.addToList(this.queryRef, created));
 	}
 
 	update(entity: any) {

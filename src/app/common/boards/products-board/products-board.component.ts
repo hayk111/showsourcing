@@ -196,14 +196,15 @@ export class ProductsBoardComponent extends AutoUnsub implements OnInit {
 
 		this.dlgSrv
 			.open(ConfirmDialogComponent, { text })
-			.pipe(
-				filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
-				switchMap(_ => this.listSrv.dataSrv.deleteMany(itemIds))
-			)
-			.subscribe(_ => {
-				this.selectionSrv.unselectAll();
-				this.kanbanSrv.deleteItems(itemIds);
-			});
+			// TODO implement confirm dialog
+			// .pipe(
+			// 	filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
+			// 	switchMap(_ => this.listSrv.dataSrv.deleteMany(itemIds))
+			// )
+			// .subscribe(_ => {
+			// 	this.selectionSrv.unselectAll();
+			// 	this.kanbanSrv.deleteItems(itemIds);
+			// });
 	}
 
 	onMultipleStatusChange(status: ProductStatus) {

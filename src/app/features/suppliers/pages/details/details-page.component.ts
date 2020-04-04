@@ -62,9 +62,11 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 	delete(supplier: Supplier) {
 		this.dialogCommonSrv.openConfirmDialog({
 			text: this.translate.instant('message.confirm-delete-supplier')
-		}).pipe(
-			switchMap(_ => this.apiSrv.delete('Supplier', { id: supplier.id}))
-		).subscribe(_ => this.router.navigate(['suppliers']));
+		})
+		// TODO implement new dialog
+		// .pipe(
+		// 	switchMap(_ => this.apiSrv.delete('Supplier', { id: supplier.id}))
+		// ).subscribe(_ => this.router.navigate(['suppliers']));
 	}
 
 	export(supplier: Supplier) {

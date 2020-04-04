@@ -37,11 +37,13 @@ export class DescriptionDlgComponent {
 
 	save() {
 		this.description = this.txtAreaDesc.trim();
-		this.dlgSrv.close({ type: CloseEventType.OK, data: { description: this.description } });
+		// this.dlgSrv.close({ type: CloseEventType.OK, data: { description: this.description } });
+		// TODO implement new dialog
 	}
 
 	close() {
-		this.dlgSrv.close({ type: CloseEventType.CANCEL });
+		// this.dlgSrv.close({ type: CloseEventType.CANCEL });
+		// TODO implement new dialog
 	}
 
 }

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { filter, map, switchMap } from 'rxjs/operators';
-import { CreationProductDlgComponent } from '~common/dialogs/creation-dialogs';
+import { ProductCreationDialogComponent } from '~common/dialogs/creation-dialogs';
 import { Product, Supplier } from '~core/erm';
 import { FilterService } from '~core/filters';
 import { SelectionService } from '~core/list-page';
@@ -68,8 +68,9 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 			'Project',
 			this.selectionSrv.getSelectedValues() /* //? this selection is the product for which we want to add projects ?? */
 		);
-		validation$.pipe(filter(({ type }) => type === CloseEventType.OK)).subscribe(({ data }) => {
-		// TODO add the logic after closing dialog
-		});
+		// TODO implement new dialog
+		// validation$.pipe(filter(({ type }) => type === CloseEventType.OK)).subscribe(({ data }) => {
+		// // TODO add the logic after closing dialog
+		// });
 	}
 }

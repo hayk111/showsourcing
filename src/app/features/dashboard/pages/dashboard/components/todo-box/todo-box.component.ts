@@ -43,13 +43,16 @@ export class TodoBoxComponent implements OnInit {
 	openCreationModal() {
 		switch (this.selectedTab) {
 			case 'product':
-				this.dialogCommonSrv.openCreationProductDlg();
+				// this.dialogCommonSrv.openCreationProductDlg();
+		// TODO implement new dialog
 				break;
 			case 'task':
-				this.dialogCommonSrv.openCreationTaskDlg();
+				// this.dialogCommonSrv.openCreationTaskDlg();
+		// TODO implement new dialog
 				break;
 			case 'sample':
-				this.dialogCommonSrv.openCreationSampleDialog();
+				// this.dialogCommonSrv.openCreationSampleDialog();
+		// TODO implement new dialog
 				break;
 			case 'supplier':
 				// this.dialogCommonSrv.openCreationDlg('Supplier');

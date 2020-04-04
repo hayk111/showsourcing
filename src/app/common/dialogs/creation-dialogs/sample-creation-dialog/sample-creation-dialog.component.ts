@@ -103,11 +103,13 @@ export class SampleCreationDialogComponent implements OnInit {
 	}
 
 	cancel() {
-		this.dlgSrv.close({ type: CloseEventType.CANCEL });
+		// this.dlgSrv.close({ type: CloseEventType.CANCEL });
+		// TODO implement new dialog
 	}
 
 	close(created$?: Observable<Sample>) {
-		this.dlgSrv.close({ type: CloseEventType.OK, data: { sample: this.sample, created$ } });
+		// this.dlgSrv.close({ type: CloseEventType.OK, data: { sample: this.sample, created$ } });
+		// TODO implement new dialog
 	}
 
 	private resetIds(sample) {

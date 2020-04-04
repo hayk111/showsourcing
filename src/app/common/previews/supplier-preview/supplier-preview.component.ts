@@ -114,26 +114,28 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnChanges, On
 	delete(supplier: Supplier) {
 		const text = `Are you sure you want to delete this supplier ?`;
 		this.dlgSrv.open(ConfirmDialogComponent, { text })
-			.pipe(
-				filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
-				switchMap(_ => this.supplierSrv.delete(supplier.id)),
-				tap(prod => {
-					this.close.emit();
-				})
-			).subscribe();
+			// TODO implement new dialog
+			// .pipe(
+			// 	filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
+			// 	switchMap(_ => this.supplierSrv.delete(supplier.id)),
+			// 	tap(prod => {
+			// 		this.close.emit();
+			// 	})
+			// ).subscribe();
 	}
 
 	archive() {
 		const text = `Are you sure you want to archive this supplier ?`;
 		const action = 'archive';
 		this.dlgSrv.open(ConfirmDialogComponent, { text, action })
-			.pipe(
-				filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
-				tap(_ => {
-					this.update(true, 'archived');
-					this.close.emit();
-				}),
-			).subscribe();
+			// TODO implement new dialog
+			// .pipe(
+			// 	filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
+			// 	tap(_ => {
+			// 		this.update(true, 'archived');
+			// 		this.close.emit();
+			// 	}),
+			// ).subscribe();
 	}
 
 	deleteImage(image: AppImage) {
@@ -143,11 +145,13 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnChanges, On
 
 	// ACTIONS
 	openCreateSample() {
-		this.dialogCommonSrv.openCreationSampleDialog(null, this.supplier).subscribe();
+		// this.dialogCommonSrv.openCreationSampleDialog(null, this.supplier).subscribe();
+			// TODO implement new dialog
 	}
 
 	openCreateTask() {
-		this.dialogCommonSrv.openCreationTaskDlg(null, this.supplier).subscribe();
+		// this.dialogCommonSrv.openCreationTaskDlg(null, this.supplier).subscribe();
+			// TODO implement new dialog
 	}
 
 	/** opens the modal carousel */
