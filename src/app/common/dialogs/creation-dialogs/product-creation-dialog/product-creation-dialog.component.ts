@@ -1,16 +1,14 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { ProductDescriptor } from '~core/descriptors';
-import { ProductService } from '~core/erm';
 import { AppImage, Attachment, ExtendedField, Packaging, Price, Product } from '~core/erm';
-import { CloseEventType, DialogService } from '~shared/dialog';
-import { ToastService, ToastType } from '~shared/toast';
+import { DialogService } from '~shared/dialog';
 import { uuid } from '~utils';
 
 @Component({
 	selector: 'creation-product-dlg-app',
 	templateUrl: './product-creation-dialog.component.html',
 	styleUrls: ['./product-creation-dialog.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductCreationDialogComponent implements OnInit {
 	@Input() product: Product;
@@ -18,17 +16,29 @@ export class ProductCreationDialogComponent implements OnInit {
 
 	productDescriptor: ProductDescriptor;
 
-	constructor(
-		private dlgSrv: DialogService,
-		private productSrv: ProductService,
-		private toastSrv: ToastService,
-	) { }
+	constructor(private dlgSrv: DialogService) {}
 
 	ngOnInit() {
 		this.productDescriptor = new ProductDescriptor([
-			'name', 'supplier', 'price', 'category', 'minimumOrderQuantity', 'mowDescription', 'tags',
-			'projects', 'sample', 'samplePrice', 'innerCarton', 'masterCarton', 'masterCbm', 'quantityPer20ft',
-			'quantityPer40ft', 'quantityPer40ftHC', 'incoTerm', 'harbour', 'extendedFields'
+			'name',
+			'supplier',
+			'price',
+			'category',
+			'minimumOrderQuantity',
+			'mowDescription',
+			'tags',
+			'projects',
+			'sample',
+			'samplePrice',
+			'innerCarton',
+			'masterCarton',
+			'masterCbm',
+			'quantityPer20ft',
+			'quantityPer40ft',
+			'quantityPer40ftHC',
+			'incoTerm',
+			'harbour',
+			'extendedFields',
 		]);
 		this.productDescriptor.insert({ name: 'trading-information', type: 'title' }, 'innerCarton');
 		this.productDescriptor.modify([
@@ -40,12 +50,12 @@ export class ProductCreationDialogComponent implements OnInit {
 			{ name: 'harbour', metadata: { width: 495 } },
 		]);
 
-		// if there is not a product created, we create one
-		// else if a product exists but it does not have images or attachments initialized
-		if (!this.product)
-			this.product = new Product({ images: [], attachments: [] });
-		else if (!this.product.images || !this.product.attachments)
-			this.product = { ...this.product, images: [], attachments: [] };
+		// // if there is not a product created, we create one
+		// // else if a product exists but it does not have images or attachments initialized
+		// if (!this.product)
+		// 	this.product = new Product({ images: [], attachments: [] });
+		// else if (!this.product.images || !this.product.attachments)
+		// 	this.product = { ...this.product, images: [], attachments: [] };
 	}
 
 	updateProduct(product: Product) {
@@ -58,7 +68,7 @@ export class ProductCreationDialogComponent implements OnInit {
 	}
 
 	imageDeleted(image: AppImage) {
-		const images = this.product.images.filter(img => img.id !== image.id);
+		const images = this.product.images.filter((img) => img.id !== image.id);
 		this.product = { ...this.product, images };
 	}
 
@@ -68,13 +78,12 @@ export class ProductCreationDialogComponent implements OnInit {
 	}
 
 	fileDeleted(file: Attachment) {
-		const attachments = this.product.attachments.filter(fl => fl.id !== file.id);
+		const attachments = this.product.attachments.filter((fl) => fl.id !== file.id);
 		this.product = { ...this.product, attachments };
 	}
 
 	cancel() {
-		// TODO implement new dialog
-		// this.dlgSrv.close({ type: CloseEventType.CANCEL });
+		this.dlgSrv.cancel();
 	}
 
 	close() {
@@ -83,14 +92,17 @@ export class ProductCreationDialogComponent implements OnInit {
 	}
 
 	save() {
-		if (this.product && this.product.name) {
-			const product = {...this.product};
-			delete product._deleted;
-			delete product._lastChangedAt;
-			delete product._version;
-			delete product.images;
-			delete product.attachments;
-			this.dlgSrv.data({entity: product, createAnother: this.createAnother});
+		if (!this.product || !this.product.name) return;
+		const product = { ...this.product };
+		// delete product._deleted;
+		// delete product._lastChangedAt;
+		// delete product._version;
+		// delete product.images;
+		// delete product.attachments;
+		this.dlgSrv.data(product);
+		if (this.createAnother) this.resetIds(this.product);
+		else this.dlgSrv.close();
+
 		// 	this.productSrv.create(this.product).subscribe(product => {
 		// 		// if we create a new product we create a new id
 		// 		if (this.createAnother) {
@@ -113,7 +125,6 @@ export class ProductCreationDialogComponent implements OnInit {
 		// 				message: 'message.your-product-not-created'
 		// 			});
 		// 		});
-		}
 	}
 
 	// we keep the same old values, but we reset the ids that cannot be the same as before
@@ -126,11 +137,9 @@ export class ProductCreationDialogComponent implements OnInit {
 		if (product.innerCarton)
 			product = { ...product, innerCarton: new Packaging(product.innerCarton) };
 		// price
-		if (product.price)
-			product = { ...product, price: new Price(product.price) };
+		if (product.price) product = { ...product, price: new Price(product.price) };
 		// smaple price
-		if (product.samplePrice)
-			product = { ...product, samplePrice: new Price(product.samplePrice) };
+		if (product.samplePrice) product = { ...product, samplePrice: new Price(product.samplePrice) };
 		// images
 		if (product.images) {
 			product = { ...product, images: [] };
@@ -141,10 +150,9 @@ export class ProductCreationDialogComponent implements OnInit {
 		}
 		// extendedfields
 		if (product.extendedFields) {
-			const extendedFields = product.extendedFields.map(field => new ExtendedField(field));
+			const extendedFields = product.extendedFields.map((field) => new ExtendedField(field));
 			product = { ...product, extendedFields };
 		}
 		return product;
 	}
-
 }

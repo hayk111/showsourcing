@@ -10,7 +10,7 @@ import { Typename } from '~core/erm3/typename.type';
 	selector: 'app-dialog-page',
 	templateUrl: './dialog-page.component.html',
 	styleUrls: ['./dialog-page.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DialogPageComponent {
 	constructor(
@@ -25,19 +25,16 @@ export class DialogPageComponent {
 	/*--- Selection Dialogs ---*/
 
 	selectProducts() {
-		const selectedProducts$ = this.dlgCommonSrv.openSelectionDlg('Product', this.selectedProducts);
-		// TODO implement new dialog
-		// selectedProducts$
-		// 	.pipe(tap(({ data }) => console.log(data)))
-		// 	.subscribe(({ data }) => (this.selectedProducts = data || []));
+		this.dlgCommonSrv
+			.openSelectionDlg('Product', this.selectedProducts)
+			.data$.pipe(tap(data => console.log(data)))
+			.subscribe(data => (this.selectedProducts = data || []));
 	}
 
 	selectProjects() {
-		const selectedProjects$ = this.dlgCommonSrv.openSelectionDlg('Project', this.selectedProjects);
-		// TODO implement new dialog
-		// selectedProjects$
-		// 	.pipe(tap(({ data }) => console.log(data)))
-		// 	.subscribe(({ data }) => (this.selectedProjects = data || []));
+		this.dlgCommonSrv.openSelectionDlg('Project', this.selectedProjects).data$
+			.pipe(tap(data => console.log(data)))
+			.subscribe(data => (this.selectedProjects = data || []));
 	}
 
 	/*--- Creation Dialogs ---*/
@@ -59,8 +56,8 @@ export class DialogPageComponent {
 	}
 
 	private _creationHelper(typename: Typename) {
-		this.dlgCommonSrv.openCreationDlg(typename).data$.subscribe(({entity, createAnother}) => {
-			this.apiSrv.create(typename, entity).subscribe(_ => createAnother ? '' : this.dlgCommonSrv.close());
-		});
+		this.dlgCommonSrv
+			.openCreationDlg(typename)
+			.data$.subscribe((entity) => this.apiSrv.create(typename, entity).subscribe());
 	}
 }
