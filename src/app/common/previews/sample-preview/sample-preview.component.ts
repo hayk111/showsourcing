@@ -84,8 +84,8 @@ export class SamplePreviewComponent extends AutoUnsub implements OnInit, OnChang
 	}
 
 	ngOnChanges() {
-		this.sample$ = this.sampleSrv.selectOne(this._sample.id);
-		this.sample$.pipe(takeUntil(this._destroy$)).subscribe((s) => (this._sample = s));
+		// this.sample$ = this.sampleSrv.selectOne(this._sample.id);
+		// this.sample$.pipe(takeUntil(this._destroy$)).subscribe((s) => (this._sample = s));
 	}
 
 	// UPDATES
@@ -98,14 +98,14 @@ export class SamplePreviewComponent extends AutoUnsub implements OnInit, OnChang
 	}
 
 	addComment(comment: Comment) {
-		// if we don't specify the user, when we get out of the preview and then comeback, the info displayed will be without the user info
-		const commentUser = { ...comment, createdBy: this.userSrv.userSync };
-		const comments = [...(this._sample.comments || [])];
-		comments.push(commentUser as any);
-		this.commentSrv
-			.create(comment)
-			.pipe(switchMap((_) => this.sampleSrv.update({ id: this._sample.id, comments })))
-			.subscribe();
+		// // if we don't specify the user, when we get out of the preview and then comeback, the info displayed will be without the user info
+		// const commentUser = { ...comment, createdBy: this.userSrv.userSync };
+		// const comments = [...(this._sample.comments || [])];
+		// comments.push(commentUser as any);
+		// this.commentSrv
+		// 	.create(comment)
+		// 	.pipe(switchMap((_) => this.sampleSrv.update({ id: this._sample.id, comments })))
+		// 	.subscribe();
 	}
 
 	delete(sample: Sample) {
@@ -127,11 +127,11 @@ export class SamplePreviewComponent extends AutoUnsub implements OnInit, OnChang
 
 	// ACTIONS
 	openSupplier() {
-		this.router.navigate(['suppliers', this.sample.supplier.id]);
+		// this.router.navigate(['suppliers', this.sample.supplier.id]);
 	}
 
 	openProduct() {
-		this.router.navigate(['products', this.sample.product.id]);
+		// this.router.navigate(['products', this.sample.product.id]);
 	}
 
 	getProductFormatedName(product: Product) {

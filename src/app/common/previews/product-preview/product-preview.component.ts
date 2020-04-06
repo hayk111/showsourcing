@@ -49,10 +49,10 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 	private _product: Product;
 	@Input()
 	set product(value: Product) {
-		this._product = value;
-		if (value) {
-			this.images = this._product.images;
-		}
+		// this._product = value;
+		// if (value) {
+		// 	this.images = this._product.images;
+		// }
 	}
 	get product() {
 		return this._product;
@@ -152,10 +152,10 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 	}
 
 	ngOnChanges() {
-		this.product$ = this.productSrv.selectOne(this.product.id);
-		this.product$.pipe(takeUntil(this._destroy$)).subscribe((product) => {
-			this.product = product;
-		});
+		// this.product$ = this.productSrv.selectOne(this.product.id);
+		// this.product$.pipe(takeUntil(this._destroy$)).subscribe((product) => {
+		// 	this.product = product;
+		// });
 	}
 
 	// UPDATE FUNCTIONS
@@ -177,15 +177,15 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 	}
 
 	addComment(comment: Comment) {
-		// if we don't specify the user, when we get out of the preview and then comeback, the info displayed will be without the user info
-		// const commentUser = { ...comment, createdBy: { id: this.userSrv.userSync.id } };
-		const commentUser = { ...comment };
-		const comments = [...(this._product.comments || [])];
-		comments.push(commentUser);
-		this.commentSrv
-			.create(comment)
-			.pipe(switchMap((_) => this.productSrv.update({ id: this._product.id, comments })))
-			.subscribe();
+		// // if we don't specify the user, when we get out of the preview and then comeback, the info displayed will be without the user info
+		// // const commentUser = { ...comment, createdBy: { id: this.userSrv.userSync.id } };
+		// const commentUser = { ...comment };
+		// const comments = [...(this._product.comments || [])];
+		// comments.push(commentUser);
+		// this.commentSrv
+		// 	.create(comment)
+		// 	.pipe(switchMap((_) => this.productSrv.update({ id: this._product.id, comments })))
+		// 	.subscribe();
 	}
 
 	/** when adding a new image, by selecting in the file browser or by dropping it on the component */

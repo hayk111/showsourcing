@@ -9,6 +9,8 @@ import { SelectionService } from './selection.service';
 import { TeamService } from '~core/auth';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { Entity } from '~core/erm3/models/_entity.model';
+import { DefaultCreationDialogComponent } from '~common/dialogs/creation-dialogs';
+import { DialogService } from '~shared/dialog';
 
 
 @Injectable({ providedIn: 'root' })
@@ -51,7 +53,8 @@ export class ListFuseHelperService<G = any> {
 		private selectionSrv: SelectionService,
 		private apiSrv: ApiService,
 		private filterSrv: FilterService,
-		private dlgCommonSrv: DialogCommonService
+		private dlgSrv: DialogService
+		// private dlgCommonSrv: DialogCommonService // ! Circular dependency
 	) {}
 
 	setup(
@@ -79,7 +82,9 @@ export class ListFuseHelperService<G = any> {
 
 	/** Open a dialog to get entity properties depending on the typename. Then, create the new entity */
 	create(linkedEntities?: Record<string, Entity<any>>) {
-		this.dlgCommonSrv.openCreationDlg(this.typename, linkedEntities).data$
+		// TODO change this default dialog with openCreationDlg
+		this.dlgSrv.open(DefaultCreationDialogComponent, linkedEntities).data$
+		// this.dlgCommonSrv.openCreationDlg(this.typename, linkedEntities).data$
 		.pipe(
 			switchMap(entity => this.apiSrv.create(this.typename, entity)),
 		).subscribe(created => this.apiSrv.addToList(this.queryRef, created));
