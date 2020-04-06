@@ -115,6 +115,7 @@ export class MassEditDlgComponent extends AutoUnsub implements OnInit {
 			this.value = prop ? item[prop] : item;
 	}
 
+	// TODO extract update logic
 	update() {
 		this.pending = true;
 		this.choice$.pipe(
@@ -123,7 +124,7 @@ export class MassEditDlgComponent extends AutoUnsub implements OnInit {
 			switchMap(items => this.productSrv.updateMany(items))
 		).subscribe(_ => {
 			this.pending = true;
-			this.close();
+			this.dlgSrv.close();
 			this.notificationSrv.add({
 				type: ToastType.SUCCESS,
 				title: this.translate.instant('title.multiple-edition'),
@@ -197,9 +198,8 @@ export class MassEditDlgComponent extends AutoUnsub implements OnInit {
 		return votes;
 	}
 
-	close() {
-		// this.dlgSrv.close({ type: CloseEventType.CANCEL });
-		// TODO implement new dialog
+	cancel() {
+		this.dlgSrv.cancel();
 	}
 
 }

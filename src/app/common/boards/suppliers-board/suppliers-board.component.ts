@@ -62,7 +62,7 @@ export class SuppliersBoardComponent extends AutoUnsub implements OnInit {
 		private supplierSrv: SupplierService,
 		private supplierStatusSrv: SupplierStatusService,
 		private listSrv: ListPageService<Supplier, SupplierService>,
-		public dialogCommonSrv: DialogCommonService,
+		public dlgCommonSrv: DialogCommonService,
 		public kanbanSrv: KanbanService,
 		public dlgSrv: DialogService,
 		private filterSrv: FilterService,
@@ -198,17 +198,14 @@ export class SuppliersBoardComponent extends AutoUnsub implements OnInit {
 			itemIds.length <= 1 ? translate('supplier') : translate('suppliers');
 		const text = `${del} ${itemIds.length} ${supplier}`;
 
-		this.dlgSrv
-			.open(ConfirmDialogComponent, { text })
-			// TODO implement confirm dialog
-			// .pipe(
-			// 	filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
-			// 	switchMap(_ => this.listSrv.dataSrv.deleteMany(itemIds))
-			// )
-			// .subscribe(_ => {
-			// 	this.selectionSrv.unselectAll();
-			// 	this.kanbanSrv.deleteItems(itemIds);
-			// });
+		this.dlgCommonSrv.openConfirmDlg({text}).data$
+			.pipe(
+				switchMap(_ => this.listSrv.dataSrv.deleteMany(itemIds)) // TODO update listSrv
+			)
+			.subscribe(_ => {
+				this.selectionSrv.unselectAll();
+				this.kanbanSrv.deleteItems(itemIds);
+			});
 	}
 
 	onMultipleStatusChange(status: SupplierStatus) {

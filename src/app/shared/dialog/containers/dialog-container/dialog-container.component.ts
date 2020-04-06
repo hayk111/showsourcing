@@ -67,8 +67,8 @@ export class DialogContainerComponent extends AutoUnsub implements AfterViewInit
 
 	@HostListener('document:keydown.escape', ['$event'])
 	close() {
-		this.srv.close();
-		// this.clear();
+		// the cancel() trigger the this.srv.close$ who run the this.clear()
+		this.srv.cancel();
 	}
 
 	/** removes component from host */

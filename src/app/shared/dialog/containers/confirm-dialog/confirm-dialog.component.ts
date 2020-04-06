@@ -17,8 +17,8 @@ export class ConfirmDialogComponent {
 	constructor(protected srv: DialogService) { }
 
 	onConfirm() {
-		// this.srv.close({ type: CloseEventType.OK });
-		// TODO implement new dialog
+		this.srv.data('');
+		this.srv.close();
 	}
 
 }

@@ -101,7 +101,7 @@ export abstract class AbstractTaskCommonComponent extends AutoUnsub
 	openCreationTaskDlg(product?: Product, supplier?: Supplier) {
 		this.dlgSrv
 			.open(TaskCreationDialogComponent, { product, supplier })
-			// TODO implement creation Task
+			// don't implement creation Sample => deprecated component
 			// .pipe(
 			// 	filter((event: CloseEvent) => event.type === CloseEventType.OK),
 			// 	switchMap(_ => this.listSrv.refetch())

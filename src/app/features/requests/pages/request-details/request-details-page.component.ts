@@ -45,7 +45,7 @@ export class RequestDetailsPageComponent extends AutoUnsub implements OnInit {
 		private requestReplySrv: RequestReplyService,
 		private cdr: ChangeDetectorRef,
 		private reqElementSrv: RequestElementService,
-		public dialogCommonSrv: DialogCommonService,
+		public dlgCommonSrv: DialogCommonService,
 		public listSrv: ListPageService<RequestElement, RequestElementService>,
 		private dlgSrv: DialogService,
 		private translate: TranslateService,
@@ -138,19 +138,17 @@ export class RequestDetailsPageComponent extends AutoUnsub implements OnInit {
 	cancelReply(replyId: ID) {
 		const text = 'message.confirm-cancel-request-item';
 		const action = 'buttoncancel-item';
-		this.dlgSrv
-			.open(ConfirmDialogComponent, { text, action })
-		// TODO implement new dialog
-			// .pipe(
-			// 	switchMap(_ =>
-			// 		this.requestReplySrv.update({
-			// 			id: replyId,
-			// 			status: ReplyStatus.CANCELED
-			// 		})
-			// 	),
-			// 	switchMap(_ => this.listSrv.refetch())
-			// )
-			// .subscribe();
+		this.dlgCommonSrv.openConfirmDlg({ text, action }).data$
+			.pipe(
+				switchMap(_ =>
+					this.requestReplySrv.update({
+						id: replyId,
+						status: ReplyStatus.CANCELED
+					})
+				),
+				switchMap(_ => this.listSrv.refetch())
+			)
+			.subscribe();
 	}
 
 	cancelReplies() {
@@ -162,13 +160,11 @@ export class RequestDetailsPageComponent extends AutoUnsub implements OnInit {
 				id: element.reply.id,
 				status: ReplyStatus.CANCELED
 			}));
-		this.dlgSrv
-		.open(ConfirmDialogComponent, { text, action })
-		// TODO implement new dialog
-			// .pipe(
-			// 	switchMap(_ => this.requestReplySrv.updateMany(items)),
-			// 	switchMap(_ => this.listSrv.refetch())
-			// )
-			// .subscribe(_ => this.selectionSrv.unselectAll());
+		this.dlgCommonSrv.openConfirmDlg({text, action}).data$
+			.pipe(
+				switchMap(_ => this.requestReplySrv.updateMany(items)),
+				switchMap(_ => this.listSrv.refetch())
+			)
+			.subscribe(_ => this.selectionSrv.unselectAll());
 	}
 }

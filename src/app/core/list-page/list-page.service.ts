@@ -223,7 +223,7 @@ export class ListPageService<
 		const text = `Are you sure you want to delete this ${this.viewSrv.entityMetadata.singular} ?`;
 		this.dlgSrv
 			.open(ConfirmDialogComponent, { text })
-			// TODO implement new dialog
+			// don't implement new dialog because this service is deprecated
 			// .pipe(
 			// 	tap(_ => this.selectionSrv.unselectOne(entity)),
 			// 	filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
@@ -246,7 +246,7 @@ export class ListPageService<
 			'?';
 		this.dlgSrv
 			.open(ConfirmDialogComponent, { text })
-			// TODO implement new dialog
+			// don't implement new dialog because this service is deprecated
 			// .pipe(
 			// 	filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
 			// 	switchMap(_ => this.dataSrv.deleteMany(itemIds)),
@@ -265,7 +265,7 @@ export class ListPageService<
 				extra,
 				canRedirect
 			})
-			// TODO implement new dialog
+			// don't implement new dialog because this service is deprecated
 			// .pipe(
 			// 	filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
 			// 	map((evt: CloseEvent) => evt.data)

@@ -11,9 +11,11 @@ import {
 	NewContactDlgComponent,
 	ProductRequestTeamFeedbackDlgComponent,
 	RefuseReplyDlgComponent,
-	VoteDetailsDialogComponent
+	VoteDetailsDialogComponent,
+	TemplateMngmtDlgComponent,
+	DescriptionDlgComponent
 } from '~common/dialogs/custom-dialogs';
-import { EntityMetadata, Product, Supplier } from '~core/erm';
+import { EntityMetadata, Product, Supplier, RequestTemplate } from '~core/erm';
 import { Entity } from '~core/erm3/models/_entity.model';
 import { Typename } from '~core/erm3/typename.type';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
@@ -96,7 +98,7 @@ export class DialogCommonService {
 		return this.dlgSrv.open(CompareProductComponent, { products });
 	}
 
-	openConfirmDialog(data: { text: string }) {
+	openConfirmDlg(data: Partial<{ title: string, text: string, subText: string, action: string}>) {
 		return this.dlgSrv.open(ConfirmDialogComponent, data);
 	}
 
@@ -129,10 +131,16 @@ export class DialogCommonService {
 		return this.dlgSrv.open(RefuseReplyDlgComponent, data);
 	}
 
-	openEditionDlg() {}
-
 	openSupplierRequest(products: Product[], supplier?: Supplier) {
 		return this.dlgSrv.open(SupplierRequestDialogComponent, { products, supplier });
+	}
+
+	openTemplateMngmtDlg(templateSelected: RequestTemplate) {
+		return this.dlgSrv.open(TemplateMngmtDlgComponent, {template: {templateSelected}});
+	}
+
+	openDescriptionDlg(data) {
+		return this.dlgSrv.open(DescriptionDlgComponent, data);
 	}
 
 	close() {

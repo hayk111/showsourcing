@@ -86,11 +86,6 @@ export class ProductCreationDialogComponent implements OnInit {
 		this.dlgSrv.cancel();
 	}
 
-	close() {
-		// TODO implement new dialog
-		// this.dlgSrv.close({ type: CloseEventType.OK, data: { product: this.product } });
-	}
-
 	save() {
 		if (!this.product || !this.product.name) return;
 		const product = { ...this.product };

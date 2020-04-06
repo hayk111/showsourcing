@@ -24,7 +24,7 @@ export abstract class AbstractSampleCommonComponent extends AutoUnsub
 		protected apiSrv: ApiService,
 		protected dlgSrv: DialogService,
 		public listHelper: ListHelperService,
-		public dialogCommonSrv: DialogCommonService,
+		public dlgCommonSrv: DialogCommonService,
 		protected filterSrv: FilterService
 	) {
 		super();
@@ -57,7 +57,7 @@ export abstract class AbstractSampleCommonComponent extends AutoUnsub
 	openCreationSampleDlg(product?: Product, supplier?: Supplier) {
 		return this.dlgSrv
 			.open(SampleCreationDialogComponent, { product, supplier })
-			// TODO implement creation Sample
+			// don't implement creation Sample => deprecated component
 			// .pipe(
 			// 	filter((event: CloseEvent) => event.type === CloseEventType.OK),
 			// 	switchMap(_ => this.listHelper.refetch())

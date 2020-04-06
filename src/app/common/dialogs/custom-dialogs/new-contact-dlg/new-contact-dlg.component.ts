@@ -86,9 +86,8 @@ export class NewContactDlgComponent extends AutoUnsub implements OnInit {
 		);
 	}
 
-	close() {
-		// this.dlgSrv.close({ type: CloseEventType.CANCEL });
-		// TODO implement new dialog
+	cancel() {
+		this.dlgSrv.cancel();
 	}
 
 }

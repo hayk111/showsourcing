@@ -214,24 +214,24 @@ export class SupplierRequestDialogComponent extends AutoUnsub implements OnInit,
 		}
 	}
 
+	// TODO adapt this logic
 	addProduct(ev: any) {
-		this.productSrv.selectedProds$.subscribe((products: Product[]) => {
-			products.forEach((product: Product) => {
-				if (this._products.filter((p: Product) => p.id === product.id).length === 0) {
-					this._products.push(product);
-				}
-			});
+		// this.productSrv.selectedProds$.subscribe((products: Product[]) => {
+		// 	products.forEach((product: Product) => {
+		// 		if (this._products.filter((p: Product) => p.id === product.id).length === 0) {
+		// 			this._products.push(product);
+		// 		}
+		// 	});
 
-			setTimeout(_ => this.dlgSrv.open(SupplierRequestDialogComponent, { products: this._products, request: this._request }));
-		});
+		// 	setTimeout(_ => this.dlgSrv.open(SupplierRequestDialogComponent, { products: this._products, request: this._request }));
+		// });
 
-		setTimeout(_ => {
-			this.dlgSrv.open(ProductSelectionDialogComponent, { initialSelectedProducts: [], submitProducts: false })
-			// TODO implement new dialog
-				// .pipe(
-				// 	switchMap(_ => this.listSrv.refetch())
-				// ).subscribe();
-		});
+		// setTimeout(_ => {
+		// 	this.dlgSrv.open(ProductSelectionDialogComponent, { initialSelectedProducts: [], submitProducts: false })
+		// 		// .pipe(
+		// 		// 	switchMap(_ => this.listSrv.refetch())
+		// 		// ).subscribe();
+		// });
 	}
 
 	removeProduct(id: ID) {
@@ -283,15 +283,17 @@ export class SupplierRequestDialogComponent extends AutoUnsub implements OnInit,
 	openTemplateMngmtDialog(event: MouseEvent, templateSelected: RequestTemplate) {
 		event.stopPropagation();
 		let request = new CreateRequest(this.form.value);
-		this.dlgSrv.open(TemplateMngmtDlgComponent, { templateSelected })
-			// we are reopening this dlg when the other one closes
-			// TODO implement new dialog
-			// .subscribe(({ type, data }) => {
-			// 	// we update the request with the latest tempalte selected if there is any
-			// 	if (data && data.template)
-			// 		request = ({ ...request, requestTemplate: data.template });
-			// 	return this.dlgSrv.open(SupplierRequestDialogComponent, { request, fromTemplateDlg: true });
-			// });
+		this.dlgSrv.data(request);
+		this.dlgSrv.close();
+		// TODO extract this logic
+		// this.dlgSrv.open(TemplateMngmtDlgComponent, { templateSelected })
+		// 	// we are reopening this dlg when the other one closes
+		// 	// .subscribe(({ type, data }) => {
+		// 	// 	// we update the request with the latest tempalte selected if there is any
+		// 	// 	if (data && data.template)
+		// 	// 		request = ({ ...request, requestTemplate: data.template });
+		// 	// 	return this.dlgSrv.open(SupplierRequestDialogComponent, { request, fromTemplateDlg: true });
+		// 	// });
 	}
 
 	getTemplateFields(tmp: RequestTemplate) {

@@ -10,28 +10,26 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { filter, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { switchMap, takeUntil } from 'rxjs/operators';
 import { SampleDescriptor } from '~core/descriptors';
 import { SampleService, UserService } from '~core/erm';
 import { CommentService } from '~core/erm';
-import {
-	ExtendedFieldDefinitionService,
-} from '~core/erm';
-import { Comment, ERM, ExtendedFieldDefinition, Product, Sample } from '~core/erm';
-import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
-import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
+import { ExtendedFieldDefinitionService } from '~core/erm';
+import { Comment, ERM, ExtendedFieldDefinition, Product } from '~core/erm';
+import { Sample } from '~core/erm3/models';
 import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
 import { PreviewCommentComponent, PreviewService } from '~shared/preview';
 import { AutoUnsub } from '~utils';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
+import { ApiService } from '~core/erm3/services/api.service';
 
 @Component({
 	selector: 'sample-preview-app',
 	templateUrl: './sample-preview.component.html',
 	styleUrls: ['./sample-preview.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SamplePreviewComponent extends AutoUnsub implements OnInit, OnChanges {
-
 	private _sample: Sample;
 	@Input() set sample(value: Sample) {
 		this._sample = value;
@@ -59,28 +57,35 @@ export class SamplePreviewComponent extends AutoUnsub implements OnInit, OnChang
 		private userSrv: UserService,
 		private sampleSrv: SampleService,
 		private previewSrv: PreviewService,
-		private dlgSrv: DialogService,
-		private extendedFieldDefSrv: ExtendedFieldDefinitionService
+		private dlgCommonSrv: DialogCommonService,
+		private extendedFieldDefSrv: ExtendedFieldDefinitionService,
+		private apiSrv: ApiService
 	) {
 		super();
 	}
 
 	ngOnInit() {
 		this.sampleDescriptor = new SampleDescriptor([
-			'reference', 'name', 'price', 'assignee', 'paid'
+			'reference',
+			'name',
+			'price',
+			'assignee',
+			'paid',
 		]);
 		this.sampleDescriptor.modify([
 			{ name: 'name', label: 'sample-name' },
-			{ name: 'price', label: 'sample-price' }
+			{ name: 'price', label: 'sample-price' },
 		]);
 
-		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "sample.extendedFields"', sortBy: 'order' });
+		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({
+			query: 'target == "sample.extendedFields"',
+			sortBy: 'order',
+		});
 	}
 
 	ngOnChanges() {
 		this.sample$ = this.sampleSrv.selectOne(this._sample.id);
-		this.sample$.pipe(takeUntil(this._destroy$))
-			.subscribe(s => this._sample = s);
+		this.sample$.pipe(takeUntil(this._destroy$)).subscribe((s) => (this._sample = s));
 	}
 
 	// UPDATES
@@ -97,36 +102,27 @@ export class SamplePreviewComponent extends AutoUnsub implements OnInit, OnChang
 		const commentUser = { ...comment, createdBy: this.userSrv.userSync };
 		const comments = [...(this._sample.comments || [])];
 		comments.push(commentUser as any);
-		this.commentSrv.create(comment).pipe(
-			switchMap(_ => this.sampleSrv.update({ id: this._sample.id, comments }))
-		).subscribe();
+		this.commentSrv
+			.create(comment)
+			.pipe(switchMap((_) => this.sampleSrv.update({ id: this._sample.id, comments })))
+			.subscribe();
 	}
 
 	delete(sample: Sample) {
 		const text = `Are you sure you want to delete this sample ?`;
-		this.dlgSrv.open(ConfirmDialogComponent, { text })
-		// TODO implement new dialog
-			// .pipe(
-			// 	filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
-			// 	switchMap(_ => this.sampleSrv.delete(sample.id)),
-			// 	tap(sample => {
-			// 		this.close.emit();
-			// 	})
-			// ).subscribe();
+		this.dlgCommonSrv
+			.openConfirmDlg({ text })
+			.data$.pipe(switchMap((_) => this.apiSrv.delete('Sample', sample)))
+			.subscribe((_) => this.close.emit());
 	}
 
 	archive() {
 		const text = `Are you sure you want to archive this sample ?`;
 		const action = 'archive';
-		this.dlgSrv.open(ConfirmDialogComponent, { text, action })
-			// TODO implement new dialog
-			// .pipe(
-			// 	filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
-			// 	tap(_ => {
-			// 		this.update(true, 'archived');
-			// 		this.close.emit();
-			// 	}),
-			// ).subscribe();
+		this.dlgCommonSrv.openConfirmDlg({ text, action }).data$.subscribe((_) => {
+			this.update(true, 'archived');
+			this.close.emit();
+		});
 	}
 
 	// ACTIONS
@@ -139,14 +135,10 @@ export class SamplePreviewComponent extends AutoUnsub implements OnInit, OnChang
 	}
 
 	getProductFormatedName(product: Product) {
-		if (!product)
-			return;
-		else if (product.name && product.reference)
-			return product.reference + ' - ' + product.name;
-		else if (product.name)
-			return product.name;
-		else if (product.reference)
-			return product.reference;
+		if (!product) return;
+		else if (product.name && product.reference) return product.reference + ' - ' + product.name;
+		else if (product.name) return product.name;
+		else if (product.reference) return product.reference;
 	}
 
 	// TAB SELECTION
@@ -158,5 +150,4 @@ export class SamplePreviewComponent extends AutoUnsub implements OnInit, OnChang
 		this.previewSrv.onSelectedTab(2);
 		this.previewComment.focus();
 	}
-
 }

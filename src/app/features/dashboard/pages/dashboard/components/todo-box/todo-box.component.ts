@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { SupplierService } from '~core/erm';
 import { ListPageService } from '~core/list-page';
-import { ERM } from '~core/erm';
 import { DashboardService, TodoCounts, TodoEntities } from '~features/dashboard/services/dashboard.service';
+import { Typename } from '~core/erm3/typename.type';
+import { ApiService } from '~core/erm3/services/api.service';
 
 @Component({
 	selector: 'todo-box-app',
@@ -22,9 +22,9 @@ export class TodoBoxComponent implements OnInit {
 	entities = ['product', 'task', 'supplier', 'sample'];
 
 	constructor(
-		private supplierSrv: SupplierService,
-		public dialogCommonSrv: DialogCommonService,
+		public dlgCommonSrv: DialogCommonService,
 		public dashboardSrv: DashboardService,
+		private apiSrv: ApiService
 	) { }
 
 	ngOnInit() {
@@ -40,24 +40,16 @@ export class TodoBoxComponent implements OnInit {
 		this.rows$ = this.dashboardSrv.getFirstFewEntitiesAssignedToMe();
 	}
 
-	openCreationModal() {
-		switch (this.selectedTab) {
-			case 'product':
-				// this.dialogCommonSrv.openCreationProductDlg();
-		// TODO implement new dialog
-				break;
-			case 'task':
-				// this.dialogCommonSrv.openCreationTaskDlg();
-		// TODO implement new dialog
-				break;
-			case 'sample':
-				// this.dialogCommonSrv.openCreationSampleDialog();
-		// TODO implement new dialog
-				break;
-			case 'supplier':
-				// this.dialogCommonSrv.openCreationDlg('Supplier');
-				break;
-		}
+	createEntity() {
+		const typename = this.selectedTabToTypename(this.selectedTab);
+		this.dlgCommonSrv.openCreationDlg(typename).data$
+		.subscribe(entity => this.apiSrv.create(typename, entity));
+	}
+
+	/** transform 'product' | 'task' | 'sample' | 'supplier' to 'Product' | 'Task' | 'Sample' | 'Supplier */
+	selectedTabToTypename(selectedTab: string): Typename {
+		const typename = selectedTab.charAt(0).toUpperCase() + selectedTab.slice(1);
+		return typename as Typename;
 	}
 
 }

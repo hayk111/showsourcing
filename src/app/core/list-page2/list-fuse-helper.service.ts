@@ -7,8 +7,8 @@ import { Typename } from '~core/erm3/typename.type';
 import { FilterService, FilterType } from '~core/filters';
 import { SelectionService } from './selection.service';
 import { TeamService } from '~core/auth';
-import { DialogService } from '~shared/dialog';
-import { DefaultCreationDialogComponent } from '~common/dialogs/creation-dialogs';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
+import { Entity } from '~core/erm3/models/_entity.model';
 
 
 @Injectable({ providedIn: 'root' })
@@ -51,7 +51,7 @@ export class ListFuseHelperService<G = any> {
 		private selectionSrv: SelectionService,
 		private apiSrv: ApiService,
 		private filterSrv: FilterService,
-		private dlgSrv: DialogService
+		private dlgCommonSrv: DialogCommonService
 	) {}
 
 	setup(
@@ -77,17 +77,12 @@ export class ListFuseHelperService<G = any> {
 		return this.queryRef.refetch({ fetchPolicy: 'cache-first' }).then(_ => (this.pending = false));
 	}
 
-	create(addedProperties: any) {
-		this.dlgSrv.open(DefaultCreationDialogComponent , {
-			typename: this.typename,
-			extra: addedProperties
-		})
-		// TODO implement new dialog
-		// .pipe(
-		// 	filter(closeEvent => closeEvent.type === CloseEventType.OK),
-		// 	map(closeEvent => closeEvent.data),
-		// 	switchMap(entity => this.apiSrv.create(this.typename, entity)),
-		// ).subscribe(created => this.apiSrv.addToList(this.queryRef, created));
+	/** Open a dialog to get entity properties depending on the typename. Then, create the new entity */
+	create(linkedEntities?: Record<string, Entity<any>>) {
+		this.dlgCommonSrv.openCreationDlg(this.typename, linkedEntities).data$
+		.pipe(
+			switchMap(entity => this.apiSrv.create(this.typename, entity)),
+		).subscribe(created => this.apiSrv.addToList(this.queryRef, created));
 	}
 
 	update(entity: any) {

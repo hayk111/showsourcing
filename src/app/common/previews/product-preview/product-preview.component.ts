@@ -12,25 +12,31 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { filter, first, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { first, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { SampleCatalogComponent } from '~common/catalogs/sample-catalog/sample-catalog.component';
 import { TaskCatalogComponent } from '~common/catalogs/task-catalog/task-catalog.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { ProductDescriptor } from '~core/descriptors';
 import { CommentService } from '~core/erm';
-import {
-	ExtendedFieldDefinitionService,
-} from '~core/erm';
+import { ExtendedFieldDefinitionService } from '~core/erm';
 import { ProductService, SampleService, TaskService } from '~core/erm';
-import { AppImage, Comment, EntityName, ERM, ExtendedFieldDefinition, Product, Sample, Task } from '~core/erm';
-import { CloseEvent, CloseEventType } from '~shared/dialog';
-import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
+import {
+	AppImage,
+	Comment,
+	EntityName,
+	ERM,
+	ExtendedFieldDefinition,
+	Sample,
+	Task,
+} from '~core/erm';
+import { Product } from '~core/erm3/models';
 import { DialogService } from '~shared/dialog/services';
 import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { PreviewCommentComponent, PreviewService } from '~shared/preview';
 import { RatingDashboardComponent } from '~shared/rating';
 import { AutoUnsub, PendingImage } from '~utils';
+import { ApiService } from '~core/erm3/services/api.service';
 
 @Component({
 	selector: 'product-preview-app',
@@ -39,7 +45,6 @@ import { AutoUnsub, PendingImage } from '~utils';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChanges {
-
 	/** This is the product passed as input, but it's not yet fully loaded */
 	private _product: Product;
 	@Input()
@@ -72,7 +77,8 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 	@ViewChild(PreviewCommentComponent, { static: false }) previewComment: PreviewCommentComponent;
 	@ViewChild(SampleCatalogComponent, { read: ElementRef, static: false }) sampleCatalog: ElementRef;
 	@ViewChild(TaskCatalogComponent, { read: ElementRef, static: false }) taskCatalog: ElementRef;
-	@ViewChild(RatingDashboardComponent, { read: ElementRef, static: false }) ratingDashboard: ElementRef;
+	@ViewChild(RatingDashboardComponent, { read: ElementRef, static: false })
+	ratingDashboard: ElementRef;
 	@ViewChild('inpFile', { static: false }) inpFile: ElementRef;
 
 	/** this is the fully loaded product */
@@ -87,7 +93,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 	private _pendingImages: PendingImage[] = [];
 
 	constructor(
-		public dialogCommonSrv: DialogCommonService,
+		public dlgCommonSrv: DialogCommonService,
 		private uploader: UploaderService,
 		private cd: ChangeDetectorRef,
 		private productSrv: ProductService,
@@ -97,13 +103,24 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 		private extendedFieldDefSrv: ExtendedFieldDefinitionService,
 		private previewSrv: PreviewService,
 		private taskSrv: TaskService,
-		private sampleSrv: SampleService
-	) { super(); }
+		private sampleSrv: SampleService,
+		private apiSrv: ApiService
+	) {
+		super();
+	}
 
 	ngOnInit() {
 		this.productDescriptor1 = new ProductDescriptor([
-			'name', 'reference', 'supplier', 'supplier-reference', 'price', 'category', 'event', 'minimumOrderQuantity', 'moqDescription',
-			'assignee'
+			'name',
+			'reference',
+			'supplier',
+			'supplier-reference',
+			'price',
+			'category',
+			'event',
+			'minimumOrderQuantity',
+			'moqDescription',
+			'assignee',
 		]);
 		this.productDescriptor1.modify([
 			{ name: 'reference', label: 'item-reference' },
@@ -112,8 +129,17 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 		]);
 
 		this.productDescriptor2 = new ProductDescriptor([
-			'innerCarton', 'masterCarton', 'priceMatrix', 'sample', 'samplePrice', 'incoTerm',
-			'harbour', 'masterCbm', 'quantityPer20ft', 'quantityPer40ft', 'quantityPer40ftHC'
+			'innerCarton',
+			'masterCarton',
+			'priceMatrix',
+			'sample',
+			'samplePrice',
+			'incoTerm',
+			'harbour',
+			'masterCbm',
+			'quantityPer20ft',
+			'quantityPer40ft',
+			'quantityPer40ftHC',
 		]);
 		this.productDescriptor2.insert({ name: 'sample', type: 'title' }, 'sample');
 		this.productDescriptor2.insert({ name: 'shipping', type: 'title' }, 'incoTerm');
@@ -121,24 +147,21 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryAll(undefined, {
 			query: 'target == "Product"',
 			sortBy: 'order',
-			descending: false
+			descending: false,
 		});
 	}
 
 	ngOnChanges() {
 		this.product$ = this.productSrv.selectOne(this.product.id);
-		this.product$
-			.pipe(takeUntil(this._destroy$))
-			.subscribe(product => {
-				this.product = product;
-			});
+		this.product$.pipe(takeUntil(this._destroy$)).subscribe((product) => {
+			this.product = product;
+		});
 	}
 
 	// UPDATE FUNCTIONS
 	updateProduct(productConfig: any) {
-		const product = ({ ...productConfig, id: this.product.id });
-		this.productSrv.update(product)
-			.subscribe(_ => this.updated.emit(product));
+		const product = { ...productConfig, id: this.product.id };
+		this.productSrv.update(product).subscribe((_) => this.updated.emit(product));
 	}
 
 	update(value: any, prop: string) {
@@ -159,9 +182,10 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 		const commentUser = { ...comment };
 		const comments = [...(this._product.comments || [])];
 		comments.push(commentUser);
-		this.commentSrv.create(comment).pipe(
-			switchMap(_ => this.productSrv.update({ id: this._product.id, comments }))
-		).subscribe();
+		this.commentSrv
+			.create(comment)
+			.pipe(switchMap((_) => this.productSrv.update({ id: this._product.id, comments })))
+			.subscribe();
 	}
 
 	/** when adding a new image, by selecting in the file browser or by dropping it on the component */
@@ -174,59 +198,49 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 			.uploadImages(files, this.product)
 			.pipe(first())
 			.subscribe(
-				imgs => {
+				(imgs) => {
 					// removing pending image
-					this._pendingImages = this._pendingImages.filter(
-						p => !uuids.includes(p.id)
-					);
+					this._pendingImages = this._pendingImages.filter((p) => !uuids.includes(p.id));
 				},
-				e => (this._pendingImages = [])
+				(e) => (this._pendingImages = [])
 			);
 	}
 
 	/** adds pending image to the list */
 	private async _addPendingImg(files: File[]) {
 		// adding a pending image so we can see there is an image pending visually
-		let pendingImgs: PendingImage[] = files.map(file => new PendingImage(file));
-		pendingImgs = await Promise.all(pendingImgs.map(p => p.createData()));
+		let pendingImgs: PendingImage[] = files.map((file) => new PendingImage(file));
+		pendingImgs = await Promise.all(pendingImgs.map((p) => p.createData()));
 		this._pendingImages.push(...pendingImgs);
 		// putting the index at the end so we instantly have feedback the image is being processed
-		return pendingImgs.map(p => p.id);
+		return pendingImgs.map((p) => p.id);
 	}
 
 	delete(product: Product) {
 		const text = `Are you sure you want to delete this product ?`;
-		this.dlgSrv.open(ConfirmDialogComponent, { text })
-			// .pipe(
-			// 	filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
-			// 	switchMap(_ => this.productSrv.delete(product.id)),
-			// 	tap(prod => {
-			// 		this.updated.emit(prod);
-			// 		this.close.emit();
-			// 	})
-			// ).subscribe();
-			// TODO implement new dialog
+		this.dlgCommonSrv
+			.openConfirmDlg({ text })
+			.data$.pipe(switchMap((_) => this.apiSrv.delete('Product', product)))
+			.subscribe((prod) => {
+				this.updated.emit(prod);
+				this.close.emit();
+			});
 	}
 
 	archive() {
 		const text = `Are you sure you want to archive this product ?`;
 		const action = 'archive';
-		// this.dlgSrv.open(ConfirmDialogComponent, { text, action })
-		// 	.pipe(
-		// 		filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
-		// 		tap(_ => {
-		// 			this.update(true, 'archived');
-		// 			this.close.emit();
-		// 		}),
-		// 	).subscribe();
-			// TODO implement new dialog
+		this.dlgCommonSrv.openConfirmDlg({ text, action }).data$.subscribe((_) => {
+			this.update(true, 'archived');
+			this.close.emit();
+		});
 	}
 
 	// ACTIONS
 	redirect(subroute?: string) {
-		subroute ?
-			this.router.navigate(['products', this.product.id, subroute]) :
-			this.router.navigate(['products', this.product.id]);
+		subroute
+			? this.router.navigate(['products', this.product.id, subroute])
+			: this.router.navigate(['products', this.product.id]);
 	}
 
 	openSupplier() {
@@ -234,21 +248,31 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 	}
 
 	openAddToProject() {
-		// this.dialogCommonSrv.openAddToProjectDialog([this.product]);
+		// this.dlgCommonSrv.openAddToProjectDialog([this.product]);
 	}
 
 	openCreateTask() {
-		// this.dialogCommonSrv.openCreationTaskDlg(this.product, this.product && this.product.supplier).subscribe();
-			// TODO implement new dialog
+		this.dlgCommonSrv
+			.openCreationDlg('Task', {
+				product: this.product,
+				supplier: this.product && this.product.supplier,
+			})
+			.data$.subscribe();
+			// TODO create Task
 	}
 
 	openCreateSample() {
-		// this.dialogCommonSrv.openCreationSampleDialog(this.product, this.product && this.product.supplier).subscribe();
-			// TODO implement new dialog
+		this.dlgCommonSrv
+			.openCreationDlg('Sample', {
+				product: this.product,
+				supplier: this.product && this.product.supplier,
+			})
+			.data$.subscribe();
+			// TODO create Sample
 	}
 
 	openExportModal() {
-		this.dialogCommonSrv.openExportDialog(EntityName.PRODUCT, [this.product]);
+		this.dlgCommonSrv.openExportDialog(EntityName.PRODUCT, [this.product]);
 	}
 
 	// TAB SELECTION
@@ -279,5 +303,4 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 	openFileBrowser() {
 		this.inpFile.nativeElement.click();
 	}
-
 }

@@ -11,44 +11,42 @@ import { AutoUnsub } from '~utils';
 	selector: 'invite-user-dlgapp',
 	templateUrl: './invite-user-dlg.component.html',
 	styleUrls: ['./invite-user-dlg.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InviteUserDlgComponent extends AutoUnsub {
 	form: FormGroup;
 	pending = false;
 
-	constructor(private dlgSrv: DialogService,
+	constructor(
+		private dlgSrv: DialogService,
 		private memberSrv: SettingsMembersService,
 		private fb: FormBuilder,
 		private toastSrv: ToastService,
 		private translate: TranslateService
 	) {
 		super();
-		this.form = this.fb.group(
-			{
-				email: ['', Validators.compose([Validators.required, Validators.email])]
-			}
-		);
+		this.form = this.fb.group({
+			email: ['', Validators.compose([Validators.required, Validators.email])],
+		});
 	}
 
 	submit() {
-		if (this.form.valid) {
-			this.pending = true;
-			const { email } = this.form.value;
-
-			this.memberSrv.createInvitation(email)
-				.subscribe(() => {
-					this.pending = false;
-					const invtSent = this.translate.instant('message.your-invitation-was-sent-to');
-					// this.dlgSrv.close({ type: CloseEventType.OK });
-		// TODO implement new dialog
-					this.toastSrv.add({
-						type: ToastType.SUCCESS,
-						title: 'title.invitation-sent',
-						message: `${invtSent} ${email}`,
-						timeout: 3500
-					});
-				});
-		}
+		if (!this.form.valid) return;
+		// this.pending = true;
+		const { email } = this.form.value;
+		this.dlgSrv.data(email);
+		this.dlgSrv.close();
+		// this.memberSrv.createInvitation(email)
+		// 	.subscribe(() => {
+		// 		this.pending = false;
+		// 		const invtSent = this.translate.instant('message.your-invitation-was-sent-to');
+		// 		this.dlgSrv.close({ type: CloseEventType.OK });
+		// 		this.toastSrv.add({
+		// 			type: ToastType.SUCCESS,
+		// 			title: 'title.invitation-sent',
+		// 			message: `${invtSent} ${email}`,
+		// 			timeout: 3500
+		// 		});
+		// 	});
 	}
 }

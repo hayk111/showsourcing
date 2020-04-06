@@ -11,10 +11,9 @@ import { uuid } from '~utils';
 	templateUrl: './task-creation-dialog.component.html',
 	styleUrls: ['./task-creation-dialog.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: []
+	providers: [],
 })
 export class TaskCreationDialogComponent implements OnInit {
-
 	@Input() task: Task;
 	@Input() product: Product;
 	@Input() supplier: Supplier;
@@ -27,19 +26,24 @@ export class TaskCreationDialogComponent implements OnInit {
 		private taskSrv: TaskService,
 		private toastSrv: ToastService,
 		private userSrv: UserService
-	) { }
+	) {}
 
 	ngOnInit() {
 		const user = this.userSrv.userSync;
 		const assignee = {
 			id: user.id,
 			lastName: user.lastName,
-			firstName: user.firstName
+			firstName: user.firstName,
 		};
 		const today = new Date();
-		const tomorrow = new Date(today.getTime() + (24 * 60 * 60 * 1000));
+		const tomorrow = new Date(today.getTime() + 24 * 60 * 60 * 1000);
 		this.taskDescriptor = new TaskDescriptor([
-			'name', 'assignee', 'dueDate', 'description', 'product', 'supplier'
+			'name',
+			'assignee',
+			'dueDate',
+			'description',
+			'product',
+			'supplier',
 		]);
 		this.taskDescriptor.modify([
 			{ name: 'name', metadata: { placeholder: 'task-name' } },
@@ -49,26 +53,30 @@ export class TaskCreationDialogComponent implements OnInit {
 				label: 'linked-to-product',
 				metadata: {
 					placeholder: 'search-your-product',
-					width: 495
-				}
+					width: 495,
+				},
 			},
 			{
 				name: 'supplier',
 				label: 'linked-to-supplier',
 				metadata: {
 					placeholder: 'search-your-supplier',
-					width: 495
-				}
-			}
+					width: 495,
+				},
+			},
 		]);
 
 		if (!this.task) {
-			const supplier = this.supplier ? this.supplier : (this.product && this.product.supplier);
+			const supplier = this.supplier ? this.supplier : this.product && this.product.supplier;
 			this.task = new Task({
-				...this.product && { product: { id: this.product.id, name: this.product.name } },
-				...supplier && { supplier: { id: supplier.id, name: supplier.name } },
+				...(this.product && { product: { id: this.product.id, name: this.product.name } }),
+				...(supplier && { supplier: { id: supplier.id, name: supplier.name } }),
 				// dueDate: tomorrow, not working
-				assignee: { id: this.userSrv.userSync.id, firstName: this.userSrv.userSync.firstName, lastName: this.userSrv.userSync.lastName }
+				assignee: {
+					id: this.userSrv.userSync.id,
+					firstName: this.userSrv.userSync.firstName,
+					lastName: this.userSrv.userSync.lastName,
+				},
 			});
 		}
 	}
@@ -78,43 +86,41 @@ export class TaskCreationDialogComponent implements OnInit {
 	}
 
 	save() {
-		if (this.task && this.task.name) {
-			this.taskSrv.create(this.task).subscribe(task => {
-				if (this.createAnother) {
-					task = this.resetIds(task);
-					this.dlgSrv.open(TaskCreationDialogComponent, { task, createAnother: true });
-				} else {
-					this.close();
-				}
-				this.taskSrv.onUpdateTaskList();
-				this.toastSrv.add({
-					type: ToastType.SUCCESS,
-					title: `title.task-created`,
-					message: 'message.task-created-with-succes'
-				});
-			},
-				err => {
-					this.toastSrv.add({
-						type: ToastType.ERROR,
-						title: `title.task-created`,
-						message: 'message.your-task-not-created'
-					});
-				});
-		}
-	}
-	cancel() {
-		// this.dlgSrv.close({ type: CloseEventType.CANCEL });
-		// TODO implement new dialog
+		if (!this.task || !this.task.name) return;
+		this.dlgSrv.data(this.task);
+		if (this.createAnother) this.resetIds(this.task);
+		else this.dlgSrv.close();
+		// this.taskSrv.create(this.task).subscribe(
+		// 	(task) => {
+		// 		if (this.createAnother) {
+		// 			task = this.resetIds(task);
+		// 			this.dlgSrv.open(TaskCreationDialogComponent, { task, createAnother: true });
+		// 		} else {
+		// 			this.close();
+		// 		}
+		// 		this.taskSrv.onUpdateTaskList();
+		// 		this.toastSrv.add({
+		// 			type: ToastType.SUCCESS,
+		// 			title: `title.task-created`,
+		// 			message: 'message.task-created-with-succes',
+		// 		});
+		// 	},
+		// 	(err) => {
+		// 		this.toastSrv.add({
+		// 			type: ToastType.ERROR,
+		// 			title: `title.task-created`,
+		// 			message: 'message.your-task-not-created',
+		// 		});
+		// 	}
+		// );
 	}
 
-	close() {
-		// this.dlgSrv.close({ type: CloseEventType.OK, data: { task: this.task } });
-		// TODO implement new dialog
+	cancel() {
+		this.dlgSrv.cancel();
 	}
 
 	private resetIds(task) {
 		task = { ...task, id: uuid(), name: '', description: '' };
 		return task;
 	}
-
 }

@@ -140,6 +140,7 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 		// since update is async we have to save the index before it changes
 		const localSelectIndex = this.selectedIndex;
 
+		// TODO extract save logic
 		this.replySrv.update(reply).subscribe(_ => {
 			if (updateStatus && lastItem)
 				this.dlgSrv.open(ReplySentDlgComponent);
@@ -154,8 +155,7 @@ export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
 
 	saveAndClose() {
 		this.save();
-		// this.dlgSrv.close({ type: CloseEventType.OK });
-		// TODO implement new dialog
+		this.dlgSrv.close();
 	}
 
 	saveAndNext() {

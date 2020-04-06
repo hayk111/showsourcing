@@ -9,29 +9,26 @@ import {
 	Output,
 	ViewChild,
 	Renderer2,
-	AfterViewInit,
 } from '@angular/core';
 import { saveAs } from 'file-saver';
-import { filter, switchMap, takeUntil } from 'rxjs/operators';
+import { switchMap, takeUntil } from 'rxjs/operators';
 import { ERMService } from '~core/erm';
 import { ImageService } from '~core/erm';
 import { AppImage } from '~core/erm';
-import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
-import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback.service';
 import { ImageComponent } from '~shared/image/components/image/image.component';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 import { DEFAULT_IMG } from '~utils/constants';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 
 @Component({
 	selector: 'carousel-app',
 	templateUrl: './carousel.component.html',
 	styleUrls: ['./carousel.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [UploaderFeedbackService]
+	providers: [UploaderFeedbackService],
 })
 export class CarouselComponent extends AutoUnsub implements OnInit {
-
 	/** Whether images can be uploaded */
 	@Input() static = false;
 	/** size in px of the main display */
@@ -69,7 +66,7 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 
 	constructor(
 		private imageSrv: ImageService,
-		private dlgSrv: DialogService,
+		private dlgCommonSrv: DialogCommonService,
 		private uploaderFeedback: UploaderFeedbackService,
 		private ermSrv: ERMService,
 		private cd: ChangeDetectorRef,
@@ -82,33 +79,25 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 		this.uploaderFeedback.init({
 			linkedEntity: this.entity,
 			imageProperty: this.imageProperty,
-			isImagePropertyArray: this.isImagePropertyArray
+			isImagePropertyArray: this.isImagePropertyArray,
 		});
-		this.uploaderFeedback.uploaded$
-			.pipe(takeUntil(this._destroy$))
-			.subscribe(imgs => {
-				this.uploaded.emit(imgs as AppImage[]);
-				// we need this condition since when we add an image the selected index will be length - 1
-				// but when property is not an array we have to set manually the index to 0
-				if (!this.isImagePropertyArray)
-					this.selectedIndex = 0;
-			});
-
+		this.uploaderFeedback.uploaded$.pipe(takeUntil(this._destroy$)).subscribe((imgs) => {
+			this.uploaded.emit(imgs as AppImage[]);
+			// we need this condition since when we add an image the selected index will be length - 1
+			// but when property is not an array we have to set manually the index to 0
+			if (!this.isImagePropertyArray) this.selectedIndex = 0;
+		});
 	}
 
 	back(event) {
-		if (this.selectedIndex > 0)
-			this.selectedIndex--;
-		else
-			this.selectedIndex = this.images.length - 1;
+		if (this.selectedIndex > 0) this.selectedIndex--;
+		else this.selectedIndex = this.images.length - 1;
 		event.stopPropagation();
 	}
 
 	next(event) {
-		if (this.selectedIndex < this.images.length - 1)
-			this.selectedIndex++;
-		else
-			this.selectedIndex = 0;
+		if (this.selectedIndex < this.images.length - 1) this.selectedIndex++;
+		else this.selectedIndex = 0;
 		event.stopPropagation();
 	}
 
@@ -116,10 +105,12 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	rotate() {
 		const img = this.getImg();
 		img.orientation = (img.orientation + 1) % 4;
-		this.imageSrv.update({
-			...img,
-			orientation: img.orientation
-		}).subscribe();
+		this.imageSrv
+			.update({
+				...img,
+				orientation: img.orientation,
+			})
+			.subscribe();
 	}
 
 	/** when adding a new image, by selecting in the file browser or by dropping it on the component */
@@ -134,15 +125,13 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 		// TODO i18n
 		const img = this.getImg();
 		if (this.showConfirmOnDelete) {
-			this.dlgSrv.open(ConfirmDialogComponent, {
+			this.dlgCommonSrv.openConfirmDlg({
 				text: 'Are you sure you want to remove this image ?',
-			})
-			// TODO implement new dialog
-			// .pipe(
-			// 	filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
-			// 	switchMap(_ => this.onDeleteAccepted(img)),
-			// 	takeUntil(this._destroy$),
-			// ).subscribe(_ => this.deleted.emit(img));
+			}).data$
+			.pipe(
+				switchMap(_ => this.onDeleteAccepted(img)),
+				takeUntil(this._destroy$),
+			).subscribe(_ => this.deleted.emit(img));
 		} else {
 			this.deleted.emit(img);
 		}
@@ -151,7 +140,7 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	/** when image is deleted */
 	onDeleteAccepted(image: AppImage) {
 		if (this.entity) {
-			const images = this.entity.images.filter(img => image.id !== img.id);
+			const images = this.entity.images.filter((img) => image.id !== img.id);
 			this.selectedIndex = Math.max(this.selectedIndex - 1, 0);
 			const srv = this.ermSrv.getGlobalServiceForEntity(this.entity);
 			return srv.update({ id: this.entity.id, images });
@@ -173,16 +162,13 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	}
 
 	getRotation(img) {
-		if (!img || !img.orientation)
-			return 'none';
-		else
-			return 'rotate(' + (img.orientation * 90) % 360 + 'deg)';
+		if (!img || !img.orientation) return 'none';
+		else return 'rotate(' + ((img.orientation * 90) % 360) + 'deg)';
 	}
 
 	/** opens the file browser window so the user can select a file he wants to upload */
 	openFileBrowser() {
-		if (!this.static)
-			this.inpFile.nativeElement.click();
+		if (!this.static) this.inpFile.nativeElement.click();
 	}
 
 	setSelectedIndex(value: number) {
@@ -197,8 +183,7 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	}
 
 	zoomin(event: MouseEvent) {
-		if (!this.imgElem || !this.hasZoomEffect)
-			return;
+		if (!this.imgElem || !this.hasZoomEffect) return;
 
 		const elem = this.imgElem.nativeElement;
 		const ctnr = this.imgCtnr.nativeElement;
@@ -212,11 +197,9 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 	}
 
 	zoomout() {
-		if (!this.imgElem || !this.hasZoomEffect)
-			return;
+		if (!this.imgElem || !this.hasZoomEffect) return;
 
 		const elem = this.imgElem.nativeElement;
 		this.renderer.removeStyle(elem, 'transform');
 	}
-
 }

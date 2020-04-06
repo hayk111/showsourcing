@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { WatchQueryOptions } from 'apollo-client';
-import { BehaviorSubject, combineLatest, forkJoin, Observable } from 'rxjs';
-import { filter, map, shareReplay, switchMap, tap, mergeMap } from 'rxjs/operators';
-import { DefaultCreationDialogComponent } from '~common/dialogs/creation-dialogs';
+import { BehaviorSubject, combineLatest, forkJoin } from 'rxjs';
+import { map, shareReplay, switchMap, tap, mergeMap } from 'rxjs/operators';
 import { ApiService, ObservableQuery } from '~core/erm3/services/api.service';
 import { Typename } from '~core/erm3/typename.type';
 import { FilterService } from '~core/filters/filter.service';
-import { DialogService } from '~shared/dialog';
 import { SortService } from '~shared/table/services/sort.service';
 import { SelectionService } from './selection.service';
 import { PaginationService } from '~shared/pagination/services/pagination.service';
+import { Entity } from '~core/erm3/models/_entity.model';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 
 @Injectable({ providedIn: 'root' })
 export class ListHelperService<G = any> {
@@ -57,7 +57,7 @@ export class ListHelperService<G = any> {
 		private paginationSrv: PaginationService,
 		private apiSrv: ApiService,
 		private filterSrv: FilterService,
-		private dlgSrv: DialogService,
+		private dlgCommonSrv: DialogCommonService,
 	) {}
 
 	setup(typename: Typename) {
@@ -70,17 +70,12 @@ export class ListHelperService<G = any> {
 		.then(_ => this._pending$.next(false));
 	}
 
-	create(addedProperties: any) {
-		this.dlgSrv.open(DefaultCreationDialogComponent , {
-			typename: this.typename,
-			extra: addedProperties
-		})
-		// TODO implement new dialog
-		// .pipe(
-		// 	filter(closeEvent => closeEvent.type === CloseEventType.OK),
-		// 	map(closeEvent => closeEvent.data),
-		// 	switchMap(entity => this.apiSrv.create(this.typename, entity)),
-		// ).subscribe(created => this.apiSrv.addToList(this.queryRef, created));
+	/** Open a dialog to get entity properties depending on the typename. Then, create the new entity */
+	create(linkedEntities?: Record<string, Entity<any>>) {
+		this.dlgCommonSrv.openCreationDlg(this.typename, linkedEntities).data$
+		.pipe(
+			switchMap(entity => this.apiSrv.create(this.typename, entity)),
+		).subscribe(created => this.apiSrv.addToList(this.queryRef, created));
 	}
 
 	update(entity: any) {
