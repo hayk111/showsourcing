@@ -22,7 +22,7 @@
 	infiniScroll
 	[rows]="items$ | async"
 	[selection]="selectionSrv.selection$ | async"
-	(addToProject)="dialogCommonSrv.openAddToProjectDialog($event)"
+	(addToProject)="addToProject($event)"
 	(disliked)="ratingSrv.onThumbDown($event)"
 	(liked)="ratingSrv.onThumbUp($event)"
 	(open)="viewSrv.goToDetails($event)"

@@ -10,9 +10,9 @@ import { config } from './config';
 	styleUrls: [
 		'./products-table.component.scss',
 	],
-	changeDetection: ChangeDetectionStrategy.OnPush,
+	// changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductsTableComponent extends EntityTableComponent<Product> implements OnInit {
+export class ProductsTableComponent extends EntityTableComponent<Product> {
 	static DEFAULT_COLUMNS = [
 		'logo',
 		'reference',

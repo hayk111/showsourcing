@@ -3,7 +3,7 @@
 	logoName="supplier"
 	info="The supplier database"
 	[buttonName]="'button.create-supplier' | translate"
-	(buttonClick)="dialogCommonSrv.openCreateDlg()">
+	(buttonClick)="dialogCommonSrv.openCreationDlg()">
 </header-list-app>
 
 <controller-table-app>
@@ -19,7 +19,7 @@
 	(unselectOne)="selectionSrv.unselectOne($event, true)"
 	(preview) = "viewSrv.openPreview($event)">
 </suppliers-board-app> -->
-<!-- 
+<!--
 <supplier-selection-bar-app
 	entityType="supplier"
 	[isShown]="(kanbanSelectionSrv.selection$ | async).size > 0"

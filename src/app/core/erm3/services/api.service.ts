@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MutationOptions } from 'apollo-client';
-import { ObservableQuery as ApolloObservableQuery, WatchQueryOptions } from 'aws-appsync/node_modules/apollo-client';
+import { ObservableQuery as ApolloObservableQuery, WatchQueryOptions } from 'apollo-client';
 import { forkJoin, from, Observable } from 'rxjs';
 import { filter, map, tap } from 'rxjs/operators';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
@@ -81,7 +81,7 @@ export class ApiService {
 		const queryRef = client.watchQuery(options) as ObservableQuery<any>;
 		const response$ = from(queryRef).pipe(
 			// filter cache response when there is no cache
-			filter(r => !r.stale),
+			filter((r: any) => !r.stale),
 			filter((r: any) => this.checkError(r, queryName)),
 			map(({ data }) => data[queryName]),
 			tap(data => ApiLogger.logResponse(options, data))
@@ -146,13 +146,23 @@ export class ApiService {
 	search<T>(
 		typename: Typename,
 		variables: FilterParams,
-		apiOptions: ApiQueryOption = {}
+		apiOptions: ApiQueryOption = {},
+		byTypeName: Typename = 'Team',
+		byIds: string[] = [this._teamId]
 	): ObservableQuery<T[]> {
 		const options = apiOptions as WatchQueryOptions;
 		options.variables = variables;
-		options.query = QueryPool.getQuery(typename, QueryType.SEARCH);
+
+		const queryBuilder = QueryPool.getQuery(typename, QueryType.SEARCH_BY);
+		options.query = queryBuilder(byTypeName);
+		options.variables = {
+			[byTypeName.toLowerCase() + 'Ids']: byIds,
+			take: variables.limit,
+			skip: variables.from
+		};
+
 		const query = this.query<T[]>(options);
-		query.total$ = query.response$.pipe(map(r => r.total));
+		query.total$ = query.response$.pipe(map(r => r.count));
 		return query;
 	}
 
@@ -201,7 +211,7 @@ export class ApiService {
 			entity.id = uuid();
 			entity.createdAt = new Date().toISOString();
 			entity.lastUpdatedAt = new Date().toISOString();
-			entity.deleted = false;
+			// entity.deleted = false;
 			entity.createdByUserId = this._userId;
 			entity.lastUpdatedByUserId = this._userId;
 			entity.teamId = this._teamId;
@@ -295,6 +305,8 @@ export class ApiService {
 			elem,
 			...items.filter(item => item.id !== elem.id)
 		];
+		if (r[query.queryName].items.length === items.length + 1)
+			r[query.queryName].total++;
 		client.writeQuery({ ...query.options, data: r });
 	}
 
@@ -302,6 +314,8 @@ export class ApiService {
 		const r: any = client.readQuery(query.options);
 		const items = r[query.queryName].items;
 		r[query.queryName].items = items.filter(item => item.id !== id);
+		if (r[query.queryName].items.length === items.length - 1)
+			r[query.queryName].total--;
 		client.writeQuery({ ...query.options, data: r });
 	}
 

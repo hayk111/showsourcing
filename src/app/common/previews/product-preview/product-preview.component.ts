@@ -232,7 +232,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 	}
 
 	openAddToProject() {
-		this.dialogCommonSrv.openAddToProjectDialog([this.product]);
+		// this.dialogCommonSrv.openAddToProjectDialog([this.product]);
 	}
 
 	openCreateTask() {

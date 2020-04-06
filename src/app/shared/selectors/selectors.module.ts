@@ -1,6 +1,6 @@
 import { A11yModule } from '@angular/cdk/a11y';
 import { OverlayModule } from '@angular/cdk/overlay';
-import { ScrollDispatchModule, ScrollingModule } from '@angular/cdk/scrolling';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -68,7 +68,6 @@ const components = [
 		BadgeModule,
 		A11yModule,
 		UtilsModule,
-		ScrollDispatchModule,
 		LoadersModule,
 		TranslateModule
 	],

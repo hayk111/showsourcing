@@ -1,0 +1,66 @@
+<dialog-app [hasBorder]="false" contentOverflow="hidden">
+	<dialog-header-app translate="header.select-products"></dialog-header-app>
+
+	<controller-table-app [total]="listHelper.total$ | async">
+		<controller-table-quick-filters-app
+			[quickFilters]="['assignee']"
+		></controller-table-quick-filters-app>
+		<controller-table-quick-actions-app
+			[hasExport]="false"
+			[columns]="columns"
+			[tableConfig]="tableConfig"
+		>
+		</controller-table-quick-actions-app>
+	</controller-table-app>
+
+	<div class="flex table-ctnr">
+		<products-table-app
+			[rows]="listHelper.filteredItems$ | async"
+			[hasMenu]="false"
+			[hasPagination]="false"
+			[pending]="listHelper.pending$ | async"
+			[selection]="selectionSrv.selection$ | async"
+			(delete)="listHelper.delete($event)"
+			(update)="listHelper.update($event)"
+			(select)="selectionSrv.selectOne($event)"
+			(selectAll)="selectionSrv.selectAll($event)"
+			(unselect)="selectionSrv.unselectOne($event)"
+			(unselectAll)="selectionSrv.unselectAll()"
+			(previewClick)="viewSrv.openPreview($event)"
+		>
+		</products-table-app>
+
+		<filters-app
+			*ngIf="viewSrv.filterPanelOpen"
+			[filterTypes]="filterTypes"
+			[sidePanel]="true"
+			(close)="viewSrv.closeFilterPanel()"
+		>
+		</filters-app>
+	</div>
+
+	<dialog-footer-app class="flexVAlign flexBetween pagination-footer">
+	<pagination-app
+			[hasPageItemsCount]="false"
+			[hasTopPadding]="false"
+			>
+		</pagination-app>
+	<div class="flex flexVAlign">
+			<div class="product-action">
+				<span class="selected-product capitalize">
+					{{ 'OBJ.n-product-selected.singular' | translate: { count: (selectionSrv.selection$|async).size || 0 } }}
+				</span>
+			</div>
+			<divider-app [vertical]="true"></divider-app>
+			<button
+				class="capitalize primary"
+				(click)="done()"
+				translate="button.done"
+			></button>
+		</div>
+	</dialog-footer-app>
+
+	<ng-template #spinner>
+		<spinner-app></spinner-app>
+	</ng-template>
+</dialog-app>

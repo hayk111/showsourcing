@@ -15,7 +15,7 @@
 </controller-table-app>
 
 <suppliers-table-app
-	[rows]="items$ | async"
+	[rows]="listHelper.filteredItems$ | async"
 	[pending]="listHelper.pending$ | async"
 	[selection]="selectionSrv.selection$ | async"
 	(open)="viewSrv.goToDetails($event)"
@@ -30,7 +30,7 @@
 	entityType="supplier"
 	[isShown]="(selectionSrv.selection$ | async).size > 0"
 	[selection]="selectionSrv.selection$ | async"
-	[selectableItems]="items$ | async"
+	[selectableItems]="listHelper.filteredItems$ | async"
 	(statusUpdated)="listHelper.updateSelected({status: $event})"
 	(deleteSelected)="listHelper.deleteSelected()"
 	(close)="selectionSrv.unselectAll()"

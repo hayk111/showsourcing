@@ -50,4 +50,9 @@ export class CardPageComponent implements OnInit {
 		this.items$ = this.listHelper.filteredItems$;
 	}
 
+	addToProject(event) {
+		this.dialogCommonSrv.openSelectionDlg('Project', [event]);
+		// TODO add the logic after closing dialog
+	}
+
 }

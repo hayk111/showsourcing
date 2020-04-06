@@ -104,11 +104,11 @@
               "i18nLocale": "fr"
             },
             "zh-Hans": {
-							"aot": true,
+              "aot": true,
               "outputPath": "dist/zh-Hans",
               "i18nFile": "src/locale/messages.zh-Hans.xlf",
               "i18nFormat": "xlf",
-							"i18nLocale": "zh-Hans"
+              "i18nLocale": "zh-Hans"
             }
           }
         },
@@ -134,7 +134,7 @@
             "sta": {
               "browserTarget": "showsourcing:build:sta"
             },
-						"zh-Hans": {
+            "zh-Hans": {
               "browserTarget": "showsourcing:build:zh-Hans"
             }
           }
@@ -186,7 +186,7 @@
       "prefix": "sup",
       "schematics": {
         "@schematics/angular:component": {
-					"spec": false,
+          "spec": false,
           "styleext": "scss",
           "changeDetection": "OnPush"
         }
@@ -244,8 +244,8 @@
                   "maximumError": "5mb"
                 }
               ]
-						},
-						"sta": {
+            },
+            "sta": {
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -261,7 +261,7 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true
-						},
+            },
             "dev": {
               "fileReplacements": [
                 {
@@ -269,7 +269,7 @@
                   "with": "projects/supplier/src/environments/environment.ts"
                 }
               ]
-						}
+            }
           }
         },
         "serve": {
@@ -283,7 +283,7 @@
             },
             "development": {
               "browserTarget": "supplier:build:development"
-						}
+            }
           }
         },
         "extract-i18n": {
@@ -324,5 +324,8 @@
       }
     }
   },
-  "defaultProject": "showsourcing"
+  "defaultProject": "showsourcing",
+  "cli": {
+    "analytics": false
+  }
 }
