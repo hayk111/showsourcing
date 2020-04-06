@@ -1,11 +1,8 @@
-
-<header-details-app
-	[hasBackArrow]="false"
-	[headerType]="'settings'">
-
+<header-details-app [hasBackArrow]="false" [headerType]="'settings'">
 	<header-details-title-app>
 		<span class="list-management-title">
-			List {{ typename }} Management <!-- TODO: translation to be added -->
+			List {{ typename }} Management
+			<!-- TODO: translation to be added -->
 		</span>
 	</header-details-title-app>
 
@@ -22,43 +19,45 @@
 		<header-nav-item-app
 			link="/settings/list-management/category-data"
 			icon="category"
-			[name]="'nav.categories' | translate">
+			[name]="'nav.categories' | translate"
+		>
 		</header-nav-item-app>
 
 		<header-nav-item-app
 			link="/settings/list-management/tag-data"
 			icon="tag"
-			[name]="'nav.tags' | translate">
+			[name]="'nav.tags' | translate"
+		>
 		</header-nav-item-app>
-
 	</header-nav-app>
-
 </header-details-app>
 
-<controller-table-app
-	class="spacing-ms"
-	[hasFilters]="false">
+<controller-table-app [total]="listHelper.total$ | async" class="spacing-ms" [hasFilters]="false">
 	<controller-table-content-app>
-		<button class="capitalize" (click)="listHelper.create()">{{ 'button.create-' + typename.toLowerCase() | translate }}</button>
+		<button class="capitalize" (click)="listHelper.create()">
+			{{ 'button.create-' + typename.toLowerCase() | translate }}
+		</button>
 	</controller-table-content-app>
 </controller-table-app>
 
 <list-management-table-app
 	class="spacing-ms"
 	[rows]="items$ | async"
-	(renameEntity)="listHelper.update($event)"
-	(delete)="listHelper.delete($event)" 
 	[selection]="selectionSrv.selection$ | async"
 	[pending]="listHelper.pending$ | async"
 	[isFiltering]="listHelper.pending$ | async"
 	[entityMetadata]="typename"
+	[total]="listHelper.total$ | async"
+	(renameEntity)="listHelper.update($event)"
+	(delete)="listHelper.delete($event)"
 	(select)="selectionSrv.selectOne($event, false)"
 	(unselect)="selectionSrv.unselectOne($event, false)"
 	(selectAll)="selectionSrv.selectAll($event, false)"
 	(showItemsPerPage)="showItemsPerPage($event)"
 	(unselectAll)="selectionSrv.unselectAll()"
-	>
-	<!-- 
+	(createClick)="listHelper.create()"
+>
+	<!--
 		TODO implement this
 	[currentPage]="listSrv.currentPage"
 	(goToPage)="listSrv.loadPage($event)"
@@ -74,20 +73,22 @@
 	(close)="selectionSrv.unselectAll()"
 	(selectAll)="selectionSrv.selectAll($event)"
 	(unselectAll)="selectionSrv.unselectAll()"
-	>
+>
 	<!-- [selectableItems]="listSrv.items$ | async" -->
 
 	<div class="flex elements-container">
 		<!-- Merge -->
 		<button class="icon-with-text light" (click)="mergeSelected()">
 			<icon-app name="merge"></icon-app>
-			<span>Merge</span> <!-- TODO: translation to be added -->
+			<span>Merge</span>
+			<!-- TODO: translation to be added -->
 		</button>
 
 		<!-- Delete -->
 		<button class="icon-with-text light" (click)="listHelper.deleteSelected()">
 			<icon-app name="trash"></icon-app>
 			<span>{{ 'button.delete' | translate }}</span>
-		</button> -->
+		</button>
+		-->
 	</div>
 </selection-bar-app>

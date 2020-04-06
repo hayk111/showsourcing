@@ -20,8 +20,8 @@
 <task-table-app
 	[rows]="listHelper.filteredItems$ | async"
 	[selection]="selectionSrv.selection$ | async"
-	[pending]="listSrv.pending"
-	(update)="listSrv.update($event)"
+	[pending]="listHelper.pending"
+	(update)="listHelper.update($event)"
 	(select)="selectionSrv.selectOne($event, true)"
 	(unselect)="selectionSrv.unselectOne($event, true)"
 	(selectAll)="selectionSrv.selectAll($event, true)"

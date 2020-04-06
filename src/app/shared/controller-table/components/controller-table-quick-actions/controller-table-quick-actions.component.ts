@@ -18,8 +18,7 @@ export class ControllerTableQuickActionsComponent implements OnInit {
 	constructor(public sortSrv: SortService) {}
 
 	ngOnInit() {
-		// this.sortableColumns = this.getSortableColumns();
-		// this.currentSort = this.listSrv.currentSort;
+		this.sortableColumns = this.getSortableColumns();
 	}
 
 	onExportClick() {
@@ -31,9 +30,8 @@ export class ControllerTableQuickActionsComponent implements OnInit {
 	}
 
 	getSortableColumns() {
-		return [];
-		// return Object.values(this.tableConfig)
-		// 	.filter(config => this.columns.includes(config.name))
-		// 	.filter(config => config.sortProperty);
+		return Object.values(this.tableConfig)
+			.filter(config => this.columns.includes(config.name))
+			.filter(config => config.sortProperty);
 	}
 }

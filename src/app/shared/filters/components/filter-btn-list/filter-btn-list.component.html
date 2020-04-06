@@ -37,13 +37,13 @@
 					<label>
 						{{ type }}
 					</label>
-		
+
 					<button class="secondary-light full-width flexCenter"
 						(click)="editClicked.emit(type)">
 						{{ 'filters.filter-by-' + type | translate }}
 					</button>
 				</ng-container>
-		
+
 				<!-- if there is a filter the button doesn't appear and we display a list of filters -->
 				<ng-template #list>
 					<div class="flexBetween">
@@ -61,7 +61,7 @@
 							</span>
 						</div>
 					</div>
-	
+
 					<div class="flexColumn">
 						<checkbox-app
 							*ngFor="let filter of filterSrv.getFiltersForType(type); trackBy: trackByFn"
@@ -70,9 +70,9 @@
 							<span class="mg-left-s">{{ filter.displayValue }}</span>
 						</checkbox-app>
 					</div>
-	
+
 				</ng-template>
-	
+
 			</ng-container>
 		</ng-container>
 	</ng-container>

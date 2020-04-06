@@ -1,0 +1,24 @@
+
+<card-app>
+	<h1>Dialogs</h1>
+
+	<h2>Selection dialogs</h2>
+
+	The selection dialogs display a table for an entity and will give the selected entities when we
+	close the dialog
+	<ul>
+		<li>
+			<button class="mg-s" (click)="selectProducts()">
+				Select Products
+			</button>
+			=> dlgCommonSrv.openSelectionDlg('Project')
+		</li>
+		<li>
+			<button class="mg-s" (click)="selectProjects()">
+				Select Projects
+			</button>
+			=> dlgCommonSrv.openSelectionDlg('Product')
+		</li>
+	</ul>
+
+</card-app>

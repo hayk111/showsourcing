@@ -1,9 +1,27 @@
 import { Injectable } from '@angular/core';
 import { filter, map } from 'rxjs/operators';
-import { CreationDialogComponent, CreationProductDlgComponent, CreationSampleDlgComponent, CreationTaskDlgComponent } from '~common/dialogs/creation-dialogs';
-import { CompareProductComponent, EditionDialogComponent, ExportDlgComponent, InviteUserDlgComponent, MassEditDlgComponent, MergeDialogComponent, NewContactDlgComponent, ProductRequestTeamFeedbackDlgComponent, RefuseReplyDlgComponent, VoteDetailsDialogComponent } from '~common/dialogs/custom-dialogs';
-import { ProductAddToProjectDlgComponent, ProductSelectDlgComponent } from '~common/dialogs/selection-dialogs';
-import { EntityMetadata, Product, Project, Supplier } from '~core/erm';
+import { error } from 'util';
+import {
+	CreationDialogComponent,
+	CreationProductDlgComponent,
+	CreationSampleDlgComponent,
+	CreationTaskDlgComponent
+} from '~common/dialogs/creation-dialogs';
+import {
+	CompareProductComponent,
+	EditionDialogComponent,
+	ExportDlgComponent,
+	InviteUserDlgComponent,
+	MassEditDlgComponent,
+	MergeDialogComponent,
+	NewContactDlgComponent,
+	ProductRequestTeamFeedbackDlgComponent,
+	RefuseReplyDlgComponent,
+	VoteDetailsDialogComponent
+} from '~common/dialogs/custom-dialogs';
+import * as selectionDialogs from '~common/dialogs/selection-dialogs';
+import { EntityMetadata, Product, Supplier } from '~core/erm';
+import { Entity } from '~core/erm3/models/_entity.model';
 import { Typename } from '~core/erm3/typename.type';
 import { CloseEvent, CloseEventType } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
@@ -13,7 +31,6 @@ import { ID } from '~utils';
 import { ReviewRequestReplyDlgComponent } from '../custom-dialogs/review-request-reply-dlg/review-request-reply-dlg.component';
 import { SupplierRequestDialogComponent } from '../custom-dialogs/supplier-request-dialog/supplier-request-dialog.component';
 
-
 /**
  * Service used to open dialogs, the goal of this service is to bring easy typing
  * for data in dialog as well as to relieve the imports of the dlg components
@@ -21,27 +38,38 @@ import { SupplierRequestDialogComponent } from '../custom-dialogs/supplier-reque
  */
 @Injectable({ providedIn: 'root' })
 export class DialogCommonService {
+	constructor(private dlgSrv: DialogService) {}
 
-	constructor(
-		private dlgSrv: DialogService,
-	) { }
+	// /** opens the create dialog,
+	//  * @param shouldRedirect whether we redirect after creation to entityMetadata.createUrl
+	//  * if its truem otherwise it will stay on the same page
+	//  */
+	// openCreateDlg(typename: Typename, shouldRedirect: boolean = false) {
+	// 	return this.dlgSrv.open(CreationDialogComponent, { shouldRedirect, typename });
+	// }
 
-	/** opens the create dialog,
-	 * @param shouldRedirect whether we redirect after creation to entityMetadata.createUrl
-	 * if its truem otherwise it will stay on the same page
+	openCreationDlg(typename?: Typename) {
+		switch (typename) {
+			// Add other cases after
+			default:
+				return this.dlgSrv.open(CreationDialogComponent, { typename });
+		}
+	}
+
+	/**
+	 * Open a dialog for select some entities through a table
+	 * @param typename: should be Product | Project
+	 * @returns an observable who stream CloseEvent, with selecteds if close is OK
 	 */
-	openCreateDlg(typename: Typename, shouldRedirect: boolean = false) {
-		return this.dlgSrv.open(CreationDialogComponent, { shouldRedirect, typename });
+	openSelectionDlg<T extends Entity>(typename: Typename, initialSelecteds?: T[]) {
+		const dlgComponent = selectionDialogs[`${typename}SelectionDialogComponent`];
+		if (!dlgComponent) throw error(`There is no Selection Dialog for the typename: ${typename}`);
+		return this.dlgSrv.open(dlgComponent, { initialSelecteds });
 	}
 
 	/** opens the edit dialog, to change the name of an entity, if the enitty does not have a name attribute check Event model for example*/
 	openEditDlg(entity: any, entityMetadata: EntityMetadata) {
 		return this.dlgSrv.open(EditionDialogComponent, { entity, type: entityMetadata });
-	}
-
-	/** Opens a dialog that lets the user add different products to different projects (many to many) */
-	openAddToProjectDialog(products?: Product[], initialSelectedProjects?: Project[]) {
-		return this.dlgSrv.open(ProductAddToProjectDlgComponent, { products, initialSelectedProjects });
 	}
 
 	/** Opens a dialog that lets the user export a product either in PDF or EXCEL format */
@@ -55,14 +83,6 @@ export class DialogCommonService {
 		return this.dlgSrv.open(ProductRequestTeamFeedbackDlgComponent, { products });
 	}
 
-	openSelectProductDlg(initialSelectedProducts?: Product[], project?: Project, submitProducts = true) {
-		return this.dlgSrv.open(ProductSelectDlgComponent, {
-			project,
-			initialSelectedProducts,
-			submitProducts
-		});
-	}
-
 	openCompareProductDialog(products: Product[]) {
 		return this.dlgSrv.open(CompareProductComponent, { products });
 	}
@@ -71,7 +91,7 @@ export class DialogCommonService {
 		return this.dlgSrv.open(ConfirmDialogComponent, data);
 	}
 
-	openMergeDialog(data: { type: any, entities: any[] }) {
+	openMergeDialog(data: { type: any; entities: any[] }) {
 		return this.dlgSrv.open(MergeDialogComponent, data);
 	}
 
@@ -79,7 +99,7 @@ export class DialogCommonService {
 		return this.dlgSrv.open(InviteUserDlgComponent);
 	}
 
-	openReviewRequestReplyDlg(data: { elementId: ID, selectedIndex: number, requestId: ID }) {
+	openReviewRequestReplyDlg(data: { elementId: ID; selectedIndex: number; requestId: ID }) {
 		return this.dlgSrv.open(ReviewRequestReplyDlgComponent, data);
 	}
 
@@ -96,7 +116,7 @@ export class DialogCommonService {
 		return this.dlgSrv.open(NewContactDlgComponent, { isNewContact, supplier, contactId });
 	}
 
-	openRefuseReplyDlg(data: { senderName: string, recipientName: string, replyId: ID }) {
+	openRefuseReplyDlg(data: { senderName: string; recipientName: string; replyId: ID }) {
 		return this.dlgSrv.open(RefuseReplyDlgComponent, data);
 	}
 
@@ -108,13 +128,7 @@ export class DialogCommonService {
 		);
 	}
 
-	openCreationDlg(typename: Typename) {
-		switch (typename) {
-			// Add other cases after
-			default:
-				return this.dlgSrv.open(CreationDialogComponent, { typename });
-		}
-	}
+	openEditionDlg() {}
 
 	openSupplierRequest(products: Product[], supplier?: Supplier) {
 		return this.dlgSrv.open(SupplierRequestDialogComponent, { products, supplier });
@@ -122,20 +136,19 @@ export class DialogCommonService {
 
 	/** @deprecated: use openCreationDlg instead */
 	openCreationTaskDlg(product?: Product, supplier?: Supplier) {
-		return this.dlgSrv.open(CreationTaskDlgComponent, { product, supplier }).pipe(
-			filter((event: CloseEvent) => event.type === CloseEventType.OK),
-		);
+		return this.dlgSrv
+			.open(CreationTaskDlgComponent, { product, supplier })
+			.pipe(filter((event: CloseEvent) => event.type === CloseEventType.OK));
 	}
 
 	/** @deprecated: use openCreationDlg instead */
 	openCreationSampleDialog(product?: Product, supplier?: Supplier) {
-		return this.dlgSrv.open(CreationSampleDlgComponent, { product, supplier }).pipe(
-			filter((event: CloseEvent) => event.type === CloseEventType.OK),
-		);
+		return this.dlgSrv
+			.open(CreationSampleDlgComponent, { product, supplier })
+			.pipe(filter((event: CloseEvent) => event.type === CloseEventType.OK));
 	}
 
 	close() {
 		this.dlgSrv.close();
 	}
-
 }
