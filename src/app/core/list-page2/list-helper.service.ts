@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { WatchQueryOptions } from 'apollo-client';
 import { BehaviorSubject, combineLatest, forkJoin, Observable } from 'rxjs';
-import { filter, map, shareReplay, switchMap, tap } from 'rxjs/operators';
+import { filter, map, shareReplay, switchMap, tap, mergeMap } from 'rxjs/operators';
 import { DefaultCreationDialogComponent } from '~common/dialogs/creation-dialogs';
 import { ApiService, ObservableQuery } from '~core/erm3/services/api.service';
 import { Typename } from '~core/erm3/typename.type';
 import { FilterService } from '~core/filters/filter.service';
-import { CloseEventType, DialogService } from '~shared/dialog';
+import { DialogService } from '~shared/dialog';
 import { SortService } from '~shared/table/services/sort.service';
 import { SelectionService } from './selection.service';
 import { PaginationService } from '~shared/pagination/services/pagination.service';
@@ -38,9 +38,10 @@ export class ListHelperService<G = any> {
 		),
 		// save it
 		tap(query => this.queryRef = query),
-		tap(query => query.total$.subscribe(total => this._total$.next(total))),
+		mergeMap(query => query.total$),
+		tap(total => this._total$.next(total)),
 		// add total to the paginationSrv
-		tap(query => this.paginationSrv.init(query.total$)),
+		tap(total => this.paginationSrv.setupTotal(total)),
 		// add the next token for infiniscroll
 		// TODO
 		// return the result

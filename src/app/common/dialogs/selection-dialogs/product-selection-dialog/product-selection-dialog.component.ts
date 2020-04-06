@@ -12,7 +12,7 @@ import { AutoUnsub } from '~utils';
 	styleUrls: ['./product-selection-dialog.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [ListPageViewService, ListHelperService, SelectionService],
-	host: { class: 'table-dialog' },
+	host: { class: 'table-dialog' }
 })
 export class ProductSelectionDialogComponent extends AutoUnsub implements OnInit {
 	@Input() initialSelecteds: Product[] = [];
@@ -29,7 +29,7 @@ export class ProductSelectionDialogComponent extends AutoUnsub implements OnInit
 		FilterType.EVENT,
 		FilterType.TAGS,
 		FilterType.STATUS,
-		FilterType.FAVORITE,
+		FilterType.FAVORITE
 	];
 
 	constructor(

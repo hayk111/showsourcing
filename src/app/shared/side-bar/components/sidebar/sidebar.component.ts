@@ -3,11 +3,9 @@ import { environment } from 'environments/environment';
 import { Observable, of } from 'rxjs';
 import { GetStreamNotification } from '~common/activity/interfaces/get-stream-feed.interfaces';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
-import { DEFAULT_REPLIED_STATUS, Team, User } from '~core/erm';
-import { SupplierRequestService, TeamService, UserService } from '~core/erm';
-import { NotificationActivityService } from '~shared/notif/services/notification-activity.service';
-
+import { Team, User } from '~core/erm';
 import { sideNavItems } from './side-nav-items.const';
+
 
 @Component({
 	selector: 'sidebar-app',
@@ -20,7 +18,6 @@ export class SidebarComponent implements OnInit {
 	requestCount$: Observable<number> = of(null);
 	notifications$: Observable<GetStreamNotification> = of(null);
 	isProd = environment.production;
-	isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
 	sideNavItems = sideNavItems;
 
 	constructor(private authSrv: AuthenticationService) { }

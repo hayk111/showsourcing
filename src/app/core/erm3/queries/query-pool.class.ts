@@ -4,7 +4,7 @@ import { QueryType } from './query-type.enum';
 
 export class QueryPool {
 	static map = {
-		Category: new BaseQueries('Category', 'id name _version deleted _deleted'),
+		Category: new BaseQueries('Category', 'id name _version'),
 		Company: new BaseQueries('Company'),
 		Contact: new BaseQueries('Contact'),
 		Descriptor: new BaseQueries('Descriptor', 'target'),

@@ -12,7 +12,7 @@ import { AutoUnsub } from '~utils';
 	styleUrls: ['./project-selection-dialog.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [SelectionService, ListHelperService],
-	host: { class: 'table-dialog' },
+	host: { class: 'table-dialog' }
 })
 export class ProjectSelectionDialogComponent extends AutoUnsub implements OnInit {
 	@Input() initialSelecteds: Project[];
