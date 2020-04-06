@@ -9,6 +9,8 @@ import { SelectionService } from './selection.service';
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { CreationDialogComponent } from '~common/dialogs/creation-dialogs';
 import { TeamService } from '~core/auth';
+import { DialogService, CloseEventType } from '~shared/dialog';
+import { CreationDialogComponent } from '~common/dialogs/creation-dialogs';
 
 
 @Injectable({ providedIn: 'root' })
@@ -95,7 +97,7 @@ export class ListFuseHelperService<G = any> {
 	delete(entity: any) {
 		this.apiSrv
 			.delete(this.typename, entity)
-			.pipe(switchMap(_ => this.refetch()))
+			.pipe(tap(deleted => this.apiSrv.deleteFromList(this.queryRef, deleted.id)))
 			.subscribe();
 	}
 

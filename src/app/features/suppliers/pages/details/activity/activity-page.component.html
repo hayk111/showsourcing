@@ -8,7 +8,7 @@
 		<!-- products card -->
 		<products-card-app
 			[products]="products$ | async"
-			(addProducts)="openSelectProductDlg(supplier)"
+			(addProducts)="addProducts"
 			(viewAll)="goToProducts()">
 		</products-card-app>
 		<!-- picutres card -->

@@ -34,4 +34,9 @@ export class FilesPageComponent implements OnInit {
 		this.listHelper.setup('Attachment', 'Supplier', supplierId);
 	}
 
+	addToProject(event) {
+		this.dialogCommonSrv.openSelectionDlg('Project', [event]);
+		// TODO add the logic after closing dialog
+	}
+
 }

@@ -22,7 +22,7 @@
 	(delete)="listHelper.delete($event)"
 	(update)="listHelper.update($event)"
 	(open)="viewSrv.goToDetails($event)"
-	(openAddToProjectDialog)="dialogCommonSrv.openAddToProjectDialog([$event])"
+	(openAddToProjectDialog)="addToProject($event)"
 	(openAddSampleDialog)="dialogCommonSrv.openCreationSampleDialog($event)"
 	(openAddTaskDialog)="dialogCommonSrv.openCreationTaskDlg($event)"
 	(openRequestFeedbackDialog)="dialogCommonSrv.openRequestFeedbackDialog([$event])"
