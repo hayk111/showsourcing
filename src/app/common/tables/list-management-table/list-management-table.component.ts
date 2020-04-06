@@ -31,6 +31,7 @@ export class ListManagementTableComponent extends EntityTableComponent<any> {
 	@Input() entityMetadata: EntityMetadata;
 	@Output() renameEntity = new EventEmitter<any>();
 	@Output() showItemsPerPage = new EventEmitter<number>();
+	@Output() createClick = new EventEmitter();
 	// if the id entity matches with an id of the array, we display add/remove button
 	ermCategory = ERM.CATEGORY;
 	ermTag = ERM.TAG;

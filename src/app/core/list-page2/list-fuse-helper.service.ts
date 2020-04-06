@@ -42,7 +42,6 @@ export class ListFuseHelperService<G = any> {
 		}),
 		tap(searchedDatas => {
 			this._total$.next(searchedDatas.length);
-			this.paginationSrv.init(of(searchedDatas.length));
 		}),
 	);
 	// result.sort(); // TODO should take sort property from filterSrv, not implemented yet
@@ -98,7 +97,7 @@ export class ListFuseHelperService<G = any> {
 	delete(entity: any) {
 		this.apiSrv
 			.delete(this.typename, entity)
-			.pipe(switchMap(_ => this.refetch()))
+			.pipe(tap(deleted => this.apiSrv.deleteFromList(this.queryRef, deleted.id)))
 			.subscribe();
 	}
 

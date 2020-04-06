@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { GroupedActivityFeed } from '~common/activity/interfaces/client-feed.interfaces';
 import { GetStreamGroup } from '~common/activity/interfaces/get-stream-feed.interfaces';
-import { TemplateService } from '~core/template/services/template.service';
+import { TemplateService } from '~shared/template/services/template.service';
 import { SupplierService } from '~core/erm';
 import { ERMService } from '~core/erm';
 import { ProductService } from '~core/erm';

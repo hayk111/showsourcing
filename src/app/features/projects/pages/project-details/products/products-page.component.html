@@ -25,7 +25,7 @@
 			(selectAll)="selectionSrv.selectAll($event, true)"
 			(unselectAll)="selectionSrv.unselectAll()"
 			(open)="viewSrv.goToDetails($event)"
-			(createClick)="dialogCommonSrv.openSelectProductDlg([], project)"
+			(createClick)="addProducts()"
 			(openAddSampleDialog)="dialogCommonSrv.openCreationSampleDialog($event)"
 			(update)="listHelper.update($event)"
 			(openAddTaskDialog)="dialogCommonSrv.openCreationTaskDlg($event)"

@@ -12,10 +12,7 @@ import { Typename } from '~core/erm3/typename.type';
 @Component({
 	selector: 'tag-data-page-app',
 	templateUrl: '../shared/list-management-template.html',
-	styleUrls: [
-		'./tag-data-page.component.scss',
-		'../shared/list-management-styles.scss'
-	],
+	styleUrls: ['./tag-data-page.component.scss', '../shared/list-management-styles.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [ListPageService, SelectionService, ListPageViewService, ListFuseHelperService],
 	host: {
@@ -40,7 +37,15 @@ export class TagDataPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.listHelper.setup('Product');
+		let teamId: string;
+		this.teamSrv.teamSelected$.subscribe(team => (teamId = team.id));
+		this.filterSrv.setup([], ['name']);
+		this.viewSrv.setup({
+			typename: 'Tag',
+			destUrl: 'settings/list-management/tag-data',
+			view: 'table'
+		});
+		this.listHelper.setup('Tag', 'Team', teamId); // search initialized in controller-table
 		this.items$ = this.listHelper.filteredItems$;
 	}
 
@@ -52,6 +57,5 @@ export class TagDataPageComponent extends AutoUnsub implements OnInit {
 		});
 	}
 
-	showItemsPerPage(count: number) {
-	}
+	showItemsPerPage(count: number) {}
 }

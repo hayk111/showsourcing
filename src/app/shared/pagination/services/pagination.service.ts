@@ -18,12 +18,13 @@ export class PaginationService {
 	range$ = this._range$.asObservable();
 	/** width of the pagination, ie if 5 we display [1, 2, 3, 4, 5]  or [16, 17, 18, 19, 20], if 3 we display [1, 2, 3 ] */
 	private width = 5;
+	private _total$ = new BehaviorSubject(0);
 	private total: number;
 	private totalPages: number;
 
-	init(total$: Observable<number>) {
+	constructor() {
 		combineLatest(
-			total$,
+			this._total$,
 			this.limit$,
 			this.page$
 		).subscribe(([total, limit, page]) => {
@@ -32,6 +33,10 @@ export class PaginationService {
 			const range = this.buildPagingRange(page);
 			this._range$.next(range);
 		});
+	}
+
+	setupTotal(total: number) {
+		this._total$.next(total);
 	}
 
 	goToPage(page: number) {

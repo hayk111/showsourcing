@@ -57,4 +57,9 @@ export class TablePageComponent implements OnInit {
 		this.viewSrv.setup({ typename: 'Product', destUrl: 'products', view: 'table' });
 	}
 
+	addProject() {
+		this.dialogCommonSrv.openSelectionDlg('Project', this.selectionSrv.getSelectedValues());
+		// TODO add the correct logic for submit
+	}
+
 }

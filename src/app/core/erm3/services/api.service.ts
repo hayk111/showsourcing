@@ -305,6 +305,8 @@ export class ApiService {
 			elem,
 			...items.filter(item => item.id !== elem.id)
 		];
+		if (r[query.queryName].items.length === items.length + 1)
+			r[query.queryName].total++;
 		client.writeQuery({ ...query.options, data: r });
 	}
 
@@ -312,6 +314,8 @@ export class ApiService {
 		const r: any = client.readQuery(query.options);
 		const items = r[query.queryName].items;
 		r[query.queryName].items = items.filter(item => item.id !== id);
+		if (r[query.queryName].items.length === items.length - 1)
+			r[query.queryName].total--;
 		client.writeQuery({ ...query.options, data: r });
 	}
 

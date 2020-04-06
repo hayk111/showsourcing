@@ -36,7 +36,7 @@
 	[isShown]="(selectionSrv.selection$ | async).size"
 	[selection]="selectionSrv.selection$ | async"
 	[selectableItems]="listHelper.filteredItems$ | async"
-	(addProject)="dialogCommonSrv.openAddToProjectDialog(selectionSrv.getSelectedValues())"
+	(addProject)="addProject()"
 	(export)="dialogCommonSrv.openExportDialog('Product', selectionSrv.getSelectedValues())"
 	(createRequest)="dialogCommonSrv.openSupplierRequest(selectionSrv.getSelectedValues())"
 	(requestTeamFeedback)="dialogCommonSrv.openRequestFeedbackDialog(selectionSrv.getSelectedValues())"

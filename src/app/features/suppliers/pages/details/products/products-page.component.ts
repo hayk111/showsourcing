@@ -18,11 +18,7 @@ import { DialogCommonService } from '~common/dialogs/services/dialog-common.serv
 	styleUrls: ['./products-page.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: { class: 'table-page' },
-	providers: [
-		ListHelperService,
-		SelectionService,
-		FilterService
-	]
+	providers: [ListHelperService, SelectionService, FilterService]
 })
 export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	supplierId: ID;
@@ -54,7 +50,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		this.supplierId = this.route.parent.snapshot.params.id;
 		this.supplier = { id: this.supplierId };
 		this.listHelper.setup('Product');
-		this.filterSrv.setup([ { type: FilterType.SUPPLIER, value: this.supplierId }]);
+		this.filterSrv.setup([{ type: FilterType.SUPPLIER, value: this.supplierId }]);
 	}
 
 	/** instead of deleting the product, we deassociate the supplier from it */
@@ -67,4 +63,13 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 		this.listHelper.updateSelected({ supplier: undefined });
 	}
 
+	addProject() {
+		const validation$ = this.dialogCommonSrv.openSelectionDlg(
+			'Project',
+			this.selectionSrv.getSelectedValues() /* //? this selection is the product for which we want to add projects ?? */
+		);
+		validation$.pipe(filter(({ type }) => type === CloseEventType.OK)).subscribe(({ data }) => {
+		// TODO add the logic after closing dialog
+		});
+	}
 }

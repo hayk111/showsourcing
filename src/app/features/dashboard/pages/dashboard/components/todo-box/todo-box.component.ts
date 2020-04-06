@@ -52,7 +52,7 @@ export class TodoBoxComponent implements OnInit {
 				this.dialogCommonSrv.openCreationSampleDialog();
 				break;
 			case 'supplier':
-				this.dialogCommonSrv.openCreateDlg('Supplier');
+				// this.dialogCommonSrv.openCreationDlg('Supplier');
 				break;
 		}
 	}
