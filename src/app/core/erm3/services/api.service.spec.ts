@@ -11,7 +11,6 @@ import { Typename } from '../typename.type';
 
 import * as models from '~core/erm3/models';
 import { ApiService } from './api.service';
-import { ImageType, HelperType, ExportFormat } from '../../../../../generated/API.service';
 import { QueryPool } from '../queries/query-pool.class';
 import { QueryType } from '../queries/query-type.enum';
 import { Entity } from '../models/_entity.model';
@@ -202,7 +201,6 @@ fdescribe('ApiService', () => {
 		// test results
 		if (!promises.length) fail('there is no call "listBy"');
 		const results = await Promise.all(promises);
-		console.log('results after Promises.all() : ', results);
 		results.forEach(response => {
 			expect(response).toBeTruthy();
 		});

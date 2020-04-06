@@ -5,12 +5,13 @@ import { debounce, switchMap, tap, filter, map } from 'rxjs/operators';
 import { ApiQueryOption, ApiService, ObservableQuery } from '~core/erm3/services/api.service';
 import { Typename } from '~core/erm3/typename.type';
 import { FilterService, FilterType } from '~core/filters';
-import { SelectionService } from './selection.service';
 import { TeamService } from '~core/auth';
+import { SelectionService } from './selection.service';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { Entity } from '~core/erm3/models/_entity.model';
 import { DefaultCreationDialogComponent } from '~common/dialogs/creation-dialogs';
 import { DialogService } from '~shared/dialog';
+import { PaginationService } from '~shared/pagination/services/pagination.service';
 
 
 @Injectable({ providedIn: 'root' })
@@ -53,6 +54,7 @@ export class ListFuseHelperService<G = any> {
 		private selectionSrv: SelectionService,
 		private apiSrv: ApiService,
 		private filterSrv: FilterService,
+		private paginationSrv: PaginationService,
 		private dlgSrv: DialogService
 		// private dlgCommonSrv: DialogCommonService // ! Circular dependency
 	) {}
@@ -75,7 +77,7 @@ export class ListFuseHelperService<G = any> {
 		});
 	}
 
-	private refetch() {
+	refetch() {
 		this.pending = true;
 		return this.queryRef.refetch({ fetchPolicy: 'cache-first' }).then(_ => (this.pending = false));
 	}

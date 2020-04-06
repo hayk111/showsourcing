@@ -41,7 +41,7 @@ export class QueryBuilder {
 					${AUDIT}
 				}
 			}`;
-	};
+	}
 
 	// search // TODO update to fit the new environment when we have search queries
 	[QueryType.SEARCH] = (str: string) => {
@@ -66,7 +66,30 @@ export class QueryBuilder {
 					total
 				}
 			}`;
-	};
+	}
+
+	[QueryType.SEARCH_BY] = (str: string) => (byTypeName: Typename) => {
+		return gql`
+			query Search${this.typename}sBy${byTypeName}s(
+				$${byTypeName.toLowerCase()}Ids: [String!]!
+				$take: Int,
+				$skip: Int
+			) {
+				search${this.typename}sBy${byTypeName}s(
+					${byTypeName.toLowerCase()}Ids: $${byTypeName.toLowerCase()}Ids
+					sort: {property: "price.value", direction: ASC}
+					take: $take
+					skip: $skip
+				) {
+					items {
+						id
+						${str}
+						${AUDIT}
+					}
+					count
+				}
+			}`;
+	}
 
 	[QueryType.LIST_BY] = (str: string): Record<string, any> => (byProperty: string) => {
 		const ownerVerbose = byProperty === 'Owner' ? 'User' : ''; // the param for Owner is $ownerUser
@@ -96,7 +119,7 @@ export class QueryBuilder {
 					startedAt
 				}
 			}`;
-	};
+	}
 
 	[QueryType.CREATE] = (str: string) => {
 		return gql`
@@ -108,7 +131,7 @@ export class QueryBuilder {
 					${AUDIT}
 				}
 			}`;
-	};
+	}
 
 	[QueryType.UPDATE] = (str: string) => {
 		return gql`
@@ -120,7 +143,7 @@ export class QueryBuilder {
 					${AUDIT}
 				}
 			}`;
-	};
+	}
 
 	[QueryType.DELETE] = (str = '') => {
 		return gql`
@@ -132,5 +155,5 @@ export class QueryBuilder {
 					${AUDIT}
 				}
 			}`;
-	};
+	}
 }
