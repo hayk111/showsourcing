@@ -1,0 +1,65 @@
+<dialog-app contentOverflow="hidden" [hasBorder]="false">
+	<dialog-header-app translate="Select Projects"></dialog-header-app>
+
+<controller-table-app [total]="listHelper.total$ | async">
+		<controller-table-quick-filters-app></controller-table-quick-filters-app>
+		<controller-table-quick-actions-app
+			[tableConfig]="tableConfig"
+			[columns]="columns"
+		></controller-table-quick-actions-app>
+	</controller-table-app>
+
+
+	<div class="flex table-ctnr">
+
+		<projects-table-app
+			[hasMenu]="false"
+			[hasPagination]="false"
+			[navigation]="false"
+			[selection]="selectionSrv.selection$ | async"
+			[rows]="listHelper.filteredItems$ | async"
+			[pending]="listHelper.pending$ | async"
+			(selectAll)="selectionSrv.selectAll($event)"
+			(unselect)="selectionSrv.unselectOne($event)"
+			(unselectAll)="selectionSrv.unselectAll()"
+			(select)="selectionSrv.selectOne($event)"
+			(update)="listHelper.update($event)"
+			(delete)="listHelper.delete($event)">
+		</projects-table-app>
+
+		<filters-app
+			*ngIf="viewSrv.filterPanelOpen"
+			[filterTypes]="filterTypes"
+			[sidePanel]="true"
+			(close)="viewSrv.closeFilterPanel()">
+		</filters-app>
+
+	</div>
+
+
+	<dialog-footer-app class="flexVAlign flexBetween pagination-footer">
+		<pagination-app
+			[hasPageItemsCount]="false"
+			[hasTopPadding]="false"
+		>
+		</pagination-app>
+
+		<div class="flex flexVAlign">
+			<div class="product-action">
+				<span class="selected-product-count">{{ (selectionSrv.selection$ | async).size }}</span>
+				<!-- TODO Translate -->
+				<span class="selected-product">Project Selected </span>
+			</div>
+						<divider-app [vertical]="true"></divider-app>
+			<button
+				class="capitalize primary"
+				(click)="done()"
+				translate="button.done"
+			></button>
+		</div>
+	</dialog-footer-app>
+
+	<ng-template #spinner>
+		<spinner-app></spinner-app>
+	</ng-template>
+</dialog-app>

@@ -45,32 +45,32 @@ export class ProductRequestTeamFeedbackDlgComponent extends TrackingComponent im
 	}
 
 	submit() {
-		this.teamMembers$.pipe(
-			first(),
-			map(teamMembers => teamMembers.filter(teamMember => !!this.selected[teamMember.id])),
-			switchMap(teamMembers => {
-				return this.productDlgSrv.askFeedBackToUsers(teamMembers, this.products);
-			})
-		).subscribe(
-			r => {
-				this.notificationSrv.add({
-					type: ToastType.SUCCESS,
-					title: translate('Feedback requested'),
-					message: translate('Your feedback request has been sent with success'),
-					timeout: 3500
-				});
-				this.dlgSrv.close();
-			},
-			e => {
-				this.notificationSrv.add({
-					type: ToastType.ERROR,
-					title: translate('Feedback requested'),
-					message: translate('Feedback request could not be sent, server issues'),
-					timeout: 3500
-				});
-				this.dlgSrv.close();
-			}
-		);
+	// 	this.teamMembers$.pipe(
+	// 		first(),
+	// 		map(teamMembers => teamMembers.filter(teamMember => !!this.selected[teamMember.id])),
+	// 		switchMap(teamMembers => {
+	// 			return this.productDlgSrv.askFeedBackToUsers(teamMembers, this.products);
+	// 		})
+	// 	).subscribe(
+	// 		r => {
+	// 			this.notificationSrv.add({
+	// 				type: ToastType.SUCCESS,
+	// 				title: translate('Feedback requested'),
+	// 				message: translate('Your feedback request has been sent with success'),
+	// 				timeout: 3500
+	// 			});
+	// 			this.dlgSrv.close();
+	// 		},
+	// 		e => {
+	// 			this.notificationSrv.add({
+	// 				type: ToastType.ERROR,
+	// 				title: translate('Feedback requested'),
+	// 				message: translate('Feedback request could not be sent, server issues'),
+	// 				timeout: 3500
+	// 			});
+	// 			this.dlgSrv.close();
+	// 		}
+	// 	);
 	}
 
 }

@@ -2,10 +2,12 @@ import { Injectable } from '@angular/core';
 import { forkJoin, Observable } from 'rxjs';
 import { AnalyticsService } from '~core/analytics/analytics.service';
 import {
-	Contact, ContactService, Product, ProductService,
-	ProductVoteRequest, ProductVoteRequestService, Project,
+	ContactService, ProductService,
+	ProductVoteRequest, ProductVoteRequestService,
 	ProjectService, SupplierService, TeamUserService, UserService
 } from '~core/erm';
+
+import { Project, Product, Contact } from '~core/erm3/models';
 
 @Injectable()
 export class ProductDialogService extends ProductService {
@@ -22,13 +24,13 @@ export class ProductDialogService extends ProductService {
 		super(analyticsSrv, userSrv);
 	}
 
-	getContacts(supplierId: string): Observable<Contact[]> {
-		return this.contactSrv.queryMany({ query: `supplier.id == "${supplierId}"` });
-	}
+	// getContacts(supplierId: string): Observable<Contact[]> {
+	// 	return this.contactSrv.queryMany({ query: `supplier.id == "${supplierId}"` });
+	// }
 
-	selectProjects(): Observable<Project[]> {
-		return this.projectSrv.queryMany({ query: 'deleted == false', sortBy: 'name' });
-	}
+	// selectProjects(): Observable<Project[]> {
+	// 	return this.projectSrv.queryMany({ query: 'deleted == false', sortBy: 'name' });
+	// }
 
 	/**
 	 * select users from current team
@@ -38,44 +40,44 @@ export class ProductDialogService extends ProductService {
 	}
 
 
-	/**
-	 * Associate products to projects.
-	 */
-	addProjectsToProducts(addedProjects: Project[], products: Product[]): Observable<Product[]> {
-		addedProjects = addedProjects.map(p => ({ id: p.id }));
-		products = products.map(p => ({ id: p.id, projects: p.projects }));
-		products.forEach(product => {
-			const currentProjects = product.projects.map(p => ({ id: p.id }));
-			product.projects = [...currentProjects, ...addedProjects];
-		});
-		return this.updateMany(products);
-	}
+	// /**
+	//  * Associate products to projects.
+	//  */
+	// addProjectsToProducts(addedProjects: Project[], products: Product[]): Observable<Product[]> {
+	// 	addedProjects = addedProjects.map(p => ({ id: p.id }));
+	// 	products = products.map(p => ({ id: p.id, projects: p.projects }));
+	// 	products.forEach(product => {
+	// 		const currentProjects = product.projects.map(p => ({ id: p.id }));
+	// 		product.projects = [...currentProjects, ...addedProjects];
+	// 	});
+	// 	return this.updateMany(products);
+	// }
 
-	/**
-	 * Associate products to project.
-	 */
-	addProductsToProject(project: Project, products: Product[]): Observable<Product[]> {
-		products.forEach(product => {
-			const currentProjects = product.projects.map(p => ({ id: p.id }));
-			product.projects = [...currentProjects, {id: project.id}];
-		});
+	// /**
+	//  * Associate products to project.
+	//  */
+	// addProductsToProject(project: Project, products: Product[]): Observable<Product[]> {
+	// 	products.forEach(product => {
+	// 		const currentProjects = product.projects.map(p => ({ id: p.id }));
+	// 		product.projects = [...currentProjects, {id: project.id}];
+	// 	});
 
-		const mapProducts = products.map(product => ({id: product.id, projects: product.projects}));
-		return this.updateMany(mapProducts);
-	}
+	// 	const mapProducts = products.map(product => ({id: product.id, projects: product.projects}));
+	// 	return this.updateMany(mapProducts);
+	// }
 
-	/**
-	 *
-	 * @param users users that we want to request feedback to
-	 * @param products products we want to request feedback for
-	 */
-	askFeedBackToUsers(users: any[], products: Product[]) {
-		// keeping only the ids so we don't send any additional data.
-		// users = users.map(user => ({ id: user.id, firstName: user.firstName }));
-		users = users.map(user => ({ id: user.user.id }));
-		products = products.map(product => ({ id: product.id }));
-		const comment = ''; // TODO: fixed this on backend side, comment must not be requis
-		const requests = products.map(product => this.voteSrv.create(new ProductVoteRequest({ users, product, comment })));
-		return forkJoin(requests);
-	}
+	// /**
+	//  *
+	//  * @param users users that we want to request feedback to
+	//  * @param products products we want to request feedback for
+	//  */
+	// askFeedBackToUsers(users: any[], products: Product[]) {
+	// 	// keeping only the ids so we don't send any additional data.
+	// 	// users = users.map(user => ({ id: user.id, firstName: user.firstName }));
+	// 	users = users.map(user => ({ id: user.user.id }));
+	// 	products = products.map(product => ({ id: product.id }));
+	// 	const comment = ''; // TODO: fixed this on backend side, comment must not be requis
+	// 	const requests = products.map(product => this.voteSrv.create(new ProductVoteRequest({ users, product, comment })));
+	// 	return forkJoin(requests);
+	// }
 }

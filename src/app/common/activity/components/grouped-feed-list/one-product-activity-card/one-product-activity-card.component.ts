@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { GetStreamGroup } from '~common/activity/interfaces/get-stream-feed.interfaces';
-import { ProductAddToProjectDlgComponent } from '~common/dialogs/selection-dialogs';
+import { ProjectSelectionDialogComponent } from '~common/dialogs/selection-dialogs';
 import { CommentService } from '~core/erm';
 import { ProductService } from '~core/erm';
 import { Comment, ERM, Product } from '~core/erm';
@@ -79,7 +79,7 @@ export class OneProductActivityCardComponent extends AutoUnsub implements OnInit
 	}
 
 	openAddToProject() {
-		this.dlgSrv.open(ProductAddToProjectDlgComponent, { selectedProducts: [this.product] });
+		this.dlgSrv.open(ProjectSelectionDialogComponent, { selectedProducts: [this.product] });
 	}
 
 	onEnter(event) {
