@@ -12,7 +12,6 @@ export class BaseQueries {
 		protected defaultFields: string = 'id name',
 		protected queries: QueryType[] = [
 			QueryType.GET,
-			QueryType.SEARCH,
 			QueryType.SEARCH_BY,
 			QueryType.LIST_BY,
 			QueryType.CREATE,

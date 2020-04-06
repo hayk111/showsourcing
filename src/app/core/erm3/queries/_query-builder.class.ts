@@ -70,22 +70,25 @@ export class QueryBuilder {
 			}`;
 	}
 
-	[QueryType.SEARCH_BY] = (str: string) => (byTypeName: Typename, byIds: string[]) => {
+	[QueryType.SEARCH_BY] = (str: string) => (byTypeName: Typename) => {
 		return gql`
 			query Search${this.typename}sBy${byTypeName}s(
 				$${byTypeName.toLowerCase()}Ids: [String!]!
-				$take: Int
+				$take: Int,
+				$skip: Int
 			) {
 				search${this.typename}sBy${byTypeName}s(
 					${byTypeName.toLowerCase()}Ids: $${byTypeName.toLowerCase()}Ids
 					sort: {property: "price.value", direction: ASC}
 					take: $take
+					skip: $skip
 				) {
 					items {
 						id
 						${str}
 						${AUDIT}
 					}
+					count
 				}
 			}`;
 	}

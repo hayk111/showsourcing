@@ -12,7 +12,7 @@ import { combineLatest } from 'rxjs';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[class.side-padding-l]': 'hasSidePadding',
-		'[class.mg-top-ms]': 'range?.length > 1 && hasTopPadding' // adding margin top only if the element is being shown up
+		'[class.mg-top-ms]': 'hasTopPadding' // adding margin top only if the element is being shown up
 	}
 })
 export class PaginationComponent extends TrackingComponent implements OnInit {
@@ -24,6 +24,7 @@ export class PaginationComponent extends TrackingComponent implements OnInit {
 	@Input() hasTopPadding = true;
 	currentPage = 0;
 	range: number[] = [];
+	perPageItemCount: number[] = [25, 50, 100, 200];
 
 	constructor(
 		public paginationSrv: PaginationService,

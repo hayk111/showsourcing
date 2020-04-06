@@ -27,13 +27,15 @@ export class ListHelperService<G = any> {
 		this.sortSrv.sort$
 	).pipe(
 		// gets the query
-		map(([{ queryArg }, page, limit, sort]) => this.apiSrv.search<G>(
-			this.typename, {
-				filter: queryArg,
-				limit,
-				from: page * limit,
-				sort
-			}, {}, ...this.getSearchByForEntity(this.typename))
+		map(([{ queryArg }, page, limit, sort]) => {
+			return this.apiSrv.search<G>(
+				this.typename, {
+					filter: queryArg,
+					limit,
+					from: page * limit,
+					sort
+				}, {});
+			}
 		),
 		// save it
 		tap(query => this.queryRef = query),
@@ -102,15 +104,6 @@ export class ListHelperService<G = any> {
 		forkJoin(all).pipe(
 			switchMap(_ => this.refetch())
 		).subscribe();
-	}
-
-	getSearchByForEntity(typename: Typename): Array<any> {
-		switch (typename) {
-			case 'Product':
-				return ['Team', [TeamService.teamSelected.id]];
-			default:
-				return [];
-		}
 	}
 
 	loadMore() {

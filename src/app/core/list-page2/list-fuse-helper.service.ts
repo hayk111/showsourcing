@@ -5,10 +5,11 @@ import { debounce, switchMap, tap, filter, map } from 'rxjs/operators';
 import { ApiQueryOption, ApiService, ObservableQuery } from '~core/erm3/services/api.service';
 import { Typename } from '~core/erm3/typename.type';
 import { FilterService, FilterType } from '~core/filters';
+import { TeamService } from '~core/auth';
 import { SelectionService } from './selection.service';
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { CreationDialogComponent } from '~common/dialogs/creation-dialogs';
-import { TeamService } from '~core/auth';
+import { PaginationService } from '~shared/pagination/services/pagination.service';
 
 
 @Injectable({ providedIn: 'root' })
@@ -41,6 +42,7 @@ export class ListFuseHelperService<G = any> {
 		}),
 		tap(searchedDatas => {
 			this._total$.next(searchedDatas.length);
+			this.paginationSrv.init(of(searchedDatas.length));
 		}),
 	);
 	// result.sort(); // TODO should take sort property from filterSrv, not implemented yet
@@ -51,6 +53,7 @@ export class ListFuseHelperService<G = any> {
 		private selectionSrv: SelectionService,
 		private apiSrv: ApiService,
 		private filterSrv: FilterService,
+		private paginationSrv: PaginationService,
 		private dlgSrv: DialogService
 	) {}
 
@@ -72,7 +75,7 @@ export class ListFuseHelperService<G = any> {
 		});
 	}
 
-	private refetch() {
+	refetch() {
 		this.pending = true;
 		return this.queryRef.refetch({ fetchPolicy: 'cache-first' }).then(_ => (this.pending = false));
 	}

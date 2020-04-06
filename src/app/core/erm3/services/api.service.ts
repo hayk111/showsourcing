@@ -147,25 +147,22 @@ export class ApiService {
 		typename: Typename,
 		variables: FilterParams,
 		apiOptions: ApiQueryOption = {},
-		byTypeName?: Typename,
-		byIds?: string[]
+		byTypeName: Typename = 'Team',
+		byIds: string[] = [this._teamId]
 	): ObservableQuery<T[]> {
 		const options = apiOptions as WatchQueryOptions;
 		options.variables = variables;
 
-		if (byTypeName) {
-			const queryBuilder = QueryPool.getQuery(typename, QueryType.SEARCH_BY);
-			options.query = queryBuilder(byTypeName, byIds);
-			options.variables = {
-				[byTypeName.toLowerCase() + 'Ids']: byIds,
-				take: 2
-			};
-		} else {
-			options.query = QueryPool.getQuery(typename, QueryType.SEARCH);
-		}
+		const queryBuilder = QueryPool.getQuery(typename, QueryType.SEARCH_BY);
+		options.query = queryBuilder(byTypeName);
+		options.variables = {
+			[byTypeName.toLowerCase() + 'Ids']: byIds,
+			take: variables.limit,
+			skip: variables.from
+		};
 
 		const query = this.query<T[]>(options);
-		query.total$ = query.response$.pipe(map(r => r.total));
+		query.total$ = query.response$.pipe(map(r => r.count));
 		return query;
 	}
 
