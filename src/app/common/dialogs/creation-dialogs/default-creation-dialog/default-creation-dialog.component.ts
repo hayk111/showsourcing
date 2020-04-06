@@ -13,22 +13,26 @@ export class DefaultCreationDialogComponent implements AfterViewInit {
 	group: FormGroup = this.fb.group({
 		name: ['', Validators.required],
 	});
-	// pending = false;
 	@Input() typename: Typename;
+	@Input() createAnother = false;
 
 	@ViewChild(InputDirective, { static: false }) input: InputDirective;
 
-	constructor(private fb: FormBuilder, private dialogSrv: DialogService) {}
+	constructor(private fb: FormBuilder, private dlgSrv: DialogService) {}
 
 	ngAfterViewInit() {
 		if (this.input) this.input.focus();
 	}
 
+	cancel() {
+		this.dlgSrv.cancel();
+	}
+
 	onSubmit() {
 		if (!this.group.valid) return;
 		const name = this.group.value.name.trim();
-		// this.pending = true;
-		this.dialogSrv.data({ name });
-		this.dialogSrv.close();
+		this.dlgSrv.data({ name });
+		if (this.createAnother) this.group.reset();
+		else this.dlgSrv.close();
 	}
 }
