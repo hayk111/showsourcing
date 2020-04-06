@@ -40,34 +40,45 @@ export class PaginationService {
 	}
 
 	goToPage(page: number) {
-		if (page !== this.currentPage)
+		if (page !== this.currentPage) {
 			this._page$.next(page);
+			this.currentPage = page;
+		}
 	}
 
 	goToNextPage() {
-		if (this.currentPage < this.total - 1)
+		if (this.currentPage < this.totalPages - 1) {
 			this._page$.next(this.currentPage + 1);
+			this.currentPage++;
+		}
 	}
 
 	goToPreviousPage() {
-		if (this.currentPage > 0)
+		if (this.currentPage > 0) {
 			this._page$.next(this.currentPage - 1);
+			this.currentPage--;
+		}
 	}
 
 	goToFirstPage() {
-		if (this.currentPage > 0)
+		if (this.currentPage > 0) {
 			this._page$.next(0);
+			this.currentPage = 0;
+		}
 	}
 
 	goToLastPage() {
 		if (this.currentPage !== this.total - 1) {
 			const lastPage = Math.ceil(this.total / this.currentLimit) - 1;
 			this._page$.next(lastPage);
+			this.currentPage = lastPage;
 		}
 	}
 
 	setLimit(limit: number) {
 		this._limit$.next(limit);
+		this.currentLimit = limit;
+		this.goToFirstPage();
 	}
 
 	private getTotalPages(count: number, itemsPerPage: number) {

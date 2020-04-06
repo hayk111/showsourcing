@@ -146,13 +146,23 @@ export class ApiService {
 	search<T>(
 		typename: Typename,
 		variables: FilterParams,
-		apiOptions: ApiQueryOption = {}
+		apiOptions: ApiQueryOption = {},
+		byTypeName: Typename = 'Team',
+		byIds: string[] = [this._teamId]
 	): ObservableQuery<T[]> {
 		const options = apiOptions as WatchQueryOptions;
 		options.variables = variables;
-		options.query = QueryPool.getQuery(typename, QueryType.SEARCH);
+
+		const queryBuilder = QueryPool.getQuery(typename, QueryType.SEARCH_BY);
+		options.query = queryBuilder(byTypeName);
+		options.variables = {
+			[byTypeName.toLowerCase() + 'Ids']: byIds,
+			take: variables.limit,
+			skip: variables.from
+		};
+
 		const query = this.query<T[]>(options);
-		query.total$ = query.response$.pipe(map(r => r.total));
+		query.total$ = query.response$.pipe(map(r => r.count));
 		return query;
 	}
 
@@ -201,7 +211,7 @@ export class ApiService {
 			entity.id = uuid();
 			entity.createdAt = new Date().toISOString();
 			entity.lastUpdatedAt = new Date().toISOString();
-			entity.deleted = false;
+			// entity.deleted = false;
 			entity.createdByUserId = this._userId;
 			entity.lastUpdatedByUserId = this._userId;
 			entity.teamId = this._teamId;

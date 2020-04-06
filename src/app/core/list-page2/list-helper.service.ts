@@ -9,6 +9,7 @@ import { FilterService } from '~core/filters/filter.service';
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { SortService } from '~shared/table/services/sort.service';
 import { SelectionService } from './selection.service';
+import { TeamService } from '~core/auth';
 import { PaginationService } from '~shared/pagination/services/pagination.service';
 
 @Injectable({ providedIn: 'root' })
@@ -28,13 +29,15 @@ export class ListHelperService<G = any> {
 		this.sortSrv.sort$
 	).pipe(
 		// gets the query
-		map(([{ queryArg }, page, limit, sort]) => this.apiSrv.search<G>(
-			this.typename, {
-				filter: queryArg,
-				limit,
-				from: page * limit,
-				sort
-			})
+		map(([{ queryArg }, page, limit, sort]) => {
+			return this.apiSrv.search<G>(
+				this.typename, {
+					filter: queryArg,
+					limit,
+					from: page * limit,
+					sort
+				}, {});
+			}
 		),
 		// save it
 		tap(query => this.queryRef = query),
