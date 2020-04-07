@@ -48,12 +48,9 @@ input, textarea {
 		border-color: var(--color-primary);
 	}
 	&.small {
-		padding: 3px;
+		height: 24px;
 	}
-	&:not([type="submit"]):disabled {
-		color: var(--color-txt-primary);
-	}
-	&:read-only {
+	&:read-only, &:disabled {
 		background: var(--color-secondary-light);
     cursor: default;
     border-color: var(--color-secondary);
