@@ -30,7 +30,7 @@ export class FormFieldComponent implements OnInit, AfterContentInit {
 
 	ngOnInit() {
 		if (!this.input)
-			throw Error('FormField should have an input in it with the directive formFieldCtrl');
+			throw Error('FormField should have an input in it with the directive inputApp');
 	}
 
 	ngAfterContentInit() {

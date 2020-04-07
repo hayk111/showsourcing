@@ -8,6 +8,7 @@ export class FieldDescriptor extends Entity<FieldDescriptor> {
 	fixedValue: boolean;
 	required: boolean;
 	definition: FieldDefinition;
+	hint: string;
 }
 
 

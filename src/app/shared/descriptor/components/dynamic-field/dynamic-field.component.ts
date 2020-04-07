@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import { FieldDescriptor } from '~core/erm3/models';
+import { FormControl } from '@angular/forms';
 
 @Component({
 	selector: 'dynamic-field-app',

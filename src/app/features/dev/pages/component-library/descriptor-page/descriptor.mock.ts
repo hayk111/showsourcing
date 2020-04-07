@@ -8,7 +8,8 @@ const fields1 = [
 		},
 		defaultValue: 'string default value',
 		fixedValue: false,
-		required: true
+		required: true,
+		hint: 'This is an helpful message'
 	},
 	{
 		definition: {
@@ -19,6 +20,7 @@ const fields1 = [
 		defaultValue: 40,
 		fixedValue: false,
 		required: true,
+		hint: 'Field expressed in Kg'
 	},
 	{
 		definition: {
