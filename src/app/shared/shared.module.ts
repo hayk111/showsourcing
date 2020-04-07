@@ -58,6 +58,7 @@ import { StatusSelectorModule } from './status-selector/status-selector.module';
 import { TableModule } from './table/table.module';
 import { ToastModule } from './toast';
 import { HttpClientModule } from '@angular/common/http';
+import { DescriptorModule } from './descriptor/descriptor.module';
 import { TemplateModule } from './template';
 import { SideBarModule } from './side-bar';
 
@@ -85,6 +86,7 @@ const modules = [
 	CommentModule,
 	ComparisonRowModule,
 	ContextMenuModule,
+	DescriptorModule,
 	DialogModule,
 	DividerModule,
 	DynamicFormsModule,
