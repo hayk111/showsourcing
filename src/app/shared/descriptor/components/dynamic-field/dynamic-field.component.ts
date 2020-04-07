@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import { FieldDescriptor } from '~core/erm3/models';
-import { FormControl } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
 	selector: 'dynamic-field-app',
@@ -15,10 +15,17 @@ export class DynamicFieldComponent implements OnInit {
 	// refactor the input module first
 	@Output() blurEvent = new EventEmitter<any>();
 	@Output() inputEvent = new EventEmitter<any>();
+	formControl: FormControl;
 
 	constructor() { }
 
 	ngOnInit() {
+		const value = this.value || this.field.defaultValue;
+		const validators = [];
+		if (this.field.required) {
+			validators.push(Validators.required);
+		}
+		this.formControl = new FormControl(value, validators);
 	}
 
 }

@@ -19,7 +19,7 @@ const fields1 = [
 		},
 		defaultValue: 40,
 		fixedValue: false,
-		required: true,
+		required: false,
 		hint: 'Field expressed in Kg'
 	},
 	{
@@ -29,8 +29,8 @@ const fields1 = [
 			name: 'email',
 		},
 		defaultValue: 'default@gmail.com',
-		fixedValue: false,
-		required: true
+		fixedValue: true,
+		required: false
 	},
 	{
 		definition: {
@@ -40,7 +40,8 @@ const fields1 = [
 		},
 		defaultValue: '+32',
 		fixedValue: false,
-		required: true
+		required: false,
+		hint: '+44 444 444 44'
 	},
 	{
 		definition: {
@@ -50,7 +51,7 @@ const fields1 = [
 		},
 		defaultValue: 0,
 		fixedValue: false,
-		required: true
+		required: false
 	},
 ];
 

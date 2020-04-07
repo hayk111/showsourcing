@@ -7,7 +7,7 @@
 
 	<ng-content select="label-app"></ng-content>
 	<span 
-		*ngIf="showRequiredMarker"
+		*ngIf="showRequiredMarker && input.required"
 		class="color-warn">
 		*
 	</span>

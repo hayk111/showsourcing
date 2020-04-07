@@ -8,8 +8,9 @@
 			<input 
 				#inp
 				inputApp
-				[value]="value || field.defaultValue || ''"
 				type="text"
+				[readOnly]="field.fixedValue"
+				[formControl]="formControl"
 				(blur)="blurEvent.emit(inp.value)"
 				(input)="inputEvent.emit(inp.value)"/>
 			<hint-app>{{ field.hint }}</hint-app>
@@ -23,8 +24,9 @@
 			<input 
 				#inp
 				inputApp
-				[value]="value || field.defaultValue || 0"
 				type="number"
+				[readOnly]="field.fixedValue"
+				[formControl]="formControl"
 				(blur)="blurEvent.emit(inp.value)"
 				(input)="inputEvent.emit(inp.value)"/>
 			<hint-app>{{ field.hint }}</hint-app>
@@ -38,8 +40,9 @@
 			<input 
 				#inp
 				inputApp
-				[value]="field.defaultValue || ''"
 				restrictInput="tel"
+				[readOnly]="field.fixedValue"
+				[formControl]="formControl"
 				(blur)="blurEvent.emit(inp.value)"
 				(input)="inputEvent.emit(inp.value)"/>
 			<hint-app>{{ field.hint }}</hint-app>
@@ -53,9 +56,10 @@
 			<input 
 				#inp
 				inputApp
-				[value]="value || field.defaultValue || ''"
-				restrictInput="email"
 				type="email"
+				restrictInput="email"
+				[readOnly]="field.fixedValue"
+				[formControl]="formControl"
 				(blur)="blurEvent.emit(inp.value)"
 				(input)="inputEvent.emit(inp.value)"/>
 				<hint-app>{{ field.hint }}</hint-app>
@@ -69,10 +73,11 @@
 			<input 
 				#inp
 				inputApp
-				[value]="value || field.defaultValue || ''"
 				restrictInput="decimal"
 				type="number"
 				step="any"
+				[readOnly]="field.fixedValue"
+				[formControl]="formControl"
 				(blur)="blurEvent.emit(inp.value)"
 				(input)="inputEvent.emit(inp.value)"/>
 				<hint-app>{{ field.hint }}</hint-app>

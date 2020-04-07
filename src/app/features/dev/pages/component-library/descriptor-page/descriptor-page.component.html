@@ -1,20 +1,27 @@
 
 <card-app class="mg-l">
 	<card-title-app>Costumize it</card-title-app>
-	<checkbox-app 
+	<!-- <checkbox-app
+		class="mg-v-ms" 
 		[checked]="style === 'form'"
 		(check)="style = 'form'"
 		(uncheck)="style = 'editable'">
 		Form style
-	</checkbox-app>
+	</checkbox-app> -->
 	<checkbox-app 
+		class="mg-v-ms"
 		[checked]="updateOn === 'blur'"
 		(check)="updateOn = 'blur'"
 		(uncheck)="updateOn = 'input'">
 		{{ updateOn }}
 	</checkbox-app>
-	<input [(ngModel)]="columnAmount" type="number"/>
-	properties: {{ properties | json }}
+	<input 
+		class="mg-v-ms" 
+		[(ngModel)]="columnAmount" 
+		type="number"/>
+	<p class="prop mg-v-ms">
+		properties: {{ properties | json }}
+	</p>
 </card-app>
 
 <card-app class="mg-l">
