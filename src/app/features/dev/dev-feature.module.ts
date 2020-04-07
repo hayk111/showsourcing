@@ -42,6 +42,7 @@ import { FormsModule } from '@angular/forms';
 		Pages.DescriptorPageComponent,
 		Pages.DialogPageComponent,
 		Pages.EditableContainerPageComponent,
+		Pages.FormFieldPageComponent,
 		Pages.GuidelinesComponent,
 		Pages.IconPageComponent,
 		Pages.InputPageComponent,

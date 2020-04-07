@@ -1,16 +1,11 @@
-import {
-	Component, OnInit, ChangeDetectionStrategy, Input, HostListener, ContentChild,
-	ChangeDetectorRef, AfterContentInit
-} from '@angular/core';
-import { InputDirective } from '~shared/inputs/components-directives/input.directive';
-import { startWith } from 'rxjs/operators';
-import { animations } from '~shared/inputs/components-directives/form-field/form-field.animations';
-import { ErrorComponent } from '~shared/inputs/components-directives/error/error.component';
-import { LabelComponent } from '~shared/inputs/components-directives/label/label.component';
-import { HintComponent } from '~shared/inputs/components-directives/hint/hint.component';
-import { FormControlDirective } from '@angular/forms';
-import { FormFieldControlDirective } from '~shared/inputs/components-directives/form-field-control.directive';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, Input, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { ErrorComponent } from '~shared/inputs/components-directives/error/error.component';
+import { FormFieldControlDirective } from '~shared/inputs/components-directives/form-field-control.directive';
+import { animations } from '~shared/inputs/components-directives/form-field/form-field.animations';
+import { HintComponent } from '~shared/inputs/components-directives/hint/hint.component';
+import { LabelComponent } from '~shared/inputs/components-directives/label/label.component';
+import { InputDirective } from '../input.directive';
 
 @Component({
 	selector: 'form-field-app',
@@ -21,8 +16,8 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class FormFieldComponent implements OnInit, AfterContentInit {
 	// whenever the * next to required field should be hidden
-	@Input() hideRequiredMarker: boolean;
-	@ContentChild(FormFieldControlDirective, { static: true }) input: FormFieldControlDirective;
+	@Input() showRequiredMarker: boolean;
+	@ContentChild(InputDirective, { static: true }) input: InputDirective;
 	@ContentChild(LabelComponent, { static: true }) label: LabelComponent;
 	@ContentChild(HintComponent, { static: true }) hint: HintComponent;
 	@ContentChild(ErrorComponent, { static: true }) error: ErrorComponent;
@@ -60,10 +55,9 @@ export class FormFieldComponent implements OnInit, AfterContentInit {
 	/** Determines if we display an hint or an error */
 	get displayedMessage(): 'error' | 'hint' | 'none' {
 		// an hint displays only when we are focussed
-		// InputApp which extends formControl has focussed state
-		if ((this.input as any).focussed && this.hint)
+		if (this.input.focussed && this.hint)
 			return 'hint';
-		else if ((this.input as any).focussed)
+		else if (this.input.focussed)
 			return 'none';
 		// if there is an error it's always the error except if it's pristine (or focussed)
 		else if (this.control
@@ -81,6 +75,9 @@ export class FormFieldComponent implements OnInit, AfterContentInit {
 	}
 
 	get defaultErrorMsg(): string {
+		if (!this.control) {
+			return;
+		}
 		switch (true) {
 			case this.control.hasError('required'):
 				return this.translate.instant('error.field-is-required');
