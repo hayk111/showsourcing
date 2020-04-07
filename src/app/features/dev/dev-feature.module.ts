@@ -11,6 +11,8 @@ import { SharedModule } from '~shared/shared.module';
 
 import * as Pages from './pages';
 import { routes } from './routes';
+import { DescriptorPageComponent } from './pages/component-library/descriptor-page/descriptor-page.component';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -19,6 +21,7 @@ import { routes } from './routes';
 	imports: [
 		RouterModule.forChild(routes),
 		SharedModule,
+		FormsModule,
 		TablesCommonModule,
 		ListCommonModule,
 		CreationDialogsCommonModule,
@@ -52,8 +55,8 @@ import { routes } from './routes';
 		Pages.SpacingPageComponent,
 		Pages.TypographyPageComponent,
 		Pages.ControllerTablePageComponent,
+		DescriptorPageComponent,
 		Pages.DialogPageComponent,
-		Pages.DialogPageComponent
 	],
 	exports: [],
 	providers: []

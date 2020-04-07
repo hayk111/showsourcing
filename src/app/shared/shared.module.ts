@@ -1,6 +1,6 @@
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { OverlayModule } from '@angular/cdk/overlay';
-import { ScrollDispatchModule, ScrollingModule } from '@angular/cdk/scrolling';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CommonModule, DatePipe } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -58,6 +58,7 @@ import { StatusSelectorModule } from './status-selector/status-selector.module';
 import { TableModule } from './table/table.module';
 import { ToastModule } from './toast';
 import { HttpClientModule } from '@angular/common/http';
+import { DescriptorModule } from './descriptor/descriptor.module';
 import { TemplateModule } from './template';
 import { SideBarModule } from './side-bar';
 
@@ -71,7 +72,6 @@ const modules = [
 	// cdk modules
 	DragDropModule,
 	OverlayModule,
-	ScrollDispatchModule,
 	ScrollingModule,
 
 	// shared modules
@@ -86,6 +86,7 @@ const modules = [
 	CommentModule,
 	ComparisonRowModule,
 	ContextMenuModule,
+	DescriptorModule,
 	DialogModule,
 	DividerModule,
 	DynamicFormsModule,

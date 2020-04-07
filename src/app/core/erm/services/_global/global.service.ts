@@ -1,8 +1,5 @@
-import { ApolloBase } from 'apollo-angular';
-import { API } from 'aws-amplify';
 import { DocumentNode } from 'graphql';
-import { from, Observable, of } from 'rxjs';
-import { catchError, map, shareReplay, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { AnalyticsService } from '~core/analytics/analytics.service';
 import { Entity } from '~core/erm/models';
 import { ListQuery } from '~core/erm/services/_global/list-query.interface';
@@ -447,7 +444,7 @@ export abstract class GlobalService<T extends Entity> implements GlobalServiceIn
 	}
 
 	/** to use another named apollo client */
-	protected getClient(context: string): Observable<ApolloBase> {
+	protected getClient(context: string): Observable<any> {
 		throw Error('not implemented');
 		// return this.apolloState.getClientWhenReady(clientName, context);
 	}

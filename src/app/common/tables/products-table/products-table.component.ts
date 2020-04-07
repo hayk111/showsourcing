@@ -12,7 +12,7 @@ import { config } from './config';
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductsTableComponent extends EntityTableComponent<Product> implements OnInit {
+export class ProductsTableComponent extends EntityTableComponent<Product> {
 	static DEFAULT_COLUMNS = [
 		'logo',
 		'reference',

@@ -1,0 +1,30 @@
+
+<card-app class="mg-l">
+	<card-title-app>Costumize it</card-title-app>
+	<checkbox-app 
+		[checked]="style === 'form'"
+		(check)="style = 'form'"
+		(uncheck)="style = 'editable'">
+		Form style
+	</checkbox-app>
+	<checkbox-app 
+		[checked]="updateOn === 'blur'"
+		(check)="updateOn = 'blur'"
+		(uncheck)="updateOn = 'input'">
+		{{ updateOn }}
+	</checkbox-app>
+	<input [(ngModel)]="columnAmount" type="number"/>
+	properties: {{ properties | json }}
+</card-app>
+
+<card-app class="mg-l">
+	<dynamic-form2-app 
+		[descriptor]="descriptor"
+		[columnAmount]="columnAmount"
+		[style]="style"
+		[updateOn]="updateOn"
+		[properties]="properties"
+		(update)="properties = $event">
+	</dynamic-form2-app>
+</card-app>
+

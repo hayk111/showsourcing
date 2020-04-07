@@ -1,0 +1,56 @@
+<label class="mg-top-ms">{{ field.definition.label }}</label>
+
+<ng-container [ngSwitch]="field.definition.type">
+
+	<!-- STRING -->
+	<ng-container *ngSwitchDefault>
+		<input 
+			#inp 
+			[value]="value || field.defaultValue || ''"
+			type="text"
+			(blur)="blurEvent.emit(inp.value)"
+			(input)="inputEvent.emit(inp.value)"/>
+	</ng-container>
+
+	<!-- INT -->
+	<ng-container *ngSwitchCase="'INT'">
+		<input 
+			#inp
+			[value]="value || field.defaultValue || 0"
+			type="number"/>
+	</ng-container>
+
+	<!-- TEL -->
+	<ng-container *ngSwitchCase="'TEL'">
+		<input 
+			#inp
+			[value]="field.defaultValue || ''"
+			restrictInput="tel"/>
+	</ng-container>
+
+	<!-- EMAIL -->
+	<ng-container *ngSwitchCase="'EMAIL'">
+		<input 
+			#inp
+			[value]="value || field.defaultValue || ''"
+			restrictInput="email"
+			type="email"/>
+	</ng-container>
+
+	<!-- FLOAT -->
+	<ng-container *ngSwitchCase="'FLOAT'">
+		<input 
+			#inp
+			[value]="value || field.defaultValue || ''"
+			restrictInput="decimal"
+			type="number"
+			step="any"/>
+	</ng-container>
+	
+
+	
+	<!-- PACKAGING -->
+	<!-- <ng-container *ngSwitchCase="'INT'">
+		<input-packaging-app [(ngModel)]="fieldValue.value"></input-packaging-app>
+	</ng-container> -->
+</ng-container>

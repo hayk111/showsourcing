@@ -28,4 +28,4 @@ export { User } from './user.model';
 export { Venue } from './venue.model';
 export { SectionDescriptor } from './section-descriptor.model';
 export { FieldDescriptor } from './field-descriptor.model';
-
+export * from './section.model';
