@@ -74,12 +74,14 @@ export class QueryBuilder {
 				$${byTypeName.toLowerCase()}Ids: [String!]!
 				$take: Int,
 				$skip: Int
+				$filter: SearchFilterInput
 			) {
 				search${this.typename}sBy${byTypeName}s(
 					${byTypeName.toLowerCase()}Ids: $${byTypeName.toLowerCase()}Ids
 					sort: {property: "price.value", direction: ASC}
 					take: $take
 					skip: $skip
+					filter: $filter
 				) {
 					items {
 						id

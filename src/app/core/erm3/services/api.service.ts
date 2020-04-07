@@ -36,9 +36,8 @@ export interface ObservableQuery<T = any> extends ApolloObservableQuery<T> {
 export interface FilterParams {
 	filter?: any;
 	sort?: Sort;
-	limit?: number;
-	from?: number;
-	nextToken?: string;
+	take?: number;
+	skip?: number;
 }
 
 export type ApiQueryOption = Partial<Omit<WatchQueryOptions, 'variables' | 'query'>>;
@@ -143,7 +142,7 @@ export class ApiService {
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	 * @param options: apollo options, variable and query will be overrided
 	 */
-	search<T>(
+	searchBy<T>(
 		typename: Typename,
 		variables: FilterParams,
 		apiOptions: ApiQueryOption = {},
@@ -157,8 +156,9 @@ export class ApiService {
 		options.query = queryBuilder(byTypeName);
 		options.variables = {
 			[byTypeName.toLowerCase() + 'Ids']: byIds,
-			take: variables.limit,
-			skip: variables.from
+			take: variables.take,
+			skip: variables.skip,
+			filter: variables.filter
 		};
 
 		const query = this.query<T[]>(options);
@@ -277,7 +277,7 @@ export class ApiService {
 		apiOptions: ApiMutationOption = {}
 		): Observable<T> {
 		const options = apiOptions as MutationOptions;
-		options.variables = { input: { id: entity.id, _version: entity._version } };
+		options.variables = { input: { id: entity.id, teamId: this._teamId, _version: 1 } };
 		options.mutation = QueryPool.getQuery(typename, QueryType.DELETE);
 		return this.mutate(options);
 	}

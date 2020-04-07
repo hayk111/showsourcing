@@ -30,11 +30,11 @@ export class ListHelperService<G = any> {
 	).pipe(
 		// gets the query
 		map(([{ queryArg }, page, limit, sort]) => {
-			return this.apiSrv.search<G>(
+			return this.apiSrv.searchBy<G>(
 				this.typename, {
 					filter: queryArg,
-					limit,
-					from: page * limit,
+					take: limit,
+					skip: page * limit,
 					sort
 				}, {});
 			}

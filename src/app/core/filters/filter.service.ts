@@ -25,10 +25,10 @@ export class FilterService {
 	/** helper */
 	private converter: FilterConverter = new FilterConverter();
 	/** to know when filters are changing, using replay subject here because in the constructor we set the starting ones */
-	private _valueChanges$ = new BehaviorSubject<FilterService>(this);
+	private _valueChanges$ = new BehaviorSubject<any>(this);
 	valueChanges$ = this._valueChanges$.asObservable();
 	/** default state */
-	startFilters: Filter[] = [{ type: FilterType.TEAM, value: TeamService.teamSelected.id }];
+	startFilters: Filter[] = [{ type: FilterType.DELETED, value: false }];
 	/** the filters currently in the filter-list */
 	filters: Filter[] = [];
 	/** so we can check if a filter type has a specific value, filterList.valuesByType.has(id-10) */
@@ -55,11 +55,10 @@ export class FilterService {
 
 	/** function that sets the filter of the filter list, also construct the different util object (by type, filter param) */
 	setFilters(filters: Filter[]) {
-		this.filters = filters;
 		this.valuesByType = this.converter.valuesByType(filters);
 		this.filtersByType = this.converter.filtersByType(filters);
 		this.queryArg = this.converter.filtersToQueryArg(filters);
-		this._valueChanges$.next(this);
+		this._valueChanges$.next({queryArg: this.queryArg});
 	}
 
 	/** adds a search to the predicate and restart setFilters */
@@ -68,6 +67,7 @@ export class FilterService {
 			return this.removeFilterType(FilterType.SEARCH);
 		}
 		const lastFilter = this.getFiltersForType(FilterType.SEARCH)[0];
+
 		if (!lastFilter) {
 			this.addFilter({ type: FilterType.SEARCH, value });
 		} else {
