@@ -68,7 +68,7 @@ export class ProductCreationDialogComponent implements OnInit {
 	}
 
 	imageDeleted(image: AppImage) {
-		const images = this.product.images.filter((img) => img.id !== image.id);
+		const images = this.product.images.filter(img => img.id !== image.id);
 		this.product = { ...this.product, images };
 	}
 
