@@ -82,7 +82,7 @@ export class ApiService {
 		const queryRef = client.watchQuery(options) as ObservableQuery<any>;
 		const response$ = from(queryRef).pipe(
 			// filter cache response when there is no cache
-			filter((r) => !r.stale),
+			filter((r: any) => !r.stale),
 			filter((r: any) => this.checkError(r, queryName)),
 			map(({ data }) => data[queryName]),
 			tap((data) => ApiLogger.logResponse(options, data))
