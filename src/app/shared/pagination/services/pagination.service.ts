@@ -18,12 +18,13 @@ export class PaginationService {
 	range$ = this._range$.asObservable();
 	/** width of the pagination, ie if 5 we display [1, 2, 3, 4, 5]  or [16, 17, 18, 19, 20], if 3 we display [1, 2, 3 ] */
 	private width = 5;
+	private _total$ = new BehaviorSubject(0);
 	private total: number;
 	private totalPages: number;
 
-	init(total$: Observable<number>) {
+	constructor() {
 		combineLatest(
-			total$,
+			this._total$,
 			this.limit$,
 			this.page$
 		).subscribe(([total, limit, page]) => {
@@ -34,35 +35,50 @@ export class PaginationService {
 		});
 	}
 
+	setupTotal(total: number) {
+		this._total$.next(total);
+	}
+
 	goToPage(page: number) {
-		if (page !== this.currentPage)
+		if (page !== this.currentPage) {
 			this._page$.next(page);
+			this.currentPage = page;
+		}
 	}
 
 	goToNextPage() {
-		if (this.currentPage < this.total - 1)
+		if (this.currentPage < this.totalPages - 1) {
 			this._page$.next(this.currentPage + 1);
+			this.currentPage++;
+		}
 	}
 
 	goToPreviousPage() {
-		if (this.currentPage > 0)
+		if (this.currentPage > 0) {
 			this._page$.next(this.currentPage - 1);
+			this.currentPage--;
+		}
 	}
 
 	goToFirstPage() {
-		if (this.currentPage > 0)
+		if (this.currentPage > 0) {
 			this._page$.next(0);
+			this.currentPage = 0;
+		}
 	}
 
 	goToLastPage() {
 		if (this.currentPage !== this.total - 1) {
 			const lastPage = Math.ceil(this.total / this.currentLimit) - 1;
 			this._page$.next(lastPage);
+			this.currentPage = lastPage;
 		}
 	}
 
 	setLimit(limit: number) {
 		this._limit$.next(limit);
+		this.currentLimit = limit;
+		this.goToFirstPage();
 	}
 
 	private getTotalPages(count: number, itemsPerPage: number) {

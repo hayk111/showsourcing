@@ -55,7 +55,8 @@ import { FormsModule } from '@angular/forms';
 		Pages.SpacingPageComponent,
 		Pages.TypographyPageComponent,
 		Pages.ControllerTablePageComponent,
-		DescriptorPageComponent
+		DescriptorPageComponent,
+		Pages.DialogPageComponent,
 	],
 	exports: [],
 	providers: []

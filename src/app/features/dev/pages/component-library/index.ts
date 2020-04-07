@@ -22,3 +22,4 @@ export * from './typography/typography-page.component';
 export * from './component-library-page.component';
 export * from './controller-table/controller-table-page.component';
 export * from './descriptor-page/descriptor-page.component';
+export * from './dialog/dialog-page.component';
