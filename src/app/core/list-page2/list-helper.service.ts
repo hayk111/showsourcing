@@ -65,6 +65,7 @@ export class ListHelperService<G = any> {
 
 	setup(typename: Typename) {
 		this.typename = typename;
+		this.filterSrv.setup();
 	}
 
 	refetch(options?: WatchQueryOptions) {

@@ -40,24 +40,22 @@ export class FilterService {
 	/** keep accessible for helpers */
 	searchedFields: string[] = [];
 
-	constructor() {
-		this.setFilters(this.startFilters);
-	}
-
 	/** if we want something else than the defaults */
 	setup(startFilters: Filter[] = [], searchedFields?: string[]) {
 		// adding the start filters
-		this.startFilters = startFilters;
+		this.startFilters = startFilters.length ? startFilters : this.startFilters;
+		this.filters = this.startFilters;
 		this.converter = new FilterConverter(searchedFields);
-		this.setFilters(startFilters);
+		this.setFilters(this.startFilters);
 		this.searchedFields = searchedFields;
 	}
 
 	/** function that sets the filter of the filter list, also construct the different util object (by type, filter param) */
 	setFilters(filters: Filter[]) {
-		this.valuesByType = this.converter.valuesByType(filters);
-		this.filtersByType = this.converter.filtersByType(filters);
-		this.queryArg = this.converter.filtersToQueryArg(filters);
+		this.filters = filters;
+		this.valuesByType = this.converter.valuesByType(this.filters);
+		this.filtersByType = this.converter.filtersByType(this.filters);
+		this.queryArg = this.converter.filtersToQueryArg(this.filters);
 		this._valueChanges$.next({queryArg: this.queryArg});
 	}
 

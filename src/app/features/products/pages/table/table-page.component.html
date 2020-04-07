@@ -48,12 +48,11 @@
 	(unselectAll)="selectionSrv.unselectAll()">
 </product-selection-bar-app>
 
-	<!-- <product-preview-app
-		*ngIf="viewSrv.previewOpen"
-		[product]="viewSrv.previewed"
-		(close)="viewSrv.closePreview()">
-	</product-preview-app> -->
-<!-- </ng-container>  -->
+<product-preview-app
+	*ngIf="viewSrv.previewOpen"
+	[product]="viewSrv.previewed"
+	(close)="viewSrv.closePreview()">
+</product-preview-app>
 
 <side-panel-app *ngIf="viewSrv.filterPanelOpen">
 	<filters-app

@@ -75,7 +75,7 @@ export class FilterConverter {
 	 * its type. This method return the translated predicate
 	 */
 	private getFieldCondition({ type, value, equality }: Filter) {
-		const eq = equality || 'eq';
+		const eq = equality || 'contains';
 		switch (type) {
 			case FilterType.ARCHIVED:
 			case FilterType.FAVORITE:
