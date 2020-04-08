@@ -1,7 +1,16 @@
 import { Injectable } from '@angular/core';
 import Fuse from 'fuse.js/dist/fuse.esm.js';
 import { combineLatest, forkJoin, Observable, of, Subject, timer, BehaviorSubject } from 'rxjs';
-import { debounce, switchMap, tap, filter, map, distinctUntilChanged } from 'rxjs/operators';
+import {
+	debounce,
+	switchMap,
+	tap,
+	filter,
+	map,
+	distinctUntilChanged,
+	mergeMap,
+	first,
+} from 'rxjs/operators';
 import { ApiQueryOption, ApiService, ObservableQuery } from '~core/erm3/services/api.service';
 import { Typename } from '~core/erm3/typename.type';
 import { FilterService, FilterType } from '~core/filters';
@@ -11,6 +20,7 @@ import { CloseEventType, DialogService } from '~shared/dialog';
 import { CreationDialogComponent } from '~common/dialogs/creation-dialogs';
 import { PaginationService } from '~shared/pagination/services/pagination.service';
 import { SortService } from '~shared/table/services/sort.service';
+import { uuid } from '~utils/';
 
 @Injectable({ providedIn: 'root' })
 export class ListFuseHelperService<G = any> {
@@ -21,6 +31,7 @@ export class ListFuseHelperService<G = any> {
 	pending$ = this._pending$.asObservable();
 
 	private _total$ = new Subject<number>();
+	private _total: number;
 	total$ = this._total$.asObservable();
 
 	fuseOptions = {
@@ -34,10 +45,7 @@ export class ListFuseHelperService<G = any> {
 	};
 
 	/** items searched, without sort and without pagination */
-	searchedItems$: Observable<G[]> = combineLatest(
-		this._fuse$,
-		this.filterSrv.valueChanges$
-	).pipe(
+	searchedItems$: Observable<G[]> = combineLatest(this._fuse$, this.filterSrv.valueChanges$).pipe(
 		debounce(() => timer(400)),
 		switchMap(([fuse]: any) => {
 			// the value changed should concern the FilterType search
@@ -46,6 +54,7 @@ export class ListFuseHelperService<G = any> {
 			else return this.queryRef.data$;
 		}),
 		tap((searchedDatas) => {
+			console.log('UPDATE TOTAL : ', searchedDatas.length);
 			this._total$.next(searchedDatas.length);
 		})
 	);
@@ -69,7 +78,8 @@ export class ListFuseHelperService<G = any> {
 		map(([page, limit, sortedItems]) => {
 			const indexStart = page * limit;
 			return sortedItems.slice(indexStart, indexStart + limit);
-		})
+		}),
+		filter((paginedItems) => this._total === 0 || paginedItems.length > 0)
 	);
 
 	constructor(
@@ -81,7 +91,8 @@ export class ListFuseHelperService<G = any> {
 		private sortSrv: SortService
 	) {
 		// When the total change, we setup pagination
-		this.total$.pipe(distinctUntilChanged()).subscribe((total) => {
+		this.total$.pipe().subscribe((total) => {
+			this._total = total;
 			this.paginationSrv.setupTotal(total);
 		});
 	}
@@ -121,9 +132,15 @@ export class ListFuseHelperService<G = any> {
 			.pipe(
 				filter((closeEvent) => closeEvent.type === CloseEventType.OK),
 				map((closeEvent) => closeEvent.data),
-				switchMap((entity) => this.apiSrv.create(this.typename, entity))
+				tap((entity) => this.apiSrv.addToList(this.queryRef, {
+					id: uuid(),
+					_version: 0,
+					__typename: this.typename,
+					...entity
+				})),
+				switchMap((entity) => this.apiSrv.create(this.typename, entity)),
 			)
-			.subscribe((created) => this.apiSrv.addToList(this.queryRef, created));
+			.subscribe();
 	}
 
 	update(entity: any) {
@@ -131,18 +148,15 @@ export class ListFuseHelperService<G = any> {
 	}
 
 	delete(entity: any) {
-		this.apiSrv
-			.delete(this.typename, entity)
-			.pipe(tap((deleted) => this.apiSrv.deleteFromList(this.queryRef, deleted.id)))
-			.subscribe();
+		this.apiSrv.deleteManyFromList(this.queryRef, [entity.id]);
+		this.apiSrv.delete(this.typename, entity).subscribe();
 	}
 
 	deleteSelected() {
-		const selected = this.selectionSrv.getSelectedValues();
-		const all = selected.map((entity) => this.apiSrv.delete(this.typename, entity));
-		forkJoin(all)
-			.pipe(switchMap((_) => this.refetch()))
-			.subscribe();
+		const selecteds = this.selectionSrv.getSelectedValues();
+		selecteds.map((entity) => this.apiSrv.delete(this.typename, entity));
+		selecteds.map((deleted) => this.apiSrv.deleteManyFromList(this.queryRef, [deleted.id]));
+		this.selectionSrv.unselectAll();
 	}
 
 	loadMore() {
