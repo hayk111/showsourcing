@@ -48,7 +48,7 @@ export const routes: Routes = [
 					{ path: 'tag-data', component: DataPages.TagDataPageComponent },
 				]
 			},
-			// { path: 'exports', component: ExportsPages.ExportsPageComponent }
+			{ path: 'exports', component: ExportsPages.ExportsPageComponent }
 		]
 	}
 ];
