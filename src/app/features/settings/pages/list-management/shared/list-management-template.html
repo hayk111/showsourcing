@@ -46,7 +46,7 @@
 	[selection]="selectionSrv.selection$ | async"
 	[pending]="listHelper.pending$ | async"
 	[isFiltering]="listHelper.pending$ | async"
-	[entityMetadata]="typename"
+	[typename]="typename"
 	(renameEntity)="listHelper.update($event)"
 	(delete)="listHelper.delete($event)"
 	(select)="selectionSrv.selectOne($event, false)"

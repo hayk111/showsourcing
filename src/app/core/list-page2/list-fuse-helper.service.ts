@@ -20,7 +20,7 @@ import { CloseEventType, DialogService } from '~shared/dialog';
 import { CreationDialogComponent } from '~common/dialogs/creation-dialogs';
 import { PaginationService } from '~shared/pagination/services/pagination.service';
 import { SortService } from '~shared/table/services/sort.service';
-import { uuid } from '~utils/';
+import * as uuid from 'uuid';
 
 @Injectable({ providedIn: 'root' })
 export class ListFuseHelperService<G = any> {
