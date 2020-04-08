@@ -26,3 +26,4 @@ export * from './selector/selector-page.component';
 export * from './spacing/spacing-page.component';
 export * from './table/table-page.component';
 export * from './typography/typography-page.component';
+export * from './inputs/inputs-page.component';

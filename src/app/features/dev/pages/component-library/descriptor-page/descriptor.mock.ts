@@ -65,6 +65,13 @@ const fields2 = [
 	},
 	{
 		definition: {
+			label: 'boolean',
+			type: 'BOOLEAN',
+			name: 'boolean',
+		}
+	},
+	{
+		definition: {
 			label: 'quantity',
 			type: 'INT',
 			name: 'quantity',

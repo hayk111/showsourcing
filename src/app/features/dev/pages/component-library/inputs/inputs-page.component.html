@@ -1,0 +1,40 @@
+
+<card-app class="mg-v-m">
+	<card-title-app>
+		inputApp directive
+	</card-title-app>
+
+	<p class="mg-v-ms">
+		This utility directive helps with focus.
+	</p>
+
+	<input 
+		#inp 
+		inputApp 
+		class="mg-v-ms" 
+		type="text"
+		value="some test value" 
+		placeholder="normal input"/>
+	
+	<div class="flexColumn">
+		<button 
+			class="mg-v-s"
+			(click)="inp.focus()">
+			focus
+		</button>
+		<button 
+			class="mg-v-s"
+			(click)="inp.select()">
+			select
+		</button>
+	</div>
+</card-app>
+
+<card-app class="mg-v-m">
+	<card-title-app>Checkbox</card-title-app>
+	<checkbox-app>This it the label</checkbox-app>
+</card-app>
+
+<card-app class="mg-v-m">
+	<card-title-app>Packaging</card-title-app>
+</card-app>

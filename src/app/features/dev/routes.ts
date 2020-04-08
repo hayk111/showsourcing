@@ -32,6 +32,7 @@ export const routes: Array<Route> = [
 			{ path: 'typography', component: Pages.TypographyPageComponent },
 			{ path: 'controller-table', component: Pages.ControllerTablePageComponent },
 			{ path: 'dialog', component: Pages.DialogPageComponent },
+			{ path: 'inputs', component: Pages.InputsPageComponent },
 			{ path: 'selector', component: Pages.SelectorPageComponent },
 			{ path: 'form-field', component: Pages.FormFieldPageComponent }
 			// { path: 'sample-card', component: Pages.SampleCardTestComponent },

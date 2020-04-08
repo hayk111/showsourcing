@@ -83,6 +83,16 @@
 				<hint-app>{{ field.hint }}</hint-app>
 			</form-field-app>
 	</ng-container>
+
+	<!-- FLOAT -->
+	<ng-container *ngSwitchCase="'BOOLEAN'">
+		<form-field-app>
+			<label-app>{{ field.definition.label }}</label-app>
+			<checkbox-app #checkbox inputApp>
+				{{ checkbox.value ? 'Yes' : 'No' }}
+			</checkbox-app>
+		</form-field-app>
+	</ng-container>
 	
 
 	

@@ -59,7 +59,7 @@ export class SelectorConstComponent extends AbstractInput implements OnInit {
 			this.selector.open();
 	}
 
-	onChange(change) {
+	onChangeFn(change) {
 		this.onChangeFn(this.value);
 		this.change.emit(this.value);
 	}

@@ -14,7 +14,7 @@ import { InputDirective } from '../input.directive';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	animations: animations,
 })
-export class FormFieldComponent implements OnInit, AfterContentInit {
+export class FormFieldComponent implements AfterContentInit {
 	// whenever the * next to required field should be hidden
 	@Input() showRequiredMarker: boolean;
 	@ContentChild(InputDirective, { static: true }) input: InputDirective;
@@ -28,12 +28,10 @@ export class FormFieldComponent implements OnInit, AfterContentInit {
 		private translate: TranslateService
 	) { }
 
-	ngOnInit() {
-		if (!this.input)
-			throw Error('FormField should have an input in it with the directive inputApp');
-	}
-
 	ngAfterContentInit() {
+		if (!this.input) {
+			return;
+		}
 		// Subscribe to changes in the child control state in order to update the form field UI.
 		if (this.input.stateChanges) {
 			this.input.stateChanges.subscribe(() => {
@@ -49,11 +47,14 @@ export class FormFieldComponent implements OnInit, AfterContentInit {
 	}
 
 	get control() {
-		return this.input.control;
+		return this.input && this.input.control;
 	}
 
 	/** Determines if we display an hint or an error */
 	get displayedMessage(): 'error' | 'hint' | 'none' {
+		if (!this.input) {
+			return;
+		}
 		// an hint displays only when we are focussed
 		if (this.input.focussed && this.hint)
 			return 'hint';
