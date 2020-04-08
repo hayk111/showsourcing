@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import * as Fuse from 'fuse.js';
+import Fuse from 'fuse.js/dist/fuse.esm.js';
 import { combineLatest, forkJoin, Observable, of, Subject, timer } from 'rxjs';
 import { debounce, switchMap, tap, filter, map } from 'rxjs/operators';
 import { ApiQueryOption, ApiService, ObservableQuery } from '~core/erm3/services/api.service';
