@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import Fuse from 'fuse.js/dist/fuse.esm.js';
-import { combineLatest, forkJoin, Observable, of, Subject, timer } from 'rxjs';
-import { debounce, switchMap, tap, filter, map } from 'rxjs/operators';
+import { combineLatest, forkJoin, Observable, of, Subject, timer, BehaviorSubject } from 'rxjs';
+import { debounce, switchMap, tap, filter, map, distinctUntilChanged } from 'rxjs/operators';
 import { ApiQueryOption, ApiService, ObservableQuery } from '~core/erm3/services/api.service';
 import { Typename } from '~core/erm3/typename.type';
 import { FilterService, FilterType } from '~core/filters';
@@ -10,14 +10,15 @@ import { SelectionService } from './selection.service';
 import { CloseEventType, DialogService } from '~shared/dialog';
 import { CreationDialogComponent } from '~common/dialogs/creation-dialogs';
 import { PaginationService } from '~shared/pagination/services/pagination.service';
-
+import { SortService } from '~shared/table/services/sort.service';
 
 @Injectable({ providedIn: 'root' })
 export class ListFuseHelperService<G = any> {
 	private queryRef: ObservableQuery<G[]>;
 	private typename: Typename;
 	private _fuse$ = new Subject();
-	pending = true;
+	private _pending$ = new BehaviorSubject(true);
+	pending$ = this._pending$.asObservable();
 
 	private _total$ = new Subject<number>();
 	total$ = this._total$.asObservable();
@@ -29,33 +30,63 @@ export class ListFuseHelperService<G = any> {
 		threshold: 0.5, // 0 = full match
 		location: 0,
 		distance: 100,
-		minMatchCharLength: 1
+		minMatchCharLength: 1,
 	};
 
-	filteredItems$: Observable<G[]> = combineLatest(this._fuse$, this.filterSrv.valueChanges$).pipe(
+	/** items searched, without sort and without pagination */
+	searchedItems$: Observable<G[]> = combineLatest(
+		this._fuse$,
+		this.filterSrv.valueChanges$
+	).pipe(
 		debounce(() => timer(400)),
 		switchMap(([fuse]: any) => {
 			// the value changed should concern the FilterType search
 			const searchValue = this.filterSrv.getFiltersForType(FilterType.SEARCH)[0];
-			if (searchValue) return of(fuse.search(searchValue.value).map(data => data.item));
+			if (searchValue) return of(fuse.search(searchValue.value).map((data) => data.item));
 			else return this.queryRef.data$;
 		}),
-		tap(searchedDatas => {
+		tap((searchedDatas) => {
 			this._total$.next(searchedDatas.length);
-		}),
+		})
 	);
-	// result.sort(); // TODO should take sort property from filterSrv, not implemented yet
-	// TODO should trigger filteredItems$ when sort is updated
-	// TODO update pagination
+
+	/** items sorted, without pagination */
+	sortedItems$ = combineLatest(this.searchedItems$, this.sortSrv.sort$).pipe(
+		map(([searchedItems, sort]) => {
+			if (!sort) return searchedItems;
+			return searchedItems.sort((item1, item2) => {
+				const direction = sort.direction === 'ASC' ? 1 : -1;
+				return item1[sort.field] > item2[sort.field] ? direction : direction * -1;
+			});
+		})
+	);
+
+	paginedItems$: Observable<G[]> = combineLatest(
+		this.paginationSrv.page$,
+		this.paginationSrv.limit$,
+		this.sortedItems$
+	).pipe(
+		map(([page, limit, sortedItems]) => {
+			const indexStart = page * limit;
+			return sortedItems.slice(indexStart, indexStart + limit);
+		})
+	);
 
 	constructor(
 		private selectionSrv: SelectionService,
 		private apiSrv: ApiService,
 		private filterSrv: FilterService,
+		private dlgSrv: DialogService,
 		private paginationSrv: PaginationService,
-		private dlgSrv: DialogService
-	) {}
+		private sortSrv: SortService
+	) {
+		// When the total change, we setup pagination
+		this.total$.pipe(distinctUntilChanged()).subscribe((total) => {
+			this.paginationSrv.setupTotal(total);
+		});
+	}
 
+	/** the filterSrv should be setup before the listFuseHelper */
 	setup(
 		typename: Typename,
 		byProperty: string = 'Team',
@@ -67,27 +98,32 @@ export class ListFuseHelperService<G = any> {
 		queryOptions.fetchPolicy = queryOptions.fetchPolicy || 'cache-first';
 		this.queryRef = this.apiSrv.listBy<G>(typename, byProperty, byId, queryOptions);
 		this.fuseOptions.keys = this.filterSrv.searchedFields || this.fuseOptions.keys;
-		// when we update datas it will reasign fuse
-		this.queryRef.data$.subscribe(datas => {
+		// when we update the query, datas it will reasign fuse
+		this.queryRef.data$.subscribe((datas) => {
 			this._fuse$.next(new Fuse(datas, this.fuseOptions));
-			this.pending = false;
+			this._pending$.next(false);
 		});
 	}
 
 	refetch() {
-		this.pending = true;
-		return this.queryRef.refetch({ fetchPolicy: 'cache-first' }).then(_ => (this.pending = false));
+		this._pending$.next(true);
+		return this.queryRef
+			.refetch({ fetchPolicy: 'cache-first' })
+			.then((_) => this._pending$.next(false));
 	}
 
 	create(addedProperties: any) {
-		this.dlgSrv.open(CreationDialogComponent , {
-			typename: this.typename,
-			extra: addedProperties
-		}).pipe(
-			filter(closeEvent => closeEvent.type === CloseEventType.OK),
-			map(closeEvent => closeEvent.data),
-			switchMap(entity => this.apiSrv.create(this.typename, entity)),
-		).subscribe(created => this.apiSrv.addToList(this.queryRef, created));
+		this.dlgSrv
+			.open(CreationDialogComponent, {
+				typename: this.typename,
+				extra: addedProperties,
+			})
+			.pipe(
+				filter((closeEvent) => closeEvent.type === CloseEventType.OK),
+				map((closeEvent) => closeEvent.data),
+				switchMap((entity) => this.apiSrv.create(this.typename, entity))
+			)
+			.subscribe((created) => this.apiSrv.addToList(this.queryRef, created));
 	}
 
 	update(entity: any) {
@@ -97,44 +133,19 @@ export class ListFuseHelperService<G = any> {
 	delete(entity: any) {
 		this.apiSrv
 			.delete(this.typename, entity)
-			.pipe(tap(deleted => this.apiSrv.deleteFromList(this.queryRef, deleted.id)))
+			.pipe(tap((deleted) => this.apiSrv.deleteFromList(this.queryRef, deleted.id)))
 			.subscribe();
 	}
 
 	deleteSelected() {
 		const selected = this.selectionSrv.getSelectedValues();
-		const all = selected.map(entity => this.apiSrv.delete(this.typename, entity));
+		const all = selected.map((entity) => this.apiSrv.delete(this.typename, entity));
 		forkJoin(all)
-			.pipe(switchMap(_ => this.refetch()))
+			.pipe(switchMap((_) => this.refetch()))
 			.subscribe();
 	}
 
 	loadMore() {
 		throw Error('not implemented yet');
-	}
-
-	loadPage() {
-		throw Error('not implemented yet');
-	}
-
-	loadNextPage() {
-		throw Error('not implemented yet');
-	}
-
-	loadPreviousPage() {
-		throw Error('not implemented yet');
-	}
-
-	loadFirstPage() {
-		throw Error('not implemented yet');
-	}
-
-	loadLastPage() {
-		throw Error('not implemented yet');
-	}
-
-	/** Sorts items based on sort.sortBy */
-	sort() {
-		throw Error('not implemented');
 	}
 }

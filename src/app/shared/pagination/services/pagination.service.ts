@@ -35,6 +35,7 @@ export class PaginationService {
 		});
 	}
 
+	/** should be used in listHelpers to  */
 	setupTotal(total: number) {
 		this._total$.next(total);
 	}

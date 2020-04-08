@@ -6,7 +6,7 @@ import { Sort } from '../models/sort.interface';
 @Injectable({ providedIn: 'root' })
 export class SortService {
 	private currentSort: Sort;
-	private _sort$ = new BehaviorSubject(undefined);
+	private _sort$ = new BehaviorSubject<Sort>(undefined);
 	sort$ = this._sort$.asObservable();
 
 	toggleSort(field: string) {

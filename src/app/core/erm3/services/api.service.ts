@@ -209,11 +209,11 @@ export class ApiService {
 		// TODO remove this condition when the audits are all similars
 		if (typename !== 'Company' && typename !== 'Team') {
 			entity.id = uuid();
-			entity.createdAt = new Date().toISOString();
-			entity.lastUpdatedAt = new Date().toISOString();
+			// entity.createdAt = new Date().toISOString();
+			// entity.lastUpdatedAt = new Date().toISOString();
 			// entity.deleted = false;
-			entity.createdByUserId = this._userId;
-			entity.lastUpdatedByUserId = this._userId;
+			// entity.createdByUserId = this._userId;
+			// entity.lastUpdatedByUserId = this._userId;
 			entity.teamId = this._teamId;
 		}
 		options.variables = { input: { ...entity } };

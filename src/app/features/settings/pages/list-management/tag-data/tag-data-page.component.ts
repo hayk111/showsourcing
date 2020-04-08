@@ -22,8 +22,6 @@ import { Typename } from '~core/erm3/typename.type';
 export class TagDataPageComponent extends AutoUnsub implements OnInit {
 	typename: Typename = 'Tag';
 
-	items$: Observable<Tag[]>;
-
 	constructor(
 		public teamSrv: TeamService,
 		public companySrv: CompanyService,
@@ -46,7 +44,6 @@ export class TagDataPageComponent extends AutoUnsub implements OnInit {
 			view: 'table'
 		});
 		this.listHelper.setup('Tag', 'Team', teamId); // search initialized in controller-table
-		this.items$ = this.listHelper.filteredItems$;
 	}
 
 	mergeSelected() {
