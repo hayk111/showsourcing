@@ -11,7 +11,6 @@ import * as modals from './index';
 		SharedModule
 	],
 	declarations: Object.values(modals),
-	entryComponents: Object.values(modals),
 	providers: []
 })
 export class CreationDialogsCommonModule { }

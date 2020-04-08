@@ -3,7 +3,7 @@ import { MutationOptions } from 'apollo-client';
 import {
 	ObservableQuery as ApolloObservableQuery,
 	WatchQueryOptions,
-} from 'aws-appsync/node_modules/apollo-client';
+} from 'apollo-client';
 import { forkJoin, from, Observable } from 'rxjs';
 import { filter, map, tap } from 'rxjs/operators';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
