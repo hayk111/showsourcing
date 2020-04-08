@@ -1,6 +1,6 @@
 
 
 export interface Sort {
-	field: string;
+	property: string;
 	direction: 'ASC' | 'DESC';
 }

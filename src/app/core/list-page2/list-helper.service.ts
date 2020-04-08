@@ -85,8 +85,8 @@ export class ListHelperService<G = any> {
 		).subscribe(created => this.apiSrv.addToList(this.queryRef, created));
 	}
 
-	update(entity: any) {
-		this.apiSrv.update(this.typename, entity);
+	update(entity: any, options?: any) {
+		this.apiSrv.update(this.typename, entity, options);
 	}
 
 	updateSelected(entity) {

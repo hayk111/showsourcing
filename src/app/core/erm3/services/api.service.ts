@@ -22,7 +22,7 @@ export interface ObservableQuery<T = any> extends ApolloObservableQuery<T> {
 }
 
 export interface Sort {
-	field: string;
+	property: string;
 	direction: 'ASC' | 'DESC';
 }
 
@@ -131,7 +131,7 @@ export class ApiService {
 	}
 
 	/////////////////////////////
-	//         SEARCH          //
+	//        SEARCH BY        //
 	/////////////////////////////
 
 	/**
@@ -158,7 +158,8 @@ export class ApiService {
 			[byTypeName.toLowerCase() + 'Ids']: byIds,
 			take: variables.take,
 			skip: variables.skip,
-			filter: variables.filter
+			filter: variables.filter,
+			sort: variables.sort,
 		};
 
 		const query = this.query<T[]>(options);
@@ -211,7 +212,7 @@ export class ApiService {
 			entity.id = uuid();
 			entity.createdAt = new Date().toISOString();
 			entity.lastUpdatedAt = new Date().toISOString();
-			// entity.deleted = false;
+			entity.deleted = false;
 			entity.createdByUserId = this._userId;
 			entity.lastUpdatedByUserId = this._userId;
 			entity.teamId = this._teamId;
@@ -237,12 +238,13 @@ export class ApiService {
 		const options = apiOptions as MutationOptions;
 		entity.__typename = typename;
 		if (typename !== 'Company' && typename !== 'Team') {
-			entity.createdAt = new Date().toISOString();
+			// entity.createdAt = new Date().toISOString();
 			entity.lastUpdatedAt = new Date().toISOString();
-			entity.deleted = false;
-			entity.createdByUserId = this._userId;
-			entity.lastUpdatedByUserId = this._userId;
+			// entity.deleted = false;
+			// entity.createdByUserId = this._userId;
+			// entity.lastUpdatedByUserId = this._userId;
 			entity.teamId = this._teamId;
+			entity._version = (options as any)._version;
 		}
 		options.variables = { input: entity };
 		options.mutation = QueryPool.getQuery(typename, QueryType.UPDATE);

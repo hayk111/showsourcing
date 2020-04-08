@@ -82,7 +82,7 @@ export class FilterConverter {
 			case FilterType.DELETED:
 				return {
 					property: type,
-					exists: false
+					isTrue: false
 				};
 			case FilterType.SEARCH:
 				return this.getSearchArg(value);
