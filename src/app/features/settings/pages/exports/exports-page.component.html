@@ -19,8 +19,8 @@
 
 <exports-table-app
 	class="spacing-ms"
-	[rows]="listSrv.items$ | async"
-	[pending]="listSrv.pending"
+	[rows]="listHelper.filteredItems$ | async"
+	[pending]="listHelper.pending$ | async"
 	(download)="downloadOne($event)">
 </exports-table-app>
 

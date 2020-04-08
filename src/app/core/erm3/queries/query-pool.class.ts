@@ -22,7 +22,7 @@ export class QueryPool {
 		EventDescription: new BaseQueries('EventDescription'),
 		Venue: new BaseQueries('Venue'),
 		Industry: new BaseQueries('Industry'),
-		Export: new BaseQueries('Export', 'format'),
+		Export: new BaseQueries('Export'),
 		Invitation: new BaseQueries('Invitation', 'email'),
 		Project: new BaseQueries('Project'),
 		Sample: new BaseQueries('Sample'),

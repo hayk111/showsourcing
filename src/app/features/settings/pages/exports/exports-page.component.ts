@@ -9,6 +9,8 @@ import { SelectionService, ListHelperService } from '~core/list-page2';
 import { FilterService, FilterType } from '~core/filters';
 import { AutoUnsub } from '~utils';
 import { Export } from '~core/erm3/models';
+import { PaginationService } from '~shared/pagination/services/pagination.service';
+import { SortService } from '~shared/table/services/sort.service';
 
 @Component({
 	selector: 'exports-page-app',
@@ -17,7 +19,10 @@ import { Export } from '~core/erm3/models';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'table-page'
-	}
+	},
+	providers: [
+		ListHelperService, SelectionService, SortService, PaginationService, FilterService
+	]
 })
 export class ExportsPageComponent extends AutoUnsub
 	implements OnInit, AfterViewInit {
@@ -33,7 +38,7 @@ export class ExportsPageComponent extends AutoUnsub
 
 	ngOnInit() {
 		this.filterSrv.setup([], [
-			'format',
+			// 'format',
 			'status',
 			'createdBy.firstName',
 			'createdBy.lastName'
