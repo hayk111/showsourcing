@@ -11,7 +11,9 @@
 	<!-- filters -->
 	<controller-table-quick-filters-app></controller-table-quick-filters-app>
 	<!-- actions -->
-	<controller-table-quick-actions-app></controller-table-quick-actions-app>
+	<controller-table-quick-actions-app
+		typename="Product"
+	></controller-table-quick-actions-app>
 	<!-- switcher -->
 	<controller-table-view-switcher-app></controller-table-view-switcher-app>
 </controller-table-app>
@@ -38,7 +40,7 @@
 		[selection]="getSelection$() | async"
 		[selectableItems]="getSelectableItems$() | async"
 		(addProject)="onProjectDlgOpen()"
-		(export)="dialogCommonSrv.openExportDialog(erm.PRODUCT.singular, selectionSrv.getSelectedValues())"
+		(export)="dialogCommonSrv.openExportDlg(erm.PRODUCT.singular, selectionSrv.getSelectedValues())"
 		(createRequest)="dialogCommonSrv.openSupplierRequest(selectionSrv.getSelectedValues())"
 		(requestTeamFeedback)="dialogCommonSrv.openRequestFeedbackDialog(selectionSrv.getSelectedValues())"
 		(archiveProducts)="listSrv.archiveMany(selectionSrv.getSelectedValues())"

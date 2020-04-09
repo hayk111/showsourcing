@@ -85,7 +85,7 @@ export class DialogCommonService {
 
 	/** Opens a dialog that lets the user export a product either in PDF or EXCEL format */
 	// TODO type this function when migrating it
-	openExportDialog(typename: any, targets?: any[], query?: string) {
+	openExportDlg(typename: Typename, targets?: any[], query?: any) {
 		return this.dlgSrv.open(ExportDlgComponent, { typename, targets, query });
 	}
 

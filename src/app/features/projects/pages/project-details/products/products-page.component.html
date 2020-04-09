@@ -6,6 +6,7 @@
 			<button (click)="listHelper.create()">Add Product</button>
 		</div>
 		<controller-table-quick-actions-app
+			typename="Project"
 			[columns]="columns"
 			[tableConfig]="tableConfig">
 		</controller-table-quick-actions-app>
@@ -62,7 +63,7 @@
 			[selection]="selectionSrv.selection$ | async"
 			[selectableItems]="listSrv.items$ | async"
 			(addProject)="dialogCommonSrv.openAddToProjectDialog(selectionSrv.getSelectedValues())"
-			(export)="dialogCommonSrv.openExportDialog(erm.PRODUCT.singular, selectionSrv.getSelectedValues())"
+			(export)="dialogCommonSrv.openExportDlg(erm.PRODUCT.singular, selectionSrv.getSelectedValues())"
 			(createRequest)="dialogCommonSrv.openSupplierRequest(selectionSrv.getSelectedValues())"
 			(requestTeamFeedback)="dialogCommonSrv.openRequestFeedbackDialog(selectionSrv.getSelectedValues())"
 			(archiveProducts)="listSrv.archiveMany(selectionSrv.getSelectedValues())"

@@ -12,6 +12,7 @@
 	<controller-table-quick-filters-app></controller-table-quick-filters-app>
 	<!-- actions -->
 	<controller-table-quick-actions-app
+		typename="Product"
 		[columns]="columns"
 		[tableConfig]="tableConfig">
 	</controller-table-quick-actions-app>
@@ -38,7 +39,7 @@
 	[selection]="selectionSrv.selection$ | async"
 	[selectableItems]="listHelper.filteredItems$ | async"
 	(addProject)="addProject()"
-	(export)="dialogCommonSrv.openExportDialog('Product', selectionSrv.getSelectedValues())"
+	(export)="dialogCommonSrv.openExportDlg('Product', selectionSrv.getSelectedValues())"
 	(createRequest)="dialogCommonSrv.openSupplierRequest(selectionSrv.getSelectedValues())"
 	(requestTeamFeedback)="dialogCommonSrv.openRequestFeedbackDialog(selectionSrv.getSelectedValues())"
 	(compareProducts)="dialogCommonSrv.openCompareProductDialog(selectionSrv.getSelectedValues())"

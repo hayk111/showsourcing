@@ -262,7 +262,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	}
 
 	openExportModal() {
-		this.dlgCommonSrv.openExportDialog(EntityName.PRODUCT, [this.product]);
+		this.dlgCommonSrv.openExportDlg(EntityName.PRODUCT, [this.product]);
 	}
 
 	// TAB SELECTION

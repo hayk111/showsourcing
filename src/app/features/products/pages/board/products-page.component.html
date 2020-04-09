@@ -12,6 +12,7 @@
 	<controller-table-quick-filters-app></controller-table-quick-filters-app>
 	<!-- actions -->
 	<controller-table-quick-actions-app
+		typename="Product"
 		[columns]="columns"
 		[tableConfig]="tableConfig">
 	</controller-table-quick-actions-app>
@@ -32,7 +33,7 @@
 		(selectAll)="selectionSrv.selectAll($event)"
 		(unselect)="selectionSrv.unselectOne($event)">
 	</products-table-app>
-<!-- 
+<!--
 	<products-board-app
 		*ngIf="viewSrv.view === 'board'"
 		(preview) = "viewSrv.openPreview($event)">
@@ -61,7 +62,7 @@
 		[selection]="getSelection$() | async"
 		[selectableItems]="getSelectableItems$() | async"
 		(addProject)="onProjectDlgOpen()"
-		(export)="dialogCommonSrv.openExportDialog(erm.PRODUCT.singular, selectionSrv.getSelectedValues())"
+		(export)="dialogCommonSrv.openExportDlg(erm.PRODUCT.singular, selectionSrv.getSelectedValues())"
 		(createRequest)="dialogCommonSrv.openSupplierRequest(selectionSrv.getSelectedValues())"
 		(requestTeamFeedback)="dialogCommonSrv.openRequestFeedbackDialog(selectionSrv.getSelectedValues())"
 		(archiveProducts)="listSrv.archiveMany(selectionSrv.getSelectedValues())"

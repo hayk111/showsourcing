@@ -141,27 +141,24 @@ export class ApiService {
 	 */
 	searchBy<T>(
 		typename: Typename,
-		variables: FilterParams,
-		apiOptions: ApiQueryOption = {},
+		variables?: FilterParams,
+		apiOptions: ApiQueryOption = {fetchPolicy: 'network-only'},
 		byTypeName: Typename = 'Team',
 		byIds: string[] = [this._teamId]
 	): ObservableQuery<T[]> {
 		const options = apiOptions as WatchQueryOptions;
+		if (!variables.sort?.direction)
+			variables.sort = {property: 'createdAt', direction: 'DESC'};
 		options.variables = variables;
 
 		const queryBuilder = QueryPool.getQuery(typename, QueryType.SEARCH_BY);
 		options.query = queryBuilder(byTypeName);
 		options.variables = {
 			[byTypeName.toLowerCase() + 'Ids']: byIds,
-<<<<<<< HEAD
 			take: variables.take,
 			skip: variables.skip,
 			filter: variables.filter,
 			sort: variables.sort,
-=======
-			take: variables.limit,
-			skip: variables.from,
->>>>>>> migration-amplify-dialog-creation
 		};
 
 		const query = this.query<T[]>(options);
@@ -213,15 +210,7 @@ export class ApiService {
 		if (typename !== 'Company' && typename !== 'Team') {
 			entity.id = uuid();
 			entity.createdAt = new Date().toISOString();
-<<<<<<< HEAD
-			entity.lastUpdatedAt = new Date().toISOString();
-			entity.deleted = false;
-			entity.createdByUserId = this._userId;
-			entity.lastUpdatedByUserId = this._userId;
-=======
-			entity._version = 0; // TODO should be removed (behavior not expected)
-			// entity.createdByUserId = this._userId; // TODO should be added (behavior expected)
->>>>>>> migration-amplify-dialog-creation
+			// entity.createdByUserId = this._userId; // TODO to add
 			entity.teamId = this._teamId;
 		}
 		options.variables = { input: { ...entity } };
@@ -245,15 +234,8 @@ export class ApiService {
 		const options = apiOptions as MutationOptions;
 		entity.__typename = typename;
 		if (typename !== 'Company' && typename !== 'Team') {
-<<<<<<< HEAD
-			// entity.createdAt = new Date().toISOString();
 			entity.lastUpdatedAt = new Date().toISOString();
-			// entity.deleted = false;
-			// entity.createdByUserId = this._userId;
-=======
-			entity.lastUpdatedAt = new Date().toISOString();
->>>>>>> migration-amplify-dialog-creation
-			// entity.lastUpdatedByUserId = this._userId;
+			entity.lastUpdatedByUserId = this._userId;
 			entity.teamId = this._teamId;
 			entity._version = (options as any)._version;
 		}
@@ -288,18 +270,14 @@ export class ApiService {
 		apiOptions: ApiMutationOption = {}
 	): Observable<T> {
 		const options = apiOptions as MutationOptions;
-<<<<<<< HEAD
-		options.variables = { input: { id: entity.id, teamId: this._teamId, _version: 1 } };
-=======
 		options.variables = {
 			input: { id: entity.id, _version: entity._version },
 		};
 		if (typename !== 'Company' && typename !== 'Team') {
-			// options.variables.input.deletedAt = new Date().toISOString(); // TODO should be added (behavior expected)
-			// options.variables.input.deletedByUserId = this._userId; // TODO should be added (behavior expected)
+			options.variables.input.deletedAt = new Date().toISOString();
+			options.variables.input.deletedByUserId = this._userId;
 			options.variables.input.teamId = this._teamId;
 		}
->>>>>>> migration-amplify-dialog-creation
 		options.mutation = QueryPool.getQuery(typename, QueryType.DELETE);
 		return this.mutate(options);
 	}

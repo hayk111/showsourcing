@@ -7,15 +7,9 @@ export class QueryPool {
 		Category: new BaseQueries('Category'),
 		Company: new BaseQueries('Company'),
 		Contact: new BaseQueries('Contact'),
-<<<<<<< HEAD
-		Descriptor: new BaseQueries('Descriptor', 'target'),
-		Image: new BaseQueries('Image', `fileName`),
-		Product: new BaseQueries('Product', 'id name _version'),
-=======
 		Descriptor: new BaseQueries('Descriptor', 'id _version target'),
 		Image: new BaseQueries('Image', `id _version fileName`),
 		Product: new BaseQueries('Product'),
->>>>>>> migration-amplify-dialog-creation
 		Supplier: new BaseQueries('Supplier'),
 		Task: new BaseQueries('Task'),
 		User: new BaseQueries('User', `firstName`),
