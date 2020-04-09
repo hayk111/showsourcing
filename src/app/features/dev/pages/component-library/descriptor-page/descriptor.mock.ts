@@ -63,18 +63,25 @@ const fields2 = [
 			name: 'color',
 		}
 	},
-	// {
-	// 	definition: {
-	// 		label: 'boolean',
-	// 		type: 'BOOLEAN',
-	// 		name: 'boolean',
-	// 	}
-	// },
+	{
+		definition: {
+			label: 'boolean',
+			type: 'BOOLEAN',
+			name: 'boolean',
+		}
+	},
 	{
 		definition: {
 			label: 'quantity',
 			type: 'INT',
 			name: 'quantity',
+		}
+	},
+	{
+		definition: {
+			label: 'textarea',
+			type: 'TEXTAREA',
+			name: 'textarea',
 		}
 	}
 ];

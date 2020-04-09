@@ -83,15 +83,34 @@
 			</form-field-app>
 	</ng-container>
 
+	<!-- TEXTAREA -->
+	<ng-container *ngSwitchCase="'TEXTAREA'">
+		<form-field-app [showRequiredMarker]="true">
+			<label-app>{{ field.definition.label }}</label-app>
+			<textarea 
+				#inp
+				inputApp
+				[value]="control.value"
+				[readonly]="field.readonly"
+				[required]="field.required"
+				[formControl]="control">
+			</textarea>
+			<hint-app>{{ field.hint }}</hint-app>
+		</form-field-app>
+	</ng-container>
+
 	<!-- BOOLEAN -->
-	<!-- <ng-container *ngSwitchCase="'BOOLEAN'">
+	<ng-container *ngSwitchCase="'BOOLEAN'">
 		<form-field-app>
 			<label-app>{{ field.definition.label }}</label-app>
-			<checkbox-app #checkbox inputApp>
+			<checkbox-app 
+				#checkbox 
+				inputApp 
+				[formControl]="control">
 				{{ checkbox.value ? 'Yes' : 'No' }}
 			</checkbox-app>
 		</form-field-app>
-	</ng-container> -->
+	</ng-container>
 	
 
 	
