@@ -10,7 +10,6 @@ export class DescriptorService {
 	constructor(private fb: FormBuilder) {}
 
 	descriptorToFormGroup(descriptor: Descriptor, options?: AbstractControlOptions): FormGroup {
-		const formGroup = this.fb.group({});
 		const ctrls = {};
 		descriptor.sections.forEach(section => {
 			section.fields.forEach(field => {
@@ -18,7 +17,10 @@ export class DescriptorService {
 				if (field.required) {
 					validators.push(Validators.required);
 				}
-				ctrls[field.definition.name] = [field.defaultValue, validators];
+				ctrls[field.definition.name] = [
+					field.defaultValue,
+					validators
+				];
 			});
 		});
 		return this.fb.group(ctrls, options);

@@ -8,13 +8,14 @@
 		(uncheck)="style = 'editable'">
 		Form style
 	</checkbox-app> -->
-	<checkbox-app 
-		class="mg-v-ms"
-		[checked]="updateOn === 'blur'"
-		(check)="updateOn = 'blur'"
-		(uncheck)="updateOn = 'input'">
-		{{ updateOn }}
-	</checkbox-app>
+	Update On
+	<select [value]="updateOn">
+		<option 
+			*ngFor="let opt of updateOnOptions" 
+			[value]="opt">
+			{{ opt }}
+		</option>
+	</select>
 	<input 
 		class="mg-v-ms" 
 		[(ngModel)]="columnAmount" 
@@ -26,6 +27,7 @@
 
 <card-app class="mg-l">
 	<dynamic-form2-app 
+		#form
 		[descriptor]="descriptor"
 		[columnAmount]="columnAmount"
 		[style]="style"
@@ -33,5 +35,7 @@
 		[properties]="properties"
 		(update)="properties = $event">
 	</dynamic-form2-app>
+	<button (click)="form.reset()" class="secondary">reset</button>
+	<button [disabled]="!form.valid" class="primary">submit</button>
 </card-app>
 

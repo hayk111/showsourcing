@@ -33,7 +33,7 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 	/** form group for the form */
 	formGroup: FormGroup;
 	/** when a new formgroup is created */
-	private formGroup$ = new ReplaySubject<FormGroup>(1);
+	private formGroup$ = new Subject<FormGroup>();
 	private _destroy$ = new Subject<void>();
 
 
@@ -44,11 +44,11 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 	constructor(private descriptorSrv: DescriptorService) {}
 
 	ngOnInit() {
-		this.formGroup = this.formGroup = this.descriptorSrv
-			.descriptorToFormGroup(this.descriptor, { updateOn: this.updateOn });
-		const values = this.descriptorSrv
-				.propertiesToObject(this.properties);
-			this.formGroup.patchValue(values);
+		this.formGroup = this.descriptorSrv
+			.descriptorToFormGroup(this.descriptor, { updateOn: 'change' });
+		// const values = this.descriptorSrv
+		// 		.propertiesToObject(this.properties);
+		// this.formGroup.patchValue(values);
 		this.makeColumns();
 		this.formGroup.valueChanges.pipe(
 			// we transform it into the array of properties

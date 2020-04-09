@@ -1,22 +1,23 @@
+
 <ng-container [ngSwitch]="field.definition.type">
-	{{ value | json }}
-	<input 
-	#inp
-	inputApp
-	type="text"
-	[value]="value"
-	(input)="onChange(inp.value)"/>
+
 	<!-- STRING -->
-	<!-- <ng-container *ngSwitchDefault>
+	<ng-container *ngSwitchDefault>
 		<form-field-app [showRequiredMarker]="true">
 			<label-app>{{ field.definition.label }}</label-app>
-
+			<input 
+			#inp
+			inputApp
+			type="text"
+			[value]="value"
+			[readonly]="field.readonly"
+			(input)="onChange(inp.value)"/>
 			<hint-app>{{ field.hint }}</hint-app>
 		</form-field-app>
-	</ng-container> -->
+	</ng-container>
 
 	<!-- INT -->
-	<!-- <ng-container *ngSwitchCase="'INT'">
+	<ng-container *ngSwitchCase="'INT'">
 		<form-field-app [showRequiredMarker]="true">
 			<label-app>{{ field.definition.label }}</label-app>
 			<input 
@@ -24,14 +25,15 @@
 				inputApp
 				type="number"
 				[value]="value"
-				(blur)="onTouched()"
+				[readonly]="field.readonly"
+				(blur)="onTouched(inp.value)"
 				(input)="onChange(inp.value)"/>
 			<hint-app>{{ field.hint }}</hint-app>
 		</form-field-app>
-	</ng-container> -->
+	</ng-container>
 
 	<!-- TEL -->
-	<!-- <ng-container *ngSwitchCase="'TEL'">
+	<ng-container *ngSwitchCase="'TEL'">
 		<form-field-app [showRequiredMarker]="true">
 			<label-app>{{ field.definition.label }}</label-app>
 			<input 
@@ -39,14 +41,15 @@
 				inputApp
 				restrictInput="tel"
 				[value]="value"
+				[readonly]="field.readonly"
 				(blur)="onTouched()"
 				(input)="onChange(inp.value)"/>
 			<hint-app>{{ field.hint }}</hint-app>
 		</form-field-app>
-	</ng-container> -->
+	</ng-container>
 
 	<!-- EMAIL -->
-	<!-- <ng-container *ngSwitchCase="'EMAIL'">
+	<ng-container *ngSwitchCase="'EMAIL'">
 		<form-field-app [showRequiredMarker]="true">
 			<label-app>{{ field.definition.label }}</label-app>
 			<input 
@@ -55,14 +58,15 @@
 				type="email"
 				restrictInput="email"
 				[value]="value"
+				[readonly]="field.readonly"
 				(blur)="onTouched()"
 				(input)="onChange(inp.value)"/>
 				<hint-app>{{ field.hint }}</hint-app>
 			</form-field-app>
-	</ng-container> -->
+	</ng-container>
 
 	<!-- FLOAT -->
-	<!-- <ng-container *ngSwitchCase="'FLOAT'">
+	<ng-container *ngSwitchCase="'FLOAT'">
 		<form-field-app [showRequiredMarker]="true">
 			<label-app>{{ field.definition.label }}</label-app>
 			<input 
@@ -72,11 +76,12 @@
 				type="number"
 				step="any"
 				[value]="value"
+				[readonly]="field.readonly"
 				(blur)="onTouched()"
 				(input)="onChange(inp.value)"/>
 				<hint-app>{{ field.hint }}</hint-app>
 			</form-field-app>
-	</ng-container> -->
+	</ng-container>
 
 	<!-- BOOLEAN -->
 	<!-- <ng-container *ngSwitchCase="'BOOLEAN'">

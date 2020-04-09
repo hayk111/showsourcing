@@ -17,6 +17,8 @@ export class DescriptorPageComponent implements OnInit {
 	];
 	update = {};
 
+	updateOnOptions = ['blur', 'change', 'submit'];
+
 	constructor() { }
 
 	ngOnInit() {

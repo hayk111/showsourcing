@@ -13,14 +13,16 @@ export class DynamicFieldComponent extends AbstractInput {
 
 	@Input() field: FieldDescriptor;
 
-	onChange(value: string) {
-		this.onTouchedFn();
-		this.writeValue(value);
-		this.onChangeFn(value);
+	onChange(value: any) {
+		if (value !== this.value) {
+			this.writeValue(value);
+			this.onChangeFn(value);
+		}
 	}
 
-	onTouched() {
+	onTouched(value: any) {
 		this.onTouchedFn();
+		this.onChange(value);
 	}
 
 }

@@ -7,7 +7,7 @@ const fields1 = [
 			name: 'string',
 		},
 		defaultValue: 'string default value',
-		fixedValue: false,
+		readonly: true,
 		required: true,
 		hint: 'This is an helpful message'
 	},
@@ -18,7 +18,7 @@ const fields1 = [
 			name: 'int',
 		},
 		defaultValue: 40,
-		fixedValue: false,
+		readonly: false,
 		required: false,
 		hint: 'Field expressed in Kg'
 	},
@@ -29,7 +29,7 @@ const fields1 = [
 			name: 'email',
 		},
 		defaultValue: 'default@gmail.com',
-		fixedValue: true,
+		readonly: true,
 		required: false
 	},
 	{
@@ -39,7 +39,7 @@ const fields1 = [
 			name: 'tel',
 		},
 		defaultValue: '+32',
-		fixedValue: false,
+		readonly: false,
 		required: false,
 		hint: '+44 444 444 44'
 	},
@@ -50,7 +50,7 @@ const fields1 = [
 			name: 'float',
 		},
 		defaultValue: 0,
-		fixedValue: false,
+		readonly: false,
 		required: false
 	},
 ];
