@@ -75,7 +75,8 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 	}
 
 	reset() {
-		this.formGroup.reset();
+		const value = this.descriptorSrv.descriptorToValueObject(this.descriptor);
+		this.formGroup.reset(value);
 	}
 
 	onSubmit() {
