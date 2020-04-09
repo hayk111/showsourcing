@@ -1,31 +1,26 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FieldDescriptor } from '~core/erm3/models';
-import { FormControl, Validators } from '@angular/forms';
+import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 
 @Component({
 	selector: 'dynamic-field-app',
 	templateUrl: './dynamic-field.component.html',
 	styleUrls: ['./dynamic-field.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	providers: [makeAccessorProvider(DynamicFieldComponent)]
 })
-export class DynamicFieldComponent implements OnInit {
+export class DynamicFieldComponent extends AbstractInput {
+
 	@Input() field: FieldDescriptor;
-	@Input() value: any;
-	// This will change when using control value accessor but I've to
-	// refactor the input module first
-	@Output() blurEvent = new EventEmitter<any>();
-	@Output() inputEvent = new EventEmitter<any>();
-	formControl: FormControl;
 
-	constructor() { }
+	onChange(value: string) {
+		this.onTouchedFn();
+		this.writeValue(value);
+		this.onChangeFn(value);
+	}
 
-	ngOnInit() {
-		const value = this.value || this.field.defaultValue;
-		const validators = [];
-		if (this.field.required) {
-			validators.push(Validators.required);
-		}
-		this.formControl = new FormControl(value, validators);
+	onTouched() {
+		this.onTouchedFn();
 	}
 
 }

@@ -1,42 +1,44 @@
+{{ formGroup.value | json }}
 
-<ng-container *ngIf="style === 'form'; else editable">
+<form [formGroup]="formGroup">
 
-	<ng-container
-		*ngFor="let section of sections">
-
-		<h3 class="mg-v-m">{{ section.name }}</h3>
-		<div class="flex">
-			<div 
-				*ngFor="let column of section.columns; let isLast = last"
-				[ngClass]="{ 'mg-right-m': !isLast }">
+	<ng-container *ngIf="style === 'form'; else editable">
 	
-				<dynamic-field-app
+		<ng-container
+			*ngFor="let section of sections">
+	
+			<h3 class="mg-v-m">{{ section.name }}</h3>
+			<div class="flex">
+				<div 
+					*ngFor="let fields of section.columns; let isLast = last"
+					[ngClass]="{ 'mg-right-m': !isLast }">
+		
+					<dynamic-field-app
+						*ngFor="let field of fields" 
+						class="mg-bottom-s"
+						[field]="field"
+						[formControlName]="field.definition.name">
+					</dynamic-field-app>
+		
+				</div>
+			</div>
+	
+		</ng-container>
+	</ng-container>
+	
+	<ng-template #editable>
+		<fieldset 
+			*ngFor="let section of sections" 
+			[name]="section.name">
+	
+			<div *ngFor="let column of section.columns">
+	
+				<dynamic-editable-field-app
 					*ngFor="let field of column" 
-					class="mg-bottom-s"
-					[field]="field"
-					[value]="propertyMap.get(field.definition.name)?.value"
-					(inputEvent)="onInput(field, $event)"
-					(blurEvent)="onBlur(field, $event)">
-				</dynamic-field-app>
+					[field]="field">
+				</dynamic-editable-field-app>
 	
 			</div>
-		</div>
-
-	</ng-container>
-</ng-container>
-
-<ng-template #editable>
-	<fieldset 
-		*ngFor="let section of sections" 
-		[name]="section.name">
-
-		<div *ngFor="let column of section.columns">
-
-			<dynamic-editable-field-app
-				*ngFor="let field of column" 
-				[field]="field">
-			</dynamic-editable-field-app>
-
-		</div>
-	</fieldset>
-</ng-template>
+		</fieldset>
+	</ng-template>
+</form>

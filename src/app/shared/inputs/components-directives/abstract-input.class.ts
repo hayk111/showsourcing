@@ -21,7 +21,8 @@ export class AbstractInput implements ControlValueAccessor {
 
 	constructor(@Optional() protected cd: ChangeDetectorRef) {}
 
-	// called when patchValue or setValue is called on the form control
+	// Called when patchValue or setValue is called on the form control
+	// Allows Angular to update the model
 	writeValue(value: any): void {
 		this.value = value;
 	}

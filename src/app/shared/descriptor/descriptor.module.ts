@@ -18,6 +18,7 @@ import { InputsModule } from '~shared/inputs';
 	imports: [
 		CommonModule,
 		ReactiveFormsModule,
+		FormsModule,
 		InputsModule
 	]
 })

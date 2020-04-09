@@ -1,56 +1,52 @@
-
 <ng-container [ngSwitch]="field.definition.type">
-
+	{{ value | json }}
+	<input 
+	#inp
+	inputApp
+	type="text"
+	[value]="value"
+	(input)="onChange(inp.value)"/>
 	<!-- STRING -->
-	<ng-container *ngSwitchDefault>
+	<!-- <ng-container *ngSwitchDefault>
 		<form-field-app [showRequiredMarker]="true">
 			<label-app>{{ field.definition.label }}</label-app>
-			<input 
-				#inp
-				inputApp
-				type="text"
-				[readOnly]="field.fixedValue"
-				[formControl]="formControl"
-				(blur)="blurEvent.emit(inp.value)"
-				(input)="inputEvent.emit(inp.value)"/>
+
 			<hint-app>{{ field.hint }}</hint-app>
 		</form-field-app>
-	</ng-container>
+	</ng-container> -->
 
 	<!-- INT -->
-	<ng-container *ngSwitchCase="'INT'">
+	<!-- <ng-container *ngSwitchCase="'INT'">
 		<form-field-app [showRequiredMarker]="true">
 			<label-app>{{ field.definition.label }}</label-app>
 			<input 
 				#inp
 				inputApp
 				type="number"
-				[readOnly]="field.fixedValue"
-				[formControl]="formControl"
-				(blur)="blurEvent.emit(inp.value)"
-				(input)="inputEvent.emit(inp.value)"/>
+				[value]="value"
+				(blur)="onTouched()"
+				(input)="onChange(inp.value)"/>
 			<hint-app>{{ field.hint }}</hint-app>
 		</form-field-app>
-	</ng-container>
+	</ng-container> -->
 
 	<!-- TEL -->
-	<ng-container *ngSwitchCase="'TEL'">
+	<!-- <ng-container *ngSwitchCase="'TEL'">
 		<form-field-app [showRequiredMarker]="true">
 			<label-app>{{ field.definition.label }}</label-app>
 			<input 
 				#inp
 				inputApp
 				restrictInput="tel"
-				[readOnly]="field.fixedValue"
-				[formControl]="formControl"
-				(blur)="blurEvent.emit(inp.value)"
-				(input)="inputEvent.emit(inp.value)"/>
+				[value]="value"
+				(blur)="onTouched()"
+				(input)="onChange(inp.value)"/>
 			<hint-app>{{ field.hint }}</hint-app>
 		</form-field-app>
-	</ng-container>
+	</ng-container> -->
 
 	<!-- EMAIL -->
-	<ng-container *ngSwitchCase="'EMAIL'">
+	<!-- <ng-container *ngSwitchCase="'EMAIL'">
 		<form-field-app [showRequiredMarker]="true">
 			<label-app>{{ field.definition.label }}</label-app>
 			<input 
@@ -58,16 +54,15 @@
 				inputApp
 				type="email"
 				restrictInput="email"
-				[readOnly]="field.fixedValue"
-				[formControl]="formControl"
-				(blur)="blurEvent.emit(inp.value)"
-				(input)="inputEvent.emit(inp.value)"/>
+				[value]="value"
+				(blur)="onTouched()"
+				(input)="onChange(inp.value)"/>
 				<hint-app>{{ field.hint }}</hint-app>
 			</form-field-app>
-	</ng-container>
+	</ng-container> -->
 
 	<!-- FLOAT -->
-	<ng-container *ngSwitchCase="'FLOAT'">
+	<!-- <ng-container *ngSwitchCase="'FLOAT'">
 		<form-field-app [showRequiredMarker]="true">
 			<label-app>{{ field.definition.label }}</label-app>
 			<input 
@@ -76,23 +71,22 @@
 				restrictInput="decimal"
 				type="number"
 				step="any"
-				[readOnly]="field.fixedValue"
-				[formControl]="formControl"
-				(blur)="blurEvent.emit(inp.value)"
-				(input)="inputEvent.emit(inp.value)"/>
+				[value]="value"
+				(blur)="onTouched()"
+				(input)="onChange(inp.value)"/>
 				<hint-app>{{ field.hint }}</hint-app>
 			</form-field-app>
-	</ng-container>
+	</ng-container> -->
 
-	<!-- FLOAT -->
-	<ng-container *ngSwitchCase="'BOOLEAN'">
+	<!-- BOOLEAN -->
+	<!-- <ng-container *ngSwitchCase="'BOOLEAN'">
 		<form-field-app>
 			<label-app>{{ field.definition.label }}</label-app>
 			<checkbox-app #checkbox inputApp>
 				{{ checkbox.value ? 'Yes' : 'No' }}
 			</checkbox-app>
 		</form-field-app>
-	</ng-container>
+	</ng-container> -->
 	
 
 	

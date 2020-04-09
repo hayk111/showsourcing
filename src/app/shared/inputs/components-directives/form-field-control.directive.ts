@@ -20,8 +20,6 @@ export class FormFieldControlDirective implements OnChanges {
    */
 	public readonly stateChanges: Subject<void> = new Subject<void>();
 	@Input() placeholder: string;
-	@Input() value: any;
-
 
 	constructor(@Optional() @Self() public control: NgControl) { }
 
