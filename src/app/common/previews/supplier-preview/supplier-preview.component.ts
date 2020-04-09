@@ -12,29 +12,27 @@ import {
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, of } from 'rxjs';
-import { filter, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { switchMap, takeUntil } from 'rxjs/operators';
 import { SampleCatalogComponent } from '~common/catalogs/sample-catalog/sample-catalog.component';
 import { TaskCatalogComponent } from '~common/catalogs/task-catalog/task-catalog.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { SupplierDescriptor } from '~core/descriptors';
 import { SupplierService } from '~core/erm';
 import { CommentService } from '~core/erm';
-import {
-	ExtendedFieldDefinitionService,
-} from '~core/erm';
-import { AppImage, Comment, ERM, ExtendedFieldDefinition, Supplier } from '~core/erm';
-import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
-import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
+import { ExtendedFieldDefinitionService } from '~core/erm';
+import { AppImage, Comment, ERM, ExtendedFieldDefinition } from '~core/erm';
+import { Supplier } from '~core/erm3/models';
 import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
 import { PreviewCommentComponent, PreviewService } from '~shared/preview';
 import { RatingDashboardComponent } from '~shared/rating';
 import { AutoUnsub, translate } from '~utils';
+import { ApiService } from '~core/erm3/services/api.service';
 
 @Component({
 	selector: 'supplier-preview-app',
 	templateUrl: './supplier-preview.component.html',
 	styleUrls: ['./supplier-preview.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SupplierPreviewComponent extends AutoUnsub implements OnChanges, OnInit {
 	@Input() supplier: Supplier;
@@ -48,7 +46,8 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnChanges, On
 	@ViewChild(PreviewCommentComponent, { static: false }) previewComment: PreviewCommentComponent;
 	@ViewChild(SampleCatalogComponent, { read: ElementRef, static: false }) sampleCatalog: ElementRef;
 	@ViewChild(TaskCatalogComponent, { read: ElementRef, static: false }) taskCatalog: ElementRef;
-	@ViewChild(RatingDashboardComponent, { read: ElementRef, static: false }) ratingDashboard: ElementRef;
+	@ViewChild(RatingDashboardComponent, { read: ElementRef, static: false })
+	ratingDashboard: ElementRef;
 
 	supplier$: Observable<Supplier>;
 	supplierDescirptor: SupplierDescriptor;
@@ -64,31 +63,46 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnChanges, On
 		private commentSrv: CommentService,
 		private previewSrv: PreviewService,
 		private router: Router,
-		private dlgSrv: DialogService,
 		private extendedFieldDefSrv: ExtendedFieldDefinitionService,
-		public dialogCommonSrv: DialogCommonService,
-		public translateService: TranslateService) {
+		public dlgCommonSrv: DialogCommonService,
+		public translateService: TranslateService,
+		private apiSrv: ApiService
+	) {
 		super();
 	}
 
 	ngOnInit() {
 		this.supplierDescirptor = new SupplierDescriptor([
-			'name', ERM.SUPPLIER_TYPE.singular, 'generalMOQ', 'generalLeadTime', 'country',
-			'address', 'harbour', 'incoTerm', 'website', 'officeEmail', 'officePhone',
-			'createdBy', 'creationDate', 'lastUpdatedBy', 'lastUpdatedDate'
+			'name',
+			ERM.SUPPLIER_TYPE.singular,
+			'generalMOQ',
+			'generalLeadTime',
+			'country',
+			'address',
+			'harbour',
+			'incoTerm',
+			'website',
+			'officeEmail',
+			'officePhone',
+			'createdBy',
+			'creationDate',
+			'lastUpdatedBy',
+			'lastUpdatedDate',
 		]);
 
-		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "supplier.extendedFields"', sortBy: 'order' });
+		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({
+			query: 'target == "supplier.extendedFields"',
+			sortBy: 'order',
+		});
 	}
 
 	ngOnChanges() {
-		if (this.shouldSelect && this.supplier) {
-			this.supplier$ = this.supplierSrv.selectOne(this.supplier.id)
-				.pipe(takeUntil(this._destroy$));
-			this.supplier$.subscribe(s => this.supplier = s);
-		} else {
-			this.supplier$ = of(this.supplier);
-		}
+		// if (this.shouldSelect && this.supplier) {
+		// 	this.supplier$ = this.supplierSrv.selectOne(this.supplier.id).pipe(takeUntil(this._destroy$));
+		// 	this.supplier$.subscribe((s) => (this.supplier = s));
+		// } else {
+		// 	this.supplier$ = of(this.supplier);
+		// }
 	}
 
 	// UPDATE FUNCTIONS
@@ -101,53 +115,48 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnChanges, On
 	}
 
 	addComment(comment: Comment) {
-		// if we don't specify the user, when we get out of the preview and then comeback, the info displayed will be without the user info
-		// const commentUser = { ...comment, createdBy: this.userSrv.userSync };
-		const commentUser = { ...comment };
-		const comments = [...(this.supplier.comments || [])];
-		comments.push(commentUser);
-		this.commentSrv.create(comment).pipe(
-			switchMap(_ => this.supplierSrv.update({ id: this.supplier.id, comments }))
-		).subscribe();
+		// // if we don't specify the user, when we get out of the preview and then comeback, the info displayed will be without the user info
+		// // const commentUser = { ...comment, createdBy: this.userSrv.userSync };
+		// const commentUser = { ...comment };
+		// const comments = [...(this.supplier.comments || [])];
+		// comments.push(commentUser);
+		// this.commentSrv
+		// 	.create(comment)
+		// 	.pipe(switchMap((_) => this.supplierSrv.update({ id: this.supplier.id, comments })))
+		// 	.subscribe();
 	}
 
 	delete(supplier: Supplier) {
 		const text = `Are you sure you want to delete this supplier ?`;
-		this.dlgSrv.open(ConfirmDialogComponent, { text })
-			.pipe(
-				filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
-				switchMap(_ => this.supplierSrv.delete(supplier.id)),
-				tap(prod => {
-					this.close.emit();
-				})
-			).subscribe();
+		this.dlgCommonSrv
+			.openConfirmDlg({ text })
+			.data$.pipe(switchMap((_) => this.apiSrv.delete('Supplier', supplier)))
+			.subscribe((_) => this.close.emit());
 	}
 
 	archive() {
 		const text = `Are you sure you want to archive this supplier ?`;
 		const action = 'archive';
-		this.dlgSrv.open(ConfirmDialogComponent, { text, action })
-			.pipe(
-				filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
-				tap(_ => {
-					this.update(true, 'archived');
-					this.close.emit();
-				}),
-			).subscribe();
+		this.dlgCommonSrv.openConfirmDlg({ text, action }).data$.subscribe((_) => {
+			this.update(true, 'archived');
+			this.close.emit();
+		});
 	}
 
 	deleteImage(image: AppImage) {
-		const images = this.supplier.images.filter(img => image.id !== img.id);
-		this.supplierSrv.update({ id: this.supplier.id, images }).subscribe();
+		// const images = this.supplier.images.filter((img) => image.id !== img.id);
+		// this.supplierSrv.update({ id: this.supplier.id, images }).subscribe();
 	}
 
 	// ACTIONS
 	openCreateSample() {
-		this.dialogCommonSrv.openCreationSampleDialog(null, this.supplier).subscribe();
+		this.dlgCommonSrv.openCreationDlg('Sample', {supplier: this.supplier});
+		// TODO create Sample
 	}
 
 	openCreateTask() {
-		this.dialogCommonSrv.openCreationTaskDlg(null, this.supplier).subscribe();
+		this.dlgCommonSrv.openCreationDlg('Task', {supplier: this.supplier});
+		// TODO create Task
 	}
 
 	/** opens the modal carousel */
@@ -162,9 +171,9 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnChanges, On
 	}
 
 	redirect(subroute?: string) {
-		subroute ?
-			this.router.navigate(['suppliers', this.supplier.id, subroute]) :
-			this.router.navigate(['suppliers', this.supplier.id]);
+		subroute
+			? this.router.navigate(['suppliers', this.supplier.id, subroute])
+			: this.router.navigate(['suppliers', this.supplier.id]);
 	}
 
 	getLocationName(supplier) {
@@ -172,10 +181,8 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnChanges, On
 		if (supplier) {
 			if (supplier.city && supplier.country)
 				locName = supplier.city + ', ' + translate(supplier.country, 'country');
-			else if (supplier.city)
-				locName = supplier.city;
-			else
-				locName = translate(supplier.country, 'country');
+			else if (supplier.city) locName = supplier.city;
+			else locName = translate(supplier.country, 'country');
 		}
 		return locName;
 	}
@@ -204,5 +211,4 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnChanges, On
 		this.previewSrv.onSelectedTab(3);
 		this.previewComment.focus();
 	}
-
 }

@@ -119,4 +119,5 @@ export class Product extends Entity<Product> {
 	archived?: boolean | null;
 	reference?: string | null;
 	referenceKey?: number | null;
+	comments?: any;
 }

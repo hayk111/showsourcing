@@ -1,24 +1,59 @@
-
 <card-app>
 	<h1>Dialogs</h1>
 
 	<h2>Selection dialogs</h2>
 
 	The selection dialogs display a table for an entity and will give the selected entities when we
-	close the dialog
+	click done on the dialog.
 	<ul>
 		<li>
+			dlgCommonSrv.openSelectionDlg('Product') <br />
 			<button class="mg-s" (click)="selectProducts()">
 				Select Products
 			</button>
-			=> dlgCommonSrv.openSelectionDlg('Project')
 		</li>
 		<li>
+			dlgCommonSrv.openSelectionDlg('Project') <br />
 			<button class="mg-s" (click)="selectProjects()">
 				Select Projects
 			</button>
-			=> dlgCommonSrv.openSelectionDlg('Product')
 		</li>
 	</ul>
 
+	<h2>Creation dialogs</h2>
+
+	The creation dialogs display a form for an entity and ...
+	<ul>
+		<li>
+			dlgCommonSrv.openCreationDlg('Product') <br />
+			<button class="mg-s" (click)="createProduct()">
+				Create Products
+			</button>
+		</li>
+		<li>
+			dlgCommonSrv.openCreationDlg('Sample') <br />
+			<button class="mg-s" (click)="createSample()">
+				Create Sample
+			</button>
+		</li>
+		<li>
+			dlgCommonSrv.openCreationDlg('Task') <br />
+			<button class="mg-s" (click)="createTask()">
+				Create Task
+			</button>
+		</li>
+		<p>
+			if there is no specific creation dialog, it will use the <strong>default</strong> one to get the name of the
+			new enitty :
+		</p>
+		<li>
+			dlgCommonSrv.openCreationDlg('Category' | 'Tag') <br />
+			<button class="mg-s" (click)="createCategory()">
+				Create Category
+			</button>
+			<button class="mg-s" (click)="createTag()">
+				Create Tag
+			</button>
+		</li>
+	</ul>
 </card-app>

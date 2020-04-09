@@ -7,8 +7,10 @@ import { Typename } from '~core/erm3/typename.type';
 import { FilterService, FilterType } from '~core/filters';
 import { TeamService } from '~core/auth';
 import { SelectionService } from './selection.service';
-import { CloseEventType, DialogService } from '~shared/dialog';
-import { CreationDialogComponent } from '~common/dialogs/creation-dialogs';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
+import { Entity } from '~core/erm3/models/_entity.model';
+import { DefaultCreationDialogComponent } from '~common/dialogs/creation-dialogs';
+import { DialogService } from '~shared/dialog';
 import { PaginationService } from '~shared/pagination/services/pagination.service';
 
 
@@ -54,6 +56,7 @@ export class ListFuseHelperService<G = any> {
 		private filterSrv: FilterService,
 		private paginationSrv: PaginationService,
 		private dlgSrv: DialogService
+		// private dlgCommonSrv: DialogCommonService // ! Circular dependency
 	) {}
 
 	setup(
@@ -79,13 +82,12 @@ export class ListFuseHelperService<G = any> {
 		return this.queryRef.refetch({ fetchPolicy: 'cache-first' }).then(_ => (this.pending = false));
 	}
 
-	create(addedProperties: any) {
-		this.dlgSrv.open(CreationDialogComponent , {
-			typename: this.typename,
-			extra: addedProperties
-		}).pipe(
-			filter(closeEvent => closeEvent.type === CloseEventType.OK),
-			map(closeEvent => closeEvent.data),
+	/** Open a dialog to get entity properties depending on the typename. Then, create the new entity */
+	create(linkedEntities?: Record<string, Entity<any>>) {
+		// TODO change this default dialog with openCreationDlg
+		this.dlgSrv.open(DefaultCreationDialogComponent, linkedEntities).data$
+		// this.dlgCommonSrv.openCreationDlg(this.typename, linkedEntities).data$
+		.pipe(
 			switchMap(entity => this.apiSrv.create(this.typename, entity)),
 		).subscribe(created => this.apiSrv.addToList(this.queryRef, created));
 	}
@@ -97,8 +99,7 @@ export class ListFuseHelperService<G = any> {
 	delete(entity: any) {
 		this.apiSrv
 			.delete(this.typename, entity)
-			.pipe(tap(deleted => this.apiSrv.deleteFromList(this.queryRef, deleted.id)))
-			.subscribe();
+			.subscribe(deleted => this.apiSrv.deleteFromList(this.queryRef, deleted.id));
 	}
 
 	deleteSelected() {

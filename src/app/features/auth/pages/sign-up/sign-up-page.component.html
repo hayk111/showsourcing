@@ -3,30 +3,30 @@
 	instruction="text.please-fill-in-this-form-to-register">
 </auth-header-app>
 
-<form 
+<form
 	*ngIf="!(pending$ | async)"
-	[formGroup]="form" 
-	(ngSubmit)="createAccount()" 
+	[formGroup]="form"
+	(ngSubmit)="createAccount()"
 	class="flexColumn">
 
 	<error-app *ngIf="error" [translate]="'error.' + error"></error-app>
 
 	<form-field-app>
 		<label-app translate="text.first-name"></label-app>
-		<input 
+		<input
 			inputApp
-			type="text" 
+			type="text"
 			autocomplete="given-name"
 			formControlName="firstName"
-			[placeholder]="'placeholder.your-first-name' | translate" 
+			[placeholder]="'placeholder.your-first-name' | translate"
 			autofocus/>
 	</form-field-app>
 
 	<form-field-app>
 		<label-app translate="text.last-name"></label-app>
-		<input 
+		<input
 			inputApp
-			type="text" 
+			type="text"
 			autocomplete="family-name"
 			formControlName="lastName"
 			[placeholder]="'placeholder.your-last-name' | translate"/>
@@ -34,34 +34,36 @@
 
 	<form-field-app>
 		<label-app translate="text.email"></label-app>
-		<input 
+		<input
 			inputApp
-			type="email" 
+			type="email"
 			autocomplete="current-email"
 			formControlName="username"
-			placeholder="example@showsourcing.com"/>
+			placeholder="example@showsourcing.com"
+			#input
+			(input)="input.value=$event.target.value.toLowerCase()"/>
 			<hint-app translate="hint.company-tip"></hint-app>
 	</form-field-app>
 
 	<form-field-app>
 		<label-app translate="text.password"></label-app>
-		<input 
+		<input
 			inputApp
-			type="password" 
+			type="password"
 			formControlName="password"
 			autocomplete="new-password"
 			[placeholder]="'placeholder.your-password' | translate"/>
 			<error-app>Must be at least 8 character with at least one uppercase and one lowercase</error-app>
 	</form-field-app>
-	
+
 	<div class="btn-ctnr">
-		<button 
-			class="mg-v-ms" 
-			type="submit" 
+		<button
+			class="mg-v-ms"
+			type="submit"
 			translate="button.sign-up">
 		</button>
-		<button 
-			class="light" 
+		<button
+			class="light"
 			type="button"
 			(click)="goToSignIn()"
 			translate="button.account-already-existed">

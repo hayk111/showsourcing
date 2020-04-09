@@ -4,30 +4,36 @@ import { QueryType } from './query-type.enum';
 
 export class QueryPool {
 	static map = {
-		Category: new BaseQueries('Category', 'id name _version'),
+		Category: new BaseQueries('Category'),
 		Company: new BaseQueries('Company'),
 		Contact: new BaseQueries('Contact'),
+<<<<<<< HEAD
 		Descriptor: new BaseQueries('Descriptor', 'target'),
 		Image: new BaseQueries('Image', `fileName`),
 		Product: new BaseQueries('Product', 'id name _version'),
+=======
+		Descriptor: new BaseQueries('Descriptor', 'id _version target'),
+		Image: new BaseQueries('Image', `id _version fileName`),
+		Product: new BaseQueries('Product'),
+>>>>>>> migration-amplify-dialog-creation
 		Supplier: new BaseQueries('Supplier'),
 		Task: new BaseQueries('Task'),
 		User: new BaseQueries('User', `firstName`),
 		Team: new BaseQueries('Team'),
 		TeamUser: new BaseQueries('TeamUser', 'team { id name } role'),
-		Attachment: new BaseQueries('Attachment', 'fileName'),
-		Comment: new BaseQueries('Comment', 'message'),
-		Constant: new BaseQueries('Constant', 'code label helperType'),
-		Event: new BaseQueries('Event', 'id', []),
+		Attachment: new BaseQueries('Attachment', 'id _version fileName'),
+		Comment: new BaseQueries('Comment', 'id _version message'),
+		Constant: new BaseQueries('Constant', 'id _version code label helperType'),
+		Event: new BaseQueries('Event', 'id _version', []),
 		EventDescription: new BaseQueries('EventDescription'),
 		Venue: new BaseQueries('Venue'),
 		Industry: new BaseQueries('Industry'),
-		Export: new BaseQueries('Export', 'format'),
-		Invitation: new BaseQueries('Invitation', 'email'),
+		Export: new BaseQueries('Export', 'id format _version'),
+		Invitation: new BaseQueries('Invitation', 'id email _version'),
 		Project: new BaseQueries('Project'),
 		Sample: new BaseQueries('Sample'),
-		Tag: new BaseQueries('Tag', 'id name _version'),
-		Vote: new BaseQueries('Vote', 'id message nodeId'),
+		Tag: new BaseQueries('Tag'),
+		Vote: new BaseQueries('Vote', 'id message nodeId _version'),
 		WorkflowStatus: new BaseQueries('WorkflowStatus')
 	};
 

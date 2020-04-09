@@ -1,12 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { filter, map, switchMap } from 'rxjs/operators';
-import { CreationProductDlgComponent } from '~common/dialogs/creation-dialogs';
 import { Product, Supplier } from '~core/erm';
 import { FilterService } from '~core/filters';
 import { SelectionService } from '~core/list-page';
 import { ListHelperService, ListPageViewService } from '~core/list-page2';
-import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
 import { FilterType } from '~core/filters';
 import { AutoUnsub } from '~utils';
 import { ID } from '~utils/id.utils';
@@ -38,7 +35,7 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	constructor(
 		private route: ActivatedRoute,
 		public listHelper: ListHelperService,
-		public dialogCommonSrv: DialogCommonService,
+		public dlgCommonSrv: DialogCommonService,
 		public selectionSrv: SelectionService,
 		public filterSrv: FilterService,
 		public viewSrv: ListPageViewService<any>
@@ -64,12 +61,12 @@ export class ProductsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	addProject() {
-		const validation$ = this.dialogCommonSrv.openSelectionDlg(
+		const validation$ = this.dlgCommonSrv.openSelectionDlg(
 			'Project',
-			this.selectionSrv.getSelectedValues() /* //? this selection is the product for which we want to add projects ?? */
-		);
-		validation$.pipe(filter(({ type }) => type === CloseEventType.OK)).subscribe(({ data }) => {
-		// TODO add the logic after closing dialog
+			this.selectionSrv.getSelectedValues()
+		).data$;
+		validation$.subscribe(data => {
+			// TODO add projects to products
 		});
 	}
 }

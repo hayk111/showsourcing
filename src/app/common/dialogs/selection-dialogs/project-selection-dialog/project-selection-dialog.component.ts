@@ -1,11 +1,10 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { CloseEventType } from '~shared/dialog';
+import { ProjectsTableComponent } from '~common/tables/projects-table/projects-table.component';
+import { Product, Project } from '~core/erm3/models';
+import { FilterType } from '~core/filters';
+import { ListHelperService, ListPageViewService, SelectionService } from '~core/list-page2';
 import { DialogService } from '~shared/dialog/services';
 import { AutoUnsub } from '~utils';
-import { SelectionService, ListHelperService, ListPageViewService } from '~core/list-page2';
-import { Project, Product } from '~core/erm3/models';
-import { FilterType } from '~core/filters';
-import { ProjectsTableComponent } from '~common/tables/projects-table/projects-table.component';
 
 @Component({
 	selector: 'product-add-to-project-dlg-app',
@@ -37,25 +36,26 @@ export class ProjectSelectionDialogComponent extends AutoUnsub implements OnInit
 		this.selectionSrv.selectAll(this.initialSelecteds);
 	}
 
-	/** close the dialog, send type "OK" and data (entities selecteds) to the observable returned by commonDlg.openSelectionDlg()  */
+	/** send selected projects to the observable returned by commonDlg.openSelectionDlg().data$ and close the dialog  */
 	done() {
-		this.dlgSrv.close({ type: CloseEventType.OK, data: this.selectionSrv.getSelectedValues() });
+		this.dlgSrv.data(this.selectionSrv.getSelectedValues());
+		this.dlgSrv.close();
 	}
 
 	// submit() {
-		// this.productDlgSrv
-		// 	.addProjectsToProducts(addedProjects, this.products)
-		// 	.subscribe(projects => {
-		// 		this.initialSelectedProjects = [
-		// 			...this.initialSelectedProjects,
-		// 			...addedProjects
-		// 		];
-		// 		this.toastSrv.add({
-		// 			type: ToastType.SUCCESS,
-		// 			title: 'title.projects-added',
-		// 			message: 'message.your-projects-added-success',
-		// 			timeout: 3500
-		// 		});
-		// 	});
+	// this.productDlgSrv
+	// 	.addProjectsToProducts(addedProjects, this.products)
+	// 	.subscribe(projects => {
+	// 		this.initialSelectedProjects = [
+	// 			...this.initialSelectedProjects,
+	// 			...addedProjects
+	// 		];
+	// 		this.toastSrv.add({
+	// 			type: ToastType.SUCCESS,
+	// 			title: 'title.projects-added',
+	// 			message: 'message.your-projects-added-success',
+	// 			timeout: 3500
+	// 		});
+	// 	});
 	// }
 }
