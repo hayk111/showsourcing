@@ -13,6 +13,7 @@
 </header-details-app>
 
 <controller-table-app
+	[total]="listHelper.total$ | async"
 	class="spacing-ms"
 	[hasFilters]="false">
 </controller-table-app>
