@@ -150,16 +150,12 @@ export class ApiService {
 		byIds: string[] = [this._teamId]
 	): ObservableQuery<T[]> {
 		const options = apiOptions as WatchQueryOptions;
-		options.variables = variables;
-
 		const queryBuilder = QueryPool.getQuery(typename, QueryType.SEARCH_BY);
+
 		options.query = queryBuilder(byTypeName);
 		options.variables = {
 			[byTypeName.toLowerCase() + 'Ids']: byIds,
-			take: variables.take,
-			skip: variables.skip,
-			filter: variables.filter,
-			sort: variables.sort,
+			...variables
 		};
 
 		const query = this.query<T[]>(options);
