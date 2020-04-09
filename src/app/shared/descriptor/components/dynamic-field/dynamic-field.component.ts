@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FieldDescriptor } from '~core/erm3/models';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
+import { FormControl } from '@angular/forms';
 
 @Component({
 	selector: 'dynamic-field-app',
@@ -9,20 +10,9 @@ import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [makeAccessorProvider(DynamicFieldComponent)]
 })
-export class DynamicFieldComponent extends AbstractInput {
+export class DynamicFieldComponent {
 
 	@Input() field: FieldDescriptor;
-
-	onChange(value: any) {
-		if (value !== this.value) {
-			this.writeValue(value);
-			this.onChangeFn(value);
-		}
-	}
-
-	onTouched(value: any) {
-		this.onTouchedFn();
-		this.onChange(value);
-	}
+	@Input() formControl: FormControl;
 
 }

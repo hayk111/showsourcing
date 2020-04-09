@@ -18,8 +18,8 @@ export class DescriptorService {
 					validators.push(Validators.required);
 				}
 				ctrls[field.definition.name] = [
-					field.defaultValue,
-					validators
+					{ value: field.defaultValue || null, disabled: field.readonly },
+					...validators
 				];
 			});
 		});

@@ -1,4 +1,3 @@
-
 <ng-container [ngSwitch]="field.definition.type">
 
 	<!-- STRING -->
@@ -6,12 +5,13 @@
 		<form-field-app [showRequiredMarker]="true">
 			<label-app>{{ field.definition.label }}</label-app>
 			<input 
-			#inp
-			inputApp
-			type="text"
-			[value]="value"
-			[readonly]="field.readonly"
-			(input)="onChange(inp.value)"/>
+				#inp
+				inputApp
+				type="text"
+				[value]="value"
+				[readonly]="field.readonly"
+				[required]="field.required"
+				[formControl]="formControl"/>
 			<hint-app>{{ field.hint }}</hint-app>
 		</form-field-app>
 	</ng-container>
@@ -26,8 +26,7 @@
 				type="number"
 				[value]="value"
 				[readonly]="field.readonly"
-				(blur)="onTouched(inp.value)"
-				(input)="onChange(inp.value)"/>
+				[required]="field.required"/>
 			<hint-app>{{ field.hint }}</hint-app>
 		</form-field-app>
 	</ng-container>
@@ -42,8 +41,7 @@
 				restrictInput="tel"
 				[value]="value"
 				[readonly]="field.readonly"
-				(blur)="onTouched()"
-				(input)="onChange(inp.value)"/>
+				[required]="field.required"/>
 			<hint-app>{{ field.hint }}</hint-app>
 		</form-field-app>
 	</ng-container>
@@ -59,8 +57,7 @@
 				restrictInput="email"
 				[value]="value"
 				[readonly]="field.readonly"
-				(blur)="onTouched()"
-				(input)="onChange(inp.value)"/>
+				[required]="field.required"/>
 				<hint-app>{{ field.hint }}</hint-app>
 			</form-field-app>
 	</ng-container>
@@ -77,8 +74,7 @@
 				step="any"
 				[value]="value"
 				[readonly]="field.readonly"
-				(blur)="onTouched()"
-				(input)="onChange(inp.value)"/>
+				[required]="field.required"/>
 				<hint-app>{{ field.hint }}</hint-app>
 			</form-field-app>
 	</ng-container>

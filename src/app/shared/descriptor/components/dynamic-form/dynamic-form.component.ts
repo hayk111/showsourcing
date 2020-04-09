@@ -45,7 +45,8 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 
 	ngOnInit() {
 		this.formGroup = this.descriptorSrv
-			.descriptorToFormGroup(this.descriptor, { updateOn: 'change' });
+			.descriptorToFormGroup(this.descriptor, { updateOn: this.updateOn });
+			debugger;
 		// const values = this.descriptorSrv
 		// 		.propertiesToObject(this.properties);
 		// this.formGroup.patchValue(values);

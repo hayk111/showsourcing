@@ -11,7 +11,7 @@ export class DescriptorPageComponent implements OnInit {
 	descriptor = descriptorMock;
 	style = 'form';
 	columnAmount = 1;
-	updateOn = 'blur';
+	updateOn = 'change';
 	properties = [
 		{ name: 'color', value: 'test' }
 	];

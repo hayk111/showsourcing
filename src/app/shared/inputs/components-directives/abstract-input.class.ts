@@ -19,7 +19,7 @@ export class AbstractInput implements ControlValueAccessor {
 	protected onTouchedFn = (any?: any) => { };
 	protected onChangeFn = (any?: any) => { };
 
-	constructor(@Optional() protected cd: ChangeDetectorRef) {}
+	constructor(@Optional() protected cd?: ChangeDetectorRef) {}
 
 	// Called when patchValue or setValue is called on the form control
 	// Allows Angular to update the model

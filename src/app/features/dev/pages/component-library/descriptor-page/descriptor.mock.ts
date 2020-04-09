@@ -6,8 +6,8 @@ const fields1 = [
 			type: 'STRING',
 			name: 'string',
 		},
-		defaultValue: 'string default value',
-		readonly: true,
+		defaultValue: undefined,
+		readonly: false,
 		required: true,
 		hint: 'This is an helpful message'
 	},
@@ -63,13 +63,13 @@ const fields2 = [
 			name: 'color',
 		}
 	},
-	{
-		definition: {
-			label: 'boolean',
-			type: 'BOOLEAN',
-			name: 'boolean',
-		}
-	},
+	// {
+	// 	definition: {
+	// 		label: 'boolean',
+	// 		type: 'BOOLEAN',
+	// 		name: 'boolean',
+	// 	}
+	// },
 	{
 		definition: {
 			label: 'quantity',

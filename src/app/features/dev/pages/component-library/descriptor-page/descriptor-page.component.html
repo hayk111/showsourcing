@@ -35,7 +35,9 @@
 		[properties]="properties"
 		(update)="properties = $event">
 	</dynamic-form2-app>
-	<button (click)="form.reset()" class="secondary">reset</button>
-	<button [disabled]="!form.valid" class="primary">submit</button>
+	valid ? {{ form.valid }}
+
+	<button (click)="form.reset()" class="secondary mg-h-ms">reset</button>
+	<button [disabled]="!form.valid">submit</button>
 </card-app>
 

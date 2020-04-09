@@ -16,7 +16,7 @@
 						*ngFor="let field of fields" 
 						class="mg-bottom-s"
 						[field]="field"
-						[formControlName]="field.definition.name">
+						[formControl]="formGroup.controls[field.definition.name]">
 					</dynamic-field-app>
 		
 				</div>
