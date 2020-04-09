@@ -1,5 +1,5 @@
 <!-- Panel preview -->
-<preview-panel-app *ngIf="isPreview && (product$ | async)" cdk-scrollable>
+<preview-panel-app *ngIf="isPreview && product" cdk-scrollable>
 	<!-- Banner -->
 	<preview-banner-app>
 		<!-- top bar -->
@@ -9,7 +9,7 @@
 			<logo-app
 				class="mg-right-s"
 				size="l"
-				[logo]="product?.images[0] || null"
+				[logo]="(product?.images && product?.images[0]) || null"
 				typename="Product">
 			</logo-app>
 			<div class="flexColumn ellipsis">
@@ -192,13 +192,13 @@
 	</preview-section-app>
 
 	<!-- Status -->
-	<preview-section-app #contentTab2 [title]="'title.product-status' | translate">
+	<!-- <preview-section-app #contentTab2 [title]="'title.product-status' | translate">
 		<status-selector-app
 			typename="Product"
 			[entity]="product"
 			type="button">
 		</status-selector-app>
-	</preview-section-app>
+	</preview-section-app> -->
 
 	<!-- Tasks -->
 	<preview-section-app #contentTab2 class="action-hover-container-0" [title]="'title.tasks' | translate">

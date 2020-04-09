@@ -30,11 +30,11 @@ export class ListHelperService<G = any> {
 	).pipe(
 		// gets the query
 		map(([{ queryArg }, page, limit, sort]) => {
-			return this.apiSrv.search<G>(
+			return this.apiSrv.searchBy<G>(
 				this.typename, {
 					filter: queryArg,
-					limit,
-					from: page * limit,
+					take: limit,
+					skip: page * limit,
 					sort
 				}, {});
 			}
@@ -65,6 +65,7 @@ export class ListHelperService<G = any> {
 
 	setup(typename: Typename) {
 		this.typename = typename;
+		this.filterSrv.setup();
 	}
 
 	refetch(options?: WatchQueryOptions) {
@@ -84,8 +85,8 @@ export class ListHelperService<G = any> {
 		).subscribe(created => this.apiSrv.addToList(this.queryRef, created));
 	}
 
-	update(entity: any) {
-		this.apiSrv.update(this.typename, entity);
+	update(entity: any, options?: any) {
+		this.apiSrv.update(this.typename, entity, options);
 	}
 
 	updateSelected(entity) {

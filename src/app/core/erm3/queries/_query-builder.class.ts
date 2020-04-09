@@ -72,14 +72,17 @@ export class QueryBuilder {
 		return gql`
 			query Search${this.typename}sBy${byTypeName}s(
 				$${byTypeName.toLowerCase()}Ids: [String!]!
-				$take: Int,
+				$take: Int
 				$skip: Int
+				$filter: SearchFilterInput
+				$sort: SearchSortInput
 			) {
 				search${this.typename}sBy${byTypeName}s(
 					${byTypeName.toLowerCase()}Ids: $${byTypeName.toLowerCase()}Ids
-					sort: {property: "price.value", direction: ASC}
 					take: $take
 					skip: $skip
+					filter: $filter
+					sort: $sort
 				) {
 					items {
 						id

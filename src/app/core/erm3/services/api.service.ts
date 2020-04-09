@@ -22,7 +22,7 @@ export interface ObservableQuery<T = any> extends ApolloObservableQuery<T> {
 }
 
 export interface Sort {
-	field: string;
+	property: string;
 	direction: 'ASC' | 'DESC';
 }
 
@@ -36,9 +36,8 @@ export interface ObservableQuery<T = any> extends ApolloObservableQuery<T> {
 export interface FilterParams {
 	filter?: any;
 	sort?: Sort;
-	limit?: number;
-	from?: number;
-	nextToken?: string;
+	take?: number;
+	skip?: number;
 }
 
 export type ApiQueryOption = Partial<Omit<WatchQueryOptions, 'variables' | 'query'>>;
@@ -132,7 +131,7 @@ export class ApiService {
 	}
 
 	/////////////////////////////
-	//         SEARCH          //
+	//        SEARCH BY        //
 	/////////////////////////////
 
 	/**
@@ -143,7 +142,7 @@ export class ApiService {
 	 * @param client: name of the client you want to use, if none is specified the default one is used
 	 * @param options: apollo options, variable and query will be overrided
 	 */
-	search<T>(
+	searchBy<T>(
 		typename: Typename,
 		variables: FilterParams,
 		apiOptions: ApiQueryOption = {},
@@ -151,14 +150,12 @@ export class ApiService {
 		byIds: string[] = [this._teamId]
 	): ObservableQuery<T[]> {
 		const options = apiOptions as WatchQueryOptions;
-		options.variables = variables;
-
 		const queryBuilder = QueryPool.getQuery(typename, QueryType.SEARCH_BY);
+
 		options.query = queryBuilder(byTypeName);
 		options.variables = {
 			[byTypeName.toLowerCase() + 'Ids']: byIds,
-			take: variables.limit,
-			skip: variables.from
+			...variables
 		};
 
 		const query = this.query<T[]>(options);
@@ -210,10 +207,10 @@ export class ApiService {
 		if (typename !== 'Company' && typename !== 'Team') {
 			entity.id = uuid();
 			entity.createdAt = new Date().toISOString();
-			entity.lastUpdatedAt = new Date().toISOString();
+			// entity.lastUpdatedAt = new Date().toISOString();
 			// entity.deleted = false;
-			entity.createdByUserId = this._userId;
-			entity.lastUpdatedByUserId = this._userId;
+			// entity.createdByUserId = this._userId;
+			// entity.lastUpdatedByUserId = this._userId;
 			entity.teamId = this._teamId;
 		}
 		options.variables = { input: { ...entity } };
@@ -237,12 +234,13 @@ export class ApiService {
 		const options = apiOptions as MutationOptions;
 		entity.__typename = typename;
 		if (typename !== 'Company' && typename !== 'Team') {
-			entity.createdAt = new Date().toISOString();
+			// entity.createdAt = new Date().toISOString();
 			entity.lastUpdatedAt = new Date().toISOString();
-			entity.deleted = false;
-			entity.createdByUserId = this._userId;
-			entity.lastUpdatedByUserId = this._userId;
+			// entity.deleted = false;
+			// entity.createdByUserId = this._userId;
+			// entity.lastUpdatedByUserId = this._userId;
 			entity.teamId = this._teamId;
+			entity._version = (options as any)._version;
 		}
 		options.variables = { input: entity };
 		options.mutation = QueryPool.getQuery(typename, QueryType.UPDATE);
@@ -277,7 +275,7 @@ export class ApiService {
 		apiOptions: ApiMutationOption = {}
 		): Observable<T> {
 		const options = apiOptions as MutationOptions;
-		options.variables = { input: { id: entity.id, _version: entity._version } };
+		options.variables = { input: { id: entity.id, teamId: this._teamId, _version: 1 } };
 		options.mutation = QueryPool.getQuery(typename, QueryType.DELETE);
 		return this.mutate(options);
 	}

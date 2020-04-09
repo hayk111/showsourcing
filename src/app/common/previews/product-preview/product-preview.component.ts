@@ -21,7 +21,6 @@ import { CommentService } from '~core/erm';
 import {
 	ExtendedFieldDefinitionService,
 } from '~core/erm';
-import { ProductService, SampleService, TaskService } from '~core/erm';
 import { AppImage, Comment, EntityName, ERM, ExtendedFieldDefinition, Product, Sample, Task } from '~core/erm';
 import { CloseEvent, CloseEventType } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
@@ -31,6 +30,9 @@ import { UploaderService } from '~shared/file/services/uploader.service';
 import { PreviewCommentComponent, PreviewService } from '~shared/preview';
 import { RatingDashboardComponent } from '~shared/rating';
 import { AutoUnsub, PendingImage } from '~utils';
+import { ApiService } from '~core/erm3/services/api.service';
+import { Typename } from '~core/erm3/typename.type';
+import { ListHelperService } from '~core/list-page2';
 
 @Component({
 	selector: 'product-preview-app',
@@ -38,7 +40,7 @@ import { AutoUnsub, PendingImage } from '~utils';
 	styleUrls: ['./product-preview.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChanges {
+export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 
 	/** This is the product passed as input, but it's not yet fully loaded */
 	private _product: Product;
@@ -76,7 +78,6 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 	@ViewChild('inpFile', { static: false }) inpFile: ElementRef;
 
 	/** this is the fully loaded product */
-	product$: Observable<Product>;
 	productDescriptor1: ProductDescriptor;
 	productDescriptor2: ProductDescriptor;
 	formConfig = new DynamicFormConfig({ mode: 'editable-text', alignValue: 'right' });
@@ -87,17 +88,14 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 	private _pendingImages: PendingImage[] = [];
 
 	constructor(
+		private listHelper: ListHelperService,
 		public dialogCommonSrv: DialogCommonService,
 		private uploader: UploaderService,
 		private cd: ChangeDetectorRef,
-		private productSrv: ProductService,
 		private dlgSrv: DialogService,
 		private router: Router,
 		private commentSrv: CommentService,
-		private extendedFieldDefSrv: ExtendedFieldDefinitionService,
 		private previewSrv: PreviewService,
-		private taskSrv: TaskService,
-		private sampleSrv: SampleService
 	) { super(); }
 
 	ngOnInit() {
@@ -115,30 +113,21 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 			'innerCarton', 'masterCarton', 'priceMatrix', 'sample', 'samplePrice', 'incoTerm',
 			'harbour', 'masterCbm', 'quantityPer20ft', 'quantityPer40ft', 'quantityPer40ftHC'
 		]);
-		this.productDescriptor2.insert({ name: 'sample', type: 'title' }, 'sample');
-		this.productDescriptor2.insert({ name: 'shipping', type: 'title' }, 'incoTerm');
+		// this.productDescriptor2.insert({ name: 'sample', type: 'title' }, 'sample');
+		// this.productDescriptor2.insert({ name: 'shipping', type: 'title' }, 'incoTerm');
 
-		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryAll(undefined, {
-			query: 'target == "Product"',
-			sortBy: 'order',
-			descending: false
-		});
-	}
-
-	ngOnChanges() {
-		this.product$ = this.productSrv.selectOne(this.product.id);
-		this.product$
-			.pipe(takeUntil(this._destroy$))
-			.subscribe(product => {
-				this.product = product;
-			});
+		// this.fieldDefinitions$ = this.extendedFieldDefSrv.queryAll(undefined, {
+		// 	query: 'target == "Product"',
+		// 	sortBy: 'order',
+		// 	descending: false
+		// });
 	}
 
 	// UPDATE FUNCTIONS
 	updateProduct(productConfig: any) {
-		const product = ({ ...productConfig, id: this.product.id });
-		this.productSrv.update(product)
-			.subscribe(_ => this.updated.emit(product));
+		const product = ({ ...productConfig, id: this._product.id });
+		this.listHelper.update(product, {_version: this._product._version});
+		this._product = product;
 	}
 
 	update(value: any, prop: string) {
@@ -146,11 +135,11 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 	}
 
 	updateTask(task: Task) {
-		this.taskSrv.update(task).subscribe();
+		// this.taskSrv.update(task).subscribe();
 	}
 
 	updateSample(sample: Sample) {
-		this.sampleSrv.update(sample).subscribe();
+		// this.sampleSrv.update(sample).subscribe();
 	}
 
 	addComment(comment: Comment) {
@@ -160,7 +149,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 		const comments = [...(this._product.comments || [])];
 		comments.push(commentUser);
 		this.commentSrv.create(comment).pipe(
-			switchMap(_ => this.productSrv.update({ id: this._product.id, comments }))
+			tap(_ => this.listHelper.update({ id: this._product.id, comments }))
 		).subscribe();
 	}
 
@@ -199,9 +188,8 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit, OnChan
 		this.dlgSrv.open(ConfirmDialogComponent, { text })
 			.pipe(
 				filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
-				switchMap(_ => this.productSrv.delete(product.id)),
+				tap(_ => this.listHelper.delete(product)),
 				tap(prod => {
-					this.updated.emit(prod);
 					this.close.emit();
 				})
 			).subscribe();

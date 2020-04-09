@@ -48,12 +48,13 @@ export class FilterConverter {
 	 *
 	 * Attention: the filters in an array are ordened with the order that is in FilterType
 	 */
-	filtersToQueryArg(filters: Filter[]): any {
+		filtersToQueryArg(filters: Filter[]): any {
 
 		if (filters.length === 0)
 			return {};
-		if (filters.length === 1)
+		if (filters.length === 1) {
 			return this.getFieldCondition(filters[0]);
+		}
 
 		const and = [];
 		const byType = this.filtersByType(filters);
@@ -74,26 +75,39 @@ export class FilterConverter {
 	 * its type. This method return the translated predicate
 	 */
 	private getFieldCondition({ type, value, equality }: Filter) {
-		const eq = equality || 'eq';
+		const eq = equality || 'contains';
 		switch (type) {
 			case FilterType.ARCHIVED:
 			case FilterType.FAVORITE:
-				return { [type]: value };
+			case FilterType.DELETED:
+				return {
+					property: type,
+					isTrue: false
+				};
 			case FilterType.SEARCH:
 				return this.getSearchArg(value);
 			default:
-				return { [`${type}Id`]:  { [eq]: value } };
+				return {
+					property: `${type}Id`,
+					[eq]: value
+				};
 		}
 	}
 
 	/** add the search string to the filter predicate to get the complete search query params */
 	private getSearchArg(value: string) {
-		const searchArg = { or: []};
+		const searchArg = { or: [] };
 		if (this.searchedFields.length === 1) {
-			return { [this.searchedFields[0]]: { wildcard: `*${value.toLowerCase()}*` } };
+			return {
+				property: this.searchedFields[0],
+				contains:  value.toLowerCase()
+			};
 		}
 		this.searchedFields.forEach(searchedField => {
-			searchArg.or.push({ [searchedField]: { wildcard: `*${value.toLowerCase()}*` } });
+			searchArg.or.push({
+				property: searchedField,
+				contains:  value.toLowerCase()
+			});
 		});
 		return searchArg;
 	}
