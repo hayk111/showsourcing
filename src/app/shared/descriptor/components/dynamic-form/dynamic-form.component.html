@@ -1,5 +1,5 @@
 
-<form [formGroup]="formGroup">
+<form #formElem [formGroup]="formGroup" (submit)="onSubmit()">
 
 	<ng-container *ngIf="style === 'form'; else editable">
 	
@@ -16,7 +16,7 @@
 						*ngFor="let field of fields" 
 						class="mg-bottom-s"
 						[field]="field"
-						[formControl]="formGroup.controls[field.definition.name]">
+						[control]="formGroup.controls[field.definition.name]">
 					</dynamic-field-app>
 		
 				</div>

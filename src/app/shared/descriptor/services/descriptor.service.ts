@@ -18,7 +18,7 @@ export class DescriptorService {
 					validators.push(Validators.required);
 				}
 				ctrls[field.definition.name] = [
-					{ value: field.defaultValue || null, disabled: field.readonly },
+					field.defaultValue || null,
 					...validators
 				];
 			});

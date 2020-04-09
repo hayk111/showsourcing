@@ -8,10 +8,10 @@
 				#inp
 				inputApp
 				type="text"
-				[value]="value"
+				[value]="control.value"
 				[readonly]="field.readonly"
 				[required]="field.required"
-				[formControl]="formControl"/>
+				[formControl]="control"/>
 			<hint-app>{{ field.hint }}</hint-app>
 		</form-field-app>
 	</ng-container>
@@ -24,9 +24,10 @@
 				#inp
 				inputApp
 				type="number"
-				[value]="value"
+				[value]="control.value"
 				[readonly]="field.readonly"
-				[required]="field.required"/>
+				[required]="field.required"
+				[formControl]="control"/>
 			<hint-app>{{ field.hint }}</hint-app>
 		</form-field-app>
 	</ng-container>
@@ -39,9 +40,10 @@
 				#inp
 				inputApp
 				restrictInput="tel"
-				[value]="value"
+				[value]="control.value"
 				[readonly]="field.readonly"
-				[required]="field.required"/>
+				[required]="field.required"
+				[formControl]="control"/>
 			<hint-app>{{ field.hint }}</hint-app>
 		</form-field-app>
 	</ng-container>
@@ -55,9 +57,10 @@
 				inputApp
 				type="email"
 				restrictInput="email"
-				[value]="value"
+				[value]="control.value"
 				[readonly]="field.readonly"
-				[required]="field.required"/>
+				[required]="field.required"
+				[formControl]="control"/>
 				<hint-app>{{ field.hint }}</hint-app>
 			</form-field-app>
 	</ng-container>
@@ -72,9 +75,10 @@
 				restrictInput="decimal"
 				type="number"
 				step="any"
-				[value]="value"
+				[value]="control.value"
 				[readonly]="field.readonly"
-				[required]="field.required"/>
+				[required]="field.required"
+				[formControl]="control"/>
 				<hint-app>{{ field.hint }}</hint-app>
 			</form-field-app>
 	</ng-container>

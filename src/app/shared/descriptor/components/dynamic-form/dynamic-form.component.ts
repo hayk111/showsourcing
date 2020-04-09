@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input,
-	OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+	OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Observable, Subject, ReplaySubject } from 'rxjs';
 import { distinctUntilChanged, map, switchMap, takeUntil, tap } from 'rxjs/operators';
@@ -25,17 +25,17 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 	@Input() descriptor: Descriptor;
 	@Input() style: 'form' | 'editable' = 'form';
 	@Input() columnAmount = 1;
-	@Input() updateOn: 'blur' | 'change' | 'submit' = 'blur';
+	@Input() updateOn: 'blur' | 'change' = 'change';
 	@Input() properties: Property[];
+	@ViewChild('formElem', { static: true }) formElem: ElementRef<HTMLFormElement>;
 	@Output() update = new EventEmitter<Property[]>();
 	/** used to display the fields inside columns */
 	sections: SectionWithColumns[];
 	/** form group for the form */
 	formGroup: FormGroup;
 	/** when a new formgroup is created */
-	private formGroup$ = new Subject<FormGroup>();
+	private formGroup$ = new ReplaySubject<FormGroup>(1);
 	private _destroy$ = new Subject<void>();
-
 
 	get valid() {
 		return this.formGroup.valid;
@@ -44,42 +44,42 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 	constructor(private descriptorSrv: DescriptorService) {}
 
 	ngOnInit() {
-		this.formGroup = this.descriptorSrv
-			.descriptorToFormGroup(this.descriptor, { updateOn: this.updateOn });
-			debugger;
-		// const values = this.descriptorSrv
-		// 		.propertiesToObject(this.properties);
-		// this.formGroup.patchValue(values);
-		this.makeColumns();
-		this.formGroup.valueChanges.pipe(
+		this.formGroup$.pipe(
+			switchMap(group => group.valueChanges),
 			// we transform it into the array of properties
-			map(value => this.descriptorSrv.objectToProperties(value))
+			map(value => this.descriptorSrv.objectToProperties(value)),
+			takeUntil(this._destroy$)
 		).subscribe(properties => this.update.emit(properties));
 	}
 
 	ngOnChanges(changes: SimpleChanges ) {
-		// const colChanged = changes.columnAmount &&
-		// 	changes.columnAmount.previousValue !== changes.columnAmount.currentValue;
-		// const updateOnChanged = changes.updateOn &&
-		// 	changes.updateOn.previousValue !== changes.updateOn.currentValue;
-		// const propertiesChanged = changes.properties &&
-		// 	changes.properties.previousValue !== changes.properties.currentValue;
-		// const descriptorChanged = changes.descriptor &&
-		// 	changes.descriptor.previousValue !== changes.descriptor.currentValue;
+		const colChanged = changes.columnAmount &&
+			changes.columnAmount.previousValue !== changes.columnAmount.currentValue;
+		const updateOnChanged = changes.updateOn &&
+			changes.updateOn.previousValue !== changes.updateOn.currentValue;
+		const descriptorChanged = changes.descriptor &&
+			changes.descriptor.previousValue !== changes.descriptor.currentValue;
 
-		// if (colChanged || descriptorChanged) {
-		// 	this.sections = this.descriptor.sections
-		// 		.map(section => this.makeColumns(section));
-		// }
+		if (colChanged) {
+			this.makeColumns();
+		}
 
-		// if (descriptorChanged || propertiesChanged || updateOnChanged) {
-		// 	this.buildFormGroup();
-		// }
+		if (descriptorChanged || updateOnChanged) {
+			this.buildFormGroup();
+		}
 
+	}
+
+	submit() {
+		this.formElem.nativeElement.submit();
 	}
 
 	reset() {
 		this.formGroup.reset();
+	}
+
+	onSubmit() {
+		console.log('submit');
 	}
 
 	/** put the custom fields into columns
@@ -100,7 +100,17 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 				const sectionWithColumn = { ...section, columns };
 				return sectionWithColumn;
 			});
-		log.debug(this.sections);
+		log.debug('made columns', this.sections);
+	}
+
+	private buildFormGroup() {
+		this.formGroup = this.descriptorSrv
+			.descriptorToFormGroup(this.descriptor, { updateOn: this.updateOn });
+		const values = this.descriptorSrv
+				.propertiesToObject(this.properties);
+		this.formGroup.patchValue(values);
+		this.formGroup$.next(this.formGroup);
+		log.debug('built form group', this.formGroup);
 	}
 
 	ngOnDestroy() {

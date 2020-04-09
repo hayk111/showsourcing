@@ -8,11 +8,11 @@ import { FormControl } from '@angular/forms';
 	templateUrl: './dynamic-field.component.html',
 	styleUrls: ['./dynamic-field.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [makeAccessorProvider(DynamicFieldComponent)]
+	providers: []
 })
 export class DynamicFieldComponent {
 
 	@Input() field: FieldDescriptor;
-	@Input() formControl: FormControl;
+	@Input() control: FormControl;
 
 }

@@ -9,10 +9,11 @@
 		Form style
 	</checkbox-app> -->
 	Update On
-	<select [value]="updateOn">
+	<select [(ngModel)]="updateOn">
 		<option 
 			*ngFor="let opt of updateOnOptions" 
-			[value]="opt">
+			[value]="opt"
+			[selected]="opt === updateOn">
 			{{ opt }}
 		</option>
 	</select>
@@ -38,6 +39,6 @@
 	valid ? {{ form.valid }}
 
 	<button (click)="form.reset()" class="secondary mg-h-ms">reset</button>
-	<button [disabled]="!form.valid">submit</button>
+	<button [disabled]="!form.valid" (click)="form.submit()">submit</button>
 </card-app>
 

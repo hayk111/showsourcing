@@ -17,7 +17,7 @@ export class DescriptorPageComponent implements OnInit {
 	];
 	update = {};
 
-	updateOnOptions = ['blur', 'change', 'submit'];
+	updateOnOptions = ['blur', 'change'];
 
 	constructor() { }
 
