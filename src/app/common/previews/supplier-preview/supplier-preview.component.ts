@@ -29,6 +29,7 @@ import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-con
 import { PreviewCommentComponent, PreviewService } from '~shared/preview';
 import { RatingDashboardComponent } from '~shared/rating';
 import { AutoUnsub, translate } from '~utils';
+import { ListHelperService } from '~core/list-page2';
 
 @Component({
 	selector: 'supplier-preview-app',
@@ -36,7 +37,7 @@ import { AutoUnsub, translate } from '~utils';
 	styleUrls: ['./supplier-preview.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SupplierPreviewComponent extends AutoUnsub implements OnChanges, OnInit {
+export class SupplierPreviewComponent extends AutoUnsub implements OnInit {
 	@Input() supplier: Supplier;
 	@Input() canClose = true;
 	/** wether we display it as a preview or part of a component (supplier details) */
@@ -60,7 +61,7 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnChanges, On
 	fieldDefinitions$: Observable<ExtendedFieldDefinition[]>;
 
 	constructor(
-		private supplierSrv: SupplierService,
+		private listHelper: ListHelperService,
 		private commentSrv: CommentService,
 		private previewSrv: PreviewService,
 		private router: Router,
@@ -78,26 +79,18 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnChanges, On
 			'createdBy', 'creationDate', 'lastUpdatedBy', 'lastUpdatedDate'
 		]);
 
-		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "supplier.extendedFields"', sortBy: 'order' });
-	}
-
-	ngOnChanges() {
-		if (this.shouldSelect && this.supplier) {
-			this.supplier$ = this.supplierSrv.selectOne(this.supplier.id)
-				.pipe(takeUntil(this._destroy$));
-			this.supplier$.subscribe(s => this.supplier = s);
-		} else {
-			this.supplier$ = of(this.supplier);
-		}
+		// this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "supplier.extendedFields"', sortBy: 'order' });
 	}
 
 	// UPDATE FUNCTIONS
 	updateSupplier(supplier: Supplier) {
-		this.supplierSrv.update({ id: this.supplier.id, ...supplier }).subscribe();
+		const newSupplier = ({ ...supplier, id: this.supplier.id });
+		this.listHelper.update(newSupplier, {_version: this.supplier._version});
+		this.supplier = newSupplier;
 	}
 
 	update(value: any, prop: string) {
-		this.supplierSrv.update({ id: this.supplier.id, [prop]: value }).subscribe();
+		this.updateSupplier({ [prop]: value });
 	}
 
 	addComment(comment: Comment) {
@@ -107,7 +100,7 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnChanges, On
 		const comments = [...(this.supplier.comments || [])];
 		comments.push(commentUser);
 		this.commentSrv.create(comment).pipe(
-			switchMap(_ => this.supplierSrv.update({ id: this.supplier.id, comments }))
+			tap(_ => this.listHelper.update({ id: this.supplier.id, comments }))
 		).subscribe();
 	}
 
@@ -116,7 +109,7 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnChanges, On
 		this.dlgSrv.open(ConfirmDialogComponent, { text })
 			.pipe(
 				filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
-				switchMap(_ => this.supplierSrv.delete(supplier.id)),
+				tap(_ => this.listHelper.delete(supplier.id)),
 				tap(prod => {
 					this.close.emit();
 				})
@@ -138,7 +131,7 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnChanges, On
 
 	deleteImage(image: AppImage) {
 		const images = this.supplier.images.filter(img => image.id !== img.id);
-		this.supplierSrv.update({ id: this.supplier.id, images }).subscribe();
+		this.listHelper.update({ id: this.supplier.id, images });
 	}
 
 	// ACTIONS

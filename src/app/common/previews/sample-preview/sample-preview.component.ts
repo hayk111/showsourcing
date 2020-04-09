@@ -10,9 +10,9 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { filter, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { filter, tap } from 'rxjs/operators';
 import { SampleDescriptor } from '~core/descriptors';
-import { SampleService, UserService } from '~core/erm';
+import { UserService } from '~core/erm';
 import { CommentService } from '~core/erm';
 import {
 	ExtendedFieldDefinitionService,
@@ -23,6 +23,7 @@ import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog
 import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
 import { PreviewCommentComponent, PreviewService } from '~shared/preview';
 import { AutoUnsub } from '~utils';
+import { ListHelperService } from '~core/list-page2';
 
 @Component({
 	selector: 'sample-preview-app',
@@ -30,7 +31,7 @@ import { AutoUnsub } from '~utils';
 	styleUrls: ['./sample-preview.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SamplePreviewComponent extends AutoUnsub implements OnInit, OnChanges {
+export class SamplePreviewComponent extends AutoUnsub implements OnInit {
 
 	private _sample: Sample;
 	@Input() set sample(value: Sample) {
@@ -54,10 +55,10 @@ export class SamplePreviewComponent extends AutoUnsub implements OnInit, OnChang
 	fieldDefinitions$: Observable<ExtendedFieldDefinition[]>;
 
 	constructor(
+		private listHelper: ListHelperService,
 		private commentSrv: CommentService,
 		private router: Router,
 		private userSrv: UserService,
-		private sampleSrv: SampleService,
 		private previewSrv: PreviewService,
 		private dlgSrv: DialogService,
 		private extendedFieldDefSrv: ExtendedFieldDefinitionService
@@ -74,22 +75,18 @@ export class SamplePreviewComponent extends AutoUnsub implements OnInit, OnChang
 			{ name: 'price', label: 'sample-price' }
 		]);
 
-		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "sample.extendedFields"', sortBy: 'order' });
-	}
-
-	ngOnChanges() {
-		this.sample$ = this.sampleSrv.selectOne(this._sample.id);
-		this.sample$.pipe(takeUntil(this._destroy$))
-			.subscribe(s => this._sample = s);
+		// this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "sample.extendedFields"', sortBy: 'order' });
 	}
 
 	// UPDATES
 	update(value: any, prop: string) {
-		this.sampleSrv.update({ id: this._sample.id, [prop]: value }).subscribe();
+		this.updateSample({ [prop]: value });
 	}
 
 	updateSample(sample: Sample) {
-		this.sampleSrv.update({ id: this._sample.id, ...sample }).subscribe();
+		const newSample = ({ ...sample, id: this.sample.id });
+		this.listHelper.update(newSample, {_version: this.sample._version});
+		this._sample = newSample;
 	}
 
 	addComment(comment: Comment) {
@@ -98,7 +95,7 @@ export class SamplePreviewComponent extends AutoUnsub implements OnInit, OnChang
 		const comments = [...(this._sample.comments || [])];
 		comments.push(commentUser as any);
 		this.commentSrv.create(comment).pipe(
-			switchMap(_ => this.sampleSrv.update({ id: this._sample.id, comments }))
+			tap(_ => this.listHelper.update({ id: this._sample.id, comments }))
 		).subscribe();
 	}
 
@@ -107,10 +104,8 @@ export class SamplePreviewComponent extends AutoUnsub implements OnInit, OnChang
 		this.dlgSrv.open(ConfirmDialogComponent, { text })
 			.pipe(
 				filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
-				switchMap(_ => this.sampleSrv.delete(sample.id)),
-				tap(sample => {
-					this.close.emit();
-				})
+				tap(_ => this.listHelper.delete(sample.id)),
+				tap(_ => this.close.emit())
 			).subscribe();
 	}
 
