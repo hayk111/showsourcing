@@ -17,6 +17,7 @@ import { InputBadgeSelectorComponent } from './components/input-badge-selector/i
 import { InputDescriptionComponent } from './components/input-description/input-description.component';
 import { InputPriceInlineComponent } from './components/input-price-inline/input-price-inline.component';
 import { SelectCheckboxComponent } from './components/select-checkbox/select-checkbox.component';
+import { InputPackagingComponent } from './components-directives/input-packaging/input-packaging.component';
 
 @NgModule({
 	imports: [
@@ -40,6 +41,7 @@ import { SelectCheckboxComponent } from './components/select-checkbox/select-che
 		InputDescriptionComponent,
 		InputBadgeSelectorComponent,
 		SelectCheckboxComponent,
+		InputPackagingComponent,
 	],
 	exports: [
 		BadgeSelectorComponent,
