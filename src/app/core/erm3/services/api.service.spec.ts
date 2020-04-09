@@ -94,7 +94,7 @@ fdescribe('ApiService', () => {
 
 	fit('should add to cached list', async() => {
 		const filter = { teamId: TeamService.teamSelected.id };
-		const productsRef = apiSrv.search('Product', { filter });
+		const productsRef = apiSrv.searchBy('Product', { filter });
 		const products = await productsRef.data$
 			.pipe(take(1)).toPromise();
 		const lengthBefore = products.length;

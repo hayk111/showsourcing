@@ -25,7 +25,7 @@ export class ProductsGridComponent extends EntityTableComponent<Product> impleme
 	}
 
 	getGroupedProducts(sort: Sort) {
-		const fieldSortyBy = sort.field;
+		const fieldSortyBy = sort.property;
 		const fieldSortByTokens = fieldSortyBy.split('.');
 		const field = fieldSortByTokens[0];
 
@@ -35,7 +35,7 @@ export class ProductsGridComponent extends EntityTableComponent<Product> impleme
 
 		let groupedObj = {};
 
-		switch (sort.field) {
+		switch (sort.property) {
 			case 'category.name':
 			case 'supplier.name':
 			case 'favorite':
@@ -51,14 +51,14 @@ export class ProductsGridComponent extends EntityTableComponent<Product> impleme
 				break;
 			default:
 				groupedObj = {};
-				groupedObj[sort.field] = this.rows;
+				groupedObj[sort.property] = this.rows;
 				break;
 		}
 		return Object.keys(groupedObj).map(key => ({ key, value: groupedObj[key] }));
 	}
 
 	getGroupedValue(group, sort: Sort) {
-		const fieldSortyBy = sort.field;
+		const fieldSortyBy = sort.property;
 		const fieldSortByTokens = fieldSortyBy.split('.');
 		const field = fieldSortByTokens[0];
 		let value = null;
