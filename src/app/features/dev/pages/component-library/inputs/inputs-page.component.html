@@ -37,5 +37,8 @@
 
 <card-app class="mg-v-m">
 	<card-title-app>Packaging</card-title-app>
-	<input-packaging-app></input-packaging-app>
+	<input-packaging-app [(ngModel)]="packaging"></input-packaging-app>
+	<p class="mg-v-ms">
+		value: {{ packaging | json }}
+	</p>
 </card-app>

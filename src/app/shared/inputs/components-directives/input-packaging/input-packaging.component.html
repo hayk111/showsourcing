@@ -1,36 +1,74 @@
-
-
 <form-field-app>
 	<label-app>Length</label-app>
-	<input inputApp restritInput="decimal" type="number"/>
+	<input 
+		inputApp 
+		[(ngModel)]="value.length" 
+		restritInput="decimal" 
+		type="number"
+		(blur)="onTouchedFn()"
+		(input)="onChangeFn(value)"/>
 </form-field-app>
 
 <form-field-app>
 	<label-app>Width</label-app>
-	<input inputApp restritInput="decimal" type="number"/>
-</form-field-app>
+	<input 
+		inputApp 
+		[(ngModel)]="value.width" 
+		restritInput="decimal" 
+		type="number"
+		(blur)="onTouchedFn()"
+		(input)="onChangeFn(value)"/>
+	</form-field-app>
 
 <form-field-app>
 	<label-app>Height</label-app>
-	<input inputApp restritInput="decimal" type="number"/>
-</form-field-app>
+	<input 
+		inputApp 
+		[(ngModel)]="value.height" 
+		restritInput="decimal" 
+		type="number"
+		(blur)="onTouchedFn()"
+		(input)="onChangeFn(value)"/>
+	</form-field-app>
 
 <form-field-app>
 	<label-app>Units</label-app>
-	<input inputApp type="text"/>
+	<input 
+		inputApp 
+		[(ngModel)]="value.lengthUnit" 
+		type="text"
+		(blur)="onTouchedFn()"
+		(input)="onChangeFn(value)"/>
 </form-field-app>
 
 <form-field-app class="quantity">
 	<label-app>Quantity</label-app>
-	<input inputApp restritInput="decimal" type="number"/>
-</form-field-app>
+	<input 
+		inputApp 
+		[(ngModel)]="value.quantity" 
+		restritInput="decimal" 
+		type="number"
+		(blur)="onTouchedFn()"
+		(input)="onChangeFn(value)"/>
+	</form-field-app>
 
 <form-field-app>
 	<label-app>Weight</label-app>
-	<input inputApp restritInput="decimal" type="number"/>
-</form-field-app> 
+	<input 
+		inputApp 
+		[(ngModel)]="value.weight" 
+		restritInput="decimal" 
+		type="number"
+		(blur)="onTouchedFn()"
+		(input)="onChangeFn(value)"/>
+	</form-field-app> 
 
 <form-field-app>
 	<label-app>Units</label-app>
-	<input inputApp type="text"/>
-</form-field-app> 
+	<input 
+		inputApp 
+		[(ngModel)]="value.weightUnit" 
+		type="text"
+		(blur)="onTouchedFn()"
+		(input)="onChangeFn(value)"/>
+</form-field-app>

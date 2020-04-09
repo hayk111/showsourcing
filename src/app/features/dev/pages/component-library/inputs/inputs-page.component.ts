@@ -8,4 +8,9 @@ import { FormControl, Validators } from '@angular/forms';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InputsPageComponent  {
+	packaging = {
+		length: 3,
+		width: 4
+	};
+
 }
