@@ -99,8 +99,8 @@
 		</form-field-app>
 	</ng-container>
 
-	<!-- BOOLEAN -->
-	<ng-container *ngSwitchCase="'BOOLEAN'">
+	<!-- CHECKBOX -->
+	<ng-container *ngSwitchCase="'CHECKBOX'">
 		<form-field-app>
 			<label-app>{{ field.definition.label }}</label-app>
 			<checkbox-app 
@@ -115,7 +115,12 @@
 
 	
 	<!-- PACKAGING -->
-	<!-- <ng-container *ngSwitchCase="'INT'">
-		<input-packaging-app [(ngModel)]="fieldValue.value"></input-packaging-app>
-	</ng-container> -->
+	<ng-container *ngSwitchCase="'PACKAGING'">
+		<input-packaging-app [formControl]="control"></input-packaging-app>
+	</ng-container>
+
+	<!-- PRICE -->
+	<ng-container *ngSwitchCase="'PACKAGING'">
+		<!-- <input-packaging-app [formControl]="control"></input-packaging-app> -->
+	</ng-container>
 </ng-container>

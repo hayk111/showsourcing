@@ -65,9 +65,9 @@ const fields2 = [
 	},
 	{
 		definition: {
-			label: 'boolean',
-			type: 'BOOLEAN',
-			name: 'boolean',
+			label: 'checkbox',
+			type: 'CHECKBOX',
+			name: 'checkbox',
 		}
 	},
 	{
