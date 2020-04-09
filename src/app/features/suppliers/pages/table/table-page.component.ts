@@ -35,7 +35,6 @@ import { CloseEventType } from '~shared/dialog';
 })
 export class TablePageComponent implements OnInit {
 
-	items$: Observable<Supplier[]>;
 
 	filterTypes = [
 		FilterType.CATEGORIES,
@@ -57,7 +56,6 @@ export class TablePageComponent implements OnInit {
 
 	ngOnInit() {
 		this.listHelper.setup('Supplier');
-		this.items$ = this.listHelper.filteredItems$;
 		this.viewSrv.setup({ typename: 'Supplier', destUrl: 'suppliers', view: 'table' });
 	}
 

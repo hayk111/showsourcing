@@ -6,7 +6,6 @@ export const routes: Array<Route> = [
 	{
 		path: 'playground',
 		component: Pages.PlaygroundPageComponent
-
 	},
 	{
 		path: 'component-library',
@@ -24,6 +23,7 @@ export const routes: Array<Route> = [
 			{ path: 'pipes', component: Pages.PipesPageComponent },
 			{ path: 'table', component: Pages.TablePageComponent },
 			{ path: 'accordion', component: Pages.AccordionPageComponent },
+			{ path: 'descriptor', component: Pages.DescriptorPageComponent },
 			{ path: 'rating-star', component: Pages.RatingPageComponent },
 			{ path: 'common-list', component: Pages.CommonListPageComponent },
 			{ path: 'editable-container', component: Pages.EditableContainerPageComponent },

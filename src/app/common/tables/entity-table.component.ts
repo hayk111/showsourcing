@@ -1,4 +1,4 @@
-import { EventEmitter, HostBinding, Input, OnInit, Output, TemplateRef } from '@angular/core';
+import { EventEmitter, HostBinding, Input, OnInit, Output, Directive } from '@angular/core';
 import { TrackingComponent } from '~utils/tracking-component';
 
 
@@ -22,6 +22,8 @@ export interface TableConfig {
 
 export type TableConfigType = 'small' | 'medium' | 'big' | 'medium-small';
 
+@Directive()
+// tslint:disable-next-line: directive-class-suffix
 export abstract class EntityTableComponent<T> extends TrackingComponent implements OnInit {
 	// Config
 	@Input() columns = [];

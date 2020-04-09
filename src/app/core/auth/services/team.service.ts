@@ -68,7 +68,9 @@ export class TeamService {
 	/** creates a team and waits for it to be valid */
 	create(team: Team): Observable<any> {
 		return this.apiSrv.create('Team', { companyId: this.companySrv.companySync.id, ...team })
-			.pipe(switchMap(_ => this.queryAllTeamUsers.refetch()));
+			.pipe(
+				//switchMap(_ => this.queryAllTeamUsers.refetch())
+			);
 	}
 
 	update(team: Team) {

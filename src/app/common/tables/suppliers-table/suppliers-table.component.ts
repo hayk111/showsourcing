@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
 import { EntityTableComponent } from '~common/tables/entity-table.component';
 import { Supplier } from '~core/erm';
 import { config } from './config';
@@ -33,7 +32,7 @@ export class SuppliersTableComponent extends EntityTableComponent<Supplier> impl
 	@Input() columns = SuppliersTableComponent.DEFAULT_COLUMNS;
 	@Input() tableConfig = SuppliersTableComponent.DEFAULT_TABLE_CONFIG;
 
-	constructor(public translate: TranslateService) {
+	constructor() {
 		super();
 	}
 
