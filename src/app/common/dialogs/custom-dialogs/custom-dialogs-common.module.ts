@@ -12,9 +12,9 @@ import { CompareProductComponent } from './compare-product/compare-product.compo
 import { CompareSpacerComponent } from './compare-product/compare-spacer/compare-spacer.component';
 import { DescriptionDlgComponent } from './description-dlg/description-dlg.component';
 import { EditionDialogComponent } from './edition-dialog/edition-dialog.component';
-import { ExportDlgComponent } from './export-dlg/export-dlg.component';
-import { ExportSelectionViewComponent } from './export-dlg/export-selection-view/export-selection-view.component';
-import { ExportWaitingViewComponent } from './export-dlg/export-waiting-view/export-waiting-view.component';
+import { ExportDialogComponent } from './export-dialog/export-dialog.component';
+import { ExportSelectionViewComponent } from './export-dialog/export-selection-view/export-selection-view.component';
+import { ExportWaitingViewComponent } from './export-dialog/export-waiting-view/export-waiting-view.component';
 import { InviteUserDlgComponent } from './invite-user-dlg/invite-user-dlg.component';
 import { MassEditDlgComponent } from './mass-edit-dlg/mass-edit-dlg.component';
 import { MergeDialogComponent } from './merge-dialog/merge-dialog.component';
@@ -36,7 +36,7 @@ const modals = [
 	CompareProductComponent,
 	DescriptionDlgComponent,
 	EditionDialogComponent,
-	ExportDlgComponent,
+	ExportDialogComponent,
 	InviteUserDlgComponent,
 	MassEditDlgComponent,
 	MergeDialogComponent,

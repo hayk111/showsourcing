@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { empty, Observable } from 'rxjs';
 import { filter, map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { DefaultCreationDialogComponent } from '~common/dialogs/creation-dialogs';
-import { ExportDlgComponent } from '~common/dialogs/custom-dialogs';
+import { ExportDialogComponent } from '~common/dialogs/custom-dialogs';
 import { Entity, EntityMetadata, GlobalServiceInterface, SelectParamsConfig, UserService } from '~core/erm';
 import { FilterService } from '~core/filters';
 import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
@@ -315,13 +315,13 @@ export class ListPageService<
 	}
 
 	exportSelection() {
-		this.dlgSrv.open(ExportDlgComponent, {
+		this.dlgSrv.open(ExportDialogComponent, {
 			targets: this.selectionSrv.getSelectedValues()
 		});
 	}
 
 	exportAll() {
-		this.dlgSrv.open(ExportDlgComponent, {
+		this.dlgSrv.open(ExportDialogComponent, {
 			query: 'deleted == false AND archived == false',
 			type: this.viewSrv.entityMetadata.entityName
 		});
