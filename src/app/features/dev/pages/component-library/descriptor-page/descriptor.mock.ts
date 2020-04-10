@@ -6,8 +6,8 @@ const fields1 = [
 			type: 'STRING',
 			name: 'string',
 		},
-		defaultValue: undefined,
-		readonly: false,
+		defaultValue: 'test string',
+		readonly: true,
 		required: true,
 		hint: 'This is an helpful message'
 	},
@@ -58,23 +58,9 @@ const fields1 = [
 const fields2 = [
 	{
 		definition: {
-			label: 'color',
-			type: 'STRING',
-			name: 'color',
-		}
-	},
-	{
-		definition: {
 			label: 'checkbox',
 			type: 'CHECKBOX',
 			name: 'checkbox',
-		}
-	},
-	{
-		definition: {
-			label: 'quantity',
-			type: 'INT',
-			name: 'quantity',
 		}
 	},
 	{
@@ -83,6 +69,15 @@ const fields2 = [
 			type: 'TEXTAREA',
 			name: 'textarea',
 		}
+	},
+	{
+		definition: {
+			label: 'packaging',
+			type: 'PACKAGING',
+			name: 'packaging',
+		},
+		required: true,
+		readonly: false
 	}
 ];
 

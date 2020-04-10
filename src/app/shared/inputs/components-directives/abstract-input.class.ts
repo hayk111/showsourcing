@@ -15,7 +15,9 @@ export function makeAccessorProvider(type: any) {
 // tslint:disable-next-line: directive-class-suffix
 export class AbstractInput implements ControlValueAccessor {
 	@Input() value: any = '';
-	public disabled: boolean;
+	@Input() disabled: boolean;
+	@Input() readonly: boolean;
+	@Input() required: boolean;
 	protected onTouchedFn = (any?: any) => { };
 	protected onChangeFn = (any?: any) => { };
 

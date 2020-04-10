@@ -1,5 +1,5 @@
 
-<form #formElem [formGroup]="formGroup" (submit)="onSubmit()">
+<form #formElem [formGroup]="formGroup">
 
 	<ng-container *ngIf="style === 'form'; else editable">
 	
@@ -10,8 +10,8 @@
 			<div class="flex">
 				<div 
 					*ngFor="let fields of section.columns; let isLast = last"
-					[ngClass]="{ 'mg-right-m': !isLast }">
-		
+					[ngClass]="{ 'mg-right-m': !isLast }"
+					[ngStyle]="{ 'flex-basis': 100 / section.columns.length + '%' }">
 					<dynamic-field-app
 						*ngFor="let field of fields" 
 						class="mg-bottom-s"

@@ -2,9 +2,11 @@
 	<label-app>Length</label-app>
 	<input 
 		inputApp 
-		[(ngModel)]="value.length" 
-		restritInput="decimal" 
 		type="number"
+		restritInput="decimal" 
+		[readonly]="readonly"
+		[required]="required"
+		[(ngModel)]="value.length" 
 		(blur)="onTouchedFn()"
 		(input)="onChangeFn(value)"/>
 </form-field-app>
@@ -13,9 +15,11 @@
 	<label-app>Width</label-app>
 	<input 
 		inputApp 
-		[(ngModel)]="value.width" 
 		restritInput="decimal" 
 		type="number"
+		[readonly]="readonly"
+		[required]="required"
+		[(ngModel)]="value.width" 
 		(blur)="onTouchedFn()"
 		(input)="onChangeFn(value)"/>
 	</form-field-app>
@@ -24,9 +28,11 @@
 	<label-app>Height</label-app>
 	<input 
 		inputApp 
-		[(ngModel)]="value.height" 
 		restritInput="decimal" 
 		type="number"
+		[readonly]="readonly"
+		[required]="required"
+		[(ngModel)]="value.height" 
 		(blur)="onTouchedFn()"
 		(input)="onChangeFn(value)"/>
 	</form-field-app>
@@ -35,8 +41,10 @@
 	<label-app>Units</label-app>
 	<input 
 		inputApp 
-		[(ngModel)]="value.lengthUnit" 
 		type="text"
+		[readonly]="readonly"
+		[required]="required"
+		[(ngModel)]="value.lengthUnit" 
 		(blur)="onTouchedFn()"
 		(input)="onChangeFn(value)"/>
 </form-field-app>
@@ -45,9 +53,11 @@
 	<label-app>Quantity</label-app>
 	<input 
 		inputApp 
-		[(ngModel)]="value.quantity" 
 		restritInput="decimal" 
 		type="number"
+		[readonly]="readonly"
+		[required]="required"
+		[(ngModel)]="value.quantity" 
 		(blur)="onTouchedFn()"
 		(input)="onChangeFn(value)"/>
 	</form-field-app>
@@ -56,9 +66,11 @@
 	<label-app>Weight</label-app>
 	<input 
 		inputApp 
-		[(ngModel)]="value.weight" 
 		restritInput="decimal" 
 		type="number"
+		[readonly]="readonly"
+		[required]="required"
+		[(ngModel)]="value.weight" 
 		(blur)="onTouchedFn()"
 		(input)="onChangeFn(value)"/>
 	</form-field-app> 
@@ -67,8 +79,10 @@
 	<label-app>Units</label-app>
 	<input 
 		inputApp 
-		[(ngModel)]="value.weightUnit" 
 		type="text"
+		[readonly]="readonly"
+		[required]="required"
+		[(ngModel)]="value.weightUnit" 
 		(blur)="onTouchedFn()"
 		(input)="onChangeFn(value)"/>
 </form-field-app>

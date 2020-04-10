@@ -14,7 +14,7 @@ import { InputDirective } from '../input.directive';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	animations: animations,
 })
-export class FormFieldComponent implements AfterContentInit {
+export class FormFieldComponent implements AfterContentInit, OnInit {
 	// whenever the * next to required field should be hidden
 	@Input() showRequiredMarker: boolean;
 	@ContentChild(InputDirective, { static: true }) input: InputDirective;
@@ -27,6 +27,12 @@ export class FormFieldComponent implements AfterContentInit {
 		private changeDetectorRef: ChangeDetectorRef,
 		private translate: TranslateService
 	) { }
+
+	ngOnInit() {
+		if (!this.input) {
+			throw Error('FormField must be used with an inputApp (InputDirective)');
+		}
+	}
 
 	ngAfterContentInit() {
 		if (!this.input) {
@@ -52,9 +58,6 @@ export class FormFieldComponent implements AfterContentInit {
 
 	/** Determines if we display an hint or an error */
 	get displayedMessage(): 'error' | 'hint' | 'none' {
-		if (!this.input) {
-			return;
-		}
 		// an hint displays only when we are focussed
 		if (this.input.focussed && this.hint)
 			return 'hint';

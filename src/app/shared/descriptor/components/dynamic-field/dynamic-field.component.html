@@ -9,8 +9,6 @@
 				inputApp
 				type="text"
 				[value]="control.value"
-				[readonly]="field.readonly"
-				[required]="field.required"
 				[formControl]="control"/>
 			<hint-app>{{ field.hint }}</hint-app>
 		</form-field-app>
@@ -106,6 +104,7 @@
 			<checkbox-app 
 				#checkbox 
 				inputApp 
+				[readonly]="field.readonly"
 				[formControl]="control">
 				{{ checkbox.value ? 'Yes' : 'No' }}
 			</checkbox-app>
@@ -116,11 +115,17 @@
 	
 	<!-- PACKAGING -->
 	<ng-container *ngSwitchCase="'PACKAGING'">
-		<input-packaging-app [formControl]="control"></input-packaging-app>
+		<div class="capitalize mg-bottom-ms bold color-txt-secondary">
+			{{ field.definition.label }}
+		</div>
+		<input-packaging-app
+			[readonly]="field.readonly"
+			[required]="field.required" 
+			[formControl]="control"></input-packaging-app>
 	</ng-container>
 
 	<!-- PRICE -->
-	<ng-container *ngSwitchCase="'PACKAGING'">
+	<ng-container *ngSwitchCase="'PRICE'">
 		<!-- <input-packaging-app [formControl]="control"></input-packaging-app> -->
 	</ng-container>
 </ng-container>

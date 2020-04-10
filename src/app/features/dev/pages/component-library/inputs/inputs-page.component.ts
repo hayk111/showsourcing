@@ -8,9 +8,16 @@ import { FormControl, Validators } from '@angular/forms';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InputsPageComponent  {
+	checkbox = true;
+
 	packaging = {
 		length: 3,
 		width: 4
+	};
+
+	price = {
+		currency: 'usd',
+		amount: 70
 	};
 
 }

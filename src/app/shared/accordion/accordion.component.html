@@ -1,11 +1,11 @@
 
 <div class="topBar pointer flexBetween flexVAlign" (click)="toggle()">
 	<ng-content select="accordion-title-app"></ng-content>
-	<icon-app [name]="isContentShown ? 'angle-down' : 'angle-up'"></icon-app>
+	<icon-app [name]="isOpen ? 'angle-down' : 'angle-up'"></icon-app>
 </div>
 
 <divider-app></divider-app>
 
-<div class="content" *ngIf="isContentShown" @slideAnimationTrigger>
+<div class="content" *ngIf="isOpen" @slideAnimationTrigger>
 	<ng-content select="accordion-content-app"></ng-content>
 </div>

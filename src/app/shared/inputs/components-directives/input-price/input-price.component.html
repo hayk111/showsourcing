@@ -1,0 +1,21 @@
+
+<form-field-app class="currency mg-right-ms">
+	<label-app>Currency</label-app>
+	<input 	
+		inputApp
+		type="text"
+		[(ngModel)]="value.currency"
+		(blur)="onTouchedFn()"
+		(input)="onChangeFn(value)"/>
+</form-field-app>
+
+<form-field-app class="amount">
+	<label-app>Amount</label-app>
+	<input 
+		inputApp
+		type="number" 
+		restrictInput="number"
+		[(ngModel)]="value.amount"
+		(blur)="onTouchedFn()"
+		(input)="onChangeFn(value)"/>
+</form-field-app>

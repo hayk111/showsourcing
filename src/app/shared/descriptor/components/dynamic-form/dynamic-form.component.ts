@@ -1,10 +1,8 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input,
-	OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild, ElementRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Observable, Subject, ReplaySubject } from 'rxjs';
-import { distinctUntilChanged, map, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { ReplaySubject, Subject } from 'rxjs';
+import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { Descriptor, FieldDescriptor } from '~core/erm3/models';
-import { Section } from '~core/erm3/models/section.model';
 import { SectionWithColumns } from '~shared/descriptor/interfaces/section-with-columns.interface';
 import { DescriptorService } from '~shared/descriptor/services/descriptor.service';
 import { log } from '~utils/log';
@@ -60,7 +58,7 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 		const descriptorChanged = changes.descriptor &&
 			changes.descriptor.previousValue !== changes.descriptor.currentValue;
 
-		if (colChanged) {
+		if (colChanged || descriptorChanged) {
 			this.makeColumns();
 		}
 
@@ -77,10 +75,6 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 	reset() {
 		const value = this.descriptorSrv.descriptorToValueObject(this.descriptor);
 		this.formGroup.reset(value);
-	}
-
-	onSubmit() {
-		console.log('submit');
 	}
 
 	/** put the custom fields into columns

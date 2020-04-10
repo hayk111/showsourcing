@@ -8,7 +8,6 @@ import { FormControl } from '@angular/forms';
 	templateUrl: './dynamic-field.component.html',
 	styleUrls: ['./dynamic-field.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: []
 })
 export class DynamicFieldComponent {
 

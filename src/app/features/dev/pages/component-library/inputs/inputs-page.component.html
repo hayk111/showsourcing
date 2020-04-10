@@ -32,13 +32,25 @@
 
 <card-app class="mg-v-m">
 	<card-title-app>Checkbox</card-title-app>
-	<checkbox-app>This it the label</checkbox-app>
-</card-app>
+	<checkbox-app [(ngModel)]="checkbox">
+		This it the label
+	</checkbox-app>
+	<p class="mg-v-ms">
+		value: {{ checkbox | json }}
+	</p></card-app>
 
 <card-app class="mg-v-m">
 	<card-title-app>Packaging</card-title-app>
 	<input-packaging-app [(ngModel)]="packaging"></input-packaging-app>
 	<p class="mg-v-ms">
 		value: {{ packaging | json }}
+	</p>
+</card-app>
+
+<card-app class="mg-v-m">
+	<card-title-app>Price</card-title-app>
+	<input-price2-app></input-price2-app>
+	<p class="mg-v-ms">
+		value: {{ price | json }}
 	</p>
 </card-app>

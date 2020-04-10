@@ -14,7 +14,8 @@ import {
 	LabelComponent,
 	TextareaAutoGrowsDirective,
 	FormFieldControlDirective,
-	InputPackagingComponent
+	InputPackagingComponent,
+	InputPriceComponent
 } from '~shared/inputs/components-directives';
 import { UtilsModule } from '~shared/utils';
 
@@ -32,9 +33,13 @@ export const components = [
 	HintComponent,
 	ErrorComponent,
 	TextareaAutoGrowsDirective,
+	InputPriceComponent,
+	InputPackagingComponent,
+
+
+
 	RadioComponent,
 
-	InputPackagingComponent
 ];
 
 @NgModule({

@@ -1,30 +1,51 @@
+<div class="flex">
+	<card-app class="mg-l">
+		<card-title-app>Costumize it</card-title-app>
+		<!-- <checkbox-app
+			class="mg-v-ms" 
+			[checked]="style === 'form'"
+			(check)="style = 'form'"
+			(uncheck)="style = 'editable'">
+			Form style
+		</checkbox-app> -->
+		Update On
+		<select [(ngModel)]="updateOn">
+			<option 
+				*ngFor="let opt of updateOnOptions" 
+				[value]="opt"
+				[selected]="opt === updateOn">
+				{{ opt }}
+			</option>
+		</select>
+		<input 
+			class="mg-v-ms" 
+			[(ngModel)]="columnAmount" 
+			type="number"/>
+		<p class="prop mg-v-ms">
+			properties: {{ properties | json }}
+		</p>
+	</card-app>
 
-<card-app class="mg-l">
-	<card-title-app>Costumize it</card-title-app>
-	<!-- <checkbox-app
-		class="mg-v-ms" 
-		[checked]="style === 'form'"
-		(check)="style = 'form'"
-		(uncheck)="style = 'editable'">
-		Form style
-	</checkbox-app> -->
-	Update On
-	<select [(ngModel)]="updateOn">
-		<option 
-			*ngFor="let opt of updateOnOptions" 
-			[value]="opt"
-			[selected]="opt === updateOn">
-			{{ opt }}
-		</option>
-	</select>
-	<input 
-		class="mg-v-ms" 
-		[(ngModel)]="columnAmount" 
-		type="number"/>
-	<p class="prop mg-v-ms">
-		properties: {{ properties | json }}
-	</p>
-</card-app>
+	<card-app class="descCard mg-l">
+		<card-title-app>
+			Edit Descriptor
+		</card-title-app>
+
+		<accordion-app #accordion initialState="closed">
+			<accordion-title-app>Descriptor</accordion-title-app>
+			<accordion-content-app>
+				<textarea 
+					#desc 
+					class="descArea" 
+					[value]="getDescriptorString()"
+					(input)="setDescriptor(desc.value)"></textarea>
+				<span class="color-warn" *ngIf="invalidJson">
+					Invalid json
+				</span>
+			</accordion-content-app>
+		</accordion-app>
+	</card-app>
+</div>
 
 <card-app class="mg-l">
 	<dynamic-form2-app 
@@ -39,6 +60,6 @@
 	valid ? {{ form.valid }}
 
 	<button (click)="form.reset()" class="secondary mg-h-ms">reset</button>
-	<button [disabled]="!form.valid" (click)="form.submit()">submit</button>
+	<button [disabled]="!form.valid">submit</button>
 </card-app>
 
