@@ -1,7 +1,7 @@
 import { OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { filter, switchMap } from 'rxjs/operators';
-import { CreationSampleDlgComponent } from '~common/dialogs/creation-dialogs';
+import { SampleCreationDialogComponent } from '~common/dialogs/creation-dialogs';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { UserService } from '~core/auth';
 import { Product, Supplier } from '~core/erm3/models';
@@ -24,7 +24,7 @@ export abstract class AbstractSampleCommonComponent extends AutoUnsub
 		protected apiSrv: ApiService,
 		protected dlgSrv: DialogService,
 		public listHelper: ListHelperService,
-		public dialogCommonSrv: DialogCommonService,
+		public dlgCommonSrv: DialogCommonService,
 		protected filterSrv: FilterService
 	) {
 		super();
@@ -56,11 +56,12 @@ export abstract class AbstractSampleCommonComponent extends AutoUnsub
 
 	openCreationSampleDlg(product?: Product, supplier?: Supplier) {
 		return this.dlgSrv
-			.open(CreationSampleDlgComponent, { product, supplier })
-			.pipe(
-				filter((event: CloseEvent) => event.type === CloseEventType.OK),
-				switchMap(_ => this.listHelper.refetch())
-			)
-			.subscribe();
+			.open(SampleCreationDialogComponent, { product, supplier })
+			// don't implement creation Sample => deprecated component
+			// .pipe(
+			// 	filter((event: CloseEvent) => event.type === CloseEventType.OK),
+			// 	switchMap(_ => this.listHelper.refetch())
+			// )
+			// .subscribe();
 	}
 }

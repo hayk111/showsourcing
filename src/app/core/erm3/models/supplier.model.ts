@@ -28,4 +28,6 @@ export class Supplier extends Entity<Supplier> {
 	globalDatabaseId?: string | null;
 	reference?: string | null;
 	referenceKey?: number | null;
+	images?: any;
+	comments?: any;
 }

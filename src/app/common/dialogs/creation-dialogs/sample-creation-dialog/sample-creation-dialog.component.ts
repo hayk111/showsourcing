@@ -8,12 +8,12 @@ import { ToastService, ToastType } from '~shared/toast';
 import { uuid } from '~utils';
 
 @Component({
-	selector: 'creation-sample-dlg-app',
-	templateUrl: './creation-sample-dlg.component.html',
-	styleUrls: ['./creation-sample-dlg.component.scss'],
+	selector: 'creation-sample-dialog-app',
+	templateUrl: './sample-creation-dialog.component.html',
+	styleUrls: ['./sample-creation-dialog.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CreationSampleDlgComponent implements OnInit {
+export class SampleCreationDialogComponent implements OnInit {
 
 	@Input() sample: Sample;
 	@Input() product: Product;
@@ -32,12 +32,6 @@ export class CreationSampleDlgComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		const user = this.userSrv.userSync;
-		const assignee = {
-			id: user.id,
-			lastName: user.lastName,
-			firstName: user.firstName
-		};
 		this.sampleDescriptor = new SampleDescriptor([
 			'name', 'assignee', 'description', 'product', 'supplier'
 		]);
@@ -77,44 +71,46 @@ export class CreationSampleDlgComponent implements OnInit {
 	}
 
 	save() {
-		if (this.sample && this.sample.name) {
-			// this way we can notify that the reference has been created
-			this.sampleSrv.waitForOne(`id == "${this.sample.id}" AND reference.@size > 0`)
-				.subscribe(_ => this.sampleSrv.onUpdateSampleList());
+		if (!this.sample || !this.sample.name) return;
+		this.dlgSrv.data(this.sample);
+		if (this.createAnother) this.resetIds(this.sample);
+		else this.dlgSrv.close();
+			// // this way we can notify that the reference has been created
+			// this.sampleSrv.waitForOne(`id == "${this.sample.id}" AND reference.@size > 0`)
+			// 	.subscribe(_ => this.sampleSrv.onUpdateSampleList());
 
-			this.sampleSrv.create(this.sample).subscribe(
-				sample => {
-					if (this.createAnother) {
-						sample = this.resetIds(sample);
-						this.dlgSrv.open(CreationSampleDlgComponent, { sample, createAnother: true });
-					} else {
-						this.close();
-					}
-					this.toastSrv.add({
-						type: ToastType.SUCCESS,
-						title: 'title.sample-created',
-						message: 'message.sample-created-with-success'
-					});
-					this.sampleSrv.onUpdateSampleList();
-				},
-				err => {
-					this.toastSrv.add({
-						type: ToastType.ERROR,
-						title: 'title.sample-not-created',
-						message: 'message.your-sample-not-created'
-					});
-				}
-			);
-		}
+			// this.sampleSrv.create(this.sample).subscribe(
+			// 	sample => {
+			// 		if (this.createAnother) {
+			// 			sample = this.resetIds(sample);
+			// 			this.dlgSrv.open(SampleCreationDialogComponent, { sample, createAnother: true });
+			// 		} else {
+			// 			this.close();
+			// 		}
+			// 		this.toastSrv.add({
+			// 			type: ToastType.SUCCESS,
+			// 			title: 'title.sample-created',
+			// 			message: 'message.sample-created-with-success'
+			// 		});
+			// 		this.sampleSrv.onUpdateSampleList();
+			// 	},
+			// 	err => {
+			// 		this.toastSrv.add({
+			// 			type: ToastType.ERROR,
+			// 			title: 'title.sample-not-created',
+			// 			message: 'message.your-sample-not-created'
+			// 		});
+			// 	}
+			// );
 	}
 
 	cancel() {
-		this.dlgSrv.close({ type: CloseEventType.CANCEL });
+		this.dlgSrv.cancel();
 	}
 
-	close(created$?: Observable<Sample>) {
-		this.dlgSrv.close({ type: CloseEventType.OK, data: { sample: this.sample, created$ } });
-	}
+	// close(created$?: Observable<Sample>) {
+	// 	// this.dlgSrv.close({ type: CloseEventType.OK, data: { sample: this.sample, created$ } });
+	// }
 
 	private resetIds(sample) {
 		sample = { ...sample, id: uuid(), name: '', description: '' };

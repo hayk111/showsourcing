@@ -6,11 +6,11 @@ import { switchMap, take, takeUntil, tap } from 'rxjs/operators';
 import { ProductSelectionDialogComponent } from '~common/dialogs/selection-dialogs';
 import { TemplateMngmtDlgComponent } from '~common/dialogs/custom-dialogs';
 import { ContactService, CreateRequestService, RequestTemplateService, UserService } from '~core/erm';
-import { ListPageService } from '~core/list-page';
+// import { ListPageService } from '~core/list-page2';
 import { Contact, CreateRequest, Product, RequestTemplate, Supplier } from '~core/erm';
 import { ProductService } from '~core/erm';
 import { DialogService } from '~shared/dialog';
-import { FilterList, FilterType } from '~shared/filters';
+// import { FilterList, FilterType } from '~shared/filters';
 import { ToastService, ToastType } from '~shared/toast';
 import { AutoUnsub, ID } from '~utils';
 
@@ -21,7 +21,7 @@ import { ReplySentDlgComponent } from '../reply-sent-dlg/reply-sent-dlg.componen
 	templateUrl: './supplier-request-dialog.component.html',
 	styleUrls: ['./supplier-request-dialog.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [ListPageService]
+	// providers: [ListPageService]
 })
 export class SupplierRequestDialogComponent extends AutoUnsub implements OnInit, AfterViewChecked {
 
@@ -51,10 +51,11 @@ export class SupplierRequestDialogComponent extends AutoUnsub implements OnInit,
 	form: FormGroup;
 	copyEmail = false;
 	pending = false;
-	filterList = new FilterList([]);
+	// filterList = new FilterList([]);
 	private templateSelectedAction$ = new ReplaySubject<ID>(1);
 	selectedTemplate$ = new ReplaySubject<RequestTemplate>(1);
 
+	// TODO implement new filters and nex listSrv
 	constructor(
 		private fb: FormBuilder,
 		private dlgSrv: DialogService,
@@ -65,7 +66,7 @@ export class SupplierRequestDialogComponent extends AutoUnsub implements OnInit,
 		private requestTemplateSrv: RequestTemplateService,
 		private productSrv: ProductService,
 		private cd: ChangeDetectorRef,
-		public listSrv: ListPageService<Product, ProductService>,
+		// public listSrv: ListPageService<Product, ProductService>,
 		private translate: TranslateService
 	) {
 		super();
@@ -162,7 +163,7 @@ export class SupplierRequestDialogComponent extends AutoUnsub implements OnInit,
 		}
 
 		if (this.supplier) {
-			this.filterList = new FilterList([{ type: FilterType.SUPPLIER, value: this.supplier.id }]);
+			// this.filterList = new FilterList([{ type: FilterType.SUPPLIER, value: this.supplier.id }]);
 
 			if (this.supplier.officeEmail) {
 				// we do this since we want the email of the supplier to be selected by default to send the message
@@ -214,23 +215,24 @@ export class SupplierRequestDialogComponent extends AutoUnsub implements OnInit,
 		}
 	}
 
+	// TODO adapt this logic
 	addProduct(ev: any) {
-		this.productSrv.selectedProds$.subscribe((products: Product[]) => {
-			products.forEach((product: Product) => {
-				if (this._products.filter((p: Product) => p.id === product.id).length === 0) {
-					this._products.push(product);
-				}
-			});
+		// this.productSrv.selectedProds$.subscribe((products: Product[]) => {
+		// 	products.forEach((product: Product) => {
+		// 		if (this._products.filter((p: Product) => p.id === product.id).length === 0) {
+		// 			this._products.push(product);
+		// 		}
+		// 	});
 
-			setTimeout(_ => this.dlgSrv.open(SupplierRequestDialogComponent, { products: this._products, request: this._request }));
-		});
+		// 	setTimeout(_ => this.dlgSrv.open(SupplierRequestDialogComponent, { products: this._products, request: this._request }));
+		// });
 
-		setTimeout(_ => {
-			this.dlgSrv.open(ProductSelectionDialogComponent, { initialSelectedProducts: [], submitProducts: false })
-				.pipe(
-					switchMap(_ => this.listSrv.refetch())
-				).subscribe();
-		});
+		// setTimeout(_ => {
+		// 	this.dlgSrv.open(ProductSelectionDialogComponent, { initialSelectedProducts: [], submitProducts: false })
+		// 		// .pipe(
+		// 		// 	switchMap(_ => this.listSrv.refetch())
+		// 		// ).subscribe();
+		// });
 	}
 
 	removeProduct(id: ID) {
@@ -248,7 +250,7 @@ export class SupplierRequestDialogComponent extends AutoUnsub implements OnInit,
 		this.supplier = supplier;
 		this.form.get('recipient').reset();
 		this.setSupplier();
-		this.filterList = new FilterList([{ type: FilterType.SUPPLIER, value: supplier.id }]);
+		// this.filterList = new FilterList([{ type: FilterType.SUPPLIER, value: supplier.id }]);
 	}
 
 	createRequest() {
@@ -282,14 +284,17 @@ export class SupplierRequestDialogComponent extends AutoUnsub implements OnInit,
 	openTemplateMngmtDialog(event: MouseEvent, templateSelected: RequestTemplate) {
 		event.stopPropagation();
 		let request = new CreateRequest(this.form.value);
-		this.dlgSrv.open(TemplateMngmtDlgComponent, { templateSelected })
-			// we are reopening this dlg when the other one closes
-			.subscribe(({ type, data }) => {
-				// we update the request with the latest tempalte selected if there is any
-				if (data && data.template)
-					request = ({ ...request, requestTemplate: data.template });
-				return this.dlgSrv.open(SupplierRequestDialogComponent, { request, fromTemplateDlg: true });
-			});
+		this.dlgSrv.data(request);
+		this.dlgSrv.close();
+		// TODO extract this logic
+		// this.dlgSrv.open(TemplateMngmtDlgComponent, { templateSelected })
+		// 	// we are reopening this dlg when the other one closes
+		// 	// .subscribe(({ type, data }) => {
+		// 	// 	// we update the request with the latest tempalte selected if there is any
+		// 	// 	if (data && data.template)
+		// 	// 		request = ({ ...request, requestTemplate: data.template });
+		// 	// 	return this.dlgSrv.open(SupplierRequestDialogComponent, { request, fromTemplateDlg: true });
+		// 	// });
 	}
 
 	getTemplateFields(tmp: RequestTemplate) {

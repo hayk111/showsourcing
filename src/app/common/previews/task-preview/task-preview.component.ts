@@ -3,7 +3,6 @@ import {
 	Component,
 	EventEmitter,
 	Input,
-	OnChanges,
 	OnInit,
 	Output,
 	ViewChild,
@@ -11,29 +10,22 @@ import {
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { filter, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { TaskDescriptor } from '~core/descriptors';
-import { CommentService } from '~core/erm';
-import {
-	ExtendedFieldDefinitionService,
-} from '~core/erm';
-import { TaskService } from '~core/erm';
-import { Comment, ERM, ExtendedFieldDefinition, Task } from '~core/erm';
-import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
-import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
+import { Comment, CommentService, ERM, ExtendedFieldDefinition, Task } from '~core/erm';
+import { ListFuseHelperService } from '~core/list-page2';
 import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
 import { PreviewCommentComponent } from '~shared/preview';
 import { AutoUnsub, StatusUtils } from '~utils';
-import { ListFuseHelperService } from '~core/list-page2';
 
 @Component({
 	selector: 'task-preview-app',
 	templateUrl: './task-preview.component.html',
 	styleUrls: ['./task-preview.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TaskPreviewComponent extends AutoUnsub implements OnInit {
-
 	private _task: Task;
 	@Input() set task(value: Task) {
 		this._task = value;
@@ -58,8 +50,7 @@ export class TaskPreviewComponent extends AutoUnsub implements OnInit {
 		private listHelper: ListFuseHelperService,
 		private commentSrv: CommentService,
 		private router: Router,
-		private extendedFieldDefSrv: ExtendedFieldDefinitionService,
-		private dlgSrv: DialogService,
+		private dlgCommonSrv: DialogCommonService,
 		public translate: TranslateService
 	) {
 		super();
@@ -67,7 +58,10 @@ export class TaskPreviewComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		this.taskDescriptor = new TaskDescriptor([
-			'createdBy', 'creationDate', 'lastUpdatedBy', 'lastUpdatedDate'
+			'createdBy',
+			'creationDate',
+			'lastUpdatedBy',
+			'lastUpdatedDate',
 		]);
 
 		// this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "task.extendedFields"', sortBy: 'order' });
@@ -79,14 +73,13 @@ export class TaskPreviewComponent extends AutoUnsub implements OnInit {
 	}
 
 	updateTask(taskConfig: any) {
-		const task = ({ ...taskConfig, id: this.task.id });
-		this.listHelper.update(task, {_version: this._task._version});
+		const task = { ...taskConfig, id: this.task.id };
+		this.listHelper.update(task, { _version: this._task._version });
 		this._task = task;
 	}
 
 	updateDueDate(isCancel: boolean, value: Date) {
-		if (!isCancel && isCancel !== undefined)
-			this.update(value, 'dueDate');
+		if (!isCancel && isCancel !== undefined) this.update(value, 'dueDate');
 	}
 
 	addComment(comment: Comment) {
@@ -95,32 +88,27 @@ export class TaskPreviewComponent extends AutoUnsub implements OnInit {
 		const commentUser = { ...comment };
 		const comments = [...(this._task.comments || [])];
 		comments.push(commentUser);
-		this.commentSrv.create(comment).pipe(
-			tap(_ => this.listHelper.update({ id: this._task.id, comments }))
-		).subscribe();
+		this.commentSrv
+			.create(comment)
+			.pipe(tap((_) => this.listHelper.update({ id: this._task.id, comments })))
+			.subscribe();
 	}
 
 	delete(task: Task) {
 		const text = `Are you sure you want to delete this task ?`;
-		this.dlgSrv.open(ConfirmDialogComponent, { text })
-			.pipe(
-				filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
-				tap(_ => this.listHelper.delete(task.id)),
-				tap(_ => this.close.emit())
-			).subscribe();
+		this.dlgCommonSrv
+			.openConfirmDlg({ text })
+			.data$.pipe(tap((_) => this.listHelper.delete(task.id)))
+			.subscribe((_) => this.close.emit());
 	}
 
 	archive() {
 		const text = `Are you sure you want to archive this task ?`;
 		const action = 'archive';
-		this.dlgSrv.open(ConfirmDialogComponent, { text, action })
-			.pipe(
-				filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
-				tap(_ => {
-					this.update(true, 'archived');
-					this.close.emit();
-				}),
-			).subscribe();
+		this.dlgCommonSrv.openConfirmDlg({ text, action }).data$.subscribe((_) => {
+			this.update(true, 'archived');
+			this.close.emit();
+		});
 	}
 
 	// ACTIONS
@@ -135,5 +123,4 @@ export class TaskPreviewComponent extends AutoUnsub implements OnInit {
 	fontColor() {
 		return this.task.done || this.statusUtils.isOverdue(this.task) ? 'color-white' : '';
 	}
-
 }

@@ -11,17 +11,15 @@ import {
 	Renderer2,
 	ViewChild,
 } from '@angular/core';
-import { DescriptionDlgComponent } from '~common/dialogs/custom-dialogs';
-import { CloseEventType, DialogService } from '~shared/dialog';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 
 @Component({
 	selector: 'input-description-app',
 	templateUrl: './input-description.component.html',
 	styleUrls: ['./input-description.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InputDescriptionComponent implements OnChanges, OnInit {
-
 	private _description = '';
 	@Input() set description(description: string) {
 		this._description = description;
@@ -41,8 +39,9 @@ export class InputDescriptionComponent implements OnChanges, OnInit {
 
 	constructor(
 		private render: Renderer2,
-		private dlgSrv: DialogService,
-		private cd: ChangeDetectorRef) { }
+		private dlgCommonSrv: DialogCommonService,
+		private cd: ChangeDetectorRef
+	) {}
 
 	ngOnInit() {
 		this.adaptSize();
@@ -68,7 +67,11 @@ export class InputDescriptionComponent implements OnChanges, OnInit {
 		// we set the height the the limit
 		this.showAll();
 		// if the height is bigger than 85 and it has a description, we limit the height
-		if (this.container.nativeElement.clientHeight > 80 && (this.description && this.description.length)) {
+		if (
+			this.container.nativeElement.clientHeight > 80 &&
+			this.description &&
+			this.description.length
+		) {
 			this.render.setStyle(this.container.nativeElement, 'height', '80px');
 			this.showMore = true;
 		}
@@ -77,10 +80,10 @@ export class InputDescriptionComponent implements OnChanges, OnInit {
 
 	openDescModal() {
 		if (this.asModal)
-			this.dlgSrv.open(DescriptionDlgComponent, { description: this.description })
-				.subscribe(({ type, data }) => {
-					if (type === CloseEventType.OK)
-						this.update.emit(data.description);
+			this.dlgCommonSrv
+				.openDescriptionDlg({ description: this.description })
+				.data$.subscribe((data) => {
+					this.update.emit(data.description);
 				});
 	}
 }

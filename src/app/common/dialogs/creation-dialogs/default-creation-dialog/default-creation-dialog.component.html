@@ -1,0 +1,29 @@
+<dialog-app>
+	<dialog-header-app class="first-uppercase">
+		<ng-container translate="button.new"></ng-container> {{ typename | translate }}
+	</dialog-header-app>
+
+	<form [formGroup]="group">
+		<form-field-app>
+			<label-app>
+				{{ typename | translate }} <span class="capitalize" translate="text.name"></span>
+			</label-app>
+			<input
+				inputApp
+				autoFocus
+				type="text"
+				formControlName="name"
+				placeholder="{{ 'name' | translate }}"
+				(keyup.enter)="onSubmit(canRedirect)"
+			/>
+		</form-field-app>
+	</form>
+
+	<dialog-footer-app>
+		<checkbox-app [checked]="createAnother" (update)="createAnother = !createAnother">
+			{{ 'text.create-another' | translate }}
+		</checkbox-app>
+		<button tabFocusAction class="secondary" (click)="cancel()" translate="button.cancel"></button>
+		<input [disabled]="!group.valid" type="submit" value="Create" (click)="onSubmit(false)" />
+	</dialog-footer-app>
+</dialog-app>
