@@ -119,7 +119,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 
 		if (isLocalList(this.typename)) {
 			this.fuseHelperSrv.setup(this.typename);
-			this.choicesSubscription = this.fuseHelperSrv.filteredItems$.pipe(tap((choices) => {
+			this.choicesSubscription = this.fuseHelperSrv.searchedItems$.pipe(tap((choices) => {
 				if (this.searchTxt) {
 					this.choices$ = of(choices);
 					this.cd.markForCheck();

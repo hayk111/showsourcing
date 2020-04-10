@@ -42,6 +42,10 @@ export class TasksTableComponent extends EntityTableComponent<Task> implements O
 		public taskSrv: TaskService
 	) { super(); }
 
+	ngOnInit() {
+		console.log('TasksTableComponent -> ngOnInit -> this.rows', this.rows);
+	}
+
 	getColor(task: Task) {
 		if (task.done)
 			return Color.SUCCESS;

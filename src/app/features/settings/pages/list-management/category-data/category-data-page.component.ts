@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { CompanyService, TeamService } from '~core/auth/services';
 import { Category } from '~core/erm3/models';
@@ -8,22 +7,28 @@ import { ListFuseHelperService } from '~core/list-page2/list-fuse-helper.service
 import { AutoUnsub } from '~utils';
 import { SelectionService, ListPageViewService } from '~core/list-page2';
 import { Typename } from '~core/erm3/typename.type';
-import { FilterType } from '~core/filters';
+import { PaginationService } from '~shared/pagination/services/pagination.service';
+import { SortService } from '~shared/table/services/sort.service';
 
 @Component({
 	selector: 'category-data-page-app',
 	templateUrl: '../shared/list-management-template.html',
 	styleUrls: ['./category-data-page.component.scss', '../shared/list-management-styles.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [ListPageViewService, SelectionService, ListFuseHelperService, FilterService],
+	providers: [
+		ListPageViewService,
+		SelectionService,
+		ListFuseHelperService,
+		FilterService,
+		PaginationService,
+		SortService,
+	],
 	host: {
-		class: 'table-page'
-	}
+		class: 'table-page',
+	},
 })
 export class CategoryDataPageComponent extends AutoUnsub implements OnInit {
 	typename: Typename = 'Category';
-
-	items$: Observable<Category[]>;
 
 	constructor(
 		public teamSrv: TeamService,
@@ -39,18 +44,21 @@ export class CategoryDataPageComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		let teamId: string;
-		this.teamSrv.teamSelected$.subscribe(team => (teamId = team.id));
+		this.teamSrv.teamSelected$.subscribe((team) => (teamId = team.id));
 		this.filterSrv.setup([], ['name']);
-		this.viewSrv.setup({typename: 'Category', destUrl: 'settings/list-management/category-data', view: 'table'});
+		this.viewSrv.setup({
+			typename: 'Category',
+			destUrl: 'settings/list-management/category-data',
+			view: 'table',
+		});
 		this.listHelper.setup('Category', 'Team', teamId); // search initialized in controller-table
-		this.items$ = this.listHelper.filteredItems$;
 	}
 
 	mergeSelected() {
 		const categories = this.selectionSrv.getSelectedValues();
 		this.dialogCommonSrv.openMergeDialog({
 			type: this.viewSrv.typename,
-			entities: categories
+			entities: categories,
 		});
 	}
 

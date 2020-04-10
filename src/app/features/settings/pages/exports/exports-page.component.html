@@ -13,14 +13,15 @@
 </header-details-app>
 
 <controller-table-app
+	[total]="listHelper.total$ | async"
 	class="spacing-ms"
 	[hasFilters]="false">
 </controller-table-app>
 
 <exports-table-app
 	class="spacing-ms"
-	[rows]="listSrv.items$ | async"
-	[pending]="listSrv.pending"
+	[rows]="listHelper.filteredItems$ | async"
+	[pending]="listHelper.pending$ | async"
 	(download)="downloadOne($event)">
 </exports-table-app>
 

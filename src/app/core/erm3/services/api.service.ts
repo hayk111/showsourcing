@@ -206,7 +206,7 @@ export class ApiService {
 		// TODO remove this condition when the audits are all similars
 		if (typename !== 'Company' && typename !== 'Team') {
 			entity.id = uuid();
-			entity.createdAt = new Date().toISOString();
+			// entity.createdAt = new Date().toISOString();
 			// entity.lastUpdatedAt = new Date().toISOString();
 			// entity.deleted = false;
 			// entity.createdByUserId = this._userId;
@@ -308,10 +308,10 @@ export class ApiService {
 		client.writeQuery({ ...query.options, data: r });
 	}
 
-	deleteFromList(query: ObservableQuery, id: string) {
+	deleteManyFromList(query: ObservableQuery, ids: string[]) {
 		const r: any = client.readQuery(query.options);
 		const items = r[query.queryName].items;
-		r[query.queryName].items = items.filter(item => item.id !== id);
+		r[query.queryName].items = items.filter(item => !ids.includes(item.id));
 		if (r[query.queryName].items.length === items.length - 1)
 			r[query.queryName].total--;
 		client.writeQuery({ ...query.options, data: r });
