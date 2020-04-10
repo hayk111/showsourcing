@@ -3,7 +3,7 @@ import { ProductsTableComponent } from '~common/tables/products-table/products-t
 import { Product } from '~core/erm3/models';
 import { FilterType } from '~core/filters';
 import { ListHelperService, ListPageViewService, SelectionService } from '~core/list-page2';
-import { CloseEventType, DialogService } from '~shared/dialog';
+import { DialogService } from '~shared/dialog';
 import { AutoUnsub } from '~utils';
 
 @Component({
@@ -42,32 +42,33 @@ export class ProductSelectionDialogComponent extends AutoUnsub implements OnInit
 	}
 
 	ngOnInit() {
-		this.listHelper.setup('Project');
+		this.listHelper.setup('Product');
 		this.selectionSrv.selectAll(this.initialSelecteds);
 	}
 
 	// submit() {
-		// const selectedProducts = Object.values(this.selectedProducts);
-		// const unselectedProducts = Object.values(this.unselectedProducts);
-		// const data = { selectedProducts, unselectedProducts };
-		// this.productDlgSrv
-		// 	.addProductsToProject(this.project, selectedProducts)
-		// 	.subscribe(_ => {
-		// 		this.dlgSrv.close({
-		// 			type: CloseEventType.OK,
-		// 			data
-		// 		});
-		// 		this.toastSrv.add({
-		// 			type: ToastType.SUCCESS,
-		// 			title: 'title.products-added',
-		// 			message: 'message.your-projects-added-success',
-		// 			timeout: 3500
-		// 		});
-		// 	});
+	// const selectedProducts = Object.values(this.selectedProducts);
+	// const unselectedProducts = Object.values(this.unselectedProducts);
+	// const data = { selectedProducts, unselectedProducts };
+	// this.productDlgSrv
+	// 	.addProductsToProject(this.project, selectedProducts)
+	// 	.subscribe(_ => {
+	// 		this.dlgSrv.close({
+	// 			type: CloseEventType.OK,
+	// 			data
+	// 		});
+	// 		this.toastSrv.add({
+	// 			type: ToastType.SUCCESS,
+	// 			title: 'title.products-added',
+	// 			message: 'message.your-projects-added-success',
+	// 			timeout: 3500
+	// 		});
+	// 	});
 	// }
 
-	/** close the dialog, send type "OK" and data (entities selecteds) to the observable returned by commonDlg.openSelectionDlg()  */
+	/** send selected products to the observable returned by commonDlg.openSelectionDlg().data$ and close the dialog  */
 	done() {
-		this.dlgSrv.close({ type: CloseEventType.OK, data: this.selectionSrv.getSelectedValues() });
+		this.dlgSrv.data(this.selectionSrv.getSelectedValues());
+		this.dlgSrv.close();
 	}
 }

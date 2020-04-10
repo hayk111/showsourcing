@@ -1,7 +1,7 @@
 import { OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { filter, switchMap, takeUntil } from 'rxjs/operators';
-import { CreationTaskDlgComponent } from '~common/dialogs/creation-dialogs';
+import { TaskCreationDialogComponent } from '~common/dialogs/creation-dialogs';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import {
 	ERM,
@@ -100,12 +100,13 @@ export abstract class AbstractTaskCommonComponent extends AutoUnsub
 
 	openCreationTaskDlg(product?: Product, supplier?: Supplier) {
 		this.dlgSrv
-			.open(CreationTaskDlgComponent, { product, supplier })
-			.pipe(
-				filter((event: CloseEvent) => event.type === CloseEventType.OK),
-				switchMap(_ => this.listSrv.refetch())
-			)
-			.subscribe();
+			.open(TaskCreationDialogComponent, { product, supplier })
+			// don't implement creation Sample => deprecated component
+			// .pipe(
+			// 	filter((event: CloseEvent) => event.type === CloseEventType.OK),
+			// 	switchMap(_ => this.listSrv.refetch())
+			// )
+			// .subscribe();
 	}
 
 	openProduct(id: string) {

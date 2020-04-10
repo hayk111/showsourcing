@@ -62,7 +62,7 @@ export class SuppliersBoardComponent extends AutoUnsub implements OnInit {
 		private supplierSrv: SupplierService,
 		private supplierStatusSrv: SupplierStatusService,
 		private listSrv: ListPageService<Supplier, SupplierService>,
-		public dialogCommonSrv: DialogCommonService,
+		public dlgCommonSrv: DialogCommonService,
 		public kanbanSrv: KanbanService,
 		public dlgSrv: DialogService,
 		private filterSrv: FilterService,
@@ -198,10 +198,8 @@ export class SuppliersBoardComponent extends AutoUnsub implements OnInit {
 			itemIds.length <= 1 ? translate('supplier') : translate('suppliers');
 		const text = `${del} ${itemIds.length} ${supplier}`;
 
-		this.dlgSrv
-			.open(ConfirmDialogComponent, { text })
+		this.dlgCommonSrv.openConfirmDlg({text}).data$
 			.pipe(
-				filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
 				switchMap(_ => this.listSrv.dataSrv.deleteMany(itemIds))
 			)
 			.subscribe(_ => {

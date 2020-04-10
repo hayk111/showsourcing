@@ -5,13 +5,12 @@ import {
 	Component,
 	ComponentFactoryResolver,
 	HostListener,
-	ViewChild,
+	ViewChild
 } from '@angular/core';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, tap } from 'rxjs/operators';
 import { DialogHostDirective } from '~shared/dialog/components/dialog-host.directive';
 import { DialogService } from '~shared/dialog/services/dialog.service';
 import { AutoUnsub } from '~utils';
-
 
 @Component({
 	selector: 'dialog-container-app',
@@ -31,20 +30,19 @@ export class DialogContainerComponent extends AutoUnsub implements AfterViewInit
 	constructor(
 		protected srv: DialogService,
 		protected componentFactoryResolver: ComponentFactoryResolver,
-		protected cdRef: ChangeDetectorRef) {
+		protected cdRef: ChangeDetectorRef
+	) {
 		super();
 	}
 
 	ngAfterViewInit() {
 		this.viewContainerRef = this.host.viewContainerRef;
-		this.srv.toOpen$
+		this.srv.open$
 			.pipe(takeUntil(this._destroy$))
 			.subscribe(({ component, props, closeOnOutsideClick }) => {
 				this.open(component, props, closeOnOutsideClick);
 			});
-		this.srv.toClose$
-			.pipe(takeUntil(this._destroy$))
-			.subscribe(_ => this.clear());
+		this.srv.close$.pipe(takeUntil(this._destroy$)).subscribe(_ => this.clear());
 	}
 
 	/** will put a component in the host container */
@@ -55,7 +53,7 @@ export class DialogContainerComponent extends AutoUnsub implements AfterViewInit
 		const componentFactory = componentFactoryResolver.resolveComponentFactory(component);
 		this.viewContainerRef.clear();
 		const componentRef = this.viewContainerRef.createComponent(componentFactory);
-		const instance = (<any>componentRef.instance);
+		const instance = <any>componentRef.instance;
 		// adding properties to dialog
 		if (props) {
 			Object.keys(props).forEach(key => {
@@ -69,7 +67,8 @@ export class DialogContainerComponent extends AutoUnsub implements AfterViewInit
 
 	@HostListener('document:keydown.escape', ['$event'])
 	close() {
-		this.clear();
+		// the cancel() trigger the this.srv.close$ who run the this.clear()
+		this.srv.cancel();
 	}
 
 	/** removes component from host */
@@ -86,5 +85,4 @@ export class DialogContainerComponent extends AutoUnsub implements AfterViewInit
 			this.close();
 		}
 	}
-
 }
