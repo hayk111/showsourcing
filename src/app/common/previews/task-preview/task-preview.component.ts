@@ -3,7 +3,6 @@ import {
 	Component,
 	EventEmitter,
 	Input,
-	OnChanges,
 	OnInit,
 	Output,
 	ViewChild,
@@ -11,12 +10,10 @@ import {
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { switchMap, takeUntil, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { TaskDescriptor } from '~core/descriptors';
-import { CommentService } from '~core/erm';
-import { ExtendedFieldDefinitionService } from '~core/erm';
-import { TaskService } from '~core/erm';
-import { Comment, ERM, ExtendedFieldDefinition, Task } from '~core/erm';
+import { Comment, CommentService, ERM, ExtendedFieldDefinition, Task } from '~core/erm';
+import { ListFuseHelperService } from '~core/list-page2';
 import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
 import { PreviewCommentComponent } from '~shared/preview';
 import { AutoUnsub, StatusUtils } from '~utils';
@@ -28,7 +25,7 @@ import { DialogCommonService } from '~common/dialogs/services/dialog-common.serv
 	styleUrls: ['./task-preview.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TaskPreviewComponent extends AutoUnsub implements OnInit, OnChanges {
+export class TaskPreviewComponent extends AutoUnsub implements OnInit {
 	private _task: Task;
 	@Input() set task(value: Task) {
 		this._task = value;
@@ -50,10 +47,9 @@ export class TaskPreviewComponent extends AutoUnsub implements OnInit, OnChanges
 	fieldDefinitions$: Observable<ExtendedFieldDefinition[]>;
 
 	constructor(
+		private listHelper: ListFuseHelperService,
 		private commentSrv: CommentService,
 		private router: Router,
-		private taskSrv: TaskService,
-		private extendedFieldDefSrv: ExtendedFieldDefinitionService,
 		private dlgCommonSrv: DialogCommonService,
 		public translate: TranslateService
 	) {
@@ -68,15 +64,7 @@ export class TaskPreviewComponent extends AutoUnsub implements OnInit, OnChanges
 			'lastUpdatedDate',
 		]);
 
-		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({
-			query: 'target == "task.extendedFields"',
-			sortBy: 'order',
-		});
-	}
-
-	ngOnChanges() {
-		this.task$ = this.taskSrv.selectOne(this._task.id);
-		this.task$.pipe(takeUntil(this._destroy$)).subscribe((s) => (this._task = s));
+		// this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "task.extendedFields"', sortBy: 'order' });
 	}
 
 	// UPDATES
@@ -85,8 +73,9 @@ export class TaskPreviewComponent extends AutoUnsub implements OnInit, OnChanges
 	}
 
 	updateTask(taskConfig: any) {
-		const task = { ...taskConfig, id: this.task.id };
-		this.taskSrv.update(task).subscribe();
+		const task = { ...taskConfig, id: this.task.id, _version: this._task._version };
+		this.listHelper.update(task);
+		this._task = task;
 	}
 
 	updateDueDate(isCancel: boolean, value: Date) {
@@ -101,7 +90,7 @@ export class TaskPreviewComponent extends AutoUnsub implements OnInit, OnChanges
 		comments.push(commentUser);
 		this.commentSrv
 			.create(comment)
-			.pipe(switchMap((_) => this.taskSrv.update({ id: this._task.id, comments })))
+			.pipe(tap((_) => this.listHelper.update({ id: this._task.id, comments })))
 			.subscribe();
 	}
 
@@ -109,7 +98,7 @@ export class TaskPreviewComponent extends AutoUnsub implements OnInit, OnChanges
 		const text = `Are you sure you want to delete this task ?`;
 		this.dlgCommonSrv
 			.openConfirmDlg({ text })
-			.data$.pipe(switchMap((_) => this.taskSrv.delete(task.id)))
+			.data$.pipe(tap((_) => this.listHelper.delete(task.id)))
 			.subscribe((_) => this.close.emit());
 	}
 

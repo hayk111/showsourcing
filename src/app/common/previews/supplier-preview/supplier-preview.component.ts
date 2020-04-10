@@ -4,29 +4,26 @@ import {
 	ElementRef,
 	EventEmitter,
 	Input,
-	OnChanges,
 	OnInit,
 	Output,
 	ViewChild,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable, of } from 'rxjs';
-import { switchMap, takeUntil } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { switchMap, tap } from 'rxjs/operators';
 import { SampleCatalogComponent } from '~common/catalogs/sample-catalog/sample-catalog.component';
 import { TaskCatalogComponent } from '~common/catalogs/task-catalog/task-catalog.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { SupplierDescriptor } from '~core/descriptors';
-import { SupplierService } from '~core/erm';
-import { CommentService } from '~core/erm';
-import { ExtendedFieldDefinitionService } from '~core/erm';
-import { AppImage, Comment, ERM, ExtendedFieldDefinition } from '~core/erm';
+import { AppImage, Comment, CommentService, ERM, ExtendedFieldDefinition } from '~core/erm';
 import { Supplier } from '~core/erm3/models';
+import { ApiService } from '~core/erm3/services/api.service';
+import { ListHelperService } from '~core/list-page2';
 import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
 import { PreviewCommentComponent, PreviewService } from '~shared/preview';
 import { RatingDashboardComponent } from '~shared/rating';
 import { AutoUnsub, translate } from '~utils';
-import { ApiService } from '~core/erm3/services/api.service';
 
 @Component({
 	selector: 'supplier-preview-app',
@@ -34,7 +31,7 @@ import { ApiService } from '~core/erm3/services/api.service';
 	styleUrls: ['./supplier-preview.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SupplierPreviewComponent extends AutoUnsub implements OnChanges, OnInit {
+export class SupplierPreviewComponent extends AutoUnsub implements OnInit {
 	@Input() supplier: Supplier;
 	@Input() canClose = true;
 	/** wether we display it as a preview or part of a component (supplier details) */
@@ -59,11 +56,10 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnChanges, On
 	fieldDefinitions$: Observable<ExtendedFieldDefinition[]>;
 
 	constructor(
-		private supplierSrv: SupplierService,
+		private listHelper: ListHelperService,
 		private commentSrv: CommentService,
 		private previewSrv: PreviewService,
 		private router: Router,
-		private extendedFieldDefSrv: ExtendedFieldDefinitionService,
 		public dlgCommonSrv: DialogCommonService,
 		public translateService: TranslateService,
 		private apiSrv: ApiService
@@ -90,40 +86,30 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnChanges, On
 			'lastUpdatedDate',
 		]);
 
-		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({
-			query: 'target == "supplier.extendedFields"',
-			sortBy: 'order',
-		});
-	}
-
-	ngOnChanges() {
-		// if (this.shouldSelect && this.supplier) {
-		// 	this.supplier$ = this.supplierSrv.selectOne(this.supplier.id).pipe(takeUntil(this._destroy$));
-		// 	this.supplier$.subscribe((s) => (this.supplier = s));
-		// } else {
-		// 	this.supplier$ = of(this.supplier);
-		// }
+		// this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "supplier.extendedFields"', sortBy: 'order' });
 	}
 
 	// UPDATE FUNCTIONS
 	updateSupplier(supplier: Supplier) {
-		this.supplierSrv.update({ id: this.supplier.id, ...supplier }).subscribe();
+		const newSupplier = { ...supplier, id: this.supplier.id, _version: this.supplier._version };
+		this.listHelper.update(newSupplier);
+		this.supplier = newSupplier;
 	}
 
 	update(value: any, prop: string) {
-		this.supplierSrv.update({ id: this.supplier.id, [prop]: value }).subscribe();
+		this.updateSupplier({ [prop]: value });
 	}
 
 	addComment(comment: Comment) {
-		// // if we don't specify the user, when we get out of the preview and then comeback, the info displayed will be without the user info
-		// // const commentUser = { ...comment, createdBy: this.userSrv.userSync };
-		// const commentUser = { ...comment };
-		// const comments = [...(this.supplier.comments || [])];
-		// comments.push(commentUser);
-		// this.commentSrv
-		// 	.create(comment)
-		// 	.pipe(switchMap((_) => this.supplierSrv.update({ id: this.supplier.id, comments })))
-		// 	.subscribe();
+		// if we don't specify the user, when we get out of the preview and then comeback, the info displayed will be without the user info
+		// const commentUser = { ...comment, createdBy: this.userSrv.userSync };
+		const commentUser = { ...comment };
+		const comments = [...(this.supplier.comments || [])];
+		comments.push(commentUser);
+		this.commentSrv
+			.create(comment)
+			.pipe(tap((_) => this.listHelper.update({ id: this.supplier.id, comments })))
+			.subscribe();
 	}
 
 	delete(supplier: Supplier) {
@@ -144,18 +130,18 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnChanges, On
 	}
 
 	deleteImage(image: AppImage) {
-		// const images = this.supplier.images.filter((img) => image.id !== img.id);
-		// this.supplierSrv.update({ id: this.supplier.id, images }).subscribe();
+		const images = this.supplier.images.filter((img) => image.id !== img.id);
+		this.listHelper.update({ id: this.supplier.id, images });
 	}
 
 	// ACTIONS
 	openCreateSample() {
-		this.dlgCommonSrv.openCreationDlg('Sample', {supplier: this.supplier});
+		this.dlgCommonSrv.openCreationDlg('Sample', { supplier: this.supplier });
 		// TODO create Sample
 	}
 
 	openCreateTask() {
-		this.dlgCommonSrv.openCreationDlg('Task', {supplier: this.supplier});
+		this.dlgCommonSrv.openCreationDlg('Task', { supplier: this.supplier });
 		// TODO create Task
 	}
 

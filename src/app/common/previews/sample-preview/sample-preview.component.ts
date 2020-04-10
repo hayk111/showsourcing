@@ -3,20 +3,23 @@ import {
 	Component,
 	EventEmitter,
 	Input,
-	OnChanges,
 	OnInit,
 	Output,
 	ViewChild,
 } from '@angular/core';
-import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { switchMap, takeUntil } from 'rxjs/operators';
+import { switchMap, tap } from 'rxjs/operators';
 import { SampleDescriptor } from '~core/descriptors';
-import { SampleService, UserService } from '~core/erm';
-import { CommentService } from '~core/erm';
-import { ExtendedFieldDefinitionService } from '~core/erm';
-import { Comment, ERM, ExtendedFieldDefinition, Product } from '~core/erm';
+import {
+	Comment,
+	CommentService,
+	ERM,
+	ExtendedFieldDefinition,
+	Product,
+	UserService,
+} from '~core/erm';
 import { Sample } from '~core/erm3/models';
+import { ListHelperService } from '~core/list-page2';
 import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
 import { PreviewCommentComponent, PreviewService } from '~shared/preview';
 import { AutoUnsub } from '~utils';
@@ -29,7 +32,7 @@ import { ApiService } from '~core/erm3/services/api.service';
 	styleUrls: ['./sample-preview.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SamplePreviewComponent extends AutoUnsub implements OnInit, OnChanges {
+export class SamplePreviewComponent extends AutoUnsub implements OnInit {
 	private _sample: Sample;
 	@Input() set sample(value: Sample) {
 		this._sample = value;
@@ -52,13 +55,11 @@ export class SamplePreviewComponent extends AutoUnsub implements OnInit, OnChang
 	fieldDefinitions$: Observable<ExtendedFieldDefinition[]>;
 
 	constructor(
+		private listHelper: ListHelperService,
 		private commentSrv: CommentService,
-		private router: Router,
 		private userSrv: UserService,
-		private sampleSrv: SampleService,
 		private previewSrv: PreviewService,
 		private dlgCommonSrv: DialogCommonService,
-		private extendedFieldDefSrv: ExtendedFieldDefinitionService,
 		private apiSrv: ApiService
 	) {
 		super();
@@ -77,35 +78,29 @@ export class SamplePreviewComponent extends AutoUnsub implements OnInit, OnChang
 			{ name: 'price', label: 'sample-price' },
 		]);
 
-		this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({
-			query: 'target == "sample.extendedFields"',
-			sortBy: 'order',
-		});
-	}
-
-	ngOnChanges() {
-		// this.sample$ = this.sampleSrv.selectOne(this._sample.id);
-		// this.sample$.pipe(takeUntil(this._destroy$)).subscribe((s) => (this._sample = s));
+		// this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "sample.extendedFields"', sortBy: 'order' });
 	}
 
 	// UPDATES
 	update(value: any, prop: string) {
-		this.sampleSrv.update({ id: this._sample.id, [prop]: value }).subscribe();
+		this.updateSample({ [prop]: value });
 	}
 
 	updateSample(sample: Sample) {
-		this.sampleSrv.update({ id: this._sample.id, ...sample }).subscribe();
+		const newSample = { ...sample, id: this.sample.id, _version: this.sample._version };
+		this.listHelper.update(newSample);
+		this._sample = newSample;
 	}
 
 	addComment(comment: Comment) {
-		// // if we don't specify the user, when we get out of the preview and then comeback, the info displayed will be without the user info
-		// const commentUser = { ...comment, createdBy: this.userSrv.userSync };
-		// const comments = [...(this._sample.comments || [])];
-		// comments.push(commentUser as any);
-		// this.commentSrv
-		// 	.create(comment)
-		// 	.pipe(switchMap((_) => this.sampleSrv.update({ id: this._sample.id, comments })))
-		// 	.subscribe();
+		// if we don't specify the user, when we get out of the preview and then comeback, the info displayed will be without the user info
+		const commentUser = { ...comment, createdBy: this.userSrv.userSync };
+		const comments = [...(this._sample.comments || [])];
+		comments.push(commentUser as any);
+		this.commentSrv
+			.create(comment)
+			.pipe(tap((_) => this.listHelper.update({ id: this._sample.id, comments })))
+			.subscribe();
 	}
 
 	delete(sample: Sample) {

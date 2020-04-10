@@ -196,7 +196,7 @@ export class ProductsBoardComponent extends AutoUnsub implements OnInit {
 
 		this.dlgCommonSrv.openConfirmDlg({text}).data$
 			.pipe(
-				switchMap(_ => this.listSrv.dataSrv.deleteMany(itemIds)) // TODO update listSrv
+				switchMap(_ => this.listSrv.dataSrv.deleteMany(itemIds))
 			)
 			.subscribe(_ => {
 				this.selectionSrv.unselectAll();

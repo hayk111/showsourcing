@@ -5,42 +5,34 @@ import {
 	ElementRef,
 	EventEmitter,
 	Input,
-	OnChanges,
 	OnInit,
 	Output,
 	ViewChild,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { first, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { first, switchMap, tap } from 'rxjs/operators';
 import { SampleCatalogComponent } from '~common/catalogs/sample-catalog/sample-catalog.component';
 import { TaskCatalogComponent } from '~common/catalogs/task-catalog/task-catalog.component';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { ProductDescriptor } from '~core/descriptors';
-import { CommentService } from '~core/erm';
-import { ExtendedFieldDefinitionService } from '~core/erm';
-import { ProductService, SampleService, TaskService } from '~core/erm';
 import {
 	AppImage,
 	Comment,
-	EntityName,
+	CommentService,
 	ERM,
 	ExtendedFieldDefinition,
 	Sample,
 	Task,
 } from '~core/erm';
-import { CloseEvent, CloseEventType } from '~shared/dialog';
-import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { Product } from '~core/erm3/models';
-import { DialogService } from '~shared/dialog/services';
+import { ApiService } from '~core/erm3/services/api.service';
+import { ListHelperService } from '~core/list-page2';
 import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { PreviewCommentComponent, PreviewService } from '~shared/preview';
 import { RatingDashboardComponent } from '~shared/rating';
 import { AutoUnsub, PendingImage } from '~utils';
-import { ApiService } from '~core/erm3/services/api.service';
-import { Typename } from '~core/erm3/typename.type';
-import { ListHelperService } from '~core/list-page2';
 
 @Component({
 	selector: 'product-preview-app',
@@ -100,11 +92,13 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 		public dlgCommonSrv: DialogCommonService,
 		private uploader: UploaderService,
 		private cd: ChangeDetectorRef,
-		private dlgSrv: DialogService,
+		private apiSrv: ApiService,
 		private router: Router,
 		private commentSrv: CommentService,
-		private previewSrv: PreviewService,
-	) { super(); }
+		private previewSrv: PreviewService
+	) {
+		super();
+	}
 
 	ngOnInit() {
 		this.productDescriptor1 = new ProductDescriptor([
@@ -150,8 +144,8 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 
 	// UPDATE FUNCTIONS
 	updateProduct(productConfig: any) {
-		const product = ({ ...productConfig, id: this._product.id });
-		this.listHelper.update(product, {_version: this._product._version});
+		const product = { ...productConfig, id: this._product.id, _version: this._product._version };
+		this.listHelper.update(product);
 		this._product = product;
 	}
 
@@ -173,9 +167,10 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 		const commentUser = { ...comment };
 		const comments = [...(this._product.comments || [])];
 		comments.push(commentUser);
-		this.commentSrv.create(comment).pipe(
-			tap(_ => this.listHelper.update({ id: this._product.id, comments }))
-		).subscribe();
+		this.commentSrv
+			.create(comment)
+			.pipe(tap((_) => this.listHelper.update({ id: this._product.id, comments })))
+			.subscribe();
 	}
 
 	/** when adding a new image, by selecting in the file browser or by dropping it on the component */
@@ -211,10 +206,9 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 		this.dlgCommonSrv.openConfirmDlg({ text }).data$
 			.pipe(
 				tap(_ => this.listHelper.delete(product)),
-				tap(prod => {
-					this.close.emit();
-				})
+				tap(prod => this.close.emit())
 			).subscribe();
+
 	}
 
 	archive() {
@@ -248,7 +242,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 				supplier: this.product && this.product.supplier,
 			})
 			.data$.subscribe();
-			// TODO create Task
+		// TODO create Task
 	}
 
 	openCreateSample() {

@@ -149,16 +149,13 @@ export class ApiService {
 		const options = apiOptions as WatchQueryOptions;
 		if (!variables.sort?.direction)
 			variables.sort = {property: 'createdAt', direction: 'DESC'};
-		options.variables = variables;
 
 		const queryBuilder = QueryPool.getQuery(typename, QueryType.SEARCH_BY);
+
 		options.query = queryBuilder(byTypeName);
 		options.variables = {
 			[byTypeName.toLowerCase() + 'Ids']: byIds,
-			take: variables.take,
-			skip: variables.skip,
-			filter: variables.filter,
-			sort: variables.sort,
+			...variables
 		};
 
 		const query = this.query<T[]>(options);
@@ -210,7 +207,7 @@ export class ApiService {
 		if (typename !== 'Company' && typename !== 'Team') {
 			entity.id = uuid();
 			entity.createdAt = new Date().toISOString();
-			// entity.createdByUserId = this._userId; // TODO to add
+			entity.createdByUserId = this._userId;
 			entity.teamId = this._teamId;
 		}
 		options.variables = { input: { ...entity } };
@@ -237,7 +234,6 @@ export class ApiService {
 			entity.lastUpdatedAt = new Date().toISOString();
 			entity.lastUpdatedByUserId = this._userId;
 			entity.teamId = this._teamId;
-			entity._version = (options as any)._version;
 		}
 		options.variables = { input: entity };
 		options.mutation = QueryPool.getQuery(typename, QueryType.UPDATE);
