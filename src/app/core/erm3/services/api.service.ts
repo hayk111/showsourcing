@@ -207,7 +207,7 @@ export class ApiService {
 		if (typename !== 'Company' && typename !== 'Team') {
 			entity.id = uuid();
 			entity.createdAt = new Date().toISOString();
-			entity.createdByUserId = this._userId;
+			// entity.createdByUserId = this._userId;
 			entity.teamId = this._teamId;
 		}
 		options.variables = { input: { ...entity } };
@@ -232,7 +232,7 @@ export class ApiService {
 		entity.__typename = typename;
 		if (typename !== 'Company' && typename !== 'Team') {
 			entity.lastUpdatedAt = new Date().toISOString();
-			entity.lastUpdatedByUserId = this._userId;
+			// entity.lastUpdatedByUserId = this._userId;
 			entity.teamId = this._teamId;
 		}
 		options.variables = { input: entity };
@@ -271,7 +271,7 @@ export class ApiService {
 		};
 		if (typename !== 'Company' && typename !== 'Team') {
 			options.variables.input.deletedAt = new Date().toISOString();
-			options.variables.input.deletedByUserId = this._userId;
+			// options.variables.input.deletedByUserId = this._userId;
 			options.variables.input.teamId = this._teamId;
 		}
 		options.mutation = QueryPool.getQuery(typename, QueryType.DELETE);

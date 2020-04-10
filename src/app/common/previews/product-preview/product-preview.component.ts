@@ -203,12 +203,12 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 
 	delete(product: Product) {
 		const text = `Are you sure you want to delete this product ?`;
-		this.dlgCommonSrv.openConfirmDlg({ text }).data$
-			.pipe(
-				tap(_ => this.listHelper.delete(product)),
-				tap(prod => this.close.emit())
-			).subscribe();
-
+		this.dlgCommonSrv
+			.openConfirmDlg({ text })
+			.data$.pipe(tap((_) => this.apiSrv.delete('Product', product)))
+			.subscribe((prod) => {
+				this.close.emit();
+			});
 	}
 
 	archive() {
@@ -252,11 +252,11 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 				supplier: this.product && this.product.supplier,
 			})
 			.data$.subscribe();
-			// TODO create Sample
+		// TODO create Sample
 	}
 
 	openExportModal() {
-		this.dlgCommonSrv.openExportDlg( 'Product', [this.product]);
+		this.dlgCommonSrv.openExportDlg('Product', [this.product]);
 	}
 
 	// TAB SELECTION
