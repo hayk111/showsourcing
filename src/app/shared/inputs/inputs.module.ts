@@ -15,7 +15,8 @@ import {
 	TextareaAutoGrowsDirective,
 	FormFieldControlDirective,
 	InputPackagingComponent,
-	InputPriceComponent
+	InputPriceComponent,
+	FocusableDirective
 } from '~shared/inputs/components-directives';
 import { UtilsModule } from '~shared/utils';
 
@@ -26,6 +27,7 @@ export const components = [
 	// maybe input directive is enough
 	FormFieldControlDirective,
 	InputDirective,
+	FocusableDirective,
 	CheckboxComponent,
 	RestrictInputDirective,
 	RestrictSpecialInputDirective,

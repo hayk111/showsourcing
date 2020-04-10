@@ -8,7 +8,8 @@
 				#inp
 				inputApp
 				type="text"
-				[value]="control.value"
+				[required]="field.required"
+				[readonly]="field.readonly"
 				[formControl]="control"/>
 			<hint-app>{{ field.hint }}</hint-app>
 		</form-field-app>
@@ -38,7 +39,6 @@
 				#inp
 				inputApp
 				restrictInput="tel"
-				[value]="control.value"
 				[readonly]="field.readonly"
 				[required]="field.required"
 				[formControl]="control"/>
@@ -55,7 +55,6 @@
 				inputApp
 				type="email"
 				restrictInput="email"
-				[value]="control.value"
 				[readonly]="field.readonly"
 				[required]="field.required"
 				[formControl]="control"/>
@@ -73,7 +72,6 @@
 				restrictInput="decimal"
 				type="number"
 				step="any"
-				[value]="control.value"
 				[readonly]="field.readonly"
 				[required]="field.required"
 				[formControl]="control"/>
@@ -88,7 +86,6 @@
 			<textarea 
 				#inp
 				inputApp
-				[value]="control.value"
 				[readonly]="field.readonly"
 				[required]="field.required"
 				[formControl]="control">
@@ -121,11 +118,20 @@
 		<input-packaging-app
 			[readonly]="field.readonly"
 			[required]="field.required" 
-			[formControl]="control"></input-packaging-app>
+			[formControl]="control">
+		</input-packaging-app>
 	</ng-container>
 
 	<!-- PRICE -->
 	<ng-container *ngSwitchCase="'PRICE'">
-		<!-- <input-packaging-app [formControl]="control"></input-packaging-app> -->
+		<form-field-app>
+			<label-app>{{ field.definition.label }}</label-app>
+			<input-price2-app 
+				inputApp 
+				[readonly]="field.readonly"
+				[required]="field.required"
+				[formControl]="control">
+			</input-price2-app>
+		</form-field-app>
 	</ng-container>
 </ng-container>

@@ -2,6 +2,7 @@ import { Directive, ElementRef, Input, Optional, Self, OnChanges } from '@angula
 import { NgControl } from '@angular/forms';
 import { FormFieldControlDirective } from '~shared/inputs/components-directives/form-field-control.directive';
 import { Subject } from 'rxjs';
+import { FocusableDirective } from './focusable.directive';
 
 const supportedTypes = new Set([
 	'color',
@@ -32,28 +33,21 @@ const supportedTypes = new Set([
 		'[attr.id]': 'id',
 	},
 })
-export class InputDirective implements OnChanges {
+export class InputDirective extends FocusableDirective implements OnChanges {
 	protected static NEXT_UID = 0;
 	@Input() id: string = 'inp-' + InputDirective.NEXT_UID++;
 	readonly stateChanges: Subject<void> = new Subject<void>();
+	/** this is here so the form field can detect if it's required and put
+	 * an asterix
+	 */
+	@Input() required = false;
 
-	@Input() private required = false;
-
-	// @Input()
-	// get disabled(): boolean {
-	// 	if (this.control && this.control.disabled !== null) {
-	// 		return this.control.disabled;
-	// 	}
-	// 	return this._disabled;
-	// }
-	// set disabled(value: boolean) {
-	// 	this._disabled = coerceBooleanProperty(value);
-	// 	this.stateChanges.next();
-	// }
-	// private _disabled: boolean;
-	@Input() disabled;
-
-	constructor(@Optional() @Self() public control: NgControl) {}
+	constructor(
+		protected elRef: ElementRef,
+		@Optional() @Self() public control: NgControl
+	) {
+		super(elRef);
+	}
 
 	ngOnChanges() {
 		this.stateChanges.next();

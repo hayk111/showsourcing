@@ -4,6 +4,8 @@
 	<input 	
 		inputApp
 		type="text"
+		[readonly]="readonly"
+		[required]="required"
 		[(ngModel)]="value.currency"
 		(blur)="onTouchedFn()"
 		(input)="onChangeFn(value)"/>
@@ -15,6 +17,8 @@
 		inputApp
 		type="number" 
 		restrictInput="number"
+		[readonly]="readonly"
+		[required]="required"
 		[(ngModel)]="value.amount"
 		(blur)="onTouchedFn()"
 		(input)="onChangeFn(value)"/>

@@ -2,6 +2,7 @@ export * from './abstract-input.class';
 export * from './checkbox/checkbox.component';
 export * from './error/error.component';
 export * from './hint/hint.component';
+export * from './focusable.directive';
 export * from './form-field/form-field.component';
 export * from './form-field-control.directive';
 export * from './input-packaging/input-packaging.component';

@@ -46,12 +46,6 @@ export class CheckboxComponent extends AbstractInput {
 		}
 	}
 
-	focusClick() {
-		if (!this.disabled) {
-			this.onClick();
-			this.tab.focus();
-		}
-	}
 
 	private emit() {
 		this.onChangeFn(this.value);
@@ -72,6 +66,15 @@ export class CheckboxComponent extends AbstractInput {
 		return {
 			'height': `${this.size}px`,
 			'width': `${this.size}px`
+		};
+	}
+
+	getClassList() {
+		return {
+			'mg-right-s': this.hasContent,
+			'readonly': this.readonly,
+			'checked': this.value,
+			'unchecked': !this.value
 		};
 	}
 
