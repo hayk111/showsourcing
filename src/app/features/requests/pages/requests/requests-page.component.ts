@@ -9,11 +9,9 @@ import {
 	SelectParamsConfig,
 	SupplierRequest,
 	SupplierRequestService,
-	TeamService
+	TeamService,
 } from '~core/erm';
 import { ListPageService, SelectionService } from '~core/list-page';
-import { DialogService } from '~shared/dialog';
-import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { FilterType } from '~shared/filters';
 import { AutoUnsub } from '~utils';
 
@@ -24,8 +22,8 @@ import { AutoUnsub } from '~utils';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [ListPageService, SelectionService],
 	host: {
-		class: 'table-page'
-	}
+		class: 'table-page',
+	},
 })
 export class RequestsPageComponent extends AutoUnsub implements OnInit {
 	erm = ERM;
@@ -38,8 +36,7 @@ export class RequestsPageComponent extends AutoUnsub implements OnInit {
 		private requestSrv: SupplierRequestService,
 		private replySrv: RequestReplyService,
 		public listSrv: ListPageService<SupplierRequest, SupplierRequestService>,
-		public dialogCommonSrv: DialogCommonService,
-		private dlgSrv: DialogService,
+		public dlgCommonSrv: DialogCommonService,
 		private teamSrv: TeamService,
 		private selectionSrv: SelectionService
 	) {
@@ -56,16 +53,16 @@ export class RequestsPageComponent extends AutoUnsub implements OnInit {
 				'recipient.email',
 				'recipient.company',
 				'templateName',
-				'requestElements.name'
+				'requestElements.name',
 			],
 			entityMetadata: ERM.SUPPLIER_REQUEST,
 			initialFilters: [
 				{
 					type: FilterType.CUSTOM,
-					value: `senderTeamId == "${this.teamSrv.selectedTeamSync.id}"`
-				}
+					value: `senderTeamId == "${this.teamSrv.selectedTeamSync.id}"`,
+				},
 			],
-			originComponentDestroy$: this._destroy$
+			originComponentDestroy$: this._destroy$,
 		});
 	}
 
@@ -73,15 +70,15 @@ export class RequestsPageComponent extends AutoUnsub implements OnInit {
 		// TODO i18n
 		const text = 'Are you sure you want to cancel this request ?';
 		const action = 'Cancel request';
-		const items = request.requestElements.map(element => ({
+		const items = request.requestElements.map((element) => ({
 			id: element.reply.id,
-			status: ReplyStatus.CANCELED
+			status: ReplyStatus.CANCELED,
 		}));
-		this.dlgSrv
-			.open(ConfirmDialogComponent, { text, action })
-			.pipe(
-				switchMap(_ => this.replySrv.updateMany(items)),
-				switchMap(_ => this.listSrv.refetch())
+		this.dlgCommonSrv
+			.openConfirmDlg({ text, action })
+			.data$.pipe(
+				switchMap((_) => this.replySrv.updateMany(items)),
+				switchMap((_) => this.listSrv.refetch())
 			)
 			.subscribe();
 	}
@@ -93,14 +90,14 @@ export class RequestsPageComponent extends AutoUnsub implements OnInit {
 		const items = this.selectionSrv
 			.getSelectionValues()
 			.reduce((acc, request) => acc.concat(request.requestElements), [])
-			.map(element => ({ id: element.reply.id, status: ReplyStatus.CANCELED }));
-		this.dlgSrv
-			.open(ConfirmDialogComponent, { text, action })
-			.pipe(
-				switchMap(_ => this.replySrv.updateMany(items)),
-				switchMap(_ => this.listSrv.refetch())
+			.map((element) => ({ id: element.reply.id, status: ReplyStatus.CANCELED }));
+		this.dlgCommonSrv
+			.openConfirmDlg({ text, action })
+			.data$.pipe(
+				switchMap((_) => this.replySrv.updateMany(items)),
+				switchMap((_) => this.listSrv.refetch())
 			)
-			.subscribe(_ => this.selectionSrv.unselectAll());
+			.subscribe((_) => this.selectionSrv.unselectAll());
 	}
 
 	showItemsPerPage(count: number) {

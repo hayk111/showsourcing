@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, OnChanges } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { User } from 'getstream';
 import { TaskService } from '~core/erm';
@@ -41,10 +41,6 @@ export class TasksTableComponent extends EntityTableComponent<Task> implements O
 		public translate: TranslateService,
 		public taskSrv: TaskService
 	) { super(); }
-
-	ngOnInit() {
-		console.log('TasksTableComponent -> ngOnInit -> this.rows', this.rows);
-	}
 
 	getColor(task: Task) {
 		if (task.done)

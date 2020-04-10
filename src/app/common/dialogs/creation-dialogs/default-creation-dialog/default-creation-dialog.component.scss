@@ -1,6 +1,12 @@
 dialog-app {
 	width: 464px;
 	display: block;
+
+	dialog-footer-app {
+		> *:not(:last-child) {
+			margin-right: var(--spacing-ms);
+		}
+	}
 }
 spinner-app {
 	margin: 1rem auto auto 1rem;

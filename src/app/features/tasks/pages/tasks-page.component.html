@@ -18,9 +18,9 @@
 </controller-table-app>
 
 <task-table-app
-	[rows]="listHelper.filteredItems$ | async"
+	[rows]="listHelper.paginedItems$ | async"
 	[selection]="selectionSrv.selection$ | async"
-	[pending]="listHelper.pending"
+	[pending]="false"
 	(update)="listHelper.update($event)"
 	(select)="selectionSrv.selectOne($event, true)"
 	(unselect)="selectionSrv.unselectOne($event, true)"
@@ -36,7 +36,7 @@
 <task-selection-bar-app
 	[isShown]="(selectionSrv.selection$ | async)?.size > 0"
 	[selection]="selectionSrv.selection$ | async"
-	[selectableItems]="listHelper.filteredItems$ | async"
+	[selectableItems]="listHelper.paginedItems$ | async"
 	(close)="selectionSrv.unselectAll()"
 	(deleteSelected)="listHelper.deleteSelected(true)"
 	(selectAll)="selectionSrv.selectAll($event)"

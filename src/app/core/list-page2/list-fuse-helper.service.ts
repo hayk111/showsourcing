@@ -16,8 +16,10 @@ import { Typename } from '~core/erm3/typename.type';
 import { FilterService, FilterType } from '~core/filters';
 import { TeamService } from '~core/auth';
 import { SelectionService } from './selection.service';
-import { CloseEventType, DialogService } from '~shared/dialog';
-import { CreationDialogComponent } from '~common/dialogs/creation-dialogs';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
+import { Entity } from '~core/erm3/models/_entity.model';
+import { DefaultCreationDialogComponent } from '~common/dialogs/creation-dialogs';
+import { DialogService } from '~shared/dialog';
 import { PaginationService } from '~shared/pagination/services/pagination.service';
 import { SortService } from '~shared/table/services/sort.service';
 import * as uuid from 'uuid';
@@ -54,7 +56,6 @@ export class ListFuseHelperService<G = any> {
 			else return this.queryRef.data$;
 		}),
 		tap((searchedDatas) => {
-			console.log('UPDATE TOTAL : ', searchedDatas.length);
 			this._total$.next(searchedDatas.length);
 		})
 	);
@@ -125,20 +126,19 @@ export class ListFuseHelperService<G = any> {
 
 	create(addedProperties: any) {
 		this.dlgSrv
-			.open(CreationDialogComponent, {
+			.open(DefaultCreationDialogComponent, {
 				typename: this.typename,
 				extra: addedProperties,
 			})
-			.pipe(
-				filter((closeEvent) => closeEvent.type === CloseEventType.OK),
-				map((closeEvent) => closeEvent.data),
-				tap((entity) => this.apiSrv.addToList(this.queryRef, {
-					id: uuid(),
-					_version: 0,
-					__typename: this.typename,
-					...entity
-				})),
-				switchMap((entity) => this.apiSrv.create(this.typename, entity)),
+			.data$.pipe(
+				tap((entity) =>
+					this.apiSrv.addToList(this.queryRef, {
+						id: uuid(),
+						__typename: this.typename,
+						...entity,
+					})
+				),
+				switchMap((entity) => this.apiSrv.create(this.typename, entity))
 			)
 			.subscribe();
 	}

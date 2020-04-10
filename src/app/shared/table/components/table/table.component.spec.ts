@@ -13,7 +13,7 @@ import { TableModule } from '../../table.module';
 import { By } from '@angular/platform-browser';
 import { ColumnDirective } from '~shared/table/components/column.directive';
 import { EntityTableComponent } from '~common/tables/entity-table.component';
-import { Sort } from '~shared/table/components/sort.interface';
+import { Sort } from '~core/erm3/services/api.service';
 import { Subscription } from 'rxjs';
 
 class Item {

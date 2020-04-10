@@ -8,14 +8,13 @@ import {
 	Output,
 	ViewChild,
 } from '@angular/core';
-import { filter, switchMap, takeUntil } from 'rxjs/operators';
+import { switchMap, takeUntil } from 'rxjs/operators';
 import { AttachmentService } from '~core/erm';
 import { Attachment } from '~core/erm';
-import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
-import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback.service';
 import { AutoUnsub } from '~utils/auto-unsub.component';
 import { TranslateService } from '@ngx-translate/core';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 
 @Component({
 	selector: 'file-list-app',
@@ -41,7 +40,7 @@ export class FileListComponent extends AutoUnsub implements OnInit {
 
 	constructor(
 		private uploaderFeedback: UploaderFeedbackService,
-		private dlgSrv: DialogService,
+		private dlgCommonSrv: DialogCommonService,
 		private attachmentSrv: AttachmentService,
 		private translate: TranslateService
 	) {
@@ -64,13 +63,12 @@ export class FileListComponent extends AutoUnsub implements OnInit {
 
 		event.stopPropagation();
 		if (this.showConfirmOnDelete) {
-			this.dlgSrv.open(ConfirmDialogComponent, {
+			this.dlgCommonSrv.openConfirmDlg({
 				text: this.translate.instant('message.remove-1-file')
-			}).pipe(
-				filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
-				switchMap(_ => this.removeFile(file)),
-				takeUntil(this._destroy$),
-			).subscribe(_ => this.deleted.emit(file));
+			}).data$.pipe(
+					switchMap(_ => this.removeFile(file)),
+					takeUntil(this._destroy$),
+				).subscribe(_ => this.deleted.emit(file));
 		} else {
 			this.removeFile(file).subscribe();
 			this.deleted.emit(file);

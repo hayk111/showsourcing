@@ -28,4 +28,5 @@ export class Sample extends Entity<Sample> {
 	archived?: boolean | null;
 	reference?: string | null;
 	referenceKey?: number | null;
+	comments?: any;
 }
