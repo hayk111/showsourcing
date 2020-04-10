@@ -3,7 +3,7 @@ import { NgControl } from '@angular/forms';
 import { Subject } from 'rxjs';
 
 
-
+/** @Deprecated */
 @Directive({
 	selector: '[formFieldCtrl]',
 	host: {
