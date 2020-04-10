@@ -141,8 +141,8 @@ export class ApiService {
 	 */
 	searchBy<T>(
 		typename: Typename,
-		variables?: FilterParams,
-		apiOptions: ApiQueryOption = {fetchPolicy: 'network-only'},
+		variables: FilterParams = {},
+		apiOptions: ApiQueryOption = {fetchPolicy: 'cache-and-network'},
 		byTypeName: Typename = 'Team',
 		byIds: string[] = [this._teamId]
 	): ObservableQuery<T[]> {
