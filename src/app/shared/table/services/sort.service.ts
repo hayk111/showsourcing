@@ -9,20 +9,24 @@ export class SortService {
 	private _sort$ = new BehaviorSubject<Sort>(undefined);
 	sort$ = this._sort$.asObservable();
 
-	toggleSort(field: string) {
-		if (!this.currentSort || this.currentSort.field !== field) {
-			this.currentSort = { field, direction: 'ASC' };
+	constructor() {
+		this._sort$.next(this.currentSort);
+	}
+
+	toggleSort(property: string) {
+		if (!this.currentSort || this.currentSort.property !== property) {
+			this.currentSort = { property, direction: 'ASC' };
 		} else {
 			const newDirection = this.currentSort.direction === 'ASC' ? 'DESC' : 'ASC';
-			this.currentSort = { field, direction: newDirection };
+			this.currentSort = { property, direction: newDirection };
 		}
 		this._sort$.next(this.currentSort);
 	}
 
-	isSorted(field: string) {
+	isSorted(property: string) {
 		if (!this.currentSort)
 			return false;
 		else
-			return this.currentSort.field === field;
+			return this.currentSort.property === property;
 	}
 }

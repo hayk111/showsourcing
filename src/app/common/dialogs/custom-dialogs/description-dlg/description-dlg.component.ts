@@ -36,12 +36,13 @@ export class DescriptionDlgComponent {
 	}
 
 	save() {
-		this.description = this.txtAreaDesc.trim();
-		this.dlgSrv.close({ type: CloseEventType.OK, data: { description: this.description } });
+		const description = this.txtAreaDesc.trim();
+		this.dlgSrv.data({description});
+		this.dlgSrv.close();
 	}
 
-	close() {
-		this.dlgSrv.close({ type: CloseEventType.CANCEL });
+	cancel() {
+		this.dlgSrv.cancel();
 	}
 
 }

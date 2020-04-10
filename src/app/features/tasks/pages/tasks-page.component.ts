@@ -58,6 +58,7 @@ export class TasksPageComponent implements OnInit {
 
 	ngOnInit() {
 		this.listHelper.setup('Task');
+		this.viewSrv.setup({ typename: 'Task', destUrl: 'tasks', view: 'table' });
 	}
 
 
