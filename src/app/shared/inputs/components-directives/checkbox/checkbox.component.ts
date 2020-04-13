@@ -40,7 +40,7 @@ export class CheckboxComponent extends AbstractInput {
 	onClick(event?: MouseEvent) {
 		if (event)
 			event.stopPropagation();
-		if (!this.disabled) {
+		if (!this.disabled && !this.readonly) {
 			this.toggle();
 			this.emit();
 		}
@@ -72,7 +72,7 @@ export class CheckboxComponent extends AbstractInput {
 	getClassList() {
 		return {
 			'mg-right-s': this.hasContent,
-			'readonly': this.readonly,
+			'readonly': this.readonly || this.disabled,
 			'checked': this.value,
 			'unchecked': !this.value
 		};

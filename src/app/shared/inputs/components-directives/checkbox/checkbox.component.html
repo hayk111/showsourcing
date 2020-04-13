@@ -12,7 +12,7 @@
 
 	<label class="label" 
 		(click)="onClick()" 
-		[ngClass]="{ 'pointer': !disabled }" 
+		[ngClass]="{ 'pointer': !disabled && !readonly }" 
 		#label 
 		[attr.for]="id" 
 		class="flexVAlign">

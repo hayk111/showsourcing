@@ -7,8 +7,8 @@ const fields1 = [
 			name: 'string',
 		},
 		defaultValue: 'test string',
-		readonly: true,
-		required: false,
+		readonly: false,
+		required: true,
 		hint: 'This is an helpful message'
 	},
 	{
@@ -18,8 +18,8 @@ const fields1 = [
 			name: 'int',
 		},
 		defaultValue: 40,
-		readonly: true,
-		required: false,
+		readonly: false,
+		required: true,
 		hint: 'Field expressed in Kg'
 	},
 	{
@@ -29,8 +29,8 @@ const fields1 = [
 			name: 'email',
 		},
 		defaultValue: 'default@gmail.com',
-		readonly: true,
-		required: false
+		readonly: false,
+		required: true
 	},
 	{
 		definition: {
@@ -39,8 +39,8 @@ const fields1 = [
 			name: 'tel',
 		},
 		defaultValue: '+32',
-		readonly: true,
-		required: false,
+		readonly: false,
+		required: true,
 		hint: '+44 444 444 44'
 	},
 	{
@@ -50,8 +50,8 @@ const fields1 = [
 			name: 'float',
 		},
 		defaultValue: 0,
-		readonly: true,
-		required: false
+		readonly: false,
+		required: true
 	},
 ];
 
@@ -62,7 +62,7 @@ const fields2 = [
 			type: 'CHECKBOX',
 			name: 'checkbox',
 		},
-		readonly: true,
+		readonly: false,
 	},
 	{
 		definition: {
@@ -70,7 +70,8 @@ const fields2 = [
 			type: 'TEXTAREA',
 			name: 'textarea',
 		},
-		readonly: true
+		readonly: false,
+		required: true
 	},
 	{
 		definition: {
@@ -78,8 +79,8 @@ const fields2 = [
 			type: 'PACKAGING',
 			name: 'packaging',
 		},
-		required: false,
-		readonly: true
+		required: true,
+		readonly: false
 	},
 	{
 		definition: {
@@ -87,7 +88,8 @@ const fields2 = [
 			type: 'PRICE',
 			name: 'price',
 		},
-		required: false,
+		defaultValue: {},
+		required: true,
 		readonly: false
 	}
 ];

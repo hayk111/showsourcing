@@ -1,25 +1,23 @@
 
-<form-field-app class="currency mg-right-ms">
-	<label-app>Currency</label-app>
-	<input 	
-		inputApp
-		type="text"
-		[readonly]="readonly"
-		[required]="required"
-		[(ngModel)]="value.currency"
-		(blur)="onTouchedFn()"
-		(input)="onChangeFn(value)"/>
-</form-field-app>
 
-<form-field-app class="amount">
-	<label-app>Amount</label-app>
-	<input 
-		inputApp
-		type="number" 
-		restrictInput="number"
-		[readonly]="readonly"
-		[required]="required"
-		[(ngModel)]="value.amount"
-		(blur)="onTouchedFn()"
-		(input)="onChangeFn(value)"/>
-</form-field-app>
+<input 
+	inputApp
+	class="amount"
+	type="number" 
+	restrictInput="number"
+	placeholder="100"
+	[readonly]="readonly"
+	[(ngModel)]="value.amount"
+	(blur)="onTouchedFn()"
+	(input)="onChangeFn(value)"/>
+
+<!-- TODO replace with selectors	 -->
+<input 	
+	inputApp
+	class="currency"
+	type="text"
+	placeholder="USD"
+	[readonly]="readonly"
+	[(ngModel)]="value.currency"
+	(blur)="onTouchedFn()"
+	(input)="onChangeFn(value)"/>

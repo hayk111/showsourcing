@@ -19,7 +19,7 @@ const supportedTypes = new Set([
 	'url',
 	'week',
 ]);
-
+// TODO input directive shouldn't extend focusable and there shoud be 2 separate directives
 
 // Native input properties that are overwritten by Angular inputs need to be synced with
 // the native input element. Otherwise property bindings for those don't work.

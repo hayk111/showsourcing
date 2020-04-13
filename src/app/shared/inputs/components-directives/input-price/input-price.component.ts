@@ -1,5 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
-import { makeAccessorProvider, AbstractInput } from '../abstract-input.class';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { AbstractInput, makeAccessorProvider } from '../abstract-input.class';
 
 @Component({
 	selector: 'input-price2-app',
@@ -9,5 +9,5 @@ import { makeAccessorProvider, AbstractInput } from '../abstract-input.class';
 	providers: [makeAccessorProvider(InputPriceComponent)]
 })
 export class InputPriceComponent extends AbstractInput {
-	@Input() price: any = {};
+	@Input() value: any = {};
 }

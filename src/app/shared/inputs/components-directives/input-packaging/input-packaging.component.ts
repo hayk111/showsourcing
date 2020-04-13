@@ -15,6 +15,7 @@ export class InputPackagingComponent extends AbstractInput {
 	onChange(prop, value) {
 		const v = this.value;
 		v[prop] = value;
+		// when this is required we notify the change only xhen none of the value is null
 		if (this.required) {
 			if (
 				v.length !== null &&
