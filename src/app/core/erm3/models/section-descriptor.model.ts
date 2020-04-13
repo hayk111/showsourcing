@@ -1,9 +1,8 @@
-import { Typename } from '../typename.type';
-import { Entity } from './_entity.model';
-import { FieldDescriptor } from './field-descriptor.model';
+import { Entity } from '~core/erm/models';
+import { PropertyDescriptor } from './property-descriptor.model';
+
 
 export class SectionDescriptor extends Entity<SectionDescriptor> {
-	__typename?: Typename = 'SectionDescriptor';
 	name?: string;
-	fields?: Array<FieldDescriptor | null> | null;
+	properties: PropertyDescriptor[];
 }

@@ -12,13 +12,13 @@ export class DescriptorService {
 	descriptorToFormGroup(descriptor: Descriptor, options?: AbstractControlOptions): FormGroup {
 		const ctrls = {};
 		descriptor.sections
-			.forEach(section => section.fields.forEach(field => {
+			.forEach(section => section.properties.forEach(prop => {
 				const validators = [];
-				if (field.required) {
+				if (prop.required) {
 					validators.push(Validators.required);
 				}
-				ctrls[field.definition.name] = [
-					field.defaultValue || null,
+				ctrls[prop.definition.name] = [
+					prop.defaultValue || null,
 					...validators
 				];
 			})
@@ -29,8 +29,8 @@ export class DescriptorService {
 	descriptorToValueObject(descriptor: Descriptor) {
 		const obj = {};
 		descriptor.sections
-			.forEach(section => section.fields.forEach(field => {
-				obj[field.definition.name] = field.defaultValue || null;
+			.forEach(section => section.properties.forEach(prop => {
+				obj[prop.definition.name] = prop.defaultValue || null;
 			}));
 		return obj;
 	}

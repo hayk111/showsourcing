@@ -9,14 +9,14 @@
 			<h3 class="mg-v-m">{{ section.name }}</h3>
 			<div class="flex">
 				<div 
-					*ngFor="let fields of section.columns; let isLast = last"
+					*ngFor="let propertyDescriptors of section.columns; let isLast = last"
 					[ngClass]="{ 'mg-right-m': !isLast }"
 					[ngStyle]="{ 'flex-basis': 100 / section.columns.length + '%' }">
 					<dynamic-field-app
-						*ngFor="let field of fields" 
+						*ngFor="let descriptor of propertyDescriptors" 
 						class="mg-bottom-s"
-						[field]="field"
-						[control]="formGroup.controls[field.definition.name]">
+						[descriptor]="descriptor"
+						[control]="formGroup.controls[descriptor.definition.name]">
 					</dynamic-field-app>
 		
 				</div>
@@ -33,8 +33,7 @@
 			<div *ngFor="let column of section.columns">
 	
 				<dynamic-editable-field-app
-					*ngFor="let field of column" 
-					[field]="field">
+					*ngFor="let field of column" >
 				</dynamic-editable-field-app>
 	
 			</div>

@@ -1,8 +1,9 @@
-import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter,
+	Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ReplaySubject, Subject } from 'rxjs';
 import { map, switchMap, takeUntil } from 'rxjs/operators';
-import { Descriptor, FieldDescriptor } from '~core/erm3/models';
+import { Descriptor, PropertyDescriptor } from '~core/erm3/models';
 import { SectionWithColumns } from '~shared/descriptor/interfaces/section-with-columns.interface';
 import { DescriptorService } from '~shared/descriptor/services/descriptor.service';
 import { log } from '~utils/log';
@@ -84,13 +85,13 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 	private makeColumns() {
 		this.sections = this.descriptor.sections
 			.map(section => {
-				const fields = section.fields;
-				const fieldPerCol = Math.ceil(fields.length / this.columnAmount);
-				const columns: FieldDescriptor[][] = [];
+				const propertyDescriptors = section.properties;
+				const fieldPerCol = Math.ceil(propertyDescriptors.length / this.columnAmount);
+				const columns: PropertyDescriptor[][] = [];
 				for (let i = 0; i < this.columnAmount; i++) {
 					const start = i * fieldPerCol;
 					const end = i * fieldPerCol + fieldPerCol;
-					columns[i] = fields.slice(start, end);
+					columns[i] = propertyDescriptors.slice(start, end);
 				}
 				const sectionWithColumn = { ...section, columns };
 				return sectionWithColumn;

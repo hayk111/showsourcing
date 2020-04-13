@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { FieldDescriptor } from '~core/erm3/models';
-import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 import { FormControl } from '@angular/forms';
+import { PropertyDescriptor } from '~core/erm3/models';
+import { PropertyType } from '~core/erm3/models/property-definition.model';
 
 @Component({
 	selector: 'dynamic-field-app',
@@ -11,7 +11,7 @@ import { FormControl } from '@angular/forms';
 })
 export class DynamicFieldComponent {
 
-	@Input() field: FieldDescriptor;
+	@Input() descriptor: PropertyDescriptor;
 	@Input() control: FormControl;
-
+	type = PropertyType;
 }
