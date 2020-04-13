@@ -42,7 +42,6 @@ export class CheckboxComponent extends AbstractInput {
 			event.stopPropagation();
 		if (!this.disabled && !this.readonly) {
 			this.toggle();
-			this.emit();
 		}
 	}
 

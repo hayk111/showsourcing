@@ -28,3 +28,4 @@ export { User } from './user.model';
 export { Venue } from './venue.model';
 export * from './property-descriptor.model';
 export * from './section-descriptor.model';
+export * from './packaging.model';
