@@ -16,7 +16,8 @@
 						*ngFor="let descriptor of propertyDescriptors" 
 						class="mg-bottom-s"
 						[descriptor]="descriptor"
-						[control]="formGroup.controls[descriptor.definition.name]">
+						[control]="formGroup.controls[descriptor.definition.name]"
+						[showRequiredMarker]="showRequiredMarker">
 					</dynamic-field-app>
 		
 				</div>

@@ -8,6 +8,12 @@
 			(uncheck)="style = 'editable'">
 			Form style
 		</checkbox-app> -->
+
+		<checkbox-app
+			class="mg-v-ms"
+			[(ngModel)]="showRequiredMarker">
+			Show Required Marker {{ showRequiredMarker | json }}
+		</checkbox-app>
 		Update On
 		<select [(ngModel)]="updateOn">
 			<option 
@@ -55,6 +61,7 @@
 		[style]="style"
 		[updateOn]="updateOn"
 		[properties]="properties"
+		[showRequiredMarker]="showRequiredMarker"
 		(update)="properties = $event">
 	</dynamic-form2-app>
 	valid ? {{ form.valid }}

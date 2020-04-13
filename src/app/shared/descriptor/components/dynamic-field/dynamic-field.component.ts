@@ -10,7 +10,7 @@ import { PropertyType } from '~core/erm3/models/property-definition.model';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DynamicFieldComponent {
-
+	@Input() showRequiredMarker: boolean;
 	@Input() descriptor: PropertyDescriptor;
 	@Input() control: FormControl;
 	type = PropertyType;

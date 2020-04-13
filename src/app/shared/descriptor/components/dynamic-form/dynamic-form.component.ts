@@ -25,6 +25,7 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 	@Input() style: 'form' | 'editable' = 'form';
 	@Input() columnAmount = 1;
 	@Input() updateOn: 'blur' | 'change' = 'change';
+	@Input() showRequiredMarker = true;
 	@Input() properties: Property[];
 	@ViewChild('formElem', { static: true }) formElem: ElementRef<HTMLFormElement>;
 	@Output() update = new EventEmitter<Property[]>();

@@ -17,6 +17,7 @@ export class DescriptorPageComponent implements OnInit {
 	];
 	update = {};
 	invalidJson = false;
+	showRequiredMarker = true;
 
 	updateOnOptions = ['blur', 'change'];
 

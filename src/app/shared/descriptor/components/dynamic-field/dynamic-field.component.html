@@ -2,7 +2,7 @@
 
 	<!-- STRING -->
 	<ng-container *ngSwitchDefault>
-		<form-field-app [showRequiredMarker]="true">
+		<form-field-app [showRequiredMarker]="showRequiredMarker">
 			<label-app>{{ descriptor.definition.label }}</label-app>
 			<input 
 				#inp
@@ -17,7 +17,7 @@
 
 	<!-- INT -->
 	<ng-container *ngSwitchCase="type.INT">
-		<form-field-app [showRequiredMarker]="true">
+		<form-field-app [showRequiredMarker]="showRequiredMarker">
 			<label-app>{{ descriptor.definition.label }}</label-app>
 			<input 
 				#inp
@@ -33,7 +33,7 @@
 
 	<!-- TEL -->
 	<ng-container *ngSwitchCase="type.TEL">
-		<form-field-app [showRequiredMarker]="true">
+		<form-field-app [showRequiredMarker]="showRequiredMarker">
 			<label-app>{{ descriptor.definition.label }}</label-app>
 			<input 
 				#inp
@@ -48,7 +48,7 @@
 
 	<!-- EMAIL -->
 	<ng-container *ngSwitchCase="type.EMAIL">
-		<form-field-app [showRequiredMarker]="true">
+		<form-field-app [showRequiredMarker]="showRequiredMarker">
 			<label-app>{{ descriptor.definition.label }}</label-app>
 			<input 
 				#inp
@@ -64,7 +64,7 @@
 
 	<!-- DATE -->
 	<ng-container *ngSwitchCase="type.DATE">
-		<form-field-app [showRequiredMarker]="true">
+		<form-field-app [showRequiredMarker]="showRequiredMarker">
 			<label-app>{{ descriptor.definition.label }}</label-app>
 			<input 
 				#inp
@@ -79,7 +79,7 @@
 
 	<!-- FLOAT -->
 	<ng-container *ngSwitchCase="type.FLOAT">
-		<form-field-app [showRequiredMarker]="true">
+		<form-field-app [showRequiredMarker]="showRequiredMarker">
 			<label-app>{{ descriptor.definition.label }}</label-app>
 			<input 
 				#inp
@@ -96,7 +96,7 @@
 
 	<!-- TEXTAREA -->
 	<ng-container *ngSwitchCase="type.TEXTAREA">
-		<form-field-app [showRequiredMarker]="true">
+		<form-field-app [showRequiredMarker]="showRequiredMarker">
 			<label-app>{{ descriptor.definition.label }}</label-app>
 			<textarea 
 				#inp
