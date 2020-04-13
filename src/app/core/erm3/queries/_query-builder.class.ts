@@ -94,7 +94,6 @@ export class QueryBuilder {
 						${AUDIT}
 					}
 					nextToken
-					startedAt
 				}
 			}`;
 	}

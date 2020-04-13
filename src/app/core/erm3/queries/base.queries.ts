@@ -9,7 +9,7 @@ export class BaseQueries {
 
 	constructor(
 		protected typename: Typename,
-		protected defaultFields: string = 'id name _version',
+		protected defaultFields: string = 'id name',
 		protected queries: QueryType[] = [
 			QueryType.GET,
 			QueryType.SEARCH_BY,
