@@ -24,29 +24,341 @@ query GetProduct($teamId: ID!, $id: ID!) {
     team {
       id
       name
-      ownerUserId
-      companyId
-      createdByUserId
-      createdOn
-      lastUpdatedByUserId
-      lastUpdatedOn
+      inWorkflow
+      category
+      step
+      final
+      type
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
     }
     supplier {
       id
       teamId
+      statusId
+      status {
+        id
+        teamId
+        name
+        inWorkflow
+        category
+        step
+        final
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      categoryId
+      category {
+        id
+        teamId
+        name
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      imageIds
+      images {
+        id
+        teamId
+        fileName
+        orientation
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      attachmentsIds
+      attachments {
+        id
+        teamId
+        fileName
+        url
+        size
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      logoImageId
+      logoImage {
+        id
+        teamId
+        fileName
+        orientation
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      eventId
+      event {
+        id
+        teamId
+        global
+        name
+        description
+        website
+        startDate
+        endDate
+        countryCode
+        venueId
+        logoImageId
+        supplierCount
+        industriesId
+        primaryColor
+        secondaryColor
+        globalEventId
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      assigneeId
+      assignee {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      tagIds
+      globalId
+      globalSupplier {
+        id
+        teamId
+        statusId
+        categoryId
+        imageIds
+        attachmentsIds
+        logoImageId
+        eventId
+        assigneeId
+        tagIds
+        globalId
+        name
+        dueDate
+        completed
+        completionDate
+        score
+        favorite
+        archived
+        reference
+        referenceKey
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      properties {
+        name
+        value
+      }
       name
-      fullName
-      tradingName
+      dueDate
+      completed
+      completionDate
+      score
+      favorite
+      archived
+      reference
+      referenceKey
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
     }
+    images {
+      id
+      teamId
+      name
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    imageIds
     images {
       id
       teamId
       fileName
       orientation
-      imageType
-      creationDate
-      deletionDate
-      lastUpdatedDate
+      type
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    attachmentsIds
+    attachments {
+      id
+      teamId
+      fileName
+      url
+      size
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
       deleted
     }
     price {
@@ -58,14 +370,111 @@ query GetProduct($teamId: ID!, $id: ID!) {
       id
       teamId
       name
-      creationDate
-      deletionDate
-      lastupdatedByUserId
-      lastUpdatedDate
+      description
+      website
+      startDate
+      endDate
+      countryCode
+      venueId
+      venue {
+        id
+        teamId
+        global
+        city
+        name
+        latitude
+        country
+        longitude
+        addressFull
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      logoImageId
+      logoImage {
+        id
+        teamId
+        fileName
+        orientation
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      supplierCount
+      industriesId
+      primaryColor
+      secondaryColor
+      globalEventId
+      globalEvent {
+        id
+        teamId
+        global
+        name
+        description
+        website
+        startDate
+        endDate
+        countryCode
+        venueId
+        logoImageId
+        supplierCount
+        industriesId
+        primaryColor
+        secondaryColor
+        globalEventId
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
       deleted
     }
-    description
-    favorite
+    projects {
+      items {
+        id
+        teamId
+        projectId
+        productId
+      }
+      nextToken
+    }
+    assigneeId
     assignee {
       id
       email
@@ -76,477 +485,21 @@ query GetProduct($teamId: ID!, $id: ID!) {
       avatar
       creationDate
     }
-    minimumOrderQuantity
-    moqDescription
-    score
-    incoTerm
-    harbour
-    masterCbm
-    quantityPer20ft
-    quantityPer40ft
-    quantityPer40ftHC
-    leadTimeValue
-    leadTimeUnit
-    sample
-    samplePrice {
-      currency
+    tagIds
+    properties {
+      name
       value
-      baseCurrencyValue
-    }
-    archived
-    reference
-    referenceKey
-    creationDate
-    createdBy {
-      id
-      email
-      firstName
-      lastName
-      phoneNumber
-      preferredLanguage
-      avatar
-      creationDate
-    }
-    deletedBy {
-      id
-      email
-      firstName
-      lastName
-      phoneNumber
-      preferredLanguage
-      avatar
-      creationDate
-    }
-    deletionDate
-    lastUpdatedBy {
-      id
-      email
-      firstName
-      lastName
-      phoneNumber
-      preferredLanguage
-      avatar
-      creationDate
-    }
-    lastUpdatedDate
-    deleted
-  }
-}
-query ListProducts(
-  $teamId: ID
-  $id: ModelIDKeyConditionInput
-  $filter: ModelProductFilterInput
-  $limit: Int
-  $nextToken: String
-  $sortDirection: ModelSortDirection
-) {
-  listProducts(
-    teamId: $teamId
-    id: $id
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-    sortDirection: $sortDirection
-  ) {
-    items {
-      id
-      name
-      teamId
-      description
-      favorite
-      minimumOrderQuantity
-      moqDescription
-      score
-      incoTerm
-      harbour
-      masterCbm
-      quantityPer20ft
-      quantityPer40ft
-      quantityPer40ftHC
-      leadTimeValue
-      leadTimeUnit
-      sample
-      archived
-      reference
-      referenceKey
-      creationDate
-      deletionDate
-      lastUpdatedDate
-      deleted
-    }
-    nextToken
-  }
-}
-query GetSupplier($teamId: ID!, $id: ID!) {
-  getSupplier(teamId: $teamId, id: $id) {
-    id
-    teamId
-    team {
-      id
-      name
-      ownerUserId
-      companyId
-      createdByUserId
-      createdOn
-      lastUpdatedByUserId
-      lastUpdatedOn
     }
     name
-    fullName
-    tradingName
-  }
-}
-query ListSuppliers(
-  $teamId: ID
-  $id: ModelIDKeyConditionInput
-  $filter: ModelSupplierFilterInput
-  $limit: Int
-  $nextToken: String
-  $sortDirection: ModelSortDirection
-) {
-  listSuppliers(
-    teamId: $teamId
-    id: $id
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-    sortDirection: $sortDirection
-  ) {
-    items {
-      id
-      teamId
-      name
-      fullName
-      tradingName
-    }
-    nextToken
-  }
-}
-query GetDescriptor($teamId: ID!, $id: ID!) {
-  getDescriptor(teamId: $teamId, id: $id) {
-    id
-    teamId
-    sections {
-      name
-    }
-    target
-  }
-}
-query ListDescriptors(
-  $teamId: ID
-  $id: ModelIDKeyConditionInput
-  $filter: ModelDescriptorFilterInput
-  $limit: Int
-  $nextToken: String
-  $sortDirection: ModelSortDirection
-) {
-  listDescriptors(
-    teamId: $teamId
-    id: $id
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-    sortDirection: $sortDirection
-  ) {
-    items {
-      id
-      teamId
-      target
-    }
-    nextToken
-  }
-}
-query GetCategory($teamId: ID!, $id: ID!) {
-  getCategory(teamId: $teamId, id: $id) {
-    id
-    teamId
-    name
-    creationDate
-    createdBy {
-      id
-      email
-      firstName
-      lastName
-      phoneNumber
-      preferredLanguage
-      avatar
-      creationDate
-    }
-    deletedBy {
-      id
-      email
-      firstName
-      lastName
-      phoneNumber
-      preferredLanguage
-      avatar
-      creationDate
-    }
-    deletionDate
-    lastupdatedByUserId
-    lastUpdatedBy {
-      id
-      email
-      firstName
-      lastName
-      phoneNumber
-      preferredLanguage
-      avatar
-      creationDate
-    }
-    lastUpdatedDate
-    deleted
-  }
-}
-query ListCategorys(
-  $teamId: ID
-  $id: ModelIDKeyConditionInput
-  $filter: ModelCategoryFilterInput
-  $limit: Int
-  $nextToken: String
-  $sortDirection: ModelSortDirection
-) {
-  listCategorys(
-    teamId: $teamId
-    id: $id
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-    sortDirection: $sortDirection
-  ) {
-    items {
-      id
-      teamId
-      name
-      creationDate
-      deletionDate
-      lastupdatedByUserId
-      lastUpdatedDate
-      deleted
-    }
-    nextToken
-  }
-}
-query GetContact($teamId: ID!, $id: ID!) {
-  getContact(teamId: $teamId, id: $id) {
-    id
-    teamId
-    companyId
-    name
-    phoneNumber
-    email
-    jobTitle
-    supplier {
-      id
-      teamId
-      name
-      fullName
-      tradingName
-    }
-    creationDate
-    createdBy {
-      id
-      email
-      firstName
-      lastName
-      phoneNumber
-      preferredLanguage
-      avatar
-      creationDate
-    }
-    deletedBy {
-      id
-      email
-      firstName
-      lastName
-      phoneNumber
-      preferredLanguage
-      avatar
-      creationDate
-    }
-    deletionDate
-    lastUpdatedBy {
-      id
-      email
-      firstName
-      lastName
-      phoneNumber
-      preferredLanguage
-      avatar
-      creationDate
-    }
-    lastUpdatedDate
-    deleted
-  }
-}
-query ListContacts(
-  $teamId: ID
-  $id: ModelIDKeyConditionInput
-  $filter: ModelContactFilterInput
-  $limit: Int
-  $nextToken: String
-  $sortDirection: ModelSortDirection
-) {
-  listContacts(
-    teamId: $teamId
-    id: $id
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-    sortDirection: $sortDirection
-  ) {
-    items {
-      id
-      teamId
-      companyId
-      name
-      phoneNumber
-      email
-      jobTitle
-      creationDate
-      deletionDate
-      lastUpdatedDate
-      deleted
-    }
-    nextToken
-  }
-}
-query GetImage($teamId: ID!, $id: ID!) {
-  getImage(teamId: $teamId, id: $id) {
-    id
-    teamId
-    fileName
-    orientation
-    imageType
-    urls {
-      id
-      maxWidth
-      maxHeight
-      url
-    }
-    creationDate
-    createdBy {
-      id
-      email
-      firstName
-      lastName
-      phoneNumber
-      preferredLanguage
-      avatar
-      creationDate
-    }
-    deletedBy {
-      id
-      email
-      firstName
-      lastName
-      phoneNumber
-      preferredLanguage
-      avatar
-      creationDate
-    }
-    deletionDate
-    lastUpdatedBy {
-      id
-      email
-      firstName
-      lastName
-      phoneNumber
-      preferredLanguage
-      avatar
-      creationDate
-    }
-    lastUpdatedDate
-    deleted
-  }
-}
-query ListImages(
-  $teamId: ID
-  $id: ModelIDKeyConditionInput
-  $filter: ModelImageFilterInput
-  $limit: Int
-  $nextToken: String
-  $sortDirection: ModelSortDirection
-) {
-  listImages(
-    teamId: $teamId
-    id: $id
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-    sortDirection: $sortDirection
-  ) {
-    items {
-      id
-      teamId
-      fileName
-      orientation
-      imageType
-      creationDate
-      deletionDate
-      lastUpdatedDate
-      deleted
-    }
-    nextToken
-  }
-}
-query GetTask($teamId: ID!, $id: ID!) {
-  getTask(teamId: $teamId, id: $id) {
-    id
-    teamId
-    name
-    description
     dueDate
     completed
     completionDate
-    assigneeUserId
-    assignee {
-      id
-      email
-      firstName
-      lastName
-      phoneNumber
-      preferredLanguage
-      avatar
-      creationDate
-    }
-    product {
-      id
-      name
-      teamId
-      description
-      favorite
-      minimumOrderQuantity
-      moqDescription
-      score
-      incoTerm
-      harbour
-      masterCbm
-      quantityPer20ft
-      quantityPer40ft
-      quantityPer40ftHC
-      leadTimeValue
-      leadTimeUnit
-      sample
-      archived
-      reference
-      referenceKey
-      creationDate
-      deletionDate
-      lastUpdatedDate
-      deleted
-    }
-    supplier {
-      id
-      teamId
-      name
-      fullName
-      tradingName
-    }
+    score
+    favorite
+    archived
     reference
     referenceKey
-    inProgress
-    creationDate
+    createdAt
     createdBy {
       id
       email
@@ -567,7 +520,1525 @@ query GetTask($teamId: ID!, $id: ID!) {
       avatar
       creationDate
     }
-    deletionDate
+    deletedAt
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    lastUpdatedAt
+    deleted
+  }
+}
+query SearchContactsByTeams(
+  $teamIds: [String!]!
+  $filter: SearchFilterInput
+  $sort: SearchSortInput
+  $take: Int
+  $skip: Int
+) {
+  searchContactsByTeams(
+    teamIds: $teamIds
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    sortDirection: $sortDirection
+  ) {
+    items {
+      id
+      name
+      teamId
+      statusId
+      status {
+        id
+        teamId
+        name
+        inWorkflow
+        category
+        step
+        final
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      supplierId
+      supplier {
+        id
+        teamId
+        statusId
+        categoryId
+        imageIds
+        attachmentsIds
+        logoImageId
+        eventId
+        assigneeId
+        tagIds
+        globalId
+        name
+        dueDate
+        completed
+        completionDate
+        score
+        favorite
+        archived
+        reference
+        referenceKey
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      categoryId
+      category {
+        id
+        teamId
+        name
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      imageIds
+      images {
+        id
+        teamId
+        fileName
+        orientation
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      attachmentsIds
+      attachments {
+        id
+        teamId
+        fileName
+        url
+        size
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      eventId
+      event {
+        id
+        teamId
+        global
+        name
+        description
+        website
+        startDate
+        endDate
+        countryCode
+        venueId
+        logoImageId
+        supplierCount
+        industriesId
+        primaryColor
+        secondaryColor
+        globalEventId
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      projects {
+        nextToken
+      }
+      assigneeId
+      assignee {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      tagIds
+      properties {
+        name
+        value
+      }
+      name
+      dueDate
+      completed
+      completionDate
+      score
+      favorite
+      archived
+      reference
+      referenceKey
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    count
+    skip
+    take
+  }
+}
+query SearchProductsByTeams(
+  $teamIds: [String!]!
+  $filter: SearchFilterInput
+  $sort: SearchSortInput
+  $take: Int
+  $skip: Int
+) {
+  searchProductsByTeams(
+    teamIds: $teamIds
+    filter: $filter
+    sort: $sort
+    take: $take
+    skip: $skip
+  ) {
+    items {
+      id
+      teamId
+      statusId
+      status {
+        id
+        teamId
+        name
+        inWorkflow
+        category
+        step
+        final
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      supplierId
+      supplier {
+        id
+        teamId
+        statusId
+        categoryId
+        imageIds
+        attachmentsIds
+        logoImageId
+        eventId
+        assigneeId
+        tagIds
+        globalId
+        name
+        dueDate
+        completed
+        completionDate
+        score
+        favorite
+        archived
+        reference
+        referenceKey
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      categoryId
+      category {
+        id
+        teamId
+        name
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      imageIds
+      images {
+        id
+        teamId
+        fileName
+        orientation
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      attachmentsIds
+      attachments {
+        id
+        teamId
+        fileName
+        url
+        size
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      eventId
+      event {
+        id
+        teamId
+        global
+        name
+        description
+        website
+        startDate
+        endDate
+        countryCode
+        venueId
+        logoImageId
+        supplierCount
+        industriesId
+        primaryColor
+        secondaryColor
+        globalEventId
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      projects {
+        nextToken
+      }
+      assigneeId
+      assignee {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      tagIds
+      properties {
+        name
+        value
+      }
+      name
+      dueDate
+      completed
+      completionDate
+      score
+      favorite
+      archived
+      reference
+      referenceKey
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    count
+    skip
+    take
+  }
+}
+query SearchSuppliersByTeams(
+  $teamIds: [String!]!
+  $filter: SearchFilterInput
+  $sort: SearchSortInput
+  $take: Int
+  $skip: Int
+) {
+  searchSuppliersByTeams(
+    teamIds: $teamIds
+    filter: $filter
+    sort: $sort
+    take: $take
+    skip: $skip
+  ) {
+    items {
+      id
+      teamId
+      statusId
+      status {
+        id
+        teamId
+        name
+        inWorkflow
+        category
+        step
+        final
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      supplierId
+      supplier {
+        id
+        teamId
+        statusId
+        categoryId
+        imageIds
+        attachmentsIds
+        logoImageId
+        eventId
+        assigneeId
+        tagIds
+        globalId
+        name
+        dueDate
+        completed
+        completionDate
+        score
+        favorite
+        archived
+        reference
+        referenceKey
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      categoryId
+      category {
+        id
+        teamId
+        name
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      imageIds
+      images {
+        id
+        teamId
+        fileName
+        orientation
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      attachmentsIds
+      attachments {
+        id
+        teamId
+        fileName
+        url
+        size
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      eventId
+      event {
+        id
+        teamId
+        global
+        name
+        description
+        website
+        startDate
+        endDate
+        countryCode
+        venueId
+        logoImageId
+        supplierCount
+        industriesId
+        primaryColor
+        secondaryColor
+        globalEventId
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      projects {
+        nextToken
+      }
+      assigneeId
+      assignee {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      tagIds
+      properties {
+        name
+        value
+      }
+      name
+      dueDate
+      completed
+      completionDate
+      score
+      favorite
+      archived
+      reference
+      referenceKey
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    count
+    skip
+    take
+  }
+}
+query SearchSamplesByTeams(
+  $teamIds: [String!]!
+  $filter: SearchFilterInput
+  $sort: SearchSortInput
+  $take: Int
+  $skip: Int
+) {
+  searchSamplesByTeams(
+    teamIds: $teamIds
+    filter: $filter
+    sort: $sort
+    take: $take
+    skip: $skip
+  ) {
+    items {
+      id
+      teamId
+      statusId
+      status {
+        id
+        teamId
+        name
+        inWorkflow
+        category
+        step
+        final
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      supplierId
+      supplier {
+        id
+        teamId
+        statusId
+        categoryId
+        imageIds
+        attachmentsIds
+        logoImageId
+        eventId
+        assigneeId
+        tagIds
+        globalId
+        name
+        dueDate
+        completed
+        completionDate
+        score
+        favorite
+        archived
+        reference
+        referenceKey
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      categoryId
+      category {
+        id
+        teamId
+        name
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      imageIds
+      images {
+        id
+        teamId
+        fileName
+        orientation
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      attachmentsIds
+      attachments {
+        id
+        teamId
+        fileName
+        url
+        size
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      eventId
+      event {
+        id
+        teamId
+        global
+        name
+        description
+        website
+        startDate
+        endDate
+        countryCode
+        venueId
+        logoImageId
+        supplierCount
+        industriesId
+        primaryColor
+        secondaryColor
+        globalEventId
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      projects {
+        nextToken
+      }
+      assigneeId
+      assignee {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      tagIds
+      properties {
+        name
+        value
+      }
+      name
+      dueDate
+      completed
+      completionDate
+      score
+      favorite
+      archived
+      reference
+      referenceKey
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    count
+    skip
+    take
+  }
+}
+query SearchTasksByTeams(
+  $teamIds: [String!]!
+  $filter: SearchFilterInput
+  $sort: SearchSortInput
+  $take: Int
+  $skip: Int
+) {
+  searchTasksByTeams(
+    teamIds: $teamIds
+    filter: $filter
+    sort: $sort
+    take: $take
+    skip: $skip
+  ) {
+    items {
+      id
+      teamId
+      statusId
+      status {
+        id
+        teamId
+        name
+        inWorkflow
+        category
+        step
+        final
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      supplierId
+      supplier {
+        id
+        teamId
+        statusId
+        categoryId
+        imageIds
+        attachmentsIds
+        logoImageId
+        eventId
+        assigneeId
+        tagIds
+        globalId
+        name
+        dueDate
+        completed
+        completionDate
+        score
+        favorite
+        archived
+        reference
+        referenceKey
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      categoryId
+      category {
+        id
+        teamId
+        name
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      imageIds
+      images {
+        id
+        teamId
+        fileName
+        orientation
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      attachmentsIds
+      attachments {
+        id
+        teamId
+        fileName
+        url
+        size
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      eventId
+      event {
+        id
+        teamId
+        global
+        name
+        description
+        website
+        startDate
+        endDate
+        countryCode
+        venueId
+        logoImageId
+        supplierCount
+        industriesId
+        primaryColor
+        secondaryColor
+        globalEventId
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      projects {
+        nextToken
+      }
+      assigneeId
+      assignee {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      tagIds
+      properties {
+        name
+        value
+      }
+      name
+      dueDate
+      completed
+      completionDate
+      score
+      favorite
+      archived
+      reference
+      referenceKey
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    count
+    skip
+    take
+  }
+}
+query SearchEventsByTeams(
+  $teamIds: [String!]!
+  $filter: SearchFilterInput
+  $sort: SearchSortInput
+  $take: Int
+  $skip: Int
+) {
+  searchEventsByTeams(
+    teamIds: $teamIds
+    filter: $filter
+    sort: $sort
+    take: $take
+    skip: $skip
+  ) {
+    items {
+      id
+      teamId
+      statusId
+      status {
+        id
+        teamId
+        name
+        inWorkflow
+        category
+        step
+        final
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      supplierId
+      supplier {
+        id
+        teamId
+        statusId
+        categoryId
+        imageIds
+        attachmentsIds
+        logoImageId
+        eventId
+        assigneeId
+        tagIds
+        globalId
+        name
+        dueDate
+        completed
+        completionDate
+        score
+        favorite
+        archived
+        reference
+        referenceKey
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      categoryId
+      category {
+        id
+        teamId
+        name
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      imageIds
+      images {
+        id
+        teamId
+        fileName
+        orientation
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      attachmentsIds
+      attachments {
+        id
+        teamId
+        fileName
+        url
+        size
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      eventId
+      event {
+        id
+        teamId
+        global
+        name
+        description
+        website
+        startDate
+        endDate
+        countryCode
+        venueId
+        logoImageId
+        supplierCount
+        industriesId
+        primaryColor
+        secondaryColor
+        globalEventId
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      projects {
+        nextToken
+      }
+      assigneeId
+      assignee {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      tagIds
+      properties {
+        name
+        value
+      }
+      name
+      dueDate
+      completed
+      completionDate
+      score
+      favorite
+      archived
+      reference
+      referenceKey
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    count
+    skip
+    take
+  }
+}
+query SearchExportsByTeams(
+  $teamIds: [String!]!
+  $filter: SearchFilterInput
+  $sort: SearchSortInput
+  $take: Int
+  $skip: Int
+) {
+  searchExportsByTeams(
+    teamIds: $teamIds
+    filter: $filter
+    sort: $sort
+    take: $take
+    skip: $skip
+  ) {
+    items {
+      id
+      teamId
+      statusId
+      status {
+        id
+        teamId
+        name
+        inWorkflow
+        category
+        step
+        final
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      supplierId
+      supplier {
+        id
+        teamId
+        statusId
+        categoryId
+        imageIds
+        attachmentsIds
+        logoImageId
+        eventId
+        assigneeId
+        tagIds
+        globalId
+        name
+        dueDate
+        completed
+        completionDate
+        score
+        favorite
+        archived
+        reference
+        referenceKey
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      categoryId
+      category {
+        id
+        teamId
+        name
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      imageIds
+      images {
+        id
+        teamId
+        fileName
+        orientation
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      attachmentsIds
+      attachments {
+        id
+        teamId
+        fileName
+        url
+        size
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      eventId
+      event {
+        id
+        teamId
+        global
+        name
+        description
+        website
+        startDate
+        endDate
+        countryCode
+        venueId
+        logoImageId
+        supplierCount
+        industriesId
+        primaryColor
+        secondaryColor
+        globalEventId
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      projects {
+        nextToken
+      }
+      assigneeId
+      assignee {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      tagIds
+      properties {
+        name
+        value
+      }
+      name
+      dueDate
+      completed
+      completionDate
+      score
+      favorite
+      archived
+      reference
+      referenceKey
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    count
+    skip
+    take
+  }
+}
+query SearchProjectsByTeams(
+  $teamIds: [String!]!
+  $filter: SearchFilterInput
+  $sort: SearchSortInput
+  $take: Int
+  $skip: Int
+) {
+  searchProjectsByTeams(
+    teamIds: $teamIds
+    filter: $filter
+    sort: $sort
+    take: $take
+    skip: $skip
+  ) {
+    items {
+      id
+      teamId
+      statusId
+      status {
+        id
+        teamId
+        name
+        inWorkflow
+        category
+        step
+        final
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      supplierId
+      supplier {
+        id
+        teamId
+        statusId
+        categoryId
+        imageIds
+        attachmentsIds
+        logoImageId
+        eventId
+        assigneeId
+        tagIds
+        globalId
+        name
+        dueDate
+        completed
+        completionDate
+        score
+        favorite
+        archived
+        reference
+        referenceKey
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      categoryId
+      category {
+        id
+        teamId
+        name
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      imageIds
+      images {
+        id
+        teamId
+        fileName
+        orientation
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      attachmentsIds
+      attachments {
+        id
+        teamId
+        fileName
+        url
+        size
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      eventId
+      event {
+        id
+        teamId
+        global
+        name
+        description
+        website
+        startDate
+        endDate
+        countryCode
+        venueId
+        logoImageId
+        supplierCount
+        industriesId
+        primaryColor
+        secondaryColor
+        globalEventId
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      projects {
+        nextToken
+      }
+      assigneeId
+      assignee {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      tagIds
+      properties {
+        name
+        value
+      }
+      name
+      dueDate
+      completed
+      completionDate
+      score
+      favorite
+      archived
+      reference
+      referenceKey
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    count
+    skip
+    take
+  }
+}
+query GetInvitation($id: ID!) {
+  getInvitation(id: $id) {
+    id
+    teamId
+    email
+    firstName
+    lastName
+    status
+    secret
+    createdAt
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletedAt
     lastUpdatedBy {
       id
       email
@@ -582,16 +2053,14 @@ query GetTask($teamId: ID!, $id: ID!) {
     deleted
   }
 }
-query ListTasks(
-  $teamId: ID
-  $id: ModelIDKeyConditionInput
-  $filter: ModelTaskFilterInput
+query ListInvitations(
+  $id: ID
+  $filter: ModelInvitationFilterInput
   $limit: Int
   $nextToken: String
   $sortDirection: ModelSortDirection
 ) {
-  listTasks(
-    teamId: $teamId
+  listInvitations(
     id: $id
     filter: $filter
     limit: $limit
@@ -601,121 +2070,50 @@ query ListTasks(
     items {
       id
       teamId
-      name
-      description
-      dueDate
-      completed
-      completionDate
-      assigneeUserId
-      reference
-      referenceKey
-      inProgress
-      creationDate
-      deletionDate
-      lastUpdatedDate
+      email
+      firstName
+      lastName
+      status
+      secret
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
       deleted
     }
     nextToken
   }
 }
-query GetTeam($id: ID!) {
-  getTeam(id: $id) {
-    id
-    name
-    ownerUserId
-    owner {
-      id
-      email
-      firstName
-      lastName
-      phoneNumber
-      preferredLanguage
-      avatar
-      creationDate
-    }
-    companyId
-    company {
-      id
-      name
-      ownerUserId
-      createdByUserId
-      createdOn
-      lastUpdatedByUserId
-      lastUpdatedOn
-    }
-    createdByUserId
-    createdBy {
-      id
-      email
-      firstName
-      lastName
-      phoneNumber
-      preferredLanguage
-      avatar
-      creationDate
-    }
-    createdOn
-    lastUpdatedByUserId
-    lastUpdatedBy {
-      id
-      email
-      firstName
-      lastName
-      phoneNumber
-      preferredLanguage
-      avatar
-      creationDate
-    }
-    lastUpdatedOn
-  }
-}
-query ListTeams(
-  $filter: ModelTeamFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listTeams(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-      id
-      name
-      ownerUserId
-      companyId
-      createdByUserId
-      createdOn
-      lastUpdatedByUserId
-      lastUpdatedOn
-    }
-    nextToken
-  }
-}
-query GetTeamUser($teamId: ID!, $userId: ID!) {
-  getTeamUser(teamId: $teamId, userId: $userId) {
-    teamId
-    userId
-    team {
-      id
-      name
-      ownerUserId
-      companyId
-      createdByUserId
-      createdOn
-      lastUpdatedByUserId
-      lastUpdatedOn
-    }
-    user {
-      id
-      email
-      firstName
-      lastName
-      phoneNumber
-      preferredLanguage
-      avatar
-      creationDate
-    }
-    role
-  }
-}
-query ListTeamUsers(
+query ListTeamUser(
   $teamId: ID
   $userId: ModelIDKeyConditionInput
   $filter: ModelTeamUserFilterInput
@@ -723,7 +2121,7 @@ query ListTeamUsers(
   $nextToken: String
   $sortDirection: ModelSortDirection
 ) {
-  listTeamUsers(
+  listTeamUser(
     teamId: $teamId
     userId: $userId
     filter: $filter
@@ -734,6 +2132,26 @@ query ListTeamUsers(
     items {
       teamId
       userId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+      }
+      user {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
       role
     }
     nextToken
@@ -754,7 +2172,7 @@ query GetCompany($id: ID!) {
       avatar
       creationDate
     }
-    createdByUserId
+    createdAt
     createdBy {
       id
       email
@@ -765,8 +2183,17 @@ query GetCompany($id: ID!) {
       avatar
       creationDate
     }
-    createdOn
-    lastUpdatedByUserId
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletedAt
     lastUpdatedBy {
       id
       email
@@ -777,29 +2204,78 @@ query GetCompany($id: ID!) {
       avatar
       creationDate
     }
-    lastUpdatedOn
+    lastUpdatedAt
+    deleted
   }
 }
 query ListCompanys(
+  $id: ID
   $filter: ModelCompanyFilterInput
   $limit: Int
   $nextToken: String
+  $sortDirection: ModelSortDirection
 ) {
-  listCompanys(filter: $filter, limit: $limit, nextToken: $nextToken) {
+  listCompanys(
+    id: $id
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    sortDirection: $sortDirection
+  ) {
     items {
       id
       name
       ownerUserId
-      createdByUserId
-      createdOn
-      lastUpdatedByUserId
-      lastUpdatedOn
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
     }
     nextToken
   }
 }
-query User($id: ID!) {
-  user(id: $id) {
+query GetUser($id: ID!) {
+  getUser(id: $id) {
     id
     email
     firstName
@@ -808,6 +2284,4632 @@ query User($id: ID!) {
     preferredLanguage
     avatar
     creationDate
+  }
+}
+query ListUsers(
+  $filter: ModelUserFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    nextToken
+  }
+}
+query GetAttachment($id: ID!) {
+  getAttachment(id: $id) {
+    id
+    teamId
+    fileName
+    url
+    size
+    createdAt
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletedAt
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    lastUpdatedAt
+    deleted
+  }
+}
+query ListAttachments(
+  $filter: ModelAttachmentFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listAttachments(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      teamId
+      fileName
+      url
+      size
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    nextToken
+  }
+}
+query GetCategory($id: ID!) {
+  getCategory(id: $id) {
+    id
+    teamId
+    name
+    createdAt
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletedAt
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    lastUpdatedDate
+    deleted
+  }
+}
+query ListCategorys(
+  $id: ID
+  $filter: ModelCategoryFilterInput
+  $limit: Int
+  $nextToken: String
+  $sortDirection: ModelSortDirection
+) {
+  listCategorys(
+    id: $id
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    sortDirection: $sortDirection
+  ) {
+    items {
+      id
+      teamId
+      name
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    nextToken
+  }
+}
+query GetContact($id: ID!) {
+  getContact(id: $id) {
+    id
+    teamId
+    name
+    phoneNumber
+    email
+    jobTitle
+    supplierId
+    supplier {
+      id
+      teamId
+      statusId
+      status {
+        id
+        teamId
+        name
+        inWorkflow
+        category
+        step
+        final
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      categoryId
+      category {
+        id
+        teamId
+        name
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      imageIds
+      images {
+        id
+        teamId
+        fileName
+        orientation
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      attachmentsIds
+      attachments {
+        id
+        teamId
+        fileName
+        url
+        size
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      logoImageId
+      logoImage {
+        id
+        teamId
+        fileName
+        orientation
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      eventId
+      event {
+        id
+        teamId
+        global
+        name
+        description
+        website
+        startDate
+        endDate
+        countryCode
+        venueId
+        logoImageId
+        supplierCount
+        industriesId
+        primaryColor
+        secondaryColor
+        globalEventId
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      assigneeId
+      assignee {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      tagIds
+      globalId
+      globalSupplier {
+        id
+        teamId
+        statusId
+        categoryId
+        imageIds
+        attachmentsIds
+        logoImageId
+        eventId
+        assigneeId
+        tagIds
+        globalId
+        name
+        dueDate
+        completed
+        completionDate
+        score
+        favorite
+        archived
+        reference
+        referenceKey
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      properties {
+        name
+        value
+      }
+      name
+      dueDate
+      completed
+      completionDate
+      score
+      favorite
+      archived
+      reference
+      referenceKey
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    createdAt
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletedAt
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    lastUpdatedAt
+    deleted
+  }
+}
+query ListContacts(
+  $id: ID
+  $filter: ModelContactFilterInput
+  $limit: Int
+  $nextToken: String
+  $sortDirection: ModelSortDirection
+) {
+  listContacts(
+    id: $id
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    sortDirection: $sortDirection
+  ) {
+    items {
+      id
+      teamId
+      name
+      phoneNumber
+      email
+      jobTitle
+      supplierId
+      supplier {
+        id
+        teamId
+        statusId
+        categoryId
+        imageIds
+        attachmentsIds
+        logoImageId
+        eventId
+        assigneeId
+        tagIds
+        globalId
+        name
+        dueDate
+        completed
+        completionDate
+        score
+        favorite
+        archived
+        reference
+        referenceKey
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    nextToken
+  }
+}
+query GetEvent($id: ID!) {
+  getEvent(id: $id) {
+    id
+    name
+    description
+    website
+    startDate
+    endDate
+    countryCode
+    venueId
+    venue {
+      id
+      teamId
+      global
+      city
+      name
+      latitude
+      country
+      longitude
+      addressFull
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    logoImageId
+    logoImage {
+      id
+      teamId
+      fileName
+      orientation
+      type
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    supplierCount
+    industriesId
+    primaryColor
+    secondaryColor
+    globalEventId
+    globalEvent {
+      id
+      teamId
+      global
+      name
+      description
+      website
+      startDate
+      endDate
+      countryCode
+      venueId
+      venue {
+        id
+        teamId
+        global
+        city
+        name
+        latitude
+        country
+        longitude
+        addressFull
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      logoImageId
+      logoImage {
+        id
+        teamId
+        fileName
+        orientation
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      supplierCount
+      industriesId
+      primaryColor
+      secondaryColor
+      globalEventId
+      globalEvent {
+        id
+        teamId
+        global
+        name
+        description
+        website
+        startDate
+        endDate
+        countryCode
+        venueId
+        logoImageId
+        supplierCount
+        industriesId
+        primaryColor
+        secondaryColor
+        globalEventId
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    createdAt
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletedAt
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    lastUpdatedAt
+    deleted
+  }
+}
+query ListTeams(
+  $filter: ModelTeamFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listTeams(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      description
+      website
+      startDate
+      endDate
+      countryCode
+      venueId
+      venue {
+        id
+        teamId
+        global
+        city
+        name
+        latitude
+        country
+        longitude
+        addressFull
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      logoImageId
+      logoImage {
+        id
+        teamId
+        fileName
+        orientation
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      supplierCount
+      industriesId
+      primaryColor
+      secondaryColor
+      globalEventId
+      globalEvent {
+        id
+        teamId
+        global
+        name
+        description
+        website
+        startDate
+        endDate
+        countryCode
+        venueId
+        logoImageId
+        supplierCount
+        industriesId
+        primaryColor
+        secondaryColor
+        globalEventId
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    nextToken
+  }
+}
+query GetTeamUser($teamId: ID!, $userId: ID!) {
+  getTeamUser(teamId: $teamId, userId: $userId) {
+    teamId
+    format
+    target
+    options
+    query
+    status
+    documentUrl
+    errors
+    createdAt
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletedAt
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    lastUpdatedAt
+    deleted
+  }
+}
+query ListTeamUsers(
+  $teamId: ID
+  $userId: ModelIDKeyConditionInput
+  $filter: ModelTeamUserFilterInput
+  $limit: Int
+  $nextToken: String
+  $sortDirection: ModelSortDirection
+) {
+  listTeamUsers(
+    teamId: $teamId
+    userId: $userId
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    sortDirection: $sortDirection
+  ) {
+    items {
+      id
+      teamId
+      format
+      target
+      options
+      query
+      status
+      documentUrl
+      errors
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    nextToken
+  }
+}
+query GetCompany($id: ID!) {
+  getCompany(id: $id) {
+    id
+    teamId
+    fileName
+    orientation
+    type
+    size {
+      s {
+        id
+        size
+        url
+      }
+      m {
+        id
+        size
+        url
+      }
+      l {
+        id
+        size
+        url
+      }
+      xl {
+        id
+        size
+        url
+      }
+      original {
+        id
+        size
+        url
+      }
+    }
+    createdAt
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletedAt
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    lastUpdatedAt
+    deleted
+  }
+}
+query ListImages(
+  $id: ID
+  $filter: ModelImageFilterInput
+  $limit: Int
+  $nextToken: String
+  $sortDirection: ModelSortDirection
+) {
+  listImages(
+    id: $id
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    sortDirection: $sortDirection
+  ) {
+    items {
+      id
+      teamId
+      fileName
+      orientation
+      type
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    nextToken
+  }
+}
+query User($id: ID!) {
+  user(id: $id) {
+    id
+    name
+  }
+}
+query ListTeamUserByUser(
+  $userId: ID
+  $sortDirection: ModelSortDirection
+) {
+  listIndustrys(
+    id: $id
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    sortDirection: $sortDirection
+  ) {
+    items {
+      id
+      name
+    }
+    nextToken
+  }
+}
+query GetProduct($id: ID!) {
+  getProduct(id: $id) {
+    id
+    teamId
+    statusId
+    status {
+      id
+      teamId
+      name
+      inWorkflow
+      category
+      step
+      final
+      type
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    supplierId
+    supplier {
+      id
+      teamId
+      statusId
+      status {
+        id
+        teamId
+        name
+        inWorkflow
+        category
+        step
+        final
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      categoryId
+      category {
+        id
+        teamId
+        name
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      imageIds
+      images {
+        id
+        teamId
+        fileName
+        orientation
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      attachmentsIds
+      attachments {
+        id
+        teamId
+        fileName
+        url
+        size
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      logoImageId
+      logoImage {
+        id
+        teamId
+        fileName
+        orientation
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      eventId
+      event {
+        id
+        teamId
+        global
+        name
+        description
+        website
+        startDate
+        endDate
+        countryCode
+        venueId
+        logoImageId
+        supplierCount
+        industriesId
+        primaryColor
+        secondaryColor
+        globalEventId
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      assigneeId
+      assignee {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      tagIds
+      globalId
+      globalSupplier {
+        id
+        teamId
+        statusId
+        categoryId
+        imageIds
+        attachmentsIds
+        logoImageId
+        eventId
+        assigneeId
+        tagIds
+        globalId
+        name
+        dueDate
+        completed
+        completionDate
+        score
+        favorite
+        archived
+        reference
+        referenceKey
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      properties {
+        name
+        value
+      }
+      name
+      dueDate
+      completed
+      completionDate
+      score
+      favorite
+      archived
+      reference
+      referenceKey
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    categoryId
+    category {
+      id
+      teamId
+      name
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    imageIds
+    images {
+      id
+      teamId
+      fileName
+      orientation
+      type
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    attachmentsIds
+    attachments {
+      id
+      teamId
+      fileName
+      url
+      size
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    eventId
+    event {
+      id
+      teamId
+      global
+      name
+      description
+      website
+      startDate
+      endDate
+      countryCode
+      venueId
+      venue {
+        id
+        teamId
+        global
+        city
+        name
+        latitude
+        country
+        longitude
+        addressFull
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      logoImageId
+      logoImage {
+        id
+        teamId
+        fileName
+        orientation
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      supplierCount
+      industriesId
+      primaryColor
+      secondaryColor
+      globalEventId
+      globalEvent {
+        id
+        teamId
+        global
+        name
+        description
+        website
+        startDate
+        endDate
+        countryCode
+        venueId
+        logoImageId
+        supplierCount
+        industriesId
+        primaryColor
+        secondaryColor
+        globalEventId
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    projects {
+      items {
+        id
+        teamId
+        projectId
+        productId
+      }
+      nextToken
+    }
+    assigneeId
+    assignee {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    tagIds
+    properties {
+      name
+      value
+    }
+    name
+    dueDate
+    completed
+    completionDate
+    score
+    favorite
+    archived
+    reference
+    referenceKey
+    createdAt
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletedAt
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    lastUpdatedAt
+    deleted
+  }
+}
+query GetProject($id: ID!) {
+  getProject(id: $id) {
+    id
+    teamId
+    name
+    logoImageId
+    logoImage {
+      id
+      teamId
+      fileName
+      orientation
+      type
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    description
+    products {
+      items {
+        id
+        teamId
+        projectId
+        productId
+      }
+      nextToken
+    }
+    assigneeId
+    assignee {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    dueDate
+    status {
+      id
+      teamId
+      name
+      inWorkflow
+      category
+      step
+      final
+      type
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    archived
+    createdAt
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletedAt
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    lastUpdatedAt
+    deleted
+  }
+}
+query ListProjects(
+  $id: ID
+  $filter: ModelProjectFilterInput
+  $limit: Int
+  $nextToken: String
+  $sortDirection: ModelSortDirection
+) {
+  listProjects(
+    id: $id
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    sortDirection: $sortDirection
+  ) {
+    items {
+      id
+      teamId
+      name
+      logoImageId
+      logoImage {
+        id
+        teamId
+        fileName
+        orientation
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      description
+      products {
+        nextToken
+      }
+      assigneeId
+      assignee {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      dueDate
+      status {
+        id
+        teamId
+        name
+        inWorkflow
+        category
+        step
+        final
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      archived
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    nextToken
+  }
+}
+query GetSample($id: ID!) {
+  getSample(id: $id) {
+    id
+    teamId
+    statusId
+    status {
+      id
+      teamId
+      name
+      inWorkflow
+      category
+      step
+      final
+      type
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    supplierId
+    supplier {
+      id
+      teamId
+      statusId
+      status {
+        id
+        teamId
+        name
+        inWorkflow
+        category
+        step
+        final
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      categoryId
+      category {
+        id
+        teamId
+        name
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      imageIds
+      images {
+        id
+        teamId
+        fileName
+        orientation
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      attachmentsIds
+      attachments {
+        id
+        teamId
+        fileName
+        url
+        size
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      logoImageId
+      logoImage {
+        id
+        teamId
+        fileName
+        orientation
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      eventId
+      event {
+        id
+        teamId
+        global
+        name
+        description
+        website
+        startDate
+        endDate
+        countryCode
+        venueId
+        logoImageId
+        supplierCount
+        industriesId
+        primaryColor
+        secondaryColor
+        globalEventId
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      assigneeId
+      assignee {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      tagIds
+      globalId
+      globalSupplier {
+        id
+        teamId
+        statusId
+        categoryId
+        imageIds
+        attachmentsIds
+        logoImageId
+        eventId
+        assigneeId
+        tagIds
+        globalId
+        name
+        dueDate
+        completed
+        completionDate
+        score
+        favorite
+        archived
+        reference
+        referenceKey
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      properties {
+        name
+        value
+      }
+      name
+      dueDate
+      completed
+      completionDate
+      score
+      favorite
+      archived
+      reference
+      referenceKey
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    categoryId
+    category {
+      id
+      teamId
+      name
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    linkedProductId
+    productId
+    product {
+      id
+      teamId
+      statusId
+      status {
+        id
+        teamId
+        name
+        inWorkflow
+        category
+        step
+        final
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      supplierId
+      supplier {
+        id
+        teamId
+        statusId
+        categoryId
+        imageIds
+        attachmentsIds
+        logoImageId
+        eventId
+        assigneeId
+        tagIds
+        globalId
+        name
+        dueDate
+        completed
+        completionDate
+        score
+        favorite
+        archived
+        reference
+        referenceKey
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      categoryId
+      category {
+        id
+        teamId
+        name
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      imageIds
+      images {
+        id
+        teamId
+        fileName
+        orientation
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      attachmentsIds
+      attachments {
+        id
+        teamId
+        fileName
+        url
+        size
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      eventId
+      event {
+        id
+        teamId
+        global
+        name
+        description
+        website
+        startDate
+        endDate
+        countryCode
+        venueId
+        logoImageId
+        supplierCount
+        industriesId
+        primaryColor
+        secondaryColor
+        globalEventId
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      projects {
+        nextToken
+      }
+      assigneeId
+      assignee {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      tagIds
+      properties {
+        name
+        value
+      }
+      name
+      dueDate
+      completed
+      completionDate
+      score
+      favorite
+      archived
+      reference
+      referenceKey
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    imageIds
+    images {
+      id
+      teamId
+      fileName
+      orientation
+      type
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    attachmentsIds
+    eventId
+    event {
+      id
+      teamId
+      global
+      name
+      description
+      website
+      startDate
+      endDate
+      countryCode
+      venueId
+      venue {
+        id
+        teamId
+        global
+        city
+        name
+        latitude
+        country
+        longitude
+        addressFull
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      logoImageId
+      logoImage {
+        id
+        teamId
+        fileName
+        orientation
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      supplierCount
+      industriesId
+      primaryColor
+      secondaryColor
+      globalEventId
+      globalEvent {
+        id
+        teamId
+        global
+        name
+        description
+        website
+        startDate
+        endDate
+        countryCode
+        venueId
+        logoImageId
+        supplierCount
+        industriesId
+        primaryColor
+        secondaryColor
+        globalEventId
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    assigneeId
+    assignee {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    tagIds
+    properties {
+      name
+      value
+    }
+    name
+    dueDate
+    completed
+    completionDate
+    score
+    favorite
+    archived
+    reference
+    referenceKey
+    createdAt
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletedAt
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    lastUpdatedAt
+    deleted
+  }
+}
+query GetWorkflowStatus($id: ID!) {
+  getWorkflowStatus(id: $id) {
+    id
+    teamId
+    name
+    inWorkflow
+    category
+    step
+    final
+    type
+    createdAt
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletedAt
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    lastUpdatedAt
+    deleted
+  }
+}
+query ListWorkflowStatuss(
+  $filter: ModelWorkflowStatusFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listWorkflowStatuss(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      teamId
+      name
+      inWorkflow
+      category
+      step
+      final
+      type
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    nextToken
+  }
+}
+query GetSupplierType($id: ID!) {
+  getSupplierType(id: $id) {
+    id
+    teamId
+    name
+    createdAt
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletedAt
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    lastUpdatedAt
+    deleted
+  }
+}
+query ListSupplierTypes(
+  $id: ID
+  $filter: ModelSupplierTypeFilterInput
+  $limit: Int
+  $nextToken: String
+  $sortDirection: ModelSortDirection
+) {
+  listSupplierTypes(
+    id: $id
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    sortDirection: $sortDirection
+  ) {
+    items {
+      id
+      teamId
+      name
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    nextToken
+  }
+}
+query GetSupplier($id: ID!) {
+  getSupplier(id: $id) {
+    id
+    teamId
+    statusId
+    status {
+      id
+      teamId
+      name
+      inWorkflow
+      category
+      step
+      final
+      type
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    categoryId
+    category {
+      id
+      teamId
+      name
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    imageIds
+    images {
+      id
+      teamId
+      fileName
+      orientation
+      type
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    attachmentsIds
+    attachments {
+      id
+      teamId
+      fileName
+      url
+      size
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    logoImageId
+    logoImage {
+      id
+      teamId
+      fileName
+      orientation
+      type
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    eventId
+    event {
+      id
+      teamId
+      global
+      name
+      description
+      website
+      startDate
+      endDate
+      countryCode
+      venueId
+      venue {
+        id
+        teamId
+        global
+        city
+        name
+        latitude
+        country
+        longitude
+        addressFull
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      logoImageId
+      logoImage {
+        id
+        teamId
+        fileName
+        orientation
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      supplierCount
+      industriesId
+      primaryColor
+      secondaryColor
+      globalEventId
+      globalEvent {
+        id
+        teamId
+        global
+        name
+        description
+        website
+        startDate
+        endDate
+        countryCode
+        venueId
+        logoImageId
+        supplierCount
+        industriesId
+        primaryColor
+        secondaryColor
+        globalEventId
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    assigneeId
+    assignee {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    tagIds
+    globalId
+    globalSupplier {
+      id
+      teamId
+      statusId
+      status {
+        id
+        teamId
+        name
+        inWorkflow
+        category
+        step
+        final
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      categoryId
+      category {
+        id
+        teamId
+        name
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      imageIds
+      images {
+        id
+        teamId
+        fileName
+        orientation
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      attachmentsIds
+      attachments {
+        id
+        teamId
+        fileName
+        url
+        size
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      logoImageId
+      logoImage {
+        id
+        teamId
+        fileName
+        orientation
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      eventId
+      event {
+        id
+        teamId
+        global
+        name
+        description
+        website
+        startDate
+        endDate
+        countryCode
+        venueId
+        logoImageId
+        supplierCount
+        industriesId
+        primaryColor
+        secondaryColor
+        globalEventId
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      assigneeId
+      assignee {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      tagIds
+      globalId
+      globalSupplier {
+        id
+        teamId
+        statusId
+        categoryId
+        imageIds
+        attachmentsIds
+        logoImageId
+        eventId
+        assigneeId
+        tagIds
+        globalId
+        name
+        dueDate
+        completed
+        completionDate
+        score
+        favorite
+        archived
+        reference
+        referenceKey
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      properties {
+        name
+        value
+      }
+      name
+      dueDate
+      completed
+      completionDate
+      score
+      favorite
+      archived
+      reference
+      referenceKey
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    properties {
+      name
+      value
+    }
+    name
+    dueDate
+    completed
+    completionDate
+    score
+    favorite
+    archived
+    reference
+    referenceKey
+    createdAt
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletedAt
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    lastUpdatedAt
+    deleted
+  }
+}
+query GetTag($id: ID!) {
+  getTag(id: $id) {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedOn
+    }
+    name
+    createdAt
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletedAt
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    lastUpdatedAt
+    deleted
+  }
+}
+query ListTags(
+  $id: ID
+  $filter: ModelTagFilterInput
+  $limit: Int
+  $nextToken: String
+  $sortDirection: ModelSortDirection
+) {
+  listTags(
+    id: $id
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    sortDirection: $sortDirection
+  ) {
+    items {
+      id
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+      }
+      name
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    nextToken
+  }
+}
+query GetTask($id: ID!) {
+  getTask(id: $id) {
+    id
+    teamId
+    statusId
+    status {
+      id
+      teamId
+      name
+      inWorkflow
+      category
+      step
+      final
+      type
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    supplierId
+    supplier {
+      id
+      teamId
+      statusId
+      status {
+        id
+        teamId
+        name
+        inWorkflow
+        category
+        step
+        final
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      categoryId
+      category {
+        id
+        teamId
+        name
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      imageIds
+      images {
+        id
+        teamId
+        fileName
+        orientation
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      attachmentsIds
+      attachments {
+        id
+        teamId
+        fileName
+        url
+        size
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      logoImageId
+      logoImage {
+        id
+        teamId
+        fileName
+        orientation
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      eventId
+      event {
+        id
+        teamId
+        global
+        name
+        description
+        website
+        startDate
+        endDate
+        countryCode
+        venueId
+        logoImageId
+        supplierCount
+        industriesId
+        primaryColor
+        secondaryColor
+        globalEventId
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      assigneeId
+      assignee {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      tagIds
+      globalId
+      globalSupplier {
+        id
+        teamId
+        statusId
+        categoryId
+        imageIds
+        attachmentsIds
+        logoImageId
+        eventId
+        assigneeId
+        tagIds
+        globalId
+        name
+        dueDate
+        completed
+        completionDate
+        score
+        favorite
+        archived
+        reference
+        referenceKey
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      properties {
+        name
+        value
+      }
+      name
+      dueDate
+      completed
+      completionDate
+      score
+      favorite
+      archived
+      reference
+      referenceKey
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    categoryId
+    category {
+      id
+      teamId
+      name
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    productId
+    product {
+      id
+      teamId
+      statusId
+      status {
+        id
+        teamId
+        name
+        inWorkflow
+        category
+        step
+        final
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      supplierId
+      supplier {
+        id
+        teamId
+        statusId
+        categoryId
+        imageIds
+        attachmentsIds
+        logoImageId
+        eventId
+        assigneeId
+        tagIds
+        globalId
+        name
+        dueDate
+        completed
+        completionDate
+        score
+        favorite
+        archived
+        reference
+        referenceKey
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      categoryId
+      category {
+        id
+        teamId
+        name
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      imageIds
+      images {
+        id
+        teamId
+        fileName
+        orientation
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      attachmentsIds
+      attachments {
+        id
+        teamId
+        fileName
+        url
+        size
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      eventId
+      event {
+        id
+        teamId
+        global
+        name
+        description
+        website
+        startDate
+        endDate
+        countryCode
+        venueId
+        logoImageId
+        supplierCount
+        industriesId
+        primaryColor
+        secondaryColor
+        globalEventId
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      projects {
+        nextToken
+      }
+      assigneeId
+      assignee {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      tagIds
+      properties {
+        name
+        value
+      }
+      name
+      dueDate
+      completed
+      completionDate
+      score
+      favorite
+      archived
+      reference
+      referenceKey
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    imageIds
+    images {
+      id
+      teamId
+      fileName
+      orientation
+      type
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    attachmentsIds
+    eventId
+    event {
+      id
+      teamId
+      global
+      name
+      description
+      website
+      startDate
+      endDate
+      countryCode
+      venueId
+      venue {
+        id
+        teamId
+        global
+        city
+        name
+        latitude
+        country
+        longitude
+        addressFull
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      logoImageId
+      logoImage {
+        id
+        teamId
+        fileName
+        orientation
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      supplierCount
+      industriesId
+      primaryColor
+      secondaryColor
+      globalEventId
+      globalEvent {
+        id
+        teamId
+        global
+        name
+        description
+        website
+        startDate
+        endDate
+        countryCode
+        venueId
+        logoImageId
+        supplierCount
+        industriesId
+        primaryColor
+        secondaryColor
+        globalEventId
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    assigneeId
+    assignee {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    tagIds
+    properties {
+      name
+      value
+    }
+    name
+    dueDate
+    completed
+    completionDate
+    score
+    favorite
+    archived
+    reference
+    referenceKey
+    createdAt
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletedAt
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    lastUpdatedAt
+    deleted
+  }
+}
+query GetVenue($id: ID!) {
+  getVenue(id: $id) {
+    id
+    teamId
+    global
+    city
+    name
+    latitude
+    country
+    longitude
+    addressFull
+    createdAt
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletedAt
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    lastUpdatedAt
+    deleted
+  }
+}
+query ListVenues(
+  $id: ID
+  $filter: ModelVenueFilterInput
+  $limit: Int
+  $nextToken: String
+  $sortDirection: ModelSortDirection
+) {
+  listVenues(
+    id: $id
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    sortDirection: $sortDirection
+  ) {
+    items {
+      id
+      teamId
+      global
+      city
+      name
+      latitude
+      country
+      longitude
+      addressFull
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    nextToken
+  }
+}
+query GetVote($id: ID!) {
+  getVote(id: $id) {
+    id
+    teamId
+    rating
+    message
+    nodeId
+    createdAt
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletedAt
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    lastUpdatedAt
+    deleted
+  }
+}
+query ListVotes(
+  $id: ID
+  $filter: ModelVoteFilterInput
+  $limit: Int
+  $nextToken: String
+  $sortDirection: ModelSortDirection
+) {
+  listVotes(
+    id: $id
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    sortDirection: $sortDirection
+  ) {
+    items {
+      id
+      teamId
+      rating
+      message
+      nodeId
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    nextToken
+  }
+}
+query GetConstant($id: ID!) {
+  getConstant(id: $id) {
+    id
+    type
+    code
+    label
+  }
+}
+query ListConstants(
+  $filter: ModelConstantFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listConstants(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      type
+      code
+      label
+    }
+    nextToken
+  }
+}
+query GetDescriptor($id: ID!) {
+  getDescriptor(id: $id) {
+    id
+    teamId
+    sections {
+      name
+      fields {
+        id
+        fieldId
+        defaultValue
+        fixedValue
+        required
+        metadata
+      }
+    }
+    type
+    name
+    createdAt
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletedAt
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    lastUpdatedAt
+    deleted
+  }
+}
+query ListDescriptors(
+  $id: ID
+  $filter: ModelDescriptorFilterInput
+  $limit: Int
+  $nextToken: String
+  $sortDirection: ModelSortDirection
+) {
+  listDescriptors(
+    id: $id
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    sortDirection: $sortDirection
+  ) {
+    items {
+      id
+      teamId
+      sections {
+        name
+      }
+      type
+      name
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    nextToken
+  }
+}
+query GetFieldDefinition($id: ID!) {
+  getFieldDefinition(id: $id) {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedOn
+    }
+    label
+    type
+    name
+    default
+    metaData
+    createdAt
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletedAt
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    lastUpdatedAt
+    deleted
+  }
+}
+query ListFieldDefinitions(
+  $filter: ModelFieldDefinitionFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listFieldDefinitions(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+      }
+      label
+      type
+      name
+      default
+      metaData
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    nextToken
+  }
+}
+query ListInvitationByTeam(
+  $teamId: ID
+  $sortDirection: ModelSortDirection
+  $filter: ModelInvitationFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listInvitationByTeam(
+    teamId: $teamId
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      teamId
+      email
+      firstName
+      lastName
+      status
+      secret
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    nextToken
   }
 }
 query ListTeamUserByUser(
@@ -827,7 +6929,3026 @@ query ListTeamUserByUser(
     items {
       teamId
       userId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+      }
+      user {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
       role
+    }
+    nextToken
+  }
+}
+query ListCompanyByOwner(
+  $ownerUserId: ID
+  $sortDirection: ModelSortDirection
+  $filter: ModelCompanyFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listCompanyByOwner(
+    ownerUserId: $ownerUserId
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    nextToken
+  }
+}
+query ListRoles(
+  $teamId: ID
+  $sortDirection: ModelSortDirection
+  $filter: ModelRoleFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listRoles(
+    teamId: $teamId
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      teamId
+      name
+    }
+    nextToken
+  }
+}
+query ListCategory(
+  $teamId: ID
+  $sortDirection: ModelSortDirection
+  $filter: ModelCategoryFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listCategory(
+    teamId: $teamId
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      teamId
+      name
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    nextToken
+  }
+}
+query ListCommentByNode(
+  $nodeId: ID
+  $sortDirection: ModelSortDirection
+  $filter: ModelCommentFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listCommentByNode(
+    nodeId: $nodeId
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+      }
+      message
+      nodeId
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    nextToken
+  }
+}
+query ListContact(
+  $teamId: ID
+  $sortDirection: ModelSortDirection
+  $filter: ModelContactFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listContact(
+    teamId: $teamId
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      teamId
+      name
+      phoneNumber
+      email
+      jobTitle
+      supplierId
+      supplier {
+        id
+        teamId
+        statusId
+        categoryId
+        imageIds
+        attachmentsIds
+        logoImageId
+        eventId
+        assigneeId
+        tagIds
+        globalId
+        name
+        dueDate
+        completed
+        completionDate
+        score
+        favorite
+        archived
+        reference
+        referenceKey
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    nextToken
+  }
+}
+query ListContactBySupplier(
+  $supplierId: ID
+  $sortDirection: ModelSortDirection
+  $filter: ModelContactFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listContactBySupplier(
+    supplierId: $supplierId
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      teamId
+      name
+      phoneNumber
+      email
+      jobTitle
+      supplierId
+      supplier {
+        id
+        teamId
+        statusId
+        categoryId
+        imageIds
+        attachmentsIds
+        logoImageId
+        eventId
+        assigneeId
+        tagIds
+        globalId
+        name
+        dueDate
+        completed
+        completionDate
+        score
+        favorite
+        archived
+        reference
+        referenceKey
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    nextToken
+  }
+}
+query ListEvent(
+  $teamId: ID
+  $sortDirection: ModelSortDirection
+  $filter: ModelEventFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listEvent(
+    teamId: $teamId
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      teamId
+      global
+      name
+      description
+      website
+      startDate
+      endDate
+      countryCode
+      venueId
+      venue {
+        id
+        teamId
+        global
+        city
+        name
+        latitude
+        country
+        longitude
+        addressFull
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      logoImageId
+      logoImage {
+        id
+        teamId
+        fileName
+        orientation
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      supplierCount
+      industriesId
+      primaryColor
+      secondaryColor
+      globalEventId
+      globalEvent {
+        id
+        teamId
+        global
+        name
+        description
+        website
+        startDate
+        endDate
+        countryCode
+        venueId
+        logoImageId
+        supplierCount
+        industriesId
+        primaryColor
+        secondaryColor
+        globalEventId
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    nextToken
+  }
+}
+query ListExport(
+  $teamId: ID
+  $sortDirection: ModelSortDirection
+  $filter: ModelExportFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listExport(
+    teamId: $teamId
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      teamId
+      format
+      target
+      options
+      query
+      status
+      documentUrl
+      errors
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    nextToken
+  }
+}
+query ListProducts(
+  $teamId: ID
+  $sortDirection: ModelSortDirection
+  $filter: ModelProductFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listProducts(
+    teamId: $teamId
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      teamId
+      statusId
+      status {
+        id
+        teamId
+        name
+        inWorkflow
+        category
+        step
+        final
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      supplierId
+      supplier {
+        id
+        teamId
+        statusId
+        categoryId
+        imageIds
+        attachmentsIds
+        logoImageId
+        eventId
+        assigneeId
+        tagIds
+        globalId
+        name
+        dueDate
+        completed
+        completionDate
+        score
+        favorite
+        archived
+        reference
+        referenceKey
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      categoryId
+      category {
+        id
+        teamId
+        name
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      imageIds
+      images {
+        id
+        teamId
+        fileName
+        orientation
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      attachmentsIds
+      attachments {
+        id
+        teamId
+        fileName
+        url
+        size
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      eventId
+      event {
+        id
+        teamId
+        global
+        name
+        description
+        website
+        startDate
+        endDate
+        countryCode
+        venueId
+        logoImageId
+        supplierCount
+        industriesId
+        primaryColor
+        secondaryColor
+        globalEventId
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      projects {
+        nextToken
+      }
+      assigneeId
+      assignee {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      tagIds
+      properties {
+        name
+        value
+      }
+      name
+      dueDate
+      completed
+      completionDate
+      score
+      favorite
+      archived
+      reference
+      referenceKey
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    nextToken
+  }
+}
+query ListProductsByStatus(
+  $statusId: ID
+  $sortDirection: ModelSortDirection
+  $filter: ModelProductFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listProductsByStatus(
+    statusId: $statusId
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      teamId
+      statusId
+      status {
+        id
+        teamId
+        name
+        inWorkflow
+        category
+        step
+        final
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      supplierId
+      supplier {
+        id
+        teamId
+        statusId
+        categoryId
+        imageIds
+        attachmentsIds
+        logoImageId
+        eventId
+        assigneeId
+        tagIds
+        globalId
+        name
+        dueDate
+        completed
+        completionDate
+        score
+        favorite
+        archived
+        reference
+        referenceKey
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      categoryId
+      category {
+        id
+        teamId
+        name
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      imageIds
+      images {
+        id
+        teamId
+        fileName
+        orientation
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      attachmentsIds
+      attachments {
+        id
+        teamId
+        fileName
+        url
+        size
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      eventId
+      event {
+        id
+        teamId
+        global
+        name
+        description
+        website
+        startDate
+        endDate
+        countryCode
+        venueId
+        logoImageId
+        supplierCount
+        industriesId
+        primaryColor
+        secondaryColor
+        globalEventId
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      projects {
+        nextToken
+      }
+      assigneeId
+      assignee {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      tagIds
+      properties {
+        name
+        value
+      }
+      name
+      dueDate
+      completed
+      completionDate
+      score
+      favorite
+      archived
+      reference
+      referenceKey
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    nextToken
+  }
+}
+query ListProject(
+  $teamId: ID
+  $sortDirection: ModelSortDirection
+  $filter: ModelProjectFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listProject(
+    teamId: $teamId
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      teamId
+      name
+      logoImageId
+      logoImage {
+        id
+        teamId
+        fileName
+        orientation
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      description
+      products {
+        nextToken
+      }
+      assigneeId
+      assignee {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      dueDate
+      status {
+        id
+        teamId
+        name
+        inWorkflow
+        category
+        step
+        final
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      archived
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    nextToken
+  }
+}
+query ListSamplesByLinkedSupplier(
+  $supplierId: ID
+  $sortDirection: ModelSortDirection
+  $filter: ModelSampleFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listSamplesByLinkedSupplier(
+    supplierId: $supplierId
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      teamId
+      statusId
+      status {
+        id
+        teamId
+        name
+        inWorkflow
+        category
+        step
+        final
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      supplierId
+      supplier {
+        id
+        teamId
+        statusId
+        categoryId
+        imageIds
+        attachmentsIds
+        logoImageId
+        eventId
+        assigneeId
+        tagIds
+        globalId
+        name
+        dueDate
+        completed
+        completionDate
+        score
+        favorite
+        archived
+        reference
+        referenceKey
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      categoryId
+      category {
+        id
+        teamId
+        name
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      linkedProductId
+      productId
+      product {
+        id
+        teamId
+        statusId
+        supplierId
+        categoryId
+        imageIds
+        attachmentsIds
+        eventId
+        assigneeId
+        tagIds
+        name
+        dueDate
+        completed
+        completionDate
+        score
+        favorite
+        archived
+        reference
+        referenceKey
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      imageIds
+      images {
+        id
+        teamId
+        fileName
+        orientation
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      attachmentsIds
+      eventId
+      event {
+        id
+        teamId
+        global
+        name
+        description
+        website
+        startDate
+        endDate
+        countryCode
+        venueId
+        logoImageId
+        supplierCount
+        industriesId
+        primaryColor
+        secondaryColor
+        globalEventId
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      assigneeId
+      assignee {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      tagIds
+      properties {
+        name
+        value
+      }
+      name
+      dueDate
+      completed
+      completionDate
+      score
+      favorite
+      archived
+      reference
+      referenceKey
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    nextToken
+  }
+}
+query ListSamplesByLinkedProduct(
+  $linkedProductId: ID
+  $sortDirection: ModelSortDirection
+  $filter: ModelSampleFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listSamplesByLinkedProduct(
+    linkedProductId: $linkedProductId
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      teamId
+      statusId
+      status {
+        id
+        teamId
+        name
+        inWorkflow
+        category
+        step
+        final
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      supplierId
+      supplier {
+        id
+        teamId
+        statusId
+        categoryId
+        imageIds
+        attachmentsIds
+        logoImageId
+        eventId
+        assigneeId
+        tagIds
+        globalId
+        name
+        dueDate
+        completed
+        completionDate
+        score
+        favorite
+        archived
+        reference
+        referenceKey
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      categoryId
+      category {
+        id
+        teamId
+        name
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      linkedProductId
+      productId
+      product {
+        id
+        teamId
+        statusId
+        supplierId
+        categoryId
+        imageIds
+        attachmentsIds
+        eventId
+        assigneeId
+        tagIds
+        name
+        dueDate
+        completed
+        completionDate
+        score
+        favorite
+        archived
+        reference
+        referenceKey
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      imageIds
+      images {
+        id
+        teamId
+        fileName
+        orientation
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      attachmentsIds
+      eventId
+      event {
+        id
+        teamId
+        global
+        name
+        description
+        website
+        startDate
+        endDate
+        countryCode
+        venueId
+        logoImageId
+        supplierCount
+        industriesId
+        primaryColor
+        secondaryColor
+        globalEventId
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      assigneeId
+      assignee {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      tagIds
+      properties {
+        name
+        value
+      }
+      name
+      dueDate
+      completed
+      completionDate
+      score
+      favorite
+      archived
+      reference
+      referenceKey
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    nextToken
+  }
+}
+query ListSamplesByStatus(
+  $statusId: ID
+  $sortDirection: ModelSortDirection
+  $filter: ModelSampleFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listSamplesByStatus(
+    statusId: $statusId
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      teamId
+      statusId
+      status {
+        id
+        teamId
+        name
+        inWorkflow
+        category
+        step
+        final
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      supplierId
+      supplier {
+        id
+        teamId
+        statusId
+        categoryId
+        imageIds
+        attachmentsIds
+        logoImageId
+        eventId
+        assigneeId
+        tagIds
+        globalId
+        name
+        dueDate
+        completed
+        completionDate
+        score
+        favorite
+        archived
+        reference
+        referenceKey
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      categoryId
+      category {
+        id
+        teamId
+        name
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      linkedProductId
+      productId
+      product {
+        id
+        teamId
+        statusId
+        supplierId
+        categoryId
+        imageIds
+        attachmentsIds
+        eventId
+        assigneeId
+        tagIds
+        name
+        dueDate
+        completed
+        completionDate
+        score
+        favorite
+        archived
+        reference
+        referenceKey
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      imageIds
+      images {
+        id
+        teamId
+        fileName
+        orientation
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      attachmentsIds
+      eventId
+      event {
+        id
+        teamId
+        global
+        name
+        description
+        website
+        startDate
+        endDate
+        countryCode
+        venueId
+        logoImageId
+        supplierCount
+        industriesId
+        primaryColor
+        secondaryColor
+        globalEventId
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      assigneeId
+      assignee {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      tagIds
+      properties {
+        name
+        value
+      }
+      name
+      dueDate
+      completed
+      completionDate
+      score
+      favorite
+      archived
+      reference
+      referenceKey
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    nextToken
+  }
+}
+query ListWorkflowStatus(
+  $teamId: ID
+  $sortDirection: ModelSortDirection
+  $filter: ModelWorkflowStatusFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listWorkflowStatus(
+    teamId: $teamId
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      teamId
+      name
+      inWorkflow
+      category
+      step
+      final
+      type
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    nextToken
+  }
+}
+query ListSupplierType(
+  $teamId: ID
+  $sortDirection: ModelSortDirection
+  $filter: ModelSupplierTypeFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listSupplierType(
+    teamId: $teamId
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      teamId
+      name
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    nextToken
+  }
+}
+query ListSuppliers(
+  $teamId: ID
+  $sortDirection: ModelSortDirection
+  $filter: ModelSupplierFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listSuppliers(
+    teamId: $teamId
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      teamId
+      statusId
+      status {
+        id
+        teamId
+        name
+        inWorkflow
+        category
+        step
+        final
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      categoryId
+      category {
+        id
+        teamId
+        name
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      imageIds
+      images {
+        id
+        teamId
+        fileName
+        orientation
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      attachmentsIds
+      attachments {
+        id
+        teamId
+        fileName
+        url
+        size
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      logoImageId
+      logoImage {
+        id
+        teamId
+        fileName
+        orientation
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      eventId
+      event {
+        id
+        teamId
+        global
+        name
+        description
+        website
+        startDate
+        endDate
+        countryCode
+        venueId
+        logoImageId
+        supplierCount
+        industriesId
+        primaryColor
+        secondaryColor
+        globalEventId
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      assigneeId
+      assignee {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      tagIds
+      globalId
+      globalSupplier {
+        id
+        teamId
+        statusId
+        categoryId
+        imageIds
+        attachmentsIds
+        logoImageId
+        eventId
+        assigneeId
+        tagIds
+        globalId
+        name
+        dueDate
+        completed
+        completionDate
+        score
+        favorite
+        archived
+        reference
+        referenceKey
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      properties {
+        name
+        value
+      }
+      name
+      dueDate
+      completed
+      completionDate
+      score
+      favorite
+      archived
+      reference
+      referenceKey
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    nextToken
+  }
+}
+query ListSuppliersByStatus(
+  $statusId: ID
+  $sortDirection: ModelSortDirection
+  $filter: ModelSupplierFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listSuppliersByStatus(
+    statusId: $statusId
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      teamId
+      statusId
+      status {
+        id
+        teamId
+        name
+        inWorkflow
+        category
+        step
+        final
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      categoryId
+      category {
+        id
+        teamId
+        name
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      imageIds
+      images {
+        id
+        teamId
+        fileName
+        orientation
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      attachmentsIds
+      attachments {
+        id
+        teamId
+        fileName
+        url
+        size
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      logoImageId
+      logoImage {
+        id
+        teamId
+        fileName
+        orientation
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      eventId
+      event {
+        id
+        teamId
+        global
+        name
+        description
+        website
+        startDate
+        endDate
+        countryCode
+        venueId
+        logoImageId
+        supplierCount
+        industriesId
+        primaryColor
+        secondaryColor
+        globalEventId
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      assigneeId
+      assignee {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      tagIds
+      globalId
+      globalSupplier {
+        id
+        teamId
+        statusId
+        categoryId
+        imageIds
+        attachmentsIds
+        logoImageId
+        eventId
+        assigneeId
+        tagIds
+        globalId
+        name
+        dueDate
+        completed
+        completionDate
+        score
+        favorite
+        archived
+        reference
+        referenceKey
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      properties {
+        name
+        value
+      }
+      name
+      dueDate
+      completed
+      completionDate
+      score
+      favorite
+      archived
+      reference
+      referenceKey
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    nextToken
+  }
+}
+query ListTag(
+  $teamId: ID
+  $sortDirection: ModelSortDirection
+  $filter: ModelTagFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listTag(
+    teamId: $teamId
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      teamId
+      team {
+        id
+        name
+        ownerUserId
+        companyId
+        createdByUserId
+        createdOn
+        lastUpdatedByUserId
+        lastUpdatedOn
+      }
+      name
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    nextToken
+  }
+}
+query ListTasks(
+  $teamId: ID
+  $sortDirection: ModelSortDirection
+  $filter: ModelTaskFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listTasks(
+    teamId: $teamId
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      teamId
+      statusId
+      status {
+        id
+        teamId
+        name
+        inWorkflow
+        category
+        step
+        final
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      supplierId
+      supplier {
+        id
+        teamId
+        statusId
+        categoryId
+        imageIds
+        attachmentsIds
+        logoImageId
+        eventId
+        assigneeId
+        tagIds
+        globalId
+        name
+        dueDate
+        completed
+        completionDate
+        score
+        favorite
+        archived
+        reference
+        referenceKey
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      categoryId
+      category {
+        id
+        teamId
+        name
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      productId
+      product {
+        id
+        teamId
+        statusId
+        supplierId
+        categoryId
+        imageIds
+        attachmentsIds
+        eventId
+        assigneeId
+        tagIds
+        name
+        dueDate
+        completed
+        completionDate
+        score
+        favorite
+        archived
+        reference
+        referenceKey
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      imageIds
+      images {
+        id
+        teamId
+        fileName
+        orientation
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      attachmentsIds
+      eventId
+      event {
+        id
+        teamId
+        global
+        name
+        description
+        website
+        startDate
+        endDate
+        countryCode
+        venueId
+        logoImageId
+        supplierCount
+        industriesId
+        primaryColor
+        secondaryColor
+        globalEventId
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      assigneeId
+      assignee {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      tagIds
+      properties {
+        name
+        value
+      }
+      name
+      dueDate
+      completed
+      completionDate
+      score
+      favorite
+      archived
+      reference
+      referenceKey
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    nextToken
+  }
+}
+query ListTasksByProduct(
+  $productId: ID
+  $sortDirection: ModelSortDirection
+  $filter: ModelTaskFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listTasksByProduct(
+    productId: $productId
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      teamId
+      statusId
+      status {
+        id
+        teamId
+        name
+        inWorkflow
+        category
+        step
+        final
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      supplierId
+      supplier {
+        id
+        teamId
+        statusId
+        categoryId
+        imageIds
+        attachmentsIds
+        logoImageId
+        eventId
+        assigneeId
+        tagIds
+        globalId
+        name
+        dueDate
+        completed
+        completionDate
+        score
+        favorite
+        archived
+        reference
+        referenceKey
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      categoryId
+      category {
+        id
+        teamId
+        name
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      productId
+      product {
+        id
+        teamId
+        statusId
+        supplierId
+        categoryId
+        imageIds
+        attachmentsIds
+        eventId
+        assigneeId
+        tagIds
+        name
+        dueDate
+        completed
+        completionDate
+        score
+        favorite
+        archived
+        reference
+        referenceKey
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      imageIds
+      images {
+        id
+        teamId
+        fileName
+        orientation
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      attachmentsIds
+      eventId
+      event {
+        id
+        teamId
+        global
+        name
+        description
+        website
+        startDate
+        endDate
+        countryCode
+        venueId
+        logoImageId
+        supplierCount
+        industriesId
+        primaryColor
+        secondaryColor
+        globalEventId
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      assigneeId
+      assignee {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      tagIds
+      properties {
+        name
+        value
+      }
+      name
+      dueDate
+      completed
+      completionDate
+      score
+      favorite
+      archived
+      reference
+      referenceKey
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    nextToken
+  }
+}
+query ListTasksBySupplier(
+  $productId: ID
+  $sortDirection: ModelSortDirection
+  $filter: ModelTaskFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listTasksBySupplier(
+    productId: $productId
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      teamId
+      statusId
+      status {
+        id
+        teamId
+        name
+        inWorkflow
+        category
+        step
+        final
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      supplierId
+      supplier {
+        id
+        teamId
+        statusId
+        categoryId
+        imageIds
+        attachmentsIds
+        logoImageId
+        eventId
+        assigneeId
+        tagIds
+        globalId
+        name
+        dueDate
+        completed
+        completionDate
+        score
+        favorite
+        archived
+        reference
+        referenceKey
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      categoryId
+      category {
+        id
+        teamId
+        name
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      productId
+      product {
+        id
+        teamId
+        statusId
+        supplierId
+        categoryId
+        imageIds
+        attachmentsIds
+        eventId
+        assigneeId
+        tagIds
+        name
+        dueDate
+        completed
+        completionDate
+        score
+        favorite
+        archived
+        reference
+        referenceKey
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      imageIds
+      images {
+        id
+        teamId
+        fileName
+        orientation
+        type
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      attachmentsIds
+      eventId
+      event {
+        id
+        teamId
+        global
+        name
+        description
+        website
+        startDate
+        endDate
+        countryCode
+        venueId
+        logoImageId
+        supplierCount
+        industriesId
+        primaryColor
+        secondaryColor
+        globalEventId
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      assigneeId
+      assignee {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      tagIds
+      properties {
+        name
+        value
+      }
+      name
+      dueDate
+      completed
+      completionDate
+      score
+      favorite
+      archived
+      reference
+      referenceKey
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    nextToken
+  }
+}
+query ListVenue(
+  $teamId: ID
+  $sortDirection: ModelSortDirection
+  $filter: ModelVenueFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listVenue(
+    teamId: $teamId
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      teamId
+      global
+      city
+      name
+      latitude
+      country
+      longitude
+      addressFull
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    nextToken
+  }
+}
+query ListVoteByNode(
+  $nodeId: String
+  $sortDirection: ModelSortDirection
+  $filter: ModelVoteFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listVoteByNode(
+    nodeId: $nodeId
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      teamId
+      rating
+      message
+      nodeId
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    nextToken
+  }
+}
+query ListDescriptor(
+  $teamId: ID
+  $sortDirection: ModelSortDirection
+  $filter: ModelDescriptorFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listDescriptor(
+    teamId: $teamId
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      teamId
+      sections {
+        name
+      }
+      type
+      name
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
+    }
+    nextToken
+  }
+}
+query ListDescriptorByType(
+  $teamId: ID
+  $type: ModelStringKeyConditionInput
+  $sortDirection: ModelSortDirection
+  $filter: ModelDescriptorFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listDescriptorByType(
+    teamId: $teamId
+    type: $type
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      teamId
+      sections {
+        name
+      }
+      type
+      name
+      createdAt
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      deletedAt
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedAt
+      deleted
     }
     nextToken
   }
