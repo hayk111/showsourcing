@@ -9,19 +9,25 @@ import {
 	RadioComponent,
 	RestrictInputDirective,
 	RestrictSpecialInputDirective,
+	ErrorComponent,
+	HintComponent,
+	LabelComponent,
+	TextareaAutoGrowsDirective,
+	FormFieldControlDirective,
+	InputPackagingComponent,
+	InputPriceComponent,
+	FocusableDirective
 } from '~shared/inputs/components-directives';
-import { ErrorComponent } from '~shared/inputs/components-directives/error/error.component';
-import { FormFieldControlDirective } from '~shared/inputs/components-directives/form-field-control.directive';
-import { HintComponent } from '~shared/inputs/components-directives/hint/hint.component';
-import { LabelComponent } from '~shared/inputs/components-directives/label/label.component';
-import { TextareaAutoGrowsDirective } from '~shared/inputs/components-directives/textarea-auto-grows.directive';
-import { UtilsModule } from '~shared/utils/utils.module';
-import { TranslateModule } from '@ngx-translate/core';
+import { UtilsModule } from '~shared/utils';
+
 
 export const components = [
 	FormFieldComponent,
+	// TODO, we need to see if this one is needed,
+	// maybe input directive is enough
 	FormFieldControlDirective,
 	InputDirective,
+	FocusableDirective,
 	CheckboxComponent,
 	RestrictInputDirective,
 	RestrictSpecialInputDirective,
@@ -29,7 +35,13 @@ export const components = [
 	HintComponent,
 	ErrorComponent,
 	TextareaAutoGrowsDirective,
-	RadioComponent
+	InputPriceComponent,
+	InputPackagingComponent,
+
+
+
+	RadioComponent,
+
 ];
 
 @NgModule({
@@ -38,7 +50,6 @@ export const components = [
 		FormsModule,
 		UtilsModule,
 		IconsModule,
-		TranslateModule
 	],
 	declarations: components,
 	// entryComponents: components,

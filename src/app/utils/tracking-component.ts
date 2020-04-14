@@ -1,6 +1,8 @@
 import { Subscription } from 'rxjs';
-import { OnDestroy } from '@angular/core';
+import { OnDestroy, Directive } from '@angular/core';
 
+@Directive()
+// tslint:disable-next-line: directive-class-suffix
 export abstract class TrackingComponent implements OnDestroy {
 	protected _subscription = new Subscription();
 	public ngOnDestroy() {

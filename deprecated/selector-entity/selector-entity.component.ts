@@ -73,7 +73,7 @@ export class SelectorEntityComponent extends AbstractInput {
 			this.selector.open();
 	}
 
-	onChange() {
+	onChangeFn() {
 		this.onChangeFn(this.value);
 		this.change.emit(this.value);
 	}
@@ -143,7 +143,7 @@ export class SelectorEntityComponent extends AbstractInput {
 		// we are using take 1 in srv, no need for fancy destroying
 		createObs$.subscribe();
 		// we changed the value directly so we have to notify the formControl
-		this.onChange();
+		this.onChangeFn();
 	}
 
 	get template() {

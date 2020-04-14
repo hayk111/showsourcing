@@ -1,36 +1,38 @@
 :host {
 	display: flex;
 	align-items: center;
-	&.longText .label {
-		width: 100%;
-		color: var(--color-text-primary);
-		font-weight: normal;
-	}
 }
 
-.icon {
+.icon-ctnr {
 	border-radius: 3px;
 	flex-shrink: 0;
+	
+	&.readonly {
+		background: var(--color-secondary-light);
+		cursor: default;
+	}
+	
+	&.unchecked {
+		border: 1px solid var(--color-secondary);
+	}
+
+	&.checked {
+		background: var(--color-primary);
+	}
+
+	&.cdk-focused {
+		border-color: var(--color-primary);
+	}
 }
 
 label {
 	width: 100%;
 	margin-bottom: 0;
+	color: var(--color-text-primary);
+	font-weight: normal;
 }
 
 .check-icon {
 	color: white;
 	font-size: 12px;
-}
-
-
-.unChecked {
-	border: 1px solid var(--color-secondary);
-	background: var(--color-bg);
-	border-radius: 2px;
-	box-sizing: border-box;
-}
-
-.mg-right {
-	margin-right: var(--spacing-xs);
 }

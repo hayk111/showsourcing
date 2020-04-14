@@ -1,6 +1,6 @@
 import { Typename } from '../typename.type';
 import { Entity } from './_entity.model';
-import { Section } from './section.model';
+import { SectionDescriptor } from './section-descriptor.model';
 
 
 export class Descriptor extends Entity<Descriptor> {
@@ -9,7 +9,7 @@ export class Descriptor extends Entity<Descriptor> {
 	teamId?: string;
 	type?: DescriptorType;
 	name?: string;
-	sections?: Section[];
+	sections?: SectionDescriptor[];
 }
 
 
