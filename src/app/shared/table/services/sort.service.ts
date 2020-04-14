@@ -5,8 +5,8 @@ import { Sort } from '../models/sort.interface';
 
 @Injectable({ providedIn: 'root' })
 export class SortService {
-	private currentSort: Sort = { property: 'name', direction: 'ASC' };
-	private _sort$ = new BehaviorSubject(undefined);
+	currentSort: Readonly<Sort> = { property: 'name', direction: 'ASC' };
+	private _sort$ = new BehaviorSubject(this.currentSort);
 	sort$ = this._sort$.asObservable();
 
 	constructor() {

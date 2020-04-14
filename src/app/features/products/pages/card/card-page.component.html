@@ -4,7 +4,7 @@
 	logoTypename="Product"
 	info="The product database"
 	[buttonName]="'button.create-product' | translate"
-	(buttonClick)="dialogCommonSrv.openCreationProductDlg()">
+	(buttonClick)="dlgCommonSrv.openCreationDlg('Product')">
 </header-list-app>
 
 <controller-table-app>
@@ -20,7 +20,7 @@
 	cdk-scrollable
 	class="card-view will-change-scroll"
 	infiniScroll
-	[rows]="items$ | async"
+	[rows]="listHelper.filteredItems$ | async"
 	[selection]="selectionSrv.selection$ | async"
 	(addToProject)="addToProject($event)"
 	(disliked)="ratingSrv.onThumbDown($event)"
