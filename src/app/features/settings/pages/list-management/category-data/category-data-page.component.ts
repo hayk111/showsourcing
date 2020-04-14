@@ -45,13 +45,14 @@ export class CategoryDataPageComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {
 		let teamId: string;
 		this.teamSrv.teamSelected$.subscribe((team) => (teamId = team.id));
-		this.filterSrv.setup([], ['name']);
 		this.viewSrv.setup({
 			typename: 'Category',
 			destUrl: 'settings/list-management/category-data',
 			view: 'table',
 		});
-		this.listHelper.setup('Category', 'Team', teamId); // search initialized in controller-table
+		// set searchable columns for list-fuse-helper
+		this.filterSrv.setup([], ['name']);
+		this.listHelper.setup('Category');
 	}
 
 	mergeSelected() {

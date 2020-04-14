@@ -1,29 +1,24 @@
 import { Injectable } from '@angular/core';
 import Fuse from 'fuse.js/dist/fuse.esm.js';
-import { combineLatest, forkJoin, Observable, of, Subject, timer, BehaviorSubject } from 'rxjs';
-import {
-	debounce,
-	switchMap,
-	tap,
-	filter,
-	map,
-	distinctUntilChanged,
-	mergeMap,
-	first,
-} from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, Observable, of, Subject, timer } from 'rxjs';
+import { debounce, filter, map, switchMap, tap } from 'rxjs/operators';
+import * as uuid from 'uuid';
+import { DefaultCreationDialogComponent } from '~common/dialogs/creation-dialogs';
+import { TeamService } from '~core/auth';
 import { ApiQueryOption, ApiService, ObservableQuery } from '~core/erm3/services/api.service';
 import { Typename } from '~core/erm3/typename.type';
 import { FilterService, FilterType } from '~core/filters';
-import { TeamService } from '~core/auth';
-import { SelectionService } from './selection.service';
-import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { Entity } from '~core/erm3/models/_entity.model';
-import { DefaultCreationDialogComponent } from '~common/dialogs/creation-dialogs';
 import { DialogService } from '~shared/dialog';
 import { PaginationService } from '~shared/pagination/services/pagination.service';
 import { SortService } from '~shared/table/services/sort.service';
-import * as uuid from 'uuid';
+import { SelectionService } from './selection.service';
 
+/** this service is about managing the tables of non searchable entities like category, tag, ...
+ * It must be setup before use (see setup method)
+ *
+ * As some entities are not searchable / sortable, we query all entities (from the cache first)
+ * and manage them as an array (search with fuse, sorting, paginating, ...)
+ */
 @Injectable({ providedIn: 'root' })
 export class ListFuseHelperService<G = any> {
 	private queryRef: ObservableQuery<G[]>;
@@ -98,7 +93,11 @@ export class ListFuseHelperService<G = any> {
 		});
 	}
 
-	/** the filterSrv should be setup before the listFuseHelper */
+	/** the filterSrv should be setup before the listFuseHelper to specify searchable columns.
+	 * example of use:
+	 * this.filterSrv.setup([], ['name']); => fuse will be searchable on name and not on createdBy, ...
+	 * this.listHelper.setup('Category');
+	 */
 	setup(
 		typename: Typename,
 		byProperty: string = 'Team',
