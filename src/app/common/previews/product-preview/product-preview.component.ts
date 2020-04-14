@@ -140,11 +140,6 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 		// });
 	}
 
-	ngOnChanges() {
-		console.log('ProductPreviewComponent -> ngOnChanges -> this.product', this._product);
-		console.log('ProductPreviewComponent -> ngOnChanges -> this.isPreview', this.isPreview);
-	}
-
 	// UPDATE FUNCTIONS
 	updateProduct(productConfig: any) {
 		const product = { ...productConfig, id: this._product.id };

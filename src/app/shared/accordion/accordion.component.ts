@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 import { slideAnimation } from './slide.animation';
 
 @Component({
@@ -8,12 +8,16 @@ import { slideAnimation } from './slide.animation';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	animations: [ slideAnimation ]
 })
-export class AccordionComponent {
+export class AccordionComponent implements OnInit {
+	@Input() initialState: 'open' | 'closed' = 'open';
+	isOpen = true;
 
-	isContentShown = true;
+	ngOnInit() {
+		this.isOpen = this.initialState === 'open' ? true : false;
+	}
 
 	toggle() {
-		this.isContentShown = !this.isContentShown;
+		this.isOpen = !this.isOpen;
 	}
 
 }

@@ -1,0 +1,32 @@
+
+<card-app class="mg-v-m">
+	<card-title-app>Form Field</card-title-app>
+	<p class="mg-v-ms">
+		A form field is a container for an `inputApp`.
+		It is used to display hint and error message as well as to format a 
+		field block with a specific styling.
+	</p>
+
+	<form-field-app [showRequiredMarker]="true">
+		<label-app>Label</label-app>
+		<input 
+			inputApp
+			[formControl]="formCtrl1"
+			type="text" 
+			placeholder="this is the place holder"/>
+		<hint-app>This is an helpful message</hint-app>
+	</form-field-app>
+
+	<p class="mg-v-ms">
+		This field is required, add something in it and remove 
+		to make an error message appear
+	</p>
+</card-app>
+
+<card-app>
+	<card-title-app>Form Field with checkbox</card-title-app>
+
+	<form-field-app [showRequiredMarker]="true">
+		<checkbox-app inputApp>the label</checkbox-app>
+	</form-field-app>
+</card-app>

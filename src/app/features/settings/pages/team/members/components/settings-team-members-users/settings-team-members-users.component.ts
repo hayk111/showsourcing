@@ -71,7 +71,7 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub
 
 	/** Opens the dialog for inviting a new user */
 	openInviteDialog() {
-		this.dialogCommonSrv.openInvitationDialog();
+		this.listHelper.create({}, 'Invitation');
 	}
 
 	updateAccessType({

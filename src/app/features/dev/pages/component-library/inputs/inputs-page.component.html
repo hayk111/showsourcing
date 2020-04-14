@@ -1,0 +1,56 @@
+
+<card-app class="mg-v-m">
+	<card-title-app>
+		inputApp directive
+	</card-title-app>
+
+	<p class="mg-v-ms">
+		This utility directive helps with focus.
+	</p>
+
+	<input 
+		#inp 
+		inputApp 
+		class="mg-v-ms" 
+		type="text"
+		value="some test value" 
+		placeholder="normal input"/>
+	
+	<div class="flexColumn">
+		<button 
+			class="mg-v-s"
+			(click)="inp.focus()">
+			focus
+		</button>
+		<button 
+			class="mg-v-s"
+			(click)="inp.select()">
+			select
+		</button>
+	</div>
+</card-app>
+
+<card-app class="mg-v-m">
+	<card-title-app>Checkbox</card-title-app>
+	<checkbox-app [(ngModel)]="checkbox">
+		This it the label
+	</checkbox-app>
+	<p class="mg-v-ms">
+		value: {{ checkbox | json }}
+	</p></card-app>
+
+<card-app class="mg-v-m">
+	<card-title-app>Packaging</card-title-app>
+	<input-packaging-app [(ngModel)]="packaging"></input-packaging-app>
+	<p class="mg-v-ms">
+		value: {{ packaging | json }}
+	</p>
+</card-app>
+
+<card-app class="mg-v-m">
+	<card-title-app>Price</card-title-app>
+	<input-price2-app></input-price2-app>
+	<p class="mg-v-ms">
+		value: {{ price | json }}
+	</p>
+</card-app>

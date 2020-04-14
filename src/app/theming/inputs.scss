@@ -28,7 +28,6 @@ input, textarea {
 .cdk-focused.cdk-keyboard-focused {
 	border: 1px solid var(--color-primary);
 	border-radius: var(--border-radius);
-
 }
 
 input, textarea {
@@ -49,10 +48,12 @@ input, textarea {
 		border-color: var(--color-primary);
 	}
 	&.small {
-		padding: 3px;
+		height: 24px;
 	}
-	&:not([type="submit"]):disabled {
-		color: var(--color-txt-primary);
+	&:read-only, &:disabled {
+		background: var(--color-secondary-light);
+    cursor: default;
+    border-color: var(--color-secondary);
 	}
 }
 
@@ -60,7 +61,6 @@ input, textarea {
 textarea {
 	color: var(--color-txt-primary);
 	padding-top: var(--spacing-s);
-	background: #f1f4f8;
 	resize: none;
 }
 

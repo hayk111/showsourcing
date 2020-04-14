@@ -123,10 +123,10 @@ export class ListFuseHelperService<G = any> {
 			.then((_) => this._pending$.next(false));
 	}
 
-	create(addedProperties: any) {
+	create(addedProperties: any, typename: Typename) {
 		this.dlgSrv
 			.open(DefaultCreationDialogComponent, {
-				typename: this.typename,
+				typename: typename || this.typename,
 				extra: addedProperties,
 			})
 			.data$.pipe(

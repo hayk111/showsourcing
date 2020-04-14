@@ -73,7 +73,7 @@ export class SelectorDeprecatedComponent extends AbstractInput {
 		super(cd);
 	}
 
-	onChange(choice: Choice) {
+	onChangeFn(choice: Choice) {
 		this.onChangeFn(this.value);
 		this.change.emit(this.value);
 	}
