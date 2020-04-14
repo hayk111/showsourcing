@@ -130,13 +130,15 @@ export class ListFuseHelperService<G = any> {
 				extra: addedProperties,
 			})
 			.data$.pipe(
-				tap((entity) =>
-					this.apiSrv.addToList(this.queryRef, {
+				map((entity) => {
+					entity = {
 						id: uuid(),
 						__typename: this.typename,
 						...entity,
-					})
-				),
+					};
+					this.apiSrv.addToList(this.queryRef, entity);
+					return entity;
+				}),
 				switchMap((entity) => this.apiSrv.create(this.typename, entity))
 			)
 			.subscribe();
