@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { ERM } from '~core/erm';
 
-import { EntitySelectionBarComponent } from '../entity-selection-bar.component';
+import { TrackingComponent } from '~utils/tracking-component';
 
 @Component({
 	selector: 'supplier-selection-bar-app',
@@ -9,7 +9,7 @@ import { EntitySelectionBarComponent } from '../entity-selection-bar.component';
 	styleUrls: ['./supplier-selection-bar.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SupplierSelectionBarComponent extends EntitySelectionBarComponent {
+export class SupplierSelectionBarComponent extends TrackingComponent {
 
 	@Input() favorite: boolean;
 	@Input() allSelectedFavorite: boolean;
