@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { ERM } from '~core/erm';
 
 import { TrackingComponent } from '~utils/tracking-component';
 
@@ -10,8 +9,6 @@ import { TrackingComponent } from '~utils/tracking-component';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ContactSelectionBarComponent extends TrackingComponent {
-
-	erm = ERM;
 
 	constructor() {
 		super();

@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
-import { ERM } from '~core/erm';
 
 import { TrackingComponent } from '~utils/tracking-component';
 
@@ -12,8 +11,6 @@ import { TrackingComponent } from '~utils/tracking-component';
 export class RequestSelectionBarComponent extends TrackingComponent {
 
 	@Output() cancelSelectedRequests = new EventEmitter<null>();
-
-	erm = ERM;
 
 	constructor() {
 		super();

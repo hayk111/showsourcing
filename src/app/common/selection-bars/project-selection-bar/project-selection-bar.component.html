@@ -1,11 +1,5 @@
 <selection-bar-app
-	[entityMetadata]="erm.PROJECT"
-	[isShown]="isShown"
-	[selectableItems]="selectableItems"
-	[selection]="selection"
-	(close)="close.emit()"
-	(selectAll)="selectAll.emit($event)"
-	(unselectAll)="unselectAll.emit()">
+	typename="Project">
 
 	<!-- delete -->
 	<button class="icon-with-text light" (click)="deleteSelected.emit()">

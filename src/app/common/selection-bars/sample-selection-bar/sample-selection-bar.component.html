@@ -1,11 +1,5 @@
 <selection-bar-app
-	[entityMetadata]="erm.SAMPLE"
-	[selectableItems]="selectableItems"
-	[isShown]="isShown"
-	[selection]="selection"
-	(close)="close.emit()"
-	(selectAll)="selectAll.emit($event)"
-	(unselectAll)="unselectAll.emit()">
+	typename="Sample">
 
 	<!-- delete -->
 	<button class="icon-with-text light" (click)="deleteSelected.emit()">

@@ -1,11 +1,6 @@
 	<!-- [entityMetadata]="erm.PRODUCT" -->
 	<!-- [selectableItems]="selectableItems" -->
-<selection-bar-app
-	[isShown]="isShown"
-	[selection]="selection"
-	(close)="close.emit()"
-	(selectAll)="selectAll.emit($event)"
-	(unselectAll)="unselectAll.emit()">
+<selection-bar-app>
 
 	<!-- Request supplier -->
 	<button class="icon-with-text vibrant mg-right-ms" (click)="createRequest.emit()">

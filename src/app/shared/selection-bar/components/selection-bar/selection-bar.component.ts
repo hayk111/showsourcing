@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { Entity, EntityMetadata } from '~core/erm';
 import { SelectionState } from '~shared/inputs-custom/components/select-checkbox/select-checkbox.component';
 import { selectionBarAnimation } from '~shared/selection-bar/animation/selection-bar.animation';
 import { SelectionService, ListHelperService } from '~core/list-page2';
+import { Typename } from '~core/erm3/typename.type';
+import { Entity } from '~core/erm3/models/_entity.model';
 
 @Component({
 	selector: 'selection-bar-app',
@@ -18,7 +19,7 @@ import { SelectionService, ListHelperService } from '~core/list-page2';
 })
 export class SelectionBarComponent {
 	@Input() selection: Map<string, boolean>;
-	@Input() entityMetadata: EntityMetadata;
+	@Input() typename: Typename; // ? do we need typename ?
 	@Input() selectableItems: Entity[];
 	@Input() isShown = false;
 	@Output() close = new EventEmitter();

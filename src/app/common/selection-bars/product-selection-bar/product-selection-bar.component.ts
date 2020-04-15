@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { ERM, Product, Project } from '~core/erm';
 
 import { TrackingComponent } from '~utils/tracking-component';
+import { Product, Project } from '~core/erm3/models';
 
 @Component({
 	selector: 'product-selection-bar-app',

@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { ERM } from '~core/erm';
 
 import { TrackingComponent } from '~utils/tracking-component';
 
@@ -16,8 +15,6 @@ export class SupplierSelectionBarComponent extends TrackingComponent {
 	@Output() onFavorite = new EventEmitter<null>();
 	@Output() onUnfavorite = new EventEmitter<null>();
 	@Output() statusUpdated = new EventEmitter<any>();
-
-	erm = ERM;
 
 	constructor() {
 		super();
