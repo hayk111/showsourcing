@@ -1,5 +1,14 @@
 
-<div class="">
-	<div class=""></div>
-	<label></label>
+<div 
+	*ngFor="let choice of choices"
+	class="flexVAlign pointer mg-s"
+	(click)="pick(choice.value)">
+	<div 
+		class="circle flexCenter mg-right-s" 
+		[ngClass]="{ 'readonly': disabled || readonly }">
+		<div
+			*ngIf="choice.value === value" 
+			class="check-circle"></div>
+	</div>
+	<div class="label">{{ choice.label }}</div>
 </div>

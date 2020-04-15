@@ -37,7 +37,19 @@
 	</checkbox-app>
 	<p class="mg-v-ms">
 		value: {{ checkbox | json }}
-	</p></card-app>
+	</p>
+</card-app>
+
+<card-app class="mg-v-m">
+	<card-title-app>Radio</card-title-app>
+	<radio-app 
+		[choices]="radioChoices"
+		[(ngModel)]="radio"></radio-app>
+	<p class="mg-v-ms">
+		value: {{ radio | json }}
+	</p>
+</card-app>
+
 
 <card-app class="mg-v-m">
 	<card-title-app>Packaging</card-title-app>
@@ -49,8 +61,20 @@
 
 <card-app class="mg-v-m">
 	<card-title-app>Price</card-title-app>
-	<input-price2-app></input-price2-app>
+	<input-price2-app 
+		[(ngModel)]="price">
+	</input-price2-app>
 	<p class="mg-v-ms">
 		value: {{ price | json }}
+	</p>
+</card-app>
+
+<card-app class="mg-v-m">
+	<card-title-app>Price Matrix</card-title-app>
+	<input-price-matrix-app 
+		[(ngModel)]="priceMatrix">
+	</input-price-matrix-app>
+	<p class="mg-v-ms">
+		value: {{ priceMatrix | json }}
 	</p>
 </card-app>
