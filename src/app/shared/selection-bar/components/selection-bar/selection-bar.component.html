@@ -2,6 +2,7 @@
 <bottom-panel-app *ngIf="isShown" class="z-6 flexBetween" @selectionBarTrigger>
 
   <div class="flexCenter">
+		<button (click)="test()">test</button>
     <div class="selected">
 			<select-checkbox-app
 				[state]="getSelectionState()"

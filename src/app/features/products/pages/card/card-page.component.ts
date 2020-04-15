@@ -41,7 +41,6 @@ export class CardPageComponent implements OnInit {
 		public selectionSrv: SelectionService,
 		public dlgCommonSrv: DialogCommonService,
 		public ratingSrv: RatingService,
-		// public filterSrv: FilterService
 	) {}
 
 	ngOnInit() {

@@ -21,8 +21,6 @@ export class ProductSelectionBarComponent extends EntitySelectionBarComponent {
 	@Output() addProject = new EventEmitter<Project[]>();
 	@Output() massEdit = new EventEmitter<null>();
 
-	erm = ERM;
-
 	constructor() {
 		super();
 	}
