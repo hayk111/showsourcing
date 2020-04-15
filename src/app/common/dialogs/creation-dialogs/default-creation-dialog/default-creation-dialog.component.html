@@ -20,7 +20,7 @@
 	</form>
 
 	<dialog-footer-app>
-		<checkbox-app [checked]="createAnother" (update)="createAnother = !createAnother">
+		<checkbox-app [value]="createAnother" (update)="createAnother = !createAnother">
 			{{ 'text.create-another' | translate }}
 		</checkbox-app>
 		<button tabFocusAction class="secondary" (click)="cancel()" translate="button.cancel"></button>

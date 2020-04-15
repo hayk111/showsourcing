@@ -51,7 +51,7 @@ https://stackblitz.com/edit/angular-vtluff?file=src/app/app.component.ts -->
 					(mouseenter)="hoverRow(i)" (mouseleave)="hoverRow(-1)">
 					<checkbox-app
 						*ngIf="isSelectable(row)"
-						[checked]="selected.has(row[idName])"
+						[value]="selected.has(row[idName])"
 						(check)="onSelectOne(row)"
 						(uncheck)="onUnselectOne(row)">
 					</checkbox-app>

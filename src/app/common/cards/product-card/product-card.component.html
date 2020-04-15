@@ -15,7 +15,7 @@
 		</img-app>
 		<div *ngIf="showCheckbox" class="check" [ngClass]="{ checked: checked, selected: checked, 'drag-in-progress': dragInProgress }">
 			<checkbox-app
-				[checked]="checked"
+				[value]="checked"
 				(check)="onChecked()"
 				(uncheck)="onUnchecked()">
 			</checkbox-app>

@@ -5,7 +5,7 @@
 
 			<ng-container *ngSwitchCase="allFilterTypes.ARCHIVED">
 				<checkbox-app
-					[checked]="isArchived()"
+					[value]="isArchived()"
 					(check)="filterCommonSrv.filterByArchived(true)"
 					(uncheck)="filterCommonSrv.filterByArchived(false)">
 					<icon-app class="mg-h-s" name="archive"></icon-app>
@@ -15,7 +15,7 @@
 
 			<ng-container *ngSwitchCase="allFilterTypes.FAVORITE">
 				<checkbox-app
-					[checked]="isFavorite()"
+					[value]="isFavorite()"
 					(check)="filterSrv.addFilter({ type: allFilterTypes.FAVORITE, value: true })"
 					(uncheck)="filterSrv.removeFilter({ type: allFilterTypes.FAVORITE, value: true })">
 					<icon-app class="color-warn mg-h-s" name="heart"></icon-app>
@@ -25,7 +25,7 @@
 
 			<ng-container *ngSwitchCase="allFilterTypes.DONE">
 				<checkbox-app
-					[checked]="isDone()"
+					[value]="isDone()"
 					(check)="filterCommonSrv.filterByDone(true)"
 					(uncheck)="filterCommonSrv.filterByDone(false)">
 					<span translate="text.show-completed-tasks"></span>
@@ -65,7 +65,7 @@
 					<div class="flexColumn">
 						<checkbox-app
 							*ngFor="let filter of filterSrv.getFiltersForType(type); trackBy: trackByFn"
-							[checked]="true"
+							[value]="true"
 							(uncheck)="filterSrv.removeFilter(filter)">
 							<span class="mg-left-s">{{ filter.displayValue }}</span>
 						</checkbox-app>

@@ -1,8 +1,8 @@
 
-	<input 
-		class="mg-bottom-l" 
-		type="text" 
-		placeholder="{{'title.search' | translate}} {{ type }}" 
+	<input
+		class="mg-bottom-l"
+		type="text"
+		placeholder="{{'title.search' | translate}} {{ type }}"
 		(input)="filterSrv.search($event.target.value)"/>
 
 	<ng-container *ngIf="pending$ | async">
@@ -13,7 +13,7 @@
 		<checkbox-app
 			*ngFor="let choice of choices$ | async; trackBy: trackById"
 			class="mg-bottom-s"
-			[checked]="selected.has(choice.id)"
+			[value]="selected.has(choice.id)"
 			(check)="onItemAdded(choice)"
 			(uncheck)="onItemRemoved(choice)">
 			<div class="flexBetween mg-left-s">
