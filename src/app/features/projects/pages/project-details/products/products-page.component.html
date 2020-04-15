@@ -58,9 +58,6 @@
 		</products-board-app>
 
 		<product-selection-bar-app
-			[isShown]="(selectionSrv.selection$ | async).size > 0"
-			[selection]="selectionSrv.selection$ | async"
-			[selectableItems]="listSrv.items$ | async"
 			(addProject)="dialogCommonSrv.openAddToProjectDialog(selectionSrv.getSelectedValues())"
 			(export)="dialogCommonSrv.openExportDialog(erm.PRODUCT.singular, selectionSrv.getSelectedValues())"
 			(createRequest)="dialogCommonSrv.openSupplierRequest(selectionSrv.getSelectedValues())"
@@ -70,9 +67,6 @@
 			(statusUpdated)="listSrv.updateSelected({status: $event})"
 			(massEdit)="dialogCommonSrv.openMassEditDialog(selectionSrv.getSelectedValues(), erm.PRODUCT)"
 			(deleted)="deassociateSelectedProducts()"
-			(close)="selectionSrv.unselectAll()"
-			(selectAll)="selectionSrv.selectAll($event)"
-			(unselectAll)="selectionSrv.unselectAll()">
 		</product-selection-bar-app> -->
 
 		<!-- <side-panel-app *ngIf="viewSrv.filterPanelOpen">

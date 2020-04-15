@@ -24,11 +24,5 @@
 </contacts-table-app>
 
 <contact-selection-bar-app
-	[isShown]="(selectionSrv.selection$ | async)?.size > 0"
-	[selection]="selectionSrv.selection$ | async"
-	[selectableItems]="listHelper.filteredItems$ | async"
-	(deleteSelected)="listHelper.deleteSelected(true)"
-	(close)="selectionSrv.unselectAll()"
-	(selectAll)="selectionSrv.selectAll($event)"
-	(unselectAll)="selectionSrv.unselectAll()">
+	(deleteSelected)="listHelper.deleteSelected(true)">
 </contact-selection-bar-app>

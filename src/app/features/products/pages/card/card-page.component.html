@@ -33,8 +33,6 @@
 	(bottomReached)="listHelper.loadMore()">
 </products-grid-app>
 
-<!-- [isShown]="(selectionSrv.selection$ | async).size" -->
-<!-- [selection]="selectionSrv.selection$ | async" -->
 <!-- (addProject)="onProjectDlgOpen()" -->
 <!-- (export)="dialogCommonSrv.openExportDialog(erm.PRODUCT.singular, selectionSrv.getSelectedValues())"
 (createRequest)="dialogCommonSrv.openSupplierRequest(selectionSrv.getSelectedValues())"
@@ -42,9 +40,7 @@
 (archiveProducts)="listSrv.archiveMany(selectionSrv.getSelectedValues())"
 (compareProducts)="dialogCommonSrv.openCompareProductDialog(selectionSrv.getSelectedValues())"
 (massEdit)="dialogCommonSrv.openMassEditDialog(selectionSrv.getSelectedValues(), erm.PRODUCT)"
-(deleted)="listSrv.deleteSelected()"
-(selectAll)="selectAll($event)"
-(unselectAll)="unselectAll()" -->
+(deleted)="listSrv.deleteSelected()" -->
 <product-selection-bar-app
 >
 	</product-selection-bar-app>

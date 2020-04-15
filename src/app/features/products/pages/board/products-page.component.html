@@ -32,7 +32,7 @@
 		(selectAll)="selectionSrv.selectAll($event)"
 		(unselect)="selectionSrv.unselectOne($event)">
 	</products-table-app>
-<!-- 
+<!--
 	<products-board-app
 		*ngIf="viewSrv.view === 'board'"
 		(preview) = "viewSrv.openPreview($event)">
@@ -57,8 +57,6 @@
 	</products-grid-app>
 -->
 	<!-- <product-selection-bar-app
-		[isShown]="(getSelection$() | async).size"
-		[selection]="getSelection$() | async"
 		[selectableItems]="getSelectableItems$() | async"
 		(addProject)="onProjectDlgOpen()"
 		(export)="dialogCommonSrv.openExportDialog(erm.PRODUCT.singular, selectionSrv.getSelectedValues())"

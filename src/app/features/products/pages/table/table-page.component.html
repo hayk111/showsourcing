@@ -34,9 +34,6 @@
 </products-table-app>
 
 <product-selection-bar-app
-	[isShown]="(selectionSrv.selection$ | async).size"
-	[selection]="selectionSrv.selection$ | async"
-	[selectableItems]="listHelper.filteredItems$ | async"
 	(addProject)="addProject()"
 	(export)="dialogCommonSrv.openExportDialog('Product', selectionSrv.getSelectedValues())"
 	(createRequest)="dialogCommonSrv.openSupplierRequest(selectionSrv.getSelectedValues())"
@@ -44,12 +41,11 @@
 	(compareProducts)="dialogCommonSrv.openCompareProductDialog(selectionSrv.getSelectedValues())"
 	(massEdit)="dialogCommonSrv.openMassEditDialog(selectionSrv.getSelectedValues())"
 	(deleted)="listHelper.deleteSelected()"
-	(selectAll)="selectionSrv.selectAll()"
-	(unselectAll)="selectionSrv.unselectAll()">
+	>
 </product-selection-bar-app>
 
 <product-preview-app
-	*ngIf="viewSrv.previewOpen$ | async"
+	*ngIf="viewSrv.previewOpen | async"
 	[product]="viewSrv.previewed"
 	(close)="viewSrv.closePreview()">
 </product-preview-app>
