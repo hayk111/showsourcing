@@ -32,12 +32,12 @@
 	<!-- top icons floating on hover -->
 	<checkbox-app
 		*ngIf="hasCheckbox"
+		[value]="selected"
 		class="action-hover-item-0"
 		[size]="17"
 		[ngClass]="{ 'full-opacity': selected }"
-		[checked]="selected"
-		(check)="select.emit()"
-		(uncheck)="unselect.emit()"
+		(check)="selectionSrv.selectOne(product)"
+		(uncheck)="selectionSrv.unselectOne(product)"
 	>
 	</checkbox-app>
 

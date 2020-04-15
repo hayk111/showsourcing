@@ -5,16 +5,16 @@
 		[ngClass]="getClassList()"
 		[ngStyle]="iconSize()"
 		(click)="onClick($event)"
-		tabFocusAction 
+		tabFocusAction
 		(keyEnter)="ctnr.click()">
 			<icon-app *ngIf="value;" class="check-icon" name="check"></icon-app>
 	</div>
 
-	<label class="label" 
-		(click)="onClick()" 
-		[ngClass]="{ 'pointer': !disabled && !readonly }" 
-		#label 
-		[attr.for]="id" 
+	<label class="label"
+		(click)="onClick()"
+		[ngClass]="{ 'pointer': !disabled && !readonly }"
+		#label
+		[attr.for]="id"
 		class="flexVAlign">
 		<ng-content></ng-content>
 	</label>

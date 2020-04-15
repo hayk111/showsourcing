@@ -1,7 +1,4 @@
-	<!-- [entityMetadata]="erm.PRODUCT" -->
-	<!-- [selectableItems]="selectableItems" -->
-<selection-bar-app>
-
+<selection-bar-app typename="Product">
 	<!-- Request supplier -->
 	<button class="icon-with-text vibrant mg-right-ms" (click)="createRequest.emit()">
 		<icon-app name="envelope"></icon-app>
@@ -44,7 +41,10 @@
 		</context-menu-trigger-app>
 
 		<!-- items -->
-		<context-menu-item-app (click)="requestTeamFeedback.emit()" translate="button.request-team-feedback">
+		<context-menu-item-app
+			(click)="requestTeamFeedback.emit()"
+			translate="button.request-team-feedback"
+		>
 			<div class="icon-box square flexCenter mg-right-s">
 				<icon-app name="request-quotation" size="s"></icon-app>
 			</div>
@@ -65,5 +65,4 @@
 			<span translate="button.delete"></span>
 		</context-menu-item-warn-app>
 	</context-menu-app>
-
 </selection-bar-app>

@@ -1,8 +1,15 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	EventEmitter,
+	Input,
+	Output,
+} from '@angular/core';
 import { Product } from '~core/erm3/models';
 import { RatingService } from '~shared/rating/services/rating.service';
 import { StatusUtils } from '~utils';
 import { ListPageViewService } from '~core/list-page2/list-page-view.service';
+import { SelectionService } from '~core/list-page2';
 
 @Component({
 	selector: 'product-grid-card-app',
@@ -11,10 +18,9 @@ import { ListPageViewService } from '~core/list-page2/list-page-view.service';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[class.small-card]': 'size === "s"',
-	}
+	},
 })
 export class ProductGridCardComponent {
-
 	@Input() size: 's' | 'm' = 'm';
 	@Input() product: Product;
 	@Input() selected: boolean;
@@ -28,7 +34,11 @@ export class ProductGridCardComponent {
 
 	statusUtils = StatusUtils;
 
-	constructor(public ratingSrv: RatingService, public viewSrv: ListPageViewService<Product>) { }
+	constructor(
+		public ratingSrv: RatingService,
+		public viewSrv: ListPageViewService<Product>,
+		public selectionSrv: SelectionService
+	) {}
 
 	thumbUp() {
 		// const votes = this.ratingSrv.thumbUp(this.product, EntityName.PRODUCT);
@@ -39,5 +49,4 @@ export class ProductGridCardComponent {
 		// const votes = this.ratingSrv.thumbDown(this.product, EntityName.PRODUCT);
 		// this.update.emit({ id: this.product.id, votes });
 	}
-
 }

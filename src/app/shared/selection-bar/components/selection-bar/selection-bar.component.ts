@@ -3,6 +3,7 @@ import { SelectionState } from '~shared/inputs-custom/components/select-checkbox
 import { selectionBarAnimation } from '~shared/selection-bar/animation/selection-bar.animation';
 import { SelectionService, ListHelperService } from '~core/list-page2';
 import { Typename } from '~core/erm3/typename.type';
+import { map } from 'rxjs/operators';
 
 @Component({
 	selector: 'selection-bar-app',
@@ -18,11 +19,9 @@ import { Typename } from '~core/erm3/typename.type';
 })
 export class SelectionBarComponent {
 	@Input() typename: Typename;
+	isShown$ = this.selectionSrv.selection$.pipe(map(selection => !!selection.size));
 
 	constructor(public selectionSrv: SelectionService, public listHelper: ListHelperService) {
-	}
-	isShown() {
-		return !!this.selectionSrv.selection.size;
 	}
 
 	async selectAllItems() {
