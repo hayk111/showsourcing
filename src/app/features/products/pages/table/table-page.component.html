@@ -49,7 +49,7 @@
 </product-selection-bar-app>
 
 <product-preview-app
-	*ngIf="viewSrv.previewOpen"
+	*ngIf="viewSrv.previewOpen$ | async"
 	[product]="viewSrv.previewed"
 	(close)="viewSrv.closePreview()">
 </product-preview-app>

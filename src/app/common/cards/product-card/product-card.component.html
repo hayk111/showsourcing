@@ -35,7 +35,7 @@
 					<price-app [price]="product?.price"></price-app>
 				</ng-container>
 			</span>
-			<span *ngIf="product?.minimumOrderQuantity !== null"> 
+			<span *ngIf="product?.minimumOrderQuantity !== null">
 				{{'OBJ.min-pcs' | translate: {count : product?.minimumOrderQuantity || 0} }}
 			</span>
 			<!-- supplier-->
@@ -63,8 +63,8 @@
 				</div>
 			</div>
 
-			<rating-number-badge-app  
-				*ngIf="ratingSrv.computeScore(product) >= 3.5" 
+			<rating-number-badge-app
+				*ngIf="ratingSrv.computeScore(product) >= 3.5"
 				[votes]="product.votes">
 			</rating-number-badge-app>
 		</div>

@@ -4,24 +4,30 @@
 		'disable-action-hover-0 disable-pointers': !hasHoverEffect,
 		'card-hover-style': hasHoverEffect,
 		'selected-card': selected
-	}">
+	}"
+>
 	<!-- picture -->
 	<img-app
-		[ngClass]="{'small-img': size === 's'}"
+		[ngClass]="{ 'small-img': size === 's' }"
 		[image]="product?.images"
 		objectFit="cover"
-		size="xl">
+		size="xl"
+	>
 	</img-app>
 
 	<!-- price floating -->
-	<div *ngIf="product?.price" [ngClass]="size === 'm' ? 'product-price' : 'product-price-s'" class="flexVAlign">
+	<div
+		*ngIf="product?.price"
+		[ngClass]="size === 'm' ? 'product-price' : 'product-price-s'"
+		class="flexVAlign"
+	>
 		<div class="bold-s color-white">
 			<price-app [price]="product?.price"></price-app>
 		</div>
 	</div>
 
 	<!-- black backgorund on hover -->
-	<div [ngClass]="{'small-img': size === 's'}" class="black-container action-hover-item-0"></div>
+	<div [ngClass]="{ 'small-img': size === 's' }" class="black-container action-hover-item-0"></div>
 
 	<!-- top icons floating on hover -->
 	<checkbox-app
@@ -31,7 +37,8 @@
 		[ngClass]="{ 'full-opacity': selected }"
 		[checked]="selected"
 		(check)="select.emit()"
-		(uncheck)="unselect.emit()">
+		(uncheck)="unselect.emit()"
+	>
 	</checkbox-app>
 
 	<div class="flex icons-container">
@@ -44,59 +51,81 @@
 			[offsetX]="316"
 			[multiple]="true"
 			[width]="330"
-			(update)="update.emit({ id: product?.id, projects: $event })">
-			<icon-app 
-				class="folder action-hover-item-0 pointer color-third" 
-				[size]="size ==='s' ? 's' : 'ms'" 
-				name="folder-light">
+			(update)="update.emit({ id: product?.id, projects: $event })"
+		>
+			<icon-app
+				class="folder action-hover-item-0 pointer color-third"
+				[size]="size === 's' ? 's' : 'ms'"
+				name="folder-light"
+			>
 			</icon-app>
 		</selector-app>
 		<thumb-buttons-app
 			class="thumb-up action-hover-item-0"
-			[size]="size ==='s' ? 's' : 'ms'"
+			[size]="size === 's' ? 's' : 'ms'"
 			[lineStyle]="true"
 			[votes]="product?.votes"
 			(liked)="thumbUp()"
-			(disliked)="thumbDown()">
+			(disliked)="thumbDown()"
+		>
 		</thumb-buttons-app>
 		<rating-heart-app
 			class="heart action-hover-item-0"
 			[hasButton]="false"
 			[lightStyle]="true"
-			[size]="size ==='s' ? 's' : 'ms'"
+			[size]="size === 's' ? 's' : 'ms'"
 			[favorite]="product?.favorite"
 			(favorited)="update.emit({ id: product?.id, favorite: true })"
-			(unfavorited)="update.emit({ id: product?.id, favorite: false })">
+			(unfavorited)="update.emit({ id: product?.id, favorite: false })"
+		>
 		</rating-heart-app>
 	</div>
 
 	<!-- buttons floating on hover-->
-	<button [ngClass]="size === 'm' ? 'preview' : 'preview-s'" class="preview action-hover-item-0 capitalize icon-with-text" (click)="preview.emit()">
+	<button
+		[ngClass]="size === 'm' ? 'preview' : 'preview-s'"
+		class="preview action-hover-item-0 capitalize icon-with-text"
+		(click)="viewSrv.openPreview(product)"
+	>
 		<icon-app class="eye-icon" name="eye"></icon-app> {{ 'button.preview-product' | translate }}
 	</button>
-	<button [ngClass]="size === 'm' ? 'open' : 'open-s'" class="secondary action-hover-item-0 capitalize icon-with-text" (click)="open.emit()">
+	<button
+		[ngClass]="size === 'm' ? 'open' : 'open-s'"
+		class="secondary action-hover-item-0 capitalize icon-with-text"
+		(click)="viewSrv.goToDetails(product.id)"
+	>
 		<icon-app class="export-icon" name="exit"></icon-app> {{ 'button.open-product' | translate }}
 	</button>
 
 	<!-- info content -->
 	<div class="info-container flex">
-		<badge-app class="badge mg-h-s" [ngStyle]="{ 'background': 'var(--color-' + statusUtils?.getStatusColor(product?.status) + ')' }" [circle]="true"></badge-app>
+		<badge-app
+			class="badge mg-h-s"
+			[ngStyle]="{
+				background: 'var(--color-' + statusUtils?.getStatusColor(product?.status) + ')'
+			}"
+			[circle]="true"
+		></badge-app>
 		<!-- if we don't explicitly set the min-width, ellipsis wont work -->
 		<div style="min-width: 0;">
 			<div class="flexVAlign">
-				<div class="bold-s color-txt-primary ellipsis" [ngClass]="{'title-s': size === 's'}">{{ product?.name || ('message.unnamed-product' | translate) }}</div>
+				<div class="bold-s color-txt-primary ellipsis" [ngClass]="{ 'title-s': size === 's' }">
+					{{ product?.name || ('message.unnamed-product' | translate) }}
+				</div>
 			</div>
-			<div class="color-txt-secondary fs-s mg-bottom-xs ellipsis dot-separator" [ngClass]="{'sub-title-s': size === 's'}">
+			<div
+				class="color-txt-secondary fs-s mg-bottom-xs ellipsis dot-separator"
+				[ngClass]="{ 'sub-title-s': size === 's' }"
+			>
 				<span *ngIf="product?.category?.name">{{ product?.category?.name }}</span>
 				<span *ngIf="product?.supplier?.name">{{ product?.supplier?.name }}</span>
 			</div>
 			<rating-number-badge-app
 				*ngIf="ratingSrv.computeScoreVotes(product?.votes) >= 3.5"
 				[votes]="product?.votes"
-				[size]="size === 's' ? 's' : 'ms'">
+				[size]="size === 's' ? 's' : 'ms'"
+			>
 			</rating-number-badge-app>
 		</div>
 	</div>
-
 </div>
-

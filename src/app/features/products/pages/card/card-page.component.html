@@ -50,18 +50,18 @@
 		(unselectAll)="unselectAll()">
 	</product-selection-bar-app> -->
 
-	<!-- <product-preview-app
+	<product-preview-app
 		*ngIf="viewSrv.previewOpen"
 		[product]="viewSrv.previewed"
 		(close)="viewSrv.closePreview()">
-	</product-preview-app> -->
+	</product-preview-app>
 <!-- </ng-container>  -->
 
-<!-- <side-panel-app *ngIf="viewSrv.filterPanelOpen">
+<side-panel-app *ngIf="viewSrv.filterPanelOpen">
+		<!-- [filterList]="filterSrv.filterList" -->
 	<filters-app
-		[filterList]="filterSrv.filterList"
 		[filterTypes]="filterTypes"
 		(clickOutside)="viewSrv.closeFilterPanel()"
 		(close)="viewSrv.closeFilterPanel()">
 	</filters-app>
-</side-panel-app> -->
+</side-panel-app>

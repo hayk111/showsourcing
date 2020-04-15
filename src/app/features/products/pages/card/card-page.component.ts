@@ -13,7 +13,6 @@ import { RatingService } from '~shared/rating/services/rating.service';
 	styleUrls: ['./card-page.component.scss'],
 	providers: [
 		ListHelperService,
-		ListPageViewService,
 		FilterService,
 		SelectionService,
 	],
@@ -41,7 +40,8 @@ export class CardPageComponent implements OnInit {
 		public viewSrv: ListPageViewService<Product>,
 		public selectionSrv: SelectionService,
 		public dlgCommonSrv: DialogCommonService,
-		public ratingSrv: RatingService
+		public ratingSrv: RatingService,
+		// public filterSrv: FilterService
 	) {}
 
 	ngOnInit() {
