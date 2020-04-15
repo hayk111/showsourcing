@@ -1,5 +1,16 @@
 
 
+<input
+	*ngIf="hasLabel"
+	inputApp
+	class="label mg-right-ms"
+	type="text"
+	placeholder="Label"
+	[readonly]="readonly"
+	[(ngModel)]="value.label"
+	(blur)="onTouchedFn()"
+	(input)="onChangeFn(value)"/>
+
 <input 
 	inputApp
 	class="amount"

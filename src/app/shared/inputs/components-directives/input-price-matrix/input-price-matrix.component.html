@@ -1,1 +1,17 @@
-<p>input-price-matrix works!</p>
+
+
+<div class="flex" 
+	*ngFor="let row of value; let i = index">
+	<input-price2-app
+		class="mg-bottom-ms"
+		[hasLabel]="true"
+		[readonly]="readonly" 
+		[(ngModel)]="value[i]"
+		(change)="onChangeFn(value)"
+		(blur)="onTouchedFn()">
+	</input-price2-app>
+</div>
+
+<button class="mg-bottom-ms" (click)="addRow()">
+	+
+</button>

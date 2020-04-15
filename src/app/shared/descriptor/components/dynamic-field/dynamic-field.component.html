@@ -62,6 +62,21 @@
 			</form-field-app>
 	</ng-container>
 
+	<!-- COLOR -->
+	<ng-container *ngSwitchCase="type.COLOR">
+		<form-field-app [showRequiredMarker]="showRequiredMarker">
+			<label-app>{{ descriptor.definition.label }}</label-app>
+			<input 
+				#inp
+				inputApp
+				type="color"
+				[readonly]="descriptor.readonly"
+				[required]="descriptor.required"
+				[formControl]="control"/>
+				<hint-app>{{ descriptor.hint }}</hint-app>
+			</form-field-app>
+	</ng-container>
+
 	<!-- DATE -->
 	<ng-container *ngSwitchCase="type.DATE">
 		<form-field-app [showRequiredMarker]="showRequiredMarker">
@@ -148,4 +163,17 @@
 			</input-price2-app>
 		</form-field-app>
 	</ng-container>
+
+	<!-- PRICE MATRIX -->
+	<ng-container *ngSwitchCase="type.PRICE_MATRIX">
+		<form-field-app>
+			<label-app>{{ descriptor.definition.label }}</label-app>
+			<input-price-matrix-app 
+				inputApp 
+				[readonly]="descriptor.readonly"
+				[formControl]="control">
+			</input-price-matrix-app>
+		</form-field-app>
+	</ng-container>
+
 </ng-container>

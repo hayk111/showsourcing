@@ -63,6 +63,15 @@ const fields1: PropertyDescriptor[] = [
 		},
 		required: true,
 		readonly: false
+	},
+	{
+		definition: {
+			label: 'color',
+			type: PropertyType.COLOR,
+			name: 'color',
+		},
+		required: false,
+		readonly: false
 	}
 ];
 
@@ -100,6 +109,15 @@ const fields2: PropertyDescriptor[] = [
 			name: 'price',
 		},
 		defaultValue: {},
+		required: true,
+		readonly: false
+	},
+	{
+		definition: {
+			label: 'price matrix',
+			type: PropertyType.PRICE_MATRIX,
+			name: 'price_matrix',
+		},
 		required: true,
 		readonly: false
 	}

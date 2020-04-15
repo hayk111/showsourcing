@@ -13,7 +13,6 @@ export class DescriptorPageComponent implements OnInit {
 	columnAmount = 2;
 	updateOn = 'change';
 	properties = [
-		{ name: 'color', value: 'test' }
 	];
 	update = {};
 	invalidJson = false;

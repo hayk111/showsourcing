@@ -6,6 +6,6 @@
 	flex-basis: 20%;
 }
 
-.amount {
-	flex-basis: 80%;
+.amount, .label {
+	flex-grow: 1;
 }

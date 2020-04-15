@@ -10,4 +10,5 @@ import { AbstractInput, makeAccessorProvider } from '../abstract-input.class';
 })
 export class InputPriceComponent extends AbstractInput {
 	@Input() value: any = {};
+	@Input() hasLabel = false;
 }
