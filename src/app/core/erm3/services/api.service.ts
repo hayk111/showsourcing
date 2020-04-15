@@ -204,7 +204,6 @@ export class ApiService {
 		if (typename !== 'Company' && typename !== 'Team') {
 			entity.id = uuid();
 			entity.createdAt = new Date().toISOString();
-			entity._version = 0; // TODO should be removed (behavior not expected)
 			// entity.createdByUserId = this._userId; // TODO should be added (behavior expected)
 			entity.teamId = this._teamId;
 		}
