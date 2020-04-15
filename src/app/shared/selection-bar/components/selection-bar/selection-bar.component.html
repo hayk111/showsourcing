@@ -1,25 +1,24 @@
 
-<bottom-panel-app *ngIf="isShown" class="z-6 flexBetween" @selectionBarTrigger>
+<bottom-panel-app *ngIf="isShown()" class="z-6 flexBetween" @selectionBarTrigger>
 
   <div class="flexCenter">
-		<button (click)="test()">test</button>
     <div class="selected">
 			<select-checkbox-app
 				[state]="getSelectionState()"
 				[size]="24"
-				(check)="selectAll.emit(selectableItems)"
-				(uncheck)="unselectAll.emit()">
+				(check)="selectAllItems()"
+				(uncheck)="selectionSrv.unselectAll()">
 			</select-checkbox-app>
     </div>
 
     <div class="closeSection pointer">
-      <div *ngIf="!entityMetadata" class="entity-selected">
-				{{ 'OBJ.n-item-selected.' + (selection?.size === 1 ? 'singular' : 'plural') | translate: { count: selection?.size } }}
+      <div *ngIf="!typename" class="entity-selected">
+				{{ 'OBJ.n-item-selected.' + (selectionSrv.selection.size === 1 ? 'singular' : 'plural') | translate: { count: selectionSrv.selection.size } }}
 			</div>
-      <div *ngIf="entityMetadata" class="capitalize entity-selected">
+      <div *ngIf="typename" class="capitalize entity-selected">
 				{{ 'OBJ.n-OBJ-selected' | translate: {
-					count: selection?.size,
-					entity: ('ERM.' + entityMetadata.translationKey + (selection?.size === 1 ? '.singular' : '.plural') | translate) }
+					count: selectionSrv.selection.size,
+					entity: ('ERM.' + typename + (selectionSrv.selection.size === 1 ? '.singular' : '.plural') | translate) }
 				}}
 				<!-- TODO change translationKey -->
 			</div>
