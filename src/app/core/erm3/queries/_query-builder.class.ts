@@ -73,7 +73,14 @@ export class QueryBuilder {
 		const ownerVerbose = byProperty === 'Owner' ? 'User' : ''; // the param for Owner is $ownerUser
 		const paramEntityName = byProperty.charAt(0).toLowerCase() + byProperty.slice(1) + ownerVerbose;
 		const byId = paramEntityName + 'Id';
-		const byPropertyString = byProperty === 'Team' ? '' : 'By' + byProperty; // listEntity is "by Team" in default
+		let byPropertyString = 'By' + byProperty;
+
+		// this is temporary solution for the invitations as the query should renamed by the BE
+		// TODO BE: ListInvitationByTeam -> ListInvitation
+		if (this.typename !== 'Invitation') {
+			byPropertyString = byProperty === 'Team' ? '' : 'By' + byProperty; // listEntity is "by Team" in default
+		}
+
 		return gql`
 			query List${this.typename}${byPropertyString}(
 				$byId: ID

@@ -1,0 +1,57 @@
+<table-app
+	typename="Invitation"
+	[rows]="rows"
+	[pending]="pending"
+	[isSeaching]="isFiltering"
+	[selected]="selection"
+	[hasMenu]="false"
+	[hasSelection]="false"
+	[placeholder]="'placeholder.no-team-member' | translate"
+	(bottomReached)="bottomReached.emit()">
+
+	<!-- icon -->
+	<ng-template
+		[columnApp]="''"
+		let-row="row"
+		[grows]="false"
+		width="24">
+		<div class="user-icon">
+			<logo-app typename="Contact" size="s"></logo-app>
+		</div>
+	</ng-template>
+
+	<!-- email -->
+	<ng-template
+		class="capitalize"
+		columnApp="E-Mail"
+		let-row="row"
+		width="250">
+		<div class="email ellipsis">
+			{{ row.email  }}
+		</div>
+	</ng-template>
+
+	<!-- status -->
+	<ng-template
+		class="capitalize"
+		columnApp="Status"
+		let-row="row"
+		width="250">
+		<div class="ellipsis">
+			{{ row.status  }}
+		</div>
+	</ng-template>
+	
+	<!-- action -->
+	<ng-template
+		[columnApp]="'Action' | const: 'action'"
+		let-row="row"
+		width="100">
+		<div class="flex">
+			<button class="icon small warn" (click)="delete.emit(row)">
+				<icon-app name="trash" size="s"></icon-app>
+			</button>
+		</div>
+	</ng-template>
+
+</table-app>
