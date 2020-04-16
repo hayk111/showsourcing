@@ -25,5 +25,12 @@
 		<input inputApp [formControl]="ctrl3">
 	</editable-container-app>
 
+
+	<h3>This is an editable field</h3>
+	<editable-field-app>
+		<editable-display-app>{{ ctrl3.value || '-' }}</editable-display-app>
+		<input inputApp [formControl]="ctrl3">
+	</editable-field-app>
+
 </card-app>
 

@@ -9,7 +9,7 @@ import { InputsModule } from '~shared/inputs/inputs.module';
 import { SelectorsModule } from '~shared/selectors/selectors.module';
 import { UtilsModule } from '~shared/utils/utils.module';
 
-import { EditableContainerComponent, EditableDisplayComponent, EditableFieldComponent } from './components';
+import { EditableContainerComponent, EditableFieldComponent} from './components';
 
 // text where when it is clicked an input appears
 @NgModule({
