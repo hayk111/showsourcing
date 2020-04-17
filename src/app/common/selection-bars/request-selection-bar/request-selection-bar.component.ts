@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
-import { ERM } from '~core/erm';
 
-import { EntitySelectionBarComponent } from '../entity-selection-bar.component';
+import { TrackingComponent } from '~utils/tracking-component';
 
 @Component({
 	selector: 'request-selection-bar-app',
@@ -9,11 +8,9 @@ import { EntitySelectionBarComponent } from '../entity-selection-bar.component';
 	styleUrls: ['./request-selection-bar.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RequestSelectionBarComponent extends EntitySelectionBarComponent {
+export class RequestSelectionBarComponent extends TrackingComponent {
 
 	@Output() cancelSelectedRequests = new EventEmitter<null>();
-
-	erm = ERM;
 
 	constructor() {
 		super();

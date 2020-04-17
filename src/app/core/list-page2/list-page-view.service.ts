@@ -15,7 +15,8 @@ export class ListPageViewService<T> {
 	/** whether the preview panel is visible, the preview panel is the panel that opens
 	 * when clicking an item in the table
 	*/
-	previewOpen: boolean;
+	previewOpen = false;
+
 	/** previewed item */
 	previewed: T;
 

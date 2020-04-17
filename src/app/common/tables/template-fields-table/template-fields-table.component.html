@@ -46,7 +46,7 @@
 
 			<ng-container *ngSwitchCase="'fixed value'">
 				<checkbox-app
-					[checked]="row?.fixedValue"
+					[value]="row?.fixedValue"
 					(check)="toggleFixedValue(row)"
 					(uncheck)="toggleFixedValue(row)">
 				</checkbox-app>
@@ -54,7 +54,7 @@
 
 			<ng-container *ngSwitchCase="'in template'">
 				<checkbox-app
-					[checked]="inTemplate.get(row.id)"
+					[value]="inTemplate.get(row.id)"
 					(check)="toggleInTemplate(row, true)"
 					(uncheck)="toggleInTemplate(row, false)">
 				</checkbox-app>

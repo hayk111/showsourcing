@@ -38,11 +38,5 @@
 </side-panel-app>
 
 <task-selection-bar-app
-	[isShown]="(selectionSrv.selection$ | async)?.size > 0"
-	[selection]="selectionSrv.selection$ | async"
-	[selectableItems]="listHelper.items$ | async"
-	(close)="selectionSrv.unselectAll()"
-	(deleteSelected)="listHelper.deleteSelected(true)"
-	(selectAll)="selectionSrv.selectAll($event)"
-	(unselectAll)="selectionSrv.unselectAll()">
+	(deleteSelected)="listHelper.deleteSelected(true)">
 </task-selection-bar-app>

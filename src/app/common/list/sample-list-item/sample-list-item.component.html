@@ -1,7 +1,7 @@
 <div class="left flexStart">
 	<checkbox-app
 		class="mg-right-ms"
-		[checked]="isSelected(sample)"
+		[value]="isSelected(sample)"
 		(check)="select.emit(sample)"
 		(uncheck)="unselect.emit(sample)">
 	</checkbox-app>
