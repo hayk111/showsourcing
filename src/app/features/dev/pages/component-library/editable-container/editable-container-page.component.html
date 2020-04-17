@@ -1,36 +1,34 @@
-<card-app>
+<card-app class="mg-ms">
 	<card-title-app>Editable container</card-title-app>
 
 	<p>
-		Container that displays something and when clicked display something else
+		Container that displays something and when clicked display something else.<br/>
+		If it's used with an inputApp, it will be automatically focussed on open.
 	</p>
 
-	<p>
-		<editable-container-app>
-			<editable-display-app>{{ ctrl1.value }}</editable-display-app>
-			<input name="val1" inputApp [formControl]="ctrl1"/>
-		</editable-container-app>
-	</p>
-
-
-	<h3>Field under this has no value</h3>
+	<h3 class="mg-v-ms">Simple</h3>
 	<editable-container-app>
-		<editable-display-app>{{ ctrl2.value }}</editable-display-app>
+		<editable-value-app>{{ ctrl1.value }}</editable-value-app>
+		<input name="val1" inputApp [formControl]="ctrl1"/>
+	</editable-container-app>
+
+
+	<h3 class="mg-v-ms">When no value it displays "-"</h3>
+	<editable-container-app>
+		<editable-value-app>{{ ctrl2.value }}</editable-value-app>
 		<input inputApp [formControl]="ctrl2">
 	</editable-container-app>
 
-	<h3>Field under this has no value but has a default </h3>
+	<h3 class="mg-v-ms">Or you can specify a default value when no value</h3>
 	<editable-container-app>
-		<editable-display-app>{{ ctrl3.value || '-' }}</editable-display-app>
+		<editable-value-app>{{ ctrl3.value || 'No value here' }}</editable-value-app>
 		<input inputApp [formControl]="ctrl3">
 	</editable-container-app>
 
+</card-app>
 
-	<h3>This is an editable field</h3>
-	<editable-field-app>
-		<editable-display-app>{{ ctrl3.value || '-' }}</editable-display-app>
-		<input inputApp [formControl]="ctrl3">
-	</editable-field-app>
 
+<card-app class="mg-ms">
+	<card-title-app>Editable field</card-title-app>
 </card-app>
 

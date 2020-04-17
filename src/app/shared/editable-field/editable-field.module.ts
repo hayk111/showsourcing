@@ -26,12 +26,10 @@ import { EditableContainerComponent, EditableFieldComponent} from './components'
 	],
 	declarations: [
 		EditableContainerComponent,
-		EditableDisplayComponent,
 		EditableFieldComponent
 	],
 	exports: [
 		EditableContainerComponent,
-		EditableDisplayComponent,
 		EditableFieldComponent
 	],
 })

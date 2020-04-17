@@ -159,7 +159,7 @@ button, input[type="submit"], .button {
 
 .clickable, .hoverable {
 	cursor: pointer;
-	transition: 0.3s;
+	transition: background 0.3s;
 	&:hover {
 		background: var(--color-hover);
 	}

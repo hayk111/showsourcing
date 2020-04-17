@@ -37,7 +37,7 @@ export class FocusableDirective {
 	protected isInput() {
 		const nativeElement = this._elementRef.nativeElement;
 		const nodeName = nativeElement.nodeName;
-		return nodeName ? nodeName.toLowerCase() === 'textarea' : false;
+		return nodeName ? nodeName.toLowerCase() === 'input' : false;
 	}
 
 	/** Determines if the component host is a textarea. If not recognizable it returns false. */

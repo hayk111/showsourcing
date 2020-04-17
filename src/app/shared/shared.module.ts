@@ -9,7 +9,7 @@ import { BadgeModule } from '~shared/badge';
 import { CardModule } from '~shared/card';
 import { ContextMenuModule } from '~shared/context-menu/context-menu.module';
 import { DividerModule } from '~shared/divider/divider.module';
-import { EditableFieldModule } from '~shared/editable-field';
+import { EditableModule } from '~shared/editable';
 import { IconsModule } from '~shared/icons';
 import { ImageModule } from '~shared/image/image.module';
 import { InputsModule } from '~shared/inputs';
@@ -90,7 +90,7 @@ const modules = [
 	DialogModule,
 	DividerModule,
 	DynamicFormsModule,
-	EditableFieldModule,
+	EditableModule,
 	EntityPlaceholderModule,
 	ERMModule,
 	FileModule,

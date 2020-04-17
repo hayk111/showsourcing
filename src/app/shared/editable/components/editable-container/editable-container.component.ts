@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, Output, ContentChild, HostListener } from '@angular/core';
+import { InputDirective } from '~shared/inputs';
 
 
 
@@ -9,7 +10,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, In
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[class.open]': 'isOpen',
-		'[class.clickable]': 'defaultStyle && !isOpen'
+		'[class.clickable]': '!isOpen'
 	}
 })
 export class EditableContainerComponent {
@@ -23,6 +24,7 @@ export class EditableContainerComponent {
 	@Output() closed = new EventEmitter<null>();
 	@Output() saved = new EventEmitter<null>();
 	@Output() canceled = new EventEmitter<null>();
+	@ContentChild(InputDirective) input: InputDirective;
 
 	constructor(private cd: ChangeDetectorRef) { }
 
@@ -47,14 +49,20 @@ export class EditableContainerComponent {
 		this.close(false);
 	}
 
+	@HostListener('click')
 	open() {
 		if (this.isOpen || this.readonly) {
 			return;
 		}
 		this.isOpen = true;
-		// we send the opened event when it's actually opened,
-		// in case we want to focus the input
-		setTimeout(_ => this.opened.emit());
+		// setTimeout so we send the event when it's actually really opened, on next tick
+		// we also want to focus any input then
+		setTimeout(_ => {
+			this.opened.emit();
+			if (this.input) {
+				this.input.focus();
+			}
+		});
 
 		this.cd.markForCheck();
 	}
