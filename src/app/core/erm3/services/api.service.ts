@@ -296,11 +296,13 @@ export class ApiService {
 		client.writeQuery({ ...query.options, data: r });
 	}
 
-	deleteFromList(query: ObservableQuery, id: string) {
+	deleteManyFromList(query: ObservableQuery, ids: string[]) {
 		const r: any = client.readQuery(query.options);
 		const items = r[query.queryName].items;
-		r[query.queryName].items = items.filter((item) => item.id !== id);
-		if (r[query.queryName].items.length === items.length - 1) r[query.queryName].total--;
+		const initialQueryLength = r[query.queryName].items;
+		r[query.queryName].items = items.filter(item => !ids.includes(item.id));
+		const totalDiff = initialQueryLength - r[query.queryName].items.length;
+		r[query.queryName].total -= totalDiff;
 		client.writeQuery({ ...query.options, data: r });
 	}
 
