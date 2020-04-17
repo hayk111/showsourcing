@@ -2,8 +2,8 @@
 	<card-app class="mg-l">
 		<card-title-app>Costumize it</card-title-app>
 		<!-- <checkbox-app
-			class="mg-v-ms" 
-			[checked]="style === 'form'"
+			class="mg-v-ms"
+			[value]="style === 'form'"
 			(check)="style = 'form'"
 			(uncheck)="style = 'editable'">
 			Form style
@@ -16,16 +16,16 @@
 		</checkbox-app>
 		Update On
 		<select [(ngModel)]="updateOn">
-			<option 
-				*ngFor="let opt of updateOnOptions" 
+			<option
+				*ngFor="let opt of updateOnOptions"
 				[value]="opt"
 				[selected]="opt === updateOn">
 				{{ opt }}
 			</option>
 		</select>
-		<input 
-			class="mg-v-ms" 
-			[(ngModel)]="columnAmount" 
+		<input
+			class="mg-v-ms"
+			[(ngModel)]="columnAmount"
 			type="number"/>
 		<p class="prop mg-v-ms">
 			properties: {{ properties | json }}
@@ -40,9 +40,9 @@
 		<accordion-app #accordion initialState="closed">
 			<accordion-title-app>Descriptor</accordion-title-app>
 			<accordion-content-app>
-				<textarea 
-					#desc 
-					class="descArea" 
+				<textarea
+					#desc
+					class="descArea"
 					[value]="getDescriptorString()"
 					(input)="setDescriptor(desc.value)"></textarea>
 				<span class="color-warn" *ngIf="invalidJson">
@@ -54,7 +54,7 @@
 </div>
 
 <card-app class="mg-l">
-	<dynamic-form2-app 
+	<dynamic-form2-app
 		#form
 		[descriptor]="descriptor"
 		[columnAmount]="columnAmount"

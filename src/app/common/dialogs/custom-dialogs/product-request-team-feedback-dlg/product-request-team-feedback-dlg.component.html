@@ -9,7 +9,7 @@
 				<checkbox-app
 					#checkbox
 					[autoFocus]="first"
-					[checked]="selected[member.id]"
+					[value]="selected[member.id]"
 					(check)="select(member.id, member)"
 					(uncheck)="unselect(member.id, member)"
 					(click)="checkbox.onClick()">
