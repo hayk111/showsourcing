@@ -75,7 +75,6 @@ export class ApiService {
 	 * @param hasItems whether we should extract items {} from the response
 	 */
 	query<T>(options: WatchQueryOptions, hasItems = true): ObservableQuery<T> {
-		console.log('ApiService -> options', options);
 		const queryName = GqlHelper.getQueryName(options.query);
 		ApiLogger.logRequest(options);
 
@@ -182,7 +181,6 @@ export class ApiService {
 		options.variables = { byId, limit: 10000 };
 		const queryBuilder = QueryPool.getQuery(typename, QueryType.LIST_BY); // the listBy get a method to build the query
 		options.query = queryBuilder(byProperty);
-		console.log('listBy -> options', options);
 		return this.query<T[]>(options);
 	}
 
@@ -212,6 +210,15 @@ export class ApiService {
 			// entity.lastUpdatedByUserId = this._userId;
 			entity.teamId = this._teamId;
 		}
+
+		if (typename === 'PropertyOption') {
+			entity.id = uuid();
+			entity.createdAt = new Date().toISOString();
+			entity.lastUpdatedAt = new Date().toISOString();
+			entity.deleted = false;
+			entity.teamId = this._teamId;
+		}
+
 		options.variables = { input: { ...entity } };
 		return this.mutate(options);
 	}
@@ -272,7 +279,7 @@ export class ApiService {
 		options.variables = {
 			input: { id: entity.id, _version: entity._version },
 		};
-		if (typename !== 'Company' && typename !== 'Team') {
+		if (typename !== 'Company' && typename !== 'Team' && typename !== 'PropertyOption') {
 			// options.variables.input.deletedAt = new Date().toISOString(); // TODO should be added (behavior expected)
 			// options.variables.input.deletedByUserId = this._userId; // TODO should be added (behavior expected)
 			options.variables.input.teamId = this._teamId;

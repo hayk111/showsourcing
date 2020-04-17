@@ -22,18 +22,16 @@ export class PropertyOptionsService {
 	) {}
 
 	listPropertyOptions (
-		typename: string,
+		type: string,
 		teamId: string = TeamService.teamSelected.id,
 		apiOptions: ApiQueryOption = {}
 	): Observable<any[]> {
 		const options = apiOptions as WatchQueryOptions;
 		options.variables = { byId: teamId, limit: 10000, type: {
-			'eq': typename
+			'eq': type
 		} };
 		const queryBuilder = QueryPool.getQuery('PropertyOption', QueryType.LIST_BY); // the listBy get a method to build the query
 		options.query = queryBuilder('Team');
-
-		console.log('listBy -> options', options);
 
 		return this.apiSrv.query<any[]>(options).data$;
 	}
@@ -43,13 +41,13 @@ export class PropertyOptionsService {
 		apiOptions: ApiQueryOption = {}
 	): Observable<any> {
 		const options = apiOptions as MutationOptions;
-		options.mutation = QueryPool.getQuery('PropertyOption', QueryType.CREATE);
-		entity.id = uuid();
-		entity.teamId = TeamService.teamSelected.id;
-		entity.createdAt = new Date().toISOString();
-		entity.lastUpdatedAt = new Date().toISOString();
-		entity.deleted = false;
-		options.variables = { input: { ...entity } };
-		return this.apiSrv.mutate(options);
+		return this.apiSrv.create('PropertyOption', entity, options);
+	}
+
+	deletePropertyOption(
+		entity: { type: String, value: String, _version: number } & Entity,
+		apiOptions: ApiQueryOption = {}) {
+		const options = apiOptions as MutationOptions;
+		return this.apiSrv.delete('PropertyOption', entity, options);
 	}
 }

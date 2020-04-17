@@ -34,6 +34,7 @@ import { Typename } from '~core/erm3/typename.type';
 import { ID, RegexpApp } from '~utils';
 import { filterTypeToTypename } from '~shared/filters/components';
 import { isLocalList } from '~core/list-page2/is-local-list.function';
+import { PropertyOptionsService } from '~shared/selectors/services/property-options.service';
 
 @Component({
 	selector: 'selector-picker-app',
@@ -41,8 +42,9 @@ import { isLocalList } from '~core/list-page2/is-local-list.function';
 	styleUrls: ['./selector-picker.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SelectorPickerComponent extends AbstractInput implements OnInit, AfterViewInit, OnChanges, OnDestroy {
+export class SelectorPickerComponent extends AbstractInput implements OnInit, AfterViewInit, OnChanges {
 	@Input() typename: Typename;
+	@Input() customType: string;
 	@Input() multiple = false;
 	@Input() canCreate = false;
 	@Input() dynamicFields: DynamicField[];
@@ -107,6 +109,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		public selectorSrv: SelectorsService,
 		private fuseHelperSrv: ListFuseHelperService,
 		private listHelperSrv: ListHelperService,
+		private propertyOptionSrv: PropertyOptionsService,
 		private filterSrv: FilterService,
 		protected cd: ChangeDetectorRef,
 		private fb: FormBuilder
@@ -119,19 +122,19 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 
 		this.filterSrv.setup([], ['name']);
 
-		if (isLocalList(this.typename)) {
-			this.fuseHelperSrv.setup(this.typename);
-			console.log('heere');
-			this.choicesSubscription = this.fuseHelperSrv.paginedItems$.pipe(tap((choices) => {
-				this.choices$ = of(choices);
-				this.cd.markForCheck();
-			})).subscribe();
+		if (this.typename === 'PropertyOption') {
+			this.choices$ = this.propertyOptionSrv.listPropertyOptions(this.customType);
+			this.cd.markForCheck();
 		} else {
-			this.listHelperSrv.setup(this.typename);
-			this.choicesSubscription = this.listHelperSrv.filteredItems$.pipe(tap((choices) => {
-				this.choices$ = of(choices);
+			if (isLocalList(this.typename)) {
+				this.fuseHelperSrv.setup(this.typename);
+				this.choices$ = this.fuseHelperSrv.paginedItems$;
 				this.cd.markForCheck();
-			})).subscribe();
+			} else {
+				this.listHelperSrv.setup(this.typename);
+				this.choices$ = this.listHelperSrv.filteredItems$;
+				this.cd.markForCheck();
+			}
 		}
 
 		if (this.canCreate) {
@@ -164,10 +167,6 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			// if its multiple we want to filter the values that we have currently selected, so they don't appear on the options
 			this.choices$.pipe(map((items) => this.filterValues(items)));
 		}
-	}
-
-	ngOnDestroy() {
-		this.choicesSubscription.unsubscribe();
 	}
 
 	/**
