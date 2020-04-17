@@ -75,6 +75,7 @@ export class ApiService {
 	 * @param hasItems whether we should extract items {} from the response
 	 */
 	query<T>(options: WatchQueryOptions, hasItems = true): ObservableQuery<T> {
+		console.log('ApiService -> options', options);
 		const queryName = GqlHelper.getQueryName(options.query);
 		ApiLogger.logRequest(options);
 
@@ -181,6 +182,7 @@ export class ApiService {
 		options.variables = { byId, limit: 10000 };
 		const queryBuilder = QueryPool.getQuery(typename, QueryType.LIST_BY); // the listBy get a method to build the query
 		options.query = queryBuilder(byProperty);
+		console.log('listBy -> options', options);
 		return this.query<T[]>(options);
 	}
 

@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { Product } from '~core/erm';
 import { ProductService } from '~core/erm';
 import { TeamService } from '~core/erm';
+import { PropertyOptionsService } from '~core/erm3/services/property-options.service';
 
 @Component({
 	selector: 'selector-page-app',
@@ -16,9 +17,20 @@ export class SelectorPageComponent implements OnInit {
 
 	product$: Observable<Product>;
 
-	constructor() { }
+	constructor(private propertyOptionSrv: PropertyOptionsService) { }
 
-	ngOnInit() {}
+	ngOnInit() {
+		this.propertyOptionSrv.listPropertyOptions('Color').subscribe(data => {
+			console.log('ngOnInit -> data', data);
+		});
+
+		// this.propertyOptionSrv.createPropertyOption({
+		// 	type: 'Color',
+		// 	value: 'red'
+		// }).subscribe(created => {
+		// 	console.log('SelectorPageComponent -> ngOnInit -> created', created);
+		// });
+	}
 
 	update(item, prop) {
 	}

@@ -25,6 +25,7 @@ export class QueryPool {
 		Export: new BaseQueries('Export', 'id format'),
 		Invitation: new BaseQueries('Invitation', 'id email'),
 		Project: new BaseQueries('Project'),
+		PropertyOption: new BaseQueries('PropertyOption', 'id value'),
 		Sample: new BaseQueries('Sample'),
 		Tag: new BaseQueries('Tag'),
 		Vote: new BaseQueries('Vote', 'id message nodeId'),

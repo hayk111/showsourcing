@@ -4,13 +4,13 @@
 }
 
 nav {
+	height: fit-content;
 	background: var(--color-txt-primary);
 	color: white;
 	font-size: var(--font-size-l);
 	font-weight: bold;
 	padding-top: var(--spacing-m);
 	width: 17rem;
-	height: 100%;
 	h2 {
 		margin: var(--spacing-ms);
 	}
