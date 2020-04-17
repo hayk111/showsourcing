@@ -12,7 +12,7 @@
 	<!-- we do the style like this for the row when it behaves as title that do not have checkbox, but they still need to be aligned with the items -->
 	<checkbox-app
 		[ngStyle]="{visibility: hasCheckbox ? 'visible' : 'hidden'}"
-		[checked]="checked"
+		[value]="checked"
 		boxColor="success"
 		(check)="selected.emit()"
 		(uncheck)="unselected.emit()">

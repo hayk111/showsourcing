@@ -1,8 +1,4 @@
 <selection-bar-app
-	[entityMetadata]="erm.REQUEST"
-	[selectableItems]="selectableItems"
-	[isShown]="isShown"
-	[selection]="selection"
-	(close)="close.emit()">
+	typename="Request">
 	<button class="warn" (click)="cancelSelectedRequests.emit()" translate="button.cancel-requests"></button>
 </selection-bar-app>

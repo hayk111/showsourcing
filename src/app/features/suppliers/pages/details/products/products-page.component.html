@@ -25,18 +25,13 @@
 </products-table-app>
 
 <product-selection-bar-app
-	[isShown]="(selectionSrv.selection$ | async).size"
-	[selection]="selectionSrv.selection$ | async"
-	[selectableItems]="listHelper.filteredItems$ | async"
 	(addProject)="addProject()"
 	(export)="dialogCommonSrv.openExportDialog('Product', selectionSrv.getSelectedValues())"
 	(createRequest)="dialogCommonSrv.openSupplierRequest(selectionSrv.getSelectedValues())"
 	(requestTeamFeedback)="dialogCommonSrv.openRequestFeedbackDialog(selectionSrv.getSelectedValues())"
 	(compareProducts)="dialogCommonSrv.openCompareProductDialog(selectionSrv.getSelectedValues())"
 	(massEdit)="dialogCommonSrv.openMassEditDialog(selectionSrv.getSelectedValues())"
-	(deleted)="listHelper.deleteSelected()"
-	(selectAll)="selectionSrv.selectAll()"
-	(unselectAll)="selectionSrv.unselectAll()">
+	(deleted)="listHelper.deleteSelected()">
 </product-selection-bar-app>
 
 	<!-- <product-preview-app

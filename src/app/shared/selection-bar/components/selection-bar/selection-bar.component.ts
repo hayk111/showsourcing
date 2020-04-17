@@ -1,7 +1,9 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { Entity, EntityMetadata } from '~core/erm';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { SelectionState } from '~shared/inputs-custom/components/select-checkbox/select-checkbox.component';
 import { selectionBarAnimation } from '~shared/selection-bar/animation/selection-bar.animation';
+import { SelectionService, ListHelperService } from '~core/list-page2';
+import { Typename } from '~core/erm3/typename.type';
+import { map } from 'rxjs/operators';
 
 @Component({
 	selector: 'selection-bar-app',
@@ -16,20 +18,21 @@ import { selectionBarAnimation } from '~shared/selection-bar/animation/selection
 	}
 })
 export class SelectionBarComponent {
-	@Input() selection: Map<string, boolean>;
-	@Input() entityMetadata: EntityMetadata;
-	@Input() selectableItems: Entity[];
-	@Input() isShown = false;
-	@Output() close = new EventEmitter();
-	@Output() selectAll = new EventEmitter<Entity[]>();
-	@Output() unselectAll = new EventEmitter();
+	@Input() typename: Typename;
+	isShown$ = this.selectionSrv.selection$.pipe(map(selection => !!selection.size));
+
+	constructor(public selectionSrv: SelectionService, public listHelper: ListHelperService) {
+	}
+
+	async selectAllItems() {
+		const allItems = await this.listHelper.filteredItems$.toPromise();
+		this.selectionSrv.selectAll(allItems.map(item => item.id));
+	}
 
 	getSelectionState(): SelectionState {
-		if (this.selection.size === 0 || !this.selectableItems) {
+		if (this.selectionSrv.selection.size === 0)
 			return 'unchecked';
-		}
-
-		return this.selection.size === this.selectableItems.length ? 'selectedAll' : 'selectedPartial';
+		return this.selectionSrv.selection.size === this.listHelper.total ? 'selectedAll' : 'selectedPartial';
 	}
 
 }

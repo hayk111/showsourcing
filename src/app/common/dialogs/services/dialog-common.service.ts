@@ -119,7 +119,7 @@ export class DialogCommonService {
 		return this.dlgSrv.open(VoteDetailsDialogComponent, { votes });
 	}
 
-	openMassEditDialog(items: any[], type: EntityMetadata) {
+	openMassEditDialog(items: any[], type: Typename) {
 		return this.dlgSrv.open(MassEditDlgComponent, { items, type });
 	}
 
