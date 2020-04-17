@@ -42,7 +42,10 @@ export class ListFuseHelperService<G = any> {
 	};
 
 	/** items searched, without sort and without pagination */
-	private _fusedItems$: Observable<G[]> = combineLatest(this._fuse$, this.filterSrv.valueChanges$).pipe(
+	private _fusedItems$: Observable<G[]> = combineLatest(
+		this._fuse$,
+		this.filterSrv.valueChanges$
+	).pipe(
 		debounce(() => timer(400)),
 		switchMap(([fuse]: any) => {
 			// the value changed should concern the FilterType search
@@ -130,16 +133,8 @@ export class ListFuseHelperService<G = any> {
 				extra: addedProperties,
 			})
 			.data$.pipe(
-				map((entity) => {
-					entity = {
-						id: uuid(),
-						__typename: this.typename,
-						...entity,
-					};
-					this.apiSrv.addToList(this.queryRef, entity);
-					return entity;
-				}),
-				switchMap((entity) => this.apiSrv.create(this.typename, entity))
+				switchMap((entity) => this.apiSrv.create(this.typename, entity)),
+				tap((entity) => this.apiSrv.addToList(this.queryRef, entity))
 			)
 			.subscribe();
 	}

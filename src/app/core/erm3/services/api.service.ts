@@ -202,7 +202,7 @@ export class ApiService {
 		options.mutation = QueryPool.getQuery(typename, QueryType.CREATE);
 		// TODO remove this condition when the audits are all similars
 		if (typename !== 'Company' && typename !== 'Team') {
-			entity.id = entity.id || uuid();
+			entity.id = uuid();
 			entity.createdAt = new Date().toISOString();
 			// entity.createdByUserId = this._userId; // TODO should be added (behavior expected)
 			entity.teamId = this._teamId;
