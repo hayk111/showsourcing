@@ -35,13 +35,7 @@
 </task-table-app>
 
 <task-selection-bar-app
-	[isShown]="(selectionSrv.selection$ | async)?.size > 0"
-	[selection]="selectionSrv.selection$ | async"
-	[selectableItems]="listHelper.filteredItems$ | async"
-	(close)="selectionSrv.unselectAll()"
-	(deleteSelected)="listHelper.deleteSelected(true)"
-	(selectAll)="selectionSrv.selectAll($event)"
-	(unselectAll)="selectionSrv.unselectAll()">
+	(deleteSelected)="listHelper.deleteSelected(true)">
 </task-selection-bar-app>
 
 <side-panel-app *ngIf="viewSrv.filterPanelOpen">

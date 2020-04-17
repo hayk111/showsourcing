@@ -2,7 +2,8 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output
 import { EntityTableComponent } from '~common/tables/entity-table.component';
 import { Product } from '~core/erm';
 import { translate } from '~utils';
-import { Sort } from '~shared/table/models/sort.interface';
+import { SortService } from '~shared/table/services/sort.service';
+import { SelectionService } from '~core/list-page2';
 
 @Component({
 	selector: 'products-grid-app',
@@ -11,21 +12,18 @@ import { Sort } from '~shared/table/models/sort.interface';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductsGridComponent extends EntityTableComponent<Product> implements OnInit {
-	@Input() currentSort: Sort;
 	@Output() productVote = new EventEmitter<{ id: string; value: number }>();
 	@Output() addToProject = new EventEmitter<string>();
 	@Output() update = new EventEmitter<Product>();
-	@Output() liked = new EventEmitter<Product>();
 	@Output() disliked = new EventEmitter<Product>();
-	constructor() {
+	constructor(private sortSrv: SortService, public selectionSrv: SelectionService) {
 			super();
 		}
 
-	ngOnInit() {
-	}
+	ngOnInit() {}
 
-	getGroupedProducts(sort: Sort) {
-		const fieldSortyBy = sort.property;
+	getGroupedProducts() {
+		const fieldSortyBy = this.sortSrv.currentSort.property;
 		const fieldSortByTokens = fieldSortyBy.split('.');
 		const field = fieldSortByTokens[0];
 
@@ -35,7 +33,7 @@ export class ProductsGridComponent extends EntityTableComponent<Product> impleme
 
 		let groupedObj = {};
 
-		switch (sort.property) {
+		switch (this.sortSrv.currentSort.property) {
 			case 'category.name':
 			case 'supplier.name':
 			case 'favorite':
@@ -51,14 +49,14 @@ export class ProductsGridComponent extends EntityTableComponent<Product> impleme
 				break;
 			default:
 				groupedObj = {};
-				groupedObj[sort.property] = this.rows;
+				groupedObj[this.sortSrv.currentSort.property] = this.rows;
 				break;
 		}
 		return Object.keys(groupedObj).map(key => ({ key, value: groupedObj[key] }));
 	}
 
-	getGroupedValue(group, sort: Sort) {
-		const fieldSortyBy = sort.property;
+	getGroupedValue(group) {
+		const fieldSortyBy = this.sortSrv.currentSort.property;
 		const fieldSortByTokens = fieldSortyBy.split('.');
 		const field = fieldSortByTokens[0];
 		let value = null;

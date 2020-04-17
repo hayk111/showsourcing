@@ -30,11 +30,15 @@ export class PaginationService {
 		).subscribe(([total, limit, page]) => {
 			this.total = total;
 			this.totalPages = this.getTotalPages(total, limit);
+			// page = index so +1 to get number of pages
+			if (page + 1 > this.totalPages)
+				return this.goToPreviousPage();
 			const range = this.buildPagingRange(page);
 			this._range$.next(range);
 		});
 	}
 
+	/** should be used in listHelpers to  */
 	setupTotal(total: number) {
 		this._total$.next(total);
 	}

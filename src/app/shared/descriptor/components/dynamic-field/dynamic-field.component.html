@@ -1,56 +1,151 @@
-<label class="mg-top-ms">{{ field.definition.label }}</label>
-
-<ng-container [ngSwitch]="field.definition.type">
+<ng-container [ngSwitch]="descriptor.definition.type">
 
 	<!-- STRING -->
 	<ng-container *ngSwitchDefault>
-		<input 
-			#inp 
-			[value]="value || field.defaultValue || ''"
-			type="text"
-			(blur)="blurEvent.emit(inp.value)"
-			(input)="inputEvent.emit(inp.value)"/>
+		<form-field-app [showRequiredMarker]="showRequiredMarker">
+			<label-app>{{ descriptor.definition.label }}</label-app>
+			<input 
+				#inp
+				inputApp
+				type="text"
+				[required]="descriptor.required"
+				[readonly]="descriptor.readonly"
+				[formControl]="control"/>
+			<hint-app>{{ descriptor.hint }}</hint-app>
+		</form-field-app>
 	</ng-container>
 
 	<!-- INT -->
-	<ng-container *ngSwitchCase="'INT'">
-		<input 
-			#inp
-			[value]="value || field.defaultValue || 0"
-			type="number"/>
+	<ng-container *ngSwitchCase="type.INT">
+		<form-field-app [showRequiredMarker]="showRequiredMarker">
+			<label-app>{{ descriptor.definition.label }}</label-app>
+			<input 
+				#inp
+				inputApp
+				type="number"
+				[value]="control.value"
+				[readonly]="descriptor.readonly"
+				[required]="descriptor.required"
+				[formControl]="control"/>
+			<hint-app>{{ descriptor.hint }}</hint-app>
+		</form-field-app>
 	</ng-container>
 
 	<!-- TEL -->
-	<ng-container *ngSwitchCase="'TEL'">
-		<input 
-			#inp
-			[value]="field.defaultValue || ''"
-			restrictInput="tel"/>
+	<ng-container *ngSwitchCase="type.TEL">
+		<form-field-app [showRequiredMarker]="showRequiredMarker">
+			<label-app>{{ descriptor.definition.label }}</label-app>
+			<input 
+				#inp
+				inputApp
+				restrictInput="tel"
+				[readonly]="descriptor.readonly"
+				[required]="descriptor.required"
+				[formControl]="control"/>
+			<hint-app>{{ descriptor.hint }}</hint-app>
+		</form-field-app>
 	</ng-container>
 
 	<!-- EMAIL -->
-	<ng-container *ngSwitchCase="'EMAIL'">
-		<input 
-			#inp
-			[value]="value || field.defaultValue || ''"
-			restrictInput="email"
-			type="email"/>
+	<ng-container *ngSwitchCase="type.EMAIL">
+		<form-field-app [showRequiredMarker]="showRequiredMarker">
+			<label-app>{{ descriptor.definition.label }}</label-app>
+			<input 
+				#inp
+				inputApp
+				type="email"
+				restrictInput="email"
+				[readonly]="descriptor.readonly"
+				[required]="descriptor.required"
+				[formControl]="control"/>
+				<hint-app>{{ descriptor.hint }}</hint-app>
+			</form-field-app>
+	</ng-container>
+
+	<!-- DATE -->
+	<ng-container *ngSwitchCase="type.DATE">
+		<form-field-app [showRequiredMarker]="showRequiredMarker">
+			<label-app>{{ descriptor.definition.label }}</label-app>
+			<input 
+				#inp
+				inputApp
+				type="date"
+				[readonly]="descriptor.readonly"
+				[required]="descriptor.required"
+				[formControl]="control"/>
+				<hint-app>{{ descriptor.hint }}</hint-app>
+			</form-field-app>
 	</ng-container>
 
 	<!-- FLOAT -->
-	<ng-container *ngSwitchCase="'FLOAT'">
-		<input 
-			#inp
-			[value]="value || field.defaultValue || ''"
-			restrictInput="decimal"
-			type="number"
-			step="any"/>
+	<ng-container *ngSwitchCase="type.FLOAT">
+		<form-field-app [showRequiredMarker]="showRequiredMarker">
+			<label-app>{{ descriptor.definition.label }}</label-app>
+			<input 
+				#inp
+				inputApp
+				restrictInput="decimal"
+				type="number"
+				step="any"
+				[readonly]="descriptor.readonly"
+				[required]="descriptor.required"
+				[formControl]="control"/>
+				<hint-app>{{ descriptor.hint }}</hint-app>
+			</form-field-app>
+	</ng-container>
+
+	<!-- TEXTAREA -->
+	<ng-container *ngSwitchCase="type.TEXTAREA">
+		<form-field-app [showRequiredMarker]="showRequiredMarker">
+			<label-app>{{ descriptor.definition.label }}</label-app>
+			<textarea 
+				#inp
+				inputApp
+				[readonly]="descriptor.readonly"
+				[required]="descriptor.required"
+				[formControl]="control">
+			</textarea>
+			<hint-app>{{ descriptor.hint }}</hint-app>
+		</form-field-app>
+	</ng-container>
+
+	<!-- CHECKBOX -->
+	<ng-container *ngSwitchCase="type.CHECKBOX">
+		<form-field-app>
+			<label-app>{{ descriptor.definition.label }}</label-app>
+			<checkbox-app 
+				#checkbox 
+				inputApp 
+				[readonly]="descriptor.readonly"
+				[formControl]="control">
+				{{ checkbox.value ? 'Yes' : 'No' }}
+			</checkbox-app>
+		</form-field-app>
 	</ng-container>
 	
 
 	
 	<!-- PACKAGING -->
-	<!-- <ng-container *ngSwitchCase="'INT'">
-		<input-packaging-app [(ngModel)]="fieldValue.value"></input-packaging-app>
-	</ng-container> -->
+	<ng-container *ngSwitchCase="type.PACKAGING">
+		<div class="capitalize mg-bottom-ms bold color-txt-secondary">
+			{{ descriptor.definition.label }}
+		</div>
+		<input-packaging-app
+			[readonly]="descriptor.readonly"
+			[required]="descriptor.required" 
+			[formControl]="control">
+		</input-packaging-app>
+	</ng-container>
+
+	<!-- PRICE -->
+	<ng-container *ngSwitchCase="type.PRICE">
+		<form-field-app>
+			<label-app>{{ descriptor.definition.label }}</label-app>
+			<input-price2-app 
+				inputApp 
+				[readonly]="descriptor.readonly"
+				[formControl]="control">
+			</input-price2-app>
+		</form-field-app>
+	</ng-container>
 </ng-container>

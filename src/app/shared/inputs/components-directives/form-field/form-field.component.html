@@ -6,6 +6,11 @@
 	[attr.aria-owns]="input.id">
 
 	<ng-content select="label-app"></ng-content>
+	<span 
+		*ngIf="showRequiredMarker && input.required"
+		class="color-warn">
+		*
+	</span>
 </label>
 
 <ng-content></ng-content>

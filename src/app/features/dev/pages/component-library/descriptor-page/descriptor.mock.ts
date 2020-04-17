@@ -1,80 +1,116 @@
+import { Descriptor, SectionDescriptor, PropertyDescriptor } from '~core/erm3/models';
+import { PropertyType } from '~core/erm3/models/property-definition.model';
 
-const fields1 = [
+const fields1: PropertyDescriptor[] = [
 	{
 		definition: {
-			label: 'STRING',
-			type: 'STRING',
-			name: 'string',
+			label: 'TEXT',
+			type: PropertyType.TEXT,
+			name: 'text',
 		},
-		defaultValue: 'string default value',
-		fixedValue: false,
-		required: true
+		defaultValue: 'test string',
+		readonly: false,
+		required: true,
+		hint: 'This is an helpful message'
 	},
 	{
 		definition: {
 			label: 'INT',
-			type: 'INT',
+			type: PropertyType.INT,
 			name: 'int',
 		},
 		defaultValue: 40,
-		fixedValue: false,
+		readonly: false,
 		required: true,
+		hint: 'Field expressed in Kg'
 	},
 	{
 		definition: {
 			label: 'email',
-			type: 'EMAIL',
+			type: PropertyType.EMAIL,
 			name: 'email',
 		},
 		defaultValue: 'default@gmail.com',
-		fixedValue: false,
+		readonly: false,
 		required: true
 	},
 	{
 		definition: {
 			label: 'tel',
-			type: 'TEL',
+			type: PropertyType.TEL,
 			name: 'tel',
 		},
 		defaultValue: '+32',
-		fixedValue: false,
-		required: true
+		readonly: false,
+		required: true,
+		hint: '+44 444 444 44'
 	},
 	{
 		definition: {
 			label: 'float',
-			type: 'FLOAT',
+			type: PropertyType.FLOAT,
 			name: 'float',
 		},
 		defaultValue: 0,
-		fixedValue: false,
+		readonly: false,
 		required: true
 	},
-];
-
-const fields2 = [
 	{
 		definition: {
-			label: 'color',
-			type: 'STRING',
-			name: 'color',
-		}
-	},
-	{
-		definition: {
-			label: 'quantity',
-			type: 'INT',
-			name: 'quantity',
-		}
+			label: 'date',
+			type: PropertyType.DATE,
+			name: 'date',
+		},
+		required: true,
+		readonly: false
 	}
 ];
 
-export const sections = [
-	{ name: 'Section 1', fields: fields1 },
-	{ name: 'Section 2', fields: fields2 }
+const fields2: PropertyDescriptor[] = [
+	{
+		definition: {
+			label: 'checkbox',
+			type: PropertyType.CHECKBOX,
+			name: 'checkbox',
+		},
+		readonly: false,
+	},
+	{
+		definition: {
+			label: 'textarea',
+			type: PropertyType.TEXTAREA,
+			name: 'textarea',
+		},
+		readonly: false,
+		required: true
+	},
+	{
+		definition: {
+			label: 'packaging',
+			type: PropertyType.PACKAGING,
+			name: 'packaging',
+		},
+		required: true,
+		readonly: false
+	},
+	{
+		definition: {
+			label: 'price',
+			type: PropertyType.PRICE,
+			name: 'price',
+		},
+		defaultValue: {},
+		required: true,
+		readonly: false
+	}
 ];
 
-export const descriptorMock = {
+export const sections: SectionDescriptor[] = [
+	{ name: 'Section 1', properties: fields1 },
+	{ name: 'Section 2', properties: fields2 }
+];
+
+export const descriptorMock: Descriptor = {
 	sections: sections
 };
 

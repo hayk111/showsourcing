@@ -28,15 +28,9 @@
 </suppliers-table-app>
 
 <supplier-selection-bar-app
-	entityType="supplier"
-	[isShown]="(selectionSrv.selection$ | async).size > 0"
-	[selection]="selectionSrv.selection$ | async"
-	[selectableItems]="listHelper.filteredItems$ | async"
+	typename="Supplier"
 	(statusUpdated)="listHelper.updateSelected({status: $event})"
-	(deleteSelected)="listHelper.deleteSelected()"
-	(close)="selectionSrv.unselectAll()"
-	(selectAll)="selectionSrv.selectAll($event)"
-	(unselectAll)="selectionSrv.unselectAll()">
+	(deleteSelected)="listHelper.deleteSelected()">
 </supplier-selection-bar-app>
 
 <supplier-preview-app

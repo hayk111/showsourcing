@@ -1,30 +1,61 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { ERM, Product, Project } from '~core/erm';
 
-import { EntitySelectionBarComponent } from '../entity-selection-bar.component';
+import { TrackingComponent } from '~utils/tracking-component';
+import { Product, Project } from '~core/erm3/models';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
+import { SelectionService, ListHelperService } from '~core/list-page2';
 
 @Component({
 	selector: 'product-selection-bar-app',
 	templateUrl: './product-selection-bar.component.html',
 	styleUrls: ['./product-selection-bar.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductSelectionBarComponent extends EntitySelectionBarComponent {
+export class ProductSelectionBarComponent extends TrackingComponent {
 
-	@Input() favorite: boolean;
-	@Output() compareProducts = new EventEmitter<null>();
-	@Output() archiveProducts = new EventEmitter<Product[]>();
-	@Output() requestTeamFeedback = new EventEmitter<null>();
-	@Output() createRequest = new EventEmitter<null>();
-	@Output() export = new EventEmitter<null>();
-	@Output() deleted = new EventEmitter<null>();
-	@Output() addProject = new EventEmitter<Project[]>();
-	@Output() massEdit = new EventEmitter<null>();
-
-	erm = ERM;
-
-	constructor() {
+	constructor(
+		private dlgCommonSrv: DialogCommonService,
+		private selectionSrv: SelectionService,
+		private listHelper: ListHelperService
+	) {
 		super();
 	}
 
+	addProductsToProjects() {
+		this.dlgCommonSrv.openSelectionDlg('Project').data$.subscribe((projects) => {
+			// Add projects
+		});
+	}
+
+	exportProducts() {
+		// this.dlgCommonSrv.openExportDialog('Product', this.selectionSrv.getSelectedValues()).data$.subscribe(/* ... */);
+	}
+
+	createRequest() {
+		// this.dlgCommonSrv.openSupplierRequest(this.selectionSrv.getSelectedValues() as any).data$.subscribe(/* ... */);
+	}
+
+	requestTeamFeedback() {
+		// this.dlgCommonSrv.openRequestFeedbackDialog(this.selectionSrv.getSelectedValues() as any).data$.subscribe(/* ... */);
+	}
+
+	archiveProducts() {
+		// this.listHelper.archiveMany(this.selectionSrv.getSelectedValues() as any);
+	}
+
+	compareProducts() {
+		this.dlgCommonSrv
+			.openCompareProductDialog(this.selectionSrv.getSelectedValues() as any)
+			.data$.subscribe(/* ... */);
+	}
+
+	massEdit() {
+		this.dlgCommonSrv
+			.openMassEditDialog(this.selectionSrv.getSelectedValues(), 'Product')
+			.data$.subscribe(/* ... */);
+	}
+
+	deleteSelectedProducts() {
+		this.listHelper.deleteSelected();
+	}
 }

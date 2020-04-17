@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { ERM } from '~core/erm';
 
-import { EntitySelectionBarComponent } from '../entity-selection-bar.component';
+import { TrackingComponent } from '~utils/tracking-component';
 
 @Component({
 	selector: 'sample-selection-bar-app',
@@ -9,9 +8,7 @@ import { EntitySelectionBarComponent } from '../entity-selection-bar.component';
 	styleUrls: ['./sample-selection-bar.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SampleSelectionBarComponent extends EntitySelectionBarComponent {
-
-	erm = ERM;
+export class SampleSelectionBarComponent extends TrackingComponent {
 
 	constructor() {
 		super();

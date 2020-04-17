@@ -2,7 +2,7 @@
 
 	<list-item-app *ngFor="let file of files; last as last; trackBy: trackById" [border]="!last">
 			<checkbox-app
-				[checked]="selection.has(file.id)"
+				[value]="selection.has(file.id)"
 				boxColor="success"
 				(check)="selected.emit(file)"
 				(uncheck)="unselected.emit(file)">

@@ -10,7 +10,7 @@
 	</img-app>
 	<checkbox-app
 		class="overlay checkbox"
-		[checked]="selection.has(img.id)"
+		[value]="selection.has(img.id)"
 		boxColor="success"
 		(check)="onSelect(img)"
 		(uncheck)="onUnselect(img)">

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs/components-directives/abstract-input.class';
 import { TabFocusActionDirective } from '~shared/utils';
 
@@ -17,7 +17,6 @@ export class CheckboxComponent extends AbstractInput {
 	@Input() size = 16;
 	// if the checkbox should be autofocussed
 	@Input() autoFocus = false;
-	@Input() disabled = false;
 	@ViewChild(TabFocusActionDirective, { static: true }) tab: TabFocusActionDirective;
 
 	/** id of element, if not specified it will generate automtically */
@@ -26,39 +25,12 @@ export class CheckboxComponent extends AbstractInput {
 	set id(value: string) { this._id = value; }
 	protected _id: string = 'checkbox-' + CheckboxComponent.NEXT_UID++;
 
-	/**
-   * Whether the checkbox is checked.
-   */
-	@Input()
-	get checked(): boolean { return this._checked; }
-	set checked(value: boolean) {
-		this._checked = value;
-	}
-	private _checked = false;
-
-	// (alias for checked)
-	@Input()
-	get value(): boolean { return this._checked; }
-	set value(value: boolean) {
-		this._checked = value;
-	}
-
-	/** Whether the checkbox is required. */
-	@Input()
-	get required(): boolean { return this._required; }
-	set required(value: boolean) { this._required = value; }
-	private _required: boolean;
-
-	constructor(protected cd: ChangeDetectorRef) {
-		super(cd);
-	}
-
 	/** Toggles the `checked` state of the checkbox. */
 	toggle(): void {
 		if (!this.disabled) {
-			this.checked = !this.checked;
-			this.cd.markForCheck();
+			this.value = !this.value;
 		}
+		this.emit();
 	}
 
 	/**
@@ -68,24 +40,17 @@ export class CheckboxComponent extends AbstractInput {
 	onClick(event?: MouseEvent) {
 		if (event)
 			event.stopPropagation();
-		if (!this.disabled) {
+		if (!this.disabled && !this.readonly) {
 			this.toggle();
-			this.emit();
 		}
 	}
 
-	focusClick() {
-		if (!this.disabled) {
-			this.onClick();
-			this.tab.focus();
-		}
-	}
 
 	private emit() {
-		if (this.onChangeFn)
-			this.onChangeFn(this.checked);
-		this.update.emit(this.checked);
-		if (this.checked) {
+		this.onChangeFn(this.value);
+		this.onTouchedFn(this.value);
+		this.update.emit(this.value);
+		if (this.value) {
 			this.check.emit();
 		} else {
 			this.uncheck.emit();
@@ -103,11 +68,13 @@ export class CheckboxComponent extends AbstractInput {
 		};
 	}
 
-	// Implemented as part of ControlValueAccessor.
-	// to give accessor its formControl value associated to it
-	writeValue(value: any): void {
-		this.checked = value;
-		this.cd.markForCheck();
+	getClassList() {
+		return {
+			'mg-right-s': this.hasContent,
+			'readonly': this.readonly || this.disabled,
+			'checked': this.value,
+			'unchecked': !this.value
+		};
 	}
 
 }

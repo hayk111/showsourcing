@@ -12,7 +12,7 @@
 		</div>
 	<dialog-footer-app>
 		<checkbox-app
-			[checked]="createAnother"
+			[value]="createAnother"
 			(update)="createAnother = !createAnother">
 			{{'text.create-another' | translate}}
 		</checkbox-app>

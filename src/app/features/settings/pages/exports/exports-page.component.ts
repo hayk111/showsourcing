@@ -5,17 +5,12 @@ import {
 	OnInit
 } from '@angular/core';
 import { first } from 'rxjs/operators';
-import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import {
-	ERM,
-	ExportRequest,
-	ExportRequestService,
-	SelectParamsConfig,
-	UserService
-} from '~core/erm';
-import { ListPageService, SelectionService } from '~core/list-page';
+import { SelectionService, ListHelperService } from '~core/list-page2';
 import { FilterService, FilterType } from '~core/filters';
 import { AutoUnsub } from '~utils';
+import { Export } from '~core/erm3/models';
+import { PaginationService } from '~shared/pagination/services/pagination.service';
+import { SortService } from '~shared/table/services/sort.service';
 
 @Component({
 	selector: 'exports-page-app',
@@ -24,18 +19,17 @@ import { AutoUnsub } from '~utils';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		class: 'table-page'
-	}
+	},
+	providers: [
+		ListHelperService, SelectionService, SortService, PaginationService, FilterService
+	]
 })
 export class ExportsPageComponent extends AutoUnsub
 	implements OnInit, AfterViewInit {
-	erm = ERM;
-	selectItemsConfig: SelectParamsConfig;
+	// selectItemsConfig: SelectParamsConfig;
 
 	constructor(
-		private userSrv: UserService,
-		private exportSrv: ExportRequestService,
-		public listSrv: ListPageService<ExportRequest, ExportRequestService>,
-		public dialogCommonSrv: DialogCommonService,
+		public listHelper: ListHelperService<Export>,
 		private filterSrv: FilterService,
 		private selectionSrv: SelectionService
 	) {
@@ -44,35 +38,27 @@ export class ExportsPageComponent extends AutoUnsub
 
 	ngOnInit() {
 		this.filterSrv.setup([], [
-			'format',
+			// 'format',
 			'status',
 			'createdBy.firstName',
 			'createdBy.lastName'
 		]);
 
-		this.listSrv.setup({
-			entitySrv: this.exportSrv,
-			// by default we have deleted == false
-			selectParams: { query: '' },
-			entityMetadata: ERM.EXPORT_REQUEST,
-			originComponentDestroy$: this._destroy$
-		});
+		this.listHelper.setup('Export');
 	}
 
 	ngAfterViewInit() {
 		// we need this refetch on after view init, otherwise if we come from the redirection of the
 		// export-dlg.component we won't see the new request created
-		this.listSrv
-			.refetch()
-			.pipe(first())
-			.subscribe();
+		this.listHelper.refetch();
 	}
 
-	downloadOne(exportReq: ExportRequest) {
-		if (exportReq && exportReq.status === 'ready')
-			this.exportSrv.retrieveFile(exportReq).subscribe(({ file, name }) => {
-				saveAs(file, name);
-			});
+	downloadOne(exportReq: Export) {
+		// if (exportReq && exportReq.status === 'READY')
+		// // Download
+			// this.exportSrv.retrieveFile(exportReq).subscribe(({ file, name }) => {
+			// 	saveAs(file, name);
+			// });
 	}
 
 	downloadSelected() {
@@ -82,23 +68,16 @@ export class ExportsPageComponent extends AutoUnsub
 	}
 
 	showItemsPerPage(count: number) {
-		this.selectItemsConfig = { take: Number(count) };
-		this.listSrv.refetch(this.selectItemsConfig).subscribe();
+		// this.selectItemsConfig = { take: Number(count) };
+		// this.listSrv.refetch(this.selectItemsConfig).subscribe();
 	}
 
 	toggleMyExports(show: boolean) {
-		const userId = this.userSrv.userSync.id;
-
-		const filterMyExports = {
-			type: FilterType.CREATED_BY,
-			value: userId
-		};
-
 		if (show) {
-			this.filterSrv.addFilter(filterMyExports);
+			// this.filterSrv.addFilter(filterMyExports);
 			return;
 		}
 
-		this.filterSrv.removeFilter(filterMyExports);
+		// this.filterSrv.removeFilter(filterMyExports);
 	}
 }

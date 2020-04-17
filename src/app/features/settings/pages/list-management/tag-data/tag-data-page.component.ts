@@ -1,28 +1,32 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { ListPageService, SelectionService } from '~core/list-page';
 import { AutoUnsub } from '~utils';
-import { ListHelperService, ListPageViewService, ListFuseHelperService } from '~core/list-page2';
-import { Observable } from 'rxjs';
+import { SelectionService, ListPageViewService, ListFuseHelperService } from '~core/list-page2';
 import { Tag } from '~core/erm3/models';
 import { TeamService, CompanyService } from '~core/auth';
 import { FilterService } from '~core/filters/filter.service';
 import { Typename } from '~core/erm3/typename.type';
+import { SortService } from '~shared/table/services/sort.service';
+import { PaginationService } from '~shared/pagination/services/pagination.service';
 
 @Component({
 	selector: 'tag-data-page-app',
 	templateUrl: '../shared/list-management-template.html',
 	styleUrls: ['./tag-data-page.component.scss', '../shared/list-management-styles.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [ListPageService, SelectionService, ListPageViewService, ListFuseHelperService],
+	providers: [
+		SelectionService,
+		ListPageViewService,
+		ListFuseHelperService,
+		SortService,
+		PaginationService,
+	],
 	host: {
-		class: 'table-page'
-	}
+		class: 'table-page',
+	},
 })
 export class TagDataPageComponent extends AutoUnsub implements OnInit {
 	typename: Typename = 'Tag';
-
-	items$: Observable<Tag[]>;
 
 	constructor(
 		public teamSrv: TeamService,
@@ -38,22 +42,22 @@ export class TagDataPageComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		let teamId: string;
-		this.teamSrv.teamSelected$.subscribe(team => (teamId = team.id));
-		this.filterSrv.setup([], ['name']);
+		this.teamSrv.teamSelected$.subscribe((team) => (teamId = team.id));
 		this.viewSrv.setup({
 			typename: 'Tag',
 			destUrl: 'settings/list-management/tag-data',
-			view: 'table'
+			view: 'table',
 		});
-		this.listHelper.setup('Tag', 'Team', teamId); // search initialized in controller-table
-		this.items$ = this.listHelper.filteredItems$;
+		// set searchable columns for list-fuse-helper
+		this.filterSrv.setup([], ['name']);
+		this.listHelper.setup('Tag');
 	}
 
 	mergeSelected() {
 		const tags = this.selectionSrv.getSelectedValues();
 		this.dialogCommonSrv.openMergeDialog({
 			type: this.viewSrv.typename,
-			entities: tags
+			entities: tags,
 		});
 	}
 

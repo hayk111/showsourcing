@@ -21,8 +21,10 @@ export class ListHelperService<G = any> {
 	private typename: Typename;
 	private _pending$ = new BehaviorSubject<boolean>(true);
 	pending$ = this._pending$.asObservable();
+
 	private _total$ = new BehaviorSubject(0);
 	total$ = this._total$.asObservable();
+	total = 0;
 	/** the filtered items */
 	filteredItems$ = combineLatest(
 		this.filterSrv.valueChanges$,
@@ -64,7 +66,9 @@ export class ListHelperService<G = any> {
 		private filterSrv: FilterService,
 		// private dlgCommonSrv: DialogCommonService, // ! Circular dependency
 		private dlgSrv: DialogService
-	) {}
+	) {
+		this.total$.subscribe(total => this.total = total);
+	}
 
 	setup(typename: Typename) {
 		this.typename = typename;
