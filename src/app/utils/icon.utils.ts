@@ -44,6 +44,7 @@ export class IconUtils {
 		Supplier: Color.VIBRANT,
 		Tag: Color.ACCENT,
 		Task: Color.SUCCESS,
+		User: Color.PRIMARY
 	};
 
 	// @all, please don't add anymore sizes to this map. If your size isn't in this map it's probably something specific.

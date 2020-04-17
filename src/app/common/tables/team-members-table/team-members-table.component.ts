@@ -2,9 +2,9 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { TeamService } from '~core/erm';
-import { EntityTableComponent } from '~common/tables/entity-table.component';
+import { EntityTableComponent, TableConfig } from '~common/tables/entity-table.component';
 import { TeamUser, User } from '~core/erm';
-
+import { defaultConfig } from '../default-columns/default-config';
 
 @Component({
 	selector: 'team-members-table-app',
@@ -12,9 +12,14 @@ import { TeamUser, User } from '~core/erm';
 	styleUrls: ['./team-members-table.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TeamMembersTableComponent extends EntityTableComponent<TeamUser> implements OnInit {
-
-	@Input() teamOwner: boolean;
+export class TeamMembersTableComponent extends EntityTableComponent<TeamUser> {
+	static DEFAULT_COLUMNS = [
+		'name',
+		'status'
+	];
+	static DEFAULT_TABLE_CONFIG = defaultConfig;
+	@Input() columns = TeamMembersTableComponent.DEFAULT_COLUMNS;
+	@Input() tableConfig = TeamMembersTableComponent.DEFAULT_TABLE_CONFIG;
 	@Input() user: User;
 	@Output() accessTypeUpdated = new EventEmitter<string>();
 	@Output() showItemsPerPage = new EventEmitter<number>();
@@ -26,13 +31,8 @@ export class TeamMembersTableComponent extends EntityTableComponent<TeamUser> im
 		this.isSelectableFn = (item) => this.isSelectable(item);
 	}
 
-	ngOnInit() {
-		this.$teamOwner = this.teamSrv.teamSelected$.pipe(
-			map(team => team.ownerUser)
-		);
-	}
-
 	isSelectable(user: TeamUser) {
-		return (this.user && this.teamOwner && user.user.id !== this.user.id);
+		return true;
+		// return (this.user && this.teamOwner$ && user.user.id !== this.user.id);
 	}
 }
