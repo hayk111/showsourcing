@@ -19,7 +19,7 @@ export class FocusableDirective {
 			const input = this._elementRef.nativeElement;
 			const length = input.value.length;
 			input.focus();
-			input.setSelectionRange(length, length);
+			// input.setSelectionRange(length, length);
 		});
 	}
 

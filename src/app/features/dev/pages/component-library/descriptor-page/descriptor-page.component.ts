@@ -9,7 +9,7 @@ import { descriptorMock } from './descriptor.mock';
 })
 export class DescriptorPageComponent implements OnInit {
 	descriptor = descriptorMock;
-	style = 'form';
+	style = 'editable';
 	columnAmount = 2;
 	updateOn = 'change';
 	properties = [

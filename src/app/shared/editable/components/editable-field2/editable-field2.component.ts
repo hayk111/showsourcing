@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, Output, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { EditableContainerComponent } from '../editable-container/editable-container.component';
 
 @Component({
@@ -11,6 +11,4 @@ import { EditableContainerComponent } from '../editable-container/editable-conta
 	}
 })
 export class EditableField2Component extends EditableContainerComponent {
-
-
 }

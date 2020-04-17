@@ -1,3 +1,109 @@
-<p>
-  dynamic-editable-field works!
-</p>
+
+<ng-container [ngSwitch]="descriptor.definition.type">
+
+	<!-- STRING -->
+	<ng-container *ngSwitchDefault>
+		<editable-field2-app #edt [readonly]="descriptor.readonly">
+			<editable-label-app>{{ descriptor.definition.label }}</editable-label-app>
+			<editable-value-app>{{ control.value }}</editable-value-app>
+			<input 
+				inputApp
+				type="text"
+				[required]="descriptor.required"
+				[formControl]="control"
+				(keyup.enter)="edt.save()"/>
+		</editable-field2-app>
+	</ng-container>
+
+	
+	<!-- INT -->
+	<ng-container *ngSwitchCase="type.INT">
+		<editable-field2-app [readonly]="descriptor.readonly">
+			<editable-label-app>{{ descriptor.definition.label }}</editable-label-app>
+			<editable-value-app>{{ control.value }}</editable-value-app>
+			<input 
+				#inp
+				inputApp
+				type="number"
+				[value]="control.value"
+				[required]="descriptor.required"
+				[formControl]="control"/>
+		</editable-field2-app>
+	</ng-container>
+
+	<!-- TEL -->
+	<ng-container *ngSwitchCase="type.TEL">
+		<editable-field2-app [readonly]="descriptor.readonly">
+			<editable-label-app>{{ descriptor.definition.label }}</editable-label-app>
+			<editable-value-app>{{ control.value }}</editable-value-app>
+			<input 
+				#inp
+				inputApp
+				restrictInput="tel"
+				[readonly]="descriptor.readonly"
+				[formControl]="control"/>
+		</editable-field2-app>
+	</ng-container>
+
+	<!-- EMAIL -->
+	<ng-container *ngSwitchCase="type.EMAIL">
+		<editable-field2-app [readonly]="descriptor.readonly">
+			<editable-label-app>{{ descriptor.definition.label }}</editable-label-app>
+			<editable-value-app>{{ control.value }}</editable-value-app>
+			<input 
+				#inp
+				inputApp
+				type="email"
+				restrictInput="email"
+				[readonly]="descriptor.readonly"
+				[formControl]="control"/>
+		</editable-field2-app>
+	</ng-container>
+
+	<!-- COLOR -->
+	<ng-container *ngSwitchCase="type.COLOR">
+		<editable-field2-app [readonly]="descriptor.readonly">
+			<editable-label-app>{{ descriptor.definition.label }}</editable-label-app>
+			<editable-value-app>{{ control.value }}</editable-value-app>
+			<input 
+				#inp
+				inputApp
+				type="color"
+				[readonly]="descriptor.readonly"
+				[formControl]="control"/>
+		</editable-field2-app>
+	</ng-container>
+
+	<!-- DATE -->
+	<ng-container *ngSwitchCase="type.DATE">
+		<editable-field2-app [readonly]="descriptor.readonly">
+			<editable-label-app>{{ descriptor.definition.label }}</editable-label-app>
+			<editable-value-app>{{ control.value }}</editable-value-app>
+			<input 
+				#inp
+				inputApp
+				type="date"
+				[readonly]="descriptor.readonly"
+				[formControl]="control"/>
+		</editable-field2-app>
+	</ng-container>
+
+	<!-- FLOAT -->
+	<ng-container *ngSwitchCase="type.FLOAT">
+		<editable-field2-app [readonly]="descriptor.readonly">
+			<editable-label-app>{{ descriptor.definition.label }}</editable-label-app>
+			<editable-value-app>{{ control.value }}</editable-value-app>
+			<input 
+				#inp
+				inputApp
+				restrictInput="decimal"
+				type="number"
+				step="any"
+				[readonly]="descriptor.readonly"
+				[formControl]="control"/>
+		</editable-field2-app>
+	</ng-container>
+
+</ng-container>
+
+

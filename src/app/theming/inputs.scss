@@ -72,60 +72,12 @@ editable-container-app input, editable-container-app input:focus {
 	height: unset;
 }
 
-form-field-app.editable {
-	padding-bottom: 0px;
-}
-
-form-field-app.borderless, form-field-app.borderless-ms {
-	padding-bottom: 0px;
-	padding-top: 16px;
-	box-sizing: border-box;
-
-	input, textarea {
-		height: 25px;
-		box-sizing: border-box;
-		padding: 0;
-		background: transparent;
-		border-radius: 0;
-		border: none;
-		border-bottom: 1px solid #e6ebf5;
-		padding-bottom: 7px;
-		&:not(.ng-pristine).ng-invalid {
-			border-bottom: 1px solid var(--color-warn);
-		}
-		&:focus {
-			border-bottom: 1px solid var(--color-primary);
-		}
-	}
-}
-
-form-field-app.borderless-ms {
-	padding-top: var(--spacing-ms);
-}
-
-form-field-app.field-focused {
-	label-app {
-		color: var(--color-primary);
-	}
-}
-
-form-field-app.modal {
-	label-app {
-		color: var(--color-txt-primary);
-		font-weight: normal;
-		text-transform: none;
-	}
-	input, textarea {
-		background: white;
-	}
-}
-
-form-field-app.field-error {
-	&:not(.field-focused) {
-		label-app {
-			color: var(--color-warn);
-		}
-	}
+editable-field2-app input {
+	margin: 0;
+	padding: 0;
+	height: unset;
+	border: none;
+	text-align: right;
 }
 
 input[type="file"] {

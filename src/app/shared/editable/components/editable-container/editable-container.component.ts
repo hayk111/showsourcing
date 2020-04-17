@@ -32,10 +32,12 @@ export class EditableContainerComponent {
 		if (!this.isOpen || (isOutsideClick && !this.closeOnOutsideClick)) {
 			return;
 		}
-
 		this.isOpen = false;
 		this.closed.emit();
-		this.cd.markForCheck();
+		// we run detect change here because on close we can lose focus of an input
+		// and if there is an input inside then the error that content changed after it was
+		// checked will appear
+		this.cd.detectChanges();
 	}
 
 	/** does not send a close event */

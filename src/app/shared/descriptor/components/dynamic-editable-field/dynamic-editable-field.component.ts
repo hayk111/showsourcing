@@ -1,4 +1,7 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, ChangeDetectorRef, ViewChild, OnInit, AfterViewInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { PropertyDescriptor, PropertyType } from '~core/erm3';
+import { InputDirective } from '~shared/inputs';
 
 @Component({
 	selector: 'dynamic-editable-field-app',
@@ -6,11 +9,8 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter
 	styleUrls: ['./dynamic-editable-field.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DynamicEditableFieldComponent implements OnInit {
-
-	constructor() { }
-
-	ngOnInit() {
-	}
-
+export class DynamicEditableFieldComponent {
+	@Input() descriptor: PropertyDescriptor;
+	@Input() control: FormControl;
+	type = PropertyType;
 }
