@@ -5,8 +5,7 @@ import { forkJoin } from 'rxjs';
 import { TeamUserQueries } from '~core/erm/services/team-user/team-user.queries';
 import { GlobalService } from '~core/erm/services/_global/global.service';
 import { TeamUser } from '~core/erm/models';
-import { TeamService } from '../team/team.service';
-import { UserService } from '../user/user.service';
+import { UserService, TeamService } from '~core/auth';
 
 
 
@@ -24,7 +23,7 @@ export class TeamUserService extends GlobalService<TeamUser> {
 	}
 
 	update(teamUser: TeamUser) {
-		const teamId = this.teamSrv.selectedTeamSync.id;
+		const teamId = this.teamSrv.teamSelected$;
 		return this.http.patch<TeamUser>(`api/team/${teamId}/user/${teamUser.user.id}/team-role`, teamUser);
 	}
 

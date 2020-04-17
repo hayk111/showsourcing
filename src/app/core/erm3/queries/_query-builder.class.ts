@@ -43,31 +43,6 @@ export class QueryBuilder {
 			}`;
 	}
 
-	// search // TODO update to fit the new environment when we have search queries
-	[QueryType.SEARCH] = (str: string) => {
-		return gql`
-			query Search${this.typename}s(
-				$filter: Searchable${this.typename}FilterInput
-				$sort: Searchable${this.typename}SortInput
-				$limit: Int
-				$nextToken: String
-			) {
-				search${this.typename}s(
-					filter: $filter
-					sort: $sort
-					limit: $limit
-					nextToken: $nextToken
-				) {
-					items {
-						${str}
-						${AUDIT}
-					}
-					nextToken
-					total
-				}
-			}`;
-	}
-
 	[QueryType.SEARCH_BY] = (str: string) => (byTypeName: Typename) => {
 		return gql`
 			query Search${this.typename}sBy${byTypeName}s(

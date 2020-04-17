@@ -26,13 +26,13 @@ export const routes: Routes = [
 			// 		{ path: 'settings', component: CompanyPages.InfoPageComponent },
 			// 	]
 			// },
-			// {
-			// 	path: 'team', component: TeamPages.TeamPageComponent, children: [
-			// 		{ path: '', redirectTo: 'members', pathMatch: 'full' },
-			// 		{ path: 'members', component:  TeamPages.MembersPageComponent },
-			// 		{ path: 'settings', component:  TeamPages.SettingsPageComponent }
-			// 	]
-			// },
+			{
+				path: 'team', component: TeamPages.TeamPageComponent, children: [
+					{ path: '', redirectTo: 'members', pathMatch: 'full' },
+					{ path: 'members', component:  TeamPages.MembersPageComponent },
+					{ path: 'settings', component:  TeamPages.SettingsPageComponent }
+				]
+			},
 			// {
 			// 	path: 'workflow', component: WorkflowPages.WorkflowPageComponent, children: [
 			// 		{ path: '', redirectTo: 'product', pathMatch: 'full' },

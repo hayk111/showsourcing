@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, OnChanges } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { User } from 'getstream';
 import { TaskService } from '~core/erm';
