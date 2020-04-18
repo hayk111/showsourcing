@@ -6,9 +6,6 @@ import { EditableContainerComponent } from '../editable-container/editable-conta
 	templateUrl: './editable-field2.component.html',
 	styleUrls: ['./editable-field2.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	host: {
-		'[class.open]': 'isOpen'
-	}
 })
 export class EditableField2Component extends EditableContainerComponent {
 }

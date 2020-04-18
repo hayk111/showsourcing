@@ -83,20 +83,26 @@
 	<!-- COLOR -->
 	<ng-container *ngSwitchCase="type.COLOR">
 		<editable-field2-app 
+			class="clickable"
 			#edt 
-			[readonly]="descriptor.readonly"
-			(saved)="onSave()"
-			(canceled)="reset()">
+			[readonly]="true"
+			(click)="inp.click()">
 			<editable-label-app>{{ descriptor.definition.label }}</editable-label-app>
-			<editable-value-app>{{ control.value }}</editable-value-app>
-			<input 
-				#inp
-				inputApp
-				type="color"
-				[readonly]="descriptor.readonly"
-				[formControl]="control"
-				(keyup.enter)="edt.save()"/>
+			<editable-value-app>
+				<div 
+					class="color-square"
+					[ngStyle]="{ 'background': control.value }">
+				</div>
+			</editable-value-app>
 		</editable-field2-app>
+		<input 
+			#inp
+			inputApp
+			type="color"
+			[hidden]="true"
+			[readonly]="descriptor.readonly"
+			[formControl]="control"
+			(keyup.enter)="edt.save()"/>
 	</ng-container>
 
 	<!-- DATE -->
@@ -138,6 +144,39 @@
 				(keyup.enter)="edt.save()"/>
 		</editable-field2-app>
 	</ng-container>
+
+	
+	<!-- TEXTAREA -->
+	<ng-container *ngSwitchCase="type.TEXTAREA">
+		<editable-field2-app 
+			#edt
+			[readonly]="descriptor.readonly"
+			(saved)="onSave()"
+			(canceled)="reset()">
+			<editable-label-app>{{ descriptor.definition.label }}</editable-label-app>
+			<editable-value-app>{{ control.value }}</editable-value-app>
+			<textarea 
+				#inp
+				inputApp
+				[readonly]="descriptor.readonly"
+				[required]="descriptor.required"
+				[formControl]="control">
+			</textarea>
+		</editable-field2-app>
+	</ng-container>
+
+	<!-- CHECKBOX -->
+	<ng-container *ngSwitchCase="type.CHECKBOX">
+		<editable-field2-app 
+			#edt
+			class="clickable"
+			[readonly]="true"
+			(click)="toggleValue()">
+			<editable-label-app>{{ descriptor.definition.label }}</editable-label-app>
+			<editable-value-app>{{ control.value ? 'Yes' : 'No' }}</editable-value-app>
+		</editable-field2-app>
+	</ng-container>
+	
 
 </ng-container>
 

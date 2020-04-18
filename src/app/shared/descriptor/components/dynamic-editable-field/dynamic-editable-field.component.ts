@@ -26,4 +26,10 @@ export class DynamicEditableFieldComponent implements OnInit {
 	reset() {
 		this.control.reset(this.initialValue);
 	}
+
+	toggleValue() {
+		if (!this.descriptor.readonly) {
+			this.control.setValue(!this.control.value);
+		}
+	}
 }

@@ -137,6 +137,19 @@
 			</checkbox-app>
 		</form-field-app>
 	</ng-container>
+
+	<!-- RADIO -->
+	<ng-container *ngSwitchCase="type.RADIO">
+		<form-field-app>
+			<label-app>{{ descriptor.definition.label }}</label-app>
+			<radio-app 
+				inputApp 
+				[readonly]="descriptor.readonly"
+				[formControl]="control"
+				[choices]="">
+			</radio-app>
+		</form-field-app>
+	</ng-container>
 	
 
 	

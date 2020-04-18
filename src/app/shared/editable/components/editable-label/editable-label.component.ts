@@ -5,6 +5,9 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 	templateUrl: './editable-label.component.html',
 	styleUrls: ['./editable-label.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	host: {
+		class: 'mg-right-ms'
+	}
 })
 export class EditableLabelComponent {
 

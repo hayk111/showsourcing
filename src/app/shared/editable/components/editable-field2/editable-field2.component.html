@@ -7,8 +7,8 @@
 
 <div 
 	*ngIf="isOpen"
-	class="flexVAlign" 
-	(clickOutside)="close(true)">
+	class="flexVAlign flexGrow" 
+	(clickOutside)="save(true)">
 	<ng-content></ng-content>
 	<editable-actions-app 
 		*ngIf="hasAction"

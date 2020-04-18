@@ -8,7 +8,7 @@ const fields1: PropertyDescriptor[] = [
 			type: PropertyType.TEXT,
 			name: 'text',
 		},
-		defaultValue: 'test string',
+		defaultValue: JSON.stringify('test string'),
 		readonly: false,
 		required: true,
 		hint: 'This is an helpful message'
@@ -19,7 +19,7 @@ const fields1: PropertyDescriptor[] = [
 			type: PropertyType.INT,
 			name: 'int',
 		},
-		defaultValue: 40,
+		defaultValue: JSON.stringify(40),
 		readonly: false,
 		required: true,
 		hint: 'Field expressed in Kg'
@@ -30,7 +30,7 @@ const fields1: PropertyDescriptor[] = [
 			type: PropertyType.EMAIL,
 			name: 'email',
 		},
-		defaultValue: 'default@gmail.com',
+		defaultValue: JSON.stringify('default@gmail.com'),
 		readonly: false,
 		required: true
 	},
@@ -40,7 +40,7 @@ const fields1: PropertyDescriptor[] = [
 			type: PropertyType.TEL,
 			name: 'tel',
 		},
-		defaultValue: '+32',
+		defaultValue: JSON.stringify('+32'),
 		readonly: false,
 		required: true,
 		hint: '+44 444 444 44'
@@ -51,7 +51,7 @@ const fields1: PropertyDescriptor[] = [
 			type: PropertyType.FLOAT,
 			name: 'float',
 		},
-		defaultValue: 0,
+		defaultValue: JSON.stringify(0),
 		readonly: false,
 		required: true
 	},
@@ -108,7 +108,6 @@ const fields2: PropertyDescriptor[] = [
 			type: PropertyType.PRICE,
 			name: 'price',
 		},
-		defaultValue: {},
 		required: true,
 		readonly: false
 	},

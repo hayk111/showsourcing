@@ -10,7 +10,7 @@ import { InputDirective } from '~shared/inputs';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[class.open]': 'isOpen',
-		'[class.clickable]': '!isOpen'
+		'[class.clickable]': '!isOpen && !readonly'
 	}
 })
 export class EditableContainerComponent {
@@ -46,9 +46,9 @@ export class EditableContainerComponent {
 		this.close(false);
 	}
 
-	save() {
+	save(isOutsideClick = false) {
 		this.saved.emit();
-		this.close(false);
+		this.close(isOutsideClick);
 	}
 
 	@HostListener('click')

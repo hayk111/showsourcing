@@ -67,6 +67,15 @@
 	<p class="mg-v-ms">
 		value: {{ price | json }}
 	</p>
+
+	<p>
+		Addiotionally a label can be added
+	</p>
+	
+	<input-price2-app 
+		[(ngModel)]="price"
+		[hasLabel]="true">
+	</input-price2-app>
 </card-app>
 
 <card-app class="mg-v-m">
