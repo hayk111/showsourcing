@@ -1,7 +1,6 @@
-import { ChangeDetectionStrategy, Component, Input, ChangeDetectorRef, ViewChild, OnInit, AfterViewInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { PropertyDescriptor, PropertyType } from '~core/erm3';
-import { InputDirective } from '~shared/inputs';
 
 @Component({
 	selector: 'dynamic-editable-field-app',
@@ -9,8 +8,22 @@ import { InputDirective } from '~shared/inputs';
 	styleUrls: ['./dynamic-editable-field.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DynamicEditableFieldComponent {
+export class DynamicEditableFieldComponent implements OnInit {
 	@Input() descriptor: PropertyDescriptor;
 	@Input() control: FormControl;
+	@Output() update = new EventEmitter<any>();
 	type = PropertyType;
+	initialValue;
+
+	ngOnInit() {
+		this.initialValue = this.control.value;
+	}
+
+	onSave() {
+		this.initialValue = this.control.value;
+	}
+
+	reset() {
+		this.control.reset(this.initialValue);
+	}
 }

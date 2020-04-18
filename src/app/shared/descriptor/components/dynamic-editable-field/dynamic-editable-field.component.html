@@ -3,11 +3,16 @@
 
 	<!-- STRING -->
 	<ng-container *ngSwitchDefault>
-		<editable-field2-app #edt [readonly]="descriptor.readonly">
+		<editable-field2-app 
+			#edt 
+			[readonly]="descriptor.readonly"
+			(saved)="onSave()"
+			(canceled)="reset()">
 			<editable-label-app>{{ descriptor.definition.label }}</editable-label-app>
 			<editable-value-app>{{ control.value }}</editable-value-app>
 			<input 
 				inputApp
+				#inp
 				type="text"
 				[required]="descriptor.required"
 				[formControl]="control"
@@ -18,7 +23,11 @@
 	
 	<!-- INT -->
 	<ng-container *ngSwitchCase="type.INT">
-		<editable-field2-app [readonly]="descriptor.readonly">
+		<editable-field2-app 
+			#edt
+			[readonly]="descriptor.readonly"
+			(saved)="onSave()"
+			(canceled)="reset()">
 			<editable-label-app>{{ descriptor.definition.label }}</editable-label-app>
 			<editable-value-app>{{ control.value }}</editable-value-app>
 			<input 
@@ -27,13 +36,18 @@
 				type="number"
 				[value]="control.value"
 				[required]="descriptor.required"
-				[formControl]="control"/>
+				[formControl]="control"
+				(keyup.enter)="edt.save()"/>
 		</editable-field2-app>
 	</ng-container>
 
 	<!-- TEL -->
 	<ng-container *ngSwitchCase="type.TEL">
-		<editable-field2-app [readonly]="descriptor.readonly">
+		<editable-field2-app 
+			#edt
+			[readonly]="descriptor.readonly"
+			(saved)="onSave()"
+			(canceled)="reset()">
 			<editable-label-app>{{ descriptor.definition.label }}</editable-label-app>
 			<editable-value-app>{{ control.value }}</editable-value-app>
 			<input 
@@ -41,13 +55,18 @@
 				inputApp
 				restrictInput="tel"
 				[readonly]="descriptor.readonly"
-				[formControl]="control"/>
+				[formControl]="control"
+				(keyup.enter)="edt.save()"/>
 		</editable-field2-app>
 	</ng-container>
 
 	<!-- EMAIL -->
 	<ng-container *ngSwitchCase="type.EMAIL">
-		<editable-field2-app [readonly]="descriptor.readonly">
+		<editable-field2-app 
+			#edt
+			[readonly]="descriptor.readonly"
+			(saved)="onSave()"
+			(canceled)="reset()">
 			<editable-label-app>{{ descriptor.definition.label }}</editable-label-app>
 			<editable-value-app>{{ control.value }}</editable-value-app>
 			<input 
@@ -56,13 +75,18 @@
 				type="email"
 				restrictInput="email"
 				[readonly]="descriptor.readonly"
-				[formControl]="control"/>
+				[formControl]="control"
+				(keyup.enter)="edt.save()"/>
 		</editable-field2-app>
 	</ng-container>
 
 	<!-- COLOR -->
 	<ng-container *ngSwitchCase="type.COLOR">
-		<editable-field2-app [readonly]="descriptor.readonly">
+		<editable-field2-app 
+			#edt 
+			[readonly]="descriptor.readonly"
+			(saved)="onSave()"
+			(canceled)="reset()">
 			<editable-label-app>{{ descriptor.definition.label }}</editable-label-app>
 			<editable-value-app>{{ control.value }}</editable-value-app>
 			<input 
@@ -70,13 +94,18 @@
 				inputApp
 				type="color"
 				[readonly]="descriptor.readonly"
-				[formControl]="control"/>
+				[formControl]="control"
+				(keyup.enter)="edt.save()"/>
 		</editable-field2-app>
 	</ng-container>
 
 	<!-- DATE -->
 	<ng-container *ngSwitchCase="type.DATE">
-		<editable-field2-app [readonly]="descriptor.readonly">
+		<editable-field2-app 
+			#edt
+			[readonly]="descriptor.readonly"
+			(saved)="onSave()"
+			(canceled)="reset()">
 			<editable-label-app>{{ descriptor.definition.label }}</editable-label-app>
 			<editable-value-app>{{ control.value }}</editable-value-app>
 			<input 
@@ -84,13 +113,18 @@
 				inputApp
 				type="date"
 				[readonly]="descriptor.readonly"
-				[formControl]="control"/>
+				[formControl]="control"
+				(keyup.enter)="edt.save()"/>
 		</editable-field2-app>
 	</ng-container>
 
 	<!-- FLOAT -->
 	<ng-container *ngSwitchCase="type.FLOAT">
-		<editable-field2-app [readonly]="descriptor.readonly">
+		<editable-field2-app 
+			#edt
+			[readonly]="descriptor.readonly"
+			(saved)="onSave()"
+			(canceled)="reset()">
 			<editable-label-app>{{ descriptor.definition.label }}</editable-label-app>
 			<editable-value-app>{{ control.value }}</editable-value-app>
 			<input 
@@ -100,7 +134,8 @@
 				type="number"
 				step="any"
 				[readonly]="descriptor.readonly"
-				[formControl]="control"/>
+				[formControl]="control"
+				(keyup.enter)="edt.save()"/>
 		</editable-field2-app>
 	</ng-container>
 
