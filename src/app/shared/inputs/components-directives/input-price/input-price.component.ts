@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, ViewChild, ElementRef } from '@angular/core';
 import { AbstractInput, makeAccessorProvider } from '../abstract-input.class';
 
 @Component({
@@ -11,4 +11,9 @@ import { AbstractInput, makeAccessorProvider } from '../abstract-input.class';
 export class InputPriceComponent extends AbstractInput {
 	@Input() value: any = {};
 	@Input() hasLabel = false;
+	@ViewChild('amountInp') amountInp: ElementRef<HTMLInputElement>;
+
+	focus() {
+		this.amountInp.nativeElement.focus();
+	}
 }

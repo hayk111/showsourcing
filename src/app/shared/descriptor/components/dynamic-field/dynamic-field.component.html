@@ -5,7 +5,6 @@
 		<form-field-app [showRequiredMarker]="showRequiredMarker">
 			<label-app>{{ descriptor.definition.label }}</label-app>
 			<input 
-				#inp
 				inputApp
 				type="text"
 				[required]="descriptor.required"
@@ -20,7 +19,6 @@
 		<form-field-app [showRequiredMarker]="showRequiredMarker">
 			<label-app>{{ descriptor.definition.label }}</label-app>
 			<input 
-				#inp
 				inputApp
 				type="number"
 				[value]="control.value"
@@ -36,7 +34,6 @@
 		<form-field-app [showRequiredMarker]="showRequiredMarker">
 			<label-app>{{ descriptor.definition.label }}</label-app>
 			<input 
-				#inp
 				inputApp
 				restrictInput="tel"
 				[readonly]="descriptor.readonly"
@@ -51,7 +48,6 @@
 		<form-field-app [showRequiredMarker]="showRequiredMarker">
 			<label-app>{{ descriptor.definition.label }}</label-app>
 			<input 
-				#inp
 				inputApp
 				type="email"
 				restrictInput="email"
@@ -67,7 +63,6 @@
 		<form-field-app [showRequiredMarker]="showRequiredMarker">
 			<label-app>{{ descriptor.definition.label }}</label-app>
 			<input 
-				#inp
 				inputApp
 				type="color"
 				[readonly]="descriptor.readonly"
@@ -82,9 +77,7 @@
 		<form-field-app [showRequiredMarker]="showRequiredMarker">
 			<label-app>{{ descriptor.definition.label }}</label-app>
 			<input 
-				#inp
 				inputApp
-				type="date"
 				[readonly]="descriptor.readonly"
 				[required]="descriptor.required"
 				[formControl]="control"/>
@@ -97,7 +90,6 @@
 		<form-field-app [showRequiredMarker]="showRequiredMarker">
 			<label-app>{{ descriptor.definition.label }}</label-app>
 			<input 
-				#inp
 				inputApp
 				restrictInput="decimal"
 				type="number"
@@ -114,7 +106,6 @@
 		<form-field-app [showRequiredMarker]="showRequiredMarker">
 			<label-app>{{ descriptor.definition.label }}</label-app>
 			<textarea 
-				#inp
 				inputApp
 				[readonly]="descriptor.readonly"
 				[required]="descriptor.required"
@@ -151,8 +142,6 @@
 		</form-field-app>
 	</ng-container>
 	
-
-	
 	<!-- PACKAGING -->
 	<ng-container *ngSwitchCase="type.PACKAGING">
 		<div class="capitalize mg-bottom-ms bold color-txt-secondary">
@@ -188,7 +177,5 @@
 			</input-price-matrix-app>
 		</form-field-app>
 	</ng-container>
-
-	<!-- DESCRIPTOR -->
 
 </ng-container>

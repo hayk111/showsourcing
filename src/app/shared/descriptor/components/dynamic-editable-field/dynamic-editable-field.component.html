@@ -176,7 +176,40 @@
 			<editable-value-app>{{ control.value ? 'Yes' : 'No' }}</editable-value-app>
 		</editable-field2-app>
 	</ng-container>
-	
+
+	<!-- PRICE -->
+	<ng-container *ngSwitchCase="type.PRICE">
+		<editable-field2-app 
+			#edt
+			[readonly]="descriptor.readonly"
+			(saved)="onSave()"
+			(canceled)="reset()"
+			(opened)="priceInput.focus()">
+			<editable-label-app>{{ descriptor.definition.label }}</editable-label-app>
+			<editable-value-app>
+				{{ control?.value?.amount }} 
+				{{ control?.value?.currency }}
+			</editable-value-app>
+			<input-price2-app
+				#priceInput 
+				[readonly]="descriptor.readonly"
+				[formControl]="control">
+			</input-price2-app>
+		</editable-field2-app>
+	</ng-container>
+
+	<!-- PRICE MATRIX -->
+	<!-- <ng-container *ngSwitchCase="type.PRICE_MATRIX">
+		<form-field-app>
+			<label-app>{{ descriptor.definition.label }}</label-app>
+			<input-price-matrix-app 
+				inputApp 
+				[readonly]="descriptor.readonly"
+				[formControl]="control">
+			</input-price-matrix-app>
+		</form-field-app>
+	</ng-container> -->
+
 
 </ng-container>
 
