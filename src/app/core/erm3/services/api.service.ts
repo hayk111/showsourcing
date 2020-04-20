@@ -188,6 +188,26 @@ export class ApiService {
 	}
 
 	/////////////////////////////
+	//        SYNC        //
+	/////////////////////////////
+	/**
+	 * Syncs all of the entities by a referenced Entity
+	 * (Query, optimistic UI)
+	 * @param typename: the type of the entity we want to query
+	 * @param lastSync: last time the entity was synced
+	 * @param options: apollo options, variable and query will be overrided
+	 */
+	sync<T>(
+		typename: Typename,
+		apiOptions: ApiQueryOption = {}
+	): ObservableQuery<T[]> {
+		const options = apiOptions as WatchQueryOptions;
+		options.variables = { limit: 10000 };
+		options.query = QueryPool.getQuery(typename, QueryType.SYNC);
+		return this.query<T[]>(options);
+	}
+
+	/////////////////////////////
 	//         CREATE          //
 	/////////////////////////////
 

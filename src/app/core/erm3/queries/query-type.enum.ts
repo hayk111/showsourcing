@@ -8,5 +8,6 @@ export enum QueryType {
 	UPDATE = 'update',
 	DELETE = 'delete',
 	LIST_BY = 'listBy',
+	SYNC = 'sync',
 }
 

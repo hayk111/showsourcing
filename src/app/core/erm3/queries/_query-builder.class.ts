@@ -100,6 +100,28 @@ export class QueryBuilder {
 			}`;
 	}
 
+	[QueryType.SYNC] = (str: string): Record<string, any> => {
+		return gql`
+			query Sync${this.typename}(
+				$filter: Model${this.typename}FilterInput,
+				$lastSync: AWSTimestamp,
+				$limit: Int,
+				$nextToken: String
+			) {
+				sync${this.typename}s(
+					filter: $filter,
+					lastSync: $lastSync,
+					limit: $limit,
+					nextToken: $nextToken) {
+						items {
+							${str}
+							${AUDIT}
+						}
+						nextToken
+				  }
+			}`;
+	}
+
 	[QueryType.CREATE] = (str: string) => {
 		return gql`
 			mutation Create${this.typename}(
