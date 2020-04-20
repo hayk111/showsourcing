@@ -86,10 +86,9 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 
 	constructor(
 		private listHelper: ListHelperService,
-		public dialogCommonSrv: DialogCommonService,
+		public dlgCommonSrv: DialogCommonService,
 		private uploader: UploaderService,
 		private cd: ChangeDetectorRef,
-		private dlgCommonSrv: DialogCommonService,
 		private apiSrv: ApiService,
 		private router: Router,
 		private commentSrv: CommentService,
@@ -142,8 +141,8 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 
 	// UPDATE FUNCTIONS
 	updateProduct(productConfig: any) {
-		const product = { ...productConfig, id: this._product.id };
-		this.listHelper.update(product, { _version: this._product._version });
+		const product = { ...productConfig, id: this._product.id, _version: this._product._version };
+		this.listHelper.update(product);
 		this._product = product;
 	}
 
@@ -203,7 +202,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 		const text = `Are you sure you want to delete this product ?`;
 		this.dlgCommonSrv
 			.openConfirmDlg({ text })
-			.data$.pipe(switchMap((_) => this.apiSrv.delete('Product', product)))
+			.data$.pipe(tap((_) => this.apiSrv.delete('Product', product)))
 			.subscribe((prod) => {
 				this.close.emit();
 			});
@@ -254,7 +253,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	}
 
 	openExportModal() {
-		this.dlgCommonSrv.openExportDialog('Product', [this.product]);
+		this.dlgCommonSrv.openExportDlg('Product', [this.product]);
 	}
 
 	// TAB SELECTION

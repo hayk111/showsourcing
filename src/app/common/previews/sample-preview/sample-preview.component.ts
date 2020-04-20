@@ -9,7 +9,6 @@ import {
 } from '@angular/core';
 import { Observable } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
-import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { SampleDescriptor } from '~core/descriptors';
 import {
 	Comment,
@@ -20,11 +19,12 @@ import {
 	UserService,
 } from '~core/erm';
 import { Sample } from '~core/erm3/models';
-import { ApiService } from '~core/erm3/services/api.service';
 import { ListHelperService } from '~core/list-page2';
 import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
 import { PreviewCommentComponent, PreviewService } from '~shared/preview';
 import { AutoUnsub } from '~utils';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
+import { ApiService } from '~core/erm3/services/api.service';
 
 @Component({
 	selector: 'sample-preview-app',
@@ -87,8 +87,8 @@ export class SamplePreviewComponent extends AutoUnsub implements OnInit {
 	}
 
 	updateSample(sample: Sample) {
-		const newSample = { ...sample, id: this.sample.id };
-		this.listHelper.update(newSample, { _version: this.sample._version });
+		const newSample = { ...sample, id: this.sample.id, _version: this.sample._version };
+		this.listHelper.update(newSample);
 		this._sample = newSample;
 	}
 

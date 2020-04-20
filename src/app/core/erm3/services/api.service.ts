@@ -141,12 +141,15 @@ export class ApiService {
 	 */
 	searchBy<T>(
 		typename: Typename,
-		variables: FilterParams,
-		apiOptions: ApiQueryOption = {},
+		variables: FilterParams = {},
+		apiOptions: ApiQueryOption = {fetchPolicy: 'cache-and-network'},
 		byTypeName: Typename = 'Team',
 		byIds: string[] = [this._teamId]
 	): ObservableQuery<T[]> {
 		const options = apiOptions as WatchQueryOptions;
+		if (!variables.sort?.direction)
+			variables.sort = {property: 'createdAt', direction: 'DESC'};
+
 		const queryBuilder = QueryPool.getQuery(typename, QueryType.SEARCH_BY);
 
 		options.query = queryBuilder(byTypeName);
@@ -204,7 +207,7 @@ export class ApiService {
 		if (typename !== 'Company' && typename !== 'Team') {
 			entity.id = uuid();
 			entity.createdAt = new Date().toISOString();
-			// entity.createdByUserId = this._userId; // TODO should be added (behavior expected)
+			// entity.createdByUserId = this._userId;
 			entity.teamId = this._teamId;
 		}
 
@@ -240,7 +243,6 @@ export class ApiService {
 			entity.lastUpdatedAt = new Date().toISOString();
 			// entity.lastUpdatedByUserId = this._userId;
 			entity.teamId = this._teamId;
-			entity._version = (options as any)._version;
 		}
 		options.variables = { input: entity };
 		options.mutation = QueryPool.getQuery(typename, QueryType.UPDATE);

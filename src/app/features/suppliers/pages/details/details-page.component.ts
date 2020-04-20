@@ -69,7 +69,7 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	export(supplier: Supplier) {
-		this.dlgCommonSrv.openExportDialog('Supplier', [supplier]);
+		this.dlgCommonSrv.openExportDlg('Supplier', [supplier]);
 	}
 
 	contact(supplier: Supplier) {

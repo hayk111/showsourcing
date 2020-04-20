@@ -4,7 +4,7 @@ import { error } from 'util';
 import {
 	CompareProductComponent,
 	EditionDialogComponent,
-	ExportDlgComponent,
+	ExportDialogComponent,
 	InviteUserDlgComponent,
 	MassEditDlgComponent,
 	MergeDialogComponent,
@@ -85,8 +85,8 @@ export class DialogCommonService {
 
 	/** Opens a dialog that lets the user export a product either in PDF or EXCEL format */
 	// TODO type this function when migrating it
-	openExportDialog(typename: any, targets?: any[], query?: string) {
-		return this.dlgSrv.open(ExportDlgComponent, { typename, targets, query });
+	openExportDlg(typename: Typename, targets?: any[], query?: any) {
+		return this.dlgSrv.open(ExportDialogComponent, { typename, targets, query });
 	}
 
 	/** Opens a dialog that lets the user request members of his team for feedback regarding the products he selectioned */

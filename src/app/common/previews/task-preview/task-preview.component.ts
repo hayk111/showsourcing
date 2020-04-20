@@ -11,13 +11,13 @@ import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { TaskDescriptor } from '~core/descriptors';
 import { Comment, CommentService, ERM, ExtendedFieldDefinition, Task } from '~core/erm';
 import { ListFuseHelperService } from '~core/list-page2';
 import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
 import { PreviewCommentComponent } from '~shared/preview';
 import { AutoUnsub, StatusUtils } from '~utils';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 
 @Component({
 	selector: 'task-preview-app',
@@ -73,8 +73,8 @@ export class TaskPreviewComponent extends AutoUnsub implements OnInit {
 	}
 
 	updateTask(taskConfig: any) {
-		const task = { ...taskConfig, id: this.task.id };
-		this.listHelper.update(task, { _version: this._task._version });
+		const task = { ...taskConfig, id: this.task.id, _version: this._task._version };
+		this.listHelper.update(task);
 		this._task = task;
 	}
 
