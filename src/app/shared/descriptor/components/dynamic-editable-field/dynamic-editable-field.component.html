@@ -185,6 +185,26 @@
 			(saved)="onSave()"
 			(canceled)="reset()"
 			(opened)="priceInput.focus()">
+			<editable-label-app>
+				{{ descriptor.definition.label }}
+			</editable-label-app>
+			<editable-value-app>
+				{{ control?.value?.amount }} 
+				{{ control?.value?.currency }}
+			</editable-value-app>
+			<input-price2-app
+				#priceInput 
+				[hasLabel]="true"
+				[readonly]="descriptor.readonly"
+				[formControl]="control">
+			</input-price2-app>
+		</editable-field2-app>
+	</ng-container>
+
+	<!-- PRICE MATRIX -->
+	<!-- <ng-container *ngSwitchCase="type.PRICE">
+		<editable-container-app 
+			#edt>
 			<editable-label-app>{{ descriptor.definition.label }}</editable-label-app>
 			<editable-value-app>
 				{{ control?.value?.amount }} 
@@ -196,20 +216,32 @@
 				[formControl]="control">
 			</input-price2-app>
 		</editable-field2-app>
-	</ng-container>
-
-	<!-- PRICE MATRIX -->
-	<!-- <ng-container *ngSwitchCase="type.PRICE_MATRIX">
-		<form-field-app>
-			<label-app>{{ descriptor.definition.label }}</label-app>
-			<input-price-matrix-app 
-				inputApp 
-				[readonly]="descriptor.readonly"
-				[formControl]="control">
-			</input-price-matrix-app>
-		</form-field-app>
 	</ng-container> -->
 
+	<!-- PACKAGING -->
+	<ng-container *ngSwitchCase="type.PACKAGING">
+		<!-- this ng-for will have to be let go when we use the selector, 
+		and we can create the editable-packaging thereafter  -->
+		<ng-container *ngFor="let prop of ['width', 'length']">
+			<editable-field2-app 
+				#edt
+				[readonly]="descriptor.readonly"
+				(saved)="onSave()"
+				(canceled)="reset()">
+				<editable-label-app>{{ descriptor.definition.label }}</editable-label-app>
+				<editable-value-app>{{ control.value }}</editable-value-app>
+				<input 
+					#inp
+					inputApp
+					type="number"
+					[value]="control.value"
+					[required]="descriptor.required"
+					[formControl]="control"
+					(keyup.enter)="edt.save()"/>
+			</editable-field2-app>
+		</ng-container>
+		
+	</ng-container>
 
 </ng-container>
 

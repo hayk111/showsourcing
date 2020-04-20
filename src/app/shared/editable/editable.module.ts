@@ -9,10 +9,12 @@ import { InputsModule } from '~shared/inputs/inputs.module';
 import { SelectorsModule } from '~shared/selectors/selectors.module';
 import { UtilsModule } from '~shared/utils/utils.module';
 
-import { EditableContainerComponent, EditableFieldComponent, EditableValueComponent} from './components';
-import { EditableActionsComponent } from './components/editable-actions/editable-actions.component';
-import { EditableLabelComponent } from './components/editable-label/editable-label.component';
-import { EditableField2Component } from './components/editable-field2/editable-field2.component';
+import {
+	EditableContainerComponent, EditableFieldComponent, EditableValueComponent,
+	EditableField2Component, EditableActionsComponent, EditableLabelComponent,
+	EditablePackaging2Component
+} from './components';
+
 
 // text where when it is clicked an input appears
 @NgModule({
@@ -33,14 +35,16 @@ import { EditableField2Component } from './components/editable-field2/editable-f
 		EditableField2Component,
 		EditableValueComponent,
 		EditableActionsComponent,
-		EditableLabelComponent
+		EditableLabelComponent,
+		EditablePackaging2Component
 	],
 	exports: [
 		EditableContainerComponent,
 		EditableFieldComponent,
 		EditableField2Component,
 		EditableValueComponent,
-		EditableLabelComponent
+		EditableLabelComponent,
+		EditablePackaging2Component
 	],
 })
 export class EditableModule { }
