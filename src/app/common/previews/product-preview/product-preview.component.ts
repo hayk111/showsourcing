@@ -141,7 +141,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 
 	// UPDATE FUNCTIONS
 	updateProduct(productConfig: any) {
-		const product = { ...productConfig, id: this._product.id, _version: this._product._version };
+		const product = { ...productConfig, id: this._product.id };
 		this.listHelper.update(product);
 		this._product = product;
 	}

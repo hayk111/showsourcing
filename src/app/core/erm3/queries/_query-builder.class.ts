@@ -7,7 +7,6 @@ import { QueryType } from './query-type.enum';
 const AUDIT = `
 _version
 `;
-// _version
 // _lastChangedAt
 // _deleted
 
