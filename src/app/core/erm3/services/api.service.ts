@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MutationOptions } from 'apollo-client';
-import {
-	ObservableQuery as ApolloObservableQuery,
-	WatchQueryOptions,
-} from 'apollo-client';
+import { ObservableQuery as ApolloObservableQuery, WatchQueryOptions } from 'apollo-client';
 import { forkJoin, from, Observable } from 'rxjs';
 import { filter, map, tap } from 'rxjs/operators';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
@@ -16,6 +13,7 @@ import { Typename } from '../typename.type';
 import { client } from './client';
 import { ApiLogger } from './_api-logger.class';
 import { GqlHelper } from './_gql-helper.class';
+import gql from 'graphql-tag';
 
 export interface ObservableQuery<T = any> extends ApolloObservableQuery<T> {
 	response$: Observable<any>;
@@ -142,20 +140,19 @@ export class ApiService {
 	searchBy<T>(
 		typename: Typename,
 		variables: FilterParams = {},
-		apiOptions: ApiQueryOption = {fetchPolicy: 'cache-and-network'},
+		apiOptions: ApiQueryOption = { fetchPolicy: 'cache-and-network' },
 		byTypeName: Typename = 'Team',
 		byIds: string[] = [this._teamId]
 	): ObservableQuery<T[]> {
 		const options = apiOptions as WatchQueryOptions;
-		if (!variables.sort?.direction)
-			variables.sort = {property: 'createdAt', direction: 'DESC'};
+		if (!variables.sort?.direction) variables.sort = { property: 'createdAt', direction: 'DESC' };
 
 		const queryBuilder = QueryPool.getQuery(typename, QueryType.SEARCH_BY);
 
 		options.query = queryBuilder(byTypeName);
 		options.variables = {
 			[byTypeName.toLowerCase() + 'Ids']: byIds,
-			...variables
+			...variables,
 		};
 
 		const query = this.query<T[]>(options);
@@ -239,6 +236,7 @@ export class ApiService {
 	): Observable<T> {
 		const options = apiOptions as MutationOptions;
 		entity.__typename = typename;
+		entity._version = this._getCachedVersion(typename, entity.id);
 		if (typename !== 'Company' && typename !== 'Team') {
 			entity.lastUpdatedAt = new Date().toISOString();
 			// entity.lastUpdatedByUserId = this._userId;
@@ -276,7 +274,7 @@ export class ApiService {
 	): Observable<T> {
 		const options = apiOptions as MutationOptions;
 		options.variables = {
-			input: { id: entity.id, _version: entity._version },
+			input: { id: entity.id, _version: this._getCachedVersion(typename, entity.id) },
 		};
 		if (typename !== 'Company' && typename !== 'Team' && typename !== 'PropertyOption') {
 			// options.variables.input.deletedAt = new Date().toISOString(); // TODO should be added (behavior expected)
@@ -311,7 +309,7 @@ export class ApiService {
 		const r: any = client.readQuery(query.options);
 		const items = r[query.queryName].items;
 		const initialQueryLength = r[query.queryName].items;
-		r[query.queryName].items = items.filter(item => !ids.includes(item.id));
+		r[query.queryName].items = items.filter((item) => !ids.includes(item.id));
 		const totalDiff = initialQueryLength - r[query.queryName].items.length;
 		r[query.queryName].total -= totalDiff;
 		client.writeQuery({ ...query.options, data: r });
@@ -334,6 +332,26 @@ export class ApiService {
 				when doing an update use "new Entity()" or specify the "__typename"
 			`);
 		}
+	}
+
+	private _getCachedVersion(typename: Typename, id: string): number {
+		let cachedItem: Entity;
+		const fragmentOptions = {
+			id: `${typename}:${id}`, // the id format registered in the apollo cache
+			fragment: gql`
+				fragment test on ${typename} {
+					id
+					_version
+				}
+			`,
+		};
+		try {
+			cachedItem = client.readFragment(fragmentOptions);
+		} catch (err) {
+			throw Error('The _version field must exist in the cache (_version have to be fetched)');
+		}
+		if (!cachedItem) throw Error(`this item (${typename}:${id}) doesn't exist in the cache.`);
+		return cachedItem._version;
 	}
 
 	/** check if a graphql call has given any error */
