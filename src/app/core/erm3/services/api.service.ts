@@ -334,6 +334,7 @@ export class ApiService {
 		}
 	}
 
+	/** get the _version of an entity from the cache */
 	private _getCachedVersion(typename: Typename, id: string): number {
 		let cachedItem: Entity;
 		const fragmentOptions = {
