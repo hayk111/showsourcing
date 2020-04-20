@@ -82,14 +82,16 @@ export class QueryBuilder {
 		}
 
 		return gql`
-			query List${this.typename}${byPropertyString}(
+			query List${this.typename}${byPropertyString}s(
+				${this.typename === 'PropertyOption' ? '$type: ModelStringKeyConditionInput' : ''}
 				$byId: ID
 				$sortDirection: ModelSortDirection
 				$filter: Model${this.typename}FilterInput
 				$limit: Int
 				$nextToken: String
 			) {
-				list${this.typename}${byPropertyString}(
+				list${this.typename}${byPropertyString}s(
+					${this.typename === 'PropertyOption' ? 'type: $type' : ''}
 					${byId}: $byId
 					sortDirection: $sortDirection
 					filter: $filter

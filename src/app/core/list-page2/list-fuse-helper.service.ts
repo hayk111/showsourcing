@@ -80,7 +80,10 @@ export class ListFuseHelperService<G = any> {
 	}
 
 	/** items searched, without sort and without pagination */
-	searchedItems$: Observable<G[]> = combineLatest(this._fuse$, this.filterSrv.valueChanges$).pipe(
+	private _fusedItems$: Observable<G[]> = combineLatest(
+		this._fuse$,
+		this.filterSrv.valueChanges$
+	).pipe(
 		debounce(() => timer(400)),
 		switchMap(([fuse]: any) => {
 			// the value changed should concern the FilterType search
@@ -94,7 +97,7 @@ export class ListFuseHelperService<G = any> {
 	);
 
 	/** items sorted, without pagination */
-	sortedItems$ = combineLatest(this.searchedItems$, this.sortSrv.sort$).pipe(
+	searchedItems$ = combineLatest(this._fusedItems$, this.sortSrv.sort$).pipe(
 		map(([searchedItems, sort]) => {
 			if (!sort) return searchedItems;
 			return searchedItems.sort((item1, item2) => {
@@ -107,7 +110,7 @@ export class ListFuseHelperService<G = any> {
 	paginedItems$: Observable<G[]> = combineLatest(
 		this.paginationSrv.page$,
 		this.paginationSrv.limit$,
-		this.sortedItems$
+		this.searchedItems$
 	).pipe(
 		map(([page, limit, sortedItems]) => {
 			const indexStart = page * limit;
@@ -123,21 +126,15 @@ export class ListFuseHelperService<G = any> {
 			.then((_) => this._pending$.next(false));
 	}
 
-	create(addedProperties: any, typename: Typename) {
+	create(addedProperties: any) {
 		this.dlgSrv
 			.open(DefaultCreationDialogComponent, {
-				typename: typename || this.typename,
+				typename: this.typename,
 				extra: addedProperties,
 			})
 			.data$.pipe(
-				tap((entity) =>
-					this.apiSrv.addToList(this.queryRef, {
-						id: uuid(),
-						__typename: this.typename,
-						...entity,
-					})
-				),
-				switchMap((entity) => this.apiSrv.create(this.typename, entity))
+				switchMap((entity) => this.apiSrv.create(this.typename, entity)),
+				tap((entity) => this.apiSrv.addToList(this.queryRef, entity))
 			)
 			.subscribe();
 	}
