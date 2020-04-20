@@ -210,6 +210,15 @@ export class ApiService {
 			// entity.createdByUserId = this._userId;
 			entity.teamId = this._teamId;
 		}
+
+		if (typename === 'PropertyOption') {
+			entity.id = uuid();
+			entity.createdAt = new Date().toISOString();
+			entity.lastUpdatedAt = new Date().toISOString();
+			entity.deleted = false;
+			entity.teamId = this._teamId;
+		}
+
 		options.variables = { input: { ...entity } };
 		return this.mutate(options);
 	}
@@ -269,9 +278,9 @@ export class ApiService {
 		options.variables = {
 			input: { id: entity.id, _version: entity._version },
 		};
-		if (typename !== 'Company' && typename !== 'Team') {
-			options.variables.input.deletedAt = new Date().toISOString();
-			// options.variables.input.deletedByUserId = this._userId;
+		if (typename !== 'Company' && typename !== 'Team' && typename !== 'PropertyOption') {
+			// options.variables.input.deletedAt = new Date().toISOString(); // TODO should be added (behavior expected)
+			// options.variables.input.deletedByUserId = this._userId; // TODO should be added (behavior expected)
 			options.variables.input.teamId = this._teamId;
 		}
 		options.mutation = QueryPool.getQuery(typename, QueryType.DELETE);

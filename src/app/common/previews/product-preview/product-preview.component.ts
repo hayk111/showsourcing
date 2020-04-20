@@ -45,10 +45,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	private _product: Product;
 	@Input()
 	set product(value: Product) {
-		// this._product = value;
-		// if (value) {
-		// 	this.images = this._product.images;
-		// }
+		this._product = value;
 	}
 	get product() {
 		return this._product;

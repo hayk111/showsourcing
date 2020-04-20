@@ -19,9 +19,9 @@
 </controller-table-app>
 
 <task-table-app
-	[rows]="listHelper.filteredItems$ | async"
+	[rows]="listHelper.paginedItems$ | async"
 	[selection]="selectionSrv.selection$ | async"
-	[pending]="listHelper.pending"
+	[pending]="false"
 	(update)="listHelper.update($event)"
 	(select)="selectionSrv.selectOne($event, true)"
 	(unselect)="selectionSrv.unselectOne($event, true)"

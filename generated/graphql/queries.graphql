@@ -1,4 +1,7 @@
 # this is an auto generated file. This will be overwritten
+query Echo($msg: String) {
+  echo(msg: $msg)
+}
 query GetStreamToken($teamId: String) {
   getStreamToken(teamId: $teamId) {
     token
@@ -13,14 +16,13 @@ query GetStreamNotificationToken($teamId: String) {
     feedId
   }
 }
-query SyncAProduct($teamId: String) {
-  syncAProduct(teamId: $teamId) {
+query GetProduct($teamId: ID!, $id: ID!) {
+  getProduct(teamId: $teamId, id: $id) {
     id
+    name
     teamId
-    statusId
-    status {
+    team {
       id
-      teamId
       name
       inWorkflow
       category
@@ -62,7 +64,6 @@ query SyncAProduct($teamId: String) {
       lastUpdatedAt
       deleted
     }
-    supplierId
     supplier {
       id
       teamId
@@ -237,8 +238,7 @@ query SyncAProduct($teamId: String) {
       lastUpdatedAt
       deleted
     }
-    categoryId
-    category {
+    images {
       id
       teamId
       name
@@ -361,11 +361,14 @@ query SyncAProduct($teamId: String) {
       lastUpdatedAt
       deleted
     }
-    eventId
-    event {
+    price {
+      currency
+      value
+      baseCurrencyValue
+    }
+    category {
       id
       teamId
-      global
       name
       description
       website
@@ -542,12 +545,13 @@ query SearchContactsByTeams(
   searchContactsByTeams(
     teamIds: $teamIds
     filter: $filter
-    sort: $sort
-    take: $take
-    skip: $skip
+    limit: $limit
+    nextToken: $nextToken
+    sortDirection: $sortDirection
   ) {
     items {
       id
+      name
       teamId
       statusId
       status {
@@ -2045,7 +2049,7 @@ query GetInvitation($id: ID!) {
       avatar
       creationDate
     }
-    lastUpdatedAt
+    lastUpdatedDate
     deleted
   }
 }
@@ -2431,7 +2435,7 @@ query GetCategory($id: ID!) {
       avatar
       creationDate
     }
-    lastUpdatedAt
+    lastUpdatedDate
     deleted
   }
 }
@@ -2799,8 +2803,6 @@ query ListContacts(
 query GetEvent($id: ID!) {
   getEvent(id: $id) {
     id
-    teamId
-    global
     name
     description
     website
@@ -3036,24 +3038,14 @@ query GetEvent($id: ID!) {
     deleted
   }
 }
-query ListEvents(
-  $id: ID
-  $filter: ModelEventFilterInput
+query ListTeams(
+  $filter: ModelTeamFilterInput
   $limit: Int
   $nextToken: String
-  $sortDirection: ModelSortDirection
 ) {
-  listEvents(
-    id: $id
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-    sortDirection: $sortDirection
-  ) {
+  listTeams(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
-      teamId
-      global
       name
       description
       website
@@ -3153,9 +3145,8 @@ query ListEvents(
     nextToken
   }
 }
-query GetExport($id: ID!) {
-  getExport(id: $id) {
-    id
+query GetTeamUser($teamId: ID!, $userId: ID!) {
+  getTeamUser(teamId: $teamId, userId: $userId) {
     teamId
     format
     target
@@ -3200,15 +3191,17 @@ query GetExport($id: ID!) {
     deleted
   }
 }
-query ListExports(
-  $id: ID
-  $filter: ModelExportFilterInput
+query ListTeamUsers(
+  $teamId: ID
+  $userId: ModelIDKeyConditionInput
+  $filter: ModelTeamUserFilterInput
   $limit: Int
   $nextToken: String
   $sortDirection: ModelSortDirection
 ) {
-  listExports(
-    id: $id
+  listTeamUsers(
+    teamId: $teamId
+    userId: $userId
     filter: $filter
     limit: $limit
     nextToken: $nextToken
@@ -3262,8 +3255,8 @@ query ListExports(
     nextToken
   }
 }
-query GetImage($id: ID!) {
-  getImage(id: $id) {
+query GetCompany($id: ID!) {
+  getCompany(id: $id) {
     id
     teamId
     fileName
@@ -3390,17 +3383,14 @@ query ListImages(
     nextToken
   }
 }
-query GetIndustry($id: ID!) {
-  getIndustry(id: $id) {
+query User($id: ID!) {
+  user(id: $id) {
     id
     name
   }
 }
-query ListIndustrys(
-  $id: ID
-  $filter: ModelIndustryFilterInput
-  $limit: Int
-  $nextToken: String
+query ListTeamUserByUser(
+  $userId: ID
   $sortDirection: ModelSortDirection
 ) {
   listIndustrys(

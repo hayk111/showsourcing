@@ -34,6 +34,7 @@ import { Typename } from '~core/erm3/typename.type';
 import { ID, RegexpApp } from '~utils';
 import { filterTypeToTypename } from '~shared/filters/components';
 import { isLocalList } from '~core/list-page2/is-local-list.function';
+import { PropertyOptionsService } from '~shared/selectors/services/property-options.service';
 
 @Component({
 	selector: 'selector-picker-app',
@@ -41,8 +42,9 @@ import { isLocalList } from '~core/list-page2/is-local-list.function';
 	styleUrls: ['./selector-picker.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SelectorPickerComponent extends AbstractInput implements OnInit, AfterViewInit, OnChanges, OnDestroy {
+export class SelectorPickerComponent extends AbstractInput implements OnInit, AfterViewInit, OnChanges {
 	@Input() typename: Typename;
+	@Input() customType: string;
 	@Input() multiple = false;
 	@Input() canCreate = false;
 	@Input() dynamicFields: DynamicField[];
@@ -107,6 +109,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		public selectorSrv: SelectorsService,
 		private fuseHelperSrv: ListFuseHelperService,
 		private listHelperSrv: ListHelperService,
+		private propertyOptionSrv: PropertyOptionsService,
 		private filterSrv: FilterService,
 		protected cd: ChangeDetectorRef,
 		private fb: FormBuilder
@@ -117,30 +120,22 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			name: ['']
 		});
 
-		if (isLocalList(this.typename)) {
-			this.fuseHelperSrv.setup(this.typename);
-			this.choicesSubscription = this.fuseHelperSrv.searchedItems$.pipe(tap((choices) => {
-				if (this.searchTxt) {
-					this.choices$ = of(choices);
-					this.cd.markForCheck();
-				} else {
-					this.initializeChoices();
-				}
-			})).subscribe();
-		} else {
-			this.listHelperSrv.setup(this.typename);
-			this.choicesSubscription = this.listHelperSrv.filteredItems$.pipe(tap((choices) => {
-				if (this.searchTxt) {
-					this.choices$ = of(choices);
-					this.cd.markForCheck();
-				} else {
-					this.initializeChoices();
-				}
-			})).subscribe();
-		}
-
-		// this.listFuseHelperSrv.setup();
 		this.filterSrv.setup([], ['name']);
+
+		if (this.typename === 'PropertyOption') {
+			this.choices$ = this.propertyOptionSrv.listPropertyOptions(this.customType);
+			this.cd.markForCheck();
+		} else {
+			if (isLocalList(this.typename)) {
+				this.fuseHelperSrv.setup(this.typename);
+				this.choices$ = this.fuseHelperSrv.paginedItems$;
+				this.cd.markForCheck();
+			} else {
+				this.listHelperSrv.setup(this.typename);
+				this.choices$ = this.listHelperSrv.filteredItems$;
+				this.cd.markForCheck();
+			}
+		}
 
 		if (this.canCreate) {
 			this.nameExists$ = this.searched$.pipe(
@@ -154,7 +149,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 			);
 		}
 
-		this.initializeChoices();
+		// this.initializeChoices();
 
 		// if there is any search text available when we start the component, we search for it
 		if (this.searchTxt)
@@ -171,22 +166,6 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		if (this.choices$ && this.multiple) {
 			// if its multiple we want to filter the values that we have currently selected, so they don't appear on the options
 			this.choices$.pipe(map((items) => this.filterValues(items)));
-		}
-	}
-
-	ngOnDestroy() {
-		this.choicesSubscription.unsubscribe();
-	}
-
-	initializeChoices() {
-		// init the list query
-		if (this.multiple) {
-			if (!this.value)
-				this.value = [];
-			// if its multiple we want to filter the values that we have currently selected, so they don't appear on the options
-			this.choices$ = this.getChoices(this.typename).pipe(map((items) => this.filterValues(items)));
-		} else {
-			this.choices$ = this.getChoices(this.typename);
 		}
 	}
 
@@ -219,36 +198,6 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 
 		this.filterSrv.search(this.searchTxt);
 		this.searched$.next(this.searchTxt);
-	}
-
-	/** choices of the given type, remember to add a new selector row component if you add a new type or use an existign one */
-	// ARRAYS START AT 1 NOT 0!!!! now that I have your attention ADVICE: when adding a new choice, check the update single method
-	private getChoices(type: Typename): Observable<any[]> {
-		switch (type) {
-			case 'Category': return this.selectorSrv.getChoices('Category');
-			case 'Contact': return this.selectorSrv.getChoices('Contact');
-			case 'Constant': return this.selectorSrv.getChoices('Constant', 'Team', 'fullName');
-			case 'Constant': return this.selectorSrv.getChoices('Constant', 'Team', '');
-			case 'Event': return this.selectorSrv.getChoices('Event', 'Team', 'description.name');
-			case 'Constant': return this.selectorSrv.getChoices('Constant');
-			// case ERM.PICKER_FIELD: return this.selectorSrv.getDynamicFields(this.dynamicFields);
-			case 'Product': return this.selectorSrv.getChoices('Product');
-			case 'Project': return this.selectorSrv.getChoices('Project', 'Owner');
-			case 'Request': return this.selectorSrv.getChoices('Request');
-			// case ERM.SELECTOR_ELEMENT:
-			// 	if (!this.definitionReference)
-			// 		throw Error('The selector `SelectorElement` needs a definitionReference to target');
-			// 	return this.selectorSrv.getSelectorElements(this.definitionReference);
-			case 'Supplier': return this.selectorSrv.getChoices('Supplier');
-			case 'SupplierType': return this.selectorSrv.getChoices('SupplierType');
-			case 'Tag': return this.selectorSrv.getChoices('Tag');
-			case 'User': return this.selectorSrv.getChoices('User', 'Team', 'lastName');
-			case 'TeamUser': return this.selectorSrv.getChoices('TeamUser', 'Team', 'user.lastName').pipe(
-				map(teamUsers => teamUsers.map(tu => tu.user))
-			);
-
-			default: throw Error(`Unsupported type${this.typename} for selector`);
-		}
 	}
 
 	/**

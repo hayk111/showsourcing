@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { of, Subject, zip } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Invitation, TeamService, TeamUser, TeamUserService, UserService } from '~core/erm';
+import { Invitation, TeamUser, TeamUserService } from '~core/erm';
+import { UserService, TeamService } from '~core/auth';
 
 @Injectable({ providedIn: 'root' })
 export class SettingsMembersService extends TeamUserService {
@@ -19,12 +20,12 @@ export class SettingsMembersService extends TeamUserService {
 
 	selectTeamOwner() {
 		return zip(
-			this.userSrv.selectUser(),
+			this.userSrv.user$,
 			this.teamSrv.teamSelected$
 		).pipe(
 			map(([user, team]) => {
 				return {
-					teamOwner: (team && team.ownerUser && team.ownerUser.id === user.id),
+					teamOwner: (team && team.ownerUserId && team.ownerUserId === user.id),
 					user
 				};
 			})
@@ -32,12 +33,12 @@ export class SettingsMembersService extends TeamUserService {
 	}
 
 	updateAccessType(accessType, userId) {
-		const teamId = this.teamSrv.selectedTeamSync.id;
+		const teamId = TeamService.teamSelected.id;
 		return this.http.patch<TeamUser>(`api/team/${teamId}/user/${userId}/team-role`, { accessType });
 	}
 
 	createInvitation(email: string) {
-		const payload = { email, accessType: 'TeamMember', inviter: this.userSrv.userSync };
+		const payload = { email, accessType: 'TeamMember', inviter: UserService.user };
 
 		this.invitationAdd$.next(of(new Invitation(payload)));
 		return of(new Invitation(payload));

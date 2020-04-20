@@ -43,31 +43,6 @@ export class QueryBuilder {
 			}`;
 	}
 
-	// search // TODO update to fit the new environment when we have search queries
-	[QueryType.SEARCH] = (str: string) => {
-		return gql`
-			query Search${this.typename}s(
-				$filter: Searchable${this.typename}FilterInput
-				$sort: Searchable${this.typename}SortInput
-				$limit: Int
-				$nextToken: String
-			) {
-				search${this.typename}s(
-					filter: $filter
-					sort: $sort
-					limit: $limit
-					nextToken: $nextToken
-				) {
-					items {
-						${str}
-						${AUDIT}
-					}
-					nextToken
-					total
-				}
-			}`;
-	}
-
 	[QueryType.SEARCH_BY] = (str: string) => (byTypeName: Typename) => {
 		return gql`
 			query Search${this.typename}sBy${byTypeName}s(
@@ -98,9 +73,10 @@ export class QueryBuilder {
 		const ownerVerbose = byProperty === 'Owner' ? 'User' : ''; // the param for Owner is $ownerUser
 		const paramEntityName = byProperty.charAt(0).toLowerCase() + byProperty.slice(1) + ownerVerbose;
 		const byId = paramEntityName + 'Id';
-		const byPropertyString = byProperty === 'Team' ? '' : 'By' + byProperty; // listEntity is "by Team" in default
+		const byPropertyString = byProperty === 'Team' ? 's' : 'By' + byProperty; // listEntity is "by Team" in default
 		return gql`
 			query List${this.typename}${byPropertyString}(
+				${this.typename === 'PropertyOption' ? '$type: ModelStringKeyConditionInput' : ''}
 				$byId: ID
 				$sortDirection: ModelSortDirection
 				$filter: Model${this.typename}FilterInput
@@ -108,6 +84,7 @@ export class QueryBuilder {
 				$nextToken: String
 			) {
 				list${this.typename}${byPropertyString}(
+					${this.typename === 'PropertyOption' ? 'type: $type' : ''}
 					${byId}: $byId
 					sortDirection: $sortDirection
 					filter: $filter

@@ -90,8 +90,11 @@ mutation CreateTeam($input: CreateTeamInput) {
     lastUpdatedOn
   }
 }
-mutation AcceptInvitation($id: ID!, $secret: String!) {
-  acceptInvitation(id: $id, secret: $secret) {
+mutation CreateProduct(
+  $input: CreateProductInput!
+  $condition: ModelProductConditionInput
+) {
+  createProduct(input: $input, condition: $condition) {
     id
     name
     ownerUserId
@@ -155,8 +158,42 @@ mutation AcceptInvitation($id: ID!, $secret: String!) {
       lastUpdatedAt
       deleted
     }
-    createdByUserId
-    createdBy {
+    supplier {
+      id
+      teamId
+      name
+      fullName
+      tradingName
+    }
+    images {
+      id
+      teamId
+      fileName
+      orientation
+      imageType
+      creationDate
+      deletionDate
+      lastUpdatedDate
+      deleted
+    }
+    price {
+      currency
+      value
+      baseCurrencyValue
+    }
+    category {
+      id
+      teamId
+      name
+      creationDate
+      deletionDate
+      lastupdatedByUserId
+      lastUpdatedDate
+      deleted
+    }
+    description
+    favorite
+    assignee {
       id
       email
       firstName
@@ -166,9 +203,28 @@ mutation AcceptInvitation($id: ID!, $secret: String!) {
       avatar
       creationDate
     }
-    createdOn
-    lastUpdatedByUserId
-    lastUpdatedBy {
+    minimumOrderQuantity
+    moqDescription
+    score
+    incoTerm
+    harbour
+    masterCbm
+    quantityPer20ft
+    quantityPer40ft
+    quantityPer40ftHC
+    leadTimeValue
+    leadTimeUnit
+    sample
+    samplePrice {
+      currency
+      value
+      baseCurrencyValue
+    }
+    archived
+    reference
+    referenceKey
+    creationDate
+    createdBy {
       id
       email
       firstName
@@ -381,7 +437,7 @@ mutation CreateTeamUser(
       }
       lastUpdatedOn
     }
-    user {
+    deletedBy {
       id
       email
       firstName
@@ -463,13 +519,14 @@ mutation UpdateTeamUser(
     role
   }
 }
-mutation DeleteTeamUser(
-  $input: DeleteTeamUserInput!
-  $condition: ModelTeamUserConditionInput
+mutation UpdateProduct(
+  $input: UpdateProductInput!
+  $condition: ModelProductConditionInput
 ) {
-  deleteTeamUser(input: $input, condition: $condition) {
+  updateProduct(input: $input, condition: $condition) {
+    id
+    name
     teamId
-    userId
     team {
       id
       name
@@ -519,7 +576,7 @@ mutation DeleteTeamUser(
       }
       lastUpdatedOn
     }
-    user {
+    supplier {
       id
       email
       firstName
@@ -542,23 +599,17 @@ mutation CreateCompany(
     ownerUserId
     owner {
       id
-      email
-      firstName
-      lastName
-      phoneNumber
-      preferredLanguage
-      avatar
+      teamId
+      fileName
+      orientation
+      imageType
       creationDate
     }
     createdAt
     createdBy {
       id
-      email
-      firstName
-      lastName
-      phoneNumber
-      preferredLanguage
-      avatar
+      teamId
+      name
       creationDate
     }
     deletedBy {
@@ -640,15 +691,60 @@ mutation UpdateCompany(
     deleted
   }
 }
-mutation DeleteCompany(
-  $input: DeleteCompanyInput!
-  $condition: ModelCompanyConditionInput
+mutation DeleteProduct(
+  $input: DeleteProductInput!
+  $condition: ModelProductConditionInput
 ) {
-  deleteCompany(input: $input, condition: $condition) {
+  deleteProduct(input: $input, condition: $condition) {
     id
     name
-    ownerUserId
-    owner {
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      companyId
+      createdByUserId
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedOn
+    }
+    supplier {
+      id
+      teamId
+      name
+      fullName
+      tradingName
+    }
+    images {
+      id
+      teamId
+      fileName
+      orientation
+      imageType
+      creationDate
+      deletionDate
+      lastUpdatedDate
+      deleted
+    }
+    price {
+      currency
+      value
+      baseCurrencyValue
+    }
+    category {
+      id
+      teamId
+      name
+      creationDate
+      deletionDate
+      lastupdatedByUserId
+      lastUpdatedDate
+      deleted
+    }
+    description
+    favorite
+    assignee {
       id
       email
       firstName
@@ -694,341 +790,98 @@ mutation DeleteCompany(
     deleted
   }
 }
-mutation CreateRole(
-  $input: CreateRoleInput!
-  $condition: ModelRoleConditionInput
+mutation CreateSupplier(
+  $input: CreateSupplierInput!
+  $condition: ModelSupplierConditionInput
 ) {
-  createRole(input: $input, condition: $condition) {
+  createSupplier(input: $input, condition: $condition) {
     id
     teamId
+    team {
+      id
+      name
+      ownerUserId
+      companyId
+      createdByUserId
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedOn
+    }
     name
-    permissions {
-      comment {
-        canCreate
-        canUpdate
-        canDelete
-        canList
-        canRead
-      }
-      contact {
-        canCreate
-        canUpdate
-        canDelete
-        canList
-        canRead
-      }
-      event {
-        canCreate
-        canUpdate
-        canDelete
-        canList
-        canRead
-      }
-      export {
-        canCreate
-        canUpdate
-        canDelete
-        canList
-        canRead
-      }
-      image {
-        canCreate
-        canUpdate
-        canDelete
-        canList
-        canRead
-      }
-      industry {
-        canCreate
-        canUpdate
-        canDelete
-        canList
-        canRead
-      }
-      product {
-        canCreate
-        canUpdate
-        canDelete
-        canList
-        canRead
-      }
-      project {
-        canCreate
-        canUpdate
-        canDelete
-        canList
-        canRead
-      }
-      sample {
-        canCreate
-        canUpdate
-        canDelete
-        canList
-        canRead
-      }
-      supplier {
-        canCreate
-        canUpdate
-        canDelete
-        canList
-        canRead
-      }
-      tag {
-        canCreate
-        canUpdate
-        canDelete
-        canList
-        canRead
-      }
-      task {
-        canCreate
-        canUpdate
-        canDelete
-        canList
-        canRead
-      }
-      vote {
-        canCreate
-        canUpdate
-        canDelete
-        canList
-        canRead
-      }
-      team {
-        canCreate
-        canUpdate
-        canDelete
-        canList
-        canRead
-      }
+    fullName
+    tradingName
+  }
+}
+mutation UpdateSupplier(
+  $input: UpdateSupplierInput!
+  $condition: ModelSupplierConditionInput
+) {
+  updateSupplier(input: $input, condition: $condition) {
+    id
+    teamId
+    team {
+      id
+      name
+      ownerUserId
+      companyId
+      createdByUserId
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedOn
     }
   }
 }
-mutation UpdateRole(
-  $input: UpdateRoleInput!
-  $condition: ModelRoleConditionInput
+mutation DeleteSupplier(
+  $input: DeleteSupplierInput!
+  $condition: ModelSupplierConditionInput
 ) {
-  updateRole(input: $input, condition: $condition) {
+  deleteSupplier(input: $input, condition: $condition) {
     id
     teamId
+    team {
+      id
+      name
+      ownerUserId
+      companyId
+      createdByUserId
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedOn
+    }
     name
-    permissions {
-      comment {
-        canCreate
-        canUpdate
-        canDelete
-        canList
-        canRead
-      }
-      contact {
-        canCreate
-        canUpdate
-        canDelete
-        canList
-        canRead
-      }
-      event {
-        canCreate
-        canUpdate
-        canDelete
-        canList
-        canRead
-      }
-      export {
-        canCreate
-        canUpdate
-        canDelete
-        canList
-        canRead
-      }
-      image {
-        canCreate
-        canUpdate
-        canDelete
-        canList
-        canRead
-      }
-      industry {
-        canCreate
-        canUpdate
-        canDelete
-        canList
-        canRead
-      }
-      product {
-        canCreate
-        canUpdate
-        canDelete
-        canList
-        canRead
-      }
-      project {
-        canCreate
-        canUpdate
-        canDelete
-        canList
-        canRead
-      }
-      sample {
-        canCreate
-        canUpdate
-        canDelete
-        canList
-        canRead
-      }
-      supplier {
-        canCreate
-        canUpdate
-        canDelete
-        canList
-        canRead
-      }
-      tag {
-        canCreate
-        canUpdate
-        canDelete
-        canList
-        canRead
-      }
-      task {
-        canCreate
-        canUpdate
-        canDelete
-        canList
-        canRead
-      }
-      vote {
-        canCreate
-        canUpdate
-        canDelete
-        canList
-        canRead
-      }
-      team {
-        canCreate
-        canUpdate
-        canDelete
-        canList
-        canRead
-      }
+    fullName
+    tradingName
+  }
+}
+mutation CreateDescriptor(
+  $input: CreateDescriptorInput!
+  $condition: ModelDescriptorConditionInput
+) {
+  createDescriptor(input: $input, condition: $condition) {
+    id
+    teamId
+    sections {
+      name
     }
   }
 }
-mutation DeleteRole(
-  $input: DeleteRoleInput!
-  $condition: ModelRoleConditionInput
+mutation UpdateDescriptor(
+  $input: UpdateDescriptorInput!
+  $condition: ModelDescriptorConditionInput
 ) {
-  deleteRole(input: $input, condition: $condition) {
+  updateDescriptor(input: $input, condition: $condition) {
     id
     teamId
-    name
-    permissions {
-      comment {
-        canCreate
-        canUpdate
-        canDelete
-        canList
-        canRead
-      }
-      contact {
-        canCreate
-        canUpdate
-        canDelete
-        canList
-        canRead
-      }
-      event {
-        canCreate
-        canUpdate
-        canDelete
-        canList
-        canRead
-      }
-      export {
-        canCreate
-        canUpdate
-        canDelete
-        canList
-        canRead
-      }
-      image {
-        canCreate
-        canUpdate
-        canDelete
-        canList
-        canRead
-      }
-      industry {
-        canCreate
-        canUpdate
-        canDelete
-        canList
-        canRead
-      }
-      product {
-        canCreate
-        canUpdate
-        canDelete
-        canList
-        canRead
-      }
-      project {
-        canCreate
-        canUpdate
-        canDelete
-        canList
-        canRead
-      }
-      sample {
-        canCreate
-        canUpdate
-        canDelete
-        canList
-        canRead
-      }
-      supplier {
-        canCreate
-        canUpdate
-        canDelete
-        canList
-        canRead
-      }
-      tag {
-        canCreate
-        canUpdate
-        canDelete
-        canList
-        canRead
-      }
-      task {
-        canCreate
-        canUpdate
-        canDelete
-        canList
-        canRead
-      }
-      vote {
-        canCreate
-        canUpdate
-        canDelete
-        canList
-        canRead
-      }
-      team {
-        canCreate
-        canUpdate
-        canDelete
-        canList
-        canRead
-      }
+    sections {
+      name
     }
   }
 }
-mutation CreateAttachment(
-  $input: CreateAttachmentInput!
-  $condition: ModelAttachmentConditionInput
+mutation DeleteDescriptor(
+  $input: DeleteDescriptorInput!
+  $condition: ModelDescriptorConditionInput
 ) {
-  createAttachment(input: $input, condition: $condition) {
+  deleteDescriptor(input: $input, condition: $condition) {
     id
     teamId
     fileName
@@ -1110,7 +963,7 @@ mutation CreateCategory(
       avatar
       creationDate
     }
-    lastUpdatedAt
+    lastUpdatedDate
     deleted
   }
 }
@@ -1154,7 +1007,7 @@ mutation UpdateCategory(
       avatar
       creationDate
     }
-    lastUpdatedAt
+    lastUpdatedDate
     deleted
   }
 }
@@ -1198,19 +1051,25 @@ mutation DeleteCategory(
       avatar
       creationDate
     }
-    lastUpdatedAt
+    lastUpdatedDate
     deleted
   }
 }
-mutation CreateComment(
-  $input: CreateCommentInput!
-  $condition: ModelCommentConditionInput
+mutation CreateContact(
+  $input: CreateContactInput!
+  $condition: ModelContactConditionInput
 ) {
-  createComment(input: $input, condition: $condition) {
+  createContact(input: $input, condition: $condition) {
     id
     teamId
-    team {
+    companyId
+    name
+    phoneNumber
+    email
+    jobTitle
+    supplier {
       id
+      teamId
       name
       ownerUserId
       owner {
@@ -1292,19 +1151,25 @@ mutation CreateComment(
       avatar
       creationDate
     }
-    lastUpdatedAt
+    lastUpdatedDate
     deleted
   }
 }
-mutation UpdateComment(
-  $input: UpdateCommentInput!
-  $condition: ModelCommentConditionInput
+mutation UpdateContact(
+  $input: UpdateContactInput!
+  $condition: ModelContactConditionInput
 ) {
-  updateComment(input: $input, condition: $condition) {
+  updateContact(input: $input, condition: $condition) {
     id
     teamId
-    team {
+    companyId
+    name
+    phoneNumber
+    email
+    jobTitle
+    supplier {
       id
+      teamId
       name
       ownerUserId
       owner {
@@ -1386,13 +1251,13 @@ mutation UpdateComment(
       avatar
       creationDate
     }
-    lastUpdatedAt
+    lastUpdatedDate
     deleted
   }
 }
-mutation DeleteComment(
-  $input: DeleteCommentInput!
-  $condition: ModelCommentConditionInput
+mutation DeleteContact(
+  $input: DeleteContactInput!
+  $condition: ModelContactConditionInput
 ) {
   deleteComment(input: $input, condition: $condition) {
     id
@@ -1935,11 +1800,11 @@ mutation DeleteContact(
   deleteContact(input: $input, condition: $condition) {
     id
     teamId
+    companyId
     name
     phoneNumber
     email
     jobTitle
-    supplierId
     supplier {
       id
       teamId
@@ -2146,15 +2011,15 @@ mutation DeleteContact(
       avatar
       creationDate
     }
-    lastUpdatedAt
+    lastUpdatedDate
     deleted
   }
 }
-mutation CreateEvent(
-  $input: CreateEventInput!
-  $condition: ModelEventConditionInput
+mutation CreateImage(
+  $input: CreateImageInput!
+  $condition: ModelImageConditionInput
 ) {
-  createEvent(input: $input, condition: $condition) {
+  createImage(input: $input, condition: $condition) {
     id
     teamId
     global
@@ -2389,15 +2254,15 @@ mutation CreateEvent(
       avatar
       creationDate
     }
-    lastUpdatedAt
+    lastUpdatedDate
     deleted
   }
 }
-mutation UpdateEvent(
-  $input: UpdateEventInput!
-  $condition: ModelEventConditionInput
+mutation UpdateImage(
+  $input: UpdateImageInput!
+  $condition: ModelImageConditionInput
 ) {
-  updateEvent(input: $input, condition: $condition) {
+  updateImage(input: $input, condition: $condition) {
     id
     teamId
     global
@@ -11092,8 +10957,7 @@ mutation UpdateTask(
       lastUpdatedAt
       deleted
     }
-    productId
-    product {
+    deletedBy {
       id
       teamId
       statusId
@@ -11730,9 +11594,9 @@ mutation DeleteTask(
       lastUpdatedAt
       deleted
     }
-    productId
     product {
       id
+      name
       teamId
       statusId
       status {
@@ -12147,19 +12011,17 @@ mutation CreateVenue(
       avatar
       creationDate
     }
-    lastUpdatedAt
+    lastUpdatedDate
     deleted
   }
 }
-mutation UpdateVenue(
-  $input: UpdateVenueInput!
-  $condition: ModelVenueConditionInput
+mutation UpdateTask(
+  $input: UpdateTaskInput!
+  $condition: ModelTaskConditionInput
 ) {
-  updateVenue(input: $input, condition: $condition) {
+  updateTask(input: $input, condition: $condition) {
     id
     teamId
-    global
-    city
     name
     latitude
     country
@@ -12178,12 +12040,25 @@ mutation UpdateVenue(
     }
     deletedBy {
       id
-      email
-      firstName
-      lastName
-      phoneNumber
-      preferredLanguage
-      avatar
+      name
+      teamId
+      description
+      favorite
+      minimumOrderQuantity
+      moqDescription
+      score
+      incoTerm
+      harbour
+      masterCbm
+      quantityPer20ft
+      quantityPer40ft
+      quantityPer40ftHC
+      leadTimeValue
+      leadTimeUnit
+      sample
+      archived
+      reference
+      referenceKey
       creationDate
     }
     deletedAt
@@ -12389,25 +12264,13 @@ mutation DeleteVote(
     deleted
   }
 }
-mutation CreateDescriptor(
-  $input: CreateDescriptorInput!
-  $condition: ModelDescriptorConditionInput
+mutation DeleteTask(
+  $input: DeleteTaskInput!
+  $condition: ModelTaskConditionInput
 ) {
-  createDescriptor(input: $input, condition: $condition) {
+  deleteTask(input: $input, condition: $condition) {
     id
     teamId
-    sections {
-      name
-      fields {
-        id
-        fieldId
-        defaultValue
-        fixedValue
-        required
-        metadata
-      }
-    }
-    type
     name
     createdAt
     createdBy {
@@ -12422,12 +12285,25 @@ mutation CreateDescriptor(
     }
     deletedBy {
       id
-      email
-      firstName
-      lastName
-      phoneNumber
-      preferredLanguage
-      avatar
+      name
+      teamId
+      description
+      favorite
+      minimumOrderQuantity
+      moqDescription
+      score
+      incoTerm
+      harbour
+      masterCbm
+      quantityPer20ft
+      quantityPer40ft
+      quantityPer40ftHC
+      leadTimeValue
+      leadTimeUnit
+      sample
+      archived
+      reference
+      referenceKey
       creationDate
     }
     deletedAt
@@ -12454,14 +12330,8 @@ mutation UpdateDescriptor(
     teamId
     sections {
       name
-      fields {
-        id
-        fieldId
-        defaultValue
-        fixedValue
-        required
-        metadata
-      }
+      fullName
+      tradingName
     }
     type
     name
@@ -12497,27 +12367,26 @@ mutation UpdateDescriptor(
       avatar
       creationDate
     }
-    lastUpdatedAt
+    lastUpdatedDate
     deleted
   }
 }
-mutation DeleteDescriptor(
-  $input: DeleteDescriptorInput!
-  $condition: ModelDescriptorConditionInput
+mutation CreateTeamUser(
+  $input: CreateTeamUserInput!
+  $condition: ModelTeamUserConditionInput
 ) {
-  deleteDescriptor(input: $input, condition: $condition) {
-    id
+  createTeamUser(input: $input, condition: $condition) {
     teamId
-    sections {
+    userId
+    team {
+      id
       name
-      fields {
-        id
-        fieldId
-        defaultValue
-        fixedValue
-        required
-        metadata
-      }
+      ownerUserId
+      companyId
+      createdByUserId
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedOn
     }
     type
     name
@@ -12557,11 +12426,125 @@ mutation DeleteDescriptor(
     deleted
   }
 }
-mutation CreateFieldDefinition(
-  $input: CreateFieldDefinitionInput!
-  $condition: ModelFieldDefinitionConditionInput
+mutation DeleteTeamUser(
+  $input: DeleteTeamUserInput!
+  $condition: ModelTeamUserConditionInput
 ) {
-  createFieldDefinition(input: $input, condition: $condition) {
+  deleteTeamUser(input: $input, condition: $condition) {
+    teamId
+    userId
+    team {
+      id
+      name
+      ownerUserId
+      owner {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      companyId
+      company {
+        id
+        name
+        ownerUserId
+        createdAt
+        deletedAt
+        lastUpdatedAt
+        deleted
+      }
+      createdByUserId
+      createdBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      createdOn
+      lastUpdatedByUserId
+      lastUpdatedBy {
+        id
+        email
+        firstName
+        lastName
+        phoneNumber
+        preferredLanguage
+        avatar
+        creationDate
+      }
+      lastUpdatedOn
+    }
+    user {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    role
+  }
+}
+mutation CreateCompany(
+  $input: CreateCompanyInput!
+  $condition: ModelCompanyConditionInput
+) {
+  createCompany(input: $input, condition: $condition) {
+    id
+    name
+    default
+    metaData
+    createdAt
+    createdBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    deletedAt
+    lastUpdatedBy {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      preferredLanguage
+      avatar
+      creationDate
+    }
+    lastUpdatedAt
+    deleted
+  }
+}
+mutation UpdateCompany(
+  $input: UpdateCompanyInput!
+  $condition: ModelCompanyConditionInput
+) {
+  updateCompany(input: $input, condition: $condition) {
     id
     teamId
     team {
@@ -12654,108 +12637,11 @@ mutation CreateFieldDefinition(
     deleted
   }
 }
-mutation UpdateFieldDefinition(
-  $input: UpdateFieldDefinitionInput!
-  $condition: ModelFieldDefinitionConditionInput
+mutation DeleteCompany(
+  $input: DeleteCompanyInput!
+  $condition: ModelCompanyConditionInput
 ) {
-  updateFieldDefinition(input: $input, condition: $condition) {
-    id
-    teamId
-    team {
-      id
-      name
-      ownerUserId
-      owner {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-      }
-      companyId
-      company {
-        id
-        name
-        ownerUserId
-        createdAt
-        deletedAt
-        lastUpdatedAt
-        deleted
-      }
-      createdByUserId
-      createdBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-      }
-      createdOn
-      lastUpdatedByUserId
-      lastUpdatedBy {
-        id
-        email
-        firstName
-        lastName
-        phoneNumber
-        preferredLanguage
-        avatar
-        creationDate
-      }
-      lastUpdatedOn
-    }
-    label
-    type
-    name
-    default
-    metaData
-    createdAt
-    createdBy {
-      id
-      email
-      firstName
-      lastName
-      phoneNumber
-      preferredLanguage
-      avatar
-      creationDate
-    }
-    deletedBy {
-      id
-      email
-      firstName
-      lastName
-      phoneNumber
-      preferredLanguage
-      avatar
-      creationDate
-    }
-    deletedAt
-    lastUpdatedBy {
-      id
-      email
-      firstName
-      lastName
-      phoneNumber
-      preferredLanguage
-      avatar
-      creationDate
-    }
-    lastUpdatedAt
-    deleted
-  }
-}
-mutation DeleteFieldDefinition(
-  $input: DeleteFieldDefinitionInput!
-  $condition: ModelFieldDefinitionConditionInput
-) {
-  deleteFieldDefinition(input: $input, condition: $condition) {
+  deleteCompany(input: $input, condition: $condition) {
     id
     teamId
     team {

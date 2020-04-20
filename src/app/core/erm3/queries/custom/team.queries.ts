@@ -54,7 +54,6 @@ export class TeamQueries extends BaseQueries {
 					_lastChangedAt
 				}
 				nextToken
-				startedAt
 			}
 		}
 	`;
