@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { tap, map, switchMap, mergeMap, shareReplay} from 'rxjs/operators';
 import { ApiQueryOption, ApiService, ObservableQuery } from '~core/erm3/services/api.service';
-import { FilterService, FilterType } from '~core/filters';
+import { FilterType } from '~core/filters';
 import { Entity } from '~core/erm3/models/_entity.model';
 import { uuid } from '~utils';
 import {
@@ -18,7 +18,7 @@ import { Observable } from 'rxjs';
 export class PropertyOptionsService {
 	constructor(
 		private apiSrv: ApiService,
-		private filterSrv: FilterService,
+		private teamSrv: TeamService,
 	) {}
 
 	listPropertyOptions (

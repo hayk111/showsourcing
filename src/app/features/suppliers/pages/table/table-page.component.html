@@ -23,7 +23,9 @@
 	(select)="selectionSrv.selectOne($event)"
 	(selectAll)="selectionSrv.selectAll($event)"
 	(unselect)="selectionSrv.unselectOne($event)"
-	(createClick)="listHelper.create()">
+	(createClick)="listHelper.create()"
+	(update)="listHelper.update($event)"
+	(delete)="listHelper.delete($event)">
 </suppliers-table-app>
 
 <supplier-selection-bar-app
