@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ColumnConfig } from '~common/tables/entity-table.component';
 import { SortService } from '~shared/table/services/sort.service';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
+import { Typename } from '~core/erm3/typename.type';
 
 @Component({
 	selector: 'controller-table-quick-actions-app',
@@ -12,17 +14,19 @@ export class ControllerTableQuickActionsComponent implements OnInit {
 	@Input() hasExport = true;
 	@Input() tableConfig: ColumnConfig[] = [];
 	@Input() columns: string[];
+	@Input() typename: Typename;
 	sortableColumns = [];
 
-
-	constructor(public sortSrv: SortService) {}
+	constructor(public sortSrv: SortService, private dlgCommonSrv: DialogCommonService) {}
 
 	ngOnInit() {
 		this.sortableColumns = this.getSortableColumns();
 	}
 
 	onExportClick() {
-		// this.listSrv.exportAll();
+		this.dlgCommonSrv.openExportDlg(this.typename, undefined, {
+			query: 'deleted == false AND archived == false',
+		});
 	}
 
 	onSortClick(column: ColumnConfig) {
@@ -31,7 +35,7 @@ export class ControllerTableQuickActionsComponent implements OnInit {
 
 	getSortableColumns() {
 		return Object.values(this.tableConfig)
-			.filter(config => this.columns.includes(config.name))
-			.filter(config => config.sortProperty);
+			.filter((config) => this.columns.includes(config.name))
+			.filter((config) => config.sortProperty);
 	}
 }

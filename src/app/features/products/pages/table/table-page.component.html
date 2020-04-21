@@ -12,6 +12,7 @@
 	<controller-table-quick-filters-app></controller-table-quick-filters-app>
 	<!-- actions -->
 	<controller-table-quick-actions-app
+		typename="Product"
 		[columns]="columns"
 		[tableConfig]="tableConfig">
 	</controller-table-quick-actions-app>
@@ -36,7 +37,7 @@
 <product-selection-bar-app></product-selection-bar-app>
 
 <product-preview-app
-	*ngIf="viewSrv.previewOpen | async"
+	*ngIf="viewSrv.previewOpen"
 	[product]="viewSrv.previewed"
 	(close)="viewSrv.closePreview()">
 </product-preview-app>

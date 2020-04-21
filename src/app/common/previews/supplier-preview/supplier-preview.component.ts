@@ -91,8 +91,8 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnInit {
 
 	// UPDATE FUNCTIONS
 	updateSupplier(supplier: Supplier) {
-		const newSupplier = { ...supplier, id: this.supplier.id };
-		this.listHelper.update(newSupplier, { _version: this.supplier._version });
+		const newSupplier = { ...supplier, id: this.supplier.id, _version: this.supplier._version };
+		this.listHelper.update(newSupplier);
 		this.supplier = newSupplier;
 	}
 

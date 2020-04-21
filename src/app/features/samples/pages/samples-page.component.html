@@ -10,7 +10,9 @@
 	<!-- filters -->
 	<controller-table-quick-filters-app></controller-table-quick-filters-app>
 	<!-- actions -->
-	<controller-table-quick-actions-app></controller-table-quick-actions-app>
+	<controller-table-quick-actions-app
+		typename="Sample"
+	></controller-table-quick-actions-app>
 	<!-- switcher -->
 	<controller-table-view-switcher-app></controller-table-view-switcher-app>
 </controller-table-app>
@@ -64,7 +66,7 @@
 	</div>
 </selection-bar-app>
 
-<!-- 
+<!--
 <samples-board-app
 	*ngIf="viewSrv.view === 'board'"
 	(selectOne)="selectionSrv.selectOne($event, true)"

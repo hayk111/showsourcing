@@ -12,6 +12,7 @@
 <controller-table-app [total]="listHelper.total$ | async">
 	<controller-table-quick-filters-app></controller-table-quick-filters-app>
 	<controller-table-quick-actions-app
+		typename="Task"
 		[columns]="columns"
 		[tableConfig]="tableConfig">
 	</controller-table-quick-actions-app>
