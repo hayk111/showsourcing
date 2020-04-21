@@ -6,12 +6,13 @@
 		make something more custom here if further change is required
 	 -->
 	<!-- label -->
-	<div class="clickable label-ctnr" (click)="openCell(i, 0)">
+	<div class="clickable label-ctnr" (click)="openCell(i, 0); inp.focus()">
 		<span *ngIf="isCellClosed(i, 0); else inp">
 			{{ value[i].label || 'Label'}}
 		</span>
 		<ng-template #inp>
 			<input
+				#inp
 				class="inline" 
 				name="label"
 				inputApp
