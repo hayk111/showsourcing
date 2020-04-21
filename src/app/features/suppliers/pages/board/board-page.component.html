@@ -8,7 +8,9 @@
 
 <controller-table-app>
 	<controller-table-quick-filters-app></controller-table-quick-filters-app>
-	<controller-table-quick-actions-app>
+	<controller-table-quick-actions-app
+		typename="Supplier"
+	>
 	</controller-table-quick-actions-app>
 </controller-table-app>
 
@@ -21,15 +23,9 @@
 </suppliers-board-app> -->
 <!--
 <supplier-selection-bar-app
-	entityType="supplier"
-	[isShown]="(kanbanSelectionSrv.selection$ | async).size > 0"
-	[selection]="kanbanSelectionSrv.selection$ | async"
-	[selectableItems]="items$ | async"
+	typename="Supplier"
 	(statusUpdated)="listHelper.updateSelected({status: $event})"
 	(deleteSelected)="listHelper.deleteSelected()"
-	(close)="kanbanSelectionSrv.unselectAllFromColumn()"
-	(selectAll)="kanbanSelectionSrv.selectAll($event)"
-	(unselectAll)="kanbanSelectionSrv.unselectAll()">
 </supplier-selection-bar-app> -->
 
 <supplier-preview-app

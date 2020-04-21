@@ -1,18 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { forkJoin } from 'rxjs';
-import { switchMap, takeUntil } from 'rxjs/operators';
+import { switchMap, takeUntil, tap } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { ERM, SelectParamsConfig, TeamUser, User } from '~core/erm';
-import { ListPageService, SelectionService } from '~core/list-page';
 import { SettingsMembersService } from '~features/settings/services/settings-members.service';
 import { AutoUnsub } from '~utils';
+import { SelectionService, ListPageViewService } from '~core/list-page2';
+import { ListFuseHelperService } from '~core/list-page2/list-fuse-helper.service';
+import { FilterService } from '~core/filters/filter.service';
+import { DialogService } from '~shared/dialog/services';
+import { InviteUserDlgComponent } from '~common/dialogs/custom-dialogs/invite-user-dlg/invite-user-dlg.component';
+import { ApiService } from '~core/erm3/services/api.service';
 
 @Component({
 	selector: 'settings-team-members-users-app',
 	templateUrl: './settings-team-members-users.component.html',
 	styleUrls: ['./settings-team-members-users.component.scss'],
-	providers: [ListPageService, SelectionService]
+	providers: [
+		ListPageViewService,
+		ListFuseHelperService,
+		SelectionService,
+	]
 })
 export class SettingsTeamMembersUsersComponent extends AutoUnsub
 	implements OnInit {
@@ -24,28 +33,27 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub
 
 	constructor(
 		private featureSrv: SettingsMembersService,
-		public listSrv: ListPageService<TeamUser, SettingsMembersService>,
+		public listHelper: ListFuseHelperService,
+		private dlgSrv: DialogService,
+		private apiSrv: ApiService,
+		public filterSrv: FilterService,
 		public dialogCommonSrv: DialogCommonService,
+		public viewSrv: ListPageViewService<TeamUser>,
 		private translate: TranslateService,
-		private selectionSrv: SelectionService
+		public selectionSrv: SelectionService
 	) {
 		super();
 	}
 
 	ngOnInit() {
-		this.listSrv.setup({
-			entitySrv: this.featureSrv,
-			searchedFields: ['user.firstName', 'user.lastName', 'user.email'],
-			selectParams: { query: '', sortBy: 'user.firstName', descending: true },
-			entityMetadata: ERM.TEAM_USER,
-			originComponentDestroy$: this._destroy$
-		});
+		this.filterSrv.setup([], ['name']);
+		this.listHelper.setup('TeamUser', 'Team'); // search initialized in controller-table
 
-		this.selectionSrv.selection$
-			.pipe(takeUntil(this._destroy$))
-			.subscribe(selected => {
-				this.hasSelected = selected.size > 0;
-			});
+		this.viewSrv.setup({
+			typename: 'TeamUser',
+			destUrl: 'settings/team/members/components/settings-team-members-users',
+			view: 'table',
+		});
 
 		this.featureSrv
 			.selectTeamOwner()
@@ -54,15 +62,26 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub
 				this.teamOwner = teamOwner;
 				this.user = <User>user;
 			});
-
-		this.featureSrv.invitationAdd$.subscribe(invitation => {
-			this.listSrv.combine(invitation);
-		});
 	}
 
 	/** Opens the dialog for inviting a new user */
 	openInviteDialog() {
-		this.dialogCommonSrv.openInvitationDialog();
+		this.dlgSrv
+			.open(InviteUserDlgComponent, {
+				typename: 'Invitation',
+				extra: {},
+			})
+			.data$.pipe(
+				switchMap((entity) => {
+					console.log('openInviteDialog -> entity', entity);
+
+					return this.apiSrv.create('Invitation', {
+						...entity,
+						teamRole: 'TEAMOWNER'
+					});
+				})
+			)
+			.subscribe();
 	}
 
 	updateAccessType({
@@ -74,7 +93,7 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub
 	}) {
 		this.featureSrv
 			.updateAccessType(accessType, userId)
-			.pipe(switchMap(_ => this.listSrv.refetch()))
+			.pipe(switchMap(_ => this.listHelper.refetch()))
 			.subscribe(_ => this.selectionSrv.unselectAll());
 	}
 
@@ -90,10 +109,5 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub
 		return !this.teamOwner
 			? this.translate.instant('message.only-team-owners-can-invite')
 			: null;
-	}
-
-	showItemsPerPage(count: number) {
-		this.selectItemsConfig = { take: Number(count) };
-		this.listSrv.refetch(this.selectItemsConfig).subscribe();
 	}
 }

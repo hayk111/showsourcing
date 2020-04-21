@@ -19,6 +19,7 @@ export type Typename =
 	| 'Product'
 	| 'Project'
 	| 'ProjectProduct'
+	| 'PropertyOption'
 	| 'Request'
 	| 'RequestElement'
 	| 'Sample'

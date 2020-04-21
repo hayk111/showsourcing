@@ -31,7 +31,7 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 		private router: Router,
 		private apiSrv: ApiService,
 		private toastSrv: ToastService,
-		public dialogCommonSrv: DialogCommonService,
+		public dlgCommonSrv: DialogCommonService,
 		private translate: TranslateService,
 		private dlgSrv: DialogService
 	) {
@@ -60,15 +60,16 @@ export class DetailsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	delete(supplier: Supplier) {
-		this.dialogCommonSrv.openConfirmDialog({
+		this.dlgCommonSrv.openConfirmDlg({
 			text: this.translate.instant('message.confirm-delete-supplier')
-		}).pipe(
+		}).data$
+		.pipe(
 			switchMap(_ => this.apiSrv.delete('Supplier', { id: supplier.id}))
 		).subscribe(_ => this.router.navigate(['suppliers']));
 	}
 
 	export(supplier: Supplier) {
-		this.dialogCommonSrv.openExportDialog('Supplier', [supplier]);
+		this.dlgCommonSrv.openExportDlg('Supplier', [supplier]);
 	}
 
 	contact(supplier: Supplier) {

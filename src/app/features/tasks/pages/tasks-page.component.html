@@ -12,15 +12,16 @@
 <controller-table-app [total]="listHelper.total$ | async">
 	<controller-table-quick-filters-app></controller-table-quick-filters-app>
 	<controller-table-quick-actions-app
+		typename="Task"
 		[columns]="columns"
 		[tableConfig]="tableConfig">
 	</controller-table-quick-actions-app>
 </controller-table-app>
 
 <task-table-app
-	[rows]="listHelper.filteredItems$ | async"
+	[rows]="listHelper.paginedItems$ | async"
 	[selection]="selectionSrv.selection$ | async"
-	[pending]="listHelper.pending"
+	[pending]="false"
 	(update)="listHelper.update($event)"
 	(select)="selectionSrv.selectOne($event, true)"
 	(unselect)="selectionSrv.unselectOne($event, true)"
@@ -34,13 +35,7 @@
 </task-table-app>
 
 <task-selection-bar-app
-	[isShown]="(selectionSrv.selection$ | async)?.size > 0"
-	[selection]="selectionSrv.selection$ | async"
-	[selectableItems]="listHelper.filteredItems$ | async"
-	(close)="selectionSrv.unselectAll()"
-	(deleteSelected)="listHelper.deleteSelected(true)"
-	(selectAll)="selectionSrv.selectAll($event)"
-	(unselectAll)="selectionSrv.unselectAll()">
+	(deleteSelected)="listHelper.deleteSelected(true)">
 </task-selection-bar-app>
 
 <side-panel-app *ngIf="viewSrv.filterPanelOpen">
@@ -51,8 +46,8 @@
 	</filters-app>
 </side-panel-app>
 
-<!-- <task-preview-app
+<task-preview-app
 	*ngIf="viewSrv.previewOpen"
 	[task]="viewSrv.previewed"
 	(close)="viewSrv.closePreview()">
-</task-preview-app> -->
+</task-preview-app>

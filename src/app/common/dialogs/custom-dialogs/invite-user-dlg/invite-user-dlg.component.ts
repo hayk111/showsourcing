@@ -1,53 +1,33 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { TranslateService } from '@ngx-translate/core';
-import { SettingsMembersService } from '~features/settings/services/settings-members.service';
-import { CloseEventType } from '~shared/dialog';
 import { DialogService } from '~shared/dialog/services';
-import { ToastService, ToastType } from '~shared/toast';
 import { AutoUnsub } from '~utils';
 
 @Component({
 	selector: 'invite-user-dlgapp',
 	templateUrl: './invite-user-dlg.component.html',
 	styleUrls: ['./invite-user-dlg.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InviteUserDlgComponent extends AutoUnsub {
 	form: FormGroup;
 	pending = false;
 
-	constructor(private dlgSrv: DialogService,
-		private memberSrv: SettingsMembersService,
+	constructor(
+		private dlgSrv: DialogService,
 		private fb: FormBuilder,
-		private toastSrv: ToastService,
-		private translate: TranslateService
 	) {
 		super();
-		this.form = this.fb.group(
-			{
-				email: ['', Validators.compose([Validators.required, Validators.email])]
-			}
-		);
+		this.form = this.fb.group({
+			email: ['', Validators.compose([Validators.required, Validators.email])],
+		});
 	}
 
 	submit() {
-		if (this.form.valid) {
-			this.pending = true;
-			const { email } = this.form.value;
+		if (!this.form.valid) return;
 
-			this.memberSrv.createInvitation(email)
-				.subscribe(() => {
-					this.pending = false;
-					const invtSent = this.translate.instant('message.your-invitation-was-sent-to');
-					this.dlgSrv.close({ type: CloseEventType.OK });
-					this.toastSrv.add({
-						type: ToastType.SUCCESS,
-						title: 'title.invitation-sent',
-						message: `${invtSent} ${email}`,
-						timeout: 3500
-					});
-				});
-		}
+		const { email } = this.form.value;
+		this.dlgSrv.data({email});
+		this.dlgSrv.close();
 	}
 }

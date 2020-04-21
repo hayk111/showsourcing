@@ -1,12 +1,18 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
-import { empty, Observable } from 'rxjs';
-import { filter, map, switchMap, takeUntil, tap } from 'rxjs/operators';
-import { CreationDialogComponent } from '~common/dialogs/creation-dialogs';
-import { ExportDlgComponent } from '~common/dialogs/custom-dialogs';
-import { Entity, EntityMetadata, GlobalServiceInterface, SelectParamsConfig, UserService } from '~core/erm';
+import { Observable } from 'rxjs';
+import { switchMap, takeUntil } from 'rxjs/operators';
+import { DefaultCreationDialogComponent } from '~common/dialogs/creation-dialogs';
+import { ExportDialogComponent } from '~common/dialogs/custom-dialogs';
+import {
+	Entity,
+	EntityMetadata,
+	GlobalServiceInterface,
+	SelectParamsConfig,
+	UserService,
+} from '~core/erm';
 import { FilterService } from '~core/filters';
-import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
+import { DialogService } from '~shared/dialog';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { RatingService } from '~shared/rating/services/rating.service';
 import { Sort } from '~shared/table/models/sort.interface';
@@ -38,12 +44,9 @@ export interface ListPageConfig extends ListPageDataConfig {
  * Then when recreated a second time it will take the services from the map
  */
 @Injectable({
-	providedIn: 'root'
+	providedIn: 'root',
 })
-export class ListPageService<
-	T extends Entity,
-	G extends GlobalServiceInterface<T>
-> {
+export class ListPageService<T extends Entity, G extends GlobalServiceInterface<T>> {
 	selectionSrv: SelectionService;
 	dataSrv: ListPageDataService<T, G>;
 	viewSrv: ListPageViewService<T>;
@@ -85,7 +88,7 @@ export class ListPageService<
 		// we need to reset selection when filter changes
 		this.filterSrv.valueChanges$
 			.pipe(takeUntil(destroy$))
-			.subscribe(_ => this.selectionSrv.unselectAll());
+			.subscribe((_) => this.selectionSrv.unselectAll());
 	}
 
 	/**
@@ -139,7 +142,7 @@ export class ListPageService<
 	get currentSort() {
 		return {
 			sortBy: this.dataSrv.selectParams.sortBy,
-			descending: this.dataSrv.selectParams.descending
+			descending: this.dataSrv.selectParams.descending,
 		};
 	}
 
@@ -152,29 +155,23 @@ export class ListPageService<
 	}
 
 	loadPage(page: number, config?: SelectParamsConfig) {
-		this.dataSrv
-			.loadPage(page, config)
-			.subscribe(_ => this.selectionSrv.unselectAll());
+		this.dataSrv.loadPage(page, config).subscribe((_) => this.selectionSrv.unselectAll());
 	}
 
 	loadNextPage() {
-		this.dataSrv.loadNextPage().subscribe(_ => this.selectionSrv.unselectAll());
+		this.dataSrv.loadNextPage().subscribe((_) => this.selectionSrv.unselectAll());
 	}
 
 	loadPreviousPage() {
-		this.dataSrv
-			.loadPreviousPage()
-			.subscribe(_ => this.selectionSrv.unselectAll());
+		this.dataSrv.loadPreviousPage().subscribe((_) => this.selectionSrv.unselectAll());
 	}
 
 	loadFirstPage() {
-		this.dataSrv
-			.loadFirstPage()
-			.subscribe(_ => this.selectionSrv.unselectAll());
+		this.dataSrv.loadFirstPage().subscribe((_) => this.selectionSrv.unselectAll());
 	}
 
 	loadLastPage() {
-		this.dataSrv.loadLastPage().subscribe(_ => this.selectionSrv.unselectAll());
+		this.dataSrv.loadLastPage().subscribe((_) => this.selectionSrv.unselectAll());
 	}
 
 	sort(sort: Sort) {
@@ -190,30 +187,21 @@ export class ListPageService<
 	}
 
 	updateSelected(value: any) {
-		const items = this.selectionSrv
-			.getSelectedIds()
-			.map(id => ({ id, ...value }));
+		const items = this.selectionSrv.getSelectedIds().map((id) => ({ id, ...value }));
 		this.dataSrv.updateMany(items).subscribe();
 	}
 
 	update(value: T) {
-		this.dataSrv
-			.update(value)
-			.pipe()
-			.subscribe();
+		this.dataSrv.update(value).pipe().subscribe();
 	}
 
 	updateMany(values: T[]) {
-		this.dataSrv
-			.updateMany(values)
-			.pipe()
-			.subscribe();
+		this.dataSrv.updateMany(values).pipe().subscribe();
 	}
 
 	onItemUnfavorited(id: string) {
 		this.dataSrv.update({ id, favorite: false } as any).subscribe();
 	}
-
 
 	// entities with audit have the flag deleted, so when they are deleted they are actually updated
 	// then the query list gets "refetched" automatically since a value inside got updated
@@ -221,16 +209,16 @@ export class ListPageService<
 	// and not updating it
 	deleteOne(entity: T, refetch = false, callback?: () => void) {
 		const text = `Are you sure you want to delete this ${this.viewSrv.entityMetadata.singular} ?`;
-		this.dlgSrv
-			.open(ConfirmDialogComponent, { text })
-			.pipe(
-				tap(_ => this.selectionSrv.unselectOne(entity)),
-				filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
-				switchMap(_ => this.dataSrv.deleteOne(entity.id)),
-				tap(_ => callback()),
-				switchMap(_ => (refetch ? this.refetch() : empty()))
-			)
-			.subscribe();
+		this.dlgSrv.open(ConfirmDialogComponent, { text });
+		// don't implement new dialog because this service is deprecated
+		// .pipe(
+		// 	tap(_ => this.selectionSrv.unselectOne(entity)),
+		// 	filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
+		// 	switchMap(_ => this.dataSrv.deleteOne(entity.id)),
+		// 	tap(_ => callback()),
+		// 	switchMap(_ => (refetch ? this.refetch() : empty()))
+		// )
+		// .subscribe();
 	}
 
 	// read comment on deleteOne function
@@ -243,64 +231,60 @@ export class ListPageService<
 				? this.viewSrv.entityMetadata.singular
 				: this.viewSrv.entityMetadata.plural) +
 			'?';
-		this.dlgSrv
-			.open(ConfirmDialogComponent, { text })
-			.pipe(
-				filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
-				switchMap(_ => this.dataSrv.deleteMany(itemIds)),
-				// unselect must go before refetch, otherwise it won't update
-				tap(_ => this.selectionSrv.unselectAll()),
-				switchMap(_ => (refetch ? this.refetch() : empty()))
-			)
-			.subscribe();
+		this.dlgSrv.open(ConfirmDialogComponent, { text });
+		// don't implement new dialog because this service is deprecated
+		// .pipe(
+		// 	filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
+		// 	switchMap(_ => this.dataSrv.deleteMany(itemIds)),
+		// 	// unselect must go before refetch, otherwise it won't update
+		// 	tap(_ => this.selectionSrv.unselectAll()),
+		// 	switchMap(_ => (refetch ? this.refetch() : empty()))
+		// )
+		// .subscribe();
 	}
 
 	/** creates a new entity, can also create with defaul values with extra?: any */
 	create(canRedirect = false, extra?: any) {
-		this.dlgSrv
-			.open(CreationDialogComponent, {
-				type: this.viewSrv.entityMetadata,
-				extra,
-				canRedirect
-			})
-			.pipe(
-				filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
-				map((evt: CloseEvent) => evt.data)
-			)
-			.subscribe(({ item, redirect }) => {
-				// we don't want to put this in a switchmap because we don't want to wait
-				// for the refect before redirecting
-				this.refetch().subscribe();
-				if (redirect) this.redirectToCreated(item.id);
-			});
+		this.dlgSrv.open(DefaultCreationDialogComponent, {
+			type: this.viewSrv.entityMetadata,
+			extra,
+			canRedirect,
+		});
+		// don't implement new dialog because this service is deprecated
+		// .pipe(
+		// 	filter((evt: CloseEvent) => evt.type === CloseEventType.OK),
+		// 	map((evt: CloseEvent) => evt.data)
+		// )
+		// .subscribe(({ item, redirect }) => {
+		// 	// we don't want to put this in a switchmap because we don't want to wait
+		// 	// for the refect before redirecting
+		// 	this.refetch().subscribe();
+		// 	if (redirect) this.redirectToCreated(item.id);
+		// });
 	}
 
 	archiveOne(entity: T) {
 		this.dataSrv
 			.update(({ id: entity.id, archived: true } as unknown) as T)
-			.pipe(switchMap(_ => this.refetch()))
-			.subscribe(_ => {
+			.pipe(switchMap((_) => this.refetch()))
+			.subscribe((_) => {
 				this.toastSrv.add({
 					type: ToastType.SUCCESS,
 					title: 'title.item-archived',
-					message: 'message.item-archived-successfully'
+					message: 'message.item-archived-successfully',
 				});
 			});
 	}
 
 	archiveMany(entities: T[]) {
 		this.dataSrv
-			.updateMany(
-				entities.map(
-					entity => (({ id: entity.id, archived: true } as unknown) as T)
-				)
-			)
-			.pipe(switchMap(_ => this.refetch()))
-			.subscribe(_ => {
+			.updateMany(entities.map((entity) => (({ id: entity.id, archived: true } as unknown) as T)))
+			.pipe(switchMap((_) => this.refetch()))
+			.subscribe((_) => {
 				this.toastSrv.add({
 					type: ToastType.SUCCESS,
 					title: 'title.items-archived',
-					message: 'message.items-archived-successfully'
+					message: 'message.items-archived-successfully',
 				});
 			});
 	}
@@ -312,15 +296,15 @@ export class ListPageService<
 	}
 
 	exportSelection() {
-		this.dlgSrv.open(ExportDlgComponent, {
-			targets: this.selectionSrv.getSelectedValues()
+		this.dlgSrv.open(ExportDialogComponent, {
+			targets: this.selectionSrv.getSelectedValues(),
 		});
 	}
 
 	exportAll() {
-		this.dlgSrv.open(ExportDlgComponent, {
+		this.dlgSrv.open(ExportDialogComponent, {
 			query: 'deleted == false AND archived == false',
-			type: this.viewSrv.entityMetadata.entityName
+			type: this.viewSrv.entityMetadata.entityName,
 		});
 	}
 }

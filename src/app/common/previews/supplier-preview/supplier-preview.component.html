@@ -1,7 +1,7 @@
 <!-- Panel preview -->
 <preview-panel-app
 	cdk-scrollable
-	*ngIf="isPreview && (supplier$ | async)"
+	*ngIf="isPreview && supplier"
 	[align]="'right'">
 
 	<!-- Banner -->
@@ -132,14 +132,14 @@
 
 
 	<!-- Extended Fields -->
-	<preview-section-app #contentTab1 *ngIf="(fieldDefinitions$ | async)?.length" [title]="'title.extended-fields' | translate">
+	<!-- <preview-section-app #contentTab1 *ngIf="(fieldDefinitions$ | async)?.length" [title]="'title.extended-fields' | translate">
 		<extended-form-app
 			[definitions]="fieldDefinitions$ | async"
 			[config]="formConfig"
 			[fields]="supplier?.extendedFields"
 			(update)="updateSupplier({extendedFields: $event})">
 		</extended-form-app>
-	</preview-section-app>
+	</preview-section-app> -->
 
 	<!-- Activity -->
 	<!-- Owner -->
@@ -165,13 +165,13 @@
 	</preview-section-app>
 
 	<!-- Status -->
-	<preview-section-app #contentTab2 [title]="'title.supplier-status' | translate">
+	<!-- <preview-section-app #contentTab2 [title]="'title.supplier-status' | translate">
 		<status-selector-app
 			typename="Supplier"
 			[entity]="supplier"
 			type="button">
 		</status-selector-app>
-	</preview-section-app>
+	</preview-section-app> -->
 
 	<!-- Tasks -->
 	<preview-section-app #contentTab2 class="action-hover-container-0" [title]="'title.tasks' | translate">
@@ -301,14 +301,14 @@
 
 
 	<!-- Extended Fields -->
-	<preview-section-app *ngIf="(fieldDefinitions$ | async)?.length" [title]="'title.extended-fields' | translate">
+	<!-- <preview-section-app *ngIf="(fieldDefinitions$ | async)?.length" [title]="'title.extended-fields' | translate">
 		<extended-form-app
 			[definitions]="fieldDefinitions$ | async"
 			[fields]="supplier?.extendedFields"
 			[config]="formConfig"
 			(update)="updateSupplier({extendedFields: $event})">
 		</extended-form-app>
-	</preview-section-app>
+	</preview-section-app> -->
 
 	<!-- Info -->
 	<preview-section-app [title]="'title.info' | translate">

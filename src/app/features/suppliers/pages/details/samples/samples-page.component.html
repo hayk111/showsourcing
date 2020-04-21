@@ -2,7 +2,9 @@
 	<!-- filters -->
 	<controller-table-quick-filters-app></controller-table-quick-filters-app>
 	<!-- actions -->
-	<controller-table-quick-actions-app>
+	<controller-table-quick-actions-app
+		typename="Sample"
+	>
 	</controller-table-quick-actions-app>
 	<!-- switcher -->
 	<controller-table-view-switcher-app
@@ -44,11 +46,5 @@
 </side-panel-app>
 
 <sample-selection-bar-app
-	[isShown]="(selectionSrv.selection$ | async).size > 0"
-	[selection]="selectionSrv.selection$ | async"
-	[selectableItems]="listHelper.filteredItems$ | async"
-	(close)="selectionSrv.unselectAll()"
-	(deleteSelected)="listHelper.deleteSelected()"
-	(selectAll)="selectionSrv.selectAll($event)"
-	(unselectAll)="selectionSrv.unselectAll()">
+	(deleteSelected)="listHelper.deleteSelected()">
 </sample-selection-bar-app>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { Product } from '~core/erm';
+import { Product } from '~core/erm3/models';
 import { FilterService, FilterType } from '~core/filters';
 import { ListHelperService, ListPageViewService, SelectionService } from '~core/list-page2';
 import { RatingService } from '~shared/rating/services/rating.service';
@@ -13,7 +13,6 @@ import { RatingService } from '~shared/rating/services/rating.service';
 	styleUrls: ['./card-page.component.scss'],
 	providers: [
 		ListHelperService,
-		ListPageViewService,
 		FilterService,
 		SelectionService,
 	],
@@ -40,18 +39,17 @@ export class CardPageComponent implements OnInit {
 		public listHelper: ListHelperService<Product>,
 		public viewSrv: ListPageViewService<Product>,
 		public selectionSrv: SelectionService,
-		public dialogCommonSrv: DialogCommonService,
-		public ratingSrv: RatingService
+		public dlgCommonSrv: DialogCommonService,
+		public ratingSrv: RatingService,
 	) {}
 
 	ngOnInit() {
 		this.listHelper.setup('Product');
 		this.viewSrv.setup({ typename: 'Product', destUrl: 'products', view: 'card' });
-		this.items$ = this.listHelper.filteredItems$;
 	}
 
 	addToProject(event) {
-		this.dialogCommonSrv.openSelectionDlg('Project', [event]);
+		this.dlgCommonSrv.openSelectionDlg('Project', [event]);
 		// TODO add the logic after closing dialog
 	}
 

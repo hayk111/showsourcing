@@ -30,6 +30,7 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 
 	// it could be String type, since selectors are used inside dynamic forms (customField.metadata.target)
 	@Input() typename: Typename;
+	@Input() customType: string;
 
 	@Input() multiple = false;
 	@Input() canCreate = false;

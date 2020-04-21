@@ -21,7 +21,6 @@ export class DialogComponent {
 	@Input() hasFooter = true;
 	@Input() hasBorder = true;
 	@Input() contentOverflow: 'auto' | 'hidden' = 'auto';
-	@Output() close = new EventEmitter<any>();
 	@ContentChild(DialogFooterComponent, { static: false }) footer: DialogFooterComponent;
 	@ContentChild(DialogHeaderComponent, { static: false }) header: DialogHeaderComponent;
 
@@ -30,8 +29,7 @@ export class DialogComponent {
 	constructor(private srv: DialogService) { }
 
 	doClose() {
-		this.srv.close();
-		this.close.emit();
+		this.srv.cancel();
 	}
 
 	@HostListener('click', ['$event'])

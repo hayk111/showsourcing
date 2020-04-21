@@ -1,4 +1,4 @@
-<preview-panel-app cdk-scrollable *ngIf="sample$ | async">
+<preview-panel-app cdk-scrollable *ngIf="sample">
 
 	<!-- Banner -->
 	<preview-banner-app>
@@ -9,7 +9,7 @@
 			<logo-app
 				class="mg-right-s"
 				size="l"
-				[logo]="sample?.images[0] || null"
+				[logo]="sample?.images && sample?.images[0] || null"
 				typename="Sample">
 			</logo-app>
 			<div class="flexColumn ellipsis">
@@ -40,8 +40,7 @@
 	<preview-header-app
 		[entity]="sample"
 		typename="Sample"
-		titleProp="reference"
-		(update)="update($event, 'reference')">
+		(update)="update($event, 'name')">
 
 		<preview-header-buttons-app>
 			<button class="icon" (click)="null" toolTip [toolTipMessage]="'tooltip.share-sample' | translate">

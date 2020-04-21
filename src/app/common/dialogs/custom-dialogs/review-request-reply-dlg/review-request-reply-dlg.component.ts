@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } 
 import { Observable } from 'rxjs';
 import { switchMap, takeUntil, tap } from 'rxjs/operators';
 import { ProductService, RequestElementService, RequestReplyService, SupplierRequestService } from '~core/erm';
-import { SelectionService } from '~core/list-page';
+import { SelectionService } from '~core/list-page2/selection.service';
 import {
 	AppImage,
 	Attachment,
@@ -74,31 +74,31 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 	}
 
 	acceptAll(type: EntityMetadata) {
-		switch (type) {
-			case ERM.IMAGE:
-				this.selectionSrv.selectAll(this.element.reply.images as any);
-				break;
-			case ERM.EXTENDED_FIELD:
-				this.selectionSrv.selectAll(this.element.reply.fields);
-				break;
-			case ERM.ATTACHMENT:
-				this.selectionSrv.selectAll(this.element.reply.attachments as any);
-				break;
-		}
+		// switch (type) {
+		// 	case ERM.IMAGE:
+		// 		this.selectionSrv.selectAll(this.element.reply.images as any);
+		// 		break;
+		// 	case ERM.EXTENDED_FIELD:
+		// 		this.selectionSrv.selectAll(this.element.reply.fields);
+		// 		break;
+		// 	case ERM.ATTACHMENT:
+		// 		this.selectionSrv.selectAll(this.element.reply.attachments as any);
+		// 		break;
+		// }
 	}
 
 	refuseAll(type: EntityMetadata) {
-		switch (type) {
-			case ERM.IMAGE:
-				this.selectionSrv.unselectMany(this.element.reply.images as any);
-				break;
-			case ERM.EXTENDED_FIELD:
-				this.selectionSrv.unselectMany(this.element.reply.fields);
-				break;
-			case ERM.ATTACHMENT:
-				this.selectionSrv.unselectMany(this.element.reply.attachments as any);
-				break;
-		}
+		// switch (type) {
+		// 	case ERM.IMAGE:
+		// 		this.selectionSrv.unselectMany(this.element.reply.images as any);
+		// 		break;
+		// 	case ERM.EXTENDED_FIELD:
+		// 		this.selectionSrv.unselectMany(this.element.reply.fields);
+		// 		break;
+		// 	case ERM.ATTACHMENT:
+		// 		this.selectionSrv.unselectMany(this.element.reply.attachments as any);
+		// 		break;
+		// }
 	}
 
 	/**
@@ -198,21 +198,21 @@ export class ReviewRequestReplyDlgComponent extends AutoUnsub implements OnInit 
 			attachments: this.product.attachments
 		};
 		Array.from(this.selectionSrv.selection.values()).forEach(item => {
-			switch (item.__typename) {
-				case 'Attachment':
-					const newAttachment = new Attachment({ ...item });
-					tempProduct = ({ ...tempProduct, attachments: [...tempProduct.attachments, { ...newAttachment }] });
-					break;
-				case 'Image':
-					const newImage = new AppImage({ ...item });
-					tempProduct = ({ ...tempProduct, images: [...tempProduct.images, { ...newImage }] });
-					break;
-				case 'ExtendedField':
-					tempProduct = this.acceptExtendedField(item, tempProduct);
-					break;
-				default:
-					throw Error(`__typename ${item.__typename} wasn't found`);
-			}
+		// 	switch (item.__typename) {
+		// 		case 'Attachment':
+		// 			const newAttachment = new Attachment({ ...item });
+		// 			tempProduct = ({ ...tempProduct, attachments: [...tempProduct.attachments, { ...newAttachment }] });
+		// 			break;
+		// 		case 'Image':
+		// 			const newImage = new AppImage({ ...item });
+		// 			tempProduct = ({ ...tempProduct, images: [...tempProduct.images, { ...newImage }] });
+		// 			break;
+		// 		case 'ExtendedField':
+		// 			tempProduct = this.acceptExtendedField(item, tempProduct);
+		// 			break;
+		// 		default:
+		// 			throw Error(`__typename ${item.__typename} wasn't found`);
+		// 	}
 		});
 		this.productSrv.update(tempProduct).pipe(
 			switchMap(product => this.requestReplySrv.update({ id: this.elements[this.selectedIndex].reply.id, status: ReplyStatus.VALIDATED }))

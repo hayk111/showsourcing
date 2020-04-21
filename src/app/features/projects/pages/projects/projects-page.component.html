@@ -10,7 +10,9 @@
 
 <controller-table-app>
 	<controller-table-quick-filters-app [quickFilters]="['assignee']"></controller-table-quick-filters-app>
-	<controller-table-quick-actions-app></controller-table-quick-actions-app>
+	<controller-table-quick-actions-app
+		typename="Project"
+	></controller-table-quick-actions-app>
 </controller-table-app>
 
 <projects-table-app
@@ -27,16 +29,10 @@
 </projects-table-app>
 
 <project-selection-bar-app
-	[isShown]="(selectionSrv.selection$ | async).size > 0"
-	[selection]="selectionSrv.selection$ | async"
-	[selectableItems]="listHelper.items$ | async"
-	(close)="selectionSrv.unselectAll()"
-	(deleteSelected)="listHelper.deleteSelected()"
-	(selectAll)="selectionSrv.selectAll($event)"
-	(unselectAll)="selectionSrv.unselectAll()">
+	(deleteSelected)="listHelper.deleteSelected()">
 </project-selection-bar-app>
 
-<!-- 
+<!--
 
 	<side-panel-app *ngIf="viewSrv.filterPanelOpen">
 		<filters-app

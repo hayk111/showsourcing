@@ -42,12 +42,11 @@
 
 <list-management-table-app
 	class="spacing-ms"
-	[rows]="items$ | async"
+	[rows]="listHelper.paginedItems$ | async"
 	[selection]="selectionSrv.selection$ | async"
 	[pending]="listHelper.pending$ | async"
 	[isFiltering]="listHelper.pending$ | async"
-	[entityMetadata]="typename"
-	[total]="listHelper.total$ | async"
+	[typename]="typename"
 	(renameEntity)="listHelper.update($event)"
 	(delete)="listHelper.delete($event)"
 	(select)="selectionSrv.selectOne($event, false)"
@@ -57,12 +56,6 @@
 	(unselectAll)="selectionSrv.unselectAll()"
 	(createClick)="listHelper.create()"
 >
-	<!--
-		TODO implement this
-	[currentPage]="listSrv.currentPage"
-	(goToPage)="listSrv.loadPage($event)"
-	(sort)="listSrv.sort($event)"
--->
 </list-management-table-app>
 
 <selection-bar-app
@@ -89,6 +82,5 @@
 			<icon-app name="trash"></icon-app>
 			<span>{{ 'button.delete' | translate }}</span>
 		</button>
-		-->
 	</div>
 </selection-bar-app>

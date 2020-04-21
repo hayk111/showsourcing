@@ -78,11 +78,11 @@ fdescribe('ApiService', () => {
 		apiSrv = TestBed.get(ApiService);
 		authSrv = TestBed.get(AuthenticationService);
 		const user = await authSrv.signIn({
-			username: 'cedric@showsourcing.com',
+			username: 'augustin@showsourcing.com',
 			password: 'Test1234'
 		});
 		userId = user.username;
-		apiSrv.setTeamId('605d300b-f108-4254-bea2-d30cba188af2');
+		apiSrv.setTeamId('542a2b98-a315-45be-a56f-e8d372fa2b4b');
 		apiSrv.setUserId(userId);
 		originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
 		jasmine.DEFAULT_TIMEOUT_INTERVAL = 15000;
@@ -92,9 +92,9 @@ fdescribe('ApiService', () => {
 		jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
 	});
 
-	fit('should add to cached list', async() => {
+	it('should add to cached list', async() => {
 		const filter = { teamId: TeamService.teamSelected.id };
-		const productsRef = apiSrv.search('Product', { filter });
+		const productsRef = apiSrv.searchBy('Product', { filter });
 		const products = await productsRef.data$
 			.pipe(take(1)).toPromise();
 		const lengthBefore = products.length;
@@ -105,7 +105,7 @@ fdescribe('ApiService', () => {
 		expect(lengthAfter).toEqual(lengthBefore + 1);
 	});
 
-	it('should create entities', async () => {
+	fit('should create entities', async () => {
 		const promises = Object.entries(mocks).map(([name, getMock]) => {
 			return apiSrv
 				.create(name as Typename, getMock())
@@ -132,7 +132,7 @@ fdescribe('ApiService', () => {
 		});
 	});
 
-	it('should delete entities', async () => {
+	fit('should delete entities', async () => {
 		const promises = Object.entries(mocks).map(([name, getMock]) => {
 			return apiSrv
 				.create(name as Typename, getMock())
@@ -150,7 +150,7 @@ fdescribe('ApiService', () => {
 		});
 	});
 
-	it('should get each entity', async () => {
+	fit('should get each entity', async () => {
 		const promises = Object.entries(mocks).map(([name, getMock]) => {
 			return apiSrv
 				.create(name as Typename, getMock())

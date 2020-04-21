@@ -3,6 +3,8 @@ import { Observable } from 'rxjs';
 import { Product } from '~core/erm';
 import { ProductService } from '~core/erm';
 import { TeamService } from '~core/erm';
+import { ApiService } from '~core/erm3/services/api.service';
+import { PropertyOptionsService } from '~shared/selectors/services/property-options.service';
 
 @Component({
 	selector: 'selector-page-app',
@@ -12,13 +14,33 @@ import { TeamService } from '~core/erm';
 })
 export class SelectorPageComponent implements OnInit {
 
-	entityNames = ['Product', 'Project', 'Category', 'Currency', 'Supplier', 'User', 'Country'];
+	entityNames = ['Product', 'Project', 'PropertyOption', 'Category', 'Currency', 'Supplier', 'User', 'Country'];
 
 	product$: Observable<Product>;
 
-	constructor() { }
+	constructor(private propertyOptionSrv: PropertyOptionsService, private apiSrv: ApiService) { }
 
-	ngOnInit() {}
+	ngOnInit() {
+		// this.propertyOptionSrv.listPropertyOptions('Color').subscribe(data => {
+		// 	console.log('ngOnInit -> data', data);
+		// });
+
+		// this.apiSrv.sync('PropertyOption', {
+		// 	fetchPolicy: 'cache-and-network'
+		// }).data$.subscribe(data => {
+		// 	console.log('SelectorPageComponent -> ngOnInit -> data', data);
+		// });
+
+		// this.propertyOptionSrv.createPropertyOption({
+		// 	type: 'Color',
+		// 	value: 'pink'
+		// }).subscribe(created => {
+		// 	console.log('SelectorPageComponent -> ngOnInit -> created', created);
+		// 	this.propertyOptionSrv.deletePropertyOption(created).subscribe(deleted => {
+		// 		console.log(deleted);
+		// 	});
+		// });
+	}
 
 	update(item, prop) {
 	}

@@ -10,14 +10,16 @@
 	<!-- filters -->
 	<controller-table-quick-filters-app></controller-table-quick-filters-app>
 	<!-- actions -->
-	<controller-table-quick-actions-app></controller-table-quick-actions-app>
+	<controller-table-quick-actions-app
+		typename="Sample"
+	></controller-table-quick-actions-app>
 	<!-- switcher -->
 	<controller-table-view-switcher-app></controller-table-view-switcher-app>
 </controller-table-app>
 
 
 <samples-table-app
-	[rows]="items$ | async"
+	[rows]="listHelper.filteredItems$ | async"
 	[selection]="selectionSrv.selection$ | async"
 	[pending]="listHelper.pending$ | async"
 	(select)="selectionSrv.selectOne($event, true)"
@@ -32,9 +34,6 @@
 </samples-table-app>
 
 <selection-bar-app
-	[isShown]="(selectionSrv.selection$ | async).size > 0"
-	[selection]="selectionSrv.selection$ | async"
-	[selectableItems]="items$ | async"
 	(close)="selectionSrv.unselectAll()">
 
 	<div class="flex">
@@ -64,7 +63,13 @@
 	</div>
 </selection-bar-app>
 
-<!-- 
+<sample-preview-app
+	*ngIf="viewSrv.previewOpen"
+	[sample]="viewSrv.previewed"
+	(close)="viewSrv.closePreview()">
+</sample-preview-app>
+
+<!--
 <samples-board-app
 	*ngIf="viewSrv.view === 'board'"
 	(selectOne)="selectionSrv.selectOne($event, true)"
@@ -81,11 +86,7 @@
 	</filters-app>
 </side-panel-app>
 
-<sample-preview-app
-	*ngIf="viewSrv.previewOpen"
-	[sample]="viewSrv.previewed"
-	(close)="viewSrv.closePreview()">
-</sample-preview-app>
+
 
 
  -->

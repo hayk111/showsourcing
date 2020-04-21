@@ -5,7 +5,7 @@
 	[hasFilters]="false">
 	<controller-table-content-app>
 		<div toolTip [toolTipMessage]="getTooltipMsg()" toolTipPosition="above-right">
-			<button [disabled]="!teamOwner" (click)="openInviteDialog()" i18n="@@invite-team-member">Invite Team Member</button>
+			<button (click)="openInviteDialog()" i18n="@@invite-team-member">Invite Team Member</button>
 		</div>
 
 		<context-menu-app *ngIf="teamOwner && hasSelected" [closeOnScroll]="true">
@@ -24,31 +24,27 @@
 				contributor
 			</context-menu-item-app>
 			<context-menu-divider-app></context-menu-divider-app>
-			<context-menu-item-warn-app class="remove-user" (click)="listSrv.deleteSelected()">
+			<context-menu-item-warn-app class="remove-user" (click)="listHelper.deleteSelected()">
 				<span i18n="@@remove-user">Remove User</span>
 			</context-menu-item-warn-app>
 		</context-menu-app>
 	</controller-table-content-app>
 </controller-table-app>
 
-
-<ng-container *ngIf="listSrv.items$ | async as members">
-	<team-members-table-app
-		class="spacing-ms"
-		[rows]="members"
-		[teamOwner]="teamOwner"
-		[user]="user"
-		[selection]="selectionSrv.selection$ | async"
-		[pending]="listSrv.pending"
-		[isFiltering]="filterSrv.isFiltering"
-		(bottomReached)="listSrv.loadMore()"
-		(select)="selectionSrv.selectOne($event, false)"
-		(unselect)="selectionSrv.unselectOne($event, false)"
-		(selectAll)="selectionSrv.selectAll($event, false)"
-    (unselectAll)="selectionSrv.unselectAll()"
-		(accessTypeUpdated)="updateAccessType($event)"
-		(delete)="listSrv.deleteOne($event, true)">
-	</team-members-table-app>
+<team-members-table-app
+	class="spacing-ms"
+	[rows]="listHelper.paginedItems$ | async"
+	[user]="user"
+	[pending]="false"
+	[selection]="selectionSrv.selection$ | async"
+	(bottomReached)="listHelper.loadMore()"
+	(select)="selectionSrv.selectOne($event, false)"
+	(unselect)="selectionSrv.unselectOne($event, false)"
+	(selectAll)="selectionSrv.selectAll($event, false)"
+	(unselectAll)="selectionSrv.unselectAll()"
+	(accessTypeUpdated)="updateAccessType($event)"
+	(delete)="listHelper.delete($event)">
+</team-members-table-app>
 
 	<!-- ng-container *ngIf="selected$ | async as selected">
 		<selection-bar-app
@@ -58,4 +54,3 @@
 			[isShown]="selected.size > 0"
 			[selection]="selected"></selection-bar-app>
 	</ng-container -->
-</ng-container>

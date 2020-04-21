@@ -12,8 +12,7 @@ import {
 } from '~core/erm';
 import { ListPageService } from '~core/list-page';
 import { DialogService } from '~shared/dialog';
-import { FilterType } from '~shared/filters';
-import { FilterService } from '~shared/filters/services/filter.service';
+import { FilterService, FilterType } from '~core/filters';
 import { AutoUnsub } from '~utils';
 import { SelectionService, ListFuseHelperService, ListPageViewService } from '~core/list-page2';
 
@@ -57,7 +56,9 @@ export class TasksPageComponent implements OnInit {
 	}
 
 	ngOnInit() {
+		this.filterSrv.setup([], ['name']);
 		this.listHelper.setup('Task');
+		this.viewSrv.setup({ typename: 'Task', destUrl: 'tasks', view: 'table' });
 	}
 
 

@@ -56,6 +56,7 @@ export class TablePageComponent implements OnInit {
 
 	ngOnInit() {
 		this.listHelper.setup('Supplier');
+		this.viewSrv.setup({ typename: 'Supplier', destUrl: 'suppliers', view: 'table' });
 	}
 
 }

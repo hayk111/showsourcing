@@ -83,7 +83,7 @@
 		<span class="secondary">{{ 'OBJ.create-a-field-or-assign' | translate: {field: 'ERM.' + selectedTab.toUpperCase() + '.singular' | translate} }}</span>
 
 		<div class="button-group">
-			<button (click)="openCreationModal()">{{ 'OBJ.create' | translate: {field: 'ERM.' + selectedTab.toUpperCase() + '.singular' | translate} }}</button>
+			<button (click)="createEntity()">{{ 'OBJ.create' | translate: {field: 'ERM.' + selectedTab.toUpperCase() + '.singular' | translate} }}</button>
 			<button (click)="dashboardSrv.redirect(route)">{{ 'OBJ.view-OBJ' | translate: {field: 'ERM.' + selectedTab.toUpperCase() + '.plural' | translate} }}</button>
 		</div>
 	</div>

@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, TemplateRef, ViewChild, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
-import { ERM, ExportRequest } from '~core/erm';
 import { config } from './config';
 import { EntityTableComponent } from '../entity-table.component';
+import { Export } from '~core/erm3/models';
 
 
 @Component({
@@ -14,15 +14,14 @@ import { EntityTableComponent } from '../entity-table.component';
 	],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ExportTableComponent extends EntityTableComponent<ExportRequest> {
+export class ExportTableComponent extends EntityTableComponent<Export> {
 	static DEFAULT_COLUMNS = ['logo', 'fileName', 'createdBy', 'status', 'download'];
 	static DEFAULT_TABLE_CONFIG = config;
 	@Input() columns = ExportTableComponent.DEFAULT_COLUMNS;
 	@Input() tableConfig = ExportTableComponent.DEFAULT_TABLE_CONFIG;
 	@Output() showItemsPerPage = new EventEmitter<number>();
-	@Output() download = new EventEmitter<ExportRequest>();
+	@Output() download = new EventEmitter<Export>();
 	@ViewChild('contextualMenu', { static: false }) contextualMenuTemplate: TemplateRef<any>;
-	erm = ERM;
 
 	constructor(
 		private datePipe: DatePipe,

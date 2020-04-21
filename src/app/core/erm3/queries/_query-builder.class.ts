@@ -43,43 +43,21 @@ export class QueryBuilder {
 			}`;
 	}
 
-	// search // TODO update to fit the new environment when we have search queries
-	[QueryType.SEARCH] = (str: string) => {
-		return gql`
-			query Search${this.typename}s(
-				$filter: Searchable${this.typename}FilterInput
-				$sort: Searchable${this.typename}SortInput
-				$limit: Int
-				$nextToken: String
-			) {
-				search${this.typename}s(
-					filter: $filter
-					sort: $sort
-					limit: $limit
-					nextToken: $nextToken
-				) {
-					items {
-						${str}
-						${AUDIT}
-					}
-					nextToken
-					total
-				}
-			}`;
-	}
-
 	[QueryType.SEARCH_BY] = (str: string) => (byTypeName: Typename) => {
 		return gql`
 			query Search${this.typename}sBy${byTypeName}s(
 				$${byTypeName.toLowerCase()}Ids: [String!]!
-				$take: Int,
+				$take: Int
 				$skip: Int
+				$filter: SearchFilterInput
+				$sort: SearchSortInput
 			) {
 				search${this.typename}sBy${byTypeName}s(
 					${byTypeName.toLowerCase()}Ids: $${byTypeName.toLowerCase()}Ids
-					sort: {property: "price.value", direction: ASC}
 					take: $take
 					skip: $skip
+					filter: $filter
+					sort: $sort
 				) {
 					items {
 						id
@@ -95,9 +73,16 @@ export class QueryBuilder {
 		const ownerVerbose = byProperty === 'Owner' ? 'User' : ''; // the param for Owner is $ownerUser
 		const paramEntityName = byProperty.charAt(0).toLowerCase() + byProperty.slice(1) + ownerVerbose;
 		const byId = paramEntityName + 'Id';
-		const byPropertyString = byProperty === 'Team' ? '' : 'By' + byProperty; // listEntity is "by Team" in default
+
+		let byPropertyString = '';
+
+		if (this.typename !== 'TeamUser') { // temporary solution for TeamUser, as we don't have a query TeamUsers
+			byPropertyString = byProperty  === 'Team' ? 's' : 'By' + byProperty; // listEntity is "by Team" in default
+		}
+
 		return gql`
 			query List${this.typename}${byPropertyString}(
+				${this.typename === 'PropertyOption' ? '$type: ModelStringKeyConditionInput' : ''}
 				$byId: ID
 				$sortDirection: ModelSortDirection
 				$filter: Model${this.typename}FilterInput
@@ -105,6 +90,7 @@ export class QueryBuilder {
 				$nextToken: String
 			) {
 				list${this.typename}${byPropertyString}(
+					${this.typename === 'PropertyOption' ? 'type: $type' : ''}
 					${byId}: $byId
 					sortDirection: $sortDirection
 					filter: $filter
@@ -116,8 +102,29 @@ export class QueryBuilder {
 						${AUDIT}
 					}
 					nextToken
-					startedAt
 				}
+			}`;
+	}
+
+	[QueryType.SYNC] = (str: string): Record<string, any> => {
+		return gql`
+			query Sync${this.typename}(
+				$filter: Model${this.typename}FilterInput,
+				$lastSync: AWSTimestamp,
+				$limit: Int,
+				$nextToken: String
+			) {
+				sync${this.typename}s(
+					filter: $filter,
+					lastSync: $lastSync,
+					limit: $limit,
+					nextToken: $nextToken) {
+						items {
+							${str}
+							${AUDIT}
+						}
+						nextToken
+				  }
 			}`;
 	}
 

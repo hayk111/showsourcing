@@ -14,6 +14,7 @@ import { TasksTableComponent } from './tasks-table/tasks-table.component';
 import { DefaultColumnsComponent } from './default-columns/default-columns.component';
 import { ExportTableComponent } from './exports-table/exports-table.component';
 import { TeamMembersTableComponent } from './team-members-table/team-members-table.component';
+import { InvitationsTableComponent } from './invitations-table/invitations-table.component';
 import { ListManagementTableComponent } from './list-management-table/list-management-table.component';
 import { WorkflowManagamentTableComponent } from './workflow-managament-table/workflow-managament-table.component';
 import { ContactsTableComponent } from './contacts-table/contacts-table.component';
@@ -32,6 +33,7 @@ import { TemplateFieldsTableComponent } from './template-fields-table/template-f
 		ExportTableComponent,
 		ListManagementTableComponent,
 		ProductsTableComponent,
+		InvitationsTableComponent,
 		ProjectsTableComponent,
 		RequestElementsTableComponent,
 		RequestsTableComponent,
@@ -49,6 +51,7 @@ import { TemplateFieldsTableComponent } from './template-fields-table/template-f
 		ListManagementTableComponent,
 		ProductsTableComponent,
 		ProjectsTableComponent,
+		InvitationsTableComponent,
 		RequestElementsTableComponent,
 		RequestsTableComponent,
 		SamplesTableComponent,
