@@ -77,9 +77,7 @@ export class QueryBuilder {
 
 		// this is temporary solution for the invitations as the query should renamed by the BE
 		// TODO BE: ListInvitationByTeam -> ListInvitation
-		if (this.typename !== 'Invitation') {
-			byPropertyString = byProperty === 'Team' ? '' : 'By' + byProperty; // listEntity is "by Team" in default
-		}
+		byPropertyString = byProperty === 'Team' ? '' : 'By' + byProperty; // listEntity is "by Team" in default
 
 		return gql`
 			query List${this.typename}${byPropertyString}s(
