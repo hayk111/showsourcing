@@ -185,6 +185,26 @@ export class ApiService {
 	}
 
 	/////////////////////////////
+	//        SYNC        //
+	/////////////////////////////
+	/**
+	 * Syncs all of the entities by a referenced Entity
+	 * (Query, optimistic UI)
+	 * @param typename: the type of the entity we want to query
+	 * @param lastSync: last time the entity was synced
+	 * @param options: apollo options, variable and query will be overrided
+	 */
+	sync<T>(
+		typename: Typename,
+		apiOptions: ApiQueryOption = {}
+	): ObservableQuery<T[]> {
+		const options = apiOptions as WatchQueryOptions;
+		options.variables = { limit: 10000 };
+		options.query = QueryPool.getQuery(typename, QueryType.SYNC);
+		return this.query<T[]>(options);
+	}
+
+	/////////////////////////////
 	//         CREATE          //
 	/////////////////////////////
 
@@ -202,8 +222,11 @@ export class ApiService {
 		options.mutation = QueryPool.getQuery(typename, QueryType.CREATE);
 		// TODO remove this condition when the audits are all similars
 		if (typename !== 'Company' && typename !== 'Team') {
-			entity.id = uuid();
-			entity.createdAt = new Date().toISOString();
+			if (typename !== 'Invitation') { // temporary solution for invitations only id and createdAt are not needed
+				entity.id = uuid();
+				entity.createdAt = new Date().toISOString();
+			}
+
 			// entity.createdByUserId = this._userId;
 			entity.teamId = this._teamId;
 		}
@@ -276,7 +299,7 @@ export class ApiService {
 		options.variables = {
 			input: { id: entity.id, _version: this._getCachedVersion(typename, entity.id) },
 		};
-		if (typename !== 'Company' && typename !== 'Team' && typename !== 'PropertyOption') {
+		if (typename !== 'Company' && typename !== 'Team' && typename !== 'PropertyOption' && typename !== 'Invitation') {
 			// options.variables.input.deletedAt = new Date().toISOString(); // TODO should be added (behavior expected)
 			// options.variables.input.deletedByUserId = this._userId; // TODO should be added (behavior expected)
 			options.variables.input.teamId = this._teamId;

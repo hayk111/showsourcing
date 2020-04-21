@@ -6,6 +6,7 @@ export const defaultConfig: TableConfig = {
 	preview: { name: 'preview', translationKey: '', width: 84, sortable: false },
 	name: { name: 'name', translationKey: 'name', width: 190, sortProperty: 'name' },
 	reference: { name: 'reference', translationKey: 'reference', width: 72, sortProperty: 'reference' },
+	email: { name: 'email', translationKey: 'email', width: 190, sortProperty: 'email' },
 	favorite: { name: 'favorite', translationKey: 'FAV', width: 50, sortProperty: 'favorite' },
 	rating: { name: 'rating', translationKey: 'rating', width: 100, sortable: false },
 	createdBy: { name: 'createdBy', translationKey: 'created-by', width: 152, sortProperty: 'createdBy.firstName' },

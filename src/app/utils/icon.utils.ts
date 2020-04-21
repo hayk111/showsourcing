@@ -35,6 +35,7 @@ export class IconUtils {
 		Event: Color.SECONDARY,
 		Export: Color.SECONDARY_BG,
 		Image: Color.SECONDARY,
+		Invitation: Color.PRIMARY,
 		Location: Color.SECONDARY,
 		Product: Color.PRIMARY,
 		Project: Color.SECONDARY,
