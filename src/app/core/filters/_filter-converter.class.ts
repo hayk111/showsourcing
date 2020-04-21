@@ -48,7 +48,7 @@ export class FilterConverter {
 	 *
 	 * Attention: the filters in an array are ordened with the order that is in FilterType
 	 */
-		filtersToQueryArg(filters: Filter[]): any {
+	filtersToQueryArg(filters: Filter[]): any {
 
 		if (filters.length === 0)
 			return {};
@@ -82,7 +82,7 @@ export class FilterConverter {
 			case FilterType.DELETED:
 				return {
 					property: type,
-					isTrue: false
+					isTrue: value
 				};
 			case FilterType.SEARCH:
 				return this.getSearchArg(value);

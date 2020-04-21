@@ -13,11 +13,11 @@ export class SettingsPageComponent {
 	teamName: string;
 	companyName: string;
 	constructor(public companySrv: CompanyService, public teamSrv: TeamService) {
-		this.teamSrv.teamSelected$.subscribe(team => {
-			this.teamName = team.name;
-		});
-		this.companySrv.company$.subscribe(company => {
-			this.companyName = company.name;
-		});
+		// this.teamSrv.teamSelected$.subscribe(team => {
+		// 	this.teamName = team.name;
+		// });
+		// this.companySrv.company$.subscribe(company => {
+		// 	this.companyName = company.name;
+		// });
 	}
 }

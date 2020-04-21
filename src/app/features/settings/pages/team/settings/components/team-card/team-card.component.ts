@@ -38,7 +38,9 @@ export class TeamCardComponent extends AutoUnsub implements OnInit {
 			teamName: this.teamNameInput
 		}).controls, { updateOn: 'blur' });
 
-		this.form.patchValue(this.team);
+		this.form.patchValue({
+			teamName: this.team.name
+		});
 
 		this.form.valueChanges
 			.pipe(takeUntil(this._destroy$))

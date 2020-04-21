@@ -205,8 +205,11 @@ export class ApiService {
 		options.mutation = QueryPool.getQuery(typename, QueryType.CREATE);
 		// TODO remove this condition when the audits are all similars
 		if (typename !== 'Company' && typename !== 'Team') {
-			entity.id = uuid();
-			entity.createdAt = new Date().toISOString();
+			if (typename !== 'Invitation') { // temporary solution for invitations only id and createdAt are not needed
+				entity.id = uuid();
+				entity.createdAt = new Date().toISOString();
+			}
+
 			// entity.createdByUserId = this._userId;
 			entity.teamId = this._teamId;
 		}
@@ -278,7 +281,7 @@ export class ApiService {
 		options.variables = {
 			input: { id: entity.id, _version: entity._version },
 		};
-		if (typename !== 'Company' && typename !== 'Team' && typename !== 'PropertyOption') {
+		if (typename !== 'Company' && typename !== 'Team' && typename !== 'PropertyOption' && typename !== 'Invitation') {
 			// options.variables.input.deletedAt = new Date().toISOString(); // TODO should be added (behavior expected)
 			// options.variables.input.deletedByUserId = this._userId; // TODO should be added (behavior expected)
 			options.variables.input.teamId = this._teamId;
