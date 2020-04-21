@@ -64,9 +64,11 @@
 		[showRequiredMarker]="showRequiredMarker"
 		(update)="properties = $event">
 	</dynamic-form2-app>
-	valid ? {{ form.valid }}
-
-	<button (click)="form.reset()" class="secondary mg-h-ms">reset</button>
-	<button [disabled]="!form.valid">submit</button>
+	
+	<div class="mg-v-ms">
+		valid ? {{ form.valid }}
+		<button (click)="form.reset()" class="secondary mg-h-ms">reset</button>
+		<button [disabled]="!form.valid">submit</button>
+	</div>
 </card-app>
 

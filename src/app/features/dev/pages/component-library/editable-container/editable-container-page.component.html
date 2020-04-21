@@ -38,15 +38,13 @@
 	</editable-field2-app>
 </card-app>
 
+
 <card-app class="mg-ms">
-	<card-title-app>Editable Packaging</card-title-app>
-	<p>This is a special version for the packaging</p>
-	<editable-packaging2-app 
-		[formControl]="ctrlPackaging">
-		<editable-label-app>Label</editable-label-app>
-		<editable-value-app>Value</editable-value-app>
-		<input inputApp type="text"/>
-	</editable-packaging2-app>
-	{{ ctrlPackaging.value | json }}
+	<card-title-app>Editable Price matrix</card-title-app>
+	<p>This is a special version for price matrix</p>
+	<editable-price-matrix-app 
+		[(ngModel)]="priceMatrix">
+	</editable-price-matrix-app>
+	{{ priceMatrix | json }}
 </card-app>
 

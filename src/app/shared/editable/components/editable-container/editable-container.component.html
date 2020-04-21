@@ -6,7 +6,10 @@
 </div>
 
 <!-- open -->
-<div *ngIf="isOpen" class="flex openBlock" (clickOutside)="close(true)">
+<div 
+	*ngIf="isOpen" 
+	class="flex flexGrow openBlock" 
+	(clickOutside)="close(true)">
 
 	<ng-content></ng-content>
 

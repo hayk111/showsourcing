@@ -12,7 +12,7 @@ export class EditableContainerPageComponent implements OnInit {
 	ctrl2 = new FormControl();
 	ctrl3 = new FormControl();
 	ctrlPackaging = new FormControl();
-
+	priceMatrix;
 	constructor() { }
 
 	ngOnInit() {

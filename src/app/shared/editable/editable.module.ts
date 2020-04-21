@@ -8,12 +8,8 @@ import { ImageModule } from '~shared/image/image.module';
 import { InputsModule } from '~shared/inputs/inputs.module';
 import { SelectorsModule } from '~shared/selectors/selectors.module';
 import { UtilsModule } from '~shared/utils/utils.module';
+import { EditableActionsComponent, EditableContainerComponent, EditableField2Component, EditableFieldComponent, EditableLabelComponent, EditableValueComponent } from './components';
 
-import {
-	EditableContainerComponent, EditableFieldComponent, EditableValueComponent,
-	EditableField2Component, EditableActionsComponent, EditableLabelComponent,
-	EditablePackaging2Component
-} from './components';
 
 
 // text where when it is clicked an input appears
@@ -27,7 +23,7 @@ import {
 		BadgeModule, // used to display a badge in the status selector
 		UtilsModule, // click outside directive used
 		ImageModule,
-		TranslateModule
+		TranslateModule,
 	],
 	declarations: [
 		EditableContainerComponent,
@@ -36,15 +32,13 @@ import {
 		EditableValueComponent,
 		EditableActionsComponent,
 		EditableLabelComponent,
-		EditablePackaging2Component
 	],
 	exports: [
 		EditableContainerComponent,
 		EditableFieldComponent,
 		EditableField2Component,
 		EditableValueComponent,
-		EditableLabelComponent,
-		EditablePackaging2Component
+		EditableLabelComponent
 	],
 })
 export class EditableModule { }

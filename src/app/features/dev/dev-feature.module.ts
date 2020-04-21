@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { BoardsCommonModule } from '~common/boards/boards-common.module';
 import { CardsCommonModule } from '~common/cards/cards-common.module';
@@ -8,11 +9,9 @@ import { SelectionDialogsCommonModule } from '~common/dialogs/selection-dialogs/
 import { ListCommonModule } from '~common/list/list-common.module';
 import { TablesCommonModule } from '~common/tables/tables-common.module';
 import { SharedModule } from '~shared/shared.module';
-
 import * as Pages from './pages';
 import { routes } from './routes';
-import { DescriptorPageComponent } from './pages/component-library/descriptor-page/descriptor-page.component';
-import { FormsModule } from '@angular/forms';
+
 
 
 
@@ -59,6 +58,8 @@ import { FormsModule } from '@angular/forms';
 		Pages.SpacingPageComponent,
 		Pages.TablePageComponent,
 		Pages.TypographyPageComponent,
+		Pages.PackagingPageComponent,
+		Pages.PricePageComponent
 	],
 	exports: [],
 	providers: []

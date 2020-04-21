@@ -1,0 +1,15 @@
+.ctnr {
+	border-bottom: 1px solid var(--color-divider);
+	editable-container-app {
+		// so the border bottom overlaps
+		margin-bottom: -2px; 
+	}
+}
+
+.amount-display {
+	text-align: right;
+}
+
+.label-ctnr, .price-ctnr {
+	width: 50%
+}

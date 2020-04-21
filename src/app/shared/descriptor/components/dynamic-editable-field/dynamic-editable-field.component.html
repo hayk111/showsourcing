@@ -194,7 +194,6 @@
 			</editable-value-app>
 			<input-price2-app
 				#priceInput 
-				[hasLabel]="true"
 				[readonly]="descriptor.readonly"
 				[formControl]="control">
 			</input-price2-app>
@@ -202,45 +201,23 @@
 	</ng-container>
 
 	<!-- PRICE MATRIX -->
-	<!-- <ng-container *ngSwitchCase="type.PRICE">
-		<editable-container-app 
-			#edt>
-			<editable-label-app>{{ descriptor.definition.label }}</editable-label-app>
-			<editable-value-app>
-				{{ control?.value?.amount }} 
-				{{ control?.value?.currency }}
-			</editable-value-app>
-			<input-price2-app
-				#priceInput 
-				[readonly]="descriptor.readonly"
-				[formControl]="control">
-			</input-price2-app>
-		</editable-field2-app>
-	</ng-container> -->
+	<ng-container *ngSwitchCase="type.PRICE_MATRIX">
+		<h3 class="mg-v-ms">{{ descriptor.definition.label }}</h3>
+		<editable-price-matrix-app
+			[readonly]="descriptor.readonly"
+			[formControl]="control"
+			[required]="descriptor.required">
+		</editable-price-matrix-app>
+	</ng-container>
 
 	<!-- PACKAGING -->
 	<ng-container *ngSwitchCase="type.PACKAGING">
-		<!-- this ng-for will have to be let go when we use the selector, 
-		and we can create the editable-packaging thereafter  -->
-		<ng-container *ngFor="let prop of ['width', 'length']">
-			<editable-field2-app 
-				#edt
-				[readonly]="descriptor.readonly"
-				(saved)="onSave()"
-				(canceled)="reset()">
-				<editable-label-app>{{ descriptor.definition.label }}</editable-label-app>
-				<editable-value-app>{{ control.value }}</editable-value-app>
-				<input 
-					#inp
-					inputApp
-					type="number"
-					[value]="control.value"
-					[required]="descriptor.required"
-					[formControl]="control"
-					(keyup.enter)="edt.save()"/>
-			</editable-field2-app>
-		</ng-container>
-		
+		<h3 class="mg-v-ms">{{ descriptor.definition.label }}</h3>
+		<editable-packaging2-app
+			[readonly]="descriptor.readonly"
+			[formControl]="control"
+			[required]="descriptor.required">
+		</editable-packaging2-app>
 	</ng-container>
 
 </ng-container>

@@ -1,4 +1,7 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, Output, ContentChild, HostListener } from '@angular/core';
+import {
+	ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter,
+	Input, Output, ContentChild, HostListener
+} from '@angular/core';
 import { InputDirective } from '~shared/inputs';
 
 
