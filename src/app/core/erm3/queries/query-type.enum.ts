@@ -9,5 +9,6 @@ export enum QueryType {
 	UPDATE_STATUS = 'updateStatus',
 	DELETE = 'delete',
 	LIST_BY = 'listBy',
+	SYNC = 'sync',
 }
 

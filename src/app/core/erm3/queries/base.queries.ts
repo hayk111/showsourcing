@@ -14,6 +14,7 @@ export class BaseQueries {
 			QueryType.GET,
 			QueryType.SEARCH_BY,
 			QueryType.LIST_BY,
+			QueryType.SYNC,
 			QueryType.CREATE,
 			QueryType.UPDATE,
 			QueryType.UPDATE_STATUS,
