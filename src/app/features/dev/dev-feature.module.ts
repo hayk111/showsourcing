@@ -20,7 +20,6 @@ import { routes } from './routes';
 	imports: [
 		RouterModule.forChild(routes),
 		SharedModule,
-		FormsModule,
 		TablesCommonModule,
 		ListCommonModule,
 		CreationDialogsCommonModule,

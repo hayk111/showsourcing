@@ -1,0 +1,52 @@
+<div 
+	*ngFor="let price of value; let i = index"
+	class="flex ctnr">
+
+	<!-- we might have to not use the editable-container and 
+		make something more custom here if further change is required
+	 -->
+	<!-- label -->
+	<div class="clickable label-ctnr" (click)="openCell(i, 0)">
+		<span *ngIf="isCellClosed(i, 0); else inp">
+			{{ value[i].label || 'Label'}}
+		</span>
+		<ng-template #inp>
+			<input
+				class="inline" 
+				name="label"
+				inputApp
+				[(ngModel)]="value[i].label"
+				(change)="onChangeFn(value)"
+				(blur)="onTouchedFn()"
+				(keyup.enter)="closeCell(i, 0)"/>
+		</ng-template>
+	</div>
+	<!-- amount -->
+	<div class="clickable price-ctnr" (click)="openCell(i, 1)">
+		<span *ngIf="isCellClosed(i, 1); else inp">
+			{{ 
+				value[i] && value[i].value ? 
+				value[i].value + ' ' + value[i].currency :
+				'Price'	
+			}}		
+		</span>
+		<ng-template #inp>
+			<input-price2-app 
+				#priceInp
+				name="price"
+				[(ngModel)]="value[i]"
+				(change)="onChangeFn(value)"
+				(blur)="onTouchedFn()"
+				(keyup.enter)="closeCell(i, 1)">
+			</input-price2-app>
+		</ng-template>
+	</div>
+
+</div>
+
+<button 
+	type="button" 
+	class="mg-v-ms small" 
+	(click)="addPrice()">
+	+
+</button>

@@ -8,7 +8,13 @@ import { ImageModule } from '~shared/image/image.module';
 import { InputsModule } from '~shared/inputs/inputs.module';
 import { SelectorsModule } from '~shared/selectors/selectors.module';
 import { UtilsModule } from '~shared/utils/utils.module';
-import { EditableActionsComponent, EditableContainerComponent, EditableField2Component, EditableFieldComponent, EditableLabelComponent, EditableValueComponent } from './components';
+import {
+	EditableActionsComponent, EditableContainerComponent,
+	EditableField2Component, EditableFieldComponent,
+	EditableLabelComponent, EditableValueComponent, EditablePriceMatrixComponent, EditablePackaging2Component
+} from './components';
+import { PriceModule } from '~shared/price';
+import { PackagingModule } from '~shared/packaging/packaging.module';
 
 
 
@@ -32,13 +38,17 @@ import { EditableActionsComponent, EditableContainerComponent, EditableField2Com
 		EditableValueComponent,
 		EditableActionsComponent,
 		EditableLabelComponent,
+		EditablePriceMatrixComponent,
+		EditablePackaging2Component
 	],
 	exports: [
 		EditableContainerComponent,
 		EditableFieldComponent,
 		EditableField2Component,
 		EditableValueComponent,
-		EditableLabelComponent
+		EditableLabelComponent,
+		EditablePriceMatrixComponent,
+		EditablePackaging2Component
 	],
 })
 export class EditableModule { }

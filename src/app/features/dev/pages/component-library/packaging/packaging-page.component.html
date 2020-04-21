@@ -4,12 +4,3 @@
 	<packaging-app [packaging]="packaging"></packaging-app>
 </card-app>
 
-<card-app class="mg-ms">
-	<card-title-app>Editable Packaging</card-title-app>
-	<editable-packaging2-app [(ngModel)]="packaging">
-		<editable-label-app>Label</editable-label-app>
-		<editable-value-app>Value</editable-value-app>
-		<input inputApp type="text"/>
-	</editable-packaging2-app>
-	{{ ctrlPackaging.value | json }}
-</card-app>

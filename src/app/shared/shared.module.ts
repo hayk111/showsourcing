@@ -3,7 +3,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CommonModule, DatePipe } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { BadgeModule } from '~shared/badge';
 import { CardModule } from '~shared/card';
@@ -68,6 +68,7 @@ const modules = [
 	CommonModule,
 	ReactiveFormsModule,
 	HttpClientModule,
+	FormsModule,
 
 	// cdk modules
 	DragDropModule,

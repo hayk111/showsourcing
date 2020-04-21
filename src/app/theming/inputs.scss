@@ -64,19 +64,18 @@ textarea {
 	resize: none;
 }
 
-editable-container-app input, editable-container-app input:focus {
-	border-radius: 0;
-	border: none;
+editable-container-app input, 
+editable-container-app input:focus, 
+editable-field2-app input,
+input.inline {
 	padding: 0;
+	border: none;
+	border-radius: 0;
 	background: transparent;
 	height: unset;
 }
 
 editable-field2-app input {
-	margin: 0;
-	padding: 0;
-	height: unset;
-	border: none;
 	text-align: right;
 }
 

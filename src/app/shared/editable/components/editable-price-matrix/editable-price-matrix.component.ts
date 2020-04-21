@@ -12,6 +12,8 @@ import { Price } from '~core/erm3';
 	providers: [makeAccessorProvider(EditablePriceMatrixComponent)]
 })
 export class EditablePriceMatrixComponent extends AbstractInput {
+	private openedCell: number[] = [];
+
 	@Input()
 	set value(v: Price[]) {
 		this._value = v || [{}];
@@ -21,5 +23,22 @@ export class EditablePriceMatrixComponent extends AbstractInput {
 
 	addPrice() {
 		this.value.push({});
+	}
+
+	closeCell(row: number, col: number) {
+		this.openedCell = [];
+	}
+
+	openCell(row: number, col: number) {
+		this.openedCell[0] = row;
+		this.openedCell[1] = col;
+	}
+
+	isCellOpened(row: number, col: number) {
+		return this.openedCell[0] === row && this.openedCell[1] === col;
+	}
+
+	isCellClosed(row: number, col: number) {
+		return !this.isCellOpened(row, col);
 	}
 }

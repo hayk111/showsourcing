@@ -1,6 +1,9 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, Output, ViewChild } from '@angular/core';
 import { EditableContainerComponent } from '../editable-container/editable-container.component';
 
+/**
+ * @deprecated
+ */
 @Component({
 	selector: 'editable-field-app',
 	templateUrl: './editable-field.component.html',
