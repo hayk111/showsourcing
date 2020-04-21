@@ -4,7 +4,7 @@ import { PackagingComponent } from './packaging.component';
 import { EditablePackagingComponent } from '~shared/dynamic-forms';
 
 @NgModule({
-	declarations: [PackagingComponent],
+	declarations: [PackagingComponent, EditablePackagingComponent],
 	imports: [
 		CommonModule
 	],
