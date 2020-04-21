@@ -19,7 +19,7 @@
 
 
 <samples-table-app
-	[rows]="items$ | async"
+	[rows]="listHelper.filteredItems$ | async"
 	[selection]="selectionSrv.selection$ | async"
 	[pending]="listHelper.pending$ | async"
 	(select)="selectionSrv.selectOne($event, true)"
@@ -34,9 +34,6 @@
 </samples-table-app>
 
 <selection-bar-app
-	[isShown]="(selectionSrv.selection$ | async).size > 0"
-	[selection]="selectionSrv.selection$ | async"
-	[selectableItems]="items$ | async"
 	(close)="selectionSrv.unselectAll()">
 
 	<div class="flex">
@@ -66,6 +63,12 @@
 	</div>
 </selection-bar-app>
 
+<sample-preview-app
+	*ngIf="viewSrv.previewOpen"
+	[sample]="viewSrv.previewed"
+	(close)="viewSrv.closePreview()">
+</sample-preview-app>
+
 <!--
 <samples-board-app
 	*ngIf="viewSrv.view === 'board'"
@@ -83,11 +86,7 @@
 	</filters-app>
 </side-panel-app>
 
-<sample-preview-app
-	*ngIf="viewSrv.previewOpen"
-	[sample]="viewSrv.previewed"
-	(close)="viewSrv.closePreview()">
-</sample-preview-app>
+
 
 
  -->
