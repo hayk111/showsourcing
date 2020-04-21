@@ -9,7 +9,7 @@ export class QueryPool {
 		Contact: new BaseQueries('Contact'),
 		Descriptor: new BaseQueries('Descriptor', 'id target'),
 		Image: new BaseQueries('Image', `id fileName`),
-		Product: new BaseQueries('Product', 'id name _version'),
+		Product: new BaseQueries('Product', 'id name _version status{ id name }'),
 		Supplier: new BaseQueries('Supplier', 'id name _version'),
 		Task: new BaseQueries('Task', 'id name _version'),
 		User: new BaseQueries('User', `firstName`),

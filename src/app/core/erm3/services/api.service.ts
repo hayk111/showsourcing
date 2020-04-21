@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MutationOptions } from 'apollo-client';
-import {
-	ObservableQuery as ApolloObservableQuery,
-	WatchQueryOptions,
-} from 'apollo-client';
+import { ObservableQuery as ApolloObservableQuery, WatchQueryOptions } from 'apollo-client';
 import { forkJoin, from, Observable } from 'rxjs';
 import { filter, map, tap } from 'rxjs/operators';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
@@ -142,20 +139,19 @@ export class ApiService {
 	searchBy<T>(
 		typename: Typename,
 		variables: FilterParams = {},
-		apiOptions: ApiQueryOption = {fetchPolicy: 'cache-and-network'},
+		apiOptions: ApiQueryOption = { fetchPolicy: 'cache-and-network' },
 		byTypeName: Typename = 'Team',
 		byIds: string[] = [this._teamId]
 	): ObservableQuery<T[]> {
 		const options = apiOptions as WatchQueryOptions;
-		if (!variables.sort?.direction)
-			variables.sort = {property: 'createdAt', direction: 'DESC'};
+		if (!variables.sort?.direction) variables.sort = { property: 'createdAt', direction: 'DESC' };
 
 		const queryBuilder = QueryPool.getQuery(typename, QueryType.SEARCH_BY);
 
 		options.query = queryBuilder(byTypeName);
 		options.variables = {
 			[byTypeName.toLowerCase() + 'Ids']: byIds,
-			...variables
+			...variables,
 		};
 
 		const query = this.query<T[]>(options);
@@ -228,8 +224,8 @@ export class ApiService {
 	/////////////////////////////
 
 	/** Update one entity
-	 * @param typename: name of the entity we want to create
-	 * @param entity : entity we want to create
+	 * @param typename: name of the entity we want to update
+	 * @param entity : entity we want to update
 	 * @param options: apollo options, variable and query will be overrided
 	 */
 	update<T extends Entity>(
@@ -246,6 +242,30 @@ export class ApiService {
 		}
 		options.variables = { input: entity };
 		options.mutation = QueryPool.getQuery(typename, QueryType.UPDATE);
+		options.optimisticResponse = this.getOptimisticResponse(options);
+		return this.mutate(options);
+	}
+
+	/** Update the status of an entity (product | supplier | sample | task)
+	 * @param typename: name of the entity we want to change status
+	 * @param entityId: the id of the entity (product.id)
+	 * @param statusId: the id of the status we want to set to the entity
+	*/
+	updateSatus(
+		typename: Typename,
+		entityId: string,
+		statusId: string,
+		apiOptions: ApiMutationOption = {}
+	) {
+		const options = apiOptions as MutationOptions;
+		options.variables = { entityId, statusId };
+		options.mutation = QueryPool.getQuery(typename, QueryType.UPDATE_STATUS);
+		// set inputs for optimistic response
+		options.variables.input = {
+			__typename: typename,
+			id: entityId,
+			status: { __typename: 'WorkflowStatus', id: statusId },
+		};
 		options.optimisticResponse = this.getOptimisticResponse(options);
 		return this.mutate(options);
 	}
@@ -311,7 +331,7 @@ export class ApiService {
 		const r: any = client.readQuery(query.options);
 		const items = r[query.queryName].items;
 		const initialQueryLength = r[query.queryName].items;
-		r[query.queryName].items = items.filter(item => !ids.includes(item.id));
+		r[query.queryName].items = items.filter((item) => !ids.includes(item.id));
 		const totalDiff = initialQueryLength - r[query.queryName].items.length;
 		r[query.queryName].total -= totalDiff;
 		client.writeQuery({ ...query.options, data: r });

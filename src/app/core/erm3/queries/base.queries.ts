@@ -16,6 +16,7 @@ export class BaseQueries {
 			QueryType.LIST_BY,
 			QueryType.CREATE,
 			QueryType.UPDATE,
+			QueryType.UPDATE_STATUS,
 			QueryType.DELETE
 		]
 	) {

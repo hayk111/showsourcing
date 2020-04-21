@@ -41,7 +41,7 @@ export class QueryBuilder {
 					${AUDIT}
 				}
 			}`;
-	}
+	};
 
 	[QueryType.SEARCH_BY] = (str: string) => (byTypeName: Typename) => {
 		return gql`
@@ -67,7 +67,7 @@ export class QueryBuilder {
 					count
 				}
 			}`;
-	}
+	};
 
 	[QueryType.LIST_BY] = (str: string): Record<string, any> => (byProperty: string) => {
 		const ownerVerbose = byProperty === 'Owner' ? 'User' : ''; // the param for Owner is $ownerUser
@@ -98,7 +98,7 @@ export class QueryBuilder {
 					nextToken
 				}
 			}`;
-	}
+	};
 
 	[QueryType.CREATE] = (str: string) => {
 		return gql`
@@ -110,7 +110,7 @@ export class QueryBuilder {
 					${AUDIT}
 				}
 			}`;
-	}
+	};
 
 	[QueryType.UPDATE] = (str: string) => {
 		return gql`
@@ -122,7 +122,22 @@ export class QueryBuilder {
 					${AUDIT}
 				}
 			}`;
-	}
+	};
+
+	[QueryType.UPDATE_STATUS] = () => {
+		return gql`
+		mutation Update${this.typename}Status(
+			$entityId: ID!
+			$statusId: ID!
+		) {
+			update${this.typename}Status(${this.typename.toLowerCase()}Id: $entityId, statusId: $statusId) {
+				id
+				status {
+					id
+				}
+			}
+  	}`;
+	};
 
 	[QueryType.DELETE] = (str = '') => {
 		return gql`
@@ -134,5 +149,5 @@ export class QueryBuilder {
 					${AUDIT}
 				}
 			}`;
-	}
+	};
 }

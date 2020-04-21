@@ -34,6 +34,7 @@ export class AppComponent implements OnInit {
 	) { }
 
 	ngOnInit(): void {
+
 		this.userSrv.init();
 		this.teamSrv.init();
 		this.companySrv.init();
