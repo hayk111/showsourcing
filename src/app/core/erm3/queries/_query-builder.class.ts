@@ -40,7 +40,7 @@ export class QueryBuilder {
 					${AUDIT}
 				}
 			}`;
-	};
+	}
 
 	[QueryType.SEARCH_BY] = (str: string) => (byTypeName: Typename) => {
 		return gql`
@@ -66,7 +66,7 @@ export class QueryBuilder {
 					count
 				}
 			}`;
-	};
+	}
 
 	[QueryType.LIST_BY] = (str: string): Record<string, any> => (byProperty: string) => {
 		const ownerVerbose = byProperty === 'Owner' ? 'User' : ''; // the param for Owner is $ownerUser
@@ -74,10 +74,7 @@ export class QueryBuilder {
 		const byId = paramEntityName + 'Id';
 
 		let byPropertyString = '';
-
-		if (this.typename !== 'TeamUser') { // temporary solution for TeamUser, as we don't have a query TeamUsers
-			byPropertyString = byProperty  === 'Team' ? 's' : 'By' + byProperty; // listEntity is "by Team" in default
-		}
+		byPropertyString = byProperty  === 'Team' ? 's' : 'By' + byProperty; // listEntity is "by Team" in default
 
 		return gql`
 			query List${this.typename}${byPropertyString}(
@@ -103,7 +100,7 @@ export class QueryBuilder {
 					nextToken
 				}
 			}`;
-	};
+	}
 
 	[QueryType.SYNC] = (str: string): Record<string, any> => {
 		return gql`
@@ -137,7 +134,7 @@ export class QueryBuilder {
 					${AUDIT}
 				}
 			}`;
-	};
+	}
 
 	[QueryType.UPDATE_MANY] = (str: string) => (inputs: any[]) => {
 		const aliasParams = inputs.map((input, i) => `
@@ -155,7 +152,7 @@ export class QueryBuilder {
 			) {
 				${aliasMutations}
 			}`;
-	};
+	}
 
 	[QueryType.UPDATE] = (str: string) => {
 		return gql`
@@ -167,7 +164,7 @@ export class QueryBuilder {
 					${AUDIT}
 				}
 			}`;
-	};
+	}
 
 	[QueryType.DELETE_MANY] = (str: string) => (inputs: any[]) => {
 		const aliasParams = inputs.map((input, i) => `
@@ -184,7 +181,7 @@ export class QueryBuilder {
 			) {
 				${aliasMutation}
 			}`;
-	};
+	}
 
 	[QueryType.DELETE] = (str = '') => {
 		return gql`
@@ -196,5 +193,5 @@ export class QueryBuilder {
 					${AUDIT}
 				}
 			}`;
-	};
+	}
 }

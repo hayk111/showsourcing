@@ -50,7 +50,6 @@ export class TeamService {
 		protected authSrv: AuthenticationService,
 		protected companySrv: CompanyService,
 		protected apiSrv: ApiService,
-		protected userSrv: UserService
 	) {	}
 
 	init() {
