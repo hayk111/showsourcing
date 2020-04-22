@@ -42,7 +42,7 @@ export class QueryBuilder {
 					${AUDIT}
 				}
 			}`;
-	}
+	};
 
 	[QueryType.SEARCH_BY] = (str: string) => (byTypeName: Typename) => {
 		return gql`
@@ -68,7 +68,7 @@ export class QueryBuilder {
 					count
 				}
 			}`;
-	}
+	};
 
 	[QueryType.LIST_BY] = (str: string): Record<string, any> => (byProperty: string) => {
 		const ownerVerbose = byProperty === 'Owner' ? 'User' : ''; // the param for Owner is $ownerUser
@@ -105,7 +105,7 @@ export class QueryBuilder {
 					nextToken
 				}
 			}`;
-	}
+	};
 
 	[QueryType.SYNC] = (str: string): Record<string, any> => {
 		return gql`
@@ -139,7 +139,25 @@ export class QueryBuilder {
 					${AUDIT}
 				}
 			}`;
-	}
+	};
+
+	[QueryType.UPDATE_MANY] = (str: string) => (inputs: any[]) => {
+		const aliasParams = inputs.map((input, i) => `
+			$input${i}: Update${this.typename}Input!`);
+		const aliasMutations = inputs.map(
+			(input, i) => `
+				alias${i}: update${this.typename}(input: $input${i}) {
+					${str}
+					${AUDIT}
+				}`
+		);
+		return gql`
+			mutation UpdateMany${this.typename}(
+				${aliasParams}
+			) {
+				${aliasMutations}
+			}`;
+	};
 
 	[QueryType.UPDATE] = (str: string) => {
 		return gql`
@@ -151,7 +169,24 @@ export class QueryBuilder {
 					${AUDIT}
 				}
 			}`;
-	}
+	};
+
+	[QueryType.DELETE_MANY] = (str: string) => (inputs: any[]) => {
+		const aliasParams = inputs.map((input, i) => `
+			$input${i}: Delete${this.typename}Input!`);
+		const aliasMutation = inputs.map(
+			(input, i) => `
+				alias${i}: delete${this.typename}(input: $input${i}) {
+					${str}
+					${AUDIT}
+				}`);
+		return gql`
+			mutation DeleteMany${this.typename}(
+				${aliasParams}
+			) {
+				${aliasMutation}
+			}`;
+	};
 
 	[QueryType.DELETE] = (str = '') => {
 		return gql`
@@ -163,5 +198,5 @@ export class QueryBuilder {
 					${AUDIT}
 				}
 			}`;
-	}
+	};
 }
