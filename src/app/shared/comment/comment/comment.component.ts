@@ -1,9 +1,8 @@
 import { ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
 import { switchMap } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { CommentService, UserService } from '~core/erm';
-import { Comment, User } from '~core/erm';
+import { UserService } from '~core/auth';
+import { ApiService, Comment } from '~core/erm3';
 
 @Component({
 	selector: 'comment-app',
@@ -13,7 +12,6 @@ import { Comment, User } from '~core/erm';
 })
 export class CommentComponent implements OnInit {
 
-	@Input() user: User;
 	@Input() comment: Comment;
 
 	// if we don't have this viewChild, we cannot send the height of the item, since the HTML doesn't know
@@ -29,14 +27,13 @@ export class CommentComponent implements OnInit {
 	minHeight = 46;
 
 	constructor(
-		private userSrv: UserService,
-		private commentSrv: CommentService,
+		private apiSrv: ApiService,
 		private dlgCommonSrv: DialogCommonService,
-		public translate: TranslateService
+		private userSrv: UserService
 	) { }
 
 	ngOnInit() {
-		this.isMine = this.userSrv.userSync.id === this.user.id;
+		this.isMine = this.userSrv.user.id === this.comment.createdBy.id;
 	}
 
 	urlify(text) {
@@ -57,7 +54,7 @@ export class CommentComponent implements OnInit {
 
 	onSave(text: string) {
 		if (text)
-			this.commentSrv.update({ id: this.comment.id, text }).subscribe();
+			this.apiSrv.update('Comment', { id: this.comment.id, text }).subscribe();
 		this.isEditing = false;
 	}
 
@@ -65,7 +62,7 @@ export class CommentComponent implements OnInit {
 		const text = `Are you sure you want to delete this comment ?`;
 		this.dlgCommonSrv.openConfirmDlg({ text }).data$
 			.pipe(
-				switchMap(_ => this.commentSrv.delete(this.comment.id))
+				switchMap(_ => this.apiSrv.delete('Comment', { id: this.comment.id }))
 			).subscribe();
 	}
 

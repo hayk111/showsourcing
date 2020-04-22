@@ -2,9 +2,8 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
-import { CommentService, ProductService } from '~core/erm';
+import { ApiService, Comment, ObservableQuery } from '~core/erm3';
 import { ListPageService } from '~core/list-page';
-import { Comment, Product } from '~core/erm';
 import { AutoUnsub } from '~utils';
 
 
@@ -13,19 +12,15 @@ import { AutoUnsub } from '~utils';
 	selector: 'activity-page-app',
 	templateUrl: './activity-page.component.html',
 	styleUrls: ['./activity-page.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [
-		ListPageService
-	]
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ActivityPageComponent extends AutoUnsub implements OnInit {
-	product$: Observable<Product>;
-	private product: Product;
+	listRef: ObservableQuery;
+	comments$: Observable<Comment[]>;
 
 	constructor(
 		private route: ActivatedRoute,
-		private productSrv: ProductService,
-		private commentSrv: CommentService
+		private apiSrv: ApiService
 	) {
 		super();
 	}
@@ -34,19 +29,20 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 		const id$ = this.route.parent.params.pipe(
 			map(params => params.id)
 		);
-		this.product$ = id$.pipe(
-			switchMap(id => this.productSrv.selectOne(id)),
-			tap(product => this.product = product)
+		this.comments$ = id$.pipe(
+			// TODO should create rxjs pipe that transform this into a filter
+			// or use the filter service, at least something for some abstraction
+			map(id => ({ filter: { nodeId: { eq: id }}})),
+			map(filter => this.apiSrv.list<Comment>('Comment', { filter })),
+			tap(listRef => this.listRef = listRef),
+			switchMap(listRef => listRef.data$)
 		);
 	}
 
-	sendComment(text: string) {
-		const comment = new Comment({ text });
-		const commentUser = { ...comment };
-		const comments = [...(this.product.comments || [])];
-		comments.push(commentUser);
-		this.commentSrv.create(comment).pipe(
-			switchMap(_ => this.productSrv.update({ id: this.product.id, comments }))
+	sendComment(message: string) {
+		const comment: Comment = { message };
+		this.apiSrv.create<Comment>('Comment', comment).pipe(
+			tap(created => this.apiSrv.addToList(this.listRef, created))
 		).subscribe();
 	}
 

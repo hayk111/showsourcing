@@ -42,6 +42,21 @@ export class QueryBuilder {
 			}`;
 	}
 
+	// get
+	[QueryType.LIST] = (str: string) => {
+		return gql`
+			query List${this.typename}s(
+				$id: ID!
+			) {
+				list${this.typename}s(
+					id: $id
+				) {
+					${str}
+					${AUDIT}
+				}
+			}`;
+	}
+
 	[QueryType.SEARCH_BY] = (str: string) => (byTypeName: Typename) => {
 		return gql`
 			query Search${this.typename}sBy${byTypeName}s(
@@ -74,8 +89,9 @@ export class QueryBuilder {
 		const byId = paramEntityName + 'Id';
 
 		let byPropertyString = '';
-		byPropertyString = byProperty  === 'Team' ? 's' : 'By' + byProperty; // listEntity is "by Team" in default
-
+		if (this.typename !== 'TeamUser') { // temporary solution for TeamUser, as we don't have a query TeamUsers
+			byPropertyString = byProperty  === 'Team' ? 's' : 'By' + byProperty; // listEntity is "by Team" in default
+		}
 		return gql`
 			query List${this.typename}${byPropertyString}(
 				${this.typename === 'PropertyOption' ? '$type: ModelStringKeyConditionInput' : ''}

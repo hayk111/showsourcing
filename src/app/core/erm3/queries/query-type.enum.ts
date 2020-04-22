@@ -10,6 +10,7 @@ export enum QueryType {
 	DELETE = 'delete',
 	DELETE_MANY = 'deleteMany',
 	LIST_BY = 'listBy',
+	LIST = 'list',
 	SYNC = 'sync',
 }
 

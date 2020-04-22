@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { MutationOptions } from 'apollo-client';
 import { ObservableQuery as ApolloObservableQuery, WatchQueryOptions } from 'apollo-client';
 import { from, Observable } from 'rxjs';
-import { filter, map, tap } from 'rxjs/operators';
+import { filter, map, tap, take } from 'rxjs/operators';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { uuid } from '~utils';
 import { log } from '~utils/log';
@@ -103,7 +103,10 @@ export class ApiService {
 		delete options.variables.input?.__typename;
 		return from(client.mutate(options)).pipe(
 			map(({ data }) => data[queryName] || data), // if we use aliases, there is no queryName
-			tap((data) => ApiLogger.logResponse(options, data))
+			tap((data) => ApiLogger.logResponse(options, data)),
+			// optimistic + non optimistic
+			// TODO should close when server responds in case there is not an optimistic
+			take(2)
 		);
 	}
 
@@ -179,9 +182,36 @@ export class ApiService {
 	): ObservableQuery<T[]> {
 		const options = apiOptions as WatchQueryOptions;
 		options.variables = { byId, limit: 10000 };
-		const queryBuilder = QueryPool.getQuery(typename, QueryType.LIST_BY); // the listBy get a method to build the query
-		options.query = queryBuilder(byProperty);
+		const queryFn = QueryPool.getQuery(typename, QueryType.LIST_BY); // the listBy get a method to build the query
+		options.query = queryFn(byProperty);
 		return this.query<T[]>(options);
+	}
+
+		/////////////////////////////
+	//         LIST            //
+	/////////////////////////////
+	/**
+	 * Query many entities
+	 * (Query, optimistic UI)
+	 * @param typename: the type listed
+	 * @param variables: variables for filtering, sorting, and paginate
+	 * @param options: apollo options, variable and query will be overrided
+	 */
+	list<T>(
+		typename: Typename,
+		variables: FilterParams = {},
+		apiOptions: ApiQueryOption = {fetchPolicy: 'cache-and-network'},
+	): ObservableQuery<T[]> {
+		const options = apiOptions as WatchQueryOptions;
+		if (!variables.sort?.direction)
+			variables.sort = { property: 'createdAt', direction: 'DESC' };
+
+		const query = QueryPool.getQuery(typename, QueryType.LIST);
+
+		options.query = query;
+		options.variables = variables;
+
+		return this.query(options, true);
 	}
 
 	/////////////////////////////
