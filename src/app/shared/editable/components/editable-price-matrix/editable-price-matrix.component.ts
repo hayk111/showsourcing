@@ -25,20 +25,4 @@ export class EditablePriceMatrixComponent extends AbstractInput {
 		this.value.push({});
 	}
 
-	closeCell(row: number, col: number) {
-		this.openedCell = [];
-	}
-
-	openCell(row: number, col: number) {
-		this.openedCell[0] = row;
-		this.openedCell[1] = col;
-	}
-
-	isCellOpened(row: number, col: number) {
-		return this.openedCell[0] === row && this.openedCell[1] === col;
-	}
-
-	isCellClosed(row: number, col: number) {
-		return !this.isCellOpened(row, col);
-	}
 }

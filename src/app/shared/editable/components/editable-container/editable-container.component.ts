@@ -13,7 +13,8 @@ import { InputDirective } from '~shared/inputs';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	host: {
 		'[class.open]': 'isOpen',
-		'[class.clickable]': '!isOpen && !readonly'
+		'[class.clickable]': '!isOpen && !readonly',
+		'[class.with-overflow]': 'hasOverflow'
 	}
 })
 export class EditableContainerComponent {
@@ -23,6 +24,8 @@ export class EditableContainerComponent {
 	@Input() closeOnOutsideClick = true;
 	/** whether we display cancel / save buttons */
 	@Input() hasAction = true;
+	/** whether there is an overflowing background on hover */
+	@Input() hasOverflow = true;
 	@Output() opened = new EventEmitter<null>();
 	@Output() closed = new EventEmitter<null>();
 	@Output() saved = new EventEmitter<null>();

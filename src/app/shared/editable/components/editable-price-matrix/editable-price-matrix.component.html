@@ -5,12 +5,12 @@
 	<!-- we might have to not use the editable-container and 
 		make something more custom here if further change is required
 	 -->
-	<!-- label -->
-	<div class="clickable label-ctnr" (click)="openCell(i, 0); inp.focus()">
-		<span *ngIf="isCellClosed(i, 0); else inp">
-			{{ value[i].label || 'Label'}}
-		</span>
-		<ng-template #inp>
+	 <!-- label -->
+	<editable-container-app 
+		#edtLabel 
+		class="label-ctnr" 
+		[hasOverflow]="false">
+		<editable-value-app>{{ value[i].label || 'Label'}}</editable-value-app>
 			<input
 				#inp
 				class="inline" 
@@ -19,29 +19,29 @@
 				[(ngModel)]="value[i].label"
 				(change)="onChangeFn(value)"
 				(blur)="onTouchedFn()"
-				(keyup.enter)="closeCell(i, 0)"/>
-		</ng-template>
-	</div>
+				(keyup.enter)="edtLabel.close()"/>
+	</editable-container-app>
 	<!-- amount -->
-	<div class="clickable price-ctnr" (click)="openCell(i, 1)">
-		<span *ngIf="isCellClosed(i, 1); else inp">
+	<editable-container-app 
+		#edtPrice 
+		class="label-ctnr" 
+		[hasOverflow]="false">
+		<editable-value-app>
 			{{ 
 				value[i] && value[i].value ? 
 				value[i].value + ' ' + value[i].currency :
 				'Price'	
-			}}		
-		</span>
-		<ng-template #inp>
+			}}	
+		</editable-value-app>
 			<input-price2-app 
 				#priceInp
 				name="price"
 				[(ngModel)]="value[i]"
 				(change)="onChangeFn(value)"
 				(blur)="onTouchedFn()"
-				(keyup.enter)="closeCell(i, 1)">
+				(keyup.enter)="edtPrice.close()">
 			</input-price2-app>
-		</ng-template>
-	</div>
+		</editable-container-app>
 
 </div>
 
