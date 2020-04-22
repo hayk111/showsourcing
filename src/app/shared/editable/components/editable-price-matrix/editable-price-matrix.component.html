@@ -9,10 +9,11 @@
 	<editable-container-app 
 		#edtLabel 
 		class="label-ctnr" 
-		[hasOverflow]="false">
+		[hasOverflow]="false"
+		(opened)="inpLabel.focus()">
 		<editable-value-app>{{ value[i].label || 'Label'}}</editable-value-app>
 			<input
-				#inp
+				#inpLabel
 				class="inline" 
 				name="label"
 				inputApp
@@ -24,9 +25,10 @@
 	<!-- amount -->
 	<editable-container-app 
 		#edtPrice 
-		class="label-ctnr" 
-		[hasOverflow]="false">
-		<editable-value-app>
+		class="price-ctnr" 
+		[hasOverflow]="false"
+		(opened)="inpPrice.focus()">
+		<editable-value-app class="amount-display fullWidth">
 			{{ 
 				value[i] && value[i].value ? 
 				value[i].value + ' ' + value[i].currency :
@@ -34,7 +36,7 @@
 			}}	
 		</editable-value-app>
 			<input-price2-app 
-				#priceInp
+				#inpPrice
 				name="price"
 				[(ngModel)]="value[i]"
 				(change)="onChangeFn(value)"
@@ -47,7 +49,14 @@
 
 <button 
 	type="button" 
-	class="mg-v-ms small" 
+	class="mg-v-ms mg-right-s small" 
 	(click)="addPrice()">
 	+
+</button>
+<button 
+	*ngIf="value.length > 1"
+	type="button" 
+	class="mg-v-ms small warn" 
+	(click)="removePrice()">
+	-
 </button>

@@ -12,6 +12,13 @@
 	</input-price2-app>
 </div>
 
-<button class="mg-bottom-ms" (click)="addRow()">
+<button class="small mg-bottom-ms mg-right-ms" (click)="addRow()">
 	+
+</button>
+<button 
+	*ngIf="value.length > 1"
+	type="button" 
+	class="mg-v-ms small warn" 
+	(click)="removePrice()">
+	-
 </button>

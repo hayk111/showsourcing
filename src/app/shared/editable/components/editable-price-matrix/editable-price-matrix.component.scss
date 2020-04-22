@@ -1,9 +1,16 @@
 .ctnr {
 	border-bottom: 1px solid var(--color-divider);
-	editable-container-app {
-		// so the border bottom overlaps
-		margin-bottom: -2px; 
+	height: 24px;
+	editable-value-app, input {
+		padding: 4px 0;
 	}
+	input-price2-app {
+		margin-top: 5px;
+	}
+	.label-ctnr {
+		margin-bottom: 2px;
+	}
+
 }
 
 .amount-display {
@@ -11,5 +18,7 @@
 }
 
 .label-ctnr, .price-ctnr {
-	width: 50%
+	flex-basis: 50%;
+	flex-grow: 1;
+	width: unset;
 }
