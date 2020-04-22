@@ -126,7 +126,6 @@ export class SupplierRequestDialogComponent extends AutoUnsub implements OnInit,
 	}
 
 	private setMessage() {
-		// TODO i18n
 		let event;
 		const firstName = this.userSrv.userSync.firstName || '';
 		const lastName = this.userSrv.userSync.lastName || '';
