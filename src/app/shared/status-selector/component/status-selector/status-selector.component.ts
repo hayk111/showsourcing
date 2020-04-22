@@ -8,6 +8,7 @@ import { AutoUnsub, StatusUtils } from '~utils';
 import { StatusSelectorService } from '../../service/status-selector.service';
 import { Status } from '~core/erm';
 import { Typename } from '~core/erm3/typename.type';
+import { ListFuseHelperService } from '~core/list-page2';
 
 @Component({
 	selector: 'status-selector-app',
@@ -50,17 +51,18 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 	@ViewChild(ContextMenuComponent, { static: false }) menu: ContextMenuComponent;
 	/** string[] since tasks does not have a status entity */
 	status$: Observable<ProductStatus[] | SupplierStatus[] | SampleStatus[]>;
-	erm = ERM;
 	statusUtils = StatusUtils;
 
 	constructor(
-		private statusSlctSrv: StatusSelectorService
+		private fuseHelperSrv: ListFuseHelperService
 	) {
 		super();
 	}
 
 	ngOnInit() {
-		this.status$ = this.statusSlctSrv.getTableStatus(this.typename);
+		// this.status$ = this.statusSlctSrv.getTableStatus(this.typename);
+		this.fuseHelperSrv.setup('WorkflowStatus');
+		this.status$ = this.fuseHelperSrv.paginedItems$;
 		this.status$.pipe(takeUntil(this._destroy$))
 			.subscribe(statuses => {
 				this.statuses = statuses.map((status) => {
@@ -71,60 +73,60 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 	}
 
 	updateStatus(status: Status) {
-		if (!this.internalUpdate) {
-			this.statusUpdated.emit(status);
-		} else if (status && status.id !== this.entity.status.id) {
-			// we dont update if we click the same
-			this.statusSlctSrv.updateStatus({
-				id: this.entity.id,
-				// if we only put the id here, the preview will have issues,
-				// since it will recieve 2 updated (1 with only the id and 1 with the full entity from the cache)
-				status
-			},
-				this.typename
-			).subscribe(_ => this.statusUpdated.emit(status));
-		} else { // status null
-			this.statusSlctSrv.updateStatus({
-				id: this.entity.id,
-				status: null
-			}, this.typename).subscribe(_ => this.statusUpdated.emit(null));
-		}
+		// if (!this.internalUpdate) {
+		// 	this.statusUpdated.emit(status);
+		// } else if (status && status.id !== this.entity.status.id) {
+		// 	// we dont update if we click the same
+		// 	this.statusSlctSrv.updateStatus({
+		// 		id: this.entity.id,
+		// 		// if we only put the id here, the preview will have issues,
+		// 		// since it will recieve 2 updated (1 with only the id and 1 with the full entity from the cache)
+		// 		status
+		// 	},
+		// 		this.typename
+		// 	).subscribe(_ => this.statusUpdated.emit(status));
+		// } else { // status null
+		// 	this.statusSlctSrv.updateStatus({
+		// 		id: this.entity.id,
+		// 		status: null
+		// 	}, this.typename).subscribe(_ => this.statusUpdated.emit(null));
+		// }
 	}
 
 	setStatus(status) {
-		if (this.internalUpdate) {
-			this.statusSlctSrv.updateStatus({
-				id: this.entity.id,
-				status: { id: status.id, __typename: status.__typename }
-			}, this.typename
-			).subscribe();
-		}
-		this.statusUpdated.emit(status);
+		// if (this.internalUpdate) {
+		// 	this.statusSlctSrv.updateStatus({
+		// 		id: this.entity.id,
+		// 		status: { id: status.id, __typename: status.__typename }
+		// 	}, this.typename
+		// 	).subscribe();
+		// }
+		// this.statusUpdated.emit(status);
 
 	}
 
 	// this is only done for tasks since we don't have it on the DB
 	updateTask(done: boolean) {
-		if (this.canUpdate) {
-			this.statusSlctSrv.updateTask({ id: this.entity.id, done });
-			this.statusUpdated.emit(done);
-		}
+		// if (this.canUpdate) {
+		// 	this.statusSlctSrv.updateTask({ id: this.entity.id, done });
+		// 	this.statusUpdated.emit(done);
+		// }
 	}
 
 	updateProject(done: boolean) {
-		this.statusSlctSrv.updateProject({ id: this.entity.id, done });
+		// this.statusSlctSrv.updateProject({ id: this.entity.id, done });
 	}
 
 	openMenu() {
-		if (this.menu) {
-			this.menu.openMenu();
-		}
+		// if (this.menu) {
+		// 	this.menu.openMenu();
+		// }
 	}
 
 	closeMenu() {
-		if (this.menu) {
-			this.menu.closeMenu();
-		}
+		// if (this.menu) {
+		// 	this.menu.closeMenu();
+		// }
 	}
 
 	isLast() {

@@ -1,5 +1,5 @@
 <!-- multiple entity update selection does not need an entity, since we update outside -->
-<ng-container *ngIf="canUpdate && (entity || type === 'multiple-selection') && typeEntity !== erm.TASK && typeEntity !== erm.PROJECT">
+<ng-container *ngIf="canUpdate && (entity || type === 'multiple-selection') && typename !== 'Task' && typename !== 'Project'">
 	<context-menu-app
 		*ngIf="entity?.status || type === 'multiple-selection'"
 		class="menu-status {{selectSize}}"
@@ -13,7 +13,7 @@
 					class="pointer"
 					[displayStep]="displayStep"
 					[status]="entity?.status"
-					[typeEntity]="typeEntity"
+					[typeEntity]="typename"
 					[size]="selectSize">
 				</status-badge-app>
 			</ng-container>
@@ -38,7 +38,7 @@
 
 		<!-- status null we add on top -->
 		<context-menu-item-app (click)="updateStatus(null)">
-			<status-selector-item-app [type]="typeEntity"></status-selector-item-app>
+			<status-selector-item-app [type]="typename"></status-selector-item-app>
 		</context-menu-item-app>
 		<context-menu-item-app *ngFor="let stat of (status$ | async); last as last; trackBy: trackByFn" (click)="updateStatus(stat)">
 			<status-selector-item-app [status]="stat"></status-selector-item-app>
@@ -78,7 +78,7 @@
 
 <!-- specific for task since we dont have the status on the DB we just have done, over-due and pending -->
 <task-status-badge-app
-	*ngIf="typeEntity === erm.TASK && canUpdate"
+	*ngIf="typename === 'Task' && canUpdate"
 	[task]="entity"
 	[size]="selectSize"
 	(update)="updateTask($event)">
@@ -88,6 +88,6 @@
 	*ngIf="!canUpdate"
 	class="pointer"
 	[status]="entity?.status"
-	[typeEntity]="typeEntity"
+	[typeEntity]="typename"
 	[size]="selectSize">
 </status-badge-app>

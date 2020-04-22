@@ -123,7 +123,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 		this.filterSrv.setup([], ['name']);
 
 		if (this.typename === 'PropertyOption') {
-			this.choices$ = this.propertyOptionSrv.listPropertyOptions(this.customType);
+			this.choices$ = this.propertyOptionSrv.listPropertyOptions(this.customType as Typename);
 			this.cd.markForCheck();
 		} else {
 			if (isLocalList(this.typename)) {
