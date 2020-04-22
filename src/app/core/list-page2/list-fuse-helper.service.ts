@@ -150,7 +150,13 @@ export class ListFuseHelperService<G = any> {
 
 	deleteSelected() {
 		const selecteds = this.selectionSrv.getSelectedValues();
-		selecteds.map((entity) => this.apiSrv.delete(this.typename, entity));
+		this.apiSrv.deleteMany(this.typename, selecteds).subscribe((_) => {
+			this.apiSrv.deleteManyFromList(
+				this.queryRef,
+				selecteds.map((el) => el.id)
+			);
+			this.selectionSrv.unselectAll();
+		});
 		selecteds.map((deleted) => this.apiSrv.deleteManyFromList(this.queryRef, [deleted.id]));
 		this.selectionSrv.unselectAll();
 	}

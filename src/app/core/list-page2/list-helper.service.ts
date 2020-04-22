@@ -97,10 +97,10 @@ export class ListHelperService<G = any> {
 
 	updateSelected(entity) {
 		const selected = this.selectionSrv.getSelectedValues();
-		const all = selected.map(ent => this.apiSrv.update(this.typename, { id: ent.id, ...entity}));
-		forkJoin(all).pipe(
-			switchMap(_ => this.refetch())
-		).subscribe();
+		this.apiSrv.updateMany(this.typename, selected.map(ent => ({ id: ent.id, ...entity})))
+			.pipe(
+				switchMap(_ => this.refetch())
+			).subscribe();
 	}
 
 	delete(entity: any) {
@@ -111,10 +111,10 @@ export class ListHelperService<G = any> {
 
 	deleteSelected() {
 		const selected = this.selectionSrv.getSelectedValues();
-		const all = selected.map(entity => this.apiSrv.delete(this.typename, entity));
-		forkJoin(all).pipe(
-			switchMap(_ => this.refetch())
-		).subscribe();
+		this.apiSrv.deleteMany(this.typename, selected)
+			.pipe(
+				switchMap(_ => this.refetch())
+			).subscribe(_ => this.selectionSrv.unselectAll());
 	}
 
 	loadMore() {
