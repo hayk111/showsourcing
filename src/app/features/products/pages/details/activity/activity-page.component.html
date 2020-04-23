@@ -1,5 +1,5 @@
 <h2 class="l">Comments</h2>
-
+{{ comments$ | async | json }}
 <ng-container *ngIf="comments$ | async as comments; else spinner">
 	<add-comment-app #comment 
 		(added)="sendComment($event)">

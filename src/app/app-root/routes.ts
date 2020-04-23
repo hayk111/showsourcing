@@ -3,6 +3,7 @@ import { GuestTemplateComponent, TemplateComponent } from '~shared/template/comp
 import { DevModeGuard } from '~utils/dev-mode.guard';
 import { HasTeamSelectedGuard } from '~features/auth/services';
 import { AuthenticatedGuard } from '~core/auth/guards';
+import { HasUserGuard } from '~core/auth/guards/has-user.guard';
 
 export const routes: Array<Route> = [
 	{
@@ -34,7 +35,8 @@ export const routes: Array<Route> = [
 		component: TemplateComponent,
 		canActivateChild: [
 			AuthenticatedGuard,
-			HasTeamSelectedGuard
+			HasTeamSelectedGuard,
+			HasUserGuard
 		],
 		children: [
 			{ path: '', redirectTo: 'samples', pathMatch: 'full' },

@@ -52,9 +52,9 @@ export class CommentComponent implements OnInit {
 		this.currentHeight = height + 26; // +26 is for the padding inside the textarea
 	}
 
-	onSave(text: string) {
-		if (text)
-			this.apiSrv.update('Comment', { id: this.comment.id, text }).subscribe();
+	onSave(message: string) {
+		if (message)
+			this.apiSrv.update('Comment', { id: this.comment.id, message }).subscribe();
 		this.isEditing = false;
 	}
 

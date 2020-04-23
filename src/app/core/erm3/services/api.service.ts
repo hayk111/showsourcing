@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { MutationOptions } from 'apollo-client';
 import { ObservableQuery as ApolloObservableQuery, WatchQueryOptions } from 'apollo-client';
 import { from, Observable } from 'rxjs';
-import { filter, map, tap, take } from 'rxjs/operators';
+import { filter, map, tap, take, startWith } from 'rxjs/operators';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { uuid } from '~utils';
 import { log } from '~utils/log';
@@ -104,9 +104,8 @@ export class ApiService {
 		return from(client.mutate(options)).pipe(
 			map(({ data }) => data[queryName] || data), // if we use aliases, there is no queryName
 			tap((data) => ApiLogger.logResponse(options, data)),
-			// optimistic + non optimistic
-			// TODO should close when server responds in case there is not an optimistic
-			take(2)
+			startWith(options.variables.input),
+			take(1)
 		);
 	}
 
@@ -197,22 +196,22 @@ export class ApiService {
 	 * @param variables: variables for filtering, sorting, and paginate
 	 * @param options: apollo options, variable and query will be overrided
 	 */
-	list<T>(
-		typename: Typename,
-		variables: FilterParams = {},
-		apiOptions: ApiQueryOption = {fetchPolicy: 'cache-and-network'},
-	): ObservableQuery<T[]> {
-		const options = apiOptions as WatchQueryOptions;
-		if (!variables.sort?.direction)
-			variables.sort = { property: 'createdAt', direction: 'DESC' };
+	// list<T>(
+	// 	typename: Typename,
+	// 	variables: FilterParams = {},
+	// 	apiOptions: ApiQueryOption = {fetchPolicy: 'cache-and-network'},
+	// ): ObservableQuery<T[]> {
+	// 	const options = apiOptions as WatchQueryOptions;
+	// 	if (!variables.sort?.direction)
+	// 		variables.sort = { property: 'createdAt', direction: 'DESC' };
 
-		const query = QueryPool.getQuery(typename, QueryType.LIST);
+	// 	const query = QueryPool.getQuery(typename, QueryType.LIST);
 
-		options.query = query;
-		options.variables = variables;
+	// 	options.query = query;
+	// 	options.variables = variables;
 
-		return this.query(options, true);
-	}
+	// 	return this.query(options, true);
+	// }
 
 	/////////////////////////////
 	//        SYNC        //
@@ -386,9 +385,14 @@ export class ApiService {
 	 **/
 	addToList(query: ObservableQuery, elem: any) {
 		const r: any = client.readQuery(query.options);
-		const items = r[query.queryName].items;
-		r[query.queryName].items = [elem, ...items.filter((item) => item.id !== elem.id)];
-		if (r[query.queryName].items.length === items.length + 1) r[query.queryName].total++;
+		const queryResult = r[query.queryName];
+		const items = queryResult.items;
+		queryResult.items = [
+			elem,
+			...items.filter((item) => item.id !== elem.id)
+		];
+		if (queryResult.items.length === items.length + 1)
+		queryResult.total++;
 		client.writeQuery({ ...query.options, data: r });
 	}
 

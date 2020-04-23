@@ -42,21 +42,6 @@ export class QueryBuilder {
 			}`;
 	}
 
-	// get
-	[QueryType.LIST] = (str: string) => {
-		return gql`
-			query List${this.typename}s(
-				$id: ID!
-			) {
-				list${this.typename}s(
-					id: $id
-				) {
-					${str}
-					${AUDIT}
-				}
-			}`;
-	}
-
 	[QueryType.SEARCH_BY] = (str: string) => (byTypeName: Typename) => {
 		return gql`
 			query Search${this.typename}sBy${byTypeName}s(

@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap, tap, mergeMap } from 'rxjs/operators';
 import { ApiService, Comment, ObservableQuery } from '~core/erm3';
-import { ListPageService } from '~core/list-page';
+import { customQueries } from '~core/erm3/queries/custom-queries';
 import { AutoUnsub } from '~utils';
 
 
@@ -17,6 +17,7 @@ import { AutoUnsub } from '~utils';
 export class ActivityPageComponent extends AutoUnsub implements OnInit {
 	listRef: ObservableQuery;
 	comments$: Observable<Comment[]>;
+	private nodeId: string;
 
 	constructor(
 		private route: ActivatedRoute,
@@ -26,23 +27,19 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		const id$ = this.route.parent.params.pipe(
-			map(params => params.id)
-		);
-		this.comments$ = id$.pipe(
-			// TODO should create rxjs pipe that transform this into a filter
-			// or use the filter service, at least something for some abstraction
-			map(id => ({ filter: { nodeId: { eq: `Product:${id}` }}})),
-			map(filter => this.apiSrv.list<Comment>('Comment', { filter })),
-			tap(listRef => this.listRef = listRef),
-			switchMap(listRef => listRef.data$)
-		);
+		const id = this.route.snapshot.parent.params.id;
+		this.nodeId = `Product:${id}`;
+		this.listRef = this.apiSrv.query<Comment[]>({
+				query: customQueries.comments,
+				variables: { nodeId: this.nodeId }
+			}, true);
+		this.comments$ = this.listRef.data$;
 	}
 
 	sendComment(message: string) {
-		const comment: Comment = { message };
+		const comment: Comment = { message, nodeId: this.nodeId };
 		this.apiSrv.create<Comment>('Comment', comment).pipe(
-			tap(created => this.apiSrv.addToList(this.listRef, created))
+			tap(created => this.apiSrv.addToList(this.listRef, created)),
 		).subscribe();
 	}
 

@@ -17,7 +17,6 @@ export class BaseQueries {
 			QueryType.UPDATE_MANY,
 			QueryType.DELETE,
 			QueryType.DELETE_MANY,
-			QueryType.LIST
 		]
 	) {
 		queries.forEach((queryType) => {
