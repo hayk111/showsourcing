@@ -32,7 +32,7 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 		this.comments$ = id$.pipe(
 			// TODO should create rxjs pipe that transform this into a filter
 			// or use the filter service, at least something for some abstraction
-			map(id => ({ filter: { nodeId: { eq: id }}})),
+			map(id => ({ filter: { nodeId: { eq: `Product:${id}` }}})),
 			map(filter => this.apiSrv.list<Comment>('Comment', { filter })),
 			tap(listRef => this.listRef = listRef),
 			switchMap(listRef => listRef.data$)
