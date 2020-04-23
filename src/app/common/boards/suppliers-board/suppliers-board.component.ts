@@ -72,27 +72,27 @@ export class SuppliersBoardComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		const filters$ = this.filterSrv.filterList.valueChanges$.pipe(
-			takeUntil(this._destroy$)
-		);
+		// const filters$ = this.filterSrv.filterList.valueChanges$.pipe(
+		// 	takeUntil(this._destroy$)
+		// );
 
-		const statuses$ = this.supplierStatusSrv
-			.queryAll(undefined, {
-				sortBy: 'step',
-				descending: false
-			})
-			.pipe(
-				first(),
-				tap(statuses => this.kanbanSrv.setColumnsFromStatus(statuses))
-			);
+		// const statuses$ = this.supplierStatusSrv
+		// 	.queryAll(undefined, {
+		// 		sortBy: 'step',
+		// 		descending: false
+		// 	})
+		// 	.pipe(
+		// 		first(),
+		// 		tap(statuses => this.kanbanSrv.setColumnsFromStatus(statuses))
+		// 	);
 
-		combineLatest(filters$, statuses$)
-			.pipe(
-				mergeMap(([filterList, statuses]) =>
-					combineLatest(...this.getSupplierColumns(statuses, filterList))
-				)
-			)
-			.subscribe(columns => this.kanbanSrv.setData(columns));
+		// combineLatest(filters$, statuses$)
+		// 	.pipe(
+		// 		mergeMap(([filterList, statuses]) =>
+		// 			combineLatest(...this.getSupplierColumns(statuses, filterList))
+		// 		)
+		// 	)
+		// 	.subscribe(columns => this.kanbanSrv.setData(columns));
 	}
 
 	loadMore(col: KanbanColumn) {

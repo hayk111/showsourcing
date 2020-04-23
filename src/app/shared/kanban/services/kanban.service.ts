@@ -2,7 +2,7 @@ import { moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Status } from '~core/erm';
+import { WorkflowStatus } from '~core/erm3/models';
 import { ConstPipe } from '~shared/utils/pipes/const.pipe';
 import { StatusUtils } from '~utils';
 
@@ -39,7 +39,7 @@ export class KanbanService {
 	}
 
 	/** converts an array of status to kanban columns */
-	setColumnsFromStatus(statuses: Status[]) {
+	setColumnsFromStatus(statuses: WorkflowStatus[]) {
 		const columns = statuses.map(status => this.statusToKanbanCol(status));
 		this.kanbanConfig = this.mapFromArray(columns);
 		this._kanbanConfig$.next(this.kanbanConfig);
@@ -54,7 +54,7 @@ export class KanbanService {
 	 * @param totalData: number total data for that column
 	 */
 	private statusToKanbanCol(
-		status: Status,
+		status: WorkflowStatus,
 		data: any[] = [],
 		totalData = 0): KanbanColumn {
 		const constPipe = new ConstPipe();

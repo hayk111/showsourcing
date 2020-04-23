@@ -76,9 +76,7 @@ export class QueryBuilder {
 
 		let byPropertyString = '';
 
-		if (this.typename !== 'TeamUser') { // temporary solution for TeamUser, as we don't have a query TeamUsers
-			byPropertyString = byProperty  === 'Team' ? '' : 'By' + byProperty; // listEntity is "by Team" in default
-		}
+		byPropertyString = byProperty === 'Team' ? '' : 'By' + byProperty; // listEntity is "by Team" in default
 
 		return gql`
 			query List${this.typename}${byPropertyString}(
@@ -126,7 +124,7 @@ export class QueryBuilder {
 						nextToken
 				  }
 			}`;
-	}
+	};
 
 	[QueryType.CREATE] = (str: string) => {
 		return gql`
