@@ -13,6 +13,7 @@ import * as Pages from './pages';
 import { routes } from './routes';
 import { DescriptorPageComponent } from './pages/component-library/descriptor-page/descriptor-page.component';
 import { FormsModule } from '@angular/forms';
+import { StatusComponent } from './pages/component-library/status/status.component';
 
 
 
@@ -59,6 +60,7 @@ import { FormsModule } from '@angular/forms';
 		Pages.SpacingPageComponent,
 		Pages.TablePageComponent,
 		Pages.TypographyPageComponent,
+		StatusComponent,
 	],
 	exports: [],
 	providers: []
