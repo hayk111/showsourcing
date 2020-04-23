@@ -40,8 +40,8 @@ export interface FilterParams {
 	skip?: number;
 }
 
-export type ApiQueryOption = Partial<Omit<WatchQueryOptions, 'variables' | 'query'>>;
-export type ApiMutationOption = Partial<Omit<MutationOptions, 'variables' | 'mutation'>>;
+export type ApiQueryOption = Partial<Omit<WatchQueryOptions, 'query'>>;
+export type ApiMutationOption = Partial<Omit<MutationOptions, 'mutation'>>;
 
 /**
  * service to do crud operations on entities
@@ -177,7 +177,7 @@ export class ApiService {
 		apiOptions: ApiQueryOption = {}
 	): ObservableQuery<T[]> {
 		const options = apiOptions as WatchQueryOptions;
-		options.variables = { byId, limit: 10000 };
+		options.variables = { ...options.variables, byId, limit: 10000 };
 		const queryBuilder = QueryPool.getQuery(typename, QueryType.LIST_BY); // the listBy get a method to build the query
 		options.query = queryBuilder(byProperty);
 		return this.query<T[]>(options);
@@ -238,7 +238,7 @@ export class ApiService {
 			entity.teamId = this._teamId;
 		}
 
-		options.variables = { input: { ...entity } };
+		options.variables = { ...options.variables, input: { ...entity } };
 		return this.mutate(options);
 	}
 
@@ -263,7 +263,7 @@ export class ApiService {
 			// entity.lastUpdatedByUserId = this._userId;
 			entity.teamId = this._teamId;
 		}
-		options.variables = { input: entity };
+		options.variables = { ...options.variables, input: entity };
 		options.mutation = QueryPool.getQuery(typename, QueryType.UPDATE);
 		options.optimisticResponse = this.getOptimisticResponse(options);
 		return this.mutate(options);
@@ -281,7 +281,7 @@ export class ApiService {
 		apiOptions: ApiMutationOption = {}
 	) {
 		const options = apiOptions as MutationOptions;
-		options.variables = { entityId, statusId };
+		options.variables = { ...options.variables, entityId, statusId };
 		options.mutation = QueryPool.getQuery(typename, QueryType.UPDATE_STATUS);
 		// set inputs for optimistic response
 		options.variables.input = {
@@ -319,6 +319,7 @@ export class ApiService {
 	): Observable<T> {
 		const options = apiOptions as MutationOptions;
 		options.variables = {
+			...options.variables,
 			input: { id: entity.id, _version: entity._version },
 		};
 		if (typename !== 'Company' && typename !== 'Team' && typename !== 'PropertyOption' && typename !== 'Invitation') {

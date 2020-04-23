@@ -15,11 +15,10 @@ import { ListFuseHelperService } from '~core/list-page2';
 	templateUrl: './status-selector.component.html',
 	styleUrls: ['./status-selector.component.scss'],
 	host: {
-		class: 'flex pointer'
-	}
+		class: 'flex pointer',
+	},
 })
 export class StatusSelectorComponent extends AutoUnsub implements OnInit {
-
 	@Input() typename: Typename;
 	@Input() displayStep = false;
 	/** In this case its alwaysgoing to be a product, sample, supplier or task */
@@ -33,7 +32,12 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 		if (value) {
 			// status null with this name we use the same pipe for translation
 			const name = 'New-' + this.typename;
-			status = value.status || { id: StatusUtils.NEW_STATUS_ID, category: StatusUtils.DEFAULT_STATUS_CATEGORY, name, step: 0 };
+			status = value.status || {
+				id: StatusUtils.NEW_STATUS_ID,
+				category: StatusUtils.DEFAULT_STATUS_CATEGORY,
+				name,
+				step: 0,
+			};
 			this._entity = { ...value, status };
 		}
 	}
@@ -53,23 +57,26 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 	status$: Observable<ProductStatus[] | SupplierStatus[] | SampleStatus[]>;
 	statusUtils = StatusUtils;
 
-	constructor(
-		private fuseHelperSrv: ListFuseHelperService
-	) {
+	constructor(private fuseHelperSrv: ListFuseHelperService) {
 		super();
 	}
 
 	ngOnInit() {
-		// this.status$ = this.statusSlctSrv.getTableStatus(this.typename);
-		this.fuseHelperSrv.setup('WorkflowStatus');
+		const statusType = this.typename.toUpperCase(); // PRODUCT | TASK | ...
+		const statusQueryOptions = {
+			variables: {
+				filter: { type: { eq: statusType } },
+			},
+		};
+		// this will be updated with the new query lists
+		this.fuseHelperSrv.setup('WorkflowStatus', undefined, undefined, statusQueryOptions);
 		this.status$ = this.fuseHelperSrv.paginedItems$;
-		this.status$.pipe(takeUntil(this._destroy$))
-			.subscribe(statuses => {
-				this.statuses = statuses.map((status) => {
-					status.name = status.name.toLowerCase().replace(' ', '-');
-					return status;
-				});
+		this.status$.pipe(takeUntil(this._destroy$)).subscribe((statuses) => {
+			this.statuses = statuses.map((status) => {
+				status.name = status.name.toLowerCase().replace(' ', '-');
+				return status;
 			});
+		});
 	}
 
 	updateStatus(status: Status) {
@@ -102,7 +109,6 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 		// 	).subscribe();
 		// }
 		// this.statusUpdated.emit(status);
-
 	}
 
 	// this is only done for tasks since we don't have it on the DB
@@ -143,7 +149,7 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 
 	getNextStatus() {
 		const nextStep = this.entity.status.step + 1;
-		return this.statuses ? this.statuses.find(status => status.step === nextStep) : null;
+		return this.statuses ? this.statuses.find((status) => status.step === nextStep) : null;
 	}
 
 	next() {
@@ -152,11 +158,10 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 
 	getPreviousStatus() {
 		const previousStep = this.entity.status.step - 1;
-		return this.statuses ? this.statuses.find(status => status.step === previousStep) : null;
+		return this.statuses ? this.statuses.find((status) => status.step === previousStep) : null;
 	}
 
 	previous() {
 		return this.updateStatus(this.getPreviousStatus());
 	}
-
 }

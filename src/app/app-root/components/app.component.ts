@@ -7,8 +7,7 @@ import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { AnalyticsService } from '~core/analytics/analytics.service';
 import { CompanyService, TeamService, UserService } from '~core/auth/services';
-
-
+import { ApiService } from '~core/erm3/services/api.service';
 
 // Doctor: “Do you do sports?”
 
@@ -24,17 +23,15 @@ import { CompanyService, TeamService, UserService } from '~core/auth/services';
 	styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-
 	constructor(
 		private analytics: AnalyticsService,
 		private companySrv: CompanyService,
 		private teamSrv: TeamService,
 		private userSrv: UserService,
-		private translate: TranslateService,
-	) { }
+		private translate: TranslateService
+	) {}
 
 	ngOnInit(): void {
-
 		this.userSrv.init();
 		this.teamSrv.init();
 		this.companySrv.init();
@@ -47,6 +44,4 @@ export class AppComponent implements OnInit {
 		this.translate.setDefaultLang('en');
 		this.translate.use('en');
 	}
-
-
 }
