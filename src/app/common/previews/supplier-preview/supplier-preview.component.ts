@@ -32,7 +32,17 @@ import { AutoUnsub, translate } from '~utils';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SupplierPreviewComponent extends AutoUnsub implements OnInit {
-	@Input() supplier: Supplier;
+	private _supplier: Supplier;
+	private _version = 1;
+	@Input()
+	set supplier(value: Supplier) {
+		this._supplier = value;
+		this._version = value._version;
+	}
+	get supplier() {
+		return this._supplier;
+	}
+
 	@Input() canClose = true;
 	/** wether we display it as a preview or part of a component (supplier details) */
 	@Input() isPreview = true;
@@ -90,10 +100,11 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnInit {
 	}
 
 	// UPDATE FUNCTIONS
-	updateSupplier(supplier: Supplier) {
-		const newSupplier = { ...supplier, id: this.supplier.id, _version: this.supplier._version };
-		this.listHelper.update(newSupplier);
-		this.supplier = newSupplier;
+	updateSupplier(supplierConfig: Supplier) {
+		const supplier = { ...supplierConfig, id: this.supplier.id, _version: this._version };
+		this.listHelper.update(supplier);
+		this._supplier = supplier;
+		this._version++;
 	}
 
 	update(value: any, prop: string) {

@@ -92,7 +92,7 @@ export class ListHelperService<G = any> {
 	}
 
 	update(entity: any, options?: any) {
-		this.apiSrv.update(this.typename, entity, options);
+		this.apiSrv.update(this.typename, entity, options).subscribe();
 	}
 
 	updateSelected(entity) {
