@@ -108,6 +108,18 @@
 	height: 100%;
 }
 
+.full-height-screen {
+	height: 100vh;
+}
+
+.no-width {
+	width: 0;
+}
+
+.no-height {
+	height: 0;
+}
+
 // pointer
 .pointer {
 	user-select: none;
@@ -229,6 +241,10 @@
 		font-weight: bolder;
 		display: inline-block;
 	}
+}
+
+.border-box {
+	box-sizing: border-box;
 }
 
 .border-separator {

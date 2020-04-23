@@ -1,15 +1,29 @@
-<p>status works!</p>
-
 <div class="flex">
-	<card-app class="mg-l">
+	<card-app class="mg-l col-50">
 		<card-title-app>Status Selectors</card-title-app>
 		<ol>
-			<ul>
-				// select typename
-			</ul>
-			<ul>
-				// select entity
-			</ul>
+			<!-- Typename Selector -->
+			<li>
+				<context-menu-app class="menu-status mg-ms" [closeOnScroll]="true" [offsetY]="0">
+					<context-menu-trigger-app class="flex">
+						<!-- <badge-app size="m">Select a Typename</badge-app> -->
+					<button class="">Select a Typename</button>
+					</context-menu-trigger-app>
+					<context-menu-item-app
+						*ngFor="let typename of statusTypenames"
+						(click)="this.typenameSelected = typename"
+						>{{ typename }}</context-menu-item-app
+					>
+				</context-menu-app>
+					Typename selected: {{ typenameSelected || '--' }}
+			</li>
+
+			<li *ngIf="typenameSelected">
+				<selector-app [typename]="typenameSelected" (update)="entitySelected = $event">
+					<button class="mg-ms">Select a {{ typenameSelected }}</button>
+				</selector-app>
+				<div>{{typenameSelected}} selected: {{entitySelected?.name || '--'}}</div>
+			</li>
 		</ol>
 		<p>this "dropdown" is different from the other selectors.</p>
 		<ul>
