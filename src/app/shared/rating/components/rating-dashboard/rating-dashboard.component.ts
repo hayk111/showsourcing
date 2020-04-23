@@ -9,15 +9,15 @@ import { RatingService, TypeWithVotes, Vote } from '~shared/rating/services/rati
 })
 export class RatingDashboardComponent {
 
-	@Input() votes: Vote[];
-	@Input() type: TypeWithVotes;
+	@Input() votes: any[];
+	@Input() nodeId: string;
 	@Output() viewRatings = new EventEmitter<Vote[]>();
-	@Output() update = new EventEmitter<Vote[]>();
+	@Output() update = new EventEmitter<any[]>();
 
 	constructor(private ratingSrv: RatingService) { }
 
 	onStarVote(number: number) {
-		this.update.emit(this.ratingSrv.starVote(this.votes, number, this.type));
+		this.update.emit(this.ratingSrv.starVote(this.votes, number, this.nodeId));
 	}
 
 }

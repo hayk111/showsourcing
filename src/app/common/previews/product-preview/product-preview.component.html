@@ -228,9 +228,8 @@
 	<preview-section-app #contentTab2 [title]="'title.team-rating' | translate">
 		<rating-dashboard-app
 			[votes]="product?.votes"
-			[type]="erm.PRODUCT.singular"
-			(update)="update($event, 'votes')"
-			(viewRatings)="dialogCommonSrv.openVoteDetailsDialog($event)">
+			[nodeId]="'product:' + product?.id"
+			(update)="updateVote($event)">
 		</rating-dashboard-app>
 	</preview-section-app>
 
@@ -363,8 +362,8 @@
 	<preview-section-app #contentTab2 [title]="'team rating'">
 		<rating-dashboard-app
 			[votes]="product?.votes"
-			[type]="erm.PRODUCT.singular"
-			(update)="update($event, 'votes')"
+			[nodeId]="'product:' + product?.id"
+			(update)="updateVote($event)"
 			(viewRatings)="dialogCommonSrv.openVoteDetailsDialog($event)">
 		</rating-dashboard-app>
 	</preview-section-app>

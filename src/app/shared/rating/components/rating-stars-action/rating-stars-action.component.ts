@@ -10,7 +10,7 @@ import {
 	Renderer2,
 	ViewChildren,
 } from '@angular/core';
-import { UserService } from '~core/erm';
+import { UserService } from '~core/auth';
 import { IconComponent } from '~shared/icons';
 import { Vote } from '~shared/rating/services/rating.service';
 
@@ -22,18 +22,23 @@ import { Vote } from '~shared/rating/services/rating.service';
 })
 export class RatingStarsActionComponent implements AfterViewInit {
 
-	private _votes: Vote[];
-	@Input() set votes(votes: Vote[]) {
+	private _votes: any[];
+	@Input() set votes(votes: any[]) {
 		this._votes = votes;
-		const voteIndex = (votes || []).findIndex(v => v.user && v.user.id === this.userSrv.userSync.id);
-		if (~voteIndex) {
+		const voteIndex = (votes || []).findIndex(v => {
+			const createdById = v.createdBy ? v.createdBy.id : v.voteCreatedById;
+			return createdById === this.userSrv.userId;
+		});
+		if (voteIndex !== -1) {
 			const myVote = votes[voteIndex];
 			// we filter the array to get only the values LEQ than the value of the vote
 			// e.g vote.value == 40 -> then the array would be [20, 40]
 			// making the index for the slice 2 (the lenght of the array)
-			this.sliceIndexStar = this.stars.filter(starValue => starValue <= myVote.value).length;
+			this.sliceIndexStar = this.stars.filter(starValue => starValue <= myVote.rating).length;
 			// adds initial color to stars
 			this.changeStarsColor(this.sliceIndexStar);
+		} else {
+			this.changeStarsColor(0);
 		}
 	}
 	get votes() {

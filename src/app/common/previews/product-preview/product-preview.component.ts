@@ -42,9 +42,9 @@ import { AutoUnsub, PendingImage } from '~utils';
 })
 export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	/** This is the product passed as input, but it's not yet fully loaded */
-	private _product: Product;
+	private _product: any;
 	@Input()
-	set product(value: Product) {
+	set product(value: any) {
 		this._product = value;
 	}
 	get product() {
@@ -137,6 +137,10 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 		// 	sortBy: 'order',
 		// 	descending: false
 		// });
+	}
+
+	updateVote(value) {
+		this.product.votes = value;
 	}
 
 	// UPDATE FUNCTIONS
