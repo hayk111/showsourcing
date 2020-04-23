@@ -46,7 +46,6 @@ export class EditableContainerComponent {
 		this.cd.detectChanges();
 	}
 
-	/** does not send a close event */
 	cancel() {
 		this.canceled.emit();
 		this.close(false);
