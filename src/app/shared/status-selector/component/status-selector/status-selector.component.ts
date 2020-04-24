@@ -56,7 +56,7 @@ export class StatusSelectorComponent extends AutoUnsub {
 			this.apiSrv
 				.updateStatus(this.typename, this.entity.id, status.id)
 				// TODO change this with optimistic reponse => how to get status name ?
-				.subscribe((updatedEntity) => (this.entity.status = {...status}));
+				.subscribe((updatedEntity) => (this.entity.status = { ...status }));
 		this.statusChanged.emit(status);
 	}
 
@@ -125,7 +125,8 @@ export class StatusSelectorComponent extends AutoUnsub {
 			.pipe(
 				// we sort the status by step and remove spaces
 				map((statuses) => {
-					statuses.forEach((status) => (status.name = status.name.replace(' ', '-')));
+					// ? Do we realy need this ? if yes we can do a pype because the watchquery give issue
+					// statuses.forEach((status) => (status.name = status.name.replace(' ', '-')));
 					statuses.sort((first, second) => first.step - second.step);
 					return statuses;
 				})

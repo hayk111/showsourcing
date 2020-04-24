@@ -28,7 +28,8 @@ export class AppComponent implements OnInit {
 		private companySrv: CompanyService,
 		private teamSrv: TeamService,
 		private userSrv: UserService,
-		private translate: TranslateService
+		private translate: TranslateService,
+		private apiSrv: ApiService
 	) {}
 
 	ngOnInit(): void {
@@ -36,6 +37,16 @@ export class AppComponent implements OnInit {
 		this.teamSrv.init();
 		this.companySrv.init();
 		this.analytics.init();
+		// this.apiSrv
+		// 	.create('WorkflowStatus', {
+		// 		name: 'status supp',
+		// 		step: 1,
+		// 		inWorkflow: true,
+		// 		final: false,
+		// 		category: 'in_progress',
+		// 		type: 'SUPPLIER'
+		// 	} as any)
+		// 	.subscribe();
 
 		registerLocaleData(localeEn, 'en');
 		registerLocaleData(localeFr, 'fr');
