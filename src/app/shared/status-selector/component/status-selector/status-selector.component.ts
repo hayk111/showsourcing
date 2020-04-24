@@ -1,13 +1,8 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { ReplaySubject } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { Status } from '~core/erm';
-import { WorkflowStatus } from '~core/erm3/models';
+import { Component, Input, ViewChild } from '@angular/core';
 import { Typename } from '~core/erm3/typename.type';
-import { ListFuseHelperService } from '~core/list-page2';
 import { ContextMenuComponent } from '~shared/context-menu/components/context-menu/context-menu.component';
+import { StatusSelectorService } from '~shared/status-selector/service/status-selector.service';
 import { AutoUnsub, StatusUtils } from '~utils';
-import { ApiService } from '~core/erm3/services/api.service';
 
 @Component({
 	selector: 'status-selector-app',
@@ -22,7 +17,7 @@ export class StatusSelectorComponent extends AutoUnsub {
 	private _typename: Typename;
 	@Input()
 	public set typename(typename: Typename) {
-		this._setupStatuses(typename);
+		this.statusSrv.setupStatuses(typename);
 		this._typename = typename;
 	}
 	public get typename(): Typename {
@@ -37,38 +32,16 @@ export class StatusSelectorComponent extends AutoUnsub {
 	@Input() offsetX = 0;
 	@Input() offsetY = 5;
 	@Input() selectSize = 'm';
-	// @Input() canUpdate = true;
 
 	@Input() type: 'badge' | 'button' = 'badge';
-	@Output() statusChanged = new EventEmitter<any>();
 
 	@ViewChild(ContextMenuComponent, { static: false }) menu: ContextMenuComponent;
 
-	statuses$ = new ReplaySubject<WorkflowStatus[]>();
-	statusUtils = StatusUtils; // TODO adapt this for colors
+	statusUtils = StatusUtils; // TODO adapt this for colors and move it in service
 
-	constructor(private fuseHelperSrv: ListFuseHelperService, private apiSrv: ApiService) {
+	constructor(public statusSrv: StatusSelectorService) {
 		super();
-	}
 
-	updateStatus(status: Status) {
-		if (this.entity?.id)
-			this.apiSrv
-				.updateStatus(this.typename, this.entity.id, status.id)
-				// TODO change this with optimistic reponse => how to get status name ?
-				.subscribe((updatedEntity) => (this.entity.status = { ...status }));
-		this.statusChanged.emit(status);
-	}
-
-	setStatus(status) {
-		// if (this.internalUpdate) {
-		// 	this.statusSlctSrv.updateStatus({
-		// 		id: this.entity.id,
-		// 		status: { id: status.id, __typename: status.__typename }
-		// 	}, this.typename
-		// 	).subscribe();
-		// }
-		// this.statusChanged.emit(status);
 	}
 
 	// this is only done for tasks since we don't have it on the DB
@@ -110,27 +83,5 @@ export class StatusSelectorComponent extends AutoUnsub {
 
 	previous() {
 		// return this.updateStatus(this.getPreviousStatus());
-	}
-
-	private _setupStatuses(typename) {
-		const statusType = typename.toUpperCase(); // PRODUCT | TASK | ...
-		const statusQueryOptions = {
-			variables: {
-				filter: { type: { eq: statusType } },
-			},
-		};
-		// this must be updated with the futur query lists
-		this.fuseHelperSrv.setup('WorkflowStatus', undefined, undefined, statusQueryOptions);
-		this.fuseHelperSrv.paginedItems$
-			.pipe(
-				// we sort the status by step and remove spaces
-				map((statuses) => {
-					// ? Do we realy need this ? if yes we can do a pype because the watchquery give issue
-					// statuses.forEach((status) => (status.name = status.name.replace(' ', '-')));
-					statuses.sort((first, second) => first.step - second.step);
-					return statuses;
-				})
-			)
-			.subscribe((statuses) => this.statuses$.next(statuses));
 	}
 }
