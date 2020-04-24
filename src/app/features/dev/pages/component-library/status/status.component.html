@@ -2,38 +2,45 @@
 	<card-app class="mg-l col-50">
 		<card-title-app>Status Selectors</card-title-app>
 		<ol>
+
 			<!-- Typename Selector -->
-			<li>
-				<context-menu-app class="menu-status mg-ms" [closeOnScroll]="true" [offsetY]="0">
+			<li class="mg-bottom-s">
+				<context-menu-app [closeOnScroll]="true" [offsetY]="5">
 					<context-menu-trigger-app class="flex">
-						<!-- <badge-app size="m">Select a Typename</badge-app> -->
-					<button class="">Select a Typename</button>
+						<button class="">Select a Typename</button>
 					</context-menu-trigger-app>
 					<context-menu-item-app
 						*ngFor="let typename of statusTypenames"
-						(click)="this.typenameSelected = typename"
+						(click)="selectTypename(typename)"
 						>{{ typename }}</context-menu-item-app
 					>
 				</context-menu-app>
-					Typename selected: {{ typenameSelected || '--' }}
+				Typename selected: {{ typenameSelected || '--' }}
 			</li>
 
-			<li *ngIf="typenameSelected">
+			<!-- Entity Selector -->
+			<li *ngIf="typenameSelected" class="mg-bottom-s">
 				<selector-app [typename]="typenameSelected" (update)="entitySelected = $event">
-					<button class="mg-ms">Select a {{ typenameSelected }}</button>
+					<button>Select a {{ typenameSelected }}</button>
 				</selector-app>
-				<div>{{typenameSelected}} selected: {{entitySelected?.name || '--'}}</div>
+				{{ typenameSelected }} selected: {{ entitySelected?.name || '--' }}
 			</li>
 		</ol>
 		<p>this "dropdown" is different from the other selectors.</p>
 		<ul>
-			<li>
+			<li *ngIf="typenameSelected">
 				pick a status:
-				<status-selector-app typename="Product" [displayStep]="true"></status-selector-app>
+				<status-selector-app
+					class="inline"
+					[entity]="entitySelected"
+					[typename]="typenameSelected"
+					[displayStep]="true"
+					selectSize="l"
+				></status-selector-app>
 			</li>
 			<li>
 				pick or next:
-				<status-selector-app typename="Product" [displayStep]="true"></status-selector-app>
+				<!-- <status-selector-app typename="Product" [displayStep]="true"></status-selector-app> -->
 			</li>
 		</ul>
 	</card-app>

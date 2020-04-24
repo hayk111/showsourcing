@@ -14,4 +14,9 @@ export class StatusComponent implements OnInit {
 	constructor() {}
 
 	ngOnInit(): void {}
+
+	selectTypename(typename) {
+		this.typenameSelected = typename;
+		this.entitySelected = null;
+	}
 }

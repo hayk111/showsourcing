@@ -2,7 +2,7 @@
 <div
 	#trigger="cdkOverlayOrigin"
 	cdkOverlayOrigin
-	class="no-width"
+	class="inline"
 	(click)="openMenu()">
 	<ng-content></ng-content>
 </div>
@@ -30,6 +30,7 @@
 		[definitionReference]="definitionReference"
 		(update)="onChange($event)"
 		(close)="closeMenu(true)"
-		cdkTrapFocus>
+		cdkTrapFocus
+		>
 	</selector-picker-app>
 </cdk-overlay-app>

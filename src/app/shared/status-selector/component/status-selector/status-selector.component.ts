@@ -1,60 +1,66 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { Observable } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { ERM, ProductStatus, SampleStatus, SupplierStatus } from '~core/erm';
-import { ContextMenuComponent } from '~shared/context-menu/components/context-menu/context-menu.component';
-import { AutoUnsub, StatusUtils } from '~utils';
-
-import { StatusSelectorService } from '../../service/status-selector.service';
+import { ReplaySubject } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Status } from '~core/erm';
+import { WorkflowStatus } from '~core/erm3/models';
 import { Typename } from '~core/erm3/typename.type';
 import { ListFuseHelperService } from '~core/list-page2';
+import { ContextMenuComponent } from '~shared/context-menu/components/context-menu/context-menu.component';
+import { AutoUnsub, StatusUtils } from '~utils';
 
 @Component({
 	selector: 'status-selector-app',
 	templateUrl: './status-selector.component.html',
 	styleUrls: ['./status-selector.component.scss'],
 	host: {
-		class: 'flex pointer',
+		class: 'pointer',
 	},
 })
 export class StatusSelectorComponent extends AutoUnsub implements OnInit {
-	@Input() typename: Typename;
-	@Input() displayStep = false;
-	/** In this case its alwaysgoing to be a product, sample, supplier or task */
-	private _entity: any;
+	private _typename: Typename;
 	@Input()
-	public get entity(): any {
-		return this._entity;
+	public set typename(typename: Typename) {
+		this._setupStatuses(typename);
+		this._typename = typename;
 	}
-	public set entity(value: any) {
-		let status;
-		if (value) {
-			// status null with this name we use the same pipe for translation
-			const name = 'New-' + this.typename;
-			status = value.status || {
-				id: StatusUtils.NEW_STATUS_ID,
-				category: StatusUtils.DEFAULT_STATUS_CATEGORY,
-				name,
-				step: 0,
-			};
-			this._entity = { ...value, status };
-		}
+	public get typename(): Typename {
+		return this._typename;
 	}
+
+	/** In this case its alwaysgoing to be a product, sample, supplier or task */
+	// private _entity: any;
+	@Input() entity: any;
+	// public get entity(): any {
+	// 	return this._entity;
+	// }
+	// public set entity(value: any) {
+	// 	let status;
+	// 	// status null with this name we use the same pipe for translation
+	// 	const name = 'New-' + this.typename;
+	// 	status = value?.status || {
+	// 		id: StatusUtils.NEW_STATUS_ID,
+	// 		category: StatusUtils.DEFAULT_STATUS_CATEGORY,
+	// 		name,
+	// 		step: 0,
+	// 	};
+	// 	this._entity = { ...value, status };
+	// }
+
+	@Input() displayStep = false;
 	// use for the cdk overlay
 	@Input() offsetX = 0;
-	@Input() offsetY = 8;
+	@Input() offsetY = 5;
 	@Input() selectSize = 'm';
 	@Input() internalUpdate = true;
-	@Input() canUpdate = true;
+	// @Input() canUpdate = true;
 	@Input() type: 'badge' | 'dropdown' | 'multiple-selection' | 'button' = 'badge';
-	@Input() width: number;
-	@Input() statuses: any[];
+	// @Input() width: number;
+	// @Input() statuses: any[];
 	@Output() statusUpdated = new EventEmitter<any>();
 
 	@ViewChild(ContextMenuComponent, { static: false }) menu: ContextMenuComponent;
 	/** string[] since tasks does not have a status entity */
-	status$: Observable<ProductStatus[] | SupplierStatus[] | SampleStatus[]>;
+	statuses$ = new ReplaySubject<WorkflowStatus[]>();
 	statusUtils = StatusUtils;
 
 	constructor(private fuseHelperSrv: ListFuseHelperService) {
@@ -62,21 +68,13 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		const statusType = this.typename.toUpperCase(); // PRODUCT | TASK | ...
-		const statusQueryOptions = {
-			variables: {
-				filter: { type: { eq: statusType } },
-			},
-		};
-		// this will be updated with the new query lists
-		this.fuseHelperSrv.setup('WorkflowStatus', undefined, undefined, statusQueryOptions);
-		this.status$ = this.fuseHelperSrv.paginedItems$;
-		this.status$.pipe(takeUntil(this._destroy$)).subscribe((statuses) => {
-			this.statuses = statuses.map((status) => {
-				status.name = status.name.toLowerCase().replace(' ', '-');
-				return status;
-			});
-		});
+		// this.status$.pipe(takeUntil(this._destroy$)).subscribe((statuses) => {
+		// 	console.log('statuses : ', statuses);
+		// 	this.statuses = statuses.map((status) => {
+		// 		status.name = status.name.toLowerCase().replace(' ', '-');
+		// 		return status;
+		// 	});
+		// });
 	}
 
 	updateStatus(status: Status) {
@@ -136,32 +134,54 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 	}
 
 	isLast() {
-		if (!this.statuses) {
-			// if empty we return true, so it beleives its last
-			return false;
-		}
-
-		const length = this.statuses.length;
-		// minus 2 cuz we don't want the last one (refused)
-		const lastStep = this.statuses[length - 2].step;
-		return this.entity.status.step >= lastStep;
+		// if (!this.statuses) {
+		// 	// if empty we return true, so it beleives its last
+		// 	return false;
+		// }
+		// const length = this.statuses.length;
+		// // minus 2 cuz we don't want the last one (refused)
+		// const lastStep = this.statuses[length - 2].step;
+		// return this.entity.status.step >= lastStep;
 	}
 
 	getNextStatus() {
-		const nextStep = this.entity.status.step + 1;
-		return this.statuses ? this.statuses.find((status) => status.step === nextStep) : null;
+		// const nextStep = this.entity.status.step + 1;
+		// return this.statuses ? this.statuses.find((status) => status.step === nextStep) : null;
 	}
 
 	next() {
-		return this.updateStatus(this.getNextStatus());
+		// return this.updateStatus(this.getNextStatus());
 	}
 
 	getPreviousStatus() {
-		const previousStep = this.entity.status.step - 1;
-		return this.statuses ? this.statuses.find((status) => status.step === previousStep) : null;
+		// const previousStep = this.entity.status.step - 1;
+		// return this.statuses ? this.statuses.find((status) => status.step === previousStep) : null;
 	}
 
 	previous() {
-		return this.updateStatus(this.getPreviousStatus());
+		// return this.updateStatus(this.getPreviousStatus());
+	}
+
+	private _setupStatuses(typename) {
+		const statusType = typename.toUpperCase(); // PRODUCT | TASK | ...
+		const statusQueryOptions = {
+			variables: {
+				filter: { type: { eq: statusType } },
+			},
+		};
+		// this must be updated with the futur query lists
+		this.fuseHelperSrv.setup('WorkflowStatus', undefined, undefined, statusQueryOptions);
+		this.fuseHelperSrv.paginedItems$
+			.pipe(
+				// we organise the status by step
+				map((statuses) => {
+					// ? should we realy clean the name like app-dev ?
+					// statuses.forEach((status) => (status.name = status.name.toLowerCase().replace(' ', '-')));
+					statuses.sort((first, second) => first.step - second.step);
+					console.log('we return statuses ! ', statuses);
+					return statuses;
+				})
+			)
+			.subscribe((statuses) => this.statuses$.next(statuses));
 	}
 }

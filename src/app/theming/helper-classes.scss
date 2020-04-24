@@ -1,4 +1,23 @@
-/////// flex (used everywhere) /////////
+/////// (used everywhere) /////////
+
+// displays
+
+.block {
+	display: block;
+}
+
+.inline {
+	display: inline;
+}
+
+.inline-block {
+	display: inline-block;
+}
+
+.none {
+	display: none;
+}
+
 .flex {
   display: flex;
 }
