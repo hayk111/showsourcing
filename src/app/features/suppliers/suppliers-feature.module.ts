@@ -34,7 +34,7 @@ import { routes } from './routes';
 		Pages.BoardPageComponent,
 		Pages.DetailsPageComponent,
 		DetailsPage.ProductsPageComponent,
-		// DetailsPage.ActivityPageComponent,
+		DetailsPage.ActivityPageComponent,
 		DetailsPage.ContactsPageComponent,
 		DetailsPage.FilesPageComponent,
 		// DetailsPage.ProductsCardComponent,

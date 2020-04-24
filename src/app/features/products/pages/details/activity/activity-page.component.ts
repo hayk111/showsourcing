@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map, switchMap, tap, mergeMap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
+import { UserService } from '~core/auth';
 import { ApiService, Comment, ObservableQuery } from '~core/erm3';
 import { customQueries } from '~core/erm3/queries/custom-queries';
-import { AutoUnsub } from '~utils';
+import { AutoUnsub, uuid } from '~utils';
 
 
 
@@ -37,10 +38,12 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	sendComment(message: string) {
-		const comment: Comment = { message, nodeId: this.nodeId };
-		this.apiSrv.create<Comment>('Comment', comment).pipe(
-			tap(created => this.apiSrv.addToList(this.listRef, created)),
-		).subscribe();
+		const comment: Comment = {
+			message,
+			nodeId: this.nodeId
+		};
+		this.apiSrv.create<Comment>('Comment', comment)
+			.subscribe(_ => this.listRef.refetch());
 	}
 
 

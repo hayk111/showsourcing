@@ -104,7 +104,6 @@ export class ApiService {
 		return from(client.mutate(options)).pipe(
 			map(({ data }) => data[queryName] || data), // if we use aliases, there is no queryName
 			tap((data) => ApiLogger.logResponse(options, data)),
-			startWith(options.variables.input),
 			take(1)
 		);
 	}
@@ -266,7 +265,7 @@ export class ApiService {
 			entity.deleted = false;
 			entity.teamId = this._teamId;
 		}
-
+		entity.__typename = typename;
 		options.variables = { input: { ...entity } };
 		return this.mutate(options);
 	}
@@ -392,7 +391,7 @@ export class ApiService {
 			...items.filter((item) => item.id !== elem.id)
 		];
 		if (queryResult.items.length === items.length + 1)
-		queryResult.total++;
+			queryResult.total++;
 		client.writeQuery({ ...query.options, data: r });
 	}
 
@@ -416,7 +415,9 @@ export class ApiService {
 		// if options.variables.input undefined, that means we have aliases
 		if (!options.variables.input) {
 			Object.values(options.variables).forEach((inputValue, i) => {
-				predicateResp['alias' + i] = { ...inputValue }; // the properties alias + i is matching the alias mutations from the query-builder
+				// for update many
+				// the properties alias + i is matching the alias mutations from the query-builder
+				predicateResp['alias' + i] = { ...inputValue };
 			});
 		} else {
 			predicateResp[queryName] = { ...options.variables.input };
