@@ -1,8 +1,12 @@
 <div class="flex">
 	<card-app class="mg-l col-50">
 		<card-title-app>Status Selectors</card-title-app>
-		<ol>
 
+		<p>this "dropdown" is different from the other selectors.</p>
+
+
+		<!-- Setup the demo to use status-selector -->
+		<ul>
 			<!-- Typename Selector -->
 			<li class="mg-bottom-s">
 				<context-menu-app [closeOnScroll]="true" [offsetY]="5">
@@ -17,16 +21,21 @@
 				</context-menu-app>
 				Typename selected: {{ typenameSelected || '--' }}
 			</li>
+			<!-- End -- Typename Selector -->
 
 			<!-- Entity Selector -->
 			<li *ngIf="typenameSelected" class="mg-bottom-s">
-				<selector-app [typename]="typenameSelected" (update)="entitySelected = $event">
+				<selector-app [typename]="typenameSelected" (update)="selectEntity($event)">
 					<button>Select a {{ typenameSelected }}</button>
 				</selector-app>
 				{{ typenameSelected }} selected: {{ entitySelected?.name || '--' }}
 			</li>
-		</ol>
-		<p>this "dropdown" is different from the other selectors.</p>
+			<!-- End -- Entity Selector -->
+		</ul>
+		<!-- End -- Setup the demo -->
+
+
+		<!-- Demo : Display and update status of Entity Selected -->
 		<ul>
 			<li *ngIf="typenameSelected">
 				pick a status:
@@ -36,12 +45,10 @@
 					[typename]="typenameSelected"
 					[displayStep]="true"
 					selectSize="l"
+					type="badge"
 				></status-selector-app>
 			</li>
-			<li>
-				pick or next:
-				<!-- <status-selector-app typename="Product" [displayStep]="true"></status-selector-app> -->
-			</li>
 		</ul>
+		<!-- End -- Demo -->
 	</card-app>
 </div>

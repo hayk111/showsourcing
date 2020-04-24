@@ -7,6 +7,7 @@ import { Typename } from '~core/erm3/typename.type';
 import { ListFuseHelperService } from '~core/list-page2';
 import { ContextMenuComponent } from '~shared/context-menu/components/context-menu/context-menu.component';
 import { AutoUnsub, StatusUtils } from '~utils';
+import { ApiService } from '~core/erm3/services/api.service';
 
 @Component({
 	selector: 'status-selector-app',
@@ -16,7 +17,8 @@ import { AutoUnsub, StatusUtils } from '~utils';
 		class: 'pointer',
 	},
 })
-export class StatusSelectorComponent extends AutoUnsub implements OnInit {
+export class StatusSelectorComponent extends AutoUnsub {
+	/** Its always going to be a Product | Sample | Supplier | Task */
 	private _typename: Typename;
 	@Input()
 	public set typename(typename: Typename) {
@@ -27,75 +29,35 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 		return this._typename;
 	}
 
-	/** In this case its alwaysgoing to be a product, sample, supplier or task */
-	// private _entity: any;
-	@Input() entity: any;
-	// public get entity(): any {
-	// 	return this._entity;
-	// }
-	// public set entity(value: any) {
-	// 	let status;
-	// 	// status null with this name we use the same pipe for translation
-	// 	const name = 'New-' + this.typename;
-	// 	status = value?.status || {
-	// 		id: StatusUtils.NEW_STATUS_ID,
-	// 		category: StatusUtils.DEFAULT_STATUS_CATEGORY,
-	// 		name,
-	// 		step: 0,
-	// 	};
-	// 	this._entity = { ...value, status };
-	// }
+	@Input() entity: any = {}; // the entity can be optional => for the mass update
 
-	@Input() displayStep = false;
+	@Input() displayStep = false; // show the number before the status's name
+
 	// use for the cdk overlay
 	@Input() offsetX = 0;
 	@Input() offsetY = 5;
 	@Input() selectSize = 'm';
-	@Input() internalUpdate = true;
 	// @Input() canUpdate = true;
-	@Input() type: 'badge' | 'dropdown' | 'multiple-selection' | 'button' = 'badge';
-	// @Input() width: number;
-	// @Input() statuses: any[];
-	@Output() statusUpdated = new EventEmitter<any>();
+
+	@Input() type: 'badge' | 'button' = 'badge';
+	@Output() statusChanged = new EventEmitter<any>();
 
 	@ViewChild(ContextMenuComponent, { static: false }) menu: ContextMenuComponent;
-	/** string[] since tasks does not have a status entity */
-	statuses$ = new ReplaySubject<WorkflowStatus[]>();
-	statusUtils = StatusUtils;
 
-	constructor(private fuseHelperSrv: ListFuseHelperService) {
+	statuses$ = new ReplaySubject<WorkflowStatus[]>();
+	statusUtils = StatusUtils; // TODO adapt this for colors
+
+	constructor(private fuseHelperSrv: ListFuseHelperService, private apiSrv: ApiService) {
 		super();
 	}
 
-	ngOnInit() {
-		// this.status$.pipe(takeUntil(this._destroy$)).subscribe((statuses) => {
-		// 	console.log('statuses : ', statuses);
-		// 	this.statuses = statuses.map((status) => {
-		// 		status.name = status.name.toLowerCase().replace(' ', '-');
-		// 		return status;
-		// 	});
-		// });
-	}
-
 	updateStatus(status: Status) {
-		// if (!this.internalUpdate) {
-		// 	this.statusUpdated.emit(status);
-		// } else if (status && status.id !== this.entity.status.id) {
-		// 	// we dont update if we click the same
-		// 	this.statusSlctSrv.updateStatus({
-		// 		id: this.entity.id,
-		// 		// if we only put the id here, the preview will have issues,
-		// 		// since it will recieve 2 updated (1 with only the id and 1 with the full entity from the cache)
-		// 		status
-		// 	},
-		// 		this.typename
-		// 	).subscribe(_ => this.statusUpdated.emit(status));
-		// } else { // status null
-		// 	this.statusSlctSrv.updateStatus({
-		// 		id: this.entity.id,
-		// 		status: null
-		// 	}, this.typename).subscribe(_ => this.statusUpdated.emit(null));
-		// }
+		if (this.entity?.id)
+			this.apiSrv
+				.updateStatus(this.typename, this.entity.id, status.id)
+				// TODO change this with optimistic reponse => how to get status name ?
+				.subscribe((updatedEntity) => (this.entity.status = {...status}));
+		this.statusChanged.emit(status);
 	}
 
 	setStatus(status) {
@@ -106,31 +68,19 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 		// 	}, this.typename
 		// 	).subscribe();
 		// }
-		// this.statusUpdated.emit(status);
+		// this.statusChanged.emit(status);
 	}
 
 	// this is only done for tasks since we don't have it on the DB
 	updateTask(done: boolean) {
 		// if (this.canUpdate) {
 		// 	this.statusSlctSrv.updateTask({ id: this.entity.id, done });
-		// 	this.statusUpdated.emit(done);
+		// 	this.statusChanged.emit(done);
 		// }
 	}
 
 	updateProject(done: boolean) {
 		// this.statusSlctSrv.updateProject({ id: this.entity.id, done });
-	}
-
-	openMenu() {
-		// if (this.menu) {
-		// 	this.menu.openMenu();
-		// }
-	}
-
-	closeMenu() {
-		// if (this.menu) {
-		// 	this.menu.closeMenu();
-		// }
 	}
 
 	isLast() {
@@ -173,12 +123,10 @@ export class StatusSelectorComponent extends AutoUnsub implements OnInit {
 		this.fuseHelperSrv.setup('WorkflowStatus', undefined, undefined, statusQueryOptions);
 		this.fuseHelperSrv.paginedItems$
 			.pipe(
-				// we organise the status by step
+				// we sort the status by step and remove spaces
 				map((statuses) => {
-					// ? should we realy clean the name like app-dev ?
-					// statuses.forEach((status) => (status.name = status.name.toLowerCase().replace(' ', '-')));
+					statuses.forEach((status) => (status.name = status.name.replace(' ', '-')));
 					statuses.sort((first, second) => first.step - second.step);
-					console.log('we return statuses ! ', statuses);
 					return statuses;
 				})
 			)

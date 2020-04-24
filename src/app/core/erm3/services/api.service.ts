@@ -274,7 +274,7 @@ export class ApiService {
 	 * @param entityId: the id of the entity (product.id)
 	 * @param statusId: the id of the status we want to set to the entity
 	*/
-	updateSatus(
+	updateStatus(
 		typename: Typename,
 		entityId: string,
 		statusId: string,

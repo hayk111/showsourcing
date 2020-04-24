@@ -1,51 +1,39 @@
 <!-- multiple entity update selection does not need an entity, since we update outside -->
 <!-- canUpdate && -->
-<ng-container *ngIf="(entity || type === 'multiple-selection') && typename !== 'Project'">
+
 	<context-menu-app
-		*ngIf="entity || type === 'multiple-selection'"
 		class="menu-status {{selectSize}}"
 		[closeOnScroll]="true"
 		[offsetX]="offsetX"
 		[offsetY]="offsetY">
-		<context-menu-trigger-app class="flex {{ selectSize }}">
 
+		<context-menu-trigger-app class="flex {{ selectSize }}">
 			<ng-container *ngIf="type === 'badge'">
 				<status-badge-app
 					class="pointer"
 					[displayStep]="displayStep"
-					[status]="entity?.status || {}"
+					[status]="entity?.status"
 					[typename]="typename"
 					[size]="selectSize">
 				</status-badge-app>
 			</ng-container>
-<!--
+
 			<ng-container *ngIf="type === 'button'">
 				<status-button-app
 					class="pointer flexCenter border-radius-right-none"
 					[size]="selectSize"
 					[status]="entity?.status">
 				</status-button-app>
-			</ng-container> -->
-
-			<ng-container *ngIf="type === 'multiple-selection'">
-				<ng-content></ng-content>
-				<!-- <button class="secondary-light flexCenter change-status">
-					<icon-app class="color-primary" name="status"></icon-app>
-					<span>Change Status</span>
-				</button> -->
 			</ng-container>
-
 		</context-menu-trigger-app>
 
 		<!-- status null we add on top -->
 		<context-menu-item-app *ngFor="let stat of (statuses$ | async); last as last; trackBy: trackByFn" (click)="updateStatus(stat)">
 			<status-selector-item-app [status]="stat"></status-selector-item-app>
 		</context-menu-item-app>
-
-
 	</context-menu-app>
-<!--
-	<ng-container *ngIf="type === 'button'">
+
+	<!-- <ng-container *ngIf="type === 'button'">
 		<button
 			*ngIf="!isLast()"
 			class="caretCtnr"
@@ -56,6 +44,7 @@
 				' ' + ('text.' + getNextStatus()?.name | translate)"
 			toolTipPosition="below-left"
 			(click)="next()">
+
 			<icon-app class="caret" name="caret-right"></icon-app>
 		</button>
 		<button
@@ -68,11 +57,11 @@
 				' ' + ('text.' + getPreviousStatus()?.name | translate)"
 			toolTipPosition="below-left"
 			(click)="previous()">
+
 			<icon-app class="caret" name="caret-left"></icon-app>
 		</button>
 	</ng-container> -->
 
-</ng-container>
 
 <!-- specific for task since we dont have the status on the DB we just have done, over-due and pending -->
 <!-- <task-status-badge-app

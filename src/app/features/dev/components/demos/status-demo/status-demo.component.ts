@@ -2,12 +2,12 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Typename } from '~core/erm3/typename.type';
 
 @Component({
-	selector: 'status-app',
-	templateUrl: './status.component.html',
-	styleUrls: ['./status.component.css'],
+	selector: 'status-demo-app',
+	templateUrl: './status-demo.component.html',
+	styleUrls: ['./status-demo.component.css'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class StatusComponent implements OnInit {
+export class StatusDemoComponent implements OnInit {
 	statusTypenames = ['Product', 'Task', 'Sample', 'Supplier'];
 	typenameSelected: Typename;
 	entitySelected: any;
@@ -18,5 +18,9 @@ export class StatusComponent implements OnInit {
 	selectTypename(typename) {
 		this.typenameSelected = typename;
 		this.entitySelected = null;
+	}
+
+	selectEntity(entity) {
+		this.entitySelected = entity;
 	}
 }

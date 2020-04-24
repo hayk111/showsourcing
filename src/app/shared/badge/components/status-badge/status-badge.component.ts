@@ -13,8 +13,7 @@ export class StatusBadgeComponent {
 	@Input() size = 's';
 
 	@Input() status: WorkflowStatus;
-	// we need to pass this so when the
-	// status is null, because the product or supplier are new
+	// we need to pass this when the status is null, to display "New Typename"
 	@Input() typename: Typename;
 	/** if we display the step or not */
 	@Input() displayStep = false;

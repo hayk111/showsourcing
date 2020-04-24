@@ -10,10 +10,9 @@ import { TablesCommonModule } from '~common/tables/tables-common.module';
 import { SharedModule } from '~shared/shared.module';
 
 import * as Pages from './pages';
+import * as Demos from './components/demos';
 import { routes } from './routes';
-import { DescriptorPageComponent } from './pages/component-library/descriptor-page/descriptor-page.component';
 import { FormsModule } from '@angular/forms';
-import { StatusComponent } from './pages/component-library/status/status.component';
 
 
 
@@ -60,7 +59,7 @@ import { StatusComponent } from './pages/component-library/status/status.compone
 		Pages.SpacingPageComponent,
 		Pages.TablePageComponent,
 		Pages.TypographyPageComponent,
-		StatusComponent,
+		Demos.StatusDemoComponent,
 	],
 	exports: [],
 	providers: []
