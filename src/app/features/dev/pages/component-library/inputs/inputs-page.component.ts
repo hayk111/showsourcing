@@ -20,4 +20,14 @@ export class InputsPageComponent  {
 		amount: 70
 	};
 
+	radio;
+
+	radioChoices = [
+		{ label: 'Yes', value: true },
+		{ label: 'No', value: false },
+		{ label: 'Maybe', value: null}
+	];
+
+	priceMatrix = [];
+
 }
