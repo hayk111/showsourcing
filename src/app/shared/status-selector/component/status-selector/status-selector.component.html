@@ -32,7 +32,7 @@
 	<!-- status null we add on top -->
 	<context-menu-item-app
 		*ngFor="let stat of statusSrv.listStatus$ | async; last as last; trackBy: trackByFn"
-		(click)="statusSrv.updateStatus(stat, entity)"
+		(click)="updateStatus(stat, entity)"
 	>
 		<status-selector-item-app [status]="stat"></status-selector-item-app>
 	</context-menu-item-app>

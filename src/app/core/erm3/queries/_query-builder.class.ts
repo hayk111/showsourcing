@@ -150,17 +150,14 @@ export class QueryBuilder {
 			}`;
 	};
 
-	[QueryType.UPDATE_STATUS] = () => {
+	[QueryType.UPDATE_STATUS] = (str: string) => {
 		return gql`
 		mutation Update${this.typename}Status(
 			$entityId: ID!
 			$statusId: ID!
 		) {
 			update${this.typename}Status(${this.typename.toLowerCase()}Id: $entityId, statusId: $statusId) {
-				id
-				status {
-					id
-				}
+				${str}
 			}
   	}`;
 	};

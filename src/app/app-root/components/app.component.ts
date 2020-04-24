@@ -7,7 +7,6 @@ import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { AnalyticsService } from '~core/analytics/analytics.service';
 import { CompanyService, TeamService, UserService } from '~core/auth/services';
-import { ApiService } from '~core/erm3/services/api.service';
 
 // Doctor: “Do you do sports?”
 
@@ -29,7 +28,6 @@ export class AppComponent implements OnInit {
 		private teamSrv: TeamService,
 		private userSrv: UserService,
 		private translate: TranslateService,
-		private apiSrv: ApiService
 	) {}
 
 	ngOnInit(): void {
@@ -37,16 +35,6 @@ export class AppComponent implements OnInit {
 		this.teamSrv.init();
 		this.companySrv.init();
 		this.analytics.init();
-		// this.apiSrv
-		// 	.create('WorkflowStatus', {
-		// 		name: 'status supp',
-		// 		step: 1,
-		// 		inWorkflow: true,
-		// 		final: false,
-		// 		category: 'in_progress',
-		// 		type: 'SUPPLIER'
-		// 	} as any)
-		// 	.subscribe();
 
 		registerLocaleData(localeEn, 'en');
 		registerLocaleData(localeFr, 'fr');

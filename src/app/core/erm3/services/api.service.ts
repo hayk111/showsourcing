@@ -284,11 +284,7 @@ export class ApiService {
 		options.variables = { ...options.variables, entityId, statusId };
 		options.mutation = QueryPool.getQuery(typename, QueryType.UPDATE_STATUS);
 		// set inputs for optimistic response
-		options.variables.input = {
-			__typename: typename,
-			id: entityId,
-			status: { __typename: 'WorkflowStatus', id: statusId },
-		};
+		// ? optimistic response not working
 		options.optimisticResponse = this.getOptimisticResponse(options);
 		return this.mutate(options);
 	}

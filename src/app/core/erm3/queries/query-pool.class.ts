@@ -2,6 +2,7 @@ import { Typename } from '../typename.type';
 import { BaseQueries } from './base.queries';
 import { QueryType } from './query-type.enum';
 import { ProductQueries } from './custom/product.queries';
+import { StatusQueries } from './custom/status.queries';
 
 export class QueryPool {
 	static map = {
@@ -30,7 +31,7 @@ export class QueryPool {
 		Sample: new BaseQueries('Sample', 'id name _version'),
 		Tag: new BaseQueries('Tag'),
 		Vote: new BaseQueries('Vote', 'id message nodeId'),
-		WorkflowStatus: new BaseQueries('WorkflowStatus', 'id name step category inWorkflow final type')
+		WorkflowStatus: new StatusQueries()
 	};
 
 	static getQuery(

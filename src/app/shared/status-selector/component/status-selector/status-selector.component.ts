@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { Typename } from '~core/erm3/typename.type';
 import { ContextMenuComponent } from '~shared/context-menu/components/context-menu/context-menu.component';
 import { StatusSelectorService } from '~shared/status-selector/service/status-selector.service';
@@ -39,22 +39,18 @@ export class StatusSelectorComponent extends AutoUnsub {
 
 	statusUtils = StatusUtils; // TODO adapt this for colors and move it in service
 
-	constructor(public statusSrv: StatusSelectorService) {
+	constructor(public statusSrv: StatusSelectorService, private cd: ChangeDetectorRef) {
 		super();
 
 	}
 
-	// this is only done for tasks since we don't have it on the DB
-	updateTask(done: boolean) {
-		// if (this.canUpdate) {
-		// 	this.statusSlctSrv.updateTask({ id: this.entity.id, done });
-		// 	this.statusChanged.emit(done);
-		// }
+	updateStatus(newStatus, entity) {
+		this.statusSrv.updateStatus(newStatus, entity).subscribe(newEntity => {
+			this.entity = newEntity;
+			this.cd.markForCheck();
+		});
 	}
 
-	updateProject(done: boolean) {
-		// this.statusSlctSrv.updateProject({ id: this.entity.id, done });
-	}
 
 	isLast() {
 		// if (!this.statuses) {
@@ -74,14 +70,5 @@ export class StatusSelectorComponent extends AutoUnsub {
 
 	next() {
 		// return this.updateStatus(this.getNextStatus());
-	}
-
-	getPreviousStatus() {
-		// const previousStep = this.entity.status.step - 1;
-		// return this.statuses ? this.statuses.find((status) => status.step === previousStep) : null;
-	}
-
-	previous() {
-		// return this.updateStatus(this.getPreviousStatus());
 	}
 }

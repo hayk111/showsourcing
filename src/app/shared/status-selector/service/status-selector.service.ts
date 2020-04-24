@@ -10,8 +10,9 @@ import { ListFuseHelperService } from '~core/list-page2';
 	providedIn: 'root',
 })
 export class StatusSelectorService {
-	private _statusUpdate$ = new Subject<WorkflowStatus>();
-	statusUpdate$ = this._statusUpdate$.asObservable();
+	private _entityUpdate$ = new Subject<any>();
+	entityUpdate$ = this._entityUpdate$.asObservable();
+	statusUpdate$ = this.entityUpdate$.pipe(map(entity => entity.status));
 
 	private _listStatus$ = new ReplaySubject<WorkflowStatus[]>();
 	listStatus$ = this._listStatus$.asObservable();
@@ -21,14 +22,14 @@ export class StatusSelectorService {
 	constructor(private fuseHelper: ListFuseHelperService, private apiSrv: ApiService) {}
 
 	updateStatus(status: WorkflowStatus, entity?: any) {
-		if (!entity?.id) return this._statusUpdate$.next(status);
+		const optimisticEntity = {...entity}; // ? optimistic response not working
+		optimisticEntity.status = {...status};
 		this.apiSrv
-			.updateStatus(this.typename, entity.id, status.id)
+			.updateStatus(this.typename, entity.id, status.id , { variables: { input: { ...optimisticEntity } } } )
 			.subscribe((updatedEntity) => {
-				/**  */
+				this._entityUpdate$.next(updatedEntity);
 			});
-		// TODO do this in subscribe with optimistic reponse => how to get status name ?
-		this._statusUpdate$.next({...status});
+		return this.entityUpdate$.pipe(first());
 	}
 
 	updateTask(entity) {

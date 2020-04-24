@@ -1,5 +1,6 @@
 import { QueryBuilder } from '../_query-builder.class';
 import { BaseQueries } from '../base.queries';
+import { StatusQueries } from './status.queries';
 
 export class ProductQueries extends BaseQueries {
 	// for specify fields on specific queries, we can do like this
@@ -12,14 +13,8 @@ export class ProductQueries extends BaseQueries {
 		const defaultFields = `
 		id
 		name
-		_version
 		status {
-			id
-			name
-			inWorkflow
-			category
-			step
-			final
+			${StatusQueries.defaultFields}
 		}
 	`;
 		super('Product', defaultFields);
