@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { BadgeModule } from '~shared/badge';
-import { EditableFieldModule } from '~shared/editable-field';
+import { EditableModule } from '~shared/editable';
 import { ERMModule } from '~shared/erm/erm.module';
 import { IconsModule } from '~shared/icons';
 import { InputsModule } from '~shared/inputs';
@@ -29,7 +29,7 @@ import { InputPackagingComponent } from './components-directives/input-packaging
 		LogoModule,
 		UtilsModule,
 		InputsModule,
-		EditableFieldModule,
+		EditableModule,
 		ERMModule,
 		BadgeModule,
 		TranslateModule

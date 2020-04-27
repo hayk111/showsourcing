@@ -67,7 +67,6 @@ export class RequestsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	cancelRequest(request: SupplierRequest) {
-		// TODO i18n
 		const text = 'Are you sure you want to cancel this request ?';
 		const action = 'Cancel request';
 		const items = request.requestElements.map((element) => ({
@@ -84,7 +83,6 @@ export class RequestsPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	cancelSelectedRequests() {
-		// TODO i18n
 		const text = 'Are you sure you want to cancel these requests ?';
 		const action = 'Cancel requests';
 		const items = this.selectionSrv

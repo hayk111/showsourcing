@@ -9,4 +9,9 @@ import { FormControl, Validators } from '@angular/forms';
 })
 export class FormFieldPageComponent  {
 	formCtrl1 = new FormControl('', Validators.required);
+	radioChoices = [
+		{ label: '10', value: true },
+		{ label: '100', value: false },
+		{ label: '1000', value: null}
+	];
 }

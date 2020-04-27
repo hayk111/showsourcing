@@ -122,7 +122,6 @@ export class CarouselComponent extends AutoUnsub implements OnInit {
 
 	/** deletes the image */
 	delete() {
-		// TODO i18n
 		const img = this.getImg();
 		if (this.showConfirmOnDelete) {
 			this.dlgCommonSrv.openConfirmDlg({

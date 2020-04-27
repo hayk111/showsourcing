@@ -19,7 +19,7 @@ export class PropertyOptionsService {
 	) {}
 
 	listPropertyOptions (
-		type: Typename,
+		type: string,
 		teamId: string = TeamService.teamSelected.id,
 		apiOptions: ApiQueryOption = {}
 	): Observable<any[]> {

@@ -1,13 +1,26 @@
 
 
-<input 
+<input
+	*ngIf="hasLabel"
 	inputApp
+	class="label mg-right-ms"
+	type="text"
+	placeholder="Label"
+	[readonly]="readonly"
+	[(ngModel)]="value.label"
+	(blur)="onTouchedFn()"
+	(input)="onChangeFn(value)"/>
+
+<input 
+	#amountInp
+	inputApp
+	autofocus
 	class="amount"
 	type="number" 
 	restrictInput="number"
 	placeholder="100"
 	[readonly]="readonly"
-	[(ngModel)]="value.amount"
+	[(ngModel)]="value.value"
 	(blur)="onTouchedFn()"
 	(input)="onChangeFn(value)"/>
 

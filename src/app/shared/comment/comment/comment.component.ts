@@ -62,7 +62,6 @@ export class CommentComponent implements OnInit {
 	}
 
 	onDelete() {
-		// TODO i18n
 		const text = `Are you sure you want to delete this comment ?`;
 		this.dlgCommonSrv.openConfirmDlg({ text }).data$
 			.pipe(

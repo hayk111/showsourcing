@@ -1,43 +1,32 @@
-
 <form #formElem [formGroup]="formGroup">
 
-	<ng-container *ngIf="style === 'form'; else editable">
-	
-		<ng-container
-			*ngFor="let section of sections">
-	
-			<h3 class="mg-v-m">{{ section.name }}</h3>
-			<div class="flex">
-				<div 
-					*ngFor="let propertyDescriptors of section.columns; let isLast = last"
-					[ngClass]="{ 'mg-right-m': !isLast }"
-					[ngStyle]="{ 'flex-basis': 100 / section.columns.length + '%' }">
+	<ng-container
+		*ngFor="let section of sections">
+		<h3 class="mg-v-m">{{ section.name }}</h3>
+		<div class="flex">
+			<div 
+				*ngFor="let propertyDescriptors of section.columns; let isLast = last"
+				[ngClass]="{ 'mg-right-m': !isLast }"
+				[ngStyle]="{ 'flex-basis': 100 / section.columns.length + '%' }">
+				
+				<ng-container *ngIf="style === 'form'; else editable">
 					<dynamic-field-app
 						*ngFor="let descriptor of propertyDescriptors" 
-						class="mg-bottom-s"
 						[descriptor]="descriptor"
 						[control]="formGroup.controls[descriptor.definition.name]"
 						[showRequiredMarker]="showRequiredMarker">
 					</dynamic-field-app>
-		
-				</div>
+				</ng-container>
+				<ng-template #editable>
+					<dynamic-editable-field-app
+						*ngFor="let descriptor of propertyDescriptors" 
+						[descriptor]="descriptor"
+						[control]="formGroup.controls[descriptor.definition.name]">
+					</dynamic-editable-field-app>
+				</ng-template>
 			</div>
-	
-		</ng-container>
+		</div>
+
 	</ng-container>
 	
-	<ng-template #editable>
-		<fieldset 
-			*ngFor="let section of sections" 
-			[name]="section.name">
-	
-			<div *ngFor="let column of section.columns">
-	
-				<dynamic-editable-field-app
-					*ngFor="let field of column" >
-				</dynamic-editable-field-app>
-	
-			</div>
-		</fieldset>
-	</ng-template>
 </form>

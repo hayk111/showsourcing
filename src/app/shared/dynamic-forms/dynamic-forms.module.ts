@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { BadgeModule } from '~shared/badge';
-import { EditableFieldModule } from '~shared/editable-field';
+import { EditableModule } from '~shared/editable';
 import { ERMModule } from '~shared/erm/erm.module';
 import { FileModule } from '~shared/file';
 import { IconsModule } from '~shared/icons';
@@ -38,7 +38,7 @@ import { InputSelectorComponent } from './components/dynamic-input/inputs/input-
 		ReactiveFormsModule,
 		InputsModule,
 		InputsCustomModule,
-		EditableFieldModule,
+		EditableModule,
 		SelectorsModule,
 		BadgeModule, // for displaying multiple values
 		UtilsModule,
