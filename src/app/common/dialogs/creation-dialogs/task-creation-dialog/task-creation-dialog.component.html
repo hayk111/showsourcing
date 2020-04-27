@@ -1,23 +1,45 @@
 <dialog-app class="vertical-scroll-content">
+	<dialog-header-app translate="header.new-task"></dialog-header-app>
+	<div class="container flex">
+		<div class="inner-container">
+			<label-app>Name</label-app>
+			<input
+				#inputName
+				inputApp
+				type="text"
+				[required]="true"
+				[readonly]="false"
+				(blur)="task.name = inputName.value"
+			/>
 
-		<dialog-header-app translate="header.new-task"></dialog-header-app>
-		<div class="container flex">
-				<div class="inner-container">
-					<dynamic-form-app
-						[fields]="taskDescriptor?.descriptor"
-						[value]="task"
-						(update)="updateTask($event)">
-					</dynamic-form-app>
-				</div>
-			</div>
-		<dialog-footer-app>
-			<checkbox-app
-				[value]="createAnother"
-				(update)="createAnother = !createAnother">
-				<span translate="text.create-another"></span>
-			</checkbox-app>
-			<button tabFocusAction class="secondary capitalize" (click)="cancel()" translate="button.cancel"></button>
-			<button tabFocusAction class="capitalize" [disabled]="!(task?.name)" (click)="save()" translate="button.create-task"></button>
-		</dialog-footer-app>
-
-	</dialog-app>
+			<dynamic-form2-app
+				#form
+				[descriptor]="descriptor"
+				[columnAmount]="columnAmount"
+				[style]="style"
+				[updateOn]="updateOn"
+				[properties]="descriptorProperties"
+				(update)="updateTask($event)"
+			>
+			</dynamic-form2-app>
+		</div>
+	</div>
+	<dialog-footer-app>
+		<checkbox-app [value]="createAnother" (update)="createAnother = !createAnother">
+			<span translate="text.create-another"></span>
+		</checkbox-app>
+		<button
+			tabFocusAction
+			class="secondary capitalize"
+			(click)="cancel()"
+			translate="button.cancel"
+		></button>
+		<button
+			tabFocusAction
+			class="capitalize"
+			[disabled]="!task?.name"
+			(click)="save()"
+			translate="button.create-task"
+		></button>
+	</dialog-footer-app>
+</dialog-app>
