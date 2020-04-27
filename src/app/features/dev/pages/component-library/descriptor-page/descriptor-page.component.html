@@ -2,7 +2,7 @@
 	<card-app class="mg-l">
 		<card-title-app>Costumize it</card-title-app>
 		<checkbox-app
-			class="mg-v-ms" 
+			class="mg-v-ms"
 			[value]="style === 'form'"
 			(check)="style = 'form'"
 			(uncheck)="style = 'editable'">
@@ -64,7 +64,7 @@
 		[showRequiredMarker]="showRequiredMarker"
 		(update)="properties = $event">
 	</dynamic-form2-app>
-	
+
 	<div class="mg-v-ms">
 		valid ? {{ form.valid }}
 		<button (click)="form.reset()" class="secondary mg-h-ms">reset</button>
