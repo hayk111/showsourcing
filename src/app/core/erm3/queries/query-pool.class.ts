@@ -28,7 +28,7 @@ export class QueryPool {
 		PropertyOption: new BaseQueries('PropertyOption', 'id value'),
 		Sample: new BaseQueries('Sample'),
 		Tag: new BaseQueries('Tag'),
-		Vote: new BaseQueries('Vote', 'id message nodeId'),
+		Vote: new BaseQueries('Vote', 'id message rating nodeId _version createdBy { id }'),
 		WorkflowStatus: new BaseQueries('WorkflowStatus')
 	};
 

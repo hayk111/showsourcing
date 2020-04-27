@@ -201,9 +201,9 @@
 	<preview-section-app #contentTab2 [title]="'title.team-rating' | translate">
 		<rating-dashboard-app
 			[votes]="supplier?.votes"
-			[type]="erm.SUPPLIER.singular"
+			type="supplier"
 			(update)="update($event, 'votes')"
-			(viewRatings)="dialogCommonSrv.openVoteDetailsDialog($event)">
+			(viewRatings)="dlgCommonSrv.openVoteDetailsDialog($event)">
 		</rating-dashboard-app>
 	</preview-section-app>
 

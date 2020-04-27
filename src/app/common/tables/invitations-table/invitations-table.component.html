@@ -41,17 +41,5 @@
 			{{ row.status  }}
 		</div>
 	</ng-template>
-	
-	<!-- action -->
-	<ng-template
-		[columnApp]="'Action' | const: 'action'"
-		let-row="row"
-		width="100">
-		<div class="flex">
-			<button class="icon small warn" (click)="delete.emit(row)">
-				<icon-app name="trash" size="s"></icon-app>
-			</button>
-		</div>
-	</ng-template>
 
 </table-app>

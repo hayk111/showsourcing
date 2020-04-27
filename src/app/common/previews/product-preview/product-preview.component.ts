@@ -25,7 +25,7 @@ import {
 	Sample,
 	Task,
 } from '~core/erm';
-import { Product } from '~core/erm3/models';
+import { Product, Vote } from '~core/erm3/models';
 import { ApiService } from '~core/erm3/services/api.service';
 import { ListHelperService } from '~core/list-page2';
 import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
@@ -42,9 +42,9 @@ import { AutoUnsub, PendingImage } from '~utils';
 })
 export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	/** This is the product passed as input, but it's not yet fully loaded */
-	private _product: Product;
+	private _product: any;
 	@Input()
-	set product(value: Product) {
+	set product(value: any) {
 		this._product = value;
 	}
 	get product() {
@@ -137,6 +137,11 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 		// 	sortBy: 'order',
 		// 	descending: false
 		// });
+	}
+
+	updateVote(votes: Vote[]) {
+		console.log('ProductPreviewComponent -> updateVote -> votes', votes);
+		this.product.votes = [...votes];
 	}
 
 	// UPDATE FUNCTIONS
