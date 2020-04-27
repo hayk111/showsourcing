@@ -13,6 +13,7 @@ import { Entity } from '~core/erm3/models/_entity.model';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { DefaultCreationDialogComponent } from '~common/dialogs/creation-dialogs';
 import { DialogService } from '~shared/dialog';
+import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 
 @Injectable({ providedIn: 'root' })
 export class ListHelperService<G = any> {
@@ -110,11 +111,17 @@ export class ListHelperService<G = any> {
 	}
 
 	deleteSelected() {
-		const selected = this.selectionSrv.getSelectedValues();
-		this.apiSrv.deleteMany(this.typename, selected)
-			.pipe(
-				switchMap(_ => this.refetch())
-			).subscribe(_ => this.selectionSrv.unselectAll());
+		const selecteds = this.selectionSrv.getSelectedValues();
+		this.dlgSrv
+			.open(ConfirmDialogComponent)
+			.data$.pipe(switchMap((_) => this.apiSrv.deleteMany(this.typename, selecteds)))
+			.subscribe((_) => {
+				this.apiSrv.deleteManyFromList(
+					this.queryRef,
+					selecteds.map((el) => el.id)
+				);
+				this.selectionSrv.unselectAll();
+			});
 	}
 
 	loadMore() {

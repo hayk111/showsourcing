@@ -1,9 +1,8 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { TrackingComponent } from '~utils/tracking-component';
-import { Product, Project } from '~core/erm3/models';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { SelectionService, ListHelperService } from '~core/list-page2';
+import { SelectionService } from '~core/list-page2';
 
 @Component({
 	selector: 'product-selection-bar-app',
@@ -12,11 +11,11 @@ import { SelectionService, ListHelperService } from '~core/list-page2';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductSelectionBarComponent extends TrackingComponent {
+	@Output() deleteSelected = new EventEmitter();
 
 	constructor(
 		private dlgCommonSrv: DialogCommonService,
 		private selectionSrv: SelectionService,
-		private listHelper: ListHelperService
 	) {
 		super();
 	}
@@ -55,7 +54,4 @@ export class ProductSelectionBarComponent extends TrackingComponent {
 			.data$.subscribe(/* ... */);
 	}
 
-	deleteSelectedProducts() {
-		this.listHelper.deleteSelected();
-	}
 }
