@@ -27,10 +27,8 @@ import { DialogCommonService } from '~common/dialogs/services/dialog-common.serv
 })
 export class TaskPreviewComponent extends AutoUnsub implements OnInit {
 	private _task: Task;
-	private _version = 1;
 	@Input() set task(value: Task) {
 		this._task = value;
-		this._version = value._version;
 	}
 	get task() {
 		return this._task;
@@ -75,10 +73,9 @@ export class TaskPreviewComponent extends AutoUnsub implements OnInit {
 	}
 
 	updateTask(taskConfig: any) {
-		const task = { ...taskConfig, id: this.task.id, _version: this._version };
+		const task = { ...taskConfig, id: this.task.id };
 		this.listHelper.update(task);
 		this._task = task;
-		this._version++;
 	}
 
 	updateDueDate(isCancel: boolean, value: Date) {

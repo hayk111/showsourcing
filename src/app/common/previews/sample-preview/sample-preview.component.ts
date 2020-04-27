@@ -34,10 +34,8 @@ import { ApiService } from '~core/erm3/services/api.service';
 })
 export class SamplePreviewComponent extends AutoUnsub implements OnInit {
 	private _sample: Sample;
-	private _version = 1;
 	@Input() set sample(value: Sample) {
 		this._sample = value;
-		this._version = value._version;
 	}
 	get sample() {
 		return this._sample;
@@ -89,10 +87,9 @@ export class SamplePreviewComponent extends AutoUnsub implements OnInit {
 	}
 
 	updateSample(sample: Sample) {
-		const newSample = { ...sample, id: this.sample.id, _version: this._version };
+		const newSample = { ...sample, id: this.sample.id };
 		this.listHelper.update(newSample);
 		this._sample = newSample;
-		this._version++;
 	}
 
 	addComment(comment: Comment) {
