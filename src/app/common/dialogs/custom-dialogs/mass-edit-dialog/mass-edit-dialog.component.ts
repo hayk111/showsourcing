@@ -15,12 +15,12 @@ import { ProductDescriptor } from '~core/descriptors';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-	selector: 'mass-edit-dlg-app',
-	templateUrl: './mass-edit-dlg.component.html',
-	styleUrls: ['./mass-edit-dlg.component.scss'],
+	selector: 'mass-edit-dialog-app',
+	templateUrl: './mass-edit-dialog.component.html',
+	styleUrls: ['./mass-edit-dialog.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MassEditDlgComponent extends AutoUnsub implements OnInit {
+export class MassEditDialogComponent extends AutoUnsub implements OnInit {
 
 	@Input() type: EntityMetadata;
 	@Input() items: any[];

@@ -6,7 +6,7 @@ import {
 	EditionDialogComponent,
 	ExportDialogComponent,
 	InviteUserDlgComponent,
-	MassEditDlgComponent,
+	MassEditDialogComponent,
 	MergeDialogComponent,
 	NewContactDlgComponent,
 	ProductRequestTeamFeedbackDlgComponent,
@@ -120,7 +120,7 @@ export class DialogCommonService {
 	}
 
 	openMassEditDialog(items: any[], type: Typename) {
-		return this.dlgSrv.open(MassEditDlgComponent, { items, type });
+		return this.dlgSrv.open(MassEditDialogComponent, { items, type });
 	}
 
 	openNewContactDlg(supplier?: Supplier, isNewContact: boolean = true, contactId?: string) {
