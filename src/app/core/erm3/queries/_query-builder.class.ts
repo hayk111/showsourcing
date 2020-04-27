@@ -3,8 +3,7 @@ import { Typename } from '../typename.type';
 import { QueryType } from './query-type.enum';
 
 /** Audit found on every entity */
-const AUDIT = `
-`;
+const AUDIT = ``;
 // _version
 // _lastChangedAt
 // _deleted
@@ -73,7 +72,13 @@ export class QueryBuilder {
 		const ownerVerbose = byProperty === 'Owner' ? 'User' : ''; // the param for Owner is $ownerUser
 		const paramEntityName = byProperty.charAt(0).toLowerCase() + byProperty.slice(1) + ownerVerbose;
 		const byId = paramEntityName + 'Id';
-		const byPropertyString = byProperty === 'Team' ? 's' : 'By' + byProperty; // listEntity is "by Team" in default
+
+		let byPropertyString = '';
+
+		if (this.typename !== 'TeamUser') { // temporary solution for TeamUser, as we don't have a query TeamUsers
+			byPropertyString = byProperty  === 'Team' ? 's' : 'By' + byProperty; // listEntity is "by Team" in default
+		}
+
 		return gql`
 			query List${this.typename}${byPropertyString}(
 				${this.typename === 'PropertyOption' ? '$type: ModelStringKeyConditionInput' : ''}
@@ -100,6 +105,28 @@ export class QueryBuilder {
 			}`;
 	}
 
+	[QueryType.SYNC] = (str: string): Record<string, any> => {
+		return gql`
+			query Sync${this.typename}(
+				$filter: Model${this.typename}FilterInput,
+				$lastSync: AWSTimestamp,
+				$limit: Int,
+				$nextToken: String
+			) {
+				sync${this.typename}s(
+					filter: $filter,
+					lastSync: $lastSync,
+					limit: $limit,
+					nextToken: $nextToken) {
+						items {
+							${str}
+							${AUDIT}
+						}
+						nextToken
+				  }
+			}`;
+	}
+
 	[QueryType.CREATE] = (str: string) => {
 		return gql`
 			mutation Create${this.typename}(
@@ -112,6 +139,24 @@ export class QueryBuilder {
 			}`;
 	}
 
+	[QueryType.UPDATE_MANY] = (str: string) => (inputs: any[]) => {
+		const aliasParams = inputs.map((input, i) => `
+			$input${i}: Update${this.typename}Input!`);
+		const aliasMutations = inputs.map(
+			(input, i) => `
+				alias${i}: update${this.typename}(input: $input${i}) {
+					${str}
+					${AUDIT}
+				}`
+		);
+		return gql`
+			mutation UpdateMany${this.typename}(
+				${aliasParams}
+			) {
+				${aliasMutations}
+			}`;
+	}
+
 	[QueryType.UPDATE] = (str: string) => {
 		return gql`
 			mutation Update${this.typename}(
@@ -121,6 +166,23 @@ export class QueryBuilder {
 					${str}
 					${AUDIT}
 				}
+			}`;
+	}
+
+	[QueryType.DELETE_MANY] = (str: string) => (inputs: any[]) => {
+		const aliasParams = inputs.map((input, i) => `
+			$input${i}: Delete${this.typename}Input!`);
+		const aliasMutation = inputs.map(
+			(input, i) => `
+				alias${i}: delete${this.typename}(input: $input${i}) {
+					${str}
+					${AUDIT}
+				}`);
+		return gql`
+			mutation DeleteMany${this.typename}(
+				${aliasParams}
+			) {
+				${aliasMutation}
 			}`;
 	}
 

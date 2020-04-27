@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, Optional, Self, OnChanges } from '@angular/core';
+import { Directive, ElementRef, Input, Optional, Self, OnChanges, ChangeDetectorRef } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { FormFieldControlDirective } from '~shared/inputs/components-directives/form-field-control.directive';
 import { Subject } from 'rxjs';
@@ -44,7 +44,7 @@ export class InputDirective extends FocusableDirective implements OnChanges {
 
 	constructor(
 		protected elRef: ElementRef,
-		@Optional() @Self() public control: NgControl
+		@Optional() @Self() public control: NgControl,
 	) {
 		super(elRef);
 	}

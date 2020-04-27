@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
-import { Team, User } from '~core/erm';
-import { TeamService, UserService, TeamUserService } from '~core/erm';
+import { Team, User } from '~core/erm3/models';
+import { TeamService, UserService } from '~core/auth';
 import { SettingsMembersService } from '~features/settings/services/settings-members.service';
 import { ERM } from '~core/erm';
 import { AutoUnsub } from '~utils';
@@ -19,14 +19,13 @@ export class SettingsPageComponent extends AutoUnsub implements OnInit {
 	constructor(
 		private teamSrv: TeamService,
 		private userSrv: UserService,
-		private teamUserSrv: TeamUserService,
 		private featureSrv: SettingsMembersService,
 	) {
 		super();
 	}
 
 	ngOnInit() {
-		this.team = this.teamSrv.selectedTeamSync;
+		this.team = TeamService.teamSelected;
 
 		this.featureSrv.selectTeamOwner().pipe(
 			takeUntil(this._destroy$)

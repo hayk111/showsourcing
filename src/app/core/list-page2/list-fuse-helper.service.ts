@@ -41,6 +41,44 @@ export class ListFuseHelperService<G = any> {
 		minMatchCharLength: 1,
 	};
 
+	constructor(
+		private selectionSrv: SelectionService,
+		private apiSrv: ApiService,
+		private filterSrv: FilterService,
+		private dlgSrv: DialogService,
+		private paginationSrv: PaginationService,
+		private sortSrv: SortService
+	) {
+		// When the total change, we setup pagination
+		this.total$.pipe().subscribe((total) => {
+			this._total = total;
+			this.paginationSrv.setupTotal(total);
+		});
+	}
+
+		/** the filterSrv should be setup before the listFuseHelper to specify searchable columns.
+	 * example of use:
+	 * this.filterSrv.setup([], ['name']); => fuse will be searchable on name and not on createdBy, ...
+	 * this.listHelper.setup('Category');
+	 */
+	setup(
+		typename: Typename,
+		byProperty: string = 'Team',
+		byId: string = TeamService.teamSelected.teamId,
+		queryOptions: ApiQueryOption = {}
+	) {
+		byId = byId || TeamService.teamSelected.id;
+		this.typename = typename;
+		queryOptions.fetchPolicy = queryOptions.fetchPolicy || 'network-only';
+		this.queryRef = this.apiSrv.listBy<G>(typename, byProperty, byId, queryOptions);
+		this.fuseOptions.keys = this.filterSrv.searchedFields || this.fuseOptions.keys;
+		// when we update the query, datas it will reasign fuse
+		this.queryRef.data$.subscribe((datas) => {
+			this._fuse$.next(new Fuse(datas, this.fuseOptions));
+			this._pending$.next(false);
+		});
+	}
+
 	/** items searched, without sort and without pagination */
 	private _fusedItems$: Observable<G[]> = combineLatest(
 		this._fuse$,
@@ -81,44 +119,6 @@ export class ListFuseHelperService<G = any> {
 		filter((paginedItems) => this._total === 0 || paginedItems.length > 0)
 	);
 
-	constructor(
-		private selectionSrv: SelectionService,
-		private apiSrv: ApiService,
-		private filterSrv: FilterService,
-		private dlgSrv: DialogService,
-		private paginationSrv: PaginationService,
-		private sortSrv: SortService
-	) {
-		// When the total change, we setup pagination
-		this.total$.pipe().subscribe((total) => {
-			this._total = total;
-			this.paginationSrv.setupTotal(total);
-		});
-	}
-
-	/** the filterSrv should be setup before the listFuseHelper to specify searchable columns.
-	 * example of use:
-	 * this.filterSrv.setup([], ['name']); => fuse will be searchable on name and not on createdBy, ...
-	 * this.listHelper.setup('Category');
-	 */
-	setup(
-		typename: Typename,
-		byProperty: string = 'Team',
-		byId: string = TeamService.teamSelected.teamId,
-		queryOptions: ApiQueryOption = {}
-	) {
-		byId = byId || TeamService.teamSelected.id;
-		this.typename = typename;
-		queryOptions.fetchPolicy = queryOptions.fetchPolicy || 'cache-first';
-		this.queryRef = this.apiSrv.listBy<G>(typename, byProperty, byId, queryOptions);
-		this.fuseOptions.keys = this.filterSrv.searchedFields || this.fuseOptions.keys;
-		// when we update the query, datas it will reasign fuse
-		this.queryRef.data$.subscribe((datas) => {
-			this._fuse$.next(new Fuse(datas, this.fuseOptions));
-			this._pending$.next(false);
-		});
-	}
-
 	refetch() {
 		this._pending$.next(true);
 		return this.queryRef
@@ -150,7 +150,13 @@ export class ListFuseHelperService<G = any> {
 
 	deleteSelected() {
 		const selecteds = this.selectionSrv.getSelectedValues();
-		selecteds.map((entity) => this.apiSrv.delete(this.typename, entity));
+		this.apiSrv.deleteMany(this.typename, selecteds).subscribe((_) => {
+			this.apiSrv.deleteManyFromList(
+				this.queryRef,
+				selecteds.map((el) => el.id)
+			);
+			this.selectionSrv.unselectAll();
+		});
 		selecteds.map((deleted) => this.apiSrv.deleteManyFromList(this.queryRef, [deleted.id]));
 		this.selectionSrv.unselectAll();
 	}

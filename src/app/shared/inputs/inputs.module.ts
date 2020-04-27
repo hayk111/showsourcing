@@ -19,6 +19,7 @@ import {
 	FocusableDirective
 } from '~shared/inputs/components-directives';
 import { UtilsModule } from '~shared/utils';
+import { InputPriceMatrixComponent } from './components-directives/input-price-matrix/input-price-matrix.component';
 
 
 export const components = [
@@ -37,7 +38,7 @@ export const components = [
 	TextareaAutoGrowsDirective,
 	InputPriceComponent,
 	InputPackagingComponent,
-
+	InputPriceMatrixComponent,
 
 
 	RadioComponent,

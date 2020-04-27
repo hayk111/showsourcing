@@ -43,11 +43,9 @@ import { AutoUnsub, PendingImage } from '~utils';
 export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	/** This is the product passed as input, but it's not yet fully loaded */
 	private _product: any;
-	private _version = 1;
 	@Input()
 	set product(value: any) {
 		this._product = value;
-		this._version = value._version;
 	}
 	get product() {
 		return this._product;
@@ -148,10 +146,9 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 
 	// UPDATE FUNCTIONS
 	updateProduct(productConfig: any) {
-		const product = { ...productConfig, id: this._product.id, _version: this._version };
+		const product = { ...productConfig, id: this._product.id };
 		this.listHelper.update(product);
 		this._product = product;
-		this._version++;
 	}
 
 	update(value: any, prop: string) {

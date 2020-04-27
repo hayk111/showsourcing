@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { forkJoin } from 'rxjs';
-import { switchMap, takeUntil } from 'rxjs/operators';
+import { switchMap, takeUntil, tap } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { ERM, SelectParamsConfig, TeamUser, User } from '~core/erm';
 import { SettingsMembersService } from '~features/settings/services/settings-members.service';
@@ -9,6 +9,7 @@ import { AutoUnsub } from '~utils';
 import { SelectionService, ListPageViewService } from '~core/list-page2';
 import { ListFuseHelperService } from '~core/list-page2/list-fuse-helper.service';
 import { FilterService } from '~core/filters/filter.service';
+import { MembersInvitationService } from '../../services/members-invitation.service';
 
 @Component({
 	selector: 'settings-team-members-users-app',
@@ -35,7 +36,8 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub
 		public dialogCommonSrv: DialogCommonService,
 		public viewSrv: ListPageViewService<TeamUser>,
 		private translate: TranslateService,
-		public selectionSrv: SelectionService
+		public selectionSrv: SelectionService,
+		public membersInvitationSrv: MembersInvitationService,
 	) {
 		super();
 	}
@@ -50,12 +52,6 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub
 			view: 'table',
 		});
 
-		// this.selectionSrv.selection$
-		// 	.pipe(takeUntil(this._destroy$))
-		// 	.subscribe(selected => {
-		// 		this.hasSelected = selected.size > 0;
-		// 	});
-
 		this.featureSrv
 			.selectTeamOwner()
 			.pipe(takeUntil(this._destroy$))
@@ -63,15 +59,6 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub
 				this.teamOwner = teamOwner;
 				this.user = <User>user;
 			});
-
-		// this.featureSrv.invitationAdd$.subscribe(invitation => {
-		// 	this.listSrv.combine(invitation);
-		// });
-	}
-
-	/** Opens the dialog for inviting a new user */
-	openInviteDialog() {
-		this.listHelper.create('Invitation');
 	}
 
 	updateAccessType({

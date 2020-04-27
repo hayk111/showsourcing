@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { Product } from '~core/erm';
 import { ProductService } from '~core/erm';
 import { TeamService } from '~core/erm';
+import { ApiService } from '~core/erm3/services/api.service';
 import { PropertyOptionsService } from '~shared/selectors/services/property-options.service';
 
 @Component({
@@ -17,11 +18,17 @@ export class SelectorPageComponent implements OnInit {
 
 	product$: Observable<Product>;
 
-	constructor(private propertyOptionSrv: PropertyOptionsService) { }
+	constructor(private propertyOptionSrv: PropertyOptionsService, private apiSrv: ApiService) { }
 
 	ngOnInit() {
 		// this.propertyOptionSrv.listPropertyOptions('Color').subscribe(data => {
 		// 	console.log('ngOnInit -> data', data);
+		// });
+
+		// this.apiSrv.sync('PropertyOption', {
+		// 	fetchPolicy: 'cache-and-network'
+		// }).data$.subscribe(data => {
+		// 	console.log('SelectorPageComponent -> ngOnInit -> data', data);
 		// });
 
 		// this.propertyOptionSrv.createPropertyOption({

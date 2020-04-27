@@ -92,24 +92,7 @@ export class SamplesPageComponent extends AutoUnsub implements OnInit {
 	}
 
 	create() {
-		// this.listHelper.create({
-		// 	'id': this.userSrv.userId,
-		// 	'statusId': this.generateUuid(),
-		// 	'assignee': {
-		// 		'id': this.userSrv.userId,
-		// 		'firstName': this.userSrv.user.firstName,
-		// 		'lastName': 'Atoyan',
-		// 		'email': 'hayk@simplytechnologies.net',
-		// 		'_version': 1,
-		// 		'_lastChangedAt': new Date().getTime()
-		// 	},
-		// 	'description': 'dsdsads',
-		// 	'deleted': false,
-		// 	'price': {value: 121},
-		// 	'paid': true,
-		// 	'linkedProductId': this.generateUuid(),
-		// 	'linkedSupplierId': this.generateUuid()
-		// });
+		this.listHelper.create();
 	}
 
 }

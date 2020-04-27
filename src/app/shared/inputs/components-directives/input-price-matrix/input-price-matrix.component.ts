@@ -1,16 +1,24 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Price } from '~core/erm3';
+import { AbstractInput, makeAccessorProvider } from '../abstract-input.class';
 
 @Component({
-  selector: 'app-input-price-matrix',
-  templateUrl: './input-price-matrix.component.html',
-  styleUrls: ['./input-price-matrix.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+	selector: 'input-price-matrix-app',
+	templateUrl: './input-price-matrix.component.html',
+	styleUrls: ['./input-price-matrix.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	providers: [makeAccessorProvider(InputPriceMatrixComponent)]
 })
-export class InputPriceMatrixComponent implements OnInit {
+export class InputPriceMatrixComponent extends AbstractInput {
+	@Input() value: Price[] = [{}];
 
-  constructor() { }
+	addRow() {
+		if (!this.readonly && !this.disabled) {
+			this.value.push({});
+		}
+	}
 
-  ngOnInit(): void {
-  }
-
+	removePrice() {
+		this.value.splice(this.value.length - 1, 1);
+	}
 }

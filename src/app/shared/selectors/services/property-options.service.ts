@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
-import { tap, map, switchMap, mergeMap, shareReplay} from 'rxjs/operators';
 import { ApiQueryOption, ApiService, ObservableQuery } from '~core/erm3/services/api.service';
-import { FilterType } from '~core/filters';
 import { Entity } from '~core/erm3/models/_entity.model';
-import { uuid } from '~utils';
 import {
 	MutationOptions,
 	WatchQueryOptions,

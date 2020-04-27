@@ -11,7 +11,8 @@ export class EditableContainerPageComponent implements OnInit {
 	ctrl1 = new FormControl('this text is editable');
 	ctrl2 = new FormControl();
 	ctrl3 = new FormControl();
-
+	packaging;
+	priceMatrix;
 	constructor() { }
 
 	ngOnInit() {
