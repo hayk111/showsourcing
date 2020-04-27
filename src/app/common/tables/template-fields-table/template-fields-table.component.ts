@@ -1,7 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ERM, TemplateField } from '~core/erm';
-import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
-import { DynamicUpdate } from '~shared/dynamic-forms/models/dynamic-update.interface';
 import { EntityTableComponent, TableConfig } from '../entity-table.component';
 
 const tableConfig: TableConfig = {
@@ -19,8 +17,6 @@ const tableConfig: TableConfig = {
 export class TemplateFieldsTableComponent extends EntityTableComponent<TemplateField> {
 
 	@Input() inTemplate = new Map<string, boolean>();
-	@Input() config =
-		new DynamicFormConfig({ objectAsString: true, borderless: true, hasAction: false, hasLabel: false, showComplexTypes: false });
 	@Output() addField = new EventEmitter<TemplateField>();
 	@Output() removeField = new EventEmitter<TemplateField>();
 	columns = ['name', 'defaultValue', 'fixedValue', 'inTemplate'];
@@ -31,10 +27,10 @@ export class TemplateFieldsTableComponent extends EntityTableComponent<TemplateF
 		super();
 	}
 
-	updateField(field: TemplateField, event: DynamicUpdate) {
-		Object.assign(field, event);
-		this.update.emit();
-	}
+	// updateField(field: TemplateField, event: DynamicUpdate) {
+	// 	Object.assign(field, event);
+	// 	this.update.emit();
+	// }
 
 	getCustomField(field: TemplateField) {
 		return { ...field.definition, name: 'defaultValue' };

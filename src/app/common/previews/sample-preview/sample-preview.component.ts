@@ -1,31 +1,14 @@
-import {
-	ChangeDetectionStrategy,
-	Component,
-	EventEmitter,
-	Input,
-	OnInit,
-	Output,
-	ViewChild,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
-import { SampleDescriptor } from '~core/descriptors';
-import {
-	Comment,
-	CommentService,
-	ERM,
-	ExtendedFieldDefinition,
-	Product,
-	UserService,
-} from '~core/erm';
+import { descriptorMock } from '~common/dialogs/creation-dialogs/product-creation-dialog/_temporary-descriptor-product.mock';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
+import { Comment, CommentService, ERM, Product, UserService } from '~core/erm';
 import { Sample } from '~core/erm3/models';
+import { ApiService } from '~core/erm3/services/api.service';
 import { ListHelperService } from '~core/list-page2';
-import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
 import { PreviewCommentComponent, PreviewService } from '~shared/preview';
 import { AutoUnsub } from '~utils';
-import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { ApiService } from '~core/erm3/services/api.service';
-import { descriptorMock } from '~common/dialogs/creation-dialogs/product-creation-dialog/_temporary-descriptor-product.mock';
 
 @Component({
 	selector: 'sample-preview-app',
