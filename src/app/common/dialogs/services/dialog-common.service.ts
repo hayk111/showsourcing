@@ -20,7 +20,7 @@ import { Entity } from '~core/erm3/models/_entity.model';
 import { Typename } from '~core/erm3/typename.type';
 import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
 import { DialogService } from '~shared/dialog/services';
-import { Vote } from '~shared/rating/services/rating.service';
+import { Vote } from '~core/erm3/models';
 import { ID } from '~utils';
 import { ReviewRequestReplyDlgComponent } from '../custom-dialogs/review-request-reply-dlg/review-request-reply-dlg.component';
 import { SupplierRequestDialogComponent } from '../custom-dialogs/supplier-request-dialog/supplier-request-dialog.component';

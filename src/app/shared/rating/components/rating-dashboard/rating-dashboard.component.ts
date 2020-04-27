@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { RatingService, TypeWithVotes, Vote } from '~shared/rating/services/rating.service';
+import { RatingService } from '~shared/rating/services/rating.service';
+import { Vote } from '~core/erm3/models';
 
 @Component({
 	selector: 'rating-dashboard-app',
@@ -9,15 +10,15 @@ import { RatingService, TypeWithVotes, Vote } from '~shared/rating/services/rati
 })
 export class RatingDashboardComponent {
 
-	@Input() votes: Vote[];
-	@Input() type: TypeWithVotes;
+	@Input() votes: any[];
+	@Input() nodeId: string;
 	@Output() viewRatings = new EventEmitter<Vote[]>();
-	@Output() update = new EventEmitter<Vote[]>();
+	@Output() update = new EventEmitter<any[]>();
 
 	constructor(private ratingSrv: RatingService) { }
 
 	onStarVote(number: number) {
-		this.update.emit(this.ratingSrv.starVote(this.votes, number, this.type));
+		this.update.emit(this.ratingSrv.starVote(this.votes, number, this.nodeId));
 	}
 
 }

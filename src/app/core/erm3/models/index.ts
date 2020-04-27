@@ -26,6 +26,7 @@ export { TeamUser } from './team-user.model';
 export { Team } from './team.model';
 export { User } from './user.model';
 export { Venue } from './venue.model';
+export { Vote } from './vote.model';
 export * from './property-descriptor.model';
 export * from './section-descriptor.model';
 export * from './packaging.model';

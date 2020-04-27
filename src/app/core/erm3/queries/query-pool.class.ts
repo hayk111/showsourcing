@@ -30,8 +30,8 @@ export class QueryPool {
 		PropertyOption: new BaseQueries('PropertyOption', 'id value _version'),
 		Sample: new BaseQueries('Sample', 'id name _version'),
 		Tag: new BaseQueries('Tag'),
-		Vote: new BaseQueries('Vote', 'id message nodeId'),
-		WorkflowStatus: new StatusQueries()
+		Vote: new BaseQueries('Vote', 'id message rating nodeId _version createdBy { id }'),
+		WorkflowStatus: new BaseQueries('WorkflowStatus')
 	};
 
 	static getQuery(

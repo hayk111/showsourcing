@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input } from '@angular/core';
-import { RatingService, Vote } from '~shared/rating/services/rating.service';
+import { RatingService } from '~shared/rating/services/rating.service';
+import { Vote } from '~core/erm3/models';
 
 @Component({
 	selector: 'rating-stars-score-view-app',
@@ -42,7 +43,7 @@ export class RatingStarsScoreViewComponent {
 		// we increate the total votes inside the switchase instead of doing totalVotes = votes.length
 		// because sometimes we have votes that have score 0 and we don't want those to be in the total
 		(this.votes || []).forEach(vote => {
-			switch (vote.value) {
+			switch (vote.rating) {
 				case 20:
 					this.votesMap.set(1, this.votesMap.get(1) + 1);
 					break;

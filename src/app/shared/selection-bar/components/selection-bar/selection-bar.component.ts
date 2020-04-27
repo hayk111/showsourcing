@@ -25,7 +25,7 @@ export class SelectionBarComponent {
 	}
 
 	async selectAllItems() {
-		const allItems = await this.listHelper.filteredItems$.toPromise();
+		const allItems = await this.listHelper.filteredItems$.toPromise() as any[];
 		this.selectionSrv.selectAll(allItems.map(item => item.id));
 	}
 

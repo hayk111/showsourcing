@@ -27,7 +27,7 @@ import { UserService } from '~core/auth/services';
 	}
 })
 export class ProjectsPageComponent extends AutoUnsub implements OnInit {
-	items$: Observable<Project[]>;
+	items$: Observable<any[]>;
 
 	filterTypes = [FilterType.CREATED_BY];
 
@@ -43,7 +43,7 @@ export class ProjectsPageComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		this.listHelper.setup('Project');
-		this.items$ = this.listHelper.filteredItems$;
+		this.items$ = this.listHelper.filteredItems$ as Observable<any[]>;
 	}
 
 	create() {

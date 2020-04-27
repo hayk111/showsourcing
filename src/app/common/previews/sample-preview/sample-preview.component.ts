@@ -87,7 +87,7 @@ export class SamplePreviewComponent extends AutoUnsub implements OnInit {
 	}
 
 	updateSample(sample: Sample) {
-		const newSample = { ...sample, id: this.sample.id, _version: this.sample._version };
+		const newSample = { ...sample, id: this.sample.id };
 		this.listHelper.update(newSample);
 		this._sample = newSample;
 	}
