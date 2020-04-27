@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import { UserService } from '~core/auth';
 import { IconComponent } from '~shared/icons';
-import { Vote } from '~shared/rating/services/rating.service';
+import { Vote } from '~core/erm3/models';
 
 @Component({
 	selector: 'rating-stars-action-app',

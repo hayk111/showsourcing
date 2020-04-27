@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { RatingService, TypeWithVotes, Vote } from '~shared/rating/services/rating.service';
+import { RatingService } from '~shared/rating/services/rating.service';
+import { Vote } from '~core/erm3/models';
 
 @Component({
 	selector: 'rating-dashboard-app',

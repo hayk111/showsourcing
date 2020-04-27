@@ -67,7 +67,7 @@ export class ListHelperService<G = any> {
 		switchMap(_ => this.queryRef.data$),
 		// setting pending to false because we received data
 		tap(_ => this._pending$.next(false)),
-		map(items => this.applyRatings(items, this.ratingSrv.ratings)),
+		map(items => this.ratingSrv.applyRatings(items, this.ratingSrv.ratings)),
 		shareReplay(1)
 	);
 
@@ -129,29 +129,6 @@ export class ListHelperService<G = any> {
 		forkJoin(all).pipe(
 			switchMap(_ => this.refetch())
 		).subscribe();
-	}
-
-	private applyRatings(items: any[], ratings: any[]) {
-		const itemsWithRatings = [...items];
-
-		items.forEach(item => {
-			item.votes = [...this.findAllOccurencies(ratings, item.id)];
-		});
-
-		return itemsWithRatings;
-	}
-
-	private findAllOccurencies(arr: any[], val: string) {
-		const votes = [];
-		let i = -1;
-
-		const nodeIds = arr.map(elem => elem.nodeId.split(':')[1]);
-
-		while ((i = nodeIds.indexOf(val, i + 1)) !== -1) {
-			votes.push(arr[i]);
-		}
-
-		return votes;
 	}
 
 	loadMore() {

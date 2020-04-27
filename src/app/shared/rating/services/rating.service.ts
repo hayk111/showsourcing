@@ -1,26 +1,20 @@
 import { Injectable } from '@angular/core';
-import { SupplierVoteService } from '~core/erm';
-import { ProductVoteService } from '~core/erm';
 import { UserService } from '~core/auth';
-import { EntityName, Product, ProductVote, Supplier, SupplierVote } from '~core/erm';
 import { BehaviorSubject } from 'rxjs';
+import { Vote, Product, Supplier } from '~core/erm3/models';
 import { ApiService } from '~core/erm3/services/api.service';
 import { Entity } from '~core/erm3/models/_entity.model';
 
-export type Vote = ProductVote | SupplierVote;
-export type EntityWithVotes = Product | Supplier;
-export type TypeWithVotes = EntityName.PRODUCT | EntityName.SUPPLIER;
+type TypeWithVotes = Product | Supplier;
 
 @Injectable({ providedIn: 'root' })
 export class RatingService {
-	ratings: any[] = [];
+	ratings: Vote[] = [];
 
-	private _valueChanges$ = new BehaviorSubject<any[]>(this.ratings);
+	private _valueChanges$ = new BehaviorSubject<Vote[]>(this.ratings);
 	valueChanges$ = this._valueChanges$.asObservable();
 
 	constructor(
-		private productVoteSrv: ProductVoteService,
-		private supplierVoteSrv: SupplierVoteService,
 		private userSrv: UserService,
 		private apiSrv: ApiService,
 	) {}
@@ -33,7 +27,7 @@ export class RatingService {
 	 * computes the current score of the votes given a entity
 	 * @param entity entity with votes to be computed
 	 */
-	computeScore(entity: EntityWithVotes) {
+	computeScore(entity: any) {
 		return this.computeScoreVotes(entity.votes || []);
 	}
 
@@ -42,7 +36,7 @@ export class RatingService {
 	 * @param votes array of entity votes to be computed
 	 * @result score of the votes per 5
 	 */
-	computeScoreVotes(votes: any[]): number {
+	computeScoreVotes(votes: Vote[]): number {
 		let score = null;
 		if (votes && votes.length) {
 			votes.forEach(vote => score += vote.rating);
@@ -77,8 +71,13 @@ export class RatingService {
 	 * @param newValue value received to update
 	 * @param type type of entity
 	 */
-	starVote(votes: any[], value: number, nodeId: string) {
-		const voteIndex = (votes || []).findIndex(vote => vote.createdBy && vote.createdBy.id === this.userSrv.userId);
+	starVote(votes: Vote[], value: number, nodeId: string) {
+		const voteIndex = (votes || []).findIndex(vote => {
+			if ((vote.createdBy && vote.createdBy.id === this.userSrv.userId) ||
+					(vote.voteCreatedById && vote.voteCreatedById === this.userSrv.userId)) {
+				return true;
+			}
+		});
 		const newVotes = [...votes || []];
 		if (voteIndex !== -1) {
 			const vote = votes[voteIndex];
@@ -105,7 +104,7 @@ export class RatingService {
 	 * @param entity entity we want to update
 	 * @param type type of the entity
 	 */
-	thumbUp(entity: EntityWithVotes, type: TypeWithVotes) {
+	thumbUp(entity: any, type: TypeWithVotes) {
 		// const voteIndex = (entity.votes || []).findIndex(v => v.user && v.user.id === this.userSrv.userId);
 		// // this way we dont keep the same reference
 		// let newVotes = entity.votes ? [...entity.votes] : [];
@@ -127,7 +126,7 @@ export class RatingService {
 	 * @param entity
 	 * @param type
 	 */
-	thumbDown(entity: EntityWithVotes, type: TypeWithVotes) {
+	thumbDown(entity: any, type: TypeWithVotes) {
 		// const voteIndex = (entity.votes || []).findIndex(v => v.user && v.user.id === this.userSrv.userId);
 		// let newVotes = entity.votes ? [...entity.votes] : [];
 		// if (~voteIndex) {
@@ -149,7 +148,7 @@ export class RatingService {
 	 * @param isCreated if true the vote is created, if false, removed
 	 * @param type type of entity
 	 */
-	thumbUpFromMulti(entity: EntityWithVotes, isCreated: boolean, type: TypeWithVotes) {
+	thumbUpFromMulti(entity: any, isCreated: boolean, type: TypeWithVotes) {
 		// const voteIndex = (entity.votes || []).findIndex(v => v.user && v.user.id === this.userSrv.userId);
 		// let newVotes = entity.votes ? [...entity.votes] : [];
 		// if (~voteIndex) { // if the user has a vote inside this entity
@@ -171,7 +170,7 @@ export class RatingService {
 	 * @param isCreated if true the vote is created, if false, removed
 	 * @param type type of entity
 	 */
-	thumbDownFromMulti(entity: EntityWithVotes, isCreated: boolean, type: TypeWithVotes) {
+	thumbDownFromMulti(entity: any, isCreated: boolean, type: TypeWithVotes) {
 		// const voteIndex = (entity.votes || []).findIndex(v => v.user && v.user.id === this.userSrv.userId);
 		// let newVotes = entity.votes ? [...entity.votes] : [];
 		// if (~voteIndex) {
@@ -188,7 +187,7 @@ export class RatingService {
 
 
 	// Component functions
-	private updateVote(votes: any[], vote: any, voteIndex: number) {
+	private updateVote(votes: Vote[], vote: Vote, voteIndex: number) {
 		const { id, _version, rating } = vote;
 		votes[voteIndex] = { ...votes[voteIndex], rating };
 
@@ -203,7 +202,7 @@ export class RatingService {
 		} as Entity);
 	}
 
-	private deleteVote(votes: Vote[], vote: any, voteIndex: number) {
+	private deleteVote(votes: Vote[], vote: Vote, voteIndex: number) {
 		const { id, _version, rating } = vote;
 		const index = votes.findIndex(v => v.id === id);
 		votes.splice(index, 1);
@@ -219,7 +218,7 @@ export class RatingService {
 		} as Entity);
 	}
 
-	private createVote(votes: any[], rating: number, nodeId: string) {
+	private createVote(votes: Vote[], rating: number, nodeId: string) {
 		const voteInfo = {
 			rating,
 			nodeId,
@@ -231,6 +230,29 @@ export class RatingService {
 		this.apiSrv.create('Vote', {
 			...voteInfo
 		} as Entity);
+	}
+
+	applyRatings(items: any[], ratings: Vote[]) {
+		const itemsWithRatings = [...items];
+
+		items.forEach(item => {
+			item.votes = [...this.findAllOccurencies(ratings, item.id)];
+		});
+
+		return itemsWithRatings;
+	}
+
+	private findAllOccurencies(arr: Vote[], val: string) {
+		const votes = [];
+		let i = -1;
+
+		const nodeIds = arr.map(elem => elem.nodeId.split(':')[1]);
+
+		while ((i = nodeIds.indexOf(val, i + 1)) !== -1) {
+			votes.push(arr[i]);
+		}
+
+		return votes;
 	}
 
 	onThumbUp(item: Entity) {

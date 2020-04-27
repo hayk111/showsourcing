@@ -140,6 +140,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	}
 
 	updateVote(value) {
+		// adding "votes" property to the product entity to be displayed in the preview panel
 		this.product.votes = value;
 	}
 
