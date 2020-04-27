@@ -7,7 +7,9 @@ export enum QueryType {
 	CREATE = 'create',
 	UPDATE = 'update',
 	UPDATE_STATUS = 'updateStatus',
+	UPDATE_MANY = 'updateMany',
 	DELETE = 'delete',
+	DELETE_MANY = 'deleteMany',
 	LIST_BY = 'listBy',
 	SYNC = 'sync',
 }

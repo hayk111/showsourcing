@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MutationOptions } from 'apollo-client';
 import { ObservableQuery as ApolloObservableQuery, WatchQueryOptions } from 'apollo-client';
-import { forkJoin, from, Observable } from 'rxjs';
+import { from, Observable } from 'rxjs';
 import { filter, map, tap } from 'rxjs/operators';
 import { AuthenticationService } from '~core/auth/services/authentication.service';
 import { uuid } from '~utils';
@@ -100,9 +100,9 @@ export class ApiService {
 		const queryName = GqlHelper.getQueryName(options.mutation);
 		ApiLogger.logRequest(options);
 		// removing the typename from the input
-		delete options.variables.input.__typename;
+		delete options.variables.input?.__typename;
 		return from(client.mutate(options)).pipe(
-			map(({ data }) => data[queryName]),
+			map(({ data }) => data[queryName] || data), // if we use aliases, there is no queryName
 			tap((data) => ApiLogger.logResponse(options, data))
 		);
 	}
@@ -210,7 +210,7 @@ export class ApiService {
 	/** create one entity
 	 * @param typename: name of the entity we want to create
 	 * @param entity : entity we want to create
-	 * @param options: apollo options, variable and query will be overrided
+	 * @param options: apollo options, variable and mutation will be overrided
 	 */
 	create<T extends Entity>(
 		typename: Typename,
@@ -219,7 +219,6 @@ export class ApiService {
 	): Observable<T> {
 		const options = apiOptions as MutationOptions;
 		options.mutation = QueryPool.getQuery(typename, QueryType.CREATE);
-		// TODO remove this condition when the audits are all similars
 		if (typename !== 'Company' && typename !== 'Team') {
 			if (typename !== 'Invitation') { // temporary solution for invitations only id and createdAt are not needed
 				entity.id = uuid();
@@ -248,8 +247,8 @@ export class ApiService {
 
 	/** Update one entity
 	 * @param typename: name of the entity we want to update
-	 * @param entity : entity we want to update
-	 * @param options: apollo options, variable and query will be overrided
+	 * @param entity : entity we want to create
+	 * @param options: apollo options, variable and mutation will be overrided
 	 */
 	update<T extends Entity>(
 		typename: Typename,
@@ -300,14 +299,33 @@ export class ApiService {
 		typename: Typename,
 		entities: T[],
 		apiOptions: ApiMutationOption = {}
-	): Observable<T[]> {
-		return forkJoin(entities.map((entity) => this.update(typename, entity, apiOptions)));
+	): Observable<T> {
+		const options = apiOptions as MutationOptions;
+		entities.forEach((entity) => {
+			entity.__typename = typename;
+			if (typename !== 'Company' && typename !== 'Team') {
+				entity.lastUpdatedAt = new Date().toISOString();
+				entity.teamId = this._teamId;
+			}
+		});
+		options.variables = {};
+		entities.forEach((entity, i) => (options.variables['input' + i] = entity));
+		const queryBuilder = QueryPool.getQuery(typename, QueryType.UPDATE_MANY);
+		options.mutation = queryBuilder(entities);
+		options.optimisticResponse = this.getOptimisticResponse(options);
+		entities.forEach((entity) => delete entity.__typename); // not done in this.mutate() for the many
+		return this.mutate(options);
 	}
 
 	/////////////////////////////
 	//          DELETE         //
 	/////////////////////////////
 
+	/** Delete one entity
+	 * @param typename: name of the entity we want to delete
+	 * @param entity : entity we want to delete
+	 * @param options: apollo options, variable and mutation will be overrided
+	 */
 	delete<T extends Entity>(
 		typename: Typename,
 		entity: T,
@@ -327,18 +345,37 @@ export class ApiService {
 		return this.mutate(options);
 	}
 
+	/** Delete many entities
+	 * @param typename: name of the entity we want to delete
+	 * @param entities : entities we want to delete
+	 * @param options: apollo options, variable and mutation will be overrided
+	 */
 	deleteMany<T extends Entity>(
 		typename: Typename,
 		entities: T[],
 		apiOptions: ApiMutationOption = {}
-	): Observable<T[]> {
-		return forkJoin(entities.map((entity) => this.update(typename, entity, apiOptions)));
+	): Observable<T> {
+		const options = apiOptions as MutationOptions;
+		options.variables = {};
+		entities.forEach((entity, i) => {
+			// we add specific variables to match to gql aliases generated in queryBuilder
+			options.variables['input' + i] = { id: entity.id, _version: entity._version };
+			if (typename !== 'Company' && typename !== 'Team') {
+				options.variables['input' + i].teamId = this._teamId;
+			}
+		});
+		const queryBuilder = QueryPool.getQuery(typename, QueryType.DELETE_MANY);
+		options.mutation = queryBuilder(entities);
+		return this.mutate(options);
 	}
 
 	/////////////////////////////
 	//      CACHE UPDATES      //
 	/////////////////////////////
 
+	/** addToList update the cached query to keep our list up to date
+	 * (when we querried items, then add a new element, we may want to update the querried list.)
+	 **/
 	addToList(query: ObservableQuery, elem: any) {
 		const r: any = client.readQuery(query.options);
 		const items = r[query.queryName].items;
@@ -357,23 +394,25 @@ export class ApiService {
 		client.writeQuery({ ...query.options, data: r });
 	}
 
-	/** creates an optimistic response the way apollo expects it */
+	/** creates an optimistic response the way apollo expects it
+	 * __typename must be referenced. if not we get an error
+	 */
 	protected getOptimisticResponse(options: MutationOptions) {
 		const queryName = GqlHelper.getQueryName(options.mutation);
-		const input = options.variables.input;
-		if (input.__typename) {
-			return {
-				__typename: 'Mutation',
-				[queryName]: {
-					...input,
-				},
-			};
+		const predicateResp = {};
+
+		// if options.variables.input undefined, that means we have aliases
+		if (!options.variables.input) {
+			Object.values(options.variables).forEach((inputValue, i) => {
+				predicateResp['alias' + i] = { ...inputValue }; // the properties alias + i is matching the alias mutations from the query-builder
+			});
 		} else {
-			log.warn(`
-				Doing a mutation without optimistic ui: ${queryName},
-				when doing an update use "new Entity()" or specify the "__typename"
-			`);
+			predicateResp[queryName] = { ...options.variables.input };
 		}
+		return {
+			__typename: 'Mutation',
+			...predicateResp,
+		};
 	}
 
 	/** check if a graphql call has given any error */

@@ -8,14 +8,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { AnalyticsService } from '~core/analytics/analytics.service';
 import { CompanyService, TeamService, UserService } from '~core/auth/services';
 
-// Doctor: “Do you do sports?”
-
-// Patient: “Does sex count?”
-
-// Doctor: “Yes.”
-
-// Patient: “Then no.”
-
 @Component({
 	selector: 'app-root',
 	templateUrl: './app.component.html',

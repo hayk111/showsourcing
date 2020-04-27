@@ -1,0 +1,153 @@
+
+<!-- LENGTH -->
+<editable-field2-app 
+	#edtLength
+	[readonly]="readonly"
+	(saved)="onChangeFn(value)"
+	(opened)="storeValue('length', value.length)"
+	(canceled)="onCancel('length')">
+	<editable-label-app>Length</editable-label-app>
+	<editable-value-app>
+		{{ value?.length }} 
+		{{ value?.lengthUnit }}
+	</editable-value-app>
+	<input 
+		inputApp
+		type="number"
+		[(ngModel)]="value.length"
+		[required]="required"
+		(keyup.enter)="edtLength.save()"
+		(input)="onChangeFn(value)"
+		(blur)="onTouchedFn()"/>
+</editable-field2-app>
+
+<!-- WIDTH -->
+<editable-field2-app 
+	#edtWidth
+	[readonly]="readonly"
+	(saved)="onChangeFn(value)"
+	(opened)="storeValue('width', value.width)"
+	(canceled)="onCancel('width')">
+	<editable-label-app>Width</editable-label-app>
+	<editable-value-app>
+		{{ value?.width }} 
+		{{ value?.lengthUnit }}
+	</editable-value-app>
+	<input 
+		inputApp
+		type="number"
+		[(ngModel)]="value.width"
+		[required]="required"
+		(keyup.enter)="edtWidth.save()"
+		(input)="onChangeFn(value)"
+		(blur)="onTouchedFn()"/>
+</editable-field2-app>
+
+<!-- HEIGHT -->
+<editable-field2-app 
+	#edtHeight
+	[readonly]="readonly"
+	(saved)="onChangeFn(value)"
+	(opened)="storeValue('height', value.height)"
+	(canceled)="onCancel('height')">
+	<editable-label-app>Height</editable-label-app>
+	<editable-value-app>
+		{{ value?.height }} 
+		{{ value?.lengthUnit }}
+	</editable-value-app>
+	<input 
+		inputApp
+		type="number"
+		[(ngModel)]="value.height"
+		[required]="required"
+		(keyup.enter)="edtHeight.save()"
+		(input)="onChangeFn(value)"
+		(blur)="onTouchedFn()"/>
+</editable-field2-app>
+
+
+<!-- LENGTH UNIT-->
+<editable-field2-app 
+	#edtLengthUnit
+	[readonly]="readonly"
+	(saved)="onChangeFn(value)"
+	(opened)="storeValue('lengthUnit', value.lengthUnit)"
+	(canceled)="onCancel('lengthUnit')">
+	<editable-label-app>Length Unit</editable-label-app>
+	<editable-value-app>
+		{{ value?.lengthUnit }}
+	</editable-value-app>
+	<input 
+		inputApp
+		type="text"
+		[(ngModel)]="value.lengthUnit"
+		[required]="required"
+		(keyup.enter)="edtLengthUnit.save()"
+		(input)="onChangeFn(value)"
+		(blur)="onTouchedFn()"/>
+</editable-field2-app>
+
+<!-- QUANTITY -->
+<editable-field2-app 
+	#edtQuantity
+	[readonly]="readonly"
+	(saved)="onChangeFn(value)"
+	(opened)="storeValue('quantity', value.quantity)"
+	(canceled)="onCancel('quantity')">
+	<editable-label-app>Quantity</editable-label-app>
+	<editable-value-app>
+		{{ value?.quantity }}
+	</editable-value-app>
+	<input 
+		inputApp
+		type="number"
+		[(ngModel)]="value.quantity"
+		[required]="required"
+		(keyup.enter)="edtQuantity.save()"
+		(input)="onChangeFn(value)"
+		(blur)="onTouchedFn()"/>
+</editable-field2-app>
+
+<!-- WEIGHT -->
+<editable-field2-app 
+	#edtWeight
+	[readonly]="readonly"
+	(saved)="onChangeFn(value)"
+	(opened)="storeValue('weight', value.weight)"
+	(canceled)="onCancel('weight')">
+	<editable-label-app>Weight</editable-label-app>
+	<editable-value-app>
+		{{ value?.weight }} 
+		{{ value?.weightUnit }}
+	</editable-value-app>
+	<input 
+		inputApp
+		type="number"
+		[(ngModel)]="value.weight"
+		[required]="required"
+		(keyup.enter)="edtWeight.save()"
+		(input)="onChangeFn(value)"
+		(blur)="onTouchedFn()"/>
+</editable-field2-app>
+
+
+<!-- WEIGHT UNIT-->
+<editable-field2-app 
+	#edtWeightUnit
+	[readonly]="readonly"
+	(saved)="onChangeFn(value)"
+	(opened)="storeValue('weightUnit', value.weightUnit)"
+	(canceled)="onCancel('weightUnit')">
+	<editable-label-app>Weight Unit</editable-label-app>
+	<editable-value-app>
+		{{ value?.weightUnit }}
+	</editable-value-app>
+	<input 
+		inputApp
+		type="text"
+		[(ngModel)]="value.weightUnit"
+		[required]="required"
+		(keyup.enter)="edtWeightUnit.save()"
+		(input)="onChangeFn(value)"
+		(blur)="onTouchedFn()"/>
+</editable-field2-app>

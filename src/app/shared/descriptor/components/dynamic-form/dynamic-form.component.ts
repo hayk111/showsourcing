@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter,
-	Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+	Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ReplaySubject, Subject } from 'rxjs';
-import { map, switchMap, takeUntil } from 'rxjs/operators';
+import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { Descriptor, PropertyDescriptor } from '~core/erm3/models';
 import { SectionWithColumns } from '~shared/descriptor/interfaces/section-with-columns.interface';
 import { DescriptorService } from '~shared/descriptor/services/descriptor.service';
@@ -41,11 +41,14 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 		return this.formGroup.valid;
 	}
 
-	constructor(private descriptorSrv: DescriptorService) {}
+	constructor(
+		private descriptorSrv: DescriptorService,
+		private cd: ChangeDetectorRef) {}
 
 	ngOnInit() {
 		this.formGroup$.pipe(
 			switchMap(group => group.valueChanges),
+			tap(d => this.cd.markForCheck()),
 			// we transform it into the array of properties
 			map(value => this.descriptorSrv.objectToProperties(value)),
 			takeUntil(this._destroy$)
@@ -59,6 +62,8 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 			changes.updateOn.previousValue !== changes.updateOn.currentValue;
 		const descriptorChanged = changes.descriptor &&
 			changes.descriptor.previousValue !== changes.descriptor.currentValue;
+		const styleChanged = changes.style &&
+			changes.style.previousValue !== changes.style.currentValue;
 
 		if (colChanged || descriptorChanged) {
 			this.makeColumns();
@@ -68,10 +73,10 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 			this.buildFormGroup();
 		}
 
-	}
+		if (styleChanged) {
+			this.cd.markForCheck();
+		}
 
-	submit() {
-		this.formElem.nativeElement.submit();
 	}
 
 	reset() {
@@ -103,6 +108,7 @@ export class DynamicFormComponent implements OnInit, OnChanges, OnDestroy {
 	private buildFormGroup() {
 		this.formGroup = this.descriptorSrv
 			.descriptorToFormGroup(this.descriptor, { updateOn: this.updateOn });
+		// patch with existing values
 		const values = this.descriptorSrv
 				.propertiesToObject(this.properties);
 		this.formGroup.patchValue(values);

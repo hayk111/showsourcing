@@ -3,8 +3,7 @@ import { Typename } from '../typename.type';
 import { QueryType } from './query-type.enum';
 
 /** Audit found on every entity */
-const AUDIT = `
-`;
+const AUDIT = ``;
 // _version
 // _lastChangedAt
 // _deleted
@@ -75,8 +74,7 @@ export class QueryBuilder {
 		const byId = paramEntityName + 'Id';
 
 		let byPropertyString = '';
-
-		byPropertyString = byProperty === 'Team' ? '' : 'By' + byProperty; // listEntity is "by Team" in default
+		byPropertyString = byProperty  === 'Team' ? 's' : 'By' + byProperty; // listEntity is "by Team" in default
 
 		return gql`
 			query List${this.typename}${byPropertyString}(
@@ -138,6 +136,24 @@ export class QueryBuilder {
 			}`;
 	};
 
+	[QueryType.UPDATE_MANY] = (str: string) => (inputs: any[]) => {
+		const aliasParams = inputs.map((input, i) => `
+			$input${i}: Update${this.typename}Input!`);
+		const aliasMutations = inputs.map(
+			(input, i) => `
+				alias${i}: update${this.typename}(input: $input${i}) {
+					${str}
+					${AUDIT}
+				}`
+		);
+		return gql`
+			mutation UpdateMany${this.typename}(
+				${aliasParams}
+			) {
+				${aliasMutations}
+			}`;
+	}
+
 	[QueryType.UPDATE] = (str: string) => {
 		return gql`
 			mutation Update${this.typename}(
@@ -161,6 +177,23 @@ export class QueryBuilder {
 			}
   	}`;
 	};
+
+	[QueryType.DELETE_MANY] = (str: string) => (inputs: any[]) => {
+		const aliasParams = inputs.map((input, i) => `
+			$input${i}: Delete${this.typename}Input!`);
+		const aliasMutation = inputs.map(
+			(input, i) => `
+				alias${i}: delete${this.typename}(input: $input${i}) {
+					${str}
+					${AUDIT}
+				}`);
+		return gql`
+			mutation DeleteMany${this.typename}(
+				${aliasParams}
+			) {
+				${aliasMutation}
+			}`;
+	}
 
 	[QueryType.DELETE] = (str = '') => {
 		return gql`

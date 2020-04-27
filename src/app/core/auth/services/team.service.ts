@@ -6,6 +6,7 @@ import { ApiService } from '~core/erm3/services/api.service';
 import { LocalStorageService } from '~core/local-storage';
 import { CompanyService } from './company.service';
 import { TeamUser, Team } from '~core/erm3/models';
+import { UserService } from './user.service';
 
 // name in local storage
 const SELECTED_TEAM = 'selected-team';
@@ -21,7 +22,7 @@ export class TeamService {
 	private queryAllTeamUsers = this.apiSrv.listBy<TeamUser>(
 		'TeamUser',
 		'User',
-		undefined, // overrided on backend no need to pass anything
+		UserService.userId,
 		{ fetchPolicy: 'cache-and-network' }
 	);
 	teamsOfUser$: Observable<Team[]> = this.queryAllTeamUsers.data$.pipe(
@@ -48,7 +49,7 @@ export class TeamService {
 		protected storage: LocalStorageService,
 		protected authSrv: AuthenticationService,
 		protected companySrv: CompanyService,
-		protected apiSrv: ApiService
+		protected apiSrv: ApiService,
 	) {	}
 
 	init() {
@@ -69,7 +70,7 @@ export class TeamService {
 	create(team: Team): Observable<any> {
 		return this.apiSrv.create('Team', { companyId: this.companySrv.companySync.id, ...team })
 			.pipe(
-				//switchMap(_ => this.queryAllTeamUsers.refetch())
+				// switchMap(_ => this.queryAllTeamUsers.refetch())
 			);
 	}
 
