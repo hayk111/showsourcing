@@ -3,6 +3,7 @@ import { Typename } from '~core/erm3/typename.type';
 import { ContextMenuComponent } from '~shared/context-menu/components/context-menu/context-menu.component';
 import { StatusSelectorService } from '~shared/status-selector/service/status-selector.service';
 import { AutoUnsub, StatusUtils } from '~utils';
+import { map } from 'rxjs/operators';
 
 @Component({
 	selector: 'status-selector-app',
@@ -31,7 +32,7 @@ export class StatusSelectorComponent extends AutoUnsub {
 	// use for the cdk overlay
 	@Input() offsetX = 0;
 	@Input() offsetY = 5;
-	@Input() selectSize = 'm';
+	@Input() selectSize: 'l' | 'm' = 'm';
 
 	@Input() type: 'badge' | 'button' = 'badge';
 
@@ -41,34 +42,29 @@ export class StatusSelectorComponent extends AutoUnsub {
 
 	constructor(public statusSrv: StatusSelectorService, private cd: ChangeDetectorRef) {
 		super();
-
 	}
 
 	updateStatus(newStatus, entity) {
-		this.statusSrv.updateStatus(newStatus, entity).subscribe(newEntity => {
+		this.statusSrv.updateStatus(newStatus, entity).subscribe((newEntity) => {
 			this.entity = newEntity;
 			this.cd.markForCheck();
 		});
 	}
 
-
 	isLast() {
-		// if (!this.statuses) {
-		// 	// if empty we return true, so it beleives its last
-		// 	return false;
-		// }
-		// const length = this.statuses.length;
-		// // minus 2 cuz we don't want the last one (refused)
-		// const lastStep = this.statuses[length - 2].step;
-		// return this.entity.status.step >= lastStep;
+		const statuses = this.statusSrv.listStatus;
+		if (!statuses || !this.entity) return true;
+		const lastStep = statuses[statuses.length - 1].step;
+		return this.entity.status.step < lastStep ? false : true;
 	}
 
 	getNextStatus() {
-		// const nextStep = this.entity.status.step + 1;
-		// return this.statuses ? this.statuses.find((status) => status.step === nextStep) : null;
+		const statuses = this.statusSrv.listStatus;
+		const nextStep = this.entity.status.step + 1;
+		return statuses.find((status) => status.step === nextStep);
 	}
 
 	next() {
-		// return this.updateStatus(this.getNextStatus());
+		return this.updateStatus(this.getNextStatus(), this.entity);
 	}
 }

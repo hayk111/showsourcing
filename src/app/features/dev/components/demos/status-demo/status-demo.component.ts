@@ -11,6 +11,8 @@ export class StatusDemoComponent implements OnInit {
 	statusTypenames = ['Product', 'Task', 'Sample', 'Supplier'];
 	typenameSelected: Typename;
 	entitySelected: any;
+	triggerType: 'badge' | 'button' = 'badge';
+
 	constructor() {}
 
 	ngOnInit(): void {}
@@ -22,5 +24,9 @@ export class StatusDemoComponent implements OnInit {
 
 	selectEntity(entity) {
 		this.entitySelected = entity;
+	}
+
+	selectTrigger(e) {
+		this.triggerType = e.target.value;
 	}
 }

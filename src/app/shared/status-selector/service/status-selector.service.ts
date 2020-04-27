@@ -16,10 +16,15 @@ export class StatusSelectorService {
 
 	private _listStatus$ = new ReplaySubject<WorkflowStatus[]>();
 	listStatus$ = this._listStatus$.asObservable();
+	listStatus: WorkflowStatus[];
 
 	typename: Typename;
 
-	constructor(private fuseHelper: ListFuseHelperService, private apiSrv: ApiService) {}
+	constructor(private fuseHelper: ListFuseHelperService, private apiSrv: ApiService) {
+		this.listStatus$.subscribe(statuses => {
+			this.listStatus = statuses;
+		});
+	}
 
 	updateStatus(status: WorkflowStatus, entity?: any) {
 		const optimisticEntity = {...entity}; // ? optimistic response not working

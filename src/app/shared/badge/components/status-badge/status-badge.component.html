@@ -1,5 +1,5 @@
 <badge-app [size]="size" [color]="statusUtils.getStatusColor(status)">
 <!-- ? Status are now dynamic workflows. May be it should't be translated ? (same for selector-items) -->
-	<ng-container *ngIf="displayStep">{{ status?.step || 0 }}.</ng-container>
-	{{ '_user-defined.status.' + (status?.name || 'New-' + typename) | translate }}
+	<ng-container *ngIf="displayStep">{{ status?.step }}.</ng-container>
+	{{ '_user-defined.status.' + status?.name | translate }}
 </badge-app>

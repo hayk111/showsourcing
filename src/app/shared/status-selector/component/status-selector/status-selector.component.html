@@ -21,7 +21,9 @@
 
 		<ng-container *ngIf="type === 'button'">
 			<status-button-app
-				class="pointer flexCenter border-radius-right-none"
+				class="pointer flexCenter"
+				[displayStep]="displayStep"
+				[class.border-radius-right-none]="!isLast()"
 				[size]="selectSize"
 				[status]="entity?.status"
 			>
@@ -29,7 +31,6 @@
 		</ng-container>
 	</context-menu-trigger-app>
 
-	<!-- status null we add on top -->
 	<context-menu-item-app
 		*ngFor="let stat of statusSrv.listStatus$ | async; last as last; trackBy: trackByFn"
 		(click)="updateStatus(stat, entity)"
@@ -38,10 +39,10 @@
 	</context-menu-item-app>
 </context-menu-app>
 
-<!-- <ng-container *ngIf="type === 'button'">
+<ng-container *ngIf="type === 'button'">
 		<button
 			*ngIf="!isLast()"
-			class="caretCtnr"
+			class="caretCtnr inline"
 			[class.big]="selectSize === 'l'"
 			[ngClass]="statusUtils.getStatusColor(entity?.status)"
 			toolTip
@@ -52,20 +53,7 @@
 
 			<icon-app class="caret" name="caret-right"></icon-app>
 		</button>
-		<button
-			*ngIf="isLast()"
-			class="caretCtnr"
-			[class.big]="selectSize === 'l'"
-			[ngClass]="statusUtils.getStatusColor(entity?.status)"
-			toolTip
-			[toolTipMessage]="('message.previous-status' | translate) +
-				' ' + ('text.' + getPreviousStatus()?.name | translate)"
-			toolTipPosition="below-left"
-			(click)="previous()">
-
-			<icon-app class="caret" name="caret-left"></icon-app>
-		</button>
-	</ng-container> -->
+	</ng-container>
 
 <!-- specific for task since we dont have the status on the DB we just have done, over-due and pending -->
 <!-- <task-status-badge-app
