@@ -59,41 +59,6 @@ export class ProductsBoardComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		// const filters$ = this.filterSrv.filterList.valueChanges$.pipe(
-		// 	takeUntil(this._destroy$)
-		// );
-
-		// const statuses$ = this.productStatusSrv
-		// 	.queryAll(undefined, {
-		// 		query: 'category != "refused"',
-		// 		sortBy: 'step',
-		// 		descending: false
-		// 	})
-		// 	.pipe(
-		// 		first(),
-		// 		// status null
-		// 		map(statuses => [
-		// 			{
-		// 				id: StatusUtils.NEW_STATUS_ID,
-		// 				name: 'New Product',
-		// 				category: StatusUtils.DEFAULT_STATUS_CATEGORY
-		// 			},
-		// 			...statuses
-		// 		]),
-		// 		tap(statuses => this.kanbanSrv.setColumnsFromStatus(statuses))
-		// 	);
-
-		// combineLatest(filters$, statuses$)
-		// 	.pipe(
-		// 		mergeMap(([filterList, statuses]) =>
-		// 			combineLatest(...this.getProductColumns(statuses, filterList))
-		// 				// at this point we work with the local data
-		// 				.pipe(first())
-		// 		)
-		// 	)
-		// 	.subscribe(columns => {
-		// 		this.kanbanSrv.setData(columns);
-		// 	});
 	}
 
 	loadMore(col: KanbanColumn) {
