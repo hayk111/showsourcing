@@ -24,6 +24,7 @@ import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-con
 import { PreviewCommentComponent, PreviewService } from '~shared/preview';
 import { RatingDashboardComponent } from '~shared/rating';
 import { AutoUnsub, translate } from '~utils';
+import { descriptorMock } from '~common/dialogs/creation-dialogs/product-creation-dialog/_temporary-descriptor-product.mock';
 
 @Component({
 	selector: 'supplier-preview-app',
@@ -55,13 +56,11 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnInit {
 	ratingDashboard: ElementRef;
 
 	supplier$: Observable<Supplier>;
-	supplierDescirptor: SupplierDescriptor;
-	formConfig = new DynamicFormConfig({ mode: 'editable-text', alignValue: 'right' });
 	selectedIndex = 0;
 	modalOpen = false;
 	erm = ERM;
+	descriptor = descriptorMock;
 
-	fieldDefinitions$: Observable<ExtendedFieldDefinition[]>;
 
 	constructor(
 		private listHelper: ListHelperService,
@@ -76,25 +75,6 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.supplierDescirptor = new SupplierDescriptor([
-			'name',
-			ERM.SUPPLIER_TYPE.singular,
-			'generalMOQ',
-			'generalLeadTime',
-			'country',
-			'address',
-			'harbour',
-			'incoTerm',
-			'website',
-			'officeEmail',
-			'officePhone',
-			'createdBy',
-			'creationDate',
-			'lastUpdatedBy',
-			'lastUpdatedDate',
-		]);
-
-		// this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "supplier.extendedFields"', sortBy: 'order' });
 	}
 
 	// UPDATE FUNCTIONS

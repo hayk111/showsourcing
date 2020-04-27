@@ -10,6 +10,7 @@ import { Contact } from '~core/erm';
 import { CloseEvent, CloseEventType } from '~shared/dialog';
 import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
 import { AutoUnsub } from '~utils';
+import { descriptorMock } from '~common/dialogs/creation-dialogs/product-creation-dialog/_temporary-descriptor-product.mock';
 
 @Component({
 	selector: 'activity-page-app',
@@ -24,9 +25,7 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 	products$: Observable<Product[]>;
 	contacts$: Observable<Contact[]>;
 	erm = ERM;
-	supplierDescriptor: SupplierDescriptor;
-	config = new DynamicFormConfig({ mode: 'editable-text' });
-
+	descriptor = descriptorMock;
 	// sample & task used for the preview
 	sample: Sample;
 	task: Task;
@@ -64,16 +63,6 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 		this.contacts$ = id$.pipe(
 			switchMap(id => this.supplierSrv.getContacts(id))
 		);
-
-		this.supplierDescriptor = new SupplierDescriptor([
-			'country', 'generalMOQ', 'generalLeadTime', 'incoTerm', 'harbour', 'officeEmail', 'officePhone',
-			'website', 'supplierType', 'address'
-		]);
-		this.supplierDescriptor.modify([
-			{ name: 'generalMOQ', label: 'general-moq' },
-			{ name: 'harbour', label: 'port-loading' },
-			{ name: 'website', label: 'web' },
-		]);
 
 	}
 

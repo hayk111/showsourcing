@@ -38,13 +38,12 @@
 		<!-- supplier info -->
 		<card-app>
 			<card-title-app size="s">Supplier Information</card-title-app>
-			<dynamic-form-app
-				class="mg-bottom-l"
-				[value]="supplier"
-				[fields]="supplierDescriptor?.descriptor"
-				[config]="config"
-				(update)="update($event)">
-			</dynamic-form-app>
+			<dynamic-form2-app
+				#form
+				[style]="'editable'"
+				[descriptor]="descriptor"
+				[columnAmount]="1">
+			</dynamic-form2-app>
 		</card-app>
 		<!-- supplier rating -->
 		<card-app>
