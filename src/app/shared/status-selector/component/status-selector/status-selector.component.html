@@ -42,7 +42,7 @@
 <ng-container *ngIf="type === 'button'">
 		<button
 			*ngIf="!isLast()"
-			class="caretCtnr inline"
+			class="caretCtnr flex"
 			[class.big]="selectSize === 'l'"
 			[ngClass]="statusUtils.getStatusColor(entity?.status)"
 			toolTip

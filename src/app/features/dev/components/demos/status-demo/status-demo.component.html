@@ -73,13 +73,13 @@
 		<!-- Demo : Display and update status of Entity Selected -->
 		<ul>
 			<li class="mg-bottom-s" *ngIf="entitySelected">
-				badge status:
+				{{triggerType}} status selector of {{typenameSelected}} "{{entitySelected.name}}":
 				<status-selector-app
-					class="inline"
+					class="flex"
 					[entity]="entitySelected"
 					[typename]="typenameSelected"
 					[displayStep]="true"
-					selectSize="l"
+					selectSize="m"
 					[type]="triggerType"
 				></status-selector-app>
 			</li>
