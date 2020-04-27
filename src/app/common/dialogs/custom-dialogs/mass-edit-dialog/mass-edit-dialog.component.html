@@ -1,10 +1,10 @@
 <dialog-app class="vertical-scroll-content">
 
-	<dialog-header-app>
+	<!-- <dialog-header-app>
 		{{ ((items?.length || 0) > 1 ? 'OBJ.mass-edit.plural' : 'OBJ.mass-edit.singular') | translate: { count: items?.length || 0 } }}
-	</dialog-header-app>
+	</dialog-header-app> -->
 
-	<div class="container">
+	<!-- <div class="container">
 		<h5 class="ms" translate="text.property-update"></h5>
 		<selector-app
 			typename="FieldDescriptor"
@@ -19,17 +19,17 @@
 				[name]="(choice$ | async)?.label || (choice$ | async)?.name"
 				[placeholder]="'placeholder.choose-property' | translate">
 			</selector-placeholder-app>
-		</selector-app>
+		</selector-app> -->
 
 		<!-- content when no pending -->
-		<ng-container *ngIf="!pending; else spinner">
+		<!-- <ng-container *ngIf="!pending; else spinner"> -->
 			<!-- switch case with out choices -->
-			<ng-container [ngSwitch]="(choice$ | async)?.type">
+			<!-- <ng-container [ngSwitch]="(choice$ | async)?.type"> -->
 				<!-- this way we just subscribe once and its cleaner -->
-				<ng-container *ngIf="choice$ | async as choice">
+				<!-- <ng-container *ngIf="choice$ | async as choice"> -->
 
 					<!-- status -->
-					<ng-container *ngSwitchCase="'status'">
+					<!-- <ng-container *ngSwitchCase="'status'">
 						<h5 class="ms">{{ choice?.label || choice?.name }}</h5>
 						<status-selector-app
 							#statusSelector
@@ -46,10 +46,10 @@
 								(keyEnter)="statusSelector?.openMenu()">
 							</selector-placeholder-app>
 						</status-selector-app>
-					</ng-container>
+					</ng-container> -->
 
 					<!-- votes -->
-					<ng-container *ngSwitchCase="'votes'">
+					<!-- <ng-container *ngSwitchCase="'votes'">
 						<h5 class="ms">{{ choice?.label || choice?.name }}</h5>
 						<thumb-buttons-app
 							*ngSwitchCase="'votes'"
@@ -59,10 +59,10 @@
 							(liked)="like = $event"
 							(disliked)="dislike = $event">
 						</thumb-buttons-app>
-					</ng-container>
+					</ng-container> -->
 
 					<!-- extended fields -->
-					<ng-container *ngSwitchCase="'extendedField'">
+					<!-- <ng-container *ngSwitchCase="'extendedField'">
 						<h5 class="ms">{{ choice?.label || choice?.name }}</h5>
 						<extended-form-app
 							*ngIf="definitions$ | async as definitions; else spinner"
@@ -70,10 +70,10 @@
 							[definitions]="definitions"
 							(update)="valueUpdate($event)">
 						</extended-form-app>
-					</ng-container>
+					</ng-container> -->
 
 					<!-- dynamic form for the rest -->
-					<ng-container *ngSwitchDefault>
+					<!-- <ng-container *ngSwitchDefault>
 						<dynamic-form-app
 							[fields]="[choice]"
 							(update)="valueUpdate($event, choice?.name)">
@@ -83,7 +83,7 @@
 				</ng-container>
 			</ng-container>
 		</ng-container>
-	</div>
+	</div> -->
 
 	<dialog-footer-app>
 		<button tabFocusAction class="capitalize secondary" (click)="cancel()" translate="button.cancel"></button>
