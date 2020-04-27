@@ -5,15 +5,14 @@ import { descriptorMock } from './descriptor.mock';
 	selector: 'app-descriptor-page',
 	templateUrl: './descriptor-page.component.html',
 	styleUrls: ['./descriptor-page.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DescriptorPageComponent implements OnInit {
 	descriptor = descriptorMock;
-	style = 'form';
+	style = 'editable';
 	columnAmount = 2;
 	updateOn = 'change';
 	properties = [
-		{ name: 'color', value: 'test' }
+		{ name: 'color', value: JSON.stringify('#c561ef') }
 	];
 	update = {};
 	invalidJson = false;

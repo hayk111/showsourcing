@@ -11,6 +11,7 @@ export enum PropertyType {
 	TEXT = 'TEXT',
 	TEL = 'TEL',
 	EMAIL = 'EMAIL',
+	COLOR = 'COLOR',
 	INT = 'INT',
 	FLOAT = 'FLOAT',
 	TEXTAREA = 'TEXTAREA',
@@ -18,6 +19,7 @@ export enum PropertyType {
 	RADIO = 'RADIO',
 	PACKAGING = 'PACKAGING',
 	PRICE = 'PRICE',
+	PRICE_MATRIX = 'PRICE_MATRIX',
 	DATE = 'DATE',
 	SELECTOR = 'SELECTOR'
 }

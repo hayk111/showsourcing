@@ -1,2 +1,2 @@
-export * from '~shared/price/components/price/price.component';
-export * from '~shared/price/components/price-with-quantity/price-with-quantity.component';
+export * from './price/price.component';
+export * from './price-with-quantity/price-with-quantity.component';

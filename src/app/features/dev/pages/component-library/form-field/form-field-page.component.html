@@ -23,10 +23,20 @@
 	</p>
 </card-app>
 
-<card-app>
+<card-app class="mg-v-m">
 	<card-title-app>Form Field with checkbox</card-title-app>
 
 	<form-field-app [showRequiredMarker]="true">
-		<checkbox-app inputApp>the label</checkbox-app>
+		<label-app>Field label</label-app>
+		<checkbox-app inputApp>the checkbox label</checkbox-app>
+	</form-field-app>
+</card-app>
+
+<card-app class="mg-v-m">
+	<card-title-app>Form Field with Radio</card-title-app>
+
+	<form-field-app [showRequiredMarker]="true">
+		<label-app>Field label</label-app>
+		<radio-app inputApp [choices]="radioChoices"></radio-app>
 	</form-field-app>
 </card-app>

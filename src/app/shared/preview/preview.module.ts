@@ -7,7 +7,7 @@ import { BadgeModule } from '~shared/badge';
 import { CarouselModule } from '~shared/carousel';
 import { ContextMenuModule } from '~shared/context-menu/context-menu.module';
 import { DividerModule } from '~shared/divider/divider.module';
-import { EditableFieldModule } from '~shared/editable-field';
+import { EditableModule } from '~shared/editable';
 import { FileModule } from '~shared/file';
 import { IconsModule } from '~shared/icons';
 import { ImageModule } from '~shared/image/image.module';
@@ -39,7 +39,7 @@ import {
 		CarouselModule,
 		CommonModule,
 		ContextMenuModule,
-		EditableFieldModule,
+		EditableModule,
 		FileModule,
 		FormsModule,
 		IconsModule,
