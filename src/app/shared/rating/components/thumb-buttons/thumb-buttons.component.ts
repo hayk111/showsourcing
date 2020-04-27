@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { UserService } from '~core/erm';
-import { Vote } from '~shared/rating/services/rating.service';
+import { Vote } from '~core/erm3/models';
 
 @Component({
 	selector: 'thumb-buttons-app',
@@ -21,11 +21,11 @@ export class ThumbButtonsComponent {
 		this.like = false;
 		this.dislike = false;
 		if (!this.multiple) {
-			const voteIndex = (votes || []).findIndex(v => v.user && v.user.id === this.userSrv.userSync.id);
+			const voteIndex = (votes || []).findIndex(v => v.createdBy && v.createdBy.id === this.userSrv.userSync.id);
 			if (~voteIndex) {
 				const vote = votes[voteIndex];
-				vote.value !== 0 ? this.like = true : this.like = false;
-				vote.value === 0 ? this.dislike = true : this.dislike = false;
+				vote.rating !== 0 ? this.like = true : this.like = false;
+				vote.rating === 0 ? this.dislike = true : this.dislike = false;
 			}
 		}
 	}

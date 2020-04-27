@@ -72,7 +72,7 @@ export class FilterSelectionEntityPanelComponent extends AutoUnsub implements On
 			this.choices$ = this.fuseHelper.searchedItems$;
 		} else {
 			this.listHelper.setup(this.typename);
-			this.choices$ = this.listHelper.filteredItems$;
+			this.choices$ = this.listHelper.filteredItems$ as Observable<any[]>;
 		}
 	}
 

@@ -31,7 +31,7 @@ import { AutoUnsub } from '~utils';
 })
 export class SamplesPageComponent extends AutoUnsub implements OnInit {
 
-	items$: Observable<Sample[]>;
+	items$: Observable<any[]>;
 
 	erm = ERM;
 	filterTypeEnum = FilterType;
@@ -60,7 +60,7 @@ export class SamplesPageComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {
 		this.listHelper.setup('Sample');
-		this.items$ = this.listHelper.filteredItems$;
+		this.items$ = this.listHelper.filteredItems$ as Observable<any[]>;
 	}
 
 	// toggleMyProducts(show: boolean) {

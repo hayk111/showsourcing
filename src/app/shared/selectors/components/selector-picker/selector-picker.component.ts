@@ -132,7 +132,7 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 				this.cd.markForCheck();
 			} else {
 				this.listHelperSrv.setup(this.typename);
-				this.choices$ = this.listHelperSrv.filteredItems$;
+				this.choices$ = this.listHelperSrv.filteredItems$ as Observable<any[]>;
 				this.cd.markForCheck();
 			}
 		}
