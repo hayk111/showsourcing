@@ -36,6 +36,7 @@ export class SettingsTeamInvitationsComponent extends AutoUnsub
 
 	constructor(
 		private dlgSrv: DialogService,
+		private dlgCommonSrv: DialogCommonService,
 		private apiSrv: ApiService,
 		private userSrv: UserService,
 		private featureSrv: SettingsMembersService,
@@ -62,22 +63,17 @@ export class SettingsTeamInvitationsComponent extends AutoUnsub
 
 		/** Opens the dialog for inviting a new user */
 	openInviteDialog() {
-		this.dlgSrv
-			.open(InviteUserDlgComponent, {
-				typename: 'Invitation',
-				extra: {},
-			})
-			.data$
-				.pipe(
-					switchMap((entity) => {
-						return this.apiSrv.create('Invitation', {
-							...entity,
-							teamRole: 'TEAMMEMBER'
-						});
-					}),
-					tap(_ => this.listHelper.refetch())
-			)
-			.subscribe();
+		this.dlgCommonSrv.openInvitationDialog().data$
+			.pipe(
+				switchMap((entity) => {
+					return this.apiSrv.create('Invitation', {
+						...entity,
+						teamRole: 'TEAMMEMBER'
+					});
+				}),
+				tap(_ => this.listHelper.refetch())
+		)
+		.subscribe();
 	}
 
 	updateAccessType({
