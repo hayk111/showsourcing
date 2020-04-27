@@ -229,7 +229,7 @@
 		<rating-dashboard-app
 			[votes]="product?.votes"
 			[nodeId]="'product:' + product?.id"
-			(update)="update($event, 'votes')">
+			(update)="updateVote($event)">
 		</rating-dashboard-app>
 	</preview-section-app>
 
@@ -363,7 +363,7 @@
 		<rating-dashboard-app
 			[votes]="product?.votes"
 			[nodeId]="'product:' + product?.id"
-			(update)="update($event, 'votes')"
+			(update)="updateVote($event)"
 			(viewRatings)="dlgCommonSrv.openVoteDetailsDialog($event)">
 		</rating-dashboard-app>
 	</preview-section-app>

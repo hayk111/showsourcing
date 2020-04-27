@@ -25,7 +25,7 @@ import {
 	Sample,
 	Task,
 } from '~core/erm';
-import { Product } from '~core/erm3/models';
+import { Product, Vote } from '~core/erm3/models';
 import { ApiService } from '~core/erm3/services/api.service';
 import { ListHelperService } from '~core/list-page2';
 import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
@@ -139,6 +139,11 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 		// 	sortBy: 'order',
 		// 	descending: false
 		// });
+	}
+
+	updateVote(votes: Vote[]) {
+		console.log('ProductPreviewComponent -> updateVote -> votes', votes);
+		this.product.votes = [...votes];
 	}
 
 	// UPDATE FUNCTIONS
