@@ -18,6 +18,7 @@ import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-con
 import { PreviewCommentComponent } from '~shared/preview';
 import { AutoUnsub, StatusUtils } from '~utils';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
+import { descriptorMock } from '~common/dialogs/creation-dialogs/product-creation-dialog/_temporary-descriptor-product.mock';
 
 @Component({
 	selector: 'task-preview-app',
@@ -39,12 +40,10 @@ export class TaskPreviewComponent extends AutoUnsub implements OnInit {
 	@ViewChild(PreviewCommentComponent, { static: false }) previewComment: PreviewCommentComponent;
 
 	task$: Observable<Task>;
-	taskDescriptor: TaskDescriptor;
-	formConfig = new DynamicFormConfig({ mode: 'editable-text' });
 	erm = ERM;
 	statusUtils = StatusUtils;
+	descriptor = descriptorMock;
 
-	fieldDefinitions$: Observable<ExtendedFieldDefinition[]>;
 
 	constructor(
 		private listHelper: ListFuseHelperService,

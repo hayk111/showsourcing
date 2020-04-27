@@ -17,9 +17,9 @@
 			(opened)="inp.select();">
 			<label-app *ngIf="config.hasLabel">{{ 'text.' + (customField.label || customField.name) | translate }}</label-app>
 			<!-- hint: editable text is the clickable label that transforms into an input -->
-			<editable-display-app [disabled]="customField?.metadata?.disabled">
+			<editable-value-app [disabled]="customField?.metadata?.disabled">
 				{{ value || '-' }}
-			</editable-display-app>
+			</editable-value-app>
 			<form-field-app class="editable">
 				<!-- hint: couldn't ngModel to accumulator -->
 				<input
@@ -47,9 +47,9 @@
 			(closed)="onClose($event)"
 			(opened)="inp.select()">
 			<label-app *ngIf="config.hasLabel">{{ 'text.' + (customField.label || customField.name) | translate }}</label-app>
-			<editable-display-app [disabled]="customField?.metadata?.disabled">
+			<editable-value-app [disabled]="customField?.metadata?.disabled">
 				{{ value || '-' }}
-			</editable-display-app>
+			</editable-value-app>
 			<form-field-app class="editable">
 				<input inputApp
 					#inp
@@ -77,9 +77,9 @@
 			(closed)="onClose($event)"
 			(opened)="inp.select()">
 			<label-app *ngIf="config.hasLabel">{{ 'text.' + (customField.label || customField.name) | translate }}</label-app>
-			<editable-display-app [disabled]="customField?.metadata?.disabled">
+			<editable-value-app [disabled]="customField?.metadata?.disabled">
 				{{ value || '-' }}
-			</editable-display-app>
+			</editable-value-app>
 			<form-field-app class="editable">
 				<input inputApp
 					#inp
@@ -107,9 +107,9 @@
 			(closed)="onClose($event)"
 			(opened)="inp.select()">
 			<label-app *ngIf="config.hasLabel">{{ 'text.' + (customField.label || customField.name) | translate }}</label-app>
-			<editable-display-app [disabled]="customField?.metadata?.disabled">
+			<editable-value-app [disabled]="customField?.metadata?.disabled">
 				{{ value || '-' }}
-			</editable-display-app>
+			</editable-value-app>
 			<form-field-app class="editable">
 				<input inputApp
 					#inp
@@ -138,9 +138,9 @@
 			(closed)="onClose($event)"
 			(opened)="inp.select()">
 			<label-app *ngIf="config.hasLabel">{{ 'text.' + (customField.label || customField.name) | translate }}</label-app>
-			<editable-display-app [disabled]="customField?.metadata?.disabled">
+			<editable-value-app [disabled]="customField?.metadata?.disabled">
 				{{ value ? (value | date: 'dd MMMM yyyy':'':translate.currentLang) : '-' }}
-			</editable-display-app>
+			</editable-value-app>
 			<form-field-app class="editable">
 				<input
 					inputApp #inpDueDate
@@ -167,9 +167,9 @@
 			(closed)="onClose($event)"
 			(opened)="inp.select()">
 			<label-app *ngIf="config.hasLabel">{{ 'text.' + (customField.label || customField.name) | translate }}</label-app>
-			<editable-display-app [disabled]="customField?.metadata?.disabled">
+			<editable-value-app [disabled]="customField?.metadata?.disabled">
 				{{ value || '-' }} days
-			</editable-display-app>
+			</editable-value-app>
 			<form-field-app class="editable">
 				<input inputApp
 					#inp
@@ -197,9 +197,9 @@
 			(closed)="onClose($event)"
 			(opened)="inp.select()">
 			<label-app *ngIf="config.hasLabel">{{ 'text.' + (customField.label || customField.name) | translate }}</label-app>
-			<editable-display-app [disabled]="customField?.metadata?.disabled" style="white-space: pre-line">
+			<editable-value-app [disabled]="customField?.metadata?.disabled" style="white-space: pre-line">
 				{{ value || '-' }}
-			</editable-display-app>
+			</editable-value-app>
 			<form-field-app class="editable">
 				<textarea
 					inputApp
@@ -226,12 +226,12 @@
 			(closed)="onClose($event)"
 			(opened)="inp.select()">
 			<label-app *ngIf="config.hasLabel">{{ 'text.' + (customField.label || customField.name) | translate }}</label-app>
-			<editable-display-app [disabled]="customField?.metadata?.disabled" [vAlign]="false">
+			<editable-value-app [disabled]="customField?.metadata?.disabled" [vAlign]="false">
 				<span class="fs-s"
 					*ngIf="value && value.currency">{{ value?.currency | const : 'currency' : 'symbol'}}</span>
 				<span *ngIf="value && value.currency" class="mg-xs spacer"></span>
 				<span>{{ value && (value.value) ? (value.value / 10000) : '-' }}</span>
-			</editable-display-app>
+			</editable-value-app>
 			<form-field-app class="editable">
 				<input-price-app
 					#inp
@@ -257,14 +257,14 @@
 			[align]="config.alignValue"
 			(click)="toggleValue($event)">
 			<label-app *ngIf="config.hasLabel">{{ 'text.' + (customField.label || customField.name) | translate }}</label-app>
-			<editable-display-app [disabled]="true">
+			<editable-value-app [disabled]="true">
 				<radio-app
 					[disabled]="customField?.metadata?.disabled"
 					[checked]="accumulator"
 					[size]="16"
 					[items]="[{ name: 'Yes', value: true }, { name: 'No', value: false }]">
 				</radio-app>
-			</editable-display-app>
+			</editable-value-app>
 		</editable-field-app>
 
 		<!-- price matrix -->

@@ -33,6 +33,7 @@ import { UploaderService } from '~shared/file/services/uploader.service';
 import { PreviewCommentComponent, PreviewService } from '~shared/preview';
 import { RatingDashboardComponent } from '~shared/rating';
 import { AutoUnsub, PendingImage } from '~utils';
+import { descriptorMock } from '~common/dialogs/creation-dialogs/product-creation-dialog/_temporary-descriptor-product.mock';
 
 @Component({
 	selector: 'product-preview-app',
@@ -73,15 +74,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	@ViewChild(RatingDashboardComponent, { read: ElementRef, static: false })
 	ratingDashboard: ElementRef;
 	@ViewChild('inpFile', { static: false }) inpFile: ElementRef;
-
-	/** this is the fully loaded product */
-	productDescriptor1: ProductDescriptor;
-	productDescriptor2: ProductDescriptor;
-	formConfig = new DynamicFormConfig({ mode: 'editable-text', alignValue: 'right' });
-	erm = ERM;
-
-	fieldDefinitions$: Observable<ExtendedFieldDefinition[]>;
-
+	descriptor = descriptorMock;
 	private _pendingImages: PendingImage[] = [];
 
 	constructor(
@@ -98,45 +91,6 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.productDescriptor1 = new ProductDescriptor([
-			'name',
-			'reference',
-			'supplier',
-			'supplier-reference',
-			'price',
-			'category',
-			'event',
-			'minimumOrderQuantity',
-			'moqDescription',
-			'assignee',
-		]);
-		this.productDescriptor1.modify([
-			{ name: 'reference', label: 'item-reference' },
-			{ name: 'supplier', metadata: { hasBadge: false } },
-			{ name: 'event', label: 'trade-show', metadata: { hasBadge: false } },
-		]);
-
-		this.productDescriptor2 = new ProductDescriptor([
-			'innerCarton',
-			'masterCarton',
-			'priceMatrix',
-			'sample',
-			'samplePrice',
-			'incoTerm',
-			'harbour',
-			'masterCbm',
-			'quantityPer20ft',
-			'quantityPer40ft',
-			'quantityPer40ftHC',
-		]);
-		// this.productDescriptor2.insert({ name: 'sample', type: 'title' }, 'sample');
-		// this.productDescriptor2.insert({ name: 'shipping', type: 'title' }, 'incoTerm');
-
-		// this.fieldDefinitions$ = this.extendedFieldDefSrv.queryAll(undefined, {
-		// 	query: 'target == "Product"',
-		// 	sortBy: 'order',
-		// 	descending: false
-		// });
 	}
 
 	updateVote(votes: Vote[]) {

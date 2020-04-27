@@ -25,6 +25,7 @@ import { PreviewCommentComponent, PreviewService } from '~shared/preview';
 import { AutoUnsub } from '~utils';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { ApiService } from '~core/erm3/services/api.service';
+import { descriptorMock } from '~common/dialogs/creation-dialogs/product-creation-dialog/_temporary-descriptor-product.mock';
 
 @Component({
 	selector: 'sample-preview-app',
@@ -46,13 +47,10 @@ export class SamplePreviewComponent extends AutoUnsub implements OnInit {
 	@ViewChild(PreviewCommentComponent, { static: false }) previewComment: PreviewCommentComponent;
 
 	sample$: Observable<Sample>;
-	sampleDescriptor: SampleDescriptor;
-	formConfig = new DynamicFormConfig({ mode: 'editable-text', alignValue: 'right' });
 	selectedIndex = 0;
 	modalOpen = false;
 	erm = ERM;
-
-	fieldDefinitions$: Observable<ExtendedFieldDefinition[]>;
+	descriptor = descriptorMock;
 
 	constructor(
 		private listHelper: ListHelperService,
@@ -66,17 +64,6 @@ export class SamplePreviewComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.sampleDescriptor = new SampleDescriptor([
-			'reference',
-			'name',
-			'price',
-			'assignee',
-			'paid',
-		]);
-		this.sampleDescriptor.modify([
-			{ name: 'name', label: 'sample-name' },
-			{ name: 'price', label: 'sample-price' },
-		]);
 
 		// this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "sample.extendedFields"', sortBy: 'order' });
 	}

@@ -21,13 +21,13 @@
 		[hasAction]="false"
 		[canGrow]="multiple">
 		<label-app *ngIf="hasLabel">{{ label }}</label-app>
-		<editable-display-app
+		<editable-value-app
 			class="flex"
 			[class.flexEnd]="config.inlineLabel"
 			[class.flexWrap]="multiple"
 			[disabled]="disabled">
 			<ng-container *ngTemplateOutlet="getLabelTemplate()"></ng-container>
-		</editable-display-app>
+		</editable-value-app>
 	</editable-field-app>
 </selector-app>
 

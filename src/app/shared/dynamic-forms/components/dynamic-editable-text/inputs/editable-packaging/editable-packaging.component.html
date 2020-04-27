@@ -9,9 +9,9 @@ A package with 0cm makes no sens -->
 		(closed)="onClose($event)"
 		(opened)="inp1.select();">
 		<label-app translate="text.length"></label-app>
-		<editable-display-app>
+		<editable-value-app>
 			{{ value?.length ? (value?.length + ' ' + value?.unit) : '-' }}
-		</editable-display-app>
+		</editable-value-app>
 		<form-field-app class="editable edit">
 			<input inputApp
 				#inp1
@@ -32,9 +32,9 @@ A package with 0cm makes no sens -->
 		(closed)="onClose($event)"
 		(opened)="inp2.select();">
 		<label-app translate="text.width"></label-app>
-		<editable-display-app>
+		<editable-value-app>
 			{{ value?.width ? (value?.width + ' ' + value?.unit) : '-' }}
-		</editable-display-app>
+		</editable-value-app>
 		<form-field-app class="editable edit">
 			<input inputApp
 				#inp2
@@ -55,9 +55,9 @@ A package with 0cm makes no sens -->
 		(closed)="onClose($event)"
 		(opened)="inp3.select();">
 		<label-app translate="text.height"></label-app>
-			<editable-display-app>
+			<editable-value-app>
 				{{ value?.height ? (value?.height + ' ' + value?.unit) : '-' }}
-			</editable-display-app>
+			</editable-value-app>
 			<form-field-app class="editable edit">
 				<input inputApp
 					#inp3
@@ -86,9 +86,9 @@ A package with 0cm makes no sens -->
 			[inlineLabel]="true"
 			(closed)="onClose($event)">
 			<label-app translate="text.dimension-unit"></label-app>
-			<editable-display-app>
+			<editable-value-app>
 				{{ value?.unit || '-' }}
-			</editable-display-app>
+			</editable-value-app>
 		</editable-field-app>
 	</selector-app>
 
@@ -100,9 +100,9 @@ A package with 0cm makes no sens -->
 		(closed)="onClose($event)"
 		(opened)="inp5.select();">
 		<label-app translate="text.quantity"></label-app>
-		<editable-display-app>
+		<editable-value-app>
 			{{ value?.itemsQuantity ? value.itemsQuantity : '-' }}
-		</editable-display-app>
+		</editable-value-app>
 		<form-field-app class="editable edit">
 			<input inputApp
 				#inp5
@@ -123,9 +123,9 @@ A package with 0cm makes no sens -->
 		(closed)="onClose($event)"
 		(opened)="inp6.select();">
 		<label-app translate="text.weight"></label-app>
-		<editable-display-app>
+		<editable-value-app>
 			{{ value?.weight ? (value?.weight + ' ' + value?.weightUnit) : '-' }}
-		</editable-display-app>
+		</editable-value-app>
 		<form-field-app class="editable edit">
 			<input inputApp
 				#inp6
@@ -154,9 +154,9 @@ A package with 0cm makes no sens -->
 			[hasAction]="false"
 			(closed)="onClose($event)">
 			<label-app translate="text.weight-unit"></label-app>
-			<editable-display-app>
+			<editable-value-app>
 				{{ value?.weightUnit || '-' }}
-			</editable-display-app>
+			</editable-value-app>
 		</editable-field-app>
 	</selector-app>
 

@@ -32,9 +32,9 @@
 		#edt
 		(opened)="inpName.select()"
 		(closed)="updateEntity($event, inpName.value)">
-		<editable-display-app class="ellipsis bold-s color-txt-primary fs-xxxxl">
+		<editable-value-app class="ellipsis bold-s color-txt-primary fs-xxxxl">
 			{{ entity[titleProp] || '-' }}
-		</editable-display-app>
+		</editable-value-app>
 		<input
 			inputApp
 			#inpName

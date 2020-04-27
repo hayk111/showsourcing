@@ -39,9 +39,9 @@
 			#editable
 			(closed)="updateNameEntity($event, row, txtName?.value)"
 			[hasAction]="true">
-			<editable-display-app class="task-name">
+			<editable-value-app class="task-name">
 				{{ row?.name || '-' }}
-			</editable-display-app>
+			</editable-value-app>
 			<input inputApp #txtName [value]="row?.name || ''" (keyup.enter)="editable.close()" />
 		</editable-container-app>
 	</ng-template>
@@ -56,9 +56,9 @@
 		<div class="flexBetween">
 			<!-- remember that we take the name inside the even description entity -->
       <editable-container-app #editable (closed)="updateNameEntity($event, row, txtName?.value, 'description')" [hasAction]="true">
-        <editable-display-app class="task-name">
+        <editable-value-app class="task-name">
           {{ row?.description?.name || '-' }}
-        </editable-display-app>
+        </editable-value-app>
         <input inputApp #txtName [value]="row?.description?.name || ''" (keyup.enter)="editable.close()" />
       </editable-container-app>
 		</div>

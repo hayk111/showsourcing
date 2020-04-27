@@ -31,7 +31,7 @@
 		<!-- carousel -->
 		<preview-carousel-app
 			[entity]="product"
-			[entityMD]="erm.PRODUCT"
+			[entityMD]="'Product' | erm"
 			[images]="product?.images"
 			objectFit="contain">
 		</preview-carousel-app>
@@ -94,7 +94,7 @@
 		<!-- Badge supplier -->
 		<badge-selector-app
 			[hasOpenAction]="true"
-			[badge]="erm.SUPPLIER"
+			[badge]="'Supplier' | erm"
 			[value]="product?.supplier?.name"
 			(openActionClicked)="openSupplier()"
 			(update)="update($event, 'supplier')">
@@ -102,7 +102,7 @@
 
 		<!-- Badge category -->
 		<badge-selector-app
-			[badge]="erm.CATEGORY"
+			[badge]="'Category' | erm"
 			[value]="product?.category"
 			(update)="update($event, 'category')">
 		</badge-selector-app>
@@ -110,7 +110,7 @@
 		<!-- Badge event -->
 		<badge-selector-app
 			*ngIf="product?.event"
-			[badge]="erm.EVENT"
+			[badge]="'Event' | erm"
 			[value]="product?.event"
 			(update)="update($event, 'event')">
 		</badge-selector-app>
@@ -141,31 +141,12 @@
 
 	<!-- Product details -->
 	<preview-section-app #contentTab1 [title]="'title.product-details' | translate">
-		<dynamic-form-app
-			[fields]="productDescriptor1?.descriptor"
-			[value]="product"
-			[config]="formConfig"
-			(update)="updateProduct($event)">
-		</dynamic-form-app>
-
-		<!-- Extended Fields -->
-		<extended-form-app
-			*ngIf="(fieldDefinitions$ | async)?.length"
-			[definitions]="fieldDefinitions$ | async"
-			[config]="formConfig"
-			[fields]="product?.extendedFields"
-			(update)="update($event, 'extendedFields')">
-		</extended-form-app>
-	</preview-section-app>
-
-	<!-- Trading information -->
-	<preview-section-app #contentTab1 [title]="'title.trading-information' | translate">
-		<dynamic-form-app
-			[fields]="productDescriptor2?.descriptor"
-			[value]="product"
-			[config]="formConfig"
-			(update)="updateProduct($event)">
-		</dynamic-form-app>
+		<dynamic-form2-app
+			#form
+			[style]="'editable'"
+			[descriptor]="descriptor"
+			[columnAmount]="1">
+		</dynamic-form2-app>
 	</preview-section-app>
 
 	<!-- Activity -->
@@ -173,9 +154,9 @@
 	<preview-section-app #contentTab2 [title]="'title.product-owner' | translate">
 		<editable-container-app
 			[hasAction]="false"
-			[openOnClick]="false"
+			[readonly]="true"
 			(click)="sel?.selector?.openMenu()">
-			<editable-display-app>
+			<editable-value-app>
 				<selector-app
 					#sel
 					typename="User"
@@ -187,7 +168,7 @@
 					</div>
 					<ng-template #none><span class="capitalize" translate="text.none"></span></ng-template>
 				</selector-app>
-				</editable-display-app>
+				</editable-value-app>
 		</editable-container-app>
 	</preview-section-app>
 
@@ -285,7 +266,7 @@
 	<preview-banner-app>
 		<preview-carousel-app
 			[entity]="product"
-			[entityMD]="erm.PRODUCT"
+			[entityMD]="'Product' | erm"
 			[images]="product?.images"
 			[hasPreview]="!isPreview"
 			objectFit="cover">
@@ -309,7 +290,7 @@
 		<!-- Badge supplier -->
 		<badge-selector-app
 			[hasOpenAction]="true"
-			[badge]="erm.SUPPLIER"
+			[badge]="'Supplier' | erm"
 			[value]="product?.supplier?.name"
 			(openActionClicked)="openSupplier()"
 			(update)="update($event, 'supplier')">
@@ -317,7 +298,7 @@
 
 		<!-- Badge category -->
 		<badge-selector-app
-			[badge]="erm.CATEGORY"
+			[badge]="'Category' | erm"
 			[value]="product?.category"
 			(update)="update($event, 'category')">
 		</badge-selector-app>
@@ -325,7 +306,7 @@
 		<!-- Badge event -->
 		<badge-selector-app
 			*ngIf="product?.event"
-			[badge]="erm.EVENT"
+			[badge]="'Event' | erm "
 			[value]="product?.event"
 			(update)="update($event, 'event')">
 		</badge-selector-app>
