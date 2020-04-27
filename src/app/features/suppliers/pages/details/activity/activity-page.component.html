@@ -1,42 +1,42 @@
-<div *ngIf="supplier$ | async as suplier; else spinner" class="content flex mg-top-l">
+<div class="content flex mg-top-l">
 	<div class="left">
 		<!-- supplier-resume -->
-		<supplier-resume-app
+		<!-- <supplier-resume-app
 			[supplier]="supplier"
 			(updated)="update($event)">
-		</supplier-resume-app>
+		</supplier-resume-app> -->
 		<!-- products card -->
-		<products-card-app
+		<!-- <products-card-app
 			[products]="products$ | async"
 			(addProducts)="addProducts"
 			(viewAll)="goToProducts()">
-		</products-card-app>
+		</products-card-app> -->
 		<!-- picutres card -->
-		<pictures-card-app
+		<!-- <pictures-card-app
 			[images]="suplier?.images"
 			[entity]="supplier">
-		</pictures-card-app>
+		</pictures-card-app> -->
 		<!-- comments -->
 		<card-app>
 			<card-title-app size="l" translate="title.comments"></card-title-app>
 			<add-comment-app #comment (added)="sendComment($event)"></add-comment-app>
-			<divider-app *ngIf="supplier?.comments?.length"></divider-app>
-			<comment-list-app [amountViewMore]="8" [comments]="supplier?.comments" sizeLogo="xxl" (addComment)="comment?.focus()"></comment-list-app>
+			<divider-app *ngIf="(comments$ | async).length"></divider-app>
+			<comment-list-app [amountViewMore]="8" [comments]="comments$ | async" sizeLogo="xxl" (addComment)="comment?.focus()"></comment-list-app>
 		</card-app>
 	</div>
 
 	<div class="right">
 		<!-- supplier docket -->
-		<supplier-docket-app
+		<!-- <supplier-docket-app
 			[supplier]="supplier"
 			(update)="update($event)"
 			(addTask)="dlgCommonSrv.openCreationTaskDlg(null, supplier)"
 			(addSample)="dlgCommonSrv.openCreationSampleDialog(null, supplier)"
 			(previewSample)="openSamplePreview($event)"
 			(previewTask)="openTaskPreview($event)">
-		</supplier-docket-app>
+		</supplier-docket-app> -->
 		<!-- supplier info -->
-		<card-app>
+		<!-- <card-app>
 			<card-title-app size="s">Supplier Information</card-title-app>
 			<dynamic-form-app
 				class="mg-bottom-l"
@@ -45,9 +45,9 @@
 				[config]="config"
 				(update)="update($event)">
 			</dynamic-form-app>
-		</card-app>
+		</card-app> -->
 		<!-- supplier rating -->
-		<card-app>
+		<!-- <card-app>
 			<card-title-app size="s">Team Rating</card-title-app>
 			<rating-dashboard-app
 				[votes]="supplier?.votes"
@@ -55,7 +55,7 @@
 				(viewRatings)="dlgCommonSrv.openVoteDetailsDialog($event)"
 				(update)="update({ id: supplier?.id, votes: $event })">
 			</rating-dashboard-app>
-		</card-app>
+		</card-app> -->
 	</div>
 </div>
 
@@ -64,14 +64,14 @@
 </ng-template>
 
 <!-- previews -->
-<sample-preview-app
+<!-- <sample-preview-app
 	*ngIf="previewOpened && sample"
 	[sample]="sample"
 	(close)="closePreview()">
-</sample-preview-app>
-
+</sample-preview-app> -->
+<!-- 
 <task-preview-app
 	*ngIf="previewOpened && task"
 	[task]="task"
 	(close)="closePreview()">
-</task-preview-app>
+</task-preview-app> -->
