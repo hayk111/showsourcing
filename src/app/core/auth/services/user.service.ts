@@ -47,9 +47,9 @@ export class UserService {
 	private setupUser(user: User) {
 		this._user$.next(user);
 		this.user = user;
-		this.userId = user.id;
+		this.userId = this.userId || user.id;
 		UserService.user = user;
-		UserService.userId = user.id;
+		UserService.userId = UserService.userId || user.id;
 	}
 
 }

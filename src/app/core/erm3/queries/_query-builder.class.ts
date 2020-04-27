@@ -80,7 +80,7 @@ export class QueryBuilder {
 		return gql`
 			query List${this.typename}${byPropertyString}(
 				${this.typename === 'PropertyOption' ? '$type: ModelStringKeyConditionInput' : ''}
-				$byId: ID
+				${this.typename !== 'Vote' ? '$byId: ID' : ''}
 				$sortDirection: ModelSortDirection
 				$filter: Model${this.typename}FilterInput
 				$limit: Int
@@ -88,7 +88,7 @@ export class QueryBuilder {
 			) {
 				list${this.typename}${byPropertyString}(
 					${this.typename === 'PropertyOption' ? 'type: $type' : ''}
-					${byId}: $byId
+					${this.typename !== 'Vote' ? `${byId}: $byId` : ''}
 					sortDirection: $sortDirection
 					filter: $filter
 					limit: $limit
