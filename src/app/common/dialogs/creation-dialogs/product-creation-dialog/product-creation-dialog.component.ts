@@ -89,11 +89,6 @@ export class ProductCreationDialogComponent implements OnInit {
 	save() {
 		if (!this.product || !this.product.name) return;
 		const product = { ...this.product };
-		// delete product._deleted;
-		// delete product._lastChangedAt;
-		// delete product._version;
-		// delete product.images;
-		// delete product.attachments;
 		this.dlgSrv.data(product);
 		if (this.createAnother) this.resetIds(this.product);
 		else this.dlgSrv.close();

@@ -188,13 +188,12 @@ export class RatingService {
 
 	// Component functions
 	private updateVote(votes: Vote[], vote: Vote, voteIndex: number) {
-		const { id, _version, rating } = vote;
+		const { id, rating } = vote;
 		votes[voteIndex] = { ...votes[voteIndex], rating };
 
 		const ratingInfo = {
 			id,
 			rating,
-			_version
 		};
 
  		return this.apiSrv.update('Vote', {
@@ -203,14 +202,13 @@ export class RatingService {
 	}
 
 	private deleteVote(votes: Vote[], vote: Vote, voteIndex: number) {
-		const { id, _version, rating } = vote;
+		const { id, rating } = vote;
 		const index = votes.findIndex(v => v.id === id);
 		votes.splice(index, 1);
 
 		const ratingInfo = {
 			id,
 			rating,
-			_version
 		};
 
 		return this.apiSrv.delete('Vote', {

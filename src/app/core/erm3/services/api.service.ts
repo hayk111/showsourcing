@@ -258,8 +258,8 @@ export class ApiService {
 	): Observable<T> {
 		const options = apiOptions as MutationOptions;
 		entity.__typename = typename;
-		entity._version = this._getCachedVersion(typename, entity.id);
 		if (typename !== 'Company' && typename !== 'Team') {
+			entity._version = this._getCachedVersion(typename, entity.id);
 			entity.lastUpdatedAt = new Date().toISOString();
 			// entity.lastUpdatedByUserId = this._userId;
 			entity.teamId = this._teamId;
@@ -313,12 +313,15 @@ export class ApiService {
 	): Observable<T> {
 		const options = apiOptions as MutationOptions;
 		options.variables = {
-			input: { id: entity.id, _version: this._getCachedVersion(typename, entity.id) },
+			input: { id: entity.id },
 		};
-		if (typename !== 'Company' && typename !== 'Team' && typename !== 'PropertyOption' && typename !== 'Invitation') {
-			// options.variables.input.deletedAt = new Date().toISOString(); // TODO should be added (behavior expected)
-			// options.variables.input.deletedByUserId = this._userId; // TODO should be added (behavior expected)
-			options.variables.input.teamId = this._teamId;
+		if (typename !== 'Company' && typename !== 'Team') {
+			options.variables.input._version = this._getCachedVersion(typename, entity.id);
+			if ( typename !== 'PropertyOption' && typename !== 'Invitation') {
+				// options.variables.input.deletedAt = new Date().toISOString(); // TODO should be added (behavior expected)
+				// options.variables.input.deletedByUserId = this._userId; // TODO should be added (behavior expected)
+				options.variables.input.teamId = this._teamId;
+			}
 		}
 		options.mutation = QueryPool.getQuery(typename, QueryType.DELETE);
 		return this.mutate(options);
