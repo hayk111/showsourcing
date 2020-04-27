@@ -242,13 +242,13 @@ export class RatingService {
 		return itemsWithRatings;
 	}
 
-	private findAllOccurencies(arr: Vote[], val: string) {
+	private findAllOccurencies(arr: Vote[], id: string) {
 		const votes = [];
 		let i = -1;
 
-		const nodeIds = arr.map(elem => elem.nodeId.split(':')[1]);
+		const nodeIds = arr.map(vote => vote.nodeId.split(':')[1]);
 
-		while ((i = nodeIds.indexOf(val, i + 1)) !== -1) {
+		while ((i = nodeIds.indexOf(id, i + 1)) !== -1) {
 			votes.push(arr[i]);
 		}
 
