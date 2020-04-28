@@ -15,7 +15,7 @@ export class QueryPool {
 		Task: new BaseQueries('Task', 'id name _version'),
 		User: new BaseQueries('User', `firstName`),
 		Team: new BaseQueries('Team', 'id name'),
-		TeamUser: new BaseQueries('TeamUser', 'team { id name } user { firstName lastName email } role _version'),
+		TeamUser: new BaseQueries('TeamUser', 'team { id name } user { firstName lastName email } role'),
 		Attachment: new BaseQueries('Attachment', 'id fileName _version'),
 		Constant: new BaseQueries('Constant', 'id code label helperType _version'),
 		Event: new BaseQueries('Event', 'id _version', []),
