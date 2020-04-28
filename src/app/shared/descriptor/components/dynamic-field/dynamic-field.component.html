@@ -181,4 +181,16 @@
 		</form-field-app>
 	</ng-container>
 
+	<!-- SELECTOR -->
+	<ng-container *ngSwitchCase="type.SELECTOR">
+		<selector-app 
+			typename="PropertyOption"
+			customType="weightUnit"
+			[readonly]="descriptor.readonly"
+			[required]="descriptor.required"
+			[formControl]="control">
+			<span>{{ control.value }}</span>
+		</selector-app>
+	</ng-container>
+
 </ng-container>

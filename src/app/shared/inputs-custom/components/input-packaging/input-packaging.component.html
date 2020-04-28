@@ -23,7 +23,7 @@
 		[(ngModel)]="value.width" 
 		(blur)="onTouchedFn()"
 		(input)="onChangeFn(value)"/>
-	</form-field-app>
+</form-field-app>
 
 <form-field-app>
 	<label-app>Height</label-app>
@@ -36,18 +36,21 @@
 		[(ngModel)]="value.height" 
 		(blur)="onTouchedFn()"
 		(input)="onChangeFn(value)"/>
-	</form-field-app>
+</form-field-app>
 
 <form-field-app>
-	<label-app>Units</label-app>
-	<input 
-		inputApp 
-		type="text"
+	<label-app>Unit</label-app>
+	<selector-app 
+		inputApp
+		typename="PropertyOption"
+		customType="lengthUnit"
 		[readonly]="readonly"
 		[required]="required"
 		[(ngModel)]="value.lengthUnit" 
 		(blur)="onTouchedFn()"
-		(input)="onChangeFn(value)"/>
+		(change)="onChangeFn(value)">
+		<selector-placeholder-app>{{ value.lengthUnit }}</selector-placeholder-app>
+	</selector-app>
 </form-field-app>
 
 <form-field-app class="quantity">
@@ -61,7 +64,7 @@
 		[(ngModel)]="value.quantity" 
 		(blur)="onTouchedFn()"
 		(input)="onChangeFn(value)"/>
-	</form-field-app>
+</form-field-app>
 
 <form-field-app>
 	<label-app>Weight</label-app>
@@ -74,16 +77,19 @@
 		[(ngModel)]="value.weight" 
 		(blur)="onTouchedFn()"
 		(input)="onChangeFn(value)"/>
-	</form-field-app> 
+</form-field-app> 
 
 <form-field-app>
-	<label-app>Units</label-app>
-	<input 
-		inputApp 
-		type="text"
+	<label-app>Unit</label-app>
+	<selector-app 
+		inputApp
+		typename="PropertyOption"
+		customType="weightUnit"
 		[readonly]="readonly"
 		[required]="required"
 		[(ngModel)]="value.weightUnit" 
 		(blur)="onTouchedFn()"
-		(input)="onChangeFn(value)"/>
+		(change)="onChangeFn(value)">
+		<selector-placeholder-app>{{ value.weightUnit }}</selector-placeholder-app>
+	</selector-app>
 </form-field-app>
