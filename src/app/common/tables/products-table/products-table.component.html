@@ -48,25 +48,15 @@
 
       <!-- category -->
       <ng-container *ngSwitchCase="'category'">
-				<editable-container-app
-					class="full-width"
-					[hasAction]="false"
-					[openOnClick]="false"
-					(click)="sel.openMenu()">
-					<editable-display-app>
-						<selector-app
-							#sel
-							typename="Category"
-							[hasPicker]="canUpdate"
-							[canCreate]="true"
-							[width]="370"
-							(update)="update.emit({ id: row.id, category: $event })">
-							<div class="pointer" >
-								{{ row?.category?.name || '-' }}
-							</div>
-						</selector-app>
-					</editable-display-app>
-				</editable-container-app>
+				<selector-app
+					#sel
+					typename="Category"
+					[hasPicker]="canUpdate"
+					[canCreate]="true"
+					[width]="370"
+					(update)="update.emit({ id: row.id, categoryId: $event.categoryId})">
+					<button class="mg-ms">{{row?.category?.name || '-'}}</button>
+				</selector-app>
 			</ng-container>
 
       <!-- price -->

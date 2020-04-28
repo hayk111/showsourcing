@@ -33,11 +33,10 @@ export class ListHelperService<G = any> {
 		this.filterSrv.valueChanges$,
 		this.paginationSrv.page$,
 		this.paginationSrv.limit$,
-		this.sortSrv.sort$,
-		this.ratingSrv.valueChanges$
+		this.sortSrv.sort$
 	).pipe(
 		// gets the query
-		map(([{ queryArg }, page, limit, sort, votes]) => {
+		map(([{ queryArg }, page, limit, sort]) => {
 			return this.apiSrv.searchBy<G>(
 				this.typename, {
 					filter: queryArg,

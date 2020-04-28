@@ -140,7 +140,6 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	}
 
 	updateVote(votes: Vote[]) {
-		console.log('ProductPreviewComponent -> updateVote -> votes', votes);
 		this.product.votes = [...votes];
 	}
 
