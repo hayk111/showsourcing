@@ -43,7 +43,7 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub
 	}
 
 	ngOnInit() {
-		this.filterSrv.setup([], ['name']);
+		this.filterSrv.setup([], ['user.firstName']);
 		this.listHelper.setup('TeamUser', 'Team'); // search initialized in controller-table
 
 		this.viewSrv.setup({
