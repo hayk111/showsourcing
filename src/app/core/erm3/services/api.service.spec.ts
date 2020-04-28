@@ -4,16 +4,14 @@ import { TestBed } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
 import Amplify from 'aws-amplify';
 import { AmplifyService } from 'aws-amplify-angular';
-import { first, switchMap, tap, take } from 'rxjs/operators';
+import { first, switchMap, take } from 'rxjs/operators';
 import { AuthenticationService, TeamService } from '~core/auth';
-import awsconfig from '../../../../../generated/aws-exports.js';
-import { Typename } from '../typename.type';
-
 import * as models from '~core/erm3/models';
-import { ApiService } from './api.service';
-import { QueryPool } from '../queries/query-pool.class';
-import { QueryType } from '../queries/query-type.enum';
+import awsconfig from '../../../../../generated/aws-exports.js';
 import { Entity } from '../models/_entity.model';
+import { Typename } from '../typename.type';
+import { ApiService } from './api.service';
+
 
 Amplify.configure(awsconfig);
 
@@ -138,7 +136,7 @@ fdescribe('ApiService', () => {
 				.create(name as Typename, getMock())
 				.pipe(
 					switchMap(createdEntity =>
-						apiSrv.delete(name as Typename, { id: createdEntity.id, _version: 1 } as Entity)
+						apiSrv.delete(name as Typename, { id: createdEntity.id } as Entity)
 					)
 				)
 				.toPromise()

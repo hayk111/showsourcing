@@ -11,7 +11,7 @@ export class ERMPipe implements PipeTransform {
 			throw Error('no value specified for erm pipe');
 		}
 
-		const erm = ERM[value];
+		const erm = ERM[value.toUpperCase()];
 
 		if (!erm) {
 			throw Error(`ERM not found for ${value}`);

@@ -1,23 +1,14 @@
-import {
-	ChangeDetectionStrategy,
-	Component,
-	EventEmitter,
-	Input,
-	OnInit,
-	Output,
-	ViewChild,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { TaskDescriptor } from '~core/descriptors';
-import { Comment, CommentService, ERM, ExtendedFieldDefinition, Task } from '~core/erm';
+import { descriptorMock } from '~common/dialogs/creation-dialogs/product-creation-dialog/_temporary-descriptor-product.mock';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
+import { Comment, CommentService, ERM, Task } from '~core/erm';
 import { ListFuseHelperService } from '~core/list-page2';
-import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
 import { PreviewCommentComponent } from '~shared/preview';
 import { AutoUnsub, StatusUtils } from '~utils';
-import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 
 @Component({
 	selector: 'task-preview-app',
@@ -39,12 +30,10 @@ export class TaskPreviewComponent extends AutoUnsub implements OnInit {
 	@ViewChild(PreviewCommentComponent, { static: false }) previewComment: PreviewCommentComponent;
 
 	task$: Observable<Task>;
-	taskDescriptor: TaskDescriptor;
-	formConfig = new DynamicFormConfig({ mode: 'editable-text' });
 	erm = ERM;
 	statusUtils = StatusUtils;
+	descriptor = descriptorMock;
 
-	fieldDefinitions$: Observable<ExtendedFieldDefinition[]>;
 
 	constructor(
 		private listHelper: ListFuseHelperService,
@@ -57,14 +46,7 @@ export class TaskPreviewComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.taskDescriptor = new TaskDescriptor([
-			'createdBy',
-			'creationDate',
-			'lastUpdatedBy',
-			'lastUpdatedDate',
-		]);
 
-		// this.fieldDefinitions$ = this.extendedFieldDefSrv.queryMany({ query: 'target == "task.extendedFields"', sortBy: 'order' });
 	}
 
 	// UPDATES

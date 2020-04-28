@@ -53,7 +53,7 @@
 					[hasAction]="false"
 					[openOnClick]="false"
 					(click)="sel.openMenu()">
-					<editable-display-app>
+					<editable-value-app>
 						<selector-app
 							#sel
 							typename="Category"
@@ -65,7 +65,7 @@
 								{{ row?.category?.name || '-' }}
 							</div>
 						</selector-app>
-					</editable-display-app>
+					</editable-value-app>
 				</editable-container-app>
 			</ng-container>
 
@@ -77,9 +77,9 @@
 					[hasAction]="false"
 					(opened)="inp.focus()"
 					(closed)="update.emit({ id: row.id, price: inp.price })">
-					<editable-display-app>
+					<editable-value-app>
 						<price-app [price]="row?.price"></price-app>
-					</editable-display-app>
+					</editable-value-app>
 					<input-price-app
 						#inp
 						[price]="row?.price"
@@ -96,14 +96,14 @@
           [hasAction]="false"
           (opened)="inp.focus()"
           (closed)="update.emit({ id: row.id, minimumOrderQuantity: inp.value })">
-          <editable-display-app>
+          <editable-value-app>
             <moq-app
 							*ngIf="row?.minimumOrderQuantity"
 							[moq]="row?.minimumOrderQuantity"
 							[moqDescription]="row?.moqDescription">
             </moq-app>
 						<div *ngIf="!row?.minimumOrderQuantity">-</div>
-          </editable-display-app>
+          </editable-value-app>
 					<input #inp inputApp type="number"
 						[value]="row?.minimumOrderQuantity" (keyup.enter)="editable.close()"/>
         </editable-container-app>

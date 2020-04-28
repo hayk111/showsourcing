@@ -12,9 +12,9 @@
 				#edt
 				(closed)="update(inpName.value, 'name')"
 				(opened)="inpName.select()">
-				<editable-display-app class="ellipsis bg-dark">
+				<editable-value-app class="ellipsis bg-dark">
 					{{ project?.name || '-' }}
-				</editable-display-app>
+				</editable-value-app>
 				<input
 					inputApp
 					#inpName
