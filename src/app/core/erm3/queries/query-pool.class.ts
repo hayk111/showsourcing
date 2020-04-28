@@ -5,10 +5,11 @@ import { QueryType } from './query-type.enum';
 export class QueryPool {
 	static map = {
 		Category: new BaseQueries('Category'),
-		Company: new BaseQueries('Company'),
+		Company: new BaseQueries('Company', 'id name'),
+		Comment: new BaseQueries('Comment', 'id message _version'),
 		Contact: new BaseQueries('Contact'),
-		Descriptor: new BaseQueries('Descriptor', 'id target'),
-		Image: new BaseQueries('Image', `id fileName`),
+		Descriptor: new BaseQueries('Descriptor', 'id target _version'),
+		Image: new BaseQueries('Image', `id fileName _version`),
 		Product: new BaseQueries('Product', 'id name _version'),
 		Supplier: new BaseQueries('Supplier', 'id name _version'),
 		Task: new BaseQueries('Task', 'id name _version'),
@@ -21,13 +22,13 @@ export class QueryPool {
 		EventDescription: new BaseQueries('EventDescription'),
 		Venue: new BaseQueries('Venue'),
 		Industry: new BaseQueries('Industry'),
-		Invitation: new BaseQueries('Invitation', 'id email status'),
+		Invitation: new BaseQueries('Invitation', 'id email status _version'),
 		Export: new BaseQueries('Export'),
 		Project: new BaseQueries('Project', 'id name _version'),
 		PropertyOption: new BaseQueries('PropertyOption', 'id value _version'),
-		Sample: new BaseQueries('Sample', 'id name _version'),
+		Sample: new BaseQueries('Sample'),
 		Tag: new BaseQueries('Tag'),
-		Vote: new BaseQueries('Vote', 'id message nodeId'),
+		Vote: new BaseQueries('Vote', 'id message rating nodeId _version createdBy { id }'),
 		WorkflowStatus: new BaseQueries('WorkflowStatus')
 	};
 

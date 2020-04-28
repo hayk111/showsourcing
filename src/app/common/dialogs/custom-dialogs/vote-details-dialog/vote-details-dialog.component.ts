@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { DialogService } from '~shared/dialog/services';
-import { Vote } from '~shared/rating/services/rating.service';
+import { Vote } from '~core/erm3/models';
 import { TrackingComponent } from '~utils/tracking-component';
 
 @Component({

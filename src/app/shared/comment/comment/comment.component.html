@@ -1,6 +1,6 @@
 <user-picture-app
-	[user]="user"
-	[image]="user?.avatar"
+	[user]="comment?.createdBy"
+	[image]="comment?.createdBy?.avatar"
 	[border]="true"
 	[fontSize]="16"
 	[size]="44">
@@ -11,13 +11,21 @@
 	<div class="comment-header flexBetween">
 		<!-- title -->
 		<div class="title flexColumn">
-			<span class="name flex">{{ user?.firstName }} {{ user?.lastName }}</span>
-			<span class="color-txt-secondary">{{  comment?.creationDate | date: 'dd MMM y':'':translate.currentLang }}</span>
+			<span class="name flex">{{ comment?.createdBy?.firstName }} {{ comment?.createdBy?.lastName }}</span>
+			<span class="color-txt-secondary">{{ comment?.createdAt | date: 'dd MMM y' }}</span>
 		</div>
 		<!-- buttons -->
 		<div *ngIf="isMine && !isEditing" class="buttons flex hover-buttons">
-			<button class="warn-light" (click)="onDelete()" translate="button.delete"></button>
-			<button class="light" (click)="enableEdit(text?.nativeElement?.clientHeight)" translate="button.edit"></button>
+			<button 
+				class="warn-light" 
+				(click)="onDelete()" 
+				translate="button.delete">
+			</button>
+			<button 
+				class="light" 
+				(click)="enableEdit(text?.nativeElement?.clientHeight)" 
+				translate="button.edit">
+			</button>
 		</div>
 	</div>
 
@@ -29,7 +37,7 @@
 			inputApp
 			autoFocus
 			#textArea
-			[ngStyle]="{ 'height': currentHeight < minHeight ? minHeight : currentHeight + 'px' }">{{  comment?.text }}</textarea>
+			[ngStyle]="{ 'height': currentHeight < minHeight ? minHeight : currentHeight + 'px' }">{{  comment?.message }}</textarea>
 		<div class="buttons flexEnd">
 			<button class="light" (click)="isEditing = false" translate="button.cancel"></button>
 			<button (click)="onSave(textArea?.value)" translate="button.save"></button>
@@ -38,6 +46,6 @@
 
 	<!-- not editing -->
 	<ng-template #notEditing>
-		<div #text class="text" [innerHtml]="urlify(comment?.text)"></div>
+		<div #text class="text" [innerHtml]="urlify(comment?.message)"></div>
 	</ng-template>
 </div>
