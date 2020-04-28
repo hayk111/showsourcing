@@ -22,4 +22,5 @@ export class Task extends Entity<Task> {
 	reference?: string | null;
 	referenceKey?: number | null;
 	inProgress?: boolean | null;
+	properties?: any;
 }

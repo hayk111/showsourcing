@@ -32,7 +32,7 @@ export class ProductsPageComponent extends AutoUnsub
 	implements OnInit {
 	erm = ERM;
 	filterTypeEnum = FilterType;
-	items$: Observable<Product[]>;
+	items$: Observable<any[]>;
 	// filter displayed as button in the filter panel
 	filterTypes = [
 		FilterType.SUPPLIER,
@@ -66,7 +66,7 @@ export class ProductsPageComponent extends AutoUnsub
 	ngOnInit() {
 		this.listHelper.setup('Product');
 		this.viewSrv.setup({ typename: 'Product', destUrl: 'products', view: 'board' });
-		this.items$ = this.listHelper.filteredItems$;
+		this.items$ = this.listHelper.filteredItems$ as Observable<any[]>;
 	}
 
 	// toggleMyProducts(show: boolean) {

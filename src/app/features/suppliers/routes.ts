@@ -22,7 +22,7 @@ export const routes: Array<Route> = [
 		component: Pages.DetailsPageComponent,
 		children: [
 			{ path: '', redirectTo: 'products', pathMatch: 'full' },
-			// { path: 'activity', component: DetailsPage.ActivityPageComponent },
+			{ path: 'activity', component: DetailsPage.ActivityPageComponent },
 			{ path: 'products', component: DetailsPage.ProductsPageComponent },
 			{ path: 'contacts', component: DetailsPage.ContactsPageComponent },
 			{ path: 'samples', component: DetailsPage.SamplesPageComponent },
