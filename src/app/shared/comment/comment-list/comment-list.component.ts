@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Comment } from '~core/erm';
+import { Comment } from '~core/erm3';
 import { TrackingComponent } from '~utils/tracking-component';
 import { Size } from '~utils';
 
@@ -13,14 +13,7 @@ export class CommentListComponent extends TrackingComponent implements OnInit {
 
 	@Input() order: 'asc' | 'desc' = 'asc';
 	@Input() hasViewMore = true;
-	private _comments: Comment[] = [];
-	@Input()
-	set comments(comments: Comment[]) {
-		// this._comments = (comments || []).filter(comment => comment.deleted === false);
-	}
-	get comments() {
-		return this._comments;
-	}
+	@Input() comments: Comment[];
 	/** amount of comments we display at first and when we show more*/
 	@Input() amountViewMore = 2;
 	@Input() sizeLogo: Size = 'xl';
