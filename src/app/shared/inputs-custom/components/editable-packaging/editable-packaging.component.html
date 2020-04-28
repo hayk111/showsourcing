@@ -1,6 +1,6 @@
 
 <!-- LENGTH -->
-<editable-field2-app 
+<editable-field-app 
 	#edtLength
 	[readonly]="readonly"
 	(saved)="onChangeFn(value)"
@@ -19,10 +19,10 @@
 		(keyup.enter)="edtLength.save()"
 		(input)="onChangeFn(value)"
 		(blur)="onTouchedFn()"/>
-</editable-field2-app>
+</editable-field-app>
 
 <!-- WIDTH -->
-<editable-field2-app 
+<editable-field-app 
 	#edtWidth
 	[readonly]="readonly"
 	(saved)="onChangeFn(value)"
@@ -41,10 +41,10 @@
 		(keyup.enter)="edtWidth.save()"
 		(input)="onChangeFn(value)"
 		(blur)="onTouchedFn()"/>
-</editable-field2-app>
+</editable-field-app>
 
 <!-- HEIGHT -->
-<editable-field2-app 
+<editable-field-app 
 	#edtHeight
 	[readonly]="readonly"
 	(saved)="onChangeFn(value)"
@@ -63,32 +63,35 @@
 		(keyup.enter)="edtHeight.save()"
 		(input)="onChangeFn(value)"
 		(blur)="onTouchedFn()"/>
-</editable-field2-app>
+</editable-field-app>
 
 
 <!-- LENGTH UNIT-->
-<editable-field2-app 
+<editable-field-app 
 	#edtLengthUnit
-	[readonly]="readonly"
+	class="clickable"
+	[readonly]="true"
+	(click)="lengthUnitSelector.openMenu()"
 	(saved)="onChangeFn(value)"
 	(opened)="storeValue('lengthUnit', value.lengthUnit)"
 	(canceled)="onCancel('lengthUnit')">
 	<editable-label-app>Length Unit</editable-label-app>
 	<editable-value-app>
-		{{ value?.lengthUnit }}
+		<selector-app 
+			#lengthUnitSelector
+			typename="PropertyOption"
+			customType="lengthUnit"
+			[(ngModel)]="value.lengthUnit"
+			[required]="required"
+			(input)="onChangeFn(value)"
+			(blur)="onTouchedFn()">
+			{{ value?.lengthUnit }}
+		</selector-app>
 	</editable-value-app>
-	<input 
-		inputApp
-		type="text"
-		[(ngModel)]="value.lengthUnit"
-		[required]="required"
-		(keyup.enter)="edtLengthUnit.save()"
-		(input)="onChangeFn(value)"
-		(blur)="onTouchedFn()"/>
-</editable-field2-app>
+</editable-field-app>
 
 <!-- QUANTITY -->
-<editable-field2-app 
+<editable-field-app 
 	#edtQuantity
 	[readonly]="readonly"
 	(saved)="onChangeFn(value)"
@@ -106,10 +109,10 @@
 		(keyup.enter)="edtQuantity.save()"
 		(input)="onChangeFn(value)"
 		(blur)="onTouchedFn()"/>
-</editable-field2-app>
+</editable-field-app>
 
 <!-- WEIGHT -->
-<editable-field2-app 
+<editable-field-app 
 	#edtWeight
 	[readonly]="readonly"
 	(saved)="onChangeFn(value)"
@@ -128,26 +131,29 @@
 		(keyup.enter)="edtWeight.save()"
 		(input)="onChangeFn(value)"
 		(blur)="onTouchedFn()"/>
-</editable-field2-app>
+</editable-field-app>
 
 
 <!-- WEIGHT UNIT-->
-<editable-field2-app 
+<editable-field-app 
 	#edtWeightUnit
-	[readonly]="readonly"
+	class="clickable"
+	[readonly]="true"
+	(click)="weightUnitSelector.openMenu()"
 	(saved)="onChangeFn(value)"
 	(opened)="storeValue('weightUnit', value.weightUnit)"
 	(canceled)="onCancel('weightUnit')">
 	<editable-label-app>Weight Unit</editable-label-app>
 	<editable-value-app>
-		{{ value?.weightUnit }}
+		<selector-app 
+			#weightUnitSelector
+			typename="PropertyOption"
+			customType="weightUnit"
+			[(ngModel)]="value.weightUnit"
+			[required]="required"
+			(input)="onChangeFn(value)"
+			(blur)="onTouchedFn()">
+			{{ value?.weightUnit }}
+		</selector-app>
 	</editable-value-app>
-	<input 
-		inputApp
-		type="text"
-		[(ngModel)]="value.weightUnit"
-		[required]="required"
-		(keyup.enter)="edtWeightUnit.save()"
-		(input)="onChangeFn(value)"
-		(blur)="onTouchedFn()"/>
-</editable-field2-app>
+</editable-field-app>

@@ -1,9 +1,11 @@
+import { SelectorSettings } from './selector-settings.model';
 
 
 export class PropertyDefinition {
 	label?: string;
 	type?: PropertyType;
 	name?: string;
+	selectorSettings?: SelectorSettings;
 }
 
 

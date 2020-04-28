@@ -10,7 +10,6 @@ $padding-vertical: 4px;
 	min-width: 10px;
 	width: 100%;
 	border-radius: var(--border-radius);
-	padding: 0 4px;
 	&.with-overflow {
 		margin-left: -$padding-horizontal;
 		padding: $padding-vertical $padding-horizontal;
