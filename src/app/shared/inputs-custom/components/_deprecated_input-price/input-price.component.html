@@ -1,0 +1,31 @@
+
+<div class="flex flexVAlign">
+	<!-- TODO Check how to manage Currency selector with Constant typename -->
+	<selector-app
+		typename="Constant"
+		[disabled]="disabled"
+		[multiple]="false"
+		[value]="currency"
+		[width]="200"
+		[offsetX]="-13"
+		[offsetY]="-24"
+		(update)="onCurrencyChange($event)">
+		<div
+			tabFocusAction
+			autoFocus
+			[canFocus]="canFocus"
+			class="currency-label flexCenter ellipsis"
+			[ngClass]="{ 'pointer': !disabled }">
+			{{ currency | const:'currency':'id' }}
+		</div>
+	</selector-app>
+
+	<input #inp
+		inputApp
+		type="text"
+		restrictInput="decimal"
+		[disabled]="disabled"
+		[(ngModel)]="amount"
+		(input)="onChange()"
+		(blur)="onBlur()"/>
+</div>
