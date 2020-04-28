@@ -1,39 +1,18 @@
-import {
-	ChangeDetectionStrategy,
-	ChangeDetectorRef,
-	Component,
-	ElementRef,
-	EventEmitter,
-	Input,
-	OnInit,
-	Output,
-	ViewChild,
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { first, switchMap, tap } from 'rxjs/operators';
+import { first, tap } from 'rxjs/operators';
 import { SampleCatalogComponent } from '~common/catalogs/sample-catalog/sample-catalog.component';
 import { TaskCatalogComponent } from '~common/catalogs/task-catalog/task-catalog.component';
+import { descriptorMock } from '~common/dialogs/creation-dialogs/product-creation-dialog/_temporary-descriptor-product.mock';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { ProductDescriptor } from '~core/descriptors';
-import {
-	AppImage,
-	Comment,
-	CommentService,
-	ERM,
-	ExtendedFieldDefinition,
-	Sample,
-	Task,
-} from '~core/erm';
+import { AppImage, Comment, CommentService, Sample, Task } from '~core/erm';
 import { Product, Vote } from '~core/erm3/models';
 import { ApiService } from '~core/erm3/services/api.service';
 import { ListHelperService } from '~core/list-page2';
-import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { PreviewCommentComponent, PreviewService } from '~shared/preview';
 import { RatingDashboardComponent } from '~shared/rating';
 import { AutoUnsub, PendingImage } from '~utils';
-import { descriptorMock } from '~common/dialogs/creation-dialogs/product-creation-dialog/_temporary-descriptor-product.mock';
 
 @Component({
 	selector: 'product-preview-app',

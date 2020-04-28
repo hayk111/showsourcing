@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Input, ViewChild, ElementRef } from
 import { makeAccessorProvider, AbstractInput } from '~shared/inputs';
 
 @Component({
-	selector: 'input-price2-app',
+	selector: 'input-price-app',
 	templateUrl: './input-price.component.html',
 	styleUrls: ['./input-price.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,

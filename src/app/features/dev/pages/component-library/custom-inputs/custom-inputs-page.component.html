@@ -1,3 +1,9 @@
+<card-app class="mg-v-m">
+	<card-title-app>Select checkbox</card-title-app>
+	<p class="mg-v-ms"> Special checkbox with 3 states</p>
+	<select-checkbox-app state="selectedPartial"></select-checkbox-app>
+</card-app>
+
 
 <card-app class="mg-v-m">
 	<card-title-app>Packaging</card-title-app>
@@ -9,9 +15,9 @@
 
 <card-app class="mg-v-m">
 	<card-title-app>Price</card-title-app>
-	<input-price2-app 
+	<input-price-app 
 		[(ngModel)]="price">
-	</input-price2-app>
+	</input-price-app>
 	<p class="mg-v-ms">
 		value: {{ price | json }}
 	</p>
@@ -20,13 +26,13 @@
 		Addiotionally a label can be added
 	</p>
 	
-	<input-price2-app 
+	<input-price-app 
 		[(ngModel)]="price"
 		[hasLabel]="true">
-	</input-price2-app>
+	</input-price-app>
 </card-app>
 
-<card-app class="mg-v-m">
+<!-- <card-app class="mg-v-m">
 	<card-title-app>Price Matrix</card-title-app>
 	<input-price-matrix-app 
 		[(ngModel)]="priceMatrix">
@@ -34,4 +40,4 @@
 	<p class="mg-v-ms">
 		value: {{ priceMatrix | json }}
 	</p>
-</card-app>
+</card-app> -->

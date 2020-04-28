@@ -1,5 +1,4 @@
 
-
 <input
 	*ngIf="hasLabel"
 	inputApp
@@ -11,20 +10,30 @@
 	(blur)="onTouchedFn()"
 	(input)="onChangeFn(value)"/>
 
-<input 
-	#amountInp
-	inputApp
-	autofocus
-	class="amount"
-	type="number" 
-	restrictInput="number"
-	placeholder="100"
-	[readonly]="readonly"
-	[(ngModel)]="value.value"
-	(blur)="onTouchedFn()"
-	(input)="onChangeFn(value)"/>
-
-<!-- TODO replace with selectors	 -->
-<selector-app>
+<div class="currency-price">
+	<input 
+		#amountInp
+		inputApp
+		autofocus
+		class="amount inline"
+		type="number" 
+		restrictInput="number"
+		placeholder="100"
+		[readonly]="readonly"
+		[(ngModel)]="value.value"
+		(blur)="onTouchedFn()"
+		(input)="onChangeFn(value)"/>
 	
-</selector-app>
+	<selector-app 
+		typename="PropertyOption"
+		customType="currency">
+		<div class="currency pointer">
+			<span class="mg-h-s">test</span>
+			<icon-app 
+				class="color-txt-secondary" 
+				[size]="10"
+				name="caret-down">
+			</icon-app>
+		</div>
+	</selector-app>
+</div>
