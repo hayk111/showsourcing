@@ -11,7 +11,4 @@ export class Team extends Entity<Team> {
 	createdOn?: number;
 	lastUpdatedByUserId?: string;
 	lastUpdatedOn?: number | null;
-	_version?: number;
-	_deleted?: boolean | null;
-	_lastChangedAt?: number;
 }
