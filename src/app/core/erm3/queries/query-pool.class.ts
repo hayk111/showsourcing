@@ -13,18 +13,10 @@ export class QueryPool {
 		Supplier: new BaseQueries('Supplier', 'id name _version'),
 		Task: new BaseQueries('Task', 'id name _version'),
 		User: new BaseQueries('User', `firstName`),
-<<<<<<< Updated upstream
-		Team: new BaseQueries('Team'),
-		TeamUser: new BaseQueries('TeamUser', 'team { id name } user { firstName lastName email } role'),
-		Attachment: new BaseQueries('Attachment', 'id fileName'),
-		Comment: new BaseQueries('Comment', 'id message'),
-		Constant: new BaseQueries('Constant', 'id code label helperType'),
-=======
 		Team: new BaseQueries('Team', 'id name'),
 		TeamUser: new BaseQueries('TeamUser', 'team { id name } user { firstName lastName email } role'),
 		Attachment: new BaseQueries('Attachment', 'id fileName _version'),
 		Constant: new BaseQueries('Constant', 'id code label helperType _version'),
->>>>>>> Stashed changes
 		Event: new BaseQueries('Event', 'id _version', []),
 		EventDescription: new BaseQueries('EventDescription'),
 		Venue: new BaseQueries('Venue'),
