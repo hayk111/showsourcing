@@ -1,25 +1,25 @@
 <dialog-app class="vertical-scroll-content">
 
-	<!-- <dialog-header-app>
+	<dialog-header-app>
 		{{ ((items?.length || 0) > 1 ? 'OBJ.mass-edit.plural' : 'OBJ.mass-edit.singular') | translate: { count: items?.length || 0 } }}
-	</dialog-header-app> -->
+	</dialog-header-app>
 
-	<!-- <div class="container">
+	<div class="container">
 		<h5 class="ms" translate="text.property-update"></h5>
 		<selector-app
 			typename="FieldDescriptor"
 			[width]="500"
 			[offsetY]="-15"
-			[dynamicFields]="dynamicFields"
+			[dynamicFields]="[]"
 			(update)="updateChoice($event)">
 			<selector-placeholder-app
 				tabFocusAction
 				autoFocus
 				class="first-uppercase"
-				[name]="(choice$ | async)?.label || (choice$ | async)?.name"
+				[name]="'test label of property selected'"
 				[placeholder]="'placeholder.choose-property' | translate">
 			</selector-placeholder-app>
-		</selector-app> -->
+		</selector-app>
 
 		<!-- content when no pending -->
 		<!-- <ng-container *ngIf="!pending; else spinner"> -->
@@ -82,8 +82,8 @@
 
 				</ng-container>
 			</ng-container>
-		</ng-container>
-	</div> -->
+		</ng-container> -->
+	</div>
 
 	<dialog-footer-app>
 		<button tabFocusAction class="capitalize secondary" (click)="cancel()" translate="button.cancel"></button>

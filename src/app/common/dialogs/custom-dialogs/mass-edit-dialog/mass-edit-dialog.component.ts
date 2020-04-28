@@ -5,6 +5,7 @@ import { DialogService } from '~shared/dialog';
 import { RatingService } from '~shared/rating/services/rating.service';
 import { ToastService } from '~shared/toast';
 import { AutoUnsub } from '~utils';
+import { ReplaySubject, Subject } from 'rxjs';
 
 @Component({
 	selector: 'mass-edit-dialog-app',
@@ -16,8 +17,8 @@ export class MassEditDialogComponent extends AutoUnsub implements OnInit {
 	@Input() typename: Typename;
 	@Input() items: any[];
 
-	// dynamicFields: DynamicField[];
-	// choice$: ReplaySubject<DynamicField> = new ReplaySubject<DynamicField>(1);
+	fieldsChoice: any[];
+	private _choice$ = new Subject<any>();
 	// definitions$: Observable<ExtendedFieldDefinition[]>;
 	// private _productDescriptor: ProductDescriptor;
 	// value: any;
@@ -37,9 +38,8 @@ export class MassEditDialogComponent extends AutoUnsub implements OnInit {
 	ngOnInit() {}
 
 	updateChoice(choice) {
-		// const temp = this.dynamicFields.find(field => field.label === choice || field.name === choice);
-		// this.choice$.next(temp || null);
-		// this.value = null;
+		const temp = this.fieldsChoice.find(field => field.label === choice || field.name === choice);
+		this._choice$.next(temp || null);
 	}
 
 	// since the dynamic form returns the key of the prop we have to extract it
