@@ -29,4 +29,5 @@ export class Sample extends Entity<Sample> {
 	reference?: string | null;
 	referenceKey?: number | null;
 	comments?: any;
+	properties?: any;
 }

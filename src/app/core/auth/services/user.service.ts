@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, ReplaySubject } from 'rxjs';
 import { distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
 import { AnalyticsService } from '~core/analytics/analytics.service';
 import { User } from '~core/erm/models';
@@ -12,7 +12,7 @@ import { AuthenticationService } from './authentication.service';
 })
 export class UserService {
 
-	private _user$ = new Subject<User>();
+	private _user$ = new ReplaySubject<User>(1);
 	user$ = this._user$.asObservable();
 
 	user: User;
@@ -45,10 +45,11 @@ export class UserService {
 	}
 
 	private setupUser(user: User) {
+		this._user$.next(user);
 		this.user = user;
-		this.userId = user.id;
+		this.userId = this.userId || user.id;
 		UserService.user = user;
-		UserService.userId = user.id;
+		UserService.userId = UserService.userId || user.id;
 	}
 
 }

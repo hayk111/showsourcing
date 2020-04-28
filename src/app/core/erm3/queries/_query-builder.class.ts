@@ -3,6 +3,7 @@ import { Typename } from '../typename.type';
 import { QueryType } from './query-type.enum';
 
 /** Audit found on every entity */
+// _version must be written in cache for update and delete of any entity.
 const AUDIT = ``;
 // _version
 // _lastChangedAt
@@ -74,12 +75,13 @@ export class QueryBuilder {
 		const byId = paramEntityName + 'Id';
 
 		let byPropertyString = '';
-		byPropertyString = byProperty  === 'Team' ? 's' : 'By' + byProperty; // listEntity is "by Team" in default
-
+		if (this.typename !== 'TeamUser') { // temporary solution for TeamUser, as we don't have a query TeamUsers
+			byPropertyString = byProperty  === 'Team' ? 's' : 'By' + byProperty; // listEntity is "by Team" in default
+		}
 		return gql`
 			query List${this.typename}${byPropertyString}(
 				${this.typename === 'PropertyOption' ? '$type: ModelStringKeyConditionInput' : ''}
-				$byId: ID
+				${this.typename !== 'Vote' ? '$byId: ID' : ''}
 				$sortDirection: ModelSortDirection
 				$filter: Model${this.typename}FilterInput
 				$limit: Int
@@ -87,7 +89,7 @@ export class QueryBuilder {
 			) {
 				list${this.typename}${byPropertyString}(
 					${this.typename === 'PropertyOption' ? 'type: $type' : ''}
-					${byId}: $byId
+					${this.typename !== 'Vote' ? `${byId}: $byId` : ''}
 					sortDirection: $sortDirection
 					filter: $filter
 					limit: $limit

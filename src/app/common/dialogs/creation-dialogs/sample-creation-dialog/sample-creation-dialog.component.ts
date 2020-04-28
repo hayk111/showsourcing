@@ -1,11 +1,9 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { SampleDescriptor } from '~core/descriptors';
-import { SampleService, UserService } from '~core/erm';
-import { Product, Sample, Supplier } from '~core/erm';
-import { CloseEventType, DialogService } from '~shared/dialog';
-import { ToastService, ToastType } from '~shared/toast';
-import { uuid } from '~utils';
+import { ChangeDetectionStrategy, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { DialogService } from '~shared/dialog';
+import { Product, Supplier, Sample } from '~core/erm3/models';
+import { Descriptor } from '~core/erm3';
+import { descriptorMock } from '../product-creation-dialog/_temporary-descriptor-product.mock';
+import { DynamicFormComponent } from '~shared/descriptor/components/dynamic-form/dynamic-form.component';
 
 @Component({
 	selector: 'creation-sample-dialog-app',
@@ -15,106 +13,37 @@ import { uuid } from '~utils';
 })
 export class SampleCreationDialogComponent implements OnInit {
 
-	@Input() sample: Sample;
+	@ViewChild(DynamicFormComponent) form: DynamicFormComponent;
 	@Input() product: Product;
 	@Input() supplier: Supplier;
 	@Input() createAnother = false;
 
-	sampleDescriptor: SampleDescriptor;
-
+		// Descriptor options
+	descriptor: Descriptor = descriptorMock as any;
+	style = 'form';
+	columnAmount = 1;
+	updateOn = 'change';
+	descriptorProperties = [];
+	sample: Sample = {};
 
 	constructor(
 		private dlgSrv: DialogService,
-		private sampleSrv: SampleService,
-		private toastSrv: ToastService,
-		private userSrv: UserService
-	) {
-	}
+	) {}
+
 
 	ngOnInit() {
-		this.sampleDescriptor = new SampleDescriptor([
-			'name', 'assignee', 'description', 'product', 'supplier'
-		]);
-		this.sampleDescriptor.modify([
-			{ name: 'name', metadata: { placeholder: 'sample-name' } },
-			{ name: 'assignee', metadata: { placeholder: 'select-assignee', width: 495 } },
-			{
-				name: 'product',
-				label: 'linked-to-product',
-				metadata: {
-					placeholder: 'search-your-product',
-					width: 495
-				}
-			},
-			{
-				name: 'supplier',
-				label: 'linked-to-supplier',
-				metadata: {
-					placeholder: 'search-your-supplier',
-					width: 495
-				}
-			},
-		]);
-
-		if (!this.sample) {
-			const supplier = this.supplier ? this.supplier : (this.product && this.product.supplier);
-			this.sample = new Sample({
-				...this.product && { product: { id: this.product.id, name: this.product.name } },
-				...supplier && { supplier: { id: supplier.id, name: supplier.name } },
-				assignee: { id: this.userSrv.userSync.id, firstName: this.userSrv.userSync.firstName, lastName: this.userSrv.userSync.lastName }
-			});
-		}
+		// get descriptor
+		// assign product and supplier (if exists)
 	}
 
-	updateSample(sample: Sample) {
-		this.sample = { ...this.sample, ...sample };
+	updateSample(customProperties: any) {
+		this.sample.properties = customProperties;
 	}
 
 	save() {
-		if (!this.sample || !this.sample.name) return;
-		this.dlgSrv.data(this.sample);
-		if (this.createAnother) this.resetIds(this.sample);
-		else this.dlgSrv.close();
-			// // this way we can notify that the reference has been created
-			// this.sampleSrv.waitForOne(`id == "${this.sample.id}" AND reference.@size > 0`)
-			// 	.subscribe(_ => this.sampleSrv.onUpdateSampleList());
-
-			// this.sampleSrv.create(this.sample).subscribe(
-			// 	sample => {
-			// 		if (this.createAnother) {
-			// 			sample = this.resetIds(sample);
-			// 			this.dlgSrv.open(SampleCreationDialogComponent, { sample, createAnother: true });
-			// 		} else {
-			// 			this.close();
-			// 		}
-			// 		this.toastSrv.add({
-			// 			type: ToastType.SUCCESS,
-			// 			title: 'title.sample-created',
-			// 			message: 'message.sample-created-with-success'
-			// 		});
-			// 		this.sampleSrv.onUpdateSampleList();
-			// 	},
-			// 	err => {
-			// 		this.toastSrv.add({
-			// 			type: ToastType.ERROR,
-			// 			title: 'title.sample-not-created',
-			// 			message: 'message.your-sample-not-created'
-			// 		});
-			// 	}
-			// );
-	}
-
-	cancel() {
-		this.dlgSrv.cancel();
-	}
-
-	// close(created$?: Observable<Sample>) {
-	// 	// this.dlgSrv.close({ type: CloseEventType.OK, data: { sample: this.sample, created$ } });
-	// }
-
-	private resetIds(sample) {
-		sample = { ...sample, id: uuid(), name: '', description: '' };
-		return sample;
+		if (!this.sample.properties || !this.sample.name) return;
+		this.dlgSrv.data({ ...this.product });
+		this.createAnother ?	this.form.reset() : this.dlgSrv.close();
 	}
 
 }

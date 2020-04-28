@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { RatingService, Vote } from '~shared/rating/services/rating.service';
+import { RatingService } from '~shared/rating/services/rating.service';
+import { Vote } from '~core/erm3/models';
 
 @Component({
 	selector: 'rating-badge-app',

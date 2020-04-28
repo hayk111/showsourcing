@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnInit
 import { Observable } from 'rxjs';
 import { ProductService } from '~core/erm';
 import { RatingService } from '~shared/rating/services/rating.service';
-import { Product, EntityName } from '~core/erm';
+import { Product } from '~core/erm';
 import { Router } from '@angular/router';
 
 @Component({
@@ -26,13 +26,11 @@ export class LatestProductsComponent implements OnInit {
 	ngOnInit() {}
 
 	onThumbUp(product) {
-		const votes = this.ratingSrv.thumbUp(product, EntityName.PRODUCT);
-		this.updateProduct({ id: product.id, votes });
+		throw new Error('Not implemented yet');
 	}
 
 	onThumbDown(product) {
-		const votes = this.ratingSrv.thumbDown(product, EntityName.PRODUCT);
-		this.updateProduct({ id: product.id, votes });
+		throw new Error('Not implemented yet');
 	}
 
 	openProductPreview(product: Product) {
