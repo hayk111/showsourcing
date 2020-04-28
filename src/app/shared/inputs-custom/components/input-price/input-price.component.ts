@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, ViewChild, ElementRef } from '@angular/core';
-import { AbstractInput, makeAccessorProvider } from '../abstract-input.class';
+import { makeAccessorProvider, AbstractInput } from '~shared/inputs';
 
 @Component({
 	selector: 'input-price2-app',

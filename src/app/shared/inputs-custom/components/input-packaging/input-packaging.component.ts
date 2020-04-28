@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Packaging } from '~core/erm3/models';
-import { AbstractInput, makeAccessorProvider } from '../abstract-input.class';
+import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 
 @Component({
 	selector: 'input-packaging-app',

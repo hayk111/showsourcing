@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Price } from '~core/erm3';
-import { AbstractInput, makeAccessorProvider } from '../abstract-input.class';
+import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 
 @Component({
 	selector: 'input-price-matrix-app',
