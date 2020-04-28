@@ -10,7 +10,6 @@ import {
 	Output,
 } from '@angular/core';
 import { debounceTime, tap } from 'rxjs/operators';
-import { DynamicField } from '~shared/dynamic-forms';
 import { FilterList } from '~shared/filters/models/filter-list.class';
 import { AbstractInput, makeAccessorProvider } from '~shared/inputs';
 import { TabFocusActionDirective } from '~shared/utils';
@@ -40,7 +39,6 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 	@Input() offsetX = 0;
 	@Input() offsetY = 8;
 	@Input() disabled = false;
-	@Input() dynamicFields: DynamicField[];
 	// we use it only if we have to initialize the selector with a search
 	@Input() searchTxt = '';
 	// wheter the selector opens to the most right side or the most left side

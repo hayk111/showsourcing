@@ -6,12 +6,12 @@
 		(opened)="inpDescription.select()"
 		(click)="asModal ? openDescModal() : null">
 		<label-app class="capitalize" translate="text.description"></label-app>
-		<editable-display-app
+		<editable-value-app
 			[disabled]="true"
 			class="fs-m">
-			<!-- we need an ng-container, so editable-display knows when its empty to place the default placeholder -->
+			<!-- we need an ng-container, so editable-value knows when its empty to place the default placeholder -->
 			<div *ngIf="description?.length" class="description">{{ description }}</div>
-		</editable-display-app>
+		</editable-value-app>
 		<textarea inputApp #inpDescription autofocus="true"
 			class="full-width"
 			[value]="description || ''"

@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { descriptorMock } from '~common/dialogs/creation-dialogs/product-creation-dialog/_temporary-descriptor-product.mock';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { ApiService, Comment, Contact, ObservableQuery, Product, Sample, Supplier, Task } from '~core/erm3';
 import { AutoUnsub } from '~utils';
@@ -19,6 +20,7 @@ export class ActivityPageComponent extends AutoUnsub implements OnInit {
 	supplier$: Observable<Supplier>;
 	products$: Observable<Product[]>;
 	contacts$: Observable<Contact[]>;
+	descriptor = descriptorMock;
 	comments$: Observable<Comment[]>;
 	commentListRef: ObservableQuery;
 	// sample & task used for the preview
