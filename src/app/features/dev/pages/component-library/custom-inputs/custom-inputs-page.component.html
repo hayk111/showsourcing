@@ -41,3 +41,22 @@
 		value: {{ priceMatrix | json }}
 	</p>
 </card-app> -->
+
+
+<card-app class="mg-v-ms">
+	<card-title-app>Editable Packaging</card-title-app>
+	<editable-packaging-app [(ngModel)]="packaging">
+		<editable-label-app>Label</editable-label-app>
+		<editable-value-app>Value</editable-value-app>
+		<input inputApp type="text"/>
+	</editable-packaging-app>
+	{{ packaging | json }}
+</card-app>
+
+
+<card-app class="mg-v-ms">
+	<card-title-app>Editable Price Matrix</card-title-app>
+	<editable-price-matrix-app 
+		[(ngModel)]="priceMatrix">
+	</editable-price-matrix-app>
+</card-app>

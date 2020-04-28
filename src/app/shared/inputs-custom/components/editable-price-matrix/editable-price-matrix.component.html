@@ -35,14 +35,15 @@
 				'Price'	
 			}}	
 		</editable-value-app>
-			<input-price2-app 
+			<input-price-app 
 				#inpPrice
 				name="price"
+				[inline]="true"
 				[(ngModel)]="value[i]"
 				(change)="onChangeFn(value)"
 				(blur)="onTouchedFn()"
 				(keyup.enter)="edtPrice.close()">
-			</input-price2-app>
+			</input-price-app>
 		</editable-container-app>
 
 </div>

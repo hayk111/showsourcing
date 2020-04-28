@@ -5,6 +5,7 @@
 	class="label mg-right-ms"
 	type="text"
 	placeholder="Label"
+	[ngClass]="{ 'inline': inline }"
 	[readonly]="readonly"
 	[(ngModel)]="value.label"
 	(blur)="onTouchedFn()"
@@ -26,9 +27,10 @@
 	
 	<selector-app 
 		typename="PropertyOption"
-		customType="currency">
+		customType="currency"
+		[(ngModel)]="value.currency">
 		<div class="currency pointer">
-			<span class="mg-h-s">test</span>
+			<span class="mg-h-s">{{ value?.currency || 'USD'}}</span>
 			<icon-app 
 				class="color-txt-secondary" 
 				[size]="10"

@@ -184,8 +184,8 @@
 	<!-- SELECTOR -->
 	<ng-container *ngSwitchCase="type.SELECTOR">
 		<selector-app 
-			typename="PropertyOption"
-			customType="weightUnit"
+			[typename]="descriptor.definition.selectorSettings.type"
+			[customType]="descriptor.definition.selectorSettings.propertyOptionType"
 			[readonly]="descriptor.readonly"
 			[required]="descriptor.required"
 			[formControl]="control">

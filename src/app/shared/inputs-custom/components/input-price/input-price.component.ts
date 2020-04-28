@@ -6,11 +6,16 @@ import { makeAccessorProvider, AbstractInput } from '~shared/inputs';
 	templateUrl: './input-price.component.html',
 	styleUrls: ['./input-price.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [makeAccessorProvider(InputPriceComponent)]
+	providers: [makeAccessorProvider(InputPriceComponent)],
+	host: {
+		'[class.inline]': 'inline'
+	}
 })
 export class InputPriceComponent extends AbstractInput {
 	@Input() value: any = {};
 	@Input() hasLabel = false;
+	/** whether the input has borders */
+	@Input() inline = false;
 	@ViewChild('amountInp') amountInp: ElementRef<HTMLInputElement>;
 
 	focus() {

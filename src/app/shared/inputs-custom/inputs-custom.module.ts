@@ -10,14 +10,14 @@ import { InputsModule } from '~shared/inputs';
 import { LogoModule } from '~shared/logo';
 import { SelectorsModule } from '~shared/selectors/selectors.module';
 import { UtilsModule } from '~shared/utils';
+import {
+	BadgeSelectorComponent, InputPriceComponent, InputDescriptionComponent,
+	InputBadgeSelectorComponent, SelectCheckboxComponent,
+	InputPackagingComponent, InputPriceMatrixComponent,
+	EditablePriceMatrixComponent,
+	EditablePackagingComponent
+} from './components';
 
-import { BadgeSelectorComponent } from './components/badge-selector/badge-selector.component';
-import { InputBadgeSelectorComponent } from './components/input-badge-selector/input-badge-selector.component';
-import { InputDescriptionComponent } from './components/input-description/input-description.component';
-import { SelectCheckboxComponent } from './components/select-checkbox/select-checkbox.component';
-import { InputPackagingComponent } from './components/input-packaging/input-packaging.component';
-import { InputPriceMatrixComponent } from './components/input-price-matrix/input-price-matrix.component';
-import { InputPriceComponent } from './components/input-price/input-price.component';
 
 @NgModule({
 	imports: [
@@ -43,7 +43,9 @@ import { InputPriceComponent } from './components/input-price/input-price.compon
 		InputPriceComponent,
 		InputPackagingComponent,
 		InputPriceMatrixComponent,
-		InputPriceComponent
+		InputPriceComponent,
+		EditablePriceMatrixComponent,
+		EditablePackagingComponent
 	],
 	exports: [
 		BadgeSelectorComponent,
@@ -54,6 +56,8 @@ import { InputPriceComponent } from './components/input-price/input-price.compon
 		InputPriceComponent,
 		InputPackagingComponent,
 		InputPriceMatrixComponent,
+		EditablePriceMatrixComponent,
+		EditablePackagingComponent
 	]
 })
 export class InputsCustomModule { }

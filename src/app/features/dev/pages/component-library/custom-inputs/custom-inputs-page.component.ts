@@ -20,6 +20,8 @@ export class CustomInputsPageComponent  {
 		amount: 70
 	};
 
+	priceMatrix = [];
+
 	radio;
 
 	radioChoices = [
@@ -28,6 +30,5 @@ export class CustomInputsPageComponent  {
 		{ label: 'Maybe', value: null}
 	];
 
-	priceMatrix = [];
 
 }

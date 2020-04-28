@@ -5,14 +5,14 @@ import { Packaging } from '~core/erm3';
 
 
 @Component({
-	selector: 'editable-packaging2-app',
+	selector: 'editable-packaging-app',
 	templateUrl: './editable-packaging.component.html',
 	styleUrls: ['./editable-packaging.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	providers: [makeAccessorProvider(EditablePackaging2Component)]
+	providers: [makeAccessorProvider(EditablePackagingComponent)]
 
 })
-export class EditablePackaging2Component extends AbstractInput {
+export class EditablePackagingComponent extends AbstractInput {
 	value: Packaging = {};
 	resetValues = {};
 

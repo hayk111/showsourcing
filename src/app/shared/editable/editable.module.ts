@@ -10,12 +10,9 @@ import { SelectorsModule } from '~shared/selectors/selectors.module';
 import { UtilsModule } from '~shared/utils/utils.module';
 import {
 	EditableActionsComponent, EditableContainerComponent,
-	EditableField2Component, EditableFieldComponent,
-	EditableLabelComponent, EditableValueComponent, EditablePriceMatrixComponent, EditablePackaging2Component
+	EditableFieldComponent, EditableLabelComponent,
+	EditableValueComponent
 } from './components';
-import { PriceModule } from '~shared/price';
-import { PackagingModule } from '~shared/packaging/packaging.module';
-
 
 
 // text where when it is clicked an input appears
@@ -34,21 +31,15 @@ import { PackagingModule } from '~shared/packaging/packaging.module';
 	declarations: [
 		EditableContainerComponent,
 		EditableFieldComponent,
-		EditableField2Component,
 		EditableValueComponent,
 		EditableActionsComponent,
 		EditableLabelComponent,
-		EditablePriceMatrixComponent,
-		EditablePackaging2Component
 	],
 	exports: [
 		EditableContainerComponent,
 		EditableFieldComponent,
-		EditableField2Component,
 		EditableValueComponent,
 		EditableLabelComponent,
-		EditablePriceMatrixComponent,
-		EditablePackaging2Component
 	],
 })
 export class EditableModule { }

@@ -1,4 +1,4 @@
-import { Descriptor, SectionDescriptor, PropertyDescriptor } from '~core/erm3/models';
+import { Descriptor, SectionDescriptor, PropertyDescriptor, SelectorType } from '~core/erm3/models';
 import { PropertyType } from '~core/erm3/models/property-definition.model';
 
 const fields1: PropertyDescriptor[] = [
@@ -116,6 +116,19 @@ const fields2: PropertyDescriptor[] = [
 			label: 'price matrix',
 			type: PropertyType.PRICE_MATRIX,
 			name: 'price_matrix',
+		},
+		required: true,
+		readonly: false
+	},
+	{
+		definition: {
+			label: 'selector',
+			type: PropertyType.SELECTOR,
+			name: 'selector',
+			selectorSettings: {
+				type: SelectorType.CUSTOM,
+				propertyOptionType: 'color'
+			}
 		},
 		required: true,
 		readonly: false
