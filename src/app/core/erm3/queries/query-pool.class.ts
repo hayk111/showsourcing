@@ -6,6 +6,7 @@ export class QueryPool {
 	static map = {
 		Category: new BaseQueries('Category'),
 		Company: new BaseQueries('Company', 'id name'),
+		Comment: new BaseQueries('Comment', 'id message _version'),
 		Contact: new BaseQueries('Contact'),
 		Descriptor: new BaseQueries('Descriptor', 'id target _version'),
 		Image: new BaseQueries('Image', `id fileName _version`),
@@ -16,7 +17,6 @@ export class QueryPool {
 		Team: new BaseQueries('Team', 'id name'),
 		TeamUser: new BaseQueries('TeamUser', 'team { id name } user { firstName lastName email } role _version'),
 		Attachment: new BaseQueries('Attachment', 'id fileName _version'),
-		Comment: new BaseQueries('Comment', 'id message _version'),
 		Constant: new BaseQueries('Constant', 'id code label helperType _version'),
 		Event: new BaseQueries('Event', 'id _version', []),
 		EventDescription: new BaseQueries('EventDescription'),

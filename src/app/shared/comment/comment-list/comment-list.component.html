@@ -7,8 +7,7 @@
 		<comment-app
 			*ngIf="i >= amountShown"
 			[class.mg-bottom-s]="!last"
-			[comment]="comment"
-			[user]="comment.createdBy">
+			[comment]="comment">
 		</comment-app>
 	</ng-container>
 </div>
@@ -21,8 +20,11 @@
 			[size]="sizeLogo"
 			[circle]="true">
 		</logo-app>
-		<span class="color-txt-primary semi-bold mg-bottom-xs" translate="title.no-comments-yet"></span>
-		<span class="color-txt-secondary mg-bottom-ms" translate="text.comments-perfect-communicate"></span>
-		<button (click)="addComment.emit()" translate="button.add-comment"></button>
+		<span class="color-txt-primary semi-bold mg-bottom-xs" 
+			translate="title.no-comments-yet"></span>
+		<span class="color-txt-secondary mg-bottom-ms" 
+			translate="text.comments-perfect-communicate"></span>
+		<button (click)="addComment.emit()" 
+			translate="button.add-comment"></button>
 	</div>
 </ng-template>

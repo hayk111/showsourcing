@@ -15,7 +15,7 @@ export const routes: Array<Route> = [
 		component: Pages.DetailsPageComponent,
 		children: [
 			{ path: '', redirectTo: 'files', pathMatch: 'full' },
-			// { path: 'activity', component: DetailsPage.ActivityPageComponent },
+			{ path: 'activity', component: DetailsPage.ActivityPageComponent },
 			// { path: 'info', component: DetailsPage.InfoPageComponent },
 			{ path: 'files', component: DetailsPage.FilesPageComponent },
 			{ path: 'samples', component: DetailsPage.SamplesPageComponent },

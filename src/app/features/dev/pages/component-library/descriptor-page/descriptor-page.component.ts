@@ -39,4 +39,8 @@ export class DescriptorPageComponent implements OnInit {
 		}
 	}
 
+	submit() {
+		console.log('test');
+	}
+
 }
