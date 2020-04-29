@@ -31,6 +31,8 @@ import {
 	SelectorOptionValueComponent,
 	SelectorPickerComponent,
 	SelectorPlaceholderComponent,
+	SelectorOverlayComponent,
+	SelectorDefaultComponent,
 } from './components';
 
 
@@ -51,6 +53,8 @@ const components = [
 	SelectorOptionValueComponent,
 	SelectorPickerComponent,
 	SelectorPlaceholderComponent,
+	SelectorOverlayComponent,
+	SelectorDefaultComponent
 ];
 
 @NgModule({

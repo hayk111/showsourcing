@@ -1,0 +1,24 @@
+.container-items {
+	min-height: 80px;
+	max-height: 210px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+.item {
+	padding: 0 var(--spacing-ms);
+	align-items: center;
+	&:last-child {
+		border-bottom-left-radius: var(--border-radius);
+		border-bottom-right-radius: var(--border-radius);
+	}
+	display: flex;
+	height: 37px;
+	cursor: pointer;
+
+	&.active,
+	&:hover {
+		background-color: var(--color-primary);
+		color: #fff;
+	}
+}

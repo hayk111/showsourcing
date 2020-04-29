@@ -1,0 +1,27 @@
+<selector-overlay-app
+	[items]="displayedItems$ | async"
+	[itemTemplate]="itemTemplate"
+	itemsContainerClass="container-items"
+	(opened)="focusInput()"
+	[isOpen]="isOpen"
+>
+	<button trigger>trigger</button>
+
+	<div search *ngIf="searchable" class="mg-ms">
+		<form-field-app [showRequiredMarker]="'Test helper'">
+			<label-app>Choose an item</label-app>
+			<input #searchInput (input)="search(searchInput.value)" inputApp type="text" [placeholder]="'search items'"/>
+			<hint-app>test hint</hint-app>
+		</form-field-app>
+		<divider-app></divider-app>
+	</div>
+
+</selector-overlay-app>
+
+<ng-template #itemTemplate let-item="$implicit.item">
+	<div
+		(click)="emitSelected(item)"
+		class="item">
+		{{itemKey ? item[itemKey] : item}}
+	</div>
+</ng-template>
