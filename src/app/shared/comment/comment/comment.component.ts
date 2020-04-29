@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { switchMap } from 'rxjs/operators';
+import { ChangeDetectionStrategy, Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { switchMap, tap } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { UserService } from '~core/auth';
 import { ApiService, Comment } from '~core/erm3';
@@ -13,23 +13,16 @@ import { ApiService, Comment } from '~core/erm3';
 export class CommentComponent implements OnInit {
 
 	@Input() comment: Comment;
-
-	// if we don't have this viewChild, we cannot send the height of the item, since the HTML doesn't know
-	// what does it have to read
-	@ViewChild('text', { static: false, read: ElementRef }) text: ElementRef;
-
+	@Output() deleted = new EventEmitter<Comment>();
 	/** if the comment belings to the current user or not */
 	isMine = false;
 	/** if we are currently editing the comment */
 	isEditing = false;
-	currentHeight = 0;
-	/** minimum height to display */
-	minHeight = 46;
 
 	constructor(
 		private apiSrv: ApiService,
 		private dlgCommonSrv: DialogCommonService,
-		private userSrv: UserService
+		private userSrv: UserService,
 	) { }
 
 	ngOnInit() {
@@ -47,9 +40,8 @@ export class CommentComponent implements OnInit {
 		});
 	}
 
-	enableEdit(height: number) {
+	enableEdit() {
 		this.isEditing = true;
-		this.currentHeight = height + 26; // +26 is for the padding inside the textarea
 	}
 
 	onSave(message: string) {
@@ -62,6 +54,7 @@ export class CommentComponent implements OnInit {
 		const text = `Are you sure you want to delete this comment ?`;
 		this.dlgCommonSrv.openConfirmDlg({ text }).data$
 			.pipe(
+				tap(_ => this.deleted.emit(this.comment)),
 				switchMap(_ => this.apiSrv.delete('Comment', { id: this.comment.id }))
 			).subscribe();
 	}

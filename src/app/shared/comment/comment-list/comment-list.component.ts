@@ -19,7 +19,7 @@ export class CommentListComponent extends TrackingComponent implements OnInit {
 	@Input() sizeLogo: Size = 'xl';
 
 	@Output() addComment = new EventEmitter<null>();
-
+	@Output() deleted = new EventEmitter<Comment>();
 	/** index to keep track of which comments we display */
 	amountShown = 0;
 

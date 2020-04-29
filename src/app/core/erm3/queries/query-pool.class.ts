@@ -13,7 +13,7 @@ export class QueryPool {
 		Product: new BaseQueries('Product', 'id name _version'),
 		Supplier: new BaseQueries('Supplier', 'id name _version'),
 		Task: new BaseQueries('Task', 'id name _version'),
-		User: new BaseQueries('User', `firstName`),
+		User: new BaseQueries('User', `id firstName lastName email`),
 		Team: new BaseQueries('Team', 'id name'),
 		TeamUser: new BaseQueries('TeamUser', 'team { id name } user { firstName lastName email } role'),
 		Attachment: new BaseQueries('Attachment', 'id fileName _version'),

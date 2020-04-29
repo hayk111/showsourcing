@@ -23,7 +23,7 @@
 			</button>
 			<button 
 				class="light" 
-				(click)="enableEdit(text?.nativeElement?.clientHeight)" 
+				(click)="enableEdit()" 
 				translate="button.edit">
 			</button>
 		</div>
@@ -33,11 +33,7 @@
 	<!-- editing -->
 	<ng-container *ngIf="isEditing; else notEditing">
 		<!-- DON'T put the comment text on a new line, since it has property 'white-space: pre-line' it will modify the view -->
-		<textarea
-			inputApp
-			autoFocus
-			#textArea
-			[ngStyle]="{ 'height': currentHeight < minHeight ? minHeight : currentHeight + 'px' }">{{  comment?.message }}</textarea>
+		<textarea #textArea autoFocus>{{ comment?.message }}</textarea>
 		<div class="buttons flexEnd">
 			<button class="light" (click)="isEditing = false" translate="button.cancel"></button>
 			<button (click)="onSave(textArea?.value)" translate="button.save"></button>
@@ -46,6 +42,6 @@
 
 	<!-- not editing -->
 	<ng-template #notEditing>
-		<div #text class="text" [innerHtml]="urlify(comment?.message)"></div>
+		<div class="text" [innerHtml]="urlify(comment?.message)"></div>
 	</ng-template>
 </div>

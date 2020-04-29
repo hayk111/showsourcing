@@ -16,14 +16,17 @@ export class AutoFocusDirective implements AfterContentInit {
 
 	ngAfterContentInit() {
 		if (this.canFocus) {
-			setTimeout(() => {
-				// if the element has a directive tabFocusAction, we will focus that instead of the nativeElement
-				if (this.tab) {
-					this.tab.focus();
-				} else {
-					this.el.nativeElement.focus();
+			// if the element has a directive tabFocusAction, we will focus that instead of the nativeElement
+			if (this.tab) {
+				this.tab.focus();
+			} else {
+				const elem = this.el.nativeElement;
+				const value = elem.value;
+				if (elem.setSelectionRange) {
+					elem.setSelectionRange(value.length, value.length);
 				}
-			}, 0);
+				elem.focus();
+			}
 		}
 	}
 }
