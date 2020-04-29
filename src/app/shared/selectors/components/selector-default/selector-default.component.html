@@ -1,5 +1,5 @@
 <selector-overlay-app
-	[items]="items"
+	[items]="displayedItems$ | async"
 	[itemTemplate]="itemTemplate"
 	itemsContainerClass="container-items"
 	(opened)="focusInput()"
@@ -10,7 +10,7 @@
 	<div search *ngIf="searchable" class="mg-ms">
 		<form-field-app [showRequiredMarker]="'Test helper'">
 			<label-app>Choose an item</label-app>
-			<input #searchInput (input)="search($event)" inputApp type="text" [placeholder]="'search items'"/>
+			<input #searchInput (input)="search(searchInput.value)" inputApp type="text" [placeholder]="'search items'"/>
 			<hint-app>test hint</hint-app>
 		</form-field-app>
 		<divider-app></divider-app>
@@ -18,8 +18,7 @@
 
 </selector-overlay-app>
 
-
-<ng-template #itemTemplate let-item>
+<ng-template #itemTemplate let-item="$implicit.item">
 	<div
 		(click)="emitSelected(item)"
 		class="item">

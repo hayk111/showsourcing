@@ -8,6 +8,8 @@ import {
 	Output,
 	ViewChild,
 } from '@angular/core';
+import Fuse from 'fuse.js/dist/fuse.esm.js';
+import { Subject, ReplaySubject, BehaviorSubject } from 'rxjs';
 
 @Component({
 	selector: 'selector-default-app',
@@ -18,24 +20,44 @@ import {
 export class SelectorDefaultComponent implements OnInit {
 	@ViewChild('searchInput', { read: ElementRef }) searchInput: any;
 	// display the search bar
-	@Input() isOpen = true;
+	@Input() isOpen = false;
 	@Input() searchable = true;
-	@Input() items = [];
+	private _items;
+	displayedItems$ = new BehaviorSubject([{ label: 'test' }]);
+	@Input() set items(items) {
+		if (this.useFuse) {
+			this._fuseOptions.keys = [this.itemKey];
+			this._fuse = new Fuse(items, this._fuseOptions);
+		}
+		this._items = items.map(item => ({item}));
+		this.displayedItems$.next(this._items);
+	}
 	@Input() itemKey = '';
 	@Input() useFuse = true;
 	@Output() selected = new EventEmitter();
 	@Output() searched = new EventEmitter();
 
+	private _fuse: Fuse;
+	private _fuseOptions: any = {
+		shouldSort: true,
+		threshold: 0.7, // 0 = full match
+		location: 0,
+		distance: 100,
+		minMatchCharLength: 1,
+	};
+
 	constructor() {}
 
 	ngOnInit(): void {}
 
-	select(value) {
-		console.log(value);
-	}
-
-	search(event) {
-		this.searched.emit(event);
+	search(searchedText: string) {
+		this.searched.emit(searchedText);
+		if (this.useFuse) {
+			const searchedItems = searchedText
+				? this._fuse.search(searchedText)
+				: this._items;
+			this.displayedItems$.next(searchedItems);
+		}
 	}
 	focusInput() {
 		this.isOpen = true;
