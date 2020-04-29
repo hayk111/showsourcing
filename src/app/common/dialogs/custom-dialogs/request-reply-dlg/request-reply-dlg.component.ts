@@ -1,26 +1,21 @@
 import { ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
-
-import { ExtendedFieldService, RequestReplyService, SupplierRequestService } from '~core/erm';
 import {
-	AppImage,
-	ExtendedField,
-	ExtendedFieldDefinition,
-	ReplyStatus,
-	RequestElement,
-	RequestReply,
-	SupplierRequest,
+	AppImage, ExtendedField, ExtendedFieldDefinition,
+	ExtendedFieldService, ReplyStatus, RequestElement,
+	RequestReply, RequestReplyService, SupplierRequest,
+	SupplierRequestService
 } from '~core/erm';
-import { CloseEventType, DialogService } from '~shared/dialog';
+import { DialogService } from '~shared/dialog';
 import { UploaderFeedbackService } from '~shared/file/services/uploader-feedback.service';
 import { AutoUnsub } from '~utils/auto-unsub.component';
-
 import { RefuseReplyDlgComponent } from '../refuse-reply-dlg/refuse-reply-dlg.component';
 import { ReplySentDlgComponent } from '../reply-sent-dlg/reply-sent-dlg.component';
-import { TranslateService } from '@ngx-translate/core';
-import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
+
+
 
 @Component({
 	selector: 'request-reply-dlg-app',
@@ -30,7 +25,6 @@ import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-con
 	providers: [UploaderFeedbackService]
 })
 export class RequestReplyDlgComponent extends AutoUnsub implements OnInit {
-	formConfig = new DynamicFormConfig({ colAmount: 2 });
 	@Input() selectedIndex = 0;
 	@Input() requestId: string;
 

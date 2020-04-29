@@ -103,22 +103,12 @@
 
 	<!-- Sample information -->
 	<preview-section-app #contentTab1 [title]="'title.sample-details' | translate">
-		<dynamic-form-app
-			[config]="formConfig"
-			[fields]="sampleDescriptor?.descriptor"
-			[value]="sample"
-			(update)="updateSample($event)">
-		</dynamic-form-app>
-	</preview-section-app>
-
-	<!-- Extended Fields -->
-	<preview-section-app #contentTab1 *ngIf="(fieldDefinitions$ | async)?.length" [title]="'title.extended-fields' | translate">
-		<extended-form-app
-			[definitions]="fieldDefinitions$ | async"
-			[fields]="sample?.extendedFields"
-			[config]="formConfig"
-			(update)="updateSample({extendedFields: $event})">
-		</extended-form-app>
+		<dynamic-form2-app
+			#form
+			[style]="'editable'"
+			[descriptor]="descriptor"
+			[columnAmount]="1">
+		</dynamic-form2-app>
 	</preview-section-app>
 
 	<!-- About -->

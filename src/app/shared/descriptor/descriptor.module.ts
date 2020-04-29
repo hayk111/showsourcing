@@ -6,7 +6,8 @@ import { DynamicEditableFieldComponent } from './components/dynamic-editable-fie
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputsModule } from '~shared/inputs';
 import { EditableModule } from '~shared/editable';
-import { EditablePackagingComponent } from '~shared/dynamic-forms';
+import { InputsCustomModule } from '~shared/inputs-custom/inputs-custom.module';
+import { SelectorsModule } from '~shared/selectors/selectors.module';
 
 @NgModule({
 	declarations: [
@@ -22,7 +23,9 @@ import { EditablePackagingComponent } from '~shared/dynamic-forms';
 		ReactiveFormsModule,
 		FormsModule,
 		InputsModule,
+		InputsCustomModule,
 		EditableModule,
+		SelectorsModule
 	]
 })
 export class DescriptorModule { }

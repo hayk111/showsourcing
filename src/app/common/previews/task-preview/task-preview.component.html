@@ -91,9 +91,9 @@
 	<preview-section-app [title]="'title.assignee' | translate">
 		<editable-container-app
 			[hasAction]="false"
-			[openOnClick]="false"
+			[readonly]="true"
 			(click)="sel?.selector?.openMenu()">
-			<editable-display-app>
+			<editable-value-app>
 				<selector-app
 					#sel
 					typename="User"
@@ -105,7 +105,7 @@
 					</div>
 					<ng-template #none><span class="capitalize" translate="text.none"></span></ng-template>
 				</selector-app>
-				</editable-display-app>
+				</editable-value-app>
 		</editable-container-app>
 	</preview-section-app>
 
@@ -114,12 +114,12 @@
 		<editable-container-app
 			[hasAction]="false"
 			(click)="inpDueDate.select()">
-			<editable-display-app>
+			<editable-value-app>
 				<ng-container *ngIf="task?.dueDate; else selectDue">{{ (task?.dueDate | date:'dd-MM-yyyy':'':translate?.currentLang) }}</ng-container>
 				<ng-template #selectDue>
 					{{'text.select-due-date' | translate}}
 				</ng-template>
-			</editable-display-app>
+			</editable-value-app>
 			<input
 				inputApp #inpDueDate autofocus="true"
 				style="height: 18px;"
@@ -131,13 +131,13 @@
 	</preview-section-app>
 
 	<!-- Extended Fields -->
-	<preview-section-app *ngIf="(fieldDefinitions$ | async)?.length" [title]="'title.extended-fields' | translate">
-		<extended-form-app
-			[definitions]="fieldDefinitions$ | async"
-			[fields]="task?.extendedFields"
-			[config]="formConfig"
-			(update)="updateTask({extendedFields: $event})">
-		</extended-form-app>
+	<preview-section-app [title]="'title.extended-fields' | translate">
+		<dynamic-form2-app
+			#form
+			[style]="'editable'"
+			[descriptor]="descriptor"
+			[columnAmount]="1">
+		</dynamic-form2-app>
 	</preview-section-app>
 
 	<!-- About -->

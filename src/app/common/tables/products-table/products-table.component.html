@@ -48,15 +48,24 @@
 
       <!-- category -->
       <ng-container *ngSwitchCase="'category'">
-				<selector-app
-					#sel
-					typename="Category"
-					[hasPicker]="canUpdate"
-					[canCreate]="true"
-					[width]="370"
-					(update)="update.emit({ id: row.id, categoryId: $event.categoryId})">
-					<button class="mg-ms">{{row?.category?.name || '-'}}</button>
-				</selector-app>
+				<editable-container-app
+					class="full-width"
+					[hasAction]="false"
+					(click)="sel.openMenu()">
+					<editable-value-app>
+						<selector-app
+							#sel
+							typename="Category"
+							[hasPicker]="canUpdate"
+							[canCreate]="true"
+							[width]="370"
+							(update)="update.emit({ id: row.id, categoryId: $event.categoryId})">
+							<div class="pointer" >
+								{{ row?.category?.name || '-' }}
+							</div>
+						</selector-app>
+					</editable-value-app>
+				</editable-container-app>
 			</ng-container>
 
       <!-- price -->
@@ -67,9 +76,9 @@
 					[hasAction]="false"
 					(opened)="inp.focus()"
 					(closed)="update.emit({ id: row.id, price: inp.price })">
-					<editable-display-app>
+					<editable-value-app>
 						<price-app [price]="row?.price"></price-app>
-					</editable-display-app>
+					</editable-value-app>
 					<input-price-app
 						#inp
 						[price]="row?.price"
@@ -86,14 +95,14 @@
           [hasAction]="false"
           (opened)="inp.focus()"
           (closed)="update.emit({ id: row.id, minimumOrderQuantity: inp.value })">
-          <editable-display-app>
+          <editable-value-app>
             <moq-app
 							*ngIf="row?.minimumOrderQuantity"
 							[moq]="row?.minimumOrderQuantity"
 							[moqDescription]="row?.moqDescription">
             </moq-app>
 						<div *ngIf="!row?.minimumOrderQuantity">-</div>
-          </editable-display-app>
+          </editable-value-app>
 					<input #inp inputApp type="number"
 						[value]="row?.minimumOrderQuantity" (keyup.enter)="editable.close()"/>
         </editable-container-app>
