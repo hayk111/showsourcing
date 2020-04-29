@@ -1,9 +1,9 @@
 <selector-overlay-app
-	[items]="['item 1', 'item 2', 'item 3']"
+	[items]="items"
 	[itemTemplate]="itemTemplate"
-	globalContainerClass="bg-white z-2 radius"
 	itemsContainerClass="container-items"
 	(opened)="focusInput()"
+	[isOpen]="isOpen"
 >
 	<button trigger>trigger</button>
 
@@ -20,9 +20,9 @@
 
 
 <ng-template #itemTemplate let-item>
-	<selector-option-name-app
-		[item]="{ value: item }"
-		(click)="select($event)"
-		class="item"
-	></selector-option-name-app>
+	<div
+		(click)="emitSelected(item)"
+		class="item">
+		{{itemKey ? item[itemKey] : item}}
+	</div>
 </ng-template>

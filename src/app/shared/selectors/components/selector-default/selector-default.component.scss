@@ -12,12 +12,13 @@
 		border-bottom-left-radius: var(--border-radius);
 		border-bottom-right-radius: var(--border-radius);
 	}
-}
+	display: flex;
+	height: 37px;
+	cursor: pointer;
 
-::ng-deep .bg-white {
-	background-color: white !important;
-}
-
-::ng-deep .radius {
-	border-radius: var(--border-radius);
+	&.active,
+	&:hover {
+		background-color: var(--color-primary);
+		color: #fff;
+	}
 }

@@ -2,3 +2,9 @@
 	display: inline-block;
 }
 
+
+.global-container {
+	border: 1px solid var(--color-secondary);
+	background-color: white !important;
+	border-radius: var(--border-radius);
+}

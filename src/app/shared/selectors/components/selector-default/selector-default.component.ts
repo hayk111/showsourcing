@@ -1,5 +1,13 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, ViewChild, AfterViewInit, ViewChildren, ElementRef } from '@angular/core';
-import { InputDirective } from '~shared/inputs';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	ElementRef,
+	EventEmitter,
+	Input,
+	OnInit,
+	Output,
+	ViewChild,
+} from '@angular/core';
 
 @Component({
 	selector: 'selector-default-app',
@@ -8,26 +16,35 @@ import { InputDirective } from '~shared/inputs';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectorDefaultComponent implements OnInit {
-	@ViewChild('searchInput', {read: ElementRef}) searchInput: any;
+	@ViewChild('searchInput', { read: ElementRef }) searchInput: any;
 	// display the search bar
+	@Input() isOpen = true;
 	@Input() searchable = true;
+	@Input() items = [];
+	@Input() itemKey = '';
+	@Input() useFuse = true;
+	@Output() selected = new EventEmitter();
+	@Output() searched = new EventEmitter();
 
 	constructor() {}
 
-	ngOnInit(): void {
-	}
+	ngOnInit(): void {}
 
 	select(value) {
 		console.log(value);
 	}
 
 	search(event) {
-		console.log(event.target.value);
+		this.searched.emit(event);
 	}
 	focusInput() {
-		console.log(this.searchInput.nativeElement);
+		this.isOpen = true;
 		setTimeout(() => {
 			this.searchInput.nativeElement.focus();
 		}, 1);
+	}
+	emitSelected(item) {
+		this.selected.emit(item);
+		this.isOpen = false;
 	}
 }

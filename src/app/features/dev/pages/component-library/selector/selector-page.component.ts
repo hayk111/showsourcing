@@ -45,4 +45,11 @@ export class SelectorPageComponent implements OnInit {
 	update(item, prop) {
 	}
 
+	showSelectedItem(item: any) {
+		alert(JSON.stringify(item));
+	}
+	logSearchedText(text: string) {
+		console.log(text);
+	}
+
 }

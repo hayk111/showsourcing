@@ -44,7 +44,7 @@ export class SelectorOverlayComponent implements OnInit {
 	scrollStrategy: ScrollStrategy;
 
 	// custom classes for global, search, items and footer containers
-	@Input() globalContainerClass = 'bg-secondary-light';
+	@Input() globalContainerClass = 'global-container';
 	@Input() itemsContainerClass = '';
 
 	@Input() items: any[];
