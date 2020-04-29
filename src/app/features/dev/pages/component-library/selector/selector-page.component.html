@@ -1,25 +1,39 @@
-<ng-container *ngFor="let entity of entityNames">
 
+<selector-overlay-app
+	[items]="['test', 'autre']"
+	scrollOption="reposition"
+	containerClass="bg-secondary-light"
+>
+	<button trigger>trigger</button>
+	<div class="pd-xs" search>
+		<input type="text">
+		<hr>
+	</div>
+	<ng-template let-item>
+		<p class="pd-xs">item : {{item}}</p>
+	</ng-template>
+	<div footer class="bg-primary pd-xs">
+		text or button action
+	</div>
+</selector-overlay-app>
+
+<ng-container *ngFor="let entity of entityNames">
 	<ng-container *ngIf="entity === 'PropertyOption'; else regularEntity">
 		<selector-app
 			[typename]="entity"
 			customType="Color"
 			[canCreate]="true"
-			(update)="update($event, entity)">
+			(update)="update($event, entity)"
+		>
 			<div>OffsetX, OffsetY: Default</div>
-			<button class="mg-ms">{{entity}} selector</button>
+			<button class="mg-ms">{{ entity }} selector</button>
 		</selector-app>
-
 	</ng-container>
 
 	<ng-template #regularEntity>
-		<selector-app
-			[typename]="entity"
-			[canCreate]="true"
-			(update)="update($event, entity)">
+		<selector-app [typename]="entity" [canCreate]="true" (update)="update($event, entity)">
 			<div>OffsetX, OffsetY: Default</div>
-			<button class="mg-ms">{{entity}} selector</button>
+			<button class="mg-ms">{{ entity }} selector</button>
 		</selector-app>
 	</ng-template>
-
 </ng-container>
