@@ -10,7 +10,7 @@
 	justify-content: space-between;
 	align-items: center;
 
-	&.disabled {
+	&.disabled, &.readonly {
 		cursor: default;
 		background: var(--color-secondary-light);
 		color: var(--color-txt-primary);
