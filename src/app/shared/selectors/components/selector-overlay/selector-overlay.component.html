@@ -6,21 +6,26 @@
 	[cdkConnectedOverlayScrollStrategy]="scrollStrategy"
 	[cdkConnectedOverlayOffsetY]="10"
 >
-	<div [class]="containerClass" (clickOutside)="close()">
+	<div [class]="globalContainerClass" (clickOutside)="close()">
 		<!-- the optional search component -->
 		<ng-content select="[search]"></ng-content>
 
-		<!-- the custom Item template (it use the default ng-template passed like an ng-content) -->
-		<ng-container *ngFor="let item of items">
-			<ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
-		</ng-container>
+		<div [class]="itemsContainerClass">
+			<!-- !required the custom Item template by passing a TemplateRef in prop [itemTemplate] -->
+			<ng-container *ngFor="let item of items">
+				<ng-container
+					class="selector-row"
+					*ngTemplateOutlet="itemTemplateRef; context: { $implicit: item }"
+				></ng-container>
+			</ng-container>
+		</div>
 
 		<!-- the optional footer component -->
 		<ng-content select="[footer]"></ng-content>
 	</div>
 </ng-template>
 
-<!-- the custom trigger component -->
+<!-- !required the custom trigger component -->
 <div (click)="open()" #triggerRef="cdkOverlayOrigin" cdkOverlayOrigin id="triggerRef">
 	<ng-content select="[trigger]"></ng-content>
 </div>

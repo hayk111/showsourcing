@@ -1,0 +1,28 @@
+<selector-overlay-app
+	[items]="['item 1', 'item 2', 'item 3']"
+	[itemTemplate]="itemTemplate"
+	globalContainerClass="bg-white z-2 radius"
+	itemsContainerClass="container-items"
+	(opened)="focusInput()"
+>
+	<button trigger>trigger</button>
+
+	<div search *ngIf="searchable" class="mg-ms">
+		<form-field-app [showRequiredMarker]="'Test helper'">
+			<label-app>Choose an item</label-app>
+			<input #searchInput (input)="search($event)" inputApp type="text" [placeholder]="'search items'"/>
+			<hint-app>test hint</hint-app>
+		</form-field-app>
+		<divider-app></divider-app>
+	</div>
+
+</selector-overlay-app>
+
+
+<ng-template #itemTemplate let-item>
+	<selector-option-name-app
+		[item]="{ value: item }"
+		(click)="select($event)"
+		class="item"
+	></selector-option-name-app>
+</ng-template>
