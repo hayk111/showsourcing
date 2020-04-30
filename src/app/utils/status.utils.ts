@@ -1,6 +1,6 @@
 import { Color } from '~utils/colors.enum';
-import { Status } from '~core/erm';
 import { Task } from '~core/erm';
+import { WorkflowStatus } from '~core/erm3/models';
 
 export enum StatusCategory {
 	NEW = 'new',
@@ -10,17 +10,6 @@ export enum StatusCategory {
 	REFUSED = 'refused',
 }
 
-export enum TaskStatus {
-	DONE = '_Done',
-	PENDING = '_Pending',
-	OVERDUE = '_Overdue',
-}
-
-export enum ProjectStatus {
-	DONE = '_Done',
-	PENDING = '_Pending',
-	OVERDUE = '_Overdue',
-}
 
 export enum RequestStatus {
 	CANCELED = 'canceled',
@@ -67,7 +56,7 @@ export class StatusUtils {
 	 * @param status
 	 * @returns the specific color of the status, if there isn't any, returns default status color
 	 */
-	static getStatusColor(status: Status): Color {
+	static getStatusColor(status: WorkflowStatus): Color {
 		if (status && StatusUtils.statusColorMap[status.category])
 			return StatusUtils.statusColorMap[status.category];
 		else
@@ -79,7 +68,7 @@ export class StatusUtils {
 	 * @param status
 	 * @returns the specific icon color of the status, if there isn't any, returns default status icon color
 	 */
-	static getStatusIconColor(status: Status): Color {
+	static getStatusIconColor(status: WorkflowStatus): Color {
 		if (status && StatusUtils.statusColorMap[status.category])
 			return StatusUtils.statusColorMap[status.category];
 		else
@@ -91,7 +80,7 @@ export class StatusUtils {
 	 * @param status
 	 * @returns the specific class color of the status, if there isn't any, returns default status class color
 	 */
-	static getStatusColorVar(status: Status) {
+	static getStatusColorVar(status: WorkflowStatus) {
 		return `var(--color-${StatusUtils.getStatusColor(status)})`;
 	}
 
@@ -100,7 +89,7 @@ export class StatusUtils {
 	 * @param status
 	 * @returns the specific class color of the status, if there isn't any, returns default status class color
 	 */
-	static getStatusIconColorVar(status: Status) {
+	static getStatusIconColorVar(status: WorkflowStatus) {
 		return `var(--color-${StatusUtils.getStatusIconColor(status)})`;
 	}
 

@@ -14,12 +14,9 @@ import {
 	LabelComponent,
 	TextareaAutoGrowsDirective,
 	FormFieldControlDirective,
-	InputPackagingComponent,
-	InputPriceComponent,
 	FocusableDirective
 } from '~shared/inputs/components-directives';
 import { UtilsModule } from '~shared/utils';
-import { InputPriceMatrixComponent } from './components-directives/input-price-matrix/input-price-matrix.component';
 
 
 export const components = [
@@ -36,9 +33,6 @@ export const components = [
 	HintComponent,
 	ErrorComponent,
 	TextareaAutoGrowsDirective,
-	InputPriceComponent,
-	InputPackagingComponent,
-	InputPriceMatrixComponent,
 
 
 	RadioComponent,

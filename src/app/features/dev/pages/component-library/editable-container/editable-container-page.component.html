@@ -12,6 +12,12 @@
 		<input name="val1" inputApp [formControl]="ctrl1"/>
 	</editable-container-app>
 
+	<h3 class="mg-v-ms">Without overflow</h3>
+	<editable-container-app [hasOverflow]="false">
+		<editable-value-app>{{ ctrl1.value }}</editable-value-app>
+		<input name="val1" inputApp [formControl]="ctrl1"/>
+	</editable-container-app>
+
 
 	<h3 class="mg-v-ms">When no value it displays "None"</h3>
 	<editable-container-app>
@@ -31,28 +37,11 @@
 <card-app class="mg-ms">
 	<card-title-app>Editable field</card-title-app>
 
-	<editable-field2-app>
+	<editable-field-app>
 		<editable-label-app>Label</editable-label-app>
 		<editable-value-app>{{ inp.value }}</editable-value-app>
 		<input #inp inputApp type="text"/>
-	</editable-field2-app>
+	</editable-field-app>
 </card-app>
 
-<card-app class="mg-ms">
-	<card-title-app>Editable Packaging</card-title-app>
-	<editable-packaging2-app [(ngModel)]="packaging">
-		<editable-label-app>Label</editable-label-app>
-		<editable-value-app>Value</editable-value-app>
-		<input inputApp type="text"/>
-	</editable-packaging2-app>
-	{{ packaging | json }}
-</card-app>
-
-
-<card-app class="mg-v-ms">
-	<card-title-app>Editable Price Matrix</card-title-app>
-	<editable-price-matrix-app 
-		[(ngModel)]="priceMatrix">
-	</editable-price-matrix-app>
-</card-app>
 

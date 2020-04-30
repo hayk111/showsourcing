@@ -1,40 +1,22 @@
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { DOWN_ARROW, ENTER, UP_ARROW } from '@angular/cdk/keycodes';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-import {
-	AfterViewInit,
-	ChangeDetectionStrategy,
-	ChangeDetectorRef,
-	Component,
-	ElementRef,
-	EventEmitter,
-	HostListener,
-	Input,
-	OnChanges,
-	OnInit,
-	Output,
-	QueryList,
-	ViewChild,
-	ViewChildren,
-	OnDestroy,
-} from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Observable, of, Subject, Subscription } from 'rxjs';
-import { map, switchMap, take, tap } from 'rxjs/operators';
-import { Category, Contact, EntityMetadata, ERM, Event, Product, Project, Supplier, SupplierType, Tag } from '~core/erm';
-import { DynamicField } from '~shared/dynamic-forms';
-import { FilterList } from '~shared/filters/models/filter-list.class';
-import { AbstractInput, InputDirective } from '~shared/inputs';
-import { SelectorsService } from '~shared/selectors/services/selectors.service';
-import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlightable.component';
+import { Observable, Subject, Subscription } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
+import { ERM } from '~core/erm';
+import { Typename } from '~core/erm3/typename.type';
+import { FilterService } from '~core/filters';
+import { isLocalList } from '~core/list-page2/is-local-list.function';
 import { ListFuseHelperService } from '~core/list-page2/list-fuse-helper.service';
 import { ListHelperService } from '~core/list-page2/list-helper.service';
-import { FilterService } from '~core/filters';
-import { Typename } from '~core/erm3/typename.type';
-import { ID, RegexpApp } from '~utils';
-import { filterTypeToTypename } from '~shared/filters/components';
-import { isLocalList } from '~core/list-page2/is-local-list.function';
+import { FilterList } from '~shared/filters/models/filter-list.class';
+import { AbstractInput, InputDirective } from '~shared/inputs';
 import { PropertyOptionsService } from '~shared/selectors/services/property-options.service';
+import { SelectorsService } from '~shared/selectors/services/selectors.service';
+import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlightable.component';
+import { ID } from '~utils';
 
 @Component({
 	selector: 'selector-picker-app',
@@ -47,7 +29,6 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	@Input() customType: string;
 	@Input() multiple = false;
 	@Input() canCreate = false;
-	@Input() dynamicFields: DynamicField[];
 	@Input() filterList = new FilterList([]);
 	/**
 	 * this is used when we have a selector that uses Selector Elements, so we can know which selectors elements
@@ -269,7 +250,8 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 				item = {
 					id: this.value.id,
 					name: this.value.name ? this.value.name : '',
-					__typename: this.value.__typename
+					__typename: this.value.__typename,
+					status: {...this.value.status}
 				};
 				break;
 		}

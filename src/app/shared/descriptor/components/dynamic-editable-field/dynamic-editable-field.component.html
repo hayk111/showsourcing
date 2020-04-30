@@ -3,7 +3,7 @@
 
 	<!-- STRING -->
 	<ng-container *ngSwitchDefault>
-		<editable-field2-app 
+		<editable-field-app 
 			#edt 
 			[readonly]="descriptor.readonly"
 			(saved)="onSave()"
@@ -17,13 +17,13 @@
 				[required]="descriptor.required"
 				[formControl]="control"
 				(keyup.enter)="edt.save()"/>
-		</editable-field2-app>
+		</editable-field-app>
 	</ng-container>
 
 	
 	<!-- INT -->
 	<ng-container *ngSwitchCase="type.INT">
-		<editable-field2-app 
+		<editable-field-app 
 			#edt
 			[readonly]="descriptor.readonly"
 			(saved)="onSave()"
@@ -38,12 +38,12 @@
 				[required]="descriptor.required"
 				[formControl]="control"
 				(keyup.enter)="edt.save()"/>
-		</editable-field2-app>
+		</editable-field-app>
 	</ng-container>
 
 	<!-- TEL -->
 	<ng-container *ngSwitchCase="type.TEL">
-		<editable-field2-app 
+		<editable-field-app 
 			#edt
 			[readonly]="descriptor.readonly"
 			(saved)="onSave()"
@@ -57,12 +57,12 @@
 				[readonly]="descriptor.readonly"
 				[formControl]="control"
 				(keyup.enter)="edt.save()"/>
-		</editable-field2-app>
+		</editable-field-app>
 	</ng-container>
 
 	<!-- EMAIL -->
 	<ng-container *ngSwitchCase="type.EMAIL">
-		<editable-field2-app 
+		<editable-field-app 
 			#edt
 			[readonly]="descriptor.readonly"
 			(saved)="onSave()"
@@ -77,12 +77,12 @@
 				[readonly]="descriptor.readonly"
 				[formControl]="control"
 				(keyup.enter)="edt.save()"/>
-		</editable-field2-app>
+		</editable-field-app>
 	</ng-container>
 
 	<!-- COLOR -->
 	<ng-container *ngSwitchCase="type.COLOR">
-		<editable-field2-app 
+		<editable-field-app 
 			class="clickable"
 			#edt 
 			[readonly]="true"
@@ -94,7 +94,7 @@
 					[ngStyle]="{ 'background': control.value }">
 				</div>
 			</editable-value-app>
-		</editable-field2-app>
+		</editable-field-app>
 		<input 
 			#inp
 			inputApp
@@ -107,7 +107,7 @@
 
 	<!-- DATE -->
 	<ng-container *ngSwitchCase="type.DATE">
-		<editable-field2-app 
+		<editable-field-app 
 			#edt
 			[readonly]="descriptor.readonly"
 			(saved)="onSave()"
@@ -121,12 +121,12 @@
 				[readonly]="descriptor.readonly"
 				[formControl]="control"
 				(keyup.enter)="edt.save()"/>
-		</editable-field2-app>
+		</editable-field-app>
 	</ng-container>
 
 	<!-- FLOAT -->
 	<ng-container *ngSwitchCase="type.FLOAT">
-		<editable-field2-app 
+		<editable-field-app 
 			#edt
 			[readonly]="descriptor.readonly"
 			(saved)="onSave()"
@@ -142,13 +142,13 @@
 				[readonly]="descriptor.readonly"
 				[formControl]="control"
 				(keyup.enter)="edt.save()"/>
-		</editable-field2-app>
+		</editable-field-app>
 	</ng-container>
 
 	
 	<!-- TEXTAREA -->
 	<ng-container *ngSwitchCase="type.TEXTAREA">
-		<editable-field2-app 
+		<editable-field-app 
 			#edt
 			[readonly]="descriptor.readonly"
 			(saved)="onSave()"
@@ -162,24 +162,24 @@
 				[required]="descriptor.required"
 				[formControl]="control">
 			</textarea>
-		</editable-field2-app>
+		</editable-field-app>
 	</ng-container>
 
 	<!-- CHECKBOX -->
 	<ng-container *ngSwitchCase="type.CHECKBOX">
-		<editable-field2-app 
+		<editable-field-app 
 			#edt
 			class="clickable"
 			[readonly]="true"
 			(click)="toggleValue()">
 			<editable-label-app>{{ descriptor.definition.label }}</editable-label-app>
 			<editable-value-app>{{ control.value ? 'Yes' : 'No' }}</editable-value-app>
-		</editable-field2-app>
+		</editable-field-app>
 	</ng-container>
 
 	<!-- PRICE -->
 	<ng-container *ngSwitchCase="type.PRICE">
-		<editable-field2-app 
+		<editable-field-app 
 			#edt
 			[readonly]="descriptor.readonly"
 			(saved)="onSave()"
@@ -192,12 +192,13 @@
 				{{ control?.value?.amount }} 
 				{{ control?.value?.currency }}
 			</editable-value-app>
-			<input-price2-app
+			<input-price-app
 				#priceInput 
+				[inline]="true"
 				[readonly]="descriptor.readonly"
 				[formControl]="control">
-			</input-price2-app>
-		</editable-field2-app>
+			</input-price-app>
+		</editable-field-app>
 	</ng-container>
 
 	<!-- PRICE MATRIX -->
@@ -213,11 +214,35 @@
 	<!-- PACKAGING -->
 	<ng-container *ngSwitchCase="type.PACKAGING">
 		<h3 class="mg-v-ms">{{ descriptor.definition.label }}</h3>
-		<editable-packaging2-app
+		<editable-packaging-app
 			[readonly]="descriptor.readonly"
 			[formControl]="control"
 			[required]="descriptor.required">
-		</editable-packaging2-app>
+		</editable-packaging-app>
+	</ng-container>
+
+	<!-- SELECTOR -->
+	<ng-container *ngSwitchCase="type.SELECTOR">
+		<editable-field-app 
+			class="clickable" 
+			[readonly]="true"
+			(click)="sel.openMenu()">
+			<editable-label-app>
+				{{ descriptor.definition.label }}
+			</editable-label-app>
+			<editable-value-app>
+				<selector-app 
+					#sel
+					[typename]="descriptor.definition.selectorSettings.type"
+					[customType]="descriptor.definition.selectorSettings.propertyOptionType"
+					[readonly]="descriptor.readonly"
+					[required]="descriptor.required"
+					[formControl]="control">
+					<span>{{ control.value }}</span>
+				</selector-app>
+			</editable-value-app>		
+		</editable-field-app>
+
 	</ng-container>
 
 </ng-container>

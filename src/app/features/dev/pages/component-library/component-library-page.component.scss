@@ -4,21 +4,22 @@
 }
 
 nav {
-	height: fit-content;
 	background: var(--color-txt-primary);
 	color: white;
 	font-size: var(--font-size-l);
 	font-weight: bold;
 	padding-top: var(--spacing-m);
 	width: 17rem;
+	border-left: 1px solid var(--color-primary);
 	h2 {
-		margin: var(--spacing-ms);
+		padding: var(--spacing-ms);
+		background: var(--color-primary);
 	}
 	a {
 		padding: var(--spacing-m) var(--spacing-l);
 		&:hover, &.selected {
 			color: white;
-			background: var(--color-primary);
+			background: #071327;
 		}
 	}
 }

@@ -37,6 +37,7 @@ export const routes: Array<Route> = [
 			{ path: 'form-field', component: Pages.FormFieldPageComponent },
 			{ path: 'packaging', component: Pages.PackagingPageComponent },
 			{ path: 'price', component: Pages.PricePageComponent },
+			{ path: 'custom-inputs', component: Pages.CustomInputsPageComponent },
 
 			// { path: 'sample-card', component: Pages.SampleCardTestComponent },
 			// { path: 'preview', component: Pages.PreviewPageComponent },

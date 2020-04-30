@@ -159,12 +159,12 @@
 	<ng-container *ngSwitchCase="type.PRICE">
 		<form-field-app>
 			<label-app>{{ descriptor.definition.label }}</label-app>
-			<input-price2-app 
+			<input-price-app 
 				inputApp 
 				[readonly]="descriptor.readonly"
 				[required]="descriptor.required"
 				[formControl]="control">
-			</input-price2-app>
+			</input-price-app>
 		</form-field-app>
 	</ng-container>
 
@@ -179,6 +179,18 @@
 				[formControl]="control">
 			</input-price-matrix-app>
 		</form-field-app>
+	</ng-container>
+
+	<!-- SELECTOR -->
+	<ng-container *ngSwitchCase="type.SELECTOR">
+		<selector-app 
+			[typename]="descriptor.definition.selectorSettings.type"
+			[customType]="descriptor.definition.selectorSettings.propertyOptionType"
+			[readonly]="descriptor.readonly"
+			[required]="descriptor.required"
+			[formControl]="control">
+			<span>{{ control.value }}</span>
+		</selector-app>
 	</ng-container>
 
 </ng-container>

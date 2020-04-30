@@ -10,8 +10,8 @@ import { ListCommonModule } from '~common/list/list-common.module';
 import { TablesCommonModule } from '~common/tables/tables-common.module';
 import { SharedModule } from '~shared/shared.module';
 import * as Pages from './pages';
+import * as Demos from './components/demos';
 import { routes } from './routes';
-
 
 
 
@@ -57,8 +57,10 @@ import { routes } from './routes';
 		Pages.SpacingPageComponent,
 		Pages.TablePageComponent,
 		Pages.TypographyPageComponent,
+		Demos.StatusDemoComponent,
 		Pages.PackagingPageComponent,
-		Pages.PricePageComponent
+		Pages.PricePageComponent,
+		Pages.CustomInputsPageComponent
 	],
 	exports: [],
 	providers: []
