@@ -1,6 +1,8 @@
 import { Typename } from '../typename.type';
 import { BaseQueries } from './base.queries';
 import { QueryType } from './query-type.enum';
+import { ProductQueries } from './custom/product.queries';
+import { StatusQueries } from './custom/status.queries';
 
 export class QueryPool {
 	static map = {

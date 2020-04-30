@@ -1,24 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { combineLatest, Observable } from 'rxjs';
-import {
-	filter,
-	first,
-	mergeMap,
-	switchMap,
-	takeUntil,
-	tap
-} from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { first, switchMap } from 'rxjs/operators';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import {
-	ERM,
-	Supplier,
-	SupplierService,
-	SupplierStatus,
-	SupplierStatusService
-} from '~core/erm';
+import { ERM, Supplier, SupplierService, SupplierStatus, SupplierStatusService } from '~core/erm';
 import { ListPageService, SelectionService } from '~core/list-page';
-import { CloseEvent, CloseEventType, DialogService } from '~shared/dialog';
-import { ConfirmDialogComponent } from '~shared/dialog/containers/confirm-dialog/confirm-dialog.component';
+import { DialogService } from '~shared/dialog';
 import { FilterList, FilterType } from '~shared/filters';
 import { FilterService } from '~shared/filters/services/filter.service';
 import { KanbanDropEvent } from '~shared/kanban/interfaces';
@@ -72,27 +58,6 @@ export class SuppliersBoardComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		const filters$ = this.filterSrv.filterList.valueChanges$.pipe(
-			takeUntil(this._destroy$)
-		);
-
-		const statuses$ = this.supplierStatusSrv
-			.queryAll(undefined, {
-				sortBy: 'step',
-				descending: false
-			})
-			.pipe(
-				first(),
-				tap(statuses => this.kanbanSrv.setColumnsFromStatus(statuses))
-			);
-
-		combineLatest(filters$, statuses$)
-			.pipe(
-				mergeMap(([filterList, statuses]) =>
-					combineLatest(...this.getSupplierColumns(statuses, filterList))
-				)
-			)
-			.subscribe(columns => this.kanbanSrv.setData(columns));
 	}
 
 	loadMore(col: KanbanColumn) {
@@ -109,25 +74,6 @@ export class SuppliersBoardComponent extends AutoUnsub implements OnInit {
 			);
 	}
 
-	private getSupplierColumns(
-		statuses: SupplierStatus[],
-		filterList: FilterList
-	) {
-		return statuses.map(status => {
-			const query = this.getColQuery(status.id, filterList);
-			const suppliers$ = this.supplierSrv.queryMany({
-				query,
-				take: this.amountLoaded,
-				sortBy: 'lastUpdatedDate'
-			});
-			const total$ = this.supplierSrv.queryCount(query);
-			return combineLatest(suppliers$, total$, (suppliers, total) => ({
-				id: status.id,
-				data: suppliers,
-				total
-			}));
-		});
-	}
 
 	// returns the query of the columns based on the parameters on the list srv and a constant query
 	private getColQuery(colId: string, filterList?: FilterList) {
