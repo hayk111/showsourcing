@@ -65,52 +65,6 @@ export class SamplesBoardComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.listSrv.setup(
-			{
-				entityMetadata: ERM.SAMPLE,
-				entitySrv: this.sampleSrv,
-				searchedFields: ['name', 'reference'],
-				initialFilters: [
-					{ type: FilterType.ASSIGNEE, value: this.userSrv.userSync.id },
-					{ type: FilterType.DELETED, value: false }
-				],
-				selectParams: { query: 'deleted == false' }
-			},
-			false
-		);
-
-		const filters$ = this.filterSrv.filterList.valueChanges$.pipe(
-			takeUntil(this._destroy$),
-			startWith(new FilterList([{ type: FilterType.DELETED, value: false }]))
-		);
-
-		const statuses$ = this.sampleStatusSrv
-			.queryAll(undefined, {
-				query: 'category != "refused"',
-				sortBy: 'step',
-				descending: false
-			})
-			.pipe(
-				first(),
-				// status null
-				map(statuses => [
-					{
-						id: StatusUtils.NEW_STATUS_ID,
-						name: 'New Sample',
-						category: StatusUtils.DEFAULT_STATUS_CATEGORY
-					},
-					...statuses
-				]),
-				tap(statuses => this.kanbanSrv.setColumnsFromStatus(statuses))
-			);
-
-		combineLatest(filters$, statuses$)
-			.pipe(
-				mergeMap(([filterList, statuses]) =>
-					combineLatest(...this.getSampleColumns(statuses, filterList))
-				)
-			)
-			.subscribe(columns => this.kanbanSrv.setData(columns));
 	}
 
 	loadMore(col: KanbanColumn) {

@@ -250,7 +250,8 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 				item = {
 					id: this.value.id,
 					name: this.value.name ? this.value.name : '',
-					__typename: this.value.__typename
+					__typename: this.value.__typename,
+					status: {...this.value.status}
 				};
 				break;
 		}

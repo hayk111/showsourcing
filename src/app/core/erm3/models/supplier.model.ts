@@ -1,11 +1,12 @@
 import { Typename } from '../typename.type';
 import { Team } from './team.model';
 import { Entity } from './_entity.model';
+import { WorkflowStatus } from './workflow-status.model';
 
 export class Supplier extends Entity<Supplier> {
 	__typename?: Typename = 'Supplier';
-	favorite ?= false;
-	archived ?= false;
+	favorite? = false;
+	archived? = false;
 
 	id?: string;
 	teamId?: string;
@@ -30,4 +31,5 @@ export class Supplier extends Entity<Supplier> {
 	referenceKey?: number | null;
 	images?: any;
 	comments?: any;
+	status?: WorkflowStatus;
 }

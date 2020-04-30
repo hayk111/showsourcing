@@ -1,4 +1,8 @@
 <div class="status-square mg-right-s bg-{{ color }} border-radius"></div>
-<div *ngIf="status" class="bold capitalize">{{ '_user-defined.status.' + status.name | translate }}</div>
+<div *ngIf="status" class="bold capitalize">
+	{{ '_user-defined.status.' + status.name | translate }}
+</div>
 <!-- status null -->
-<div *ngIf="!status" class="bold capitalize">{{ '_user-defined.status.new-' + type?.singular | translate }}</div>
+<div *ngIf="!status" class="bold capitalize">
+	{{ '_user-defined.status.new-' + typename | translate }}
+</div>

@@ -1,25 +1,21 @@
 <ng-container *ngFor="let entity of entityNames">
-
 	<ng-container *ngIf="entity === 'PropertyOption'; else regularEntity">
 		<selector-app
 			[typename]="entity"
 			customType="Color"
 			[canCreate]="true"
-			(update)="update($event, entity)">
+			(update)="update($event, entity)"
+		>
 			<div>OffsetX, OffsetY: Default</div>
-			<button class="mg-ms">{{entity}} selector</button>
+			<button class="mg-ms">{{ entity }} selector</button>
 		</selector-app>
-
 	</ng-container>
 
 	<ng-template #regularEntity>
-		<selector-app
-			[typename]="entity"
-			[canCreate]="true"
-			(update)="update($event, entity)">
+		<selector-app [typename]="entity" [canCreate]="true" (update)="update($event, entity)">
 			<div>OffsetX, OffsetY: Default</div>
-			<button class="mg-ms">{{entity}} selector</button>
+			<button class="mg-ms">{{ entity }} selector</button>
 		</selector-app>
 	</ng-template>
-
 </ng-container>
+<status-demo-app></status-demo-app>

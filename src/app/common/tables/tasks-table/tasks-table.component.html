@@ -44,6 +44,14 @@
 				(logoClick)="previewClick.emit($event)">
 			</default-columns-app>
 
+			<ng-container *ngSwitchCase="'status'">
+				<status-selector-app
+					[displayStep]="true"
+					typename="Task"
+					[entity]="row"
+				>
+				</status-selector-app>
+			</ng-container>
 			<!-- TODO remove the bottom columns or not depending on what we are going to receive in the upcoming designs -->
 
 			<!-- done -->
