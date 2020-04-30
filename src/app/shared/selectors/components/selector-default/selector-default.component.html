@@ -1,11 +1,9 @@
 <selector-overlay-app
 	[items]="displayedItems$ | async"
 	[itemTemplate]="itemTemplate"
-	itemsContainerClass="container-items"
 	(opened)="focusInput()"
 	[isOpen]="isOpen"
 >
-	<button trigger>trigger</button>
 
 	<div search *ngIf="searchable" class="mg-ms">
 		<form-field-app [showRequiredMarker]="'Test helper'">
@@ -15,6 +13,11 @@
 		</form-field-app>
 		<divider-app></divider-app>
 	</div>
+
+	<span trigger #trigger>
+		<ng-content select="[trigger]"></ng-content>
+	</span>
+	<button trigger *ngIf="trigger.children.length === 0">{{triggerName}}</button>
 
 </selector-overlay-app>
 

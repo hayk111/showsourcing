@@ -26,6 +26,7 @@ export class MassEditDialogComponent extends AutoUnsub implements OnInit {
 	// dislike = false;
 	// pending = false;
 
+	selected$ = new Subject();
 	constructor(
 		private dlgSrv: DialogService,
 		private ratingSrv: RatingService,
@@ -40,6 +41,11 @@ export class MassEditDialogComponent extends AutoUnsub implements OnInit {
 	updateChoice(choice) {
 		const temp = this.fieldsChoice.find(field => field.label === choice || field.name === choice);
 		this._choice$.next(temp || null);
+	}
+
+	displayInput(itemSelected) {
+		console.log('input selected : ', itemSelected)
+		this.selected$.next(itemSelected);
 	}
 
 	// since the dynamic form returns the key of the prop we have to extract it

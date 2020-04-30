@@ -22,6 +22,8 @@ export class SelectorDefaultComponent implements OnInit {
 	// display the search bar
 	@Input() isOpen = false;
 	@Input() searchable = true;
+	@Input() useFuse = true;
+	@Input() itemKey = '';
 	private _items;
 	displayedItems$ = new BehaviorSubject([{ label: 'test' }]);
 	@Input() set items(items) {
@@ -32,8 +34,8 @@ export class SelectorDefaultComponent implements OnInit {
 		this._items = items.map(item => ({item}));
 		this.displayedItems$.next(this._items);
 	}
-	@Input() itemKey = '';
-	@Input() useFuse = true;
+	@Input() triggerName = 'trigger';
+
 	@Output() selected = new EventEmitter();
 	@Output() searched = new EventEmitter();
 
