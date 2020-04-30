@@ -122,12 +122,12 @@
 
 	<!-- Supplier Details -->
 	<preview-section-app #contentTab1 [title]="'title.supplier-details' | translate">
-		<dynamic-form-app
-			[fields]="supplierDescirptor?.descriptor"
-			[config]="formConfig"
-			[value]="supplier"
-			(update)="updateSupplier($event)">
-		</dynamic-form-app>
+		<dynamic-form2-app
+			#form
+			[style]="'editable'"
+			[descriptor]="descriptor"
+			[columnAmount]="1">
+		</dynamic-form2-app>
 	</preview-section-app>
 
 
@@ -146,9 +146,9 @@
 	<preview-section-app #contentTab2 [title]="'title.supplier-owner' | translate">
 		<editable-container-app
 			[hasAction]="false"
-			[openOnClick]="false"
+			[readonly]="true"
 			(click)="sel?.selector?.openMenu()">
-			<editable-display-app>
+			<editable-value-app>
 				<selector-app
 					#sel
 					typename="User"
@@ -160,7 +160,7 @@
 					</div>
 					<ng-template #none><span class="capitalize" translate="text.none"></span></ng-template>
 				</selector-app>
-				</editable-display-app>
+				</editable-value-app>
 		</editable-container-app>
 	</preview-section-app>
 
@@ -291,12 +291,12 @@
 
 	<!-- Supplier Details -->
 	<preview-section-app [title]="'title.supplier-details' | translate">
-		<dynamic-form-app
-			[config]="formConfig"
-			[fields]="supplierDescirptor?.descriptor"
-			[value]="supplier"
-			(update)="updateSupplier($event)">
-		</dynamic-form-app>
+		<dynamic-form2-app
+			#form
+			[style]="'editable'"
+			[descriptor]="descriptor"
+			[columnAmount]="1">
+		</dynamic-form2-app>
 	</preview-section-app>
 
 

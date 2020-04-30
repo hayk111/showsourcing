@@ -12,9 +12,9 @@
 				#edt
 				(opened)="inpName.select()"
 				(closed)="update(inpName.value, 'name')">
-				<editable-display-app class="ellipsis bold-s color-txt-primary fs-xxxxl">
+				<editable-value-app class="ellipsis bold-s color-txt-primary fs-xxxxl">
 					{{ product?.name || '-' }}
-				</editable-display-app>
+				</editable-value-app>
 				<input
 					class="title-input"
 					inputApp
@@ -48,7 +48,7 @@
 				[hasAction]="false"
 				[openOnClick]="false"
 				(click)="supplierSelector?.openMenu()">
-				<editable-display-app>
+				<editable-value-app>
 					<!-- Put this inside a component has a unique style tho -->
 					<selector-app
 						#supplierSelector
@@ -56,7 +56,7 @@
 						[canCreate]="true"
 						[width]="370"
 						(update)="update($event, 'supplier')">
-						<editable-display-app>
+						<editable-value-app>
 							<div *ngIf="product?.supplier as supplier" class="supplier-container flex">
 								<logo-app
 									class="mg-right-s pointer"
@@ -80,9 +80,9 @@
 									</icon-app>
 								</button>
 							</div>
-						</editable-display-app>
+						</editable-value-app>
 					</selector-app>
-				</editable-display-app>
+				</editable-value-app>
 			</editable-container-app>
 		</section>
 

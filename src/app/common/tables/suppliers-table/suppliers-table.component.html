@@ -63,7 +63,7 @@
 					[hasAction]="false"
 					[openOnClick]="false"
 					(click)="sel.openMenu()">
-					<editable-display-app>
+					<editable-value-app>
 						<selector-app
 							#sel
 							typename="Category"
@@ -81,7 +81,7 @@
 								<span *ngIf="!row?.categories?.length">-</span>
 							</div>
 						</selector-app>
-					</editable-display-app>
+					</editable-value-app>
 				</editable-container-app>
 
 			</ng-container>
@@ -93,7 +93,7 @@
 					[hasAction]="false"
 					[openOnClick]="false"
 					(click)="sel.openMenu()">
-					<editable-display-app>
+					<editable-value-app>
 						<!-- TODO check how to manage Country from Constant selector -->
 						<selector-app
 							#sel
@@ -105,7 +105,7 @@
 								{{ row?.country ? (row?.country | const: 'country') : '-' }}
 							</span>
 						</selector-app>
-					</editable-display-app>
+					</editable-value-app>
 				</editable-container-app>
 			</ng-container>
 

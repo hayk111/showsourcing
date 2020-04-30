@@ -3,6 +3,7 @@ import { Typename } from '../typename.type';
 import { QueryType } from './query-type.enum';
 
 /** Audit found on every entity */
+// _version must be written in cache for update and delete of any entity.
 const AUDIT = ``;
 // _version
 // _lastChangedAt
@@ -74,8 +75,9 @@ export class QueryBuilder {
 		const byId = paramEntityName + 'Id';
 
 		let byPropertyString = '';
-		if (this.typename !== 'TeamUser') { // temporary solution for TeamUser, as we don't have a query TeamUsers
-			byPropertyString = byProperty  === 'Team' ? 's' : 'By' + byProperty; // listEntity is "by Team" in default
+		if (this.typename !== 'TeamUser' || (this.typename === 'TeamUser' && byProperty === 'User')) {
+			// temporary solution for TeamUser, as we don't have a query TeamUsers
+			byPropertyString = byProperty === 'Team' ? 's' : 'By' + byProperty; // listEntity is "by Team" in default
 		}
 		return gql`
 			query List${this.typename}${byPropertyString}(
@@ -138,8 +140,10 @@ export class QueryBuilder {
 	};
 
 	[QueryType.UPDATE_MANY] = (str: string) => (inputs: any[]) => {
-		const aliasParams = inputs.map((input, i) => `
-			$input${i}: Update${this.typename}Input!`);
+		const aliasParams = inputs.map(
+			(input, i) => `
+			$input${i}: Update${this.typename}Input!`
+		);
 		const aliasMutations = inputs.map(
 			(input, i) => `
 				alias${i}: update${this.typename}(input: $input${i}) {
@@ -153,7 +157,7 @@ export class QueryBuilder {
 			) {
 				${aliasMutations}
 			}`;
-	}
+	};
 
 	[QueryType.UPDATE] = (str: string) => {
 		return gql`
@@ -180,21 +184,24 @@ export class QueryBuilder {
 	};
 
 	[QueryType.DELETE_MANY] = (str: string) => (inputs: any[]) => {
-		const aliasParams = inputs.map((input, i) => `
-			$input${i}: Delete${this.typename}Input!`);
+		const aliasParams = inputs.map(
+			(input, i) => `
+			$input${i}: Delete${this.typename}Input!`
+		);
 		const aliasMutation = inputs.map(
 			(input, i) => `
 				alias${i}: delete${this.typename}(input: $input${i}) {
 					${str}
 					${AUDIT}
-				}`);
+				}`
+		);
 		return gql`
 			mutation DeleteMany${this.typename}(
 				${aliasParams}
 			) {
 				${aliasMutation}
 			}`;
-	}
+	};
 
 	[QueryType.DELETE] = (str = '') => {
 		return gql`

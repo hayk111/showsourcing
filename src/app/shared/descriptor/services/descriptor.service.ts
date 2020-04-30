@@ -35,7 +35,7 @@ export class DescriptorService {
 		return obj;
 	}
 
-	propertiesToObject(properties: Property[]): {} {
+	propertiesToObject(properties: Property[] = []): {} {
 		const obj = {};
 		properties.forEach(prop => {
 			obj[prop.name] = JSON.parse(prop.value);

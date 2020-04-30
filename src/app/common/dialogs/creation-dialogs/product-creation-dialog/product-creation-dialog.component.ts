@@ -54,7 +54,6 @@ export class ProductCreationDialogComponent {
 	}
 
 	save() {
-		console.log(this.product);
 		if (!this.product.properties || !this.product.name) return;
 		this.dlgSrv.data({...this.product});
 

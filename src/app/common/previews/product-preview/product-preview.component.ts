@@ -1,34 +1,14 @@
-import {
-	ChangeDetectionStrategy,
-	ChangeDetectorRef,
-	Component,
-	ElementRef,
-	EventEmitter,
-	Input,
-	OnInit,
-	Output,
-	ViewChild,
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { first, switchMap, tap } from 'rxjs/operators';
+import { first, tap } from 'rxjs/operators';
 import { SampleCatalogComponent } from '~common/catalogs/sample-catalog/sample-catalog.component';
 import { TaskCatalogComponent } from '~common/catalogs/task-catalog/task-catalog.component';
+import { descriptorMock } from '~common/dialogs/creation-dialogs/product-creation-dialog/_temporary-descriptor-product.mock';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
-import { ProductDescriptor } from '~core/descriptors';
-import {
-	AppImage,
-	Comment,
-	CommentService,
-	ERM,
-	ExtendedFieldDefinition,
-	Sample,
-	Task,
-} from '~core/erm';
+import { AppImage, Comment, CommentService, Sample, Task } from '~core/erm';
 import { Product, Vote } from '~core/erm3/models';
 import { ApiService } from '~core/erm3/services/api.service';
 import { ListHelperService } from '~core/list-page2';
-import { DynamicFormConfig } from '~shared/dynamic-forms/models/dynamic-form-config.interface';
 import { UploaderService } from '~shared/file/services/uploader.service';
 import { PreviewCommentComponent, PreviewService } from '~shared/preview';
 import { RatingDashboardComponent } from '~shared/rating';
@@ -73,15 +53,7 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	@ViewChild(RatingDashboardComponent, { read: ElementRef, static: false })
 	ratingDashboard: ElementRef;
 	@ViewChild('inpFile', { static: false }) inpFile: ElementRef;
-
-	/** this is the fully loaded product */
-	productDescriptor1: ProductDescriptor;
-	productDescriptor2: ProductDescriptor;
-	formConfig = new DynamicFormConfig({ mode: 'editable-text', alignValue: 'right' });
-	erm = ERM;
-
-	fieldDefinitions$: Observable<ExtendedFieldDefinition[]>;
-
+	descriptor = descriptorMock;
 	private _pendingImages: PendingImage[] = [];
 
 	constructor(
@@ -98,45 +70,6 @@ export class ProductPreviewComponent extends AutoUnsub implements OnInit {
 	}
 
 	ngOnInit() {
-		this.productDescriptor1 = new ProductDescriptor([
-			'name',
-			'reference',
-			'supplier',
-			'supplier-reference',
-			'price',
-			'category',
-			'event',
-			'minimumOrderQuantity',
-			'moqDescription',
-			'assignee',
-		]);
-		this.productDescriptor1.modify([
-			{ name: 'reference', label: 'item-reference' },
-			{ name: 'supplier', metadata: { hasBadge: false } },
-			{ name: 'event', label: 'trade-show', metadata: { hasBadge: false } },
-		]);
-
-		this.productDescriptor2 = new ProductDescriptor([
-			'innerCarton',
-			'masterCarton',
-			'priceMatrix',
-			'sample',
-			'samplePrice',
-			'incoTerm',
-			'harbour',
-			'masterCbm',
-			'quantityPer20ft',
-			'quantityPer40ft',
-			'quantityPer40ftHC',
-		]);
-		// this.productDescriptor2.insert({ name: 'sample', type: 'title' }, 'sample');
-		// this.productDescriptor2.insert({ name: 'shipping', type: 'title' }, 'incoTerm');
-
-		// this.fieldDefinitions$ = this.extendedFieldDefSrv.queryAll(undefined, {
-		// 	query: 'target == "Product"',
-		// 	sortBy: 'order',
-		// 	descending: false
-		// });
 	}
 
 	updateVote(votes: Vote[]) {

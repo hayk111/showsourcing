@@ -10,24 +10,24 @@
 	<accordion-app>
 		<accordion-title-app>General</accordion-title-app>
 		<accordion-content-app *ngIf="product$ | async as product; else loader">
-			<dynamic-form-app
-				[fields]="productDescriptor?.descriptor"
-				[value]="product"
-				[config]="dynamicFormConfig"
-				(update)="update($event)">
-			</dynamic-form-app>
+			<dynamic-form2-app
+				#form
+				[style]="'editable'"
+				[descriptor]="descriptor"
+				[columnAmount]="1">
+			</dynamic-form2-app>
 		</accordion-content-app>
 	</accordion-app>
 
 	<accordion-app>
 		<accordion-title-app>Shipping & Packaging</accordion-title-app>
 		<accordion-content-app *ngIf="product$ | async as product; else loader">
-			<dynamic-form-app
-				[fields]="shippingDescriptor?.descriptor"
-				[value]="product"
-				[config]="dynamicFormConfig"
-				(update)="update($event)">
-			</dynamic-form-app>
+			<dynamic-form2-app
+				#form
+				[style]="'editable'"
+				[descriptor]="descriptor"
+				[columnAmount]="1">
+			</dynamic-form2-app>
 		</accordion-content-app>
 	</accordion-app>
 

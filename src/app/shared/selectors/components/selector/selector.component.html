@@ -2,7 +2,7 @@
 <div
 	#trigger="cdkOverlayOrigin"
 	cdkOverlayOrigin
-	class="inline"
+	class="full-width ellipsis pointer"
 	(click)="openMenu()">
 	<ng-content></ng-content>
 </div>
@@ -23,7 +23,6 @@
 		[value]="value"
 		[typename]="typename"
 		[customType]="customType"
-		[dynamicFields]="dynamicFields"
 		[multiple]="multiple"
 		[filterList]="filterList"
 		[canCreate]="canCreate"

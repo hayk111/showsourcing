@@ -1,0 +1,21 @@
+.ctnr {
+	border-bottom: 1px solid var(--color-divider);
+	height: 24px;
+	editable-value-app, input {
+		padding: 4px 0;
+	}
+	input-price-app {
+		margin-top: 5px;
+	}
+
+}
+
+.amount-display {
+	text-align: right;
+}
+
+.label-ctnr, .price-ctnr {
+	flex-basis: 50%;
+	flex-grow: 1;
+	width: unset;
+}

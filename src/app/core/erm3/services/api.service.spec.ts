@@ -136,7 +136,7 @@ fdescribe('ApiService', () => {
 				.create(name as Typename, getMock())
 				.pipe(
 					switchMap(createdEntity =>
-						apiSrv.delete(name as Typename, { id: createdEntity.id, _version: 1 } as Entity)
+						apiSrv.delete(name as Typename, { id: createdEntity.id } as Entity)
 					)
 				)
 				.toPromise()
