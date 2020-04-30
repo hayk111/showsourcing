@@ -9,6 +9,7 @@
 	<div class="container">
 		<h5 class="ms" translate="text.property-update"></h5>
 
+		<!-- Selection of the property to edit -->
 		<selector-default-app
 			itemKey="name"
 			[items]="fieldsChoice"
@@ -25,6 +26,42 @@
 				[placeholder]="'placeholder.select-property' | translate"
 			></selector-placeholder-app>
 		</selector-default-app>
+
+		<!-- edit of descriptor property -->
+		<!-- <dynamic-field-app
+						*ngFor="let descriptor of propertyDescriptors"
+						[descriptor]="descriptor"
+						[control]="formGroup.controls[descriptor.definition.name]"
+						[showRequiredMarker]="showRequiredMarker">
+					</dynamic-field-app> -->
+
+		<!-- edit of status -->
+		<status-selector-app
+			*ngIf="(propertySelected$ | async)?.type === 'status'"
+			(statusUpdated)="setStatus($event)"
+			typename="Product"
+			[displayStep]="false"
+			selectSize="l"
+			type="button"
+		></status-selector-app>
+
+		<!-- edit of rating -->
+
+		<!-- edit of property type string -->
+		<!-- name -->
+		<!-- --------- -->
+		<!-- completed -->
+		<!-- due date -->
+		<!-- completion date -->
+		<!-- favorite -->
+		<!-- reference -->
+		<!-- reference key -->
+
+		<!-- edit of property type SELECTOR -->
+		<!-- supplier -->
+		<!-- category -->
+		<!-- assignee -->
+		<!-- tags -->
 
 		<!-- <selector-app
 			typename="FieldDescriptor"
@@ -103,10 +140,10 @@
 							[fields]="[choice]"
 							(update)="valueUpdate($event, choice?.name)">
 						</dynamic-form-app> -->
-					<!-- </ng-container> -->
+		<!-- </ng-container> -->
 
-				<!-- </ng-container> -->
-			<!-- </ng-container> -->
+		<!-- </ng-container> -->
+		<!-- </ng-container> -->
 		<!-- </ng-container> -->
 	</div>
 

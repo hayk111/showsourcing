@@ -182,7 +182,6 @@ export class ApiService {
 		options.variables = { ...options.variables, byId, limit: 10000 };
 		const queryFn = QueryPool.getQuery(typename, QueryType.LIST_BY); // the listBy get a method to build the query
 		options.query = queryFn(byProperty);
-		options.variables = { byId, limit: 10000 };
 		return this.query<T[]>(options);
 	}
 

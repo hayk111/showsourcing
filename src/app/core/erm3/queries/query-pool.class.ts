@@ -12,7 +12,7 @@ export class QueryPool {
 		Contact: new BaseQueries('Contact'),
 		Descriptor: new BaseQueries('Descriptor', 'id target _version'),
 		Image: new BaseQueries('Image', `id fileName _version`),
-		Product: new BaseQueries('Product', 'id name _version'),
+		Product: new ProductQueries(),
 		Supplier: new BaseQueries('Supplier', 'id name _version'),
 		Task: new BaseQueries('Task', 'id name'), // Version to be dadded
 		User: new BaseQueries('User', `firstName`),
@@ -31,7 +31,7 @@ export class QueryPool {
 		Sample: new BaseQueries('Sample'),
 		Tag: new BaseQueries('Tag'),
 		Vote: new BaseQueries('Vote', 'id message rating nodeId _version createdBy { id }'),
-		WorkflowStatus: new BaseQueries('WorkflowStatus')
+		WorkflowStatus: new StatusQueries()
 	};
 
 	static getQuery(

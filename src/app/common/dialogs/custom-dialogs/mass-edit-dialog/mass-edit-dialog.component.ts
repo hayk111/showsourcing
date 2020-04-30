@@ -16,6 +16,7 @@ import { ReplaySubject, Subject } from 'rxjs';
 export class MassEditDialogComponent extends AutoUnsub implements OnInit {
 	@Input() typename: Typename;
 	@Input() items: any[];
+	private _toUpdate: {callback: string, value: any};
 	fieldsChoice: any[] = [
 		{ name: 'custom', type: 'descriptor' },
 		{ name: 'select 2', type: 'selector' },
@@ -42,6 +43,10 @@ export class MassEditDialogComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {}
 
+	setStatus(newStatus) {
+		this._toUpdate = {callback: 'updateStatus', value: newStatus};
+	}
+
 	// updateChoice(choice) {
 	// 	const temp = this.fieldsChoice.find(field => field.label === choice || field.name === choice);
 	// 	this._choice$.next(temp || null);
@@ -62,7 +67,7 @@ export class MassEditDialogComponent extends AutoUnsub implements OnInit {
 	}
 
 	// TODO extract update logic
-	update() {
+	// update() {
 		// this.pending = true;
 		// this.choice$.pipe(
 		// 	takeUntil(this._destroy$),
@@ -78,7 +83,7 @@ export class MassEditDialogComponent extends AutoUnsub implements OnInit {
 		// 		timeout: 3500
 		// 	});
 		// });
-	}
+	// }
 
 	private mapItems(choice) {
 		// const prop = choice.name;
@@ -141,6 +146,10 @@ export class MassEditDialogComponent extends AutoUnsub implements OnInit {
 	// 		votes = this.ratingSrv.thumbUpFromMulti(item, false, type);
 	// 	return votes;
 	// }
+
+	update() {
+		this.dlgSrv.data(this._toUpdate);
+	}
 
 	cancel() {
 		this.dlgSrv.cancel();

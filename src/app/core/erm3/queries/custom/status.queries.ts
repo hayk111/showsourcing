@@ -8,9 +8,10 @@ export class StatusQueries extends BaseQueries {
 			id
 			name
 			inWorkflow
-			category
 			step
 			final
 			type
+			_version
 	`;
+			// category
 }

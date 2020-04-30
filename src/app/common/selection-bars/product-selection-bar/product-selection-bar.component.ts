@@ -55,7 +55,9 @@ export class ProductSelectionBarComponent extends TrackingComponent {
 	massEdit() {
 		this.dlgCommonSrv
 			.openMassEditDialog(this.selectionSrv.getSelectedValues(), 'Product')
-			.data$.subscribe(/* ... */);
+			.data$.subscribe(updateObject => {
+				console.log('trigger update function : ', updateObject);
+			});
 	}
 
 }

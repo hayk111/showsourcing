@@ -75,7 +75,7 @@ export class QueryBuilder {
 		const byId = paramEntityName + 'Id';
 
 		let byPropertyString = '';
-		if (this.typename !== 'TeamUser' || (this.typename === 'TeamUser' && byProperty === 'User')) {
+		if (this.typename !== 'WorkflowStatus' && this.typename !== 'TeamUser' || (this.typename === 'TeamUser' && byProperty === 'User')) {
 			// temporary solution for TeamUser, as we don't have a query TeamUsers
 			byPropertyString = byProperty === 'Team' ? 's' : 'By' + byProperty; // listEntity is "by Team" in default
 		}
