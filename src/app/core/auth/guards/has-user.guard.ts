@@ -1,10 +1,8 @@
 
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, RouterStateSnapshot } from '@angular/router';
+import { CanActivate, CanActivateChild } from '@angular/router';
 import { Observable } from 'rxjs';
-import { filter, map, tap } from 'rxjs/operators';
-import { log, LogColor } from '~utils';
-import { AuthStatus } from '../services/auth-state.interface';
+import { map } from 'rxjs/operators';
 import { UserService } from '../services';
 
 @Injectable({
