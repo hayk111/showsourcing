@@ -50,6 +50,34 @@
 		<rating-badge-app [votes]="row?.votes"></rating-badge-app>
 	</ng-container>
 
+	<!-- supplier -->
+	<ng-container *ngSwitchCase="'supplier'">
+		<div class="flex action-hover-container-0">
+			<editable-container-app
+				class="edit-with-icon"
+				[hasAction]="false"
+				(click)="sel.openMenu()">
+				<editable-value-app class="full-width">
+					<selector-app
+						#sel
+						typename="Supplier"
+						class="full-width"
+						[width]="350"
+						[offsetX]="4"
+						(update)="update.emit({ id: row?.id, supplierId: $event?.supplierId})">
+						<span>{{ row?.supplier?.name || '-'}}</span>
+					</selector-app>
+				</editable-value-app>
+			</editable-container-app>
+			<icon-app
+				*ngIf="row.supplier"
+				class="mg-left-xs action-hover-item-0 color-primary"
+				name="eye"
+				[routerLink]="['/suppliers', row.supplier.id]">
+			</icon-app>
+		</div>
+	</ng-container> 
+
 	<!-- status -->
 	<!-- <ng-container *ngSwitchCase="'status'">
 		<editable-container-app
@@ -70,7 +98,7 @@
 	</ng-container> -->
 
 	<!-- assignee -->
-	<!-- <ng-container *ngSwitchCase="'assignee'">
+	<ng-container *ngSwitchCase="'assignee'">
 		<editable-container-app
 			class="full-width"
 			[hasAction]="false"
@@ -82,7 +110,7 @@
 					typename="User"
 					[width]="320"
 					[offsetX]="4"
-					(update)="update.emit({ id: row?.id, assignee: $event })">
+					(update)="update.emit({ id: row?.id, assigneeId: $event?.userId })">
 					<div class="flex pointer">
 						<user-picture-app
 							*ngIf="row?.assignee"
@@ -97,11 +125,11 @@
 				</editable-value-app>
 		</editable-container-app>
 
-	</ng-container> -->
+	</ng-container>
 
 	<!-- creation date -->
 	<ng-container *ngSwitchCase="'creationDate'">
-		{{ row?.creationDate | date: 'dd MMM y':'':translate.currentLang  }}
+		{{ row?.createdAt | date: 'dd MMM y':'':translate.currentLang  }}
 	</ng-container>
 
 	<!-- created by -->
@@ -156,34 +184,5 @@
 			</editable-value-app>
 		</editable-container-app> -->
 	</ng-container>
-
-	<!-- supplier -->
-	<ng-container *ngSwitchCase="'supplier'">
-		<!-- <div class="flex action-hover-container-0">
-			<editable-container-app
-				class="edit-with-icon"
-				[hasAction]="false"
-				[openOnClick]="false"
-				(click)="sel.openMenu()">
-				<editable-value-app class="full-width">
-					<selector-app
-						#sel
-						typename="Supplier"
-						class="full-width"
-						[width]="350"
-						[offsetX]="4"
-						(update)="update.emit({ id: row?.id, supplier: $event })">
-						<span>{{ row?.supplier?.name || '-'}}</span>
-					</selector-app>
-				</editable-value-app>
-			</editable-container-app>
-			<icon-app
-				*ngIf="row.supplier"
-				class="mg-left-xs action-hover-item-0 color-primary"
-				name="eye"
-				[routerLink]="['/suppliers', row.supplier.id]">
-			</icon-app>
-		</div> -->
-	</ng-container> 
 
 </ng-container>

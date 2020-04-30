@@ -56,7 +56,7 @@ export class SettingsTeamInvitationsComponent extends AutoUnsub
 		this.filterSrv.setup([
 			{ type: FilterType.STATUS, value: 'CREATED', equality: 'eq' },
 			{ type: FilterType.DELETED, value: true }
-		], ['name']);
+		], ['email']);
 		this.listHelper.setup('Invitation');
 		this.membersInvitationSrv.invitationOpen$.subscribe(_ => this.openInviteDialog());
 	}

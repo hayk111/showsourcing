@@ -33,67 +33,16 @@
 <!-- dropdown items -->
 <div class="container-items" infiniScroll (bottomReached)="selectorSrv.loadMore()">
 
-	<ng-container *ngIf="(choices$ | async); else spinner">
-
-		<!-- TIP: Ordered alphabetically -->
+	<ng-container *ngIf="(choices$ | async) as choices; else spinner">
+		
 		<ng-container [ngSwitch]="typename">
-
-			<ng-container *ngSwitchCase="erm.CONTACT">
-				<selector-option-contact-app #abstract *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [contact]="item" (click)="onSelect(item)"></selector-option-contact-app>
-			</ng-container>
-
-			<ng-container *ngSwitchCase="erm.COUNTRY">
-				<selector-option-country-app #abstract *ngFor="let item of choices$ | async" class="selector-row" [country]="item" (click)="onSelect(item)"></selector-option-country-app>
-			</ng-container>
-
-			<ng-container *ngSwitchCase="erm.CURRENCY">
-				<!-- we need the top 3 currencies always visible at the top -->
-				<selector-option-currency-app #abstract *ngFor="let item of this.selectorSrv.topCurrencies$ | async; trackBy: trackById" class="selector-row" [currency]="item" (click)="onSelect(item)"></selector-option-currency-app>
-				<divider-app class="top-3-divider" *ngIf="(this.selectorSrv.topCurrencies$ | async)?.length"></divider-app>
-				<selector-option-currency-app #abstract *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [currency]="item" (click)="onSelect(item)"></selector-option-currency-app>
-			</ng-container>
-
-			<ng-container *ngSwitchCase="erm.EMAIL">
-				<selector-option-contact-app #abstract *ngFor="let item of choices$ | async" class="selector-row" [contact]="item" (click)="onSelect(item)"></selector-option-contact-app>
-			</ng-container>
-
-			<ng-container *ngSwitchCase="erm.EVENT">
-				<selector-option-event-app #abstract  *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [event]="item" (click)="onSelect(item)"></selector-option-event-app>
-			</ng-container>
-
-			<ng-container *ngSwitchCase="erm.PICKER_FIELD">
-				<selector-option-label-name-app #abstract *ngFor="let item of choices$ | async" class="selector-row capitalize" [item]="item" (click)="onSelect(item)"></selector-option-label-name-app>
-			</ng-container>
-
-			<ng-container *ngSwitchCase="erm.REQUEST_TEMPLATE">
-				<selector-option-request-template-app #abstract *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [requestTemplate]="item" (click)="onSelect(item)"></selector-option-request-template-app>
-			</ng-container>
-
-			<ng-container *ngSwitchCase="erm.SELECTOR_ELEMENT">
-				<selector-option-value-app #abstract *ngFor="let item of choices$ | async" class="selector-row" [item]="item" (click)="onSelect(item)"></selector-option-value-app>
-			</ng-container>
-
-			<ng-container *ngSwitchCase="erm.SUPPLIER">
-				<selector-option-supplier-app #abstract  *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [supplier]="item" (click)="onSelect(item)"></selector-option-supplier-app>
-			</ng-container>
-
-			<ng-container *ngSwitchCase="erm.TEAM_USER">
-				<selector-option-user-app #abstract *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [user]="item" (click)="onSelect(item)"></selector-option-user-app>
-			</ng-container>
-
-			<ng-container *ngSwitchCase="erm.USER">
-				<selector-option-user-app #abstract *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row" [user]="item" (click)="onSelect(item)"></selector-option-user-app>
-			</ng-container>
-
-			<!--
-				this default is for any entity that has property name, and the output emitted is an entity (click)=onSelect(item)
-				this is why category, project, product... are valid defaults,
-			-->
 			<ng-container *ngSwitchDefault>
-				<selector-option-name-app #abstract *ngFor="let item of choices$ | async; trackBy: trackById" class="selector-row"  [item]="item" (click)="onSelect(item)"></selector-option-name-app>
+				<selector-option-name-app #abstract *ngFor="let item of choices; trackBy: trackById" class="selector-row"  [item]="item" (click)="onSelect(item)"></selector-option-name-app>
 			</ng-container>
-
-		</ng-container>
+			<ng-container *ngSwitchCase="'User'">
+				<selector-option-user-app #abstract *ngFor="let item of choices; trackBy: trackById" class="selector-row"  [user]="item" (click)="onSelect(item)"></selector-option-user-app>
+			</ng-container>
+	 </ng-container>
 
 		<!-- create button -->
 		<selector-option-button-app #abstract *ngIf="canCreate && !(nameExists$ | async) && searchTxt" class="selector-row" [type]="typename.singular" [searchTxt]="searchTxt" (click)="create()"></selector-option-button-app>

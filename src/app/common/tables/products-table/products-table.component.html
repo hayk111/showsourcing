@@ -51,7 +51,6 @@
 				<editable-container-app
 					class="full-width"
 					[hasAction]="false"
-					[openOnClick]="false"
 					(click)="sel.openMenu()">
 					<editable-value-app>
 						<selector-app
@@ -60,7 +59,7 @@
 							[hasPicker]="canUpdate"
 							[canCreate]="true"
 							[width]="370"
-							(update)="update.emit({ id: row.id, category: $event })">
+							(update)="update.emit({ id: row.id, categoryId: $event.categoryId})">
 							<div class="pointer" >
 								{{ row?.category?.name || '-' }}
 							</div>
@@ -76,9 +75,9 @@
 					class="full-width"
 					[hasAction]="false"
 					(opened)="inp.focus()"
-					(closed)="update.emit({ id: row.id, price: inp.price })">
+					(closed)="listHelper.updateProperties(row, inp.value)">
 					<editable-value-app>
-						<price-app [price]="row?.price"></price-app>
+						<price-app [price]="row | property:'price'" [currency]="row | property: 'currency'"></price-app>
 					</editable-value-app>
 					<input-price-app
 						#inp
@@ -95,17 +94,17 @@
 					class="full-width"
           [hasAction]="false"
           (opened)="inp.focus()"
-          (closed)="update.emit({ id: row.id, minimumOrderQuantity: inp.value })">
+          (closed)="listHelper.updateProperties(row, { minimumOrderQuantity: inp.value })">
           <editable-value-app>
             <moq-app
-							*ngIf="row?.minimumOrderQuantity"
-							[moq]="row?.minimumOrderQuantity"
+							*ngIf="row | property:'minimumOrderQuantity'"
+							[moq]="row | property:'minimumOrderQuantity'"
 							[moqDescription]="row?.moqDescription">
             </moq-app>
-						<div *ngIf="!row?.minimumOrderQuantity">-</div>
+						<div *ngIf="!(row | property:'minimumOrderQuantity')">-</div>
           </editable-value-app>
 					<input #inp inputApp type="number"
-						[value]="row?.minimumOrderQuantity" (keyup.enter)="editable.close()"/>
+						[value]="row | property:'minimumOrderQuantity'" (keyup.enter)="editable.close()"/>
         </editable-container-app>
       </ng-container>
 
@@ -116,6 +115,15 @@
             {{ project.name || '-' }}
           </span>
         </div>
+			</ng-container>
+
+			<ng-container *ngSwitchCase="'status'">
+				<status-selector-app
+					[displayStep]="true"
+					typename="Product"
+					[entity]="row"
+				>
+				</status-selector-app>
 			</ng-container>
 
     </ng-container>

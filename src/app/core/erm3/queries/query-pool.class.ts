@@ -1,33 +1,36 @@
 import { Typename } from '../typename.type';
 import { BaseQueries } from './base.queries';
 import { QueryType } from './query-type.enum';
+import { ProductQueries } from './custom/product.queries';
+import { StatusQueries } from './custom/status.queries';
 
 export class QueryPool {
 	static map = {
-		Category: new BaseQueries('Category'),
+		Attachment: new BaseQueries('Attachment', 'id fileName _version'),
+		Category: new BaseQueries('Category', 'id name'),
 		Company: new BaseQueries('Company', 'id name'),
+		Constant: new BaseQueries('Constant', 'id code label helperType _version'),
 		Comment: new BaseQueries('Comment', 'id message _version'),
 		Contact: new BaseQueries('Contact'),
 		Descriptor: new BaseQueries('Descriptor', 'id target _version'),
-		Image: new BaseQueries('Image', `id fileName _version`),
-		Product: new BaseQueries('Product', 'id name _version'),
-		Supplier: new BaseQueries('Supplier', 'id name _version'),
-		Task: new BaseQueries('Task', 'id name _version'),
-		User: new BaseQueries('User', `firstName`),
-		Team: new BaseQueries('Team', 'id name'),
-		TeamUser: new BaseQueries('TeamUser', 'team { id name } user { firstName lastName email } role'),
-		Attachment: new BaseQueries('Attachment', 'id fileName _version'),
-		Constant: new BaseQueries('Constant', 'id code label helperType _version'),
 		Event: new BaseQueries('Event', 'id _version', []),
 		EventDescription: new BaseQueries('EventDescription'),
-		Venue: new BaseQueries('Venue'),
+		Export: new BaseQueries('Export'),
+		Image: new BaseQueries('Image', `id fileName _version`),
 		Industry: new BaseQueries('Industry'),
 		Invitation: new BaseQueries('Invitation', 'id email status _version'),
-		Export: new BaseQueries('Export'),
+		// tslint:disable-next-line:max-line-length
+		Product: new BaseQueries('Product', 'id name _version category { name } supplier { name } assignee { firstName lastName } properties { name value } createdBy { firstName lastName } createdAt'),
 		Project: new BaseQueries('Project', 'id name _version'),
 		PropertyOption: new BaseQueries('PropertyOption', 'id value _version'),
+		Supplier: new BaseQueries('Supplier', 'id name _version'),
 		Sample: new BaseQueries('Sample'),
+		Task: new BaseQueries('Task', 'id name _version'),
 		Tag: new BaseQueries('Tag'),
+		Team: new BaseQueries('Team', 'id name'),
+		TeamUser: new BaseQueries('TeamUser', 'team { id name } user { firstName lastName email } role'),
+		User: new BaseQueries('User', `id firstName lastName`),
+		Venue: new BaseQueries('Venue'),
 		Vote: new BaseQueries('Vote', 'id message rating nodeId _version createdBy { id }'),
 		WorkflowStatus: new BaseQueries('WorkflowStatus')
 	};

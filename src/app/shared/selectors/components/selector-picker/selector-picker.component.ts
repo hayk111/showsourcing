@@ -22,7 +22,13 @@ import { ID } from '~utils';
 	selector: 'selector-picker-app',
 	templateUrl: './selector-picker.component.html',
 	styleUrls: ['./selector-picker.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	providers: [
+		ListHelperService,
+		ListFuseHelperService,
+		SelectorsService,
+		FilterService
+	]
 })
 export class SelectorPickerComponent extends AbstractInput implements OnInit, AfterViewInit, OnChanges {
 	@Input() typename: Typename;
@@ -220,42 +226,9 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	 * Emits the new single value so it can be updated
 	 */
 	private updateSingle() {
-		let item;
-		// depending on the entity the way we update it can be different (we only care to update the value that we display)
-		switch (this.typename) {
-			case 'TeamUser':
-			case 'User':
-				item = {
-					id: this.value.id,
-					firstName: this.value.firstName ? this.value.firstName : '',
-					lastName: this.value.lastName ? this.value.lastName : '',
-					__typename: this.value.__typename
-				};
-				break;
-			case 'Contact':
-				item = {
-					id: this.value.id,
-					email: this.value.email,
-					supplier: this.value.supplier ? this.value.supplier : null,
-					__typename: this.value.__typename
-				};
-				break;
-			// if its a const we don't need to emit an object {id, typename} (its not an entity update),
-			// we only need a string (e.g. supplier -> country -> string)
-			case 'Constant':
-				item = this.value;
-				break;
-			// this is the default if we are updating an entity with name field
-			default:
-				item = {
-					id: this.value.id,
-					name: this.value.name ? this.value.name : '',
-					__typename: this.value.__typename
-				};
-				break;
-		}
-		if (item)
-			this.update.emit(item);
+		this.update.emit({
+			[this.value.__typename.toLowerCase() + 'Id']: this.value.id
+		});
 		this.close.emit();
 	}
 
@@ -265,6 +238,8 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	 */
 	onSelect(item) {
 		let itemToReturn = item;
+		itemToReturn.__typename = this.typename;
+
 		switch (this.typename) {
 			case 'Constant':
 				itemToReturn = item.name;

@@ -45,6 +45,15 @@
 				(logoClick)="previewClick.emit($event)">
 			</default-columns-app>
 
+			<ng-container *ngSwitchCase="'status'">
+				<status-selector-app
+					[displayStep]="true"
+					typename="Sample"
+					[entity]="row"
+				>
+				</status-selector-app>
+			</ng-container>
+
 		</ng-container>
 
 	</ng-template>

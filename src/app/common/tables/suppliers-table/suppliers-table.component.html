@@ -109,6 +109,15 @@
 				</editable-container-app>
 			</ng-container>
 
+			<ng-container *ngSwitchCase="'status'">
+				<status-selector-app
+					[displayStep]="true"
+					typename="Supplier"
+					[entity]="row"
+				>
+				</status-selector-app>
+			</ng-container>
+
 			<!-- type -->
 			<ng-container *ngSwitchCase="'type'">
 				<selector-app

@@ -14,6 +14,7 @@ export class BaseQueries {
 			QueryType.SYNC,
 			QueryType.CREATE,
 			QueryType.UPDATE,
+			QueryType.UPDATE_STATUS,
 			QueryType.UPDATE_MANY,
 			QueryType.DELETE,
 			QueryType.DELETE_MANY,
