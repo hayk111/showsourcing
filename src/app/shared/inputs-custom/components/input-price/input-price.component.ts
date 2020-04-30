@@ -8,7 +8,8 @@ import { makeAccessorProvider, AbstractInput } from '~shared/inputs';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [makeAccessorProvider(InputPriceComponent)],
 	host: {
-		'[class.inline]': 'inline'
+		'[class.inline]': 'inline',
+		'[class.readonly]': 'readonly'
 	}
 })
 export class InputPriceComponent extends AbstractInput {

@@ -28,6 +28,7 @@
 	<selector-app 
 		typename="PropertyOption"
 		customType="currency"
+		[readonly]="readonly"
 		[(ngModel)]="value.currency">
 		<div class="currency pointer">
 			<span class="mg-h-s">{{ value?.currency || 'USD'}}</span>
