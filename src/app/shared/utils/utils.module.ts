@@ -10,6 +10,7 @@ import { UserNamePipe } from '~shared/utils/pipes/user-name.pipe';
 
 import { TabFocusActionDirective } from './directives/tab-focus-action.directive';
 import { CountryCityPipe } from './pipes/country-city.pipe';
+import { PropertyPipe } from './pipes/property.pipe';
 
 @NgModule({
 	imports: [
@@ -28,6 +29,7 @@ import { CountryCityPipe } from './pipes/country-city.pipe';
 		TabFocusActionDirective,
 		CountryCityPipe,
 		HorizontalScrollDirective,
+		PropertyPipe,
 	],
 	exports: [
 		ClickOutsideDirective,
@@ -40,6 +42,7 @@ import { CountryCityPipe } from './pipes/country-city.pipe';
 		TooltipDirective,
 		TabFocusActionDirective,
 		CountryCityPipe,
+		PropertyPipe,
 		HorizontalScrollDirective,
 	],
 	providers: [

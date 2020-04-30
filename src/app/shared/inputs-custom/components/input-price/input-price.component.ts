@@ -12,7 +12,7 @@ import { makeAccessorProvider, AbstractInput } from '~shared/inputs';
 	}
 })
 export class InputPriceComponent extends AbstractInput {
-	@Input() value: any = {};
+	@Input() value: any = { currency: 'USD' };
 	@Input() hasLabel = false;
 	/** whether the input has borders */
 	@Input() inline = false;

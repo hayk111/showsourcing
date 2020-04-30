@@ -22,7 +22,13 @@ import { ID } from '~utils';
 	selector: 'selector-picker-app',
 	templateUrl: './selector-picker.component.html',
 	styleUrls: ['./selector-picker.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	providers: [
+		ListHelperService,
+		ListFuseHelperService,
+		SelectorsService,
+		FilterService
+	]
 })
 export class SelectorPickerComponent extends AbstractInput implements OnInit, AfterViewInit, OnChanges {
 	@Input() typename: Typename;
@@ -232,6 +238,8 @@ export class SelectorPickerComponent extends AbstractInput implements OnInit, Af
 	 */
 	onSelect(item) {
 		let itemToReturn = item;
+		itemToReturn.__typename = this.typename;
+
 		switch (this.typename) {
 			case 'Constant':
 				itemToReturn = item.name;

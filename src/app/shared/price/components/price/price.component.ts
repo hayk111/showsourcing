@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { Price } from '~core/erm';
+import { Price, Currency } from '~core/erm';
 
 @Component({
 	selector: 'price-app',
@@ -9,17 +9,18 @@ import { Price } from '~core/erm';
 })
 export class PriceComponent {
 
+	private _currency: string;
+	@Input() set currency(currency: string) {
+		this._currency = currency;
+	}
+
 	@Input() price: Price;
 	@Input() moq: number;
 	@Input() moqDesc: string;
 
 	@Input() size: 's' | 'ms' | 'm' | 'l' = 'm';
 
-	get amount() {
-		return this.price ? this.price.value : undefined;
-	}
-
-	get currency() {
-		return this.price ? this.price.currency : undefined;
+	get currency(): string {
+		return this._currency ? this._currency.slice(1, -1) : null; // removing the "" from the currency
 	}
 }

@@ -26,7 +26,7 @@
 	[selection]="selectionSrv.selection$ | async"
 	(open)="viewSrv.goToDetails($event)"
 	(createClick)="listHelper.create()"
-	(update)="listHelper.update($event)"
+	(update)="listHelper.update($event, {}, 'Product')"
 	(previewClick)="viewSrv.openPreview($event)"
 	(select)="selectionSrv.selectOne($event)"
 	(selectAll)="selectionSrv.selectAll($event)"
