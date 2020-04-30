@@ -1,4 +1,23 @@
-/////// flex (used everywhere) /////////
+/////// (used everywhere) /////////
+
+// displays
+
+.block {
+	display: block;
+}
+
+.inline {
+	display: inline;
+}
+
+.inline-block {
+	display: inline-block;
+}
+
+.none {
+	display: none;
+}
+
 .flex {
   display: flex;
 }
@@ -106,6 +125,18 @@
 
 .full-height {
 	height: 100%;
+}
+
+.full-height-screen {
+	height: 100vh;
+}
+
+.no-width {
+	width: 0;
+}
+
+.no-height {
+	height: 0;
 }
 
 // pointer
@@ -229,6 +260,10 @@
 		font-weight: bolder;
 		display: inline-block;
 	}
+}
+
+.border-box {
+	box-sizing: border-box;
 }
 
 .border-separator {
