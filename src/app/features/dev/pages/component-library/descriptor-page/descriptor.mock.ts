@@ -70,7 +70,7 @@ const fields1: PropertyDescriptor[] = [
 			type: PropertyType.COLOR,
 			name: 'color',
 		},
-		required: false,
+		required: true,
 		readonly: false
 	}
 ];
