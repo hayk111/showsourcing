@@ -1,7 +1,8 @@
 <!-- closed -->
 <div
 	*ngIf="!isOpen"
-	class="pointer displayValue flex">
+	class="displayValue flex"
+	[ngClass]="{ 'pointer': !readonly }">
 	<ng-content select="editable-value-app"></ng-content>
 </div>
 

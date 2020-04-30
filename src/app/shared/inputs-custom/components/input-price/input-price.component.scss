@@ -9,6 +9,9 @@
 			}
 		}
 	}
+	&.readonly {
+		background: var(--color-secondary-light);
+	}
 }
 
 .label {

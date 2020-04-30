@@ -82,6 +82,7 @@ const fields2: PropertyDescriptor[] = [
 			type: PropertyType.CHECKBOX,
 			name: 'checkbox',
 		},
+		required: true,
 		readonly: false,
 	},
 	{
