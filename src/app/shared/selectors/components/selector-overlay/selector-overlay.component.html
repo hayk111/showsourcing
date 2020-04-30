@@ -5,12 +5,13 @@
 	[cdkConnectedOverlayOpen]="isOpen"
 	[cdkConnectedOverlayScrollStrategy]="scrollStrategy"
 	[cdkConnectedOverlayOffsetY]="10"
+	[cdkConnectedOverlayMinWidth]="minWidth"
 >
-	<div [class]="globalContainerClass" (clickOutside)="close()">
+	<div class="global-container" (clickOutside)="close()">
 		<!-- the optional search component -->
 		<ng-content select="[search]"></ng-content>
 
-		<div [class]="itemsContainerClass">
+		<div class="items-container">
 			<!-- !required the custom Item template by passing a TemplateRef in prop [itemTemplate] -->
 			<ng-container *ngFor="let item of items">
 				<ng-container
@@ -26,6 +27,6 @@
 </ng-template>
 
 <!-- !required the custom trigger component -->
-<div (click)="open()" #triggerRef="cdkOverlayOrigin" cdkOverlayOrigin id="triggerRef">
+<div (click)="open()" #triggerRef="cdkOverlayOrigin" cdkOverlayOrigin class="trigger-container">
 	<ng-content select="[trigger]"></ng-content>
 </div>

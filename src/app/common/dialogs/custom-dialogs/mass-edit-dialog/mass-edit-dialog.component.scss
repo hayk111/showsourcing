@@ -10,9 +10,9 @@ dialog-app {
 
 	.container {
 		margin-bottom: var(--spacing-ms);
-		selector-placeholder-app:not(.status-selector), status-selector-app {
+		// selector-placeholder-app:not(.status-selector), status-selector-app {
 			// margin-bottom: var(--spacing-l);
-		}
+		// }
 	}
 
 	dialog-footer-app {
@@ -22,7 +22,7 @@ dialog-app {
 	}
 }
 
-#triggerRef {
+:host::ng-deep .trigger-container {
 	width: 100%;
 }
 selector-placeholder-app {

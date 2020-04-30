@@ -42,10 +42,7 @@ export class SelectorOverlayComponent implements OnInit {
 	 */
 	@Input() scrollOption: 'close' | 'block' | 'noop' | 'reposition' = 'close';
 	scrollStrategy: ScrollStrategy;
-
-	// custom classes for global, search, items and footer containers
-	@Input() globalContainerClass = 'global-container';
-	@Input() itemsContainerClass = '';
+	@Input() minWidth: number;
 
 	@Input() items: any[];
 	@Input() isOpen = false;

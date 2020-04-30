@@ -119,8 +119,8 @@ export class DialogCommonService {
 		return this.dlgSrv.open(VoteDetailsDialogComponent, { votes });
 	}
 
-	openMassEditDialog(items: any[], type: Typename) {
-		return this.dlgSrv.open(MassEditDialogComponent, { items, type });
+	openMassEditDialog(items: any[], typename: Typename) {
+		return this.dlgSrv.open(MassEditDialogComponent, { items, typename });
 	}
 
 	openNewContactDlg(supplier?: Supplier, isNewContact: boolean = true, contactId?: string) {

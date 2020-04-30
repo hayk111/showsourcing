@@ -34,7 +34,11 @@ export class SelectorDefaultComponent implements OnInit {
 		this._items = items.map(item => ({item}));
 		this.displayedItems$.next(this._items);
 	}
-	@Input() triggerName = 'trigger';
+	@Input() minWidth = 300;
+	@Input() textTrigger = 'trigger';
+	@Input() textHint = 'hint';
+	@Input() textLabel = 'label';
+	@Input() textPlaceholder = 'placeholder';
 
 	@Output() selected = new EventEmitter();
 	@Output() searched = new EventEmitter();

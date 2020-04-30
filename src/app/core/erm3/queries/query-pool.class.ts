@@ -14,7 +14,7 @@ export class QueryPool {
 		Image: new BaseQueries('Image', `id fileName _version`),
 		Product: new BaseQueries('Product', 'id name _version'),
 		Supplier: new BaseQueries('Supplier', 'id name _version'),
-		Task: new BaseQueries('Task', 'id name _version'),
+		Task: new BaseQueries('Task', 'id name'), // Version to be dadded
 		User: new BaseQueries('User', `firstName`),
 		Team: new BaseQueries('Team', 'id name'),
 		TeamUser: new BaseQueries('TeamUser', 'team { id name } user { firstName lastName email } role'),

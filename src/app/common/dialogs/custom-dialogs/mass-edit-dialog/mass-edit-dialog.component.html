@@ -11,19 +11,18 @@
 
 		<selector-default-app
 			itemKey="name"
-			[items]="[
-				{ name: 'custom', type: 'descriptor' },
-				{ name: 'select 2', type: 'selector' },
-				{ name: 'rating', type: 'rating' },
-				{ name: 'status', type: 'status' }
-			]"
+			[items]="fieldsChoice"
 			(selected)="displayInput($event)"
+			[minWidth]="500"
+			textHint="you can use the search"
+			textLabel="properties"
+			textPlaceholder=""
 		>
 			<selector-placeholder-app
 				trigger
 				autoFocus
-				[name]="'test'"
-				[placeholder]="'placeholder.select-template' | translate"
+				[name]="(propertySelected$ | async)?.name"
+				[placeholder]="'placeholder.select-property' | translate"
 			></selector-placeholder-app>
 		</selector-default-app>
 

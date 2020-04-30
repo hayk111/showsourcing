@@ -3,13 +3,14 @@
 	[itemTemplate]="itemTemplate"
 	(opened)="focusInput()"
 	[isOpen]="isOpen"
+	[minWidth]="minWidth"
 >
 
 	<div search *ngIf="searchable" class="mg-ms">
 		<form-field-app [showRequiredMarker]="'Test helper'">
-			<label-app>Choose an item</label-app>
-			<input #searchInput (input)="search(searchInput.value)" inputApp type="text" [placeholder]="'search items'"/>
-			<hint-app>test hint</hint-app>
+			<label-app>{{textLabel}}</label-app>
+			<input #searchInput (input)="search(searchInput.value)" inputApp type="text" [placeholder]="textPlaceholder"/>
+			<hint-app>{{textHint}}</hint-app>
 		</form-field-app>
 		<divider-app></divider-app>
 	</div>
@@ -17,7 +18,7 @@
 	<span trigger #trigger>
 		<ng-content select="[trigger]"></ng-content>
 	</span>
-	<button trigger *ngIf="trigger.children.length === 0">{{triggerName}}</button>
+	<button trigger *ngIf="trigger.children.length === 0">{{textTrigger}}</button>
 
 </selector-overlay-app>
 

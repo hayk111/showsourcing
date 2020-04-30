@@ -16,9 +16,13 @@ import { ReplaySubject, Subject } from 'rxjs';
 export class MassEditDialogComponent extends AutoUnsub implements OnInit {
 	@Input() typename: Typename;
 	@Input() items: any[];
-
-	fieldsChoice: any[];
-	private _choice$ = new Subject<any>();
+	fieldsChoice: any[] = [
+		{ name: 'custom', type: 'descriptor' },
+		{ name: 'select 2', type: 'selector' },
+		{ name: 'rating', type: 'rating' },
+		{ name: 'status', type: 'status' },
+	];
+	// private _choice$ = new Subject<any>();
 	// definitions$: Observable<ExtendedFieldDefinition[]>;
 	// private _productDescriptor: ProductDescriptor;
 	// value: any;
@@ -26,7 +30,7 @@ export class MassEditDialogComponent extends AutoUnsub implements OnInit {
 	// dislike = false;
 	// pending = false;
 
-	selected$ = new Subject();
+	propertySelected$ = new Subject<any>();
 	constructor(
 		private dlgSrv: DialogService,
 		private ratingSrv: RatingService,
@@ -38,14 +42,13 @@ export class MassEditDialogComponent extends AutoUnsub implements OnInit {
 
 	ngOnInit() {}
 
-	updateChoice(choice) {
-		const temp = this.fieldsChoice.find(field => field.label === choice || field.name === choice);
-		this._choice$.next(temp || null);
-	}
+	// updateChoice(choice) {
+	// 	const temp = this.fieldsChoice.find(field => field.label === choice || field.name === choice);
+	// 	this._choice$.next(temp || null);
+	// }
 
 	displayInput(itemSelected) {
-		console.log('input selected : ', itemSelected)
-		this.selected$.next(itemSelected);
+		this.propertySelected$.next(itemSelected);
 	}
 
 	// since the dynamic form returns the key of the prop we have to extract it
