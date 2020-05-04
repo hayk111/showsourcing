@@ -334,6 +334,7 @@ export class ApiService {
 		const options = apiOptions as MutationOptions;
 		entities.forEach((entity) => {
 			entity.__typename = typename;
+			entity._version = this._getCachedVersion(typename, entity.id);
 			if (typename !== 'Company' && typename !== 'Team') {
 				entity.lastUpdatedAt = new Date().toISOString();
 				entity.teamId = this._teamId;

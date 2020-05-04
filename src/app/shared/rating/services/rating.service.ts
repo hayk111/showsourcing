@@ -71,7 +71,7 @@ export class RatingService {
 	 * @param newValue value received to update
 	 * @param type type of entity
 	 */
-	starVote(votes: Vote[], value: number, nodeId: string) {
+	starVote(votes: Vote[], value: number, nodeId: string, acceptDelete = true) {
 		const voteIndex = (votes || []).findIndex(vote => {
 			if ((vote.createdBy && vote.createdBy.id === this.userSrv.userId) ||
 					(vote.voteCreatedById && vote.voteCreatedById === this.userSrv.userId)) {
@@ -82,7 +82,7 @@ export class RatingService {
 		if (voteIndex !== -1) {
 			const vote = votes[voteIndex];
 			if (vote.rating === value) {
-				this.deleteVote(newVotes, vote, voteIndex);
+				if (acceptDelete) this.deleteVote(newVotes, vote, voteIndex);
 			} else if (value % 20 === 0 && value <= 100 && value >= 0) {
 				vote.rating = value;
 				this.updateVote(newVotes, vote, voteIndex);

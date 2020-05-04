@@ -122,4 +122,5 @@ export class Product extends Entity<Product> {
 	referenceKey?: number | null;
 	properties?: any;
 	comments?: any;
+	votes?: any[];
 }

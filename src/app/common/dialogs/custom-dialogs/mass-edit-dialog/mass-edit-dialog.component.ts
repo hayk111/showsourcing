@@ -24,8 +24,20 @@ export class MassEditDialogComponent extends AutoUnsub implements OnInit {
 		{ label: 'Name', property: 'name', type: 'string' },
 		{ label: '...', property: 'custom', type: 'descriptor' },
 		{ label: 'Supplier', property: 'supplierId', type: 'selector', typename: 'Supplier' },
-		{ label: 'Category', property: 'categoryId', type: 'selector', typename: 'PropertyOption', typePropertyOption: 'Category' },
-		{ label: 'Tags', property: 'tagIds', type: 'selector', typename: 'PropertyOption', typePropertyOption: 'Tag' },
+		{
+			label: 'Category',
+			property: 'categoryId',
+			type: 'selector',
+			typename: 'PropertyOption',
+			typePropertyOption: 'Category',
+		},
+		{
+			label: 'Tags',
+			property: 'tagIds',
+			type: 'selector',
+			typename: 'PropertyOption',
+			typePropertyOption: 'Tag',
+		},
 		{ label: 'Assignee', property: 'assigneeId', type: 'selector', typename: 'User' },
 		{ label: 'Rating', property: 'rating', type: 'rating' },
 		{ label: 'Status', property: 'status', type: 'status' },
@@ -39,7 +51,6 @@ export class MassEditDialogComponent extends AutoUnsub implements OnInit {
 	propertySelected: any;
 	constructor(
 		private dlgSrv: DialogService,
-		private ratingSrv: RatingService,
 		private notificationSrv: ToastService,
 		private translate: TranslateService,
 		private userSrv: UserService
@@ -51,18 +62,18 @@ export class MassEditDialogComponent extends AutoUnsub implements OnInit {
 		this.propertySelected$.subscribe(selected => (this.propertySelected = selected));
 	}
 
-	/** prepare the data to know what we have to update outside this dialog. */
-	setProperty(type: string, value: any, property?: string) {
-		this.toUpdate = { callback: type + 'Update', property, value: value };
-	}
-
 	/** Select a property to update */
 	setPropertySelected(itemSelected) {
 		this.propertySelected$.next(itemSelected);
 	}
 
+	/** prepare the data to know what we have to update outside this dialog. */
+	setProperty(type: string, value: any, property?: string) {
+		this.toUpdate = { callback: type + 'Update', property, value: value };
+	}
+
 	setRating(rating) {
-		const fakeVote = {voteCreatedById: this.userSrv.userId, rating};
+		const fakeVote = { voteCreatedById: this.userSrv.userId, rating };
 		this.fakeVotes = [fakeVote];
 		this.toUpdate = { callback: 'ratingUpdate', property: 'votes', value: fakeVote };
 	}

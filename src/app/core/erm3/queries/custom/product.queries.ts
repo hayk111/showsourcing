@@ -16,6 +16,10 @@ export class ProductQueries extends BaseQueries {
 		status {
 			${StatusQueries.defaultFields}
 		}
+		supplier {
+			id
+			name
+		}
 		_version
 	`;
 		super('Product', defaultFields);
