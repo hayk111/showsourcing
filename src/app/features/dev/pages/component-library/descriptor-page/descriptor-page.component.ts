@@ -12,7 +12,6 @@ export class DescriptorPageComponent implements OnInit {
 	columnAmount = 2;
 	updateOn = 'change';
 	properties = [
-		{ name: 'color', value: JSON.stringify('#c561ef') }
 	];
 	update = {};
 	invalidJson = false;
