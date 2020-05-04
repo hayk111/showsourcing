@@ -84,7 +84,7 @@ export class SelectorComponent extends AbstractInput implements OnInit {
 
 	/** Opens the menu. */
 	openMenu(searchTxt?: string): void {
-		if (!this.disabled) {
+		if (!this.disabled && !this.readonly) {
 			if (searchTxt)
 				this.searchTxt = searchTxt;
 			this.menuOpen = true;

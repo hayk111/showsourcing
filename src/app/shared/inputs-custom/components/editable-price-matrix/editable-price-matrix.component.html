@@ -10,6 +10,7 @@
 		#edtLabel 
 		class="label-ctnr" 
 		[hasOverflow]="false"
+		[readonly]="readonly"
 		(opened)="inpLabel.focus()">
 		<editable-value-app>{{ value[i].label || 'Label'}}</editable-value-app>
 			<input
@@ -27,6 +28,7 @@
 		#edtPrice 
 		class="price-ctnr" 
 		[hasOverflow]="false"
+		[readonly]="readonly"
 		(opened)="inpPrice.focus()">
 		<editable-value-app class="amount-display fullWidth">
 			{{ 

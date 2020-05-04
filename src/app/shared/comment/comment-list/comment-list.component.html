@@ -7,7 +7,8 @@
 		<comment-app
 			*ngIf="i >= amountShown"
 			[class.mg-bottom-s]="!last"
-			[comment]="comment">
+			[comment]="comment"
+			(deleted)="deleted.emit($event)">
 		</comment-app>
 	</ng-container>
 </div>
