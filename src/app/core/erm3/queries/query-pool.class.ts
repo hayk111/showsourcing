@@ -20,7 +20,7 @@ export class QueryPool {
 		Industry: new BaseQueries('Industry'),
 		Invitation: new BaseQueries('Invitation', 'id email status _version'),
 		// tslint:disable-next-line:max-line-length
-		Product: new BaseQueries('Product', 'id name _version category { name } supplier { name } assignee { firstName lastName } properties { name value } createdBy { firstName lastName } createdAt'),
+		Product: new BaseQueries('Product', 'id name _version favorite category { name } supplier { name } assignee { firstName lastName } score properties { name value } createdBy { firstName lastName } createdAt'),
 		Project: new BaseQueries('Project', 'id name _version'),
 		PropertyOption: new BaseQueries('PropertyOption', 'id value _version'),
 		Supplier: new BaseQueries('Supplier', 'id name _version'),

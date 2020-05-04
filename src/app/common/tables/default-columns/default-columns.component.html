@@ -36,7 +36,7 @@
 		</button>
 	</ng-container>
 
-	<!-- favorite -->
+	<!-- score -->
 	<ng-container *ngSwitchCase="'favorite'">
 		<rating-heart-app
 			[favorite]="row?.favorite"
@@ -47,7 +47,7 @@
 
 	<!-- rating -->
 	<ng-container *ngSwitchCase="'rating'">
-		<rating-badge-app [votes]="row?.votes"></rating-badge-app>
+		<rating-badge-app [vote]="row?.score"></rating-badge-app>
 	</ng-container>
 
 	<!-- supplier -->
