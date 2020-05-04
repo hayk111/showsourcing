@@ -10,141 +10,80 @@
 		<h5 class="ms" translate="text.property-update"></h5>
 
 		<!-- Selection of the property to edit -->
-		<selector-default-app
-			itemKey="name"
-			[items]="fieldsChoice"
-			(selected)="displayInput($event)"
-			[minWidth]="500"
-			textHint="you can use the search"
-			textLabel="properties"
-			textPlaceholder=""
-		>
-			<selector-placeholder-app
-				trigger
-				autoFocus
-				[name]="(propertySelected$ | async)?.name"
-				[placeholder]="'placeholder.select-property' | translate"
-			></selector-placeholder-app>
-		</selector-default-app>
+		<div class="mg-bottom-l">
+			<selector-default-app
+				itemKey="label"
+				[items]="fieldsChoice"
+				(selected)="setPropertySelected($event)"
+				[minWidth]="500"
+				textHint="you can use the search"
+				textLabel="properties"
+				textPlaceholder=""
+			>
+				<selector-placeholder-app
+					trigger
+					autoFocus
+					[name]="(propertySelected$ | async)?.label"
+					[placeholder]="'placeholder.select-property' | translate"
+				></selector-placeholder-app>
+			</selector-default-app>
+		</div>
 
-		<!-- edit of descriptor property -->
-		<!-- <dynamic-field-app
-						*ngFor="let descriptor of propertyDescriptors"
-						[descriptor]="descriptor"
-						[control]="formGroup.controls[descriptor.definition.name]"
-						[showRequiredMarker]="showRequiredMarker">
-					</dynamic-field-app> -->
+		<!-- #####  inputs switcher  ##### -->
+		<ng-container [ngSwitch]="(propertySelected$ | async)?.type">
+			<!-- edit of descriptor property -->
+			<!-- <dynamic-field-app
+			*ngFor="let descriptor of propertyDescriptors"
+			[descriptor]="descriptor"
+			[control]="formGroup.controls[descriptor.definition.name]"
+			[showRequiredMarker]="showRequiredMarker">
+		</dynamic-field-app> -->
 
-		<!-- edit of status -->
-		<status-selector-app
-			*ngIf="(propertySelected$ | async)?.type === 'status'"
-			(statusUpdated)="setStatus($event)"
-			typename="Product"
-			[displayStep]="false"
-			selectSize="l"
-			type="button"
-		></status-selector-app>
+			<!-- edit of status -->
+			<ng-container *ngSwitchCase="'status'">
+				<status-selector-app
+					(statusUpdated)="setProperty('status', $event, propertySelected)"
+					[typename]="typename"
+					[displayStep]="false"
+					selectSize="l"
+					type="button"
+				></status-selector-app>
+			</ng-container>
 
-		<!-- edit of rating -->
+			<!-- edit of rating -->
+			<ng-container *ngSwitchCase="'rating'">
+				<rating-stars-action-app (valueVoted)="setRating($event)" [votes]="fakeVotes">
+				</rating-stars-action-app>
+			</ng-container>
 
-		<!-- edit of property type string -->
-		<!-- name -->
-		<!-- --------- -->
-		<!-- completed -->
-		<!-- due date -->
-		<!-- completion date -->
-		<!-- favorite -->
-		<!-- reference -->
-		<!-- reference key -->
+			<!-- edit of property type string => name -->
+			<ng-container *ngSwitchCase="'string'">
+				<form-field-app>
+					<input
+						inputApp
+						type="text"
+						#stringInput
+						required
+						(input)="setProperty('string', stringInput.value, propertySelected)"
+					/>
+					<hint-app>write the new name</hint-app>
+				</form-field-app>
+			</ng-container>
 
-		<!-- edit of property type SELECTOR -->
-		<!-- supplier -->
-		<!-- category -->
-		<!-- assignee -->
-		<!-- tags -->
-
-		<!-- <selector-app
-			typename="FieldDescriptor"
-			[width]="500"
-			[offsetY]="-15"
-			[dynamicFields]="[]"
-			(update)="updateChoice($event)">
-			<selector-placeholder-app
-				tabFocusAction
-				autoFocus
-				class="first-uppercase"
-				[name]="'test label of property selected'"
-				[placeholder]="'placeholder.choose-property' | translate">
-			</selector-placeholder-app>
-		</selector-app> -->
-
-		<!-- content when no pending -->
-		<!-- <ng-container *ngIf="!pending; else spinner"> -->
-		<!-- switch case with out choices -->
-		<!-- <ng-container [ngSwitch]="(choice$ | async)?.type"> -->
-		<!-- this way we just subscribe once and its cleaner -->
-		<!-- <ng-container *ngIf="choice$ | async as choice"> -->
-
-		<!-- status -->
-		<!-- <ng-container *ngSwitchCase="'status'">
-						<h5 class="ms">{{ choice?.label || choice?.name }}</h5>
-						<status-selector-app
-							#statusSelector
-							typename="Product"
-							type="multiple-selection"
-							[internalUpdate]="false"
-							[width]="460"
-							(statusUpdated)="valueUpdate($event)">
-							<selector-placeholder-app
-								tabFocusAction
-								class="status-selector first-uppercase"
-								[name]="value?.name"
-								[placeholder]="'placeholder.choose-status' | translate"
-								(keyEnter)="statusSelector?.openMenu()">
-							</selector-placeholder-app>
-						</status-selector-app>
-					</ng-container> -->
-
-		<!-- votes -->
-		<!-- <ng-container *ngSwitchCase="'votes'">
-						<h5 class="ms">{{ choice?.label || choice?.name }}</h5>
-						<thumb-buttons-app
-							*ngSwitchCase="'votes'"
-							size="m"
-							[multiple]="true"
-							[hasText]="true"
-							(liked)="like = $event"
-							(disliked)="dislike = $event">
-						</thumb-buttons-app>
-					</ng-container> -->
-
-		<!-- extended fields -->
-		<!-- <ng-container *ngSwitchCase="'extendedField'">
-						<h5 class="ms">{{ choice?.label || choice?.name }}</h5>
-						<extended-form-app
-							*ngIf="definitions$ | async as definitions; else spinner"
-							[fields]="value || []"
-							[definitions]="definitions"
-							(update)="valueUpdate($event)">
-						</extended-form-app>
-					</ng-container> -->
-
-		<!-- dynamic form for the rest -->
-		<!-- <ng-container *ngSwitchDefault>
-						<dynamic-form-app
-					<ng-container *ngSwitchDefault>
-							Need to change, I don't think it's a dynamic form
-							or maybe it is
-
-							<dynamic-form-app
-							[fields]="[choice]"
-							(update)="valueUpdate($event, choice?.name)">
-						</dynamic-form-app> -->
-		<!-- </ng-container> -->
-
-		<!-- </ng-container> -->
-		<!-- </ng-container> -->
-		<!-- </ng-container> -->
+			<!-- edit of property type SELECTOR (supplier, category, assignee, tags) -->
+			<ng-container *ngSwitchCase="'selector'">
+				<selector-app
+					[typename]="propertySelected.typename"
+					[customType]="propertySelected.typePropertyOption"
+					[canCreate]="true"
+					(update)="setProperty('selector', $event, propertySelected)"
+				>
+					<button>
+						{{ toUpdate?.value?.name || 'select a ' + propertySelected.label }} selector
+					</button>
+				</selector-app>
+			</ng-container>
+		</ng-container>
 	</div>
 
 	<dialog-footer-app>
@@ -158,6 +97,6 @@
 	</dialog-footer-app>
 </dialog-app>
 
-<ng-template #spinner>
+<!-- <ng-template #spinner>
 	<spinner-app></spinner-app>
-</ng-template>
+</ng-template> -->

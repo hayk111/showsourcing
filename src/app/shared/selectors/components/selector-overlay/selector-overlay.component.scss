@@ -9,3 +9,10 @@
 	border-radius: var(--border-radius);
 	width: 100%
 }
+
+.items-container {
+	min-height: 80px;
+	max-height: 210px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}

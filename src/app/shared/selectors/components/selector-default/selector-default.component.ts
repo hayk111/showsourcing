@@ -46,7 +46,7 @@ export class SelectorDefaultComponent implements OnInit {
 	private _fuse: Fuse;
 	private _fuseOptions: any = {
 		shouldSort: true,
-		threshold: 0.7, // 0 = full match
+		threshold: 0.3, // 0 = full match
 		location: 0,
 		distance: 100,
 		minMatchCharLength: 1,
