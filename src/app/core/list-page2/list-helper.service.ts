@@ -116,25 +116,15 @@ export class ListHelperService<G = any> {
 			).subscribe();
 	}
 
-	updateProperties(entity: any, properties: any) {
-		const newProperties = entity.properties.map(property => ({
-			name: property.name,
-			value: property.value
-		}));
-
+	updateProperties(entityId: string, properties: any) {
+		const updatedProperties = [];
 		const propertyNames = Object.keys(properties);
 
 		propertyNames.forEach((propertyName) => {
-			const index = newProperties.findIndex(prop => prop.name === propertyName);
-
-			if (index !== -1) {
-				newProperties[index] = { name: propertyName, value: this.parseProperty(propertyName, properties[propertyName]) };
-			} else {
-				newProperties.push({ name: propertyName, value: this.parseProperty(propertyName, properties[propertyName]) });
-			}
+			updatedProperties.push({ name: propertyName, value: this.parseProperty(propertyName, properties[propertyName]) });
 		});
 
-		this.apiSrv.update(this.typename, { id: entity.id, properties: newProperties }, {}).subscribe();
+		this.apiSrv.update(this.typename, { id: entityId, properties: updatedProperties }, {}).subscribe();
 	}
 
 	delete(entity: any) {

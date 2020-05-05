@@ -37,7 +37,7 @@ export class ProductsTableComponent extends EntityTableComponent<Product> {
 	@Output() openAddTaskDialog = new EventEmitter<Product>();
 	@Output() openAddSampleDialog = new EventEmitter<Product>();
 
-	constructor(public translate: TranslateService, public listHelper: ListHelperService) {
+	constructor(public listHelper: ListHelperService) {
 		super();
 	}
 

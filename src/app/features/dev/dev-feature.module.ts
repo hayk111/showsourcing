@@ -56,11 +56,7 @@ import { routes } from './routes';
 		Pages.SelectorPageComponent,
 		Pages.SpacingPageComponent,
 		Pages.TablePageComponent,
-		Pages.TypographyPageComponent,
-		Demos.StatusDemoComponent,
-		Pages.PackagingPageComponent,
-		Pages.PricePageComponent,
-		Pages.CustomInputsPageComponent
+		Pages.TypographyPageComponent
 	],
 	exports: [],
 	providers: []

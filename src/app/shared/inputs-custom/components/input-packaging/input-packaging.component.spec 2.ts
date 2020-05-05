@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { InputPriceMatrixComponent } from './input-price-matrix.component';
+import { InputPackagingComponent } from './input-packaging.component';
 
-describe('InputPriceMatrixComponent', () => {
-	let component: InputPriceMatrixComponent;
-	let fixture: ComponentFixture<InputPriceMatrixComponent>;
+describe('InputPackagingComponent', () => {
+	let component: InputPackagingComponent;
+	let fixture: ComponentFixture<InputPackagingComponent>;
 
 	beforeEach(async(() => {
 		TestBed.configureTestingModule({
-			declarations: [ InputPriceMatrixComponent ]
+			declarations: [ InputPackagingComponent ]
 		})
 		.compileComponents();
 	}));
 
 	beforeEach(() => {
-		fixture = TestBed.createComponent(InputPriceMatrixComponent);
+		fixture = TestBed.createComponent(InputPackagingComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});
