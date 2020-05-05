@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { AnalyticsService } from '~core/analytics/analytics.service';
 import { CompanyService, TeamService, UserService } from '~core/auth/services';
+import { DescriptorSeederService } from '~app-root/descriptor-seeder.service';
 
 @Component({
 	selector: 'app-root',
@@ -20,6 +21,7 @@ export class AppComponent implements OnInit {
 		private teamSrv: TeamService,
 		private userSrv: UserService,
 		private translate: TranslateService,
+		private descriptor: DescriptorSeederService
 	) {}
 
 	ngOnInit(): void {
@@ -34,5 +36,9 @@ export class AppComponent implements OnInit {
 		registerLocaleData(localeZh, 'zh');
 		this.translate.setDefaultLang('en');
 		this.translate.use('en');
+
+		// this.descriptor.listAllDefinitions$.subscribe((r) => console.log(r));
+		// this.descriptor.createAllDefinitions();
+		// this.descriptor.deleteAllDefinitions();
 	}
 }
