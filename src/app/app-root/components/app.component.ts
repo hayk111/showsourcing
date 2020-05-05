@@ -37,8 +37,19 @@ export class AppComponent implements OnInit {
 		this.translate.setDefaultLang('en');
 		this.translate.use('en');
 
+		this.descriptorSeeder();
+	}
+
+	async descriptorSeeder() {
 		// this.descriptor.listAllDefinitions$.subscribe((r) => console.log(r));
-		// this.descriptor.createAllDefinitions();
-		// this.descriptor.deleteAllDefinitions();
+		// await this.descriptor.deleteAllDefinitions();
+
+		// const definitions: any = await this.descriptor.createAllTypesDefinitions();
+		// console.log('definitions : ', definitions);
+
+		const descriptor: any = await this.descriptor.createAllTypesDefDescriptor();
+		console.log('definitions : ', descriptor);
+
+		this.descriptor.listDescriptors$.subscribe(r => console.log(r));
 	}
 }

@@ -1,122 +1,150 @@
-// import { Injectable } from '@angular/core';
-// import { ApiService } from '~core/erm3';
-// import { Entity } from '~core/erm3/models/_entity.model';
-// import gql from 'graphql-tag';
-// import { map } from 'rxjs/operators';
-// import { of } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { ApiService } from '~core/erm3';
+import { Entity } from '~core/erm3/models/_entity.model';
+import gql from 'graphql-tag';
+import { first } from 'rxjs/operators';
 
-// // Descriptor Product
-// // ==================
+// Descriptor Product
+@Injectable({
+	providedIn: 'root',
+})
+export class DescriptorSeederService {
+	private _allPropertyTypes = [
+		'INT',
+		'FLOAT',
+		'TEXT',
+		'TEXTAREA',
+		'PRICE',
+		'CHECKBOX',
+		'COLOR',
+		'EMAIL',
+		'TELEPHONE',
+		'DATE',
+		'PACKAGING',
+		'PRICEMATRIX',
+		'SELECTOR',
+	];
 
-// const propertyDescriptor = {
-// 	definitionId: '',
-// 	defaultValue: JSON.stringify(null),
-// 	readonly: false,
-// 	required: false,
-// };
+	private _allSelectorTypes = ['SUPPLIER', 'PRODUCT', 'USER', 'SAMPLE', 'TASK', 'CUSTOM'];
 
-// // Descriptor Product
-// @Injectable({
-// 	providedIn: 'root',
-// })
-// export class DescriptorSeederService {
-// 	private _allPropertyTypes = [
-// 		'INT',
-// 		'FLOAT',
-// 		'TEXT',
-// 		'TEXTAREA',
-// 		'PRICE',
-// 		'CHECKBOX',
-// 		'COLOR',
-// 		'EMAIL',
-// 		'TELEPHONE',
-// 		'DATE',
-// 		'PACKAGING',
-// 		'PRICEMATRIX',
-// 		'SELECTOR',
-// 	];
+	constructor(private apiSrv: ApiService) {}
 
-// 	private _allSelectorTypes = ['SUPPLIER', 'PRODUCT', 'USER', 'SAMPLE', 'TASK', 'CUSTOM'];
+	async createAllTypesDefinitions() {
+		console.log('CREATE ALL CALLED');
+		const propertyDefinitions = this._allPropertyTypes.map(propertyType =>
+			this._createDefinition(`Label ${propertyType}`, `name_${propertyType}`, propertyType)
+		);
+		return await Promise.all(propertyDefinitions);
+	}
 
-// 	// private _selectorSettings = {
-// 	// 	type: allSelectorTypes[0],
-// 	// 	multiple: false,
-// 	// 	canCreate: false,
-// 	// 	propertyOptionType: 'CustomType',
-// 	// };
+	listAllDefinitions$ = this.apiSrv.query({
+		query: gql`
+			query MyQuery($limit: Int, $filter: ModelPropertyDefinitionFilterInput) {
+				listPropertyDefinitions(limit: $limit, filter: $filter) {
+					items {
+						id
+						label
+						name
+						type
+						selectorSettings {
+							canCreate
+							multiple
+							propertyOptionType
+							type
+						}
+						hint
+						_version
+						deleted
+					}
+				}
+			}
+		`,
+		variables: { limit: 1000, filter: { deleted: { ne: true } } },
+	}).data$;
 
-// 	constructor(private apiSrv: ApiService) {}
+	listDescriptors$ = this.apiSrv.query({
+		query: gql`
+query MyQuery {
+  listDescriptorByType(type: {eq: "PRODUCT"}, teamId: "b6807f62-d7ae-4a7d-bc82-0d689e179581") {
+    items {
+      sections {
+        properties {
+          id
+          defaultValue
+          required
+          readonly
+          definition {
+            id
+            label
+            name
+            type
+            hint
+          }
+        }
+        name
+      }
+    }
+  }
+}
 
-// 	createAllDefinitions() {
-// 		this._allPropertyTypes.forEach(propertyType => {
-// 			this.createDefinition(`Label ${propertyType}`, `name_${propertyType}`, propertyType);
-// 		});
-// 	}
+		`,
+	}).data$;
 
-// 	listAllDefinitions$ = this.apiSrv.query({
-// 			query: gql`
-// 				query MyQuery {
-// 					__typename
-// 					listPropertyDefinitions {
-// 						items {
-// 							id
-// 							label
-// 							name
-// 							type
-// 							selectorSettings {
-// 								canCreate
-// 								multiple
-// 								propertyOptionType
-// 								type
-// 							}
-// 							hint
-// 						}
-// 					}
-// 				}
-// 			`,
-// 		});
+	async deleteAllDefinitions() {
+		const definitions: any = await this.listAllDefinitions$.pipe(first()).toPromise();
+		// .subscribe((definitions: any) => {
+		// const definitions = resp.data.listPropertyDefinitions.items;
+		definitions.map(item =>
+			this.apiSrv.delete('PropertyDefinition', { id: item.id }).pipe(first()).toPromise()
+		);
+		return await Promise.all(definitions);
+		// });
+	}
 
-// 	deleteAllDefinitions() {
-// 		this.listAllDefinitions$.subscribe((resp: any) => {
-// 			const definitions = resp.data.listPropertyDefinitions.items
-// 			definitions.forEach(item => this.apiSrv.delete('PropertyDefinition', { id: item.id }));
-// 		});
-// 	}
+	async createAllTypesDefDescriptor() {
+		// list of propertyDefinitions
+		const definitions: any = await this.createAllTypesDefinitions();
 
-// 	createTestDescriptor() {
-// 		this.listAllDefinitions$
-// 			.pipe(
-// 				map((definitions: any) => {
-// 					return definitions.map(def => ({
-// 						definitionId: def.id,
-// 						defaultValue: JSON.stringify(null),
-// 						readonly: false,
-// 						required: false,
-// 					}));
-// 				})
-// 			)
-// 			.subscribe(propertyDescriptor => {
-// 				const sectionDescriptor = {
-// 					name: 'Product fields section',
-// 					properties: [propertyDescriptor],
-// 				};
-// 				this.createDescriptor([sectionDescriptor], 'PRODUCT', 'test descriptor');
-// 			});
-// 	}
+		// list of propertyDescryptors
+		const propertyDescriptor = definitions.map(def => ({
+			definitionId: def.id,
+			defaultValue: JSON.stringify(null),
+			readonly: false,
+			required: false,
+		}));
 
-// 	createDefinition(label, name, propertyType, selectorSettings?, hint = 'hint') {
-// 		const propertyDefinition = {
-// 			label,
-// 			name,
-// 			type: propertyType,
-// 			selectorSettings,
-// 			hint,
-// 		};
-// 		this.apiSrv.create<Entity>('PropertyDefinition', propertyDefinition as Entity).subscribe();
-// 	}
+		// single sectionDescriptor
+		const sectionDescriptor = {
+			name: 'Product fields section',
+			properties: [propertyDescriptor],
+		};
 
-// 	createDescriptor(sections: any[], type, name) {
-// 		const productDescriptor = { sections, type, name };
-// 		this.apiSrv.create('Descriptor', productDescriptor as Entity).subscribe();
-// 	}
-// }
+		// creation new descriptor
+		return await this._createDescriptor([sectionDescriptor], 'PRODUCT', 'test descriptor');
+	}
+
+	private _createDefinition(
+		label,
+		name,
+		propertyType,
+		selectorSettings?,
+		hint = 'hint'
+	): Promise<any> {
+		const propertyDefinition = {
+			label,
+			name,
+			type: propertyType,
+			selectorSettings,
+			hint,
+		};
+		return this.apiSrv
+			.create<Entity>('PropertyDefinition', propertyDefinition as Entity)
+			.pipe(first())
+			.toPromise();
+	}
+
+	private _createDescriptor(sections: any[], type, name): Promise<any> {
+		const productDescriptor = { sections, type, name, target: { eq: 'PRODUCT'} };
+		return this.apiSrv.create('Descriptor', productDescriptor as Entity).pipe(first()).toPromise();
+	}
+}
