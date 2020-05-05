@@ -8,7 +8,8 @@
 		sizeLogo="xxl" 
 		[amountViewMore]="8" 
 		[comments]="comments"
-		(addComment)="comment?.focus()">
+		(addComment)="comment?.focus()"
+		(deleted)="onCommentDeleted($event)">
 	</comment-list-app>
 </ng-container>
 

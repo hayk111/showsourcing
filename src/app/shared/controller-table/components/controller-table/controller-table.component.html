@@ -12,10 +12,15 @@
 
 	<button
 		*ngIf="hasFilters"
-		class="icon"
+		class="icon big"
 		(click)="viewSrv.openFilterPanel()"
 		translate="button.show-filters">
-		<icon-app class="{{ viewSrv.filterPanelOpen ? 'color-primary' :  'color-third' }}" name="filter" size="m"></icon-app>
+		<icon-app
+			class="mg-left-xs"
+			[ngClass]="viewSrv.filterPanelOpen? 'color-primary' : 'color-third'" 
+			name="filter" 
+			size="s">
+		</icon-app>
 	</button>
 
 	<button

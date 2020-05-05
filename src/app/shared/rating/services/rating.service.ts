@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { UserService } from '~core/auth';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Vote, Product, Supplier } from '~core/erm3/models';
 import { ApiService } from '~core/erm3/services/api.service';
 import { Entity } from '~core/erm3/models/_entity.model';
+import { customQueries } from '~core/erm3/queries/custom-queries';
+import { filter, map, tap } from 'rxjs/operators';
 
 type TypeWithVotes = Product | Supplier;
 
@@ -67,33 +69,17 @@ export class RatingService {
 	/**
 	 * updates a vote from the user and return the list of the votes given by a entity
 	 * this function is called only when we are updating a single entity, with no multiple selection involved
-	 * @param rating current vote
-	 * @param newValue value received to update
-	 * @param type type of entity
+	 * @param vote current vote
+	 * @param value value received to update
 	 */
-	starVote(votes: Vote[], value: number, nodeId: string) {
-		const voteIndex = (votes || []).findIndex(vote => {
-			if ((vote.createdBy && vote.createdBy.id === this.userSrv.userId) ||
-					(vote.voteCreatedById && vote.voteCreatedById === this.userSrv.userId)) {
-				return true;
-			}
-		});
-		const newVotes = [...votes || []];
-		if (voteIndex !== -1) {
-			const vote = votes[voteIndex];
-			if (vote.rating === value) {
-				this.deleteVote(newVotes, vote, voteIndex);
-			} else if (value % 20 === 0 && value <= 100 && value >= 0) {
-				vote.rating = value;
-				this.updateVote(newVotes, vote, voteIndex);
-			} else {
-				throw Error(`Trying to update the vote with a non valid value: ${value}`);
-			}
+	starVote(vote: Vote, value: number, nodeId?: string): Observable<Vote> | null {
+		if (vote && vote.rating === value) {
+			return this.deleteVote(vote);
+		} else if (vote === null) {
+			return this.createVote(nodeId, value);
 		} else {
-			this.createVote(newVotes, value, nodeId);
+			return this.updateVote(vote, value);
 		}
-
-		return newVotes;
 	}
 
 	// Rating Thumb section
@@ -185,49 +171,59 @@ export class RatingService {
 		// return newVotes;
 	}
 
+	getUserVote(nodeId: string): Observable<Vote | null> {
+		return this.apiSrv.query<Vote[]>({
+			query: customQueries.votes,
+			variables: { nodeId, filter: { deleted: { eq: false } } },
+			fetchPolicy: 'network-only'
+		})
+		.data$.pipe(
+			map((votes: Vote[]) => {
+				const index = votes.findIndex(vote => vote.createdBy.id === this.userSrv.userId);
+				return votes[index] ? votes[index] : null;
+			}),
+		);
+	}
 
 	// Component functions
-	private updateVote(votes: Vote[], vote: Vote, voteIndex: number) {
-		const { id, rating } = vote;
-		votes[voteIndex] = { ...votes[voteIndex], rating };
+	private updateVote(vote: Vote, value: number): Observable<Vote> {
+		const { id } = vote;
 
 		const ratingInfo = {
 			id,
-			rating,
+			rating: value,
 		};
 
  		return this.apiSrv.update('Vote', {
 			...ratingInfo
-		} as Entity);
+		} as Vote);
 	}
 
-	private deleteVote(votes: Vote[], vote: Vote, voteIndex: number) {
+	private deleteVote(vote: Vote): null {
 		const { id, rating } = vote;
-		const index = votes.findIndex(v => v.id === id);
-		votes.splice(index, 1);
 
 		const ratingInfo = {
 			id,
 			rating,
 		};
 
-		return this.apiSrv.delete('Vote', {
+		this.apiSrv.delete('Vote', {
 			...ratingInfo
-		} as Entity);
+		} as Vote).subscribe();
+
+		return null;
 	}
 
-	private createVote(votes: Vote[], rating: number, nodeId: string) {
+	private createVote(nodeId: string, rating: number): Observable<Vote> {
 		const voteInfo = {
 			rating,
 			nodeId,
 			voteCreatedById: this.userSrv.userId
 		};
 
-		votes.push(voteInfo);
-
-		this.apiSrv.create('Vote', {
+		return this.apiSrv.create('Vote', {
 			...voteInfo
-		} as Entity);
+		} as Vote);
 	}
 
 	applyRatings(items: any[], ratings: Vote[]) {

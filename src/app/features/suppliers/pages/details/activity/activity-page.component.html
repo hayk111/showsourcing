@@ -21,7 +21,13 @@
 			<card-title-app size="l" translate="title.comments"></card-title-app>
 			<add-comment-app #comment (added)="sendComment($event)"></add-comment-app>
 			<divider-app *ngIf="(comments$ | async).length"></divider-app>
-			<comment-list-app [amountViewMore]="8" [comments]="comments$ | async" sizeLogo="xxl" (addComment)="comment?.focus()"></comment-list-app>
+			<comment-list-app 
+				[amountViewMore]="8" 
+				[comments]="comments$ | async" 
+				sizeLogo="xxl" 
+				(addComment)="comment?.focus()"
+				(deleted)="onCommentDeleted($event)">
+			</comment-list-app>
 		</card-app>
 	</div>
 

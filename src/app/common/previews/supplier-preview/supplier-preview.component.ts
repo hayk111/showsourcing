@@ -8,12 +8,13 @@ import { TaskCatalogComponent } from '~common/catalogs/task-catalog/task-catalog
 import { descriptorMock } from '~common/dialogs/creation-dialogs/product-creation-dialog/_temporary-descriptor-product.mock';
 import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 import { AppImage, Comment, CommentService, ERM } from '~core/erm';
-import { Supplier } from '~core/erm3/models';
+import { Supplier, Vote } from '~core/erm3/models';
 import { ApiService } from '~core/erm3/services/api.service';
 import { ListHelperService } from '~core/list-page2';
 import { PreviewCommentComponent, PreviewService } from '~shared/preview';
 import { RatingDashboardComponent } from '~shared/rating';
 import { AutoUnsub, translate } from '~utils';
+import { RatingService } from '~shared/rating/services/rating.service';
 
 @Component({
 	selector: 'supplier-preview-app',
@@ -23,6 +24,7 @@ import { AutoUnsub, translate } from '~utils';
 })
 export class SupplierPreviewComponent extends AutoUnsub implements OnInit {
 	private _supplier: Supplier;
+	vote$: Observable<Vote>;
 	@Input()
 	set supplier(value: Supplier) {
 		this._supplier = value;
@@ -58,12 +60,18 @@ export class SupplierPreviewComponent extends AutoUnsub implements OnInit {
 		private router: Router,
 		public dlgCommonSrv: DialogCommonService,
 		public translateService: TranslateService,
-		private apiSrv: ApiService
+		private apiSrv: ApiService,
+		public ratingSrv: RatingService,
 	) {
 		super();
 	}
 
 	ngOnInit() {
+		this.vote$ = this.ratingSrv.getUserVote('supplier:' + this._supplier.id);
+	}
+
+	updateVote(vote: Observable<Vote>) {
+		this.vote$ = vote;
 	}
 
 	// UPDATE FUNCTIONS
