@@ -8,5 +8,5 @@ export const client = new AWSAppSyncClient({
 	auth: {
 		type: AUTH_TYPE[awsconfig.aws_appsync_authenticationType] as any,
 		jwtToken: async () => (await Auth.currentSession()).getIdToken().getJwtToken(),
-	}
+	},
 });

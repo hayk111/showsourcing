@@ -1,0 +1,22 @@
+<card-app class="mg-v-ms">
+	<card-title-app>Utility directive</card-title-app>
+	
+	<b>There is two useful directives that can be used when working with files</b>
+	
+	<ul>
+		<li>fileSelected: when a file was selected on an input</li>
+		<li>fileDroped: when a file was dropped on an element</li>
+	</ul>
+
+</card-app>
+
+<card-app class="mg-v-ms">
+	<card-title-app>Uploader Service</card-title-app>
+	<ng-container *ngIf="!uploading; else spinner">
+		<button (click)="inp.click()">Pick file</button>
+		<input #inp type="file" (fileSelect)="onFileSelect($event)">
+	</ng-container>
+	<ng-template #spinner>
+		<spinner-app></spinner-app>
+	</ng-template>
+</card-app>

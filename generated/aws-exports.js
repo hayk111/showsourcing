@@ -22,7 +22,9 @@ const awsmobile = {
             tableName: "legacyUserDB-antoine",
             region: "us-east-1"
         }
-    ]
+		],
+		aws_user_files_s3_bucket: "showsourcing-files152822-antoine",
+    aws_user_files_s3_bucket_region: "us-east-1"
 };
 
 
