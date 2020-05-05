@@ -1,8 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { forkJoin, Observable, combineLatest, timer } from 'rxjs';
-import { switchMap, map, debounce } from 'rxjs/operators';
-import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
+import { switchMap, map, debounce, tap } from 'rxjs/operators';
 import { SettingsMembersService } from '~features/settings/services/settings-members.service';
 import { AutoUnsub } from '~utils';
 import { SelectionService, ListPageViewService } from '~core/list-page2';
@@ -13,6 +12,7 @@ import { Invitation, TeamUser, User, ApiService } from '~core/erm3';
 import { QueryPool } from '~core/erm3/queries/query-pool.class';
 import { QueryType } from '~core/erm3/queries/query-type.enum';
 import { TeamService } from '~core/auth';
+import { DialogCommonService } from '~common/dialogs/services/dialog-common.service';
 
 @Component({
 	selector: 'settings-team-members-users-app',
@@ -34,6 +34,7 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub
 	hasSelected = false;
 
 	constructor(
+		private dlgCommonSrv: DialogCommonService,
 		private featureSrv: SettingsMembersService,
 		public listHelper: ListFuseHelperService,
 		public filterSrv: FilterService,
@@ -97,6 +98,21 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub
 		// 		this.teamOwner = teamOwner;
 		// 		this.user = <User>user;
 		// 	});
+	}
+
+	/** Opens the dialog for inviting a new user */
+	openInviteDialog() {
+		this.dlgCommonSrv.openInvitationDialog().data$
+			.pipe(
+				switchMap((entity) => {
+					return this.apiSrv.create('Invitation', {
+						...entity,
+						teamRole: 'TEAMMEMBER'
+					});
+				}),
+				tap(_ => this.listHelper.refetch())
+		)
+		.subscribe();
 	}
 
 	updateAccessType({

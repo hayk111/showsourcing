@@ -30,7 +30,7 @@
 		[sortOrder]="'DESC'">
 		<div class="flexVAlign">
 			<span>
-				{{ row?.user?.firstName || '-' }} {{ row?.user?.lastName || '-'}}
+				{{ row?.user ? row?.user?.firstName + ' ' +  row?.user?.lastName : '-' }}
 			</span>
 		</div>
 	</ng-template>

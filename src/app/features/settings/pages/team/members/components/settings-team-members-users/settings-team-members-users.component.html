@@ -5,7 +5,7 @@
 	[hasFilters]="false">
 	<controller-table-content-app>
 		<div toolTip [toolTipMessage]="getTooltipMsg()" toolTipPosition="above-right">
-			<button (click)="membersInvitationSrv.openInvitationDlg()">Invite Team Member</button>
+			<button (click)="openInviteDialog()">Invite Team Member</button>
 		</div>
 
 		<context-menu-app *ngIf="teamOwner && hasSelected" [closeOnScroll]="true">
