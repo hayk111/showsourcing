@@ -11,7 +11,7 @@ export class StatusQueries extends BaseQueries {
 			step
 			final
 			type
+			category
 			_version
 	`;
-		// category // TODO add when no corrupted data
 }
