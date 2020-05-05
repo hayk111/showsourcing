@@ -12,11 +12,23 @@
 
 <card-app class="mg-v-ms">
 	<card-title-app>Uploader Service</card-title-app>
+
 	<ng-container *ngIf="!uploading; else spinner">
-		<button (click)="inp.click()">Pick file</button>
-		<input #inp type="file" (fileSelect)="onFileSelect($event)">
+		<input [(ngModel)]="nodeId" class="mg-bottom-l"/>
+		<button (click)="inp.click()" class="mg-h-m">Pick file</button>
+		<button (click)="inpImg.click()">Pick Image</button>
+		<input #inp multiple type="file" (fileSelect)="onFileSelect($event)">
+		<input #inpImg multiple type="file" (fileSelect)="onImageSelect($event)">
 	</ng-container>
+
 	<ng-template #spinner>
 		<spinner-app></spinner-app>
+		<ng-container *ngFor="let pendingImg of pendingImgs">
+			<img [src]="pendingImg.data$ | async"/>
+		</ng-container>
+		<div *ngFor="let pendingFile of pendingFiles">
+			{{ pendingFile.fileName }}
+		</div>
+
 	</ng-template>
 </card-app>

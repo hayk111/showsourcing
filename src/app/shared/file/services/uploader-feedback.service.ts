@@ -11,24 +11,13 @@ import { UploaderService } from './uploader.service';
 
 
 
-export interface UploaderFeedbackConfig {
-	linkedEntity: any;
-	imageProperty?: string;
-	isImagePropertyArray?: boolean;
-}
-
-// TIP: If this component is used on a shared component, DONT FORGET to import FilesModule.ts
-/** this service is different from UploaderService as it's only used to see the rendering of
+/**
+ * this service is different from UploaderService as it's only used to see the rendering of
  * a pending image / file onto the screen
  */
 @Injectable({ providedIn: 'root' })
 export class UploaderFeedbackService {
 
-	// when the uploader service links an image to an item
-	// we need to know to which property we need to link it and if the property is an array
-	private linkedEntity: any;
-	private imageProperty = 'images';
-	private isImagePropertyArray = true;
 	private _images: AppImage[] = [];
 	private _files: Array<Attachment | PendingFile>;
 	private _pendingFiles: PendingFile[] = [];
@@ -44,14 +33,9 @@ export class UploaderFeedbackService {
 		private attachmentSrv: AttachmentService,
 	) { }
 
-
-	init(config: UploaderFeedbackConfig) {
-		Object.assign(this, config);
-	}
-
 	setImages(images: AppImage[]) {
 		if (images) {
-			// remove unefined in case we are passing [undefined]
+			// remove undefined in case we are passing [undefined]
 			// for example in for contact we only have one image so we do [images]="[contact.businessCardImage]"
 			this._images = images.filter(x => !!x);
 		}
@@ -69,7 +53,8 @@ export class UploaderFeedbackService {
 		return [...this._files, ...this._pendingFiles] as Attachment[];
 	}
 
-	/** when adding a new image, by selecting in the file browser or by dropping it on the component */
+	/** when adding a new image,
+	 * this will first generate a base64 version so we can display it instantly */
 	addImages(files: Array<File>) {
 		if (files.length === 0)
 			return;
