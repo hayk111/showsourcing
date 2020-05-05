@@ -61,9 +61,7 @@ export class StatusSelectorService {
 				first(),
 				// we sort the status by step and remove spaces
 				map((statuses) => {
-					// ? Do we realy need this ? if yes we can do a pype for the tables
-					// statuses.forEach((status) => (status.name = status.name.replace(' ', '-')));
-					statuses.sort((first, second) => first.step - second.step);
+					statuses.sort((firstStatus, secondStatus) => firstStatus.step - secondStatus.step);
 					return statuses;
 				})
 			)
