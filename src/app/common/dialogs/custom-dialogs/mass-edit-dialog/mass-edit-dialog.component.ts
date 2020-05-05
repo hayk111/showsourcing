@@ -1,12 +1,11 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { Subject } from 'rxjs';
+import { UserService } from '~core/auth';
 import { Typename } from '~core/erm3/typename.type';
 import { DialogService } from '~shared/dialog';
-import { RatingService } from '~shared/rating/services/rating.service';
 import { ToastService } from '~shared/toast';
 import { AutoUnsub } from '~utils';
-import { ReplaySubject, Subject } from 'rxjs';
-import { UserService } from '~core/auth';
 
 @Component({
 	selector: 'mass-edit-dialog-app',
@@ -44,14 +43,11 @@ export class MassEditDialogComponent extends AutoUnsub implements OnInit {
 	];
 
 	fakeVotes = [];
-	// private _productDescriptor: ProductDescriptor;
 
-	// first selector : the property we want to update. Used to ngSwitch the good component.
 	propertySelected$ = new Subject<any>();
 	propertySelected: any;
 	constructor(
 		private dlgSrv: DialogService,
-		private notificationSrv: ToastService,
 		private translate: TranslateService,
 		private userSrv: UserService
 	) {
@@ -80,6 +76,7 @@ export class MassEditDialogComponent extends AutoUnsub implements OnInit {
 
 	update() {
 		this.dlgSrv.data(this.toUpdate);
+		this.dlgSrv.close();
 	}
 
 	cancel() {

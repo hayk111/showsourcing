@@ -6,6 +6,8 @@ import { SelectionService, ListHelperService } from '~core/list-page2';
 import { RatingService } from '~shared/rating/services/rating.service';
 import { Product, ApiService } from '~core/erm3';
 import { forkJoin } from 'rxjs';
+import { ToastService, Toast, ToastType } from '~shared/toast';
+import { translate } from '~utils';
 
 @Component({
 	selector: 'product-selection-bar-app',
@@ -14,12 +16,19 @@ import { forkJoin } from 'rxjs';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductSelectionBarComponent extends TrackingComponent {
+	massUpdateToast: Toast = {
+		title: translate('multiple-edition'),
+		message: translate('your-items-updated'),
+		type: ToastType.SUCCESS
+	};
+
 	constructor(
 		private dlgCommonSrv: DialogCommonService,
 		private selectionSrv: SelectionService,
 		private listHelper: ListHelperService,
 		private ratingSrv: RatingService,
-		private apiSrv: ApiService
+		private apiSrv: ApiService,
+		private notificationSrv: ToastService
 	) {
 		super();
 	}
@@ -65,25 +74,28 @@ export class ProductSelectionBarComponent extends TrackingComponent {
 					throw Error(
 						'The mass edit object returned by the dialog should contain a valid callback'
 					);
+				// selectorUpdate, stringUpdate, ratingUpdate, statusUpdate, ...
 				this[updateObject.callback](updateObject);
 			});
 	}
 
 	selectorUpdate({ property, value }) {
-		this.listHelper.updateSelected({ [property.property]: value.id })
-			.subscribe(resp => console.log('resp selector update'));
+		this.listHelper.updateSelected({ [property.property]: value.id }).subscribe(resp => {
+			this.notificationSrv.add(this.massUpdateToast);
+		});
 	}
 	stringUpdate({ property, value }) {
-		this.listHelper.updateSelected({ [property.property]: value })
-			.subscribe(resp => console.log('resp selector update'));
+		this.listHelper.updateSelected({ [property.property]: value }).subscribe(resp => {
+			this.notificationSrv.add(this.massUpdateToast);
+		});
 	}
 
 	ratingUpdate({ value }) {
 		const products: Product[] = this.selectionSrv.getSelectedValues();
+		// TODO starVote should return an observable to do action after BE response
 		const updates = products.map(product => {
-			this.ratingSrv.starVote(product.votes, value.rating, 'Product:' + product.id, false);
+			return this.ratingSrv.starVote(product.votes, value.rating, 'Product:' + product.id, false);
 		});
-		console.log(updates);
 	}
 
 	statusUpdate({ value }) {
@@ -91,6 +103,8 @@ export class ProductSelectionBarComponent extends TrackingComponent {
 		const updates = products.map(product =>
 			this.apiSrv.updateStatus('Product', product.id, value.id)
 		);
-		forkJoin(updates).subscribe(resp => console.log('resp status updates ', resp));
+		forkJoin(updates).subscribe(resp => {
+			this.notificationSrv.add(this.massUpdateToast);
+		});
 	}
 }

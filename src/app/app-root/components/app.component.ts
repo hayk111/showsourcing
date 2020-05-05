@@ -47,9 +47,9 @@ export class AppComponent implements OnInit {
 		// const definitions: any = await this.descriptor.createAllTypesDefinitions();
 		// console.log('definitions : ', definitions);
 
-		const descriptor: any = await this.descriptor.createAllTypesDefDescriptor();
-		console.log('definitions : ', descriptor);
+		// const descriptor: any = await this.descriptor.createAllTypesDefDescriptor();
+		// console.log('descriptor : ', descriptor);
 
-		this.descriptor.listDescriptors$.subscribe(r => console.log(r));
+		// this.descriptor.listDescriptors$.subscribe(r => console.log(r));
 	}
 }
