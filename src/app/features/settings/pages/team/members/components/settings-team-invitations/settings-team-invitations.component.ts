@@ -9,7 +9,7 @@ import { AutoUnsub } from '~utils';
 import { SelectionService, ListPageViewService } from '~core/list-page2';
 import { ListFuseHelperService } from '~core/list-page2/list-fuse-helper.service';
 import { FilterService } from '~core/filters/filter.service';
-import { UserService } from '~core/auth/services';
+import { UserService, TeamService } from '~core/auth/services';
 import { FilterType } from '~core/filters';
 import { MembersInvitationService } from '../../services/members-invitation.service';
 import { InviteUserDlgComponent } from '~common/dialogs/custom-dialogs/invite-user-dlg/invite-user-dlg.component';
@@ -41,6 +41,7 @@ export class SettingsTeamInvitationsComponent extends AutoUnsub
 		private userSrv: UserService,
 		private featureSrv: SettingsMembersService,
 		public listHelper: ListFuseHelperService,
+		private teamSrv: TeamService,
 		public filterSrv: FilterService,
 		public dialogCommonSrv: DialogCommonService,
 		public viewSrv: ListPageViewService<TeamUser>,
@@ -58,6 +59,8 @@ export class SettingsTeamInvitationsComponent extends AutoUnsub
 			{ type: FilterType.DELETED, value: true }
 		], ['email']);
 		this.listHelper.setup('Invitation');
+
+		this.filterSrv.setFilters([{ type: FilterType.TEAM, value: TeamService.teamSelected.id }]);
 		this.membersInvitationSrv.invitationOpen$.subscribe(_ => this.openInviteDialog());
 	}
 

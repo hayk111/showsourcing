@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { Supplier } from '~core/erm';
+import { Supplier } from '~core/erm3/models';
 import { AbstractSelectorHighlightableComponent } from '~shared/selectors/utils/abstract-selector-highlightable.component';
 import { StatusUtils } from '~utils';
 

@@ -171,6 +171,18 @@ export class QueryBuilder {
 			}`;
 	};
 
+	[QueryType.UPDATE_STATUS] = (str: string) => {
+		return gql`
+		mutation Update${this.typename}Status(
+			$entityId: ID!
+			$statusId: ID!
+		) {
+			update${this.typename}Status(${this.typename.toLowerCase()}Id: $entityId, statusId: $statusId) {
+				${str}
+			}
+  	}`;
+	};
+
 	[QueryType.DELETE_MANY] = (str: string) => (inputs: any[]) => {
 		const aliasParams = inputs.map(
 			(input, i) => `

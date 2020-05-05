@@ -52,14 +52,14 @@ export class ListHelperService<G = any> {
 		tap(total => this._total$.next(total)),
 		// add total to the paginationSrv
 		tap(total => this.paginationSrv.setupTotal(total)),
-		switchMap(_ => {
-			const options = {} as WatchQueryOptions;
-			options.variables = { limit: 10000, filter: { deleted: {eq: false}} };
-			options.fetchPolicy = 'network-only';
-			options.query = QueryPool.getQuery('Vote', QueryType.LIST_BY)('Team');
-			return this.apiSrv.query<G[]>(options).data$;
-		}),
-		tap(items => this.ratingSrv.setup(items)),
+		// switchMap(_ => {
+		// 	const options = {} as WatchQueryOptions;
+		// 	options.variables = { limit: 10000, filter: { deleted: {eq: false}} };
+		// 	options.fetchPolicy = 'network-only';
+		// 	options.query = QueryPool.getQuery('Vote', QueryType.LIST_BY)('Team');
+		// 	return this.apiSrv.query<G[]>(options).data$;
+		// }),
+		// tap(items => this.ratingSrv.setup(items)),
 		// add the next token for infiniscroll
 		// TODO
 		// return the result

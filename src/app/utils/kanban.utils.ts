@@ -8,21 +8,17 @@ import { ConstPipe } from '~shared/utils/pipes/const.pipe';
 import { ID } from './id.utils';
 import { StatusUtils } from './status.utils';
 
-
 export function makeColumns(
 	statuses: Status[],
 	dataMap: Map<ID, ListQuery<any>>,
 	totalMap: Map<ID, ListQuery<number>>
 ) {
-	const columns$ = statuses.map(status => {
+	const columns$ = statuses.map((status) => {
 		const data$ = dataMap.get(status.id).items$;
-		const total$ = totalMap.get(status.id).items$ as unknown as Observable<number>;
-		return combineLatest(
-			data$,
-			total$,
-			(data, total) => {
-				return statusToKanbanCol(status, data, total);
-			});
+		const total$ = (totalMap.get(status.id).items$ as unknown) as Observable<number>;
+		return combineLatest(data$, total$, (data, total) => {
+			return statusToKanbanCol(status, data, total);
+		});
 	});
 	return combineLatest(...columns$);
 }
@@ -36,15 +32,15 @@ export function makeColumns(
 export function statusToKanbanCol(
 	type: ProductStatus,
 	data: any[] = [],
-	totalData = 0): KanbanColumn {
+	totalData = 0
+): KanbanColumn {
 	const constPipe = new ConstPipe();
 	// make the columns
 	return {
 		id: type.id,
 		title: constPipe.transform(type.name, 'status'),
-		color: StatusUtils.getStatusColor(type),
+		color: null, /* StatusUtils.getStatusColor(type), */
 		data,
-		totalData
+		totalData,
 	};
-
 }

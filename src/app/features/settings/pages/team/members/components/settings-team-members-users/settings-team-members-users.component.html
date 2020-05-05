@@ -31,11 +31,10 @@
 
 <team-members-table-app
 	class="spacing-ms"
-	[rows]="listHelper.paginedItems$ | async"
+	[rows]="rows$ | async"
 	[user]="user"
 	[pending]="false"
 	[selection]="selectionSrv.selection$ | async"
-	(bottomReached)="listHelper.loadMore()"
 	(select)="selectionSrv.selectOne($event, false)"
 	(unselect)="selectionSrv.unselectOne($event, false)"
 	(selectAll)="selectionSrv.selectAll($event, false)"

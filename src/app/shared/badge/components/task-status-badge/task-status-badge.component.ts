@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Task } from '~core/erm';
-import { TaskStatus } from '~utils';
 
 @Component({
 	selector: 'task-status-badge-app',
@@ -20,12 +19,12 @@ export class TaskStatusBadgeComponent implements OnInit {
 
 	// this is only done for tasks since we don't have it on the DB
 	getTaskStatus() {
-		let taskStatus = TaskStatus.PENDING;
-		if (this.task && this.task.done)
-			taskStatus = TaskStatus.DONE;
-		else if (this.task && this.task.dueDate && (new Date().getTime() >= Date.parse(this.task.dueDate.toString())))
-			taskStatus = TaskStatus.OVERDUE;
-		return taskStatus;
+		// let taskStatus = TaskStatus.PENDING;
+		// if (this.task && this.task.done)
+		// 	taskStatus = TaskStatus.DONE;
+		// else if (this.task && this.task.dueDate && (new Date().getTime() >= Date.parse(this.task.dueDate.toString())))
+		// 	taskStatus = TaskStatus.OVERDUE;
+		// return taskStatus;
 	}
 
 	// this is only done for tasks since we don't have it on the DB
