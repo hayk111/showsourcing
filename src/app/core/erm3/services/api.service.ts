@@ -299,25 +299,6 @@ export class ApiService {
 		return this.mutate(options);
 	}
 
-	/** Update the status of an entity (product | supplier | sample | task)
-	 * @param typename: name of the entity we want to change status
-	 * @param entityId: the id of the entity (product.id)
-	 * @param statusId: the id of the status we want to set to the entity
-	*/
-	updateStatus(
-		typename: Typename,
-		entityId: string,
-		statusId: string,
-		apiOptions: ApiMutationOption = {}
-	) {
-		const options = apiOptions as MutationOptions;
-		options.variables = { ...options.variables, entityId, statusId };
-		options.mutation = QueryPool.getQuery(typename, QueryType.UPDATE_STATUS);
-		// set inputs for optimistic response
-		// ? optimistic response not working
-		options.optimisticResponse = this.getOptimisticResponse(options);
-		return this.mutate(options);
-	}
 
 	/////////////////////////////
 

@@ -3,6 +3,7 @@ import { Task } from '~core/erm';
 import { WorkflowStatus } from '~core/erm3/models';
 
 export enum StatusCategory {
+	PREPARATION = 'Preparation', // ? What is preparation ?
 	NEW = 'NEW',
 	IN_PROGRESS = 'INPROGRESS',
 	VALIDATED = 'VALIDED',
