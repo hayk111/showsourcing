@@ -1,15 +1,17 @@
 import { Injectable } from '@angular/core';
 import { AmplifyService } from 'aws-amplify-angular';
 import { forkJoin, from, Observable } from 'rxjs';
-import { switchMap, startWith } from 'rxjs/operators';
+import { switchMap, startWith, tap } from 'rxjs/operators';
 import { ApiService, Attachment, Image } from '~core/erm3';
+import { ToastService } from '~shared/toast';
 
 @Injectable({ providedIn: 'root' })
 export class UploaderService2 {
 
 	constructor(
 		private apiSrv: ApiService,
-		private amplifySrv: AmplifyService
+		private amplifySrv: AmplifyService,
+		private toastSrv: ToastService
 	) {}
 
 	uploadFiles(files: File[], nodeId: string): Observable<any> {
@@ -20,6 +22,7 @@ export class UploaderService2 {
 			})),
 		));
 		return forkJoin(obs).pipe(
+			tap(_ => this.showToast(`Uploaded ${files.length} file(s)`)),
 			// we start with a local version for immediate display
 			startWith({
 				pending: true,
@@ -30,6 +33,7 @@ export class UploaderService2 {
 
 	uploadImages(files: File[], nodeId): Observable<any> {
 		const obs = files.map(file => this.s3upload(file).pipe(
+			tap(_ => this.showToast(`Uploaded ${files.length} images(s)`)),
 			switchMap(fileName => this.apiSrv.create<Image>('Image', {
 				fileName,
 				nodeId
@@ -58,6 +62,13 @@ export class UploaderService2 {
 				resolve((e.target as any).result);
 			};
 			reader.readAsDataURL(file);
+		});
+	}
+
+	private showToast(message: string) {
+		this.toastSrv.add({
+			title: 'upload successful',
+			message
 		});
 	}
 
