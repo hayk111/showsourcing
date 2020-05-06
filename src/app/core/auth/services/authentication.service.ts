@@ -43,7 +43,6 @@ export class AuthenticationService {
 	/** State returned by amplifyAuth */
 	authState: AuthState;
 	authState$: Observable<AuthState> = this.amplifySrv.authStateChange$.pipe(
-		tap(d => { debugger; }),
 		tap(state => this.authState = state),
 		tap(state => showsourcing.auth.state = state),
 		shareReplay(1)

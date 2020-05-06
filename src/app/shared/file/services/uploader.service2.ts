@@ -3,7 +3,9 @@ import { AmplifyService } from 'aws-amplify-angular';
 import { forkJoin, from, Observable } from 'rxjs';
 import { switchMap, startWith, tap } from 'rxjs/operators';
 import { ApiService, Attachment, Image } from '~core/erm3';
-import { ToastService } from '~shared/toast';
+import { ToastService, ToastType } from '~shared/toast';
+import { AuthenticationService } from '~core/auth';
+import { environment } from 'environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class UploaderService2 {
@@ -11,13 +13,17 @@ export class UploaderService2 {
 	constructor(
 		private apiSrv: ApiService,
 		private amplifySrv: AmplifyService,
+		private authSrv: AuthenticationService,
 		private toastSrv: ToastService
 	) {}
 
 	uploadFiles(files: File[], nodeId: string): Observable<any> {
+		const cognitoId = this.authSrv.authState.user.pool.storage[
+			`aws.cognito.identity-id.${environment.awsConfig.aws_cognito_identity_pool_id}`
+		];
 		const obs = files.map(file => this.s3upload(file).pipe(
-			switchMap(fileName => this.apiSrv.create<Attachment>('Attachment', {
-				fileName,
+			switchMap(_ => this.apiSrv.create<Attachment>('Attachment', {
+				fileName: `${cognitoId}/${file.name}`,
 				nodeId
 			})),
 		));
@@ -32,10 +38,13 @@ export class UploaderService2 {
 	}
 
 	uploadImages(files: File[], nodeId): Observable<any> {
+		const cognitoId = this.authSrv.authState.user.pool.storage[
+			`aws.cognito.identity-id.${environment.awsConfig.aws_cognito_identity_pool_id}`
+		];
 		const obs = files.map(file => this.s3upload(file).pipe(
 			tap(_ => this.showToast(`Uploaded ${files.length} images(s)`)),
-			switchMap(fileName => this.apiSrv.create<Image>('Image', {
-				fileName,
+			switchMap(_ => this.apiSrv.create<Image>('Image', {
+				fileName: `${cognitoId}/${file.name}`,
 				nodeId
 			})),
 		));
@@ -67,6 +76,7 @@ export class UploaderService2 {
 
 	private showToast(message: string) {
 		this.toastSrv.add({
+			type: ToastType.SUCCESS,
 			title: 'upload successful',
 			message
 		});
