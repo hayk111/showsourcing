@@ -1,0 +1,23 @@
+<!-- closed -->
+<div
+	*ngIf="!isOpen"
+	class="displayValue flex"
+	[ngClass]="{ 'pointer': !readonly }">
+	<ng-content select="editable-value-app"></ng-content>
+</div>
+
+<!-- open -->
+<div 
+	*ngIf="isOpen" 
+	class="flex flexGrow openBlock" 
+	(clickOutside)="close(true)">
+
+	<ng-content></ng-content>
+
+	<editable-actions-app 
+		*ngIf="hasAction"
+		(cancel)="cancel()"
+		(save)="save()">
+	</editable-actions-app>
+
+</div>

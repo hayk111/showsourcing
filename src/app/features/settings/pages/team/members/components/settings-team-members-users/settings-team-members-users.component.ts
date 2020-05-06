@@ -73,8 +73,6 @@ export class SettingsTeamMembersUsersComponent extends AutoUnsub
 			})
 			.data$.pipe(
 				switchMap((entity) => {
-					console.log('openInviteDialog -> entity', entity);
-
 					return this.apiSrv.create('Invitation', {
 						...entity,
 						teamRole: 'TEAMOWNER'

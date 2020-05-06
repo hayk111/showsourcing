@@ -1,0 +1,104 @@
+<form-field-app>
+	<label-app>Length</label-app>
+	<input 
+		inputApp 
+		type="number"
+		min="0" 
+		restritInput="decimal"
+		placeholder="25"
+		[readonly]="readonly"
+		[required]="required"
+		[(ngModel)]="value.length" 
+		(blur)="onTouchedFn()"
+		(input)="onChangeFn(value)"/>
+</form-field-app>
+
+<form-field-app>
+	<label-app>Width</label-app>
+	<input 
+		inputApp 
+		restritInput="decimal" 
+		type="number"
+		min="0" 
+		[readonly]="readonly"
+		[required]="required"
+		[(ngModel)]="value.width" 
+		(blur)="onTouchedFn()"
+		(input)="onChangeFn(value)"/>
+</form-field-app>
+
+<form-field-app>
+	<label-app>Height</label-app>
+	<input 
+		inputApp 
+		restritInput="decimal" 
+		type="number"
+		min="0" 
+		[readonly]="readonly"
+		[required]="required"
+		[(ngModel)]="value.height" 
+		(blur)="onTouchedFn()"
+		(input)="onChangeFn(value)"/>
+</form-field-app>
+
+<form-field-app>
+	<label-app>Unit</label-app>
+	<selector-app 
+		inputApp
+		typename="PropertyOption"
+		customType="lengthUnit"
+		[readonly]="readonly"
+		[required]="required"
+		[(ngModel)]="value.lengthUnit" 
+		(blur)="onTouchedFn()"
+		(change)="onChangeFn(value)">
+		<selector-placeholder-app [readonly]="readonly">
+			{{ value.lengthUnit }}
+		</selector-placeholder-app>
+	</selector-app>
+</form-field-app>
+
+<form-field-app class="quantity">
+	<label-app>Quantity</label-app>
+	<input 
+		inputApp 
+		restritInput="decimal" 
+		type="number"
+		min="0" 
+		[readonly]="readonly"
+		[required]="required"
+		[(ngModel)]="value.quantity" 
+		(blur)="onTouchedFn()"
+		(input)="onChangeFn(value)"/>
+</form-field-app>
+
+<form-field-app>
+	<label-app>Weight</label-app>
+	<input 
+		inputApp 
+		restritInput="decimal" 
+		type="number"
+		min="0" 
+		[readonly]="readonly"
+		[required]="required"
+		[(ngModel)]="value.weight" 
+		(blur)="onTouchedFn()"
+		(input)="onChangeFn(value)"/>
+</form-field-app> 
+
+<form-field-app>
+	<label-app>Unit</label-app>
+	<selector-app 
+		inputApp
+		typename="PropertyOption"
+		customType="weightUnit"
+		[readonly]="readonly"
+		[required]="required"
+		[(ngModel)]="value.weightUnit" 
+		(blur)="onTouchedFn()"
+		(change)="onChangeFn(value)">
+		<selector-placeholder-app [readonly]="readonly">
+			{{ value.weightUnit }}
+		</selector-placeholder-app>
+	</selector-app>
+</form-field-app>

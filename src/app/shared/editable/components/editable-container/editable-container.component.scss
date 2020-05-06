@@ -1,0 +1,36 @@
+$padding-horizontal: 8px;
+$padding-vertical: 4px;
+
+:host {
+	display: flex;
+	align-items: center;
+	max-width: 100%;
+	width: fit-content;
+	box-sizing: border-box;
+	min-width: 10px;
+	width: 100%;
+	border-radius: var(--border-radius);
+	&.with-overflow {
+		margin-left: -$padding-horizontal;
+		padding: $padding-vertical $padding-horizontal;
+	}
+
+	&.open {
+		.openBlock {
+			border-bottom: 1px solid var(--color-primary);
+			padding-bottom: 2px;
+		}
+		// minus the rest added on the open block (border padding etc)
+		padding-bottom: $padding-vertical - 3px;
+	}
+}
+
+.displayValue {
+	margin-bottom: 0;
+	width: 100%;
+	min-width: inherit;
+}
+
+.openBlock {
+	align-items: center;
+}
