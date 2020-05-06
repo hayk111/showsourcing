@@ -1,20 +1,81 @@
 <card-app class="mg-v-ms">
-	<card-title-app>Utility directive</card-title-app>
+	<card-title-app>Overview</card-title-app>
 	
 	<b>There is two useful directives that can be used when working with files</b>
 	
 	<ul>
-		<li>fileSelected: when a file was selected on an input</li>
-		<li>fileDroped: when a file was dropped on an element</li>
+		<li>fileSelect: when a file was selected on an input</li>
+		<li>fileDrop: when a file was dropped on an element</li>
 	</ul>
+
+	Then there is the UploaderService.
 
 </card-app>
 
 <card-app class="mg-v-ms">
+	<card-title-app>fileSelect</card-title-app>
+	
+	<p class="mg-v-ms">
+		fileSelect directive can be used like this (fileSelect)="doSmtg($event)"
+	</p>
+
+	<button (click)="fileInp.click()">Open file picker</button>
+	<input #fileInp type="file" (fileSelect)="selectExample = $event"/>
+	<span *ngIf="selectExample"> 
+		You selected {{ selectExample.length }} files
+	</span>
+
+</card-app>
+
+<card-app class="mg-v-ms">
+	<card-title-app>fileDrop</card-title-app>
+	
+	<p class="mg-v-ms">
+		fileDrop directive can be used like this (fileDrop)="doSmtg($event)"
+	</p>
+
+	<div class="bg-primary-light pd-xl"
+		(fileDrop)="dropExample = $event"> 
+		Drop something here
+	</div>
+
+	<span *ngIf="dropExample"> 
+		You droped {{ dropExample.length }} files
+	</span>
+</card-app>
+
+<card-app class="mg-v-ms">
 	<card-title-app>Uploader Service</card-title-app>
+	
+	<div class="mg-v-ms">
+		The uploader service is responsible to upload on an s3 bucket then create
+		an image in the database. It displays a toast when uploads are completed.
+
+		<br>
+
+		There is two public, self-explanatory functions:
+		<ul>
+			<li>uploadFiles</li>
+			<li>uploadImages</li>
+		</ul>
+	</div>
+
+</card-app>
+
+<card-app class="mg-v-ms" (fileDrop)="onFileSelect($event)">
+	<card-title-app>Everything together</card-title-app>
 
 	<ng-container *ngIf="!uploading; else spinner">
-		<input [(ngModel)]="nodeId" class="mg-bottom-l"/>
+
+		<selector-app
+			typename="Product"
+			class="mg-v-ms"
+			[(ngModel)]="productSelected">
+			<selector-placeholder-app>
+				{{ productSelected?.name }}
+			</selector-placeholder-app>
+		</selector-app>
+
 		<button (click)="inp.click()" class="mg-h-m">Pick file</button>
 		<button (click)="inpImg.click()">Pick Image</button>
 		<input #inp multiple type="file" (fileSelect)="onFileSelect($event)">

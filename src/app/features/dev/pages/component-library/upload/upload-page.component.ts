@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ChangeDetectorRef } from '@angular/core';
 import { UploaderService2 } from '~shared/file/services/uploader.service2';
 
 @Component({
@@ -9,33 +9,46 @@ import { UploaderService2 } from '~shared/file/services/uploader.service2';
 })
 export class UploadPageComponent {
 	uploading = false;
-	nodeId = 'Product:fde0a3fc-c586-4db9-8821-7b7be5a777b3';
 	pendingImgs = [];
 	pendingFiles = [];
+	productSelected;
+	selectExample;
+	dropExample;
 
-	constructor(private uploadSrv: UploaderService2) {}
+	constructor(private uploadSrv: UploaderService2, private cd: ChangeDetectorRef) {}
 
 	onFileSelect(files: File[]) {
+		if (!this.productSelected) {
+			return alert('pick a product first');
+		}
+
 		this.uploading = true;
-		this.uploadSrv.uploadFiles(files, this.nodeId)
+		this.uploadSrv.uploadFiles(files, `Product:${this.productSelected.id}`)
 			.subscribe(r => {
 				if (r.pending) {
 					this.pendingFiles = r.files;
 				} else {
 					this.uploading = false;
+					this.cd.detectChanges();
 				}
 			});
 	}
 
 	onImageSelect(files: File[]) {
+		if (!this.productSelected) {
+			return alert('pick a product first');
+		}
+
 		this.uploading = true;
-		this.uploadSrv.uploadImages(files, this.nodeId)
+		this.uploadSrv.uploadImages(files, `Product:${this.productSelected.id}`)
 			.subscribe(r => {
 				if (r.pending) {
 					this.pendingImgs = r.files;
 				} else {
 					this.uploading = false;
+					this.cd.detectChanges();
 				}
 			});
 	}
+
 }
