@@ -56,34 +56,31 @@
 			</ng-container>
 
 			<!-- categories -->
+			<!-- TODO: implement categories as property option and use length here -->
 			<ng-container *ngSwitchCase="'categories'">
+				{{ row?.categories?.count }}
+			</ng-container>
 
+			<!-- category -->
+			<ng-container *ngSwitchCase="'category'">
 				<editable-container-app
 					class="full-width"
 					[hasAction]="false"
-					[openOnClick]="false"
 					(click)="sel.openMenu()">
 					<editable-value-app>
 						<selector-app
 							#sel
 							typename="Category"
-							[offsetX]="4"
-							[value]="row?.categories"
-							[multiple]="true"
+							[hasPicker]="canUpdate"
 							[canCreate]="true"
 							[width]="320"
-							(update)="update.emit({ id: row?.id, categories: $event })">
+							(update)="update.emit({ id: row.id, categoryId: $event.categoryId})">
 							<div class="pointer" >
-								<span
-									*ngFor="let cat of row.categories; let last = last; trackBy: trackByFn">
-									{{ cat?.name }}{{ last ? '' : ',&nbsp;'}}
-								</span>
-								<span *ngIf="!row?.categories?.length">-</span>
+								{{ row?.category?.name || '-' }}
 							</div>
 						</selector-app>
 					</editable-value-app>
 				</editable-container-app>
-
 			</ng-container>
 
 			<!-- country -->

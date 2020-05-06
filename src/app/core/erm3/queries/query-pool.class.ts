@@ -21,9 +21,10 @@ export class QueryPool {
 		Invitation: new BaseQueries('Invitation', 'id email status _version'),
 		// tslint:disable-next-line:max-line-length
 		Product: new BaseQueries('Product', 'id name _version favorite category { name } supplier { name } assignee { firstName lastName } score properties { name value } createdBy { firstName lastName } createdAt'),
-		Project: new BaseQueries('Project', 'id name _version'),
+		Project: new BaseQueries('Project', 'id name _version dueDate status { name } createdBy { firstName lastName } createdAt'),
 		PropertyOption: new BaseQueries('PropertyOption', 'id value _version'),
-		Supplier: new BaseQueries('Supplier', 'id name _version'),
+		// tslint:disable-next-line:max-line-length
+		Supplier: new BaseQueries('Supplier', 'id name _version favorite category { name } assignee { firstName lastName } score properties { name value } createdBy { firstName lastName } createdAt'),
 		Sample: new BaseQueries('Sample'),
 		Task: new BaseQueries('Task', 'id name _version'),
 		Tag: new BaseQueries('Tag'),
