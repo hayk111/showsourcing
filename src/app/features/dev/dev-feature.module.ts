@@ -60,7 +60,8 @@ import { routes } from './routes';
 		Demos.StatusDemoComponent,
 		Pages.PackagingPageComponent,
 		Pages.PricePageComponent,
-		Pages.CustomInputsPageComponent
+		Pages.CustomInputsPageComponent,
+		Pages.UploadPageComponent
 	],
 	exports: [],
 	providers: []
